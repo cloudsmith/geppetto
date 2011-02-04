@@ -1,0 +1,216 @@
+<project name="Product packaging">
+	<target name="create.product.file">
+		<property name="p2.inf.file.name" value="p2.inf" />
+		<dirname property="source.dir" file="${sp:product.file}" />
+		<dirname property="target.dir" file="${sp:output}" />
+		<property name="p2.inf.file" location="${target.dir}/${p2.inf.file.name}" />
+		<property name="temp.p2.inf.file" location="${p2.inf.file}.temp" />
+
+		<!-- expand the version of the product to match that of the containing feature -->
+		<xslt in="${sp:product.file}" out="${sp:output}" force="true" style="product-expand.xsl">
+			<param name="feature-manifest" expression="${sp:manifest}" />
+		</xslt>
+
+		<delete file="${p2.inf.file}" />
+
+		<!-- copy the p2.inf file accompanying the product definition file -->
+		<concat destfile="${p2.inf.file}" fixlastline="true">
+			<fileset dir="${source.dir}">
+				<filename name="${p2.inf.file.name}" />
+			</fileset>
+			<filterchain>
+				<expandproperties />
+			</filterchain>
+		</concat>
+
+		<!-- create dependencies p2 advice based on the product feature dependencies -->
+		<xslt in="${sp:manifest}" out="${temp.p2.inf.file}" force="true" style="product-dependencies.xsl" />
+
+		<!-- append the dependencies advice to the p2.inf file -->
+		<concat destfile="${p2.inf.file}" append="true">
+			<fileset file="${temp.p2.inf.file}">
+				<size when="more" value="0" />
+			</fileset>
+		</concat>
+
+		<delete file="${temp.p2.inf.file}" />
+	</target>
+
+	<target name="finalize.product.site.p2">
+		<property name="feature.id.file" location="${sp:temp}/feature-name.txt" />
+
+		<!-- extract the feature id from the feature manifest -->
+		<xslt in="${sp:manifest}" out="${feature.id.file}" force="true" style="feature-id.xsl" />
+		<loadfile property="feature.id" srcfile="${feature.id.file}" />
+		<delete file="${feature.id.file}" />
+
+		<!-- remove the IUs representing the feature -->
+		<p2.remove.iu>
+			<repository location="file:/${sp:product.repository}" />
+			<iu id="${feature.id}.feature.group" />
+			<iu id="${feature.id}.feature.jar" />
+			<iu id="${feature.id}_root" />
+		</p2.remove.iu>
+	</target>
+
+	<target name="create.product.zip" depends="-install.product">
+		<!-- define the product version qualifier -->
+		<condition property="product.version.qualifier" value="-${product.version}" else="">
+			<isset property="product.version" />
+		</condition>
+
+		<!-- define a selector matching the launcher executable file(s) -->
+		<selector id="launcher.executables">
+			<and>
+				<type type="file" />
+				<filename name="**/${product.launcher.name}" />
+				<present targetdir="${product.install.directory}">
+					<mapper>
+						<globmapper from="*" to="*.ini" />
+					</mapper>
+				</present>
+			</and>
+		</selector>
+
+		<!-- create the product zip file -->
+		<zip destfile="${sp:output}/${product.launcher.name}${product.qualifier}${product.version.qualifier}.zip">
+			<zipfileset dir="${product.install.directory}" dirmode="755" filemode="644" prefix="${product.launcher.name}">
+				<not>
+					<selector refid="launcher.executables" />
+				</not>
+			</zipfileset>
+			<zipfileset dir="${product.install.directory}" filemode="755" prefix="${product.launcher.name}">
+				<selector refid="launcher.executables" />
+			</zipfileset>
+		</zip>
+
+		<!-- cleanup the product install directory -->
+		<delete dir="${product.install.directory}" />
+	</target>
+
+	<target name="-define.product.properties">
+		<!-- set product target defaults -->
+		<property name="product.arch" value="${osgi.arch}" />
+		<property name="product.os" value="${osgi.os}" />
+		<property name="product.ws" value="${osgi.ws}" />
+
+		<property name="product.qualifier" value="-${product.ws}.${product.os}.${product.arch}" />
+		<property name="product.install.directory" location="${sp:output}/product${product.qualifier}-root" />
+		<property name="product.properties.filename" location="${sp:output}/product${product.qualifier}-properties.xml" />
+
+		<!-- extract useful pieces of information from the product definition file and load them to properties -->
+		<xslt in="${sp:product.file}" out="${product.properties.filename}" force="true" style="product-properties.xsl" />
+		<xmlproperty file="${product.properties.filename}" />
+		<delete file="${product.properties.filename}" />
+
+		<!-- set product info defaults -->
+		<property name="product.launcher.name" value="eclipse" />
+
+		<!-- set additional product info defaults -->
+		<property name="product.config.comment.addition" value="OSGi Framework configuration" />
+		<condition property="product.config.comment" value="${product.name} ${product.config.comment.addition}" else="${product.config.comment.addition}">
+			<isset property="product.name" />
+		</condition>
+	</target>
+
+	<target name="-install.product" depends="-define.product.properties">
+		<buckminster.targetPlatformLocation property="target.platform.location" />
+
+		<pathconvert property="artifact.repositories" dirsep="/" pathsep=",">
+			<buckminster.valuepath value="${fs:product.repository}" />
+			<map from="" to="file:/" />
+		</pathconvert>
+
+		<pathconvert property="metadata.repositories" dirsep="/" pathsep=",">
+			<buckminster.valuepath value="${fs:product.repository}" />
+			<map from="" to="file:/" />
+		</pathconvert>
+
+		<property name="profile.name" value="${product.launcher.name}" />
+		<property name="profile.file.name" value="profile.xml" />
+		<property name="version.file.name" value="version.txt" />
+
+		<delete dir="${product.install.directory}" />
+		<mkdir dir="${product.install.directory}" />
+
+		<p2.director destination="${product.install.directory}" artifactrepository="${artifact.repositories}" metadatarepository="${metadata.repositories}" profile="${profile.name}" arch="${product.arch}" os="${product.os}" ws="${product.ws}" roaming="true" extraarguments="-profileProperties org.eclipse.update.install.features=true">
+			<iu id="${product.iu}" />
+		</p2.director>
+
+		<!-- unpack the most recent profile file -->
+		<gunzip dest="${product.install.directory}/${profile.file.name}">
+			<first count="1">
+				<sort>
+					<fileset dir="${product.install.directory}">
+						<filename name="p2/org.eclipse.equinox.p2.engine/profileRegistry/${profile.name}.profile/*.profile.gz" />
+					</fileset>
+					<reverse xmlns="antlib:org.apache.tools.ant.types.resources.comparators">
+						<name />
+					</reverse>
+				</sort>
+			</first>
+		</gunzip>
+		<!-- extract the product version from the profile file -->
+		<xslt in="${product.install.directory}/${profile.file.name}" out="${product.install.directory}/${version.file.name}" style="product-version.xsl">
+			<param name="product-iu" expression="${product.iu}" />
+		</xslt>
+		<!-- load the product version into a property -->
+		<loadfile property="product.version" srcfile="${product.install.directory}/${version.file.name}" />
+
+		<!-- delete auxiliary files and also those files installed by p2 director this application can do without -->
+		<delete dir="${product.install.directory}" includeemptydirs="true">
+			<or>
+				<!-- auxiliary files -->
+				<filename name="${profile.file.name}" />
+				<filename name="${version.file.name}" />
+				<!-- command line launcher created for Windows targets -->
+				<filename name="eclipsec.exe" />
+				<!-- p2 bits
+				<filename name="p2/**" />
+				<filename name="artifacts.xml" />
+				-->
+			</or>
+		</delete>
+
+		<!-- massage the config.ini file -->
+		<property name="config.ini" location="${product.install.directory}/configuration/config.ini" />
+		<property name="config.ini.properties.prefix" value="config.ini.property." />
+		<property file="${config.ini}" prefix="${config.ini.properties.prefix}" />
+		<antcall target="-massage.config.ini" inheritall="false">
+			<propertyset>
+				<propertyref name="config.ini" />
+				<propertyref name="config.ini.properties.prefix" />
+				<propertyref name="product.config.comment" />
+			</propertyset>
+			<propertyset>
+				<propertyref prefix="${config.ini.properties.prefix}" />
+				<!-- regexpmapper from="^((?:.+\.)?p2(?:\..+)?)$" to="filtered.\1" /-->
+			</propertyset>
+		</antcall>
+	</target>
+
+	<target name="-massage.config.ini">
+		<property name="config.ini.filtered" location="${config.ini}.filtered" />
+		<property name="config.ini.comment" location="${config.ini}.comment" />
+		<echoproperties destfile="${config.ini.filtered}">
+			<propertyset>
+				<propertyref prefix="${config.ini.properties.prefix}" />
+				<globmapper from="${config.ini.properties.prefix}*" to="*" />
+			</propertyset>
+		</echoproperties>
+		<echo message="# ${product.config.comment}${line.separator}" file="${config.ini.comment}" />
+		<copy file="${config.ini.filtered}" tofile="${config.ini}" overwrite="true">
+			<filterchain>
+				<striplinecomments>
+					<comment value="#" />
+				</striplinecomments>
+				<concatfilter prepend="${config.ini.comment}" />
+			</filterchain>
+		</copy>
+		<dirname property="config.ini.directory" file="${config.ini}" />
+		<basename property="config.ini.basename" file="${config.ini}" />
+		<delete dir="${config.ini.directory}">
+			<filename name="${config.ini.basename}.*" />
+		</delete>
+	</target>
+</project>

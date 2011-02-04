@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+<plugin>
+   <extension point="org.eclipse.ui.newWizards">
+      <category
+            id="org.cloudsmith.geppetto.ui.newWizardCategory"
+            name="%_UI_Wizard_Category"/>
+      <wizard
+            id="org.cloudsmith.geppetto.ui.NewPuppetProjectWizard"
+            name="%_UI_PuppetProject_title"
+            class="org.cloudsmith.geppetto.ui.wizard.NewPuppetProjectWizard"
+            category="org.cloudsmith.geppetto.ui.newWizardCategory"
+            project="true"
+            icon="icons/full/etool16/NewPuppetProject.gif">
+         <description>%_UI_PuppetProject_description</description>
+         <selection class="org.eclipse.core.resources.IResource"/>
+      </wizard>
+      <wizard
+            id="org.cloudsmith.geppetto.ui.NewPuppetProjectFromForgeWizard"
+            name="%_UI_PuppetProjectFromForge_title"
+            class="org.cloudsmith.geppetto.ui.wizard.NewPuppetProjectFromForgeWizard"
+            category="org.cloudsmith.geppetto.ui.newWizardCategory"
+            project="true"
+            icon="icons/full/etool16/NewPuppetProject.gif">
+         <description>%_UI_PuppetProjectFromForge_description</description>
+         <selection class="org.eclipse.core.resources.IResource"/>
+      </wizard>
+   </extension>
+   <extension point="org.eclipse.ui.popupMenus">
+      <objectContribution
+            id="org.cloudsmith.geppetto.ui.exportModuleObjectContribution"
+            objectClass="org.eclipse.core.resources.IProject">
+         <action
+               id="org.cloudsmith.geppetto.ui.exportModuleActionDelegate"
+               label="%_UI_ExportModule_label"
+               menubarPath="group.port"
+               class="org.cloudsmith.geppetto.ui.action.ExportModuleActionDelegate"
+               enablesFor="1"/>
+      </objectContribution>
+      <!--
+      <viewerContribution
+            id="org.cloudsmith.geppetto.ui.importModulesFromForgeViewerContribution"
+            targetID="org.eclipse.ui.navigator.ProjectExplorer#PopupMenu">
+         <action
+               id="org.cloudsmith.geppetto.ui.importModulesFromForgeActionDelegate"
+               label="%_UI_ImportModulesFromForge_label"
+               menubarPath="group.port"
+               class="org.cloudsmith.geppetto.ui.action.ImportModulesFromForgeActionDelegate"/>
+      </viewerContribution>
+      -->
+   </extension>
+   <extension point="org.eclipse.ui.editors">
+      <editor
+            id="org.cloudsmith.geppetto.ui.moduleMetadataEditor"
+            name="%_UI_ModuleMetadataEditor_title"
+            default="true"
+            filenames="Modulefile"
+            class="org.cloudsmith.geppetto.ui.editor.ModuleMetadataEditor"/>
+   </extension>
+</plugin>

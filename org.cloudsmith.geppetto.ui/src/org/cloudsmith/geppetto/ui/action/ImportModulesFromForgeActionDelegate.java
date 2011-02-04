@@ -1,0 +1,87 @@
+/**
+ * Copyright (c) 2011 Cloudsmith Inc. and other contributors, as listed below.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ * 
+ * Contributors:
+ *   Cloudsmith
+ * 
+ */
+package org.cloudsmith.geppetto.ui.action;
+
+import java.util.Collections;
+
+import org.cloudsmith.geppetto.forge.Forge;
+import org.cloudsmith.geppetto.forge.ForgeFactory;
+import org.cloudsmith.geppetto.forge.ForgeService;
+import org.cloudsmith.geppetto.forge.ModuleInfo;
+import org.cloudsmith.geppetto.ui.UIPlugin;
+import org.cloudsmith.geppetto.ui.util.ResourceUtil;
+import org.eclipse.core.resources.IProject;
+import org.eclipse.core.resources.IResource;
+import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.Path;
+import org.eclipse.core.runtime.SubProgressMonitor;
+import org.eclipse.jface.action.IAction;
+import org.eclipse.ui.IViewActionDelegate;
+import org.eclipse.ui.IViewPart;
+import org.eclipse.ui.PlatformUI;
+import org.eclipse.ui.actions.ActionDelegate;
+import org.eclipse.ui.actions.WorkspaceModifyOperation;
+
+public class ImportModulesFromForgeActionDelegate extends ActionDelegate implements IViewActionDelegate {
+
+	@Override
+	public void init(IViewPart view) {
+		// do nothing
+	}
+
+	@Override
+	public void run(IAction action) {
+		WorkspaceModifyOperation operation = new WorkspaceModifyOperation() {
+
+			@Override
+			protected void execute(IProgressMonitor progressMonitor) {
+				try {
+					ForgeService forgeService = ForgeFactory.eINSTANCE.createForgeService();
+					Forge forge = forgeService.createForge(java.net.URI.create("http://forge.puppetlabs.com")); //$NON-NLS-1$
+
+					for(ModuleInfo module : forge.search(null)) {
+						String projectName = module.getFullName().replace('/', '-') + '-' + module.getVersion();
+
+						progressMonitor.subTask(UIPlugin.INSTANCE.getString(
+							"_UI_CreatingPuppetProject_message", new Object[] { projectName })); //$NON-NLS-1$
+
+						try {
+							IProject project = ResourceUtil.createProject(
+								new Path(projectName), null, Collections.<IProject> emptyList(), progressMonitor);
+
+							forge.install(module.getFullName(), project.getLocation().toFile(), true, true);
+
+							project.refreshLocal(IResource.DEPTH_INFINITE, new SubProgressMonitor(progressMonitor, 1));
+						}
+						catch(Exception exception) {
+							UIPlugin.INSTANCE.log(exception);
+						}
+					}
+				}
+				catch(Exception exception) {
+					UIPlugin.INSTANCE.log(exception);
+				}
+				finally {
+					progressMonitor.done();
+				}
+			}
+		};
+
+		try {
+			PlatformUI.getWorkbench().getActiveWorkbenchWindow().run(false, false, operation);
+		}
+		catch(Exception exception) {
+			UIPlugin.INSTANCE.log(exception);
+		}
+	}
+
+}

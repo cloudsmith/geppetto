@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+<plugin>
+   <extension id="ide" point="org.eclipse.core.runtime.products"> 
+      <product name="Geppetto" application="org.eclipse.ui.ide.workbench" description="%productBlurb"> 
+         <property
+               name="windowImages"
+               value="geppetto.gif,geppetto32.gif,geppetto48.gif"/> 
+         <property
+               name="aboutImage"
+               value="geppetto_lg.gif"/> 
+         <property
+               name="aboutText"
+               value="%productBlurb"/> 
+         <property
+               name="appName"
+               value="Geppetto"/> 
+         <property
+               name="preferenceCustomization"
+               value="plugin_customization.ini"/>
+         <property
+               name="startupForegroundColor"
+               value="9C99B3"/>
+         <property
+               name="startupMessageRect"
+               value="7,254,441,20"/>
+         <property
+               name="startupProgressRect"
+               value="3,277,449,15"/> 
+         <property
+               name="buildIdLocation"
+               value="290,135"/> 
+         <property
+               name="introTitle"
+               value="%productIntroTitle"/>
+         <property
+               name="introBrandingImage"
+               value="product:intro-geppetto.png"/>
+         <property
+               name="introBrandingImageText"
+               value="%productIntroBrandingText"/>
+         <property
+               name="introDescription-overview"
+               value="%introDescription-overview"/>
+         <property
+               name="introDescription-tutorials"
+               value="%introDescription-tutorials"/>
+      </product>
+   </extension>
+   <!--
+   <extension point="org.eclipse.ui.intro">
+      <introProductBinding
+            introId="org.eclipse.ui.intro.universal"
+            productId="org.cloudsmith.geppetto.ide">
+      </introProductBinding>
+   </extension>
+   -->
+   <extension point="org.eclipse.ui.newWizards">
+      <primaryWizard id="org.cloudsmith.geppetto.ui.NewPuppetProjectWizard"/>
+      <primaryWizard id="org.cloudsmith.geppetto.ui.NewPuppetProjectFromForgeWizard"/>
+   </extension>
+</plugin>

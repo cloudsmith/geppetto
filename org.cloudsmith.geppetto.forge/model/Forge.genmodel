@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<genmodel:GenModel xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
+    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" copyrightText="Copyright (c) 2011 Cloudsmith Inc. and other contributors, as listed below.&#xA;All rights reserved. This program and the accompanying materials&#xA;are made available under the terms of the Eclipse Public License v1.0&#xA;which accompanies this distribution, and is available at&#xA;http://www.eclipse.org/legal/epl-v10.html&#xA;&#xA;Contributors:&#xA;  Cloudsmith&#xA;"
+    modelDirectory="/org.cloudsmith.geppetto.forge/src" editDirectory="" editorDirectory=""
+    modelPluginID="org.cloudsmith.geppetto.forge" modelName="Forge" codeFormatting="true"
+    importerID="org.eclipse.emf.importer.ecore" complianceLevel="6.0" copyrightFields="false"
+    language="">
+  <foreignModel>Forge.ecore</foreignModel>
+  <genPackages prefix="Forge" basePackage="org.cloudsmith.geppetto" disposableProviderFactory="true"
+      ecorePackage="Forge.ecore#/">
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="Forge.ecore#//HttpMethod">
+      <genEnumLiterals ecoreEnumLiteral="Forge.ecore#//HttpMethod/GET"/>
+      <genEnumLiterals ecoreEnumLiteral="Forge.ecore#//HttpMethod/HEAD"/>
+      <genEnumLiterals ecoreEnumLiteral="Forge.ecore#//HttpMethod/PUT"/>
+      <genEnumLiterals ecoreEnumLiteral="Forge.ecore#//HttpMethod/POST"/>
+      <genEnumLiterals ecoreEnumLiteral="Forge.ecore#//HttpMethod/DELETE"/>
+    </genEnums>
+    <genDataTypes ecoreDataType="Forge.ecore#//File"/>
+    <genDataTypes ecoreDataType="Forge.ecore#//URI"/>
+    <genDataTypes ecoreDataType="Forge.ecore#//IOException"/>
+    <genDataTypes ecoreDataType="Forge.ecore#//List">
+      <genTypeParameters ecoreTypeParameter="Forge.ecore#//List/E"/>
+    </genDataTypes>
+    <genDataTypes ecoreDataType="Forge.ecore#//HttpURLConnection"/>
+    <genDataTypes ecoreDataType="Forge.ecore#//byteArray"/>
+    <genDataTypes ecoreDataType="Forge.ecore#//Map">
+      <genTypeParameters ecoreTypeParameter="Forge.ecore#//Map/K"/>
+      <genTypeParameters ecoreTypeParameter="Forge.ecore#//Map/V"/>
+    </genDataTypes>
+    <genDataTypes ecoreDataType="Forge.ecore#//StringArray"/>
+    <genDataTypes ecoreDataType="Forge.ecore#//IllegalArgumentException"/>
+    <genDataTypes ecoreDataType="Forge.ecore#//IncompleteException"/>
+    <genClasses ecoreClass="Forge.ecore#//Forge">
+      <genFeatures property="Readonly" createChild="false" ecoreFeature="ecore:EAttribute Forge.ecore#//Forge/version"/>
+      <genFeatures property="Readonly" createChild="false" ecoreFeature="ecore:EReference Forge.ecore#//Forge/repository"/>
+      <genFeatures property="Readonly" notify="false" createChild="false" ecoreFeature="ecore:EReference Forge.ecore#//Forge/cache"/>
+      <genFeatures property="Readonly" notify="false" createChild="false" ecoreFeature="ecore:EReference Forge.ecore#//Forge/service"/>
+      <genOperations ecoreOperation="Forge.ecore#//Forge/build">
+        <genParameters ecoreParameter="Forge.ecore#//Forge/build/moduleSource"/>
+        <genParameters ecoreParameter="Forge.ecore#//Forge/build/destination"/>
+      </genOperations>
+      <genOperations ecoreOperation="Forge.ecore#//Forge/changes">
+        <genParameters ecoreParameter="Forge.ecore#//Forge/changes/path"/>
+      </genOperations>
+      <genOperations ecoreOperation="Forge.ecore#//Forge/generate">
+        <genParameters ecoreParameter="Forge.ecore#//Forge/generate/destination"/>
+        <genParameters ecoreParameter="Forge.ecore#//Forge/generate/metadata"/>
+      </genOperations>
+      <genOperations ecoreOperation="Forge.ecore#//Forge/install">
+        <genParameters ecoreParameter="Forge.ecore#//Forge/install/fullName"/>
+        <genParameters ecoreParameter="Forge.ecore#//Forge/install/destination"/>
+        <genParameters ecoreParameter="Forge.ecore#//Forge/install/destinationIncludesTopFolder"/>
+        <genParameters ecoreParameter="Forge.ecore#//Forge/install/force"/>
+      </genOperations>
+      <genOperations ecoreOperation="Forge.ecore#//Forge/search">
+        <genParameters ecoreParameter="Forge.ecore#//Forge/search/term"/>
+      </genOperations>
+      <genOperations ecoreOperation="Forge.ecore#//Forge/getRelease">
+        <genParameters ecoreParameter="Forge.ecore#//Forge/getRelease/fullName"/>
+      </genOperations>
+    </genClasses>
+    <genClasses ecoreClass="Forge.ecore#//ForgeService">
+      <genOperations ecoreOperation="Forge.ecore#//ForgeService/createCache">
+        <genParameters ecoreParameter="Forge.ecore#//ForgeService/createCache/cacheDirectory"/>
+        <genParameters ecoreParameter="Forge.ecore#//ForgeService/createCache/repository"/>
+      </genOperations>
+      <genOperations ecoreOperation="Forge.ecore#//ForgeService/createForge">
+        <genParameters ecoreParameter="Forge.ecore#//ForgeService/createForge/repository"/>
+      </genOperations>
+      <genOperations ecoreOperation="Forge.ecore#//ForgeService/createForge.1">
+        <genParameters ecoreParameter="Forge.ecore#//ForgeService/createForge.1/repository"/>
+        <genParameters ecoreParameter="Forge.ecore#//ForgeService/createForge.1/cacheDirectory"/>
+      </genOperations>
+      <genOperations ecoreOperation="Forge.ecore#//ForgeService/createForge.2">
+        <genParameters ecoreParameter="Forge.ecore#//ForgeService/createForge.2/repository"/>
+        <genParameters ecoreParameter="Forge.ecore#//ForgeService/createForge.2/cache"/>
+      </genOperations>
+      <genOperations ecoreOperation="Forge.ecore#//ForgeService/createMetadata">
+        <genParameters ecoreParameter="Forge.ecore#//ForgeService/createMetadata/fullName"/>
+      </genOperations>
+      <genOperations ecoreOperation="Forge.ecore#//ForgeService/createRepository">
+        <genParameters ecoreParameter="Forge.ecore#//ForgeService/createRepository/uri"/>
+      </genOperations>
+      <genOperations ecoreOperation="Forge.ecore#//ForgeService/loadJSONMetadata">
+        <genParameters ecoreParameter="Forge.ecore#//ForgeService/loadJSONMetadata/jsonFile"/>
+      </genOperations>
+      <genOperations ecoreOperation="Forge.ecore#//ForgeService/loadModule">
+        <genParameters ecoreParameter="Forge.ecore#//ForgeService/loadModule/moduleDirectory"/>
+      </genOperations>
+    </genClasses>
+    <genClasses ecoreClass="Forge.ecore#//ModuleInfo">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Forge.ecore#//ModuleInfo/fullName"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Forge.ecore#//ModuleInfo/name"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Forge.ecore#//ModuleInfo/projectURL"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Forge.ecore#//ModuleInfo/version"/>
+    </genClasses>
+    <genClasses ecoreClass="Forge.ecore#//Cache">
+      <genFeatures property="Readonly" createChild="false" ecoreFeature="ecore:EAttribute Forge.ecore#//Cache/location"/>
+      <genFeatures property="Readonly" notify="false" createChild="false" ecoreFeature="ecore:EReference Forge.ecore#//Cache/repository"/>
+      <genOperations ecoreOperation="Forge.ecore#//Cache/retrieve">
+        <genParameters ecoreParameter="Forge.ecore#//Cache/retrieve/fileName"/>
+      </genOperations>
+      <genOperations ecoreOperation="Forge.ecore#//Cache/clean"/>
+    </genClasses>
+    <genClasses ecoreClass="Forge.ecore#//Repository">
+      <genFeatures property="Readonly" createChild="false" ecoreFeature="ecore:EAttribute Forge.ecore#//Repository/repository"/>
+      <genFeatures property="Readonly" createChild="false" ecoreFeature="ecore:EAttribute Forge.ecore#//Repository/cacheKey"/>
+      <genOperations ecoreOperation="Forge.ecore#//Repository/connect">
+        <genParameters ecoreParameter="Forge.ecore#//Repository/connect/method"/>
+        <genParameters ecoreParameter="Forge.ecore#//Repository/connect/urlSuffix"/>
+      </genOperations>
+    </genClasses>
+    <genClasses ecoreClass="Forge.ecore#//ReleaseInfo">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Forge.ecore#//ReleaseInfo/file"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Forge.ecore#//ReleaseInfo/version"/>
+    </genClasses>
+    <genClasses ecoreClass="Forge.ecore#//Metadata">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Forge.ecore#//Metadata/name"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Forge.ecore#//Metadata/user"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Forge.ecore#//Metadata/fullName"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Forge.ecore#//Metadata/version"/>
+      <genFeatures property="Readonly" createChild="false" ecoreFeature="ecore:EAttribute Forge.ecore#//Metadata/location"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Forge.ecore#//Metadata/source"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Forge.ecore#//Metadata/author"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Forge.ecore#//Metadata/license"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Forge.ecore#//Metadata/types"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Forge.ecore#//Metadata/summary"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Forge.ecore#//Metadata/description"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Forge.ecore#//Metadata/projectPage"/>
+      <genFeatures property="Readonly" createChild="false" ecoreFeature="ecore:EAttribute Forge.ecore#//Metadata/checksums"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Forge.ecore#//Metadata/dependencies"/>
+      <genOperations ecoreOperation="Forge.ecore#//Metadata/loadModuleFile">
+        <genParameters ecoreParameter="Forge.ecore#//Metadata/loadModuleFile/moduleFile"/>
+      </genOperations>
+      <genOperations ecoreOperation="Forge.ecore#//Metadata/loadTypeFiles">
+        <genParameters ecoreParameter="Forge.ecore#//Metadata/loadTypeFiles/puppetDir"/>
+      </genOperations>
+      <genOperations ecoreOperation="Forge.ecore#//Metadata/loadChecksums">
+        <genParameters ecoreParameter="Forge.ecore#//Metadata/loadChecksums/moduleDir"/>
+      </genOperations>
+      <genOperations ecoreOperation="Forge.ecore#//Metadata/saveJSONMetadata">
+        <genParameters ecoreParameter="Forge.ecore#//Metadata/saveJSONMetadata/jsonFile"/>
+      </genOperations>
+      <genOperations ecoreOperation="Forge.ecore#//Metadata/saveModulefile">
+        <genParameters ecoreParameter="Forge.ecore#//Metadata/saveModulefile/moduleFile"/>
+      </genOperations>
+    </genClasses>
+    <genClasses ecoreClass="Forge.ecore#//Dependency">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Forge.ecore#//Dependency/name"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Forge.ecore#//Dependency/versionRequirement"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Forge.ecore#//Dependency/repository"/>
+    </genClasses>
+    <genClasses ecoreClass="Forge.ecore#//Type">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Forge.ecore#//Type/parameters"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Forge.ecore#//Type/properties"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Forge.ecore#//Type/providers"/>
+      <genOperations ecoreOperation="Forge.ecore#//Type/loadTypeFile">
+        <genParameters ecoreParameter="Forge.ecore#//Type/loadTypeFile/typeFile"/>
+      </genOperations>
+      <genOperations ecoreOperation="Forge.ecore#//Type/loadProvider">
+        <genParameters ecoreParameter="Forge.ecore#//Type/loadProvider/providerDir"/>
+      </genOperations>
+    </genClasses>
+    <genClasses ecoreClass="Forge.ecore#//Parameter"/>
+    <genClasses image="false" ecoreClass="Forge.ecore#//Documented">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Forge.ecore#//Documented/name"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Forge.ecore#//Documented/doc"/>
+    </genClasses>
+    <genClasses ecoreClass="Forge.ecore#//Property"/>
+    <genClasses ecoreClass="Forge.ecore#//Provider"/>
+  </genPackages>
+</genmodel:GenModel>

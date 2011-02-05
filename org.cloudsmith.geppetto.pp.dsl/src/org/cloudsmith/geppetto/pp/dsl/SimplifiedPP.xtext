@@ -10,7 +10,7 @@
  * 
  */
 
-/* 
+/* (Unused)
  * Grammar for Puppet pp
  * ---
  * This grammar is for the puppet .pp (puppet manifest) language.

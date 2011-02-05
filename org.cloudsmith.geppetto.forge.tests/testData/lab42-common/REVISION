@@ -1,0 +1,4 @@
+module: lab42/common
+version: 0.0.1
+url: file:///home/thhal/.puppet/var/puppet-module/cache/http_forge_puppetlabs_com-75a31f1d6f1ef6eb63b4479b3512ee1508209a7f/lab42-common-0.0.1.tar.gz
+installed: Mon Jan 10 23:46:59 +0100 2011

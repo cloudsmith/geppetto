@@ -1,0 +1,16 @@
+# This file is being maintained by Puppet.
+# DO NOT EDIT
+
+[ <%= name %> ]
+path            = <%= path %>
+read only       = <%= read_only %>
+write only      = <%= write_only %>
+list            = <%= list %>
+uid             = <%= uid %>
+gid             = <%= gid %>
+incoming chmod  = <%= incoming_chmod %>
+outgoing chmod  = <%= outgoing_chmod %>
+<% if comment != :undef %>comment               = <%= comment %><% end %>
+<% if motd != :undef %>motd file                = /etc/rsync-motd-<%= name %><% end %>
+
+

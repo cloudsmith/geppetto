@@ -1,0 +1,54 @@
+Thanks
+======
+
+Work on this module was made possible by funding from neoTactics, Inc.
+
+                     http://neotactics.com/
+
+
+Collectd
+========
+
+Collectd is a very lightweight system statistics gathering daemon. To quote
+from http://collectd.org/ :
+
+> [...] it's written in C for performance and portability, [...] It includes
+> optimizations and features to handle hundreds of thousands of data sets. It
+> comes with over 60 plugins [...]. It provides powerful networking features
+> and is extensible in numerous ways. Last but not least: collectd is actively
+> developed and supported and well documented.
+
+
+The Module
+==========
+
+The collectd puppet module contains high-level defines to configure the most
+important modules as well as native puppet types to manage the configuration
+files as well as collectd's notification and threshold rules.
+
+The mapping tries to use collectd's config file keywords as much as possible.
+Therefore any know-how should carry over pretty straight forward.
+
+You can find the module at http://git.black.co.at/?p=module-collectd
+
+
+Please send any patches and comments to this list for discussion.
+
+
+Caveats
+=======
+
+1. Due to the heterogeneous syntax of collectd's configuration files, I opted
+to split the Key-Value-style configuration of the daemon itself and the
+sections for the plugins into different native types. This in turn necessitates
+to have each plugin configuration in a separate file. The default "collectd"
+class in the module will setup the proper structures to automatically create
+the default locations and include them into the daemon's configuration.
+
+
+2. There are currently only a few plugins explicitly implemented. To implement
+a new plugin configuration, one just needs to specify a mapping from puppet
+resources' parameters to the actual configuration, which is really straight
+forward using the provided infrastructure.
+
+

@@ -1,0 +1,123 @@
+{
+  "name": "bobsh-iptables",
+  "dependencies": [
+
+  ],
+  "author": "",
+  "license": "",
+  "version": "1.2.0",
+  "checksums": {
+    "lib/puppet/type/iptables.rb": "66481c7e3fb362d3448509e1e7f7fb35",
+    "tests/020_icmp_types.pp": "c5f197cdf741826bab1c6c9749638576",
+    "COPYING": "751419260aa954499f7abaabaa882bbe",
+    "Rakefile": "13d2988cb8ab0e453c1d8d35eb6cb5cc",
+    "tests/030_multiple_sources.pp": "c4834de8720a62aadebecddc89738813",
+    "lib/puppet/test/iptables.rb": "b079e461bf96bd1194fb72abb8802515",
+    "tests/040_state_types.pp": "e84cbf5f00bb17d686565971b29079b7",
+    "tests/010_basic.pp": "72b06b68e1274af94ee48fda05c3aec4",
+    "tests/050_sport_and_dport.pp": "accfa54e53b427297bcc622bb95c88c4",
+    "tests/021_icmp_any.pp": "4d838faca38d96155decb14088e44d78",
+    "Modulefile": "8e6719ef154baf94b2da9c2cb0e05604",
+    "README.rst": "f84957c72f44e9d958ea7de91d929f0d"
+  },
+  "types": [
+    {
+      "name": "iptables",
+      "doc": "Manipulate iptables rules",
+      "parameters": [
+        {
+          "name": "name",
+          "doc": "The name of the resource"
+        },
+        {
+          "name": "chain",
+          "doc": "holds value of iptables -A parameter.\n                  Possible values are: 'INPUT', 'FORWARD', 'OUTPUT', 'PREROUTING', 'POSTROUTING'.\n                  Default value is 'INPUT'  Valid values are `INPUT`, `FORWARD`, `OUTPUT`, `PREROUTING`, `POSTROUTING`."
+        },
+        {
+          "name": "table",
+          "doc": "one of the following tables: 'nat', 'mangle',\n                  'filter' and 'raw'. Default one is 'filter'  Valid values are `nat`, `mangle`, `filter`, `raw`."
+        },
+        {
+          "name": "proto",
+          "doc": "holds value of iptables --protocol parameter.\n                  Possible values are: 'tcp', 'udp', 'icmp', 'esp', 'ah', 'vrrp', 'igmp', 'all'.\n                  Default value is 'tcp'  Valid values are `tcp`, `udp`, `icmp`, `esp`, `ah`, `vrrp`, `igmp`, `all`."
+        },
+        {
+          "name": "jump",
+          "doc": "holds value of iptables --jump target\n                  Possible values are: 'ACCEPT', 'DROP', 'REJECT', 'DNAT', 'SNAT', 'LOG', 'MASQUERADE', 'REDIRECT'.\n                  Default value is 'ACCEPT'. While this is not the accepted norm, this is the more commonly used jump target.\n                  Users should ensure they do an explicit DROP for all packets after all the ACCEPT rules are specified.  Valid values are `ACCEPT`, `DROP`, `REJECT`, `DNAT`, `SNAT`, `LOG`, `MASQUERADE`, `REDIRECT`."
+        },
+        {
+          "name": "source",
+          "doc": "value for iptables --source parameter.\n                  Accepts a single string or array."
+        },
+        {
+          "name": "destination",
+          "doc": "value for iptables --destination parameter"
+        },
+        {
+          "name": "sport",
+          "doc": "holds value of iptables [..] --source-port parameter.\n                  If array is specified, values will be passed to multiport module.\n                  Only applies to tcp/udp."
+        },
+        {
+          "name": "dport",
+          "doc": "holds value of iptables [..] --destination-port parameter.\n                  If array is specified, values will be passed to multiport module.\n                  Only applies to tcp/udp."
+        },
+        {
+          "name": "iniface",
+          "doc": "value for iptables --in-interface parameter"
+        },
+        {
+          "name": "outiface",
+          "doc": "value for iptables --out-interface parameter"
+        },
+        {
+          "name": "tosource",
+          "doc": "value for iptables '-j SNAT --to-source' parameter"
+        },
+        {
+          "name": "todest",
+          "doc": "value for iptables '-j DNAT --to-destination' parameter"
+        },
+        {
+          "name": "toports",
+          "doc": "value for iptables '-j REDIRECT --to-ports' parameter"
+        },
+        {
+          "name": "reject",
+          "doc": "value for iptables '-j REJECT --reject-with' parameter"
+        },
+        {
+          "name": "log_level",
+          "doc": "value for iptables '-j LOG --log-level' parameter"
+        },
+        {
+          "name": "log_prefix",
+          "doc": "value for iptables '-j LOG --log-prefix' parameter"
+        },
+        {
+          "name": "icmp",
+          "doc": "value for iptables '-p icmp --icmp-type' parameter"
+        },
+        {
+          "name": "state",
+          "doc": "value for iptables '-m state --state' parameter.\n                  Possible values are: 'INVALID', 'ESTABLISHED', 'NEW', 'RELATED'.\n                  Also accepts an array of multiple values."
+        },
+        {
+          "name": "limit",
+          "doc": "value for iptables '-m limit --limit' parameter.\n                  Example values are: '50/sec', '40/min', '30/hour', '10/day'."
+        },
+        {
+          "name": "burst",
+          "doc": "value for '--limit-burst' parameter.\n                  Example values are: '5', '10'."
+        },
+        {
+          "name": "redirect",
+          "doc": "value for iptables '-j REDIRECT --to-ports' parameter."
+        }
+      ],
+      "properties": [
+
+      ]
+    }
+  ],
+  "source": ""
+}

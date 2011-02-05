@@ -1,0 +1,17 @@
+name    'ghoneycutt-rsync'
+version '1.0.1'
+
+description %{This is a multi line
+comment that I've inserted
+for test purposes}
+
+summary "This is\nanother\nmulti line\ncomment"
+
+license 'Some
+License text
+with as much as
+five lines
+of text'
+
+dependency 'ghoneycutt/xinetd', '>= 1.0.0'
+dependency 'ghoneycutt/generic', '>= 1.0.0'

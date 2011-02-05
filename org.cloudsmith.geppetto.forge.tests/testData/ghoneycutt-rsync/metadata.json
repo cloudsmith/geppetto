@@ -1,0 +1,35 @@
+{
+  "name": "ghoneycutt-rsync",
+  "dependencies": [
+    {
+      "name": "ghoneycutt/xinetd",
+      "version_requirement": ">= 1.0.0"
+    },
+    {
+      "name": "ghoneycutt/generic",
+      "version_requirement": ">= 1.0.0"
+    }
+  ],
+  "author": "",
+  "license": "",
+  "version": "1.0.1",
+  "types": [
+
+  ],
+  "checksums": {
+    "spec/spec_helper.rb": "ca19ec4f451ebc7fdb035b52eae6e909",
+    "templates/module.erb": "9709c2c204b877255b30401633a4bb7a",
+    "CHANGELOG": "98e35fc93057cc697eb05ceeca518fdd",
+    "manifests/server.pp": "7dab0aabcc1e2aed86491945fc26ea73",
+    "LICENSE": "83689274b66538eb95934bad0a13a2e8",
+    "README": "ba5ac54bbc93aa1fcf2316a47304b798",
+    "manifests/repo.pp": "ffa3e1b2aff813ee30b00feaaae89499",
+    "files/header": "34bb26d29af47a62613d6d280280664b",
+    "tests/init.pp": "a9dc362412bf683f279d928ef1123928",
+    "metadata.json": "d34d0b70aba36510fbc2df4e667479ef",
+    "spec/spec.opts": "a600ded995d948e393fbe2320ba8e51c",
+    "manifests/init.pp": "9d3a1aa16667763a71534b20a0c4fa03",
+    "Modulefile": "f0f90dbab445188eb38577cc5e9bb68e"
+  },
+  "source": ""
+}

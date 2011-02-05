@@ -1,0 +1,107 @@
+{
+  "name": "DavidSchmitt-collectd",
+  "dependencies": [
+
+  ],
+  "author": "",
+  "license": "",
+  "version": "1.0.0",
+  "types": [
+    {
+      "name": "collectd_threshold",
+      "doc": "Manages the thresholds of collectd",
+      "parameters": [
+        {
+          "name": "selector",
+          "doc": "This describes the selected datasources in this format:\n\t\t\tHost '/' Plugin ':' Instance '/' Type ':' DataSource\n\t\t\tAny and all of those, except the Type, can be replaced\n\t\t\tby '*' to select all of this kind."
+        }
+      ],
+      "providers": [
+        {
+          "name": "parsed",
+          "doc": "    "
+        }
+      ],
+      "properties": [
+        {
+          "name": "ensure",
+          "doc": "The basic property that the resource should be in.  Valid values are ``present``, ``absent``."
+        },
+        {
+          "name": "warning_min",
+          "doc": "collectd's WarningMin value"
+        },
+        {
+          "name": "warning_max",
+          "doc": "collectd's WarningMax value"
+        },
+        {
+          "name": "failure_min",
+          "doc": "collectd's FailureMin value"
+        },
+        {
+          "name": "failure_max",
+          "doc": "collectd's FailureMax value"
+        },
+        {
+          "name": "invert",
+          "doc": "collectd's Invert value"
+        },
+        {
+          "name": "persist",
+          "doc": "collectd's Persist value"
+        }
+      ]
+    },
+    {
+      "name": "collectd_conf",
+      "doc": "Manages the basic option statements in a collectd.conf file",
+      "parameters": [
+        {
+          "name": "key",
+          "doc": "The name of the configuration key"
+        }
+      ],
+      "providers": [
+        {
+          "name": "parsed",
+          "doc": "    "
+        }
+      ],
+      "properties": [
+        {
+          "name": "ensure",
+          "doc": "The basic property that the resource should be in.  Valid values are ``present``, ``absent``."
+        },
+        {
+          "name": "target",
+          "doc": "Which file to write to."
+        },
+        {
+          "name": "value",
+          "doc": "The value to set. Use an array to set a key multiple times"
+        }
+      ]
+    }
+  ],
+  "checksums": {
+    "files/collectd.conf": "b4ce92b22496ece34a80ffac9edc7ec7",
+    "manifests/logfile.pp": "ba644bad53adc954399aaeca13379b4e",
+    "manifests/syslog.pp": "38a636fa3d1285893e4aa2198cb48e3f",
+    "LICENSE": "d0343eb348be8cfca54136712f02a832",
+    "lib/puppet/type/collectd_threshold.rb": "684c9a163becb8d5f4d5199539f5ce6b",
+    "manifests/network.pp": "320b2eaabde3fa6aab4aaed3b6689050",
+    "lib/puppet/type/collectd_conf.rb": "632d0e958667e35f64c18ff0726b8411",
+    "lib/puppet/parser/functions/join.rb": "cd95e8b3e7ee3ad1b5d5e4ac453175c6",
+    "manifests/libdir.pp": "2145f1eb7fca554942914a7a5e237533",
+    "doc/example.pp": "0284425ae22511ef6bc3d00f1476982c",
+    "README": "f510dcf948504bd06398e79280419e96",
+    "lib/puppet/provider/collectd_conf/parsed.rb": "e3b8a982d54715353a32727fa7d03d06",
+    "manifests/plugin.pp": "07b6e82c5a9665ac4da163f7bf5095ec",
+    "manifests/conf.pp": "36f44695476c84d8a9a714c223e7608f",
+    "lib/puppet/provider/collectd_threshold/parsed.rb": "9522b58df0059092c6ad8f53fd729c19",
+    "manifests/init.pp": "4d0f3794d1ad98bc3df419fed6ce652f",
+    "Modulefile": "a92ca19fb5c987e0c14ba0319b6065a8"
+  },
+  "source": ""
+}

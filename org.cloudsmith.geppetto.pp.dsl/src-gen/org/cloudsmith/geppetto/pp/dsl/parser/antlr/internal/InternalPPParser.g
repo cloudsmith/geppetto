@@ -5926,12 +5926,16 @@ ruleunionNameOrReference returns [AntlrDatatypeRuleToken current=new AntlrDataty
         $current.merge(kw);
         newLeafNode(kw, grammarAccess.getUnionNameOrReferenceAccess().getColonColonKeyword_0()); 
     }
-)?(    this_WORD_CHARS_1=RULE_WORD_CHARS    {
-		$current.merge(this_WORD_CHARS_1);
+)?(
+    { 
+        newCompositeNode(grammarAccess.getUnionNameOrReferenceAccess().getWordCharsOrKeywordsParserRuleCall_1_0()); 
+    }
+    this_wordCharsOrKeywords_1=rulewordCharsOrKeywords    {
+		$current.merge(this_wordCharsOrKeywords_1);
     }
 
     { 
-    newLeafNode(this_WORD_CHARS_1, grammarAccess.getUnionNameOrReferenceAccess().getWORD_CHARSTerminalRuleCall_1_0()); 
+        afterParserOrEnumRuleCall();
     }
 
     |
@@ -5946,12 +5950,16 @@ ruleunionNameOrReference returns [AntlrDatatypeRuleToken current=new AntlrDataty
         $current.merge(kw);
         newLeafNode(kw, grammarAccess.getUnionNameOrReferenceAccess().getColonColonKeyword_2_0()); 
     }
-(    this_WORD_CHARS_4=RULE_WORD_CHARS    {
-		$current.merge(this_WORD_CHARS_4);
+(
+    { 
+        newCompositeNode(grammarAccess.getUnionNameOrReferenceAccess().getWordCharsOrKeywordsParserRuleCall_2_1_0()); 
+    }
+    this_wordCharsOrKeywords_4=rulewordCharsOrKeywords    {
+		$current.merge(this_wordCharsOrKeywords_4);
     }
 
     { 
-    newLeafNode(this_WORD_CHARS_4, grammarAccess.getUnionNameOrReferenceAccess().getWORD_CHARSTerminalRuleCall_2_1_0()); 
+        afterParserOrEnumRuleCall();
     }
 
     |
@@ -5965,6 +5973,49 @@ ruleunionNameOrReference returns [AntlrDatatypeRuleToken current=new AntlrDataty
 finally {
 	myHiddenTokenState.restore();
 }
+
+
+
+
+
+// Entry rule entryRulewordCharsOrKeywords
+entryRulewordCharsOrKeywords returns [String current=null] 
+:
+	{ newCompositeNode(grammarAccess.getWordCharsOrKeywordsRule()); } 
+	 iv_rulewordCharsOrKeywords=rulewordCharsOrKeywords 
+	 { $current=$iv_rulewordCharsOrKeywords.current.getText(); }  
+	 EOF 
+;
+
+// Rule wordCharsOrKeywords
+rulewordCharsOrKeywords returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] 
+    @init { enterRule(); 
+    }
+    @after { leaveRule();
+    }:
+(    this_WORD_CHARS_0=RULE_WORD_CHARS    {
+		$current.merge(this_WORD_CHARS_0);
+    }
+
+    { 
+    newLeafNode(this_WORD_CHARS_0, grammarAccess.getWordCharsOrKeywordsAccess().getWORD_CHARSTerminalRuleCall_0()); 
+    }
+
+    |
+	kw=KEYWORD_63 
+    {
+        $current.merge(kw);
+        newLeafNode(kw, grammarAccess.getWordCharsOrKeywordsAccess().getDefaultKeyword_1()); 
+    }
+
+    |
+	kw=KEYWORD_57 
+    {
+        $current.merge(kw);
+        newLeafNode(kw, grammarAccess.getWordCharsOrKeywordsAccess().getClassKeyword_2()); 
+    }
+)
+    ;
 
 
 

@@ -3244,49 +3244,74 @@ public class PPGrammarAccess extends AbstractGrammarElementFinder {
 		private final Group cGroup = (Group)rule.eContents().get(1);
 		private final Keyword cColonColonKeyword_0 = (Keyword)cGroup.eContents().get(0);
 		private final Alternatives cAlternatives_1 = (Alternatives)cGroup.eContents().get(1);
-		private final RuleCall cWORD_CHARSTerminalRuleCall_1_0 = (RuleCall)cAlternatives_1.eContents().get(0);
+		private final RuleCall cWordCharsOrKeywordsParserRuleCall_1_0 = (RuleCall)cAlternatives_1.eContents().get(0);
 		private final Keyword cHyphenMinusKeyword_1_1 = (Keyword)cAlternatives_1.eContents().get(1);
 		private final Group cGroup_2 = (Group)cGroup.eContents().get(2);
 		private final Keyword cColonColonKeyword_2_0 = (Keyword)cGroup_2.eContents().get(0);
 		private final Alternatives cAlternatives_2_1 = (Alternatives)cGroup_2.eContents().get(1);
-		private final RuleCall cWORD_CHARSTerminalRuleCall_2_1_0 = (RuleCall)cAlternatives_2_1.eContents().get(0);
+		private final RuleCall cWordCharsOrKeywordsParserRuleCall_2_1_0 = (RuleCall)cAlternatives_2_1.eContents().get(0);
 		private final Keyword cHyphenMinusKeyword_2_1_1 = (Keyword)cAlternatives_2_1.eContents().get(1);
 		
 		//unionNameOrReference hidden(): // captures names and references
-		//	"::"? (WORD_CHARS | "-")+ ("::" (WORD_CHARS | "-")*)*;
+		//	"::"? (wordCharsOrKeywords | "-")+ ("::" (wordCharsOrKeywords | "-")*)*;
 		public ParserRule getRule() { return rule; }
 
 		//// captures names and references
-		//"::"? (WORD_CHARS | "-")+ ("::" (WORD_CHARS | "-")*)*
+		//"::"? (wordCharsOrKeywords | "-")+ ("::" (wordCharsOrKeywords | "-")*)*
 		public Group getGroup() { return cGroup; }
 
 		//// captures names and references
 		//"::"?
 		public Keyword getColonColonKeyword_0() { return cColonColonKeyword_0; }
 
-		//(WORD_CHARS | "-")+
+		//(wordCharsOrKeywords | "-")+
 		public Alternatives getAlternatives_1() { return cAlternatives_1; }
 
-		//WORD_CHARS
-		public RuleCall getWORD_CHARSTerminalRuleCall_1_0() { return cWORD_CHARSTerminalRuleCall_1_0; }
+		//wordCharsOrKeywords
+		public RuleCall getWordCharsOrKeywordsParserRuleCall_1_0() { return cWordCharsOrKeywordsParserRuleCall_1_0; }
 
 		//"-"
 		public Keyword getHyphenMinusKeyword_1_1() { return cHyphenMinusKeyword_1_1; }
 
-		//("::" (WORD_CHARS | "-")*)*
+		//("::" (wordCharsOrKeywords | "-")*)*
 		public Group getGroup_2() { return cGroup_2; }
 
 		//"::"
 		public Keyword getColonColonKeyword_2_0() { return cColonColonKeyword_2_0; }
 
-		//(WORD_CHARS | "-")*
+		//(wordCharsOrKeywords | "-")*
 		public Alternatives getAlternatives_2_1() { return cAlternatives_2_1; }
 
-		//WORD_CHARS
-		public RuleCall getWORD_CHARSTerminalRuleCall_2_1_0() { return cWORD_CHARSTerminalRuleCall_2_1_0; }
+		//wordCharsOrKeywords
+		public RuleCall getWordCharsOrKeywordsParserRuleCall_2_1_0() { return cWordCharsOrKeywordsParserRuleCall_2_1_0; }
 
 		//"-"
 		public Keyword getHyphenMinusKeyword_2_1_1() { return cHyphenMinusKeyword_2_1_1; }
+	}
+
+	public class WordCharsOrKeywordsElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "wordCharsOrKeywords");
+		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
+		private final RuleCall cWORD_CHARSTerminalRuleCall_0 = (RuleCall)cAlternatives.eContents().get(0);
+		private final Keyword cDefaultKeyword_1 = (Keyword)cAlternatives.eContents().get(1);
+		private final Keyword cClassKeyword_2 = (Keyword)cAlternatives.eContents().get(2);
+		
+		//// includes keywords that are allowed in names (between optional ::).
+		//wordCharsOrKeywords:
+		//	WORD_CHARS | "default" | "class";
+		public ParserRule getRule() { return rule; }
+
+		//WORD_CHARS | "default" | "class"
+		public Alternatives getAlternatives() { return cAlternatives; }
+
+		//WORD_CHARS
+		public RuleCall getWORD_CHARSTerminalRuleCall_0() { return cWORD_CHARSTerminalRuleCall_0; }
+
+		//"default"
+		public Keyword getDefaultKeyword_1() { return cDefaultKeyword_1; }
+
+		//"class"
+		public Keyword getClassKeyword_2() { return cClassKeyword_2; }
 	}
 
 	public class DoubleStringCharactersElements extends AbstractParserRuleElementFinder {
@@ -3492,6 +3517,7 @@ public class PPGrammarAccess extends AbstractGrammarElementFinder {
 	private LeadingSpaceAndCommentsElements pLeadingSpaceAndComments;
 	private CommentsElements pComments;
 	private UnionNameOrReferenceElements pUnionNameOrReference;
+	private WordCharsOrKeywordsElements pWordCharsOrKeywords;
 	private DoubleStringCharactersElements pDoubleStringCharacters;
 	private SingleStringCharactersElements pSingleStringCharacters;
 	private TerminalRule tML_COMMENT;
@@ -4545,13 +4571,24 @@ public class PPGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//unionNameOrReference hidden(): // captures names and references
-	//	"::"? (WORD_CHARS | "-")+ ("::" (WORD_CHARS | "-")*)*;
+	//	"::"? (wordCharsOrKeywords | "-")+ ("::" (wordCharsOrKeywords | "-")*)*;
 	public UnionNameOrReferenceElements getUnionNameOrReferenceAccess() {
 		return (pUnionNameOrReference != null) ? pUnionNameOrReference : (pUnionNameOrReference = new UnionNameOrReferenceElements());
 	}
 	
 	public ParserRule getUnionNameOrReferenceRule() {
 		return getUnionNameOrReferenceAccess().getRule();
+	}
+
+	//// includes keywords that are allowed in names (between optional ::).
+	//wordCharsOrKeywords:
+	//	WORD_CHARS | "default" | "class";
+	public WordCharsOrKeywordsElements getWordCharsOrKeywordsAccess() {
+		return (pWordCharsOrKeywords != null) ? pWordCharsOrKeywords : (pWordCharsOrKeywords = new WordCharsOrKeywordsElements());
+	}
+	
+	public ParserRule getWordCharsOrKeywordsRule() {
+		return getWordCharsOrKeywordsAccess().getRule();
 	}
 
 	//// special rules in lexer will deliver everything as one of these when in a string

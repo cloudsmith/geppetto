@@ -2729,6 +2729,34 @@ finally {
 
 
 
+// Entry rule entryRulewordCharsOrKeywords
+entryRulewordCharsOrKeywords 
+:
+{ before(grammarAccess.getWordCharsOrKeywordsRule()); }
+	 rulewordCharsOrKeywords
+{ after(grammarAccess.getWordCharsOrKeywordsRule()); } 
+	 EOF 
+;
+
+// Rule wordCharsOrKeywords
+rulewordCharsOrKeywords 
+    @init {
+		int stackSize = keepStackSize();
+    }
+    :
+(
+{ before(grammarAccess.getWordCharsOrKeywordsAccess().getAlternatives()); }
+(rule__WordCharsOrKeywords__Alternatives)
+{ after(grammarAccess.getWordCharsOrKeywordsAccess().getAlternatives()); }
+)
+
+;
+finally {
+	restoreStackSize(stackSize);
+}
+
+
+
 // Entry rule entryRuledoubleStringCharacters
 entryRuledoubleStringCharacters 
 @init {
@@ -3674,9 +3702,9 @@ rule__UnionNameOrReference__Alternatives_1
     }
 :
 (
-{ before(grammarAccess.getUnionNameOrReferenceAccess().getWORD_CHARSTerminalRuleCall_1_0()); }
-	RULE_WORD_CHARS
-{ after(grammarAccess.getUnionNameOrReferenceAccess().getWORD_CHARSTerminalRuleCall_1_0()); }
+{ before(grammarAccess.getUnionNameOrReferenceAccess().getWordCharsOrKeywordsParserRuleCall_1_0()); }
+	rulewordCharsOrKeywords
+{ after(grammarAccess.getUnionNameOrReferenceAccess().getWordCharsOrKeywordsParserRuleCall_1_0()); }
 )
 
     |(
@@ -3698,9 +3726,9 @@ rule__UnionNameOrReference__Alternatives_2_1
     }
 :
 (
-{ before(grammarAccess.getUnionNameOrReferenceAccess().getWORD_CHARSTerminalRuleCall_2_1_0()); }
-	RULE_WORD_CHARS
-{ after(grammarAccess.getUnionNameOrReferenceAccess().getWORD_CHARSTerminalRuleCall_2_1_0()); }
+{ before(grammarAccess.getUnionNameOrReferenceAccess().getWordCharsOrKeywordsParserRuleCall_2_1_0()); }
+	rulewordCharsOrKeywords
+{ after(grammarAccess.getUnionNameOrReferenceAccess().getWordCharsOrKeywordsParserRuleCall_2_1_0()); }
 )
 
     |(
@@ -3709,6 +3737,38 @@ rule__UnionNameOrReference__Alternatives_2_1
 	KEYWORD_10 
 
 { after(grammarAccess.getUnionNameOrReferenceAccess().getHyphenMinusKeyword_2_1_1()); }
+)
+
+;
+finally {
+	restoreStackSize(stackSize);
+}
+
+rule__WordCharsOrKeywords__Alternatives
+    @init {
+		int stackSize = keepStackSize();
+    }
+:
+(
+{ before(grammarAccess.getWordCharsOrKeywordsAccess().getWORD_CHARSTerminalRuleCall_0()); }
+	RULE_WORD_CHARS
+{ after(grammarAccess.getWordCharsOrKeywordsAccess().getWORD_CHARSTerminalRuleCall_0()); }
+)
+
+    |(
+{ before(grammarAccess.getWordCharsOrKeywordsAccess().getDefaultKeyword_1()); }
+
+	KEYWORD_63 
+
+{ after(grammarAccess.getWordCharsOrKeywordsAccess().getDefaultKeyword_1()); }
+)
+
+    |(
+{ before(grammarAccess.getWordCharsOrKeywordsAccess().getClassKeyword_2()); }
+
+	KEYWORD_57 
+
+{ after(grammarAccess.getWordCharsOrKeywordsAccess().getClassKeyword_2()); }
 )
 
 ;

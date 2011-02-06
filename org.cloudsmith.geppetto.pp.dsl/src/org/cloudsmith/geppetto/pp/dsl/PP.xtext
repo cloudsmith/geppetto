@@ -636,9 +636,12 @@ comments 	hidden(WS) :
 
 unionNameOrReference hidden() :
 	// captures names and references
-	'::'? (WORD_CHARS | '-')+ ('::' (WORD_CHARS | '-')*)*
+	'::'? (wordCharsOrKeywords | '-')+ ('::' (wordCharsOrKeywords | '-')*)*
 ;
-	
+
+// includes keywords that are allowed in names (between optional ::).
+wordCharsOrKeywords : WORD_CHARS | 'default' | 'class' ;
+
 doubleStringCharacters hidden()
 	// special rules in lexer will deliver everything as one of these when in a string
 	: (WORD_CHARS

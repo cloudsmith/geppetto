@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <cspecExtension xmlns="http://www.eclipse.org/buckminster/CSpec-1.0">
 	<dependencies>
-		<!-- dependency name="org.cloudsmith.geppetto.releng" componentType="buckminster" /-->
+		<dependency name="org.cloudsmith.geppetto.releng" componentType="buckminster" />
 		<dependency name="org.cloudsmith.geppetto" componentType="eclipse.feature" />
 		<dependency name="org.eclipse.equinox.executable" componentType="eclipse.feature" />
 	</dependencies>

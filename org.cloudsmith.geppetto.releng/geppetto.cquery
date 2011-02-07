@@ -1,10 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <cq:componentQuery xmlns:cq="http://www.eclipse.org/buckminster/CQuery-1.0" resourceMap="geppetto.rmap">
     <cq:rootRequest name="org.cloudsmith.geppetto.releng" componentType="buckminster"/>
+
+    <cq:advisorNode useMaterialization="false" useTargetPlatform="false" />
+
     <cq:property key="buckminster.convert.source" value="true"/>
     <cq:property key="buckminster.download.source" value="true"/>
+
     <cq:property key="target.arch" value="*"/>
     <cq:property key="target.os" value="*"/>
     <cq:property key="target.ws" value="*"/>
-    <cq:advisorNode namePattern=".*" useMaterialization="false" useTargetPlatform="false"/>
 </cq:componentQuery>

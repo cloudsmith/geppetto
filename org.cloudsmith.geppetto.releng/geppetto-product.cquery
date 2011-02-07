@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cq:componentQuery xmlns:cq="http://www.eclipse.org/buckminster/CQuery-1.0" resourceMap="geppetto.rmap">
+	<cq:rootRequest name="org.cloudsmith.geppetto.product" componentType="eclipse.feature"/>
+
+	<cq:advisorNode namePattern="^org\.eclipse\.equinox\.launcher\.gtk\.aix\.ppc64$" skipComponent="true"/>
+	<cq:advisorNode namePattern="^org\.eclipse\.swt\.(?:gtk\.aix\.ppc64|motif\.solaris\.sparc|photon\.qnx\.x86)$" skipComponent="true"/>
+
+    <cq:advisorNode useMaterialization="false" useTargetPlatform="false" />
+
+	<cq:property key="source.repository.url" value="https://github.com/cloudsmith/geppetto.git" />
+
+	<cq:property key="target.arch" value="*"/>
+	<cq:property key="target.os" value="*"/>
+	<cq:property key="target.ws" value="*"/>
+</cq:componentQuery>

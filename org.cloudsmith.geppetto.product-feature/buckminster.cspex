@@ -11,91 +11,6 @@
 	</artifacts>
 
 	<actions>
-		<private name="copy.product.subfeatures" actor="ant">
-			<actorProperties>
-				<property key="buildFileId" value="buckminster.pdetasks" />
-				<property key="targets" value="copy.group" />
-			</actorProperties>
-			<prerequisites alias="action.requirements">
-				<attribute component="org.cloudsmith.geppetto" name="feature.jars" />
-				<attribute component="org.cloudsmith.geppetto" name="source.feature.jars" filter="(!(cbi.include.source=false))" />
-				<attribute name="feature.jar" />
-				<attribute name="feature.references" />
-				<attribute name="source.feature.references" />
-			</prerequisites>
-			<products alias="action.output" base="${buckminster.output}/product.site/features/" upToDatePolicy="MAPPER" />
-		</private>
-
-		<private name="copy.product.plugins" actor="ant">
-			<actorProperties>
-				<property key="buildFileId" value="buckminster.pdetasks" />
-				<property key="targets" value="copy.group" />
-			</actorProperties>
-			<prerequisites alias="action.requirements">
-				<attribute component="org.cloudsmith.geppetto" name="bundle.jars" />
-				<attribute component="org.cloudsmith.geppetto" name="source.bundle.jars" />
-				<attribute name="bundle.jars" />
-				<attribute name="source.bundle.jars" />
-			</prerequisites>
-			<products alias="action.output" base="${buckminster.output}/product.site/plugins/" upToDatePolicy="MAPPER" />
-		</private>
-
-		<public name="product.site.packed" actor="jarProcessor">
-			<properties>
-				<property key="command" value="pack" />
-			</properties>
-			<prerequisites>
-				<attribute name="product.site" alias="jar.folder" filter="(!(site.signing=true))" />
-				<attribute name="product.site.signed" alias="jar.folder" filter="(site.signing=true)" />
-			</prerequisites>
-			<products base="${buckminster.output}/product.site.packed/" upToDatePolicy="MAPPER" />
-		</public>
-
-		<private name="product.site.repacked" actor="jarProcessor">
-			<properties>
-				<property key="command" value="repack" />
-			</properties>
-			<prerequisites>
-				<attribute name="product.site" alias="jar.folder" />
-			</prerequisites>
-			<products base="${buckminster.output}/product.site.repacked/" upToDatePolicy="MAPPER" />
-		</private>
-
-		<public name="product.site.signed" actor="ant">
-			<actorProperties>
-				<property key="buildFileId" value="buckminster.signing" />
-				<property key="targets" value="sign.jars" />
-			</actorProperties>
-			<prerequisites alias="action.requirements">
-				<attribute name="product.site" filter="(!(site.pack200=true))" />
-				<attribute name="product.site.repacked" filter="(site.pack200=true)" />
-			</prerequisites>
-			<products alias="action.output" base="${buckminster.output}/product.site.signed/" upToDatePolicy="MAPPER" />
-		</public>
-
-		<private name="product.site.p2.prepare" actor="p2SiteGenerator">
-			<prerequisites>
-				<attribute name="product.site" alias="site" filter="(&amp;(!(site.pack200=true))(!(site.signing=true)))" />
-				<attribute name="product.site.packed" alias="site" filter="(site.pack200=true)" />
-				<attribute name="product.site.signed" alias="site" filter="(&amp;(site.signing=true)(!(site.pack200=true)))" />
-				<attribute name="product.file" alias="site.definer" />
-				<attribute name="product.product.configuration.exports" alias="product.configs" />
-			</prerequisites>
-			<products base="${buckminster.output}/product.site.p2/" upToDatePolicy="ACTOR" />
-		</private>
-
-		<private name="product.site.p2.finalize" actor="ant">
-			<actorProperties>
-				<property key="buildFile" value="product.ant" />
-				<property key="targets" value="finalize.product.site.p2" />
-			</actorProperties>
-			<prerequisites>
-				<attribute name="product.site.p2.prepare" alias="product.repository" />
-				<attribute name="manifest" alias="manifest" />
-			</prerequisites>
-			<products alias="temp" base="${buckminster.temp}/product.site.p2/" />
-		</private>
-
 		<private name="product.file" actor="ant">
 			<actorProperties>
 				<property key="buildFile" value="product.ant" />
@@ -109,6 +24,18 @@
 				<path path="product.product" />
 			</products>
 		</private>
+
+		<public name="product.site.p2" actor="ant">
+			<actorProperties>
+				<property key="buildFile" value="product.ant" />
+				<property key="targets" value="create.product.site.p2" />
+			</actorProperties>
+			<prerequisites>
+				<attribute name="site.p2" alias="repository" />
+				<attribute name="manifest" alias="manifest" />
+			</prerequisites>
+			<products alias="output" base="${buckminster.output}/product.site.p2/" />
+		</public>
 
 		<public name="product.zip-cocoa.macosx.x86" actor="ant">
 			<actorProperties>
@@ -207,22 +134,6 @@
 	</actions>
 
 	<groups>
-		<public name="product.product.configuration.exports">
-			<attribute component="org.cloudsmith.geppetto" name="product.configuration.exports" />
-			<attribute name="product.configuration.exports" />
-			<attribute name="product.file" />
-		</public>
-
-		<public name="product.site" rebase="${buckminster.output}/product.site/">
-			<attribute name="copy.product.subfeatures" />
-			<attribute name="copy.product.plugins" />
-		</public>
-
-		<public name="product.site.p2">
-			<attribute name="product.site.p2.prepare" />
-			<attribute name="product.site.p2.finalize" contributor="false" />
-		</public>
-
 		<public name="all.product.zips">
 			<attribute name="product.zip-cocoa.macosx.x86" />
 			<attribute name="product.zip-cocoa.macosx.x86_64" />
@@ -231,4 +142,32 @@
 			<attribute name="product.zip-win32.win32.x86" />
 		</public>
 	</groups>
+
+	<alterActions>
+		<private name="copy.subfeatures">
+			<alterPrerequisites>
+				<alterAttribute name="feature.jar" />
+				<alterAttribute name="source.feature.jar" filter="(!(cbi.include.source=false))" />
+			</alterPrerequisites>
+		</private>
+	</alterActions>
+
+	<alterGroups>
+		<public name="feature.references">
+			<attribute component="org.cloudsmith.geppetto" name="feature.jars" />
+		</public>
+		<public name="source.feature.references">
+			<attribute component="org.cloudsmith.geppetto" name="source.feature.jars" />
+		</public>
+		<public name="bundle.jars">
+			<attribute component="org.cloudsmith.geppetto" name="bundle.jars" />
+		</public>
+		<public name="source.bundle.jars">
+			<attribute component="org.cloudsmith.geppetto" name="source.bundle.jars" />
+		</public>
+		<public name="product.configuration.exports">
+			<attribute component="org.cloudsmith.geppetto" name="product.configuration.exports" />
+			<attribute name="product.file" />
+		</public>
+	</alterGroups>
 </cspecExtension>

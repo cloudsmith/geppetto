@@ -148,6 +148,17 @@ public class VirtualNameOrReferenceImpl extends LiteralExpressionImpl implements
 	 * @generated
 	 */
 	@Override
+	protected EClass eStaticClass() {
+		return PPPackage.Literals.VIRTUAL_NAME_OR_REFERENCE;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch(featureID) {
 			case PPPackage.VIRTUAL_NAME_OR_REFERENCE__VALUE:
@@ -226,17 +237,6 @@ public class VirtualNameOrReferenceImpl extends LiteralExpressionImpl implements
 		result.append(exported);
 		result.append(')');
 		return result.toString();
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * 
-	 * @generated
-	 */
-	@Override
-	protected EClass eStaticClass() {
-		return PPPackage.Literals.VIRTUAL_NAME_OR_REFERENCE;
 	}
 
 } // VirtualNameOrReferenceImpl

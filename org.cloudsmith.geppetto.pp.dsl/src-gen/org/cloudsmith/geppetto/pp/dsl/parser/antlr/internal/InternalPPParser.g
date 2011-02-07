@@ -89,34 +89,16 @@ rulePuppetManifest returns [EObject current=null]
 )(
 (
 		{ 
-	        newCompositeNode(grammarAccess.getPuppetManifestAccess().getLeadingSpaceAndCommentsLeadingSpaceAndCommentsParserRuleCall_1_0()); 
+	        newCompositeNode(grammarAccess.getPuppetManifestAccess().getStatementsExpressionListParserRuleCall_1_0()); 
 	    }
-		lv_leadingSpaceAndComments_1_0=ruleLeadingSpaceAndComments		{
-	        if ($current==null) {
-	            $current = createModelElementForParent(grammarAccess.getPuppetManifestRule());
-	        }
-       		set(
-       			$current, 
-       			"leadingSpaceAndComments",
-        		lv_leadingSpaceAndComments_1_0, 
-        		"LeadingSpaceAndComments");
-	        afterParserOrEnumRuleCall();
-	    }
-
-)
-)?(
-(
-		{ 
-	        newCompositeNode(grammarAccess.getPuppetManifestAccess().getStatementsExpressionListParserRuleCall_2_0()); 
-	    }
-		lv_statements_2_0=ruleExpressionList		{
+		lv_statements_1_0=ruleExpressionList		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getPuppetManifestRule());
 	        }
        		add(
        			$current, 
        			"statements",
-        		lv_statements_2_0, 
+        		lv_statements_1_0, 
         		"ExpressionList");
 	        afterParserOrEnumRuleCall();
 	    }
@@ -2613,10 +2595,21 @@ ruleFunctionCall returns [EObject current=null]
 	    }
 
 )
-))*)?
-	otherlv_6=KEYWORD_6
+))*(
+	{ 
+	  /* */ 
+	}
+    { 
+        newCompositeNode(grammarAccess.getFunctionCallAccess().getEndCommaParserRuleCall_1_2_2()); 
+    }
+ruleendComma
     {
-    	newLeafNode(otherlv_6, grammarAccess.getFunctionCallAccess().getRightParenthesisKeyword_1_3());
+        afterParserOrEnumRuleCall();
+    }
+)?)?
+	otherlv_7=KEYWORD_6
+    {
+    	newLeafNode(otherlv_7, grammarAccess.getFunctionCallAccess().getRightParenthesisKeyword_1_3());
     }
 )?)
 ;
@@ -3138,12 +3131,25 @@ ruleDefinition returns [EObject current=null]
     @init { enterRule(); 
     }
     @after { leaveRule(); }:
+((
 (
-	otherlv_0=KEYWORD_61
-    {
-    	newLeafNode(otherlv_0, grammarAccess.getDefinitionAccess().getDefineKeyword_0());
-    }
-(
+		{ 
+	        newCompositeNode(grammarAccess.getDefinitionAccess().getDocumentationOptionallyDocumentedDefinitionParserRuleCall_0_0()); 
+	    }
+		lv_documentation_0_0=ruleOptionallyDocumentedDefinition		{
+	        if ($current==null) {
+	            $current = createModelElementForParent(grammarAccess.getDefinitionRule());
+	        }
+       		set(
+       			$current, 
+       			"documentation",
+        		lv_documentation_0_0, 
+        		"OptionallyDocumentedDefinition");
+	        afterParserOrEnumRuleCall();
+	    }
+
+)
+)(
 (
 		{ 
 	        newCompositeNode(grammarAccess.getDefinitionAccess().getClassNameUnionNameOrReferenceParserRuleCall_1_0()); 
@@ -3209,6 +3215,54 @@ ruleDefinition returns [EObject current=null]
     }
 )
 ;
+
+
+
+
+
+// Entry rule entryRuleOptionallyDocumentedDefinition
+entryRuleOptionallyDocumentedDefinition returns [EObject current=null]
+	@init { 
+		HiddenTokens myHiddenTokenState = ((XtextTokenStream)input).setHiddenTokens();
+	}
+	:
+	{ newCompositeNode(grammarAccess.getOptionallyDocumentedDefinitionRule()); }
+	 iv_ruleOptionallyDocumentedDefinition=ruleOptionallyDocumentedDefinition 
+	 { $current=$iv_ruleOptionallyDocumentedDefinition.current; } 
+	 EOF 
+;
+finally {
+	myHiddenTokenState.restore();
+}
+
+// Rule OptionallyDocumentedDefinition
+ruleOptionallyDocumentedDefinition returns [EObject current=null] 
+    @init { enterRule(); 
+		HiddenTokens myHiddenTokenState = ((XtextTokenStream)input).setHiddenTokens();
+    }
+    @after { leaveRule(); }:
+((
+	{ 
+	  /* */ 
+	}
+    { 
+        newCompositeNode(grammarAccess.getOptionallyDocumentedDefinitionAccess().getLeadingCommentsParserRuleCall_0()); 
+    }
+    this_LeadingComments_0=ruleLeadingComments
+    {
+        $current = $this_LeadingComments_0.current;
+        afterParserOrEnumRuleCall();
+    }
+)?
+	otherlv_1=KEYWORD_61
+    {
+    	newLeafNode(otherlv_1, grammarAccess.getOptionallyDocumentedDefinitionAccess().getDefineKeyword_1());
+    }
+)
+;
+finally {
+	myHiddenTokenState.restore();
+}
 
 
 
@@ -5803,18 +5857,25 @@ finally {
 
 
 
-// Entry rule entryRuleLeadingSpaceAndComments
-entryRuleLeadingSpaceAndComments returns [EObject current=null]
+// Entry rule entryRuleLeadingComments
+entryRuleLeadingComments returns [EObject current=null]
+	@init { 
+		HiddenTokens myHiddenTokenState = ((XtextTokenStream)input).setHiddenTokens();
+	}
 	:
-	{ newCompositeNode(grammarAccess.getLeadingSpaceAndCommentsRule()); }
-	 iv_ruleLeadingSpaceAndComments=ruleLeadingSpaceAndComments 
-	 { $current=$iv_ruleLeadingSpaceAndComments.current; } 
+	{ newCompositeNode(grammarAccess.getLeadingCommentsRule()); }
+	 iv_ruleLeadingComments=ruleLeadingComments 
+	 { $current=$iv_ruleLeadingComments.current; } 
 	 EOF 
 ;
+finally {
+	myHiddenTokenState.restore();
+}
 
-// Rule LeadingSpaceAndComments
-ruleLeadingSpaceAndComments returns [EObject current=null] 
+// Rule LeadingComments
+ruleLeadingComments returns [EObject current=null] 
     @init { enterRule(); 
+		HiddenTokens myHiddenTokenState = ((XtextTokenStream)input).setHiddenTokens();
     }
     @after { leaveRule(); }:
 ((
@@ -5823,53 +5884,56 @@ ruleLeadingSpaceAndComments returns [EObject current=null]
 	}
     {
         $current = forceCreateModelElement(
-            grammarAccess.getLeadingSpaceAndCommentsAccess().getOWSAction_0(),
+            grammarAccess.getLeadingCommentsAccess().getOWSAction_0(),
             $current);
     }
 )(
 (
 		{ 
-	        newCompositeNode(grammarAccess.getLeadingSpaceAndCommentsAccess().getValuesCommentsParserRuleCall_1_0()); 
+	        newCompositeNode(grammarAccess.getLeadingCommentsAccess().getValuesCommentParserRuleCall_1_0()); 
 	    }
-		lv_values_1_0=rulecomments		{
+		lv_values_1_0=rulecomment		{
 	        if ($current==null) {
-	            $current = createModelElementForParent(grammarAccess.getLeadingSpaceAndCommentsRule());
+	            $current = createModelElementForParent(grammarAccess.getLeadingCommentsRule());
 	        }
        		add(
        			$current, 
        			"values",
         		lv_values_1_0, 
-        		"comments");
+        		"comment");
 	        afterParserOrEnumRuleCall();
 	    }
 
 )
 )*)
 ;
+finally {
+	myHiddenTokenState.restore();
+}
 
 
 
 
 
-// Entry rule entryRulecomments
-entryRulecomments returns [String current=null] 
+// Entry rule entryRulecomment
+entryRulecomment returns [String current=null] 
 	@init { 
-		HiddenTokens myHiddenTokenState = ((XtextTokenStream)input).setHiddenTokens("RULE_WS");
+		HiddenTokens myHiddenTokenState = ((XtextTokenStream)input).setHiddenTokens();
 	}
 :
-	{ newCompositeNode(grammarAccess.getCommentsRule()); } 
-	 iv_rulecomments=rulecomments 
-	 { $current=$iv_rulecomments.current.getText(); }  
+	{ newCompositeNode(grammarAccess.getCommentRule()); } 
+	 iv_rulecomment=rulecomment 
+	 { $current=$iv_rulecomment.current.getText(); }  
 	 EOF 
 ;
 finally {
 	myHiddenTokenState.restore();
 }
 
-// Rule comments
-rulecomments returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] 
+// Rule comment
+rulecomment returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] 
     @init { enterRule(); 
-		HiddenTokens myHiddenTokenState = ((XtextTokenStream)input).setHiddenTokens("RULE_WS");
+		HiddenTokens myHiddenTokenState = ((XtextTokenStream)input).setHiddenTokens();
     }
     @after { leaveRule();
     }:
@@ -5878,7 +5942,7 @@ rulecomments returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken(
     }
 
     { 
-    newLeafNode(this_ML_COMMENT_0, grammarAccess.getCommentsAccess().getML_COMMENTTerminalRuleCall_0()); 
+    newLeafNode(this_ML_COMMENT_0, grammarAccess.getCommentAccess().getML_COMMENTTerminalRuleCall_0()); 
     }
 
     |    this_SL_COMMENT_1=RULE_SL_COMMENT    {
@@ -5886,7 +5950,7 @@ rulecomments returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken(
     }
 
     { 
-    newLeafNode(this_SL_COMMENT_1, grammarAccess.getCommentsAccess().getSL_COMMENTTerminalRuleCall_1()); 
+    newLeafNode(this_SL_COMMENT_1, grammarAccess.getCommentAccess().getSL_COMMENTTerminalRuleCall_1()); 
     }
 )
     ;

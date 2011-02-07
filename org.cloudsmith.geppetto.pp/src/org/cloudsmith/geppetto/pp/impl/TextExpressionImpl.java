@@ -184,6 +184,17 @@ public abstract class TextExpressionImpl extends EObjectImpl implements TextExpr
 	 * @generated
 	 */
 	@Override
+	protected EClass eStaticClass() {
+		return PPPackage.Literals.TEXT_EXPRESSION;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch(featureID) {
 			case PPPackage.TEXT_EXPRESSION__TRAILING:
@@ -262,17 +273,6 @@ public abstract class TextExpressionImpl extends EObjectImpl implements TextExpr
 		else if(eNotificationRequired())
 			eNotify(new ENotificationImpl(
 				this, Notification.SET, PPPackage.TEXT_EXPRESSION__TRAILING, newTrailing, newTrailing));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * 
-	 * @generated
-	 */
-	@Override
-	protected EClass eStaticClass() {
-		return PPPackage.Literals.TEXT_EXPRESSION;
 	}
 
 } // TextExpressionImpl

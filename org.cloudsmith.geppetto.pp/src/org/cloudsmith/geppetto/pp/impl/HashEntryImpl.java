@@ -185,6 +185,17 @@ public class HashEntryImpl extends EObjectImpl implements HashEntry {
 	 * @generated
 	 */
 	@Override
+	protected EClass eStaticClass() {
+		return PPPackage.Literals.HASH_ENTRY;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch(featureID) {
 			case PPPackage.HASH_ENTRY__KEY:
@@ -261,17 +272,6 @@ public class HashEntryImpl extends EObjectImpl implements HashEntry {
 		}
 		else if(eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, PPPackage.HASH_ENTRY__VALUE, newValue, newValue));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * 
-	 * @generated
-	 */
-	@Override
-	protected EClass eStaticClass() {
-		return PPPackage.Literals.HASH_ENTRY;
 	}
 
 } // HashEntryImpl

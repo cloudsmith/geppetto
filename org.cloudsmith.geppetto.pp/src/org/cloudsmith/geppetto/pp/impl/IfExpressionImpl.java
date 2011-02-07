@@ -212,6 +212,17 @@ public class IfExpressionImpl extends ExpressionImpl implements IfExpression {
 	 * @generated
 	 */
 	@Override
+	protected EClass eStaticClass() {
+		return PPPackage.Literals.IF_EXPRESSION;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch(featureID) {
 			case PPPackage.IF_EXPRESSION__COND_EXPR:
@@ -307,17 +318,6 @@ public class IfExpressionImpl extends ExpressionImpl implements IfExpression {
 		else if(eNotificationRequired())
 			eNotify(new ENotificationImpl(
 				this, Notification.SET, PPPackage.IF_EXPRESSION__ELSE_STATEMENT, newElseStatement, newElseStatement));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * 
-	 * @generated
-	 */
-	@Override
-	protected EClass eStaticClass() {
-		return PPPackage.Literals.IF_EXPRESSION;
 	}
 
 } // IfExpressionImpl

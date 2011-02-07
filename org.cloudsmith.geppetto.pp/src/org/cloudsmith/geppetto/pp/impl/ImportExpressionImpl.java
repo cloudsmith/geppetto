@@ -128,6 +128,17 @@ public class ImportExpressionImpl extends ExpressionImpl implements ImportExpres
 	 * @generated
 	 */
 	@Override
+	protected EClass eStaticClass() {
+		return PPPackage.Literals.IMPORT_EXPRESSION;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch(featureID) {
 			case PPPackage.IMPORT_EXPRESSION__VALUES:
@@ -149,17 +160,6 @@ public class ImportExpressionImpl extends ExpressionImpl implements ImportExpres
 				IQuotedString.class, this, PPPackage.IMPORT_EXPRESSION__VALUES);
 		}
 		return values;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * 
-	 * @generated
-	 */
-	@Override
-	protected EClass eStaticClass() {
-		return PPPackage.Literals.IMPORT_EXPRESSION;
 	}
 
 } // ImportExpressionImpl

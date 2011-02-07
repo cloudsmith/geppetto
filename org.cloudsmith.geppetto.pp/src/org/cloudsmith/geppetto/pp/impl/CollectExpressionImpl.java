@@ -228,6 +228,17 @@ public class CollectExpressionImpl extends ExpressionImpl implements CollectExpr
 	 * @generated
 	 */
 	@Override
+	protected EClass eStaticClass() {
+		return PPPackage.Literals.COLLECT_EXPRESSION;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch(featureID) {
 			case PPPackage.COLLECT_EXPRESSION__CLASS_REFERENCE:
@@ -344,17 +355,6 @@ public class CollectExpressionImpl extends ExpressionImpl implements CollectExpr
 		else if(eNotificationRequired())
 			eNotify(new ENotificationImpl(
 				this, Notification.SET, PPPackage.COLLECT_EXPRESSION__QUERY, newQuery, newQuery));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * 
-	 * @generated
-	 */
-	@Override
-	protected EClass eStaticClass() {
-		return PPPackage.Literals.COLLECT_EXPRESSION;
 	}
 
 } // CollectExpressionImpl

@@ -51,18 +51,6 @@ public class TextExpressionHelper {
 		}
 	}
 
-	public static List<StringData> getStringData(DoubleQuotedString dqString) {
-		return flattenTextExpression(dqString.getTextExpression());
-	}
-
-	public static boolean hasInterpolation(DoubleQuotedString dqString) {
-		List<StringData> stringData = getStringData(dqString);
-		for(StringData sd : stringData)
-			if(!(sd.te instanceof VerbatimTE))
-				return true;
-		return false;
-	}
-
 	private static void flatten(List<StringData> result, TextExpression te) {
 		if(te == null)
 			return;
@@ -83,6 +71,18 @@ public class TextExpressionHelper {
 		List<StringData> result = new ArrayList<StringData>();
 		flatten(result, te);
 		return result;
+	}
+
+	public static List<StringData> getStringData(DoubleQuotedString dqString) {
+		return flattenTextExpression(dqString.getTextExpression());
+	}
+
+	public static boolean hasInterpolation(DoubleQuotedString dqString) {
+		List<StringData> stringData = getStringData(dqString);
+		for(StringData sd : stringData)
+			if(!(sd.te instanceof VerbatimTE))
+				return true;
+		return false;
 	}
 
 	private static StringData stringData(TextExpression te, String s) {

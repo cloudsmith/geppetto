@@ -110,6 +110,17 @@ public class OWSImpl extends EObjectImpl implements OWS {
 	 * @generated
 	 */
 	@Override
+	protected EClass eStaticClass() {
+		return PPPackage.Literals.OWS;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch(featureID) {
 			case PPPackage.OWS__VALUES:
@@ -148,17 +159,6 @@ public class OWSImpl extends EObjectImpl implements OWS {
 		result.append(values);
 		result.append(')');
 		return result.toString();
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * 
-	 * @generated
-	 */
-	@Override
-	protected EClass eStaticClass() {
-		return PPPackage.Literals.OWS;
 	}
 
 } // OWSImpl

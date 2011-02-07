@@ -171,6 +171,17 @@ public abstract class ParameterizedExpressionImpl extends ExpressionImpl impleme
 	 * @generated
 	 */
 	@Override
+	protected EClass eStaticClass() {
+		return PPPackage.Literals.PARAMETERIZED_EXPRESSION;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch(featureID) {
 			case PPPackage.PARAMETERIZED_EXPRESSION__LEFT_EXPR:
@@ -229,17 +240,6 @@ public abstract class ParameterizedExpressionImpl extends ExpressionImpl impleme
 		else if(eNotificationRequired())
 			eNotify(new ENotificationImpl(
 				this, Notification.SET, PPPackage.PARAMETERIZED_EXPRESSION__LEFT_EXPR, newLeftExpr, newLeftExpr));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * 
-	 * @generated
-	 */
-	@Override
-	protected EClass eStaticClass() {
-		return PPPackage.Literals.PARAMETERIZED_EXPRESSION;
 	}
 
 } // ParameterizedExpressionImpl

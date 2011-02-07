@@ -118,6 +118,17 @@ public class SingleQuotedStringImpl extends StringExpressionImpl implements Sing
 	 * @generated
 	 */
 	@Override
+	protected EClass eStaticClass() {
+		return PPPackage.Literals.SINGLE_QUOTED_STRING;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch(featureID) {
 			case PPPackage.SINGLE_QUOTED_STRING__TEXT:
@@ -166,17 +177,6 @@ public class SingleQuotedStringImpl extends StringExpressionImpl implements Sing
 		result.append(text);
 		result.append(')');
 		return result.toString();
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * 
-	 * @generated
-	 */
-	@Override
-	protected EClass eStaticClass() {
-		return PPPackage.Literals.SINGLE_QUOTED_STRING;
 	}
 
 } // SingleQuotedStringImpl

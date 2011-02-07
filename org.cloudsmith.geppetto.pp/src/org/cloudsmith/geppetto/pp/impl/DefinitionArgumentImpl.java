@@ -176,6 +176,17 @@ public class DefinitionArgumentImpl extends EObjectImpl implements DefinitionArg
 	 * @generated
 	 */
 	@Override
+	protected EClass eStaticClass() {
+		return PPPackage.Literals.DEFINITION_ARGUMENT;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch(featureID) {
 			case PPPackage.DEFINITION_ARGUMENT__ARG_NAME:
@@ -262,17 +273,6 @@ public class DefinitionArgumentImpl extends EObjectImpl implements DefinitionArg
 		result.append(argName);
 		result.append(')');
 		return result.toString();
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * 
-	 * @generated
-	 */
-	@Override
-	protected EClass eStaticClass() {
-		return PPPackage.Literals.DEFINITION_ARGUMENT;
 	}
 
 } // DefinitionArgumentImpl

@@ -186,6 +186,17 @@ public class ResourceBodyImpl extends EObjectImpl implements ResourceBody {
 	 * @generated
 	 */
 	@Override
+	protected EClass eStaticClass() {
+		return PPPackage.Literals.RESOURCE_BODY;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch(featureID) {
 			case PPPackage.RESOURCE_BODY__ATTRIBUTES:
@@ -264,17 +275,6 @@ public class ResourceBodyImpl extends EObjectImpl implements ResourceBody {
 		else if(eNotificationRequired())
 			eNotify(new ENotificationImpl(
 				this, Notification.SET, PPPackage.RESOURCE_BODY__NAME_EXPR, newNameExpr, newNameExpr));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * 
-	 * @generated
-	 */
-	@Override
-	protected EClass eStaticClass() {
-		return PPPackage.Literals.RESOURCE_BODY;
 	}
 
 } // ResourceBodyImpl

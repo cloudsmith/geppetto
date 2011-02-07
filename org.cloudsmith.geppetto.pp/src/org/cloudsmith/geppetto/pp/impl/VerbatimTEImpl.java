@@ -118,6 +118,17 @@ public class VerbatimTEImpl extends TextExpressionImpl implements VerbatimTE {
 	 * @generated
 	 */
 	@Override
+	protected EClass eStaticClass() {
+		return PPPackage.Literals.VERBATIM_TE;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch(featureID) {
 			case PPPackage.VERBATIM_TE__TEXT:
@@ -166,17 +177,6 @@ public class VerbatimTEImpl extends TextExpressionImpl implements VerbatimTE {
 		result.append(text);
 		result.append(')');
 		return result.toString();
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * 
-	 * @generated
-	 */
-	@Override
-	protected EClass eStaticClass() {
-		return PPPackage.Literals.VERBATIM_TE;
 	}
 
 } // VerbatimTEImpl

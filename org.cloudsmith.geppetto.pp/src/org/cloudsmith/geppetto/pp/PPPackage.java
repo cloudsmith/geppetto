@@ -270,6 +270,15 @@ public interface PPPackage extends EPackage {
 		EReference DEFINITION__STATEMENTS = eINSTANCE.getDefinition_Statements();
 
 		/**
+		 * The meta object literal for the '<em><b>Documentation</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * 
+		 * @generated
+		 */
+		EReference DEFINITION__DOCUMENTATION = eINSTANCE.getDefinition_Documentation();
+
+		/**
 		 * The meta object literal for the '{@link org.cloudsmith.geppetto.pp.impl.DefinitionArgumentListImpl <em>Definition Argument List</em>}'
 		 * class.
 		 * <!-- begin-user-doc -->
@@ -1859,6 +1868,16 @@ public interface PPPackage extends EPackage {
 	int DEFINITION__STATEMENTS = EXPRESSION_FEATURE_COUNT + 2;
 
 	/**
+	 * The feature id for the '<em><b>Documentation</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 * @ordered
+	 */
+	int DEFINITION__DOCUMENTATION = EXPRESSION_FEATURE_COUNT + 3;
+
+	/**
 	 * The number of structural features of the '<em>Definition</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1866,7 +1885,7 @@ public interface PPPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int DEFINITION_FEATURE_COUNT = EXPRESSION_FEATURE_COUNT + 3;
+	int DEFINITION_FEATURE_COUNT = EXPRESSION_FEATURE_COUNT + 4;
 
 	/**
 	 * The feature id for the '<em><b>Class Name</b></em>' attribute.
@@ -1897,6 +1916,16 @@ public interface PPPackage extends EPackage {
 	 * @ordered
 	 */
 	int HOST_CLASS_DEFINITION__STATEMENTS = DEFINITION__STATEMENTS;
+
+	/**
+	 * The feature id for the '<em><b>Documentation</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 * @ordered
+	 */
+	int HOST_CLASS_DEFINITION__DOCUMENTATION = DEFINITION__DOCUMENTATION;
 
 	/**
 	 * The feature id for the '<em><b>Parent</b></em>' containment reference.
@@ -4471,6 +4500,18 @@ public interface PPPackage extends EPackage {
 	 * @generated
 	 */
 	EAttribute getDefinition_ClassName();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link org.cloudsmith.geppetto.pp.Definition#getDocumentation <em>Documentation</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @return the meta object for the containment reference '<em>Documentation</em>'.
+	 * @see org.cloudsmith.geppetto.pp.Definition#getDocumentation()
+	 * @see #getDefinition()
+	 * @generated
+	 */
+	EReference getDefinition_Documentation();
 
 	/**
 	 * Returns the meta object for the containment reference list '{@link org.cloudsmith.geppetto.pp.Definition#getStatements <em>Statements</em>}'.

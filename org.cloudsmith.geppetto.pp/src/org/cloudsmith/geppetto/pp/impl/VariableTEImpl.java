@@ -118,6 +118,17 @@ public class VariableTEImpl extends TextExpressionImpl implements VariableTE {
 	 * @generated
 	 */
 	@Override
+	protected EClass eStaticClass() {
+		return PPPackage.Literals.VARIABLE_TE;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch(featureID) {
 			case PPPackage.VARIABLE_TE__VAR_NAME:
@@ -166,17 +177,6 @@ public class VariableTEImpl extends TextExpressionImpl implements VariableTE {
 		result.append(varName);
 		result.append(')');
 		return result.toString();
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * 
-	 * @generated
-	 */
-	@Override
-	protected EClass eStaticClass() {
-		return PPPackage.Literals.VARIABLE_TE;
 	}
 
 } // VariableTEImpl

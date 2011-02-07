@@ -118,6 +118,17 @@ public class LiteralRegexImpl extends LiteralExpressionImpl implements LiteralRe
 	 * @generated
 	 */
 	@Override
+	protected EClass eStaticClass() {
+		return PPPackage.Literals.LITERAL_REGEX;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch(featureID) {
 			case PPPackage.LITERAL_REGEX__VALUE:
@@ -166,17 +177,6 @@ public class LiteralRegexImpl extends LiteralExpressionImpl implements LiteralRe
 		result.append(value);
 		result.append(')');
 		return result.toString();
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * 
-	 * @generated
-	 */
-	@Override
-	protected EClass eStaticClass() {
-		return PPPackage.Literals.LITERAL_REGEX;
 	}
 
 } // LiteralRegexImpl

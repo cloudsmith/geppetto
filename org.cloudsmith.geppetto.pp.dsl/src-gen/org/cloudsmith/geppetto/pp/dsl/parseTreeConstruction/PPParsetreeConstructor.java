@@ -69,39 +69,40 @@ protected class ThisRootNode extends RootToken {
 			case 35: return new HostClassDefinition_Group(this, this, 35, inst);
 			case 36: return new ParentName_Alternatives(this, this, 36, inst);
 			case 37: return new Definition_Group(this, this, 37, inst);
-			case 38: return new DefinitionArgumentList_Group(this, this, 38, inst);
-			case 39: return new DefinitionArgument_Group(this, this, 39, inst);
-			case 40: return new CaseExpression_Group(this, this, 40, inst);
-			case 41: return new Case_Group(this, this, 41, inst);
-			case 42: return new IfExpression_Group(this, this, 42, inst);
-			case 43: return new ElseExpression_Group(this, this, 43, inst);
-			case 44: return new ElseIfExpression_Group(this, this, 44, inst);
-			case 45: return new LiteralExpression_Alternatives(this, this, 45, inst);
-			case 46: return new LiteralNameOrReference_ValueAssignment(this, this, 46, inst);
-			case 47: return new ParenthisedExpression_Group(this, this, 47, inst);
-			case 48: return new VirtualNameOrReference_Group(this, this, 48, inst);
-			case 49: return new ImportExpression_Group(this, this, 49, inst);
-			case 50: return new LiteralList_Group(this, this, 50, inst);
-			case 51: return new LiteralHash_Group(this, this, 51, inst);
-			case 52: return new HashEntry_Group(this, this, 52, inst);
-			case 53: return new LiteralNameOrString_Alternatives(this, this, 53, inst);
-			case 54: return new LiteralBoolean_ValueAssignment(this, this, 54, inst);
-			case 55: return new LiteralDefault_Group(this, this, 55, inst);
-			case 56: return new LiteralUndef_Group(this, this, 56, inst);
-			case 57: return new StringExpression_Alternatives(this, this, 57, inst);
-			case 58: return new QuotedString_Alternatives(this, this, 58, inst);
-			case 59: return new SingleQuotedString_Group(this, this, 59, inst);
-			case 60: return new DoubleQuotedString_Group(this, this, 60, inst);
-			case 61: return new TextExpression_DollarTextExpressionParserRuleCall(this, this, 61, inst);
-			case 62: return new DollarTextExpression_Group(this, this, 62, inst);
-			case 63: return new VariableTextExpression_Group(this, this, 63, inst);
-			case 64: return new ExpressionTextExpression_Group(this, this, 64, inst);
-			case 65: return new StringPart_Group(this, this, 65, inst);
-			case 66: return new UnquotedString_Group(this, this, 66, inst);
-			case 67: return new LiteralRegex_ValueAssignment(this, this, 67, inst);
-			case 68: return new LiteralName_ValueAssignment(this, this, 68, inst);
-			case 69: return new VariableExpression_VarNameAssignment(this, this, 69, inst);
-			case 70: return new LeadingSpaceAndComments_Group(this, this, 70, inst);
+			case 38: return new OptionallyDocumentedDefinition_Group(this, this, 38, inst);
+			case 39: return new DefinitionArgumentList_Group(this, this, 39, inst);
+			case 40: return new DefinitionArgument_Group(this, this, 40, inst);
+			case 41: return new CaseExpression_Group(this, this, 41, inst);
+			case 42: return new Case_Group(this, this, 42, inst);
+			case 43: return new IfExpression_Group(this, this, 43, inst);
+			case 44: return new ElseExpression_Group(this, this, 44, inst);
+			case 45: return new ElseIfExpression_Group(this, this, 45, inst);
+			case 46: return new LiteralExpression_Alternatives(this, this, 46, inst);
+			case 47: return new LiteralNameOrReference_ValueAssignment(this, this, 47, inst);
+			case 48: return new ParenthisedExpression_Group(this, this, 48, inst);
+			case 49: return new VirtualNameOrReference_Group(this, this, 49, inst);
+			case 50: return new ImportExpression_Group(this, this, 50, inst);
+			case 51: return new LiteralList_Group(this, this, 51, inst);
+			case 52: return new LiteralHash_Group(this, this, 52, inst);
+			case 53: return new HashEntry_Group(this, this, 53, inst);
+			case 54: return new LiteralNameOrString_Alternatives(this, this, 54, inst);
+			case 55: return new LiteralBoolean_ValueAssignment(this, this, 55, inst);
+			case 56: return new LiteralDefault_Group(this, this, 56, inst);
+			case 57: return new LiteralUndef_Group(this, this, 57, inst);
+			case 58: return new StringExpression_Alternatives(this, this, 58, inst);
+			case 59: return new QuotedString_Alternatives(this, this, 59, inst);
+			case 60: return new SingleQuotedString_Group(this, this, 60, inst);
+			case 61: return new DoubleQuotedString_Group(this, this, 61, inst);
+			case 62: return new TextExpression_DollarTextExpressionParserRuleCall(this, this, 62, inst);
+			case 63: return new DollarTextExpression_Group(this, this, 63, inst);
+			case 64: return new VariableTextExpression_Group(this, this, 64, inst);
+			case 65: return new ExpressionTextExpression_Group(this, this, 65, inst);
+			case 66: return new StringPart_Group(this, this, 66, inst);
+			case 67: return new UnquotedString_Group(this, this, 67, inst);
+			case 68: return new LiteralRegex_ValueAssignment(this, this, 68, inst);
+			case 69: return new LiteralName_ValueAssignment(this, this, 69, inst);
+			case 70: return new VariableExpression_VarNameAssignment(this, this, 70, inst);
+			case 71: return new LeadingComments_Group(this, this, 71, inst);
 			default: return null;
 		}	
 	}	
@@ -119,7 +120,7 @@ protected class ThisRootNode extends RootToken {
  * // 
  * // Most 'intermediate' rules do not have to care about this - only the rules that consume a token
  * // must deal with trailing .
- * // The Manifest allows leading space(s) and comments to be included in the model in an LeadingSpaceAndComments (to aid in generating
+ * // The Manifest allows leading space(s) and comments to be included in the model in an LeadingComments (to aid in generating
  * // a meaningsful header).
  * //
  * // Important note about 'unused' object creating rules
@@ -130,11 +131,13 @@ protected class ThisRootNode extends RootToken {
  * // (Unused *data* rules are ignored by the parser generator).
  * // 
  * PuppetManifest returns pp::PuppetManifest:
- * 	{pp::PuppetManifest} leadingSpaceAndComments=LeadingSpaceAndComments? statements+=ExpressionList*;
+ * 	{pp::PuppetManifest} //		leadingSpaceAndComments = LeadingComments?
+ * 	statements+=ExpressionList*;
  *
  **/
 
-// {pp::PuppetManifest} leadingSpaceAndComments=LeadingSpaceAndComments? statements+=ExpressionList*
+// {pp::PuppetManifest} //		leadingSpaceAndComments = LeadingComments?
+// statements+=ExpressionList*
 protected class PuppetManifest_Group extends GroupToken {
 	
 	public PuppetManifest_Group(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -149,9 +152,8 @@ protected class PuppetManifest_Group extends GroupToken {
     @Override
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
-			case 0: return new PuppetManifest_StatementsAssignment_2(lastRuleCallOrigin, this, 0, inst);
-			case 1: return new PuppetManifest_LeadingSpaceAndCommentsAssignment_1(lastRuleCallOrigin, this, 1, inst);
-			case 2: return new PuppetManifest_PuppetManifestAction_0(lastRuleCallOrigin, this, 2, inst);
+			case 0: return new PuppetManifest_StatementsAssignment_1(lastRuleCallOrigin, this, 0, inst);
+			case 1: return new PuppetManifest_PuppetManifestAction_0(lastRuleCallOrigin, this, 1, inst);
 			default: return null;
 		}	
 	}
@@ -191,62 +193,16 @@ protected class PuppetManifest_PuppetManifestAction_0 extends ActionToken  {
 	}
 }
 
-// leadingSpaceAndComments=LeadingSpaceAndComments?
-protected class PuppetManifest_LeadingSpaceAndCommentsAssignment_1 extends AssignmentToken  {
-	
-	public PuppetManifest_LeadingSpaceAndCommentsAssignment_1(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
-		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
-	}
-	
-	@Override
-	public Assignment getGrammarElement() {
-		return grammarAccess.getPuppetManifestAccess().getLeadingSpaceAndCommentsAssignment_1();
-	}
-
-    @Override
-	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
-		switch(index) {
-			case 0: return new LeadingSpaceAndComments_Group(this, this, 0, inst);
-			default: return null;
-		}	
-	}
-
-    @Override	
-	public IEObjectConsumer tryConsume() {
-		if((value = eObjectConsumer.getConsumable("leadingSpaceAndComments",false)) == null) return null;
-		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("leadingSpaceAndComments");
-		if(value instanceof EObject) { // org::eclipse::xtext::impl::RuleCallImpl
-			IEObjectConsumer param = createEObjectConsumer((EObject)value);
-			if(param.isInstanceOf(grammarAccess.getLeadingSpaceAndCommentsRule().getType().getClassifier())) {
-				type = AssignmentType.PARSER_RULE_CALL;
-				element = grammarAccess.getPuppetManifestAccess().getLeadingSpaceAndCommentsLeadingSpaceAndCommentsParserRuleCall_1_0(); 
-				consumed = obj;
-				return param;
-			}
-		}
-		return null;
-	}
-
-    @Override
-	public AbstractToken createFollowerAfterReturn(AbstractToken next,	int actIndex, int index, IEObjectConsumer inst) {
-		if(value == inst.getEObject() && !inst.isConsumed()) return null;
-		switch(index) {
-			case 0: return new PuppetManifest_PuppetManifestAction_0(lastRuleCallOrigin, next, actIndex, consumed);
-			default: return null;
-		}	
-	}	
-}
-
 // statements+=ExpressionList*
-protected class PuppetManifest_StatementsAssignment_2 extends AssignmentToken  {
+protected class PuppetManifest_StatementsAssignment_1 extends AssignmentToken  {
 	
-	public PuppetManifest_StatementsAssignment_2(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+	public PuppetManifest_StatementsAssignment_1(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
 		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
 	}
 	
 	@Override
 	public Assignment getGrammarElement() {
-		return grammarAccess.getPuppetManifestAccess().getStatementsAssignment_2();
+		return grammarAccess.getPuppetManifestAccess().getStatementsAssignment_1();
 	}
 
     @Override
@@ -265,7 +221,7 @@ protected class PuppetManifest_StatementsAssignment_2 extends AssignmentToken  {
 			IEObjectConsumer param = createEObjectConsumer((EObject)value);
 			if(param.isInstanceOf(grammarAccess.getExpressionListRule().getType().getClassifier())) {
 				type = AssignmentType.PARSER_RULE_CALL;
-				element = grammarAccess.getPuppetManifestAccess().getStatementsExpressionListParserRuleCall_2_0(); 
+				element = grammarAccess.getPuppetManifestAccess().getStatementsExpressionListParserRuleCall_1_0(); 
 				consumed = obj;
 				return param;
 			}
@@ -277,9 +233,8 @@ protected class PuppetManifest_StatementsAssignment_2 extends AssignmentToken  {
 	public AbstractToken createFollowerAfterReturn(AbstractToken next,	int actIndex, int index, IEObjectConsumer inst) {
 		if(value == inst.getEObject() && !inst.isConsumed()) return null;
 		switch(index) {
-			case 0: return new PuppetManifest_StatementsAssignment_2(lastRuleCallOrigin, next, actIndex, consumed);
-			case 1: return new PuppetManifest_LeadingSpaceAndCommentsAssignment_1(lastRuleCallOrigin, next, actIndex, consumed);
-			case 2: return new PuppetManifest_PuppetManifestAction_0(lastRuleCallOrigin, next, actIndex, consumed);
+			case 0: return new PuppetManifest_StatementsAssignment_1(lastRuleCallOrigin, next, actIndex, consumed);
+			case 1: return new PuppetManifest_PuppetManifestAction_0(lastRuleCallOrigin, next, actIndex, consumed);
 			default: return null;
 		}	
 	}	
@@ -7614,12 +7569,13 @@ protected class SelectorEntry_RightExprAssignment_1_2 extends AssignmentToken  {
  * //
  * // TODO VALIDATE : functionExpr is a valid function name	
  * FunctionCall returns pp::Expression:
- * 	PrimaryExpression ({pp::FunctionCall.leftExpr=current} "(" (parameters+=Expression ("," parameters+=Expression)*)?
- * 	")")?;
+ * 	PrimaryExpression ({pp::FunctionCall.leftExpr=current} "(" (parameters+=Expression ("," parameters+=Expression)*
+ * 	endComma?)? ")")?;
  *
  **/
 
-// PrimaryExpression ({pp::FunctionCall.leftExpr=current} "(" (parameters+=Expression ("," parameters+=Expression)*)? ")")?
+// PrimaryExpression ({pp::FunctionCall.leftExpr=current} "(" (parameters+=Expression ("," parameters+=Expression)*
+// endComma?)? ")")?
 protected class FunctionCall_Group extends GroupToken {
 	
 	public FunctionCall_Group(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -7722,7 +7678,7 @@ protected class FunctionCall_PrimaryExpressionParserRuleCall_0 extends RuleCallT
 	}	
 }
 
-// ({pp::FunctionCall.leftExpr=current} "(" (parameters+=Expression ("," parameters+=Expression)*)? ")")?
+// ({pp::FunctionCall.leftExpr=current} "(" (parameters+=Expression ("," parameters+=Expression)* endComma?)? ")")?
 protected class FunctionCall_Group_1 extends GroupToken {
 	
 	public FunctionCall_Group_1(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -7802,7 +7758,7 @@ protected class FunctionCall_LeftParenthesisKeyword_1_1 extends KeywordToken  {
 
 }
 
-// (parameters+=Expression ("," parameters+=Expression)*)?
+// (parameters+=Expression ("," parameters+=Expression)* endComma?)?
 protected class FunctionCall_Group_1_2 extends GroupToken {
 	
 	public FunctionCall_Group_1_2(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -9457,11 +9413,13 @@ protected class ParentName_LiteralNameOrReferenceParserRuleCall_1 extends RuleCa
 /************ begin Rule Definition ****************
  *
  * Definition returns pp::Definition:
- * 	"define" className=unionNameOrReference arguments=DefinitionArgumentList? "{" statements+=ExpressionList* "}";
+ * 	documentation=OptionallyDocumentedDefinition className=unionNameOrReference arguments=DefinitionArgumentList? "{"
+ * 	statements+=ExpressionList* "}";
  *
  **/
 
-// "define" className=unionNameOrReference arguments=DefinitionArgumentList? "{" statements+=ExpressionList* "}"
+// documentation=OptionallyDocumentedDefinition className=unionNameOrReference arguments=DefinitionArgumentList? "{"
+// statements+=ExpressionList* "}"
 protected class Definition_Group extends GroupToken {
 	
 	public Definition_Group(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -9490,25 +9448,49 @@ protected class Definition_Group extends GroupToken {
 
 }
 
-// "define"
-protected class Definition_DefineKeyword_0 extends KeywordToken  {
+// documentation=OptionallyDocumentedDefinition
+protected class Definition_DocumentationAssignment_0 extends AssignmentToken  {
 	
-	public Definition_DefineKeyword_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+	public Definition_DocumentationAssignment_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
 		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
 	}
 	
 	@Override
-	public Keyword getGrammarElement() {
-		return grammarAccess.getDefinitionAccess().getDefineKeyword_0();
+	public Assignment getGrammarElement() {
+		return grammarAccess.getDefinitionAccess().getDocumentationAssignment_0();
 	}
 
     @Override
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
-			default: return lastRuleCallOrigin.createFollowerAfterReturn(this, index, index, inst);
+			case 0: return new OptionallyDocumentedDefinition_Group(this, this, 0, inst);
+			default: return null;
 		}	
 	}
 
+    @Override	
+	public IEObjectConsumer tryConsume() {
+		if((value = eObjectConsumer.getConsumable("documentation",true)) == null) return null;
+		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("documentation");
+		if(value instanceof EObject) { // org::eclipse::xtext::impl::RuleCallImpl
+			IEObjectConsumer param = createEObjectConsumer((EObject)value);
+			if(param.isInstanceOf(grammarAccess.getOptionallyDocumentedDefinitionRule().getType().getClassifier())) {
+				type = AssignmentType.PARSER_RULE_CALL;
+				element = grammarAccess.getDefinitionAccess().getDocumentationOptionallyDocumentedDefinitionParserRuleCall_0_0(); 
+				consumed = obj;
+				return param;
+			}
+		}
+		return null;
+	}
+
+    @Override
+	public AbstractToken createFollowerAfterReturn(AbstractToken next,	int actIndex, int index, IEObjectConsumer inst) {
+		if(value == inst.getEObject() && !inst.isConsumed()) return null;
+		switch(index) {
+			default: return lastRuleCallOrigin.createFollowerAfterReturn(next, actIndex , index, consumed);
+		}	
+	}	
 }
 
 // className=unionNameOrReference
@@ -9526,7 +9508,7 @@ protected class Definition_ClassNameAssignment_1 extends AssignmentToken  {
     @Override
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
-			case 0: return new Definition_DefineKeyword_0(lastRuleCallOrigin, this, 0, inst);
+			case 0: return new Definition_DocumentationAssignment_0(lastRuleCallOrigin, this, 0, inst);
 			default: return null;
 		}	
 	}
@@ -9686,6 +9668,102 @@ protected class Definition_RightCurlyBracketKeyword_5 extends KeywordToken  {
 
 
 /************ end Rule Definition ****************/
+
+
+/************ begin Rule OptionallyDocumentedDefinition ****************
+ *
+ * OptionallyDocumentedDefinition returns pp::OWS hidden():
+ * 	LeadingComments? "define";
+ *
+ **/
+
+// LeadingComments? "define"
+protected class OptionallyDocumentedDefinition_Group extends GroupToken {
+	
+	public OptionallyDocumentedDefinition_Group(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
+	}
+	
+	@Override
+	public Group getGrammarElement() {
+		return grammarAccess.getOptionallyDocumentedDefinitionAccess().getGroup();
+	}
+
+    @Override
+	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
+		switch(index) {
+			case 0: return new OptionallyDocumentedDefinition_DefineKeyword_1(lastRuleCallOrigin, this, 0, inst);
+			default: return null;
+		}	
+	}
+
+    @Override
+	public IEObjectConsumer tryConsume() {
+		if(getEObject().eClass() != grammarAccess.getLeadingCommentsAccess().getOWSAction_0().getType().getClassifier())
+			return null;
+		return eObjectConsumer;
+	}
+
+}
+
+// LeadingComments?
+protected class OptionallyDocumentedDefinition_LeadingCommentsParserRuleCall_0 extends RuleCallToken {
+	
+	public OptionallyDocumentedDefinition_LeadingCommentsParserRuleCall_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
+	}
+	
+	@Override
+	public RuleCall getGrammarElement() {
+		return grammarAccess.getOptionallyDocumentedDefinitionAccess().getLeadingCommentsParserRuleCall_0();
+	}
+
+    @Override
+	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
+		switch(index) {
+			case 0: return new LeadingComments_Group(this, this, 0, inst);
+			default: return null;
+		}	
+	}
+
+    @Override
+	public IEObjectConsumer tryConsume() {
+		if(checkForRecursion(LeadingComments_Group.class, eObjectConsumer)) return null;
+		return eObjectConsumer;
+	}
+	
+    @Override
+	public AbstractToken createFollowerAfterReturn(AbstractToken next,	int actIndex, int index, IEObjectConsumer inst) {
+		switch(index) {
+			default: return lastRuleCallOrigin.createFollowerAfterReturn(next, actIndex , index, inst);
+		}	
+	}	
+}
+
+// "define"
+protected class OptionallyDocumentedDefinition_DefineKeyword_1 extends KeywordToken  {
+	
+	public OptionallyDocumentedDefinition_DefineKeyword_1(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
+	}
+	
+	@Override
+	public Keyword getGrammarElement() {
+		return grammarAccess.getOptionallyDocumentedDefinitionAccess().getDefineKeyword_1();
+	}
+
+    @Override
+	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
+		switch(index) {
+			case 0: return new OptionallyDocumentedDefinition_LeadingCommentsParserRuleCall_0(lastRuleCallOrigin, this, 0, inst);
+			default: return lastRuleCallOrigin.createFollowerAfterReturn(this, index, index - 1, inst);
+		}	
+	}
+
+}
+
+
+/************ end Rule OptionallyDocumentedDefinition ****************/
 
 
 /************ begin Rule DefinitionArgumentList ****************
@@ -15223,58 +15301,58 @@ protected class VariableExpression_VarNameAssignment extends AssignmentToken  {
 
 
 
-/************ begin Rule LeadingSpaceAndComments ****************
+/************ begin Rule LeadingComments ****************
  *
- * LeadingSpaceAndComments returns pp::OWS: // Specified to allow source generation from model with comments at the start of the file, 
- * // and is also used in a callback to parser to produce an  object with an array of comments
- * 	{pp::OWS} values+=comments*;
+ * LeadingComments returns pp::OWS hidden(): // Allows a sequence of comments (without any separating new lines)
+ * // Note that ML comment will eat WS including NL
+ * 	{pp::OWS} values+=comment*;
  *
  **/
 
-// // Specified to allow source generation from model with comments at the start of the file, 
-// // and is also used in a callback to parser to produce an  object with an array of comments
-// {pp::OWS} values+=comments*
-protected class LeadingSpaceAndComments_Group extends GroupToken {
+// // Allows a sequence of comments (without any separating new lines)
+// // Note that ML comment will eat WS including NL
+// {pp::OWS} values+=comment*
+protected class LeadingComments_Group extends GroupToken {
 	
-	public LeadingSpaceAndComments_Group(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+	public LeadingComments_Group(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
 		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
 	}
 	
 	@Override
 	public Group getGrammarElement() {
-		return grammarAccess.getLeadingSpaceAndCommentsAccess().getGroup();
+		return grammarAccess.getLeadingCommentsAccess().getGroup();
 	}
 
     @Override
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
-			case 0: return new LeadingSpaceAndComments_ValuesAssignment_1(lastRuleCallOrigin, this, 0, inst);
-			case 1: return new LeadingSpaceAndComments_OWSAction_0(lastRuleCallOrigin, this, 1, inst);
+			case 0: return new LeadingComments_ValuesAssignment_1(lastRuleCallOrigin, this, 0, inst);
+			case 1: return new LeadingComments_OWSAction_0(lastRuleCallOrigin, this, 1, inst);
 			default: return null;
 		}	
 	}
 
     @Override
 	public IEObjectConsumer tryConsume() {
-		if(getEObject().eClass() != grammarAccess.getLeadingSpaceAndCommentsAccess().getOWSAction_0().getType().getClassifier())
+		if(getEObject().eClass() != grammarAccess.getLeadingCommentsAccess().getOWSAction_0().getType().getClassifier())
 			return null;
 		return eObjectConsumer;
 	}
 
 }
 
-// // Specified to allow source generation from model with comments at the start of the file, 
-// // and is also used in a callback to parser to produce an  object with an array of comments
+// // Allows a sequence of comments (without any separating new lines)
+// // Note that ML comment will eat WS including NL
 // {pp::OWS}
-protected class LeadingSpaceAndComments_OWSAction_0 extends ActionToken  {
+protected class LeadingComments_OWSAction_0 extends ActionToken  {
 
-	public LeadingSpaceAndComments_OWSAction_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+	public LeadingComments_OWSAction_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
 		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
 	}
 	
 	@Override
 	public Action getGrammarElement() {
-		return grammarAccess.getLeadingSpaceAndCommentsAccess().getOWSAction_0();
+		return grammarAccess.getLeadingCommentsAccess().getOWSAction_0();
 	}
 
     @Override
@@ -15291,23 +15369,23 @@ protected class LeadingSpaceAndComments_OWSAction_0 extends ActionToken  {
 	}
 }
 
-// values+=comments*
-protected class LeadingSpaceAndComments_ValuesAssignment_1 extends AssignmentToken  {
+// values+=comment*
+protected class LeadingComments_ValuesAssignment_1 extends AssignmentToken  {
 	
-	public LeadingSpaceAndComments_ValuesAssignment_1(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+	public LeadingComments_ValuesAssignment_1(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
 		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
 	}
 	
 	@Override
 	public Assignment getGrammarElement() {
-		return grammarAccess.getLeadingSpaceAndCommentsAccess().getValuesAssignment_1();
+		return grammarAccess.getLeadingCommentsAccess().getValuesAssignment_1();
 	}
 
     @Override
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
-			case 0: return new LeadingSpaceAndComments_ValuesAssignment_1(lastRuleCallOrigin, this, 0, inst);
-			case 1: return new LeadingSpaceAndComments_OWSAction_0(lastRuleCallOrigin, this, 1, inst);
+			case 0: return new LeadingComments_ValuesAssignment_1(lastRuleCallOrigin, this, 0, inst);
+			case 1: return new LeadingComments_OWSAction_0(lastRuleCallOrigin, this, 1, inst);
 			default: return null;
 		}	
 	}
@@ -15316,9 +15394,9 @@ protected class LeadingSpaceAndComments_ValuesAssignment_1 extends AssignmentTok
 	public IEObjectConsumer tryConsume() {
 		if((value = eObjectConsumer.getConsumable("values",false)) == null) return null;
 		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("values");
-		if(valueSerializer.isValid(obj.getEObject(), grammarAccess.getLeadingSpaceAndCommentsAccess().getValuesCommentsParserRuleCall_1_0(), value, null)) {
+		if(valueSerializer.isValid(obj.getEObject(), grammarAccess.getLeadingCommentsAccess().getValuesCommentParserRuleCall_1_0(), value, null)) {
 			type = AssignmentType.DATATYPE_RULE_CALL;
-			element = grammarAccess.getLeadingSpaceAndCommentsAccess().getValuesCommentsParserRuleCall_1_0();
+			element = grammarAccess.getLeadingCommentsAccess().getValuesCommentParserRuleCall_1_0();
 			return obj;
 		}
 		return null;
@@ -15327,7 +15405,7 @@ protected class LeadingSpaceAndComments_ValuesAssignment_1 extends AssignmentTok
 }
 
 
-/************ end Rule LeadingSpaceAndComments ****************/
+/************ end Rule LeadingComments ****************/
 
 
 

@@ -83,6 +83,12 @@ public class TestExpressions extends AbstractPuppetTests {
 		assertEquals("serialization should produce same result", code, s);
 	}
 
+	public void test_ParseCallWithEndComma() throws Exception {
+		String code = "$a = function(1,2,3,)";
+		XtextResource r = getResourceFromString(code);
+		tester.validate(r.getContents().get(0)).assertOK();
+	}
+
 	public void test_Serialize_AppendExpression() {
 		PuppetManifest pp = pf.createPuppetManifest();
 		AppendExpression ae = pf.createAppendExpression();

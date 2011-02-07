@@ -129,6 +129,17 @@ public class DefinitionArgumentListImpl extends EObjectImpl implements Definitio
 	 * @generated
 	 */
 	@Override
+	protected EClass eStaticClass() {
+		return PPPackage.Literals.DEFINITION_ARGUMENT_LIST;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch(featureID) {
 			case PPPackage.DEFINITION_ARGUMENT_LIST__ARGUMENTS:
@@ -150,17 +161,6 @@ public class DefinitionArgumentListImpl extends EObjectImpl implements Definitio
 				DefinitionArgument.class, this, PPPackage.DEFINITION_ARGUMENT_LIST__ARGUMENTS);
 		}
 		return arguments;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * 
-	 * @generated
-	 */
-	@Override
-	protected EClass eStaticClass() {
-		return PPPackage.Literals.DEFINITION_ARGUMENT_LIST;
 	}
 
 } // DefinitionArgumentListImpl

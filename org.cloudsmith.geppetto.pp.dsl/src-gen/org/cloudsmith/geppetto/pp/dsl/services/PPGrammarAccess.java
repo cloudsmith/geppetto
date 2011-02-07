@@ -20,10 +20,8 @@ public class PPGrammarAccess extends AbstractGrammarElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "PuppetManifest");
 		private final Group cGroup = (Group)rule.eContents().get(1);
 		private final Action cPuppetManifestAction_0 = (Action)cGroup.eContents().get(0);
-		private final Assignment cLeadingSpaceAndCommentsAssignment_1 = (Assignment)cGroup.eContents().get(1);
-		private final RuleCall cLeadingSpaceAndCommentsLeadingSpaceAndCommentsParserRuleCall_1_0 = (RuleCall)cLeadingSpaceAndCommentsAssignment_1.eContents().get(0);
-		private final Assignment cStatementsAssignment_2 = (Assignment)cGroup.eContents().get(2);
-		private final RuleCall cStatementsExpressionListParserRuleCall_2_0 = (RuleCall)cStatementsAssignment_2.eContents().get(0);
+		private final Assignment cStatementsAssignment_1 = (Assignment)cGroup.eContents().get(1);
+		private final RuleCall cStatementsExpressionListParserRuleCall_1_0 = (RuleCall)cStatementsAssignment_1.eContents().get(0);
 		
 		//// Important note about white space and comments:
 		//// ------
@@ -34,7 +32,7 @@ public class PPGrammarAccess extends AbstractGrammarElementFinder {
 		//// 
 		//// Most 'intermediate' rules do not have to care about this - only the rules that consume a token
 		//// must deal with trailing .
-		//// The Manifest allows leading space(s) and comments to be included in the model in an LeadingSpaceAndComments (to aid in generating
+		//// The Manifest allows leading space(s) and comments to be included in the model in an LeadingComments (to aid in generating
 		//// a meaningsful header).
 		////
 		//// Important note about 'unused' object creating rules
@@ -45,26 +43,22 @@ public class PPGrammarAccess extends AbstractGrammarElementFinder {
 		//// (Unused *data* rules are ignored by the parser generator).
 		//// 
 		//PuppetManifest returns pp::PuppetManifest:
-		//	{pp::PuppetManifest} leadingSpaceAndComments=LeadingSpaceAndComments? statements+=ExpressionList*;
+		//	{pp::PuppetManifest} //		leadingSpaceAndComments = LeadingComments?
+		//	statements+=ExpressionList*;
 		public ParserRule getRule() { return rule; }
 
-		//{pp::PuppetManifest} leadingSpaceAndComments=LeadingSpaceAndComments? statements+=ExpressionList*
+		//{pp::PuppetManifest} //		leadingSpaceAndComments = LeadingComments?
+		//statements+=ExpressionList*
 		public Group getGroup() { return cGroup; }
 
 		//{pp::PuppetManifest}
 		public Action getPuppetManifestAction_0() { return cPuppetManifestAction_0; }
 
-		//leadingSpaceAndComments=LeadingSpaceAndComments?
-		public Assignment getLeadingSpaceAndCommentsAssignment_1() { return cLeadingSpaceAndCommentsAssignment_1; }
-
-		//LeadingSpaceAndComments
-		public RuleCall getLeadingSpaceAndCommentsLeadingSpaceAndCommentsParserRuleCall_1_0() { return cLeadingSpaceAndCommentsLeadingSpaceAndCommentsParserRuleCall_1_0; }
-
 		//statements+=ExpressionList*
-		public Assignment getStatementsAssignment_2() { return cStatementsAssignment_2; }
+		public Assignment getStatementsAssignment_1() { return cStatementsAssignment_1; }
 
 		//ExpressionList
-		public RuleCall getStatementsExpressionListParserRuleCall_2_0() { return cStatementsExpressionListParserRuleCall_2_0; }
+		public RuleCall getStatementsExpressionListParserRuleCall_1_0() { return cStatementsExpressionListParserRuleCall_1_0; }
 	}
 
 	public class ExpressionElements extends AbstractParserRuleElementFinder {
@@ -1473,6 +1467,7 @@ public class PPGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cCommaKeyword_1_2_1_0 = (Keyword)cGroup_1_2_1.eContents().get(0);
 		private final Assignment cParametersAssignment_1_2_1_1 = (Assignment)cGroup_1_2_1.eContents().get(1);
 		private final RuleCall cParametersExpressionParserRuleCall_1_2_1_1_0 = (RuleCall)cParametersAssignment_1_2_1_1.eContents().get(0);
+		private final RuleCall cEndCommaParserRuleCall_1_2_2 = (RuleCall)cGroup_1_2.eContents().get(2);
 		private final Keyword cRightParenthesisKeyword_1_3 = (Keyword)cGroup_1.eContents().get(3);
 		
 		//// FunctionCall has different syntax restrictions depending on context
@@ -1483,17 +1478,18 @@ public class PPGrammarAccess extends AbstractGrammarElementFinder {
 		////
 		//// TODO VALIDATE : functionExpr is a valid function name	
 		//FunctionCall returns pp::Expression:
-		//	PrimaryExpression ({pp::FunctionCall.leftExpr=current} "(" (parameters+=Expression ("," parameters+=Expression)*)?
-		//	")")?;
+		//	PrimaryExpression ({pp::FunctionCall.leftExpr=current} "(" (parameters+=Expression ("," parameters+=Expression)*
+		//	endComma?)? ")")?;
 		public ParserRule getRule() { return rule; }
 
-		//PrimaryExpression ({pp::FunctionCall.leftExpr=current} "(" (parameters+=Expression ("," parameters+=Expression)*)? ")")?
+		//PrimaryExpression ({pp::FunctionCall.leftExpr=current} "(" (parameters+=Expression ("," parameters+=Expression)*
+		//endComma?)? ")")?
 		public Group getGroup() { return cGroup; }
 
 		//PrimaryExpression
 		public RuleCall getPrimaryExpressionParserRuleCall_0() { return cPrimaryExpressionParserRuleCall_0; }
 
-		//({pp::FunctionCall.leftExpr=current} "(" (parameters+=Expression ("," parameters+=Expression)*)? ")")?
+		//({pp::FunctionCall.leftExpr=current} "(" (parameters+=Expression ("," parameters+=Expression)* endComma?)? ")")?
 		public Group getGroup_1() { return cGroup_1; }
 
 		//{pp::FunctionCall.leftExpr=current}
@@ -1502,7 +1498,7 @@ public class PPGrammarAccess extends AbstractGrammarElementFinder {
 		//"("
 		public Keyword getLeftParenthesisKeyword_1_1() { return cLeftParenthesisKeyword_1_1; }
 
-		//(parameters+=Expression ("," parameters+=Expression)*)?
+		//(parameters+=Expression ("," parameters+=Expression)* endComma?)?
 		public Group getGroup_1_2() { return cGroup_1_2; }
 
 		//parameters+=Expression
@@ -1522,6 +1518,9 @@ public class PPGrammarAccess extends AbstractGrammarElementFinder {
 
 		//Expression
 		public RuleCall getParametersExpressionParserRuleCall_1_2_1_1_0() { return cParametersExpressionParserRuleCall_1_2_1_1_0; }
+
+		//endComma?
+		public RuleCall getEndCommaParserRuleCall_1_2_2() { return cEndCommaParserRuleCall_1_2_2; }
 
 		//")"
 		public Keyword getRightParenthesisKeyword_1_3() { return cRightParenthesisKeyword_1_3; }
@@ -1772,7 +1771,8 @@ public class PPGrammarAccess extends AbstractGrammarElementFinder {
 	public class DefinitionElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "Definition");
 		private final Group cGroup = (Group)rule.eContents().get(1);
-		private final Keyword cDefineKeyword_0 = (Keyword)cGroup.eContents().get(0);
+		private final Assignment cDocumentationAssignment_0 = (Assignment)cGroup.eContents().get(0);
+		private final RuleCall cDocumentationOptionallyDocumentedDefinitionParserRuleCall_0_0 = (RuleCall)cDocumentationAssignment_0.eContents().get(0);
 		private final Assignment cClassNameAssignment_1 = (Assignment)cGroup.eContents().get(1);
 		private final RuleCall cClassNameUnionNameOrReferenceParserRuleCall_1_0 = (RuleCall)cClassNameAssignment_1.eContents().get(0);
 		private final Assignment cArgumentsAssignment_2 = (Assignment)cGroup.eContents().get(2);
@@ -1783,14 +1783,19 @@ public class PPGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cRightCurlyBracketKeyword_5 = (Keyword)cGroup.eContents().get(5);
 		
 		//Definition returns pp::Definition:
-		//	"define" className=unionNameOrReference arguments=DefinitionArgumentList? "{" statements+=ExpressionList* "}";
+		//	documentation=OptionallyDocumentedDefinition className=unionNameOrReference arguments=DefinitionArgumentList? "{"
+		//	statements+=ExpressionList* "}";
 		public ParserRule getRule() { return rule; }
 
-		//"define" className=unionNameOrReference arguments=DefinitionArgumentList? "{" statements+=ExpressionList* "}"
+		//documentation=OptionallyDocumentedDefinition className=unionNameOrReference arguments=DefinitionArgumentList? "{"
+		//statements+=ExpressionList* "}"
 		public Group getGroup() { return cGroup; }
 
-		//"define"
-		public Keyword getDefineKeyword_0() { return cDefineKeyword_0; }
+		//documentation=OptionallyDocumentedDefinition
+		public Assignment getDocumentationAssignment_0() { return cDocumentationAssignment_0; }
+
+		//OptionallyDocumentedDefinition
+		public RuleCall getDocumentationOptionallyDocumentedDefinitionParserRuleCall_0_0() { return cDocumentationOptionallyDocumentedDefinitionParserRuleCall_0_0; }
 
 		//className=unionNameOrReference
 		public Assignment getClassNameAssignment_1() { return cClassNameAssignment_1; }
@@ -1815,6 +1820,26 @@ public class PPGrammarAccess extends AbstractGrammarElementFinder {
 
 		//"}"
 		public Keyword getRightCurlyBracketKeyword_5() { return cRightCurlyBracketKeyword_5; }
+	}
+
+	public class OptionallyDocumentedDefinitionElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "OptionallyDocumentedDefinition");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final RuleCall cLeadingCommentsParserRuleCall_0 = (RuleCall)cGroup.eContents().get(0);
+		private final Keyword cDefineKeyword_1 = (Keyword)cGroup.eContents().get(1);
+		
+		//OptionallyDocumentedDefinition returns pp::OWS hidden():
+		//	LeadingComments? "define";
+		public ParserRule getRule() { return rule; }
+
+		//LeadingComments? "define"
+		public Group getGroup() { return cGroup; }
+
+		//LeadingComments?
+		public RuleCall getLeadingCommentsParserRuleCall_0() { return cLeadingCommentsParserRuleCall_0; }
+
+		//"define"
+		public Keyword getDefineKeyword_1() { return cDefineKeyword_1; }
 	}
 
 	public class DefinitionArgumentListElements extends AbstractParserRuleElementFinder {
@@ -3190,42 +3215,43 @@ public class PPGrammarAccess extends AbstractGrammarElementFinder {
 		public RuleCall getWORD_CHARSTerminalRuleCall_1_1() { return cWORD_CHARSTerminalRuleCall_1_1; }
 	}
 
-	public class LeadingSpaceAndCommentsElements extends AbstractParserRuleElementFinder {
-		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "LeadingSpaceAndComments");
+	public class LeadingCommentsElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "LeadingComments");
 		private final Group cGroup = (Group)rule.eContents().get(1);
 		private final Action cOWSAction_0 = (Action)cGroup.eContents().get(0);
 		private final Assignment cValuesAssignment_1 = (Assignment)cGroup.eContents().get(1);
-		private final RuleCall cValuesCommentsParserRuleCall_1_0 = (RuleCall)cValuesAssignment_1.eContents().get(0);
+		private final RuleCall cValuesCommentParserRuleCall_1_0 = (RuleCall)cValuesAssignment_1.eContents().get(0);
 		
-		//LeadingSpaceAndComments returns pp::OWS: // Specified to allow source generation from model with comments at the start of the file, 
-		//// and is also used in a callback to parser to produce an  object with an array of comments
-		//	{pp::OWS} values+=comments*;
+		//LeadingComments returns pp::OWS hidden(): // Allows a sequence of comments (without any separating new lines)
+		//// Note that ML comment will eat WS including NL
+		//	{pp::OWS} values+=comment*;
 		public ParserRule getRule() { return rule; }
 
-		//// Specified to allow source generation from model with comments at the start of the file, 
-		//// and is also used in a callback to parser to produce an  object with an array of comments
-		//{pp::OWS} values+=comments*
+		//// Allows a sequence of comments (without any separating new lines)
+		//// Note that ML comment will eat WS including NL
+		//{pp::OWS} values+=comment*
 		public Group getGroup() { return cGroup; }
 
-		//// Specified to allow source generation from model with comments at the start of the file, 
-		//// and is also used in a callback to parser to produce an  object with an array of comments
+		//// Allows a sequence of comments (without any separating new lines)
+		//// Note that ML comment will eat WS including NL
 		//{pp::OWS}
 		public Action getOWSAction_0() { return cOWSAction_0; }
 
-		//values+=comments*
+		//values+=comment*
 		public Assignment getValuesAssignment_1() { return cValuesAssignment_1; }
 
-		//comments
-		public RuleCall getValuesCommentsParserRuleCall_1_0() { return cValuesCommentsParserRuleCall_1_0; }
+		//comment
+		public RuleCall getValuesCommentParserRuleCall_1_0() { return cValuesCommentParserRuleCall_1_0; }
 	}
 
-	public class CommentsElements extends AbstractParserRuleElementFinder {
-		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "comments");
+	public class CommentElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "comment");
 		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
 		private final RuleCall cML_COMMENTTerminalRuleCall_0 = (RuleCall)cAlternatives.eContents().get(0);
 		private final RuleCall cSL_COMMENTTerminalRuleCall_1 = (RuleCall)cAlternatives.eContents().get(1);
 		
-		//comments hidden(WS):
+		////visibleWhitespace hidden(): (' ' | '\u00A0' | '\t' )+;
+		//comment hidden():
 		//	ML_COMMENT | SL_COMMENT;
 		public ParserRule getRule() { return rule; }
 
@@ -3473,6 +3499,7 @@ public class PPGrammarAccess extends AbstractGrammarElementFinder {
 	private HostClassDefinitionElements pHostClassDefinition;
 	private ParentNameElements pParentName;
 	private DefinitionElements pDefinition;
+	private OptionallyDocumentedDefinitionElements pOptionallyDocumentedDefinition;
 	private DefinitionArgumentListElements pDefinitionArgumentList;
 	private DefinitionArgumentElements pDefinitionArgument;
 	private CaseExpressionElements pCaseExpression;
@@ -3514,8 +3541,8 @@ public class PPGrammarAccess extends AbstractGrammarElementFinder {
 	private DollarVariableElements pDollarVariable;
 	private KeywordElements pKeyword;
 	private VariableElements pVariable;
-	private LeadingSpaceAndCommentsElements pLeadingSpaceAndComments;
-	private CommentsElements pComments;
+	private LeadingCommentsElements pLeadingComments;
+	private CommentElements pComment;
 	private UnionNameOrReferenceElements pUnionNameOrReference;
 	private WordCharsOrKeywordsElements pWordCharsOrKeywords;
 	private DoubleStringCharactersElements pDoubleStringCharacters;
@@ -3554,7 +3581,7 @@ public class PPGrammarAccess extends AbstractGrammarElementFinder {
 	//// 
 	//// Most 'intermediate' rules do not have to care about this - only the rules that consume a token
 	//// must deal with trailing .
-	//// The Manifest allows leading space(s) and comments to be included in the model in an LeadingSpaceAndComments (to aid in generating
+	//// The Manifest allows leading space(s) and comments to be included in the model in an LeadingComments (to aid in generating
 	//// a meaningsful header).
 	////
 	//// Important note about 'unused' object creating rules
@@ -3565,7 +3592,8 @@ public class PPGrammarAccess extends AbstractGrammarElementFinder {
 	//// (Unused *data* rules are ignored by the parser generator).
 	//// 
 	//PuppetManifest returns pp::PuppetManifest:
-	//	{pp::PuppetManifest} leadingSpaceAndComments=LeadingSpaceAndComments? statements+=ExpressionList*;
+	//	{pp::PuppetManifest} //		leadingSpaceAndComments = LeadingComments?
+	//	statements+=ExpressionList*;
 	public PuppetManifestElements getPuppetManifestAccess() {
 		return (pPuppetManifest != null) ? pPuppetManifest : (pPuppetManifest = new PuppetManifestElements());
 	}
@@ -4033,8 +4061,8 @@ public class PPGrammarAccess extends AbstractGrammarElementFinder {
 	////
 	//// TODO VALIDATE : functionExpr is a valid function name	
 	//FunctionCall returns pp::Expression:
-	//	PrimaryExpression ({pp::FunctionCall.leftExpr=current} "(" (parameters+=Expression ("," parameters+=Expression)*)?
-	//	")")?;
+	//	PrimaryExpression ({pp::FunctionCall.leftExpr=current} "(" (parameters+=Expression ("," parameters+=Expression)*
+	//	endComma?)? ")")?;
 	public FunctionCallElements getFunctionCallAccess() {
 		return (pFunctionCall != null) ? pFunctionCall : (pFunctionCall = new FunctionCallElements());
 	}
@@ -4097,13 +4125,24 @@ public class PPGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//Definition returns pp::Definition:
-	//	"define" className=unionNameOrReference arguments=DefinitionArgumentList? "{" statements+=ExpressionList* "}";
+	//	documentation=OptionallyDocumentedDefinition className=unionNameOrReference arguments=DefinitionArgumentList? "{"
+	//	statements+=ExpressionList* "}";
 	public DefinitionElements getDefinitionAccess() {
 		return (pDefinition != null) ? pDefinition : (pDefinition = new DefinitionElements());
 	}
 	
 	public ParserRule getDefinitionRule() {
 		return getDefinitionAccess().getRule();
+	}
+
+	//OptionallyDocumentedDefinition returns pp::OWS hidden():
+	//	LeadingComments? "define";
+	public OptionallyDocumentedDefinitionElements getOptionallyDocumentedDefinitionAccess() {
+		return (pOptionallyDocumentedDefinition != null) ? pOptionallyDocumentedDefinition : (pOptionallyDocumentedDefinition = new OptionallyDocumentedDefinitionElements());
+	}
+	
+	public ParserRule getOptionallyDocumentedDefinitionRule() {
+		return getOptionallyDocumentedDefinitionAccess().getRule();
 	}
 
 	//DefinitionArgumentList returns pp::DefinitionArgumentList:
@@ -4549,25 +4588,26 @@ public class PPGrammarAccess extends AbstractGrammarElementFinder {
 		return getVariableAccess().getRule();
 	}
 
-	//LeadingSpaceAndComments returns pp::OWS: // Specified to allow source generation from model with comments at the start of the file, 
-	//// and is also used in a callback to parser to produce an  object with an array of comments
-	//	{pp::OWS} values+=comments*;
-	public LeadingSpaceAndCommentsElements getLeadingSpaceAndCommentsAccess() {
-		return (pLeadingSpaceAndComments != null) ? pLeadingSpaceAndComments : (pLeadingSpaceAndComments = new LeadingSpaceAndCommentsElements());
+	//LeadingComments returns pp::OWS hidden(): // Allows a sequence of comments (without any separating new lines)
+	//// Note that ML comment will eat WS including NL
+	//	{pp::OWS} values+=comment*;
+	public LeadingCommentsElements getLeadingCommentsAccess() {
+		return (pLeadingComments != null) ? pLeadingComments : (pLeadingComments = new LeadingCommentsElements());
 	}
 	
-	public ParserRule getLeadingSpaceAndCommentsRule() {
-		return getLeadingSpaceAndCommentsAccess().getRule();
+	public ParserRule getLeadingCommentsRule() {
+		return getLeadingCommentsAccess().getRule();
 	}
 
-	//comments hidden(WS):
+	////visibleWhitespace hidden(): (' ' | '\u00A0' | '\t' )+;
+	//comment hidden():
 	//	ML_COMMENT | SL_COMMENT;
-	public CommentsElements getCommentsAccess() {
-		return (pComments != null) ? pComments : (pComments = new CommentsElements());
+	public CommentElements getCommentAccess() {
+		return (pComment != null) ? pComment : (pComment = new CommentElements());
 	}
 	
-	public ParserRule getCommentsRule() {
-		return getCommentsAccess().getRule();
+	public ParserRule getCommentRule() {
+		return getCommentAccess().getRule();
 	}
 
 	//unionNameOrReference hidden(): // captures names and references
@@ -4619,11 +4659,12 @@ public class PPGrammarAccess extends AbstractGrammarElementFinder {
 	// * TERMINALS 
 	// * (Please no terminals above, and no rules below...)
 	// * /terminal ML_COMMENT:
-	//	"/ *"->"* /";
+	//	"/ *"->"* /" ((" " | " " | "\t")* "\r"? "\n")?;
 	public TerminalRule getML_COMMENTRule() {
 		return (tML_COMMENT != null) ? tML_COMMENT : (tML_COMMENT = (TerminalRule) GrammarUtil.findRuleForName(getGrammar(), "ML_COMMENT"));
 	} 
 
+	//// accumulate all SL comments into one token
 	//terminal SL_COMMENT:
 	//	"#" !("\r" | "\n")* ("\r"? "\n")?;
 	public TerminalRule getSL_COMMENTRule() {

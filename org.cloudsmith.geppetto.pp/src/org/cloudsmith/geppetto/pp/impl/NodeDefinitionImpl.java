@@ -193,6 +193,17 @@ public class NodeDefinitionImpl extends ExpressionImpl implements NodeDefinition
 	 * @generated
 	 */
 	@Override
+	protected EClass eStaticClass() {
+		return PPPackage.Literals.NODE_DEFINITION;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch(featureID) {
 			case PPPackage.NODE_DEFINITION__HOST_NAMES:
@@ -268,17 +279,6 @@ public class NodeDefinitionImpl extends ExpressionImpl implements NodeDefinition
 		else if(eNotificationRequired())
 			eNotify(new ENotificationImpl(
 				this, Notification.SET, PPPackage.NODE_DEFINITION__PARENT_NAME, newParentName, newParentName));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * 
-	 * @generated
-	 */
-	@Override
-	protected EClass eStaticClass() {
-		return PPPackage.Literals.NODE_DEFINITION;
 	}
 
 } // NodeDefinitionImpl

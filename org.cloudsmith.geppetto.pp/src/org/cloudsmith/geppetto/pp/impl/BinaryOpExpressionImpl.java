@@ -118,6 +118,17 @@ public abstract class BinaryOpExpressionImpl extends BinaryExpressionImpl implem
 	 * @generated
 	 */
 	@Override
+	protected EClass eStaticClass() {
+		return PPPackage.Literals.BINARY_OP_EXPRESSION;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch(featureID) {
 			case PPPackage.BINARY_OP_EXPRESSION__OP_NAME:
@@ -167,17 +178,6 @@ public abstract class BinaryOpExpressionImpl extends BinaryExpressionImpl implem
 		result.append(opName);
 		result.append(')');
 		return result.toString();
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * 
-	 * @generated
-	 */
-	@Override
-	protected EClass eStaticClass() {
-		return PPPackage.Literals.BINARY_OP_EXPRESSION;
 	}
 
 } // BinaryOpExpressionImpl

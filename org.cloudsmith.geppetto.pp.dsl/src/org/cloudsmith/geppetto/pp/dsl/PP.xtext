@@ -37,7 +37,7 @@ import "http://www.eclipse.org/emf/2002/Ecore" as ecore
 // 
 // Most 'intermediate' rules do not have to care about this - only the rules that consume a token
 // must deal with trailing .
-// The Manifest allows leading space(s) and comments to be included in the model in an LeadingSpaceAndComments (to aid in generating
+// The Manifest allows leading space(s) and comments to be included in the model in an LeadingComments (to aid in generating
 // a meaningsful header).
 //
 
@@ -51,7 +51,7 @@ import "http://www.eclipse.org/emf/2002/Ecore" as ecore
 
 PuppetManifest returns pp::PuppetManifest	
 	: {pp::PuppetManifest}
-		leadingSpaceAndComments = LeadingSpaceAndComments?
+//		leadingSpaceAndComments = LeadingComments?
 		(statements += ExpressionList)*
 	;
 	
@@ -331,7 +331,7 @@ SelectorEntry returns pp::Expression
 FunctionCall returns pp::Expression 
 	: PrimaryExpression ({pp::FunctionCall.leftExpr = current}
 		'('  
-			(parameters+=Expression (',' parameters += Expression)*)?
+			(parameters+=Expression (',' parameters += Expression)* endComma?)?
 		')' )?
 	;
 
@@ -380,13 +380,17 @@ ParentName returns pp::LiteralExpression
 	;
 	
 Definition returns pp::Definition
-	: 'define'  
+	: documentation = OptionallyDocumentedDefinition 
 		className = unionNameOrReference 
 		arguments = DefinitionArgumentList?
 		'{' 
 			(statements += ExpressionList)* 
 		'}'  
 	;
+	
+OptionallyDocumentedDefinition returns pp::OWS hidden() : 
+	LeadingComments? 'define'
+;
 		
 DefinitionArgumentList returns pp::DefinitionArgumentList
 	: {pp::DefinitionArgumentList}
@@ -624,13 +628,15 @@ variable hidden()
 	: WORD_CHARS ('::' WORD_CHARS)*
 	;
 
-LeadingSpaceAndComments returns pp::OWS : 
-	// Specified to allow source generation from model with comments at the start of the file, 
-	// and is also used in a callback to parser to produce an  object with an array of comments
-	{pp::OWS} values += comments*
+LeadingComments returns pp::OWS hidden(): 
+	// Allows a sequence of comments (without any separating new lines)
+	// Note that ML comment will eat WS including NL
+	{pp::OWS} values += comment+
 	;
 
-comments 	hidden(WS) : 
+//visibleWhitespace hidden(): (' ' | '\u00A0' | '\t' )+;
+
+comment 	hidden() : 
 	( ML_COMMENT | SL_COMMENT)
 	;
 
@@ -677,7 +683,9 @@ singleStringCharacters hidden()
  * (Please no terminals above, and no rules below...)
  */
 
-terminal ML_COMMENT : '/*' -> '*/' ;
+terminal ML_COMMENT : '/*' -> '*/' ((' ' | '\u00A0' | '\t')* '\r'? '\n')?
+;
+// accumulate all SL comments into one token
 terminal SL_COMMENT : '#' !('\r' | '\n')* ('\r'? '\n')? ;
 
 terminal WS	

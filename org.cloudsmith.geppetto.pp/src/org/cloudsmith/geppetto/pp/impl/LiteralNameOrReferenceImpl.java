@@ -118,6 +118,17 @@ public class LiteralNameOrReferenceImpl extends LiteralExpressionImpl implements
 	 * @generated
 	 */
 	@Override
+	protected EClass eStaticClass() {
+		return PPPackage.Literals.LITERAL_NAME_OR_REFERENCE;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch(featureID) {
 			case PPPackage.LITERAL_NAME_OR_REFERENCE__VALUE:
@@ -167,17 +178,6 @@ public class LiteralNameOrReferenceImpl extends LiteralExpressionImpl implements
 		result.append(value);
 		result.append(')');
 		return result.toString();
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * 
-	 * @generated
-	 */
-	@Override
-	protected EClass eStaticClass() {
-		return PPPackage.Literals.LITERAL_NAME_OR_REFERENCE;
 	}
 
 } // LiteralNameOrReferenceImpl

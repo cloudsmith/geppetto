@@ -184,6 +184,17 @@ public abstract class BinaryExpressionImpl extends ExpressionImpl implements Bin
 	 * @generated
 	 */
 	@Override
+	protected EClass eStaticClass() {
+		return PPPackage.Literals.BINARY_EXPRESSION;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch(featureID) {
 			case PPPackage.BINARY_EXPRESSION__LEFT_EXPR:
@@ -262,17 +273,6 @@ public abstract class BinaryExpressionImpl extends ExpressionImpl implements Bin
 		else if(eNotificationRequired())
 			eNotify(new ENotificationImpl(
 				this, Notification.SET, PPPackage.BINARY_EXPRESSION__RIGHT_EXPR, newRightExpr, newRightExpr));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * 
-	 * @generated
-	 */
-	@Override
-	protected EClass eStaticClass() {
-		return PPPackage.Literals.BINARY_EXPRESSION;
 	}
 
 } // BinaryExpressionImpl

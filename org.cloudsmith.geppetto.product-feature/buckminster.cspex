@@ -7,7 +7,7 @@
 	</dependencies>
 
 	<artifacts>
-		<private name="product.file.raw" path="product/geppetto.product" />
+		<private name="raw.product.file" path="product/geppetto.product" />
 	</artifacts>
 
 	<actions>
@@ -17,7 +17,7 @@
 				<property key="targets" value="create.product.file" />
 			</actorProperties>
 			<prerequisites>
-				<attribute name="product.file.raw" alias="product.file" />
+				<attribute name="raw.product.file" alias="product.file" />
 				<attribute name="manifest" alias="manifest" />
 			</prerequisites>
 			<products alias="output" base="${buckminster.temp}/product/" upToDatePolicy="MAPPER">

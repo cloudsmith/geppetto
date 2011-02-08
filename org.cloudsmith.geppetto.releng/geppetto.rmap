@@ -24,15 +24,15 @@
 	<rm:searchPath name="geppetto">
 		<rm:provider componentTypes="osgi.bundle,buckminster" readerType="git" source="true">
 			<rm:property key="git.remote.uri" value="${source.repository.url}" />
-			<rm:uri format="{0}/geppetto.git,{1}">
-				<bc:propertyRef key="workspace.root" />
+			<rm:uri format="{0},{1}">
+				<bc:propertyRef key="repository.clone.directory" />
 				<bc:propertyRef key="buckminster.component" />
 			</rm:uri>
 		</rm:provider>
 		<rm:provider componentTypes="eclipse.feature" readerType="git" source="true">
 			<rm:property key="git.remote.uri" value="${source.repository.url}" />
-			<rm:uri format="{0}/geppetto.git,{1}-feature">
-				<bc:propertyRef key="workspace.root" />
+			<rm:uri format="{0},{1}-feature">
+				<bc:propertyRef key="repository.clone.directory" />
 				<bc:propertyRef key="buckminster.component" />
 			</rm:uri>
 		</rm:provider>
@@ -114,6 +114,7 @@
 	</rm:searchPath>
 
 	<rm:property key="source.repository.url" value="git@github.com:cloudsmith/geppetto.git" />
+	<rm:property key="repository.clone.directory" value="${workspace.root}/geppetto.git" />
 	<rm:property key="svn.connectors.repository.url" value="http://community.polarion.com/projects/subversive/download/eclipse/2.0/update-site" />
 	<rm:property key="eclipse.download" value="http://download.eclipse.org" />
 </rm:rmap>

@@ -4,7 +4,7 @@
 
     <cq:advisorNode useMaterialization="false" useTargetPlatform="false" />
 
-	<cq:property key="source.repository.url" value="https://github.com/cloudsmith/geppetto.git" />
+	<cq:property key="source.repository.url" value="git://github.com/cloudsmith/geppetto.git" />
 
 	<cq:property key="target.arch" value="*"/>
 	<cq:property key="target.os" value="*"/>

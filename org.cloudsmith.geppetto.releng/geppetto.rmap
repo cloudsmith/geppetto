@@ -17,8 +17,8 @@
 
 	<rm:locator pattern="^org\.apache\.commons\.compress$" searchPathRef="maven.central" />
 
-	<rm:locator searchPathRef="platform" failOnError="false" />
 	<rm:locator searchPathRef="helios" failOnError="false" />
+	<rm:locator searchPathRef="platform" failOnError="false" />
 	<rm:locator searchPathRef="orbit" />
 
 	<rm:searchPath name="geppetto">
@@ -89,17 +89,17 @@
 		</rm:provider>
 	</rm:searchPath>
 
-	<rm:searchPath name="platform">
+	<rm:searchPath name="helios">
 		<rm:provider componentTypes="osgi.bundle,eclipse.feature" readerType="p2" source="false" mutable="false">
-			<rm:uri format="{0}/eclipse/updates/3.6.x/M20110202-0800">
+			<rm:uri format="{0}/releases/maintenance">
 				<bc:propertyRef key="eclipse.download" />
 			</rm:uri>
 		</rm:provider>
 	</rm:searchPath>
 
-	<rm:searchPath name="helios">
+	<rm:searchPath name="platform">
 		<rm:provider componentTypes="osgi.bundle,eclipse.feature" readerType="p2" source="false" mutable="false">
-			<rm:uri format="{0}/releases/maintenance">
+			<rm:uri format="{0}/eclipse/updates/3.6.x/M20110202-0800">
 				<bc:propertyRef key="eclipse.download" />
 			</rm:uri>
 		</rm:provider>

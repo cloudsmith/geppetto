@@ -1,81 +1,120 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<rm:rmap xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:bc="http://www.eclipse.org/buckminster/Common-1.0" xmlns:maven="http://www.eclipse.org/buckminster/MavenProvider-1.0" xmlns:rm="http://www.eclipse.org/buckminster/RMap-1.0">
-  <rm:property key="eclipse.download" value="http://download.eclipse.org"/>
-  <rm:locator pattern="^org\.cloudsmith\.geppetto(\..+)?" searchPathRef="geppetto"/>
-  <rm:locator pattern="^org\.eclipse\.xtext(\..+)?" searchPathRef="tmf"/>  
-  <rm:locator pattern="^com\.google\.(inject|collect)(\..+)?" searchPathRef="tmf"/>
-  <rm:locator pattern="^org\.(antlr|aopalliance)(\..+)?" searchPathRef="tmf"/>  
-  <rm:locator pattern="^org\.eclipse\.(?:xpand|xtend)(?:\..+)?$" searchPathRef="xpand" />
-  <rm:locator pattern="^org\.eclipse\.emf\.mwe(?:\..+)?$" searchPathRef="mwe" />
-  <rm:locator pattern="^org\.polarion(\..+)?" searchPathRef="polarion"/>  
-  <rm:locator pattern="^org\.apache\.commons\.compress(\..+)?$" searchPathRef="maven.central"/>
-  <rm:locator searchPathRef="helios" failOnError="false"/>
-  <rm:locator searchPathRef="platform" failOnError="false"/>
-  <rm:locator searchPathRef="orbit" failOnError="false"/>
-  <rm:searchPath name="geppetto">
-    <rm:provider componentTypes="osgi.bundle,buckminster" readerType="git" source="true">
-      <rm:property key="git.remote.uri" value="git@github.com:cloudsmith/geppetto.git"/>
-      <rm:uri format="{0}/geppetto.git,{1}">
-        <bc:propertyRef key="workspace.root"/>
-        <bc:propertyRef key="buckminster.component"/>
-      </rm:uri>
-    </rm:provider>
-    <rm:provider componentTypes="eclipse.feature" readerType="git" source="true">
-      <rm:property key="git.remote.uri" value="git@github.com:cloudsmith/geppetto.git"/>
-      <rm:uri format="{0}/geppetto.git,{1}-feature">
-        <bc:propertyRef key="workspace.root"/>
-        <bc:propertyRef key="buckminster.component"/>
-      </rm:uri>
-    </rm:provider>
-  </rm:searchPath>
-  <rm:searchPath name="tmf">
-    <rm:provider componentTypes="osgi.bundle,eclipse.feature" readerType="p2" source="false">
-      <rm:uri format="{0}/modeling/tmf/updates/milestones">
-        <bc:propertyRef key="eclipse.download" />
-      </rm:uri>
-    </rm:provider>
-  </rm:searchPath>
-  <rm:searchPath name="xpand">
-    <rm:provider componentTypes="eclipse.feature,osgi.bundle" readerType="p2" source="false">
-      <rm:uri format="{0}/modeling/m2t/xpand/updates/milestones">
-        <bc:propertyRef key="eclipse.download" />
-      </rm:uri>
-    </rm:provider>
-  </rm:searchPath>
-  <rm:searchPath name="mwe">
-    <rm:provider componentTypes="eclipse.feature,osgi.bundle" readerType="p2" source="false">
-      <rm:uri format="{0}/modeling/emft/mwe/updates/milestones">
-        <bc:propertyRef key="eclipse.download" />
-      </rm:uri>
-    </rm:provider>
-  </rm:searchPath>
-  <rm:searchPath name="helios">
-    <rm:provider componentTypes="osgi.bundle,eclipse.feature" readerType="p2" source="false">
-      <rm:uri format="{0}/releases/maintenance">
-        <bc:propertyRef key="eclipse.download"/>
-      </rm:uri>
-    </rm:provider>
-  </rm:searchPath>
-  <rm:searchPath name="platform">
-    <rm:provider componentTypes="osgi.bundle,eclipse.feature" readerType="p2" source="false">
-      <rm:uri format="{0}/eclipse/updates/3.6.x/M20110202-0800">
-        <bc:propertyRef key="eclipse.download"/>
-      </rm:uri>
-    </rm:provider>
-  </rm:searchPath>
-  <rm:searchPath name="orbit">
-    <rm:provider componentTypes="osgi.bundle,eclipse.feature" readerType="p2" source="false">
-      <rm:uri format="{0}/tools/orbit/downloads/drops/S20110124210048/repository">
-        <bc:propertyRef key="eclipse.download"/>
-      </rm:uri>
-    </rm:provider>
-  </rm:searchPath>
-  <rm:searchPath name="maven.central">
-    <rm:provider xsi:type="maven:MavenProvider" componentTypes="osgi.bundle" readerType="maven2" source="false">
-      <rm:uri format="http://repo1.maven.org/maven2"/>
-      <maven:mappings>
-        <maven:entry artifactId="commons-compress" groupId="org.apache.commons" name="org.apache.commons.compress"/>
-      </maven:mappings>
-    </rm:provider>
-  </rm:searchPath>
+<rm:rmap xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:bc="http://www.eclipse.org/buckminster/Common-1.0"
+	xmlns:rm="http://www.eclipse.org/buckminster/RMap-1.0" xmlns:maven="http://www.eclipse.org/buckminster/MavenProvider-1.0"
+>
+	<rm:locator pattern="^org\.cloudsmith\.geppetto(?:\..+)?$" searchPathRef="geppetto" />
+
+	<rm:locator pattern="^org\.eclipse\.xtext(?:\..+)?$" searchPathRef="tmf" />
+	<rm:locator pattern="^com\.google\.(?:inject|collect)$" searchPathRef="tmf" />
+	<rm:locator pattern="^org\.(?:aopalliance|antlr\.runtime|apache\.log4j)$" searchPathRef="tmf" />
+
+	<rm:locator pattern="^org\.eclipse\.(?:xpand|xtend)(?:\..+)?$" searchPathRef="xpand" />
+
+	<rm:locator pattern="^org\.eclipse\.emf\.mwe2?(?:\..+)?$" searchPathRef="mwe" />
+
+	<rm:locator pattern="^org\.eclipse\.team\.svn(?:\..+)?$" searchPathRef="svn" />
+	<rm:locator pattern="^org\.polarion\.eclipse\.team\.svn\.connector(?:\..+)?$" searchPathRef="svn.connectors" />
+
+	<rm:locator pattern="^org\.apache\.commons\.compress$" searchPathRef="maven.central" />
+
+	<rm:locator searchPathRef="helios" failOnError="false" />
+	<rm:locator searchPathRef="platform" failOnError="false" />
+	<rm:locator searchPathRef="orbit" />
+
+	<rm:searchPath name="geppetto">
+		<rm:provider componentTypes="osgi.bundle,buckminster" readerType="git" source="true">
+			<rm:property key="git.remote.uri" value="${source.repository.url}" />
+			<rm:uri format="{0},{1}">
+				<bc:propertyRef key="repository.clone.directory" />
+				<bc:propertyRef key="buckminster.component" />
+			</rm:uri>
+		</rm:provider>
+		<rm:provider componentTypes="eclipse.feature" readerType="git" source="true">
+			<rm:property key="git.remote.uri" value="${source.repository.url}" />
+			<rm:uri format="{0},{1}-feature">
+				<bc:propertyRef key="repository.clone.directory" />
+				<bc:propertyRef key="buckminster.component" />
+			</rm:uri>
+		</rm:provider>
+	</rm:searchPath>
+
+	<rm:searchPath name="tmf">
+		<rm:provider componentTypes="osgi.bundle,eclipse.feature" readerType="p2" source="false" mutable="false">
+			<rm:uri format="{0}/modeling/tmf/updates/milestones">
+				<bc:propertyRef key="eclipse.download" />
+			</rm:uri>
+		</rm:provider>
+	</rm:searchPath>
+
+	<rm:searchPath name="xpand">
+		<rm:provider componentTypes="eclipse.feature,osgi.bundle" readerType="p2" source="false" mutable="false">
+			<rm:uri format="{0}/modeling/m2t/xpand/updates/milestones">
+				<bc:propertyRef key="eclipse.download" />
+			</rm:uri>
+		</rm:provider>
+	</rm:searchPath>
+
+	<rm:searchPath name="mwe">
+		<rm:provider componentTypes="eclipse.feature,osgi.bundle" readerType="p2" source="false" mutable="false">
+			<rm:uri format="{0}/modeling/emft/mwe/updates/milestones">
+				<bc:propertyRef key="eclipse.download" />
+			</rm:uri>
+		</rm:provider>
+	</rm:searchPath>
+
+	<rm:searchPath name="svn">
+		<rm:provider componentTypes="osgi.bundle,eclipse.feature" readerType="p2" source="false" mutable="false">
+			<rm:uri format="{0}/technology/subversive/0.7/update-site">
+				<bc:propertyRef key="eclipse.download" />
+			</rm:uri>
+		</rm:provider>
+	</rm:searchPath>
+
+	<rm:searchPath name="svn.connectors">
+		<rm:provider componentTypes="osgi.bundle,eclipse.feature" readerType="p2" source="false" mutable="false">
+			<rm:uri format="{0}">
+				<bc:propertyRef key="svn.connectors.repository.url" />
+			</rm:uri>
+		</rm:provider>
+	</rm:searchPath>
+
+	<rm:searchPath name="maven.central">
+		<rm:provider xsi:type="maven:MavenProvider" componentTypes="osgi.bundle" readerType="maven2" source="false"
+			mutable="false"
+		>
+			<rm:uri format="http://repo1.maven.org/maven2" />
+			<maven:mappings>
+				<maven:entry artifactId="commons-compress" groupId="org.apache.commons" name="org.apache.commons.compress" />
+			</maven:mappings>
+		</rm:provider>
+	</rm:searchPath>
+
+	<rm:searchPath name="helios">
+		<rm:provider componentTypes="osgi.bundle,eclipse.feature" readerType="p2" source="false" mutable="false">
+			<rm:uri format="{0}/releases/maintenance">
+				<bc:propertyRef key="eclipse.download" />
+			</rm:uri>
+		</rm:provider>
+	</rm:searchPath>
+
+	<rm:searchPath name="platform">
+		<rm:provider componentTypes="osgi.bundle,eclipse.feature" readerType="p2" source="false" mutable="false">
+			<rm:uri format="{0}/eclipse/updates/3.6.x/M20110202-0800">
+				<bc:propertyRef key="eclipse.download" />
+			</rm:uri>
+		</rm:provider>
+	</rm:searchPath>
+
+	<rm:searchPath name="orbit">
+		<rm:provider componentTypes="osgi.bundle,eclipse.feature" readerType="p2" source="false" mutable="false">
+			<rm:uri format="{0}/tools/orbit/downloads/drops/S20110124210048/repository">
+				<bc:propertyRef key="eclipse.download" />
+			</rm:uri>
+		</rm:provider>
+	</rm:searchPath>
+
+	<rm:property key="source.repository.url" value="git@github.com:cloudsmith/geppetto.git" />
+	<rm:property key="repository.clone.directory" value="${workspace.root}/geppetto.git" />
+	<rm:property key="svn.connectors.repository.url" value="http://community.polarion.com/projects/subversive/download/eclipse/2.0/update-site" />
+	<rm:property key="eclipse.download" value="http://download.eclipse.org" />
 </rm:rmap>

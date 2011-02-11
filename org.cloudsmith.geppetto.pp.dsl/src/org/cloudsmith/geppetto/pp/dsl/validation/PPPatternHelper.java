@@ -65,7 +65,7 @@ public class PPPatternHelper {
 		// start with a * - '/*...'
 		// contain newline character
 		regexpPattern = Pattern.compile("/([^/\\n\\*\\\\]|(\\\\[^\\n]))([^/\\n\\\\]|(\\\\[^\\n]))*/[a-z]*");
-		variablePattern = Pattern.compile("\\$(" + WORD_CHAR + "+::)*" + WORD_CHAR + "+");
+		variablePattern = Pattern.compile("\\$(::)?(" + WORD_CHAR + "+::)*" + WORD_CHAR + "+");
 
 		// sq string may not contain unescaped single quote
 		sqStringPattern = Pattern.compile("([^'\\\\]|\\\\.)*");
@@ -74,19 +74,19 @@ public class PPPatternHelper {
 	public boolean isCLASSNAME(String s) {
 		if(s == null || s.length() == 0)
 			return false;
-		return classNamePattern.matcher(s).matches();
+		return classNamePattern.matcher(s).matches() && !s.contains(":::");
 	}
 
 	public boolean isCLASSREF(String s) {
 		if(s == null || s.length() == 0)
 			return false;
-		return classRefPattern.matcher(s).matches();
+		return classRefPattern.matcher(s).matches() && !s.contains(":::");
 	}
 
 	public boolean isNAME(String s) {
 		if(s == null || s.length() == 0)
 			return false;
-		return namePattern.matcher(s).matches();
+		return namePattern.matcher(s).matches() && !s.contains(":::");
 	}
 
 	public boolean isREGEXP(String s) {

@@ -16,37 +16,37 @@ import org.eclipse.xtext.ui.editor.contentassist.antlr.internal.Lexer;
 
 
 
-KEYWORD_64 : 'inherits';
+KEYWORD_63 : 'inherits';
 
-KEYWORD_63 : 'default';
+KEYWORD_62 : 'default';
 
-KEYWORD_61 : 'define';
+KEYWORD_60 : 'define';
 
-KEYWORD_62 : 'import';
+KEYWORD_61 : 'import';
 
-KEYWORD_57 : 'class';
+KEYWORD_56 : 'class';
 
-KEYWORD_58 : 'elsif';
+KEYWORD_57 : 'elsif';
 
-KEYWORD_59 : 'false';
+KEYWORD_58 : 'false';
 
-KEYWORD_60 : 'undef';
+KEYWORD_59 : 'undef';
 
-KEYWORD_53 : 'case';
+KEYWORD_52 : 'case';
 
-KEYWORD_54 : 'else';
+KEYWORD_53 : 'else';
 
-KEYWORD_55 : 'node';
+KEYWORD_54 : 'node';
 
-KEYWORD_56 : 'true';
+KEYWORD_55 : 'true';
 
-KEYWORD_49 : '<<|';
+KEYWORD_48 : '<<|';
 
-KEYWORD_50 : '\\${';
+KEYWORD_49 : '\\${';
 
-KEYWORD_51 : 'and';
+KEYWORD_50 : 'and';
 
-KEYWORD_52 : '|>>';
+KEYWORD_51 : '|>>';
 
 KEYWORD_23 : '!=';
 
@@ -60,45 +60,43 @@ KEYWORD_27 : '+>';
 
 KEYWORD_28 : '->';
 
-KEYWORD_29 : '::';
+KEYWORD_29 : '<-';
 
-KEYWORD_30 : '<-';
+KEYWORD_30 : '<<';
 
-KEYWORD_31 : '<<';
+KEYWORD_31 : '<=';
 
-KEYWORD_32 : '<=';
+KEYWORD_32 : '<|';
 
-KEYWORD_33 : '<|';
+KEYWORD_33 : '<~';
 
-KEYWORD_34 : '<~';
+KEYWORD_34 : '==';
 
-KEYWORD_35 : '==';
+KEYWORD_35 : '=>';
 
-KEYWORD_36 : '=>';
+KEYWORD_36 : '=~';
 
-KEYWORD_37 : '=~';
+KEYWORD_37 : '>=';
 
-KEYWORD_38 : '>=';
+KEYWORD_38 : '>>';
 
-KEYWORD_39 : '>>';
+KEYWORD_39 : '\\"';
 
-KEYWORD_40 : '\\"';
+KEYWORD_40 : '\\$';
 
-KEYWORD_41 : '\\$';
+KEYWORD_41 : '\\\'';
 
-KEYWORD_42 : '\\\'';
+KEYWORD_42 : '\\\\';
 
-KEYWORD_43 : '\\\\';
+KEYWORD_43 : 'if';
 
-KEYWORD_44 : 'if';
+KEYWORD_44 : 'in';
 
-KEYWORD_45 : 'in';
+KEYWORD_45 : 'or';
 
-KEYWORD_46 : 'or';
+KEYWORD_46 : '|>';
 
-KEYWORD_47 : '|>';
-
-KEYWORD_48 : '~>';
+KEYWORD_47 : '~>';
 
 KEYWORD_1 : '!';
 
@@ -152,7 +150,7 @@ RULE_SL_COMMENT : '#' ~(('\r'|'\n'))* ('\r'? '\n')?;
 
 RULE_WS : (' '|'\u00A0'|'\t'|'\r'|'\n')+;
 
-RULE_WORD_CHARS : ('0'..'9'|'a'..'z'|'A'..'Z'|'_'|'.'|'-')+;
+RULE_WORD_CHARS : '::'? ('0'..'9'|'a'..'z'|'A'..'Z'|'_'|'.'|'-')+ ('::' ('0'..'9'|'a'..'z'|'A'..'Z'|'_'|'.'|'-')+)*;
 
 RULE_REGULAR_EXPRESSION : '/' RULE_RE_BODY '/' RULE_RE_FLAGS?;
 

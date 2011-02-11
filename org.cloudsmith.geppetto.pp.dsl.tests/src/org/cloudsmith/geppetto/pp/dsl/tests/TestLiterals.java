@@ -11,16 +11,96 @@
  */
 package org.cloudsmith.geppetto.pp.dsl.tests;
 
+import java.io.StringReader;
+
 import org.cloudsmith.geppetto.pp.LiteralNameOrReference;
 import org.cloudsmith.geppetto.pp.LiteralRegex;
+import org.cloudsmith.geppetto.pp.PuppetManifest;
+import org.cloudsmith.geppetto.pp.ResourceExpression;
 import org.cloudsmith.geppetto.pp.SingleQuotedString;
+import org.cloudsmith.geppetto.pp.dsl.parser.antlr.PPParser;
+import org.cloudsmith.geppetto.pp.dsl.services.PPGrammarAccess;
 import org.cloudsmith.geppetto.pp.dsl.validation.IPPDiagnostics;
+import org.eclipse.emf.ecore.EObject;
+import org.eclipse.xtext.parser.IParseResult;
 
 /**
  * Tests Literals
  * 
  */
 public class TestLiterals extends AbstractPuppetTests {
+
+	public final static String[] validNames = {
+			"file", "File", "::File", "A::B::C", "class", "::or", "a::or", "::or-or" };
+
+	public final static String[] invalidNames = { "if", "else", "%#", "define:" };
+
+	private String doubleQuote(String s) {
+		return '"' + s + '"';
+	}
+
+	public void test_Parse_LiteralNameOrReference_NotOk() {
+		PPGrammarAccess ga = (PPGrammarAccess) getGrammarAccess();
+		PPParser parser = (PPParser) getParser();
+		for(String s : invalidNames) {
+			IParseResult result = parser.parse(ga.getUnionNameOrReferenceRule(), new StringReader(s));
+			assertTrue("Should have errors for: " + s, result.hasSyntaxErrors());
+		}
+
+	}
+
+	public void test_Parse_LiteralNameOrReference_Ok() {
+		PPGrammarAccess ga = (PPGrammarAccess) getGrammarAccess();
+		PPParser parser = (PPParser) getParser();
+		for(String s : validNames) {
+			IParseResult result = parser.parse(ga.getUnionNameOrReferenceRule(), new StringReader(s));
+			assertFalse("Should not have errors for: " + s, result.hasSyntaxErrors());
+			assertEquals("parsed should be same as input", s, result.getRootNode().getText());
+		}
+		for(String s : validNames) {
+			IParseResult result = parser.parse(ga.getExpressionRule(), new StringReader(s));
+			assertFalse("Should not have errors for: " + s, result.hasSyntaxErrors());
+			assertEquals("parsed should be same as input", s, result.getRootNode().getText());
+			EObject root = result.getRootASTElement();
+			assertTrue("Should be LiteralNameOrReference", root instanceof LiteralNameOrReference);
+			assertEquals("Literal should be same as input", s, ((LiteralNameOrReference) root).getValue());
+		}
+		for(String s : validNames) {
+			IParseResult result = parser.parse(ga.getPuppetManifestRule(), new StringReader(s));
+			assertFalse("Should not have errors for: " + s, result.hasSyntaxErrors());
+			assertEquals("parsed should be same as input", s, result.getRootNode().getText());
+			EObject root = result.getRootASTElement();
+			assertTrue("Should be PuppetManifest", root instanceof PuppetManifest);
+			PuppetManifest pm = (PuppetManifest) root;
+			assertTrue("Manifest should have statements", pm.getStatements().size() > 0);
+			EObject expr = pm.getStatements().get(0);
+			assertTrue("Should be LiteralNameOrReference", expr instanceof LiteralNameOrReference);
+			assertEquals("Literal should be same as input", s, ((LiteralNameOrReference) expr).getValue());
+		}
+
+	}
+
+	public void test_Parse_LiteralsInResource_Smoketest() {
+		PPGrammarAccess ga = (PPGrammarAccess) getGrammarAccess();
+		PPParser parser = (PPParser) getParser();
+
+		String s = "File { mode => 666 }";
+		IParseResult result = parser.parse(ga.getPuppetManifestRule(), new StringReader(s));
+		assertFalse("Should not have errors for: " + s, result.hasSyntaxErrors());
+		assertEquals("parsed should be same as input", s, result.getRootNode().getText());
+		EObject root = result.getRootASTElement();
+		assertTrue("Should be PuppetManifest", root instanceof PuppetManifest);
+		PuppetManifest pm = (PuppetManifest) root;
+		assertTrue("Manifest should have statements", pm.getStatements().size() > 0);
+		EObject expr = pm.getStatements().get(0);
+		assertInstanceOf("Should be ResourceExpression", ResourceExpression.class, expr);
+		ResourceExpression resourceExpression = (ResourceExpression) expr;
+		assertInstanceOf(
+			"Should be LiteralNameOrReference", LiteralNameOrReference.class, resourceExpression.getResourceExpr());
+		LiteralNameOrReference name = (LiteralNameOrReference) resourceExpression.getResourceExpr();
+		assertEquals("Literal should be same as input", "File", name.getValue());
+
+	}
 
 	public void test_Validate_LiteralNameOrReference_NotOk() {
 		final String[] keywords = {
@@ -31,33 +111,20 @@ public class TestLiterals extends AbstractPuppetTests {
 			tester.validator().checkLiteralNameOrReference(n);
 			tester.diagnose().assertError(IPPDiagnostics.ISSUE__RESERVED_WORD);
 		}
-
-		LiteralNameOrReference n = createNameOrReference("%#");
-		tester.validator().checkLiteralNameOrReference(n);
-		tester.diagnose().assertError(IPPDiagnostics.ISSUE__NOT_NAME_OR_REF);
-
+		final String[] invalidNames = { "%#", "::::", "::a::::" };
+		for(String s : invalidNames) {
+			LiteralNameOrReference n = createNameOrReference(s);
+			tester.validator().checkLiteralNameOrReference(n);
+			tester.diagnose().assertError(IPPDiagnostics.ISSUE__NOT_NAME_OR_REF);
+		}
 	}
 
 	public void test_Validate_LiteralNameOrReference_Ok() {
-		LiteralNameOrReference n = createNameOrReference("file");
-		tester.validator().checkLiteralNameOrReference(n);
-		tester.diagnose().assertOK();
-
-		n = createNameOrReference("File");
-		tester.validator().checkLiteralNameOrReference(n);
-		tester.diagnose().assertOK();
-
-		n = createNameOrReference("::File");
-		tester.validator().checkLiteralNameOrReference(n);
-		tester.diagnose().assertOK();
-
-		n = createNameOrReference("A::B::C");
-		tester.validator().checkLiteralNameOrReference(n);
-		tester.diagnose().assertOK();
-
-		n = createNameOrReference("class");
-		tester.validator().checkLiteralNameOrReference(n);
-		tester.diagnose().assertOK();
+		for(String s : validNames) {
+			LiteralNameOrReference n = createNameOrReference(s);
+			tester.validator().checkLiteralNameOrReference(n);
+			tester.diagnose().assertOK();
+		}
 	}
 
 	public void test_Validate_LiteralRegex_NotOk() {
@@ -167,9 +234,5 @@ public class TestLiterals extends AbstractPuppetTests {
 		ls.setText("\\p"); // i.e. '\p'
 		tester.validator().checkSingleQuotedString(ls);
 		tester.diagnose().assertOK();
-	}
-
-	private String doubleQuote(String s) {
-		return '"' + s + '"';
 	}
 }

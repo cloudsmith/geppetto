@@ -140,12 +140,12 @@ ResourceBody returns pp::ResourceBody
 
 // TODO, must validate that key is valid
 AttributeDefinition returns pp::AttributeDefinition
-	: key = unionNameOrReference  '=>'  value = Expression 
+	:  key = unionNameOrReference  '=>'  value = Expression 
 	;
 
 // TODO, must validate that key is valid
 AttributeAddition returns pp::AttributeAddition
-	: key = unionNameOrReference  '+>'  value = Expression
+	:  key = unionNameOrReference  '+>'  value = Expression
 	;
 
 AttributeOperation returns pp::AttributeOperation
@@ -366,7 +366,7 @@ HostReference returns pp::Expression
 	
 HostClassDefinition returns pp::HostClassDefinition
 	: 'class'  
-		className = unionNameOrReference  
+		 className = unionNameOrReference  
 		arguments = DefinitionArgumentList?
 		('inherits'  parent = ParentName)?	
 		'{'  
@@ -380,18 +380,14 @@ ParentName returns pp::LiteralExpression
 	;
 	
 Definition returns pp::Definition
-	: documentation = OptionallyDocumentedDefinition 
-		className = unionNameOrReference 
+	: 	'define' 
+		 className = unionNameOrReference 
 		arguments = DefinitionArgumentList?
 		'{' 
 			(statements += ExpressionList)* 
 		'}'  
 	;
-	
-OptionallyDocumentedDefinition returns pp::OWS hidden() : 
-	LeadingComments? 'define'
-;
-		
+			
 DefinitionArgumentList returns pp::DefinitionArgumentList
 	: {pp::DefinitionArgumentList}
 		'(' 
@@ -463,11 +459,11 @@ LiteralExpression returns pp::Expression
 	;
 		
 LiteralNameOrReference returns pp::LiteralNameOrReference
-	: value = unionNameOrReference 
+	:  value = unionNameOrReference 
 	;
 	
 UNION_VARIABLE_OR_NAME :
-	'$'? (unionNameOrReference | keyword)
+	'$'?  unionNameOrReference //(unionNameOrReference | keyword)
 	;
 	
 	
@@ -476,7 +472,7 @@ ParenthisedExpression returns pp::ParenthesisedExpression
 	;
 
 VirtualNameOrReference returns pp::VirtualNameOrReference 
-	: '@' exported = ATBoolean?  value = unionNameOrReference 
+	: '@' exported = ATBoolean?   value = unionNameOrReference 
 	;
 
 // Kludge for a serialization issue using exported = '@'?
@@ -620,12 +616,14 @@ dollarVariable hidden()
 	: '$' (variable | keyword)
 	;
 	
-keyword : 'and' | 'case' | 'class' | 'default' | 'define' | 'else' | 'elsif' | 'in' |'inherits' 
-		| 'import' | 'node' | 'or' | 'undef' | 'true' | 'false'
+keyword : ('and' | 'case' | 'class' | 'default' | 'define' | 'else' | 'elsif' | 'in' |'inherits' 
+		| 'import' | 'node' | 'or' | 'undef' | 'true' | 'false' | 'if')
 	;
 
 variable hidden()
-	: WORD_CHARS ('::' WORD_CHARS)*
+	// puppet grammar allows '::' any number of times (\w*::)*\w+
+	: WORD_CHARS
+//	: '::'? WORD_CHARS ('::' WORD_CHARS)*
 	;
 
 LeadingComments returns pp::OWS hidden(): 
@@ -640,20 +638,35 @@ comment 	hidden() :
 	( ML_COMMENT | SL_COMMENT)
 	;
 
-unionNameOrReference hidden() :
-	// captures names and references
-	'::'? (wordCharsOrKeywords | '-')+ ('::' (wordCharsOrKeywords | '-')*)*
-;
+unionNameOrReference hidden()
+	: WORD_CHARS | 'class' | 'default' 
+	// captures names and references, complicated by the fact that a keyword may be part of the name
+	// if the name contains '::'
+//	:	(=>'::' (WORD_CHARS | keyword) ('::' (WORD_CHARS | keyword))*)
+//		| ((WORD_CHARS | 'class') ('::' (WORD_CHARS | keyword))*)
+	;
+	
+// wcOrKwSequence hidden(): WORD_CHARS | keyword;
+//wcOrKwSequence hidden(): (WORD_CHARS (keyword WORD_CHARS)* keyword?) | (keyword (WORD_CHARS keyword)* WORD_CHARS?);
+
+//unionNameOrReference hidden() 
+//	// captures names and references, complicated by the fact that a keyword may be part of the name
+//	// if the name contains '::'
+//	:	=>'::'  (WORD_CHARS | keyword | '-')+ ('::' (WORD_CHARS | keyword | '-')+)* 
+//	| 	     =>((WORD_CHARS | keyword | '-')+ '::') (WORD_CHARS | keyword | '-') ('::' (WORD_CHARS | keyword | '-')+)* 
+//	| 	      (WORD_CHARS | '-' | 'class')+ ('::' (WORD_CHARS | keyword | '-')+)*
+//	;
 
 // includes keywords that are allowed in names (between optional ::).
-wordCharsOrKeywords : WORD_CHARS | 'default' | 'class' ;
+//wordCharsOrAnyKeyword : (WORD_CHARS | keyword | '-') ;
+//wordCharsOrMinusClass : (WORD_CHARS | '-' | 'class');
 
 doubleStringCharacters hidden()
 	// special rules in lexer will deliver everything as one of these when in a string
 	: (WORD_CHARS
 	| ANY_OTHER
 	| WS
-	| '::'
+//	| '::'
 	| '\\"'
 	| '\\\''
 	| '\\$'
@@ -667,7 +680,7 @@ singleStringCharacters hidden()
 	: (WORD_CHARS
 	| ANY_OTHER
 	| WS
-	| '::'
+//	| '::'
 	| '$' // terminates dq-, but not sq- string
 	| '${' // terminates dq-, but not sq- string
 	| '\\"'
@@ -694,7 +707,8 @@ terminal WS
 	;
 
 terminal WORD_CHARS :
-	(('0'..'9')|('a'..'z')|('A'..'Z')|'_' | '.' | '-')+
+	('::')? ('0'..'9'|'a'..'z'|'A'..'Z'|'_'|'.'|'-')+ ('::' ('0'..'9'|'a'..'z'|'A'..'Z'|'_'|'.'|'-')+)*
+//	(('0'..'9')|('a'..'z')|('A'..'Z')|'_' | '.' | '-' | '::')+
 ;
 //terminal UNION_NAME_OR_REFERENCE :
 //	// captures names and references

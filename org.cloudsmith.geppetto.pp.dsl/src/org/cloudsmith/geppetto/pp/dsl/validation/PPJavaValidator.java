@@ -284,13 +284,16 @@ public class PPJavaValidator extends AbstractPPJavaValidator implements IPPDiagn
 		else if(!(leftExpr instanceof VariableExpression)) {
 			// then, the leftExpression *must* be an AtExpression with a leftExpr being a variable
 			if(leftExpr instanceof AtExpression) {
-				final Expression nestedLeftExpr = ((AtExpression) leftExpr).getLeftExpr();
-				// if nestedLeftExpr is null, it is validated for the nested instance
-				if(nestedLeftExpr != null && !(nestedLeftExpr instanceof VariableExpression))
-					error(
-						"Expression left of [] must be a variable.", nestedLeftExpr,
-						PPPackage.Literals.PARAMETERIZED_EXPRESSION__LEFT_EXPR, INSIGNIFICANT_INDEX,
-						IPPDiagnostics.ISSUE__UNSUPPORTED_EXPRESSION);
+				// older versions limited access to two levels.
+				if(!PuppetCompatibilityHelper.allowMoreThan2AtInSequence()) {
+					final Expression nestedLeftExpr = ((AtExpression) leftExpr).getLeftExpr();
+					// if nestedLeftExpr is null, it is validated for the nested instance
+					if(nestedLeftExpr != null && !(nestedLeftExpr instanceof VariableExpression))
+						error(
+							"Expression left of [] must be a variable.", nestedLeftExpr,
+							PPPackage.Literals.PARAMETERIZED_EXPRESSION__LEFT_EXPR, INSIGNIFICANT_INDEX,
+							IPPDiagnostics.ISSUE__UNSUPPORTED_EXPRESSION);
+				}
 			}
 			else {
 				error(

@@ -284,13 +284,16 @@ public class PPJavaValidator extends AbstractPPJavaValidator implements IPPDiagn
 		else if(!(leftExpr instanceof VariableExpression)) {
 			// then, the leftExpression *must* be an AtExpression with a leftExpr being a variable
 			if(leftExpr instanceof AtExpression) {
-				final Expression nestedLeftExpr = ((AtExpression) leftExpr).getLeftExpr();
-				// if nestedLeftExpr is null, it is validated for the nested instance
-				if(nestedLeftExpr != null && !(nestedLeftExpr instanceof VariableExpression))
-					error(
-						"Expression left of [] must be a variable.", nestedLeftExpr,
-						PPPackage.Literals.PARAMETERIZED_EXPRESSION__LEFT_EXPR, INSIGNIFICANT_INDEX,
-						IPPDiagnostics.ISSUE__UNSUPPORTED_EXPRESSION);
+				// older versions limited access to two levels.
+				if(!PuppetCompatibilityHelper.allowMoreThan2AtInSequence()) {
+					final Expression nestedLeftExpr = ((AtExpression) leftExpr).getLeftExpr();
+					// if nestedLeftExpr is null, it is validated for the nested instance
+					if(nestedLeftExpr != null && !(nestedLeftExpr instanceof VariableExpression))
+						error(
+							"Expression left of [] must be a variable.", nestedLeftExpr,
+							PPPackage.Literals.PARAMETERIZED_EXPRESSION__LEFT_EXPR, INSIGNIFICANT_INDEX,
+							IPPDiagnostics.ISSUE__UNSUPPORTED_EXPRESSION);
+				}
 			}
 			else {
 				error(
@@ -1001,12 +1004,15 @@ public class PPJavaValidator extends AbstractPPJavaValidator implements IPPDiagn
 	 */
 	protected boolean isSELECTOR_LHS(Expression lhs) {
 		// the lhs can be one of:
-		// name, type, quotedtext, variable, funccall, boolean, undef, default, or regex
+		// name, type, quotedtext, variable, funccall, boolean, undef, default, or regex.
+		// Or after fix of puppet issue #5515 also hash/At
 		if(lhs instanceof StringExpression ||
 				// TODO: was LiteralString follow up
 				lhs instanceof LiteralName || lhs instanceof LiteralNameOrReference ||
 				lhs instanceof VariableExpression || lhs instanceof FunctionCall || lhs instanceof LiteralBoolean ||
 				lhs instanceof LiteralUndef || lhs instanceof LiteralRegex || lhs instanceof LiteralDefault)
+			return true;
+		if(PuppetCompatibilityHelper.allowHashInSelector() && lhs instanceof AtExpression)
 			return true;
 		return false;
 	}

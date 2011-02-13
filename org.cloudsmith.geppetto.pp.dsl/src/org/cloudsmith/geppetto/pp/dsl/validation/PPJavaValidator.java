@@ -1004,12 +1004,15 @@ public class PPJavaValidator extends AbstractPPJavaValidator implements IPPDiagn
 	 */
 	protected boolean isSELECTOR_LHS(Expression lhs) {
 		// the lhs can be one of:
-		// name, type, quotedtext, variable, funccall, boolean, undef, default, or regex
+		// name, type, quotedtext, variable, funccall, boolean, undef, default, or regex.
+		// Or after fix of puppet issue #5515 also hash/At
 		if(lhs instanceof StringExpression ||
 				// TODO: was LiteralString follow up
 				lhs instanceof LiteralName || lhs instanceof LiteralNameOrReference ||
 				lhs instanceof VariableExpression || lhs instanceof FunctionCall || lhs instanceof LiteralBoolean ||
 				lhs instanceof LiteralUndef || lhs instanceof LiteralRegex || lhs instanceof LiteralDefault)
+			return true;
+		if(PuppetCompatibilityHelper.allowHashInSelector() && lhs instanceof AtExpression)
 			return true;
 		return false;
 	}

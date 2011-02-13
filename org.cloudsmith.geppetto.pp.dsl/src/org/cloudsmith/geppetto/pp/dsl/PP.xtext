@@ -254,29 +254,19 @@ InExpression returns pp::Expression:
 UnaryOrHigherExpression returns pp::Expression
 	: UnaryMinusExpression
 	| NotExpression
-	| InfixExpression
+	| CollectExpression // WAS: AtExpression
 	;
 	
 UnaryMinusExpression returns pp::UnaryMinusExpression
-	: '-'  expr = InfixExpression
+	: '-'  expr = CollectExpression // WAS: AtExpression
 	;
 	
 NotExpression returns pp::UnaryNotExpression
-	: '!'  expr = InfixExpression
+	: '!'  expr = CollectExpression // WAS: AtExpression
 	;
 
 
-// Note: AtExpression serves dual purpose: ResourceReference and '#' access
-// VALIDATION: checks 2 level nesting constraint on At a[x][y] is ok but not a[x][y][z]
-// VALIDATION: checks At dual roles and validates accordingly (only single parameter for normal At) etc.	
-// TODO: Rename the Rule, it should be called AtExpression (there are no other infix operators here...)
-InfixExpression  returns pp::Expression:
-	CollectExpression ({pp::AtExpression.leftExpr=current}
-		'['  
-			(parameters += Expression (','  parameters += Expression)*)?
-		']' 
-	)*
-	;
+// WAS: AtExpression -> CollectExpression
 
 
 // TODO: VALIDATE that CollectExpression classReference is a ClassReference
@@ -305,7 +295,8 @@ ExportedCollectQuery returns pp::ICollectQuery
 	;
 	
 SelectorExpression returns pp::Expression
-	: FunctionCall ({pp::SelectorExpression.leftExpr = current}
+	: AtExpression // WAS: FunctionCall 
+		({pp::SelectorExpression.leftExpr = current}
 		 '?' 
 			( ('{' 
 				parameters += SelectorEntry 
@@ -321,6 +312,22 @@ SelectorEntry returns pp::Expression
 	: Expression ({pp::SelectorEntry.leftExpr = current} '=>' rightExpr = Expression)?
 	;
 
+// MOVE AT HERE IN PRECEDENCE
+// x-> AtExpression == x-> CollectExpression
+// y-> FunctionCall == y->AtExpression
+// AtExpression -> FunctionCall
+// Note: AtExpression serves dual purpose: ResourceReference and '#' access
+// VALIDATION: checks 2 level nesting constraint on At a[x][y] is ok but not a[x][y][z] if bug compatible mode
+// VALIDATION: checks At dual roles and validates accordingly (only single parameter for normal At) etc.	
+AtExpression  returns pp::Expression:
+	FunctionCall // WAS: CollectExpression 
+	({pp::AtExpression.leftExpr=current}
+		'['  
+			(parameters += Expression (','  parameters += Expression)*)?
+		']' 
+	)*
+	;
+	
 // FunctionCall has different syntax restrictions depending on context
 // - when used where only one expression can occur, parantheses are required around the arguments
 // To solve this, the parser does NOT recognize func x as a function call, this is instead treated as

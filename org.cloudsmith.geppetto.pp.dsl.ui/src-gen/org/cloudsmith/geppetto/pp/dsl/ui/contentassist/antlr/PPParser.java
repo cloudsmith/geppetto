@@ -104,10 +104,6 @@ public class PPParser extends AbstractContentAssistParser {
 					put(grammarAccess.getInExpressionAccess().getGroup_1(), "rule__InExpression__Group_1__0");
 					put(grammarAccess.getUnaryMinusExpressionAccess().getGroup(), "rule__UnaryMinusExpression__Group__0");
 					put(grammarAccess.getNotExpressionAccess().getGroup(), "rule__NotExpression__Group__0");
-					put(grammarAccess.getInfixExpressionAccess().getGroup(), "rule__InfixExpression__Group__0");
-					put(grammarAccess.getInfixExpressionAccess().getGroup_1(), "rule__InfixExpression__Group_1__0");
-					put(grammarAccess.getInfixExpressionAccess().getGroup_1_2(), "rule__InfixExpression__Group_1_2__0");
-					put(grammarAccess.getInfixExpressionAccess().getGroup_1_2_1(), "rule__InfixExpression__Group_1_2_1__0");
 					put(grammarAccess.getCollectExpressionAccess().getGroup(), "rule__CollectExpression__Group__0");
 					put(grammarAccess.getCollectExpressionAccess().getGroup_1(), "rule__CollectExpression__Group_1__0");
 					put(grammarAccess.getCollectExpressionAccess().getGroup_1_2(), "rule__CollectExpression__Group_1_2__0");
@@ -119,6 +115,10 @@ public class PPParser extends AbstractContentAssistParser {
 					put(grammarAccess.getSelectorExpressionAccess().getGroup_1_2_0_2(), "rule__SelectorExpression__Group_1_2_0_2__0");
 					put(grammarAccess.getSelectorEntryAccess().getGroup(), "rule__SelectorEntry__Group__0");
 					put(grammarAccess.getSelectorEntryAccess().getGroup_1(), "rule__SelectorEntry__Group_1__0");
+					put(grammarAccess.getAtExpressionAccess().getGroup(), "rule__AtExpression__Group__0");
+					put(grammarAccess.getAtExpressionAccess().getGroup_1(), "rule__AtExpression__Group_1__0");
+					put(grammarAccess.getAtExpressionAccess().getGroup_1_2(), "rule__AtExpression__Group_1_2__0");
+					put(grammarAccess.getAtExpressionAccess().getGroup_1_2_1(), "rule__AtExpression__Group_1_2_1__0");
 					put(grammarAccess.getFunctionCallAccess().getGroup(), "rule__FunctionCall__Group__0");
 					put(grammarAccess.getFunctionCallAccess().getGroup_1(), "rule__FunctionCall__Group_1__0");
 					put(grammarAccess.getFunctionCallAccess().getGroup_1_2(), "rule__FunctionCall__Group_1_2__0");
@@ -208,8 +208,6 @@ public class PPParser extends AbstractContentAssistParser {
 					put(grammarAccess.getInExpressionAccess().getRightExprAssignment_1_2(), "rule__InExpression__RightExprAssignment_1_2");
 					put(grammarAccess.getUnaryMinusExpressionAccess().getExprAssignment_1(), "rule__UnaryMinusExpression__ExprAssignment_1");
 					put(grammarAccess.getNotExpressionAccess().getExprAssignment_1(), "rule__NotExpression__ExprAssignment_1");
-					put(grammarAccess.getInfixExpressionAccess().getParametersAssignment_1_2_0(), "rule__InfixExpression__ParametersAssignment_1_2_0");
-					put(grammarAccess.getInfixExpressionAccess().getParametersAssignment_1_2_1_1(), "rule__InfixExpression__ParametersAssignment_1_2_1_1");
 					put(grammarAccess.getCollectExpressionAccess().getQueryAssignment_1_1(), "rule__CollectExpression__QueryAssignment_1_1");
 					put(grammarAccess.getCollectExpressionAccess().getAttributesAssignment_1_2_1(), "rule__CollectExpression__AttributesAssignment_1_2_1");
 					put(grammarAccess.getVirtualCollectQueryAccess().getExprAssignment_2(), "rule__VirtualCollectQuery__ExprAssignment_2");
@@ -218,6 +216,8 @@ public class PPParser extends AbstractContentAssistParser {
 					put(grammarAccess.getSelectorExpressionAccess().getParametersAssignment_1_2_0_2_1(), "rule__SelectorExpression__ParametersAssignment_1_2_0_2_1");
 					put(grammarAccess.getSelectorExpressionAccess().getParametersAssignment_1_2_1(), "rule__SelectorExpression__ParametersAssignment_1_2_1");
 					put(grammarAccess.getSelectorEntryAccess().getRightExprAssignment_1_2(), "rule__SelectorEntry__RightExprAssignment_1_2");
+					put(grammarAccess.getAtExpressionAccess().getParametersAssignment_1_2_0(), "rule__AtExpression__ParametersAssignment_1_2_0");
+					put(grammarAccess.getAtExpressionAccess().getParametersAssignment_1_2_1_1(), "rule__AtExpression__ParametersAssignment_1_2_1_1");
 					put(grammarAccess.getFunctionCallAccess().getParametersAssignment_1_2_0(), "rule__FunctionCall__ParametersAssignment_1_2_0");
 					put(grammarAccess.getFunctionCallAccess().getParametersAssignment_1_2_1_1(), "rule__FunctionCall__ParametersAssignment_1_2_1_1");
 					put(grammarAccess.getNodeDefinitionAccess().getHostNamesAssignment_1(), "rule__NodeDefinition__HostNamesAssignment_1");

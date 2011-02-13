@@ -1060,13 +1060,15 @@ public class PPGrammarAccess extends AbstractGrammarElementFinder {
 		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
 		private final RuleCall cUnaryMinusExpressionParserRuleCall_0 = (RuleCall)cAlternatives.eContents().get(0);
 		private final RuleCall cNotExpressionParserRuleCall_1 = (RuleCall)cAlternatives.eContents().get(1);
-		private final RuleCall cInfixExpressionParserRuleCall_2 = (RuleCall)cAlternatives.eContents().get(2);
+		private final RuleCall cCollectExpressionParserRuleCall_2 = (RuleCall)cAlternatives.eContents().get(2);
 		
 		//UnaryOrHigherExpression returns pp::Expression:
-		//	UnaryMinusExpression | NotExpression | InfixExpression;
+		//	UnaryMinusExpression | NotExpression | // WAS: AtExpression
+		//	CollectExpression;
 		public ParserRule getRule() { return rule; }
 
-		//UnaryMinusExpression | NotExpression | InfixExpression
+		//UnaryMinusExpression | NotExpression | // WAS: AtExpression
+		//CollectExpression
 		public Alternatives getAlternatives() { return cAlternatives; }
 
 		//UnaryMinusExpression
@@ -1075,8 +1077,9 @@ public class PPGrammarAccess extends AbstractGrammarElementFinder {
 		//NotExpression
 		public RuleCall getNotExpressionParserRuleCall_1() { return cNotExpressionParserRuleCall_1; }
 
-		//InfixExpression
-		public RuleCall getInfixExpressionParserRuleCall_2() { return cInfixExpressionParserRuleCall_2; }
+		//// WAS: AtExpression
+		//CollectExpression
+		public RuleCall getCollectExpressionParserRuleCall_2() { return cCollectExpressionParserRuleCall_2; }
 	}
 
 	public class UnaryMinusExpressionElements extends AbstractParserRuleElementFinder {
@@ -1084,23 +1087,27 @@ public class PPGrammarAccess extends AbstractGrammarElementFinder {
 		private final Group cGroup = (Group)rule.eContents().get(1);
 		private final Keyword cHyphenMinusKeyword_0 = (Keyword)cGroup.eContents().get(0);
 		private final Assignment cExprAssignment_1 = (Assignment)cGroup.eContents().get(1);
-		private final RuleCall cExprInfixExpressionParserRuleCall_1_0 = (RuleCall)cExprAssignment_1.eContents().get(0);
+		private final RuleCall cExprCollectExpressionParserRuleCall_1_0 = (RuleCall)cExprAssignment_1.eContents().get(0);
 		
 		//UnaryMinusExpression returns pp::UnaryMinusExpression:
-		//	"-" expr=InfixExpression;
+		//	"-" expr= // WAS: AtExpression
+		//	CollectExpression;
 		public ParserRule getRule() { return rule; }
 
-		//"-" expr=InfixExpression
+		//"-" expr= // WAS: AtExpression
+		//CollectExpression
 		public Group getGroup() { return cGroup; }
 
 		//"-"
 		public Keyword getHyphenMinusKeyword_0() { return cHyphenMinusKeyword_0; }
 
-		//expr=InfixExpression
+		//expr= // WAS: AtExpression
+		//CollectExpression
 		public Assignment getExprAssignment_1() { return cExprAssignment_1; }
 
-		//InfixExpression
-		public RuleCall getExprInfixExpressionParserRuleCall_1_0() { return cExprInfixExpressionParserRuleCall_1_0; }
+		//// WAS: AtExpression
+		//CollectExpression
+		public RuleCall getExprCollectExpressionParserRuleCall_1_0() { return cExprCollectExpressionParserRuleCall_1_0; }
 	}
 
 	public class NotExpressionElements extends AbstractParserRuleElementFinder {
@@ -1108,88 +1115,27 @@ public class PPGrammarAccess extends AbstractGrammarElementFinder {
 		private final Group cGroup = (Group)rule.eContents().get(1);
 		private final Keyword cExclamationMarkKeyword_0 = (Keyword)cGroup.eContents().get(0);
 		private final Assignment cExprAssignment_1 = (Assignment)cGroup.eContents().get(1);
-		private final RuleCall cExprInfixExpressionParserRuleCall_1_0 = (RuleCall)cExprAssignment_1.eContents().get(0);
+		private final RuleCall cExprCollectExpressionParserRuleCall_1_0 = (RuleCall)cExprAssignment_1.eContents().get(0);
 		
 		//NotExpression returns pp::UnaryNotExpression:
-		//	"!" expr=InfixExpression;
+		//	"!" expr= // WAS: AtExpression
+		//	CollectExpression;
 		public ParserRule getRule() { return rule; }
 
-		//"!" expr=InfixExpression
+		//"!" expr= // WAS: AtExpression
+		//CollectExpression
 		public Group getGroup() { return cGroup; }
 
 		//"!"
 		public Keyword getExclamationMarkKeyword_0() { return cExclamationMarkKeyword_0; }
 
-		//expr=InfixExpression
+		//expr= // WAS: AtExpression
+		//CollectExpression
 		public Assignment getExprAssignment_1() { return cExprAssignment_1; }
 
-		//InfixExpression
-		public RuleCall getExprInfixExpressionParserRuleCall_1_0() { return cExprInfixExpressionParserRuleCall_1_0; }
-	}
-
-	public class InfixExpressionElements extends AbstractParserRuleElementFinder {
-		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "InfixExpression");
-		private final Group cGroup = (Group)rule.eContents().get(1);
-		private final RuleCall cCollectExpressionParserRuleCall_0 = (RuleCall)cGroup.eContents().get(0);
-		private final Group cGroup_1 = (Group)cGroup.eContents().get(1);
-		private final Action cAtExpressionLeftExprAction_1_0 = (Action)cGroup_1.eContents().get(0);
-		private final Keyword cLeftSquareBracketKeyword_1_1 = (Keyword)cGroup_1.eContents().get(1);
-		private final Group cGroup_1_2 = (Group)cGroup_1.eContents().get(2);
-		private final Assignment cParametersAssignment_1_2_0 = (Assignment)cGroup_1_2.eContents().get(0);
-		private final RuleCall cParametersExpressionParserRuleCall_1_2_0_0 = (RuleCall)cParametersAssignment_1_2_0.eContents().get(0);
-		private final Group cGroup_1_2_1 = (Group)cGroup_1_2.eContents().get(1);
-		private final Keyword cCommaKeyword_1_2_1_0 = (Keyword)cGroup_1_2_1.eContents().get(0);
-		private final Assignment cParametersAssignment_1_2_1_1 = (Assignment)cGroup_1_2_1.eContents().get(1);
-		private final RuleCall cParametersExpressionParserRuleCall_1_2_1_1_0 = (RuleCall)cParametersAssignment_1_2_1_1.eContents().get(0);
-		private final Keyword cRightSquareBracketKeyword_1_3 = (Keyword)cGroup_1.eContents().get(3);
-		
-		//// Note: AtExpression serves dual purpose: ResourceReference and '#' access
-		//// VALIDATION: checks 2 level nesting constraint on At a[x][y] is ok but not a[x][y][z]
-		//// VALIDATION: checks At dual roles and validates accordingly (only single parameter for normal At) etc.	
-		//// TODO: Rename the Rule, it should be called AtExpression (there are no other infix operators here...)
-		//InfixExpression returns pp::Expression:
-		//	CollectExpression ({pp::AtExpression.leftExpr=current} "[" (parameters+=Expression ("," parameters+=Expression)*)?
-		//	"]")*;
-		public ParserRule getRule() { return rule; }
-
-		//CollectExpression ({pp::AtExpression.leftExpr=current} "[" (parameters+=Expression ("," parameters+=Expression)*)? "]")*
-		public Group getGroup() { return cGroup; }
-
+		//// WAS: AtExpression
 		//CollectExpression
-		public RuleCall getCollectExpressionParserRuleCall_0() { return cCollectExpressionParserRuleCall_0; }
-
-		//({pp::AtExpression.leftExpr=current} "[" (parameters+=Expression ("," parameters+=Expression)*)? "]")*
-		public Group getGroup_1() { return cGroup_1; }
-
-		//{pp::AtExpression.leftExpr=current}
-		public Action getAtExpressionLeftExprAction_1_0() { return cAtExpressionLeftExprAction_1_0; }
-
-		//"["
-		public Keyword getLeftSquareBracketKeyword_1_1() { return cLeftSquareBracketKeyword_1_1; }
-
-		//(parameters+=Expression ("," parameters+=Expression)*)?
-		public Group getGroup_1_2() { return cGroup_1_2; }
-
-		//parameters+=Expression
-		public Assignment getParametersAssignment_1_2_0() { return cParametersAssignment_1_2_0; }
-
-		//Expression
-		public RuleCall getParametersExpressionParserRuleCall_1_2_0_0() { return cParametersExpressionParserRuleCall_1_2_0_0; }
-
-		//("," parameters+=Expression)*
-		public Group getGroup_1_2_1() { return cGroup_1_2_1; }
-
-		//","
-		public Keyword getCommaKeyword_1_2_1_0() { return cCommaKeyword_1_2_1_0; }
-
-		//parameters+=Expression
-		public Assignment getParametersAssignment_1_2_1_1() { return cParametersAssignment_1_2_1_1; }
-
-		//Expression
-		public RuleCall getParametersExpressionParserRuleCall_1_2_1_1_0() { return cParametersExpressionParserRuleCall_1_2_1_1_0; }
-
-		//"]"
-		public Keyword getRightSquareBracketKeyword_1_3() { return cRightSquareBracketKeyword_1_3; }
+		public RuleCall getExprCollectExpressionParserRuleCall_1_0() { return cExprCollectExpressionParserRuleCall_1_0; }
 	}
 
 	public class CollectExpressionElements extends AbstractParserRuleElementFinder {
@@ -1206,6 +1152,7 @@ public class PPGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cAttributesAttributeOperationsParserRuleCall_1_2_1_0 = (RuleCall)cAttributesAssignment_1_2_1.eContents().get(0);
 		private final Keyword cRightCurlyBracketKeyword_1_2_2 = (Keyword)cGroup_1_2.eContents().get(2);
 		
+		//// WAS: AtExpression -> CollectExpression
 		//// TODO: VALIDATE that CollectExpression classReference is a ClassReference
 		//CollectExpression returns pp::Expression:
 		//	SelectorExpression ({pp::CollectExpression.classReference=current} query=CollectQuery ("{"
@@ -1336,7 +1283,7 @@ public class PPGrammarAccess extends AbstractGrammarElementFinder {
 	public class SelectorExpressionElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "SelectorExpression");
 		private final Group cGroup = (Group)rule.eContents().get(1);
-		private final RuleCall cFunctionCallParserRuleCall_0 = (RuleCall)cGroup.eContents().get(0);
+		private final RuleCall cAtExpressionParserRuleCall_0 = (RuleCall)cGroup.eContents().get(0);
 		private final Group cGroup_1 = (Group)cGroup.eContents().get(1);
 		private final Action cSelectorExpressionLeftExprAction_1_0 = (Action)cGroup_1.eContents().get(0);
 		private final Keyword cQuestionMarkKeyword_1_1 = (Keyword)cGroup_1.eContents().get(1);
@@ -1354,17 +1301,19 @@ public class PPGrammarAccess extends AbstractGrammarElementFinder {
 		private final Assignment cParametersAssignment_1_2_1 = (Assignment)cAlternatives_1_2.eContents().get(1);
 		private final RuleCall cParametersSelectorEntryParserRuleCall_1_2_1_0 = (RuleCall)cParametersAssignment_1_2_1.eContents().get(0);
 		
-		//SelectorExpression returns pp::Expression:
-		//	FunctionCall ({pp::SelectorExpression.leftExpr=current} "?" ("{" parameters+=SelectorEntry (","
+		//SelectorExpression returns pp::Expression: // WAS: FunctionCall 
+		//	AtExpression ({pp::SelectorExpression.leftExpr=current} "?" ("{" parameters+=SelectorEntry (","
 		//	parameters+=SelectorEntry)* endComma? "}" | parameters+=SelectorEntry))?;
 		public ParserRule getRule() { return rule; }
 
-		//FunctionCall ({pp::SelectorExpression.leftExpr=current} "?" ("{" parameters+=SelectorEntry (","
+		//// WAS: FunctionCall 
+		//AtExpression ({pp::SelectorExpression.leftExpr=current} "?" ("{" parameters+=SelectorEntry (","
 		//parameters+=SelectorEntry)* endComma? "}" | parameters+=SelectorEntry))?
 		public Group getGroup() { return cGroup; }
 
-		//FunctionCall
-		public RuleCall getFunctionCallParserRuleCall_0() { return cFunctionCallParserRuleCall_0; }
+		//// WAS: FunctionCall 
+		//AtExpression
+		public RuleCall getAtExpressionParserRuleCall_0() { return cAtExpressionParserRuleCall_0; }
 
 		//({pp::SelectorExpression.leftExpr=current} "?" ("{" parameters+=SelectorEntry ("," parameters+=SelectorEntry)* endComma?
 		//"}" | parameters+=SelectorEntry))?
@@ -1451,6 +1400,75 @@ public class PPGrammarAccess extends AbstractGrammarElementFinder {
 
 		//Expression
 		public RuleCall getRightExprExpressionParserRuleCall_1_2_0() { return cRightExprExpressionParserRuleCall_1_2_0; }
+	}
+
+	public class AtExpressionElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "AtExpression");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final RuleCall cFunctionCallParserRuleCall_0 = (RuleCall)cGroup.eContents().get(0);
+		private final Group cGroup_1 = (Group)cGroup.eContents().get(1);
+		private final Action cAtExpressionLeftExprAction_1_0 = (Action)cGroup_1.eContents().get(0);
+		private final Keyword cLeftSquareBracketKeyword_1_1 = (Keyword)cGroup_1.eContents().get(1);
+		private final Group cGroup_1_2 = (Group)cGroup_1.eContents().get(2);
+		private final Assignment cParametersAssignment_1_2_0 = (Assignment)cGroup_1_2.eContents().get(0);
+		private final RuleCall cParametersExpressionParserRuleCall_1_2_0_0 = (RuleCall)cParametersAssignment_1_2_0.eContents().get(0);
+		private final Group cGroup_1_2_1 = (Group)cGroup_1_2.eContents().get(1);
+		private final Keyword cCommaKeyword_1_2_1_0 = (Keyword)cGroup_1_2_1.eContents().get(0);
+		private final Assignment cParametersAssignment_1_2_1_1 = (Assignment)cGroup_1_2_1.eContents().get(1);
+		private final RuleCall cParametersExpressionParserRuleCall_1_2_1_1_0 = (RuleCall)cParametersAssignment_1_2_1_1.eContents().get(0);
+		private final Keyword cRightSquareBracketKeyword_1_3 = (Keyword)cGroup_1.eContents().get(3);
+		
+		//// MOVE AT HERE IN PRECEDENCE
+		//// x-> AtExpression == x-> CollectExpression
+		//// y-> FunctionCall == y->AtExpression
+		//// AtExpression -> FunctionCall
+		//// Note: AtExpression serves dual purpose: ResourceReference and '#' access
+		//// VALIDATION: checks 2 level nesting constraint on At a[x][y] is ok but not a[x][y][z] if bug compatible mode
+		//// VALIDATION: checks At dual roles and validates accordingly (only single parameter for normal At) etc.	
+		//AtExpression returns pp::Expression: // WAS: CollectExpression 
+		//	FunctionCall ({pp::AtExpression.leftExpr=current} "[" (parameters+=Expression ("," parameters+=Expression)*)? "]")*;
+		public ParserRule getRule() { return rule; }
+
+		//// WAS: CollectExpression 
+		//FunctionCall ({pp::AtExpression.leftExpr=current} "[" (parameters+=Expression ("," parameters+=Expression)*)? "]")*
+		public Group getGroup() { return cGroup; }
+
+		//// WAS: CollectExpression 
+		//FunctionCall
+		public RuleCall getFunctionCallParserRuleCall_0() { return cFunctionCallParserRuleCall_0; }
+
+		//({pp::AtExpression.leftExpr=current} "[" (parameters+=Expression ("," parameters+=Expression)*)? "]")*
+		public Group getGroup_1() { return cGroup_1; }
+
+		//{pp::AtExpression.leftExpr=current}
+		public Action getAtExpressionLeftExprAction_1_0() { return cAtExpressionLeftExprAction_1_0; }
+
+		//"["
+		public Keyword getLeftSquareBracketKeyword_1_1() { return cLeftSquareBracketKeyword_1_1; }
+
+		//(parameters+=Expression ("," parameters+=Expression)*)?
+		public Group getGroup_1_2() { return cGroup_1_2; }
+
+		//parameters+=Expression
+		public Assignment getParametersAssignment_1_2_0() { return cParametersAssignment_1_2_0; }
+
+		//Expression
+		public RuleCall getParametersExpressionParserRuleCall_1_2_0_0() { return cParametersExpressionParserRuleCall_1_2_0_0; }
+
+		//("," parameters+=Expression)*
+		public Group getGroup_1_2_1() { return cGroup_1_2_1; }
+
+		//","
+		public Keyword getCommaKeyword_1_2_1_0() { return cCommaKeyword_1_2_1_0; }
+
+		//parameters+=Expression
+		public Assignment getParametersAssignment_1_2_1_1() { return cParametersAssignment_1_2_1_1; }
+
+		//Expression
+		public RuleCall getParametersExpressionParserRuleCall_1_2_1_1_0() { return cParametersExpressionParserRuleCall_1_2_1_1_0; }
+
+		//"]"
+		public Keyword getRightSquareBracketKeyword_1_3() { return cRightSquareBracketKeyword_1_3; }
 	}
 
 	public class FunctionCallElements extends AbstractParserRuleElementFinder {
@@ -3405,13 +3423,13 @@ public class PPGrammarAccess extends AbstractGrammarElementFinder {
 	private UnaryOrHigherExpressionElements pUnaryOrHigherExpression;
 	private UnaryMinusExpressionElements pUnaryMinusExpression;
 	private NotExpressionElements pNotExpression;
-	private InfixExpressionElements pInfixExpression;
 	private CollectExpressionElements pCollectExpression;
 	private CollectQueryElements pCollectQuery;
 	private VirtualCollectQueryElements pVirtualCollectQuery;
 	private ExportedCollectQueryElements pExportedCollectQuery;
 	private SelectorExpressionElements pSelectorExpression;
 	private SelectorEntryElements pSelectorEntry;
+	private AtExpressionElements pAtExpression;
 	private FunctionCallElements pFunctionCall;
 	private PrimaryExpressionElements pPrimaryExpression;
 	private NodeDefinitionElements pNodeDefinition;
@@ -3861,7 +3879,8 @@ public class PPGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//UnaryOrHigherExpression returns pp::Expression:
-	//	UnaryMinusExpression | NotExpression | InfixExpression;
+	//	UnaryMinusExpression | NotExpression | // WAS: AtExpression
+	//	CollectExpression;
 	public UnaryOrHigherExpressionElements getUnaryOrHigherExpressionAccess() {
 		return (pUnaryOrHigherExpression != null) ? pUnaryOrHigherExpression : (pUnaryOrHigherExpression = new UnaryOrHigherExpressionElements());
 	}
@@ -3871,7 +3890,8 @@ public class PPGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//UnaryMinusExpression returns pp::UnaryMinusExpression:
-	//	"-" expr=InfixExpression;
+	//	"-" expr= // WAS: AtExpression
+	//	CollectExpression;
 	public UnaryMinusExpressionElements getUnaryMinusExpressionAccess() {
 		return (pUnaryMinusExpression != null) ? pUnaryMinusExpression : (pUnaryMinusExpression = new UnaryMinusExpressionElements());
 	}
@@ -3881,7 +3901,8 @@ public class PPGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//NotExpression returns pp::UnaryNotExpression:
-	//	"!" expr=InfixExpression;
+	//	"!" expr= // WAS: AtExpression
+	//	CollectExpression;
 	public NotExpressionElements getNotExpressionAccess() {
 		return (pNotExpression != null) ? pNotExpression : (pNotExpression = new NotExpressionElements());
 	}
@@ -3890,21 +3911,7 @@ public class PPGrammarAccess extends AbstractGrammarElementFinder {
 		return getNotExpressionAccess().getRule();
 	}
 
-	//// Note: AtExpression serves dual purpose: ResourceReference and '#' access
-	//// VALIDATION: checks 2 level nesting constraint on At a[x][y] is ok but not a[x][y][z]
-	//// VALIDATION: checks At dual roles and validates accordingly (only single parameter for normal At) etc.	
-	//// TODO: Rename the Rule, it should be called AtExpression (there are no other infix operators here...)
-	//InfixExpression returns pp::Expression:
-	//	CollectExpression ({pp::AtExpression.leftExpr=current} "[" (parameters+=Expression ("," parameters+=Expression)*)?
-	//	"]")*;
-	public InfixExpressionElements getInfixExpressionAccess() {
-		return (pInfixExpression != null) ? pInfixExpression : (pInfixExpression = new InfixExpressionElements());
-	}
-	
-	public ParserRule getInfixExpressionRule() {
-		return getInfixExpressionAccess().getRule();
-	}
-
+	//// WAS: AtExpression -> CollectExpression
 	//// TODO: VALIDATE that CollectExpression classReference is a ClassReference
 	//CollectExpression returns pp::Expression:
 	//	SelectorExpression ({pp::CollectExpression.classReference=current} query=CollectQuery ("{"
@@ -3949,8 +3956,8 @@ public class PPGrammarAccess extends AbstractGrammarElementFinder {
 		return getExportedCollectQueryAccess().getRule();
 	}
 
-	//SelectorExpression returns pp::Expression:
-	//	FunctionCall ({pp::SelectorExpression.leftExpr=current} "?" ("{" parameters+=SelectorEntry (","
+	//SelectorExpression returns pp::Expression: // WAS: FunctionCall 
+	//	AtExpression ({pp::SelectorExpression.leftExpr=current} "?" ("{" parameters+=SelectorEntry (","
 	//	parameters+=SelectorEntry)* endComma? "}" | parameters+=SelectorEntry))?;
 	public SelectorExpressionElements getSelectorExpressionAccess() {
 		return (pSelectorExpression != null) ? pSelectorExpression : (pSelectorExpression = new SelectorExpressionElements());
@@ -3969,6 +3976,23 @@ public class PPGrammarAccess extends AbstractGrammarElementFinder {
 	
 	public ParserRule getSelectorEntryRule() {
 		return getSelectorEntryAccess().getRule();
+	}
+
+	//// MOVE AT HERE IN PRECEDENCE
+	//// x-> AtExpression == x-> CollectExpression
+	//// y-> FunctionCall == y->AtExpression
+	//// AtExpression -> FunctionCall
+	//// Note: AtExpression serves dual purpose: ResourceReference and '#' access
+	//// VALIDATION: checks 2 level nesting constraint on At a[x][y] is ok but not a[x][y][z] if bug compatible mode
+	//// VALIDATION: checks At dual roles and validates accordingly (only single parameter for normal At) etc.	
+	//AtExpression returns pp::Expression: // WAS: CollectExpression 
+	//	FunctionCall ({pp::AtExpression.leftExpr=current} "[" (parameters+=Expression ("," parameters+=Expression)*)? "]")*;
+	public AtExpressionElements getAtExpressionAccess() {
+		return (pAtExpression != null) ? pAtExpression : (pAtExpression = new AtExpressionElements());
+	}
+	
+	public ParserRule getAtExpressionRule() {
+		return getAtExpressionAccess().getRule();
 	}
 
 	//// FunctionCall has different syntax restrictions depending on context

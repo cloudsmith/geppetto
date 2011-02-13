@@ -24,6 +24,13 @@ package org.cloudsmith.geppetto.pp.dsl.validation;
 public class PuppetCompatibilityHelper {
 
 	/**
+	 * Puppet issue #5516
+	 */
+	public static boolean allowHashInSelector() {
+		return true;
+	}
+
+	/**
 	 * Puppet issue #6269
 	 */
 	public static boolean allowMoreThan2AtInSequence() {

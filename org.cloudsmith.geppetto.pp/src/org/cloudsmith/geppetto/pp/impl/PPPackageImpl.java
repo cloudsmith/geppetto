@@ -790,6 +790,7 @@ public class PPPackageImpl extends EPackageImpl implements PPPackage {
 		createEAttribute(definitionEClass, DEFINITION__CLASS_NAME);
 		createEReference(definitionEClass, DEFINITION__ARGUMENTS);
 		createEReference(definitionEClass, DEFINITION__STATEMENTS);
+		createEReference(definitionEClass, DEFINITION__DOCUMENTATION);
 
 		definitionArgumentListEClass = createEClass(DEFINITION_ARGUMENT_LIST);
 		createEReference(definitionArgumentListEClass, DEFINITION_ARGUMENT_LIST__ARGUMENTS);
@@ -1257,6 +1258,16 @@ public class PPPackageImpl extends EPackageImpl implements PPPackage {
 	 */
 	public EAttribute getDefinition_ClassName() {
 		return (EAttribute) definitionEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
+	public EReference getDefinition_Documentation() {
+		return (EReference) definitionEClass.getEStructuralFeatures().get(3);
 	}
 
 	/**
@@ -2438,6 +2449,10 @@ public class PPPackageImpl extends EPackageImpl implements PPPackage {
 			!IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(
 			getDefinition_Statements(), this.getExpression(), null, "statements", null, 0, -1, Definition.class,
+			!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE,
+			!IS_DERIVED, IS_ORDERED);
+		initEReference(
+			getDefinition_Documentation(), this.getOWS(), null, "documentation", null, 0, 1, Definition.class,
 			!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE,
 			!IS_DERIVED, IS_ORDERED);
 

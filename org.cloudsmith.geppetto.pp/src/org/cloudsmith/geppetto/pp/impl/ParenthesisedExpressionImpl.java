@@ -143,6 +143,17 @@ public class ParenthesisedExpressionImpl extends ExpressionImpl implements Paren
 	 * @generated
 	 */
 	@Override
+	protected EClass eStaticClass() {
+		return PPPackage.Literals.PARENTHESISED_EXPRESSION;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch(featureID) {
 			case PPPackage.PARENTHESISED_EXPRESSION__EXPR:
@@ -184,17 +195,6 @@ public class ParenthesisedExpressionImpl extends ExpressionImpl implements Paren
 		else if(eNotificationRequired())
 			eNotify(new ENotificationImpl(
 				this, Notification.SET, PPPackage.PARENTHESISED_EXPRESSION__EXPR, newExpr, newExpr));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * 
-	 * @generated
-	 */
-	@Override
-	protected EClass eStaticClass() {
-		return PPPackage.Literals.PARENTHESISED_EXPRESSION;
 	}
 
 } // ParenthesisedExpressionImpl

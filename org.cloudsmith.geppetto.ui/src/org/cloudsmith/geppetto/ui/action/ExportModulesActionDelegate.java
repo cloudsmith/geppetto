@@ -11,6 +11,9 @@
  */
 package org.cloudsmith.geppetto.ui.action;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.cloudsmith.geppetto.forge.Forge;
 import org.cloudsmith.geppetto.forge.ForgeFactory;
 import org.cloudsmith.geppetto.ui.UIPlugin;
@@ -29,13 +32,13 @@ import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.actions.ActionDelegate;
 import org.eclipse.ui.actions.WorkspaceModifyOperation;
 
-public class ExportModuleActionDelegate extends ActionDelegate implements IObjectActionDelegate {
+public class ExportModulesActionDelegate extends ActionDelegate implements IObjectActionDelegate {
 
-	protected IProject project;
+	protected List<IProject> projects = new ArrayList<IProject>();
 
 	@Override
 	public void dispose() {
-		project = null;
+		projects = null;
 		super.dispose();
 	}
 
@@ -43,8 +46,8 @@ public class ExportModuleActionDelegate extends ActionDelegate implements IObjec
 	public void run(IAction action) {
 		DirectoryDialog dialog = new DirectoryDialog(
 			PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell(), SWT.NONE);
-		dialog.setMessage(UIPlugin.INSTANCE.getString("_UI_ExportModule_message")); //$NON-NLS-1$
-		dialog.setText(UIPlugin.INSTANCE.getString("_UI_ExportModule_title")); //$NON-NLS-1$
+		dialog.setMessage(UIPlugin.INSTANCE.getString("_UI_ExportModules_message")); //$NON-NLS-1$
+		dialog.setText(UIPlugin.INSTANCE.getString("_UI_ExportModules_title")); //$NON-NLS-1$
 		final String directoryPath = dialog.open();
 
 		if(directoryPath != null) {
@@ -52,18 +55,19 @@ public class ExportModuleActionDelegate extends ActionDelegate implements IObjec
 
 				@Override
 				protected void execute(IProgressMonitor progressMonitor) {
-					try {
-						Forge forge = ForgeFactory.eINSTANCE.createForgeService().createForge(
-							java.net.URI.create("http://forge.puppetlabs.com")); //$NON-NLS-1$
+					Forge forge = ForgeFactory.eINSTANCE.createForgeService().createForge(
+						java.net.URI.create("http://forge.puppetlabs.com")); //$NON-NLS-1$
 
-						forge.build(project.getLocation().toFile(), new Path(directoryPath).toFile());
+					for(IProject project : projects) {
+						try {
+							forge.build(project.getLocation().toFile(), new Path(directoryPath).toFile());
+						}
+						catch(Exception exception) {
+							UIPlugin.INSTANCE.log(exception);
+						}
 					}
-					catch(Exception exception) {
-						UIPlugin.INSTANCE.log(exception);
-					}
-					finally {
-						progressMonitor.done();
-					}
+
+					progressMonitor.done();
 				}
 			};
 
@@ -78,19 +82,23 @@ public class ExportModuleActionDelegate extends ActionDelegate implements IObjec
 
 	@Override
 	public void selectionChanged(IAction action, ISelection selection) {
+		projects.clear();
 
 		if(selection instanceof IStructuredSelection) {
-			Object object = ((IStructuredSelection) selection).getFirstElement();
 
-			if(object instanceof IProject) {
-				project = (IProject) object;
-				action.setEnabled(ResourceUtil.getFile(project.getFullPath().append("Modulefile")).exists()); //$NON-NLS-1$
-				return;
+			for(Object element : ((IStructuredSelection) selection).toList()) {
+
+				if(element instanceof IProject) {
+					IProject project = (IProject) element;
+
+					if(ResourceUtil.getFile(project.getFullPath().append("Modulefile")).exists()) {
+						projects.add(project);
+					}
+				}
 			}
 		}
 
-		project = null;
-		action.setEnabled(false);
+		action.setEnabled(!projects.isEmpty());
 	}
 
 	@Override

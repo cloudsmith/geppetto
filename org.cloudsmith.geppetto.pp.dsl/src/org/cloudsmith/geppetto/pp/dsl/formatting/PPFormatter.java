@@ -33,18 +33,6 @@ import org.eclipse.xtext.util.Pair;
  */
 public class PPFormatter extends AbstractDeclarativeFormatter {
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.xtext.formatting.impl.AbstractDeclarativeFormatter#createFormatterStream(java.lang.String,
-	 * org.eclipse.xtext.parsetree.reconstr.ITokenStream, boolean)
-	 */
-	@Override
-	public ITokenStream createFormatterStream(String indent, ITokenStream out, boolean preserveWhitespaces) {
-		// Create opportunity to use the TokenStreamWrapper around out... (used for debugging).
-		return super.createFormatterStream(indent, out, preserveWhitespaces);
-	}
-
 	protected void assignmentExpressionConfiguration(FormattingConfig c) {
 		PPGrammarAccess ga = (PPGrammarAccess) getGrammarAccess();
 		c.setLinewrap().after(ga.getAssignmentExpressionAccess().getGroup_1());
@@ -56,9 +44,9 @@ public class PPFormatter extends AbstractDeclarativeFormatter {
 		// -- no space between EXPR and [
 		// -- no space after opening [
 		// -- no space before closing ]
-		c.setNoSpace().before(ga.getInfixExpressionAccess().getLeftSquareBracketKeyword_1_1());
-		c.setNoSpace().after(ga.getInfixExpressionAccess().getLeftSquareBracketKeyword_1_1());
-		c.setNoSpace().before(ga.getInfixExpressionAccess().getRightSquareBracketKeyword_1_3());
+		c.setNoSpace().before(ga.getAtExpressionAccess().getLeftSquareBracketKeyword_1_1());
+		c.setNoSpace().after(ga.getAtExpressionAccess().getLeftSquareBracketKeyword_1_1());
+		c.setNoSpace().before(ga.getAtExpressionAccess().getRightSquareBracketKeyword_1_3());
 
 	}
 
@@ -151,6 +139,18 @@ public class PPFormatter extends AbstractDeclarativeFormatter {
 
 		// DEBUG: uncomment next to get a diagram of the formatter
 		// super.saveDebugGraphvizDiagram("debugDiagram.dot");
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.xtext.formatting.impl.AbstractDeclarativeFormatter#createFormatterStream(java.lang.String,
+	 * org.eclipse.xtext.parsetree.reconstr.ITokenStream, boolean)
+	 */
+	@Override
+	public ITokenStream createFormatterStream(String indent, ITokenStream out, boolean preserveWhitespaces) {
+		// Create opportunity to use the TokenStreamWrapper around out... (used for debugging).
+		return super.createFormatterStream(indent, out, preserveWhitespaces);
 	}
 
 	protected void definitionExpressionConfiguration(FormattingConfig c) {

@@ -172,6 +172,17 @@ public class CaseExpressionImpl extends ExpressionImpl implements CaseExpression
 	 * @generated
 	 */
 	@Override
+	protected EClass eStaticClass() {
+		return PPPackage.Literals.CASE_EXPRESSION;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch(featureID) {
 			case PPPackage.CASE_EXPRESSION__SWITCH_EXPR:
@@ -229,17 +240,6 @@ public class CaseExpressionImpl extends ExpressionImpl implements CaseExpression
 		else if(eNotificationRequired())
 			eNotify(new ENotificationImpl(
 				this, Notification.SET, PPPackage.CASE_EXPRESSION__SWITCH_EXPR, newSwitchExpr, newSwitchExpr));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * 
-	 * @generated
-	 */
-	@Override
-	protected EClass eStaticClass() {
-		return PPPackage.Literals.CASE_EXPRESSION;
 	}
 
 } // CaseExpressionImpl

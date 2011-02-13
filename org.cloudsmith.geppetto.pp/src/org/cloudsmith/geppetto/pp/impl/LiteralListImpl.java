@@ -128,6 +128,17 @@ public class LiteralListImpl extends LiteralExpressionImpl implements LiteralLis
 	 * @generated
 	 */
 	@Override
+	protected EClass eStaticClass() {
+		return PPPackage.Literals.LITERAL_LIST;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch(featureID) {
 			case PPPackage.LITERAL_LIST__ELEMENTS:
@@ -148,17 +159,6 @@ public class LiteralListImpl extends LiteralExpressionImpl implements LiteralLis
 			elements = new EObjectContainmentEList<Expression>(Expression.class, this, PPPackage.LITERAL_LIST__ELEMENTS);
 		}
 		return elements;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * 
-	 * @generated
-	 */
-	@Override
-	protected EClass eStaticClass() {
-		return PPPackage.Literals.LITERAL_LIST;
 	}
 
 } // LiteralListImpl

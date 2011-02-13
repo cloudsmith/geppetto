@@ -38,6 +38,8 @@
         containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="statements" upperBound="-1"
         eType="#//Expression" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="documentation" eType="#//OWS"
+        containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="DefinitionArgumentList">
     <eStructuralFeatures xsi:type="ecore:EReference" name="arguments" upperBound="-1"

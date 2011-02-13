@@ -37,7 +37,7 @@ import "http://www.eclipse.org/emf/2002/Ecore" as ecore
 // 
 // Most 'intermediate' rules do not have to care about this - only the rules that consume a token
 // must deal with trailing .
-// The Manifest allows leading space(s) and comments to be included in the model in an LeadingSpaceAndComments (to aid in generating
+// The Manifest allows leading space(s) and comments to be included in the model in an LeadingComments (to aid in generating
 // a meaningsful header).
 //
 
@@ -51,7 +51,7 @@ import "http://www.eclipse.org/emf/2002/Ecore" as ecore
 
 PuppetManifest returns pp::PuppetManifest	
 	: {pp::PuppetManifest}
-		leadingSpaceAndComments = LeadingSpaceAndComments?
+//		leadingSpaceAndComments = LeadingComments?
 		(statements += ExpressionList)*
 	;
 	
@@ -140,12 +140,12 @@ ResourceBody returns pp::ResourceBody
 
 // TODO, must validate that key is valid
 AttributeDefinition returns pp::AttributeDefinition
-	: key = unionNameOrReference  '=>'  value = Expression 
+	:  key = unionNameOrReference  '=>'  value = Expression 
 	;
 
 // TODO, must validate that key is valid
 AttributeAddition returns pp::AttributeAddition
-	: key = unionNameOrReference  '+>'  value = Expression
+	:  key = unionNameOrReference  '+>'  value = Expression
 	;
 
 AttributeOperation returns pp::AttributeOperation
@@ -254,29 +254,19 @@ InExpression returns pp::Expression:
 UnaryOrHigherExpression returns pp::Expression
 	: UnaryMinusExpression
 	| NotExpression
-	| InfixExpression
+	| CollectExpression // WAS: AtExpression
 	;
 	
 UnaryMinusExpression returns pp::UnaryMinusExpression
-	: '-'  expr = InfixExpression
+	: '-'  expr = CollectExpression // WAS: AtExpression
 	;
 	
 NotExpression returns pp::UnaryNotExpression
-	: '!'  expr = InfixExpression
+	: '!'  expr = CollectExpression // WAS: AtExpression
 	;
 
 
-// Note: AtExpression serves dual purpose: ResourceReference and '#' access
-// VALIDATION: checks 2 level nesting constraint on At a[x][y] is ok but not a[x][y][z]
-// VALIDATION: checks At dual roles and validates accordingly (only single parameter for normal At) etc.	
-// TODO: Rename the Rule, it should be called AtExpression (there are no other infix operators here...)
-InfixExpression  returns pp::Expression:
-	CollectExpression ({pp::AtExpression.leftExpr=current}
-		'['  
-			(parameters += Expression (','  parameters += Expression)*)?
-		']' 
-	)*
-	;
+// WAS: AtExpression -> CollectExpression
 
 
 // TODO: VALIDATE that CollectExpression classReference is a ClassReference
@@ -305,7 +295,8 @@ ExportedCollectQuery returns pp::ICollectQuery
 	;
 	
 SelectorExpression returns pp::Expression
-	: FunctionCall ({pp::SelectorExpression.leftExpr = current}
+	: AtExpression // WAS: FunctionCall 
+		({pp::SelectorExpression.leftExpr = current}
 		 '?' 
 			( ('{' 
 				parameters += SelectorEntry 
@@ -321,6 +312,22 @@ SelectorEntry returns pp::Expression
 	: Expression ({pp::SelectorEntry.leftExpr = current} '=>' rightExpr = Expression)?
 	;
 
+// MOVE AT HERE IN PRECEDENCE
+// x-> AtExpression == x-> CollectExpression
+// y-> FunctionCall == y->AtExpression
+// AtExpression -> FunctionCall
+// Note: AtExpression serves dual purpose: ResourceReference and '#' access
+// VALIDATION: checks 2 level nesting constraint on At a[x][y] is ok but not a[x][y][z] if bug compatible mode
+// VALIDATION: checks At dual roles and validates accordingly (only single parameter for normal At) etc.	
+AtExpression  returns pp::Expression:
+	FunctionCall // WAS: CollectExpression 
+	({pp::AtExpression.leftExpr=current}
+		'['  
+			(parameters += Expression (','  parameters += Expression)*)?
+		']' 
+	)*
+	;
+	
 // FunctionCall has different syntax restrictions depending on context
 // - when used where only one expression can occur, parantheses are required around the arguments
 // To solve this, the parser does NOT recognize func x as a function call, this is instead treated as
@@ -331,7 +338,7 @@ SelectorEntry returns pp::Expression
 FunctionCall returns pp::Expression 
 	: PrimaryExpression ({pp::FunctionCall.leftExpr = current}
 		'('  
-			(parameters+=Expression (',' parameters += Expression)*)?
+			(parameters+=Expression (',' parameters += Expression)* endComma?)?
 		')' )?
 	;
 
@@ -366,7 +373,7 @@ HostReference returns pp::Expression
 	
 HostClassDefinition returns pp::HostClassDefinition
 	: 'class'  
-		className = unionNameOrReference  
+		 className = unionNameOrReference  
 		arguments = DefinitionArgumentList?
 		('inherits'  parent = ParentName)?	
 		'{'  
@@ -380,14 +387,14 @@ ParentName returns pp::LiteralExpression
 	;
 	
 Definition returns pp::Definition
-	: 'define'  
-		className = unionNameOrReference 
+	: 	'define' 
+		 className = unionNameOrReference 
 		arguments = DefinitionArgumentList?
 		'{' 
 			(statements += ExpressionList)* 
 		'}'  
 	;
-		
+			
 DefinitionArgumentList returns pp::DefinitionArgumentList
 	: {pp::DefinitionArgumentList}
 		'(' 
@@ -459,11 +466,11 @@ LiteralExpression returns pp::Expression
 	;
 		
 LiteralNameOrReference returns pp::LiteralNameOrReference
-	: value = unionNameOrReference 
+	:  value = unionNameOrReference 
 	;
 	
 UNION_VARIABLE_OR_NAME :
-	'$'? (unionNameOrReference | keyword)
+	'$'?  unionNameOrReference //(unionNameOrReference | keyword)
 	;
 	
 	
@@ -472,7 +479,7 @@ ParenthisedExpression returns pp::ParenthesisedExpression
 	;
 
 VirtualNameOrReference returns pp::VirtualNameOrReference 
-	: '@' exported = ATBoolean?  value = unionNameOrReference 
+	: '@' exported = ATBoolean?   value = unionNameOrReference 
 	;
 
 // Kludge for a serialization issue using exported = '@'?
@@ -616,35 +623,57 @@ dollarVariable hidden()
 	: '$' (variable | keyword)
 	;
 	
-keyword : 'and' | 'case' | 'class' | 'default' | 'define' | 'else' | 'elsif' | 'in' |'inherits' 
-		| 'import' | 'node' | 'or' | 'undef' | 'true' | 'false'
+keyword : ('and' | 'case' | 'class' | 'default' | 'define' | 'else' | 'elsif' | 'in' |'inherits' 
+		| 'import' | 'node' | 'or' | 'undef' | 'true' | 'false' | 'if')
 	;
 
 variable hidden()
-	: WORD_CHARS ('::' WORD_CHARS)*
+	// puppet grammar allows '::' any number of times (\w*::)*\w+
+	: WORD_CHARS
+//	: '::'? WORD_CHARS ('::' WORD_CHARS)*
 	;
 
-LeadingSpaceAndComments returns pp::OWS : 
-	// Specified to allow source generation from model with comments at the start of the file, 
-	// and is also used in a callback to parser to produce an  object with an array of comments
-	{pp::OWS} values += comments*
+LeadingComments returns pp::OWS hidden(): 
+	// Allows a sequence of comments (without any separating new lines)
+	// Note that ML comment will eat WS including NL
+	{pp::OWS} values += comment+
 	;
 
-comments 	hidden(WS) : 
+//visibleWhitespace hidden(): (' ' | '\u00A0' | '\t' )+;
+
+comment 	hidden() : 
 	( ML_COMMENT | SL_COMMENT)
 	;
 
-unionNameOrReference hidden() :
-	// captures names and references
-	'::'? (WORD_CHARS | '-')+ ('::' (WORD_CHARS | '-')*)*
-;
+unionNameOrReference hidden()
+	: WORD_CHARS | 'class' | 'default' 
+	// captures names and references, complicated by the fact that a keyword may be part of the name
+	// if the name contains '::'
+//	:	(=>'::' (WORD_CHARS | keyword) ('::' (WORD_CHARS | keyword))*)
+//		| ((WORD_CHARS | 'class') ('::' (WORD_CHARS | keyword))*)
+	;
 	
+// wcOrKwSequence hidden(): WORD_CHARS | keyword;
+//wcOrKwSequence hidden(): (WORD_CHARS (keyword WORD_CHARS)* keyword?) | (keyword (WORD_CHARS keyword)* WORD_CHARS?);
+
+//unionNameOrReference hidden() 
+//	// captures names and references, complicated by the fact that a keyword may be part of the name
+//	// if the name contains '::'
+//	:	=>'::'  (WORD_CHARS | keyword | '-')+ ('::' (WORD_CHARS | keyword | '-')+)* 
+//	| 	     =>((WORD_CHARS | keyword | '-')+ '::') (WORD_CHARS | keyword | '-') ('::' (WORD_CHARS | keyword | '-')+)* 
+//	| 	      (WORD_CHARS | '-' | 'class')+ ('::' (WORD_CHARS | keyword | '-')+)*
+//	;
+
+// includes keywords that are allowed in names (between optional ::).
+//wordCharsOrAnyKeyword : (WORD_CHARS | keyword | '-') ;
+//wordCharsOrMinusClass : (WORD_CHARS | '-' | 'class');
+
 doubleStringCharacters hidden()
 	// special rules in lexer will deliver everything as one of these when in a string
 	: (WORD_CHARS
 	| ANY_OTHER
 	| WS
-	| '::'
+//	| '::'
 	| '\\"'
 	| '\\\''
 	| '\\$'
@@ -658,7 +687,7 @@ singleStringCharacters hidden()
 	: (WORD_CHARS
 	| ANY_OTHER
 	| WS
-	| '::'
+//	| '::'
 	| '$' // terminates dq-, but not sq- string
 	| '${' // terminates dq-, but not sq- string
 	| '\\"'
@@ -674,7 +703,9 @@ singleStringCharacters hidden()
  * (Please no terminals above, and no rules below...)
  */
 
-terminal ML_COMMENT : '/*' -> '*/' ;
+terminal ML_COMMENT : '/*' -> '*/' ((' ' | '\u00A0' | '\t')* '\r'? '\n')?
+;
+// accumulate all SL comments into one token
 terminal SL_COMMENT : '#' !('\r' | '\n')* ('\r'? '\n')? ;
 
 terminal WS	
@@ -683,7 +714,8 @@ terminal WS
 	;
 
 terminal WORD_CHARS :
-	(('0'..'9')|('a'..'z')|('A'..'Z')|'_' | '.' | '-')+
+	('::')? ('0'..'9'|'a'..'z'|'A'..'Z'|'_'|'.'|'-')+ ('::' ('0'..'9'|'a'..'z'|'A'..'Z'|'_'|'.'|'-')+)*
+//	(('0'..'9')|('a'..'z')|('A'..'Z')|'_' | '.' | '-' | '::')+
 ;
 //terminal UNION_NAME_OR_REFERENCE :
 //	// captures names and references

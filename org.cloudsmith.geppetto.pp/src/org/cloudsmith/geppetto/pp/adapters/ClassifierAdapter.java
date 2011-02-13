@@ -29,6 +29,8 @@ public class ClassifierAdapter extends AdapterImpl {
 
 	public static final int RESOURCE_IS_OVERRIDE = 3;
 
+	public static final int RESOURCE_IS_CLASSPARAMS = 4;
+
 	// Default size seems to be 10 slots - which is overkill
 	private int classifier = UNKNOWN;
 

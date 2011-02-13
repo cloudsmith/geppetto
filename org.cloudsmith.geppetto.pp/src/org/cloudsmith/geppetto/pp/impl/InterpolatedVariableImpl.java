@@ -118,6 +118,17 @@ public class InterpolatedVariableImpl extends ExpressionImpl implements Interpol
 	 * @generated
 	 */
 	@Override
+	protected EClass eStaticClass() {
+		return PPPackage.Literals.INTERPOLATED_VARIABLE;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch(featureID) {
 			case PPPackage.INTERPOLATED_VARIABLE__VAR_NAME:
@@ -167,17 +178,6 @@ public class InterpolatedVariableImpl extends ExpressionImpl implements Interpol
 		result.append(varName);
 		result.append(')');
 		return result.toString();
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * 
-	 * @generated
-	 */
-	@Override
-	protected EClass eStaticClass() {
-		return PPPackage.Literals.INTERPOLATED_VARIABLE;
 	}
 
 } // InterpolatedVariableImpl

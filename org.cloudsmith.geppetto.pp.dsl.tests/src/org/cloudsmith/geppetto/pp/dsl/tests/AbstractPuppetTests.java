@@ -38,28 +38,21 @@ public class AbstractPuppetTests extends AbstractXtextTests {
 
 	protected final PPFactory pf = PPFactory.eINSTANCE;
 
-	@Override
-	public String serialize(EObject obj) {
-		SaveOptions options = SaveOptions.newBuilder().getOptions();
-		// System.err.println(options.toString());
-		return getSerializer().serialize(obj, options);
-	}
-
-	public String serializeFormatted(EObject obj) {
-		return getSerializer().serialize(obj, SaveOptions.newBuilder().format().getOptions());
-	}
-
-	@Override
-	public void setUp() throws Exception {
-		super.setUp();
-		with(PPStandaloneSetup.class);
-		PPJavaValidator validator = get(PPJavaValidator.class);
-		EValidatorRegistrar registrar = get(EValidatorRegistrar.class);
-		tester = new ValidatorTester<PPJavaValidator>(validator, registrar, "org.cloudsmith.geppetto.pp.dsl.PP");
-	}
-
 	protected void addResourceBody(ResourceExpression o, String title, Object... keyValPairs) {
 		o.getResourceData().add(createResourceBody(title, keyValPairs));
+	}
+
+	/**
+	 * Asserts that instance is assignable to expected. Appends information to message about what was
+	 * expected and given.
+	 * 
+	 * @param message
+	 * @param expected
+	 * @param instance
+	 */
+	protected void assertInstanceOf(String message, Class<?> expected, Object instance) {
+		assertTrue(message + ": expected instanceof: " + expected.getSimpleName() + " got: " +
+				instance.getClass().getSimpleName(), expected.isAssignableFrom(instance.getClass()));
 	}
 
 	protected AttributeOperation createAttributeAddition(String name, Expression value) {
@@ -228,5 +221,25 @@ public class AbstractPuppetTests extends AbstractXtextTests {
 
 	protected ResourceExpression createVirtualResourceExpression(String type, String title, Object... keyValPairs) {
 		return createResourceExpression(true, false, type, title, keyValPairs);
+	}
+
+	@Override
+	public String serialize(EObject obj) {
+		SaveOptions options = SaveOptions.newBuilder().getOptions();
+		// System.err.println(options.toString());
+		return getSerializer().serialize(obj, options);
+	}
+
+	public String serializeFormatted(EObject obj) {
+		return getSerializer().serialize(obj, SaveOptions.newBuilder().format().getOptions());
+	}
+
+	@Override
+	public void setUp() throws Exception {
+		super.setUp();
+		with(PPStandaloneSetup.class);
+		PPJavaValidator validator = get(PPJavaValidator.class);
+		EValidatorRegistrar registrar = get(EValidatorRegistrar.class);
+		tester = new ValidatorTester<PPJavaValidator>(validator, registrar, "org.cloudsmith.geppetto.pp.dsl.PP");
 	}
 }

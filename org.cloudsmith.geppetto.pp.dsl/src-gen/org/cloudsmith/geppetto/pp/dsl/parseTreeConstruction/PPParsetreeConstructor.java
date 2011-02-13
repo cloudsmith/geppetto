@@ -55,13 +55,13 @@ protected class ThisRootNode extends RootToken {
 			case 21: return new UnaryOrHigherExpression_Alternatives(this, this, 21, inst);
 			case 22: return new UnaryMinusExpression_Group(this, this, 22, inst);
 			case 23: return new NotExpression_Group(this, this, 23, inst);
-			case 24: return new InfixExpression_Group(this, this, 24, inst);
-			case 25: return new CollectExpression_Group(this, this, 25, inst);
-			case 26: return new CollectQuery_Alternatives(this, this, 26, inst);
-			case 27: return new VirtualCollectQuery_Group(this, this, 27, inst);
-			case 28: return new ExportedCollectQuery_Group(this, this, 28, inst);
-			case 29: return new SelectorExpression_Group(this, this, 29, inst);
-			case 30: return new SelectorEntry_Group(this, this, 30, inst);
+			case 24: return new CollectExpression_Group(this, this, 24, inst);
+			case 25: return new CollectQuery_Alternatives(this, this, 25, inst);
+			case 26: return new VirtualCollectQuery_Group(this, this, 26, inst);
+			case 27: return new ExportedCollectQuery_Group(this, this, 27, inst);
+			case 28: return new SelectorExpression_Group(this, this, 28, inst);
+			case 29: return new SelectorEntry_Group(this, this, 29, inst);
+			case 30: return new AtExpression_Group(this, this, 30, inst);
 			case 31: return new FunctionCall_Group(this, this, 31, inst);
 			case 32: return new PrimaryExpression_Alternatives(this, this, 32, inst);
 			case 33: return new NodeDefinition_Group(this, this, 33, inst);
@@ -101,7 +101,7 @@ protected class ThisRootNode extends RootToken {
 			case 67: return new LiteralRegex_ValueAssignment(this, this, 67, inst);
 			case 68: return new LiteralName_ValueAssignment(this, this, 68, inst);
 			case 69: return new VariableExpression_VarNameAssignment(this, this, 69, inst);
-			case 70: return new LeadingSpaceAndComments_Group(this, this, 70, inst);
+			case 70: return new LeadingComments_Group(this, this, 70, inst);
 			default: return null;
 		}	
 	}	
@@ -119,7 +119,7 @@ protected class ThisRootNode extends RootToken {
  * // 
  * // Most 'intermediate' rules do not have to care about this - only the rules that consume a token
  * // must deal with trailing .
- * // The Manifest allows leading space(s) and comments to be included in the model in an LeadingSpaceAndComments (to aid in generating
+ * // The Manifest allows leading space(s) and comments to be included in the model in an LeadingComments (to aid in generating
  * // a meaningsful header).
  * //
  * // Important note about 'unused' object creating rules
@@ -130,11 +130,13 @@ protected class ThisRootNode extends RootToken {
  * // (Unused *data* rules are ignored by the parser generator).
  * // 
  * PuppetManifest returns pp::PuppetManifest:
- * 	{pp::PuppetManifest} leadingSpaceAndComments=LeadingSpaceAndComments? statements+=ExpressionList*;
+ * 	{pp::PuppetManifest} //		leadingSpaceAndComments = LeadingComments?
+ * 	statements+=ExpressionList*;
  *
  **/
 
-// {pp::PuppetManifest} leadingSpaceAndComments=LeadingSpaceAndComments? statements+=ExpressionList*
+// {pp::PuppetManifest} //		leadingSpaceAndComments = LeadingComments?
+// statements+=ExpressionList*
 protected class PuppetManifest_Group extends GroupToken {
 	
 	public PuppetManifest_Group(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -149,9 +151,8 @@ protected class PuppetManifest_Group extends GroupToken {
     @Override
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
-			case 0: return new PuppetManifest_StatementsAssignment_2(lastRuleCallOrigin, this, 0, inst);
-			case 1: return new PuppetManifest_LeadingSpaceAndCommentsAssignment_1(lastRuleCallOrigin, this, 1, inst);
-			case 2: return new PuppetManifest_PuppetManifestAction_0(lastRuleCallOrigin, this, 2, inst);
+			case 0: return new PuppetManifest_StatementsAssignment_1(lastRuleCallOrigin, this, 0, inst);
+			case 1: return new PuppetManifest_PuppetManifestAction_0(lastRuleCallOrigin, this, 1, inst);
 			default: return null;
 		}	
 	}
@@ -191,62 +192,16 @@ protected class PuppetManifest_PuppetManifestAction_0 extends ActionToken  {
 	}
 }
 
-// leadingSpaceAndComments=LeadingSpaceAndComments?
-protected class PuppetManifest_LeadingSpaceAndCommentsAssignment_1 extends AssignmentToken  {
-	
-	public PuppetManifest_LeadingSpaceAndCommentsAssignment_1(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
-		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
-	}
-	
-	@Override
-	public Assignment getGrammarElement() {
-		return grammarAccess.getPuppetManifestAccess().getLeadingSpaceAndCommentsAssignment_1();
-	}
-
-    @Override
-	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
-		switch(index) {
-			case 0: return new LeadingSpaceAndComments_Group(this, this, 0, inst);
-			default: return null;
-		}	
-	}
-
-    @Override	
-	public IEObjectConsumer tryConsume() {
-		if((value = eObjectConsumer.getConsumable("leadingSpaceAndComments",false)) == null) return null;
-		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("leadingSpaceAndComments");
-		if(value instanceof EObject) { // org::eclipse::xtext::impl::RuleCallImpl
-			IEObjectConsumer param = createEObjectConsumer((EObject)value);
-			if(param.isInstanceOf(grammarAccess.getLeadingSpaceAndCommentsRule().getType().getClassifier())) {
-				type = AssignmentType.PARSER_RULE_CALL;
-				element = grammarAccess.getPuppetManifestAccess().getLeadingSpaceAndCommentsLeadingSpaceAndCommentsParserRuleCall_1_0(); 
-				consumed = obj;
-				return param;
-			}
-		}
-		return null;
-	}
-
-    @Override
-	public AbstractToken createFollowerAfterReturn(AbstractToken next,	int actIndex, int index, IEObjectConsumer inst) {
-		if(value == inst.getEObject() && !inst.isConsumed()) return null;
-		switch(index) {
-			case 0: return new PuppetManifest_PuppetManifestAction_0(lastRuleCallOrigin, next, actIndex, consumed);
-			default: return null;
-		}	
-	}	
-}
-
 // statements+=ExpressionList*
-protected class PuppetManifest_StatementsAssignment_2 extends AssignmentToken  {
+protected class PuppetManifest_StatementsAssignment_1 extends AssignmentToken  {
 	
-	public PuppetManifest_StatementsAssignment_2(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+	public PuppetManifest_StatementsAssignment_1(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
 		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
 	}
 	
 	@Override
 	public Assignment getGrammarElement() {
-		return grammarAccess.getPuppetManifestAccess().getStatementsAssignment_2();
+		return grammarAccess.getPuppetManifestAccess().getStatementsAssignment_1();
 	}
 
     @Override
@@ -265,7 +220,7 @@ protected class PuppetManifest_StatementsAssignment_2 extends AssignmentToken  {
 			IEObjectConsumer param = createEObjectConsumer((EObject)value);
 			if(param.isInstanceOf(grammarAccess.getExpressionListRule().getType().getClassifier())) {
 				type = AssignmentType.PARSER_RULE_CALL;
-				element = grammarAccess.getPuppetManifestAccess().getStatementsExpressionListParserRuleCall_2_0(); 
+				element = grammarAccess.getPuppetManifestAccess().getStatementsExpressionListParserRuleCall_1_0(); 
 				consumed = obj;
 				return param;
 			}
@@ -277,9 +232,8 @@ protected class PuppetManifest_StatementsAssignment_2 extends AssignmentToken  {
 	public AbstractToken createFollowerAfterReturn(AbstractToken next,	int actIndex, int index, IEObjectConsumer inst) {
 		if(value == inst.getEObject() && !inst.isConsumed()) return null;
 		switch(index) {
-			case 0: return new PuppetManifest_StatementsAssignment_2(lastRuleCallOrigin, next, actIndex, consumed);
-			case 1: return new PuppetManifest_LeadingSpaceAndCommentsAssignment_1(lastRuleCallOrigin, next, actIndex, consumed);
-			case 2: return new PuppetManifest_PuppetManifestAction_0(lastRuleCallOrigin, next, actIndex, consumed);
+			case 0: return new PuppetManifest_StatementsAssignment_1(lastRuleCallOrigin, next, actIndex, consumed);
+			case 1: return new PuppetManifest_PuppetManifestAction_0(lastRuleCallOrigin, next, actIndex, consumed);
 			default: return null;
 		}	
 	}	
@@ -325,7 +279,7 @@ protected class Expression_RelationshipExpressionParserRuleCall extends RuleCall
 		   getEObject().eClass() != grammarAccess.getAndExpressionAccess().getAndExpressionLeftExprAction_1_0().getType().getClassifier() && 
 		   getEObject().eClass() != grammarAccess.getAppendExpressionAccess().getAppendExpressionLeftExprAction_1_0().getType().getClassifier() && 
 		   getEObject().eClass() != grammarAccess.getAssignmentExpressionAccess().getAssignmentExpressionLeftExprAction_1_0().getType().getClassifier() && 
-		   getEObject().eClass() != grammarAccess.getInfixExpressionAccess().getAtExpressionLeftExprAction_1_0().getType().getClassifier() && 
+		   getEObject().eClass() != grammarAccess.getAtExpressionAccess().getAtExpressionLeftExprAction_1_0().getType().getClassifier() && 
 		   getEObject().eClass() != grammarAccess.getCaseExpressionRule().getType().getClassifier() && 
 		   getEObject().eClass() != grammarAccess.getCollectExpressionAccess().getCollectExpressionClassReferenceAction_1_0().getType().getClassifier() && 
 		   getEObject().eClass() != grammarAccess.getDefinitionRule().getType().getClassifier() && 
@@ -415,7 +369,7 @@ protected class ExpressionList_Group extends GroupToken {
 		   getEObject().eClass() != grammarAccess.getAndExpressionAccess().getAndExpressionLeftExprAction_1_0().getType().getClassifier() && 
 		   getEObject().eClass() != grammarAccess.getAppendExpressionAccess().getAppendExpressionLeftExprAction_1_0().getType().getClassifier() && 
 		   getEObject().eClass() != grammarAccess.getAssignmentExpressionAccess().getAssignmentExpressionLeftExprAction_1_0().getType().getClassifier() && 
-		   getEObject().eClass() != grammarAccess.getInfixExpressionAccess().getAtExpressionLeftExprAction_1_0().getType().getClassifier() && 
+		   getEObject().eClass() != grammarAccess.getAtExpressionAccess().getAtExpressionLeftExprAction_1_0().getType().getClassifier() && 
 		   getEObject().eClass() != grammarAccess.getCaseExpressionRule().getType().getClassifier() && 
 		   getEObject().eClass() != grammarAccess.getCollectExpressionAccess().getCollectExpressionClassReferenceAction_1_0().getType().getClassifier() && 
 		   getEObject().eClass() != grammarAccess.getDefinitionRule().getType().getClassifier() && 
@@ -482,7 +436,7 @@ protected class ExpressionList_RelationshipExpressionParserRuleCall_0 extends Ru
 		   getEObject().eClass() != grammarAccess.getAndExpressionAccess().getAndExpressionLeftExprAction_1_0().getType().getClassifier() && 
 		   getEObject().eClass() != grammarAccess.getAppendExpressionAccess().getAppendExpressionLeftExprAction_1_0().getType().getClassifier() && 
 		   getEObject().eClass() != grammarAccess.getAssignmentExpressionAccess().getAssignmentExpressionLeftExprAction_1_0().getType().getClassifier() && 
-		   getEObject().eClass() != grammarAccess.getInfixExpressionAccess().getAtExpressionLeftExprAction_1_0().getType().getClassifier() && 
+		   getEObject().eClass() != grammarAccess.getAtExpressionAccess().getAtExpressionLeftExprAction_1_0().getType().getClassifier() && 
 		   getEObject().eClass() != grammarAccess.getCaseExpressionRule().getType().getClassifier() && 
 		   getEObject().eClass() != grammarAccess.getCollectExpressionAccess().getCollectExpressionClassReferenceAction_1_0().getType().getClassifier() && 
 		   getEObject().eClass() != grammarAccess.getDefinitionRule().getType().getClassifier() && 
@@ -789,7 +743,7 @@ protected class RelationshipExpression_Group extends GroupToken {
 		   getEObject().eClass() != grammarAccess.getAndExpressionAccess().getAndExpressionLeftExprAction_1_0().getType().getClassifier() && 
 		   getEObject().eClass() != grammarAccess.getAppendExpressionAccess().getAppendExpressionLeftExprAction_1_0().getType().getClassifier() && 
 		   getEObject().eClass() != grammarAccess.getAssignmentExpressionAccess().getAssignmentExpressionLeftExprAction_1_0().getType().getClassifier() && 
-		   getEObject().eClass() != grammarAccess.getInfixExpressionAccess().getAtExpressionLeftExprAction_1_0().getType().getClassifier() && 
+		   getEObject().eClass() != grammarAccess.getAtExpressionAccess().getAtExpressionLeftExprAction_1_0().getType().getClassifier() && 
 		   getEObject().eClass() != grammarAccess.getCaseExpressionRule().getType().getClassifier() && 
 		   getEObject().eClass() != grammarAccess.getCollectExpressionAccess().getCollectExpressionClassReferenceAction_1_0().getType().getClassifier() && 
 		   getEObject().eClass() != grammarAccess.getDefinitionRule().getType().getClassifier() && 
@@ -855,7 +809,7 @@ protected class RelationshipExpression_ResourceExpressionParserRuleCall_0 extend
 		   getEObject().eClass() != grammarAccess.getAndExpressionAccess().getAndExpressionLeftExprAction_1_0().getType().getClassifier() && 
 		   getEObject().eClass() != grammarAccess.getAppendExpressionAccess().getAppendExpressionLeftExprAction_1_0().getType().getClassifier() && 
 		   getEObject().eClass() != grammarAccess.getAssignmentExpressionAccess().getAssignmentExpressionLeftExprAction_1_0().getType().getClassifier() && 
-		   getEObject().eClass() != grammarAccess.getInfixExpressionAccess().getAtExpressionLeftExprAction_1_0().getType().getClassifier() && 
+		   getEObject().eClass() != grammarAccess.getAtExpressionAccess().getAtExpressionLeftExprAction_1_0().getType().getClassifier() && 
 		   getEObject().eClass() != grammarAccess.getCaseExpressionRule().getType().getClassifier() && 
 		   getEObject().eClass() != grammarAccess.getCollectExpressionAccess().getCollectExpressionClassReferenceAction_1_0().getType().getClassifier() && 
 		   getEObject().eClass() != grammarAccess.getDefinitionRule().getType().getClassifier() && 
@@ -1094,7 +1048,7 @@ protected class ResourceExpression_Group extends GroupToken {
 		   getEObject().eClass() != grammarAccess.getAndExpressionAccess().getAndExpressionLeftExprAction_1_0().getType().getClassifier() && 
 		   getEObject().eClass() != grammarAccess.getAppendExpressionAccess().getAppendExpressionLeftExprAction_1_0().getType().getClassifier() && 
 		   getEObject().eClass() != grammarAccess.getAssignmentExpressionAccess().getAssignmentExpressionLeftExprAction_1_0().getType().getClassifier() && 
-		   getEObject().eClass() != grammarAccess.getInfixExpressionAccess().getAtExpressionLeftExprAction_1_0().getType().getClassifier() && 
+		   getEObject().eClass() != grammarAccess.getAtExpressionAccess().getAtExpressionLeftExprAction_1_0().getType().getClassifier() && 
 		   getEObject().eClass() != grammarAccess.getCaseExpressionRule().getType().getClassifier() && 
 		   getEObject().eClass() != grammarAccess.getCollectExpressionAccess().getCollectExpressionClassReferenceAction_1_0().getType().getClassifier() && 
 		   getEObject().eClass() != grammarAccess.getDefinitionRule().getType().getClassifier() && 
@@ -1159,7 +1113,7 @@ protected class ResourceExpression_AssignmentExpressionParserRuleCall_0 extends 
 		   getEObject().eClass() != grammarAccess.getAndExpressionAccess().getAndExpressionLeftExprAction_1_0().getType().getClassifier() && 
 		   getEObject().eClass() != grammarAccess.getAppendExpressionAccess().getAppendExpressionLeftExprAction_1_0().getType().getClassifier() && 
 		   getEObject().eClass() != grammarAccess.getAssignmentExpressionAccess().getAssignmentExpressionLeftExprAction_1_0().getType().getClassifier() && 
-		   getEObject().eClass() != grammarAccess.getInfixExpressionAccess().getAtExpressionLeftExprAction_1_0().getType().getClassifier() && 
+		   getEObject().eClass() != grammarAccess.getAtExpressionAccess().getAtExpressionLeftExprAction_1_0().getType().getClassifier() && 
 		   getEObject().eClass() != grammarAccess.getCaseExpressionRule().getType().getClassifier() && 
 		   getEObject().eClass() != grammarAccess.getCollectExpressionAccess().getCollectExpressionClassReferenceAction_1_0().getType().getClassifier() && 
 		   getEObject().eClass() != grammarAccess.getDefinitionRule().getType().getClassifier() && 
@@ -2312,7 +2266,7 @@ protected class AssignmentExpression_Group extends GroupToken {
 		   getEObject().eClass() != grammarAccess.getAndExpressionAccess().getAndExpressionLeftExprAction_1_0().getType().getClassifier() && 
 		   getEObject().eClass() != grammarAccess.getAppendExpressionAccess().getAppendExpressionLeftExprAction_1_0().getType().getClassifier() && 
 		   getEObject().eClass() != grammarAccess.getAssignmentExpressionAccess().getAssignmentExpressionLeftExprAction_1_0().getType().getClassifier() && 
-		   getEObject().eClass() != grammarAccess.getInfixExpressionAccess().getAtExpressionLeftExprAction_1_0().getType().getClassifier() && 
+		   getEObject().eClass() != grammarAccess.getAtExpressionAccess().getAtExpressionLeftExprAction_1_0().getType().getClassifier() && 
 		   getEObject().eClass() != grammarAccess.getCaseExpressionRule().getType().getClassifier() && 
 		   getEObject().eClass() != grammarAccess.getCollectExpressionAccess().getCollectExpressionClassReferenceAction_1_0().getType().getClassifier() && 
 		   getEObject().eClass() != grammarAccess.getDefinitionRule().getType().getClassifier() && 
@@ -2375,7 +2329,7 @@ protected class AssignmentExpression_AppendExpressionParserRuleCall_0 extends Ru
 		if(getEObject().eClass() != grammarAccess.getAdditiveExpressionAccess().getAdditiveExpressionLeftExprAction_1_0().getType().getClassifier() && 
 		   getEObject().eClass() != grammarAccess.getAndExpressionAccess().getAndExpressionLeftExprAction_1_0().getType().getClassifier() && 
 		   getEObject().eClass() != grammarAccess.getAppendExpressionAccess().getAppendExpressionLeftExprAction_1_0().getType().getClassifier() && 
-		   getEObject().eClass() != grammarAccess.getInfixExpressionAccess().getAtExpressionLeftExprAction_1_0().getType().getClassifier() && 
+		   getEObject().eClass() != grammarAccess.getAtExpressionAccess().getAtExpressionLeftExprAction_1_0().getType().getClassifier() && 
 		   getEObject().eClass() != grammarAccess.getCaseExpressionRule().getType().getClassifier() && 
 		   getEObject().eClass() != grammarAccess.getCollectExpressionAccess().getCollectExpressionClassReferenceAction_1_0().getType().getClassifier() && 
 		   getEObject().eClass() != grammarAccess.getDefinitionRule().getType().getClassifier() && 
@@ -2585,7 +2539,7 @@ protected class AppendExpression_Group extends GroupToken {
 		if(getEObject().eClass() != grammarAccess.getAdditiveExpressionAccess().getAdditiveExpressionLeftExprAction_1_0().getType().getClassifier() && 
 		   getEObject().eClass() != grammarAccess.getAndExpressionAccess().getAndExpressionLeftExprAction_1_0().getType().getClassifier() && 
 		   getEObject().eClass() != grammarAccess.getAppendExpressionAccess().getAppendExpressionLeftExprAction_1_0().getType().getClassifier() && 
-		   getEObject().eClass() != grammarAccess.getInfixExpressionAccess().getAtExpressionLeftExprAction_1_0().getType().getClassifier() && 
+		   getEObject().eClass() != grammarAccess.getAtExpressionAccess().getAtExpressionLeftExprAction_1_0().getType().getClassifier() && 
 		   getEObject().eClass() != grammarAccess.getCaseExpressionRule().getType().getClassifier() && 
 		   getEObject().eClass() != grammarAccess.getCollectExpressionAccess().getCollectExpressionClassReferenceAction_1_0().getType().getClassifier() && 
 		   getEObject().eClass() != grammarAccess.getDefinitionRule().getType().getClassifier() && 
@@ -2647,7 +2601,7 @@ protected class AppendExpression_OrExpressionParserRuleCall_0 extends RuleCallTo
 	public IEObjectConsumer tryConsume() {
 		if(getEObject().eClass() != grammarAccess.getAdditiveExpressionAccess().getAdditiveExpressionLeftExprAction_1_0().getType().getClassifier() && 
 		   getEObject().eClass() != grammarAccess.getAndExpressionAccess().getAndExpressionLeftExprAction_1_0().getType().getClassifier() && 
-		   getEObject().eClass() != grammarAccess.getInfixExpressionAccess().getAtExpressionLeftExprAction_1_0().getType().getClassifier() && 
+		   getEObject().eClass() != grammarAccess.getAtExpressionAccess().getAtExpressionLeftExprAction_1_0().getType().getClassifier() && 
 		   getEObject().eClass() != grammarAccess.getCaseExpressionRule().getType().getClassifier() && 
 		   getEObject().eClass() != grammarAccess.getCollectExpressionAccess().getCollectExpressionClassReferenceAction_1_0().getType().getClassifier() && 
 		   getEObject().eClass() != grammarAccess.getDefinitionRule().getType().getClassifier() && 
@@ -2855,7 +2809,7 @@ protected class OrExpression_Group extends GroupToken {
 	public IEObjectConsumer tryConsume() {
 		if(getEObject().eClass() != grammarAccess.getAdditiveExpressionAccess().getAdditiveExpressionLeftExprAction_1_0().getType().getClassifier() && 
 		   getEObject().eClass() != grammarAccess.getAndExpressionAccess().getAndExpressionLeftExprAction_1_0().getType().getClassifier() && 
-		   getEObject().eClass() != grammarAccess.getInfixExpressionAccess().getAtExpressionLeftExprAction_1_0().getType().getClassifier() && 
+		   getEObject().eClass() != grammarAccess.getAtExpressionAccess().getAtExpressionLeftExprAction_1_0().getType().getClassifier() && 
 		   getEObject().eClass() != grammarAccess.getCaseExpressionRule().getType().getClassifier() && 
 		   getEObject().eClass() != grammarAccess.getCollectExpressionAccess().getCollectExpressionClassReferenceAction_1_0().getType().getClassifier() && 
 		   getEObject().eClass() != grammarAccess.getDefinitionRule().getType().getClassifier() && 
@@ -2917,7 +2871,7 @@ protected class OrExpression_AndExpressionParserRuleCall_0 extends RuleCallToken
 	public IEObjectConsumer tryConsume() {
 		if(getEObject().eClass() != grammarAccess.getAdditiveExpressionAccess().getAdditiveExpressionLeftExprAction_1_0().getType().getClassifier() && 
 		   getEObject().eClass() != grammarAccess.getAndExpressionAccess().getAndExpressionLeftExprAction_1_0().getType().getClassifier() && 
-		   getEObject().eClass() != grammarAccess.getInfixExpressionAccess().getAtExpressionLeftExprAction_1_0().getType().getClassifier() && 
+		   getEObject().eClass() != grammarAccess.getAtExpressionAccess().getAtExpressionLeftExprAction_1_0().getType().getClassifier() && 
 		   getEObject().eClass() != grammarAccess.getCaseExpressionRule().getType().getClassifier() && 
 		   getEObject().eClass() != grammarAccess.getCollectExpressionAccess().getCollectExpressionClassReferenceAction_1_0().getType().getClassifier() && 
 		   getEObject().eClass() != grammarAccess.getDefinitionRule().getType().getClassifier() && 
@@ -3125,7 +3079,7 @@ protected class AndExpression_Group extends GroupToken {
 	public IEObjectConsumer tryConsume() {
 		if(getEObject().eClass() != grammarAccess.getAdditiveExpressionAccess().getAdditiveExpressionLeftExprAction_1_0().getType().getClassifier() && 
 		   getEObject().eClass() != grammarAccess.getAndExpressionAccess().getAndExpressionLeftExprAction_1_0().getType().getClassifier() && 
-		   getEObject().eClass() != grammarAccess.getInfixExpressionAccess().getAtExpressionLeftExprAction_1_0().getType().getClassifier() && 
+		   getEObject().eClass() != grammarAccess.getAtExpressionAccess().getAtExpressionLeftExprAction_1_0().getType().getClassifier() && 
 		   getEObject().eClass() != grammarAccess.getCaseExpressionRule().getType().getClassifier() && 
 		   getEObject().eClass() != grammarAccess.getCollectExpressionAccess().getCollectExpressionClassReferenceAction_1_0().getType().getClassifier() && 
 		   getEObject().eClass() != grammarAccess.getDefinitionRule().getType().getClassifier() && 
@@ -3185,7 +3139,7 @@ protected class AndExpression_RelationalExpressionParserRuleCall_0 extends RuleC
     @Override
 	public IEObjectConsumer tryConsume() {
 		if(getEObject().eClass() != grammarAccess.getAdditiveExpressionAccess().getAdditiveExpressionLeftExprAction_1_0().getType().getClassifier() && 
-		   getEObject().eClass() != grammarAccess.getInfixExpressionAccess().getAtExpressionLeftExprAction_1_0().getType().getClassifier() && 
+		   getEObject().eClass() != grammarAccess.getAtExpressionAccess().getAtExpressionLeftExprAction_1_0().getType().getClassifier() && 
 		   getEObject().eClass() != grammarAccess.getCaseExpressionRule().getType().getClassifier() && 
 		   getEObject().eClass() != grammarAccess.getCollectExpressionAccess().getCollectExpressionClassReferenceAction_1_0().getType().getClassifier() && 
 		   getEObject().eClass() != grammarAccess.getDefinitionRule().getType().getClassifier() && 
@@ -3394,7 +3348,7 @@ protected class RelationalExpression_Group extends GroupToken {
     @Override
 	public IEObjectConsumer tryConsume() {
 		if(getEObject().eClass() != grammarAccess.getAdditiveExpressionAccess().getAdditiveExpressionLeftExprAction_1_0().getType().getClassifier() && 
-		   getEObject().eClass() != grammarAccess.getInfixExpressionAccess().getAtExpressionLeftExprAction_1_0().getType().getClassifier() && 
+		   getEObject().eClass() != grammarAccess.getAtExpressionAccess().getAtExpressionLeftExprAction_1_0().getType().getClassifier() && 
 		   getEObject().eClass() != grammarAccess.getCaseExpressionRule().getType().getClassifier() && 
 		   getEObject().eClass() != grammarAccess.getCollectExpressionAccess().getCollectExpressionClassReferenceAction_1_0().getType().getClassifier() && 
 		   getEObject().eClass() != grammarAccess.getDefinitionRule().getType().getClassifier() && 
@@ -3454,7 +3408,7 @@ protected class RelationalExpression_EqualityExpressionParserRuleCall_0 extends 
     @Override
 	public IEObjectConsumer tryConsume() {
 		if(getEObject().eClass() != grammarAccess.getAdditiveExpressionAccess().getAdditiveExpressionLeftExprAction_1_0().getType().getClassifier() && 
-		   getEObject().eClass() != grammarAccess.getInfixExpressionAccess().getAtExpressionLeftExprAction_1_0().getType().getClassifier() && 
+		   getEObject().eClass() != grammarAccess.getAtExpressionAccess().getAtExpressionLeftExprAction_1_0().getType().getClassifier() && 
 		   getEObject().eClass() != grammarAccess.getCaseExpressionRule().getType().getClassifier() && 
 		   getEObject().eClass() != grammarAccess.getCollectExpressionAccess().getCollectExpressionClassReferenceAction_1_0().getType().getClassifier() && 
 		   getEObject().eClass() != grammarAccess.getDefinitionRule().getType().getClassifier() && 
@@ -3673,7 +3627,7 @@ protected class EqualityExpression_Group extends GroupToken {
     @Override
 	public IEObjectConsumer tryConsume() {
 		if(getEObject().eClass() != grammarAccess.getAdditiveExpressionAccess().getAdditiveExpressionLeftExprAction_1_0().getType().getClassifier() && 
-		   getEObject().eClass() != grammarAccess.getInfixExpressionAccess().getAtExpressionLeftExprAction_1_0().getType().getClassifier() && 
+		   getEObject().eClass() != grammarAccess.getAtExpressionAccess().getAtExpressionLeftExprAction_1_0().getType().getClassifier() && 
 		   getEObject().eClass() != grammarAccess.getCaseExpressionRule().getType().getClassifier() && 
 		   getEObject().eClass() != grammarAccess.getCollectExpressionAccess().getCollectExpressionClassReferenceAction_1_0().getType().getClassifier() && 
 		   getEObject().eClass() != grammarAccess.getDefinitionRule().getType().getClassifier() && 
@@ -3732,7 +3686,7 @@ protected class EqualityExpression_ShiftExpressionParserRuleCall_0 extends RuleC
     @Override
 	public IEObjectConsumer tryConsume() {
 		if(getEObject().eClass() != grammarAccess.getAdditiveExpressionAccess().getAdditiveExpressionLeftExprAction_1_0().getType().getClassifier() && 
-		   getEObject().eClass() != grammarAccess.getInfixExpressionAccess().getAtExpressionLeftExprAction_1_0().getType().getClassifier() && 
+		   getEObject().eClass() != grammarAccess.getAtExpressionAccess().getAtExpressionLeftExprAction_1_0().getType().getClassifier() && 
 		   getEObject().eClass() != grammarAccess.getCaseExpressionRule().getType().getClassifier() && 
 		   getEObject().eClass() != grammarAccess.getCollectExpressionAccess().getCollectExpressionClassReferenceAction_1_0().getType().getClassifier() && 
 		   getEObject().eClass() != grammarAccess.getDefinitionRule().getType().getClassifier() && 
@@ -3950,7 +3904,7 @@ protected class ShiftExpression_Group extends GroupToken {
     @Override
 	public IEObjectConsumer tryConsume() {
 		if(getEObject().eClass() != grammarAccess.getAdditiveExpressionAccess().getAdditiveExpressionLeftExprAction_1_0().getType().getClassifier() && 
-		   getEObject().eClass() != grammarAccess.getInfixExpressionAccess().getAtExpressionLeftExprAction_1_0().getType().getClassifier() && 
+		   getEObject().eClass() != grammarAccess.getAtExpressionAccess().getAtExpressionLeftExprAction_1_0().getType().getClassifier() && 
 		   getEObject().eClass() != grammarAccess.getCaseExpressionRule().getType().getClassifier() && 
 		   getEObject().eClass() != grammarAccess.getCollectExpressionAccess().getCollectExpressionClassReferenceAction_1_0().getType().getClassifier() && 
 		   getEObject().eClass() != grammarAccess.getDefinitionRule().getType().getClassifier() && 
@@ -4008,7 +3962,7 @@ protected class ShiftExpression_AdditiveExpressionParserRuleCall_0 extends RuleC
     @Override
 	public IEObjectConsumer tryConsume() {
 		if(getEObject().eClass() != grammarAccess.getAdditiveExpressionAccess().getAdditiveExpressionLeftExprAction_1_0().getType().getClassifier() && 
-		   getEObject().eClass() != grammarAccess.getInfixExpressionAccess().getAtExpressionLeftExprAction_1_0().getType().getClassifier() && 
+		   getEObject().eClass() != grammarAccess.getAtExpressionAccess().getAtExpressionLeftExprAction_1_0().getType().getClassifier() && 
 		   getEObject().eClass() != grammarAccess.getCaseExpressionRule().getType().getClassifier() && 
 		   getEObject().eClass() != grammarAccess.getCollectExpressionAccess().getCollectExpressionClassReferenceAction_1_0().getType().getClassifier() && 
 		   getEObject().eClass() != grammarAccess.getDefinitionRule().getType().getClassifier() && 
@@ -4227,7 +4181,7 @@ protected class AdditiveExpression_Group extends GroupToken {
     @Override
 	public IEObjectConsumer tryConsume() {
 		if(getEObject().eClass() != grammarAccess.getAdditiveExpressionAccess().getAdditiveExpressionLeftExprAction_1_0().getType().getClassifier() && 
-		   getEObject().eClass() != grammarAccess.getInfixExpressionAccess().getAtExpressionLeftExprAction_1_0().getType().getClassifier() && 
+		   getEObject().eClass() != grammarAccess.getAtExpressionAccess().getAtExpressionLeftExprAction_1_0().getType().getClassifier() && 
 		   getEObject().eClass() != grammarAccess.getCaseExpressionRule().getType().getClassifier() && 
 		   getEObject().eClass() != grammarAccess.getCollectExpressionAccess().getCollectExpressionClassReferenceAction_1_0().getType().getClassifier() && 
 		   getEObject().eClass() != grammarAccess.getDefinitionRule().getType().getClassifier() && 
@@ -4283,7 +4237,7 @@ protected class AdditiveExpression_MultiplicativeExpressionParserRuleCall_0 exte
 
     @Override
 	public IEObjectConsumer tryConsume() {
-		if(getEObject().eClass() != grammarAccess.getInfixExpressionAccess().getAtExpressionLeftExprAction_1_0().getType().getClassifier() && 
+		if(getEObject().eClass() != grammarAccess.getAtExpressionAccess().getAtExpressionLeftExprAction_1_0().getType().getClassifier() && 
 		   getEObject().eClass() != grammarAccess.getCaseExpressionRule().getType().getClassifier() && 
 		   getEObject().eClass() != grammarAccess.getCollectExpressionAccess().getCollectExpressionClassReferenceAction_1_0().getType().getClassifier() && 
 		   getEObject().eClass() != grammarAccess.getDefinitionRule().getType().getClassifier() && 
@@ -4501,7 +4455,7 @@ protected class MultiplicativeExpression_Group extends GroupToken {
 
     @Override
 	public IEObjectConsumer tryConsume() {
-		if(getEObject().eClass() != grammarAccess.getInfixExpressionAccess().getAtExpressionLeftExprAction_1_0().getType().getClassifier() && 
+		if(getEObject().eClass() != grammarAccess.getAtExpressionAccess().getAtExpressionLeftExprAction_1_0().getType().getClassifier() && 
 		   getEObject().eClass() != grammarAccess.getCaseExpressionRule().getType().getClassifier() && 
 		   getEObject().eClass() != grammarAccess.getCollectExpressionAccess().getCollectExpressionClassReferenceAction_1_0().getType().getClassifier() && 
 		   getEObject().eClass() != grammarAccess.getDefinitionRule().getType().getClassifier() && 
@@ -4557,7 +4511,7 @@ protected class MultiplicativeExpression_MatchingExpressionParserRuleCall_0 exte
 
     @Override
 	public IEObjectConsumer tryConsume() {
-		if(getEObject().eClass() != grammarAccess.getInfixExpressionAccess().getAtExpressionLeftExprAction_1_0().getType().getClassifier() && 
+		if(getEObject().eClass() != grammarAccess.getAtExpressionAccess().getAtExpressionLeftExprAction_1_0().getType().getClassifier() && 
 		   getEObject().eClass() != grammarAccess.getCaseExpressionRule().getType().getClassifier() && 
 		   getEObject().eClass() != grammarAccess.getCollectExpressionAccess().getCollectExpressionClassReferenceAction_1_0().getType().getClassifier() && 
 		   getEObject().eClass() != grammarAccess.getDefinitionRule().getType().getClassifier() && 
@@ -4772,7 +4726,7 @@ protected class MatchingExpression_Group extends GroupToken {
 
     @Override
 	public IEObjectConsumer tryConsume() {
-		if(getEObject().eClass() != grammarAccess.getInfixExpressionAccess().getAtExpressionLeftExprAction_1_0().getType().getClassifier() && 
+		if(getEObject().eClass() != grammarAccess.getAtExpressionAccess().getAtExpressionLeftExprAction_1_0().getType().getClassifier() && 
 		   getEObject().eClass() != grammarAccess.getCaseExpressionRule().getType().getClassifier() && 
 		   getEObject().eClass() != grammarAccess.getCollectExpressionAccess().getCollectExpressionClassReferenceAction_1_0().getType().getClassifier() && 
 		   getEObject().eClass() != grammarAccess.getDefinitionRule().getType().getClassifier() && 
@@ -4827,7 +4781,7 @@ protected class MatchingExpression_InExpressionParserRuleCall_0 extends RuleCall
 
     @Override
 	public IEObjectConsumer tryConsume() {
-		if(getEObject().eClass() != grammarAccess.getInfixExpressionAccess().getAtExpressionLeftExprAction_1_0().getType().getClassifier() && 
+		if(getEObject().eClass() != grammarAccess.getAtExpressionAccess().getAtExpressionLeftExprAction_1_0().getType().getClassifier() && 
 		   getEObject().eClass() != grammarAccess.getCaseExpressionRule().getType().getClassifier() && 
 		   getEObject().eClass() != grammarAccess.getCollectExpressionAccess().getCollectExpressionClassReferenceAction_1_0().getType().getClassifier() && 
 		   getEObject().eClass() != grammarAccess.getDefinitionRule().getType().getClassifier() && 
@@ -5040,7 +4994,7 @@ protected class InExpression_Group extends GroupToken {
 
     @Override
 	public IEObjectConsumer tryConsume() {
-		if(getEObject().eClass() != grammarAccess.getInfixExpressionAccess().getAtExpressionLeftExprAction_1_0().getType().getClassifier() && 
+		if(getEObject().eClass() != grammarAccess.getAtExpressionAccess().getAtExpressionLeftExprAction_1_0().getType().getClassifier() && 
 		   getEObject().eClass() != grammarAccess.getCaseExpressionRule().getType().getClassifier() && 
 		   getEObject().eClass() != grammarAccess.getCollectExpressionAccess().getCollectExpressionClassReferenceAction_1_0().getType().getClassifier() && 
 		   getEObject().eClass() != grammarAccess.getDefinitionRule().getType().getClassifier() && 
@@ -5094,7 +5048,7 @@ protected class InExpression_UnaryOrHigherExpressionParserRuleCall_0 extends Rul
 
     @Override
 	public IEObjectConsumer tryConsume() {
-		if(getEObject().eClass() != grammarAccess.getInfixExpressionAccess().getAtExpressionLeftExprAction_1_0().getType().getClassifier() && 
+		if(getEObject().eClass() != grammarAccess.getAtExpressionAccess().getAtExpressionLeftExprAction_1_0().getType().getClassifier() && 
 		   getEObject().eClass() != grammarAccess.getCaseExpressionRule().getType().getClassifier() && 
 		   getEObject().eClass() != grammarAccess.getCollectExpressionAccess().getCollectExpressionClassReferenceAction_1_0().getType().getClassifier() && 
 		   getEObject().eClass() != grammarAccess.getDefinitionRule().getType().getClassifier() && 
@@ -5279,11 +5233,13 @@ protected class InExpression_RightExprAssignment_1_2 extends AssignmentToken  {
 /************ begin Rule UnaryOrHigherExpression ****************
  *
  * UnaryOrHigherExpression returns pp::Expression:
- * 	UnaryMinusExpression | NotExpression | InfixExpression;
+ * 	UnaryMinusExpression | NotExpression | // WAS: AtExpression
+ * 	CollectExpression;
  *
  **/
 
-// UnaryMinusExpression | NotExpression | InfixExpression
+// UnaryMinusExpression | NotExpression | // WAS: AtExpression
+// CollectExpression
 protected class UnaryOrHigherExpression_Alternatives extends AlternativesToken {
 
 	public UnaryOrHigherExpression_Alternatives(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -5300,14 +5256,14 @@ protected class UnaryOrHigherExpression_Alternatives extends AlternativesToken {
 		switch(index) {
 			case 0: return new UnaryOrHigherExpression_UnaryMinusExpressionParserRuleCall_0(lastRuleCallOrigin, this, 0, inst);
 			case 1: return new UnaryOrHigherExpression_NotExpressionParserRuleCall_1(lastRuleCallOrigin, this, 1, inst);
-			case 2: return new UnaryOrHigherExpression_InfixExpressionParserRuleCall_2(lastRuleCallOrigin, this, 2, inst);
+			case 2: return new UnaryOrHigherExpression_CollectExpressionParserRuleCall_2(lastRuleCallOrigin, this, 2, inst);
 			default: return null;
 		}	
 	}
 
     @Override
 	public IEObjectConsumer tryConsume() {
-		if(getEObject().eClass() != grammarAccess.getInfixExpressionAccess().getAtExpressionLeftExprAction_1_0().getType().getClassifier() && 
+		if(getEObject().eClass() != grammarAccess.getAtExpressionAccess().getAtExpressionLeftExprAction_1_0().getType().getClassifier() && 
 		   getEObject().eClass() != grammarAccess.getCaseExpressionRule().getType().getClassifier() && 
 		   getEObject().eClass() != grammarAccess.getCollectExpressionAccess().getCollectExpressionClassReferenceAction_1_0().getType().getClassifier() && 
 		   getEObject().eClass() != grammarAccess.getDefinitionRule().getType().getClassifier() && 
@@ -5410,29 +5366,30 @@ protected class UnaryOrHigherExpression_NotExpressionParserRuleCall_1 extends Ru
 	}	
 }
 
-// InfixExpression
-protected class UnaryOrHigherExpression_InfixExpressionParserRuleCall_2 extends RuleCallToken {
+// // WAS: AtExpression
+// CollectExpression
+protected class UnaryOrHigherExpression_CollectExpressionParserRuleCall_2 extends RuleCallToken {
 	
-	public UnaryOrHigherExpression_InfixExpressionParserRuleCall_2(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+	public UnaryOrHigherExpression_CollectExpressionParserRuleCall_2(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
 		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
 	}
 	
 	@Override
 	public RuleCall getGrammarElement() {
-		return grammarAccess.getUnaryOrHigherExpressionAccess().getInfixExpressionParserRuleCall_2();
+		return grammarAccess.getUnaryOrHigherExpressionAccess().getCollectExpressionParserRuleCall_2();
 	}
 
     @Override
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
-			case 0: return new InfixExpression_Group(this, this, 0, inst);
+			case 0: return new CollectExpression_Group(this, this, 0, inst);
 			default: return null;
 		}	
 	}
 
     @Override
 	public IEObjectConsumer tryConsume() {
-		if(getEObject().eClass() != grammarAccess.getInfixExpressionAccess().getAtExpressionLeftExprAction_1_0().getType().getClassifier() && 
+		if(getEObject().eClass() != grammarAccess.getAtExpressionAccess().getAtExpressionLeftExprAction_1_0().getType().getClassifier() && 
 		   getEObject().eClass() != grammarAccess.getCaseExpressionRule().getType().getClassifier() && 
 		   getEObject().eClass() != grammarAccess.getCollectExpressionAccess().getCollectExpressionClassReferenceAction_1_0().getType().getClassifier() && 
 		   getEObject().eClass() != grammarAccess.getDefinitionRule().getType().getClassifier() && 
@@ -5456,7 +5413,7 @@ protected class UnaryOrHigherExpression_InfixExpressionParserRuleCall_2 extends 
 		   getEObject().eClass() != grammarAccess.getVariableExpressionRule().getType().getClassifier() && 
 		   getEObject().eClass() != grammarAccess.getVirtualNameOrReferenceRule().getType().getClassifier())
 			return null;
-		if(checkForRecursion(InfixExpression_Group.class, eObjectConsumer)) return null;
+		if(checkForRecursion(CollectExpression_Group.class, eObjectConsumer)) return null;
 		return eObjectConsumer;
 	}
 	
@@ -5475,11 +5432,13 @@ protected class UnaryOrHigherExpression_InfixExpressionParserRuleCall_2 extends 
 /************ begin Rule UnaryMinusExpression ****************
  *
  * UnaryMinusExpression returns pp::UnaryMinusExpression:
- * 	"-" expr=InfixExpression;
+ * 	"-" expr= // WAS: AtExpression
+ * 	CollectExpression;
  *
  **/
 
-// "-" expr=InfixExpression
+// "-" expr= // WAS: AtExpression
+// CollectExpression
 protected class UnaryMinusExpression_Group extends GroupToken {
 	
 	public UnaryMinusExpression_Group(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -5529,7 +5488,8 @@ protected class UnaryMinusExpression_HyphenMinusKeyword_0 extends KeywordToken  
 
 }
 
-// expr=InfixExpression
+// expr= // WAS: AtExpression
+// CollectExpression
 protected class UnaryMinusExpression_ExprAssignment_1 extends AssignmentToken  {
 	
 	public UnaryMinusExpression_ExprAssignment_1(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -5544,7 +5504,7 @@ protected class UnaryMinusExpression_ExprAssignment_1 extends AssignmentToken  {
     @Override
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
-			case 0: return new InfixExpression_Group(this, this, 0, inst);
+			case 0: return new CollectExpression_Group(this, this, 0, inst);
 			default: return null;
 		}	
 	}
@@ -5555,9 +5515,9 @@ protected class UnaryMinusExpression_ExprAssignment_1 extends AssignmentToken  {
 		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("expr");
 		if(value instanceof EObject) { // org::eclipse::xtext::impl::RuleCallImpl
 			IEObjectConsumer param = createEObjectConsumer((EObject)value);
-			if(param.isInstanceOf(grammarAccess.getInfixExpressionRule().getType().getClassifier())) {
+			if(param.isInstanceOf(grammarAccess.getCollectExpressionRule().getType().getClassifier())) {
 				type = AssignmentType.PARSER_RULE_CALL;
-				element = grammarAccess.getUnaryMinusExpressionAccess().getExprInfixExpressionParserRuleCall_1_0(); 
+				element = grammarAccess.getUnaryMinusExpressionAccess().getExprCollectExpressionParserRuleCall_1_0(); 
 				consumed = obj;
 				return param;
 			}
@@ -5582,11 +5542,13 @@ protected class UnaryMinusExpression_ExprAssignment_1 extends AssignmentToken  {
 /************ begin Rule NotExpression ****************
  *
  * NotExpression returns pp::UnaryNotExpression:
- * 	"!" expr=InfixExpression;
+ * 	"!" expr= // WAS: AtExpression
+ * 	CollectExpression;
  *
  **/
 
-// "!" expr=InfixExpression
+// "!" expr= // WAS: AtExpression
+// CollectExpression
 protected class NotExpression_Group extends GroupToken {
 	
 	public NotExpression_Group(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -5636,7 +5598,8 @@ protected class NotExpression_ExclamationMarkKeyword_0 extends KeywordToken  {
 
 }
 
-// expr=InfixExpression
+// expr= // WAS: AtExpression
+// CollectExpression
 protected class NotExpression_ExprAssignment_1 extends AssignmentToken  {
 	
 	public NotExpression_ExprAssignment_1(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -5651,7 +5614,7 @@ protected class NotExpression_ExprAssignment_1 extends AssignmentToken  {
     @Override
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
-			case 0: return new InfixExpression_Group(this, this, 0, inst);
+			case 0: return new CollectExpression_Group(this, this, 0, inst);
 			default: return null;
 		}	
 	}
@@ -5662,9 +5625,9 @@ protected class NotExpression_ExprAssignment_1 extends AssignmentToken  {
 		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("expr");
 		if(value instanceof EObject) { // org::eclipse::xtext::impl::RuleCallImpl
 			IEObjectConsumer param = createEObjectConsumer((EObject)value);
-			if(param.isInstanceOf(grammarAccess.getInfixExpressionRule().getType().getClassifier())) {
+			if(param.isInstanceOf(grammarAccess.getCollectExpressionRule().getType().getClassifier())) {
 				type = AssignmentType.PARSER_RULE_CALL;
-				element = grammarAccess.getNotExpressionAccess().getExprInfixExpressionParserRuleCall_1_0(); 
+				element = grammarAccess.getNotExpressionAccess().getExprCollectExpressionParserRuleCall_1_0(); 
 				consumed = obj;
 				return param;
 			}
@@ -5686,400 +5649,9 @@ protected class NotExpression_ExprAssignment_1 extends AssignmentToken  {
 /************ end Rule NotExpression ****************/
 
 
-/************ begin Rule InfixExpression ****************
- *
- * // Note: AtExpression serves dual purpose: ResourceReference and '#' access
- * // VALIDATION: checks 2 level nesting constraint on At a[x][y] is ok but not a[x][y][z]
- * // VALIDATION: checks At dual roles and validates accordingly (only single parameter for normal At) etc.	
- * // TODO: Rename the Rule, it should be called AtExpression (there are no other infix operators here...)
- * InfixExpression returns pp::Expression:
- * 	CollectExpression ({pp::AtExpression.leftExpr=current} "[" (parameters+=Expression ("," parameters+=Expression)*)?
- * 	"]")*;
- *
- **/
-
-// CollectExpression ({pp::AtExpression.leftExpr=current} "[" (parameters+=Expression ("," parameters+=Expression)*)? "]")*
-protected class InfixExpression_Group extends GroupToken {
-	
-	public InfixExpression_Group(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
-		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
-	}
-	
-	@Override
-	public Group getGrammarElement() {
-		return grammarAccess.getInfixExpressionAccess().getGroup();
-	}
-
-    @Override
-	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
-		switch(index) {
-			case 0: return new InfixExpression_Group_1(lastRuleCallOrigin, this, 0, inst);
-			case 1: return new InfixExpression_CollectExpressionParserRuleCall_0(lastRuleCallOrigin, this, 1, inst);
-			default: return null;
-		}	
-	}
-
-    @Override
-	public IEObjectConsumer tryConsume() {
-		if(getEObject().eClass() != grammarAccess.getInfixExpressionAccess().getAtExpressionLeftExprAction_1_0().getType().getClassifier() && 
-		   getEObject().eClass() != grammarAccess.getCaseExpressionRule().getType().getClassifier() && 
-		   getEObject().eClass() != grammarAccess.getCollectExpressionAccess().getCollectExpressionClassReferenceAction_1_0().getType().getClassifier() && 
-		   getEObject().eClass() != grammarAccess.getDefinitionRule().getType().getClassifier() && 
-		   getEObject().eClass() != grammarAccess.getDoubleQuotedStringRule().getType().getClassifier() && 
-		   getEObject().eClass() != grammarAccess.getFunctionCallAccess().getFunctionCallLeftExprAction_1_0().getType().getClassifier() && 
-		   getEObject().eClass() != grammarAccess.getHostClassDefinitionRule().getType().getClassifier() && 
-		   getEObject().eClass() != grammarAccess.getIfExpressionRule().getType().getClassifier() && 
-		   getEObject().eClass() != grammarAccess.getImportExpressionAccess().getImportExpressionAction_0().getType().getClassifier() && 
-		   getEObject().eClass() != grammarAccess.getLiteralBooleanRule().getType().getClassifier() && 
-		   getEObject().eClass() != grammarAccess.getLiteralDefaultAccess().getLiteralDefaultAction_0().getType().getClassifier() && 
-		   getEObject().eClass() != grammarAccess.getLiteralHashAccess().getLiteralHashAction_0().getType().getClassifier() && 
-		   getEObject().eClass() != grammarAccess.getLiteralListAccess().getLiteralListAction_0().getType().getClassifier() && 
-		   getEObject().eClass() != grammarAccess.getLiteralNameOrReferenceRule().getType().getClassifier() && 
-		   getEObject().eClass() != grammarAccess.getLiteralRegexRule().getType().getClassifier() && 
-		   getEObject().eClass() != grammarAccess.getLiteralUndefAccess().getLiteralUndefAction_0().getType().getClassifier() && 
-		   getEObject().eClass() != grammarAccess.getNodeDefinitionRule().getType().getClassifier() && 
-		   getEObject().eClass() != grammarAccess.getParenthisedExpressionRule().getType().getClassifier() && 
-		   getEObject().eClass() != grammarAccess.getSelectorExpressionAccess().getSelectorExpressionLeftExprAction_1_0().getType().getClassifier() && 
-		   getEObject().eClass() != grammarAccess.getSingleQuotedStringAccess().getSingleQuotedStringAction_0().getType().getClassifier() && 
-		   getEObject().eClass() != grammarAccess.getUnquotedStringAccess().getUnquotedStringAction_0().getType().getClassifier() && 
-		   getEObject().eClass() != grammarAccess.getVariableExpressionRule().getType().getClassifier() && 
-		   getEObject().eClass() != grammarAccess.getVirtualNameOrReferenceRule().getType().getClassifier())
-			return null;
-		return eObjectConsumer;
-	}
-
-}
-
-// CollectExpression
-protected class InfixExpression_CollectExpressionParserRuleCall_0 extends RuleCallToken {
-	
-	public InfixExpression_CollectExpressionParserRuleCall_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
-		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
-	}
-	
-	@Override
-	public RuleCall getGrammarElement() {
-		return grammarAccess.getInfixExpressionAccess().getCollectExpressionParserRuleCall_0();
-	}
-
-    @Override
-	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
-		switch(index) {
-			case 0: return new CollectExpression_Group(this, this, 0, inst);
-			default: return null;
-		}	
-	}
-
-    @Override
-	public IEObjectConsumer tryConsume() {
-		if(getEObject().eClass() != grammarAccess.getCaseExpressionRule().getType().getClassifier() && 
-		   getEObject().eClass() != grammarAccess.getCollectExpressionAccess().getCollectExpressionClassReferenceAction_1_0().getType().getClassifier() && 
-		   getEObject().eClass() != grammarAccess.getDefinitionRule().getType().getClassifier() && 
-		   getEObject().eClass() != grammarAccess.getDoubleQuotedStringRule().getType().getClassifier() && 
-		   getEObject().eClass() != grammarAccess.getFunctionCallAccess().getFunctionCallLeftExprAction_1_0().getType().getClassifier() && 
-		   getEObject().eClass() != grammarAccess.getHostClassDefinitionRule().getType().getClassifier() && 
-		   getEObject().eClass() != grammarAccess.getIfExpressionRule().getType().getClassifier() && 
-		   getEObject().eClass() != grammarAccess.getImportExpressionAccess().getImportExpressionAction_0().getType().getClassifier() && 
-		   getEObject().eClass() != grammarAccess.getLiteralBooleanRule().getType().getClassifier() && 
-		   getEObject().eClass() != grammarAccess.getLiteralDefaultAccess().getLiteralDefaultAction_0().getType().getClassifier() && 
-		   getEObject().eClass() != grammarAccess.getLiteralHashAccess().getLiteralHashAction_0().getType().getClassifier() && 
-		   getEObject().eClass() != grammarAccess.getLiteralListAccess().getLiteralListAction_0().getType().getClassifier() && 
-		   getEObject().eClass() != grammarAccess.getLiteralNameOrReferenceRule().getType().getClassifier() && 
-		   getEObject().eClass() != grammarAccess.getLiteralRegexRule().getType().getClassifier() && 
-		   getEObject().eClass() != grammarAccess.getLiteralUndefAccess().getLiteralUndefAction_0().getType().getClassifier() && 
-		   getEObject().eClass() != grammarAccess.getNodeDefinitionRule().getType().getClassifier() && 
-		   getEObject().eClass() != grammarAccess.getParenthisedExpressionRule().getType().getClassifier() && 
-		   getEObject().eClass() != grammarAccess.getSelectorExpressionAccess().getSelectorExpressionLeftExprAction_1_0().getType().getClassifier() && 
-		   getEObject().eClass() != grammarAccess.getSingleQuotedStringAccess().getSingleQuotedStringAction_0().getType().getClassifier() && 
-		   getEObject().eClass() != grammarAccess.getUnquotedStringAccess().getUnquotedStringAction_0().getType().getClassifier() && 
-		   getEObject().eClass() != grammarAccess.getVariableExpressionRule().getType().getClassifier() && 
-		   getEObject().eClass() != grammarAccess.getVirtualNameOrReferenceRule().getType().getClassifier())
-			return null;
-		if(checkForRecursion(CollectExpression_Group.class, eObjectConsumer)) return null;
-		return eObjectConsumer;
-	}
-	
-    @Override
-	public AbstractToken createFollowerAfterReturn(AbstractToken next,	int actIndex, int index, IEObjectConsumer inst) {
-		switch(index) {
-			default: return lastRuleCallOrigin.createFollowerAfterReturn(next, actIndex , index, inst);
-		}	
-	}	
-}
-
-// ({pp::AtExpression.leftExpr=current} "[" (parameters+=Expression ("," parameters+=Expression)*)? "]")*
-protected class InfixExpression_Group_1 extends GroupToken {
-	
-	public InfixExpression_Group_1(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
-		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
-	}
-	
-	@Override
-	public Group getGrammarElement() {
-		return grammarAccess.getInfixExpressionAccess().getGroup_1();
-	}
-
-    @Override
-	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
-		switch(index) {
-			case 0: return new InfixExpression_RightSquareBracketKeyword_1_3(lastRuleCallOrigin, this, 0, inst);
-			default: return null;
-		}	
-	}
-
-    @Override
-	public IEObjectConsumer tryConsume() {
-		if(getEObject().eClass() != grammarAccess.getInfixExpressionAccess().getAtExpressionLeftExprAction_1_0().getType().getClassifier())
-			return null;
-		return eObjectConsumer;
-	}
-
-}
-
-// {pp::AtExpression.leftExpr=current}
-protected class InfixExpression_AtExpressionLeftExprAction_1_0 extends ActionToken  {
-
-	public InfixExpression_AtExpressionLeftExprAction_1_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
-		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
-	}
-	
-	@Override
-	public Action getGrammarElement() {
-		return grammarAccess.getInfixExpressionAccess().getAtExpressionLeftExprAction_1_0();
-	}
-
-    @Override
-	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
-		switch(index) {
-			case 0: return new InfixExpression_Group_1(lastRuleCallOrigin, this, 0, inst);
-			case 1: return new InfixExpression_CollectExpressionParserRuleCall_0(lastRuleCallOrigin, this, 1, inst);
-			default: return null;
-		}	
-	}
-
-    @Override
-	public IEObjectConsumer tryConsume() {
-		Object val = eObjectConsumer.getConsumable("leftExpr", false);
-		if(val == null) return null;
-		if(!eObjectConsumer.isConsumedWithLastConsumtion("leftExpr")) return null;
-		return createEObjectConsumer((EObject) val);
-	}
-}
-
-// "["
-protected class InfixExpression_LeftSquareBracketKeyword_1_1 extends KeywordToken  {
-	
-	public InfixExpression_LeftSquareBracketKeyword_1_1(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
-		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
-	}
-	
-	@Override
-	public Keyword getGrammarElement() {
-		return grammarAccess.getInfixExpressionAccess().getLeftSquareBracketKeyword_1_1();
-	}
-
-    @Override
-	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
-		switch(index) {
-			case 0: return new InfixExpression_AtExpressionLeftExprAction_1_0(lastRuleCallOrigin, this, 0, inst);
-			default: return null;
-		}	
-	}
-
-}
-
-// (parameters+=Expression ("," parameters+=Expression)*)?
-protected class InfixExpression_Group_1_2 extends GroupToken {
-	
-	public InfixExpression_Group_1_2(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
-		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
-	}
-	
-	@Override
-	public Group getGrammarElement() {
-		return grammarAccess.getInfixExpressionAccess().getGroup_1_2();
-	}
-
-    @Override
-	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
-		switch(index) {
-			case 0: return new InfixExpression_Group_1_2_1(lastRuleCallOrigin, this, 0, inst);
-			case 1: return new InfixExpression_ParametersAssignment_1_2_0(lastRuleCallOrigin, this, 1, inst);
-			default: return null;
-		}	
-	}
-
-}
-
-// parameters+=Expression
-protected class InfixExpression_ParametersAssignment_1_2_0 extends AssignmentToken  {
-	
-	public InfixExpression_ParametersAssignment_1_2_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
-		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
-	}
-	
-	@Override
-	public Assignment getGrammarElement() {
-		return grammarAccess.getInfixExpressionAccess().getParametersAssignment_1_2_0();
-	}
-
-    @Override
-	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
-		switch(index) {
-			case 0: return new Expression_RelationshipExpressionParserRuleCall(this, this, 0, inst);
-			default: return null;
-		}	
-	}
-
-    @Override	
-	public IEObjectConsumer tryConsume() {
-		if((value = eObjectConsumer.getConsumable("parameters",true)) == null) return null;
-		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("parameters");
-		if(value instanceof EObject) { // org::eclipse::xtext::impl::RuleCallImpl
-			IEObjectConsumer param = createEObjectConsumer((EObject)value);
-			if(param.isInstanceOf(grammarAccess.getExpressionRule().getType().getClassifier())) {
-				type = AssignmentType.PARSER_RULE_CALL;
-				element = grammarAccess.getInfixExpressionAccess().getParametersExpressionParserRuleCall_1_2_0_0(); 
-				consumed = obj;
-				return param;
-			}
-		}
-		return null;
-	}
-
-    @Override
-	public AbstractToken createFollowerAfterReturn(AbstractToken next,	int actIndex, int index, IEObjectConsumer inst) {
-		if(value == inst.getEObject() && !inst.isConsumed()) return null;
-		switch(index) {
-			case 0: return new InfixExpression_LeftSquareBracketKeyword_1_1(lastRuleCallOrigin, next, actIndex, consumed);
-			default: return null;
-		}	
-	}	
-}
-
-// ("," parameters+=Expression)*
-protected class InfixExpression_Group_1_2_1 extends GroupToken {
-	
-	public InfixExpression_Group_1_2_1(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
-		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
-	}
-	
-	@Override
-	public Group getGrammarElement() {
-		return grammarAccess.getInfixExpressionAccess().getGroup_1_2_1();
-	}
-
-    @Override
-	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
-		switch(index) {
-			case 0: return new InfixExpression_ParametersAssignment_1_2_1_1(lastRuleCallOrigin, this, 0, inst);
-			default: return null;
-		}	
-	}
-
-}
-
-// ","
-protected class InfixExpression_CommaKeyword_1_2_1_0 extends KeywordToken  {
-	
-	public InfixExpression_CommaKeyword_1_2_1_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
-		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
-	}
-	
-	@Override
-	public Keyword getGrammarElement() {
-		return grammarAccess.getInfixExpressionAccess().getCommaKeyword_1_2_1_0();
-	}
-
-    @Override
-	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
-		switch(index) {
-			case 0: return new InfixExpression_Group_1_2_1(lastRuleCallOrigin, this, 0, inst);
-			case 1: return new InfixExpression_ParametersAssignment_1_2_0(lastRuleCallOrigin, this, 1, inst);
-			default: return null;
-		}	
-	}
-
-}
-
-// parameters+=Expression
-protected class InfixExpression_ParametersAssignment_1_2_1_1 extends AssignmentToken  {
-	
-	public InfixExpression_ParametersAssignment_1_2_1_1(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
-		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
-	}
-	
-	@Override
-	public Assignment getGrammarElement() {
-		return grammarAccess.getInfixExpressionAccess().getParametersAssignment_1_2_1_1();
-	}
-
-    @Override
-	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
-		switch(index) {
-			case 0: return new Expression_RelationshipExpressionParserRuleCall(this, this, 0, inst);
-			default: return null;
-		}	
-	}
-
-    @Override	
-	public IEObjectConsumer tryConsume() {
-		if((value = eObjectConsumer.getConsumable("parameters",false)) == null) return null;
-		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("parameters");
-		if(value instanceof EObject) { // org::eclipse::xtext::impl::RuleCallImpl
-			IEObjectConsumer param = createEObjectConsumer((EObject)value);
-			if(param.isInstanceOf(grammarAccess.getExpressionRule().getType().getClassifier())) {
-				type = AssignmentType.PARSER_RULE_CALL;
-				element = grammarAccess.getInfixExpressionAccess().getParametersExpressionParserRuleCall_1_2_1_1_0(); 
-				consumed = obj;
-				return param;
-			}
-		}
-		return null;
-	}
-
-    @Override
-	public AbstractToken createFollowerAfterReturn(AbstractToken next,	int actIndex, int index, IEObjectConsumer inst) {
-		if(value == inst.getEObject() && !inst.isConsumed()) return null;
-		switch(index) {
-			case 0: return new InfixExpression_CommaKeyword_1_2_1_0(lastRuleCallOrigin, next, actIndex, consumed);
-			default: return null;
-		}	
-	}	
-}
-
-
-
-// "]"
-protected class InfixExpression_RightSquareBracketKeyword_1_3 extends KeywordToken  {
-	
-	public InfixExpression_RightSquareBracketKeyword_1_3(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
-		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
-	}
-	
-	@Override
-	public Keyword getGrammarElement() {
-		return grammarAccess.getInfixExpressionAccess().getRightSquareBracketKeyword_1_3();
-	}
-
-    @Override
-	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
-		switch(index) {
-			case 0: return new InfixExpression_Group_1_2(lastRuleCallOrigin, this, 0, inst);
-			case 1: return new InfixExpression_LeftSquareBracketKeyword_1_1(lastRuleCallOrigin, this, 1, inst);
-			default: return null;
-		}	
-	}
-
-}
-
-
-
-/************ end Rule InfixExpression ****************/
-
-
 /************ begin Rule CollectExpression ****************
  *
+ * // WAS: AtExpression -> CollectExpression
  * // TODO: VALIDATE that CollectExpression classReference is a ClassReference
  * CollectExpression returns pp::Expression:
  * 	SelectorExpression ({pp::CollectExpression.classReference=current} query=CollectQuery ("{"
@@ -6111,7 +5683,8 @@ protected class CollectExpression_Group extends GroupToken {
 
     @Override
 	public IEObjectConsumer tryConsume() {
-		if(getEObject().eClass() != grammarAccess.getCaseExpressionRule().getType().getClassifier() && 
+		if(getEObject().eClass() != grammarAccess.getAtExpressionAccess().getAtExpressionLeftExprAction_1_0().getType().getClassifier() && 
+		   getEObject().eClass() != grammarAccess.getCaseExpressionRule().getType().getClassifier() && 
 		   getEObject().eClass() != grammarAccess.getCollectExpressionAccess().getCollectExpressionClassReferenceAction_1_0().getType().getClassifier() && 
 		   getEObject().eClass() != grammarAccess.getDefinitionRule().getType().getClassifier() && 
 		   getEObject().eClass() != grammarAccess.getDoubleQuotedStringRule().getType().getClassifier() && 
@@ -6161,7 +5734,8 @@ protected class CollectExpression_SelectorExpressionParserRuleCall_0 extends Rul
 
     @Override
 	public IEObjectConsumer tryConsume() {
-		if(getEObject().eClass() != grammarAccess.getCaseExpressionRule().getType().getClassifier() && 
+		if(getEObject().eClass() != grammarAccess.getAtExpressionAccess().getAtExpressionLeftExprAction_1_0().getType().getClassifier() && 
+		   getEObject().eClass() != grammarAccess.getCaseExpressionRule().getType().getClassifier() && 
 		   getEObject().eClass() != grammarAccess.getDefinitionRule().getType().getClassifier() && 
 		   getEObject().eClass() != grammarAccess.getDoubleQuotedStringRule().getType().getClassifier() && 
 		   getEObject().eClass() != grammarAccess.getFunctionCallAccess().getFunctionCallLeftExprAction_1_0().getType().getClassifier() && 
@@ -6850,13 +6424,14 @@ protected class ExportedCollectQuery_VerticalLineGreaterThanSignGreaterThanSignK
 
 /************ begin Rule SelectorExpression ****************
  *
- * SelectorExpression returns pp::Expression:
- * 	FunctionCall ({pp::SelectorExpression.leftExpr=current} "?" ("{" parameters+=SelectorEntry (","
+ * SelectorExpression returns pp::Expression: // WAS: FunctionCall 
+ * 	AtExpression ({pp::SelectorExpression.leftExpr=current} "?" ("{" parameters+=SelectorEntry (","
  * 	parameters+=SelectorEntry)* endComma? "}" | parameters+=SelectorEntry))?;
  *
  **/
 
-// FunctionCall ({pp::SelectorExpression.leftExpr=current} "?" ("{" parameters+=SelectorEntry (","
+// // WAS: FunctionCall 
+// AtExpression ({pp::SelectorExpression.leftExpr=current} "?" ("{" parameters+=SelectorEntry (","
 // parameters+=SelectorEntry)* endComma? "}" | parameters+=SelectorEntry))?
 protected class SelectorExpression_Group extends GroupToken {
 	
@@ -6873,14 +6448,15 @@ protected class SelectorExpression_Group extends GroupToken {
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
 			case 0: return new SelectorExpression_Group_1(lastRuleCallOrigin, this, 0, inst);
-			case 1: return new SelectorExpression_FunctionCallParserRuleCall_0(lastRuleCallOrigin, this, 1, inst);
+			case 1: return new SelectorExpression_AtExpressionParserRuleCall_0(lastRuleCallOrigin, this, 1, inst);
 			default: return null;
 		}	
 	}
 
     @Override
 	public IEObjectConsumer tryConsume() {
-		if(getEObject().eClass() != grammarAccess.getCaseExpressionRule().getType().getClassifier() && 
+		if(getEObject().eClass() != grammarAccess.getAtExpressionAccess().getAtExpressionLeftExprAction_1_0().getType().getClassifier() && 
+		   getEObject().eClass() != grammarAccess.getCaseExpressionRule().getType().getClassifier() && 
 		   getEObject().eClass() != grammarAccess.getDefinitionRule().getType().getClassifier() && 
 		   getEObject().eClass() != grammarAccess.getDoubleQuotedStringRule().getType().getClassifier() && 
 		   getEObject().eClass() != grammarAccess.getFunctionCallAccess().getFunctionCallLeftExprAction_1_0().getType().getClassifier() && 
@@ -6907,29 +6483,31 @@ protected class SelectorExpression_Group extends GroupToken {
 
 }
 
-// FunctionCall
-protected class SelectorExpression_FunctionCallParserRuleCall_0 extends RuleCallToken {
+// // WAS: FunctionCall 
+// AtExpression
+protected class SelectorExpression_AtExpressionParserRuleCall_0 extends RuleCallToken {
 	
-	public SelectorExpression_FunctionCallParserRuleCall_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+	public SelectorExpression_AtExpressionParserRuleCall_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
 		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
 	}
 	
 	@Override
 	public RuleCall getGrammarElement() {
-		return grammarAccess.getSelectorExpressionAccess().getFunctionCallParserRuleCall_0();
+		return grammarAccess.getSelectorExpressionAccess().getAtExpressionParserRuleCall_0();
 	}
 
     @Override
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
-			case 0: return new FunctionCall_Group(this, this, 0, inst);
+			case 0: return new AtExpression_Group(this, this, 0, inst);
 			default: return null;
 		}	
 	}
 
     @Override
 	public IEObjectConsumer tryConsume() {
-		if(getEObject().eClass() != grammarAccess.getCaseExpressionRule().getType().getClassifier() && 
+		if(getEObject().eClass() != grammarAccess.getAtExpressionAccess().getAtExpressionLeftExprAction_1_0().getType().getClassifier() && 
+		   getEObject().eClass() != grammarAccess.getCaseExpressionRule().getType().getClassifier() && 
 		   getEObject().eClass() != grammarAccess.getDefinitionRule().getType().getClassifier() && 
 		   getEObject().eClass() != grammarAccess.getDoubleQuotedStringRule().getType().getClassifier() && 
 		   getEObject().eClass() != grammarAccess.getFunctionCallAccess().getFunctionCallLeftExprAction_1_0().getType().getClassifier() && 
@@ -6950,7 +6528,7 @@ protected class SelectorExpression_FunctionCallParserRuleCall_0 extends RuleCall
 		   getEObject().eClass() != grammarAccess.getVariableExpressionRule().getType().getClassifier() && 
 		   getEObject().eClass() != grammarAccess.getVirtualNameOrReferenceRule().getType().getClassifier())
 			return null;
-		if(checkForRecursion(FunctionCall_Group.class, eObjectConsumer)) return null;
+		if(checkForRecursion(AtExpression_Group.class, eObjectConsumer)) return null;
 		return eObjectConsumer;
 	}
 	
@@ -7007,7 +6585,7 @@ protected class SelectorExpression_SelectorExpressionLeftExprAction_1_0 extends 
     @Override
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
-			case 0: return new SelectorExpression_FunctionCallParserRuleCall_0(lastRuleCallOrigin, this, 0, inst);
+			case 0: return new SelectorExpression_AtExpressionParserRuleCall_0(lastRuleCallOrigin, this, 0, inst);
 			default: return null;
 		}	
 	}
@@ -7359,7 +6937,7 @@ protected class SelectorEntry_Group extends GroupToken {
 		   getEObject().eClass() != grammarAccess.getAndExpressionAccess().getAndExpressionLeftExprAction_1_0().getType().getClassifier() && 
 		   getEObject().eClass() != grammarAccess.getAppendExpressionAccess().getAppendExpressionLeftExprAction_1_0().getType().getClassifier() && 
 		   getEObject().eClass() != grammarAccess.getAssignmentExpressionAccess().getAssignmentExpressionLeftExprAction_1_0().getType().getClassifier() && 
-		   getEObject().eClass() != grammarAccess.getInfixExpressionAccess().getAtExpressionLeftExprAction_1_0().getType().getClassifier() && 
+		   getEObject().eClass() != grammarAccess.getAtExpressionAccess().getAtExpressionLeftExprAction_1_0().getType().getClassifier() && 
 		   getEObject().eClass() != grammarAccess.getCaseExpressionRule().getType().getClassifier() && 
 		   getEObject().eClass() != grammarAccess.getCollectExpressionAccess().getCollectExpressionClassReferenceAction_1_0().getType().getClassifier() && 
 		   getEObject().eClass() != grammarAccess.getDefinitionRule().getType().getClassifier() && 
@@ -7426,7 +7004,7 @@ protected class SelectorEntry_ExpressionParserRuleCall_0 extends RuleCallToken {
 		   getEObject().eClass() != grammarAccess.getAndExpressionAccess().getAndExpressionLeftExprAction_1_0().getType().getClassifier() && 
 		   getEObject().eClass() != grammarAccess.getAppendExpressionAccess().getAppendExpressionLeftExprAction_1_0().getType().getClassifier() && 
 		   getEObject().eClass() != grammarAccess.getAssignmentExpressionAccess().getAssignmentExpressionLeftExprAction_1_0().getType().getClassifier() && 
-		   getEObject().eClass() != grammarAccess.getInfixExpressionAccess().getAtExpressionLeftExprAction_1_0().getType().getClassifier() && 
+		   getEObject().eClass() != grammarAccess.getAtExpressionAccess().getAtExpressionLeftExprAction_1_0().getType().getClassifier() && 
 		   getEObject().eClass() != grammarAccess.getCaseExpressionRule().getType().getClassifier() && 
 		   getEObject().eClass() != grammarAccess.getCollectExpressionAccess().getCollectExpressionClassReferenceAction_1_0().getType().getClassifier() && 
 		   getEObject().eClass() != grammarAccess.getDefinitionRule().getType().getClassifier() && 
@@ -7604,6 +7182,398 @@ protected class SelectorEntry_RightExprAssignment_1_2 extends AssignmentToken  {
 /************ end Rule SelectorEntry ****************/
 
 
+/************ begin Rule AtExpression ****************
+ *
+ * // MOVE AT HERE IN PRECEDENCE
+ * // x-> AtExpression == x-> CollectExpression
+ * // y-> FunctionCall == y->AtExpression
+ * // AtExpression -> FunctionCall
+ * // Note: AtExpression serves dual purpose: ResourceReference and '#' access
+ * // VALIDATION: checks 2 level nesting constraint on At a[x][y] is ok but not a[x][y][z] if bug compatible mode
+ * // VALIDATION: checks At dual roles and validates accordingly (only single parameter for normal At) etc.	
+ * AtExpression returns pp::Expression: // WAS: CollectExpression 
+ * 	FunctionCall ({pp::AtExpression.leftExpr=current} "[" (parameters+=Expression ("," parameters+=Expression)*)? "]")*;
+ *
+ **/
+
+// // WAS: CollectExpression 
+// FunctionCall ({pp::AtExpression.leftExpr=current} "[" (parameters+=Expression ("," parameters+=Expression)*)? "]")*
+protected class AtExpression_Group extends GroupToken {
+	
+	public AtExpression_Group(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
+	}
+	
+	@Override
+	public Group getGrammarElement() {
+		return grammarAccess.getAtExpressionAccess().getGroup();
+	}
+
+    @Override
+	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
+		switch(index) {
+			case 0: return new AtExpression_Group_1(lastRuleCallOrigin, this, 0, inst);
+			case 1: return new AtExpression_FunctionCallParserRuleCall_0(lastRuleCallOrigin, this, 1, inst);
+			default: return null;
+		}	
+	}
+
+    @Override
+	public IEObjectConsumer tryConsume() {
+		if(getEObject().eClass() != grammarAccess.getAtExpressionAccess().getAtExpressionLeftExprAction_1_0().getType().getClassifier() && 
+		   getEObject().eClass() != grammarAccess.getCaseExpressionRule().getType().getClassifier() && 
+		   getEObject().eClass() != grammarAccess.getDefinitionRule().getType().getClassifier() && 
+		   getEObject().eClass() != grammarAccess.getDoubleQuotedStringRule().getType().getClassifier() && 
+		   getEObject().eClass() != grammarAccess.getFunctionCallAccess().getFunctionCallLeftExprAction_1_0().getType().getClassifier() && 
+		   getEObject().eClass() != grammarAccess.getHostClassDefinitionRule().getType().getClassifier() && 
+		   getEObject().eClass() != grammarAccess.getIfExpressionRule().getType().getClassifier() && 
+		   getEObject().eClass() != grammarAccess.getImportExpressionAccess().getImportExpressionAction_0().getType().getClassifier() && 
+		   getEObject().eClass() != grammarAccess.getLiteralBooleanRule().getType().getClassifier() && 
+		   getEObject().eClass() != grammarAccess.getLiteralDefaultAccess().getLiteralDefaultAction_0().getType().getClassifier() && 
+		   getEObject().eClass() != grammarAccess.getLiteralHashAccess().getLiteralHashAction_0().getType().getClassifier() && 
+		   getEObject().eClass() != grammarAccess.getLiteralListAccess().getLiteralListAction_0().getType().getClassifier() && 
+		   getEObject().eClass() != grammarAccess.getLiteralNameOrReferenceRule().getType().getClassifier() && 
+		   getEObject().eClass() != grammarAccess.getLiteralRegexRule().getType().getClassifier() && 
+		   getEObject().eClass() != grammarAccess.getLiteralUndefAccess().getLiteralUndefAction_0().getType().getClassifier() && 
+		   getEObject().eClass() != grammarAccess.getNodeDefinitionRule().getType().getClassifier() && 
+		   getEObject().eClass() != grammarAccess.getParenthisedExpressionRule().getType().getClassifier() && 
+		   getEObject().eClass() != grammarAccess.getSingleQuotedStringAccess().getSingleQuotedStringAction_0().getType().getClassifier() && 
+		   getEObject().eClass() != grammarAccess.getUnquotedStringAccess().getUnquotedStringAction_0().getType().getClassifier() && 
+		   getEObject().eClass() != grammarAccess.getVariableExpressionRule().getType().getClassifier() && 
+		   getEObject().eClass() != grammarAccess.getVirtualNameOrReferenceRule().getType().getClassifier())
+			return null;
+		return eObjectConsumer;
+	}
+
+}
+
+// // WAS: CollectExpression 
+// FunctionCall
+protected class AtExpression_FunctionCallParserRuleCall_0 extends RuleCallToken {
+	
+	public AtExpression_FunctionCallParserRuleCall_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
+	}
+	
+	@Override
+	public RuleCall getGrammarElement() {
+		return grammarAccess.getAtExpressionAccess().getFunctionCallParserRuleCall_0();
+	}
+
+    @Override
+	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
+		switch(index) {
+			case 0: return new FunctionCall_Group(this, this, 0, inst);
+			default: return null;
+		}	
+	}
+
+    @Override
+	public IEObjectConsumer tryConsume() {
+		if(getEObject().eClass() != grammarAccess.getCaseExpressionRule().getType().getClassifier() && 
+		   getEObject().eClass() != grammarAccess.getDefinitionRule().getType().getClassifier() && 
+		   getEObject().eClass() != grammarAccess.getDoubleQuotedStringRule().getType().getClassifier() && 
+		   getEObject().eClass() != grammarAccess.getFunctionCallAccess().getFunctionCallLeftExprAction_1_0().getType().getClassifier() && 
+		   getEObject().eClass() != grammarAccess.getHostClassDefinitionRule().getType().getClassifier() && 
+		   getEObject().eClass() != grammarAccess.getIfExpressionRule().getType().getClassifier() && 
+		   getEObject().eClass() != grammarAccess.getImportExpressionAccess().getImportExpressionAction_0().getType().getClassifier() && 
+		   getEObject().eClass() != grammarAccess.getLiteralBooleanRule().getType().getClassifier() && 
+		   getEObject().eClass() != grammarAccess.getLiteralDefaultAccess().getLiteralDefaultAction_0().getType().getClassifier() && 
+		   getEObject().eClass() != grammarAccess.getLiteralHashAccess().getLiteralHashAction_0().getType().getClassifier() && 
+		   getEObject().eClass() != grammarAccess.getLiteralListAccess().getLiteralListAction_0().getType().getClassifier() && 
+		   getEObject().eClass() != grammarAccess.getLiteralNameOrReferenceRule().getType().getClassifier() && 
+		   getEObject().eClass() != grammarAccess.getLiteralRegexRule().getType().getClassifier() && 
+		   getEObject().eClass() != grammarAccess.getLiteralUndefAccess().getLiteralUndefAction_0().getType().getClassifier() && 
+		   getEObject().eClass() != grammarAccess.getNodeDefinitionRule().getType().getClassifier() && 
+		   getEObject().eClass() != grammarAccess.getParenthisedExpressionRule().getType().getClassifier() && 
+		   getEObject().eClass() != grammarAccess.getSingleQuotedStringAccess().getSingleQuotedStringAction_0().getType().getClassifier() && 
+		   getEObject().eClass() != grammarAccess.getUnquotedStringAccess().getUnquotedStringAction_0().getType().getClassifier() && 
+		   getEObject().eClass() != grammarAccess.getVariableExpressionRule().getType().getClassifier() && 
+		   getEObject().eClass() != grammarAccess.getVirtualNameOrReferenceRule().getType().getClassifier())
+			return null;
+		if(checkForRecursion(FunctionCall_Group.class, eObjectConsumer)) return null;
+		return eObjectConsumer;
+	}
+	
+    @Override
+	public AbstractToken createFollowerAfterReturn(AbstractToken next,	int actIndex, int index, IEObjectConsumer inst) {
+		switch(index) {
+			default: return lastRuleCallOrigin.createFollowerAfterReturn(next, actIndex , index, inst);
+		}	
+	}	
+}
+
+// ({pp::AtExpression.leftExpr=current} "[" (parameters+=Expression ("," parameters+=Expression)*)? "]")*
+protected class AtExpression_Group_1 extends GroupToken {
+	
+	public AtExpression_Group_1(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
+	}
+	
+	@Override
+	public Group getGrammarElement() {
+		return grammarAccess.getAtExpressionAccess().getGroup_1();
+	}
+
+    @Override
+	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
+		switch(index) {
+			case 0: return new AtExpression_RightSquareBracketKeyword_1_3(lastRuleCallOrigin, this, 0, inst);
+			default: return null;
+		}	
+	}
+
+    @Override
+	public IEObjectConsumer tryConsume() {
+		if(getEObject().eClass() != grammarAccess.getAtExpressionAccess().getAtExpressionLeftExprAction_1_0().getType().getClassifier())
+			return null;
+		return eObjectConsumer;
+	}
+
+}
+
+// {pp::AtExpression.leftExpr=current}
+protected class AtExpression_AtExpressionLeftExprAction_1_0 extends ActionToken  {
+
+	public AtExpression_AtExpressionLeftExprAction_1_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
+	}
+	
+	@Override
+	public Action getGrammarElement() {
+		return grammarAccess.getAtExpressionAccess().getAtExpressionLeftExprAction_1_0();
+	}
+
+    @Override
+	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
+		switch(index) {
+			case 0: return new AtExpression_Group_1(lastRuleCallOrigin, this, 0, inst);
+			case 1: return new AtExpression_FunctionCallParserRuleCall_0(lastRuleCallOrigin, this, 1, inst);
+			default: return null;
+		}	
+	}
+
+    @Override
+	public IEObjectConsumer tryConsume() {
+		Object val = eObjectConsumer.getConsumable("leftExpr", false);
+		if(val == null) return null;
+		if(!eObjectConsumer.isConsumedWithLastConsumtion("leftExpr")) return null;
+		return createEObjectConsumer((EObject) val);
+	}
+}
+
+// "["
+protected class AtExpression_LeftSquareBracketKeyword_1_1 extends KeywordToken  {
+	
+	public AtExpression_LeftSquareBracketKeyword_1_1(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
+	}
+	
+	@Override
+	public Keyword getGrammarElement() {
+		return grammarAccess.getAtExpressionAccess().getLeftSquareBracketKeyword_1_1();
+	}
+
+    @Override
+	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
+		switch(index) {
+			case 0: return new AtExpression_AtExpressionLeftExprAction_1_0(lastRuleCallOrigin, this, 0, inst);
+			default: return null;
+		}	
+	}
+
+}
+
+// (parameters+=Expression ("," parameters+=Expression)*)?
+protected class AtExpression_Group_1_2 extends GroupToken {
+	
+	public AtExpression_Group_1_2(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
+	}
+	
+	@Override
+	public Group getGrammarElement() {
+		return grammarAccess.getAtExpressionAccess().getGroup_1_2();
+	}
+
+    @Override
+	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
+		switch(index) {
+			case 0: return new AtExpression_Group_1_2_1(lastRuleCallOrigin, this, 0, inst);
+			case 1: return new AtExpression_ParametersAssignment_1_2_0(lastRuleCallOrigin, this, 1, inst);
+			default: return null;
+		}	
+	}
+
+}
+
+// parameters+=Expression
+protected class AtExpression_ParametersAssignment_1_2_0 extends AssignmentToken  {
+	
+	public AtExpression_ParametersAssignment_1_2_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
+	}
+	
+	@Override
+	public Assignment getGrammarElement() {
+		return grammarAccess.getAtExpressionAccess().getParametersAssignment_1_2_0();
+	}
+
+    @Override
+	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
+		switch(index) {
+			case 0: return new Expression_RelationshipExpressionParserRuleCall(this, this, 0, inst);
+			default: return null;
+		}	
+	}
+
+    @Override	
+	public IEObjectConsumer tryConsume() {
+		if((value = eObjectConsumer.getConsumable("parameters",true)) == null) return null;
+		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("parameters");
+		if(value instanceof EObject) { // org::eclipse::xtext::impl::RuleCallImpl
+			IEObjectConsumer param = createEObjectConsumer((EObject)value);
+			if(param.isInstanceOf(grammarAccess.getExpressionRule().getType().getClassifier())) {
+				type = AssignmentType.PARSER_RULE_CALL;
+				element = grammarAccess.getAtExpressionAccess().getParametersExpressionParserRuleCall_1_2_0_0(); 
+				consumed = obj;
+				return param;
+			}
+		}
+		return null;
+	}
+
+    @Override
+	public AbstractToken createFollowerAfterReturn(AbstractToken next,	int actIndex, int index, IEObjectConsumer inst) {
+		if(value == inst.getEObject() && !inst.isConsumed()) return null;
+		switch(index) {
+			case 0: return new AtExpression_LeftSquareBracketKeyword_1_1(lastRuleCallOrigin, next, actIndex, consumed);
+			default: return null;
+		}	
+	}	
+}
+
+// ("," parameters+=Expression)*
+protected class AtExpression_Group_1_2_1 extends GroupToken {
+	
+	public AtExpression_Group_1_2_1(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
+	}
+	
+	@Override
+	public Group getGrammarElement() {
+		return grammarAccess.getAtExpressionAccess().getGroup_1_2_1();
+	}
+
+    @Override
+	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
+		switch(index) {
+			case 0: return new AtExpression_ParametersAssignment_1_2_1_1(lastRuleCallOrigin, this, 0, inst);
+			default: return null;
+		}	
+	}
+
+}
+
+// ","
+protected class AtExpression_CommaKeyword_1_2_1_0 extends KeywordToken  {
+	
+	public AtExpression_CommaKeyword_1_2_1_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
+	}
+	
+	@Override
+	public Keyword getGrammarElement() {
+		return grammarAccess.getAtExpressionAccess().getCommaKeyword_1_2_1_0();
+	}
+
+    @Override
+	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
+		switch(index) {
+			case 0: return new AtExpression_Group_1_2_1(lastRuleCallOrigin, this, 0, inst);
+			case 1: return new AtExpression_ParametersAssignment_1_2_0(lastRuleCallOrigin, this, 1, inst);
+			default: return null;
+		}	
+	}
+
+}
+
+// parameters+=Expression
+protected class AtExpression_ParametersAssignment_1_2_1_1 extends AssignmentToken  {
+	
+	public AtExpression_ParametersAssignment_1_2_1_1(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
+	}
+	
+	@Override
+	public Assignment getGrammarElement() {
+		return grammarAccess.getAtExpressionAccess().getParametersAssignment_1_2_1_1();
+	}
+
+    @Override
+	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
+		switch(index) {
+			case 0: return new Expression_RelationshipExpressionParserRuleCall(this, this, 0, inst);
+			default: return null;
+		}	
+	}
+
+    @Override	
+	public IEObjectConsumer tryConsume() {
+		if((value = eObjectConsumer.getConsumable("parameters",false)) == null) return null;
+		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("parameters");
+		if(value instanceof EObject) { // org::eclipse::xtext::impl::RuleCallImpl
+			IEObjectConsumer param = createEObjectConsumer((EObject)value);
+			if(param.isInstanceOf(grammarAccess.getExpressionRule().getType().getClassifier())) {
+				type = AssignmentType.PARSER_RULE_CALL;
+				element = grammarAccess.getAtExpressionAccess().getParametersExpressionParserRuleCall_1_2_1_1_0(); 
+				consumed = obj;
+				return param;
+			}
+		}
+		return null;
+	}
+
+    @Override
+	public AbstractToken createFollowerAfterReturn(AbstractToken next,	int actIndex, int index, IEObjectConsumer inst) {
+		if(value == inst.getEObject() && !inst.isConsumed()) return null;
+		switch(index) {
+			case 0: return new AtExpression_CommaKeyword_1_2_1_0(lastRuleCallOrigin, next, actIndex, consumed);
+			default: return null;
+		}	
+	}	
+}
+
+
+
+// "]"
+protected class AtExpression_RightSquareBracketKeyword_1_3 extends KeywordToken  {
+	
+	public AtExpression_RightSquareBracketKeyword_1_3(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
+	}
+	
+	@Override
+	public Keyword getGrammarElement() {
+		return grammarAccess.getAtExpressionAccess().getRightSquareBracketKeyword_1_3();
+	}
+
+    @Override
+	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
+		switch(index) {
+			case 0: return new AtExpression_Group_1_2(lastRuleCallOrigin, this, 0, inst);
+			case 1: return new AtExpression_LeftSquareBracketKeyword_1_1(lastRuleCallOrigin, this, 1, inst);
+			default: return null;
+		}	
+	}
+
+}
+
+
+
+/************ end Rule AtExpression ****************/
+
+
 /************ begin Rule FunctionCall ****************
  *
  * // FunctionCall has different syntax restrictions depending on context
@@ -7614,12 +7584,13 @@ protected class SelectorEntry_RightExprAssignment_1_2 extends AssignmentToken  {
  * //
  * // TODO VALIDATE : functionExpr is a valid function name	
  * FunctionCall returns pp::Expression:
- * 	PrimaryExpression ({pp::FunctionCall.leftExpr=current} "(" (parameters+=Expression ("," parameters+=Expression)*)?
- * 	")")?;
+ * 	PrimaryExpression ({pp::FunctionCall.leftExpr=current} "(" (parameters+=Expression ("," parameters+=Expression)*
+ * 	endComma?)? ")")?;
  *
  **/
 
-// PrimaryExpression ({pp::FunctionCall.leftExpr=current} "(" (parameters+=Expression ("," parameters+=Expression)*)? ")")?
+// PrimaryExpression ({pp::FunctionCall.leftExpr=current} "(" (parameters+=Expression ("," parameters+=Expression)*
+// endComma?)? ")")?
 protected class FunctionCall_Group extends GroupToken {
 	
 	public FunctionCall_Group(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -7722,7 +7693,7 @@ protected class FunctionCall_PrimaryExpressionParserRuleCall_0 extends RuleCallT
 	}	
 }
 
-// ({pp::FunctionCall.leftExpr=current} "(" (parameters+=Expression ("," parameters+=Expression)*)? ")")?
+// ({pp::FunctionCall.leftExpr=current} "(" (parameters+=Expression ("," parameters+=Expression)* endComma?)? ")")?
 protected class FunctionCall_Group_1 extends GroupToken {
 	
 	public FunctionCall_Group_1(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -7802,7 +7773,7 @@ protected class FunctionCall_LeftParenthesisKeyword_1_1 extends KeywordToken  {
 
 }
 
-// (parameters+=Expression ("," parameters+=Expression)*)?
+// (parameters+=Expression ("," parameters+=Expression)* endComma?)?
 protected class FunctionCall_Group_1_2 extends GroupToken {
 	
 	public FunctionCall_Group_1_2(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -15223,58 +15194,57 @@ protected class VariableExpression_VarNameAssignment extends AssignmentToken  {
 
 
 
-/************ begin Rule LeadingSpaceAndComments ****************
+/************ begin Rule LeadingComments ****************
  *
- * LeadingSpaceAndComments returns pp::OWS: // Specified to allow source generation from model with comments at the start of the file, 
- * // and is also used in a callback to parser to produce an  object with an array of comments
- * 	{pp::OWS} values+=comments*;
+ * LeadingComments returns pp::OWS hidden(): // Allows a sequence of comments (without any separating new lines)
+ * // Note that ML comment will eat WS including NL
+ * 	{pp::OWS} values+=comment+;
  *
  **/
 
-// // Specified to allow source generation from model with comments at the start of the file, 
-// // and is also used in a callback to parser to produce an  object with an array of comments
-// {pp::OWS} values+=comments*
-protected class LeadingSpaceAndComments_Group extends GroupToken {
+// // Allows a sequence of comments (without any separating new lines)
+// // Note that ML comment will eat WS including NL
+// {pp::OWS} values+=comment+
+protected class LeadingComments_Group extends GroupToken {
 	
-	public LeadingSpaceAndComments_Group(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+	public LeadingComments_Group(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
 		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
 	}
 	
 	@Override
 	public Group getGrammarElement() {
-		return grammarAccess.getLeadingSpaceAndCommentsAccess().getGroup();
+		return grammarAccess.getLeadingCommentsAccess().getGroup();
 	}
 
     @Override
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
-			case 0: return new LeadingSpaceAndComments_ValuesAssignment_1(lastRuleCallOrigin, this, 0, inst);
-			case 1: return new LeadingSpaceAndComments_OWSAction_0(lastRuleCallOrigin, this, 1, inst);
+			case 0: return new LeadingComments_ValuesAssignment_1(lastRuleCallOrigin, this, 0, inst);
 			default: return null;
 		}	
 	}
 
     @Override
 	public IEObjectConsumer tryConsume() {
-		if(getEObject().eClass() != grammarAccess.getLeadingSpaceAndCommentsAccess().getOWSAction_0().getType().getClassifier())
+		if(getEObject().eClass() != grammarAccess.getLeadingCommentsAccess().getOWSAction_0().getType().getClassifier())
 			return null;
 		return eObjectConsumer;
 	}
 
 }
 
-// // Specified to allow source generation from model with comments at the start of the file, 
-// // and is also used in a callback to parser to produce an  object with an array of comments
+// // Allows a sequence of comments (without any separating new lines)
+// // Note that ML comment will eat WS including NL
 // {pp::OWS}
-protected class LeadingSpaceAndComments_OWSAction_0 extends ActionToken  {
+protected class LeadingComments_OWSAction_0 extends ActionToken  {
 
-	public LeadingSpaceAndComments_OWSAction_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+	public LeadingComments_OWSAction_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
 		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
 	}
 	
 	@Override
 	public Action getGrammarElement() {
-		return grammarAccess.getLeadingSpaceAndCommentsAccess().getOWSAction_0();
+		return grammarAccess.getLeadingCommentsAccess().getOWSAction_0();
 	}
 
     @Override
@@ -15291,34 +15261,34 @@ protected class LeadingSpaceAndComments_OWSAction_0 extends ActionToken  {
 	}
 }
 
-// values+=comments*
-protected class LeadingSpaceAndComments_ValuesAssignment_1 extends AssignmentToken  {
+// values+=comment+
+protected class LeadingComments_ValuesAssignment_1 extends AssignmentToken  {
 	
-	public LeadingSpaceAndComments_ValuesAssignment_1(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+	public LeadingComments_ValuesAssignment_1(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
 		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
 	}
 	
 	@Override
 	public Assignment getGrammarElement() {
-		return grammarAccess.getLeadingSpaceAndCommentsAccess().getValuesAssignment_1();
+		return grammarAccess.getLeadingCommentsAccess().getValuesAssignment_1();
 	}
 
     @Override
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
-			case 0: return new LeadingSpaceAndComments_ValuesAssignment_1(lastRuleCallOrigin, this, 0, inst);
-			case 1: return new LeadingSpaceAndComments_OWSAction_0(lastRuleCallOrigin, this, 1, inst);
+			case 0: return new LeadingComments_ValuesAssignment_1(lastRuleCallOrigin, this, 0, inst);
+			case 1: return new LeadingComments_OWSAction_0(lastRuleCallOrigin, this, 1, inst);
 			default: return null;
 		}	
 	}
 
     @Override	
 	public IEObjectConsumer tryConsume() {
-		if((value = eObjectConsumer.getConsumable("values",false)) == null) return null;
+		if((value = eObjectConsumer.getConsumable("values",true)) == null) return null;
 		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("values");
-		if(valueSerializer.isValid(obj.getEObject(), grammarAccess.getLeadingSpaceAndCommentsAccess().getValuesCommentsParserRuleCall_1_0(), value, null)) {
+		if(valueSerializer.isValid(obj.getEObject(), grammarAccess.getLeadingCommentsAccess().getValuesCommentParserRuleCall_1_0(), value, null)) {
 			type = AssignmentType.DATATYPE_RULE_CALL;
-			element = grammarAccess.getLeadingSpaceAndCommentsAccess().getValuesCommentsParserRuleCall_1_0();
+			element = grammarAccess.getLeadingCommentsAccess().getValuesCommentParserRuleCall_1_0();
 			return obj;
 		}
 		return null;
@@ -15327,7 +15297,7 @@ protected class LeadingSpaceAndComments_ValuesAssignment_1 extends AssignmentTok
 }
 
 
-/************ end Rule LeadingSpaceAndComments ****************/
+/************ end Rule LeadingComments ****************/
 
 
 

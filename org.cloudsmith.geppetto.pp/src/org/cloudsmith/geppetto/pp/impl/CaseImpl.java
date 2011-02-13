@@ -151,6 +151,17 @@ public class CaseImpl extends EObjectImpl implements Case {
 	 * @generated
 	 */
 	@Override
+	protected EClass eStaticClass() {
+		return PPPackage.Literals.CASE;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch(featureID) {
 			case PPPackage.CASE__STATEMENTS:
@@ -187,17 +198,6 @@ public class CaseImpl extends EObjectImpl implements Case {
 			values = new EObjectContainmentEList<Expression>(Expression.class, this, PPPackage.CASE__VALUES);
 		}
 		return values;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * 
-	 * @generated
-	 */
-	@Override
-	protected EClass eStaticClass() {
-		return PPPackage.Literals.CASE;
 	}
 
 } // CaseImpl

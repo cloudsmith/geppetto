@@ -42,7 +42,6 @@ public class PPOverridingLexer extends PPLexer {
 	 */
 	@Override
 	public Token nextToken() {
-		// TODO Auto-generated method stub
 		Token t = super.nextToken();
 		// System.err.println("Token: " + t.toString());
 		switch(t.getType()) {
@@ -55,68 +54,4 @@ public class PPOverridingLexer extends PPLexer {
 		}
 		return t;
 	}
-
-	// public void xmTokens() throws RecognitionException {
-	// int alt = -1;
-	//
-	// switch(input.LA(1)) {
-	// case 'a':
-	// if(input.LA(2) != 'n')
-	// alt = ALT_LOWER_A;
-	// else if(input.LA(3) != 'd')
-	// alt = ALT_LOWER_A;
-	// else {
-	// int la = input.LA(4);
-	// if(Character.isLetterOrDigit(la) || la == '_')
-	// alt = ALT_LOWER_A;
-	// else
-	// alt = ALT_AND;
-	// }
-	// break;
-	// case 'o':
-	// if(input.LA(2) != 'r')
-	// alt = ALT_LOWER_O;
-	// else {
-	// int la = input.LA(3);
-	// if(Character.isLetterOrDigit(la) || la == '_')
-	// alt = ALT_LOWER_O;
-	// else
-	// alt = ALT_OR;
-	// }
-	// break;
-	// case 'i':
-	// if(input.LA(2) != 'n')
-	// alt = ALT_LOWER_I;
-	// else {
-	// int la = input.LA(3);
-	// if(Character.isLetterOrDigit(la) || la == '_')
-	// alt = ALT_LOWER_I;
-	// else
-	// alt = ALT_IN;
-	// }
-	// break;
-	// }
-	// switch(alt) {
-	// case ALT_LOWER_I:
-	// // mRULE_LOWER_I();
-	// break;
-	// case ALT_LOWER_O:
-	// // mRULE_LOWER_O();
-	// break;
-	// case ALT_LOWER_A:
-	// // mRULE_LOWER_A();
-	// break;
-	// case ALT_AND:
-	// mKEYWORD_3();
-	// break;
-	// case ALT_OR:
-	// mKEYWORD_2();
-	// break;
-	// case ALT_IN:
-	// mKEYWORD_1();
-	// break;
-	// default:
-	// super.mTokens();
-	// }
-	// }
 }

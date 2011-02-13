@@ -128,6 +128,17 @@ public abstract class ExpressionBlockImpl extends ExpressionImpl implements Expr
 	 * @generated
 	 */
 	@Override
+	protected EClass eStaticClass() {
+		return PPPackage.Literals.EXPRESSION_BLOCK;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch(featureID) {
 			case PPPackage.EXPRESSION_BLOCK__STATEMENTS:
@@ -149,17 +160,6 @@ public abstract class ExpressionBlockImpl extends ExpressionImpl implements Expr
 				Expression.class, this, PPPackage.EXPRESSION_BLOCK__STATEMENTS);
 		}
 		return statements;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * 
-	 * @generated
-	 */
-	@Override
-	protected EClass eStaticClass() {
-		return PPPackage.Literals.EXPRESSION_BLOCK;
 	}
 
 } // ExpressionBlockImpl

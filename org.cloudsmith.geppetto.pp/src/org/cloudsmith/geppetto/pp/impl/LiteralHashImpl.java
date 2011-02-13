@@ -128,6 +128,17 @@ public class LiteralHashImpl extends LiteralExpressionImpl implements LiteralHas
 	 * @generated
 	 */
 	@Override
+	protected EClass eStaticClass() {
+		return PPPackage.Literals.LITERAL_HASH;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch(featureID) {
 			case PPPackage.LITERAL_HASH__ELEMENTS:
@@ -148,17 +159,6 @@ public class LiteralHashImpl extends LiteralExpressionImpl implements LiteralHas
 			elements = new EObjectContainmentEList<HashEntry>(HashEntry.class, this, PPPackage.LITERAL_HASH__ELEMENTS);
 		}
 		return elements;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * 
-	 * @generated
-	 */
-	@Override
-	protected EClass eStaticClass() {
-		return PPPackage.Literals.LITERAL_HASH;
 	}
 
 } // LiteralHashImpl

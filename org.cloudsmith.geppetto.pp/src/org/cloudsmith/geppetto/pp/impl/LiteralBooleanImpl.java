@@ -116,6 +116,17 @@ public class LiteralBooleanImpl extends LiteralExpressionImpl implements Literal
 	 * @generated
 	 */
 	@Override
+	protected EClass eStaticClass() {
+		return PPPackage.Literals.LITERAL_BOOLEAN;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch(featureID) {
 			case PPPackage.LITERAL_BOOLEAN__VALUE:
@@ -164,17 +175,6 @@ public class LiteralBooleanImpl extends LiteralExpressionImpl implements Literal
 		result.append(value);
 		result.append(')');
 		return result.toString();
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * 
-	 * @generated
-	 */
-	@Override
-	protected EClass eStaticClass() {
-		return PPPackage.Literals.LITERAL_BOOLEAN;
 	}
 
 } // LiteralBooleanImpl

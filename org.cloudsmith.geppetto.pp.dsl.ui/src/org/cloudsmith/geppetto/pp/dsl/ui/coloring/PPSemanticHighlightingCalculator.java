@@ -85,6 +85,8 @@ public class PPSemanticHighlightingCalculator implements ISemanticHighlightingCa
 
 	private AbstractRule ruleUNION_VARIABLE_OR_NAME;
 
+	private AbstractRule ruleUnionNameOrReference;
+
 	private final PolymorphicDispatcher<Void> highlightDispatcher = new PolymorphicDispatcher<Void>(
 		"highlight", 2, 2, Collections.singletonList(this), new PolymorphicDispatcher.ErrorHandler<Void>() {
 			public Void handle(Object[] params, Throwable e) {
@@ -118,6 +120,10 @@ public class PPSemanticHighlightingCalculator implements ISemanticHighlightingCa
 		highlightDispatcher.invoke(o, acceptor);
 	}
 
+	protected void handleError(Object[] params, Throwable e) {
+		Exceptions.throwUncheckedException(e);
+	}
+
 	/**
 	 * A default 'do nothing' highlighting handler
 	 */
@@ -138,6 +144,11 @@ public class PPSemanticHighlightingCalculator implements ISemanticHighlightingCa
 
 			if(rule == null)
 				break ruleCall;
+
+			// need to set default since keywords may be included
+			// TODO: should be fixed by modifying the highligtinglexer
+			if(ruleUnionNameOrReference == rule)
+				acceptor.addPosition(o.getOffset(), o.getLength(), DefaultHighlightingConfiguration.DEFAULT_ID);
 
 			if(ruleVariable == rule || ruleUNION_VARIABLE_OR_NAME == rule)
 				acceptor.addPosition(o.getOffset(), o.getLength(), PPHighlightConfiguration.VARIABLE_ID);
@@ -189,6 +200,15 @@ public class PPSemanticHighlightingCalculator implements ISemanticHighlightingCa
 		}
 	}
 
+	private void highlightObject(EObject semantic, String highlightID, IHighlightedPositionAcceptor acceptor) {
+		INode node = NodeModelUtils.getNode(semantic);
+		if(node == null) {
+			// TODO: WARNING - no node
+			return;
+		}
+		acceptor.addPosition(node.getOffset(), node.getLength(), highlightID);
+	}
+
 	public boolean isSpecialSpace(char c) {
 		switch(c) {
 			case '\u00A0': // NBSP
@@ -226,23 +246,6 @@ public class PPSemanticHighlightingCalculator implements ISemanticHighlightingCa
 		provideTextualHighlighting(resource, acceptor);
 	}
 
-	public void provideTextualHighlighting(XtextResource resource, IHighlightedPositionAcceptor acceptor) {
-		ICompositeNode root = resource.getParseResult().getRootNode();
-		String text = root.getText();
-		int limit = text.length();
-		for(int i = 0; i < limit; i++)
-			if(isSpecialSpace(text.charAt(i)))
-				acceptor.addPosition(root.getOffset() + i, 1, PPHighlightConfiguration.SPECIAL_SPACE_ID);
-		// int fromIndex = 0;
-		// for(fromIndex = text.indexOf('\u00A0', fromIndex); fromIndex != -1; fromIndex = text.indexOf(
-		// '\u00A0', fromIndex + 1))
-		// acceptor.addPosition(root.getOffset() + fromIndex, 1, PPHighlightConfiguration.SPECIAL_SPACE_ID);
-	}
-
-	protected void handleError(Object[] params, Throwable e) {
-		Exceptions.throwUncheckedException(e);
-	}
-
 	/**
 	 * Iterate over parser nodes and provide highlighting based on rule calls.
 	 * 
@@ -276,15 +279,6 @@ public class PPSemanticHighlightingCalculator implements ISemanticHighlightingCa
 	// acceptor.addPosition(nodetohighlight.getOffset(), nodetohighlight.getLength(), highlightID);
 	// }
 
-	private void highlightObject(EObject semantic, String highlightID, IHighlightedPositionAcceptor acceptor) {
-		INode node = NodeModelUtils.getNode(semantic);
-		if(node == null) {
-			// TODO: WARNING - no node
-			return;
-		}
-		acceptor.addPosition(node.getOffset(), node.getLength(), highlightID);
-	}
-
 	/**
 	 * Iterate over the generated model and provide highlighting
 	 * 
@@ -299,6 +293,19 @@ public class PPSemanticHighlightingCalculator implements ISemanticHighlightingCa
 		doHighlight(model, acceptor);
 	}
 
+	public void provideTextualHighlighting(XtextResource resource, IHighlightedPositionAcceptor acceptor) {
+		ICompositeNode root = resource.getParseResult().getRootNode();
+		String text = root.getText();
+		int limit = text.length();
+		for(int i = 0; i < limit; i++)
+			if(isSpecialSpace(text.charAt(i)))
+				acceptor.addPosition(root.getOffset() + i, 1, PPHighlightConfiguration.SPECIAL_SPACE_ID);
+		// int fromIndex = 0;
+		// for(fromIndex = text.indexOf('\u00A0', fromIndex); fromIndex != -1; fromIndex = text.indexOf(
+		// '\u00A0', fromIndex + 1))
+		// acceptor.addPosition(root.getOffset() + fromIndex, 1, PPHighlightConfiguration.SPECIAL_SPACE_ID);
+	}
+
 	/**
 	 * Set up rules for faster comparison
 	 */
@@ -310,5 +317,6 @@ public class PPSemanticHighlightingCalculator implements ISemanticHighlightingCa
 		ruleDQ_STRING = grammarAccess.getDoubleStringCharactersRule();
 		ruleExpression = grammarAccess.getExpressionRule();
 		ruleUNION_VARIABLE_OR_NAME = grammarAccess.getUNION_VARIABLE_OR_NAMERule();
+		ruleUnionNameOrReference = grammarAccess.getUnionNameOrReferenceRule();
 	}
 }

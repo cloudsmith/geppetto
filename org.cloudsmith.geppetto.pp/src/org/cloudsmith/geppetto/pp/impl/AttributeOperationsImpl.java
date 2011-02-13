@@ -129,6 +129,17 @@ public class AttributeOperationsImpl extends EObjectImpl implements AttributeOpe
 	 * @generated
 	 */
 	@Override
+	protected EClass eStaticClass() {
+		return PPPackage.Literals.ATTRIBUTE_OPERATIONS;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch(featureID) {
 			case PPPackage.ATTRIBUTE_OPERATIONS__ATTRIBUTES:
@@ -150,17 +161,6 @@ public class AttributeOperationsImpl extends EObjectImpl implements AttributeOpe
 				AttributeOperation.class, this, PPPackage.ATTRIBUTE_OPERATIONS__ATTRIBUTES);
 		}
 		return attributes;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * 
-	 * @generated
-	 */
-	@Override
-	protected EClass eStaticClass() {
-		return PPPackage.Literals.ATTRIBUTE_OPERATIONS;
 	}
 
 } // AttributeOperationsImpl

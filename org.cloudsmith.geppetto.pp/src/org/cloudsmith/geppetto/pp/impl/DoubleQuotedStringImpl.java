@@ -145,6 +145,17 @@ public class DoubleQuotedStringImpl extends StringExpressionImpl implements Doub
 	 * @generated
 	 */
 	@Override
+	protected EClass eStaticClass() {
+		return PPPackage.Literals.DOUBLE_QUOTED_STRING;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch(featureID) {
 			case PPPackage.DOUBLE_QUOTED_STRING__TEXT_EXPRESSION:
@@ -187,17 +198,6 @@ public class DoubleQuotedStringImpl extends StringExpressionImpl implements Doub
 			eNotify(new ENotificationImpl(
 				this, Notification.SET, PPPackage.DOUBLE_QUOTED_STRING__TEXT_EXPRESSION, newTextExpression,
 				newTextExpression));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * 
-	 * @generated
-	 */
-	@Override
-	protected EClass eStaticClass() {
-		return PPPackage.Literals.DOUBLE_QUOTED_STRING;
 	}
 
 } // DoubleQuotedStringImpl

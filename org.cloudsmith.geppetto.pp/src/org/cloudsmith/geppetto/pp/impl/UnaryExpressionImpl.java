@@ -143,6 +143,17 @@ public abstract class UnaryExpressionImpl extends ExpressionImpl implements Unar
 	 * @generated
 	 */
 	@Override
+	protected EClass eStaticClass() {
+		return PPPackage.Literals.UNARY_EXPRESSION;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch(featureID) {
 			case PPPackage.UNARY_EXPRESSION__EXPR:
@@ -183,17 +194,6 @@ public abstract class UnaryExpressionImpl extends ExpressionImpl implements Unar
 		}
 		else if(eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, PPPackage.UNARY_EXPRESSION__EXPR, newExpr, newExpr));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * 
-	 * @generated
-	 */
-	@Override
-	protected EClass eStaticClass() {
-		return PPPackage.Literals.UNARY_EXPRESSION;
 	}
 
 } // UnaryExpressionImpl

@@ -118,6 +118,17 @@ public class LiteralNameImpl extends LiteralExpressionImpl implements LiteralNam
 	 * @generated
 	 */
 	@Override
+	protected EClass eStaticClass() {
+		return PPPackage.Literals.LITERAL_NAME;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch(featureID) {
 			case PPPackage.LITERAL_NAME__VALUE:
@@ -166,17 +177,6 @@ public class LiteralNameImpl extends LiteralExpressionImpl implements LiteralNam
 		result.append(value);
 		result.append(')');
 		return result.toString();
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * 
-	 * @generated
-	 */
-	@Override
-	protected EClass eStaticClass() {
-		return PPPackage.Literals.LITERAL_NAME;
 	}
 
 } // LiteralNameImpl

@@ -118,6 +118,17 @@ public class VariableExpressionImpl extends ExpressionImpl implements VariableEx
 	 * @generated
 	 */
 	@Override
+	protected EClass eStaticClass() {
+		return PPPackage.Literals.VARIABLE_EXPRESSION;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch(featureID) {
 			case PPPackage.VARIABLE_EXPRESSION__VAR_NAME:
@@ -167,17 +178,6 @@ public class VariableExpressionImpl extends ExpressionImpl implements VariableEx
 		result.append(varName);
 		result.append(')');
 		return result.toString();
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * 
-	 * @generated
-	 */
-	@Override
-	protected EClass eStaticClass() {
-		return PPPackage.Literals.VARIABLE_EXPRESSION;
 	}
 
 } // VariableExpressionImpl

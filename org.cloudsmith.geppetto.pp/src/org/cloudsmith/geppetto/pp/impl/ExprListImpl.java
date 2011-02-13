@@ -128,6 +128,17 @@ public class ExprListImpl extends ExpressionImpl implements ExprList {
 	 * @generated
 	 */
 	@Override
+	protected EClass eStaticClass() {
+		return PPPackage.Literals.EXPR_LIST;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch(featureID) {
 			case PPPackage.EXPR_LIST__EXPRESSIONS:
@@ -149,17 +160,6 @@ public class ExprListImpl extends ExpressionImpl implements ExprList {
 				Expression.class, this, PPPackage.EXPR_LIST__EXPRESSIONS);
 		}
 		return expressions;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * 
-	 * @generated
-	 */
-	@Override
-	protected EClass eStaticClass() {
-		return PPPackage.Literals.EXPR_LIST;
 	}
 
 } // ExprListImpl

@@ -2,8 +2,9 @@
 <cq:componentQuery xmlns:cq="http://www.eclipse.org/buckminster/CQuery-1.0" resourceMap="geppetto.rmap">
 	<cq:rootRequest name="org.cloudsmith.geppetto.product" componentType="eclipse.feature"/>
 
-	<cq:advisorNode namePattern="^org\.cloudsmith\.geppetto(?:\..*)?$" branchTagPath="xtext2,main"/>
-	<cq:advisorNode filter="(resolve.target.platform=true)" useTargetPlatform="false"/>
+    <cq:advisorNode useMaterialization="false" useTargetPlatform="false" />
+
+	<cq:property key="source.repository.url" value="git://github.com/cloudsmith/geppetto.git" />
 
 	<cq:property key="target.arch" value="*"/>
 	<cq:property key="target.os" value="*"/>

@@ -12,6 +12,7 @@
 package org.cloudsmith.geppetto.pp.dsl.validation;
 
 import static org.cloudsmith.geppetto.pp.adapters.ClassifierAdapter.RESOURCE_IS_BAD;
+import static org.cloudsmith.geppetto.pp.adapters.ClassifierAdapter.RESOURCE_IS_CLASSPARAMS;
 import static org.cloudsmith.geppetto.pp.adapters.ClassifierAdapter.RESOURCE_IS_DEFAULT;
 import static org.cloudsmith.geppetto.pp.adapters.ClassifierAdapter.RESOURCE_IS_OVERRIDE;
 import static org.cloudsmith.geppetto.pp.adapters.ClassifierAdapter.RESOURCE_IS_REGULAR;
@@ -283,13 +284,16 @@ public class PPJavaValidator extends AbstractPPJavaValidator implements IPPDiagn
 		else if(!(leftExpr instanceof VariableExpression)) {
 			// then, the leftExpression *must* be an AtExpression with a leftExpr being a variable
 			if(leftExpr instanceof AtExpression) {
-				final Expression nestedLeftExpr = ((AtExpression) leftExpr).getLeftExpr();
-				// if nestedLeftExpr is null, it is validated for the nested instance
-				if(nestedLeftExpr != null && !(nestedLeftExpr instanceof VariableExpression))
-					error(
-						"Expression left of [] must be a variable.", nestedLeftExpr,
-						PPPackage.Literals.PARAMETERIZED_EXPRESSION__LEFT_EXPR, INSIGNIFICANT_INDEX,
-						IPPDiagnostics.ISSUE__UNSUPPORTED_EXPRESSION);
+				// older versions limited access to two levels.
+				if(!PuppetCompatibilityHelper.allowMoreThan2AtInSequence()) {
+					final Expression nestedLeftExpr = ((AtExpression) leftExpr).getLeftExpr();
+					// if nestedLeftExpr is null, it is validated for the nested instance
+					if(nestedLeftExpr != null && !(nestedLeftExpr instanceof VariableExpression))
+						error(
+							"Expression left of [] must be a variable.", nestedLeftExpr,
+							PPPackage.Literals.PARAMETERIZED_EXPRESSION__LEFT_EXPR, INSIGNIFICANT_INDEX,
+							IPPDiagnostics.ISSUE__UNSUPPORTED_EXPRESSION);
+				}
 			}
 			else {
 				error(
@@ -367,6 +371,18 @@ public class PPJavaValidator extends AbstractPPJavaValidator implements IPPDiagn
 					PPPackage.Literals.PARAMETERIZED_EXPRESSION__PARAMETERS, resourceRef.getParameters().indexOf(expr),
 					IPPDiagnostics.ISSUE__UNSUPPORTED_EXPRESSION);
 		}
+	}
+
+	@Check
+	void checkBinaryExpression(BinaryExpression o) {
+		if(o.getLeftExpr() == null)
+			error(
+				"A binary expression must have a left expr", o, PPPackage.Literals.BINARY_EXPRESSION__LEFT_EXPR,
+				INSIGNIFICANT_INDEX, IPPDiagnostics.ISSUE__NULL_EXPRESSION);
+		if(o.getRightExpr() == null)
+			error(
+				"A binary expression must have a right expr", o, PPPackage.Literals.BINARY_EXPRESSION__RIGHT_EXPR,
+				INSIGNIFICANT_INDEX, IPPDiagnostics.ISSUE__NULL_EXPRESSION);
 	}
 
 	@Check
@@ -506,6 +522,19 @@ public class PPJavaValidator extends AbstractPPJavaValidator implements IPPDiagn
 		checkOperator(o, "*", "/");
 	}
 
+	protected void checkOperator(BinaryOpExpression o, String... ops) {
+		String op = o.getOpName();
+		for(String s : ops)
+			if(s.equals(op))
+				return;
+		error(
+			"Illegal operator: " + op == null
+					? "null"
+					: op, o, PPPackage.Literals.BINARY_OP_EXPRESSION__OP_NAME, INSIGNIFICANT_INDEX,
+			IPPDiagnostics.ISSUE__ILLEGAL_OP);
+
+	}
+
 	@Check
 	public void checkPuppetManifest(PuppetManifest o) {
 		internalCheckTopLevelExpressions(o.getStatements());
@@ -590,7 +619,9 @@ public class PPJavaValidator extends AbstractPPJavaValidator implements IPPDiagn
 				VirtualNameOrReference vn = (VirtualNameOrReference) resourceExpr;
 				resourceTypeName = vn.getValue();
 			}
-			if("class".equals(resourceTypeName) || isCLASSREF(resourceTypeName))
+			if("class".equals(resourceTypeName))
+				resourceType = RESOURCE_IS_CLASSPARAMS;
+			else if(isCLASSREF(resourceTypeName))
 				resourceType = RESOURCE_IS_DEFAULT;
 			else if(isNAME(resourceTypeName) || isCLASSNAME(resourceTypeName))
 				resourceType = RESOURCE_IS_REGULAR;
@@ -623,11 +654,19 @@ public class PPJavaValidator extends AbstractPPJavaValidator implements IPPDiagn
 		boolean onlyOneBody = resourceType == RESOURCE_IS_DEFAULT || resourceType == RESOURCE_IS_OVERRIDE;
 		boolean titleExpected = !onlyOneBody;
 		boolean attrAdditionAllowed = resourceType == RESOURCE_IS_OVERRIDE;
-		final String errorStartText = "Resource " + (resourceType == RESOURCE_IS_DEFAULT
-				? "defaults "
-				: resourceType == RESOURCE_IS_OVERRIDE
-						? "override "
-						: "");
+
+		String errorStartText = "Resource ";
+		switch(resourceType) {
+			case RESOURCE_IS_OVERRIDE:
+				errorStartText = "Resource override ";
+				break;
+			case RESOURCE_IS_DEFAULT:
+				errorStartText = "Reousrce defaults ";
+				break;
+			case RESOURCE_IS_CLASSPARAMS:
+				errorStartText = "Class parameter defaults ";
+				break;
+		}
 
 		// check multiple bodies
 		if(onlyOneBody && o.getResourceData().size() > 1)
@@ -741,37 +780,29 @@ public class PPJavaValidator extends AbstractPPJavaValidator implements IPPDiagn
 	}
 
 	@Check
+	void checkUnaryExpression(UnaryMinusExpression o) {
+		if(o.getExpr() == null)
+			error(
+				"An unary minus expression must have right hand side expression", o,
+				PPPackage.Literals.BINARY_EXPRESSION__LEFT_EXPR, INSIGNIFICANT_INDEX,
+				IPPDiagnostics.ISSUE__NULL_EXPRESSION);
+	}
+
+	@Check
+	void checkUnaryExpression(UnaryNotExpression o) {
+		if(o.getExpr() == null)
+			error(
+				"A not expression must have a righ hand side expression", o,
+				PPPackage.Literals.BINARY_EXPRESSION__LEFT_EXPR, INSIGNIFICANT_INDEX,
+				IPPDiagnostics.ISSUE__NULL_EXPRESSION);
+	}
+
+	@Check
 	public void checkVariableExpression(VariableExpression o) {
 		if(!isVARIABLE(o.getVarName()))
 			error(
 				"Expected to comply with Variable rule", o, PPPackage.Literals.VARIABLE_EXPRESSION__VAR_NAME,
 				INSIGNIFICANT_INDEX, IPPDiagnostics.ISSUE__NOT_VARNAME);
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.xtext.validation.AbstractInjectableValidator#isLanguageSpecific()
-	 * ISSUE: See https://bugs.eclipse.org/bugs/show_bug.cgi?id=335624
-	 * TODO: remove work around when issue is fixed.
-	 */
-	@Override
-	public boolean isLanguageSpecific() {
-		// return super.isLanguageSpecific(); // when issue is fixed, or remove method
-		return false;
-	}
-
-	protected void checkOperator(BinaryOpExpression o, String... ops) {
-		String op = o.getOpName();
-		for(String s : ops)
-			if(s.equals(op))
-				return;
-		error(
-			"Illegal operator: " + op == null
-					? "null"
-					: op, o, PPPackage.Literals.BINARY_OP_EXPRESSION__OP_NAME, INSIGNIFICANT_INDEX,
-			IPPDiagnostics.ISSUE__ILLEGAL_OP);
-
 	}
 
 	/**
@@ -787,20 +818,56 @@ public class PPJavaValidator extends AbstractPPJavaValidator implements IPPDiagn
 		return result;
 	}
 
+	// private PPGrammarAccess getGrammarAccess() {
+	// return (PPGrammarAccess) grammarAccess;
+	// }
+
 	protected boolean hasInterpolation(IQuotedString s) {
 		if(!(s instanceof DoubleQuotedString))
 			return false;
 		return TextExpressionHelper.hasInterpolation((DoubleQuotedString) s);
 	}
 
+	private void internalCheckRelationshipOperand(RelationshipExpression r, Expression o, EReference feature) {
+
+		// -- chained relationsips A -> B -> C
+		if(o instanceof RelationshipExpression)
+			return; // ok, they are chained
+
+		if(o instanceof ResourceExpression) {
+			// may not be a resource override
+			ResourceExpression re = (ResourceExpression) o;
+			if(re.getResourceExpr() instanceof AtExpression)
+				error(
+					"Dependency can not be defined for a resource override.", r, feature, INSIGNIFICANT_INDEX,
+					IPPDiagnostics.ISSUE__UNSUPPORTED_EXPRESSION);
+		}
+		else if(o instanceof AtExpression) {
+			// the AtExpression is validated as standard or resource reference, so only need
+			// to check correct form
+			if(isStandardAtExpression((AtExpression) o))
+				error(
+					"Dependency can not be formed for an array/hash access", r, feature, INSIGNIFICANT_INDEX,
+					IPPDiagnostics.ISSUE__UNSUPPORTED_EXPRESSION);
+
+		}
+		else if(o instanceof VirtualNameOrReference) {
+			error(
+				"Dependency can not be formed for virtual resource", r, feature, INSIGNIFICANT_INDEX,
+				IPPDiagnostics.ISSUE__UNSUPPORTED_EXPRESSION);
+		}
+		else if(!(o instanceof CollectExpression)) {
+			error(
+				"Dependency can not be formed for this type of expression", r, feature, INSIGNIFICANT_INDEX,
+				IPPDiagnostics.ISSUE__UNSUPPORTED_EXPRESSION);
+
+		}
+	}
+
 	protected void internalCheckRvalueExpression(EList<Expression> statements) {
 		for(Expression expr : statements)
 			internalCheckRvalueExpression(expr);
 	}
-
-	// private PPGrammarAccess getGrammarAccess() {
-	// return (PPGrammarAccess) grammarAccess;
-	// }
 
 	protected void internalCheckRvalueExpression(Expression expr) {
 		if(expr == null)
@@ -885,90 +952,6 @@ public class PPJavaValidator extends AbstractPPJavaValidator implements IPPDiagn
 
 	}
 
-	/**
-	 * Checks acceptable expression types for SELECTOR lhs
-	 * 
-	 * @param lhs
-	 * @return
-	 */
-	protected boolean isSELECTOR_LHS(Expression lhs) {
-		// the lhs can be one of:
-		// name, type, quotedtext, variable, funccall, boolean, undef, default, or regex
-		if(lhs instanceof StringExpression ||
-				// TODO: was LiteralString follow up
-				lhs instanceof LiteralName || lhs instanceof LiteralNameOrReference ||
-				lhs instanceof VariableExpression || lhs instanceof FunctionCall || lhs instanceof LiteralBoolean ||
-				lhs instanceof LiteralUndef || lhs instanceof LiteralRegex || lhs instanceof LiteralDefault)
-			return true;
-		return false;
-	}
-
-	@Check
-	void checkBinaryExpression(BinaryExpression o) {
-		if(o.getLeftExpr() == null)
-			error(
-				"A binary expression must have a left expr", o, PPPackage.Literals.BINARY_EXPRESSION__LEFT_EXPR,
-				INSIGNIFICANT_INDEX, IPPDiagnostics.ISSUE__NULL_EXPRESSION);
-		if(o.getRightExpr() == null)
-			error(
-				"A binary expression must have a right expr", o, PPPackage.Literals.BINARY_EXPRESSION__RIGHT_EXPR,
-				INSIGNIFICANT_INDEX, IPPDiagnostics.ISSUE__NULL_EXPRESSION);
-	}
-
-	@Check
-	void checkUnaryExpression(UnaryMinusExpression o) {
-		if(o.getExpr() == null)
-			error(
-				"An unary minus expression must have right hand side expression", o,
-				PPPackage.Literals.BINARY_EXPRESSION__LEFT_EXPR, INSIGNIFICANT_INDEX,
-				IPPDiagnostics.ISSUE__NULL_EXPRESSION);
-	}
-
-	@Check
-	void checkUnaryExpression(UnaryNotExpression o) {
-		if(o.getExpr() == null)
-			error(
-				"A not expression must have a righ hand side expression", o,
-				PPPackage.Literals.BINARY_EXPRESSION__LEFT_EXPR, INSIGNIFICANT_INDEX,
-				IPPDiagnostics.ISSUE__NULL_EXPRESSION);
-	}
-
-	private void internalCheckRelationshipOperand(RelationshipExpression r, Expression o, EReference feature) {
-
-		// -- chained relationsips A -> B -> C
-		if(o instanceof RelationshipExpression)
-			return; // ok, they are chained
-
-		if(o instanceof ResourceExpression) {
-			// may not be a resource override
-			ResourceExpression re = (ResourceExpression) o;
-			if(re.getResourceExpr() instanceof AtExpression)
-				error(
-					"Dependency can not be defined for a resource override.", r, feature, INSIGNIFICANT_INDEX,
-					IPPDiagnostics.ISSUE__UNSUPPORTED_EXPRESSION);
-		}
-		else if(o instanceof AtExpression) {
-			// the AtExpression is validated as standard or resource reference, so only need
-			// to check correct form
-			if(isStandardAtExpression((AtExpression) o))
-				error(
-					"Dependency can not be formed for an array/hash access", r, feature, INSIGNIFICANT_INDEX,
-					IPPDiagnostics.ISSUE__UNSUPPORTED_EXPRESSION);
-
-		}
-		else if(o instanceof VirtualNameOrReference) {
-			error(
-				"Dependency can not be formed for virtual resource", r, feature, INSIGNIFICANT_INDEX,
-				IPPDiagnostics.ISSUE__UNSUPPORTED_EXPRESSION);
-		}
-		else if(!(o instanceof CollectExpression)) {
-			error(
-				"Dependency can not be formed for this type of expression", r, feature, INSIGNIFICANT_INDEX,
-				IPPDiagnostics.ISSUE__UNSUPPORTED_EXPRESSION);
-
-		}
-	}
-
 	private boolean isCLASSNAME(String s) {
 		return patternHelper.isCLASSNAME(s);
 	}
@@ -992,12 +975,46 @@ public class PPJavaValidator extends AbstractPPJavaValidator implements IPPDiagn
 		return false;
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.xtext.validation.AbstractInjectableValidator#isLanguageSpecific()
+	 * ISSUE: See https://bugs.eclipse.org/bugs/show_bug.cgi?id=335624
+	 * TODO: remove work around when issue is fixed.
+	 */
+	@Override
+	public boolean isLanguageSpecific() {
+		// return super.isLanguageSpecific(); // when issue is fixed, or remove method
+		return false;
+	}
+
 	private boolean isNAME(String s) {
 		return patternHelper.isNAME(s);
 	}
 
 	private boolean isREGEX(String s) {
 		return patternHelper.isREGEXP(s);
+	}
+
+	/**
+	 * Checks acceptable expression types for SELECTOR lhs
+	 * 
+	 * @param lhs
+	 * @return
+	 */
+	protected boolean isSELECTOR_LHS(Expression lhs) {
+		// the lhs can be one of:
+		// name, type, quotedtext, variable, funccall, boolean, undef, default, or regex.
+		// Or after fix of puppet issue #5515 also hash/At
+		if(lhs instanceof StringExpression ||
+				// TODO: was LiteralString follow up
+				lhs instanceof LiteralName || lhs instanceof LiteralNameOrReference ||
+				lhs instanceof VariableExpression || lhs instanceof FunctionCall || lhs instanceof LiteralBoolean ||
+				lhs instanceof LiteralUndef || lhs instanceof LiteralRegex || lhs instanceof LiteralDefault)
+			return true;
+		if(PuppetCompatibilityHelper.allowHashInSelector() && lhs instanceof AtExpression)
+			return true;
+		return false;
 	}
 
 	private boolean isStandardAtExpression(AtExpression o) {

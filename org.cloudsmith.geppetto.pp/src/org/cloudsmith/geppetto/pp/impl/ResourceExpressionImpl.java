@@ -172,6 +172,17 @@ public class ResourceExpressionImpl extends ExpressionImpl implements ResourceEx
 	 * @generated
 	 */
 	@Override
+	protected EClass eStaticClass() {
+		return PPPackage.Literals.RESOURCE_EXPRESSION;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch(featureID) {
 			case PPPackage.RESOURCE_EXPRESSION__RESOURCE_EXPR:
@@ -230,17 +241,6 @@ public class ResourceExpressionImpl extends ExpressionImpl implements ResourceEx
 		else if(eNotificationRequired())
 			eNotify(new ENotificationImpl(
 				this, Notification.SET, PPPackage.RESOURCE_EXPRESSION__RESOURCE_EXPR, newResourceExpr, newResourceExpr));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * 
-	 * @generated
-	 */
-	@Override
-	protected EClass eStaticClass() {
-		return PPPackage.Literals.RESOURCE_EXPRESSION;
 	}
 
 } // ResourceExpressionImpl

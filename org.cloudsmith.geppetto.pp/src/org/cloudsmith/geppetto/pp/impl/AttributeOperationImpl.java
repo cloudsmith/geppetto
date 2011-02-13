@@ -176,6 +176,17 @@ public abstract class AttributeOperationImpl extends EObjectImpl implements Attr
 	 * @generated
 	 */
 	@Override
+	protected EClass eStaticClass() {
+		return PPPackage.Literals.ATTRIBUTE_OPERATION;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch(featureID) {
 			case PPPackage.ATTRIBUTE_OPERATION__VALUE:
@@ -261,17 +272,6 @@ public abstract class AttributeOperationImpl extends EObjectImpl implements Attr
 		result.append(key);
 		result.append(')');
 		return result.toString();
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * 
-	 * @generated
-	 */
-	@Override
-	protected EClass eStaticClass() {
-		return PPPackage.Literals.ATTRIBUTE_OPERATION;
 	}
 
 } // AttributeOperationImpl

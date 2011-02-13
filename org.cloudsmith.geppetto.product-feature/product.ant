@@ -36,20 +36,33 @@
 		<delete file="${temp.p2.inf.file}" />
 	</target>
 
-	<target name="finalize.product.site.p2">
-		<property name="feature.id.file" location="${sp:temp}/feature-name.txt" />
+	<target name="create.product.site.p2">
+		<property name="output.location" location="${sp:output}" />
+		<property name="feature.id.file" location="${output.location}.temp" />
+
+		<delete dir="${output.location}" />
 
 		<!-- extract the feature id from the feature manifest -->
 		<xslt in="${sp:manifest}" out="${feature.id.file}" force="true" style="feature-id.xsl" />
 		<loadfile property="feature.id" srcfile="${feature.id.file}" />
 		<delete file="${feature.id.file}" />
 
+		<!-- copy the p2 repository to the final location -->
+		<buckminster.copy todir="${output.location}">
+			<buckminster.filesetgroup value="${fs:repository}" />
+		</buckminster.copy>
+
+		<property name="source.feature.id" value="${feature.id}.source" />
+
 		<!-- remove the IUs representing the feature -->
 		<p2.remove.iu>
-			<repository location="file:/${sp:product.repository}" />
+			<repository location="file:/${output.location}" />
 			<iu id="${feature.id}.feature.group" />
 			<iu id="${feature.id}.feature.jar" />
 			<iu id="${feature.id}_root" />
+			<iu id="${source.feature.id}.feature.group" />
+			<iu id="${source.feature.id}.feature.jar" />
+			<iu id="${source.feature.id}_root" />
 		</p2.remove.iu>
 	</target>
 

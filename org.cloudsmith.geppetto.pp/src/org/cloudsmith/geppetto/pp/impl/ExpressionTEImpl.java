@@ -143,6 +143,17 @@ public class ExpressionTEImpl extends TextExpressionImpl implements ExpressionTE
 	 * @generated
 	 */
 	@Override
+	protected EClass eStaticClass() {
+		return PPPackage.Literals.EXPRESSION_TE;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch(featureID) {
 			case PPPackage.EXPRESSION_TE__EXPRESSION:
@@ -184,17 +195,6 @@ public class ExpressionTEImpl extends TextExpressionImpl implements ExpressionTE
 		else if(eNotificationRequired())
 			eNotify(new ENotificationImpl(
 				this, Notification.SET, PPPackage.EXPRESSION_TE__EXPRESSION, newExpression, newExpression));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * 
-	 * @generated
-	 */
-	@Override
-	protected EClass eStaticClass() {
-		return PPPackage.Literals.EXPRESSION_TE;
 	}
 
 } // ExpressionTEImpl

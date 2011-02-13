@@ -143,6 +143,17 @@ public class UnquotedStringImpl extends StringExpressionImpl implements Unquoted
 	 * @generated
 	 */
 	@Override
+	protected EClass eStaticClass() {
+		return PPPackage.Literals.UNQUOTED_STRING;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch(featureID) {
 			case PPPackage.UNQUOTED_STRING__EXPRESSION:
@@ -184,17 +195,6 @@ public class UnquotedStringImpl extends StringExpressionImpl implements Unquoted
 		else if(eNotificationRequired())
 			eNotify(new ENotificationImpl(
 				this, Notification.SET, PPPackage.UNQUOTED_STRING__EXPRESSION, newExpression, newExpression));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * 
-	 * @generated
-	 */
-	@Override
-	protected EClass eStaticClass() {
-		return PPPackage.Literals.UNQUOTED_STRING;
 	}
 
 } // UnquotedStringImpl

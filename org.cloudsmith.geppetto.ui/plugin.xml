@@ -32,9 +32,9 @@
             objectClass="org.eclipse.core.resources.IProject">
          <action
                id="org.cloudsmith.geppetto.ui.exportModuleActionDelegate"
-               label="%_UI_ExportModule_label"
+               label="%_UI_ExportModules_label"
                menubarPath="group.port"
-               class="org.cloudsmith.geppetto.ui.action.ExportModuleActionDelegate"
+               class="org.cloudsmith.geppetto.ui.action.ExportModulesActionDelegate"
                enablesFor="1"/>
       </objectContribution>
       <!--

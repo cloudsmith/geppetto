@@ -30,6 +30,7 @@ public class AllTests {
 		suite.addTestSuite(TestCollectExpression.class);
 		suite.addTestSuite(TestSelectorExpression.class);
 		suite.addTestSuite(TestDoubleQuotedString.class);
+		suite.addTestSuite(TestIssues.class);
 		// $JUnit-END$
 		return suite;
 	}

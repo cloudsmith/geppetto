@@ -144,6 +144,17 @@ public class PuppetManifestImpl extends ExpressionBlockImpl implements PuppetMan
 	 * @generated
 	 */
 	@Override
+	protected EClass eStaticClass() {
+		return PPPackage.Literals.PUPPET_MANIFEST;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch(featureID) {
 			case PPPackage.PUPPET_MANIFEST__LEADING_SPACE_AND_COMMENTS:
@@ -186,17 +197,6 @@ public class PuppetManifestImpl extends ExpressionBlockImpl implements PuppetMan
 			eNotify(new ENotificationImpl(
 				this, Notification.SET, PPPackage.PUPPET_MANIFEST__LEADING_SPACE_AND_COMMENTS,
 				newLeadingSpaceAndComments, newLeadingSpaceAndComments));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * 
-	 * @generated
-	 */
-	@Override
-	protected EClass eStaticClass() {
-		return PPPackage.Literals.PUPPET_MANIFEST;
 	}
 
 } // PuppetManifestImpl

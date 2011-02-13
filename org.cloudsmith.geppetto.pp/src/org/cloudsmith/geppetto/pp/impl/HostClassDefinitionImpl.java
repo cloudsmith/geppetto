@@ -144,6 +144,17 @@ public class HostClassDefinitionImpl extends DefinitionImpl implements HostClass
 	 * @generated
 	 */
 	@Override
+	protected EClass eStaticClass() {
+		return PPPackage.Literals.HOST_CLASS_DEFINITION;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch(featureID) {
 			case PPPackage.HOST_CLASS_DEFINITION__PARENT:
@@ -185,17 +196,6 @@ public class HostClassDefinitionImpl extends DefinitionImpl implements HostClass
 		else if(eNotificationRequired())
 			eNotify(new ENotificationImpl(
 				this, Notification.SET, PPPackage.HOST_CLASS_DEFINITION__PARENT, newParent, newParent));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * 
-	 * @generated
-	 */
-	@Override
-	protected EClass eStaticClass() {
-		return PPPackage.Literals.HOST_CLASS_DEFINITION;
 	}
 
 } // HostClassDefinitionImpl

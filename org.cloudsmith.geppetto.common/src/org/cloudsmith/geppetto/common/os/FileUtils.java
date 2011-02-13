@@ -18,6 +18,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.regex.Pattern;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipInputStream;
 
 public class FileUtils {
 	public static final Pattern DEFAULT_EXCLUDES = Pattern.compile("^[\\.~#].*$");
@@ -88,5 +90,34 @@ public class FileUtils {
 			for(File child : children)
 				rmR(child, excludePattern);
 		fileOrDir.delete();
+	}
+
+	public static void unzip(File zipFile, File destDir) throws IOException {
+		InputStream in = new FileInputStream(zipFile);
+		try {
+			unzip(in, destDir);
+		}
+		finally {
+			StreamUtil.close(in);
+		}
+	}
+
+	public static void unzip(InputStream inputs, File dest) throws IOException {
+
+		if(!(dest.isDirectory() || dest.mkdirs()))
+			throw new IOException("Not a directory: " + dest.getAbsolutePath());
+
+		ZipInputStream input = new ZipInputStream(inputs);
+		ZipEntry entry;
+		while((entry = input.getNextEntry()) != null) {
+			String name = entry.getName();
+			if(entry.isDirectory()) {
+				File destDir = new File(dest, name);
+				if(!(destDir.isDirectory() || destDir.mkdir()))
+					throw new IOException("Not a directory: " + destDir.getAbsolutePath());
+				continue;
+			}
+			cp(input, dest, name);
+		}
 	}
 }

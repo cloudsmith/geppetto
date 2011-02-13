@@ -144,6 +144,12 @@
 	</groups>
 
 	<alterActions>
+		<public name="buckminster.clean">
+			<prerequisites>
+				<attribute component="org.cloudsmith.geppetto" name="buckminster.clean" />
+			</prerequisites>
+		</public>
+
 		<private name="copy.subfeatures">
 			<alterPrerequisites>
 				<alterAttribute name="feature.jar" />

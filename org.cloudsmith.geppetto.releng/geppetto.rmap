@@ -12,13 +12,15 @@
 
 	<rm:locator pattern="^org\.eclipse\.emf\.mwe2?(?:\..+)?$" searchPathRef="mwe" />
 
+	<rm:locator pattern="^org\.eclipse\.[ej]git(?:\..+)?$" searchPathRef="git" />
+
 	<rm:locator pattern="^org\.eclipse\.team\.svn(?:\..+)?$" searchPathRef="svn" />
 	<rm:locator pattern="^org\.polarion\.eclipse\.team\.svn\.connector(?:\..+)?$" searchPathRef="svn.connectors" />
 
 	<rm:locator pattern="^org\.apache\.commons\.compress$" searchPathRef="maven.central" />
 
-	<rm:locator searchPathRef="helios" failOnError="false" />
 	<rm:locator searchPathRef="platform" failOnError="false" />
+	<rm:locator searchPathRef="helios" failOnError="false" />
 	<rm:locator searchPathRef="orbit" />
 
 	<rm:searchPath name="geppetto">
@@ -62,6 +64,14 @@
 		</rm:provider>
 	</rm:searchPath>
 
+	<rm:searchPath name="git">
+		<rm:provider componentTypes="osgi.bundle,eclipse.feature" readerType="p2" source="false" mutable="false">
+			<rm:uri format="{0}/egit/updates">
+				<bc:propertyRef key="eclipse.download" />
+			</rm:uri>
+		</rm:provider>
+	</rm:searchPath>
+
 	<rm:searchPath name="svn">
 		<rm:provider componentTypes="osgi.bundle,eclipse.feature" readerType="p2" source="false" mutable="false">
 			<rm:uri format="{0}/technology/subversive/0.7/update-site">
@@ -89,17 +99,17 @@
 		</rm:provider>
 	</rm:searchPath>
 
-	<rm:searchPath name="helios">
+	<rm:searchPath name="platform">
 		<rm:provider componentTypes="osgi.bundle,eclipse.feature" readerType="p2" source="false" mutable="false">
-			<rm:uri format="{0}/releases/maintenance">
+			<rm:uri format="{0}/eclipse/updates/3.6.x">
 				<bc:propertyRef key="eclipse.download" />
 			</rm:uri>
 		</rm:provider>
 	</rm:searchPath>
 
-	<rm:searchPath name="platform">
+	<rm:searchPath name="helios">
 		<rm:provider componentTypes="osgi.bundle,eclipse.feature" readerType="p2" source="false" mutable="false">
-			<rm:uri format="{0}/eclipse/updates/3.6.x/M20110202-0800">
+			<rm:uri format="{0}/releases/maintenance">
 				<bc:propertyRef key="eclipse.download" />
 			</rm:uri>
 		</rm:provider>

@@ -123,10 +123,7 @@ ResourceExpression returns pp::Expression
 	: AssignmentExpression 
 		({pp::ResourceExpression.resourceExpr = current}
 			'{'  
-				(resourceData += ResourceBody 
-					(';'  resourceData += ResourceBody)*
-					';'?
-				)?
+				(resourceData += ResourceBody (';'  resourceData += ResourceBody)* ';'? ) ?
 			'}' 
 		)?
 		;
@@ -398,7 +395,7 @@ Definition returns pp::Definition
 DefinitionArgumentList returns pp::DefinitionArgumentList
 	: {pp::DefinitionArgumentList}
 		'(' 
-			(arguments += DefinitionArgument (',' arguments += DefinitionArgument)*)?
+			(arguments += DefinitionArgument (',' arguments += DefinitionArgument)*)? endComma?
 	  	')' 
 	;
 	

@@ -1846,13 +1846,14 @@ public class PPGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cCommaKeyword_2_1_0 = (Keyword)cGroup_2_1.eContents().get(0);
 		private final Assignment cArgumentsAssignment_2_1_1 = (Assignment)cGroup_2_1.eContents().get(1);
 		private final RuleCall cArgumentsDefinitionArgumentParserRuleCall_2_1_1_0 = (RuleCall)cArgumentsAssignment_2_1_1.eContents().get(0);
-		private final Keyword cRightParenthesisKeyword_3 = (Keyword)cGroup.eContents().get(3);
+		private final RuleCall cEndCommaParserRuleCall_3 = (RuleCall)cGroup.eContents().get(3);
+		private final Keyword cRightParenthesisKeyword_4 = (Keyword)cGroup.eContents().get(4);
 		
 		//DefinitionArgumentList returns pp::DefinitionArgumentList:
-		//	{pp::DefinitionArgumentList} "(" (arguments+=DefinitionArgument ("," arguments+=DefinitionArgument)*)? ")";
+		//	{pp::DefinitionArgumentList} "(" (arguments+=DefinitionArgument ("," arguments+=DefinitionArgument)*)? endComma? ")";
 		public ParserRule getRule() { return rule; }
 
-		//{pp::DefinitionArgumentList} "(" (arguments+=DefinitionArgument ("," arguments+=DefinitionArgument)*)? ")"
+		//{pp::DefinitionArgumentList} "(" (arguments+=DefinitionArgument ("," arguments+=DefinitionArgument)*)? endComma? ")"
 		public Group getGroup() { return cGroup; }
 
 		//{pp::DefinitionArgumentList}
@@ -1882,8 +1883,11 @@ public class PPGrammarAccess extends AbstractGrammarElementFinder {
 		//DefinitionArgument
 		public RuleCall getArgumentsDefinitionArgumentParserRuleCall_2_1_1_0() { return cArgumentsDefinitionArgumentParserRuleCall_2_1_1_0; }
 
+		//endComma?
+		public RuleCall getEndCommaParserRuleCall_3() { return cEndCommaParserRuleCall_3; }
+
 		//")"
-		public Keyword getRightParenthesisKeyword_3() { return cRightParenthesisKeyword_3; }
+		public Keyword getRightParenthesisKeyword_4() { return cRightParenthesisKeyword_4; }
 	}
 
 	public class DefinitionArgumentElements extends AbstractParserRuleElementFinder {
@@ -4077,7 +4081,7 @@ public class PPGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//DefinitionArgumentList returns pp::DefinitionArgumentList:
-	//	{pp::DefinitionArgumentList} "(" (arguments+=DefinitionArgument ("," arguments+=DefinitionArgument)*)? ")";
+	//	{pp::DefinitionArgumentList} "(" (arguments+=DefinitionArgument ("," arguments+=DefinitionArgument)*)? endComma? ")";
 	public DefinitionArgumentListElements getDefinitionArgumentListAccess() {
 		return (pDefinitionArgumentList != null) ? pDefinitionArgumentList : (pDefinitionArgumentList = new DefinitionArgumentListElements());
 	}

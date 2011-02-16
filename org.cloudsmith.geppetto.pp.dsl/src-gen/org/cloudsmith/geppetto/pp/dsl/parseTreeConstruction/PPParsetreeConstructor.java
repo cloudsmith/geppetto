@@ -9662,11 +9662,11 @@ protected class Definition_RightCurlyBracketKeyword_5 extends KeywordToken  {
 /************ begin Rule DefinitionArgumentList ****************
  *
  * DefinitionArgumentList returns pp::DefinitionArgumentList:
- * 	{pp::DefinitionArgumentList} "(" (arguments+=DefinitionArgument ("," arguments+=DefinitionArgument)*)? ")";
+ * 	{pp::DefinitionArgumentList} "(" (arguments+=DefinitionArgument ("," arguments+=DefinitionArgument)*)? endComma? ")";
  *
  **/
 
-// {pp::DefinitionArgumentList} "(" (arguments+=DefinitionArgument ("," arguments+=DefinitionArgument)*)? ")"
+// {pp::DefinitionArgumentList} "(" (arguments+=DefinitionArgument ("," arguments+=DefinitionArgument)*)? endComma? ")"
 protected class DefinitionArgumentList_Group extends GroupToken {
 	
 	public DefinitionArgumentList_Group(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -9681,7 +9681,7 @@ protected class DefinitionArgumentList_Group extends GroupToken {
     @Override
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
-			case 0: return new DefinitionArgumentList_RightParenthesisKeyword_3(lastRuleCallOrigin, this, 0, inst);
+			case 0: return new DefinitionArgumentList_RightParenthesisKeyword_4(lastRuleCallOrigin, this, 0, inst);
 			default: return null;
 		}	
 	}
@@ -9906,15 +9906,15 @@ protected class DefinitionArgumentList_ArgumentsAssignment_2_1_1 extends Assignm
 
 
 // ")"
-protected class DefinitionArgumentList_RightParenthesisKeyword_3 extends KeywordToken  {
+protected class DefinitionArgumentList_RightParenthesisKeyword_4 extends KeywordToken  {
 	
-	public DefinitionArgumentList_RightParenthesisKeyword_3(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+	public DefinitionArgumentList_RightParenthesisKeyword_4(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
 		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
 	}
 	
 	@Override
 	public Keyword getGrammarElement() {
-		return grammarAccess.getDefinitionArgumentListAccess().getRightParenthesisKeyword_3();
+		return grammarAccess.getDefinitionArgumentListAccess().getRightParenthesisKeyword_4();
 	}
 
     @Override

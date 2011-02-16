@@ -3276,10 +3276,21 @@ ruleDefinitionArgumentList returns [EObject current=null]
 	    }
 
 )
-))*)?
-	otherlv_5=KEYWORD_6
+))*)?(
+	{ 
+	  /* */ 
+	}
+    { 
+        newCompositeNode(grammarAccess.getDefinitionArgumentListAccess().getEndCommaParserRuleCall_3()); 
+    }
+ruleendComma
     {
-    	newLeafNode(otherlv_5, grammarAccess.getDefinitionArgumentListAccess().getRightParenthesisKeyword_3());
+        afterParserOrEnumRuleCall();
+    }
+)?
+	otherlv_6=KEYWORD_6
+    {
+    	newLeafNode(otherlv_6, grammarAccess.getDefinitionArgumentListAccess().getRightParenthesisKeyword_4());
     }
 )
 ;

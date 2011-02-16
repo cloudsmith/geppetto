@@ -28,7 +28,7 @@
 		</xsl:for-each>
 	</xsl:template>
 
-	<!-- create an LDAP filter string for the given property name and a comma separated list of its values -->
+	<!-- create a compatible dependency version range -->
 	<xsl:template name="create-compatible-version-range">
 		<xsl:param name="version" />
 

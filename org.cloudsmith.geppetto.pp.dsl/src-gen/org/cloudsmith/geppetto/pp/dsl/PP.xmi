@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="ASCII"?>
 <xtext:Grammar xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:xtext="http://www.eclipse.org/2008/Xtext" name="org.cloudsmith.geppetto.pp.dsl.PP" definesHiddenTokens="true" hiddenTokens="//@rules.94 //@rules.93 //@rules.92">
-  <metamodelDeclarations xsi:type="xtext:ReferencedMetamodel" alias="pp">
-    <ePackage href="http://www.cloudsmith.org/geppetto/1.0.0/PP#/"/>
-  </metamodelDeclarations>
   <metamodelDeclarations xsi:type="xtext:ReferencedMetamodel" alias="ecore">
     <ePackage href="http://www.eclipse.org/emf/2002/Ecore#/"/>
   </metamodelDeclarations>
+  <metamodelDeclarations xsi:type="xtext:ReferencedMetamodel" alias="pp">
+    <ePackage href="http://www.cloudsmith.org/geppetto/1.0.0/PP#/"/>
+  </metamodelDeclarations>
   <rules xsi:type="xtext:ParserRule" name="PuppetManifest">
-    <type metamodel="//@metamodelDeclarations.0">
+    <type metamodel="//@metamodelDeclarations.1">
       <classifier xsi:type="ecore:EClass" href="http://www.cloudsmith.org/geppetto/1.0.0/PP#//PuppetManifest"/>
     </type>
     <alternatives xsi:type="xtext:Group">
       <elements xsi:type="xtext:Action">
-        <type metamodel="//@metamodelDeclarations.0">
+        <type metamodel="//@metamodelDeclarations.1">
           <classifier xsi:type="ecore:EClass" href="http://www.cloudsmith.org/geppetto/1.0.0/PP#//PuppetManifest"/>
         </type>
       </elements>
@@ -22,20 +22,20 @@
     </alternatives>
   </rules>
   <rules xsi:type="xtext:ParserRule" name="Expression">
-    <type metamodel="//@metamodelDeclarations.0">
+    <type metamodel="//@metamodelDeclarations.1">
       <classifier xsi:type="ecore:EClass" href="http://www.cloudsmith.org/geppetto/1.0.0/PP#//Expression"/>
     </type>
     <alternatives xsi:type="xtext:RuleCall" rule="//@rules.4"/>
   </rules>
   <rules xsi:type="xtext:ParserRule" name="ExpressionList">
-    <type metamodel="//@metamodelDeclarations.0">
+    <type metamodel="//@metamodelDeclarations.1">
       <classifier xsi:type="ecore:EClass" href="http://www.cloudsmith.org/geppetto/1.0.0/PP#//Expression"/>
     </type>
     <alternatives xsi:type="xtext:Group">
       <elements xsi:type="xtext:RuleCall" rule="//@rules.4"/>
       <elements xsi:type="xtext:Group" cardinality="?">
         <elements xsi:type="xtext:Action" feature="expressions" operator="+=">
-          <type metamodel="//@metamodelDeclarations.0">
+          <type metamodel="//@metamodelDeclarations.1">
             <classifier xsi:type="ecore:EClass" href="http://www.cloudsmith.org/geppetto/1.0.0/PP#//ExprList"/>
           </type>
         </elements>
@@ -53,7 +53,7 @@
     </alternatives>
   </rules>
   <rules xsi:type="xtext:ParserRule" name="EdgeOperator">
-    <type metamodel="//@metamodelDeclarations.1">
+    <type metamodel="//@metamodelDeclarations.0">
       <classifier xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     </type>
     <alternatives xsi:type="xtext:Alternatives">
@@ -64,14 +64,14 @@
     </alternatives>
   </rules>
   <rules xsi:type="xtext:ParserRule" name="RelationshipExpression">
-    <type metamodel="//@metamodelDeclarations.0">
+    <type metamodel="//@metamodelDeclarations.1">
       <classifier xsi:type="ecore:EClass" href="http://www.cloudsmith.org/geppetto/1.0.0/PP#//Expression"/>
     </type>
     <alternatives xsi:type="xtext:Group">
       <elements xsi:type="xtext:RuleCall" rule="//@rules.5"/>
       <elements xsi:type="xtext:Group" cardinality="*">
         <elements xsi:type="xtext:Action" feature="leftExpr" operator="=">
-          <type metamodel="//@metamodelDeclarations.0">
+          <type metamodel="//@metamodelDeclarations.1">
             <classifier xsi:type="ecore:EClass" href="http://www.cloudsmith.org/geppetto/1.0.0/PP#//RelationshipExpression"/>
           </type>
         </elements>
@@ -85,14 +85,14 @@
     </alternatives>
   </rules>
   <rules xsi:type="xtext:ParserRule" name="ResourceExpression">
-    <type metamodel="//@metamodelDeclarations.0">
+    <type metamodel="//@metamodelDeclarations.1">
       <classifier xsi:type="ecore:EClass" href="http://www.cloudsmith.org/geppetto/1.0.0/PP#//Expression"/>
     </type>
     <alternatives xsi:type="xtext:Group">
       <elements xsi:type="xtext:RuleCall" rule="//@rules.12"/>
       <elements xsi:type="xtext:Group" cardinality="?">
         <elements xsi:type="xtext:Action" feature="resourceExpr" operator="=">
-          <type metamodel="//@metamodelDeclarations.0">
+          <type metamodel="//@metamodelDeclarations.1">
             <classifier xsi:type="ecore:EClass" href="http://www.cloudsmith.org/geppetto/1.0.0/PP#//ResourceExpression"/>
           </type>
         </elements>
@@ -114,7 +114,7 @@
     </alternatives>
   </rules>
   <rules xsi:type="xtext:ParserRule" name="ResourceBody">
-    <type metamodel="//@metamodelDeclarations.0">
+    <type metamodel="//@metamodelDeclarations.1">
       <classifier xsi:type="ecore:EClass" href="http://www.cloudsmith.org/geppetto/1.0.0/PP#//ResourceBody"/>
     </type>
     <alternatives xsi:type="xtext:Alternatives">
@@ -133,7 +133,7 @@
     </alternatives>
   </rules>
   <rules xsi:type="xtext:ParserRule" name="AttributeDefinition">
-    <type metamodel="//@metamodelDeclarations.0">
+    <type metamodel="//@metamodelDeclarations.1">
       <classifier xsi:type="ecore:EClass" href="http://www.cloudsmith.org/geppetto/1.0.0/PP#//AttributeDefinition"/>
     </type>
     <alternatives xsi:type="xtext:Group">
@@ -147,7 +147,7 @@
     </alternatives>
   </rules>
   <rules xsi:type="xtext:ParserRule" name="AttributeAddition">
-    <type metamodel="//@metamodelDeclarations.0">
+    <type metamodel="//@metamodelDeclarations.1">
       <classifier xsi:type="ecore:EClass" href="http://www.cloudsmith.org/geppetto/1.0.0/PP#//AttributeAddition"/>
     </type>
     <alternatives xsi:type="xtext:Group">
@@ -161,7 +161,7 @@
     </alternatives>
   </rules>
   <rules xsi:type="xtext:ParserRule" name="AttributeOperation">
-    <type metamodel="//@metamodelDeclarations.0">
+    <type metamodel="//@metamodelDeclarations.1">
       <classifier xsi:type="ecore:EClass" href="http://www.cloudsmith.org/geppetto/1.0.0/PP#//AttributeOperation"/>
     </type>
     <alternatives xsi:type="xtext:Alternatives">
@@ -170,7 +170,7 @@
     </alternatives>
   </rules>
   <rules xsi:type="xtext:ParserRule" name="AttributeOperations">
-    <type metamodel="//@metamodelDeclarations.0">
+    <type metamodel="//@metamodelDeclarations.1">
       <classifier xsi:type="ecore:EClass" href="http://www.cloudsmith.org/geppetto/1.0.0/PP#//AttributeOperations"/>
     </type>
     <alternatives xsi:type="xtext:Group">
@@ -187,20 +187,20 @@
     </alternatives>
   </rules>
   <rules xsi:type="xtext:ParserRule" name="endComma">
-    <type metamodel="//@metamodelDeclarations.1">
+    <type metamodel="//@metamodelDeclarations.0">
       <classifier xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     </type>
     <alternatives xsi:type="xtext:Keyword" value=","/>
   </rules>
   <rules xsi:type="xtext:ParserRule" name="AssignmentExpression">
-    <type metamodel="//@metamodelDeclarations.0">
+    <type metamodel="//@metamodelDeclarations.1">
       <classifier xsi:type="ecore:EClass" href="http://www.cloudsmith.org/geppetto/1.0.0/PP#//Expression"/>
     </type>
     <alternatives xsi:type="xtext:Group">
       <elements xsi:type="xtext:RuleCall" rule="//@rules.13"/>
       <elements xsi:type="xtext:Group" cardinality="?">
         <elements xsi:type="xtext:Action" feature="leftExpr" operator="=">
-          <type metamodel="//@metamodelDeclarations.0">
+          <type metamodel="//@metamodelDeclarations.1">
             <classifier xsi:type="ecore:EClass" href="http://www.cloudsmith.org/geppetto/1.0.0/PP#//AssignmentExpression"/>
           </type>
         </elements>
@@ -212,14 +212,14 @@
     </alternatives>
   </rules>
   <rules xsi:type="xtext:ParserRule" name="AppendExpression">
-    <type metamodel="//@metamodelDeclarations.0">
+    <type metamodel="//@metamodelDeclarations.1">
       <classifier xsi:type="ecore:EClass" href="http://www.cloudsmith.org/geppetto/1.0.0/PP#//Expression"/>
     </type>
     <alternatives xsi:type="xtext:Group">
       <elements xsi:type="xtext:RuleCall" rule="//@rules.14"/>
       <elements xsi:type="xtext:Group" cardinality="?">
         <elements xsi:type="xtext:Action" feature="leftExpr" operator="=">
-          <type metamodel="//@metamodelDeclarations.0">
+          <type metamodel="//@metamodelDeclarations.1">
             <classifier xsi:type="ecore:EClass" href="http://www.cloudsmith.org/geppetto/1.0.0/PP#//AppendExpression"/>
           </type>
         </elements>
@@ -231,14 +231,14 @@
     </alternatives>
   </rules>
   <rules xsi:type="xtext:ParserRule" name="OrExpression">
-    <type metamodel="//@metamodelDeclarations.0">
+    <type metamodel="//@metamodelDeclarations.1">
       <classifier xsi:type="ecore:EClass" href="http://www.cloudsmith.org/geppetto/1.0.0/PP#//Expression"/>
     </type>
     <alternatives xsi:type="xtext:Group">
       <elements xsi:type="xtext:RuleCall" rule="//@rules.15"/>
       <elements xsi:type="xtext:Group" cardinality="*">
         <elements xsi:type="xtext:Action" feature="leftExpr" operator="=">
-          <type metamodel="//@metamodelDeclarations.0">
+          <type metamodel="//@metamodelDeclarations.1">
             <classifier xsi:type="ecore:EClass" href="http://www.cloudsmith.org/geppetto/1.0.0/PP#//OrExpression"/>
           </type>
         </elements>
@@ -250,14 +250,14 @@
     </alternatives>
   </rules>
   <rules xsi:type="xtext:ParserRule" name="AndExpression">
-    <type metamodel="//@metamodelDeclarations.0">
+    <type metamodel="//@metamodelDeclarations.1">
       <classifier xsi:type="ecore:EClass" href="http://www.cloudsmith.org/geppetto/1.0.0/PP#//Expression"/>
     </type>
     <alternatives xsi:type="xtext:Group">
       <elements xsi:type="xtext:RuleCall" rule="//@rules.17"/>
       <elements xsi:type="xtext:Group" cardinality="*">
         <elements xsi:type="xtext:Action" feature="leftExpr" operator="=">
-          <type metamodel="//@metamodelDeclarations.0">
+          <type metamodel="//@metamodelDeclarations.1">
             <classifier xsi:type="ecore:EClass" href="http://www.cloudsmith.org/geppetto/1.0.0/PP#//AndExpression"/>
           </type>
         </elements>
@@ -269,7 +269,7 @@
     </alternatives>
   </rules>
   <rules xsi:type="xtext:ParserRule" name="RelationalOperator">
-    <type metamodel="//@metamodelDeclarations.1">
+    <type metamodel="//@metamodelDeclarations.0">
       <classifier xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     </type>
     <alternatives xsi:type="xtext:Alternatives">
@@ -280,14 +280,14 @@
     </alternatives>
   </rules>
   <rules xsi:type="xtext:ParserRule" name="RelationalExpression">
-    <type metamodel="//@metamodelDeclarations.0">
+    <type metamodel="//@metamodelDeclarations.1">
       <classifier xsi:type="ecore:EClass" href="http://www.cloudsmith.org/geppetto/1.0.0/PP#//Expression"/>
     </type>
     <alternatives xsi:type="xtext:Group">
       <elements xsi:type="xtext:RuleCall" rule="//@rules.19"/>
       <elements xsi:type="xtext:Group" cardinality="*">
         <elements xsi:type="xtext:Action" feature="leftExpr" operator="=">
-          <type metamodel="//@metamodelDeclarations.0">
+          <type metamodel="//@metamodelDeclarations.1">
             <classifier xsi:type="ecore:EClass" href="http://www.cloudsmith.org/geppetto/1.0.0/PP#//RelationalExpression"/>
           </type>
         </elements>
@@ -301,7 +301,7 @@
     </alternatives>
   </rules>
   <rules xsi:type="xtext:ParserRule" name="EqualityOperator">
-    <type metamodel="//@metamodelDeclarations.1">
+    <type metamodel="//@metamodelDeclarations.0">
       <classifier xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     </type>
     <alternatives xsi:type="xtext:Alternatives">
@@ -310,14 +310,14 @@
     </alternatives>
   </rules>
   <rules xsi:type="xtext:ParserRule" name="EqualityExpression">
-    <type metamodel="//@metamodelDeclarations.0">
+    <type metamodel="//@metamodelDeclarations.1">
       <classifier xsi:type="ecore:EClass" href="http://www.cloudsmith.org/geppetto/1.0.0/PP#//Expression"/>
     </type>
     <alternatives xsi:type="xtext:Group">
       <elements xsi:type="xtext:RuleCall" rule="//@rules.21"/>
       <elements xsi:type="xtext:Group" cardinality="*">
         <elements xsi:type="xtext:Action" feature="leftExpr" operator="=">
-          <type metamodel="//@metamodelDeclarations.0">
+          <type metamodel="//@metamodelDeclarations.1">
             <classifier xsi:type="ecore:EClass" href="http://www.cloudsmith.org/geppetto/1.0.0/PP#//EqualityExpression"/>
           </type>
         </elements>
@@ -331,7 +331,7 @@
     </alternatives>
   </rules>
   <rules xsi:type="xtext:ParserRule" name="ShiftOperator">
-    <type metamodel="//@metamodelDeclarations.1">
+    <type metamodel="//@metamodelDeclarations.0">
       <classifier xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     </type>
     <alternatives xsi:type="xtext:Alternatives">
@@ -340,14 +340,14 @@
     </alternatives>
   </rules>
   <rules xsi:type="xtext:ParserRule" name="ShiftExpression">
-    <type metamodel="//@metamodelDeclarations.0">
+    <type metamodel="//@metamodelDeclarations.1">
       <classifier xsi:type="ecore:EClass" href="http://www.cloudsmith.org/geppetto/1.0.0/PP#//Expression"/>
     </type>
     <alternatives xsi:type="xtext:Group">
       <elements xsi:type="xtext:RuleCall" rule="//@rules.23"/>
       <elements xsi:type="xtext:Group" cardinality="*">
         <elements xsi:type="xtext:Action" feature="leftExpr" operator="=">
-          <type metamodel="//@metamodelDeclarations.0">
+          <type metamodel="//@metamodelDeclarations.1">
             <classifier xsi:type="ecore:EClass" href="http://www.cloudsmith.org/geppetto/1.0.0/PP#//ShiftExpression"/>
           </type>
         </elements>
@@ -361,7 +361,7 @@
     </alternatives>
   </rules>
   <rules xsi:type="xtext:ParserRule" name="AdditiveOperator">
-    <type metamodel="//@metamodelDeclarations.1">
+    <type metamodel="//@metamodelDeclarations.0">
       <classifier xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     </type>
     <alternatives xsi:type="xtext:Alternatives">
@@ -370,14 +370,14 @@
     </alternatives>
   </rules>
   <rules xsi:type="xtext:ParserRule" name="AdditiveExpression">
-    <type metamodel="//@metamodelDeclarations.0">
+    <type metamodel="//@metamodelDeclarations.1">
       <classifier xsi:type="ecore:EClass" href="http://www.cloudsmith.org/geppetto/1.0.0/PP#//Expression"/>
     </type>
     <alternatives xsi:type="xtext:Group">
       <elements xsi:type="xtext:RuleCall" rule="//@rules.25"/>
       <elements xsi:type="xtext:Group" cardinality="*">
         <elements xsi:type="xtext:Action" feature="leftExpr" operator="=">
-          <type metamodel="//@metamodelDeclarations.0">
+          <type metamodel="//@metamodelDeclarations.1">
             <classifier xsi:type="ecore:EClass" href="http://www.cloudsmith.org/geppetto/1.0.0/PP#//AdditiveExpression"/>
           </type>
         </elements>
@@ -391,7 +391,7 @@
     </alternatives>
   </rules>
   <rules xsi:type="xtext:ParserRule" name="MultiplicativeOperator">
-    <type metamodel="//@metamodelDeclarations.1">
+    <type metamodel="//@metamodelDeclarations.0">
       <classifier xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     </type>
     <alternatives xsi:type="xtext:Alternatives">
@@ -400,14 +400,14 @@
     </alternatives>
   </rules>
   <rules xsi:type="xtext:ParserRule" name="MultiplicativeExpression">
-    <type metamodel="//@metamodelDeclarations.0">
+    <type metamodel="//@metamodelDeclarations.1">
       <classifier xsi:type="ecore:EClass" href="http://www.cloudsmith.org/geppetto/1.0.0/PP#//Expression"/>
     </type>
     <alternatives xsi:type="xtext:Group">
       <elements xsi:type="xtext:RuleCall" rule="//@rules.27"/>
       <elements xsi:type="xtext:Group" cardinality="*">
         <elements xsi:type="xtext:Action" feature="leftExpr" operator="=">
-          <type metamodel="//@metamodelDeclarations.0">
+          <type metamodel="//@metamodelDeclarations.1">
             <classifier xsi:type="ecore:EClass" href="http://www.cloudsmith.org/geppetto/1.0.0/PP#//MultiplicativeExpression"/>
           </type>
         </elements>
@@ -421,7 +421,7 @@
     </alternatives>
   </rules>
   <rules xsi:type="xtext:ParserRule" name="MatchingOperator">
-    <type metamodel="//@metamodelDeclarations.1">
+    <type metamodel="//@metamodelDeclarations.0">
       <classifier xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     </type>
     <alternatives xsi:type="xtext:Alternatives">
@@ -430,14 +430,14 @@
     </alternatives>
   </rules>
   <rules xsi:type="xtext:ParserRule" name="MatchingExpression">
-    <type metamodel="//@metamodelDeclarations.0">
+    <type metamodel="//@metamodelDeclarations.1">
       <classifier xsi:type="ecore:EClass" href="http://www.cloudsmith.org/geppetto/1.0.0/PP#//Expression"/>
     </type>
     <alternatives xsi:type="xtext:Group">
       <elements xsi:type="xtext:RuleCall" rule="//@rules.28"/>
       <elements xsi:type="xtext:Group" cardinality="*">
         <elements xsi:type="xtext:Action" feature="leftExpr" operator="=">
-          <type metamodel="//@metamodelDeclarations.0">
+          <type metamodel="//@metamodelDeclarations.1">
             <classifier xsi:type="ecore:EClass" href="http://www.cloudsmith.org/geppetto/1.0.0/PP#//MatchingExpression"/>
           </type>
         </elements>
@@ -451,14 +451,14 @@
     </alternatives>
   </rules>
   <rules xsi:type="xtext:ParserRule" name="InExpression">
-    <type metamodel="//@metamodelDeclarations.0">
+    <type metamodel="//@metamodelDeclarations.1">
       <classifier xsi:type="ecore:EClass" href="http://www.cloudsmith.org/geppetto/1.0.0/PP#//Expression"/>
     </type>
     <alternatives xsi:type="xtext:Group">
       <elements xsi:type="xtext:RuleCall" rule="//@rules.29"/>
       <elements xsi:type="xtext:Group" cardinality="*">
         <elements xsi:type="xtext:Action" feature="leftExpr" operator="=">
-          <type metamodel="//@metamodelDeclarations.0">
+          <type metamodel="//@metamodelDeclarations.1">
             <classifier xsi:type="ecore:EClass" href="http://www.cloudsmith.org/geppetto/1.0.0/PP#//InExpression"/>
           </type>
         </elements>
@@ -472,7 +472,7 @@
     </alternatives>
   </rules>
   <rules xsi:type="xtext:ParserRule" name="UnaryOrHigherExpression">
-    <type metamodel="//@metamodelDeclarations.0">
+    <type metamodel="//@metamodelDeclarations.1">
       <classifier xsi:type="ecore:EClass" href="http://www.cloudsmith.org/geppetto/1.0.0/PP#//Expression"/>
     </type>
     <alternatives xsi:type="xtext:Alternatives">
@@ -482,7 +482,7 @@
     </alternatives>
   </rules>
   <rules xsi:type="xtext:ParserRule" name="UnaryMinusExpression">
-    <type metamodel="//@metamodelDeclarations.0">
+    <type metamodel="//@metamodelDeclarations.1">
       <classifier xsi:type="ecore:EClass" href="http://www.cloudsmith.org/geppetto/1.0.0/PP#//UnaryMinusExpression"/>
     </type>
     <alternatives xsi:type="xtext:Group">
@@ -493,7 +493,7 @@
     </alternatives>
   </rules>
   <rules xsi:type="xtext:ParserRule" name="NotExpression">
-    <type metamodel="//@metamodelDeclarations.0">
+    <type metamodel="//@metamodelDeclarations.1">
       <classifier xsi:type="ecore:EClass" href="http://www.cloudsmith.org/geppetto/1.0.0/PP#//UnaryNotExpression"/>
     </type>
     <alternatives xsi:type="xtext:Group">
@@ -504,14 +504,14 @@
     </alternatives>
   </rules>
   <rules xsi:type="xtext:ParserRule" name="CollectExpression">
-    <type metamodel="//@metamodelDeclarations.0">
+    <type metamodel="//@metamodelDeclarations.1">
       <classifier xsi:type="ecore:EClass" href="http://www.cloudsmith.org/geppetto/1.0.0/PP#//Expression"/>
     </type>
     <alternatives xsi:type="xtext:Group">
       <elements xsi:type="xtext:RuleCall" rule="//@rules.36"/>
       <elements xsi:type="xtext:Group" cardinality="?">
         <elements xsi:type="xtext:Action" feature="classReference" operator="=">
-          <type metamodel="//@metamodelDeclarations.0">
+          <type metamodel="//@metamodelDeclarations.1">
             <classifier xsi:type="ecore:EClass" href="http://www.cloudsmith.org/geppetto/1.0.0/PP#//CollectExpression"/>
           </type>
         </elements>
@@ -529,7 +529,7 @@
     </alternatives>
   </rules>
   <rules xsi:type="xtext:ParserRule" name="CollectQuery">
-    <type metamodel="//@metamodelDeclarations.0">
+    <type metamodel="//@metamodelDeclarations.1">
       <classifier xsi:type="ecore:EClass" href="http://www.cloudsmith.org/geppetto/1.0.0/PP#//ICollectQuery"/>
     </type>
     <alternatives xsi:type="xtext:Alternatives">
@@ -538,12 +538,12 @@
     </alternatives>
   </rules>
   <rules xsi:type="xtext:ParserRule" name="VirtualCollectQuery">
-    <type metamodel="//@metamodelDeclarations.0">
+    <type metamodel="//@metamodelDeclarations.1">
       <classifier xsi:type="ecore:EClass" href="http://www.cloudsmith.org/geppetto/1.0.0/PP#//ICollectQuery"/>
     </type>
     <alternatives xsi:type="xtext:Group">
       <elements xsi:type="xtext:Action">
-        <type metamodel="//@metamodelDeclarations.0">
+        <type metamodel="//@metamodelDeclarations.1">
           <classifier xsi:type="ecore:EClass" href="http://www.cloudsmith.org/geppetto/1.0.0/PP#//VirtualCollectQuery"/>
         </type>
       </elements>
@@ -555,12 +555,12 @@
     </alternatives>
   </rules>
   <rules xsi:type="xtext:ParserRule" name="ExportedCollectQuery">
-    <type metamodel="//@metamodelDeclarations.0">
+    <type metamodel="//@metamodelDeclarations.1">
       <classifier xsi:type="ecore:EClass" href="http://www.cloudsmith.org/geppetto/1.0.0/PP#//ICollectQuery"/>
     </type>
     <alternatives xsi:type="xtext:Group">
       <elements xsi:type="xtext:Action">
-        <type metamodel="//@metamodelDeclarations.0">
+        <type metamodel="//@metamodelDeclarations.1">
           <classifier xsi:type="ecore:EClass" href="http://www.cloudsmith.org/geppetto/1.0.0/PP#//ExportedCollectQuery"/>
         </type>
       </elements>
@@ -572,14 +572,14 @@
     </alternatives>
   </rules>
   <rules xsi:type="xtext:ParserRule" name="SelectorExpression">
-    <type metamodel="//@metamodelDeclarations.0">
+    <type metamodel="//@metamodelDeclarations.1">
       <classifier xsi:type="ecore:EClass" href="http://www.cloudsmith.org/geppetto/1.0.0/PP#//Expression"/>
     </type>
     <alternatives xsi:type="xtext:Group">
       <elements xsi:type="xtext:RuleCall" rule="//@rules.38"/>
       <elements xsi:type="xtext:Group" cardinality="?">
         <elements xsi:type="xtext:Action" feature="leftExpr" operator="=">
-          <type metamodel="//@metamodelDeclarations.0">
+          <type metamodel="//@metamodelDeclarations.1">
             <classifier xsi:type="ecore:EClass" href="http://www.cloudsmith.org/geppetto/1.0.0/PP#//SelectorExpression"/>
           </type>
         </elements>
@@ -607,14 +607,14 @@
     </alternatives>
   </rules>
   <rules xsi:type="xtext:ParserRule" name="SelectorEntry">
-    <type metamodel="//@metamodelDeclarations.0">
+    <type metamodel="//@metamodelDeclarations.1">
       <classifier xsi:type="ecore:EClass" href="http://www.cloudsmith.org/geppetto/1.0.0/PP#//Expression"/>
     </type>
     <alternatives xsi:type="xtext:Group">
       <elements xsi:type="xtext:RuleCall" rule="//@rules.1"/>
       <elements xsi:type="xtext:Group" cardinality="?">
         <elements xsi:type="xtext:Action" feature="leftExpr" operator="=">
-          <type metamodel="//@metamodelDeclarations.0">
+          <type metamodel="//@metamodelDeclarations.1">
             <classifier xsi:type="ecore:EClass" href="http://www.cloudsmith.org/geppetto/1.0.0/PP#//SelectorEntry"/>
           </type>
         </elements>
@@ -626,14 +626,14 @@
     </alternatives>
   </rules>
   <rules xsi:type="xtext:ParserRule" name="AtExpression">
-    <type metamodel="//@metamodelDeclarations.0">
+    <type metamodel="//@metamodelDeclarations.1">
       <classifier xsi:type="ecore:EClass" href="http://www.cloudsmith.org/geppetto/1.0.0/PP#//Expression"/>
     </type>
     <alternatives xsi:type="xtext:Group">
       <elements xsi:type="xtext:RuleCall" rule="//@rules.39"/>
       <elements xsi:type="xtext:Group" cardinality="*">
         <elements xsi:type="xtext:Action" feature="leftExpr" operator="=">
-          <type metamodel="//@metamodelDeclarations.0">
+          <type metamodel="//@metamodelDeclarations.1">
             <classifier xsi:type="ecore:EClass" href="http://www.cloudsmith.org/geppetto/1.0.0/PP#//AtExpression"/>
           </type>
         </elements>
@@ -654,14 +654,14 @@
     </alternatives>
   </rules>
   <rules xsi:type="xtext:ParserRule" name="FunctionCall">
-    <type metamodel="//@metamodelDeclarations.0">
+    <type metamodel="//@metamodelDeclarations.1">
       <classifier xsi:type="ecore:EClass" href="http://www.cloudsmith.org/geppetto/1.0.0/PP#//Expression"/>
     </type>
     <alternatives xsi:type="xtext:Group">
       <elements xsi:type="xtext:RuleCall" rule="//@rules.40"/>
       <elements xsi:type="xtext:Group" cardinality="?">
         <elements xsi:type="xtext:Action" feature="leftExpr" operator="=">
-          <type metamodel="//@metamodelDeclarations.0">
+          <type metamodel="//@metamodelDeclarations.1">
             <classifier xsi:type="ecore:EClass" href="http://www.cloudsmith.org/geppetto/1.0.0/PP#//FunctionCall"/>
           </type>
         </elements>
@@ -683,7 +683,7 @@
     </alternatives>
   </rules>
   <rules xsi:type="xtext:ParserRule" name="PrimaryExpression">
-    <type metamodel="//@metamodelDeclarations.0">
+    <type metamodel="//@metamodelDeclarations.1">
       <classifier xsi:type="ecore:EClass" href="http://www.cloudsmith.org/geppetto/1.0.0/PP#//Expression"/>
     </type>
     <alternatives xsi:type="xtext:Alternatives">
@@ -700,7 +700,7 @@
     </alternatives>
   </rules>
   <rules xsi:type="xtext:ParserRule" name="NodeDefinition">
-    <type metamodel="//@metamodelDeclarations.0">
+    <type metamodel="//@metamodelDeclarations.1">
       <classifier xsi:type="ecore:EClass" href="http://www.cloudsmith.org/geppetto/1.0.0/PP#//NodeDefinition"/>
     </type>
     <alternatives xsi:type="xtext:Group">
@@ -728,7 +728,7 @@
     </alternatives>
   </rules>
   <rules xsi:type="xtext:ParserRule" name="HostReference">
-    <type metamodel="//@metamodelDeclarations.0">
+    <type metamodel="//@metamodelDeclarations.1">
       <classifier xsi:type="ecore:EClass" href="http://www.cloudsmith.org/geppetto/1.0.0/PP#//Expression"/>
     </type>
     <alternatives xsi:type="xtext:Alternatives">
@@ -739,7 +739,7 @@
     </alternatives>
   </rules>
   <rules xsi:type="xtext:ParserRule" name="HostClassDefinition">
-    <type metamodel="//@metamodelDeclarations.0">
+    <type metamodel="//@metamodelDeclarations.1">
       <classifier xsi:type="ecore:EClass" href="http://www.cloudsmith.org/geppetto/1.0.0/PP#//HostClassDefinition"/>
     </type>
     <alternatives xsi:type="xtext:Group">
@@ -764,7 +764,7 @@
     </alternatives>
   </rules>
   <rules xsi:type="xtext:ParserRule" name="ParentName">
-    <type metamodel="//@metamodelDeclarations.0">
+    <type metamodel="//@metamodelDeclarations.1">
       <classifier xsi:type="ecore:EClass" href="http://www.cloudsmith.org/geppetto/1.0.0/PP#//LiteralExpression"/>
     </type>
     <alternatives xsi:type="xtext:Alternatives">
@@ -773,7 +773,7 @@
     </alternatives>
   </rules>
   <rules xsi:type="xtext:ParserRule" name="Definition">
-    <type metamodel="//@metamodelDeclarations.0">
+    <type metamodel="//@metamodelDeclarations.1">
       <classifier xsi:type="ecore:EClass" href="http://www.cloudsmith.org/geppetto/1.0.0/PP#//Definition"/>
     </type>
     <alternatives xsi:type="xtext:Group">
@@ -792,12 +792,12 @@
     </alternatives>
   </rules>
   <rules xsi:type="xtext:ParserRule" name="DefinitionArgumentList">
-    <type metamodel="//@metamodelDeclarations.0">
+    <type metamodel="//@metamodelDeclarations.1">
       <classifier xsi:type="ecore:EClass" href="http://www.cloudsmith.org/geppetto/1.0.0/PP#//DefinitionArgumentList"/>
     </type>
     <alternatives xsi:type="xtext:Group">
       <elements xsi:type="xtext:Action">
-        <type metamodel="//@metamodelDeclarations.0">
+        <type metamodel="//@metamodelDeclarations.1">
           <classifier xsi:type="ecore:EClass" href="http://www.cloudsmith.org/geppetto/1.0.0/PP#//DefinitionArgumentList"/>
         </type>
       </elements>
@@ -818,7 +818,7 @@
     </alternatives>
   </rules>
   <rules xsi:type="xtext:ParserRule" name="DefinitionArgument">
-    <type metamodel="//@metamodelDeclarations.0">
+    <type metamodel="//@metamodelDeclarations.1">
       <classifier xsi:type="ecore:EClass" href="http://www.cloudsmith.org/geppetto/1.0.0/PP#//DefinitionArgument"/>
     </type>
     <alternatives xsi:type="xtext:Group">
@@ -834,7 +834,7 @@
     </alternatives>
   </rules>
   <rules xsi:type="xtext:ParserRule" name="CaseExpression">
-    <type metamodel="//@metamodelDeclarations.0">
+    <type metamodel="//@metamodelDeclarations.1">
       <classifier xsi:type="ecore:EClass" href="http://www.cloudsmith.org/geppetto/1.0.0/PP#//CaseExpression"/>
     </type>
     <alternatives xsi:type="xtext:Group">
@@ -850,7 +850,7 @@
     </alternatives>
   </rules>
   <rules xsi:type="xtext:ParserRule" name="Case">
-    <type metamodel="//@metamodelDeclarations.0">
+    <type metamodel="//@metamodelDeclarations.1">
       <classifier xsi:type="ecore:EClass" href="http://www.cloudsmith.org/geppetto/1.0.0/PP#//Case"/>
     </type>
     <alternatives xsi:type="xtext:Group">
@@ -872,7 +872,7 @@
     </alternatives>
   </rules>
   <rules xsi:type="xtext:ParserRule" name="IfExpression">
-    <type metamodel="//@metamodelDeclarations.0">
+    <type metamodel="//@metamodelDeclarations.1">
       <classifier xsi:type="ecore:EClass" href="http://www.cloudsmith.org/geppetto/1.0.0/PP#//IfExpression"/>
     </type>
     <alternatives xsi:type="xtext:Group">
@@ -902,12 +902,12 @@
     </alternatives>
   </rules>
   <rules xsi:type="xtext:ParserRule" name="ElseExpression">
-    <type metamodel="//@metamodelDeclarations.0">
+    <type metamodel="//@metamodelDeclarations.1">
       <classifier xsi:type="ecore:EClass" href="http://www.cloudsmith.org/geppetto/1.0.0/PP#//Expression"/>
     </type>
     <alternatives xsi:type="xtext:Group">
       <elements xsi:type="xtext:Action">
-        <type metamodel="//@metamodelDeclarations.0">
+        <type metamodel="//@metamodelDeclarations.1">
           <classifier xsi:type="ecore:EClass" href="http://www.cloudsmith.org/geppetto/1.0.0/PP#//ElseExpression"/>
         </type>
       </elements>
@@ -919,12 +919,12 @@
     </alternatives>
   </rules>
   <rules xsi:type="xtext:ParserRule" name="ElseIfExpression">
-    <type metamodel="//@metamodelDeclarations.0">
+    <type metamodel="//@metamodelDeclarations.1">
       <classifier xsi:type="ecore:EClass" href="http://www.cloudsmith.org/geppetto/1.0.0/PP#//Expression"/>
     </type>
     <alternatives xsi:type="xtext:Group">
       <elements xsi:type="xtext:Action">
-        <type metamodel="//@metamodelDeclarations.0">
+        <type metamodel="//@metamodelDeclarations.1">
           <classifier xsi:type="ecore:EClass" href="http://www.cloudsmith.org/geppetto/1.0.0/PP#//ElseIfExpression"/>
         </type>
       </elements>
@@ -953,7 +953,7 @@
     </alternatives>
   </rules>
   <rules xsi:type="xtext:ParserRule" name="LiteralExpression">
-    <type metamodel="//@metamodelDeclarations.0">
+    <type metamodel="//@metamodelDeclarations.1">
       <classifier xsi:type="ecore:EClass" href="http://www.cloudsmith.org/geppetto/1.0.0/PP#//Expression"/>
     </type>
     <alternatives xsi:type="xtext:Alternatives">
@@ -968,7 +968,7 @@
     </alternatives>
   </rules>
   <rules xsi:type="xtext:ParserRule" name="LiteralNameOrReference">
-    <type metamodel="//@metamodelDeclarations.0">
+    <type metamodel="//@metamodelDeclarations.1">
       <classifier xsi:type="ecore:EClass" href="http://www.cloudsmith.org/geppetto/1.0.0/PP#//LiteralNameOrReference"/>
     </type>
     <alternatives xsi:type="xtext:Assignment" feature="value" operator="=">
@@ -976,7 +976,7 @@
     </alternatives>
   </rules>
   <rules xsi:type="xtext:ParserRule" name="UNION_VARIABLE_OR_NAME">
-    <type metamodel="//@metamodelDeclarations.1">
+    <type metamodel="//@metamodelDeclarations.0">
       <classifier xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     </type>
     <alternatives xsi:type="xtext:Group">
@@ -985,7 +985,7 @@
     </alternatives>
   </rules>
   <rules xsi:type="xtext:ParserRule" name="ParenthisedExpression">
-    <type metamodel="//@metamodelDeclarations.0">
+    <type metamodel="//@metamodelDeclarations.1">
       <classifier xsi:type="ecore:EClass" href="http://www.cloudsmith.org/geppetto/1.0.0/PP#//ParenthesisedExpression"/>
     </type>
     <alternatives xsi:type="xtext:Group">
@@ -997,7 +997,7 @@
     </alternatives>
   </rules>
   <rules xsi:type="xtext:ParserRule" name="VirtualNameOrReference">
-    <type metamodel="//@metamodelDeclarations.0">
+    <type metamodel="//@metamodelDeclarations.1">
       <classifier xsi:type="ecore:EClass" href="http://www.cloudsmith.org/geppetto/1.0.0/PP#//VirtualNameOrReference"/>
     </type>
     <alternatives xsi:type="xtext:Group">
@@ -1011,18 +1011,18 @@
     </alternatives>
   </rules>
   <rules xsi:type="xtext:ParserRule" name="ATBoolean">
-    <type metamodel="//@metamodelDeclarations.1">
+    <type metamodel="//@metamodelDeclarations.0">
       <classifier xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
     </type>
     <alternatives xsi:type="xtext:Keyword" value="@"/>
   </rules>
   <rules xsi:type="xtext:ParserRule" name="ImportExpression">
-    <type metamodel="//@metamodelDeclarations.0">
+    <type metamodel="//@metamodelDeclarations.1">
       <classifier xsi:type="ecore:EClass" href="http://www.cloudsmith.org/geppetto/1.0.0/PP#//ImportExpression"/>
     </type>
     <alternatives xsi:type="xtext:Group">
       <elements xsi:type="xtext:Action">
-        <type metamodel="//@metamodelDeclarations.0">
+        <type metamodel="//@metamodelDeclarations.1">
           <classifier xsi:type="ecore:EClass" href="http://www.cloudsmith.org/geppetto/1.0.0/PP#//ImportExpression"/>
         </type>
       </elements>
@@ -1041,12 +1041,12 @@
     </alternatives>
   </rules>
   <rules xsi:type="xtext:ParserRule" name="LiteralList">
-    <type metamodel="//@metamodelDeclarations.0">
+    <type metamodel="//@metamodelDeclarations.1">
       <classifier xsi:type="ecore:EClass" href="http://www.cloudsmith.org/geppetto/1.0.0/PP#//LiteralList"/>
     </type>
     <alternatives xsi:type="xtext:Group">
       <elements xsi:type="xtext:Action">
-        <type metamodel="//@metamodelDeclarations.0">
+        <type metamodel="//@metamodelDeclarations.1">
           <classifier xsi:type="ecore:EClass" href="http://www.cloudsmith.org/geppetto/1.0.0/PP#//LiteralList"/>
         </type>
       </elements>
@@ -1067,12 +1067,12 @@
     </alternatives>
   </rules>
   <rules xsi:type="xtext:ParserRule" name="LiteralHash">
-    <type metamodel="//@metamodelDeclarations.0">
+    <type metamodel="//@metamodelDeclarations.1">
       <classifier xsi:type="ecore:EClass" href="http://www.cloudsmith.org/geppetto/1.0.0/PP#//LiteralHash"/>
     </type>
     <alternatives xsi:type="xtext:Group">
       <elements xsi:type="xtext:Action">
-        <type metamodel="//@metamodelDeclarations.0">
+        <type metamodel="//@metamodelDeclarations.1">
           <classifier xsi:type="ecore:EClass" href="http://www.cloudsmith.org/geppetto/1.0.0/PP#//LiteralHash"/>
         </type>
       </elements>
@@ -1093,7 +1093,7 @@
     </alternatives>
   </rules>
   <rules xsi:type="xtext:ParserRule" name="HashEntry">
-    <type metamodel="//@metamodelDeclarations.0">
+    <type metamodel="//@metamodelDeclarations.1">
       <classifier xsi:type="ecore:EClass" href="http://www.cloudsmith.org/geppetto/1.0.0/PP#//HashEntry"/>
     </type>
     <alternatives xsi:type="xtext:Group">
@@ -1107,7 +1107,7 @@
     </alternatives>
   </rules>
   <rules xsi:type="xtext:ParserRule" name="LiteralNameOrString">
-    <type metamodel="//@metamodelDeclarations.0">
+    <type metamodel="//@metamodelDeclarations.1">
       <classifier xsi:type="ecore:EClass" href="http://www.cloudsmith.org/geppetto/1.0.0/PP#//Expression"/>
     </type>
     <alternatives xsi:type="xtext:Alternatives">
@@ -1116,7 +1116,7 @@
     </alternatives>
   </rules>
   <rules xsi:type="xtext:ParserRule" name="BooleanValue">
-    <type metamodel="//@metamodelDeclarations.1">
+    <type metamodel="//@metamodelDeclarations.0">
       <classifier xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
     </type>
     <alternatives xsi:type="xtext:Alternatives">
@@ -1125,7 +1125,7 @@
     </alternatives>
   </rules>
   <rules xsi:type="xtext:ParserRule" name="LiteralBoolean">
-    <type metamodel="//@metamodelDeclarations.0">
+    <type metamodel="//@metamodelDeclarations.1">
       <classifier xsi:type="ecore:EClass" href="http://www.cloudsmith.org/geppetto/1.0.0/PP#//LiteralBoolean"/>
     </type>
     <alternatives xsi:type="xtext:Assignment" feature="value" operator="=">
@@ -1133,12 +1133,12 @@
     </alternatives>
   </rules>
   <rules xsi:type="xtext:ParserRule" name="LiteralDefault">
-    <type metamodel="//@metamodelDeclarations.0">
+    <type metamodel="//@metamodelDeclarations.1">
       <classifier xsi:type="ecore:EClass" href="http://www.cloudsmith.org/geppetto/1.0.0/PP#//LiteralDefault"/>
     </type>
     <alternatives xsi:type="xtext:Group">
       <elements xsi:type="xtext:Action">
-        <type metamodel="//@metamodelDeclarations.0">
+        <type metamodel="//@metamodelDeclarations.1">
           <classifier xsi:type="ecore:EClass" href="http://www.cloudsmith.org/geppetto/1.0.0/PP#//LiteralDefault"/>
         </type>
       </elements>
@@ -1146,12 +1146,12 @@
     </alternatives>
   </rules>
   <rules xsi:type="xtext:ParserRule" name="LiteralUndef">
-    <type metamodel="//@metamodelDeclarations.0">
+    <type metamodel="//@metamodelDeclarations.1">
       <classifier xsi:type="ecore:EClass" href="http://www.cloudsmith.org/geppetto/1.0.0/PP#//LiteralUndef"/>
     </type>
     <alternatives xsi:type="xtext:Group">
       <elements xsi:type="xtext:Action">
-        <type metamodel="//@metamodelDeclarations.0">
+        <type metamodel="//@metamodelDeclarations.1">
           <classifier xsi:type="ecore:EClass" href="http://www.cloudsmith.org/geppetto/1.0.0/PP#//LiteralUndef"/>
         </type>
       </elements>
@@ -1159,7 +1159,7 @@
     </alternatives>
   </rules>
   <rules xsi:type="xtext:ParserRule" name="StringExpression" definesHiddenTokens="true" hiddenTokens="//@rules.94 //@rules.93 //@rules.92">
-    <type metamodel="//@metamodelDeclarations.0">
+    <type metamodel="//@metamodelDeclarations.1">
       <classifier xsi:type="ecore:EClass" href="http://www.cloudsmith.org/geppetto/1.0.0/PP#//Expression"/>
     </type>
     <alternatives xsi:type="xtext:Alternatives">
@@ -1169,7 +1169,7 @@
     </alternatives>
   </rules>
   <rules xsi:type="xtext:ParserRule" name="QuotedString" definesHiddenTokens="true" hiddenTokens="//@rules.94 //@rules.93 //@rules.92">
-    <type metamodel="//@metamodelDeclarations.0">
+    <type metamodel="//@metamodelDeclarations.1">
       <classifier xsi:type="ecore:EClass" href="http://www.cloudsmith.org/geppetto/1.0.0/PP#//IQuotedString"/>
     </type>
     <alternatives xsi:type="xtext:Alternatives">
@@ -1178,12 +1178,12 @@
     </alternatives>
   </rules>
   <rules xsi:type="xtext:ParserRule" name="SingleQuotedString">
-    <type metamodel="//@metamodelDeclarations.0">
+    <type metamodel="//@metamodelDeclarations.1">
       <classifier xsi:type="ecore:EClass" href="http://www.cloudsmith.org/geppetto/1.0.0/PP#//SingleQuotedString"/>
     </type>
     <alternatives xsi:type="xtext:Group">
       <elements xsi:type="xtext:Action">
-        <type metamodel="//@metamodelDeclarations.0">
+        <type metamodel="//@metamodelDeclarations.1">
           <classifier xsi:type="ecore:EClass" href="http://www.cloudsmith.org/geppetto/1.0.0/PP#//SingleQuotedString"/>
         </type>
       </elements>
@@ -1193,19 +1193,19 @@
     </alternatives>
   </rules>
   <rules xsi:type="xtext:ParserRule" name="DQT_QUOTE" definesHiddenTokens="true">
-    <type metamodel="//@metamodelDeclarations.1">
+    <type metamodel="//@metamodelDeclarations.0">
       <classifier xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     </type>
     <alternatives xsi:type="xtext:Keyword" value="&quot;"/>
   </rules>
   <rules xsi:type="xtext:ParserRule" name="DQT_DOLLAR" definesHiddenTokens="true">
-    <type metamodel="//@metamodelDeclarations.1">
+    <type metamodel="//@metamodelDeclarations.0">
       <classifier xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     </type>
     <alternatives xsi:type="xtext:Keyword" value="$"/>
   </rules>
   <rules xsi:type="xtext:ParserRule" name="DoubleQuotedString" definesHiddenTokens="true">
-    <type metamodel="//@metamodelDeclarations.0">
+    <type metamodel="//@metamodelDeclarations.1">
       <classifier xsi:type="ecore:EClass" href="http://www.cloudsmith.org/geppetto/1.0.0/PP#//DoubleQuotedString"/>
     </type>
     <alternatives xsi:type="xtext:Group">
@@ -1217,20 +1217,20 @@
     </alternatives>
   </rules>
   <rules xsi:type="xtext:ParserRule" name="TextExpression" definesHiddenTokens="true">
-    <type metamodel="//@metamodelDeclarations.0">
+    <type metamodel="//@metamodelDeclarations.1">
       <classifier xsi:type="ecore:EClass" href="http://www.cloudsmith.org/geppetto/1.0.0/PP#//TextExpression"/>
     </type>
     <alternatives xsi:type="xtext:RuleCall" rule="//@rules.75"/>
   </rules>
   <rules xsi:type="xtext:ParserRule" name="DollarTextExpression" definesHiddenTokens="true">
-    <type metamodel="//@metamodelDeclarations.0">
+    <type metamodel="//@metamodelDeclarations.1">
       <classifier xsi:type="ecore:EClass" href="http://www.cloudsmith.org/geppetto/1.0.0/PP#//TextExpression"/>
     </type>
     <alternatives xsi:type="xtext:Group">
       <elements xsi:type="xtext:RuleCall" rule="//@rules.76"/>
       <elements xsi:type="xtext:Group" cardinality="*">
         <elements xsi:type="xtext:Action" feature="leading" operator="=">
-          <type metamodel="//@metamodelDeclarations.0">
+          <type metamodel="//@metamodelDeclarations.1">
             <classifier xsi:type="ecore:EClass" href="http://www.cloudsmith.org/geppetto/1.0.0/PP#//VerbatimTE"/>
           </type>
         </elements>
@@ -1244,14 +1244,14 @@
     </alternatives>
   </rules>
   <rules xsi:type="xtext:ParserRule" name="VariableTextExpression" definesHiddenTokens="true">
-    <type metamodel="//@metamodelDeclarations.0">
+    <type metamodel="//@metamodelDeclarations.1">
       <classifier xsi:type="ecore:EClass" href="http://www.cloudsmith.org/geppetto/1.0.0/PP#//TextExpression"/>
     </type>
     <alternatives xsi:type="xtext:Group">
       <elements xsi:type="xtext:RuleCall" rule="//@rules.77"/>
       <elements xsi:type="xtext:Group" cardinality="*">
         <elements xsi:type="xtext:Action" feature="leading" operator="=">
-          <type metamodel="//@metamodelDeclarations.0">
+          <type metamodel="//@metamodelDeclarations.1">
             <classifier xsi:type="ecore:EClass" href="http://www.cloudsmith.org/geppetto/1.0.0/PP#//VariableTE"/>
           </type>
         </elements>
@@ -1265,14 +1265,14 @@
     </alternatives>
   </rules>
   <rules xsi:type="xtext:ParserRule" name="ExpressionTextExpression">
-    <type metamodel="//@metamodelDeclarations.0">
+    <type metamodel="//@metamodelDeclarations.1">
       <classifier xsi:type="ecore:EClass" href="http://www.cloudsmith.org/geppetto/1.0.0/PP#//TextExpression"/>
     </type>
     <alternatives xsi:type="xtext:Group">
       <elements xsi:type="xtext:RuleCall" rule="//@rules.78"/>
       <elements xsi:type="xtext:Group" cardinality="*">
         <elements xsi:type="xtext:Action" feature="leading" operator="=">
-          <type metamodel="//@metamodelDeclarations.0">
+          <type metamodel="//@metamodelDeclarations.1">
             <classifier xsi:type="ecore:EClass" href="http://www.cloudsmith.org/geppetto/1.0.0/PP#//ExpressionTE"/>
           </type>
         </elements>
@@ -1288,12 +1288,12 @@
     </alternatives>
   </rules>
   <rules xsi:type="xtext:ParserRule" name="StringPart" definesHiddenTokens="true">
-    <type metamodel="//@metamodelDeclarations.0">
+    <type metamodel="//@metamodelDeclarations.1">
       <classifier xsi:type="ecore:EClass" href="http://www.cloudsmith.org/geppetto/1.0.0/PP#//TextExpression"/>
     </type>
     <alternatives xsi:type="xtext:Group">
       <elements xsi:type="xtext:Action">
-        <type metamodel="//@metamodelDeclarations.0">
+        <type metamodel="//@metamodelDeclarations.1">
           <classifier xsi:type="ecore:EClass" href="http://www.cloudsmith.org/geppetto/1.0.0/PP#//VerbatimTE"/>
         </type>
       </elements>
@@ -1303,12 +1303,12 @@
     </alternatives>
   </rules>
   <rules xsi:type="xtext:ParserRule" name="UnquotedString">
-    <type metamodel="//@metamodelDeclarations.0">
+    <type metamodel="//@metamodelDeclarations.1">
       <classifier xsi:type="ecore:EClass" href="http://www.cloudsmith.org/geppetto/1.0.0/PP#//Expression"/>
     </type>
     <alternatives xsi:type="xtext:Group">
       <elements xsi:type="xtext:Action">
-        <type metamodel="//@metamodelDeclarations.0">
+        <type metamodel="//@metamodelDeclarations.1">
           <classifier xsi:type="ecore:EClass" href="http://www.cloudsmith.org/geppetto/1.0.0/PP#//UnquotedString"/>
         </type>
       </elements>
@@ -1320,7 +1320,7 @@
     </alternatives>
   </rules>
   <rules xsi:type="xtext:ParserRule" name="sqText" definesHiddenTokens="true">
-    <type metamodel="//@metamodelDeclarations.1">
+    <type metamodel="//@metamodelDeclarations.0">
       <classifier xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     </type>
     <alternatives xsi:type="xtext:Group">
@@ -1330,7 +1330,7 @@
     </alternatives>
   </rules>
   <rules xsi:type="xtext:ParserRule" name="LiteralRegex">
-    <type metamodel="//@metamodelDeclarations.0">
+    <type metamodel="//@metamodelDeclarations.1">
       <classifier xsi:type="ecore:EClass" href="http://www.cloudsmith.org/geppetto/1.0.0/PP#//LiteralRegex"/>
     </type>
     <alternatives xsi:type="xtext:Assignment" feature="value" operator="=">
@@ -1338,7 +1338,7 @@
     </alternatives>
   </rules>
   <rules xsi:type="xtext:ParserRule" name="LiteralName">
-    <type metamodel="//@metamodelDeclarations.0">
+    <type metamodel="//@metamodelDeclarations.1">
       <classifier xsi:type="ecore:EClass" href="http://www.cloudsmith.org/geppetto/1.0.0/PP#//LiteralName"/>
     </type>
     <alternatives xsi:type="xtext:Assignment" feature="value" operator="=">
@@ -1346,7 +1346,7 @@
     </alternatives>
   </rules>
   <rules xsi:type="xtext:ParserRule" name="VariableExpression">
-    <type metamodel="//@metamodelDeclarations.0">
+    <type metamodel="//@metamodelDeclarations.1">
       <classifier xsi:type="ecore:EClass" href="http://www.cloudsmith.org/geppetto/1.0.0/PP#//VariableExpression"/>
     </type>
     <alternatives xsi:type="xtext:Assignment" feature="varName" operator="=">
@@ -1354,7 +1354,7 @@
     </alternatives>
   </rules>
   <rules xsi:type="xtext:ParserRule" name="dollarVariable" definesHiddenTokens="true">
-    <type metamodel="//@metamodelDeclarations.1">
+    <type metamodel="//@metamodelDeclarations.0">
       <classifier xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     </type>
     <alternatives xsi:type="xtext:Group">
@@ -1366,7 +1366,7 @@
     </alternatives>
   </rules>
   <rules xsi:type="xtext:ParserRule" name="keyword">
-    <type metamodel="//@metamodelDeclarations.1">
+    <type metamodel="//@metamodelDeclarations.0">
       <classifier xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     </type>
     <alternatives xsi:type="xtext:Alternatives">
@@ -1389,18 +1389,18 @@
     </alternatives>
   </rules>
   <rules xsi:type="xtext:ParserRule" name="variable" definesHiddenTokens="true">
-    <type metamodel="//@metamodelDeclarations.1">
+    <type metamodel="//@metamodelDeclarations.0">
       <classifier xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     </type>
     <alternatives xsi:type="xtext:RuleCall" rule="//@rules.95"/>
   </rules>
   <rules xsi:type="xtext:ParserRule" name="LeadingComments" definesHiddenTokens="true">
-    <type metamodel="//@metamodelDeclarations.0">
+    <type metamodel="//@metamodelDeclarations.1">
       <classifier xsi:type="ecore:EClass" href="http://www.cloudsmith.org/geppetto/1.0.0/PP#//OWS"/>
     </type>
     <alternatives xsi:type="xtext:Group">
       <elements xsi:type="xtext:Action">
-        <type metamodel="//@metamodelDeclarations.0">
+        <type metamodel="//@metamodelDeclarations.1">
           <classifier xsi:type="ecore:EClass" href="http://www.cloudsmith.org/geppetto/1.0.0/PP#//OWS"/>
         </type>
       </elements>
@@ -1410,7 +1410,7 @@
     </alternatives>
   </rules>
   <rules xsi:type="xtext:ParserRule" name="comment" definesHiddenTokens="true">
-    <type metamodel="//@metamodelDeclarations.1">
+    <type metamodel="//@metamodelDeclarations.0">
       <classifier xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     </type>
     <alternatives xsi:type="xtext:Alternatives">
@@ -1419,7 +1419,7 @@
     </alternatives>
   </rules>
   <rules xsi:type="xtext:ParserRule" name="unionNameOrReference" definesHiddenTokens="true">
-    <type metamodel="//@metamodelDeclarations.1">
+    <type metamodel="//@metamodelDeclarations.0">
       <classifier xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     </type>
     <alternatives xsi:type="xtext:Alternatives">
@@ -1429,7 +1429,7 @@
     </alternatives>
   </rules>
   <rules xsi:type="xtext:ParserRule" name="doubleStringCharacters" definesHiddenTokens="true">
-    <type metamodel="//@metamodelDeclarations.1">
+    <type metamodel="//@metamodelDeclarations.0">
       <classifier xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     </type>
     <alternatives xsi:type="xtext:Alternatives" cardinality="+">
@@ -1444,7 +1444,7 @@
     </alternatives>
   </rules>
   <rules xsi:type="xtext:ParserRule" name="singleStringCharacters" definesHiddenTokens="true">
-    <type metamodel="//@metamodelDeclarations.1">
+    <type metamodel="//@metamodelDeclarations.0">
       <classifier xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     </type>
     <alternatives xsi:type="xtext:Alternatives" cardinality="+">
@@ -1461,7 +1461,7 @@
     </alternatives>
   </rules>
   <rules xsi:type="xtext:TerminalRule" name="ML_COMMENT">
-    <type metamodel="//@metamodelDeclarations.1">
+    <type metamodel="//@metamodelDeclarations.0">
       <classifier xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     </type>
     <alternatives xsi:type="xtext:Group">
@@ -1481,7 +1481,7 @@
     </alternatives>
   </rules>
   <rules xsi:type="xtext:TerminalRule" name="SL_COMMENT">
-    <type metamodel="//@metamodelDeclarations.1">
+    <type metamodel="//@metamodelDeclarations.0">
       <classifier xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     </type>
     <alternatives xsi:type="xtext:Group">
@@ -1499,7 +1499,7 @@
     </alternatives>
   </rules>
   <rules xsi:type="xtext:TerminalRule" name="WS">
-    <type metamodel="//@metamodelDeclarations.1">
+    <type metamodel="//@metamodelDeclarations.0">
       <classifier xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     </type>
     <alternatives xsi:type="xtext:Alternatives" cardinality="+">
@@ -1511,7 +1511,7 @@
     </alternatives>
   </rules>
   <rules xsi:type="xtext:TerminalRule" name="WORD_CHARS">
-    <type metamodel="//@metamodelDeclarations.1">
+    <type metamodel="//@metamodelDeclarations.0">
       <classifier xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     </type>
     <alternatives xsi:type="xtext:Group">
@@ -1556,7 +1556,7 @@
     </alternatives>
   </rules>
   <rules xsi:type="xtext:TerminalRule" name="REGULAR_EXPRESSION">
-    <type metamodel="//@metamodelDeclarations.1">
+    <type metamodel="//@metamodelDeclarations.0">
       <classifier xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     </type>
     <alternatives xsi:type="xtext:Group">
@@ -1567,7 +1567,7 @@
     </alternatives>
   </rules>
   <rules xsi:type="xtext:TerminalRule" name="RE_BODY" fragment="true">
-    <type metamodel="//@metamodelDeclarations.1">
+    <type metamodel="//@metamodelDeclarations.0">
       <classifier xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     </type>
     <alternatives xsi:type="xtext:Group">
@@ -1576,7 +1576,7 @@
     </alternatives>
   </rules>
   <rules xsi:type="xtext:TerminalRule" name="RE_FIRST_CHAR" fragment="true">
-    <type metamodel="//@metamodelDeclarations.1">
+    <type metamodel="//@metamodelDeclarations.0">
       <classifier xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     </type>
     <alternatives xsi:type="xtext:Alternatives">
@@ -1592,7 +1592,7 @@
     </alternatives>
   </rules>
   <rules xsi:type="xtext:TerminalRule" name="RE_FOLLOW_CHAR" fragment="true">
-    <type metamodel="//@metamodelDeclarations.1">
+    <type metamodel="//@metamodelDeclarations.0">
       <classifier xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     </type>
     <alternatives xsi:type="xtext:Alternatives">
@@ -1601,7 +1601,7 @@
     </alternatives>
   </rules>
   <rules xsi:type="xtext:TerminalRule" name="RE_BACKSLASH_SEQUENCE" fragment="true">
-    <type metamodel="//@metamodelDeclarations.1">
+    <type metamodel="//@metamodelDeclarations.0">
       <classifier xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     </type>
     <alternatives xsi:type="xtext:Group">
@@ -1612,7 +1612,7 @@
     </alternatives>
   </rules>
   <rules xsi:type="xtext:TerminalRule" name="RE_FLAGS" fragment="true">
-    <type metamodel="//@metamodelDeclarations.1">
+    <type metamodel="//@metamodelDeclarations.0">
       <classifier xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     </type>
     <alternatives xsi:type="xtext:CharacterRange" cardinality="+">
@@ -1621,7 +1621,7 @@
     </alternatives>
   </rules>
   <rules xsi:type="xtext:TerminalRule" name="ANY_OTHER">
-    <type metamodel="//@metamodelDeclarations.1">
+    <type metamodel="//@metamodelDeclarations.0">
       <classifier xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     </type>
     <alternatives xsi:type="xtext:Wildcard"/>

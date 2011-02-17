@@ -7,25 +7,22 @@ Bundle-Version: 0.1.1.qualifier
 Bundle-SymbolicName: org.cloudsmith.geppetto.pp.dsl;singleton:=true
 Bundle-ActivationPolicy: lazy
 Require-Bundle: org.eclipse.xtext,
- org.eclipse.xtext.generator;resolution:=optional,
- org.apache.commons.logging;resolution:=optional,
- org.eclipse.emf.codegen.ecore;resolution:=optional,
- org.eclipse.emf.mwe.utils;resolution:=optional,
- org.eclipse.emf.mwe2.launch;resolution:=optional,
- com.ibm.icu;resolution:=optional,
- org.eclipse.xtext.xtend;resolution:=optional,
+ org.cloudsmith.geppetto.pp,
  org.eclipse.xtext.util,
  org.eclipse.emf.ecore,
  org.eclipse.emf.common,
- org.antlr.runtime,
- org.cloudsmith.geppetto.pp
+ org.antlr.runtime
 Import-Package: org.apache.log4j
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Export-Package: org.cloudsmith.geppetto.pp.dsl,
+ org.cloudsmith.geppetto.pp.dsl.formatting,
  org.cloudsmith.geppetto.pp.dsl.lexer,
  org.cloudsmith.geppetto.pp.dsl.parseTreeConstruction,
  org.cloudsmith.geppetto.pp.dsl.parser.antlr,
  org.cloudsmith.geppetto.pp.dsl.parser.antlr.internal,
  org.cloudsmith.geppetto.pp.dsl.parser.antlr.lexer,
+ org.cloudsmith.geppetto.pp.dsl.scoping,
+ org.cloudsmith.geppetto.pp.dsl.serialization,
  org.cloudsmith.geppetto.pp.dsl.services,
  org.cloudsmith.geppetto.pp.dsl.validation
+

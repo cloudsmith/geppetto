@@ -23,10 +23,8 @@
  * an order of precedence. Typically, no distinction is made between left/right value expressions.
  */ 
 grammar org.cloudsmith.geppetto.pp.dsl.PP hidden(WS, SL_COMMENT, ML_COMMENT)
-import "platform:/resource/org.cloudsmith.geppetto.pp/model/PP.ecore" as pp
-
-// enables use of ecore types
 import "http://www.eclipse.org/emf/2002/Ecore" as ecore
+import "platform:/resource/org.cloudsmith.geppetto.pp/model/PP.ecore" as pp
 
 // Important note about white space and comments:
 // ------

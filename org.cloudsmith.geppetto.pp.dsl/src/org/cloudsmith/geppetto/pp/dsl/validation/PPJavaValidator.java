@@ -33,6 +33,8 @@ import org.cloudsmith.geppetto.pp.CollectExpression;
 import org.cloudsmith.geppetto.pp.Definition;
 import org.cloudsmith.geppetto.pp.DefinitionArgument;
 import org.cloudsmith.geppetto.pp.DoubleQuotedString;
+import org.cloudsmith.geppetto.pp.ElseExpression;
+import org.cloudsmith.geppetto.pp.ElseIfExpression;
 import org.cloudsmith.geppetto.pp.EqualityExpression;
 import org.cloudsmith.geppetto.pp.Expression;
 import org.cloudsmith.geppetto.pp.FunctionCall;
@@ -74,6 +76,7 @@ import org.cloudsmith.geppetto.pp.adapters.ClassifierAdapter;
 import org.cloudsmith.geppetto.pp.adapters.ClassifierAdapterFactory;
 import org.cloudsmith.geppetto.pp.util.TextExpressionHelper;
 import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.xtext.util.Exceptions;
@@ -430,6 +433,28 @@ public class PPJavaValidator extends AbstractPPJavaValidator implements IPPDiagn
 	}
 
 	@Check
+	public void checkElseExpression(ElseExpression o) {
+		EObject container = o.eContainer();
+		if(container instanceof IfExpression || container instanceof ElseExpression ||
+				container instanceof ElseIfExpression)
+			return;
+		error(
+			"'else' expression can only be used in an 'if', 'else' or 'elsif'", o, o.eContainingFeature(),
+			INSIGNIFICANT_INDEX, IPPDiagnostics.ISSUE__UNSUPPORTED_EXPRESSION);
+	}
+
+	@Check
+	public void checkElseIfExpression(ElseIfExpression o) {
+		EObject container = o.eContainer();
+		if(container instanceof IfExpression || container instanceof ElseExpression ||
+				container instanceof ElseIfExpression)
+			return;
+		error(
+			"'elsif' expression can only be used in an 'if', 'else' or 'elsif'", o, o.eContainingFeature(),
+			INSIGNIFICANT_INDEX, IPPDiagnostics.ISSUE__UNSUPPORTED_EXPRESSION);
+	}
+
+	@Check
 	public void checkEqualityExpression(EqualityExpression o) {
 		checkOperator(o, "==", "!=");
 	}
@@ -440,6 +465,18 @@ public class PPJavaValidator extends AbstractPPJavaValidator implements IPPDiagn
 		// TODO: parent should be a known class
 		// TODO: more?
 		internalCheckTopLevelExpressions(o.getStatements());
+	}
+
+	@Check
+	public void checkIfExpression(IfExpression o) {
+		Expression elseStatement = o.getElseStatement();
+		if(elseStatement == null || elseStatement instanceof ElseExpression || elseStatement instanceof IfExpression ||
+				elseStatement instanceof ElseIfExpression)
+			return;
+		error(
+			"If Expression's else part can only be an 'if' or 'elsif'", o,
+			PPPackage.Literals.IF_EXPRESSION__ELSE_STATEMENT, INSIGNIFICANT_INDEX,
+			IPPDiagnostics.ISSUE__UNSUPPORTED_EXPRESSION);
 	}
 
 	@Check

@@ -16,7 +16,9 @@ import java.util.List;
 
 import org.cloudsmith.geppetto.pp.Definition;
 import org.cloudsmith.geppetto.pp.ExpressionTE;
+import org.cloudsmith.geppetto.pp.HostClassDefinition;
 import org.cloudsmith.geppetto.pp.LiteralNameOrReference;
+import org.cloudsmith.geppetto.pp.NodeDefinition;
 import org.cloudsmith.geppetto.pp.PuppetManifest;
 import org.cloudsmith.geppetto.pp.ResourceBody;
 import org.cloudsmith.geppetto.pp.ResourceExpression;
@@ -135,13 +137,9 @@ public class PPSemanticHighlightingCalculator implements ISemanticHighlightingCa
 	public void highlight(Definition semantic, IHighlightedPositionAcceptor acceptor) {
 		DocumentationAdapter adapter = DocumentationAdapterFactory.eINSTANCE.adapt(semantic);
 		if(adapter != null && adapter.getNodes() != null) {
-			// for(INode node : adapter.getNodes())
-			// acceptor.addPosition(node.getOffset(), node.getLength(), PPHighlightConfiguration.DOCUMENTATION_ID);
 			List<DocNode> docNodes = docParser.parse(adapter.getNodes());
 			for(DocNode dn : docNodes) {
 				acceptor.addPosition(dn.getOffset(), dn.getLength(), highlightIDForDocStyle(dn.getStyle()));
-				// System.err.println("Node:" + dn.getStyle() + " from: " + dn.getOffset() + " length: " + dn.getLength() +
-				// " text: '" + dn.getText() +"'");
 			}
 		}
 	}
@@ -154,6 +152,16 @@ public class PPSemanticHighlightingCalculator implements ISemanticHighlightingCa
 
 		// Uncomment next For debugging, and seeing opportunities for syntax highlighting
 		// System.err.println("Missing highlight() method for: "+ o.getClass().getSimpleName());
+	}
+
+	public void highlight(HostClassDefinition semantic, IHighlightedPositionAcceptor acceptor) {
+		DocumentationAdapter adapter = DocumentationAdapterFactory.eINSTANCE.adapt(semantic);
+		if(adapter != null && adapter.getNodes() != null) {
+			List<DocNode> docNodes = docParser.parse(adapter.getNodes());
+			for(DocNode dn : docNodes) {
+				acceptor.addPosition(dn.getOffset(), dn.getLength(), highlightIDForDocStyle(dn.getStyle()));
+			}
+		}
 	}
 
 	public void highlight(INode o, IHighlightedPositionAcceptor acceptor) {
@@ -191,6 +199,16 @@ public class PPSemanticHighlightingCalculator implements ISemanticHighlightingCa
 		if(gElem instanceof Keyword) {
 			if(((Keyword) gElem).getValue().equals("\""))
 				acceptor.addPosition(o.getOffset(), o.getLength(), DefaultHighlightingConfiguration.STRING_ID);
+		}
+	}
+
+	public void highlight(NodeDefinition semantic, IHighlightedPositionAcceptor acceptor) {
+		DocumentationAdapter adapter = DocumentationAdapterFactory.eINSTANCE.adapt(semantic);
+		if(adapter != null && adapter.getNodes() != null) {
+			List<DocNode> docNodes = docParser.parse(adapter.getNodes());
+			for(DocNode dn : docNodes) {
+				acceptor.addPosition(dn.getOffset(), dn.getLength(), highlightIDForDocStyle(dn.getStyle()));
+			}
 		}
 	}
 

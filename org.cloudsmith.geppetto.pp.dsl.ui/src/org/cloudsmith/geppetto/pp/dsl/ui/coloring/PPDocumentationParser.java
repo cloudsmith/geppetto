@@ -11,6 +11,7 @@
  */
 package org.cloudsmith.geppetto.pp.dsl.ui.coloring;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -28,12 +29,14 @@ import com.google.inject.internal.Lists;
  * Supports the following RDoc constructs
  * <ul>
  * <li>headings, =heading1, ==heading2, to =====heading5. Additional = treated same as heading5</li>
- * <li>bold, *bold*</li>
- * <li>italic, _italic</li>
- * <li>fixed/code, +fixed+</li>
+ * <li>bold, <b>*bold*</b></li>
+ * <li>italic, <i>_italic_</i></li>
+ * <li>fixed/code, <tt>+fixed+</tt></li>
  * <li>stop doc mode, --
  * <li>start doc mode, ++
- * <li>preformatted, indent more than 1 space (i.e. 2 spaces or one (or more tabs))</li>
+ * <li>preformatted, indent more than <i>natural margin</i> (i.e. 2 spaces or one)</li>
+ * <li>lists with hanging indents, starting with '*', '-' '<digit>.' or '<letter>.'</li>
+ * <li>definitions with hanging idents - [label] or label::</li>
  * </ul>
  * <p>
  * Note that parsing is simplistic and combinations of bold/italic/fixed will be shown in the "outermost" style i.e. *_text_* is shown with only bold,
@@ -133,23 +136,50 @@ public class PPDocumentationParser {
 
 	public static final Pattern startDocPattern = Pattern.compile("^\\s{0,1}\\+\\+\\s*", Pattern.DOTALL);
 
+	public static final Pattern hangingIndent = Pattern.compile("\\s*(\\*|\\-|[a-z0-9]\\.|\\[.*?\\]|.*?::)\\s*");
+
+	public static final Pattern blankLine = Pattern.compile("\\s*", Pattern.DOTALL);
+
+	private int naturalMargin = 1;
+
+	private int currentIndent = naturalMargin;
+
+	private List<Integer> indentStack = new ArrayList<Integer>();
+
 	@Inject
 	PPDocumentationParser(IGrammarAccess ga) {
 		this.ga = (PPGrammarAccess) ga;
 	}
 
 	private void addStyleNodes(List<DocNode> result, int offset, String line) {
-		// if line starts with more than a single space (or tab), it is verbatim
-		if(line.startsWith("  ") || line.startsWith(" \t") || line.startsWith("\t")) {
+		// blank lines have no effect on indentation, and are always styled as plain
+		if(blankLine.matcher(line).matches()) {
+			result.add(new DocNode(offset, line.length(), PLAIN, line));
+			return;
+		}
+		int indent = indentation(line);
+		if(indent < currentIndent)
+			popIndentTo(indent);
+
+		if(indent > currentIndent) {
+			// // if line starts with more than a single space (or tab), it is verbatim
+			// if(line.startsWith("  ") || line.startsWith(" \t") || line.startsWith("\t")) {
 			result.add(new DocNode(offset, line.length(), VERBATIM, line));
 			return;
 		}
-		Matcher mr = headingPattern.matcher(line);
+
+		Matcher mr = hangingIndent.matcher(line);
+		if(mr.lookingAt())
+			pushIndent(mr.end());
+
+		mr = headingPattern.matcher(line);
 		if(mr.find()) {
 			int headingLevel = mr.group(1).length();
 			int style = Math.min(HEADING_1 * headingLevel, HEADING_5);
 			result.add(new DocNode(offset, line.length(), style, line));
 			// ignore fixed, italic and bold in headings for now
+
+			popIndentTo(0); // pops to natural margin
 			return;
 		}
 		mr = stylePattern.matcher(line);
@@ -182,13 +212,46 @@ public class PPDocumentationParser {
 			result.add(new DocNode(offset, matchLength, PLAIN, matched.toString()));
 	}
 
+	/**
+	 * Returns the number of space characters at the start of the string.
+	 * 
+	 * @param line
+	 * @return
+	 */
+	private int indentation(String line) {
+		int i = 0;
+		for(; i < line.length(); i++)
+			if(line.charAt(i) != ' ')
+				return i;
+		return i;
+	}
+
 	public List<DocNode> parse(List<INode> nodes) {
+		naturalMargin = 1;
+		indentStack.clear();
+		pushIndent(naturalMargin);
 		if(nodes.size() > 0) {
 			if(nodes.size() == 1 && nodes.get(0).getGrammarElement() == ga.getML_COMMENTRule())
 				return processMLComment(nodes.get(0));
 			return processSLSequence(nodes);
 		}
 		return Collections.emptyList();
+	}
+
+	private int popIndent() {
+		currentIndent = indentStack.get(indentStack.size() - 1);
+		return currentIndent;
+	}
+
+	private int popIndentTo(int indent) {
+		for(int i = indentStack.size() - 1; i > 0; i--) {
+			if(indentStack.get(i) > indent)
+				indentStack.remove(i);
+			else
+				break;
+		}
+		currentIndent = indentStack.get(indentStack.size() - 1);
+		return currentIndent;
 	}
 
 	private List<DocNode> processMLComment(INode node) {
@@ -294,6 +357,11 @@ public class PPDocumentationParser {
 		}
 
 		return result;
+	}
+
+	private void pushIndent(int indent) {
+		currentIndent = indent;
+		indentStack.add(indent);
 	}
 
 }

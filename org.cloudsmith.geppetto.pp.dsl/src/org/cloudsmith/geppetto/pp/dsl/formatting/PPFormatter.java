@@ -121,6 +121,7 @@ public class PPFormatter extends AbstractDeclarativeFormatter {
 		assignmentExpressionConfiguration(c);
 		importExpressionConfiguration(c);
 		literalListAndHashConfiguration(c);
+		functionCallConfiguration(c);
 
 		// commas
 		for(Keyword comma : ga.findKeywords(",")) {
@@ -167,6 +168,13 @@ public class PPFormatter extends AbstractDeclarativeFormatter {
 		List<Keyword> commas = ga.getDefinitionArgumentListAccess().findKeywords(",");
 		for(Keyword comma : commas)
 			c.setLinewrap().after(comma);
+	}
+
+	protected void functionCallConfiguration(FormattingConfig c) {
+		PPGrammarAccess ga = (PPGrammarAccess) getGrammarAccess();
+		c.setNoSpace().before(ga.getFunctionCallAccess().getLeftParenthesisKeyword_1_1());
+		c.setNoSpace().after(ga.getFunctionCallAccess().getLeftParenthesisKeyword_1_1());
+		c.setNoSpace().before(ga.getFunctionCallAccess().getRightParenthesisKeyword_1_3());
 	}
 
 	protected void ifExpressionConfiguration(FormattingConfig c) {

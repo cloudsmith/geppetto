@@ -15,6 +15,7 @@ Require-Bundle: org.eclipse.xtext,
 Import-Package: org.apache.log4j
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Export-Package: org.cloudsmith.geppetto.pp.dsl,
+ org.cloudsmith.geppetto.pp.dsl.adapters,
  org.cloudsmith.geppetto.pp.dsl.formatting,
  org.cloudsmith.geppetto.pp.dsl.lexer,
  org.cloudsmith.geppetto.pp.dsl.parseTreeConstruction,

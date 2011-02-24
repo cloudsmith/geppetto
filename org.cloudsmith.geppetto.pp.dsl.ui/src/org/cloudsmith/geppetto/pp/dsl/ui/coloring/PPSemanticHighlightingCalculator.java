@@ -12,13 +12,18 @@
 package org.cloudsmith.geppetto.pp.dsl.ui.coloring;
 
 import java.util.Collections;
+import java.util.List;
 
+import org.cloudsmith.geppetto.pp.Definition;
 import org.cloudsmith.geppetto.pp.ExpressionTE;
 import org.cloudsmith.geppetto.pp.LiteralNameOrReference;
 import org.cloudsmith.geppetto.pp.PuppetManifest;
 import org.cloudsmith.geppetto.pp.ResourceBody;
 import org.cloudsmith.geppetto.pp.ResourceExpression;
+import org.cloudsmith.geppetto.pp.dsl.adapters.DocumentationAdapter;
+import org.cloudsmith.geppetto.pp.dsl.adapters.DocumentationAdapterFactory;
 import org.cloudsmith.geppetto.pp.dsl.services.PPGrammarAccess;
+import org.cloudsmith.geppetto.pp.dsl.ui.coloring.PPDocumentationParser.DocNode;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.TreeIterator;
 import org.eclipse.emf.ecore.EObject;
@@ -68,6 +73,9 @@ public class PPSemanticHighlightingCalculator implements ISemanticHighlightingCa
 		}
 
 	}
+
+	@Inject
+	private PPDocumentationParser docParser;
 
 	private PPGrammarAccess grammarAccess;
 
@@ -122,6 +130,20 @@ public class PPSemanticHighlightingCalculator implements ISemanticHighlightingCa
 
 	protected void handleError(Object[] params, Throwable e) {
 		Exceptions.throwUncheckedException(e);
+	}
+
+	public void highlight(Definition semantic, IHighlightedPositionAcceptor acceptor) {
+		DocumentationAdapter adapter = DocumentationAdapterFactory.eINSTANCE.adapt(semantic);
+		if(adapter != null && adapter.getNodes() != null) {
+			// for(INode node : adapter.getNodes())
+			// acceptor.addPosition(node.getOffset(), node.getLength(), PPHighlightConfiguration.DOCUMENTATION_ID);
+			List<DocNode> docNodes = docParser.parse(adapter.getNodes());
+			for(DocNode dn : docNodes) {
+				acceptor.addPosition(dn.getOffset(), dn.getLength(), highlightIDForDocStyle(dn.getStyle()));
+				// System.err.println("Node:" + dn.getStyle() + " from: " + dn.getOffset() + " length: " + dn.getLength() +
+				// " text: '" + dn.getText() +"'");
+			}
+		}
 	}
 
 	/**
@@ -197,6 +219,35 @@ public class PPSemanticHighlightingCalculator implements ISemanticHighlightingCa
 					acceptor.addPosition(node.getOffset(), node.getLength(), PPHighlightConfiguration.RESOURCE_TITLE_ID);
 				}
 			}
+		}
+	}
+
+	private String highlightIDForDocStyle(int docStyle) {
+		switch(docStyle) {
+			case PPDocumentationParser.HEADING_1:
+				return PPHighlightConfiguration.DOC_HEADING1_ID;
+			case PPDocumentationParser.HEADING_2:
+				return PPHighlightConfiguration.DOC_HEADING2_ID;
+			case PPDocumentationParser.HEADING_3:
+				return PPHighlightConfiguration.DOC_HEADING3_ID;
+			case PPDocumentationParser.HEADING_4:
+				return PPHighlightConfiguration.DOC_HEADING4_ID;
+			case PPDocumentationParser.HEADING_5:
+				return PPHighlightConfiguration.DOC_HEADING5_ID;
+			case PPDocumentationParser.BOLD:
+				return PPHighlightConfiguration.DOC_BOLD_ID;
+			case PPDocumentationParser.ITALIC:
+				return PPHighlightConfiguration.DOC_ITALIC_ID;
+
+			case PPDocumentationParser.FIXED: // fall through
+			case PPDocumentationParser.VERBATIM:
+				return PPHighlightConfiguration.DOC_FIXED_ID;
+			case PPDocumentationParser.COMMENT:
+				return DefaultHighlightingConfiguration.COMMENT_ID;
+			case PPDocumentationParser.PLAIN:
+				return PPHighlightConfiguration.DOC_PLAIN_ID;
+			default: // fall through
+				return PPHighlightConfiguration.DOCUMENTATION_ID;
 		}
 	}
 

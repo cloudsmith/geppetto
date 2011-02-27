@@ -189,38 +189,38 @@ public class TestLiterals extends AbstractPuppetTests {
 
 		// -- TODO: test NBSP
 
-		// NOTE: these are actually not supported as specific escapes as any
+		// Unicode escapes are not supported as specific escapes as any
 		// escaped character is the character itself - \u1234 is simply u1234
-		//
+		// Check that a warning is issues.
 
 		// -- unicode escape \\u [hexdigit]{4,4}
 		ls.setText("\\u1a2b");
 		tester.validator().checkSingleQuotedString(ls);
-		tester.diagnose().assertOK();
+		tester.diagnose().assertWarning(IPPDiagnostics.ISSUE__UNRECOGNIZED_ESCAPE);
 
-		// -- hex escape \x[hexdigit]{2,3}
+		// -- hex escape \x[hexdigit]{2,3} is not supported
 		ls.setText("\\x1a");
 		tester.validator().checkSingleQuotedString(ls);
-		tester.diagnose().assertOK();
+		tester.diagnose().assertWarning(IPPDiagnostics.ISSUE__UNRECOGNIZED_ESCAPE);
 
 		// -- octal escape \[0-7]{3,3}
 		ls.setText("\\777");
 		tester.validator().checkSingleQuotedString(ls);
-		tester.diagnose().assertOK();
+		tester.diagnose().assertWarning(IPPDiagnostics.ISSUE__UNRECOGNIZED_ESCAPE);
 
 		// -- meta escape \M-[sourcecharexceptNL]
 		ls.setText("\\M-A");
 		tester.validator().checkSingleQuotedString(ls);
-		tester.diagnose().assertOK();
+		tester.diagnose().assertWarning(IPPDiagnostics.ISSUE__UNRECOGNIZED_ESCAPE);
 
 		// -- control escape \c[sourcecharexceptNL] or \C-[sourcecharexceptNL]
 		ls.setText("\\C-J");
 		tester.validator().checkSingleQuotedString(ls);
-		tester.diagnose().assertOK();
-		ls.setText("\\cJ");
+		tester.diagnose().assertWarning(IPPDiagnostics.ISSUE__UNRECOGNIZED_ESCAPE);
 
+		ls.setText("\\cJ");
 		tester.validator().checkSingleQuotedString(ls);
-		tester.diagnose().assertOK();
+		tester.diagnose().assertWarning(IPPDiagnostics.ISSUE__UNRECOGNIZED_ESCAPE);
 
 		// -- escaped backslash and quotes as well as any escaped character
 		ls.setText("\\\\"); // i.e. '\\'
@@ -233,6 +233,6 @@ public class TestLiterals extends AbstractPuppetTests {
 
 		ls.setText("\\p"); // i.e. '\p'
 		tester.validator().checkSingleQuotedString(ls);
-		tester.diagnose().assertOK();
+		tester.diagnose().assertWarning(IPPDiagnostics.ISSUE__UNRECOGNIZED_ESCAPE);
 	}
 }

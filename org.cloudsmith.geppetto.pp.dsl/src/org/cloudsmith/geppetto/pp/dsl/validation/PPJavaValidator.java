@@ -422,6 +422,16 @@ public class PPJavaValidator extends AbstractPPJavaValidator implements IPPDiagn
 	}
 
 	@Check
+	public void checkDefinition(Definition o) {
+		// Can only be contained by manifest (global scope), or another class.
+		EObject container = o.eContainer();
+		if(!(container instanceof PuppetManifest || container instanceof HostClassDefinition))
+			error(
+				"A definition may only appear at toplevel or directly inside classes.", o, o.eContainingFeature(),
+				INSIGNIFICANT_INDEX, IPPDiagnostics.ISSUE__NOT_AT_TOPLEVEL_OR_CLASS);
+	}
+
+	@Check
 	public void checkDefinitionArgument(DefinitionArgument o) {
 		// -- LHS should be a variable, use of name is deprecated
 		if(!isVARIABLE(o.getArgName()))
@@ -465,7 +475,13 @@ public class PPJavaValidator extends AbstractPPJavaValidator implements IPPDiagn
 	public void checkHostClassDefinition(HostClassDefinition o) {
 		// TODO: name must be NAME, CLASSNAME or "class"
 		// TODO: parent should be a known class
-		// TODO: more?
+
+		// Can only be contained by manifest (global scope), or another class.
+		EObject container = o.eContainer();
+		if(!(container instanceof PuppetManifest || container instanceof HostClassDefinition))
+			error(
+				"Classes may only appear at toplevel or directly inside other classes.", o, o.eContainingFeature(),
+				INSIGNIFICANT_INDEX, IPPDiagnostics.ISSUE__NOT_AT_TOPLEVEL_OR_CLASS);
 		internalCheckTopLevelExpressions(o.getStatements());
 	}
 
@@ -559,6 +575,16 @@ public class PPJavaValidator extends AbstractPPJavaValidator implements IPPDiagn
 	@Check
 	public void checkMultiplicativeExpression(MultiplicativeExpression o) {
 		checkOperator(o, "*", "/");
+	}
+
+	@Check
+	public void checkNodeDefinition(NodeDefinition o) {
+		// Can only be contained by manifest (global scope), or another class.
+		EObject container = o.eContainer();
+		if(!(container instanceof PuppetManifest || container instanceof HostClassDefinition))
+			error(
+				"A node definition may only appear at toplevel or directly inside classes.", o, o.eContainingFeature(),
+				INSIGNIFICANT_INDEX, IPPDiagnostics.ISSUE__NOT_AT_TOPLEVEL_OR_CLASS);
 	}
 
 	protected void checkOperator(BinaryOpExpression o, String... ops) {

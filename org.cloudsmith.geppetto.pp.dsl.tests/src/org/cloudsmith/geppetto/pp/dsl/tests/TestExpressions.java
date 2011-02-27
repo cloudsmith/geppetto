@@ -17,6 +17,7 @@ import org.cloudsmith.geppetto.pp.AtExpression;
 import org.cloudsmith.geppetto.pp.CollectExpression;
 import org.cloudsmith.geppetto.pp.EqualityExpression;
 import org.cloudsmith.geppetto.pp.Expression;
+import org.cloudsmith.geppetto.pp.HostClassDefinition;
 import org.cloudsmith.geppetto.pp.ImportExpression;
 import org.cloudsmith.geppetto.pp.LiteralBoolean;
 import org.cloudsmith.geppetto.pp.LiteralNameOrReference;
@@ -56,6 +57,8 @@ public class TestExpressions extends AbstractPuppetTests {
 	static final String Sample_Match1 = "$x =~ /[a-z]*/";
 
 	static final String Sample_Match2 = "$x !~ /[a-z]*/";
+
+	static final String Sample_ClassDefinition = "class testClass {\n}";
 
 	static final String Sample_If = //
 	"if $a == 1 {\n" + //
@@ -123,6 +126,17 @@ public class TestExpressions extends AbstractPuppetTests {
 		tester.validate(pp).assertOK();
 		s = serializeFormatted(pp);
 		assertEquals("serialization should produce specified result", Sample_Assignment2, s);
+	}
+
+	public void test_Serialize_HostClassExpression() {
+		PuppetManifest pp = pf.createPuppetManifest();
+		HostClassDefinition cd = pf.createHostClassDefinition();
+		pp.getStatements().add(cd);
+		cd.setClassName("testClass");
+
+		String s = serializeFormatted(pp);
+		assertEquals("serialization should produce specified result", Sample_ClassDefinition, s);
+
 	}
 
 	public void test_Serialize_IfExpression1() throws Exception {

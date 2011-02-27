@@ -19,6 +19,7 @@ import static org.cloudsmith.geppetto.pp.adapters.ClassifierAdapter.RESOURCE_IS_
 
 import java.util.Collections;
 import java.util.List;
+import java.util.regex.Matcher;
 
 import org.cloudsmith.geppetto.pp.AndExpression;
 import org.cloudsmith.geppetto.pp.AppendExpression;
@@ -71,6 +72,7 @@ import org.cloudsmith.geppetto.pp.UnaryExpression;
 import org.cloudsmith.geppetto.pp.UnaryMinusExpression;
 import org.cloudsmith.geppetto.pp.UnaryNotExpression;
 import org.cloudsmith.geppetto.pp.VariableExpression;
+import org.cloudsmith.geppetto.pp.VerbatimTE;
 import org.cloudsmith.geppetto.pp.VirtualNameOrReference;
 import org.cloudsmith.geppetto.pp.adapters.ClassifierAdapter;
 import org.cloudsmith.geppetto.pp.adapters.ClassifierAdapterFactory;
@@ -813,7 +815,15 @@ public class PPJavaValidator extends AbstractPPJavaValidator implements IPPDiagn
 			error(
 				"Expected to comply with String rule", o, o.eContainingFeature(), INSIGNIFICANT_INDEX,
 				IPPDiagnostics.ISSUE__NOT_STRING);
-
+		String s = o.getText();
+		Matcher m = patternHelper.getunrecognizedEscapesPattern().matcher(s);
+		StringBuffer unrecognized = new StringBuffer();
+		while(m.find())
+			unrecognized.append(m.group());
+		if(unrecognized.length() > 0)
+			warning(
+				"Unrecognized escape sequence(s): " + unrecognized.toString(), o, o.eContainingFeature(),
+				INSIGNIFICANT_INDEX, IPPDiagnostics.ISSUE__UNRECOGNIZED_ESCAPE);
 	}
 
 	@Check
@@ -840,6 +850,18 @@ public class PPJavaValidator extends AbstractPPJavaValidator implements IPPDiagn
 			error(
 				"Expected to comply with Variable rule", o, PPPackage.Literals.VARIABLE_EXPRESSION__VAR_NAME,
 				INSIGNIFICANT_INDEX, IPPDiagnostics.ISSUE__NOT_VARNAME);
+	}
+
+	@Check
+	public void checkVerbatimTextExpression(VerbatimTE o) {
+		Matcher m = patternHelper.getunrecognizedEscapesPattern().matcher(o.getText());
+		StringBuffer unrecognized = new StringBuffer();
+		while(m.find())
+			unrecognized.append(m.group());
+		if(unrecognized.length() > 0)
+			warning(
+				"Unrecognized escape sequence(s): " + unrecognized.toString(), o, o.eContainingFeature(),
+				INSIGNIFICANT_INDEX, IPPDiagnostics.ISSUE__UNRECOGNIZED_ESCAPE);
 	}
 
 	/**

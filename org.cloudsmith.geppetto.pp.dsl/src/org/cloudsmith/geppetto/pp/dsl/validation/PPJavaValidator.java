@@ -26,6 +26,7 @@ import org.cloudsmith.geppetto.pp.AppendExpression;
 import org.cloudsmith.geppetto.pp.AssignmentExpression;
 import org.cloudsmith.geppetto.pp.AtExpression;
 import org.cloudsmith.geppetto.pp.AttributeAddition;
+import org.cloudsmith.geppetto.pp.AttributeDefinition;
 import org.cloudsmith.geppetto.pp.AttributeOperation;
 import org.cloudsmith.geppetto.pp.BinaryExpression;
 import org.cloudsmith.geppetto.pp.BinaryOpExpression;
@@ -376,6 +377,22 @@ public class PPJavaValidator extends AbstractPPJavaValidator implements IPPDiagn
 					PPPackage.Literals.PARAMETERIZED_EXPRESSION__PARAMETERS, resourceRef.getParameters().indexOf(expr),
 					IPPDiagnostics.ISSUE__UNSUPPORTED_EXPRESSION);
 		}
+	}
+
+	@Check
+	public void checkAttributeAddition(AttributeAddition o) {
+		if(!isNAME(o.getKey()))
+			error(
+				"Bad name format.", o, PPPackage.Literals.ATTRIBUTE_OPERATION__KEY, INSIGNIFICANT_INDEX,
+				IPPDiagnostics.ISSUE__NOT_NAME);
+	}
+
+	@Check
+	public void checkAttributeDefinition(AttributeDefinition o) {
+		if(!isNAME(o.getKey()))
+			error(
+				"Bad name format.", o, PPPackage.Literals.ATTRIBUTE_OPERATION__KEY, INSIGNIFICANT_INDEX,
+				IPPDiagnostics.ISSUE__NOT_NAME);
 	}
 
 	@Check

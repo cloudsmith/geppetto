@@ -472,6 +472,31 @@ public class PPJavaValidator extends AbstractPPJavaValidator implements IPPDiagn
 	}
 
 	@Check
+	public void checkFunctionCall(FunctionCall o) {
+		if(!(o.getLeftExpr() instanceof LiteralNameOrReference))
+			error(
+				"Must be a name or reference.", o, PPPackage.Literals.PARAMETERIZED_EXPRESSION__LEFT_EXPR,
+				INSIGNIFICANT_INDEX, IPPDiagnostics.ISSUE__NOT_NAME_OR_REF);
+		else {
+			// Simple checking of names, producing a warning for unknown names
+			LiteralNameOrReference name = (LiteralNameOrReference) o.getLeftExpr();
+			nameCheck: {
+				String n = name.getValue();
+				for(String s : namesOfValueFunctions)
+					if(n.equals(s))
+						break nameCheck;
+				for(String s : namesOfVoidFunctions)
+					if(n.equals(s))
+						break nameCheck;
+				warning(
+					"Unknown function: " + n, name, name.eContainingFeature(), INSIGNIFICANT_INDEX,
+					IPPDiagnostics.ISSUE__UNKNOWN_FUNCTION_REFERENCE);
+
+			}
+		}
+	}
+
+	@Check
 	public void checkHostClassDefinition(HostClassDefinition o) {
 		// TODO: name must be NAME, CLASSNAME or "class"
 		// TODO: parent should be a known class
@@ -796,6 +821,7 @@ public class PPJavaValidator extends AbstractPPJavaValidator implements IPPDiagn
 				"Not an acceptable selector entry left hand side expression. Was: " + lhs.getClass().getSimpleName(),
 				o, PPPackage.Literals.BINARY_EXPRESSION__LEFT_EXPR, INSIGNIFICANT_INDEX,
 				IPPDiagnostics.ISSUE__UNSUPPORTED_EXPRESSION);
+		// TODO: check rhs is "rvalue"
 	}
 
 	@Check
@@ -890,6 +916,10 @@ public class PPJavaValidator extends AbstractPPJavaValidator implements IPPDiagn
 				INSIGNIFICANT_INDEX, IPPDiagnostics.ISSUE__UNRECOGNIZED_ESCAPE);
 	}
 
+	// private PPGrammarAccess getGrammarAccess() {
+	// return (PPGrammarAccess) grammarAccess;
+	// }
+
 	/**
 	 * NOTE: Adds validation to the puppet package (in 1.0 the package was not added
 	 * automatically, in 2.0 it is.
@@ -902,10 +932,6 @@ public class PPJavaValidator extends AbstractPPJavaValidator implements IPPDiagn
 
 		return result;
 	}
-
-	// private PPGrammarAccess getGrammarAccess() {
-	// return (PPGrammarAccess) grammarAccess;
-	// }
 
 	protected boolean hasInterpolation(IQuotedString s) {
 		if(!(s instanceof DoubleQuotedString))

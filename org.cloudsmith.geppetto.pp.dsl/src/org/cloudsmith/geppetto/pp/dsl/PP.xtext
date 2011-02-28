@@ -133,12 +133,12 @@ ResourceBody returns pp::ResourceBody
 	|  attributes = AttributeOperations
 	;
 
-// TODO, must validate that key is valid
+// VALIDATION: checks that key is a NAME
 AttributeDefinition returns pp::AttributeDefinition
 	:  key = unionNameOrReference  '=>'  value = Expression 
 	;
 
-// TODO, must validate that key is valid
+// VALIDATION: checks that key is a NAME
 AttributeAddition returns pp::AttributeAddition
 	:  key = unionNameOrReference  '+>'  value = Expression
 	;
@@ -264,7 +264,8 @@ NotExpression returns pp::UnaryNotExpression
 // WAS: AtExpression -> CollectExpression
 
 
-// TODO: VALIDATE that CollectExpression classReference is a ClassReference
+// VALIDATION checks that CollectExpression classReference is a ClassReference, and that query expressions
+// conform to a limit set of supported expressions.
 CollectExpression  returns pp::Expression:
 	SelectorExpression ({pp::CollectExpression.classReference = current}
 		query = CollectQuery
@@ -302,7 +303,7 @@ SelectorExpression returns pp::Expression
 		)?
 	;
 
-// TODO: VALIDATION  rightExpr is not null and both have resonable type
+// VALIDATION  checks lhs is a valid selector left value
 SelectorEntry returns pp::Expression
 	: Expression ({pp::SelectorEntry.leftExpr = current} '=>' rightExpr = Expression)?
 	;
@@ -329,7 +330,7 @@ AtExpression  returns pp::Expression:
 // a sequence of two expressions, a later step will need to determine if 'func' is a function, if so, how
 // many arguments it is supposed to take, and then validate if the input is correct.
 //
-// TODO VALIDATE : functionExpr is a valid function name	
+// VALIDATION : functionExpr is a valid function name	
 FunctionCall returns pp::Expression 
 	: PrimaryExpression ({pp::FunctionCall.leftExpr = current}
 		'('  
@@ -422,7 +423,7 @@ Case returns pp::Case
 
 //-- IF 
 //
-// TODO: VALIDATE that the elseStatement is an Else of Elsif, and validate that Else or Elsif
+// VALIDATION: checks that the elseStatement is an Else of Elsif, and validate that Else or Elsif
 // only appears as parented by If, Else or Elseif
 IfExpression returns pp::IfExpression
 	: 'if'  
@@ -481,8 +482,8 @@ VirtualNameOrReference returns pp::VirtualNameOrReference
 // Note: has value converter
 ATBoolean returns ecore::EBoolean : '@' ;
 
-// TODO: No interpolation takes place in DoubleQuotedStrings, there should probably be a warning about that
-// TODO: Validate that import has at least one thing to import	
+// VALIDATION: No interpolation takes place in DoubleQuotedStrings, a warning will be issued.
+// VALIDATION: Checks that import has at least one thing to import	
 ImportExpression returns pp::ImportExpression
 	: {pp::ImportExpression} 'import'  (values += QuotedString (','  values += QuotedString)*)?
 	;
@@ -605,7 +606,7 @@ LiteralRegex returns pp::LiteralRegex
 	:  value = REGULAR_EXPRESSION 
 	;
 
-// TODO: must validate that the name is a NAME
+// VALIDATION: checks that the name is a NAME (and not a reference).
 LiteralName returns pp::LiteralName
 	: value = unionNameOrReference 
 	; 

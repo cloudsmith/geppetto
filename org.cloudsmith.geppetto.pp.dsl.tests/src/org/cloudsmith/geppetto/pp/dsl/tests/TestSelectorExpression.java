@@ -148,10 +148,10 @@ public class TestSelectorExpression extends AbstractPuppetTests {
 		// -- function call
 		{
 			FunctionCall slhs = pf.createFunctionCall();
-			slhs.setLeftExpr(createNameOrReference("x"));
+			slhs.setLeftExpr(createNameOrReference("include"));
 			slhs.getParameters().add(pf.createLiteralBoolean());
 			FunctionCall entrylhs = pf.createFunctionCall();
-			entrylhs.setLeftExpr(createNameOrReference("x"));
+			entrylhs.setLeftExpr(createNameOrReference("include"));
 			entrylhs.getParameters().add(pf.createLiteralBoolean());
 
 			se.setLeftExpr(slhs);

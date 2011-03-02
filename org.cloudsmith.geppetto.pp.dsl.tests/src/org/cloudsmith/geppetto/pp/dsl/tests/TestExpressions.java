@@ -87,7 +87,7 @@ public class TestExpressions extends AbstractPuppetTests {
 	}
 
 	public void test_ParseCallWithEndComma() throws Exception {
-		String code = "$a = function(1,2,3,)";
+		String code = "$a = include(1,2,3,)";
 		XtextResource r = getResourceFromString(code);
 		tester.validate(r.getContents().get(0)).assertOK();
 	}

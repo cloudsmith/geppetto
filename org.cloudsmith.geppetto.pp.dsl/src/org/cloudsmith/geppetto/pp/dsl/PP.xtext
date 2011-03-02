@@ -26,34 +26,11 @@ grammar org.cloudsmith.geppetto.pp.dsl.PP hidden(WS, SL_COMMENT, ML_COMMENT)
 import "http://www.eclipse.org/emf/2002/Ecore" as ecore
 import "platform:/resource/org.cloudsmith.geppetto.pp/model/PP.ecore" as pp
 
-// Important note about white space and comments:
-// ------
-//  stands for Optional White Space and includes white space and comments
-// Only the starting PuppetManifest rule should eat leading , all other rules should
-// consume trailing white space. This allows all rules to start with a 'significant token'.
-// (If not done this way, the parser will see *many* alternatives all starting with ).
-// 
-// Most 'intermediate' rules do not have to care about this - only the rules that consume a token
-// must deal with trailing .
-// The Manifest allows leading space(s) and comments to be included in the model in an LeadingComments (to aid in generating
-// a meaningsful header).
-//
-
-// Important note about 'unused' object creating rules
-// ---
-// Some object creating rules may appear to be unused but are in fact used in callbacks from the validator.
-// These callbacks should obtain the rules via the generated grammar access class to ensure that rule removal
-// does not go unnoticed (there will be compile time errors).
-// (Unused *data* rules are ignored by the parser generator).
-// 
-
 PuppetManifest returns pp::PuppetManifest	
 	: {pp::PuppetManifest}
-//		leadingSpaceAndComments = LeadingComments?
 		(statements += ExpressionList)*
 	;
-	
-		
+
 // -- EXPRESSION
 // (Refers to the expression with the lowest precedence)
 // Should be used by expressions that allow a single Expression
@@ -220,7 +197,6 @@ AdditiveExpression returns pp::Expression:
 	)*
 	;
 
-// Note: '%' not supported by Puppet
 MultiplicativeOperator : '*' | '/' ;
 MultiplicativeExpression returns pp::Expression:
 	MatchingExpression ({pp::MultiplicativeExpression.leftExpr=current} 
@@ -229,7 +205,6 @@ MultiplicativeExpression returns pp::Expression:
 	)*
 	;
 
-// Note: MatchingExpression is special - regexp can only be a RHS
 // VALIDATION checks regex rhs
 MatchingOperator : '=~' | '!~' ;
 MatchingExpression returns pp::Expression:
@@ -249,20 +224,16 @@ InExpression returns pp::Expression:
 UnaryOrHigherExpression returns pp::Expression
 	: UnaryMinusExpression
 	| NotExpression
-	| CollectExpression // WAS: AtExpression
+	| CollectExpression 
 	;
 	
 UnaryMinusExpression returns pp::UnaryMinusExpression
-	: '-'  expr = CollectExpression // WAS: AtExpression
+	: '-'  expr = CollectExpression 
 	;
 	
 NotExpression returns pp::UnaryNotExpression
-	: '!'  expr = CollectExpression // WAS: AtExpression
+	: '!'  expr = CollectExpression 
 	;
-
-
-// WAS: AtExpression -> CollectExpression
-
 
 // VALIDATION checks that CollectExpression classReference is a ClassReference, and that query expressions
 // conform to a limit set of supported expressions.
@@ -308,10 +279,6 @@ SelectorEntry returns pp::Expression
 	: Expression ({pp::SelectorEntry.leftExpr = current} '=>' rightExpr = Expression)?
 	;
 
-// MOVE AT HERE IN PRECEDENCE
-// x-> AtExpression == x-> CollectExpression
-// y-> FunctionCall == y->AtExpression
-// AtExpression -> FunctionCall
 // Note: AtExpression serves dual purpose: ResourceReference and '#' access
 // VALIDATION: checks 2 level nesting constraint on At a[x][y] is ok but not a[x][y][z] if bug compatible mode
 // VALIDATION: checks At dual roles and validates accordingly (only single parameter for normal At) etc.	
@@ -624,52 +591,21 @@ keyword : ('and' | 'case' | 'class' | 'default' | 'define' | 'else' | 'elsif' | 
 	;
 
 variable hidden()
-	// puppet grammar allows '::' any number of times (\w*::)*\w+
+	// a puppet grammar glitch allows '::' any number of times (\w*::)*\w+. Validation checks correctness.
 	: WORD_CHARS
-//	: '::'? WORD_CHARS ('::' WORD_CHARS)*
 	;
 
-LeadingComments returns pp::OWS hidden(): 
-	// Allows a sequence of comments (without any separating new lines)
-	// Note that ML comment will eat WS including NL
-	{pp::OWS} values += comment+
-	;
-
-//visibleWhitespace hidden(): (' ' | '\u00A0' | '\t' )+;
-
-comment 	hidden() : 
-	( ML_COMMENT | SL_COMMENT)
-	;
-
+// captures names and references, complicated by the fact that a keyword may be part of the name
+// if the name contains '::' - for more info see the PPLexer
 unionNameOrReference hidden()
 	: WORD_CHARS | 'class' | 'default' 
-	// captures names and references, complicated by the fact that a keyword may be part of the name
-	// if the name contains '::'
-//	:	(=>'::' (WORD_CHARS | keyword) ('::' (WORD_CHARS | keyword))*)
-//		| ((WORD_CHARS | 'class') ('::' (WORD_CHARS | keyword))*)
 	;
-	
-// wcOrKwSequence hidden(): WORD_CHARS | keyword;
-//wcOrKwSequence hidden(): (WORD_CHARS (keyword WORD_CHARS)* keyword?) | (keyword (WORD_CHARS keyword)* WORD_CHARS?);
-
-//unionNameOrReference hidden() 
-//	// captures names and references, complicated by the fact that a keyword may be part of the name
-//	// if the name contains '::'
-//	:	=>'::'  (WORD_CHARS | keyword | '-')+ ('::' (WORD_CHARS | keyword | '-')+)* 
-//	| 	     =>((WORD_CHARS | keyword | '-')+ '::') (WORD_CHARS | keyword | '-') ('::' (WORD_CHARS | keyword | '-')+)* 
-//	| 	      (WORD_CHARS | '-' | 'class')+ ('::' (WORD_CHARS | keyword | '-')+)*
-//	;
-
-// includes keywords that are allowed in names (between optional ::).
-//wordCharsOrAnyKeyword : (WORD_CHARS | keyword | '-') ;
-//wordCharsOrMinusClass : (WORD_CHARS | '-' | 'class');
 
 doubleStringCharacters hidden()
 	// special rules in lexer will deliver everything as one of these when in a string
 	: (WORD_CHARS
 	| ANY_OTHER
 	| WS
-//	| '::'
 	| '\\"'
 	| '\\\''
 	| '\\$'
@@ -683,7 +619,6 @@ singleStringCharacters hidden()
 	: (WORD_CHARS
 	| ANY_OTHER
 	| WS
-//	| '::'
 	| '$' // terminates dq-, but not sq- string
 	| '${' // terminates dq-, but not sq- string
 	| '\\"'
@@ -711,26 +646,7 @@ terminal WS
 
 terminal WORD_CHARS :
 	('::')? ('0'..'9'|'a'..'z'|'A'..'Z'|'_'|'.'|'-')+ ('::' ('0'..'9'|'a'..'z'|'A'..'Z'|'_'|'.'|'-')+)*
-//	(('0'..'9')|('a'..'z')|('A'..'Z')|'_' | '.' | '-' | '::')+
-;
-//terminal UNION_NAME_OR_REFERENCE :
-//	// captures names and references
-//	'::'? (('0'..'9')|('a'..'z')|('A'..'Z')|'_' | '-' | '.')+ 
-//	('::' (('0'..'9')|('a'..'z')|('A'..'Z')|'_' | '-' | '.')+)*
-//	;
-
-		
-//terminal DOUBLE_STRING_CHARACTERS
-//	// Special rules in the lexer prevents this rule from being triggered except when in
-//	// a double quoted string
-//	: (!('"' | '\\' | '$') | ('\\' .))+
-//	;
-//		
-//terminal SINGLE_STRING_CHARACTERS:
-//	// Special rules in the lexer prevents this rule from being triggered except when in
-//	// a single quoted string
-//	(!('\'' | '\\') | ('\\' . ))+ 
-//	;
+	;
 
 terminal REGULAR_EXPRESSION 
 	// Special rules in the lexer must prevent the RE from being recognized
@@ -771,12 +687,3 @@ terminal fragment RE_FLAGS:
 	;
 
 terminal ANY_OTHER : . ;
-
-// Reference
-//terminal NAME : ('0'..'9' | 'a'..'z') EXT_WORD_CHAR* ;
-//terminal CLASS_NAME : (('a'..'z') EXT_WORD_CHAR*)? ('::' ('a'..'z') EXT_WORD_CHAR*)+;
-//terminal CLASS_REF: ('::'? ('A'..'Z') EXT_WORD_CHAR*)+ ;
-//
-//terminal fragment EXT_WORD_CHAR : WORD_CHAR | '-' ;
-//terminal fragment EXT_WORD_CHAR_NUM : EXT_WORD_CHAR | '-' | '.'; // to allow decimals 0.0E-2 as a name, hex is already ok 0x0aef
-//terminal fragment WORD_CHAR : ('0'..'9')|('a'..'z')|('A'..'Z')|'_';

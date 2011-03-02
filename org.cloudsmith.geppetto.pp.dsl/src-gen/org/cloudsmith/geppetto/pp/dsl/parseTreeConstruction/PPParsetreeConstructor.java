@@ -101,7 +101,6 @@ protected class ThisRootNode extends RootToken {
 			case 67: return new LiteralRegex_ValueAssignment(this, this, 67, inst);
 			case 68: return new LiteralName_ValueAssignment(this, this, 68, inst);
 			case 69: return new VariableExpression_VarNameAssignment(this, this, 69, inst);
-			case 70: return new LeadingComments_Group(this, this, 70, inst);
 			default: return null;
 		}	
 	}	
@@ -110,33 +109,12 @@ protected class ThisRootNode extends RootToken {
 
 /************ begin Rule PuppetManifest ****************
  *
- * // Important note about white space and comments:
- * // ------
- * //  stands for Optional White Space and includes white space and comments
- * // Only the starting PuppetManifest rule should eat leading , all other rules should
- * // consume trailing white space. This allows all rules to start with a 'significant token'.
- * // (If not done this way, the parser will see *many* alternatives all starting with ).
- * // 
- * // Most 'intermediate' rules do not have to care about this - only the rules that consume a token
- * // must deal with trailing .
- * // The Manifest allows leading space(s) and comments to be included in the model in an LeadingComments (to aid in generating
- * // a meaningsful header).
- * //
- * // Important note about 'unused' object creating rules
- * // ---
- * // Some object creating rules may appear to be unused but are in fact used in callbacks from the validator.
- * // These callbacks should obtain the rules via the generated grammar access class to ensure that rule removal
- * // does not go unnoticed (there will be compile time errors).
- * // (Unused *data* rules are ignored by the parser generator).
- * // 
  * PuppetManifest returns pp::PuppetManifest:
- * 	{pp::PuppetManifest} //		leadingSpaceAndComments = LeadingComments?
- * 	statements+=ExpressionList*;
+ * 	{pp::PuppetManifest} statements+=ExpressionList*;
  *
  **/
 
-// {pp::PuppetManifest} //		leadingSpaceAndComments = LeadingComments?
-// statements+=ExpressionList*
+// {pp::PuppetManifest} statements+=ExpressionList*
 protected class PuppetManifest_Group extends GroupToken {
 	
 	public PuppetManifest_Group(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -1656,7 +1634,7 @@ protected class ResourceBody_AttributesAssignment_1 extends AssignmentToken  {
 
 /************ begin Rule AttributeDefinition ****************
  *
- * // TODO, must validate that key is valid
+ * // VALIDATION: checks that key is a NAME
  * AttributeDefinition returns pp::AttributeDefinition:
  * 	key=unionNameOrReference "=>" value=Expression;
  *
@@ -1798,7 +1776,7 @@ protected class AttributeDefinition_ValueAssignment_2 extends AssignmentToken  {
 
 /************ begin Rule AttributeAddition ****************
  *
- * // TODO, must validate that key is valid
+ * // VALIDATION: checks that key is a NAME
  * AttributeAddition returns pp::AttributeAddition:
  * 	key=unionNameOrReference "+>" value=Expression;
  *
@@ -5233,13 +5211,11 @@ protected class InExpression_RightExprAssignment_1_2 extends AssignmentToken  {
 /************ begin Rule UnaryOrHigherExpression ****************
  *
  * UnaryOrHigherExpression returns pp::Expression:
- * 	UnaryMinusExpression | NotExpression | // WAS: AtExpression
- * 	CollectExpression;
+ * 	UnaryMinusExpression | NotExpression | CollectExpression;
  *
  **/
 
-// UnaryMinusExpression | NotExpression | // WAS: AtExpression
-// CollectExpression
+// UnaryMinusExpression | NotExpression | CollectExpression
 protected class UnaryOrHigherExpression_Alternatives extends AlternativesToken {
 
 	public UnaryOrHigherExpression_Alternatives(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -5366,7 +5342,6 @@ protected class UnaryOrHigherExpression_NotExpressionParserRuleCall_1 extends Ru
 	}	
 }
 
-// // WAS: AtExpression
 // CollectExpression
 protected class UnaryOrHigherExpression_CollectExpressionParserRuleCall_2 extends RuleCallToken {
 	
@@ -5432,13 +5407,11 @@ protected class UnaryOrHigherExpression_CollectExpressionParserRuleCall_2 extend
 /************ begin Rule UnaryMinusExpression ****************
  *
  * UnaryMinusExpression returns pp::UnaryMinusExpression:
- * 	"-" expr= // WAS: AtExpression
- * 	CollectExpression;
+ * 	"-" expr=CollectExpression;
  *
  **/
 
-// "-" expr= // WAS: AtExpression
-// CollectExpression
+// "-" expr=CollectExpression
 protected class UnaryMinusExpression_Group extends GroupToken {
 	
 	public UnaryMinusExpression_Group(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -5488,8 +5461,7 @@ protected class UnaryMinusExpression_HyphenMinusKeyword_0 extends KeywordToken  
 
 }
 
-// expr= // WAS: AtExpression
-// CollectExpression
+// expr=CollectExpression
 protected class UnaryMinusExpression_ExprAssignment_1 extends AssignmentToken  {
 	
 	public UnaryMinusExpression_ExprAssignment_1(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -5542,13 +5514,11 @@ protected class UnaryMinusExpression_ExprAssignment_1 extends AssignmentToken  {
 /************ begin Rule NotExpression ****************
  *
  * NotExpression returns pp::UnaryNotExpression:
- * 	"!" expr= // WAS: AtExpression
- * 	CollectExpression;
+ * 	"!" expr=CollectExpression;
  *
  **/
 
-// "!" expr= // WAS: AtExpression
-// CollectExpression
+// "!" expr=CollectExpression
 protected class NotExpression_Group extends GroupToken {
 	
 	public NotExpression_Group(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -5598,8 +5568,7 @@ protected class NotExpression_ExclamationMarkKeyword_0 extends KeywordToken  {
 
 }
 
-// expr= // WAS: AtExpression
-// CollectExpression
+// expr=CollectExpression
 protected class NotExpression_ExprAssignment_1 extends AssignmentToken  {
 	
 	public NotExpression_ExprAssignment_1(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -5651,8 +5620,8 @@ protected class NotExpression_ExprAssignment_1 extends AssignmentToken  {
 
 /************ begin Rule CollectExpression ****************
  *
- * // WAS: AtExpression -> CollectExpression
- * // TODO: VALIDATE that CollectExpression classReference is a ClassReference
+ * // VALIDATION checks that CollectExpression classReference is a ClassReference, and that query expressions
+ * // conform to a limit set of supported expressions.
  * CollectExpression returns pp::Expression:
  * 	SelectorExpression ({pp::CollectExpression.classReference=current} query=CollectQuery ("{"
  * 	attributes=AttributeOperations? "}")?)?;
@@ -6904,7 +6873,7 @@ protected class SelectorExpression_ParametersAssignment_1_2_1 extends Assignment
 
 /************ begin Rule SelectorEntry ****************
  *
- * // TODO: VALIDATION  rightExpr is not null and both have resonable type
+ * // VALIDATION  checks lhs is a valid selector left value
  * SelectorEntry returns pp::Expression:
  * 	Expression ({pp::SelectorEntry.leftExpr=current} "=>" rightExpr=Expression)?;
  *
@@ -7184,10 +7153,6 @@ protected class SelectorEntry_RightExprAssignment_1_2 extends AssignmentToken  {
 
 /************ begin Rule AtExpression ****************
  *
- * // MOVE AT HERE IN PRECEDENCE
- * // x-> AtExpression == x-> CollectExpression
- * // y-> FunctionCall == y->AtExpression
- * // AtExpression -> FunctionCall
  * // Note: AtExpression serves dual purpose: ResourceReference and '#' access
  * // VALIDATION: checks 2 level nesting constraint on At a[x][y] is ok but not a[x][y][z] if bug compatible mode
  * // VALIDATION: checks At dual roles and validates accordingly (only single parameter for normal At) etc.	
@@ -7582,7 +7547,7 @@ protected class AtExpression_RightSquareBracketKeyword_1_3 extends KeywordToken 
  * // a sequence of two expressions, a later step will need to determine if 'func' is a function, if so, how
  * // many arguments it is supposed to take, and then validate if the input is correct.
  * //
- * // TODO VALIDATE : functionExpr is a valid function name	
+ * // VALIDATION : functionExpr is a valid function name	
  * FunctionCall returns pp::Expression:
  * 	PrimaryExpression ({pp::FunctionCall.leftExpr=current} "(" (parameters+=Expression ("," parameters+=Expression)*
  * 	endComma?)? ")")?;
@@ -10598,7 +10563,7 @@ protected class Case_RightCurlyBracketKeyword_5 extends KeywordToken  {
  *
  * //-- IF 
  * //
- * // TODO: VALIDATE that the elseStatement is an Else of Elsif, and validate that Else or Elsif
+ * // VALIDATION: checks that the elseStatement is an Else of Elsif, and validate that Else or Elsif
  * // only appears as parented by If, Else or Elseif
  * IfExpression returns pp::IfExpression:
  * 	"if" condExpr=Expression "{" thenStatements+=ExpressionList* "}" ("elsif" elseStatement=ElseIfExpression | "else"
@@ -12233,8 +12198,8 @@ protected class VirtualNameOrReference_ValueAssignment_2 extends AssignmentToken
 
 /************ begin Rule ImportExpression ****************
  *
- * // TODO: No interpolation takes place in DoubleQuotedStrings, there should probably be a warning about that
- * // TODO: Validate that import has at least one thing to import	
+ * // VALIDATION: No interpolation takes place in DoubleQuotedStrings, a warning will be issued.
+ * // VALIDATION: Checks that import has at least one thing to import	
  * ImportExpression returns pp::ImportExpression:
  * 	{pp::ImportExpression} "import" (values+=QuotedString ("," values+=QuotedString)*)?;
  *
@@ -15102,7 +15067,7 @@ protected class LiteralRegex_ValueAssignment extends AssignmentToken  {
 
 /************ begin Rule LiteralName ****************
  *
- * // TODO: must validate that the name is a NAME
+ * // VALIDATION: checks that the name is a NAME (and not a reference).
  * LiteralName returns pp::LiteralName:
  * 	value=unionNameOrReference;
  *
@@ -15191,113 +15156,6 @@ protected class VariableExpression_VarNameAssignment extends AssignmentToken  {
 /************ end Rule VariableExpression ****************/
 
 
-
-
-
-/************ begin Rule LeadingComments ****************
- *
- * LeadingComments returns pp::OWS hidden(): // Allows a sequence of comments (without any separating new lines)
- * // Note that ML comment will eat WS including NL
- * 	{pp::OWS} values+=comment+;
- *
- **/
-
-// // Allows a sequence of comments (without any separating new lines)
-// // Note that ML comment will eat WS including NL
-// {pp::OWS} values+=comment+
-protected class LeadingComments_Group extends GroupToken {
-	
-	public LeadingComments_Group(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
-		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
-	}
-	
-	@Override
-	public Group getGrammarElement() {
-		return grammarAccess.getLeadingCommentsAccess().getGroup();
-	}
-
-    @Override
-	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
-		switch(index) {
-			case 0: return new LeadingComments_ValuesAssignment_1(lastRuleCallOrigin, this, 0, inst);
-			default: return null;
-		}	
-	}
-
-    @Override
-	public IEObjectConsumer tryConsume() {
-		if(getEObject().eClass() != grammarAccess.getLeadingCommentsAccess().getOWSAction_0().getType().getClassifier())
-			return null;
-		return eObjectConsumer;
-	}
-
-}
-
-// // Allows a sequence of comments (without any separating new lines)
-// // Note that ML comment will eat WS including NL
-// {pp::OWS}
-protected class LeadingComments_OWSAction_0 extends ActionToken  {
-
-	public LeadingComments_OWSAction_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
-		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
-	}
-	
-	@Override
-	public Action getGrammarElement() {
-		return grammarAccess.getLeadingCommentsAccess().getOWSAction_0();
-	}
-
-    @Override
-	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
-		switch(index) {
-			default: return lastRuleCallOrigin.createFollowerAfterReturn(this, index, index, inst);
-		}	
-	}
-
-    @Override
-	public IEObjectConsumer tryConsume() {
-		if(!eObjectConsumer.isConsumed()) return null;
-		return eObjectConsumer;
-	}
-}
-
-// values+=comment+
-protected class LeadingComments_ValuesAssignment_1 extends AssignmentToken  {
-	
-	public LeadingComments_ValuesAssignment_1(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
-		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
-	}
-	
-	@Override
-	public Assignment getGrammarElement() {
-		return grammarAccess.getLeadingCommentsAccess().getValuesAssignment_1();
-	}
-
-    @Override
-	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
-		switch(index) {
-			case 0: return new LeadingComments_ValuesAssignment_1(lastRuleCallOrigin, this, 0, inst);
-			case 1: return new LeadingComments_OWSAction_0(lastRuleCallOrigin, this, 1, inst);
-			default: return null;
-		}	
-	}
-
-    @Override	
-	public IEObjectConsumer tryConsume() {
-		if((value = eObjectConsumer.getConsumable("values",true)) == null) return null;
-		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("values");
-		if(valueSerializer.isValid(obj.getEObject(), grammarAccess.getLeadingCommentsAccess().getValuesCommentParserRuleCall_1_0(), value, null)) {
-			type = AssignmentType.DATATYPE_RULE_CALL;
-			element = grammarAccess.getLeadingCommentsAccess().getValuesCommentParserRuleCall_1_0();
-			return obj;
-		}
-		return null;
-	}
-
-}
-
-
-/************ end Rule LeadingComments ****************/
 
 
 

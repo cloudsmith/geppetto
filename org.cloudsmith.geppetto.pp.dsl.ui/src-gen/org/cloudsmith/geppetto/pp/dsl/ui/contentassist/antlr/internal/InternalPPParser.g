@@ -2628,44 +2628,6 @@ finally {
 
 
 
-
-
-// Entry rule entryRulecomment
-entryRulecomment 
-@init {
-	HiddenTokens myHiddenTokenState = ((XtextTokenStream)input).setHiddenTokens();
-}
-:
-{ before(grammarAccess.getCommentRule()); }
-	 rulecomment
-{ after(grammarAccess.getCommentRule()); } 
-	 EOF 
-;
-finally {
-	myHiddenTokenState.restore();
-}
-
-// Rule comment
-rulecomment 
-    @init {
-		HiddenTokens myHiddenTokenState = ((XtextTokenStream)input).setHiddenTokens();
-		int stackSize = keepStackSize();
-    }
-    :
-(
-{ before(grammarAccess.getCommentAccess().getAlternatives()); }
-(rule__Comment__Alternatives)
-{ after(grammarAccess.getCommentAccess().getAlternatives()); }
-)
-
-;
-finally {
-	restoreStackSize(stackSize);
-	myHiddenTokenState.restore();
-}
-
-
-
 // Entry rule entryRuleunionNameOrReference
 entryRuleunionNameOrReference 
 @init {
@@ -3598,28 +3560,6 @@ rule__Keyword__Alternatives
 	KEYWORD_43 
 
 { after(grammarAccess.getKeywordAccess().getIfKeyword_15()); }
-)
-
-;
-finally {
-	restoreStackSize(stackSize);
-}
-
-rule__Comment__Alternatives
-    @init {
-		int stackSize = keepStackSize();
-    }
-:
-(
-{ before(grammarAccess.getCommentAccess().getML_COMMENTTerminalRuleCall_0()); }
-	RULE_ML_COMMENT
-{ after(grammarAccess.getCommentAccess().getML_COMMENTTerminalRuleCall_0()); }
-)
-
-    |(
-{ before(grammarAccess.getCommentAccess().getSL_COMMENTTerminalRuleCall_1()); }
-	RULE_SL_COMMENT
-{ after(grammarAccess.getCommentAccess().getSL_COMMENTTerminalRuleCall_1()); }
 )
 
 ;
@@ -13326,7 +13266,6 @@ finally {
 
 
 
-
 rule__PuppetManifest__StatementsAssignment_1
     @init {
 		int stackSize = keepStackSize();
@@ -14879,6 +14818,5 @@ rule__VariableExpression__VarNameAssignment
 finally {
 	restoreStackSize(stackSize);
 }
-
 
 

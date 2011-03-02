@@ -61,7 +61,6 @@ public class PPParser extends AbstractContentAssistParser {
 					put(grammarAccess.getQuotedStringAccess().getAlternatives(), "rule__QuotedString__Alternatives");
 					put(grammarAccess.getDollarVariableAccess().getAlternatives_1(), "rule__DollarVariable__Alternatives_1");
 					put(grammarAccess.getKeywordAccess().getAlternatives(), "rule__Keyword__Alternatives");
-					put(grammarAccess.getCommentAccess().getAlternatives(), "rule__Comment__Alternatives");
 					put(grammarAccess.getUnionNameOrReferenceAccess().getAlternatives(), "rule__UnionNameOrReference__Alternatives");
 					put(grammarAccess.getDoubleStringCharactersAccess().getAlternatives(), "rule__DoubleStringCharacters__Alternatives");
 					put(grammarAccess.getSingleStringCharactersAccess().getAlternatives(), "rule__SingleStringCharacters__Alternatives");
@@ -171,7 +170,6 @@ public class PPParser extends AbstractContentAssistParser {
 					put(grammarAccess.getUnquotedStringAccess().getGroup(), "rule__UnquotedString__Group__0");
 					put(grammarAccess.getSqTextAccess().getGroup(), "rule__SqText__Group__0");
 					put(grammarAccess.getDollarVariableAccess().getGroup(), "rule__DollarVariable__Group__0");
-					put(grammarAccess.getLeadingCommentsAccess().getGroup(), "rule__LeadingComments__Group__0");
 					put(grammarAccess.getPuppetManifestAccess().getStatementsAssignment_1(), "rule__PuppetManifest__StatementsAssignment_1");
 					put(grammarAccess.getExpressionListAccess().getExpressionsAssignment_1_2(), "rule__ExpressionList__ExpressionsAssignment_1_2");
 					put(grammarAccess.getExpressionListAccess().getExpressionsAssignment_1_3_1(), "rule__ExpressionList__ExpressionsAssignment_1_3_1");
@@ -275,7 +273,6 @@ public class PPParser extends AbstractContentAssistParser {
 					put(grammarAccess.getLiteralRegexAccess().getValueAssignment(), "rule__LiteralRegex__ValueAssignment");
 					put(grammarAccess.getLiteralNameAccess().getValueAssignment(), "rule__LiteralName__ValueAssignment");
 					put(grammarAccess.getVariableExpressionAccess().getVarNameAssignment(), "rule__VariableExpression__VarNameAssignment");
-					put(grammarAccess.getLeadingCommentsAccess().getValuesAssignment_1(), "rule__LeadingComments__ValuesAssignment_1");
 				}
 			};
 		}

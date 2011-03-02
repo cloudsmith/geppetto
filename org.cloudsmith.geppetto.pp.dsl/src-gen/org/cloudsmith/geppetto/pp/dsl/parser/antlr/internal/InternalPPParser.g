@@ -5789,55 +5789,6 @@ finally {
 
 
 
-
-
-// Entry rule entryRulecomment
-entryRulecomment returns [String current=null] 
-	@init { 
-		HiddenTokens myHiddenTokenState = ((XtextTokenStream)input).setHiddenTokens();
-	}
-:
-	{ newCompositeNode(grammarAccess.getCommentRule()); } 
-	 iv_rulecomment=rulecomment 
-	 { $current=$iv_rulecomment.current.getText(); }  
-	 EOF 
-;
-finally {
-	myHiddenTokenState.restore();
-}
-
-// Rule comment
-rulecomment returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] 
-    @init { enterRule(); 
-		HiddenTokens myHiddenTokenState = ((XtextTokenStream)input).setHiddenTokens();
-    }
-    @after { leaveRule();
-    }:
-(    this_ML_COMMENT_0=RULE_ML_COMMENT    {
-		$current.merge(this_ML_COMMENT_0);
-    }
-
-    { 
-    newLeafNode(this_ML_COMMENT_0, grammarAccess.getCommentAccess().getML_COMMENTTerminalRuleCall_0()); 
-    }
-
-    |    this_SL_COMMENT_1=RULE_SL_COMMENT    {
-		$current.merge(this_SL_COMMENT_1);
-    }
-
-    { 
-    newLeafNode(this_SL_COMMENT_1, grammarAccess.getCommentAccess().getSL_COMMENTTerminalRuleCall_1()); 
-    }
-)
-    ;
-finally {
-	myHiddenTokenState.restore();
-}
-
-
-
-
-
 // Entry rule entryRuleunionNameOrReference
 entryRuleunionNameOrReference returns [String current=null] 
 	@init { 

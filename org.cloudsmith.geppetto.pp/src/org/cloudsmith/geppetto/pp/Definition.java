@@ -24,7 +24,6 @@ import org.eclipse.emf.common.util.EList;
  * <li>{@link org.cloudsmith.geppetto.pp.Definition#getClassName <em>Class Name</em>}</li>
  * <li>{@link org.cloudsmith.geppetto.pp.Definition#getArguments <em>Arguments</em>}</li>
  * <li>{@link org.cloudsmith.geppetto.pp.Definition#getStatements <em>Statements</em>}</li>
- * <li>{@link org.cloudsmith.geppetto.pp.Definition#getDocumentation <em>Documentation</em>}</li>
  * </ul>
  * </p>
  * 
@@ -66,22 +65,6 @@ public interface Definition extends Expression {
 	String getClassName();
 
 	/**
-	 * Returns the value of the '<em><b>Documentation</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Documentation</em>' containment reference isn't clear, there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * 
-	 * @return the value of the '<em>Documentation</em>' containment reference.
-	 * @see #setDocumentation(OWS)
-	 * @see org.cloudsmith.geppetto.pp.PPPackage#getDefinition_Documentation()
-	 * @model containment="true"
-	 * @generated
-	 */
-	OWS getDocumentation();
-
-	/**
 	 * Returns the value of the '<em><b>Statements</b></em>' containment reference list.
 	 * The list contents are of type {@link org.cloudsmith.geppetto.pp.Expression}.
 	 * <!-- begin-user-doc -->
@@ -120,17 +103,5 @@ public interface Definition extends Expression {
 	 * @generated
 	 */
 	void setClassName(String value);
-
-	/**
-	 * Sets the value of the '{@link org.cloudsmith.geppetto.pp.Definition#getDocumentation <em>Documentation</em>}' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * 
-	 * @param value
-	 *            the new value of the '<em>Documentation</em>' containment reference.
-	 * @see #getDocumentation()
-	 * @generated
-	 */
-	void setDocumentation(OWS value);
 
 } // Definition

@@ -3,10 +3,7 @@
     xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="pp"
     nsURI="http://www.cloudsmith.org/geppetto/1.0.0/PP" nsPrefix="pp">
-  <eClassifiers xsi:type="ecore:EClass" name="PuppetManifest" eSuperTypes="#//ExpressionBlock">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="leadingSpaceAndComments"
-        eType="#//OWS" containment="true"/>
-  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="PuppetManifest" eSuperTypes="#//ExpressionBlock"/>
   <eClassifiers xsi:type="ecore:EClass" name="Expression"/>
   <eClassifiers xsi:type="ecore:EClass" name="ResourceBody">
     <eStructuralFeatures xsi:type="ecore:EReference" name="attributes" eType="#//AttributeOperations"
@@ -38,8 +35,6 @@
         containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="statements" upperBound="-1"
         eType="#//Expression" containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="documentation" eType="#//OWS"
-        containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="DefinitionArgumentList">
     <eStructuralFeatures xsi:type="ecore:EReference" name="arguments" upperBound="-1"
@@ -180,10 +175,6 @@
   <eClassifiers xsi:type="ecore:EClass" name="ParenthesisedExpression" eSuperTypes="#//Expression">
     <eStructuralFeatures xsi:type="ecore:EReference" name="expr" eType="#//Expression"
         containment="true"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="OWS">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="values" upperBound="-1"
-        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ExprList" eSuperTypes="#//Expression">
     <eStructuralFeatures xsi:type="ecore:EReference" name="expressions" upperBound="-1"

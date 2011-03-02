@@ -60,7 +60,6 @@ import org.cloudsmith.geppetto.pp.LiteralUndef;
 import org.cloudsmith.geppetto.pp.MatchingExpression;
 import org.cloudsmith.geppetto.pp.MultiplicativeExpression;
 import org.cloudsmith.geppetto.pp.NodeDefinition;
-import org.cloudsmith.geppetto.pp.OWS;
 import org.cloudsmith.geppetto.pp.OrExpression;
 import org.cloudsmith.geppetto.pp.PPPackage;
 import org.cloudsmith.geppetto.pp.ParameterizedExpression;
@@ -937,23 +936,6 @@ public class PPSwitch<T> {
 	 * @generated
 	 */
 	public T caseOrExpression(OrExpression object) {
-		return null;
-	}
-
-	/**
-	 * Returns the result of interpreting the object as an instance of '<em>OWS</em>'.
-	 * <!-- begin-user-doc -->
-	 * This implementation returns null;
-	 * returning a non-null result will terminate the switch.
-	 * <!-- end-user-doc -->
-	 * 
-	 * @param object
-	 *            the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>OWS</em>'.
-	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-	 * @generated
-	 */
-	public T caseOWS(OWS object) {
 		return null;
 	}
 
@@ -1987,13 +1969,6 @@ public class PPSwitch<T> {
 				T result = caseParenthesisedExpression(parenthesisedExpression);
 				if(result == null)
 					result = caseExpression(parenthesisedExpression);
-				if(result == null)
-					result = defaultCase(theEObject);
-				return result;
-			}
-			case PPPackage.OWS: {
-				OWS ows = (OWS) theEObject;
-				T result = caseOWS(ows);
 				if(result == null)
 					result = defaultCase(theEObject);
 				return result;

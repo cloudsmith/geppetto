@@ -59,15 +59,6 @@ public interface PPPackage extends EPackage {
 		EClass PUPPET_MANIFEST = eINSTANCE.getPuppetManifest();
 
 		/**
-		 * The meta object literal for the '<em><b>Leading Space And Comments</b></em>' containment reference feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * 
-		 * @generated
-		 */
-		EReference PUPPET_MANIFEST__LEADING_SPACE_AND_COMMENTS = eINSTANCE.getPuppetManifest_LeadingSpaceAndComments();
-
-		/**
 		 * The meta object literal for the '{@link org.cloudsmith.geppetto.pp.impl.ExpressionImpl <em>Expression</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -268,15 +259,6 @@ public interface PPPackage extends EPackage {
 		 * @generated
 		 */
 		EReference DEFINITION__STATEMENTS = eINSTANCE.getDefinition_Statements();
-
-		/**
-		 * The meta object literal for the '<em><b>Documentation</b></em>' containment reference feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * 
-		 * @generated
-		 */
-		EReference DEFINITION__DOCUMENTATION = eINSTANCE.getDefinition_Documentation();
 
 		/**
 		 * The meta object literal for the '{@link org.cloudsmith.geppetto.pp.impl.DefinitionArgumentListImpl <em>Definition Argument List</em>}'
@@ -1145,26 +1127,6 @@ public interface PPPackage extends EPackage {
 		EReference PARENTHESISED_EXPRESSION__EXPR = eINSTANCE.getParenthesisedExpression_Expr();
 
 		/**
-		 * The meta object literal for the '{@link org.cloudsmith.geppetto.pp.impl.OWSImpl <em>OWS</em>}' class.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * 
-		 * @see org.cloudsmith.geppetto.pp.impl.OWSImpl
-		 * @see org.cloudsmith.geppetto.pp.impl.PPPackageImpl#getOWS()
-		 * @generated
-		 */
-		EClass OWS = eINSTANCE.getOWS();
-
-		/**
-		 * The meta object literal for the '<em><b>Values</b></em>' attribute list feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * 
-		 * @generated
-		 */
-		EAttribute OWS__VALUES = eINSTANCE.getOWS_Values();
-
-		/**
 		 * The meta object literal for the '{@link org.cloudsmith.geppetto.pp.impl.ExprListImpl <em>Expr List</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -1487,16 +1449,6 @@ public interface PPPackage extends EPackage {
 	int PUPPET_MANIFEST__STATEMENTS = EXPRESSION_BLOCK__STATEMENTS;
 
 	/**
-	 * The feature id for the '<em><b>Leading Space And Comments</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * 
-	 * @generated
-	 * @ordered
-	 */
-	int PUPPET_MANIFEST__LEADING_SPACE_AND_COMMENTS = EXPRESSION_BLOCK_FEATURE_COUNT + 0;
-
-	/**
 	 * The number of structural features of the '<em>Puppet Manifest</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1504,7 +1456,7 @@ public interface PPPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int PUPPET_MANIFEST_FEATURE_COUNT = EXPRESSION_BLOCK_FEATURE_COUNT + 1;
+	int PUPPET_MANIFEST_FEATURE_COUNT = EXPRESSION_BLOCK_FEATURE_COUNT + 0;
 
 	/**
 	 * The meta object id for the '{@link org.cloudsmith.geppetto.pp.impl.ResourceBodyImpl <em>Resource Body</em>}' class.
@@ -1868,16 +1820,6 @@ public interface PPPackage extends EPackage {
 	int DEFINITION__STATEMENTS = EXPRESSION_FEATURE_COUNT + 2;
 
 	/**
-	 * The feature id for the '<em><b>Documentation</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * 
-	 * @generated
-	 * @ordered
-	 */
-	int DEFINITION__DOCUMENTATION = EXPRESSION_FEATURE_COUNT + 3;
-
-	/**
 	 * The number of structural features of the '<em>Definition</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1885,7 +1827,7 @@ public interface PPPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int DEFINITION_FEATURE_COUNT = EXPRESSION_FEATURE_COUNT + 4;
+	int DEFINITION_FEATURE_COUNT = EXPRESSION_FEATURE_COUNT + 3;
 
 	/**
 	 * The feature id for the '<em><b>Class Name</b></em>' attribute.
@@ -1916,16 +1858,6 @@ public interface PPPackage extends EPackage {
 	 * @ordered
 	 */
 	int HOST_CLASS_DEFINITION__STATEMENTS = DEFINITION__STATEMENTS;
-
-	/**
-	 * The feature id for the '<em><b>Documentation</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * 
-	 * @generated
-	 * @ordered
-	 */
-	int HOST_CLASS_DEFINITION__DOCUMENTATION = DEFINITION__DOCUMENTATION;
 
 	/**
 	 * The feature id for the '<em><b>Parent</b></em>' containment reference.
@@ -3733,37 +3665,6 @@ public interface PPPackage extends EPackage {
 	int PARENTHESISED_EXPRESSION_FEATURE_COUNT = EXPRESSION_FEATURE_COUNT + 1;
 
 	/**
-	 * The meta object id for the '{@link org.cloudsmith.geppetto.pp.impl.OWSImpl <em>OWS</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * 
-	 * @see org.cloudsmith.geppetto.pp.impl.OWSImpl
-	 * @see org.cloudsmith.geppetto.pp.impl.PPPackageImpl#getOWS()
-	 * @generated
-	 */
-	int OWS = 59;
-
-	/**
-	 * The feature id for the '<em><b>Values</b></em>' attribute list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * 
-	 * @generated
-	 * @ordered
-	 */
-	int OWS__VALUES = 0;
-
-	/**
-	 * The number of structural features of the '<em>OWS</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * 
-	 * @generated
-	 * @ordered
-	 */
-	int OWS_FEATURE_COUNT = 1;
-
-	/**
 	 * The meta object id for the '{@link org.cloudsmith.geppetto.pp.impl.ExprListImpl <em>Expr List</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -3772,7 +3673,7 @@ public interface PPPackage extends EPackage {
 	 * @see org.cloudsmith.geppetto.pp.impl.PPPackageImpl#getExprList()
 	 * @generated
 	 */
-	int EXPR_LIST = 60;
+	int EXPR_LIST = 59;
 
 	/**
 	 * The feature id for the '<em><b>Expressions</b></em>' containment reference list.
@@ -3803,7 +3704,7 @@ public interface PPPackage extends EPackage {
 	 * @see org.cloudsmith.geppetto.pp.impl.PPPackageImpl#getStringExpression()
 	 * @generated
 	 */
-	int STRING_EXPRESSION = 63;
+	int STRING_EXPRESSION = 62;
 
 	/**
 	 * The number of structural features of the '<em>String Expression</em>' class.
@@ -3824,7 +3725,7 @@ public interface PPPackage extends EPackage {
 	 * @see org.cloudsmith.geppetto.pp.impl.PPPackageImpl#getDoubleQuotedString()
 	 * @generated
 	 */
-	int DOUBLE_QUOTED_STRING = 61;
+	int DOUBLE_QUOTED_STRING = 60;
 
 	/**
 	 * The feature id for the '<em><b>Text Expression</b></em>' containment reference.
@@ -3855,7 +3756,7 @@ public interface PPPackage extends EPackage {
 	 * @see org.cloudsmith.geppetto.pp.impl.PPPackageImpl#getSingleQuotedString()
 	 * @generated
 	 */
-	int SINGLE_QUOTED_STRING = 62;
+	int SINGLE_QUOTED_STRING = 61;
 
 	/**
 	 * The feature id for the '<em><b>Text</b></em>' attribute.
@@ -3886,7 +3787,7 @@ public interface PPPackage extends EPackage {
 	 * @see org.cloudsmith.geppetto.pp.impl.PPPackageImpl#getUnquotedString()
 	 * @generated
 	 */
-	int UNQUOTED_STRING = 64;
+	int UNQUOTED_STRING = 63;
 
 	/**
 	 * The feature id for the '<em><b>Expression</b></em>' containment reference.
@@ -3917,7 +3818,7 @@ public interface PPPackage extends EPackage {
 	 * @see org.cloudsmith.geppetto.pp.impl.PPPackageImpl#getIQuotedString()
 	 * @generated
 	 */
-	int IQUOTED_STRING = 65;
+	int IQUOTED_STRING = 64;
 
 	/**
 	 * The number of structural features of the '<em>IQuoted String</em>' class.
@@ -3938,7 +3839,7 @@ public interface PPPackage extends EPackage {
 	 * @see org.cloudsmith.geppetto.pp.impl.PPPackageImpl#getInterpolatedVariable()
 	 * @generated
 	 */
-	int INTERPOLATED_VARIABLE = 66;
+	int INTERPOLATED_VARIABLE = 65;
 
 	/**
 	 * The feature id for the '<em><b>Var Name</b></em>' attribute.
@@ -3969,7 +3870,7 @@ public interface PPPackage extends EPackage {
 	 * @see org.cloudsmith.geppetto.pp.impl.PPPackageImpl#getTextExpression()
 	 * @generated
 	 */
-	int TEXT_EXPRESSION = 67;
+	int TEXT_EXPRESSION = 66;
 
 	/**
 	 * The feature id for the '<em><b>Trailing</b></em>' containment reference.
@@ -4010,7 +3911,7 @@ public interface PPPackage extends EPackage {
 	 * @see org.cloudsmith.geppetto.pp.impl.PPPackageImpl#getVerbatimTE()
 	 * @generated
 	 */
-	int VERBATIM_TE = 68;
+	int VERBATIM_TE = 67;
 
 	/**
 	 * The feature id for the '<em><b>Trailing</b></em>' containment reference.
@@ -4061,7 +3962,7 @@ public interface PPPackage extends EPackage {
 	 * @see org.cloudsmith.geppetto.pp.impl.PPPackageImpl#getExpressionTE()
 	 * @generated
 	 */
-	int EXPRESSION_TE = 69;
+	int EXPRESSION_TE = 68;
 
 	/**
 	 * The feature id for the '<em><b>Trailing</b></em>' containment reference.
@@ -4112,7 +4013,7 @@ public interface PPPackage extends EPackage {
 	 * @see org.cloudsmith.geppetto.pp.impl.PPPackageImpl#getVariableTE()
 	 * @generated
 	 */
-	int VARIABLE_TE = 70;
+	int VARIABLE_TE = 69;
 
 	/**
 	 * The feature id for the '<em><b>Trailing</b></em>' containment reference.
@@ -4500,18 +4401,6 @@ public interface PPPackage extends EPackage {
 	 * @generated
 	 */
 	EAttribute getDefinition_ClassName();
-
-	/**
-	 * Returns the meta object for the containment reference '{@link org.cloudsmith.geppetto.pp.Definition#getDocumentation <em>Documentation</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * 
-	 * @return the meta object for the containment reference '<em>Documentation</em>'.
-	 * @see org.cloudsmith.geppetto.pp.Definition#getDocumentation()
-	 * @see #getDefinition()
-	 * @generated
-	 */
-	EReference getDefinition_Documentation();
 
 	/**
 	 * Returns the meta object for the containment reference list '{@link org.cloudsmith.geppetto.pp.Definition#getStatements <em>Statements</em>}'.
@@ -5184,29 +5073,6 @@ public interface PPPackage extends EPackage {
 	EClass getOrExpression();
 
 	/**
-	 * Returns the meta object for class '{@link org.cloudsmith.geppetto.pp.OWS <em>OWS</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * 
-	 * @return the meta object for class '<em>OWS</em>'.
-	 * @see org.cloudsmith.geppetto.pp.OWS
-	 * @generated
-	 */
-	EClass getOWS();
-
-	/**
-	 * Returns the meta object for the attribute list '{@link org.cloudsmith.geppetto.pp.OWS#getValues <em>Values</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * 
-	 * @return the meta object for the attribute list '<em>Values</em>'.
-	 * @see org.cloudsmith.geppetto.pp.OWS#getValues()
-	 * @see #getOWS()
-	 * @generated
-	 */
-	EAttribute getOWS_Values();
-
-	/**
 	 * Returns the meta object for class '{@link org.cloudsmith.geppetto.pp.ParameterizedExpression <em>Parameterized Expression</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -5286,19 +5152,6 @@ public interface PPPackage extends EPackage {
 	 * @generated
 	 */
 	EClass getPuppetManifest();
-
-	/**
-	 * Returns the meta object for the containment reference '{@link org.cloudsmith.geppetto.pp.PuppetManifest#getLeadingSpaceAndComments
-	 * <em>Leading Space And Comments</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * 
-	 * @return the meta object for the containment reference '<em>Leading Space And Comments</em>'.
-	 * @see org.cloudsmith.geppetto.pp.PuppetManifest#getLeadingSpaceAndComments()
-	 * @see #getPuppetManifest()
-	 * @generated
-	 */
-	EReference getPuppetManifest_LeadingSpaceAndComments();
 
 	/**
 	 * Returns the meta object for class '{@link org.cloudsmith.geppetto.pp.RelationalExpression <em>Relational Expression</em>}'.

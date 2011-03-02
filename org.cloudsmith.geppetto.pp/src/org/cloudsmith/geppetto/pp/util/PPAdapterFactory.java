@@ -58,7 +58,6 @@ import org.cloudsmith.geppetto.pp.LiteralUndef;
 import org.cloudsmith.geppetto.pp.MatchingExpression;
 import org.cloudsmith.geppetto.pp.MultiplicativeExpression;
 import org.cloudsmith.geppetto.pp.NodeDefinition;
-import org.cloudsmith.geppetto.pp.OWS;
 import org.cloudsmith.geppetto.pp.OrExpression;
 import org.cloudsmith.geppetto.pp.PPPackage;
 import org.cloudsmith.geppetto.pp.ParameterizedExpression;
@@ -353,11 +352,6 @@ public class PPAdapterFactory extends AdapterFactoryImpl {
 		@Override
 		public Adapter caseOrExpression(OrExpression object) {
 			return createOrExpressionAdapter();
-		}
-
-		@Override
-		public Adapter caseOWS(OWS object) {
-			return createOWSAdapter();
 		}
 
 		@Override
@@ -1234,21 +1228,6 @@ public class PPAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createOrExpressionAdapter() {
-		return null;
-	}
-
-	/**
-	 * Creates a new adapter for an object of class '{@link org.cloudsmith.geppetto.pp.OWS <em>OWS</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
-	 * 
-	 * @return the new adapter.
-	 * @see org.cloudsmith.geppetto.pp.OWS
-	 * @generated
-	 */
-	public Adapter createOWSAdapter() {
 		return null;
 	}
 

@@ -39,6 +39,7 @@ import org.cloudsmith.geppetto.pp.ElseExpression;
 import org.cloudsmith.geppetto.pp.ElseIfExpression;
 import org.cloudsmith.geppetto.pp.EqualityExpression;
 import org.cloudsmith.geppetto.pp.Expression;
+import org.cloudsmith.geppetto.pp.ExpressionTE;
 import org.cloudsmith.geppetto.pp.FunctionCall;
 import org.cloudsmith.geppetto.pp.HostClassDefinition;
 import org.cloudsmith.geppetto.pp.IQuotedString;
@@ -287,14 +288,15 @@ public class PPJavaValidator extends AbstractPPJavaValidator implements IPPDiagn
 			error(
 				"Expression left of [] is required", o, PPPackage.Literals.PARAMETERIZED_EXPRESSION__LEFT_EXPR,
 				INSIGNIFICANT_INDEX, IPPDiagnostics.ISSUE__REQUIRED_EXPRESSION);
-		else if(!(leftExpr instanceof VariableExpression)) {
+		else if(!(leftExpr instanceof VariableExpression || (o.eContainer() instanceof ExpressionTE && leftExpr instanceof LiteralNameOrReference))) {
 			// then, the leftExpression *must* be an AtExpression with a leftExpr being a variable
 			if(leftExpr instanceof AtExpression) {
 				// older versions limited access to two levels.
 				if(!PuppetCompatibilityHelper.allowMoreThan2AtInSequence()) {
 					final Expression nestedLeftExpr = ((AtExpression) leftExpr).getLeftExpr();
 					// if nestedLeftExpr is null, it is validated for the nested instance
-					if(nestedLeftExpr != null && !(nestedLeftExpr instanceof VariableExpression))
+					if(nestedLeftExpr != null &&
+							!(nestedLeftExpr instanceof VariableExpression || (o.eContainer() instanceof ExpressionTE && nestedLeftExpr instanceof LiteralNameOrReference)))
 						error(
 							"Expression left of [] must be a variable.", nestedLeftExpr,
 							PPPackage.Literals.PARAMETERIZED_EXPRESSION__LEFT_EXPR, INSIGNIFICANT_INDEX,
@@ -1159,7 +1161,7 @@ public class PPJavaValidator extends AbstractPPJavaValidator implements IPPDiagn
 	private boolean isStandardAtExpression(AtExpression o) {
 		// an At expression is standard if the lhs is a variable or an AtExpression
 		Expression lhs = o.getLeftExpr();
-		return (lhs instanceof VariableExpression || lhs instanceof AtExpression);
+		return (lhs instanceof VariableExpression || lhs instanceof AtExpression || (o.eContainer() instanceof ExpressionTE && lhs instanceof LiteralNameOrReference));
 
 		// // TODO: There may be other references that means that the AtExpression is a ResourceReference.
 		//

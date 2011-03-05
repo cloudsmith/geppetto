@@ -451,10 +451,21 @@ public class PPJavaValidator extends AbstractPPJavaValidator implements IPPDiagn
 	@Check
 	public void checkDefinitionArgument(DefinitionArgument o) {
 		// -- LHS should be a variable, use of name is deprecated
-		if(!isVARIABLE(o.getArgName()))
+		String argName = o.getArgName();
+		if(argName == null || argName.length() < 1)
+			error(
+				"Empty or null argument", o, PPPackage.Literals.DEFINITION_ARGUMENT__ARG_NAME, INSIGNIFICANT_INDEX,
+				IPPDiagnostics.ISSUE__NOT_VARNAME);
+
+		else if(!argName.startsWith("$"))
 			warning(
 				"Deprecation: Definition argument should now start with $", o,
 				PPPackage.Literals.DEFINITION_ARGUMENT__ARG_NAME, INSIGNIFICANT_INDEX,
+				IPPDiagnostics.ISSUE__NOT_VARNAME);
+
+		else if(!isVARIABLE(argName))
+			error(
+				"Not a valid variable name", o, PPPackage.Literals.DEFINITION_ARGUMENT__ARG_NAME, INSIGNIFICANT_INDEX,
 				IPPDiagnostics.ISSUE__NOT_VARNAME);
 
 		// -- RHS should be a rvalue

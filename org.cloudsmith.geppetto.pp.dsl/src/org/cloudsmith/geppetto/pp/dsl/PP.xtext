@@ -432,8 +432,9 @@ LiteralNameOrReference returns pp::LiteralNameOrReference
 	:  value = unionNameOrReference 
 	;
 	
-UNION_VARIABLE_OR_NAME :
-	'$'?  unionNameOrReference //(unionNameOrReference | keyword)
+UNION_VARIABLE_OR_NAME 
+	:'$' (unionNameOrReference | keyword) 
+	| unionNameOrReference
 	;
 	
 	

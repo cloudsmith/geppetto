@@ -4018,14 +4018,38 @@ ruleUNION_VARIABLE_OR_NAME returns [AntlrDatatypeRuleToken current=new AntlrData
 	kw=KEYWORD_3 
     {
         $current.merge(kw);
-        newLeafNode(kw, grammarAccess.getUNION_VARIABLE_OR_NAMEAccess().getDollarSignKeyword_0()); 
+        newLeafNode(kw, grammarAccess.getUNION_VARIABLE_OR_NAMEAccess().getDollarSignKeyword_0_0()); 
     }
-)?
+(
     { 
-        newCompositeNode(grammarAccess.getUNION_VARIABLE_OR_NAMEAccess().getUnionNameOrReferenceParserRuleCall_1()); 
+        newCompositeNode(grammarAccess.getUNION_VARIABLE_OR_NAMEAccess().getUnionNameOrReferenceParserRuleCall_0_1_0()); 
     }
     this_unionNameOrReference_1=ruleunionNameOrReference    {
 		$current.merge(this_unionNameOrReference_1);
+    }
+
+    { 
+        afterParserOrEnumRuleCall();
+    }
+
+    |
+    { 
+        newCompositeNode(grammarAccess.getUNION_VARIABLE_OR_NAMEAccess().getKeywordParserRuleCall_0_1_1()); 
+    }
+    this_keyword_2=rulekeyword    {
+		$current.merge(this_keyword_2);
+    }
+
+    { 
+        afterParserOrEnumRuleCall();
+    }
+))
+    |
+    { 
+        newCompositeNode(grammarAccess.getUNION_VARIABLE_OR_NAMEAccess().getUnionNameOrReferenceParserRuleCall_1()); 
+    }
+    this_unionNameOrReference_3=ruleunionNameOrReference    {
+		$current.merge(this_unionNameOrReference_3);
     }
 
     { 

@@ -55,6 +55,8 @@ public class PPParser extends AbstractContentAssistParser {
 					put(grammarAccess.getIfExpressionAccess().getAlternatives_5(), "rule__IfExpression__Alternatives_5");
 					put(grammarAccess.getElseIfExpressionAccess().getAlternatives_5(), "rule__ElseIfExpression__Alternatives_5");
 					put(grammarAccess.getLiteralExpressionAccess().getAlternatives(), "rule__LiteralExpression__Alternatives");
+					put(grammarAccess.getUNION_VARIABLE_OR_NAMEAccess().getAlternatives(), "rule__UNION_VARIABLE_OR_NAME__Alternatives");
+					put(grammarAccess.getUNION_VARIABLE_OR_NAMEAccess().getAlternatives_0_1(), "rule__UNION_VARIABLE_OR_NAME__Alternatives_0_1");
 					put(grammarAccess.getLiteralNameOrStringAccess().getAlternatives(), "rule__LiteralNameOrString__Alternatives");
 					put(grammarAccess.getBooleanValueAccess().getAlternatives(), "rule__BooleanValue__Alternatives");
 					put(grammarAccess.getStringExpressionAccess().getAlternatives(), "rule__StringExpression__Alternatives");
@@ -143,7 +145,7 @@ public class PPParser extends AbstractContentAssistParser {
 					put(grammarAccess.getElseIfExpressionAccess().getGroup(), "rule__ElseIfExpression__Group__0");
 					put(grammarAccess.getElseIfExpressionAccess().getGroup_5_0(), "rule__ElseIfExpression__Group_5_0__0");
 					put(grammarAccess.getElseIfExpressionAccess().getGroup_5_1(), "rule__ElseIfExpression__Group_5_1__0");
-					put(grammarAccess.getUNION_VARIABLE_OR_NAMEAccess().getGroup(), "rule__UNION_VARIABLE_OR_NAME__Group__0");
+					put(grammarAccess.getUNION_VARIABLE_OR_NAMEAccess().getGroup_0(), "rule__UNION_VARIABLE_OR_NAME__Group_0__0");
 					put(grammarAccess.getParenthisedExpressionAccess().getGroup(), "rule__ParenthisedExpression__Group__0");
 					put(grammarAccess.getVirtualNameOrReferenceAccess().getGroup(), "rule__VirtualNameOrReference__Group__0");
 					put(grammarAccess.getImportExpressionAccess().getGroup(), "rule__ImportExpression__Group__0");

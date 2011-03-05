@@ -2246,23 +2246,36 @@ public class PPGrammarAccess extends AbstractGrammarElementFinder {
 
 	public class UNION_VARIABLE_OR_NAMEElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "UNION_VARIABLE_OR_NAME");
-		private final Group cGroup = (Group)rule.eContents().get(1);
-		private final Keyword cDollarSignKeyword_0 = (Keyword)cGroup.eContents().get(0);
-		private final RuleCall cUnionNameOrReferenceParserRuleCall_1 = (RuleCall)cGroup.eContents().get(1);
+		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
+		private final Group cGroup_0 = (Group)cAlternatives.eContents().get(0);
+		private final Keyword cDollarSignKeyword_0_0 = (Keyword)cGroup_0.eContents().get(0);
+		private final Alternatives cAlternatives_0_1 = (Alternatives)cGroup_0.eContents().get(1);
+		private final RuleCall cUnionNameOrReferenceParserRuleCall_0_1_0 = (RuleCall)cAlternatives_0_1.eContents().get(0);
+		private final RuleCall cKeywordParserRuleCall_0_1_1 = (RuleCall)cAlternatives_0_1.eContents().get(1);
+		private final RuleCall cUnionNameOrReferenceParserRuleCall_1 = (RuleCall)cAlternatives.eContents().get(1);
 		
 		//UNION_VARIABLE_OR_NAME:
-		//	"$"? //(unionNameOrReference | keyword)
-		//	unionNameOrReference;
+		//	"$" (unionNameOrReference | keyword) | unionNameOrReference;
 		public ParserRule getRule() { return rule; }
 
-		//"$"? //(unionNameOrReference | keyword)
+		//"$" (unionNameOrReference | keyword) | unionNameOrReference
+		public Alternatives getAlternatives() { return cAlternatives; }
+
+		//"$" (unionNameOrReference | keyword)
+		public Group getGroup_0() { return cGroup_0; }
+
+		//"$"
+		public Keyword getDollarSignKeyword_0_0() { return cDollarSignKeyword_0_0; }
+
+		//unionNameOrReference | keyword
+		public Alternatives getAlternatives_0_1() { return cAlternatives_0_1; }
+
 		//unionNameOrReference
-		public Group getGroup() { return cGroup; }
+		public RuleCall getUnionNameOrReferenceParserRuleCall_0_1_0() { return cUnionNameOrReferenceParserRuleCall_0_1_0; }
 
-		//"$"?
-		public Keyword getDollarSignKeyword_0() { return cDollarSignKeyword_0; }
+		//keyword
+		public RuleCall getKeywordParserRuleCall_0_1_1() { return cKeywordParserRuleCall_0_1_1; }
 
-		////(unionNameOrReference | keyword)
 		//unionNameOrReference
 		public RuleCall getUnionNameOrReferenceParserRuleCall_1() { return cUnionNameOrReferenceParserRuleCall_1; }
 	}
@@ -4046,8 +4059,7 @@ public class PPGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//UNION_VARIABLE_OR_NAME:
-	//	"$"? //(unionNameOrReference | keyword)
-	//	unionNameOrReference;
+	//	"$" (unionNameOrReference | keyword) | unionNameOrReference;
 	public UNION_VARIABLE_OR_NAMEElements getUNION_VARIABLE_OR_NAMEAccess() {
 		return (pUNION_VARIABLE_OR_NAME != null) ? pUNION_VARIABLE_OR_NAME : (pUNION_VARIABLE_OR_NAME = new UNION_VARIABLE_OR_NAMEElements());
 	}

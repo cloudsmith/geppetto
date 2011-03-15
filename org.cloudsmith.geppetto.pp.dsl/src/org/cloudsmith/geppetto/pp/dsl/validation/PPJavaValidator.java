@@ -353,7 +353,7 @@ public class PPJavaValidator extends AbstractPPJavaValidator implements IPPDiagn
 			if(!isref) {
 				if(!isname)
 					error(
-						errorStartText + " must start with a [(deprecated) name, or] class reference.", leftExpr,
+						errorStartText + " must start with a [(deprecated) name, or] class reference.", resourceRef,
 						PPPackage.Literals.PARAMETERIZED_EXPRESSION__LEFT_EXPR, INSIGNIFICANT_INDEX,
 						IPPDiagnostics.ISSUE__NOT_CLASSREF);
 				else
@@ -759,8 +759,8 @@ public class PPJavaValidator extends AbstractPPJavaValidator implements IPPDiagn
 
 		if(resourceType == RESOURCE_IS_BAD) {
 			error(
-				"Resource type must be a literal name, 'class', class reference, or a resource reference.",
-				resourceExpr, PPPackage.Literals.RESOURCE_EXPRESSION__RESOURCE_EXPR, INSIGNIFICANT_INDEX,
+				"Resource type must be a literal name, 'class', class reference, or a resource reference.", o,
+				PPPackage.Literals.RESOURCE_EXPRESSION__RESOURCE_EXPR, INSIGNIFICANT_INDEX,
 				ISSUE__RESOURCE_BAD_TYPE_FORMAT);
 			// not much use checking the rest
 			return;
@@ -826,7 +826,7 @@ public class PPJavaValidator extends AbstractPPJavaValidator implements IPPDiagn
 					if(ao instanceof AttributeAddition)
 						error(
 							errorStartText + " can not have attribute additions.", body,
-							PPPackage.Literals.ATTRIBUTE_OPERATIONS__ATTRIBUTES,
+							PPPackage.Literals.RESOURCE_BODY__ATTRIBUTES,
 							body.getAttributes().getAttributes().indexOf(ao),
 							IPPDiagnostics.ISSUE__RESOURCE_WITH_ADDITIONS);
 				}
@@ -862,12 +862,12 @@ public class PPJavaValidator extends AbstractPPJavaValidator implements IPPDiagn
 		if(lhs == null)
 			error(
 				"A selector expression must have a left expression", o,
-				PPPackage.Literals.BINARY_EXPRESSION__LEFT_EXPR, INSIGNIFICANT_INDEX,
+				PPPackage.Literals.PARAMETERIZED_EXPRESSION__LEFT_EXPR, INSIGNIFICANT_INDEX,
 				IPPDiagnostics.ISSUE__NULL_EXPRESSION);
 		else if(!isSELECTOR_LHS(lhs))
 			error(
 				"Not an acceptable selector left hand side expression", o,
-				PPPackage.Literals.BINARY_EXPRESSION__LEFT_EXPR, INSIGNIFICANT_INDEX,
+				PPPackage.Literals.PARAMETERIZED_EXPRESSION__LEFT_EXPR, INSIGNIFICANT_INDEX,
 				IPPDiagnostics.ISSUE__UNSUPPORTED_EXPRESSION);
 
 		// -- there must be at least one parameter
@@ -1055,8 +1055,8 @@ public class PPJavaValidator extends AbstractPPJavaValidator implements IPPDiagn
 					continue each_top;
 			}
 			error(
-				"Not a top level expression. Was: " + s.getClass().getSimpleName(), s, s.eContainingFeature(), i,
-				IPPDiagnostics.ISSUE__NOT_TOPLEVEL);
+				"Not a top level expression. Was: " + s.getClass().getSimpleName(), s.eContainer(),
+				s.eContainingFeature(), i, IPPDiagnostics.ISSUE__NOT_TOPLEVEL);
 		}
 
 	}
@@ -1086,7 +1086,7 @@ public class PPJavaValidator extends AbstractPPJavaValidator implements IPPDiagn
 				if(n.equals(s))
 					break nameCheck;
 			warning(
-				"Unknown function: " + n, name, name.eContainingFeature(), index,
+				"Unknown function: " + n, name.eContainer(), name.eContainingFeature(), index,
 				IPPDiagnostics.ISSUE__UNKNOWN_FUNCTION_REFERENCE);
 
 		}

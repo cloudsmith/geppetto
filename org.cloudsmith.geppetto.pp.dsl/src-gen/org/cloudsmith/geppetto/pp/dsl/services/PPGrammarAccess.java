@@ -4438,7 +4438,7 @@ public class PPGrammarAccess extends AbstractGrammarElementFinder {
 	/// ************************************************************
 	// * TERMINALS 
 	// * (Please no terminals above, and no rules below...)
-	// * /terminal ML_COMMENT:
+	// * / terminal ML_COMMENT:
 	//	"/ *"->"* /" ((" " | " " | "\t")* "\r"? "\n")?;
 	public TerminalRule getML_COMMENTRule() {
 		return (tML_COMMENT != null) ? tML_COMMENT : (tML_COMMENT = (TerminalRule) GrammarUtil.findRuleForName(getGrammar(), "ML_COMMENT"));

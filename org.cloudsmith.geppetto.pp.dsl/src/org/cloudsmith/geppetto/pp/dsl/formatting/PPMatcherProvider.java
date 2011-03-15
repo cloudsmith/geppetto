@@ -12,7 +12,6 @@
 package org.cloudsmith.geppetto.pp.dsl.formatting;
 
 import java.util.Collection;
-import java.util.List;
 
 import org.eclipse.xtext.AbstractElement;
 import org.eclipse.xtext.IGrammarAccess;
@@ -20,8 +19,6 @@ import org.eclipse.xtext.RuleCall;
 import org.eclipse.xtext.formatting.impl.ElementMatcherProvider;
 import org.eclipse.xtext.formatting.impl.MatcherNFAProvider;
 import org.eclipse.xtext.formatting.impl.MatcherState;
-import org.eclipse.xtext.formatting.impl.MatcherTransition;
-import org.eclipse.xtext.util.Pair;
 
 /**
  * Unused, but useful as a replacement when debugging (change to public and include in module).
@@ -41,12 +38,13 @@ class PPMatcherProvider extends ElementMatcherProvider {
 			return super.matchNext(nextElement);
 		}
 
-		@Override
-		protected Pair<List<MatcherTransition>, List<MatcherState>> findTransitionPath(MatcherState from,
-				AbstractElement to, boolean returning, boolean canReturn) {
-			// System.err.println("findTransitionPath from: "+str(from) + " to: "+str(to) + " returning: "+returning + " canReturn: "+canReturn);
-			return super.findTransitionPath(from, to, returning, canReturn);
-		}
+		//
+		// @Override
+		// protected Pair<List<MatcherTransition>, List<MatcherState>> findTransitionPath(MatcherState from,
+		// AbstractElement to, boolean returning, boolean canReturn) {
+		// // System.err.println("findTransitionPath from: "+str(from) + " to: "+str(to) + " returning: "+returning + " canReturn: "+canReturn);
+		// return super.findTransitionPath(from, to, returning, canReturn);
+		// }
 
 		@Override
 		protected Collection<T> patternsForTwoStates(MatcherState first, MatcherState second) {

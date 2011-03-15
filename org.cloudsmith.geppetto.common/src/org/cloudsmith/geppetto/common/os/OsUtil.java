@@ -66,12 +66,48 @@ public class OsUtil {
 		return true;
 	}
 
+	private static String[] concat(String p1, String p2, String[] ps) {
+		String[] all = new String[ps.length + 2];
+		all[0] = p1;
+		all[1] = p2;
+		System.arraycopy(ps, 0, all, 2, ps.length);
+		return all;
+	}
+
 	public static void copyRecursive(File source, File target) throws IOException {
 		if(source.equals(target))
 			return;
 
 		Set<File> visited = new HashSet<File>();
 		copyRecursive(source, target, visited);
+	}
+
+	private static void copyRecursive(File source, File target, Set<File> visited) throws IOException {
+		if(visited.contains(source))
+			throw new IOException("Circular file structure detected");
+
+		visited.add(source);
+
+		if(source.isDirectory()) {
+			for(File subSource : source.listFiles()) {
+				File subTarget = new File(target, subSource.getPath());
+				subTarget.mkdirs();
+				if(!subTarget.isDirectory())
+					throw new IOException("Unable to create or access directory " + subTarget.getAbsolutePath());
+				copyRecursive(subSource, subTarget, visited);
+			}
+		}
+		else {
+			File directory = target.getParentFile();
+			directory.mkdirs();
+			if(!directory.isDirectory())
+				throw new IOException("Unable to create or access directory " + directory.getAbsolutePath());
+			OutputStream targetStream = new FileOutputStream(target);
+			InputStream sourceStream = new FileInputStream(source);
+			StreamUtil.copy(sourceStream, targetStream);
+			sourceStream.close();
+			targetStream.close();
+		}
 	}
 
 	public static void copyRecursive(String source, String target) throws IOException {
@@ -94,8 +130,65 @@ public class OsUtil {
 		deleteRecursive(file, visited);
 	}
 
+	private static void deleteRecursive(File file, Set<File> visited) throws IOException {
+		if(visited.contains(file))
+			throw new IOException("Circular file structure detected");
+
+		visited.add(file);
+		if(file.isDirectory()) {
+			for(File subFile : file.listFiles())
+				deleteRecursive(subFile, visited);
+		}
+
+		if(!file.delete()) {
+			if(file.exists())
+				throw new IOException("Unable to delete " + file.getAbsolutePath());
+		}
+	}
+
 	public static void deleteRecursive(String path) throws IOException {
 		deleteRecursive(new File(path));
+	}
+
+	private static String enumerateToString(String[] tokens) {
+		StringBuilder sb = new StringBuilder();
+
+		boolean first = true;
+		for(String token : tokens) {
+			if(first)
+				first = false;
+			else {
+				sb.append(',');
+				sb.append(' ');
+			}
+			sb.append(token);
+		}
+
+		return sb.toString();
+	}
+
+	private static void find(File file, Pattern pattern, int limit, List<File> found, Set<File> visited)
+			throws IOException {
+		if(visited.contains(file))
+			throw new IOException("Circular file structure detected");
+
+		visited.add(file);
+
+		if(limit > -1 && found.size() >= limit)
+			return;
+
+		if(file.isDirectory()) {
+			File[] subFiles = file.listFiles();
+			Arrays.sort(subFiles);
+			for(File subFile : subFiles) {
+				find(subFile, pattern, limit, found, visited);
+			}
+		}
+		else {
+			Matcher m = pattern.matcher(file.getName());
+			if(m.matches())
+				found.add(file);
+		}
 	}
 
 	public static File[] find(File file, String pattern) throws IOException {
@@ -188,97 +281,5 @@ public class OsUtil {
 			cmd.append(parameter);
 		}
 		return cmd.toString();
-	}
-
-	private static String[] concat(String p1, String p2, String[] ps) {
-		String[] all = new String[ps.length + 2];
-		all[0] = p1;
-		all[1] = p2;
-		System.arraycopy(ps, 0, all, 2, ps.length);
-		return all;
-	}
-
-	private static void copyRecursive(File source, File target, Set<File> visited) throws IOException {
-		if(visited.contains(source))
-			throw new IOException("Circular file structure detected");
-
-		visited.add(source);
-
-		if(source.isDirectory()) {
-			for(File subSource : source.listFiles()) {
-				File subTarget = new File(target, subSource.getPath());
-				subTarget.mkdirs();
-				if(!subTarget.isDirectory())
-					throw new IOException("Unable to create or access directory " + subTarget.getAbsolutePath());
-				copyRecursive(subSource, subTarget, visited);
-			}
-		}
-		else {
-			File directory = target.getParentFile();
-			directory.mkdirs();
-			if(!directory.isDirectory())
-				throw new IOException("Unable to create or access directory " + directory.getAbsolutePath());
-			OutputStream targetStream = new FileOutputStream(target);
-			InputStream sourceStream = new FileInputStream(source);
-			StreamUtil.copy(sourceStream, targetStream);
-			sourceStream.close();
-			targetStream.close();
-		}
-	}
-
-	private static void deleteRecursive(File file, Set<File> visited) throws IOException {
-		if(visited.contains(file))
-			throw new IOException("Circular file structure detected");
-
-		visited.add(file);
-		if(file.isDirectory()) {
-			for(File subFile : file.listFiles())
-				deleteRecursive(subFile, visited);
-		}
-
-		if(!file.delete()) {
-			if(file.exists())
-				throw new IOException("Unable to delete " + file.getAbsolutePath());
-		}
-	}
-
-	private static String enumerateToString(String[] tokens) {
-		StringBuilder sb = new StringBuilder();
-
-		boolean first = true;
-		for(String token : tokens) {
-			if(first)
-				first = false;
-			else {
-				sb.append(',');
-				sb.append(' ');
-			}
-			sb.append(token);
-		}
-
-		return sb.toString();
-	}
-
-	private static void find(File file, Pattern pattern, int limit, List<File> found, Set<File> visited)
-			throws IOException {
-		if(visited.contains(file))
-			throw new IOException("Circular file structure detected");
-
-		visited.add(file);
-
-		if(file.isDirectory()) {
-			File[] subFiles = file.listFiles();
-			Arrays.sort(subFiles);
-			for(File subFile : subFiles) {
-				find(subFile, pattern, limit, found, visited);
-				if(found.size() >= limit)
-					return;
-			}
-		}
-		else {
-			Matcher m = pattern.matcher(file.getName());
-			if(m.matches())
-				found.add(file);
-		}
 	}
 }

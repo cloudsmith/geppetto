@@ -156,6 +156,13 @@ public class TestExpressions extends AbstractPuppetTests {
 
 	}
 
+	public void test_Serialize_ImportExpression() throws Exception {
+		String code = "import \"a\"\nimport \"b\"";
+		XtextResource r = getResourceFromString(code);
+		String s = serializeFormatted(r.getContents().get(0));
+		assertEquals("serialization should produce specified result", code, s);
+	}
+
 	public void test_Serialize_MatchingExpression() {
 		PuppetManifest pp = pf.createPuppetManifest();
 		MatchingExpression me = pf.createMatchingExpression();
@@ -280,6 +287,25 @@ public class TestExpressions extends AbstractPuppetTests {
 		at.getParameters().add(createNameOrReference("a"));
 		ae.setLeftExpr(at);
 		tester.validate(pp).assertOK();
+	}
+
+	public void test_Validate_ImportExpression_NotOk() {
+		PuppetManifest pp = pf.createPuppetManifest();
+		ImportExpression ip = pf.createImportExpression();
+		pp.getStatements().add(ip);
+
+		tester.validate(ip).assertError(IPPDiagnostics.ISSUE__REQUIRED_EXPRESSION);
+	}
+
+	public void test_Validate_ImportExpression_Ok() {
+		PuppetManifest pp = pf.createPuppetManifest();
+		ImportExpression ip = pf.createImportExpression();
+		ip.getValues().add(createSqString("somewhere/*.pp"));
+		pp.getStatements().add(ip);
+
+		tester.validate(ip).assertOK();
+		ip.getValues().add(createSqString("nowhere/*.pp"));
+		tester.validate(ip).assertOK();
 	}
 
 	public void test_Validate_Manifest_NotOk() {
@@ -462,24 +488,5 @@ public class TestExpressions extends AbstractPuppetTests {
 		v.setVarName("$3_4");
 		tester.validate(v).assertOK();
 
-	}
-
-	public void test_ValidateImportExpression_NotOk() {
-		PuppetManifest pp = pf.createPuppetManifest();
-		ImportExpression ip = pf.createImportExpression();
-		pp.getStatements().add(ip);
-
-		tester.validate(ip).assertError(IPPDiagnostics.ISSUE__REQUIRED_EXPRESSION);
-	}
-
-	public void test_ValidateImportExpression_Ok() {
-		PuppetManifest pp = pf.createPuppetManifest();
-		ImportExpression ip = pf.createImportExpression();
-		ip.getValues().add(createSqString("somewhere/*.pp"));
-		pp.getStatements().add(ip);
-
-		tester.validate(ip).assertOK();
-		ip.getValues().add(createSqString("nowhere/*.pp"));
-		tester.validate(ip).assertOK();
 	}
 }

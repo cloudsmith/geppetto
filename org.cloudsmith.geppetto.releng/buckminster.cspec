@@ -6,5 +6,6 @@
 		<cs:dependency name="org.cloudsmith.geppetto" componentType="eclipse.feature" />
 		<cs:dependency name="org.cloudsmith.geppetto.forge.tests" componentType="osgi.bundle" />
 		<cs:dependency name="org.cloudsmith.geppetto.pp.dsl.tests" componentType="osgi.bundle" />
+		<cs:dependency name="org.cloudsmith.geppetto.ruby.tests" componentType="osgi.bundle" />
 	</cs:dependencies>
 </cs:cspec>

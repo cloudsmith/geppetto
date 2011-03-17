@@ -3,7 +3,7 @@ Bundle-ManifestVersion: 2
 Bundle-Name: %pluginName
 Bundle-Vendor: %providerName
 Bundle-Localization: plugin
-Bundle-Version: 0.1.1.qualifier
+Bundle-Version: 0.1.2.qualifier
 Bundle-SymbolicName: org.cloudsmith.geppetto.pp.dsl;singleton:=true
 Bundle-ActivationPolicy: lazy
 Require-Bundle: org.eclipse.xtext,
@@ -15,6 +15,7 @@ Require-Bundle: org.eclipse.xtext,
 Import-Package: org.apache.log4j
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Export-Package: org.cloudsmith.geppetto.pp.dsl,
+ org.cloudsmith.geppetto.pp.dsl.adapters,
  org.cloudsmith.geppetto.pp.dsl.formatting,
  org.cloudsmith.geppetto.pp.dsl.lexer,
  org.cloudsmith.geppetto.pp.dsl.parseTreeConstruction,

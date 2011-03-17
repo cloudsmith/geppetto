@@ -575,14 +575,6 @@ public class PPPackageImpl extends EPackageImpl implements PPPackage {
 	 * 
 	 * @generated
 	 */
-	private EClass owsEClass = null;
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * 
-	 * @generated
-	 */
 	private EClass exprListEClass = null;
 
 	/**
@@ -758,7 +750,6 @@ public class PPPackageImpl extends EPackageImpl implements PPPackage {
 
 		// Create classes and their features
 		puppetManifestEClass = createEClass(PUPPET_MANIFEST);
-		createEReference(puppetManifestEClass, PUPPET_MANIFEST__LEADING_SPACE_AND_COMMENTS);
 
 		expressionEClass = createEClass(EXPRESSION);
 
@@ -790,7 +781,6 @@ public class PPPackageImpl extends EPackageImpl implements PPPackage {
 		createEAttribute(definitionEClass, DEFINITION__CLASS_NAME);
 		createEReference(definitionEClass, DEFINITION__ARGUMENTS);
 		createEReference(definitionEClass, DEFINITION__STATEMENTS);
-		createEReference(definitionEClass, DEFINITION__DOCUMENTATION);
 
 		definitionArgumentListEClass = createEClass(DEFINITION_ARGUMENT_LIST);
 		createEReference(definitionArgumentListEClass, DEFINITION_ARGUMENT_LIST__ARGUMENTS);
@@ -923,9 +913,6 @@ public class PPPackageImpl extends EPackageImpl implements PPPackage {
 
 		parenthesisedExpressionEClass = createEClass(PARENTHESISED_EXPRESSION);
 		createEReference(parenthesisedExpressionEClass, PARENTHESISED_EXPRESSION__EXPR);
-
-		owsEClass = createEClass(OWS);
-		createEAttribute(owsEClass, OWS__VALUES);
 
 		exprListEClass = createEClass(EXPR_LIST);
 		createEReference(exprListEClass, EXPR_LIST__EXPRESSIONS);
@@ -1258,16 +1245,6 @@ public class PPPackageImpl extends EPackageImpl implements PPPackage {
 	 */
 	public EAttribute getDefinition_ClassName() {
 		return (EAttribute) definitionEClass.getEStructuralFeatures().get(0);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * 
-	 * @generated
-	 */
-	public EReference getDefinition_Documentation() {
-		return (EReference) definitionEClass.getEStructuralFeatures().get(3);
 	}
 
 	/**
@@ -1856,26 +1833,6 @@ public class PPPackageImpl extends EPackageImpl implements PPPackage {
 	 * 
 	 * @generated
 	 */
-	public EClass getOWS() {
-		return owsEClass;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * 
-	 * @generated
-	 */
-	public EAttribute getOWS_Values() {
-		return (EAttribute) owsEClass.getEStructuralFeatures().get(0);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * 
-	 * @generated
-	 */
 	public EClass getParameterizedExpression() {
 		return parameterizedExpressionEClass;
 	}
@@ -1938,16 +1895,6 @@ public class PPPackageImpl extends EPackageImpl implements PPPackage {
 	 */
 	public EClass getPuppetManifest() {
 		return puppetManifestEClass;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * 
-	 * @generated
-	 */
-	public EReference getPuppetManifest_LeadingSpaceAndComments() {
-		return (EReference) puppetManifestEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -2371,10 +2318,6 @@ public class PPPackageImpl extends EPackageImpl implements PPPackage {
 		initEClass(
 			puppetManifestEClass, PuppetManifest.class, "PuppetManifest", !IS_ABSTRACT, !IS_INTERFACE,
 			IS_GENERATED_INSTANCE_CLASS);
-		initEReference(
-			getPuppetManifest_LeadingSpaceAndComments(), this.getOWS(), null, "leadingSpaceAndComments", null, 0, 1,
-			PuppetManifest.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES,
-			!IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(
 			expressionEClass, Expression.class, "Expression", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -2449,10 +2392,6 @@ public class PPPackageImpl extends EPackageImpl implements PPPackage {
 			!IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(
 			getDefinition_Statements(), this.getExpression(), null, "statements", null, 0, -1, Definition.class,
-			!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE,
-			!IS_DERIVED, IS_ORDERED);
-		initEReference(
-			getDefinition_Documentation(), this.getOWS(), null, "documentation", null, 0, 1, Definition.class,
 			!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE,
 			!IS_DERIVED, IS_ORDERED);
 
@@ -2788,13 +2727,6 @@ public class PPPackageImpl extends EPackageImpl implements PPPackage {
 			getParenthesisedExpression_Expr(), this.getExpression(), null, "expr", null, 0, 1,
 			ParenthesisedExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE,
 			!IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-		initEClass(
-			owsEClass, org.cloudsmith.geppetto.pp.OWS.class, "OWS", !IS_ABSTRACT, !IS_INTERFACE,
-			IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(
-			getOWS_Values(), ecorePackage.getEString(), "values", null, 0, -1, org.cloudsmith.geppetto.pp.OWS.class,
-			!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(exprListEClass, ExprList.class, "ExprList", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(

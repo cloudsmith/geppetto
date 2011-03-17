@@ -51,7 +51,6 @@ import org.cloudsmith.geppetto.pp.LiteralUndef;
 import org.cloudsmith.geppetto.pp.MatchingExpression;
 import org.cloudsmith.geppetto.pp.MultiplicativeExpression;
 import org.cloudsmith.geppetto.pp.NodeDefinition;
-import org.cloudsmith.geppetto.pp.OWS;
 import org.cloudsmith.geppetto.pp.OrExpression;
 import org.cloudsmith.geppetto.pp.PPFactory;
 import org.cloudsmith.geppetto.pp.PPPackage;
@@ -241,8 +240,6 @@ public class PPFactoryImpl extends EFactoryImpl implements PPFactory {
 				return createVirtualNameOrReference();
 			case PPPackage.PARENTHESISED_EXPRESSION:
 				return createParenthesisedExpression();
-			case PPPackage.OWS:
-				return createOWS();
 			case PPPackage.EXPR_LIST:
 				return createExprList();
 			case PPPackage.DOUBLE_QUOTED_STRING:
@@ -713,17 +710,6 @@ public class PPFactoryImpl extends EFactoryImpl implements PPFactory {
 	public OrExpression createOrExpression() {
 		OrExpressionImpl orExpression = new OrExpressionImpl();
 		return orExpression;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * 
-	 * @generated
-	 */
-	public OWS createOWS() {
-		OWSImpl ows = new OWSImpl();
-		return ows;
 	}
 
 	/**

@@ -12,6 +12,7 @@
 package org.cloudsmith.geppetto.pp.dsl;
 
 import org.cloudsmith.geppetto.pp.dsl.lexer.PPOverridingLexer;
+import org.cloudsmith.geppetto.pp.dsl.linker.PPLinker;
 import org.cloudsmith.geppetto.pp.dsl.serialization.PPValueSerializer;
 import org.eclipse.xtext.conversion.IValueConverterService;
 import org.eclipse.xtext.parser.antlr.Lexer;
@@ -24,6 +25,11 @@ public class PPRuntimeModule extends org.cloudsmith.geppetto.pp.dsl.AbstractPPRu
 	// public Class<? extends IHiddenTokenHelper> bindIHiddenTokenHelper() {
 	// return PPHiddenTokenHelper.class;
 	// }
+
+	@Override
+	public Class<? extends org.eclipse.xtext.linking.ILinker> bindILinker() {
+		return PPLinker.class;
+	}
 
 	// add transient value serialization service to enable skipping values that are transient from
 	// a grammar perspective
@@ -41,15 +47,15 @@ public class PPRuntimeModule extends org.cloudsmith.geppetto.pp.dsl.AbstractPPRu
 		return PPValueSerializer.class;
 	}
 
-	@Override
-	public Class<? extends Lexer> bindLexer() {
-		return PPOverridingLexer.class;
-	}
-
 	// Needed in Xtext 1.0 version
 	// public Class<? extends IElementMatcherProvider> bindMatcherProvider() {
 	// return PPMatcherProvider.class;
 	// }
+
+	@Override
+	public Class<? extends Lexer> bindLexer() {
+		return PPOverridingLexer.class;
+	}
 
 	/**
 	 * for Xtext 2.0 >= M5 see <a href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=322639">Xtext issue 322639</a>

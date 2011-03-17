@@ -19,12 +19,14 @@ import static org.cloudsmith.geppetto.pp.adapters.ClassifierAdapter.RESOURCE_IS_
 
 import java.util.Collections;
 import java.util.List;
+import java.util.regex.Matcher;
 
 import org.cloudsmith.geppetto.pp.AndExpression;
 import org.cloudsmith.geppetto.pp.AppendExpression;
 import org.cloudsmith.geppetto.pp.AssignmentExpression;
 import org.cloudsmith.geppetto.pp.AtExpression;
 import org.cloudsmith.geppetto.pp.AttributeAddition;
+import org.cloudsmith.geppetto.pp.AttributeDefinition;
 import org.cloudsmith.geppetto.pp.AttributeOperation;
 import org.cloudsmith.geppetto.pp.BinaryExpression;
 import org.cloudsmith.geppetto.pp.BinaryOpExpression;
@@ -33,8 +35,11 @@ import org.cloudsmith.geppetto.pp.CollectExpression;
 import org.cloudsmith.geppetto.pp.Definition;
 import org.cloudsmith.geppetto.pp.DefinitionArgument;
 import org.cloudsmith.geppetto.pp.DoubleQuotedString;
+import org.cloudsmith.geppetto.pp.ElseExpression;
+import org.cloudsmith.geppetto.pp.ElseIfExpression;
 import org.cloudsmith.geppetto.pp.EqualityExpression;
 import org.cloudsmith.geppetto.pp.Expression;
+import org.cloudsmith.geppetto.pp.ExpressionTE;
 import org.cloudsmith.geppetto.pp.FunctionCall;
 import org.cloudsmith.geppetto.pp.HostClassDefinition;
 import org.cloudsmith.geppetto.pp.IQuotedString;
@@ -69,11 +74,13 @@ import org.cloudsmith.geppetto.pp.UnaryExpression;
 import org.cloudsmith.geppetto.pp.UnaryMinusExpression;
 import org.cloudsmith.geppetto.pp.UnaryNotExpression;
 import org.cloudsmith.geppetto.pp.VariableExpression;
+import org.cloudsmith.geppetto.pp.VerbatimTE;
 import org.cloudsmith.geppetto.pp.VirtualNameOrReference;
 import org.cloudsmith.geppetto.pp.adapters.ClassifierAdapter;
 import org.cloudsmith.geppetto.pp.adapters.ClassifierAdapterFactory;
 import org.cloudsmith.geppetto.pp.util.TextExpressionHelper;
 import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.xtext.util.Exceptions;
@@ -281,14 +288,15 @@ public class PPJavaValidator extends AbstractPPJavaValidator implements IPPDiagn
 			error(
 				"Expression left of [] is required", o, PPPackage.Literals.PARAMETERIZED_EXPRESSION__LEFT_EXPR,
 				INSIGNIFICANT_INDEX, IPPDiagnostics.ISSUE__REQUIRED_EXPRESSION);
-		else if(!(leftExpr instanceof VariableExpression)) {
+		else if(!(leftExpr instanceof VariableExpression || (o.eContainer() instanceof ExpressionTE && leftExpr instanceof LiteralNameOrReference))) {
 			// then, the leftExpression *must* be an AtExpression with a leftExpr being a variable
 			if(leftExpr instanceof AtExpression) {
 				// older versions limited access to two levels.
 				if(!PuppetCompatibilityHelper.allowMoreThan2AtInSequence()) {
 					final Expression nestedLeftExpr = ((AtExpression) leftExpr).getLeftExpr();
 					// if nestedLeftExpr is null, it is validated for the nested instance
-					if(nestedLeftExpr != null && !(nestedLeftExpr instanceof VariableExpression))
+					if(nestedLeftExpr != null &&
+							!(nestedLeftExpr instanceof VariableExpression || (o.eContainer() instanceof ExpressionTE && nestedLeftExpr instanceof LiteralNameOrReference)))
 						error(
 							"Expression left of [] must be a variable.", nestedLeftExpr,
 							PPPackage.Literals.PARAMETERIZED_EXPRESSION__LEFT_EXPR, INSIGNIFICANT_INDEX,
@@ -345,7 +353,7 @@ public class PPJavaValidator extends AbstractPPJavaValidator implements IPPDiagn
 			if(!isref) {
 				if(!isname)
 					error(
-						errorStartText + " must start with a [(deprecated) name, or] class reference.", leftExpr,
+						errorStartText + " must start with a [(deprecated) name, or] class reference.", resourceRef,
 						PPPackage.Literals.PARAMETERIZED_EXPRESSION__LEFT_EXPR, INSIGNIFICANT_INDEX,
 						IPPDiagnostics.ISSUE__NOT_CLASSREF);
 				else
@@ -371,6 +379,22 @@ public class PPJavaValidator extends AbstractPPJavaValidator implements IPPDiagn
 					PPPackage.Literals.PARAMETERIZED_EXPRESSION__PARAMETERS, resourceRef.getParameters().indexOf(expr),
 					IPPDiagnostics.ISSUE__UNSUPPORTED_EXPRESSION);
 		}
+	}
+
+	@Check
+	public void checkAttributeAddition(AttributeAddition o) {
+		if(!isNAME(o.getKey()))
+			error(
+				"Bad name format.", o, PPPackage.Literals.ATTRIBUTE_OPERATION__KEY, INSIGNIFICANT_INDEX,
+				IPPDiagnostics.ISSUE__NOT_NAME);
+	}
+
+	@Check
+	public void checkAttributeDefinition(AttributeDefinition o) {
+		if(!isNAME(o.getKey()))
+			error(
+				"Bad name format.", o, PPPackage.Literals.ATTRIBUTE_OPERATION__KEY, INSIGNIFICANT_INDEX,
+				IPPDiagnostics.ISSUE__NOT_NAME);
 	}
 
 	@Check
@@ -417,16 +441,59 @@ public class PPJavaValidator extends AbstractPPJavaValidator implements IPPDiagn
 	}
 
 	@Check
+	public void checkDefinition(Definition o) {
+		// Can only be contained by manifest (global scope), or another class.
+		EObject container = o.eContainer();
+		if(!(container instanceof PuppetManifest || container instanceof HostClassDefinition))
+			error(
+				"A definition may only appear at toplevel or directly inside classes.", o, o.eContainingFeature(),
+				INSIGNIFICANT_INDEX, IPPDiagnostics.ISSUE__NOT_AT_TOPLEVEL_OR_CLASS);
+	}
+
+	@Check
 	public void checkDefinitionArgument(DefinitionArgument o) {
 		// -- LHS should be a variable, use of name is deprecated
-		if(!isVARIABLE(o.getArgName()))
+		String argName = o.getArgName();
+		if(argName == null || argName.length() < 1)
+			error(
+				"Empty or null argument", o, PPPackage.Literals.DEFINITION_ARGUMENT__ARG_NAME, INSIGNIFICANT_INDEX,
+				IPPDiagnostics.ISSUE__NOT_VARNAME);
+
+		else if(!argName.startsWith("$"))
 			warning(
 				"Deprecation: Definition argument should now start with $", o,
 				PPPackage.Literals.DEFINITION_ARGUMENT__ARG_NAME, INSIGNIFICANT_INDEX,
 				IPPDiagnostics.ISSUE__NOT_VARNAME);
 
+		else if(!isVARIABLE(argName))
+			error(
+				"Not a valid variable name", o, PPPackage.Literals.DEFINITION_ARGUMENT__ARG_NAME, INSIGNIFICANT_INDEX,
+				IPPDiagnostics.ISSUE__NOT_VARNAME);
+
 		// -- RHS should be a rvalue
 		internalCheckRvalueExpression(o.getValue());
+	}
+
+	@Check
+	public void checkElseExpression(ElseExpression o) {
+		EObject container = o.eContainer();
+		if(container instanceof IfExpression || container instanceof ElseExpression ||
+				container instanceof ElseIfExpression)
+			return;
+		error(
+			"'else' expression can only be used in an 'if', 'else' or 'elsif'", o, o.eContainingFeature(),
+			INSIGNIFICANT_INDEX, IPPDiagnostics.ISSUE__UNSUPPORTED_EXPRESSION);
+	}
+
+	@Check
+	public void checkElseIfExpression(ElseIfExpression o) {
+		EObject container = o.eContainer();
+		if(container instanceof IfExpression || container instanceof ElseExpression ||
+				container instanceof ElseIfExpression)
+			return;
+		error(
+			"'elsif' expression can only be used in an 'if', 'else' or 'elsif'", o, o.eContainingFeature(),
+			INSIGNIFICANT_INDEX, IPPDiagnostics.ISSUE__UNSUPPORTED_EXPRESSION);
 	}
 
 	@Check
@@ -435,11 +502,54 @@ public class PPJavaValidator extends AbstractPPJavaValidator implements IPPDiagn
 	}
 
 	@Check
+	public void checkFunctionCall(FunctionCall o) {
+		if(!(o.getLeftExpr() instanceof LiteralNameOrReference))
+			error(
+				"Must be a name or reference.", o, PPPackage.Literals.PARAMETERIZED_EXPRESSION__LEFT_EXPR,
+				INSIGNIFICANT_INDEX, IPPDiagnostics.ISSUE__NOT_NAME_OR_REF);
+		else {
+			// Simple checking of names, producing a warning for unknown names
+			LiteralNameOrReference name = (LiteralNameOrReference) o.getLeftExpr();
+			nameCheck: {
+				String n = name.getValue();
+				for(String s : namesOfValueFunctions)
+					if(n.equals(s))
+						break nameCheck;
+				for(String s : namesOfVoidFunctions)
+					if(n.equals(s))
+						break nameCheck;
+				warning(
+					"Unknown function: " + n, name, name.eContainingFeature(), INSIGNIFICANT_INDEX,
+					IPPDiagnostics.ISSUE__UNKNOWN_FUNCTION_REFERENCE);
+
+			}
+		}
+	}
+
+	@Check
 	public void checkHostClassDefinition(HostClassDefinition o) {
 		// TODO: name must be NAME, CLASSNAME or "class"
 		// TODO: parent should be a known class
-		// TODO: more?
+
+		// Can only be contained by manifest (global scope), or another class.
+		EObject container = o.eContainer();
+		if(!(container instanceof PuppetManifest || container instanceof HostClassDefinition))
+			error(
+				"Classes may only appear at toplevel or directly inside other classes.", o, o.eContainingFeature(),
+				INSIGNIFICANT_INDEX, IPPDiagnostics.ISSUE__NOT_AT_TOPLEVEL_OR_CLASS);
 		internalCheckTopLevelExpressions(o.getStatements());
+	}
+
+	@Check
+	public void checkIfExpression(IfExpression o) {
+		Expression elseStatement = o.getElseStatement();
+		if(elseStatement == null || elseStatement instanceof ElseExpression || elseStatement instanceof IfExpression ||
+				elseStatement instanceof ElseIfExpression)
+			return;
+		error(
+			"If Expression's else part can only be an 'if' or 'elsif'", o,
+			PPPackage.Literals.IF_EXPRESSION__ELSE_STATEMENT, INSIGNIFICANT_INDEX,
+			IPPDiagnostics.ISSUE__UNSUPPORTED_EXPRESSION);
 	}
 
 	@Check
@@ -520,6 +630,16 @@ public class PPJavaValidator extends AbstractPPJavaValidator implements IPPDiagn
 	@Check
 	public void checkMultiplicativeExpression(MultiplicativeExpression o) {
 		checkOperator(o, "*", "/");
+	}
+
+	@Check
+	public void checkNodeDefinition(NodeDefinition o) {
+		// Can only be contained by manifest (global scope), or another class.
+		EObject container = o.eContainer();
+		if(!(container instanceof PuppetManifest || container instanceof HostClassDefinition))
+			error(
+				"A node definition may only appear at toplevel or directly inside classes.", o, o.eContainingFeature(),
+				INSIGNIFICANT_INDEX, IPPDiagnostics.ISSUE__NOT_AT_TOPLEVEL_OR_CLASS);
 	}
 
 	protected void checkOperator(BinaryOpExpression o, String... ops) {
@@ -639,8 +759,8 @@ public class PPJavaValidator extends AbstractPPJavaValidator implements IPPDiagn
 
 		if(resourceType == RESOURCE_IS_BAD) {
 			error(
-				"Resource type must be a literal name, 'class', class reference, or a resource reference.",
-				resourceExpr, PPPackage.Literals.RESOURCE_EXPRESSION__RESOURCE_EXPR, INSIGNIFICANT_INDEX,
+				"Resource type must be a literal name, 'class', class reference, or a resource reference.", o,
+				PPPackage.Literals.RESOURCE_EXPRESSION__RESOURCE_EXPR, INSIGNIFICANT_INDEX,
 				ISSUE__RESOURCE_BAD_TYPE_FORMAT);
 			// not much use checking the rest
 			return;
@@ -706,7 +826,7 @@ public class PPJavaValidator extends AbstractPPJavaValidator implements IPPDiagn
 					if(ao instanceof AttributeAddition)
 						error(
 							errorStartText + " can not have attribute additions.", body,
-							PPPackage.Literals.ATTRIBUTE_OPERATIONS__ATTRIBUTES,
+							PPPackage.Literals.RESOURCE_BODY__ATTRIBUTES,
 							body.getAttributes().getAttributes().indexOf(ao),
 							IPPDiagnostics.ISSUE__RESOURCE_WITH_ADDITIONS);
 				}
@@ -731,6 +851,7 @@ public class PPJavaValidator extends AbstractPPJavaValidator implements IPPDiagn
 				"Not an acceptable selector entry left hand side expression. Was: " + lhs.getClass().getSimpleName(),
 				o, PPPackage.Literals.BINARY_EXPRESSION__LEFT_EXPR, INSIGNIFICANT_INDEX,
 				IPPDiagnostics.ISSUE__UNSUPPORTED_EXPRESSION);
+		// TODO: check rhs is "rvalue"
 	}
 
 	@Check
@@ -741,12 +862,12 @@ public class PPJavaValidator extends AbstractPPJavaValidator implements IPPDiagn
 		if(lhs == null)
 			error(
 				"A selector expression must have a left expression", o,
-				PPPackage.Literals.BINARY_EXPRESSION__LEFT_EXPR, INSIGNIFICANT_INDEX,
+				PPPackage.Literals.PARAMETERIZED_EXPRESSION__LEFT_EXPR, INSIGNIFICANT_INDEX,
 				IPPDiagnostics.ISSUE__NULL_EXPRESSION);
 		else if(!isSELECTOR_LHS(lhs))
 			error(
 				"Not an acceptable selector left hand side expression", o,
-				PPPackage.Literals.BINARY_EXPRESSION__LEFT_EXPR, INSIGNIFICANT_INDEX,
+				PPPackage.Literals.PARAMETERIZED_EXPRESSION__LEFT_EXPR, INSIGNIFICANT_INDEX,
 				IPPDiagnostics.ISSUE__UNSUPPORTED_EXPRESSION);
 
 		// -- there must be at least one parameter
@@ -776,7 +897,15 @@ public class PPJavaValidator extends AbstractPPJavaValidator implements IPPDiagn
 			error(
 				"Expected to comply with String rule", o, o.eContainingFeature(), INSIGNIFICANT_INDEX,
 				IPPDiagnostics.ISSUE__NOT_STRING);
-
+		String s = o.getText();
+		Matcher m = patternHelper.getunrecognizedEscapesPattern().matcher(s);
+		StringBuffer unrecognized = new StringBuffer();
+		while(m.find())
+			unrecognized.append(m.group());
+		if(unrecognized.length() > 0)
+			warning(
+				"Unrecognized escape sequence(s): " + unrecognized.toString(), o, o.eContainingFeature(),
+				INSIGNIFICANT_INDEX, IPPDiagnostics.ISSUE__UNRECOGNIZED_ESCAPE);
 	}
 
 	@Check
@@ -805,6 +934,22 @@ public class PPJavaValidator extends AbstractPPJavaValidator implements IPPDiagn
 				INSIGNIFICANT_INDEX, IPPDiagnostics.ISSUE__NOT_VARNAME);
 	}
 
+	@Check
+	public void checkVerbatimTextExpression(VerbatimTE o) {
+		Matcher m = patternHelper.getunrecognizedEscapesPattern().matcher(o.getText());
+		StringBuffer unrecognized = new StringBuffer();
+		while(m.find())
+			unrecognized.append(m.group());
+		if(unrecognized.length() > 0)
+			warning(
+				"Unrecognized escape sequence(s): " + unrecognized.toString(), o, o.eContainingFeature(),
+				INSIGNIFICANT_INDEX, IPPDiagnostics.ISSUE__UNRECOGNIZED_ESCAPE);
+	}
+
+	// private PPGrammarAccess getGrammarAccess() {
+	// return (PPGrammarAccess) grammarAccess;
+	// }
+
 	/**
 	 * NOTE: Adds validation to the puppet package (in 1.0 the package was not added
 	 * automatically, in 2.0 it is.
@@ -817,10 +962,6 @@ public class PPJavaValidator extends AbstractPPJavaValidator implements IPPDiagn
 
 		return result;
 	}
-
-	// private PPGrammarAccess getGrammarAccess() {
-	// return (PPGrammarAccess) grammarAccess;
-	// }
 
 	protected boolean hasInterpolation(IQuotedString s) {
 		if(!(s instanceof DoubleQuotedString))
@@ -914,8 +1055,8 @@ public class PPJavaValidator extends AbstractPPJavaValidator implements IPPDiagn
 					continue each_top;
 			}
 			error(
-				"Not a top level expression. Was: " + s.getClass().getSimpleName(), s, s.eContainingFeature(), i,
-				IPPDiagnostics.ISSUE__NOT_TOPLEVEL);
+				"Not a top level expression. Was: " + s.getClass().getSimpleName(), s.eContainer(),
+				s.eContainingFeature(), i, IPPDiagnostics.ISSUE__NOT_TOPLEVEL);
 		}
 
 	}
@@ -945,7 +1086,7 @@ public class PPJavaValidator extends AbstractPPJavaValidator implements IPPDiagn
 				if(n.equals(s))
 					break nameCheck;
 			warning(
-				"Unknown function: " + n, name, name.eContainingFeature(), index,
+				"Unknown function: " + n, name.eContainer(), name.eContainingFeature(), index,
 				IPPDiagnostics.ISSUE__UNKNOWN_FUNCTION_REFERENCE);
 
 		}
@@ -1020,7 +1161,7 @@ public class PPJavaValidator extends AbstractPPJavaValidator implements IPPDiagn
 	private boolean isStandardAtExpression(AtExpression o) {
 		// an At expression is standard if the lhs is a variable or an AtExpression
 		Expression lhs = o.getLeftExpr();
-		return (lhs instanceof VariableExpression || lhs instanceof AtExpression);
+		return (lhs instanceof VariableExpression || lhs instanceof AtExpression || (o.eContainer() instanceof ExpressionTE && lhs instanceof LiteralNameOrReference));
 
 		// // TODO: There may be other references that means that the AtExpression is a ResourceReference.
 		//

@@ -84,4 +84,8 @@ public interface IPPDiagnostics {
 
 	public static final String ISSUE__UNSUPPORTED_REGEX_FLAGS = ISSUE_PREFIX + "UnsupportedRegexFlags";
 
+	public static final String ISSUE__UNRECOGNIZED_ESCAPE = ISSUE_PREFIX + "UnrecognizedStringEscape";
+
+	public static final String ISSUE__NOT_AT_TOPLEVEL_OR_CLASS = ISSUE_PREFIX + "NotAtTopLevelOrClass";
+
 }

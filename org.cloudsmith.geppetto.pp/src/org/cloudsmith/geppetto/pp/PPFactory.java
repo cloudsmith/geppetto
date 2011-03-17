@@ -443,16 +443,6 @@ public interface PPFactory extends EFactory {
 	OrExpression createOrExpression();
 
 	/**
-	 * Returns a new object of class '<em>OWS</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * 
-	 * @return a new object of class '<em>OWS</em>'.
-	 * @generated
-	 */
-	OWS createOWS();
-
-	/**
 	 * Returns a new object of class '<em>Parenthesised Expression</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

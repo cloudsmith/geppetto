@@ -17,6 +17,7 @@ import org.cloudsmith.geppetto.pp.AtExpression;
 import org.cloudsmith.geppetto.pp.CollectExpression;
 import org.cloudsmith.geppetto.pp.EqualityExpression;
 import org.cloudsmith.geppetto.pp.Expression;
+import org.cloudsmith.geppetto.pp.HostClassDefinition;
 import org.cloudsmith.geppetto.pp.ImportExpression;
 import org.cloudsmith.geppetto.pp.LiteralBoolean;
 import org.cloudsmith.geppetto.pp.LiteralNameOrReference;
@@ -57,6 +58,8 @@ public class TestExpressions extends AbstractPuppetTests {
 
 	static final String Sample_Match2 = "$x !~ /[a-z]*/";
 
+	static final String Sample_ClassDefinition = "class testClass {\n}";
+
 	static final String Sample_If = //
 	"if $a == 1 {\n" + //
 			"\ttrue\n" + //
@@ -84,7 +87,7 @@ public class TestExpressions extends AbstractPuppetTests {
 	}
 
 	public void test_ParseCallWithEndComma() throws Exception {
-		String code = "$a = function(1,2,3,)";
+		String code = "$a = include(1,2,3,)";
 		XtextResource r = getResourceFromString(code);
 		tester.validate(r.getContents().get(0)).assertOK();
 	}
@@ -125,6 +128,17 @@ public class TestExpressions extends AbstractPuppetTests {
 		assertEquals("serialization should produce specified result", Sample_Assignment2, s);
 	}
 
+	public void test_Serialize_HostClassExpression() {
+		PuppetManifest pp = pf.createPuppetManifest();
+		HostClassDefinition cd = pf.createHostClassDefinition();
+		pp.getStatements().add(cd);
+		cd.setClassName("testClass");
+
+		String s = serializeFormatted(pp);
+		assertEquals("serialization should produce specified result", Sample_ClassDefinition, s);
+
+	}
+
 	public void test_Serialize_IfExpression1() throws Exception {
 		String code = "if$a==1{true}else{false}if$a==1{true}elsif$b< -3{false}else{true}";
 		XtextResource r = getResourceFromString(code);
@@ -140,6 +154,13 @@ public class TestExpressions extends AbstractPuppetTests {
 		String s = serializeFormatted(r.getContents().get(0));
 		assertEquals("serialization should produce specified result", Sample_If, s);
 
+	}
+
+	public void test_Serialize_ImportExpression() throws Exception {
+		String code = "import \"a\"\nimport \"b\"";
+		XtextResource r = getResourceFromString(code);
+		String s = serializeFormatted(r.getContents().get(0));
+		assertEquals("serialization should produce specified result", code, s);
 	}
 
 	public void test_Serialize_MatchingExpression() {
@@ -266,6 +287,25 @@ public class TestExpressions extends AbstractPuppetTests {
 		at.getParameters().add(createNameOrReference("a"));
 		ae.setLeftExpr(at);
 		tester.validate(pp).assertOK();
+	}
+
+	public void test_Validate_ImportExpression_NotOk() {
+		PuppetManifest pp = pf.createPuppetManifest();
+		ImportExpression ip = pf.createImportExpression();
+		pp.getStatements().add(ip);
+
+		tester.validate(ip).assertError(IPPDiagnostics.ISSUE__REQUIRED_EXPRESSION);
+	}
+
+	public void test_Validate_ImportExpression_Ok() {
+		PuppetManifest pp = pf.createPuppetManifest();
+		ImportExpression ip = pf.createImportExpression();
+		ip.getValues().add(createSqString("somewhere/*.pp"));
+		pp.getStatements().add(ip);
+
+		tester.validate(ip).assertOK();
+		ip.getValues().add(createSqString("nowhere/*.pp"));
+		tester.validate(ip).assertOK();
 	}
 
 	public void test_Validate_Manifest_NotOk() {
@@ -448,24 +488,5 @@ public class TestExpressions extends AbstractPuppetTests {
 		v.setVarName("$3_4");
 		tester.validate(v).assertOK();
 
-	}
-
-	public void test_ValidateImportExpression_NotOk() {
-		PuppetManifest pp = pf.createPuppetManifest();
-		ImportExpression ip = pf.createImportExpression();
-		pp.getStatements().add(ip);
-
-		tester.validate(ip).assertError(IPPDiagnostics.ISSUE__REQUIRED_EXPRESSION);
-	}
-
-	public void test_ValidateImportExpression_Ok() {
-		PuppetManifest pp = pf.createPuppetManifest();
-		ImportExpression ip = pf.createImportExpression();
-		ip.getValues().add(createSqString("somewhere/*.pp"));
-		pp.getStatements().add(ip);
-
-		tester.validate(ip).assertOK();
-		ip.getValues().add(createSqString("nowhere/*.pp"));
-		tester.validate(ip).assertOK();
 	}
 }

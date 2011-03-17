@@ -16,7 +16,6 @@ import java.util.Collection;
 import org.cloudsmith.geppetto.pp.Definition;
 import org.cloudsmith.geppetto.pp.DefinitionArgumentList;
 import org.cloudsmith.geppetto.pp.Expression;
-import org.cloudsmith.geppetto.pp.OWS;
 import org.cloudsmith.geppetto.pp.PPPackage;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
@@ -37,7 +36,6 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <li>{@link org.cloudsmith.geppetto.pp.impl.DefinitionImpl#getClassName <em>Class Name</em>}</li>
  * <li>{@link org.cloudsmith.geppetto.pp.impl.DefinitionImpl#getArguments <em>Arguments</em>}</li>
  * <li>{@link org.cloudsmith.geppetto.pp.impl.DefinitionImpl#getStatements <em>Statements</em>}</li>
- * <li>{@link org.cloudsmith.geppetto.pp.impl.DefinitionImpl#getDocumentation <em>Documentation</em>}</li>
  * </ul>
  * </p>
  * 
@@ -89,17 +87,6 @@ public class DefinitionImpl extends ExpressionImpl implements Definition {
 	protected EList<Expression> statements;
 
 	/**
-	 * The cached value of the '{@link #getDocumentation() <em>Documentation</em>}' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * 
-	 * @see #getDocumentation()
-	 * @generated
-	 * @ordered
-	 */
-	protected OWS documentation;
-
-	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
@@ -135,26 +122,6 @@ public class DefinitionImpl extends ExpressionImpl implements Definition {
 	 * 
 	 * @generated
 	 */
-	public NotificationChain basicSetDocumentation(OWS newDocumentation, NotificationChain msgs) {
-		OWS oldDocumentation = documentation;
-		documentation = newDocumentation;
-		if(eNotificationRequired()) {
-			ENotificationImpl notification = new ENotificationImpl(
-				this, Notification.SET, PPPackage.DEFINITION__DOCUMENTATION, oldDocumentation, newDocumentation);
-			if(msgs == null)
-				msgs = notification;
-			else
-				msgs.add(notification);
-		}
-		return msgs;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * 
-	 * @generated
-	 */
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch(featureID) {
@@ -164,8 +131,6 @@ public class DefinitionImpl extends ExpressionImpl implements Definition {
 				return getArguments();
 			case PPPackage.DEFINITION__STATEMENTS:
 				return getStatements();
-			case PPPackage.DEFINITION__DOCUMENTATION:
-				return getDocumentation();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -183,8 +148,6 @@ public class DefinitionImpl extends ExpressionImpl implements Definition {
 				return basicSetArguments(null, msgs);
 			case PPPackage.DEFINITION__STATEMENTS:
 				return ((InternalEList<?>) getStatements()).basicRemove(otherEnd, msgs);
-			case PPPackage.DEFINITION__DOCUMENTATION:
-				return basicSetDocumentation(null, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -206,8 +169,6 @@ public class DefinitionImpl extends ExpressionImpl implements Definition {
 				return arguments != null;
 			case PPPackage.DEFINITION__STATEMENTS:
 				return statements != null && !statements.isEmpty();
-			case PPPackage.DEFINITION__DOCUMENTATION:
-				return documentation != null;
 		}
 		return super.eIsSet(featureID);
 	}
@@ -231,9 +192,6 @@ public class DefinitionImpl extends ExpressionImpl implements Definition {
 			case PPPackage.DEFINITION__STATEMENTS:
 				getStatements().clear();
 				getStatements().addAll((Collection<? extends Expression>) newValue);
-				return;
-			case PPPackage.DEFINITION__DOCUMENTATION:
-				setDocumentation((OWS) newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -268,9 +226,6 @@ public class DefinitionImpl extends ExpressionImpl implements Definition {
 			case PPPackage.DEFINITION__STATEMENTS:
 				getStatements().clear();
 				return;
-			case PPPackage.DEFINITION__DOCUMENTATION:
-				setDocumentation((OWS) null);
-				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -293,16 +248,6 @@ public class DefinitionImpl extends ExpressionImpl implements Definition {
 	 */
 	public String getClassName() {
 		return className;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * 
-	 * @generated
-	 */
-	public OWS getDocumentation() {
-		return documentation;
 	}
 
 	/**
@@ -355,30 +300,6 @@ public class DefinitionImpl extends ExpressionImpl implements Definition {
 		if(eNotificationRequired())
 			eNotify(new ENotificationImpl(
 				this, Notification.SET, PPPackage.DEFINITION__CLASS_NAME, oldClassName, className));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * 
-	 * @generated
-	 */
-	public void setDocumentation(OWS newDocumentation) {
-		if(newDocumentation != documentation) {
-			NotificationChain msgs = null;
-			if(documentation != null)
-				msgs = ((InternalEObject) documentation).eInverseRemove(this, EOPPOSITE_FEATURE_BASE -
-						PPPackage.DEFINITION__DOCUMENTATION, null, msgs);
-			if(newDocumentation != null)
-				msgs = ((InternalEObject) newDocumentation).eInverseAdd(this, EOPPOSITE_FEATURE_BASE -
-						PPPackage.DEFINITION__DOCUMENTATION, null, msgs);
-			msgs = basicSetDocumentation(newDocumentation, msgs);
-			if(msgs != null)
-				msgs.dispatch();
-		}
-		else if(eNotificationRequired())
-			eNotify(new ENotificationImpl(
-				this, Notification.SET, PPPackage.DEFINITION__DOCUMENTATION, newDocumentation, newDocumentation));
 	}
 
 	/**

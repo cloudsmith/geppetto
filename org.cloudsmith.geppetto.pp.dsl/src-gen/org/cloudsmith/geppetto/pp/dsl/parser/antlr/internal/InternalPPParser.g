@@ -4018,14 +4018,38 @@ ruleUNION_VARIABLE_OR_NAME returns [AntlrDatatypeRuleToken current=new AntlrData
 	kw=KEYWORD_3 
     {
         $current.merge(kw);
-        newLeafNode(kw, grammarAccess.getUNION_VARIABLE_OR_NAMEAccess().getDollarSignKeyword_0()); 
+        newLeafNode(kw, grammarAccess.getUNION_VARIABLE_OR_NAMEAccess().getDollarSignKeyword_0_0()); 
     }
-)?
+(
     { 
-        newCompositeNode(grammarAccess.getUNION_VARIABLE_OR_NAMEAccess().getUnionNameOrReferenceParserRuleCall_1()); 
+        newCompositeNode(grammarAccess.getUNION_VARIABLE_OR_NAMEAccess().getUnionNameOrReferenceParserRuleCall_0_1_0()); 
     }
     this_unionNameOrReference_1=ruleunionNameOrReference    {
 		$current.merge(this_unionNameOrReference_1);
+    }
+
+    { 
+        afterParserOrEnumRuleCall();
+    }
+
+    |
+    { 
+        newCompositeNode(grammarAccess.getUNION_VARIABLE_OR_NAMEAccess().getKeywordParserRuleCall_0_1_1()); 
+    }
+    this_keyword_2=rulekeyword    {
+		$current.merge(this_keyword_2);
+    }
+
+    { 
+        afterParserOrEnumRuleCall();
+    }
+))
+    |
+    { 
+        newCompositeNode(grammarAccess.getUNION_VARIABLE_OR_NAMEAccess().getUnionNameOrReferenceParserRuleCall_1()); 
+    }
+    this_unionNameOrReference_3=ruleunionNameOrReference    {
+		$current.merge(this_unionNameOrReference_3);
     }
 
     { 
@@ -5780,55 +5804,6 @@ rulevariable returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken(
     newLeafNode(this_WORD_CHARS_0, grammarAccess.getVariableAccess().getWORD_CHARSTerminalRuleCall()); 
     }
 
-    ;
-finally {
-	myHiddenTokenState.restore();
-}
-
-
-
-
-
-
-
-// Entry rule entryRulecomment
-entryRulecomment returns [String current=null] 
-	@init { 
-		HiddenTokens myHiddenTokenState = ((XtextTokenStream)input).setHiddenTokens();
-	}
-:
-	{ newCompositeNode(grammarAccess.getCommentRule()); } 
-	 iv_rulecomment=rulecomment 
-	 { $current=$iv_rulecomment.current.getText(); }  
-	 EOF 
-;
-finally {
-	myHiddenTokenState.restore();
-}
-
-// Rule comment
-rulecomment returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] 
-    @init { enterRule(); 
-		HiddenTokens myHiddenTokenState = ((XtextTokenStream)input).setHiddenTokens();
-    }
-    @after { leaveRule();
-    }:
-(    this_ML_COMMENT_0=RULE_ML_COMMENT    {
-		$current.merge(this_ML_COMMENT_0);
-    }
-
-    { 
-    newLeafNode(this_ML_COMMENT_0, grammarAccess.getCommentAccess().getML_COMMENTTerminalRuleCall_0()); 
-    }
-
-    |    this_SL_COMMENT_1=RULE_SL_COMMENT    {
-		$current.merge(this_SL_COMMENT_1);
-    }
-
-    { 
-    newLeafNode(this_SL_COMMENT_1, grammarAccess.getCommentAccess().getSL_COMMENTTerminalRuleCall_1()); 
-    }
-)
     ;
 finally {
 	myHiddenTokenState.restore();

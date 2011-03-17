@@ -121,6 +121,7 @@ public class PPFormatter extends AbstractDeclarativeFormatter {
 		assignmentExpressionConfiguration(c);
 		importExpressionConfiguration(c);
 		literalListAndHashConfiguration(c);
+		functionCallConfiguration(c);
 
 		// commas
 		for(Keyword comma : ga.findKeywords(",")) {
@@ -136,6 +137,7 @@ public class PPFormatter extends AbstractDeclarativeFormatter {
 		collectExpressionConfiguration(c);
 		atExpressionConfiguration(c);
 		parenthisedExpressionConfguration(c);
+		manifestConfiguration(c);
 
 		// DEBUG: uncomment next to get a diagram of the formatter
 		// super.saveDebugGraphvizDiagram("debugDiagram.dot");
@@ -162,11 +164,21 @@ public class PPFormatter extends AbstractDeclarativeFormatter {
 		c.setIndentation(lbr, rbr);
 
 		List<Pair<Keyword, Keyword>> pairs = ga.getDefinitionArgumentListAccess().findKeywordPairs("(", ")");
-		if(pairs.size() == 1)
+		if(pairs.size() == 1) {
 			c.setIndentation(pairs.get(0).getFirst(), pairs.get(0).getSecond());
+			c.setNoSpace().after(pairs.get(0).getFirst());
+			c.setNoSpace().before(pairs.get(0).getSecond());
+		}
 		List<Keyword> commas = ga.getDefinitionArgumentListAccess().findKeywords(",");
 		for(Keyword comma : commas)
 			c.setLinewrap().after(comma);
+	}
+
+	protected void functionCallConfiguration(FormattingConfig c) {
+		PPGrammarAccess ga = (PPGrammarAccess) getGrammarAccess();
+		c.setNoSpace().before(ga.getFunctionCallAccess().getLeftParenthesisKeyword_1_1());
+		c.setNoSpace().after(ga.getFunctionCallAccess().getLeftParenthesisKeyword_1_1());
+		c.setNoSpace().before(ga.getFunctionCallAccess().getRightParenthesisKeyword_1_3());
 	}
 
 	protected void ifExpressionConfiguration(FormattingConfig c) {
@@ -192,6 +204,7 @@ public class PPFormatter extends AbstractDeclarativeFormatter {
 
 	protected void importExpressionConfiguration(FormattingConfig c) {
 		PPGrammarAccess ga = (PPGrammarAccess) getGrammarAccess();
+		// This does not work - no element of Import makes the linewrap take effect
 		c.setLinewrap().after(ga.getImportExpressionAccess().getGroup_2());
 	}
 
@@ -206,6 +219,12 @@ public class PPFormatter extends AbstractDeclarativeFormatter {
 		// -- no space before closing }
 		c.setNoSpace().after(ga.getLiteralHashAccess().getLeftCurlyBracketKeyword_1());
 		c.setNoSpace().before(ga.getLiteralHashAccess().getRightCurlyBracketKeyword_4());
+	}
+
+	protected void manifestConfiguration(FormattingConfig c) {
+		PPGrammarAccess ga = (PPGrammarAccess) getGrammarAccess();
+		// bug - has no effect
+		c.setLinewrap().after(ga.getPuppetManifestAccess().getStatementsAssignment_1());
 	}
 
 	protected void parenthisedExpressionConfguration(FormattingConfig c) {

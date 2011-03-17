@@ -11,6 +11,7 @@
 	<rm:locator pattern="^org\.eclipse\.(?:xpand|xtend)(?:\..+)?$" searchPathRef="xpand" />
 
 	<rm:locator pattern="^org\.eclipse\.emf\.mwe2?(?:\..+)?$" searchPathRef="mwe" />
+	<rm:locator pattern="^org\.eclipse\.emf(\..+)?$" searchPathRef="emf" />
 
 	<rm:locator pattern="^org\.eclipse\.[ej]git(?:\..+)?$" searchPathRef="git" />
 
@@ -62,6 +63,12 @@
 			<rm:uri format="{0}/modeling/emft/mwe/updates/milestones">
 				<bc:propertyRef key="eclipse.download" />
 			</rm:uri>
+		</rm:provider>
+	</rm:searchPath>
+
+	<rm:searchPath name="emf">
+		<rm:provider componentTypes="osgi.bundle,eclipse.feature" readerType="p2" source="false">
+			<rm:uri format="http://download.cloudsmith.com/emf4gwt/sdk" />
 		</rm:provider>
 	</rm:searchPath>
 

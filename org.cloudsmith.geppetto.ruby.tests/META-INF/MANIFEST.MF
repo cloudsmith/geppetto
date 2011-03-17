@@ -1,0 +1,12 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Geppetto Ruby Test
+Bundle-SymbolicName: org.cloudsmith.geppetto.ruby.tests;singleton:=true
+Bundle-Version: 1.0.0.qualifier
+Bundle-Vendor: Cloudsmith
+Require-Bundle: org.eclipse.core.runtime,
+ org.junit,
+ org.cloudsmith.geppetto.ruby,
+ org.jruby.jruby;bundle-version="1.6.0"
+Bundle-RequiredExecutionEnvironment: J2SE-1.5
+Bundle-ActivationPolicy: lazy

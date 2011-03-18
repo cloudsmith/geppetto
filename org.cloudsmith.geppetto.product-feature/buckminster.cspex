@@ -4,6 +4,7 @@
 		<dependency name="org.cloudsmith.geppetto.releng" componentType="buckminster" />
 		<dependency name="org.cloudsmith.geppetto" componentType="eclipse.feature" />
 		<dependency name="org.eclipse.equinox.executable" componentType="eclipse.feature" />
+		<dependency name="org.cloudsmith.geppetto.pp.dsl.generate" componentType="osgi.bundle" />
 	</dependencies>
 
 	<artifacts>

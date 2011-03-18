@@ -1038,7 +1038,7 @@ public class PPJavaValidator extends AbstractPPJavaValidator implements IPPDiagn
 				// parameters.
 				if((i + 1) >= statements.size()) {
 					error(
-						"Not a top level expression. (Looks like a function call without arguments)", s,
+						"Not a top level expression. (Looks like a function call without arguments)", s.eContainer(),
 						s.eContainingFeature(), i, IPPDiagnostics.ISSUE__NOT_TOPLEVEL);
 				}
 				else {

@@ -1,10 +1,12 @@
 package org.cloudsmith.geppetto.ruby;
 
+import java.util.Collections;
 import java.util.List;
 
 import org.jruby.Ruby;
 import org.jruby.common.IRubyWarnings;
 import org.jruby.lexer.yacc.ISourcePosition;
+import org.jruby.lexer.yacc.SyntaxException;
 
 import com.google.common.collect.Lists;
 
@@ -16,10 +18,26 @@ public class RubyParserWarningsCollector implements IRubyWarnings {
 	private Ruby runtime;
 	private List<RubyIssue> issues;
 	
+	public List<RubyIssue> getIssues() {
+		return Collections.unmodifiableList(issues);
+	}
 	public static class RubyIssue {
+		/**
+		 * Indicates if this is a syntax error. This is the same as getId() == null.
+		 * @return
+		 */
+		public boolean isSyntaxError() {
+			return id == null;
+		}
+		
+		/**
+		 * 
+		 * @return null if this issue represents a syntax error.
+		 */
 		public ID getId() {
 			return id;
 		}
+		
 		public int getLine() {
 			return line;
 		}
@@ -30,6 +48,7 @@ public class RubyParserWarningsCollector implements IRubyWarnings {
 		public int getStartLine() {
 			return startLine;
 		}
+		
 		/**
 		 * Returns null if issue did not report a filename
 		 * @return
@@ -37,12 +56,15 @@ public class RubyParserWarningsCollector implements IRubyWarnings {
 		public String getFileName() {
 			return fileName;
 		}
+		
 		public String getMessage() {
 			return message;
 		}
+		
 		public Object[] getData() {
 			return data;
 		}
+		
 		private ID id;
 		private int line;
 		private int startLine;
@@ -50,6 +72,8 @@ public class RubyParserWarningsCollector implements IRubyWarnings {
 		private String message;
 		private Object[] data;
 		protected RubyIssue(ID id, int line, int startLine, String fileName, String message, Object...data) {
+			if(id == null)
+				throw new IllegalArgumentException("ID may not be null");
 			this.id = id;
 			this.line = line;
 			this.startLine = startLine;
@@ -57,8 +81,20 @@ public class RubyParserWarningsCollector implements IRubyWarnings {
 			this.message = message;
 			this.data = data;
 		}
+		
 		protected RubyIssue(ID id, ISourcePosition position, String message, Object... data) {
 			this(id, position.getLine(), position.getStartLine(), position.getFile(), message, data);
+		}
+		
+		private static final Object[] EMPTY_DATA = {} ;
+		protected RubyIssue(SyntaxException error) {
+			ISourcePosition position = error.getPosition();
+			this.id = null; // is a syntax error
+			this.line = position.getLine();
+			this.startLine = position.getStartLine();
+			this.fileName = position.getFile();
+			this.message = error.getMessage();
+			this.data = EMPTY_DATA;
 		}
 		
 	}
@@ -111,5 +147,8 @@ public class RubyParserWarningsCollector implements IRubyWarnings {
 	public void warning(ID id, String fileName, int lineNumber, String message, Object... data) {
 		issues.add(new RubyIssue(id, lineNumber, -1, fileName, message, data));
 	}
-
+	
+	public void syntaxError(SyntaxException error) {
+		issues.add(new RubyIssue(error));
+	}
 }

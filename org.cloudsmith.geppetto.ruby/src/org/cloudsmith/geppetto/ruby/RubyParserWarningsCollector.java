@@ -37,7 +37,13 @@ public class RubyParserWarningsCollector implements IRubyWarnings {
 		public ID getId() {
 			return id;
 		}
-		
+		/**
+		 * Returns "jruby.syntax.error" if this issue represents a syntax error, else the ID as a string.
+		 * @return
+		 */
+		public String getIdString() {
+			return id == null ? "jruby.syntax.error" : id.toString();
+		}
 		public int getLine() {
 			return line;
 		}

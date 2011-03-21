@@ -20,15 +20,40 @@ import org.jruby.parser.RubyParserResult;
 
 public class RubyHelper {
 	
+	/** 
+	 * The number of the first line in a source file.
+	 */
+	private final int startLine = 1;
+
+	/**
+	 * No idea what this is. Setting to true did not seem to add any information to errors.
+	 */
+	private final boolean extraPositionInfo = false;
+	
+	/**
+	 * No idea what this is. Setting to false still reports errors with some source and a caret indicating
+	 * position.
+	 */
+	private final boolean inlineSource = false;
+	
+	/**
+	 * Compatibility of Ruby language version.
+	 */
+	private final CompatVersion rubyVersion = CompatVersion.RUBY1_9;
+
+	/**
+	 * Holds the JRuby parser result (the AST and any reported issues/errors).
+	 *
+	 */
 	public static class Result {
 		private List<RubyIssue> issues;
 		private Node AST;
-		
+
 		Result(RubyParserResult parserResult, List<RubyIssue> issues) {
 			this.issues = issues;
 			this.AST = parserResult == null ? null : parserResult.getAST();
 		}
-		
+
 		/**
 		 * Returns a list of issues. Will return an empty list if there were no issues.
 		 * @return
@@ -36,7 +61,7 @@ public class RubyHelper {
 		public List<RubyIssue> getIssues() {
 			return issues;
 		}
-		
+
 		/**
 		 * @return the parsed AST, or null in case of errors.
 		 */
@@ -45,6 +70,10 @@ public class RubyHelper {
 		}
 
 	}
+
+	private ParserConfiguration parserConfiguration;
+	private Ruby rubyRuntime;
+
 	/**
 	 * IOExceptions thrown FileNotFound, and while reading
 	 * @param file
@@ -52,41 +81,45 @@ public class RubyHelper {
 	 * @throws IOException
 	 */
 	public Result parse(File file) throws IOException {
-		// Ruby Compatibility to use
-		CompatVersion rubyVersion = CompatVersion.RUBY1_9;
-		// Configure a Ruby Runtime, it is needed for the warnings processor even if we are not
-		// going to be running any of the scripts.
-		RubyInstanceConfig config = new RubyInstanceConfig();
-		config.setCompatVersion(rubyVersion);
-		Ruby rubyRuntime = Ruby.newInstance(config);
+		if(rubyRuntime == null)
+			setUp();
 		
-		// Get a parser
-		RubyParser parser = RubyParserPool.getInstance().borrowParser(rubyVersion);
-		
-		// Create a warnings collector and give it to the parser
-		RubyParserWarningsCollector warnings = new RubyParserWarningsCollector(rubyRuntime);
-		parser.setWarnings(warnings);
-		
-		// Create a parser configuration
-		final int startLine = 1;
-		final boolean extraPositionInfo = false;
-		final boolean inlineSource = false;
-		final List<String> lexerCapture = null;
-		// TODO: encoding is US-ASCII by default, wonder if that should be UTF8 instead, or picked up from 
-		// somewhere...
-		ParserConfiguration parserConfiguration = new ParserConfiguration(rubyRuntime,startLine,extraPositionInfo,inlineSource,rubyVersion);
-		
+		// Set up input 
+		final List<String> lexerCapture = null; // do not want to record the read text lines
 		FileInputStream input = new FileInputStream(file);
-		
 		LexerSource source = new InputStreamLexerSource(file.getPath(), 
 				input, lexerCapture, startLine, extraPositionInfo);
-		
+
+		// Get a parser
+		RubyParser parser = RubyParserPool.getInstance().borrowParser(rubyVersion);
+
+		// Create a warnings collector to give to the parser
+		RubyParserWarningsCollector warnings = new RubyParserWarningsCollector(rubyRuntime);
+		parser.setWarnings(warnings);
 		RubyParserResult parserResult = null;
 		try {
 			parserResult = parser.parse(parserConfiguration, source);
 		} catch (SyntaxException e) {
 			warnings.syntaxError(e);
+		} finally {
+			RubyParserPool.getInstance().returnParser(parser);
 		}
 		return new Result(parserResult, warnings.getIssues());
+	}
+	
+	/**
+	 * Configure a Ruby Runtime, it is needed for the warnings processor even if we are not
+	 * going to be running any of the scripts.
+	 */
+	public void setUp() {
+		RubyInstanceConfig config = new RubyInstanceConfig();
+		config.setCompatVersion(rubyVersion);
+		rubyRuntime = Ruby.newInstance(config);
+		parserConfiguration = new ParserConfiguration(rubyRuntime,startLine,extraPositionInfo,inlineSource,rubyVersion);
+	}
+	
+	public void tearDown() {
+		rubyRuntime = null;
+		parserConfiguration = null;
 	}
 }

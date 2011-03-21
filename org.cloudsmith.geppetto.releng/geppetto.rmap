@@ -110,7 +110,7 @@
 
 	<rm:searchPath name="platform">
 		<rm:provider componentTypes="osgi.bundle,eclipse.feature" readerType="p2" source="false" mutable="false">
-			<rm:uri format="{0}/eclipse/updates/3.6.x">
+			<rm:uri format="{0}/eclipse/updates/3.6/R-3.6.2-201102101200">
 				<bc:propertyRef key="eclipse.download" />
 			</rm:uri>
 		</rm:provider>
@@ -118,7 +118,7 @@
 
 	<rm:searchPath name="helios">
 		<rm:provider componentTypes="osgi.bundle,eclipse.feature" readerType="p2" source="false" mutable="false">
-			<rm:uri format="{0}/releases/maintenance">
+			<rm:uri format="{0}/releases/helios/201102250900">
 				<bc:propertyRef key="eclipse.download" />
 			</rm:uri>
 		</rm:provider>

@@ -11,15 +11,15 @@
 	<rm:locator pattern="^org\.eclipse\.(?:xpand|xtend)(?:\..+)?$" searchPathRef="xpand" />
 
 	<rm:locator pattern="^org\.eclipse\.emf\.mwe2?(?:\..+)?$" searchPathRef="mwe" />
-	<rm:locator pattern="^org\.eclipse\.emf(\..+)?$" searchPathRef="emf" />
+	<rm:locator pattern="^org\.eclipse\.emf(?:\..+)?$" searchPathRef="emf" />
 
 	<rm:locator pattern="^org\.eclipse\.[ej]git(?:\..+)?$" searchPathRef="git" />
 
 	<rm:locator pattern="^org\.eclipse\.team\.svn(?:\..+)?$" searchPathRef="svn" />
 	<rm:locator pattern="^org\.polarion\.eclipse\.team\.svn\.connector(?:\..+)?$" searchPathRef="svn.connectors" />
 
-	<rm:locator pattern="^org\.apache\.commons\.compress(\..+)?$" searchPathRef="maven.central" />
-	<rm:locator pattern="^org\.jruby(\..+)?$" searchPathRef="maven.central" />
+	<rm:locator pattern="^org\.apache\.commons\.compress(?:\..+)?$" searchPathRef="maven.central" />
+	<rm:locator pattern="^org\.jruby(?:\..+)?$" searchPathRef="maven.central" />
 
 	<rm:locator searchPathRef="platform" failOnError="false" />
 	<rm:locator searchPathRef="helios" failOnError="false" />
@@ -67,7 +67,7 @@
 	</rm:searchPath>
 
 	<rm:searchPath name="emf">
-		<rm:provider componentTypes="osgi.bundle,eclipse.feature" readerType="p2" source="false">
+		<rm:provider componentTypes="osgi.bundle,eclipse.feature" readerType="p2" source="false" mutable="false">
 			<rm:uri format="http://download.cloudsmith.com/emf4gwt/sdk" />
 		</rm:provider>
 	</rm:searchPath>

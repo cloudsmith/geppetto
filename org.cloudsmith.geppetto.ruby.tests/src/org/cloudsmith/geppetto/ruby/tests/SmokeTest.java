@@ -14,9 +14,10 @@ package org.cloudsmith.geppetto.ruby.tests;
 import java.io.File;
 
 import junit.framework.TestCase;
-import org.cloudsmith.geppetto.ruby.RubyHelper;
-import org.cloudsmith.geppetto.ruby.RubyHelper.Result;
-import org.cloudsmith.geppetto.ruby.RubyParserWarningsCollector.RubyIssue;
+
+import org.cloudsmith.geppetto.ruby.jruby.RubyHelper;
+import org.cloudsmith.geppetto.ruby.jruby.RubyHelper.Result;
+import org.cloudsmith.geppetto.ruby.jruby.RubyParserWarningsCollector.RubyIssue;
 import org.eclipse.core.runtime.Path;
 
 public class SmokeTest extends TestCase{

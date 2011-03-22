@@ -1,12 +1,11 @@
 package org.cloudsmith.geppetto.ruby.tests;
 
 import java.io.File;
-import java.util.List;
 
-import org.cloudsmith.geppetto.ruby.AbstractJRubyVisitor;
-import org.cloudsmith.geppetto.ruby.RubyHelper;
-import org.cloudsmith.geppetto.ruby.RubyHelper.Result;
-import org.cloudsmith.geppetto.ruby.tests.PuppetFunctionTests.ModuleVisitor;
+import org.cloudsmith.geppetto.ruby.jruby.AbstractJRubyVisitor;
+import org.cloudsmith.geppetto.ruby.jruby.RubyHelper;
+import org.cloudsmith.geppetto.ruby.jruby.RubyHelper.Result;
+
 import org.eclipse.core.runtime.Path;
 import org.jruby.ast.ModuleNode;
 import org.jruby.ast.Node;

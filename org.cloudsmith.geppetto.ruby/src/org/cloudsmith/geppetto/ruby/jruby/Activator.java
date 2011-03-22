@@ -9,7 +9,7 @@
  *   Cloudsmith
  * 
  */
-package org.cloudsmith.geppetto.ruby;
+package org.cloudsmith.geppetto.ruby.jruby;
 
 import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;

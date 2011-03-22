@@ -9,14 +9,14 @@
  *   Cloudsmith
  * 
  */
-package org.cloudsmith.geppetto.ruby;
+package org.cloudsmith.geppetto.ruby.jruby;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.List;
 
-import org.cloudsmith.geppetto.ruby.RubyParserWarningsCollector.RubyIssue;
+import org.cloudsmith.geppetto.ruby.jruby.RubyParserWarningsCollector.RubyIssue;
 import org.jruby.CompatVersion;
 import org.jruby.Ruby;
 import org.jruby.RubyInstanceConfig;

@@ -1,4 +1,4 @@
-package org.cloudsmith.geppetto.ruby;
+package org.cloudsmith.geppetto.ruby.jruby;
 
 import org.jruby.ast.*;
 import org.jruby.ast.visitor.NodeVisitor;

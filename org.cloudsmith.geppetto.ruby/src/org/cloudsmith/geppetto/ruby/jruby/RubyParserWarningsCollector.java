@@ -9,7 +9,7 @@
  *   Cloudsmith
  * 
  */
-package org.cloudsmith.geppetto.ruby;
+package org.cloudsmith.geppetto.ruby.jruby;
 
 import java.util.Collections;
 import java.util.List;

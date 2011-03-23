@@ -2,24 +2,25 @@
 <rm:rmap xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:bc="http://www.eclipse.org/buckminster/Common-1.0"
 	xmlns:rm="http://www.eclipse.org/buckminster/RMap-1.0" xmlns:maven="http://www.eclipse.org/buckminster/MavenProvider-1.0"
 >
-	<rm:locator pattern="^org\.cloudsmith\.geppetto(?:\..+)?$" searchPathRef="geppetto" />
+	<rm:locator pattern="^org\.cloudsmith\.geppetto(\..+)?$" searchPathRef="geppetto" />
 
-	<rm:locator pattern="^org\.eclipse\.xtext(?:\..+)?$" searchPathRef="tmf" />
-	<rm:locator pattern="^com\.google\.(?:inject|collect)$" searchPathRef="tmf" />
-	<rm:locator pattern="^org\.(?:aopalliance|antlr\.runtime|apache\.log4j)$" searchPathRef="tmf" />
+	<rm:locator pattern="^org\.eclipse\.xtext(\..+)?$" searchPathRef="tmf" />
+	<rm:locator pattern="^com\.google\.(inject|collect)$" searchPathRef="tmf" />
+	<rm:locator pattern="^org\.(aopalliance|antlr\.runtime|apache\.log4j)$" searchPathRef="tmf" />
 
-	<rm:locator pattern="^org\.eclipse\.(?:xpand|xtend)(?:\..+)?$" searchPathRef="xpand" />
+	<rm:locator pattern="^org\.eclipse\.(xpand|xtend)(\..+)?$" searchPathRef="xpand" />
 
-	<rm:locator pattern="^org\.eclipse\.emf\.mwe2?(?:\..+)?$" searchPathRef="mwe" />
-	<rm:locator pattern="^org\.eclipse\.emf(?:\..+)?$" searchPathRef="emf" />
+	<rm:locator pattern="^org\.eclipse\.emf\.mwe2?(\..+)?$" searchPathRef="mwe" />
+	<rm:locator pattern="^org\.eclipse\.emf(\..+)?$" searchPathRef="emf" />
 
-	<rm:locator pattern="^org\.eclipse\.[ej]git(?:\..+)?$" searchPathRef="git" />
+	<rm:locator pattern="^org\.eclipse\.[ej]git(\..+)?$" searchPathRef="git" />
 
-	<rm:locator pattern="^org\.eclipse\.team\.svn(?:\..+)?$" searchPathRef="svn" />
-	<rm:locator pattern="^org\.polarion\.eclipse\.team\.svn\.connector(?:\..+)?$" searchPathRef="svn.connectors" />
+	<rm:locator pattern="^org\.eclipse\.team\.svn(\..+)?$" searchPathRef="svn" />
+	<rm:locator pattern="^org\.polarion\.eclipse\.team\.svn\.connector(\..+)?$" searchPathRef="svn.connectors" />
 
-	<rm:locator pattern="^org\.apache\.commons\.compress(?:\..+)?$" searchPathRef="maven.central" />
-	<rm:locator pattern="^org\.jruby(?:\..+)?$" searchPathRef="maven.central" />
+	<rm:locator pattern="^org\.apache\.commons\.compress(\..+)?$" searchPathRef="maven.central" />
+	<rm:locator pattern="^org\.jrubyparser(\..+)?$" searchPathRef="jrubyparser" />
+	<rm:locator pattern="^org\.jruby(\..+)?$" searchPathRef="maven.central" />
 
 	<rm:locator searchPathRef="platform" failOnError="false" />
 	<rm:locator searchPathRef="helios" failOnError="false" />
@@ -38,6 +39,15 @@
 			<rm:uri format="{0},{1}-feature">
 				<bc:propertyRef key="repository.clone.directory" />
 				<bc:propertyRef key="buckminster.component" />
+			</rm:uri>
+		</rm:provider>
+	</rm:searchPath>
+
+	<rm:searchPath name="jrubyparser">
+		<rm:provider componentTypes="osgi.bundle" readerType="git" source="true">
+			<rm:property key="git.remote.uri" value="git@github.com:cloudsmith/jruby-parser.git" />
+			<rm:uri format="{0}/jruby-parser">
+				<bc:propertyRef key="workspace.root" />
 			</rm:uri>
 		</rm:provider>
 	</rm:searchPath>

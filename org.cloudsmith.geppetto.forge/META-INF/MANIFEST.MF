@@ -3,22 +3,18 @@ Bundle-ManifestVersion: 2
 Bundle-Name: %pluginName
 Bundle-SymbolicName: org.cloudsmith.geppetto.forge;singleton:=true
 Bundle-Version: 0.1.0.qualifier
-Bundle-ClassPath: .,
- lib/JRubyParser.jar,
- lib/yydebug.jar
 Bundle-Vendor: %providerName
 Bundle-Localization: plugin
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Export-Package: org.cloudsmith.geppetto.forge,
  org.cloudsmith.geppetto.forge.impl;x-friends:="org.cloudsmith.geppetto.forge.tests",
- org.cloudsmith.geppetto.forge.util,
- org.jrubyparser,
- org.jrubyparser.ast
+ org.cloudsmith.geppetto.forge.util
 Require-Bundle: org.eclipse.core.runtime,
  org.cloudsmith.geppetto.common,
  org.eclipse.emf.ecore;visibility:=reexport,
  com.google.gson,
- org.apache.commons.compress
+ org.apache.commons.compress,
+ org.jrubyparser
 Bundle-ActivationPolicy: lazy
 Eclipse-BundleShape: dir
 Bundle-Activator: org.cloudsmith.geppetto.forge.impl.Activator

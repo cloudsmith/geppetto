@@ -24,5 +24,15 @@ public interface IRubyParseResult {
 	 * @return
 	 */
 	public List<IRubyIssue> getIssues();
+	
+	/**
+	 * Returns true if a syntax error was found.
+	 */
+	public boolean hasErrors();
+	
+	/**
+	 * Returns true if there were issues found (warnings or errors).
+	 */
+	public boolean hasIssues();
 
 }

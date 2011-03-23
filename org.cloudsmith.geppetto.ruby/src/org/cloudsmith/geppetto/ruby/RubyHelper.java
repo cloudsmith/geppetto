@@ -141,6 +141,16 @@ public class RubyHelper {
 				public List<IRubyIssue> getIssues() {
 					return emptyIssues;
 				}
+
+				@Override
+				public boolean hasErrors() {
+					return false;
+				}
+
+				@Override
+				public boolean hasIssues() {
+					return false;
+				}
 			
 		}
 		@Override

@@ -15,6 +15,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 
 import org.cloudsmith.geppetto.ruby.PPFunctionInfo;
 import org.cloudsmith.geppetto.ruby.PPTypeInfo;
@@ -26,6 +27,8 @@ import org.cloudsmith.geppetto.ruby.spi.IRubyServices;
 import org.jruby.CompatVersion;
 import org.jruby.Ruby;
 import org.jruby.RubyInstanceConfig;
+import org.jruby.ast.FCallNode;
+import org.jruby.ast.ModuleNode;
 import org.jruby.ast.Node;
 import org.jruby.lexer.yacc.InputStreamLexerSource;
 import org.jruby.lexer.yacc.LexerSource;
@@ -34,6 +37,8 @@ import org.jruby.parser.ParserConfiguration;
 import org.jruby.parser.RubyParser;
 import org.jruby.parser.RubyParserPool;
 import org.jruby.parser.RubyParserResult;
+
+import com.google.common.collect.Lists;
 
 public class JRubyServices  implements IRubyServices{
 	
@@ -75,6 +80,7 @@ public class JRubyServices  implements IRubyServices{
 		 * Returns a list of issues. Will return an empty list if there were no issues.
 		 * @return
 		 */
+		@Override
 		public List<IRubyIssue> getIssues() {
 			return issues;
 		}
@@ -84,6 +90,20 @@ public class JRubyServices  implements IRubyServices{
 		 */
 		public Node getAST() {
 			return AST;
+		}
+
+		@Override
+		public boolean hasErrors() {
+			if(issues != null)
+				for(IRubyIssue issue : issues)
+					if(issue.isSyntaxError())
+						return true;
+			return false;
+		}
+
+		@Override
+		public boolean hasIssues() {
+			return issues != null && issues.size() > 0;
 		}
 
 	}
@@ -98,6 +118,10 @@ public class JRubyServices  implements IRubyServices{
 	 * @throws IOException
 	 */
 	public IRubyParseResult parse(File file) throws IOException {
+		return internalParse(file);
+	}
+	
+	protected Result internalParse(File file) throws IOException {
 		if(rubyRuntime == null)
 			setUp();
 		
@@ -139,11 +163,39 @@ public class JRubyServices  implements IRubyServices{
 		rubyRuntime = null;
 		parserConfiguration = null;
 	}
-
+	private static final String[] functionModuleFQN = new String[] { "Puppet", "Parser", "Functions"};
+	private static final String functionDefinition = "newfunction";
 	@Override
 	public List<PPFunctionInfo> getFunctionInfo(File file) throws IOException, RubySyntaxException {
-		// TODO Auto-generated method stub
-		return null;
+		List<PPFunctionInfo> functions = Lists.newArrayList();
+		Result result = internalParse(file);
+		if(result.hasErrors())
+			throw new RubySyntaxException();
+		RubyModuleFinder finder = new RubyModuleFinder();
+		ModuleNode foundModule = finder.findModule(result.getAST(), functionModuleFQN);
+		if(foundModule == null)
+			return functions;
+		// find the function
+		FCallNode foundFunction = new RubyFunctionCallFinder().findFuntion(foundModule, functionDefinition);
+		if(foundFunction == null)
+			return functions;
+		Object arguments = new ConstEvaluator().eval(foundFunction.getArgsNode());
+		// Result should be a list with a String, and a Map
+		if(!(arguments instanceof List))
+			return functions;
+		List<?> argList = (List<?>)arguments;
+		if(argList.size() != 2)
+			return functions;
+		Object name = argList.get(0);
+		if(! (name instanceof String))
+			return functions;
+		Object hash = argList.get(1);
+		if(! (hash instanceof Map<?, ?>))
+			return functions;
+		Object type = ((Map<?,?>)hash).get("type");
+		boolean rValue = "rvalue".equals(type);
+		functions.add(new PPFunctionInfo((String)name, rValue));
+		return functions;
 	}
 
 	@Override

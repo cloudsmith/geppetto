@@ -26,9 +26,19 @@ public class PPFunctionInfo {
 	private String functionName;
 	private boolean rValue;
 	
-	PPFunctionInfo(String name, boolean rvalue) {
+	public PPFunctionInfo(String name, boolean rvalue) {
 		this.functionName = name;
 		this.rValue = rvalue;
+	}
+	public String toString() {
+		StringBuffer buf = new StringBuffer();
+		buf.append("(PPFunctionInfo name=");
+		buf.append(getFunctionName());
+		buf.append(" isRValue=");
+		buf.append(isRValue());
+		buf.append(")");
+		return buf.toString();
+		
 	}
 	
 }

@@ -19,25 +19,7 @@ package org.cloudsmith.geppetto.ruby;
 public class RubySyntaxException extends Exception {
 	
 	private static final long serialVersionUID = 1L;
-	private int line;
-	private String message;
-	private String fileName;
 	
-	public RubySyntaxException(int line, String message, String filename) {
-		this.line = line;
-		this.message = message;
-		this.fileName = filename;
-	}
+	public RubySyntaxException() { }
 
-	public int getLine() {
-		return line;
-	}
-
-	public String getMessage() {
-		return message;
-	}
-
-	public String getFileName() {
-		return fileName;
-	}
 }

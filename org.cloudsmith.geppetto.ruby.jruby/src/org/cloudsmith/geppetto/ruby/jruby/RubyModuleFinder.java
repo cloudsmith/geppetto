@@ -111,11 +111,19 @@ public class RubyModuleFinder {
 			// the module's name is shorter than wanted, does it match so far?
 			// i.e. we find module a::b when we are looking for a::b::c
 			//
-			return qualifiedName.subList(0, nameStack.size()).equals(nameStack) ? null : DO_NOT_VISIT_CHILDREN;
+			int sizeX = qualifiedName.size();
+			int sizeY = nameStack.size();
+			try {
+				return qualifiedName.subList(sizeX-sizeY, sizeX).equals(nameStack) ? null : DO_NOT_VISIT_CHILDREN;
+			} catch(IndexOutOfBoundsException e) {
+				return DO_NOT_VISIT_CHILDREN;
+			}
 		}
 	}
 	private static class ConstEvaluator extends AbstractJRubyVisitor {
 		public List<String> eval(Node node) {
+			if(node == null)
+				return Lists.newArrayList();
 			return stringList(node.accept(this));
 		}
 		@SuppressWarnings("unchecked")

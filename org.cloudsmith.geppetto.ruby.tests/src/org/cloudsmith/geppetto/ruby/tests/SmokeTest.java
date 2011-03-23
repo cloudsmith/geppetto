@@ -16,7 +16,6 @@ import java.io.File;
 import junit.framework.TestCase;
 
 import org.cloudsmith.geppetto.ruby.RubyHelper;
-import org.cloudsmith.geppetto.ruby.jruby.RubyParserWarningsCollector.RubyIssue;
 import org.cloudsmith.geppetto.ruby.spi.IRubyIssue;
 import org.cloudsmith.geppetto.ruby.spi.IRubyParseResult;
 import org.eclipse.core.runtime.Path;

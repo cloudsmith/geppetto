@@ -14,6 +14,7 @@ package org.cloudsmith.geppetto.ruby.jruby;
 import java.util.Collections;
 import java.util.List;
 
+import org.cloudsmith.geppetto.ruby.spi.IRubyIssue;
 import org.jruby.Ruby;
 import org.jruby.common.IRubyWarnings;
 import org.jruby.lexer.yacc.ISourcePosition;
@@ -27,12 +28,12 @@ import com.google.common.collect.Lists;
 public class RubyParserWarningsCollector implements IRubyWarnings {
 
 	private Ruby runtime;
-	private List<RubyIssue> issues;
+	private List<IRubyIssue> issues;
 	
-	public List<RubyIssue> getIssues() {
+	public List<IRubyIssue> getIssues() {
 		return Collections.unmodifiableList(issues);
 	}
-	public static class RubyIssue {
+	public static class RubyIssue implements IRubyIssue {
 		/**
 		 * Indicates if this is a syntax error. This is the same as getId() == null.
 		 * @return
@@ -42,7 +43,7 @@ public class RubyParserWarningsCollector implements IRubyWarnings {
 		}
 		
 		/**
-		 * 
+		 * Implementation specific.
 		 * @return null if this issue represents a syntax error.
 		 */
 		public ID getId() {
@@ -50,6 +51,7 @@ public class RubyParserWarningsCollector implements IRubyWarnings {
 		}
 		/**
 		 * Returns "jruby.syntax.error" if this issue represents a syntax error, else the ID as a string.
+		 * The ID is ruby parser implementation specific.
 		 * @return
 		 */
 		public String getIdString() {

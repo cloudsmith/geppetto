@@ -16,7 +16,13 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.List;
 
+import org.cloudsmith.geppetto.ruby.PPFunctionInfo;
+import org.cloudsmith.geppetto.ruby.PPTypeInfo;
+import org.cloudsmith.geppetto.ruby.RubySyntaxException;
 import org.cloudsmith.geppetto.ruby.jruby.RubyParserWarningsCollector.RubyIssue;
+import org.cloudsmith.geppetto.ruby.spi.IRubyIssue;
+import org.cloudsmith.geppetto.ruby.spi.IRubyParseResult;
+import org.cloudsmith.geppetto.ruby.spi.IRubyServices;
 import org.jruby.CompatVersion;
 import org.jruby.Ruby;
 import org.jruby.RubyInstanceConfig;
@@ -29,7 +35,7 @@ import org.jruby.parser.RubyParser;
 import org.jruby.parser.RubyParserPool;
 import org.jruby.parser.RubyParserResult;
 
-public class RubyHelper {
+public class JRubyServices  implements IRubyServices{
 	
 	/** 
 	 * The number of the first line in a source file.
@@ -56,11 +62,11 @@ public class RubyHelper {
 	 * Holds the JRuby parser result (the AST and any reported issues/errors).
 	 *
 	 */
-	public static class Result {
-		private List<RubyIssue> issues;
+	public static class Result implements IRubyParseResult{
+		private List<IRubyIssue> issues;
 		private Node AST;
 
-		Result(RubyParserResult parserResult, List<RubyIssue> issues) {
+		Result(RubyParserResult parserResult, List<IRubyIssue> issues) {
 			this.issues = issues;
 			this.AST = parserResult == null ? null : parserResult.getAST();
 		}
@@ -69,7 +75,7 @@ public class RubyHelper {
 		 * Returns a list of issues. Will return an empty list if there were no issues.
 		 * @return
 		 */
-		public List<RubyIssue> getIssues() {
+		public List<IRubyIssue> getIssues() {
 			return issues;
 		}
 
@@ -91,7 +97,7 @@ public class RubyHelper {
 	 * @return 
 	 * @throws IOException
 	 */
-	public Result parse(File file) throws IOException {
+	public IRubyParseResult parse(File file) throws IOException {
 		if(rubyRuntime == null)
 			setUp();
 		
@@ -132,5 +138,22 @@ public class RubyHelper {
 	public void tearDown() {
 		rubyRuntime = null;
 		parserConfiguration = null;
+	}
+
+	@Override
+	public List<PPFunctionInfo> getFunctionInfo(File file) throws IOException, RubySyntaxException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<PPTypeInfo> getTypeInfo(File file) throws IOException, RubySyntaxException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public boolean isMockService() {
+		return false;
 	}
 }

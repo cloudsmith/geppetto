@@ -1,14 +1,16 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: Ruby
-Bundle-SymbolicName: org.cloudsmith.geppetto.ruby.jruby
-Bundle-Version: 0.1.0.qualifier
+Bundle-Name: Geppetto Ruby Service for JRuby
+Bundle-SymbolicName: org.cloudsmith.geppetto.ruby.jruby;singleton:=true
+Bundle-Version: 1.0.0.qualifier
 Bundle-Activator: org.cloudsmith.geppetto.ruby.jruby.Activator
 Require-Bundle: org.eclipse.core.runtime,
  com.google.collect;bundle-version="1.0.0",
- org.jruby.jruby
+ org.jruby.jruby,
+ org.cloudsmith.geppetto.ruby
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
-Export-Package: org.cloudsmith.geppetto.ruby.jruby
 Import-Package: org.jruby,
  org.jruby.common
+Bundle-Vendor: Cloudsmith
+Export-Package: org.cloudsmith.geppetto.ruby.jruby;x-friends:="org.cloudsmith.geppetto.ruby.tests"

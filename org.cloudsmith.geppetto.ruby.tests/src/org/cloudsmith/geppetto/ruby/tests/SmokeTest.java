@@ -45,7 +45,8 @@ public class SmokeTest extends TestCase{
 			assertTrue("Expect one syntax error", theIssue.isSyntaxError());
 			assertEquals("source line starts with 1", 1, theIssue.getLine());
 			assertEquals("the file path is reported", aRubyFile.getPath(), theIssue.getFileName());
-			assertTrue("the error message is the expected", theIssue.getMessage().startsWith("syntax error, unexpected tLPAREN_ARG"));
+			assertTrue("the error message is the expected", theIssue.getMessage().contains("unexpected tLPAREN_ARG"));
+//			assertTrue("the error message is the expected", theIssue.getMessage().startsWith("syntax error, unexpected tLPAREN_ARG"));
 		} finally {
 			helper.tearDown();
 		}
@@ -61,7 +62,7 @@ public class SmokeTest extends TestCase{
 			assertTrue("Expect one syntax error", theIssue.isSyntaxError());
 			assertEquals("source line is 2", 2, theIssue.getLine());
 			assertEquals("the file path is reported", aRubyFile.getPath(), theIssue.getFileName());
-			assertTrue("the error message is the expected", theIssue.getMessage().startsWith("syntax error, unexpected tLPAREN_ARG"));
+			assertTrue("the error message is the expected", theIssue.getMessage().contains("unexpected tLPAREN_ARG"));
 		} finally {
 			helper.tearDown();
 		}

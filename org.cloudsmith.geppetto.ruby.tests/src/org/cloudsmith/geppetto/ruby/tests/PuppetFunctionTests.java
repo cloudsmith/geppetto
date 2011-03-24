@@ -16,7 +16,6 @@ import java.util.List;
 
 import org.cloudsmith.geppetto.ruby.PPFunctionInfo;
 import org.cloudsmith.geppetto.ruby.RubyHelper;
-import org.cloudsmith.geppetto.ruby.spi.IRubyParseResult;
 
 import org.eclipse.core.runtime.Path;
 
@@ -31,7 +30,6 @@ public class PuppetFunctionTests extends TestCase {
 		RubyHelper helper = new RubyHelper();
 		helper.setUp();
 		try {
-		IRubyParseResult r = helper.parse(aRubyFile);
 		List<PPFunctionInfo> foundFunctions = helper.getFunctionInfo(aRubyFile);
 		assertEquals("Should have found one function", 1, foundFunctions.size());
 		PPFunctionInfo info = foundFunctions.get(0);
@@ -50,7 +48,6 @@ public class PuppetFunctionTests extends TestCase {
 		RubyHelper helper = new RubyHelper();
 		helper.setUp();
 		try {
-		IRubyParseResult r = helper.parse(aRubyFile);
 		List<PPFunctionInfo> foundFunctions = helper.getFunctionInfo(aRubyFile);
 		assertEquals("Should have found one function", 1, foundFunctions.size());
 		PPFunctionInfo info = foundFunctions.get(0);

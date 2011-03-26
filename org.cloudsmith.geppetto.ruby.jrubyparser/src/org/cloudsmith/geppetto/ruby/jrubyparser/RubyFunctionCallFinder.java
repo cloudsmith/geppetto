@@ -11,25 +11,40 @@
  */
 package org.cloudsmith.geppetto.ruby.jrubyparser;
 
+import java.util.List;
+
 import org.jrubyparser.ast.FCallNode;
 import org.jrubyparser.ast.ModuleNode;
+import org.jrubyparser.ast.NewlineNode;
 import org.jrubyparser.ast.Node;
+import org.jrubyparser.ast.NodeType;
+
+import com.google.common.collect.Lists;
 
 public class RubyFunctionCallFinder {
 	
 	/**
-	 * Returns the first found module with the given qualified name, or null if no such module
-	 * was found. The qualified name should be specified in natural order 
-	 * e.g. new String[] { "Puppet", "Parser", "Functions" }.
+	 * Returns the first found function with the given name, or null if no such function
+	 * was found. 
 	 * 
 	 * @param root
-	 * @param qualifiedName
-	 * @return found module or null
+	 * @param name the name of the function to find
+	 * @return found function node or null
 	 */
 	public FCallNode findFuntion(ModuleNode root, String name) {
 		return new FunctionVisitor().findFunction(root, name);
 	}
-	
+	/**
+	 * Returns a list of function nodes with the given name, or an empty list if no such function was
+	 * found.
+	 * @param node
+	 * @param name
+	 * @return
+	 */
+	public List<FCallNode> findFunctions(Node node, String name) {
+		return new FunctionVisitor().findFunctionsInNode(node, name);
+		
+	}
 	private static class FunctionVisitor extends AbstractJRubyVisitor {
 
 		/**
@@ -44,6 +59,25 @@ public class RubyFunctionCallFinder {
 			return (FCallNode) findFunction(root);
 		}
 		
+		/**
+		 * Find function calls to the given name if made from a direct child (or a newline node)
+		 * in the given root.
+		 * @param root
+		 * @param name
+		 * @return
+		 */
+		public List<FCallNode> findFunctionsInNode(Node root, String name) {
+			this.name = name;
+			List<FCallNode> result = Lists.newArrayList();
+			for(Node n : root.childNodes()) {
+				if(n.getNodeType() == NodeType.NEWLINENODE)
+					n = ((NewlineNode)n).getNextNode();
+				if(n.getNodeType() == NodeType.FCALLNODE)
+					if(name.equals(((FCallNode)n).getName()))
+							result.add((FCallNode)n);
+			}
+			return result;
+		}
 		/**
 		 * Visits all nodes in graph, and if visitor returns non-null, the iteration stops
 		 * and the returned non-null value is returned.

@@ -8,6 +8,7 @@ import org.jrubyparser.ast.Colon2Node;
 import org.jrubyparser.ast.ConstNode;
 import org.jrubyparser.ast.HashNode;
 import org.jrubyparser.ast.Node;
+import org.jrubyparser.ast.StrNode;
 import org.jrubyparser.ast.SymbolNode;
 
 import com.google.common.collect.Lists;
@@ -51,6 +52,10 @@ public class ConstEvaluator extends AbstractJRubyVisitor {
 			result.put(key, value);
 		}
 		return result;
+	}
+	@Override
+	public Object visitStrNode(StrNode iVisited) {
+		return iVisited.getValue();
 	}
 	@Override
 	public Object visitConstNode(ConstNode iVisited) {

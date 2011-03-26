@@ -9,3 +9,5 @@ Require-Bundle: org.eclipse.core.runtime,
  org.cloudsmith.geppetto.ruby;bundle-version="0.1.0"
 Bundle-RequiredExecutionEnvironment: J2SE-1.5
 Bundle-ActivationPolicy: lazy
+Import-Package: org.cloudsmith.geppetto.ruby.jruby;resolution:=optional,
+ org.cloudsmith.geppetto.ruby.jrubyparser;resolution:=optional

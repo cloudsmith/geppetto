@@ -13,6 +13,7 @@ package org.cloudsmith.geppetto.ruby.jrubyparser;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.Reader;
@@ -27,6 +28,7 @@ import org.cloudsmith.geppetto.ruby.spi.IRubyIssue;
 import org.cloudsmith.geppetto.ruby.spi.IRubyParseResult;
 import org.cloudsmith.geppetto.ruby.spi.IRubyServices;
 import org.jrubyparser.CompatVersion;
+import org.jrubyparser.ast.CallNode;
 import org.jrubyparser.ast.FCallNode;
 import org.jrubyparser.ast.ModuleNode;
 import org.jrubyparser.ast.Node;
@@ -115,6 +117,8 @@ public class JRubyServices  implements IRubyServices{
 	 * @return
 	 */
 	protected Result internalParse(File file) throws IOException {
+		if(!file.exists())
+			throw new FileNotFoundException(file.getPath());
 		final Reader reader = new BufferedReader(new FileReader(file));
 		try {
 			return internalParse(file.getAbsolutePath(), reader, parserConfiguration);
@@ -203,8 +207,39 @@ public class JRubyServices  implements IRubyServices{
 
 	@Override
 	public List<PPTypeInfo> getTypeInfo(File file) throws IOException, RubySyntaxException {
-		// TODO Auto-generated method stub
-		return null;
+		List<PPTypeInfo> types = Lists.newArrayList();
+		Result result = internalParse(file);
+		if(result.hasErrors())
+			throw new RubySyntaxException();
+		System.err.println(result.getAST().toString());
+		PPTypeFinder typeFinder = new PPTypeFinder();
+		PPTypeInfo typeInfo = typeFinder.findTypeInfo(result.getAST());
+		if(typeInfo != null)
+			types.add(typeInfo);
+		return types;
+//		CallNode newTypeCall = typeFinder.findOpCall(result.getAST(), "newtype", "Puppet", "Type");
+//		if(newTypeCall == null)
+//			return types;
+		
+//		// should have at least one argument, the name of the type
+//		ConstEvaluator constEvaluator = new ConstEvaluator();
+//		Object x = constEvaluator.eval(newTypeCall.getArgsNode());
+//		if(!(x instanceof List<?>))
+//				return types;
+//		List<?> args = (List<?>)x;
+//		if(args.size() < 1)
+//			return types;
+//		x = args.get(0);
+//		if(! (x instanceof String))
+//			return types;
+//		String typeName = (String)x;
+//		
+//		RubyFunctionCallFinder callFinder = new RubyFunctionCallFinder();
+//		// search the Block node of the functions iter node ([0] == args, [1] == block)
+//		List<FCallNode> paramCalls = callFinder.findFunctions(newTypeCall.getIterNode().childNodes().get(1), "newparam");
+//		
+//		System.err.println("Found newtype call: "+ newTypeCall);
+//		return types;
 	}
 
 	@Override

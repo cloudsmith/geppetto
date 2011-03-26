@@ -12,6 +12,7 @@
 package org.cloudsmith.geppetto.ruby;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Collections;
 import java.util.List;
@@ -112,6 +113,11 @@ public class RubyHelper {
 	public List<PPFunctionInfo> getFunctionInfo(File file) throws IOException, RubySyntaxException {
 		if(rubyProvider == null)
 			throw new IllegalStateException("Must call setUp() before getFunctionInfo(File).");
+		if(file == null)
+			throw new IllegalArgumentException("Given file is null - JRubyService.getFunctionInfo");
+		if(!file.exists())
+			throw new FileNotFoundException(file.getPath());
+
 		return rubyProvider.getFunctionInfo(file);
 		
 	}
@@ -126,6 +132,10 @@ public class RubyHelper {
 	public List<PPTypeInfo> getTypeInfo(File file) throws IOException, RubySyntaxException {
 		if(rubyProvider == null)
 			throw new IllegalStateException("Must call setUp() before getTypeInfo(File).");
+		if(file == null)
+			throw new IllegalArgumentException("Given file is null - JRubyService.getTypeInfo");
+		if(!file.exists())
+			throw new FileNotFoundException(file.getPath());
 		return rubyProvider.getTypeInfo(file);
 		
 	}

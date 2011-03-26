@@ -22,17 +22,34 @@ public class PPTypeInfo {
 	public final String typeName;
 	public final String documentation;
 	public final Map<String, Entry> properties;
+	public final Map<String, Entry> parameters;
 	
-	public PPTypeInfo(String typeName, String documentation, Map<String, Entry> properties) {
+	public PPTypeInfo(String typeName, String documentation, Map<String, Entry> properties, Map<String, Entry> parameters) {
 		this.typeName = typeName;
 		this.documentation = documentation;
 		this.properties = Collections.unmodifiableMap(properties);
+		this.parameters = Collections.unmodifiableMap(parameters);
+	}
+	public String getTypeName() {
+		return typeName;
+	}
+	public String getDocumentation() {
+		return documentation;
+	}
+	public Map<String, Entry> getProperties() {
+		return properties;
+	}
+	public Map<String, Entry> getParameters() {
+		return parameters;
 	}
 	public static class Entry {
 		public final String documentation;
 		
-		Entry(String documentation) {
+		public Entry(String documentation) {
 			this.documentation = documentation;
+		}
+		public String getDocumentation() {
+			return documentation;
 		}
 	}
 }

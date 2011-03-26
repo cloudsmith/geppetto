@@ -28,7 +28,6 @@ import org.cloudsmith.geppetto.ruby.spi.IRubyIssue;
 import org.cloudsmith.geppetto.ruby.spi.IRubyParseResult;
 import org.cloudsmith.geppetto.ruby.spi.IRubyServices;
 import org.jrubyparser.CompatVersion;
-import org.jrubyparser.ast.CallNode;
 import org.jrubyparser.ast.FCallNode;
 import org.jrubyparser.ast.ModuleNode;
 import org.jrubyparser.ast.Node;

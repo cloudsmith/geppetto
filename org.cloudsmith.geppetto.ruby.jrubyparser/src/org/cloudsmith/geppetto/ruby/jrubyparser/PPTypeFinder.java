@@ -28,6 +28,10 @@ import org.jrubyparser.ast.NodeType;
 
 import com.google.common.collect.Maps;
 
+/**
+ * Find puppet resource type definition(s) in a ruby file.
+ *
+ */
 public class PPTypeFinder {
 	private final static String NEWPARAM = "newparam";
 	private final static String NEWPROPERTY = "newproperty";

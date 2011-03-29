@@ -20,6 +20,11 @@
             uri="http://www.cloudsmith.org/geppetto/1.0.0/PP"
             class="org.cloudsmith.geppetto.pp.PPPackage"
             genModel="model/PP.genmodel"/>
+      <package
+            class="org.cloudsmith.geppetto.pp.pptp.PPTPPackage"
+            genModel="model/PPTP.genmodel"
+            uri="http://www.cloudsmith.org/geppetto/1.0.0/PPTP">
+      </package>
    </extension>
 
 </plugin>

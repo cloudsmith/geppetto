@@ -102,11 +102,7 @@ public class PuppetTPTests extends TestCase {
 		URI.createFileURI(pptpFile.getAbsolutePath()); 
 		Resource targetResource = resourceSet.getResource(fileURI, true); 
 		TargetEntry target = (TargetEntry)targetResource.getContents().get(0); 
-		for(Type t : target.getTypes())
-			System.err.println("Found t: "+t.getName());
 		assertEquals("Should have found 32 types", 32, target.getTypes().size());
-		for(Function f : target.getFunctions())
-			System.err.println("Found f: "+f.getName());
 		assertEquals("Should have found 21 functions", 21, target.getFunctions().size());
 	}
 	

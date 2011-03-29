@@ -21,6 +21,10 @@ import org.cloudsmith.geppetto.pp.pptp.Type;
 import org.cloudsmith.geppetto.ruby.RubyHelper;
 
 import org.eclipse.core.runtime.Path;
+import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.ecore.resource.ResourceSet;
+import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 
 import junit.framework.TestCase;
 
@@ -88,26 +92,53 @@ public class PuppetTPTests extends TestCase {
 			helper.tearDown();
 		}
 	}
-
+	public void testLoadEMFTP() throws Exception {
+		File pptpFile = TestDataProvider
+		.getTestFile(new Path(
+				"testData/pptp/puppet-2.6.2_0.pptp"));
+		
+		ResourceSet resourceSet = new ResourceSetImpl(); 
+		URI fileURI = 
+		URI.createFileURI(pptpFile.getAbsolutePath()); 
+		Resource targetResource = resourceSet.getResource(fileURI, true); 
+		TargetEntry target = (TargetEntry)targetResource.getContents().get(0); 
+		for(Type t : target.getTypes())
+			System.err.println("Found t: "+t.getName());
+		assertEquals("Should have found 32 types", 32, target.getTypes().size());
+		for(Function f : target.getFunctions())
+			System.err.println("Found f: "+f.getName());
+		assertEquals("Should have found 21 functions", 21, target.getFunctions().size());
+	}
+	
 /* uncomment and modify path to test load of puppet distribution */
-//	public void testLoadRealTP() throws Exception {
-//		File distroDir = new File("/opt/local/var/macports/software/puppet/2.6.2_0/opt/local/lib/ruby/site_ruby/1.8/puppet/");
-//		RubyHelper helper = new RubyHelper();
-//		helper.setUp();
-//		try {
-//			TargetEntry target = helper.loadDistroTarget(distroDir);
-//			for(Type t : target.getTypes())
-//				System.err.println("Found t: "+t.getName());
-//			assertEquals("Should have found 32 types", 32, target.getTypes().size());
-//			for(Function f : target.getFunctions())
-//				System.err.println("Found f: "+f.getName());
-//			assertEquals("Should have found 21 functions", 21, target.getFunctions().size());
-//		}
-//		finally {
-//			helper.tearDown();
-//		}
-//
-//	}
+	public void testLoadRealTP() throws Exception {
+		File distroDir = new File("/opt/local/var/macports/software/puppet/2.6.2_0/opt/local/lib/ruby/site_ruby/1.8/puppet/");
+		RubyHelper helper = new RubyHelper();
+		helper.setUp();
+		try {
+			TargetEntry target = helper.loadDistroTarget(distroDir);
+			for(Type t : target.getTypes())
+				System.err.println("Found t: "+t.getName());
+			assertEquals("Should have found 32 types", 32, target.getTypes().size());
+			for(Function f : target.getFunctions())
+				System.err.println("Found f: "+f.getName());
+			assertEquals("Should have found 21 functions", 21, target.getFunctions().size());
+
+			// Save the TargetEntry as a loadable resource
+			ResourceSet resourceSet = new ResourceSetImpl(); 
+			URI fileURI = 
+			URI.createFileURI(new File("puppet-2.6.2_0.pptp").getAbsolutePath()); 
+			Resource targetResource = resourceSet.createResource(fileURI); 
+			targetResource.getContents().add(target); 
+			targetResource.save(null);
+			System.err.println("Target saved to: "+fileURI.toString());
+
+		}
+		finally {
+			helper.tearDown();
+		}
+		
+	}
 	private Property getProperty(String name, Type type) {
 		for(Property p : type.getProperties())
 			if(name.equals(p.getName()))

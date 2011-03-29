@@ -32,7 +32,17 @@ public interface IRubyServices {
 	public IRubyParseResult parse(File file) throws IOException;
 	public List<PPFunctionInfo> getFunctionInfo(File file) throws IOException, RubySyntaxException;
 	public List<PPTypeInfo> getTypeInfo(File file) throws IOException, RubySyntaxException;
-	
+	/**
+	 * Parses and returns additional properties from a ruby file - such "extra" properties are returned
+	 * as a PPTypeInfo that is partially filled with information.
+	 * @param file
+	 * @return
+	 * @throws IOException
+	 * @throws RubySyntaxException
+	 */
+	public List<PPTypeInfo> getTypePropertiesInfo(File file) throws IOException,
+	RubySyntaxException;
+		
 	/**
 	 * Indicates if this is a real service or one that produces no results.
 	 * @return

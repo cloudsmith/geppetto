@@ -65,6 +65,39 @@ public class PPTypeFinder {
 		return createTypeInfo(safeGetBodyNode(newTypeCall), typeName);
 
 	}
+	/**
+	 * Finds a property addition to a type. Returns a partially filled PPTypeInfo (name, and a single
+	 * property).
+	 * @param root
+	 * @return PPTypeInfo partially filled, or null, if there were no property addition found.
+	 */
+	public PPTypeInfo findTypePropertyInfo(Node root) {
+		RubyModuleFinder moduleFinder = new RubyModuleFinder();
+		Node module = moduleFinder.findModule(root, new String[] {"Puppet"});
+		OpCallVisitor opCallVisitor = new OpCallVisitor();
+		for(Node n : module.childNodes()) {
+			if(n.getNodeType() == NodeType.NEWLINENODE)
+				n = ((NewlineNode)n).getNextNode();
+			if(n.getNodeType() == NodeType.CALLNODE) {
+				CallNode callNode = (CallNode)n;
+				if(NEWPROPERTY.equals(callNode.getName())) {
+					CallNode typeCall = opCallVisitor.findOpCall(callNode.getReceiverNode(), "type", "Puppet", "Type");
+					if(typeCall == null)
+						continue;
+					String typeName = getFirstArg(typeCall);
+					if(typeName == null)
+						continue;
+					Map<String, PPTypeInfo.Entry> propertyMap = Maps.newHashMap();
+					propertyMap.put(getFirstArg(callNode), getEntry(callNode));
+					return new PPTypeInfo(typeName,"",propertyMap, null);
+				}
+					
+			}
+		}
+		return null;
+			
+	}
+
 	private Node safeGetBodyNode(BlockAcceptingNode node) {
 		Node n = node.getIterNode();
 		if(n == null)
@@ -137,7 +170,7 @@ public class PPTypeFinder {
 		String x = getFirstArg(callNode);
 		return x == null ? defaultValue : x;
 	}
-	PPTypeInfo.Entry getEntry(FCallNode callNode) {
+	PPTypeInfo.Entry getEntry(BlockAcceptingNode callNode) {
 		Node bodyNode = safeGetBodyNode(callNode);
 		if(bodyNode != null)
 			for(Node n : bodyNode.childNodes()) {
@@ -146,11 +179,11 @@ public class PPTypeFinder {
 				if(n.getNodeType() == NodeType.FCALLNODE) {
 					FCallNode cn = (FCallNode)n;
 					if("desc".equals(cn.getName()))
-						return new PPTypeInfo.Entry(getFirstArgDefault(cn, ""));
+						return new PPTypeInfo.Entry(getFirstArgDefault(cn, ""), false);
 				}
 			}
 
-		return new PPTypeInfo.Entry("");
+		return new PPTypeInfo.Entry("", false);
 	}
 	private static class OpCallVisitor extends AbstractJRubyVisitor {
 

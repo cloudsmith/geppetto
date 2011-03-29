@@ -6,7 +6,8 @@ Bundle-Version: 1.0.0.qualifier
 Bundle-Vendor: Cloudsmith
 Require-Bundle: org.eclipse.core.runtime,
  org.junit,
- org.cloudsmith.geppetto.ruby;bundle-version="0.1.0"
+ org.cloudsmith.geppetto.ruby;bundle-version="0.1.0",
+ org.cloudsmith.geppetto.pp;bundle-version="0.1.2"
 Bundle-RequiredExecutionEnvironment: J2SE-1.5
 Bundle-ActivationPolicy: lazy
 Import-Package: org.cloudsmith.geppetto.ruby.jruby;resolution:=optional,

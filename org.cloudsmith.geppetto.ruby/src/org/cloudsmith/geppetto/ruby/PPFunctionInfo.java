@@ -22,13 +22,17 @@ public class PPFunctionInfo {
 	public boolean isRValue() {
 		return rValue;
 	}
-
+	public String getDocumentation() {
+		return documentation;
+	}
 	private String functionName;
 	private boolean rValue;
+	private String documentation;
 	
-	public PPFunctionInfo(String name, boolean rvalue) {
+	public PPFunctionInfo(String name, boolean rvalue, String documentation) {
 		this.functionName = name;
 		this.rValue = rvalue;
+		this.documentation = documentation;
 	}
 	public String toString() {
 		StringBuffer buf = new StringBuffer();

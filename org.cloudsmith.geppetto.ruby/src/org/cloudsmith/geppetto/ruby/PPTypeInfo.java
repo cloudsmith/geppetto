@@ -27,6 +27,10 @@ public class PPTypeInfo {
 	public PPTypeInfo(String typeName, String documentation, Map<String, Entry> properties, Map<String, Entry> parameters) {
 		this.typeName = typeName;
 		this.documentation = documentation;
+		if(properties == null)
+			properties = Collections.emptyMap();
+		if(parameters == null)
+			parameters = Collections.emptyMap();
 		this.properties = Collections.unmodifiableMap(properties);
 		this.parameters = Collections.unmodifiableMap(parameters);
 	}
@@ -44,12 +48,17 @@ public class PPTypeInfo {
 	}
 	public static class Entry {
 		public final String documentation;
+		private boolean required;
 		
-		public Entry(String documentation) {
+		public Entry(String documentation, boolean required) {
 			this.documentation = documentation;
+			this.required = required;
 		}
 		public String getDocumentation() {
 			return documentation;
+		}
+		public boolean isRequired() {
+			return required;
 		}
 	}
 }

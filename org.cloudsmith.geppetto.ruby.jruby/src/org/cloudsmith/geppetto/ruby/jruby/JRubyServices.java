@@ -194,7 +194,10 @@ public class JRubyServices  implements IRubyServices{
 			return functions;
 		Object type = ((Map<?,?>)hash).get("type");
 		boolean rValue = "rvalue".equals(type);
-		functions.add(new PPFunctionInfo((String)name, rValue));
+		
+		Object doc = ((Map<?,?>)hash).get("doc");
+		String docString = doc == null ? "" : doc.toString();
+		functions.add(new PPFunctionInfo((String)name, rValue, docString));
 		return functions;
 	}
 
@@ -207,5 +210,11 @@ public class JRubyServices  implements IRubyServices{
 	@Override
 	public boolean isMockService() {
 		return false;
+	}
+
+	@Override
+	public List<PPTypeInfo> getTypePropertiesInfo(File file)
+			throws IOException, RubySyntaxException {
+		throw new UnsupportedOperationException("Implement this method");
 	}
 }

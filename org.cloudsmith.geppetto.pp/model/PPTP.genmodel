@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<genmodel:GenModel xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
+    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" copyrightText="Copyright (c) 2011 Cloudsmith Inc. and other contributors, as listed below.&#xA;All rights reserved. This program and the accompanying materials&#xA;are made available under the terms of the Eclipse Public License v1.0&#xA;which accompanies this distribution, and is available at&#xA;http://www.eclipse.org/legal/epl-v10.html&#xA;&#xA;Contributors:&#xA;  Cloudsmith&#xA;"
+    modelDirectory="/org.cloudsmith.geppetto.pp/src" editDirectory="" editorDirectory=""
+    modelPluginID="org.cloudsmith.geppetto.pp" modelName="PPTP" editPluginClass="org.cloudsmith.geppetto.pp.provider.PuppetEditPlugin"
+    codeFormatting="true" importerID="org.eclipse.emf.importer.ecore" complianceLevel="6.0"
+    copyrightFields="false">
+  <foreignModel>PPTP.ecore</foreignModel>
+  <genPackages prefix="PPTP" basePackage="org.cloudsmith.geppetto.pp" disposableProviderFactory="true"
+      ecorePackage="PPTP.ecore#/">
+    <genDataTypes ecoreDataType="PPTP.ecore#//File"/>
+    <genClasses ecoreClass="PPTP.ecore#//PuppetTarget">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference PPTP.ecore#//PuppetTarget/entries"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="PPTP.ecore#//TargetEntry">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute PPTP.ecore#//TargetEntry/description"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute PPTP.ecore#//TargetEntry/file"/>
+    </genClasses>
+    <genClasses ecoreClass="PPTP.ecore#//PuppetDistribution"/>
+    <genClasses ecoreClass="PPTP.ecore#//RubyDirectory"/>
+    <genClasses ecoreClass="PPTP.ecore#//Predefined"/>
+    <genClasses ecoreClass="PPTP.ecore#//Function">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute PPTP.ecore#//Function/rValue"/>
+    </genClasses>
+    <genClasses ecoreClass="PPTP.ecore#//Type">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference PPTP.ecore#//Type/EReference0"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference PPTP.ecore#//Type/properties"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference PPTP.ecore#//Type/parameters"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="PPTP.ecore#//IDocumented">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute PPTP.ecore#//IDocumented/documentation"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="PPTP.ecore#//INamed">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute PPTP.ecore#//INamed/name"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="PPTP.ecore#//TargetElement"/>
+    <genClasses ecoreClass="PPTP.ecore#//Property">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute PPTP.ecore#//Property/required"/>
+    </genClasses>
+    <genClasses ecoreClass="PPTP.ecore#//Parameter">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute PPTP.ecore#//Parameter/required"/>
+    </genClasses>
+  </genPackages>
+</genmodel:GenModel>

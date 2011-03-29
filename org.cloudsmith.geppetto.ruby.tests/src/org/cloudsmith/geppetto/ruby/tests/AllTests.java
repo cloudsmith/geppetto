@@ -27,6 +27,7 @@ public class AllTests {
 		suite.addTestSuite(SmokeTest.class);
 		suite.addTestSuite(PuppetFunctionTests.class);
 		suite.addTestSuite(PuppetTypeTests.class);
+		suite.addTestSuite(PuppetTPTests.class);
 		// $JUnit-END$
 		return suite;
 	}

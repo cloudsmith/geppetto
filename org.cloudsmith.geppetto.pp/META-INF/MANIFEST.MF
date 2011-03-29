@@ -10,6 +10,9 @@ Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Export-Package: org.cloudsmith.geppetto.pp,
  org.cloudsmith.geppetto.pp.adapters,
  org.cloudsmith.geppetto.pp.impl,
+ org.cloudsmith.geppetto.pp.pptp,
+ org.cloudsmith.geppetto.pp.pptp.impl,
+ org.cloudsmith.geppetto.pp.pptp.util,
  org.cloudsmith.geppetto.pp.util
 Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.emf.ecore;visibility:=reexport

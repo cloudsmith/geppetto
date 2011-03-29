@@ -200,7 +200,10 @@ public class JRubyServices  implements IRubyServices{
 			return functions;
 		Object type = ((Map<?,?>)hash).get("type");
 		boolean rValue = "rvalue".equals(type);
-		functions.add(new PPFunctionInfo((String)name, rValue));
+		Object doc = ((Map<?,?>)hash).get("doc");
+		String docString = doc == null ? "" : doc.toString();
+
+		functions.add(new PPFunctionInfo((String)name, rValue, docString));
 		return functions;
 	}
 
@@ -212,6 +215,19 @@ public class JRubyServices  implements IRubyServices{
 			throw new RubySyntaxException();
 		PPTypeFinder typeFinder = new PPTypeFinder();
 		PPTypeInfo typeInfo = typeFinder.findTypeInfo(result.getAST());
+		if(typeInfo != null)
+			types.add(typeInfo);
+		return types;
+	}
+	
+	@Override
+	public List<PPTypeInfo> getTypePropertiesInfo(File file) throws IOException, RubySyntaxException {
+		List<PPTypeInfo> types = Lists.newArrayList();
+		Result result = internalParse(file);
+		if(result.hasErrors())
+			throw new RubySyntaxException();
+		PPTypeFinder typeFinder = new PPTypeFinder();
+		PPTypeInfo typeInfo = typeFinder.findTypePropertyInfo(result.getAST());
 		if(typeInfo != null)
 			types.add(typeInfo);
 		return types;

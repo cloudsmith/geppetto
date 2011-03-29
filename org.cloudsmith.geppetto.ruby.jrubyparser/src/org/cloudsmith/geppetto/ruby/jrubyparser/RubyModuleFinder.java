@@ -18,6 +18,7 @@ import org.jrubyparser.ast.Colon2Node;
 import org.jrubyparser.ast.ConstNode;
 import org.jrubyparser.ast.ModuleNode;
 import org.jrubyparser.ast.Node;
+import org.jrubyparser.ast.NodeType;
 
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
@@ -55,9 +56,27 @@ public class RubyModuleFinder {
 			// NOTE: opportunity to make this better if guava a.k.a google.collect 2.0 is used
 			// since it has a Lists.reverse method - now this ugly construct is used.
 			this.qualifiedName = Lists.newArrayList(Iterables.reverse(Lists.newArrayList(qualifiedName)));
-			return (ModuleNode) findModule(root);
+			return (ModuleNode) findModule2(root);
 		}
-		
+		private Object findModule2(Node root) {
+			push(root);
+			Object r = null;
+			if(root.getNodeType() == NodeType.MODULENODE)
+				r = visitModuleNode((ModuleNode)root);
+			if(r != DO_NOT_VISIT_CHILDREN) {
+				if(r != null) {
+					return r;
+				}
+				for(Node n : root.childNodes()) {
+					r = findModule2(n);
+					if(r != null)
+						return r;
+				}
+			}
+			pop(root);
+			return null;
+			
+		}
 		/**
 		 * Visits all nodes in graph, and if visitor returns non-null, the iteration stops
 		 * and the returned non-null value is returned.
@@ -66,7 +85,10 @@ public class RubyModuleFinder {
 		 */
 		private Object findModule(Node root) {
 			push(root);
-			Object r = root.accept(this);
+			Object r = null;
+			// ArgumentNode does not allow visitors !!! WTF.
+			if(root.getNodeType() != NodeType.ARGUMENTNODE)
+				r = root.accept(this);
 			if(r != DO_NOT_VISIT_CHILDREN) {
 				if(r != null) {
 					return r;

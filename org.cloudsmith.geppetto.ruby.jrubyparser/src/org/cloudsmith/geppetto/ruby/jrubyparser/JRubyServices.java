@@ -171,21 +171,19 @@ public class JRubyServices  implements IRubyServices{
 	
 	private static final String[] functionModuleFQN = new String[] { "Puppet", "Parser", "Functions"};
 	private static final String functionDefinition = "newfunction";
+	private static final String[] newFunctionFQN = new String[] { "Puppet", "Parser", "Functions", "newfunction"};
+	
 	@Override
 	public List<PPFunctionInfo> getFunctionInfo(File file) throws IOException, RubySyntaxException {
 		List<PPFunctionInfo> functions = Lists.newArrayList();
 		Result result = internalParse(file);
 		if(result.hasErrors())
 			throw new RubySyntaxException();
-		RubyModuleFinder finder = new RubyModuleFinder();
-		ModuleNode foundModule = finder.findModule(result.getAST(), functionModuleFQN);
-		if(foundModule == null)
+		RubyCallFinder callFinder = new RubyCallFinder();
+		GenericCallNode found = callFinder.findCall(result.getAST(), newFunctionFQN);
+		if(found == null)
 			return functions;
-		// find the function
-		FCallNode foundFunction = new RubyFunctionCallFinder().findFuntion(foundModule, functionDefinition);
-		if(foundFunction == null)
-			return functions;
-		Object arguments = new ConstEvaluator().eval(foundFunction.getArgsNode());
+		Object arguments = new ConstEvaluator().eval(found.getArgsNode());
 		// Result should be a list with a String, and a Map
 		if(!(arguments instanceof List))
 			return functions;
@@ -205,7 +203,44 @@ public class JRubyServices  implements IRubyServices{
 
 		functions.add(new PPFunctionInfo((String)name, rValue, docString));
 		return functions;
+
 	}
+	
+//	//@Override
+//	private List<PPFunctionInfo> getFunctionInfoOLD(File file) throws IOException, RubySyntaxException {
+//		List<PPFunctionInfo> functions = Lists.newArrayList();
+//		Result result = internalParse(file);
+//		if(result.hasErrors())
+//			throw new RubySyntaxException();
+//		RubyModuleFinder finder = new RubyModuleFinder();
+//		ModuleNode foundModule = finder.findModule(result.getAST(), functionModuleFQN);
+//		if(foundModule == null)
+//			return functions;
+//		// find the function
+//		FCallNode foundFunction = new RubyFunctionCallFinder().findFuntion(foundModule, functionDefinition);
+//		if(foundFunction == null)
+//			return functions;
+//		Object arguments = new ConstEvaluator().eval(foundFunction.getArgsNode());
+//		// Result should be a list with a String, and a Map
+//		if(!(arguments instanceof List))
+//			return functions;
+//		List<?> argList = (List<?>)arguments;
+//		if(argList.size() != 2)
+//			return functions;
+//		Object name = argList.get(0);
+//		if(! (name instanceof String))
+//			return functions;
+//		Object hash = argList.get(1);
+//		if(! (hash instanceof Map<?, ?>))
+//			return functions;
+//		Object type = ((Map<?,?>)hash).get("type");
+//		boolean rValue = "rvalue".equals(type);
+//		Object doc = ((Map<?,?>)hash).get("doc");
+//		String docString = doc == null ? "" : doc.toString();
+//
+//		functions.add(new PPFunctionInfo((String)name, rValue, docString));
+//		return functions;
+//	}
 
 	@Override
 	public List<PPTypeInfo> getTypeInfo(File file) throws IOException, RubySyntaxException {

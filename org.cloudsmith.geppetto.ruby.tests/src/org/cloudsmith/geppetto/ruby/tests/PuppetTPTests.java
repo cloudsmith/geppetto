@@ -13,6 +13,7 @@ package org.cloudsmith.geppetto.ruby.tests;
 
 import java.io.File;
 
+import org.cloudsmith.geppetto.pp.pptp.Function;
 import org.cloudsmith.geppetto.pp.pptp.Parameter;
 import org.cloudsmith.geppetto.pp.pptp.Property;
 import org.cloudsmith.geppetto.pp.pptp.TargetEntry;
@@ -25,7 +26,7 @@ import junit.framework.TestCase;
 
 public class PuppetTPTests extends TestCase {
 
-	public void testLoadDistro() throws Exception {
+	public void testLoadMockDistro() throws Exception {
 		File distroDir = TestDataProvider
 		.getTestFile(new Path(
 				"testData/mock-puppet-distro/puppet/2.6.2_0/puppet"));
@@ -62,23 +63,51 @@ public class PuppetTPTests extends TestCase {
 				assertNotNull("Should have a property 'extra2", prop);
 				assertEquals("Should have defined documentation", "An extra property called extra2", prop.getDocumentation());
 			}
+			{
+				assertEquals("Should have one parameter", 1, type.getParameters().size());
+				Parameter param = getParameter("param1", type);
+				assertNotNull("Should have a parameter 'param1", param);
+				assertEquals("Should have defined documentation", "This is parameter1", param.getDocumentation());
+			}
+						
+			// should have found two functions "echotest" and "echotest2"
+			assertEquals("Should have found two functions", 2, target.getFunctions().size());
+			{
+				Function f = getFunction("echotest", target);
+				assertNotNull("Should have found function 'echotest'", f);
+				assertTrue("echotest should be an rValue", f.isRValue());
+			}
+			{
+				Function f = getFunction("echotest2", target);
+				assertNotNull("Should have found function 'echotest2'", f);
+				assertFalse("echotest2 should not be an rValue", f.isRValue());
+			}
 			
-			
-			
-			assertEquals("Should have one parameter", 1, type.getParameters().size());
-			Parameter param = getParameter("param1", type);
-			assertNotNull("Should have a parameter 'param1", param);
-			assertEquals("Should have defined documentation", "This is parameter1", param.getDocumentation());
-			
-			
-			// one property
-			
-			// should have found one function "echotest"
 		}
 		finally {
 			helper.tearDown();
 		}
 	}
+
+/* uncomment and modify path to test load of puppet distribution */
+//	public void testLoadRealTP() throws Exception {
+//		File distroDir = new File("/opt/local/var/macports/software/puppet/2.6.2_0/opt/local/lib/ruby/site_ruby/1.8/puppet/");
+//		RubyHelper helper = new RubyHelper();
+//		helper.setUp();
+//		try {
+//			TargetEntry target = helper.loadDistroTarget(distroDir);
+//			for(Type t : target.getTypes())
+//				System.err.println("Found t: "+t.getName());
+//			assertEquals("Should have found 32 types", 32, target.getTypes().size());
+//			for(Function f : target.getFunctions())
+//				System.err.println("Found f: "+f.getName());
+//			assertEquals("Should have found 21 functions", 21, target.getFunctions().size());
+//		}
+//		finally {
+//			helper.tearDown();
+//		}
+//
+//	}
 	private Property getProperty(String name, Type type) {
 		for(Property p : type.getProperties())
 			if(name.equals(p.getName()))
@@ -89,6 +118,12 @@ public class PuppetTPTests extends TestCase {
 		for(Parameter p : type.getParameters())
 			if(name.equals(p.getName()))
 				return p;
+		return null;
+	}
+	private Function getFunction(String name, TargetEntry target) {
+		for(Function f : target.getFunctions())
+			if(name.equals(f.getName()))
+				return f;
 		return null;
 	}
 }

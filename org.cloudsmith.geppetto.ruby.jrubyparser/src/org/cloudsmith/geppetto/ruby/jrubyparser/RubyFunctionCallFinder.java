@@ -21,6 +21,11 @@ import org.jrubyparser.ast.NodeType;
 
 import com.google.common.collect.Lists;
 
+/**
+ * Finds a FCallNode with a given name (if given a ModuleNode to search).
+ * @deprecated use {@link RubyCallFinder} instead (or improve that class).
+ */
+@Deprecated
 public class RubyFunctionCallFinder {
 	
 	/**
@@ -85,7 +90,9 @@ public class RubyFunctionCallFinder {
 		 * @return
 		 */
 		private Object findFunction(Node root) {
-			Object r = root.accept(this);
+			Object r = null;
+			if(root.getNodeType() == NodeType.FCALLNODE)
+				r = root.accept(this);
 			if(r != DO_NOT_VISIT_CHILDREN) {
 				if(r != null) {
 					return r;

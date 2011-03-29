@@ -37,43 +37,63 @@ public class PPTypeFinder {
 	private final static String NEWPROPERTY = "newproperty";
 	private final static String NEWTYPE = "newtype";
 
-	private final static String[] PUPPET_TYPE_RECEIVER = new String[] {"Puppet", "Type"};
+	
+	private final static String[] PUPPET_NEWTYPE_FQN = new String[] { "Puppet", "Type", "newtype" };
 
 	private ConstEvaluator constEvaluator = new ConstEvaluator();
-
+	
 	/**
-	 * Returns the first found call with given name on given receiver FQN.
-	 * 
+	 * Finds type info in one of the two forms:<br/>
+	 * <code>module Puppet
+	 *     newtype(:typename) 
+	 *     ...
+	 * </code><br/>   
+	 * or<br/>
+	 * <code>
+	 * Puppet::Type.newtype(:typename)
+	 * </code><br/>
+	 * where the call may (but is not required to) take place in the Puppet module.
 	 * @param root
-	 * @param qualifiedName
-	 * @return found module or null
+	 * @return
 	 */
-	private CallNode findReceiverCall(Node root, String opName, String... receiverFQN) {
-		return new OpCallVisitor().findOpCall(root, opName, receiverFQN);
-	}
-
 	public PPTypeInfo findTypeInfo(Node root) {
-		CallNode newTypeCall = findReceiverCall(root, NEWTYPE, PUPPET_TYPE_RECEIVER);
-		if(newTypeCall == null)
-			return null;
-
+		
+		RubyCallFinder callFinder = new RubyCallFinder();
+		// style 1
+		GenericCallNode newTypeCall = callFinder.findCall(root, PUPPET_NEWTYPE_FQN);
+		if(newTypeCall == null || !newTypeCall.isValid()) {
+			// style 2
+			newTypeCall = callFinder.findCall(root, "Puppet", NEWTYPE);
+			if(newTypeCall == null || !newTypeCall.isValid())
+				return null;
+		}
+		
 		// should have at least one argument, the name of the type
 		String typeName = getFirstArg(newTypeCall);
 		if(typeName == null)
 			return null;
 
 		return createTypeInfo(safeGetBodyNode(newTypeCall), typeName);
-
 	}
+	
 	/**
 	 * Finds a property addition to a type. Returns a partially filled PPTypeInfo (name, and a single
 	 * property).
+	 * 
+	 * TODO: Could be simplified and reuse the RubyCallFinder (if it is made capable of handling
+	 * calls to Puppet::Type.type(:name) inside a module Puppet (currently, it will think this is
+	 * a call to Puppet::Puppet::Type.type(:name).
+	 * 
 	 * @param root
 	 * @return PPTypeInfo partially filled, or null, if there were no property addition found.
 	 */
 	public PPTypeInfo findTypePropertyInfo(Node root) {
 		RubyModuleFinder moduleFinder = new RubyModuleFinder();
 		Node module = moduleFinder.findModule(root, new String[] {"Puppet"});
+		
+		// Some property additions are in "Puppet" modules, some are not
+		if(module == null)
+			module = root;
 		OpCallVisitor opCallVisitor = new OpCallVisitor();
 		for(Node n : module.childNodes()) {
 			if(n.getNodeType() == NodeType.NEWLINENODE)
@@ -103,13 +123,14 @@ public class PPTypeFinder {
 		if(n == null)
 			return null;
 		switch(n.getNodeType()) {
-		case ITERNODE:
-			return ((IterNode)n).getBodyNode();
-		case BLOCKPASSNODE:
-			return ((BlockPassNode)n).getBodyNode();			
+			case ITERNODE:
+				return ((IterNode)n).getBodyNode();
+			case BLOCKPASSNODE:
+				return ((BlockPassNode)n).getBodyNode();			
 		}
 		return null;
 	}
+	
 	private PPTypeInfo createTypeInfo(Node root, String typeName) {
 		if(root == null)
 			return null;
@@ -164,6 +185,9 @@ public class PPTypeFinder {
 		List<?> argList = (List<?>)result;
 		if(argList.size() < 1)
 			return null;
+		// If a constant expression contained dynamic parts it may result in a null entry
+		if(argList.get(0) == null)
+			return null;
 		return argList.get(0).toString();
 	}
 	private String getFirstArgDefault(IArgumentNode callNode, String defaultValue) {
@@ -210,7 +234,9 @@ public class PPTypeFinder {
 		 * @return
 		 */
 		private Object findOpCall(Node root) {
-			Object r = root.accept(this);
+			Object r = null;
+			if(root.getNodeType() == NodeType.CALLNODE)
+				r = root.accept(this);
 			if(r != DO_NOT_VISIT_CHILDREN) {
 				if(r != null) {
 					return r;

@@ -16,18 +16,24 @@ import com.google.common.collect.Maps;
 
 /**
  * Evaluates (a limited set of) Ruby constant expressions.
+ * TODO: Colon3Node (i.e. name relative to global root) not handled - as FQN are returned as list of String
+ * there is currently no marker if it is relative or absolute.
  *
  */
 public class ConstEvaluator extends AbstractJRubyVisitor {
 	public Object eval(Node node) {
+		if(node == null)
+			return null;
 		return node.accept(this);
 	}
 	@SuppressWarnings("unchecked")
-	private List<String> stringList(Object x) {
+	public List<String> stringList(Object x) {
 		if(x instanceof List)
 			return (List<String>)x; // have faith
 		if(x instanceof String)
 			return Lists.newArrayList((String)x);
+		if(x == null)
+			return Lists.newArrayList(); // empty list
 		throw new IllegalArgumentException("Not a string or lists of strings");
 	}
 	@Override

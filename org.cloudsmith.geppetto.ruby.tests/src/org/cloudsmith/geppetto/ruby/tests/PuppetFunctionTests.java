@@ -30,12 +30,11 @@ public class PuppetFunctionTests extends TestCase {
 		RubyHelper helper = new RubyHelper();
 		helper.setUp();
 		try {
-		List<PPFunctionInfo> foundFunctions = helper.getFunctionInfo(aRubyFile);
-		assertEquals("Should have found one function", 1, foundFunctions.size());
-		PPFunctionInfo info = foundFunctions.get(0);
-		assertEquals("Should have found echotest", "echotest", info.getFunctionName());
-		assertTrue("Should have been an rValue",info.isRValue());
-		
+			List<PPFunctionInfo> foundFunctions = helper.getFunctionInfo(aRubyFile);
+			assertEquals("Should have found one function", 1, foundFunctions.size());
+			PPFunctionInfo info = foundFunctions.get(0);
+			assertEquals("Should have found echotest", "echotest", info.getFunctionName());
+			assertTrue("Should have been an rValue",info.isRValue());		
 		}
 		finally {
 			helper.tearDown();
@@ -59,5 +58,22 @@ public class PuppetFunctionTests extends TestCase {
 			helper.tearDown();
 		}
 	}
-	
+	public void testParseFunctionWithFullyQualifiedName() throws Exception {
+		File aRubyFile = TestDataProvider
+				.getTestFile(new Path(
+						"testData/pp-modules-ruby/module-x/lib/puppet/parser/functions/echotest3.rb"));
+		RubyHelper helper = new RubyHelper();
+		helper.setUp();
+		try {
+			List<PPFunctionInfo> foundFunctions = helper.getFunctionInfo(aRubyFile);
+			assertEquals("Should have found one function", 1, foundFunctions.size());
+			PPFunctionInfo info = foundFunctions.get(0);
+			assertEquals("Should have found echotest", "echotest3", info.getFunctionName());
+		assertTrue("Should have been an rValue",info.isRValue());
+		
+		}
+		finally {
+			helper.tearDown();
+		}
+	}
 }

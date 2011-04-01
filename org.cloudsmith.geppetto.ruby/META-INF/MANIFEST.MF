@@ -7,7 +7,8 @@ Bundle-Activator: org.cloudsmith.geppetto.ruby.Activator
 Bundle-Vendor: Cloudsmith
 Require-Bundle: org.eclipse.core.runtime,
  com.google.collect;bundle-version="1.0.0",
- org.cloudsmith.geppetto.pp;bundle-version="0.1.2"
+ org.cloudsmith.geppetto.pp;bundle-version="0.1.2",
+ org.cloudsmith.geppetto.forge;bundle-version="0.1.0"
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-ActivationPolicy: lazy
 Export-Package: org.cloudsmith.geppetto.ruby,

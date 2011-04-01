@@ -106,9 +106,12 @@ public class PuppetTPTests extends TestCase {
 		assertEquals("Should have found 21 functions", 21, target.getFunctions().size());
 	}
 	
-/* uncomment and modify path to test load of puppet distribution */
+/* uncomment and modify path to test load of puppet distribution and creating an xml version */
+
 	public void testLoadRealTP() throws Exception {
-		File distroDir = new File("/opt/local/var/macports/software/puppet/2.6.2_0/opt/local/lib/ruby/site_ruby/1.8/puppet/");
+		// 2.6.2_0
+		// 2.6.4_0
+		File distroDir = new File("/opt/local/var/macports/software/puppet/2.6.4_0/opt/local/lib/ruby/site_ruby/1.8/puppet/");
 		RubyHelper helper = new RubyHelper();
 		helper.setUp();
 		try {
@@ -123,7 +126,7 @@ public class PuppetTPTests extends TestCase {
 			// Save the TargetEntry as a loadable resource
 			ResourceSet resourceSet = new ResourceSetImpl(); 
 			URI fileURI = 
-			URI.createFileURI(new File("puppet-2.6.2_0.pptp").getAbsolutePath()); 
+			URI.createFileURI(new File("puppet-2.6.4_0.pptp").getAbsolutePath()); 
 			Resource targetResource = resourceSet.createResource(fileURI); 
 			targetResource.getContents().add(target); 
 			targetResource.save(null);

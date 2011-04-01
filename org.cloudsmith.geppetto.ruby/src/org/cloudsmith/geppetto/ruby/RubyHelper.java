@@ -20,6 +20,8 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
+import org.cloudsmith.geppetto.forge.ForgeFactory;
+import org.cloudsmith.geppetto.forge.Metadata;
 import org.cloudsmith.geppetto.pp.pptp.Function;
 import org.cloudsmith.geppetto.pp.pptp.PPTPFactory;
 import org.cloudsmith.geppetto.pp.pptp.Parameter;
@@ -27,6 +29,8 @@ import org.cloudsmith.geppetto.pp.pptp.Property;
 import org.cloudsmith.geppetto.pp.pptp.PuppetDistribution;
 import org.cloudsmith.geppetto.pp.pptp.TargetEntry;
 import org.cloudsmith.geppetto.pp.pptp.Type;
+import org.cloudsmith.geppetto.pp.pptp.TypeFragment;
+import org.cloudsmith.geppetto.pp.pptp.util.PPTPLinker;
 import org.cloudsmith.geppetto.ruby.spi.IRubyIssue;
 import org.cloudsmith.geppetto.ruby.spi.IRubyParseResult;
 import org.cloudsmith.geppetto.ruby.spi.IRubyServices;
@@ -50,9 +54,9 @@ import com.google.common.collect.Lists;
  *
  */
 public class RubyHelper {
-	
+
 	private IRubyServices rubyProvider;
-	
+
 	private static final FilenameFilter rbFileFilter = new FilenameFilter() {
 
 		@Override
@@ -67,7 +71,7 @@ public class RubyHelper {
 		public boolean accept(File pathname) {
 			return pathname.isDirectory();
 		}
-		
+
 	};
 
 	/**
@@ -83,7 +87,7 @@ public class RubyHelper {
 	public TargetEntry loadDistroTarget(File file) throws IOException, RubySyntaxException {
 		if(file == null)
 			throw new IllegalArgumentException("File can not be null");
-		
+
 		// Create a puppet distro target and parse info from the file path
 		//
 		PuppetDistribution puppetDistro = PPTPFactory.eINSTANCE.createPuppetDistribution();
@@ -98,54 +102,80 @@ public class RubyHelper {
 			}
 			else if("puppet".equals(s))
 				nextIsVersion = true;
-		
+
 		puppetDistro.setName("puppet "+versionString);
+		// remember this file (for a possible reload), but do not remember file for the contained elements
 		puppetDistro.setFile(file);
-		
+		final boolean rememberFiles = false;
 		// Load functions
 		File parserDir = new File(file, "parser");
 		File functionsDir = new File(parserDir, "functions");
-		loadFunctions(puppetDistro, functionsDir);
-		
+		loadFunctions(puppetDistro, functionsDir, rememberFiles);
+
 		// Load types
 		File typesDir = new File(file, "type");
-		loadTypes(puppetDistro, typesDir);
-		
+		loadTypes(puppetDistro, typesDir, rememberFiles);
+
 		// load additional properties into types
 		// (currently only known such construct is for 'file' type
 		// this implementation does however search all subdirectories
 		// for such additions
 		//
 		for(File subDir : typesDir.listFiles(dirFilter))
-			loadProperties(puppetDistro, subDir);
+			loadTypeFragments(puppetDistro, subDir, rememberFiles);
 		return puppetDistro;
 	}
-	
-	private void loadProperties(TargetEntry target, File subDir) throws IOException, RubySyntaxException {
-		// process all .rb files
-		for(File f : subDir.listFiles(rbFileFilter))
+
+//	private void loadPropertiesOLD(TargetEntry target, File subDir) throws IOException, RubySyntaxException {
+//		// process all .rb files
+//		for(File f : subDir.listFiles(rbFileFilter))
+//			// try to get type property additions
+//			for(PPTypeInfo type : getTypeProperties(f)) {
+//				// the type must already be loaded in the target - find it
+//				Type t = getType(target, type.getTypeName());
+//				if(t == null)
+//					return; // unknown - do something else?
+//				// add the properties (will typically load just one).
+//				for(Map.Entry<String, PPTypeInfo.Entry> entry : type.getProperties().entrySet()) {
+//					Property property = PPTPFactory.eINSTANCE.createProperty();
+//					property.setName(entry.getKey());
+//					property.setDocumentation(entry.getValue().documentation);
+//					property.setRequired(entry.getValue().isRequired());
+//					t.getProperties().add(property);
+//				}
+//			}
+//	}
+	private void loadTypeFragments(TargetEntry target, File subDir, boolean rememberFile) throws IOException, RubySyntaxException {
+		for(File f : subDir.listFiles(rbFileFilter)) {
 			// try to get type property additions
-			for(PPTypeInfo type : getTypeProperties(f)) {
-				// the type must already be loaded in the target - find it
-				Type t = getType(target, type.getTypeName());
-				if(t == null)
-					return; // unknown - do something else?
-				// add the properties (will typically load just one).
-				for(Map.Entry<String, PPTypeInfo.Entry> entry : type.getProperties().entrySet()) {
-					Property property = PPTPFactory.eINSTANCE.createProperty();
-					property.setName(entry.getKey());
-					property.setDocumentation(entry.getValue().documentation);
-					property.setRequired(entry.getValue().isRequired());
-					t.getProperties().add(property);
-				}
+			List<TypeFragment> result = loadTypeFragments(f, rememberFile);
+			for(TypeFragment tf : result)
+				PPTPLinker.addTypeFragment(target, tf);
+		}
+	}
+	
+	public List<TypeFragment> loadTypeFragments(File rbFile, boolean rememberFile) throws IOException, RubySyntaxException {
+		List<TypeFragment> result = Lists.newArrayList();
+		for(PPTypeInfo type : getTypeProperties(rbFile)) {
+			TypeFragment fragment = PPTPFactory.eINSTANCE.createTypeFragment();
+			fragment.setName(type.getTypeName());
+			if(rememberFile)
+				fragment.setFile(rbFile);
+			
+			// add the properties (will typically load just one).
+			for(Map.Entry<String, PPTypeInfo.Entry> entry : type.getProperties().entrySet()) {
+				Property property = PPTPFactory.eINSTANCE.createProperty();
+				property.setName(entry.getKey());
+				property.setDocumentation(entry.getValue().documentation);
+				property.setRequired(entry.getValue().isRequired());
+				fragment.getProperties().add(property);
 			}
+			result.add(fragment);
+		}
+		return result;
+		
 	}
-	private Type getType(TargetEntry target, String name) {
-		for(Type t : target.getTypes())
-			if(t.getName().equals(name))
-				return t;
-		return null;
-	}
+
 	/**
 	 * Load type info into target.
 	 * @param target
@@ -153,29 +183,44 @@ public class RubyHelper {
 	 * @throws IOException
 	 * @throws RubySyntaxException
 	 */
-	private void loadTypes(TargetEntry target, File typesDir) throws IOException, RubySyntaxException {
-		for(File rbFile : typesDir.listFiles(rbFileFilter)) {
-			for(PPTypeInfo info : getTypeInfo(rbFile)) {
-				Type type = PPTPFactory.eINSTANCE.createType();
-				type.setName(info.getTypeName());
-				type.setDocumentation(info.getDocumentation());
-				for(Map.Entry<String, PPTypeInfo.Entry> entry : info.getParameters().entrySet()) {
-					Parameter parameter = PPTPFactory.eINSTANCE.createParameter();
-					parameter.setName(entry.getKey());
-					parameter.setDocumentation(entry.getValue().documentation);
-					parameter.setRequired(entry.getValue().isRequired());
-					type.getParameters().add(parameter);
-				}
-				for(Map.Entry<String, PPTypeInfo.Entry> entry : info.getProperties().entrySet()) {
-					Property property = PPTPFactory.eINSTANCE.createProperty();
-					property.setName(entry.getKey());
-					property.setDocumentation(entry.getValue().documentation);
-					property.setRequired(entry.getValue().isRequired());
-					type.getProperties().add(property);
-				}
-				target.getTypes().add(type);
+	private void loadTypes(TargetEntry target, File typesDir, boolean rememberFiles) throws IOException, RubySyntaxException {
+		for(File rbFile : typesDir.listFiles(rbFileFilter))
+			for(Type t : loadTypes(rbFile, rememberFiles))
+				PPTPLinker.addType(target, t);
+	}
+	/**
+	 * Load type(s) from ruby file.
+	 * @param rbFile - the file to parse
+	 * @param rememberFiles - if entries should remember the file they came from.
+	 * @return
+	 * @throws IOException
+	 * @throws RubySyntaxException
+	 */
+	public List<Type> loadTypes(File rbFile, boolean rememberFiles) throws IOException, RubySyntaxException {
+		List<Type> result = Lists.newArrayList();
+		for(PPTypeInfo info : getTypeInfo(rbFile)) {
+			Type type = PPTPFactory.eINSTANCE.createType();
+			if(rememberFiles)
+				type.setFile(rbFile);
+			type.setName(info.getTypeName());
+			type.setDocumentation(info.getDocumentation());
+			for(Map.Entry<String, PPTypeInfo.Entry> entry : info.getParameters().entrySet()) {
+				Parameter parameter = PPTPFactory.eINSTANCE.createParameter();
+				parameter.setName(entry.getKey());
+				parameter.setDocumentation(entry.getValue().documentation);
+				parameter.setRequired(entry.getValue().isRequired());
+				type.getParameters().add(parameter);
 			}
+			for(Map.Entry<String, PPTypeInfo.Entry> entry : info.getProperties().entrySet()) {
+				Property property = PPTPFactory.eINSTANCE.createProperty();
+				property.setName(entry.getKey());
+				property.setDocumentation(entry.getValue().documentation);
+				property.setRequired(entry.getValue().isRequired());
+				type.getProperties().add(property);
+			}
+			result.add(type);
 		}
+		return result;
 	}
 	/**
 	 * Load function info into target.
@@ -184,25 +229,96 @@ public class RubyHelper {
 	 * @throws IOException
 	 * @throws RubySyntaxException
 	 */
-	private void loadFunctions(TargetEntry target, File functionsDir) throws IOException, RubySyntaxException {
-		for(File rbFile : functionsDir.listFiles(rbFileFilter)) {
-			for(PPFunctionInfo info : getFunctionInfo(rbFile)) {
-				Function pptpFunc = PPTPFactory.eINSTANCE.createFunction();
-				pptpFunc.setName(info.getFunctionName());
-				pptpFunc.setRValue(info.isRValue());
-				pptpFunc.setDocumentation(info.getDocumentation());
-				target.getFunctions().add(pptpFunc);
-			}
-		}
-
+	private void loadFunctions(TargetEntry target, File functionsDir, boolean rememberFile) throws IOException, RubySyntaxException {
+		for(File rbFile : functionsDir.listFiles(rbFileFilter))
+			for(Function f : loadFunctions(rbFile, rememberFile))
+				target.getFunctions().add(f);
 	}
 	/**
-	 * Loads a target by scanning all .rb files under the given directory 
+	 * Load function(s) from a rubyfile (supposed to contain PP function declarations).
+	 * @param rbFile
+	 * @param rememberFile
+	 * @return
+	 * @throws IOException
+	 * @throws RubySyntaxException
+	 */
+	public List<Function> loadFunctions(File rbFile, boolean rememberFile) throws IOException, RubySyntaxException {
+		List<Function> result = Lists.newArrayList();
+		for(PPFunctionInfo info : getFunctionInfo(rbFile)) {
+			Function pptpFunc = PPTPFactory.eINSTANCE.createFunction();
+			if(rememberFile)
+				pptpFunc.setFile(rbFile);
+			pptpFunc.setName(info.getFunctionName());
+			pptpFunc.setRValue(info.isRValue());
+			pptpFunc.setDocumentation(info.getDocumentation());
+			result.add(pptpFunc);
+		}
+		return result;
+		
+	}
+
+	/**
+	 * Loads a target by scanning the relevant .rb files under the given "lib/puppet" directory.
+	 * The libPuppetDir should refer to the directory where "parser/functions" and "type" directories
+	 * are. An empty TargetEntry is returned if there are no types or functions found.
 	 * @param file
 	 * @throws IOException
 	 */
-	public void loadDirectoryTarget(File file) throws IOException {
-		
+	public TargetEntry loadDirectoryTarget(File libPuppetDir) throws IOException, RubySyntaxException {
+
+		// If there is a file "{libPuppetDir}/../../Modulefile" then this is a Module, otherwise
+		// just a directory.
+		//
+		File moduleFile = new File(libPuppetDir.getParentFile().getParentFile(),"Modulefile");
+		TargetEntry result = null;
+		final boolean rememberFiles = true; // remember individually loaded files for dynamic change support
+		if(moduleFile.exists()) {
+			result = PPTPFactory.eINSTANCE.createPuppetModule();
+
+			// parse the "Modulefile" and get fulle name and version, use this as name of target entry
+			try {
+				Metadata metadata = ForgeFactory.eINSTANCE.createMetadata();
+				metadata.loadModuleFile(moduleFile);
+
+				result.setName(metadata.getUser() + '/' + metadata.getName());
+				result.setVersion(metadata.getVersion());
+				result.setDescription(metadata.getDescription());
+			} catch(Exception e) {
+				// TODO: Log this
+				result.setName(moduleFile.getParentFile().getName());
+				result.setVersion("not found");
+				result.setDescription("No description - Error while loading metadata");
+			}
+		}
+		else {
+			// just a directory
+			result = PPTPFactory.eINSTANCE.createRubyDirectory();
+			result.setName(libPuppetDir.getParentFile().getParentFile().getName());
+			result.setFile(libPuppetDir);
+			result.setVersion("");
+			result.setDescription("Non module loaded from directory - no description available");
+		}
+		// always remember the target entry file
+		result.setFile(libPuppetDir);
+
+		// Load functions
+		File parserDir = new File(libPuppetDir, "parser");
+		File functionsDir = new File(parserDir, "functions");
+		loadFunctions(result, functionsDir, rememberFiles);
+
+		// Load types
+		File typesDir = new File(libPuppetDir, "type");
+		loadTypes(result, typesDir, rememberFiles);
+
+		// load additional properties into types
+		// (currently only known such construct is for 'file' type
+		// this implementation does however search all subdirectories
+		// for such additions
+		//
+		for(File subDir : typesDir.listFiles(dirFilter))
+			loadTypeFragments(result, subDir, true);
+		return result;
+
 	}
 
 	/**
@@ -226,8 +342,8 @@ public class RubyHelper {
 	 * Loads a service extension, or creates a mock implementation.
 	 */
 	private void loadRubyServiceExtension() {
-	IConfigurationElement[] configs = Platform.getExtensionRegistry().getConfigurationElementsFor(
-			Activator.EXTENSION__RUBY_SERVICE);
+		IConfigurationElement[] configs = Platform.getExtensionRegistry().getConfigurationElementsFor(
+				Activator.EXTENSION__RUBY_SERVICE);
 		List<IRubyServices> services = Lists.newArrayList();
 		for(IConfigurationElement e : configs) {
 			try {
@@ -244,13 +360,13 @@ public class RubyHelper {
 		else
 			rubyProvider = services.get(0);
 	}
-	
+
 	public void tearDown() {
 		if(rubyProvider == null)
 			return; // ignore silently
-		
+
 		rubyProvider.tearDown();
-		
+
 	}
 	/**
 	 * Parse a .rb file and return information about syntax errors and warnings. Must be preceded with
@@ -265,7 +381,7 @@ public class RubyHelper {
 			throw new IllegalStateException("Must call setUp() before parse(File).");
 		return rubyProvider.parse(file);
 	}
-	
+
 	/**
 	 * Returns a list of custom PP parser functions from the given .rb file. The returned list is
 	 * empty if no function could be found.
@@ -283,7 +399,7 @@ public class RubyHelper {
 			throw new FileNotFoundException(file.getPath());
 
 		return rubyProvider.getFunctionInfo(file);
-		
+
 	}
 	/**
 	 * Returns a list of custom PP types from the given .rb file. The returned list is
@@ -301,7 +417,7 @@ public class RubyHelper {
 		if(!file.exists())
 			throw new FileNotFoundException(file.getPath());
 		return rubyProvider.getTypeInfo(file);
-		
+
 	}
 	public List<PPTypeInfo> getTypeProperties(File file) throws IOException, RubySyntaxException {
 		if(rubyProvider == null)
@@ -311,31 +427,31 @@ public class RubyHelper {
 		if(!file.exists())
 			throw new FileNotFoundException(file.getPath());
 		return rubyProvider.getTypePropertiesInfo(file);
-		
+
 	}
 	private static class MockRubyServices implements IRubyServices {
 		private static final List<PPFunctionInfo> emptyFunctionInfo = Collections.emptyList();
 		private static final List<PPTypeInfo> emptyTypeInfo = Collections.emptyList();
 		private static final IRubyParseResult emptyParseResult = new EmptyParseResult();
-		
-			private static class EmptyParseResult implements IRubyParseResult {
-				private static final List<IRubyIssue> emptyIssues = Collections.emptyList();
 
-				@Override
-				public List<IRubyIssue> getIssues() {
-					return emptyIssues;
-				}
+		private static class EmptyParseResult implements IRubyParseResult {
+			private static final List<IRubyIssue> emptyIssues = Collections.emptyList();
 
-				@Override
-				public boolean hasErrors() {
-					return false;
-				}
+			@Override
+			public List<IRubyIssue> getIssues() {
+				return emptyIssues;
+			}
 
-				@Override
-				public boolean hasIssues() {
-					return false;
-				}
-			
+			@Override
+			public boolean hasErrors() {
+				return false;
+			}
+
+			@Override
+			public boolean hasIssues() {
+				return false;
+			}
+
 		}
 		@Override
 		public void setUp() {
@@ -354,7 +470,7 @@ public class RubyHelper {
 
 		@Override
 		public List<PPFunctionInfo> getFunctionInfo(File file)
-				throws IOException {
+		throws IOException {
 			return emptyFunctionInfo;
 		}
 
@@ -370,10 +486,10 @@ public class RubyHelper {
 
 		@Override
 		public List<PPTypeInfo> getTypePropertiesInfo(File file)
-				throws IOException, RubySyntaxException {
+		throws IOException, RubySyntaxException {
 			return emptyTypeInfo;
 		}
-		
+
 	}
 
 }

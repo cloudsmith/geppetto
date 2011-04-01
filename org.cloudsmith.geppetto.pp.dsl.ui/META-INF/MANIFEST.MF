@@ -14,7 +14,8 @@ Require-Bundle: org.cloudsmith.geppetto.pp.dsl;visibility:=reexport,
  org.eclipse.xtext.ui.shared,
  org.eclipse.ui,
  org.eclipse.xtext.builder,
- org.antlr.runtime
+ org.antlr.runtime,
+ org.cloudsmith.geppetto.ruby;bundle-version="1.0.0"
 Import-Package: org.apache.log4j
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-Activator: org.cloudsmith.geppetto.pp.dsl.ui.internal.PPActivator

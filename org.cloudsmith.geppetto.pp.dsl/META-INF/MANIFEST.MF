@@ -11,7 +11,11 @@ Require-Bundle: org.eclipse.xtext,
  org.eclipse.xtext.util,
  org.eclipse.emf.ecore,
  org.eclipse.emf.common,
- org.antlr.runtime
+ org.antlr.runtime,
+ org.cloudsmith.geppetto.ruby;bundle-version="1.0.0",
+ org.eclipse.core.resources;bundle-version="3.6.1",
+ org.eclipse.core.runtime;bundle-version="3.6.0",
+ org.cloudsmith.geppetto.common;bundle-version="0.1.0"
 Import-Package: org.apache.log4j
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Export-Package: org.cloudsmith.geppetto.pp.dsl,
@@ -22,6 +26,7 @@ Export-Package: org.cloudsmith.geppetto.pp.dsl,
  org.cloudsmith.geppetto.pp.dsl.parser.antlr,
  org.cloudsmith.geppetto.pp.dsl.parser.antlr.internal,
  org.cloudsmith.geppetto.pp.dsl.parser.antlr.lexer,
+ org.cloudsmith.geppetto.pp.dsl.pptp,
  org.cloudsmith.geppetto.pp.dsl.scoping,
  org.cloudsmith.geppetto.pp.dsl.serialization,
  org.cloudsmith.geppetto.pp.dsl.services,

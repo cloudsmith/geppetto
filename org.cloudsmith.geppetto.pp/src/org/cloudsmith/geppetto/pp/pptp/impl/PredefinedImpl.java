@@ -22,13 +22,14 @@ import org.eclipse.emf.ecore.EClass;
  * <!-- end-user-doc -->
  * <p>
  * </p>
- *
+ * 
  * @generated
  */
 public class PredefinedImpl extends TargetEntryImpl implements Predefined {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	protected PredefinedImpl() {
@@ -38,6 +39,7 @@ public class PredefinedImpl extends TargetEntryImpl implements Predefined {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@Override
@@ -45,4 +47,4 @@ public class PredefinedImpl extends TargetEntryImpl implements Predefined {
 		return PPTPPackage.Literals.PREDEFINED;
 	}
 
-} //PredefinedImpl
+} // PredefinedImpl

@@ -15,8 +15,8 @@ package org.cloudsmith.geppetto.pp.pptp;
  * <!-- begin-user-doc -->
  * A representation of the model object '<em><b>Predefined</b></em>'.
  * <!-- end-user-doc -->
- *
- *
+ * 
+ * 
  * @see org.cloudsmith.geppetto.pp.pptp.PPTPPackage#getPredefined()
  * @model
  * @generated

@@ -19,14 +19,14 @@ import org.eclipse.emf.ecore.EObject;
  * <!-- begin-user-doc -->
  * A representation of the model object '<em><b>Puppet Target</b></em>'.
  * <!-- end-user-doc -->
- *
+ * 
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link org.cloudsmith.geppetto.pp.pptp.PuppetTarget#getEntries <em>Entries</em>}</li>
+ * <li>{@link org.cloudsmith.geppetto.pp.pptp.PuppetTarget#getEntries <em>Entries</em>}</li>
  * </ul>
  * </p>
- *
+ * 
  * @see org.cloudsmith.geppetto.pp.pptp.PPTPPackage#getPuppetTarget()
  * @model
  * @generated
@@ -37,10 +37,10 @@ public interface PuppetTarget extends EObject {
 	 * The list contents are of type {@link org.cloudsmith.geppetto.pp.pptp.TargetEntry}.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Entries</em>' containment reference list isn't clear,
-	 * there really should be more of a description here...
+	 * If the meaning of the '<em>Entries</em>' containment reference list isn't clear, there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * 
 	 * @return the value of the '<em>Entries</em>' containment reference list.
 	 * @see org.cloudsmith.geppetto.pp.pptp.PPTPPackage#getPuppetTarget_Entries()
 	 * @model containment="true"

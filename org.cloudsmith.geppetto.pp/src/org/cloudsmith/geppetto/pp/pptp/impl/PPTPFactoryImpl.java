@@ -28,13 +28,27 @@ import org.eclipse.emf.ecore.plugin.EcorePlugin;
  * <!-- begin-user-doc -->
  * An implementation of the model <b>Factory</b>.
  * <!-- end-user-doc -->
+ * 
  * @generated
  */
 public class PPTPFactoryImpl extends EFactoryImpl implements PPTPFactory {
 	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @deprecated
+	 * @generated
+	 */
+	@Deprecated
+	public static PPTPPackage getPackage() {
+		return PPTPPackage.eINSTANCE;
+	}
+
+	/**
 	 * Creates the default factory implementation.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	public static PPTPFactory init() {
@@ -54,6 +68,7 @@ public class PPTPFactoryImpl extends EFactoryImpl implements PPTPFactory {
 	 * Creates an instance of the factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	public PPTPFactoryImpl() {
@@ -63,51 +78,17 @@ public class PPTPFactoryImpl extends EFactoryImpl implements PPTPFactory {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
-	@Override
-	public EObject create(EClass eClass) {
-		switch(eClass.getClassifierID()) {
-			case PPTPPackage.PUPPET_TARGET:
-				return createPuppetTarget();
-			case PPTPPackage.PUPPET_DISTRIBUTION:
-				return createPuppetDistribution();
-			case PPTPPackage.RUBY_DIRECTORY:
-				return createRubyDirectory();
-			case PPTPPackage.PREDEFINED:
-				return createPredefined();
-			case PPTPPackage.FUNCTION:
-				return createFunction();
-			case PPTPPackage.TYPE:
-				return createType();
-			case PPTPPackage.PROPERTY:
-				return createProperty();
-			case PPTPPackage.PARAMETER:
-				return createParameter();
-			default:
-				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
-		}
+	public String convertFileToString(EDataType eDataType, Object instanceValue) {
+		return super.convertToString(eDataType, instanceValue);
 	}
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public Object createFromString(EDataType eDataType, String initialValue) {
-		switch(eDataType.getClassifierID()) {
-			case PPTPPackage.FILE:
-				return createFileFromString(eDataType, initialValue);
-			default:
-				throw new IllegalArgumentException("The datatype '" + eDataType.getName() +
-						"' is not a valid classifier");
-		}
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@Override
@@ -124,46 +105,68 @@ public class PPTPFactoryImpl extends EFactoryImpl implements PPTPFactory {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
-	public PuppetTarget createPuppetTarget() {
-		PuppetTargetImpl puppetTarget = new PuppetTargetImpl();
-		return puppetTarget;
+	@Override
+	public EObject create(EClass eClass) {
+		switch(eClass.getClassifierID()) {
+			case PPTPPackage.PUPPET_TARGET:
+				return createPuppetTarget();
+			case PPTPPackage.PUPPET_DISTRIBUTION:
+				return createPuppetDistribution();
+			case PPTPPackage.RUBY_DIRECTORY:
+				return createRubyDirectory();
+			case PPTPPackage.PREDEFINED:
+				return createPredefined();
+			case PPTPPackage.FUNCTION:
+				return createFunction();
+			case PPTPPackage.PROPERTY:
+				return createProperty();
+			case PPTPPackage.PARAMETER:
+				return createParameter();
+			case PPTPPackage.PUPPET_MODULE:
+				return createPuppetModule();
+			case PPTPPackage.TYPE_FRAGMENT:
+				return createTypeFragment();
+			case PPTPPackage.TYPE:
+				return createType();
+			default:
+				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
+		}
 	}
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
-	public PuppetDistribution createPuppetDistribution() {
-		PuppetDistributionImpl puppetDistribution = new PuppetDistributionImpl();
-		return puppetDistribution;
+	public File createFileFromString(EDataType eDataType, String initialValue) {
+		return (File) super.createFromString(eDataType, initialValue);
 	}
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
-	public RubyDirectory createRubyDirectory() {
-		RubyDirectoryImpl rubyDirectory = new RubyDirectoryImpl();
-		return rubyDirectory;
+	@Override
+	public Object createFromString(EDataType eDataType, String initialValue) {
+		switch(eDataType.getClassifierID()) {
+			case PPTPPackage.FILE:
+				return createFileFromString(eDataType, initialValue);
+			default:
+				throw new IllegalArgumentException("The datatype '" + eDataType.getName() +
+						"' is not a valid classifier");
+		}
 	}
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public Predefined createPredefined() {
-		PredefinedImpl predefined = new PredefinedImpl();
-		return predefined;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	public Function createFunction() {
@@ -174,26 +177,7 @@ public class PPTPFactoryImpl extends EFactoryImpl implements PPTPFactory {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public Type createType() {
-		TypeImpl type = new TypeImpl();
-		return type;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public Property createProperty() {
-		PropertyImpl property = new PropertyImpl();
-		return property;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	public Parameter createParameter() {
@@ -204,39 +188,99 @@ public class PPTPFactoryImpl extends EFactoryImpl implements PPTPFactory {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
-	public File createFileFromString(EDataType eDataType, String initialValue) {
-		return (File) super.createFromString(eDataType, initialValue);
+	public Predefined createPredefined() {
+		PredefinedImpl predefined = new PredefinedImpl();
+		return predefined;
 	}
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
-	public String convertFileToString(EDataType eDataType, Object instanceValue) {
-		return super.convertToString(eDataType, instanceValue);
+	public Property createProperty() {
+		PropertyImpl property = new PropertyImpl();
+		return property;
 	}
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
+	public PuppetDistribution createPuppetDistribution() {
+		PuppetDistributionImpl puppetDistribution = new PuppetDistributionImpl();
+		return puppetDistribution;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
+	public PuppetModule createPuppetModule() {
+		PuppetModuleImpl puppetModule = new PuppetModuleImpl();
+		return puppetModule;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
+	public PuppetTarget createPuppetTarget() {
+		PuppetTargetImpl puppetTarget = new PuppetTargetImpl();
+		return puppetTarget;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
+	public RubyDirectory createRubyDirectory() {
+		RubyDirectoryImpl rubyDirectory = new RubyDirectoryImpl();
+		return rubyDirectory;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
+	public Type createType() {
+		TypeImpl type = new TypeImpl();
+		return type;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
+	public TypeFragment createTypeFragment() {
+		TypeFragmentImpl typeFragment = new TypeFragmentImpl();
+		return typeFragment;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	public PPTPPackage getPPTPPackage() {
 		return (PPTPPackage) getEPackage();
 	}
 
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @deprecated
-	 * @generated
-	 */
-	@Deprecated
-	public static PPTPPackage getPackage() {
-		return PPTPPackage.eINSTANCE;
-	}
-
-} //PPTPFactoryImpl
+} // PPTPFactoryImpl

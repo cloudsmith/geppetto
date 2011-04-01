@@ -17,14 +17,14 @@ import org.eclipse.emf.ecore.EObject;
  * <!-- begin-user-doc -->
  * A representation of the model object '<em><b>IDocumented</b></em>'.
  * <!-- end-user-doc -->
- *
+ * 
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link org.cloudsmith.geppetto.pp.pptp.IDocumented#getDocumentation <em>Documentation</em>}</li>
+ * <li>{@link org.cloudsmith.geppetto.pp.pptp.IDocumented#getDocumentation <em>Documentation</em>}</li>
  * </ul>
  * </p>
- *
+ * 
  * @see org.cloudsmith.geppetto.pp.pptp.PPTPPackage#getIDocumented()
  * @model interface="true" abstract="true"
  * @generated
@@ -34,10 +34,10 @@ public interface IDocumented extends EObject {
 	 * Returns the value of the '<em><b>Documentation</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Documentation</em>' attribute isn't clear,
-	 * there really should be more of a description here...
+	 * If the meaning of the '<em>Documentation</em>' attribute isn't clear, there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * 
 	 * @return the value of the '<em>Documentation</em>' attribute.
 	 * @see #setDocumentation(String)
 	 * @see org.cloudsmith.geppetto.pp.pptp.PPTPPackage#getIDocumented_Documentation()
@@ -50,7 +50,9 @@ public interface IDocumented extends EObject {
 	 * Sets the value of the '{@link org.cloudsmith.geppetto.pp.pptp.IDocumented#getDocumentation <em>Documentation</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Documentation</em>' attribute.
+	 * 
+	 * @param value
+	 *            the new value of the '<em>Documentation</em>' attribute.
 	 * @see #getDocumentation()
 	 * @generated
 	 */

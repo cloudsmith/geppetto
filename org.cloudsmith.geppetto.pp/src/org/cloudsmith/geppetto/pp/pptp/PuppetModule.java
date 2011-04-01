@@ -13,13 +13,13 @@ package org.cloudsmith.geppetto.pp.pptp;
 
 /**
  * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>Ruby Directory</b></em>'.
+ * A representation of the model object '<em><b>Puppet Module</b></em>'.
  * <!-- end-user-doc -->
  * 
  * 
- * @see org.cloudsmith.geppetto.pp.pptp.PPTPPackage#getRubyDirectory()
+ * @see org.cloudsmith.geppetto.pp.pptp.PPTPPackage#getPuppetModule()
  * @model
  * @generated
  */
-public interface RubyDirectory extends TargetEntry {
-} // RubyDirectory
+public interface PuppetModule extends TargetEntry {
+} // PuppetModule

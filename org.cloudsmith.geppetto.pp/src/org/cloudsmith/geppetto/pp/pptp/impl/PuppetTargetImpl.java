@@ -36,10 +36,10 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.cloudsmith.geppetto.pp.pptp.impl.PuppetTargetImpl#getEntries <em>Entries</em>}</li>
+ * <li>{@link org.cloudsmith.geppetto.pp.pptp.impl.PuppetTargetImpl#getEntries <em>Entries</em>}</li>
  * </ul>
  * </p>
- *
+ * 
  * @generated
  */
 public class PuppetTargetImpl extends EObjectImpl implements PuppetTarget {
@@ -47,6 +47,7 @@ public class PuppetTargetImpl extends EObjectImpl implements PuppetTarget {
 	 * The cached value of the '{@link #getEntries() <em>Entries</em>}' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @see #getEntries()
 	 * @generated
 	 * @ordered
@@ -56,6 +57,7 @@ public class PuppetTargetImpl extends EObjectImpl implements PuppetTarget {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	protected PuppetTargetImpl() {
@@ -65,43 +67,7 @@ public class PuppetTargetImpl extends EObjectImpl implements PuppetTarget {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	protected EClass eStaticClass() {
-		return PPTPPackage.Literals.PUPPET_TARGET;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EList<TargetEntry> getEntries() {
-		if(entries == null) {
-			entries = new EObjectContainmentEList<TargetEntry>(
-				TargetEntry.class, this, PPTPPackage.PUPPET_TARGET__ENTRIES);
-		}
-		return entries;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
-		switch(featureID) {
-			case PPTPPackage.PUPPET_TARGET__ENTRIES:
-				return ((InternalEList<?>) getEntries()).basicRemove(otherEnd, msgs);
-		}
-		return super.eInverseRemove(otherEnd, featureID, msgs);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@Override
@@ -116,6 +82,37 @@ public class PuppetTargetImpl extends EObjectImpl implements PuppetTarget {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
+	@Override
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch(featureID) {
+			case PPTPPackage.PUPPET_TARGET__ENTRIES:
+				return ((InternalEList<?>) getEntries()).basicRemove(otherEnd, msgs);
+		}
+		return super.eInverseRemove(otherEnd, featureID, msgs);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
+	@Override
+	public boolean eIsSet(int featureID) {
+		switch(featureID) {
+			case PPTPPackage.PUPPET_TARGET__ENTRIES:
+				return entries != null && !entries.isEmpty();
+		}
+		return super.eIsSet(featureID);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@SuppressWarnings("unchecked")
@@ -133,6 +130,18 @@ public class PuppetTargetImpl extends EObjectImpl implements PuppetTarget {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
+	@Override
+	protected EClass eStaticClass() {
+		return PPTPPackage.Literals.PUPPET_TARGET;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@Override
@@ -148,15 +157,15 @@ public class PuppetTargetImpl extends EObjectImpl implements PuppetTarget {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
-	@Override
-	public boolean eIsSet(int featureID) {
-		switch(featureID) {
-			case PPTPPackage.PUPPET_TARGET__ENTRIES:
-				return entries != null && !entries.isEmpty();
+	public EList<TargetEntry> getEntries() {
+		if(entries == null) {
+			entries = new EObjectContainmentEList<TargetEntry>(
+				TargetEntry.class, this, PPTPPackage.PUPPET_TARGET__ENTRIES);
 		}
-		return super.eIsSet(featureID);
+		return entries;
 	}
 
-} //PuppetTargetImpl
+} // PuppetTargetImpl

@@ -11,6 +11,7 @@
  */
 package org.cloudsmith.geppetto.pp.pptp.impl;
 
+import java.io.File;
 import org.cloudsmith.geppetto.pp.pptp.IDocumented;
 import org.cloudsmith.geppetto.pp.pptp.PPTPPackage;
 import org.cloudsmith.geppetto.pp.pptp.TargetElement;
@@ -29,11 +30,12 @@ import org.eclipse.emf.ecore.impl.EObjectImpl;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.cloudsmith.geppetto.pp.pptp.impl.TargetElementImpl#getName <em>Name</em>}</li>
- *   <li>{@link org.cloudsmith.geppetto.pp.pptp.impl.TargetElementImpl#getDocumentation <em>Documentation</em>}</li>
+ * <li>{@link org.cloudsmith.geppetto.pp.pptp.impl.TargetElementImpl#getName <em>Name</em>}</li>
+ * <li>{@link org.cloudsmith.geppetto.pp.pptp.impl.TargetElementImpl#getDocumentation <em>Documentation</em>}</li>
+ * <li>{@link org.cloudsmith.geppetto.pp.pptp.impl.TargetElementImpl#getFile <em>File</em>}</li>
  * </ul>
  * </p>
- *
+ * 
  * @generated
  */
 public abstract class TargetElementImpl extends EObjectImpl implements TargetElement {
@@ -41,6 +43,7 @@ public abstract class TargetElementImpl extends EObjectImpl implements TargetEle
 	 * The default value of the '{@link #getName() <em>Name</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @see #getName()
 	 * @generated
 	 * @ordered
@@ -51,6 +54,7 @@ public abstract class TargetElementImpl extends EObjectImpl implements TargetEle
 	 * The cached value of the '{@link #getName() <em>Name</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @see #getName()
 	 * @generated
 	 * @ordered
@@ -61,6 +65,7 @@ public abstract class TargetElementImpl extends EObjectImpl implements TargetEle
 	 * The default value of the '{@link #getDocumentation() <em>Documentation</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @see #getDocumentation()
 	 * @generated
 	 * @ordered
@@ -71,6 +76,7 @@ public abstract class TargetElementImpl extends EObjectImpl implements TargetEle
 	 * The cached value of the '{@link #getDocumentation() <em>Documentation</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @see #getDocumentation()
 	 * @generated
 	 * @ordered
@@ -78,8 +84,31 @@ public abstract class TargetElementImpl extends EObjectImpl implements TargetEle
 	protected String documentation = DOCUMENTATION_EDEFAULT;
 
 	/**
+	 * The default value of the '{@link #getFile() <em>File</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
+	 * @see #getFile()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final File FILE_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getFile() <em>File</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @see #getFile()
+	 * @generated
+	 * @ordered
+	 */
+	protected File file = FILE_EDEFAULT;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	protected TargetElementImpl() {
@@ -89,131 +118,7 @@ public abstract class TargetElementImpl extends EObjectImpl implements TargetEle
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	protected EClass eStaticClass() {
-		return PPTPPackage.Literals.TARGET_ELEMENT;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public String getName() {
-		return name;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setName(String newName) {
-		String oldName = name;
-		name = newName;
-		if(eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, PPTPPackage.TARGET_ELEMENT__NAME, oldName, name));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public String getDocumentation() {
-		return documentation;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setDocumentation(String newDocumentation) {
-		String oldDocumentation = documentation;
-		documentation = newDocumentation;
-		if(eNotificationRequired())
-			eNotify(new ENotificationImpl(
-				this, Notification.SET, PPTPPackage.TARGET_ELEMENT__DOCUMENTATION, oldDocumentation, documentation));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public Object eGet(int featureID, boolean resolve, boolean coreType) {
-		switch(featureID) {
-			case PPTPPackage.TARGET_ELEMENT__NAME:
-				return getName();
-			case PPTPPackage.TARGET_ELEMENT__DOCUMENTATION:
-				return getDocumentation();
-		}
-		return super.eGet(featureID, resolve, coreType);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public void eSet(int featureID, Object newValue) {
-		switch(featureID) {
-			case PPTPPackage.TARGET_ELEMENT__NAME:
-				setName((String) newValue);
-				return;
-			case PPTPPackage.TARGET_ELEMENT__DOCUMENTATION:
-				setDocumentation((String) newValue);
-				return;
-		}
-		super.eSet(featureID, newValue);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public void eUnset(int featureID) {
-		switch(featureID) {
-			case PPTPPackage.TARGET_ELEMENT__NAME:
-				setName(NAME_EDEFAULT);
-				return;
-			case PPTPPackage.TARGET_ELEMENT__DOCUMENTATION:
-				setDocumentation(DOCUMENTATION_EDEFAULT);
-				return;
-		}
-		super.eUnset(featureID);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public boolean eIsSet(int featureID) {
-		switch(featureID) {
-			case PPTPPackage.TARGET_ELEMENT__NAME:
-				return NAME_EDEFAULT == null
-						? name != null
-						: !NAME_EDEFAULT.equals(name);
-			case PPTPPackage.TARGET_ELEMENT__DOCUMENTATION:
-				return DOCUMENTATION_EDEFAULT == null
-						? documentation != null
-						: !DOCUMENTATION_EDEFAULT.equals(documentation);
-		}
-		return super.eIsSet(featureID);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@Override
@@ -232,6 +137,7 @@ public abstract class TargetElementImpl extends EObjectImpl implements TargetEle
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@Override
@@ -250,6 +156,176 @@ public abstract class TargetElementImpl extends EObjectImpl implements TargetEle
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
+	@Override
+	public Object eGet(int featureID, boolean resolve, boolean coreType) {
+		switch(featureID) {
+			case PPTPPackage.TARGET_ELEMENT__NAME:
+				return getName();
+			case PPTPPackage.TARGET_ELEMENT__DOCUMENTATION:
+				return getDocumentation();
+			case PPTPPackage.TARGET_ELEMENT__FILE:
+				return getFile();
+		}
+		return super.eGet(featureID, resolve, coreType);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
+	@Override
+	public boolean eIsSet(int featureID) {
+		switch(featureID) {
+			case PPTPPackage.TARGET_ELEMENT__NAME:
+				return NAME_EDEFAULT == null
+						? name != null
+						: !NAME_EDEFAULT.equals(name);
+			case PPTPPackage.TARGET_ELEMENT__DOCUMENTATION:
+				return DOCUMENTATION_EDEFAULT == null
+						? documentation != null
+						: !DOCUMENTATION_EDEFAULT.equals(documentation);
+			case PPTPPackage.TARGET_ELEMENT__FILE:
+				return FILE_EDEFAULT == null
+						? file != null
+						: !FILE_EDEFAULT.equals(file);
+		}
+		return super.eIsSet(featureID);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
+	@Override
+	public void eSet(int featureID, Object newValue) {
+		switch(featureID) {
+			case PPTPPackage.TARGET_ELEMENT__NAME:
+				setName((String) newValue);
+				return;
+			case PPTPPackage.TARGET_ELEMENT__DOCUMENTATION:
+				setDocumentation((String) newValue);
+				return;
+			case PPTPPackage.TARGET_ELEMENT__FILE:
+				setFile((File) newValue);
+				return;
+		}
+		super.eSet(featureID, newValue);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
+	@Override
+	protected EClass eStaticClass() {
+		return PPTPPackage.Literals.TARGET_ELEMENT;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
+	@Override
+	public void eUnset(int featureID) {
+		switch(featureID) {
+			case PPTPPackage.TARGET_ELEMENT__NAME:
+				setName(NAME_EDEFAULT);
+				return;
+			case PPTPPackage.TARGET_ELEMENT__DOCUMENTATION:
+				setDocumentation(DOCUMENTATION_EDEFAULT);
+				return;
+			case PPTPPackage.TARGET_ELEMENT__FILE:
+				setFile(FILE_EDEFAULT);
+				return;
+		}
+		super.eUnset(featureID);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
+	public String getDocumentation() {
+		return documentation;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
+	public File getFile() {
+		return file;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
+	public String getName() {
+		return name;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
+	public void setDocumentation(String newDocumentation) {
+		String oldDocumentation = documentation;
+		documentation = newDocumentation;
+		if(eNotificationRequired())
+			eNotify(new ENotificationImpl(
+				this, Notification.SET, PPTPPackage.TARGET_ELEMENT__DOCUMENTATION, oldDocumentation, documentation));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
+	public void setFile(File newFile) {
+		File oldFile = file;
+		file = newFile;
+		if(eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, PPTPPackage.TARGET_ELEMENT__FILE, oldFile, file));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
+	public void setName(String newName) {
+		String oldName = name;
+		name = newName;
+		if(eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, PPTPPackage.TARGET_ELEMENT__NAME, oldName, name));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@Override
@@ -262,8 +338,10 @@ public abstract class TargetElementImpl extends EObjectImpl implements TargetEle
 		result.append(name);
 		result.append(", documentation: ");
 		result.append(documentation);
+		result.append(", file: ");
+		result.append(file);
 		result.append(')');
 		return result.toString();
 	}
 
-} //TargetElementImpl
+} // TargetElementImpl

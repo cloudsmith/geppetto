@@ -11,6 +11,7 @@
  */
 package org.cloudsmith.geppetto.pp.pptp.impl;
 
+import java.io.File;
 import org.cloudsmith.geppetto.pp.pptp.Function;
 import org.cloudsmith.geppetto.pp.pptp.INamed;
 import org.cloudsmith.geppetto.pp.pptp.PPTPPackage;
@@ -30,12 +31,13 @@ import org.eclipse.emf.ecore.impl.EObjectImpl;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.cloudsmith.geppetto.pp.pptp.impl.FunctionImpl#getDocumentation <em>Documentation</em>}</li>
- *   <li>{@link org.cloudsmith.geppetto.pp.pptp.impl.FunctionImpl#getName <em>Name</em>}</li>
- *   <li>{@link org.cloudsmith.geppetto.pp.pptp.impl.FunctionImpl#isRValue <em>RValue</em>}</li>
+ * <li>{@link org.cloudsmith.geppetto.pp.pptp.impl.FunctionImpl#getDocumentation <em>Documentation</em>}</li>
+ * <li>{@link org.cloudsmith.geppetto.pp.pptp.impl.FunctionImpl#getName <em>Name</em>}</li>
+ * <li>{@link org.cloudsmith.geppetto.pp.pptp.impl.FunctionImpl#getFile <em>File</em>}</li>
+ * <li>{@link org.cloudsmith.geppetto.pp.pptp.impl.FunctionImpl#isRValue <em>RValue</em>}</li>
  * </ul>
  * </p>
- *
+ * 
  * @generated
  */
 public class FunctionImpl extends EObjectImpl implements Function {
@@ -43,6 +45,7 @@ public class FunctionImpl extends EObjectImpl implements Function {
 	 * The default value of the '{@link #getDocumentation() <em>Documentation</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @see #getDocumentation()
 	 * @generated
 	 * @ordered
@@ -53,6 +56,7 @@ public class FunctionImpl extends EObjectImpl implements Function {
 	 * The cached value of the '{@link #getDocumentation() <em>Documentation</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @see #getDocumentation()
 	 * @generated
 	 * @ordered
@@ -63,6 +67,7 @@ public class FunctionImpl extends EObjectImpl implements Function {
 	 * The default value of the '{@link #getName() <em>Name</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @see #getName()
 	 * @generated
 	 * @ordered
@@ -73,6 +78,7 @@ public class FunctionImpl extends EObjectImpl implements Function {
 	 * The cached value of the '{@link #getName() <em>Name</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @see #getName()
 	 * @generated
 	 * @ordered
@@ -80,9 +86,32 @@ public class FunctionImpl extends EObjectImpl implements Function {
 	protected String name = NAME_EDEFAULT;
 
 	/**
+	 * The default value of the '{@link #getFile() <em>File</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @see #getFile()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final File FILE_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getFile() <em>File</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @see #getFile()
+	 * @generated
+	 * @ordered
+	 */
+	protected File file = FILE_EDEFAULT;
+
+	/**
 	 * The default value of the '{@link #isRValue() <em>RValue</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @see #isRValue()
 	 * @generated
 	 * @ordered
@@ -93,6 +122,7 @@ public class FunctionImpl extends EObjectImpl implements Function {
 	 * The cached value of the '{@link #isRValue() <em>RValue</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @see #isRValue()
 	 * @generated
 	 * @ordered
@@ -102,6 +132,7 @@ public class FunctionImpl extends EObjectImpl implements Function {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	protected FunctionImpl() {
@@ -111,162 +142,7 @@ public class FunctionImpl extends EObjectImpl implements Function {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	protected EClass eStaticClass() {
-		return PPTPPackage.Literals.FUNCTION;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public String getDocumentation() {
-		return documentation;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setDocumentation(String newDocumentation) {
-		String oldDocumentation = documentation;
-		documentation = newDocumentation;
-		if(eNotificationRequired())
-			eNotify(new ENotificationImpl(
-				this, Notification.SET, PPTPPackage.FUNCTION__DOCUMENTATION, oldDocumentation, documentation));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public String getName() {
-		return name;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setName(String newName) {
-		String oldName = name;
-		name = newName;
-		if(eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, PPTPPackage.FUNCTION__NAME, oldName, name));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public boolean isRValue() {
-		return rValue;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setRValue(boolean newRValue) {
-		boolean oldRValue = rValue;
-		rValue = newRValue;
-		if(eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, PPTPPackage.FUNCTION__RVALUE, oldRValue, rValue));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public Object eGet(int featureID, boolean resolve, boolean coreType) {
-		switch(featureID) {
-			case PPTPPackage.FUNCTION__DOCUMENTATION:
-				return getDocumentation();
-			case PPTPPackage.FUNCTION__NAME:
-				return getName();
-			case PPTPPackage.FUNCTION__RVALUE:
-				return isRValue();
-		}
-		return super.eGet(featureID, resolve, coreType);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public void eSet(int featureID, Object newValue) {
-		switch(featureID) {
-			case PPTPPackage.FUNCTION__DOCUMENTATION:
-				setDocumentation((String) newValue);
-				return;
-			case PPTPPackage.FUNCTION__NAME:
-				setName((String) newValue);
-				return;
-			case PPTPPackage.FUNCTION__RVALUE:
-				setRValue((Boolean) newValue);
-				return;
-		}
-		super.eSet(featureID, newValue);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public void eUnset(int featureID) {
-		switch(featureID) {
-			case PPTPPackage.FUNCTION__DOCUMENTATION:
-				setDocumentation(DOCUMENTATION_EDEFAULT);
-				return;
-			case PPTPPackage.FUNCTION__NAME:
-				setName(NAME_EDEFAULT);
-				return;
-			case PPTPPackage.FUNCTION__RVALUE:
-				setRValue(RVALUE_EDEFAULT);
-				return;
-		}
-		super.eUnset(featureID);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public boolean eIsSet(int featureID) {
-		switch(featureID) {
-			case PPTPPackage.FUNCTION__DOCUMENTATION:
-				return DOCUMENTATION_EDEFAULT == null
-						? documentation != null
-						: !DOCUMENTATION_EDEFAULT.equals(documentation);
-			case PPTPPackage.FUNCTION__NAME:
-				return NAME_EDEFAULT == null
-						? name != null
-						: !NAME_EDEFAULT.equals(name);
-			case PPTPPackage.FUNCTION__RVALUE:
-				return rValue != RVALUE_EDEFAULT;
-		}
-		return super.eIsSet(featureID);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@Override
@@ -281,6 +157,8 @@ public class FunctionImpl extends EObjectImpl implements Function {
 		}
 		if(baseClass == TargetElement.class) {
 			switch(derivedFeatureID) {
+				case PPTPPackage.FUNCTION__FILE:
+					return PPTPPackage.TARGET_ELEMENT__FILE;
 				default:
 					return -1;
 			}
@@ -291,6 +169,7 @@ public class FunctionImpl extends EObjectImpl implements Function {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@Override
@@ -305,6 +184,8 @@ public class FunctionImpl extends EObjectImpl implements Function {
 		}
 		if(baseClass == TargetElement.class) {
 			switch(baseFeatureID) {
+				case PPTPPackage.TARGET_ELEMENT__FILE:
+					return PPTPPackage.FUNCTION__FILE;
 				default:
 					return -1;
 			}
@@ -315,6 +196,209 @@ public class FunctionImpl extends EObjectImpl implements Function {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
+	@Override
+	public Object eGet(int featureID, boolean resolve, boolean coreType) {
+		switch(featureID) {
+			case PPTPPackage.FUNCTION__DOCUMENTATION:
+				return getDocumentation();
+			case PPTPPackage.FUNCTION__NAME:
+				return getName();
+			case PPTPPackage.FUNCTION__FILE:
+				return getFile();
+			case PPTPPackage.FUNCTION__RVALUE:
+				return isRValue();
+		}
+		return super.eGet(featureID, resolve, coreType);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
+	@Override
+	public boolean eIsSet(int featureID) {
+		switch(featureID) {
+			case PPTPPackage.FUNCTION__DOCUMENTATION:
+				return DOCUMENTATION_EDEFAULT == null
+						? documentation != null
+						: !DOCUMENTATION_EDEFAULT.equals(documentation);
+			case PPTPPackage.FUNCTION__NAME:
+				return NAME_EDEFAULT == null
+						? name != null
+						: !NAME_EDEFAULT.equals(name);
+			case PPTPPackage.FUNCTION__FILE:
+				return FILE_EDEFAULT == null
+						? file != null
+						: !FILE_EDEFAULT.equals(file);
+			case PPTPPackage.FUNCTION__RVALUE:
+				return rValue != RVALUE_EDEFAULT;
+		}
+		return super.eIsSet(featureID);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
+	@Override
+	public void eSet(int featureID, Object newValue) {
+		switch(featureID) {
+			case PPTPPackage.FUNCTION__DOCUMENTATION:
+				setDocumentation((String) newValue);
+				return;
+			case PPTPPackage.FUNCTION__NAME:
+				setName((String) newValue);
+				return;
+			case PPTPPackage.FUNCTION__FILE:
+				setFile((File) newValue);
+				return;
+			case PPTPPackage.FUNCTION__RVALUE:
+				setRValue((Boolean) newValue);
+				return;
+		}
+		super.eSet(featureID, newValue);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
+	@Override
+	protected EClass eStaticClass() {
+		return PPTPPackage.Literals.FUNCTION;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
+	@Override
+	public void eUnset(int featureID) {
+		switch(featureID) {
+			case PPTPPackage.FUNCTION__DOCUMENTATION:
+				setDocumentation(DOCUMENTATION_EDEFAULT);
+				return;
+			case PPTPPackage.FUNCTION__NAME:
+				setName(NAME_EDEFAULT);
+				return;
+			case PPTPPackage.FUNCTION__FILE:
+				setFile(FILE_EDEFAULT);
+				return;
+			case PPTPPackage.FUNCTION__RVALUE:
+				setRValue(RVALUE_EDEFAULT);
+				return;
+		}
+		super.eUnset(featureID);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
+	public String getDocumentation() {
+		return documentation;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
+	public File getFile() {
+		return file;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
+	public String getName() {
+		return name;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
+	public boolean isRValue() {
+		return rValue;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
+	public void setDocumentation(String newDocumentation) {
+		String oldDocumentation = documentation;
+		documentation = newDocumentation;
+		if(eNotificationRequired())
+			eNotify(new ENotificationImpl(
+				this, Notification.SET, PPTPPackage.FUNCTION__DOCUMENTATION, oldDocumentation, documentation));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
+	public void setFile(File newFile) {
+		File oldFile = file;
+		file = newFile;
+		if(eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, PPTPPackage.FUNCTION__FILE, oldFile, file));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
+	public void setName(String newName) {
+		String oldName = name;
+		name = newName;
+		if(eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, PPTPPackage.FUNCTION__NAME, oldName, name));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
+	public void setRValue(boolean newRValue) {
+		boolean oldRValue = rValue;
+		rValue = newRValue;
+		if(eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, PPTPPackage.FUNCTION__RVALUE, oldRValue, rValue));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@Override
@@ -327,10 +411,12 @@ public class FunctionImpl extends EObjectImpl implements Function {
 		result.append(documentation);
 		result.append(", name: ");
 		result.append(name);
+		result.append(", file: ");
+		result.append(file);
 		result.append(", rValue: ");
 		result.append(rValue);
 		result.append(')');
 		return result.toString();
 	}
 
-} //FunctionImpl
+} // FunctionImpl

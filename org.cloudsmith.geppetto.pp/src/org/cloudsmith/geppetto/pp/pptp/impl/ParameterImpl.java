@@ -27,10 +27,10 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.cloudsmith.geppetto.pp.pptp.impl.ParameterImpl#isRequired <em>Required</em>}</li>
+ * <li>{@link org.cloudsmith.geppetto.pp.pptp.impl.ParameterImpl#isRequired <em>Required</em>}</li>
  * </ul>
  * </p>
- *
+ * 
  * @generated
  */
 public class ParameterImpl extends TargetElementImpl implements Parameter {
@@ -38,6 +38,7 @@ public class ParameterImpl extends TargetElementImpl implements Parameter {
 	 * The default value of the '{@link #isRequired() <em>Required</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @see #isRequired()
 	 * @generated
 	 * @ordered
@@ -48,6 +49,7 @@ public class ParameterImpl extends TargetElementImpl implements Parameter {
 	 * The cached value of the '{@link #isRequired() <em>Required</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @see #isRequired()
 	 * @generated
 	 * @ordered
@@ -57,6 +59,7 @@ public class ParameterImpl extends TargetElementImpl implements Parameter {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	protected ParameterImpl() {
@@ -66,38 +69,7 @@ public class ParameterImpl extends TargetElementImpl implements Parameter {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	protected EClass eStaticClass() {
-		return PPTPPackage.Literals.PARAMETER;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public boolean isRequired() {
-		return required;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setRequired(boolean newRequired) {
-		boolean oldRequired = required;
-		required = newRequired;
-		if(eNotificationRequired())
-			eNotify(new ENotificationImpl(
-				this, Notification.SET, PPTPPackage.PARAMETER__REQUIRED, oldRequired, required));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@Override
@@ -112,6 +84,22 @@ public class ParameterImpl extends TargetElementImpl implements Parameter {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
+	@Override
+	public boolean eIsSet(int featureID) {
+		switch(featureID) {
+			case PPTPPackage.PARAMETER__REQUIRED:
+				return required != REQUIRED_EDEFAULT;
+		}
+		return super.eIsSet(featureID);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@Override
@@ -127,6 +115,18 @@ public class ParameterImpl extends TargetElementImpl implements Parameter {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
+	@Override
+	protected EClass eStaticClass() {
+		return PPTPPackage.Literals.PARAMETER;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@Override
@@ -142,20 +142,31 @@ public class ParameterImpl extends TargetElementImpl implements Parameter {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
-	@Override
-	public boolean eIsSet(int featureID) {
-		switch(featureID) {
-			case PPTPPackage.PARAMETER__REQUIRED:
-				return required != REQUIRED_EDEFAULT;
-		}
-		return super.eIsSet(featureID);
+	public boolean isRequired() {
+		return required;
 	}
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
+	public void setRequired(boolean newRequired) {
+		boolean oldRequired = required;
+		required = newRequired;
+		if(eNotificationRequired())
+			eNotify(new ENotificationImpl(
+				this, Notification.SET, PPTPPackage.PARAMETER__REQUIRED, oldRequired, required));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@Override
@@ -170,4 +181,4 @@ public class ParameterImpl extends TargetElementImpl implements Parameter {
 		return result.toString();
 	}
 
-} //ParameterImpl
+} // ParameterImpl

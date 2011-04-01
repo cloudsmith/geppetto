@@ -15,8 +15,8 @@ package org.cloudsmith.geppetto.pp.pptp;
  * <!-- begin-user-doc -->
  * A representation of the model object '<em><b>Puppet Distribution</b></em>'.
  * <!-- end-user-doc -->
- *
- *
+ * 
+ * 
  * @see org.cloudsmith.geppetto.pp.pptp.PPTPPackage#getPuppetDistribution()
  * @model
  * @generated

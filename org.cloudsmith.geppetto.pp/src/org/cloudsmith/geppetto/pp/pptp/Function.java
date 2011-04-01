@@ -15,14 +15,14 @@ package org.cloudsmith.geppetto.pp.pptp;
  * <!-- begin-user-doc -->
  * A representation of the model object '<em><b>Function</b></em>'.
  * <!-- end-user-doc -->
- *
+ * 
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link org.cloudsmith.geppetto.pp.pptp.Function#isRValue <em>RValue</em>}</li>
+ * <li>{@link org.cloudsmith.geppetto.pp.pptp.Function#isRValue <em>RValue</em>}</li>
  * </ul>
  * </p>
- *
+ * 
  * @see org.cloudsmith.geppetto.pp.pptp.PPTPPackage#getFunction()
  * @model
  * @generated
@@ -32,10 +32,10 @@ public interface Function extends IDocumented, TargetElement {
 	 * Returns the value of the '<em><b>RValue</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>RValue</em>' attribute isn't clear,
-	 * there really should be more of a description here...
+	 * If the meaning of the '<em>RValue</em>' attribute isn't clear, there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * 
 	 * @return the value of the '<em>RValue</em>' attribute.
 	 * @see #setRValue(boolean)
 	 * @see org.cloudsmith.geppetto.pp.pptp.PPTPPackage#getFunction_RValue()
@@ -48,7 +48,9 @@ public interface Function extends IDocumented, TargetElement {
 	 * Sets the value of the '{@link org.cloudsmith.geppetto.pp.pptp.Function#isRValue <em>RValue</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>RValue</em>' attribute.
+	 * 
+	 * @param value
+	 *            the new value of the '<em>RValue</em>' attribute.
 	 * @see #isRValue()
 	 * @generated
 	 */

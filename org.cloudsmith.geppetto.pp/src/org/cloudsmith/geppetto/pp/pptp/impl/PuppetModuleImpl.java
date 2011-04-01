@@ -12,27 +12,27 @@
 package org.cloudsmith.geppetto.pp.pptp.impl;
 
 import org.cloudsmith.geppetto.pp.pptp.PPTPPackage;
-import org.cloudsmith.geppetto.pp.pptp.RubyDirectory;
+import org.cloudsmith.geppetto.pp.pptp.PuppetModule;
 
 import org.eclipse.emf.ecore.EClass;
 
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Ruby Directory</b></em>'.
+ * An implementation of the model object '<em><b>Puppet Module</b></em>'.
  * <!-- end-user-doc -->
  * <p>
  * </p>
  * 
  * @generated
  */
-public class RubyDirectoryImpl extends TargetEntryImpl implements RubyDirectory {
+public class PuppetModuleImpl extends TargetEntryImpl implements PuppetModule {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
 	 * @generated
 	 */
-	protected RubyDirectoryImpl() {
+	protected PuppetModuleImpl() {
 		super();
 	}
 
@@ -44,7 +44,7 @@ public class RubyDirectoryImpl extends TargetEntryImpl implements RubyDirectory 
 	 */
 	@Override
 	protected EClass eStaticClass() {
-		return PPTPPackage.Literals.RUBY_DIRECTORY;
+		return PPTPPackage.Literals.PUPPET_MODULE;
 	}
 
-} // RubyDirectoryImpl
+} // PuppetModuleImpl

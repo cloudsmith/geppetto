@@ -12,4 +12,5 @@ Bundle-ActivationPolicy: lazy
 Require-Bundle: org.eclipse.osgi,
  org.eclipse.equinox.common,
  org.eclipse.core.runtime
-Export-Package: org.cloudsmith.geppetto.common.os
+Export-Package: org.cloudsmith.geppetto.common.eclipse,
+ org.cloudsmith.geppetto.common.os

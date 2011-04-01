@@ -39,6 +39,10 @@ import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Platform;
+import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.ecore.resource.ResourceSet;
+import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 
 import com.google.common.collect.Lists;
 
@@ -126,25 +130,6 @@ public class RubyHelper {
 		return puppetDistro;
 	}
 
-//	private void loadPropertiesOLD(TargetEntry target, File subDir) throws IOException, RubySyntaxException {
-//		// process all .rb files
-//		for(File f : subDir.listFiles(rbFileFilter))
-//			// try to get type property additions
-//			for(PPTypeInfo type : getTypeProperties(f)) {
-//				// the type must already be loaded in the target - find it
-//				Type t = getType(target, type.getTypeName());
-//				if(t == null)
-//					return; // unknown - do something else?
-//				// add the properties (will typically load just one).
-//				for(Map.Entry<String, PPTypeInfo.Entry> entry : type.getProperties().entrySet()) {
-//					Property property = PPTPFactory.eINSTANCE.createProperty();
-//					property.setName(entry.getKey());
-//					property.setDocumentation(entry.getValue().documentation);
-//					property.setRequired(entry.getValue().isRequired());
-//					t.getProperties().add(property);
-//				}
-//			}
-//	}
 	private void loadTypeFragments(TargetEntry target, File subDir, boolean rememberFile) throws IOException, RubySyntaxException {
 		for(File f : subDir.listFiles(rbFileFilter)) {
 			// try to get type property additions
@@ -491,5 +476,27 @@ public class RubyHelper {
 		}
 
 	}
-
+	/**
+	 * Loads a puppet distro into a pptp model and saves the result in a file.
+	 * The distroDir should appoint a directory that contains the directories type and parser/functions.
+	 * The path to the distroDir should contain a version string segment directly after a segment called
+	 * 'puppet'. e.g. /somewhere/on/disk/puppet/2.6.2_0/some/path/to/puppet.
+	 * 
+	 * Output file will contain a PPTP model as a result of this call.
+	 * 
+	 * @param distroDir - path to a puppet directory
+	 * @param outputFile
+	 * @throws IOException
+	 * @throws RubySyntaxException
+	 */
+	public void loadAndSaveDistro(File distroDir, File outputFile) throws IOException, RubySyntaxException {
+		TargetEntry target = loadDistroTarget(distroDir);
+		// Save the TargetEntry as a loadable resource
+		ResourceSet resourceSet = new ResourceSetImpl(); 
+		URI fileURI = 
+		URI.createFileURI(outputFile.getAbsolutePath()); 
+		Resource targetResource = resourceSet.createResource(fileURI); 
+		targetResource.getContents().add(target); 
+		targetResource.save(null);
+	}
 }

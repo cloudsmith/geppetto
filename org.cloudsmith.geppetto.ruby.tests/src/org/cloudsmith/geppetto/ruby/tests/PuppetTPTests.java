@@ -104,6 +104,18 @@ public class PuppetTPTests extends TestCase {
 		TargetEntry target = (TargetEntry)targetResource.getContents().get(0); 
 		assertEquals("Should have found 32 types", 32, target.getTypes().size());
 		assertEquals("Should have found 21 functions", 21, target.getFunctions().size());
+
+		pptpFile = TestDataProvider
+		.getTestFile(new Path(
+				"testData/pptp/puppet-2.6.4_0.pptp"));
+		
+		resourceSet = new ResourceSetImpl(); 
+		fileURI = 
+		URI.createFileURI(pptpFile.getAbsolutePath()); 
+		targetResource = resourceSet.getResource(fileURI, true); 
+		target = (TargetEntry)targetResource.getContents().get(0); 
+		assertEquals("Should have found 32 types", 32, target.getTypes().size());
+		assertEquals("Should have found 21 functions", 21, target.getFunctions().size());
 	}
 	
 /* uncomment and modify path to test load of puppet distribution and creating an xml version */

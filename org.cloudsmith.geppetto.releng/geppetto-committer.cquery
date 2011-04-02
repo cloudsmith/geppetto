@@ -4,8 +4,7 @@
 
 	<cq:advisorNode useMaterialization="false" useTargetPlatform="false" />
 
-	<cq:property key="buckminster.convert.source" value="true" />
-	<cq:property key="buckminster.download.source" value="true" />
+	<cq:property key="cloudsmith.github.prefix" value="git@github.com:cloudsmith" />
 
 	<cq:property key="target.arch" value="*" />
 	<cq:property key="target.os" value="*" />

@@ -22,24 +22,64 @@ http://www.eclipse.org/legal/epl-v10.html
       %license
    </license>
 
-   <includes
-         id="org.cloudsmith.geppetto.common"
-         version="0.0.0"/>
-
-   <includes
-         id="org.cloudsmith.geppetto.forge"
-         version="0.0.0"/>
-
-   <includes
-         id="org.cloudsmith.geppetto.pp"
-         version="0.0.0"/>
-
-   <includes
-         id="org.cloudsmith.geppetto.ui"
-         version="0.0.0"/>
-
    <plugin
          id="org.cloudsmith.geppetto"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.cloudsmith.geppetto.common"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.cloudsmith.geppetto.forge"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.cloudsmith.geppetto.pp"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.cloudsmith.geppetto.pp.dsl"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.cloudsmith.geppetto.pp.dsl.generate"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.cloudsmith.geppetto.pp.dsl.ui"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.cloudsmith.geppetto.ruby"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.cloudsmith.geppetto.ui"
          download-size="0"
          install-size="0"
          version="0.0.0"

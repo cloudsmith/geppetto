@@ -56,13 +56,15 @@ public class PPTPManager implements IPPTP {
 		private String name;
 
 		public NamePredicate(String name, boolean firstToLower) {
-			if(firstToLower && name.length() > 0)
+			if(firstToLower && name != null && name.length() > 0)
 				name = name.substring(0, 1).toLowerCase() + name.substring(1);
 			this.name = name;
 		}
 
 		@Override
 		public boolean apply(INamed input) {
+			if(name == null)
+				return false;
 			return name.equals(input.getName());
 		}
 
@@ -72,13 +74,15 @@ public class PPTPManager implements IPPTP {
 		private String prefix;
 
 		public NameStartsWithPredicate(String prefix, boolean firstToLower) {
-			if(firstToLower && prefix.length() > 0)
+			if(firstToLower && prefix != null && prefix.length() > 0)
 				prefix = prefix.substring(0, 1).toLowerCase() + prefix.substring(1);
 			this.prefix = prefix;
 		}
 
 		@Override
 		public boolean apply(INamed input) {
+			if(prefix == null)
+				return false;
 			return input.getName().startsWith(prefix);
 		}
 

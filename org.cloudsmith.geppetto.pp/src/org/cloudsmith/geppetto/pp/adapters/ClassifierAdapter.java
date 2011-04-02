@@ -11,6 +11,7 @@
  */
 package org.cloudsmith.geppetto.pp.adapters;
 
+import org.cloudsmith.geppetto.pp.pptp.Type;
 import org.eclipse.emf.common.notify.impl.AdapterImpl;
 
 /**
@@ -34,6 +35,8 @@ public class ClassifierAdapter extends AdapterImpl {
 	// Default size seems to be 10 slots - which is overkill
 	private int classifier = UNKNOWN;
 
+	private Type resourceType = null;
+
 	/**
 	 * Gets a Type set in the adapter for the given key, or null if no type have been
 	 * set.
@@ -45,9 +48,23 @@ public class ClassifierAdapter extends AdapterImpl {
 		return classifier;
 	}
 
+	public Type getResourceType() {
+		return resourceType;
+	}
+
 	@Override
 	public boolean isAdapterForType(Object type) {
 		return type == ClassifierAdapter.class;
+	}
+
+	/**
+	 * Stores a Type in the adapter for given key.
+	 * 
+	 * @param key
+	 * @param t
+	 */
+	public void setClassifier(int classifier) {
+		this.classifier = classifier;
 	}
 
 	// Probably not needed, and if so, must be different for different types of adapters...
@@ -60,14 +77,8 @@ public class ClassifierAdapter extends AdapterImpl {
 	// super.notifyChanged(msg);
 	// }
 
-	/**
-	 * Stores a Type in the adapter for given key.
-	 * 
-	 * @param key
-	 * @param t
-	 */
-	public void setClassifier(int classifier) {
-		this.classifier = classifier;
+	public void setResourceType(Type resourceType) {
+		this.resourceType = resourceType;
 	}
 
 }

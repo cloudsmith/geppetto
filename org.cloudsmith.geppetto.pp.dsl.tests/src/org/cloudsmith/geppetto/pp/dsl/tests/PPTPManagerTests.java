@@ -45,10 +45,26 @@ public class PPTPManagerTests extends TestCase {
 		assertEquals("Should have no properties", 0, filebucket.getProperties().size());
 	}
 
+	public void testFindFunction() {
+		assertEquals("There should be a function called 'fail'", "fail", PPTP.findFunction("fail").getName());
+	}
+
 	public void testFindType() {
 		assertEquals("There should be a type called 'mount'", "mount", PPTP.findType("mount").getName());
 		assertEquals("There should be a type found searching for 'Mount'", "mount", PPTP.findType("Mount").getName());
 		assertNull("There is no type called 'idiot'", PPTP.findType("idiot"));
+	}
+
+	public void testFunctionStartsWith() {
+		assertEquals(
+			"There should be 3 functions starting with 't'", 3, Iterators.size(PPTP.functionsStartingWith("t")));
+		assertEquals(
+			"There should be 2 functions starting with 'ta'", 2, Iterators.size(PPTP.functionsStartingWith("ta")));
+		assertEquals(
+			"There should be 1 function starting with 'tagg'", 1, Iterators.size(PPTP.functionsStartingWith("tagg")));
+		assertEquals(
+			"There should be 0 functions starting with 'tagx'", 0, Iterators.size(PPTP.functionsStartingWith("tagx")));
+
 	}
 
 	public void testTypeStartsWith() {

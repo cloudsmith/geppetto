@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ListIterator;
 
+import org.cloudsmith.geppetto.pp.pptp.Parameter;
 import org.cloudsmith.geppetto.pp.pptp.Property;
 import org.cloudsmith.geppetto.pp.pptp.PuppetTarget;
 import org.cloudsmith.geppetto.pp.pptp.TargetElement;
@@ -138,6 +139,14 @@ public class PPTPLinker {
 				ListIterator<Property> litor = t.getProperties().listIterator();
 				while(litor.hasNext()) {
 					Property tp = litor.next();
+					if(tp.getName().equals(p.getName()))
+						litor.remove();
+				}
+			}
+			for(Parameter p : f.getParameters()) {
+				ListIterator<Parameter> litor = t.getParameters().listIterator();
+				while(litor.hasNext()) {
+					Parameter tp = litor.next();
 					if(tp.getName().equals(p.getName()))
 						litor.remove();
 				}

@@ -46,6 +46,8 @@ public class PPPatternHelper {
 
 	protected final Pattern unrecognizedEscapes;
 
+	protected final Pattern recognizedEscapes;
+
 	/**
 	 * Intended as Ruby %r{[\w-]} equivalence
 	 */
@@ -72,10 +74,21 @@ public class PPPatternHelper {
 		// sq string may not contain unescaped single quote
 		sqStringPattern = Pattern.compile("([^'\\\\]|\\\\.)*");
 
-		unrecognizedEscapes = Pattern.compile("\\\\[^stn'\"\\\\\\r\\n]");
+		unrecognizedEscapes = Pattern.compile("\\\\[^stn '\"\\\\\\r\\n]");
+
+		recognizedEscapes = Pattern.compile("\\\\[\\\\nrst'\" ]");
 	}
 
-	public Pattern getunrecognizedEscapesPattern() {
+	public Pattern getRecognizedEscapePattenr() {
+		return recognizedEscapes;
+	}
+
+	/**
+	 * Finds unrecognized escapes if recognized escapes have been removed from the input first.
+	 * 
+	 * @return
+	 */
+	public Pattern getUnrecognizedEscapesPattern() {
 		return unrecognizedEscapes;
 	}
 

@@ -155,6 +155,16 @@ public class RubyHelper {
 				property.setRequired(entry.getValue().isRequired());
 				fragment.getProperties().add(property);
 			}
+			
+			// add the parameters (will typically load just one).
+			for(Map.Entry<String, PPTypeInfo.Entry> entry : type.getParameters().entrySet()) {
+				Parameter parameter = PPTPFactory.eINSTANCE.createParameter();
+				parameter.setName(entry.getKey());
+				parameter.setDocumentation(entry.getValue().documentation);
+				parameter.setRequired(entry.getValue().isRequired());
+				fragment.getParameters().add(parameter);
+			}
+
 			result.add(fragment);
 		}
 		return result;
@@ -169,6 +179,8 @@ public class RubyHelper {
 	 * @throws RubySyntaxException
 	 */
 	private void loadTypes(TargetEntry target, File typesDir, boolean rememberFiles) throws IOException, RubySyntaxException {
+		if(!typesDir.isDirectory())
+			return;
 		for(File rbFile : typesDir.listFiles(rbFileFilter))
 			for(Type t : loadTypes(rbFile, rememberFiles))
 				PPTPLinker.addType(target, t);
@@ -215,9 +227,10 @@ public class RubyHelper {
 	 * @throws RubySyntaxException
 	 */
 	private void loadFunctions(TargetEntry target, File functionsDir, boolean rememberFile) throws IOException, RubySyntaxException {
-		for(File rbFile : functionsDir.listFiles(rbFileFilter))
-			for(Function f : loadFunctions(rbFile, rememberFile))
-				target.getFunctions().add(f);
+		if(functionsDir.isDirectory())
+			for(File rbFile : functionsDir.listFiles(rbFileFilter))
+				for(Function f : loadFunctions(rbFile, rememberFile))
+					target.getFunctions().add(f);
 	}
 	/**
 	 * Load function(s) from a rubyfile (supposed to contain PP function declarations).
@@ -300,8 +313,9 @@ public class RubyHelper {
 		// this implementation does however search all subdirectories
 		// for such additions
 		//
-		for(File subDir : typesDir.listFiles(dirFilter))
-			loadTypeFragments(result, subDir, true);
+		if(typesDir.isDirectory())
+			for(File subDir : typesDir.listFiles(dirFilter))
+				loadTypeFragments(result, subDir, true);
 		return result;
 
 	}

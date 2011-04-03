@@ -101,6 +101,18 @@ public class TestPuppetResourceExpr extends AbstractPuppetTests {
 
 	// @formatter:on
 
+	private void subTestValidateExpressionTitles(Expression titleExpr) {
+		PuppetManifest pp = pf.createPuppetManifest();
+		EList<Expression> statements = pp.getStatements();
+
+		ResourceExpression re = createVirtualResourceExpression("file", titleExpr, "owner", createValue("0777"));
+		statements.add(re);
+		tester.validator().checkResourceExpression(re);
+		tester.validator().checkResourceBody(re.getResourceData().get(0));
+		tester.diagnose().assertOK();
+
+	}
+
 	public void test_Serialize_1() throws Exception {
 		String code = "file { 'afile': owner => 'foo'}";
 		XtextResource r = getResourceFromString(code);
@@ -232,6 +244,17 @@ public class TestPuppetResourceExpr extends AbstractPuppetTests {
 		String code = "file { 'afile': owner => 'foo'}";
 		EObject m = getModel(code);
 		assertTrue("Should have been a PuppetManifest", m instanceof PuppetManifest);
+	}
+
+	public void test_Valdate_UnknownProperty() {
+		// -- Resource with a couple of attribute definitions
+		PuppetManifest pp = pf.createPuppetManifest();
+		EList<Expression> statements = pp.getStatements();
+		ResourceExpression re = createResourceExpression("file", "aFile", "donor", createValue("0777"));
+		statements.add(re);
+		tester.validator().checkResourceExpression(re);
+		tester.validator().checkResourceBody(re.getResourceData().get(0));
+		tester.diagnose().assertError(IPPDiagnostics.ISSUE__RESOURCE_UNKNOWN_PROPERTY);
 	}
 
 	/**
@@ -552,7 +575,8 @@ public class TestPuppetResourceExpr extends AbstractPuppetTests {
 			createValue("0555"));
 		statements.add(re);
 		tester.validator().checkResourceExpression(re);
-		tester.diagnose().assertOK();
+		// should only report unknown type - but the spec of this unknown type should be allowed
+		tester.diagnose().assertError(IPPDiagnostics.ISSUE__RESOURCE_UNKNOWN_TYPE);
 
 	}
 
@@ -571,7 +595,7 @@ public class TestPuppetResourceExpr extends AbstractPuppetTests {
 			statements.add(re);
 			tester.validator().checkResourceExpression(re);
 			tester.validator().checkResourceBody(re.getResourceData().get(0));
-			tester.diagnose().assertError(IPPDiagnostics.ISSUE__UNSUPPORTED_EXPRESSION);
+			tester.diagnose().assertAny(AssertableDiagnostics.errorCode(IPPDiagnostics.ISSUE__UNSUPPORTED_EXPRESSION));
 		}
 	}
 
@@ -619,19 +643,5 @@ public class TestPuppetResourceExpr extends AbstractPuppetTests {
 			entry.setRightExpr(pf.createLiteralBoolean());
 			subTestValidateExpressionTitles(titleExpr);
 		}
-	}
-
-	private void subTestValidateExpressionTitles(Expression titleExpr) {
-		PuppetManifest pp = pf.createPuppetManifest();
-		EList<Expression> statements = pp.getStatements();
-
-		ResourceExpression re = createVirtualResourceExpression(
-			"monitor::foo", titleExpr, "owner", createValue("0777"), "group", createValue("0666"), "other",
-			createValue("0555"));
-		statements.add(re);
-		tester.validator().checkResourceExpression(re);
-		tester.validator().checkResourceBody(re.getResourceData().get(0));
-		tester.diagnose().assertOK();
-
 	}
 }

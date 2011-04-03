@@ -277,6 +277,7 @@ public class PPTPPackageImpl extends EPackageImpl implements PPTPPackage {
 		createEReference(targetEntryEClass, TARGET_ENTRY__TYPES);
 		createEAttribute(targetEntryEClass, TARGET_ENTRY__VERSION);
 		createEReference(targetEntryEClass, TARGET_ENTRY__TYPE_FRAGMENTS);
+		createEReference(targetEntryEClass, TARGET_ENTRY__META_TYPE);
 
 		puppetDistributionEClass = createEClass(PUPPET_DISTRIBUTION);
 
@@ -605,6 +606,16 @@ public class PPTPPackageImpl extends EPackageImpl implements PPTPPackage {
 	 * 
 	 * @generated
 	 */
+	public EReference getTargetEntry_MetaType() {
+		return (EReference) targetEntryEClass.getEStructuralFeatures().get(6);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
 	public EReference getTargetEntry_TypeFragments() {
 		return (EReference) targetEntryEClass.getEStructuralFeatures().get(5);
 	}
@@ -740,6 +751,10 @@ public class PPTPPackageImpl extends EPackageImpl implements PPTPPackage {
 			getTargetEntry_TypeFragments(), this.getTypeFragment(), null, "typeFragments", null, 0, -1,
 			TargetEntry.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES,
 			!IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(
+			getTargetEntry_MetaType(), this.getType(), null, "metaType", null, 0, 1, TargetEntry.class, !IS_TRANSIENT,
+			!IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED,
+			IS_ORDERED);
 
 		initEClass(
 			puppetDistributionEClass, PuppetDistribution.class, "PuppetDistribution", !IS_ABSTRACT, !IS_INTERFACE,

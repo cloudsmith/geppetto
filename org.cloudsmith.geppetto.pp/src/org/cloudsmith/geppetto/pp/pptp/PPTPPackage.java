@@ -134,6 +134,15 @@ public interface PPTPPackage extends EPackage {
 		EReference TARGET_ENTRY__TYPE_FRAGMENTS = eINSTANCE.getTargetEntry_TypeFragments();
 
 		/**
+		 * The meta object literal for the '<em><b>Meta Type</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * 
+		 * @generated
+		 */
+		EReference TARGET_ENTRY__META_TYPE = eINSTANCE.getTargetEntry_MetaType();
+
+		/**
 		 * The meta object literal for the '{@link org.cloudsmith.geppetto.pp.pptp.impl.PuppetDistributionImpl <em>Puppet Distribution</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -623,6 +632,16 @@ public interface PPTPPackage extends EPackage {
 	int TARGET_ENTRY__TYPE_FRAGMENTS = INAMED_FEATURE_COUNT + 5;
 
 	/**
+	 * The feature id for the '<em><b>Meta Type</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 * @ordered
+	 */
+	int TARGET_ENTRY__META_TYPE = INAMED_FEATURE_COUNT + 6;
+
+	/**
 	 * The number of structural features of the '<em>Target Entry</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -630,7 +649,7 @@ public interface PPTPPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int TARGET_ENTRY_FEATURE_COUNT = INAMED_FEATURE_COUNT + 6;
+	int TARGET_ENTRY_FEATURE_COUNT = INAMED_FEATURE_COUNT + 7;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -701,6 +720,16 @@ public interface PPTPPackage extends EPackage {
 	 * @ordered
 	 */
 	int PUPPET_DISTRIBUTION__TYPE_FRAGMENTS = TARGET_ENTRY__TYPE_FRAGMENTS;
+
+	/**
+	 * The feature id for the '<em><b>Meta Type</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 * @ordered
+	 */
+	int PUPPET_DISTRIBUTION__META_TYPE = TARGET_ENTRY__META_TYPE;
 
 	/**
 	 * The number of structural features of the '<em>Puppet Distribution</em>' class.
@@ -783,6 +812,16 @@ public interface PPTPPackage extends EPackage {
 	int RUBY_DIRECTORY__TYPE_FRAGMENTS = TARGET_ENTRY__TYPE_FRAGMENTS;
 
 	/**
+	 * The feature id for the '<em><b>Meta Type</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 * @ordered
+	 */
+	int RUBY_DIRECTORY__META_TYPE = TARGET_ENTRY__META_TYPE;
+
+	/**
 	 * The number of structural features of the '<em>Ruby Directory</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -861,6 +900,16 @@ public interface PPTPPackage extends EPackage {
 	 * @ordered
 	 */
 	int PREDEFINED__TYPE_FRAGMENTS = TARGET_ENTRY__TYPE_FRAGMENTS;
+
+	/**
+	 * The feature id for the '<em><b>Meta Type</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 * @ordered
+	 */
+	int PREDEFINED__META_TYPE = TARGET_ENTRY__META_TYPE;
 
 	/**
 	 * The number of structural features of the '<em>Predefined</em>' class.
@@ -1287,6 +1336,16 @@ public interface PPTPPackage extends EPackage {
 	 * @ordered
 	 */
 	int PUPPET_MODULE__TYPE_FRAGMENTS = TARGET_ENTRY__TYPE_FRAGMENTS;
+
+	/**
+	 * The feature id for the '<em><b>Meta Type</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 * @ordered
+	 */
+	int PUPPET_MODULE__META_TYPE = TARGET_ENTRY__META_TYPE;
 
 	/**
 	 * The number of structural features of the '<em>Puppet Module</em>' class.
@@ -1803,6 +1862,18 @@ public interface PPTPPackage extends EPackage {
 	 * @generated
 	 */
 	EReference getTargetEntry_Functions();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link org.cloudsmith.geppetto.pp.pptp.TargetEntry#getMetaType <em>Meta Type</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @return the meta object for the containment reference '<em>Meta Type</em>'.
+	 * @see org.cloudsmith.geppetto.pp.pptp.TargetEntry#getMetaType()
+	 * @see #getTargetEntry()
+	 * @generated
+	 */
+	EReference getTargetEntry_MetaType();
 
 	/**
 	 * Returns the meta object for the containment reference list '{@link org.cloudsmith.geppetto.pp.pptp.TargetEntry#getTypeFragments

@@ -249,6 +249,19 @@ public class PPTPManager implements IPPTP {
 		return Iterators.filter(functions(), new NameStartsWithPredicate(prefix, false));
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.cloudsmith.geppetto.pp.dsl.pptp.IPPTP#getMetaType()
+	 */
+	@Override
+	public Type getMetaType() {
+		for(TargetEntry target : theTargetPlatform.getEntries())
+			if(target.getMetaType() != null)
+				return target.getMetaType();
+		return null;
+	}
+
 	public PuppetTarget getTargetPlatform() {
 		return theTargetPlatform;
 	}

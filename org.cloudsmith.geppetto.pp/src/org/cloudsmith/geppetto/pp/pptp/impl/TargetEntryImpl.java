@@ -46,6 +46,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <li>{@link org.cloudsmith.geppetto.pp.pptp.impl.TargetEntryImpl#getTypes <em>Types</em>}</li>
  * <li>{@link org.cloudsmith.geppetto.pp.pptp.impl.TargetEntryImpl#getVersion <em>Version</em>}</li>
  * <li>{@link org.cloudsmith.geppetto.pp.pptp.impl.TargetEntryImpl#getTypeFragments <em>Type Fragments</em>}</li>
+ * <li>{@link org.cloudsmith.geppetto.pp.pptp.impl.TargetEntryImpl#getMetaType <em>Meta Type</em>}</li>
  * </ul>
  * </p>
  * 
@@ -174,6 +175,17 @@ public abstract class TargetEntryImpl extends EObjectImpl implements TargetEntry
 	protected EList<TypeFragment> typeFragments;
 
 	/**
+	 * The cached value of the '{@link #getMetaType() <em>Meta Type</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @see #getMetaType()
+	 * @generated
+	 * @ordered
+	 */
+	protected Type metaType;
+
+	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
@@ -181,6 +193,26 @@ public abstract class TargetEntryImpl extends EObjectImpl implements TargetEntry
 	 */
 	protected TargetEntryImpl() {
 		super();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
+	public NotificationChain basicSetMetaType(Type newMetaType, NotificationChain msgs) {
+		Type oldMetaType = metaType;
+		metaType = newMetaType;
+		if(eNotificationRequired()) {
+			ENotificationImpl notification = new ENotificationImpl(
+				this, Notification.SET, PPTPPackage.TARGET_ENTRY__META_TYPE, oldMetaType, newMetaType);
+			if(msgs == null)
+				msgs = notification;
+			else
+				msgs.add(notification);
+		}
+		return msgs;
 	}
 
 	/**
@@ -206,6 +238,8 @@ public abstract class TargetEntryImpl extends EObjectImpl implements TargetEntry
 				return getVersion();
 			case PPTPPackage.TARGET_ENTRY__TYPE_FRAGMENTS:
 				return getTypeFragments();
+			case PPTPPackage.TARGET_ENTRY__META_TYPE:
+				return getMetaType();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -225,6 +259,8 @@ public abstract class TargetEntryImpl extends EObjectImpl implements TargetEntry
 				return ((InternalEList<?>) getTypes()).basicRemove(otherEnd, msgs);
 			case PPTPPackage.TARGET_ENTRY__TYPE_FRAGMENTS:
 				return ((InternalEList<?>) getTypeFragments()).basicRemove(otherEnd, msgs);
+			case PPTPPackage.TARGET_ENTRY__META_TYPE:
+				return basicSetMetaType(null, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -260,6 +296,8 @@ public abstract class TargetEntryImpl extends EObjectImpl implements TargetEntry
 						: !VERSION_EDEFAULT.equals(version);
 			case PPTPPackage.TARGET_ENTRY__TYPE_FRAGMENTS:
 				return typeFragments != null && !typeFragments.isEmpty();
+			case PPTPPackage.TARGET_ENTRY__META_TYPE:
+				return metaType != null;
 		}
 		return super.eIsSet(featureID);
 	}
@@ -297,6 +335,9 @@ public abstract class TargetEntryImpl extends EObjectImpl implements TargetEntry
 			case PPTPPackage.TARGET_ENTRY__TYPE_FRAGMENTS:
 				getTypeFragments().clear();
 				getTypeFragments().addAll((Collection<? extends TypeFragment>) newValue);
+				return;
+			case PPTPPackage.TARGET_ENTRY__META_TYPE:
+				setMetaType((Type) newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -343,6 +384,9 @@ public abstract class TargetEntryImpl extends EObjectImpl implements TargetEntry
 			case PPTPPackage.TARGET_ENTRY__TYPE_FRAGMENTS:
 				getTypeFragments().clear();
 				return;
+			case PPTPPackage.TARGET_ENTRY__META_TYPE:
+				setMetaType((Type) null);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -378,6 +422,16 @@ public abstract class TargetEntryImpl extends EObjectImpl implements TargetEntry
 			functions = new EObjectContainmentEList<Function>(Function.class, this, PPTPPackage.TARGET_ENTRY__FUNCTIONS);
 		}
 		return functions;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
+	public Type getMetaType() {
+		return metaType;
 	}
 
 	/**
@@ -452,6 +506,30 @@ public abstract class TargetEntryImpl extends EObjectImpl implements TargetEntry
 		file = newFile;
 		if(eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, PPTPPackage.TARGET_ENTRY__FILE, oldFile, file));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
+	public void setMetaType(Type newMetaType) {
+		if(newMetaType != metaType) {
+			NotificationChain msgs = null;
+			if(metaType != null)
+				msgs = ((InternalEObject) metaType).eInverseRemove(this, EOPPOSITE_FEATURE_BASE -
+						PPTPPackage.TARGET_ENTRY__META_TYPE, null, msgs);
+			if(newMetaType != null)
+				msgs = ((InternalEObject) newMetaType).eInverseAdd(this, EOPPOSITE_FEATURE_BASE -
+						PPTPPackage.TARGET_ENTRY__META_TYPE, null, msgs);
+			msgs = basicSetMetaType(newMetaType, msgs);
+			if(msgs != null)
+				msgs.dispatch();
+		}
+		else if(eNotificationRequired())
+			eNotify(new ENotificationImpl(
+				this, Notification.SET, PPTPPackage.TARGET_ENTRY__META_TYPE, newMetaType, newMetaType));
 	}
 
 	/**

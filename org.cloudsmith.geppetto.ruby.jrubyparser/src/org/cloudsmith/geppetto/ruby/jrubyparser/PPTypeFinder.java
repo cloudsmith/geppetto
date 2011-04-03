@@ -18,6 +18,7 @@ import org.cloudsmith.geppetto.ruby.PPTypeInfo;
 import org.jrubyparser.ast.BlockAcceptingNode;
 import org.jrubyparser.ast.BlockPassNode;
 import org.jrubyparser.ast.CallNode;
+import org.jrubyparser.ast.ClassNode;
 import org.jrubyparser.ast.FCallNode;
 import org.jrubyparser.ast.IArgumentNode;
 import org.jrubyparser.ast.InstAsgnNode;
@@ -26,6 +27,7 @@ import org.jrubyparser.ast.NewlineNode;
 import org.jrubyparser.ast.Node;
 import org.jrubyparser.ast.NodeType;
 import org.jrubyparser.ast.RootNode;
+import org.jrubyparser.ast.VCallNode;
 
 import com.google.common.collect.Maps;
 
@@ -38,6 +40,8 @@ public class PPTypeFinder {
 	private final static String NEWPROPERTY = "newproperty";
 	private final static String NEWTYPE = "newtype";
 	private final static String ENSURABLE = "ensurable";
+	private final static String NEWCHECK = "newcheck";
+	
 
 	
 	private final static String[] PUPPET_NEWTYPE_FQN = new String[] { "Puppet", "Type", "newtype" };
@@ -77,7 +81,40 @@ public class PPTypeFinder {
 
 		return createTypeInfo(safeGetBodyNode(newTypeCall), typeName);
 	}
-	
+	/**
+	 * Loads 'newmetaparam' from the ruby class 'Type'
+	 * @param root
+	 * @return
+	 */
+	public PPTypeInfo findMetaTypeInfo(Node root) {
+		Map<String, PPTypeInfo.Entry> parameterMap = Maps.newHashMap();
+		RubyModuleFinder moduleFinder = new RubyModuleFinder();
+		Node module = moduleFinder.findModule(root, new String[] {"Puppet"});
+		for(Node n : module.childNodes()) {
+			if(n.getNodeType() == NodeType.NEWLINENODE)
+				n = ((NewlineNode)n).getNextNode();
+			if(n.getNodeType() == NodeType.CLASSNODE) {
+				ClassNode classNode = (ClassNode)n;
+				// could check if this is the class 'Type' but somewhat meaningless
+				// as this code is only called for the Type.rb file anyway.
+				// classNode.getCPath();
+				for(Node bn : classNode.getBodyNode().childNodes()) {
+					if(bn.getNodeType() == NodeType.NEWLINENODE)
+						bn = ((NewlineNode)bn).getNextNode();
+					if(bn.getNodeType() == NodeType.FCALLNODE) {
+						FCallNode callNode = (FCallNode)bn;
+						if("newmetaparam".equals(callNode.getName())) {
+							parameterMap.put(getFirstArg(callNode), getEntry(callNode));
+
+						}
+					}
+					
+				}
+			}
+		}
+		return new PPTypeInfo("Type","", null, parameterMap);
+
+	}
 	/**
 	 * Finds a property addition to a type. Returns a partially filled PPTypeInfo (name, and a single
 	 * property).
@@ -124,6 +161,18 @@ public class PPTypeFinder {
 					parameterMap.put(getFirstArg(callNode), getEntry(callNode));
 					return new PPTypeInfo(typeName,"", null, parameterMap);
 				}
+				if(NEWCHECK.equals(callNode.getName())) {
+					CallNode typeCall = opCallVisitor.findOpCall(callNode.getReceiverNode(), "type", "Puppet", "Type");
+					if(typeCall == null)
+						continue;
+					String typeName = getFirstArg(typeCall);
+					if(typeName == null)
+						continue;
+					Map<String, PPTypeInfo.Entry> parameterMap = Maps.newHashMap();
+					parameterMap.put(getFirstArg(callNode), getEntry(callNode));
+					return new PPTypeInfo(typeName,"", null, parameterMap);
+				}
+				// NOTE: this does probably never occur
 				if(ENSURABLE.equals(callNode.getName())) {
 					CallNode typeCall = opCallVisitor.findOpCall(callNode.getReceiverNode(), "type", "Puppet", "Type");
 					if(typeCall == null)
@@ -159,7 +208,9 @@ public class PPTypeFinder {
 	private PPTypeInfo createTypeInfo(Node root, String typeName) {
 		if(root == null)
 			return null;
-
+		// debug
+		if("a2mod".equals(typeName))
+			System.err.println("Parsing a2mod");
 		Map<String, PPTypeInfo.Entry> propertyMap = Maps.newHashMap();
 		Map<String, PPTypeInfo.Entry> parameterMap = Maps.newHashMap();
 		String typeDocumentation = ""; 
@@ -173,16 +224,24 @@ public class PPTypeFinder {
 				FCallNode callNode = (FCallNode)n;
 				if(NEWPARAM.equals(callNode.getName()))
 					parameterMap.put(getFirstArg(callNode), getEntry(callNode));
+				else if(NEWCHECK.equals(callNode.getName()))
+					parameterMap.put(getFirstArg(callNode), getEntry(callNode));
 				else if(NEWPROPERTY.equals(callNode.getName()))
 					propertyMap.put(getFirstArg(callNode), getEntry(callNode));
-				// A call to 'ensurable' adds 'ensure' parameter
 				else if(ENSURABLE.equals(callNode.getName()))
+					parameterMap.put("ensure", getEntry(callNode));
+				break;
+			case VCALLNODE:
+				VCallNode vcallNode = (VCallNode)n;
+				// A call to 'ensurable' adds 'ensure' parameter
+				if(ENSURABLE.equals(vcallNode.getName()))
 					parameterMap.put("ensure", new PPTypeInfo.Entry("", false));
 				break;
 			case INSTASGNNODE:
 				InstAsgnNode docNode = (InstAsgnNode)n;
 				if("@doc".equals(docNode.getName()))
 					typeDocumentation = getStringArgDefault(docNode.getValueNode(), "");
+				break;
 			default:
 				break;
 			}
@@ -190,6 +249,7 @@ public class PPTypeFinder {
 		PPTypeInfo typeInfo = new PPTypeInfo(typeName, typeDocumentation,propertyMap, parameterMap);
 		return typeInfo;
 	}
+
 	private String getStringArgDefault(Node n, String defaultValue) {
 		String x = getStringArg(n);
 		return x == null ? defaultValue : x;

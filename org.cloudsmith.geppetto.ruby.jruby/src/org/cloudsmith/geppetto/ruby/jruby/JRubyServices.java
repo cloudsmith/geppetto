@@ -217,4 +217,10 @@ public class JRubyServices  implements IRubyServices{
 			throws IOException, RubySyntaxException {
 		throw new UnsupportedOperationException("Implement this method");
 	}
+
+	@Override
+	public PPTypeInfo getMetaTypeProperties(File file) throws IOException,
+			RubySyntaxException {
+		throw new UnsupportedOperationException("Implement this method");
+	}
 }

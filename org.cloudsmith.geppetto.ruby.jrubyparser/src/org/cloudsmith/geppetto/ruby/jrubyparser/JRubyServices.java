@@ -232,7 +232,16 @@ public class JRubyServices  implements IRubyServices{
 			types.add(typeInfo);
 		return types;
 	}
-
+	
+	@Override
+	public PPTypeInfo getMetaTypeProperties(File file) throws IOException, RubySyntaxException {
+		Result result = internalParse(file);
+		if(result.hasErrors())
+			throw new RubySyntaxException();
+		PPTypeFinder typeFinder = new PPTypeFinder();
+		PPTypeInfo typeInfo = typeFinder.findMetaTypeInfo(result.getAST());
+		return typeInfo;
+	}
 	@Override
 	public boolean isMockService() {
 		return false;

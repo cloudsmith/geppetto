@@ -95,7 +95,7 @@ public class PuppetTPTests extends TestCase {
 	public void testLoadEMFTP() throws Exception {
 		File pptpFile = TestDataProvider
 		.getTestFile(new Path(
-				"testData/pptp/puppet-2.6.2_0.pptp"));
+				"testData/pptp/puppet-2.6.4_0.pptp"));
 		
 		ResourceSet resourceSet = new ResourceSetImpl(); 
 		URI fileURI = 

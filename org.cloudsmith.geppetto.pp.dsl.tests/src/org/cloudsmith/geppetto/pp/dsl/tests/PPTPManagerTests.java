@@ -15,6 +15,7 @@ import junit.framework.TestCase;
 
 import org.cloudsmith.geppetto.pp.dsl.pptp.IPPTP;
 import org.cloudsmith.geppetto.pp.dsl.pptp.PPTPManager;
+import org.cloudsmith.geppetto.pp.pptp.INamed;
 import org.cloudsmith.geppetto.pp.pptp.Type;
 
 import com.google.common.collect.Iterators;
@@ -25,6 +26,21 @@ import com.google.common.collect.Iterators;
  */
 public class PPTPManagerTests extends TestCase {
 	private IPPTP PPTP = new PPTPManager();
+
+	private String safeGetName(INamed named) {
+		if(named == null)
+			return null;
+		return named.getName();
+	}
+
+	/**
+	 * Cron is 'ensurable' and is in the default TP - check that this VCallNode is found.
+	 */
+	public void testCronType() {
+		Type cron = PPTP.findType("cron");
+		assertNotNull("Should have found type 'cron'", cron);
+		assertEquals("Should have a parameter 'ensure'", "ensure", safeGetName(PPTP.findParameter(cron, "ensure")));
+	}
 
 	public void testDefaultTargetFunctions() {
 		assertEquals("Should have found 21 functions", 21, Iterators.size(PPTP.functions()));
@@ -38,28 +54,29 @@ public class PPTPManagerTests extends TestCase {
 		Type filebucket = PPTP.findType("filebucket");
 		assertNotNull("Should have found type 'filebucket", filebucket);
 		assertEquals("Should have 4 parameters", 4, filebucket.getParameters().size());
-		assertEquals("Should find parameter 'name'", "name", PPTP.findParameter(filebucket, "name").getName());
-		assertEquals("Should find parameter 'server'", "server", PPTP.findParameter(filebucket, "server").getName());
-		assertEquals("Should find parameter 'port'", "port", PPTP.findParameter(filebucket, "port").getName());
-		assertEquals("Should find parameter 'path'", "path", PPTP.findParameter(filebucket, "path").getName());
+		assertEquals("Should find parameter 'name'", "name", safeGetName(PPTP.findParameter(filebucket, "name")));
+		assertEquals("Should find parameter 'server'", "server", safeGetName(PPTP.findParameter(filebucket, "server")));
+		assertEquals("Should find parameter 'port'", "port", safeGetName(PPTP.findParameter(filebucket, "port")));
+		assertEquals("Should find parameter 'path'", "path", safeGetName(PPTP.findParameter(filebucket, "path")));
 		assertEquals("Should have no properties", 0, filebucket.getProperties().size());
 	}
 
 	public void testFileType() {
 		Type fileType = PPTP.findType("file");
 		assertNotNull("Should have found 'file'", fileType);
-		assertEquals("Should have property 'ensure'", "ensure", PPTP.findProperty(fileType, "ensure").getName());
-		assertEquals("Should have parameter 'checksum'", "checksum", PPTP.findParameter(fileType, "checksum").getName());
-		assertEquals("Should have parameter 'source'", "source", PPTP.findParameter(fileType, "source").getName());
+		assertEquals("Should have property 'ensure'", "ensure", safeGetName(PPTP.findProperty(fileType, "ensure")));
+		assertEquals(
+			"Should have parameter 'checksum'", "checksum", safeGetName(PPTP.findParameter(fileType, "checksum")));
+		assertEquals("Should have parameter 'source'", "source", safeGetName(PPTP.findParameter(fileType, "source")));
 	}
 
 	public void testFindFunction() {
-		assertEquals("There should be a function called 'fail'", "fail", PPTP.findFunction("fail").getName());
+		assertEquals("There should be a function called 'fail'", "fail", safeGetName(PPTP.findFunction("fail")));
 	}
 
 	public void testFindType() {
-		assertEquals("There should be a type called 'mount'", "mount", PPTP.findType("mount").getName());
-		assertEquals("There should be a type found searching for 'Mount'", "mount", PPTP.findType("Mount").getName());
+		assertEquals("There should be a type called 'mount'", "mount", safeGetName(PPTP.findType("mount")));
+		assertEquals("There should be a type found searching for 'Mount'", "mount", safeGetName(PPTP.findType("Mount")));
 		assertNull("There is no type called 'idiot'", PPTP.findType("idiot"));
 	}
 

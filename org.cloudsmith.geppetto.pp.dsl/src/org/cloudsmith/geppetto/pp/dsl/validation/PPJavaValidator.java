@@ -28,6 +28,7 @@ import org.cloudsmith.geppetto.pp.AtExpression;
 import org.cloudsmith.geppetto.pp.AttributeAddition;
 import org.cloudsmith.geppetto.pp.AttributeDefinition;
 import org.cloudsmith.geppetto.pp.AttributeOperation;
+import org.cloudsmith.geppetto.pp.AttributeOperations;
 import org.cloudsmith.geppetto.pp.BinaryExpression;
 import org.cloudsmith.geppetto.pp.BinaryOpExpression;
 import org.cloudsmith.geppetto.pp.CaseExpression;
@@ -78,6 +79,9 @@ import org.cloudsmith.geppetto.pp.VerbatimTE;
 import org.cloudsmith.geppetto.pp.VirtualNameOrReference;
 import org.cloudsmith.geppetto.pp.adapters.ClassifierAdapter;
 import org.cloudsmith.geppetto.pp.adapters.ClassifierAdapterFactory;
+import org.cloudsmith.geppetto.pp.dsl.pptp.IPPTP;
+import org.cloudsmith.geppetto.pp.pptp.INamed;
+import org.cloudsmith.geppetto.pp.pptp.Type;
 import org.cloudsmith.geppetto.pp.util.TextExpressionHelper;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
@@ -192,6 +196,9 @@ public class PPJavaValidator extends AbstractPPJavaValidator implements IPPDiagn
 
 	@Inject
 	private PPPatternHelper patternHelper;
+
+	@Inject
+	private IPPTP PPTP;
 
 	/**
 	 * "built in" functions that return a value
@@ -359,7 +366,7 @@ public class PPJavaValidator extends AbstractPPJavaValidator implements IPPDiagn
 				else
 					warning(
 						errorStartText + " uses deprecated form of reference. Should start with upper case letter.",
-						leftExpr, PPPackage.Literals.PARAMETERIZED_EXPRESSION__LEFT_EXPR, INSIGNIFICANT_INDEX,
+						resourceRef, PPPackage.Literals.PARAMETERIZED_EXPRESSION__LEFT_EXPR, INSIGNIFICANT_INDEX,
 						IPPDiagnostics.ISSUE__DEPRECATED_REFERENCE);
 			}
 
@@ -519,7 +526,7 @@ public class PPJavaValidator extends AbstractPPJavaValidator implements IPPDiagn
 					if(n.equals(s))
 						break nameCheck;
 				warning(
-					"Unknown function: " + n, name, name.eContainingFeature(), INSIGNIFICANT_INDEX,
+					"Unknown function: " + n, name.eContainer(), name.eContainingFeature(), INSIGNIFICANT_INDEX,
 					IPPDiagnostics.ISSUE__UNKNOWN_FUNCTION_REFERENCE);
 
 			}
@@ -705,15 +712,38 @@ public class PPJavaValidator extends AbstractPPJavaValidator implements IPPDiagn
 		// missing name is checked by container (if it is ok or not)
 		if(nameExpr == null)
 			return;
-		if(nameExpr instanceof StringExpression ||
+		if(!(nameExpr instanceof StringExpression ||
 				// TODO: was LiteralString, follow up
 				nameExpr instanceof LiteralNameOrReference || nameExpr instanceof LiteralName ||
 				nameExpr instanceof VariableExpression || nameExpr instanceof AtExpression ||
-				nameExpr instanceof LiteralList || nameExpr instanceof SelectorExpression)
-			return;
-		error(
-			"Expression unsupported as resource name/title.", o, PPPackage.Literals.RESOURCE_BODY__NAME_EXPR,
-			INSIGNIFICANT_INDEX, IPPDiagnostics.ISSUE__UNSUPPORTED_EXPRESSION);
+				nameExpr instanceof LiteralList || nameExpr instanceof SelectorExpression))
+			error(
+				"Expression unsupported as resource name/title.", o, PPPackage.Literals.RESOURCE_BODY__NAME_EXPR,
+				INSIGNIFICANT_INDEX, IPPDiagnostics.ISSUE__UNSUPPORTED_EXPRESSION);
+
+		ResourceExpression resource = (ResourceExpression) o.eContainer();
+		ClassifierAdapter adapter = ClassifierAdapterFactory.eINSTANCE.adapt(resource);
+		if(!(adapter.getClassifier() == RESOURCE_IS_CLASSPARAMS || adapter.getClassifier() == RESOURCE_IS_OVERRIDE)) {
+			Type resourceType = adapter.getResourceType();
+			// if resourceType is unknown then this is handled by other rules (not possible to
+			// check the properties).
+			//
+			if(resourceType != null) {
+				AttributeOperations aos = o.getAttributes();
+				for(AttributeOperation ao : aos.getAttributes()) {
+					if(isMetaParameter(ao.getKey()))
+						continue;
+					INamed p = PPTP.findProperty(resourceType, ao.getKey());
+					if(p == null)
+						p = PPTP.findParameter(resourceType, ao.getKey());
+					if(p == null)
+						error(
+							"Unknown parameter: '" + ao.getKey() + "' in type: '" + resourceType.getName() + "'", ao,
+							PPPackage.Literals.ATTRIBUTE_OPERATION__KEY, INSIGNIFICANT_INDEX,
+							IPPDiagnostics.ISSUE__RESOURCE_UNKNOWN_PROPERTY);
+				}
+			}
+		}
 	}
 
 	/**
@@ -728,9 +758,9 @@ public class PPJavaValidator extends AbstractPPJavaValidator implements IPPDiagn
 		// classname : NAME | "class" | CLASSNAME
 		int resourceType = RESOURCE_IS_BAD; // unknown at this point
 		final Expression resourceExpr = o.getResourceExpr();
+		String resourceTypeName = null;
 		if(resourceExpr instanceof LiteralNameOrReference || resourceExpr instanceof VirtualNameOrReference) {
 
-			String resourceTypeName = null;
 			if(resourceExpr instanceof LiteralNameOrReference) {
 				LiteralNameOrReference resourceTypeExpr = (LiteralNameOrReference) resourceExpr;
 				resourceTypeName = resourceTypeExpr.getValue();
@@ -756,6 +786,7 @@ public class PPJavaValidator extends AbstractPPJavaValidator implements IPPDiagn
 		 */
 		ClassifierAdapter adapter = ClassifierAdapterFactory.eINSTANCE.adapt(o);
 		adapter.setClassifier(resourceType);
+		adapter.setResourceType(null);
 
 		if(resourceType == RESOURCE_IS_BAD) {
 			error(
@@ -765,6 +796,20 @@ public class PPJavaValidator extends AbstractPPJavaValidator implements IPPDiagn
 			// not much use checking the rest
 			return;
 		}
+
+		// If resource is good, and not 'class', then it must have a known reference type.
+		// TODO: possibly check a resource override if the expression is constant (or it is impossible to lookup
+		// the resource type - also requires getting the type name from the override's expression).
+		Type theType = null;
+		if(!(resourceType == RESOURCE_IS_CLASSPARAMS || resourceType == RESOURCE_IS_OVERRIDE)) {
+			theType = PPTP.findType(resourceTypeName);
+			adapter.setResourceType(theType);
+			if(theType == null)
+				error(
+					"Unknown resource type", o, PPPackage.Literals.RESOURCE_EXPRESSION__RESOURCE_EXPR,
+					INSIGNIFICANT_INDEX, IPPDiagnostics.ISSUE__RESOURCE_UNKNOWN_TYPE);
+		}
+
 		// -- can not virtualize/export non regular resources
 		if(resourceExpr instanceof VirtualNameOrReference && resourceType != RESOURCE_IS_REGULAR) {
 			error(
@@ -898,13 +943,18 @@ public class PPJavaValidator extends AbstractPPJavaValidator implements IPPDiagn
 				"Expected to comply with String rule", o, o.eContainingFeature(), INSIGNIFICANT_INDEX,
 				IPPDiagnostics.ISSUE__NOT_STRING);
 		String s = o.getText();
-		Matcher m = patternHelper.getunrecognizedEscapesPattern().matcher(s);
+
+		// remove all escaped \ to make it easier to find the illegal escapes
+		Matcher m1 = patternHelper.getRecognizedEscapePattenr().matcher(s);
+		s = m1.replaceAll("");
+
+		Matcher m = patternHelper.getUnrecognizedEscapesPattern().matcher(s);
 		StringBuffer unrecognized = new StringBuffer();
 		while(m.find())
 			unrecognized.append(m.group());
 		if(unrecognized.length() > 0)
 			warning(
-				"Unrecognized escape sequence(s): " + unrecognized.toString(), o, o.eContainingFeature(),
+				"Unrecognized escape sequence(s): " + unrecognized.toString(), o.eContainer(), o.eContainingFeature(),
 				INSIGNIFICANT_INDEX, IPPDiagnostics.ISSUE__UNRECOGNIZED_ESCAPE);
 	}
 
@@ -936,19 +986,22 @@ public class PPJavaValidator extends AbstractPPJavaValidator implements IPPDiagn
 
 	@Check
 	public void checkVerbatimTextExpression(VerbatimTE o) {
-		Matcher m = patternHelper.getunrecognizedEscapesPattern().matcher(o.getText());
+		String s = o.getText();
+		if(s == null || s.length() == 0)
+			return;
+		// remove all escaped \ to make it easier to find the illegal escapes
+		Matcher m1 = patternHelper.getRecognizedEscapePattenr().matcher(s);
+		s = m1.replaceAll("");
+
+		Matcher m = patternHelper.getUnrecognizedEscapesPattern().matcher(s);
 		StringBuffer unrecognized = new StringBuffer();
 		while(m.find())
 			unrecognized.append(m.group());
 		if(unrecognized.length() > 0)
 			warning(
-				"Unrecognized escape sequence(s): " + unrecognized.toString(), o, o.eContainingFeature(),
+				"Unrecognized escape sequence(s): " + unrecognized.toString(), o.eContainer(), o.eContainingFeature(),
 				INSIGNIFICANT_INDEX, IPPDiagnostics.ISSUE__UNRECOGNIZED_ESCAPE);
 	}
-
-	// private PPGrammarAccess getGrammarAccess() {
-	// return (PPGrammarAccess) grammarAccess;
-	// }
 
 	/**
 	 * NOTE: Adds validation to the puppet package (in 1.0 the package was not added
@@ -962,6 +1015,10 @@ public class PPJavaValidator extends AbstractPPJavaValidator implements IPPDiagn
 
 		return result;
 	}
+
+	// private PPGrammarAccess getGrammarAccess() {
+	// return (PPGrammarAccess) grammarAccess;
+	// }
 
 	protected boolean hasInterpolation(IQuotedString s) {
 		if(!(s instanceof DoubleQuotedString))
@@ -1127,6 +1184,21 @@ public class PPJavaValidator extends AbstractPPJavaValidator implements IPPDiagn
 	public boolean isLanguageSpecific() {
 		// return super.isLanguageSpecific(); // when issue is fixed, or remove method
 		return false;
+	}
+
+	/**
+	 * Returns true if the name is a <i>meta parameter</i> defined in puppet/type.rb; a parameter
+	 * applicable to all types.
+	 * 
+	 * @param parameterName
+	 * @return true if the given parameter is a meta parameter.
+	 */
+	private boolean isMetaParameter(String parameterName) {
+		Type metaType = PPTP.getMetaType();
+		if(metaType == null)
+			return false;
+		return PPTP.findParameter(metaType, parameterName) != null;
+		// return "require".equals(parameterName) || "provider".equals(parameterName);
 	}
 
 	private boolean isNAME(String s) {

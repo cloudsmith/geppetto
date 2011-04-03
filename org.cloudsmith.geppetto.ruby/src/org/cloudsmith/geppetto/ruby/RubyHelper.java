@@ -122,6 +122,10 @@ public class RubyHelper {
 		File typesDir = new File(file, "type");
 		loadTypes(puppetDistro, typesDir, rememberFiles);
 
+		// load metatype
+		File typeFile = new File(file, "type.rb");
+		loadMetaType(puppetDistro, typeFile, rememberFiles);
+		
 		// load additional properties into types
 		// (currently only known such construct is for 'file' type
 		// this implementation does however search all subdirectories
@@ -186,6 +190,26 @@ public class RubyHelper {
 		for(File rbFile : typesDir.listFiles(rbFileFilter))
 			for(Type t : loadTypes(rbFile, rememberFiles))
 				PPTPLinker.addType(target, t);
+	}
+	
+	private void loadMetaType(TargetEntry target, File rbFile, boolean rememberFiles) throws IOException, RubySyntaxException {
+		PPTypeInfo info = getMetaTypeInfo(rbFile);
+		Type type = PPTPFactory.eINSTANCE.createType();
+		if(rememberFiles)
+			type.setFile(rbFile);
+		type.setName(info.getTypeName());
+		type.setDocumentation(info.getDocumentation());
+		for(Map.Entry<String, PPTypeInfo.Entry> entry : info.getParameters().entrySet()) {
+			Parameter parameter = PPTPFactory.eINSTANCE.createParameter();
+			parameter.setName(entry.getKey());
+			parameter.setDocumentation(entry.getValue().documentation);
+			parameter.setRequired(entry.getValue().isRequired());
+			type.getParameters().add(parameter);
+		}
+		
+		// TODO: there are more interesting things to pick up (like valid values)
+		target.setMetaType(type);
+		
 	}
 	/**
 	 * Load type(s) from ruby file.
@@ -420,6 +444,16 @@ public class RubyHelper {
 		return rubyProvider.getTypeInfo(file);
 
 	}
+	public PPTypeInfo getMetaTypeInfo(File file) throws IOException, RubySyntaxException {
+		if(rubyProvider == null)
+			throw new IllegalStateException("Must call setUp() before getTypeInfo(File).");
+		if(file == null)
+			throw new IllegalArgumentException("Given file is null - JRubyService.getTypeInfo");
+		if(!file.exists())
+			throw new FileNotFoundException(file.getPath());
+		return rubyProvider.getMetaTypeProperties(file);
+		
+	}
 	public List<PPTypeInfo> getTypeProperties(File file) throws IOException, RubySyntaxException {
 		if(rubyProvider == null)
 			throw new IllegalStateException("Must call setUp() before getTypeInfo(File).");
@@ -489,6 +523,12 @@ public class RubyHelper {
 		public List<PPTypeInfo> getTypePropertiesInfo(File file)
 		throws IOException, RubySyntaxException {
 			return emptyTypeInfo;
+		}
+
+		@Override
+		public PPTypeInfo getMetaTypeProperties(File file) throws IOException,
+				RubySyntaxException {
+			return emptyTypeInfo.get(0);
 		}
 
 	}

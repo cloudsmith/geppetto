@@ -56,6 +56,11 @@ public interface IPPTP {
 	 */
 	public abstract Iterator<Function> functionsStartingWith(String prefix);
 
+	/**
+	 * Returns the first found meta type (there should just be one).
+	 */
+	public abstract Type getMetaType();
+
 	public abstract Iterator<Parameter> parametersStartingWith(Type t, String prefix);
 
 	public abstract Iterator<Property> propertiesStartingWith(Type t, String prefix);

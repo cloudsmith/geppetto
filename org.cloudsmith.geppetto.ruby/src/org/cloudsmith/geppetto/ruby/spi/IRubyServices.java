@@ -48,5 +48,15 @@ public interface IRubyServices {
 	 * @return
 	 */
 	public boolean isMockService();
+	
+	/**
+	 * Loads a PPTypeInfo describing metaparameters.
+	 * @param file - should typically reference 'Type.rb' in a puppet distribution.
+	 * @return
+	 * @throws IOException
+	 * @throws RubySyntaxException
+	 */
+	public PPTypeInfo getMetaTypeProperties(File file) throws IOException,
+			RubySyntaxException;
 
 }

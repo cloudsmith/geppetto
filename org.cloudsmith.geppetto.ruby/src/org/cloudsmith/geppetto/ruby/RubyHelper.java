@@ -108,6 +108,8 @@ public class RubyHelper {
 				nextIsVersion = true;
 
 		puppetDistro.setName("puppet "+versionString);
+		puppetDistro.setVersion(versionString);
+		
 		// remember this file (for a possible reload), but do not remember file for the contained elements
 		puppetDistro.setFile(file);
 		final boolean rememberFiles = false;

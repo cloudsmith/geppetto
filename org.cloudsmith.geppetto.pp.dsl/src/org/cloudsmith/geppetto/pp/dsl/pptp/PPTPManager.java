@@ -308,8 +308,10 @@ public class PPTPManager implements IPPTP {
 	protected void loadWorkspaceTPView() {
 		List<File> puppetLibs = Lists.newArrayList();
 		for(IProject p : ResourcesPlugin.getWorkspace().getRoot().getProjects()) {
+			if(!p.isAccessible())
+				continue;
 			IFile f = p.getFile(new Path("lib/puppet"));
-			if(f.exists())
+			if(f.getLocation().toFile().exists())
 				puppetLibs.add(f.getLocation().toFile());
 		}
 		createTPView(puppetLibs);

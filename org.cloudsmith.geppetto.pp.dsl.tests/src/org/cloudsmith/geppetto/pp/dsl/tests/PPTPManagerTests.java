@@ -45,6 +45,14 @@ public class PPTPManagerTests extends TestCase {
 		assertEquals("Should have no properties", 0, filebucket.getProperties().size());
 	}
 
+	public void testFileType() {
+		Type fileType = PPTP.findType("file");
+		assertNotNull("Should have found 'file'", fileType);
+		assertEquals("Should have property 'ensure'", "ensure", PPTP.findProperty(fileType, "ensure").getName());
+		assertEquals("Should have parameter 'checksum'", "checksum", PPTP.findParameter(fileType, "checksum").getName());
+		assertEquals("Should have parameter 'source'", "source", PPTP.findParameter(fileType, "source").getName());
+	}
+
 	public void testFindFunction() {
 		assertEquals("There should be a function called 'fail'", "fail", PPTP.findFunction("fail").getName());
 	}

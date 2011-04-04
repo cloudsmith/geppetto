@@ -9,7 +9,7 @@
  *   Cloudsmith
  * 
  */
-package org.cloudsmith.geppetto.pp.dsl.linker;
+package org.cloudsmith.geppetto.pp.dsl.linking;
 
 import java.util.List;
 
@@ -20,39 +20,55 @@ import org.cloudsmith.geppetto.pp.dsl.adapters.DocumentationAdapter;
 import org.cloudsmith.geppetto.pp.dsl.adapters.DocumentationAdapterFactory;
 import org.cloudsmith.geppetto.pp.dsl.services.PPGrammarAccess;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.xtext.IGrammarAccess;
 import org.eclipse.xtext.diagnostics.IDiagnosticConsumer;
-import org.eclipse.xtext.linking.lazy.LazyLinker;
 import org.eclipse.xtext.nodemodel.ICompositeNode;
 import org.eclipse.xtext.nodemodel.INode;
 import org.eclipse.xtext.nodemodel.util.NodeModelUtils;
 
 import com.google.common.collect.Lists;
+import com.google.inject.Inject;
 
 /**
- * Adds handling of documentation comments.
+ * Provides handling of documentation comments.
  * 
  */
-public class PPLinker extends LazyLinker {
+public class DocumentationAssociator {
+	private final PPGrammarAccess ga;
+
 	/**
 	 * Expression that may have associated documentation. (TODO: Puppetdoc also lists Nodes global variables, custom facts, and
 	 * Puppet plugins located in modules - but don't know which of those are applicable).
 	 */
 	private static final Class<?>[] documentable = { HostClassDefinition.class, Definition.class, NodeDefinition.class, };
 
-	/*
-	 * (non-Javadoc)
+	@Inject
+	public DocumentationAssociator(IGrammarAccess ga) {
+		this.ga = (PPGrammarAccess) ga;
+	}
+
+	private void associateDocumentation(EObject semantic, List<INode> commentSequence) {
+		StringBuffer buf = new StringBuffer();
+		for(INode n : commentSequence)
+			buf.append(n.getText());
+
+		DocumentationAdapter adapter = DocumentationAdapterFactory.eINSTANCE.adapt(semantic);
+		adapter.setNodes(commentSequence);
+
+	}
+
+	/**
+	 * Links comment nodes to classes listed in {@link #documentable} by collecting them in an
+	 * adapter (for later processing by formatter/styler).
 	 * 
-	 * @see org.eclipse.xtext.linking.impl.AbstractCleaningLinker#afterModelLinked(org.eclipse.emf.ecore.EObject,
-	 * org.eclipse.xtext.diagnostics.IDiagnosticConsumer)
+	 * TODO: provide checks that documentation is consistent with the model
 	 */
-	@Override
-	protected void afterModelLinked(EObject model, IDiagnosticConsumer diagnosticsConsumer) {
+	protected void linkDocumentation(EObject model, IDiagnosticConsumer diagnosticsConsumer) {
 
 		// a sequence of SL comment or a single ML comment that is immediately (no NL) before
 		// a definition, class, or node is taken to be a documentation comment, as is associated with
 		// the following semantic object using an adapter.
 		//
-		PPGrammarAccess ga = (PPGrammarAccess) getGrammarAccess();
 		ICompositeNode node = NodeModelUtils.getNode(model);
 		ICompositeNode root = node.getRootNode();
 		List<INode> commentSequence = Lists.newArrayList();
@@ -91,17 +107,6 @@ public class PPLinker extends LazyLinker {
 				}
 			}
 		}
-
-	}
-
-	private void associateDocumentation(EObject semantic, List<INode> commentSequence) {
-		StringBuffer buf = new StringBuffer();
-		for(INode n : commentSequence)
-			buf.append(n.getText());
-
-		// System.err.println(semantic.toString() + " text: " + buf.toString());
-		DocumentationAdapter adapter = DocumentationAdapterFactory.eINSTANCE.adapt(semantic);
-		adapter.setNodes(commentSequence);
 
 	}
 }

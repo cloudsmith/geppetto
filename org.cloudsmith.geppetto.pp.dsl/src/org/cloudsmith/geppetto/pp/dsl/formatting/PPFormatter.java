@@ -83,7 +83,8 @@ public class PPFormatter extends AbstractDeclarativeFormatter {
 		// but not between what is a non parenthesized function call
 		// TODO: Broken...
 		c.setNoLinewrap().between(ga.getLiteralNameOrReferenceRule(), ga.getLiteralNameOrReferenceRule());
-		c.setNoLinewrap().between(ga.getLiteralNameOrReferenceRule(), ga.getExpressionListRule());
+		// as per https://bugs.eclipse.org/bugs/show_bug.cgi?id=340166#c5
+		// c.setNoLinewrap().between(ga.getLiteralNameOrReferenceRule(), ga.getExpressionListRule());
 
 	}
 
@@ -223,8 +224,9 @@ public class PPFormatter extends AbstractDeclarativeFormatter {
 
 	protected void manifestConfiguration(FormattingConfig c) {
 		PPGrammarAccess ga = (PPGrammarAccess) getGrammarAccess();
-		// bug - has no effect
-		c.setLinewrap().after(ga.getPuppetManifestAccess().getStatementsAssignment_1());
+		// does not have intended (positive) effect, does instead screw up other statements
+		// https://bugs.eclipse.org/bugs/show_bug.cgi?id=340166#c6
+		// c.setLinewrap().after(ga.getPuppetManifestAccess().getStatementsAssignment_1());
 	}
 
 	protected void parenthisedExpressionConfguration(FormattingConfig c) {

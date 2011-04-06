@@ -91,10 +91,6 @@ Workflow {
 				// registerForImportedPackages = true
 			}
 
-			// scoping and exporting API
-			// fragment = scoping.ImportURIScopingFragment {}
-			// fragment = exporting.SimpleNamesFragment {}
-
 			// scoping and exporting API 
 			fragment = scoping.ImportNamespacesScopingFragment {}
 			fragment = exporting.QualifiedNamesFragment {}
@@ -107,11 +103,7 @@ Workflow {
 			fragment = labeling.LabelProviderFragment {}
 
 			// outline API 
-			// Xtext 2.0
 			fragment = outline.OutlineTreeProviderFragment {}			
-			// Xtext 1.0
-//			fragment = outline.TransformerFragment {}
-//			fragment = outline.OutlineNodeAdapterFactoryFragment {}
 			fragment = outline.QuickOutlineFragment {}
 
 			// quickfix API 
@@ -129,9 +121,8 @@ Workflow {
 			
 				options = {
 					backtrack = true
-////					classSplitting = true
-////					backtrackLexer = true
-//					
+//					classSplitting = true
+//					backtrackLexer = true
 				}
 			}
 

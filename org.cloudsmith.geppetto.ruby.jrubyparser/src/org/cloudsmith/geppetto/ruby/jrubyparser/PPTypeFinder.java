@@ -208,9 +208,6 @@ public class PPTypeFinder {
 	private PPTypeInfo createTypeInfo(Node root, String typeName) {
 		if(root == null)
 			return null;
-		// debug
-		if("a2mod".equals(typeName))
-			System.err.println("Parsing a2mod");
 		Map<String, PPTypeInfo.Entry> propertyMap = Maps.newHashMap();
 		Map<String, PPTypeInfo.Entry> parameterMap = Maps.newHashMap();
 		String typeDocumentation = ""; 

@@ -206,6 +206,13 @@ public class RubyHelper {
 			parameter.setRequired(entry.getValue().isRequired());
 			type.getParameters().add(parameter);
 		}
+		// TODO: Scan the puppet source for providers for the type
+		// This is a CHEAT - https://github.com/cloudsmith/geppetto/issues/37
+		Parameter p = PPTPFactory.eINSTANCE.createParameter();
+		p.setName("provider");
+		p.setDocumentation("");
+		p.setRequired(false);
+		type.getParameters().add(p);
 		
 		// TODO: there are more interesting things to pick up (like valid values)
 		target.setMetaType(type);

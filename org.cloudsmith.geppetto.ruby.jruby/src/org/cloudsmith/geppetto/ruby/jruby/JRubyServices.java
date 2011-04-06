@@ -170,7 +170,7 @@ public class JRubyServices  implements IRubyServices{
 		List<PPFunctionInfo> functions = Lists.newArrayList();
 		Result result = internalParse(file);
 		if(result.hasErrors())
-			throw new RubySyntaxException();
+			throw new RubySyntaxException(result.getIssues());
 		RubyModuleFinder finder = new RubyModuleFinder();
 		ModuleNode foundModule = finder.findModule(result.getAST(), functionModuleFQN);
 		if(foundModule == null)

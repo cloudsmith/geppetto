@@ -18,12 +18,17 @@ import org.eclipse.xtext.linking.lazy.LazyLinker;
 import com.google.inject.Inject;
 
 /**
- * Adds handling of documentation comments.
+ * Adds handling of documentation comments and linking of resources.
  * 
  */
+
 public class PPLinker extends LazyLinker {
+
 	@Inject
 	private DocumentationAssociator documentationAssociator;
+
+	@Inject
+	PPResourceLinker resourceLinker;
 
 	/*
 	 * (non-Javadoc)
@@ -33,7 +38,9 @@ public class PPLinker extends LazyLinker {
 	 */
 	@Override
 	protected void afterModelLinked(EObject model, IDiagnosticConsumer diagnosticsConsumer) {
-		documentationAssociator.linkDocumentation(model, diagnosticsConsumer);
+		IMessageAcceptor acceptor = new DiagnosticConsumerBasedMessageAcceptor(diagnosticsConsumer);
+		documentationAssociator.linkDocumentation(model, acceptor);
+		resourceLinker.link(model, acceptor);
 	}
 
 }

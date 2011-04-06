@@ -180,5 +180,25 @@
             class="org.cloudsmith.geppetto.pp.dsl.ui.PPExecutableExtensionFactory:org.eclipse.xtext.ui.editor.quickfix.MarkerResolutionGenerator">
       </markerResolutionGenerator>
    </extension>
+   <extension
+         point="org.eclipse.ui.commands">
+      <command
+            description="Runs a development debug utility"
+            id="org.cloudsmith.geppetto.pp.dsl.ui.devdebug"
+            name="Devdebug">
+      </command>
+   </extension>
+   	<extension
+		point="org.eclipse.ui.handlers">
+           <handler
+            class="org.cloudsmith.geppetto.pp.dsl.ui.PPExecutableExtensionFactory:org.cloudsmith.geppetto.pp.dsl.ui.commands.PPDevDebug"
+            commandId="org.cloudsmith.geppetto.pp.dsl.ui.devdebug">
+         <activeWhen>
+            <reference
+                    definitionId="org.cloudsmith.geppetto.pp.dsl.PP.Editor.opened">
+            </reference>
+         </activeWhen>
+      </handler>
+      </extension>
 
 </plugin>

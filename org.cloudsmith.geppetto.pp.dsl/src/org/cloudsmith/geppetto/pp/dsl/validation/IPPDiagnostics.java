@@ -90,4 +90,6 @@ public interface IPPDiagnostics {
 
 	public static final String ISSUE__RESOURCE_UNKNOWN_PROPERTY = ISSUE_PREFIX + "UnknownProperty";
 
+	public static final String ISSUE__RESOURCE_AMBIGUOUS_REFERENCE = ISSUE_PREFIX + "AmbigousReference";
+
 }

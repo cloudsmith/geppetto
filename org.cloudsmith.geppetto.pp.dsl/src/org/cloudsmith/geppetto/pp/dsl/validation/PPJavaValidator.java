@@ -28,7 +28,6 @@ import org.cloudsmith.geppetto.pp.AtExpression;
 import org.cloudsmith.geppetto.pp.AttributeAddition;
 import org.cloudsmith.geppetto.pp.AttributeDefinition;
 import org.cloudsmith.geppetto.pp.AttributeOperation;
-import org.cloudsmith.geppetto.pp.AttributeOperations;
 import org.cloudsmith.geppetto.pp.BinaryExpression;
 import org.cloudsmith.geppetto.pp.BinaryOpExpression;
 import org.cloudsmith.geppetto.pp.CaseExpression;
@@ -79,8 +78,8 @@ import org.cloudsmith.geppetto.pp.VerbatimTE;
 import org.cloudsmith.geppetto.pp.VirtualNameOrReference;
 import org.cloudsmith.geppetto.pp.adapters.ClassifierAdapter;
 import org.cloudsmith.geppetto.pp.adapters.ClassifierAdapterFactory;
+import org.cloudsmith.geppetto.pp.dsl.linking.PPResourceLinker;
 import org.cloudsmith.geppetto.pp.dsl.pptp.IPPTP;
-import org.cloudsmith.geppetto.pp.pptp.INamed;
 import org.cloudsmith.geppetto.pp.pptp.Type;
 import org.cloudsmith.geppetto.pp.util.TextExpressionHelper;
 import org.eclipse.emf.common.util.EList;
@@ -199,6 +198,9 @@ public class PPJavaValidator extends AbstractPPJavaValidator implements IPPDiagn
 
 	@Inject
 	private IPPTP PPTP;
+
+	@Inject
+	private PPResourceLinker resourceLinker;
 
 	/**
 	 * "built in" functions that return a value
@@ -721,29 +723,31 @@ public class PPJavaValidator extends AbstractPPJavaValidator implements IPPDiagn
 				"Expression unsupported as resource name/title.", o, PPPackage.Literals.RESOURCE_BODY__NAME_EXPR,
 				INSIGNIFICANT_INDEX, IPPDiagnostics.ISSUE__UNSUPPORTED_EXPRESSION);
 
-		ResourceExpression resource = (ResourceExpression) o.eContainer();
-		ClassifierAdapter adapter = ClassifierAdapterFactory.eINSTANCE.adapt(resource);
-		if(!(adapter.getClassifier() == RESOURCE_IS_CLASSPARAMS || adapter.getClassifier() == RESOURCE_IS_OVERRIDE)) {
-			Type resourceType = adapter.getResourceType();
-			// if resourceType is unknown then this is handled by other rules (not possible to
-			// check the properties).
-			//
-			if(resourceType != null) {
-				AttributeOperations aos = o.getAttributes();
-				for(AttributeOperation ao : aos.getAttributes()) {
-					if(isMetaParameter(ao.getKey()))
-						continue;
-					INamed p = PPTP.findProperty(resourceType, ao.getKey());
-					if(p == null)
-						p = PPTP.findParameter(resourceType, ao.getKey());
-					if(p == null)
-						error(
-							"Unknown parameter: '" + ao.getKey() + "' in type: '" + resourceType.getName() + "'", ao,
-							PPPackage.Literals.ATTRIBUTE_OPERATION__KEY, INSIGNIFICANT_INDEX,
-							IPPDiagnostics.ISSUE__RESOURCE_UNKNOWN_PROPERTY);
-				}
-			}
-		}
+		// // LINKING START - MOVE TO PPLINKER
+		// ResourceExpression resource = (ResourceExpression) o.eContainer();
+		// ClassifierAdapter adapter = ClassifierAdapterFactory.eINSTANCE.adapt(resource);
+		// if(!(adapter.getClassifier() == RESOURCE_IS_CLASSPARAMS || adapter.getClassifier() == RESOURCE_IS_OVERRIDE)) {
+		// Type resourceType = adapter.getResourceType();
+		// // if resourceType is unknown then this is handled by other rules (not possible to
+		// // check the properties).
+		// //
+		// if(resourceType != null) {
+		// AttributeOperations aos = o.getAttributes();
+		// for(AttributeOperation ao : aos.getAttributes()) {
+		// if(isMetaParameter(ao.getKey()))
+		// continue;
+		// INamed p = PPTP.findProperty(resourceType, ao.getKey());
+		// if(p == null)
+		// p = PPTP.findParameter(resourceType, ao.getKey());
+		// if(p == null)
+		// error(
+		// "Unknown parameter: '" + ao.getKey() + "' in type: '" + resourceType.getName() + "'", ao,
+		// PPPackage.Literals.ATTRIBUTE_OPERATION__KEY, INSIGNIFICANT_INDEX,
+		// IPPDiagnostics.ISSUE__RESOURCE_UNKNOWN_PROPERTY);
+		// }
+		// }
+		// }
+		// // LINKING END
 	}
 
 	/**
@@ -782,11 +786,12 @@ public class PPJavaValidator extends AbstractPPJavaValidator implements IPPDiagn
 		}
 		/*
 		 * IMPORTANT: set the validated classifier to enable others to more quickly determine the type of
-		 * resource.
+		 * resource, and its typeName (what it is a reference to).
 		 */
 		ClassifierAdapter adapter = ClassifierAdapterFactory.eINSTANCE.adapt(o);
 		adapter.setClassifier(resourceType);
 		adapter.setResourceType(null);
+		adapter.setResourceTypeName(resourceTypeName);
 
 		if(resourceType == RESOURCE_IS_BAD) {
 			error(
@@ -797,18 +802,23 @@ public class PPJavaValidator extends AbstractPPJavaValidator implements IPPDiagn
 			return;
 		}
 
-		// If resource is good, and not 'class', then it must have a known reference type.
-		// TODO: possibly check a resource override if the expression is constant (or it is impossible to lookup
-		// the resource type - also requires getting the type name from the override's expression).
-		Type theType = null;
-		if(!(resourceType == RESOURCE_IS_CLASSPARAMS || resourceType == RESOURCE_IS_OVERRIDE)) {
-			theType = PPTP.findType(resourceTypeName);
-			adapter.setResourceType(theType);
-			if(theType == null)
-				error(
-					"Unknown resource type", o, PPPackage.Literals.RESOURCE_EXPRESSION__RESOURCE_EXPR,
-					INSIGNIFICANT_INDEX, IPPDiagnostics.ISSUE__RESOURCE_UNKNOWN_TYPE);
-		}
+		// // MOVED TO RESOURCE LINKER
+		// resourceLinker.linkResourceExpressions(o, this);
+		// // LINKING START (TODO: Move to linking phase)
+		// // If resource is good, and not 'class', then it must have a known reference type.
+		// // TODO: possibly check a resource override if the expression is constant (or it is impossible to lookup
+		// // the resource type - also requires getting the type name from the override's expression).
+		// Type theType = null;
+		// if(!(resourceType == RESOURCE_IS_CLASSPARAMS || resourceType == RESOURCE_IS_OVERRIDE)) {
+		// theType = PPTP.findType(resourceTypeName);
+		// adapter.setResourceType(theType);
+		// if(theType == null)
+		// error(
+		// "Unknown resource type: '" + resourceTypeName + "'", o,
+		// PPPackage.Literals.RESOURCE_EXPRESSION__RESOURCE_EXPR, INSIGNIFICANT_INDEX,
+		// IPPDiagnostics.ISSUE__RESOURCE_UNKNOWN_TYPE);
+		// }
+		// // LINKING END
 
 		// -- can not virtualize/export non regular resources
 		if(resourceExpr instanceof VirtualNameOrReference && resourceType != RESOURCE_IS_REGULAR) {

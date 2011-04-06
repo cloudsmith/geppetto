@@ -56,9 +56,9 @@ public class PPTPLinker {
 	 */
 	public static TargetEntry findTargetEntry(PuppetTarget theTargetPlatform, File file) {
 		if(file == null)
-			throw new IllegalArgumentException("File can not be null");
+			throw new IllegalArgumentException("File can not be null!");
 		for(TargetEntry target : theTargetPlatform.getEntries())
-			if(file.equals(target.getFile()))
+			if(file.getPath().equals(target.getFile().getPath()))
 				return target;
 		return null;
 	}

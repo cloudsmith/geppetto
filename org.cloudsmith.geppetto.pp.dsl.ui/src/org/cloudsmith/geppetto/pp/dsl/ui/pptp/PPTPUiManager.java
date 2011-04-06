@@ -11,6 +11,7 @@
  */
 package org.cloudsmith.geppetto.pp.dsl.ui.pptp;
 
+import java.io.File;
 import java.util.Collections;
 import java.util.List;
 
@@ -183,8 +184,10 @@ public class PPTPUiManager extends PPTPManager implements IResourceChangeListene
 						// TODO: Ensure that all possible targets are added first
 						// i.e. a project even if it has no contributions should be added to the target
 						// at all times...
-						TargetEntry target = PPTPLinker.findTargetEntry(
-							theTargetPlatform, r.getProject().getLocation().toFile());
+						TargetEntry target = PPTPLinker.findTargetEntry(theTargetPlatform, new File(
+							r.getProject().getLocation().toFile(), "lib/puppet"));
+						if(target == null)
+							System.err.println("NULL TARGET BUG! for: " + r.getProject().getLocation().toFile());
 						for(Function f : functions)
 							target.getFunctions().add(f);
 						break;

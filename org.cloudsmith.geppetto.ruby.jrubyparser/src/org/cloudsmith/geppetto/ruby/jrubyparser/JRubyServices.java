@@ -178,7 +178,7 @@ public class JRubyServices  implements IRubyServices{
 		List<PPFunctionInfo> functions = Lists.newArrayList();
 		Result result = internalParse(file);
 		if(result.hasErrors())
-			throw new RubySyntaxException();
+			throw new RubySyntaxException(result.getIssues());
 		RubyCallFinder callFinder = new RubyCallFinder();
 		GenericCallNode found = callFinder.findCall(result.getAST(), newFunctionFQN);
 		if(found == null)
@@ -212,7 +212,7 @@ public class JRubyServices  implements IRubyServices{
 		List<PPTypeInfo> types = Lists.newArrayList();
 		Result result = internalParse(file);
 		if(result.hasErrors())
-			throw new RubySyntaxException();
+			throw new RubySyntaxException(result.getIssues());
 		PPTypeFinder typeFinder = new PPTypeFinder();
 		PPTypeInfo typeInfo = typeFinder.findTypeInfo(result.getAST());
 		if(typeInfo != null)
@@ -225,7 +225,7 @@ public class JRubyServices  implements IRubyServices{
 		List<PPTypeInfo> types = Lists.newArrayList();
 		Result result = internalParse(file);
 		if(result.hasErrors())
-			throw new RubySyntaxException();
+			throw new RubySyntaxException(result.getIssues());
 		PPTypeFinder typeFinder = new PPTypeFinder();
 		PPTypeInfo typeInfo = typeFinder.findTypePropertyInfo(result.getAST());
 		if(typeInfo != null)
@@ -237,7 +237,7 @@ public class JRubyServices  implements IRubyServices{
 	public PPTypeInfo getMetaTypeProperties(File file) throws IOException, RubySyntaxException {
 		Result result = internalParse(file);
 		if(result.hasErrors())
-			throw new RubySyntaxException();
+			throw new RubySyntaxException(result.getIssues());
 		PPTypeFinder typeFinder = new PPTypeFinder();
 		PPTypeInfo typeInfo = typeFinder.findMetaTypeInfo(result.getAST());
 		return typeInfo;

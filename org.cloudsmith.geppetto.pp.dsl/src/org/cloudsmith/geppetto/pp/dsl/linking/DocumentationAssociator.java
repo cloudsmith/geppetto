@@ -21,7 +21,6 @@ import org.cloudsmith.geppetto.pp.dsl.adapters.DocumentationAdapterFactory;
 import org.cloudsmith.geppetto.pp.dsl.services.PPGrammarAccess;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.xtext.IGrammarAccess;
-import org.eclipse.xtext.diagnostics.IDiagnosticConsumer;
 import org.eclipse.xtext.nodemodel.ICompositeNode;
 import org.eclipse.xtext.nodemodel.INode;
 import org.eclipse.xtext.nodemodel.util.NodeModelUtils;
@@ -63,7 +62,7 @@ public class DocumentationAssociator {
 	 * 
 	 * TODO: provide checks that documentation is consistent with the model
 	 */
-	protected void linkDocumentation(EObject model, IDiagnosticConsumer diagnosticsConsumer) {
+	protected void linkDocumentation(EObject model, IMessageAcceptor acceptor) {
 
 		// a sequence of SL comment or a single ML comment that is immediately (no NL) before
 		// a definition, class, or node is taken to be a documentation comment, as is associated with

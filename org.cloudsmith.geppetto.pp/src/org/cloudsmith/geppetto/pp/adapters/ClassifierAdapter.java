@@ -37,6 +37,14 @@ public class ClassifierAdapter extends AdapterImpl {
 
 	private Type resourceType = null;
 
+	private String resourceTypeName;
+
+	/**
+	 * Type of this parameter is determined by usage (typically an xtext.IEObjectDescription) but it
+	 * is determined by a linking service.
+	 */
+	private Object targetObjectDescription;
+
 	/**
 	 * Gets a Type set in the adapter for the given key, or null if no type have been
 	 * set.
@@ -51,6 +59,27 @@ public class ClassifierAdapter extends AdapterImpl {
 	public Type getResourceType() {
 		return resourceType;
 	}
+
+	/**
+	 * @return the resourceTypeName
+	 */
+	public String getResourceTypeName() {
+		return resourceTypeName;
+	}
+
+	public Object getTargetObjectDescription() {
+		return targetObjectDescription;
+	}
+
+	// Probably not needed, and if so, must be different for different types of adapters...
+	// @Override
+	// public void notifyChanged(Notification msg) {
+	// int featureId = msg.getFeatureID(???.class);
+	// if(featureId == PPPackage.RESOURCE_BODY__NAME_EXPR)
+	// classifier = UNKNOWN;
+	//
+	// super.notifyChanged(msg);
+	// }
 
 	@Override
 	public boolean isAdapterForType(Object type) {
@@ -67,18 +96,24 @@ public class ClassifierAdapter extends AdapterImpl {
 		this.classifier = classifier;
 	}
 
-	// Probably not needed, and if so, must be different for different types of adapters...
-	// @Override
-	// public void notifyChanged(Notification msg) {
-	// int featureId = msg.getFeatureID(???.class);
-	// if(featureId == PPPackage.RESOURCE_BODY__NAME_EXPR)
-	// classifier = UNKNOWN;
-	//
-	// super.notifyChanged(msg);
-	// }
-
 	public void setResourceType(Type resourceType) {
 		this.resourceType = resourceType;
+	}
+
+	/**
+	 * @param resourceTypeName
+	 *            the resourceTypeName to set
+	 */
+	public void setResourceTypeName(String resourceTypeName) {
+		this.resourceTypeName = resourceTypeName;
+	}
+
+	/**
+	 * @param targetObjectDescription
+	 *            - typically an Xtext IEObjectDescription referencing a link target
+	 */
+	public void setTargetObject(Object targetObjectDescription) {
+		this.targetObjectDescription = targetObjectDescription;
 	}
 
 }

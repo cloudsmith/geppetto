@@ -12,9 +12,13 @@
 package org.cloudsmith.geppetto.pp.dsl;
 
 import org.cloudsmith.geppetto.pp.dsl.lexer.PPOverridingLexer;
-import org.cloudsmith.geppetto.pp.dsl.linker.PPLinker;
+import org.cloudsmith.geppetto.pp.dsl.linking.PPLinker;
+import org.cloudsmith.geppetto.pp.dsl.linking.PPQualifiedNameConverter;
+import org.cloudsmith.geppetto.pp.dsl.linking.PPQualifiedNameProvider;
 import org.cloudsmith.geppetto.pp.dsl.serialization.PPValueSerializer;
 import org.eclipse.xtext.conversion.IValueConverterService;
+import org.eclipse.xtext.naming.IQualifiedNameConverter;
+import org.eclipse.xtext.naming.IQualifiedNameProvider;
 import org.eclipse.xtext.parser.antlr.Lexer;
 import org.eclipse.xtext.validation.CompositeEValidator;
 
@@ -26,9 +30,29 @@ public class PPRuntimeModule extends org.cloudsmith.geppetto.pp.dsl.AbstractPPRu
 	// return PPHiddenTokenHelper.class;
 	// }
 
+	/**
+	 * Handles association of documentation comments.
+	 */
 	@Override
 	public Class<? extends org.eclipse.xtext.linking.ILinker> bindILinker() {
 		return PPLinker.class;
+	}
+
+	/**
+	 * Handles FQN <-> String conversion and defines "::" as the separator.
+	 */
+	public Class<? extends IQualifiedNameConverter> bindIQualifiedNameConverter() {
+		return PPQualifiedNameConverter.class;
+	}
+
+	/**
+	 * Handles creation of QualifiedNames for referenceable PP model elements.
+	 * 
+	 * @see org.cloudsmith.geppetto.pp.dsl.AbstractPPRuntimeModule#bindIQualifiedNameProvider()
+	 */
+	@Override
+	public Class<? extends IQualifiedNameProvider> bindIQualifiedNameProvider() {
+		return PPQualifiedNameProvider.class;
 	}
 
 	// add transient value serialization service to enable skipping values that are transient from
@@ -46,11 +70,6 @@ public class PPRuntimeModule extends org.cloudsmith.geppetto.pp.dsl.AbstractPPRu
 	public Class<? extends org.eclipse.xtext.parsetree.reconstr.ITokenSerializer.IValueSerializer> bindIValueSerializer() {
 		return PPValueSerializer.class;
 	}
-
-	// Needed in Xtext 1.0 version
-	// public Class<? extends IElementMatcherProvider> bindMatcherProvider() {
-	// return PPMatcherProvider.class;
-	// }
 
 	@Override
 	public Class<? extends Lexer> bindLexer() {
@@ -79,5 +98,4 @@ public class PPRuntimeModule extends org.cloudsmith.geppetto.pp.dsl.AbstractPPRu
 	public com.google.inject.Provider<PPOverridingLexer> providePPOverridingLexer() {
 		return org.eclipse.xtext.parser.antlr.LexerProvider.create(PPOverridingLexer.class);
 	}
-
 }

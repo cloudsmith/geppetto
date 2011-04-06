@@ -11,7 +11,6 @@
  */
 package org.cloudsmith.geppetto.ui.editor;
 
-import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.HashMap;
@@ -264,15 +263,15 @@ class ModuleMetadataOverviewPage extends FormPage {
 
 				Map<String, ModuleInfo> modules = new HashMap<String, ModuleInfo>();
 
-				try {
-					for(ModuleInfo module : getForge().search(null)) {
-						modules.put(StringUtil.getModuleText(module), module);
-					}
-
-				}
-				catch(IOException ioe) {
-					ioe.printStackTrace();
-				}
+				// try {
+				// for(ModuleInfo module : getForge().search(null)) {
+				// modules.put(StringUtil.getModuleText(module), module);
+				// }
+				//
+				// }
+				// catch(IOException ioe) {
+				// ioe.printStackTrace();
+				// }
 
 				for(IProject project : ResourcesPlugin.getWorkspace().getRoot().getProjects()) {
 

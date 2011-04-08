@@ -38,7 +38,7 @@ public enum MatchRule implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	PERFECT(0, "PERFECT", "PERFECT"),
+	PERFECT(0, "PERFECT", "=="),
 
 	/**
 	 * The '<em><b>EQUIVALENT</b></em>' literal object.
@@ -51,7 +51,7 @@ public enum MatchRule implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	EQUIVALENT(1, "EQUIVALENT", "EQUIVALENT"),
+	EQUIVALENT(1, "EQUIVALENT", "="),
 
 	/**
 	 * The '<em><b>COMPATIBLE</b></em>' literal object.
@@ -64,19 +64,55 @@ public enum MatchRule implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	COMPATIBLE(2, "COMPATIBLE", "COMPATIBLE"),
+	COMPATIBLE(2, "COMPATIBLE", "~"),
+
+	/**
+	 * The '<em><b>LESS</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * Version must be less than the version specified.
+	 * <!-- end-user-doc -->
+	 * 
+	 * @see #LESS_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	LESS(3, "LESS", "<"),
+
+	/**
+	 * The '<em><b>LESS OR EQUAL</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * Version must be at less or equal to the version specified.
+	 * <!-- end-user-doc -->
+	 * 
+	 * @see #LESS_OR_EQUAL_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	LESS_OR_EQUAL(4, "LESS_OR_EQUAL", "<="),
+
+	/**
+	 * The '<em><b>GREATER</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * Version must be greater than the version specified.
+	 * <!-- end-user-doc -->
+	 * 
+	 * @see #GREATER_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	GREATER(5, "GREATER", ">"),
 
 	/**
 	 * The '<em><b>GREATER OR EQUAL</b></em>' literal object.
 	 * <!-- begin-user-doc -->
-	 * Version must be at least at the version specified, or at a higher service, minor or major level.
+	 * Version must be greater or equal to the version specified.
 	 * <!-- end-user-doc -->
 	 * 
 	 * @see #GREATER_OR_EQUAL_VALUE
 	 * @generated
 	 * @ordered
 	 */
-	GREATER_OR_EQUAL(3, "GREATER_OR_EQUAL", "GREATER_OR_EQUAL");
+	GREATER_OR_EQUAL(6, "GREATER_OR_EQUAL", ">=");
 
 	/**
 	 * The '<em><b>PERFECT</b></em>' literal value.
@@ -87,7 +123,7 @@ public enum MatchRule implements Enumerator {
 	 * <!-- end-model-doc -->
 	 * 
 	 * @see #PERFECT
-	 * @model
+	 * @model literal="=="
 	 * @generated
 	 * @ordered
 	 */
@@ -103,7 +139,7 @@ public enum MatchRule implements Enumerator {
 	 * <!-- end-model-doc -->
 	 * 
 	 * @see #EQUIVALENT
-	 * @model
+	 * @model literal="="
 	 * @generated
 	 * @ordered
 	 */
@@ -119,26 +155,70 @@ public enum MatchRule implements Enumerator {
 	 * <!-- end-model-doc -->
 	 * 
 	 * @see #COMPATIBLE
-	 * @model
+	 * @model literal="~"
 	 * @generated
 	 * @ordered
 	 */
 	public static final int COMPATIBLE_VALUE = 2;
+
+/**
+	 * The '<em><b>LESS</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * Version must be less than the version specified.
+	 * <!-- end-model-doc -->
+	 * @see #LESS
+	 * @model literal="<"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int LESS_VALUE = 3;
+
+	/**
+	 * The '<em><b>LESS OR EQUAL</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * Version must be at less or equal ot the version specified.
+	 * <!-- end-model-doc -->
+	 * 
+	 * @see #LESS_OR_EQUAL
+	 * @model literal="<="
+	 * @generated
+	 * @ordered
+	 */
+	public static final int LESS_OR_EQUAL_VALUE = 4;
+
+	/**
+	 * The '<em><b>GREATER</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * Version must be greater than the version specified.
+	 * <!-- end-model-doc -->
+	 * 
+	 * @see #GREATER
+	 * @model literal=">"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int GREATER_VALUE = 5;
 
 	/**
 	 * The '<em><b>GREATER OR EQUAL</b></em>' literal value.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * Version must be at least at the version specified, or at a higher service, minor or major level.
+	 * Version must be greater or equal to the version specified.
 	 * <!-- end-model-doc -->
 	 * 
 	 * @see #GREATER_OR_EQUAL
-	 * @model
+	 * @model literal=">="
 	 * @generated
 	 * @ordered
 	 */
-	public static final int GREATER_OR_EQUAL_VALUE = 3;
+	public static final int GREATER_OR_EQUAL_VALUE = 6;
 
 	/**
 	 * An array of all the '<em><b>Match Rule</b></em>' enumerators.
@@ -148,7 +228,7 @@ public enum MatchRule implements Enumerator {
 	 * @generated
 	 */
 	private static final MatchRule[] VALUES_ARRAY = new MatchRule[] {
-			PERFECT, EQUIVALENT, COMPATIBLE, GREATER_OR_EQUAL, };
+			PERFECT, EQUIVALENT, COMPATIBLE, LESS, LESS_OR_EQUAL, GREATER, GREATER_OR_EQUAL, };
 
 	/**
 	 * A public read-only list of all the '<em><b>Match Rule</b></em>' enumerators.
@@ -174,6 +254,12 @@ public enum MatchRule implements Enumerator {
 				return EQUIVALENT;
 			case COMPATIBLE_VALUE:
 				return COMPATIBLE;
+			case LESS_VALUE:
+				return LESS;
+			case LESS_OR_EQUAL_VALUE:
+				return LESS_OR_EQUAL;
+			case GREATER_VALUE:
+				return GREATER;
 			case GREATER_OR_EQUAL_VALUE:
 				return GREATER_OR_EQUAL;
 		}

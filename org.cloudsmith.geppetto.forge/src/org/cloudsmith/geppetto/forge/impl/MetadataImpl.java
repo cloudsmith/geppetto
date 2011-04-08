@@ -1109,7 +1109,7 @@ public class MetadataImpl extends EObjectImpl implements Metadata {
 	 * @generated NOT
 	 */
 	public VersionRequirement parseVersionRequirement(String versionRequirement) {
-		return DependencyImpl.parseVersionRequirement(versionRequirement);
+		return VersionRequirementImpl.parseVersionRequirement(versionRequirement);
 	}
 
 	public void populateFromModuleDir(File moduleDirectory) throws IOException {

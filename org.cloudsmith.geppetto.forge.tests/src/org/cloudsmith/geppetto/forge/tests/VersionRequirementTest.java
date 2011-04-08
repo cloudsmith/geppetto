@@ -11,6 +11,8 @@
  */
 package org.cloudsmith.geppetto.forge.tests;
 
+import java.util.Arrays;
+
 import junit.framework.TestCase;
 import junit.textui.TestRunner;
 
@@ -26,6 +28,7 @@ import org.cloudsmith.geppetto.forge.VersionRequirement;
  * The following operations are tested:
  * <ul>
  * <li>{@link org.cloudsmith.geppetto.forge.VersionRequirement#matches(java.lang.String) <em>Matches</em>}</li>
+ * <li>{@link org.cloudsmith.geppetto.forge.VersionRequirement#findBestMatch(java.util.Collection) <em>Find Best Match</em>}</li>
  * </ul>
  * </p>
  * 
@@ -107,6 +110,21 @@ public class VersionRequirementTest extends TestCase {
 	@Override
 	protected void tearDown() throws Exception {
 		setFixture(null);
+	}
+
+	/**
+	 * Tests the '{@link org.cloudsmith.geppetto.forge.VersionRequirement#findBestMatch(java.util.Collection) <em>Find Best Match</em>}' operation.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @see org.cloudsmith.geppetto.forge.VersionRequirement#findBestMatch(java.util.Collection)
+	 * @generated NOT
+	 */
+	public void testFindBestMatch__Collection() {
+		fixture.setVersion("1.2.3.foo");
+		fixture.setMatchRule(MatchRule.EQUIVALENT);
+		String best = fixture.findBestMatch(Arrays.asList("1.2", "1.1", "1.3", "1.2.3", "1.2.4", "1.2.4alpha"));
+		assertEquals("1.2.4", best);
 	}
 
 	/**

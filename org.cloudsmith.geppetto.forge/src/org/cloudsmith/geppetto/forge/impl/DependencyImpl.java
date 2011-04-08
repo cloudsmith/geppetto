@@ -17,7 +17,6 @@ import java.net.URI;
 import org.cloudsmith.geppetto.forge.Dependency;
 import org.cloudsmith.geppetto.forge.ForgeFactory;
 import org.cloudsmith.geppetto.forge.ForgePackage;
-import org.cloudsmith.geppetto.forge.MatchRule;
 import org.cloudsmith.geppetto.forge.VersionRequirement;
 import org.cloudsmith.geppetto.forge.util.JsonUtils;
 import org.eclipse.emf.common.notify.Notification;
@@ -79,7 +78,8 @@ public class DependencyImpl extends EObjectImpl implements Dependency {
 			String repo = getString(jsonObj, "repository");
 			if(repo != null)
 				result.setRepository(URI.create(repo));
-			result.setVersionRequirement(parseVersionRequirement(getString(jsonObj, "versionRequirement")));
+			result.setVersionRequirement(VersionRequirementImpl.parseVersionRequirement(getString(
+				jsonObj, "versionRequirement")));
 			return result;
 		}
 
@@ -107,67 +107,6 @@ public class DependencyImpl extends EObjectImpl implements Dependency {
 	 * @ordered
 	 */
 	protected static final String NAME_EDEFAULT = null;
-
-	/**
-	 * @param string
-	 * @return
-	 */
-	public static VersionRequirement parseVersionRequirement(String versionRequirement) {
-		if(versionRequirement == null)
-			return null;
-
-		int len = versionRequirement.length();
-		if(len == 0)
-			return null;
-
-		int idx = 0;
-		MatchRule rule = null;
-		char c = versionRequirement.charAt(0);
-		if(c == '>') {
-			if(len > 1 && versionRequirement.charAt(1) == '=') {
-				rule = MatchRule.GREATER_OR_EQUAL;
-				idx += 2;
-			}
-		}
-		else if(c == '=') {
-			rule = MatchRule.PERFECT;
-			idx++;
-			if(len > 1 && versionRequirement.charAt(1) == '=')
-				idx++;
-		}
-		else if(c == '~') {
-			if(len > 1) {
-				c = versionRequirement.charAt(1);
-				if(c == '=')
-					rule = MatchRule.EQUIVALENT;
-				else if(c == '~')
-					rule = MatchRule.COMPATIBLE;
-				idx += 2;
-			}
-		}
-		else {
-			if(Character.isLetterOrDigit(c))
-				rule = MatchRule.PERFECT;
-		}
-
-		if(rule == null)
-			throw new IllegalArgumentException("Illegal version operator: " + versionRequirement);
-
-		if(idx > 0) {
-			for(; idx < len; ++idx) {
-				// We allow space between operator and version
-				if(!Character.isWhitespace(versionRequirement.charAt(idx)))
-					break;
-			}
-		}
-		if(idx == len)
-			throw new IllegalArgumentException("Empty version: " + versionRequirement);
-
-		VersionRequirement vr = ForgeFactory.eINSTANCE.createVersionRequirement();
-		vr.setMatchRule(rule);
-		vr.setVersion(versionRequirement.substring(idx));
-		return vr;
-	}
 
 	/**
 	 * The cached value of the '{@link #getName() <em>Name</em>}' attribute.

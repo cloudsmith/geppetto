@@ -590,6 +590,17 @@ public interface ForgePackage extends EPackage {
 		EDataType URI = eINSTANCE.getURI();
 
 		/**
+		 * The meta object literal for the '<em>Iterable</em>' data type.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * 
+		 * @see java.util.Iterable
+		 * @see org.cloudsmith.geppetto.forge.impl.ForgePackageImpl#getIterable()
+		 * @generated
+		 */
+		EDataType ITERABLE = eINSTANCE.getIterable();
+
+		/**
 		 * The meta object literal for the '<em>IO Exception</em>' data type.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -1476,7 +1487,7 @@ public interface ForgePackage extends EPackage {
 	 * @see org.cloudsmith.geppetto.forge.impl.ForgePackageImpl#getHttpMethod()
 	 * @generated
 	 */
-	int HTTP_METHOD = 14;
+	int HTTP_METHOD = 15;
 
 	/**
 	 * The meta object id for the '{@link org.cloudsmith.geppetto.forge.MatchRule <em>Match Rule</em>}' enum.
@@ -1487,7 +1498,7 @@ public interface ForgePackage extends EPackage {
 	 * @see org.cloudsmith.geppetto.forge.impl.ForgePackageImpl#getMatchRule()
 	 * @generated
 	 */
-	int MATCH_RULE = 15;
+	int MATCH_RULE = 14;
 
 	/**
 	 * The meta object id for the '<em>File</em>' data type.
@@ -1498,7 +1509,7 @@ public interface ForgePackage extends EPackage {
 	 * @see org.cloudsmith.geppetto.forge.impl.ForgePackageImpl#getFile()
 	 * @generated
 	 */
-	int FILE = 16;
+	int FILE = 17;
 
 	/**
 	 * The meta object id for the '<em>URI</em>' data type.
@@ -1509,7 +1520,18 @@ public interface ForgePackage extends EPackage {
 	 * @see org.cloudsmith.geppetto.forge.impl.ForgePackageImpl#getURI()
 	 * @generated
 	 */
-	int URI = 17;
+	int URI = 25;
+
+	/**
+	 * The meta object id for the '<em>Iterable</em>' data type.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @see java.util.Iterable
+	 * @see org.cloudsmith.geppetto.forge.impl.ForgePackageImpl#getIterable()
+	 * @generated
+	 */
+	int ITERABLE = 26;
 
 	/**
 	 * The meta object id for the '<em>IO Exception</em>' data type.
@@ -1520,7 +1542,7 @@ public interface ForgePackage extends EPackage {
 	 * @see org.cloudsmith.geppetto.forge.impl.ForgePackageImpl#getIOException()
 	 * @generated
 	 */
-	int IO_EXCEPTION = 18;
+	int IO_EXCEPTION = 21;
 
 	/**
 	 * The meta object id for the '<em>List</em>' data type.
@@ -1531,7 +1553,7 @@ public interface ForgePackage extends EPackage {
 	 * @see org.cloudsmith.geppetto.forge.impl.ForgePackageImpl#getList()
 	 * @generated
 	 */
-	int LIST = 19;
+	int LIST = 22;
 
 	/**
 	 * The meta object id for the '<em>Http URL Connection</em>' data type.
@@ -1542,7 +1564,7 @@ public interface ForgePackage extends EPackage {
 	 * @see org.cloudsmith.geppetto.forge.impl.ForgePackageImpl#getHttpURLConnection()
 	 * @generated
 	 */
-	int HTTP_URL_CONNECTION = 20;
+	int HTTP_URL_CONNECTION = 18;
 
 	/**
 	 * The meta object id for the '<em>byte Array</em>' data type.
@@ -1552,7 +1574,7 @@ public interface ForgePackage extends EPackage {
 	 * @see org.cloudsmith.geppetto.forge.impl.ForgePackageImpl#getbyteArray()
 	 * @generated
 	 */
-	int BYTE_ARRAY = 21;
+	int BYTE_ARRAY = 16;
 
 	/**
 	 * The meta object id for the '<em>Map</em>' data type.
@@ -1563,7 +1585,7 @@ public interface ForgePackage extends EPackage {
 	 * @see org.cloudsmith.geppetto.forge.impl.ForgePackageImpl#getMap()
 	 * @generated
 	 */
-	int MAP = 22;
+	int MAP = 23;
 
 	/**
 	 * The meta object id for the '<em>String Array</em>' data type.
@@ -1573,7 +1595,7 @@ public interface ForgePackage extends EPackage {
 	 * @see org.cloudsmith.geppetto.forge.impl.ForgePackageImpl#getStringArray()
 	 * @generated
 	 */
-	int STRING_ARRAY = 23;
+	int STRING_ARRAY = 24;
 
 	/**
 	 * The meta object id for the '<em>Illegal Argument Exception</em>' data type.
@@ -1584,7 +1606,7 @@ public interface ForgePackage extends EPackage {
 	 * @see org.cloudsmith.geppetto.forge.impl.ForgePackageImpl#getIllegalArgumentException()
 	 * @generated
 	 */
-	int ILLEGAL_ARGUMENT_EXCEPTION = 24;
+	int ILLEGAL_ARGUMENT_EXCEPTION = 19;
 
 	/**
 	 * The meta object id for the '<em>Incomplete Exception</em>' data type.
@@ -1595,7 +1617,7 @@ public interface ForgePackage extends EPackage {
 	 * @see org.cloudsmith.geppetto.forge.impl.ForgePackageImpl#getIncompleteException()
 	 * @generated
 	 */
-	int INCOMPLETE_EXCEPTION = 25;
+	int INCOMPLETE_EXCEPTION = 20;
 
 	/**
 	 * Returns the meta object for data type '<em>byte Array</em>'.
@@ -1876,6 +1898,18 @@ public interface ForgePackage extends EPackage {
 	 * @generated
 	 */
 	EDataType getIOException();
+
+	/**
+	 * Returns the meta object for data type '{@link java.util.Iterable <em>Iterable</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @return the meta object for data type '<em>Iterable</em>'.
+	 * @see java.util.Iterable
+	 * @model instanceClass="java.util.Iterable" typeParameters="E"
+	 * @generated
+	 */
+	EDataType getIterable();
 
 	/**
 	 * Returns the meta object for data type '{@link java.util.List <em>List</em>}'.

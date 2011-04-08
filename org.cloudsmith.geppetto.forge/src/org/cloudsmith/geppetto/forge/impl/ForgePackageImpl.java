@@ -14,6 +14,7 @@ package org.cloudsmith.geppetto.forge.impl;
 import java.io.File;
 import java.io.IOException;
 import java.net.HttpURLConnection;
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
@@ -197,6 +198,14 @@ public class ForgePackageImpl extends EPackageImpl implements ForgePackage {
 	 * @generated
 	 */
 	private EDataType uriEDataType = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
+	private EDataType iterableEDataType = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -421,20 +430,21 @@ public class ForgePackageImpl extends EPackageImpl implements ForgePackage {
 		createEAttribute(versionRequirementEClass, VERSION_REQUIREMENT__MATCH_RULE);
 
 		// Create enums
-		httpMethodEEnum = createEEnum(HTTP_METHOD);
 		matchRuleEEnum = createEEnum(MATCH_RULE);
+		httpMethodEEnum = createEEnum(HTTP_METHOD);
 
 		// Create data types
-		fileEDataType = createEDataType(FILE);
-		uriEDataType = createEDataType(URI);
-		ioExceptionEDataType = createEDataType(IO_EXCEPTION);
-		listEDataType = createEDataType(LIST);
-		httpURLConnectionEDataType = createEDataType(HTTP_URL_CONNECTION);
 		byteArrayEDataType = createEDataType(BYTE_ARRAY);
-		mapEDataType = createEDataType(MAP);
-		stringArrayEDataType = createEDataType(STRING_ARRAY);
+		fileEDataType = createEDataType(FILE);
+		httpURLConnectionEDataType = createEDataType(HTTP_URL_CONNECTION);
 		illegalArgumentExceptionEDataType = createEDataType(ILLEGAL_ARGUMENT_EXCEPTION);
 		incompleteExceptionEDataType = createEDataType(INCOMPLETE_EXCEPTION);
+		ioExceptionEDataType = createEDataType(IO_EXCEPTION);
+		listEDataType = createEDataType(LIST);
+		mapEDataType = createEDataType(MAP);
+		stringArrayEDataType = createEDataType(STRING_ARRAY);
+		uriEDataType = createEDataType(URI);
+		iterableEDataType = createEDataType(ITERABLE);
 	}
 
 	/**
@@ -699,6 +709,16 @@ public class ForgePackageImpl extends EPackageImpl implements ForgePackage {
 	@Override
 	public EDataType getIOException() {
 		return ioExceptionEDataType;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
+	public EDataType getIterable() {
+		return iterableEDataType;
 	}
 
 	/**
@@ -1170,6 +1190,7 @@ public class ForgePackageImpl extends EPackageImpl implements ForgePackage {
 		addETypeParameter(listEDataType, "E");
 		addETypeParameter(mapEDataType, "K");
 		addETypeParameter(mapEDataType, "V");
+		addETypeParameter(iterableEDataType, "E");
 
 		// Set bounds for type parameters
 
@@ -1466,7 +1487,23 @@ public class ForgePackageImpl extends EPackageImpl implements ForgePackage {
 		op = addEOperation(versionRequirementEClass, ecorePackage.getEBoolean(), "matches", 0, 1, IS_UNIQUE, IS_ORDERED);
 		addEParameter(op, ecorePackage.getEString(), "version", 1, 1, IS_UNIQUE, IS_ORDERED);
 
+		op = addEOperation(
+			versionRequirementEClass, ecorePackage.getEString(), "findBestMatch", 0, 1, IS_UNIQUE, IS_ORDERED);
+		g1 = createEGenericType(this.getIterable());
+		g2 = createEGenericType(ecorePackage.getEString());
+		g1.getETypeArguments().add(g2);
+		addEParameter(op, g1, "versions", 1, 1, IS_UNIQUE, IS_ORDERED);
+
 		// Initialize enums and add enum literals
+		initEEnum(matchRuleEEnum, MatchRule.class, "MatchRule");
+		addEEnumLiteral(matchRuleEEnum, MatchRule.PERFECT);
+		addEEnumLiteral(matchRuleEEnum, MatchRule.EQUIVALENT);
+		addEEnumLiteral(matchRuleEEnum, MatchRule.COMPATIBLE);
+		addEEnumLiteral(matchRuleEEnum, MatchRule.LESS);
+		addEEnumLiteral(matchRuleEEnum, MatchRule.LESS_OR_EQUAL);
+		addEEnumLiteral(matchRuleEEnum, MatchRule.GREATER);
+		addEEnumLiteral(matchRuleEEnum, MatchRule.GREATER_OR_EQUAL);
+
 		initEEnum(httpMethodEEnum, HttpMethod.class, "HttpMethod");
 		addEEnumLiteral(httpMethodEEnum, HttpMethod.GET);
 		addEEnumLiteral(httpMethodEEnum, HttpMethod.HEAD);
@@ -1474,31 +1511,26 @@ public class ForgePackageImpl extends EPackageImpl implements ForgePackage {
 		addEEnumLiteral(httpMethodEEnum, HttpMethod.POST);
 		addEEnumLiteral(httpMethodEEnum, HttpMethod.DELETE);
 
-		initEEnum(matchRuleEEnum, MatchRule.class, "MatchRule");
-		addEEnumLiteral(matchRuleEEnum, MatchRule.PERFECT);
-		addEEnumLiteral(matchRuleEEnum, MatchRule.EQUIVALENT);
-		addEEnumLiteral(matchRuleEEnum, MatchRule.COMPATIBLE);
-		addEEnumLiteral(matchRuleEEnum, MatchRule.GREATER_OR_EQUAL);
-
 		// Initialize data types
+		initEDataType(byteArrayEDataType, byte[].class, "byteArray", IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS);
 		initEDataType(fileEDataType, File.class, "File", IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS);
-		initEDataType(uriEDataType, java.net.URI.class, "URI", IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS);
-		initEDataType(
-			ioExceptionEDataType, IOException.class, "IOException", IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS);
-		initEDataType(listEDataType, List.class, "List", IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS);
 		initEDataType(
 			httpURLConnectionEDataType, HttpURLConnection.class, "HttpURLConnection", IS_SERIALIZABLE,
 			!IS_GENERATED_INSTANCE_CLASS);
-		initEDataType(byteArrayEDataType, byte[].class, "byteArray", IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS);
-		initEDataType(mapEDataType, Map.class, "Map", IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS);
-		initEDataType(
-			stringArrayEDataType, String[].class, "StringArray", IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS);
 		initEDataType(
 			illegalArgumentExceptionEDataType, IllegalArgumentException.class, "IllegalArgumentException",
 			IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS);
 		initEDataType(
 			incompleteExceptionEDataType, IncompleteException.class, "IncompleteException", IS_SERIALIZABLE,
 			!IS_GENERATED_INSTANCE_CLASS);
+		initEDataType(
+			ioExceptionEDataType, IOException.class, "IOException", IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS);
+		initEDataType(listEDataType, List.class, "List", IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS);
+		initEDataType(mapEDataType, Map.class, "Map", IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS);
+		initEDataType(
+			stringArrayEDataType, String[].class, "StringArray", IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS);
+		initEDataType(uriEDataType, java.net.URI.class, "URI", IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS);
+		initEDataType(iterableEDataType, Iterable.class, "Iterable", IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS);
 
 		// Create resource
 		createResource(eNS_URI);

@@ -328,15 +328,31 @@ public class MetadataTest extends TestCase {
 		assertEquals(MatchRule.GREATER_OR_EQUAL, vq.getMatchRule());
 		assertEquals("1.2.3", vq.getVersion());
 
+		vq = fixture.parseVersionRequirement("> 1.2.3-alpha");
+		assertEquals(MatchRule.GREATER, vq.getMatchRule());
+		assertEquals("1.2.3-alpha", vq.getVersion());
+
+		vq = fixture.parseVersionRequirement("<=1.2.3.alpha");
+		assertEquals(MatchRule.LESS_OR_EQUAL, vq.getMatchRule());
+		assertTrue(VersionRequirement.VERSION_COMPARATOR.compare("1.2.3alpha", vq.getVersion()) == 0);
+
+		vq = fixture.parseVersionRequirement("<1.2.3alpha");
+		assertEquals(MatchRule.LESS, vq.getMatchRule());
+		assertTrue(VersionRequirement.VERSION_COMPARATOR.compare("1.2.3.beta", vq.getVersion()) > 0);
+
+		vq = fixture.parseVersionRequirement("~1.2.3-alpha");
+		assertEquals(MatchRule.COMPATIBLE, vq.getMatchRule());
+		assertEquals("1.2.3-alpha", vq.getVersion());
+
 		vq = fixture.parseVersionRequirement("==1");
 		assertEquals(MatchRule.PERFECT, vq.getMatchRule());
 		assertEquals("1", vq.getVersion());
 
-		vq = fixture.parseVersionRequirement("~=3.2beta");
+		vq = fixture.parseVersionRequirement("=3.2beta");
 		assertEquals(MatchRule.EQUIVALENT, vq.getMatchRule());
 		assertEquals("3.2beta", vq.getVersion());
 
-		vq = fixture.parseVersionRequirement("~~1.2.3-alpha");
+		vq = fixture.parseVersionRequirement("~1.2.3-alpha");
 		assertEquals(MatchRule.COMPATIBLE, vq.getMatchRule());
 		assertEquals("1.2.3-alpha", vq.getVersion());
 	}

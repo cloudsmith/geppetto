@@ -13,8 +13,10 @@ package org.cloudsmith.geppetto.forge.impl;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
+import org.cloudsmith.geppetto.forge.ForgeFactory;
 import org.cloudsmith.geppetto.forge.ForgePackage;
 import org.cloudsmith.geppetto.forge.MatchRule;
 import org.cloudsmith.geppetto.forge.VersionRequirement;
@@ -38,6 +40,92 @@ import org.eclipse.emf.ecore.impl.EObjectImpl;
  * @generated
  */
 public class VersionRequirementImpl extends EObjectImpl implements VersionRequirement {
+	public static class VersionComparator implements Comparator<String> {
+
+		/*
+		 * (non-Javadoc)
+		 * 
+		 * @see java.util.Comparator#compare(java.lang.Object, java.lang.Object)
+		 */
+		@Override
+		public int compare(String av, String bv) {
+			List<Object> asegs = parse(av);
+			List<Object> bsegs = parse(bv);
+			int adx = 0;
+			int aTop = asegs.size();
+			int bdx = 0;
+			int bTop = bsegs.size();
+			while(adx < aTop || bdx < bTop) {
+				Object a = null;
+				Object b = null;
+				if(adx < aTop)
+					a = asegs.get(adx);
+				if(bdx < bTop)
+					b = bsegs.get(bdx);
+
+				if(a instanceof Integer) {
+					Integer aseg = (Integer) a;
+					Integer bseg;
+
+					if(adx < aTop)
+						++adx;
+
+					if(b instanceof Integer) {
+						bseg = (Integer) b;
+						if(bdx < bTop)
+							++bdx;
+					}
+					else
+						bseg = ZERO;
+
+					int cmp = aseg.intValue() - bseg.intValue();
+					if(cmp == 0)
+						continue;
+					return cmp;
+				}
+
+				if(b instanceof Integer) {
+					Integer bseg = (Integer) b;
+					Integer aseg;
+
+					if(bdx < bTop)
+						++bdx;
+
+					if(a instanceof Integer) {
+						aseg = (Integer) a;
+						if(adx < aTop)
+							++adx;
+					}
+					else
+						aseg = ZERO;
+
+					int cmp = aseg.intValue() - bseg.intValue();
+					if(cmp == 0)
+						continue;
+					return cmp;
+				}
+
+				// We are comparing two strings
+				if(b == null)
+					// a is less since lack of string is greater than a string
+					return -1;
+
+				if(a == null)
+					return 1;
+
+				int cmp = ((String) a).compareTo((String) b);
+				if(cmp != 0)
+					return cmp;
+
+				if(adx < aTop)
+					++adx;
+				if(bdx < bTop)
+					++bdx;
+			}
+			return 0;
+		}
+	}
+
 	/**
 	 * The default value of the '{@link #getVersion() <em>Version</em>}' attribute.
 	 * <!-- begin-user-doc -->
@@ -48,6 +136,76 @@ public class VersionRequirementImpl extends EObjectImpl implements VersionRequir
 	 * @ordered
 	 */
 	protected static final String VERSION_EDEFAULT = null;
+
+	/**
+	 * @param string
+	 * @return
+	 */
+	public static VersionRequirement parseVersionRequirement(String versionRequirement) {
+		if(versionRequirement == null)
+			return null;
+
+		int len = versionRequirement.length();
+		if(len == 0)
+			return null;
+
+		int idx = 0;
+		MatchRule rule = null;
+		char c = versionRequirement.charAt(0);
+		if(c == '>') {
+			++idx;
+			if(len > 1 && versionRequirement.charAt(1) == '=') {
+				rule = MatchRule.GREATER_OR_EQUAL;
+				++idx;
+			}
+			else
+				rule = MatchRule.GREATER;
+		}
+		else if(c == '<') {
+			++idx;
+			if(len > 1 && versionRequirement.charAt(1) == '=') {
+				rule = MatchRule.LESS_OR_EQUAL;
+				++idx;
+			}
+			else
+				rule = MatchRule.LESS;
+		}
+		else if(c == '=') {
+			++idx;
+			if(len > 1 && versionRequirement.charAt(1) == '=') {
+				rule = MatchRule.PERFECT;
+				++idx;
+			}
+			else
+				rule = MatchRule.EQUIVALENT;
+		}
+		else if(c == '~') {
+			++idx;
+			rule = MatchRule.COMPATIBLE;
+		}
+		else {
+			if(Character.isLetterOrDigit(c))
+				rule = MatchRule.PERFECT;
+		}
+
+		if(rule == null)
+			throw new IllegalArgumentException("Illegal version operator: " + versionRequirement);
+
+		if(idx > 0) {
+			for(; idx < len; ++idx) {
+				// We allow space between operator and version
+				if(!Character.isWhitespace(versionRequirement.charAt(idx)))
+					break;
+			}
+		}
+		if(idx == len)
+			throw new IllegalArgumentException("Empty version: " + versionRequirement);
+
+		VersionRequirement vr = ForgeFactory.eINSTANCE.createVersionRequirement();
+		vr.setMatchRule(rule);
+		vr.setVersion(versionRequirement.substring(idx));
+		return vr;
+	}
 
 	/**
 	 * The cached value of the '{@link #getVersion() <em>Version</em>}' attribute.
@@ -230,6 +388,23 @@ public class VersionRequirementImpl extends EObjectImpl implements VersionRequir
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
+	 * @generated NOT
+	 */
+	public String findBestMatch(Iterable<String> versions) {
+		String best = null;
+		for(String v : versions) {
+			if(matches(v)) {
+				if(best == null || VERSION_COMPARATOR.compare(best, v) < 0)
+					best = v;
+			}
+		}
+		return best;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	public MatchRule getMatchRule() {
@@ -292,8 +467,10 @@ public class VersionRequirementImpl extends EObjectImpl implements VersionRequir
 				int cmp = aseg.intValue() - bseg.intValue();
 				if(cmp == 0)
 					continue;
+
 				if(cmp < 0)
-					return false;
+					return rule == MatchRule.LESS || rule == MatchRule.LESS_OR_EQUAL;
+
 				switch(rule) {
 					case PERFECT:
 						return false;
@@ -323,8 +500,10 @@ public class VersionRequirementImpl extends EObjectImpl implements VersionRequir
 				int cmp = aseg.intValue() - bseg.intValue();
 				if(cmp == 0)
 					continue;
+
 				if(cmp < 0)
-					return false;
+					return rule == MatchRule.LESS || rule == MatchRule.LESS_OR_EQUAL;
+
 				switch(rule) {
 					case PERFECT:
 						return false;
@@ -339,7 +518,7 @@ public class VersionRequirementImpl extends EObjectImpl implements VersionRequir
 			// We are comparing two strings
 			if(b == null)
 				// a is less since lack of string is greater than a string
-				return false;
+				return rule == MatchRule.LESS || rule == MatchRule.LESS_OR_EQUAL;
 
 			int cmp = (a == null)
 					? 1
@@ -365,8 +544,7 @@ public class VersionRequirementImpl extends EObjectImpl implements VersionRequir
 				++bdx;
 			--idx; // Has no bearing on major, minor, service
 		}
-		// segments are equal
-		return true;
+		return rule != MatchRule.LESS && rule != MatchRule.GREATER;
 	}
 
 	/**

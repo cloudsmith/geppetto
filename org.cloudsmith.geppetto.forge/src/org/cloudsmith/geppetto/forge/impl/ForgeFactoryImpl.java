@@ -15,6 +15,7 @@ import java.io.File;
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URI;
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
@@ -171,6 +172,16 @@ public class ForgeFactoryImpl extends EFactoryImpl implements ForgeFactory {
 	 * 
 	 * @generated
 	 */
+	public String convertIterableToString(EDataType eDataType, Object instanceValue) {
+		return super.convertToString(instanceValue);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
 	public String convertListToString(EDataType eDataType, Object instanceValue) {
 		return super.convertToString(instanceValue);
 	}
@@ -216,30 +227,32 @@ public class ForgeFactoryImpl extends EFactoryImpl implements ForgeFactory {
 	@Override
 	public String convertToString(EDataType eDataType, Object instanceValue) {
 		switch(eDataType.getClassifierID()) {
-			case ForgePackage.HTTP_METHOD:
-				return convertHttpMethodToString(eDataType, instanceValue);
 			case ForgePackage.MATCH_RULE:
 				return convertMatchRuleToString(eDataType, instanceValue);
-			case ForgePackage.FILE:
-				return convertFileToString(eDataType, instanceValue);
-			case ForgePackage.URI:
-				return convertURIToString(eDataType, instanceValue);
-			case ForgePackage.IO_EXCEPTION:
-				return convertIOExceptionToString(eDataType, instanceValue);
-			case ForgePackage.LIST:
-				return convertListToString(eDataType, instanceValue);
-			case ForgePackage.HTTP_URL_CONNECTION:
-				return convertHttpURLConnectionToString(eDataType, instanceValue);
+			case ForgePackage.HTTP_METHOD:
+				return convertHttpMethodToString(eDataType, instanceValue);
 			case ForgePackage.BYTE_ARRAY:
 				return convertbyteArrayToString(eDataType, instanceValue);
-			case ForgePackage.MAP:
-				return convertMapToString(eDataType, instanceValue);
-			case ForgePackage.STRING_ARRAY:
-				return convertStringArrayToString(eDataType, instanceValue);
+			case ForgePackage.FILE:
+				return convertFileToString(eDataType, instanceValue);
+			case ForgePackage.HTTP_URL_CONNECTION:
+				return convertHttpURLConnectionToString(eDataType, instanceValue);
 			case ForgePackage.ILLEGAL_ARGUMENT_EXCEPTION:
 				return convertIllegalArgumentExceptionToString(eDataType, instanceValue);
 			case ForgePackage.INCOMPLETE_EXCEPTION:
 				return convertIncompleteExceptionToString(eDataType, instanceValue);
+			case ForgePackage.IO_EXCEPTION:
+				return convertIOExceptionToString(eDataType, instanceValue);
+			case ForgePackage.LIST:
+				return convertListToString(eDataType, instanceValue);
+			case ForgePackage.MAP:
+				return convertMapToString(eDataType, instanceValue);
+			case ForgePackage.STRING_ARRAY:
+				return convertStringArrayToString(eDataType, instanceValue);
+			case ForgePackage.URI:
+				return convertURIToString(eDataType, instanceValue);
+			case ForgePackage.ITERABLE:
+				return convertIterableToString(eDataType, instanceValue);
 			default:
 				throw new IllegalArgumentException("The datatype '" + eDataType.getName() +
 						"' is not a valid classifier");
@@ -373,30 +386,32 @@ public class ForgeFactoryImpl extends EFactoryImpl implements ForgeFactory {
 	@Override
 	public Object createFromString(EDataType eDataType, String initialValue) {
 		switch(eDataType.getClassifierID()) {
-			case ForgePackage.HTTP_METHOD:
-				return createHttpMethodFromString(eDataType, initialValue);
 			case ForgePackage.MATCH_RULE:
 				return createMatchRuleFromString(eDataType, initialValue);
-			case ForgePackage.FILE:
-				return createFileFromString(eDataType, initialValue);
-			case ForgePackage.URI:
-				return createURIFromString(eDataType, initialValue);
-			case ForgePackage.IO_EXCEPTION:
-				return createIOExceptionFromString(eDataType, initialValue);
-			case ForgePackage.LIST:
-				return createListFromString(eDataType, initialValue);
-			case ForgePackage.HTTP_URL_CONNECTION:
-				return createHttpURLConnectionFromString(eDataType, initialValue);
+			case ForgePackage.HTTP_METHOD:
+				return createHttpMethodFromString(eDataType, initialValue);
 			case ForgePackage.BYTE_ARRAY:
 				return createbyteArrayFromString(eDataType, initialValue);
-			case ForgePackage.MAP:
-				return createMapFromString(eDataType, initialValue);
-			case ForgePackage.STRING_ARRAY:
-				return createStringArrayFromString(eDataType, initialValue);
+			case ForgePackage.FILE:
+				return createFileFromString(eDataType, initialValue);
+			case ForgePackage.HTTP_URL_CONNECTION:
+				return createHttpURLConnectionFromString(eDataType, initialValue);
 			case ForgePackage.ILLEGAL_ARGUMENT_EXCEPTION:
 				return createIllegalArgumentExceptionFromString(eDataType, initialValue);
 			case ForgePackage.INCOMPLETE_EXCEPTION:
 				return createIncompleteExceptionFromString(eDataType, initialValue);
+			case ForgePackage.IO_EXCEPTION:
+				return createIOExceptionFromString(eDataType, initialValue);
+			case ForgePackage.LIST:
+				return createListFromString(eDataType, initialValue);
+			case ForgePackage.MAP:
+				return createMapFromString(eDataType, initialValue);
+			case ForgePackage.STRING_ARRAY:
+				return createStringArrayFromString(eDataType, initialValue);
+			case ForgePackage.URI:
+				return createURIFromString(eDataType, initialValue);
+			case ForgePackage.ITERABLE:
+				return createIterableFromString(eDataType, initialValue);
 			default:
 				throw new IllegalArgumentException("The datatype '" + eDataType.getName() +
 						"' is not a valid classifier");
@@ -455,6 +470,16 @@ public class ForgeFactoryImpl extends EFactoryImpl implements ForgeFactory {
 	 */
 	public IOException createIOExceptionFromString(EDataType eDataType, String initialValue) {
 		return (IOException) super.createFromString(eDataType, initialValue);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
+	public Iterable<?> createIterableFromString(EDataType eDataType, String initialValue) {
+		return (Iterable<?>) super.createFromString(initialValue);
 	}
 
 	/**

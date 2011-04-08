@@ -101,7 +101,6 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="service" lowerBound="1"
         eType="#//ForgeService" changeable="false" transient="true" resolveProxies="false"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EDataType" name="File" instanceClassName="java.io.File"/>
   <eClassifiers xsi:type="ecore:EClass" name="ForgeService">
     <eOperations name="createCache" eType="#//Cache">
       <eParameters name="cacheDirectory" eType="#//File">
@@ -186,11 +185,6 @@
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="version" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EDataType" name="URI" instanceClassName="java.net.URI"/>
-  <eClassifiers xsi:type="ecore:EDataType" name="IOException" instanceClassName="java.io.IOException"/>
-  <eClassifiers xsi:type="ecore:EDataType" name="List" instanceClassName="java.util.List">
-    <eTypeParameters name="E"/>
-  </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Cache">
     <eOperations name="retrieve" lowerBound="1" eType="#//File" eExceptions="#//IOException">
       <eParameters name="fileName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
@@ -215,14 +209,6 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="cacheKey" lowerBound="1"
         eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString" changeable="false"
         transient="true"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EDataType" name="HttpURLConnection" instanceClassName="java.net.HttpURLConnection"/>
-  <eClassifiers xsi:type="ecore:EEnum" name="HttpMethod">
-    <eLiterals name="GET"/>
-    <eLiterals name="HEAD" value="1"/>
-    <eLiterals name="PUT" value="2"/>
-    <eLiterals name="POST" value="3"/>
-    <eLiterals name="DELETE" value="4"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ReleaseInfo">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="file" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
@@ -283,7 +269,6 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="versionRequirement" eType="#//VersionRequirement"
         containment="true"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EDataType" name="byteArray" instanceClassName="byte[]"/>
   <eClassifiers xsi:type="ecore:EClass" name="Type" eSuperTypes="#//Documented">
     <eOperations name="loadTypeFile" eExceptions="#//IOException">
       <eParameters name="typeFile" eType="#//File"/>
@@ -298,12 +283,6 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="providers" upperBound="-1"
         eType="#//Provider" containment="true"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EDataType" name="Map" instanceClassName="java.util.Map">
-    <eTypeParameters name="K"/>
-    <eTypeParameters name="V"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EDataType" name="StringArray" instanceClassName="java.lang.String[]"/>
-  <eClassifiers xsi:type="ecore:EDataType" name="IllegalArgumentException" instanceClassName="java.lang.IllegalArgumentException"/>
   <eClassifiers xsi:type="ecore:EClass" name="Parameter" eSuperTypes="#//Documented"/>
   <eClassifiers xsi:type="ecore:EClass" name="Documented" abstract="true">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
@@ -311,36 +290,82 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Property" eSuperTypes="#//Documented"/>
   <eClassifiers xsi:type="ecore:EClass" name="Provider" eSuperTypes="#//Documented"/>
-  <eClassifiers xsi:type="ecore:EDataType" name="IncompleteException" instanceClassName="org.cloudsmith.geppetto.forge.IncompleteException"/>
-  <eClassifiers xsi:type="ecore:EEnum" name="MatchRule">
-    <eLiterals name="PERFECT">
-      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="documentation" value="Version must match exactly the specified version."/>
-      </eAnnotations>
-    </eLiterals>
-    <eLiterals name="EQUIVALENT" value="1" literal="EQUIVALENT">
-      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="documentation" value="Version must be at least at the version specified, or at a higher service level (major and minor version levels must equal the specified version)."/>
-      </eAnnotations>
-    </eLiterals>
-    <eLiterals name="COMPATIBLE" value="2" literal="COMPATIBLE">
-      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="documentation" value="Version must be at least at the version specified, or at a higher service level or minor level (major version level must equal the specified version)."/>
-      </eAnnotations>
-    </eLiterals>
-    <eLiterals name="GREATER_OR_EQUAL" value="3" literal="GREATER_OR_EQUAL">
-      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="documentation" value="Version must be at least at the version specified, or at a higher service, minor or major level."/>
-      </eAnnotations>
-    </eLiterals>
-  </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="VersionRequirement">
     <eOperations name="matches" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean">
       <eParameters name="version" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    </eOperations>
+    <eOperations name="findBestMatch" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+      <eParameters name="versions" lowerBound="1">
+        <eGenericType eClassifier="#//Iterable">
+          <eTypeArguments eClassifier="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+        </eGenericType>
+      </eParameters>
     </eOperations>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="version" lowerBound="1"
         eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="matchRule" lowerBound="1"
         eType="#//MatchRule"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="MatchRule">
+    <eLiterals name="PERFECT" literal="==">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="Version must match exactly the specified version."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="EQUIVALENT" value="1" literal="=">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="Version must be at least at the version specified, or at a higher service level (major and minor version levels must equal the specified version)."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="COMPATIBLE" value="2" literal="~">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="Version must be at least at the version specified, or at a higher service level or minor level (major version level must equal the specified version)."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="LESS" value="3" literal="&lt;">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="Version must be less than the version specified."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="LESS_OR_EQUAL" value="4" literal="&lt;=">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="Version must be at less or equal ot the version specified."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="GREATER" value="5" literal=">">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="Version must be greater than the version specified."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="GREATER_OR_EQUAL" value="6" literal=">=">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="Version must be greater or equal to the version specified."/>
+      </eAnnotations>
+    </eLiterals>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EDataType" name="byteArray" instanceClassName="byte[]"/>
+  <eClassifiers xsi:type="ecore:EDataType" name="File" instanceClassName="java.io.File"/>
+  <eClassifiers xsi:type="ecore:EEnum" name="HttpMethod">
+    <eLiterals name="GET"/>
+    <eLiterals name="HEAD" value="1"/>
+    <eLiterals name="PUT" value="2"/>
+    <eLiterals name="POST" value="3"/>
+    <eLiterals name="DELETE" value="4"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EDataType" name="HttpURLConnection" instanceClassName="java.net.HttpURLConnection"/>
+  <eClassifiers xsi:type="ecore:EDataType" name="IllegalArgumentException" instanceClassName="java.lang.IllegalArgumentException"/>
+  <eClassifiers xsi:type="ecore:EDataType" name="IncompleteException" instanceClassName="org.cloudsmith.geppetto.forge.IncompleteException"/>
+  <eClassifiers xsi:type="ecore:EDataType" name="IOException" instanceClassName="java.io.IOException"/>
+  <eClassifiers xsi:type="ecore:EDataType" name="List" instanceClassName="java.util.List">
+    <eTypeParameters name="E"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EDataType" name="Map" instanceClassName="java.util.Map">
+    <eTypeParameters name="K"/>
+    <eTypeParameters name="V"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EDataType" name="StringArray" instanceClassName="java.lang.String[]"/>
+  <eClassifiers xsi:type="ecore:EDataType" name="URI" instanceClassName="java.net.URI"/>
+  <eClassifiers xsi:type="ecore:EDataType" name="Iterable" instanceClassName="java.util.Iterable">
+    <eTypeParameters name="E"/>
   </eClassifiers>
 </ecore:EPackage>

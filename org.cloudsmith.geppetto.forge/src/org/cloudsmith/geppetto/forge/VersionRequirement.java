@@ -11,6 +11,9 @@
  */
 package org.cloudsmith.geppetto.forge;
 
+import java.util.Comparator;
+
+import org.cloudsmith.geppetto.forge.impl.VersionRequirementImpl;
 import org.eclipse.emf.ecore.EObject;
 
 /**
@@ -31,6 +34,20 @@ import org.eclipse.emf.ecore.EObject;
  * @generated
  */
 public interface VersionRequirement extends EObject {
+	/**
+	 * Comparator for versions.
+	 */
+	static Comparator<String> VERSION_COMPARATOR = new VersionRequirementImpl.VersionComparator();
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @model versionsDataType="org.cloudsmith.geppetto.forge.Iterable<org.eclipse.emf.ecore.EString>" versionsRequired="true"
+	 * @generated
+	 */
+	String findBestMatch(Iterable<String> versions);
+
 	/**
 	 * Returns the value of the '<em><b>Match Rule</b></em>' attribute.
 	 * The literals are from the enumeration {@link org.cloudsmith.geppetto.forge.MatchRule}.

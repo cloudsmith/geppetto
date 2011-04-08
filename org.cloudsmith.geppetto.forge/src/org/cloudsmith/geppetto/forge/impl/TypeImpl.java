@@ -218,6 +218,16 @@ public class TypeImpl extends DocumentedImpl implements Type {
 	 * @generated
 	 */
 	@Override
+	protected EClass eStaticClass() {
+		return ForgePackage.Literals.TYPE;
+	}
+
+	/**
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch(featureID) {
 			case ForgePackage.TYPE__PARAMETERS:
@@ -499,16 +509,6 @@ public class TypeImpl extends DocumentedImpl implements Type {
 				}
 			}
 		}
-	}
-
-	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
-	 * @generated
-	 */
-	@Override
-	protected EClass eStaticClass() {
-		return ForgePackage.Literals.TYPE;
 	}
 
 } // TypeImpl

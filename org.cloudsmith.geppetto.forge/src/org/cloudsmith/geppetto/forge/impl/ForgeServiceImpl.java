@@ -121,6 +121,14 @@ public class ForgeServiceImpl extends EObjectImpl implements ForgeService {
 	}
 
 	/**
+	 * @generated
+	 */
+	@Override
+	protected EClass eStaticClass() {
+		return ForgePackage.Literals.FORGE_SERVICE;
+	}
+
+	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
@@ -151,13 +159,5 @@ public class ForgeServiceImpl extends EObjectImpl implements ForgeService {
 		MetadataImpl metadata = (MetadataImpl) ForgeFactory.eINSTANCE.createMetadata();
 		metadata.populateFromModuleDir(moduleDirectory);
 		return metadata;
-	}
-
-	/**
-	 * @generated
-	 */
-	@Override
-	protected EClass eStaticClass() {
-		return ForgePackage.Literals.FORGE_SERVICE;
 	}
 } // ForgeServiceImpl

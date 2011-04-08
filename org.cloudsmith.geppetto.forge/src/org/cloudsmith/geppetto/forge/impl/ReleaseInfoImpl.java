@@ -155,6 +155,17 @@ public class ReleaseInfoImpl extends EObjectImpl implements ReleaseInfo {
 	 * @generated
 	 */
 	@Override
+	protected EClass eStaticClass() {
+		return ForgePackage.Literals.RELEASE_INFO;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch(featureID) {
 			case ForgePackage.RELEASE_INFO__FILE:
@@ -236,17 +247,6 @@ public class ReleaseInfoImpl extends EObjectImpl implements ReleaseInfo {
 		result.append(version);
 		result.append(')');
 		return result.toString();
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * 
-	 * @generated
-	 */
-	@Override
-	protected EClass eStaticClass() {
-		return ForgePackage.Literals.RELEASE_INFO;
 	}
 
 } // ReleaseInfoImpl

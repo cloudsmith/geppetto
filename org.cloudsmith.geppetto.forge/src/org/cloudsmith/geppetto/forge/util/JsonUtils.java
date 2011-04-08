@@ -21,6 +21,7 @@ import org.cloudsmith.geppetto.forge.Parameter;
 import org.cloudsmith.geppetto.forge.Property;
 import org.cloudsmith.geppetto.forge.Provider;
 import org.cloudsmith.geppetto.forge.Type;
+import org.cloudsmith.geppetto.forge.impl.DependencyImpl;
 import org.cloudsmith.geppetto.forge.impl.MetadataImpl;
 import org.cloudsmith.geppetto.forge.impl.RepositoryImpl;
 import org.cloudsmith.geppetto.forge.impl.TypeImpl;
@@ -129,6 +130,8 @@ public class JsonUtils {
 		}.getType(), new EListSerializer<Parameter>());
 		bld.registerTypeAdapter(new TypeToken<MetadataImpl>() {
 		}.getType(), new MetadataImpl.JsonAdapter());
+		bld.registerTypeAdapter(new TypeToken<DependencyImpl>() {
+		}.getType(), new DependencyImpl.JsonAdapter());
 		bld.registerTypeAdapter(new TypeToken<TypeImpl>() {
 		}.getType(), new TypeImpl.Deserializer());
 		bld.registerTypeAdapter(ChecksumMapAdapter.TYPE, new ChecksumMapAdapter());

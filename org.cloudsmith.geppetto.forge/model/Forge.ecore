@@ -244,6 +244,9 @@
     <eOperations name="saveModulefile" eExceptions="#//IOException">
       <eParameters name="moduleFile" eType="#//File"/>
     </eOperations>
+    <eOperations name="parseVersionRequirement" eType="#//VersionRequirement">
+      <eParameters name="versionRequirement" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    </eOperations>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="user" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="fullName" lowerBound="1"
@@ -271,9 +274,14 @@
         eType="#//Dependency" containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Dependency">
+    <eOperations name="matches" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean">
+      <eParameters name="name" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eParameters name="version" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    </eOperations>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="versionRequirement" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="repository" eType="#//URI"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="versionRequirement" eType="#//VersionRequirement"
+        containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EDataType" name="byteArray" instanceClassName="byte[]"/>
   <eClassifiers xsi:type="ecore:EClass" name="Type" eSuperTypes="#//Documented">
@@ -304,4 +312,35 @@
   <eClassifiers xsi:type="ecore:EClass" name="Property" eSuperTypes="#//Documented"/>
   <eClassifiers xsi:type="ecore:EClass" name="Provider" eSuperTypes="#//Documented"/>
   <eClassifiers xsi:type="ecore:EDataType" name="IncompleteException" instanceClassName="org.cloudsmith.geppetto.forge.IncompleteException"/>
+  <eClassifiers xsi:type="ecore:EEnum" name="MatchRule">
+    <eLiterals name="PERFECT">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="Version must match exactly the specified version."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="EQUIVALENT" value="1" literal="EQUIVALENT">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="Version must be at least at the version specified, or at a higher service level (major and minor version levels must equal the specified version)."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="COMPATIBLE" value="2" literal="COMPATIBLE">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="Version must be at least at the version specified, or at a higher service level or minor level (major version level must equal the specified version)."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="GREATER_OR_EQUAL" value="3" literal="GREATER_OR_EQUAL">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="Version must be at least at the version specified, or at a higher service, minor or major level."/>
+      </eAnnotations>
+    </eLiterals>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="VersionRequirement">
+    <eOperations name="matches" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean">
+      <eParameters name="version" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    </eOperations>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="version" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="matchRule" lowerBound="1"
+        eType="#//MatchRule"/>
+  </eClassifiers>
 </ecore:EPackage>

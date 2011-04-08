@@ -16,9 +16,17 @@ import junit.textui.TestRunner;
 
 import org.cloudsmith.geppetto.forge.Dependency;
 import org.cloudsmith.geppetto.forge.ForgeFactory;
+import org.cloudsmith.geppetto.forge.MatchRule;
+import org.cloudsmith.geppetto.forge.VersionRequirement;
 
 /**
  * <!-- begin-user-doc --> A test case for the model object ' <em><b>Dependency</b></em>'. <!-- end-user-doc -->
+ * <p>
+ * The following operations are tested:
+ * <ul>
+ * <li>{@link org.cloudsmith.geppetto.forge.Dependency#matches(java.lang.String, java.lang.String) <em>Matches</em>}</li>
+ * </ul>
+ * </p>
  * 
  * @generated
  */
@@ -94,6 +102,25 @@ public class DependencyTest extends TestCase {
 	@Override
 	protected void tearDown() throws Exception {
 		setFixture(null);
+	}
+
+	/**
+	 * Tests the '{@link org.cloudsmith.geppetto.forge.Dependency#matches(java.lang.String, java.lang.String) <em>Matches</em>}' operation.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @see org.cloudsmith.geppetto.forge.Dependency#matches(java.lang.String, java.lang.String)
+	 * @generated NOT
+	 */
+	public void testMatches__String_String() {
+		fixture.setName("a.module.name");
+		VersionRequirement vr = ForgeFactory.eINSTANCE.createVersionRequirement();
+		vr.setMatchRule(MatchRule.EQUIVALENT);
+		vr.setVersion("2.3");
+		fixture.setVersionRequirement(vr);
+		assertTrue(fixture.matches("a.module.name", "2.3.2"));
+		assertFalse(fixture.matches("a.module.name", "2.2.9"));
+		assertFalse(fixture.matches("another.module.name", "2.3.2"));
 	}
 
 } // DependencyTest

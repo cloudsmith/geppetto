@@ -82,7 +82,9 @@ public class ForgeTests extends TestSuite {
 		suite.addTestSuite(CacheTest.class);
 		suite.addTestSuite(RepositoryTest.class);
 		suite.addTestSuite(MetadataTest.class);
+		suite.addTestSuite(DependencyTest.class);
 		suite.addTestSuite(TypeTest.class);
+		suite.addTestSuite(VersionRequirementTest.class);
 		return suite;
 	}
 

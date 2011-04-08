@@ -302,6 +302,15 @@ public interface Metadata extends EObject {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
+	 * @model
+	 * @generated
+	 */
+	VersionRequirement parseVersionRequirement(String versionRequirement);
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
 	 * @model exceptions="org.cloudsmith.geppetto.forge.IOException" jsonFileDataType="org.cloudsmith.geppetto.forge.File"
 	 * @generated
 	 */

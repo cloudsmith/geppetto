@@ -11,6 +11,7 @@
  */
 package org.cloudsmith.geppetto.forge.util;
 
+import org.cloudsmith.geppetto.forge.*;
 import org.cloudsmith.geppetto.forge.Cache;
 import org.cloudsmith.geppetto.forge.Dependency;
 import org.cloudsmith.geppetto.forge.Documented;
@@ -120,6 +121,11 @@ public class ForgeAdapterFactory extends AdapterFactoryImpl {
 		@Override
 		public Adapter caseType(Type object) {
 			return createTypeAdapter();
+		}
+
+		@Override
+		public Adapter caseVersionRequirement(VersionRequirement object) {
+			return createVersionRequirementAdapter();
 		}
 
 		@Override
@@ -361,6 +367,21 @@ public class ForgeAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createTypeAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.cloudsmith.geppetto.forge.VersionRequirement <em>Version Requirement</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * 
+	 * @return the new adapter.
+	 * @see org.cloudsmith.geppetto.forge.VersionRequirement
+	 * @generated
+	 */
+	public Adapter createVersionRequirementAdapter() {
 		return null;
 	}
 

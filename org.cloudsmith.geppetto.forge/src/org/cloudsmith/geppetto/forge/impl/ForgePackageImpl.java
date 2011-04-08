@@ -26,6 +26,7 @@ import org.cloudsmith.geppetto.forge.ForgePackage;
 import org.cloudsmith.geppetto.forge.ForgeService;
 import org.cloudsmith.geppetto.forge.HttpMethod;
 import org.cloudsmith.geppetto.forge.IncompleteException;
+import org.cloudsmith.geppetto.forge.MatchRule;
 import org.cloudsmith.geppetto.forge.Metadata;
 import org.cloudsmith.geppetto.forge.ModuleInfo;
 import org.cloudsmith.geppetto.forge.Parameter;
@@ -34,6 +35,7 @@ import org.cloudsmith.geppetto.forge.Provider;
 import org.cloudsmith.geppetto.forge.ReleaseInfo;
 import org.cloudsmith.geppetto.forge.Repository;
 import org.cloudsmith.geppetto.forge.Type;
+import org.cloudsmith.geppetto.forge.VersionRequirement;
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EDataType;
@@ -162,7 +164,23 @@ public class ForgePackageImpl extends EPackageImpl implements ForgePackage {
 	 * 
 	 * @generated
 	 */
+	private EClass versionRequirementEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
 	private EEnum httpMethodEEnum = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
+	private EEnum matchRuleEEnum = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -380,8 +398,8 @@ public class ForgePackageImpl extends EPackageImpl implements ForgePackage {
 
 		dependencyEClass = createEClass(DEPENDENCY);
 		createEAttribute(dependencyEClass, DEPENDENCY__NAME);
-		createEAttribute(dependencyEClass, DEPENDENCY__VERSION_REQUIREMENT);
 		createEAttribute(dependencyEClass, DEPENDENCY__REPOSITORY);
+		createEReference(dependencyEClass, DEPENDENCY__VERSION_REQUIREMENT);
 
 		typeEClass = createEClass(TYPE);
 		createEReference(typeEClass, TYPE__PARAMETERS);
@@ -398,8 +416,13 @@ public class ForgePackageImpl extends EPackageImpl implements ForgePackage {
 
 		providerEClass = createEClass(PROVIDER);
 
+		versionRequirementEClass = createEClass(VERSION_REQUIREMENT);
+		createEAttribute(versionRequirementEClass, VERSION_REQUIREMENT__VERSION);
+		createEAttribute(versionRequirementEClass, VERSION_REQUIREMENT__MATCH_RULE);
+
 		// Create enums
 		httpMethodEEnum = createEEnum(HTTP_METHOD);
+		matchRuleEEnum = createEEnum(MATCH_RULE);
 
 		// Create data types
 		fileEDataType = createEDataType(FILE);
@@ -488,7 +511,7 @@ public class ForgePackageImpl extends EPackageImpl implements ForgePackage {
 	 */
 	@Override
 	public EAttribute getDependency_Repository() {
-		return (EAttribute) dependencyEClass.getEStructuralFeatures().get(2);
+		return (EAttribute) dependencyEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -498,8 +521,8 @@ public class ForgePackageImpl extends EPackageImpl implements ForgePackage {
 	 * @generated
 	 */
 	@Override
-	public EAttribute getDependency_VersionRequirement() {
-		return (EAttribute) dependencyEClass.getEStructuralFeatures().get(1);
+	public EReference getDependency_VersionRequirement() {
+		return (EReference) dependencyEClass.getEStructuralFeatures().get(2);
 	}
 
 	/**
@@ -698,6 +721,16 @@ public class ForgePackageImpl extends EPackageImpl implements ForgePackage {
 	@Override
 	public EDataType getMap() {
 		return mapEDataType;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
+	public EEnum getMatchRule() {
+		return matchRuleEEnum;
 	}
 
 	/**
@@ -1086,6 +1119,36 @@ public class ForgePackageImpl extends EPackageImpl implements ForgePackage {
 	}
 
 	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
+	public EClass getVersionRequirement() {
+		return versionRequirementEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
+	public EAttribute getVersionRequirement_MatchRule() {
+		return (EAttribute) versionRequirementEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
+	public EAttribute getVersionRequirement_Version() {
+		return (EAttribute) versionRequirementEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
 	 * Complete the initialization of the package and its meta-model. This
 	 * method is guarded to have no affect on any invocation but its first.
 	 * <!-- begin-user-doc -->
@@ -1330,18 +1393,26 @@ public class ForgePackageImpl extends EPackageImpl implements ForgePackage {
 		addEParameter(op, this.getFile(), "moduleFile", 0, 1, IS_UNIQUE, IS_ORDERED);
 		addEException(op, this.getIOException());
 
+		op = addEOperation(
+			metadataEClass, this.getVersionRequirement(), "parseVersionRequirement", 0, 1, IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, ecorePackage.getEString(), "versionRequirement", 0, 1, IS_UNIQUE, IS_ORDERED);
+
 		initEClass(
 			dependencyEClass, Dependency.class, "Dependency", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(
 			getDependency_Name(), ecorePackage.getEString(), "name", null, 1, 1, Dependency.class, !IS_TRANSIENT,
 			!IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(
-			getDependency_VersionRequirement(), ecorePackage.getEString(), "versionRequirement", null, 0, 1,
-			Dependency.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
-			!IS_DERIVED, IS_ORDERED);
-		initEAttribute(
 			getDependency_Repository(), this.getURI(), "repository", null, 0, 1, Dependency.class, !IS_TRANSIENT,
 			!IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(
+			getDependency_VersionRequirement(), this.getVersionRequirement(), null, "versionRequirement", null, 0, 1,
+			Dependency.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES,
+			!IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		op = addEOperation(dependencyEClass, ecorePackage.getEBoolean(), "matches", 0, 1, IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, ecorePackage.getEString(), "name", 1, 1, IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, ecorePackage.getEString(), "version", 0, 1, IS_UNIQUE, IS_ORDERED);
 
 		initEClass(typeEClass, Type.class, "Type", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(
@@ -1381,6 +1452,20 @@ public class ForgePackageImpl extends EPackageImpl implements ForgePackage {
 
 		initEClass(providerEClass, Provider.class, "Provider", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
+		initEClass(
+			versionRequirementEClass, VersionRequirement.class, "VersionRequirement", !IS_ABSTRACT, !IS_INTERFACE,
+			IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(
+			getVersionRequirement_Version(), ecorePackage.getEString(), "version", null, 1, 1,
+			VersionRequirement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
+			!IS_DERIVED, IS_ORDERED);
+		initEAttribute(
+			getVersionRequirement_MatchRule(), this.getMatchRule(), "matchRule", null, 1, 1, VersionRequirement.class,
+			!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		op = addEOperation(versionRequirementEClass, ecorePackage.getEBoolean(), "matches", 0, 1, IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, ecorePackage.getEString(), "version", 1, 1, IS_UNIQUE, IS_ORDERED);
+
 		// Initialize enums and add enum literals
 		initEEnum(httpMethodEEnum, HttpMethod.class, "HttpMethod");
 		addEEnumLiteral(httpMethodEEnum, HttpMethod.GET);
@@ -1388,6 +1473,12 @@ public class ForgePackageImpl extends EPackageImpl implements ForgePackage {
 		addEEnumLiteral(httpMethodEEnum, HttpMethod.PUT);
 		addEEnumLiteral(httpMethodEEnum, HttpMethod.POST);
 		addEEnumLiteral(httpMethodEEnum, HttpMethod.DELETE);
+
+		initEEnum(matchRuleEEnum, MatchRule.class, "MatchRule");
+		addEEnumLiteral(matchRuleEEnum, MatchRule.PERFECT);
+		addEEnumLiteral(matchRuleEEnum, MatchRule.EQUIVALENT);
+		addEEnumLiteral(matchRuleEEnum, MatchRule.COMPATIBLE);
+		addEEnumLiteral(matchRuleEEnum, MatchRule.GREATER_OR_EQUAL);
 
 		// Initialize data types
 		initEDataType(fileEDataType, File.class, "File", IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS);

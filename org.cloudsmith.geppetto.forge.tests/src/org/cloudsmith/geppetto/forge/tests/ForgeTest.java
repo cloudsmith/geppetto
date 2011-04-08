@@ -82,6 +82,52 @@ public class ForgeTest extends TestCase {
 	}
 
 	/**
+	 * Returns the fixture for this Forge test case.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
+	protected Forge getFixture() {
+		return fixture;
+	}
+
+	/**
+	 * Sets the fixture for this Forge test case.
+	 * <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
+	 * 
+	 * @generated
+	 */
+	protected void setFixture(Forge fixture) {
+		this.fixture = fixture;
+	}
+
+	/**
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @see junit.framework.TestCase#setUp()
+	 * @generated NOT
+	 */
+	@Override
+	protected void setUp() throws Exception {
+		ForgeService forgeService = ForgeFactory.eINSTANCE.createForgeService();
+		setFixture(forgeService.createForge(
+			URI.create("http://forge.puppetlabs.com"), ForgeTests.getTestOutputFolder("cache", false)));
+	}
+
+	/**
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @see junit.framework.TestCase#tearDown()
+	 * @generated
+	 */
+	@Override
+	protected void tearDown() throws Exception {
+		setFixture(null);
+	}
+
+	/**
 	 * Tests the ' {@link org.cloudsmith.geppetto.forge.Forge#build(java.io.File, java.io.File)
 	 * <em>Build</em>}' operation. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
@@ -224,52 +270,6 @@ public class ForgeTest extends TestCase {
 		catch(IOException e) {
 			fail(e.getMessage());
 		}
-	}
-
-	/**
-	 * Returns the fixture for this Forge test case.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * 
-	 * @generated
-	 */
-	protected Forge getFixture() {
-		return fixture;
-	}
-
-	/**
-	 * Sets the fixture for this Forge test case.
-	 * <!-- begin-user-doc --> <!--
-	 * end-user-doc -->
-	 * 
-	 * @generated
-	 */
-	protected void setFixture(Forge fixture) {
-		this.fixture = fixture;
-	}
-
-	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
-	 * @see junit.framework.TestCase#setUp()
-	 * @generated NOT
-	 */
-	@Override
-	protected void setUp() throws Exception {
-		ForgeService forgeService = ForgeFactory.eINSTANCE.createForgeService();
-		setFixture(forgeService.createForge(
-			URI.create("http://forge.puppetlabs.com"), ForgeTests.getTestOutputFolder("cache", false)));
-	}
-
-	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
-	 * @see junit.framework.TestCase#tearDown()
-	 * @generated
-	 */
-	@Override
-	protected void tearDown() throws Exception {
-		setFixture(null);
 	}
 
 } // ForgeTest

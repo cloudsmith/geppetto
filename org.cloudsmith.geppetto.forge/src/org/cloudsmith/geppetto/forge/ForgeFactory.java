@@ -153,6 +153,16 @@ public interface ForgeFactory extends EFactory {
 	Type createType();
 
 	/**
+	 * Returns a new object of class '<em>Version Requirement</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @return a new object of class '<em>Version Requirement</em>'.
+	 * @generated
+	 */
+	VersionRequirement createVersionRequirement();
+
+	/**
 	 * Returns the package supported by this factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

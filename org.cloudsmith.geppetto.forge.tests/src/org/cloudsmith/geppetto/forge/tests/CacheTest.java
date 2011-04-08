@@ -69,43 +69,6 @@ public class CacheTest extends TestCase {
 	}
 
 	/**
-	 * Tests the '{@link org.cloudsmith.geppetto.forge.Cache#clean()
-	 * <em>Clean</em>}' operation. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
-	 * @see org.cloudsmith.geppetto.forge.Cache#clean()
-	 * @generated NOT
-	 */
-	public void testClean() {
-		try {
-			File file = getFixture().retrieve(FILE_TO_TEST);
-			assertTrue("Retrieved file is not a file", file.isFile());
-			getFixture().clean();
-			assertFalse("Clean did not remove the cached files", file.isFile());
-		}
-		catch(IOException e) {
-			fail(e.getMessage());
-		}
-	}
-
-	/**
-	 * Tests the ' {@link org.cloudsmith.geppetto.forge.Cache#retrieve(java.lang.String)
-	 * <em>Retrieve</em>}' operation. <!-- begin-user-doc --> <!-- end-user-doc
-	 * -->
-	 * 
-	 * @see org.cloudsmith.geppetto.forge.Cache#retrieve(java.lang.String)
-	 * @generated NOT
-	 */
-	public void testRetrieve__String() {
-		try {
-			File file = getFixture().retrieve(FILE_TO_TEST);
-			assertTrue("Retrieved file is not a file", file.isFile());
-		}
-		catch(IOException e) {
-			fail(e.getMessage());
-		}
-	}
-
-	/**
 	 * Returns the fixture for this Cache test case.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -155,6 +118,43 @@ public class CacheTest extends TestCase {
 	@Override
 	protected void tearDown() throws Exception {
 		setFixture(null);
+	}
+
+	/**
+	 * Tests the '{@link org.cloudsmith.geppetto.forge.Cache#clean()
+	 * <em>Clean</em>}' operation. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @see org.cloudsmith.geppetto.forge.Cache#clean()
+	 * @generated NOT
+	 */
+	public void testClean() {
+		try {
+			File file = getFixture().retrieve(FILE_TO_TEST);
+			assertTrue("Retrieved file is not a file", file.isFile());
+			getFixture().clean();
+			assertFalse("Clean did not remove the cached files", file.isFile());
+		}
+		catch(IOException e) {
+			fail(e.getMessage());
+		}
+	}
+
+	/**
+	 * Tests the ' {@link org.cloudsmith.geppetto.forge.Cache#retrieve(java.lang.String)
+	 * <em>Retrieve</em>}' operation. <!-- begin-user-doc --> <!-- end-user-doc
+	 * -->
+	 * 
+	 * @see org.cloudsmith.geppetto.forge.Cache#retrieve(java.lang.String)
+	 * @generated NOT
+	 */
+	public void testRetrieve__String() {
+		try {
+			File file = getFixture().retrieve(FILE_TO_TEST);
+			assertTrue("Retrieved file is not a file", file.isFile());
+		}
+		catch(IOException e) {
+			fail(e.getMessage());
+		}
 	}
 
 } // CacheTest

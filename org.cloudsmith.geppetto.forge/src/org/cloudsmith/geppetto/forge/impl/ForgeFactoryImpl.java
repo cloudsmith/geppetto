@@ -18,6 +18,7 @@ import java.net.URI;
 import java.util.List;
 import java.util.Map;
 
+import org.cloudsmith.geppetto.forge.*;
 import org.cloudsmith.geppetto.forge.Cache;
 import org.cloudsmith.geppetto.forge.Dependency;
 import org.cloudsmith.geppetto.forge.Forge;
@@ -190,6 +191,18 @@ public class ForgeFactoryImpl extends EFactoryImpl implements ForgeFactory {
 	 * 
 	 * @generated
 	 */
+	public String convertMatchRuleToString(EDataType eDataType, Object instanceValue) {
+		return instanceValue == null
+				? null
+				: instanceValue.toString();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
 	public String convertStringArrayToString(EDataType eDataType, Object instanceValue) {
 		return super.convertToString(instanceValue);
 	}
@@ -205,6 +218,8 @@ public class ForgeFactoryImpl extends EFactoryImpl implements ForgeFactory {
 		switch(eDataType.getClassifierID()) {
 			case ForgePackage.HTTP_METHOD:
 				return convertHttpMethodToString(eDataType, instanceValue);
+			case ForgePackage.MATCH_RULE:
+				return convertMatchRuleToString(eDataType, instanceValue);
 			case ForgePackage.FILE:
 				return convertFileToString(eDataType, instanceValue);
 			case ForgePackage.URI:
@@ -274,6 +289,8 @@ public class ForgeFactoryImpl extends EFactoryImpl implements ForgeFactory {
 				return createProperty();
 			case ForgePackage.PROVIDER:
 				return createProvider();
+			case ForgePackage.VERSION_REQUIREMENT:
+				return createVersionRequirement();
 			default:
 				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
@@ -358,6 +375,8 @@ public class ForgeFactoryImpl extends EFactoryImpl implements ForgeFactory {
 		switch(eDataType.getClassifierID()) {
 			case ForgePackage.HTTP_METHOD:
 				return createHttpMethodFromString(eDataType, initialValue);
+			case ForgePackage.MATCH_RULE:
+				return createMatchRuleFromString(eDataType, initialValue);
 			case ForgePackage.FILE:
 				return createFileFromString(eDataType, initialValue);
 			case ForgePackage.URI:
@@ -456,6 +475,20 @@ public class ForgeFactoryImpl extends EFactoryImpl implements ForgeFactory {
 	 */
 	public Map<?, ?> createMapFromString(EDataType eDataType, String initialValue) {
 		return (Map<?, ?>) super.createFromString(initialValue);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
+	public MatchRule createMatchRuleFromString(EDataType eDataType, String initialValue) {
+		MatchRule result = MatchRule.get(initialValue);
+		if(result == null)
+			throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" +
+					eDataType.getName() + "'");
+		return result;
 	}
 
 	/**
@@ -572,6 +605,17 @@ public class ForgeFactoryImpl extends EFactoryImpl implements ForgeFactory {
 	 */
 	public URI createURIFromString(EDataType eDataType, String initialValue) {
 		return (URI) super.createFromString(eDataType, initialValue);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
+	public VersionRequirement createVersionRequirement() {
+		VersionRequirementImpl versionRequirement = new VersionRequirementImpl();
+		return versionRequirement;
 	}
 
 	/**

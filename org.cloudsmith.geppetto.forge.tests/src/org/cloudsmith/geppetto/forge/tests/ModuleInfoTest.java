@@ -59,20 +59,6 @@ public class ModuleInfoTest extends TestCase {
 		super(name);
 	}
 
-	public void testJSonSerialization() throws Exception {
-		Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
-		fixture.setFullName("A full name");
-		fixture.setName("aName");
-		fixture.setProjectURL(URI.create("http://www.example.com"));
-		fixture.setVersion("0.0.1");
-		String json = gson.toJson(fixture);
-		assertEquals(
-			"{\"full_name\":\"A full name\",\"name\":\"aName\",\"project_url\":\"http://www.example.com\",\"version\":\"0.0.1\"}",
-			json);
-		ModuleInfo mi = gson.fromJson(json, ModuleInfoImpl.class);
-		assertTrue(EcoreUtil.equals(fixture, mi));
-	}
-
 	/**
 	 * Returns the fixture for this Module Info test case.
 	 * <!-- begin-user-doc
@@ -115,5 +101,19 @@ public class ModuleInfoTest extends TestCase {
 	@Override
 	protected void tearDown() throws Exception {
 		setFixture(null);
+	}
+
+	public void testJSonSerialization() throws Exception {
+		Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
+		fixture.setFullName("A full name");
+		fixture.setName("aName");
+		fixture.setProjectURL(URI.create("http://www.example.com"));
+		fixture.setVersion("0.0.1");
+		String json = gson.toJson(fixture);
+		assertEquals(
+			"{\"full_name\":\"A full name\",\"name\":\"aName\",\"project_url\":\"http://www.example.com\",\"version\":\"0.0.1\"}",
+			json);
+		ModuleInfo mi = gson.fromJson(json, ModuleInfoImpl.class);
+		assertTrue(EcoreUtil.equals(fixture, mi));
 	}
 } // ModuleInfoTest

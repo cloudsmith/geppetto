@@ -399,13 +399,13 @@ public interface ForgePackage extends EPackage {
 		EAttribute DEPENDENCY__NAME = eINSTANCE.getDependency_Name();
 
 		/**
-		 * The meta object literal for the '<em><b>Version Requirement</b></em>' attribute feature.
+		 * The meta object literal for the '<em><b>Version Requirement</b></em>' containment reference feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * 
 		 * @generated
 		 */
-		EAttribute DEPENDENCY__VERSION_REQUIREMENT = eINSTANCE.getDependency_VersionRequirement();
+		EReference DEPENDENCY__VERSION_REQUIREMENT = eINSTANCE.getDependency_VersionRequirement();
 
 		/**
 		 * The meta object literal for the '<em><b>Repository</b></em>' attribute feature.
@@ -517,6 +517,35 @@ public interface ForgePackage extends EPackage {
 		EClass PROVIDER = eINSTANCE.getProvider();
 
 		/**
+		 * The meta object literal for the '{@link org.cloudsmith.geppetto.forge.impl.VersionRequirementImpl <em>Version Requirement</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * 
+		 * @see org.cloudsmith.geppetto.forge.impl.VersionRequirementImpl
+		 * @see org.cloudsmith.geppetto.forge.impl.ForgePackageImpl#getVersionRequirement()
+		 * @generated
+		 */
+		EClass VERSION_REQUIREMENT = eINSTANCE.getVersionRequirement();
+
+		/**
+		 * The meta object literal for the '<em><b>Version</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * 
+		 * @generated
+		 */
+		EAttribute VERSION_REQUIREMENT__VERSION = eINSTANCE.getVersionRequirement_Version();
+
+		/**
+		 * The meta object literal for the '<em><b>Match Rule</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * 
+		 * @generated
+		 */
+		EAttribute VERSION_REQUIREMENT__MATCH_RULE = eINSTANCE.getVersionRequirement_MatchRule();
+
+		/**
 		 * The meta object literal for the '{@link org.cloudsmith.geppetto.forge.HttpMethod <em>Http Method</em>}' enum.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -526,6 +555,17 @@ public interface ForgePackage extends EPackage {
 		 * @generated
 		 */
 		EEnum HTTP_METHOD = eINSTANCE.getHttpMethod();
+
+		/**
+		 * The meta object literal for the '{@link org.cloudsmith.geppetto.forge.MatchRule <em>Match Rule</em>}' enum.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * 
+		 * @see org.cloudsmith.geppetto.forge.MatchRule
+		 * @see org.cloudsmith.geppetto.forge.impl.ForgePackageImpl#getMatchRule()
+		 * @generated
+		 */
+		EEnum MATCH_RULE = eINSTANCE.getMatchRule();
 
 		/**
 		 * The meta object literal for the '<em>File</em>' data type.
@@ -1122,16 +1162,6 @@ public interface ForgePackage extends EPackage {
 	int DEPENDENCY__NAME = 0;
 
 	/**
-	 * The feature id for the '<em><b>Version Requirement</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * 
-	 * @generated
-	 * @ordered
-	 */
-	int DEPENDENCY__VERSION_REQUIREMENT = 1;
-
-	/**
 	 * The feature id for the '<em><b>Repository</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1139,7 +1169,17 @@ public interface ForgePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int DEPENDENCY__REPOSITORY = 2;
+	int DEPENDENCY__REPOSITORY = 1;
+
+	/**
+	 * The feature id for the '<em><b>Version Requirement</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 * @ordered
+	 */
+	int DEPENDENCY__VERSION_REQUIREMENT = 2;
 
 	/**
 	 * The number of structural features of the '<em>Dependency</em>' class.
@@ -1387,6 +1427,47 @@ public interface ForgePackage extends EPackage {
 	int PROVIDER_FEATURE_COUNT = DOCUMENTED_FEATURE_COUNT + 0;
 
 	/**
+	 * The meta object id for the '{@link org.cloudsmith.geppetto.forge.impl.VersionRequirementImpl <em>Version Requirement</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @see org.cloudsmith.geppetto.forge.impl.VersionRequirementImpl
+	 * @see org.cloudsmith.geppetto.forge.impl.ForgePackageImpl#getVersionRequirement()
+	 * @generated
+	 */
+	int VERSION_REQUIREMENT = 13;
+
+	/**
+	 * The feature id for the '<em><b>Version</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 * @ordered
+	 */
+	int VERSION_REQUIREMENT__VERSION = 0;
+
+	/**
+	 * The feature id for the '<em><b>Match Rule</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 * @ordered
+	 */
+	int VERSION_REQUIREMENT__MATCH_RULE = 1;
+
+	/**
+	 * The number of structural features of the '<em>Version Requirement</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 * @ordered
+	 */
+	int VERSION_REQUIREMENT_FEATURE_COUNT = 2;
+
+	/**
 	 * The meta object id for the '{@link org.cloudsmith.geppetto.forge.HttpMethod <em>Http Method</em>}' enum.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1395,7 +1476,18 @@ public interface ForgePackage extends EPackage {
 	 * @see org.cloudsmith.geppetto.forge.impl.ForgePackageImpl#getHttpMethod()
 	 * @generated
 	 */
-	int HTTP_METHOD = 13;
+	int HTTP_METHOD = 14;
+
+	/**
+	 * The meta object id for the '{@link org.cloudsmith.geppetto.forge.MatchRule <em>Match Rule</em>}' enum.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @see org.cloudsmith.geppetto.forge.MatchRule
+	 * @see org.cloudsmith.geppetto.forge.impl.ForgePackageImpl#getMatchRule()
+	 * @generated
+	 */
+	int MATCH_RULE = 15;
 
 	/**
 	 * The meta object id for the '<em>File</em>' data type.
@@ -1406,7 +1498,7 @@ public interface ForgePackage extends EPackage {
 	 * @see org.cloudsmith.geppetto.forge.impl.ForgePackageImpl#getFile()
 	 * @generated
 	 */
-	int FILE = 14;
+	int FILE = 16;
 
 	/**
 	 * The meta object id for the '<em>URI</em>' data type.
@@ -1417,7 +1509,7 @@ public interface ForgePackage extends EPackage {
 	 * @see org.cloudsmith.geppetto.forge.impl.ForgePackageImpl#getURI()
 	 * @generated
 	 */
-	int URI = 15;
+	int URI = 17;
 
 	/**
 	 * The meta object id for the '<em>IO Exception</em>' data type.
@@ -1428,7 +1520,7 @@ public interface ForgePackage extends EPackage {
 	 * @see org.cloudsmith.geppetto.forge.impl.ForgePackageImpl#getIOException()
 	 * @generated
 	 */
-	int IO_EXCEPTION = 16;
+	int IO_EXCEPTION = 18;
 
 	/**
 	 * The meta object id for the '<em>List</em>' data type.
@@ -1439,7 +1531,7 @@ public interface ForgePackage extends EPackage {
 	 * @see org.cloudsmith.geppetto.forge.impl.ForgePackageImpl#getList()
 	 * @generated
 	 */
-	int LIST = 17;
+	int LIST = 19;
 
 	/**
 	 * The meta object id for the '<em>Http URL Connection</em>' data type.
@@ -1450,7 +1542,7 @@ public interface ForgePackage extends EPackage {
 	 * @see org.cloudsmith.geppetto.forge.impl.ForgePackageImpl#getHttpURLConnection()
 	 * @generated
 	 */
-	int HTTP_URL_CONNECTION = 18;
+	int HTTP_URL_CONNECTION = 20;
 
 	/**
 	 * The meta object id for the '<em>byte Array</em>' data type.
@@ -1460,7 +1552,7 @@ public interface ForgePackage extends EPackage {
 	 * @see org.cloudsmith.geppetto.forge.impl.ForgePackageImpl#getbyteArray()
 	 * @generated
 	 */
-	int BYTE_ARRAY = 19;
+	int BYTE_ARRAY = 21;
 
 	/**
 	 * The meta object id for the '<em>Map</em>' data type.
@@ -1471,7 +1563,7 @@ public interface ForgePackage extends EPackage {
 	 * @see org.cloudsmith.geppetto.forge.impl.ForgePackageImpl#getMap()
 	 * @generated
 	 */
-	int MAP = 20;
+	int MAP = 22;
 
 	/**
 	 * The meta object id for the '<em>String Array</em>' data type.
@@ -1481,7 +1573,7 @@ public interface ForgePackage extends EPackage {
 	 * @see org.cloudsmith.geppetto.forge.impl.ForgePackageImpl#getStringArray()
 	 * @generated
 	 */
-	int STRING_ARRAY = 21;
+	int STRING_ARRAY = 23;
 
 	/**
 	 * The meta object id for the '<em>Illegal Argument Exception</em>' data type.
@@ -1492,7 +1584,7 @@ public interface ForgePackage extends EPackage {
 	 * @see org.cloudsmith.geppetto.forge.impl.ForgePackageImpl#getIllegalArgumentException()
 	 * @generated
 	 */
-	int ILLEGAL_ARGUMENT_EXCEPTION = 22;
+	int ILLEGAL_ARGUMENT_EXCEPTION = 24;
 
 	/**
 	 * The meta object id for the '<em>Incomplete Exception</em>' data type.
@@ -1503,7 +1595,7 @@ public interface ForgePackage extends EPackage {
 	 * @see org.cloudsmith.geppetto.forge.impl.ForgePackageImpl#getIncompleteException()
 	 * @generated
 	 */
-	int INCOMPLETE_EXCEPTION = 23;
+	int INCOMPLETE_EXCEPTION = 25;
 
 	/**
 	 * Returns the meta object for data type '<em>byte Array</em>'.
@@ -1587,17 +1679,17 @@ public interface ForgePackage extends EPackage {
 	EAttribute getDependency_Repository();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.cloudsmith.geppetto.forge.Dependency#getVersionRequirement <em>Version Requirement</em>}
-	 * '.
+	 * Returns the meta object for the containment reference '{@link org.cloudsmith.geppetto.forge.Dependency#getVersionRequirement
+	 * <em>Version Requirement</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
-	 * @return the meta object for the attribute '<em>Version Requirement</em>'.
+	 * @return the meta object for the containment reference '<em>Version Requirement</em>'.
 	 * @see org.cloudsmith.geppetto.forge.Dependency#getVersionRequirement()
 	 * @see #getDependency()
 	 * @generated
 	 */
-	EAttribute getDependency_VersionRequirement();
+	EReference getDependency_VersionRequirement();
 
 	/**
 	 * Returns the meta object for class '{@link org.cloudsmith.geppetto.forge.Documented <em>Documented</em>}'.
@@ -1808,6 +1900,17 @@ public interface ForgePackage extends EPackage {
 	 * @generated
 	 */
 	EDataType getMap();
+
+	/**
+	 * Returns the meta object for enum '{@link org.cloudsmith.geppetto.forge.MatchRule <em>Match Rule</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @return the meta object for enum '<em>Match Rule</em>'.
+	 * @see org.cloudsmith.geppetto.forge.MatchRule
+	 * @generated
+	 */
+	EEnum getMatchRule();
 
 	/**
 	 * Returns the meta object for class '{@link org.cloudsmith.geppetto.forge.Metadata <em>Metadata</em>}'.
@@ -2220,5 +2323,40 @@ public interface ForgePackage extends EPackage {
 	 * @generated
 	 */
 	EDataType getURI();
+
+	/**
+	 * Returns the meta object for class '{@link org.cloudsmith.geppetto.forge.VersionRequirement <em>Version Requirement</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @return the meta object for class '<em>Version Requirement</em>'.
+	 * @see org.cloudsmith.geppetto.forge.VersionRequirement
+	 * @generated
+	 */
+	EClass getVersionRequirement();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.cloudsmith.geppetto.forge.VersionRequirement#getMatchRule <em>Match Rule</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @return the meta object for the attribute '<em>Match Rule</em>'.
+	 * @see org.cloudsmith.geppetto.forge.VersionRequirement#getMatchRule()
+	 * @see #getVersionRequirement()
+	 * @generated
+	 */
+	EAttribute getVersionRequirement_MatchRule();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.cloudsmith.geppetto.forge.VersionRequirement#getVersion <em>Version</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @return the meta object for the attribute '<em>Version</em>'.
+	 * @see org.cloudsmith.geppetto.forge.VersionRequirement#getVersion()
+	 * @see #getVersionRequirement()
+	 * @generated
+	 */
+	EAttribute getVersionRequirement_Version();
 
 } // ForgePackage

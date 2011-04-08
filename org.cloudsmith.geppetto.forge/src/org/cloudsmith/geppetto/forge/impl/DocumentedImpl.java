@@ -155,6 +155,17 @@ public abstract class DocumentedImpl extends EObjectImpl implements Documented {
 	 * @generated
 	 */
 	@Override
+	protected EClass eStaticClass() {
+		return ForgePackage.Literals.DOCUMENTED;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch(featureID) {
 			case ForgePackage.DOCUMENTED__NAME:
@@ -235,17 +246,6 @@ public abstract class DocumentedImpl extends EObjectImpl implements Documented {
 		result.append(doc);
 		result.append(')');
 		return result.toString();
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * 
-	 * @generated
-	 */
-	@Override
-	protected EClass eStaticClass() {
-		return ForgePackage.Literals.DOCUMENTED;
 	}
 
 } // DocumentedImpl

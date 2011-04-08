@@ -37,6 +37,34 @@ public class ERB {
 		this.file = file;
 	}
 
+	private void consumeComment(Reader input) throws IOException {
+		consumeUntilEndMark(input);
+	}
+
+	private String consumeUntilEndMark(Reader input) throws IOException {
+		StringBuilder bld = new StringBuilder();
+		int n1;
+		while((n1 = input.read()) >= 0) {
+			if(n1 == '%') {
+				int n2 = input.read();
+				if(n2 == '>')
+					return bld.toString();
+				if(n2 == '%') {
+					int n3 = input.read();
+					if(n3 == '>') {
+						bld.append("%>");
+						continue;
+					}
+				}
+				bld.append('%');
+				bld.append((char) n2);
+				continue;
+			}
+			bld.append((char) n1);
+		}
+		throw new IOException("Unbalanced construct. Missing end %>");
+	}
+
 	public void generate(File dest) throws IOException {
 		BufferedWriter output = new BufferedWriter(new FileWriter(dest));
 		try {
@@ -95,34 +123,6 @@ public class ERB {
 		finally {
 			StreamUtil.close(input);
 		}
-	}
-
-	private void consumeComment(Reader input) throws IOException {
-		consumeUntilEndMark(input);
-	}
-
-	private String consumeUntilEndMark(Reader input) throws IOException {
-		StringBuilder bld = new StringBuilder();
-		int n1;
-		while((n1 = input.read()) >= 0) {
-			if(n1 == '%') {
-				int n2 = input.read();
-				if(n2 == '>')
-					return bld.toString();
-				if(n2 == '%') {
-					int n3 = input.read();
-					if(n3 == '>') {
-						bld.append("%>");
-						continue;
-					}
-				}
-				bld.append('%');
-				bld.append((char) n2);
-				continue;
-			}
-			bld.append((char) n1);
-		}
-		throw new IOException("Unbalanced construct. Missing end %>");
 	}
 
 	private void handleCode(Reader input, Writer dest) {

@@ -47,6 +47,23 @@ public abstract class RubyParserUtils {
 		return result;
 	}
 
+	private static void findNodes(Node root, NodeType[] path, int pathIndex, List<Node> result) {
+		if(pathIndex >= path.length) {
+			result.add(root);
+			return;
+		}
+
+		NodeType searchedType = path[pathIndex++];
+		for(Node child : root.childNodes()) {
+			while(child instanceof NewlineNode)
+				child = ((NewlineNode) child).getNextNode();
+			if(child == null)
+				continue;
+			if(child.getNodeType() == searchedType)
+				findNodes(child, path, pathIndex, result);
+		}
+	}
+
 	/**
 	 * Parse a File containing Ruby syntax and return the root node of the AST.
 	 * 
@@ -66,23 +83,6 @@ public abstract class RubyParserUtils {
 		}
 		finally {
 			StreamUtil.close(reader);
-		}
-	}
-
-	private static void findNodes(Node root, NodeType[] path, int pathIndex, List<Node> result) {
-		if(pathIndex >= path.length) {
-			result.add(root);
-			return;
-		}
-
-		NodeType searchedType = path[pathIndex++];
-		for(Node child : root.childNodes()) {
-			while(child instanceof NewlineNode)
-				child = ((NewlineNode) child).getNextNode();
-			if(child == null)
-				continue;
-			if(child.getNodeType() == searchedType)
-				findNodes(child, path, pathIndex, result);
 		}
 	}
 }

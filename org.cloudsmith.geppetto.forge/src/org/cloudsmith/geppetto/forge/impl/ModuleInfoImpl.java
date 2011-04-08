@@ -226,6 +226,17 @@ public class ModuleInfoImpl extends EObjectImpl implements ModuleInfo {
 	 * @generated
 	 */
 	@Override
+	protected EClass eStaticClass() {
+		return ForgePackage.Literals.MODULE_INFO;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch(featureID) {
 			case ForgePackage.MODULE_INFO__FULL_NAME:
@@ -369,17 +380,6 @@ public class ModuleInfoImpl extends EObjectImpl implements ModuleInfo {
 		result.append(version);
 		result.append(')');
 		return result.toString();
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * 
-	 * @generated
-	 */
-	@Override
-	protected EClass eStaticClass() {
-		return ForgePackage.Literals.MODULE_INFO;
 	}
 
 } // ModuleInfoImpl

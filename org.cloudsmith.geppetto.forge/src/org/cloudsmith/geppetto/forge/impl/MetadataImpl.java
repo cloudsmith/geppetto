@@ -36,6 +36,7 @@ import org.cloudsmith.geppetto.forge.ForgeFactory;
 import org.cloudsmith.geppetto.forge.ForgePackage;
 import org.cloudsmith.geppetto.forge.Metadata;
 import org.cloudsmith.geppetto.forge.Type;
+import org.cloudsmith.geppetto.forge.VersionRequirement;
 import org.cloudsmith.geppetto.forge.util.JsonUtils;
 import org.cloudsmith.geppetto.forge.util.RubyParserUtils;
 import org.eclipse.emf.common.notify.Notification;
@@ -190,22 +191,6 @@ public class MetadataImpl extends EObjectImpl implements Metadata {
 	// Directory names that should not be checksummed or copied.
 	static final Pattern ARTIFACTS = Pattern.compile("^(?:[\\.~#].*|pkg|coverage)$");
 
-	public static byte[] computeChecksum(File file, MessageDigest md) throws IOException {
-		InputStream input = new FileInputStream(file);
-		md.reset();
-		try {
-			byte[] buf = new byte[0x1000];
-			int cnt;
-			while((cnt = input.read(buf)) > 0)
-				md.update(buf, 0, cnt);
-
-		}
-		finally {
-			StreamUtil.close(input);
-		}
-		return md.digest();
-	}
-
 	private static void addKeyValueNode(PrintWriter out, String key, String... strs) throws IOException {
 		if(strs.length == 0)
 			return;
@@ -226,6 +211,22 @@ public class MetadataImpl extends EObjectImpl implements Metadata {
 				}
 		}
 		out.println();
+	}
+
+	public static byte[] computeChecksum(File file, MessageDigest md) throws IOException {
+		InputStream input = new FileInputStream(file);
+		md.reset();
+		try {
+			byte[] buf = new byte[0x1000];
+			int cnt;
+			while((cnt = input.read(buf)) > 0)
+				md.update(buf, 0, cnt);
+
+		}
+		finally {
+			StreamUtil.close(input);
+		}
+		return md.digest();
 	}
 
 	private static MessageDigest getMessageDigest() {
@@ -561,6 +562,75 @@ public class MetadataImpl extends EObjectImpl implements Metadata {
 		super();
 	}
 
+	void appendChangedFiles(File file, List<File> result) throws IOException {
+		appendChangedFiles(file, getMessageDigest(), file.getAbsolutePath().length() + 1, result);
+	}
+
+	private void appendChangedFiles(File file, MessageDigest md, int baseDirLen, List<File> result) throws IOException {
+		if(!isChecksumCandidate(file))
+			return;
+
+		File[] children = file.listFiles();
+		if(children != null) {
+			for(File child : children)
+				appendChangedFiles(child, md, baseDirLen, result);
+			return;
+		}
+
+		byte[] oldChecksum = getChecksums().get(file.getAbsolutePath().substring(baseDirLen));
+		if(oldChecksum == null)
+			result.add(file);
+		else {
+			byte[] newChecksum = computeChecksum(file, md);
+			if(!Arrays.equals(oldChecksum, newChecksum))
+				result.add(file);
+		}
+	}
+
+	private void call(String key, String value) {
+		if("name".equals(key))
+			setFullName(value);
+		else if("author".equals(key))
+			setAuthor(value);
+		else if("description".equals(key))
+			setDescription(value);
+		else if("license".equals(key))
+			setLicense(value);
+		else if("project_page".equals(key))
+			setProjectPage(URI.create(value));
+		else if("source".equals(key))
+			setSource(value);
+		else if("summary".equals(key))
+			setSummary(value);
+		else if("version".equals(key))
+			setVersion(value);
+		else if("dependency".equals(key))
+			call(key, value, null, null);
+		else
+			throw noResponse(key);
+	}
+
+	private void call(String key, String value1, String value2) {
+		if("dependency".equals(key))
+			call(key, value1, value2, null);
+		else
+			throw noResponse(key);
+	}
+
+	private void call(String key, String value1, String value2, String value3) {
+		if("dependency".equals(key)) {
+			Dependency dep = ForgeFactory.eINSTANCE.createDependency();
+			dep.setName(value1);
+			if(value2 != null)
+				dep.setVersionRequirement(parseVersionRequirement(value2));
+			if(value3 != null)
+				dep.setRepository(URI.create(value3));
+			getDependencies().add(dep);
+		}
+		else
+			throw noResponse(key);
+	}
+
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -732,6 +802,17 @@ public class MetadataImpl extends EObjectImpl implements Metadata {
 				return;
 		}
 		super.eSet(featureID, newValue);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
+	@Override
+	protected EClass eStaticClass() {
+		return ForgePackage.Literals.METADATA;
 	}
 
 	/**
@@ -957,6 +1038,19 @@ public class MetadataImpl extends EObjectImpl implements Metadata {
 		loadChecksums(getMessageDigest(), moduleDir, moduleDir.getAbsolutePath().length() + 1);
 	}
 
+	private void loadChecksums(MessageDigest md, File file, int basedirLen) throws IOException {
+		if(!isChecksumCandidate(file))
+			return;
+
+		File[] children = file.listFiles();
+		if(children == null)
+			getChecksums().put(file.getAbsolutePath().substring(basedirLen), computeChecksum(file, md));
+		else {
+			for(File child : children)
+				loadChecksums(md, child, basedirLen);
+		}
+	}
+
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1006,6 +1100,16 @@ public class MetadataImpl extends EObjectImpl implements Metadata {
 			for(Type type : typeList)
 				type.loadProvider(providerDir);
 		}
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @generated NOT
+	 */
+	public VersionRequirement parseVersionRequirement(String versionRequirement) {
+		return DependencyImpl.parseVersionRequirement(versionRequirement);
 	}
 
 	public void populateFromModuleDir(File moduleDirectory) throws IOException {
@@ -1062,13 +1166,13 @@ public class MetadataImpl extends EObjectImpl implements Metadata {
 			if(dependencies != null && dependencies.size() > 0) {
 				for(Dependency dep : dependencies) {
 					String depName = dep.getName();
-					String ver = dep.getVersionRequirement();
+					VersionRequirement ver = dep.getVersionRequirement();
 					URI repo = dep.getRepository();
 					if(ver != null) {
 						if(repo != null)
-							addKeyValueNode(out, "dependency", depName, ver, repo.toString());
+							addKeyValueNode(out, "dependency", depName, ver.toString(), repo.toString());
 						else
-							addKeyValueNode(out, "dependency", depName, ver);
+							addKeyValueNode(out, "dependency", depName, ver.toString());
 					}
 					else
 						addKeyValueNode(out, "dependency", depName);
@@ -1263,99 +1367,6 @@ public class MetadataImpl extends EObjectImpl implements Metadata {
 		result.append(checksums);
 		result.append(')');
 		return result.toString();
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * 
-	 * @generated
-	 */
-	@Override
-	protected EClass eStaticClass() {
-		return ForgePackage.Literals.METADATA;
-	}
-
-	void appendChangedFiles(File file, List<File> result) throws IOException {
-		appendChangedFiles(file, getMessageDigest(), file.getAbsolutePath().length() + 1, result);
-	}
-
-	private void appendChangedFiles(File file, MessageDigest md, int baseDirLen, List<File> result) throws IOException {
-		if(!isChecksumCandidate(file))
-			return;
-
-		File[] children = file.listFiles();
-		if(children != null) {
-			for(File child : children)
-				appendChangedFiles(child, md, baseDirLen, result);
-			return;
-		}
-
-		byte[] oldChecksum = getChecksums().get(file.getAbsolutePath().substring(baseDirLen));
-		if(oldChecksum == null)
-			result.add(file);
-		else {
-			byte[] newChecksum = computeChecksum(file, md);
-			if(!Arrays.equals(oldChecksum, newChecksum))
-				result.add(file);
-		}
-	}
-
-	private void call(String key, String value) {
-		if("name".equals(key))
-			setFullName(value);
-		else if("author".equals(key))
-			setAuthor(value);
-		else if("description".equals(key))
-			setDescription(value);
-		else if("license".equals(key))
-			setLicense(value);
-		else if("project_page".equals(key))
-			setProjectPage(URI.create(value));
-		else if("source".equals(key))
-			setSource(value);
-		else if("summary".equals(key))
-			setSummary(value);
-		else if("version".equals(key))
-			setVersion(value);
-		else if("dependency".equals(key))
-			call(key, value, null, null);
-		else
-			throw noResponse(key);
-	}
-
-	private void call(String key, String value1, String value2) {
-		if("dependency".equals(key))
-			call(key, value1, value2, null);
-		else
-			throw noResponse(key);
-	}
-
-	private void call(String key, String value1, String value2, String value3) {
-		if("dependency".equals(key)) {
-			Dependency dep = ForgeFactory.eINSTANCE.createDependency();
-			dep.setName(value1);
-			if(value2 != null)
-				dep.setVersionRequirement(value2);
-			if(value3 != null)
-				dep.setRepository(URI.create(value3));
-			getDependencies().add(dep);
-		}
-		else
-			throw noResponse(key);
-	}
-
-	private void loadChecksums(MessageDigest md, File file, int basedirLen) throws IOException {
-		if(!isChecksumCandidate(file))
-			return;
-
-		File[] children = file.listFiles();
-		if(children == null)
-			getChecksums().put(file.getAbsolutePath().substring(basedirLen), computeChecksum(file, md));
-		else {
-			for(File child : children)
-				loadChecksums(md, child, basedirLen);
-		}
 	}
 
 } // MetadataImpl

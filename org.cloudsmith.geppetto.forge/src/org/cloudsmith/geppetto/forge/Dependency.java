@@ -24,8 +24,8 @@ import org.eclipse.emf.ecore.EObject;
  * The following features are supported:
  * <ul>
  * <li>{@link org.cloudsmith.geppetto.forge.Dependency#getName <em>Name</em>}</li>
- * <li>{@link org.cloudsmith.geppetto.forge.Dependency#getVersionRequirement <em>Version Requirement</em>}</li>
  * <li>{@link org.cloudsmith.geppetto.forge.Dependency#getRepository <em>Repository</em>}</li>
+ * <li>{@link org.cloudsmith.geppetto.forge.Dependency#getVersionRequirement <em>Version Requirement</em>}</li>
  * </ul>
  * </p>
  * 
@@ -67,20 +67,29 @@ public interface Dependency extends EObject {
 	URI getRepository();
 
 	/**
-	 * Returns the value of the '<em><b>Version Requirement</b></em>' attribute.
+	 * Returns the value of the '<em><b>Version Requirement</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Version Requirement</em>' attribute isn't clear, there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * 
-	 * @return the value of the '<em>Version Requirement</em>' attribute.
-	 * @see #setVersionRequirement(String)
+	 * @return the value of the '<em>Version Requirement</em>' containment reference.
+	 * @see #setVersionRequirement(VersionRequirement)
 	 * @see org.cloudsmith.geppetto.forge.ForgePackage#getDependency_VersionRequirement()
-	 * @model
+	 * @model containment="true"
 	 * @generated
 	 */
-	String getVersionRequirement();
+	VersionRequirement getVersionRequirement();
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @model nameRequired="true"
+	 * @generated
+	 */
+	boolean matches(String name, String version);
 
 	/**
 	 * Sets the value of the '{@link org.cloudsmith.geppetto.forge.Dependency#getName <em>Name</em>}' attribute.
@@ -107,15 +116,16 @@ public interface Dependency extends EObject {
 	void setRepository(URI value);
 
 	/**
-	 * Sets the value of the '{@link org.cloudsmith.geppetto.forge.Dependency#getVersionRequirement <em>Version Requirement</em>}' attribute.
+	 * Sets the value of the '{@link org.cloudsmith.geppetto.forge.Dependency#getVersionRequirement <em>Version Requirement</em>}' containment
+	 * reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
 	 * @param value
-	 *            the new value of the '<em>Version Requirement</em>' attribute.
+	 *            the new value of the '<em>Version Requirement</em>' containment reference.
 	 * @see #getVersionRequirement()
 	 * @generated
 	 */
-	void setVersionRequirement(String value);
+	void setVersionRequirement(VersionRequirement value);
 
 } // Dependency

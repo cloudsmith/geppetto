@@ -25,6 +25,13 @@ public class Activator implements BundleActivator {
 
 	private static BundleContext context;
 
+	static BundleContext getContext() {
+		BundleContext ctx = context;
+		if(ctx == null)
+			throw new IllegalStateException("OSGi is Shutting down");
+		return ctx;
+	}
+
 	public static File getTestData(String path) throws IOException {
 		Bundle self = Activator.getContext().getBundle();
 		path = "/testData/" + path;
@@ -36,13 +43,6 @@ public class Activator implements BundleActivator {
 
 	public static File toFile(URL url) throws IOException {
 		return new File(new Path(FileLocator.toFileURL(url).getPath()).toOSString());
-	}
-
-	static BundleContext getContext() {
-		BundleContext ctx = context;
-		if(ctx == null)
-			throw new IllegalStateException("OSGi is Shutting down");
-		return ctx;
 	}
 
 	@Override

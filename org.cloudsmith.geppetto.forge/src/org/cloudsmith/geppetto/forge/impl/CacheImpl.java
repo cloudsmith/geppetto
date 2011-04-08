@@ -133,6 +133,16 @@ public class CacheImpl extends EObjectImpl implements Cache {
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
+	 * @generated
+	 */
+	@Override
+	protected EClass eStaticClass() {
+		return ForgePackage.Literals.CACHE;
+	}
+
+	/**
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated NOT
 	 */
 	@Override
@@ -199,16 +209,6 @@ public class CacheImpl extends EObjectImpl implements Cache {
 		result.append(location);
 		result.append(')');
 		return result.toString();
-	}
-
-	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
-	 * @generated
-	 */
-	@Override
-	protected EClass eStaticClass() {
-		return ForgePackage.Literals.CACHE;
 	}
 
 } // CacheImpl

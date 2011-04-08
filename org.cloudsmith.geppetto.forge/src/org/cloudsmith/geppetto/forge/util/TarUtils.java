@@ -33,6 +33,62 @@ import org.cloudsmith.geppetto.common.os.StreamUtil;
 public class TarUtils {
 	private static final int MAX_FILES_PER_COMMAND = 100;
 
+	private static void append(File file, Pattern excludePattern, int baseNameLen, String addedTopFolder,
+			TarArchiveOutputStream tarOut) throws IOException {
+
+		if(excludePattern != null && excludePattern.matcher(file.getName()).matches())
+			return;
+
+		String name = file.getAbsolutePath();
+		if(name.length() <= baseNameLen)
+			name = "";
+		else
+			name = name.substring(baseNameLen);
+		if(File.separatorChar == '\\')
+			name = name.replace('\\', '/');
+		if(addedTopFolder != null)
+			name = addedTopFolder + '/' + name;
+
+		ArchiveEntry entry = tarOut.createArchiveEntry(file, name);
+		tarOut.putArchiveEntry(entry);
+		File[] children = file.listFiles();
+		if(children != null) {
+			tarOut.closeArchiveEntry();
+			// This is a directory. Append its children
+			for(File child : children)
+				append(child, excludePattern, baseNameLen, addedTopFolder, tarOut);
+			return;
+		}
+
+		// Append the content of the file
+		InputStream input = new FileInputStream(file);
+		try {
+			StreamUtil.copy(input, tarOut);
+			tarOut.closeArchiveEntry();
+		}
+		finally {
+			StreamUtil.close(input);
+		}
+	}
+
+	private static void chmod(Map<File, Map<Integer, List<String>>> chmodMap) throws IOException {
+		for(Map.Entry<File, Map<Integer, List<String>>> entry : chmodMap.entrySet())
+			for(Map.Entry<Integer, List<String>> dirEntry : entry.getValue().entrySet())
+				for(List<String> files : splitList(dirEntry.getValue(), MAX_FILES_PER_COMMAND))
+					OsUtil.chmod(entry.getKey(), dirEntry.getKey().intValue(), files.toArray(new String[files.size()]));
+	}
+
+	private static <T> List<String> getFileList(Map<File, Map<T, List<String>>> map, File dir, T key) {
+		Map<T, List<String>> dirMap = map.get(dir);
+		if(dirMap == null)
+			map.put(dir, dirMap = new HashMap<T, List<String>>());
+		List<String> files = dirMap.get(key);
+		if(files == null)
+			dirMap.put(key, files = new ArrayList<String>());
+
+		return files;
+	}
+
 	public static void pack(File sourceFolder, OutputStream output, boolean includeTopFolder) throws IOException {
 		pack(sourceFolder, output, null, includeTopFolder, null);
 	}
@@ -51,6 +107,25 @@ public class TarUtils {
 		finally {
 			StreamUtil.close(tarOut);
 		}
+	}
+
+	private static void registerChmodFile(Map<File, Map<Integer, List<String>>> chmodMap, File dir, Integer mode,
+			String file) {
+		getFileList(chmodMap, dir, mode).add(file);
+	}
+
+	private static List<List<String>> splitList(List<String> files, int limit) {
+		List<List<String>> result = new ArrayList<List<String>>();
+		int top = files.size();
+		int start = 0;
+		while(start < top) {
+			int max = top > limit
+					? limit
+					: top;
+			result.add(files.subList(start, start + max));
+			start += max;
+		}
+		return result;
 	}
 
 	/**
@@ -125,80 +200,5 @@ public class TarUtils {
 			StreamUtil.close(in);
 		}
 		chmod(chmodMap);
-	}
-
-	private static void append(File file, Pattern excludePattern, int baseNameLen, String addedTopFolder,
-			TarArchiveOutputStream tarOut) throws IOException {
-
-		if(excludePattern != null && excludePattern.matcher(file.getName()).matches())
-			return;
-
-		String name = file.getAbsolutePath();
-		if(name.length() <= baseNameLen)
-			name = "";
-		else
-			name = name.substring(baseNameLen);
-		if(File.separatorChar == '\\')
-			name = name.replace('\\', '/');
-		if(addedTopFolder != null)
-			name = addedTopFolder + '/' + name;
-
-		ArchiveEntry entry = tarOut.createArchiveEntry(file, name);
-		tarOut.putArchiveEntry(entry);
-		File[] children = file.listFiles();
-		if(children != null) {
-			tarOut.closeArchiveEntry();
-			// This is a directory. Append its children
-			for(File child : children)
-				append(child, excludePattern, baseNameLen, addedTopFolder, tarOut);
-			return;
-		}
-
-		// Append the content of the file
-		InputStream input = new FileInputStream(file);
-		try {
-			StreamUtil.copy(input, tarOut);
-			tarOut.closeArchiveEntry();
-		}
-		finally {
-			StreamUtil.close(input);
-		}
-	}
-
-	private static void chmod(Map<File, Map<Integer, List<String>>> chmodMap) throws IOException {
-		for(Map.Entry<File, Map<Integer, List<String>>> entry : chmodMap.entrySet())
-			for(Map.Entry<Integer, List<String>> dirEntry : entry.getValue().entrySet())
-				for(List<String> files : splitList(dirEntry.getValue(), MAX_FILES_PER_COMMAND))
-					OsUtil.chmod(entry.getKey(), dirEntry.getKey().intValue(), files.toArray(new String[files.size()]));
-	}
-
-	private static <T> List<String> getFileList(Map<File, Map<T, List<String>>> map, File dir, T key) {
-		Map<T, List<String>> dirMap = map.get(dir);
-		if(dirMap == null)
-			map.put(dir, dirMap = new HashMap<T, List<String>>());
-		List<String> files = dirMap.get(key);
-		if(files == null)
-			dirMap.put(key, files = new ArrayList<String>());
-
-		return files;
-	}
-
-	private static void registerChmodFile(Map<File, Map<Integer, List<String>>> chmodMap, File dir, Integer mode,
-			String file) {
-		getFileList(chmodMap, dir, mode).add(file);
-	}
-
-	private static List<List<String>> splitList(List<String> files, int limit) {
-		List<List<String>> result = new ArrayList<List<String>>();
-		int top = files.size();
-		int start = 0;
-		while(start < top) {
-			int max = top > limit
-					? limit
-					: top;
-			result.add(files.subList(start, start + max));
-			start += max;
-		}
-		return result;
 	}
 }

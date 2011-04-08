@@ -53,6 +53,40 @@ public class TypeTest extends DocumentedTest {
 	}
 
 	/**
+	 * Returns the fixture for this Type test case.
+	 * <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
+	 * 
+	 * @generated
+	 */
+	@Override
+	protected Type getFixture() {
+		return (Type) fixture;
+	}
+
+	/**
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @see junit.framework.TestCase#setUp()
+	 * @generated
+	 */
+	@Override
+	protected void setUp() throws Exception {
+		setFixture(ForgeFactory.eINSTANCE.createType());
+	}
+
+	/**
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @see junit.framework.TestCase#tearDown()
+	 * @generated
+	 */
+	@Override
+	protected void tearDown() throws Exception {
+		setFixture(null);
+	}
+
+	/**
 	 * Tests the ' {@link org.cloudsmith.geppetto.forge.Type#loadProvider(java.io.File)
 	 * <em>Load Provider</em>}' operation. <!-- begin-user-doc --> <!--
 	 * end-user-doc -->
@@ -134,40 +168,6 @@ public class TypeTest extends DocumentedTest {
 		catch(IOException e) {
 			fail(e.getMessage());
 		}
-	}
-
-	/**
-	 * Returns the fixture for this Type test case.
-	 * <!-- begin-user-doc --> <!--
-	 * end-user-doc -->
-	 * 
-	 * @generated
-	 */
-	@Override
-	protected Type getFixture() {
-		return (Type) fixture;
-	}
-
-	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
-	 * @see junit.framework.TestCase#setUp()
-	 * @generated
-	 */
-	@Override
-	protected void setUp() throws Exception {
-		setFixture(ForgeFactory.eINSTANCE.createType());
-	}
-
-	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
-	 * @see junit.framework.TestCase#tearDown()
-	 * @generated
-	 */
-	@Override
-	protected void tearDown() throws Exception {
-		setFixture(null);
 	}
 
 } // TypeTest

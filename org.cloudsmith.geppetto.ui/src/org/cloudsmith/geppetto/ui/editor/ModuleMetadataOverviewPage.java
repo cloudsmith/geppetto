@@ -21,8 +21,10 @@ import java.util.Map;
 import org.cloudsmith.geppetto.forge.Dependency;
 import org.cloudsmith.geppetto.forge.Forge;
 import org.cloudsmith.geppetto.forge.ForgeFactory;
+import org.cloudsmith.geppetto.forge.MatchRule;
 import org.cloudsmith.geppetto.forge.Metadata;
 import org.cloudsmith.geppetto.forge.ModuleInfo;
+import org.cloudsmith.geppetto.forge.VersionRequirement;
 import org.cloudsmith.geppetto.ui.UIPlugin;
 import org.cloudsmith.geppetto.ui.dialog.ModuleListSelectionDialog;
 import org.cloudsmith.geppetto.ui.util.ResourceUtil;
@@ -141,7 +143,7 @@ class ModuleMetadataOverviewPage extends FormPage {
 					Dependency dependency = (Dependency) element;
 					return columnIndex == 0
 							? dependency.getName()
-							: dependency.getVersionRequirement();
+							: dependency.getVersionRequirement().toString();
 				}
 
 				public boolean isLabelProperty(Object element, String property) {
@@ -179,8 +181,10 @@ class ModuleMetadataOverviewPage extends FormPage {
 
 							Dependency dependency = ForgeFactory.eINSTANCE.createDependency();
 							dependency.setName(module.getFullName());
-							dependency.setVersionRequirement(">= " + module.getVersion()); //$NON-NLS-1$
-
+							VersionRequirement vr = ForgeFactory.eINSTANCE.createVersionRequirement();
+							vr.setMatchRule(MatchRule.GREATER_OR_EQUAL);
+							vr.setVersion(module.getVersion());
+							dependency.setVersionRequirement(vr);
 							dependencies.add(dependency);
 						}
 

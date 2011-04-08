@@ -65,32 +65,6 @@ public class RepositoryTest extends TestCase {
 	}
 
 	/**
-	 */
-	public void testCacheKey() {
-		assertEquals(
-			"Bad cache key", fixture.getCacheKey(),
-			"http_forge_puppetlabs_com-75a31f1d6f1ef6eb63b4479b3512ee1508209a7f");
-	}
-
-	/**
-	 * Tests the ' {@link org.cloudsmith.geppetto.forge.Repository#connect(org.cloudsmith.geppetto.forge.HttpMethod, java.lang.String)
-	 * <em>Connect</em>}' operation. <!-- begin-user-doc --> <!-- end-user-doc
-	 * -->
-	 * 
-	 * @see org.cloudsmith.geppetto.forge.Repository#connect(org.cloudsmith.geppetto.forge.HttpMethod, java.lang.String)
-	 * @generated NOT
-	 */
-	public void testConnect__HttpMethod_String() {
-		try {
-			HttpURLConnection conn = getFixture().connect(HttpMethod.HEAD, CacheTest.FILE_TO_TEST);
-			assertEquals("Unexpected content type", "application/x-gzip", conn.getContentType());
-		}
-		catch(IOException e) {
-			fail(e.getMessage());
-		}
-	}
-
-	/**
 	 * Returns the fixture for this Repository test case.
 	 * <!-- begin-user-doc
 	 * --> <!-- end-user-doc -->
@@ -133,6 +107,32 @@ public class RepositoryTest extends TestCase {
 	@Override
 	protected void tearDown() throws Exception {
 		setFixture(null);
+	}
+
+	/**
+	 */
+	public void testCacheKey() {
+		assertEquals(
+			"Bad cache key", fixture.getCacheKey(),
+			"http_forge_puppetlabs_com-75a31f1d6f1ef6eb63b4479b3512ee1508209a7f");
+	}
+
+	/**
+	 * Tests the ' {@link org.cloudsmith.geppetto.forge.Repository#connect(org.cloudsmith.geppetto.forge.HttpMethod, java.lang.String)
+	 * <em>Connect</em>}' operation. <!-- begin-user-doc --> <!-- end-user-doc
+	 * -->
+	 * 
+	 * @see org.cloudsmith.geppetto.forge.Repository#connect(org.cloudsmith.geppetto.forge.HttpMethod, java.lang.String)
+	 * @generated NOT
+	 */
+	public void testConnect__HttpMethod_String() {
+		try {
+			HttpURLConnection conn = getFixture().connect(HttpMethod.HEAD, CacheTest.FILE_TO_TEST);
+			assertEquals("Unexpected content type", "application/x-gzip", conn.getContentType());
+		}
+		catch(IOException e) {
+			fail(e.getMessage());
+		}
 	}
 
 } // RepositoryTest

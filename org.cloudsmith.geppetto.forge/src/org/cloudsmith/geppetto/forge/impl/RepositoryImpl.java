@@ -59,13 +59,6 @@ public class RepositoryImpl extends EObjectImpl implements Repository {
 		bld.append(hexChars[b & 0x0f]);
 	}
 
-	static String getEncoding(URLConnection conn) {
-		String encoding = conn.getContentEncoding();
-		if(encoding == null)
-			encoding = "UTF-8";
-		return encoding;
-	}
-
 	private static HttpURLConnection checkResponse(HttpURLConnection conn) throws IOException {
 		int responseCode = conn.getResponseCode();
 		//
@@ -109,6 +102,13 @@ public class RepositoryImpl extends EObjectImpl implements Repository {
 				bld.append(buf, 0, cnt);
 		}
 		throw new IOException(bld.toString());
+	}
+
+	static String getEncoding(URLConnection conn) {
+		String encoding = conn.getContentEncoding();
+		if(encoding == null)
+			encoding = "UTF-8";
+		return encoding;
 	}
 
 	/**
@@ -223,6 +223,16 @@ public class RepositoryImpl extends EObjectImpl implements Repository {
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
+	 * @generated
+	 */
+	@Override
+	protected EClass eStaticClass() {
+		return ForgePackage.Literals.REPOSITORY;
+	}
+
+	/**
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated NOT
 	 */
 	@Override
@@ -278,15 +288,5 @@ public class RepositoryImpl extends EObjectImpl implements Repository {
 		result.append(cacheKey);
 		result.append(')');
 		return result.toString();
-	}
-
-	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
-	 * @generated
-	 */
-	@Override
-	protected EClass eStaticClass() {
-		return ForgePackage.Literals.REPOSITORY;
 	}
 } // RepositoryImpl

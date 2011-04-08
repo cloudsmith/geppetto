@@ -74,6 +74,50 @@ public class ForgeServiceTest extends TestCase {
 	}
 
 	/**
+	 * Returns the fixture for this Service test case.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
+	protected ForgeService getFixture() {
+		return fixture;
+	}
+
+	/**
+	 * Sets the fixture for this Service test case.
+	 * <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
+	 * 
+	 * @generated
+	 */
+	protected void setFixture(ForgeService fixture) {
+		this.fixture = fixture;
+	}
+
+	/**
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @see junit.framework.TestCase#setUp()
+	 * @generated
+	 */
+	@Override
+	protected void setUp() throws Exception {
+		setFixture(ForgeFactory.eINSTANCE.createForgeService());
+	}
+
+	/**
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @see junit.framework.TestCase#tearDown()
+	 * @generated
+	 */
+	@Override
+	protected void tearDown() throws Exception {
+		setFixture(null);
+	}
+
+	/**
 	 * Tests the ' {@link org.cloudsmith.geppetto.forge.ForgeService#createCache(java.io.File, org.cloudsmith.geppetto.forge.Repository)
 	 * <em>Create Cache</em>}' operation. <!-- begin-user-doc --> <!--
 	 * end-user-doc -->
@@ -241,50 +285,6 @@ public class ForgeServiceTest extends TestCase {
 		catch(IOException e) {
 			fail(e.getMessage());
 		}
-	}
-
-	/**
-	 * Returns the fixture for this Service test case.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * 
-	 * @generated
-	 */
-	protected ForgeService getFixture() {
-		return fixture;
-	}
-
-	/**
-	 * Sets the fixture for this Service test case.
-	 * <!-- begin-user-doc --> <!--
-	 * end-user-doc -->
-	 * 
-	 * @generated
-	 */
-	protected void setFixture(ForgeService fixture) {
-		this.fixture = fixture;
-	}
-
-	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
-	 * @see junit.framework.TestCase#setUp()
-	 * @generated
-	 */
-	@Override
-	protected void setUp() throws Exception {
-		setFixture(ForgeFactory.eINSTANCE.createForgeService());
-	}
-
-	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
-	 * @see junit.framework.TestCase#tearDown()
-	 * @generated
-	 */
-	@Override
-	protected void tearDown() throws Exception {
-		setFixture(null);
 	}
 
 } // ForgeServiceTest

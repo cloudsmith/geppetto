@@ -599,19 +599,9 @@ public class VersionRequirementImpl extends EObjectImpl implements VersionRequir
 			return super.toString();
 
 		StringBuilder result = new StringBuilder();
-		switch(getMatchRule()) {
-			case PERFECT:
-				result.append("==");
-				break;
-			case EQUIVALENT:
-				result.append("~=");
-				break;
-			case COMPATIBLE:
-				result.append("~~");
-				break;
-			case GREATER_OR_EQUAL:
-				result.append(">=");
-		}
+		MatchRule rule = getMatchRule();
+		if(rule != null)
+			result.append(rule);
 		String ver = getVersion();
 		if(ver != null)
 			result.append(ver);

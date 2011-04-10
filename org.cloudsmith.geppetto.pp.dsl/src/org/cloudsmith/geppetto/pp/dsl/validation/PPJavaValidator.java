@@ -455,8 +455,8 @@ public class PPJavaValidator extends AbstractPPJavaValidator implements IPPDiagn
 		EObject container = o.eContainer();
 		if(!(container instanceof PuppetManifest || container instanceof HostClassDefinition))
 			error(
-				"A definition may only appear at toplevel or directly inside classes.", o, o.eContainingFeature(),
-				INSIGNIFICANT_INDEX, IPPDiagnostics.ISSUE__NOT_AT_TOPLEVEL_OR_CLASS);
+				"A definition may only appear at toplevel or directly inside classes.", o.eContainer(),
+				o.eContainingFeature(), INSIGNIFICANT_INDEX, IPPDiagnostics.ISSUE__NOT_AT_TOPLEVEL_OR_CLASS);
 	}
 
 	@Check

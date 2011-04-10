@@ -16,6 +16,7 @@ import org.cloudsmith.geppetto.pp.dsl.pptp.IPPTP;
 import org.cloudsmith.geppetto.pp.dsl.ui.coloring.PPHighlightConfiguration;
 import org.cloudsmith.geppetto.pp.dsl.ui.coloring.PPSemanticHighlightingCalculator;
 import org.cloudsmith.geppetto.pp.dsl.ui.coloring.PPTokenToAttributeIdMapper;
+import org.cloudsmith.geppetto.pp.dsl.ui.container.PPWorkspaceProjectsStateProvider;
 import org.cloudsmith.geppetto.pp.dsl.ui.editor.autoedit.PPTokenTypeToPartionMapper;
 import org.cloudsmith.geppetto.pp.dsl.ui.editor.toggleComments.PPSingleLineCommentHelper;
 import org.cloudsmith.geppetto.pp.dsl.ui.outline.PPLocationInFileProvider;
@@ -39,6 +40,10 @@ public class PPUiModule extends org.cloudsmith.geppetto.pp.dsl.ui.AbstractPPUiMo
 	public PPUiModule(AbstractUIPlugin plugin) {
 		super(plugin);
 	}
+
+	// public Class<? extends IContainer.Manager> bindIContainer$Manager() {
+	// return StateBasedContainerManager.class;
+	// }
 
 	public Class<? extends IHighlightingConfiguration> bindILexicalHighlightingConfiguration() {
 		return PPHighlightConfiguration.class;
@@ -102,6 +107,7 @@ public class PPUiModule extends org.cloudsmith.geppetto.pp.dsl.ui.AbstractPPUiMo
 	 */
 	@Override
 	public com.google.inject.Provider<org.eclipse.xtext.resource.containers.IAllContainersState> provideIAllContainersState() {
-		return org.eclipse.xtext.ui.shared.Access.getWorkspaceProjectsState();
+		// return org.eclipse.xtext.ui.shared.Access.getWorkspaceProjectsState();
+		return new PPWorkspaceProjectsStateProvider();
 	}
 }

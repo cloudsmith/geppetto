@@ -219,17 +219,19 @@ public class PPSemanticHighlightingCalculator implements ISemanticHighlightingCa
 	}
 
 	public void highlight(ResourceExpression expr, IHighlightedPositionAcceptor acceptor) {
-		TreeIterator<EObject> all = expr.getResourceExpr().eAllContents();
-		int counter = 0;
-		while(all.hasNext()) {
-			counter++;
-			EObject x = all.next();
-			if(x instanceof LiteralNameOrReference)
-				highlightObject(x, PPHighlightConfiguration.RESOURCE_REF_ID, acceptor);
+		EObject resourceExpr = expr.getResourceExpr();
+		if(resourceExpr != null) {
+			TreeIterator<EObject> all = resourceExpr.eAllContents();
+			int counter = 0;
+			while(all.hasNext()) {
+				counter++;
+				EObject x = all.next();
+				if(x instanceof LiteralNameOrReference)
+					highlightObject(x, PPHighlightConfiguration.RESOURCE_REF_ID, acceptor);
+			}
+			if(counter < 1)
+				highlightObject(resourceExpr, PPHighlightConfiguration.RESOURCE_REF_ID, acceptor);
 		}
-		if(counter < 1)
-			highlightObject(expr.getResourceExpr(), PPHighlightConfiguration.RESOURCE_REF_ID, acceptor);
-
 		for(ResourceBody body : expr.getResourceData()) {
 			if(body.getNameExpr() != null) {
 				ICompositeNode node = NodeModelUtils.getNode(body.getNameExpr());

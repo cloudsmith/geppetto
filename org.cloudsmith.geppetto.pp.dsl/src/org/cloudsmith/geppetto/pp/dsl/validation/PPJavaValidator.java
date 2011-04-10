@@ -417,7 +417,7 @@ public class PPJavaValidator extends AbstractPPJavaValidator implements IPPDiagn
 	}
 
 	@Check
-	void checkBinaryExpression(BinaryExpression o) {
+	public void checkBinaryExpression(BinaryExpression o) {
 		if(o.getLeftExpr() == null)
 			acceptor.acceptError(
 				"A binary expression must have a left expr", o, PPPackage.Literals.BINARY_EXPRESSION__LEFT_EXPR,
@@ -963,7 +963,7 @@ public class PPJavaValidator extends AbstractPPJavaValidator implements IPPDiagn
 	}
 
 	@Check
-	void checkUnaryExpression(UnaryMinusExpression o) {
+	public void checkUnaryExpression(UnaryMinusExpression o) {
 		if(o.getExpr() == null)
 			acceptor.acceptError(
 				"An unary minus expression must have right hand side expression", o,
@@ -972,7 +972,7 @@ public class PPJavaValidator extends AbstractPPJavaValidator implements IPPDiagn
 	}
 
 	@Check
-	void checkUnaryExpression(UnaryNotExpression o) {
+	public void checkUnaryExpression(UnaryNotExpression o) {
 		if(o.getExpr() == null)
 			acceptor.acceptError(
 				"A not expression must have a righ hand side expression", o,

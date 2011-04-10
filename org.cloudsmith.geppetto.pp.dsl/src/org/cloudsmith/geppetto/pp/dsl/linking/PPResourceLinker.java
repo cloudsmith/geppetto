@@ -20,6 +20,8 @@ import java.util.ListIterator;
 
 import org.cloudsmith.geppetto.pp.AttributeOperation;
 import org.cloudsmith.geppetto.pp.AttributeOperations;
+import org.cloudsmith.geppetto.pp.FunctionCall;
+import org.cloudsmith.geppetto.pp.LiteralNameOrReference;
 import org.cloudsmith.geppetto.pp.PPPackage;
 import org.cloudsmith.geppetto.pp.ResourceBody;
 import org.cloudsmith.geppetto.pp.ResourceExpression;
@@ -157,6 +159,21 @@ public class PPResourceLinker {
 
 	@Inject
 	IQualifiedNameProvider fqnProvider;
+
+	protected void _link(FunctionCall o, IMessageAcceptor acceptor) {
+		// if not a name, then there is nothing to link, and this error is handled
+		// elsewhere
+		if(!(o.getLeftExpr() instanceof LiteralNameOrReference))
+			return;
+		String name = ((LiteralNameOrReference) o.getLeftExpr()).getValue();
+		if(PPTP.findFunction(name) != null)
+			return; // ok, found
+
+		acceptor.acceptError(
+			"Unknown function: '" + name + "'", o.getLeftExpr(), IPPDiagnostics.ISSUE__UNKNOWN_FUNCTION_REFERENCE);
+
+		// functions can not be added in pp code, PPTP contains all of them.
+	}
 
 	protected void _link(ResourceBody o, IMessageAcceptor acceptor) {
 
@@ -393,6 +410,8 @@ public class PPResourceLinker {
 				_link((ResourceExpression) o, acceptor);
 			else if(o.eClass() == PPPackage.Literals.RESOURCE_BODY)
 				_link((ResourceBody) o, acceptor);
+			else if(o.eClass() == PPPackage.Literals.FUNCTION_CALL)
+				_link((FunctionCall) o, acceptor);
 		}
 
 	}

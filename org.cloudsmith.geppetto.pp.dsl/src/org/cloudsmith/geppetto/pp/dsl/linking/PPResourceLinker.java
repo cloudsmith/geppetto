@@ -20,9 +20,12 @@ import java.util.ListIterator;
 
 import org.cloudsmith.geppetto.pp.AttributeOperation;
 import org.cloudsmith.geppetto.pp.AttributeOperations;
+import org.cloudsmith.geppetto.pp.Expression;
 import org.cloudsmith.geppetto.pp.FunctionCall;
+import org.cloudsmith.geppetto.pp.HostClassDefinition;
 import org.cloudsmith.geppetto.pp.LiteralNameOrReference;
 import org.cloudsmith.geppetto.pp.PPPackage;
+import org.cloudsmith.geppetto.pp.PuppetManifest;
 import org.cloudsmith.geppetto.pp.ResourceBody;
 import org.cloudsmith.geppetto.pp.ResourceExpression;
 import org.cloudsmith.geppetto.pp.adapters.ClassifierAdapter;
@@ -31,6 +34,7 @@ import org.cloudsmith.geppetto.pp.dsl.pptp.IPPTP;
 import org.cloudsmith.geppetto.pp.dsl.validation.IPPDiagnostics;
 import org.cloudsmith.geppetto.pp.pptp.INamed;
 import org.cloudsmith.geppetto.pp.pptp.Type;
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.TreeIterator;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EClass;
@@ -44,6 +48,7 @@ import org.eclipse.xtext.resource.IContainer;
 import org.eclipse.xtext.resource.IEObjectDescription;
 import org.eclipse.xtext.resource.IResourceDescription;
 import org.eclipse.xtext.resource.IResourceDescriptions;
+import org.eclipse.xtext.resource.IResourceServiceProvider;
 
 import com.google.common.base.Predicate;
 import com.google.common.collect.Iterators;
@@ -139,11 +144,16 @@ public class PPResourceLinker {
 	@Inject
 	private IContainer.Manager manager;
 
+	@Inject
+	IResourceServiceProvider resourceServiceProvider;
+
 	/**
-	 * Access to global index maintained by Xtext
+	 * Access to global index maintained by Xtext, is via a special (non guice) provider
+	 * that is aware of the context (builder, dirty, etc.). It is used to obtain the
+	 * index for a particular resource.
 	 */
 	@Inject
-	private IResourceDescriptions descriptionIndex;
+	org.eclipse.xtext.resource.impl.ResourceDescriptionsProvider indexProvider;
 
 	/**
 	 * Classifies ResourceExpression based on its content (regular, override, etc).
@@ -261,15 +271,6 @@ public class PPResourceLinker {
 					// if any remain, pick the first
 					if(descs.size() > 0)
 						adapter.setTargetObject(descs.get(0));
-
-					// // find the first desc that is a definition (parent ok), or something else (definition),
-					// // in which case it can not be the container.
-					// for(IEObjectDescription d : descs)
-					// if(d.getEClass() == PPPackage.Literals.DEFINITION || !isParent(d, o)) {
-					// adapter.setTargetObject(d);
-					// // adapter.setTargetObject(descs.get(0));
-					// break;
-					// }
 				}
 
 				// if this is ambiguous report a warning - in RT, the first found will be silently used
@@ -310,27 +311,29 @@ public class PPResourceLinker {
 		if(eClass == null)
 			throw new IllegalArgumentException("eClass is null");
 
+		// DEBUG
+		// if(fqn.getLastSegment().equals("fragment"))
+		// System.out.println("doing 'fragment'");
 		List<IEObjectDescription> targets = Lists.newArrayList();
 		Resource scopeDetermeningResource = scopeDetermeningObject.eResource();
+		IResourceDescriptions descriptionIndex = indexProvider.getResourceDescriptions(scopeDetermeningResource);
 		IResourceDescription descr = descriptionIndex.getResourceDescription(scopeDetermeningResource.getURI());
 
-		// GIVE UP (can happen with stale/bad/old workspace state), will correct itself after refresh
-		// TODO: log this with message to refresh and report if problem persist
+		// GIVE UP (the system is performing a build clean)
+		// TODO: move detection of this earlier, we are not going to be able to link anything for the resource in this phase
 		if(descr == null)
 			return targets;
 
 		for(IContainer visibleContainer : manager.getVisibleContainers(descr, descriptionIndex)) {
 			for(IEObjectDescription objDesc : new NameInScopeFilter(
 				visibleContainer.getExportedObjectsByType(eClass), fqn, scopeDetermeningObject)) {
-				// for(IEObjectDescription objDesc : visibleContainer.getExportedObjects(eClass, fqn, false)) {
 				targets.add(objDesc);
 			}
 		}
 
 		// DEBUG
 		for(IEObjectDescription d : targets)
-			System.out.println("PPResourceLinker found target: " + converter.toString(d.getName()));
-
+			System.out.println("    : " + converter.toString(d.getName()) + " in: " + d.getEObjectURI().path());
 		return targets;
 	}
 
@@ -355,6 +358,47 @@ public class PPResourceLinker {
 				return result;
 		}
 		return QualifiedName.EMPTY;
+	}
+
+	/**
+	 * Links/validates unparenthesized function calls.
+	 * 
+	 * @param statements
+	 * @param acceptor
+	 */
+	protected void internalLinkUnparenthesisedCall(EList<Expression> statements, IMessageAcceptor acceptor) {
+		if(statements == null || statements.size() == 0)
+			return;
+
+		each_top: for(int i = 0; i < statements.size(); i++) {
+			Expression s = statements.get(i);
+
+			// -- may be a non parenthesized function call
+			if(s instanceof LiteralNameOrReference) {
+				// there must be one more expression in the list (a single argument, or
+				// an Expression list
+				// TODO: different issue, can be fixed by adding "()" if this is a function call without
+				// parameters, but difficult as validator does not know if function exists (would need
+				// an adapter to be able to pick this up in validation).
+				if((i + 1) >= statements.size()) {
+					continue each_top; // error reported by validation.
+				}
+				// the next expression is consumed as a single arg, or an expr list
+				// TODO: if there are expressions that can not be used as arguments check them here
+				i++;
+				// Expression arg = statements.get(i); // not used yet...
+				String name = ((LiteralNameOrReference) s).getValue();
+				if(PPTP.findFunction(name) != null)
+					return; // ok, found
+
+				acceptor.acceptError(
+					"Unknown function: '" + name + "'", s, PPPackage.Literals.LITERAL_NAME_OR_REFERENCE__VALUE,
+					IPPDiagnostics.ISSUE__UNKNOWN_FUNCTION_REFERENCE);
+
+				continue each_top;
+			}
+		}
+
 	}
 
 	/**
@@ -400,7 +444,20 @@ public class PPResourceLinker {
 	 * @param acceptor
 	 */
 	public void link(EObject model, IMessageAcceptor acceptor) {
-		TreeIterator<EObject> everything = model.eAllContents();
+		Resource r = model.eResource();
+		IResourceDescriptions descriptionIndex = indexProvider.getResourceDescriptions(r);
+		IResourceDescription descr = descriptionIndex.getResourceDescription(r.getURI());
+		if(descr == null) {
+			System.out.println("Cleaning resource: " + r.getURI().path());
+			return;
+		}
+
+		manager = resourceServiceProvider.getContainerManager();
+
+		System.out.println("Linking resource: " + r.getURI().path() + "{");
+		// Need to get everything in the resource, not just the content of the PuppetManifest (as the manifest has top level
+		// expressions that need linking.
+		TreeIterator<EObject> everything = model.eResource().getAllContents();
 		// it is important that ResourceExpresion are linked before ResourceBodyExpression (but that should
 		// be ok with the tree iterator as the bodies are contained).
 
@@ -412,7 +469,14 @@ public class PPResourceLinker {
 				_link((ResourceBody) o, acceptor);
 			else if(o.eClass() == PPPackage.Literals.FUNCTION_CALL)
 				_link((FunctionCall) o, acceptor);
+
+			// these are needed to link un-parenthesised function calls
+			else if(o.eClass() == PPPackage.Literals.PUPPET_MANIFEST)
+				internalLinkUnparenthesisedCall(((PuppetManifest) o).getStatements(), acceptor);
+			else if(o.eClass() == PPPackage.Literals.HOST_CLASS_DEFINITION)
+				internalLinkUnparenthesisedCall(((HostClassDefinition) o).getStatements(), acceptor);
 		}
+		System.out.println("}");
 
 	}
 
@@ -480,4 +544,5 @@ public class PPResourceLinker {
 		buf.append("}");
 		return buf.toString();
 	}
+
 }

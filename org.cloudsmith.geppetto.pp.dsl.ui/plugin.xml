@@ -200,5 +200,56 @@
          </activeWhen>
       </handler>
       </extension>
+    <extension
+          id="modulefileBuilder"
+          name="Puppet Modulefile Builder"
+          point="org.eclipse.core.resources.builders">
+       <builder
+             hasNature="true">
+          <run
+                class="org.cloudsmith.geppetto.pp.dsl.ui.builder.PPModulefileBuilder">
+          </run>
+       </builder>
+    </extension>
+    <extension
+          id="puppetNature"
+          name="Puppet Project Nature"
+          point="org.eclipse.core.resources.natures">
+       <runtime>
+          <run
+                class="org.cloudsmith.geppetto.pp.dsl.ui.builder.PuppetNature">
+          </run>
+       </runtime>
+       <builder
+             id="org.cloudsmith.geppetto.pp.dsl.ui.modulefileBuilder">
+       </builder>
+    </extension>
+    <extension
+          point="org.eclipse.ui.popupMenus">
+       <objectContribution
+             adaptable="true"
+             id="org.cloudsmith.geppetto.pp.dsl.ui.contribution1"
+             nameFilter="*"
+             objectClass="org.eclipse.core.resources.IProject">
+          <action
+                class="org.cloudsmith.geppetto.pp.dsl.ui.builder.ToggleNatureAction"
+                enablesFor="+"
+                id="org.cloudsmith.geppetto.pp.dsl.ui.addRemoveNatureAction"
+                label="Add/Remove Puppet Nature"
+                menubarPath="additions">
+          </action>
+       </objectContribution>
+    </extension>
+    <extension
+          id="puppetModuleProblem"
+          name="Puppet Module Problem"
+          point="org.eclipse.core.resources.markers">
+       <super
+             type="org.eclipse.core.resources.problemmarker">
+       </super>
+       <persistent
+             value="true">
+       </persistent>
+    </extension>
 
 </plugin>

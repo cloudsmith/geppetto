@@ -30,6 +30,7 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.xtext.junit.AbstractXtextTests;
 import org.eclipse.xtext.junit.validation.ValidatorTester;
 import org.eclipse.xtext.resource.SaveOptions;
+import org.eclipse.xtext.resource.XtextResource;
 import org.eclipse.xtext.validation.EValidatorRegistrar;
 
 public class AbstractPuppetTests extends AbstractXtextTests {
@@ -241,5 +242,13 @@ public class AbstractPuppetTests extends AbstractXtextTests {
 		PPJavaValidator validator = get(PPJavaValidator.class);
 		EValidatorRegistrar registrar = get(EValidatorRegistrar.class);
 		tester = new ValidatorTester<PPJavaValidator>(validator, registrar, "org.cloudsmith.geppetto.pp.dsl.PP");
+	}
+
+	protected AssertableResourceDiagnostics resourceErrorDiagnostics(XtextResource r) {
+		return new AssertableResourceDiagnostics(r.getErrors());
+	}
+
+	protected AssertableResourceDiagnostics resourceWarningDiagnostics(XtextResource r) {
+		return new AssertableResourceDiagnostics(r.getWarnings());
 	}
 }

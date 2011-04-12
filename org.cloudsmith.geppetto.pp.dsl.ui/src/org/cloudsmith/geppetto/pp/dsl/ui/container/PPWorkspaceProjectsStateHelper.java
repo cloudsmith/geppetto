@@ -71,19 +71,7 @@ public class PPWorkspaceProjectsStateHelper extends AbstractStorage2UriMapperCli
 		return candidates.inverse().get(best);
 	}
 
-	protected IWorkspaceRoot getWorkspaceRoot() {
-		return workspace.getRoot();
-	}
-
-	/**
-	 * Initializes visible handles from PP 'Modulefile' manifests. In case of errors, a partially
-	 * parsed result is returned and error is logged.
-	 * 
-	 * @param handle
-	 * @return
-	 */
-	public List<String> initVisibleHandles(String handle) {
-		IProject project = getWorkspaceRoot().getProject(handle);
+	public List<String> getVisibleProjectNames(IProject project) {
 		if(isAccessibleXtextProject(project)) {
 			IFile moduleFile = project.getFile("Modulefile");
 			if(moduleFile.exists()) {
@@ -112,6 +100,22 @@ public class PPWorkspaceProjectsStateHelper extends AbstractStorage2UriMapperCli
 			}
 		}
 		return Collections.emptyList();
+	}
+
+	protected IWorkspaceRoot getWorkspaceRoot() {
+		return workspace.getRoot();
+	}
+
+	/**
+	 * Initializes visible handles from PP 'Modulefile' manifests. In case of errors, a partially
+	 * parsed result is returned and error is logged.
+	 * 
+	 * @param handle
+	 * @return
+	 */
+	public List<String> initVisibleHandles(String handle) {
+		IProject project = getWorkspaceRoot().getProject(handle);
+		return getVisibleProjectNames(project);
 	}
 
 	protected boolean isAccessibleXtextProject(IProject p) {

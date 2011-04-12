@@ -246,15 +246,33 @@ public class TestPuppetResourceExpr extends AbstractPuppetTests {
 		assertTrue("Should have been a PuppetManifest", m instanceof PuppetManifest);
 	}
 
-	public void test_Valdate_UnknownProperty() {
-		// -- Resource with a couple of attribute definitions
-		PuppetManifest pp = pf.createPuppetManifest();
-		EList<Expression> statements = pp.getStatements();
-		ResourceExpression re = createResourceExpression("file", "aFile", "donor", createValue("0777"));
-		statements.add(re);
-		tester.validator().checkResourceExpression(re);
-		tester.validator().checkResourceBody(re.getResourceData().get(0));
-		tester.diagnose().assertError(IPPDiagnostics.ISSUE__RESOURCE_UNKNOWN_PROPERTY);
+	public void test_Valdate_UnknownProperty() throws Exception {
+		String code = "file { 'afile': donor => '\\1 should warn'}";
+		XtextResource r = getResourceFromStringAndExpect(code, UNKNOWN_EXPECTATION);
+		resourceErrorDiagnostics(r).assertDiagnostic(IPPDiagnostics.ISSUE__RESOURCE_UNKNOWN_PROPERTY);
+		resourceWarningDiagnostics(r).assertDiagnostic(IPPDiagnostics.ISSUE__UNRECOGNIZED_ESCAPE);
+
+		// EList<Diagnostic> x = r.getErrors();
+		// for(Diagnostic d : x) {
+		// String m = d.getMessage();
+		// System.err.println(m);
+		// }
+
+		// for(Diagnostic d : r.getErrors())
+		// root.addAll(d);
+		// Resource.Diagnostic
+		//
+		// tester.validate(r).assertError(IPPDiagnostics.ISSUE__RESOURCE_UNKNOWN_PROPERTY);
+		//
+		// // -- Resource with a couple of attribute definitions
+		// PuppetManifest pp = pf.createPuppetManifest();
+		// EList<Expression> statements = pp.getStatements();
+		// ResourceExpression re = createResourceExpression("file", "aFile", "donor", createValue("0777"));
+		// statements.add(re);
+		// tester.validate(pp).assertError(IPPDiagnostics.ISSUE__RESOURCE_UNKNOWN_PROPERTY);
+		// tester.validator().checkResourceExpression(re);
+		// tester.validator().checkResourceBody(re.getResourceData().get(0));
+		// tester.diagnose().assertError(IPPDiagnostics.ISSUE__RESOURCE_UNKNOWN_PROPERTY);
 	}
 
 	/**

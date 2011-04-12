@@ -26,15 +26,9 @@ public class PPWorkspaceProjectsStateProvider implements Provider<IAllContainers
 	@Inject
 	Injector injector;
 
-	// @Inject
-	// private MembersInjector<PPWorkspaceProjectsState> membersInjector;
-
 	@Override
 	public IAllContainersState get() {
 		return injector.getInstance(PPWorkspaceProjectsState.class);
-		// PPWorkspaceProjectsState pp = new PPWorkspaceProjectsState();
-		// membersInjector.injectMembers(pp);
-		// return pp;
 	}
 
 }

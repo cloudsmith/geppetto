@@ -45,18 +45,6 @@ import com.google.inject.internal.Lists;
 public class PPWorkspaceProjectsState extends AbstractAllContainersState {
 	private final static Logger log = Logger.getLogger(PPWorkspaceProjectsState.class);
 
-	// public static com.google.inject.Provider<IAllContainersState> provider() {
-	// return new com.google.inject.Provider<IAllContainersState>() {
-	//
-	// @Override
-	// public IAllContainersState get() {
-	// Injector injector = PPActivator.getInstance().getInjector("org.cloudsmith.geppetto.pp.dsl.PP");
-	// return injector.getInstance(PPWorkspaceProjectsState.class);
-	// }
-	//
-	// };
-	// }
-
 	@Inject
 	private WorkspaceProjectsStateHelper helper;
 
@@ -107,7 +95,6 @@ public class PPWorkspaceProjectsState extends AbstractAllContainersState {
 	 * See https://bugs.eclipse.org/bugs/show_bug.cgi?id=342092 - if this gets fixed, modify this
 	 * implementation.
 	 */
-	// @Override
 	@Override
 	public void resourceChanged(IResourceChangeEvent event) {
 		if(event.getType() == IResourceChangeEvent.PRE_CLOSE || event.getType() == IResourceChangeEvent.PRE_DELETE) {

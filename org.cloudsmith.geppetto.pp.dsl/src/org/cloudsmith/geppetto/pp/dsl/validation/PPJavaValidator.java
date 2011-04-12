@@ -944,7 +944,7 @@ public class PPJavaValidator extends AbstractPPJavaValidator implements IPPDiagn
 	public void checkSingleQuotedString(SingleQuotedString o) {
 		if(!isSTRING(o.getText()))
 			acceptor.acceptError(
-				"Expected to comply with String rule", o, o.eContainingFeature(), INSIGNIFICANT_INDEX,
+				"Expected to comply with String rule", o, PPPackage.Literals.SINGLE_QUOTED_STRING__TEXT,
 				IPPDiagnostics.ISSUE__NOT_STRING);
 		String s = o.getText();
 
@@ -959,7 +959,7 @@ public class PPJavaValidator extends AbstractPPJavaValidator implements IPPDiagn
 		if(unrecognized.length() > 0)
 			acceptor.acceptWarning(
 				"Unrecognized escape sequence(s): " + unrecognized.toString(), o,
-				IPPDiagnostics.ISSUE__UNRECOGNIZED_ESCAPE);
+				PPPackage.Literals.SINGLE_QUOTED_STRING__TEXT, IPPDiagnostics.ISSUE__UNRECOGNIZED_ESCAPE);
 	}
 
 	@Check
@@ -1099,17 +1099,17 @@ public class PPJavaValidator extends AbstractPPJavaValidator implements IPPDiagn
 				// parameters.
 				if((i + 1) >= statements.size()) {
 					acceptor.acceptError(
-						"Not a top level expression. (Looks like a function call without arguments)", s.eContainer(),
-						s.eContainingFeature(), i, IPPDiagnostics.ISSUE__NOT_TOPLEVEL);
+						"Not a top level expression. (Looks like a function call without arguments, use '()')",
+						s.eContainer(), s.eContainingFeature(), i, IPPDiagnostics.ISSUE__NOT_TOPLEVEL);
+					// continue each_top;
 				}
-				else {
-					// the next expression is consumed as a single arg, or an expr list
-					// TODO: if there are expressions that can not be used as arguments check them here
-					i++;
-					Expression arg = statements.get(i);
-					internalValidateFunctionCall((LiteralNameOrReference) s, i, arg);
-					continue each_top;
-				}
+				// the next expression is consumed as a single arg, or an expr list
+				// TODO: if there are expressions that can not be used as arguments check them here
+				i++;
+				// MOVED TO LINKING
+				// Expression arg = statements.get(i);
+				// internalValidateFunctionCall((LiteralNameOrReference) s, i, arg);
+				continue each_top;
 			}
 			for(Class<?> c : topLevelExprClasses) {
 				if(c.isAssignableFrom(s.getClass()))

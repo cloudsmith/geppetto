@@ -11,6 +11,8 @@
  */
 package org.cloudsmith.geppetto.pp.dsl;
 
+import org.cloudsmith.geppetto.common.tracer.DefaultTracer;
+import org.cloudsmith.geppetto.common.tracer.ITracer;
 import org.cloudsmith.geppetto.pp.dsl.lexer.PPOverridingLexer;
 import org.cloudsmith.geppetto.pp.dsl.linking.PPLinker;
 import org.cloudsmith.geppetto.pp.dsl.linking.PPQualifiedNameConverter;
@@ -21,6 +23,8 @@ import org.eclipse.xtext.naming.IQualifiedNameConverter;
 import org.eclipse.xtext.naming.IQualifiedNameProvider;
 import org.eclipse.xtext.parser.antlr.Lexer;
 import org.eclipse.xtext.validation.CompositeEValidator;
+
+import com.google.inject.name.Names;
 
 /**
  * Use this class to register components to be used at runtime / without the Equinox extension registry.
@@ -74,6 +78,11 @@ public class PPRuntimeModule extends org.cloudsmith.geppetto.pp.dsl.AbstractPPRu
 	@Override
 	public Class<? extends Lexer> bindLexer() {
 		return PPOverridingLexer.class;
+	}
+
+	public void configureDebugTracing(com.google.inject.Binder binder) {
+		binder.bind(ITracer.class).annotatedWith(Names.named(PPDSLConstants.PP_DEBUG_LINKER)).toInstance(
+			new DefaultTracer(PPDSLConstants.PP_DEBUG_LINKER));
 	}
 
 	/**

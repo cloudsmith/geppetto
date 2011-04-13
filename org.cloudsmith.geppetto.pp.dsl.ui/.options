@@ -1,0 +1,2 @@
+# Turns on tracing of modulefile operations
+org.cloudsmith.geppetto.pp.dsl.ui/debug/modulefile=false

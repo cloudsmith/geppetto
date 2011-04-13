@@ -1,0 +1,2 @@
+# produce debugging trace output in linker
+org.cloudsmith.geppetto.pp.dsl/debug/linker=false

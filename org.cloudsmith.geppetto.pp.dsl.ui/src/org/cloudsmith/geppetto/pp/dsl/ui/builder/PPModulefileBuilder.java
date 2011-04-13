@@ -17,9 +17,12 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.log4j.Logger;
+import org.cloudsmith.geppetto.common.tracer.DefaultTracer;
+import org.cloudsmith.geppetto.common.tracer.ITracer;
 import org.cloudsmith.geppetto.forge.Dependency;
 import org.cloudsmith.geppetto.forge.ForgeFactory;
 import org.cloudsmith.geppetto.forge.Metadata;
+import org.cloudsmith.geppetto.pp.dsl.ui.PPUiConstants;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IMarker;
 import org.eclipse.core.resources.IProject;
@@ -27,7 +30,6 @@ import org.eclipse.core.resources.IProjectDescription;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.IResourceDelta;
 import org.eclipse.core.resources.IResourceDeltaVisitor;
-import org.eclipse.core.resources.IWorkspace;
 import org.eclipse.core.resources.IWorkspaceRoot;
 import org.eclipse.core.resources.IncrementalProjectBuilder;
 import org.eclipse.core.runtime.CoreException;
@@ -46,6 +48,7 @@ import com.google.common.collect.Lists;
  * Builder of Modulefile that sets the dependencies on the project as dynamic project references
  * 
  */
+
 public class PPModulefileBuilder extends IncrementalProjectBuilder {
 	private final static Logger log = Logger.getLogger(PPModulefileBuilder.class);
 
@@ -55,7 +58,12 @@ public class PPModulefileBuilder extends IncrementalProjectBuilder {
 
 	public static final String BUILDER_ID = "org.cloudsmith.geppetto.pp.dsl.ui.modulefileBuilder";
 
-	private IWorkspace workspace;
+	private ITracer tracer;
+
+	public PPModulefileBuilder() {
+		// Hm, can not inject this for some reason...
+		tracer = new DefaultTracer(PPUiConstants.DEBUG_OPTION_MODULEFILE);
+	}
 
 	/*
 	 * (non-Javadoc)
@@ -264,7 +272,9 @@ public class PPModulefileBuilder extends IncrementalProjectBuilder {
 	}
 
 	private void syncModulefile(final IProgressMonitor monitor) {
-		System.out.println("Syncing modulefile with project");
+		if(tracer.isTracing())
+			tracer.trace("Syncing modulefile with project");
+
 		checkCancel(monitor);
 		IProject project = getProject();
 		List<IProject> resolutions = resolveDependencies(project, monitor);

@@ -18,6 +18,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
 
+import org.cloudsmith.geppetto.common.tracer.ITracer;
 import org.cloudsmith.geppetto.pp.AttributeOperation;
 import org.cloudsmith.geppetto.pp.AttributeOperations;
 import org.cloudsmith.geppetto.pp.Expression;
@@ -30,6 +31,7 @@ import org.cloudsmith.geppetto.pp.ResourceBody;
 import org.cloudsmith.geppetto.pp.ResourceExpression;
 import org.cloudsmith.geppetto.pp.adapters.ClassifierAdapter;
 import org.cloudsmith.geppetto.pp.adapters.ClassifierAdapterFactory;
+import org.cloudsmith.geppetto.pp.dsl.PPDSLConstants;
 import org.cloudsmith.geppetto.pp.dsl.pptp.IPPTP;
 import org.cloudsmith.geppetto.pp.dsl.validation.IPPDiagnostics;
 import org.cloudsmith.geppetto.pp.pptp.INamed;
@@ -55,14 +57,14 @@ import com.google.common.collect.Iterators;
 import com.google.common.collect.Sets;
 import com.google.inject.Inject;
 import com.google.inject.internal.Lists;
+import com.google.inject.name.Named;
 
 /**
- * Handles special linking of ResourceExpression and ResourceBody.
+ * Handles special linking of ResourceExpression and ResourceBody and function references.
  * 
  */
 
 public class PPResourceLinker {
-
 	class NameInScopeFilter implements Iterable<IEObjectDescription> {
 		private final Iterable<IEObjectDescription> unfiltered;
 
@@ -131,6 +133,10 @@ public class PPResourceLinker {
 			return scopeName.skipLast(scopeName.getSegmentCount() - commonCount).append(name).equals(candidateName);
 		}
 	}
+
+	@Inject
+	@Named(PPDSLConstants.PP_DEBUG_LINKER)
+	private ITracer tracer;
 
 	/**
 	 * Access puppet target platform.
@@ -311,16 +317,12 @@ public class PPResourceLinker {
 		if(eClass == null)
 			throw new IllegalArgumentException("eClass is null");
 
-		// DEBUG
-		// if(fqn.getLastSegment().equals("fragment"))
-		// System.out.println("doing 'fragment'");
 		List<IEObjectDescription> targets = Lists.newArrayList();
 		Resource scopeDetermeningResource = scopeDetermeningObject.eResource();
 		IResourceDescriptions descriptionIndex = indexProvider.getResourceDescriptions(scopeDetermeningResource);
 		IResourceDescription descr = descriptionIndex.getResourceDescription(scopeDetermeningResource.getURI());
 
-		// GIVE UP (the system is performing a build clean)
-		// TODO: move detection of this earlier, we are not going to be able to link anything for the resource in this phase
+		// GIVE UP (the system is performing a build clean).
 		if(descr == null)
 			return targets;
 
@@ -331,24 +333,12 @@ public class PPResourceLinker {
 			}
 		}
 
-		// DEBUG
-		for(IEObjectDescription d : targets)
-			System.out.println("    : " + converter.toString(d.getName()) + " in: " + d.getEObjectURI().path());
+		if(tracer.isTracing()) {
+			for(IEObjectDescription d : targets)
+				tracer.trace("    : ", converter.toString(d.getName()), " in: ", d.getEObjectURI().path());
+		}
 		return targets;
 	}
-
-	// FOR DEBUGGING
-	// public void listVisibleResources(Resource myResource, IResourceDescriptions index) {
-	// IResourceDescription descr = index.getResourceDescription(myResource.getURI());
-	// for(IContainer visibleContainer : manager.getVisibleContainers(descr, index)) {
-	// for(IResourceDescription visibleResourceDesc : visibleContainer.getResourceDescriptions()) {
-	// for(IEObjectDescription objDesc : visibleResourceDesc.getExportedObjects())
-	// System.out.println("\texported: " + converter.toString(objDesc.getQualifiedName()) + " type: " +
-	// objDesc.getEClass().getName());
-	// System.out.println(visibleResourceDesc.getURI());
-	// }
-	// }
-	// }
 
 	private QualifiedName getNameOfScope(EObject o) {
 		QualifiedName result = null;
@@ -448,13 +438,17 @@ public class PPResourceLinker {
 		IResourceDescriptions descriptionIndex = indexProvider.getResourceDescriptions(r);
 		IResourceDescription descr = descriptionIndex.getResourceDescription(r.getURI());
 		if(descr == null) {
-			System.out.println("Cleaning resource: " + r.getURI().path());
+			if(tracer.isTracing()) {
+				tracer.trace("Cleaning resource: " + r.getURI().path());
+			}
 			return;
 		}
 
 		manager = resourceServiceProvider.getContainerManager();
 
-		System.out.println("Linking resource: " + r.getURI().path() + "{");
+		if(tracer.isTracing())
+			tracer.trace("Linking resource: ", r.getURI().path(), "{");
+
 		// Need to get everything in the resource, not just the content of the PuppetManifest (as the manifest has top level
 		// expressions that need linking.
 		TreeIterator<EObject> everything = model.eResource().getAllContents();
@@ -476,7 +470,8 @@ public class PPResourceLinker {
 			else if(o.eClass() == PPPackage.Literals.HOST_CLASS_DEFINITION)
 				internalLinkUnparenthesisedCall(((HostClassDefinition) o).getStatements(), acceptor);
 		}
-		System.out.println("}");
+		if(tracer.isTracing())
+			tracer.trace("}");
 
 	}
 

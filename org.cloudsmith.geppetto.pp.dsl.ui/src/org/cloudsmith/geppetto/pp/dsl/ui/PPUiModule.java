@@ -11,8 +11,11 @@
  */
 package org.cloudsmith.geppetto.pp.dsl.ui;
 
+import org.cloudsmith.geppetto.common.tracer.DefaultTracer;
+import org.cloudsmith.geppetto.common.tracer.ITracer;
 import org.cloudsmith.geppetto.pp.dsl.lexer.PPOverridingLexer;
 import org.cloudsmith.geppetto.pp.dsl.pptp.IPPTP;
+import org.cloudsmith.geppetto.pp.dsl.ui.builder.PPModulefileBuilder;
 import org.cloudsmith.geppetto.pp.dsl.ui.coloring.PPHighlightConfiguration;
 import org.cloudsmith.geppetto.pp.dsl.ui.coloring.PPSemanticHighlightingCalculator;
 import org.cloudsmith.geppetto.pp.dsl.ui.coloring.PPTokenToAttributeIdMapper;
@@ -32,6 +35,8 @@ import org.eclipse.xtext.ui.editor.syntaxcoloring.ISemanticHighlightingCalculato
 import org.eclipse.xtext.ui.editor.toggleComments.ISingleLineCommentHelper;
 import org.eclipse.xtext.ui.resource.IResourceSetProvider;
 import org.eclipse.xtext.ui.resource.SimpleResourceSetProvider;
+
+import com.google.inject.name.Names;
 
 /**
  * Use this class to register components to be used within the IDE.
@@ -90,8 +95,17 @@ public class PPUiModule extends org.cloudsmith.geppetto.pp.dsl.ui.AbstractPPUiMo
 		return PPTokenTypeToPartionMapper.class;
 	}
 
+	public Class<? extends PPModulefileBuilder> bindModulefileBuilder() {
+		return PPModulefileBuilder.class;
+	}
+
 	public Class<? extends AbstractAntlrTokenToAttributeIdMapper> bindTokenToAttributeIdMapper() {
 		return PPTokenToAttributeIdMapper.class;
+	}
+
+	public void configureDebugTracing(com.google.inject.Binder binder) {
+		binder.bind(ITracer.class).annotatedWith(Names.named(PPUiConstants.DEBUG_OPTION_MODULEFILE)).toInstance(
+			new DefaultTracer(PPUiConstants.DEBUG_OPTION_MODULEFILE));
 	}
 
 	// contributed by org.eclipse.xtext.generator.parser.antlr.ex.rt.AntlrGeneratorFragment

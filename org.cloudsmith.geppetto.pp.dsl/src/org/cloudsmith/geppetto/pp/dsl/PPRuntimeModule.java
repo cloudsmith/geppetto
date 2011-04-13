@@ -30,12 +30,9 @@ import com.google.inject.name.Names;
  * Use this class to register components to be used at runtime / without the Equinox extension registry.
  */
 public class PPRuntimeModule extends org.cloudsmith.geppetto.pp.dsl.AbstractPPRuntimeModule {
-	// public Class<? extends IHiddenTokenHelper> bindIHiddenTokenHelper() {
-	// return PPHiddenTokenHelper.class;
-	// }
-
 	/**
-	 * Handles association of documentation comments.
+	 * Handles association of documentation comments, and resource linking (not based on
+	 * standard EReference links).
 	 */
 	@Override
 	public Class<? extends org.eclipse.xtext.linking.ILinker> bindILinker() {

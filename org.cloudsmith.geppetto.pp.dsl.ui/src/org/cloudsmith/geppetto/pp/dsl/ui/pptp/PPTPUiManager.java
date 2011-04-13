@@ -22,6 +22,8 @@ import org.cloudsmith.geppetto.pp.pptp.Type;
 import org.cloudsmith.geppetto.pp.pptp.TypeFragment;
 import org.cloudsmith.geppetto.pp.pptp.util.PPTPLinker;
 import org.cloudsmith.geppetto.ruby.RubyHelper;
+import org.eclipse.core.resources.IFile;
+import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.IResourceChangeEvent;
 import org.eclipse.core.resources.IResourceChangeListener;
@@ -51,7 +53,8 @@ public class PPTPUiManager extends PPTPManager implements IResourceChangeListene
 	 * Adds listening and updates of TP View of Workspace.
 	 */
 	public PPTPUiManager() {
-		// Superclass sets up default and workspace
+		// Superclass sets up default
+		loadWorkspaceTPView();
 
 		// Listen for changes
 		// only interested in post-change messages
@@ -83,6 +86,23 @@ public class PPTPUiManager extends PPTPManager implements IResourceChangeListene
 		if(!"rb".equals(resource.getFileExtension()))
 			return TPTYPE.IRRELEVANT;
 		return getTPTYPE(resource.getProjectRelativePath());
+	}
+
+	/**
+	 * Loads a TP View based on the projects in the workspace.
+	 * (Note: can not simply take the root of the workspace and process as a rootDirectory since
+	 * projects may be linked from different locations).
+	 */
+	protected void loadWorkspaceTPView() {
+		List<File> puppetLibs = Lists.newArrayList();
+		for(IProject p : ResourcesPlugin.getWorkspace().getRoot().getProjects()) {
+			if(!p.isAccessible())
+				continue;
+			IFile f = p.getFile(new Path("lib/puppet"));
+			if(f.getLocation().toFile().exists())
+				puppetLibs.add(f.getLocation().toFile());
+		}
+		createTPView(puppetLibs);
 	}
 
 	/**

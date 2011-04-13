@@ -27,9 +27,6 @@ import org.cloudsmith.geppetto.pp.pptp.PuppetTarget;
 import org.cloudsmith.geppetto.pp.pptp.TargetEntry;
 import org.cloudsmith.geppetto.pp.pptp.Type;
 import org.cloudsmith.geppetto.ruby.RubyHelper;
-import org.eclipse.core.resources.IFile;
-import org.eclipse.core.resources.IProject;
-import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.emf.common.util.EList;
@@ -121,7 +118,6 @@ public class PPTPManager implements IPPTP {
 	public PPTPManager() {
 		theTargetPlatform = PPTPFactory.eINSTANCE.createPuppetTarget();
 		loadDefaultTP();
-		loadWorkspaceTPView();
 	}
 
 	/**
@@ -311,23 +307,6 @@ public class PPTPManager implements IPPTP {
 		}
 		createTPView(puppetLibs);
 
-	}
-
-	/**
-	 * Loads a TP View based on the projects in the workspace.
-	 * (Note: can not simply take the root of the workspace and process as a rootDirectory since
-	 * projects may be linked from different locations).
-	 */
-	protected void loadWorkspaceTPView() {
-		List<File> puppetLibs = Lists.newArrayList();
-		for(IProject p : ResourcesPlugin.getWorkspace().getRoot().getProjects()) {
-			if(!p.isAccessible())
-				continue;
-			IFile f = p.getFile(new Path("lib/puppet"));
-			if(f.getLocation().toFile().exists())
-				puppetLibs.add(f.getLocation().toFile());
-		}
-		createTPView(puppetLibs);
 	}
 
 	/*

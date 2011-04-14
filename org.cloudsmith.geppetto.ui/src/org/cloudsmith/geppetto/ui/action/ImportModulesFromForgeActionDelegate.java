@@ -49,7 +49,7 @@ public class ImportModulesFromForgeActionDelegate extends ActionDelegate impleme
 					Forge forge = forgeService.createForge(java.net.URI.create("http://forge.puppetlabs.com")); //$NON-NLS-1$
 
 					for(ModuleInfo module : forge.search(null)) {
-						String projectName = module.getFullName().replace('/', '-') + '-' + module.getVersion();
+						String projectName = module.getFullName().replace('/', '-');
 
 						progressMonitor.subTask(UIPlugin.INSTANCE.getString(
 							"_UI_CreatingPuppetProject_message", new Object[] { projectName })); //$NON-NLS-1$

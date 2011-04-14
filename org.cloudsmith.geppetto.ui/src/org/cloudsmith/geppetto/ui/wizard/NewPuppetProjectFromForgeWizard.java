@@ -78,15 +78,6 @@ public class NewPuppetProjectFromForgeWizard extends NewPuppetProjectWizard {
 			setControl(parent);
 		}
 
-		@Override
-		public void setVisible(boolean visible) {
-			super.setVisible(visible);
-
-			if(visible) {
-				moduleField.setFocus();
-			}
-		}
-
 		protected void createModuleGroup(Composite parent) {
 			Label moduleLabel = new Label(parent, SWT.NONE);
 			moduleLabel.setText(UIPlugin.INSTANCE.getString("_UI_Module_label")); //$NON-NLS-1$
@@ -154,6 +145,15 @@ public class NewPuppetProjectFromForgeWizard extends NewPuppetProjectWizard {
 		}
 
 		@Override
+		public void setVisible(boolean visible) {
+			super.setVisible(visible);
+
+			if(visible) {
+				moduleField.setFocus();
+			}
+		}
+
+		@Override
 		protected boolean validatePage() {
 
 			if(module == null) {
@@ -163,7 +163,7 @@ public class NewPuppetProjectFromForgeWizard extends NewPuppetProjectWizard {
 			}
 
 			if(super.validatePage()) {
-				String preferredProjectName = module.getFullName().replace('/', '-') + '-' + module.getVersion();
+				String preferredProjectName = module.getFullName().replace('/', '-');
 
 				if(!preferredProjectName.equals(getProjectName())) {
 					setErrorMessage(null);
@@ -182,12 +182,6 @@ public class NewPuppetProjectFromForgeWizard extends NewPuppetProjectWizard {
 	protected ModuleInfo module;
 
 	@Override
-	public void init(IWorkbench workbench, IStructuredSelection selection) {
-		setDefaultPageImageDescriptor(ExtendedImageRegistry.INSTANCE.getImageDescriptor(UIPlugin.INSTANCE.getImage("full/wizban/NewPuppetProject.png"))); //$NON-NLS-1$
-		setWindowTitle(UIPlugin.INSTANCE.getString("_UI_NewPuppetProjectFromForge_title")); //$NON-NLS-1$
-	}
-
-	@Override
 	protected String getProjectCreationPageDescription() {
 		return UIPlugin.INSTANCE.getString("_UI_PuppetProjectFromForge_description"); //$NON-NLS-1$
 	}
@@ -195,6 +189,12 @@ public class NewPuppetProjectFromForgeWizard extends NewPuppetProjectWizard {
 	@Override
 	protected String getProjectCreationPageTitle() {
 		return UIPlugin.INSTANCE.getString("_UI_PuppetProjectFromForge_title"); //$NON-NLS-1$
+	}
+
+	@Override
+	public void init(IWorkbench workbench, IStructuredSelection selection) {
+		setDefaultPageImageDescriptor(ExtendedImageRegistry.INSTANCE.getImageDescriptor(UIPlugin.INSTANCE.getImage("full/wizban/NewPuppetProject.png"))); //$NON-NLS-1$
+		setWindowTitle(UIPlugin.INSTANCE.getString("_UI_NewPuppetProjectFromForge_title")); //$NON-NLS-1$
 	}
 
 	@Override

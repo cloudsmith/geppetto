@@ -32,11 +32,8 @@ import org.eclipse.core.resources.IResourceDeltaVisitor;
 import org.eclipse.core.resources.IWorkspaceRoot;
 import org.eclipse.core.resources.IncrementalProjectBuilder;
 import org.eclipse.core.runtime.CoreException;
-import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.OperationCanceledException;
-import org.eclipse.core.runtime.Path;
-import org.eclipse.core.runtime.QualifiedName;
 import org.eclipse.xtext.ui.XtextProjectHelper;
 import org.eclipse.xtext.util.Wrapper;
 
@@ -49,18 +46,10 @@ import com.google.common.collect.Lists;
  * 
  */
 
-public class PPModulefileBuilder extends IncrementalProjectBuilder {
+public class PPModulefileBuilder extends IncrementalProjectBuilder implements PPUiConstants {
 	private final static Logger log = Logger.getLogger(PPModulefileBuilder.class);
 
-	private static final IPath MODULEFILE_PATH = new Path("Modulefile");
-
-	private static final String PUPPET_MODULE_PROBLEM_MARKER = "org.cloudsmith.geppetto.pp.dsl.ui.puppetModuleProblem";
-
-	public static final String BUILDER_ID = "org.cloudsmith.geppetto.pp.dsl.ui.modulefileBuilder";
-
 	private ITracer tracer;
-
-	private static final QualifiedName versionKey = new QualifiedName(PPUiConstants.PLUGIN_ID, "version");
 
 	public PPModulefileBuilder() {
 		// Hm, can not inject this because it was not possible to inject this builder via the
@@ -105,7 +94,7 @@ public class PPModulefileBuilder extends IncrementalProjectBuilder {
 
 	protected void createMarker(IResource r, String message, Dependency d) {
 		try {
-			IMarker m = r.createMarker(PUPPET_MODULE_PROBLEM_MARKER);
+			IMarker m = r.createMarker(PUPPET_MODULE_PROBLEM_MARKER_TYPE);
 			m.setAttribute(IMarker.MESSAGE, message);
 			m.setAttribute(IMarker.PRIORITY, IMarker.PRIORITY_HIGH);
 			m.setAttribute(IMarker.SEVERITY, IMarker.SEVERITY_ERROR);
@@ -158,7 +147,7 @@ public class PPModulefileBuilder extends IncrementalProjectBuilder {
 				if(!isAccessibleXtextProject(p))
 					continue; // meaningless to add, does not have the right nature, will not be built
 				try {
-					version = p.getPersistentProperty(versionKey);
+					version = p.getPersistentProperty(PROJECT_PROPERTY_MODULEVERSION);
 				}
 				catch(CoreException e) {
 					log.error("Error while getting version from project", e);
@@ -254,7 +243,7 @@ public class PPModulefileBuilder extends IncrementalProjectBuilder {
 	protected void removeErrorMarkers() {
 		IFile m = getProject().getFile(MODULEFILE_PATH);
 		try {
-			m.deleteMarkers(PUPPET_MODULE_PROBLEM_MARKER, true, IResource.DEPTH_ZERO);
+			m.deleteMarkers(PUPPET_MODULE_PROBLEM_MARKER_TYPE, true, IResource.DEPTH_ZERO);
 		}
 		catch(CoreException e) {
 			// nevermind, the resource may not even be there...
@@ -331,9 +320,9 @@ public class PPModulefileBuilder extends IncrementalProjectBuilder {
 					version = "0.0.0";
 				try {
 					IProject p = getProject();
-					String storedVersion = p.getPersistentProperty(versionKey);
+					String storedVersion = p.getPersistentProperty(PROJECT_PROPERTY_MODULEVERSION);
 					if(!version.equals(storedVersion))
-						p.setPersistentProperty(versionKey, version);
+						p.setPersistentProperty(PROJECT_PROPERTY_MODULEVERSION, version);
 				}
 				catch(CoreException e1) {
 					log.error("Could not set version of project", e1);

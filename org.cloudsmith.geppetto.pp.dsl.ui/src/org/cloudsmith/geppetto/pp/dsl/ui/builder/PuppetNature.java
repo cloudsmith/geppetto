@@ -1,5 +1,6 @@
 package org.cloudsmith.geppetto.pp.dsl.ui.builder;
 
+import org.cloudsmith.geppetto.pp.dsl.ui.PPUiConstants;
 import org.eclipse.core.resources.ICommand;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IProjectDescription;
@@ -25,7 +26,7 @@ public class PuppetNature implements IProjectNature {
 		ICommand[] commands = desc.getBuildSpec();
 
 		for(int i = 0; i < commands.length; ++i) {
-			if(commands[i].getBuilderName().equals(PPModulefileBuilder.BUILDER_ID)) {
+			if(commands[i].getBuilderName().equals(PPUiConstants.MODULEFILE_BUILDER_ID)) {
 				return;
 			}
 		}
@@ -33,7 +34,7 @@ public class PuppetNature implements IProjectNature {
 		ICommand[] newCommands = new ICommand[commands.length + 1];
 		System.arraycopy(commands, 0, newCommands, 1, commands.length);
 		ICommand command = desc.newCommand();
-		command.setBuilderName(PPModulefileBuilder.BUILDER_ID);
+		command.setBuilderName(PPUiConstants.MODULEFILE_BUILDER_ID);
 		newCommands[0] = command;
 		desc.setBuildSpec(newCommands);
 		project.setDescription(desc, null);
@@ -52,7 +53,7 @@ public class PuppetNature implements IProjectNature {
 
 		ICommand[] commands = description.getBuildSpec();
 		for(int i = 0; i < commands.length; ++i) {
-			if(commands[i].getBuilderName().equals(PPModulefileBuilder.BUILDER_ID)) {
+			if(commands[i].getBuilderName().equals(PPUiConstants.MODULEFILE_BUILDER_ID)) {
 				ICommand[] newCommands = new ICommand[commands.length - 1];
 				System.arraycopy(commands, 0, newCommands, 0, i);
 				System.arraycopy(commands, i + 1, newCommands, i, commands.length - i - 1);

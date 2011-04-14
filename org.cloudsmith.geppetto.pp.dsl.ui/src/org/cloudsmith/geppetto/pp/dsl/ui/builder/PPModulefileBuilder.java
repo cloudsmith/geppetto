@@ -92,18 +92,27 @@ public class PPModulefileBuilder extends IncrementalProjectBuilder implements PP
 		// better to wait until the sync as they are probably still the same
 	}
 
-	protected void createMarker(IResource r, String message, Dependency d) {
+	protected void createErrorMarker(IResource r, String message, Dependency d) {
+		createMarker(IMarker.SEVERITY_ERROR, r, message, d);
+	}
+
+	protected void createMarker(int severity, IResource r, String message, Dependency d) {
 		try {
 			IMarker m = r.createMarker(PUPPET_MODULE_PROBLEM_MARKER_TYPE);
 			m.setAttribute(IMarker.MESSAGE, message);
 			m.setAttribute(IMarker.PRIORITY, IMarker.PRIORITY_HIGH);
-			m.setAttribute(IMarker.SEVERITY, IMarker.SEVERITY_ERROR);
+			m.setAttribute(IMarker.SEVERITY, severity);
 			if(d != null)
 				m.setAttribute(IMarker.LOCATION, d.getName() + d.getVersionRequirement().toString());
 		}
 		catch(CoreException e) {
 			log.error("Could not create error marker or set its attributes for a 'Modulefile'", e);
 		}
+
+	}
+
+	protected void createWarningMarker(IResource r, String message, Dependency d) {
+		createMarker(IMarker.SEVERITY_WARNING, r, message, d);
 	}
 
 	private void fullBuild(IProgressMonitor monitor) {
@@ -121,31 +130,41 @@ public class PPModulefileBuilder extends IncrementalProjectBuilder implements PP
 	 */
 	protected IProject getBestMatchingProject(Dependency d, IProgressMonitor monitor) {
 		// Names with "/" are not allowed
-		final String name = d.getName().replace("/", "-");
-		if(name == null || name.isEmpty())
+		final String requiredName = d.getName().replace("/", "-").toLowerCase();
+		if(requiredName == null || requiredName.isEmpty())
 			return null;
 
 		BiMap<IProject, String> candidates = HashBiMap.create();
 
-		final String namepart = name + "-";
+		final String namepart = requiredName + "-";
 		final int len = namepart.length();
+
 		for(IProject p : getWorkspaceRoot().getProjects()) {
 			checkCancel(monitor);
-			String n = p.getName();
+			if(!isAccessiblePuppetProject(p))
+				continue;
+
+			String projectName = p.getName().toLowerCase();
 
 			// new style
 			String version = null;
-			boolean newStyleMatch = false;
-			boolean oldStyleMatch = false;
-			if(n.equals(name))
-				newStyleMatch = true;
-			else if(n.startsWith(name + "-") && n.length() > len)
-				oldStyleMatch = true;
+			String moduleName = null;
+			try {
+				moduleName = p.getPersistentProperty(PROJECT_PROPERTY_MODULENAME);
+			}
+			catch(CoreException e) {
+				log.error("Could not read project Modulename property", e);
+			}
+			boolean matched = false;
+			if(requiredName.equals(moduleName))
+				matched = true;
+			else if(projectName.equals(requiredName))
+				matched = true;
+			else if(projectName.startsWith(requiredName + "-") && projectName.length() > len)
+				matched = true;
 
 			// in both old and new style match, get the version from the persisted property
-			if(newStyleMatch || oldStyleMatch) {
-				if(!isAccessibleXtextProject(p))
-					continue; // meaningless to add, does not have the right nature, will not be built
+			if(matched) {
 				try {
 					version = p.getPersistentProperty(PROJECT_PROPERTY_MODULEVERSION);
 				}
@@ -213,7 +232,7 @@ public class PPModulefileBuilder extends IncrementalProjectBuilder implements PP
 	 * @param p
 	 * @return
 	 */
-	protected boolean isAccessibleXtextProject(IProject p) {
+	protected boolean isAccessiblePuppetProject(IProject p) {
 		return p != null && XtextProjectHelper.hasNature(p);
 	}
 
@@ -229,7 +248,7 @@ public class PPModulefileBuilder extends IncrementalProjectBuilder implements PP
 			return metadata;
 		}
 		catch(Exception e) {
-			createMarker(moduleFile, "Can not parse modulefile: " + e.getMessage(), null);
+			createErrorMarker(moduleFile, "Can not parse modulefile: " + e.getMessage(), null);
 			if(log.isDebugEnabled())
 				log.debug("Could not parse Modulefile dependencies: '" + moduleFile + "'", e);
 		}
@@ -273,7 +292,7 @@ public class PPModulefileBuilder extends IncrementalProjectBuilder implements PP
 				if(best != null)
 					result.add(best);
 				else {
-					createMarker(
+					createErrorMarker(
 						moduleFile,
 						"Unresolved dependency :'" + d.getName() + "' version: " + d.getVersionRequirement(), d);
 				}
@@ -303,7 +322,7 @@ public class PPModulefileBuilder extends IncrementalProjectBuilder implements PP
 
 		checkCancel(monitor);
 		IProject project = getProject();
-		if(isAccessibleXtextProject(project)) {
+		if(isAccessiblePuppetProject(project)) {
 			IFile moduleFile = project.getFile("Modulefile");
 			if(moduleFile.exists()) {
 
@@ -312,20 +331,29 @@ public class PPModulefileBuilder extends IncrementalProjectBuilder implements PP
 				if(metadata == null)
 					return; // give up - errors have been logged.
 
-				// sync version
+				// sync version and name project data
 				String version = metadata == null
 						? "0"
 						: metadata.getVersion();
 				if(version == null || version.length() < 1)
 					version = "0.0.0";
+				String moduleName = metadata.getFullName().toLowerCase();
+				if(moduleName != null && !project.getName().toLowerCase().contains(moduleName))
+					createWarningMarker(moduleFile, "Mismatched name - project does not reflect module: '" +
+							moduleName + "'", null);
+
 				try {
 					IProject p = getProject();
 					String storedVersion = p.getPersistentProperty(PROJECT_PROPERTY_MODULEVERSION);
 					if(!version.equals(storedVersion))
 						p.setPersistentProperty(PROJECT_PROPERTY_MODULEVERSION, version);
+
+					String storedName = p.getPersistentProperty(PROJECT_PROPERTY_MODULENAME);
+					if(!moduleName.equals(storedName))
+						p.setPersistentProperty(PROJECT_PROPERTY_MODULENAME, moduleName);
 				}
 				catch(CoreException e1) {
-					log.error("Could not set version of project", e1);
+					log.error("Could not set version or symbolic module name of project", e1);
 				}
 
 				List<IProject> resolutions = resolveDependencies(metadata, moduleFile, monitor);

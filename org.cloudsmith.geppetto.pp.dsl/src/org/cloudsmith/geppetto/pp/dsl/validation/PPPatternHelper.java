@@ -44,9 +44,13 @@ public class PPPatternHelper {
 
 	protected final Pattern sqStringPattern;
 
-	protected final Pattern unrecognizedEscapes;
+	protected final Pattern unrecognizedSQEscapes;
 
-	protected final Pattern recognizedEscapes;
+	protected final Pattern recognizedSQEscapes;
+
+	protected final Pattern unrecognizedDQEscapes;
+
+	protected final Pattern recognizedDQEscapes;
 
 	/**
 	 * Intended as Ruby %r{[\w-]} equivalence
@@ -74,22 +78,51 @@ public class PPPatternHelper {
 		// sq string may not contain unescaped single quote
 		sqStringPattern = Pattern.compile("([^'\\\\]|\\\\.)*");
 
-		unrecognizedEscapes = Pattern.compile("\\\\[^stn '\"\\\\\\r\\n]");
+		unrecognizedSQEscapes = Pattern.compile("\\\\[^stn '\"\\\\\\r\\n]");
 
-		recognizedEscapes = Pattern.compile("\\\\[\\\\nrst'\" ]");
+		recognizedSQEscapes = Pattern.compile("\\\\[\\\\nrst'\" ]");
+
+		unrecognizedDQEscapes = Pattern.compile("\\\\[^stn '\"\\\\\\r\\n\\$]");
+
+		recognizedDQEscapes = Pattern.compile("\\\\[\\\\nrst'\" \\$]");
 	}
 
-	public Pattern getRecognizedEscapePattenr() {
-		return recognizedEscapes;
+	/**
+	 * For DQ string
+	 * 
+	 * @return
+	 */
+	public Pattern getRecognizedDQEscapePattern() {
+		return recognizedDQEscapes;
+	}
+
+	/**
+	 * For SQ string
+	 * 
+	 * @return
+	 */
+	public Pattern getRecognizedSQEscapePattern() {
+		return recognizedSQEscapes;
 	}
 
 	/**
 	 * Finds unrecognized escapes if recognized escapes have been removed from the input first.
+	 * For DQ string.
 	 * 
 	 * @return
 	 */
-	public Pattern getUnrecognizedEscapesPattern() {
-		return unrecognizedEscapes;
+	public Pattern getUnrecognizedDQEscapesPattern() {
+		return unrecognizedDQEscapes;
+	}
+
+	/**
+	 * Finds unrecognized escapes if recognized escapes have been removed from the input first.
+	 * For SQ string.
+	 * 
+	 * @return
+	 */
+	public Pattern getUnrecognizedSQEscapesPattern() {
+		return unrecognizedSQEscapes;
 	}
 
 	public boolean isCLASSNAME(String s) {

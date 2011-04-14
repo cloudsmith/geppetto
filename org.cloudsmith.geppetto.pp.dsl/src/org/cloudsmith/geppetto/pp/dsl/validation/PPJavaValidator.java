@@ -949,10 +949,10 @@ public class PPJavaValidator extends AbstractPPJavaValidator implements IPPDiagn
 		String s = o.getText();
 
 		// remove all escaped \ to make it easier to find the illegal escapes
-		Matcher m1 = patternHelper.getRecognizedEscapePattenr().matcher(s);
+		Matcher m1 = patternHelper.getRecognizedSQEscapePattern().matcher(s);
 		s = m1.replaceAll("");
 
-		Matcher m = patternHelper.getUnrecognizedEscapesPattern().matcher(s);
+		Matcher m = patternHelper.getUnrecognizedSQEscapesPattern().matcher(s);
 		StringBuffer unrecognized = new StringBuffer();
 		while(m.find())
 			unrecognized.append(m.group());
@@ -994,10 +994,10 @@ public class PPJavaValidator extends AbstractPPJavaValidator implements IPPDiagn
 		if(s == null || s.length() == 0)
 			return;
 		// remove all escaped \ to make it easier to find the illegal escapes
-		Matcher m1 = patternHelper.getRecognizedEscapePattenr().matcher(s);
+		Matcher m1 = patternHelper.getRecognizedDQEscapePattern().matcher(s);
 		s = m1.replaceAll("");
 
-		Matcher m = patternHelper.getUnrecognizedEscapesPattern().matcher(s);
+		Matcher m = patternHelper.getUnrecognizedDQEscapesPattern().matcher(s);
 		StringBuffer unrecognized = new StringBuffer();
 		while(m.find())
 			unrecognized.append(m.group());

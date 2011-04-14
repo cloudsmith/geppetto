@@ -12,7 +12,6 @@
 
 package org.cloudsmith.geppetto.pp.dsl.ui.builder;
 
-import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
@@ -37,6 +36,7 @@ import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.OperationCanceledException;
 import org.eclipse.core.runtime.Path;
+import org.eclipse.core.runtime.QualifiedName;
 import org.eclipse.xtext.ui.XtextProjectHelper;
 import org.eclipse.xtext.util.Wrapper;
 
@@ -60,8 +60,11 @@ public class PPModulefileBuilder extends IncrementalProjectBuilder {
 
 	private ITracer tracer;
 
+	private static final QualifiedName versionKey = new QualifiedName(PPUiConstants.PLUGIN_ID, "version");
+
 	public PPModulefileBuilder() {
-		// Hm, can not inject this for some reason...
+		// Hm, can not inject this because it was not possible to inject this builder via the
+		// executable extension factory
 		tracer = new DefaultTracer(PPUiConstants.DEBUG_OPTION_MODULEFILE);
 	}
 
@@ -128,24 +131,50 @@ public class PPModulefileBuilder extends IncrementalProjectBuilder {
 	 * @return
 	 */
 	protected IProject getBestMatchingProject(Dependency d, IProgressMonitor monitor) {
-		String name = d.getName();
 		// Names with "/" are not allowed
-		name = name.replace("/", "-");
+		final String name = d.getName().replace("/", "-");
 		if(name == null || name.isEmpty())
 			return null;
-		String namepart = name + "-";
-		BiMap<IProject, String> candidates = HashBiMap.create();
-		int len = namepart.length();
 
+		BiMap<IProject, String> candidates = HashBiMap.create();
+
+		final String namepart = name + "-";
+		final int len = namepart.length();
 		for(IProject p : getWorkspaceRoot().getProjects()) {
 			checkCancel(monitor);
 			String n = p.getName();
-			if(n.startsWith(name + "-") && n.length() > len && isAccessibleXtextProject(p))
-				candidates.put(p, p.getName().substring(len));
+
+			// new style
+			String version = null;
+			boolean newStyleMatch = false;
+			boolean oldStyleMatch = false;
+			if(n.equals(name))
+				newStyleMatch = true;
+			else if(n.startsWith(name + "-") && n.length() > len)
+				oldStyleMatch = true;
+
+			// in both old and new style match, get the version from the persisted property
+			if(newStyleMatch || oldStyleMatch) {
+				if(!isAccessibleXtextProject(p))
+					continue; // meaningless to add, does not have the right nature, will not be built
+				try {
+					version = p.getPersistentProperty(versionKey);
+				}
+				catch(CoreException e) {
+					log.error("Error while getting version from project", e);
+				}
+				if(version == null)
+					version = "0";
+				candidates.put(p, version);
+			}
+			// // old style, name and version in project name
+			// else if(n.startsWith(name + "-") && n.length() > len && isAccessibleXtextProject(p))
+			// candidates.put(p, p.getName().substring(len));
 		}
 		if(candidates.isEmpty())
 			return null;
 
+		// find best version and do a lookup of project
 		String best = d.getVersionRequirement().findBestMatch(candidates.values());
 		if(best == null || best.length() == 0)
 			return null;
@@ -203,6 +232,22 @@ public class PPModulefileBuilder extends IncrementalProjectBuilder {
 		return ((delta.getResource() instanceof IFile) && MODULEFILE_PATH.equals(delta.getProjectRelativePath()));
 	}
 
+	public Metadata loadMetadata(IFile moduleFile, IProgressMonitor monitor) {
+		// parse the "Modulefile" and get full name and version, use this as name of target entry
+		try {
+			Metadata metadata = ForgeFactory.eINSTANCE.createMetadata();
+			metadata.loadModuleFile(moduleFile.getLocation().toFile());
+			return metadata;
+		}
+		catch(Exception e) {
+			createMarker(moduleFile, "Can not parse modulefile: " + e.getMessage(), null);
+			if(log.isDebugEnabled())
+				log.debug("Could not parse Modulefile dependencies: '" + moduleFile + "'", e);
+		}
+		return null;
+
+	}
+
 	/**
 	 * Deletes all problem markers set by this builder.
 	 */
@@ -225,39 +270,31 @@ public class PPModulefileBuilder extends IncrementalProjectBuilder {
 	 * @param handle
 	 * @return
 	 */
-	public List<IProject> resolveDependencies(IProject project, IProgressMonitor monitor) {
-		if(isAccessibleXtextProject(project)) {
-			IFile moduleFile = project.getFile("Modulefile");
-			if(moduleFile.exists()) {
-				List<IProject> result = Lists.newArrayList();
+	public List<IProject> resolveDependencies(Metadata metadata, IFile moduleFile, IProgressMonitor monitor) {
+		List<IProject> result = Lists.newArrayList();
 
-				// parse the "Modulefile" and get full name and version, use this as name of target entry
-				try {
-					Metadata metadata = ForgeFactory.eINSTANCE.createMetadata();
-					metadata.loadModuleFile(moduleFile.getLocation().toFile());
+		// parse the "Modulefile" and get full name and version, use this as name of target entry
+		try {
+			// Metadata metadata = ForgeFactory.eINSTANCE.createMetadata();
+			// metadata.loadModuleFile(moduleFile.getLocation().toFile());
 
-					for(Dependency d : metadata.getDependencies()) {
-						checkCancel(monitor);
-						IProject best = getBestMatchingProject(d, monitor);
-						if(best != null)
-							result.add(best);
-						else {
-							createMarker(
-								moduleFile,
-								"Unresolved dependency :'" + d.getName() + "' version: " + d.getVersionRequirement(), d);
-						}
-					}
-
+			for(Dependency d : metadata.getDependencies()) {
+				checkCancel(monitor);
+				IProject best = getBestMatchingProject(d, monitor);
+				if(best != null)
+					result.add(best);
+				else {
+					createMarker(
+						moduleFile,
+						"Unresolved dependency :'" + d.getName() + "' version: " + d.getVersionRequirement(), d);
 				}
-				catch(Exception e) {
-					createMarker(moduleFile, "Can not parse modulefile: " + e.getMessage(), null);
-					if(log.isDebugEnabled())
-						log.debug("Could not parse Modulefile dependencies: '" + moduleFile + "'", e);
-				}
-				return result;
 			}
 		}
-		return Collections.emptyList();
+		catch(Exception e) {
+			if(log.isDebugEnabled())
+				log.debug("Error while resolving Modulefile dependencies: '" + moduleFile + "'", e);
+		}
+		return result;
 	}
 
 	/*
@@ -277,20 +314,47 @@ public class PPModulefileBuilder extends IncrementalProjectBuilder {
 
 		checkCancel(monitor);
 		IProject project = getProject();
-		List<IProject> resolutions = resolveDependencies(project, monitor);
-		try {
-			IProject[] dynamicReferences = project.getDescription().getDynamicReferences();
-			List<IProject> current = Lists.newArrayList(dynamicReferences);
-			if(current.size() == resolutions.size() && current.containsAll(resolutions))
-				return; // already in sync
-			// not in sync, set them
-			IProjectDescription desc = project.getDescription();
-			desc.setDynamicReferences(resolutions.toArray(new IProject[resolutions.size()]));
-			project.setDescription(desc, monitor);
+		if(isAccessibleXtextProject(project)) {
+			IFile moduleFile = project.getFile("Modulefile");
+			if(moduleFile.exists()) {
 
-		}
-		catch(CoreException e) {
-			log.error("Can not sync project's dynamic dependencies", e);
+				// get metadata
+				Metadata metadata = loadMetadata(moduleFile, monitor);
+				if(metadata == null)
+					return; // give up - errors have been logged.
+
+				// sync version
+				String version = metadata == null
+						? "0"
+						: metadata.getVersion();
+				if(version == null || version.length() < 1)
+					version = "0.0.0";
+				try {
+					IProject p = getProject();
+					String storedVersion = p.getPersistentProperty(versionKey);
+					if(!version.equals(storedVersion))
+						p.setPersistentProperty(versionKey, version);
+				}
+				catch(CoreException e1) {
+					log.error("Could not set version of project", e1);
+				}
+
+				List<IProject> resolutions = resolveDependencies(metadata, moduleFile, monitor);
+				try {
+					IProject[] dynamicReferences = project.getDescription().getDynamicReferences();
+					List<IProject> current = Lists.newArrayList(dynamicReferences);
+					if(current.size() == resolutions.size() && current.containsAll(resolutions))
+						return; // already in sync
+					// not in sync, set them
+					IProjectDescription desc = project.getDescription();
+					desc.setDynamicReferences(resolutions.toArray(new IProject[resolutions.size()]));
+					project.setDescription(desc, monitor);
+
+				}
+				catch(CoreException e) {
+					log.error("Can not sync project's dynamic dependencies", e);
+				}
+			}
 		}
 	}
 }

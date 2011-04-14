@@ -12,6 +12,8 @@
 
 package org.cloudsmith.geppetto.pp.dsl.ui.builder;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
@@ -213,6 +215,10 @@ public class PPModulefileBuilder extends IncrementalProjectBuilder implements PP
 					if(isModulefileDelta(delta))
 						buildFlag.set(true);
 
+					// if any file included in the checksum was changed, added, removed etc.
+					if(isChecksumChange(delta))
+						buildFlag.set(true);
+
 					// continue scanning the delta tree
 					return true;
 				}
@@ -234,6 +240,27 @@ public class PPModulefileBuilder extends IncrementalProjectBuilder implements PP
 	 */
 	protected boolean isAccessiblePuppetProject(IProject p) {
 		return p != null && XtextProjectHelper.hasNature(p);
+	}
+
+	/**
+	 * A change to any file except "metadata.json" is a checksum change.
+	 * 
+	 * @param delta
+	 * @return
+	 */
+	protected boolean isChecksumChange(IResourceDelta delta) {
+		IResource resource = delta.getResource();
+		if(!(resource instanceof IFile))
+			return false;
+		if(resource.getProjectRelativePath().toString().equals("metadata.json"))
+			return false;
+		return true; // (almost) all files are included in the checksum list.
+
+		// if("pp".equals(extension) || ".rb".equals(extension))
+		// return true;
+		// if("README".equals(resource.getName()))
+		// return true;
+		// return false;
 	}
 
 	protected boolean isModulefileDelta(IResourceDelta delta) {
@@ -357,11 +384,11 @@ public class PPModulefileBuilder extends IncrementalProjectBuilder implements PP
 				}
 
 				List<IProject> resolutions = resolveDependencies(metadata, moduleFile, monitor);
-				try {
+				DYNAMIC_REFERENCES: try {
 					IProject[] dynamicReferences = project.getDescription().getDynamicReferences();
 					List<IProject> current = Lists.newArrayList(dynamicReferences);
 					if(current.size() == resolutions.size() && current.containsAll(resolutions))
-						return; // already in sync
+						break DYNAMIC_REFERENCES; // already in sync
 					// not in sync, set them
 					IProjectDescription desc = project.getDescription();
 					desc.setDynamicReferences(resolutions.toArray(new IProject[resolutions.size()]));
@@ -370,6 +397,23 @@ public class PPModulefileBuilder extends IncrementalProjectBuilder implements PP
 				}
 				catch(CoreException e) {
 					log.error("Can not sync project's dynamic dependencies", e);
+				}
+
+				// Sync the built .json version
+				try {
+					File pf = project.getLocation().toFile();
+					File mf = new File(pf, "metadata.json");
+					File tf = new File(pf, "lib/puppet");
+
+					// if there are types
+					if(tf.exists())
+						metadata.loadTypeFiles(tf);
+					metadata.loadChecksums(pf);
+					metadata.saveJSONMetadata(mf);
+				}
+				catch(IOException e) {
+					createErrorMarker(moduleFile, "Error while writing 'metadata.json': " + e.getMessage(), null);
+					log.error("Could not build 'metadata.json' for: '" + moduleFile + "'", e);
 				}
 			}
 		}

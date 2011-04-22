@@ -30,6 +30,18 @@ public class ModuleMetadataEditor extends FormEditor {
 	protected Metadata metadata;
 
 	@Override
+	protected void addPages() {
+
+		try {
+			addPage(new ModuleMetadataOverviewPage(this, "overview", UIPlugin.INSTANCE.getString("_UI_Overview_title"))); //$NON-NLS-1$ //$NON-NLS-2$
+			//addPage(new ModuleMetadataSourcePage(this, "source", UIPlugin.INSTANCE.getString("_UI_Source_title"))); //$NON-NLS-1$ //$NON-NLS-2$
+		}
+		catch(Exception e) {
+			UIPlugin.INSTANCE.log(e);
+		}
+	}
+
+	@Override
 	public void doSave(IProgressMonitor monitor) {
 		commitPages(true);
 
@@ -66,6 +78,10 @@ public class ModuleMetadataEditor extends FormEditor {
 		// do nothing
 	}
 
+	Metadata getMetadata() {
+		return metadata;
+	}
+
 	@Override
 	public void init(IEditorSite site, IEditorInput input) throws PartInitException {
 		super.init(site, input);
@@ -87,22 +103,6 @@ public class ModuleMetadataEditor extends FormEditor {
 	@Override
 	public boolean isSaveAsAllowed() {
 		return false;
-	}
-
-	@Override
-	protected void addPages() {
-
-		try {
-			addPage(new ModuleMetadataOverviewPage(this, "overview", UIPlugin.INSTANCE.getString("_UI_Overview_title"))); //$NON-NLS-1$ //$NON-NLS-2$
-			//addPage(new ModuleMetadataSourcePage(this, "source", UIPlugin.INSTANCE.getString("_UI_Source_title"))); //$NON-NLS-1$ //$NON-NLS-2$
-		}
-		catch(Exception e) {
-			UIPlugin.INSTANCE.log(e);
-		}
-	}
-
-	Metadata getMetadata() {
-		return metadata;
 	}
 
 }

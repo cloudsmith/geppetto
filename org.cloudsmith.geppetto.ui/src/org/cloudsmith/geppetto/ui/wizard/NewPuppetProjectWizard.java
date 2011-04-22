@@ -80,10 +80,38 @@ public class NewPuppetProjectWizard extends Wizard implements INewWizard {
 		addPage(newProjectCreationPage);
 	}
 
+	protected Forge getForge() {
+
+		if(forge == null) {
+			forge = ForgeFactory.eINSTANCE.createForgeService().createForge(
+				java.net.URI.create("http://forge.puppetlabs.com")); //$NON-NLS-1$
+		}
+
+		return forge;
+	}
+
+	protected String getProjectCreationPageDescription() {
+		return UIPlugin.INSTANCE.getString("_UI_PuppetProject_description"); //$NON-NLS-1$
+	}
+
+	protected String getProjectCreationPageTitle() {
+		return UIPlugin.INSTANCE.getString("_UI_PuppetProject_title"); //$NON-NLS-1$
+	}
+
 	@Override
 	public void init(IWorkbench workbench, IStructuredSelection selection) {
 		setDefaultPageImageDescriptor(ExtendedImageRegistry.INSTANCE.getImageDescriptor(UIPlugin.INSTANCE.getImage("full/wizban/NewPuppetProject.png"))); //$NON-NLS-1$
 		setWindowTitle(UIPlugin.INSTANCE.getString("_UI_NewPuppetProject_title")); //$NON-NLS-1$
+	}
+
+	protected void initializeProjectContents() throws Exception {
+		Forge forge = getForge();
+		Metadata metadata = forge.getService().createMetadata(System.getProperty("user.name") + '/' + project.getName()); //$NON-NLS-1$
+		forge.generate(project.getLocation().toFile(), metadata);
+	}
+
+	protected WizardNewProjectCreationPage newProjectCreationPage(String pageName) {
+		return new PuppetProjectCreationPage(pageName);
 	}
 
 	@Override
@@ -138,34 +166,6 @@ public class NewPuppetProjectWizard extends Wizard implements INewWizard {
 		}
 
 		return true;
-	}
-
-	protected Forge getForge() {
-
-		if(forge == null) {
-			forge = ForgeFactory.eINSTANCE.createForgeService().createForge(
-				java.net.URI.create("http://forge.puppetlabs.com")); //$NON-NLS-1$
-		}
-
-		return forge;
-	}
-
-	protected String getProjectCreationPageDescription() {
-		return UIPlugin.INSTANCE.getString("_UI_PuppetProject_description"); //$NON-NLS-1$
-	}
-
-	protected String getProjectCreationPageTitle() {
-		return UIPlugin.INSTANCE.getString("_UI_PuppetProject_title"); //$NON-NLS-1$
-	}
-
-	protected void initializeProjectContents() throws Exception {
-		Forge forge = getForge();
-		Metadata metadata = forge.getService().createMetadata(System.getProperty("user.name") + '/' + project.getName()); //$NON-NLS-1$
-		forge.generate(project.getLocation().toFile(), metadata);
-	}
-
-	protected WizardNewProjectCreationPage newProjectCreationPage(String pageName) {
-		return new PuppetProjectCreationPage(pageName);
 	}
 
 }

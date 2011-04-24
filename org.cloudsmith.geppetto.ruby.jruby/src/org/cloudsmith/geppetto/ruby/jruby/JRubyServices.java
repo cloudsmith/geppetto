@@ -14,13 +14,13 @@ package org.cloudsmith.geppetto.ruby.jruby;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.Reader;
 import java.util.List;
 import java.util.Map;
 
 import org.cloudsmith.geppetto.ruby.PPFunctionInfo;
 import org.cloudsmith.geppetto.ruby.PPTypeInfo;
 import org.cloudsmith.geppetto.ruby.RubySyntaxException;
-import org.cloudsmith.geppetto.ruby.jruby.RubyParserWarningsCollector.RubyIssue;
 import org.cloudsmith.geppetto.ruby.spi.IRubyIssue;
 import org.cloudsmith.geppetto.ruby.spi.IRubyParseResult;
 import org.cloudsmith.geppetto.ruby.spi.IRubyServices;
@@ -222,5 +222,35 @@ public class JRubyServices  implements IRubyServices{
 	public PPTypeInfo getMetaTypeProperties(File file) throws IOException,
 			RubySyntaxException {
 		throw new UnsupportedOperationException("Implement this method");
+	}
+
+	@Override
+	public IRubyParseResult parse(String path, Reader reader)
+			throws IOException {
+		throw new UnsupportedOperationException("Please implement me");
+
+	}
+
+	@Override
+	public List<PPTypeInfo> getTypeInfo(String fileName, Reader reader)
+			throws IOException, RubySyntaxException {
+		throw new UnsupportedOperationException("Please implement me");
+	}
+
+	@Override
+	public List<PPFunctionInfo> getFunctionInfo(String fileName, Reader reader) {
+		throw new UnsupportedOperationException("Please implement me");
+	}
+
+	@Override
+	public PPTypeInfo getMetaTypeProperties(String fileName,
+			Reader reader) {
+		throw new UnsupportedOperationException("Please implement me");
+	}
+
+	@Override
+	public List<PPTypeInfo> getTypePropertiesInfo(String fileName, Reader reader)
+			throws IOException, RubySyntaxException {
+		throw new UnsupportedOperationException("Please implement me");
 	}
 }

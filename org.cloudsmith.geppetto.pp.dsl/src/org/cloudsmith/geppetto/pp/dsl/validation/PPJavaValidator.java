@@ -79,10 +79,7 @@ import org.cloudsmith.geppetto.pp.VirtualNameOrReference;
 import org.cloudsmith.geppetto.pp.adapters.ClassifierAdapter;
 import org.cloudsmith.geppetto.pp.adapters.ClassifierAdapterFactory;
 import org.cloudsmith.geppetto.pp.dsl.linking.IMessageAcceptor;
-import org.cloudsmith.geppetto.pp.dsl.linking.PPResourceLinker;
 import org.cloudsmith.geppetto.pp.dsl.linking.ValidationBasedMessageAcceptor;
-import org.cloudsmith.geppetto.pp.dsl.pptp.IPPTP;
-import org.cloudsmith.geppetto.pp.pptp.Type;
 import org.cloudsmith.geppetto.pp.util.TextExpressionHelper;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
@@ -200,26 +197,6 @@ public class PPJavaValidator extends AbstractPPJavaValidator implements IPPDiagn
 
 	@Inject
 	private PPPatternHelper patternHelper;
-
-	@Inject
-	private IPPTP PPTP;
-
-	@Inject
-	private PPResourceLinker resourceLinker;
-
-	/**
-	 * "built in" functions that return a value
-	 */
-	public static String[] namesOfValueFunctions = {
-			"defined", "extlookup", "file", "fqdn_rand", "generate", "inline_template", "md5", "regsubst", "sha1",
-			"shellquote", "split", "sprintf", "tagged", "template", "versioncmp", };
-
-	/**
-	 * "built in" void functions
-	 */
-	public static String[] namesOfVoidFunctions = {
-			"alert", "crit", "debug", "emerg", "err", "file", "include", "info", "notice", "realize", "require",
-			"search", "tag", "warning", };
 
 	/**
 	 * Classes accepted as top level statements in a pp manifest.
@@ -586,7 +563,6 @@ public class PPJavaValidator extends AbstractPPJavaValidator implements IPPDiagn
 				IPPDiagnostics.ISSUE__NOT_NAME);
 	}
 
-	// TODO: CHECK OF STRING EXPRESSIONS, INTERPOLATION ETC.
 	@Check
 	public void checkLiteralNameOrReference(LiteralNameOrReference o) {
 		if(isKEYWORD(o.getValue())) {
@@ -716,32 +692,6 @@ public class PPJavaValidator extends AbstractPPJavaValidator implements IPPDiagn
 			acceptor.acceptError(
 				"Expression unsupported as resource name/title.", o, PPPackage.Literals.RESOURCE_BODY__NAME_EXPR,
 				INSIGNIFICANT_INDEX, IPPDiagnostics.ISSUE__UNSUPPORTED_EXPRESSION);
-
-		// // LINKING START - MOVE TO PPLINKER
-		// ResourceExpression resource = (ResourceExpression) o.eContainer();
-		// ClassifierAdapter adapter = ClassifierAdapterFactory.eINSTANCE.adapt(resource);
-		// if(!(adapter.getClassifier() == RESOURCE_IS_CLASSPARAMS || adapter.getClassifier() == RESOURCE_IS_OVERRIDE)) {
-		// Type resourceType = adapter.getResourceType();
-		// // if resourceType is unknown then this is handled by other rules (not possible to
-		// // check the properties).
-		// //
-		// if(resourceType != null) {
-		// AttributeOperations aos = o.getAttributes();
-		// for(AttributeOperation ao : aos.getAttributes()) {
-		// if(isMetaParameter(ao.getKey()))
-		// continue;
-		// INamed p = PPTP.findProperty(resourceType, ao.getKey());
-		// if(p == null)
-		// p = PPTP.findParameter(resourceType, ao.getKey());
-		// if(p == null)
-		// acceptor.acceptError(
-		// "Unknown parameter: '" + ao.getKey() + "' in type: '" + resourceType.getName() + "'", ao,
-		// PPPackage.Literals.ATTRIBUTE_OPERATION__KEY, INSIGNIFICANT_INDEX,
-		// IPPDiagnostics.ISSUE__RESOURCE_UNKNOWN_PROPERTY);
-		// }
-		// }
-		// }
-		// // LINKING END
 	}
 
 	/**
@@ -795,24 +745,6 @@ public class PPJavaValidator extends AbstractPPJavaValidator implements IPPDiagn
 			// not much use checking the rest
 			return;
 		}
-
-		// // MOVED TO RESOURCE LINKER
-		// resourceLinker.linkResourceExpressions(o, this);
-		// // LINKING START (TODO: Move to linking phase)
-		// // If resource is good, and not 'class', then it must have a known reference type.
-		// // TODO: possibly check a resource override if the expression is constant (or it is impossible to lookup
-		// // the resource type - also requires getting the type name from the override's expression).
-		// Type theType = null;
-		// if(!(resourceType == RESOURCE_IS_CLASSPARAMS || resourceType == RESOURCE_IS_OVERRIDE)) {
-		// theType = PPTP.findType(resourceTypeName);
-		// adapter.setResourceType(theType);
-		// if(theType == null)
-		// acceptor.acceptError(
-		// "Unknown resource type: '" + resourceTypeName + "'", o,
-		// PPPackage.Literals.RESOURCE_EXPRESSION__RESOURCE_EXPR, INSIGNIFICANT_INDEX,
-		// IPPDiagnostics.ISSUE__RESOURCE_UNKNOWN_TYPE);
-		// }
-		// // LINKING END
 
 		// -- can not virtualize/export non regular resources
 		if(resourceExpr instanceof VirtualNameOrReference && resourceType != RESOURCE_IS_REGULAR) {
@@ -1020,10 +952,6 @@ public class PPJavaValidator extends AbstractPPJavaValidator implements IPPDiagn
 		return result;
 	}
 
-	// private PPGrammarAccess getGrammarAccess() {
-	// return (PPGrammarAccess) grammarAccess;
-	// }
-
 	protected boolean hasInterpolation(IQuotedString s) {
 		if(!(s instanceof DoubleQuotedString))
 			return false;
@@ -1106,9 +1034,6 @@ public class PPJavaValidator extends AbstractPPJavaValidator implements IPPDiagn
 				// the next expression is consumed as a single arg, or an expr list
 				// TODO: if there are expressions that can not be used as arguments check them here
 				i++;
-				// MOVED TO LINKING
-				// Expression arg = statements.get(i);
-				// internalValidateFunctionCall((LiteralNameOrReference) s, i, arg);
 				continue each_top;
 			}
 			for(Class<?> c : topLevelExprClasses) {
@@ -1118,38 +1043,6 @@ public class PPJavaValidator extends AbstractPPJavaValidator implements IPPDiagn
 			acceptor.acceptError(
 				"Not a top level expression. Was: " + s.getClass().getSimpleName(), s.eContainer(),
 				s.eContainingFeature(), i, IPPDiagnostics.ISSUE__NOT_TOPLEVEL);
-		}
-
-	}
-
-	/**
-	 * Validate a function call when found in the form of two separate expressions:
-	 * a name, and a single Expression, or an ExpressionList.
-	 * 
-	 * @param name
-	 * @param args
-	 */
-	protected void internalValidateFunctionCall(LiteralNameOrReference name, int index, Expression args) {
-		// -- check that name is a reference to an existing function
-		// TODO: provide list + extension mechanism (scan module for ruby code?) for validation of functions
-		// TODO: is overloading supported?
-
-		// -- check that the argument count complies with the function
-		// TODO: requires function meta data
-
-		// Simple checking of names, producing a warning for unknown names
-		nameCheck: {
-			String n = name.getValue();
-			for(String s : namesOfValueFunctions)
-				if(n.equals(s))
-					break nameCheck;
-			for(String s : namesOfVoidFunctions)
-				if(n.equals(s))
-					break nameCheck;
-			acceptor.acceptWarning(
-				"Unknown function: " + n, name.eContainer(), name.eContainingFeature(), index,
-				IPPDiagnostics.ISSUE__UNKNOWN_FUNCTION_REFERENCE);
-
 		}
 
 	}
@@ -1182,27 +1075,12 @@ public class PPJavaValidator extends AbstractPPJavaValidator implements IPPDiagn
 	 * 
 	 * @see org.eclipse.xtext.validation.AbstractInjectableValidator#isLanguageSpecific()
 	 * ISSUE: See https://bugs.eclipse.org/bugs/show_bug.cgi?id=335624
-	 * TODO: remove work around when issue is fixed.
+	 * TODO: remove work around now that issue is fixed.
 	 */
 	@Override
 	public boolean isLanguageSpecific() {
 		// return super.isLanguageSpecific(); // when issue is fixed, or remove method
 		return false;
-	}
-
-	/**
-	 * Returns true if the name is a <i>meta parameter</i> defined in puppet/type.rb; a parameter
-	 * applicable to all types.
-	 * 
-	 * @param parameterName
-	 * @return true if the given parameter is a meta parameter.
-	 */
-	private boolean isMetaParameter(String parameterName) {
-		Type metaType = PPTP.getMetaType();
-		if(metaType == null)
-			return false;
-		return PPTP.findParameter(metaType, parameterName) != null;
-		// return "require".equals(parameterName) || "provider".equals(parameterName);
 	}
 
 	private boolean isNAME(String s) {
@@ -1239,24 +1117,6 @@ public class PPJavaValidator extends AbstractPPJavaValidator implements IPPDiagn
 		Expression lhs = o.getLeftExpr();
 		return (lhs instanceof VariableExpression || lhs instanceof AtExpression || (o.eContainer() instanceof ExpressionTE && lhs instanceof LiteralNameOrReference));
 
-		// // TODO: There may be other references that means that the AtExpression is a ResourceReference.
-		//
-		// // -- when used as a resource reference in a resource override
-		// if(o.eContainmentFeature().eClass() == PPPackage.Literals.RESOURCE_EXPRESSION__RESOURCE_EXPR)
-		// return false; // checked elsewhere
-		//
-		// //-- when used as an operand in a relationship expression
-		// if(o.eContainer().eClass() == PPPackage.Literals.RELATIONSHIP_EXPRESSION)
-		// return false; // checked elsewhere
-		//
-		// // -- when used as a value in an attribute definition or addition
-		// if(o.eContainmentFeature() == PPPackage.Literals.ATTRIBUTE_OPERATION__VALUE)
-		// return false;
-		//
-		// // -- when used as an argument in a function call
-		// if(o.eContainmentFeature() == PPPackage.Literals.FUN)
-		//
-		// return true;
 	}
 
 	private boolean isSTRING(String s) {

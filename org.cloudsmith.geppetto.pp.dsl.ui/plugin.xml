@@ -251,5 +251,25 @@
              value="true">
        </persistent>
     </extension>
+    <extension
+          point="org.eclipse.xtext.extension_resourceServiceProvider">
+       <resourceServiceProvider
+             class="org.cloudsmith.geppetto.pp.dsl.ui.pptp.PptpRubyExecutableExtensionFactory:org.eclipse.xtext.resource.IResourceServiceProvider"
+             uriExtension="rb">
+       </resourceServiceProvider>
+    </extension>
+    <extension
+          point="org.eclipse.xtext.extension_resourceServiceProvider">
+       <resourceServiceProvider
+             class="org.cloudsmith.geppetto.pp.dsl.ui.pptp.PptpExecutableExtensionFactory:org.eclipse.xtext.resource.IResourceServiceProvider"
+             uriExtension="pptp">
+       </resourceServiceProvider>
+    </extension>
+    <extension
+          point="org.eclipse.ui.startup">
+       <startup
+             class="org.cloudsmith.geppetto.pp.dsl.ui.internal.PPStartup">
+       </startup>
+    </extension>
 
 </plugin>

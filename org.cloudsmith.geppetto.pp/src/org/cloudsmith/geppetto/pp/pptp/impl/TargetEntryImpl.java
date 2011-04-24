@@ -11,10 +11,9 @@
  */
 package org.cloudsmith.geppetto.pp.pptp.impl;
 
-import java.io.File;
-
 import java.util.Collection;
 import org.cloudsmith.geppetto.pp.pptp.Function;
+import org.cloudsmith.geppetto.pp.pptp.MetaType;
 import org.cloudsmith.geppetto.pp.pptp.PPTPPackage;
 import org.cloudsmith.geppetto.pp.pptp.TargetEntry;
 
@@ -39,42 +38,19 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <p>
  * The following features are implemented:
  * <ul>
- * <li>{@link org.cloudsmith.geppetto.pp.pptp.impl.TargetEntryImpl#getName <em>Name</em>}</li>
  * <li>{@link org.cloudsmith.geppetto.pp.pptp.impl.TargetEntryImpl#getDescription <em>Description</em>}</li>
- * <li>{@link org.cloudsmith.geppetto.pp.pptp.impl.TargetEntryImpl#getFile <em>File</em>}</li>
  * <li>{@link org.cloudsmith.geppetto.pp.pptp.impl.TargetEntryImpl#getFunctions <em>Functions</em>}</li>
  * <li>{@link org.cloudsmith.geppetto.pp.pptp.impl.TargetEntryImpl#getTypes <em>Types</em>}</li>
  * <li>{@link org.cloudsmith.geppetto.pp.pptp.impl.TargetEntryImpl#getVersion <em>Version</em>}</li>
  * <li>{@link org.cloudsmith.geppetto.pp.pptp.impl.TargetEntryImpl#getTypeFragments <em>Type Fragments</em>}</li>
  * <li>{@link org.cloudsmith.geppetto.pp.pptp.impl.TargetEntryImpl#getMetaType <em>Meta Type</em>}</li>
+ * <li>{@link org.cloudsmith.geppetto.pp.pptp.impl.TargetEntryImpl#getLabel <em>Label</em>}</li>
  * </ul>
  * </p>
  * 
  * @generated
  */
 public abstract class TargetEntryImpl extends EObjectImpl implements TargetEntry {
-	/**
-	 * The default value of the '{@link #getName() <em>Name</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * 
-	 * @see #getName()
-	 * @generated
-	 * @ordered
-	 */
-	protected static final String NAME_EDEFAULT = null;
-
-	/**
-	 * The cached value of the '{@link #getName() <em>Name</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * 
-	 * @see #getName()
-	 * @generated
-	 * @ordered
-	 */
-	protected String name = NAME_EDEFAULT;
-
 	/**
 	 * The default value of the '{@link #getDescription() <em>Description</em>}' attribute.
 	 * <!-- begin-user-doc -->
@@ -96,28 +72,6 @@ public abstract class TargetEntryImpl extends EObjectImpl implements TargetEntry
 	 * @ordered
 	 */
 	protected String description = DESCRIPTION_EDEFAULT;
-
-	/**
-	 * The default value of the '{@link #getFile() <em>File</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * 
-	 * @see #getFile()
-	 * @generated
-	 * @ordered
-	 */
-	protected static final File FILE_EDEFAULT = null;
-
-	/**
-	 * The cached value of the '{@link #getFile() <em>File</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * 
-	 * @see #getFile()
-	 * @generated
-	 * @ordered
-	 */
-	protected File file = FILE_EDEFAULT;
 
 	/**
 	 * The cached value of the '{@link #getFunctions() <em>Functions</em>}' containment reference list.
@@ -183,7 +137,29 @@ public abstract class TargetEntryImpl extends EObjectImpl implements TargetEntry
 	 * @generated
 	 * @ordered
 	 */
-	protected Type metaType;
+	protected MetaType metaType;
+
+	/**
+	 * The default value of the '{@link #getLabel() <em>Label</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @see #getLabel()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String LABEL_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getLabel() <em>Label</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @see #getLabel()
+	 * @generated
+	 * @ordered
+	 */
+	protected String label = LABEL_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -201,8 +177,8 @@ public abstract class TargetEntryImpl extends EObjectImpl implements TargetEntry
 	 * 
 	 * @generated
 	 */
-	public NotificationChain basicSetMetaType(Type newMetaType, NotificationChain msgs) {
-		Type oldMetaType = metaType;
+	public NotificationChain basicSetMetaType(MetaType newMetaType, NotificationChain msgs) {
+		MetaType oldMetaType = metaType;
 		metaType = newMetaType;
 		if(eNotificationRequired()) {
 			ENotificationImpl notification = new ENotificationImpl(
@@ -224,12 +200,8 @@ public abstract class TargetEntryImpl extends EObjectImpl implements TargetEntry
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch(featureID) {
-			case PPTPPackage.TARGET_ENTRY__NAME:
-				return getName();
 			case PPTPPackage.TARGET_ENTRY__DESCRIPTION:
 				return getDescription();
-			case PPTPPackage.TARGET_ENTRY__FILE:
-				return getFile();
 			case PPTPPackage.TARGET_ENTRY__FUNCTIONS:
 				return getFunctions();
 			case PPTPPackage.TARGET_ENTRY__TYPES:
@@ -240,6 +212,8 @@ public abstract class TargetEntryImpl extends EObjectImpl implements TargetEntry
 				return getTypeFragments();
 			case PPTPPackage.TARGET_ENTRY__META_TYPE:
 				return getMetaType();
+			case PPTPPackage.TARGET_ENTRY__LABEL:
+				return getLabel();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -274,18 +248,10 @@ public abstract class TargetEntryImpl extends EObjectImpl implements TargetEntry
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch(featureID) {
-			case PPTPPackage.TARGET_ENTRY__NAME:
-				return NAME_EDEFAULT == null
-						? name != null
-						: !NAME_EDEFAULT.equals(name);
 			case PPTPPackage.TARGET_ENTRY__DESCRIPTION:
 				return DESCRIPTION_EDEFAULT == null
 						? description != null
 						: !DESCRIPTION_EDEFAULT.equals(description);
-			case PPTPPackage.TARGET_ENTRY__FILE:
-				return FILE_EDEFAULT == null
-						? file != null
-						: !FILE_EDEFAULT.equals(file);
 			case PPTPPackage.TARGET_ENTRY__FUNCTIONS:
 				return functions != null && !functions.isEmpty();
 			case PPTPPackage.TARGET_ENTRY__TYPES:
@@ -298,6 +264,10 @@ public abstract class TargetEntryImpl extends EObjectImpl implements TargetEntry
 				return typeFragments != null && !typeFragments.isEmpty();
 			case PPTPPackage.TARGET_ENTRY__META_TYPE:
 				return metaType != null;
+			case PPTPPackage.TARGET_ENTRY__LABEL:
+				return LABEL_EDEFAULT == null
+						? label != null
+						: !LABEL_EDEFAULT.equals(label);
 		}
 		return super.eIsSet(featureID);
 	}
@@ -312,14 +282,8 @@ public abstract class TargetEntryImpl extends EObjectImpl implements TargetEntry
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch(featureID) {
-			case PPTPPackage.TARGET_ENTRY__NAME:
-				setName((String) newValue);
-				return;
 			case PPTPPackage.TARGET_ENTRY__DESCRIPTION:
 				setDescription((String) newValue);
-				return;
-			case PPTPPackage.TARGET_ENTRY__FILE:
-				setFile((File) newValue);
 				return;
 			case PPTPPackage.TARGET_ENTRY__FUNCTIONS:
 				getFunctions().clear();
@@ -337,7 +301,10 @@ public abstract class TargetEntryImpl extends EObjectImpl implements TargetEntry
 				getTypeFragments().addAll((Collection<? extends TypeFragment>) newValue);
 				return;
 			case PPTPPackage.TARGET_ENTRY__META_TYPE:
-				setMetaType((Type) newValue);
+				setMetaType((MetaType) newValue);
+				return;
+			case PPTPPackage.TARGET_ENTRY__LABEL:
+				setLabel((String) newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -363,14 +330,8 @@ public abstract class TargetEntryImpl extends EObjectImpl implements TargetEntry
 	@Override
 	public void eUnset(int featureID) {
 		switch(featureID) {
-			case PPTPPackage.TARGET_ENTRY__NAME:
-				setName(NAME_EDEFAULT);
-				return;
 			case PPTPPackage.TARGET_ENTRY__DESCRIPTION:
 				setDescription(DESCRIPTION_EDEFAULT);
-				return;
-			case PPTPPackage.TARGET_ENTRY__FILE:
-				setFile(FILE_EDEFAULT);
 				return;
 			case PPTPPackage.TARGET_ENTRY__FUNCTIONS:
 				getFunctions().clear();
@@ -385,7 +346,10 @@ public abstract class TargetEntryImpl extends EObjectImpl implements TargetEntry
 				getTypeFragments().clear();
 				return;
 			case PPTPPackage.TARGET_ENTRY__META_TYPE:
-				setMetaType((Type) null);
+				setMetaType((MetaType) null);
+				return;
+			case PPTPPackage.TARGET_ENTRY__LABEL:
+				setLabel(LABEL_EDEFAULT);
 				return;
 		}
 		super.eUnset(featureID);
@@ -407,16 +371,6 @@ public abstract class TargetEntryImpl extends EObjectImpl implements TargetEntry
 	 * 
 	 * @generated
 	 */
-	public File getFile() {
-		return file;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * 
-	 * @generated
-	 */
 	public EList<Function> getFunctions() {
 		if(functions == null) {
 			functions = new EObjectContainmentEList<Function>(Function.class, this, PPTPPackage.TARGET_ENTRY__FUNCTIONS);
@@ -430,8 +384,8 @@ public abstract class TargetEntryImpl extends EObjectImpl implements TargetEntry
 	 * 
 	 * @generated
 	 */
-	public Type getMetaType() {
-		return metaType;
+	public String getLabel() {
+		return label;
 	}
 
 	/**
@@ -440,8 +394,8 @@ public abstract class TargetEntryImpl extends EObjectImpl implements TargetEntry
 	 * 
 	 * @generated
 	 */
-	public String getName() {
-		return name;
+	public MetaType getMetaType() {
+		return metaType;
 	}
 
 	/**
@@ -501,11 +455,11 @@ public abstract class TargetEntryImpl extends EObjectImpl implements TargetEntry
 	 * 
 	 * @generated
 	 */
-	public void setFile(File newFile) {
-		File oldFile = file;
-		file = newFile;
+	public void setLabel(String newLabel) {
+		String oldLabel = label;
+		label = newLabel;
 		if(eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, PPTPPackage.TARGET_ENTRY__FILE, oldFile, file));
+			eNotify(new ENotificationImpl(this, Notification.SET, PPTPPackage.TARGET_ENTRY__LABEL, oldLabel, label));
 	}
 
 	/**
@@ -514,7 +468,7 @@ public abstract class TargetEntryImpl extends EObjectImpl implements TargetEntry
 	 * 
 	 * @generated
 	 */
-	public void setMetaType(Type newMetaType) {
+	public void setMetaType(MetaType newMetaType) {
 		if(newMetaType != metaType) {
 			NotificationChain msgs = null;
 			if(metaType != null)
@@ -530,19 +484,6 @@ public abstract class TargetEntryImpl extends EObjectImpl implements TargetEntry
 		else if(eNotificationRequired())
 			eNotify(new ENotificationImpl(
 				this, Notification.SET, PPTPPackage.TARGET_ENTRY__META_TYPE, newMetaType, newMetaType));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * 
-	 * @generated
-	 */
-	public void setName(String newName) {
-		String oldName = name;
-		name = newName;
-		if(eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, PPTPPackage.TARGET_ENTRY__NAME, oldName, name));
 	}
 
 	/**
@@ -571,14 +512,12 @@ public abstract class TargetEntryImpl extends EObjectImpl implements TargetEntry
 			return super.toString();
 
 		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (name: ");
-		result.append(name);
-		result.append(", description: ");
+		result.append(" (description: ");
 		result.append(description);
-		result.append(", file: ");
-		result.append(file);
 		result.append(", version: ");
 		result.append(version);
+		result.append(", label: ");
+		result.append(label);
 		result.append(')');
 		return result.toString();
 	}

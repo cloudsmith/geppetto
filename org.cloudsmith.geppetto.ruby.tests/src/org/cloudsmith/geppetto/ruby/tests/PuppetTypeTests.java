@@ -34,13 +34,14 @@ public class PuppetTypeTests extends TestCase {
 			assertEquals("Should have found one function", 1, foundTypes.size());
 			PPTypeInfo info = foundTypes.get(0);
 			assertEquals("Should have found 'thing'", "thing", info.getTypeName());
-			assertEquals("Should have found one parameter",1, info.getParameters().size());
+			assertEquals("Should have found one parameter", 2, info.getParameters().size());
 			assertEquals("Should have found two properties",2, info.getProperties().size());
 			
 			PPTypeInfo.Entry nameEntry = info.getParameters().get("name");
 			assertNotNull("Should have found a parameter called 'name'", nameEntry);
 			assertEquals("Should have found a description of 'name'", "Description of name", nameEntry.getDocumentation());
 
+			// TODO: check "ensure"
 			PPTypeInfo.Entry weightEntry = info.getProperties().get("weight");
 			assertNotNull("Should have found a property called 'weight'", weightEntry);
 			assertEquals("Should have found a description of 'weight'", "Description of weight", weightEntry.getDocumentation());

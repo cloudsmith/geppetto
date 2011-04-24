@@ -2,5 +2,12 @@
 <?eclipse version="3.4"?>
 <plugin>
    <extension-point id="org.cloudsmith.geppetto.rubyservice" name="org.cloudsmith.geppetto.rubyservice" schema="schema/org.cloudsmith.geppetto.rubyservice.exsd"/>
+   <extension
+         point="org.eclipse.emf.ecore.extension_parser">
+      <parser
+            class="org.cloudsmith.geppetto.ruby.resource.PptpRubyResourceFactory"
+            type="rb">
+      </parser>
+   </extension>
 
 </plugin>

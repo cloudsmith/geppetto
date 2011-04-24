@@ -68,13 +68,13 @@ public class PPTPAdapterFactory extends AdapterFactoryImpl {
 		}
 
 		@Override
-		public Adapter caseParameter(Parameter object) {
-			return createParameterAdapter();
+		public Adapter caseMetaType(MetaType object) {
+			return createMetaTypeAdapter();
 		}
 
 		@Override
-		public Adapter casePredefined(Predefined object) {
-			return createPredefinedAdapter();
+		public Adapter caseParameter(Parameter object) {
+			return createParameterAdapter();
 		}
 
 		@Override
@@ -85,21 +85,6 @@ public class PPTPAdapterFactory extends AdapterFactoryImpl {
 		@Override
 		public Adapter casePuppetDistribution(PuppetDistribution object) {
 			return createPuppetDistributionAdapter();
-		}
-
-		@Override
-		public Adapter casePuppetModule(PuppetModule object) {
-			return createPuppetModuleAdapter();
-		}
-
-		@Override
-		public Adapter casePuppetTarget(PuppetTarget object) {
-			return createPuppetTargetAdapter();
-		}
-
-		@Override
-		public Adapter caseRubyDirectory(RubyDirectory object) {
-			return createRubyDirectoryAdapter();
 		}
 
 		@Override
@@ -115,6 +100,11 @@ public class PPTPAdapterFactory extends AdapterFactoryImpl {
 		@Override
 		public Adapter caseType(Type object) {
 			return createTypeAdapter();
+		}
+
+		@Override
+		public Adapter caseTypeArgument(TypeArgument object) {
+			return createTypeArgumentAdapter();
 		}
 
 		@Override
@@ -230,6 +220,21 @@ public class PPTPAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
+	 * Creates a new adapter for an object of class '{@link org.cloudsmith.geppetto.pp.pptp.MetaType <em>Meta Type</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * 
+	 * @return the new adapter.
+	 * @see org.cloudsmith.geppetto.pp.pptp.MetaType
+	 * @generated
+	 */
+	public Adapter createMetaTypeAdapter() {
+		return null;
+	}
+
+	/**
 	 * Creates a new adapter for an object of class '{@link org.cloudsmith.geppetto.pp.pptp.Parameter <em>Parameter</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
@@ -241,21 +246,6 @@ public class PPTPAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createParameterAdapter() {
-		return null;
-	}
-
-	/**
-	 * Creates a new adapter for an object of class '{@link org.cloudsmith.geppetto.pp.pptp.Predefined <em>Predefined</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
-	 * 
-	 * @return the new adapter.
-	 * @see org.cloudsmith.geppetto.pp.pptp.Predefined
-	 * @generated
-	 */
-	public Adapter createPredefinedAdapter() {
 		return null;
 	}
 
@@ -286,51 +276,6 @@ public class PPTPAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createPuppetDistributionAdapter() {
-		return null;
-	}
-
-	/**
-	 * Creates a new adapter for an object of class '{@link org.cloudsmith.geppetto.pp.pptp.PuppetModule <em>Puppet Module</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
-	 * 
-	 * @return the new adapter.
-	 * @see org.cloudsmith.geppetto.pp.pptp.PuppetModule
-	 * @generated
-	 */
-	public Adapter createPuppetModuleAdapter() {
-		return null;
-	}
-
-	/**
-	 * Creates a new adapter for an object of class '{@link org.cloudsmith.geppetto.pp.pptp.PuppetTarget <em>Puppet Target</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
-	 * 
-	 * @return the new adapter.
-	 * @see org.cloudsmith.geppetto.pp.pptp.PuppetTarget
-	 * @generated
-	 */
-	public Adapter createPuppetTargetAdapter() {
-		return null;
-	}
-
-	/**
-	 * Creates a new adapter for an object of class '{@link org.cloudsmith.geppetto.pp.pptp.RubyDirectory <em>Ruby Directory</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
-	 * 
-	 * @return the new adapter.
-	 * @see org.cloudsmith.geppetto.pp.pptp.RubyDirectory
-	 * @generated
-	 */
-	public Adapter createRubyDirectoryAdapter() {
 		return null;
 	}
 
@@ -376,6 +321,21 @@ public class PPTPAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createTypeAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.cloudsmith.geppetto.pp.pptp.TypeArgument <em>Type Argument</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * 
+	 * @return the new adapter.
+	 * @see org.cloudsmith.geppetto.pp.pptp.TypeArgument
+	 * @generated
+	 */
+	public Adapter createTypeArgumentAdapter() {
 		return null;
 	}
 

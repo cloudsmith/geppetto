@@ -11,7 +11,6 @@
  */
 package org.cloudsmith.geppetto.pp.pptp.impl;
 
-import java.io.File;
 import org.cloudsmith.geppetto.pp.pptp.Function;
 import org.cloudsmith.geppetto.pp.pptp.INamed;
 import org.cloudsmith.geppetto.pp.pptp.PPTPPackage;
@@ -33,7 +32,6 @@ import org.eclipse.emf.ecore.impl.EObjectImpl;
  * <ul>
  * <li>{@link org.cloudsmith.geppetto.pp.pptp.impl.FunctionImpl#getDocumentation <em>Documentation</em>}</li>
  * <li>{@link org.cloudsmith.geppetto.pp.pptp.impl.FunctionImpl#getName <em>Name</em>}</li>
- * <li>{@link org.cloudsmith.geppetto.pp.pptp.impl.FunctionImpl#getFile <em>File</em>}</li>
  * <li>{@link org.cloudsmith.geppetto.pp.pptp.impl.FunctionImpl#isRValue <em>RValue</em>}</li>
  * </ul>
  * </p>
@@ -86,28 +84,6 @@ public class FunctionImpl extends EObjectImpl implements Function {
 	protected String name = NAME_EDEFAULT;
 
 	/**
-	 * The default value of the '{@link #getFile() <em>File</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * 
-	 * @see #getFile()
-	 * @generated
-	 * @ordered
-	 */
-	protected static final File FILE_EDEFAULT = null;
-
-	/**
-	 * The cached value of the '{@link #getFile() <em>File</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * 
-	 * @see #getFile()
-	 * @generated
-	 * @ordered
-	 */
-	protected File file = FILE_EDEFAULT;
-
-	/**
 	 * The default value of the '{@link #isRValue() <em>RValue</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -157,8 +133,6 @@ public class FunctionImpl extends EObjectImpl implements Function {
 		}
 		if(baseClass == TargetElement.class) {
 			switch(derivedFeatureID) {
-				case PPTPPackage.FUNCTION__FILE:
-					return PPTPPackage.TARGET_ELEMENT__FILE;
 				default:
 					return -1;
 			}
@@ -184,8 +158,6 @@ public class FunctionImpl extends EObjectImpl implements Function {
 		}
 		if(baseClass == TargetElement.class) {
 			switch(baseFeatureID) {
-				case PPTPPackage.TARGET_ELEMENT__FILE:
-					return PPTPPackage.FUNCTION__FILE;
 				default:
 					return -1;
 			}
@@ -206,8 +178,6 @@ public class FunctionImpl extends EObjectImpl implements Function {
 				return getDocumentation();
 			case PPTPPackage.FUNCTION__NAME:
 				return getName();
-			case PPTPPackage.FUNCTION__FILE:
-				return getFile();
 			case PPTPPackage.FUNCTION__RVALUE:
 				return isRValue();
 		}
@@ -231,10 +201,6 @@ public class FunctionImpl extends EObjectImpl implements Function {
 				return NAME_EDEFAULT == null
 						? name != null
 						: !NAME_EDEFAULT.equals(name);
-			case PPTPPackage.FUNCTION__FILE:
-				return FILE_EDEFAULT == null
-						? file != null
-						: !FILE_EDEFAULT.equals(file);
 			case PPTPPackage.FUNCTION__RVALUE:
 				return rValue != RVALUE_EDEFAULT;
 		}
@@ -255,9 +221,6 @@ public class FunctionImpl extends EObjectImpl implements Function {
 				return;
 			case PPTPPackage.FUNCTION__NAME:
 				setName((String) newValue);
-				return;
-			case PPTPPackage.FUNCTION__FILE:
-				setFile((File) newValue);
 				return;
 			case PPTPPackage.FUNCTION__RVALUE:
 				setRValue((Boolean) newValue);
@@ -292,9 +255,6 @@ public class FunctionImpl extends EObjectImpl implements Function {
 			case PPTPPackage.FUNCTION__NAME:
 				setName(NAME_EDEFAULT);
 				return;
-			case PPTPPackage.FUNCTION__FILE:
-				setFile(FILE_EDEFAULT);
-				return;
 			case PPTPPackage.FUNCTION__RVALUE:
 				setRValue(RVALUE_EDEFAULT);
 				return;
@@ -310,16 +270,6 @@ public class FunctionImpl extends EObjectImpl implements Function {
 	 */
 	public String getDocumentation() {
 		return documentation;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * 
-	 * @generated
-	 */
-	public File getFile() {
-		return file;
 	}
 
 	/**
@@ -354,19 +304,6 @@ public class FunctionImpl extends EObjectImpl implements Function {
 		if(eNotificationRequired())
 			eNotify(new ENotificationImpl(
 				this, Notification.SET, PPTPPackage.FUNCTION__DOCUMENTATION, oldDocumentation, documentation));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * 
-	 * @generated
-	 */
-	public void setFile(File newFile) {
-		File oldFile = file;
-		file = newFile;
-		if(eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, PPTPPackage.FUNCTION__FILE, oldFile, file));
 	}
 
 	/**
@@ -411,8 +348,6 @@ public class FunctionImpl extends EObjectImpl implements Function {
 		result.append(documentation);
 		result.append(", name: ");
 		result.append(name);
-		result.append(", file: ");
-		result.append(file);
 		result.append(", rValue: ");
 		result.append(rValue);
 		result.append(')');

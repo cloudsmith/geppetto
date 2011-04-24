@@ -13,13 +13,13 @@ package org.cloudsmith.geppetto.pp.pptp;
 
 /**
  * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>Puppet Module</b></em>'.
+ * A representation of the model object '<em><b>Meta Type</b></em>'.
  * <!-- end-user-doc -->
  * 
  * 
- * @see org.cloudsmith.geppetto.pp.pptp.PPTPPackage#getPuppetModule()
+ * @see org.cloudsmith.geppetto.pp.pptp.PPTPPackage#getMetaType()
  * @model
  * @generated
  */
-public interface PuppetModule extends TargetEntry {
-} // PuppetModule
+public interface MetaType extends AbstractType {
+} // MetaType

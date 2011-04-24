@@ -14,7 +14,6 @@ package org.cloudsmith.geppetto.pp.dsl.ui;
 import org.cloudsmith.geppetto.common.tracer.DefaultTracer;
 import org.cloudsmith.geppetto.common.tracer.ITracer;
 import org.cloudsmith.geppetto.pp.dsl.lexer.PPOverridingLexer;
-import org.cloudsmith.geppetto.pp.dsl.pptp.IPPTP;
 import org.cloudsmith.geppetto.pp.dsl.ui.builder.PPModulefileBuilder;
 import org.cloudsmith.geppetto.pp.dsl.ui.coloring.PPHighlightConfiguration;
 import org.cloudsmith.geppetto.pp.dsl.ui.coloring.PPSemanticHighlightingCalculator;
@@ -23,7 +22,6 @@ import org.cloudsmith.geppetto.pp.dsl.ui.container.PPWorkspaceProjectsStateProvi
 import org.cloudsmith.geppetto.pp.dsl.ui.editor.autoedit.PPTokenTypeToPartionMapper;
 import org.cloudsmith.geppetto.pp.dsl.ui.editor.toggleComments.PPSingleLineCommentHelper;
 import org.cloudsmith.geppetto.pp.dsl.ui.outline.PPLocationInFileProvider;
-import org.cloudsmith.geppetto.pp.dsl.ui.pptp.PPTPUiManager;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.eclipse.xtext.resource.ILocationInFileProvider;
 import org.eclipse.xtext.ui.editor.model.IResourceForEditorInputFactory;
@@ -60,10 +58,6 @@ public class PPUiModule extends org.cloudsmith.geppetto.pp.dsl.ui.AbstractPPUiMo
 	 */
 	public Class<? extends ILocationInFileProvider> bindILocationInFileProvider() {
 		return PPLocationInFileProvider.class;
-	}
-
-	public Class<? extends IPPTP> bindIPPTP() {
-		return PPTPUiManager.class;
 	}
 
 	/**

@@ -23,7 +23,6 @@ import org.cloudsmith.geppetto.pp.ResourceExpression;
 import org.cloudsmith.geppetto.pp.SingleQuotedString;
 import org.cloudsmith.geppetto.pp.VariableExpression;
 import org.cloudsmith.geppetto.pp.VirtualNameOrReference;
-import org.cloudsmith.geppetto.pp.dsl.PPStandaloneSetup;
 import org.cloudsmith.geppetto.pp.dsl.validation.PPJavaValidator;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
@@ -224,6 +223,14 @@ public class AbstractPuppetTests extends AbstractXtextTests {
 		return createResourceExpression(true, false, type, title, keyValPairs);
 	}
 
+	protected AssertableResourceDiagnostics resourceErrorDiagnostics(XtextResource r) {
+		return new AssertableResourceDiagnostics(r.getErrors());
+	}
+
+	protected AssertableResourceDiagnostics resourceWarningDiagnostics(XtextResource r) {
+		return new AssertableResourceDiagnostics(r.getWarnings());
+	}
+
 	@Override
 	public String serialize(EObject obj) {
 		SaveOptions options = SaveOptions.newBuilder().getOptions();
@@ -238,17 +245,10 @@ public class AbstractPuppetTests extends AbstractXtextTests {
 	@Override
 	public void setUp() throws Exception {
 		super.setUp();
-		with(PPStandaloneSetup.class);
+		// with(PPStandaloneSetup.class);
+		with(PPTestSetup.class);
 		PPJavaValidator validator = get(PPJavaValidator.class);
 		EValidatorRegistrar registrar = get(EValidatorRegistrar.class);
 		tester = new ValidatorTester<PPJavaValidator>(validator, registrar, "org.cloudsmith.geppetto.pp.dsl.PP");
-	}
-
-	protected AssertableResourceDiagnostics resourceErrorDiagnostics(XtextResource r) {
-		return new AssertableResourceDiagnostics(r.getErrors());
-	}
-
-	protected AssertableResourceDiagnostics resourceWarningDiagnostics(XtextResource r) {
-		return new AssertableResourceDiagnostics(r.getWarnings());
 	}
 }

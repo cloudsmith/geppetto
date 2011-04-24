@@ -110,6 +110,22 @@ public class JRubyServices  implements IRubyServices{
 	public IRubyParseResult parse(File file) throws IOException {
 		return internalParse(file);
 	}
+	@Override
+	public IRubyParseResult parse(String path, Reader reader) throws IOException {
+		return internalParse(path, reader);
+	}
+	
+	protected Result internalParse(String path, Reader reader) throws IOException {
+		if(!(reader instanceof BufferedReader))
+			reader = new BufferedReader(reader);
+		try {
+			return internalParse(path, reader, parserConfiguration);
+		}
+		finally {
+			StreamUtil.close(reader);
+		}		
+
+	}
 	/** Implementation that exposes the Result impl class. Don't want callers of the JRubyService to 
 	 * see this.
 	 * @param file
@@ -169,16 +185,20 @@ public class JRubyServices  implements IRubyServices{
 		parserConfiguration = null;
 	}
 	
-	private static final String[] functionModuleFQN = new String[] { "Puppet", "Parser", "Functions"};
+//	private static final String[] functionModuleFQN = new String[] { "Puppet", "Parser", "Functions"};
 	private static final String functionDefinition = "newfunction";
-	private static final String[] newFunctionFQN = new String[] { "Puppet", "Parser", "Functions", "newfunction"};
+	private static final String[] newFunctionFQN = new String[] { "Puppet", "Parser", "Functions", functionDefinition};
 	
 	@Override
 	public List<PPFunctionInfo> getFunctionInfo(File file) throws IOException, RubySyntaxException {
-		List<PPFunctionInfo> functions = Lists.newArrayList();
 		Result result = internalParse(file);
+		return getFunctionInfo(result);
+	}
+	
+	protected List<PPFunctionInfo> getFunctionInfo(Result result) throws IOException, RubySyntaxException {
 		if(result.hasErrors())
 			throw new RubySyntaxException(result.getIssues());
+		List<PPFunctionInfo> functions = Lists.newArrayList();
 		RubyCallFinder callFinder = new RubyCallFinder();
 		GenericCallNode found = callFinder.findCall(result.getAST(), newFunctionFQN);
 		if(found == null)
@@ -203,27 +223,34 @@ public class JRubyServices  implements IRubyServices{
 
 		functions.add(new PPFunctionInfo((String)name, rValue, docString));
 		return functions;
-
-	}
-	
+	}	
 
 	@Override
 	public List<PPTypeInfo> getTypeInfo(File file) throws IOException, RubySyntaxException {
-		List<PPTypeInfo> types = Lists.newArrayList();
 		Result result = internalParse(file);
+		return getTypeInfo(result);
+	}
+	
+	protected List<PPTypeInfo> getTypeInfo(Result result) throws IOException, RubySyntaxException {
 		if(result.hasErrors())
 			throw new RubySyntaxException(result.getIssues());
+		List<PPTypeInfo> types = Lists.newArrayList();
 		PPTypeFinder typeFinder = new PPTypeFinder();
 		PPTypeInfo typeInfo = typeFinder.findTypeInfo(result.getAST());
 		if(typeInfo != null)
 			types.add(typeInfo);
 		return types;
+
+	}
+	@Override
+	public List<PPTypeInfo> getTypeInfo(String fileName, Reader reader)
+			throws IOException, RubySyntaxException {
+		Result result = internalParse(fileName, reader);
+		return getTypeInfo(result);
 	}
 	
-	@Override
-	public List<PPTypeInfo> getTypePropertiesInfo(File file) throws IOException, RubySyntaxException {
+	public List<PPTypeInfo> getTypePropertiesInfo(Result result) throws IOException, RubySyntaxException {
 		List<PPTypeInfo> types = Lists.newArrayList();
-		Result result = internalParse(file);
 		if(result.hasErrors())
 			throw new RubySyntaxException(result.getIssues());
 		PPTypeFinder typeFinder = new PPTypeFinder();
@@ -234,16 +261,44 @@ public class JRubyServices  implements IRubyServices{
 	}
 	
 	@Override
+	public List<PPTypeInfo> getTypePropertiesInfo(File file) throws IOException, RubySyntaxException {
+		return getTypePropertiesInfo(internalParse(file));
+	}
+	
+	@Override
+	public List<PPTypeInfo> getTypePropertiesInfo(String fileName, Reader reader) throws IOException, RubySyntaxException {
+		return getTypePropertiesInfo(internalParse(fileName, reader));
+	}
+	
+	@Override
 	public PPTypeInfo getMetaTypeProperties(File file) throws IOException, RubySyntaxException {
 		Result result = internalParse(file);
+		return getMetaTypeProperties(result);
+	}
+	
+	protected PPTypeInfo getMetaTypeProperties(Result result) throws IOException, RubySyntaxException {
 		if(result.hasErrors())
 			throw new RubySyntaxException(result.getIssues());
 		PPTypeFinder typeFinder = new PPTypeFinder();
 		PPTypeInfo typeInfo = typeFinder.findMetaTypeInfo(result.getAST());
 		return typeInfo;
 	}
+	
 	@Override
 	public boolean isMockService() {
 		return false;
+	}
+	
+	@Override
+	public List<PPFunctionInfo> getFunctionInfo(String fileName, Reader reader) throws IOException, RubySyntaxException {
+		Result result = internalParse(fileName, reader);
+		return getFunctionInfo(result);
+	}
+	
+	@Override
+	public PPTypeInfo getMetaTypeProperties(String fileName,
+			Reader reader) throws IOException, RubySyntaxException {
+		return getMetaTypeProperties(internalParse(fileName, reader));
+
 	}
 }

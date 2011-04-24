@@ -111,26 +111,20 @@ public class PPTPFactoryImpl extends EFactoryImpl implements PPTPFactory {
 	@Override
 	public EObject create(EClass eClass) {
 		switch(eClass.getClassifierID()) {
-			case PPTPPackage.PUPPET_TARGET:
-				return createPuppetTarget();
 			case PPTPPackage.PUPPET_DISTRIBUTION:
 				return createPuppetDistribution();
-			case PPTPPackage.RUBY_DIRECTORY:
-				return createRubyDirectory();
-			case PPTPPackage.PREDEFINED:
-				return createPredefined();
 			case PPTPPackage.FUNCTION:
 				return createFunction();
 			case PPTPPackage.PROPERTY:
 				return createProperty();
 			case PPTPPackage.PARAMETER:
 				return createParameter();
-			case PPTPPackage.PUPPET_MODULE:
-				return createPuppetModule();
 			case PPTPPackage.TYPE_FRAGMENT:
 				return createTypeFragment();
 			case PPTPPackage.TYPE:
 				return createType();
+			case PPTPPackage.META_TYPE:
+				return createMetaType();
 			default:
 				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
@@ -180,9 +174,9 @@ public class PPTPFactoryImpl extends EFactoryImpl implements PPTPFactory {
 	 * 
 	 * @generated
 	 */
-	public Parameter createParameter() {
-		ParameterImpl parameter = new ParameterImpl();
-		return parameter;
+	public MetaType createMetaType() {
+		MetaTypeImpl metaType = new MetaTypeImpl();
+		return metaType;
 	}
 
 	/**
@@ -191,9 +185,9 @@ public class PPTPFactoryImpl extends EFactoryImpl implements PPTPFactory {
 	 * 
 	 * @generated
 	 */
-	public Predefined createPredefined() {
-		PredefinedImpl predefined = new PredefinedImpl();
-		return predefined;
+	public Parameter createParameter() {
+		ParameterImpl parameter = new ParameterImpl();
+		return parameter;
 	}
 
 	/**
@@ -216,39 +210,6 @@ public class PPTPFactoryImpl extends EFactoryImpl implements PPTPFactory {
 	public PuppetDistribution createPuppetDistribution() {
 		PuppetDistributionImpl puppetDistribution = new PuppetDistributionImpl();
 		return puppetDistribution;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * 
-	 * @generated
-	 */
-	public PuppetModule createPuppetModule() {
-		PuppetModuleImpl puppetModule = new PuppetModuleImpl();
-		return puppetModule;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * 
-	 * @generated
-	 */
-	public PuppetTarget createPuppetTarget() {
-		PuppetTargetImpl puppetTarget = new PuppetTargetImpl();
-		return puppetTarget;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * 
-	 * @generated
-	 */
-	public RubyDirectory createRubyDirectory() {
-		RubyDirectoryImpl rubyDirectory = new RubyDirectoryImpl();
-		return rubyDirectory;
 	}
 
 	/**

@@ -24,6 +24,7 @@ public class AllTests {
 	public static Test suite() {
 		TestSuite suite = new TestSuite(AllTests.class.getName());
 		// $JUnit-BEGIN$
+		suite.addTestSuite(PptpResourceTests.class);
 		suite.addTestSuite(SmokeTest.class);
 		suite.addTestSuite(PuppetFunctionTests.class);
 		suite.addTestSuite(PuppetTypeTests.class);

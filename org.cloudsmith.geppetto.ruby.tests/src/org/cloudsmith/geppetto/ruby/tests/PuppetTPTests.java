@@ -12,12 +12,15 @@
 package org.cloudsmith.geppetto.ruby.tests;
 
 import java.io.File;
+import java.util.List;
 
+import org.cloudsmith.geppetto.pp.pptp.AbstractType;
 import org.cloudsmith.geppetto.pp.pptp.Function;
 import org.cloudsmith.geppetto.pp.pptp.Parameter;
 import org.cloudsmith.geppetto.pp.pptp.Property;
 import org.cloudsmith.geppetto.pp.pptp.TargetEntry;
 import org.cloudsmith.geppetto.pp.pptp.Type;
+import org.cloudsmith.geppetto.pp.pptp.TypeFragment;
 import org.cloudsmith.geppetto.ruby.RubyHelper;
 
 import org.eclipse.core.runtime.Path;
@@ -42,8 +45,7 @@ public class PuppetTPTests extends TestCase {
 			// check the target itself
 			assertNotNull("Should have resultet in a TargetEntry", target);
 			assertEquals("Should have defined description", "Puppet Distribution", target.getDescription());
-			assertEquals("Should have defined name", "puppet 2.6.2_0", target.getName());
-			assertEquals("Should have file set to defined file", distroDir, target.getFile());
+			assertEquals("Should have defined name", "puppet 2.6.2_0", target.getLabel());
 			
 			// should have found one type "mocktype"
 			assertEquals("Should have found one type", 1, target.getTypes().size());
@@ -51,27 +53,35 @@ public class PuppetTPTests extends TestCase {
 			assertEquals("Should have found 'mocktype'", "mocktype", type.getName());
 			assertEquals("Should have found documentation", "This is a mock type", type.getDocumentation());
 			
-			assertEquals("Should have three properties", 3, type.getProperties().size());
+			assertEquals("Should have one property", 1, type.getProperties().size());
 			{
 				Property prop = getProperty("prop1", type);
 				assertNotNull("Should have a property 'prop1", prop);
 				assertEquals("Should have defined documentation", "This is property1", prop.getDocumentation());
 			}
 			{
-				Property prop = getProperty("extra1", type);
-				assertNotNull("Should have a property 'extra1", prop);
-				assertEquals("Should have defined documentation", "An extra property called extra1", prop.getDocumentation());
-			}
-			{
-				Property prop = getProperty("extra2", type);
-				assertNotNull("Should have a property 'extra2", prop);
-				assertEquals("Should have defined documentation", "An extra property called extra2", prop.getDocumentation());
-			}
-			{
 				assertEquals("Should have one parameter", 1, type.getParameters().size());
 				Parameter param = getParameter("param1", type);
 				assertNotNull("Should have a parameter 'param1", param);
 				assertEquals("Should have defined documentation", "This is parameter1", param.getDocumentation());
+			}
+
+			// There should be two type fragments, with a contribution each
+			List<TypeFragment>typeFragments = target.getTypeFragments();
+			assertEquals("Should have found two fragments", 2, typeFragments.size());
+			
+			TypeFragment fragment1 = typeFragments.get(0);
+			TypeFragment fragment2 = typeFragments.get(1);
+			boolean fragment1HasExtra1 = getProperty("extra1", fragment1) != null;
+			{
+				Property prop = getProperty("extra1", fragment1HasExtra1 ? fragment1 : fragment2);
+				assertNotNull("Should have a property 'extra1", prop);
+				assertEquals("Should have defined documentation", "An extra property called extra1", prop.getDocumentation());
+			}
+			{
+				Property prop = getProperty("extra2", fragment1HasExtra1 ? fragment2 : fragment1);
+				assertNotNull("Should have a property 'extra2", prop);
+				assertEquals("Should have defined documentation", "An extra property called extra2", prop.getDocumentation());
 			}
 						
 			// should have found two functions "echotest" and "echotest2"
@@ -150,7 +160,7 @@ public class PuppetTPTests extends TestCase {
 		}
 		
 	}
-	private Property getProperty(String name, Type type) {
+	private Property getProperty(String name, AbstractType type) {
 		for(Property p : type.getProperties())
 			if(name.equals(p.getName()))
 				return p;

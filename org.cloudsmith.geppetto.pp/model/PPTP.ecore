@@ -3,13 +3,8 @@
     xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="pptp"
     nsURI="http://www.cloudsmith.org/geppetto/1.0.0/PPTP" nsPrefix="pptp">
-  <eClassifiers xsi:type="ecore:EClass" name="PuppetTarget">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="entries" upperBound="-1"
-        eType="#//TargetEntry" containment="true"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="TargetEntry" abstract="true" eSuperTypes="#//INamed">
+  <eClassifiers xsi:type="ecore:EClass" name="TargetEntry" abstract="true">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="description" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="file" eType="#//File"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="functions" upperBound="-1"
         eType="#//Function" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="types" upperBound="-1"
@@ -17,16 +12,15 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="version" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="typeFragments" upperBound="-1"
         eType="#//TypeFragment" containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="metaType" eType="#//Type"
+    <eStructuralFeatures xsi:type="ecore:EReference" name="metaType" eType="#//MetaType"
         containment="true">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="documentation" value="A meta type is a definition that applies to all defined types."/>
       </eAnnotations>
     </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="label" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="PuppetDistribution" eSuperTypes="#//TargetEntry"/>
-  <eClassifiers xsi:type="ecore:EClass" name="RubyDirectory" eSuperTypes="#//TargetEntry"/>
-  <eClassifiers xsi:type="ecore:EClass" name="Predefined" eSuperTypes="#//TargetEntry"/>
   <eClassifiers xsi:type="ecore:EClass" name="Function" eSuperTypes="#//IDocumented #//TargetElement">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="rValue" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
   </eClassifiers>
@@ -43,31 +37,14 @@
   <eClassifiers xsi:type="ecore:EClass" name="INamed" abstract="true" interface="true">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="TargetElement" abstract="true" eSuperTypes="#//INamed #//IDocumented">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="file" eType="#//File">
-      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="documentation" value="File relative to TargetEntry. May be null if irrelevant (for predefined targets)."/>
-      </eAnnotations>
-    </eStructuralFeatures>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="Property" eSuperTypes="#//TargetElement">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="required" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="Parameter" eSuperTypes="#//TargetElement">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="required" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
-  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="TargetElement" abstract="true" eSuperTypes="#//INamed #//IDocumented"/>
+  <eClassifiers xsi:type="ecore:EClass" name="Property" eSuperTypes="#//TypeArgument"/>
+  <eClassifiers xsi:type="ecore:EClass" name="Parameter" eSuperTypes="#//TypeArgument"/>
   <eClassifiers xsi:type="ecore:EDataType" name="File" instanceClassName="java.io.File"/>
-  <eClassifiers xsi:type="ecore:EClass" name="PuppetModule" eSuperTypes="#//TargetEntry"/>
-  <eClassifiers xsi:type="ecore:EClass" name="TypeFragment" eSuperTypes="#//AbstractType">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="madeContributionTo" upperBound="-1"
-        eType="#//Type" eOpposite="#//Type/contributingFragments">
-      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="documentation" value="Reference to a type the TypeFragment has made a contribution to (by copying its parameters and properties).&#xA;It is possible that a fragment contributes to multiple types (in the case there are errors and there are two instances with the same name)."/>
-      </eAnnotations>
-    </eStructuralFeatures>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="Type" eSuperTypes="#//AbstractType">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="contributingFragments"
-        upperBound="-1" eType="#//TypeFragment" eOpposite="#//TypeFragment/madeContributionTo"/>
+  <eClassifiers xsi:type="ecore:EClass" name="TypeFragment" eSuperTypes="#//AbstractType"/>
+  <eClassifiers xsi:type="ecore:EClass" name="Type" eSuperTypes="#//AbstractType"/>
+  <eClassifiers xsi:type="ecore:EClass" name="MetaType" eSuperTypes="#//AbstractType"/>
+  <eClassifiers xsi:type="ecore:EClass" name="TypeArgument" abstract="true" eSuperTypes="#//TargetElement">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="required" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
   </eClassifiers>
 </ecore:EPackage>

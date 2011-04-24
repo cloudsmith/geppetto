@@ -44,7 +44,13 @@ import com.google.common.collect.HashBiMap;
 import com.google.common.collect.Lists;
 
 /**
- * Builder of Modulefile that sets the dependencies on the project as dynamic project references
+ * Builder of Modulefile.
+ * This builder performs the following tasks:
+ * <ul>
+ * <li>sets the dependencies on the project as dynamic project references</li>
+ * <li>ensure all puppet projects have a dynamic reference to the target project</li>
+ * <li>keeps metadata.json in sync (content and checksums)</li>
+ * </ul>
  * 
  */
 
@@ -94,11 +100,11 @@ public class PPModulefileBuilder extends IncrementalProjectBuilder implements PP
 		// better to wait until the sync as they are probably still the same
 	}
 
-	protected void createErrorMarker(IResource r, String message, Dependency d) {
+	private void createErrorMarker(IResource r, String message, Dependency d) {
 		createMarker(IMarker.SEVERITY_ERROR, r, message, d);
 	}
 
-	protected void createMarker(int severity, IResource r, String message, Dependency d) {
+	private void createMarker(int severity, IResource r, String message, Dependency d) {
 		try {
 			IMarker m = r.createMarker(PUPPET_MODULE_PROBLEM_MARKER_TYPE);
 			m.setAttribute(IMarker.MESSAGE, message);
@@ -113,7 +119,7 @@ public class PPModulefileBuilder extends IncrementalProjectBuilder implements PP
 
 	}
 
-	protected void createWarningMarker(IResource r, String message, Dependency d) {
+	private void createWarningMarker(IResource r, String message, Dependency d) {
 		createMarker(IMarker.SEVERITY_WARNING, r, message, d);
 	}
 
@@ -130,7 +136,7 @@ public class PPModulefileBuilder extends IncrementalProjectBuilder implements PP
 	 * @param d
 	 * @return
 	 */
-	protected IProject getBestMatchingProject(Dependency d, IProgressMonitor monitor) {
+	private IProject getBestMatchingProject(Dependency d, IProgressMonitor monitor) {
 		// Names with "/" are not allowed
 		final String requiredName = d.getName().replace("/", "-").toLowerCase();
 		if(requiredName == null || requiredName.isEmpty())
@@ -192,12 +198,16 @@ public class PPModulefileBuilder extends IncrementalProjectBuilder implements PP
 		return candidates.inverse().get(best);
 	}
 
-	protected IWorkspaceRoot getWorkspaceRoot() {
+	private IProject getProjectByName(String name) {
+		return getProject().getWorkspace().getRoot().getProject(name);
+	}
+
+	private IWorkspaceRoot getWorkspaceRoot() {
 		return getProject().getWorkspace().getRoot();
 	}
 
 	private void incrementalBuild(IResourceDelta delta, final IProgressMonitor monitor) {
-
+		removeErrorMarkers();
 		final Wrapper<Boolean> buildFlag = Wrapper.wrap(Boolean.FALSE);
 
 		try {
@@ -238,7 +248,7 @@ public class PPModulefileBuilder extends IncrementalProjectBuilder implements PP
 	 * @param p
 	 * @return
 	 */
-	protected boolean isAccessiblePuppetProject(IProject p) {
+	private boolean isAccessiblePuppetProject(IProject p) {
 		return p != null && XtextProjectHelper.hasNature(p);
 	}
 
@@ -248,26 +258,20 @@ public class PPModulefileBuilder extends IncrementalProjectBuilder implements PP
 	 * @param delta
 	 * @return
 	 */
-	protected boolean isChecksumChange(IResourceDelta delta) {
+	private boolean isChecksumChange(IResourceDelta delta) {
 		IResource resource = delta.getResource();
 		if(!(resource instanceof IFile))
 			return false;
 		if(resource.getProjectRelativePath().toString().equals("metadata.json"))
 			return false;
-		return true; // (almost) all files are included in the checksum list.
-
-		// if("pp".equals(extension) || ".rb".equals(extension))
-		// return true;
-		// if("README".equals(resource.getName()))
-		// return true;
-		// return false;
+		return true; // all other files are included in the checksum list.
 	}
 
-	protected boolean isModulefileDelta(IResourceDelta delta) {
+	private boolean isModulefileDelta(IResourceDelta delta) {
 		return ((delta.getResource() instanceof IFile) && MODULEFILE_PATH.equals(delta.getProjectRelativePath()));
 	}
 
-	public Metadata loadMetadata(IFile moduleFile, IProgressMonitor monitor) {
+	private Metadata loadMetadata(IFile moduleFile, IProgressMonitor monitor) {
 		// parse the "Modulefile" and get full name and version, use this as name of target entry
 		try {
 			Metadata metadata = ForgeFactory.eINSTANCE.createMetadata();
@@ -280,21 +284,19 @@ public class PPModulefileBuilder extends IncrementalProjectBuilder implements PP
 				log.debug("Could not parse Modulefile dependencies: '" + moduleFile + "'", e);
 		}
 		return null;
-
 	}
 
 	/**
 	 * Deletes all problem markers set by this builder.
 	 */
-	protected void removeErrorMarkers() {
+	private void removeErrorMarkers() {
 		IFile m = getProject().getFile(MODULEFILE_PATH);
 		try {
 			m.deleteMarkers(PUPPET_MODULE_PROBLEM_MARKER_TYPE, true, IResource.DEPTH_ZERO);
 		}
 		catch(CoreException e) {
 			// nevermind, the resource may not even be there...
-			// meaningless to have elaborate existence checks etc... (unless there is lots of
-			// ugly logging
+			// meaningless to have elaborate existence checks etc...
 		}
 	}
 
@@ -305,14 +307,11 @@ public class PPModulefileBuilder extends IncrementalProjectBuilder implements PP
 	 * @param handle
 	 * @return
 	 */
-	public List<IProject> resolveDependencies(Metadata metadata, IFile moduleFile, IProgressMonitor monitor) {
+	private List<IProject> resolveDependencies(Metadata metadata, IFile moduleFile, IProgressMonitor monitor) {
 		List<IProject> result = Lists.newArrayList();
 
 		// parse the "Modulefile" and get full name and version, use this as name of target entry
 		try {
-			// Metadata metadata = ForgeFactory.eINSTANCE.createMetadata();
-			// metadata.loadModuleFile(moduleFile.getLocation().toFile());
-
 			for(Dependency d : metadata.getDependencies()) {
 				checkCancel(monitor);
 				IProject best = getBestMatchingProject(d, monitor);
@@ -330,17 +329,6 @@ public class PPModulefileBuilder extends IncrementalProjectBuilder implements PP
 				log.debug("Error while resolving Modulefile dependencies: '" + moduleFile + "'", e);
 		}
 		return result;
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.core.resources.IncrementalProjectBuilder#startupOnInitialize()
-	 */
-	@Override
-	protected void startupOnInitialize() {
-		// TODO Auto-generated method stub
-		super.startupOnInitialize();
 	}
 
 	private void syncModulefile(final IProgressMonitor monitor) {
@@ -384,20 +372,10 @@ public class PPModulefileBuilder extends IncrementalProjectBuilder implements PP
 				}
 
 				List<IProject> resolutions = resolveDependencies(metadata, moduleFile, monitor);
-				DYNAMIC_REFERENCES: try {
-					IProject[] dynamicReferences = project.getDescription().getDynamicReferences();
-					List<IProject> current = Lists.newArrayList(dynamicReferences);
-					if(current.size() == resolutions.size() && current.containsAll(resolutions))
-						break DYNAMIC_REFERENCES; // already in sync
-					// not in sync, set them
-					IProjectDescription desc = project.getDescription();
-					desc.setDynamicReferences(resolutions.toArray(new IProject[resolutions.size()]));
-					project.setDescription(desc, monitor);
+				// add the TP project
+				resolutions.add(getProjectByName(PPUiConstants.PPTP_TARGET_PROJECT_NAME));
 
-				}
-				catch(CoreException e) {
-					log.error("Can not sync project's dynamic dependencies", e);
-				}
+				syncProjectReferences(resolutions, monitor);
 
 				// Sync the built .json version
 				try {
@@ -410,12 +388,41 @@ public class PPModulefileBuilder extends IncrementalProjectBuilder implements PP
 						metadata.loadTypeFiles(tf);
 					metadata.loadChecksums(pf);
 					metadata.saveJSONMetadata(mf);
+					// must refresh the file as it was writting outside the resource framework
+					IFile metadataResource = getProject().getFile("metadata.json");
+					try {
+						metadataResource.refreshLocal(IResource.DEPTH_ZERO, monitor);
+					}
+					catch(CoreException e) {
+						log.error("Could not refresh 'metadata.json'", e);
+					}
 				}
 				catch(IOException e) {
 					createErrorMarker(moduleFile, "Error while writing 'metadata.json': " + e.getMessage(), null);
 					log.error("Could not build 'metadata.json' for: '" + moduleFile + "'", e);
 				}
 			}
+		}
+		else {
+			// puppet project without modulefile should reference the target project
+			syncProjectReferences(Lists.newArrayList(getProjectByName(PPUiConstants.PPTP_TARGET_PROJECT_NAME)), monitor);
+		}
+	}
+
+	private void syncProjectReferences(List<IProject> wanted, IProgressMonitor monitor) {
+		try {
+			final IProject project = getProject();
+			final IProjectDescription description = getProject().getDescription();
+			List<IProject> current = Lists.newArrayList(description.getDynamicReferences());
+			if(current.size() == wanted.size() && current.containsAll(wanted))
+				return; // already in sync
+			// not in sync, set them
+			IProjectDescription desc = getProject().getDescription();
+			desc.setDynamicReferences(wanted.toArray(new IProject[wanted.size()]));
+			project.setDescription(desc, monitor);
+		}
+		catch(CoreException e) {
+			log.error("Can not sync project's dynamic dependencies", e);
 		}
 	}
 }

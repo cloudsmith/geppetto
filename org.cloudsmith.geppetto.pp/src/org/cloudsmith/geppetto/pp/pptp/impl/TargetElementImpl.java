@@ -11,7 +11,6 @@
  */
 package org.cloudsmith.geppetto.pp.pptp.impl;
 
-import java.io.File;
 import org.cloudsmith.geppetto.pp.pptp.IDocumented;
 import org.cloudsmith.geppetto.pp.pptp.PPTPPackage;
 import org.cloudsmith.geppetto.pp.pptp.TargetElement;
@@ -32,7 +31,6 @@ import org.eclipse.emf.ecore.impl.EObjectImpl;
  * <ul>
  * <li>{@link org.cloudsmith.geppetto.pp.pptp.impl.TargetElementImpl#getName <em>Name</em>}</li>
  * <li>{@link org.cloudsmith.geppetto.pp.pptp.impl.TargetElementImpl#getDocumentation <em>Documentation</em>}</li>
- * <li>{@link org.cloudsmith.geppetto.pp.pptp.impl.TargetElementImpl#getFile <em>File</em>}</li>
  * </ul>
  * </p>
  * 
@@ -82,28 +80,6 @@ public abstract class TargetElementImpl extends EObjectImpl implements TargetEle
 	 * @ordered
 	 */
 	protected String documentation = DOCUMENTATION_EDEFAULT;
-
-	/**
-	 * The default value of the '{@link #getFile() <em>File</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * 
-	 * @see #getFile()
-	 * @generated
-	 * @ordered
-	 */
-	protected static final File FILE_EDEFAULT = null;
-
-	/**
-	 * The cached value of the '{@link #getFile() <em>File</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * 
-	 * @see #getFile()
-	 * @generated
-	 * @ordered
-	 */
-	protected File file = FILE_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -166,8 +142,6 @@ public abstract class TargetElementImpl extends EObjectImpl implements TargetEle
 				return getName();
 			case PPTPPackage.TARGET_ELEMENT__DOCUMENTATION:
 				return getDocumentation();
-			case PPTPPackage.TARGET_ELEMENT__FILE:
-				return getFile();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -189,10 +163,6 @@ public abstract class TargetElementImpl extends EObjectImpl implements TargetEle
 				return DOCUMENTATION_EDEFAULT == null
 						? documentation != null
 						: !DOCUMENTATION_EDEFAULT.equals(documentation);
-			case PPTPPackage.TARGET_ELEMENT__FILE:
-				return FILE_EDEFAULT == null
-						? file != null
-						: !FILE_EDEFAULT.equals(file);
 		}
 		return super.eIsSet(featureID);
 	}
@@ -211,9 +181,6 @@ public abstract class TargetElementImpl extends EObjectImpl implements TargetEle
 				return;
 			case PPTPPackage.TARGET_ELEMENT__DOCUMENTATION:
 				setDocumentation((String) newValue);
-				return;
-			case PPTPPackage.TARGET_ELEMENT__FILE:
-				setFile((File) newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -245,9 +212,6 @@ public abstract class TargetElementImpl extends EObjectImpl implements TargetEle
 			case PPTPPackage.TARGET_ELEMENT__DOCUMENTATION:
 				setDocumentation(DOCUMENTATION_EDEFAULT);
 				return;
-			case PPTPPackage.TARGET_ELEMENT__FILE:
-				setFile(FILE_EDEFAULT);
-				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -260,16 +224,6 @@ public abstract class TargetElementImpl extends EObjectImpl implements TargetEle
 	 */
 	public String getDocumentation() {
 		return documentation;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * 
-	 * @generated
-	 */
-	public File getFile() {
-		return file;
 	}
 
 	/**
@@ -302,19 +256,6 @@ public abstract class TargetElementImpl extends EObjectImpl implements TargetEle
 	 * 
 	 * @generated
 	 */
-	public void setFile(File newFile) {
-		File oldFile = file;
-		file = newFile;
-		if(eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, PPTPPackage.TARGET_ELEMENT__FILE, oldFile, file));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * 
-	 * @generated
-	 */
 	public void setName(String newName) {
 		String oldName = name;
 		name = newName;
@@ -338,8 +279,6 @@ public abstract class TargetElementImpl extends EObjectImpl implements TargetEle
 		result.append(name);
 		result.append(", documentation: ");
 		result.append(documentation);
-		result.append(", file: ");
-		result.append(file);
 		result.append(')');
 		return result.toString();
 	}

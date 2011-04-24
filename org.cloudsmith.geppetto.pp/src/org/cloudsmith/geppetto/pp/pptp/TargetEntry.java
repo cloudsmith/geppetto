@@ -11,8 +11,8 @@
  */
 package org.cloudsmith.geppetto.pp.pptp;
 
-import java.io.File;
 import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.ecore.EObject;
 
 /**
  * <!-- begin-user-doc -->
@@ -23,12 +23,12 @@ import org.eclipse.emf.common.util.EList;
  * The following features are supported:
  * <ul>
  * <li>{@link org.cloudsmith.geppetto.pp.pptp.TargetEntry#getDescription <em>Description</em>}</li>
- * <li>{@link org.cloudsmith.geppetto.pp.pptp.TargetEntry#getFile <em>File</em>}</li>
  * <li>{@link org.cloudsmith.geppetto.pp.pptp.TargetEntry#getFunctions <em>Functions</em>}</li>
  * <li>{@link org.cloudsmith.geppetto.pp.pptp.TargetEntry#getTypes <em>Types</em>}</li>
  * <li>{@link org.cloudsmith.geppetto.pp.pptp.TargetEntry#getVersion <em>Version</em>}</li>
  * <li>{@link org.cloudsmith.geppetto.pp.pptp.TargetEntry#getTypeFragments <em>Type Fragments</em>}</li>
  * <li>{@link org.cloudsmith.geppetto.pp.pptp.TargetEntry#getMetaType <em>Meta Type</em>}</li>
+ * <li>{@link org.cloudsmith.geppetto.pp.pptp.TargetEntry#getLabel <em>Label</em>}</li>
  * </ul>
  * </p>
  * 
@@ -36,7 +36,7 @@ import org.eclipse.emf.common.util.EList;
  * @model abstract="true"
  * @generated
  */
-public interface TargetEntry extends INamed {
+public interface TargetEntry extends EObject {
 	/**
 	 * Returns the value of the '<em><b>Description</b></em>' attribute.
 	 * <!-- begin-user-doc -->
@@ -52,22 +52,6 @@ public interface TargetEntry extends INamed {
 	 * @generated
 	 */
 	String getDescription();
-
-	/**
-	 * Returns the value of the '<em><b>File</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>File</em>' attribute isn't clear, there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * 
-	 * @return the value of the '<em>File</em>' attribute.
-	 * @see #setFile(File)
-	 * @see org.cloudsmith.geppetto.pp.pptp.PPTPPackage#getTargetEntry_File()
-	 * @model dataType="org.cloudsmith.geppetto.pp.pptp.File"
-	 * @generated
-	 */
-	File getFile();
 
 	/**
 	 * Returns the value of the '<em><b>Functions</b></em>' containment reference list.
@@ -86,6 +70,22 @@ public interface TargetEntry extends INamed {
 	EList<Function> getFunctions();
 
 	/**
+	 * Returns the value of the '<em><b>Label</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Label</em>' attribute isn't clear, there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * 
+	 * @return the value of the '<em>Label</em>' attribute.
+	 * @see #setLabel(String)
+	 * @see org.cloudsmith.geppetto.pp.pptp.PPTPPackage#getTargetEntry_Label()
+	 * @model
+	 * @generated
+	 */
+	String getLabel();
+
+	/**
 	 * Returns the value of the '<em><b>Meta Type</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -94,12 +94,12 @@ public interface TargetEntry extends INamed {
 	 * <!-- end-model-doc -->
 	 * 
 	 * @return the value of the '<em>Meta Type</em>' containment reference.
-	 * @see #setMetaType(Type)
+	 * @see #setMetaType(MetaType)
 	 * @see org.cloudsmith.geppetto.pp.pptp.PPTPPackage#getTargetEntry_MetaType()
 	 * @model containment="true"
 	 * @generated
 	 */
-	Type getMetaType();
+	MetaType getMetaType();
 
 	/**
 	 * Returns the value of the '<em><b>Type Fragments</b></em>' containment reference list.
@@ -162,16 +162,16 @@ public interface TargetEntry extends INamed {
 	void setDescription(String value);
 
 	/**
-	 * Sets the value of the '{@link org.cloudsmith.geppetto.pp.pptp.TargetEntry#getFile <em>File</em>}' attribute.
+	 * Sets the value of the '{@link org.cloudsmith.geppetto.pp.pptp.TargetEntry#getLabel <em>Label</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
 	 * @param value
-	 *            the new value of the '<em>File</em>' attribute.
-	 * @see #getFile()
+	 *            the new value of the '<em>Label</em>' attribute.
+	 * @see #getLabel()
 	 * @generated
 	 */
-	void setFile(File value);
+	void setLabel(String value);
 
 	/**
 	 * Sets the value of the '{@link org.cloudsmith.geppetto.pp.pptp.TargetEntry#getMetaType <em>Meta Type</em>}' containment reference.
@@ -183,7 +183,7 @@ public interface TargetEntry extends INamed {
 	 * @see #getMetaType()
 	 * @generated
 	 */
-	void setMetaType(Type value);
+	void setMetaType(MetaType value);
 
 	/**
 	 * Sets the value of the '{@link org.cloudsmith.geppetto.pp.pptp.TargetEntry#getVersion <em>Version</em>}' attribute.

@@ -32,10 +32,8 @@ import org.cloudsmith.geppetto.pp.ResourceExpression;
 import org.cloudsmith.geppetto.pp.adapters.ClassifierAdapter;
 import org.cloudsmith.geppetto.pp.adapters.ClassifierAdapterFactory;
 import org.cloudsmith.geppetto.pp.dsl.PPDSLConstants;
-import org.cloudsmith.geppetto.pp.dsl.pptp.IPPTP;
 import org.cloudsmith.geppetto.pp.dsl.validation.IPPDiagnostics;
-import org.cloudsmith.geppetto.pp.pptp.INamed;
-import org.cloudsmith.geppetto.pp.pptp.Type;
+import org.cloudsmith.geppetto.pp.pptp.PPTPPackage;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.TreeIterator;
 import org.eclipse.emf.common.util.URI;
@@ -60,11 +58,10 @@ import com.google.inject.internal.Lists;
 import com.google.inject.name.Named;
 
 /**
- * Handles special linking of ResourceExpression and ResourceBody and function references.
- * 
+ * Handles special linking of ResourceExpression, ResourceBody and Function references.
  */
-
 public class PPResourceLinker {
+
 	class NameInScopeFilter implements Iterable<IEObjectDescription> {
 		private final Iterable<IEObjectDescription> unfiltered;
 
@@ -104,20 +101,13 @@ public class PPResourceLinker {
 			// Since most references are exact (they are global), this is the fastest for the common case.
 			if(candidateName.equals(name))
 				return true;
-			// // need to check if candidate's parent scope is same or outer scope of request
-			// if(!scopeName.startsWith(candidateName.skipLast(1)))
-			// return false; // does not share a common scope
 
 			// need to find the common outer scope
 			QualifiedName candidateParent = candidateName.skipLast(1);
 
-			// NO! This makes it possible to refer to the parent i.e. class foo::bar { bar { }} - this is not
-			// allowed
-			// // if defined in same or an outer scope, name matches
-			// if(candidateParent.getSegmentCount() <= scopeName.getSegmentCount())
-			// return scopeName.startsWith(candidateParent);
-			// if defined in an inner scope of a shared outer scope, the name needs to be appended to the common outer scope
-			// 1. find the common outer scope
+			// Note: it is not possible to refer to the parent i.e. class foo::bar { bar { }}
+
+			// find the common outer scope
 			int commonCount = 0;
 			int limit = Math.min(scopeName.getSegmentCount(), candidateParent.getSegmentCount());
 			for(int i = 0; i < limit; i++)
@@ -125,7 +115,7 @@ public class PPResourceLinker {
 					commonCount++;
 				else
 					break;
-			// if no common anscestor, then equality check above should have found it.
+			// if no common ancestor, then equality check above should have found it.
 			if(commonCount == 0)
 				return false;
 
@@ -134,15 +124,12 @@ public class PPResourceLinker {
 		}
 	}
 
+	/**
+	 * Access to runtime configurable debug trace.
+	 */
 	@Inject
 	@Named(PPDSLConstants.PP_DEBUG_LINKER)
 	private ITracer tracer;
-
-	/**
-	 * Access puppet target platform.
-	 */
-	@Inject
-	private IPPTP PPTP;
 
 	/**
 	 * Access to container manager for PP language
@@ -150,13 +137,16 @@ public class PPResourceLinker {
 	@Inject
 	private IContainer.Manager manager;
 
+	/**
+	 * Access to the 'pp' services (container management and more).
+	 */
 	@Inject
 	IResourceServiceProvider resourceServiceProvider;
 
 	/**
-	 * Access to global index maintained by Xtext, is via a special (non guice) provider
-	 * that is aware of the context (builder, dirty, etc.). It is used to obtain the
-	 * index for a particular resource.
+	 * Access to the global index maintained by Xtext, is made via a special (non guice) provider
+	 * that is aware of the context (builder, dirty editors, etc.). It is used to obtain the
+	 * index for a particular resource. This special provider is obtained here.
 	 */
 	@Inject
 	org.eclipse.xtext.resource.impl.ResourceDescriptionsProvider indexProvider;
@@ -168,87 +158,68 @@ public class PPResourceLinker {
 	private PPClassifier classifier;
 
 	/**
-	 * PP FQN to/from Xtext FQN converter.
+	 * PP FQN to/from Xtext QualifiedName converter.
 	 */
 	@Inject
 	IQualifiedNameConverter converter;
 
+	/**
+	 * Access to naming of model elements.
+	 */
 	@Inject
 	IQualifiedNameProvider fqnProvider;
 
+	/**
+	 * polymorph {@link #link(EObject, IMessageAcceptor)}
+	 */
 	protected void _link(FunctionCall o, IMessageAcceptor acceptor) {
+		// TODO: Remember linked function in adapter
+
 		// if not a name, then there is nothing to link, and this error is handled
 		// elsewhere
 		if(!(o.getLeftExpr() instanceof LiteralNameOrReference))
 			return;
 		String name = ((LiteralNameOrReference) o.getLeftExpr()).getValue();
-		if(PPTP.findFunction(name) != null)
+		if(findFunction(o, name) != null)
 			return; // ok, found
 
 		acceptor.acceptError(
 			"Unknown function: '" + name + "'", o.getLeftExpr(), IPPDiagnostics.ISSUE__UNKNOWN_FUNCTION_REFERENCE);
-
-		// functions can not be added in pp code, PPTP contains all of them.
 	}
 
+	/**
+	 * polymorph {@link #link(EObject, IMessageAcceptor)}
+	 */
 	protected void _link(ResourceBody o, IMessageAcceptor acceptor) {
 
 		ResourceExpression resource = (ResourceExpression) o.eContainer();
 		ClassifierAdapter adapter = ClassifierAdapterFactory.eINSTANCE.adapt(resource);
-		INamed p = null;
 		if(!(adapter.getClassifier() == RESOURCE_IS_CLASSPARAMS || adapter.getClassifier() == RESOURCE_IS_OVERRIDE)) {
-			Type resourceType = adapter.getResourceType();
-			// if resourceType is unknown then this is handled by other rules (not possible to
-			// check the properties).
-			//
-			if(resourceType != null) {
+			IEObjectDescription desc = (IEObjectDescription) adapter.getTargetObjectDescription();
+			// do not flag undefined parameters as errors if type is unknown
+			if(desc != null) {
 				AttributeOperations aos = o.getAttributes();
 				if(aos != null)
 					for(AttributeOperation ao : aos.getAttributes()) {
-						// TODO: don't know if there are meta parameters for anything but types
-						if(isMetaParameter(ao.getKey()))
-							continue;
-						p = PPTP.findProperty(resourceType, ao.getKey());
-						if(p == null)
-							p = PPTP.findParameter(resourceType, ao.getKey());
-						if(p == null)
-							acceptor.acceptError(
-								"Unknown parameter: '" + ao.getKey() + "' in type: '" + resourceType.getName() + "'",
-								ao, PPPackage.Literals.ATTRIBUTE_OPERATION__KEY,
-								IPPDiagnostics.ISSUE__RESOURCE_UNKNOWN_PROPERTY);
+						QualifiedName fqn = desc.getQualifiedName().append(ao.getKey());
+						// Accept name if there is at least one type/definition that lists the key
+						// NOTE/TODO: If there are other problems (multiple definitions with same name etc,
+						// the property could be ok in one, but not in another instance.
+						// finding that A'::x exists but not A''::x requires a lot more work
+						if(findAttributes(o, fqn).size() > 0)
+							continue; // found one such parameter == ok
+						acceptor.acceptError(
+							"Unknown parameter: '" + ao.getKey() + "' in definition: '" + desc.getName() + "'", ao,
+							PPPackage.Literals.ATTRIBUTE_OPERATION__KEY,
+							IPPDiagnostics.ISSUE__RESOURCE_UNKNOWN_PROPERTY);
 					}
 			}
-			else {
-				IEObjectDescription desc = (IEObjectDescription) adapter.getTargetObjectDescription();
-				// if no type, and no descrption - then do not flag undefined parameters as errors
-				//
-				if(desc != null) {
-					AttributeOperations aos = o.getAttributes();
-					if(aos != null)
-						for(AttributeOperation ao : aos.getAttributes()) {
-							// Seems like all definitions and classes also support the meta stuff
-							if(isMetaParameter(ao.getKey()))
-								continue;
-
-							QualifiedName fqn = desc.getQualifiedName().append(ao.getKey());
-							// If there is at least one type/definition that lists the key, then mark it
-							// as ok. If there are other problems (multiple definitions with same name etc,
-							// the property could be ok in one, but not in another instance.
-							// finding that A'::x exists but not A''::x requires a lot more work
-							if(findDefinitionArguments(o, fqn).size() > 0)
-								continue; // found one such parameter == ok
-							acceptor.acceptError(
-								"Unknown parameter: '" + ao.getKey() + "' in definition: '" + desc.getName() + "'", ao,
-								PPPackage.Literals.ATTRIBUTE_OPERATION__KEY,
-								IPPDiagnostics.ISSUE__RESOURCE_UNKNOWN_PROPERTY);
-
-						}
-				}
-			}
 		}
-
 	}
 
+	/**
+	 * polymorph {@link #link(EObject, IMessageAcceptor)}
+	 */
 	protected void _link(ResourceExpression o, IMessageAcceptor acceptor) {
 		classifier.classify(o);
 
@@ -263,24 +234,16 @@ public class PPResourceLinker {
 		// If resource is good, and not 'class', then it must have a known reference type.
 		// TODO: possibly check a resource override if the expression is constant (or it is impossible to lookup
 		// the resource type - also requires getting the type name from the override's expression).
-		Type theType = null;
 		if(!(resourceType == RESOURCE_IS_CLASSPARAMS || resourceType == RESOURCE_IS_OVERRIDE)) {
-			// TODO: MAKE THIS A SCOPED SEARCH
-			theType = PPTP.findType(resourceTypeName);
-			adapter.setResourceType(theType);
-			if(theType == null) {
-				List<IEObjectDescription> descs = findDefinitions(o, resourceTypeName);
-				if(descs.size() > 0) {
-					// make list only contain unique references
-					descs = Lists.newArrayList(Sets.newHashSet(descs));
-					removeDisqualifiedContainers(descs, o);
-					// if any remain, pick the first
-					if(descs.size() > 0)
-						adapter.setTargetObject(descs.get(0));
-				}
+			List<IEObjectDescription> descs = findDefinitions(o, resourceTypeName);
+			if(descs.size() > 0) {
+				// make list only contain unique references
+				descs = Lists.newArrayList(Sets.newHashSet(descs));
+				removeDisqualifiedContainers(descs, o);
+				// if any remain, pick the first
+				if(descs.size() > 0)
+					adapter.setTargetObject(descs.get(0));
 
-				// if this is ambiguous report a warning - in RT, the first found will be silently used
-				// but order can not be determined with certainty so warning is in place.
 				if(descs.size() > 1) {
 					// this is an ambiguous link - multiple targets available and order depends on the
 					// order at runtime (may not be the same).
@@ -298,24 +261,44 @@ public class PPResourceLinker {
 		}
 	}
 
-	protected List<IEObjectDescription> findDefinitionArguments(EObject scopeDetermeningObject, QualifiedName fqn) {
-		return findExternal(scopeDetermeningObject, fqn, PPPackage.Literals.DEFINITION_ARGUMENT);
+	/**
+	 * Find an attribute being a DefinitionArgument, Property, or Parameter for the given type, or a
+	 * meta Property or Parameter defined for the type 'Type'.
+	 * 
+	 * @param scopeDetermeningObject
+	 * @param fqn
+	 * @return
+	 */
+	protected List<IEObjectDescription> findAttributes(EObject scopeDetermeningObject, QualifiedName fqn) {
+		// find a regular DefinitionArgument, Property or Parameter
+		List<IEObjectDescription> result = findExternal(
+			scopeDetermeningObject, fqn, PPPackage.Literals.DEFINITION_ARGUMENT, PPTPPackage.Literals.TYPE_ARGUMENT);
+		// find a meta Property or Parameter
+		if(result.isEmpty()) {
+			QualifiedName metaFqn = QualifiedName.create("Type", fqn.getLastSegment());
+			result = findExternal(scopeDetermeningObject, metaFqn, PPTPPackage.Literals.TYPE_ARGUMENT);
+		}
+		return result;
 	}
 
 	protected List<IEObjectDescription> findDefinitions(EObject scopeDetermeningResource, String name) {
 		if(name == null)
 			throw new IllegalArgumentException("name is null");
 		QualifiedName fqn = converter.toQualifiedName(name);
-		return findExternal(scopeDetermeningResource, fqn, PPPackage.Literals.DEFINITION);
+		// make last segments initial char lower case (for references to the type itself - eg. 'File' instead of
+		// 'file'.
+		fqn = fqn.skipLast(1).append(toInitialLowerCase(fqn.getLastSegment()));
+		return findExternal(scopeDetermeningResource, fqn, PPPackage.Literals.DEFINITION, PPTPPackage.Literals.TYPE);
 	}
 
-	protected List<IEObjectDescription> findExternal(EObject scopeDetermeningObject, QualifiedName fqn, EClass eClass) {
+	protected List<IEObjectDescription> findExternal(EObject scopeDetermeningObject, QualifiedName fqn,
+			EClass... eClasses) {
 		if(scopeDetermeningObject == null)
 			throw new IllegalArgumentException("scope determening object is null");
 		if(fqn == null)
 			throw new IllegalArgumentException("name is null");
-		if(eClass == null)
-			throw new IllegalArgumentException("eClass is null");
+		if(eClasses == null || eClasses.length < 1)
+			throw new IllegalArgumentException("eClass is null or empty");
 
 		List<IEObjectDescription> targets = Lists.newArrayList();
 		Resource scopeDetermeningResource = scopeDetermeningObject.eResource();
@@ -327,10 +310,11 @@ public class PPResourceLinker {
 			return targets;
 
 		for(IContainer visibleContainer : manager.getVisibleContainers(descr, descriptionIndex)) {
-			for(IEObjectDescription objDesc : new NameInScopeFilter(
-				visibleContainer.getExportedObjectsByType(eClass), fqn, scopeDetermeningObject)) {
-				targets.add(objDesc);
-			}
+			for(EClass aClass : eClasses)
+				for(IEObjectDescription objDesc : new NameInScopeFilter(
+					visibleContainer.getExportedObjectsByType(aClass), fqn, scopeDetermeningObject)) {
+					targets.add(objDesc);
+				}
 		}
 
 		if(tracer.isTracing()) {
@@ -338,6 +322,14 @@ public class PPResourceLinker {
 				tracer.trace("    : ", converter.toString(d.getName()), " in: ", d.getEObjectURI().path());
 		}
 		return targets;
+	}
+
+	private List<IEObjectDescription> findFunction(EObject scopeDetermeningObject, QualifiedName fqn) {
+		return findExternal(scopeDetermeningObject, fqn, PPTPPackage.Literals.FUNCTION);
+	}
+
+	private List<IEObjectDescription> findFunction(EObject scopeDetermeningObject, String name) {
+		return findFunction(scopeDetermeningObject, converter.toQualifiedName(name));
 	}
 
 	private QualifiedName getNameOfScope(EObject o) {
@@ -378,7 +370,7 @@ public class PPResourceLinker {
 				i++;
 				// Expression arg = statements.get(i); // not used yet...
 				String name = ((LiteralNameOrReference) s).getValue();
-				if(PPTP.findFunction(name) != null)
+				if(findFunction(s, name) != null)
 					return; // ok, found
 
 				acceptor.acceptError(
@@ -389,20 +381,6 @@ public class PPResourceLinker {
 			}
 		}
 
-	}
-
-	/**
-	 * Returns true if the name is a <i>meta parameter</i> defined in puppet/type.rb; i.e. a parameter
-	 * applicable to all types.
-	 * 
-	 * @param parameterName
-	 * @return true if the given parameter is a meta parameter.
-	 */
-	private boolean isMetaParameter(String parameterName) {
-		Type metaType = PPTP.getMetaType();
-		if(metaType == null)
-			return false;
-		return PPTP.findParameter(metaType, parameterName) != null;
 	}
 
 	/**
@@ -450,7 +428,7 @@ public class PPResourceLinker {
 			tracer.trace("Linking resource: ", r.getURI().path(), "{");
 
 		// Need to get everything in the resource, not just the content of the PuppetManifest (as the manifest has top level
-		// expressions that need linking.
+		// expressions that need linking).
 		TreeIterator<EObject> everything = model.eResource().getAllContents();
 		// it is important that ResourceExpresion are linked before ResourceBodyExpression (but that should
 		// be ok with the tree iterator as the bodies are contained).
@@ -492,6 +470,12 @@ public class PPResourceLinker {
 		}
 	}
 
+	private String toInitialLowerCase(String s) {
+		StringBuffer buf = new StringBuffer(s);
+		buf.setCharAt(0, Character.toLowerCase(buf.charAt(0)));
+		return buf.toString();
+	}
+
 	/**
 	 * Collects the (unique) set of resource paths and returns a message with <=5 (+ ... and x others).
 	 * 
@@ -502,13 +486,9 @@ public class PPResourceLinker {
 		// collect the (unique) resource paths
 		List<String> resources = Lists.newArrayList();
 		for(IEObjectDescription d : descriptors) {
-			// Resource r = d.getEObjectOrProxy().eResource();
-			// if(r != null) {
 			String path = EcoreUtil.getURI(d.getEObjectOrProxy()).devicePath();
-			// String path = r.getURI().path();
 			if(!resources.contains(path))
 				resources.add(path);
-			// }
 		}
 		StringBuffer buf = new StringBuffer();
 		buf.append(resources.size());

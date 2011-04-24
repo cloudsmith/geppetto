@@ -13,6 +13,7 @@ package org.cloudsmith.geppetto.ruby.spi;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.Reader;
 import java.util.List;
 
 import org.cloudsmith.geppetto.ruby.PPFunctionInfo;
@@ -30,8 +31,11 @@ public interface IRubyServices {
 	public void setUp();
 	public void tearDown();
 	public IRubyParseResult parse(File file) throws IOException;
+	IRubyParseResult parse(String path, Reader reader) throws IOException;
+
 	public List<PPFunctionInfo> getFunctionInfo(File file) throws IOException, RubySyntaxException;
 	public List<PPTypeInfo> getTypeInfo(File file) throws IOException, RubySyntaxException;
+	public List<PPTypeInfo> getTypeInfo(String fileName, Reader reader) throws IOException, RubySyntaxException;
 	/**
 	 * Parses and returns additional properties from a ruby file - such "extra" properties are returned
 	 * as a PPTypeInfo that is partially filled with information.
@@ -41,6 +45,8 @@ public interface IRubyServices {
 	 * @throws RubySyntaxException
 	 */
 	public List<PPTypeInfo> getTypePropertiesInfo(File file) throws IOException,
+	RubySyntaxException;
+	public List<PPTypeInfo> getTypePropertiesInfo(String fileName, Reader reader) throws IOException,
 	RubySyntaxException;
 		
 	/**
@@ -58,5 +64,9 @@ public interface IRubyServices {
 	 */
 	public PPTypeInfo getMetaTypeProperties(File file) throws IOException,
 			RubySyntaxException;
-
+	
+	public List<PPFunctionInfo> getFunctionInfo(String fileName, Reader reader) throws IOException, RubySyntaxException;
+	public PPTypeInfo getMetaTypeProperties(String fileName,
+			Reader reader) throws IOException, RubySyntaxException;
+	
 }

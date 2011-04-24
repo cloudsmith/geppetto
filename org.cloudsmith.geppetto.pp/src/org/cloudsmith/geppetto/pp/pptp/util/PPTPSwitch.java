@@ -123,6 +123,23 @@ public class PPTPSwitch<T> {
 	}
 
 	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Meta Type</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * 
+	 * @param object
+	 *            the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Meta Type</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseMetaType(MetaType object) {
+		return null;
+	}
+
+	/**
 	 * Returns the result of interpreting the object as an instance of '<em>Parameter</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
@@ -136,23 +153,6 @@ public class PPTPSwitch<T> {
 	 * @generated
 	 */
 	public T caseParameter(Parameter object) {
-		return null;
-	}
-
-	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Predefined</em>'.
-	 * <!-- begin-user-doc -->
-	 * This implementation returns null;
-	 * returning a non-null result will terminate the switch.
-	 * <!-- end-user-doc -->
-	 * 
-	 * @param object
-	 *            the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Predefined</em>'.
-	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-	 * @generated
-	 */
-	public T casePredefined(Predefined object) {
 		return null;
 	}
 
@@ -187,57 +187,6 @@ public class PPTPSwitch<T> {
 	 * @generated
 	 */
 	public T casePuppetDistribution(PuppetDistribution object) {
-		return null;
-	}
-
-	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Puppet Module</em>'.
-	 * <!-- begin-user-doc -->
-	 * This implementation returns null;
-	 * returning a non-null result will terminate the switch.
-	 * <!-- end-user-doc -->
-	 * 
-	 * @param object
-	 *            the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Puppet Module</em>'.
-	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-	 * @generated
-	 */
-	public T casePuppetModule(PuppetModule object) {
-		return null;
-	}
-
-	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Puppet Target</em>'.
-	 * <!-- begin-user-doc -->
-	 * This implementation returns null;
-	 * returning a non-null result will terminate the switch.
-	 * <!-- end-user-doc -->
-	 * 
-	 * @param object
-	 *            the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Puppet Target</em>'.
-	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-	 * @generated
-	 */
-	public T casePuppetTarget(PuppetTarget object) {
-		return null;
-	}
-
-	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Ruby Directory</em>'.
-	 * <!-- begin-user-doc -->
-	 * This implementation returns null;
-	 * returning a non-null result will terminate the switch.
-	 * <!-- end-user-doc -->
-	 * 
-	 * @param object
-	 *            the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Ruby Directory</em>'.
-	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-	 * @generated
-	 */
-	public T caseRubyDirectory(RubyDirectory object) {
 		return null;
 	}
 
@@ -289,6 +238,23 @@ public class PPTPSwitch<T> {
 	 * @generated
 	 */
 	public T caseType(Type object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Type Argument</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * 
+	 * @param object
+	 *            the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Type Argument</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseTypeArgument(TypeArgument object) {
 		return null;
 	}
 
@@ -368,18 +334,9 @@ public class PPTPSwitch<T> {
 	 */
 	protected T doSwitch(int classifierID, EObject theEObject) {
 		switch(classifierID) {
-			case PPTPPackage.PUPPET_TARGET: {
-				PuppetTarget puppetTarget = (PuppetTarget) theEObject;
-				T result = casePuppetTarget(puppetTarget);
-				if(result == null)
-					result = defaultCase(theEObject);
-				return result;
-			}
 			case PPTPPackage.TARGET_ENTRY: {
 				TargetEntry targetEntry = (TargetEntry) theEObject;
 				T result = caseTargetEntry(targetEntry);
-				if(result == null)
-					result = caseINamed(targetEntry);
 				if(result == null)
 					result = defaultCase(theEObject);
 				return result;
@@ -389,30 +346,6 @@ public class PPTPSwitch<T> {
 				T result = casePuppetDistribution(puppetDistribution);
 				if(result == null)
 					result = caseTargetEntry(puppetDistribution);
-				if(result == null)
-					result = caseINamed(puppetDistribution);
-				if(result == null)
-					result = defaultCase(theEObject);
-				return result;
-			}
-			case PPTPPackage.RUBY_DIRECTORY: {
-				RubyDirectory rubyDirectory = (RubyDirectory) theEObject;
-				T result = caseRubyDirectory(rubyDirectory);
-				if(result == null)
-					result = caseTargetEntry(rubyDirectory);
-				if(result == null)
-					result = caseINamed(rubyDirectory);
-				if(result == null)
-					result = defaultCase(theEObject);
-				return result;
-			}
-			case PPTPPackage.PREDEFINED: {
-				Predefined predefined = (Predefined) theEObject;
-				T result = casePredefined(predefined);
-				if(result == null)
-					result = caseTargetEntry(predefined);
-				if(result == null)
-					result = caseINamed(predefined);
 				if(result == null)
 					result = defaultCase(theEObject);
 				return result;
@@ -472,6 +405,8 @@ public class PPTPSwitch<T> {
 				Property property = (Property) theEObject;
 				T result = caseProperty(property);
 				if(result == null)
+					result = caseTypeArgument(property);
+				if(result == null)
 					result = caseTargetElement(property);
 				if(result == null)
 					result = caseINamed(property);
@@ -485,22 +420,13 @@ public class PPTPSwitch<T> {
 				Parameter parameter = (Parameter) theEObject;
 				T result = caseParameter(parameter);
 				if(result == null)
+					result = caseTypeArgument(parameter);
+				if(result == null)
 					result = caseTargetElement(parameter);
 				if(result == null)
 					result = caseINamed(parameter);
 				if(result == null)
 					result = caseIDocumented(parameter);
-				if(result == null)
-					result = defaultCase(theEObject);
-				return result;
-			}
-			case PPTPPackage.PUPPET_MODULE: {
-				PuppetModule puppetModule = (PuppetModule) theEObject;
-				T result = casePuppetModule(puppetModule);
-				if(result == null)
-					result = caseTargetEntry(puppetModule);
-				if(result == null)
-					result = caseINamed(puppetModule);
 				if(result == null)
 					result = defaultCase(theEObject);
 				return result;
@@ -531,6 +457,34 @@ public class PPTPSwitch<T> {
 					result = caseINamed(type);
 				if(result == null)
 					result = caseIDocumented(type);
+				if(result == null)
+					result = defaultCase(theEObject);
+				return result;
+			}
+			case PPTPPackage.META_TYPE: {
+				MetaType metaType = (MetaType) theEObject;
+				T result = caseMetaType(metaType);
+				if(result == null)
+					result = caseAbstractType(metaType);
+				if(result == null)
+					result = caseTargetElement(metaType);
+				if(result == null)
+					result = caseINamed(metaType);
+				if(result == null)
+					result = caseIDocumented(metaType);
+				if(result == null)
+					result = defaultCase(theEObject);
+				return result;
+			}
+			case PPTPPackage.TYPE_ARGUMENT: {
+				TypeArgument typeArgument = (TypeArgument) theEObject;
+				T result = caseTypeArgument(typeArgument);
+				if(result == null)
+					result = caseTargetElement(typeArgument);
+				if(result == null)
+					result = caseINamed(typeArgument);
+				if(result == null)
+					result = caseIDocumented(typeArgument);
 				if(result == null)
 					result = defaultCase(theEObject);
 				return result;

@@ -43,6 +43,16 @@ public interface PPTPFactory extends EFactory {
 	Function createFunction();
 
 	/**
+	 * Returns a new object of class '<em>Meta Type</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @return a new object of class '<em>Meta Type</em>'.
+	 * @generated
+	 */
+	MetaType createMetaType();
+
+	/**
 	 * Returns a new object of class '<em>Parameter</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -51,16 +61,6 @@ public interface PPTPFactory extends EFactory {
 	 * @generated
 	 */
 	Parameter createParameter();
-
-	/**
-	 * Returns a new object of class '<em>Predefined</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * 
-	 * @return a new object of class '<em>Predefined</em>'.
-	 * @generated
-	 */
-	Predefined createPredefined();
 
 	/**
 	 * Returns a new object of class '<em>Property</em>'.
@@ -81,36 +81,6 @@ public interface PPTPFactory extends EFactory {
 	 * @generated
 	 */
 	PuppetDistribution createPuppetDistribution();
-
-	/**
-	 * Returns a new object of class '<em>Puppet Module</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * 
-	 * @return a new object of class '<em>Puppet Module</em>'.
-	 * @generated
-	 */
-	PuppetModule createPuppetModule();
-
-	/**
-	 * Returns a new object of class '<em>Puppet Target</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * 
-	 * @return a new object of class '<em>Puppet Target</em>'.
-	 * @generated
-	 */
-	PuppetTarget createPuppetTarget();
-
-	/**
-	 * Returns a new object of class '<em>Ruby Directory</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * 
-	 * @return a new object of class '<em>Ruby Directory</em>'.
-	 * @generated
-	 */
-	RubyDirectory createRubyDirectory();
 
 	/**
 	 * Returns a new object of class '<em>Type</em>'.

@@ -16,5 +16,6 @@ Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.emf.edit.ui,
  org.eclipse.emf.ecore,
  org.eclipse.xtext.ui,
- org.cloudsmith.geppetto.forge
+ org.cloudsmith.geppetto.forge,
+ org.cloudsmith.geppetto.pp.dsl.ui
 Bundle-ActivationPolicy: lazy

@@ -14,6 +14,7 @@ package org.cloudsmith.geppetto.ui.util;
 import java.io.File;
 import java.util.List;
 
+import org.cloudsmith.geppetto.pp.dsl.ui.PPUiConstants;
 import org.cloudsmith.geppetto.ui.UIPlugin;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
@@ -93,13 +94,26 @@ public class ResourceUtil {
 				String[] natureIds = projectDescription.getNatureIds();
 
 				if(natureIds == null) {
-					natureIds = new String[] { XtextProjectHelper.NATURE_ID };
+					natureIds = new String[] { PPUiConstants.PUPPET_NATURE_ID, XtextProjectHelper.NATURE_ID };
 				}
-				else if(!project.hasNature(XtextProjectHelper.NATURE_ID)) {
-					String[] oldNatureIds = natureIds;
-					natureIds = new String[oldNatureIds.length + 1];
-					System.arraycopy(oldNatureIds, 0, natureIds, 0, oldNatureIds.length);
-					natureIds[oldNatureIds.length] = XtextProjectHelper.NATURE_ID;
+				else {
+					final boolean missingXtextNature = !project.hasNature(XtextProjectHelper.NATURE_ID);
+					final boolean missingPuppetNature = !project.hasNature(PPUiConstants.PUPPET_NATURE_ID);
+					final int missingCount = (missingXtextNature
+							? 1
+							: 0) + (missingPuppetNature
+							? 1
+							: 0);
+					if(missingCount > 0) {
+						String[] oldNatureIds = natureIds;
+						natureIds = new String[oldNatureIds.length + missingCount];
+						System.arraycopy(oldNatureIds, 0, natureIds, missingCount, oldNatureIds.length);
+						int addAt = 0;
+						if(missingPuppetNature)
+							natureIds[addAt++] = PPUiConstants.PUPPET_NATURE_ID;
+						if(missingXtextNature)
+							natureIds[addAt++] = XtextProjectHelper.NATURE_ID;
+					}
 				}
 
 				projectDescription.setNatureIds(natureIds);

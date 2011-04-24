@@ -25,5 +25,6 @@ Require-Bundle: org.cloudsmith.geppetto.pp.dsl;visibility:=reexport,
 Import-Package: org.apache.log4j
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-Activator: org.cloudsmith.geppetto.pp.dsl.ui.internal.PPDSLActivator
-Export-Package: org.cloudsmith.geppetto.pp.dsl.ui.builder,
+Export-Package: org.cloudsmith.geppetto.pp.dsl.ui,
+ org.cloudsmith.geppetto.pp.dsl.ui.builder,
  org.cloudsmith.geppetto.pp.dsl.ui.commands

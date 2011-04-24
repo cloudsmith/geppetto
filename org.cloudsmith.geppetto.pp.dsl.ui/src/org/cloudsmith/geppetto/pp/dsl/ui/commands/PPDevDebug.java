@@ -55,6 +55,9 @@ public class PPDevDebug extends AbstractHandler {
 
 	private IStatus doDebug(XtextResource resource) {
 
+		// System.out.println("ALL RESOURCES:");
+		// listAllResources(resource, descriptionIndex);
+		System.out.println("VISIBLE RESOURCES:");
 		listVisibleResources(resource, descriptionIndex);
 		return Status.OK_STATUS;
 	}
@@ -87,6 +90,16 @@ public class PPDevDebug extends AbstractHandler {
 		});
 		System.out.println("DEVDEBUG DONE STATUS : " + result.toString() + "\n)");
 		return null; // dictated by Handler API
+	}
+
+	public void listAllResources(Resource myResource, IResourceDescriptions index) {
+		for(IResourceDescription visibleResourceDesc : index.getAllResourceDescriptions()) {
+			for(IEObjectDescription objDesc : visibleResourceDesc.getExportedObjects())
+				System.out.println("\texported: " + converter.toString(objDesc.getQualifiedName()) + " type: " +
+						objDesc.getEClass().getName());
+			System.out.println(visibleResourceDesc.getURI());
+		}
+
 	}
 
 	public void listVisibleResources(Resource myResource, IResourceDescriptions index) {

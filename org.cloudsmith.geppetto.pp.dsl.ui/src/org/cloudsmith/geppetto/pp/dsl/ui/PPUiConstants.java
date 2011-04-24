@@ -24,9 +24,11 @@ public interface PPUiConstants {
 
 	public static final String DEBUG_OPTION_MODULEFILE = PLUGIN_ID + "/debug/modulefile";
 
-	public static final QualifiedName PROJECT_PROPERTY_MODULEVERSION = new QualifiedName(PPUiConstants.PLUGIN_ID, "version");
+	public static final QualifiedName PROJECT_PROPERTY_MODULEVERSION = new QualifiedName(
+		PPUiConstants.PLUGIN_ID, "version");
 
-	public static final QualifiedName PROJECT_PROPERTY_MODULENAME = new QualifiedName(PPUiConstants.PLUGIN_ID, "moduleName");
+	public static final QualifiedName PROJECT_PROPERTY_MODULENAME = new QualifiedName(
+		PPUiConstants.PLUGIN_ID, "moduleName");
 
 	public static final String MODULEFIILE_NAME = "Modulefile";
 
@@ -35,4 +37,17 @@ public interface PPUiConstants {
 	public static final String PUPPET_MODULE_PROBLEM_MARKER_TYPE = "org.cloudsmith.geppetto.pp.dsl.ui.puppetModuleProblem";
 
 	public static final String MODULEFILE_BUILDER_ID = "org.cloudsmith.geppetto.pp.dsl.ui.modulefileBuilder";
+
+	/**
+	 * Name of hidden project that contains the target platform .pptp file.
+	 */
+	public static final String PPTP_TARGET_PROJECT_NAME = ".org_cloudsmith_geppetto_pptp_target";
+
+	/**
+	 * Name of project to be deleted on startup (hack).
+	 */
+	public static final String OLD_PPTP_TARGET_PROJECT_NAME = "org_cloudsmith_geppetto_pptp_target";
+
+	public static final String PUPPET_NATURE_ID = "org.cloudsmith.geppetto.pp.dsl.ui.puppetNature";
+
 }

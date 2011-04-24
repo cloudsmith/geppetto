@@ -1,3 +1,14 @@
+/**
+ * Copyright (c) 2011 Cloudsmith Inc. and other contributors, as listed below.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ * 
+ * Contributors:
+ *   Cloudsmith
+ * 
+ */
 package org.cloudsmith.geppetto.pp.dsl.ui.builder;
 
 import org.cloudsmith.geppetto.pp.dsl.ui.PPUiConstants;
@@ -8,11 +19,6 @@ import org.eclipse.core.resources.IProjectNature;
 import org.eclipse.core.runtime.CoreException;
 
 public class PuppetNature implements IProjectNature {
-
-	/**
-	 * ID of this project nature
-	 */
-	public static final String NATURE_ID = "org.cloudsmith.geppetto.pp.dsl.ui.puppetNature";
 
 	private IProject project;
 

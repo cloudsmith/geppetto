@@ -1,7 +1,19 @@
+/**
+ * Copyright (c) 2011 Cloudsmith Inc. and other contributors, as listed below.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ * 
+ * Contributors:
+ *   Cloudsmith
+ * 
+ */
 package org.cloudsmith.geppetto.pp.dsl.ui.builder;
 
 import java.util.Iterator;
 
+import org.cloudsmith.geppetto.pp.dsl.ui.PPUiConstants;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IProjectDescription;
 import org.eclipse.core.runtime.CoreException;
@@ -71,7 +83,7 @@ public class ToggleNatureAction implements IObjectActionDelegate {
 			String[] natures = description.getNatureIds();
 
 			for(int i = 0; i < natures.length; ++i) {
-				if(PuppetNature.NATURE_ID.equals(natures[i])) {
+				if(PPUiConstants.PUPPET_NATURE_ID.equals(natures[i])) {
 					// Remove the nature
 					String[] newNatures = new String[natures.length - 1];
 					System.arraycopy(natures, 0, newNatures, 0, i);
@@ -85,14 +97,14 @@ public class ToggleNatureAction implements IObjectActionDelegate {
 			// Add the nature
 			String[] newNatures = new String[natures.length + 1];
 			System.arraycopy(natures, 0, newNatures, 0, natures.length);
-			newNatures[natures.length] = PuppetNature.NATURE_ID;
+			newNatures[natures.length] = PPUiConstants.PUPPET_NATURE_ID;
 			description.setNatureIds(newNatures);
 			project.setDescription(description, null);
 		}
 		catch(CoreException e) {
 		}
 		try {
-			System.out.println("Puppet Nature enabled : " + project.isNatureEnabled(PuppetNature.NATURE_ID));
+			System.out.println("Puppet Nature enabled : " + project.isNatureEnabled(PPUiConstants.PUPPET_NATURE_ID));
 		}
 		catch(CoreException e) {
 			System.out.println("Failed attempt getting enablement of puppet nature");

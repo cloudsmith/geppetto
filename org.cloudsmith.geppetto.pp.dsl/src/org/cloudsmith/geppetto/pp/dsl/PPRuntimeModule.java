@@ -17,11 +17,13 @@ import org.cloudsmith.geppetto.pp.dsl.lexer.PPOverridingLexer;
 import org.cloudsmith.geppetto.pp.dsl.linking.PPLinker;
 import org.cloudsmith.geppetto.pp.dsl.linking.PPQualifiedNameConverter;
 import org.cloudsmith.geppetto.pp.dsl.linking.PPQualifiedNameProvider;
+import org.cloudsmith.geppetto.pp.dsl.linking.PPResourceDescriptionManager;
 import org.cloudsmith.geppetto.pp.dsl.serialization.PPValueSerializer;
 import org.eclipse.xtext.conversion.IValueConverterService;
 import org.eclipse.xtext.naming.IQualifiedNameConverter;
 import org.eclipse.xtext.naming.IQualifiedNameProvider;
 import org.eclipse.xtext.parser.antlr.Lexer;
+import org.eclipse.xtext.resource.IResourceDescription;
 import org.eclipse.xtext.validation.CompositeEValidator;
 
 import com.google.inject.name.Names;
@@ -54,6 +56,16 @@ public class PPRuntimeModule extends org.cloudsmith.geppetto.pp.dsl.AbstractPPRu
 	@Override
 	public Class<? extends IQualifiedNameProvider> bindIQualifiedNameProvider() {
 		return PPQualifiedNameProvider.class;
+	}
+
+	/**
+	 * Binds a resource description manager version that provides a resource description
+	 * that takes specially imported names into account.
+	 * 
+	 * @return
+	 */
+	public Class<? extends IResourceDescription.Manager> bindIResourceDescriptionManager() {
+		return PPResourceDescriptionManager.class;
 	}
 
 	// add transient value serialization service to enable skipping values that are transient from

@@ -32,6 +32,8 @@ import org.cloudsmith.geppetto.pp.ResourceExpression;
 import org.cloudsmith.geppetto.pp.adapters.ClassifierAdapter;
 import org.cloudsmith.geppetto.pp.adapters.ClassifierAdapterFactory;
 import org.cloudsmith.geppetto.pp.dsl.PPDSLConstants;
+import org.cloudsmith.geppetto.pp.dsl.adapters.PPImportedNamesAdapter;
+import org.cloudsmith.geppetto.pp.dsl.adapters.PPImportedNamesAdapterFactory;
 import org.cloudsmith.geppetto.pp.dsl.validation.IPPDiagnostics;
 import org.cloudsmith.geppetto.pp.pptp.PPTPPackage;
 import org.eclipse.emf.common.util.EList;
@@ -172,15 +174,15 @@ public class PPResourceLinker {
 	/**
 	 * polymorph {@link #link(EObject, IMessageAcceptor)}
 	 */
-	protected void _link(FunctionCall o, IMessageAcceptor acceptor) {
-		// TODO: Remember linked function in adapter
+	protected void _link(FunctionCall o, PPImportedNamesAdapter importedNames, IMessageAcceptor acceptor) {
 
 		// if not a name, then there is nothing to link, and this error is handled
 		// elsewhere
 		if(!(o.getLeftExpr() instanceof LiteralNameOrReference))
 			return;
 		String name = ((LiteralNameOrReference) o.getLeftExpr()).getValue();
-		if(findFunction(o, name) != null)
+
+		if(findFunction(o, name, importedNames).size() > 0)
 			return; // ok, found
 
 		acceptor.acceptError(
@@ -190,7 +192,7 @@ public class PPResourceLinker {
 	/**
 	 * polymorph {@link #link(EObject, IMessageAcceptor)}
 	 */
-	protected void _link(ResourceBody o, IMessageAcceptor acceptor) {
+	protected void _link(ResourceBody o, PPImportedNamesAdapter importedNames, IMessageAcceptor acceptor) {
 
 		ResourceExpression resource = (ResourceExpression) o.eContainer();
 		ClassifierAdapter adapter = ClassifierAdapterFactory.eINSTANCE.adapt(resource);
@@ -206,7 +208,7 @@ public class PPResourceLinker {
 						// NOTE/TODO: If there are other problems (multiple definitions with same name etc,
 						// the property could be ok in one, but not in another instance.
 						// finding that A'::x exists but not A''::x requires a lot more work
-						if(findAttributes(o, fqn).size() > 0)
+						if(findAttributes(o, fqn, importedNames).size() > 0)
 							continue; // found one such parameter == ok
 						acceptor.acceptError(
 							"Unknown parameter: '" + ao.getKey() + "' in definition: '" + desc.getName() + "'", ao,
@@ -220,7 +222,7 @@ public class PPResourceLinker {
 	/**
 	 * polymorph {@link #link(EObject, IMessageAcceptor)}
 	 */
-	protected void _link(ResourceExpression o, IMessageAcceptor acceptor) {
+	protected void _link(ResourceExpression o, PPImportedNamesAdapter importedNames, IMessageAcceptor acceptor) {
 		classifier.classify(o);
 
 		ClassifierAdapter adapter = ClassifierAdapterFactory.eINSTANCE.adapt(o);
@@ -235,7 +237,7 @@ public class PPResourceLinker {
 		// TODO: possibly check a resource override if the expression is constant (or it is impossible to lookup
 		// the resource type - also requires getting the type name from the override's expression).
 		if(!(resourceType == RESOURCE_IS_CLASSPARAMS || resourceType == RESOURCE_IS_OVERRIDE)) {
-			List<IEObjectDescription> descs = findDefinitions(o, resourceTypeName);
+			List<IEObjectDescription> descs = findDefinitions(o, resourceTypeName, importedNames);
 			if(descs.size() > 0) {
 				// make list only contain unique references
 				descs = Lists.newArrayList(Sets.newHashSet(descs));
@@ -269,36 +271,42 @@ public class PPResourceLinker {
 	 * @param fqn
 	 * @return
 	 */
-	protected List<IEObjectDescription> findAttributes(EObject scopeDetermeningObject, QualifiedName fqn) {
+	protected List<IEObjectDescription> findAttributes(EObject scopeDetermeningObject, QualifiedName fqn,
+			PPImportedNamesAdapter importedNames) {
 		// find a regular DefinitionArgument, Property or Parameter
 		List<IEObjectDescription> result = findExternal(
-			scopeDetermeningObject, fqn, PPPackage.Literals.DEFINITION_ARGUMENT, PPTPPackage.Literals.TYPE_ARGUMENT);
+			scopeDetermeningObject, fqn, importedNames, PPPackage.Literals.DEFINITION_ARGUMENT,
+			PPTPPackage.Literals.TYPE_ARGUMENT);
 		// find a meta Property or Parameter
 		if(result.isEmpty()) {
 			QualifiedName metaFqn = QualifiedName.create("Type", fqn.getLastSegment());
-			result = findExternal(scopeDetermeningObject, metaFqn, PPTPPackage.Literals.TYPE_ARGUMENT);
+			result = findExternal(scopeDetermeningObject, metaFqn, importedNames, PPTPPackage.Literals.TYPE_ARGUMENT);
 		}
 		return result;
 	}
 
-	protected List<IEObjectDescription> findDefinitions(EObject scopeDetermeningResource, String name) {
+	protected List<IEObjectDescription> findDefinitions(EObject scopeDetermeningResource, String name,
+			PPImportedNamesAdapter importedNames) {
 		if(name == null)
 			throw new IllegalArgumentException("name is null");
 		QualifiedName fqn = converter.toQualifiedName(name);
 		// make last segments initial char lower case (for references to the type itself - eg. 'File' instead of
 		// 'file'.
 		fqn = fqn.skipLast(1).append(toInitialLowerCase(fqn.getLastSegment()));
-		return findExternal(scopeDetermeningResource, fqn, PPPackage.Literals.DEFINITION, PPTPPackage.Literals.TYPE);
+		return findExternal(
+			scopeDetermeningResource, fqn, importedNames, PPPackage.Literals.DEFINITION, PPTPPackage.Literals.TYPE);
 	}
 
 	protected List<IEObjectDescription> findExternal(EObject scopeDetermeningObject, QualifiedName fqn,
-			EClass... eClasses) {
+			PPImportedNamesAdapter importedNames, EClass... eClasses) {
 		if(scopeDetermeningObject == null)
 			throw new IllegalArgumentException("scope determening object is null");
 		if(fqn == null)
 			throw new IllegalArgumentException("name is null");
 		if(eClasses == null || eClasses.length < 1)
 			throw new IllegalArgumentException("eClass is null or empty");
+
+		importedNames.add(fqn);
 
 		List<IEObjectDescription> targets = Lists.newArrayList();
 		Resource scopeDetermeningResource = scopeDetermeningObject.eResource();
@@ -324,12 +332,14 @@ public class PPResourceLinker {
 		return targets;
 	}
 
-	private List<IEObjectDescription> findFunction(EObject scopeDetermeningObject, QualifiedName fqn) {
-		return findExternal(scopeDetermeningObject, fqn, PPTPPackage.Literals.FUNCTION);
+	private List<IEObjectDescription> findFunction(EObject scopeDetermeningObject, QualifiedName fqn,
+			PPImportedNamesAdapter importedNames) {
+		return findExternal(scopeDetermeningObject, fqn, importedNames, PPTPPackage.Literals.FUNCTION);
 	}
 
-	private List<IEObjectDescription> findFunction(EObject scopeDetermeningObject, String name) {
-		return findFunction(scopeDetermeningObject, converter.toQualifiedName(name));
+	private List<IEObjectDescription> findFunction(EObject scopeDetermeningObject, String name,
+			PPImportedNamesAdapter importedNames) {
+		return findFunction(scopeDetermeningObject, converter.toQualifiedName(name), importedNames);
 	}
 
 	private QualifiedName getNameOfScope(EObject o) {
@@ -348,7 +358,8 @@ public class PPResourceLinker {
 	 * @param statements
 	 * @param acceptor
 	 */
-	protected void internalLinkUnparenthesisedCall(EList<Expression> statements, IMessageAcceptor acceptor) {
+	protected void internalLinkUnparenthesisedCall(EList<Expression> statements, PPImportedNamesAdapter importedNames,
+			IMessageAcceptor acceptor) {
 		if(statements == null || statements.size() == 0)
 			return;
 
@@ -370,7 +381,7 @@ public class PPResourceLinker {
 				i++;
 				// Expression arg = statements.get(i); // not used yet...
 				String name = ((LiteralNameOrReference) s).getValue();
-				if(findFunction(s, name) != null)
+				if(findFunction(s, name, importedNames) != null)
 					return; // ok, found
 
 				acceptor.acceptError(
@@ -413,6 +424,10 @@ public class PPResourceLinker {
 	 */
 	public void link(EObject model, IMessageAcceptor acceptor) {
 		Resource r = model.eResource();
+		// clear names remembered in the past
+		PPImportedNamesAdapter importedNames = PPImportedNamesAdapterFactory.eINSTANCE.adapt(r);
+		importedNames.clear();
+
 		IResourceDescriptions descriptionIndex = indexProvider.getResourceDescriptions(r);
 		IResourceDescription descr = descriptionIndex.getResourceDescription(r.getURI());
 		if(descr == null) {
@@ -436,17 +451,17 @@ public class PPResourceLinker {
 		while(everything.hasNext()) {
 			EObject o = everything.next();
 			if(o.eClass() == PPPackage.Literals.RESOURCE_EXPRESSION)
-				_link((ResourceExpression) o, acceptor);
+				_link((ResourceExpression) o, importedNames, acceptor);
 			else if(o.eClass() == PPPackage.Literals.RESOURCE_BODY)
-				_link((ResourceBody) o, acceptor);
+				_link((ResourceBody) o, importedNames, acceptor);
 			else if(o.eClass() == PPPackage.Literals.FUNCTION_CALL)
-				_link((FunctionCall) o, acceptor);
+				_link((FunctionCall) o, importedNames, acceptor);
 
 			// these are needed to link un-parenthesised function calls
 			else if(o.eClass() == PPPackage.Literals.PUPPET_MANIFEST)
-				internalLinkUnparenthesisedCall(((PuppetManifest) o).getStatements(), acceptor);
+				internalLinkUnparenthesisedCall(((PuppetManifest) o).getStatements(), importedNames, acceptor);
 			else if(o.eClass() == PPPackage.Literals.HOST_CLASS_DEFINITION)
-				internalLinkUnparenthesisedCall(((HostClassDefinition) o).getStatements(), acceptor);
+				internalLinkUnparenthesisedCall(((HostClassDefinition) o).getStatements(), importedNames, acceptor);
 		}
 		if(tracer.isTracing())
 			tracer.trace("}");

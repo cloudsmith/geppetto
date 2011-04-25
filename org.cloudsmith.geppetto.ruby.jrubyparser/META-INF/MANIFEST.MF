@@ -1,15 +1,16 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: Geppetto Ruby Service for JRuby-Parser
+Bundle-Name: %pluginName
+Bundle-Vendor: %providerName
+Bundle-Localization: plugin
 Bundle-SymbolicName: org.cloudsmith.geppetto.ruby.jrubyparser;singleton:=true
 Bundle-Version: 1.0.0.qualifier
 Bundle-Activator: org.cloudsmith.geppetto.ruby.jrubyparser.Activator
 Require-Bundle: org.eclipse.core.runtime,
- com.google.collect;bundle-version="1.0.0",
+ com.google.collect,
  org.cloudsmith.geppetto.ruby,
- org.jrubyparser;bundle-version="0.0.1",
- org.cloudsmith.geppetto.common;bundle-version="0.1.0"
+ org.jrubyparser,
+ org.cloudsmith.geppetto.common
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
-Bundle-Vendor: Cloudsmith
 Export-Package: org.cloudsmith.geppetto.ruby.jrubyparser;x-friends:="org.cloudsmith.geppetto.ruby.tests"

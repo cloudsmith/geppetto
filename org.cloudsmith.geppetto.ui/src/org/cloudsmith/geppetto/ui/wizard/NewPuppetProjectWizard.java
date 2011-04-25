@@ -11,6 +11,7 @@
  */
 package org.cloudsmith.geppetto.ui.wizard;
 
+import java.io.File;
 import java.util.Collections;
 
 import org.cloudsmith.geppetto.forge.Forge;
@@ -107,7 +108,17 @@ public class NewPuppetProjectWizard extends Wizard implements INewWizard {
 	protected void initializeProjectContents() throws Exception {
 		Forge forge = getForge();
 		Metadata metadata = forge.getService().createMetadata(System.getProperty("user.name") + '/' + project.getName()); //$NON-NLS-1$
-		forge.generate(project.getLocation().toFile(), metadata);
+
+		if(ResourceUtil.getFile(project.getFullPath().append("manifests/init.pp")).exists()) { //$NON-NLS-1$
+			File modulefile = project.getLocation().append("Modulefile").toFile(); //$NON-NLS-1$
+
+			if(!modulefile.exists()) {
+				metadata.saveModulefile(modulefile);
+			}
+		}
+		else {
+			forge.generate(project.getLocation().toFile(), metadata);
+		}
 	}
 
 	protected WizardNewProjectCreationPage newProjectCreationPage(String pageName) {
@@ -149,13 +160,13 @@ public class NewPuppetProjectWizard extends Wizard implements INewWizard {
 		}
 
 		if(project != null) {
-			IFile manifestFile = ResourceUtil.getFile(project.getFullPath().append("manifests/init.pp")); //$NON-NLS-1$
+			IFile modulefile = ResourceUtil.getFile(project.getFullPath().append("Modulefile")); //$NON-NLS-1$
 
-			if(manifestFile.exists()) {
-				ResourceUtil.selectFile(manifestFile);
+			if(modulefile.exists()) {
+				ResourceUtil.selectFile(modulefile);
 
 				try {
-					ResourceUtil.openEditor(manifestFile);
+					ResourceUtil.openEditor(modulefile);
 				}
 				catch(PartInitException partInitException) {
 					MessageDialog.openError(

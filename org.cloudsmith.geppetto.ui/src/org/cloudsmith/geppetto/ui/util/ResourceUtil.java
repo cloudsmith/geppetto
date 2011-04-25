@@ -136,12 +136,26 @@ public class ResourceUtil {
 		return ResourcesPlugin.getWorkspace().getRoot().getFile(path);
 	}
 
+	protected static boolean isManifest(IFile file) {
+		return file.getFileExtension().equals("pp"); //$NON-NLS-1$
+	}
+
+	protected static boolean isMetadata(IFile file) {
+		return file.getName().equals("Modulefile"); //$NON-NLS-1$
+	}
+
 	public static void openEditor(IFile file) throws PartInitException {
+		openEditor(file, isMetadata(file)
+				? "org.cloudsmith.geppetto.ui.moduleMetadataEditor" //$NON-NLS-1$
+				: "org.cloudsmith.geppetto.pp.dsl.Puppet"); //$NON-NLS-1$
+	}
+
+	public static void openEditor(IFile file, String editorId) throws PartInitException {
 		IWorkbench workbench = PlatformUI.getWorkbench();
 		IWorkbenchPage page = workbench.getActiveWorkbenchWindow().getActivePage();
 		IEditorDescriptor defaultEditor = workbench.getEditorRegistry().getDefaultEditor(file.getFullPath().toString());
 		page.openEditor(new FileEditorInput(file), defaultEditor == null
-				? "org.cloudsmith.geppetto.pp.dsl.Puppet" //$NON-NLS-1$
+				? editorId
 				: defaultEditor.getId());
 	}
 

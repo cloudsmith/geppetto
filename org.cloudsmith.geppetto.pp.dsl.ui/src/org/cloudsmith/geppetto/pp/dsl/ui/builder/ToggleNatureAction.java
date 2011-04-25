@@ -103,12 +103,6 @@ public class ToggleNatureAction implements IObjectActionDelegate {
 		}
 		catch(CoreException e) {
 		}
-		try {
-			System.out.println("Puppet Nature enabled : " + project.isNatureEnabled(PPUiConstants.PUPPET_NATURE_ID));
-		}
-		catch(CoreException e) {
-			System.out.println("Failed attempt getting enablement of puppet nature");
-		}
 	}
 
 }

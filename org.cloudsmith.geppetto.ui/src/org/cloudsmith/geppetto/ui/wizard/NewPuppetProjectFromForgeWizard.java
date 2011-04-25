@@ -158,17 +158,17 @@ public class NewPuppetProjectFromForgeWizard extends NewPuppetProjectWizard {
 
 			if(module == null) {
 				setErrorMessage(null);
-				setMessage(UIPlugin.INSTANCE.getString("_UI_ModuleCannotBeEmpty_message"));
+				setMessage(UIPlugin.INSTANCE.getString("_UI_ModuleCannotBeEmpty_message")); //$NON-NLS-1$
 				return false;
 			}
 
 			if(super.validatePage()) {
-				String preferredProjectName = module.getFullName().replace('/', '-');
+				String preferredProjectName = module.getName();
 
 				if(!preferredProjectName.equals(getProjectName())) {
 					setErrorMessage(null);
 					setMessage(UIPlugin.INSTANCE.getString(
-						"_UI_ProjectNameShouldMatchModule_message", new Object[] { preferredProjectName }), WARNING);
+						"_UI_ProjectNameShouldMatchModule_message", new Object[] { preferredProjectName }), WARNING); //$NON-NLS-1$
 				}
 
 				return true;

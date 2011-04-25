@@ -21,75 +21,26 @@ import org.jrubyparser.lexer.SyntaxException;
 
 import com.google.common.collect.Lists;
 
-/** 
+/**
  * Collects warnings and errors from JRubyParser callbacks
  */
 public class RubyParserWarningsCollector implements IRubyWarnings {
 
-	private List<IRubyIssue> issues;
-	
-	public List<IRubyIssue> getIssues() {
-		return Collections.unmodifiableList(issues);
-	}
 	public static class RubyIssue implements IRubyIssue {
-		/**
-		 * Indicates if this is a syntax error. This is the same as getId() == null.
-		 * @return
-		 */
-		public boolean isSyntaxError() {
-			return id == null;
-		}
-		
-		/**
-		 * Implementation specific.
-		 * @return null if this issue represents a syntax error.
-		 */
-		public ID getId() {
-			return id;
-		}
-		/**
-		 * Returns "jruby.syntax.error" if this issue represents a syntax error, else the ID as a string.
-		 * The ID is ruby parser implementation specific.
-		 * @return
-		 */
-		public String getIdString() {
-			return id == null ? "jruby.syntax.error" : id.toString();
-		}
-		public int getLine() {
-			return line;
-		}
-		/**
-		 * Returns -1 if no start line has been set.
-		 * @return
-		 */
-		public int getStartLine() {
-			return startLine;
-		}
-		
-		/**
-		 * Returns null if issue did not report a filename
-		 * @return
-		 */
-		public String getFileName() {
-			return fileName;
-		}
-		
-		public String getMessage() {
-			return message;
-		}
-		
-		public Object[] getData() {
-			return data;
-		}
-		
 		private ID id;
+
 		private int line;
 		private int startLine;
 		private String fileName;
 		private String message;
+
 		private Object[] data;
-		protected RubyIssue(ID id, int line, int startLine, String fileName, String message, Object...data) {
-			if(id == null)
+
+		private static final Object[] EMPTY_DATA = {};
+
+		protected RubyIssue(ID id, int line, int startLine, String fileName,
+				String message, Object... data) {
+			if (id == null)
 				throw new IllegalArgumentException("ID may not be null");
 			this.id = id;
 			this.line = line;
@@ -98,12 +49,13 @@ public class RubyParserWarningsCollector implements IRubyWarnings {
 			this.message = message;
 			this.data = data;
 		}
-		
-		protected RubyIssue(ID id, SourcePosition position, String message, Object... data) {
-			this(id, position.getEndLine(), position.getStartLine(), position.getFile(), message, data);
+
+		protected RubyIssue(ID id, SourcePosition position, String message,
+				Object... data) {
+			this(id, position.getEndLine(), position.getStartLine(), position
+					.getFile(), message, data);
 		}
-		
-		private static final Object[] EMPTY_DATA = {} ;
+
 		protected RubyIssue(SyntaxException error) {
 			SourcePosition position = error.getPosition();
 			this.id = null; // is a syntax error
@@ -113,43 +65,111 @@ public class RubyParserWarningsCollector implements IRubyWarnings {
 			this.message = error.getMessage();
 			this.data = EMPTY_DATA;
 		}
-		
+
+		public Object[] getData() {
+			return data;
+		}
+
+		/**
+		 * Returns null if issue did not report a filename
+		 * 
+		 * @return
+		 */
+		public String getFileName() {
+			return fileName;
+		}
+
+		/**
+		 * Implementation specific.
+		 * 
+		 * @return null if this issue represents a syntax error.
+		 */
+		public ID getId() {
+			return id;
+		}
+
+		/**
+		 * Returns "jruby.syntax.error" if this issue represents a syntax error,
+		 * else the ID as a string. The ID is ruby parser implementation
+		 * specific.
+		 * 
+		 * @return
+		 */
+		public String getIdString() {
+			return id == null ? "jruby.syntax.error" : id.toString();
+		}
+
+		public int getLine() {
+			return line;
+		}
+
+		public String getMessage() {
+			return message;
+		}
+
+		/**
+		 * Returns -1 if no start line has been set.
+		 * 
+		 * @return
+		 */
+		public int getStartLine() {
+			return startLine;
+		}
+
+		/**
+		 * Indicates if this is a syntax error. This is the same as getId() ==
+		 * null.
+		 * 
+		 * @return
+		 */
+		public boolean isSyntaxError() {
+			return id == null;
+		}
+
 	}
+
+	private List<IRubyIssue> issues;
+
 	public RubyParserWarningsCollector() {
 		issues = Lists.newArrayList();
 	}
 
+	public List<IRubyIssue> getIssues() {
+		return Collections.unmodifiableList(issues);
+	}
+
 	/**
-	 * Unknown what this does - there is no javadoc in interface.
-	 * Returns 'false'.
+	 * Unknown what this does - there is no javadoc in interface. Returns
+	 * 'false'.
 	 */
 	@Override
 	public boolean isVerbose() {
 		return false;
 	}
 
-//	@Override
-//	public Ruby getRuntime() {
-//		return runtime;
-//	}
+	// @Override
+	// public Ruby getRuntime() {
+	// return runtime;
+	// }
+
+	public void syntaxError(SyntaxException error) {
+		issues.add(new RubyIssue(error));
+	}
 
 	@Override
-	public void warn(ID id, SourcePosition position, String message, Object... data) {
+	public void warn(ID id, SourcePosition position, String message,
+			Object... data) {
 		issues.add(new RubyIssue(id, position, message, data));
 	}
 
 	@Override
-	public void warn(ID id, String fileName, int lineNumber, String message, Object... data) {
+	public void warn(ID id, String fileName, int lineNumber, String message,
+			Object... data) {
 		issues.add(new RubyIssue(id, lineNumber, -1, fileName, message, data));
 	}
 
 	@Override
 	public void warn(ID id, String message, Object... data) {
-		issues.add(new RubyIssue(id, -1, -1, null, message, data));
-	}
-
-	@Override
-	public void warning(ID id, String message, Object... data) {
 		issues.add(new RubyIssue(id, -1, -1, null, message, data));
 	}
 
@@ -160,11 +180,13 @@ public class RubyParserWarningsCollector implements IRubyWarnings {
 	}
 
 	@Override
-	public void warning(ID id, String fileName, int lineNumber, String message, Object... data) {
+	public void warning(ID id, String fileName, int lineNumber, String message,
+			Object... data) {
 		issues.add(new RubyIssue(id, lineNumber, -1, fileName, message, data));
 	}
-	
-	public void syntaxError(SyntaxException error) {
-		issues.add(new RubyIssue(error));
+
+	@Override
+	public void warning(ID id, String message, Object... data) {
+		issues.add(new RubyIssue(id, -1, -1, null, message, data));
 	}
 }

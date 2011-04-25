@@ -15,14 +15,14 @@ import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
 
 public class Activator implements BundleActivator {
-	
+
 	public static final String EXTENSION__RUBY_SERVICE = "org.cloudsmith.geppetto.rubyservice";
 	public static final String EXTENSION__RUBY_SERVICE_SERVICECLASS = "serviceClass";
 
 	public static final String PLUGIN_ID = "org.cloudsmith.geppetto.ruby";
 
 	private static BundleContext context;
-	
+
 	public static Activator instance;
 
 	static BundleContext getContext() {
@@ -31,7 +31,10 @@ public class Activator implements BundleActivator {
 
 	/*
 	 * (non-Javadoc)
-	 * @see org.osgi.framework.BundleActivator#start(org.osgi.framework.BundleContext)
+	 * 
+	 * @see
+	 * org.osgi.framework.BundleActivator#start(org.osgi.framework.BundleContext
+	 * )
 	 */
 	public void start(BundleContext bundleContext) throws Exception {
 		Activator.context = bundleContext;
@@ -40,7 +43,9 @@ public class Activator implements BundleActivator {
 
 	/*
 	 * (non-Javadoc)
-	 * @see org.osgi.framework.BundleActivator#stop(org.osgi.framework.BundleContext)
+	 * 
+	 * @see
+	 * org.osgi.framework.BundleActivator#stop(org.osgi.framework.BundleContext)
 	 */
 	public void stop(BundleContext bundleContext) throws Exception {
 		Activator.context = null;

@@ -21,29 +21,19 @@ import org.jrubyparser.ast.Node;
 /**
  * Unifies the two types of calls (FCallNode and CallNode) into one class.
  */
-public class GenericCallNode implements INameNode, IArgumentNode, BlockAcceptingNode{
+public class GenericCallNode implements INameNode, IArgumentNode,
+		BlockAcceptingNode {
 	private final FCallNode fcallNode;
 	private final CallNode callNode;
-	
-	public GenericCallNode(FCallNode node) {
-		fcallNode = node;
-		callNode = null;
-	}
+
 	public GenericCallNode(CallNode node) {
 		fcallNode = null;
 		callNode = node;
 	}
-	public boolean isValid() {
-		return fcallNode != null || callNode != null;
-	}
-	@Override
-	public Node getIterNode() {
-		return (callNode == null ? fcallNode : callNode).getIterNode();
-	}
 
-	@Override
-	public Node setIterNode(Node iterNode) {
-		return (callNode == null ? fcallNode : callNode).setIterNode(iterNode);
+	public GenericCallNode(FCallNode node) {
+		fcallNode = node;
+		callNode = null;
 	}
 
 	@Override
@@ -52,12 +42,27 @@ public class GenericCallNode implements INameNode, IArgumentNode, BlockAccepting
 	}
 
 	@Override
-	public Node setArgsNode(Node argsNode) {
-		return (callNode == null ? fcallNode : callNode).setArgsNode(argsNode);
+	public Node getIterNode() {
+		return (callNode == null ? fcallNode : callNode).getIterNode();
 	}
+
 	@Override
 	public String getName() {
 		return (callNode == null ? fcallNode : callNode).getName();
 	}
-	
+
+	public boolean isValid() {
+		return fcallNode != null || callNode != null;
+	}
+
+	@Override
+	public Node setArgsNode(Node argsNode) {
+		return (callNode == null ? fcallNode : callNode).setArgsNode(argsNode);
+	}
+
+	@Override
+	public Node setIterNode(Node iterNode) {
+		return (callNode == null ? fcallNode : callNode).setIterNode(iterNode);
+	}
+
 }

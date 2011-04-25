@@ -47,6 +47,36 @@ public class TestDoubleQuotedString extends AbstractPuppetTests {
 		}
 	}
 
+	private String doubleQuote(String s) {
+		return '"' + s + '"';
+	}
+
+	private void flatten(List<TEPair> result, TextExpression te) {
+		if(te == null)
+			return;
+		if(te.getLeading() != null)
+			flatten(result, te.getLeading());
+		if(te instanceof VerbatimTE)
+			result.add(tePair(te, ((VerbatimTE) te).getText()));
+		else if(te instanceof VariableTE)
+			result.add(tePair(te, ((VariableTE) te).getVarName()));
+		else if(te instanceof ExpressionTE)
+			result.add(tePair(te, "EXPRESSION"));
+
+		if(te.getTrailing() != null)
+			flatten(result, te.getTrailing());
+	}
+
+	private List<TEPair> flattenTextExpression(TextExpression te) {
+		List<TEPair> result = new ArrayList<TEPair>();
+		flatten(result, te);
+		return result;
+	}
+
+	private TEPair tePair(TextExpression te, String s) {
+		return new TEPair(te, s);
+	}
+
 	public void test_Parse_DoubleQuotedString_Dollar() throws Exception {
 		String original = "before$/after";
 		String code = doubleQuote(original);
@@ -154,35 +184,5 @@ public class TestDoubleQuotedString extends AbstractPuppetTests {
 
 		String s = serializeFormatted(r.getContents().get(0));
 		assertEquals("Serialization of interpolated string should produce same result", code, s);
-	}
-
-	private String doubleQuote(String s) {
-		return '"' + s + '"';
-	}
-
-	private void flatten(List<TEPair> result, TextExpression te) {
-		if(te == null)
-			return;
-		if(te.getLeading() != null)
-			flatten(result, te.getLeading());
-		if(te instanceof VerbatimTE)
-			result.add(tePair(te, ((VerbatimTE) te).getText()));
-		else if(te instanceof VariableTE)
-			result.add(tePair(te, ((VariableTE) te).getVarName()));
-		else if(te instanceof ExpressionTE)
-			result.add(tePair(te, "EXPRESSION"));
-
-		if(te.getTrailing() != null)
-			flatten(result, te.getTrailing());
-	}
-
-	private List<TEPair> flattenTextExpression(TextExpression te) {
-		List<TEPair> result = new ArrayList<TEPair>();
-		flatten(result, te);
-		return result;
-	}
-
-	private TEPair tePair(TextExpression te, String s) {
-		return new TEPair(te, s);
 	}
 }

@@ -35,45 +35,84 @@ import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.impl.ResourceImpl;
 
 /**
- * A Resource that loads .rb files containing Puppet "target platform" information.
- * Ruby source on particular paths are transformed into PPTP model contents.
+ * A Resource that loads .rb files containing Puppet "target platform"
+ * information. Ruby source on particular paths are transformed into PPTP model
+ * contents.
  * 
  */
 public class PptpRubyResource extends ResourceImpl {
-
-	private LoadType loadType;
-
-	/**
-	 * Create an instance with a reference to a resource in Ruby text format.
-	 * 
-	 * @param uri
-	 */
-	public PptpRubyResource(URI uri) {
-		super(uri);
-	}
-
-	@Override
-	public void load(Map<?, ?> options) throws IOException {
-		if (!super.isLoaded) {
-			super.isLoading = true;
-
-			loadType = detectLoadType();
-			internalLoadRuby();
-
-			super.isLoading = false;
-			super.isLoaded = true;
-		}
-	}
 
 	public enum LoadType {
 		TYPE, TYPEFRAGMENT, META, FUNCTION, IGNORED;
 
 	}
 
-	protected LoadType detectLoadType() {
-		return detectLoadType(getURI());
+	public static class RubyIssueDiagnostic implements Diagnostic {
+		private IRubyIssue issue;
+
+		public RubyIssueDiagnostic(IRubyIssue issue) {
+			this.issue = issue;
+		}
+
+		/**
+		 * @throws UnsupportedOperationException
+		 *             - column is not available.
+		 */
+		@Override
+		public int getColumn() {
+			throw new UnsupportedOperationException();
+		}
+
+		@Override
+		public int getLine() {
+			return issue.getLine();
+		}
+
+		@Override
+		public String getLocation() {
+			return issue.getFileName();
+		}
+
+		@Override
+		public String getMessage() {
+			return issue.getMessage();
+		}
+
 	}
-	
+
+	public static class RubySyntaxExceptionDiagnostic implements Diagnostic {
+		private RubySyntaxException issue;
+
+		public RubySyntaxExceptionDiagnostic(RubySyntaxException issue) {
+			this.issue = issue;
+		}
+
+		/**
+		 * @throws UnsupportedOperationException
+		 *             - column is not available.
+		 */
+		@Override
+		public int getColumn() {
+			throw new UnsupportedOperationException();
+		}
+
+		@Override
+		public int getLine() {
+			return issue.getLine();
+		}
+
+		@Override
+		public String getLocation() {
+			return issue.getFilename();
+		}
+
+		@Override
+		public String getMessage() {
+			return issue.getMessage();
+		}
+
+	}
+
 	/**
 	 * (SOMEROOT/lib/puppet/) parser/functions/F.rb (SOMEROOT/lib/puppet/)
 	 * type/T.rb (SOMEROOT/lib/puppet/) type/FRAGMENTDIR/TypeFragment.rb
@@ -122,6 +161,40 @@ public class PptpRubyResource extends ResourceImpl {
 			}
 		}
 		return LoadType.IGNORED;
+	}
+
+	private LoadType loadType;
+
+	/**
+	 * Create an instance with a reference to a resource in Ruby text format.
+	 * 
+	 * @param uri
+	 */
+	public PptpRubyResource(URI uri) {
+		super(uri);
+	}
+
+	protected LoadType detectLoadType() {
+		return detectLoadType(getURI());
+	}
+
+	/**
+	 * Load the entire ruby file (this implementation only checks for errors)
+	 * 
+	 * @throws IOException
+	 */
+	protected void internalLoadAnyRuby() throws IOException {
+		InputStream inputStream = this.getURIConverter().createInputStream(
+				getURI());
+		RubyHelper helper = new RubyHelper();
+		helper.setUp();
+		try {
+			IRubyParseResult result = helper.parse(getURI().path(),
+					new InputStreamReader(inputStream));
+			rubyIssuesToDiagnostics(result);
+		} finally {
+			helper.tearDown();
+		}
 	}
 
 	/**
@@ -259,22 +332,16 @@ public class PptpRubyResource extends ResourceImpl {
 		}
 	}
 
-	/**
-	 * Load the entire ruby file (this implementation only checks for errors)
-	 * 
-	 * @throws IOException
-	 */
-	protected void internalLoadAnyRuby() throws IOException {
-		InputStream inputStream = this.getURIConverter().createInputStream(
-				getURI());
-		RubyHelper helper = new RubyHelper();
-		helper.setUp();
-		try {
-			IRubyParseResult result = helper.parse(getURI().path(),
-					new InputStreamReader(inputStream));
-			rubyIssuesToDiagnostics(result);
-		} finally {
-			helper.tearDown();
+	@Override
+	public void load(Map<?, ?> options) throws IOException {
+		if (!super.isLoaded) {
+			super.isLoading = true;
+
+			loadType = detectLoadType();
+			internalLoadRuby();
+
+			super.isLoading = false;
+			super.isLoaded = true;
 		}
 	}
 
@@ -298,71 +365,5 @@ public class PptpRubyResource extends ResourceImpl {
 	public void save(Map<?, ?> options) throws IOException {
 		throw new UnsupportedOperationException(
 				"Save of PPTP parsed from a ruby file is not possible.");
-	}
-
-	public static class RubyIssueDiagnostic implements Diagnostic {
-		private IRubyIssue issue;
-
-		public RubyIssueDiagnostic(IRubyIssue issue) {
-			this.issue = issue;
-		}
-
-		@Override
-		public String getMessage() {
-			return issue.getMessage();
-		}
-
-		@Override
-		public String getLocation() {
-			return issue.getFileName();
-		}
-
-		@Override
-		public int getLine() {
-			return issue.getLine();
-		}
-
-		/**
-		 * @throws UnsupportedOperationException
-		 *             - column is not available.
-		 */
-		@Override
-		public int getColumn() {
-			throw new UnsupportedOperationException();
-		}
-
-	}
-
-	public static class RubySyntaxExceptionDiagnostic implements Diagnostic {
-		private RubySyntaxException issue;
-
-		public RubySyntaxExceptionDiagnostic(RubySyntaxException issue) {
-			this.issue = issue;
-		}
-
-		@Override
-		public String getMessage() {
-			return issue.getMessage();
-		}
-
-		@Override
-		public String getLocation() {
-			return issue.getFilename();
-		}
-
-		@Override
-		public int getLine() {
-			return issue.getLine();
-		}
-
-		/**
-		 * @throws UnsupportedOperationException
-		 *             - column is not available.
-		 */
-		@Override
-		public int getColumn() {
-			throw new UnsupportedOperationException();
-		}
-
 	}
 }

@@ -15,67 +15,76 @@ import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 
 /**
- * Evaluates (a limited set of) Ruby constant expressions.
- * TODO: Colon3Node (i.e. name relative to global root) not handled - as FQN are returned as list of String
- * there is currently no marker if it is relative or absolute.
- *
+ * Evaluates (a limited set of) Ruby constant expressions. TODO: Colon3Node
+ * (i.e. name relative to global root) not handled - as FQN are returned as list
+ * of String there is currently no marker if it is relative or absolute.
+ * 
  */
 public class ConstEvaluator extends AbstractJRubyVisitor {
+	private List<String> addAll(List<String> a, List<String> b) {
+		a.addAll(b);
+		return a;
+	}
+
 	public Object eval(Node node) {
-		if(node == null)
+		if (node == null)
 			return null;
 		return node.accept(this);
 	}
+
+	private List<String> splice(Object a, Object b) {
+		return addAll(stringList(a), stringList(b));
+	}
+
 	@SuppressWarnings("unchecked")
 	public List<String> stringList(Object x) {
-		if(x instanceof List)
-			return (List<String>)x; // have faith
-		if(x instanceof String)
-			return Lists.newArrayList((String)x);
-		if(x == null)
+		if (x instanceof List)
+			return (List<String>) x; // have faith
+		if (x instanceof String)
+			return Lists.newArrayList((String) x);
+		if (x == null)
 			return Lists.newArrayList(); // empty list
 		throw new IllegalArgumentException("Not a string or lists of strings");
 	}
+
 	@Override
 	public Object visitArrayNode(ArrayNode iVisited) {
 		List<Object> result = Lists.newArrayList();
-		for(Node n : iVisited.childNodes())
+		for (Node n : iVisited.childNodes())
 			result.add(eval(n));
 		return result;
 	}
+
 	@Override
-	public Object visitSymbolNode(SymbolNode iVisited) {
+	public Object visitColon2Node(Colon2Node iVisited) {
+		return splice(eval(iVisited.getLeftNode()), iVisited.getName());
+	}
+
+	@Override
+	public Object visitConstNode(ConstNode iVisited) {
 		return iVisited.getName();
 	}
+
 	@Override
 	public Object visitHashNode(HashNode iVisited) {
 		Map<Object, Object> result = Maps.newHashMap();
 		List<Node> children = iVisited.childNodes();
 		children = children.get(0).childNodes();
-		for(int i = 0; i < children.size(); i++) {
+		for (int i = 0; i < children.size(); i++) {
 			Object key = eval(children.get(i++));
 			Object value = eval(children.get(i));
 			result.put(key, value);
 		}
 		return result;
 	}
+
 	@Override
 	public Object visitStrNode(StrNode iVisited) {
 		return iVisited.getValue();
 	}
+
 	@Override
-	public Object visitConstNode(ConstNode iVisited) {
+	public Object visitSymbolNode(SymbolNode iVisited) {
 		return iVisited.getName();
-	}
-	@Override
-	public Object visitColon2Node(Colon2Node iVisited) {
-		return splice(eval(iVisited.getLeftNode()), iVisited.getName());
-	}
-	private List<String> splice(Object a, Object b) {
-		 return addAll(stringList(a),stringList(b));
-	}
-	private List<String> addAll(List<String> a, List<String> b) {
-		a.addAll(b);
-		return a;
 	}
 }

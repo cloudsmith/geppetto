@@ -37,18 +37,17 @@ public class RubySyntaxException extends Exception {
 					break FOUND;
 				}
 			}
-			if(issues.size() < 1) {
+			if (issues.size() < 1) {
 				filename = "unknown";
 				line = -1;
 				message = "Can't find an error message to display!";
 			}
-			if(issues.size() == 1) {
+			if (issues.size() == 1) {
 				IRubyIssue issue = issues.get(0);
 				filename = issue.getFileName();
 				line = -1;
-				message = issue.getMessage();				
-			}
-			else {
+				message = issue.getMessage();
+			} else {
 				IRubyIssue issue = issues.get(0);
 				filename = issue.getFileName();
 				line = -1;
@@ -56,11 +55,7 @@ public class RubySyntaxException extends Exception {
 			}
 		}
 	}
-	
-	@Override
-	public String getMessage() {
-		return message;
-	}
+
 	public String getFilename() {
 		return filename;
 	}
@@ -68,6 +63,13 @@ public class RubySyntaxException extends Exception {
 	public int getLine() {
 		return line;
 	}
+
+	@Override
+	public String getMessage() {
+		return message;
+	}
+
+	@Override
 	public String toString() {
 		StringBuffer str = new StringBuffer();
 		str.append(filename);

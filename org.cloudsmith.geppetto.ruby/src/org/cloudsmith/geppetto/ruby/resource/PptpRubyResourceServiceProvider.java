@@ -17,23 +17,8 @@ import org.eclipse.xtext.resource.IResourceDescription.Manager;
 import org.eclipse.xtext.resource.IResourceServiceProvider;
 import org.eclipse.xtext.validation.IResourceValidator;
 
-public class PptpRubyResourceServiceProvider implements IResourceServiceProvider {
-
-	@Override
-	public IResourceValidator getResourceValidator() {
-		return IResourceValidator.NULL;
-	}
-
-	@Override
-	public Manager getResourceDescriptionManager() {
-		return null;
-	}
-
-	@Override
-	public org.eclipse.xtext.resource.IContainer.Manager getContainerManager() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+public class PptpRubyResourceServiceProvider implements
+		IResourceServiceProvider {
 
 	/**
 	 * Returns true for .rb files that make a contribution to PPTP.
@@ -46,13 +31,29 @@ public class PptpRubyResourceServiceProvider implements IResourceServiceProvider
 	}
 
 	@Override
+	public <T> T get(Class<T> t) {
+		return null;
+	}
+
+	@Override
+	public org.eclipse.xtext.resource.IContainer.Manager getContainerManager() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
 	public IEncodingProvider getEncodingProvider() {
 		return null;
 	}
 
 	@Override
-	public <T> T get(Class<T> t) {
+	public Manager getResourceDescriptionManager() {
 		return null;
+	}
+
+	@Override
+	public IResourceValidator getResourceValidator() {
+		return IResourceValidator.NULL;
 	}
 
 }

@@ -7,31 +7,34 @@ public class AbstractJRubyVisitor implements NodeVisitor {
 
 	/**
 	 * Visits all node in graph.
+	 * 
 	 * @param root
 	 */
 	public void all(Node root) {
 		root.accept(this);
-		for(Node n : root.childNodes())
+		for (Node n : root.childNodes())
 			all(n);
 	}
+
 	/**
-	 * Visits all nodes in graph, and if visitor returns non-null, the iteration stops
-	 * and the returned non-null value is returned.,
+	 * Visits all nodes in graph, and if visitor returns non-null, the iteration
+	 * stops and the returned non-null value is returned.,
+	 * 
 	 * @param root
 	 * @return
 	 */
 	public Object untilNotNull(Node root) {
 		Object r = root.accept(this);
-		if(r != null)
+		if (r != null)
 			return r;
-		for(Node n : root.childNodes()) {
+		for (Node n : root.childNodes()) {
 			r = untilNotNull(n);
-			if(r != null)
+			if (r != null)
 				return r;
 		}
 		return null;
 	}
-	
+
 	@Override
 	public Object visitAliasNode(AliasNode iVisited) {
 		// DOES NOTHING
@@ -45,13 +48,13 @@ public class AbstractJRubyVisitor implements NodeVisitor {
 	}
 
 	@Override
-	public Object visitArgsNode(ArgsNode iVisited) {
+	public Object visitArgsCatNode(ArgsCatNode iVisited) {
 		// DOES NOTHING
 		return null;
 	}
 
 	@Override
-	public Object visitArgsCatNode(ArgsCatNode iVisited) {
+	public Object visitArgsNode(ArgsNode iVisited) {
 		// DOES NOTHING
 		return null;
 	}
@@ -98,7 +101,6 @@ public class AbstractJRubyVisitor implements NodeVisitor {
 		return null;
 	}
 
-
 	@Override
 	public Object visitBlockNode(BlockNode iVisited) {
 		// DOES NOTHING
@@ -113,30 +115,6 @@ public class AbstractJRubyVisitor implements NodeVisitor {
 
 	@Override
 	public Object visitBreakNode(BreakNode iVisited) {
-		// DOES NOTHING
-		return null;
-	}
-
-	@Override
-	public Object visitConstDeclNode(ConstDeclNode iVisited) {
-		// DOES NOTHING
-		return null;
-	}
-
-	@Override
-	public Object visitClassVarAsgnNode(ClassVarAsgnNode iVisited) {
-		// DOES NOTHING
-		return null;
-	}
-
-	@Override
-	public Object visitClassVarDeclNode(ClassVarDeclNode iVisited) {
-		// DOES NOTHING
-		return null;
-	}
-
-	@Override
-	public Object visitClassVarNode(ClassVarNode iVisited) {
 		// DOES NOTHING
 		return null;
 	}
@@ -160,6 +138,24 @@ public class AbstractJRubyVisitor implements NodeVisitor {
 	}
 
 	@Override
+	public Object visitClassVarAsgnNode(ClassVarAsgnNode iVisited) {
+		// DOES NOTHING
+		return null;
+	}
+
+	@Override
+	public Object visitClassVarDeclNode(ClassVarDeclNode iVisited) {
+		// DOES NOTHING
+		return null;
+	}
+
+	@Override
+	public Object visitClassVarNode(ClassVarNode iVisited) {
+		// DOES NOTHING
+		return null;
+	}
+
+	@Override
 	public Object visitColon2Node(Colon2Node iVisited) {
 		// DOES NOTHING
 		return null;
@@ -172,6 +168,12 @@ public class AbstractJRubyVisitor implements NodeVisitor {
 	}
 
 	@Override
+	public Object visitConstDeclNode(ConstDeclNode iVisited) {
+		// DOES NOTHING
+		return null;
+	}
+
+	@Override
 	public Object visitConstNode(ConstNode iVisited) {
 		// DOES NOTHING
 		return null;
@@ -179,6 +181,30 @@ public class AbstractJRubyVisitor implements NodeVisitor {
 
 	@Override
 	public Object visitDAsgnNode(DAsgnNode iVisited) {
+		// DOES NOTHING
+		return null;
+	}
+
+	@Override
+	public Object visitDefinedNode(DefinedNode iVisited) {
+		// DOES NOTHING
+		return null;
+	}
+
+	@Override
+	public Object visitDefnNode(DefnNode iVisited) {
+		// DOES NOTHING
+		return null;
+	}
+
+	@Override
+	public Object visitDefsNode(DefsNode iVisited) {
+		// DOES NOTHING
+		return null;
+	}
+
+	@Override
+	public Object visitDotNode(DotNode iVisited) {
 		// DOES NOTHING
 		return null;
 	}
@@ -214,30 +240,6 @@ public class AbstractJRubyVisitor implements NodeVisitor {
 	}
 
 	@Override
-	public Object visitDefinedNode(DefinedNode iVisited) {
-		// DOES NOTHING
-		return null;
-	}
-
-	@Override
-	public Object visitDefnNode(DefnNode iVisited) {
-		// DOES NOTHING
-		return null;
-	}
-
-	@Override
-	public Object visitDefsNode(DefsNode iVisited) {
-		// DOES NOTHING
-		return null;
-	}
-
-	@Override
-	public Object visitDotNode(DotNode iVisited) {
-		// DOES NOTHING
-		return null;
-	}
-
-	@Override
 	public Object visitEncodingNode(EncodingNode iVisited) {
 		// DOES NOTHING
 		return null;
@@ -256,13 +258,13 @@ public class AbstractJRubyVisitor implements NodeVisitor {
 	}
 
 	@Override
-	public Object visitFCallNode(FCallNode iVisited) {
+	public Object visitFalseNode(FalseNode iVisited) {
 		// DOES NOTHING
 		return null;
 	}
 
 	@Override
-	public Object visitFalseNode(FalseNode iVisited) {
+	public Object visitFCallNode(FCallNode iVisited) {
 		// DOES NOTHING
 		return null;
 	}
@@ -310,6 +312,12 @@ public class AbstractJRubyVisitor implements NodeVisitor {
 	}
 
 	@Override
+	public Object visitIfNode(IfNode iVisited) {
+		// DOES NOTHING
+		return null;
+	}
+
+	@Override
 	public Object visitInstAsgnNode(InstAsgnNode iVisited) {
 		// DOES NOTHING
 		return null;
@@ -317,12 +325,6 @@ public class AbstractJRubyVisitor implements NodeVisitor {
 
 	@Override
 	public Object visitInstVarNode(InstVarNode iVisited) {
-		// DOES NOTHING
-		return null;
-	}
-
-	@Override
-	public Object visitIfNode(IfNode iVisited) {
 		// DOES NOTHING
 		return null;
 	}
@@ -352,18 +354,6 @@ public class AbstractJRubyVisitor implements NodeVisitor {
 	}
 
 	@Override
-	public Object visitMultipleAsgnNode(MultipleAsgnNode iVisited) {
-		// DOES NOTHING
-		return null;
-	}
-
-	@Override
-	public Object visitMultipleAsgnNode(MultipleAsgn19Node iVisited) {
-		// DOES NOTHING
-		return null;
-	}
-
-	@Override
 	public Object visitMatch2Node(Match2Node iVisited) {
 		// DOES NOTHING
 		return null;
@@ -383,6 +373,18 @@ public class AbstractJRubyVisitor implements NodeVisitor {
 
 	@Override
 	public Object visitModuleNode(ModuleNode iVisited) {
+		// DOES NOTHING
+		return null;
+	}
+
+	@Override
+	public Object visitMultipleAsgnNode(MultipleAsgn19Node iVisited) {
+		// DOES NOTHING
+		return null;
+	}
+
+	@Override
+	public Object visitMultipleAsgnNode(MultipleAsgnNode iVisited) {
 		// DOES NOTHING
 		return null;
 	}
@@ -418,7 +420,7 @@ public class AbstractJRubyVisitor implements NodeVisitor {
 	}
 
 	@Override
-	public Object visitOpElementAsgnNode(OpElementAsgnNode iVisited) {
+	public Object visitOpAsgnAndNode(OpAsgnAndNode iVisited) {
 		// DOES NOTHING
 		return null;
 	}
@@ -430,13 +432,13 @@ public class AbstractJRubyVisitor implements NodeVisitor {
 	}
 
 	@Override
-	public Object visitOpAsgnAndNode(OpAsgnAndNode iVisited) {
+	public Object visitOpAsgnOrNode(OpAsgnOrNode iVisited) {
 		// DOES NOTHING
 		return null;
 	}
 
 	@Override
-	public Object visitOpAsgnOrNode(OpAsgnOrNode iVisited) {
+	public Object visitOpElementAsgnNode(OpElementAsgnNode iVisited) {
 		// DOES NOTHING
 		return null;
 	}
@@ -448,13 +450,13 @@ public class AbstractJRubyVisitor implements NodeVisitor {
 	}
 
 	@Override
-	public Object visitPreExeNode(PreExeNode iVisited) {
+	public Object visitPostExeNode(PostExeNode iVisited) {
 		// DOES NOTHING
 		return null;
 	}
 
 	@Override
-	public Object visitPostExeNode(PostExeNode iVisited) {
+	public Object visitPreExeNode(PreExeNode iVisited) {
 		// DOES NOTHING
 		return null;
 	}

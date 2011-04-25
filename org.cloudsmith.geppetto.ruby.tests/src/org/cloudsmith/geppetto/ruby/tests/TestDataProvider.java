@@ -22,7 +22,7 @@ import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleReference;
 
 public class TestDataProvider {
-	
+
 	/**
 	 * Get a {@link Bundle} containing the specified class.
 	 * 
@@ -64,9 +64,9 @@ public class TestDataProvider {
 			throw new IllegalStateException("Failed to convert resource URL to URI", e);
 		}
 	}
-	
+
 	public static File getTestFile(IPath testBundleRelativePath) throws IOException {
 		return getBundleResourceAsFile(getBundleForClass(TestDataProvider.class), testBundleRelativePath);
 	}
-	
+
 }

@@ -19,46 +19,55 @@ import java.util.Map;
  */
 public class PPTypeInfo {
 
-	public final String typeName;
-	public final String documentation;
-	public final Map<String, Entry> properties;
-	public final Map<String, Entry> parameters;
-	
-	public PPTypeInfo(String typeName, String documentation, Map<String, Entry> properties, Map<String, Entry> parameters) {
-		this.typeName = typeName;
-		this.documentation = documentation;
-		if(properties == null)
-			properties = Collections.emptyMap();
-		if(parameters == null)
-			parameters = Collections.emptyMap();
-		this.properties = Collections.unmodifiableMap(properties);
-		this.parameters = Collections.unmodifiableMap(parameters);
-	}
-	public String getTypeName() {
-		return typeName;
-	}
-	public String getDocumentation() {
-		return documentation;
-	}
-	public Map<String, Entry> getProperties() {
-		return properties;
-	}
-	public Map<String, Entry> getParameters() {
-		return parameters;
-	}
 	public static class Entry {
 		public final String documentation;
 		private boolean required;
-		
+
 		public Entry(String documentation, boolean required) {
 			this.documentation = documentation;
 			this.required = required;
 		}
+
 		public String getDocumentation() {
 			return documentation;
 		}
+
 		public boolean isRequired() {
 			return required;
 		}
+	}
+
+	public final String typeName;
+	public final String documentation;
+	public final Map<String, Entry> properties;
+
+	public final Map<String, Entry> parameters;
+
+	public PPTypeInfo(String typeName, String documentation,
+			Map<String, Entry> properties, Map<String, Entry> parameters) {
+		this.typeName = typeName;
+		this.documentation = documentation;
+		if (properties == null)
+			properties = Collections.emptyMap();
+		if (parameters == null)
+			parameters = Collections.emptyMap();
+		this.properties = Collections.unmodifiableMap(properties);
+		this.parameters = Collections.unmodifiableMap(parameters);
+	}
+
+	public String getDocumentation() {
+		return documentation;
+	}
+
+	public Map<String, Entry> getParameters() {
+		return parameters;
+	}
+
+	public Map<String, Entry> getProperties() {
+		return properties;
+	}
+
+	public String getTypeName() {
+		return typeName;
 	}
 }

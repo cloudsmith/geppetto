@@ -28,8 +28,6 @@ import org.cloudsmith.geppetto.ruby.spi.IRubyIssue;
 import org.cloudsmith.geppetto.ruby.spi.IRubyParseResult;
 import org.cloudsmith.geppetto.ruby.spi.IRubyServices;
 import org.jrubyparser.CompatVersion;
-import org.jrubyparser.ast.FCallNode;
-import org.jrubyparser.ast.ModuleNode;
 import org.jrubyparser.ast.Node;
 import org.jrubyparser.lexer.LexerSource;
 import org.jrubyparser.lexer.SyntaxException;
@@ -40,23 +38,13 @@ import org.jrubyparser.parser.RubyParser;
 
 import com.google.common.collect.Lists;
 
-public class JRubyServices  implements IRubyServices{
-	
-	/** 
-	 * The number of the first line in a source file.
-	 */
-	private final int startLine = 1;
-
-	/**
-	 * Compatibility of Ruby language version.
-	 */
-	private final CompatVersion rubyVersion = CompatVersion.RUBY1_9;
+public class JRubyServices implements IRubyServices {
 
 	/**
 	 * Holds the JRuby parser result (the AST and any reported issues/errors).
-	 *
+	 * 
 	 */
-	public static class Result implements IRubyParseResult{
+	public static class Result implements IRubyParseResult {
 		private List<IRubyIssue> issues;
 		private Node AST;
 
@@ -66,7 +54,16 @@ public class JRubyServices  implements IRubyServices{
 		}
 
 		/**
-		 * Returns a list of issues. Will return an empty list if there were no issues.
+		 * @return the parsed AST, or null in case of errors.
+		 */
+		public Node getAST() {
+			return AST;
+		}
+
+		/**
+		 * Returns a list of issues. Will return an empty list if there were no
+		 * issues.
+		 * 
 		 * @return
 		 */
 		@Override
@@ -74,18 +71,11 @@ public class JRubyServices  implements IRubyServices{
 			return issues;
 		}
 
-		/**
-		 * @return the parsed AST, or null in case of errors.
-		 */
-		public Node getAST() {
-			return AST;
-		}
-
 		@Override
 		public boolean hasErrors() {
-			if(issues != null)
-				for(IRubyIssue issue : issues)
-					if(issue.isSyntaxError())
+			if (issues != null)
+				for (IRubyIssue issue : issues)
+					if (issue.isSyntaxError())
 						return true;
 			return false;
 		}
@@ -97,208 +87,243 @@ public class JRubyServices  implements IRubyServices{
 
 	}
 
+	/**
+	 * The number of the first line in a source file.
+	 */
+	private final int startLine = 1;
+
+	/**
+	 * Compatibility of Ruby language version.
+	 */
+	private final CompatVersion rubyVersion = CompatVersion.RUBY1_9;
+
 	private ParserConfiguration parserConfiguration;
-//	private Ruby rubyRuntime;
+	// private Ruby rubyRuntime;
 
-	/**
-	 * IOExceptions thrown FileNotFound, and while reading
-	 * @param file
-	 * @return 
-	 * @throws IOException
-	 */
-	@Override
-	public IRubyParseResult parse(File file) throws IOException {
-		return internalParse(file);
-	}
-	@Override
-	public IRubyParseResult parse(String path, Reader reader) throws IOException {
-		return internalParse(path, reader);
-	}
-	
-	protected Result internalParse(String path, Reader reader) throws IOException {
-		if(!(reader instanceof BufferedReader))
-			reader = new BufferedReader(reader);
-		try {
-			return internalParse(path, reader, parserConfiguration);
-		}
-		finally {
-			StreamUtil.close(reader);
-		}		
-
-	}
-	/** Implementation that exposes the Result impl class. Don't want callers of the JRubyService to 
-	 * see this.
-	 * @param file
-	 * @return
-	 */
-	protected Result internalParse(File file) throws IOException {
-		if(!file.exists())
-			throw new FileNotFoundException(file.getPath());
-		final Reader reader = new BufferedReader(new FileReader(file));
-		try {
-			return internalParse(file.getAbsolutePath(), reader, parserConfiguration);
-		}
-		finally {
-			StreamUtil.close(reader);
-		}		
-	}
-	/**
-	 * Where the parsing "magic" takes place. This impl is used instead of a similar in the Parser util class
-	 * since that impl uses a Null warning collector.
-	 * @param file
-	 * @param content
-	 * @param configuration
-	 * @return
-	 * @throws IOException
-	 */
-	protected Result internalParse(String file, Reader content, ParserConfiguration configuration) throws IOException {
-        RubyParser parser;
-        if (configuration.getVersion() == CompatVersion.RUBY1_8) {
-            parser = new Ruby18Parser();
-        } else {
-            parser = new Ruby19Parser();
-        }
-		RubyParserWarningsCollector warnings = new RubyParserWarningsCollector();
-        parser.setWarnings(warnings);
-        
-        LexerSource lexerSource = LexerSource.getSource(file, content, configuration);
-
-        Node parserResult = null;
-		try {
-			parserResult = parser.parse(configuration, lexerSource).getAST();
-			
-		} catch (SyntaxException e) {
-			warnings.syntaxError(e);
-		}
-		return new Result(parserResult, warnings.getIssues());
-
-	}
-	
-	/**
-	 * Configure the ruby environment... (very little is needed in this impl).
-	 */
-	public void setUp() {
-		parserConfiguration = new ParserConfiguration(startLine, rubyVersion);
-	}
-	
-	public void tearDown() {
-		parserConfiguration = null;
-	}
-	
-//	private static final String[] functionModuleFQN = new String[] { "Puppet", "Parser", "Functions"};
+	// private static final String[] functionModuleFQN = new String[] {
+	// "Puppet", "Parser", "Functions"};
 	private static final String functionDefinition = "newfunction";
-	private static final String[] newFunctionFQN = new String[] { "Puppet", "Parser", "Functions", functionDefinition};
-	
+	private static final String[] newFunctionFQN = new String[] { "Puppet",
+			"Parser", "Functions", functionDefinition };
+
 	@Override
-	public List<PPFunctionInfo> getFunctionInfo(File file) throws IOException, RubySyntaxException {
+	public List<PPFunctionInfo> getFunctionInfo(File file) throws IOException,
+			RubySyntaxException {
 		Result result = internalParse(file);
 		return getFunctionInfo(result);
 	}
-	
-	protected List<PPFunctionInfo> getFunctionInfo(Result result) throws IOException, RubySyntaxException {
-		if(result.hasErrors())
+
+	protected List<PPFunctionInfo> getFunctionInfo(Result result)
+			throws IOException, RubySyntaxException {
+		if (result.hasErrors())
 			throw new RubySyntaxException(result.getIssues());
 		List<PPFunctionInfo> functions = Lists.newArrayList();
 		RubyCallFinder callFinder = new RubyCallFinder();
-		GenericCallNode found = callFinder.findCall(result.getAST(), newFunctionFQN);
-		if(found == null)
+		GenericCallNode found = callFinder.findCall(result.getAST(),
+				newFunctionFQN);
+		if (found == null)
 			return functions;
 		Object arguments = new ConstEvaluator().eval(found.getArgsNode());
 		// Result should be a list with a String, and a Map
-		if(!(arguments instanceof List))
+		if (!(arguments instanceof List))
 			return functions;
-		List<?> argList = (List<?>)arguments;
-		if(argList.size() != 2)
+		List<?> argList = (List<?>) arguments;
+		if (argList.size() != 2)
 			return functions;
 		Object name = argList.get(0);
-		if(! (name instanceof String))
+		if (!(name instanceof String))
 			return functions;
 		Object hash = argList.get(1);
-		if(! (hash instanceof Map<?, ?>))
+		if (!(hash instanceof Map<?, ?>))
 			return functions;
-		Object type = ((Map<?,?>)hash).get("type");
+		Object type = ((Map<?, ?>) hash).get("type");
 		boolean rValue = "rvalue".equals(type);
-		Object doc = ((Map<?,?>)hash).get("doc");
+		Object doc = ((Map<?, ?>) hash).get("doc");
 		String docString = doc == null ? "" : doc.toString();
 
-		functions.add(new PPFunctionInfo((String)name, rValue, docString));
+		functions.add(new PPFunctionInfo((String) name, rValue, docString));
 		return functions;
-	}	
+	}
 
 	@Override
-	public List<PPTypeInfo> getTypeInfo(File file) throws IOException, RubySyntaxException {
+	public List<PPFunctionInfo> getFunctionInfo(String fileName, Reader reader)
+			throws IOException, RubySyntaxException {
+		Result result = internalParse(fileName, reader);
+		return getFunctionInfo(result);
+	}
+
+	@Override
+	public PPTypeInfo getMetaTypeProperties(File file) throws IOException,
+			RubySyntaxException {
+		Result result = internalParse(file);
+		return getMetaTypeProperties(result);
+	}
+
+	protected PPTypeInfo getMetaTypeProperties(Result result)
+			throws IOException, RubySyntaxException {
+		if (result.hasErrors())
+			throw new RubySyntaxException(result.getIssues());
+		PPTypeFinder typeFinder = new PPTypeFinder();
+		PPTypeInfo typeInfo = typeFinder.findMetaTypeInfo(result.getAST());
+		return typeInfo;
+	}
+
+	@Override
+	public PPTypeInfo getMetaTypeProperties(String fileName, Reader reader)
+			throws IOException, RubySyntaxException {
+		return getMetaTypeProperties(internalParse(fileName, reader));
+
+	}
+
+	@Override
+	public List<PPTypeInfo> getTypeInfo(File file) throws IOException,
+			RubySyntaxException {
 		Result result = internalParse(file);
 		return getTypeInfo(result);
 	}
-	
-	protected List<PPTypeInfo> getTypeInfo(Result result) throws IOException, RubySyntaxException {
-		if(result.hasErrors())
+
+	protected List<PPTypeInfo> getTypeInfo(Result result) throws IOException,
+			RubySyntaxException {
+		if (result.hasErrors())
 			throw new RubySyntaxException(result.getIssues());
 		List<PPTypeInfo> types = Lists.newArrayList();
 		PPTypeFinder typeFinder = new PPTypeFinder();
 		PPTypeInfo typeInfo = typeFinder.findTypeInfo(result.getAST());
-		if(typeInfo != null)
+		if (typeInfo != null)
 			types.add(typeInfo);
 		return types;
 
 	}
+
 	@Override
 	public List<PPTypeInfo> getTypeInfo(String fileName, Reader reader)
 			throws IOException, RubySyntaxException {
 		Result result = internalParse(fileName, reader);
 		return getTypeInfo(result);
 	}
-	
-	public List<PPTypeInfo> getTypePropertiesInfo(Result result) throws IOException, RubySyntaxException {
+
+	@Override
+	public List<PPTypeInfo> getTypePropertiesInfo(File file)
+			throws IOException, RubySyntaxException {
+		return getTypePropertiesInfo(internalParse(file));
+	}
+
+	public List<PPTypeInfo> getTypePropertiesInfo(Result result)
+			throws IOException, RubySyntaxException {
 		List<PPTypeInfo> types = Lists.newArrayList();
-		if(result.hasErrors())
+		if (result.hasErrors())
 			throw new RubySyntaxException(result.getIssues());
 		PPTypeFinder typeFinder = new PPTypeFinder();
 		PPTypeInfo typeInfo = typeFinder.findTypePropertyInfo(result.getAST());
-		if(typeInfo != null)
+		if (typeInfo != null)
 			types.add(typeInfo);
 		return types;
 	}
-	
+
 	@Override
-	public List<PPTypeInfo> getTypePropertiesInfo(File file) throws IOException, RubySyntaxException {
-		return getTypePropertiesInfo(internalParse(file));
-	}
-	
-	@Override
-	public List<PPTypeInfo> getTypePropertiesInfo(String fileName, Reader reader) throws IOException, RubySyntaxException {
+	public List<PPTypeInfo> getTypePropertiesInfo(String fileName, Reader reader)
+			throws IOException, RubySyntaxException {
 		return getTypePropertiesInfo(internalParse(fileName, reader));
 	}
-	
-	@Override
-	public PPTypeInfo getMetaTypeProperties(File file) throws IOException, RubySyntaxException {
-		Result result = internalParse(file);
-		return getMetaTypeProperties(result);
+
+	/**
+	 * Implementation that exposes the Result impl class. Don't want callers of
+	 * the JRubyService to see this.
+	 * 
+	 * @param file
+	 * @return
+	 */
+	protected Result internalParse(File file) throws IOException {
+		if (!file.exists())
+			throw new FileNotFoundException(file.getPath());
+		final Reader reader = new BufferedReader(new FileReader(file));
+		try {
+			return internalParse(file.getAbsolutePath(), reader,
+					parserConfiguration);
+		} finally {
+			StreamUtil.close(reader);
+		}
 	}
-	
-	protected PPTypeInfo getMetaTypeProperties(Result result) throws IOException, RubySyntaxException {
-		if(result.hasErrors())
-			throw new RubySyntaxException(result.getIssues());
-		PPTypeFinder typeFinder = new PPTypeFinder();
-		PPTypeInfo typeInfo = typeFinder.findMetaTypeInfo(result.getAST());
-		return typeInfo;
+
+	protected Result internalParse(String path, Reader reader)
+			throws IOException {
+		if (!(reader instanceof BufferedReader))
+			reader = new BufferedReader(reader);
+		try {
+			return internalParse(path, reader, parserConfiguration);
+		} finally {
+			StreamUtil.close(reader);
+		}
+
 	}
-	
+
+	/**
+	 * Where the parsing "magic" takes place. This impl is used instead of a
+	 * similar in the Parser util class since that impl uses a Null warning
+	 * collector.
+	 * 
+	 * @param file
+	 * @param content
+	 * @param configuration
+	 * @return
+	 * @throws IOException
+	 */
+	protected Result internalParse(String file, Reader content,
+			ParserConfiguration configuration) throws IOException {
+		RubyParser parser;
+		if (configuration.getVersion() == CompatVersion.RUBY1_8) {
+			parser = new Ruby18Parser();
+		} else {
+			parser = new Ruby19Parser();
+		}
+		RubyParserWarningsCollector warnings = new RubyParserWarningsCollector();
+		parser.setWarnings(warnings);
+
+		LexerSource lexerSource = LexerSource.getSource(file, content,
+				configuration);
+
+		Node parserResult = null;
+		try {
+			parserResult = parser.parse(configuration, lexerSource).getAST();
+
+		} catch (SyntaxException e) {
+			warnings.syntaxError(e);
+		}
+		return new Result(parserResult, warnings.getIssues());
+
+	}
+
 	@Override
 	public boolean isMockService() {
 		return false;
 	}
-	
-	@Override
-	public List<PPFunctionInfo> getFunctionInfo(String fileName, Reader reader) throws IOException, RubySyntaxException {
-		Result result = internalParse(fileName, reader);
-		return getFunctionInfo(result);
-	}
-	
-	@Override
-	public PPTypeInfo getMetaTypeProperties(String fileName,
-			Reader reader) throws IOException, RubySyntaxException {
-		return getMetaTypeProperties(internalParse(fileName, reader));
 
+	/**
+	 * IOExceptions thrown FileNotFound, and while reading
+	 * 
+	 * @param file
+	 * @return
+	 * @throws IOException
+	 */
+	@Override
+	public IRubyParseResult parse(File file) throws IOException {
+		return internalParse(file);
+	}
+
+	@Override
+	public IRubyParseResult parse(String path, Reader reader)
+			throws IOException {
+		return internalParse(path, reader);
+	}
+
+	/**
+	 * Configure the ruby environment... (very little is needed in this impl).
+	 */
+	public void setUp() {
+		parserConfiguration = new ParserConfiguration(startLine, rubyVersion);
+	}
+
+	public void tearDown() {
+		parserConfiguration = null;
 	}
 }

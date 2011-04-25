@@ -14,7 +14,6 @@ package org.cloudsmith.geppetto.forge.impl;
 import java.io.File;
 import java.io.IOException;
 import java.net.HttpURLConnection;
-import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 

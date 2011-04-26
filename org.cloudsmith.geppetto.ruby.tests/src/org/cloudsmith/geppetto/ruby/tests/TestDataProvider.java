@@ -18,6 +18,7 @@ import java.net.URL;
 
 import org.eclipse.core.runtime.FileLocator;
 import org.eclipse.core.runtime.IPath;
+import org.eclipse.core.runtime.URIUtil;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleReference;
 
@@ -58,7 +59,7 @@ public class TestDataProvider {
 		resourceURL = FileLocator.toFileURL(resourceURL);
 
 		try {
-			return new File(resourceURL.toURI());
+			return new File(URIUtil.toURI(resourceURL));
 		}
 		catch(URISyntaxException e) {
 			throw new IllegalStateException("Failed to convert resource URL to URI", e);

@@ -195,9 +195,6 @@ public class PPModulefileBuilder extends IncrementalProjectBuilder implements PP
 					tracer.trace("Candidate with version; ", version.toString(), " added as candidate");
 				candidates.put(p, version);
 			}
-			// // old style, name and version in project name
-			// else if(n.startsWith(name + "-") && n.length() > len && isAccessibleXtextProject(p))
-			// candidates.put(p, p.getName().substring(len));
 		}
 		if(candidates.isEmpty()) {
 			if(tracer.isTracing())

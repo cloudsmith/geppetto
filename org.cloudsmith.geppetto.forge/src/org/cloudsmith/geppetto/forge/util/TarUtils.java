@@ -31,7 +31,7 @@ import org.cloudsmith.geppetto.common.os.OsUtil;
 import org.cloudsmith.geppetto.common.os.StreamUtil;
 
 public class TarUtils {
-	private static final int MAX_FILES_PER_COMMAND = 100;
+	private static final int MAX_FILES_PER_COMMAND = 20;
 
 	private static void append(File file, Pattern excludePattern, int baseNameLen, String addedTopFolder,
 			TarArchiveOutputStream tarOut) throws IOException {

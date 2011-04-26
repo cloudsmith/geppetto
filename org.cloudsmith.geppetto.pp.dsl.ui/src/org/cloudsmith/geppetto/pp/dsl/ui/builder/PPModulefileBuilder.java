@@ -171,10 +171,12 @@ public class PPModulefileBuilder extends IncrementalProjectBuilder implements PP
 			boolean matched = false;
 			if(requiredName.equals(moduleName))
 				matched = true;
-			else if(projectName.equals(requiredName))
-				matched = true;
-			else if(projectName.startsWith(requiredName + "-") && projectName.length() > len)
-				matched = true;
+
+			// // matching on project name
+			// else if(projectName.equals(requiredName))
+			// matched = true;
+			// else if(projectName.startsWith(requiredName + "-") && projectName.length() > len)
+			// matched = true;
 			if(tracer.isTracing()) {
 				if(!matched)
 					tracer.trace("== not matched on name");

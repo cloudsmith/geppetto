@@ -381,7 +381,7 @@ public class PPResourceLinker {
 				i++;
 				// Expression arg = statements.get(i); // not used yet...
 				String name = ((LiteralNameOrReference) s).getValue();
-				if(findFunction(s, name, importedNames) != null)
+				if(findFunction(s, name, importedNames).size() > 0)
 					return; // ok, found
 
 				acceptor.acceptError(

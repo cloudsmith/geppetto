@@ -139,19 +139,23 @@ public class PPModulefileBuilder extends IncrementalProjectBuilder implements PP
 	private IProject getBestMatchingProject(Dependency d, IProgressMonitor monitor) {
 		// Names with "/" are not allowed
 		final String requiredName = d.getName().replace("/", "-").toLowerCase();
-		if(requiredName == null || requiredName.isEmpty())
+		if(requiredName == null || requiredName.isEmpty()) {
+			tracer.trace("Dependency with mising name found");
 			return null;
-
+		}
+		tracer.trace("Resolving required name: ", requiredName);
 		BiMap<IProject, String> candidates = HashBiMap.create();
 
 		final String namepart = requiredName + "-";
 		final int len = namepart.length();
 
+		tracer.trace("Checking against all projects...");
 		for(IProject p : getWorkspaceRoot().getProjects()) {
 			checkCancel(monitor);
-			if(!isAccessiblePuppetProject(p))
+			if(!isAccessiblePuppetProject(p)) {
+				tracer.trace("Project not accessible: ", p.getName());
 				continue;
-
+			}
 			String projectName = p.getName().toLowerCase();
 
 			// new style
@@ -163,6 +167,7 @@ public class PPModulefileBuilder extends IncrementalProjectBuilder implements PP
 			catch(CoreException e) {
 				log.error("Could not read project Modulename property", e);
 			}
+			tracer.trace("Project: ", p.getName(), " has persisted name: ", moduleName);
 			boolean matched = false;
 			if(requiredName.equals(moduleName))
 				matched = true;
@@ -170,7 +175,10 @@ public class PPModulefileBuilder extends IncrementalProjectBuilder implements PP
 				matched = true;
 			else if(projectName.startsWith(requiredName + "-") && projectName.length() > len)
 				matched = true;
-
+			if(tracer.isTracing()) {
+				if(!matched)
+					tracer.trace("== not matched on name");
+			}
 			// in both old and new style match, get the version from the persisted property
 			if(matched) {
 				try {
@@ -181,20 +189,32 @@ public class PPModulefileBuilder extends IncrementalProjectBuilder implements PP
 				}
 				if(version == null)
 					version = "0";
+				if(tracer.isTracing())
+					tracer.trace("Candidate with version; ", version.toString(), " added as candidate");
 				candidates.put(p, version);
 			}
 			// // old style, name and version in project name
 			// else if(n.startsWith(name + "-") && n.length() > len && isAccessibleXtextProject(p))
 			// candidates.put(p, p.getName().substring(len));
 		}
-		if(candidates.isEmpty())
+		if(candidates.isEmpty()) {
+			if(tracer.isTracing())
+				tracer.trace("No candidates found");
 			return null;
-
+		}
+		if(tracer.isTracing()) {
+			tracer.trace("Getting best version");
+		}
 		// find best version and do a lookup of project
 		String best = d.getVersionRequirement().findBestMatch(candidates.values());
-		if(best == null || best.length() == 0)
+		if(best == null || best.length() == 0) {
+			if(tracer.isTracing())
+				tracer.trace("No best match found");
 			return null;
-
+		}
+		if(tracer.isTracing()) {
+			tracer.trace("Found best project: ", candidates.inverse().get(best).getName(), "having version:", best);
+		}
 		return candidates.inverse().get(best);
 	}
 

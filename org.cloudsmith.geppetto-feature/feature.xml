@@ -65,13 +65,6 @@ http://www.eclipse.org/legal/epl-v10.html
          unpack="false"/>
 
    <plugin
-         id="org.cloudsmith.geppetto.pp.dsl.generate"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
          id="org.cloudsmith.geppetto.pp.dsl.ui"
          download-size="0"
          install-size="0"
@@ -87,6 +80,13 @@ http://www.eclipse.org/legal/epl-v10.html
 
    <plugin
          id="org.cloudsmith.geppetto.ui"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.cloudsmith.geppetto.ruby.jrubyparser"
          download-size="0"
          install-size="0"
          version="0.0.0"

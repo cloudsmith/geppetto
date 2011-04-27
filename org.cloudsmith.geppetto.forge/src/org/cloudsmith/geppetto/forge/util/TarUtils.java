@@ -120,7 +120,7 @@ public class TarUtils {
 		int start = 0;
 		while(start < top) {
 			int max = top > limit
-					? limit
+					? Math.min(limit, top - start)
 					: top;
 			result.add(files.subList(start, start + max));
 			start += max;

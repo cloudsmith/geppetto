@@ -84,8 +84,10 @@ public class PPModulefileBuilder extends IncrementalProjectBuilder implements PP
 	}
 
 	private void checkCancel(IProgressMonitor monitor) throws OperationCanceledException {
-		if(monitor.isCanceled())
+		if(monitor.isCanceled()) {
+			forgetLastBuiltState();
 			throw new OperationCanceledException();
+		}
 	}
 
 	/*

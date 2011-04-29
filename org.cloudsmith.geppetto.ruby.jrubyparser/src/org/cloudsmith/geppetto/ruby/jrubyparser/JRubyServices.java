@@ -28,7 +28,11 @@ import org.cloudsmith.geppetto.ruby.spi.IRubyIssue;
 import org.cloudsmith.geppetto.ruby.spi.IRubyParseResult;
 import org.cloudsmith.geppetto.ruby.spi.IRubyServices;
 import org.jrubyparser.CompatVersion;
+import org.jrubyparser.ast.ClassNode;
+import org.jrubyparser.ast.InstAsgnNode;
+import org.jrubyparser.ast.NewlineNode;
 import org.jrubyparser.ast.Node;
+import org.jrubyparser.ast.NodeType;
 import org.jrubyparser.lexer.LexerSource;
 import org.jrubyparser.lexer.SyntaxException;
 import org.jrubyparser.parser.ParserConfiguration;
@@ -150,6 +154,52 @@ public class JRubyServices implements IRubyServices {
 			throws IOException, RubySyntaxException {
 		Result result = internalParse(fileName, reader);
 		return getFunctionInfo(result);
+	}
+
+	@Override
+	public List<PPFunctionInfo> getLogFunctions(File file) throws IOException,
+			RubySyntaxException {
+		List<PPFunctionInfo> functions = Lists.newArrayList();
+		Result result = internalParse(file);
+		Node root = result.getAST();
+		ClassNode logClass = new RubyClassFinder().findClass(root, "Puppet",
+				"Util", "Log");
+		if (logClass == null)
+			return functions;
+
+		for (Node n : logClass.getBodyNode().childNodes()) {
+			if (n.getNodeType() == NodeType.NEWLINENODE)
+				n = ((NewlineNode) n).getNextNode();
+			// if (n.getNodeType() == NodeType.CLASSNODE) {
+			// ClassNode cn = (ClassNode) n;
+			// // TODO: Check that we have Puppet::Util::Log class
+			// Object name = new ConstEvaluator().eval(cn.getCPath());
+			// if (!Lists.newArrayList("Puppet", "Util", "Log").equals(name)) {
+			// return functions; // wrong ruby file passed.
+			// }
+			// for (Node n2 : cn.getBodyNode().childNodes()) {
+			// if (n.getNodeType() == NodeType.NEWLINENODE)
+			// n = ((NewlineNode) n).getNextNode();
+			if (n.getNodeType() == NodeType.INSTASGNNODE) {
+				InstAsgnNode instAsgn = (InstAsgnNode) n;
+				if ("@levels".equals(instAsgn.getName())) {
+					Object value = new ConstEvaluator().eval(instAsgn
+							.getValueNode());
+					if (!(value instanceof List<?>))
+						return functions;
+					for (Object o : (List<?>) value) {
+						functions.add(new PPFunctionInfo((String) o, false,
+								"Log a message on the server at level " + o
+										+ "."));
+					}
+
+				}
+			}
+
+		}
+
+		return functions;
+
 	}
 
 	@Override

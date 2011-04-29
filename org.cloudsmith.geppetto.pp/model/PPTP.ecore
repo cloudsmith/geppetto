@@ -42,7 +42,9 @@
   <eClassifiers xsi:type="ecore:EClass" name="Parameter" eSuperTypes="#//TypeArgument"/>
   <eClassifiers xsi:type="ecore:EDataType" name="File" instanceClassName="java.io.File"/>
   <eClassifiers xsi:type="ecore:EClass" name="TypeFragment" eSuperTypes="#//AbstractType"/>
-  <eClassifiers xsi:type="ecore:EClass" name="Type" eSuperTypes="#//AbstractType"/>
+  <eClassifiers xsi:type="ecore:EClass" name="Type" eSuperTypes="#//AbstractType">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="superType" eType="#//Type"/>
+  </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="MetaType" eSuperTypes="#//AbstractType"/>
   <eClassifiers xsi:type="ecore:EClass" name="TypeArgument" abstract="true" eSuperTypes="#//TargetElement">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="required" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>

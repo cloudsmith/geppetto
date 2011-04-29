@@ -281,6 +281,7 @@ public class PPTPPackageImpl extends EPackageImpl implements PPTPPackage {
 		typeFragmentEClass = createEClass(TYPE_FRAGMENT);
 
 		typeEClass = createEClass(TYPE);
+		createEReference(typeEClass, TYPE__SUPER_TYPE);
 
 		metaTypeEClass = createEClass(META_TYPE);
 
@@ -557,6 +558,16 @@ public class PPTPPackageImpl extends EPackageImpl implements PPTPPackage {
 	 * 
 	 * @generated
 	 */
+	public EReference getType_SuperType() {
+		return (EReference) typeEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
 	public EClass getTypeArgument() {
 		return typeArgumentEClass;
 	}
@@ -697,6 +708,10 @@ public class PPTPPackageImpl extends EPackageImpl implements PPTPPackage {
 			IS_GENERATED_INSTANCE_CLASS);
 
 		initEClass(typeEClass, Type.class, "Type", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(
+			getType_SuperType(), this.getType(), null, "superType", null, 0, 1, Type.class, !IS_TRANSIENT,
+			!IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED,
+			IS_ORDERED);
 
 		initEClass(metaTypeEClass, MetaType.class, "MetaType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 

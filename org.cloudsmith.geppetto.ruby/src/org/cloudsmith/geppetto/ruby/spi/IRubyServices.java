@@ -35,6 +35,19 @@ public interface IRubyServices {
 			throws IOException, RubySyntaxException;
 
 	/**
+	 * Turns the array called "@levels" in class Puppet::Utils::Log into
+	 * functions (one per level defined in the array).
+	 * 
+	 * @param file
+	 *            - the "Log.rb" file in a puppet distro
+	 * @return
+	 * @throws IOException
+	 * @throws RubySyntaxException
+	 */
+	public List<PPFunctionInfo> getLogFunctions(File file) throws IOException,
+			RubySyntaxException;
+
+	/**
 	 * Loads a PPTypeInfo describing metaparameters.
 	 * 
 	 * @param file

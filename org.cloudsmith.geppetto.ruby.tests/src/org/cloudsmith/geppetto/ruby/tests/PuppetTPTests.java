@@ -14,6 +14,8 @@ package org.cloudsmith.geppetto.ruby.tests;
 import java.io.File;
 import java.util.List;
 
+import junit.framework.TestCase;
+
 import org.cloudsmith.geppetto.pp.pptp.AbstractType;
 import org.cloudsmith.geppetto.pp.pptp.Function;
 import org.cloudsmith.geppetto.pp.pptp.Parameter;
@@ -22,14 +24,11 @@ import org.cloudsmith.geppetto.pp.pptp.TargetEntry;
 import org.cloudsmith.geppetto.pp.pptp.Type;
 import org.cloudsmith.geppetto.pp.pptp.TypeFragment;
 import org.cloudsmith.geppetto.ruby.RubyHelper;
-
 import org.eclipse.core.runtime.Path;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
-
-import junit.framework.TestCase;
 
 public class PuppetTPTests extends TestCase {
 
@@ -132,7 +131,8 @@ public class PuppetTPTests extends TestCase {
 			}
 
 			// should have found two functions "echotest" and "echotest2"
-			assertEquals("Should have found two functions", 2, target.getFunctions().size());
+			// and the log functions (8)
+			assertEquals("Should have found two functions", 10, target.getFunctions().size());
 			{
 				Function f = getFunction("echotest", target);
 				assertNotNull("Should have found function 'echotest'", f);
@@ -164,7 +164,7 @@ public class PuppetTPTests extends TestCase {
 			assertEquals("Should have found 32 types", 32, target.getTypes().size());
 			for(Function f : target.getFunctions())
 				System.err.println("Found f: " + f.getName());
-			assertEquals("Should have found 21 functions", 21, target.getFunctions().size());
+			assertEquals("Should have found 29 functions", 29, target.getFunctions().size());
 
 			// Save the TargetEntry as a loadable resource
 			ResourceSet resourceSet = new ResourceSetImpl();

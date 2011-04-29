@@ -33,7 +33,6 @@ import org.cloudsmith.geppetto.pp.pptp.TypeFragment;
 import org.cloudsmith.geppetto.ruby.spi.IRubyIssue;
 import org.cloudsmith.geppetto.ruby.spi.IRubyParseResult;
 import org.cloudsmith.geppetto.ruby.spi.IRubyServices;
-
 import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
@@ -98,6 +97,19 @@ public class RubyHelper {
 		@Override
 		public List<PPFunctionInfo> getFunctionInfo(String fileName,
 				Reader reader) {
+			return emptyFunctionInfo;
+		}
+
+		/*
+		 * (non-Javadoc)
+		 * 
+		 * @see
+		 * org.cloudsmith.geppetto.ruby.spi.IRubyServices#getLogFunctions(java
+		 * .io.File)
+		 */
+		@Override
+		public List<PPFunctionInfo> getLogFunctions(File file)
+				throws IOException, RubySyntaxException {
 			return emptyFunctionInfo;
 		}
 
@@ -181,6 +193,20 @@ public class RubyHelper {
 		}
 
 	};
+
+	private List<Function> functionInfoToFunction(
+			List<PPFunctionInfo> functionInfos) {
+		List<Function> result = Lists.newArrayList();
+		for (PPFunctionInfo info : functionInfos) {
+			Function pptpFunc = PPTPFactory.eINSTANCE.createFunction();
+			pptpFunc.setName(info.getFunctionName());
+			pptpFunc.setRValue(info.isRValue());
+			pptpFunc.setDocumentation(info.getDocumentation());
+			result.add(pptpFunc);
+		}
+		return result;
+
+	}
 
 	/**
 	 * Returns a list of custom PP parser functions from the given .rb file. The
@@ -401,6 +427,10 @@ public class RubyHelper {
 		File functionsDir = new File(parserDir, "functions");
 		loadFunctions(puppetDistro, functionsDir);
 
+		// Load logger functions
+		for (Function f : loadLoggerFunctions(new File(file, "util/log.rb")))
+			puppetDistro.getFunctions().add(f);
+
 		// Load types
 		try {
 			File typesDir = new File(file, "type");
@@ -441,16 +471,7 @@ public class RubyHelper {
 	 */
 	public List<Function> loadFunctions(File rbFile) throws IOException,
 			RubySyntaxException {
-		List<Function> result = Lists.newArrayList();
-		for (PPFunctionInfo info : getFunctionInfo(rbFile)) {
-			Function pptpFunc = PPTPFactory.eINSTANCE.createFunction();
-			pptpFunc.setName(info.getFunctionName());
-			pptpFunc.setRValue(info.isRValue());
-			pptpFunc.setDocumentation(info.getDocumentation());
-			result.add(pptpFunc);
-		}
-		return result;
-
+		return functionInfoToFunction(getFunctionInfo(rbFile));
 	}
 
 	/**
@@ -467,6 +488,19 @@ public class RubyHelper {
 			for (File rbFile : functionsDir.listFiles(rbFileFilter))
 				for (Function f : loadFunctions(rbFile))
 					target.getFunctions().add(f);
+	}
+
+	public List<Function> loadLoggerFunctions(File rbFile) throws IOException,
+			RubySyntaxException {
+		if (rubyProvider == null)
+			throw new IllegalStateException(
+					"Must call setUp() before getTypeInfo(File).");
+		if (rbFile == null)
+			throw new IllegalArgumentException(
+					"Given file is null - JRubyService.getTypeInfo");
+		if (!rbFile.exists())
+			throw new FileNotFoundException(rbFile.getPath());
+		return functionInfoToFunction(rubyProvider.getLogFunctions(rbFile));
 	}
 
 	private void loadMetaType(TargetEntry target, File rbFile)

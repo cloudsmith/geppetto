@@ -16,11 +16,45 @@ package org.cloudsmith.geppetto.pp.pptp;
  * A representation of the model object '<em><b>Type</b></em>'.
  * <!-- end-user-doc -->
  * 
+ * <p>
+ * The following features are supported:
+ * <ul>
+ * <li>{@link org.cloudsmith.geppetto.pp.pptp.Type#getSuperType <em>Super Type</em>}</li>
+ * </ul>
+ * </p>
  * 
  * @see org.cloudsmith.geppetto.pp.pptp.PPTPPackage#getType()
  * @model
  * @generated
  */
 public interface Type extends AbstractType {
+
+	/**
+	 * Returns the value of the '<em><b>Super Type</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Super Type</em>' reference isn't clear, there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * 
+	 * @return the value of the '<em>Super Type</em>' reference.
+	 * @see #setSuperType(Type)
+	 * @see org.cloudsmith.geppetto.pp.pptp.PPTPPackage#getType_SuperType()
+	 * @model
+	 * @generated
+	 */
+	Type getSuperType();
+
+	/**
+	 * Sets the value of the '{@link org.cloudsmith.geppetto.pp.pptp.Type#getSuperType <em>Super Type</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @param value
+	 *            the new value of the '<em>Super Type</em>' reference.
+	 * @see #getSuperType()
+	 * @generated
+	 */
+	void setSuperType(Type value);
 
 } // Type

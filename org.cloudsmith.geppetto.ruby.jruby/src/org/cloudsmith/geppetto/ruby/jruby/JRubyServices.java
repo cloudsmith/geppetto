@@ -253,4 +253,10 @@ public class JRubyServices  implements IRubyServices{
 			throws IOException, RubySyntaxException {
 		throw new UnsupportedOperationException("Please implement me");
 	}
+
+	@Override
+	public List<PPFunctionInfo> getLogFunctions(File file) throws IOException,
+			RubySyntaxException {
+		throw new UnsupportedOperationException("Please implement me");
+	}
 }

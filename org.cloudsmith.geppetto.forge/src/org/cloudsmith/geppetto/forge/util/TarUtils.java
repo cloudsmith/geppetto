@@ -119,9 +119,7 @@ public class TarUtils {
 		int top = files.size();
 		int start = 0;
 		while(start < top) {
-			int max = top > limit
-					? Math.min(limit, top - start)
-					: top;
+			int max = Math.min(limit, top - start);
 			result.add(files.subList(start, start + max));
 			start += max;
 		}

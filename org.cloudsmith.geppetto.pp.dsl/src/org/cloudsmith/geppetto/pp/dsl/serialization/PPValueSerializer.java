@@ -30,7 +30,7 @@ import com.google.inject.Inject;
 import com.google.inject.internal.Maps;
 
 /**
- * TODO: Can probably be simplified further as there is less need for the fancy overrides required inthe
+ * TODO: Can probably be simplified further as there is less need for the fancy overrides required for the
  * Xtext 1.0 implementation.
  * 
  */
@@ -69,6 +69,10 @@ public class PPValueSerializer extends ValueSerializer {
 		return unassignedDispatch.invoke(context, ruleCall, node);
 	}
 
+	protected String handleError(Object[] params, Throwable e) {
+		return Exceptions.throwUncheckedException(e);
+	}
+
 	@Override
 	public String serializeUnassignedValue(EObject context, RuleCall ruleCall, INode node) {
 		try {
@@ -87,12 +91,6 @@ public class PPValueSerializer extends ValueSerializer {
 	}
 
 	public String unassigned(EObject o, RuleCall ruleCall, AbstractNode node) {
-		// String ruleName = ruleCall.getRule().getName();
-		// if("OWS".equals(ruleName)) {
-		// if(node == null)
-		// return null;
-		// return serialize(node);
-		// }
 		String s = ruleToText.get(ruleCall.getRule());
 		if(s != null)
 			return s;
@@ -100,26 +98,4 @@ public class PPValueSerializer extends ValueSerializer {
 		throw new IllegalArgumentException("Undefined: unassigned rule call to Rule: " + ruleCall.getRule().getName());
 	}
 
-	protected String handleError(Object[] params, Throwable e) {
-		return Exceptions.throwUncheckedException(e);
-	}
-
-	// public String unassigned(PuppetManifest o, RuleCall ruleCall) {
-	// return unassigned(o, ruleCall, null);
-	// }
-
-	// /**
-	// * Do not output leading OWS for PuppetManifest
-	// *
-	// * @param o
-	// * @param ruleCall
-	// * @return
-	// */
-	// public String unassigned(PuppetManifest o, RuleCall ruleCall, AbstractNode node) {
-	// // only unassigned is leading OWS.
-	// if("OWS".equals(ruleCall.getRule().getName()))
-	// return null;
-	// throw new IllegalArgumentException("Undefined: unassigned rule call from PuppetManifest to non leading OWS: " +
-	// ruleCall.getRule().getName());
-	// }
 }

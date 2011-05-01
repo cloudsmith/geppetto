@@ -203,13 +203,13 @@ public interface PPTPPackage extends EPackage {
 		EClass TYPE = eINSTANCE.getType();
 
 		/**
-		 * The meta object literal for the '<em><b>Super Type</b></em>' reference feature.
+		 * The meta object literal for the '<em><b>Super Type</b></em>' attribute feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * 
 		 * @generated
 		 */
-		EReference TYPE__SUPER_TYPE = eINSTANCE.getType_SuperType();
+		EAttribute TYPE__SUPER_TYPE = eINSTANCE.getType_SuperType();
 
 		/**
 		 * The meta object literal for the '{@link org.cloudsmith.geppetto.pp.pptp.impl.MetaTypeImpl <em>Meta Type</em>}' class.
@@ -1068,7 +1068,7 @@ public interface PPTPPackage extends EPackage {
 	int TYPE__PARAMETERS = ABSTRACT_TYPE__PARAMETERS;
 
 	/**
-	 * The feature id for the '<em><b>Super Type</b></em>' reference.
+	 * The feature id for the '<em><b>Super Type</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
@@ -1473,16 +1473,16 @@ public interface PPTPPackage extends EPackage {
 	EClass getType();
 
 	/**
-	 * Returns the meta object for the reference '{@link org.cloudsmith.geppetto.pp.pptp.Type#getSuperType <em>Super Type</em>}'.
+	 * Returns the meta object for the attribute '{@link org.cloudsmith.geppetto.pp.pptp.Type#getSuperType <em>Super Type</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
-	 * @return the meta object for the reference '<em>Super Type</em>'.
+	 * @return the meta object for the attribute '<em>Super Type</em>'.
 	 * @see org.cloudsmith.geppetto.pp.pptp.Type#getSuperType()
 	 * @see #getType()
 	 * @generated
 	 */
-	EReference getType_SuperType();
+	EAttribute getType_SuperType();
 
 	/**
 	 * Returns the meta object for class '{@link org.cloudsmith.geppetto.pp.pptp.TypeArgument <em>Type Argument</em>}'.

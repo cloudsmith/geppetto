@@ -194,6 +194,10 @@
   <children xmi:type="notation:Node" xmi:id="_A3aLEFvfEeCmVr8J-ROLCw" type="1001">
     <children xmi:type="notation:Node" xmi:id="_A3ayIFvfEeCmVr8J-ROLCw" type="4001"/>
     <children xmi:type="notation:Node" xmi:id="_A3bZMFvfEeCmVr8J-ROLCw" type="5001">
+      <children xmi:type="notation:Node" xmi:id="_kWgYIHJgEeCDKLICnzJC4w" type="2001">
+        <element xmi:type="ecore:EAttribute" href="PPTP.ecore#//Type/superType"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_kWgYIXJgEeCDKLICnzJC4w"/>
+      </children>
       <styles xmi:type="notation:DrawerStyle" xmi:id="_A3bZMVvfEeCmVr8J-ROLCw"/>
       <styles xmi:type="notation:SortingStyle" xmi:id="_A3bZMlvfEeCmVr8J-ROLCw"/>
       <styles xmi:type="notation:FilteringStyle" xmi:id="_A3bZM1vfEeCmVr8J-ROLCw"/>
@@ -416,19 +420,5 @@
     <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_vw43w20xEeChoYKpByoxlA" points="[0, 0, -306, 0]$[306, 0, 0, 0]"/>
     <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_vw9JMG0xEeChoYKpByoxlA" id="(1.0,0.5102040816326531)"/>
     <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_vw9JMW0xEeChoYKpByoxlA" id="(0.0,0.8571428571428571)"/>
-  </edges>
-  <edges xmi:type="notation:Edge" xmi:id="_tnAy4HGfEeCDKLICnzJC4w" type="3002" source="_A3aLEFvfEeCmVr8J-ROLCw" target="_A3aLEFvfEeCmVr8J-ROLCw">
-    <children xmi:type="notation:Node" xmi:id="_tnIHoHGfEeCDKLICnzJC4w" type="4011">
-      <layoutConstraint xmi:type="notation:Location" xmi:id="_tnIHoXGfEeCDKLICnzJC4w" x="-10" y="-10"/>
-    </children>
-    <children xmi:type="notation:Node" xmi:id="_tnJVwHGfEeCDKLICnzJC4w" type="4012">
-      <layoutConstraint xmi:type="notation:Location" xmi:id="_tnJVwXGfEeCDKLICnzJC4w" x="10" y="10"/>
-    </children>
-    <styles xmi:type="notation:ConnectorStyle" xmi:id="_tnAy4XGfEeCDKLICnzJC4w" routing="Rectilinear" lineColor="4210752"/>
-    <styles xmi:type="notation:FontStyle" xmi:id="_tnAy4nGfEeCDKLICnzJC4w" fontColor="4210752" fontName="Lucida Grande" fontHeight="10"/>
-    <element xmi:type="ecore:EReference" href="PPTP.ecore#//Type/superType"/>
-    <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_tnAy43GfEeCDKLICnzJC4w" points="[4, 10, -48, 6]$[4, 72, -48, 68]$[58, 72, 6, 68]$[58, 10, 6, 6]"/>
-    <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_tnes8HGfEeCDKLICnzJC4w" id="(0.17647058823529413,0.7619047619047619)"/>
-    <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_tnfUAHGfEeCDKLICnzJC4w" id="(0.696078431372549,0.8571428571428571)"/>
   </edges>
 </notation:Diagram>

@@ -28,4 +28,9 @@ public interface PPDSLConstants {
 
 	public static final String PPTP_EXTENSION = "pptp";
 
+	/**
+	 * Key used in IEObjectDescription data for parent name (i.e. inheritance).
+	 */
+	public static final String PARENT_NAME_DATA = "org.cloudsmith.geppetto.pp.dsl.parent";
+
 }

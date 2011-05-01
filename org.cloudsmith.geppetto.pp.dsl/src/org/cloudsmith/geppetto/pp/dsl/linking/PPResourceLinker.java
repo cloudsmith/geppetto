@@ -14,6 +14,7 @@ package org.cloudsmith.geppetto.pp.dsl.linking;
 import static org.cloudsmith.geppetto.pp.adapters.ClassifierAdapter.RESOURCE_IS_CLASSPARAMS;
 import static org.cloudsmith.geppetto.pp.adapters.ClassifierAdapter.RESOURCE_IS_OVERRIDE;
 
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
@@ -24,6 +25,7 @@ import org.cloudsmith.geppetto.pp.AttributeOperations;
 import org.cloudsmith.geppetto.pp.Expression;
 import org.cloudsmith.geppetto.pp.FunctionCall;
 import org.cloudsmith.geppetto.pp.HostClassDefinition;
+import org.cloudsmith.geppetto.pp.LiteralExpression;
 import org.cloudsmith.geppetto.pp.LiteralNameOrReference;
 import org.cloudsmith.geppetto.pp.PPPackage;
 import org.cloudsmith.geppetto.pp.PuppetManifest;
@@ -189,6 +191,42 @@ public class PPResourceLinker {
 			"Unknown function: '" + name + "'", o.getLeftExpr(), IPPDiagnostics.ISSUE__UNKNOWN_FUNCTION_REFERENCE);
 	}
 
+	protected void _link(HostClassDefinition o, PPImportedNamesAdapter importedNames, IMessageAcceptor acceptor) {
+		LiteralExpression parent = o.getParent();
+		if(parent == null)
+			return;
+		String parentString = null;
+		if(parent.eClass() == PPPackage.Literals.LITERAL_DEFAULT)
+			parentString = "default";
+		else if(parent.eClass() == PPPackage.Literals.LITERAL_NAME_OR_REFERENCE)
+			parentString = ((LiteralNameOrReference) parent).getValue();
+		if(parentString == null || parentString.length() < 1)
+			return;
+
+		List<IEObjectDescription> descs = findHostClasses(o, parentString, importedNames);
+		if(descs.size() > 0) {
+			// make list only contain unique references
+			descs = Lists.newArrayList(Sets.newHashSet(descs));
+			// // removes containers that contain o
+			// removeDisqualifiedContainers(descs, o);
+
+			if(descs.size() > 1) {
+				// this is an ambiguous link - multiple targets available and order depends on the
+				// order at runtime (may not be the same).
+				acceptor.acceptWarning(
+					"Ambiguous reference to: '" + parentString + "' found in: " + visibleResourceList(descs), o,
+					PPPackage.Literals.HOST_CLASS_DEFINITION__PARENT,
+					IPPDiagnostics.ISSUE__RESOURCE_AMBIGUOUS_REFERENCE);
+			}
+		}
+		if(descs.size() < 1) {
+			// ... and finally, if there was neither a type nor a definition reference
+			acceptor.acceptError(
+				"Unknown class: '" + parentString + "'", o, PPPackage.Literals.HOST_CLASS_DEFINITION__PARENT,
+				IPPDiagnostics.ISSUE__RESOURCE_UNKNOWN_TYPE);
+		}
+	}
+
 	/**
 	 * polymorph {@link #link(EObject, IMessageAcceptor)}
 	 */
@@ -273,14 +311,45 @@ public class PPResourceLinker {
 	 */
 	protected List<IEObjectDescription> findAttributes(EObject scopeDetermeningObject, QualifiedName fqn,
 			PPImportedNamesAdapter importedNames) {
-		// find a regular DefinitionArgument, Property or Parameter
-		List<IEObjectDescription> result = findExternal(
-			scopeDetermeningObject, fqn, importedNames, PPPackage.Literals.DEFINITION_ARGUMENT,
-			PPTPPackage.Literals.TYPE_ARGUMENT);
+		List<IEObjectDescription> result = findAttributesWithGuard(
+			scopeDetermeningObject, fqn, importedNames, Lists.<QualifiedName> newArrayList());
 		// find a meta Property or Parameter
 		if(result.isEmpty()) {
 			QualifiedName metaFqn = QualifiedName.create("Type", fqn.getLastSegment());
 			result = findExternal(scopeDetermeningObject, metaFqn, importedNames, PPTPPackage.Literals.TYPE_ARGUMENT);
+		}
+		return result;
+	}
+
+	protected List<IEObjectDescription> findAttributesWithGuard(EObject scopeDetermeningObject, QualifiedName fqn,
+			PPImportedNamesAdapter importedNames, List<QualifiedName> stack) {
+		// Protect against circular inheritance
+		if(stack.contains(fqn))
+			return Collections.emptyList();
+		stack.add(fqn);
+
+		// find a regular DefinitionArgument, Property or Parameter
+		List<IEObjectDescription> result = findExternal(
+			scopeDetermeningObject, fqn, importedNames, PPPackage.Literals.DEFINITION_ARGUMENT,
+			PPTPPackage.Literals.TYPE_ARGUMENT);
+
+		// Search up the inheritance chain
+		if(result.isEmpty()) {
+			// find the parent type
+			result = findExternal(
+				scopeDetermeningObject, fqn.skipLast(1), importedNames, PPPackage.Literals.DEFINITION,
+				PPTPPackage.Literals.TYPE);
+			if(!result.isEmpty()) {
+				IEObjectDescription firstFound = result.get(0);
+				String parentName = firstFound.getUserData(PPDSLConstants.PARENT_NAME_DATA);
+				if(parentName != null && parentName.length() > 1) {
+					// find attributes for parent
+
+					QualifiedName attributeFqn = converter.toQualifiedName(parentName);
+					attributeFqn = attributeFqn.append(fqn.getLastSegment());
+					return findAttributesWithGuard(scopeDetermeningObject, attributeFqn, importedNames, stack);
+				}
+			}
 		}
 		return result;
 	}
@@ -310,6 +379,7 @@ public class PPResourceLinker {
 
 		List<IEObjectDescription> targets = Lists.newArrayList();
 		Resource scopeDetermeningResource = scopeDetermeningObject.eResource();
+
 		IResourceDescriptions descriptionIndex = indexProvider.getResourceDescriptions(scopeDetermeningResource);
 		IResourceDescription descr = descriptionIndex.getResourceDescription(scopeDetermeningResource.getURI());
 
@@ -340,6 +410,19 @@ public class PPResourceLinker {
 	private List<IEObjectDescription> findFunction(EObject scopeDetermeningObject, String name,
 			PPImportedNamesAdapter importedNames) {
 		return findFunction(scopeDetermeningObject, converter.toQualifiedName(name), importedNames);
+	}
+
+	protected List<IEObjectDescription> findHostClasses(EObject scopeDetermeningResource, String name,
+			PPImportedNamesAdapter importedNames) {
+		if(name == null)
+			throw new IllegalArgumentException("name is null");
+		QualifiedName fqn = converter.toQualifiedName(name);
+		// make last segments initial char lower case (for references to the type itself - eg. 'File' instead of
+		// 'file'.
+		fqn = fqn.skipLast(1).append(toInitialLowerCase(fqn.getLastSegment()));
+		return findExternal(
+			scopeDetermeningResource, fqn, importedNames, PPPackage.Literals.HOST_CLASS_DEFINITION,
+			PPTPPackage.Literals.TYPE);
 	}
 
 	private QualifiedName getNameOfScope(EObject o) {
@@ -448,6 +531,7 @@ public class PPResourceLinker {
 		// it is important that ResourceExpresion are linked before ResourceBodyExpression (but that should
 		// be ok with the tree iterator as the bodies are contained).
 
+		// TODO: Should also validate INHERIT for CLASS and DEFINITION
 		while(everything.hasNext()) {
 			EObject o = everything.next();
 			if(o.eClass() == PPPackage.Literals.RESOURCE_EXPRESSION)
@@ -460,8 +544,10 @@ public class PPResourceLinker {
 			// these are needed to link un-parenthesised function calls
 			else if(o.eClass() == PPPackage.Literals.PUPPET_MANIFEST)
 				internalLinkUnparenthesisedCall(((PuppetManifest) o).getStatements(), importedNames, acceptor);
-			else if(o.eClass() == PPPackage.Literals.HOST_CLASS_DEFINITION)
+			else if(o.eClass() == PPPackage.Literals.HOST_CLASS_DEFINITION) {
+				_link((HostClassDefinition) o, importedNames, acceptor);
 				internalLinkUnparenthesisedCall(((HostClassDefinition) o).getStatements(), importedNames, acceptor);
+			}
 		}
 		if(tracer.isTracing())
 			tracer.trace("}");
@@ -475,7 +561,7 @@ public class PPResourceLinker {
 	 * @param descs
 	 * @param o
 	 */
-	private void removeDisqualifiedContainers(List<IEObjectDescription> descs, ResourceExpression o) {
+	private void removeDisqualifiedContainers(List<IEObjectDescription> descs, Expression o) {
 		ListIterator<IEObjectDescription> litor = descs.listIterator();
 		while(litor.hasNext()) {
 			IEObjectDescription x = litor.next();

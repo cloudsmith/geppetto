@@ -16,7 +16,6 @@ import org.cloudsmith.geppetto.pp.pptp.Type;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
 /**
@@ -34,7 +33,7 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  */
 public class TypeImpl extends AbstractTypeImpl implements Type {
 	/**
-	 * The cached value of the '{@link #getSuperType() <em>Super Type</em>}' reference.
+	 * The default value of the '{@link #getSuperType() <em>Super Type</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
@@ -42,7 +41,18 @@ public class TypeImpl extends AbstractTypeImpl implements Type {
 	 * @generated
 	 * @ordered
 	 */
-	protected Type superType;
+	protected static final String SUPER_TYPE_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getSuperType() <em>Super Type</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @see #getSuperType()
+	 * @generated
+	 * @ordered
+	 */
+	protected String superType = SUPER_TYPE_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -60,23 +70,11 @@ public class TypeImpl extends AbstractTypeImpl implements Type {
 	 * 
 	 * @generated
 	 */
-	public Type basicGetSuperType() {
-		return superType;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * 
-	 * @generated
-	 */
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch(featureID) {
 			case PPTPPackage.TYPE__SUPER_TYPE:
-				if(resolve)
-					return getSuperType();
-				return basicGetSuperType();
+				return getSuperType();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -91,7 +89,9 @@ public class TypeImpl extends AbstractTypeImpl implements Type {
 	public boolean eIsSet(int featureID) {
 		switch(featureID) {
 			case PPTPPackage.TYPE__SUPER_TYPE:
-				return superType != null;
+				return SUPER_TYPE_EDEFAULT == null
+						? superType != null
+						: !SUPER_TYPE_EDEFAULT.equals(superType);
 		}
 		return super.eIsSet(featureID);
 	}
@@ -106,7 +106,7 @@ public class TypeImpl extends AbstractTypeImpl implements Type {
 	public void eSet(int featureID, Object newValue) {
 		switch(featureID) {
 			case PPTPPackage.TYPE__SUPER_TYPE:
-				setSuperType((Type) newValue);
+				setSuperType((String) newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -133,7 +133,7 @@ public class TypeImpl extends AbstractTypeImpl implements Type {
 	public void eUnset(int featureID) {
 		switch(featureID) {
 			case PPTPPackage.TYPE__SUPER_TYPE:
-				setSuperType((Type) null);
+				setSuperType(SUPER_TYPE_EDEFAULT);
 				return;
 		}
 		super.eUnset(featureID);
@@ -145,16 +145,7 @@ public class TypeImpl extends AbstractTypeImpl implements Type {
 	 * 
 	 * @generated
 	 */
-	public Type getSuperType() {
-		if(superType != null && superType.eIsProxy()) {
-			InternalEObject oldSuperType = (InternalEObject) superType;
-			superType = (Type) eResolveProxy(oldSuperType);
-			if(superType != oldSuperType) {
-				if(eNotificationRequired())
-					eNotify(new ENotificationImpl(
-						this, Notification.RESOLVE, PPTPPackage.TYPE__SUPER_TYPE, oldSuperType, superType));
-			}
-		}
+	public String getSuperType() {
 		return superType;
 	}
 
@@ -164,11 +155,29 @@ public class TypeImpl extends AbstractTypeImpl implements Type {
 	 * 
 	 * @generated
 	 */
-	public void setSuperType(Type newSuperType) {
-		Type oldSuperType = superType;
+	public void setSuperType(String newSuperType) {
+		String oldSuperType = superType;
 		superType = newSuperType;
 		if(eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, PPTPPackage.TYPE__SUPER_TYPE, oldSuperType, superType));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
+	@Override
+	public String toString() {
+		if(eIsProxy())
+			return super.toString();
+
+		StringBuffer result = new StringBuffer(super.toString());
+		result.append(" (superType: ");
+		result.append(superType);
+		result.append(')');
+		return result.toString();
 	}
 
 } // TypeImpl

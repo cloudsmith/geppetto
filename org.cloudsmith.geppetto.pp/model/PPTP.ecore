@@ -43,7 +43,7 @@
   <eClassifiers xsi:type="ecore:EDataType" name="File" instanceClassName="java.io.File"/>
   <eClassifiers xsi:type="ecore:EClass" name="TypeFragment" eSuperTypes="#//AbstractType"/>
   <eClassifiers xsi:type="ecore:EClass" name="Type" eSuperTypes="#//AbstractType">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="superType" eType="#//Type"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="superType" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="MetaType" eSuperTypes="#//AbstractType"/>
   <eClassifiers xsi:type="ecore:EClass" name="TypeArgument" abstract="true" eSuperTypes="#//TargetElement">

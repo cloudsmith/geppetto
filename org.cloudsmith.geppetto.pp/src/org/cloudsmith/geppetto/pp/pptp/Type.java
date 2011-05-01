@@ -30,31 +30,31 @@ package org.cloudsmith.geppetto.pp.pptp;
 public interface Type extends AbstractType {
 
 	/**
-	 * Returns the value of the '<em><b>Super Type</b></em>' reference.
+	 * Returns the value of the '<em><b>Super Type</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Super Type</em>' reference isn't clear, there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * 
-	 * @return the value of the '<em>Super Type</em>' reference.
-	 * @see #setSuperType(Type)
+	 * @return the value of the '<em>Super Type</em>' attribute.
+	 * @see #setSuperType(String)
 	 * @see org.cloudsmith.geppetto.pp.pptp.PPTPPackage#getType_SuperType()
 	 * @model
 	 * @generated
 	 */
-	Type getSuperType();
+	String getSuperType();
 
 	/**
-	 * Sets the value of the '{@link org.cloudsmith.geppetto.pp.pptp.Type#getSuperType <em>Super Type</em>}' reference.
+	 * Sets the value of the '{@link org.cloudsmith.geppetto.pp.pptp.Type#getSuperType <em>Super Type</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
 	 * @param value
-	 *            the new value of the '<em>Super Type</em>' reference.
+	 *            the new value of the '<em>Super Type</em>' attribute.
 	 * @see #getSuperType()
 	 * @generated
 	 */
-	void setSuperType(Type value);
+	void setSuperType(String value);
 
 } // Type

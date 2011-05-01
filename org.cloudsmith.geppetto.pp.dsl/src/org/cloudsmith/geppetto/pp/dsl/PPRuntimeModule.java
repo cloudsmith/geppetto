@@ -18,11 +18,13 @@ import org.cloudsmith.geppetto.pp.dsl.linking.PPLinker;
 import org.cloudsmith.geppetto.pp.dsl.linking.PPQualifiedNameConverter;
 import org.cloudsmith.geppetto.pp.dsl.linking.PPQualifiedNameProvider;
 import org.cloudsmith.geppetto.pp.dsl.linking.PPResourceDescriptionManager;
+import org.cloudsmith.geppetto.pp.dsl.linking.PPResourceDescriptionStrategy;
 import org.cloudsmith.geppetto.pp.dsl.serialization.PPValueSerializer;
 import org.eclipse.xtext.conversion.IValueConverterService;
 import org.eclipse.xtext.naming.IQualifiedNameConverter;
 import org.eclipse.xtext.naming.IQualifiedNameProvider;
 import org.eclipse.xtext.parser.antlr.Lexer;
+import org.eclipse.xtext.resource.IDefaultResourceDescriptionStrategy;
 import org.eclipse.xtext.resource.IResourceDescription;
 import org.eclipse.xtext.validation.CompositeEValidator;
 
@@ -32,6 +34,15 @@ import com.google.inject.name.Names;
  * Use this class to register components to be used at runtime / without the Equinox extension registry.
  */
 public class PPRuntimeModule extends org.cloudsmith.geppetto.pp.dsl.AbstractPPRuntimeModule {
+	/**
+	 * Binds resource description strategy that binds parent data for inheritance
+	 * 
+	 * @return
+	 */
+	public Class<? extends IDefaultResourceDescriptionStrategy> bindIDefaultResourceDescriptionStrategy() {
+		return PPResourceDescriptionStrategy.class;
+	}
+
 	/**
 	 * Handles association of documentation comments, and resource linking (not based on
 	 * standard EReference links).

@@ -66,6 +66,18 @@ public class DiagnosticConsumerBasedMessageAcceptor extends AbstractMessageAccep
 	 * (non-Javadoc)
 	 * 
 	 * @see org.cloudsmith.geppetto.pp.dsl.linking.IMessageAcceptor#accept(org.eclipse.xtext.diagnostics.Severity, java.lang.String,
+	 * org.eclipse.emf.ecore.EObject, int, int, java.lang.String, java.lang.String[])
+	 */
+	@Override
+	public void accept(Severity severity, String message, EObject source, int textOffset, int textLength,
+			String issueCode, String[] issueData) {
+		throw new UnsupportedOperationException("Please implement support to report textual error");
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.cloudsmith.geppetto.pp.dsl.linking.IMessageAcceptor#accept(org.eclipse.xtext.diagnostics.Severity, java.lang.String,
 	 * org.eclipse.xtext.nodemodel.INode, java.lang.String, java.lang.String)
 	 */
 	@Override

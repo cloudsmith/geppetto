@@ -72,6 +72,18 @@ public abstract class AbstractMessageAcceptor implements IMessageAcceptor {
 	/*
 	 * (non-Javadoc)
 	 * 
+	 * @see org.cloudsmith.geppetto.pp.dsl.linking.IMessageAcceptor#acceptError(java.lang.String, org.eclipse.emf.ecore.EObject,
+	 * org.eclipse.emf.ecore.EStructuralFeature, int, java.lang.String, java.lang.String)
+	 */
+	@Override
+	public void acceptError(String message, EObject source, int textOffset, int length, String issueCode,
+			String... issueData) {
+		accept(Severity.ERROR, message, source, textOffset, length, issueCode, issueData);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see org.cloudsmith.geppetto.pp.dsl.linking.IMessageAcceptor#acceptError(java.lang.String, org.eclipse.emf.ecore.EObject, int,
 	 * java.lang.String, java.lang.String)
 	 */
@@ -127,6 +139,18 @@ public abstract class AbstractMessageAcceptor implements IMessageAcceptor {
 			String... issueData) {
 		acceptWarning(message, source, feature, INSIGNIFICANT_INDEX, issueCode, issueData);
 
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.cloudsmith.geppetto.pp.dsl.linking.IMessageAcceptor#acceptError(java.lang.String, org.eclipse.emf.ecore.EObject,
+	 * org.eclipse.emf.ecore.EStructuralFeature, int, java.lang.String, java.lang.String)
+	 */
+	@Override
+	public void acceptWarning(String message, EObject source, int textOffset, int length, String issueCode,
+			String... issueData) {
+		accept(Severity.WARNING, message, source, textOffset, length, issueCode, issueData);
 	}
 
 	/*

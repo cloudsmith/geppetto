@@ -61,6 +61,20 @@ public interface IMessageAcceptor {
 			String issueCode, String... issueData);
 
 	/**
+	 * Generate an error message for the given location in text.
+	 * 
+	 * @param severity
+	 * @param message
+	 * @param source
+	 * @param textOffset
+	 * @param textLength
+	 * @param issueCode
+	 * @param issueData
+	 */
+	void accept(Severity severity, String message, EObject source, int textOffset, int textLength, String issueCode,
+			String[] issueData);
+
+	/**
 	 * <p>
 	 * Generates an error for the given {@link INode}
 	 * </p>
@@ -97,6 +111,20 @@ public interface IMessageAcceptor {
 	 * 
 	 */
 	public void acceptError(String message, EObject source, EStructuralFeature feature, String issueCode,
+			String... issueData);
+
+	/**
+	 * Generate an error message for the given location in text.
+	 * 
+	 * @param severity
+	 * @param message
+	 * @param source
+	 * @param textOffset
+	 * @param textLength
+	 * @param issueCode
+	 * @param issueData
+	 */
+	void acceptError(String message, EObject source, int textOffset, int textLength, String issueCode,
 			String... issueData);
 
 	/**
@@ -140,6 +168,20 @@ public interface IMessageAcceptor {
 	 * @see #accept(Severity, String, EObject, EStructuralFeature, int, String, String...)
 	 */
 	public void acceptWarning(String message, EObject source, EStructuralFeature feature, String issueCode,
+			String... issueData);
+
+	/**
+	 * Generate a warning message for the given location in text.
+	 * 
+	 * @param severity
+	 * @param message
+	 * @param source
+	 * @param textOffset
+	 * @param textLength
+	 * @param issueCode
+	 * @param issueData
+	 */
+	void acceptWarning(String message, EObject source, int textOffset, int textLength, String issueCode,
 			String... issueData);
 
 	/**

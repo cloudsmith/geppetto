@@ -70,6 +70,35 @@ public class ValidationBasedMessageAcceptor extends AbstractMessageAcceptor {
 	 * org.eclipse.xtext.nodemodel.INode, java.lang.String, java.lang.String)
 	 */
 	@Override
+	public void accept(Severity severity, String message, EObject source, int textOffset, int textLength,
+			String issueCode, String... issueData) {
+
+		if(source == null)
+			throw new IllegalArgumentException("source can not be null");
+		switch(severity) {
+			case ERROR:
+				acceptor.acceptError(message, source, textOffset, textLength, issueCode, issueData);
+				break;
+			case INFO:
+				acceptor.acceptInfo(message, source, textOffset, textLength, issueCode, issueData);
+				break;
+			case WARNING:
+				acceptor.acceptWarning(message, source, textOffset, textLength, issueCode, issueData);
+				break;
+		}
+
+		// Not so good, the abstract implementation handles finding the correct index
+		// accept(severity, message, e.eContainer(), e.eContainingFeature(), INSIGNIFICANT_INDEX, issueCode, issueData);
+
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.cloudsmith.geppetto.pp.dsl.linking.IMessageAcceptor#accept(org.eclipse.xtext.diagnostics.Severity, java.lang.String,
+	 * org.eclipse.xtext.nodemodel.INode, java.lang.String, java.lang.String)
+	 */
+	@Override
 	public void accept(Severity severity, String message, INode node, String issueCode, String... issueData) {
 
 		if(node == null)

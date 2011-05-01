@@ -98,7 +98,7 @@ ResourceExpression returns pp::Expression
 	: AssignmentExpression 
 		({pp::ResourceExpression.resourceExpr = current}
 			'{'  
-				(resourceData += ResourceBody (';'  resourceData += ResourceBody)* ';'? ) ?
+				(resourceData += ResourceBody (';'  resourceData += ResourceBody)* ';'?)?
 			'}' 
 		)?
 		;
@@ -106,8 +106,8 @@ ResourceExpression returns pp::Expression
 // Note: allows all AttributeOperation subtypes but this depends on the parent's type
 // VALIDATION checks allowed types	
 ResourceBody returns pp::ResourceBody
-	:  nameExpr = Expression  ':'  attributes = AttributeOperations?
-	|  attributes = AttributeOperations
+	: nameExpr = Expression  ':' attributes = AttributeOperations?
+	| attributes = AttributeOperations
 	;
 
 // VALIDATION: checks that key is a NAME
@@ -124,9 +124,14 @@ AttributeOperation returns pp::AttributeOperation
 	: AttributeDefinition
 	| AttributeAddition
 	;
-	
+
+// VALIDATION: checks that there are ',' between operations
+// NOTE: if ','	is mandatory in grammar, backtracking will think statement is a different (faulty)
+// statement.
 AttributeOperations returns pp::AttributeOperations
-	: attributes += AttributeOperation (','  attributes += AttributeOperation)* ','?
+	: attributes += AttributeOperation 
+		((','  attributes += AttributeOperation) | (attributes += AttributeOperation))* 
+		','?
 	;
 
 // NOTE: This construct is required due to an Xtext bug, it would be preferred to state (',' )? directly

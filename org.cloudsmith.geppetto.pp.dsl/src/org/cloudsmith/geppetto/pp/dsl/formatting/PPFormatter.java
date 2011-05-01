@@ -286,7 +286,7 @@ public class PPFormatter extends AbstractDeclarativeFormatter {
 		c.setLinewrap(1).between(endComma, rbr);
 
 		// + linebreak after «attribute (=>|+>) expr,»
-		Keyword comma = ga.getAttributeOperationsAccess().getCommaKeyword_1_0();
+		Keyword comma = ga.getAttributeOperationsAccess().getCommaKeyword_1_0_0();
 		c.setNoLinewrap().before(comma);
 		c.setLinewrap().after(comma);
 
@@ -301,7 +301,7 @@ public class PPFormatter extends AbstractDeclarativeFormatter {
 		c.setLinewrap(2).after(semi);
 		Keyword endSemi = ga.getResourceExpressionAccess().getSemicolonKeyword_1_2_2();
 		c.setNoLinewrap().before(endSemi);
-		c.setNoLinewrap().after(endSemi);
+		c.setLinewrap(1).after(endSemi);
 		// c.setLinewrap(1).between(endSemi, rbr);
 
 		// no wrap when RESOURCE -> RESOURCE is used
@@ -309,6 +309,7 @@ public class PPFormatter extends AbstractDeclarativeFormatter {
 		c.setNoLinewrap().before(ga.getRelationshipExpressionAccess().getOpNameAssignment_1_1());
 
 		// + indent the list of attribute operations but only when when they have a title
+		// TODO: 1.0GA (changing resource expression grammar)
 		c.setIndentationIncrement().before(ga.getResourceBodyAccess().getAttributesAssignment_0_2());
 		c.setIndentationDecrement().after(ga.getResourceBodyAccess().getAttributesAssignment_0_2());
 

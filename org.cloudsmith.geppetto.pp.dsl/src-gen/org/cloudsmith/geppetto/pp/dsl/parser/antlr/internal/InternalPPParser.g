@@ -740,15 +740,15 @@ ruleAttributeOperations returns [EObject current=null]
 	    }
 
 )
-)(
+)((
 	otherlv_1=KEYWORD_9
     {
-    	newLeafNode(otherlv_1, grammarAccess.getAttributeOperationsAccess().getCommaKeyword_1_0());
+    	newLeafNode(otherlv_1, grammarAccess.getAttributeOperationsAccess().getCommaKeyword_1_0_0());
     }
 (
 (
 		{ 
-	        newCompositeNode(grammarAccess.getAttributeOperationsAccess().getAttributesAttributeOperationParserRuleCall_1_1_0()); 
+	        newCompositeNode(grammarAccess.getAttributeOperationsAccess().getAttributesAttributeOperationParserRuleCall_1_0_1_0()); 
 	    }
 		lv_attributes_2_0=ruleAttributeOperation		{
 	        if ($current==null) {
@@ -763,10 +763,29 @@ ruleAttributeOperations returns [EObject current=null]
 	    }
 
 )
+))
+    |(
+(
+		{ 
+	        newCompositeNode(grammarAccess.getAttributeOperationsAccess().getAttributesAttributeOperationParserRuleCall_1_1_0()); 
+	    }
+		lv_attributes_3_0=ruleAttributeOperation		{
+	        if ($current==null) {
+	            $current = createModelElementForParent(grammarAccess.getAttributeOperationsRule());
+	        }
+       		add(
+       			$current, 
+       			"attributes",
+        		lv_attributes_3_0, 
+        		"AttributeOperation");
+	        afterParserOrEnumRuleCall();
+	    }
+
+)
 ))*(
-	otherlv_3=KEYWORD_9
+	otherlv_4=KEYWORD_9
     {
-    	newLeafNode(otherlv_3, grammarAccess.getAttributeOperationsAccess().getCommaKeyword_2());
+    	newLeafNode(otherlv_4, grammarAccess.getAttributeOperationsAccess().getCommaKeyword_2());
     }
 )?)
 ;

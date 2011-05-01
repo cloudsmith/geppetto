@@ -28,6 +28,7 @@ import org.cloudsmith.geppetto.pp.AtExpression;
 import org.cloudsmith.geppetto.pp.AttributeAddition;
 import org.cloudsmith.geppetto.pp.AttributeDefinition;
 import org.cloudsmith.geppetto.pp.AttributeOperation;
+import org.cloudsmith.geppetto.pp.AttributeOperations;
 import org.cloudsmith.geppetto.pp.BinaryExpression;
 import org.cloudsmith.geppetto.pp.BinaryOpExpression;
 import org.cloudsmith.geppetto.pp.CaseExpression;
@@ -80,11 +81,18 @@ import org.cloudsmith.geppetto.pp.adapters.ClassifierAdapter;
 import org.cloudsmith.geppetto.pp.adapters.ClassifierAdapterFactory;
 import org.cloudsmith.geppetto.pp.dsl.linking.IMessageAcceptor;
 import org.cloudsmith.geppetto.pp.dsl.linking.ValidationBasedMessageAcceptor;
+import org.cloudsmith.geppetto.pp.dsl.services.PPGrammarAccess;
 import org.cloudsmith.geppetto.pp.util.TextExpressionHelper;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
+import org.eclipse.xtext.IGrammarAccess;
+import org.eclipse.xtext.RuleCall;
+import org.eclipse.xtext.nodemodel.ICompositeNode;
+import org.eclipse.xtext.nodemodel.ILeafNode;
+import org.eclipse.xtext.nodemodel.INode;
+import org.eclipse.xtext.nodemodel.util.NodeModelUtils;
 import org.eclipse.xtext.util.Exceptions;
 import org.eclipse.xtext.util.PolymorphicDispatcher;
 import org.eclipse.xtext.util.PolymorphicDispatcher.ErrorHandler;
@@ -198,6 +206,8 @@ public class PPJavaValidator extends AbstractPPJavaValidator implements IPPDiagn
 	@Inject
 	private PPPatternHelper patternHelper;
 
+	private PPGrammarAccess puppetGrammarAccess;
+
 	/**
 	 * Classes accepted as top level statements in a pp manifest.
 	 */
@@ -234,8 +244,9 @@ public class PPJavaValidator extends AbstractPPJavaValidator implements IPPDiagn
 			"undef", "true", "false" };
 
 	@Inject
-	public PPJavaValidator() {
+	public PPJavaValidator(IGrammarAccess ga) {
 		acceptor = new ValidationBasedMessageAcceptor(this);
+		puppetGrammarAccess = (PPGrammarAccess) ga;
 	}
 
 	@Check
@@ -391,6 +402,45 @@ public class PPJavaValidator extends AbstractPPJavaValidator implements IPPDiagn
 			acceptor.acceptError(
 				"Bad name format.", o, PPPackage.Literals.ATTRIBUTE_OPERATION__KEY, INSIGNIFICANT_INDEX,
 				IPPDiagnostics.ISSUE__NOT_NAME);
+	}
+
+	/**
+	 * Checks that AttributeOperation objects in the list are separated by commas
+	 * (if there is an associated node model).
+	 * 
+	 * @param o
+	 */
+	@Check
+	public void checkAttributeOperations(AttributeOperations o) {
+		ICompositeNode rootNode = NodeModelUtils.getNode(o);
+		if(rootNode != null) {
+			boolean expectComma = false;
+			int expectOffset = 0;
+			for(INode n : rootNode.getChildren()) {
+				// skip whitespace and comments
+				if(n instanceof ILeafNode && ((ILeafNode) n).isHidden())
+					continue;
+				if(expectComma) {
+					if(!(n instanceof ILeafNode && ",".equals(n.getText()))) {
+						acceptor.acceptError(
+							"Missing Comma", n.getSemanticElement(), expectOffset, 1,
+							IPPDiagnostics.ISSUE__MISSING_COMMA);
+					}
+					expectComma = false;
+				}
+
+				if(n.getGrammarElement() instanceof RuleCall) {
+					RuleCall rc = (RuleCall) n.getGrammarElement();
+					// TODO: Check against real rule - not string
+					// if(rc.getRule().getName().equals("AttributeOperation")) {
+					if(rc.getRule().equals(puppetGrammarAccess.getAttributeOperationRule())) {
+						expectComma = true;
+						// pos where would have liked to see a comma
+						expectOffset = n.getTotalOffset() + n.getTotalLength();
+					}
+				}
+			}
+		}
 	}
 
 	@Check
@@ -692,6 +742,7 @@ public class PPJavaValidator extends AbstractPPJavaValidator implements IPPDiagn
 			acceptor.acceptError(
 				"Expression unsupported as resource name/title.", o, PPPackage.Literals.RESOURCE_BODY__NAME_EXPR,
 				INSIGNIFICANT_INDEX, IPPDiagnostics.ISSUE__UNSUPPORTED_EXPRESSION);
+
 	}
 
 	/**

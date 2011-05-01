@@ -422,17 +422,20 @@ public class PPGrammarAccess extends AbstractGrammarElementFinder {
 		private final Group cGroup = (Group)rule.eContents().get(1);
 		private final Assignment cAttributesAssignment_0 = (Assignment)cGroup.eContents().get(0);
 		private final RuleCall cAttributesAttributeOperationParserRuleCall_0_0 = (RuleCall)cAttributesAssignment_0.eContents().get(0);
-		private final Group cGroup_1 = (Group)cGroup.eContents().get(1);
-		private final Keyword cCommaKeyword_1_0 = (Keyword)cGroup_1.eContents().get(0);
-		private final Assignment cAttributesAssignment_1_1 = (Assignment)cGroup_1.eContents().get(1);
+		private final Alternatives cAlternatives_1 = (Alternatives)cGroup.eContents().get(1);
+		private final Group cGroup_1_0 = (Group)cAlternatives_1.eContents().get(0);
+		private final Keyword cCommaKeyword_1_0_0 = (Keyword)cGroup_1_0.eContents().get(0);
+		private final Assignment cAttributesAssignment_1_0_1 = (Assignment)cGroup_1_0.eContents().get(1);
+		private final RuleCall cAttributesAttributeOperationParserRuleCall_1_0_1_0 = (RuleCall)cAttributesAssignment_1_0_1.eContents().get(0);
+		private final Assignment cAttributesAssignment_1_1 = (Assignment)cAlternatives_1.eContents().get(1);
 		private final RuleCall cAttributesAttributeOperationParserRuleCall_1_1_0 = (RuleCall)cAttributesAssignment_1_1.eContents().get(0);
 		private final Keyword cCommaKeyword_2 = (Keyword)cGroup.eContents().get(2);
 		
 		//AttributeOperations returns pp::AttributeOperations:
-		//	attributes+=AttributeOperation ("," attributes+=AttributeOperation)* ","?;
+		//	attributes+=AttributeOperation ("," attributes+=AttributeOperation | attributes+=AttributeOperation)* ","?;
 		public ParserRule getRule() { return rule; }
 
-		//attributes+=AttributeOperation ("," attributes+=AttributeOperation)* ","?
+		//attributes+=AttributeOperation ("," attributes+=AttributeOperation | attributes+=AttributeOperation)* ","?
 		public Group getGroup() { return cGroup; }
 
 		//attributes+=AttributeOperation
@@ -441,11 +444,20 @@ public class PPGrammarAccess extends AbstractGrammarElementFinder {
 		//AttributeOperation
 		public RuleCall getAttributesAttributeOperationParserRuleCall_0_0() { return cAttributesAttributeOperationParserRuleCall_0_0; }
 
-		//("," attributes+=AttributeOperation)*
-		public Group getGroup_1() { return cGroup_1; }
+		//("," attributes+=AttributeOperation | attributes+=AttributeOperation)*
+		public Alternatives getAlternatives_1() { return cAlternatives_1; }
+
+		//"," attributes+=AttributeOperation
+		public Group getGroup_1_0() { return cGroup_1_0; }
 
 		//","
-		public Keyword getCommaKeyword_1_0() { return cCommaKeyword_1_0; }
+		public Keyword getCommaKeyword_1_0_0() { return cCommaKeyword_1_0_0; }
+
+		//attributes+=AttributeOperation
+		public Assignment getAttributesAssignment_1_0_1() { return cAttributesAssignment_1_0_1; }
+
+		//AttributeOperation
+		public RuleCall getAttributesAttributeOperationParserRuleCall_1_0_1_0() { return cAttributesAttributeOperationParserRuleCall_1_0_1_0; }
 
 		//attributes+=AttributeOperation
 		public Assignment getAttributesAssignment_1_1() { return cAttributesAssignment_1_1; }
@@ -3566,7 +3578,7 @@ public class PPGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//AttributeOperations returns pp::AttributeOperations:
-	//	attributes+=AttributeOperation ("," attributes+=AttributeOperation)* ","?;
+	//	attributes+=AttributeOperation ("," attributes+=AttributeOperation | attributes+=AttributeOperation)* ","?;
 	public AttributeOperationsElements getAttributeOperationsAccess() {
 		return (pAttributeOperations != null) ? pAttributeOperations : (pAttributeOperations = new AttributeOperationsElements());
 	}

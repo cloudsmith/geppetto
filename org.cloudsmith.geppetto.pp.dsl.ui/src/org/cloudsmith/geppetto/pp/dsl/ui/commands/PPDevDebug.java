@@ -11,6 +11,8 @@
  */
 package org.cloudsmith.geppetto.pp.dsl.ui.commands;
 
+import java.io.IOException;
+
 import org.cloudsmith.geppetto.pp.dsl.ui.internal.PPActivator;
 import org.eclipse.core.commands.AbstractHandler;
 import org.eclipse.core.commands.ExecutionEvent;
@@ -19,7 +21,12 @@ import org.eclipse.core.expressions.EvaluationContext;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.xtext.grammaranalysis.impl.GrammarElementTitleSwitch;
 import org.eclipse.xtext.naming.IQualifiedNameConverter;
+import org.eclipse.xtext.nodemodel.BidiIterator;
+import org.eclipse.xtext.nodemodel.ICompositeNode;
+import org.eclipse.xtext.nodemodel.ILeafNode;
+import org.eclipse.xtext.nodemodel.INode;
 import org.eclipse.xtext.resource.IContainer;
 import org.eclipse.xtext.resource.IEObjectDescription;
 import org.eclipse.xtext.resource.IResourceDescription;
@@ -39,6 +46,58 @@ import com.google.inject.Inject;
  * 
  */
 public class PPDevDebug extends AbstractHandler {
+	public static String compactDump(INode node, boolean showHidden) {
+		StringBuilder result = new StringBuilder();
+		try {
+			compactDump(node, showHidden, "", result);
+		}
+		catch(IOException e) {
+			return e.getMessage();
+		}
+		return result.toString();
+	}
+
+	private static void compactDump(INode node, boolean showHidden, String prefix, Appendable result)
+			throws IOException {
+		if(!showHidden && node instanceof ILeafNode && ((ILeafNode) node).isHidden())
+			return;
+		if(prefix.length() != 0) {
+			result.append("\n");
+			result.append(prefix);
+		}
+		if(node instanceof ICompositeNode) {
+			result.append(new GrammarElementTitleSwitch().doSwitch(node.getGrammarElement()));
+			String newPrefix = prefix + "  ";
+			result.append(" {");
+			BidiIterator<INode> children = ((ICompositeNode) node).getChildren().iterator();
+			while(children.hasNext()) {
+				INode child = children.next();
+				compactDump(child, showHidden, newPrefix, result);
+			}
+			result.append("\n");
+			result.append(prefix);
+			result.append("}");
+		}
+		else if(node instanceof ILeafNode) {
+			if(((ILeafNode) node).isHidden())
+				result.append("hidden ");
+			if(node.getGrammarElement() == null)
+				result.append("error");
+			else
+				result.append(new GrammarElementTitleSwitch().doSwitch(node.getGrammarElement()));
+			result.append(" => '");
+			result.append(node.getText());
+			result.append("'");
+		}
+		else if(node == null) {
+			result.append("(null)");
+		}
+		else {
+			result.append("unknown type ");
+			result.append(node.getClass().getName());
+		}
+	}
+
 	@Inject
 	private IContainer.Manager manager;
 
@@ -59,7 +118,14 @@ public class PPDevDebug extends AbstractHandler {
 		// listAllResources(resource, descriptionIndex);
 		System.out.println("VISIBLE RESOURCES:");
 		listVisibleResources(resource, descriptionIndex);
+		dumpParseTree(resource);
 		return Status.OK_STATUS;
+	}
+
+	public void dumpParseTree(XtextResource resource) {
+		System.out.println("DUMP PARSE TREE: [");
+		System.out.println(compactDump(resource.getParseResult().getRootNode(), false));
+		System.out.println("]");
 	}
 
 	/*

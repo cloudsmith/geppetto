@@ -137,6 +137,17 @@ public class VersionRequirementImpl extends EObjectImpl implements VersionRequir
 	 */
 	protected static final String VERSION_EDEFAULT = null;
 
+	private static int nextSeparator(String str, int beginIdx) {
+		int top = str.length();
+		while(beginIdx < top) {
+			char c = str.charAt(beginIdx);
+			if(c == '.' || c == '-')
+				return beginIdx;
+			++beginIdx;
+		}
+		return -1;
+	}
+
 	/**
 	 * @param string
 	 * @return
@@ -234,12 +245,12 @@ public class VersionRequirementImpl extends EObjectImpl implements VersionRequir
 			return Collections.emptyList();
 
 		ArrayList<Object> segments = new ArrayList<Object>();
-		int dotIdx = version.indexOf('.');
+		int dotIdx = nextSeparator(version, 0);
 		int beginIdx = 0;
 		while(dotIdx >= 0) {
 			addSegments(segments, version.substring(beginIdx, dotIdx));
 			beginIdx = dotIdx + 1;
-			dotIdx = version.indexOf('.', beginIdx);
+			dotIdx = nextSeparator(version, beginIdx);
 		}
 		if(beginIdx < version.length())
 			addSegments(segments, version.substring(beginIdx));

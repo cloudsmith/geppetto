@@ -139,7 +139,8 @@ public class VersionRequirementTest extends TestCase {
 		fixture.setVersion("1.2.3.foo");
 		fixture.setMatchRule(MatchRule.GREATER_OR_EQUAL);
 		assertTrue(fixture.matches("1.2.3.foo"));
-		assertTrue(fixture.matches("1.2.4"));
+		assertTrue(fixture.matches("1.2.3-foo"));
+		assertTrue(fixture.matches("1-2.4"));
 		assertTrue(fixture.matches("1.10"));
 		assertTrue(fixture.matches("2alpha"));
 		assertFalse(fixture.matches("1.1.1"));

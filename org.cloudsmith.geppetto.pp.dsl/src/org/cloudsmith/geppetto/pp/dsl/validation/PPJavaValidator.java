@@ -813,7 +813,7 @@ public class PPJavaValidator extends AbstractPPJavaValidator implements IPPDiagn
 				errorStartText = "Resource override ";
 				break;
 			case RESOURCE_IS_DEFAULT:
-				errorStartText = "Reousrce defaults ";
+				errorStartText = "Resource defaults ";
 				break;
 			case RESOURCE_IS_CLASSPARAMS:
 				errorStartText = "Class parameter defaults ";

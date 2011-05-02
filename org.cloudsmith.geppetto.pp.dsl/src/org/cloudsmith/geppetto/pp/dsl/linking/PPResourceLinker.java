@@ -349,6 +349,7 @@ public class PPResourceLinker {
 					attributeFqn = attributeFqn.append(fqn.getLastSegment());
 					return findAttributesWithGuard(scopeDetermeningObject, attributeFqn, importedNames, stack);
 				}
+				result = Collections.emptyList();
 			}
 		}
 		return result;

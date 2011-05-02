@@ -249,7 +249,6 @@ public class TestPuppetResourceExpr extends AbstractPuppetTests {
 	public void test_Valdate_UnknownProperty() throws Exception {
 		String code = "file { 'afile': donor => 'A donor'}";
 		XtextResource r = getResourceFromStringAndExpect(code, UNKNOWN_EXPECTATION);
-
 		resourceErrorDiagnostics(r).assertDiagnostic(IPPDiagnostics.ISSUE__RESOURCE_UNKNOWN_PROPERTY);
 
 	}

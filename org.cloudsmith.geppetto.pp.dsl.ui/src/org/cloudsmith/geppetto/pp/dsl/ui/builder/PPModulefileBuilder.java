@@ -423,10 +423,11 @@ public class PPModulefileBuilder extends IncrementalProjectBuilder implements PP
 					log.error("Could not build 'metadata.json' for: '" + moduleFile + "'", e);
 				}
 			}
-		}
-		else {
-			// puppet project without modulefile should reference the target project
-			syncProjectReferences(Lists.newArrayList(getProjectByName(PPUiConstants.PPTP_TARGET_PROJECT_NAME)), monitor);
+			else {
+				// puppet project without modulefile should reference the target project
+				syncProjectReferences(
+					Lists.newArrayList(getProjectByName(PPUiConstants.PPTP_TARGET_PROJECT_NAME)), monitor);
+			}
 		}
 	}
 

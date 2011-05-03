@@ -15,6 +15,8 @@ import java.util.Collections;
 import java.util.List;
 
 import org.cloudsmith.geppetto.pp.Definition;
+import org.cloudsmith.geppetto.pp.DoubleQuotedString;
+import org.cloudsmith.geppetto.pp.Expression;
 import org.cloudsmith.geppetto.pp.ExpressionTE;
 import org.cloudsmith.geppetto.pp.HostClassDefinition;
 import org.cloudsmith.geppetto.pp.LiteralNameOrReference;
@@ -26,6 +28,7 @@ import org.cloudsmith.geppetto.pp.dsl.adapters.DocumentationAdapter;
 import org.cloudsmith.geppetto.pp.dsl.adapters.DocumentationAdapterFactory;
 import org.cloudsmith.geppetto.pp.dsl.services.PPGrammarAccess;
 import org.cloudsmith.geppetto.pp.dsl.ui.coloring.PPDocumentationParser.DocNode;
+import org.cloudsmith.geppetto.pp.util.TextExpressionHelper;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.TreeIterator;
 import org.eclipse.emf.ecore.EObject;
@@ -70,6 +73,8 @@ public class PPSemanticHighlightingCalculator implements ISemanticHighlightingCa
 			// buf.append("\n");
 			// System.err.print(buf.toString());
 			if(length == 0)
+				return;
+			if(length < 0)
 				return;
 			wrapped.addPosition(offset, length, id);
 		}
@@ -234,7 +239,13 @@ public class PPSemanticHighlightingCalculator implements ISemanticHighlightingCa
 		}
 		for(ResourceBody body : expr.getResourceData()) {
 			if(body.getNameExpr() != null) {
-				ICompositeNode node = NodeModelUtils.getNode(body.getNameExpr());
+				Expression nameExpr = body.getNameExpr();
+				// TODO: FIX THIS WORKAROUND
+				// See https://github.com/cloudsmith/geppetto/issues/72
+				if(nameExpr instanceof DoubleQuotedString &&
+						TextExpressionHelper.hasInterpolation((DoubleQuotedString) nameExpr))
+					continue;
+				ICompositeNode node = NodeModelUtils.getNode(nameExpr);
 				if(node != null) {
 					acceptor.addPosition(node.getOffset(), node.getLength(), PPHighlightConfiguration.RESOURCE_TITLE_ID);
 				}

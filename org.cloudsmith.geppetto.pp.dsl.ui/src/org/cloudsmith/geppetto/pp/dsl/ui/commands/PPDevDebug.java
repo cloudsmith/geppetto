@@ -48,12 +48,12 @@ import com.google.inject.Inject;
 public class PPDevDebug extends AbstractHandler {
 	public static String compactDump(INode node, boolean showHidden) {
 		StringBuilder result = new StringBuilder();
-		try {
-			compactDump(node, showHidden, "", result);
-		}
-		catch(IOException e) {
-			return e.getMessage();
-		}
+		// try {
+		// compactDump(node, showHidden, "", result);
+		// }
+		// catch(IOException e) {
+		// return e.getMessage();
+		// }
 		return result.toString();
 	}
 

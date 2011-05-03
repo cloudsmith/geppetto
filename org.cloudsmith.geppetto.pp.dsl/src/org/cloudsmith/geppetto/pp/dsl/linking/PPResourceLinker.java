@@ -36,6 +36,7 @@ import org.cloudsmith.geppetto.pp.adapters.ClassifierAdapterFactory;
 import org.cloudsmith.geppetto.pp.dsl.PPDSLConstants;
 import org.cloudsmith.geppetto.pp.dsl.adapters.PPImportedNamesAdapter;
 import org.cloudsmith.geppetto.pp.dsl.adapters.PPImportedNamesAdapterFactory;
+import org.cloudsmith.geppetto.pp.dsl.eval.PPStringConstantEvaluator;
 import org.cloudsmith.geppetto.pp.dsl.validation.IPPDiagnostics;
 import org.cloudsmith.geppetto.pp.pptp.PPTPPackage;
 import org.eclipse.emf.common.util.EList;
@@ -173,6 +174,9 @@ public class PPResourceLinker {
 	@Inject
 	IQualifiedNameProvider fqnProvider;
 
+	@Inject
+	private PPStringConstantEvaluator stringConstantEvaluator;
+
 	/**
 	 * polymorph {@link #link(EObject, IMessageAcceptor)}
 	 */
@@ -234,7 +238,61 @@ public class PPResourceLinker {
 
 		ResourceExpression resource = (ResourceExpression) o.eContainer();
 		ClassifierAdapter adapter = ClassifierAdapterFactory.eINSTANCE.adapt(resource);
-		if(!(adapter.getClassifier() == RESOURCE_IS_CLASSPARAMS || adapter.getClassifier() == RESOURCE_IS_OVERRIDE)) {
+		if(adapter.getClassifier() == RESOURCE_IS_CLASSPARAMS) {
+			// pp: class { classname : parameter => value ... }
+
+			final String className = stringConstantEvaluator.doToString(o.getNameExpr());
+			if(className == null) {
+				acceptor.acceptError(
+					"Not a valid class reference", o, PPPackage.Literals.RESOURCE_BODY__NAME_EXPR,
+					IPPDiagnostics.ISSUE__NOT_CLASSREF);
+				return; // not meaningful to continue
+			}
+			List<IEObjectDescription> descs = findHostClasses(o, className, importedNames);
+			if(descs.size() < 1) {
+				acceptor.acceptError(
+					"Unknown class: '" + className + "'", o, PPPackage.Literals.RESOURCE_BODY__NAME_EXPR,
+					IPPDiagnostics.ISSUE__RESOURCE_UNKNOWN_TYPE);
+				return; // not meaningsful to continue
+			}
+			if(descs.size() > 0) {
+				descs = Lists.newArrayList(Sets.newHashSet(descs));
+				// removeDisqualifiedContainers(descs, o);
+
+				if(descs.size() > 1) {
+					// this is an ambiguous link - multiple targets available and order depends on the
+					// order at runtime (may not be the same).
+					acceptor.acceptWarning(
+						"Ambiguous reference to: '" + className + "' found in: " + visibleResourceList(descs), o,
+						PPPackage.Literals.HOST_CLASS_DEFINITION__PARENT,
+						IPPDiagnostics.ISSUE__RESOURCE_AMBIGUOUS_REFERENCE);
+				}
+				// use the first description found to find parameters
+				IEObjectDescription desc = descs.get(0);
+				AttributeOperations aos = o.getAttributes();
+				if(aos != null)
+					for(AttributeOperation ao : aos.getAttributes()) {
+						QualifiedName fqn = desc.getQualifiedName().append(ao.getKey());
+						// Accept name if there is at least one type/definition that lists the key
+						// NOTE/TODO: If there are other problems (multiple definitions with same name etc,
+						// the property could be ok in one, but not in another instance.
+						// finding that A'::x exists but not A''::x requires a lot more work
+						if(findAttributes(o, fqn, importedNames).size() > 0)
+							continue; // found one such parameter == ok
+						acceptor.acceptError(
+							"Unknown parameter: '" + ao.getKey() + "' in definition: '" + desc.getName() + "'", ao,
+							PPPackage.Literals.ATTRIBUTE_OPERATION__KEY,
+							IPPDiagnostics.ISSUE__RESOURCE_UNKNOWN_PROPERTY);
+					}
+
+			}
+
+		}
+		else if(adapter.getClassifier() == RESOURCE_IS_OVERRIDE) {
+			// do nothing
+		}
+		else {
+			// normal resource
 			IEObjectDescription desc = (IEObjectDescription) adapter.getTargetObjectDescription();
 			// do not flag undefined parameters as errors if type is unknown
 			if(desc != null) {
@@ -272,9 +330,17 @@ public class PPResourceLinker {
 			return;
 
 		// If resource is good, and not 'class', then it must have a known reference type.
-		// TODO: possibly check a resource override if the expression is constant (or it is impossible to lookup
 		// the resource type - also requires getting the type name from the override's expression).
-		if(!(resourceType == RESOURCE_IS_CLASSPARAMS || resourceType == RESOURCE_IS_OVERRIDE)) {
+		if(resourceType == RESOURCE_IS_CLASSPARAMS) {
+			// resource is pp: class { classname : parameter => value }
+			// do nothing
+		}
+		else if(resourceType == RESOURCE_IS_OVERRIDE) {
+			// TODO: possibly check a resource override if the expression is constant (or it is impossible to lookup
+			// do nothing
+		}
+		else {
+			// normal resource
 			List<IEObjectDescription> descs = findDefinitions(o, resourceTypeName, importedNames);
 			if(descs.size() > 0) {
 				// make list only contain unique references

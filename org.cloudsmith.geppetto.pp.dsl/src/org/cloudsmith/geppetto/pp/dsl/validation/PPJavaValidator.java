@@ -423,7 +423,7 @@ public class PPJavaValidator extends AbstractPPJavaValidator implements IPPDiagn
 				if(expectComma) {
 					if(!(n instanceof ILeafNode && ",".equals(n.getText()))) {
 						acceptor.acceptError(
-							"Missing Comma", n.getSemanticElement(), expectOffset, 1,
+							"Missing comma.", n.getSemanticElement(), expectOffset, 1,
 							IPPDiagnostics.ISSUE__MISSING_COMMA);
 					}
 					expectComma = false;
@@ -431,9 +431,7 @@ public class PPJavaValidator extends AbstractPPJavaValidator implements IPPDiagn
 
 				if(n.getGrammarElement() instanceof RuleCall) {
 					RuleCall rc = (RuleCall) n.getGrammarElement();
-					// TODO: Check against real rule - not string
-					// if(rc.getRule().getName().equals("AttributeOperation")) {
-					if(rc.getRule().equals(puppetGrammarAccess.getAttributeOperationRule())) {
+					if(rc.getRule().getName().equals(puppetGrammarAccess.getAttributeOperationRule().getName())) {
 						expectComma = true;
 						// pos where would have liked to see a comma
 						expectOffset = n.getTotalOffset() + n.getTotalLength();

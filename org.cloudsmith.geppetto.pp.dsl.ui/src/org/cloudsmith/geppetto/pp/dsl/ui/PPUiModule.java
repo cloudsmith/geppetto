@@ -100,6 +100,8 @@ public class PPUiModule extends org.cloudsmith.geppetto.pp.dsl.ui.AbstractPPUiMo
 	public void configureDebugTracing(com.google.inject.Binder binder) {
 		binder.bind(ITracer.class).annotatedWith(Names.named(PPUiConstants.DEBUG_OPTION_MODULEFILE)).toInstance(
 			new DefaultTracer(PPUiConstants.DEBUG_OPTION_MODULEFILE));
+		binder.bind(ITracer.class).annotatedWith(Names.named(PPUiConstants.DEBUG_OPTION_PARSER)).toInstance(
+			new DefaultTracer(PPUiConstants.DEBUG_OPTION_PARSER));
 	}
 
 	// contributed by org.eclipse.xtext.generator.parser.antlr.ex.rt.AntlrGeneratorFragment

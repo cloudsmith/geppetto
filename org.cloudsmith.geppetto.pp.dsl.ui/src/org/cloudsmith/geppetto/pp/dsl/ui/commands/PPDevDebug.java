@@ -13,6 +13,8 @@ package org.cloudsmith.geppetto.pp.dsl.ui.commands;
 
 import java.io.IOException;
 
+import org.cloudsmith.geppetto.common.tracer.ITracer;
+import org.cloudsmith.geppetto.pp.dsl.ui.PPUiConstants;
 import org.cloudsmith.geppetto.pp.dsl.ui.internal.PPActivator;
 import org.eclipse.core.commands.AbstractHandler;
 import org.eclipse.core.commands.ExecutionEvent;
@@ -38,6 +40,7 @@ import org.eclipse.xtext.ui.editor.model.XtextDocumentUtil;
 import org.eclipse.xtext.util.concurrent.IUnitOfWork;
 
 import com.google.inject.Inject;
+import com.google.inject.name.Named;
 
 /**
  * A command to use for development debugging purposes.
@@ -48,12 +51,12 @@ import com.google.inject.Inject;
 public class PPDevDebug extends AbstractHandler {
 	public static String compactDump(INode node, boolean showHidden) {
 		StringBuilder result = new StringBuilder();
-		// try {
-		// compactDump(node, showHidden, "", result);
-		// }
-		// catch(IOException e) {
-		// return e.getMessage();
-		// }
+		try {
+			compactDump(node, showHidden, "", result);
+		}
+		catch(IOException e) {
+			return e.getMessage();
+		}
 		return result.toString();
 	}
 
@@ -99,6 +102,10 @@ public class PPDevDebug extends AbstractHandler {
 	}
 
 	@Inject
+	@Named(PPUiConstants.DEBUG_OPTION_PARSER)
+	private ITracer tracer;
+
+	@Inject
 	private IContainer.Manager manager;
 
 	@Inject
@@ -118,7 +125,9 @@ public class PPDevDebug extends AbstractHandler {
 		// listAllResources(resource, descriptionIndex);
 		System.out.println("VISIBLE RESOURCES:");
 		listVisibleResources(resource, descriptionIndex);
-		dumpParseTree(resource);
+		if(tracer.isTracing()) {
+			dumpParseTree(resource);
+		}
 		return Status.OK_STATUS;
 	}
 

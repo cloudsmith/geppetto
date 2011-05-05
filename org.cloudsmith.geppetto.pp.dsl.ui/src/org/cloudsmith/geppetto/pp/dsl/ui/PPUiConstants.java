@@ -50,4 +50,6 @@ public interface PPUiConstants {
 
 	public static final String PUPPET_NATURE_ID = "org.cloudsmith.geppetto.pp.dsl.ui.puppetNature";
 
+	public static final String DEBUG_OPTION_PARSER = PLUGIN_ID + "/debug/parser";
+
 }

@@ -97,12 +97,15 @@ public class DocumentationAssociator {
 					continue; // keep on collecting
 
 				EObject semantic = NodeModelUtils.findActualSemanticObjectFor(sibling);
-				for(Class<?> clazz : documentable) {
-					if(clazz.isAssignableFrom(semantic.getClass())) {
-						// found sequence is documentation for semantic
-						associateDocumentation(semantic, commentSequence);
-						break;
+				found: {
+					for(Class<?> clazz : documentable) {
+						if(clazz.isAssignableFrom(semantic.getClass())) {
+							// found sequence is documentation for semantic
+							associateDocumentation(semantic, commentSequence);
+							break found;
+						}
 					}
+					commentSequence.clear();
 				}
 			}
 		}

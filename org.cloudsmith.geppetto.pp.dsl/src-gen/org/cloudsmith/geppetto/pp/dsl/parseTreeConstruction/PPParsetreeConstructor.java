@@ -14558,7 +14558,7 @@ protected class VariableTextExpression_TrailingAssignment_1_2 extends Assignment
 
 /************ begin Rule ExpressionTextExpression ****************
  *
- * ExpressionTextExpression returns pp::TextExpression: // allow comments between ${ and }
+ * ExpressionTextExpression returns pp::TextExpression hidden(WS, SL_COMMENT, ML_COMMENT): // allow comments between ${ and }
  * 	StringPart ({pp::ExpressionTE.leading=current} "${" expression=Expression "}" trailing=TextExpression?)*;
  *
  **/

@@ -2318,16 +2318,23 @@ finally {
 
 // Entry rule entryRuleExpressionTextExpression
 entryRuleExpressionTextExpression 
+@init {
+	HiddenTokens myHiddenTokenState = ((XtextTokenStream)input).setHiddenTokens("RULE_WS", "RULE_SL_COMMENT", "RULE_ML_COMMENT");
+}
 :
 { before(grammarAccess.getExpressionTextExpressionRule()); }
 	 ruleExpressionTextExpression
 { after(grammarAccess.getExpressionTextExpressionRule()); } 
 	 EOF 
 ;
+finally {
+	myHiddenTokenState.restore();
+}
 
 // Rule ExpressionTextExpression
 ruleExpressionTextExpression 
     @init {
+		HiddenTokens myHiddenTokenState = ((XtextTokenStream)input).setHiddenTokens("RULE_WS", "RULE_SL_COMMENT", "RULE_ML_COMMENT");
 		int stackSize = keepStackSize();
     }
     :
@@ -2340,6 +2347,7 @@ ruleExpressionTextExpression
 ;
 finally {
 	restoreStackSize(stackSize);
+	myHiddenTokenState.restore();
 }
 
 

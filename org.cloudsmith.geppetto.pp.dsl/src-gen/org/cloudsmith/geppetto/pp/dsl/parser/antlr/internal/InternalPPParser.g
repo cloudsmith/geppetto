@@ -5225,16 +5225,23 @@ finally {
 
 // Entry rule entryRuleExpressionTextExpression
 entryRuleExpressionTextExpression returns [EObject current=null]
+	@init { 
+		HiddenTokens myHiddenTokenState = ((XtextTokenStream)input).setHiddenTokens("RULE_WS", "RULE_SL_COMMENT", "RULE_ML_COMMENT");
+	}
 	:
 	{ newCompositeNode(grammarAccess.getExpressionTextExpressionRule()); }
 	 iv_ruleExpressionTextExpression=ruleExpressionTextExpression 
 	 { $current=$iv_ruleExpressionTextExpression.current; } 
 	 EOF 
 ;
+finally {
+	myHiddenTokenState.restore();
+}
 
 // Rule ExpressionTextExpression
 ruleExpressionTextExpression returns [EObject current=null] 
     @init { enterRule(); 
+		HiddenTokens myHiddenTokenState = ((XtextTokenStream)input).setHiddenTokens("RULE_WS", "RULE_SL_COMMENT", "RULE_ML_COMMENT");
     }
     @after { leaveRule(); }:
 (
@@ -5306,6 +5313,9 @@ ruleExpressionTextExpression returns [EObject current=null]
 )
 )?)*)
 ;
+finally {
+	myHiddenTokenState.restore();
+}
 
 
 

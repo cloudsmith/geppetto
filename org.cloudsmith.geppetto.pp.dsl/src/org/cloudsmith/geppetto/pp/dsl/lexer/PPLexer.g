@@ -281,7 +281,7 @@ RULE_SL_COMMENT : {isNotInString()}?=> '#' ~(('\r'|'\n'))* ('\r'? '\n')?;
 RULE_WS : (' '|'\u00A0'|'\t'|'\r'|'\n')+;
 
 //RULE_WORD_CHARS : ((':' ':')=>RULE_NS)? ('0'..'9'|'a'..'z'|'A'..'Z'|'_'|'.'|'-')+ ( (':' ':')=>RULE_NS ('0'..'9'|'a'..'z'|'A'..'Z'|'_'|'.'|'-')+)*
-RULE_WORD_CHARS : ('0'..'9'|'a'..'z'|'A'..'Z'|'_'|'.'|'-'|(':' ':')=>RULE_NS)+
+RULE_WORD_CHARS : ('0'..'9'|'a'..'z'|'A'..'Z'|'_'|'.'|(':' ':')=>RULE_NS) ('0'..'9'|'a'..'z'|'A'..'Z'|'_'|'.'|'-'|(':' ':')=>RULE_NS)*
 {	// check if what was matched is a keyword - emit that instead
 	_type = replaceLiteral(_type, getText());
 };

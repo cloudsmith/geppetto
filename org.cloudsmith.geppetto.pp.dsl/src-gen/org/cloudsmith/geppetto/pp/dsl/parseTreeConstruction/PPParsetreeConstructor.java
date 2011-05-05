@@ -2032,6 +2032,9 @@ protected class AttributeOperation_AttributeAdditionParserRuleCall_1 extends Rul
 
 /************ begin Rule AttributeOperations ****************
  *
+ * // VALIDATION: checks that there are ',' between operations
+ * // NOTE: if ','	is mandatory in grammar, backtracking will think statement is a different (faulty)
+ * // statement.
  * AttributeOperations returns pp::AttributeOperations:
  * 	attributes+=AttributeOperation ("," attributes+=AttributeOperation | attributes+=AttributeOperation)* ","?;
  *

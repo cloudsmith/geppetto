@@ -2078,84 +2078,158 @@ public class PPLexer extends Lexer {
         try {
             int _type = RULE_WORD_CHARS;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:284:17: ( ( '0' .. '9' | 'a' .. 'z' | 'A' .. 'Z' | '_' | '.' | '-' | ( ':' ':' )=> RULE_NS )+ )
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:284:19: ( '0' .. '9' | 'a' .. 'z' | 'A' .. 'Z' | '_' | '.' | '-' | ( ':' ':' )=> RULE_NS )+
+            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:284:17: ( ( '0' .. '9' | 'a' .. 'z' | 'A' .. 'Z' | '_' | '.' | ( ':' ':' )=> RULE_NS ) ( '0' .. '9' | 'a' .. 'z' | 'A' .. 'Z' | '_' | '.' | '-' | ( ':' ':' )=> RULE_NS )* )
+            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:284:19: ( '0' .. '9' | 'a' .. 'z' | 'A' .. 'Z' | '_' | '.' | ( ':' ':' )=> RULE_NS ) ( '0' .. '9' | 'a' .. 'z' | 'A' .. 'Z' | '_' | '.' | '-' | ( ':' ':' )=> RULE_NS )*
             {
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:284:19: ( '0' .. '9' | 'a' .. 'z' | 'A' .. 'Z' | '_' | '.' | '-' | ( ':' ':' )=> RULE_NS )+
-            int cnt9=0;
-            loop9:
+            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:284:19: ( '0' .. '9' | 'a' .. 'z' | 'A' .. 'Z' | '_' | '.' | ( ':' ':' )=> RULE_NS )
+            int alt9=6;
+            int LA9_0 = input.LA(1);
+
+            if ( ((LA9_0>='0' && LA9_0<='9')) ) {
+                alt9=1;
+            }
+            else if ( ((LA9_0>='a' && LA9_0<='z')) ) {
+                alt9=2;
+            }
+            else if ( ((LA9_0>='A' && LA9_0<='Z')) ) {
+                alt9=3;
+            }
+            else if ( (LA9_0=='_') ) {
+                alt9=4;
+            }
+            else if ( (LA9_0=='.') ) {
+                alt9=5;
+            }
+            else if ( (LA9_0==':') && (synpred1_PPLexer())) {
+                alt9=6;
+            }
+            else {
+                if (state.backtracking>0) {state.failed=true; return ;}
+                NoViableAltException nvae =
+                    new NoViableAltException("", 9, 0, input);
+
+                throw nvae;
+            }
+            switch (alt9) {
+                case 1 :
+                    // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:284:20: '0' .. '9'
+                    {
+                    matchRange('0','9'); if (state.failed) return ;
+
+                    }
+                    break;
+                case 2 :
+                    // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:284:29: 'a' .. 'z'
+                    {
+                    matchRange('a','z'); if (state.failed) return ;
+
+                    }
+                    break;
+                case 3 :
+                    // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:284:38: 'A' .. 'Z'
+                    {
+                    matchRange('A','Z'); if (state.failed) return ;
+
+                    }
+                    break;
+                case 4 :
+                    // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:284:47: '_'
+                    {
+                    match('_'); if (state.failed) return ;
+
+                    }
+                    break;
+                case 5 :
+                    // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:284:51: '.'
+                    {
+                    match('.'); if (state.failed) return ;
+
+                    }
+                    break;
+                case 6 :
+                    // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:284:55: ( ':' ':' )=> RULE_NS
+                    {
+                    mRULE_NS(); if (state.failed) return ;
+
+                    }
+                    break;
+
+            }
+
+            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:284:75: ( '0' .. '9' | 'a' .. 'z' | 'A' .. 'Z' | '_' | '.' | '-' | ( ':' ':' )=> RULE_NS )*
+            loop10:
             do {
-                int alt9=8;
-                int LA9_0 = input.LA(1);
+                int alt10=8;
+                int LA10_0 = input.LA(1);
 
-                if ( ((LA9_0>='0' && LA9_0<='9')) ) {
-                    alt9=1;
+                if ( ((LA10_0>='0' && LA10_0<='9')) ) {
+                    alt10=1;
                 }
-                else if ( ((LA9_0>='a' && LA9_0<='z')) ) {
-                    alt9=2;
+                else if ( ((LA10_0>='a' && LA10_0<='z')) ) {
+                    alt10=2;
                 }
-                else if ( ((LA9_0>='A' && LA9_0<='Z')) ) {
-                    alt9=3;
+                else if ( ((LA10_0>='A' && LA10_0<='Z')) ) {
+                    alt10=3;
                 }
-                else if ( (LA9_0=='_') ) {
-                    alt9=4;
+                else if ( (LA10_0=='_') ) {
+                    alt10=4;
                 }
-                else if ( (LA9_0=='.') ) {
-                    alt9=5;
+                else if ( (LA10_0=='.') ) {
+                    alt10=5;
                 }
-                else if ( (LA9_0=='-') ) {
-                    alt9=6;
+                else if ( (LA10_0=='-') ) {
+                    alt10=6;
                 }
-                else if ( (LA9_0==':') && (synpred1_PPLexer())) {
-                    alt9=7;
+                else if ( (LA10_0==':') && (synpred2_PPLexer())) {
+                    alt10=7;
                 }
 
 
-                switch (alt9) {
+                switch (alt10) {
             	case 1 :
-            	    // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:284:20: '0' .. '9'
+            	    // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:284:76: '0' .. '9'
             	    {
             	    matchRange('0','9'); if (state.failed) return ;
 
             	    }
             	    break;
             	case 2 :
-            	    // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:284:29: 'a' .. 'z'
+            	    // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:284:85: 'a' .. 'z'
             	    {
             	    matchRange('a','z'); if (state.failed) return ;
 
             	    }
             	    break;
             	case 3 :
-            	    // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:284:38: 'A' .. 'Z'
+            	    // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:284:94: 'A' .. 'Z'
             	    {
             	    matchRange('A','Z'); if (state.failed) return ;
 
             	    }
             	    break;
             	case 4 :
-            	    // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:284:47: '_'
+            	    // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:284:103: '_'
             	    {
             	    match('_'); if (state.failed) return ;
 
             	    }
             	    break;
             	case 5 :
-            	    // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:284:51: '.'
+            	    // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:284:107: '.'
             	    {
             	    match('.'); if (state.failed) return ;
 
             	    }
             	    break;
             	case 6 :
-            	    // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:284:55: '-'
+            	    // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:284:111: '-'
             	    {
             	    match('-'); if (state.failed) return ;
 
             	    }
             	    break;
             	case 7 :
-            	    // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:284:59: ( ':' ':' )=> RULE_NS
+            	    // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:284:115: ( ':' ':' )=> RULE_NS
             	    {
             	    mRULE_NS(); if (state.failed) return ;
 
@@ -2163,13 +2237,8 @@ public class PPLexer extends Lexer {
             	    break;
 
             	default :
-            	    if ( cnt9 >= 1 ) break loop9;
-            	    if (state.backtracking>0) {state.failed=true; return ;}
-                        EarlyExitException eee =
-                            new EarlyExitException(9, input);
-                        throw eee;
+            	    break loop10;
                 }
-                cnt9++;
             } while (true);
 
             if ( state.backtracking==0 ) {
@@ -2204,13 +2273,13 @@ public class PPLexer extends Lexer {
             mRULE_RE_BODY(); if (state.failed) return ;
             match('/'); if (state.failed) return ;
             // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:289:69: ( RULE_RE_FLAGS )?
-            int alt10=2;
-            int LA10_0 = input.LA(1);
+            int alt11=2;
+            int LA11_0 = input.LA(1);
 
-            if ( ((LA10_0>='a' && LA10_0<='z')) ) {
-                alt10=1;
+            if ( ((LA11_0>='a' && LA11_0<='z')) ) {
+                alt11=1;
             }
-            switch (alt10) {
+            switch (alt11) {
                 case 1 :
                     // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:289:69: RULE_RE_FLAGS
                     {
@@ -2260,17 +2329,17 @@ public class PPLexer extends Lexer {
             {
             mRULE_RE_FIRST_CHAR(); if (state.failed) return ;
             // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:293:45: ( RULE_RE_FOLLOW_CHAR )*
-            loop11:
+            loop12:
             do {
-                int alt11=2;
-                int LA11_0 = input.LA(1);
+                int alt12=2;
+                int LA12_0 = input.LA(1);
 
-                if ( ((LA11_0>='\u0000' && LA11_0<='\t')||(LA11_0>='\u000B' && LA11_0<='.')||(LA11_0>='0' && LA11_0<='\uFFFF')) ) {
-                    alt11=1;
+                if ( ((LA12_0>='\u0000' && LA12_0<='\t')||(LA12_0>='\u000B' && LA12_0<='.')||(LA12_0>='0' && LA12_0<='\uFFFF')) ) {
+                    alt12=1;
                 }
 
 
-                switch (alt11) {
+                switch (alt12) {
             	case 1 :
             	    // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:293:45: RULE_RE_FOLLOW_CHAR
             	    {
@@ -2280,7 +2349,7 @@ public class PPLexer extends Lexer {
             	    break;
 
             	default :
-            	    break loop11;
+            	    break loop12;
                 }
             } while (true);
 
@@ -2303,23 +2372,23 @@ public class PPLexer extends Lexer {
             // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:295:31: (~ ( ( '\\n' | '*' | '/' | '\\\\' ) ) | RULE_RE_BACKSLASH_SEQUENCE )
             {
             // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:295:31: (~ ( ( '\\n' | '*' | '/' | '\\\\' ) ) | RULE_RE_BACKSLASH_SEQUENCE )
-            int alt12=2;
-            int LA12_0 = input.LA(1);
+            int alt13=2;
+            int LA13_0 = input.LA(1);
 
-            if ( ((LA12_0>='\u0000' && LA12_0<='\t')||(LA12_0>='\u000B' && LA12_0<=')')||(LA12_0>='+' && LA12_0<='.')||(LA12_0>='0' && LA12_0<='[')||(LA12_0>=']' && LA12_0<='\uFFFF')) ) {
-                alt12=1;
+            if ( ((LA13_0>='\u0000' && LA13_0<='\t')||(LA13_0>='\u000B' && LA13_0<=')')||(LA13_0>='+' && LA13_0<='.')||(LA13_0>='0' && LA13_0<='[')||(LA13_0>=']' && LA13_0<='\uFFFF')) ) {
+                alt13=1;
             }
-            else if ( (LA12_0=='\\') ) {
-                alt12=2;
+            else if ( (LA13_0=='\\') ) {
+                alt13=2;
             }
             else {
                 if (state.backtracking>0) {state.failed=true; return ;}
                 NoViableAltException nvae =
-                    new NoViableAltException("", 12, 0, input);
+                    new NoViableAltException("", 13, 0, input);
 
                 throw nvae;
             }
-            switch (alt12) {
+            switch (alt13) {
                 case 1 :
                     // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:295:32: ~ ( ( '\\n' | '*' | '/' | '\\\\' ) )
                     {
@@ -2362,23 +2431,23 @@ public class PPLexer extends Lexer {
             // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:297:32: ( RULE_RE_FIRST_CHAR | '*' )
             {
             // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:297:32: ( RULE_RE_FIRST_CHAR | '*' )
-            int alt13=2;
-            int LA13_0 = input.LA(1);
+            int alt14=2;
+            int LA14_0 = input.LA(1);
 
-            if ( ((LA13_0>='\u0000' && LA13_0<='\t')||(LA13_0>='\u000B' && LA13_0<=')')||(LA13_0>='+' && LA13_0<='.')||(LA13_0>='0' && LA13_0<='\uFFFF')) ) {
-                alt13=1;
+            if ( ((LA14_0>='\u0000' && LA14_0<='\t')||(LA14_0>='\u000B' && LA14_0<=')')||(LA14_0>='+' && LA14_0<='.')||(LA14_0>='0' && LA14_0<='\uFFFF')) ) {
+                alt14=1;
             }
-            else if ( (LA13_0=='*') ) {
-                alt13=2;
+            else if ( (LA14_0=='*') ) {
+                alt14=2;
             }
             else {
                 if (state.backtracking>0) {state.failed=true; return ;}
                 NoViableAltException nvae =
-                    new NoViableAltException("", 13, 0, input);
+                    new NoViableAltException("", 14, 0, input);
 
                 throw nvae;
             }
-            switch (alt13) {
+            switch (alt14) {
                 case 1 :
                     // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:297:33: RULE_RE_FIRST_CHAR
                     {
@@ -2444,18 +2513,18 @@ public class PPLexer extends Lexer {
             // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:301:26: ( 'a' .. 'z' )+
             {
             // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:301:26: ( 'a' .. 'z' )+
-            int cnt14=0;
-            loop14:
+            int cnt15=0;
+            loop15:
             do {
-                int alt14=2;
-                int LA14_0 = input.LA(1);
+                int alt15=2;
+                int LA15_0 = input.LA(1);
 
-                if ( ((LA14_0>='a' && LA14_0<='z')) ) {
-                    alt14=1;
+                if ( ((LA15_0>='a' && LA15_0<='z')) ) {
+                    alt15=1;
                 }
 
 
-                switch (alt14) {
+                switch (alt15) {
             	case 1 :
             	    // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:301:27: 'a' .. 'z'
             	    {
@@ -2465,13 +2534,13 @@ public class PPLexer extends Lexer {
             	    break;
 
             	default :
-            	    if ( cnt14 >= 1 ) break loop14;
+            	    if ( cnt15 >= 1 ) break loop15;
             	    if (state.backtracking>0) {state.failed=true; return ;}
                         EarlyExitException eee =
-                            new EarlyExitException(14, input);
+                            new EarlyExitException(15, input);
                         throw eee;
                 }
-                cnt14++;
+                cnt15++;
             } while (true);
 
 
@@ -2505,9 +2574,9 @@ public class PPLexer extends Lexer {
 
     public void mTokens() throws RecognitionException {
         // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:1:8: ( KEYWORD_63 | KEYWORD_62 | KEYWORD_60 | KEYWORD_61 | KEYWORD_56 | KEYWORD_57 | KEYWORD_58 | KEYWORD_59 | KEYWORD_52 | KEYWORD_53 | KEYWORD_54 | KEYWORD_55 | KEYWORD_48 | KEYWORD_49 | KEYWORD_50 | KEYWORD_51 | KEYWORD_23 | KEYWORD_24 | KEYWORD_25 | KEYWORD_26 | KEYWORD_27 | KEYWORD_28 | KEYWORD_29 | KEYWORD_30 | KEYWORD_31 | KEYWORD_32 | KEYWORD_33 | KEYWORD_34 | KEYWORD_35 | KEYWORD_36 | KEYWORD_37 | KEYWORD_38 | KEYWORD_39 | KEYWORD_40 | KEYWORD_41 | KEYWORD_42 | KEYWORD_43 | KEYWORD_44 | KEYWORD_45 | KEYWORD_46 | KEYWORD_47 | KEYWORD_1 | KEYWORD_2 | KEYWORD_3 | KEYWORD_4 | KEYWORD_5 | KEYWORD_6 | KEYWORD_7 | KEYWORD_8 | KEYWORD_9 | KEYWORD_10 | KEYWORD_11 | KEYWORD_12 | KEYWORD_13 | KEYWORD_14 | KEYWORD_15 | KEYWORD_16 | KEYWORD_17 | KEYWORD_18 | KEYWORD_19 | KEYWORD_20 | KEYWORD_21 | KEYWORD_22 | RULE_ML_COMMENT | RULE_SL_COMMENT | RULE_WS | RULE_WORD_CHARS | RULE_REGULAR_EXPRESSION | RULE_ANY_OTHER )
-        int alt15=69;
-        alt15 = dfa15.predict(input);
-        switch (alt15) {
+        int alt16=69;
+        alt16 = dfa16.predict(input);
+        switch (alt16) {
             case 1 :
                 // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:1:10: KEYWORD_63
                 {
@@ -2998,8 +3067,8 @@ public class PPLexer extends Lexer {
 
     // $ANTLR start synpred1_PPLexer
     public final void synpred1_PPLexer_fragment() throws RecognitionException {   
-        // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:284:59: ( ':' ':' )
-        // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:284:60: ':' ':'
+        // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:284:55: ( ':' ':' )
+        // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:284:56: ':' ':'
         {
         match(':'); if (state.failed) return ;
         match(':'); if (state.failed) return ;
@@ -3008,6 +3077,32 @@ public class PPLexer extends Lexer {
     }
     // $ANTLR end synpred1_PPLexer
 
+    // $ANTLR start synpred2_PPLexer
+    public final void synpred2_PPLexer_fragment() throws RecognitionException {   
+        // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:284:115: ( ':' ':' )
+        // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:284:116: ':' ':'
+        {
+        match(':'); if (state.failed) return ;
+        match(':'); if (state.failed) return ;
+
+        }
+    }
+    // $ANTLR end synpred2_PPLexer
+
+    public final boolean synpred2_PPLexer() {
+        state.backtracking++;
+        int start = input.mark();
+        try {
+            synpred2_PPLexer_fragment(); // can never throw exception
+        } catch (RecognitionException re) {
+            System.err.println("impossible: "+re);
+        }
+        boolean success = !state.failed;
+        input.rewind(start);
+        state.backtracking--;
+        state.failed=false;
+        return success;
+    }
     public final boolean synpred1_PPLexer() {
         state.backtracking++;
         int start = input.mark();
@@ -3024,65 +3119,64 @@ public class PPLexer extends Lexer {
     }
 
 
-    protected DFA15 dfa15 = new DFA15(this);
-    static final String DFA15_eotS =
+    protected DFA16 dfa16 = new DFA16(this);
+    static final String DFA16_eotS =
         "\1\uffff\10\57\1\75\1\53\1\57\1\53\1\106\1\110\1\113\1\115\1\121"+
         "\1\124\1\57\1\53\1\127\1\130\1\131\1\132\1\133\1\134\1\136\1\140"+
-        "\1\141\1\142\1\143\1\144\1\145\1\146\1\147\1\151\7\uffff\1\154\1"+
+        "\1\141\1\142\1\143\1\144\1\145\1\146\1\147\1\150\7\uffff\1\154\1"+
         "\57\1\156\1\uffff\10\57\1\170\5\uffff\1\173\3\uffff\1\57\1\176\21"+
         "\uffff\1\u0083\25\uffff\1\57\1\uffff\1\57\1\uffff\10\57\5\uffff"+
         "\1\u00a1\26\uffff\1\57\1\uffff\1\57\1\uffff\3\57\1\u00a8\1\57\1"+
         "\u00aa\2\57\1\u00ad\1\u00ae\2\uffff\4\57\1\u00b4\1\uffff\1\u00b6"+
         "\1\uffff\1\u00b8\1\u00b9\3\uffff\1\57\1\u00bd\1\57\1\u00bf\10\uffff"+
         "\1\57\1\uffff\1\u00c6\5\uffff\1\u00c8\6\uffff";
-    static final String DFA15_eofS =
+    static final String DFA16_eofS =
         "\u00cb\uffff";
-    static final String DFA15_minS =
+    static final String DFA16_minS =
         "\1\0\1\146\1\145\1\141\1\154\1\141\1\156\1\157\1\162\1\55\1\42\1"+
-        "\156\1\76\1\75\1\173\1\75\1\55\2\75\1\162\1\76\7\0\1\72\10\0\7\uffff"+
+        "\156\1\76\1\75\1\173\1\75\1\76\2\75\1\162\1\76\7\0\1\72\10\0\7\uffff"+
         "\1\55\1\160\1\55\1\uffff\1\146\1\141\2\163\1\154\2\144\1\165\1\174"+
         "\4\uffff\1\0\1\173\3\uffff\1\144\1\76\2\uffff\1\0\4\uffff\1\0\5"+
-        "\uffff\1\0\2\uffff\1\0\1\55\1\uffff\6\0\1\uffff\1\0\1\uffff\10\0"+
-        "\1\uffff\1\0\1\uffff\1\145\1\0\1\157\1\0\1\141\1\163\2\145\1\163"+
-        "\3\145\5\uffff\1\55\6\uffff\1\0\17\uffff\1\162\1\uffff\1\162\1\uffff"+
-        "\1\165\1\156\1\163\1\55\1\146\1\55\1\145\1\146\2\55\1\0\1\uffff"+
-        "\1\151\1\164\1\154\1\145\1\55\1\0\1\55\1\0\2\55\2\0\1\uffff\1\164"+
-        "\1\55\1\164\1\55\1\0\1\uffff\1\0\1\uffff\2\0\2\uffff\1\163\1\0\1"+
-        "\55\1\0\4\uffff\1\55\1\uffff\1\0\1\uffff\1\0\2\uffff";
-    static final String DFA15_maxS =
+        "\uffff\1\0\2\uffff\1\0\1\55\1\uffff\6\0\1\uffff\1\0\1\uffff\11\0"+
+        "\2\uffff\1\145\1\0\1\157\1\0\1\141\1\163\2\145\1\163\3\145\5\uffff"+
+        "\1\55\6\uffff\1\0\17\uffff\1\162\1\uffff\1\162\1\uffff\1\165\1\156"+
+        "\1\163\1\55\1\146\1\55\1\145\1\146\2\55\1\0\1\uffff\1\151\1\164"+
+        "\1\154\1\145\1\55\1\0\1\55\1\0\2\55\2\0\1\uffff\1\164\1\55\1\164"+
+        "\1\55\1\0\1\uffff\1\0\1\uffff\2\0\2\uffff\1\163\1\0\1\55\1\0\4\uffff"+
+        "\1\55\1\uffff\1\0\1\uffff\1\0\2\uffff";
+    static final String DFA16_maxS =
         "\1\uffff\1\156\1\145\2\154\1\141\1\156\1\157\1\162\1\176\1\134\1"+
-        "\156\1\76\1\176\1\173\1\76\1\172\1\176\1\76\1\162\1\76\6\0\1\uffff"+
-        "\1\72\7\0\1\uffff\7\uffff\1\172\1\160\1\172\1\uffff\1\146\1\141"+
-        "\2\163\1\154\2\144\1\165\1\174\4\uffff\1\0\1\173\3\uffff\1\144\1"+
-        "\76\2\uffff\1\0\4\uffff\1\0\5\uffff\1\0\2\uffff\1\0\1\172\1\uffff"+
-        "\6\0\1\uffff\1\0\1\uffff\10\0\1\uffff\1\0\1\uffff\1\145\1\0\1\157"+
-        "\1\0\1\151\1\163\1\145\1\151\1\163\3\145\5\uffff\1\172\6\uffff\1"+
-        "\0\17\uffff\1\162\1\uffff\1\162\1\uffff\1\165\1\156\1\163\1\172"+
-        "\1\146\1\172\1\145\1\146\2\172\1\0\1\uffff\1\151\1\164\1\154\1\145"+
-        "\1\172\1\0\1\172\1\0\2\172\2\0\1\uffff\1\164\1\172\1\164\1\172\1"+
-        "\0\1\uffff\1\0\1\uffff\2\0\2\uffff\1\163\1\0\1\172\1\0\4\uffff\1"+
-        "\172\1\uffff\1\0\1\uffff\1\0\2\uffff";
-    static final String DFA15_acceptS =
+        "\156\1\76\1\176\1\173\2\76\1\176\1\76\1\162\1\76\6\0\1\uffff\1\72"+
+        "\7\0\1\uffff\7\uffff\1\172\1\160\1\172\1\uffff\1\146\1\141\2\163"+
+        "\1\154\2\144\1\165\1\174\4\uffff\1\0\1\173\3\uffff\1\144\1\76\2"+
+        "\uffff\1\0\4\uffff\1\0\5\uffff\1\0\2\uffff\1\0\1\172\1\uffff\6\0"+
+        "\1\uffff\1\0\1\uffff\11\0\2\uffff\1\145\1\0\1\157\1\0\1\151\1\163"+
+        "\1\145\1\151\1\163\3\145\5\uffff\1\172\6\uffff\1\0\17\uffff\1\162"+
+        "\1\uffff\1\162\1\uffff\1\165\1\156\1\163\1\172\1\146\1\172\1\145"+
+        "\1\146\2\172\1\0\1\uffff\1\151\1\164\1\154\1\145\1\172\1\0\1\172"+
+        "\1\0\2\172\2\0\1\uffff\1\164\1\172\1\164\1\172\1\0\1\uffff\1\0\1"+
+        "\uffff\2\0\2\uffff\1\163\1\0\1\172\1\0\4\uffff\1\172\1\uffff\1\0"+
+        "\1\uffff\1\0\2\uffff";
+    static final String DFA16_acceptS =
         "\45\uffff\1\102\5\103\1\105\3\uffff\1\103\11\uffff\1\27\1\31\1\32"+
         "\1\33\2\uffff\1\41\1\43\1\44\2\uffff\1\21\1\22\1\uffff\1\23\1\54"+
         "\1\24\1\25\1\uffff\1\26\1\63\1\34\1\35\1\36\1\uffff\1\37\1\40\2"+
-        "\uffff\1\51\6\uffff\1\100\1\uffff\1\104\10\uffff\1\101\1\uffff\1"+
-        "\102\14\uffff\1\15\1\30\1\67\1\16\1\42\1\uffff\1\20\1\50\1\52\1"+
-        "\61\1\70\1\71\1\uffff\1\53\1\55\1\56\1\57\1\60\1\62\1\64\1\65\1"+
-        "\66\1\72\1\73\1\74\1\75\1\76\1\77\1\uffff\1\46\1\uffff\1\45\13\uffff"+
-        "\1\47\14\uffff\1\17\5\uffff\1\11\1\uffff\1\12\2\uffff\1\13\1\14"+
-        "\4\uffff\1\5\1\6\1\7\1\10\1\uffff\1\4\1\uffff\1\3\1\uffff\1\2\1"+
-        "\1";
-    static final String DFA15_specialS =
-        "\1\0\10\uffff\1\55\2\uffff\1\1\1\57\1\uffff\1\52\1\61\1\21\1\3\1"+
-        "\uffff\1\56\6\uffff\1\60\10\uffff\1\53\23\uffff\1\54\4\uffff\1\36"+
-        "\5\uffff\1\2\2\uffff\1\26\4\uffff\1\40\5\uffff\1\37\2\uffff\1\46"+
-        "\2\uffff\1\25\1\32\1\31\1\30\1\27\1\41\1\uffff\1\42\1\uffff\1\34"+
-        "\1\35\1\47\1\50\1\51\1\43\1\44\1\45\1\uffff\1\33\2\uffff\1\22\1"+
-        "\uffff\1\23\24\uffff\1\24\35\uffff\1\16\6\uffff\1\13\1\uffff\1\12"+
-        "\2\uffff\1\15\1\14\5\uffff\1\7\1\uffff\1\6\1\uffff\1\11\1\10\3\uffff"+
-        "\1\4\1\uffff\1\5\6\uffff\1\20\1\uffff\1\17\2\uffff}>";
-    static final String[] DFA15_transitionS = {
+        "\uffff\1\51\6\uffff\1\100\1\uffff\1\104\11\uffff\1\101\1\102\14"+
+        "\uffff\1\15\1\30\1\67\1\16\1\42\1\uffff\1\20\1\50\1\52\1\61\1\70"+
+        "\1\71\1\uffff\1\53\1\55\1\56\1\57\1\60\1\62\1\64\1\65\1\66\1\72"+
+        "\1\73\1\74\1\75\1\76\1\77\1\uffff\1\46\1\uffff\1\45\13\uffff\1\47"+
+        "\14\uffff\1\17\5\uffff\1\11\1\uffff\1\12\2\uffff\1\13\1\14\4\uffff"+
+        "\1\5\1\6\1\7\1\10\1\uffff\1\4\1\uffff\1\3\1\uffff\1\2\1\1";
+    static final String DFA16_specialS =
+        "\1\61\10\uffff\1\14\2\uffff\1\60\1\53\1\uffff\1\16\1\55\1\13\1\56"+
+        "\1\uffff\1\50\6\uffff\1\1\10\uffff\1\57\23\uffff\1\15\4\uffff\1"+
+        "\4\5\uffff\1\54\2\uffff\1\37\4\uffff\1\44\5\uffff\1\3\2\uffff\1"+
+        "\6\2\uffff\1\36\1\35\1\34\1\46\1\45\1\43\1\uffff\1\42\1\uffff\1"+
+        "\41\1\40\1\5\1\10\1\7\1\12\1\11\1\0\1\2\3\uffff\1\52\1\uffff\1\51"+
+        "\24\uffff\1\47\35\uffff\1\17\6\uffff\1\21\1\uffff\1\20\2\uffff\1"+
+        "\23\1\22\5\uffff\1\24\1\uffff\1\25\1\uffff\1\26\1\27\3\uffff\1\33"+
+        "\1\uffff\1\32\6\uffff\1\31\1\uffff\1\30\2\uffff}>";
+    static final String[] DFA16_transitionS = {
             "\11\53\2\45\2\53\1\45\22\53\1\45\1\15\1\25\1\44\1\16\2\53\1"+
             "\26\1\27\1\30\1\31\1\17\1\32\1\20\1\52\1\33\12\46\1\34\1\35"+
             "\1\11\1\21\1\22\1\36\1\37\32\50\1\40\1\12\1\41\1\53\1\51\1\53"+
@@ -3103,8 +3197,7 @@ public class PPLexer extends Lexer {
             "\1\104\100\uffff\1\105",
             "\1\107",
             "\1\111\1\112",
-            "\2\57\1\uffff\13\57\3\uffff\1\114\2\uffff\32\57\4\uffff\1\57"+
-            "\1\uffff\32\57",
+            "\1\114",
             "\1\116\1\117\77\uffff\1\120",
             "\1\122\1\123",
             "\1\125",
@@ -3124,7 +3217,7 @@ public class PPLexer extends Lexer {
             "\1\uffff",
             "\1\uffff",
             "\1\uffff",
-            "\0\150",
+            "\0\151",
             "",
             "",
             "",
@@ -3193,8 +3286,8 @@ public class PPLexer extends Lexer {
             "\1\uffff",
             "\1\uffff",
             "\1\uffff",
-            "",
             "\1\uffff",
+            "",
             "",
             "\1\u0093",
             "\1\uffff",
@@ -3294,34 +3387,34 @@ public class PPLexer extends Lexer {
             ""
     };
 
-    static final short[] DFA15_eot = DFA.unpackEncodedString(DFA15_eotS);
-    static final short[] DFA15_eof = DFA.unpackEncodedString(DFA15_eofS);
-    static final char[] DFA15_min = DFA.unpackEncodedStringToUnsignedChars(DFA15_minS);
-    static final char[] DFA15_max = DFA.unpackEncodedStringToUnsignedChars(DFA15_maxS);
-    static final short[] DFA15_accept = DFA.unpackEncodedString(DFA15_acceptS);
-    static final short[] DFA15_special = DFA.unpackEncodedString(DFA15_specialS);
-    static final short[][] DFA15_transition;
+    static final short[] DFA16_eot = DFA.unpackEncodedString(DFA16_eotS);
+    static final short[] DFA16_eof = DFA.unpackEncodedString(DFA16_eofS);
+    static final char[] DFA16_min = DFA.unpackEncodedStringToUnsignedChars(DFA16_minS);
+    static final char[] DFA16_max = DFA.unpackEncodedStringToUnsignedChars(DFA16_maxS);
+    static final short[] DFA16_accept = DFA.unpackEncodedString(DFA16_acceptS);
+    static final short[] DFA16_special = DFA.unpackEncodedString(DFA16_specialS);
+    static final short[][] DFA16_transition;
 
     static {
-        int numStates = DFA15_transitionS.length;
-        DFA15_transition = new short[numStates][];
+        int numStates = DFA16_transitionS.length;
+        DFA16_transition = new short[numStates][];
         for (int i=0; i<numStates; i++) {
-            DFA15_transition[i] = DFA.unpackEncodedString(DFA15_transitionS[i]);
+            DFA16_transition[i] = DFA.unpackEncodedString(DFA16_transitionS[i]);
         }
     }
 
-    class DFA15 extends DFA {
+    class DFA16 extends DFA {
 
-        public DFA15(BaseRecognizer recognizer) {
+        public DFA16(BaseRecognizer recognizer) {
             this.recognizer = recognizer;
-            this.decisionNumber = 15;
-            this.eot = DFA15_eot;
-            this.eof = DFA15_eof;
-            this.min = DFA15_min;
-            this.max = DFA15_max;
-            this.accept = DFA15_accept;
-            this.special = DFA15_special;
-            this.transition = DFA15_transition;
+            this.decisionNumber = 16;
+            this.eot = DFA16_eot;
+            this.eof = DFA16_eof;
+            this.min = DFA16_min;
+            this.max = DFA16_max;
+            this.accept = DFA16_accept;
+            this.special = DFA16_special;
+            this.transition = DFA16_transition;
         }
         public String getDescription() {
             return "1:1: Tokens : ( KEYWORD_63 | KEYWORD_62 | KEYWORD_60 | KEYWORD_61 | KEYWORD_56 | KEYWORD_57 | KEYWORD_58 | KEYWORD_59 | KEYWORD_52 | KEYWORD_53 | KEYWORD_54 | KEYWORD_55 | KEYWORD_48 | KEYWORD_49 | KEYWORD_50 | KEYWORD_51 | KEYWORD_23 | KEYWORD_24 | KEYWORD_25 | KEYWORD_26 | KEYWORD_27 | KEYWORD_28 | KEYWORD_29 | KEYWORD_30 | KEYWORD_31 | KEYWORD_32 | KEYWORD_33 | KEYWORD_34 | KEYWORD_35 | KEYWORD_36 | KEYWORD_37 | KEYWORD_38 | KEYWORD_39 | KEYWORD_40 | KEYWORD_41 | KEYWORD_42 | KEYWORD_43 | KEYWORD_44 | KEYWORD_45 | KEYWORD_46 | KEYWORD_47 | KEYWORD_1 | KEYWORD_2 | KEYWORD_3 | KEYWORD_4 | KEYWORD_5 | KEYWORD_6 | KEYWORD_7 | KEYWORD_8 | KEYWORD_9 | KEYWORD_10 | KEYWORD_11 | KEYWORD_12 | KEYWORD_13 | KEYWORD_14 | KEYWORD_15 | KEYWORD_16 | KEYWORD_17 | KEYWORD_18 | KEYWORD_19 | KEYWORD_20 | KEYWORD_21 | KEYWORD_22 | RULE_ML_COMMENT | RULE_SL_COMMENT | RULE_WS | RULE_WORD_CHARS | RULE_REGULAR_EXPRESSION | RULE_ANY_OTHER );";
@@ -3331,648 +3424,10 @@ public class PPLexer extends Lexer {
         	int _s = s;
             switch ( s ) {
                     case 0 : 
-                        int LA15_0 = input.LA(1);
+                        int LA16_103 = input.LA(1);
 
-                        s = -1;
-                        if ( (LA15_0=='i') ) {s = 1;}
-
-                        else if ( (LA15_0=='d') ) {s = 2;}
-
-                        else if ( (LA15_0=='c') ) {s = 3;}
-
-                        else if ( (LA15_0=='e') ) {s = 4;}
-
-                        else if ( (LA15_0=='f') ) {s = 5;}
-
-                        else if ( (LA15_0=='u') ) {s = 6;}
-
-                        else if ( (LA15_0=='n') ) {s = 7;}
-
-                        else if ( (LA15_0=='t') ) {s = 8;}
-
-                        else if ( (LA15_0=='<') ) {s = 9;}
-
-                        else if ( (LA15_0=='\\') ) {s = 10;}
-
-                        else if ( (LA15_0=='a') ) {s = 11;}
-
-                        else if ( (LA15_0=='|') ) {s = 12;}
-
-                        else if ( (LA15_0=='!') ) {s = 13;}
-
-                        else if ( (LA15_0=='$') ) {s = 14;}
-
-                        else if ( (LA15_0=='+') ) {s = 15;}
-
-                        else if ( (LA15_0=='-') ) {s = 16;}
-
-                        else if ( (LA15_0=='=') ) {s = 17;}
-
-                        else if ( (LA15_0=='>') ) {s = 18;}
-
-                        else if ( (LA15_0=='o') ) {s = 19;}
-
-                        else if ( (LA15_0=='~') ) {s = 20;}
-
-                        else if ( (LA15_0=='\"') ) {s = 21;}
-
-                        else if ( (LA15_0=='\'') ) {s = 22;}
-
-                        else if ( (LA15_0=='(') ) {s = 23;}
-
-                        else if ( (LA15_0==')') ) {s = 24;}
-
-                        else if ( (LA15_0=='*') ) {s = 25;}
-
-                        else if ( (LA15_0==',') ) {s = 26;}
-
-                        else if ( (LA15_0=='/') ) {s = 27;}
-
-                        else if ( (LA15_0==':') ) {s = 28;}
-
-                        else if ( (LA15_0==';') ) {s = 29;}
-
-                        else if ( (LA15_0=='?') ) {s = 30;}
-
-                        else if ( (LA15_0=='@') ) {s = 31;}
-
-                        else if ( (LA15_0=='[') ) {s = 32;}
-
-                        else if ( (LA15_0==']') ) {s = 33;}
-
-                        else if ( (LA15_0=='{') ) {s = 34;}
-
-                        else if ( (LA15_0=='}') ) {s = 35;}
-
-                        else if ( (LA15_0=='#') ) {s = 36;}
-
-                        else if ( ((LA15_0>='\t' && LA15_0<='\n')||LA15_0=='\r'||LA15_0==' '||LA15_0=='\u00A0') ) {s = 37;}
-
-                        else if ( ((LA15_0>='0' && LA15_0<='9')) ) {s = 38;}
-
-                        else if ( (LA15_0=='b'||(LA15_0>='g' && LA15_0<='h')||(LA15_0>='j' && LA15_0<='m')||(LA15_0>='p' && LA15_0<='s')||(LA15_0>='v' && LA15_0<='z')) ) {s = 39;}
-
-                        else if ( ((LA15_0>='A' && LA15_0<='Z')) ) {s = 40;}
-
-                        else if ( (LA15_0=='_') ) {s = 41;}
-
-                        else if ( (LA15_0=='.') ) {s = 42;}
-
-                        else if ( ((LA15_0>='\u0000' && LA15_0<='\b')||(LA15_0>='\u000B' && LA15_0<='\f')||(LA15_0>='\u000E' && LA15_0<='\u001F')||(LA15_0>='%' && LA15_0<='&')||LA15_0=='^'||LA15_0=='`'||(LA15_0>='\u007F' && LA15_0<='\u009F')||(LA15_0>='\u00A1' && LA15_0<='\uFFFF')) ) {s = 43;}
-
-                        if ( s>=0 ) return s;
-                        break;
-                    case 1 : 
-                        int LA15_12 = input.LA(1);
-
-                         
-                        int index15_12 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (LA15_12=='>') && ((isNotInString()))) {s = 67;}
-
-                        else s = 43;
-
-                         
-                        input.seek(index15_12);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 2 : 
-                        int LA15_67 = input.LA(1);
-
-                         
-                        int index15_67 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (LA15_67=='>') && ((isNotInString()))) {s = 125;}
-
-                        else s = 126;
-
-                         
-                        input.seek(index15_67);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 3 : 
-                        int LA15_18 = input.LA(1);
-
-                         
-                        int index15_18 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (LA15_18=='=') && ((isNotInString()))) {s = 82;}
-
-                        else if ( (LA15_18=='>') && ((isNotInString()))) {s = 83;}
-
-                        else s = 84;
-
-                         
-                        input.seek(index15_18);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 4 : 
-                        int LA15_189 = input.LA(1);
-
-                         
-                        int index15_189 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( ((isNotInString())) ) {s = 197;}
-
-                        else if ( (true) ) {s = 47;}
-
-                         
-                        input.seek(index15_189);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 5 : 
-                        int LA15_191 = input.LA(1);
-
-                         
-                        int index15_191 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( ((isNotInString())) ) {s = 199;}
-
-                        else if ( (true) ) {s = 47;}
-
-                         
-                        input.seek(index15_191);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 6 : 
-                        int LA15_182 = input.LA(1);
-
-                         
-                        int index15_182 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( ((isNotInString())) ) {s = 193;}
-
-                        else if ( (true) ) {s = 47;}
-
-                         
-                        input.seek(index15_182);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 7 : 
-                        int LA15_180 = input.LA(1);
-
-                         
-                        int index15_180 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( ((isNotInString())) ) {s = 192;}
-
-                        else if ( (true) ) {s = 47;}
-
-                         
-                        input.seek(index15_180);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 8 : 
-                        int LA15_185 = input.LA(1);
-
-                         
-                        int index15_185 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( ((isNotInString())) ) {s = 195;}
-
-                        else if ( (true) ) {s = 47;}
-
-                         
-                        input.seek(index15_185);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 9 : 
-                        int LA15_184 = input.LA(1);
-
-                         
-                        int index15_184 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( ((isNotInString())) ) {s = 194;}
-
-                        else if ( (true) ) {s = 47;}
-
-                         
-                        input.seek(index15_184);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 10 : 
-                        int LA15_170 = input.LA(1);
-
-                         
-                        int index15_170 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( ((isNotInString())) ) {s = 183;}
-
-                        else if ( (true) ) {s = 47;}
-
-                         
-                        input.seek(index15_170);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 11 : 
-                        int LA15_168 = input.LA(1);
-
-                         
-                        int index15_168 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( ((isNotInString())) ) {s = 181;}
-
-                        else if ( (true) ) {s = 47;}
-
-                         
-                        input.seek(index15_168);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 12 : 
-                        int LA15_174 = input.LA(1);
-
-                         
-                        int index15_174 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( ((isNotInString())) ) {s = 187;}
-
-                        else if ( (true) ) {s = 47;}
-
-                         
-                        input.seek(index15_174);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 13 : 
-                        int LA15_173 = input.LA(1);
-
-                         
-                        int index15_173 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( ((isNotInString())) ) {s = 186;}
-
-                        else if ( (true) ) {s = 47;}
-
-                         
-                        input.seek(index15_173);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 14 : 
-                        int LA15_161 = input.LA(1);
-
-                         
-                        int index15_161 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( ((isNotInString())) ) {s = 175;}
-
-                        else if ( (true) ) {s = 47;}
-
-                         
-                        input.seek(index15_161);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 15 : 
-                        int LA15_200 = input.LA(1);
-
-                         
-                        int index15_200 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( ((isNotInString())) ) {s = 202;}
-
-                        else if ( (true) ) {s = 47;}
-
-                         
-                        input.seek(index15_200);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 16 : 
-                        int LA15_198 = input.LA(1);
-
-                         
-                        int index15_198 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( ((isNotInString())) ) {s = 201;}
-
-                        else if ( (true) ) {s = 47;}
-
-                         
-                        input.seek(index15_198);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 17 : 
-                        int LA15_17 = input.LA(1);
-
-                         
-                        int index15_17 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (LA15_17=='=') && ((isNotInString()))) {s = 78;}
-
-                        else if ( (LA15_17=='>') && ((isNotInString()))) {s = 79;}
-
-                        else if ( (LA15_17=='~') && ((isNotInString()))) {s = 80;}
-
-                        else s = 81;
-
-                         
-                        input.seek(index15_17);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 18 : 
-                        int LA15_108 = input.LA(1);
-
-                         
-                        int index15_108 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( ((isNotInString())) ) {s = 148;}
-
-                        else if ( (true) ) {s = 47;}
-
-                         
-                        input.seek(index15_108);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 19 : 
-                        int LA15_110 = input.LA(1);
-
-                         
-                        int index15_110 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( ((isNotInString())) ) {s = 150;}
-
-                        else if ( (true) ) {s = 47;}
-
-                         
-                        input.seek(index15_110);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 20 : 
-                        int LA15_131 = input.LA(1);
-
-                         
-                        int index15_131 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( ((isNotInString())) ) {s = 162;}
-
-                        else if ( (true) ) {s = 47;}
-
-                         
-                        input.seek(index15_131);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 21 : 
-                        int LA15_87 = input.LA(1);
-
-                         
-                        int index15_87 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( ((!singleQuotedString)) ) {s = 132;}
-
-                        else if ( (true) ) {s = 43;}
-
-                         
-                        input.seek(index15_87);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 22 : 
-                        int LA15_70 = input.LA(1);
-
-                         
-                        int index15_70 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( ((isNotInString())) ) {s = 127;}
-
-                        else if ( (true) ) {s = 43;}
-
-                         
-                        input.seek(index15_70);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 23 : 
-                        int LA15_91 = input.LA(1);
-
-                         
-                        int index15_91 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( ((isNotInString())) ) {s = 136;}
-
-                        else if ( (true) ) {s = 43;}
-
-                         
-                        input.seek(index15_91);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 24 : 
-                        int LA15_90 = input.LA(1);
-
-                         
-                        int index15_90 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( ((isNotInString())) ) {s = 135;}
-
-                        else if ( (true) ) {s = 43;}
-
-                         
-                        input.seek(index15_90);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 25 : 
-                        int LA15_89 = input.LA(1);
-
-                         
-                        int index15_89 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( ((isNotInString())) ) {s = 134;}
-
-                        else if ( (true) ) {s = 43;}
-
-                         
-                        input.seek(index15_89);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 26 : 
-                        int LA15_88 = input.LA(1);
-
-                         
-                        int index15_88 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( ((!doubleQuotedString)) ) {s = 133;}
-
-                        else if ( (true) ) {s = 43;}
-
-                         
-                        input.seek(index15_88);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 27 : 
-                        int LA15_105 = input.LA(1);
-
-                         
-                        int index15_105 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( ((isNotInString())) ) {s = 104;}
-
-                        else if ( (true) ) {s = 43;}
-
-                         
-                        input.seek(index15_105);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 28 : 
-                        int LA15_96 = input.LA(1);
-
-                         
-                        int index15_96 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( ((isNotInString())) ) {s = 139;}
-
-                        else if ( (true) ) {s = 43;}
-
-                         
-                        input.seek(index15_96);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 29 : 
-                        int LA15_97 = input.LA(1);
-
-                         
-                        int index15_97 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( ((isNotInString())) ) {s = 140;}
-
-                        else if ( (true) ) {s = 43;}
-
-                         
-                        input.seek(index15_97);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 30 : 
-                        int LA15_61 = input.LA(1);
-
-                         
-                        int index15_61 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( ((isNotInString())) ) {s = 121;}
-
-                        else if ( (true) ) {s = 43;}
-
-                         
-                        input.seek(index15_61);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 31 : 
-                        int LA15_81 = input.LA(1);
-
-                         
-                        int index15_81 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( ((isNotInString())) ) {s = 129;}
-
-                        else if ( (true) ) {s = 43;}
-
-                         
-                        input.seek(index15_81);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 32 : 
-                        int LA15_75 = input.LA(1);
-
-                         
-                        int index15_75 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( ((isNotInString())) ) {s = 128;}
-
-                        else if ( (true) ) {s = 43;}
-
-                         
-                        input.seek(index15_75);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 33 : 
-                        int LA15_92 = input.LA(1);
-
-                         
-                        int index15_92 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( ((isNotInString())) ) {s = 137;}
-
-                        else if ( (true) ) {s = 43;}
-
-                         
-                        input.seek(index15_92);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 34 : 
-                        int LA15_94 = input.LA(1);
-
-                         
-                        int index15_94 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( ((isNotInString())) ) {s = 138;}
-
-                        else if ( (true) ) {s = 43;}
-
-                         
-                        input.seek(index15_94);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 35 : 
-                        int LA15_101 = input.LA(1);
-
-                         
-                        int index15_101 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( ((isNotInString())) ) {s = 144;}
-
-                        else if ( (true) ) {s = 43;}
-
-                         
-                        input.seek(index15_101);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 36 : 
-                        int LA15_102 = input.LA(1);
-
-                         
-                        int index15_102 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( ((isNotInString())) ) {s = 145;}
-
-                        else if ( (true) ) {s = 43;}
-
-                         
-                        input.seek(index15_102);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 37 : 
-                        int LA15_103 = input.LA(1);
-
                          
-                        int index15_103 = input.index();
+                        int index16_103 = input.index();
                         input.rewind();
                         s = -1;
                         if ( ((isNotInString())) ) {s = 146;}
@@ -3980,29 +3435,76 @@ public class PPLexer extends Lexer {
                         else if ( (true) ) {s = 43;}
 
                          
-                        input.seek(index15_103);
+                        input.seek(index16_103);
                         if ( s>=0 ) return s;
                         break;
-                    case 38 : 
-                        int LA15_84 = input.LA(1);
+                    case 1 : 
+                        int LA16_27 = input.LA(1);
 
                          
-                        int index15_84 = input.index();
+                        int index16_27 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( ((isNotInString())) ) {s = 130;}
+                        if ( (LA16_27=='*') && ((isNotInString()))) {s = 93;}
+
+                        else if ( ((LA16_27>='\u0000' && LA16_27<='\t')||(LA16_27>='\u000B' && LA16_27<=')')||(LA16_27>='+' && LA16_27<='.')||(LA16_27>='0' && LA16_27<='\uFFFF')) && ((isReAcceptable()))) {s = 95;}
+
+                        else s = 94;
+
+                         
+                        input.seek(index16_27);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 2 : 
+                        int LA16_104 = input.LA(1);
+
+                         
+                        int index16_104 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( ((isNotInString())) ) {s = 105;}
 
                         else if ( (true) ) {s = 43;}
 
                          
-                        input.seek(index15_84);
+                        input.seek(index16_104);
                         if ( s>=0 ) return s;
                         break;
-                    case 39 : 
-                        int LA15_98 = input.LA(1);
+                    case 3 : 
+                        int LA16_81 = input.LA(1);
 
                          
-                        int index15_98 = input.index();
+                        int index16_81 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( ((isNotInString())) ) {s = 129;}
+
+                        else if ( (true) ) {s = 43;}
+
+                         
+                        input.seek(index16_81);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 4 : 
+                        int LA16_61 = input.LA(1);
+
+                         
+                        int index16_61 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( ((isNotInString())) ) {s = 121;}
+
+                        else if ( (true) ) {s = 43;}
+
+                         
+                        input.seek(index16_61);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 5 : 
+                        int LA16_98 = input.LA(1);
+
+                         
+                        int index16_98 = input.index();
                         input.rewind();
                         s = -1;
                         if ( ((isNotInString())) ) {s = 141;}
@@ -4010,29 +3512,29 @@ public class PPLexer extends Lexer {
                         else if ( (true) ) {s = 43;}
 
                          
-                        input.seek(index15_98);
+                        input.seek(index16_98);
                         if ( s>=0 ) return s;
                         break;
-                    case 40 : 
-                        int LA15_99 = input.LA(1);
+                    case 6 : 
+                        int LA16_84 = input.LA(1);
 
                          
-                        int index15_99 = input.index();
+                        int index16_84 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( ((isNotInString())) ) {s = 142;}
+                        if ( ((isNotInString())) ) {s = 130;}
 
                         else if ( (true) ) {s = 43;}
 
                          
-                        input.seek(index15_99);
+                        input.seek(index16_84);
                         if ( s>=0 ) return s;
                         break;
-                    case 41 : 
-                        int LA15_100 = input.LA(1);
+                    case 7 : 
+                        int LA16_100 = input.LA(1);
 
                          
-                        int index15_100 = input.index();
+                        int index16_100 = input.index();
                         input.rewind();
                         s = -1;
                         if ( ((isNotInString())) ) {s = 143;}
@@ -4040,149 +3542,738 @@ public class PPLexer extends Lexer {
                         else if ( (true) ) {s = 43;}
 
                          
-                        input.seek(index15_100);
+                        input.seek(index16_100);
                         if ( s>=0 ) return s;
                         break;
-                    case 42 : 
-                        int LA15_15 = input.LA(1);
+                    case 8 : 
+                        int LA16_99 = input.LA(1);
 
                          
-                        int index15_15 = input.index();
+                        int index16_99 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( (LA15_15=='=') && ((isNotInString()))) {s = 73;}
+                        if ( ((isNotInString())) ) {s = 142;}
 
-                        else if ( (LA15_15=='>') && ((isNotInString()))) {s = 74;}
-
-                        else s = 75;
+                        else if ( (true) ) {s = 43;}
 
                          
-                        input.seek(index15_15);
+                        input.seek(index16_99);
                         if ( s>=0 ) return s;
                         break;
-                    case 43 : 
-                        int LA15_36 = input.LA(1);
+                    case 9 : 
+                        int LA16_102 = input.LA(1);
 
                          
-                        int index15_36 = input.index();
+                        int index16_102 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( ((LA15_36>='\u0000' && LA15_36<='\uFFFF')) && ((isNotInString()))) {s = 104;}
+                        if ( ((isNotInString())) ) {s = 145;}
 
-                        else s = 105;
+                        else if ( (true) ) {s = 43;}
 
                          
-                        input.seek(index15_36);
+                        input.seek(index16_102);
                         if ( s>=0 ) return s;
                         break;
-                    case 44 : 
-                        int LA15_56 = input.LA(1);
+                    case 10 : 
+                        int LA16_101 = input.LA(1);
 
                          
-                        int index15_56 = input.index();
+                        int index16_101 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( (LA15_56=='|') && ((isNotInString()))) {s = 119;}
+                        if ( ((isNotInString())) ) {s = 144;}
 
-                        else s = 120;
+                        else if ( (true) ) {s = 43;}
 
                          
-                        input.seek(index15_56);
+                        input.seek(index16_101);
                         if ( s>=0 ) return s;
                         break;
-                    case 45 : 
-                        int LA15_9 = input.LA(1);
+                    case 11 : 
+                        int LA16_17 = input.LA(1);
 
                          
-                        int index15_9 = input.index();
+                        int index16_17 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( (LA15_9=='<') && ((isNotInString()))) {s = 56;}
+                        if ( (LA16_17=='=') && ((isNotInString()))) {s = 78;}
 
-                        else if ( (LA15_9=='-') && ((isNotInString()))) {s = 57;}
+                        else if ( (LA16_17=='>') && ((isNotInString()))) {s = 79;}
 
-                        else if ( (LA15_9=='=') && ((isNotInString()))) {s = 58;}
+                        else if ( (LA16_17=='~') && ((isNotInString()))) {s = 80;}
 
-                        else if ( (LA15_9=='|') && ((isNotInString()))) {s = 59;}
+                        else s = 81;
 
-                        else if ( (LA15_9=='~') && ((isNotInString()))) {s = 60;}
+                         
+                        input.seek(index16_17);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 12 : 
+                        int LA16_9 = input.LA(1);
+
+                         
+                        int index16_9 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (LA16_9=='<') && ((isNotInString()))) {s = 56;}
+
+                        else if ( (LA16_9=='-') && ((isNotInString()))) {s = 57;}
+
+                        else if ( (LA16_9=='=') && ((isNotInString()))) {s = 58;}
+
+                        else if ( (LA16_9=='|') && ((isNotInString()))) {s = 59;}
+
+                        else if ( (LA16_9=='~') && ((isNotInString()))) {s = 60;}
 
                         else s = 61;
 
                          
-                        input.seek(index15_9);
+                        input.seek(index16_9);
                         if ( s>=0 ) return s;
                         break;
-                    case 46 : 
-                        int LA15_20 = input.LA(1);
+                    case 13 : 
+                        int LA16_56 = input.LA(1);
 
                          
-                        int index15_20 = input.index();
+                        int index16_56 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( (LA15_20=='>') && ((isNotInString()))) {s = 86;}
+                        if ( (LA16_56=='|') && ((isNotInString()))) {s = 119;}
+
+                        else s = 120;
+
+                         
+                        input.seek(index16_56);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 14 : 
+                        int LA16_15 = input.LA(1);
+
+                         
+                        int index16_15 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (LA16_15=='=') && ((isNotInString()))) {s = 73;}
+
+                        else if ( (LA16_15=='>') && ((isNotInString()))) {s = 74;}
+
+                        else s = 75;
+
+                         
+                        input.seek(index16_15);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 15 : 
+                        int LA16_161 = input.LA(1);
+
+                         
+                        int index16_161 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( ((isNotInString())) ) {s = 175;}
+
+                        else if ( (true) ) {s = 47;}
+
+                         
+                        input.seek(index16_161);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 16 : 
+                        int LA16_170 = input.LA(1);
+
+                         
+                        int index16_170 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( ((isNotInString())) ) {s = 183;}
+
+                        else if ( (true) ) {s = 47;}
+
+                         
+                        input.seek(index16_170);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 17 : 
+                        int LA16_168 = input.LA(1);
+
+                         
+                        int index16_168 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( ((isNotInString())) ) {s = 181;}
+
+                        else if ( (true) ) {s = 47;}
+
+                         
+                        input.seek(index16_168);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 18 : 
+                        int LA16_174 = input.LA(1);
+
+                         
+                        int index16_174 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( ((isNotInString())) ) {s = 187;}
+
+                        else if ( (true) ) {s = 47;}
+
+                         
+                        input.seek(index16_174);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 19 : 
+                        int LA16_173 = input.LA(1);
+
+                         
+                        int index16_173 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( ((isNotInString())) ) {s = 186;}
+
+                        else if ( (true) ) {s = 47;}
+
+                         
+                        input.seek(index16_173);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 20 : 
+                        int LA16_180 = input.LA(1);
+
+                         
+                        int index16_180 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( ((isNotInString())) ) {s = 192;}
+
+                        else if ( (true) ) {s = 47;}
+
+                         
+                        input.seek(index16_180);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 21 : 
+                        int LA16_182 = input.LA(1);
+
+                         
+                        int index16_182 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( ((isNotInString())) ) {s = 193;}
+
+                        else if ( (true) ) {s = 47;}
+
+                         
+                        input.seek(index16_182);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 22 : 
+                        int LA16_184 = input.LA(1);
+
+                         
+                        int index16_184 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( ((isNotInString())) ) {s = 194;}
+
+                        else if ( (true) ) {s = 47;}
+
+                         
+                        input.seek(index16_184);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 23 : 
+                        int LA16_185 = input.LA(1);
+
+                         
+                        int index16_185 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( ((isNotInString())) ) {s = 195;}
+
+                        else if ( (true) ) {s = 47;}
+
+                         
+                        input.seek(index16_185);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 24 : 
+                        int LA16_200 = input.LA(1);
+
+                         
+                        int index16_200 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( ((isNotInString())) ) {s = 202;}
+
+                        else if ( (true) ) {s = 47;}
+
+                         
+                        input.seek(index16_200);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 25 : 
+                        int LA16_198 = input.LA(1);
+
+                         
+                        int index16_198 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( ((isNotInString())) ) {s = 201;}
+
+                        else if ( (true) ) {s = 47;}
+
+                         
+                        input.seek(index16_198);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 26 : 
+                        int LA16_191 = input.LA(1);
+
+                         
+                        int index16_191 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( ((isNotInString())) ) {s = 199;}
+
+                        else if ( (true) ) {s = 47;}
+
+                         
+                        input.seek(index16_191);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 27 : 
+                        int LA16_189 = input.LA(1);
+
+                         
+                        int index16_189 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( ((isNotInString())) ) {s = 197;}
+
+                        else if ( (true) ) {s = 47;}
+
+                         
+                        input.seek(index16_189);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 28 : 
+                        int LA16_89 = input.LA(1);
+
+                         
+                        int index16_89 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( ((isNotInString())) ) {s = 134;}
+
+                        else if ( (true) ) {s = 43;}
+
+                         
+                        input.seek(index16_89);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 29 : 
+                        int LA16_88 = input.LA(1);
+
+                         
+                        int index16_88 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( ((!doubleQuotedString)) ) {s = 133;}
+
+                        else if ( (true) ) {s = 43;}
+
+                         
+                        input.seek(index16_88);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 30 : 
+                        int LA16_87 = input.LA(1);
+
+                         
+                        int index16_87 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( ((!singleQuotedString)) ) {s = 132;}
+
+                        else if ( (true) ) {s = 43;}
+
+                         
+                        input.seek(index16_87);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 31 : 
+                        int LA16_70 = input.LA(1);
+
+                         
+                        int index16_70 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( ((isNotInString())) ) {s = 127;}
+
+                        else if ( (true) ) {s = 43;}
+
+                         
+                        input.seek(index16_70);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 32 : 
+                        int LA16_97 = input.LA(1);
+
+                         
+                        int index16_97 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( ((isNotInString())) ) {s = 140;}
+
+                        else if ( (true) ) {s = 43;}
+
+                         
+                        input.seek(index16_97);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 33 : 
+                        int LA16_96 = input.LA(1);
+
+                         
+                        int index16_96 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( ((isNotInString())) ) {s = 139;}
+
+                        else if ( (true) ) {s = 43;}
+
+                         
+                        input.seek(index16_96);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 34 : 
+                        int LA16_94 = input.LA(1);
+
+                         
+                        int index16_94 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( ((isNotInString())) ) {s = 138;}
+
+                        else if ( (true) ) {s = 43;}
+
+                         
+                        input.seek(index16_94);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 35 : 
+                        int LA16_92 = input.LA(1);
+
+                         
+                        int index16_92 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( ((isNotInString())) ) {s = 137;}
+
+                        else if ( (true) ) {s = 43;}
+
+                         
+                        input.seek(index16_92);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 36 : 
+                        int LA16_75 = input.LA(1);
+
+                         
+                        int index16_75 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( ((isNotInString())) ) {s = 128;}
+
+                        else if ( (true) ) {s = 43;}
+
+                         
+                        input.seek(index16_75);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 37 : 
+                        int LA16_91 = input.LA(1);
+
+                         
+                        int index16_91 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( ((isNotInString())) ) {s = 136;}
+
+                        else if ( (true) ) {s = 43;}
+
+                         
+                        input.seek(index16_91);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 38 : 
+                        int LA16_90 = input.LA(1);
+
+                         
+                        int index16_90 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( ((isNotInString())) ) {s = 135;}
+
+                        else if ( (true) ) {s = 43;}
+
+                         
+                        input.seek(index16_90);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 39 : 
+                        int LA16_131 = input.LA(1);
+
+                         
+                        int index16_131 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( ((isNotInString())) ) {s = 162;}
+
+                        else if ( (true) ) {s = 47;}
+
+                         
+                        input.seek(index16_131);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 40 : 
+                        int LA16_20 = input.LA(1);
+
+                         
+                        int index16_20 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (LA16_20=='>') && ((isNotInString()))) {s = 86;}
 
                         else s = 43;
 
                          
-                        input.seek(index15_20);
+                        input.seek(index16_20);
                         if ( s>=0 ) return s;
                         break;
-                    case 47 : 
-                        int LA15_13 = input.LA(1);
+                    case 41 : 
+                        int LA16_110 = input.LA(1);
 
                          
-                        int index15_13 = input.index();
+                        int index16_110 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( (LA15_13=='=') && ((isNotInString()))) {s = 68;}
+                        if ( ((isNotInString())) ) {s = 150;}
 
-                        else if ( (LA15_13=='~') && ((isNotInString()))) {s = 69;}
+                        else if ( (true) ) {s = 47;}
+
+                         
+                        input.seek(index16_110);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 42 : 
+                        int LA16_108 = input.LA(1);
+
+                         
+                        int index16_108 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( ((isNotInString())) ) {s = 148;}
+
+                        else if ( (true) ) {s = 47;}
+
+                         
+                        input.seek(index16_108);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 43 : 
+                        int LA16_13 = input.LA(1);
+
+                         
+                        int index16_13 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (LA16_13=='=') && ((isNotInString()))) {s = 68;}
+
+                        else if ( (LA16_13=='~') && ((isNotInString()))) {s = 69;}
 
                         else s = 70;
 
                          
-                        input.seek(index15_13);
+                        input.seek(index16_13);
                         if ( s>=0 ) return s;
                         break;
-                    case 48 : 
-                        int LA15_27 = input.LA(1);
+                    case 44 : 
+                        int LA16_67 = input.LA(1);
 
                          
-                        int index15_27 = input.index();
+                        int index16_67 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( (LA15_27=='*') && ((isNotInString()))) {s = 93;}
+                        if ( (LA16_67=='>') && ((isNotInString()))) {s = 125;}
 
-                        else if ( ((LA15_27>='\u0000' && LA15_27<='\t')||(LA15_27>='\u000B' && LA15_27<=')')||(LA15_27>='+' && LA15_27<='.')||(LA15_27>='0' && LA15_27<='\uFFFF')) && ((isReAcceptable()))) {s = 95;}
-
-                        else s = 94;
+                        else s = 126;
 
                          
-                        input.seek(index15_27);
+                        input.seek(index16_67);
                         if ( s>=0 ) return s;
                         break;
-                    case 49 : 
-                        int LA15_16 = input.LA(1);
+                    case 45 : 
+                        int LA16_16 = input.LA(1);
 
                          
-                        int index15_16 = input.index();
+                        int index16_16 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( (LA15_16=='>') && ((isNotInString()))) {s = 76;}
-
-                        else if ( ((LA15_16>='-' && LA15_16<='.')||(LA15_16>='0' && LA15_16<=':')||(LA15_16>='A' && LA15_16<='Z')||LA15_16=='_'||(LA15_16>='a' && LA15_16<='z')) ) {s = 47;}
+                        if ( (LA16_16=='>') && ((isNotInString()))) {s = 76;}
 
                         else s = 77;
 
                          
-                        input.seek(index15_16);
+                        input.seek(index16_16);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 46 : 
+                        int LA16_18 = input.LA(1);
+
+                         
+                        int index16_18 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (LA16_18=='=') && ((isNotInString()))) {s = 82;}
+
+                        else if ( (LA16_18=='>') && ((isNotInString()))) {s = 83;}
+
+                        else s = 84;
+
+                         
+                        input.seek(index16_18);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 47 : 
+                        int LA16_36 = input.LA(1);
+
+                         
+                        int index16_36 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( ((LA16_36>='\u0000' && LA16_36<='\uFFFF')) && ((isNotInString()))) {s = 105;}
+
+                        else s = 104;
+
+                         
+                        input.seek(index16_36);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 48 : 
+                        int LA16_12 = input.LA(1);
+
+                         
+                        int index16_12 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (LA16_12=='>') && ((isNotInString()))) {s = 67;}
+
+                        else s = 43;
+
+                         
+                        input.seek(index16_12);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 49 : 
+                        int LA16_0 = input.LA(1);
+
+                        s = -1;
+                        if ( (LA16_0=='i') ) {s = 1;}
+
+                        else if ( (LA16_0=='d') ) {s = 2;}
+
+                        else if ( (LA16_0=='c') ) {s = 3;}
+
+                        else if ( (LA16_0=='e') ) {s = 4;}
+
+                        else if ( (LA16_0=='f') ) {s = 5;}
+
+                        else if ( (LA16_0=='u') ) {s = 6;}
+
+                        else if ( (LA16_0=='n') ) {s = 7;}
+
+                        else if ( (LA16_0=='t') ) {s = 8;}
+
+                        else if ( (LA16_0=='<') ) {s = 9;}
+
+                        else if ( (LA16_0=='\\') ) {s = 10;}
+
+                        else if ( (LA16_0=='a') ) {s = 11;}
+
+                        else if ( (LA16_0=='|') ) {s = 12;}
+
+                        else if ( (LA16_0=='!') ) {s = 13;}
+
+                        else if ( (LA16_0=='$') ) {s = 14;}
+
+                        else if ( (LA16_0=='+') ) {s = 15;}
+
+                        else if ( (LA16_0=='-') ) {s = 16;}
+
+                        else if ( (LA16_0=='=') ) {s = 17;}
+
+                        else if ( (LA16_0=='>') ) {s = 18;}
+
+                        else if ( (LA16_0=='o') ) {s = 19;}
+
+                        else if ( (LA16_0=='~') ) {s = 20;}
+
+                        else if ( (LA16_0=='\"') ) {s = 21;}
+
+                        else if ( (LA16_0=='\'') ) {s = 22;}
+
+                        else if ( (LA16_0=='(') ) {s = 23;}
+
+                        else if ( (LA16_0==')') ) {s = 24;}
+
+                        else if ( (LA16_0=='*') ) {s = 25;}
+
+                        else if ( (LA16_0==',') ) {s = 26;}
+
+                        else if ( (LA16_0=='/') ) {s = 27;}
+
+                        else if ( (LA16_0==':') ) {s = 28;}
+
+                        else if ( (LA16_0==';') ) {s = 29;}
+
+                        else if ( (LA16_0=='?') ) {s = 30;}
+
+                        else if ( (LA16_0=='@') ) {s = 31;}
+
+                        else if ( (LA16_0=='[') ) {s = 32;}
+
+                        else if ( (LA16_0==']') ) {s = 33;}
+
+                        else if ( (LA16_0=='{') ) {s = 34;}
+
+                        else if ( (LA16_0=='}') ) {s = 35;}
+
+                        else if ( (LA16_0=='#') ) {s = 36;}
+
+                        else if ( ((LA16_0>='\t' && LA16_0<='\n')||LA16_0=='\r'||LA16_0==' '||LA16_0=='\u00A0') ) {s = 37;}
+
+                        else if ( ((LA16_0>='0' && LA16_0<='9')) ) {s = 38;}
+
+                        else if ( (LA16_0=='b'||(LA16_0>='g' && LA16_0<='h')||(LA16_0>='j' && LA16_0<='m')||(LA16_0>='p' && LA16_0<='s')||(LA16_0>='v' && LA16_0<='z')) ) {s = 39;}
+
+                        else if ( ((LA16_0>='A' && LA16_0<='Z')) ) {s = 40;}
+
+                        else if ( (LA16_0=='_') ) {s = 41;}
+
+                        else if ( (LA16_0=='.') ) {s = 42;}
+
+                        else if ( ((LA16_0>='\u0000' && LA16_0<='\b')||(LA16_0>='\u000B' && LA16_0<='\f')||(LA16_0>='\u000E' && LA16_0<='\u001F')||(LA16_0>='%' && LA16_0<='&')||LA16_0=='^'||LA16_0=='`'||(LA16_0>='\u007F' && LA16_0<='\u009F')||(LA16_0>='\u00A1' && LA16_0<='\uFFFF')) ) {s = 43;}
+
                         if ( s>=0 ) return s;
                         break;
             }
             if (state.backtracking>0) {state.failed=true; return -1;}
             NoViableAltException nvae =
-                new NoViableAltException(getDescription(), 15, _s, input);
+                new NoViableAltException(getDescription(), 16, _s, input);
             error(nvae);
             throw nvae;
         }

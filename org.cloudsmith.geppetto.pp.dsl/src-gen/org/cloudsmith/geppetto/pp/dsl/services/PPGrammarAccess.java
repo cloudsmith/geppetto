@@ -431,6 +431,9 @@ public class PPGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cAttributesAttributeOperationParserRuleCall_1_1_0 = (RuleCall)cAttributesAssignment_1_1.eContents().get(0);
 		private final Keyword cCommaKeyword_2 = (Keyword)cGroup.eContents().get(2);
 		
+		//// VALIDATION: checks that there are ',' between operations
+		//// NOTE: if ','	is mandatory in grammar, backtracking will think statement is a different (faulty)
+		//// statement.
 		//AttributeOperations returns pp::AttributeOperations:
 		//	attributes+=AttributeOperation ("," attributes+=AttributeOperation | attributes+=AttributeOperation)* ","?;
 		public ParserRule getRule() { return rule; }
@@ -3577,6 +3580,9 @@ public class PPGrammarAccess extends AbstractGrammarElementFinder {
 		return getAttributeOperationAccess().getRule();
 	}
 
+	//// VALIDATION: checks that there are ',' between operations
+	//// NOTE: if ','	is mandatory in grammar, backtracking will think statement is a different (faulty)
+	//// statement.
 	//AttributeOperations returns pp::AttributeOperations:
 	//	attributes+=AttributeOperation ("," attributes+=AttributeOperation | attributes+=AttributeOperation)* ","?;
 	public AttributeOperationsElements getAttributeOperationsAccess() {

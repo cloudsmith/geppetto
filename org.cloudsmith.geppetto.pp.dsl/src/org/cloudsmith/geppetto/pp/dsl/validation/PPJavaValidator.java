@@ -244,6 +244,9 @@ public class PPJavaValidator extends AbstractPPJavaValidator implements IPPDiagn
 			"undef", "true", "false" };
 
 	@Inject
+	protected PPExpressionTypeNameProvider expressionTypeNameProvider;
+
+	@Inject
 	public PPJavaValidator(IGrammarAccess ga) {
 		acceptor = new ValidationBasedMessageAcceptor(this);
 		puppetGrammarAccess = (PPGrammarAccess) ga;
@@ -878,9 +881,9 @@ public class PPJavaValidator extends AbstractPPJavaValidator implements IPPDiagn
 		Expression lhs = o.getLeftExpr();
 		if(!isSELECTOR_LHS(lhs))
 			acceptor.acceptError(
-				"Not an acceptable selector entry left hand side expression. Was: " + lhs.getClass().getSimpleName(),
-				o, PPPackage.Literals.BINARY_EXPRESSION__LEFT_EXPR, INSIGNIFICANT_INDEX,
-				IPPDiagnostics.ISSUE__UNSUPPORTED_EXPRESSION);
+				"Not an acceptable selector entry left hand side expression. Was: " +
+						expressionTypeNameProvider.doToString(lhs), o, PPPackage.Literals.BINARY_EXPRESSION__LEFT_EXPR,
+				INSIGNIFICANT_INDEX, IPPDiagnostics.ISSUE__UNSUPPORTED_EXPRESSION);
 		// TODO: check rhs is "rvalue"
 	}
 
@@ -911,7 +914,7 @@ public class PPJavaValidator extends AbstractPPJavaValidator implements IPPDiagn
 		for(Expression e : o.getParameters())
 			if(!(e instanceof SelectorEntry))
 				acceptor.acceptError(
-					"Must be a selector entry. Was:" + e.getClass().getSimpleName(), o,
+					"Must be a selector entry. Was:" + expressionTypeNameProvider.doToString(e), o,
 					PPPackage.Literals.PARAMETERIZED_EXPRESSION__PARAMETERS, o.getParameters().indexOf(e),
 					IPPDiagnostics.ISSUE__UNSUPPORTED_EXPRESSION);
 	}
@@ -1056,7 +1059,7 @@ public class PPJavaValidator extends AbstractPPJavaValidator implements IPPDiagn
 				return;
 		}
 		acceptor.acceptError(
-			"Not a right hand side value. Was: " + expr.getClass().getSimpleName(), expr.eContainer(),
+			"Not a right hand side value. Was: " + expressionTypeNameProvider.doToString(expr), expr.eContainer(),
 			expr.eContainingFeature(), INSIGNIFICANT_INDEX, IPPDiagnostics.ISSUE__NOT_RVALUE);
 
 	}
@@ -1090,7 +1093,7 @@ public class PPJavaValidator extends AbstractPPJavaValidator implements IPPDiagn
 					continue each_top;
 			}
 			acceptor.acceptError(
-				"Not a top level expression. Was: " + s.getClass().getSimpleName(), s.eContainer(),
+				"Not a top level expression. Was: " + expressionTypeNameProvider.doToString(s), s.eContainer(),
 				s.eContainingFeature(), i, IPPDiagnostics.ISSUE__NOT_TOPLEVEL);
 		}
 

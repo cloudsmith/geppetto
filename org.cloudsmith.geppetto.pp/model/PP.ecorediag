@@ -1276,6 +1276,14 @@
     <children xmi:type="notation:Node" xmi:id="_xVpnAAPyEeCCru6tzAUh-A" type="1001">
       <children xmi:type="notation:Node" xmi:id="_xVqOEQPyEeCCru6tzAUh-A" type="4001"/>
       <children xmi:type="notation:Node" xmi:id="_xVqOEgPyEeCCru6tzAUh-A" type="5001">
+        <children xmi:type="notation:Node" xmi:id="_5c2d8Hd9EeCDKLICnzJC4w" type="2001">
+          <element xmi:type="ecore:EAttribute" href="PP.ecore#//DefinitionArgument/argName"/>
+          <layoutConstraint xmi:type="notation:Location" xmi:id="_5c2d8Xd9EeCDKLICnzJC4w"/>
+        </children>
+        <children xmi:type="notation:Node" xmi:id="_9wePQHd9EeCDKLICnzJC4w" type="2001">
+          <element xmi:type="ecore:EAttribute" href="PP.ecore#//DefinitionArgument/op"/>
+          <layoutConstraint xmi:type="notation:Location" xmi:id="_9wePQXd9EeCDKLICnzJC4w"/>
+        </children>
         <styles xmi:type="notation:DrawerStyle" xmi:id="_xVqOEwPyEeCCru6tzAUh-A"/>
         <styles xmi:type="notation:SortingStyle" xmi:id="_xVqOFAPyEeCCru6tzAUh-A"/>
         <styles xmi:type="notation:FilteringStyle" xmi:id="_xVqOFQPyEeCCru6tzAUh-A"/>

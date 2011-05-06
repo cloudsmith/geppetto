@@ -30,6 +30,7 @@ import org.eclipse.emf.ecore.impl.EObjectImpl;
  * <ul>
  * <li>{@link org.cloudsmith.geppetto.pp.impl.DefinitionArgumentImpl#getArgName <em>Arg Name</em>}</li>
  * <li>{@link org.cloudsmith.geppetto.pp.impl.DefinitionArgumentImpl#getValue <em>Value</em>}</li>
+ * <li>{@link org.cloudsmith.geppetto.pp.impl.DefinitionArgumentImpl#getOp <em>Op</em>}</li>
  * </ul>
  * </p>
  * 
@@ -68,6 +69,28 @@ public class DefinitionArgumentImpl extends EObjectImpl implements DefinitionArg
 	 * @ordered
 	 */
 	protected Expression value;
+
+	/**
+	 * The default value of the '{@link #getOp() <em>Op</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @see #getOp()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String OP_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getOp() <em>Op</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @see #getOp()
+	 * @generated
+	 * @ordered
+	 */
+	protected String op = OP_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -112,6 +135,8 @@ public class DefinitionArgumentImpl extends EObjectImpl implements DefinitionArg
 				return getArgName();
 			case PPPackage.DEFINITION_ARGUMENT__VALUE:
 				return getValue();
+			case PPPackage.DEFINITION_ARGUMENT__OP:
+				return getOp();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -146,6 +171,10 @@ public class DefinitionArgumentImpl extends EObjectImpl implements DefinitionArg
 						: !ARG_NAME_EDEFAULT.equals(argName);
 			case PPPackage.DEFINITION_ARGUMENT__VALUE:
 				return value != null;
+			case PPPackage.DEFINITION_ARGUMENT__OP:
+				return OP_EDEFAULT == null
+						? op != null
+						: !OP_EDEFAULT.equals(op);
 		}
 		return super.eIsSet(featureID);
 	}
@@ -164,6 +193,9 @@ public class DefinitionArgumentImpl extends EObjectImpl implements DefinitionArg
 				return;
 			case PPPackage.DEFINITION_ARGUMENT__VALUE:
 				setValue((Expression) newValue);
+				return;
+			case PPPackage.DEFINITION_ARGUMENT__OP:
+				setOp((String) newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -195,6 +227,9 @@ public class DefinitionArgumentImpl extends EObjectImpl implements DefinitionArg
 			case PPPackage.DEFINITION_ARGUMENT__VALUE:
 				setValue((Expression) null);
 				return;
+			case PPPackage.DEFINITION_ARGUMENT__OP:
+				setOp(OP_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -207,6 +242,16 @@ public class DefinitionArgumentImpl extends EObjectImpl implements DefinitionArg
 	 */
 	public String getArgName() {
 		return argName;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
+	public String getOp() {
+		return op;
 	}
 
 	/**
@@ -231,6 +276,19 @@ public class DefinitionArgumentImpl extends EObjectImpl implements DefinitionArg
 		if(eNotificationRequired())
 			eNotify(new ENotificationImpl(
 				this, Notification.SET, PPPackage.DEFINITION_ARGUMENT__ARG_NAME, oldArgName, argName));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
+	public void setOp(String newOp) {
+		String oldOp = op;
+		op = newOp;
+		if(eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, PPPackage.DEFINITION_ARGUMENT__OP, oldOp, op));
 	}
 
 	/**
@@ -271,6 +329,8 @@ public class DefinitionArgumentImpl extends EObjectImpl implements DefinitionArg
 		StringBuffer result = new StringBuffer(super.toString());
 		result.append(" (argName: ");
 		result.append(argName);
+		result.append(", op: ");
+		result.append(op);
 		result.append(')');
 		return result.toString();
 	}

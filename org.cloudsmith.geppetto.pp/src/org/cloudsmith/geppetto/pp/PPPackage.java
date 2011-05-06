@@ -311,6 +311,15 @@ public interface PPPackage extends EPackage {
 		EReference DEFINITION_ARGUMENT__VALUE = eINSTANCE.getDefinitionArgument_Value();
 
 		/**
+		 * The meta object literal for the '<em><b>Op</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * 
+		 * @generated
+		 */
+		EAttribute DEFINITION_ARGUMENT__OP = eINSTANCE.getDefinitionArgument_Op();
+
+		/**
 		 * The meta object literal for the '{@link org.cloudsmith.geppetto.pp.impl.CaseExpressionImpl <em>Case Expression</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -1942,6 +1951,16 @@ public interface PPPackage extends EPackage {
 	int DEFINITION_ARGUMENT__VALUE = 1;
 
 	/**
+	 * The feature id for the '<em><b>Op</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 * @ordered
+	 */
+	int DEFINITION_ARGUMENT__OP = 2;
+
+	/**
 	 * The number of structural features of the '<em>Definition Argument</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1949,7 +1968,7 @@ public interface PPPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int DEFINITION_ARGUMENT_FEATURE_COUNT = 2;
+	int DEFINITION_ARGUMENT_FEATURE_COUNT = 3;
 
 	/**
 	 * The meta object id for the '{@link org.cloudsmith.geppetto.pp.impl.CaseExpressionImpl <em>Case Expression</em>}' class.
@@ -4436,6 +4455,18 @@ public interface PPPackage extends EPackage {
 	 * @generated
 	 */
 	EAttribute getDefinitionArgument_ArgName();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.cloudsmith.geppetto.pp.DefinitionArgument#getOp <em>Op</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @return the meta object for the attribute '<em>Op</em>'.
+	 * @see org.cloudsmith.geppetto.pp.DefinitionArgument#getOp()
+	 * @see #getDefinitionArgument()
+	 * @generated
+	 */
+	EAttribute getDefinitionArgument_Op();
 
 	/**
 	 * Returns the meta object for the containment reference '{@link org.cloudsmith.geppetto.pp.DefinitionArgument#getValue <em>Value</em>}'.

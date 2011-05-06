@@ -788,6 +788,7 @@ public class PPPackageImpl extends EPackageImpl implements PPPackage {
 		definitionArgumentEClass = createEClass(DEFINITION_ARGUMENT);
 		createEAttribute(definitionArgumentEClass, DEFINITION_ARGUMENT__ARG_NAME);
 		createEReference(definitionArgumentEClass, DEFINITION_ARGUMENT__VALUE);
+		createEAttribute(definitionArgumentEClass, DEFINITION_ARGUMENT__OP);
 
 		caseExpressionEClass = createEClass(CASE_EXPRESSION);
 		createEReference(caseExpressionEClass, CASE_EXPRESSION__SWITCH_EXPR);
@@ -1275,6 +1276,16 @@ public class PPPackageImpl extends EPackageImpl implements PPPackage {
 	 */
 	public EAttribute getDefinitionArgument_ArgName() {
 		return (EAttribute) definitionArgumentEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
+	public EAttribute getDefinitionArgument_Op() {
+		return (EAttribute) definitionArgumentEClass.getEStructuralFeatures().get(2);
 	}
 
 	/**
@@ -2414,6 +2425,9 @@ public class PPPackageImpl extends EPackageImpl implements PPPackage {
 			getDefinitionArgument_Value(), this.getExpression(), null, "value", null, 0, 1, DefinitionArgument.class,
 			!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE,
 			!IS_DERIVED, IS_ORDERED);
+		initEAttribute(
+			getDefinitionArgument_Op(), ecorePackage.getEString(), "op", null, 0, 1, DefinitionArgument.class,
+			!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(
 			caseExpressionEClass, CaseExpression.class, "CaseExpression", !IS_ABSTRACT, !IS_INTERFACE,

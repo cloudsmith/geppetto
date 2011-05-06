@@ -375,7 +375,7 @@ DefinitionArgumentList returns pp::DefinitionArgumentList
 // VALIDATION: value expr is RVALUE
 // 	
 DefinitionArgument returns pp::DefinitionArgument
-	: argName = UNION_VARIABLE_OR_NAME  ('='  value = Expression)?
+	: argName = UNION_VARIABLE_OR_NAME  ((op = '=' | op = '=>')  value = Expression)?
 	;
 
 //-- CASE

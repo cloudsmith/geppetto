@@ -3237,6 +3237,28 @@ finally {
 	restoreStackSize(stackSize);
 }
 
+rule__DefinitionArgument__Alternatives_1_0
+    @init {
+		int stackSize = keepStackSize();
+    }
+:
+(
+{ before(grammarAccess.getDefinitionArgumentAccess().getOpAssignment_1_0_0()); }
+(rule__DefinitionArgument__OpAssignment_1_0_0)
+{ after(grammarAccess.getDefinitionArgumentAccess().getOpAssignment_1_0_0()); }
+)
+
+    |(
+{ before(grammarAccess.getDefinitionArgumentAccess().getOpAssignment_1_0_1()); }
+(rule__DefinitionArgument__OpAssignment_1_0_1)
+{ after(grammarAccess.getDefinitionArgumentAccess().getOpAssignment_1_0_1()); }
+)
+
+;
+finally {
+	restoreStackSize(stackSize);
+}
+
 rule__IfExpression__Alternatives_5
     @init {
 		int stackSize = keepStackSize();
@@ -9811,11 +9833,9 @@ rule__DefinitionArgument__Group_1__0__Impl
     }
 :
 (
-{ before(grammarAccess.getDefinitionArgumentAccess().getEqualsSignKeyword_1_0()); }
-
-	KEYWORD_15 
-
-{ after(grammarAccess.getDefinitionArgumentAccess().getEqualsSignKeyword_1_0()); }
+{ before(grammarAccess.getDefinitionArgumentAccess().getAlternatives_1_0()); }
+(rule__DefinitionArgument__Alternatives_1_0)
+{ after(grammarAccess.getDefinitionArgumentAccess().getAlternatives_1_0()); }
 )
 
 ;
@@ -14286,6 +14306,52 @@ rule__DefinitionArgument__ArgNameAssignment_0
 (
 { before(grammarAccess.getDefinitionArgumentAccess().getArgNameUNION_VARIABLE_OR_NAMEParserRuleCall_0_0()); }
 	ruleUNION_VARIABLE_OR_NAME{ after(grammarAccess.getDefinitionArgumentAccess().getArgNameUNION_VARIABLE_OR_NAMEParserRuleCall_0_0()); }
+)
+
+;
+finally {
+	restoreStackSize(stackSize);
+}
+
+rule__DefinitionArgument__OpAssignment_1_0_0
+    @init {
+		int stackSize = keepStackSize();
+    }
+:
+(
+{ before(grammarAccess.getDefinitionArgumentAccess().getOpEqualsSignKeyword_1_0_0_0()); }
+(
+{ before(grammarAccess.getDefinitionArgumentAccess().getOpEqualsSignKeyword_1_0_0_0()); }
+
+	KEYWORD_15 
+
+{ after(grammarAccess.getDefinitionArgumentAccess().getOpEqualsSignKeyword_1_0_0_0()); }
+)
+
+{ after(grammarAccess.getDefinitionArgumentAccess().getOpEqualsSignKeyword_1_0_0_0()); }
+)
+
+;
+finally {
+	restoreStackSize(stackSize);
+}
+
+rule__DefinitionArgument__OpAssignment_1_0_1
+    @init {
+		int stackSize = keepStackSize();
+    }
+:
+(
+{ before(grammarAccess.getDefinitionArgumentAccess().getOpEqualsSignGreaterThanSignKeyword_1_0_1_0()); }
+(
+{ before(grammarAccess.getDefinitionArgumentAccess().getOpEqualsSignGreaterThanSignKeyword_1_0_1_0()); }
+
+	KEYWORD_35 
+
+{ after(grammarAccess.getDefinitionArgumentAccess().getOpEqualsSignGreaterThanSignKeyword_1_0_1_0()); }
+)
+
+{ after(grammarAccess.getDefinitionArgumentAccess().getOpEqualsSignGreaterThanSignKeyword_1_0_1_0()); }
 )
 
 ;

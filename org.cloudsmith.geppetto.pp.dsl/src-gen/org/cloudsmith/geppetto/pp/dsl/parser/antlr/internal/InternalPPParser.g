@@ -3350,24 +3350,52 @@ ruleDefinitionArgument returns [EObject current=null]
 	    }
 
 )
-)(
-	otherlv_1=KEYWORD_15
-    {
-    	newLeafNode(otherlv_1, grammarAccess.getDefinitionArgumentAccess().getEqualsSignKeyword_1_0());
-    }
+)(((
 (
+		lv_op_1_0=
+	KEYWORD_15
+    {
+        newLeafNode(lv_op_1_0, grammarAccess.getDefinitionArgumentAccess().getOpEqualsSignKeyword_1_0_0_0());
+    }
+
+	    {
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getDefinitionArgumentRule());
+	        }
+       		setWithLastConsumed($current, "op", lv_op_1_0, "=");
+	    }
+
+)
+)
+    |(
+(
+		lv_op_2_0=
+	KEYWORD_35
+    {
+        newLeafNode(lv_op_2_0, grammarAccess.getDefinitionArgumentAccess().getOpEqualsSignGreaterThanSignKeyword_1_0_1_0());
+    }
+
+	    {
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getDefinitionArgumentRule());
+	        }
+       		setWithLastConsumed($current, "op", lv_op_2_0, "=>");
+	    }
+
+)
+))(
 (
 		{ 
 	        newCompositeNode(grammarAccess.getDefinitionArgumentAccess().getValueExpressionParserRuleCall_1_1_0()); 
 	    }
-		lv_value_2_0=ruleExpression		{
+		lv_value_3_0=ruleExpression		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getDefinitionArgumentRule());
 	        }
        		set(
        			$current, 
        			"value",
-        		lv_value_2_0, 
+        		lv_value_3_0, 
         		"Expression");
 	        afterParserOrEnumRuleCall();
 	    }

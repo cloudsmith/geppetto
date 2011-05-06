@@ -544,6 +544,10 @@ public class PPJavaValidator extends AbstractPPJavaValidator implements IPPDiagn
 				"Not a valid variable name", o, PPPackage.Literals.DEFINITION_ARGUMENT__ARG_NAME, INSIGNIFICANT_INDEX,
 				IPPDiagnostics.ISSUE__NOT_VARNAME);
 
+		if(o.getOp() != null && !"=".equals(o.getOp()))
+			acceptor.acceptError(
+				"Must be an assignment operator '=' (not definition '=>')", o,
+				PPPackage.Literals.DEFINITION_ARGUMENT__OP, IPPDiagnostics.ISSUE__NOT_ASSIGNMENT_OP);
 		// -- RHS should be a rvalue
 		internalCheckRvalueExpression(o.getValue());
 	}

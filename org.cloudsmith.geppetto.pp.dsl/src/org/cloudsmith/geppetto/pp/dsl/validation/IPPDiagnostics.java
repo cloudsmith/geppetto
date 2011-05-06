@@ -98,4 +98,6 @@ public interface IPPDiagnostics {
 
 	public static final String ISSUE__NOT_CLASSNAME = ISSUE_PREFIX + "NotClassName";
 
+	public static final String ISSUE__NOT_ASSIGNMENT_OP = ISSUE_PREFIX + "NotAssignmentOp";
+
 }

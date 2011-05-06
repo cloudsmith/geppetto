@@ -23,6 +23,7 @@ import org.eclipse.emf.ecore.EObject;
  * <ul>
  * <li>{@link org.cloudsmith.geppetto.pp.DefinitionArgument#getArgName <em>Arg Name</em>}</li>
  * <li>{@link org.cloudsmith.geppetto.pp.DefinitionArgument#getValue <em>Value</em>}</li>
+ * <li>{@link org.cloudsmith.geppetto.pp.DefinitionArgument#getOp <em>Op</em>}</li>
  * </ul>
  * </p>
  * 
@@ -46,6 +47,22 @@ public interface DefinitionArgument extends EObject {
 	 * @generated
 	 */
 	String getArgName();
+
+	/**
+	 * Returns the value of the '<em><b>Op</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Op</em>' attribute isn't clear, there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * 
+	 * @return the value of the '<em>Op</em>' attribute.
+	 * @see #setOp(String)
+	 * @see org.cloudsmith.geppetto.pp.PPPackage#getDefinitionArgument_Op()
+	 * @model
+	 * @generated
+	 */
+	String getOp();
 
 	/**
 	 * Returns the value of the '<em><b>Value</b></em>' containment reference.
@@ -74,6 +91,18 @@ public interface DefinitionArgument extends EObject {
 	 * @generated
 	 */
 	void setArgName(String value);
+
+	/**
+	 * Sets the value of the '{@link org.cloudsmith.geppetto.pp.DefinitionArgument#getOp <em>Op</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @param value
+	 *            the new value of the '<em>Op</em>' attribute.
+	 * @see #getOp()
+	 * @generated
+	 */
+	void setOp(String value);
 
 	/**
 	 * Sets the value of the '{@link org.cloudsmith.geppetto.pp.DefinitionArgument#getValue <em>Value</em>}' containment reference.

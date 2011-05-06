@@ -1873,7 +1873,11 @@ public class PPGrammarAccess extends AbstractGrammarElementFinder {
 		private final Assignment cArgNameAssignment_0 = (Assignment)cGroup.eContents().get(0);
 		private final RuleCall cArgNameUNION_VARIABLE_OR_NAMEParserRuleCall_0_0 = (RuleCall)cArgNameAssignment_0.eContents().get(0);
 		private final Group cGroup_1 = (Group)cGroup.eContents().get(1);
-		private final Keyword cEqualsSignKeyword_1_0 = (Keyword)cGroup_1.eContents().get(0);
+		private final Alternatives cAlternatives_1_0 = (Alternatives)cGroup_1.eContents().get(0);
+		private final Assignment cOpAssignment_1_0_0 = (Assignment)cAlternatives_1_0.eContents().get(0);
+		private final Keyword cOpEqualsSignKeyword_1_0_0_0 = (Keyword)cOpAssignment_1_0_0.eContents().get(0);
+		private final Assignment cOpAssignment_1_0_1 = (Assignment)cAlternatives_1_0.eContents().get(1);
+		private final Keyword cOpEqualsSignGreaterThanSignKeyword_1_0_1_0 = (Keyword)cOpAssignment_1_0_1.eContents().get(0);
 		private final Assignment cValueAssignment_1_1 = (Assignment)cGroup_1.eContents().get(1);
 		private final RuleCall cValueExpressionParserRuleCall_1_1_0 = (RuleCall)cValueAssignment_1_1.eContents().get(0);
 		
@@ -1882,10 +1886,10 @@ public class PPGrammarAccess extends AbstractGrammarElementFinder {
 		//// VALIDATION: value expr is RVALUE
 		//// 	
 		//DefinitionArgument returns pp::DefinitionArgument:
-		//	argName=UNION_VARIABLE_OR_NAME ("=" value=Expression)?;
+		//	argName=UNION_VARIABLE_OR_NAME ((op="=" | op="=>") value=Expression)?;
 		public ParserRule getRule() { return rule; }
 
-		//argName=UNION_VARIABLE_OR_NAME ("=" value=Expression)?
+		//argName=UNION_VARIABLE_OR_NAME ((op="=" | op="=>") value=Expression)?
 		public Group getGroup() { return cGroup; }
 
 		//argName=UNION_VARIABLE_OR_NAME
@@ -1894,11 +1898,23 @@ public class PPGrammarAccess extends AbstractGrammarElementFinder {
 		//UNION_VARIABLE_OR_NAME
 		public RuleCall getArgNameUNION_VARIABLE_OR_NAMEParserRuleCall_0_0() { return cArgNameUNION_VARIABLE_OR_NAMEParserRuleCall_0_0; }
 
-		//("=" value=Expression)?
+		//((op="=" | op="=>") value=Expression)?
 		public Group getGroup_1() { return cGroup_1; }
 
+		//op="=" | op="=>"
+		public Alternatives getAlternatives_1_0() { return cAlternatives_1_0; }
+
+		//op="="
+		public Assignment getOpAssignment_1_0_0() { return cOpAssignment_1_0_0; }
+
 		//"="
-		public Keyword getEqualsSignKeyword_1_0() { return cEqualsSignKeyword_1_0; }
+		public Keyword getOpEqualsSignKeyword_1_0_0_0() { return cOpEqualsSignKeyword_1_0_0_0; }
+
+		//op="=>"
+		public Assignment getOpAssignment_1_0_1() { return cOpAssignment_1_0_1; }
+
+		//"=>"
+		public Keyword getOpEqualsSignGreaterThanSignKeyword_1_0_1_0() { return cOpEqualsSignGreaterThanSignKeyword_1_0_1_0; }
 
 		//value=Expression
 		public Assignment getValueAssignment_1_1() { return cValueAssignment_1_1; }
@@ -3988,7 +4004,7 @@ public class PPGrammarAccess extends AbstractGrammarElementFinder {
 	//// VALIDATION: value expr is RVALUE
 	//// 	
 	//DefinitionArgument returns pp::DefinitionArgument:
-	//	argName=UNION_VARIABLE_OR_NAME ("=" value=Expression)?;
+	//	argName=UNION_VARIABLE_OR_NAME ((op="=" | op="=>") value=Expression)?;
 	public DefinitionArgumentElements getDefinitionArgumentAccess() {
 		return (pDefinitionArgument != null) ? pDefinitionArgument : (pDefinitionArgument = new DefinitionArgumentElements());
 	}

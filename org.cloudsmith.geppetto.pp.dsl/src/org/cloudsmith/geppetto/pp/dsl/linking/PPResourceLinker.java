@@ -100,9 +100,18 @@ public class PPResourceLinker {
 		@Override
 		public boolean apply(IEObjectDescription candidate) {
 			QualifiedName candidateName = candidate.getQualifiedName();
-			// filter out all that do not match on last segment (i.a. ?::...::x <-> ?::...::y)
-			if(!candidateName.getLastSegment().equals(name.getLastSegment()))
+			// error, not a valid name (can not possibly match).
+			if(candidateName.getSegmentCount() == 0)
 				return false;
+
+			// filter out all that do not match on last segment (i.a. ?::...::x <-> ?::...::y)
+			try {
+				if(!candidateName.getLastSegment().equals(name.getLastSegment()))
+					return false;
+			}
+			catch(ArrayIndexOutOfBoundsException e) {
+				System.out.println("AOB");
+			}
 			// Since most references are exact (they are global), this is the fastest for the common case.
 			if(candidateName.equals(name))
 				return true;

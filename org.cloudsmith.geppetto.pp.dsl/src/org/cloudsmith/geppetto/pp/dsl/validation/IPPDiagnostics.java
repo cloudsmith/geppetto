@@ -94,4 +94,6 @@ public interface IPPDiagnostics {
 
 	public static final String ISSUE__MISSING_COMMA = ISSUE_PREFIX + "MissingCommad";
 
+	public static final String ISSUE__REQUIRES_QUOTING = ISSUE_PREFIX + "RequiresQuoting";
+
 }

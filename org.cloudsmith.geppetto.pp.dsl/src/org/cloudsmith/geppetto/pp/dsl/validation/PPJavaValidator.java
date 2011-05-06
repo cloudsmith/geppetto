@@ -31,6 +31,7 @@ import org.cloudsmith.geppetto.pp.AttributeOperation;
 import org.cloudsmith.geppetto.pp.AttributeOperations;
 import org.cloudsmith.geppetto.pp.BinaryExpression;
 import org.cloudsmith.geppetto.pp.BinaryOpExpression;
+import org.cloudsmith.geppetto.pp.Case;
 import org.cloudsmith.geppetto.pp.CaseExpression;
 import org.cloudsmith.geppetto.pp.CollectExpression;
 import org.cloudsmith.geppetto.pp.Definition;
@@ -456,6 +457,26 @@ public class PPJavaValidator extends AbstractPPJavaValidator implements IPPDiagn
 				INSIGNIFICANT_INDEX, IPPDiagnostics.ISSUE__NULL_EXPRESSION);
 	}
 
+	/**
+	 * Checks case literals that puppet will barf on:
+	 * - an unquoted text sequence that contains "."
+	 * 
+	 * @param o
+	 */
+	@Check
+	public void checkCaseExpression(Case o) {
+		for(Expression value : o.getValues()) {
+			if(value.eClass() == PPPackage.Literals.LITERAL_NAME_OR_REFERENCE) {
+				String v = ((LiteralNameOrReference) value).getValue();
+				if(v != null && v.contains("."))
+					acceptor.acceptError(
+						"A case value containing '.' (period) must be quoted", value,
+						IPPDiagnostics.ISSUE__REQUIRES_QUOTING);
+
+			}
+		}
+	}
+
 	@Check
 	public void checkCollectExpression(CollectExpression o) {
 
@@ -626,7 +647,8 @@ public class PPJavaValidator extends AbstractPPJavaValidator implements IPPDiagn
 		if(isCLASSNAME_OR_REFERENCE(o.getValue()))
 			return;
 		acceptor.acceptError(
-			"Must be a name or type.", o, PPPackage.Literals.LITERAL_NAME_OR_REFERENCE__VALUE, INSIGNIFICANT_INDEX,
+			"Must be a name or type (all segments must start with same case).", o,
+			PPPackage.Literals.LITERAL_NAME_OR_REFERENCE__VALUE, INSIGNIFICANT_INDEX,
 			IPPDiagnostics.ISSUE__NOT_NAME_OR_REF);
 
 	}

@@ -96,4 +96,6 @@ public interface IPPDiagnostics {
 
 	public static final String ISSUE__REQUIRES_QUOTING = ISSUE_PREFIX + "RequiresQuoting";
 
+	public static final String ISSUE__NOT_CLASSNAME = ISSUE_PREFIX + "NotClassName";
+
 }

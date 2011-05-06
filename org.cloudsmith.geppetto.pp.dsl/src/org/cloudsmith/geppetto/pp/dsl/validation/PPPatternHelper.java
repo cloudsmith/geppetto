@@ -66,7 +66,7 @@ public class PPPatternHelper {
 	public PPPatternHelper() {
 		namePattern = Pattern.compile("[0-9a-z]" + EXT_WORD_CHAR + "*");
 		classRefPattern = Pattern.compile("((::)?[A-Z]" + EXT_WORD_CHAR + "*)+");
-		classNamePattern = Pattern.compile("([a-z]" + EXT_WORD_CHAR + "*)?(::[a-z]" + EXT_WORD_CHAR + "*)+");
+		classNamePattern = Pattern.compile("([a-z]" + EXT_WORD_CHAR + "*)?(::[a-z]" + EXT_WORD_CHAR + "*)*");
 
 		// regexp may not:
 		// be empty - '//'

@@ -516,6 +516,12 @@ public class PPJavaValidator extends AbstractPPJavaValidator implements IPPDiagn
 			acceptor.acceptError(
 				"A definition may only appear at toplevel or directly inside classes.", o.eContainer(),
 				o.eContainingFeature(), INSIGNIFICANT_INDEX, IPPDiagnostics.ISSUE__NOT_AT_TOPLEVEL_OR_CLASS);
+
+		if(!isCLASSNAME(o.getClassName())) {
+			acceptor.acceptError(
+				"Must be a valid name (each segment must start with lower case letter)", o,
+				PPPackage.Literals.DEFINITION__CLASS_NAME, IPPDiagnostics.ISSUE__NOT_CLASSNAME);
+		}
 	}
 
 	@Check

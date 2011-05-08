@@ -2319,7 +2319,7 @@ finally {
 // Entry rule entryRuleExpressionTextExpression
 entryRuleExpressionTextExpression 
 @init {
-	HiddenTokens myHiddenTokenState = ((XtextTokenStream)input).setHiddenTokens("RULE_WS", "RULE_SL_COMMENT", "RULE_ML_COMMENT");
+	HiddenTokens myHiddenTokenState = ((XtextTokenStream)input).setHiddenTokens();
 }
 :
 { before(grammarAccess.getExpressionTextExpressionRule()); }
@@ -2334,7 +2334,7 @@ finally {
 // Rule ExpressionTextExpression
 ruleExpressionTextExpression 
     @init {
-		HiddenTokens myHiddenTokenState = ((XtextTokenStream)input).setHiddenTokens("RULE_WS", "RULE_SL_COMMENT", "RULE_ML_COMMENT");
+		HiddenTokens myHiddenTokenState = ((XtextTokenStream)input).setHiddenTokens();
 		int stackSize = keepStackSize();
     }
     :
@@ -2342,6 +2342,42 @@ ruleExpressionTextExpression
 { before(grammarAccess.getExpressionTextExpressionAccess().getGroup()); }
 (rule__ExpressionTextExpression__Group__0)
 { after(grammarAccess.getExpressionTextExpressionAccess().getGroup()); }
+)
+
+;
+finally {
+	restoreStackSize(stackSize);
+	myHiddenTokenState.restore();
+}
+
+
+
+// Entry rule entryRuleExpressionWithHidden
+entryRuleExpressionWithHidden 
+@init {
+	HiddenTokens myHiddenTokenState = ((XtextTokenStream)input).setHiddenTokens("RULE_WS", "RULE_SL_COMMENT", "RULE_ML_COMMENT");
+}
+:
+{ before(grammarAccess.getExpressionWithHiddenRule()); }
+	 ruleExpressionWithHidden
+{ after(grammarAccess.getExpressionWithHiddenRule()); } 
+	 EOF 
+;
+finally {
+	myHiddenTokenState.restore();
+}
+
+// Rule ExpressionWithHidden
+ruleExpressionWithHidden 
+    @init {
+		HiddenTokens myHiddenTokenState = ((XtextTokenStream)input).setHiddenTokens("RULE_WS", "RULE_SL_COMMENT", "RULE_ML_COMMENT");
+		int stackSize = keepStackSize();
+    }
+    :
+(
+{ before(grammarAccess.getExpressionWithHiddenAccess().getExpressionParserRuleCall()); }
+	ruleExpression
+{ after(grammarAccess.getExpressionWithHiddenAccess().getExpressionParserRuleCall()); }
 )
 
 ;
@@ -14875,8 +14911,8 @@ rule__ExpressionTextExpression__ExpressionAssignment_1_2
     }
 :
 (
-{ before(grammarAccess.getExpressionTextExpressionAccess().getExpressionExpressionParserRuleCall_1_2_0()); }
-	ruleExpression{ after(grammarAccess.getExpressionTextExpressionAccess().getExpressionExpressionParserRuleCall_1_2_0()); }
+{ before(grammarAccess.getExpressionTextExpressionAccess().getExpressionExpressionWithHiddenParserRuleCall_1_2_0()); }
+	ruleExpressionWithHidden{ after(grammarAccess.getExpressionTextExpressionAccess().getExpressionExpressionWithHiddenParserRuleCall_1_2_0()); }
 )
 
 ;

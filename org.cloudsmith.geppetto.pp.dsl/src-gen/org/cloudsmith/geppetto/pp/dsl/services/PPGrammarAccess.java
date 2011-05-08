@@ -2907,24 +2907,24 @@ public class PPGrammarAccess extends AbstractGrammarElementFinder {
 		private final Action cExpressionTELeadingAction_1_0 = (Action)cGroup_1.eContents().get(0);
 		private final Keyword cDollarSignLeftCurlyBracketKeyword_1_1 = (Keyword)cGroup_1.eContents().get(1);
 		private final Assignment cExpressionAssignment_1_2 = (Assignment)cGroup_1.eContents().get(2);
-		private final RuleCall cExpressionExpressionParserRuleCall_1_2_0 = (RuleCall)cExpressionAssignment_1_2.eContents().get(0);
+		private final RuleCall cExpressionExpressionWithHiddenParserRuleCall_1_2_0 = (RuleCall)cExpressionAssignment_1_2.eContents().get(0);
 		private final Keyword cRightCurlyBracketKeyword_1_3 = (Keyword)cGroup_1.eContents().get(3);
 		private final Assignment cTrailingAssignment_1_4 = (Assignment)cGroup_1.eContents().get(4);
 		private final RuleCall cTrailingTextExpressionParserRuleCall_1_4_0 = (RuleCall)cTrailingAssignment_1_4.eContents().get(0);
 		
-		//ExpressionTextExpression returns pp::TextExpression hidden(WS, SL_COMMENT, ML_COMMENT): // allow comments between ${ and }
-		//	StringPart ({pp::ExpressionTE.leading=current} "${" expression=Expression "}" trailing=TextExpression?)*;
+		//ExpressionTextExpression returns pp::TextExpression hidden(): // allow comments between ${ and }
+		//	StringPart ({pp::ExpressionTE.leading=current} "${" expression=ExpressionWithHidden "}" trailing=TextExpression?)*;
 		public ParserRule getRule() { return rule; }
 
 		//// allow comments between ${ and }
-		//StringPart ({pp::ExpressionTE.leading=current} "${" expression=Expression "}" trailing=TextExpression?)*
+		//StringPart ({pp::ExpressionTE.leading=current} "${" expression=ExpressionWithHidden "}" trailing=TextExpression?)*
 		public Group getGroup() { return cGroup; }
 
 		//// allow comments between ${ and }
 		//StringPart
 		public RuleCall getStringPartParserRuleCall_0() { return cStringPartParserRuleCall_0; }
 
-		//({pp::ExpressionTE.leading=current} "${" expression=Expression "}" trailing=TextExpression?)*
+		//({pp::ExpressionTE.leading=current} "${" expression=ExpressionWithHidden "}" trailing=TextExpression?)*
 		public Group getGroup_1() { return cGroup_1; }
 
 		//{pp::ExpressionTE.leading=current}
@@ -2933,11 +2933,11 @@ public class PPGrammarAccess extends AbstractGrammarElementFinder {
 		//"${"
 		public Keyword getDollarSignLeftCurlyBracketKeyword_1_1() { return cDollarSignLeftCurlyBracketKeyword_1_1; }
 
-		//expression=Expression
+		//expression=ExpressionWithHidden
 		public Assignment getExpressionAssignment_1_2() { return cExpressionAssignment_1_2; }
 
-		//Expression
-		public RuleCall getExpressionExpressionParserRuleCall_1_2_0() { return cExpressionExpressionParserRuleCall_1_2_0; }
+		//ExpressionWithHidden
+		public RuleCall getExpressionExpressionWithHiddenParserRuleCall_1_2_0() { return cExpressionExpressionWithHiddenParserRuleCall_1_2_0; }
 
 		//"}"
 		public Keyword getRightCurlyBracketKeyword_1_3() { return cRightCurlyBracketKeyword_1_3; }
@@ -2947,6 +2947,18 @@ public class PPGrammarAccess extends AbstractGrammarElementFinder {
 
 		//TextExpression
 		public RuleCall getTrailingTextExpressionParserRuleCall_1_4_0() { return cTrailingTextExpressionParserRuleCall_1_4_0; }
+	}
+
+	public class ExpressionWithHiddenElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "ExpressionWithHidden");
+		private final RuleCall cExpressionParserRuleCall = (RuleCall)rule.eContents().get(1);
+		
+		//ExpressionWithHidden returns pp::Expression hidden(WS, SL_COMMENT, ML_COMMENT):
+		//	Expression;
+		public ParserRule getRule() { return rule; }
+
+		//Expression
+		public RuleCall getExpressionParserRuleCall() { return cExpressionParserRuleCall; }
 	}
 
 	public class StringPartElements extends AbstractParserRuleElementFinder {
@@ -3410,6 +3422,7 @@ public class PPGrammarAccess extends AbstractGrammarElementFinder {
 	private DollarTextExpressionElements pDollarTextExpression;
 	private VariableTextExpressionElements pVariableTextExpression;
 	private ExpressionTextExpressionElements pExpressionTextExpression;
+	private ExpressionWithHiddenElements pExpressionWithHidden;
 	private StringPartElements pStringPart;
 	private UnquotedStringElements pUnquotedString;
 	private SqTextElements pSqText;
@@ -4328,14 +4341,24 @@ public class PPGrammarAccess extends AbstractGrammarElementFinder {
 		return getVariableTextExpressionAccess().getRule();
 	}
 
-	//ExpressionTextExpression returns pp::TextExpression hidden(WS, SL_COMMENT, ML_COMMENT): // allow comments between ${ and }
-	//	StringPart ({pp::ExpressionTE.leading=current} "${" expression=Expression "}" trailing=TextExpression?)*;
+	//ExpressionTextExpression returns pp::TextExpression hidden(): // allow comments between ${ and }
+	//	StringPart ({pp::ExpressionTE.leading=current} "${" expression=ExpressionWithHidden "}" trailing=TextExpression?)*;
 	public ExpressionTextExpressionElements getExpressionTextExpressionAccess() {
 		return (pExpressionTextExpression != null) ? pExpressionTextExpression : (pExpressionTextExpression = new ExpressionTextExpressionElements());
 	}
 	
 	public ParserRule getExpressionTextExpressionRule() {
 		return getExpressionTextExpressionAccess().getRule();
+	}
+
+	//ExpressionWithHidden returns pp::Expression hidden(WS, SL_COMMENT, ML_COMMENT):
+	//	Expression;
+	public ExpressionWithHiddenElements getExpressionWithHiddenAccess() {
+		return (pExpressionWithHidden != null) ? pExpressionWithHidden : (pExpressionWithHidden = new ExpressionWithHiddenElements());
+	}
+	
+	public ParserRule getExpressionWithHiddenRule() {
+		return getExpressionWithHiddenAccess().getRule();
 	}
 
 	//StringPart returns pp::TextExpression hidden():

@@ -26,8 +26,8 @@ public class TestIssues extends AbstractPuppetTests {
 	 * @throws Exception
 	 */
 	public void test_Issue_11() throws Exception {
-		String code = "class { 'foobar':\n" + //
-				"someparam => 'foo',\n" + //
+		String code = "class { 'file':\n" + //
+				"owner => '666',\n" + //
 				"}\n";
 		XtextResource r = getResourceFromString(code);
 		tester.validate(r.getContents().get(0)).assertOK();

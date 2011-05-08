@@ -5254,7 +5254,7 @@ finally {
 // Entry rule entryRuleExpressionTextExpression
 entryRuleExpressionTextExpression returns [EObject current=null]
 	@init { 
-		HiddenTokens myHiddenTokenState = ((XtextTokenStream)input).setHiddenTokens("RULE_WS", "RULE_SL_COMMENT", "RULE_ML_COMMENT");
+		HiddenTokens myHiddenTokenState = ((XtextTokenStream)input).setHiddenTokens();
 	}
 	:
 	{ newCompositeNode(grammarAccess.getExpressionTextExpressionRule()); }
@@ -5269,7 +5269,7 @@ finally {
 // Rule ExpressionTextExpression
 ruleExpressionTextExpression returns [EObject current=null] 
     @init { enterRule(); 
-		HiddenTokens myHiddenTokenState = ((XtextTokenStream)input).setHiddenTokens("RULE_WS", "RULE_SL_COMMENT", "RULE_ML_COMMENT");
+		HiddenTokens myHiddenTokenState = ((XtextTokenStream)input).setHiddenTokens();
     }
     @after { leaveRule(); }:
 (
@@ -5301,9 +5301,9 @@ ruleExpressionTextExpression returns [EObject current=null]
 (
 (
 		{ 
-	        newCompositeNode(grammarAccess.getExpressionTextExpressionAccess().getExpressionExpressionParserRuleCall_1_2_0()); 
+	        newCompositeNode(grammarAccess.getExpressionTextExpressionAccess().getExpressionExpressionWithHiddenParserRuleCall_1_2_0()); 
 	    }
-		lv_expression_3_0=ruleExpression		{
+		lv_expression_3_0=ruleExpressionWithHidden		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getExpressionTextExpressionRule());
 	        }
@@ -5311,7 +5311,7 @@ ruleExpressionTextExpression returns [EObject current=null]
        			$current, 
        			"expression",
         		lv_expression_3_0, 
-        		"Expression");
+        		"ExpressionWithHidden");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -5340,6 +5340,49 @@ ruleExpressionTextExpression returns [EObject current=null]
 
 )
 )?)*)
+;
+finally {
+	myHiddenTokenState.restore();
+}
+
+
+
+
+
+// Entry rule entryRuleExpressionWithHidden
+entryRuleExpressionWithHidden returns [EObject current=null]
+	@init { 
+		HiddenTokens myHiddenTokenState = ((XtextTokenStream)input).setHiddenTokens("RULE_WS", "RULE_SL_COMMENT", "RULE_ML_COMMENT");
+	}
+	:
+	{ newCompositeNode(grammarAccess.getExpressionWithHiddenRule()); }
+	 iv_ruleExpressionWithHidden=ruleExpressionWithHidden 
+	 { $current=$iv_ruleExpressionWithHidden.current; } 
+	 EOF 
+;
+finally {
+	myHiddenTokenState.restore();
+}
+
+// Rule ExpressionWithHidden
+ruleExpressionWithHidden returns [EObject current=null] 
+    @init { enterRule(); 
+		HiddenTokens myHiddenTokenState = ((XtextTokenStream)input).setHiddenTokens("RULE_WS", "RULE_SL_COMMENT", "RULE_ML_COMMENT");
+    }
+    @after { leaveRule(); }:
+
+	{ 
+	  /* */ 
+	}
+    { 
+        newCompositeNode(grammarAccess.getExpressionWithHiddenAccess().getExpressionParserRuleCall()); 
+    }
+    this_Expression_0=ruleExpression
+    {
+        $current = $this_Expression_0.current;
+        afterParserOrEnumRuleCall();
+    }
+
 ;
 finally {
 	myHiddenTokenState.restore();

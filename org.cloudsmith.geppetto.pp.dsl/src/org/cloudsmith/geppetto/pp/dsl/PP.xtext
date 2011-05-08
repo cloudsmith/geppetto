@@ -552,14 +552,18 @@ VariableTextExpression returns pp::TextExpression hidden():
 	)*
 	;
 	
-ExpressionTextExpression returns pp::TextExpression hidden(WS, SL_COMMENT, ML_COMMENT):
+ExpressionTextExpression returns pp::TextExpression hidden():
 	// allow comments between ${ and }
 	StringPart (
 		{pp::ExpressionTE.leading=current}
-		'${' expression = Expression '}'
+		'${' expression = ExpressionWithHidden '}'
 		trailing = TextExpression?
 	)*
 	;
+
+ExpressionWithHidden returns pp::Expression hidden(WS, SL_COMMENT, ML_COMMENT):
+	Expression
+;
 		
 StringPart returns pp::TextExpression hidden(): 
 	{pp::VerbatimTE} text = doubleStringCharacters? ;

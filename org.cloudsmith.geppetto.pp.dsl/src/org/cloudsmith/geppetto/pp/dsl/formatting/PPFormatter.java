@@ -356,7 +356,11 @@ public class PPFormatter extends AbstractDeclarativeFormatter {
 	}
 
 	protected void stringExpressionConfiguration(FormattingConfig c) {
-		getGrammarAccess();
+		PPGrammarAccess ga = (PPGrammarAccess) getGrammarAccess();
+		Keyword dollarLeft = ga.getExpressionTextExpressionAccess().getDollarSignLeftCurlyBracketKeyword_1_1();
+		Keyword endBrace = ga.getExpressionTextExpressionAccess().getRightCurlyBracketKeyword_1_3();
+		// c.setNoSpace().around(dollarLeft);
+		// c.setNoSpace().around(endBrace);
 
 	};
 

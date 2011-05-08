@@ -155,6 +155,7 @@ public class TestDoubleQuotedString extends AbstractPuppetTests {
 	 */
 	public void test_Serialize_DoubleQuotedString_1() throws Exception {
 		String original = "before${var}/after${1+2}$$${$var}";
+		String formatted = doubleQuote("before${var}/after${1 + 2}$$${$var}");
 		String code = doubleQuote(original);
 		XtextResource r = getResourceFromString(code);
 		EObject result = r.getContents().get(0);
@@ -163,7 +164,7 @@ public class TestDoubleQuotedString extends AbstractPuppetTests {
 		assertTrue("Should be a DoubleQuotedString", result instanceof DoubleQuotedString);
 
 		String s = serializeFormatted(r.getContents().get(0));
-		assertEquals("Serialization of interpolated string should produce same result", code, s);
+		assertEquals("Serialization of interpolated string should produce same result", formatted, s);
 	}
 
 	/**
@@ -178,11 +179,12 @@ public class TestDoubleQuotedString extends AbstractPuppetTests {
 	public void test_Serialize_DoubleQuotedString_2() throws Exception {
 		String original = "before${var}/after${1+2}$$${$var}";
 		String code = "$a = " + doubleQuote(original);
+		String formatted = "$a = " + doubleQuote("before${var}/after${1 + 2}$$${$var}");
 		XtextResource r = getResourceFromString(code);
 		EObject result = r.getContents().get(0);
 		assertTrue("Should be a PuppetManifest", result instanceof PuppetManifest);
 
 		String s = serializeFormatted(r.getContents().get(0));
-		assertEquals("Serialization of interpolated string should produce same result", code, s);
+		assertEquals("Serialization of interpolated string should produce same result", formatted, s);
 	}
 }

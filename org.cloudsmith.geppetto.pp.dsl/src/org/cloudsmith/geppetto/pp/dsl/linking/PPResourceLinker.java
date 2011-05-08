@@ -452,6 +452,8 @@ public class PPResourceLinker {
 			throw new IllegalArgumentException("eClass is null or empty");
 
 		importedNames.add(fqn);
+		if(fqn.equals(QualifiedName.create("apache", "site")))
+			System.out.println("Looking for apache::site.");
 
 		List<IEObjectDescription> targets = Lists.newArrayList();
 		Resource scopeDetermeningResource = scopeDetermeningObject.eResource();

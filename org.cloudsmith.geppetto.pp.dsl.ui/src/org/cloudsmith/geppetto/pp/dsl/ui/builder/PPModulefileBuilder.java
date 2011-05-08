@@ -90,6 +90,33 @@ public class PPModulefileBuilder extends IncrementalProjectBuilder implements PP
 		}
 	}
 
+	private void checkCircularDependencies(final IProgressMonitor monitor) {
+		IProject p = getProject();
+		List<IProject> visited = Lists.newArrayList();
+		List<IProject> circular = Lists.newArrayList();
+		try {
+			visit(p, visited, circular);
+		}
+		catch(CoreException e) {
+			log.error("Can not check for circular dependencies", e);
+		}
+		isCircular: if(!circular.isEmpty()) {
+			// a direct dependency A -> A is tolerated for the hidden PPTP project
+			if(circular.get(0).equals(p) && circular.size() == 1 &&
+					PPUiConstants.PPTP_TARGET_PROJECT_NAME.equals(p.getName()))
+				break isCircular;
+
+			StringBuffer buf = new StringBuffer("Circular dependency: [");
+			for(IProject circ : circular) {
+				buf.append(circ.getName());
+				buf.append("->");
+			}
+			buf.append("]");
+			createErrorMarker(p, buf.toString(), null);
+		}
+
+	}
+
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -114,6 +141,8 @@ public class PPModulefileBuilder extends IncrementalProjectBuilder implements PP
 			m.setAttribute(IMarker.SEVERITY, severity);
 			if(d != null)
 				m.setAttribute(IMarker.LOCATION, d.getName() + d.getVersionRequirement().toString());
+			else
+				m.setAttribute(IMarker.LOCATION, r.getName());
 		}
 		catch(CoreException e) {
 			log.error("Could not create error marker or set its attributes for a 'Modulefile'", e);
@@ -314,6 +343,7 @@ public class PPModulefileBuilder extends IncrementalProjectBuilder implements PP
 		IFile m = getProject().getFile(MODULEFILE_PATH);
 		try {
 			m.deleteMarkers(PUPPET_MODULE_PROBLEM_MARKER_TYPE, true, IResource.DEPTH_ZERO);
+			getProject().deleteMarkers(PUPPET_MODULE_PROBLEM_MARKER_TYPE, true, IResource.DEPTH_ZERO);
 		}
 		catch(CoreException e) {
 			// nevermind, the resource may not even be there...
@@ -353,6 +383,11 @@ public class PPModulefileBuilder extends IncrementalProjectBuilder implements PP
 	}
 
 	private void syncModulefile(final IProgressMonitor monitor) {
+		syncModulefileAndReferences(monitor);
+		checkCircularDependencies(monitor);
+	}
+
+	private void syncModulefileAndReferences(final IProgressMonitor monitor) {
 		if(tracer.isTracing())
 			tracer.trace("Syncing modulefile with project");
 
@@ -446,5 +481,22 @@ public class PPModulefileBuilder extends IncrementalProjectBuilder implements PP
 		catch(CoreException e) {
 			log.error("Can not sync project's dynamic dependencies", e);
 		}
+	}
+
+	private void visit(IProject p, List<IProject> visited, List<IProject> circular) throws CoreException {
+		if(!p.isAccessible())
+			return;
+		if(visited.contains(p))
+			return;
+		visited.add(p);
+		IProject root = visited.get(0);
+		for(IProject dep : p.getReferencedProjects()) {
+			if(dep.equals(root)) {
+				circular.add(p);
+				return;
+			}
+			visit(dep, visited, circular);
+		}
+
 	}
 }

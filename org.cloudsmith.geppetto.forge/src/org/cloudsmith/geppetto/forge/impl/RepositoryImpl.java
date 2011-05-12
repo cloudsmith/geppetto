@@ -59,7 +59,7 @@ public class RepositoryImpl extends EObjectImpl implements Repository {
 		bld.append(hexChars[b & 0x0f]);
 	}
 
-	private static HttpURLConnection checkResponse(HttpURLConnection conn) throws IOException {
+	private static HttpURLConnection checkResponse(HttpURLConnection conn, int redirectCount) throws IOException {
 		int responseCode = conn.getResponseCode();
 		//
 		// When S3 is overloaded or having other problems of a transient
@@ -77,6 +77,20 @@ public class RepositoryImpl extends EObjectImpl implements Repository {
 
 		if(responseCode == HttpURLConnection.HTTP_NOT_FOUND) {
 			throw new FileNotFoundException(conn.getURL() + ": " + conn.getURL());
+		}
+
+		if(responseCode == HttpURLConnection.HTTP_MOVED_TEMP || responseCode == 307) {
+			if(redirectCount >= 5)
+				throw new IOException(conn.getURL() + ": too many redirects");
+			String location = conn.getHeaderField("Location");
+			if(location != null) {
+				conn.disconnect();
+				URL redirTo = new URL(location);
+				HttpURLConnection redirConn = (HttpURLConnection) redirTo.openConnection();
+				redirConn.setRequestMethod(conn.getRequestMethod());
+				redirConn.connect();
+				return checkResponse(redirConn, redirectCount + 1);
+			}
 		}
 
 		// 2xx response codes are ok, everything else is an error
@@ -177,7 +191,7 @@ public class RepositoryImpl extends EObjectImpl implements Repository {
 			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 			conn.setRequestMethod(method.getName());
 			conn.connect();
-			return checkResponse(conn);
+			return checkResponse(conn, 0);
 		}
 		catch(MalformedURLException e) {
 			throw new IOException(e);

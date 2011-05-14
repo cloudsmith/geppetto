@@ -11,4 +11,5 @@ Require-Bundle: org.eclipse.core.runtime,
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-ActivationPolicy: lazy
 Import-Package: org.apache.log4j
-Export-Package: org.cloudsmith.geppetto.common.tracer
+Export-Package: org.cloudsmith.geppetto.common.extension,
+ org.cloudsmith.geppetto.common.tracer

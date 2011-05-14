@@ -40,7 +40,6 @@ public class PptpRubyRuntimeModule extends PptpRuntimeModule {
 	 */
 	@Override
 	public Class<? extends IResourceServiceProvider> bindIResourceServiceProvider() {
-		// TODO Auto-generated method stub
 		return PptpRubyResourceServiceProvider.class;
 	}
 

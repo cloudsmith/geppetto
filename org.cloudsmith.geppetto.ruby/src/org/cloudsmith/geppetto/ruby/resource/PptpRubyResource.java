@@ -28,7 +28,6 @@ import org.cloudsmith.geppetto.ruby.PPFunctionInfo;
 import org.cloudsmith.geppetto.ruby.PPTypeInfo;
 import org.cloudsmith.geppetto.ruby.RubyHelper;
 import org.cloudsmith.geppetto.ruby.RubySyntaxException;
-
 import org.cloudsmith.geppetto.ruby.spi.IRubyIssue;
 import org.cloudsmith.geppetto.ruby.spi.IRubyParseResult;
 import org.eclipse.emf.common.util.URI;
@@ -178,24 +177,30 @@ public class PptpRubyResource extends ResourceImpl {
 		return detectLoadType(getURI());
 	}
 
-	/**
-	 * Load the entire ruby file (this implementation only checks for errors)
-	 * 
-	 * @throws IOException
-	 */
-	protected void internalLoadAnyRuby() throws IOException {
-		InputStream inputStream = this.getURIConverter().createInputStream(
-				getURI());
-		RubyHelper helper = new RubyHelper();
-		helper.setUp();
-		try {
-			IRubyParseResult result = helper.parse(getURI().path(),
-					new InputStreamReader(inputStream));
-			rubyIssuesToDiagnostics(result);
-		} finally {
-			helper.tearDown();
-		}
+	@Override
+	public void doLoad(InputStream in, Map<?, ?> options) throws IOException {
+		loadType = detectLoadType();
+		internalLoadRuby(in);
 	}
+
+	// /**
+	// * Load the entire ruby file (this implementation only checks for errors)
+	// *
+	// * @throws IOException
+	// */
+	// private void internalLoadAnyRuby() throws IOException {
+	// InputStream inputStream = this.getURIConverter().createInputStream(
+	// getURI());
+	// RubyHelper helper = new RubyHelper();
+	// helper.setUp();
+	// try {
+	// IRubyParseResult result = helper.parse(getURI().path(),
+	// new InputStreamReader(inputStream));
+	// rubyIssuesToDiagnostics(result);
+	// } finally {
+	// helper.tearDown();
+	// }
+	// }
 
 	/**
 	 * Loads one (or more) PPTP Type, PPTP Function, PPTP Meta, or PPTP Fragment
@@ -204,7 +209,7 @@ public class PptpRubyResource extends ResourceImpl {
 	 * 
 	 * @throws IOException
 	 */
-	protected void internalLoadRuby() throws IOException {
+	protected void internalLoadRuby(InputStream inputStream) throws IOException {
 		if (loadType == LoadType.IGNORED) {
 			this.getContents().clear();
 			return;
@@ -217,8 +222,7 @@ public class PptpRubyResource extends ResourceImpl {
 			switch (loadType) {
 			case TYPE: {
 				List<PPTypeInfo> typeInfo = helper.getTypeInfo(uri.path(),
-						new InputStreamReader(getURIConverter()
-								.createInputStream(uri)));
+						new InputStreamReader(inputStream));
 				for (PPTypeInfo info : typeInfo) {
 					Type type = PPTPFactory.eINSTANCE.createType();
 					type.setName(info.getTypeName());
@@ -248,9 +252,9 @@ public class PptpRubyResource extends ResourceImpl {
 				break;
 
 			case FUNCTION: {
-				List<PPFunctionInfo> functions = helper.getFunctionInfo(uri
-						.path(), new InputStreamReader(getURIConverter()
-						.createInputStream(uri)));
+				List<PPFunctionInfo> functions = helper.getFunctionInfo(
+						uri.path(), new InputStreamReader(inputStream));
+
 				for (PPFunctionInfo info : functions) {
 					Function pptpFunc = PPTPFactory.eINSTANCE.createFunction();
 					pptpFunc.setName(info.getFunctionName());
@@ -263,8 +267,8 @@ public class PptpRubyResource extends ResourceImpl {
 
 			case META: {
 				PPTypeInfo info = helper.getMetaTypeInfo(uri.path(),
-						new InputStreamReader(getURIConverter()
-								.createInputStream(uri)));
+						new InputStreamReader(inputStream));
+
 				MetaType type = PPTPFactory.eINSTANCE.createMetaType();
 				type.setName(info.getTypeName());
 				type.setDocumentation(info.getDocumentation());
@@ -292,8 +296,7 @@ public class PptpRubyResource extends ResourceImpl {
 
 			case TYPEFRAGMENT: {
 				for (PPTypeInfo type : helper.getTypeFragments(uri.path(),
-						new InputStreamReader(getURIConverter()
-								.createInputStream(uri)))) {
+						new InputStreamReader(inputStream))) {
 					TypeFragment fragment = PPTPFactory.eINSTANCE
 							.createTypeFragment();
 					fragment.setName(type.getTypeName());
@@ -338,7 +341,7 @@ public class PptpRubyResource extends ResourceImpl {
 			super.isLoading = true;
 
 			loadType = detectLoadType();
-			internalLoadRuby();
+			internalLoadRuby(getURIConverter().createInputStream(uri));
 
 			super.isLoading = false;
 			super.isLoaded = true;

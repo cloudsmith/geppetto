@@ -183,25 +183,6 @@ public class PptpRubyResource extends ResourceImpl {
 		internalLoadRuby(in);
 	}
 
-	// /**
-	// * Load the entire ruby file (this implementation only checks for errors)
-	// *
-	// * @throws IOException
-	// */
-	// private void internalLoadAnyRuby() throws IOException {
-	// InputStream inputStream = this.getURIConverter().createInputStream(
-	// getURI());
-	// RubyHelper helper = new RubyHelper();
-	// helper.setUp();
-	// try {
-	// IRubyParseResult result = helper.parse(getURI().path(),
-	// new InputStreamReader(inputStream));
-	// rubyIssuesToDiagnostics(result);
-	// } finally {
-	// helper.tearDown();
-	// }
-	// }
-
 	/**
 	 * Loads one (or more) PPTP Type, PPTP Function, PPTP Meta, or PPTP Fragment
 	 * depending on the type of load (determined by looking at the path to the

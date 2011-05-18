@@ -270,11 +270,10 @@ public class PPResourceLinker {
 
 				if(descs.size() > 1) {
 					// this is an ambiguous link - multiple targets available and order depends on the
-					// order at runtime (may not be the same).
+					// order at runtime (may not be the same). ISSUE: o can be a ResourceBody
 					acceptor.acceptWarning(
 						"Ambiguous reference to: '" + className + "' found in: " + visibleResourceList(descs), o,
-						PPPackage.Literals.HOST_CLASS_DEFINITION__PARENT,
-						IPPDiagnostics.ISSUE__RESOURCE_AMBIGUOUS_REFERENCE);
+						PPPackage.Literals.RESOURCE_BODY__NAME_EXPR, IPPDiagnostics.ISSUE__RESOURCE_AMBIGUOUS_REFERENCE);
 				}
 				// use the first description found to find parameters
 				IEObjectDescription desc = descs.get(0);

@@ -449,8 +449,10 @@ public class PPResourceLinker {
 		// make last segments initial char lower case (for references to the type itself - eg. 'File' instead of
 		// 'file'.
 		fqn = fqn.skipLast(1).append(toInitialLowerCase(fqn.getLastSegment()));
+
+		// Note that order is important, TYPE has higher precedence and should be used for linking
 		return findExternal(
-			scopeDetermeningResource, fqn, importedNames, PPPackage.Literals.DEFINITION, PPTPPackage.Literals.TYPE);
+			scopeDetermeningResource, fqn, importedNames, PPTPPackage.Literals.TYPE, PPPackage.Literals.DEFINITION);
 	}
 
 	protected List<IEObjectDescription> findExternal(EObject scopeDetermeningObject, QualifiedName fqn,

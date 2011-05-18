@@ -74,23 +74,33 @@ public class PPResourceLinker {
 
 		private final EObject scope;
 
+		private final boolean absolute;
+
 		NameInScopeFilter(Iterable<IEObjectDescription> unfiltered, QualifiedName name, EObject scope) {
+			this.absolute = name.getSegmentCount() > 0 && "".equals(name.getSegment(0));
 			this.unfiltered = unfiltered;
-			this.name = name;
+			this.name = absolute
+					? name.skipFirst(1)
+					: name;
 			this.scope = scope;
+
 		}
 
 		public Iterator<IEObjectDescription> iterator() {
-			return Iterators.filter(unfiltered.iterator(), new NameInScopePredicate(name, getNameOfScope(scope)));
+			return Iterators.filter(unfiltered.iterator(), new NameInScopePredicate(
+				absolute, name, getNameOfScope(scope)));
 		}
 	}
 
 	public static class NameInScopePredicate implements Predicate<IEObjectDescription> {
-		QualifiedName scopeName;
+		final QualifiedName scopeName;
 
-		QualifiedName name;
+		final QualifiedName name;
 
-		public NameInScopePredicate(QualifiedName name, QualifiedName scopeName) {
+		final boolean absolute;
+
+		public NameInScopePredicate(boolean absolute, QualifiedName name, QualifiedName scopeName) {
+			this.absolute = absolute;
 			this.scopeName = scopeName == null
 					? QualifiedName.EMPTY
 					: scopeName;
@@ -103,6 +113,8 @@ public class PPResourceLinker {
 			// error, not a valid name (can not possibly match).
 			if(candidateName.getSegmentCount() == 0)
 				return false;
+			if(absolute)
+				return candidateName.equals(name);
 
 			// filter out all that do not match on last segment (i.a. ?::...::x <-> ?::...::y)
 			try {
@@ -450,7 +462,15 @@ public class PPResourceLinker {
 		if(eClasses == null || eClasses.length < 1)
 			throw new IllegalArgumentException("eClass is null or empty");
 
-		importedNames.add(fqn);
+		if(fqn.getSegmentCount() == 1 && "".equals(fqn.getSegment(0)))
+			throw new IllegalArgumentException("FQN has one empty segment");
+
+		// Not meaninfgul to record the fact that an Absolute reference was used as nothing
+		// is named with an absolute FQN (i.e. it is only used to do lookup).
+		final boolean absoluteFQN = "".equals(fqn.getSegment(0));
+		importedNames.add(absoluteFQN
+				? fqn.skipFirst(1)
+				: fqn);
 
 		List<IEObjectDescription> targets = Lists.newArrayList();
 		Resource scopeDetermeningResource = scopeDetermeningObject.eResource();

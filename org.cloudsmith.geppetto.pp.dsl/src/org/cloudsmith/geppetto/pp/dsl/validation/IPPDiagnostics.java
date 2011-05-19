@@ -100,4 +100,6 @@ public interface IPPDiagnostics {
 
 	public static final String ISSUE__NOT_ASSIGNMENT_OP = ISSUE_PREFIX + "NotAssignmentOp";
 
+	public static final String ISSUE__RESOURCE_NAME_REDEFINITION = ISSUE_PREFIX + "ResourceNameRedefinition";
+
 }

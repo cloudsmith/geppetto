@@ -80,6 +80,7 @@ import org.cloudsmith.geppetto.pp.VerbatimTE;
 import org.cloudsmith.geppetto.pp.VirtualNameOrReference;
 import org.cloudsmith.geppetto.pp.adapters.ClassifierAdapter;
 import org.cloudsmith.geppetto.pp.adapters.ClassifierAdapterFactory;
+import org.cloudsmith.geppetto.pp.dsl.eval.PPStringConstantEvaluator;
 import org.cloudsmith.geppetto.pp.dsl.linking.IMessageAcceptor;
 import org.cloudsmith.geppetto.pp.dsl.linking.ValidationBasedMessageAcceptor;
 import org.cloudsmith.geppetto.pp.dsl.services.PPGrammarAccess;
@@ -99,6 +100,7 @@ import org.eclipse.xtext.util.PolymorphicDispatcher;
 import org.eclipse.xtext.util.PolymorphicDispatcher.ErrorHandler;
 import org.eclipse.xtext.validation.Check;
 
+import com.google.common.collect.Lists;
 import com.google.inject.Inject;
 
 public class PPJavaValidator extends AbstractPPJavaValidator implements IPPDiagnostics {
@@ -206,6 +208,9 @@ public class PPJavaValidator extends AbstractPPJavaValidator implements IPPDiagn
 
 	@Inject
 	private PPPatternHelper patternHelper;
+
+	@Inject
+	private PPStringConstantEvaluator stringConstantEvaluator;
 
 	private PPGrammarAccess puppetGrammarAccess;
 
@@ -869,6 +874,8 @@ public class PPJavaValidator extends AbstractPPJavaValidator implements IPPDiagn
 		//
 
 		// check title
+
+		List<String> titles = Lists.newArrayList();
 		for(ResourceBody body : o.getResourceData()) {
 			boolean hasTitle = body.getNameExpr() != null; // && body.getName().length() > 0;
 			if(titleExpected) {
@@ -878,6 +885,19 @@ public class PPJavaValidator extends AbstractPPJavaValidator implements IPPDiagn
 						INSIGNIFICANT_INDEX, IPPDiagnostics.ISSUE__RESOURCE_WITHOUT_TITLE);
 				else {
 					// TODO: Validate the expression type
+
+					// check for uniqueness (within same resource expression)
+					String titleString = stringConstantEvaluator.doToString(body.getNameExpr());
+					if(titleString != null) {
+						if(titles.contains(titleString)) {
+							acceptor.acceptError(
+								errorStartText + "redefinition of: " + titleString, body,
+								PPPackage.Literals.RESOURCE_BODY__NAME_EXPR, INSIGNIFICANT_INDEX,
+								IPPDiagnostics.ISSUE__RESOURCE_NAME_REDEFINITION);
+						}
+						else
+							titles.add(titleString);
+					}
 				}
 			}
 			else if(hasTitle) {

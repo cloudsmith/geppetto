@@ -241,7 +241,7 @@ public class PPResourceLinker {
 				acceptor.acceptWarning(
 					"Ambiguous reference to: '" + parentString + "' found in: " + visibleResourceList(descs), o,
 					PPPackage.Literals.HOST_CLASS_DEFINITION__PARENT,
-					IPPDiagnostics.ISSUE__RESOURCE_AMBIGUOUS_REFERENCE);
+					IPPDiagnostics.ISSUE__RESOURCE_AMBIGUOUS_REFERENCE, parentString);
 			}
 		}
 		if(descs.size() < 1) {
@@ -285,7 +285,8 @@ public class PPResourceLinker {
 					// order at runtime (may not be the same). ISSUE: o can be a ResourceBody
 					acceptor.acceptWarning(
 						"Ambiguous reference to: '" + className + "' found in: " + visibleResourceList(descs), o,
-						PPPackage.Literals.RESOURCE_BODY__NAME_EXPR, IPPDiagnostics.ISSUE__RESOURCE_AMBIGUOUS_REFERENCE);
+						PPPackage.Literals.RESOURCE_BODY__NAME_EXPR,
+						IPPDiagnostics.ISSUE__RESOURCE_AMBIGUOUS_REFERENCE, className);
 				}
 				// use the first description found to find parameters
 				IEObjectDescription desc = descs.get(0);
@@ -376,7 +377,7 @@ public class PPResourceLinker {
 					acceptor.acceptWarning(
 						"Ambiguous reference to: '" + resourceTypeName + "' found in: " + visibleResourceList(descs),
 						o, PPPackage.Literals.RESOURCE_EXPRESSION__RESOURCE_EXPR,
-						IPPDiagnostics.ISSUE__RESOURCE_AMBIGUOUS_REFERENCE);
+						IPPDiagnostics.ISSUE__RESOURCE_AMBIGUOUS_REFERENCE, resourceTypeName);
 				}
 			}
 			// ... and finally, if there was neither a type nor a definition reference

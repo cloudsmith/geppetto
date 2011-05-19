@@ -11,7 +11,15 @@
  */
 package org.cloudsmith.geppetto.pp.dsl.ui.quickfix;
 
+import org.cloudsmith.geppetto.pp.dsl.validation.IPPDiagnostics;
+import org.eclipse.jface.text.BadLocationException;
+import org.eclipse.xtext.ui.editor.model.IXtextDocument;
+import org.eclipse.xtext.ui.editor.model.edit.IModification;
+import org.eclipse.xtext.ui.editor.model.edit.IModificationContext;
 import org.eclipse.xtext.ui.editor.quickfix.DefaultQuickfixProvider;
+import org.eclipse.xtext.ui.editor.quickfix.Fix;
+import org.eclipse.xtext.ui.editor.quickfix.IssueResolutionAcceptor;
+import org.eclipse.xtext.validation.Issue;
 
 public class PPQuickfixProvider extends DefaultQuickfixProvider {
 
@@ -25,5 +33,20 @@ public class PPQuickfixProvider extends DefaultQuickfixProvider {
 	// }
 	// });
 	// }
+
+	@Fix(IPPDiagnostics.ISSUE__RESOURCE_AMBIGUOUS_REFERENCE)
+	public void makeReferenceAbsolute(final Issue issue, IssueResolutionAcceptor acceptor) {
+		String data[] = issue.getData();
+		if(data == null || data.length != 1 || data[0] == null || data[0].startsWith("::"))
+			return;
+
+		acceptor.accept(
+			issue, "Make absolute", "Make reference absolute by prepending '::'", null, new IModification() {
+				public void apply(IModificationContext context) throws BadLocationException {
+					IXtextDocument xtextDocument = context.getXtextDocument();
+					xtextDocument.replace(issue.getOffset(), 0, "::");
+				}
+			});
+	}
 
 }

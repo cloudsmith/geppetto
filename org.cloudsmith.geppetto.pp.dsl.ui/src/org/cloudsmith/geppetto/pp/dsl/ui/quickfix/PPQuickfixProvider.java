@@ -56,6 +56,13 @@ public class PPQuickfixProvider extends DefaultQuickfixProvider {
 
 	}
 
+	@Fix(IPPDiagnostics.ISSUE__MISSING_COMMA)
+	public void insertMissingComma(final Issue issue, IssueResolutionAcceptor acceptor) {
+		acceptor.accept(
+			issue, "Insert missing comma", "Insert missing comma", null, new ReplacingModification(
+				issue.getOffset() + 1, 0, ","));
+	}
+
 	@Fix(IPPDiagnostics.ISSUE__RESOURCE_AMBIGUOUS_REFERENCE)
 	public void makeReferenceAbsolute(final Issue issue, IssueResolutionAcceptor acceptor) {
 		String data[] = issue.getData();

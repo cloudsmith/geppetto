@@ -426,9 +426,10 @@ public class PPJavaValidator extends AbstractPPJavaValidator implements IPPDiagn
 					continue;
 				if(expectComma) {
 					if(!(n instanceof ILeafNode && ",".equals(n.getText()))) {
-						acceptor.acceptError(
-							"Missing comma.", n.getSemanticElement(), expectOffset, 1,
-							IPPDiagnostics.ISSUE__MISSING_COMMA);
+						acceptor.acceptError("Missing comma.", n.getSemanticElement(),
+						// note that offset must be -1 as this ofter a hidden newline and this
+						// does not work otherwise. Any quickfix needs to adjust the offset on replacement.
+							expectOffset - 1, 2, IPPDiagnostics.ISSUE__MISSING_COMMA);
 					}
 					expectComma = false;
 				}

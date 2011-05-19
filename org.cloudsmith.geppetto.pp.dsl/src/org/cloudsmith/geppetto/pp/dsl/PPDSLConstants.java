@@ -33,4 +33,10 @@ public interface PPDSLConstants {
 	 */
 	public static final String PARENT_NAME_DATA = "org.cloudsmith.geppetto.pp.dsl.parent";
 
+	/**
+	 * Property key for Resource Properties. This key should refer to an EMF URI that denotes the
+	 * root to use when relativizing URI/paths in reported diagnostic.
+	 */
+	public static final String RESOURCE_PROPERTY__ROOT_URI = "org.cloudsmith.geppetto.pp.dsl.resource.rootUri";
+
 }

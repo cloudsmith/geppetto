@@ -37,6 +37,8 @@ import org.cloudsmith.geppetto.pp.adapters.ClassifierAdapterFactory;
 import org.cloudsmith.geppetto.pp.dsl.PPDSLConstants;
 import org.cloudsmith.geppetto.pp.dsl.adapters.PPImportedNamesAdapter;
 import org.cloudsmith.geppetto.pp.dsl.adapters.PPImportedNamesAdapterFactory;
+import org.cloudsmith.geppetto.pp.dsl.adapters.ResourcePropertiesAdapter;
+import org.cloudsmith.geppetto.pp.dsl.adapters.ResourcePropertiesAdapterFactory;
 import org.cloudsmith.geppetto.pp.dsl.eval.PPStringConstantEvaluator;
 import org.cloudsmith.geppetto.pp.dsl.validation.IPPDiagnostics;
 import org.cloudsmith.geppetto.pp.pptp.PPTPPackage;
@@ -240,7 +242,8 @@ public class PPResourceLinker {
 				// this is an ambiguous link - multiple targets available and order depends on the
 				// order at runtime (may not be the same).
 				acceptor.acceptWarning(
-					"Ambiguous reference to: '" + parentString + "' found in: " + visibleResourceList(descs), o,
+					"Ambiguous reference to: '" + parentString + "' found in: " +
+							visibleResourceList(o.eResource(), descs), o,
 					PPPackage.Literals.HOST_CLASS_DEFINITION__PARENT,
 					IPPDiagnostics.ISSUE__RESOURCE_AMBIGUOUS_REFERENCE, computeProposals(parentString, descs));
 			}
@@ -285,7 +288,8 @@ public class PPResourceLinker {
 					// this is an ambiguous link - multiple targets available and order depends on the
 					// order at runtime (may not be the same). ISSUE: o can be a ResourceBody
 					acceptor.acceptWarning(
-						"Ambiguous reference to: '" + className + "' found in: " + visibleResourceList(descs), o,
+						"Ambiguous reference to: '" + className + "' found in: " +
+								visibleResourceList(o.eResource(), descs), o,
 						PPPackage.Literals.RESOURCE_BODY__NAME_EXPR,
 						IPPDiagnostics.ISSUE__RESOURCE_AMBIGUOUS_REFERENCE, computeProposals(className, descs));
 				}
@@ -376,8 +380,9 @@ public class PPResourceLinker {
 					// this is an ambiguous link - multiple targets available and order depends on the
 					// order at runtime (may not be the same).
 					acceptor.acceptWarning(
-						"Ambiguous reference to: '" + resourceTypeName + "' found in: " + visibleResourceList(descs),
-						o, PPPackage.Literals.RESOURCE_EXPRESSION__RESOURCE_EXPR,
+						"Ambiguous reference to: '" + resourceTypeName + "' found in: " +
+								visibleResourceList(o.eResource(), descs), o,
+						PPPackage.Literals.RESOURCE_EXPRESSION__RESOURCE_EXPR,
 						IPPDiagnostics.ISSUE__RESOURCE_AMBIGUOUS_REFERENCE, computeProposals(resourceTypeName, descs));
 				}
 			}
@@ -702,11 +707,17 @@ public class PPResourceLinker {
 	 * @param descriptors
 	 * @return
 	 */
-	protected String visibleResourceList(List<IEObjectDescription> descriptors) {
+	protected String visibleResourceList(Resource r, List<IEObjectDescription> descriptors) {
+		ResourcePropertiesAdapter adapter = ResourcePropertiesAdapterFactory.eINSTANCE.adapt(r);
+		URI root = (URI) adapter.get(PPDSLConstants.RESOURCE_PROPERTY__ROOT_URI);
+
 		// collect the (unique) resource paths
 		List<String> resources = Lists.newArrayList();
 		for(IEObjectDescription d : descriptors) {
 			URI uri = EcoreUtil.getURI(d.getEObjectOrProxy());
+			if(root != null) {
+				uri = uri.deresolve(root.appendSegment(""));
+			}
 			boolean isPptpResource = "pptp".equals(uri.fileExtension());
 			String path = isPptpResource
 					? uri.lastSegment()

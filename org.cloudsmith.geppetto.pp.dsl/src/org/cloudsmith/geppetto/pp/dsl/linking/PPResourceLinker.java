@@ -14,6 +14,7 @@ package org.cloudsmith.geppetto.pp.dsl.linking;
 import static org.cloudsmith.geppetto.pp.adapters.ClassifierAdapter.RESOURCE_IS_CLASSPARAMS;
 import static org.cloudsmith.geppetto.pp.adapters.ClassifierAdapter.RESOURCE_IS_OVERRIDE;
 
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
@@ -241,7 +242,7 @@ public class PPResourceLinker {
 				acceptor.acceptWarning(
 					"Ambiguous reference to: '" + parentString + "' found in: " + visibleResourceList(descs), o,
 					PPPackage.Literals.HOST_CLASS_DEFINITION__PARENT,
-					IPPDiagnostics.ISSUE__RESOURCE_AMBIGUOUS_REFERENCE, parentString);
+					IPPDiagnostics.ISSUE__RESOURCE_AMBIGUOUS_REFERENCE, computeProposals(parentString, descs));
 			}
 		}
 		if(descs.size() < 1) {
@@ -286,7 +287,7 @@ public class PPResourceLinker {
 					acceptor.acceptWarning(
 						"Ambiguous reference to: '" + className + "' found in: " + visibleResourceList(descs), o,
 						PPPackage.Literals.RESOURCE_BODY__NAME_EXPR,
-						IPPDiagnostics.ISSUE__RESOURCE_AMBIGUOUS_REFERENCE, className);
+						IPPDiagnostics.ISSUE__RESOURCE_AMBIGUOUS_REFERENCE, computeProposals(className, descs));
 				}
 				// use the first description found to find parameters
 				IEObjectDescription desc = descs.get(0);
@@ -377,7 +378,7 @@ public class PPResourceLinker {
 					acceptor.acceptWarning(
 						"Ambiguous reference to: '" + resourceTypeName + "' found in: " + visibleResourceList(descs),
 						o, PPPackage.Literals.RESOURCE_EXPRESSION__RESOURCE_EXPR,
-						IPPDiagnostics.ISSUE__RESOURCE_AMBIGUOUS_REFERENCE, resourceTypeName);
+						IPPDiagnostics.ISSUE__RESOURCE_AMBIGUOUS_REFERENCE, computeProposals(resourceTypeName, descs));
 				}
 			}
 			// ... and finally, if there was neither a type nor a definition reference
@@ -386,6 +387,21 @@ public class PPResourceLinker {
 					"Unknown resource type: '" + resourceTypeName + "'", o,
 					PPPackage.Literals.RESOURCE_EXPRESSION__RESOURCE_EXPR, IPPDiagnostics.ISSUE__RESOURCE_UNKNOWN_TYPE);
 		}
+	}
+
+	private String[] computeProposals(String currentName, List<IEObjectDescription> descs) {
+		List<String> proposals = Lists.newArrayList();
+		for(IEObjectDescription d : descs) {
+			String s = converter.toString(d.getQualifiedName());
+			if(!s.startsWith("::"))
+				proposals.add("::" + s);
+			if(s.equals(currentName) || proposals.contains(s))
+				continue;
+			proposals.add(s);
+		}
+		String[] props = proposals.toArray(new String[proposals.size()]);
+		Arrays.sort(props);
+		return props;
 	}
 
 	/**
@@ -718,5 +734,4 @@ public class PPResourceLinker {
 		buf.append("}");
 		return buf.toString();
 	}
-
 }

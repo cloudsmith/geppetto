@@ -34,19 +34,39 @@ public class PPQuickfixProvider extends DefaultQuickfixProvider {
 	// });
 	// }
 
+	private static class ReplacingModification implements IModification {
+
+		final private int length;
+
+		final private int offset;
+
+		final private String text;
+
+		ReplacingModification(int offset, int length, String text) {
+			this.length = length;
+			this.offset = offset;
+			this.text = text;
+		}
+
+		@Override
+		public void apply(IModificationContext context) throws BadLocationException {
+			IXtextDocument xtextDocument = context.getXtextDocument();
+			xtextDocument.replace(offset, length, text);
+		}
+
+	}
+
 	@Fix(IPPDiagnostics.ISSUE__RESOURCE_AMBIGUOUS_REFERENCE)
 	public void makeReferenceAbsolute(final Issue issue, IssueResolutionAcceptor acceptor) {
 		String data[] = issue.getData();
-		if(data == null || data.length != 1 || data[0] == null || data[0].startsWith("::"))
+		if(data == null)
 			return;
-
-		acceptor.accept(
-			issue, "Make absolute", "Make reference absolute by prepending '::'", null, new IModification() {
-				public void apply(IModificationContext context) throws BadLocationException {
-					IXtextDocument xtextDocument = context.getXtextDocument();
-					xtextDocument.replace(issue.getOffset(), 0, "::");
-				}
-			});
+		for(String proposal : data) {
+			acceptor.accept(issue, "Replace with '" + proposal + "'", //
+			"Change the reference to" + (proposal.startsWith("::")
+					? " the absolute: \n"
+					: ": \n") + proposal, null, new ReplacingModification(
+				issue.getOffset(), issue.getLength(), proposal));
+		}
 	}
-
 }

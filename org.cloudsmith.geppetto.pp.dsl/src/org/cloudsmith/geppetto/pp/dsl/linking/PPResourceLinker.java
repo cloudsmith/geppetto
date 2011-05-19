@@ -391,10 +391,15 @@ public class PPResourceLinker {
 
 	private String[] computeProposals(String currentName, List<IEObjectDescription> descs) {
 		List<String> proposals = Lists.newArrayList();
+		if(currentName.startsWith("::"))
+			return new String[0]; // can not make a global name more specific than what it already is
 		for(IEObjectDescription d : descs) {
 			String s = converter.toString(d.getQualifiedName());
-			if(!s.startsWith("::"))
-				proposals.add("::" + s);
+			if(!s.startsWith("::")) {
+				String s2 = "::" + s;
+				if(!(s2.equals(currentName) || proposals.contains(s2)))
+					proposals.add(s2);
+			}
 			if(s.equals(currentName) || proposals.contains(s))
 				continue;
 			proposals.add(s);
@@ -701,7 +706,11 @@ public class PPResourceLinker {
 		// collect the (unique) resource paths
 		List<String> resources = Lists.newArrayList();
 		for(IEObjectDescription d : descriptors) {
-			String path = EcoreUtil.getURI(d.getEObjectOrProxy()).devicePath();
+			URI uri = EcoreUtil.getURI(d.getEObjectOrProxy());
+			boolean isPptpResource = "pptp".equals(uri.fileExtension());
+			String path = isPptpResource
+					? uri.lastSegment()
+					: uri.devicePath();
 			if(!resources.contains(path))
 				resources.add(path);
 		}

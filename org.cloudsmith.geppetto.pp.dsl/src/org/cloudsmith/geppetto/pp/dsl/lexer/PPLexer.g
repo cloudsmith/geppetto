@@ -49,6 +49,7 @@ import java.util.HashMap;
   		case KEYWORD_22 : // '}'
   		case KEYWORD_36 : // '=~'
   		case KEYWORD_24 : // '!~'
+  		case KEYWORD_63 : // 'inherits'
   		case 0 : // nothing seen before, used when serializing
   			return true;
   		default:

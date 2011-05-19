@@ -706,8 +706,17 @@ public class PPJavaValidator extends AbstractPPJavaValidator implements IPPDiagn
 		EObject container = o.eContainer();
 		if(!(container instanceof PuppetManifest || container instanceof HostClassDefinition))
 			acceptor.acceptError(
-				"A node definition may only appear at toplevel or directly inside classes.", o, o.eContainingFeature(),
-				INSIGNIFICANT_INDEX, IPPDiagnostics.ISSUE__NOT_AT_TOPLEVEL_OR_CLASS);
+				"A node definition may only appear at toplevel or directly inside classes.", container,
+				o.eContainingFeature(), INSIGNIFICANT_INDEX, IPPDiagnostics.ISSUE__NOT_AT_TOPLEVEL_OR_CLASS);
+
+		Expression parentExpr = o.getParentName();
+		if(parentExpr != null) {
+			String parentName = stringConstantEvaluator.doToString(parentExpr);
+			if(parentName == null)
+				acceptor.acceptError(
+					"Must be a constant name/string expression.", o, PPPackage.Literals.NODE_DEFINITION__PARENT_NAME,
+					INSIGNIFICANT_INDEX, IPPDiagnostics.ISSUE__NOT_CONSTANT);
+		}
 	}
 
 	protected void checkOperator(BinaryOpExpression o, String... ops) {

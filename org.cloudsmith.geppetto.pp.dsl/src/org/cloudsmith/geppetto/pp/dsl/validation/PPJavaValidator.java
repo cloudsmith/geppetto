@@ -896,16 +896,35 @@ public class PPJavaValidator extends AbstractPPJavaValidator implements IPPDiagn
 					// TODO: Validate the expression type
 
 					// check for uniqueness (within same resource expression)
-					String titleString = stringConstantEvaluator.doToString(body.getNameExpr());
-					if(titleString != null) {
-						if(titles.contains(titleString)) {
-							acceptor.acceptError(
-								errorStartText + "redefinition of: " + titleString, body,
-								PPPackage.Literals.RESOURCE_BODY__NAME_EXPR, INSIGNIFICANT_INDEX,
-								IPPDiagnostics.ISSUE__RESOURCE_NAME_REDEFINITION);
+					if(body.getNameExpr() instanceof LiteralList) {
+						int index = 0;
+						for(Expression ne : ((LiteralList) body.getNameExpr()).getElements()) {
+							String titleString = stringConstantEvaluator.doToString(ne);
+							if(titleString != null) {
+								if(titles.contains(titleString)) {
+									acceptor.acceptError(
+										errorStartText + "redefinition of: " + titleString, body.getNameExpr(),
+										PPPackage.Literals.LITERAL_LIST__ELEMENTS, index,
+										IPPDiagnostics.ISSUE__RESOURCE_NAME_REDEFINITION);
+								}
+								else
+									titles.add(titleString);
+							}
+							index++;
 						}
-						else
-							titles.add(titleString);
+					}
+					else {
+						String titleString = stringConstantEvaluator.doToString(body.getNameExpr());
+						if(titleString != null) {
+							if(titles.contains(titleString)) {
+								acceptor.acceptError(
+									errorStartText + "redefinition of: " + titleString, body,
+									PPPackage.Literals.RESOURCE_BODY__NAME_EXPR, INSIGNIFICANT_INDEX,
+									IPPDiagnostics.ISSUE__RESOURCE_NAME_REDEFINITION);
+							}
+							else
+								titles.add(titleString);
+						}
 					}
 				}
 			}

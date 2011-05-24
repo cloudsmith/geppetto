@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.jrubyparser.ast.ArrayNode;
+import org.jrubyparser.ast.CallNode;
 import org.jrubyparser.ast.Colon2Node;
 import org.jrubyparser.ast.ConstNode;
 import org.jrubyparser.ast.HashNode;
@@ -53,6 +54,13 @@ public class ConstEvaluator extends AbstractJRubyVisitor {
 		for (Node n : iVisited.childNodes())
 			result.add(eval(n));
 		return result;
+	}
+
+	@Override
+	public Object visitCallNode(CallNode iVisited) {
+		if ("intern".equals(iVisited.getName()))
+			return eval(iVisited.getReceiverNode());
+		return null;
 	}
 
 	@Override

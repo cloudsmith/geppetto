@@ -1009,8 +1009,8 @@ public class PPJavaValidator extends AbstractPPJavaValidator implements IPPDiagn
 	public void checkSingleQuotedString(SingleQuotedString o) {
 		if(!isSTRING(o.getText()))
 			acceptor.acceptError(
-				"Expected to comply with String rule", o, PPPackage.Literals.SINGLE_QUOTED_STRING__TEXT,
-				IPPDiagnostics.ISSUE__NOT_STRING);
+				"Contains illegal character(s). Probably an unescaped single quote.", o,
+				PPPackage.Literals.SINGLE_QUOTED_STRING__TEXT, IPPDiagnostics.ISSUE__NOT_STRING);
 		String s = o.getText();
 
 		// remove all escaped \ to make it easier to find the illegal escapes

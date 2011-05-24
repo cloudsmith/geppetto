@@ -27,6 +27,8 @@ import org.cloudsmith.geppetto.ruby.RubySyntaxException;
 import org.cloudsmith.geppetto.ruby.spi.IRubyIssue;
 import org.cloudsmith.geppetto.ruby.spi.IRubyParseResult;
 import org.cloudsmith.geppetto.ruby.spi.IRubyServices;
+import org.eclipse.core.runtime.IPath;
+import org.eclipse.core.runtime.Path;
 import org.jrubyparser.CompatVersion;
 import org.jrubyparser.ast.ClassNode;
 import org.jrubyparser.ast.InstAsgnNode;
@@ -109,6 +111,9 @@ public class JRubyServices implements IRubyServices {
 	private static final String functionDefinition = "newfunction";
 	private static final String[] newFunctionFQN = new String[] { "Puppet",
 			"Parser", "Functions", functionDefinition };
+
+	private static final String[] NAGIOS_BASE_PATH = new String[] { "puppet",
+			"external", "nagios", "base.rb" };
 
 	@Override
 	public List<PPFunctionInfo> getFunctionInfo(File file) throws IOException,
@@ -228,28 +233,31 @@ public class JRubyServices implements IRubyServices {
 	@Override
 	public List<PPTypeInfo> getTypeInfo(File file) throws IOException,
 			RubySyntaxException {
-		Result result = internalParse(file);
-		return getTypeInfo(result);
+		final Result result = internalParse(file);
+		return getTypeInfo(result, isNagiosLoad(file));
 	}
 
-	protected List<PPTypeInfo> getTypeInfo(Result result) throws IOException,
-			RubySyntaxException {
+	protected List<PPTypeInfo> getTypeInfo(Result result, boolean nagiosLoad)
+			throws IOException, RubySyntaxException {
 		if (result.hasErrors())
 			throw new RubySyntaxException(result.getIssues());
-		List<PPTypeInfo> types = Lists.newArrayList();
 		PPTypeFinder typeFinder = new PPTypeFinder();
+
+		if (nagiosLoad)
+			return typeFinder.findNagiosTypeInfo(result.getAST());
+
+		List<PPTypeInfo> types = Lists.newArrayList();
 		PPTypeInfo typeInfo = typeFinder.findTypeInfo(result.getAST());
 		if (typeInfo != null)
 			types.add(typeInfo);
 		return types;
-
 	}
 
 	@Override
 	public List<PPTypeInfo> getTypeInfo(String fileName, Reader reader)
 			throws IOException, RubySyntaxException {
 		Result result = internalParse(fileName, reader);
-		return getTypeInfo(result);
+		return getTypeInfo(result, isNagiosLoad(fileName));
 	}
 
 	@Override
@@ -346,6 +354,22 @@ public class JRubyServices implements IRubyServices {
 	@Override
 	public boolean isMockService() {
 		return false;
+	}
+
+	private boolean isNagiosLoad(File file) {
+		return isNagiosLoad(file.getAbsolutePath());
+	}
+
+	private boolean isNagiosLoad(String filePath) {
+		final int nlength = NAGIOS_BASE_PATH.length;
+		final IPath path = Path.fromOSString(filePath);
+		final int length = path.segmentCount();
+		boolean nagiosLoad = true; // until proven wrong
+		for (int ix = 0; ix > -4 && nagiosLoad; ix--) {
+			nagiosLoad = NAGIOS_BASE_PATH[nlength - 1 + ix].equals(path
+					.segment(length - 1 + ix));
+		}
+		return nagiosLoad;
 	}
 
 	/**

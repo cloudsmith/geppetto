@@ -161,7 +161,7 @@ public class PuppetTPTests extends TestCase {
 			TargetEntry target = helper.loadDistroTarget(distroDir);
 			for(Type t : target.getTypes())
 				System.err.println("Found t: " + t.getName());
-			assertEquals("Should have found 32 types", 32, target.getTypes().size());
+			assertEquals("Should have found 46 types", 46, target.getTypes().size());
 			for(Function f : target.getFunctions())
 				System.err.println("Found f: " + f.getName());
 			assertEquals("Should have found 29 functions", 29, target.getFunctions().size());

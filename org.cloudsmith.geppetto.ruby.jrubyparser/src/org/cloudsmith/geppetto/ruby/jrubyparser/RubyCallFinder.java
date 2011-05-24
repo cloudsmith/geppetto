@@ -15,6 +15,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import org.jrubyparser.ast.CallNode;
+import org.jrubyparser.ast.ClassNode;
 import org.jrubyparser.ast.FCallNode;
 import org.jrubyparser.ast.ModuleNode;
 import org.jrubyparser.ast.NewlineNode;
@@ -75,12 +76,13 @@ public class RubyCallFinder {
 		this.qualifiedName = Lists.newArrayList(Iterables.reverse(Lists
 				.newArrayList(qualifiedName)));
 
-		return findCallInternal(root);
+		List<GenericCallNode> result = findCallInternal(root, true);
+		return result == null || result.size() != 1 ? null : result.get(0);
 	}
 
-	private GenericCallNode findCallInternal(Node root) {
+	private List<GenericCallNode> findCallInternal(Node root, boolean findFirst) {
 		push(root);
-		GenericCallNode r = null;
+		List<GenericCallNode> result = null;
 
 		SEARCH: {
 			switch (root.getNodeType()) {
@@ -93,6 +95,14 @@ public class RubyCallFinder {
 					break SEARCH;
 				break; // search children
 
+			case CLASSNODE:
+				ClassNode classNode = (ClassNode) root;
+				pushNames(constEvaluator.stringList(constEvaluator
+						.eval(classNode.getCPath())));
+				if (!inCompatibleScope())
+					break SEARCH;
+				break; // search children
+
 			case CALLNODE:
 				CallNode callNode = (CallNode) root;
 				if (!callNode.getName().equals(qualifiedName.get(0)))
@@ -100,7 +110,7 @@ public class RubyCallFinder {
 				pushNames(constEvaluator.stringList(constEvaluator
 						.eval(callNode.getReceiverNode())));
 				if (inWantedScope())
-					return new GenericCallNode(callNode);
+					return Lists.newArrayList(new GenericCallNode(callNode));
 				pop(root); // clear the pushed names
 				push(root); // push it again
 				break; // continue search inside the function
@@ -110,21 +120,47 @@ public class RubyCallFinder {
 				if (!fcallNode.getName().equals(qualifiedName.get(0)))
 					break SEARCH;
 				if (inWantedScope())
-					return new GenericCallNode(fcallNode);
+					return Lists.newArrayList(new GenericCallNode(fcallNode));
 				break; // continue search inside the function
 			}
 
 			for (Node n : root.childNodes()) {
 				if (n.getNodeType() == NodeType.NEWLINENODE)
 					n = ((NewlineNode) n).getNextNode();
-				r = findCallInternal(n);
-				if (r != null)
-					return r;
+				List<GenericCallNode> r = findCallInternal(n, findFirst);
+				if (r != null) {
+					if (result == null)
+						result = r;
+					else
+						result.addAll(r);
+					// only collect one
+					if (findFirst)
+						return result;
+				}
 			}
 		} // SEARCH
 
 		pop(root);
-		return null;
+		// return a found result or null
+		return result == null || result.size() == 0 ? null : result;
+	}
+
+	public List<GenericCallNode> findCalls(Node root, String... qualifiedName) {
+		if (qualifiedName.length < 1)
+			throw new IllegalArgumentException("qualifiedName can not be empty");
+
+		this.stack = Lists.newLinkedList();
+		this.nameStack = Lists.newLinkedList();
+
+		// NOTE: opportunity to make this better if guava a.k.a google.collect
+		// 2.0 is used
+		// since it has a Lists.reverse method - now this ugly construct is
+		// used.
+		this.qualifiedName = Lists.newArrayList(Iterables.reverse(Lists
+				.newArrayList(qualifiedName)));
+
+		// TODO: make this return more than one
+		return findCallInternal(root, false);
 	}
 
 	/**
@@ -222,5 +258,4 @@ public class RubyCallFinder {
 		for (String name : names)
 			pushName(name);
 	}
-
 }

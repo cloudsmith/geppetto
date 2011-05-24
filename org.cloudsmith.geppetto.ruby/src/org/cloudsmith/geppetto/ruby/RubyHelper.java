@@ -448,6 +448,14 @@ public class RubyHelper {
 			// ignore
 		}
 
+		// load nagios types
+		try {
+			File nagios = new File(file, "external/nagios/base.rb");
+			loadNagiosTypes(puppetDistro, nagios);
+		} catch (FileNotFoundException e) {
+			// ignore - no nagios
+		}
+
 		// load metatype
 		try {
 			File typeFile = new File(file, "type.rb");
@@ -531,6 +539,14 @@ public class RubyHelper {
 
 	}
 
+	private void loadNagiosTypes(TargetEntry target, File rbFile)
+			throws IOException, RubySyntaxException {
+
+		for (Type t : transform(getTypeInfo(rbFile))) {
+			target.getTypes().add(t);
+		}
+	}
+
 	/**
 	 * Loads a service extension, or creates a mock implementation.
 	 */
@@ -612,30 +628,32 @@ public class RubyHelper {
 	 */
 	public List<Type> loadTypes(File rbFile) throws IOException,
 			RubySyntaxException {
-		List<Type> result = Lists.newArrayList();
-		for (PPTypeInfo info : getTypeInfo(rbFile)) {
-			Type type = PPTPFactory.eINSTANCE.createType();
-			type.setName(info.getTypeName());
-			type.setDocumentation(info.getDocumentation());
-			for (Map.Entry<String, PPTypeInfo.Entry> entry : info
-					.getParameters().entrySet()) {
-				Parameter parameter = PPTPFactory.eINSTANCE.createParameter();
-				parameter.setName(entry.getKey());
-				parameter.setDocumentation(entry.getValue().documentation);
-				parameter.setRequired(entry.getValue().isRequired());
-				type.getParameters().add(parameter);
-			}
-			for (Map.Entry<String, PPTypeInfo.Entry> entry : info
-					.getProperties().entrySet()) {
-				Property property = PPTPFactory.eINSTANCE.createProperty();
-				property.setName(entry.getKey());
-				property.setDocumentation(entry.getValue().documentation);
-				property.setRequired(entry.getValue().isRequired());
-				type.getProperties().add(property);
-			}
-			result.add(type);
-		}
-		return result;
+		// List<Type> result = Lists.newArrayList();
+		return transform(getTypeInfo(rbFile));
+
+		// for (PPTypeInfo info : getTypeInfo(rbFile)) {
+		// Type type = PPTPFactory.eINSTANCE.createType();
+		// type.setName(info.getTypeName());
+		// type.setDocumentation(info.getDocumentation());
+		// for (Map.Entry<String, PPTypeInfo.Entry> entry : info
+		// .getParameters().entrySet()) {
+		// Parameter parameter = PPTPFactory.eINSTANCE.createParameter();
+		// parameter.setName(entry.getKey());
+		// parameter.setDocumentation(entry.getValue().documentation);
+		// parameter.setRequired(entry.getValue().isRequired());
+		// type.getParameters().add(parameter);
+		// }
+		// for (Map.Entry<String, PPTypeInfo.Entry> entry : info
+		// .getProperties().entrySet()) {
+		// Property property = PPTPFactory.eINSTANCE.createProperty();
+		// property.setName(entry.getKey());
+		// property.setDocumentation(entry.getValue().documentation);
+		// property.setRequired(entry.getValue().isRequired());
+		// type.getProperties().add(property);
+		// }
+		// result.add(type);
+		// }
+		// return result;
 	}
 
 	/**
@@ -705,6 +723,34 @@ public class RubyHelper {
 			return; // ignore silently
 
 		rubyProvider.tearDown();
+
+	}
+
+	private List<Type> transform(List<PPTypeInfo> typeInfos) {
+		List<Type> result = Lists.newArrayList();
+		for (PPTypeInfo info : typeInfos) {
+			Type type = PPTPFactory.eINSTANCE.createType();
+			type.setName(info.getTypeName());
+			type.setDocumentation(info.getDocumentation());
+			for (Map.Entry<String, PPTypeInfo.Entry> entry : info
+					.getParameters().entrySet()) {
+				Parameter parameter = PPTPFactory.eINSTANCE.createParameter();
+				parameter.setName(entry.getKey());
+				parameter.setDocumentation(entry.getValue().documentation);
+				parameter.setRequired(entry.getValue().isRequired());
+				type.getParameters().add(parameter);
+			}
+			for (Map.Entry<String, PPTypeInfo.Entry> entry : info
+					.getProperties().entrySet()) {
+				Property property = PPTPFactory.eINSTANCE.createProperty();
+				property.setName(entry.getKey());
+				property.setDocumentation(entry.getValue().documentation);
+				property.setRequired(entry.getValue().isRequired());
+				type.getProperties().add(property);
+			}
+			result.add(type);
+		}
+		return result;
 
 	}
 }

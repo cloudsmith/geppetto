@@ -29,6 +29,7 @@ import org.jrubyparser.ast.NodeType;
 import org.jrubyparser.ast.RootNode;
 import org.jrubyparser.ast.VCallNode;
 
+import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 
 /**
@@ -110,7 +111,50 @@ public class PPTypeFinder {
 	private final static String[] PUPPET_NEWTYPE_FQN = new String[] { "Puppet",
 			"Type", "newtype" };
 
+	private final static String[] PUPPET_NAGIOS_NEWTYPE_FQN = new String[] {
+			"Nagios", "Base", "newtype" };
+
 	private ConstEvaluator constEvaluator = new ConstEvaluator();
+
+	private PPTypeInfo createNagiosTypeInfo(Node root, String typeName) {
+
+		if (root == null)
+			return null;
+		Map<String, PPTypeInfo.Entry> propertyMap = Maps.newHashMap();
+		Map<String, PPTypeInfo.Entry> parameterMap = Maps.newHashMap();
+		String typeDocumentation = "";
+
+		for (Node n : root.childNodes()) {
+			if (n.getNodeType() == NodeType.NEWLINENODE)
+				n = ((NewlineNode) n).getNextNode();
+
+			switch (n.getNodeType()) {
+			case FCALLNODE:
+				FCallNode callNode = (FCallNode) n;
+				if ("setparameters".equals(callNode.getName()))
+					for (String name : getArgs(callNode))
+						parameterMap.put(name, getEntry(callNode));
+				break;
+			case VCALLNODE:
+				VCallNode vcallNode = (VCallNode) n;
+				// A call to 'ensurable' adds 'ensure' parameter
+				if (ENSURABLE.equals(vcallNode.getName()))
+					parameterMap.put("ensure", new PPTypeInfo.Entry("", false));
+				break;
+			case INSTASGNNODE:
+				InstAsgnNode docNode = (InstAsgnNode) n;
+				if ("@doc".equals(docNode.getName()))
+					typeDocumentation = getStringArgDefault(
+							docNode.getValueNode(), "");
+				break;
+			default:
+				break;
+			}
+		}
+		PPTypeInfo typeInfo = new PPTypeInfo(typeName, typeDocumentation,
+				propertyMap, parameterMap);
+		return typeInfo;
+	}
 
 	private PPTypeInfo createTypeInfo(Node root, String typeName) {
 		if (root == null)
@@ -192,6 +236,35 @@ public class PPTypeFinder {
 		}
 		return new PPTypeInfo("Type", "", null, parameterMap);
 
+	}
+
+	public List<PPTypeInfo> findNagiosTypeInfo(Node root) {
+
+		RubyCallFinder callFinder = new RubyCallFinder();
+		// style 1
+		List<GenericCallNode> newTypeCalls = callFinder.findCalls(root,
+				PUPPET_NAGIOS_NEWTYPE_FQN);
+
+		List<PPTypeInfo> result = Lists.newArrayList();
+		if (newTypeCalls != null) {
+			for (GenericCallNode newTypeCall : newTypeCalls) {
+				if (newTypeCall.isValid()) {
+					// should have at least one argument, the (raw) name of the
+					// type
+					String typeName = getFirstArg(newTypeCall);
+					if (typeName != null) { // just in case there is something
+											// really wrong in parsing
+						PPTypeInfo typeInfo = createNagiosTypeInfo(
+								safeGetBodyNode(newTypeCall), "nagios_"
+										+ typeName);
+						if (typeInfo != null)
+							result.add(typeInfo);
+					}
+				}
+
+			}
+		}
+		return result;
 	}
 
 	/**
@@ -321,6 +394,28 @@ public class PPTypeFinder {
 		}
 		return null;
 
+	}
+
+	/**
+	 * Returns the first String argument from a node with arguments, or null if
+	 * there are no arguments or the argument list was not a list.
+	 * 
+	 * @param callNode
+	 * @return
+	 */
+	private List<String> getArgs(IArgumentNode callNode) {
+		List<String> stringResult = Lists.newArrayList();
+		Object result = constEvaluator.eval(callNode.getArgsNode());
+		if (!(result instanceof List<?>))
+			return stringResult;
+		List<?> argList = (List<?>) result;
+		if (argList.size() < 1)
+			return stringResult;
+		for (Object o : argList)
+			if (o != null)
+				stringResult.add(o.toString());
+
+		return stringResult;
 	}
 
 	PPTypeInfo.Entry getEntry(BlockAcceptingNode callNode) {

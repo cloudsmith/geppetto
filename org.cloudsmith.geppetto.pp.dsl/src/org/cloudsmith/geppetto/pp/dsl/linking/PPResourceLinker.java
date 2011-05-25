@@ -720,7 +720,7 @@ public class PPResourceLinker {
 			}
 			boolean isPptpResource = "pptp".equals(uri.fileExtension());
 			String path = isPptpResource
-					? uri.lastSegment()
+					? uri.lastSegment().replace(".pptp", "")
 					: uri.devicePath();
 			if(!resources.contains(path))
 				resources.add(path);
@@ -729,8 +729,8 @@ public class PPResourceLinker {
 		buf.append(resources.size());
 		buf.append(" resource");
 		buf.append(resources.size() > 1
-				? "s {"
-				: " {");
+				? "s ["
+				: " [");
 
 		int count = 0;
 
@@ -741,8 +741,8 @@ public class PPResourceLinker {
 		for(String s : resources) {
 			if(count > 0)
 				buf.append(", ");
-			buf.append(count);
-			buf.append("=");
+			// buf.append(count);
+			// buf.append("=");
 			buf.append(s);
 			if(count++ > countCap) {
 				buf.append("and ");
@@ -751,7 +751,7 @@ public class PPResourceLinker {
 				break;
 			}
 		}
-		buf.append("}");
+		buf.append("]");
 		return buf.toString();
 	}
 }

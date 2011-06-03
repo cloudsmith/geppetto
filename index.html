@@ -27,8 +27,8 @@
     pre { background: #000; color: #fff; padding: 15px;}
     hr { border: 0; width: 80%; border-bottom: 1px solid #aaa}
     .footer { text-align:center; padding-top:30px; font-style: italic; }
-
-  .minibutton {
+/* button basics */
+  a.minibutton {
     display:inline-block;
     height:23px;
     padding:0 0 0 3px;
@@ -64,22 +64,15 @@
   a.minibutton.mousedown>span{background-position:100% -60px; }
   
   /* with icon */
-  a.btap;
-    border:none;
-    overflow:visible;
-    cursor:pointer;
-    text-decoration:none;
+  a.btn-download .icon {
+    float:left;
+    margin-left:-4px;
+    width:18px;
+    height:22px;
+    background:url(http://github.com/images/modules/buttons/minibutton_icons.png?v20100306) 0 0 no-repeat;
   }
-  
-  a.minibutton>span {
-    display:block;
-    height:23px;
-    padding:0 10px 0 8px;
-    line-height:23px;
-    background:url(http://github.com/images/modules/buttons/minibutton_matrix.png) 100% 0 no-repeat;
-  }
-  
-n {background-position:-40px -25px;}
+  a.btn-download .icon {background-position:-40px 0;}
+  a.btn-download:hover .icon, a.btn-download:focus .icon {background-position:-40px -25px;}
 </style>
 <script src="https://www.google.com/jsapi?key=ABQIAAAA8aM3VGZQODmQfAua3HB0rxQGgPkOqPhTmFbpEhG8mIDO1JQkhhSVo4DnWMbwOAGg77xvwWa2HVQE7g" type="text/javascript"></script>
 </head>

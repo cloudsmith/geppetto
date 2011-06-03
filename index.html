@@ -27,13 +27,88 @@
     pre { background: #000; color: #fff; padding: 15px;}
     hr { border: 0; width: 80%; border-bottom: 1px solid #aaa}
     .footer { text-align:center; padding-top:30px; font-style: italic; }
-  </style>
+
+
+  .minibutton {
+    display:inline-block;
+    height:23px;
+    padding:0 0 0 3px;
+    font-size:11px;
+    font-weight:bold;
+    color:#333;
+    text-shadow:1px 1px 0 #fff; 
+    background:url(http://github.com/images/modules/buttons/minibutton_matrix.png) 0 0 no-repeat;
+    white-space:nowrap;
+    border:none;
+    overflow:visible;
+    cursor:pointer;
+    text-decoration:none;
+  }
+  
+  a.minibutton>span {
+    display:block;
+    height:23px;
+    padding:0 10px 0 8px;
+    line-height:23px;
+    background:url(http://github.com/images/modules/buttons/minibutton_matrix.png) 100% 0 no-repeat;
+  }
+  
+  a.minibutton:hover, a.minibutton:focus {
+    color:#fff;
+    text-decoration:none;
+    text-shadow:-1px -1px 0 rgba(0,0,0,0.3);
+    background-position:0 -30px;
+  }
+  a.minibutton:hover>span, a.minibutton:focus>span {background-position:100% -30px;}
+  
+  a.minibutton.mousedown{background-position:0 -60px; }
+  a.minibutton.mousedown>span{background-position:100% -60px; }
+  
+  /* with icon */
+  a.btap;
+    border:none;
+    overflow:visible;
+    cursor:pointer;
+    text-decoration:none;
+  }
+  
+  a.minibutton>span {
+    display:block;
+    height:23px;
+    padding:0 10px 0 8px;
+    line-height:23px;
+    background:url(http://github.com/images/modules/buttons/minibutton_matrix.png) 100% 0 no-repeat;
+  }
+  
+n {background-position:-40px -25px;}
+</style>
+<script src="https://www.google.com/jsapi?key=ABQIAAAA8aM3VGZQODmQfAua3HB0rxQGgPkOqPhTmFbpEhG8mIDO1JQkhhSVo4DnWMbwOAGg77xvwWa2HVQE7g" type="text/javascript"></script>
 </head>
 
 <body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js"></script>
+<script>
+jQuery.ready(function() {
+  jQuery('a.minibutton').bind({
+    mousedown: function() {
+      jQuery(this).addClass('mousedown');
+    },
+    blur: function() {
+      jQuery(this).removeClass('mousedown');
+    },
+    mouseup: function() {
+      jQuery(this).removeClass('mousedown');
+    }
+  });
+});
+</script>
   <div id="container">
 
     <div class="download">
+<a href="javascript:;" class="minibutton"><span>Basic Button</span></a>
+<!-- button 2:"icon" -->
+<a href="javascript:;" class="minibutton btn-download"><span><span class="icon"></span>Button With Icon</span></a>
+
       <a href="http://github.com/cloudsmith/geppetto/zipball/master">
         <img border="0" width="90" src="http://github.com/images/modules/download/zip.png"></a>
       <a href="http://github.com/cloudsmith/geppetto/tarball/master">

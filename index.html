@@ -28,7 +28,6 @@
     hr { border: 0; width: 80%; border-bottom: 1px solid #aaa}
     .footer { text-align:center; padding-top:30px; font-style: italic; }
 
-
   .minibutton {
     display:inline-block;
     height:23px;
@@ -88,7 +87,7 @@ n {background-position:-40px -25px;}
 <body>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js"></script>
 <script>
-jQuery.ready(function() {
+$(document).ready(function() {
   jQuery('a.minibutton').bind({
     mousedown: function() {
       jQuery(this).addClass('mousedown');
@@ -108,11 +107,6 @@ jQuery.ready(function() {
 <a href="javascript:;" class="minibutton"><span>Basic Button</span></a>
 <!-- button 2:"icon" -->
 <a href="javascript:;" class="minibutton btn-download"><span><span class="icon"></span>Button With Icon</span></a>
-
-      <a href="http://github.com/cloudsmith/geppetto/zipball/master">
-        <img border="0" width="90" src="http://github.com/images/modules/download/zip.png"></a>
-      <a href="http://github.com/cloudsmith/geppetto/tarball/master">
-        <img border="0" width="90" src="http://github.com/images/modules/download/tar.png"></a>
     </div>
 
     <h1><a href="http://github.com/cloudsmith/geppetto">geppetto</a>

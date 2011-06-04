@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset='utf-8'>
+
+  <title>{{ page.title }}</title>
+
+  <link rel="stylesheet" href="css/common.css">
+  <link rel="stylesheet" href="css/button.css">
+
+  <!-- Google API key, and jQuery -->
+  <script
+      src="https://www.google.com/jsapi?key=ABQIAAAA8aM3VGZQODmQfAua3HB0rxQGgPkOqPhTmFbpEhG8mIDO1JQkhhSVo4DnWMbwOAGg77xvwWa2HVQE7g"
+      type="text/javascript"
+  ></script>
+  <script
+       src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js"
+  ></script>
+
+</head>
+<body>
+<!-- Initialize button dynamics -->
+<script>
+$(document).ready(function() {
+  jQuery('a.minibutton').bind({
+    mousedown: function() {
+      jQuery(this).addClass('mousedown');
+    },
+    blur: function() {
+      jQuery(this).removeClass('mousedown');
+    },
+    mouseup: function() {
+      jQuery(this).removeClass('mousedown');
+    },
+    mouseleave: function() {
+      jQuery(this).removeClass('mousedown');
+    },
+    mouseout: function() {
+      jQuery(this).removeClass('mousedown');
+    }
+  });
+});
+</script>
+<div id="container">
+    <div class="header">
+        <div class="download">
+            <!-- example simple button
+            <a href="javascript:;"
+                class="minibutton"><span>Basic Button</span></a> -->
+            <!-- download button with icon -->
+            <a href="https://github.com/cloudsmith/geppetto/downloads"
+             class="minibutton btn-download"
+            ><span><span class="icon"></span>Download Geppetto</span></a>
+        </div>
+
+        <h1><a href="http://github.com/cloudsmith/geppetto">geppetto</a>
+          <span class="small">by <a href="http://www.cloudsmith.com">cloudsmith</a></span></h1>
+
+        <div class="description">
+          ... an integrated toolset for developing Puppet modules and manifests.
+        </div>
+    </div>
+
+    <div class="Main">
+        <h1>{{post.title}}</h1>
+        {{ content }}
+    </div>
+
+    <div class="Sidebar">
+        <h2>Install</h2>
+            <p>To install the packaged and ready to run Geppetto:
+            <ul>
+                <li>Click 'Download Geppetto'</li>
+                <li>Unzip and run.</li>
+            </ul>
+            </p>
+        <h2>License</h2>
+            <p>Apache end EPL.</p>
+        <h2>Contact</h2>
+            <ul>
+                <li><a href="https://groups.google.com/group/puppet-geppetto?hl=en"
+                    >Google Group (web)</a></li>
+                <li><a href="http://dir.gmane.org/gmane.comp.sysutils.puppet.geppetto"
+                    >Google Group (nntp)</a></li>
+                <li><a href="irc://irc.freenode.net/#geppetto"
+                    >IRC</a></li>
+            </ul>
+        <h2>Project</h2>
+            <ul>
+                <li><a href="https://github.com/cloudsmith/geppetto/wiki/FAQ"
+                    >FAQ</a></li>
+                <li><a href="http://github.com/cloudsmith/geppetto"
+                    >geppetto @ GitHub</a></li>
+                <li><a href="https://github.com/cloudsmith/geppetto/wiki"
+                    >wiki</a></li>
+                <li><a href="https://github.com/cloudsmith/geppetto/issues"
+                    >review or log an issue</a></li>
+            </ul>
+    </div>
+
+    <div class="Footer">
+      visit the project on GitHub : <a href="http://github.com/cloudsmith/geppetto">cloudsmith/geppetto</a>
+    </div>
+
+  </div>
+</body>
+</html>

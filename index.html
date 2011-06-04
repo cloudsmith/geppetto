@@ -1,84 +1,11 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <meta charset='utf-8'>
+--
+layout: default
+title: Geppetto
+--
+<div id="posts">
+    {%for post in site.posts %}
+        <h2><a href="{{ post.url }}">{{ post.title }}</a></h2>
+        {{ post.content }}
+    {% endfor %} 
+</div>
 
-  <title>cloudsmith/geppetto @ GitHub</title>
-  <link rel="stylesheet" href="css/common.css">
-  <link rel="stylesheet" href="css/button.css">
-<script src="https://www.google.com/jsapi?key=ABQIAAAA8aM3VGZQODmQfAua3HB0rxQGgPkOqPhTmFbpEhG8mIDO1JQkhhSVo4DnWMbwOAGg77xvwWa2HVQE7g" type="text/javascript"></script>
-</head>
-
-<body>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js"></script>
-<script>
-$(document).ready(function() {
-  jQuery('a.minibutton').bind({
-    mousedown: function() {
-      jQuery(this).addClass('mousedown');
-    },
-    blur: function() {
-      jQuery(this).removeClass('mousedown');
-    },
-    mouseup: function() {
-      jQuery(this).removeClass('mousedown');
-    },
-    mouseleave: function() {
-      jQuery(this).removeClass('mousedown');
-    },
-    mouseout: function() {
-      jQuery(this).removeClass('mousedown');
-    }
-  });
-});
-</script>
-  <div id="container">
-
-    <div class="download">
-	<!-- example simple button
-	<a href="javascript:;"
-		class="minibutton"><span>Basic Button</span></a> -->
-	<!-- download button with icon -->
-	<a href="https://github.com/cloudsmith/geppetto/downloads"
-	 class="minibutton btn-download"
-	><span><span class="icon"></span>Download Geppetto</span></a>
-    </div>
-
-    <h1><a href="http://github.com/cloudsmith/geppetto">geppetto</a>
-      <span class="small">by <a href="http://www.cloudsmith.com">cloudsmith</a></span></h1>
-
-    <div class="description">
-      ... an integrated toolset for developing Puppet modules and manifests.
-    </div>
-
-<h2>Install</h2>
-    <p>To install the packaged and ready to run Geppetto - simply click
-    on the download button at the top and select the package for your
-    platform.<br/>
-    Unzip and run.
-    </p>
-<h2>License</h2>
-    <p>EPL and Apache.</p>
-<h2>Contact</h2>
-    <p>If you want to get in touch (and it is not an issue), please try our
-    <a href="https://groups.google.com/group/puppet-geppetto?hl=en"
-    >Google Group</a>,
-    which is also available via news (nntp) at
-    <a href="http://dir.gmane.org/gmane.comp.sysutils.puppet.geppetto"
-    >gmane</a>, or get us on 
-    <a href="irc://irc.freenode.net/#geppetto"
-    >IRC</a>
-    </p>
-    <p>
-    Also see the <a href="https://github.com/cloudsmith/geppetto/wiki/FAQ"
-    >FAQ</a>.
-    </p>
-    <div class="footer">
-      visit the project on GitHub : <a href="http://github.com/cloudsmith/geppetto">cloudsmith/geppetto</a>
-    </div>
-
-  </div>
-
-  
-</body>
-</html>

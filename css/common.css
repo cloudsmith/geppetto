@@ -76,6 +76,9 @@ h3 {
     text-align: center; 
     color: #4c4c4c; 
 }
+li.nobullet {
+    list-style: none;
+}
 a {
     color: #007baa;
     text-decoration: none

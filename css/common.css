@@ -1,21 +1,48 @@
 body {
-    margin-top: 1.0em;
-    font-family: Helvetica, Arial, FreeSans, san-serif;
+    margin-top: 0px;
+    padding-top: 0px;
+    font-family:  Helvetica, Arial, FreeSans, san-serif;
     color: #747575;
     font-size:12px;
-    background-color: #ffffff;
+    background-color: white;
 }
 
 #container {
-    background-color: #fefffe;
+    background-color: #eff0ef;
     margin: 0 auto;
-    width: 700px;
+    padding: 0;
+    width: 924px;
+    height: 100%;
+    overflow: auto;
 }
 
-h1 { 
+.header {
+    background-color: white;
+    width: 100%;
+    height: 100px;
+    padding-top: 20px;
+}
+.Main {
+    padding-left: 15px;
+    padding-right: 15px;
+    padding-bottom: 15px;
+
+    width: 670px;
+    float:left;
+}
+.Sidebar {
+    width: 23%;
+    height: 100%;
+    float:right;
+    padding-left:8px;
+    border-left: solid #bbbbbb 1px;
+}
+.header h1 { 
     font-size: 3.8em; 
     color: #240c0a; 
-    margin-bottom: 3px; 
+    margin-bottom: 0px;
+    margin-top:0px;
+
 }
 h1 .small {
     font-size: 0.4em;
@@ -42,8 +69,7 @@ a:hover {
 
 .description {
     font-size: 1.2em;
-    margin-bottom: 30px;
-    margin-top: 30px;
+    margin-top: 5px;
     font-style: italic;
 }
 .download {
@@ -64,4 +90,5 @@ hr {
     padding-top:30px;
     font-style: italic;
 }
+
 

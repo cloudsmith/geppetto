@@ -12,7 +12,7 @@ body {
     width: 924px;
     height: 100%;
     overflow: auto;
-    /*-webkit-box-shadow: rgba(0, 0, 0, 0.496094) 0pt 0pt 24px; */
+    -webkit-box-shadow: rgba(0, 0, 0, 0.496094) 0pt 0pt 24px;
     box-shadow: 0 0 24px rgba(0, 0, 0, 0.5);
 }
 #columns {

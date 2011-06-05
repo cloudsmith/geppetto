@@ -1,0 +1,10 @@
+---
+layout: post
+title: testing like crazy
+---
+.h1 {{ page.title }}
+
+Testing how to view the posts as separate things. This test is written in textile to see if
+there is a difference beteen textile and html pages. Currently the post.url points to a directory
+that is not generated ?!?
+

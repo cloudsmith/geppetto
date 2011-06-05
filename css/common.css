@@ -31,23 +31,28 @@ body {
     padding-left: 30px;
     padding-right: 15px;
     padding-bottom: 15px;
-
     width: 655px;
     float:left;
 }
 .Sidebar {
-    width: 23%;
+    width: 21%;
     height: 100%;
     float:right;
     padding-left:8px;
-    border-left: solid #bbbbbb 1px;
+    margin-right:15px;
 }
 .Sidebar .title {
     width: 100%;
     border-bottom: 2px solid #62c2d8;
+    margin:0px;
+    padding: 0px;
 }
 .Sidebar h2 {
-    color: #0676aa;
+    color: #007baa;
+    margin-bottom:0px;
+}
+.Sidebar li{
+    margin-left:-25px;
 }
 .header h1 { 
     font-size: 3.8em; 

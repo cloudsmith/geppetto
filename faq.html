@@ -1,0 +1,20 @@
+---
+layout: default
+title: Geppetto FAQ
+---
+<div id="posts">
+    {%for post in site.categories.faq %}
+        <div class="Faq">
+            <div class="Faqheader">
+                <h1>{{ post.title }}</h1>
+                <span class="Postdate">{{ post.date | date_to_string}}</span>
+            </div>
+            <div class="Faqcontent">
+                {{ post.content }}
+            </div>
+            <div class="Faqfooter">
+            </div>
+        </div>
+    {% endfor %} 
+</div>
+

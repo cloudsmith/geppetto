@@ -1,6 +1,7 @@
 ---
 title: What are the objectives of the Geppetto project?
 layout: post 
+date: 2011-06-05
 ---
 The project has three near-term objectives:
 

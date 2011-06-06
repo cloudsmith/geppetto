@@ -7,7 +7,7 @@ title: Geppetto FAQ
 <ul>
     <li class="Faqcategory">About</li>
         <ul>
-        {%for post in site.categories.about %}
+        {%for post in site.categories.about reversed %}
             <li><a href="#{{post.id}}">{{ post.title }}</a></li>
         {%endfor%}
         </ul>

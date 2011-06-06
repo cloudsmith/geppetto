@@ -1,6 +1,7 @@
 ---
 title: What is Geppetto?
-layout: post 
+layout: post
+date: 2011-06-04 
 ---
 Geppetto is an integrated set of tools aimed to simplify the process of developing
 and consuming Puppet modules and manifests.

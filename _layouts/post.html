@@ -4,7 +4,7 @@ layout: default
 <div class="Post">
     <div class="Postheader">
         <h1>{{ page.title | downcase }}</h1>
-        <span class="Postdate">{{ page.date }}</span>
+        <span class="Postdate">{{ page.date | date_to_string }}</span>
     </div>
     <div class="Postcontent">
         {{ content }}

@@ -143,8 +143,32 @@ hr {
     font-size: 24px;
     font-family:  Helvetica, Arial, FreeSans, san-serif;
 }
-.Postheader .Postdate {
+.Postheader .Postdate, .Faqheader .Faqdate {
     color:#bbbbbb;
     font-size:10px;
+}
+.Faqheader {
+    padding-top: 5px;
+}
+.Faqheader h1 {
+   font-size:16px;
+   margin-bottom:0px;
+}
+.Faqheader .Postdate {
+   color:#bbbbbb;
+   font-size:10px;
+   margin-bottom:0px;
+}
+.Faqcontent p:first-child {
+    margin-top:6px;
+}
+.Faqcontent pre {
+ border-radius: 8px;
+ -moz-border-radius:8px;
+ background-color:white;
+ color: black;
+ border: 1px #cccccc solid;
+ margin-left: 20px;
+ margin-right:20px;
 }
 

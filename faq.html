@@ -8,13 +8,33 @@ title: Geppetto FAQ
     <li>About</li>
         <ul>
         {%for post in site.categories.about %}
-            <li>{{ post.title }}</li>
+            <li><a href="#{{post.id}}">{{ post.title }}</a></li>
         {%endfor%}
         </ul>
     <li>Contact</li>
+        <ul>
+        {%for post in site.categories.about %}
+            <li>{{ post.title }}</li>
+        {%endfor%}
+        </ul>
     <li>Installation</li>
+        <ul>
+        {%for post in site.categories.about %}
+            <li>{{ post.title }}</li>
+        {%endfor%}
+        </ul>
     <li>Demos, Tutorials, Help</li>
+        <ul>
+        {%for post in site.categories.about %}
+            <li>{{ post.title }}</li>
+        {%endfor%}
+        </ul>
     <li>How do I...?</li>
+        <ul>
+        {%for post in site.categories.about %}
+            <li>{{ post.title }}</li>
+        {%endfor%}
+        </ul>
     <li>Troubleshooting</li>
 </ul>
 </div>
@@ -22,8 +42,8 @@ title: Geppetto FAQ
     {%for post in site.categories.faq %}
         <div class="Faq">
             <div class="Faqheader">
-                <h1>{{ post.title }}</h1>
-                <span class="Postdate">{{ post.date | date_to_string}}</span>
+                <h1><a name="{{ post.id }}"/>{{ post.title }}</h1>
+                <span class="Faqdate">{{ post.date | date_to_string}}</span>
             </div>
             <div class="Faqcontent">
                 {{ post.content }}

@@ -151,25 +151,26 @@ hr {
     padding-top: 5px;
 }
 .Faqheader h1 {
-   font-size:16px;
-   margin-bottom:0px;
+    font-size:16px;
+    color:#555555;
+    margin-bottom:0px;
 }
 .Faqheader .Postdate {
-   color:#bbbbbb;
-   font-size:10px;
-   margin-bottom:0px;
+    color:#bbbbbb;
+    font-size:10px;
+    margin-bottom:0px;
 }
 .Faqcontent p:first-child {
     margin-top:6px;
 }
 .Faqcontent pre {
- border-radius: 8px;
- -moz-border-radius:8px;
- background-color:white;
- color: black;
- border: 1px #cccccc solid;
- margin-left: 20px;
- margin-right:20px;
+    border-radius: 8px;
+    -moz-border-radius:8px;
+    background-color:white;
+    color: black;
+    border: 1px #cccccc solid;
+    margin-left: 20px;
+    margin-right:20px;
 }
 .Faqcategory h1 {
     color: #f0324a;
@@ -177,4 +178,14 @@ hr {
     font-family:  Helvetica Neue W01 85 Heavy, Helvetica, Arial, FreeSans, san-serif;
     letter-spacing:-1px;
     margin-left:-1px;
+}
+div.Faqcategory {
+    border-bottom:1px solid #dddddd;
+}
+.FaqToc ul {
+  list-style-type:none;
+}
+li.Faqcategory {
+    text-transform:uppercase;
+    color: #007baa;
 }

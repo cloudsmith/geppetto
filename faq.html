@@ -5,37 +5,37 @@ title: Geppetto FAQ
 <div class="Postheader"><h1>Geppetto FAQ</h1></div>
 <div class="FaqToc">
 <ul>
-    <li>About</li>
+    <li class="Faqcategory">About</li>
         <ul>
         {%for post in site.categories.about %}
             <li><a href="#{{post.id}}">{{ post.title }}</a></li>
         {%endfor%}
         </ul>
-    <li>Contact</li>
+    <li class="Faqcategory">Contact</li>
         <ul>
         {%for post in site.categories.contact %}
             <li><a href="#{{post.id}}">{{ post.title }}</a></li>
         {%endfor%}
         </ul>
-    <li>Installation</li>
+    <li class="Faqcategory">Installation</li>
         <ul>
         {%for post in site.categories.install %}
             <li><a href="#{{post.id}}">{{ post.title }}</a></li>
         {%endfor%}
         </ul>
-    <li>Demos, Tutorials, Help</li>
+    <li class="Faqcategory">Demos, Tutorials, Help</li>
         <ul>
         {%for post in site.categories.demos %}
             <li><a href="#{{post.id}}">{{ post.title }}</a></li>
         {%endfor%}
         </ul>
-    <li>How do I...?</li>
+    <li class="Faqcategory">How do I...?</li>
         <ul>
         {%for post in site.categories.howto %}
             <li><a href="#{{post.id}}">{{ post.title }}</a></li>
         {%endfor%}
         </ul>
-    <li>Troubleshooting</li>
+    <li class="Faqcategory">Troubleshooting</li>
         <ul>
         {%for post in site.categories.troubleshoot %}
             <li><a href="#{{post.id}}">{{ post.title }}</a></li>

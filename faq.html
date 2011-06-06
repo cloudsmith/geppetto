@@ -13,31 +13,31 @@ title: Geppetto FAQ
         </ul>
     <li class="Faqcategory">Contact</li>
         <ul>
-        {%for post in site.categories.contact %}
+        {%for post in site.categories.contact reversed %}
             <li><a href="#{{post.id}}">{{ post.title }}</a></li>
         {%endfor%}
         </ul>
     <li class="Faqcategory">Installation</li>
         <ul>
-        {%for post in site.categories.install %}
+        {%for post in site.categories.install reversed %}
             <li><a href="#{{post.id}}">{{ post.title }}</a></li>
         {%endfor%}
         </ul>
     <li class="Faqcategory">Demos, Tutorials, Help</li>
         <ul>
-        {%for post in site.categories.demos %}
+        {%for post in site.categories.demos reversed %}
             <li><a href="#{{post.id}}">{{ post.title }}</a></li>
         {%endfor%}
         </ul>
     <li class="Faqcategory">How do I...?</li>
         <ul>
-        {%for post in site.categories.howto %}
+        {%for post in site.categories.howto reversed %}
             <li><a href="#{{post.id}}">{{ post.title }}</a></li>
         {%endfor%}
         </ul>
     <li class="Faqcategory">Troubleshooting</li>
         <ul>
-        {%for post in site.categories.troubleshoot %}
+        {%for post in site.categories.troubleshoot reversed %}
             <li><a href="#{{post.id}}">{{ post.title }}</a></li>
         {%endfor%}
         </ul>
@@ -47,7 +47,7 @@ title: Geppetto FAQ
     <div class="Faqcategory">
     <h1>About</h1>
     </div>
-    {%for post in site.categories.about %}
+    {%for post in site.categories.about reversed %}
         <div class="Faq">
             <div class="Faqheader">
                 <h1><a name="{{ post.id }}"></a>{{ post.title }}</h1>
@@ -63,7 +63,7 @@ title: Geppetto FAQ
     <div class="Faqcategory">
     <h1>Contact</h1>
     </div>
-    {%for post in site.categories.contact %}
+    {%for post in site.categories.contact reversed %}
         <div class="Faq">
             <div class="Faqheader">
                 <h1><a name="{{ post.id }}"></a>{{ post.title }}</h1>
@@ -79,7 +79,7 @@ title: Geppetto FAQ
     <div class="Faqcategory">
     <h1>Installation</h1>
     </div>
-    {%for post in site.categories.install %}
+    {%for post in site.categories.install reversed %}
         <div class="Faq">
             <div class="Faqheader">
                 <h1><a name="{{ post.id }}"></a>{{ post.title }}</h1>
@@ -95,7 +95,7 @@ title: Geppetto FAQ
     <div class="Faqcategory">
     <h1>Demos, Tutorial, and Help</h1>
     </div>
-    {%for post in site.categories.demos %}
+    {%for post in site.categories.demos reversed %}
         <div class="Faq">
             <div class="Faqheader">
                 <h1><a name="{{ post.id }}"></a>{{ post.title }}</h1>
@@ -111,7 +111,7 @@ title: Geppetto FAQ
     <div class="Faqcategory">
     <h1>Troubleshooting</h1>
     </div>
-    {%for post in site.categories.howto %}
+    {%for post in site.categories.howto reversed %}
         <div class="Faq">
             <div class="Faqheader">
                 <h1><a name="{{ post.id }}"></a>{{ post.title }}</h1>

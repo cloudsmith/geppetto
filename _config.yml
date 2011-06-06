@@ -1,3 +1,3 @@
-permalink: date
+permalink: /geppetto/:year/:month/:day/:title
 pygments: true
 

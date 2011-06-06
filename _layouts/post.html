@@ -2,7 +2,14 @@
 layout: default
 ---
 <div class="Post">
-    <h1>{{post.title}}</h1>
-    {{ content }}
+    <div class="Postheader">
+        <h1>{{ post.title | downcase }}</h1>
+        <span class="Postdate">{{ post.date | date_to_string}}</span>
+    </div>
+    <div class="Postcontent">
+        {{ post.content }}
+    </div>
+    <div class="Postfooter">
+    </div>
 </div>
 

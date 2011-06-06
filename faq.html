@@ -20,34 +20,35 @@ title: Geppetto FAQ
     <li>Installation</li>
         <ul>
         {%for post in site.categories.install %}
-            <li>{{ post.title }}</li>
+            <li><a href="#{{post.id}}">{{ post.title }}</a></li>
         {%endfor%}
         </ul>
     <li>Demos, Tutorials, Help</li>
         <ul>
         {%for post in site.categories.demos %}
-            <li>{{ post.title }}</li>
+            <li><a href="#{{post.id}}">{{ post.title }}</a></li>
         {%endfor%}
         </ul>
     <li>How do I...?</li>
         <ul>
         {%for post in site.categories.howto %}
-            <li>{{ post.title }}</li>
+            <li><a href="#{{post.id}}">{{ post.title }}</a></li>
         {%endfor%}
         </ul>
     <li>Troubleshooting</li>
         <ul>
         {%for post in site.categories.troubleshoot %}
-            <li>{{ post.title }}</li>
+            <li><a href="#{{post.id}}">{{ post.title }}</a></li>
         {%endfor%}
         </ul>
 </ul>
 </div>
 <div id="posts">
-    {%for post in site.categories.faq %}
+    <h1>About</h1>
+    {%for post in site.categories.about %}
         <div class="Faq">
             <div class="Faqheader">
-                <h1><a name="{{ post.id }}">{{ post.title }}</a></h1>
+                <h1><a name="{{ post.id }}"></a>{{ post.title }}</h1>
                 <span class="Faqdate">{{ post.date | date_to_string}}</span>
             </div>
             <div class="Faqcontent">
@@ -57,5 +58,62 @@ title: Geppetto FAQ
             </div>
         </div>
     {% endfor %} 
+    <h1>Contact</h1>
+    {%for post in site.categories.contact %}
+        <div class="Faq">
+            <div class="Faqheader">
+                <h1><a name="{{ post.id }}"></a>{{ post.title }}</h1>
+                <span class="Faqdate">{{ post.date | date_to_string}}</span>
+            </div>
+            <div class="Faqcontent">
+                {{ post.content }}
+            </div>
+            <div class="Faqfooter">
+            </div>
+        </div>
+    {% endfor %} 
+    <h1>Installation</h1>
+    {%for post in site.categories.install %}
+        <div class="Faq">
+            <div class="Faqheader">
+                <h1><a name="{{ post.id }}"></a>{{ post.title }}</h1>
+                <span class="Faqdate">{{ post.date | date_to_string}}</span>
+            </div>
+            <div class="Faqcontent">
+                {{ post.content }}
+            </div>
+            <div class="Faqfooter">
+            </div>
+        </div>
+    {% endfor %} 
+    <h1>Demos, Tutorial, and Help</h1>
+    {%for post in site.categories.demos %}
+        <div class="Faq">
+            <div class="Faqheader">
+                <h1><a name="{{ post.id }}"></a>{{ post.title }}</h1>
+                <span class="Faqdate">{{ post.date | date_to_string}}</span>
+            </div>
+            <div class="Faqcontent">
+                {{ post.content }}
+            </div>
+            <div class="Faqfooter">
+            </div>
+        </div>
+    {% endfor %} 
+    <h1>Troubleshooting</h1>
+    {%for post in site.categories.howto %}
+        <div class="Faq">
+            <div class="Faqheader">
+                <h1><a name="{{ post.id }}"></a>{{ post.title }}</h1>
+                <span class="Faqdate">{{ post.date | date_to_string}}</span>
+            </div>
+            <div class="Faqcontent">
+                {{ post.content }}
+            </div>
+            <div class="Faqfooter">
+            </div>
+        </div>
+    {% endfor %} 
+
 </div>
 

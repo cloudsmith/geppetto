@@ -4,10 +4,10 @@ layout: default
 <div class="Post">
     <div class="Postheader">
         <h1>{{ post.title | downcase }}</h1>
-        <span class="Postdate">{{ post.date | date_to_string}}</span>
+        <span class="Postdate">{{ date | date_to_string }}</span>
     </div>
     <div class="Postcontent">
-        {{ post.content }}
+        {{ content }}
     </div>
     <div class="Postfooter">
     </div>

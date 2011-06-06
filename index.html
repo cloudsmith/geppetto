@@ -4,8 +4,15 @@ title: Geppetto
 ---
 <div id="posts">
     {%for post in site.posts %}
-        <h1><a href="{{ site.url}}{{ post.url }}">{{ post.title }}</a></h1>
-        {{ post.content }}
+        <div class="Post">
+            <div class="Postheader">
+                <h1><a href="{{ site.url}}{{ post.url }}">{{ post.title | downcase }}</a></h1>
+                <span class="Postdate">{{ post.date }}</span>
+            </div>
+            <div class="Postcontent">
+                {{ post.content }}
+            </div>
+        </div>
     {% endfor %} 
 </div>
 

@@ -171,4 +171,10 @@ hr {
  margin-left: 20px;
  margin-right:20px;
 }
-
+.Faqcategory h1 {
+    color: #f0324a;
+    font-size: 26px;
+    font-family:  Helvetica Neue W01 85 Heavy, Helvetica, Arial, FreeSans, san-serif;
+    letter-spacing:-1px;
+    margin-left:-1px;
+}

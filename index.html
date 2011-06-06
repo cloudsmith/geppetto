@@ -7,7 +7,7 @@ title: Geppetto
         <div class="Post">
             <div class="Postheader">
                 <h1><a href="{{ site.url}}{{ post.url }}">{{ post.title | downcase }}</a></h1>
-                <span class="Postdate">{{ post.date }}</span>
+                <span class="Postdate">{{ post.date | date_to_string}}</span>
             </div>
             <div class="Postcontent">
                 {{ post.content }}

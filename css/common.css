@@ -118,23 +118,33 @@ hr {
 /*
  * Posts in long (but not full format).
  */
-.Main #posts  h1, .Main #posts h1 a {
+.Postheader  h1, .Postheader a {
     color: #f0324a;
     font-size: 26px;
     font-family:  Helvetica Neue W01 85 Heavy, Helvetica, Arial, FreeSans, san-serif;
     letter-spacing:-1px;
     margin-left:-1px;
+    margin-bottom:0px;
 }
 
-.Main #posts h2 {
+.Postcontent h2 {
     color: #747575;
     font-size: 18px;
     font-family:  Helvetica, Arial, FreeSans, san-serif;
 }
 
-.Main #posts h3 {
+.Postcontent h3 {
     color: #747575;
     font-size: 14px;
     font-family:  Helvetica, Arial, FreeSans, san-serif;
+}
+.Postcontent h1 {
+    color: #747575;
+    font-size: 24px;
+    font-family:  Helvetica, Arial, FreeSans, san-serif;
+}
+.Postheader .Postdate {
+    color:#bbbbbb;
+    font-size:10px;
 }
 

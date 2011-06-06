@@ -1,3 +1,4 @@
-permalink: /geppetto/:year/:month/:day/:title.html
+url: http://cloudsmith.github.com/geppetto/
+permalink: :year/:month/:day/:title.html
 pygments: true
 

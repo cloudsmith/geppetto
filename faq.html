@@ -2,6 +2,22 @@
 layout: default
 title: Geppetto FAQ
 ---
+<div class="Postheader"><h1>Geppetto FAQ</h1></div>
+<div class="FaqToc">
+<ul>
+    <li>About</li>
+        <ul>
+        {%for post in site.categories.about %}
+            <li>{{ post.title }}</li>
+        {%endfor%}
+        </ul>
+    <li>Contact</li>
+    <li>Installation</li>
+    <li>Demos, Tutorials, Help</li>
+    <li>How do I...?</li>
+    <li>Troubleshooting</li>
+</ul>
+</div>
 <div id="posts">
     {%for post in site.categories.faq %}
         <div class="Faq">

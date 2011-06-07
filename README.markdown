@@ -11,3 +11,5 @@ when specified for posts in ./_posts.
 Note that the variable "page" is set to the page being rendered, and not "post" as the documentation alludes
 to. The "page" variable simply contains different set of variables depending on if it is a post or a page.
 
+The page.url is not a full URL, it is the path from the root. It needs to be prepended with {{site.url}}
+to form a proper href.

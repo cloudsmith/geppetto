@@ -1,7 +1,7 @@
 ---
 layout: post
 title: testing a post in category main
-category: main
+categories: faq, demos
 ---
 # this is a header
 

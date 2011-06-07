@@ -194,4 +194,13 @@ li.Faqcategory {
     margin-bottom:5px;
     border-bottom:1px solid #dddddd;
 }
-
+.Postimage {
+   float: left;
+   margin-right:20px;
+   width:40%;
+}
+.Postimage img {
+    border-radius: 10px;
+    -moz-border-radius:10px;
+    width:100%;
+}

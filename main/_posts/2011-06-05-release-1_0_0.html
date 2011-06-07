@@ -3,7 +3,66 @@ layout: post
 title: Geppetto 1.0 Released
 image: images/puppet-show-small.png
 ---
-<p>Geppetto 1.0.0 has been released. This is a testpost... with some red foxes jumping
-and vita brevis ergo bibamus quotes in latin to get some filler text. Ipso factum. Lore Ispum.
+<p>We are proud to announce that Geppetto 1.0.0 has been released and is available for download. 
 </p>
+<p>In case you are reading this and do not already know what Geppetto is about - Geppetto is an 
+integrated set of tools for consuming and developing Puppet modules and manifests built on the
+Eclipse platform. It is available as ready to run zips (with a much smaller footprint than the full
+Eclipse), or it can be installed into your Eclipse IDE.</p>
 
+<p>A lot of things have happened since the first beta was made available at Fosdem 2011 (Feb 5-6), Bruxelles, Belgium, when a group of beta testers started trying out Geppetto. We have received valueable
+feedback from users at the 2011 PuppetCamp in Amsterdam, Netherlands, as well as from Puppetlabs, and
+thanks to everyone that has taken time testing, reporting and discussing issues, we now
+feel we have a 1.0 product. The feeback is always welcome.
+</p>
+<p>Rather than dwelling on what has happened, instead lets look at the features available in Geppetto
+1.0:</p>
+<ul>
+<li>Puppet manifest aware editing</li>
+    <ul>
+        <li>Syntax coloring (customizable)</li>
+        <li>Code completion</li>
+        <li>Structured outline for quick navigation</li>
+        <li>Parsing and coloring of Rdoc comments</li>
+    </ul>
+<li>Manifest validation</li>
+    <ul>
+        <li>As you type syntax check</li>
+        <li>As you type warnings for code smells and deprecated constructs.</li>
+        <li>Cross reference validation of types, definitions and functions,</li>
+        <li>Parameter and property validation</li>
+    </ul>
+<li>Handling of extensions</li>
+    <ul>
+        <li>Puppet distribution (types, functions, etc.) defines what is available.</li>
+        <li>Custom ruby code (types, functions, etc.) in user code interactively used in
+            validation. Change a type in ruby and it is instantly validated across all manifests.</li>
+    </ul>
+<li>Templates</li>
+    <ul>
+        <li>User can add their own templates and associate them with locations in the grammar.</li>
+    </ul>
+<li>Quick fixes - Automatic fixes suggested for (some) errors:</li>
+    <ul>
+        <li>missing comma</li>
+        <li>resolving ambiguous references by making reference absolute</li>
+    </ul>
+<li>Forge integration</li>
+    <ul>
+        <li>Download modules from the forge</li>
+        <li>Package content for upload to the forge</li>
+    </ul>
+<li>Module support</li>
+    <ul>
+        <li>Import existing modules from Git, SVN, or CVS.</li>
+        <li>Create new empty module with default structure.</li>
+        <li>Validation of module metadata</li>
+        <li>Dependency resolution and validation.</li>
+        <li>Dependency information used when validating manifests - controls visibility.</li>
+    </ul>
+<li>Extensible - built on Eclipse platform:</li>
+    </ul>
+        <li>Several hundred plugins available for just about "everything".</li>
+        <li>Ruby and Rails development environments.</li>
+    </ul>
+</ul>

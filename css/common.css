@@ -204,3 +204,17 @@ li.Faqcategory {
     -moz-border-radius:10px;
     width:100%;
 }
+/* UlTable is a wrapper around a UL that gives the UL a new left edge.
+ * This is important when text with UL is next to float left elements.
+ */
+.UlTable {
+    border-collapse: collapse;
+}
+.UlTable tr td, .UlTable tr th {
+    padding: 0;
+    margin:0;
+}
+.UlTable tr td ul {
+    margin-top: 0px;
+    margin-bottom: 0px;
+}

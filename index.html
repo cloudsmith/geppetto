@@ -3,7 +3,7 @@ layout: default
 title: Geppetto
 ---
 <div id="posts">
-    {%for post in site.categories.main %}
+    {%for post in site.categories["main"] %}
         <div class="Post">
             <div class="Postheader">
                 <h1><a href="{{ site.url}}{{ post.url }}">{{ post.title | downcase }}</a></h1>

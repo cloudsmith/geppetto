@@ -11,8 +11,14 @@ title: Geppetto
             </div>
             <div class="Postcontent">
             {% if post.image %}
-                <div class="Postimage">
-                    <img "illustration" src="{{ site.url }}{{ post.image}}">
+                <table class="Postimage">
+                    <tr>
+                    <td><img "illustration" src="{{ site.url }}{{ post.image}}"></td>
+                    {% if post.imagecap %}
+                        <td><span class="Imagecap">{{post.imagecap}}</span></td>
+                    {% endif %}
+                    </tr>
+                </table>
                 </div>
             {% endif %}
                 {{ post.content }}

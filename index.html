@@ -10,6 +10,11 @@ title: Geppetto
                 <span class="Postdate">{{ post.date | date_to_string}}</span>
             </div>
             <div class="Postcontent">
+            {% if post.image %}
+                <div class="Postimage">
+                    <img "illustration" src="{{ site.url }}{{ post.image}}">
+                </div>
+            {% endif %}
                 {{ post.content }}
             </div>
             <div class="Postfooter">

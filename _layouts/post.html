@@ -7,12 +7,12 @@ layout: default
         <span class="Postdate">{{ page.date | date_to_string }}</span>
     </div>
     <div class="Postcontent">
-        {% if post.image %}
+        {% if page.image %}
             <table class="Postimage">
                 <tr>
-                <td><img "illustration" src="{{ site.url }}{{ post.image}}"></td>
-                {% if post.imagecap %}
-                    <td><span class="Imagecap">{{post.imagecap}}</span></td>
+                <td><img "illustration" src="{{ site.url }}{{ page.image}}"></td>
+                {% if page.imagecap %}
+                    <td><span class="Imagecap">{{page.imagecap}}</span></td>
                 {% endif %}
                 </tr>
             </table>

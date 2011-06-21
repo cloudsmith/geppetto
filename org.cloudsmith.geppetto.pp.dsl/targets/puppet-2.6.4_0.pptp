@@ -363,8 +363,8 @@
   </types>
   <types name="nagios_host" documentation="">
     <parameters name="notification_period" documentation=""/>
-    <parameters name="parents" documentation=""/>
     <parameters name="process_perf_data" documentation=""/>
+    <parameters name="parents" documentation=""/>
     <parameters name="icon_image" documentation=""/>
     <parameters name="check_interval" documentation=""/>
     <parameters name="vrml_image" documentation=""/>
@@ -387,6 +387,7 @@
     <parameters name="notification_options" documentation=""/>
     <parameters name="action_url" documentation=""/>
     <parameters name="notification_interval" documentation=""/>
+    <parameters name="ensure" documentation=""/>
     <parameters name="statusmap_image" documentation=""/>
     <parameters name="low_flap_threshold" documentation=""/>
     <parameters name="stalking_options" documentation=""/>
@@ -403,6 +404,7 @@
     <parameters name="initial_state" documentation=""/>
     <parameters name="address" documentation=""/>
     <parameters name="event_handler" documentation=""/>
+    <parameters name="target" documentation=""/>
     <parameters name="retain_nonstatus_information" documentation=""/>
     <parameters name="notes" documentation=""/>
     <parameters name="retain_status_information" documentation=""/>
@@ -413,12 +415,14 @@
     <parameters name="register" documentation=""/>
     <parameters name="notes_url" documentation=""/>
     <parameters name="alias" documentation=""/>
+    <parameters name="target" documentation=""/>
     <parameters name="use" documentation=""/>
     <parameters name="hostgroup_members" documentation=""/>
     <parameters name="notes" documentation=""/>
     <parameters name="action_url" documentation=""/>
     <parameters name="members" documentation=""/>
     <parameters name="hostgroup_name" documentation=""/>
+    <parameters name="ensure" documentation=""/>
   </types>
   <types name="nagios_service" documentation="">
     <parameters name="notification_period" documentation=""/>
@@ -433,10 +437,10 @@
     <parameters name="contacts" documentation=""/>
     <parameters name="hostgroup_name" documentation=""/>
     <parameters name="notes_url" documentation=""/>
-    <parameters name="normal_check_interval" documentation=""/>
-    <parameters name="is_volatile" documentation=""/>
-    <parameters name="active_checks_enabled" documentation=""/>
     <parameters name="high_flap_threshold" documentation=""/>
+    <parameters name="is_volatile" documentation=""/>
+    <parameters name="normal_check_interval" documentation=""/>
+    <parameters name="active_checks_enabled" documentation=""/>
     <parameters name="notifications_enabled" documentation=""/>
     <parameters name="passive_checks_enabled" documentation=""/>
     <parameters name="obsess_over_service" documentation=""/>
@@ -446,6 +450,7 @@
     <parameters name="notification_options" documentation=""/>
     <parameters name="action_url" documentation=""/>
     <parameters name="notification_interval" documentation=""/>
+    <parameters name="ensure" documentation=""/>
     <parameters name="low_flap_threshold" documentation=""/>
     <parameters name="_naginator_name" documentation=""/>
     <parameters name="stalking_options" documentation=""/>
@@ -461,6 +466,7 @@
     <parameters name="display_name" documentation=""/>
     <parameters name="initial_state" documentation=""/>
     <parameters name="event_handler" documentation=""/>
+    <parameters name="target" documentation=""/>
     <parameters name="retain_nonstatus_information" documentation=""/>
     <parameters name="notes" documentation=""/>
     <parameters name="retain_status_information" documentation=""/>
@@ -474,62 +480,72 @@
     <parameters name="alias" documentation=""/>
     <parameters name="servicegroup_members" documentation=""/>
     <parameters name="servicegroup_name" documentation=""/>
+    <parameters name="target" documentation=""/>
     <parameters name="use" documentation=""/>
     <parameters name="notes" documentation=""/>
     <parameters name="action_url" documentation=""/>
     <parameters name="members" documentation=""/>
+    <parameters name="ensure" documentation=""/>
   </types>
   <types name="nagios_contact" documentation="">
-    <parameters name="pager" documentation=""/>
-    <parameters name="host_notification_options" documentation=""/>
     <parameters name="host_notification_period" documentation=""/>
     <parameters name="host_notification_commands" documentation=""/>
-    <parameters name="alias" documentation=""/>
     <parameters name="service_notification_period" documentation=""/>
     <parameters name="use" documentation=""/>
     <parameters name="address1" documentation=""/>
     <parameters name="address2" documentation=""/>
     <parameters name="address3" documentation=""/>
+    <parameters name="contact_name" documentation=""/>
+    <parameters name="service_notifications_enabled" documentation=""/>
+    <parameters name="contactgroups" documentation=""/>
+    <parameters name="ensure" documentation=""/>
+    <parameters name="pager" documentation=""/>
+    <parameters name="host_notification_options" documentation=""/>
+    <parameters name="alias" documentation=""/>
     <parameters name="service_notification_options" documentation=""/>
     <parameters name="register" documentation=""/>
     <parameters name="address6" documentation=""/>
-    <parameters name="address5" documentation=""/>
     <parameters name="host_notifications_enabled" documentation=""/>
-    <parameters name="address4" documentation=""/>
+    <parameters name="address5" documentation=""/>
     <parameters name="service_notification_commands" documentation=""/>
+    <parameters name="address4" documentation=""/>
     <parameters name="email" documentation=""/>
-    <parameters name="contact_name" documentation=""/>
+    <parameters name="target" documentation=""/>
     <parameters name="retain_nonstatus_information" documentation=""/>
-    <parameters name="service_notifications_enabled" documentation=""/>
     <parameters name="retain_status_information" documentation=""/>
     <parameters name="can_submit_commands" documentation=""/>
-    <parameters name="contactgroups" documentation=""/>
   </types>
   <types name="nagios_contactgroup" documentation="">
     <parameters name="register" documentation=""/>
     <parameters name="contactgroup_members" documentation=""/>
     <parameters name="alias" documentation=""/>
+    <parameters name="target" documentation=""/>
     <parameters name="use" documentation=""/>
     <parameters name="members" documentation=""/>
     <parameters name="contactgroup_name" documentation=""/>
+    <parameters name="ensure" documentation=""/>
   </types>
   <types name="nagios_timeperiod" documentation="">
+    <parameters name="alias" documentation=""/>
+    <parameters name="monday" documentation=""/>
+    <parameters name="thursday" documentation=""/>
+    <parameters name="use" documentation=""/>
+    <parameters name="exclude" documentation=""/>
     <parameters name="register" documentation=""/>
     <parameters name="timeperiod_name" documentation=""/>
     <parameters name="wednesday" documentation=""/>
-    <parameters name="alias" documentation=""/>
-    <parameters name="thursday" documentation=""/>
-    <parameters name="monday" documentation=""/>
     <parameters name="sunday" documentation=""/>
-    <parameters name="use" documentation=""/>
-    <parameters name="exclude" documentation=""/>
+    <parameters name="target" documentation=""/>
     <parameters name="saturday" documentation=""/>
-    <parameters name="friday" documentation=""/>
     <parameters name="tuesday" documentation=""/>
+    <parameters name="friday" documentation=""/>
+    <parameters name="ensure" documentation=""/>
   </types>
   <types name="nagios_command" documentation="">
     <parameters name="command_name" documentation=""/>
+    <parameters name="target" documentation=""/>
     <parameters name="command_line" documentation=""/>
+    <parameters name="ensure" documentation=""/>
   </types>
   <types name="nagios_servicedependency" documentation="">
     <parameters name="_naginator_name" documentation=""/>
@@ -542,9 +558,11 @@
     <parameters name="register" documentation=""/>
     <parameters name="dependent_host_name" documentation=""/>
     <parameters name="execution_failure_criteria" documentation=""/>
+    <parameters name="target" documentation=""/>
     <parameters name="dependency_period" documentation=""/>
     <parameters name="service_description" documentation=""/>
     <parameters name="dependent_hostgroup_name" documentation=""/>
+    <parameters name="ensure" documentation=""/>
   </types>
   <types name="nagios_serviceescalation" documentation="">
     <parameters name="first_notification" documentation=""/>
@@ -557,62 +575,72 @@
     <parameters name="contacts" documentation=""/>
     <parameters name="register" documentation=""/>
     <parameters name="escalation_period" documentation=""/>
+    <parameters name="target" documentation=""/>
     <parameters name="service_description" documentation=""/>
     <parameters name="last_notification" documentation=""/>
     <parameters name="notification_interval" documentation=""/>
+    <parameters name="ensure" documentation=""/>
     <parameters name="contact_groups" documentation=""/>
   </types>
   <types name="nagios_hostdependency" documentation="">
+    <parameters name="_naginator_name" documentation=""/>
+    <parameters name="inherits_parent" documentation=""/>
+    <parameters name="notification_failure_criteria" documentation=""/>
+    <parameters name="use" documentation=""/>
+    <parameters name="host_name" documentation=""/>
+    <parameters name="hostgroup_name" documentation=""/>
     <parameters name="register" documentation=""/>
     <parameters name="dependent_host_name" documentation=""/>
-    <parameters name="_naginator_name" documentation=""/>
-    <parameters name="notification_failure_criteria" documentation=""/>
     <parameters name="execution_failure_criteria" documentation=""/>
-    <parameters name="inherits_parent" documentation=""/>
+    <parameters name="target" documentation=""/>
     <parameters name="dependency_period" documentation=""/>
-    <parameters name="use" documentation=""/>
-    <parameters name="host_name" documentation=""/>
     <parameters name="dependent_hostgroup_name" documentation=""/>
-    <parameters name="hostgroup_name" documentation=""/>
+    <parameters name="ensure" documentation=""/>
   </types>
   <types name="nagios_hostescalation" documentation="">
-    <parameters name="register" documentation=""/>
-    <parameters name="escalation_options" documentation=""/>
     <parameters name="first_notification" documentation=""/>
+    <parameters name="escalation_options" documentation=""/>
     <parameters name="_naginator_name" documentation=""/>
-    <parameters name="escalation_period" documentation=""/>
     <parameters name="use" documentation=""/>
     <parameters name="host_name" documentation=""/>
+    <parameters name="hostgroup_name" documentation=""/>
+    <parameters name="contacts" documentation=""/>
+    <parameters name="register" documentation=""/>
+    <parameters name="escalation_period" documentation=""/>
+    <parameters name="target" documentation=""/>
     <parameters name="last_notification" documentation=""/>
     <parameters name="notification_interval" documentation=""/>
+    <parameters name="ensure" documentation=""/>
     <parameters name="contact_groups" documentation=""/>
-    <parameters name="contacts" documentation=""/>
-    <parameters name="hostgroup_name" documentation=""/>
   </types>
   <types name="nagios_hostextinfo" documentation="">
-    <parameters name="register" documentation=""/>
     <parameters name="statusmap_image" documentation=""/>
-    <parameters name="notes_url" documentation=""/>
     <parameters name="icon_image" documentation=""/>
     <parameters name="vrml_image" documentation=""/>
     <parameters name="use" documentation=""/>
-    <parameters name="2d_coords" documentation=""/>
     <parameters name="3d_coords" documentation=""/>
+    <parameters name="host_name" documentation=""/>
+    <parameters name="notes_url" documentation=""/>
+    <parameters name="register" documentation=""/>
+    <parameters name="target" documentation=""/>
+    <parameters name="2d_coords" documentation=""/>
     <parameters name="icon_image_alt" documentation=""/>
     <parameters name="notes" documentation=""/>
-    <parameters name="host_name" documentation=""/>
+    <parameters name="ensure" documentation=""/>
   </types>
   <types name="nagios_serviceextinfo" documentation="">
     <parameters name="register" documentation=""/>
     <parameters name="notes_url" documentation=""/>
     <parameters name="_naginator_name" documentation=""/>
     <parameters name="icon_image" documentation=""/>
+    <parameters name="target" documentation=""/>
     <parameters name="use" documentation=""/>
     <parameters name="icon_image_alt" documentation=""/>
     <parameters name="notes" documentation=""/>
     <parameters name="host_name" documentation=""/>
     <parameters name="service_description" documentation=""/>
     <parameters name="action_url" documentation=""/>
+    <parameters name="ensure" documentation=""/>
   </types>
   <typeFragments name="file">
     <parameters name="checksum" documentation="The checksum type to use when checksumming a file.&#xA;&#xA;    The default checksum parameter, if checksums are enabled, is md5."/>

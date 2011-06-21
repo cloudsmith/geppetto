@@ -124,6 +124,14 @@ public class PPTypeFinder {
 		Map<String, PPTypeInfo.Entry> parameterMap = Maps.newHashMap();
 		String typeDocumentation = "";
 
+		// All nagios types have these nagios meta types
+		// (added in nagios_maker.rb - seems lots of work to parse that file to
+		// only find
+		// these, so hardcoding them here).
+		//
+		parameterMap.put("ensure", new PPTypeInfo.Entry("", false));
+		parameterMap.put("target", new PPTypeInfo.Entry("", false));
+
 		for (Node n : root.childNodes()) {
 			if (n.getNodeType() == NodeType.NEWLINENODE)
 				n = ((NewlineNode) n).getNextNode();

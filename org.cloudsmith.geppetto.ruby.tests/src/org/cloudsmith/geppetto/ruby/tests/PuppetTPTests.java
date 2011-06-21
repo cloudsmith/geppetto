@@ -62,8 +62,8 @@ public class PuppetTPTests extends TestCase {
 		URI fileURI = URI.createFileURI(pptpFile.getAbsolutePath());
 		Resource targetResource = resourceSet.getResource(fileURI, true);
 		TargetEntry target = (TargetEntry) targetResource.getContents().get(0);
-		assertEquals("Should have found 32 types", 32, target.getTypes().size());
-		assertEquals("Should have found 21 functions", 21, target.getFunctions().size());
+		assertEquals("Should have found 46 types", 46, target.getTypes().size());
+		assertEquals("Should have found 29 functions", 29, target.getFunctions().size());
 
 		pptpFile = TestDataProvider.getTestFile(new Path("testData/pptp/puppet-2.6.4_0.pptp"));
 
@@ -71,8 +71,8 @@ public class PuppetTPTests extends TestCase {
 		fileURI = URI.createFileURI(pptpFile.getAbsolutePath());
 		targetResource = resourceSet.getResource(fileURI, true);
 		target = (TargetEntry) targetResource.getContents().get(0);
-		assertEquals("Should have found 32 types", 32, target.getTypes().size());
-		assertEquals("Should have found 21 functions", 21, target.getFunctions().size());
+		assertEquals("Should have found 46 types", 46, target.getTypes().size());
+		assertEquals("Should have found 29 functions", 29, target.getFunctions().size());
 	}
 
 	public void testLoadMockDistro() throws Exception {

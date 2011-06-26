@@ -102,6 +102,11 @@ public interface IPPDiagnostics {
 
 	public static final String ISSUE__RESOURCE_NAME_REDEFINITION = ISSUE_PREFIX + "ResourceNameRedefinition";
 
-	public static final String ISSUE__NOT_CONSTANT = ISSUE_PREFIX + "NotConstant";;
+	public static final String ISSUE__NOT_CONSTANT = ISSUE_PREFIX + "NotConstant";
+
+	public static final String ISSUE__RESOURCE_DEPRECATED_NAME_ALIAS = ISSUE_PREFIX + "ResourceDeprecatedNameAlias";
+
+	public static final String ISSUE__RESOURCE_DUPLICATE_NAME_PARAMETER = ISSUE_PREFIX +
+			"ResourceDuplicateNameParameter";
 
 }

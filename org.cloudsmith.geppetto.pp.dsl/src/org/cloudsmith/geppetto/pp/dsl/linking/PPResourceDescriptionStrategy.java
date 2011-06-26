@@ -19,6 +19,9 @@ import org.cloudsmith.geppetto.pp.HostClassDefinition;
 import org.cloudsmith.geppetto.pp.LiteralNameOrReference;
 import org.cloudsmith.geppetto.pp.PPPackage;
 import org.cloudsmith.geppetto.pp.dsl.PPDSLConstants;
+import org.cloudsmith.geppetto.pp.pptp.PPTPPackage;
+import org.cloudsmith.geppetto.pp.pptp.Parameter;
+import org.cloudsmith.geppetto.pp.pptp.TargetElement;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.xtext.naming.IQualifiedNameConverter;
 import org.eclipse.xtext.naming.QualifiedName;
@@ -77,6 +80,17 @@ public class PPResourceDescriptionStrategy extends DefaultResourceDescriptionStr
 				String parentName = ((LiteralNameOrReference) d.getParent()).getValue();
 				Map<String, String> data = Maps.newHashMapWithExpectedSize(1);
 				data.put(PPDSLConstants.PARENT_NAME_DATA, parentName);
+				return data;
+			}
+		}
+		else if(PPTPPackage.Literals.TARGET_ELEMENT.isSuperTypeOf(eObject.eClass())) {
+			Map<String, String> data = Maps.newHashMapWithExpectedSize(1);
+			if(((TargetElement) eObject).isDeprecated())
+				data.put(PPDSLConstants.ELEMENT_DEPRECATED, "true");
+			if(eObject.eClass() == PPTPPackage.Literals.PARAMETER) {
+				Parameter p = (Parameter) eObject;
+				if(p.isNamevar())
+					data.put(PPDSLConstants.PARAMETER_NAMEVAR, "true");
 				return data;
 			}
 		}

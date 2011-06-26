@@ -11,6 +11,8 @@
  */
 package org.cloudsmith.geppetto.pp.dsl;
 
+import org.eclipse.xtext.resource.IEObjectDescription;
+
 /**
  * Constants for PP DSL
  * 
@@ -38,5 +40,17 @@ public interface PPDSLConstants {
 	 * root to use when relativizing URI/paths in reported diagnostic.
 	 */
 	public static final String RESOURCE_PROPERTY__ROOT_URI = "org.cloudsmith.geppetto.pp.dsl.resource.rootUri";
+
+	/**
+	 * If present in an {@link IEObjectDescription} for a PPTP Parameter data and set to true, then this
+	 * parameter is a PP DSL namevar.
+	 */
+	public static final String PARAMETER_NAMEVAR = "org.cloudsmith.geppetto.pptp.parameter.namevar";
+
+	/**
+	 * If present in an {@link IEObjectDescription} for a PPTP 'Element' data and set to true, this entry
+	 * is deprecated.
+	 */
+	public static final String ELEMENT_DEPRECATED = "org.cloudsmith.geppetto.pptp.element.deprecated";
 
 }

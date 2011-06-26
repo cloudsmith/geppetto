@@ -31,6 +31,7 @@ import org.eclipse.emf.ecore.impl.EObjectImpl;
  * <ul>
  * <li>{@link org.cloudsmith.geppetto.pp.pptp.impl.TargetElementImpl#getName <em>Name</em>}</li>
  * <li>{@link org.cloudsmith.geppetto.pp.pptp.impl.TargetElementImpl#getDocumentation <em>Documentation</em>}</li>
+ * <li>{@link org.cloudsmith.geppetto.pp.pptp.impl.TargetElementImpl#isDeprecated <em>Deprecated</em>}</li>
  * </ul>
  * </p>
  * 
@@ -80,6 +81,28 @@ public abstract class TargetElementImpl extends EObjectImpl implements TargetEle
 	 * @ordered
 	 */
 	protected String documentation = DOCUMENTATION_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #isDeprecated() <em>Deprecated</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @see #isDeprecated()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final boolean DEPRECATED_EDEFAULT = false;
+
+	/**
+	 * The cached value of the '{@link #isDeprecated() <em>Deprecated</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @see #isDeprecated()
+	 * @generated
+	 * @ordered
+	 */
+	protected boolean deprecated = DEPRECATED_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -142,6 +165,8 @@ public abstract class TargetElementImpl extends EObjectImpl implements TargetEle
 				return getName();
 			case PPTPPackage.TARGET_ELEMENT__DOCUMENTATION:
 				return getDocumentation();
+			case PPTPPackage.TARGET_ELEMENT__DEPRECATED:
+				return isDeprecated();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -163,6 +188,8 @@ public abstract class TargetElementImpl extends EObjectImpl implements TargetEle
 				return DOCUMENTATION_EDEFAULT == null
 						? documentation != null
 						: !DOCUMENTATION_EDEFAULT.equals(documentation);
+			case PPTPPackage.TARGET_ELEMENT__DEPRECATED:
+				return deprecated != DEPRECATED_EDEFAULT;
 		}
 		return super.eIsSet(featureID);
 	}
@@ -181,6 +208,9 @@ public abstract class TargetElementImpl extends EObjectImpl implements TargetEle
 				return;
 			case PPTPPackage.TARGET_ELEMENT__DOCUMENTATION:
 				setDocumentation((String) newValue);
+				return;
+			case PPTPPackage.TARGET_ELEMENT__DEPRECATED:
+				setDeprecated((Boolean) newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -212,6 +242,9 @@ public abstract class TargetElementImpl extends EObjectImpl implements TargetEle
 			case PPTPPackage.TARGET_ELEMENT__DOCUMENTATION:
 				setDocumentation(DOCUMENTATION_EDEFAULT);
 				return;
+			case PPTPPackage.TARGET_ELEMENT__DEPRECATED:
+				setDeprecated(DEPRECATED_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -234,6 +267,30 @@ public abstract class TargetElementImpl extends EObjectImpl implements TargetEle
 	 */
 	public String getName() {
 		return name;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
+	public boolean isDeprecated() {
+		return deprecated;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
+	public void setDeprecated(boolean newDeprecated) {
+		boolean oldDeprecated = deprecated;
+		deprecated = newDeprecated;
+		if(eNotificationRequired())
+			eNotify(new ENotificationImpl(
+				this, Notification.SET, PPTPPackage.TARGET_ELEMENT__DEPRECATED, oldDeprecated, deprecated));
 	}
 
 	/**
@@ -279,6 +336,8 @@ public abstract class TargetElementImpl extends EObjectImpl implements TargetEle
 		result.append(name);
 		result.append(", documentation: ");
 		result.append(documentation);
+		result.append(", deprecated: ");
+		result.append(deprecated);
 		result.append(')');
 		return result.toString();
 	}

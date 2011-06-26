@@ -28,6 +28,7 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  * The following features are implemented:
  * <ul>
  * <li>{@link org.cloudsmith.geppetto.pp.pptp.impl.TypeArgumentImpl#isRequired <em>Required</em>}</li>
+ * <li>{@link org.cloudsmith.geppetto.pp.pptp.impl.TypeArgumentImpl#isNamevar <em>Namevar</em>}</li>
  * </ul>
  * </p>
  * 
@@ -57,6 +58,28 @@ public abstract class TypeArgumentImpl extends TargetElementImpl implements Type
 	protected boolean required = REQUIRED_EDEFAULT;
 
 	/**
+	 * The default value of the '{@link #isNamevar() <em>Namevar</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @see #isNamevar()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final boolean NAMEVAR_EDEFAULT = false;
+
+	/**
+	 * The cached value of the '{@link #isNamevar() <em>Namevar</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @see #isNamevar()
+	 * @generated
+	 * @ordered
+	 */
+	protected boolean namevar = NAMEVAR_EDEFAULT;
+
+	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
@@ -77,6 +100,8 @@ public abstract class TypeArgumentImpl extends TargetElementImpl implements Type
 		switch(featureID) {
 			case PPTPPackage.TYPE_ARGUMENT__REQUIRED:
 				return isRequired();
+			case PPTPPackage.TYPE_ARGUMENT__NAMEVAR:
+				return isNamevar();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -92,6 +117,8 @@ public abstract class TypeArgumentImpl extends TargetElementImpl implements Type
 		switch(featureID) {
 			case PPTPPackage.TYPE_ARGUMENT__REQUIRED:
 				return required != REQUIRED_EDEFAULT;
+			case PPTPPackage.TYPE_ARGUMENT__NAMEVAR:
+				return namevar != NAMEVAR_EDEFAULT;
 		}
 		return super.eIsSet(featureID);
 	}
@@ -107,6 +134,9 @@ public abstract class TypeArgumentImpl extends TargetElementImpl implements Type
 		switch(featureID) {
 			case PPTPPackage.TYPE_ARGUMENT__REQUIRED:
 				setRequired((Boolean) newValue);
+				return;
+			case PPTPPackage.TYPE_ARGUMENT__NAMEVAR:
+				setNamevar((Boolean) newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -135,6 +165,9 @@ public abstract class TypeArgumentImpl extends TargetElementImpl implements Type
 			case PPTPPackage.TYPE_ARGUMENT__REQUIRED:
 				setRequired(REQUIRED_EDEFAULT);
 				return;
+			case PPTPPackage.TYPE_ARGUMENT__NAMEVAR:
+				setNamevar(NAMEVAR_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -145,8 +178,32 @@ public abstract class TypeArgumentImpl extends TargetElementImpl implements Type
 	 * 
 	 * @generated
 	 */
+	public boolean isNamevar() {
+		return namevar;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
 	public boolean isRequired() {
 		return required;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
+	public void setNamevar(boolean newNamevar) {
+		boolean oldNamevar = namevar;
+		namevar = newNamevar;
+		if(eNotificationRequired())
+			eNotify(new ENotificationImpl(
+				this, Notification.SET, PPTPPackage.TYPE_ARGUMENT__NAMEVAR, oldNamevar, namevar));
 	}
 
 	/**
@@ -177,6 +234,8 @@ public abstract class TypeArgumentImpl extends TargetElementImpl implements Type
 		StringBuffer result = new StringBuffer(super.toString());
 		result.append(" (required: ");
 		result.append(required);
+		result.append(", namevar: ");
+		result.append(namevar);
 		result.append(')');
 		return result.toString();
 	}

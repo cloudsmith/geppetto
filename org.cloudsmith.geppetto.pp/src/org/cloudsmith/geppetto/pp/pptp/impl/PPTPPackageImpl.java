@@ -273,6 +273,7 @@ public class PPTPPackageImpl extends EPackageImpl implements PPTPPackage {
 		createEAttribute(iNamedEClass, INAMED__NAME);
 
 		targetElementEClass = createEClass(TARGET_ELEMENT);
+		createEAttribute(targetElementEClass, TARGET_ELEMENT__DEPRECATED);
 
 		propertyEClass = createEClass(PROPERTY);
 
@@ -287,6 +288,7 @@ public class PPTPPackageImpl extends EPackageImpl implements PPTPPackage {
 
 		typeArgumentEClass = createEClass(TYPE_ARGUMENT);
 		createEAttribute(typeArgumentEClass, TYPE_ARGUMENT__REQUIRED);
+		createEAttribute(typeArgumentEClass, TYPE_ARGUMENT__NAMEVAR);
 
 		// Create data types
 		fileEDataType = createEDataType(FILE);
@@ -468,6 +470,16 @@ public class PPTPPackageImpl extends EPackageImpl implements PPTPPackage {
 	 * 
 	 * @generated
 	 */
+	public EAttribute getTargetElement_Deprecated() {
+		return (EAttribute) targetElementEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
 	public EClass getTargetEntry() {
 		return targetEntryEClass;
 	}
@@ -570,6 +582,16 @@ public class PPTPPackageImpl extends EPackageImpl implements PPTPPackage {
 	 */
 	public EClass getTypeArgument() {
 		return typeArgumentEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
+	public EAttribute getTypeArgument_Namevar() {
+		return (EAttribute) typeArgumentEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -697,6 +719,9 @@ public class PPTPPackageImpl extends EPackageImpl implements PPTPPackage {
 		initEClass(
 			targetElementEClass, TargetElement.class, "TargetElement", IS_ABSTRACT, !IS_INTERFACE,
 			IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(
+			getTargetElement_Deprecated(), ecorePackage.getEBoolean(), "deprecated", null, 0, 1, TargetElement.class,
+			!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(propertyEClass, Property.class, "Property", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
@@ -719,6 +744,9 @@ public class PPTPPackageImpl extends EPackageImpl implements PPTPPackage {
 			IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(
 			getTypeArgument_Required(), ecorePackage.getEBoolean(), "required", null, 0, 1, TypeArgument.class,
+			!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(
+			getTypeArgument_Namevar(), ecorePackage.getEBoolean(), "namevar", null, 0, 1, TypeArgument.class,
 			!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		// Initialize data types

@@ -32,6 +32,7 @@ import org.eclipse.emf.ecore.impl.EObjectImpl;
  * <ul>
  * <li>{@link org.cloudsmith.geppetto.pp.pptp.impl.FunctionImpl#getDocumentation <em>Documentation</em>}</li>
  * <li>{@link org.cloudsmith.geppetto.pp.pptp.impl.FunctionImpl#getName <em>Name</em>}</li>
+ * <li>{@link org.cloudsmith.geppetto.pp.pptp.impl.FunctionImpl#isDeprecated <em>Deprecated</em>}</li>
  * <li>{@link org.cloudsmith.geppetto.pp.pptp.impl.FunctionImpl#isRValue <em>RValue</em>}</li>
  * </ul>
  * </p>
@@ -84,6 +85,28 @@ public class FunctionImpl extends EObjectImpl implements Function {
 	protected String name = NAME_EDEFAULT;
 
 	/**
+	 * The default value of the '{@link #isDeprecated() <em>Deprecated</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @see #isDeprecated()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final boolean DEPRECATED_EDEFAULT = false;
+
+	/**
+	 * The cached value of the '{@link #isDeprecated() <em>Deprecated</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @see #isDeprecated()
+	 * @generated
+	 * @ordered
+	 */
+	protected boolean deprecated = DEPRECATED_EDEFAULT;
+
+	/**
 	 * The default value of the '{@link #isRValue() <em>RValue</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -133,6 +156,8 @@ public class FunctionImpl extends EObjectImpl implements Function {
 		}
 		if(baseClass == TargetElement.class) {
 			switch(derivedFeatureID) {
+				case PPTPPackage.FUNCTION__DEPRECATED:
+					return PPTPPackage.TARGET_ELEMENT__DEPRECATED;
 				default:
 					return -1;
 			}
@@ -158,6 +183,8 @@ public class FunctionImpl extends EObjectImpl implements Function {
 		}
 		if(baseClass == TargetElement.class) {
 			switch(baseFeatureID) {
+				case PPTPPackage.TARGET_ELEMENT__DEPRECATED:
+					return PPTPPackage.FUNCTION__DEPRECATED;
 				default:
 					return -1;
 			}
@@ -178,6 +205,8 @@ public class FunctionImpl extends EObjectImpl implements Function {
 				return getDocumentation();
 			case PPTPPackage.FUNCTION__NAME:
 				return getName();
+			case PPTPPackage.FUNCTION__DEPRECATED:
+				return isDeprecated();
 			case PPTPPackage.FUNCTION__RVALUE:
 				return isRValue();
 		}
@@ -201,6 +230,8 @@ public class FunctionImpl extends EObjectImpl implements Function {
 				return NAME_EDEFAULT == null
 						? name != null
 						: !NAME_EDEFAULT.equals(name);
+			case PPTPPackage.FUNCTION__DEPRECATED:
+				return deprecated != DEPRECATED_EDEFAULT;
 			case PPTPPackage.FUNCTION__RVALUE:
 				return rValue != RVALUE_EDEFAULT;
 		}
@@ -221,6 +252,9 @@ public class FunctionImpl extends EObjectImpl implements Function {
 				return;
 			case PPTPPackage.FUNCTION__NAME:
 				setName((String) newValue);
+				return;
+			case PPTPPackage.FUNCTION__DEPRECATED:
+				setDeprecated((Boolean) newValue);
 				return;
 			case PPTPPackage.FUNCTION__RVALUE:
 				setRValue((Boolean) newValue);
@@ -255,6 +289,9 @@ public class FunctionImpl extends EObjectImpl implements Function {
 			case PPTPPackage.FUNCTION__NAME:
 				setName(NAME_EDEFAULT);
 				return;
+			case PPTPPackage.FUNCTION__DEPRECATED:
+				setDeprecated(DEPRECATED_EDEFAULT);
+				return;
 			case PPTPPackage.FUNCTION__RVALUE:
 				setRValue(RVALUE_EDEFAULT);
 				return;
@@ -288,8 +325,32 @@ public class FunctionImpl extends EObjectImpl implements Function {
 	 * 
 	 * @generated
 	 */
+	public boolean isDeprecated() {
+		return deprecated;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
 	public boolean isRValue() {
 		return rValue;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
+	public void setDeprecated(boolean newDeprecated) {
+		boolean oldDeprecated = deprecated;
+		deprecated = newDeprecated;
+		if(eNotificationRequired())
+			eNotify(new ENotificationImpl(
+				this, Notification.SET, PPTPPackage.FUNCTION__DEPRECATED, oldDeprecated, deprecated));
 	}
 
 	/**
@@ -348,6 +409,8 @@ public class FunctionImpl extends EObjectImpl implements Function {
 		result.append(documentation);
 		result.append(", name: ");
 		result.append(name);
+		result.append(", deprecated: ");
+		result.append(deprecated);
 		result.append(", rValue: ");
 		result.append(rValue);
 		result.append(')');

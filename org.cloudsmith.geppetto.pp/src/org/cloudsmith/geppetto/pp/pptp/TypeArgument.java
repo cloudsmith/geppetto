@@ -20,6 +20,7 @@ package org.cloudsmith.geppetto.pp.pptp;
  * The following features are supported:
  * <ul>
  * <li>{@link org.cloudsmith.geppetto.pp.pptp.TypeArgument#isRequired <em>Required</em>}</li>
+ * <li>{@link org.cloudsmith.geppetto.pp.pptp.TypeArgument#isNamevar <em>Namevar</em>}</li>
  * </ul>
  * </p>
  * 
@@ -28,6 +29,22 @@ package org.cloudsmith.geppetto.pp.pptp;
  * @generated
  */
 public interface TypeArgument extends TargetElement {
+	/**
+	 * Returns the value of the '<em><b>Namevar</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Namevar</em>' attribute isn't clear, there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * 
+	 * @return the value of the '<em>Namevar</em>' attribute.
+	 * @see #setNamevar(boolean)
+	 * @see org.cloudsmith.geppetto.pp.pptp.PPTPPackage#getTypeArgument_Namevar()
+	 * @model
+	 * @generated
+	 */
+	boolean isNamevar();
+
 	/**
 	 * Returns the value of the '<em><b>Required</b></em>' attribute.
 	 * <!-- begin-user-doc -->
@@ -43,6 +60,18 @@ public interface TypeArgument extends TargetElement {
 	 * @generated
 	 */
 	boolean isRequired();
+
+	/**
+	 * Sets the value of the '{@link org.cloudsmith.geppetto.pp.pptp.TypeArgument#isNamevar <em>Namevar</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @param value
+	 *            the new value of the '<em>Namevar</em>' attribute.
+	 * @see #isNamevar()
+	 * @generated
+	 */
+	void setNamevar(boolean value);
 
 	/**
 	 * Sets the value of the '{@link org.cloudsmith.geppetto.pp.pptp.TypeArgument#isRequired <em>Required</em>}' attribute.

@@ -243,6 +243,15 @@ public interface PPTPPackage extends EPackage {
 		EAttribute TYPE_ARGUMENT__REQUIRED = eINSTANCE.getTypeArgument_Required();
 
 		/**
+		 * The meta object literal for the '<em><b>Namevar</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * 
+		 * @generated
+		 */
+		EAttribute TYPE_ARGUMENT__NAMEVAR = eINSTANCE.getTypeArgument_Namevar();
+
+		/**
 		 * The meta object literal for the '{@link org.cloudsmith.geppetto.pp.pptp.IDocumented <em>IDocumented</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -292,6 +301,15 @@ public interface PPTPPackage extends EPackage {
 		 * @generated
 		 */
 		EClass TARGET_ELEMENT = eINSTANCE.getTargetElement();
+
+		/**
+		 * The meta object literal for the '<em><b>Deprecated</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * 
+		 * @generated
+		 */
+		EAttribute TARGET_ELEMENT__DEPRECATED = eINSTANCE.getTargetElement_Deprecated();
 
 		/**
 		 * The meta object literal for the '{@link org.cloudsmith.geppetto.pp.pptp.impl.PropertyImpl <em>Property</em>}' class.
@@ -631,6 +649,16 @@ public interface PPTPPackage extends EPackage {
 	int FUNCTION__NAME = IDOCUMENTED_FEATURE_COUNT + 0;
 
 	/**
+	 * The feature id for the '<em><b>Deprecated</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 * @ordered
+	 */
+	int FUNCTION__DEPRECATED = IDOCUMENTED_FEATURE_COUNT + 1;
+
+	/**
 	 * The feature id for the '<em><b>RValue</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -638,7 +666,7 @@ public interface PPTPPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int FUNCTION__RVALUE = IDOCUMENTED_FEATURE_COUNT + 1;
+	int FUNCTION__RVALUE = IDOCUMENTED_FEATURE_COUNT + 2;
 
 	/**
 	 * The number of structural features of the '<em>Function</em>' class.
@@ -648,7 +676,7 @@ public interface PPTPPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int FUNCTION_FEATURE_COUNT = IDOCUMENTED_FEATURE_COUNT + 2;
+	int FUNCTION_FEATURE_COUNT = IDOCUMENTED_FEATURE_COUNT + 3;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -702,6 +730,16 @@ public interface PPTPPackage extends EPackage {
 	int TARGET_ELEMENT__DOCUMENTATION = INAMED_FEATURE_COUNT + 0;
 
 	/**
+	 * The feature id for the '<em><b>Deprecated</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 * @ordered
+	 */
+	int TARGET_ELEMENT__DEPRECATED = INAMED_FEATURE_COUNT + 1;
+
+	/**
 	 * The number of structural features of the '<em>Target Element</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -709,7 +747,7 @@ public interface PPTPPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int TARGET_ELEMENT_FEATURE_COUNT = INAMED_FEATURE_COUNT + 1;
+	int TARGET_ELEMENT_FEATURE_COUNT = INAMED_FEATURE_COUNT + 2;
 
 	/**
 	 * The meta object id for the '{@link org.cloudsmith.geppetto.pp.pptp.impl.AbstractTypeImpl <em>Abstract Type</em>}' class.
@@ -741,6 +779,16 @@ public interface PPTPPackage extends EPackage {
 	 * @ordered
 	 */
 	int ABSTRACT_TYPE__DOCUMENTATION = TARGET_ELEMENT__DOCUMENTATION;
+
+	/**
+	 * The feature id for the '<em><b>Deprecated</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 * @ordered
+	 */
+	int ABSTRACT_TYPE__DEPRECATED = TARGET_ELEMENT__DEPRECATED;
 
 	/**
 	 * The feature id for the '<em><b>EReference0</b></em>' reference.
@@ -814,6 +862,16 @@ public interface PPTPPackage extends EPackage {
 	int TYPE_ARGUMENT__DOCUMENTATION = TARGET_ELEMENT__DOCUMENTATION;
 
 	/**
+	 * The feature id for the '<em><b>Deprecated</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 * @ordered
+	 */
+	int TYPE_ARGUMENT__DEPRECATED = TARGET_ELEMENT__DEPRECATED;
+
+	/**
 	 * The feature id for the '<em><b>Required</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -824,6 +882,16 @@ public interface PPTPPackage extends EPackage {
 	int TYPE_ARGUMENT__REQUIRED = TARGET_ELEMENT_FEATURE_COUNT + 0;
 
 	/**
+	 * The feature id for the '<em><b>Namevar</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 * @ordered
+	 */
+	int TYPE_ARGUMENT__NAMEVAR = TARGET_ELEMENT_FEATURE_COUNT + 1;
+
+	/**
 	 * The number of structural features of the '<em>Type Argument</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -831,7 +899,7 @@ public interface PPTPPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int TYPE_ARGUMENT_FEATURE_COUNT = TARGET_ELEMENT_FEATURE_COUNT + 1;
+	int TYPE_ARGUMENT_FEATURE_COUNT = TARGET_ELEMENT_FEATURE_COUNT + 2;
 
 	/**
 	 * The meta object id for the '{@link org.cloudsmith.geppetto.pp.pptp.impl.TypeImpl <em>Type</em>}' class.
@@ -876,6 +944,16 @@ public interface PPTPPackage extends EPackage {
 	int PROPERTY__DOCUMENTATION = TYPE_ARGUMENT__DOCUMENTATION;
 
 	/**
+	 * The feature id for the '<em><b>Deprecated</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 * @ordered
+	 */
+	int PROPERTY__DEPRECATED = TYPE_ARGUMENT__DEPRECATED;
+
+	/**
 	 * The feature id for the '<em><b>Required</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -884,6 +962,16 @@ public interface PPTPPackage extends EPackage {
 	 * @ordered
 	 */
 	int PROPERTY__REQUIRED = TYPE_ARGUMENT__REQUIRED;
+
+	/**
+	 * The feature id for the '<em><b>Namevar</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 * @ordered
+	 */
+	int PROPERTY__NAMEVAR = TYPE_ARGUMENT__NAMEVAR;
 
 	/**
 	 * The number of structural features of the '<em>Property</em>' class.
@@ -927,6 +1015,16 @@ public interface PPTPPackage extends EPackage {
 	int PARAMETER__DOCUMENTATION = TYPE_ARGUMENT__DOCUMENTATION;
 
 	/**
+	 * The feature id for the '<em><b>Deprecated</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 * @ordered
+	 */
+	int PARAMETER__DEPRECATED = TYPE_ARGUMENT__DEPRECATED;
+
+	/**
 	 * The feature id for the '<em><b>Required</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -935,6 +1033,16 @@ public interface PPTPPackage extends EPackage {
 	 * @ordered
 	 */
 	int PARAMETER__REQUIRED = TYPE_ARGUMENT__REQUIRED;
+
+	/**
+	 * The feature id for the '<em><b>Namevar</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 * @ordered
+	 */
+	int PARAMETER__NAMEVAR = TYPE_ARGUMENT__NAMEVAR;
 
 	/**
 	 * The number of structural features of the '<em>Parameter</em>' class.
@@ -976,6 +1084,16 @@ public interface PPTPPackage extends EPackage {
 	 * @ordered
 	 */
 	int TYPE_FRAGMENT__DOCUMENTATION = ABSTRACT_TYPE__DOCUMENTATION;
+
+	/**
+	 * The feature id for the '<em><b>Deprecated</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 * @ordered
+	 */
+	int TYPE_FRAGMENT__DEPRECATED = ABSTRACT_TYPE__DEPRECATED;
 
 	/**
 	 * The feature id for the '<em><b>EReference0</b></em>' reference.
@@ -1036,6 +1154,16 @@ public interface PPTPPackage extends EPackage {
 	 * @ordered
 	 */
 	int TYPE__DOCUMENTATION = ABSTRACT_TYPE__DOCUMENTATION;
+
+	/**
+	 * The feature id for the '<em><b>Deprecated</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 * @ordered
+	 */
+	int TYPE__DEPRECATED = ABSTRACT_TYPE__DEPRECATED;
 
 	/**
 	 * The feature id for the '<em><b>EReference0</b></em>' reference.
@@ -1117,6 +1245,16 @@ public interface PPTPPackage extends EPackage {
 	 * @ordered
 	 */
 	int META_TYPE__DOCUMENTATION = ABSTRACT_TYPE__DOCUMENTATION;
+
+	/**
+	 * The feature id for the '<em><b>Deprecated</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 * @ordered
+	 */
+	int META_TYPE__DEPRECATED = ABSTRACT_TYPE__DEPRECATED;
 
 	/**
 	 * The feature id for the '<em><b>EReference0</b></em>' reference.
@@ -1365,6 +1503,18 @@ public interface PPTPPackage extends EPackage {
 	EClass getTargetElement();
 
 	/**
+	 * Returns the meta object for the attribute '{@link org.cloudsmith.geppetto.pp.pptp.TargetElement#isDeprecated <em>Deprecated</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @return the meta object for the attribute '<em>Deprecated</em>'.
+	 * @see org.cloudsmith.geppetto.pp.pptp.TargetElement#isDeprecated()
+	 * @see #getTargetElement()
+	 * @generated
+	 */
+	EAttribute getTargetElement_Deprecated();
+
+	/**
 	 * Returns the meta object for class '{@link org.cloudsmith.geppetto.pp.pptp.TargetEntry <em>Target Entry</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1494,6 +1644,18 @@ public interface PPTPPackage extends EPackage {
 	 * @generated
 	 */
 	EClass getTypeArgument();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.cloudsmith.geppetto.pp.pptp.TypeArgument#isNamevar <em>Namevar</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @return the meta object for the attribute '<em>Namevar</em>'.
+	 * @see org.cloudsmith.geppetto.pp.pptp.TypeArgument#isNamevar()
+	 * @see #getTypeArgument()
+	 * @generated
+	 */
+	EAttribute getTypeArgument_Namevar();
 
 	/**
 	 * Returns the meta object for the attribute '{@link org.cloudsmith.geppetto.pp.pptp.TypeArgument#isRequired <em>Required</em>}'.

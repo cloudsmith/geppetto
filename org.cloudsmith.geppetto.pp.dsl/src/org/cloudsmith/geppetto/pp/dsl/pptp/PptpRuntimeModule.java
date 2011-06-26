@@ -13,8 +13,10 @@ package org.cloudsmith.geppetto.pp.dsl.pptp;
 
 import org.cloudsmith.geppetto.pp.dsl.PPDSLConstants;
 import org.cloudsmith.geppetto.pp.dsl.linking.PPQualifiedNameConverter;
+import org.cloudsmith.geppetto.pp.dsl.linking.PPResourceDescriptionStrategy;
 import org.eclipse.xtext.naming.IQualifiedNameConverter;
 import org.eclipse.xtext.naming.IQualifiedNameProvider;
+import org.eclipse.xtext.resource.IDefaultResourceDescriptionStrategy;
 import org.eclipse.xtext.resource.generic.AbstractGenericResourceRuntimeModule;
 
 /**
@@ -22,6 +24,15 @@ import org.eclipse.xtext.resource.generic.AbstractGenericResourceRuntimeModule;
  * 
  */
 public class PptpRuntimeModule extends AbstractGenericResourceRuntimeModule {
+
+	/**
+	 * Binds resource description strategy that adds pptp data to descriptions.
+	 * 
+	 * @return
+	 */
+	public Class<? extends IDefaultResourceDescriptionStrategy> bindIDefaultResourceDescriptionStrategy() {
+		return PPResourceDescriptionStrategy.class;
+	}
 
 	/**
 	 * Handles FQN <-> String conversion and defines "::" as the separator.

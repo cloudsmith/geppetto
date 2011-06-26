@@ -21,6 +21,9 @@ import java.util.regex.Pattern;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
+import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.OperationCanceledException;
+
 public class FileUtils {
 	public static final Pattern DEFAULT_EXCLUDES = Pattern.compile("^[\\.~#].*$");
 
@@ -82,13 +85,34 @@ public class FileUtils {
 	}
 
 	public static void rmR(File fileOrDir, Pattern excludePattern) {
+		rmR(fileOrDir, excludePattern, null);
+	}
+
+	public static void rmR(File fileOrDir, Pattern excludePattern, IProgressMonitor monitor) {
+		if(monitor != null)
+			monitor.beginTask(null, IProgressMonitor.UNKNOWN);
+		try {
+			rmRwithInitializedMonitor(fileOrDir, excludePattern, monitor);
+		}
+		finally {
+			if(monitor != null)
+				monitor.done();
+		}
+	}
+
+	private static void rmRwithInitializedMonitor(File fileOrDir, Pattern excludePattern, IProgressMonitor monitor) {
 		if(excludePattern != null && excludePattern.matcher(fileOrDir.getName()).matches())
 			return;
 
+		if(monitor != null) {
+			if(monitor.isCanceled())
+				throw new OperationCanceledException();
+			monitor.worked(1);
+		}
 		File[] children = fileOrDir.listFiles();
 		if(children != null)
 			for(File child : children)
-				rmR(child, excludePattern);
+				rmRwithInitializedMonitor(child, excludePattern, monitor);
 		fileOrDir.delete();
 	}
 

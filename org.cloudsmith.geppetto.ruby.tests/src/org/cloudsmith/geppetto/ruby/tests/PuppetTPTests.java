@@ -55,6 +55,41 @@ public class PuppetTPTests extends TestCase {
 		return null;
 	}
 
+	private void performLoad(File distroDir, File tptpFile) throws Exception {
+		RubyHelper helper = new RubyHelper();
+		helper.setUp();
+		try {
+			TargetEntry target = helper.loadDistroTarget(distroDir);
+			for(Type t : target.getTypes())
+				System.err.println("Found t: " + t.getName());
+			for(Function f : target.getFunctions())
+				System.err.println("Found f: " + f.getName());
+
+			// Save the TargetEntry as a loadable resource
+			ResourceSet resourceSet = new ResourceSetImpl();
+			URI fileURI = URI.createFileURI(tptpFile.getAbsolutePath());
+			Resource targetResource = resourceSet.createResource(fileURI);
+			targetResource.getContents().add(target);
+			targetResource.save(null);
+			System.err.println("Target saved to: " + fileURI.toString());
+
+		}
+		finally {
+			helper.tearDown();
+		}
+
+	}
+
+	public void testLoad2_6_9() throws Exception {
+		performLoad(
+			new File("/Users/henrik/PuppetDistributions/puppet-2.6.9/lib/puppet"), new File("puppet-2.6.9.pptp"));
+	}
+
+	public void testLoad2_7_1() throws Exception {
+		performLoad(
+			new File("/Users/henrik/PuppetDistributions/puppet-2.7.1/lib/puppet"), new File("puppet-2.7.1.pptp"));
+	}
+
 	public void testLoadEMFTP() throws Exception {
 		File pptpFile = TestDataProvider.getTestFile(new Path("testData/pptp/puppet-2.6.4_0.pptp"));
 
@@ -151,8 +186,6 @@ public class PuppetTPTests extends TestCase {
 	}
 
 	public void testLoadRealTP() throws Exception {
-		// 2.6.2_0
-		// 2.6.4_0
 		File distroDir = new File(
 			"/opt/local/var/macports/software/puppet/2.6.4_0/opt/local/lib/ruby/site_ruby/1.8/puppet/");
 		RubyHelper helper = new RubyHelper();

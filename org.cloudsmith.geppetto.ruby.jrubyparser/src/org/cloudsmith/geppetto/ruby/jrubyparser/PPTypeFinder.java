@@ -129,8 +129,8 @@ public class PPTypeFinder {
 		// only find
 		// these, so hardcoding them here).
 		//
-		parameterMap.put("ensure", new PPTypeInfo.Entry("", false));
-		parameterMap.put("target", new PPTypeInfo.Entry("", false));
+		parameterMap.put("ensure", new PPTypeInfo.Entry("", false, false));
+		parameterMap.put("target", new PPTypeInfo.Entry("", false, false));
 
 		for (Node n : root.childNodes()) {
 			if (n.getNodeType() == NodeType.NEWLINENODE)
@@ -147,7 +147,8 @@ public class PPTypeFinder {
 				VCallNode vcallNode = (VCallNode) n;
 				// A call to 'ensurable' adds 'ensure' parameter
 				if (ENSURABLE.equals(vcallNode.getName()))
-					parameterMap.put("ensure", new PPTypeInfo.Entry("", false));
+					parameterMap.put("ensure", new PPTypeInfo.Entry("", false,
+							false));
 				break;
 			case INSTASGNNODE:
 				InstAsgnNode docNode = (InstAsgnNode) n;
@@ -191,7 +192,8 @@ public class PPTypeFinder {
 				VCallNode vcallNode = (VCallNode) n;
 				// A call to 'ensurable' adds 'ensure' parameter
 				if (ENSURABLE.equals(vcallNode.getName()))
-					parameterMap.put("ensure", new PPTypeInfo.Entry("", false));
+					parameterMap.put("ensure", new PPTypeInfo.Entry("", false,
+							false));
 				break;
 			case INSTASGNNODE:
 				InstAsgnNode docNode = (InstAsgnNode) n;
@@ -427,6 +429,8 @@ public class PPTypeFinder {
 	}
 
 	PPTypeInfo.Entry getEntry(BlockAcceptingNode callNode) {
+		String desc = "";
+		boolean namevar = false;
 		Node bodyNode = safeGetBodyNode(callNode);
 		if (bodyNode != null)
 			for (Node n : bodyNode.childNodes()) {
@@ -435,12 +439,18 @@ public class PPTypeFinder {
 				if (n.getNodeType() == NodeType.FCALLNODE) {
 					FCallNode cn = (FCallNode) n;
 					if ("desc".equals(cn.getName()))
-						return new PPTypeInfo.Entry(getFirstArgDefault(cn, ""),
-								false);
+						desc = getFirstArgDefault(cn, "");
+					// return new PPTypeInfo.Entry(getFirstArgDefault(cn, ""),
+					// false);
+				} else if (n.getNodeType() == NodeType.VCALLNODE) {
+					VCallNode vn = (VCallNode) n;
+					if ("isnamevar".equals(vn.getName()))
+						namevar = true;
 				}
+
 			}
 
-		return new PPTypeInfo.Entry("", false);
+		return new PPTypeInfo.Entry(desc, false, namevar);
 	}
 
 	/**

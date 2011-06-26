@@ -738,6 +738,7 @@ public class RubyHelper {
 				parameter.setName(entry.getKey());
 				parameter.setDocumentation(entry.getValue().documentation);
 				parameter.setRequired(entry.getValue().isRequired());
+				parameter.setNamevar(entry.getValue().isNamevar());
 				type.getParameters().add(parameter);
 			}
 			for (Map.Entry<String, PPTypeInfo.Entry> entry : info

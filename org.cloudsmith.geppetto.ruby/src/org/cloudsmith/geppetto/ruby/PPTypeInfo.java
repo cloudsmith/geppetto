@@ -22,14 +22,20 @@ public class PPTypeInfo {
 	public static class Entry {
 		public final String documentation;
 		private boolean required;
+		private boolean namevar;
 
-		public Entry(String documentation, boolean required) {
+		public Entry(String documentation, boolean required, boolean namevar) {
 			this.documentation = documentation;
 			this.required = required;
+			this.namevar = namevar;
 		}
 
 		public String getDocumentation() {
 			return documentation;
+		}
+
+		public boolean isNamevar() {
+			return namevar;
 		}
 
 		public boolean isRequired() {

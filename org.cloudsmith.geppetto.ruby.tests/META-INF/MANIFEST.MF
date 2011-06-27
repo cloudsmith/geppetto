@@ -4,7 +4,7 @@ Bundle-Name: %pluginName
 Bundle-Vendor: %providerName
 Bundle-Localization: plugin
 Bundle-SymbolicName: org.cloudsmith.geppetto.ruby.tests;singleton:=true
-Bundle-Version: 1.0.0.qualifier
+Bundle-Version: 1.0.1.qualifier
 Require-Bundle: org.eclipse.core.runtime,
  org.junit,
  org.cloudsmith.geppetto.ruby,

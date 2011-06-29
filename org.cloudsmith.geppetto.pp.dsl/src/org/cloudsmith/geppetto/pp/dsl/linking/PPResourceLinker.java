@@ -573,14 +573,17 @@ public class PPResourceLinker {
 		if(name == null)
 			throw new IllegalArgumentException("name is null");
 		QualifiedName fqn = converter.toQualifiedName(name);
-		// make last segments initial char lower case (for references to the type itself - eg. 'File' instead of
-		// 'file'.
-		fqn = fqn.skipLast(1).append(toInitialLowerCase(fqn.getLastSegment()));
+		// make all segments initial char lower case (if references is to the type itself - eg. 'File' instead of
+		// 'file', or 'Aa::Bb' instead of 'aa::bb'
+		QualifiedName fqn2 = QualifiedName.EMPTY;
+		for(int i = 0; i < fqn.getSegmentCount(); i++)
+			fqn2 = fqn2.append(toInitialLowerCase(fqn.getSegment(i)));
+		// fqn2 = fqn.skipLast(1).append(toInitialLowerCase(fqn.getLastSegment()));
 
 		// TODO: Note that order is important, TYPE has higher precedence and should be used for linking
 		// This used to work when list was iterated per type, not it is iterated once with type check
 		// first - thus if a definition is found before a type, it is earlier in the list.
-		return findExternal(scopeDetermeningResource, fqn, importedNames, DEF_AND_TYPE);
+		return findExternal(scopeDetermeningResource, fqn2, importedNames, DEF_AND_TYPE);
 	}
 
 	protected List<IEObjectDescription> findExternal(EObject scopeDetermeningObject, QualifiedName fqn,
@@ -861,6 +864,8 @@ public class PPResourceLinker {
 	}
 
 	private String toInitialLowerCase(String s) {
+		if(s.length() < 1 || Character.isLowerCase(s.charAt(0)))
+			return s;
 		StringBuffer buf = new StringBuffer(s);
 		buf.setCharAt(0, Character.toLowerCase(buf.charAt(0)));
 		return buf.toString();

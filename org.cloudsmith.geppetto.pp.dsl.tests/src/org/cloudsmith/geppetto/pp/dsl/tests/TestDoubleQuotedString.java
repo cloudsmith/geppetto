@@ -21,6 +21,7 @@ import org.cloudsmith.geppetto.pp.PuppetManifest;
 import org.cloudsmith.geppetto.pp.TextExpression;
 import org.cloudsmith.geppetto.pp.VariableTE;
 import org.cloudsmith.geppetto.pp.VerbatimTE;
+import org.cloudsmith.geppetto.pp.dsl.validation.IPPDiagnostics;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.xtext.resource.XtextResource;
 
@@ -186,5 +187,72 @@ public class TestDoubleQuotedString extends AbstractPuppetTests {
 
 		String s = serializeFormatted(r.getContents().get(0));
 		assertEquals("Serialization of interpolated string should produce same result", formatted, s);
+	}
+
+	public void test_Validate_DoubleQuotedString_Ok() {
+		DoubleQuotedString ls = pf.createDoubleQuotedString();
+		VerbatimTE te = pf.createVerbatimTE();
+		ls.setTextExpression(te);
+		te.setText("I am a single quoted string with a tab \\t char");
+		tester.validator().checkVerbatimTextExpression(te);
+		tester.diagnose().assertOK();
+
+		// -- control char
+		te.setText("I am a single quoted string with a tab \t");
+		tester.validator().checkVerbatimTextExpression(te);
+		tester.diagnose().assertOK();
+
+		// -- new line
+		te.setText("I am a single quoted string with a nl \n");
+		tester.validator().checkVerbatimTextExpression(te);
+		tester.diagnose().assertOK();
+
+		// -- TODO: test NBSP
+
+		// Unicode escapes are not supported as specific escapes as any
+		// escaped character is the character itself - \u1234 is simply u1234
+		// Should not produce an error or warning for sq string
+
+		// -- unicode escape \\u [hexdigit]{4,4}
+		te.setText("\\u1a2b");
+		tester.validator().checkVerbatimTextExpression(te);
+		tester.diagnose().assertWarning(IPPDiagnostics.ISSUE__UNRECOGNIZED_ESCAPE);
+
+		// -- hex escape \x[hexdigit]{2,3} is not supported
+		te.setText("\\x1a");
+		tester.validator().checkVerbatimTextExpression(te);
+		tester.diagnose().assertWarning(IPPDiagnostics.ISSUE__UNRECOGNIZED_ESCAPE);
+
+		// -- octal escape \[0-7]{3,3}
+		te.setText("\\777");
+		tester.validator().checkVerbatimTextExpression(te);
+		tester.diagnose().assertWarning(IPPDiagnostics.ISSUE__UNRECOGNIZED_ESCAPE);
+
+		// -- meta escape \M-[sourcecharexceptNL]
+		te.setText("\\M-A");
+		tester.validator().checkVerbatimTextExpression(te);
+		tester.diagnose().assertWarning(IPPDiagnostics.ISSUE__UNRECOGNIZED_ESCAPE);
+
+		// -- control escape \c[sourcecharexceptNL] or \C-[sourcecharexceptNL]
+		te.setText("\\C-J");
+		tester.validator().checkVerbatimTextExpression(te);
+		tester.diagnose().assertWarning(IPPDiagnostics.ISSUE__UNRECOGNIZED_ESCAPE);
+
+		te.setText("\\cJ");
+		tester.validator().checkVerbatimTextExpression(te);
+		tester.diagnose().assertWarning(IPPDiagnostics.ISSUE__UNRECOGNIZED_ESCAPE);
+
+		// -- escaped backslash and quotes as well as any escaped character
+		te.setText("\\\\"); // i.e. '\\'
+		tester.validator().checkVerbatimTextExpression(te);
+		tester.diagnose().assertOK();
+
+		te.setText("\\\""); // i.e. '\"'
+		tester.validator().checkVerbatimTextExpression(te);
+		tester.diagnose().assertOK();
+
+		te.setText("\\p"); // i.e. '\p'
+		tester.validator().checkVerbatimTextExpression(te);
+		tester.diagnose().assertWarning(IPPDiagnostics.ISSUE__UNRECOGNIZED_ESCAPE);
 	}
 }

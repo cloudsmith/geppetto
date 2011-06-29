@@ -191,36 +191,36 @@ public class TestLiterals extends AbstractPuppetTests {
 
 		// Unicode escapes are not supported as specific escapes as any
 		// escaped character is the character itself - \u1234 is simply u1234
-		// Check that a warning is issues.
+		// Should not produce an error or warning for sq string
 
 		// -- unicode escape \\u [hexdigit]{4,4}
 		ls.setText("\\u1a2b");
 		tester.validator().checkSingleQuotedString(ls);
-		tester.diagnose().assertWarning(IPPDiagnostics.ISSUE__UNRECOGNIZED_ESCAPE);
+		tester.diagnose().assertOK();
 
 		// -- hex escape \x[hexdigit]{2,3} is not supported
 		ls.setText("\\x1a");
 		tester.validator().checkSingleQuotedString(ls);
-		tester.diagnose().assertWarning(IPPDiagnostics.ISSUE__UNRECOGNIZED_ESCAPE);
+		tester.diagnose().assertOK();
 
 		// -- octal escape \[0-7]{3,3}
 		ls.setText("\\777");
 		tester.validator().checkSingleQuotedString(ls);
-		tester.diagnose().assertWarning(IPPDiagnostics.ISSUE__UNRECOGNIZED_ESCAPE);
+		tester.diagnose().assertOK();
 
 		// -- meta escape \M-[sourcecharexceptNL]
 		ls.setText("\\M-A");
 		tester.validator().checkSingleQuotedString(ls);
-		tester.diagnose().assertWarning(IPPDiagnostics.ISSUE__UNRECOGNIZED_ESCAPE);
+		tester.diagnose().assertOK();
 
 		// -- control escape \c[sourcecharexceptNL] or \C-[sourcecharexceptNL]
 		ls.setText("\\C-J");
 		tester.validator().checkSingleQuotedString(ls);
-		tester.diagnose().assertWarning(IPPDiagnostics.ISSUE__UNRECOGNIZED_ESCAPE);
+		tester.diagnose().assertOK();
 
 		ls.setText("\\cJ");
 		tester.validator().checkSingleQuotedString(ls);
-		tester.diagnose().assertWarning(IPPDiagnostics.ISSUE__UNRECOGNIZED_ESCAPE);
+		tester.diagnose().assertOK();
 
 		// -- escaped backslash and quotes as well as any escaped character
 		ls.setText("\\\\"); // i.e. '\\'
@@ -233,6 +233,6 @@ public class TestLiterals extends AbstractPuppetTests {
 
 		ls.setText("\\p"); // i.e. '\p'
 		tester.validator().checkSingleQuotedString(ls);
-		tester.diagnose().assertWarning(IPPDiagnostics.ISSUE__UNRECOGNIZED_ESCAPE);
+		tester.diagnose().assertOK();
 	}
 }

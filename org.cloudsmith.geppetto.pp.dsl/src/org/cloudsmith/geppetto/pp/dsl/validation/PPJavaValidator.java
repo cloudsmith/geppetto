@@ -1013,18 +1013,18 @@ public class PPJavaValidator extends AbstractPPJavaValidator implements IPPDiagn
 				PPPackage.Literals.SINGLE_QUOTED_STRING__TEXT, IPPDiagnostics.ISSUE__NOT_STRING);
 		String s = o.getText();
 
+		// Unrecognized escape sequences are simply used verbatim in sq string, not need to check
 		// remove all escaped \ to make it easier to find the illegal escapes
-		Matcher m1 = patternHelper.getRecognizedSQEscapePattern().matcher(s);
-		s = m1.replaceAll("");
-
-		Matcher m = patternHelper.getUnrecognizedSQEscapesPattern().matcher(s);
-		StringBuffer unrecognized = new StringBuffer();
-		while(m.find())
-			unrecognized.append(m.group());
-		if(unrecognized.length() > 0)
-			acceptor.acceptWarning(
-				"Unrecognized escape sequence(s): " + unrecognized.toString(), o,
-				PPPackage.Literals.SINGLE_QUOTED_STRING__TEXT, IPPDiagnostics.ISSUE__UNRECOGNIZED_ESCAPE);
+		// Matcher m1 = patternHelper.getRecognizedSQEscapePattern().matcher(s);
+		// s = m1.replaceAll("");
+		// Matcher m = patternHelper.getUnrecognizedSQEscapesPattern().matcher(s);
+		// StringBuffer unrecognized = new StringBuffer();
+		// while(m.find())
+		// unrecognized.append(m.group());
+		// if(unrecognized.length() > 0)
+		// acceptor.acceptWarning(
+		// "Unrecognized escape sequence(s): " + unrecognized.toString(), o,
+		// PPPackage.Literals.SINGLE_QUOTED_STRING__TEXT, IPPDiagnostics.ISSUE__UNRECOGNIZED_ESCAPE);
 	}
 
 	@Check

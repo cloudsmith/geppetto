@@ -1011,7 +1011,7 @@ public class PPJavaValidator extends AbstractPPJavaValidator implements IPPDiagn
 			acceptor.acceptError(
 				"Contains illegal character(s). Probably an unescaped single quote.", o,
 				PPPackage.Literals.SINGLE_QUOTED_STRING__TEXT, IPPDiagnostics.ISSUE__NOT_STRING);
-		String s = o.getText();
+		// String s = o.getText();
 
 		// Unrecognized escape sequences are simply used verbatim in sq string, not need to check
 		// remove all escaped \ to make it easier to find the illegal escapes

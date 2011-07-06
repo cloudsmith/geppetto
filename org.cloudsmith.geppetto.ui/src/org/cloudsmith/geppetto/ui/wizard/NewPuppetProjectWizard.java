@@ -99,6 +99,15 @@ public class NewPuppetProjectWizard extends Wizard implements INewWizard {
 		return UIPlugin.INSTANCE.getString("_UI_PuppetProject_title"); //$NON-NLS-1$
 	}
 
+	private String getUserName() {
+		String uname = System.getProperty("user.name");
+		uname = uname.replace('.', '_');
+		uname = uname.replace('-', '_');
+		uname = uname.replace('/', '_');
+		return uname;
+
+	}
+
 	@Override
 	public void init(IWorkbench workbench, IStructuredSelection selection) {
 		setDefaultPageImageDescriptor(ExtendedImageRegistry.INSTANCE.getImageDescriptor(UIPlugin.INSTANCE.getImage("full/wizban/NewPuppetProject.png"))); //$NON-NLS-1$
@@ -107,7 +116,7 @@ public class NewPuppetProjectWizard extends Wizard implements INewWizard {
 
 	protected void initializeProjectContents() throws Exception {
 		Forge forge = getForge();
-		Metadata metadata = forge.getService().createMetadata(System.getProperty("user.name") + '/' + project.getName()); //$NON-NLS-1$
+		Metadata metadata = forge.getService().createMetadata(getUserName() + '/' + project.getName()); //$NON-NLS-1$
 
 		if(ResourceUtil.getFile(project.getFullPath().append("manifests/init.pp")).exists()) { //$NON-NLS-1$
 			File modulefile = project.getLocation().append("Modulefile").toFile(); //$NON-NLS-1$

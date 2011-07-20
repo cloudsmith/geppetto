@@ -137,9 +137,20 @@ public class VersionRequirementTest extends TestCase {
 	 */
 	public void testMatches__String() {
 		fixture.setVersion("1.2.3.foo");
+		fixture.setMatchRule(MatchRule.GREATER);
+		assertFalse(fixture.matches("1.2.3.foo"));
+		assertFalse(fixture.matches("1.2.3-foo"));
+		assertFalse(fixture.matches("1.2.3-fon"));
+		assertTrue(fixture.matches("1.2.3-fox"));
+		assertTrue(fixture.matches("1-2.4"));
+		assertTrue(fixture.matches("1.10"));
+		assertTrue(fixture.matches("2alpha"));
+
 		fixture.setMatchRule(MatchRule.GREATER_OR_EQUAL);
 		assertTrue(fixture.matches("1.2.3.foo"));
 		assertTrue(fixture.matches("1.2.3-foo"));
+		assertFalse(fixture.matches("1.2.3-fon"));
+		assertTrue(fixture.matches("1.2.3-fox"));
 		assertTrue(fixture.matches("1-2.4"));
 		assertTrue(fixture.matches("1.10"));
 		assertTrue(fixture.matches("2alpha"));
@@ -173,6 +184,30 @@ public class VersionRequirementTest extends TestCase {
 		assertTrue(fixture.matches("1.3.4"));
 		assertFalse(fixture.matches("1.1.4"));
 		assertFalse(fixture.matches("2.2.3"));
+
+		fixture.setMatchRule(MatchRule.LESS_OR_EQUAL);
+		assertTrue(fixture.matches("1.2.3.foo"));
+		assertFalse(fixture.matches("1.2.3.fox"));
+		assertTrue(fixture.matches("1.2.3.fon"));
+		assertFalse(fixture.matches("1.2.4"));
+		assertTrue(fixture.matches("1.2.2"));
+
+		assertFalse(fixture.matches("1.3.4"));
+		assertTrue(fixture.matches("1.1.4"));
+		assertFalse(fixture.matches("2.2.3"));
+		assertTrue(fixture.matches("0.2.3"));
+
+		fixture.setMatchRule(MatchRule.LESS);
+		assertFalse(fixture.matches("1.2.3.foo"));
+		assertFalse(fixture.matches("1.2.3.fox"));
+		assertTrue(fixture.matches("1.2.3.fon"));
+		assertFalse(fixture.matches("1.2.4"));
+		assertTrue(fixture.matches("1.2.2"));
+
+		assertFalse(fixture.matches("1.3.4"));
+		assertTrue(fixture.matches("1.1.4"));
+		assertFalse(fixture.matches("2.2.3"));
+		assertTrue(fixture.matches("0.2.3"));
 	}
 
 } // VersionRequirementTest

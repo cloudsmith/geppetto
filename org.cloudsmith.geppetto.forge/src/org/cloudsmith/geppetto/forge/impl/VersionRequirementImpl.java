@@ -490,7 +490,7 @@ public class VersionRequirementImpl extends EObjectImpl implements VersionRequir
 					case COMPATIBLE:
 						return idx >= 1;
 				}
-				return true;
+				return rule == MatchRule.GREATER || rule == MatchRule.GREATER_OR_EQUAL;
 			}
 
 			if(b instanceof Integer) {
@@ -523,7 +523,7 @@ public class VersionRequirementImpl extends EObjectImpl implements VersionRequir
 					case COMPATIBLE:
 						return idx >= 1;
 				}
-				return true;
+				return rule == MatchRule.GREATER || rule == MatchRule.GREATER_OR_EQUAL;
 			}
 
 			// We are comparing two strings
@@ -535,7 +535,7 @@ public class VersionRequirementImpl extends EObjectImpl implements VersionRequir
 					? 1
 					: ((String) a).compareTo((String) b);
 			if(cmp < 0)
-				return false;
+				return rule == MatchRule.LESS || rule == MatchRule.LESS_OR_EQUAL;
 
 			if(cmp > 0) {
 				switch(rule) {
@@ -546,7 +546,7 @@ public class VersionRequirementImpl extends EObjectImpl implements VersionRequir
 					case COMPATIBLE:
 						return idx >= 1;
 				}
-				return true;
+				return rule == MatchRule.GREATER || rule == MatchRule.GREATER_OR_EQUAL;
 			}
 
 			if(adx < aTop)

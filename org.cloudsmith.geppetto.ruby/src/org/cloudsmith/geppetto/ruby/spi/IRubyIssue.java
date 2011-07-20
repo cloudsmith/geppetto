@@ -33,6 +33,14 @@ public interface IRubyIssue {
 	public String getIdString();
 
 	/**
+	 * Returns the number of characters known to cause the problem (from
+	 * {@link #getStartOffset()}.
+	 * 
+	 * @return -1 if not available.
+	 */
+	public int getLength();
+
+	/**
 	 * Returns the line where the issue was found. The line number start with 1
 	 * for the first line.
 	 * 
@@ -48,6 +56,13 @@ public interface IRubyIssue {
 	 * @return
 	 */
 	public int getStartLine();
+
+	/**
+	 * Returns the start position of the problem (from position 0 in the file)
+	 * 
+	 * @return -1 if not available.
+	 */
+	public int getStartOffset();
 
 	/**
 	 * Indicates if this is a syntax error. This is the same as getId() == null.

@@ -90,6 +90,9 @@ public class RubyParserWarningsCollector implements IRubyWarnings {
 		private String fileName;
 		private String message;
 		private Object[] data;
+		private int startOffset;
+		private int length;
+		
 		protected RubyIssue(ID id, int line, int startLine, String fileName, String message, Object...data) {
 			if(id == null)
 				throw new IllegalArgumentException("ID may not be null");
@@ -114,6 +117,20 @@ public class RubyParserWarningsCollector implements IRubyWarnings {
 			this.fileName = position.getFile();
 			this.message = error.getMessage();
 			this.data = EMPTY_DATA;
+		}
+
+		@Override
+		public int getLength() {
+			throw new UnsupportedOperationException("JRuby implementation of issues not finished");
+			// TODO Finish JRuby implementation
+//			return -1;
+		}
+
+		@Override
+		public int getStartOffset() {
+			throw new UnsupportedOperationException("JRuby implementation of issues not finished");
+			// TODO Auto-generated method stub
+//			return -1;
 		}
 		
 	}

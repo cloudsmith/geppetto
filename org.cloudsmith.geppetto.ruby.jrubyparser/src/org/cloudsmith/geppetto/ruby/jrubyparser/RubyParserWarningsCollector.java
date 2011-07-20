@@ -36,6 +36,10 @@ public class RubyParserWarningsCollector implements IRubyWarnings {
 
 		private Object[] data;
 
+		private int startOffset;
+
+		private int length;
+
 		private static final Object[] EMPTY_DATA = {};
 
 		protected RubyIssue(ID id, int line, int startLine, String fileName,
@@ -48,22 +52,24 @@ public class RubyParserWarningsCollector implements IRubyWarnings {
 			this.fileName = fileName;
 			this.message = message;
 			this.data = data;
+			this.startOffset = -1;
+			this.length = -1;
 		}
 
 		protected RubyIssue(ID id, SourcePosition position, String message,
 				Object... data) {
-			this(id, position.getEndLine(), position.getStartLine(), position
-					.getFile(), message, data);
+			this.id = id;
+			this.line = position.getEndLine();
+			this.startLine = position.getStartLine();
+			this.startOffset = position.getStartOffset();
+			this.length = position.getEndOffset() - position.getStartOffset();
+			this.fileName = position.getFile();
+			this.message = message;
+			this.data = data;
 		}
 
 		protected RubyIssue(SyntaxException error) {
-			SourcePosition position = error.getPosition();
-			this.id = null; // is a syntax error
-			this.line = position.getEndLine();
-			this.startLine = position.getStartLine();
-			this.fileName = position.getFile();
-			this.message = error.getMessage();
-			this.data = EMPTY_DATA;
+			this(null, error.getPosition(), error.getMessage(), EMPTY_DATA);
 		}
 
 		public Object[] getData() {
@@ -99,6 +105,10 @@ public class RubyParserWarningsCollector implements IRubyWarnings {
 			return id == null ? "jruby.syntax.error" : id.toString();
 		}
 
+		public int getLength() {
+			return length;
+		}
+
 		public int getLine() {
 			return line;
 		}
@@ -114,6 +124,10 @@ public class RubyParserWarningsCollector implements IRubyWarnings {
 		 */
 		public int getStartLine() {
 			return startLine;
+		}
+
+		public int getStartOffset() {
+			return startOffset;
 		}
 
 		/**

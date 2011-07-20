@@ -245,11 +245,17 @@ public class PPResourceLinker {
 			return;
 		String name = ((LiteralNameOrReference) o.getLeftExpr()).getValue();
 
-		if(findFunction(o, name, importedNames).size() > 0)
+		final List<IEObjectDescription> found = findFunction(o, name, importedNames);
+		if(found.size() > 0) {
+			// record resolution at resource level
+			importedNames.addResolved(found);
 			return; // ok, found
+		}
 
 		acceptor.acceptError(
 			"Unknown function: '" + name + "'", o.getLeftExpr(), IPPDiagnostics.ISSUE__UNKNOWN_FUNCTION_REFERENCE);
+		// record failure at resource level
+		importedNames.addUnresolved(converter.toQualifiedName(name));
 	}
 
 	protected void _link(HostClassDefinition o, PPImportedNamesAdapter importedNames, IMessageAcceptor acceptor) {
@@ -271,6 +277,9 @@ public class PPResourceLinker {
 			// // removes containers that contain o
 			// removeDisqualifiedContainers(descs, o);
 
+			// record resolution at resource level
+			importedNames.addResolved(descs);
+
 			if(descs.size() > 1) {
 				// this is an ambiguous link - multiple targets available and order depends on the
 				// order at runtime (may not be the same).
@@ -281,7 +290,10 @@ public class PPResourceLinker {
 					IPPDiagnostics.ISSUE__RESOURCE_AMBIGUOUS_REFERENCE, computeProposals(parentString, descs));
 			}
 		}
-		if(descs.size() < 1) {
+		else {
+			// record unresolved name at resource level
+			importedNames.addUnresolved(converter.toQualifiedName(parentString));
+
 			// ... and finally, if there was neither a type nor a definition reference
 			acceptor.acceptError(
 				"Unknown class: '" + parentString + "'", o, PPPackage.Literals.HOST_CLASS_DEFINITION__PARENT,
@@ -309,14 +321,19 @@ public class PPResourceLinker {
 			}
 			List<IEObjectDescription> descs = findHostClasses(o, className, importedNames);
 			if(descs.size() < 1) {
+				// Add unresolved info at resource level
+				importedNames.addUnresolved(converter.toQualifiedName(className));
 				acceptor.acceptError(
 					"Unknown class: '" + className + "'", o, PPPackage.Literals.RESOURCE_BODY__NAME_EXPR,
 					IPPDiagnostics.ISSUE__RESOURCE_UNKNOWN_TYPE);
-				return; // not meaningful to continue
+				return; // not meaningful to continue (do not report errors for each "inner name")
 			}
 			if(descs.size() > 0) {
 				descs = Lists.newArrayList(Sets.newHashSet(descs));
 				// removeDisqualifiedContainers(descs, o);
+
+				// Report resolution at resource level
+				importedNames.addResolved(descs);
 
 				if(descs.size() > 1) {
 					// this is an ambiguous link - multiple targets available and order depends on the
@@ -429,8 +446,11 @@ public class PPResourceLinker {
 				descs = Lists.newArrayList(Sets.newHashSet(descs));
 				removeDisqualifiedContainers(descs, o);
 				// if any remain, pick the first type (or the first if there are no types)
-				if(descs.size() > 0)
-					adapter.setTargetObject(getFirstTypeDescription(descs)); // descs.get(0));
+				IEObjectDescription usedResolution = null;
+				if(descs.size() > 0) {
+					usedResolution = getFirstTypeDescription(descs);
+					adapter.setTargetObject(usedResolution);
+				}
 
 				if(descs.size() > 1) {
 					// this is an ambiguous link - multiple targets available and order depends on the
@@ -441,12 +461,20 @@ public class PPResourceLinker {
 						PPPackage.Literals.RESOURCE_EXPRESSION__RESOURCE_EXPR,
 						IPPDiagnostics.ISSUE__RESOURCE_AMBIGUOUS_REFERENCE, computeProposals(resourceTypeName, descs));
 				}
+				// Add resolved information at resource level
+				if(usedResolution != null)
+					importedNames.addResolved(usedResolution);
+				else
+					importedNames.addResolved(descs);
 			}
 			// ... and finally, if there was neither a type nor a definition reference
-			if(adapter.getResourceType() == null && adapter.getTargetObjectDescription() == null)
+			if(adapter.getResourceType() == null && adapter.getTargetObjectDescription() == null) {
+				// Add unresolved info at resource level
+				importedNames.addUnresolved(converter.toQualifiedName(resourceTypeName));
 				acceptor.acceptError(
 					"Unknown resource type: '" + resourceTypeName + "'", o,
 					PPPackage.Literals.RESOURCE_EXPRESSION__RESOURCE_EXPR, IPPDiagnostics.ISSUE__RESOURCE_UNKNOWN_TYPE);
+			}
 		}
 	}
 

@@ -11,6 +11,7 @@
  */
 package org.cloudsmith.geppetto.pp.dsl;
 
+import org.cloudsmith.geppetto.pp.DefinitionArgument;
 import org.eclipse.xtext.resource.IEObjectDescription;
 
 /**
@@ -52,5 +53,11 @@ public interface PPDSLConstants {
 	 * is deprecated.
 	 */
 	public static final String ELEMENT_DEPRECATED = "org.cloudsmith.geppetto.pptp.element.deprecated";
+
+	/**
+	 * If present in an {@link IEObjectDescription} for a {@link DefinitionArgument} this data element
+	 * contains the source text for the default value expression.
+	 */
+	public static final String DEFAULT_EXPRESSION_DATA = "org.cloudsmith.geppetto.pp.dsl.default";
 
 }

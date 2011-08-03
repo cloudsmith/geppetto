@@ -849,13 +849,17 @@ public class PPResourceLinker implements IPPDiagnostics {
 					}
 				}
 				else {
-					// not a valid reference to a class
-					acceptor.acceptError("Function argument must be reference to class.", //
-						param.eContainer(), param.eContainingFeature(), //
-						param instanceof ExprList
-								? parameterIndex
-								: idx, //
-						IPPDiagnostics.ISSUE__RESOURCE_UNKNOWN_TYPE);
+					// TODO: check for valid expressions, can at least discriminate expressions
+					// that are unreasonable
+
+					// this code fails on simple things like include $operationsystem
+					// // not a valid reference to a class
+					// acceptor.acceptError("Function argument must be reference to class.", //
+					// param.eContainer(), param.eContainingFeature(), //
+					// param instanceof ExprList
+					// ? parameterIndex
+					// : idx, //
+					// IPPDiagnostics.ISSUE__RESOURCE_UNKNOWN_TYPE);
 				}
 			}
 		}

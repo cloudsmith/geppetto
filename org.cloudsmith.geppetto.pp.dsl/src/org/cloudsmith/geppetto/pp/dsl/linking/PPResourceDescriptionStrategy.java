@@ -15,6 +15,8 @@ import java.util.Collections;
 import java.util.Map;
 
 import org.apache.log4j.Logger;
+import org.cloudsmith.geppetto.pp.DefinitionArgument;
+import org.cloudsmith.geppetto.pp.Expression;
 import org.cloudsmith.geppetto.pp.HostClassDefinition;
 import org.cloudsmith.geppetto.pp.LiteralNameOrReference;
 import org.cloudsmith.geppetto.pp.PPPackage;
@@ -25,6 +27,8 @@ import org.cloudsmith.geppetto.pp.pptp.TargetElement;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.xtext.naming.IQualifiedNameConverter;
 import org.eclipse.xtext.naming.QualifiedName;
+import org.eclipse.xtext.nodemodel.ICompositeNode;
+import org.eclipse.xtext.nodemodel.util.NodeModelUtils;
 import org.eclipse.xtext.resource.EObjectDescription;
 import org.eclipse.xtext.resource.IEObjectDescription;
 import org.eclipse.xtext.resource.impl.DefaultResourceDescriptionStrategy;
@@ -80,6 +84,16 @@ public class PPResourceDescriptionStrategy extends DefaultResourceDescriptionStr
 				String parentName = ((LiteralNameOrReference) d.getParent()).getValue();
 				Map<String, String> data = Maps.newHashMapWithExpectedSize(1);
 				data.put(PPDSLConstants.PARENT_NAME_DATA, parentName);
+				return data;
+			}
+		}
+		else if(eObject.eClass() == PPPackage.Literals.DEFINITION_ARGUMENT) {
+			DefinitionArgument arg = (DefinitionArgument) eObject;
+			Expression e = arg.getValue();
+			if(e != null) {
+				ICompositeNode n = NodeModelUtils.getNode(e);
+				Map<String, String> data = Maps.newHashMapWithExpectedSize(1);
+				data.put(PPDSLConstants.DEFAULT_EXPRESSION_DATA, n.getText());
 				return data;
 			}
 		}

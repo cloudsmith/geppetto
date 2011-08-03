@@ -25,6 +25,7 @@ import java.util.Map;
 import org.cloudsmith.geppetto.common.tracer.ITracer;
 import org.cloudsmith.geppetto.pp.AttributeOperation;
 import org.cloudsmith.geppetto.pp.AttributeOperations;
+import org.cloudsmith.geppetto.pp.ExprList;
 import org.cloudsmith.geppetto.pp.Expression;
 import org.cloudsmith.geppetto.pp.FunctionCall;
 import org.cloudsmith.geppetto.pp.HostClassDefinition;
@@ -75,7 +76,7 @@ import com.google.inject.name.Named;
 /**
  * Handles special linking of ResourceExpression, ResourceBody and Function references.
  */
-public class PPResourceLinker {
+public class PPResourceLinker implements IPPDiagnostics {
 
 	static class NameInScopeFilter implements Iterable<IEObjectDescription> {
 		private final Iterable<IEObjectDescription> unfiltered;
@@ -249,6 +250,7 @@ public class PPResourceLinker {
 		if(found.size() > 0) {
 			// record resolution at resource level
 			importedNames.addResolved(found);
+			internalLinkFunctionArguments(name, o, importedNames, acceptor);
 			return; // ok, found
 		}
 
@@ -728,6 +730,139 @@ public class PPResourceLinker {
 	}
 
 	/**
+	 * Link well known functions that must have references to defined things.
+	 * 
+	 * @param o
+	 * @param importedNames
+	 * @param acceptor
+	 */
+	protected void internalLinkFunctionArguments(String name, FunctionCall o, PPImportedNamesAdapter importedNames,
+			IMessageAcceptor acceptor) {
+		// have 0:M classes as arguments
+		if("require".equals(name) || "include".equals(name)) {
+			int parameterIndex = -1;
+			for(Expression pe : o.getParameters()) {
+				parameterIndex++;
+				String className = stringConstantEvaluator.doToString(pe);
+				if(className != null) {
+					List<IEObjectDescription> foundClasses = findHostClasses(o, className, importedNames);
+					if(foundClasses.size() > 1) {
+						// ambiguous
+						acceptor.acceptWarning(
+							"Ambiguous reference to: '" + className + "' found in: " +
+									visibleResourceList(o.eResource(), foundClasses), o,
+							PPPackage.Literals.PARAMETERIZED_EXPRESSION__PARAMETERS, parameterIndex,
+							IPPDiagnostics.ISSUE__RESOURCE_AMBIGUOUS_REFERENCE,
+							computeProposals(className, foundClasses));
+					}
+					else if(foundClasses.size() < 1) {
+						// not found
+						// record unresolved name at resource level
+						importedNames.addUnresolved(converter.toQualifiedName(className));
+
+						acceptor.acceptError(
+							"Unknown class: '" + className + "'", o, //
+							PPPackage.Literals.PARAMETERIZED_EXPRESSION__PARAMETERS, parameterIndex,
+							IPPDiagnostics.ISSUE__RESOURCE_UNKNOWN_TYPE);
+					}
+				}
+			}
+			// there should have been at least one argument
+			if(parameterIndex < 0) {
+				acceptor.acceptError("Call to '" + name + "' must have at least one argument.", o, //
+				PPPackage.Literals.PARAMETERIZED_EXPRESSION__LEFT_EXPR, //
+					IPPDiagnostics.ISSUE__REQUIRED_EXPRESSION);
+
+			}
+		}
+	}
+
+	/**
+	 * @param name
+	 * @param s
+	 * @param statements
+	 * @param i
+	 * @param importedNames
+	 * @param acceptor
+	 */
+	private void internalLinkFunctionArguments(String name, LiteralNameOrReference s, EList<Expression> statements,
+			int idx, PPImportedNamesAdapter importedNames, IMessageAcceptor acceptor) {
+		// have 0:M classes as arguments
+		if("require".equals(name) || "include".equals(name)) {
+
+			// there should have been at least one argument
+			if(idx >= statements.size()) {
+				acceptor.acceptError("Call to '" + name + "' must have at least one argument.", s, //
+				PPPackage.Literals.LITERAL_NAME_OR_REFERENCE__VALUE, //
+					IPPDiagnostics.ISSUE__REQUIRED_EXPRESSION);
+				return;
+			}
+
+			Expression param = statements.get(idx);
+			List<Expression> parameterList = null;
+			if(param instanceof ExprList)
+				parameterList = ((ExprList) param).getExpressions();
+			else
+				parameterList = Lists.newArrayList(param);
+
+			int parameterIndex = -1;
+			for(Expression pe : parameterList) {
+				parameterIndex++;
+				String className = stringConstantEvaluator.doToString(pe);
+				if(className != null) {
+					List<IEObjectDescription> foundClasses = findHostClasses(s, className, importedNames);
+					if(foundClasses.size() > 1) {
+						// ambiguous
+						if(param instanceof ExprList)
+							acceptor.acceptWarning(
+								"Ambiguous reference to: '" + className + "' found in: " +
+										visibleResourceList(s.eResource(), foundClasses), //
+								param, //
+								PPPackage.Literals.EXPR_LIST__EXPRESSIONS,
+								parameterIndex, //
+								IPPDiagnostics.ISSUE__RESOURCE_AMBIGUOUS_REFERENCE,
+								computeProposals(className, foundClasses));
+						else
+							acceptor.acceptWarning(
+								"Ambiguous reference to: '" + className + "' found in: " +
+										visibleResourceList(s.eResource(), foundClasses), //
+								param.eContainer(), param.eContainingFeature(),
+								idx, //
+								IPPDiagnostics.ISSUE__RESOURCE_AMBIGUOUS_REFERENCE,
+								computeProposals(className, foundClasses));
+
+					}
+					else if(foundClasses.size() < 1) {
+						// not found
+						// record unresolved name at resource level
+						importedNames.addUnresolved(converter.toQualifiedName(className));
+
+						if(param instanceof ExprList)
+							acceptor.acceptError("Unknown class: '" + className + "'", //
+								param, //
+								PPPackage.Literals.EXPR_LIST__EXPRESSIONS, parameterIndex, //
+								IPPDiagnostics.ISSUE__RESOURCE_UNKNOWN_TYPE);
+						else
+							acceptor.acceptError("Unknown class: '" + className + "'", //
+								param.eContainer(), param.eContainingFeature(), idx, //
+								IPPDiagnostics.ISSUE__RESOURCE_UNKNOWN_TYPE);
+					}
+				}
+				else {
+					// not a valid reference to a class
+					acceptor.acceptError("Function argument must be reference to class.", //
+						param.eContainer(), param.eContainingFeature(), //
+						param instanceof ExprList
+								? parameterIndex
+								: idx, //
+						IPPDiagnostics.ISSUE__RESOURCE_UNKNOWN_TYPE);
+				}
+			}
+		}
+
+	}
+
+	/**
 	 * Links/validates unparenthesized function calls.
 	 * 
 	 * @param statements
@@ -756,8 +891,11 @@ public class PPResourceLinker {
 				i++;
 				// Expression arg = statements.get(i); // not used yet...
 				String name = ((LiteralNameOrReference) s).getValue();
-				if(findFunction(s, name, importedNames).size() > 0)
+				if(findFunction(s, name, importedNames).size() > 0) {
+					internalLinkFunctionArguments(
+						name, (LiteralNameOrReference) s, statements, i, importedNames, acceptor);
 					return; // ok, found
+				}
 
 				acceptor.acceptError(
 					"Unknown function: '" + name + "'", s, PPPackage.Literals.LITERAL_NAME_OR_REFERENCE__VALUE,

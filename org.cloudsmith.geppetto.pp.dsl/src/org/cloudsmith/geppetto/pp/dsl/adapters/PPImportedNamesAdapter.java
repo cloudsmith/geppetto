@@ -47,6 +47,8 @@ public class PPImportedNamesAdapter extends AdapterImpl {
 
 	Set<IEObjectDescription> resolvedDescriptions;
 
+	Set<IEObjectDescription> ambigousDescriptions;
+
 	/**
 	 * Adds the given name to the set of searched names (names that influence the resolution).
 	 * 
@@ -58,6 +60,28 @@ public class PPImportedNamesAdapter extends AdapterImpl {
 				importedNames = Lists.newArrayList();
 		}
 		importedNames.add(name);
+	}
+
+	/**
+	 * Adds a collection of ambiguous references to the set of x-references found to be ambiguous.
+	 * 
+	 * @param ambiguities
+	 */
+	public void addAmbiguous(Collection<IEObjectDescription> ambiguities) {
+		synchronized(this) {
+			if(ambigousDescriptions == null)
+				ambigousDescriptions = Sets.newHashSet();
+		}
+		ambigousDescriptions.addAll(ambiguities);
+	}
+
+	/**
+	 * Adds a single ambiguity to the set of x-references found to be ambiguous.
+	 * 
+	 * @param ambiguities
+	 */
+	public void addAmbiguous(IEObjectDescription ambiguity) {
+		addAmbiguous(Sets.newHashSet(ambiguity));
 	}
 
 	/**
@@ -111,6 +135,15 @@ public class PPImportedNamesAdapter extends AdapterImpl {
 	}
 
 	/**
+	 * @return the ambiguous IEObjectDescriptions or an empty Collection if there are no ambiguous x-references.
+	 */
+	public Collection<IEObjectDescription> getAmbiguousDescriptions() {
+		return Collections.unmodifiableSet(ambigousDescriptions != null
+				? ambigousDescriptions
+				: EMPTY_DESCSET);
+	}
+
+	/**
 	 * @return the imported QualifiedNames or an empty list if there are no imported names.
 	 */
 	public List<QualifiedName> getNames() {
@@ -126,7 +159,6 @@ public class PPImportedNamesAdapter extends AdapterImpl {
 		return Collections.unmodifiableSet(resolvedDescriptions != null
 				? resolvedDescriptions
 				: EMPTY_DESCSET);
-
 	}
 
 	/**

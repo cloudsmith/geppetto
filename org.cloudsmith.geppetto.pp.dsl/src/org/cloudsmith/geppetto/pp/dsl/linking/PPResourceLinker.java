@@ -285,6 +285,7 @@ public class PPResourceLinker implements IPPDiagnostics {
 			if(descs.size() > 1) {
 				// this is an ambiguous link - multiple targets available and order depends on the
 				// order at runtime (may not be the same).
+				importedNames.addAmbiguous(descs);
 				acceptor.acceptWarning(
 					"Ambiguous reference to: '" + parentString + "' found in: " +
 							visibleResourceList(o.eResource(), descs), o,
@@ -340,6 +341,7 @@ public class PPResourceLinker implements IPPDiagnostics {
 				if(descs.size() > 1) {
 					// this is an ambiguous link - multiple targets available and order depends on the
 					// order at runtime (may not be the same). ISSUE: o can be a ResourceBody
+					importedNames.addAmbiguous(descs);
 					acceptor.acceptWarning(
 						"Ambiguous reference to: '" + className + "' found in: " +
 								visibleResourceList(o.eResource(), descs), o,
@@ -457,6 +459,7 @@ public class PPResourceLinker implements IPPDiagnostics {
 				if(descs.size() > 1) {
 					// this is an ambiguous link - multiple targets available and order depends on the
 					// order at runtime (may not be the same).
+					importedNames.addAmbiguous(descs);
 					acceptor.acceptWarning(
 						"Ambiguous reference to: '" + resourceTypeName + "' found in: " +
 								visibleResourceList(o.eResource(), descs), o,
@@ -748,6 +751,7 @@ public class PPResourceLinker implements IPPDiagnostics {
 					List<IEObjectDescription> foundClasses = findHostClasses(o, className, importedNames);
 					if(foundClasses.size() > 1) {
 						// ambiguous
+						importedNames.addAmbiguous(foundClasses);
 						acceptor.acceptWarning(
 							"Ambiguous reference to: '" + className + "' found in: " +
 									visibleResourceList(o.eResource(), foundClasses), o,
@@ -813,6 +817,7 @@ public class PPResourceLinker implements IPPDiagnostics {
 					List<IEObjectDescription> foundClasses = findHostClasses(s, className, importedNames);
 					if(foundClasses.size() > 1) {
 						// ambiguous
+						importedNames.addAmbiguous(foundClasses);
 						if(param instanceof ExprList)
 							acceptor.acceptWarning(
 								"Ambiguous reference to: '" + className + "' found in: " +

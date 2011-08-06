@@ -122,14 +122,15 @@ public class PPResourceLinker implements IPPDiagnostics {
 			if(candidateName.getSegmentCount() == 0)
 				return false;
 
-			// filter out all that do not match on last segment (i.a. ?::...::x <-> ?::...::y)
-			try {
-				if(!candidateName.getLastSegment().equals(name.getLastSegment()))
-					return false;
-			}
-			catch(ArrayIndexOutOfBoundsException e) {
-				System.out.println("AOB");
-			}
+			// This is already done by the cache per last segment - it is never fed anything that does not match.
+			// // filter out all that do not match on last segment (i.a. ?::...::x <-> ?::...::y)
+			// try {
+			// if(!candidateName.getLastSegment().equals(name.getLastSegment()))
+			// return false;
+			// }
+			// catch(ArrayIndexOutOfBoundsException e) {
+			// System.out.println("AOB");
+			// }
 
 			// it is faster to compare exact match as this is a common case, before trying isSuperTypeOf
 			int found = -1;

@@ -23,6 +23,7 @@ import org.cloudsmith.geppetto.pp.dsl.ui.PPUiConstants;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IProjectDescription;
+import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.IWorkspace;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
@@ -41,6 +42,11 @@ import org.eclipse.xtext.ui.XtextProjectHelper;
  * 
  */
 public class PptpTargetProjectHandler {
+	/**
+	 * The default puppet target
+	 */
+	private static final String PUPPET_TARGET = "targets/puppet-2.7.1.pptp";
+
 	private final static Logger log = Logger.getLogger(PptpTargetProjectHandler.class);
 
 	/**
@@ -135,7 +141,7 @@ public class PptpTargetProjectHandler {
 		// TODO: get a handle to the wanted target platform (.pptp) file from preferences
 		// NOW: Use a static .pptp
 		try {
-			IPath defaultTPPath = new Path("targets/puppet-2.6.4_0.pptp");
+			IPath defaultTPPath = new Path(PUPPET_TARGET);
 			File pptpFile = BundledFilesUtils.getFileFromClassBundle(PptpRuntimeModule.class, defaultTPPath);
 			IFile targetFile = targetProject.getFile(defaultTPPath.lastSegment());
 			if(targetFile.exists()) {
@@ -145,6 +151,9 @@ public class PptpTargetProjectHandler {
 				}
 			}
 			else {
+				// delete all resources already there (either none, or some other/older .pptp)
+				for(IResource r : targetProject.members())
+					r.delete(true, monitor);
 				InputStream inputStream = new FileInputStream(pptpFile);
 				targetFile.create(inputStream, true, monitor);
 			}

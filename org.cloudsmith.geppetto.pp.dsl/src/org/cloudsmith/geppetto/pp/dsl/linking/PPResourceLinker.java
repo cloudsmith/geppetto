@@ -52,6 +52,7 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.eclipse.xtext.diagnostics.Severity;
 import org.eclipse.xtext.naming.IQualifiedNameConverter;
 import org.eclipse.xtext.naming.IQualifiedNameProvider;
 import org.eclipse.xtext.naming.QualifiedName;
@@ -512,6 +513,45 @@ public class PPResourceLinker implements IPPDiagnostics {
 		}
 	}
 
+	/**
+	 * Returns false if it is impossible that the given expression can result in a valid class
+	 * reference at runtime.
+	 * 
+	 * TODO: this is a really stupid way of doing "type inference", but better than nothing.
+	 * 
+	 * @param e
+	 * @return
+	 */
+	private boolean canBeAClassReference(Expression e) {
+		switch(e.eClass().getClassifierID()) {
+			case PPPackage.HOST_CLASS_DEFINITION:
+			case PPPackage.ASSIGNMENT_EXPRESSION:
+			case PPPackage.NODE_DEFINITION:
+			case PPPackage.DEFINITION:
+			case PPPackage.IMPORT_EXPRESSION:
+			case PPPackage.RELATIONAL_EXPRESSION:
+			case PPPackage.RESOURCE_EXPRESSION:
+			case PPPackage.IF_EXPRESSION:
+			case PPPackage.SELECTOR_EXPRESSION:
+			case PPPackage.AND_EXPRESSION:
+			case PPPackage.OR_EXPRESSION:
+			case PPPackage.CASE_EXPRESSION:
+			case PPPackage.EQUALITY_EXPRESSION:
+			case PPPackage.RELATIONSHIP_EXPRESSION:
+				return false;
+		}
+		return true;
+	}
+
+	/**
+	 * @param name
+	 * @param s
+	 * @param statements
+	 * @param i
+	 * @param importedNames
+	 * @param acceptor
+	 */
+
 	private String[] computeProposals(String currentName, List<IEObjectDescription> descs) {
 		List<String> proposals = Lists.newArrayList();
 		if(currentName.startsWith("::"))
@@ -771,6 +811,24 @@ public class PPResourceLinker implements IPPDiagnostics {
 							IPPDiagnostics.ISSUE__RESOURCE_UNKNOWN_TYPE);
 					}
 				}
+				else {
+					// warning or error depending on if this is a reasonable class reference expr or not
+					if(canBeAClassReference(pe)) {
+						acceptor.acceptWarning(
+							"Can not determine until runtime if this is valid class reference", //
+							o, //
+							PPPackage.Literals.PARAMETERIZED_EXPRESSION__PARAMETERS, parameterIndex,
+							IPPDiagnostics.ISSUE__RESOURCE_UNKNOWN_TYPE);
+					}
+					else {
+						acceptor.acceptError(
+							"Not an acceptable parameter. Function '" + name + "' requires a class reference.", //
+							o, //
+							PPPackage.Literals.PARAMETERIZED_EXPRESSION__PARAMETERS, parameterIndex,
+							IPPDiagnostics.ISSUE__RESOURCE_UNKNOWN_TYPE);
+					}
+				}
+
 			}
 			// there should have been at least one argument
 			if(parameterIndex < 0) {
@@ -782,14 +840,6 @@ public class PPResourceLinker implements IPPDiagnostics {
 		}
 	}
 
-	/**
-	 * @param name
-	 * @param s
-	 * @param statements
-	 * @param i
-	 * @param importedNames
-	 * @param acceptor
-	 */
 	private void internalLinkFunctionArguments(String name, LiteralNameOrReference s, EList<Expression> statements,
 			int idx, PPImportedNamesAdapter importedNames, IMessageAcceptor acceptor) {
 		// have 0:M classes as arguments
@@ -855,21 +905,33 @@ public class PPResourceLinker implements IPPDiagnostics {
 					}
 				}
 				else {
-					// TODO: check for valid expressions, can at least discriminate expressions
-					// that are unreasonable
+					// warning or error depending on if this is a reasonable class reference expr or not
+					String msg = null;
+					boolean error = false;
+					if(canBeAClassReference(pe)) {
+						msg = "Can not determine until runtime if this is valid class reference";
+					}
+					else {
+						msg = "Not an acceptable parameter. Function '" + name + "' requires a class reference.";
+						error = true;
+					}
+					if(param instanceof ExprList)
+						acceptor.accept(error
+								? Severity.ERROR
+								: Severity.WARNING, msg, //
+						param, //
+							PPPackage.Literals.EXPR_LIST__EXPRESSIONS, parameterIndex, //
+							IPPDiagnostics.ISSUE__RESOURCE_UNKNOWN_TYPE);
 
-					// this code fails on simple things like include $operationsystem
-					// // not a valid reference to a class
-					// acceptor.acceptError("Function argument must be reference to class.", //
-					// param.eContainer(), param.eContainingFeature(), //
-					// param instanceof ExprList
-					// ? parameterIndex
-					// : idx, //
-					// IPPDiagnostics.ISSUE__RESOURCE_UNKNOWN_TYPE);
+					else
+						acceptor.accept(error
+								? Severity.ERROR
+								: Severity.WARNING, msg, //
+						param.eContainer(), param.eContainingFeature(), idx, //
+							IPPDiagnostics.ISSUE__RESOURCE_UNKNOWN_TYPE);
 				}
 			}
 		}
-
 	}
 
 	/**

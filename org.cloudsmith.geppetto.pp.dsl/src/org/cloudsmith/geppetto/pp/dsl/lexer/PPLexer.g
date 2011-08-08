@@ -273,7 +273,7 @@ KEYWORD_21 : {isNotInString()}?=>'{' {enterBrace();};
 KEYWORD_22 : {isNotInString()}?=>'}' {exitBrace();};
 
 // Standard /* */ comment that also eats trailing WS and endof line if that is all that is trailing
-RULE_ML_COMMENT : {isNotInString()}?=> (('/*' ( options {greedy=false;} : . )*'*/') ((' '|'\u00A0'|'\t')* '\r'? '\n')?) ;
+RULE_ML_COMMENT : {isNotInString()}?=> (('/*' ( options {greedy=false;} : . )*'*/') (' '|'\u00A0'|'\t')* ('\r'? '\n')?) ;
 
 //RULE_SL_COMMENT : {isNotInString()}?=> '#' ~(('\r'|'\n'))* ('\r'? '\n')?;
 

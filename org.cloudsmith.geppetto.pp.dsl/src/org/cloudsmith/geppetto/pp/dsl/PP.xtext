@@ -513,13 +513,13 @@ QuotedString returns pp::IQuotedString hidden(WS, SL_COMMENT, ML_COMMENT)
 	| SingleQuotedString
 	;
 	
-SingleQuotedString returns pp::SingleQuotedString : {pp::SingleQuotedString}
+SingleQuotedString returns pp::SingleQuotedString hidden(WS, SL_COMMENT, ML_COMMENT) : {pp::SingleQuotedString}
 	text = sqText 
 	;
 
 // Special declarations to aid syntax coloring of these terminals	
 DQT_QUOTE hidden(): '"' ;
-DQT_DOLLAR hidden(): '$' ;
+DQT_DOLLAR : '$' ;
 
 // Double quoted string with expression interpolation
 // handles:
@@ -527,9 +527,14 @@ DQT_DOLLAR hidden(): '$' ;
 // - $varname - evaluated and included in the string
 // - ${ expression } - evaluated and included in the string
 //
-DoubleQuotedString returns pp::DoubleQuotedString hidden(): 
-	'"' textExpression = TextExpression '"' 
+DoubleQuotedString returns pp::DoubleQuotedString hidden(WS, SL_COMMENT, ML_COMMENT): 
+	textExpression = DoubleQuotedStringExpression
+//	'"' textExpression = TextExpression '"' 
 	;
+DoubleQuotedStringExpression returns pp::TextExpression hidden(WS, SL_COMMENT, ML_COMMENT): 
+	HiddenQuote TextExpression HiddenQuote 
+	; 
+HiddenQuote hidden() : '"';
 
 // Lowest precedence 
 TextExpression returns pp::TextExpression hidden(): 
@@ -554,12 +559,16 @@ VariableTextExpression returns pp::TextExpression hidden():
 	
 ExpressionTextExpression returns pp::TextExpression hidden():
 	// allow comments between ${ and }
+	// validate expression is not null == warning
 	StringPart (
-		{pp::ExpressionTE.leading=current}
-		'${' expression = ExpressionWithHidden '}'
+		{pp::ExpressionTE.leading=current} 
+		InterpolationStart  expression = ExpressionWithHidden? InterpolationEnd
 		trailing = TextExpression?
 	)*
 	;
+
+InterpolationStart hidden(WS, SL_COMMENT, ML_COMMENT) : '${';
+InterpolationEnd hidden(WS, SL_COMMENT, ML_COMMENT) : '}';
 
 ExpressionWithHidden returns pp::Expression hidden(WS, SL_COMMENT, ML_COMMENT):
 	Expression
@@ -569,8 +578,9 @@ StringPart returns pp::TextExpression hidden():
 	{pp::VerbatimTE} text = doubleStringCharacters? ;
 
 UnquotedString returns pp::Expression :
-	// allow comments between ${ and } 
-	{pp::UnquotedString} '${' expression = Expression '}' 
+	// allow comments between ${ and }
+	// validate that Expression is not empty == warning
+	{pp::UnquotedString} '${' expression = Expression? '}' 
 	;
 
 // Has data conversion that strips leading/trailing single quotes

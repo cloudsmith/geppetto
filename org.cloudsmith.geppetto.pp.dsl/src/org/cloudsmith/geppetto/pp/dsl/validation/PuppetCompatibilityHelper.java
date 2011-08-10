@@ -11,6 +11,7 @@
  */
 package org.cloudsmith.geppetto.pp.dsl.validation;
 
+
 /**
  * Class used to allow validation against older versions of Puppet (i.e. to produce warnings or errors
  * for constructs that older Puppet versions will not handle).
@@ -35,5 +36,9 @@ public class PuppetCompatibilityHelper {
 	 */
 	public static boolean allowMoreThan2AtInSequence() {
 		return true;
+	}
+
+	public static ValidationPreference circularDependencyPreference() {
+		return ValidationPreference.WARNING;
 	}
 }

@@ -24,6 +24,7 @@ import org.cloudsmith.geppetto.forge.Dependency;
 import org.cloudsmith.geppetto.forge.ForgeFactory;
 import org.cloudsmith.geppetto.forge.Metadata;
 import org.cloudsmith.geppetto.pp.dsl.ui.PPUiConstants;
+import org.cloudsmith.geppetto.pp.dsl.validation.PuppetCompatibilityHelper;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IMarker;
 import org.eclipse.core.resources.IProject;
@@ -112,7 +113,23 @@ public class PPModulefileBuilder extends IncrementalProjectBuilder implements PP
 				buf.append("->");
 			}
 			buf.append("]");
-			createErrorMarker(p, buf.toString(), null);
+			int circularSeverity = -1;
+			switch(PuppetCompatibilityHelper.circularDependencyPreference()) {
+				case ERROR:
+					circularSeverity = IMarker.SEVERITY_ERROR;
+					break;
+				case WARNING:
+					circularSeverity = IMarker.SEVERITY_WARNING;
+					break;
+				case INFO:
+					circularSeverity = IMarker.SEVERITY_INFO;
+					break;
+				case IGNORE: // just don't do it...
+					break;
+			}
+
+			if(circularSeverity != -1)
+				createMarker(circularSeverity, p, buf.toString(), null);
 		}
 
 	}
@@ -177,9 +194,6 @@ public class PPModulefileBuilder extends IncrementalProjectBuilder implements PP
 		tracer.trace("Resolving required name: ", requiredName);
 		BiMap<IProject, String> candidates = HashBiMap.create();
 
-		final String namepart = requiredName + "-";
-		final int len = namepart.length();
-
 		tracer.trace("Checking against all projects...");
 		for(IProject p : getWorkspaceRoot().getProjects()) {
 			checkCancel(monitor);
@@ -187,9 +201,7 @@ public class PPModulefileBuilder extends IncrementalProjectBuilder implements PP
 				tracer.trace("Project not accessible: ", p.getName());
 				continue;
 			}
-			String projectName = p.getName().toLowerCase();
 
-			// new style
 			String version = null;
 			String moduleName = null;
 			try {
@@ -203,16 +215,11 @@ public class PPModulefileBuilder extends IncrementalProjectBuilder implements PP
 			if(requiredName.equals(moduleName))
 				matched = true;
 
-			// // matching on project name
-			// else if(projectName.equals(requiredName))
-			// matched = true;
-			// else if(projectName.startsWith(requiredName + "-") && projectName.length() > len)
-			// matched = true;
 			if(tracer.isTracing()) {
 				if(!matched)
 					tracer.trace("== not matched on name");
 			}
-			// in both old and new style match, get the version from the persisted property
+			// get the version from the persisted property
 			if(matched) {
 				try {
 					version = p.getPersistentProperty(PROJECT_PROPERTY_MODULEVERSION);

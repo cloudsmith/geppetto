@@ -21,7 +21,6 @@ public class TestFailingFormatting extends AbstractPuppetTests {
 
 	/**
 	 * Formatter seems to not switch back to non hidden state after import "".
-	 * If changed to '' string it behaves differently.
 	 * 
 	 */
 	public void test_Serialize_DqStringInterpolation() throws Exception {

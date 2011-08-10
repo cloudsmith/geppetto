@@ -232,7 +232,7 @@ public class PPFormatter extends AbstractDeclarativeFormatter {
 	protected void parenthisedExpressionConfguration(FormattingConfig c) {
 		PPGrammarAccess ga = (PPGrammarAccess) getGrammarAccess();
 		c.setNoSpace().after(ga.getParenthisedExpressionAccess().getLeftParenthesisKeyword_0());
-		c.setNoSpace().before(ga.getParenthisedExpressionAccess().getRightParenthesisKeyword_2());
+		c.setNoSpace().before(ga.getParenthisedExpressionAccess().getRightParenthesisKeyword_3());
 	}
 
 	/**
@@ -357,12 +357,13 @@ public class PPFormatter extends AbstractDeclarativeFormatter {
 
 	protected void stringExpressionConfiguration(FormattingConfig c) {
 		// PPGrammarAccess ga = (PPGrammarAccess) getGrammarAccess();
+		// c.setSpace(" ").after(ga.getDoubleQuotedStringAccess().getQuotationMarkKeyword_2());
 		// Keyword dollarLeft = ga.getExpressionTextExpressionAccess().getDollarSignLeftCurlyBracketKeyword_1_1();
 		// Keyword endBrace = ga.getExpressionTextExpressionAccess().getRightCurlyBracketKeyword_1_3();
 		// c.setNoSpace().around(dollarLeft);
 		// c.setNoSpace().around(endBrace);
 
-	};
+	}
 
 	// /**
 	// * The "input" formatting stream, used for debugging the input to the declarative formatter.

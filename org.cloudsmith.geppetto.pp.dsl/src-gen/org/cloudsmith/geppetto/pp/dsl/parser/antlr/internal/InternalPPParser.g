@@ -4129,27 +4129,36 @@ ruleParenthisedExpression returns [EObject current=null]
     	newLeafNode(otherlv_0, grammarAccess.getParenthisedExpressionAccess().getLeftParenthesisKeyword_0());
     }
 (
+	{ 
+	  /* */ 
+	}
+    {
+        $current = forceCreateModelElement(
+            grammarAccess.getParenthisedExpressionAccess().getParenthesisedExpressionAction_1(),
+            $current);
+    }
+)(
 (
 		{ 
-	        newCompositeNode(grammarAccess.getParenthisedExpressionAccess().getExprExpressionParserRuleCall_1_0()); 
+	        newCompositeNode(grammarAccess.getParenthisedExpressionAccess().getExprExpressionParserRuleCall_2_0()); 
 	    }
-		lv_expr_1_0=ruleExpression		{
+		lv_expr_2_0=ruleExpression		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getParenthisedExpressionRule());
 	        }
        		set(
        			$current, 
        			"expr",
-        		lv_expr_1_0, 
+        		lv_expr_2_0, 
         		"Expression");
 	        afterParserOrEnumRuleCall();
 	    }
 
 )
-)
-	otherlv_2=KEYWORD_6
+)?
+	otherlv_3=KEYWORD_6
     {
-    	newLeafNode(otherlv_2, grammarAccess.getParenthisedExpressionAccess().getRightParenthesisKeyword_2());
+    	newLeafNode(otherlv_3, grammarAccess.getParenthisedExpressionAccess().getRightParenthesisKeyword_3());
     }
 )
 ;
@@ -4933,27 +4942,18 @@ ruleSingleQuotedString returns [EObject current=null]
 
 
 
-
-
 // Entry rule entryRuleDQT_DOLLAR
 entryRuleDQT_DOLLAR returns [String current=null] 
-	@init { 
-		HiddenTokens myHiddenTokenState = ((XtextTokenStream)input).setHiddenTokens();
-	}
 :
 	{ newCompositeNode(grammarAccess.getDQT_DOLLARRule()); } 
 	 iv_ruleDQT_DOLLAR=ruleDQT_DOLLAR 
 	 { $current=$iv_ruleDQT_DOLLAR.current.getText(); }  
 	 EOF 
 ;
-finally {
-	myHiddenTokenState.restore();
-}
 
 // Rule DQT_DOLLAR
 ruleDQT_DOLLAR returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] 
     @init { enterRule(); 
-		HiddenTokens myHiddenTokenState = ((XtextTokenStream)input).setHiddenTokens();
     }
     @after { leaveRule();
     }:
@@ -4965,9 +4965,6 @@ ruleDQT_DOLLAR returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToke
     }
 
     ;
-finally {
-	myHiddenTokenState.restore();
-}
 
 
 
@@ -5370,19 +5367,34 @@ ruleExpressionWithHidden returns [EObject current=null]
 		HiddenTokens myHiddenTokenState = ((XtextTokenStream)input).setHiddenTokens("RULE_WS", "RULE_SL_COMMENT", "RULE_ML_COMMENT");
     }
     @after { leaveRule(); }:
-
+((
 	{ 
 	  /* */ 
 	}
-    { 
-        newCompositeNode(grammarAccess.getExpressionWithHiddenAccess().getExpressionParserRuleCall()); 
-    }
-    this_Expression_0=ruleExpression
     {
-        $current = $this_Expression_0.current;
-        afterParserOrEnumRuleCall();
+        $current = forceCreateModelElement(
+            grammarAccess.getExpressionWithHiddenAccess().getParenthesisedExpressionAction_0(),
+            $current);
     }
+)(
+(
+		{ 
+	        newCompositeNode(grammarAccess.getExpressionWithHiddenAccess().getExprExpressionParserRuleCall_1_0()); 
+	    }
+		lv_expr_1_0=ruleExpression		{
+	        if ($current==null) {
+	            $current = createModelElementForParent(grammarAccess.getExpressionWithHiddenRule());
+	        }
+       		set(
+       			$current, 
+       			"expr",
+        		lv_expr_1_0, 
+        		"Expression");
+	        afterParserOrEnumRuleCall();
+	    }
 
+)
+)?)
 ;
 finally {
 	myHiddenTokenState.restore();
@@ -5496,7 +5508,7 @@ ruleUnquotedString returns [EObject current=null]
 	    }
 
 )
-)
+)?
 	otherlv_3=KEYWORD_22
     {
     	newLeafNode(otherlv_3, grammarAccess.getUnquotedStringAccess().getRightCurlyBracketKeyword_3());

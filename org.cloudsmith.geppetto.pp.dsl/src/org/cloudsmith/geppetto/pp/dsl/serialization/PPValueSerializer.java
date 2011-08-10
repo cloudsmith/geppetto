@@ -60,7 +60,7 @@ public class PPValueSerializer extends ValueSerializer {
 		 */
 		ruleToText = Maps.newHashMap();
 		ruleToText.put(pga.getDQT_DOLLARRule(), "$");
-		ruleToText.put(pga.getDQT_QUOTERule(), "\"");
+		// ruleToText.put(pga.getDQT_QUOTERule(), "\"");
 	}
 
 	public String doUnassigned(EObject context, RuleCall ruleCall, INode node) {

@@ -67,6 +67,26 @@ public class PPTerminalConverters extends AbstractDeclarativeValueConverterServi
 		};
 	}
 
+	/**
+	 * Hack to see what happens with formatting.
+	 * 
+	 * @return
+	 */
+	@ValueConverter(rule = "SpecialDoubleQuote")
+	public IValueConverter<String> specialDoubleQuote() {
+		return new AbstractNullSafeConverter<String>() {
+			@Override
+			protected String internalToString(String value) {
+				return "\"";
+			}
+
+			@Override
+			protected String internalToValue(String string, INode node) {
+				return "";
+			}
+		};
+	}
+
 	@ValueConverter(rule = "sqText")
 	public IValueConverter<String> sqText() {
 		return new AbstractNullSafeConverter<String>() {

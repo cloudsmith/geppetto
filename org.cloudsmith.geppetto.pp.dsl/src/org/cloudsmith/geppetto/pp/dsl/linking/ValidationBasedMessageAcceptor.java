@@ -71,7 +71,7 @@ public class ValidationBasedMessageAcceptor extends AbstractMessageAcceptor {
 	 */
 	@Override
 	public void accept(Severity severity, String message, EObject source, int textOffset, int textLength,
-			String issueCode, String... issueData) {
+			String issueCode, String[] issueData) {
 
 		if(source == null)
 			throw new IllegalArgumentException("source can not be null");

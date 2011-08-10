@@ -31,6 +31,7 @@ public class AllTests {
 		suite.addTestSuite(TestSelectorExpression.class);
 		suite.addTestSuite(TestDoubleQuotedString.class);
 		suite.addTestSuite(TestIssues.class);
+		suite.addTestSuite(TestFailingFormatting.class);
 		// $JUnit-END$
 		return suite;
 	}

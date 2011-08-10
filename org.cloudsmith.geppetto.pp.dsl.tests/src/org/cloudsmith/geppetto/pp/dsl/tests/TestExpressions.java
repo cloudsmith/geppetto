@@ -32,6 +32,7 @@ import org.cloudsmith.geppetto.pp.VirtualNameOrReference;
 import org.cloudsmith.geppetto.pp.dsl.validation.IPPDiagnostics;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.xtext.junit.validation.AssertableDiagnostics;
+import org.eclipse.xtext.nodemodel.util.NodeModelUtils;
 import org.eclipse.xtext.resource.XtextResource;
 
 /**
@@ -156,10 +157,21 @@ public class TestExpressions extends AbstractPuppetTests {
 
 	}
 
-	public void test_Serialize_ImportExpression() throws Exception {
+	public void test_Serialize_ImportExpressionDq() throws Exception {
 		String code = "import \"a\"\nimport \"b\"";
 		XtextResource r = getResourceFromString(code);
 		String s = serializeFormatted(r.getContents().get(0));
+		System.out.println(NodeModelUtils.compactDump(r.getParseResult().getRootNode(), false));
+
+		assertEquals("serialization should produce specified result", code, s);
+	}
+
+	public void test_Serialize_ImportExpressionSq() throws Exception {
+		String code = "import 'a'\nimport 'b'";
+		XtextResource r = getResourceFromString(code);
+		String s = serializeFormatted(r.getContents().get(0));
+		System.out.println(NodeModelUtils.compactDump(r.getParseResult().getRootNode(), false));
+
 		assertEquals("serialization should produce specified result", code, s);
 	}
 

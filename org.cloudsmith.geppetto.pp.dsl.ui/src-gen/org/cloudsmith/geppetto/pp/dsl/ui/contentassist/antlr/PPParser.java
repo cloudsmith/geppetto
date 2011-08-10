@@ -170,6 +170,7 @@ public class PPParser extends AbstractContentAssistParser {
 					put(grammarAccess.getVariableTextExpressionAccess().getGroup_1(), "rule__VariableTextExpression__Group_1__0");
 					put(grammarAccess.getExpressionTextExpressionAccess().getGroup(), "rule__ExpressionTextExpression__Group__0");
 					put(grammarAccess.getExpressionTextExpressionAccess().getGroup_1(), "rule__ExpressionTextExpression__Group_1__0");
+					put(grammarAccess.getExpressionWithHiddenAccess().getGroup(), "rule__ExpressionWithHidden__Group__0");
 					put(grammarAccess.getStringPartAccess().getGroup(), "rule__StringPart__Group__0");
 					put(grammarAccess.getUnquotedStringAccess().getGroup(), "rule__UnquotedString__Group__0");
 					put(grammarAccess.getSqTextAccess().getGroup(), "rule__SqText__Group__0");
@@ -255,7 +256,7 @@ public class PPParser extends AbstractContentAssistParser {
 					put(grammarAccess.getElseIfExpressionAccess().getElseStatementAssignment_5_0_1(), "rule__ElseIfExpression__ElseStatementAssignment_5_0_1");
 					put(grammarAccess.getElseIfExpressionAccess().getElseStatementAssignment_5_1_1(), "rule__ElseIfExpression__ElseStatementAssignment_5_1_1");
 					put(grammarAccess.getLiteralNameOrReferenceAccess().getValueAssignment(), "rule__LiteralNameOrReference__ValueAssignment");
-					put(grammarAccess.getParenthisedExpressionAccess().getExprAssignment_1(), "rule__ParenthisedExpression__ExprAssignment_1");
+					put(grammarAccess.getParenthisedExpressionAccess().getExprAssignment_2(), "rule__ParenthisedExpression__ExprAssignment_2");
 					put(grammarAccess.getVirtualNameOrReferenceAccess().getExportedAssignment_1(), "rule__VirtualNameOrReference__ExportedAssignment_1");
 					put(grammarAccess.getVirtualNameOrReferenceAccess().getValueAssignment_2(), "rule__VirtualNameOrReference__ValueAssignment_2");
 					put(grammarAccess.getImportExpressionAccess().getValuesAssignment_2_0(), "rule__ImportExpression__ValuesAssignment_2_0");
@@ -275,6 +276,7 @@ public class PPParser extends AbstractContentAssistParser {
 					put(grammarAccess.getVariableTextExpressionAccess().getTrailingAssignment_1_2(), "rule__VariableTextExpression__TrailingAssignment_1_2");
 					put(grammarAccess.getExpressionTextExpressionAccess().getExpressionAssignment_1_2(), "rule__ExpressionTextExpression__ExpressionAssignment_1_2");
 					put(grammarAccess.getExpressionTextExpressionAccess().getTrailingAssignment_1_4(), "rule__ExpressionTextExpression__TrailingAssignment_1_4");
+					put(grammarAccess.getExpressionWithHiddenAccess().getExprAssignment_1(), "rule__ExpressionWithHidden__ExprAssignment_1");
 					put(grammarAccess.getStringPartAccess().getTextAssignment_1(), "rule__StringPart__TextAssignment_1");
 					put(grammarAccess.getUnquotedStringAccess().getExpressionAssignment_2(), "rule__UnquotedString__ExpressionAssignment_2");
 					put(grammarAccess.getLiteralRegexAccess().getValueAssignment(), "rule__LiteralRegex__ValueAssignment");

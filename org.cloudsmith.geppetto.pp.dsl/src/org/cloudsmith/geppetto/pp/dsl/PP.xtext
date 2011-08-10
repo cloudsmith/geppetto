@@ -442,9 +442,9 @@ UNION_VARIABLE_OR_NAME
 	| unionNameOrReference
 	;
 	
-	
+// validate that expr is not empty	
 ParenthisedExpression returns pp::ParenthesisedExpression
-	: '('  expr = Expression ')' 
+	: '('  {pp::ParenthesisedExpression} expr = Expression? ')' 
 	;
 
 VirtualNameOrReference returns pp::VirtualNameOrReference 
@@ -513,12 +513,11 @@ QuotedString returns pp::IQuotedString hidden(WS, SL_COMMENT, ML_COMMENT)
 	| SingleQuotedString
 	;
 	
-SingleQuotedString returns pp::SingleQuotedString hidden(WS, SL_COMMENT, ML_COMMENT) : {pp::SingleQuotedString}
-	text = sqText 
+SingleQuotedString returns pp::SingleQuotedString  
+	: {pp::SingleQuotedString} text = sqText 
 	;
 
-// Special declarations to aid syntax coloring of these terminals	
-DQT_QUOTE hidden(): '"' ;
+// Special declarations to aid syntax coloring of a $ in a special place.	
 DQT_DOLLAR : '$' ;
 
 // Double quoted string with expression interpolation
@@ -527,16 +526,11 @@ DQT_DOLLAR : '$' ;
 // - $varname - evaluated and included in the string
 // - ${ expression } - evaluated and included in the string
 //
-DoubleQuotedString returns pp::DoubleQuotedString hidden(WS, SL_COMMENT, ML_COMMENT): 
-	textExpression = DoubleQuotedStringExpression
-//	'"' textExpression = TextExpression '"' 
+DoubleQuotedString returns pp::DoubleQuotedString hidden()
+	: '"' textExpression = TextExpression '"'
 	;
-DoubleQuotedStringExpression returns pp::TextExpression hidden(WS, SL_COMMENT, ML_COMMENT): 
-	HiddenQuote TextExpression HiddenQuote 
-	; 
-HiddenQuote hidden() : '"';
 
-// Lowest precedence 
+// Lowest precedence TextExpression
 TextExpression returns pp::TextExpression hidden(): 
 	DollarTextExpression
 	;
@@ -562,16 +556,15 @@ ExpressionTextExpression returns pp::TextExpression hidden():
 	// validate expression is not null == warning
 	StringPart (
 		{pp::ExpressionTE.leading=current} 
-		InterpolationStart  expression = ExpressionWithHidden? InterpolationEnd
+		'${'  expression = ExpressionWithHidden '}'
 		trailing = TextExpression?
 	)*
 	;
 
-InterpolationStart hidden(WS, SL_COMMENT, ML_COMMENT) : '${';
-InterpolationEnd hidden(WS, SL_COMMENT, ML_COMMENT) : '}';
-
+// Consumation without creation is ok, if made optional where it is assigned, it is not possible to
+// insert WS and comments into ExpressioNTextExpression.
 ExpressionWithHidden returns pp::Expression hidden(WS, SL_COMMENT, ML_COMMENT):
-	Expression
+	{pp::ParenthesisedExpression} expr = Expression?
 ;
 		
 StringPart returns pp::TextExpression hidden(): 
@@ -652,9 +645,11 @@ singleStringCharacters hidden()
 /************************************************************
  * TERMINALS 
  * (Please no terminals above, and no rules below...)
+ * IMPORTANT: An external lexer are used - the rules below are an aproximation. The names and
+ * number of terminals may not be changed without also updating the lexer.
  */
 
-terminal ML_COMMENT : '/*' -> '*/' ((' ' | '\u00A0' | '\t')* '\r'? '\n')?
+terminal ML_COMMENT : '/*' -> '*/' (' ' | '\u00A0' | '\t')* ('\r'? '\n')?
 ;
 // accumulate all SL comments into one token
 terminal SL_COMMENT : '#' !('\r' | '\n')* ('\r'? '\n')? ;

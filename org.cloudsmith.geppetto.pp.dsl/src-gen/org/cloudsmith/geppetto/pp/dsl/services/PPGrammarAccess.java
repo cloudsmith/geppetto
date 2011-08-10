@@ -2315,28 +2315,33 @@ public class PPGrammarAccess extends AbstractGrammarElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "ParenthisedExpression");
 		private final Group cGroup = (Group)rule.eContents().get(1);
 		private final Keyword cLeftParenthesisKeyword_0 = (Keyword)cGroup.eContents().get(0);
-		private final Assignment cExprAssignment_1 = (Assignment)cGroup.eContents().get(1);
-		private final RuleCall cExprExpressionParserRuleCall_1_0 = (RuleCall)cExprAssignment_1.eContents().get(0);
-		private final Keyword cRightParenthesisKeyword_2 = (Keyword)cGroup.eContents().get(2);
+		private final Action cParenthesisedExpressionAction_1 = (Action)cGroup.eContents().get(1);
+		private final Assignment cExprAssignment_2 = (Assignment)cGroup.eContents().get(2);
+		private final RuleCall cExprExpressionParserRuleCall_2_0 = (RuleCall)cExprAssignment_2.eContents().get(0);
+		private final Keyword cRightParenthesisKeyword_3 = (Keyword)cGroup.eContents().get(3);
 		
+		//// validate that expr is not empty	
 		//ParenthisedExpression returns pp::ParenthesisedExpression:
-		//	"(" expr=Expression ")";
+		//	"(" {pp::ParenthesisedExpression} expr=Expression? ")";
 		public ParserRule getRule() { return rule; }
 
-		//"(" expr=Expression ")"
+		//"(" {pp::ParenthesisedExpression} expr=Expression? ")"
 		public Group getGroup() { return cGroup; }
 
 		//"("
 		public Keyword getLeftParenthesisKeyword_0() { return cLeftParenthesisKeyword_0; }
 
-		//expr=Expression
-		public Assignment getExprAssignment_1() { return cExprAssignment_1; }
+		//{pp::ParenthesisedExpression}
+		public Action getParenthesisedExpressionAction_1() { return cParenthesisedExpressionAction_1; }
+
+		//expr=Expression?
+		public Assignment getExprAssignment_2() { return cExprAssignment_2; }
 
 		//Expression
-		public RuleCall getExprExpressionParserRuleCall_1_0() { return cExprExpressionParserRuleCall_1_0; }
+		public RuleCall getExprExpressionParserRuleCall_2_0() { return cExprExpressionParserRuleCall_2_0; }
 
 		//")"
-		public Keyword getRightParenthesisKeyword_2() { return cRightParenthesisKeyword_2; }
+		public Keyword getRightParenthesisKeyword_3() { return cRightParenthesisKeyword_3; }
 	}
 
 	public class VirtualNameOrReferenceElements extends AbstractParserRuleElementFinder {
@@ -2747,24 +2752,12 @@ public class PPGrammarAccess extends AbstractGrammarElementFinder {
 		public RuleCall getTextSqTextParserRuleCall_1_0() { return cTextSqTextParserRuleCall_1_0; }
 	}
 
-	public class DQT_QUOTEElements extends AbstractParserRuleElementFinder {
-		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "DQT_QUOTE");
-		private final Keyword cQuotationMarkKeyword = (Keyword)rule.eContents().get(1);
-		
-		//// Special declarations to aid syntax coloring of these terminals	
-		//DQT_QUOTE hidden():
-		//	"\"";
-		public ParserRule getRule() { return rule; }
-
-		//"\""
-		public Keyword getQuotationMarkKeyword() { return cQuotationMarkKeyword; }
-	}
-
 	public class DQT_DOLLARElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "DQT_DOLLAR");
 		private final Keyword cDollarSignKeyword = (Keyword)rule.eContents().get(1);
 		
-		//DQT_DOLLAR hidden():
+		//// Special declarations to aid syntax coloring of a $ in a special place.	
+		//DQT_DOLLAR:
 		//	"$";
 		public ParserRule getRule() { return rule; }
 
@@ -2810,7 +2803,7 @@ public class PPGrammarAccess extends AbstractGrammarElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "TextExpression");
 		private final RuleCall cDollarTextExpressionParserRuleCall = (RuleCall)rule.eContents().get(1);
 		
-		//// Lowest precedence 
+		//// Lowest precedence TextExpression
 		//TextExpression returns pp::TextExpression hidden():
 		//	DollarTextExpression;
 		public ParserRule getRule() { return rule; }
@@ -2913,14 +2906,17 @@ public class PPGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cTrailingTextExpressionParserRuleCall_1_4_0 = (RuleCall)cTrailingAssignment_1_4.eContents().get(0);
 		
 		//ExpressionTextExpression returns pp::TextExpression hidden(): // allow comments between ${ and }
+		//// validate expression is not null == warning
 		//	StringPart ({pp::ExpressionTE.leading=current} "${" expression=ExpressionWithHidden "}" trailing=TextExpression?)*;
 		public ParserRule getRule() { return rule; }
 
 		//// allow comments between ${ and }
+		//// validate expression is not null == warning
 		//StringPart ({pp::ExpressionTE.leading=current} "${" expression=ExpressionWithHidden "}" trailing=TextExpression?)*
 		public Group getGroup() { return cGroup; }
 
 		//// allow comments between ${ and }
+		//// validate expression is not null == warning
 		//StringPart
 		public RuleCall getStringPartParserRuleCall_0() { return cStringPartParserRuleCall_0; }
 
@@ -2951,14 +2947,28 @@ public class PPGrammarAccess extends AbstractGrammarElementFinder {
 
 	public class ExpressionWithHiddenElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "ExpressionWithHidden");
-		private final RuleCall cExpressionParserRuleCall = (RuleCall)rule.eContents().get(1);
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Action cParenthesisedExpressionAction_0 = (Action)cGroup.eContents().get(0);
+		private final Assignment cExprAssignment_1 = (Assignment)cGroup.eContents().get(1);
+		private final RuleCall cExprExpressionParserRuleCall_1_0 = (RuleCall)cExprAssignment_1.eContents().get(0);
 		
+		//// Consumation without creation is ok, if made optional where it is assigned, it is not possible to
+		//// insert WS and comments into ExpressioNTextExpression.
 		//ExpressionWithHidden returns pp::Expression hidden(WS, SL_COMMENT, ML_COMMENT):
-		//	Expression;
+		//	{pp::ParenthesisedExpression} expr=Expression?;
 		public ParserRule getRule() { return rule; }
 
+		//{pp::ParenthesisedExpression} expr=Expression?
+		public Group getGroup() { return cGroup; }
+
+		//{pp::ParenthesisedExpression}
+		public Action getParenthesisedExpressionAction_0() { return cParenthesisedExpressionAction_0; }
+
+		//expr=Expression?
+		public Assignment getExprAssignment_1() { return cExprAssignment_1; }
+
 		//Expression
-		public RuleCall getExpressionParserRuleCall() { return cExpressionParserRuleCall; }
+		public RuleCall getExprExpressionParserRuleCall_1_0() { return cExprExpressionParserRuleCall_1_0; }
 	}
 
 	public class StringPartElements extends AbstractParserRuleElementFinder {
@@ -2994,22 +3004,25 @@ public class PPGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cExpressionExpressionParserRuleCall_2_0 = (RuleCall)cExpressionAssignment_2.eContents().get(0);
 		private final Keyword cRightCurlyBracketKeyword_3 = (Keyword)cGroup.eContents().get(3);
 		
-		//UnquotedString returns pp::Expression: // allow comments between ${ and } 
-		//	{pp::UnquotedString} "${" expression=Expression "}";
+		//UnquotedString returns pp::Expression: // allow comments between ${ and }
+		//// validate that Expression is not empty == warning
+		//	{pp::UnquotedString} "${" expression=Expression? "}";
 		public ParserRule getRule() { return rule; }
 
-		//// allow comments between ${ and } 
-		//{pp::UnquotedString} "${" expression=Expression "}"
+		//// allow comments between ${ and }
+		//// validate that Expression is not empty == warning
+		//{pp::UnquotedString} "${" expression=Expression? "}"
 		public Group getGroup() { return cGroup; }
 
-		//// allow comments between ${ and } 
+		//// allow comments between ${ and }
+		//// validate that Expression is not empty == warning
 		//{pp::UnquotedString}
 		public Action getUnquotedStringAction_0() { return cUnquotedStringAction_0; }
 
 		//"${"
 		public Keyword getDollarSignLeftCurlyBracketKeyword_1() { return cDollarSignLeftCurlyBracketKeyword_1; }
 
-		//expression=Expression
+		//expression=Expression?
 		public Assignment getExpressionAssignment_2() { return cExpressionAssignment_2; }
 
 		//Expression
@@ -3415,7 +3428,6 @@ public class PPGrammarAccess extends AbstractGrammarElementFinder {
 	private StringExpressionElements pStringExpression;
 	private QuotedStringElements pQuotedString;
 	private SingleQuotedStringElements pSingleQuotedString;
-	private DQT_QUOTEElements pDQT_QUOTE;
 	private DQT_DOLLARElements pDQT_DOLLAR;
 	private DoubleQuotedStringElements pDoubleQuotedString;
 	private TextExpressionElements pTextExpression;
@@ -4115,8 +4127,9 @@ public class PPGrammarAccess extends AbstractGrammarElementFinder {
 		return getUNION_VARIABLE_OR_NAMEAccess().getRule();
 	}
 
+	//// validate that expr is not empty	
 	//ParenthisedExpression returns pp::ParenthesisedExpression:
-	//	"(" expr=Expression ")";
+	//	"(" {pp::ParenthesisedExpression} expr=Expression? ")";
 	public ParenthisedExpressionElements getParenthisedExpressionAccess() {
 		return (pParenthisedExpression != null) ? pParenthisedExpression : (pParenthisedExpression = new ParenthisedExpressionElements());
 	}
@@ -4273,18 +4286,8 @@ public class PPGrammarAccess extends AbstractGrammarElementFinder {
 		return getSingleQuotedStringAccess().getRule();
 	}
 
-	//// Special declarations to aid syntax coloring of these terminals	
-	//DQT_QUOTE hidden():
-	//	"\"";
-	public DQT_QUOTEElements getDQT_QUOTEAccess() {
-		return (pDQT_QUOTE != null) ? pDQT_QUOTE : (pDQT_QUOTE = new DQT_QUOTEElements());
-	}
-	
-	public ParserRule getDQT_QUOTERule() {
-		return getDQT_QUOTEAccess().getRule();
-	}
-
-	//DQT_DOLLAR hidden():
+	//// Special declarations to aid syntax coloring of a $ in a special place.	
+	//DQT_DOLLAR:
 	//	"$";
 	public DQT_DOLLARElements getDQT_DOLLARAccess() {
 		return (pDQT_DOLLAR != null) ? pDQT_DOLLAR : (pDQT_DOLLAR = new DQT_DOLLARElements());
@@ -4310,7 +4313,7 @@ public class PPGrammarAccess extends AbstractGrammarElementFinder {
 		return getDoubleQuotedStringAccess().getRule();
 	}
 
-	//// Lowest precedence 
+	//// Lowest precedence TextExpression
 	//TextExpression returns pp::TextExpression hidden():
 	//	DollarTextExpression;
 	public TextExpressionElements getTextExpressionAccess() {
@@ -4342,6 +4345,7 @@ public class PPGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//ExpressionTextExpression returns pp::TextExpression hidden(): // allow comments between ${ and }
+	//// validate expression is not null == warning
 	//	StringPart ({pp::ExpressionTE.leading=current} "${" expression=ExpressionWithHidden "}" trailing=TextExpression?)*;
 	public ExpressionTextExpressionElements getExpressionTextExpressionAccess() {
 		return (pExpressionTextExpression != null) ? pExpressionTextExpression : (pExpressionTextExpression = new ExpressionTextExpressionElements());
@@ -4351,8 +4355,10 @@ public class PPGrammarAccess extends AbstractGrammarElementFinder {
 		return getExpressionTextExpressionAccess().getRule();
 	}
 
+	//// Consumation without creation is ok, if made optional where it is assigned, it is not possible to
+	//// insert WS and comments into ExpressioNTextExpression.
 	//ExpressionWithHidden returns pp::Expression hidden(WS, SL_COMMENT, ML_COMMENT):
-	//	Expression;
+	//	{pp::ParenthesisedExpression} expr=Expression?;
 	public ExpressionWithHiddenElements getExpressionWithHiddenAccess() {
 		return (pExpressionWithHidden != null) ? pExpressionWithHidden : (pExpressionWithHidden = new ExpressionWithHiddenElements());
 	}
@@ -4371,8 +4377,9 @@ public class PPGrammarAccess extends AbstractGrammarElementFinder {
 		return getStringPartAccess().getRule();
 	}
 
-	//UnquotedString returns pp::Expression: // allow comments between ${ and } 
-	//	{pp::UnquotedString} "${" expression=Expression "}";
+	//UnquotedString returns pp::Expression: // allow comments between ${ and }
+	//// validate that Expression is not empty == warning
+	//	{pp::UnquotedString} "${" expression=Expression? "}";
 	public UnquotedStringElements getUnquotedStringAccess() {
 		return (pUnquotedString != null) ? pUnquotedString : (pUnquotedString = new UnquotedStringElements());
 	}
@@ -4495,8 +4502,10 @@ public class PPGrammarAccess extends AbstractGrammarElementFinder {
 	/// ************************************************************
 	// * TERMINALS 
 	// * (Please no terminals above, and no rules below...)
+	// * IMPORTANT: An external lexer are used - the rules below are an aproximation. The names and
+	// * number of terminals may not be changed without also updating the lexer.
 	// * / terminal ML_COMMENT:
-	//	"/ *"->"* /" ((" " | " " | "\t")* "\r"? "\n")?;
+	//	"/ *"->"* /" (" " | " " | "\t")* ("\r"? "\n")?;
 	public TerminalRule getML_COMMENTRule() {
 		return (tML_COMMENT != null) ? tML_COMMENT : (tML_COMMENT = (TerminalRule) GrammarUtil.findRuleForName(getGrammar(), "ML_COMMENT"));
 	} 

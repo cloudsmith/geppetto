@@ -144,7 +144,7 @@ KEYWORD_22 : '}';
 
 
 
-RULE_ML_COMMENT : '/*' ( options {greedy=false;} : . )*'*/' ((' '|'\u00A0'|'\t')* '\r'? '\n')?;
+RULE_ML_COMMENT : '/*' ( options {greedy=false;} : . )*'*/' (' '|'\u00A0'|'\t')* ('\r'? '\n')?;
 
 RULE_SL_COMMENT : '#' ~(('\r'|'\n'))* ('\r'? '\n')?;
 

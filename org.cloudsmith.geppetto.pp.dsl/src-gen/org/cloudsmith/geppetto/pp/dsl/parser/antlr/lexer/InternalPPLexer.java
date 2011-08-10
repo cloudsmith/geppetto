@@ -1407,8 +1407,8 @@ public class InternalPPLexer extends Lexer {
         try {
             int _type = RULE_ML_COMMENT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/lexer/InternalPPLexer.g:147:17: ( '/*' ( options {greedy=false; } : . )* '*/' ( ( ' ' | '\\u00A0' | '\\t' )* ( '\\r' )? '\\n' )? )
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/lexer/InternalPPLexer.g:147:19: '/*' ( options {greedy=false; } : . )* '*/' ( ( ' ' | '\\u00A0' | '\\t' )* ( '\\r' )? '\\n' )?
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/lexer/InternalPPLexer.g:147:17: ( '/*' ( options {greedy=false; } : . )* '*/' ( ' ' | '\\u00A0' | '\\t' )* ( ( '\\r' )? '\\n' )? )
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/lexer/InternalPPLexer.g:147:19: '/*' ( options {greedy=false; } : . )* '*/' ( ' ' | '\\u00A0' | '\\t' )* ( ( '\\r' )? '\\n' )?
             {
             match("/*"); 
 
@@ -1451,50 +1451,50 @@ public class InternalPPLexer extends Lexer {
 
             match("*/"); 
 
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/lexer/InternalPPLexer.g:147:61: ( ( ' ' | '\\u00A0' | '\\t' )* ( '\\r' )? '\\n' )?
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/lexer/InternalPPLexer.g:147:61: ( ' ' | '\\u00A0' | '\\t' )*
+            loop2:
+            do {
+                int alt2=2;
+                int LA2_0 = input.LA(1);
+
+                if ( (LA2_0=='\t'||LA2_0==' '||LA2_0=='\u00A0') ) {
+                    alt2=1;
+                }
+
+
+                switch (alt2) {
+            	case 1 :
+            	    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/lexer/InternalPPLexer.g:
+            	    {
+            	    if ( input.LA(1)=='\t'||input.LA(1)==' '||input.LA(1)=='\u00A0' ) {
+            	        input.consume();
+
+            	    }
+            	    else {
+            	        MismatchedSetException mse = new MismatchedSetException(null,input);
+            	        recover(mse);
+            	        throw mse;}
+
+
+            	    }
+            	    break;
+
+            	default :
+            	    break loop2;
+                }
+            } while (true);
+
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/lexer/InternalPPLexer.g:147:82: ( ( '\\r' )? '\\n' )?
             int alt4=2;
             int LA4_0 = input.LA(1);
 
-            if ( ((LA4_0>='\t' && LA4_0<='\n')||LA4_0=='\r'||LA4_0==' '||LA4_0=='\u00A0') ) {
+            if ( (LA4_0=='\n'||LA4_0=='\r') ) {
                 alt4=1;
             }
             switch (alt4) {
                 case 1 :
-                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/lexer/InternalPPLexer.g:147:62: ( ' ' | '\\u00A0' | '\\t' )* ( '\\r' )? '\\n'
+                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/lexer/InternalPPLexer.g:147:83: ( '\\r' )? '\\n'
                     {
-                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/lexer/InternalPPLexer.g:147:62: ( ' ' | '\\u00A0' | '\\t' )*
-                    loop2:
-                    do {
-                        int alt2=2;
-                        int LA2_0 = input.LA(1);
-
-                        if ( (LA2_0=='\t'||LA2_0==' '||LA2_0=='\u00A0') ) {
-                            alt2=1;
-                        }
-
-
-                        switch (alt2) {
-                    	case 1 :
-                    	    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/lexer/InternalPPLexer.g:
-                    	    {
-                    	    if ( input.LA(1)=='\t'||input.LA(1)==' '||input.LA(1)=='\u00A0' ) {
-                    	        input.consume();
-
-                    	    }
-                    	    else {
-                    	        MismatchedSetException mse = new MismatchedSetException(null,input);
-                    	        recover(mse);
-                    	        throw mse;}
-
-
-                    	    }
-                    	    break;
-
-                    	default :
-                    	    break loop2;
-                        }
-                    } while (true);
-
                     // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/lexer/InternalPPLexer.g:147:83: ( '\\r' )?
                     int alt3=2;
                     int LA3_0 = input.LA(1);

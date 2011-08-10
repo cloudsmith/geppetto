@@ -15,8 +15,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.cloudsmith.geppetto.pp.DoubleQuotedString;
+import org.cloudsmith.geppetto.pp.Expression;
 import org.cloudsmith.geppetto.pp.ExpressionTE;
 import org.cloudsmith.geppetto.pp.LiteralNameOrReference;
+import org.cloudsmith.geppetto.pp.ParenthesisedExpression;
 import org.cloudsmith.geppetto.pp.PuppetManifest;
 import org.cloudsmith.geppetto.pp.TextExpression;
 import org.cloudsmith.geppetto.pp.VariableTE;
@@ -44,7 +46,13 @@ public class TestDoubleQuotedString extends AbstractPuppetTests {
 		boolean isExprClass(Class<?> clazz) {
 			if(!(te instanceof ExpressionTE))
 				return false;
-			return clazz.isAssignableFrom(((ExpressionTE) te).getExpression().getClass());
+			Expression pe = ((ExpressionTE) te).getExpression();
+			if(!ParenthesisedExpression.class.isAssignableFrom(pe.getClass()))
+				return false;
+			Expression peExpr = ((ParenthesisedExpression) pe).getExpr();
+			if(peExpr == null)
+				return false;
+			return clazz.isAssignableFrom(peExpr.getClass());
 		}
 	}
 
@@ -108,6 +116,7 @@ public class TestDoubleQuotedString extends AbstractPuppetTests {
 		List<TEPair> t = flattenTextExpression(string.getTextExpression());
 		assertEquals("List should have 3 entries", 3, t.size());
 		assertEquals("First element should be 'before'", "before", t.get(0).string);
+
 		assertTrue(
 			"Second element should be a LiteralNameOrReference", t.get(1).isExprClass(LiteralNameOrReference.class));
 		assertEquals("Third element should be '/after'", "/after", t.get(2).string);

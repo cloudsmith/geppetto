@@ -88,7 +88,7 @@ public class PPSemanticHighlightingCalculator implements ISemanticHighlightingCa
 
 	private AbstractRule ruleSqText;
 
-	private AbstractRule ruleDQT_QUOTE;
+	// private AbstractRule ruleDQT_QUOTE;
 
 	private AbstractRule ruleDQT_DOLLAR;
 
@@ -188,7 +188,7 @@ public class PPSemanticHighlightingCalculator implements ISemanticHighlightingCa
 			else if(ruleSqText == rule)
 				acceptor.addPosition(o.getOffset(), o.getLength(), DefaultHighlightingConfiguration.STRING_ID);
 
-			else if(ruleDQT_DOLLAR == rule || ruleDQT_QUOTE == rule || ruleDQ_STRING == rule)
+			else if(ruleDQT_DOLLAR == rule /* || ruleDQT_QUOTE == rule */|| ruleDQ_STRING == rule)
 				acceptor.addPosition(o.getOffset(), o.getLength(), PPHighlightConfiguration.TEMPLATE_TEXT_ID);
 			else if(ruleExpression == rule) {
 				EObject semantic = o.getSemanticElement();
@@ -392,7 +392,7 @@ public class PPSemanticHighlightingCalculator implements ISemanticHighlightingCa
 	private void setupRules() {
 		ruleVariable = grammarAccess.getDollarVariableRule();
 		ruleSqText = grammarAccess.getSqTextRule();
-		ruleDQT_QUOTE = grammarAccess.getDQT_QUOTERule();
+		// ruleDQT_QUOTE = grammarAccess.getDQT_QUOTERule();
 		ruleDQT_DOLLAR = grammarAccess.getDQT_DOLLARRule();
 		ruleDQ_STRING = grammarAccess.getDoubleStringCharactersRule();
 		ruleExpression = grammarAccess.getExpressionRule();

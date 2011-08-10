@@ -41,7 +41,7 @@ Workflow {
 			// generates Java API for the generated EPackages 
 			fragment = ecore.EcoreGeneratorFragment {
 			// referencedGenModels = "uri to genmodel, uri to next genmodel"
-				referencedGenModels = "classpath:/model/PP.genmodel"
+			//	referencedGenModels = "classpath:/model/PP.genmodel"
 				skipGenerate = true // Puppet grammar does not have its own model
 				// Puppet model
 				saveMapping = {

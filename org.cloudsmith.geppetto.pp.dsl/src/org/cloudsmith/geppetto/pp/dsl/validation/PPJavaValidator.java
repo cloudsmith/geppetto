@@ -733,6 +733,33 @@ public class PPJavaValidator extends AbstractPPJavaValidator implements IPPDiagn
 	}
 
 	@Check
+	public void checkParenthesisedExpression(ParenthesisedExpression o) {
+		if(o.getExpr() == null) {
+			final String msg = "Empty expression";
+			final String issue = IPPDiagnostics.ISSUE__REQUIRED_EXPRESSION;
+			final ICompositeNode node = NodeModelUtils.getNode(o);
+			if(node == null)
+				acceptor.acceptError(
+					msg, o, PPPackage.Literals.PARENTHESISED_EXPRESSION__EXPR, INSIGNIFICANT_INDEX, issue);
+			else {
+				// if node's text is empty, mark the nodes before/after, if present.
+				int textSize = node.getLength();
+				INode endNode = textSize == 0 && node.hasNextSibling()
+						? node.getNextSibling()
+						: node;
+				INode startNode = textSize == 0 && node.hasPreviousSibling()
+						? node.getPreviousSibling()
+						: node;
+
+				((ValidationBasedMessageAcceptor) acceptor).acceptError(
+					msg, o, startNode.getOffset(), startNode.getLength() + ((startNode != endNode)
+							? endNode.getLength()
+							: 0), issue);
+			}
+		}
+	}
+
+	@Check
 	public void checkPuppetManifest(PuppetManifest o) {
 		internalCheckTopLevelExpressions(o.getStatements());
 	}

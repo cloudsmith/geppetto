@@ -43,6 +43,11 @@ public interface PPDSLConstants {
 	public static final String RESOURCE_PROPERTY__ROOT_URI = "org.cloudsmith.geppetto.pp.dsl.resource.rootUri";
 
 	/**
+	 * Property key for Resource Properties. This key should refer to a Collection of
+	 */
+	public static final String RESOURCE_PROPERTY__TASK_LIST = "org.cloudsmith.geppetto.pp.dsl.resource.taskList";
+
+	/**
 	 * If present in an {@link IEObjectDescription} for a PPTP Parameter data and set to true, then this
 	 * parameter is a PP DSL namevar.
 	 */

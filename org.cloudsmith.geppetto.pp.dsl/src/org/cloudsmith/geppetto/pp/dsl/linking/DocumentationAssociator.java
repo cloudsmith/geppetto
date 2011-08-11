@@ -16,10 +16,14 @@ import java.util.List;
 import org.cloudsmith.geppetto.pp.Definition;
 import org.cloudsmith.geppetto.pp.HostClassDefinition;
 import org.cloudsmith.geppetto.pp.NodeDefinition;
+import org.cloudsmith.geppetto.pp.dsl.PPDSLConstants;
 import org.cloudsmith.geppetto.pp.dsl.adapters.DocumentationAdapter;
 import org.cloudsmith.geppetto.pp.dsl.adapters.DocumentationAdapterFactory;
+import org.cloudsmith.geppetto.pp.dsl.adapters.ResourcePropertiesAdapter;
+import org.cloudsmith.geppetto.pp.dsl.adapters.ResourcePropertiesAdapterFactory;
 import org.cloudsmith.geppetto.pp.dsl.services.PPGrammarAccess;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.xtext.IGrammarAccess;
 import org.eclipse.xtext.nodemodel.ICompositeNode;
 import org.eclipse.xtext.nodemodel.INode;
@@ -41,6 +45,8 @@ public class DocumentationAssociator {
 	 */
 	private static final Class<?>[] documentable = { HostClassDefinition.class, Definition.class, NodeDefinition.class, };
 
+	private static final String[] defaultTaskTags = new String[] { "todo", "fixme" };
+
 	@Inject
 	public DocumentationAssociator(IGrammarAccess ga) {
 		this.ga = (PPGrammarAccess) ga;
@@ -56,6 +62,18 @@ public class DocumentationAssociator {
 
 	}
 
+	private void associateTasks(EObject model, List<PPTask> tasks) {
+		Resource r = model.eResource();
+		if(r == null)
+			return; // not in a resource, sorry.
+		ResourcePropertiesAdapter adapter = ResourcePropertiesAdapterFactory.eINSTANCE.adapt(r);
+		adapter.put(PPDSLConstants.RESOURCE_PROPERTY__TASK_LIST, tasks);
+	}
+
+	private String[] getTaskTags() {
+		return defaultTaskTags;
+	}
+
 	/**
 	 * Links comment nodes to classes listed in {@link #documentable} by collecting them in an
 	 * adapter (for later processing by formatter/styler).
@@ -63,6 +81,9 @@ public class DocumentationAssociator {
 	 * TODO: provide checks that documentation is consistent with the model
 	 */
 	protected void linkDocumentation(EObject model, IMessageAcceptor acceptor) {
+		// clear stored tasks
+		associateTasks(model, null);
+		List<PPTask> tasks = Lists.newArrayList();
 
 		// a sequence of SL comment or a single ML comment that is immediately (no NL) before
 		// a definition, class, or node is taken to be a documentation comment, as is associated with
@@ -75,11 +96,13 @@ public class DocumentationAssociator {
 			EObject grammarElement = x.getGrammarElement();
 			// process comments
 			if(grammarElement == ga.getSL_COMMENTRule() || grammarElement == ga.getML_COMMENTRule()) {
+				processCommentNode(x, tasks);
 				// if nothing follows the comment (we are probably at the end)
 				if(!x.hasNextSibling()) {
 					commentSequence.clear();
 					continue;
 				}
+
 				// if next is a blank line, throw away any collected comments.
 				INode sibling = x.getNextSibling();
 				if(sibling.getGrammarElement() == ga.getWSRule() && sibling.getText().contains("\n")) {
@@ -97,6 +120,13 @@ public class DocumentationAssociator {
 					continue; // keep on collecting
 
 				EObject semantic = NodeModelUtils.findActualSemanticObjectFor(sibling);
+
+				// check that a comment inside a structure (i.e. starts after the start of the structure)
+				// is not mistaken as following
+				EObject commentSemantic = NodeModelUtils.findActualSemanticObjectFor(x);
+				if(commentSemantic == semantic &&
+						x.getOffset() > NodeModelUtils.findActualNodeFor(semantic).getOffset())
+					continue;
 				found: {
 					for(Class<?> clazz : documentable) {
 						if(clazz.isAssignableFrom(semantic.getClass())) {
@@ -109,6 +139,48 @@ public class DocumentationAssociator {
 				}
 			}
 		}
+		associateTasks(model, tasks);
 
+	}
+
+	private void processCommentNode(INode node, List<PPTask> taskList) {
+		final String commentText = node.getText();
+		final String loweredText = commentText.toLowerCase();
+		if(commentText == null || commentText.length() == 0)
+			return;
+
+		int line = node.getStartLine();
+
+		for(int startPos = 0; startPos < commentText.length(); /* repeat value in loop */) {
+			int firstTagIndex = commentText.length();
+			int previousTagIndex = 0;
+			for(String tag : getTaskTags()) {
+				int idx = loweredText.indexOf(tag, startPos);
+				if(idx >= 0 && idx < firstTagIndex)
+					firstTagIndex = idx;
+			}
+			if(firstTagIndex == commentText.length())
+				return; // no tags
+
+			// msg is text to end, or up to (but not including) the newline.
+			int endIndex = commentText.indexOf("\n", firstTagIndex);
+			String msg = commentText.substring(firstTagIndex, endIndex < 0
+					? commentText.length()
+					: endIndex);
+
+			// increase lines seen by those that were passed between previous found and this.
+			for(int i = previousTagIndex; i < firstTagIndex; i++)
+				if(commentText.charAt(i) == '\n')
+					line++;
+
+			PPTask task = new PPTask(msg, line, node.getOffset() + firstTagIndex, msg.length());
+			taskList.add(task);
+
+			if(endIndex < 0)
+				return; // done, no more tags could be found
+
+			startPos = endIndex + 1;
+			previousTagIndex = firstTagIndex;
+		}
 	}
 }

@@ -68,6 +68,8 @@ public class PPHighlightConfiguration extends DefaultHighlightingConfiguration {
 
 	public static final String RESOURCE_TITLE_ID = "resourceTitle";
 
+	public static final String TASK_ID = "task";
+
 	@Override
 	public void configure(IHighlightingConfigurationAcceptor acceptor) {
 		super.configure(acceptor);
@@ -98,6 +100,7 @@ public class PPHighlightConfiguration extends DefaultHighlightingConfiguration {
 		acceptor.acceptDefaultHighlighting(RESOURCE_REF_ID, "Resource Reference", resourceRefTextStyle());
 		acceptor.acceptDefaultHighlighting(RESOURCE_TITLE_ID, "Resource Title", resourceTitleTextStyle());
 
+		acceptor.acceptDefaultHighlighting(TASK_ID, "Tasks", taskTextStyle());
 	}
 
 	public TextStyle documentationBoldStyle() {
@@ -244,6 +247,13 @@ public class PPHighlightConfiguration extends DefaultHighlightingConfiguration {
 		TextStyle textStyle = defaultTextStyle().copy();
 		// Affects what is behind the text and WS
 		textStyle.setBackgroundColor(new RGB(255, 204, 102)); // light orange
+		return textStyle;
+	}
+
+	public TextStyle taskTextStyle() {
+		TextStyle textStyle = defaultTextStyle().copy();
+		textStyle.setColor(new RGB(68, 68, 68));
+		textStyle.setStyle(SWT.BOLD);
 		return textStyle;
 	}
 

@@ -23,8 +23,12 @@ import org.cloudsmith.geppetto.pp.NodeDefinition;
 import org.cloudsmith.geppetto.pp.PuppetManifest;
 import org.cloudsmith.geppetto.pp.ResourceBody;
 import org.cloudsmith.geppetto.pp.ResourceExpression;
+import org.cloudsmith.geppetto.pp.dsl.PPDSLConstants;
 import org.cloudsmith.geppetto.pp.dsl.adapters.DocumentationAdapter;
 import org.cloudsmith.geppetto.pp.dsl.adapters.DocumentationAdapterFactory;
+import org.cloudsmith.geppetto.pp.dsl.adapters.ResourcePropertiesAdapter;
+import org.cloudsmith.geppetto.pp.dsl.adapters.ResourcePropertiesAdapterFactory;
+import org.cloudsmith.geppetto.pp.dsl.linking.PPTask;
 import org.cloudsmith.geppetto.pp.dsl.services.PPGrammarAccess;
 import org.cloudsmith.geppetto.pp.dsl.ui.coloring.PPDocumentationParser.DocNode;
 import org.eclipse.emf.common.util.EList;
@@ -324,6 +328,8 @@ public class PPSemanticHighlightingCalculator implements ISemanticHighlightingCa
 
 		// highligting based on the text itself
 		provideTextualHighlighting(resource, acceptor);
+
+		provideResourceLevelHighlighting(resource, acceptor);
 	}
 
 	/**
@@ -343,6 +349,18 @@ public class PPSemanticHighlightingCalculator implements ISemanticHighlightingCa
 				doHighlight(node, acceptor);
 			}
 		}
+	}
+
+	protected void provideResourceLevelHighlighting(XtextResource resource, IHighlightedPositionAcceptor acceptor) {
+		ResourcePropertiesAdapter adapter = ResourcePropertiesAdapterFactory.eINSTANCE.adapt(resource);
+		@SuppressWarnings("unchecked")
+		List<PPTask> taskList = (List<PPTask>) adapter.get(PPDSLConstants.RESOURCE_PROPERTY__TASK_LIST);
+		if(taskList == null)
+			return;
+		for(PPTask task : taskList) {
+			acceptor.addPosition(task.getOffset(), task.getLength(), PPHighlightConfiguration.TASK_ID);
+		}
+
 	}
 
 	// NOTE: Currently unused, and needs to be modified for Xtext 2.0

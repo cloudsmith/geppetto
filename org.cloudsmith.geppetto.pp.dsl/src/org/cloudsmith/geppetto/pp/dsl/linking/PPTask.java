@@ -17,7 +17,7 @@ package org.cloudsmith.geppetto.pp.dsl.linking;
  */
 public class PPTask {
 
-	final private Object msg;
+	final private String msg;
 
 	final private int line;
 
@@ -40,7 +40,7 @@ public class PPTask {
 		return line;
 	}
 
-	public Object getMsg() {
+	public String getMsg() {
 		return msg;
 	}
 

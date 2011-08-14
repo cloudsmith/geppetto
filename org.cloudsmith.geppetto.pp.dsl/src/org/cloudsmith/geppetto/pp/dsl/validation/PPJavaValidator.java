@@ -665,7 +665,7 @@ public class PPJavaValidator extends AbstractPPJavaValidator implements IPPDiagn
 		acceptor.acceptError(
 			"Must be a name or type (all segments must start with same case).", o,
 			PPPackage.Literals.LITERAL_NAME_OR_REFERENCE__VALUE, INSIGNIFICANT_INDEX,
-			IPPDiagnostics.ISSUE__NOT_NAME_OR_REF);
+			IPPDiagnostics.ISSUE__NOT_NAME_OR_REF, o.getValue());
 
 	}
 

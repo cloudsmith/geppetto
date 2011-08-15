@@ -1059,16 +1059,16 @@ public class PPJavaValidator extends AbstractPPJavaValidator implements IPPDiagn
 		if(o.getExpr() == null)
 			acceptor.acceptError(
 				"An unary minus expression must have right hand side expression", o,
-				PPPackage.Literals.BINARY_EXPRESSION__LEFT_EXPR, INSIGNIFICANT_INDEX,
+				PPPackage.Literals.UNARY_EXPRESSION__EXPR, //
+				INSIGNIFICANT_INDEX, //
 				IPPDiagnostics.ISSUE__NULL_EXPRESSION);
 	}
 
 	@Check
 	public void checkUnaryExpression(UnaryNotExpression o) {
 		if(o.getExpr() == null)
-			acceptor.acceptError(
-				"A not expression must have a righ hand side expression", o,
-				PPPackage.Literals.BINARY_EXPRESSION__LEFT_EXPR, INSIGNIFICANT_INDEX,
+			acceptor.acceptError("A not expression must have a righ hand side expression", o, //
+			PPPackage.Literals.UNARY_EXPRESSION__EXPR, INSIGNIFICANT_INDEX, //
 				IPPDiagnostics.ISSUE__NULL_EXPRESSION);
 	}
 

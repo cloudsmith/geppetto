@@ -271,5 +271,22 @@
              class="org.cloudsmith.geppetto.pp.dsl.ui.internal.PPStartup">
        </startup>
     </extension>
+    <extension
+          id="puppetTaskMarker"
+          name="Puppet Task Marker"
+          point="org.eclipse.core.resources.markers">
+       <super
+             type="org.eclipse.core.resources.taskmarker">
+       </super>
+       <persistent
+             value="true">
+       </persistent>
+    </extension>
+    <extension
+          point="org.eclipse.xtext.builder.participant">
+       <participant
+             class="org.cloudsmith.geppetto.pp.dsl.ui.PPExecutableExtensionFactory:org.cloudsmith.geppetto.pp.dsl.ui.builder.PPBuilderParticipant">
+       </participant>
+    </extension>
 
 </plugin>

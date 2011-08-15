@@ -15,7 +15,9 @@ Require-Bundle: org.eclipse.xtext,
  org.cloudsmith.geppetto.ruby,
  org.eclipse.core.runtime,
  org.cloudsmith.geppetto.common,
- org.cloudsmith.geppetto.common.injectable
+ org.cloudsmith.geppetto.common.injectable,
+ org.apache.commons.lang;bundle-version="2.4.0",
+ org.apache.commons.codec;bundle-version="1.3.0"
 Import-Package: org.apache.log4j
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Export-Package: org.cloudsmith.geppetto.pp.dsl,

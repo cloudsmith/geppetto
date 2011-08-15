@@ -36,6 +36,8 @@ public interface PPUiConstants {
 
 	public static final String PUPPET_MODULE_PROBLEM_MARKER_TYPE = "org.cloudsmith.geppetto.pp.dsl.ui.puppetModuleProblem";
 
+	public static final String PUPPET_TASK_MARKER_TYPE = "org.cloudsmith.geppetto.pp.dsl.ui.puppetTaskMarker";
+
 	public static final String MODULEFILE_BUILDER_ID = "org.cloudsmith.geppetto.pp.dsl.ui.modulefileBuilder";
 
 	/**

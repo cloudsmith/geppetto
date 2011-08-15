@@ -14,7 +14,6 @@ package org.cloudsmith.geppetto.pp.dsl.linking;
 import static org.cloudsmith.geppetto.pp.adapters.ClassifierAdapter.RESOURCE_IS_CLASSPARAMS;
 import static org.cloudsmith.geppetto.pp.adapters.ClassifierAdapter.RESOURCE_IS_OVERRIDE;
 
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -42,6 +41,7 @@ import org.cloudsmith.geppetto.pp.dsl.adapters.PPImportedNamesAdapter;
 import org.cloudsmith.geppetto.pp.dsl.adapters.PPImportedNamesAdapterFactory;
 import org.cloudsmith.geppetto.pp.dsl.adapters.ResourcePropertiesAdapter;
 import org.cloudsmith.geppetto.pp.dsl.adapters.ResourcePropertiesAdapterFactory;
+import org.cloudsmith.geppetto.pp.dsl.contentassist.PPProposalsGenerator;
 import org.cloudsmith.geppetto.pp.dsl.eval.PPStringConstantEvaluator;
 import org.cloudsmith.geppetto.pp.dsl.validation.IPPDiagnostics;
 import org.cloudsmith.geppetto.pp.pptp.PPTPPackage;
@@ -211,6 +211,9 @@ public class PPResourceLinker implements IPPDiagnostics {
 	@Inject
 	IQualifiedNameConverter converter;
 
+	@Inject
+	PPProposalsGenerator proposer;
+
 	/**
 	 * Access to naming of model elements.
 	 */
@@ -292,7 +295,8 @@ public class PPResourceLinker implements IPPDiagnostics {
 					"Ambiguous reference to: '" + parentString + "' found in: " +
 							visibleResourceList(o.eResource(), descs), o,
 					PPPackage.Literals.HOST_CLASS_DEFINITION__PARENT,
-					IPPDiagnostics.ISSUE__RESOURCE_AMBIGUOUS_REFERENCE, computeProposals(parentString, descs));
+					IPPDiagnostics.ISSUE__RESOURCE_AMBIGUOUS_REFERENCE,
+					proposer.computeDistinctProposals(parentString, descs));
 			}
 		}
 		else {
@@ -302,7 +306,8 @@ public class PPResourceLinker implements IPPDiagnostics {
 			// ... and finally, if there was neither a type nor a definition reference
 			acceptor.acceptError(
 				"Unknown class: '" + parentString + "'", o, PPPackage.Literals.HOST_CLASS_DEFINITION__PARENT,
-				IPPDiagnostics.ISSUE__RESOURCE_UNKNOWN_TYPE);
+				IPPDiagnostics.ISSUE__RESOURCE_UNKNOWN_TYPE, //
+				proposer.computeProposals(parentString, exportedPerLastSegment.values(), CLASS_AND_TYPE));
 		}
 	}
 
@@ -330,7 +335,8 @@ public class PPResourceLinker implements IPPDiagnostics {
 				importedNames.addUnresolved(converter.toQualifiedName(className));
 				acceptor.acceptError(
 					"Unknown class: '" + className + "'", o, PPPackage.Literals.RESOURCE_BODY__NAME_EXPR,
-					IPPDiagnostics.ISSUE__RESOURCE_UNKNOWN_TYPE);
+					IPPDiagnostics.ISSUE__RESOURCE_UNKNOWN_TYPE, //
+					proposer.computeProposals(className, exportedPerLastSegment.values(), CLASS_AND_TYPE));
 				return; // not meaningful to continue (do not report errors for each "inner name")
 			}
 			if(descs.size() > 0) {
@@ -348,7 +354,8 @@ public class PPResourceLinker implements IPPDiagnostics {
 						"Ambiguous reference to: '" + className + "' found in: " +
 								visibleResourceList(o.eResource(), descs), o,
 						PPPackage.Literals.RESOURCE_BODY__NAME_EXPR,
-						IPPDiagnostics.ISSUE__RESOURCE_AMBIGUOUS_REFERENCE, computeProposals(className, descs));
+						IPPDiagnostics.ISSUE__RESOURCE_AMBIGUOUS_REFERENCE,
+						proposer.computeDistinctProposals(className, descs));
 				}
 				// use the first description found to find parameters
 				IEObjectDescription desc = descs.get(0);
@@ -466,7 +473,8 @@ public class PPResourceLinker implements IPPDiagnostics {
 						"Ambiguous reference to: '" + resourceTypeName + "' found in: " +
 								visibleResourceList(o.eResource(), descs), o,
 						PPPackage.Literals.RESOURCE_EXPRESSION__RESOURCE_EXPR,
-						IPPDiagnostics.ISSUE__RESOURCE_AMBIGUOUS_REFERENCE, computeProposals(resourceTypeName, descs));
+						IPPDiagnostics.ISSUE__RESOURCE_AMBIGUOUS_REFERENCE,
+						proposer.computeDistinctProposals(resourceTypeName, descs));
 				}
 				// Add resolved information at resource level
 				if(usedResolution != null)
@@ -478,9 +486,13 @@ public class PPResourceLinker implements IPPDiagnostics {
 			if(adapter.getResourceType() == null && adapter.getTargetObjectDescription() == null) {
 				// Add unresolved info at resource level
 				importedNames.addUnresolved(converter.toQualifiedName(resourceTypeName));
+				String[] proposals = proposer.computeProposals(
+					resourceTypeName, exportedPerLastSegment.values(), DEF_AND_TYPE);
 				acceptor.acceptError(
 					"Unknown resource type: '" + resourceTypeName + "'", o,
-					PPPackage.Literals.RESOURCE_EXPRESSION__RESOURCE_EXPR, IPPDiagnostics.ISSUE__RESOURCE_UNKNOWN_TYPE);
+					PPPackage.Literals.RESOURCE_EXPRESSION__RESOURCE_EXPR, //
+					IPPDiagnostics.ISSUE__RESOURCE_UNKNOWN_TYPE, //
+					proposals);
 			}
 		}
 	}
@@ -541,35 +553,6 @@ public class PPResourceLinker implements IPPDiagnostics {
 				return false;
 		}
 		return true;
-	}
-
-	/**
-	 * @param name
-	 * @param s
-	 * @param statements
-	 * @param i
-	 * @param importedNames
-	 * @param acceptor
-	 */
-
-	private String[] computeProposals(String currentName, List<IEObjectDescription> descs) {
-		List<String> proposals = Lists.newArrayList();
-		if(currentName.startsWith("::"))
-			return new String[0]; // can not make a global name more specific than what it already is
-		for(IEObjectDescription d : descs) {
-			String s = converter.toString(d.getQualifiedName());
-			if(!s.startsWith("::")) {
-				String s2 = "::" + s;
-				if(!(s2.equals(currentName) || proposals.contains(s2)))
-					proposals.add(s2);
-			}
-			if(s.equals(currentName) || proposals.contains(s))
-				continue;
-			proposals.add(s);
-		}
-		String[] props = proposals.toArray(new String[proposals.size()]);
-		Arrays.sort(props);
-		return props;
 	}
 
 	private boolean containsNameVar(List<IEObjectDescription> descriptions) {
@@ -798,17 +781,19 @@ public class PPResourceLinker implements IPPDiagnostics {
 									visibleResourceList(o.eResource(), foundClasses), o,
 							PPPackage.Literals.PARAMETERIZED_EXPRESSION__PARAMETERS, parameterIndex,
 							IPPDiagnostics.ISSUE__RESOURCE_AMBIGUOUS_REFERENCE,
-							computeProposals(className, foundClasses));
+							proposer.computeDistinctProposals(className, foundClasses));
 					}
 					else if(foundClasses.size() < 1) {
 						// not found
 						// record unresolved name at resource level
 						importedNames.addUnresolved(converter.toQualifiedName(className));
 
+						String[] p = proposer.computeProposals(
+							className, exportedPerLastSegment.values(), CLASS_AND_TYPE);
 						acceptor.acceptError(
 							"Unknown class: '" + className + "'", o, //
 							PPPackage.Literals.PARAMETERIZED_EXPRESSION__PARAMETERS, parameterIndex,
-							IPPDiagnostics.ISSUE__RESOURCE_UNKNOWN_TYPE);
+							IPPDiagnostics.ISSUE__RESOURCE_UNKNOWN_TYPE, p);
 					}
 				}
 				else {
@@ -877,7 +862,7 @@ public class PPResourceLinker implements IPPDiagnostics {
 								PPPackage.Literals.EXPR_LIST__EXPRESSIONS,
 								parameterIndex, //
 								IPPDiagnostics.ISSUE__RESOURCE_AMBIGUOUS_REFERENCE,
-								computeProposals(className, foundClasses));
+								proposer.computeDistinctProposals(className, foundClasses));
 						else
 							acceptor.acceptWarning(
 								"Ambiguous reference to: '" + className + "' found in: " +
@@ -885,7 +870,7 @@ public class PPResourceLinker implements IPPDiagnostics {
 								param.eContainer(), param.eContainingFeature(),
 								idx, //
 								IPPDiagnostics.ISSUE__RESOURCE_AMBIGUOUS_REFERENCE,
-								computeProposals(className, foundClasses));
+								proposer.computeDistinctProposals(className, foundClasses));
 
 					}
 					else if(foundClasses.size() < 1) {
@@ -897,11 +882,13 @@ public class PPResourceLinker implements IPPDiagnostics {
 							acceptor.acceptError("Unknown class: '" + className + "'", //
 								param, //
 								PPPackage.Literals.EXPR_LIST__EXPRESSIONS, parameterIndex, //
-								IPPDiagnostics.ISSUE__RESOURCE_UNKNOWN_TYPE);
+								IPPDiagnostics.ISSUE__RESOURCE_UNKNOWN_TYPE, //
+								proposer.computeProposals(className, exportedPerLastSegment.values(), CLASS_AND_TYPE));
 						else
 							acceptor.acceptError("Unknown class: '" + className + "'", //
 								param.eContainer(), param.eContainingFeature(), idx, //
-								IPPDiagnostics.ISSUE__RESOURCE_UNKNOWN_TYPE);
+								IPPDiagnostics.ISSUE__RESOURCE_UNKNOWN_TYPE, //
+								proposer.computeProposals(className, exportedPerLastSegment.values(), CLASS_AND_TYPE));
 					}
 				}
 				else {
@@ -966,7 +953,7 @@ public class PPResourceLinker implements IPPDiagnostics {
 				if(findFunction(s, name, importedNames).size() > 0) {
 					internalLinkFunctionArguments(
 						name, (LiteralNameOrReference) s, statements, i, importedNames, acceptor);
-					return; // ok, found
+					continue each_top; // ok, found
 				}
 
 				acceptor.acceptError(

@@ -143,9 +143,15 @@ class ModuleMetadataOverviewPage extends FormPage {
 
 				public String getColumnText(Object element, int columnIndex) {
 					Dependency dependency = (Dependency) element;
-					return columnIndex == 0
-							? dependency.getName()
-							: dependency.getVersionRequirement().toString();
+
+					if(columnIndex == 0) {
+						return dependency.getName();
+					}
+
+					VersionRequirement versionRequirement = dependency.getVersionRequirement();
+					return versionRequirement == null
+							? ""
+							: versionRequirement.toString();
 				}
 
 				public boolean isLabelProperty(Object element, String property) {

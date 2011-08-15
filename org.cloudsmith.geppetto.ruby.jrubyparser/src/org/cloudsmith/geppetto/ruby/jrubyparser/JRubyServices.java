@@ -272,9 +272,10 @@ public class JRubyServices implements IRubyServices {
 		if (result.hasErrors())
 			throw new RubySyntaxException(result.getIssues());
 		PPTypeFinder typeFinder = new PPTypeFinder();
-		PPTypeInfo typeInfo = typeFinder.findTypePropertyInfo(result.getAST());
+		List<PPTypeInfo> typeInfo = typeFinder.findTypePropertyInfo(result
+				.getAST());
 		if (typeInfo != null)
-			types.add(typeInfo);
+			types.addAll(typeInfo);
 		return types;
 	}
 

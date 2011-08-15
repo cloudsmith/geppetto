@@ -16,6 +16,7 @@ import java.util.Map;
 
 import org.cloudsmith.geppetto.ruby.PPTypeInfo;
 import org.jrubyparser.ast.BlockAcceptingNode;
+import org.jrubyparser.ast.BlockNode;
 import org.jrubyparser.ast.BlockPassNode;
 import org.jrubyparser.ast.CallNode;
 import org.jrubyparser.ast.ClassNode;
@@ -327,7 +328,8 @@ public class PPTypeFinder {
 	 * @return PPTypeInfo partially filled, or null, if there were no property
 	 *         addition found.
 	 */
-	public PPTypeInfo findTypePropertyInfo(Node root) {
+	public List<PPTypeInfo> findTypePropertyInfo(Node root) {
+		List<PPTypeInfo> result = Lists.newArrayList();
 		RubyModuleFinder moduleFinder = new RubyModuleFinder();
 		Node module = moduleFinder.findModule(root, new String[] { "Puppet" });
 
@@ -336,73 +338,91 @@ public class PPTypeFinder {
 			module = root.getNodeType() == NodeType.ROOTNODE ? ((RootNode) root)
 					.getBodyNode() : root;
 		OpCallVisitor opCallVisitor = new OpCallVisitor();
-		for (Node n : module.childNodes()) {
-			if (n.getNodeType() == NodeType.NEWLINENODE)
-				n = ((NewlineNode) n).getNextNode();
-			if (n.getNodeType() == NodeType.CALLNODE) {
-				CallNode callNode = (CallNode) n;
-				if (NEWPROPERTY.equals(callNode.getName())) {
-					CallNode typeCall = opCallVisitor.findOpCall(
-							callNode.getReceiverNode(), "type", "Puppet",
-							"Type");
-					if (typeCall == null)
-						continue;
-					String typeName = getFirstArg(typeCall);
-					if (typeName == null)
-						continue;
-					Map<String, PPTypeInfo.Entry> propertyMap = Maps
-							.newHashMap();
-					propertyMap.put(getFirstArg(callNode), getEntry(callNode));
-					return new PPTypeInfo(typeName, "", propertyMap, null);
-				}
-				if (NEWPARAM.equals(callNode.getName())) {
-					CallNode typeCall = opCallVisitor.findOpCall(
-							callNode.getReceiverNode(), "type", "Puppet",
-							"Type");
-					if (typeCall == null)
-						continue;
-					String typeName = getFirstArg(typeCall);
-					if (typeName == null)
-						continue;
-					Map<String, PPTypeInfo.Entry> parameterMap = Maps
-							.newHashMap();
-					parameterMap.put(getFirstArg(callNode), getEntry(callNode));
-					return new PPTypeInfo(typeName, "", null, parameterMap);
-				}
-				if (NEWCHECK.equals(callNode.getName())) {
-					CallNode typeCall = opCallVisitor.findOpCall(
-							callNode.getReceiverNode(), "type", "Puppet",
-							"Type");
-					if (typeCall == null)
-						continue;
-					String typeName = getFirstArg(typeCall);
-					if (typeName == null)
-						continue;
-					Map<String, PPTypeInfo.Entry> parameterMap = Maps
-							.newHashMap();
-					parameterMap.put(getFirstArg(callNode), getEntry(callNode));
-					return new PPTypeInfo(typeName, "", null, parameterMap);
-				}
-				// NOTE: this does probably never occur
-				if (ENSURABLE.equals(callNode.getName())) {
-					CallNode typeCall = opCallVisitor.findOpCall(
-							callNode.getReceiverNode(), "type", "Puppet",
-							"Type");
-					if (typeCall == null)
-						continue;
-					String typeName = getFirstArg(typeCall);
-					if (typeName == null)
-						continue;
-					Map<String, PPTypeInfo.Entry> parameterMap = Maps
-							.newHashMap();
-					parameterMap.put("ensure", getEntry(callNode));
-					return new PPTypeInfo(typeName, "", parameterMap, null);
+		for (Node n1 : module.childNodes()) {
+			if (n1.getNodeType() == NodeType.NEWLINENODE)
+				n1 = ((NewlineNode) n1).getNextNode();
+			Iterable<Node> nodeIterable = null;
+			if (n1.getNodeType() == NodeType.BLOCKNODE)
+				nodeIterable = ((BlockNode) n1).childNodes();
+			else
+				nodeIterable = Lists.newArrayList(n1);
+			for (Node n : nodeIterable) {
+				if (n.getNodeType() == NodeType.NEWLINENODE)
+					n = ((NewlineNode) n).getNextNode();
 
-				}
+				if (n.getNodeType() == NodeType.CALLNODE) {
+					CallNode callNode = (CallNode) n;
+					if (NEWPROPERTY.equals(callNode.getName())) {
+						CallNode typeCall = opCallVisitor.findOpCall(
+								callNode.getReceiverNode(), "type", "Puppet",
+								"Type");
+						if (typeCall == null)
+							continue;
+						String typeName = getFirstArg(typeCall);
+						if (typeName == null)
+							continue;
+						Map<String, PPTypeInfo.Entry> propertyMap = Maps
+								.newHashMap();
+						propertyMap.put(getFirstArg(callNode),
+								getEntry(callNode));
+						result.add(new PPTypeInfo(typeName, "", propertyMap,
+								null));
+						continue;
+					}
+					if (NEWPARAM.equals(callNode.getName())) {
+						CallNode typeCall = opCallVisitor.findOpCall(
+								callNode.getReceiverNode(), "type", "Puppet",
+								"Type");
+						if (typeCall == null)
+							continue;
+						String typeName = getFirstArg(typeCall);
+						if (typeName == null)
+							continue;
+						Map<String, PPTypeInfo.Entry> parameterMap = Maps
+								.newHashMap();
+						parameterMap.put(getFirstArg(callNode),
+								getEntry(callNode));
+						result.add(new PPTypeInfo(typeName, "", null,
+								parameterMap));
+						continue;
+					}
+					if (NEWCHECK.equals(callNode.getName())) {
+						CallNode typeCall = opCallVisitor.findOpCall(
+								callNode.getReceiverNode(), "type", "Puppet",
+								"Type");
+						if (typeCall == null)
+							continue;
+						String typeName = getFirstArg(typeCall);
+						if (typeName == null)
+							continue;
+						Map<String, PPTypeInfo.Entry> parameterMap = Maps
+								.newHashMap();
+						parameterMap.put(getFirstArg(callNode),
+								getEntry(callNode));
+						result.add(new PPTypeInfo(typeName, "", null,
+								parameterMap));
+					}
+					// NOTE: this does probably never occur
+					if (ENSURABLE.equals(callNode.getName())) {
+						CallNode typeCall = opCallVisitor.findOpCall(
+								callNode.getReceiverNode(), "type", "Puppet",
+								"Type");
+						if (typeCall == null)
+							continue;
+						String typeName = getFirstArg(typeCall);
+						if (typeName == null)
+							continue;
+						Map<String, PPTypeInfo.Entry> parameterMap = Maps
+								.newHashMap();
+						parameterMap.put("ensure", getEntry(callNode));
+						result.add(new PPTypeInfo(typeName, "", parameterMap,
+								null));
 
+					}
+				}
 			}
 		}
-		return null;
+		return result;
 
 	}
 

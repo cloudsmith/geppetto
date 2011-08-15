@@ -1,6 +1,6 @@
 ---
 layout: post
-title: I get "Unknown resource for a imple file resource". What is wrong?
+title: I get "Unknown resource for a simple file resource". What is wrong?
 ---
 In the example below, the 'file' is flagged with an error marker.
 Surely Geppetto should understand what 'file' is!

@@ -80,6 +80,22 @@ public class PPQuickfixProvider extends DefaultQuickfixProvider {
 	@Inject
 	private IQualifiedNameConverter converter;
 
+	@Fix(IPPDiagnostics.ISSUE__RESOURCE_UNKNOWN_TYPE)
+	public void findClosestClassName(final Issue issue, IssueResolutionAcceptor acceptor) {
+		String data[] = issue.getData();
+		if(data == null || data.length < 1)
+			return;
+
+		// Include an ugly number to get them sorted in the correct order
+		int proposalNbr = 1;
+		for(String proposal : data) {
+			acceptor.accept(
+				issue, Integer.toString(proposalNbr++) + ". Change to '" + proposal + "'", //
+				"Change to (guessed value) '" + proposal + "'", null,
+				new ReplacingModification(issue.getOffset(), issue.getLength(), proposal));
+		}
+	}
+
 	@Fix(IPPDiagnostics.ISSUE__MISSING_COMMA)
 	public void insertMissingComma(final Issue issue, IssueResolutionAcceptor acceptor) {
 		acceptor.accept(

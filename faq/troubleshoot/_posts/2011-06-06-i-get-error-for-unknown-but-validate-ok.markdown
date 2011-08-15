@@ -1,6 +1,6 @@
 ---
 layout: post
-title: I get an error for "unknown xxx", but when I vaöidate it is OK. What is wrong?
+title: I get an error for "unknown xxx", but when I validate it is OK. What is wrong?
 ---
 This happens when there are issues with the order in which things are built.
 It is possible that when the build was executed for the file in question, the information about the 'unknown' was not yet available.

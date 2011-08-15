@@ -100,12 +100,7 @@ public class NewPuppetProjectWizard extends Wizard implements INewWizard {
 	}
 
 	private String getUserName() {
-		String uname = System.getProperty("user.name");
-		uname = uname.replace('.', '_');
-		uname = uname.replace('-', '_');
-		uname = uname.replace('/', '_');
-		return uname;
-
+		return System.getProperty("user.name").replace('.', '_').replace('-', '_').replace('/', '_');
 	}
 
 	@Override

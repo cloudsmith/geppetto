@@ -52,6 +52,8 @@ import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.events.VerifyEvent;
+import org.eclipse.swt.events.VerifyListener;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
@@ -437,6 +439,16 @@ class ModuleMetadataOverviewPage extends FormPage {
 					? metadata.getUser()
 					: null);
 			userText.addModifyListener(this);
+			userText.addVerifyListener(new VerifyListener() {
+
+				@Override
+				public void verifyText(VerifyEvent ve) {
+
+					if(ve.text.indexOf('.') != -1 || ve.text.indexOf('-') != -1 || ve.text.indexOf('/') != -1) {
+						ve.doit = false;
+					}
+				}
+			});
 
 			GridDataFactory.swtDefaults().align(SWT.FILL, SWT.CENTER).grab(true, false).applyTo(userText);
 

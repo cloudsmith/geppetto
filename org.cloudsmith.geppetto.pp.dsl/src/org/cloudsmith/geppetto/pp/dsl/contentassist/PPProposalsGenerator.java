@@ -13,17 +13,24 @@ package org.cloudsmith.geppetto.pp.dsl.contentassist;
 
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Set;
 
 import org.apache.commons.codec.language.DoubleMetaphone;
 import org.apache.commons.lang.StringUtils;
 import org.cloudsmith.geppetto.common.score.ScoreKeeper;
 import org.cloudsmith.geppetto.common.score.ScoreKeeper.ScoreEntry;
+import org.cloudsmith.geppetto.pp.PPPackage;
+import org.cloudsmith.geppetto.pp.dsl.PPDSLConstants;
+import org.cloudsmith.geppetto.pp.pptp.PPTPPackage;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.xtext.naming.IQualifiedNameConverter;
+import org.eclipse.xtext.naming.QualifiedName;
 import org.eclipse.xtext.resource.IEObjectDescription;
 
+import com.google.common.collect.Sets;
 import com.google.inject.Inject;
 import com.google.inject.internal.Lists;
 
@@ -33,10 +40,70 @@ import com.google.inject.internal.Lists;
  */
 public class PPProposalsGenerator {
 	/**
+	 * compares the pronunciation difference between given reference and candidates
+	 * 
+	 */
+	public static class PronunciationComparator implements Comparator<String> {
+
+		private DoubleMetaphone encoder;
+
+		private String metaphoneName;
+
+		PronunciationComparator(DoubleMetaphone encoder, String metaphoneReference) {
+			this.encoder = encoder;
+			this.metaphoneName = metaphoneReference;
+		}
+
+		@Override
+		public int compare(String a, String b) {
+			String am = encoder.encode(a);
+			String bm = encoder.encode(b);
+			int al = StringUtils.getLevenshteinDistance(metaphoneName, am);
+			int bl = StringUtils.getLevenshteinDistance(metaphoneName, bm);
+			if(al == bl)
+				return 0;
+			return al < bl
+					? -1
+					: 1;
+		}
+
+	}
+
+	/**
 	 * PP FQN to/from Xtext QualifiedName converter.
 	 */
 	@Inject
 	IQualifiedNameConverter converter;
+
+	protected final static EClass[] DEF_AND_TYPE_ARGUMENTS = {
+			PPPackage.Literals.DEFINITION_ARGUMENT, PPTPPackage.Literals.TYPE_ARGUMENT };
+
+	protected final static EClass[] DEF_AND_TYPE = { PPTPPackage.Literals.TYPE, PPPackage.Literals.DEFINITION };
+
+	/**
+	 * Computes attribute proposals where the class/definition name must match exactly, but where
+	 * parameters are processed with fuzzy logic.
+	 * 
+	 * @param currentName
+	 * @param descs
+	 * @param types
+	 * @return
+	 */
+	public String[] computeAttributeProposals(final QualifiedName currentName, Collection<IEObjectDescription> descs) {
+		if(currentName.getSegmentCount() < 2)
+			return new String[0];
+
+		final DoubleMetaphone encoder = new DoubleMetaphone();
+		final String metaphoneName = encoder.encode(currentName.getLastSegment());
+
+		Collection<String> proposals = generateAttributeCandidates(currentName, descs);
+		// propose all, but sort them based on likeness
+
+		String[] result = new String[proposals.size()];
+		proposals.toArray(result);
+		Arrays.sort(result, new PronunciationComparator(encoder, metaphoneName));
+		return result;
+	}
 
 	/**
 	 * Attempts to produce a list of more distinct names than the given name by making
@@ -124,23 +191,8 @@ public class PPProposalsGenerator {
 
 		String[] proposals = result.toArray(new String[result.size()]);
 
-		// compares the pronounciation difference between given and candidates
-		Comparator<String> x = new Comparator<String>() {
+		PronunciationComparator x = new PronunciationComparator(encoder, metaphoneName);
 
-			@Override
-			public int compare(String a, String b) {
-				String am = encoder.encode(a);
-				String bm = encoder.encode(b);
-				int al = StringUtils.getLevenshteinDistance(metaphoneName, am);
-				int bl = StringUtils.getLevenshteinDistance(metaphoneName, bm);
-				if(al == bl)
-					return 0;
-				return al < bl
-						? -1
-						: 1;
-			}
-
-		};
 		Arrays.sort(proposals, x);
 		// System.err.print("Order = ");
 		// for(int i = 0; i < proposals.length; i++)
@@ -148,5 +200,47 @@ public class PPProposalsGenerator {
 		// System.err.println();
 		return proposals;
 	}
+
+	public Collection<String> generateAttributeCandidates(final QualifiedName currentName,
+			Collection<IEObjectDescription> descs) {
+		// find candidate names
+		if(currentName.getSegmentCount() < 2)
+			return Collections.emptySet();
+
+		// unique set of proposed attribute names (last segment)
+		Set<String> proposed = Sets.newHashSet();
+		List<QualifiedName> classesToSearch = Lists.newArrayList();
+		Set<QualifiedName> visited = Sets.newHashSet();
+
+		classesToSearch.add(currentName.skipLast(1));
+
+		while(classesToSearch.size() > 0) {
+			QualifiedName prefix = classesToSearch.remove(0);
+			if(visited.contains(prefix))
+				continue;
+			visited.add(prefix); // prevent recursion
+
+			// find all that start with className and are properties or parameters
+			// also find the class/definition itself (possibly ambiguous).
+			for(IEObjectDescription d : descs) {
+				EClass ec = d.getEClass();
+				QualifiedName name = d.getName();
+				if(name.startsWith(prefix)) {
+					if(name.getSegmentCount() == prefix.getSegmentCount()) {
+						// exact match, check if this is the correct type
+						if(DEF_AND_TYPE[0].isSuperTypeOf(ec) || DEF_AND_TYPE[1].isSuperTypeOf(ec)) {
+							String parentName = d.getUserData(PPDSLConstants.PARENT_NAME_DATA);
+							if(parentName != null && parentName.length() > 0)
+								classesToSearch.add(converter.toQualifiedName(parentName));
+						}
+						continue; // exact match can not be an argument
+					}
+					if(DEF_AND_TYPE_ARGUMENTS[0].isSuperTypeOf(ec) || DEF_AND_TYPE_ARGUMENTS[1].isSuperTypeOf(ec))
+						proposed.add(d.getName().getLastSegment());
+				}
+			}
+		}
+		return proposed;
+	};
 
 }

@@ -264,9 +264,10 @@ public class PPResourceLinker implements IPPDiagnostics {
 			internalLinkFunctionArguments(name, o, importedNames, acceptor);
 			return; // ok, found
 		}
-
-		acceptor.acceptError(
-			"Unknown function: '" + name + "'", o.getLeftExpr(), IPPDiagnostics.ISSUE__UNKNOWN_FUNCTION_REFERENCE);
+		String[] proposals = proposer.computeProposals(name, exportedPerLastSegment.values(), FUNC);
+		acceptor.acceptError("Unknown function: '" + name + "'", o.getLeftExpr(), //
+		proposalIssue(IPPDiagnostics.ISSUE__UNKNOWN_FUNCTION_REFERENCE, proposals), //
+			proposals);
 		// record failure at resource level
 		importedNames.addUnresolved(converter.toQualifiedName(name));
 	}
@@ -381,10 +382,12 @@ public class PPResourceLinker implements IPPDiagnostics {
 						// finding that A'::x exists but not A''::x requires a lot more work
 						if(findAttributes(o, fqn, importedNames, profileThis).size() > 0)
 							continue; // found one such parameter == ok
+
+						String[] proposals = proposer.computeAttributeProposals(fqn, exportedPerLastSegment.values());
 						acceptor.acceptError(
 							"Unknown parameter: '" + ao.getKey() + "' in definition: '" + desc.getName() + "'", ao,
 							PPPackage.Literals.ATTRIBUTE_OPERATION__KEY,
-							IPPDiagnostics.ISSUE__RESOURCE_UNKNOWN_PROPERTY);
+							proposalIssue(IPPDiagnostics.ISSUE__RESOURCE_UNKNOWN_PROPERTY, proposals), proposals);
 					}
 
 			}
@@ -424,10 +427,11 @@ public class PPResourceLinker implements IPPDiagnostics {
 								IPPDiagnostics.ISSUE__RESOURCE_DEPRECATED_NAME_ALIAS);
 							continue;
 						}
+						String[] proposals = proposer.computeAttributeProposals(fqn, exportedPerLastSegment.values());
 						acceptor.acceptError(
 							"Unknown parameter: '" + ao.getKey() + "' in definition: '" + desc.getName() + "'", ao,
 							PPPackage.Literals.ATTRIBUTE_OPERATION__KEY,
-							IPPDiagnostics.ISSUE__RESOURCE_UNKNOWN_PROPERTY);
+							proposalIssue(IPPDiagnostics.ISSUE__RESOURCE_UNKNOWN_PROPERTY, proposals), proposals);
 					}
 				if(nameVariables.size() > 1) {
 					for(AttributeOperation ao : nameVariables)
@@ -973,10 +977,11 @@ public class PPResourceLinker implements IPPDiagnostics {
 						name, (LiteralNameOrReference) s, statements, i, importedNames, acceptor);
 					continue each_top; // ok, found
 				}
-
+				String[] proposals = proposer.computeProposals(name, exportedPerLastSegment.values(), FUNC);
 				acceptor.acceptError(
 					"Unknown function: '" + name + "'", s, PPPackage.Literals.LITERAL_NAME_OR_REFERENCE__VALUE,
-					IPPDiagnostics.ISSUE__UNKNOWN_FUNCTION_REFERENCE);
+					proposalIssue(IPPDiagnostics.ISSUE__UNKNOWN_FUNCTION_REFERENCE, proposals), //
+					proposals);
 
 				continue each_top;
 			}

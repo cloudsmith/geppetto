@@ -76,18 +76,17 @@ public class PPQuickfixProvider extends DefaultQuickfixProvider {
 
 	@Fix(IPPDiagnostics.ISSUE__RESOURCE_UNKNOWN_TYPE_PROP)
 	public void findClosestClassName(final Issue issue, IssueResolutionAcceptor acceptor) {
-		String data[] = issue.getData();
-		if(data == null || data.length < 1)
-			return;
+		proposeDataAsChangeTo(issue, acceptor);
+	}
 
-		// Include an ugly number to get them sorted in the correct order
-		int proposalNbr = 1;
-		for(String proposal : data) {
-			acceptor.accept(
-				issue, Integer.toString(proposalNbr++) + ". Change to '" + proposal + "'", //
-				"Change to (guessed value) '" + proposal + "'", null,
-				new ReplacingModification(issue.getOffset(), issue.getLength(), proposal));
-		}
+	@Fix(IPPDiagnostics.ISSUE__UNKNOWN_FUNCTION_REFERENCE_PROP)
+	public void findClosestFunction(final Issue issue, IssueResolutionAcceptor acceptor) {
+		proposeDataAsChangeTo(issue, acceptor);
+	}
+
+	@Fix(IPPDiagnostics.ISSUE__RESOURCE_UNKNOWN_PROPERTY_PROP)
+	public void findClosestParameters(final Issue issue, IssueResolutionAcceptor acceptor) {
+		proposeDataAsChangeTo(issue, acceptor);
 	}
 
 	@Fix(IPPDiagnostics.ISSUE__MISSING_COMMA)
@@ -147,6 +146,24 @@ public class PPQuickfixProvider extends DefaultQuickfixProvider {
 					? " the absolute: \n"
 					: ": \n") + proposal, null, new ReplacingModification(
 				issue.getOffset(), issue.getLength(), proposal));
+		}
+	}
+
+	private void proposeDataAsChangeTo(final Issue issue, IssueResolutionAcceptor acceptor) {
+		String data[] = issue.getData();
+		if(data == null || data.length < 1)
+			return;
+
+		// Include an ugly number to get them sorted in the correct order
+		int proposalNbr = 1;
+		for(String proposal : data) {
+			String intString = Integer.toString(proposalNbr++);
+			if(data.length > 9 && intString.length() < 2)
+				intString = "0" + intString;
+			acceptor.accept(
+				issue, intString + ". Change to '" + proposal + "'", //
+				"Change to (guessed value) '" + proposal + "'", null,
+				new ReplacingModification(issue.getOffset(), issue.getLength(), proposal));
 		}
 	}
 }

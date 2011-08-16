@@ -90,6 +90,12 @@ public interface IPPDiagnostics {
 
 	public static final String ISSUE__UNKNOWN_FUNCTION_REFERENCE = ISSUE_PREFIX + "ReferenceToUnknownfunction";
 
+	/**
+	 * with proposals.
+	 */
+	public static final String ISSUE__UNKNOWN_FUNCTION_REFERENCE_PROP = ISSUE__UNKNOWN_FUNCTION_REFERENCE +
+			ISSUE_PROPOSAL_SUFFIX;
+
 	public static final String ISSUE__NOT_RVALUE = ISSUE_PREFIX + "NotRightValue";
 
 	public static final String ISSUE__UNSUPPORTED_REGEX_FLAGS = ISSUE_PREFIX + "UnsupportedRegexFlags";
@@ -99,6 +105,12 @@ public interface IPPDiagnostics {
 	public static final String ISSUE__NOT_AT_TOPLEVEL_OR_CLASS = ISSUE_PREFIX + "NotAtTopLevelOrClass";
 
 	public static final String ISSUE__RESOURCE_UNKNOWN_PROPERTY = ISSUE_PREFIX + "UnknownProperty";
+
+	/**
+	 * with proposals
+	 */
+	public static final String ISSUE__RESOURCE_UNKNOWN_PROPERTY_PROP = ISSUE__RESOURCE_UNKNOWN_PROPERTY +
+			ISSUE_PROPOSAL_SUFFIX;
 
 	public static final String ISSUE__RESOURCE_AMBIGUOUS_REFERENCE = ISSUE_PREFIX + "AmbigousReference";
 

@@ -123,7 +123,7 @@ public class PPFormatter extends AbstractDeclarativeFormatter {
 		importExpressionConfiguration(c);
 		literalListAndHashConfiguration(c);
 		functionCallConfiguration(c);
-
+		nodeExpressionConfiguration(c);
 		// commas
 		for(Keyword comma : ga.findKeywords(",")) {
 			c.setNoSpace().before(comma);
@@ -227,6 +227,16 @@ public class PPFormatter extends AbstractDeclarativeFormatter {
 		// does not have intended (positive) effect, does instead screw up other statements
 		// https://bugs.eclipse.org/bugs/show_bug.cgi?id=340166#c6
 		// c.setLinewrap().after(ga.getPuppetManifestAccess().getStatementsAssignment_1());
+	}
+
+	protected void nodeExpressionConfiguration(FormattingConfig c) {
+		PPGrammarAccess ga = (PPGrammarAccess) getGrammarAccess();
+
+		Keyword lbr = ga.getNodeDefinitionAccess().getLeftCurlyBracketKeyword_4();
+		Keyword rbr = ga.getNodeDefinitionAccess().getRightCurlyBracketKeyword_6();
+		c.setLinewrap().after(lbr);
+		c.setLinewrap().around(rbr);
+		c.setIndentation(lbr, rbr);
 	}
 
 	protected void parenthisedExpressionConfguration(FormattingConfig c) {

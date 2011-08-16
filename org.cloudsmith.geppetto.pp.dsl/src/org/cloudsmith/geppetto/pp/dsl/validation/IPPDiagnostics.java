@@ -19,9 +19,19 @@ package org.cloudsmith.geppetto.pp.dsl.validation;
 public interface IPPDiagnostics {
 	public static final String ISSUE_PREFIX = "org.cloudsmith.geppetto.pp.dsl.validation.issue.";
 
+	public static final String ISSUE_PROPOSAL_SUFFIX = ".prop";
+
 	public static final String ISSUE__RESOURCE_BAD_TYPE_FORMAT = ISSUE_PREFIX + "BadResourceTypeFormat";
 
+	/**
+	 * Unknown resource type without proposals attached.
+	 */
 	public static final String ISSUE__RESOURCE_UNKNOWN_TYPE = ISSUE_PREFIX + "UnknownResourceType";
+
+	/**
+	 * Unknown resource type with proposals attached.
+	 */
+	public static final String ISSUE__RESOURCE_UNKNOWN_TYPE_PROP = ISSUE__RESOURCE_UNKNOWN_TYPE + ISSUE_PROPOSAL_SUFFIX;
 
 	public static final String ISSUE__RESOURCE_MULTIPLE_BODIES = ISSUE_PREFIX + "ResouceMultipleBodies";
 

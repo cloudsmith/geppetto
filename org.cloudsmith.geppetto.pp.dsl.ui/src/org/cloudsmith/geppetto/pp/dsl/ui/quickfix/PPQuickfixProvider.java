@@ -13,7 +13,6 @@ package org.cloudsmith.geppetto.pp.dsl.ui.quickfix;
 
 import org.cloudsmith.geppetto.pp.dsl.validation.IPPDiagnostics;
 import org.eclipse.jface.text.BadLocationException;
-import org.eclipse.xtext.naming.IQualifiedNameConverter;
 import org.eclipse.xtext.naming.QualifiedName;
 import org.eclipse.xtext.ui.editor.model.IXtextDocument;
 import org.eclipse.xtext.ui.editor.model.edit.IModification;
@@ -22,8 +21,6 @@ import org.eclipse.xtext.ui.editor.quickfix.DefaultQuickfixProvider;
 import org.eclipse.xtext.ui.editor.quickfix.Fix;
 import org.eclipse.xtext.ui.editor.quickfix.IssueResolutionAcceptor;
 import org.eclipse.xtext.validation.Issue;
-
-import com.google.inject.Inject;
 
 public class PPQuickfixProvider extends DefaultQuickfixProvider {
 
@@ -77,10 +74,7 @@ public class PPQuickfixProvider extends DefaultQuickfixProvider {
 		return builder.toString();
 	}
 
-	@Inject
-	private IQualifiedNameConverter converter;
-
-	@Fix(IPPDiagnostics.ISSUE__RESOURCE_UNKNOWN_TYPE)
+	@Fix(IPPDiagnostics.ISSUE__RESOURCE_UNKNOWN_TYPE_PROP)
 	public void findClosestClassName(final Issue issue, IssueResolutionAcceptor acceptor) {
 		String data[] = issue.getData();
 		if(data == null || data.length < 1)
@@ -108,7 +102,7 @@ public class PPQuickfixProvider extends DefaultQuickfixProvider {
 		String data[] = issue.getData();
 		if(data == null || data.length != 1)
 			return;
-		QualifiedName fqn = converter.toQualifiedName(data[0]);
+		QualifiedName fqn = getQualifiedNameConverter().toQualifiedName(data[0]);
 		if(fqn.getSegmentCount() < 2)
 			return;
 		int upper = 0;
@@ -134,10 +128,10 @@ public class PPQuickfixProvider extends DefaultQuickfixProvider {
 			segments[i] = toInitialCase(segments[i], false);
 		QualifiedName lowerCaseName = QualifiedName.create(segments);
 
-		String tmp = converter.toString(upperCaseName);
+		String tmp = getQualifiedNameConverter().toString(upperCaseName);
 		acceptor.accept(issue, "Make all segments start with upper case", //
 		"Change the name to '" + tmp + "'", null, new ReplacingModification(issue.getOffset(), issue.getLength(), tmp));
-		tmp = converter.toString(lowerCaseName);
+		tmp = getQualifiedNameConverter().toString(lowerCaseName);
 		acceptor.accept(issue, "Make all segments start with lower case", //
 		"Change the name to '" + tmp + "'", null, new ReplacingModification(issue.getOffset(), issue.getLength(), tmp));
 	}

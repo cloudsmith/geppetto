@@ -236,6 +236,12 @@ public class PPResourceLinker implements IPPDiagnostics {
 	private final static EClass[] CLASS_AND_TYPE = {
 			PPPackage.Literals.HOST_CLASS_DEFINITION, PPTPPackage.Literals.TYPE };
 
+	private static String proposalIssue(String issue, String[] proposals) {
+		if(proposals == null || proposals.length == 0)
+			return issue;
+		return issue + IPPDiagnostics.ISSUE_PROPOSAL_SUFFIX;
+	}
+
 	private Multimap<String, IEObjectDescription> exportedPerLastSegment;
 
 	private Resource resource;
@@ -304,10 +310,13 @@ public class PPResourceLinker implements IPPDiagnostics {
 			importedNames.addUnresolved(converter.toQualifiedName(parentString));
 
 			// ... and finally, if there was neither a type nor a definition reference
+			String[] proposals = proposer.computeProposals(
+				parentString, exportedPerLastSegment.values(), CLASS_AND_TYPE);
 			acceptor.acceptError(
-				"Unknown class: '" + parentString + "'", o, PPPackage.Literals.HOST_CLASS_DEFINITION__PARENT,
-				IPPDiagnostics.ISSUE__RESOURCE_UNKNOWN_TYPE, //
-				proposer.computeProposals(parentString, exportedPerLastSegment.values(), CLASS_AND_TYPE));
+				"Unknown class: '" + parentString + "'", o, //
+				PPPackage.Literals.HOST_CLASS_DEFINITION__PARENT,
+				proposalIssue(IPPDiagnostics.ISSUE__RESOURCE_UNKNOWN_TYPE, proposals), //
+				proposals);
 		}
 	}
 
@@ -333,10 +342,13 @@ public class PPResourceLinker implements IPPDiagnostics {
 			if(descs.size() < 1) {
 				// Add unresolved info at resource level
 				importedNames.addUnresolved(converter.toQualifiedName(className));
+				String[] proposals = proposer.computeProposals(
+					className, exportedPerLastSegment.values(), CLASS_AND_TYPE);
 				acceptor.acceptError(
-					"Unknown class: '" + className + "'", o, PPPackage.Literals.RESOURCE_BODY__NAME_EXPR,
-					IPPDiagnostics.ISSUE__RESOURCE_UNKNOWN_TYPE, //
-					proposer.computeProposals(className, exportedPerLastSegment.values(), CLASS_AND_TYPE));
+					"Unknown class: '" + className + "'", o, //
+					PPPackage.Literals.RESOURCE_BODY__NAME_EXPR,
+					proposalIssue(IPPDiagnostics.ISSUE__RESOURCE_UNKNOWN_TYPE, proposals), //
+					proposals);
 				return; // not meaningful to continue (do not report errors for each "inner name")
 			}
 			if(descs.size() > 0) {
@@ -491,7 +503,7 @@ public class PPResourceLinker implements IPPDiagnostics {
 				acceptor.acceptError(
 					"Unknown resource type: '" + resourceTypeName + "'", o,
 					PPPackage.Literals.RESOURCE_EXPRESSION__RESOURCE_EXPR, //
-					IPPDiagnostics.ISSUE__RESOURCE_UNKNOWN_TYPE, //
+					proposalIssue(IPPDiagnostics.ISSUE__RESOURCE_UNKNOWN_TYPE, proposals), //
 					proposals);
 			}
 		}
@@ -793,7 +805,8 @@ public class PPResourceLinker implements IPPDiagnostics {
 						acceptor.acceptError(
 							"Unknown class: '" + className + "'", o, //
 							PPPackage.Literals.PARAMETERIZED_EXPRESSION__PARAMETERS, parameterIndex,
-							IPPDiagnostics.ISSUE__RESOURCE_UNKNOWN_TYPE, p);
+							proposalIssue(IPPDiagnostics.ISSUE__RESOURCE_UNKNOWN_TYPE, p), //
+							p);
 					}
 				}
 				else {
@@ -878,17 +891,22 @@ public class PPResourceLinker implements IPPDiagnostics {
 						// record unresolved name at resource level
 						importedNames.addUnresolved(converter.toQualifiedName(className));
 
-						if(param instanceof ExprList)
+						String[] proposals = proposer.computeProposals(
+							className, exportedPerLastSegment.values(), CLASS_AND_TYPE);
+						String issueCode = proposalIssue(IPPDiagnostics.ISSUE__RESOURCE_UNKNOWN_TYPE, proposals);
+						if(param instanceof ExprList) {
 							acceptor.acceptError("Unknown class: '" + className + "'", //
 								param, //
 								PPPackage.Literals.EXPR_LIST__EXPRESSIONS, parameterIndex, //
-								IPPDiagnostics.ISSUE__RESOURCE_UNKNOWN_TYPE, //
-								proposer.computeProposals(className, exportedPerLastSegment.values(), CLASS_AND_TYPE));
-						else
+								issueCode, //
+								proposals);
+						}
+						else {
 							acceptor.acceptError("Unknown class: '" + className + "'", //
 								param.eContainer(), param.eContainingFeature(), idx, //
-								IPPDiagnostics.ISSUE__RESOURCE_UNKNOWN_TYPE, //
-								proposer.computeProposals(className, exportedPerLastSegment.values(), CLASS_AND_TYPE));
+								issueCode, //
+								proposals);
+						}
 					}
 				}
 				else {

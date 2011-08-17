@@ -8,6 +8,7 @@ Bundle-Localization: plugin
 Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.xtext.junit,
  org.eclipse.xtext,
+ org.junit,
  org.cloudsmith.geppetto.pp.dsl,
  org.cloudsmith.geppetto.pp
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6

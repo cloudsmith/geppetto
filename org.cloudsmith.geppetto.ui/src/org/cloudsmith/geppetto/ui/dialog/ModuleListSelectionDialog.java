@@ -15,8 +15,11 @@ import org.cloudsmith.geppetto.forge.ModuleInfo;
 import org.cloudsmith.geppetto.ui.UIPlugin;
 import org.cloudsmith.geppetto.ui.util.StringUtil;
 import org.eclipse.jface.viewers.LabelProvider;
+import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.dialogs.ElementListSelectionDialog;
+import org.eclipse.ui.dialogs.FilteredList;
+import org.eclipse.ui.internal.misc.StringMatcher;
 
 public class ModuleListSelectionDialog extends ElementListSelectionDialog {
 
@@ -34,6 +37,28 @@ public class ModuleListSelectionDialog extends ElementListSelectionDialog {
 		setMessage(UIPlugin.INSTANCE.getString("_UI_SelectModule")); //$NON-NLS-1$          
 		setFilter("*"); //$NON-NLS-1$
 		setTitle(UIPlugin.INSTANCE.getString("_UI_ModuleSelection_title")); //$NON-NLS-1$
+	}
+
+	@Override
+	protected FilteredList createFilteredList(Composite parent) {
+		final FilteredList filteredList = super.createFilteredList(parent);
+
+		filteredList.setFilterMatcher(new FilteredList.FilterMatcher() {
+
+			private StringMatcher fMatcher;
+
+			@Override
+			public boolean match(Object element) {
+				return fMatcher.match(filteredList.getLabelProvider().getText(element));
+			}
+
+			@Override
+			public void setFilter(String pattern, boolean ignoreCase, boolean ignoreWildCards) {
+				fMatcher = new StringMatcher('*' + pattern + '*', ignoreCase, ignoreWildCards);
+			}
+		});
+
+		return filteredList;
 	}
 
 }

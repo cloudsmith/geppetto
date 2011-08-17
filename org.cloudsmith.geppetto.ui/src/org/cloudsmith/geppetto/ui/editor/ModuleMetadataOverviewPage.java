@@ -48,6 +48,7 @@ import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.jface.window.Window;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.custom.CCombo;
 import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.events.SelectionAdapter;
@@ -58,9 +59,12 @@ import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Label;
+import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.Text;
+import org.eclipse.ui.dialogs.FilteredList;
 import org.eclipse.ui.forms.IManagedForm;
 import org.eclipse.ui.forms.SectionPart;
 import org.eclipse.ui.forms.editor.FormPage;
@@ -73,11 +77,121 @@ class ModuleMetadataOverviewPage extends FormPage {
 
 	protected class DependenciesSectionPart extends SectionPart {
 
+		protected class EditDependencyDialog extends ModuleListSelectionDialog {
+
+			protected CCombo criterionField = null;
+
+			protected String initialCriterion = null;
+
+			protected String criterion = null;
+
+			protected Text versionField = null;
+
+			protected String initialVersion = null;
+
+			protected String version = null;
+
+			public EditDependencyDialog(Shell parent) {
+				super(parent);
+
+				setMultipleSelection(false);
+				setTitle(UIPlugin.INSTANCE.getString("_UI_EditDependency_title")); //$NON-NLS-1$
+			}
+
+			@Override
+			protected FilteredList createFilteredList(Composite parent) {
+				FilteredList filteredList = super.createFilteredList(parent);
+
+				Composite composite = new Composite(parent, SWT.NONE);
+
+				GridLayout gridLayout = new GridLayout(2, false);
+				gridLayout.marginHeight = 0;
+				gridLayout.marginWidth = 0;
+
+				composite.setLayout(gridLayout);
+
+				GridDataFactory.fillDefaults().align(SWT.FILL, SWT.CENTER).grab(true, false).applyTo(composite);
+
+				Label criterionLabel = new Label(composite, SWT.NONE);
+				criterionLabel.setText(UIPlugin.INSTANCE.getString("_UI_Criterion_label"));
+
+				criterionField = new CCombo(composite, SWT.BORDER | SWT.READ_ONLY);
+
+				for(MatchRule rule : MatchRule.VALUES) {
+					criterionField.add(rule.getLiteral());
+				}
+
+				criterionField.addModifyListener(new ModifyListener() {
+
+					@Override
+					public void modifyText(ModifyEvent me) {
+						criterion = criterionField.getText();
+					}
+				});
+
+				criterionField.setText(initialCriterion == null
+						? MatchRule.PERFECT.getLiteral()
+						: initialCriterion);
+
+				GridDataFactory.fillDefaults().align(SWT.FILL, SWT.CENTER).grab(true, false).applyTo(criterionField);
+
+				Label versionLabel = new Label(composite, SWT.NONE);
+				versionLabel.setText(UIPlugin.INSTANCE.getString("_UI_Version_label"));
+
+				versionField = new Text(composite, SWT.BORDER);
+
+				versionField.addModifyListener(new ModifyListener() {
+
+					@Override
+					public void modifyText(ModifyEvent me) {
+						version = versionField.getText();
+					}
+				});
+
+				versionField.setText(initialVersion == null
+						? ""
+						: initialVersion);
+
+				GridDataFactory.fillDefaults().align(SWT.FILL, SWT.CENTER).grab(true, false).applyTo(versionField);
+
+				// filteredList.addSelectionListener(new SelectionAdapter() {
+				// @Override
+				// public void widgetSelected(SelectionEvent se) {
+				// Object[] selectedElements = getSelectedElements();
+				//
+				// if(selectedElements.length == 1) {
+				// versionField.setText(((ModuleInfo) selectedElements[0]).getVersion());
+				// }
+				// }
+				// });
+
+				return filteredList;
+			}
+
+			protected String getCriterion() {
+				return criterion == null
+						? MatchRule.PERFECT.getLiteral()
+						: criterion;
+			}
+
+			protected String getVersion() {
+				return version;
+			}
+
+			protected void setInitialCriterion(String criterion) {
+				initialCriterion = criterion;
+			}
+
+			protected void setInitialVersion(String version) {
+				initialVersion = version;
+			}
+		}
+
 		protected Object[] moduleChoices;
 
 		protected TableViewer tableViewer;
 
-		protected List<Dependency> dependencies = new UniqueEList<Dependency>();;
+		protected List<Dependency> dependencies = new UniqueEList<Dependency>();
 
 		protected Forge forge;
 
@@ -92,13 +206,14 @@ class ModuleMetadataOverviewPage extends FormPage {
 			GridDataFactory.swtDefaults().align(SWT.FILL, SWT.FILL).grab(true, false).applyTo(section);
 
 			Composite client = toolkit.createComposite(section);
-			client.setLayout(new GridLayout(2, false));
+			client.setLayout(new GridLayout(3, false));
 
 			Table dependenciesTable = toolkit.createTable(client, SWT.BORDER | SWT.FULL_SELECTION | SWT.MULTI);
 
 			TableLayout tableLayout = new TableLayout();
 			tableLayout.addColumnData(new ColumnWeightData(3));
 			tableLayout.addColumnData(new ColumnWeightData(1));
+			tableLayout.addColumnData(new ColumnWeightData(2));
 
 			dependenciesTable.setLayout(tableLayout);
 
@@ -109,6 +224,9 @@ class ModuleMetadataOverviewPage extends FormPage {
 
 			TableColumn nameColumn = new TableColumn(dependenciesTable, SWT.NONE);
 			nameColumn.setText(UIPlugin.INSTANCE.getString("_UI_Name_label")); //$NON-NLS-1$
+
+			TableColumn criterionColumn = new TableColumn(dependenciesTable, SWT.NONE);
+			criterionColumn.setText(UIPlugin.INSTANCE.getString("_UI_Criterion_label")); //$NON-NLS-1$
 
 			TableColumn versionColumn = new TableColumn(dependenciesTable, SWT.NONE);
 			versionColumn.setText(UIPlugin.INSTANCE.getString("_UI_Version_label")); //$NON-NLS-1$
@@ -149,9 +267,12 @@ class ModuleMetadataOverviewPage extends FormPage {
 					}
 
 					VersionRequirement versionRequirement = dependency.getVersionRequirement();
+
 					return versionRequirement == null
 							? ""
-							: versionRequirement.toString();
+							: (columnIndex == 1
+									? versionRequirement.getMatchRule().getLiteral()
+									: versionRequirement.getVersion());
 				}
 
 				public boolean isLabelProperty(Object element, String property) {
@@ -190,7 +311,7 @@ class ModuleMetadataOverviewPage extends FormPage {
 							Dependency dependency = ForgeFactory.eINSTANCE.createDependency();
 							dependency.setName(module.getFullName());
 							VersionRequirement vr = ForgeFactory.eINSTANCE.createVersionRequirement();
-							vr.setMatchRule(MatchRule.GREATER_OR_EQUAL);
+							vr.setMatchRule(MatchRule.PERFECT);
 							vr.setVersion(module.getVersion());
 							dependency.setVersionRequirement(vr);
 							dependencies.add(dependency);
@@ -204,6 +325,55 @@ class ModuleMetadataOverviewPage extends FormPage {
 			});
 
 			GridDataFactory.fillDefaults().align(SWT.FILL, SWT.TOP).applyTo(addButton);
+
+			final Button editButton = toolkit.createButton(
+				buttonsComposite, UIPlugin.INSTANCE.getString("_UI_Edit_label"), SWT.PUSH); //$NON-NLS-1$
+			editButton.addSelectionListener(new SelectionAdapter() {
+
+				@Override
+				public void widgetSelected(SelectionEvent se) {
+					Dependency dependency = (Dependency) ((IStructuredSelection) tableViewer.getSelection()).getFirstElement();
+
+					EditDependencyDialog dialog = new EditDependencyDialog(getEditor().getSite().getShell());
+
+					VersionRequirement versionRequirement = dependency.getVersionRequirement();
+
+					if(versionRequirement != null) {
+						dialog.setInitialCriterion(versionRequirement.getMatchRule().getLiteral());
+						dialog.setInitialVersion(versionRequirement.getVersion());
+
+					}
+
+					dialog.setElements(getModuleChoices());
+					dialog.setFilter(dependency.getName());
+
+					if(dialog.open() == Window.OK) {
+						dependency.setName(((ModuleInfo) dialog.getFirstResult()).getFullName());
+
+						String version = dialog.getVersion();
+
+						if(version != null && version.length() > 0) {
+
+							if(versionRequirement == null) {
+								dependency.setVersionRequirement(versionRequirement = ForgeFactory.eINSTANCE.createVersionRequirement());
+							}
+
+							versionRequirement.setMatchRule(MatchRule.get(dialog.getCriterion()));
+							versionRequirement.setVersion(version);
+						}
+						else {
+							dependency.setVersionRequirement(null);
+						}
+
+						markDirty();
+
+						tableViewer.setInput(dependencies);
+					}
+				}
+			});
+			editButton.setEnabled(false);
+
+			GridDataFactory.fillDefaults().align(SWT.FILL, SWT.CENTER).applyTo(editButton);
 
 			final Button removeButton = toolkit.createButton(
 				buttonsComposite, UIPlugin.INSTANCE.getString("_UI_Remove_label"), SWT.PUSH); //$NON-NLS-1$
@@ -223,12 +393,13 @@ class ModuleMetadataOverviewPage extends FormPage {
 			});
 			removeButton.setEnabled(false);
 
-			GridDataFactory.fillDefaults().align(SWT.FILL, SWT.CENTER).applyTo(removeButton);
+			GridDataFactory.fillDefaults().align(SWT.FILL, SWT.BOTTOM).applyTo(removeButton);
 
 			tableViewer.addSelectionChangedListener(new ISelectionChangedListener() {
 				public void selectionChanged(SelectionChangedEvent sce) {
 					IStructuredSelection selection = (IStructuredSelection) sce.getSelection();
 
+					editButton.setEnabled(selection.size() == 1);
 					removeButton.setEnabled(selection.size() > 0);
 				}
 			});

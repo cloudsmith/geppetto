@@ -125,6 +125,7 @@ public class NewPuppetProjectFromForgeWizard extends NewPuppetProjectWizard {
 		protected void promptForModuleSelection() {
 			ModuleListSelectionDialog dialog = new ModuleListSelectionDialog(getShell());
 
+			dialog.setMultipleSelection(false);
 			dialog.setElements(getModuleChoices());
 
 			if(module != null) {

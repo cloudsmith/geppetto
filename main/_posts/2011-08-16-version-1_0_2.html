@@ -2,23 +2,33 @@
 layout: post
 title: geppetto 1.0.2 released
 ---
-<p>A maintenance release of geppetto is available for update from within Geppetto for
+<p>The 1.0.2 release of Geppetto is available as an update from within Geppetto for
 all users of 1.0.x.
 Please see the <a href="http://cloudsmith.github.com/geppetto/faq.html">FAQ</a>
-for information if you run into problems updating from 1.0.0).</p>
+for information if you run into problems updating from 1.0.0). Checkout
+<a href="http://cloudsmith.github.com/geppetto/faq.html#2011/06/28/how-do-i-update">how to update</a> if you don't know how.</p>
 
 <h2>In this release</h2>
 <ul>
     <li>Proposals for unknown references available as quick fixes (type 'gebud'
         and Geppetto will guess you meant 'debug').</li>
-    <li>Default platform is now puppet 2.7</li>
-    <li>File properties/parameters for SELinux are now recognized</li>
-    <li>Circular module dependencies now generate a warning instead of error</li>
-    <li>Calls to 'include' and 'require' now validate their arguments (if they are static),
-        and any reference errors are reported</li>
+    <li>Supports turning 'todo' and 'fixme' in comments into tasks. The tags
+        are not case sensitive. If a '!' is found (somewhere) after the tag, the
+        created task will have high priority set in the task list. Task comment
+        text is colored dark grey by defefault (configurable).
+    </li>
+    <li>Default platform is now puppet 2.7.</li>
+    <li>File properties/parameters for SELinux are now recognized.</li>
+    <li>Circular module dependencies now generate a warning instead of error.
+    </li>
+    <li>Calls to 'include' and 'require' now validate their arguments
+        (if they are static),
+        and any reference errors are reported.</li>
     <li>Validation of String Interpolation improved
         (small errors would cause wide consequences).</li>
-    <li>Improvements in module import from forge, and module metadata editing</li>
+    <li>Improvements in module import from forge, and module 
+        metadata editing.
+    </li>
 </ul>
 
 See <a href="https://github.com/cloudsmith/geppetto/wiki/Release-Notes">the relase notes</a>

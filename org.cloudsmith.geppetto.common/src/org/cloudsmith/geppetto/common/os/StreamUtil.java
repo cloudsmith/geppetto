@@ -11,12 +11,29 @@
  */
 package org.cloudsmith.geppetto.common.os;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.Closeable;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.LineNumberReader;
 import java.io.OutputStream;
+import java.nio.charset.Charset;
 
 public class StreamUtil {
+
+	public static class OpenBAStream extends ByteArrayOutputStream {
+		public InputStream getInputStream() {
+			return new ByteArrayInputStream(buf, 0, count);
+		}
+
+		public LineNumberReader getReader() {
+			return new LineNumberReader(new InputStreamReader(getInputStream(), ASCII));
+		}
+	}
+
+	public static final Charset ASCII = Charset.forName("ASCII");
 
 	public static Thread backgroundCopy(final InputStream source, final OutputStream target) {
 		Thread copier = new Thread() {

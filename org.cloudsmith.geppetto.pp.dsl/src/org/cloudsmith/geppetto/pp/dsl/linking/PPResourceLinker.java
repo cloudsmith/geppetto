@@ -514,9 +514,19 @@ public class PPResourceLinker implements IPPDiagnostics {
 	}
 
 	private void buildExportedObjectsIndex(IResourceDescription descr, IResourceDescriptions descriptionIndex) {
+		// The current (possibly dirty) exported resources
+		IResourceDescription dirty = resourceServiceProvider.getResourceDescriptionManager().getResourceDescription(
+			resource);
+		String pathToCurrent = resource.getURI().path();
+
 		Multimap<String, IEObjectDescription> map = ArrayListMultimap.create();
-		for(IEObjectDescription d : getExportedObjects(descr, descriptionIndex))
+		// add all (possibly dirty in global index)
+		for(IEObjectDescription d : dirty.getExportedObjects())
 			map.put(d.getQualifiedName().getLastSegment(), d);
+		// add all from global index, except those for current resource
+		for(IEObjectDescription d : getExportedObjects(descr, descriptionIndex))
+			if(!d.getEObjectURI().path().equals(pathToCurrent))
+				map.put(d.getQualifiedName().getLastSegment(), d);
 		exportedPerLastSegment = map;
 	}
 

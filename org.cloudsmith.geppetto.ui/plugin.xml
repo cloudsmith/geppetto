@@ -25,6 +25,16 @@
          <description>%_UI_PuppetProjectFromForge_description</description>
          <selection class="org.eclipse.core.resources.IResource"/>
       </wizard>
+      <wizard
+            category="org.cloudsmith.geppetto.ui.newWizardCategory"
+            class="org.cloudsmith.geppetto.ui.wizard.NewManifestWizard"
+            icon="icons/obj16/new_pp.png"
+            id="org.cloudsmith.geppetto.ui.wizard.NewManifestWizard"
+            name="New Puppet Manifest">
+         <selection
+               class="org.eclipse.core.resources.IResource">
+         </selection>
+      </wizard>
    </extension>
    <extension point="org.eclipse.ui.popupMenus">
       <objectContribution

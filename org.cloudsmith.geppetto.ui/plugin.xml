@@ -51,10 +51,11 @@
    </extension>
    <extension point="org.eclipse.ui.editors">
       <editor
-            id="org.cloudsmith.geppetto.ui.moduleMetadataEditor"
-            name="%_UI_ModuleMetadataEditor_title"
+            class="org.cloudsmith.geppetto.ui.editor.ModuleMetadataEditor"
             default="true"
             filenames="Modulefile"
-            class="org.cloudsmith.geppetto.ui.editor.ModuleMetadataEditor"/>
+            icon="icons/obj16/puppet-16.png"
+            id="org.cloudsmith.geppetto.ui.moduleMetadataEditor"
+            name="%_UI_ModuleMetadataEditor_title"/>
    </extension>
 </plugin>

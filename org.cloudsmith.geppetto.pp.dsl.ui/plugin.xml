@@ -295,7 +295,31 @@
              icon="icons/obj8/puppet-7x8px.png"
              id="org.cloudsmith.geppetto.pp.dsl.ui.puppetNatureImage"
              natureId="org.cloudsmith.geppetto.pp.dsl.ui.puppetNature">
+          <description>
+             Decorates Puppet (nature) Projects.
+          </description>
        </image>
+    </extension>
+    <extension
+          point="org.eclipse.ui.decorators">
+       <decorator
+             adaptable="true"
+             icon="icons/obj8/puppet-7x8px.png"
+             id="org.cloudsmith.geppetto.pp.dsl.ui.ppProjectNatureDecorator"
+             label="Puppet Project Nature"
+             lightweight="true"
+             location="TOP_RIGHT"
+             state="true">
+          <enablement>
+             <objectState
+                   name="nature"
+                   value="org.cloudsmith.geppetto.pp.dsl.ui.puppetNature">
+             </objectState>
+          </enablement>
+          <description>
+             Decorates Puppet (nature) Projects
+          </description>
+       </decorator>
     </extension>
 
 </plugin>

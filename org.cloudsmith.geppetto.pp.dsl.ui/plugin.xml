@@ -6,12 +6,13 @@
     <extension
             point="org.eclipse.ui.editors">
         <editor
-            class="org.cloudsmith.geppetto.pp.dsl.ui.PPExecutableExtensionFactory:org.eclipse.xtext.ui.editor.XtextEditor"
-            contributorClass="org.eclipse.ui.editors.text.TextEditorActionContributor"
-            default="true"
-            extensions="pp"
-            id="org.cloudsmith.geppetto.pp.dsl.PP"
-            name="Puppet Manifest Editor">
+              class="org.cloudsmith.geppetto.pp.dsl.ui.PPExecutableExtensionFactory:org.eclipse.xtext.ui.editor.XtextEditor"
+              contributorClass="org.eclipse.ui.editors.text.TextEditorActionContributor"
+              default="true"
+              extensions="pp"
+              icon="icons/obj16/file_pp.gif"
+              id="org.cloudsmith.geppetto.pp.dsl.PP"
+              name="Puppet Manifest Editor">
         </editor>
     </extension>
     <extension
@@ -287,6 +288,14 @@
        <participant
              class="org.cloudsmith.geppetto.pp.dsl.ui.PPExecutableExtensionFactory:org.cloudsmith.geppetto.pp.dsl.ui.builder.PPBuilderParticipant">
        </participant>
+    </extension>
+    <extension
+          point="org.eclipse.ui.ide.projectNatureImages">
+       <image
+             icon="icons/obj8/puppet-7x8px.png"
+             id="org.cloudsmith.geppetto.pp.dsl.ui.puppetNatureImage"
+             natureId="org.cloudsmith.geppetto.pp.dsl.ui.puppetNature">
+       </image>
     </extension>
 
 </plugin>

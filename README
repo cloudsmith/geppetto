@@ -5,3 +5,5 @@ The project's foundation is a model of the Puppet DSL, along with parsers, valid
 The project has three near-term objectives: (1) flatten the learning curve associated with using the Puppet DSL to create manifests, (2) support Puppet best practices for working with manifests in the form of modules, and (3) encourage sharing of modules within the community using the Puppet Forge. A longer-term objective will be to make it easier for a wider range of tools to interoperate with Puppet by using Geppetto's modeling foundation as a means of interchange; potential synergies with the new p(0) project (http://github.com/lak/pzero) will be explored for this purpose.
 
 The Geppetto IDE tooling can be downloaded as a stand-alone product from http://github.com/cloudsmith/geppetto/downloads or installed into an existing Eclipse IDE from http://download.cloudsmith.com/geppetto/updates.
+
+For FAQ, and more information visit the Geppetto site http://cloudsmith.github.com/geppetto/

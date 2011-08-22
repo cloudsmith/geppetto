@@ -61,8 +61,7 @@ public class PPBuilderParticipant implements IXtextBuilderParticipant {
 		try {
 			for(PPTask task : taskList) {
 				IMarker m = file.createMarker(PPUiConstants.PUPPET_TASK_MARKER_TYPE);
-				String msg = task.getMsg();
-				int prio = msg.contains("!")
+				int prio = task.isImportant()
 						? IMarker.PRIORITY_HIGH
 						: IMarker.PRIORITY_NORMAL;
 				m.setAttribute(IMarker.MESSAGE, task.getMsg());

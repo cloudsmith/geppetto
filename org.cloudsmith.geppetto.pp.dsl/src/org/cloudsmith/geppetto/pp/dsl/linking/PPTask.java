@@ -25,11 +25,14 @@ public class PPTask {
 
 	final private int length;
 
-	public PPTask(String msg, int line, int offset, int length) {
+	final boolean important;
+
+	public PPTask(String msg, int line, int offset, int length, boolean important) {
 		this.msg = msg;
 		this.line = line;
 		this.offset = offset;
 		this.length = length;
+		this.important = important;
 	}
 
 	public int getLength() {
@@ -46,5 +49,9 @@ public class PPTask {
 
 	public int getOffset() {
 		return offset;
+	}
+
+	public boolean isImportant() {
+		return important;
 	}
 }

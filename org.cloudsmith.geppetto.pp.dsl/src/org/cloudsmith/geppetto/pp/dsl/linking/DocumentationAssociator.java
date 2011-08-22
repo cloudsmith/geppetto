@@ -25,6 +25,7 @@ import org.cloudsmith.geppetto.pp.dsl.services.PPGrammarAccess;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.xtext.IGrammarAccess;
+import org.eclipse.xtext.TerminalRule;
 import org.eclipse.xtext.nodemodel.ICompositeNode;
 import org.eclipse.xtext.nodemodel.INode;
 import org.eclipse.xtext.nodemodel.util.NodeModelUtils;
@@ -154,10 +155,13 @@ public class DocumentationAssociator {
 		for(int startPos = 0; startPos < commentText.length(); /* repeat value in loop */) {
 			int firstTagIndex = commentText.length();
 			int previousTagIndex = 0;
+			int firstTagLength = 0;
 			for(String tag : getTaskTags()) {
 				int idx = loweredText.indexOf(tag, startPos);
-				if(idx >= 0 && idx < firstTagIndex)
+				if(idx >= 0 && idx < firstTagIndex) {
 					firstTagIndex = idx;
+					firstTagLength = tag.length();
+				}
 			}
 			if(firstTagIndex == commentText.length())
 				return; // no tags
@@ -168,12 +172,49 @@ public class DocumentationAssociator {
 					? commentText.length()
 					: endIndex);
 
+			// trim ending */ from message if ML comment?
+			msg = msg.trim(); // remove trailing spaces (there can be to leading)
+
+			EObject ge = node.getGrammarElement();
+			if(ge instanceof TerminalRule) {
+				if("ML_COMMENT".equals(((TerminalRule) ge).getName())) {
+					if(msg.endsWith("*/")) {
+						msg = msg.substring(0, msg.length() - 2);
+						msg = msg.trim();
+					}
+				}
+			}
+
+			// if message is empty, or only contains ! take text before
+			// unless, ML comment where no newline was found in msg, take text both before and after
+			//
+			String taskMsg = msg;
+			boolean isImportant = msg.contains("!");
+			String checkForBang = isImportant
+					? msg.replace('!', ' ').trim()
+					: msg;
+			if(checkForBang.length() <= firstTagLength) {
+				// System.out.println("EMPTY TODO MSG");
+				// scan backwards from tag start
+				String allText = node.getRootNode().getText();
+				int offset = node.getOffset() + firstTagIndex + firstTagLength - 1;
+				StringBuilder builder = new StringBuilder();
+				for(int o = offset; o >= 0; o--) {
+					char c = allText.charAt(o);
+					if(c == '\n')
+						break;
+					builder.append(c);
+				}
+				builder.reverse();
+				taskMsg = builder.toString();
+				taskMsg = taskMsg.trim();
+			}
 			// increase lines seen by those that were passed between previous found and this.
 			for(int i = previousTagIndex; i < firstTagIndex; i++)
 				if(commentText.charAt(i) == '\n')
 					line++;
 
-			PPTask task = new PPTask(msg, line, node.getOffset() + firstTagIndex, msg.length());
+			PPTask task = new PPTask(taskMsg, line, node.getOffset() + firstTagIndex, msg.length(), isImportant);
 			taskList.add(task);
 
 			if(endIndex < 0)

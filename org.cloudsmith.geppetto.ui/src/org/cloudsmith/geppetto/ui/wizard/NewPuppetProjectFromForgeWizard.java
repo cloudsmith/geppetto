@@ -14,10 +14,13 @@ package org.cloudsmith.geppetto.ui.wizard;
 import java.io.IOException;
 import java.util.Collections;
 
+import org.cloudsmith.geppetto.forge.Metadata;
 import org.cloudsmith.geppetto.forge.ModuleInfo;
 import org.cloudsmith.geppetto.ui.UIPlugin;
 import org.cloudsmith.geppetto.ui.dialog.ModuleListSelectionDialog;
+import org.cloudsmith.geppetto.ui.util.ResourceUtil;
 import org.cloudsmith.geppetto.ui.util.StringUtil;
+import org.eclipse.core.resources.IFile;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.UniqueEList;
 import org.eclipse.emf.edit.ui.provider.ExtendedImageRegistry;
@@ -202,7 +205,22 @@ public class NewPuppetProjectFromForgeWizard extends NewPuppetProjectWizard {
 	protected void initializeProjectContents() throws Exception {
 
 		if(module != null) {
-			getForge().install(module.getFullName(), project.getLocation().toFile(), true, true);
+			Metadata metadata = getForge().install(module.getFullName(), project.getLocation().toFile(), true, true);
+
+			IFile moduleFile = ResourceUtil.getFile(project.getFullPath().append("Modulefile")); //$NON-NLS-1$
+
+			if(!moduleFile.exists()) {
+
+				if(metadata.getName() == null) {
+					metadata.setName(module.getName());
+				}
+
+				if(metadata.getUser() == null) {
+					metadata.setUser(StringUtil.getUser(module));
+				}
+
+				metadata.saveModulefile(moduleFile.getLocation().toFile());
+			}
 		}
 	}
 

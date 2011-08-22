@@ -19,4 +19,12 @@ public class StringUtil {
 		return module.getFullName() + ' ' + module.getVersion();
 	}
 
+	public static String getUser(ModuleInfo module) {
+		String fullName = module.getFullName();
+		int index = fullName.indexOf('/');
+		return index == -1
+				? null
+				: fullName.substring(0, index);
+	}
+
 }

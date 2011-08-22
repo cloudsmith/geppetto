@@ -34,6 +34,9 @@
          <selection
                class="org.eclipse.core.resources.IResource">
          </selection>
+         <description>
+            %_UI_NewPuppetManifest_description
+         </description>
       </wizard>
    </extension>
    <extension point="org.eclipse.ui.popupMenus">

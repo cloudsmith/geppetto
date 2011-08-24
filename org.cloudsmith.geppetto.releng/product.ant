@@ -1,0 +1,44 @@
+<project name="Product packaging">
+	<import file="${buckminster.pdetasks}"/>
+
+	<target name="create.product.zip">
+		<property name="output" location="${sp:output}"/>
+
+		<!-- This assumes that we only have one single product -->
+		<property name="product.config" location="${sp:products}"/>
+
+		<!-- We use the feature version as the product version -->
+		<property name="feature.manifest" location="${sp:manifest}"/>
+		<extractFeatureVersion file="${feature.manifest}" property="product.version"/>
+
+		<extractProductId file="${product.config}" property="product.id"/>
+		
+		<!-- -->
+		<extractProductName file="${product.config}" property="product.name"/>
+		<lower string="${product.name}" to="lc.product.name"/>
+		<property name="product.install.directory" value="${output}/${lc.product.name}"/>
+		<makeurl property="product.repository" file="${sp:product.repository}"/>
+
+		<delete dir="${product.install.directory}" includeemptydirs="true" failonerror="false"/>
+		<p2.director
+			destination="${product.install.directory}"
+			metadataRepository="${product.repository}"
+			artifactRepository="${product.repository}"
+			profile="${product.name}"
+			arch="${product.arch}"
+			os="${product.os}"
+			ws="${product.ws}"
+			roaming="true"
+			extraarguments="-profileProperties org.eclipse.update.install.features=true">
+			<iu id="${product.id}" />
+		</p2.director>
+
+		<exec dir="${output}" executable="zip" outputproperty="zip.output" failonerror="true">
+			<arg value="-r"/>
+			<arg value="-9"/>
+			<arg value="${lc.product.name}-${product.os}.${product.ws}.${product.arch}_${product.version}.zip"/>
+			<arg value="${lc.product.name}"/>
+		</exec>
+		<echo message="${zip.output}"/>
+	</target>
+</project>

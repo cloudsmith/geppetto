@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<site>
+   <feature id="org.cloudsmith.geppetto" version="0.0.0">
+      <category name="geppetto"/>
+   </feature>
+   <feature id="org.cloudsmith.geppetto.product" version="0.0.0">
+      <category name="products"/>
+   </feature>
+   <feature id="org.eclipse.cvs" version="0.0.0">
+      <category name="cvs"/>
+   </feature>
+   <feature id="org.eclipse.egit" version="0.0.0">
+      <category name="git"/>
+   </feature>
+   <feature id="org.eclipse.jgit" version="0.0.0">
+      <category name="git"/>
+   </feature>
+   <feature id="org.eclipse.team.svn" version="0.0.0">
+      <category name="svn"/>
+   </feature>
+   <feature id="org.polarion.eclipse.team.svn.connector" version="0.0.0">
+      <category name="svn"/>
+   </feature>
+   <feature id="org.polarion.eclipse.team.svn.connector.svnkit16" version="0.0.0">
+      <category name="svn"/>
+   </feature>
+   <feature id="org.eclipse.emf.common" version="0.0.0">
+      <category name="third-party"/>
+   </feature>
+   <feature id="org.eclipse.emf.common.ui" version="0.0.0">
+      <category name="third-party"/>
+   </feature>
+   <feature id="org.eclipse.emf.ecore" version="0.0.0">
+      <category name="third-party"/>
+   </feature>
+   <feature id="org.eclipse.emf.ecore.edit" version="0.0.0">
+      <category name="third-party"/>
+   </feature>
+   <feature id="org.eclipse.emf.edit" version="0.0.0">
+      <category name="third-party"/>
+   </feature>
+   <feature id="org.eclipse.emf.edit.ui" version="0.0.0">
+      <category name="third-party"/>
+   </feature>
+   <feature id="org.eclipse.equinox.p2.user.ui" version="0.0.0">
+      <category name="third-party"/>
+   </feature>
+   <feature id="org.eclipse.platform" version="0.0.0">
+      <category name="third-party"/>
+   </feature>
+   <category-def name="geppetto" label="Geppetto">
+      <description>
+         Geppetto Main Features
+      </description>
+   </category-def>
+   <category-def name="cvs" label="CVS">
+      <description>
+         CVS Source Code Management
+      </description>
+   </category-def>
+   <category-def name="git" label="Git">
+      <description>
+         Git Source Code Management
+      </description>
+   </category-def>
+   <category-def name="svn" label="SVN">
+      <description>
+         Subversion Source Code Management
+      </description>
+   </category-def>
+   <category-def name="third-party" label="Third Party">
+      <description>
+         Features that Geppetto depends on. They will be installed as needed.
+      </description>
+   </category-def>
+   <category-def name="products" label="Geppetto Product (don't install in IDE)">
+      <description>
+         The Geppetto stand-alone products. Can be installed to disc using the p2 director but
+         must never be installed into another product.
+      </description>
+   </category-def>
+</site>

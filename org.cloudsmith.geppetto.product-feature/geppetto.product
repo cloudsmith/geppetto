@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?pde version="3.5"?>
+
+<product name="Geppetto" uid="org.cloudsmith.geppetto.ide" id="org.cloudsmith.geppetto.ide" application="org.eclipse.ui.ide.workbench" version="0.0.0" useFeatures="true" includeLaunchers="true">
+
+   <aboutInfo>
+      <image path="geppetto_lg.gif"/>
+      <text>
+         %productBlurb
+      </text>
+   </aboutInfo>
+
+   <configIni use="default">
+   </configIni>
+
+   <launcherArgs>
+      <vmArgsMac>-XX:MaxPermSize=128m -Xdock:icon=../Resources/geppetto.icns -XstartOnFirstThread -Dorg.eclipse.swt.internal.carbon.smallFonts</vmArgsMac>
+   </launcherArgs>
+
+   <windowImages i16="geppetto.gif" i32="geppetto32.gif" i48="geppetto48.gif"/>
+
+   <splash
+      location="org.cloudsmith.geppetto"
+      startupProgressRect="3,277,449,15"
+      startupMessageRect="7,254,441,20"
+      startupForegroundColor="9C99B3" />
+   <launcher name="geppetto">
+      <linux icon="/org.cloudsmith.geppetto/geppetto.xpm"/>
+      <macosx icon="/org.cloudsmith.geppetto/geppetto.icns"/>
+      <solaris/>
+      <win useIco="true">
+         <ico path="/org.cloudsmith.geppetto/geppetto.ico"/>
+         <bmp/>
+      </win>
+   </launcher>
+
+   <intro introId="org.eclipse.ui.intro.universal"/>
+
+   <vm>
+   </vm>
+
+   <plugins>
+   </plugins>
+
+   <features>
+      <feature id="org.cloudsmith.geppetto.product"/>
+   </features>
+
+   <configurations>
+      <property name="eclipse.buildId" value="@qualifier@" />
+   </configurations>
+
+</product>

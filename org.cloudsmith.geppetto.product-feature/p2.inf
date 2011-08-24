@@ -1,0 +1,9 @@
+instructions.configure=\
+	org.eclipse.equinox.p2.touchpoint.eclipse.addRepository(type:0,location:http${#58}//download.eclipse.org/releases/indigo,name:Indigo);\
+	org.eclipse.equinox.p2.touchpoint.eclipse.addRepository(type:1,location:http${#58}//download.eclipse.org/releases/indigo,name:Indigo);\
+	org.eclipse.equinox.p2.touchpoint.eclipse.addRepository(type:0,location:http${#58}//download.eclipse.org/eclipse/updates/3.7,name:The Eclipse Project Updates);\
+	org.eclipse.equinox.p2.touchpoint.eclipse.addRepository(type:1,location:http${#58}//download.eclipse.org/eclipse/updates/3.7,name:The Eclipse Project Updates);\
+	org.eclipse.equinox.p2.touchpoint.eclipse.addRepository(type:0,location:http${#58}//download.cloudsmith.com/geppetto/updates,name:Geppetto Updates);\
+	org.eclipse.equinox.p2.touchpoint.eclipse.addRepository(type:1,location:http${#58}//download.cloudsmith.com/geppetto/updates,name:Geppetto Updates);\
+	org.eclipse.equinox.p2.touchpoint.eclipse.addRepository(type:0,location:http${#58}//community.polarion.com/projects/subversive/download/eclipse/2.0/update-site,name:SVN Connectors Site);\
+	org.eclipse.equinox.p2.touchpoint.eclipse.addRepository(type:1,location:http${#58}//community.polarion.com/projects/subversive/download/eclipse/2.0/update-site,name:SVN Connectors Site);

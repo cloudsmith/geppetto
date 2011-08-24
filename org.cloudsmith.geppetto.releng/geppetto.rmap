@@ -57,9 +57,7 @@
 	</rm:searchPath>
 
 	<rm:searchPath name="maven.central">
-		<rm:provider xsi:type="maven:MavenProvider" componentTypes="osgi.bundle" readerType="maven2" source="false"
-			mutable="false"
-		>
+		<rm:provider xsi:type="maven:MavenProvider" componentTypes="osgi.bundle" readerType="maven2" source="false" mutable="false">
 			<rm:uri format="http://repo1.maven.org/maven2" />
 			<maven:mappings>
 				<maven:entry artifactId="commons-compress" groupId="org.apache.commons" name="org.apache.commons.compress" />

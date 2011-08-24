@@ -1,5 +1,5 @@
 setpref complianceLevel=1.5
 setpref targetPlatformPath=${tp.root}
-import ${checkout.root}/org.cloudsmith.geppetto.releng/geppetto.cquery
+import ${git.clones.root}/geppetto/org.cloudsmith.geppetto.releng/geppetto.cquery
 build --thorough
 perform org.cloudsmith.geppetto.releng#all.product.zips

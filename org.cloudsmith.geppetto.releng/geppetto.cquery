@@ -6,6 +6,5 @@
     <cq:property key="target.arch" value="*"/>
     <cq:property key="target.os" value="*"/>
     <cq:property key="target.ws" value="*"/>
-    <cq:advisorNode namePattern="org\.cloudsmith\.geppetto" useMaterialization="false" useTargetPlatform="false" branchTagPath="indigo-build"/>
     <cq:advisorNode namePattern=".*" useMaterialization="false" useTargetPlatform="false"/>
 </cq:componentQuery>

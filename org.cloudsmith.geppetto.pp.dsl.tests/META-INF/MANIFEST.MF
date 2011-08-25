@@ -13,3 +13,4 @@ Require-Bundle: org.eclipse.core.runtime,
  org.cloudsmith.geppetto.pp
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-ActivationPolicy: lazy
+Export-Package: org.cloudsmith.geppetto.pp.dsl.tests

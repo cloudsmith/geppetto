@@ -3,9 +3,7 @@
 	componentType="buckminster" version="0.1.0.qualifier" shortDesc="Cloudsmith Geppetto Releng"
 >
 	<dependencies>
-		<dependency name="org.cloudsmith.geppetto.forge.tests" componentType="osgi.bundle" />
-		<dependency name="org.cloudsmith.geppetto.pp.dsl.tests" componentType="osgi.bundle" />
-		<dependency name="org.cloudsmith.geppetto.ruby.tests" componentType="osgi.bundle" />
+		<dependency name="org.cloudsmith.geppetto.tests" componentType="osgi.bundle" />
 		<dependency name="org.cloudsmith.geppetto.product" componentType="eclipse.feature" />
 		<dependency name="org.cloudsmith.geppetto.site" componentType="eclipse.feature" />
 	</dependencies>

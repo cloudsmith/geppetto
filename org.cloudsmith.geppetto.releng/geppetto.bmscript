@@ -2,4 +2,5 @@ setpref complianceLevel=1.5
 setpref targetPlatformPath=${tp.root}
 import ${git.clones.root}/geppetto/org.cloudsmith.geppetto.releng/geppetto.cquery
 build --thorough
+junit -l org.cloudsmith.geppetto.tests/AllTests.launch -o ${reports.root}/testReport.xml --terseXML --flatXML
 perform org.cloudsmith.geppetto.releng#all.product.zips

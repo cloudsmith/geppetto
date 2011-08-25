@@ -1,0 +1,11 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Umbrella bundle for all tests
+Bundle-SymbolicName: org.cloudsmith.geppetto.tests
+Bundle-Version: 1.0.0.qualifier
+Bundle-Vendor: Cloudsmith Inc.
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Require-Bundle: org.junit,
+ org.cloudsmith.geppetto.forge.tests,
+ org.cloudsmith.geppetto.pp.dsl.tests,
+ org.cloudsmith.geppetto.ruby.tests

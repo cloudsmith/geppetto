@@ -13,3 +13,4 @@ Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-ActivationPolicy: lazy
 Import-Package: org.cloudsmith.geppetto.ruby.jruby;resolution:=optional,
  org.cloudsmith.geppetto.ruby.jrubyparser;resolution:=optional
+Export-Package: org.cloudsmith.geppetto.ruby.tests

@@ -134,11 +134,11 @@ public class CatalogImpl extends TaggableImpl implements Catalog {
 
 			json = jsonObj.get("resources");
 			if(json != null)
-				deserializeInto(json, result.getResources(), CatalogResource.class, context);
+				deserializeInto(json, result.getResources(), CatalogResourceImpl.class, context);
 
 			json = jsonObj.get("edges");
 			if(json != null)
-				deserializeInto(json, result.getEdges(), CatalogEdge.class, context);
+				deserializeInto(json, result.getEdges(), CatalogEdgeImpl.class, context);
 
 			return result;
 		}

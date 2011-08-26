@@ -12,3 +12,6 @@ Require-Bundle: org.eclipse.core.runtime,
  com.google.gson,
  org.cloudsmith.geppetto.common
 Bundle-ActivationPolicy: lazy
+Export-Package: org.cloudsmith.geppetto.catalog,
+ org.cloudsmith.geppetto.catalog.impl,
+ org.cloudsmith.geppetto.catalog.util

@@ -12,6 +12,7 @@
 package org.cloudsmith.geppetto.catalog.impl;
 
 import java.util.Collection;
+import java.util.Map;
 
 import org.cloudsmith.geppetto.catalog.CatalogFactory;
 import org.cloudsmith.geppetto.catalog.CatalogPackage;
@@ -31,6 +32,7 @@ import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
+import com.google.gson.JsonPrimitive;
 import com.google.gson.JsonSerializationContext;
 import com.google.gson.JsonSerializer;
 import com.google.gson.reflect.TypeToken;
@@ -111,8 +113,17 @@ public class CatalogResourceImpl extends TaggableImpl implements CatalogResource
 				deserializeInto(json, result.getTags(), String.class, context);
 
 			json = jsonObj.get("parameters");
-			if(json != null)
-				deserializeInto(json, result.getParameters(), CatalogResourceParameter.class, context);
+			if(json != null) {
+				JsonObject parameterHash = json.getAsJsonObject();
+				EList<CatalogResourceParameter> pList = result.getParameters();
+				for(Map.Entry<String, JsonElement> entry : parameterHash.entrySet()) {
+					CatalogResourceParameter rp = CatalogFactory.eINSTANCE.createCatalogResourceParameter();
+					rp.setName(entry.getKey());
+					rp.setValue(entry.getValue().getAsString());
+					pList.add(rp);
+				}
+
+			}
 
 			return result;
 		}
@@ -130,8 +141,12 @@ public class CatalogResourceImpl extends TaggableImpl implements CatalogResource
 			putBoolean(result, "exported", cat.isExported());
 			putBoolean(result, "virtual", cat.isVirtual());
 
-			if(cat.parameters != null)
-				result.add("parameters", context.serialize(cat.parameters, listOfParametersType));
+			if(cat.parameters != null) {
+				JsonObject jsonParameters = new JsonObject();
+				for(CatalogResourceParameter p : cat.parameters)
+					jsonParameters.add(p.getName(), new JsonPrimitive(p.getValue()));
+				result.add("parameters", jsonParameters);
+			}
 
 			if(cat.tags != null)
 				result.add("tags", context.serialize(cat.tags, listOfTagsType));

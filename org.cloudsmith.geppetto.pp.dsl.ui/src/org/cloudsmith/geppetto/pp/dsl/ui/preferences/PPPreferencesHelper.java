@@ -54,26 +54,26 @@ public class PPPreferencesHelper {
 	}
 
 	public boolean isAutoBraceInsertWanted() {
-		return (autoInsertOverrides & OVERRIDE_AUTO_INSERT_BRACES) != 0;
+		return (autoInsertOverrides & OVERRIDE_AUTO_INSERT_BRACES) == 0;
 	}
 
 	public boolean isAutoBracketInsertWanted() {
-		return (autoInsertOverrides & OVERRIDE_AUTO_INSERT_BRACKETS) != 0;
+		return (autoInsertOverrides & OVERRIDE_AUTO_INSERT_BRACKETS) == 0;
 	}
 
 	public boolean isAutoDqStringInsertWanted() {
-		return (autoInsertOverrides & OVERRIDE_AUTO_INSERT_DQ) != 0;
+		return (autoInsertOverrides & OVERRIDE_AUTO_INSERT_DQ) == 0;
 	}
 
 	public boolean isAutoMLCommentInsertWanted() {
-		return (autoInsertOverrides & OVERRIDE_AUTO_INSERT_COMMENT) != 0;
+		return (autoInsertOverrides & OVERRIDE_AUTO_INSERT_COMMENT) == 0;
 	}
 
 	public boolean isAutoParenthesisInsertWanted() {
-		return (autoInsertOverrides & OVERRIDE_AUTO_INSERT_PARENTHESES) != 0;
+		return (autoInsertOverrides & OVERRIDE_AUTO_INSERT_PARENTHESES) == 0;
 	}
 
 	public boolean isAutoSqStringInsertWanted() {
-		return (autoInsertOverrides & OVERRIDE_AUTO_INSERT_SQ) != 0;
+		return (autoInsertOverrides & OVERRIDE_AUTO_INSERT_SQ) == 0;
 	}
 }

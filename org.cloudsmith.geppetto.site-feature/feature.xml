@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <feature
       id="org.cloudsmith.geppetto.site"
-      label="Site"
-      version="1.0.0.qualifier">
+      label="Cloudsmith Geppetto Update Site"
+      version="2.0.0.qualifier">
 
    <description url="http://www.example.com/description">
       [Enter Feature Description here.]

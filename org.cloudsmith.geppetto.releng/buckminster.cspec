@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <cspec xmlns="http://www.eclipse.org/buckminster/CSpec-1.0" name="org.cloudsmith.geppetto.releng"
-	componentType="buckminster" version="0.1.0.qualifier" shortDesc="Cloudsmith Geppetto Releng"
+	componentType="buckminster" version="2.0.0.qualifier" shortDesc="Cloudsmith Geppetto Releng"
 >
 	<dependencies>
 		<dependency name="org.cloudsmith.geppetto.tests" componentType="osgi.bundle" />

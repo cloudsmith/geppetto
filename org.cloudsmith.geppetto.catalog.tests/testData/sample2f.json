@@ -1,0 +1,68 @@
+{ "data" : { "classes" : [ "javase",
+          "settings",
+          "javase"
+        ],
+      "edges" : [ { "source" : "Class[Javase]",
+            "target" : "File[/etc/java_release]"
+          },
+          { "source" : "Stage[main]",
+            "target" : "Class[Javase]"
+          },
+          { "source" : "Stage[main]",
+            "target" : "Class[main]"
+          }
+        ],
+      "name" : "testcentos.pilsen.cloudsmith.com",
+      "resources" : [ { "exported" : false,
+            "file" : "/usr/share/puppet/modules/javase/manifests/init.pp",
+            "line" : 39,
+            "parameters" : { "content" : "1.6",
+                "ensure" : "present",
+                "group" : "root",
+                "mode" : "440",
+                "owner" : "root"
+              },
+            "tags" : [ "file",
+                "class",
+                "javase"
+              ],
+            "title" : "/etc/java_release",
+            "type" : "File"
+          },
+          { "exported" : false,
+            "tags" : [ "class",
+                "settings"
+              ],
+            "title" : "Settings",
+            "type" : "Class"
+          },
+          { "exported" : false,
+            "parameters" : { "minimum_version" : "1.5" },
+            "tags" : [ "class",
+                "javase"
+              ],
+            "title" : "Javase",
+            "type" : "Class"
+          },
+          { "exported" : false,
+            "parameters" : { "name" : "main" },
+            "tags" : [ "class" ],
+            "title" : "main",
+            "type" : "Class"
+          },
+          { "exported" : false,
+            "parameters" : { "name" : "main" },
+            "tags" : [ "stage" ],
+            "title" : "main",
+            "type" : "Stage"
+          }
+        ],
+      "tags" : [ "javase",
+          "settings",
+          "class"
+        ],
+      "version" : 1314286427
+    },
+  "document_type" : "Catalog",
+  "metadata" : { "api_version" : 1 }
+}

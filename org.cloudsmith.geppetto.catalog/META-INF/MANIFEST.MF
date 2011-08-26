@@ -10,7 +10,10 @@ Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.emf.ecore;visibility:=reexport,
  com.google.gson,
- org.cloudsmith.geppetto.common
+ org.cloudsmith.geppetto.common,
+ org.eclipse.emf.compare;bundle-version="1.1.2",
+ org.eclipse.emf.compare.diff;bundle-version="1.1.2",
+ org.eclipse.emf.compare.match;bundle-version="1.1.2"
 Bundle-ActivationPolicy: lazy
 Export-Package: org.cloudsmith.geppetto.catalog,
  org.cloudsmith.geppetto.catalog.impl,

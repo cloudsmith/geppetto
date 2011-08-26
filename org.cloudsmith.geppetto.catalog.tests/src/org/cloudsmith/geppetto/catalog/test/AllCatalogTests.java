@@ -25,6 +25,7 @@ public class AllCatalogTests {
 		TestSuite suite = new TestSuite(AllCatalogTests.class.getName());
 		// $JUnit-BEGIN$
 		suite.addTestSuite(TestJsonLoad.class);
+		suite.addTestSuite(TestCatalogCompare.class);
 		// $JUnit-END$
 		return suite;
 	}

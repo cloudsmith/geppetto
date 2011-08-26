@@ -14,6 +14,14 @@
 -->
 
 <plugin>
+   <extension
+         point="org.eclipse.emf.ecore.generated_package">
+      <package
+            class="org.cloudsmith.geppetto.catalog.CatalogPackage"
+            genModel="model/Catalog.genmodel"
+            uri="http://www.cloudsmith.org/geppetto/1.0.0/Catalog">
+      </package>
+   </extension>
 
 
 </plugin>

@@ -1,0 +1,97 @@
+{ "data" : { "classes" : [ "javase",
+          "tcpdump",
+          "settings",
+          "javase",
+          "tcpdump"
+        ],
+      "edges" : [ { "source" : "Class[Tcpdump]",
+            "target" : "Package[tcpdump]"
+          },
+          { "source" : "Stage[main]",
+            "target" : "Class[Tcpdump]"
+          },
+          { "source" : "Stage[main]",
+            "target" : "Class[main]"
+          },
+          { "source" : "Class[Javase]",
+            "target" : "File[/etc/java_release]"
+          },
+          { "source" : "Stage[main]",
+            "target" : "Class[Javase]"
+          }
+        ],
+      "name" : "testcentos.pilsen.cloudsmith.com",
+      "resources" : [ { "exported" : false,
+            "file" : "/usr/share/puppet/modules/tcpdump/manifests/init.pp",
+            "line" : 14,
+            "parameters" : { "ensure" : "latest",
+                "provider" : "yum"
+              },
+            "tags" : [ "package",
+                "tcpdump",
+                "class"
+              ],
+            "title" : "tcpdump",
+            "type" : "Package"
+          },
+          { "exported" : false,
+            "tags" : [ "class",
+                "tcpdump"
+              ],
+            "title" : "Tcpdump",
+            "type" : "Class"
+          },
+          { "exported" : false,
+            "parameters" : { "name" : "main" },
+            "tags" : [ "class" ],
+            "title" : "main",
+            "type" : "Class"
+          },
+          { "exported" : false,
+            "parameters" : { "name" : "main" },
+            "tags" : [ "stage" ],
+            "title" : "main",
+            "type" : "Stage"
+          },
+          { "exported" : false,
+            "tags" : [ "class",
+                "settings"
+              ],
+            "title" : "Settings",
+            "type" : "Class"
+          },
+          { "exported" : false,
+            "file" : "/usr/share/puppet/modules/javase/manifests/init.pp",
+            "line" : 39,
+            "parameters" : { "content" : "1.6",
+                "ensure" : "present",
+                "group" : "root",
+                "mode" : "440",
+                "owner" : "root"
+              },
+            "tags" : [ "file",
+                "class",
+                "javase"
+              ],
+            "title" : "/etc/java_release",
+            "type" : "File"
+          },
+          { "exported" : false,
+            "parameters" : { "minimum_version" : "1.5" },
+            "tags" : [ "class",
+                "javase"
+              ],
+            "title" : "Javase",
+            "type" : "Class"
+          }
+        ],
+      "tags" : [ "javase",
+          "tcpdump",
+          "settings",
+          "class"
+        ],
+      "version" : 1314286497
+    },
+  "document_type" : "Catalog",
+  "metadata" : { "api_version" : 1 }
+}

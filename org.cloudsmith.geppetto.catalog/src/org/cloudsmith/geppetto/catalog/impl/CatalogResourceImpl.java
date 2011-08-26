@@ -13,22 +13,27 @@ package org.cloudsmith.geppetto.catalog.impl;
 
 import java.util.Collection;
 
+import org.cloudsmith.geppetto.catalog.CatalogFactory;
 import org.cloudsmith.geppetto.catalog.CatalogPackage;
 import org.cloudsmith.geppetto.catalog.CatalogResource;
 import org.cloudsmith.geppetto.catalog.CatalogResourceParameter;
-
+import org.cloudsmith.geppetto.catalog.util.CatalogJsonSerializer;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
-
 import org.eclipse.emf.common.util.EList;
-
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
-
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
+
+import com.google.gson.JsonDeserializationContext;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParseException;
+import com.google.gson.JsonSerializationContext;
+import com.google.gson.JsonSerializer;
+import com.google.gson.reflect.TypeToken;
 
 /**
  * <!-- begin-user-doc -->
@@ -50,6 +55,91 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * @generated
  */
 public class CatalogResourceImpl extends TaggableImpl implements CatalogResource {
+	public static class JsonAdapter extends CatalogJsonSerializer.ContainerDeserializer<CatalogResource> implements
+			JsonSerializer<CatalogResource> {
+
+		private static java.lang.reflect.Type listOfParametersType = new TypeToken<EList<CatalogResourceParameter>>() {
+		}.getType();
+
+		private static java.lang.reflect.Type listOfTagsType = new TypeToken<EList<String>>() {
+		}.getType();
+
+		private static boolean getBoolean(JsonObject jsonObj, String key) {
+			JsonElement json = jsonObj.get(key);
+			if(json == null)
+				return false;
+			return json.getAsBoolean();
+		}
+
+		private static String getString(JsonObject jsonObj, String key) {
+			JsonElement json = jsonObj.get(key);
+			if(json == null)
+				return null;
+			String value = json.getAsString();
+
+			// unset values are null, not empty strings
+			return value.length() == 0
+					? null
+					: value;
+		}
+
+		private static void putBoolean(JsonObject jsonObj, String key, boolean value) {
+			jsonObj.addProperty(key, value);
+		}
+
+		private static void putString(JsonObject jsonObj, String key, String value) {
+			if(value == null)
+				value = "";
+			jsonObj.addProperty(key, value);
+		}
+
+		@Override
+		public CatalogResource deserialize(JsonElement json, java.lang.reflect.Type typeOfT,
+				JsonDeserializationContext context) throws JsonParseException {
+			final CatalogResource result = CatalogFactory.eINSTANCE.createCatalogResource();
+			JsonObject jsonObj = json.getAsJsonObject();
+
+			result.setFile(getString(jsonObj, "file"));
+			result.setLine(getString(jsonObj, "line"));
+			result.setType(getString(jsonObj, "type"));
+			result.setTitle(getString(jsonObj, "title"));
+			result.setExported(getBoolean(jsonObj, "exported"));
+			result.setVirtual(getBoolean(jsonObj, "virtual"));
+
+			json = jsonObj.get("tags");
+			if(json != null)
+				deserializeInto(json, result.getTags(), String.class, context);
+
+			json = jsonObj.get("parameters");
+			if(json != null)
+				deserializeInto(json, result.getParameters(), CatalogResourceParameter.class, context);
+
+			return result;
+		}
+
+		@Override
+		public JsonElement serialize(CatalogResource src, java.lang.reflect.Type typeOfSrc,
+				JsonSerializationContext context) {
+			final JsonObject result = new JsonObject();
+			final CatalogResourceImpl cat = (CatalogResourceImpl) src;
+
+			putString(result, "file", cat.getFile());
+			putString(result, "line", cat.getLine());
+			putString(result, "type", cat.getType());
+			putString(result, "title", cat.getTitle());
+			putBoolean(result, "exported", cat.isExported());
+			putBoolean(result, "virtual", cat.isVirtual());
+
+			if(cat.parameters != null)
+				result.add("parameters", context.serialize(cat.parameters, listOfParametersType));
+
+			if(cat.tags != null)
+				result.add("tags", context.serialize(cat.tags, listOfTagsType));
+
+			return result;
+		}
+	}
+
 	/**
 	 * The default value of the '{@link #getFile() <em>File</em>}' attribute.
 	 * <!-- begin-user-doc -->

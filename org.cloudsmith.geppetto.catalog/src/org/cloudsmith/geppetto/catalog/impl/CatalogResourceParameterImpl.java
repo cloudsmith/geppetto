@@ -11,15 +11,21 @@
  */
 package org.cloudsmith.geppetto.catalog.impl;
 
+import org.cloudsmith.geppetto.catalog.CatalogFactory;
 import org.cloudsmith.geppetto.catalog.CatalogPackage;
 import org.cloudsmith.geppetto.catalog.CatalogResourceParameter;
-
+import org.cloudsmith.geppetto.catalog.util.CatalogJsonSerializer;
 import org.eclipse.emf.common.notify.Notification;
-
 import org.eclipse.emf.ecore.EClass;
-
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
+
+import com.google.gson.JsonDeserializationContext;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParseException;
+import com.google.gson.JsonSerializationContext;
+import com.google.gson.JsonSerializer;
 
 /**
  * <!-- begin-user-doc -->
@@ -36,6 +42,52 @@ import org.eclipse.emf.ecore.impl.EObjectImpl;
  * @generated
  */
 public class CatalogResourceParameterImpl extends EObjectImpl implements CatalogResourceParameter {
+	public static class JsonAdapter extends CatalogJsonSerializer.ContainerDeserializer<CatalogResourceParameter> implements
+			JsonSerializer<CatalogResourceParameter> {
+
+		private static String getString(JsonObject jsonObj, String key) {
+			JsonElement json = jsonObj.get(key);
+			if(json == null)
+				return null;
+			String value = json.getAsString();
+
+			// unset values are null, not empty strings
+			return value.length() == 0
+					? null
+					: value;
+		}
+
+		private static void putString(JsonObject jsonObj, String key, String value) {
+			if(value == null)
+				value = "";
+			jsonObj.addProperty(key, value);
+		}
+
+		@Override
+		public CatalogResourceParameter deserialize(JsonElement json, java.lang.reflect.Type typeOfT,
+				JsonDeserializationContext context) throws JsonParseException {
+			final CatalogResourceParameter result = CatalogFactory.eINSTANCE.createCatalogResourceParameter();
+			JsonObject jsonObj = json.getAsJsonObject();
+
+			result.setName(getString(jsonObj, "name"));
+			result.setValue(getString(jsonObj, "value"));
+
+			return result;
+		}
+
+		@Override
+		public JsonElement serialize(CatalogResourceParameter src, java.lang.reflect.Type typeOfSrc,
+				JsonSerializationContext context) {
+			final JsonObject result = new JsonObject();
+			final CatalogResourceParameterImpl cat = (CatalogResourceParameterImpl) src;
+
+			putString(result, "name", cat.getName());
+			putString(result, "value", cat.getValue());
+
+			return result;
+		}
+	}
+
 	/**
 	 * The default value of the '{@link #getName() <em>Name</em>}' attribute.
 	 * <!-- begin-user-doc -->

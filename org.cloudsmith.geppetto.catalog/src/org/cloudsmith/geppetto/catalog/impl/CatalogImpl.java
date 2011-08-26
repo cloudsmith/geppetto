@@ -15,23 +15,28 @@ import java.util.Collection;
 
 import org.cloudsmith.geppetto.catalog.Catalog;
 import org.cloudsmith.geppetto.catalog.CatalogEdge;
+import org.cloudsmith.geppetto.catalog.CatalogFactory;
 import org.cloudsmith.geppetto.catalog.CatalogMetadata;
 import org.cloudsmith.geppetto.catalog.CatalogPackage;
 import org.cloudsmith.geppetto.catalog.CatalogResource;
-
+import org.cloudsmith.geppetto.catalog.util.CatalogJsonSerializer;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
-
 import org.eclipse.emf.common.util.EList;
-
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
-
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-
 import org.eclipse.emf.ecore.util.EDataTypeUniqueEList;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
+
+import com.google.gson.JsonDeserializationContext;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParseException;
+import com.google.gson.JsonSerializationContext;
+import com.google.gson.JsonSerializer;
+import com.google.gson.reflect.TypeToken;
 
 /**
  * <!-- begin-user-doc -->
@@ -52,6 +57,124 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * @generated
  */
 public class CatalogImpl extends TaggableImpl implements Catalog {
+	public static class JsonAdapter extends CatalogJsonSerializer.ContainerDeserializer<Catalog> implements
+			JsonSerializer<Catalog> {
+
+		private static java.lang.reflect.Type listOfClassesType = new TypeToken<EList<String>>() {
+		}.getType();
+
+		private static java.lang.reflect.Type listOfTagsType = new TypeToken<EList<String>>() {
+		}.getType();
+
+		private static java.lang.reflect.Type listOfResourcesType = new TypeToken<EList<CatalogResource>>() {
+		}.getType();
+
+		private static java.lang.reflect.Type listOfEdgesType = new TypeToken<EList<CatalogEdge>>() {
+		}.getType();
+
+		private static CatalogMetadata getMetadata(JsonObject jsonObj, String key, JsonDeserializationContext context) {
+			JsonElement json = jsonObj.get(key);
+			if(json == null)
+				return null;
+			CatalogMetadataImpl.JsonAdapter a = new CatalogMetadataImpl.JsonAdapter();
+			return a.deserialize(json, CatalogMetadataImpl.class, context);
+
+		}
+
+		private static String getString(JsonObject jsonObj, String key) {
+			JsonElement json = jsonObj.get(key);
+			if(json == null)
+				return null;
+			String value = json.getAsString();
+
+			// unset values are null, not empty strings
+			return value.length() == 0
+					? null
+					: value;
+		}
+
+		private static void putString(JsonObject jsonObj, String key, String value) {
+			if(value == null)
+				value = "";
+			jsonObj.addProperty(key, value);
+		}
+
+		@Override
+		public Catalog deserialize(JsonElement json, java.lang.reflect.Type typeOfT, JsonDeserializationContext context)
+				throws JsonParseException {
+			final Catalog result = CatalogFactory.eINSTANCE.createCatalog();
+			JsonObject jsonObj = json.getAsJsonObject();
+
+			// Check the document type
+			String documentType = getString(jsonObj, "document_type");
+			if(!"Catalog".equals(documentType))
+				throw new IllegalArgumentException("JSON document must be of 'Catalog' type");
+
+			result.setMetadata(getMetadata(jsonObj, "metadata", context));
+
+			// all the data is under a 'data' key
+			JsonElement data = jsonObj.get("data");
+			if(data == null)
+				return result;
+			if(!(data instanceof JsonObject))
+				throw new IllegalStateException("Document 'data' is not a single object");
+
+			// continue serialization under data
+			jsonObj = data.getAsJsonObject();
+			result.setName(getString(jsonObj, "name"));
+			result.setVersion(getString(jsonObj, "version"));
+
+			json = jsonObj.get("tags");
+			if(json != null)
+				deserializeInto(json, result.getTags(), String.class, context);
+
+			json = jsonObj.get("classes");
+			if(json != null)
+				deserializeInto(json, result.getClasses(), String.class, context);
+
+			json = jsonObj.get("resources");
+			if(json != null)
+				deserializeInto(json, result.getResources(), CatalogResource.class, context);
+
+			json = jsonObj.get("edges");
+			if(json != null)
+				deserializeInto(json, result.getEdges(), CatalogEdge.class, context);
+
+			return result;
+		}
+
+		@Override
+		public JsonElement serialize(Catalog src, java.lang.reflect.Type typeOfSrc, JsonSerializationContext context) {
+			final JsonObject docResult = new JsonObject();
+			final CatalogImpl cat = (CatalogImpl) src;
+			final JsonObject result = new JsonObject();
+
+			putString(docResult, "document_type", "Catalog");
+
+			putString(result, "name", cat.getName());
+			putString(result, "version", cat.getVersion());
+
+			if(cat.classes != null)
+				result.add("classes", context.serialize(cat.classes, listOfClassesType));
+
+			if(cat.tags != null)
+				result.add("tags", context.serialize(cat.tags, listOfTagsType));
+
+			if(cat.resources != null)
+				result.add("resources", context.serialize(cat.resources, listOfResourcesType));
+
+			if(cat.edges != null)
+				result.add("edges", context.serialize(cat.edges, listOfEdgesType));
+
+			docResult.add("data", result);
+			if(cat.getMetadata() != null)
+				docResult.add("metadata", new CatalogMetadataImpl.JsonAdapter().serialize(
+					cat.getMetadata(), CatalogMetadataImpl.class, context));
+
+			return docResult;
+		}
+	}
+
 	/**
 	 * The default value of the '{@link #getName() <em>Name</em>}' attribute.
 	 * <!-- begin-user-doc -->

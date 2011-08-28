@@ -55,6 +55,7 @@ http://www.eclipse.org/legal/epl-v10.html
       <import plugin="org.eclipse.jdt.debug"/>
       <import plugin="org.eclipse.jdt.launching"/>
       <import plugin="org.eclipse.jdt.ui"/>
+      <import plugin="org.eclipse.ui.views.log"/>
       <import plugin="org.eclipse.xtext"/>
       <import plugin="org.eclipse.xtext.builder"/>
       <import plugin="org.eclipse.xtext.common.types"/>

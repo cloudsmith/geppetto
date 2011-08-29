@@ -13,17 +13,15 @@ package org.cloudsmith.geppetto.pp.dsl.ui.preferences;
 
 import org.eclipse.xtext.ui.editor.preferences.AbstractPreferencePage;
 import org.eclipse.xtext.ui.editor.preferences.fields.CheckBoxGroupFieldEditor;
-import org.eclipse.xtext.ui.editor.preferences.fields.LabelFieldEditor;
 
 /**
- * @author henrik
- * 
+ * A Preference pane for auto edit settings (insert of matches pairs [] {} () ...)
  */
 public class AutoEditPreferencePage extends AbstractPreferencePage {
 
 	@Override
 	protected void createFieldEditors() {
-		addField(new LabelFieldEditor("Auto Edit Settings", getFieldEditorParent()));
+		// addField(new LabelFieldEditor("Auto Edit Settings", getFieldEditorParent()));
 
 		// Automatically Complete
 		//

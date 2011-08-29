@@ -16,6 +16,7 @@ import org.eclipse.xtext.ui.editor.preferences.AbstractPreferencePage;
 
 /**
  * A simple preference page for selection of puppet target.
+ * This is also the puppet root preference pane.
  * 
  */
 public class PPGeneralPreferencePage extends AbstractPreferencePage {

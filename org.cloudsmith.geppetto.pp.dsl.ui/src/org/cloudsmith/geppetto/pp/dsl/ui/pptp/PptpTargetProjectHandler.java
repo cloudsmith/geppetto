@@ -20,6 +20,7 @@ import org.apache.log4j.Logger;
 import org.cloudsmith.geppetto.common.eclipse.BundledFilesUtils;
 import org.cloudsmith.geppetto.pp.dsl.pptp.PptpRuntimeModule;
 import org.cloudsmith.geppetto.pp.dsl.ui.PPUiConstants;
+import org.cloudsmith.geppetto.pp.dsl.ui.preferences.PPPreferencesHelper;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IProjectDescription;
@@ -36,16 +37,26 @@ import org.eclipse.core.runtime.SubMonitor;
 import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.xtext.ui.XtextProjectHelper;
 
+import com.google.inject.Inject;
+import com.google.inject.Singleton;
+
 /**
  * Handler of the hidden puppet target project.
  * Is used to check the state of the workspace and all projects with puppet nature.
  * 
  */
+@Singleton
 public class PptpTargetProjectHandler {
+
+	@Inject
+	PPPreferencesHelper preferenceHelper;
+
 	/**
 	 * The default puppet target
 	 */
-	private static final String PUPPET_TARGET = "targets/puppet-2.7.1.pptp";
+	private final String PUPPET_TARGET_2_7 = "targets/puppet-2.7.1.pptp";
+
+	private final String PUPPET_TARGET_2_6 = "targets/puppet-2.6.9.pptp";
 
 	private final static Logger log = Logger.getLogger(PptpTargetProjectHandler.class);
 
@@ -54,7 +65,7 @@ public class PptpTargetProjectHandler {
 	 * defining the target platform.
 	 * Calls {@link #ensureTargetProjectConfiguration()} if the target project is not created.
 	 */
-	public static void ensureStateOfPuppetProjects(IProgressMonitor monitor) {
+	public void ensureStateOfPuppetProjects(IProgressMonitor monitor) {
 		IWorkspace workspace = ResourcesPlugin.getWorkspace();
 		IProject targetProject = workspace.getRoot().getProject(PPUiConstants.PPTP_TARGET_PROJECT_NAME);
 		ensureTargetProjectConfiguration(monitor);
@@ -88,7 +99,7 @@ public class PptpTargetProjectHandler {
 		}
 	}
 
-	public static void ensureTargetProjectConfiguration(IProgressMonitor monitor) {
+	public void ensureTargetProjectConfiguration(IProgressMonitor monitor) {
 		IWorkspace workspace = ResourcesPlugin.getWorkspace();
 		// While developing, keep this here to enable removal of hidden project in safe way
 		IProject oldTargetProject = workspace.getRoot().getProject(PPUiConstants.OLD_PPTP_TARGET_PROJECT_NAME);
@@ -138,10 +149,15 @@ public class PptpTargetProjectHandler {
 			log.error("Failed to configure target project", e);
 		}
 
-		// TODO: get a handle to the wanted target platform (.pptp) file from preferences
-		// NOW: Use a static .pptp
+		// get a handle to the wanted target platform (.pptp) file from preferences
+		//
 		try {
-			IPath defaultTPPath = new Path(PUPPET_TARGET);
+			// very simple, since there is only two to choose from
+			String path = PUPPET_TARGET_2_7;
+			if("2.6".equals(preferenceHelper.getPptpVersion()))
+				path = PUPPET_TARGET_2_6;
+
+			IPath defaultTPPath = new Path(path);
 			File pptpFile = BundledFilesUtils.getFileFromClassBundle(PptpRuntimeModule.class, defaultTPPath);
 			IFile targetFile = targetProject.getFile(defaultTPPath.lastSegment());
 			if(targetFile.exists()) {
@@ -151,9 +167,12 @@ public class PptpTargetProjectHandler {
 				}
 			}
 			else {
-				// delete all resources already there (either none, or some other/older .pptp)
-				for(IResource r : targetProject.members())
-					r.delete(true, monitor);
+				// delete all puppet-* resources already there (either none, or some other/older .pptp)
+				// this makes it possible to keep several that are not managed
+				for(IResource r : targetProject.members()) {
+					if(r.getName().startsWith("puppet-"))
+						r.delete(true, monitor);
+				}
 				InputStream inputStream = new FileInputStream(pptpFile);
 				targetFile.create(inputStream, true, monitor);
 			}
@@ -166,12 +185,12 @@ public class PptpTargetProjectHandler {
 		}
 	}
 
-	public static void initializePuppetWorkspace() {
+	public void initializePuppetWorkspace() {
 		Job job = new Job("Checking Puppet Projects") {
 			@Override
 			protected IStatus run(IProgressMonitor monitor) {
 				monitor.beginTask("Checking Puppet Projects ...", 100);
-				PptpTargetProjectHandler.ensureStateOfPuppetProjects(monitor);
+				ensureStateOfPuppetProjects(monitor);
 				monitor.done();
 				return Status.OK_STATUS;
 			}

@@ -51,9 +51,9 @@
     <extension
             point="org.eclipse.ui.preferencePages">
         <page
-            class="org.cloudsmith.geppetto.pp.dsl.ui.PPExecutableExtensionFactory:org.eclipse.xtext.ui.editor.preferences.LanguageRootPreferencePage"
-            id="org.cloudsmith.geppetto.pp.dsl.PP"
-            name="Puppet">
+              class="org.cloudsmith.geppetto.pp.dsl.ui.PPExecutableExtensionFactory:org.cloudsmith.geppetto.pp.dsl.ui.preferences.PPGeneralPreferencePage"
+              id="org.cloudsmith.geppetto.pp.dsl.PP"
+              name="Puppet">
             <keywordReference id="org.cloudsmith.geppetto.pp.dsl.ui.keyword_PP"/>
         </page>
         <page
@@ -278,7 +278,7 @@
     <extension
           point="org.eclipse.ui.startup">
        <startup
-             class="org.cloudsmith.geppetto.pp.dsl.ui.internal.PPStartup">
+             class="org.cloudsmith.geppetto.pp.dsl.ui.PPExecutableExtensionFactory:org.cloudsmith.geppetto.pp.dsl.ui.internal.PPStartup">
        </startup>
     </extension>
     <extension

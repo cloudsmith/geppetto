@@ -11,12 +11,14 @@
  */
 package org.cloudsmith.geppetto.pp.dsl.ui.preferences;
 
+import org.cloudsmith.geppetto.pp.dsl.ui.pptp.PptpTargetProjectHandler;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.util.IPropertyChangeListener;
 import org.eclipse.jface.util.PropertyChangeEvent;
 import org.eclipse.xtext.ui.editor.preferences.IPreferenceStoreAccess;
 import org.eclipse.xtext.ui.editor.preferences.IPreferenceStoreInitializer;
 
+import com.google.inject.Inject;
 import com.google.inject.Singleton;
 
 /**
@@ -43,6 +45,11 @@ public class PPPreferencesHelper implements IPreferenceStoreInitializer, IProper
 
 	public final static int AUTO_INSERT_DQ = 0x20;
 
+	private IPreferenceStore store;
+
+	@Inject
+	private PptpTargetProjectHandler pptpHandler;
+
 	public PPPreferencesHelper() {
 		configureAutoInsertOverride();
 	}
@@ -58,6 +65,10 @@ public class PPPreferencesHelper implements IPreferenceStoreInitializer, IProper
 		}
 	}
 
+	public String getPptpVersion() {
+		return store.getString(PPPreferenceConstants.PUPPET_TARGET_VERSION);
+	}
+
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -66,8 +77,10 @@ public class PPPreferencesHelper implements IPreferenceStoreInitializer, IProper
 	 */
 	@Override
 	public void initialize(IPreferenceStoreAccess access) {
-		IPreferenceStore store = access.getWritablePreferenceStore();
+		store = access.getWritablePreferenceStore();
 		store.setDefault(PPPreferenceConstants.AUTO_EDIT_STRATEGY, 0);
+		store.setDefault(PPPreferenceConstants.PUPPET_TARGET_VERSION, "2.7");
+
 		autoInsertOverrides = (int) store.getLong(PPPreferenceConstants.AUTO_EDIT_STRATEGY);
 		access.getWritablePreferenceStore().addPropertyChangeListener(this);
 
@@ -107,5 +120,9 @@ public class PPPreferencesHelper implements IPreferenceStoreInitializer, IProper
 		// System.err.println("Preference changed value: " + event.getProperty());
 		if(PPPreferenceConstants.AUTO_EDIT_STRATEGY.equals(event.getProperty()))
 			autoInsertOverrides = Integer.valueOf((String) event.getNewValue());
+
+		// If pptp changes, recheck the workspace
+		if(PPPreferenceConstants.PUPPET_TARGET_VERSION.equals(event.getProperty()))
+			pptpHandler.initializePuppetWorkspace();
 	}
 }

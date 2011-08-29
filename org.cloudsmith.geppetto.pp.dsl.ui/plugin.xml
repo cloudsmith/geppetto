@@ -70,6 +70,15 @@
             name="Templates">
             <keywordReference id="org.cloudsmith.geppetto.pp.dsl.ui.keyword_PP"/>
         </page>
+        <page
+              category="org.cloudsmith.geppetto.pp.dsl.PP"
+              class="org.cloudsmith.geppetto.pp.dsl.ui.PPExecutableExtensionFactory:org.cloudsmith.geppetto.pp.dsl.ui.preferences.AutoEditPreferencePage"
+              id="org.cloudsmith.geppetto.pp.dsl.PP.autoEdits"
+              name="Auto Edits">
+           <keywordReference
+                 id="org.cloudsmith.geppetto.pp.dsl.ui.keyword_PP">
+           </keywordReference>
+        </page>
     </extension>
     <extension
         point="org.eclipse.ui.keywords">

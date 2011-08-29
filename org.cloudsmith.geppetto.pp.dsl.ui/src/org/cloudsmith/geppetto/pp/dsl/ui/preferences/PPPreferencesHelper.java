@@ -11,6 +11,12 @@
  */
 package org.cloudsmith.geppetto.pp.dsl.ui.preferences;
 
+import org.eclipse.jface.preference.IPreferenceStore;
+import org.eclipse.jface.util.IPropertyChangeListener;
+import org.eclipse.jface.util.PropertyChangeEvent;
+import org.eclipse.xtext.ui.editor.preferences.IPreferenceStoreAccess;
+import org.eclipse.xtext.ui.editor.preferences.IPreferenceStoreInitializer;
+
 import com.google.inject.Singleton;
 
 /**
@@ -19,23 +25,23 @@ import com.google.inject.Singleton;
  * 
  */
 @Singleton
-public class PPPreferencesHelper {
+public class PPPreferencesHelper implements IPreferenceStoreInitializer, IPropertyChangeListener {
 
 	private int autoInsertOverrides = 0;
 
 	private final static String OVERRIDE_AUTO_INSERT = "org.cloudsmith.geppetto.override.autoinsert";
 
-	private final static int OVERRIDE_AUTO_INSERT_BRACKETS = 0x01;
+	public final static int AUTO_INSERT_BRACKETS = 0x01;
 
-	private final static int OVERRIDE_AUTO_INSERT_BRACES = 0x02;
+	public final static int AUTO_INSERT_BRACES = 0x02;
 
-	private final static int OVERRIDE_AUTO_INSERT_PARENTHESES = 0x04;
+	public final static int AUTO_INSERT_PARENTHESES = 0x04;
 
-	private final static int OVERRIDE_AUTO_INSERT_COMMENT = 0x08;
+	public final static int AUTO_INSERT_COMMENT = 0x08;
 
-	private final static int OVERRIDE_AUTO_INSERT_SQ = 0x10;
+	public final static int AUTO_INSERT_SQ = 0x10;
 
-	private final static int OVERRIDE_AUTO_INSERT_DQ = 0x20;
+	public final static int AUTO_INSERT_DQ = 0x20;
 
 	public PPPreferencesHelper() {
 		configureAutoInsertOverride();
@@ -48,32 +54,58 @@ public class PPPreferencesHelper {
 			autoInsertOverrides = Integer.parseInt(propValue);
 		}
 		catch(NumberFormatException e) {
-			System.err.println("Faulty integer format for property: " + OVERRIDE_AUTO_INSERT + " was: " + propValue);
 			autoInsertOverrides = 0;
 		}
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.eclipse.xtext.ui.editor.preferences.IPreferenceStoreInitializer#initialize(org.eclipse.xtext.ui.editor.preferences.IPreferenceStoreAccess)
+	 */
+	@Override
+	public void initialize(IPreferenceStoreAccess access) {
+		IPreferenceStore store = access.getWritablePreferenceStore();
+		store.setDefault(PPPreferenceConstants.AUTO_EDIT_STRATEGY, 0);
+		autoInsertOverrides = (int) store.getLong(PPPreferenceConstants.AUTO_EDIT_STRATEGY);
+		access.getWritablePreferenceStore().addPropertyChangeListener(this);
+
+	}
+
 	public boolean isAutoBraceInsertWanted() {
-		return (autoInsertOverrides & OVERRIDE_AUTO_INSERT_BRACES) == 0;
+		return (autoInsertOverrides & AUTO_INSERT_BRACES) == 0;
 	}
 
 	public boolean isAutoBracketInsertWanted() {
-		return (autoInsertOverrides & OVERRIDE_AUTO_INSERT_BRACKETS) == 0;
+		return (autoInsertOverrides & AUTO_INSERT_BRACKETS) == 0;
 	}
 
 	public boolean isAutoDqStringInsertWanted() {
-		return (autoInsertOverrides & OVERRIDE_AUTO_INSERT_DQ) == 0;
+		return (autoInsertOverrides & AUTO_INSERT_DQ) == 0;
 	}
 
 	public boolean isAutoMLCommentInsertWanted() {
-		return (autoInsertOverrides & OVERRIDE_AUTO_INSERT_COMMENT) == 0;
+		return (autoInsertOverrides & AUTO_INSERT_COMMENT) == 0;
 	}
 
 	public boolean isAutoParenthesisInsertWanted() {
-		return (autoInsertOverrides & OVERRIDE_AUTO_INSERT_PARENTHESES) == 0;
+		return (autoInsertOverrides & AUTO_INSERT_PARENTHESES) == 0;
 	}
 
 	public boolean isAutoSqStringInsertWanted() {
-		return (autoInsertOverrides & OVERRIDE_AUTO_INSERT_SQ) == 0;
+		return (autoInsertOverrides & AUTO_INSERT_SQ) == 0;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.jface.util.IPropertyChangeListener#propertyChange(org.eclipse.jface.util.PropertyChangeEvent)
+	 */
+	@Override
+	public void propertyChange(PropertyChangeEvent event) {
+		// System.err.println("Preference changed value: " + event.getProperty());
+		if(PPPreferenceConstants.AUTO_EDIT_STRATEGY.equals(event.getProperty()))
+			autoInsertOverrides = Integer.valueOf((String) event.getNewValue());
 	}
 }

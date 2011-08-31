@@ -14,6 +14,7 @@ package org.cloudsmith.geppetto.pp.dsl.ui;
 import org.cloudsmith.geppetto.common.tracer.DefaultTracer;
 import org.cloudsmith.geppetto.common.tracer.ITracer;
 import org.cloudsmith.geppetto.pp.dsl.lexer.PPOverridingLexer;
+import org.cloudsmith.geppetto.pp.dsl.linking.PPSearchPath.ISearchPathProvider;
 import org.cloudsmith.geppetto.pp.dsl.ui.builder.PPModulefileBuilder;
 import org.cloudsmith.geppetto.pp.dsl.ui.coloring.PPHighlightConfiguration;
 import org.cloudsmith.geppetto.pp.dsl.ui.coloring.PPSemanticHighlightingCalculator;
@@ -22,6 +23,7 @@ import org.cloudsmith.geppetto.pp.dsl.ui.container.PPWorkspaceProjectsStateProvi
 import org.cloudsmith.geppetto.pp.dsl.ui.editor.autoedit.PPEditStrategyProvider;
 import org.cloudsmith.geppetto.pp.dsl.ui.editor.autoedit.PPTokenTypeToPartionMapper;
 import org.cloudsmith.geppetto.pp.dsl.ui.editor.toggleComments.PPSingleLineCommentHelper;
+import org.cloudsmith.geppetto.pp.dsl.ui.linking.PPUISearchPathProvider;
 import org.cloudsmith.geppetto.pp.dsl.ui.outline.PPLocationInFileProvider;
 import org.cloudsmith.geppetto.pp.dsl.ui.preferences.PPPreferencesHelper;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
@@ -104,6 +106,10 @@ public class PPUiModule extends org.cloudsmith.geppetto.pp.dsl.ui.AbstractPPUiMo
 		return PPModulefileBuilder.class;
 	}
 
+	public Class<? extends ISearchPathProvider> bindSearchPathProvider() {
+		return PPUISearchPathProvider.class;
+	}
+
 	public Class<? extends AbstractAntlrTokenToAttributeIdMapper> bindTokenToAttributeIdMapper() {
 		return PPTokenToAttributeIdMapper.class;
 	}
@@ -136,4 +142,5 @@ public class PPUiModule extends org.cloudsmith.geppetto.pp.dsl.ui.AbstractPPUiMo
 		// return org.eclipse.xtext.ui.shared.Access.getWorkspaceProjectsState();
 		return new PPWorkspaceProjectsStateProvider();
 	}
+
 }

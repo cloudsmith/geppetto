@@ -43,6 +43,7 @@ import org.cloudsmith.geppetto.pp.dsl.adapters.ResourcePropertiesAdapter;
 import org.cloudsmith.geppetto.pp.dsl.adapters.ResourcePropertiesAdapterFactory;
 import org.cloudsmith.geppetto.pp.dsl.contentassist.PPProposalsGenerator;
 import org.cloudsmith.geppetto.pp.dsl.eval.PPStringConstantEvaluator;
+import org.cloudsmith.geppetto.pp.dsl.linking.PPSearchPath.ISearchPathProvider;
 import org.cloudsmith.geppetto.pp.dsl.validation.IPPDiagnostics;
 import org.cloudsmith.geppetto.pp.pptp.PPTPPackage;
 import org.eclipse.emf.common.util.EList;
@@ -245,6 +246,11 @@ public class PPResourceLinker implements IPPDiagnostics {
 	private Multimap<String, IEObjectDescription> exportedPerLastSegment;
 
 	private Resource resource;
+
+	@Inject
+	private ISearchPathProvider searchPathProvider;
+
+	private PPSearchPath searchPath;
 
 	/**
 	 * polymorph {@link #link(EObject, IMessageAcceptor)}
@@ -720,7 +726,7 @@ public class PPResourceLinker implements IPPDiagnostics {
 			for(IEObjectDescription d : targets)
 				tracer.trace("    : ", converter.toString(d.getName()), " in: ", d.getEObjectURI().path());
 		}
-		return targets;
+		return searchPathAdjusted(targets);
 	}
 
 	private List<IEObjectDescription> findFunction(EObject scopeDetermeningObject, QualifiedName fqn,
@@ -1029,6 +1035,8 @@ public class PPResourceLinker implements IPPDiagnostics {
 	 */
 	public void link(EObject model, IMessageAcceptor acceptor, boolean profileThis) {
 		resource = model.eResource();
+		searchPath = searchPathProvider.get(resource);
+
 		// clear names remembered in the past
 		PPImportedNamesAdapter importedNames = PPImportedNamesAdapterFactory.eINSTANCE.adapt(resource);
 		importedNames.clear();
@@ -1119,6 +1127,32 @@ public class PPResourceLinker implements IPPDiagnostics {
 				continue;
 			litor.remove();
 		}
+	}
+
+	/**
+	 * Adjusts the list of found targets in accordance with the search path for the resource being
+	 * linked. This potentially resolves ambiguities (if found result is further away on the path).
+	 * May return more than one result, if more than one resolution exist with the same path index.
+	 * 
+	 * @param targets
+	 * @return list of descriptions with lowest index.
+	 */
+	private List<IEObjectDescription> searchPathAdjusted(List<IEObjectDescription> targets) {
+		int minIdx = Integer.MAX_VALUE;
+		List<IEObjectDescription> result = Lists.newArrayList();
+		for(IEObjectDescription d : targets) {
+			int idx = searchPath.searchIndexOf(d);
+			if(idx < 0)
+				continue; // not found, skip
+			if(idx < minIdx) {
+				minIdx = idx;
+				result.clear(); // forget worse result
+			}
+			// only remember if equal to best found so far
+			if(idx <= minIdx)
+				result.add(d);
+		}
+		return result;
 	}
 
 	private String toInitialLowerCase(String s) {

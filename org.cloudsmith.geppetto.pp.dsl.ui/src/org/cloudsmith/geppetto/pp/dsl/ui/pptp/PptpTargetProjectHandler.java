@@ -195,7 +195,7 @@ public class PptpTargetProjectHandler {
 			protected IStatus run(IProgressMonitor monitor) {
 				monitor.beginTask("Checking Puppet Projects ...", 100);
 				// ensure that store is initialized before doing anything else
-				storeAccess.getWritablePreferenceStore();
+				preferenceHelper.initialize(storeAccess);
 				ensureStateOfPuppetProjects(monitor);
 				monitor.done();
 				return Status.OK_STATUS;

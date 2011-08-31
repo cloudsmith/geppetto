@@ -76,7 +76,10 @@ public class PPPreferencesHelper implements IPreferenceStoreInitializer, IProper
 	 * org.eclipse.xtext.ui.editor.preferences.IPreferenceStoreInitializer#initialize(org.eclipse.xtext.ui.editor.preferences.IPreferenceStoreAccess)
 	 */
 	@Override
-	public void initialize(IPreferenceStoreAccess access) {
+	synchronized public void initialize(IPreferenceStoreAccess access) {
+		// if already initialized
+		if(store != null)
+			return;
 		store = access.getWritablePreferenceStore();
 		store.setDefault(PPPreferenceConstants.AUTO_EDIT_STRATEGY, 0);
 		store.setDefault(PPPreferenceConstants.PUPPET_TARGET_VERSION, "2.7");

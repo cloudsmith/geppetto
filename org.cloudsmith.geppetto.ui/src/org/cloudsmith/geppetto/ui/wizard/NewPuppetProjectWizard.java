@@ -147,7 +147,8 @@ public class NewPuppetProjectWizard extends Wizard implements INewWizard {
 					project.refreshLocal(IResource.DEPTH_INFINITE, new SubProgressMonitor(progressMonitor, 1));
 				}
 				catch(Exception exception) {
-					UIPlugin.INSTANCE.log(exception);
+					MessageDialog.openError(
+						getShell(), UIPlugin.INSTANCE.getString("_UI_CreateProject_title"), exception.getMessage()); //$NON-NLS-1$
 				}
 				finally {
 					progressMonitor.done();
@@ -159,7 +160,8 @@ public class NewPuppetProjectWizard extends Wizard implements INewWizard {
 			getContainer().run(false, false, operation);
 		}
 		catch(Exception exception) {
-			UIPlugin.INSTANCE.log(exception);
+			MessageDialog.openError(
+				getShell(), UIPlugin.INSTANCE.getString("_UI_CreateProject_title"), exception.getMessage()); //$NON-NLS-1$
 			return false;
 		}
 
@@ -178,9 +180,11 @@ public class NewPuppetProjectWizard extends Wizard implements INewWizard {
 					return false;
 				}
 			}
+
+			return true;
 		}
 
-		return true;
+		return false;
 	}
 
 }

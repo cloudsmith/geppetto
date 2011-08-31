@@ -21,8 +21,6 @@ public class AutoEditPreferencePage extends AbstractPreferencePage {
 
 	@Override
 	protected void createFieldEditors() {
-		// addField(new LabelFieldEditor("Auto Edit Settings", getFieldEditorParent()));
-
 		// Automatically Complete
 		//
 		addField(new CheckBoxGroupFieldEditor(//

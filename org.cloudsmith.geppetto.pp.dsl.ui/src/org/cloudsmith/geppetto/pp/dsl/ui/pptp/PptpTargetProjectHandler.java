@@ -36,6 +36,7 @@ import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.SubMonitor;
 import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.xtext.ui.XtextProjectHelper;
+import org.eclipse.xtext.ui.editor.preferences.IPreferenceStoreAccess;
 
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
@@ -50,6 +51,9 @@ public class PptpTargetProjectHandler {
 
 	@Inject
 	PPPreferencesHelper preferenceHelper;
+
+	@Inject
+	IPreferenceStoreAccess storeAccess;
 
 	/**
 	 * The default puppet target
@@ -190,6 +194,8 @@ public class PptpTargetProjectHandler {
 			@Override
 			protected IStatus run(IProgressMonitor monitor) {
 				monitor.beginTask("Checking Puppet Projects ...", 100);
+				// ensure that store is initialized before doing anything else
+				preferenceHelper.initialize(storeAccess);
 				ensureStateOfPuppetProjects(monitor);
 				monitor.done();
 				return Status.OK_STATUS;

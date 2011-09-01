@@ -22,4 +22,10 @@ public class PPPreferenceConstants {
 	public static final String PUPPET_TARGET_VERSION = "pptpVersion";
 
 	public static final String PUPPET_PROJECT_PATH = "puppetPath";
+
+	public static final String PUPPET_PROJECT_PATH__ENABLED = "puppetPathEnabled";
+
+	public static final String PUPPET_ENVIRONMENT = "puppetEnvironment";
+
+	public static final String PUPPET_ENVIRONMENT__ENABLED = "puppetEnvironmentEnabled";
 }

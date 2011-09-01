@@ -24,6 +24,7 @@ import org.cloudsmith.geppetto.common.score.ScoreKeeper;
 import org.cloudsmith.geppetto.common.score.ScoreKeeper.ScoreEntry;
 import org.cloudsmith.geppetto.pp.PPPackage;
 import org.cloudsmith.geppetto.pp.dsl.PPDSLConstants;
+import org.cloudsmith.geppetto.pp.dsl.linking.PPSearchPath;
 import org.cloudsmith.geppetto.pp.pptp.PPTPPackage;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.xtext.naming.IQualifiedNameConverter;
@@ -86,17 +87,20 @@ public class PPProposalsGenerator {
 	 * 
 	 * @param currentName
 	 * @param descs
+	 * @param searchPath
+	 *            TODO
 	 * @param types
 	 * @return
 	 */
-	public String[] computeAttributeProposals(final QualifiedName currentName, Collection<IEObjectDescription> descs) {
+	public String[] computeAttributeProposals(final QualifiedName currentName, Collection<IEObjectDescription> descs,
+			PPSearchPath searchPath) {
 		if(currentName.getSegmentCount() < 2)
 			return new String[0];
 
 		final DoubleMetaphone encoder = new DoubleMetaphone();
 		final String metaphoneName = encoder.encode(currentName.getLastSegment());
 
-		Collection<String> proposals = generateAttributeCandidates(currentName, descs);
+		Collection<String> proposals = generateAttributeCandidates(currentName, descs, searchPath);
 		// propose all, but sort them based on likeness
 
 		String[] result = new String[proposals.size()];
@@ -148,12 +152,15 @@ public class PPProposalsGenerator {
 	 *            the name for which proposals are to be generated
 	 * @param descs
 	 *            the descriptors of available named values
+	 * @param searchPath
+	 *            TODO
 	 * @param types
 	 *            if stated, the wanted types of named values
 	 * @return
 	 *         array of proposals, possibly empty, but never null.
 	 */
-	public String[] computeProposals(final String currentName, Collection<IEObjectDescription> descs, EClass... types) {
+	public String[] computeProposals(final String currentName, Collection<IEObjectDescription> descs,
+			PPSearchPath searchPath, EClass... types) {
 		// compute the 5 best matches and only accept if score <= 5
 		ScoreKeeper<IEObjectDescription> tracker = new ScoreKeeper<IEObjectDescription>(5, false, 5);
 		// List<IEObjectDescription> metaphoneAlike = Lists.newArrayList();
@@ -168,6 +175,10 @@ public class PPProposalsGenerator {
 						break typeok;
 				continue;
 			}
+			// filter based on path visibility
+			if(searchPath.searchIndexOf(d) == -1)
+				continue; // not visible according to path
+
 			String candidateName = converter.toString(d.getName());
 			tracker.addScore(StringUtils.getLevenshteinDistance(currentName, candidateName), d);
 			String candidateMetaphone = encoder.encode(candidateName);
@@ -202,7 +213,7 @@ public class PPProposalsGenerator {
 	}
 
 	public Collection<String> generateAttributeCandidates(final QualifiedName currentName,
-			Collection<IEObjectDescription> descs) {
+			Collection<IEObjectDescription> descs, PPSearchPath searchPath) {
 		// find candidate names
 		if(currentName.getSegmentCount() < 2)
 			return Collections.emptySet();
@@ -223,6 +234,8 @@ public class PPProposalsGenerator {
 			// find all that start with className and are properties or parameters
 			// also find the class/definition itself (possibly ambiguous).
 			for(IEObjectDescription d : descs) {
+				if(searchPath.searchIndexOf(d) == -1)
+					continue; // not visible
 				EClass ec = d.getEClass();
 				QualifiedName name = d.getName();
 				if(name.startsWith(prefix)) {

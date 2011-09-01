@@ -270,7 +270,7 @@ public class PPResourceLinker implements IPPDiagnostics {
 			internalLinkFunctionArguments(name, o, importedNames, acceptor);
 			return; // ok, found
 		}
-		String[] proposals = proposer.computeProposals(name, exportedPerLastSegment.values(), FUNC);
+		String[] proposals = proposer.computeProposals(name, exportedPerLastSegment.values(), searchPath, FUNC);
 		acceptor.acceptError("Unknown function: '" + name + "'", o.getLeftExpr(), //
 		proposalIssue(IPPDiagnostics.ISSUE__UNKNOWN_FUNCTION_REFERENCE, proposals), //
 			proposals);
@@ -318,7 +318,7 @@ public class PPResourceLinker implements IPPDiagnostics {
 
 			// ... and finally, if there was neither a type nor a definition reference
 			String[] proposals = proposer.computeProposals(
-				parentString, exportedPerLastSegment.values(), CLASS_AND_TYPE);
+				parentString, exportedPerLastSegment.values(), searchPath, CLASS_AND_TYPE);
 			acceptor.acceptError(
 				"Unknown class: '" + parentString + "'", o, //
 				PPPackage.Literals.HOST_CLASS_DEFINITION__PARENT,
@@ -350,7 +350,7 @@ public class PPResourceLinker implements IPPDiagnostics {
 				// Add unresolved info at resource level
 				importedNames.addUnresolved(converter.toQualifiedName(className));
 				String[] proposals = proposer.computeProposals(
-					className, exportedPerLastSegment.values(), CLASS_AND_TYPE);
+					className, exportedPerLastSegment.values(), searchPath, CLASS_AND_TYPE);
 				acceptor.acceptError(
 					"Unknown class: '" + className + "'", o, //
 					PPPackage.Literals.RESOURCE_BODY__NAME_EXPR,
@@ -389,7 +389,7 @@ public class PPResourceLinker implements IPPDiagnostics {
 						if(findAttributes(o, fqn, importedNames, profileThis).size() > 0)
 							continue; // found one such parameter == ok
 
-						String[] proposals = proposer.computeAttributeProposals(fqn, exportedPerLastSegment.values());
+						String[] proposals = proposer.computeAttributeProposals(fqn, exportedPerLastSegment.values(), searchPath);
 						acceptor.acceptError(
 							"Unknown parameter: '" + ao.getKey() + "' in definition: '" + desc.getName() + "'", ao,
 							PPPackage.Literals.ATTRIBUTE_OPERATION__KEY,
@@ -433,7 +433,7 @@ public class PPResourceLinker implements IPPDiagnostics {
 								IPPDiagnostics.ISSUE__RESOURCE_DEPRECATED_NAME_ALIAS);
 							continue;
 						}
-						String[] proposals = proposer.computeAttributeProposals(fqn, exportedPerLastSegment.values());
+						String[] proposals = proposer.computeAttributeProposals(fqn, exportedPerLastSegment.values(), searchPath);
 						acceptor.acceptError(
 							"Unknown parameter: '" + ao.getKey() + "' in definition: '" + desc.getName() + "'", ao,
 							PPPackage.Literals.ATTRIBUTE_OPERATION__KEY,
@@ -509,7 +509,7 @@ public class PPResourceLinker implements IPPDiagnostics {
 				// Add unresolved info at resource level
 				importedNames.addUnresolved(converter.toQualifiedName(resourceTypeName));
 				String[] proposals = proposer.computeProposals(
-					resourceTypeName, exportedPerLastSegment.values(), DEF_AND_TYPE);
+					resourceTypeName, exportedPerLastSegment.values(), searchPath, DEF_AND_TYPE);
 				acceptor.acceptError(
 					"Unknown resource type: '" + resourceTypeName + "'", o,
 					PPPackage.Literals.RESOURCE_EXPRESSION__RESOURCE_EXPR, //
@@ -821,7 +821,7 @@ public class PPResourceLinker implements IPPDiagnostics {
 						importedNames.addUnresolved(converter.toQualifiedName(className));
 
 						String[] p = proposer.computeProposals(
-							className, exportedPerLastSegment.values(), CLASS_AND_TYPE);
+							className, exportedPerLastSegment.values(), searchPath, CLASS_AND_TYPE);
 						acceptor.acceptError(
 							"Unknown class: '" + className + "'", o, //
 							PPPackage.Literals.PARAMETERIZED_EXPRESSION__PARAMETERS, parameterIndex,
@@ -912,7 +912,7 @@ public class PPResourceLinker implements IPPDiagnostics {
 						importedNames.addUnresolved(converter.toQualifiedName(className));
 
 						String[] proposals = proposer.computeProposals(
-							className, exportedPerLastSegment.values(), CLASS_AND_TYPE);
+							className, exportedPerLastSegment.values(), searchPath, CLASS_AND_TYPE);
 						String issueCode = proposalIssue(IPPDiagnostics.ISSUE__RESOURCE_UNKNOWN_TYPE, proposals);
 						if(param instanceof ExprList) {
 							acceptor.acceptError("Unknown class: '" + className + "'", //
@@ -993,7 +993,7 @@ public class PPResourceLinker implements IPPDiagnostics {
 						name, (LiteralNameOrReference) s, statements, i, importedNames, acceptor);
 					continue each_top; // ok, found
 				}
-				String[] proposals = proposer.computeProposals(name, exportedPerLastSegment.values(), FUNC);
+				String[] proposals = proposer.computeProposals(name, exportedPerLastSegment.values(), searchPath, FUNC);
 				acceptor.acceptError(
 					"Unknown function: '" + name + "'", s, PPPackage.Literals.LITERAL_NAME_OR_REFERENCE__VALUE,
 					proposalIssue(IPPDiagnostics.ISSUE__UNKNOWN_FUNCTION_REFERENCE, proposals), //

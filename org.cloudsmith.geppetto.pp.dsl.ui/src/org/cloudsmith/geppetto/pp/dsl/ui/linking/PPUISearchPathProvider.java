@@ -48,17 +48,38 @@ public class PPUISearchPathProvider extends PPSearchPathProvider {
 		String handle = allContainers.getContainerHandle(r.getURI());
 		// get project
 		IProject project = workspace.getRoot().getProject(handle);
-		// get project specific preference
+
+		// get project specific preference and use them if they are enabled
 		IPreferenceStore store = preferenceStoreAccess.getContextPreferenceStore(project);
-		String pathString = store.getString(PPPreferenceConstants.PUPPET_PROJECT_PATH);
-		// get global
-		if(pathString == null || pathString.length() == 0) {
+		boolean pathStringEnabled = store.getBoolean(PPPreferenceConstants.PUPPET_PROJECT_PATH__ENABLED);
+		boolean environmentEnabled = store.getBoolean(PPPreferenceConstants.PUPPET_ENVIRONMENT__ENABLED);
+		String pathString = !pathStringEnabled
+				? null
+				: store.getString(PPPreferenceConstants.PUPPET_PROJECT_PATH);
+		String environment = !environmentEnabled
+				? null
+				: store.getString(PPPreferenceConstants.PUPPET_ENVIRONMENT);
+
+		// get global preferences if needed
+		boolean checkDeaultPath = pathString == null || pathString.length() == 0;
+		boolean checkDefaultEnv = environment == null || environment.length() == 0;
+		if(checkDeaultPath || checkDefaultEnv) {
 			store = preferenceStoreAccess.getPreferenceStore();
-			pathString = store.getString(PPPreferenceConstants.PUPPET_PROJECT_PATH);
+			if(checkDeaultPath)
+				pathString = store.getString(PPPreferenceConstants.PUPPET_PROJECT_PATH);
+			if(checkDefaultEnv)
+				environment = store.getString(PPPreferenceConstants.PUPPET_ENVIRONMENT);
 		}
+		// Enforce sane default in case of faolure to get preferences
 		// if nothing so far, return a global "everything" path
 		if(pathString == null || pathString.length() == 0)
 			pathString = "*";
-		return PPSearchPath.fromString(pathString, null);
+		PPSearchPath searchPath = PPSearchPath.fromString(pathString, null);
+		// if environment is still empty
+		if(environment == null || environment.length() == 0)
+			environment = "production";
+
+		// return a resolved search path
+		return searchPath.evaluate(environment);
 	}
 }

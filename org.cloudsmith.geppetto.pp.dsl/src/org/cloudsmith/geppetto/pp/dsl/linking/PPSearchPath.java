@@ -142,6 +142,10 @@ public class PPSearchPath {
 	public int searchIndexOf(URI uri) {
 		String uriPath = uri.path();
 		IPath p = new Path(uriPath);
+		if("pptp".equals(p.getFileExtension()))
+			return 0; // All pptp are searched first - ALWAYS
+		if(uri.isPlatformResource())
+			p = p.removeFirstSegments(2);
 		for(int idx = 0; idx < searchPath.size(); idx++) {
 			IPath q = searchPath.get(idx);
 			if(isMatch(p, q))

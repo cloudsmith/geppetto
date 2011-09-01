@@ -50,6 +50,10 @@ public class PPPreferencesHelper implements IPreferenceStoreInitializer, IProper
 	@Inject
 	private PptpTargetProjectHandler pptpHandler;
 
+	private static final String defaultProjectPath = "lib/*:environments/$environment/*:manifests/*:modules/*";
+
+	private static final String defaultPuppetEnvironment = "production";
+
 	public PPPreferencesHelper() {
 		configureAutoInsertOverride();
 	}
@@ -83,6 +87,8 @@ public class PPPreferencesHelper implements IPreferenceStoreInitializer, IProper
 		store = access.getWritablePreferenceStore();
 		store.setDefault(PPPreferenceConstants.AUTO_EDIT_STRATEGY, 0);
 		store.setDefault(PPPreferenceConstants.PUPPET_TARGET_VERSION, "2.7");
+		store.setDefault(PPPreferenceConstants.PUPPET_PROJECT_PATH, defaultProjectPath);
+		store.setDefault(PPPreferenceConstants.PUPPET_ENVIRONMENT, defaultPuppetEnvironment);
 
 		autoInsertOverrides = (int) store.getLong(PPPreferenceConstants.AUTO_EDIT_STRATEGY);
 		access.getWritablePreferenceStore().addPropertyChangeListener(this);

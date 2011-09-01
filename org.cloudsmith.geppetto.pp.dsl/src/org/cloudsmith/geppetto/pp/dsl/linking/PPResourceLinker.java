@@ -14,6 +14,7 @@ package org.cloudsmith.geppetto.pp.dsl.linking;
 import static org.cloudsmith.geppetto.pp.adapters.ClassifierAdapter.RESOURCE_IS_CLASSPARAMS;
 import static org.cloudsmith.geppetto.pp.adapters.ClassifierAdapter.RESOURCE_IS_OVERRIDE;
 
+import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -305,6 +306,10 @@ public class PPResourceLinker implements IPPDiagnostics {
 					IPPDiagnostics.ISSUE__RESOURCE_AMBIGUOUS_REFERENCE,
 					proposer.computeDistinctProposals(parentString, descs));
 			}
+			// must check for circularity
+			List<QualifiedName> visited = Lists.newArrayList();
+			visited.add(converter.toQualifiedName(o.getClassName()));
+			checkCircularInheritence(o, descs, visited, acceptor, importedNames);
 		}
 		else {
 			// record unresolved name at resource level
@@ -579,6 +584,27 @@ public class PPResourceLinker implements IPPDiagnostics {
 				return false;
 		}
 		return true;
+	}
+
+	protected void checkCircularInheritence(HostClassDefinition o, Collection<IEObjectDescription> descs,
+			List<QualifiedName> stack, IMessageAcceptor acceptor, PPImportedNamesAdapter importedNames) {
+		for(IEObjectDescription d : descs) {
+			QualifiedName name = d.getName();
+			if(stack.contains(name)) {
+				// Gotcha!
+				acceptor.acceptError( //
+					"Circular inheritence", o, //
+					PPPackage.Literals.HOST_CLASS_DEFINITION__PARENT, //
+					IPPDiagnostics.ISSUE__CIRCULAR_INHERITENCE);
+				return; // no use continuing
+			}
+			stack.add(name);
+			String parentName = d.getUserData(PPDSLConstants.PARENT_NAME_DATA);
+			if(parentName == null || parentName.length() == 0)
+				continue;
+			List<IEObjectDescription> parents = findHostClasses(d.getEObjectOrProxy(), parentName, importedNames);
+			checkCircularInheritence(o, parents, stack, acceptor, importedNames);
+		}
 	}
 
 	private boolean containsNameVar(List<IEObjectDescription> descriptions) {

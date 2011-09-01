@@ -131,4 +131,6 @@ public interface IPPDiagnostics {
 	public static final String ISSUE__RESOURCE_DUPLICATE_NAME_PARAMETER = ISSUE_PREFIX +
 			"ResourceDuplicateNameParameter";
 
+	public static final String ISSUE__CIRCULAR_INHERITENCE = ISSUE_PREFIX + "CircularInheritence";
+
 }

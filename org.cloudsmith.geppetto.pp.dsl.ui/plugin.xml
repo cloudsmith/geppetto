@@ -79,6 +79,24 @@
                  id="org.cloudsmith.geppetto.pp.dsl.ui.keyword_PP">
            </keywordReference>
         </page>
+        <page
+              category="org.cloudsmith.geppetto.pp.dsl.PP"
+              class="org.cloudsmith.geppetto.pp.dsl.ui.PPExecutableExtensionFactory:org.cloudsmith.geppetto.pp.dsl.ui.preferences.PPPathPreferencePage"
+              id="org.cloudsmith.geppetto.pp.dsl.PP.searchPath"
+              name="Search Pathment">
+           <keywordReference
+                 id="org.cloudsmith.geppetto.pp.dsl.ui.keyword_PP">
+           </keywordReference>
+        </page>
+        <page
+              category="org.cloudsmith.geppetto.pp.dsl.PP"
+              class="org.cloudsmith.geppetto.pp.dsl.ui.PPExecutableExtensionFactory:org.cloudsmith.geppetto.pp.dsl.ui.preferences.PPEnvironmentPreferencePage"
+              id="org.cloudsmith.geppetto.pp.dsl.PP.environment"
+              name="Environment">
+           <keywordReference
+                 id="org.cloudsmith.geppetto.pp.dsl.ui.keyword_PP">
+           </keywordReference>
+        </page>
     </extension>
     <extension
         point="org.eclipse.ui.keywords">

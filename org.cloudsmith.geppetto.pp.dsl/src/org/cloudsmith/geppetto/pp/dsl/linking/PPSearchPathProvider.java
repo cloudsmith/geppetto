@@ -11,23 +11,29 @@
  */
 package org.cloudsmith.geppetto.pp.dsl.linking;
 
+import org.cloudsmith.geppetto.pp.dsl.linking.PPSearchPath.IConfigurableProvider;
+import org.cloudsmith.geppetto.pp.dsl.linking.PPSearchPath.ISearchPathProvider;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
 
 import com.google.inject.Singleton;
 
 /**
- * @author henrik
+ * Implementation of an {@link ISearchPathProvider} that returns a path based on a default path.
  * 
  */
 @Singleton
-public class PPSearchPathProvider implements PPSearchPath.ISearchPathProvider {
+public class PPSearchPathProvider implements ISearchPathProvider, IConfigurableProvider {
 
 	private String defaultPath;
 
-	private URI pptpContainer;
-
 	private URI rootDirectory;
+
+	private String environment;
+
+	public PPSearchPathProvider() {
+		defaultPath = "*";
+	}
 
 	/*
 	 * (non-Javadoc)
@@ -36,12 +42,17 @@ public class PPSearchPathProvider implements PPSearchPath.ISearchPathProvider {
 	 * org.eclipse.emf.common.util.URI)
 	 */
 	@Override
-	public void configure(URI pptpContainer, URI rootDirectory, String defaultPath) {
+	public void configure(URI rootDirectory, String defaultPath, String environment) {
 		if(defaultPath == null)
 			defaultPath = "*";
 		this.defaultPath = defaultPath;
+		if(rootDirectory == null)
+			throw new IllegalArgumentException("root directory must be specified");
+
 		this.rootDirectory = rootDirectory;
-		this.pptpContainer = pptpContainer;
+		if(environment == null)
+			environment = "production";
+		this.environment = environment;
 	}
 
 	/*
@@ -51,7 +62,6 @@ public class PPSearchPathProvider implements PPSearchPath.ISearchPathProvider {
 	 */
 	@Override
 	public PPSearchPath get(Resource r) {
-		// TODO: construct entry for pptp
-		return PPSearchPath.fromString(defaultPath, rootDirectory);
+		return PPSearchPath.fromString(defaultPath, rootDirectory).evaluate(environment);
 	}
 }

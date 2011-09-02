@@ -27,19 +27,21 @@ import com.google.common.collect.Lists;
  * notes:
  * rootURI - URI to file:: root, used to make paths relative if URI is an absolute file uri
  * 
- * TODO: the pptp for the distro must be injected into index 0 of the path
  * 
  */
 public class PPSearchPath {
-	public interface ISearchPathProvider {
+	public interface IConfigurableProvider {
 		/**
 		 * Configure the search path provider so it knows the container of (distro) pptp, and
 		 * root for absolute files (may be null).
 		 * 
-		 * @param pptpContainer
 		 * @param rootDirectory
 		 */
-		public void configure(URI pptpContainer, URI rootDirectory, String defalutPath);
+		public void configure(URI rootPath, String defalutPath, String environment);
+
+	}
+
+	public interface ISearchPathProvider {
 
 		public PPSearchPath get(Resource r);
 	}

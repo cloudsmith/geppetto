@@ -61,6 +61,19 @@ public class PPPathPreferencePage extends AbstractPreferencePage {
 				result += "/*";
 			return result;
 		}
+
+		/*
+		 * (non-Javadoc)
+		 * 
+		 * @see org.eclipse.jface.preference.FieldEditor#load()
+		 */
+		@Override
+		public void load() {
+			// must clear before loading since a switch to project specific otherwise gets
+			// the default content + the project specific content.
+			getList().removeAll();
+			super.load();
+		}
 	}
 
 	static class PromptDialog extends Dialog {

@@ -167,6 +167,8 @@ public class PPPathPreferencePage extends AbstractPreferencePage {
 		}
 	}
 
+	private static final String PAGE_ID = "org.cloudsmith.geppetto.pp.dsl.PP.searchPath";
+
 	@Override
 	protected void createFieldEditors() {
 		PPPathEditor pathField = new PPPathEditor(PPPreferenceConstants.PUPPET_PROJECT_PATH, //
@@ -174,4 +176,13 @@ public class PPPathPreferencePage extends AbstractPreferencePage {
 		addField(pathField);
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.xtext.ui.editor.preferences.AbstractPreferencePage#qualifiedName()
+	 */
+	@Override
+	protected String qualifiedName() {
+		return PAGE_ID;
+	}
 }

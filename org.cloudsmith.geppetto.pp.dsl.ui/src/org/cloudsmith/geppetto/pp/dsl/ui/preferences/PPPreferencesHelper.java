@@ -11,7 +11,9 @@
  */
 package org.cloudsmith.geppetto.pp.dsl.ui.preferences;
 
+import org.cloudsmith.geppetto.pp.dsl.ui.builder.PPBuildJob;
 import org.cloudsmith.geppetto.pp.dsl.ui.pptp.PptpTargetProjectHandler;
+import org.eclipse.core.resources.IWorkspace;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.util.IPropertyChangeListener;
 import org.eclipse.jface.util.PropertyChangeEvent;
@@ -53,6 +55,9 @@ public class PPPreferencesHelper implements IPreferenceStoreInitializer, IProper
 	private static final String defaultProjectPath = "lib/*:environments/$environment/*:manifests/*:modules/*";
 
 	private static final String defaultPuppetEnvironment = "production";
+
+	@Inject
+	IWorkspace workspace;
 
 	public PPPreferencesHelper() {
 		configureAutoInsertOverride();
@@ -133,5 +138,14 @@ public class PPPreferencesHelper implements IPreferenceStoreInitializer, IProper
 		// If pptp changes, recheck the workspace
 		if(PPPreferenceConstants.PUPPET_TARGET_VERSION.equals(event.getProperty()))
 			pptpHandler.initializePuppetWorkspace();
+
+		if(PPPreferenceConstants.PUPPET_ENVIRONMENT.equals(event.getProperty())) {
+			PPBuildJob job = new PPBuildJob(workspace);
+			job.schedule();
+		}
+		if(PPPreferenceConstants.PUPPET_PROJECT_PATH.equals(event.getProperty())) {
+			PPBuildJob job = new PPBuildJob(workspace);
+			job.schedule();
+		}
 	}
 }

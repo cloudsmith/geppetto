@@ -12,21 +12,24 @@
 package org.cloudsmith.geppetto.pp.dsl.ui.preferences;
 
 import org.eclipse.jface.preference.StringFieldEditor;
-import org.eclipse.xtext.ui.editor.preferences.AbstractPreferencePage;
 
 /**
  * A simple preference page for selection of puppet target.
  * This is also the puppet root preference pane.
  * 
  */
-public class PPEnvironmentPreferencePage extends AbstractPreferencePage {
+public class PPEnvironmentPreferencePage extends AbstractRebuildingPreferencePage {
 	private static final String PAGE_ID = "org.cloudsmith.geppetto.pp.dsl.PP.environment";
 
 	@Override
 	protected void createFieldEditors() {
 
-		this.addField(new StringFieldEditor(
-			PPPreferenceConstants.PUPPET_ENVIRONMENT, "Environment", getFieldEditorParent()));
+		this.addField(new StringFieldEditor(getPreferenceId(), "Environment", getFieldEditorParent()));
+	}
+
+	@Override
+	protected String getPreferenceId() {
+		return PPPreferenceConstants.PUPPET_ENVIRONMENT;
 	}
 
 	/*

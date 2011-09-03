@@ -24,7 +24,7 @@ import org.eclipse.xtext.ui.editor.preferences.IPreferenceStoreAccess;
 import com.google.inject.Inject;
 
 /**
- * @author henrik
+ * A Puppet SearchPathProvider based on preferences.
  * 
  */
 
@@ -51,34 +51,18 @@ public class PPUISearchPathProvider extends PPSearchPathProvider {
 
 		// get project specific preference and use them if they are enabled
 		IPreferenceStore store = preferenceStoreAccess.getContextPreferenceStore(project);
-		boolean pathStringEnabled = store.getBoolean(PPPreferenceConstants.PUPPET_PROJECT_PATH__ENABLED);
-		boolean environmentEnabled = store.getBoolean(PPPreferenceConstants.PUPPET_ENVIRONMENT__ENABLED);
-		String pathString = !pathStringEnabled
-				? null
-				: store.getString(PPPreferenceConstants.PUPPET_PROJECT_PATH);
-		String environment = !environmentEnabled
-				? null
-				: store.getString(PPPreferenceConstants.PUPPET_ENVIRONMENT);
+		String pathString = store.getString(PPPreferenceConstants.PUPPET_PROJECT_PATH);
+		String environment = store.getString(PPPreferenceConstants.PUPPET_ENVIRONMENT);
 
-		// get global preferences if needed
-		boolean checkDeaultPath = pathString == null || pathString.length() == 0;
-		boolean checkDefaultEnv = environment == null || environment.length() == 0;
-		if(checkDeaultPath || checkDefaultEnv) {
-			store = preferenceStoreAccess.getPreferenceStore();
-			if(checkDeaultPath)
-				pathString = store.getString(PPPreferenceConstants.PUPPET_PROJECT_PATH);
-			if(checkDefaultEnv)
-				environment = store.getString(PPPreferenceConstants.PUPPET_ENVIRONMENT);
-		}
-		// Enforce sane default in case of faolure to get preferences
-		// if nothing so far, return a global "everything" path
-		if(pathString == null || pathString.length() == 0)
-			pathString = "*";
+		// if no path at all specified, the PPSearchPath enforces a default of "*"
 		PPSearchPath searchPath = PPSearchPath.fromString(pathString, null);
 		// if environment is still empty
+		if(environment != null)
+			environment = environment.trim();
 		if(environment == null || environment.length() == 0)
 			environment = "production";
 
+		// System.err.printf("Project %s uses env=%s and path=%s\n", project.getName(), environment, pathString);
 		// return a resolved search path
 		return searchPath.evaluate(environment);
 	}

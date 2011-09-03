@@ -49,6 +49,8 @@ public class PPSearchPath {
 	public static PPSearchPath fromString(String path, URI root) {
 		List<IPath> p = Lists.newArrayList();
 
+		if(path != null)
+			path = path.trim();
 		if(path == null || path.length() == 0)
 			path = "*"; // everything
 

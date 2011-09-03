@@ -25,13 +25,12 @@ import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Monitor;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
-import org.eclipse.xtext.ui.editor.preferences.AbstractPreferencePage;
 
 /**
  * A simple preference page for search path and environment
  * 
  */
-public class PPPathPreferencePage extends AbstractPreferencePage {
+public class PPPathPreferencePage extends AbstractRebuildingPreferencePage {
 	private static class PPPathEditor extends PathEditor {
 
 		/**
@@ -171,9 +170,19 @@ public class PPPathPreferencePage extends AbstractPreferencePage {
 
 	@Override
 	protected void createFieldEditors() {
-		PPPathEditor pathField = new PPPathEditor(PPPreferenceConstants.PUPPET_PROJECT_PATH, //
+		PPPathEditor pathField = new PPPathEditor(getPreferenceId(), //
 			"Search Path", getFieldEditorParent());
 		addField(pathField);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.cloudsmith.geppetto.pp.dsl.ui.preferences.AbstractRebuildingPreferencePage#getPreferenceId()
+	 */
+	@Override
+	protected String getPreferenceId() {
+		return PPPreferenceConstants.PUPPET_PROJECT_PATH;
 	}
 
 	/*

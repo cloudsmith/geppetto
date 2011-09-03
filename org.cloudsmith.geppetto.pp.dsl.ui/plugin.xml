@@ -352,6 +352,22 @@
           point="org.eclipse.ui.propertyPages">
        <page
              adaptable="true"
+             class="org.cloudsmith.geppetto.pp.dsl.ui.PPExecutableExtensionFactory:org.cloudsmith.geppetto.pp.dsl.ui.preferences.PPPropertiesRootPage"
+             id="org.cloudsmith.geppetto.pp.dsl.PP.properties"
+             name="Puppet Project Properties"
+             objectClass="org.eclipse.core.resources.IProject">
+       </page>
+       <page
+             adaptable="true"
+             category="org.cloudsmith.geppetto.pp.dsl.PP.properties"
+             class="org.cloudsmith.geppetto.pp.dsl.ui.PPExecutableExtensionFactory:org.cloudsmith.geppetto.pp.dsl.ui.preferences.PPEnvironmentPreferencePage"
+             id="org.cloudsmith.geppetto.pp.dsl.PP.environment"
+             name="Puppet Environment"
+             objectClass="org.eclipse.core.resources.IProject">
+       </page>
+       <page
+             adaptable="true"
+             category="org.cloudsmith.geppetto.pp.dsl.PP.properties"
              class="org.cloudsmith.geppetto.pp.dsl.ui.PPExecutableExtensionFactory:org.cloudsmith.geppetto.pp.dsl.ui.preferences.PPPathPreferencePage"
              id="org.cloudsmith.geppetto.pp.dsl.PP.searchPath"
              name="Puppet Search Path"

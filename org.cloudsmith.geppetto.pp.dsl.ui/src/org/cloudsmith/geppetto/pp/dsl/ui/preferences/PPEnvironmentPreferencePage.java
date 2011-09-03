@@ -20,11 +20,22 @@ import org.eclipse.xtext.ui.editor.preferences.AbstractPreferencePage;
  * 
  */
 public class PPEnvironmentPreferencePage extends AbstractPreferencePage {
+	private static final String PAGE_ID = "org.cloudsmith.geppetto.pp.dsl.PP.environment";
 
 	@Override
 	protected void createFieldEditors() {
 
 		this.addField(new StringFieldEditor(
 			PPPreferenceConstants.PUPPET_ENVIRONMENT, "Environment", getFieldEditorParent()));
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.xtext.ui.editor.preferences.AbstractPreferencePage#qualifiedName()
+	 */
+	@Override
+	protected String qualifiedName() {
+		return PAGE_ID;
 	}
 }

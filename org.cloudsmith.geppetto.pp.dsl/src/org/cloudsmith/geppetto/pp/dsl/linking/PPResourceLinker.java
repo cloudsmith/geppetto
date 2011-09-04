@@ -394,7 +394,8 @@ public class PPResourceLinker implements IPPDiagnostics {
 						if(findAttributes(o, fqn, importedNames, profileThis).size() > 0)
 							continue; // found one such parameter == ok
 
-						String[] proposals = proposer.computeAttributeProposals(fqn, exportedPerLastSegment.values(), searchPath);
+						String[] proposals = proposer.computeAttributeProposals(
+							fqn, exportedPerLastSegment.values(), searchPath);
 						acceptor.acceptError(
 							"Unknown parameter: '" + ao.getKey() + "' in definition: '" + desc.getName() + "'", ao,
 							PPPackage.Literals.ATTRIBUTE_OPERATION__KEY,
@@ -414,6 +415,7 @@ public class PPResourceLinker implements IPPDiagnostics {
 			if(desc != null) {
 				AttributeOperations aos = o.getAttributes();
 				List<AttributeOperation> nameVariables = Lists.newArrayList();
+
 				if(aos != null)
 					for(AttributeOperation ao : aos.getAttributes()) {
 						QualifiedName fqn = desc.getQualifiedName().append(ao.getKey());
@@ -438,7 +440,8 @@ public class PPResourceLinker implements IPPDiagnostics {
 								IPPDiagnostics.ISSUE__RESOURCE_DEPRECATED_NAME_ALIAS);
 							continue;
 						}
-						String[] proposals = proposer.computeAttributeProposals(fqn, exportedPerLastSegment.values(), searchPath);
+						String[] proposals = proposer.computeAttributeProposals(
+							fqn, exportedPerLastSegment.values(), searchPath);
 						acceptor.acceptError(
 							"Unknown parameter: '" + ao.getKey() + "' in definition: '" + desc.getName() + "'", ao,
 							PPPackage.Literals.ATTRIBUTE_OPERATION__KEY,

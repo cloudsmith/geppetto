@@ -19,6 +19,7 @@ import static org.cloudsmith.geppetto.pp.adapters.ClassifierAdapter.RESOURCE_IS_
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Set;
 import java.util.regex.Matcher;
 
 import org.cloudsmith.geppetto.pp.AndExpression;
@@ -101,6 +102,7 @@ import org.eclipse.xtext.util.PolymorphicDispatcher.ErrorHandler;
 import org.eclipse.xtext.validation.Check;
 
 import com.google.common.collect.Lists;
+import com.google.common.collect.Sets;
 import com.google.inject.Inject;
 
 public class PPJavaValidator extends AbstractPPJavaValidator implements IPPDiagnostics {
@@ -818,6 +820,28 @@ public class PPJavaValidator extends AbstractPPJavaValidator implements IPPDiagn
 				"Expression unsupported as resource name/title.", o, PPPackage.Literals.RESOURCE_BODY__NAME_EXPR,
 				INSIGNIFICANT_INDEX, IPPDiagnostics.ISSUE__UNSUPPORTED_EXPRESSION);
 
+		// check for duplicate use of parameter
+		Set<String> duplicates = Sets.newHashSet();
+		Set<String> processed = Sets.newHashSet();
+		AttributeOperations aos = o.getAttributes();
+
+		if(aos != null) {
+			// find duplicates
+			for(AttributeOperation ao : aos.getAttributes()) {
+				final String key = ao.getKey();
+				if(processed.contains(key))
+					duplicates.add(key);
+				processed.add(key);
+			}
+			// mark all instances of duplicate name
+			if(duplicates.size() > 0)
+				for(AttributeOperation ao : aos.getAttributes())
+					if(duplicates.contains(ao.getKey()))
+						acceptor.acceptError(
+							"Parameter redefinition", ao, PPPackage.Literals.ATTRIBUTE_OPERATION__KEY,
+							IPPDiagnostics.ISSUE__RESOURCE_DUPLICATE_PARAMETER);
+
+		}
 	}
 
 	/**

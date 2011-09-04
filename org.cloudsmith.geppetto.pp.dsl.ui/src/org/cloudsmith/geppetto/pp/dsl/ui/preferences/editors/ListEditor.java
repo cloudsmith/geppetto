@@ -141,7 +141,8 @@ public abstract class ListEditor extends FieldEditor {
 	 */
 	private void createButtons(Composite box) {
 		addButton = createPushButton(box, "ListEditor.add");//$NON-NLS-1$
-		editButton = createPushButton(box, "ListEditor.edit");//$NON-NLS-1$
+		// TODO: the createPushButton expects a key, this is sheeting
+		editButton = createPushButton(box, "Edit");
 		removeButton = createPushButton(box, "ListEditor.remove");//$NON-NLS-1$
 		upButton = createPushButton(box, "ListEditor.up");//$NON-NLS-1$
 		downButton = createPushButton(box, "ListEditor.down");//$NON-NLS-1$

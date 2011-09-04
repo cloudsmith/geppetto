@@ -41,7 +41,8 @@ public class PPPathPreferencePage extends AbstractRebuildingPreferencePage {
 			int[] okCancel = new int[] { 1 };
 
 			dialog.prompt(
-				"Add path segement", "Enter relative path", "Search all subdirectories", value, allSubdirs, okCancel);
+				"Add Path Segement", "Enter new relative path", "Search all subdirectories", value, allSubdirs,
+				okCancel);
 			if(okCancel[0] == 0)
 				return null;
 			if(allSubdirs[0] == 0)

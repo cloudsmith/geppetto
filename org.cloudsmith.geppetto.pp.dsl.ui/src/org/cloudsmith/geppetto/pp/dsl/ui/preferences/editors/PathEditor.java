@@ -91,7 +91,7 @@ public class PathEditor extends ListEditor {
 		int[] okCancel = new int[] { 1 };
 
 		dialog.prompt(
-			"Edit path segement", "Enter relative path", "Search all subdirectories", value, allSubdirs, okCancel);
+			"Edit Path Segement", "Edit relative path", "Search all subdirectories", value, allSubdirs, okCancel);
 		if(okCancel[0] == 0)
 			return input;
 		if(allSubdirs[0] == 0)

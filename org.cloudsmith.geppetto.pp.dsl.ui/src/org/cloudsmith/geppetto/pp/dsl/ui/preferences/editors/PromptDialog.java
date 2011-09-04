@@ -11,6 +11,7 @@
  */
 package org.cloudsmith.geppetto.pp.dsl.ui.preferences.editors;
 
+import org.eclipse.jface.resource.JFaceResources;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
@@ -42,10 +43,12 @@ public class PromptDialog extends Dialog {
 		final Shell shell = new Shell(parent, SWT.SHEET | SWT.DIALOG_TRIM | SWT.APPLICATION_MODAL);
 		if(title != null)
 			shell.setText(title);
+
 		GridLayout gridLayout = new GridLayout();
 		shell.setLayout(gridLayout);
-		Label label = new Label(shell, SWT.WRAP);
+		Label label = new Label(shell, SWT.WRAP | SWT.BOLD);
 		label.setText(text);
+		label.setFont(JFaceResources.getBannerFont());
 		GridData data = new GridData();
 		Monitor monitor = parent.getMonitor();
 		int maxWidth = monitor.getBounds().width * 2 / 3;
@@ -53,6 +56,9 @@ public class PromptDialog extends Dialog {
 		data.widthHint = Math.min(width, maxWidth);
 		data.horizontalAlignment = GridData.FILL;
 		data.grabExcessHorizontalSpace = true;
+		data.horizontalIndent = 15;
+		data.verticalIndent = 15;
+
 		label.setLayoutData(data);
 
 		final Text valueText = new Text(shell, SWT.BORDER);
@@ -66,6 +72,8 @@ public class PromptDialog extends Dialog {
 			data.widthHint = width;
 		data.minimumWidth = 300;
 		data.horizontalAlignment = GridData.FILL;
+		data.horizontalIndent = 15;
+
 		data.grabExcessHorizontalSpace = true;
 		valueText.setTextLimit(200);
 		valueText.setLayoutData(data);
@@ -90,6 +98,7 @@ public class PromptDialog extends Dialog {
 			buttons[0].setSelection(checkValue[0] != 0);
 			data = new GridData();
 			data.horizontalAlignment = GridData.BEGINNING;
+			data.horizontalIndent = 15;
 			buttons[0].setLayoutData(data);
 		}
 		Composite composite = new Composite(shell, SWT.NONE);
@@ -105,6 +114,9 @@ public class PromptDialog extends Dialog {
 		buttons[2].setText(SWT.getMessage("SWT_Cancel")); //$NON-NLS-1$
 		buttons[2].setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 		buttons[2].addListener(SWT.Selection, listener);
+
+		// make RETURN trigger OK
+		shell.setDefaultButton(buttons[1]);
 
 		shell.pack();
 		shell.open();

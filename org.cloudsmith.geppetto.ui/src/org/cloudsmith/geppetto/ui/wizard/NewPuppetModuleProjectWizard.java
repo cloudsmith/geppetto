@@ -38,7 +38,7 @@ import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.actions.WorkspaceModifyOperation;
 import org.eclipse.ui.dialogs.WizardNewProjectCreationPage;
 
-public class NewPuppetProjectWizard extends Wizard implements INewWizard {
+public class NewPuppetModuleProjectWizard extends Wizard implements INewWizard {
 
 	protected class PuppetProjectCreationPage extends WizardNewProjectCreationPage {
 
@@ -92,11 +92,11 @@ public class NewPuppetProjectWizard extends Wizard implements INewWizard {
 	}
 
 	protected String getProjectCreationPageDescription() {
-		return UIPlugin.INSTANCE.getString("_UI_PuppetProject_description"); //$NON-NLS-1$
+		return UIPlugin.INSTANCE.getString("_UI_PuppetModuleProject_description"); //$NON-NLS-1$
 	}
 
 	protected String getProjectCreationPageTitle() {
-		return UIPlugin.INSTANCE.getString("_UI_PuppetProject_title"); //$NON-NLS-1$
+		return UIPlugin.INSTANCE.getString("_UI_PuppetModuleProject_title"); //$NON-NLS-1$
 	}
 
 	private String getUserName() {
@@ -106,7 +106,7 @@ public class NewPuppetProjectWizard extends Wizard implements INewWizard {
 	@Override
 	public void init(IWorkbench workbench, IStructuredSelection selection) {
 		setDefaultPageImageDescriptor(ExtendedImageRegistry.INSTANCE.getImageDescriptor(UIPlugin.INSTANCE.getImage("full/wizban/NewPuppetProject.png"))); //$NON-NLS-1$
-		setWindowTitle(UIPlugin.INSTANCE.getString("_UI_NewPuppetProject_title")); //$NON-NLS-1$
+		setWindowTitle(UIPlugin.INSTANCE.getString("_UI_NewPuppetModuleProject_title")); //$NON-NLS-1$
 	}
 
 	protected void initializeProjectContents() throws Exception {

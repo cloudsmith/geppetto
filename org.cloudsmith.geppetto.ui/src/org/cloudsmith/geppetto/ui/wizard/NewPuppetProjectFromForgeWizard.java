@@ -40,9 +40,9 @@ import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.dialogs.WizardNewProjectCreationPage;
 
-public class NewPuppetProjectFromForgeWizard extends NewPuppetProjectWizard {
+public class NewPuppetProjectFromForgeWizard extends NewPuppetModuleProjectWizard {
 
-	protected class PuppetProjectFromForgeCreationPage extends NewPuppetProjectWizard.PuppetProjectCreationPage {
+	protected class PuppetProjectFromForgeCreationPage extends NewPuppetModuleProjectWizard.PuppetProjectCreationPage {
 
 		protected Object[] moduleChoices = null;
 

@@ -7,12 +7,12 @@
             name="%_UI_Wizard_Category"/>
       <wizard
             id="org.cloudsmith.geppetto.ui.NewPuppetProjectWizard"
-            name="%_UI_PuppetProject_title"
-            class="org.cloudsmith.geppetto.ui.wizard.NewPuppetProjectWizard"
+            name="%_UI_PuppetModuleProject_title"
+            class="org.cloudsmith.geppetto.ui.wizard.NewPuppetModuleProjectWizard"
             category="org.cloudsmith.geppetto.ui.newWizardCategory"
             project="true"
             icon="icons/full/etool16/NewPuppetProject.gif">
-         <description>%_UI_PuppetProject_description</description>
+         <description>%_UI_PuppetModuleProject_description</description>
          <selection class="org.eclipse.core.resources.IResource"/>
       </wizard>
       <wizard

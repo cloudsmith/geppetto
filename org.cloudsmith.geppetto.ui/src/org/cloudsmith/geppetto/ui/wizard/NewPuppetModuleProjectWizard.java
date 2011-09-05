@@ -13,6 +13,7 @@ package org.cloudsmith.geppetto.ui.wizard;
 
 import java.io.File;
 import java.util.Collections;
+import java.util.Locale;
 
 import org.cloudsmith.geppetto.forge.Forge;
 import org.cloudsmith.geppetto.forge.ForgeFactory;
@@ -55,6 +56,12 @@ public class NewPuppetModuleProjectWizard extends Wizard implements INewWizard {
 						? null
 						: locationPath;
 				projectContainer = getProjectHandle().getFullPath();
+
+				if(Character.isUpperCase(getProjectName().charAt(0))) {
+					setErrorMessage("Project can not start with upper case letter");
+					return false;
+				}
+
 				return true;
 			}
 
@@ -115,7 +122,8 @@ public class NewPuppetModuleProjectWizard extends Wizard implements INewWizard {
 
 	protected void initializeProjectContents() throws Exception {
 		Forge forge = getForge();
-		Metadata metadata = forge.getService().createMetadata(getUserName() + '/' + project.getName()); //$NON-NLS-1$
+		Metadata metadata = forge.getService().createMetadata(
+			getUserName() + '/' + toInitialLowerCase(project.getName())); //$NON-NLS-1$
 
 		if(ResourceUtil.getFile(project.getFullPath().append("manifests/init.pp")).exists()) { //$NON-NLS-1$
 			File modulefile = project.getLocation().append("Modulefile").toFile(); //$NON-NLS-1$
@@ -189,6 +197,17 @@ public class NewPuppetModuleProjectWizard extends Wizard implements INewWizard {
 		}
 
 		return false;
+	}
+
+	private String toInitialLowerCase(String s) {
+		if(Character.isLowerCase(s.charAt(0)))
+			return s;
+		StringBuilder builder = new StringBuilder(s.length());
+		builder.append(s.substring(0, 1).toLowerCase(Locale.US));
+		if(s.length() > 1)
+			builder.append(s.substring(1));
+		return builder.toString();
+
 	}
 
 }

@@ -28,4 +28,6 @@ public class PPPreferenceConstants {
 	public static final String PUPPET_ENVIRONMENT = "puppetEnvironment";
 
 	public static final String PUPPET_ENVIRONMENT__ENABLED = "puppetEnvironmentEnabled";
+
+	public static final String FORGE_LOCATION = "forgeLocation";
 }

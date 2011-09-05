@@ -97,6 +97,15 @@
                  id="org.cloudsmith.geppetto.pp.dsl.ui.keyword_PP">
            </keywordReference>
         </page>
+        <page
+              category="org.cloudsmith.geppetto.pp.dsl.PP"
+              class="org.cloudsmith.geppetto.pp.dsl.ui.PPExecutableExtensionFactory:org.cloudsmith.geppetto.pp.dsl.ui.preferences.PPForgePreferencePage"
+              id="org.cloudsmith.geppetto.pp.dsl.PP.forge"
+              name="Puppet Forge">
+           <keywordReference
+                 id="org.cloudsmith.geppetto.pp.dsl.ui.keyword_PP">
+           </keywordReference>
+        </page>
     </extension>
     <extension
         point="org.eclipse.ui.keywords">

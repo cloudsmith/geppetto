@@ -52,9 +52,11 @@ public class PPPreferencesHelper implements IPreferenceStoreInitializer, IProper
 	@Inject
 	private PptpTargetProjectHandler pptpHandler;
 
-	private static final String defaultProjectPath = "lib/*:environments/$environment/*:manifests/*:modules/*";
+	private static final String defaultProjectPath = "lib/*:environments/$environment/*:manifests/*:modules/*"; //$NON-NLS-1$
 
-	private static final String defaultPuppetEnvironment = "production";
+	private static final String defaultPuppetEnvironment = "production"; //$NON-NLS-1$
+
+	private static final String defaultForgeURI = "http://forge.puppetlabs.com"; //$NON-NLS-1$
 
 	@Inject
 	IWorkspace workspace;
@@ -72,6 +74,10 @@ public class PPPreferencesHelper implements IPreferenceStoreInitializer, IProper
 		catch(NumberFormatException e) {
 			autoInsertOverrides = 0;
 		}
+	}
+
+	public String getForgeURI() {
+		return store.getString(PPPreferenceConstants.FORGE_LOCATION);
 	}
 
 	public String getPptpVersion() {
@@ -94,6 +100,7 @@ public class PPPreferencesHelper implements IPreferenceStoreInitializer, IProper
 		store.setDefault(PPPreferenceConstants.PUPPET_TARGET_VERSION, "2.7");
 		store.setDefault(PPPreferenceConstants.PUPPET_PROJECT_PATH, defaultProjectPath);
 		store.setDefault(PPPreferenceConstants.PUPPET_ENVIRONMENT, defaultPuppetEnvironment);
+		store.setDefault(PPPreferenceConstants.FORGE_LOCATION, defaultForgeURI);
 
 		autoInsertOverrides = (int) store.getLong(PPPreferenceConstants.AUTO_EDIT_STRATEGY);
 		access.getWritablePreferenceStore().addPropertyChangeListener(this);

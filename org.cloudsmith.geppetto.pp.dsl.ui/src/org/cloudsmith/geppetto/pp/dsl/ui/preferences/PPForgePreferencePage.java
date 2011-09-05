@@ -11,7 +11,7 @@
  */
 package org.cloudsmith.geppetto.pp.dsl.ui.preferences;
 
-import org.eclipse.jface.preference.RadioGroupFieldEditor;
+import org.eclipse.jface.preference.StringFieldEditor;
 import org.eclipse.xtext.ui.editor.preferences.AbstractPreferencePage;
 
 /**
@@ -19,16 +19,13 @@ import org.eclipse.xtext.ui.editor.preferences.AbstractPreferencePage;
  * This is also the puppet root preference pane.
  * 
  */
-public class PPGeneralPreferencePage extends AbstractPreferencePage {
+public class PPForgePreferencePage extends AbstractPreferencePage {
 
 	@Override
 	protected void createFieldEditors() {
 
-		addField(new RadioGroupFieldEditor(PPPreferenceConstants.PUPPET_TARGET_VERSION, //
-			"Puppet target version", 1, //
-			new String[][] { { "2.6", "2.6" }, //
-					{ "2.7", "2.7" }, //
-			}, getFieldEditorParent()));
-
+		addField(new StringFieldEditor(PPPreferenceConstants.FORGE_LOCATION, //
+			"Module Forge URL", //
+			getFieldEditorParent()));
 	}
 }

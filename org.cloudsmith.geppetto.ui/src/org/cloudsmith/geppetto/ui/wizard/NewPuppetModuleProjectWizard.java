@@ -18,6 +18,7 @@ import java.util.Locale;
 import org.cloudsmith.geppetto.forge.Forge;
 import org.cloudsmith.geppetto.forge.ForgeFactory;
 import org.cloudsmith.geppetto.forge.Metadata;
+import org.cloudsmith.geppetto.pp.dsl.ui.preferences.PPPreferencesHelper;
 import org.cloudsmith.geppetto.ui.UIPlugin;
 import org.cloudsmith.geppetto.ui.util.ResourceUtil;
 import org.eclipse.core.resources.IFile;
@@ -38,6 +39,8 @@ import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.actions.WorkspaceModifyOperation;
 import org.eclipse.ui.dialogs.WizardNewProjectCreationPage;
+
+import com.google.inject.Inject;
 
 public class NewPuppetModuleProjectWizard extends Wizard implements INewWizard {
 
@@ -70,6 +73,9 @@ public class NewPuppetModuleProjectWizard extends Wizard implements INewWizard {
 
 	}
 
+	@Inject
+	private PPPreferencesHelper preferenceHelper;
+
 	protected IPath projectLocation;
 
 	protected IPath projectContainer;
@@ -92,7 +98,8 @@ public class NewPuppetModuleProjectWizard extends Wizard implements INewWizard {
 
 		if(forge == null) {
 			forge = ForgeFactory.eINSTANCE.createForgeService().createForge(
-				java.net.URI.create("http://forge.puppetlabs.com")); //$NON-NLS-1$
+				java.net.URI.create(preferenceHelper.getForgeURI()));
+			//				java.net.URI.create("http://forge.puppetlabs.com")); //$NON-NLS-1$
 		}
 
 		return forge;

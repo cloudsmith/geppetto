@@ -14,6 +14,7 @@ package org.cloudsmith.geppetto.ui.wizard;
 import java.io.IOException;
 import java.util.Collections;
 
+import org.apache.log4j.Logger;
 import org.cloudsmith.geppetto.forge.Metadata;
 import org.cloudsmith.geppetto.forge.ModuleInfo;
 import org.cloudsmith.geppetto.ui.UIPlugin;
@@ -24,6 +25,7 @@ import org.eclipse.core.resources.IFile;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.UniqueEList;
 import org.eclipse.emf.edit.ui.provider.ExtendedImageRegistry;
+import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.layout.GridDataFactory;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.window.Window;
@@ -41,7 +43,6 @@ import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.dialogs.WizardNewProjectCreationPage;
 
 public class NewPuppetProjectFromForgeWizard extends NewPuppetModuleProjectWizard {
-
 	protected class PuppetProjectFromForgeCreationPage extends NewPuppetModuleProjectWizard.PuppetProjectCreationPage {
 
 		protected Object[] moduleChoices = null;
@@ -113,10 +114,18 @@ public class NewPuppetProjectFromForgeWizard extends NewPuppetModuleProjectWizar
 				EList<Object> choices = new UniqueEList.FastCompare<Object>();
 
 				try {
+					// TODO: Show error dialog
 					choices.addAll(getForge().search(null));
 				}
 				catch(IOException ioe) {
-					ioe.printStackTrace();
+					StringBuilder builder = new StringBuilder();
+					builder.append("IOException: " + ioe.getClass().getName());
+					builder.append("\n");
+					builder.append(ioe.getMessage());
+					builder.append("\n\n(See the log view for technical details).");
+					MessageDialog.openError(getShell(), "Error while communicating with the Forge.", //
+					builder.toString()); //
+					log.error("Error while communicating with the Forge", ioe);
 				}
 
 				moduleChoices = choices.toArray();
@@ -182,6 +191,8 @@ public class NewPuppetProjectFromForgeWizard extends NewPuppetModuleProjectWizar
 		}
 
 	}
+
+	private static final Logger log = Logger.getLogger(NewPuppetProjectFromForgeWizard.class);
 
 	protected ModuleInfo module;
 

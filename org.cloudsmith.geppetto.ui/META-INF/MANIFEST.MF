@@ -20,3 +20,6 @@ Require-Bundle: org.eclipse.core.runtime,
  org.cloudsmith.geppetto.pp.dsl.ui,
  org.eclipse.ui
 Bundle-ActivationPolicy: lazy
+Export-Package: org.cloudsmith.geppetto.ui.wizard
+Bundle-Activator: org.cloudsmith.geppetto.ui.UIPlugin$Implementation
+Import-Package: org.apache.log4j

@@ -14,6 +14,7 @@ package org.cloudsmith.geppetto.pp.dsl.linking;
 import static org.cloudsmith.geppetto.pp.adapters.ClassifierAdapter.RESOURCE_IS_CLASSPARAMS;
 import static org.cloudsmith.geppetto.pp.adapters.ClassifierAdapter.RESOURCE_IS_OVERRIDE;
 
+import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -43,6 +44,7 @@ import org.cloudsmith.geppetto.pp.dsl.adapters.ResourcePropertiesAdapter;
 import org.cloudsmith.geppetto.pp.dsl.adapters.ResourcePropertiesAdapterFactory;
 import org.cloudsmith.geppetto.pp.dsl.contentassist.PPProposalsGenerator;
 import org.cloudsmith.geppetto.pp.dsl.eval.PPStringConstantEvaluator;
+import org.cloudsmith.geppetto.pp.dsl.linking.PPSearchPath.ISearchPathProvider;
 import org.cloudsmith.geppetto.pp.dsl.validation.IPPDiagnostics;
 import org.cloudsmith.geppetto.pp.pptp.PPTPPackage;
 import org.eclipse.emf.common.util.EList;
@@ -246,6 +248,11 @@ public class PPResourceLinker implements IPPDiagnostics {
 
 	private Resource resource;
 
+	@Inject
+	private ISearchPathProvider searchPathProvider;
+
+	private PPSearchPath searchPath;
+
 	/**
 	 * polymorph {@link #link(EObject, IMessageAcceptor)}
 	 */
@@ -264,7 +271,7 @@ public class PPResourceLinker implements IPPDiagnostics {
 			internalLinkFunctionArguments(name, o, importedNames, acceptor);
 			return; // ok, found
 		}
-		String[] proposals = proposer.computeProposals(name, exportedPerLastSegment.values(), FUNC);
+		String[] proposals = proposer.computeProposals(name, exportedPerLastSegment.values(), searchPath, FUNC);
 		acceptor.acceptError("Unknown function: '" + name + "'", o.getLeftExpr(), //
 		proposalIssue(IPPDiagnostics.ISSUE__UNKNOWN_FUNCTION_REFERENCE, proposals), //
 			proposals);
@@ -305,6 +312,10 @@ public class PPResourceLinker implements IPPDiagnostics {
 					IPPDiagnostics.ISSUE__RESOURCE_AMBIGUOUS_REFERENCE,
 					proposer.computeDistinctProposals(parentString, descs));
 			}
+			// must check for circularity
+			List<QualifiedName> visited = Lists.newArrayList();
+			visited.add(converter.toQualifiedName(o.getClassName()));
+			checkCircularInheritence(o, descs, visited, acceptor, importedNames);
 		}
 		else {
 			// record unresolved name at resource level
@@ -312,7 +323,7 @@ public class PPResourceLinker implements IPPDiagnostics {
 
 			// ... and finally, if there was neither a type nor a definition reference
 			String[] proposals = proposer.computeProposals(
-				parentString, exportedPerLastSegment.values(), CLASS_AND_TYPE);
+				parentString, exportedPerLastSegment.values(), searchPath, CLASS_AND_TYPE);
 			acceptor.acceptError(
 				"Unknown class: '" + parentString + "'", o, //
 				PPPackage.Literals.HOST_CLASS_DEFINITION__PARENT,
@@ -344,7 +355,7 @@ public class PPResourceLinker implements IPPDiagnostics {
 				// Add unresolved info at resource level
 				importedNames.addUnresolved(converter.toQualifiedName(className));
 				String[] proposals = proposer.computeProposals(
-					className, exportedPerLastSegment.values(), CLASS_AND_TYPE);
+					className, exportedPerLastSegment.values(), searchPath, CLASS_AND_TYPE);
 				acceptor.acceptError(
 					"Unknown class: '" + className + "'", o, //
 					PPPackage.Literals.RESOURCE_BODY__NAME_EXPR,
@@ -383,7 +394,8 @@ public class PPResourceLinker implements IPPDiagnostics {
 						if(findAttributes(o, fqn, importedNames, profileThis).size() > 0)
 							continue; // found one such parameter == ok
 
-						String[] proposals = proposer.computeAttributeProposals(fqn, exportedPerLastSegment.values());
+						String[] proposals = proposer.computeAttributeProposals(
+							fqn, exportedPerLastSegment.values(), searchPath);
 						acceptor.acceptError(
 							"Unknown parameter: '" + ao.getKey() + "' in definition: '" + desc.getName() + "'", ao,
 							PPPackage.Literals.ATTRIBUTE_OPERATION__KEY,
@@ -403,6 +415,7 @@ public class PPResourceLinker implements IPPDiagnostics {
 			if(desc != null) {
 				AttributeOperations aos = o.getAttributes();
 				List<AttributeOperation> nameVariables = Lists.newArrayList();
+
 				if(aos != null)
 					for(AttributeOperation ao : aos.getAttributes()) {
 						QualifiedName fqn = desc.getQualifiedName().append(ao.getKey());
@@ -427,7 +440,8 @@ public class PPResourceLinker implements IPPDiagnostics {
 								IPPDiagnostics.ISSUE__RESOURCE_DEPRECATED_NAME_ALIAS);
 							continue;
 						}
-						String[] proposals = proposer.computeAttributeProposals(fqn, exportedPerLastSegment.values());
+						String[] proposals = proposer.computeAttributeProposals(
+							fqn, exportedPerLastSegment.values(), searchPath);
 						acceptor.acceptError(
 							"Unknown parameter: '" + ao.getKey() + "' in definition: '" + desc.getName() + "'", ao,
 							PPPackage.Literals.ATTRIBUTE_OPERATION__KEY,
@@ -503,7 +517,7 @@ public class PPResourceLinker implements IPPDiagnostics {
 				// Add unresolved info at resource level
 				importedNames.addUnresolved(converter.toQualifiedName(resourceTypeName));
 				String[] proposals = proposer.computeProposals(
-					resourceTypeName, exportedPerLastSegment.values(), DEF_AND_TYPE);
+					resourceTypeName, exportedPerLastSegment.values(), searchPath, DEF_AND_TYPE);
 				acceptor.acceptError(
 					"Unknown resource type: '" + resourceTypeName + "'", o,
 					PPPackage.Literals.RESOURCE_EXPRESSION__RESOURCE_EXPR, //
@@ -579,6 +593,27 @@ public class PPResourceLinker implements IPPDiagnostics {
 				return false;
 		}
 		return true;
+	}
+
+	protected void checkCircularInheritence(HostClassDefinition o, Collection<IEObjectDescription> descs,
+			List<QualifiedName> stack, IMessageAcceptor acceptor, PPImportedNamesAdapter importedNames) {
+		for(IEObjectDescription d : descs) {
+			QualifiedName name = d.getName();
+			if(stack.contains(name)) {
+				// Gotcha!
+				acceptor.acceptError( //
+					"Circular inheritence", o, //
+					PPPackage.Literals.HOST_CLASS_DEFINITION__PARENT, //
+					IPPDiagnostics.ISSUE__CIRCULAR_INHERITENCE);
+				return; // no use continuing
+			}
+			stack.add(name);
+			String parentName = d.getUserData(PPDSLConstants.PARENT_NAME_DATA);
+			if(parentName == null || parentName.length() == 0)
+				continue;
+			List<IEObjectDescription> parents = findHostClasses(d.getEObjectOrProxy(), parentName, importedNames);
+			checkCircularInheritence(o, parents, stack, acceptor, importedNames);
+		}
 	}
 
 	private boolean containsNameVar(List<IEObjectDescription> descriptions) {
@@ -720,7 +755,7 @@ public class PPResourceLinker implements IPPDiagnostics {
 			for(IEObjectDescription d : targets)
 				tracer.trace("    : ", converter.toString(d.getName()), " in: ", d.getEObjectURI().path());
 		}
-		return targets;
+		return searchPathAdjusted(targets);
 	}
 
 	private List<IEObjectDescription> findFunction(EObject scopeDetermeningObject, QualifiedName fqn,
@@ -815,7 +850,7 @@ public class PPResourceLinker implements IPPDiagnostics {
 						importedNames.addUnresolved(converter.toQualifiedName(className));
 
 						String[] p = proposer.computeProposals(
-							className, exportedPerLastSegment.values(), CLASS_AND_TYPE);
+							className, exportedPerLastSegment.values(), searchPath, CLASS_AND_TYPE);
 						acceptor.acceptError(
 							"Unknown class: '" + className + "'", o, //
 							PPPackage.Literals.PARAMETERIZED_EXPRESSION__PARAMETERS, parameterIndex,
@@ -906,7 +941,7 @@ public class PPResourceLinker implements IPPDiagnostics {
 						importedNames.addUnresolved(converter.toQualifiedName(className));
 
 						String[] proposals = proposer.computeProposals(
-							className, exportedPerLastSegment.values(), CLASS_AND_TYPE);
+							className, exportedPerLastSegment.values(), searchPath, CLASS_AND_TYPE);
 						String issueCode = proposalIssue(IPPDiagnostics.ISSUE__RESOURCE_UNKNOWN_TYPE, proposals);
 						if(param instanceof ExprList) {
 							acceptor.acceptError("Unknown class: '" + className + "'", //
@@ -987,7 +1022,7 @@ public class PPResourceLinker implements IPPDiagnostics {
 						name, (LiteralNameOrReference) s, statements, i, importedNames, acceptor);
 					continue each_top; // ok, found
 				}
-				String[] proposals = proposer.computeProposals(name, exportedPerLastSegment.values(), FUNC);
+				String[] proposals = proposer.computeProposals(name, exportedPerLastSegment.values(), searchPath, FUNC);
 				acceptor.acceptError(
 					"Unknown function: '" + name + "'", s, PPPackage.Literals.LITERAL_NAME_OR_REFERENCE__VALUE,
 					proposalIssue(IPPDiagnostics.ISSUE__UNKNOWN_FUNCTION_REFERENCE, proposals), //
@@ -1029,6 +1064,8 @@ public class PPResourceLinker implements IPPDiagnostics {
 	 */
 	public void link(EObject model, IMessageAcceptor acceptor, boolean profileThis) {
 		resource = model.eResource();
+		searchPath = searchPathProvider.get(resource);
+
 		// clear names remembered in the past
 		PPImportedNamesAdapter importedNames = PPImportedNamesAdapterFactory.eINSTANCE.adapt(resource);
 		importedNames.clear();
@@ -1119,6 +1156,32 @@ public class PPResourceLinker implements IPPDiagnostics {
 				continue;
 			litor.remove();
 		}
+	}
+
+	/**
+	 * Adjusts the list of found targets in accordance with the search path for the resource being
+	 * linked. This potentially resolves ambiguities (if found result is further away on the path).
+	 * May return more than one result, if more than one resolution exist with the same path index.
+	 * 
+	 * @param targets
+	 * @return list of descriptions with lowest index.
+	 */
+	private List<IEObjectDescription> searchPathAdjusted(List<IEObjectDescription> targets) {
+		int minIdx = Integer.MAX_VALUE;
+		List<IEObjectDescription> result = Lists.newArrayList();
+		for(IEObjectDescription d : targets) {
+			int idx = searchPath.searchIndexOf(d);
+			if(idx < 0)
+				continue; // not found, skip
+			if(idx < minIdx) {
+				minIdx = idx;
+				result.clear(); // forget worse result
+			}
+			// only remember if equal to best found so far
+			if(idx <= minIdx)
+				result.add(d);
+		}
+		return result;
 	}
 
 	private String toInitialLowerCase(String s) {

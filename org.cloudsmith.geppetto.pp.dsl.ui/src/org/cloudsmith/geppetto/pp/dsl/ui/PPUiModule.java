@@ -14,19 +14,25 @@ package org.cloudsmith.geppetto.pp.dsl.ui;
 import org.cloudsmith.geppetto.common.tracer.DefaultTracer;
 import org.cloudsmith.geppetto.common.tracer.ITracer;
 import org.cloudsmith.geppetto.pp.dsl.lexer.PPOverridingLexer;
+import org.cloudsmith.geppetto.pp.dsl.linking.PPSearchPath.ISearchPathProvider;
 import org.cloudsmith.geppetto.pp.dsl.ui.builder.PPModulefileBuilder;
 import org.cloudsmith.geppetto.pp.dsl.ui.coloring.PPHighlightConfiguration;
 import org.cloudsmith.geppetto.pp.dsl.ui.coloring.PPSemanticHighlightingCalculator;
 import org.cloudsmith.geppetto.pp.dsl.ui.coloring.PPTokenToAttributeIdMapper;
 import org.cloudsmith.geppetto.pp.dsl.ui.container.PPWorkspaceProjectsStateProvider;
+import org.cloudsmith.geppetto.pp.dsl.ui.editor.autoedit.PPEditStrategyProvider;
 import org.cloudsmith.geppetto.pp.dsl.ui.editor.autoedit.PPTokenTypeToPartionMapper;
 import org.cloudsmith.geppetto.pp.dsl.ui.editor.toggleComments.PPSingleLineCommentHelper;
+import org.cloudsmith.geppetto.pp.dsl.ui.linking.PPUISearchPathProvider;
 import org.cloudsmith.geppetto.pp.dsl.ui.outline.PPLocationInFileProvider;
+import org.cloudsmith.geppetto.pp.dsl.ui.preferences.PPPreferencesHelper;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.eclipse.xtext.resource.ILocationInFileProvider;
+import org.eclipse.xtext.ui.editor.autoedit.AbstractEditStrategyProvider;
 import org.eclipse.xtext.ui.editor.model.IResourceForEditorInputFactory;
 import org.eclipse.xtext.ui.editor.model.ITokenTypeToPartitionTypeMapper;
 import org.eclipse.xtext.ui.editor.model.ResourceForIEditorInputFactory;
+import org.eclipse.xtext.ui.editor.preferences.IPreferenceStoreInitializer;
 import org.eclipse.xtext.ui.editor.syntaxcoloring.AbstractAntlrTokenToAttributeIdMapper;
 import org.eclipse.xtext.ui.editor.syntaxcoloring.IHighlightingConfiguration;
 import org.eclipse.xtext.ui.editor.syntaxcoloring.ISemanticHighlightingCalculator;
@@ -34,6 +40,7 @@ import org.eclipse.xtext.ui.editor.toggleComments.ISingleLineCommentHelper;
 import org.eclipse.xtext.ui.resource.IResourceSetProvider;
 import org.eclipse.xtext.ui.resource.SimpleResourceSetProvider;
 
+import com.google.inject.Binder;
 import com.google.inject.name.Names;
 
 /**
@@ -47,6 +54,12 @@ public class PPUiModule extends org.cloudsmith.geppetto.pp.dsl.ui.AbstractPPUiMo
 	// public Class<? extends IContainer.Manager> bindIContainer$Manager() {
 	// return StateBasedContainerManager.class;
 	// }
+
+	// Make auto edit configurable with preferences
+	@Override
+	public Class<? extends AbstractEditStrategyProvider> bindAbstractEditStrategyProvider() {
+		return PPEditStrategyProvider.class;
+	}
 
 	public Class<? extends IHighlightingConfiguration> bindILexicalHighlightingConfiguration() {
 		return PPHighlightConfiguration.class;
@@ -93,6 +106,10 @@ public class PPUiModule extends org.cloudsmith.geppetto.pp.dsl.ui.AbstractPPUiMo
 		return PPModulefileBuilder.class;
 	}
 
+	public Class<? extends ISearchPathProvider> bindSearchPathProvider() {
+		return PPUISearchPathProvider.class;
+	}
+
 	public Class<? extends AbstractAntlrTokenToAttributeIdMapper> bindTokenToAttributeIdMapper() {
 		return PPTokenToAttributeIdMapper.class;
 	}
@@ -102,6 +119,11 @@ public class PPUiModule extends org.cloudsmith.geppetto.pp.dsl.ui.AbstractPPUiMo
 			new DefaultTracer(PPUiConstants.DEBUG_OPTION_MODULEFILE));
 		binder.bind(ITracer.class).annotatedWith(Names.named(PPUiConstants.DEBUG_OPTION_PARSER)).toInstance(
 			new DefaultTracer(PPUiConstants.DEBUG_OPTION_PARSER));
+	}
+
+	public void configureDefaultPreferences(Binder binder) {
+		binder.bind(IPreferenceStoreInitializer.class).annotatedWith(Names.named("PPPreferencesHelper")) //$NON-NLS-1$
+		.to(PPPreferencesHelper.class);
 	}
 
 	// contributed by org.eclipse.xtext.generator.parser.antlr.ex.rt.AntlrGeneratorFragment
@@ -120,4 +142,5 @@ public class PPUiModule extends org.cloudsmith.geppetto.pp.dsl.ui.AbstractPPUiMo
 		// return org.eclipse.xtext.ui.shared.Access.getWorkspaceProjectsState();
 		return new PPWorkspaceProjectsStateProvider();
 	}
+
 }

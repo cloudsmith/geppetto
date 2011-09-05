@@ -51,9 +51,9 @@
     <extension
             point="org.eclipse.ui.preferencePages">
         <page
-            class="org.cloudsmith.geppetto.pp.dsl.ui.PPExecutableExtensionFactory:org.eclipse.xtext.ui.editor.preferences.LanguageRootPreferencePage"
-            id="org.cloudsmith.geppetto.pp.dsl.PP"
-            name="Puppet">
+              class="org.cloudsmith.geppetto.pp.dsl.ui.PPExecutableExtensionFactory:org.cloudsmith.geppetto.pp.dsl.ui.preferences.PPGeneralPreferencePage"
+              id="org.cloudsmith.geppetto.pp.dsl.PP"
+              name="Puppet">
             <keywordReference id="org.cloudsmith.geppetto.pp.dsl.ui.keyword_PP"/>
         </page>
         <page
@@ -69,6 +69,42 @@
             id="org.cloudsmith.geppetto.pp.dsl.PP.templates"
             name="Templates">
             <keywordReference id="org.cloudsmith.geppetto.pp.dsl.ui.keyword_PP"/>
+        </page>
+        <page
+              category="org.cloudsmith.geppetto.pp.dsl.PP"
+              class="org.cloudsmith.geppetto.pp.dsl.ui.PPExecutableExtensionFactory:org.cloudsmith.geppetto.pp.dsl.ui.preferences.AutoEditPreferencePage"
+              id="org.cloudsmith.geppetto.pp.dsl.PP.autoEdits"
+              name="Auto Edits">
+           <keywordReference
+                 id="org.cloudsmith.geppetto.pp.dsl.ui.keyword_PP">
+           </keywordReference>
+        </page>
+        <page
+              category="org.cloudsmith.geppetto.pp.dsl.PP"
+              class="org.cloudsmith.geppetto.pp.dsl.ui.PPExecutableExtensionFactory:org.cloudsmith.geppetto.pp.dsl.ui.preferences.PPPathPreferencePage"
+              id="org.cloudsmith.geppetto.pp.dsl.PP.searchPath"
+              name="Search Path">
+           <keywordReference
+                 id="org.cloudsmith.geppetto.pp.dsl.ui.keyword_PP">
+           </keywordReference>
+        </page>
+        <page
+              category="org.cloudsmith.geppetto.pp.dsl.PP"
+              class="org.cloudsmith.geppetto.pp.dsl.ui.PPExecutableExtensionFactory:org.cloudsmith.geppetto.pp.dsl.ui.preferences.PPEnvironmentPreferencePage"
+              id="org.cloudsmith.geppetto.pp.dsl.PP.environment"
+              name="Environment">
+           <keywordReference
+                 id="org.cloudsmith.geppetto.pp.dsl.ui.keyword_PP">
+           </keywordReference>
+        </page>
+        <page
+              category="org.cloudsmith.geppetto.pp.dsl.PP"
+              class="org.cloudsmith.geppetto.pp.dsl.ui.PPExecutableExtensionFactory:org.cloudsmith.geppetto.pp.dsl.ui.preferences.PPForgePreferencePage"
+              id="org.cloudsmith.geppetto.pp.dsl.PP.forge"
+              name="Puppet Forge">
+           <keywordReference
+                 id="org.cloudsmith.geppetto.pp.dsl.ui.keyword_PP">
+           </keywordReference>
         </page>
     </extension>
     <extension
@@ -269,7 +305,7 @@
     <extension
           point="org.eclipse.ui.startup">
        <startup
-             class="org.cloudsmith.geppetto.pp.dsl.ui.internal.PPStartup">
+             class="org.cloudsmith.geppetto.pp.dsl.ui.PPExecutableExtensionFactory:org.cloudsmith.geppetto.pp.dsl.ui.internal.PPStartup">
        </startup>
     </extension>
     <extension
@@ -320,6 +356,32 @@
              Decorates Puppet (nature) Projects
           </description>
        </decorator>
+    </extension>
+    <extension
+          point="org.eclipse.ui.propertyPages">
+       <page
+             adaptable="true"
+             class="org.cloudsmith.geppetto.pp.dsl.ui.PPExecutableExtensionFactory:org.cloudsmith.geppetto.pp.dsl.ui.preferences.PPPropertiesRootPage"
+             id="org.cloudsmith.geppetto.pp.dsl.PP.properties"
+             name="Puppet Project Properties"
+             objectClass="org.eclipse.core.resources.IProject">
+       </page>
+       <page
+             adaptable="true"
+             category="org.cloudsmith.geppetto.pp.dsl.PP.properties"
+             class="org.cloudsmith.geppetto.pp.dsl.ui.PPExecutableExtensionFactory:org.cloudsmith.geppetto.pp.dsl.ui.preferences.PPEnvironmentPreferencePage"
+             id="org.cloudsmith.geppetto.pp.dsl.PP.environment"
+             name="Puppet Environment"
+             objectClass="org.eclipse.core.resources.IProject">
+       </page>
+       <page
+             adaptable="true"
+             category="org.cloudsmith.geppetto.pp.dsl.PP.properties"
+             class="org.cloudsmith.geppetto.pp.dsl.ui.PPExecutableExtensionFactory:org.cloudsmith.geppetto.pp.dsl.ui.preferences.PPPathPreferencePage"
+             id="org.cloudsmith.geppetto.pp.dsl.PP.searchPath"
+             name="Puppet Search Path"
+             objectClass="org.eclipse.core.resources.IProject">
+       </page>
     </extension>
 
 </plugin>

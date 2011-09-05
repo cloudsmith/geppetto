@@ -28,4 +28,6 @@ Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-Activator: org.cloudsmith.geppetto.pp.dsl.ui.internal.PPDSLActivator
 Export-Package: org.cloudsmith.geppetto.pp.dsl.ui,
  org.cloudsmith.geppetto.pp.dsl.ui.builder,
- org.cloudsmith.geppetto.pp.dsl.ui.commands
+ org.cloudsmith.geppetto.pp.dsl.ui.commands,
+ org.cloudsmith.geppetto.pp.dsl.ui.internal;x-friends:="org.cloudsmith.geppetto.ui",
+ org.cloudsmith.geppetto.pp.dsl.ui.preferences

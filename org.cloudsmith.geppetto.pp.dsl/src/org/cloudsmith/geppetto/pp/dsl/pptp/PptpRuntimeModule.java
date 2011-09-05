@@ -14,6 +14,8 @@ package org.cloudsmith.geppetto.pp.dsl.pptp;
 import org.cloudsmith.geppetto.pp.dsl.PPDSLConstants;
 import org.cloudsmith.geppetto.pp.dsl.linking.PPQualifiedNameConverter;
 import org.cloudsmith.geppetto.pp.dsl.linking.PPResourceDescriptionStrategy;
+import org.cloudsmith.geppetto.pp.dsl.linking.PPSearchPath.ISearchPathProvider;
+import org.cloudsmith.geppetto.pp.dsl.linking.PPSearchPathProvider;
 import org.eclipse.xtext.naming.IQualifiedNameConverter;
 import org.eclipse.xtext.naming.IQualifiedNameProvider;
 import org.eclipse.xtext.resource.IDefaultResourceDescriptionStrategy;
@@ -48,6 +50,10 @@ public class PptpRuntimeModule extends AbstractGenericResourceRuntimeModule {
 	@Override
 	public Class<? extends IQualifiedNameProvider> bindIQualifiedNameProvider() {
 		return PptpQualifiedNameProvider.class;
+	}
+
+	public Class<? extends ISearchPathProvider> bindSearchPathProvider() {
+		return PPSearchPathProvider.class;
 	}
 
 	/*

@@ -19,6 +19,8 @@ import org.cloudsmith.geppetto.pp.dsl.linking.PPQualifiedNameConverter;
 import org.cloudsmith.geppetto.pp.dsl.linking.PPQualifiedNameProvider;
 import org.cloudsmith.geppetto.pp.dsl.linking.PPResourceDescriptionManager;
 import org.cloudsmith.geppetto.pp.dsl.linking.PPResourceDescriptionStrategy;
+import org.cloudsmith.geppetto.pp.dsl.linking.PPSearchPath.ISearchPathProvider;
+import org.cloudsmith.geppetto.pp.dsl.linking.PPSearchPathProvider;
 import org.cloudsmith.geppetto.pp.dsl.serialization.PPValueSerializer;
 import org.eclipse.xtext.conversion.IValueConverterService;
 import org.eclipse.xtext.naming.IQualifiedNameConverter;
@@ -98,6 +100,10 @@ public class PPRuntimeModule extends org.cloudsmith.geppetto.pp.dsl.AbstractPPRu
 	@Override
 	public Class<? extends Lexer> bindLexer() {
 		return PPOverridingLexer.class;
+	}
+
+	public Class<? extends ISearchPathProvider> bindSearchPathProvider() {
+		return PPSearchPathProvider.class;
 	}
 
 	public void configureDebugTracing(com.google.inject.Binder binder) {

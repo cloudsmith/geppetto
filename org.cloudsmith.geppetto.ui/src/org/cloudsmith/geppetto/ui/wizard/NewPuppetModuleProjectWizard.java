@@ -96,7 +96,11 @@ public class NewPuppetModuleProjectWizard extends Wizard implements INewWizard {
 	}
 
 	protected String getProjectCreationPageTitle() {
-		return UIPlugin.INSTANCE.getString("_UI_PuppetModuleProject_title"); //$NON-NLS-1$
+		return UIPlugin.INSTANCE.getString(getProjectCreationPageTitleKey()); //$NON-NLS-1$
+	}
+
+	protected String getProjectCreationPageTitleKey() {
+		return "_UI_PuppetModuleProject_title";
 	}
 
 	private String getUserName() {

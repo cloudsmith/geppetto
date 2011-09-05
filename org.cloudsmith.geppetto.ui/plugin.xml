@@ -6,7 +6,21 @@
             id="org.cloudsmith.geppetto.ui.newWizardCategory"
             name="%_UI_Wizard_Category"/>
       <wizard
+            category="org.cloudsmith.geppetto.ui.newWizardCategory"
+            class="org.cloudsmith.geppetto.ui.wizard.NewPuppetProjectWizard"
+            icon="icons/full/etool16/NewPuppetProject.gif"
             id="org.cloudsmith.geppetto.ui.NewPuppetProjectWizard"
+            name="%_UI_PuppetProject_title"
+            project="true">
+         <description>
+            %_UI_PuppetProject_description
+         </description>
+         <selection
+               class="org.eclipse.core.resources.IResource">
+         </selection>
+      </wizard>
+      <wizard
+            id="org.cloudsmith.geppetto.ui.NewPuppetModuleProjectWizard"
             name="%_UI_PuppetModuleProject_title"
             class="org.cloudsmith.geppetto.ui.wizard.NewPuppetModuleProjectWizard"
             category="org.cloudsmith.geppetto.ui.newWizardCategory"

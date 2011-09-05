@@ -19,6 +19,7 @@ import org.cloudsmith.geppetto.ui.UIPlugin;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IProjectDescription;
+import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.IWorkspace;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.IPath;
@@ -159,7 +160,7 @@ public class ResourceUtil {
 				: defaultEditor.getId());
 	}
 
-	public static void selectFile(IFile file) {
+	public static void selectFile(IResource file) {
 		IWorkbenchWindow window = PlatformUI.getWorkbench().getActiveWorkbenchWindow();
 		IWorkbenchPage page = window.getActivePage();
 		final IWorkbenchPart activePart = page.getActivePart();

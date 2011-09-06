@@ -30,12 +30,13 @@ import org.eclipse.emf.ecore.impl.EObjectImpl;
  * <ul>
  * <li>{@link org.cloudsmith.geppetto.pp.impl.AttributeOperationImpl#getValue <em>Value</em>}</li>
  * <li>{@link org.cloudsmith.geppetto.pp.impl.AttributeOperationImpl#getKey <em>Key</em>}</li>
+ * <li>{@link org.cloudsmith.geppetto.pp.impl.AttributeOperationImpl#getOp <em>Op</em>}</li>
  * </ul>
  * </p>
  * 
  * @generated
  */
-public abstract class AttributeOperationImpl extends EObjectImpl implements AttributeOperation {
+public class AttributeOperationImpl extends EObjectImpl implements AttributeOperation {
 	/**
 	 * The cached value of the '{@link #getValue() <em>Value</em>}' containment reference.
 	 * <!-- begin-user-doc -->
@@ -68,6 +69,28 @@ public abstract class AttributeOperationImpl extends EObjectImpl implements Attr
 	 * @ordered
 	 */
 	protected String key = KEY_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getOp() <em>Op</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @see #getOp()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String OP_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getOp() <em>Op</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @see #getOp()
+	 * @generated
+	 * @ordered
+	 */
+	protected String op = OP_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -112,6 +135,8 @@ public abstract class AttributeOperationImpl extends EObjectImpl implements Attr
 				return getValue();
 			case PPPackage.ATTRIBUTE_OPERATION__KEY:
 				return getKey();
+			case PPPackage.ATTRIBUTE_OPERATION__OP:
+				return getOp();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -146,6 +171,10 @@ public abstract class AttributeOperationImpl extends EObjectImpl implements Attr
 				return KEY_EDEFAULT == null
 						? key != null
 						: !KEY_EDEFAULT.equals(key);
+			case PPPackage.ATTRIBUTE_OPERATION__OP:
+				return OP_EDEFAULT == null
+						? op != null
+						: !OP_EDEFAULT.equals(op);
 		}
 		return super.eIsSet(featureID);
 	}
@@ -164,6 +193,9 @@ public abstract class AttributeOperationImpl extends EObjectImpl implements Attr
 				return;
 			case PPPackage.ATTRIBUTE_OPERATION__KEY:
 				setKey((String) newValue);
+				return;
+			case PPPackage.ATTRIBUTE_OPERATION__OP:
+				setOp((String) newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -195,6 +227,9 @@ public abstract class AttributeOperationImpl extends EObjectImpl implements Attr
 			case PPPackage.ATTRIBUTE_OPERATION__KEY:
 				setKey(KEY_EDEFAULT);
 				return;
+			case PPPackage.ATTRIBUTE_OPERATION__OP:
+				setOp(OP_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -207,6 +242,16 @@ public abstract class AttributeOperationImpl extends EObjectImpl implements Attr
 	 */
 	public String getKey() {
 		return key;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
+	public String getOp() {
+		return op;
 	}
 
 	/**
@@ -230,6 +275,19 @@ public abstract class AttributeOperationImpl extends EObjectImpl implements Attr
 		key = newKey;
 		if(eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, PPPackage.ATTRIBUTE_OPERATION__KEY, oldKey, key));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
+	public void setOp(String newOp) {
+		String oldOp = op;
+		op = newOp;
+		if(eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, PPPackage.ATTRIBUTE_OPERATION__OP, oldOp, op));
 	}
 
 	/**
@@ -270,6 +328,8 @@ public abstract class AttributeOperationImpl extends EObjectImpl implements Attr
 		StringBuffer result = new StringBuffer(super.toString());
 		result.append(" (key: ");
 		result.append(key);
+		result.append(", op: ");
+		result.append(op);
 		result.append(')');
 		return result.toString();
 	}

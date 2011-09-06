@@ -39,7 +39,7 @@ public class PPParser extends AbstractContentAssistParser {
 				{
 					put(grammarAccess.getEdgeOperatorAccess().getAlternatives(), "rule__EdgeOperator__Alternatives");
 					put(grammarAccess.getResourceBodyAccess().getAlternatives(), "rule__ResourceBody__Alternatives");
-					put(grammarAccess.getAttributeOperationAccess().getAlternatives(), "rule__AttributeOperation__Alternatives");
+					put(grammarAccess.getAttributeOperationAccess().getOpAlternatives_1_0_0(), "rule__AttributeOperation__OpAlternatives_1_0_0");
 					put(grammarAccess.getAttributeOperationsAccess().getAlternatives_1(), "rule__AttributeOperations__Alternatives_1");
 					put(grammarAccess.getRelationalOperatorAccess().getAlternatives(), "rule__RelationalOperator__Alternatives");
 					put(grammarAccess.getEqualityOperatorAccess().getAlternatives(), "rule__EqualityOperator__Alternatives");
@@ -79,8 +79,8 @@ public class PPParser extends AbstractContentAssistParser {
 					put(grammarAccess.getResourceExpressionAccess().getGroup_1_2(), "rule__ResourceExpression__Group_1_2__0");
 					put(grammarAccess.getResourceExpressionAccess().getGroup_1_2_1(), "rule__ResourceExpression__Group_1_2_1__0");
 					put(grammarAccess.getResourceBodyAccess().getGroup_0(), "rule__ResourceBody__Group_0__0");
-					put(grammarAccess.getAttributeDefinitionAccess().getGroup(), "rule__AttributeDefinition__Group__0");
-					put(grammarAccess.getAttributeAdditionAccess().getGroup(), "rule__AttributeAddition__Group__0");
+					put(grammarAccess.getAttributeOperationAccess().getGroup(), "rule__AttributeOperation__Group__0");
+					put(grammarAccess.getAttributeOperationAccess().getGroup_1(), "rule__AttributeOperation__Group_1__0");
 					put(grammarAccess.getAttributeOperationsAccess().getGroup(), "rule__AttributeOperations__Group__0");
 					put(grammarAccess.getAttributeOperationsAccess().getGroup_1_0(), "rule__AttributeOperations__Group_1_0__0");
 					put(grammarAccess.getAssignmentExpressionAccess().getGroup(), "rule__AssignmentExpression__Group__0");
@@ -185,10 +185,9 @@ public class PPParser extends AbstractContentAssistParser {
 					put(grammarAccess.getResourceBodyAccess().getNameExprAssignment_0_0(), "rule__ResourceBody__NameExprAssignment_0_0");
 					put(grammarAccess.getResourceBodyAccess().getAttributesAssignment_0_2(), "rule__ResourceBody__AttributesAssignment_0_2");
 					put(grammarAccess.getResourceBodyAccess().getAttributesAssignment_1(), "rule__ResourceBody__AttributesAssignment_1");
-					put(grammarAccess.getAttributeDefinitionAccess().getKeyAssignment_0(), "rule__AttributeDefinition__KeyAssignment_0");
-					put(grammarAccess.getAttributeDefinitionAccess().getValueAssignment_2(), "rule__AttributeDefinition__ValueAssignment_2");
-					put(grammarAccess.getAttributeAdditionAccess().getKeyAssignment_0(), "rule__AttributeAddition__KeyAssignment_0");
-					put(grammarAccess.getAttributeAdditionAccess().getValueAssignment_2(), "rule__AttributeAddition__ValueAssignment_2");
+					put(grammarAccess.getAttributeOperationAccess().getKeyAssignment_0(), "rule__AttributeOperation__KeyAssignment_0");
+					put(grammarAccess.getAttributeOperationAccess().getOpAssignment_1_0(), "rule__AttributeOperation__OpAssignment_1_0");
+					put(grammarAccess.getAttributeOperationAccess().getValueAssignment_1_1(), "rule__AttributeOperation__ValueAssignment_1_1");
 					put(grammarAccess.getAttributeOperationsAccess().getAttributesAssignment_0(), "rule__AttributeOperations__AttributesAssignment_0");
 					put(grammarAccess.getAttributeOperationsAccess().getAttributesAssignment_1_0_1(), "rule__AttributeOperations__AttributesAssignment_1_0_1");
 					put(grammarAccess.getAttributeOperationsAccess().getAttributesAssignment_1_1(), "rule__AttributeOperations__AttributesAssignment_1_1");

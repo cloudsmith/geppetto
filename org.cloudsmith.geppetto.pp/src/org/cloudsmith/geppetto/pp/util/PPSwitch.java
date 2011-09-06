@@ -18,8 +18,6 @@ import org.cloudsmith.geppetto.pp.AndExpression;
 import org.cloudsmith.geppetto.pp.AppendExpression;
 import org.cloudsmith.geppetto.pp.AssignmentExpression;
 import org.cloudsmith.geppetto.pp.AtExpression;
-import org.cloudsmith.geppetto.pp.AttributeAddition;
-import org.cloudsmith.geppetto.pp.AttributeDefinition;
 import org.cloudsmith.geppetto.pp.AttributeOperation;
 import org.cloudsmith.geppetto.pp.AttributeOperations;
 import org.cloudsmith.geppetto.pp.BinaryExpression;
@@ -205,40 +203,6 @@ public class PPSwitch<T> {
 	 * @generated
 	 */
 	public T caseAtExpression(AtExpression object) {
-		return null;
-	}
-
-	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Attribute Addition</em>'.
-	 * <!-- begin-user-doc -->
-	 * This implementation returns null;
-	 * returning a non-null result will terminate the switch.
-	 * <!-- end-user-doc -->
-	 * 
-	 * @param object
-	 *            the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Attribute Addition</em>'.
-	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-	 * @generated
-	 */
-	public T caseAttributeAddition(AttributeAddition object) {
-		return null;
-	}
-
-	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Attribute Definition</em>'.
-	 * <!-- begin-user-doc -->
-	 * This implementation returns null;
-	 * returning a non-null result will terminate the switch.
-	 * <!-- end-user-doc -->
-	 * 
-	 * @param object
-	 *            the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Attribute Definition</em>'.
-	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-	 * @generated
-	 */
-	public T caseAttributeDefinition(AttributeDefinition object) {
 		return null;
 	}
 
@@ -1393,24 +1357,6 @@ public class PPSwitch<T> {
 			case PPPackage.RESOURCE_BODY: {
 				ResourceBody resourceBody = (ResourceBody) theEObject;
 				T result = caseResourceBody(resourceBody);
-				if(result == null)
-					result = defaultCase(theEObject);
-				return result;
-			}
-			case PPPackage.ATTRIBUTE_DEFINITION: {
-				AttributeDefinition attributeDefinition = (AttributeDefinition) theEObject;
-				T result = caseAttributeDefinition(attributeDefinition);
-				if(result == null)
-					result = caseAttributeOperation(attributeDefinition);
-				if(result == null)
-					result = defaultCase(theEObject);
-				return result;
-			}
-			case PPPackage.ATTRIBUTE_ADDITION: {
-				AttributeAddition attributeAddition = (AttributeAddition) theEObject;
-				T result = caseAttributeAddition(attributeAddition);
-				if(result == null)
-					result = caseAttributeOperation(attributeAddition);
 				if(result == null)
 					result = defaultCase(theEObject);
 				return result;

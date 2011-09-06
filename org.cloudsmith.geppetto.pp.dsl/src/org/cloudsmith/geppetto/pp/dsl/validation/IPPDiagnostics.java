@@ -58,6 +58,8 @@ public interface IPPDiagnostics {
 	 */
 	public static final String ISSUE__UNSUPPORTED_EXPRESSION = ISSUE_PREFIX + "UnsupportedExpression";
 
+	public static final String ISSUE__UNSUPPORTED_OPERATOR = ISSUE_PREFIX + "UnsupportedOperator";
+
 	/**
 	 * An expression feature that is optional in the grammar/model is not optional in the concrete syntax.
 	 */

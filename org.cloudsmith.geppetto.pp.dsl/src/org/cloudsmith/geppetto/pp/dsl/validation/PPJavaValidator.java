@@ -26,8 +26,6 @@ import org.cloudsmith.geppetto.pp.AndExpression;
 import org.cloudsmith.geppetto.pp.AppendExpression;
 import org.cloudsmith.geppetto.pp.AssignmentExpression;
 import org.cloudsmith.geppetto.pp.AtExpression;
-import org.cloudsmith.geppetto.pp.AttributeAddition;
-import org.cloudsmith.geppetto.pp.AttributeDefinition;
 import org.cloudsmith.geppetto.pp.AttributeOperation;
 import org.cloudsmith.geppetto.pp.AttributeOperations;
 import org.cloudsmith.geppetto.pp.BinaryExpression;
@@ -409,19 +407,20 @@ public class PPJavaValidator extends AbstractPPJavaValidator implements IPPDiagn
 	}
 
 	@Check
-	public void checkAttributeAddition(AttributeAddition o) {
+	public void checkAttributeAddition(AttributeOperation o) {
 		if(!isNAME(o.getKey()))
 			acceptor.acceptError(
 				"Bad name format.", o, PPPackage.Literals.ATTRIBUTE_OPERATION__KEY, INSIGNIFICANT_INDEX,
 				IPPDiagnostics.ISSUE__NOT_NAME);
-	}
-
-	@Check
-	public void checkAttributeDefinition(AttributeDefinition o) {
-		if(!isNAME(o.getKey()))
+		String op = o.getOp();
+		if(!(op != null && (op.equals("=>") || op.equals("+>"))))
 			acceptor.acceptError(
-				"Bad name format.", o, PPPackage.Literals.ATTRIBUTE_OPERATION__KEY, INSIGNIFICANT_INDEX,
-				IPPDiagnostics.ISSUE__NOT_NAME);
+				"Bad operator.", o, PPPackage.Literals.ATTRIBUTE_OPERATION__OP, INSIGNIFICANT_INDEX,
+				IPPDiagnostics.ISSUE__UNSUPPORTED_OPERATOR);
+		if(o.getValue() == null)
+			acceptor.acceptError(
+				"Missing value expression", o, PPPackage.Literals.ATTRIBUTE_OPERATION__VALUE, INSIGNIFICANT_INDEX,
+				IPPDiagnostics.ISSUE__NULL_EXPRESSION);
 	}
 
 	/**
@@ -1004,7 +1003,7 @@ public class PPJavaValidator extends AbstractPPJavaValidator implements IPPDiagn
 			// ensure that only resource override has AttributeAdditions
 			if(!attrAdditionAllowed && body.getAttributes() != null) {
 				for(AttributeOperation ao : body.getAttributes().getAttributes()) {
-					if(ao instanceof AttributeAddition)
+					if("+>".equals(ao.getOp())) // instanceof AttributeAddition)
 						acceptor.acceptError(
 							errorStartText + " can not have attribute additions.", body,
 							PPPackage.Literals.RESOURCE_BODY__ATTRIBUTES,

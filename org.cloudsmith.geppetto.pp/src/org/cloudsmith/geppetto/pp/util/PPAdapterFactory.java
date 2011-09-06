@@ -16,8 +16,6 @@ import org.cloudsmith.geppetto.pp.AndExpression;
 import org.cloudsmith.geppetto.pp.AppendExpression;
 import org.cloudsmith.geppetto.pp.AssignmentExpression;
 import org.cloudsmith.geppetto.pp.AtExpression;
-import org.cloudsmith.geppetto.pp.AttributeAddition;
-import org.cloudsmith.geppetto.pp.AttributeDefinition;
 import org.cloudsmith.geppetto.pp.AttributeOperation;
 import org.cloudsmith.geppetto.pp.AttributeOperations;
 import org.cloudsmith.geppetto.pp.BinaryExpression;
@@ -137,16 +135,6 @@ public class PPAdapterFactory extends AdapterFactoryImpl {
 		@Override
 		public Adapter caseAtExpression(AtExpression object) {
 			return createAtExpressionAdapter();
-		}
-
-		@Override
-		public Adapter caseAttributeAddition(AttributeAddition object) {
-			return createAttributeAdditionAdapter();
-		}
-
-		@Override
-		public Adapter caseAttributeDefinition(AttributeDefinition object) {
-			return createAttributeDefinitionAdapter();
 		}
 
 		@Override
@@ -570,36 +558,6 @@ public class PPAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createAtExpressionAdapter() {
-		return null;
-	}
-
-	/**
-	 * Creates a new adapter for an object of class '{@link org.cloudsmith.geppetto.pp.AttributeAddition <em>Attribute Addition</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
-	 * 
-	 * @return the new adapter.
-	 * @see org.cloudsmith.geppetto.pp.AttributeAddition
-	 * @generated
-	 */
-	public Adapter createAttributeAdditionAdapter() {
-		return null;
-	}
-
-	/**
-	 * Creates a new adapter for an object of class '{@link org.cloudsmith.geppetto.pp.AttributeDefinition <em>Attribute Definition</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
-	 * 
-	 * @return the new adapter.
-	 * @see org.cloudsmith.geppetto.pp.AttributeDefinition
-	 * @generated
-	 */
-	public Adapter createAttributeDefinitionAdapter() {
 		return null;
 	}
 

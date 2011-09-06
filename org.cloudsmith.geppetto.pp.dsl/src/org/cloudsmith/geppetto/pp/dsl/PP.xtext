@@ -110,20 +110,27 @@ ResourceBody returns pp::ResourceBody
 	| attributes = AttributeOperations
 	;
 
-// VALIDATION: checks that key is a NAME
-AttributeDefinition returns pp::AttributeDefinition
-	:  key = unionNameOrReference  '=>'  value = Expression 
-	;
+//// VALIDATION: checks that key is a NAME
+//AttributeDefinition returns pp::AttributeDefinition
+//	: unionNameOrReference ({pp::AttributeDefinition.key = current} '=>' value = Expression) 
+////	:  key = unionNameOrReference  '=>'  value = Expression 
+//	;
 
-// VALIDATION: checks that key is a NAME
-AttributeAddition returns pp::AttributeAddition
-	:  key = unionNameOrReference  '+>'  value = Expression
-	;
+//// VALIDATION: checks that key is a NAME
+//AttributeAddition returns pp::AttributeAddition
+//	:  key = unionNameOrReference  '+>'  value = Expression
+//	;
 
+// VALIDATION: key is a NAME, op is supported and Expression is not null
 AttributeOperation returns pp::AttributeOperation
-	: AttributeDefinition
-	| AttributeAddition
+	: => key = unionNameOrReference (op = ('=>' | '+>') value = Expression)?
 	;
+
+//AttributeOperation returns pp::AttributeOperation
+//	: AttributeDefinition
+//	| AttributeAddition
+//	;
+	
 
 // VALIDATION: checks that there are ',' between operations
 // NOTE: if ','	is mandatory in grammar, backtracking will think statement is a different (faulty)

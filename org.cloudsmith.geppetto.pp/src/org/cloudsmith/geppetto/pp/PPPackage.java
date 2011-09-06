@@ -99,28 +99,6 @@ public interface PPPackage extends EPackage {
 		EReference RESOURCE_BODY__NAME_EXPR = eINSTANCE.getResourceBody_NameExpr();
 
 		/**
-		 * The meta object literal for the '{@link org.cloudsmith.geppetto.pp.impl.AttributeDefinitionImpl <em>Attribute Definition</em>}' class.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * 
-		 * @see org.cloudsmith.geppetto.pp.impl.AttributeDefinitionImpl
-		 * @see org.cloudsmith.geppetto.pp.impl.PPPackageImpl#getAttributeDefinition()
-		 * @generated
-		 */
-		EClass ATTRIBUTE_DEFINITION = eINSTANCE.getAttributeDefinition();
-
-		/**
-		 * The meta object literal for the '{@link org.cloudsmith.geppetto.pp.impl.AttributeAdditionImpl <em>Attribute Addition</em>}' class.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * 
-		 * @see org.cloudsmith.geppetto.pp.impl.AttributeAdditionImpl
-		 * @see org.cloudsmith.geppetto.pp.impl.PPPackageImpl#getAttributeAddition()
-		 * @generated
-		 */
-		EClass ATTRIBUTE_ADDITION = eINSTANCE.getAttributeAddition();
-
-		/**
 		 * The meta object literal for the '{@link org.cloudsmith.geppetto.pp.impl.AttributeOperationImpl <em>Attribute Operation</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -148,6 +126,15 @@ public interface PPPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute ATTRIBUTE_OPERATION__KEY = eINSTANCE.getAttributeOperation_Key();
+
+		/**
+		 * The meta object literal for the '<em><b>Op</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * 
+		 * @generated
+		 */
+		EAttribute ATTRIBUTE_OPERATION__OP = eINSTANCE.getAttributeOperation_Op();
 
 		/**
 		 * The meta object literal for the '{@link org.cloudsmith.geppetto.pp.impl.AttributeOperationsImpl <em>Attribute Operations</em>}' class.
@@ -1414,7 +1401,7 @@ public interface PPPackage extends EPackage {
 	 * @see org.cloudsmith.geppetto.pp.impl.PPPackageImpl#getExpressionBlock()
 	 * @generated
 	 */
-	int EXPRESSION_BLOCK = 54;
+	int EXPRESSION_BLOCK = 52;
 
 	/**
 	 * The feature id for the '<em><b>Statements</b></em>' containment reference list.
@@ -1517,7 +1504,7 @@ public interface PPPackage extends EPackage {
 	 * @see org.cloudsmith.geppetto.pp.impl.PPPackageImpl#getAttributeOperation()
 	 * @generated
 	 */
-	int ATTRIBUTE_OPERATION = 5;
+	int ATTRIBUTE_OPERATION = 3;
 
 	/**
 	 * The feature id for the '<em><b>Value</b></em>' containment reference.
@@ -1540,6 +1527,16 @@ public interface PPPackage extends EPackage {
 	int ATTRIBUTE_OPERATION__KEY = 1;
 
 	/**
+	 * The feature id for the '<em><b>Op</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 * @ordered
+	 */
+	int ATTRIBUTE_OPERATION__OP = 2;
+
+	/**
 	 * The number of structural features of the '<em>Attribute Operation</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1547,89 +1544,7 @@ public interface PPPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int ATTRIBUTE_OPERATION_FEATURE_COUNT = 2;
-
-	/**
-	 * The meta object id for the '{@link org.cloudsmith.geppetto.pp.impl.AttributeDefinitionImpl <em>Attribute Definition</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * 
-	 * @see org.cloudsmith.geppetto.pp.impl.AttributeDefinitionImpl
-	 * @see org.cloudsmith.geppetto.pp.impl.PPPackageImpl#getAttributeDefinition()
-	 * @generated
-	 */
-	int ATTRIBUTE_DEFINITION = 3;
-
-	/**
-	 * The feature id for the '<em><b>Value</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * 
-	 * @generated
-	 * @ordered
-	 */
-	int ATTRIBUTE_DEFINITION__VALUE = ATTRIBUTE_OPERATION__VALUE;
-
-	/**
-	 * The feature id for the '<em><b>Key</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * 
-	 * @generated
-	 * @ordered
-	 */
-	int ATTRIBUTE_DEFINITION__KEY = ATTRIBUTE_OPERATION__KEY;
-
-	/**
-	 * The number of structural features of the '<em>Attribute Definition</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * 
-	 * @generated
-	 * @ordered
-	 */
-	int ATTRIBUTE_DEFINITION_FEATURE_COUNT = ATTRIBUTE_OPERATION_FEATURE_COUNT + 0;
-
-	/**
-	 * The meta object id for the '{@link org.cloudsmith.geppetto.pp.impl.AttributeAdditionImpl <em>Attribute Addition</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * 
-	 * @see org.cloudsmith.geppetto.pp.impl.AttributeAdditionImpl
-	 * @see org.cloudsmith.geppetto.pp.impl.PPPackageImpl#getAttributeAddition()
-	 * @generated
-	 */
-	int ATTRIBUTE_ADDITION = 4;
-
-	/**
-	 * The feature id for the '<em><b>Value</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * 
-	 * @generated
-	 * @ordered
-	 */
-	int ATTRIBUTE_ADDITION__VALUE = ATTRIBUTE_OPERATION__VALUE;
-
-	/**
-	 * The feature id for the '<em><b>Key</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * 
-	 * @generated
-	 * @ordered
-	 */
-	int ATTRIBUTE_ADDITION__KEY = ATTRIBUTE_OPERATION__KEY;
-
-	/**
-	 * The number of structural features of the '<em>Attribute Addition</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * 
-	 * @generated
-	 * @ordered
-	 */
-	int ATTRIBUTE_ADDITION_FEATURE_COUNT = ATTRIBUTE_OPERATION_FEATURE_COUNT + 0;
+	int ATTRIBUTE_OPERATION_FEATURE_COUNT = 3;
 
 	/**
 	 * The meta object id for the '{@link org.cloudsmith.geppetto.pp.impl.AttributeOperationsImpl <em>Attribute Operations</em>}' class.
@@ -1640,7 +1555,7 @@ public interface PPPackage extends EPackage {
 	 * @see org.cloudsmith.geppetto.pp.impl.PPPackageImpl#getAttributeOperations()
 	 * @generated
 	 */
-	int ATTRIBUTE_OPERATIONS = 6;
+	int ATTRIBUTE_OPERATIONS = 4;
 
 	/**
 	 * The feature id for the '<em><b>Attributes</b></em>' containment reference list.
@@ -1671,7 +1586,7 @@ public interface PPPackage extends EPackage {
 	 * @see org.cloudsmith.geppetto.pp.impl.PPPackageImpl#getICollectQuery()
 	 * @generated
 	 */
-	int ICOLLECT_QUERY = 7;
+	int ICOLLECT_QUERY = 5;
 
 	/**
 	 * The number of structural features of the '<em>ICollect Query</em>' class.
@@ -1692,7 +1607,7 @@ public interface PPPackage extends EPackage {
 	 * @see org.cloudsmith.geppetto.pp.impl.PPPackageImpl#getUnaryExpression()
 	 * @generated
 	 */
-	int UNARY_EXPRESSION = 51;
+	int UNARY_EXPRESSION = 49;
 
 	/**
 	 * The feature id for the '<em><b>Expr</b></em>' containment reference.
@@ -1723,7 +1638,7 @@ public interface PPPackage extends EPackage {
 	 * @see org.cloudsmith.geppetto.pp.impl.PPPackageImpl#getVirtualCollectQuery()
 	 * @generated
 	 */
-	int VIRTUAL_COLLECT_QUERY = 8;
+	int VIRTUAL_COLLECT_QUERY = 6;
 
 	/**
 	 * The feature id for the '<em><b>Expr</b></em>' containment reference.
@@ -1754,7 +1669,7 @@ public interface PPPackage extends EPackage {
 	 * @see org.cloudsmith.geppetto.pp.impl.PPPackageImpl#getExportedCollectQuery()
 	 * @generated
 	 */
-	int EXPORTED_COLLECT_QUERY = 9;
+	int EXPORTED_COLLECT_QUERY = 7;
 
 	/**
 	 * The feature id for the '<em><b>Expr</b></em>' containment reference.
@@ -1785,7 +1700,7 @@ public interface PPPackage extends EPackage {
 	 * @see org.cloudsmith.geppetto.pp.impl.PPPackageImpl#getHostClassDefinition()
 	 * @generated
 	 */
-	int HOST_CLASS_DEFINITION = 10;
+	int HOST_CLASS_DEFINITION = 8;
 
 	/**
 	 * The meta object id for the '{@link org.cloudsmith.geppetto.pp.impl.DefinitionImpl <em>Definition</em>}' class.
@@ -1796,7 +1711,7 @@ public interface PPPackage extends EPackage {
 	 * @see org.cloudsmith.geppetto.pp.impl.PPPackageImpl#getDefinition()
 	 * @generated
 	 */
-	int DEFINITION = 11;
+	int DEFINITION = 9;
 
 	/**
 	 * The feature id for the '<em><b>Class Name</b></em>' attribute.
@@ -1897,7 +1812,7 @@ public interface PPPackage extends EPackage {
 	 * @see org.cloudsmith.geppetto.pp.impl.PPPackageImpl#getDefinitionArgumentList()
 	 * @generated
 	 */
-	int DEFINITION_ARGUMENT_LIST = 12;
+	int DEFINITION_ARGUMENT_LIST = 10;
 
 	/**
 	 * The feature id for the '<em><b>Arguments</b></em>' containment reference list.
@@ -1928,7 +1843,7 @@ public interface PPPackage extends EPackage {
 	 * @see org.cloudsmith.geppetto.pp.impl.PPPackageImpl#getDefinitionArgument()
 	 * @generated
 	 */
-	int DEFINITION_ARGUMENT = 13;
+	int DEFINITION_ARGUMENT = 11;
 
 	/**
 	 * The feature id for the '<em><b>Arg Name</b></em>' attribute.
@@ -1979,7 +1894,7 @@ public interface PPPackage extends EPackage {
 	 * @see org.cloudsmith.geppetto.pp.impl.PPPackageImpl#getCaseExpression()
 	 * @generated
 	 */
-	int CASE_EXPRESSION = 14;
+	int CASE_EXPRESSION = 12;
 
 	/**
 	 * The feature id for the '<em><b>Switch Expr</b></em>' containment reference.
@@ -2020,7 +1935,7 @@ public interface PPPackage extends EPackage {
 	 * @see org.cloudsmith.geppetto.pp.impl.PPPackageImpl#getCase()
 	 * @generated
 	 */
-	int CASE = 15;
+	int CASE = 13;
 
 	/**
 	 * The feature id for the '<em><b>Statements</b></em>' containment reference list.
@@ -2061,7 +1976,7 @@ public interface PPPackage extends EPackage {
 	 * @see org.cloudsmith.geppetto.pp.impl.PPPackageImpl#getIfExpression()
 	 * @generated
 	 */
-	int IF_EXPRESSION = 16;
+	int IF_EXPRESSION = 14;
 
 	/**
 	 * The feature id for the '<em><b>Cond Expr</b></em>' containment reference.
@@ -2112,7 +2027,7 @@ public interface PPPackage extends EPackage {
 	 * @see org.cloudsmith.geppetto.pp.impl.PPPackageImpl#getLiteralExpression()
 	 * @generated
 	 */
-	int LITERAL_EXPRESSION = 17;
+	int LITERAL_EXPRESSION = 15;
 
 	/**
 	 * The number of structural features of the '<em>Literal Expression</em>' class.
@@ -2133,7 +2048,7 @@ public interface PPPackage extends EPackage {
 	 * @see org.cloudsmith.geppetto.pp.impl.PPPackageImpl#getLiteralNameOrReference()
 	 * @generated
 	 */
-	int LITERAL_NAME_OR_REFERENCE = 18;
+	int LITERAL_NAME_OR_REFERENCE = 16;
 
 	/**
 	 * The feature id for the '<em><b>Value</b></em>' attribute.
@@ -2164,7 +2079,7 @@ public interface PPPackage extends EPackage {
 	 * @see org.cloudsmith.geppetto.pp.impl.PPPackageImpl#getResourceExpression()
 	 * @generated
 	 */
-	int RESOURCE_EXPRESSION = 19;
+	int RESOURCE_EXPRESSION = 17;
 
 	/**
 	 * The feature id for the '<em><b>Resource Expr</b></em>' containment reference.
@@ -2205,7 +2120,7 @@ public interface PPPackage extends EPackage {
 	 * @see org.cloudsmith.geppetto.pp.impl.PPPackageImpl#getImportExpression()
 	 * @generated
 	 */
-	int IMPORT_EXPRESSION = 20;
+	int IMPORT_EXPRESSION = 18;
 
 	/**
 	 * The feature id for the '<em><b>Values</b></em>' containment reference list.
@@ -2236,7 +2151,7 @@ public interface PPPackage extends EPackage {
 	 * @see org.cloudsmith.geppetto.pp.impl.PPPackageImpl#getLiteralList()
 	 * @generated
 	 */
-	int LITERAL_LIST = 21;
+	int LITERAL_LIST = 19;
 
 	/**
 	 * The feature id for the '<em><b>Elements</b></em>' containment reference list.
@@ -2267,7 +2182,7 @@ public interface PPPackage extends EPackage {
 	 * @see org.cloudsmith.geppetto.pp.impl.PPPackageImpl#getLiteralHash()
 	 * @generated
 	 */
-	int LITERAL_HASH = 22;
+	int LITERAL_HASH = 20;
 
 	/**
 	 * The feature id for the '<em><b>Elements</b></em>' containment reference list.
@@ -2298,7 +2213,7 @@ public interface PPPackage extends EPackage {
 	 * @see org.cloudsmith.geppetto.pp.impl.PPPackageImpl#getHashEntry()
 	 * @generated
 	 */
-	int HASH_ENTRY = 23;
+	int HASH_ENTRY = 21;
 
 	/**
 	 * The feature id for the '<em><b>Key</b></em>' containment reference.
@@ -2339,7 +2254,7 @@ public interface PPPackage extends EPackage {
 	 * @see org.cloudsmith.geppetto.pp.impl.PPPackageImpl#getLiteralBoolean()
 	 * @generated
 	 */
-	int LITERAL_BOOLEAN = 24;
+	int LITERAL_BOOLEAN = 22;
 
 	/**
 	 * The feature id for the '<em><b>Value</b></em>' attribute.
@@ -2370,7 +2285,7 @@ public interface PPPackage extends EPackage {
 	 * @see org.cloudsmith.geppetto.pp.impl.PPPackageImpl#getLiteralUndef()
 	 * @generated
 	 */
-	int LITERAL_UNDEF = 25;
+	int LITERAL_UNDEF = 23;
 
 	/**
 	 * The number of structural features of the '<em>Literal Undef</em>' class.
@@ -2391,7 +2306,7 @@ public interface PPPackage extends EPackage {
 	 * @see org.cloudsmith.geppetto.pp.impl.PPPackageImpl#getLiteralDefault()
 	 * @generated
 	 */
-	int LITERAL_DEFAULT = 26;
+	int LITERAL_DEFAULT = 24;
 
 	/**
 	 * The number of structural features of the '<em>Literal Default</em>' class.
@@ -2412,7 +2327,7 @@ public interface PPPackage extends EPackage {
 	 * @see org.cloudsmith.geppetto.pp.impl.PPPackageImpl#getLiteralRegex()
 	 * @generated
 	 */
-	int LITERAL_REGEX = 27;
+	int LITERAL_REGEX = 25;
 
 	/**
 	 * The feature id for the '<em><b>Value</b></em>' attribute.
@@ -2443,7 +2358,7 @@ public interface PPPackage extends EPackage {
 	 * @see org.cloudsmith.geppetto.pp.impl.PPPackageImpl#getLiteralName()
 	 * @generated
 	 */
-	int LITERAL_NAME = 28;
+	int LITERAL_NAME = 26;
 
 	/**
 	 * The feature id for the '<em><b>Value</b></em>' attribute.
@@ -2474,7 +2389,7 @@ public interface PPPackage extends EPackage {
 	 * @see org.cloudsmith.geppetto.pp.impl.PPPackageImpl#getVariableExpression()
 	 * @generated
 	 */
-	int VARIABLE_EXPRESSION = 29;
+	int VARIABLE_EXPRESSION = 27;
 
 	/**
 	 * The feature id for the '<em><b>Var Name</b></em>' attribute.
@@ -2505,7 +2420,7 @@ public interface PPPackage extends EPackage {
 	 * @see org.cloudsmith.geppetto.pp.impl.PPPackageImpl#getBinaryExpression()
 	 * @generated
 	 */
-	int BINARY_EXPRESSION = 48;
+	int BINARY_EXPRESSION = 46;
 
 	/**
 	 * The feature id for the '<em><b>Left Expr</b></em>' containment reference.
@@ -2546,7 +2461,7 @@ public interface PPPackage extends EPackage {
 	 * @see org.cloudsmith.geppetto.pp.impl.PPPackageImpl#getBinaryOpExpression()
 	 * @generated
 	 */
-	int BINARY_OP_EXPRESSION = 47;
+	int BINARY_OP_EXPRESSION = 45;
 
 	/**
 	 * The feature id for the '<em><b>Left Expr</b></em>' containment reference.
@@ -2597,7 +2512,7 @@ public interface PPPackage extends EPackage {
 	 * @see org.cloudsmith.geppetto.pp.impl.PPPackageImpl#getRelationshipExpression()
 	 * @generated
 	 */
-	int RELATIONSHIP_EXPRESSION = 30;
+	int RELATIONSHIP_EXPRESSION = 28;
 
 	/**
 	 * The feature id for the '<em><b>Left Expr</b></em>' containment reference.
@@ -2648,7 +2563,7 @@ public interface PPPackage extends EPackage {
 	 * @see org.cloudsmith.geppetto.pp.impl.PPPackageImpl#getAssignmentExpression()
 	 * @generated
 	 */
-	int ASSIGNMENT_EXPRESSION = 31;
+	int ASSIGNMENT_EXPRESSION = 29;
 
 	/**
 	 * The feature id for the '<em><b>Left Expr</b></em>' containment reference.
@@ -2689,7 +2604,7 @@ public interface PPPackage extends EPackage {
 	 * @see org.cloudsmith.geppetto.pp.impl.PPPackageImpl#getAppendExpression()
 	 * @generated
 	 */
-	int APPEND_EXPRESSION = 32;
+	int APPEND_EXPRESSION = 30;
 
 	/**
 	 * The feature id for the '<em><b>Left Expr</b></em>' containment reference.
@@ -2730,7 +2645,7 @@ public interface PPPackage extends EPackage {
 	 * @see org.cloudsmith.geppetto.pp.impl.PPPackageImpl#getOrExpression()
 	 * @generated
 	 */
-	int OR_EXPRESSION = 33;
+	int OR_EXPRESSION = 31;
 
 	/**
 	 * The feature id for the '<em><b>Left Expr</b></em>' containment reference.
@@ -2771,7 +2686,7 @@ public interface PPPackage extends EPackage {
 	 * @see org.cloudsmith.geppetto.pp.impl.PPPackageImpl#getAndExpression()
 	 * @generated
 	 */
-	int AND_EXPRESSION = 34;
+	int AND_EXPRESSION = 32;
 
 	/**
 	 * The feature id for the '<em><b>Left Expr</b></em>' containment reference.
@@ -2812,7 +2727,7 @@ public interface PPPackage extends EPackage {
 	 * @see org.cloudsmith.geppetto.pp.impl.PPPackageImpl#getRelationalExpression()
 	 * @generated
 	 */
-	int RELATIONAL_EXPRESSION = 35;
+	int RELATIONAL_EXPRESSION = 33;
 
 	/**
 	 * The feature id for the '<em><b>Left Expr</b></em>' containment reference.
@@ -2863,7 +2778,7 @@ public interface PPPackage extends EPackage {
 	 * @see org.cloudsmith.geppetto.pp.impl.PPPackageImpl#getEqualityExpression()
 	 * @generated
 	 */
-	int EQUALITY_EXPRESSION = 36;
+	int EQUALITY_EXPRESSION = 34;
 
 	/**
 	 * The feature id for the '<em><b>Left Expr</b></em>' containment reference.
@@ -2914,7 +2829,7 @@ public interface PPPackage extends EPackage {
 	 * @see org.cloudsmith.geppetto.pp.impl.PPPackageImpl#getShiftExpression()
 	 * @generated
 	 */
-	int SHIFT_EXPRESSION = 37;
+	int SHIFT_EXPRESSION = 35;
 
 	/**
 	 * The feature id for the '<em><b>Left Expr</b></em>' containment reference.
@@ -2965,7 +2880,7 @@ public interface PPPackage extends EPackage {
 	 * @see org.cloudsmith.geppetto.pp.impl.PPPackageImpl#getAdditiveExpression()
 	 * @generated
 	 */
-	int ADDITIVE_EXPRESSION = 38;
+	int ADDITIVE_EXPRESSION = 36;
 
 	/**
 	 * The feature id for the '<em><b>Left Expr</b></em>' containment reference.
@@ -3016,7 +2931,7 @@ public interface PPPackage extends EPackage {
 	 * @see org.cloudsmith.geppetto.pp.impl.PPPackageImpl#getMultiplicativeExpression()
 	 * @generated
 	 */
-	int MULTIPLICATIVE_EXPRESSION = 39;
+	int MULTIPLICATIVE_EXPRESSION = 37;
 
 	/**
 	 * The feature id for the '<em><b>Left Expr</b></em>' containment reference.
@@ -3067,7 +2982,7 @@ public interface PPPackage extends EPackage {
 	 * @see org.cloudsmith.geppetto.pp.impl.PPPackageImpl#getMatchingExpression()
 	 * @generated
 	 */
-	int MATCHING_EXPRESSION = 40;
+	int MATCHING_EXPRESSION = 38;
 
 	/**
 	 * The feature id for the '<em><b>Left Expr</b></em>' containment reference.
@@ -3118,7 +3033,7 @@ public interface PPPackage extends EPackage {
 	 * @see org.cloudsmith.geppetto.pp.impl.PPPackageImpl#getInExpression()
 	 * @generated
 	 */
-	int IN_EXPRESSION = 41;
+	int IN_EXPRESSION = 39;
 
 	/**
 	 * The feature id for the '<em><b>Left Expr</b></em>' containment reference.
@@ -3169,7 +3084,7 @@ public interface PPPackage extends EPackage {
 	 * @see org.cloudsmith.geppetto.pp.impl.PPPackageImpl#getParameterizedExpression()
 	 * @generated
 	 */
-	int PARAMETERIZED_EXPRESSION = 49;
+	int PARAMETERIZED_EXPRESSION = 47;
 
 	/**
 	 * The feature id for the '<em><b>Left Expr</b></em>' containment reference.
@@ -3210,7 +3125,7 @@ public interface PPPackage extends EPackage {
 	 * @see org.cloudsmith.geppetto.pp.impl.PPPackageImpl#getAtExpression()
 	 * @generated
 	 */
-	int AT_EXPRESSION = 42;
+	int AT_EXPRESSION = 40;
 
 	/**
 	 * The feature id for the '<em><b>Left Expr</b></em>' containment reference.
@@ -3251,7 +3166,7 @@ public interface PPPackage extends EPackage {
 	 * @see org.cloudsmith.geppetto.pp.impl.PPPackageImpl#getCollectExpression()
 	 * @generated
 	 */
-	int COLLECT_EXPRESSION = 43;
+	int COLLECT_EXPRESSION = 41;
 
 	/**
 	 * The feature id for the '<em><b>Class Reference</b></em>' containment reference.
@@ -3302,7 +3217,7 @@ public interface PPPackage extends EPackage {
 	 * @see org.cloudsmith.geppetto.pp.impl.PPPackageImpl#getSelectorExpression()
 	 * @generated
 	 */
-	int SELECTOR_EXPRESSION = 44;
+	int SELECTOR_EXPRESSION = 42;
 
 	/**
 	 * The feature id for the '<em><b>Left Expr</b></em>' containment reference.
@@ -3343,7 +3258,7 @@ public interface PPPackage extends EPackage {
 	 * @see org.cloudsmith.geppetto.pp.impl.PPPackageImpl#getSelectorEntry()
 	 * @generated
 	 */
-	int SELECTOR_ENTRY = 45;
+	int SELECTOR_ENTRY = 43;
 
 	/**
 	 * The feature id for the '<em><b>Left Expr</b></em>' containment reference.
@@ -3384,7 +3299,7 @@ public interface PPPackage extends EPackage {
 	 * @see org.cloudsmith.geppetto.pp.impl.PPPackageImpl#getFunctionCall()
 	 * @generated
 	 */
-	int FUNCTION_CALL = 46;
+	int FUNCTION_CALL = 44;
 
 	/**
 	 * The feature id for the '<em><b>Left Expr</b></em>' containment reference.
@@ -3425,7 +3340,7 @@ public interface PPPackage extends EPackage {
 	 * @see org.cloudsmith.geppetto.pp.impl.PPPackageImpl#getNodeDefinition()
 	 * @generated
 	 */
-	int NODE_DEFINITION = 50;
+	int NODE_DEFINITION = 48;
 
 	/**
 	 * The feature id for the '<em><b>Host Names</b></em>' containment reference list.
@@ -3476,7 +3391,7 @@ public interface PPPackage extends EPackage {
 	 * @see org.cloudsmith.geppetto.pp.impl.PPPackageImpl#getUnaryMinusExpression()
 	 * @generated
 	 */
-	int UNARY_MINUS_EXPRESSION = 52;
+	int UNARY_MINUS_EXPRESSION = 50;
 
 	/**
 	 * The feature id for the '<em><b>Expr</b></em>' containment reference.
@@ -3507,7 +3422,7 @@ public interface PPPackage extends EPackage {
 	 * @see org.cloudsmith.geppetto.pp.impl.PPPackageImpl#getUnaryNotExpression()
 	 * @generated
 	 */
-	int UNARY_NOT_EXPRESSION = 53;
+	int UNARY_NOT_EXPRESSION = 51;
 
 	/**
 	 * The feature id for the '<em><b>Expr</b></em>' containment reference.
@@ -3538,7 +3453,7 @@ public interface PPPackage extends EPackage {
 	 * @see org.cloudsmith.geppetto.pp.impl.PPPackageImpl#getElseExpression()
 	 * @generated
 	 */
-	int ELSE_EXPRESSION = 55;
+	int ELSE_EXPRESSION = 53;
 
 	/**
 	 * The feature id for the '<em><b>Statements</b></em>' containment reference list.
@@ -3569,7 +3484,7 @@ public interface PPPackage extends EPackage {
 	 * @see org.cloudsmith.geppetto.pp.impl.PPPackageImpl#getElseIfExpression()
 	 * @generated
 	 */
-	int ELSE_IF_EXPRESSION = 56;
+	int ELSE_IF_EXPRESSION = 54;
 
 	/**
 	 * The feature id for the '<em><b>Cond Expr</b></em>' containment reference.
@@ -3620,7 +3535,7 @@ public interface PPPackage extends EPackage {
 	 * @see org.cloudsmith.geppetto.pp.impl.PPPackageImpl#getVirtualNameOrReference()
 	 * @generated
 	 */
-	int VIRTUAL_NAME_OR_REFERENCE = 57;
+	int VIRTUAL_NAME_OR_REFERENCE = 55;
 
 	/**
 	 * The feature id for the '<em><b>Value</b></em>' attribute.
@@ -3661,7 +3576,7 @@ public interface PPPackage extends EPackage {
 	 * @see org.cloudsmith.geppetto.pp.impl.PPPackageImpl#getParenthesisedExpression()
 	 * @generated
 	 */
-	int PARENTHESISED_EXPRESSION = 58;
+	int PARENTHESISED_EXPRESSION = 56;
 
 	/**
 	 * The feature id for the '<em><b>Expr</b></em>' containment reference.
@@ -3692,7 +3607,7 @@ public interface PPPackage extends EPackage {
 	 * @see org.cloudsmith.geppetto.pp.impl.PPPackageImpl#getExprList()
 	 * @generated
 	 */
-	int EXPR_LIST = 59;
+	int EXPR_LIST = 57;
 
 	/**
 	 * The feature id for the '<em><b>Expressions</b></em>' containment reference list.
@@ -3723,7 +3638,7 @@ public interface PPPackage extends EPackage {
 	 * @see org.cloudsmith.geppetto.pp.impl.PPPackageImpl#getStringExpression()
 	 * @generated
 	 */
-	int STRING_EXPRESSION = 62;
+	int STRING_EXPRESSION = 60;
 
 	/**
 	 * The number of structural features of the '<em>String Expression</em>' class.
@@ -3744,7 +3659,7 @@ public interface PPPackage extends EPackage {
 	 * @see org.cloudsmith.geppetto.pp.impl.PPPackageImpl#getDoubleQuotedString()
 	 * @generated
 	 */
-	int DOUBLE_QUOTED_STRING = 60;
+	int DOUBLE_QUOTED_STRING = 58;
 
 	/**
 	 * The feature id for the '<em><b>Text Expression</b></em>' containment reference.
@@ -3775,7 +3690,7 @@ public interface PPPackage extends EPackage {
 	 * @see org.cloudsmith.geppetto.pp.impl.PPPackageImpl#getSingleQuotedString()
 	 * @generated
 	 */
-	int SINGLE_QUOTED_STRING = 61;
+	int SINGLE_QUOTED_STRING = 59;
 
 	/**
 	 * The feature id for the '<em><b>Text</b></em>' attribute.
@@ -3806,7 +3721,7 @@ public interface PPPackage extends EPackage {
 	 * @see org.cloudsmith.geppetto.pp.impl.PPPackageImpl#getUnquotedString()
 	 * @generated
 	 */
-	int UNQUOTED_STRING = 63;
+	int UNQUOTED_STRING = 61;
 
 	/**
 	 * The feature id for the '<em><b>Expression</b></em>' containment reference.
@@ -3837,7 +3752,7 @@ public interface PPPackage extends EPackage {
 	 * @see org.cloudsmith.geppetto.pp.impl.PPPackageImpl#getIQuotedString()
 	 * @generated
 	 */
-	int IQUOTED_STRING = 64;
+	int IQUOTED_STRING = 62;
 
 	/**
 	 * The number of structural features of the '<em>IQuoted String</em>' class.
@@ -3858,7 +3773,7 @@ public interface PPPackage extends EPackage {
 	 * @see org.cloudsmith.geppetto.pp.impl.PPPackageImpl#getInterpolatedVariable()
 	 * @generated
 	 */
-	int INTERPOLATED_VARIABLE = 65;
+	int INTERPOLATED_VARIABLE = 63;
 
 	/**
 	 * The feature id for the '<em><b>Var Name</b></em>' attribute.
@@ -3889,7 +3804,7 @@ public interface PPPackage extends EPackage {
 	 * @see org.cloudsmith.geppetto.pp.impl.PPPackageImpl#getTextExpression()
 	 * @generated
 	 */
-	int TEXT_EXPRESSION = 66;
+	int TEXT_EXPRESSION = 64;
 
 	/**
 	 * The feature id for the '<em><b>Trailing</b></em>' containment reference.
@@ -3930,7 +3845,7 @@ public interface PPPackage extends EPackage {
 	 * @see org.cloudsmith.geppetto.pp.impl.PPPackageImpl#getVerbatimTE()
 	 * @generated
 	 */
-	int VERBATIM_TE = 67;
+	int VERBATIM_TE = 65;
 
 	/**
 	 * The feature id for the '<em><b>Trailing</b></em>' containment reference.
@@ -3981,7 +3896,7 @@ public interface PPPackage extends EPackage {
 	 * @see org.cloudsmith.geppetto.pp.impl.PPPackageImpl#getExpressionTE()
 	 * @generated
 	 */
-	int EXPRESSION_TE = 68;
+	int EXPRESSION_TE = 66;
 
 	/**
 	 * The feature id for the '<em><b>Trailing</b></em>' containment reference.
@@ -4032,7 +3947,7 @@ public interface PPPackage extends EPackage {
 	 * @see org.cloudsmith.geppetto.pp.impl.PPPackageImpl#getVariableTE()
 	 * @generated
 	 */
-	int VARIABLE_TE = 69;
+	int VARIABLE_TE = 67;
 
 	/**
 	 * The feature id for the '<em><b>Trailing</b></em>' containment reference.
@@ -4130,28 +4045,6 @@ public interface PPPackage extends EPackage {
 	EClass getAtExpression();
 
 	/**
-	 * Returns the meta object for class '{@link org.cloudsmith.geppetto.pp.AttributeAddition <em>Attribute Addition</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * 
-	 * @return the meta object for class '<em>Attribute Addition</em>'.
-	 * @see org.cloudsmith.geppetto.pp.AttributeAddition
-	 * @generated
-	 */
-	EClass getAttributeAddition();
-
-	/**
-	 * Returns the meta object for class '{@link org.cloudsmith.geppetto.pp.AttributeDefinition <em>Attribute Definition</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * 
-	 * @return the meta object for class '<em>Attribute Definition</em>'.
-	 * @see org.cloudsmith.geppetto.pp.AttributeDefinition
-	 * @generated
-	 */
-	EClass getAttributeDefinition();
-
-	/**
 	 * Returns the meta object for class '{@link org.cloudsmith.geppetto.pp.AttributeOperation <em>Attribute Operation</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -4173,6 +4066,18 @@ public interface PPPackage extends EPackage {
 	 * @generated
 	 */
 	EAttribute getAttributeOperation_Key();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.cloudsmith.geppetto.pp.AttributeOperation#getOp <em>Op</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @return the meta object for the attribute '<em>Op</em>'.
+	 * @see org.cloudsmith.geppetto.pp.AttributeOperation#getOp()
+	 * @see #getAttributeOperation()
+	 * @generated
+	 */
+	EAttribute getAttributeOperation_Op();
 
 	/**
 	 * Returns the meta object for the containment reference '{@link org.cloudsmith.geppetto.pp.AttributeOperation#getValue <em>Value</em>}'.

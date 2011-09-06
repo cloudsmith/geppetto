@@ -11,13 +11,12 @@
  */
 package org.cloudsmith.geppetto.pp.impl;
 
+import org.cloudsmith.geppetto.pp.*;
 import org.cloudsmith.geppetto.pp.AdditiveExpression;
 import org.cloudsmith.geppetto.pp.AndExpression;
 import org.cloudsmith.geppetto.pp.AppendExpression;
 import org.cloudsmith.geppetto.pp.AssignmentExpression;
 import org.cloudsmith.geppetto.pp.AtExpression;
-import org.cloudsmith.geppetto.pp.AttributeAddition;
-import org.cloudsmith.geppetto.pp.AttributeDefinition;
 import org.cloudsmith.geppetto.pp.AttributeOperations;
 import org.cloudsmith.geppetto.pp.Case;
 import org.cloudsmith.geppetto.pp.CaseExpression;
@@ -144,10 +143,8 @@ public class PPFactoryImpl extends EFactoryImpl implements PPFactory {
 				return createExpression();
 			case PPPackage.RESOURCE_BODY:
 				return createResourceBody();
-			case PPPackage.ATTRIBUTE_DEFINITION:
-				return createAttributeDefinition();
-			case PPPackage.ATTRIBUTE_ADDITION:
-				return createAttributeAddition();
+			case PPPackage.ATTRIBUTE_OPERATION:
+				return createAttributeOperation();
 			case PPPackage.ATTRIBUTE_OPERATIONS:
 				return createAttributeOperations();
 			case PPPackage.VIRTUAL_COLLECT_QUERY:
@@ -322,20 +319,9 @@ public class PPFactoryImpl extends EFactoryImpl implements PPFactory {
 	 * 
 	 * @generated
 	 */
-	public AttributeAddition createAttributeAddition() {
-		AttributeAdditionImpl attributeAddition = new AttributeAdditionImpl();
-		return attributeAddition;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * 
-	 * @generated
-	 */
-	public AttributeDefinition createAttributeDefinition() {
-		AttributeDefinitionImpl attributeDefinition = new AttributeDefinitionImpl();
-		return attributeDefinition;
+	public AttributeOperation createAttributeOperation() {
+		AttributeOperationImpl attributeOperation = new AttributeOperationImpl();
+		return attributeOperation;
 	}
 
 	/**

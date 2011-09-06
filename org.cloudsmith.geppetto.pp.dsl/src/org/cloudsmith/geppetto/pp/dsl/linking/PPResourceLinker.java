@@ -86,11 +86,11 @@ public class PPResourceLinker implements IPPDiagnostics {
 
 		final private NameInScopePredicate filter;
 
-		NameInScopeFilter(Iterable<IEObjectDescription> unfiltered, QualifiedName name, QualifiedName scope,
-				EClass[] eclasses) {
+		NameInScopeFilter(boolean startsWith, Iterable<IEObjectDescription> unfiltered, QualifiedName name,
+				QualifiedName scope, EClass[] eclasses) {
 			boolean absolute = name.getSegmentCount() > 0 && "".equals(name.getSegment(0));
 			this.unfiltered = unfiltered;
-			filter = new NameInScopePredicate(absolute, absolute
+			filter = new NameInScopePredicate(absolute, startsWith, absolute
 					? name.skipFirst(1)
 					: name, scope, eclasses);
 		}
@@ -107,15 +107,19 @@ public class PPResourceLinker implements IPPDiagnostics {
 
 		final boolean absolute;
 
+		final boolean startsWith;
+
 		final EClass[] eclasses;
 
-		public NameInScopePredicate(boolean absolute, QualifiedName name, QualifiedName scopeName, EClass[] eclasses) {
+		public NameInScopePredicate(boolean absolute, boolean startsWith, QualifiedName name, QualifiedName scopeName,
+				EClass[] eclasses) {
 			this.absolute = absolute;
 			this.scopeName = scopeName == null
 					? QualifiedName.EMPTY
 					: scopeName;
 			this.name = name;
 			this.eclasses = eclasses;
+			this.startsWith = startsWith;
 		}
 
 		@Override
@@ -124,16 +128,6 @@ public class PPResourceLinker implements IPPDiagnostics {
 			// error, not a valid name (can not possibly match).
 			if(candidateName.getSegmentCount() == 0)
 				return false;
-
-			// This is already done by the cache per last segment - it is never fed anything that does not match.
-			// // filter out all that do not match on last segment (i.a. ?::...::x <-> ?::...::y)
-			// try {
-			// if(!candidateName.getLastSegment().equals(name.getLastSegment()))
-			// return false;
-			// }
-			// catch(ArrayIndexOutOfBoundsException e) {
-			// System.out.println("AOB");
-			// }
 
 			// it is faster to compare exact match as this is a common case, before trying isSuperTypeOf
 			int found = -1;
@@ -149,8 +143,10 @@ public class PPResourceLinker implements IPPDiagnostics {
 				return candidateName.equals(name);
 
 			// Since most references are exact (they are global), this is the fastest for the common case.
-			if(candidateName.equals(name))
+			if(matches(candidateName, name, startsWith))
 				return true;
+			// if(candidateName.equals(name) || (startsWith && candidateName.startsWith(name))
+			// return true;
 
 			// need to find the common outer scope
 			QualifiedName candidateParent = candidateName.skipLast(1);
@@ -170,7 +166,22 @@ public class PPResourceLinker implements IPPDiagnostics {
 				return false;
 
 			// commonPart+requestedName == candidate (i.e. wanted "c::d" in scope "a::b" - check "a::b::c::d"
+			if(startsWith)
+				return candidateName.startsWith(scopeName.skipLast(scopeName.getSegmentCount() - commonCount).append(
+					name));
 			return scopeName.skipLast(scopeName.getSegmentCount() - commonCount).append(name).equals(candidateName);
+		}
+
+		private boolean matches(QualifiedName candidate, QualifiedName query, boolean startsWith) {
+			if(!startsWith)
+				return candidate.equals(query);
+			if(query.getSegmentCount() > candidate.getSegmentCount())
+				return false;
+			if(!candidate.skipLast(1).equals(query.skipLast(1)))
+				return false;
+			if(!candidate.getLastSegment().startsWith(query.getLastSegment()))
+				return false;
+			return true;
 		}
 	}
 
@@ -806,7 +817,7 @@ public class PPResourceLinker implements IPPDiagnostics {
 
 			// for(IContainer visibleContainer : manager.getVisibleContainers(descr, descriptionIndex)) {
 			// for(EClass aClass : eClasses)
-			for(IEObjectDescription objDesc : new NameInScopeFilter(getExportedObjects(descr, descriptionIndex),
+			for(IEObjectDescription objDesc : new NameInScopeFilter(false, getExportedObjects(descr, descriptionIndex),
 			// visibleContainer.getExportedObjects(),
 			fqn, nameOfScope, eClasses))
 				targets.add(objDesc);
@@ -815,7 +826,7 @@ public class PPResourceLinker implements IPPDiagnostics {
 			// This is lookup from the main resource perspecive
 			QualifiedName nameOfScope = getNameOfScope(scopeDetermeningObject);
 			for(IEObjectDescription objDesc : new NameInScopeFilter(
-				exportedPerLastSegment.get(fqn.getLastSegment()), fqn, nameOfScope, eClasses))
+				false, exportedPerLastSegment.get(fqn.getLastSegment()), fqn, nameOfScope, eClasses))
 				targets.add(objDesc);
 
 		}

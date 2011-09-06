@@ -16,8 +16,6 @@ import org.cloudsmith.geppetto.pp.AndExpression;
 import org.cloudsmith.geppetto.pp.AppendExpression;
 import org.cloudsmith.geppetto.pp.AssignmentExpression;
 import org.cloudsmith.geppetto.pp.AtExpression;
-import org.cloudsmith.geppetto.pp.AttributeAddition;
-import org.cloudsmith.geppetto.pp.AttributeDefinition;
 import org.cloudsmith.geppetto.pp.AttributeOperation;
 import org.cloudsmith.geppetto.pp.AttributeOperations;
 import org.cloudsmith.geppetto.pp.BinaryExpression;
@@ -120,22 +118,6 @@ public class PPPackageImpl extends EPackageImpl implements PPPackage {
 	 * @generated
 	 */
 	private EClass resourceBodyEClass = null;
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * 
-	 * @generated
-	 */
-	private EClass attributeDefinitionEClass = null;
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * 
-	 * @generated
-	 */
-	private EClass attributeAdditionEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -757,13 +739,10 @@ public class PPPackageImpl extends EPackageImpl implements PPPackage {
 		createEReference(resourceBodyEClass, RESOURCE_BODY__ATTRIBUTES);
 		createEReference(resourceBodyEClass, RESOURCE_BODY__NAME_EXPR);
 
-		attributeDefinitionEClass = createEClass(ATTRIBUTE_DEFINITION);
-
-		attributeAdditionEClass = createEClass(ATTRIBUTE_ADDITION);
-
 		attributeOperationEClass = createEClass(ATTRIBUTE_OPERATION);
 		createEReference(attributeOperationEClass, ATTRIBUTE_OPERATION__VALUE);
 		createEAttribute(attributeOperationEClass, ATTRIBUTE_OPERATION__KEY);
+		createEAttribute(attributeOperationEClass, ATTRIBUTE_OPERATION__OP);
 
 		attributeOperationsEClass = createEClass(ATTRIBUTE_OPERATIONS);
 		createEReference(attributeOperationsEClass, ATTRIBUTE_OPERATIONS__ATTRIBUTES);
@@ -1004,26 +983,6 @@ public class PPPackageImpl extends EPackageImpl implements PPPackage {
 	 * 
 	 * @generated
 	 */
-	public EClass getAttributeAddition() {
-		return attributeAdditionEClass;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * 
-	 * @generated
-	 */
-	public EClass getAttributeDefinition() {
-		return attributeDefinitionEClass;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * 
-	 * @generated
-	 */
 	public EClass getAttributeOperation() {
 		return attributeOperationEClass;
 	}
@@ -1036,6 +995,16 @@ public class PPPackageImpl extends EPackageImpl implements PPPackage {
 	 */
 	public EAttribute getAttributeOperation_Key() {
 		return (EAttribute) attributeOperationEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
+	public EAttribute getAttributeOperation_Op() {
+		return (EAttribute) attributeOperationEClass.getEStructuralFeatures().get(2);
 	}
 
 	/**
@@ -2262,8 +2231,6 @@ public class PPPackageImpl extends EPackageImpl implements PPPackage {
 
 		// Add supertypes to classes
 		puppetManifestEClass.getESuperTypes().add(this.getExpressionBlock());
-		attributeDefinitionEClass.getESuperTypes().add(this.getAttributeOperation());
-		attributeAdditionEClass.getESuperTypes().add(this.getAttributeOperation());
 		virtualCollectQueryEClass.getESuperTypes().add(this.getUnaryExpression());
 		virtualCollectQueryEClass.getESuperTypes().add(this.getICollectQuery());
 		exportedCollectQueryEClass.getESuperTypes().add(this.getUnaryExpression());
@@ -2346,15 +2313,7 @@ public class PPPackageImpl extends EPackageImpl implements PPPackage {
 			!IS_DERIVED, IS_ORDERED);
 
 		initEClass(
-			attributeDefinitionEClass, AttributeDefinition.class, "AttributeDefinition", !IS_ABSTRACT, !IS_INTERFACE,
-			IS_GENERATED_INSTANCE_CLASS);
-
-		initEClass(
-			attributeAdditionEClass, AttributeAddition.class, "AttributeAddition", !IS_ABSTRACT, !IS_INTERFACE,
-			IS_GENERATED_INSTANCE_CLASS);
-
-		initEClass(
-			attributeOperationEClass, AttributeOperation.class, "AttributeOperation", IS_ABSTRACT, !IS_INTERFACE,
+			attributeOperationEClass, AttributeOperation.class, "AttributeOperation", !IS_ABSTRACT, !IS_INTERFACE,
 			IS_GENERATED_INSTANCE_CLASS);
 		initEReference(
 			getAttributeOperation_Value(), this.getExpression(), null, "value", null, 0, 1, AttributeOperation.class,
@@ -2362,6 +2321,9 @@ public class PPPackageImpl extends EPackageImpl implements PPPackage {
 			!IS_DERIVED, IS_ORDERED);
 		initEAttribute(
 			getAttributeOperation_Key(), ecorePackage.getEString(), "key", null, 0, 1, AttributeOperation.class,
+			!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(
+			getAttributeOperation_Op(), ecorePackage.getEString(), "op", null, 0, 1, AttributeOperation.class,
 			!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(

@@ -331,90 +331,62 @@ public class PPGrammarAccess extends AbstractGrammarElementFinder {
 		public RuleCall getAttributesAttributeOperationsParserRuleCall_1_0() { return cAttributesAttributeOperationsParserRuleCall_1_0; }
 	}
 
-	public class AttributeDefinitionElements extends AbstractParserRuleElementFinder {
-		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "AttributeDefinition");
-		private final Group cGroup = (Group)rule.eContents().get(1);
-		private final Assignment cKeyAssignment_0 = (Assignment)cGroup.eContents().get(0);
-		private final RuleCall cKeyUnionNameOrReferenceParserRuleCall_0_0 = (RuleCall)cKeyAssignment_0.eContents().get(0);
-		private final Keyword cEqualsSignGreaterThanSignKeyword_1 = (Keyword)cGroup.eContents().get(1);
-		private final Assignment cValueAssignment_2 = (Assignment)cGroup.eContents().get(2);
-		private final RuleCall cValueExpressionParserRuleCall_2_0 = (RuleCall)cValueAssignment_2.eContents().get(0);
-		
-		//// VALIDATION: checks that key is a NAME
-		//AttributeDefinition returns pp::AttributeDefinition:
-		//	key=unionNameOrReference "=>" value=Expression;
-		public ParserRule getRule() { return rule; }
-
-		//key=unionNameOrReference "=>" value=Expression
-		public Group getGroup() { return cGroup; }
-
-		//key=unionNameOrReference
-		public Assignment getKeyAssignment_0() { return cKeyAssignment_0; }
-
-		//unionNameOrReference
-		public RuleCall getKeyUnionNameOrReferenceParserRuleCall_0_0() { return cKeyUnionNameOrReferenceParserRuleCall_0_0; }
-
-		//"=>"
-		public Keyword getEqualsSignGreaterThanSignKeyword_1() { return cEqualsSignGreaterThanSignKeyword_1; }
-
-		//value=Expression
-		public Assignment getValueAssignment_2() { return cValueAssignment_2; }
-
-		//Expression
-		public RuleCall getValueExpressionParserRuleCall_2_0() { return cValueExpressionParserRuleCall_2_0; }
-	}
-
-	public class AttributeAdditionElements extends AbstractParserRuleElementFinder {
-		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "AttributeAddition");
-		private final Group cGroup = (Group)rule.eContents().get(1);
-		private final Assignment cKeyAssignment_0 = (Assignment)cGroup.eContents().get(0);
-		private final RuleCall cKeyUnionNameOrReferenceParserRuleCall_0_0 = (RuleCall)cKeyAssignment_0.eContents().get(0);
-		private final Keyword cPlusSignGreaterThanSignKeyword_1 = (Keyword)cGroup.eContents().get(1);
-		private final Assignment cValueAssignment_2 = (Assignment)cGroup.eContents().get(2);
-		private final RuleCall cValueExpressionParserRuleCall_2_0 = (RuleCall)cValueAssignment_2.eContents().get(0);
-		
-		//// VALIDATION: checks that key is a NAME
-		//AttributeAddition returns pp::AttributeAddition:
-		//	key=unionNameOrReference "+>" value=Expression;
-		public ParserRule getRule() { return rule; }
-
-		//key=unionNameOrReference "+>" value=Expression
-		public Group getGroup() { return cGroup; }
-
-		//key=unionNameOrReference
-		public Assignment getKeyAssignment_0() { return cKeyAssignment_0; }
-
-		//unionNameOrReference
-		public RuleCall getKeyUnionNameOrReferenceParserRuleCall_0_0() { return cKeyUnionNameOrReferenceParserRuleCall_0_0; }
-
-		//"+>"
-		public Keyword getPlusSignGreaterThanSignKeyword_1() { return cPlusSignGreaterThanSignKeyword_1; }
-
-		//value=Expression
-		public Assignment getValueAssignment_2() { return cValueAssignment_2; }
-
-		//Expression
-		public RuleCall getValueExpressionParserRuleCall_2_0() { return cValueExpressionParserRuleCall_2_0; }
-	}
-
 	public class AttributeOperationElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "AttributeOperation");
-		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
-		private final RuleCall cAttributeDefinitionParserRuleCall_0 = (RuleCall)cAlternatives.eContents().get(0);
-		private final RuleCall cAttributeAdditionParserRuleCall_1 = (RuleCall)cAlternatives.eContents().get(1);
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Assignment cKeyAssignment_0 = (Assignment)cGroup.eContents().get(0);
+		private final RuleCall cKeyUnionNameOrReferenceParserRuleCall_0_0 = (RuleCall)cKeyAssignment_0.eContents().get(0);
+		private final Group cGroup_1 = (Group)cGroup.eContents().get(1);
+		private final Assignment cOpAssignment_1_0 = (Assignment)cGroup_1.eContents().get(0);
+		private final Alternatives cOpAlternatives_1_0_0 = (Alternatives)cOpAssignment_1_0.eContents().get(0);
+		private final Keyword cOpEqualsSignGreaterThanSignKeyword_1_0_0_0 = (Keyword)cOpAlternatives_1_0_0.eContents().get(0);
+		private final Keyword cOpPlusSignGreaterThanSignKeyword_1_0_0_1 = (Keyword)cOpAlternatives_1_0_0.eContents().get(1);
+		private final Assignment cValueAssignment_1_1 = (Assignment)cGroup_1.eContents().get(1);
+		private final RuleCall cValueExpressionParserRuleCall_1_1_0 = (RuleCall)cValueAssignment_1_1.eContents().get(0);
 		
+		////// VALIDATION: checks that key is a NAME
+		////AttributeDefinition returns pp::AttributeDefinition
+		////	: unionNameOrReference ({pp::AttributeDefinition.key = current} '=>' value = Expression) 
+		//////	:  key = unionNameOrReference  '=>'  value = Expression 
+		////	;
+		////// VALIDATION: checks that key is a NAME
+		////AttributeAddition returns pp::AttributeAddition
+		////	:  key = unionNameOrReference  '+>'  value = Expression
+		////	;
+		//// VALIDATION: key is a NAME, op is supported and Expression is not null
 		//AttributeOperation returns pp::AttributeOperation:
-		//	AttributeDefinition | AttributeAddition;
+		//	=> key=unionNameOrReference (op=("=>" | "+>") value=Expression)?;
 		public ParserRule getRule() { return rule; }
 
-		//AttributeDefinition | AttributeAddition
-		public Alternatives getAlternatives() { return cAlternatives; }
+		//=> key=unionNameOrReference (op=("=>" | "+>") value=Expression)?
+		public Group getGroup() { return cGroup; }
 
-		//AttributeDefinition
-		public RuleCall getAttributeDefinitionParserRuleCall_0() { return cAttributeDefinitionParserRuleCall_0; }
+		//=> key=unionNameOrReference
+		public Assignment getKeyAssignment_0() { return cKeyAssignment_0; }
 
-		//AttributeAddition
-		public RuleCall getAttributeAdditionParserRuleCall_1() { return cAttributeAdditionParserRuleCall_1; }
+		//unionNameOrReference
+		public RuleCall getKeyUnionNameOrReferenceParserRuleCall_0_0() { return cKeyUnionNameOrReferenceParserRuleCall_0_0; }
+
+		//(op=("=>" | "+>") value=Expression)?
+		public Group getGroup_1() { return cGroup_1; }
+
+		//op=("=>" | "+>")
+		public Assignment getOpAssignment_1_0() { return cOpAssignment_1_0; }
+
+		//"=>" | "+>"
+		public Alternatives getOpAlternatives_1_0_0() { return cOpAlternatives_1_0_0; }
+
+		//"=>"
+		public Keyword getOpEqualsSignGreaterThanSignKeyword_1_0_0_0() { return cOpEqualsSignGreaterThanSignKeyword_1_0_0_0; }
+
+		//"+>"
+		public Keyword getOpPlusSignGreaterThanSignKeyword_1_0_0_1() { return cOpPlusSignGreaterThanSignKeyword_1_0_0_1; }
+
+		//value=Expression
+		public Assignment getValueAssignment_1_1() { return cValueAssignment_1_1; }
+
+		//Expression
+		public RuleCall getValueExpressionParserRuleCall_1_1_0() { return cValueExpressionParserRuleCall_1_1_0; }
 	}
 
 	public class AttributeOperationsElements extends AbstractParserRuleElementFinder {
@@ -431,6 +403,10 @@ public class PPGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cAttributesAttributeOperationParserRuleCall_1_1_0 = (RuleCall)cAttributesAssignment_1_1.eContents().get(0);
 		private final Keyword cCommaKeyword_2 = (Keyword)cGroup.eContents().get(2);
 		
+		////AttributeOperation returns pp::AttributeOperation
+		////	: AttributeDefinition
+		////	| AttributeAddition
+		////	;
 		//// VALIDATION: checks that there are ',' between operations
 		//// NOTE: if ','	is mandatory in grammar, backtracking will think statement is a different (faulty)
 		//// statement.
@@ -3364,8 +3340,6 @@ public class PPGrammarAccess extends AbstractGrammarElementFinder {
 	private RelationshipExpressionElements pRelationshipExpression;
 	private ResourceExpressionElements pResourceExpression;
 	private ResourceBodyElements pResourceBody;
-	private AttributeDefinitionElements pAttributeDefinition;
-	private AttributeAdditionElements pAttributeAddition;
 	private AttributeOperationElements pAttributeOperation;
 	private AttributeOperationsElements pAttributeOperations;
 	private EndCommaElements pEndComma;
@@ -3589,30 +3563,18 @@ public class PPGrammarAccess extends AbstractGrammarElementFinder {
 		return getResourceBodyAccess().getRule();
 	}
 
-	//// VALIDATION: checks that key is a NAME
-	//AttributeDefinition returns pp::AttributeDefinition:
-	//	key=unionNameOrReference "=>" value=Expression;
-	public AttributeDefinitionElements getAttributeDefinitionAccess() {
-		return (pAttributeDefinition != null) ? pAttributeDefinition : (pAttributeDefinition = new AttributeDefinitionElements());
-	}
-	
-	public ParserRule getAttributeDefinitionRule() {
-		return getAttributeDefinitionAccess().getRule();
-	}
-
-	//// VALIDATION: checks that key is a NAME
-	//AttributeAddition returns pp::AttributeAddition:
-	//	key=unionNameOrReference "+>" value=Expression;
-	public AttributeAdditionElements getAttributeAdditionAccess() {
-		return (pAttributeAddition != null) ? pAttributeAddition : (pAttributeAddition = new AttributeAdditionElements());
-	}
-	
-	public ParserRule getAttributeAdditionRule() {
-		return getAttributeAdditionAccess().getRule();
-	}
-
+	////// VALIDATION: checks that key is a NAME
+	////AttributeDefinition returns pp::AttributeDefinition
+	////	: unionNameOrReference ({pp::AttributeDefinition.key = current} '=>' value = Expression) 
+	//////	:  key = unionNameOrReference  '=>'  value = Expression 
+	////	;
+	////// VALIDATION: checks that key is a NAME
+	////AttributeAddition returns pp::AttributeAddition
+	////	:  key = unionNameOrReference  '+>'  value = Expression
+	////	;
+	//// VALIDATION: key is a NAME, op is supported and Expression is not null
 	//AttributeOperation returns pp::AttributeOperation:
-	//	AttributeDefinition | AttributeAddition;
+	//	=> key=unionNameOrReference (op=("=>" | "+>") value=Expression)?;
 	public AttributeOperationElements getAttributeOperationAccess() {
 		return (pAttributeOperation != null) ? pAttributeOperation : (pAttributeOperation = new AttributeOperationElements());
 	}
@@ -3621,6 +3583,10 @@ public class PPGrammarAccess extends AbstractGrammarElementFinder {
 		return getAttributeOperationAccess().getRule();
 	}
 
+	////AttributeOperation returns pp::AttributeOperation
+	////	: AttributeDefinition
+	////	| AttributeAddition
+	////	;
 	//// VALIDATION: checks that there are ',' between operations
 	//// NOTE: if ','	is mandatory in grammar, backtracking will think statement is a different (faulty)
 	//// statement.

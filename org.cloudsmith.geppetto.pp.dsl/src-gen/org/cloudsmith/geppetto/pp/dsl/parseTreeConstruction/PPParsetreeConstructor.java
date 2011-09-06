@@ -37,71 +37,69 @@ protected class ThisRootNode extends RootToken {
 			case 3: return new RelationshipExpression_Group(this, this, 3, inst);
 			case 4: return new ResourceExpression_Group(this, this, 4, inst);
 			case 5: return new ResourceBody_Alternatives(this, this, 5, inst);
-			case 6: return new AttributeDefinition_Group(this, this, 6, inst);
-			case 7: return new AttributeAddition_Group(this, this, 7, inst);
-			case 8: return new AttributeOperation_Alternatives(this, this, 8, inst);
-			case 9: return new AttributeOperations_Group(this, this, 9, inst);
-			case 10: return new AssignmentExpression_Group(this, this, 10, inst);
-			case 11: return new AppendExpression_Group(this, this, 11, inst);
-			case 12: return new OrExpression_Group(this, this, 12, inst);
-			case 13: return new AndExpression_Group(this, this, 13, inst);
-			case 14: return new RelationalExpression_Group(this, this, 14, inst);
-			case 15: return new EqualityExpression_Group(this, this, 15, inst);
-			case 16: return new ShiftExpression_Group(this, this, 16, inst);
-			case 17: return new AdditiveExpression_Group(this, this, 17, inst);
-			case 18: return new MultiplicativeExpression_Group(this, this, 18, inst);
-			case 19: return new MatchingExpression_Group(this, this, 19, inst);
-			case 20: return new InExpression_Group(this, this, 20, inst);
-			case 21: return new UnaryOrHigherExpression_Alternatives(this, this, 21, inst);
-			case 22: return new UnaryMinusExpression_Group(this, this, 22, inst);
-			case 23: return new NotExpression_Group(this, this, 23, inst);
-			case 24: return new CollectExpression_Group(this, this, 24, inst);
-			case 25: return new CollectQuery_Alternatives(this, this, 25, inst);
-			case 26: return new VirtualCollectQuery_Group(this, this, 26, inst);
-			case 27: return new ExportedCollectQuery_Group(this, this, 27, inst);
-			case 28: return new SelectorExpression_Group(this, this, 28, inst);
-			case 29: return new SelectorEntry_Group(this, this, 29, inst);
-			case 30: return new AtExpression_Group(this, this, 30, inst);
-			case 31: return new FunctionCall_Group(this, this, 31, inst);
-			case 32: return new PrimaryExpression_Alternatives(this, this, 32, inst);
-			case 33: return new NodeDefinition_Group(this, this, 33, inst);
-			case 34: return new HostReference_Alternatives(this, this, 34, inst);
-			case 35: return new HostClassDefinition_Group(this, this, 35, inst);
-			case 36: return new ParentName_Alternatives(this, this, 36, inst);
-			case 37: return new Definition_Group(this, this, 37, inst);
-			case 38: return new DefinitionArgumentList_Group(this, this, 38, inst);
-			case 39: return new DefinitionArgument_Group(this, this, 39, inst);
-			case 40: return new CaseExpression_Group(this, this, 40, inst);
-			case 41: return new Case_Group(this, this, 41, inst);
-			case 42: return new IfExpression_Group(this, this, 42, inst);
-			case 43: return new ElseExpression_Group(this, this, 43, inst);
-			case 44: return new ElseIfExpression_Group(this, this, 44, inst);
-			case 45: return new LiteralExpression_Alternatives(this, this, 45, inst);
-			case 46: return new LiteralNameOrReference_ValueAssignment(this, this, 46, inst);
-			case 47: return new ParenthisedExpression_Group(this, this, 47, inst);
-			case 48: return new VirtualNameOrReference_Group(this, this, 48, inst);
-			case 49: return new ImportExpression_Group(this, this, 49, inst);
-			case 50: return new LiteralList_Group(this, this, 50, inst);
-			case 51: return new LiteralHash_Group(this, this, 51, inst);
-			case 52: return new HashEntry_Group(this, this, 52, inst);
-			case 53: return new LiteralNameOrString_Alternatives(this, this, 53, inst);
-			case 54: return new LiteralBoolean_ValueAssignment(this, this, 54, inst);
-			case 55: return new LiteralDefault_Group(this, this, 55, inst);
-			case 56: return new LiteralUndef_Group(this, this, 56, inst);
-			case 57: return new StringExpression_Alternatives(this, this, 57, inst);
-			case 58: return new QuotedString_Alternatives(this, this, 58, inst);
-			case 59: return new SingleQuotedString_Group(this, this, 59, inst);
-			case 60: return new DoubleQuotedString_Group(this, this, 60, inst);
-			case 61: return new TextExpression_DollarTextExpressionParserRuleCall(this, this, 61, inst);
-			case 62: return new DollarTextExpression_Group(this, this, 62, inst);
-			case 63: return new VariableTextExpression_Group(this, this, 63, inst);
-			case 64: return new ExpressionTextExpression_Group(this, this, 64, inst);
-			case 65: return new ExpressionWithHidden_Group(this, this, 65, inst);
-			case 66: return new StringPart_Group(this, this, 66, inst);
-			case 67: return new UnquotedString_Group(this, this, 67, inst);
-			case 68: return new LiteralRegex_ValueAssignment(this, this, 68, inst);
-			case 69: return new LiteralName_ValueAssignment(this, this, 69, inst);
-			case 70: return new VariableExpression_VarNameAssignment(this, this, 70, inst);
+			case 6: return new AttributeOperation_Group(this, this, 6, inst);
+			case 7: return new AttributeOperations_Group(this, this, 7, inst);
+			case 8: return new AssignmentExpression_Group(this, this, 8, inst);
+			case 9: return new AppendExpression_Group(this, this, 9, inst);
+			case 10: return new OrExpression_Group(this, this, 10, inst);
+			case 11: return new AndExpression_Group(this, this, 11, inst);
+			case 12: return new RelationalExpression_Group(this, this, 12, inst);
+			case 13: return new EqualityExpression_Group(this, this, 13, inst);
+			case 14: return new ShiftExpression_Group(this, this, 14, inst);
+			case 15: return new AdditiveExpression_Group(this, this, 15, inst);
+			case 16: return new MultiplicativeExpression_Group(this, this, 16, inst);
+			case 17: return new MatchingExpression_Group(this, this, 17, inst);
+			case 18: return new InExpression_Group(this, this, 18, inst);
+			case 19: return new UnaryOrHigherExpression_Alternatives(this, this, 19, inst);
+			case 20: return new UnaryMinusExpression_Group(this, this, 20, inst);
+			case 21: return new NotExpression_Group(this, this, 21, inst);
+			case 22: return new CollectExpression_Group(this, this, 22, inst);
+			case 23: return new CollectQuery_Alternatives(this, this, 23, inst);
+			case 24: return new VirtualCollectQuery_Group(this, this, 24, inst);
+			case 25: return new ExportedCollectQuery_Group(this, this, 25, inst);
+			case 26: return new SelectorExpression_Group(this, this, 26, inst);
+			case 27: return new SelectorEntry_Group(this, this, 27, inst);
+			case 28: return new AtExpression_Group(this, this, 28, inst);
+			case 29: return new FunctionCall_Group(this, this, 29, inst);
+			case 30: return new PrimaryExpression_Alternatives(this, this, 30, inst);
+			case 31: return new NodeDefinition_Group(this, this, 31, inst);
+			case 32: return new HostReference_Alternatives(this, this, 32, inst);
+			case 33: return new HostClassDefinition_Group(this, this, 33, inst);
+			case 34: return new ParentName_Alternatives(this, this, 34, inst);
+			case 35: return new Definition_Group(this, this, 35, inst);
+			case 36: return new DefinitionArgumentList_Group(this, this, 36, inst);
+			case 37: return new DefinitionArgument_Group(this, this, 37, inst);
+			case 38: return new CaseExpression_Group(this, this, 38, inst);
+			case 39: return new Case_Group(this, this, 39, inst);
+			case 40: return new IfExpression_Group(this, this, 40, inst);
+			case 41: return new ElseExpression_Group(this, this, 41, inst);
+			case 42: return new ElseIfExpression_Group(this, this, 42, inst);
+			case 43: return new LiteralExpression_Alternatives(this, this, 43, inst);
+			case 44: return new LiteralNameOrReference_ValueAssignment(this, this, 44, inst);
+			case 45: return new ParenthisedExpression_Group(this, this, 45, inst);
+			case 46: return new VirtualNameOrReference_Group(this, this, 46, inst);
+			case 47: return new ImportExpression_Group(this, this, 47, inst);
+			case 48: return new LiteralList_Group(this, this, 48, inst);
+			case 49: return new LiteralHash_Group(this, this, 49, inst);
+			case 50: return new HashEntry_Group(this, this, 50, inst);
+			case 51: return new LiteralNameOrString_Alternatives(this, this, 51, inst);
+			case 52: return new LiteralBoolean_ValueAssignment(this, this, 52, inst);
+			case 53: return new LiteralDefault_Group(this, this, 53, inst);
+			case 54: return new LiteralUndef_Group(this, this, 54, inst);
+			case 55: return new StringExpression_Alternatives(this, this, 55, inst);
+			case 56: return new QuotedString_Alternatives(this, this, 56, inst);
+			case 57: return new SingleQuotedString_Group(this, this, 57, inst);
+			case 58: return new DoubleQuotedString_Group(this, this, 58, inst);
+			case 59: return new TextExpression_DollarTextExpressionParserRuleCall(this, this, 59, inst);
+			case 60: return new DollarTextExpression_Group(this, this, 60, inst);
+			case 61: return new VariableTextExpression_Group(this, this, 61, inst);
+			case 62: return new ExpressionTextExpression_Group(this, this, 62, inst);
+			case 63: return new ExpressionWithHidden_Group(this, this, 63, inst);
+			case 64: return new StringPart_Group(this, this, 64, inst);
+			case 65: return new UnquotedString_Group(this, this, 65, inst);
+			case 66: return new LiteralRegex_ValueAssignment(this, this, 66, inst);
+			case 67: return new LiteralName_ValueAssignment(this, this, 67, inst);
+			case 68: return new VariableExpression_VarNameAssignment(this, this, 68, inst);
 			default: return null;
 		}	
 	}	
@@ -1633,399 +1631,193 @@ protected class ResourceBody_AttributesAssignment_1 extends AssignmentToken  {
 /************ end Rule ResourceBody ****************/
 
 
-/************ begin Rule AttributeDefinition ****************
- *
- * // VALIDATION: checks that key is a NAME
- * AttributeDefinition returns pp::AttributeDefinition:
- * 	key=unionNameOrReference "=>" value=Expression;
- *
- **/
-
-// key=unionNameOrReference "=>" value=Expression
-protected class AttributeDefinition_Group extends GroupToken {
-	
-	public AttributeDefinition_Group(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
-		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
-	}
-	
-	@Override
-	public Group getGrammarElement() {
-		return grammarAccess.getAttributeDefinitionAccess().getGroup();
-	}
-
-    @Override
-	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
-		switch(index) {
-			case 0: return new AttributeDefinition_ValueAssignment_2(lastRuleCallOrigin, this, 0, inst);
-			default: return null;
-		}	
-	}
-
-    @Override
-	public IEObjectConsumer tryConsume() {
-		if(getEObject().eClass() != grammarAccess.getAttributeDefinitionRule().getType().getClassifier())
-			return null;
-		return eObjectConsumer;
-	}
-
-}
-
-// key=unionNameOrReference
-protected class AttributeDefinition_KeyAssignment_0 extends AssignmentToken  {
-	
-	public AttributeDefinition_KeyAssignment_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
-		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
-	}
-	
-	@Override
-	public Assignment getGrammarElement() {
-		return grammarAccess.getAttributeDefinitionAccess().getKeyAssignment_0();
-	}
-
-    @Override
-	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
-		switch(index) {
-			default: return lastRuleCallOrigin.createFollowerAfterReturn(this, index, index, inst);
-		}	
-	}
-
-    @Override	
-	public IEObjectConsumer tryConsume() {
-		if((value = eObjectConsumer.getConsumable("key",true)) == null) return null;
-		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("key");
-		if(valueSerializer.isValid(obj.getEObject(), grammarAccess.getAttributeDefinitionAccess().getKeyUnionNameOrReferenceParserRuleCall_0_0(), value, null)) {
-			type = AssignmentType.DATATYPE_RULE_CALL;
-			element = grammarAccess.getAttributeDefinitionAccess().getKeyUnionNameOrReferenceParserRuleCall_0_0();
-			return obj;
-		}
-		return null;
-	}
-
-}
-
-// "=>"
-protected class AttributeDefinition_EqualsSignGreaterThanSignKeyword_1 extends KeywordToken  {
-	
-	public AttributeDefinition_EqualsSignGreaterThanSignKeyword_1(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
-		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
-	}
-	
-	@Override
-	public Keyword getGrammarElement() {
-		return grammarAccess.getAttributeDefinitionAccess().getEqualsSignGreaterThanSignKeyword_1();
-	}
-
-    @Override
-	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
-		switch(index) {
-			case 0: return new AttributeDefinition_KeyAssignment_0(lastRuleCallOrigin, this, 0, inst);
-			default: return null;
-		}	
-	}
-
-}
-
-// value=Expression
-protected class AttributeDefinition_ValueAssignment_2 extends AssignmentToken  {
-	
-	public AttributeDefinition_ValueAssignment_2(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
-		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
-	}
-	
-	@Override
-	public Assignment getGrammarElement() {
-		return grammarAccess.getAttributeDefinitionAccess().getValueAssignment_2();
-	}
-
-    @Override
-	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
-		switch(index) {
-			case 0: return new Expression_RelationshipExpressionParserRuleCall(this, this, 0, inst);
-			default: return null;
-		}	
-	}
-
-    @Override	
-	public IEObjectConsumer tryConsume() {
-		if((value = eObjectConsumer.getConsumable("value",true)) == null) return null;
-		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("value");
-		if(value instanceof EObject) { // org::eclipse::xtext::impl::RuleCallImpl
-			IEObjectConsumer param = createEObjectConsumer((EObject)value);
-			if(param.isInstanceOf(grammarAccess.getExpressionRule().getType().getClassifier())) {
-				type = AssignmentType.PARSER_RULE_CALL;
-				element = grammarAccess.getAttributeDefinitionAccess().getValueExpressionParserRuleCall_2_0(); 
-				consumed = obj;
-				return param;
-			}
-		}
-		return null;
-	}
-
-    @Override
-	public AbstractToken createFollowerAfterReturn(AbstractToken next,	int actIndex, int index, IEObjectConsumer inst) {
-		if(value == inst.getEObject() && !inst.isConsumed()) return null;
-		switch(index) {
-			case 0: return new AttributeDefinition_EqualsSignGreaterThanSignKeyword_1(lastRuleCallOrigin, next, actIndex, consumed);
-			default: return null;
-		}	
-	}	
-}
-
-
-/************ end Rule AttributeDefinition ****************/
-
-
-/************ begin Rule AttributeAddition ****************
- *
- * // VALIDATION: checks that key is a NAME
- * AttributeAddition returns pp::AttributeAddition:
- * 	key=unionNameOrReference "+>" value=Expression;
- *
- **/
-
-// key=unionNameOrReference "+>" value=Expression
-protected class AttributeAddition_Group extends GroupToken {
-	
-	public AttributeAddition_Group(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
-		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
-	}
-	
-	@Override
-	public Group getGrammarElement() {
-		return grammarAccess.getAttributeAdditionAccess().getGroup();
-	}
-
-    @Override
-	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
-		switch(index) {
-			case 0: return new AttributeAddition_ValueAssignment_2(lastRuleCallOrigin, this, 0, inst);
-			default: return null;
-		}	
-	}
-
-    @Override
-	public IEObjectConsumer tryConsume() {
-		if(getEObject().eClass() != grammarAccess.getAttributeAdditionRule().getType().getClassifier())
-			return null;
-		return eObjectConsumer;
-	}
-
-}
-
-// key=unionNameOrReference
-protected class AttributeAddition_KeyAssignment_0 extends AssignmentToken  {
-	
-	public AttributeAddition_KeyAssignment_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
-		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
-	}
-	
-	@Override
-	public Assignment getGrammarElement() {
-		return grammarAccess.getAttributeAdditionAccess().getKeyAssignment_0();
-	}
-
-    @Override
-	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
-		switch(index) {
-			default: return lastRuleCallOrigin.createFollowerAfterReturn(this, index, index, inst);
-		}	
-	}
-
-    @Override	
-	public IEObjectConsumer tryConsume() {
-		if((value = eObjectConsumer.getConsumable("key",true)) == null) return null;
-		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("key");
-		if(valueSerializer.isValid(obj.getEObject(), grammarAccess.getAttributeAdditionAccess().getKeyUnionNameOrReferenceParserRuleCall_0_0(), value, null)) {
-			type = AssignmentType.DATATYPE_RULE_CALL;
-			element = grammarAccess.getAttributeAdditionAccess().getKeyUnionNameOrReferenceParserRuleCall_0_0();
-			return obj;
-		}
-		return null;
-	}
-
-}
-
-// "+>"
-protected class AttributeAddition_PlusSignGreaterThanSignKeyword_1 extends KeywordToken  {
-	
-	public AttributeAddition_PlusSignGreaterThanSignKeyword_1(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
-		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
-	}
-	
-	@Override
-	public Keyword getGrammarElement() {
-		return grammarAccess.getAttributeAdditionAccess().getPlusSignGreaterThanSignKeyword_1();
-	}
-
-    @Override
-	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
-		switch(index) {
-			case 0: return new AttributeAddition_KeyAssignment_0(lastRuleCallOrigin, this, 0, inst);
-			default: return null;
-		}	
-	}
-
-}
-
-// value=Expression
-protected class AttributeAddition_ValueAssignment_2 extends AssignmentToken  {
-	
-	public AttributeAddition_ValueAssignment_2(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
-		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
-	}
-	
-	@Override
-	public Assignment getGrammarElement() {
-		return grammarAccess.getAttributeAdditionAccess().getValueAssignment_2();
-	}
-
-    @Override
-	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
-		switch(index) {
-			case 0: return new Expression_RelationshipExpressionParserRuleCall(this, this, 0, inst);
-			default: return null;
-		}	
-	}
-
-    @Override	
-	public IEObjectConsumer tryConsume() {
-		if((value = eObjectConsumer.getConsumable("value",true)) == null) return null;
-		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("value");
-		if(value instanceof EObject) { // org::eclipse::xtext::impl::RuleCallImpl
-			IEObjectConsumer param = createEObjectConsumer((EObject)value);
-			if(param.isInstanceOf(grammarAccess.getExpressionRule().getType().getClassifier())) {
-				type = AssignmentType.PARSER_RULE_CALL;
-				element = grammarAccess.getAttributeAdditionAccess().getValueExpressionParserRuleCall_2_0(); 
-				consumed = obj;
-				return param;
-			}
-		}
-		return null;
-	}
-
-    @Override
-	public AbstractToken createFollowerAfterReturn(AbstractToken next,	int actIndex, int index, IEObjectConsumer inst) {
-		if(value == inst.getEObject() && !inst.isConsumed()) return null;
-		switch(index) {
-			case 0: return new AttributeAddition_PlusSignGreaterThanSignKeyword_1(lastRuleCallOrigin, next, actIndex, consumed);
-			default: return null;
-		}	
-	}	
-}
-
-
-/************ end Rule AttributeAddition ****************/
-
-
 /************ begin Rule AttributeOperation ****************
  *
+ * //// VALIDATION: checks that key is a NAME
+ * //AttributeDefinition returns pp::AttributeDefinition
+ * //	: unionNameOrReference ({pp::AttributeDefinition.key = current} '=>' value = Expression) 
+ * ////	:  key = unionNameOrReference  '=>'  value = Expression 
+ * //	;
+ * //// VALIDATION: checks that key is a NAME
+ * //AttributeAddition returns pp::AttributeAddition
+ * //	:  key = unionNameOrReference  '+>'  value = Expression
+ * //	;
+ * // VALIDATION: key is a NAME, op is supported and Expression is not null
  * AttributeOperation returns pp::AttributeOperation:
- * 	AttributeDefinition | AttributeAddition;
+ * 	=> key=unionNameOrReference (op=("=>" | "+>") value=Expression)?;
  *
  **/
 
-// AttributeDefinition | AttributeAddition
-protected class AttributeOperation_Alternatives extends AlternativesToken {
-
-	public AttributeOperation_Alternatives(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+// => key=unionNameOrReference (op=("=>" | "+>") value=Expression)?
+protected class AttributeOperation_Group extends GroupToken {
+	
+	public AttributeOperation_Group(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
 		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
 	}
 	
 	@Override
-	public Alternatives getGrammarElement() {
-		return grammarAccess.getAttributeOperationAccess().getAlternatives();
+	public Group getGrammarElement() {
+		return grammarAccess.getAttributeOperationAccess().getGroup();
 	}
 
     @Override
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
-			case 0: return new AttributeOperation_AttributeDefinitionParserRuleCall_0(lastRuleCallOrigin, this, 0, inst);
-			case 1: return new AttributeOperation_AttributeAdditionParserRuleCall_1(lastRuleCallOrigin, this, 1, inst);
+			case 0: return new AttributeOperation_Group_1(lastRuleCallOrigin, this, 0, inst);
+			case 1: return new AttributeOperation_KeyAssignment_0(lastRuleCallOrigin, this, 1, inst);
 			default: return null;
 		}	
 	}
 
     @Override
 	public IEObjectConsumer tryConsume() {
-		if(getEObject().eClass() != grammarAccess.getAttributeAdditionRule().getType().getClassifier() && 
-		   getEObject().eClass() != grammarAccess.getAttributeDefinitionRule().getType().getClassifier())
+		if(getEObject().eClass() != grammarAccess.getAttributeOperationRule().getType().getClassifier())
 			return null;
 		return eObjectConsumer;
 	}
 
 }
 
-// AttributeDefinition
-protected class AttributeOperation_AttributeDefinitionParserRuleCall_0 extends RuleCallToken {
+// => key=unionNameOrReference
+protected class AttributeOperation_KeyAssignment_0 extends AssignmentToken  {
 	
-	public AttributeOperation_AttributeDefinitionParserRuleCall_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+	public AttributeOperation_KeyAssignment_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
 		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
 	}
 	
 	@Override
-	public RuleCall getGrammarElement() {
-		return grammarAccess.getAttributeOperationAccess().getAttributeDefinitionParserRuleCall_0();
+	public Assignment getGrammarElement() {
+		return grammarAccess.getAttributeOperationAccess().getKeyAssignment_0();
 	}
 
     @Override
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
-			case 0: return new AttributeDefinition_Group(this, this, 0, inst);
+			default: return lastRuleCallOrigin.createFollowerAfterReturn(this, index, index, inst);
+		}	
+	}
+
+    @Override	
+	public IEObjectConsumer tryConsume() {
+		if((value = eObjectConsumer.getConsumable("key",true)) == null) return null;
+		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("key");
+		if(valueSerializer.isValid(obj.getEObject(), grammarAccess.getAttributeOperationAccess().getKeyUnionNameOrReferenceParserRuleCall_0_0(), value, null)) {
+			type = AssignmentType.DATATYPE_RULE_CALL;
+			element = grammarAccess.getAttributeOperationAccess().getKeyUnionNameOrReferenceParserRuleCall_0_0();
+			return obj;
+		}
+		return null;
+	}
+
+}
+
+// (op=("=>" | "+>") value=Expression)?
+protected class AttributeOperation_Group_1 extends GroupToken {
+	
+	public AttributeOperation_Group_1(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
+	}
+	
+	@Override
+	public Group getGrammarElement() {
+		return grammarAccess.getAttributeOperationAccess().getGroup_1();
+	}
+
+    @Override
+	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
+		switch(index) {
+			case 0: return new AttributeOperation_ValueAssignment_1_1(lastRuleCallOrigin, this, 0, inst);
 			default: return null;
 		}	
 	}
 
-    @Override
-	public IEObjectConsumer tryConsume() {
-		if(getEObject().eClass() != grammarAccess.getAttributeDefinitionRule().getType().getClassifier())
-			return null;
-		if(checkForRecursion(AttributeDefinition_Group.class, eObjectConsumer)) return null;
-		return eObjectConsumer;
+}
+
+// op=("=>" | "+>")
+protected class AttributeOperation_OpAssignment_1_0 extends AssignmentToken  {
+	
+	public AttributeOperation_OpAssignment_1_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
 	}
 	
+	@Override
+	public Assignment getGrammarElement() {
+		return grammarAccess.getAttributeOperationAccess().getOpAssignment_1_0();
+	}
+
+    @Override
+	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
+		switch(index) {
+			case 0: return new AttributeOperation_KeyAssignment_0(lastRuleCallOrigin, this, 0, inst);
+			default: return null;
+		}	
+	}
+
+    @Override	
+	public IEObjectConsumer tryConsume() {
+		if((value = eObjectConsumer.getConsumable("op",true)) == null) return null;
+		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("op");
+		if(keywordSerializer.isValid(obj.getEObject(), grammarAccess.getAttributeOperationAccess().getOpEqualsSignGreaterThanSignKeyword_1_0_0_0(), value, null)) {
+			type = AssignmentType.KEYWORD;
+			element = grammarAccess.getAttributeOperationAccess().getOpEqualsSignGreaterThanSignKeyword_1_0_0_0();
+			return obj;
+		}
+		if(keywordSerializer.isValid(obj.getEObject(), grammarAccess.getAttributeOperationAccess().getOpPlusSignGreaterThanSignKeyword_1_0_0_1(), value, null)) {
+			type = AssignmentType.KEYWORD;
+			element = grammarAccess.getAttributeOperationAccess().getOpPlusSignGreaterThanSignKeyword_1_0_0_1();
+			return obj;
+		}
+		return null;
+	}
+
+}
+
+// value=Expression
+protected class AttributeOperation_ValueAssignment_1_1 extends AssignmentToken  {
+	
+	public AttributeOperation_ValueAssignment_1_1(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
+	}
+	
+	@Override
+	public Assignment getGrammarElement() {
+		return grammarAccess.getAttributeOperationAccess().getValueAssignment_1_1();
+	}
+
+    @Override
+	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
+		switch(index) {
+			case 0: return new Expression_RelationshipExpressionParserRuleCall(this, this, 0, inst);
+			default: return null;
+		}	
+	}
+
+    @Override	
+	public IEObjectConsumer tryConsume() {
+		if((value = eObjectConsumer.getConsumable("value",true)) == null) return null;
+		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("value");
+		if(value instanceof EObject) { // org::eclipse::xtext::impl::RuleCallImpl
+			IEObjectConsumer param = createEObjectConsumer((EObject)value);
+			if(param.isInstanceOf(grammarAccess.getExpressionRule().getType().getClassifier())) {
+				type = AssignmentType.PARSER_RULE_CALL;
+				element = grammarAccess.getAttributeOperationAccess().getValueExpressionParserRuleCall_1_1_0(); 
+				consumed = obj;
+				return param;
+			}
+		}
+		return null;
+	}
+
     @Override
 	public AbstractToken createFollowerAfterReturn(AbstractToken next,	int actIndex, int index, IEObjectConsumer inst) {
+		if(value == inst.getEObject() && !inst.isConsumed()) return null;
 		switch(index) {
-			default: return lastRuleCallOrigin.createFollowerAfterReturn(next, actIndex , index, inst);
+			case 0: return new AttributeOperation_OpAssignment_1_0(lastRuleCallOrigin, next, actIndex, consumed);
+			default: return null;
 		}	
 	}	
 }
 
-// AttributeAddition
-protected class AttributeOperation_AttributeAdditionParserRuleCall_1 extends RuleCallToken {
-	
-	public AttributeOperation_AttributeAdditionParserRuleCall_1(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
-		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
-	}
-	
-	@Override
-	public RuleCall getGrammarElement() {
-		return grammarAccess.getAttributeOperationAccess().getAttributeAdditionParserRuleCall_1();
-	}
-
-    @Override
-	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
-		switch(index) {
-			case 0: return new AttributeAddition_Group(this, this, 0, inst);
-			default: return null;
-		}	
-	}
-
-    @Override
-	public IEObjectConsumer tryConsume() {
-		if(getEObject().eClass() != grammarAccess.getAttributeAdditionRule().getType().getClassifier())
-			return null;
-		if(checkForRecursion(AttributeAddition_Group.class, eObjectConsumer)) return null;
-		return eObjectConsumer;
-	}
-	
-    @Override
-	public AbstractToken createFollowerAfterReturn(AbstractToken next,	int actIndex, int index, IEObjectConsumer inst) {
-		switch(index) {
-			default: return lastRuleCallOrigin.createFollowerAfterReturn(next, actIndex , index, inst);
-		}	
-	}	
-}
 
 
 /************ end Rule AttributeOperation ****************/
@@ -2033,6 +1825,10 @@ protected class AttributeOperation_AttributeAdditionParserRuleCall_1 extends Rul
 
 /************ begin Rule AttributeOperations ****************
  *
+ * //AttributeOperation returns pp::AttributeOperation
+ * //	: AttributeDefinition
+ * //	| AttributeAddition
+ * //	;
  * // VALIDATION: checks that there are ',' between operations
  * // NOTE: if ','	is mandatory in grammar, backtracking will think statement is a different (faulty)
  * // statement.
@@ -2086,7 +1882,7 @@ protected class AttributeOperations_AttributesAssignment_0 extends AssignmentTok
     @Override
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
-			case 0: return new AttributeOperation_Alternatives(this, this, 0, inst);
+			case 0: return new AttributeOperation_Group(this, this, 0, inst);
 			default: return null;
 		}	
 	}
@@ -2199,7 +1995,7 @@ protected class AttributeOperations_AttributesAssignment_1_0_1 extends Assignmen
     @Override
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
-			case 0: return new AttributeOperation_Alternatives(this, this, 0, inst);
+			case 0: return new AttributeOperation_Group(this, this, 0, inst);
 			default: return null;
 		}	
 	}
@@ -2246,7 +2042,7 @@ protected class AttributeOperations_AttributesAssignment_1_1 extends AssignmentT
     @Override
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
-			case 0: return new AttributeOperation_Alternatives(this, this, 0, inst);
+			case 0: return new AttributeOperation_Group(this, this, 0, inst);
 			default: return null;
 		}	
 	}

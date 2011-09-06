@@ -11,12 +11,11 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="nameExpr" eType="#//Expression"
         containment="true"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="AttributeDefinition" eSuperTypes="#//AttributeOperation"/>
-  <eClassifiers xsi:type="ecore:EClass" name="AttributeAddition" eSuperTypes="#//AttributeOperation"/>
-  <eClassifiers xsi:type="ecore:EClass" name="AttributeOperation" abstract="true">
+  <eClassifiers xsi:type="ecore:EClass" name="AttributeOperation">
     <eStructuralFeatures xsi:type="ecore:EReference" name="value" eType="#//Expression"
         containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="key" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="op" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="AttributeOperations">
     <eStructuralFeatures xsi:type="ecore:EReference" name="attributes" upperBound="-1"

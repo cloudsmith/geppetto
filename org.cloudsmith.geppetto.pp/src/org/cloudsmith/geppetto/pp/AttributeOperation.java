@@ -23,11 +23,12 @@ import org.eclipse.emf.ecore.EObject;
  * <ul>
  * <li>{@link org.cloudsmith.geppetto.pp.AttributeOperation#getValue <em>Value</em>}</li>
  * <li>{@link org.cloudsmith.geppetto.pp.AttributeOperation#getKey <em>Key</em>}</li>
+ * <li>{@link org.cloudsmith.geppetto.pp.AttributeOperation#getOp <em>Op</em>}</li>
  * </ul>
  * </p>
  * 
  * @see org.cloudsmith.geppetto.pp.PPPackage#getAttributeOperation()
- * @model abstract="true"
+ * @model
  * @generated
  */
 public interface AttributeOperation extends EObject {
@@ -46,6 +47,22 @@ public interface AttributeOperation extends EObject {
 	 * @generated
 	 */
 	String getKey();
+
+	/**
+	 * Returns the value of the '<em><b>Op</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Op</em>' attribute isn't clear, there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * 
+	 * @return the value of the '<em>Op</em>' attribute.
+	 * @see #setOp(String)
+	 * @see org.cloudsmith.geppetto.pp.PPPackage#getAttributeOperation_Op()
+	 * @model
+	 * @generated
+	 */
+	String getOp();
 
 	/**
 	 * Returns the value of the '<em><b>Value</b></em>' containment reference.
@@ -74,6 +91,18 @@ public interface AttributeOperation extends EObject {
 	 * @generated
 	 */
 	void setKey(String value);
+
+	/**
+	 * Sets the value of the '{@link org.cloudsmith.geppetto.pp.AttributeOperation#getOp <em>Op</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @param value
+	 *            the new value of the '<em>Op</em>' attribute.
+	 * @see #getOp()
+	 * @generated
+	 */
+	void setOp(String value);
 
 	/**
 	 * Sets the value of the '{@link org.cloudsmith.geppetto.pp.AttributeOperation#getValue <em>Value</em>}' containment reference.

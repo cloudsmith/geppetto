@@ -83,24 +83,14 @@ public interface PPFactory extends EFactory {
 	AtExpression createAtExpression();
 
 	/**
-	 * Returns a new object of class '<em>Attribute Addition</em>'.
+	 * Returns a new object of class '<em>Attribute Operation</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
-	 * @return a new object of class '<em>Attribute Addition</em>'.
+	 * @return a new object of class '<em>Attribute Operation</em>'.
 	 * @generated
 	 */
-	AttributeAddition createAttributeAddition();
-
-	/**
-	 * Returns a new object of class '<em>Attribute Definition</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * 
-	 * @return a new object of class '<em>Attribute Definition</em>'.
-	 * @generated
-	 */
-	AttributeDefinition createAttributeDefinition();
+	AttributeOperation createAttributeOperation();
 
 	/**
 	 * Returns a new object of class '<em>Attribute Operations</em>'.

@@ -11,8 +11,6 @@
  */
 package org.cloudsmith.geppetto.pp.dsl.tests;
 
-import org.cloudsmith.geppetto.pp.AttributeAddition;
-import org.cloudsmith.geppetto.pp.AttributeDefinition;
 import org.cloudsmith.geppetto.pp.AttributeOperation;
 import org.cloudsmith.geppetto.pp.AttributeOperations;
 import org.cloudsmith.geppetto.pp.Expression;
@@ -56,9 +54,10 @@ public class AbstractPuppetTests extends AbstractXtextTests {
 	}
 
 	protected AttributeOperation createAttributeAddition(String name, Expression value) {
-		AttributeAddition ao = pf.createAttributeAddition();
+		AttributeOperation ao = pf.createAttributeOperation();
 		ao.setKey(name);
 		ao.setValue(value);
+		ao.setOp("+>");
 		return ao;
 	}
 
@@ -67,9 +66,10 @@ public class AbstractPuppetTests extends AbstractXtextTests {
 	}
 
 	protected AttributeOperation createAttributeDefinition(String name, Expression value) {
-		AttributeDefinition ao = pf.createAttributeDefinition();
+		AttributeOperation ao = pf.createAttributeOperation();
 		ao.setKey(name);
 		ao.setValue(value);
+		ao.setOp("=>");
 		return ao;
 	}
 
@@ -89,9 +89,10 @@ public class AbstractPuppetTests extends AbstractXtextTests {
 		AttributeOperations aos = pf.createAttributeOperations();
 		EList<AttributeOperation> aoList = aos.getAttributes();
 		for(int i = 0; i < keyValPairs.length; i++) {
-			AttributeOperation ao = additive
-					? pf.createAttributeAddition()
-					: pf.createAttributeDefinition();
+			AttributeOperation ao = pf.createAttributeOperation();
+			ao.setOp(additive
+					? "+>"
+					: "=>");
 			if(!(keyValPairs[i] instanceof String))
 				throw new IllegalArgumentException("Bad test spec, key not a String");
 			ao.setKey((String) (keyValPairs[i++]));

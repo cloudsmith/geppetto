@@ -15,6 +15,8 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.Reader;
 import java.util.Iterator;
 
@@ -126,4 +128,19 @@ public class CatalogJsonSerializer {
 		}
 	}
 
+	/**
+	 * Loads a Catalog model from a catalog JSON input stream.
+	 * 
+	 */
+	public static Catalog load(InputStream jsonStream) throws IOException {
+		Reader reader = new BufferedReader(new InputStreamReader(jsonStream));
+		try {
+			Gson gson = getGSon();
+			CatalogImpl md = gson.fromJson(reader, CatalogImpl.class);
+			return md;
+		}
+		finally {
+			StreamUtil.close(reader);
+		}
+	}
 }

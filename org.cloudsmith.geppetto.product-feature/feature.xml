@@ -7,7 +7,7 @@
       plugin="org.cloudsmith.geppetto"
       image="geppetto_update_120.jpg">
 
-   <description> 
+   <description>
       %description
    </description>
 
@@ -38,7 +38,7 @@ http://www.eclipse.org/legal/epl-v10.html
       <import feature="org.eclipse.emf.edit.ui"/>
       <import feature="org.eclipse.equinox.p2.user.ui"/>
       <import feature="org.eclipse.jgit"/>
-      <import feature="org.eclipse.platform"/>
+      <import feature="org.eclipse.platform" version="3.6.0" match="greaterOrEqual"/>
       <import feature="org.eclipse.team.svn"/>
       <import feature="org.polarion.eclipse.team.svn.connector"/>
       <import feature="org.polarion.eclipse.team.svn.connector.svnkit16"/>

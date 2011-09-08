@@ -4,9 +4,10 @@
       label="%featureName"
       version="2.0.0.qualifier"
       provider-name="%providerName"
+      plugin="org.cloudsmith.geppetto"
       image="geppetto_update_120.jpg">
 
-   <description>
+   <description> 
       %description
    </description>
 

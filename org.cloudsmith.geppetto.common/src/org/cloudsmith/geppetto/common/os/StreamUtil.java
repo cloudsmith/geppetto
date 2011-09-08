@@ -14,6 +14,7 @@ package org.cloudsmith.geppetto.common.os;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.Closeable;
+import java.io.FilterOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -22,6 +23,38 @@ import java.io.OutputStream;
 import java.nio.charset.Charset;
 
 public class StreamUtil {
+	protected static class ForkedOutputStream extends FilterOutputStream {
+		private final OutputStream out2;
+
+		ForkedOutputStream(OutputStream out1, OutputStream out2) {
+			super(out1);
+			this.out2 = out2;
+		}
+
+		@Override
+		public void flush() throws IOException {
+			super.flush();
+			out2.flush();
+		}
+
+		@Override
+		public void write(byte b[], int off, int len) throws IOException {
+			super.write(b, off, len);
+			out2.write(b, off, len);
+		}
+
+		@Override
+		public void write(byte[] b) throws IOException {
+			super.write(b);
+			out2.write(b);
+		}
+
+		@Override
+		public void write(int b) throws IOException {
+			super.write(b);
+			out2.write(b);
+		}
+	}
 
 	public static class OpenBAStream extends ByteArrayOutputStream {
 		public InputStream getInputStream() {
@@ -72,5 +105,9 @@ public class StreamUtil {
 			total += read;
 		}
 		return total;
+	}
+
+	public static OutputStream forkOutput(OutputStream out1, OutputStream out2) {
+		return new ForkedOutputStream(out1, out2);
 	}
 }

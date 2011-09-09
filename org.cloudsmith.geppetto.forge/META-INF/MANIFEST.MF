@@ -9,9 +9,9 @@ Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Export-Package: org.cloudsmith.geppetto.forge,
  org.cloudsmith.geppetto.forge.impl;x-friends:="org.cloudsmith.geppetto.forge.tests",
  org.cloudsmith.geppetto.forge.util
-Require-Bundle: org.eclipse.core.runtime,
+Require-Bundle: org.eclipse.core.runtime;bundle-version="3.6.0",
  org.cloudsmith.geppetto.common,
- org.eclipse.emf.ecore;visibility:=reexport,
+ org.eclipse.emf.ecore;bundle-version="2.7.0";visibility:=reexport,
  com.google.gson,
  org.apache.commons.compress,
  org.jrubyparser

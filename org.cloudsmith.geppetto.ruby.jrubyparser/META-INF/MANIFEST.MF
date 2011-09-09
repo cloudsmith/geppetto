@@ -6,8 +6,8 @@ Bundle-Localization: plugin
 Bundle-SymbolicName: org.cloudsmith.geppetto.ruby.jrubyparser;singleton:=true
 Bundle-Version: 1.0.2.qualifier
 Bundle-Activator: org.cloudsmith.geppetto.ruby.jrubyparser.Activator
-Require-Bundle: org.eclipse.core.runtime,
- com.google.collect,
+Require-Bundle: org.eclipse.core.runtime;bundle-version="3.6.0",
+ com.google.collect;bundle-version="1.0.0",
  org.cloudsmith.geppetto.ruby,
  org.jrubyparser,
  org.cloudsmith.geppetto.common

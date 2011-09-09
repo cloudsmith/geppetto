@@ -9,9 +9,9 @@ Bundle-Localization: plugin
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Import-Package: org.osgi.framework
 Bundle-ActivationPolicy: lazy
-Require-Bundle: org.eclipse.osgi,
- org.eclipse.equinox.common,
- org.eclipse.core.runtime
+Require-Bundle: org.eclipse.osgi;bundle-version="3.6.0",
+ org.eclipse.equinox.common;bundle-version="3.6.0",
+ org.eclipse.core.runtime;bundle-version="3.6.0"
 Export-Package: org.cloudsmith.geppetto.common.eclipse,
  org.cloudsmith.geppetto.common.os,
  org.cloudsmith.geppetto.common.score

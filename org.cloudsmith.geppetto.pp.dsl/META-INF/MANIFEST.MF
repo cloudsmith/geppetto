@@ -6,14 +6,14 @@ Bundle-Localization: plugin
 Bundle-Version: 1.0.2.qualifier
 Bundle-SymbolicName: org.cloudsmith.geppetto.pp.dsl;singleton:=true
 Bundle-ActivationPolicy: lazy
-Require-Bundle: org.eclipse.xtext,
+Require-Bundle: org.eclipse.xtext;bundle-version="2.0.0",
  org.cloudsmith.geppetto.pp,
- org.eclipse.xtext.util,
- org.eclipse.emf.ecore,
- org.eclipse.emf.common,
- org.antlr.runtime,
+ org.eclipse.xtext.util;bundle-version="2.0.0",
+ org.eclipse.emf.ecore;bundle-version="2.7.0",
+ org.eclipse.emf.common;bundle-version="2.7.0",
+ org.antlr.runtime;bundle-version="3.2.0",
  org.cloudsmith.geppetto.ruby,
- org.eclipse.core.runtime,
+ org.eclipse.core.runtime;bundle-version="3.6.0",
  org.cloudsmith.geppetto.common,
  org.cloudsmith.geppetto.common.injectable,
  org.apache.commons.lang;bundle-version="2.4.0",

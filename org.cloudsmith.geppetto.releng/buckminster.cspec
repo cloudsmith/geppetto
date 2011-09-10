@@ -6,6 +6,7 @@
 		<dependency name="org.cloudsmith.geppetto.tests" componentType="osgi.bundle" />
 		<dependency name="org.cloudsmith.geppetto.product" componentType="eclipse.feature" />
 		<dependency name="org.cloudsmith.geppetto.site" componentType="eclipse.feature" />
+		<dependency name="org.eclipse.xtext.generator" componentType="osgi.bundle" />
 		<dependency name="org.eclipse.equinox.executable" componentType="eclipse.feature" />
 	</dependencies>
 

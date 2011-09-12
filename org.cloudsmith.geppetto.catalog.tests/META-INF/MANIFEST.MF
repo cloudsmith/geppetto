@@ -6,8 +6,6 @@ Bundle-Version: 1.0.0.qualifier
 Bundle-Activator: org.cloudsmith.geppetto.catalog.test.Activator
 Require-Bundle: org.eclipse.core.runtime,
  org.junit,
- org.cloudsmith.geppetto.catalog,
- org.eclipse.emf.compare.diff;bundle-version="1.1.2",
- org.eclipse.emf.compare;bundle-version="1.1.2"
+ org.cloudsmith.geppetto.catalog
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6

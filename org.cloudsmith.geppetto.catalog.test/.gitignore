@@ -1,3 +1,0 @@
-bin
-/testOutput/*
-!/testOutput/.gitignore

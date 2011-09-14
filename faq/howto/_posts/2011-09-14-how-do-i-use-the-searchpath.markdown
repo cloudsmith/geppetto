@@ -8,6 +8,7 @@ These preferences can be set globally, but also per project (overriding the defa
 The search path adds an extra level of visibility constraints, and prioritizes which element to choose should there be several with the same name.
 
 By deault, the path is:
+
      lib/*:environments/$environment/*:manifests/*:modules/*
 
 Implicitly, the puppet environment is always searched before the search path is consulted.

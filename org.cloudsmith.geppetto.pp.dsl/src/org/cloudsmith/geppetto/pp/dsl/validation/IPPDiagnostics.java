@@ -135,4 +135,6 @@ public interface IPPDiagnostics {
 
 	public static final String ISSUE__RESOURCE_DUPLICATE_PARAMETER = ISSUE_PREFIX + "DuplicateParameter";
 
+	public static final String ISSUE__NOT_ON_PATH = ISSUE_PREFIX + "NotOnPath";
+
 }

@@ -37,11 +37,11 @@ public class PPQuickfixProvider extends DefaultQuickfixProvider {
 
 	private static class ReplacingModification implements IModification {
 
-		final private int length;
+		final protected int length;
 
-		final private int offset;
+		final protected int offset;
 
-		final private String text;
+		final protected String text;
 
 		ReplacingModification(int offset, int length, String text) {
 			this.length = length;
@@ -53,6 +53,46 @@ public class PPQuickfixProvider extends DefaultQuickfixProvider {
 		public void apply(IModificationContext context) throws BadLocationException {
 			IXtextDocument xtextDocument = context.getXtextDocument();
 			xtextDocument.replace(offset, length, text);
+		}
+
+	}
+
+	private static class SurroundWithTextModification extends ReplacingModification {
+		private final String suffix;
+
+		/**
+		 * @param offset
+		 * @param length
+		 * @param text
+		 *            text used before and after the replaced text
+		 */
+		SurroundWithTextModification(int offset, int length, String text) {
+			super(offset, length, text);
+			suffix = text;
+		}
+
+		/**
+		 * Surrounds text with prefix, suffix
+		 * 
+		 * @param offset
+		 *            start of section to surround
+		 * @param length
+		 *            length of section to surround
+		 * @param prefix
+		 *            text before the section
+		 * @param suffix
+		 *            text after the section
+		 */
+		SurroundWithTextModification(int offset, int length, String prefix, String suffix) {
+			super(offset, length, prefix);
+			this.suffix = suffix;
+		}
+
+		@Override
+		public void apply(IModificationContext context) throws BadLocationException {
+			IXtextDocument xtextDocument = context.getXtextDocument();
+			String tmp = text + xtextDocument.get(offset, length) + suffix;
+			xtextDocument.replace(offset, length, tmp);
 		}
 
 	}
@@ -129,10 +169,12 @@ public class PPQuickfixProvider extends DefaultQuickfixProvider {
 
 		String tmp = getQualifiedNameConverter().toString(upperCaseName);
 		acceptor.accept(issue, "Make all segments start with upper case", //
-		"Change the name to '" + tmp + "'", null, new ReplacingModification(issue.getOffset(), issue.getLength(), tmp));
+			"Change the name to '" + tmp + "'", null, new ReplacingModification(
+				issue.getOffset(), issue.getLength(), tmp));
 		tmp = getQualifiedNameConverter().toString(lowerCaseName);
 		acceptor.accept(issue, "Make all segments start with lower case", //
-		"Change the name to '" + tmp + "'", null, new ReplacingModification(issue.getOffset(), issue.getLength(), tmp));
+			"Change the name to '" + tmp + "'", null, new ReplacingModification(
+				issue.getOffset(), issue.getLength(), tmp));
 	}
 
 	@Fix(IPPDiagnostics.ISSUE__RESOURCE_AMBIGUOUS_REFERENCE)
@@ -142,10 +184,10 @@ public class PPQuickfixProvider extends DefaultQuickfixProvider {
 			return;
 		for(String proposal : data) {
 			acceptor.accept(issue, "Replace with '" + proposal + "'", //
-			"Change the reference to" + (proposal.startsWith("::")
-					? " the absolute: \n"
-					: ": \n") + proposal, null, new ReplacingModification(
-				issue.getOffset(), issue.getLength(), proposal));
+				"Change the reference to" + (proposal.startsWith("::")
+						? " the absolute: \n"
+						: ": \n") + proposal, null, new ReplacingModification(
+					issue.getOffset(), issue.getLength(), proposal));
 		}
 	}
 
@@ -160,10 +202,33 @@ public class PPQuickfixProvider extends DefaultQuickfixProvider {
 			String intString = Integer.toString(proposalNbr++);
 			if(data.length > 9 && intString.length() < 2)
 				intString = "0" + intString;
-			acceptor.accept(
-				issue, intString + ". Change to '" + proposal + "'", //
-				"Change to (guessed value) '" + proposal + "'", null,
-				new ReplacingModification(issue.getOffset(), issue.getLength(), proposal));
+			acceptor.accept(issue, intString + ". Change to '" + proposal + "'", //
+				"Change to (guessed value) '" + proposal + "'", null, new ReplacingModification(
+					issue.getOffset(), issue.getLength(), proposal));
 		}
+	}
+
+	@Fix(IPPDiagnostics.ISSUE__UNSUPPORTED_EXPRESSION_STRING_OK)
+	public void surroundExprWithSingleQuote(final Issue issue, IssueResolutionAcceptor acceptor) {
+
+		acceptor.accept(
+			issue, "Quote expression", "Surround expression with single quotes", null,
+			new SurroundWithTextModification(issue.getOffset(), issue.getLength(), "'"));
+	}
+
+	@Fix(IPPDiagnostics.ISSUE__UNSUPPORTED_EXPRESSION_STRING_OK)
+	public void surroundWithInterpolation(final Issue issue, IssueResolutionAcceptor acceptor) {
+
+		acceptor.accept(
+			issue, "Interpolate expression", "Surround expression with '\"${', '}\"' ", null,
+			new SurroundWithTextModification(issue.getOffset(), issue.getLength(), "\"${", "}\""));
+	}
+
+	@Fix(IPPDiagnostics.ISSUE__UNQUOTED_QUALIFIED_NAME)
+	public void surroundWithSingleQuote(final Issue issue, IssueResolutionAcceptor acceptor) {
+
+		acceptor.accept(
+			issue, "Quote qualified name", "Replace qualified name with quoted name.", null,
+			new SurroundWithTextModification(issue.getOffset(), issue.getLength(), "'"));
 	}
 }

@@ -827,8 +827,15 @@ public class PPJavaValidator extends AbstractPPJavaValidator implements IPPDiagn
 				nameExpr instanceof LiteralList || nameExpr instanceof SelectorExpression))
 			acceptor.acceptError(
 				"Expression unsupported as resource name/title.", o, PPPackage.Literals.RESOURCE_BODY__NAME_EXPR,
-				INSIGNIFICANT_INDEX, IPPDiagnostics.ISSUE__UNSUPPORTED_EXPRESSION);
+				INSIGNIFICANT_INDEX, IPPDiagnostics.ISSUE__UNSUPPORTED_EXPRESSION_STRING_OK);
 
+		if(nameExpr instanceof LiteralNameOrReference) {
+			if(((LiteralNameOrReference) nameExpr).getValue().contains("::")) {
+				acceptor.acceptError(
+					"Qualiied name must be quoted.", o, PPPackage.Literals.RESOURCE_BODY__NAME_EXPR,
+					INSIGNIFICANT_INDEX, IPPDiagnostics.ISSUE__UNQUOTED_QUALIFIED_NAME);
+			}
+		}
 		// check for duplicate use of parameter
 		Set<String> duplicates = Sets.newHashSet();
 		Set<String> processed = Sets.newHashSet();

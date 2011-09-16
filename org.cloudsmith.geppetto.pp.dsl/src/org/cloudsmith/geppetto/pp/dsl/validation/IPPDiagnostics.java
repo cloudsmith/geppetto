@@ -139,4 +139,11 @@ public interface IPPDiagnostics {
 
 	public static final String ISSUE__ASSIGNMENT_OTHER_NAMESPACE = ISSUE_PREFIX + "AssignmentOtherNamespace";
 
+	public static final String ISSUE__UNQUOTED_QUALIFIED_NAME = ISSUE_PREFIX + "UnquotedFQN";
+
+	/**
+	 * An unsupported expression that can be fixed by changing the expr to a string.
+	 */
+	public static final String ISSUE__UNSUPPORTED_EXPRESSION_STRING_OK = ISSUE_PREFIX + "UnsupportedExpression_String";
+
 }

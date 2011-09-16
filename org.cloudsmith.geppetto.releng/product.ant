@@ -36,7 +36,7 @@
 		<exec dir="${output}" executable="zip" outputproperty="zip.output" failonerror="true">
 			<arg value="-r"/>
 			<arg value="-9"/>
-			<arg value="${lc.product.name}-${product.os}.${product.ws}.${product.arch}_${product.version}.zip"/>
+			<arg value="${lc.product.name}-${product.os}.${product.ws}.${product.arch}_${build.id}.zip"/>
 			<arg value="${lc.product.name}"/>
 		</exec>
 		<echo message="${zip.output}"/>

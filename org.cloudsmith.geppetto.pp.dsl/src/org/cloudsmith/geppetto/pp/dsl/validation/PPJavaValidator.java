@@ -283,6 +283,15 @@ public class PPJavaValidator extends AbstractPPJavaValidator implements IPPDiagn
 				INSIGNIFICANT_INDEX, IPPDiagnostics.ISSUE__NOT_ASSIGNABLE);
 		// TODO: rhs is not validated, it allows expression, which includes rvalue, but some top level expressions
 		// are probably not allowed (case?)
+
+		// Variables in 'other namespaces' are not assignable.
+		if(leftExpr instanceof VariableExpression) {
+			VariableExpression varExpr = (VariableExpression) leftExpr;
+			if(varExpr.getVarName().contains("::"))
+				acceptor.acceptError("Cannot assign to variables in other namespaces", o, //
+					PPPackage.Literals.BINARY_EXPRESSION__LEFT_EXPR, INSIGNIFICANT_INDEX, //
+					IPPDiagnostics.ISSUE__ASSIGNMENT_OTHER_NAMESPACE);
+		}
 	}
 
 	/**
@@ -1092,7 +1101,7 @@ public class PPJavaValidator extends AbstractPPJavaValidator implements IPPDiagn
 	public void checkUnaryExpression(UnaryNotExpression o) {
 		if(o.getExpr() == null)
 			acceptor.acceptError("A not expression must have a righ hand side expression", o, //
-			PPPackage.Literals.UNARY_EXPRESSION__EXPR, INSIGNIFICANT_INDEX, //
+				PPPackage.Literals.UNARY_EXPRESSION__EXPR, INSIGNIFICANT_INDEX, //
 				IPPDiagnostics.ISSUE__NULL_EXPRESSION);
 	}
 

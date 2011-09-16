@@ -137,4 +137,6 @@ public interface IPPDiagnostics {
 
 	public static final String ISSUE__NOT_ON_PATH = ISSUE_PREFIX + "NotOnPath";
 
+	public static final String ISSUE__ASSIGNMENT_OTHER_NAMESPACE = ISSUE_PREFIX + "AssignmentOtherNamespace";
+
 }

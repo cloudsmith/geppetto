@@ -72,8 +72,17 @@ public class PPBuildJob extends Job {
 		final SubMonitor ticker = SubMonitor.convert(monitor, projects.length * 100);
 		for(IProject p : projects) {
 			try {
-				ticker.setTaskName("Building project " + p.getName());
+				ticker.setTaskName("Cleaning project " + p.getName());
 				p.build(IncrementalProjectBuilder.CLEAN_BUILD, ticker.newChild(100));
+			}
+			catch(CoreException e) {
+				return e.getStatus();
+			}
+		}
+		for(IProject p : projects) {
+			try {
+				ticker.setTaskName("Building project " + p.getName());
+				p.build(IncrementalProjectBuilder.FULL_BUILD, ticker.newChild(100));
 			}
 			catch(CoreException e) {
 				return e.getStatus();

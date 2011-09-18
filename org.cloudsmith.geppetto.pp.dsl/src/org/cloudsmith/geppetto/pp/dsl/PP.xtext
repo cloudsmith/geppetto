@@ -106,8 +106,8 @@ ResourceExpression returns pp::Expression
 // Note: allows all AttributeOperation subtypes but this depends on the parent's type
 // VALIDATION checks allowed types	
 ResourceBody returns pp::ResourceBody
-	: nameExpr = Expression  ':' attributes = AttributeOperations?
-	| attributes = AttributeOperations
+	: {pp::ResourceBody} nameExpr = Expression  ':' attributes = AttributeOperations?
+	| {pp::ResourceBody} attributes = AttributeOperations
 	;
 
 //// VALIDATION: checks that key is a NAME
@@ -122,8 +122,9 @@ ResourceBody returns pp::ResourceBody
 //	;
 
 // VALIDATION: key is a NAME, op is supported and Expression is not null
+// CONTENT ASSIST: must have op and value as optional, or state is nearly always wrong for CA.
 AttributeOperation returns pp::AttributeOperation
-	: => key = unionNameOrReference (op = ('=>' | '+>') value = Expression)?
+	: {pp::AttributeOperation} key = unionNameOrReference (op = ('=>' | '+>') value = Expression)?
 	;
 
 //AttributeOperation returns pp::AttributeOperation
@@ -617,7 +618,7 @@ variable hidden()
 
 // captures names and references, complicated by the fact that a keyword may be part of the name
 // if the name contains '::' - for more info see the PPLexer
-unionNameOrReference hidden()
+unionNameOrReference //hidden()
 	: WORD_CHARS | 'class' | 'default' 
 	;
 

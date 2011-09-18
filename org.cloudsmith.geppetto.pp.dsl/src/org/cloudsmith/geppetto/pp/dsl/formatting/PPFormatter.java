@@ -320,8 +320,8 @@ public class PPFormatter extends AbstractDeclarativeFormatter {
 
 		// + indent the list of attribute operations but only when when they have a title
 		// TODO: 1.0GA (changing resource expression grammar)
-		c.setIndentationIncrement().before(ga.getResourceBodyAccess().getAttributesAssignment_0_2());
-		c.setIndentationDecrement().after(ga.getResourceBodyAccess().getAttributesAssignment_0_2());
+		c.setIndentationIncrement().before(ga.getResourceBodyAccess().getAttributesAssignment_0_3());
+		c.setIndentationDecrement().after(ga.getResourceBodyAccess().getAttributesAssignment_0_3());
 
 		// this will always indent even if there is no title
 		// c.setIndentationIncrement().before(ga.getAttributeOperationsRule());

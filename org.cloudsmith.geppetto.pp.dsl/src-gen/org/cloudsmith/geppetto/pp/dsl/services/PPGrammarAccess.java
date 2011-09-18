@@ -289,60 +289,75 @@ public class PPGrammarAccess extends AbstractGrammarElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "ResourceBody");
 		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
 		private final Group cGroup_0 = (Group)cAlternatives.eContents().get(0);
-		private final Assignment cNameExprAssignment_0_0 = (Assignment)cGroup_0.eContents().get(0);
-		private final RuleCall cNameExprExpressionParserRuleCall_0_0_0 = (RuleCall)cNameExprAssignment_0_0.eContents().get(0);
-		private final Keyword cColonKeyword_0_1 = (Keyword)cGroup_0.eContents().get(1);
-		private final Assignment cAttributesAssignment_0_2 = (Assignment)cGroup_0.eContents().get(2);
-		private final RuleCall cAttributesAttributeOperationsParserRuleCall_0_2_0 = (RuleCall)cAttributesAssignment_0_2.eContents().get(0);
-		private final Assignment cAttributesAssignment_1 = (Assignment)cAlternatives.eContents().get(1);
-		private final RuleCall cAttributesAttributeOperationsParserRuleCall_1_0 = (RuleCall)cAttributesAssignment_1.eContents().get(0);
+		private final Action cResourceBodyAction_0_0 = (Action)cGroup_0.eContents().get(0);
+		private final Assignment cNameExprAssignment_0_1 = (Assignment)cGroup_0.eContents().get(1);
+		private final RuleCall cNameExprExpressionParserRuleCall_0_1_0 = (RuleCall)cNameExprAssignment_0_1.eContents().get(0);
+		private final Keyword cColonKeyword_0_2 = (Keyword)cGroup_0.eContents().get(2);
+		private final Assignment cAttributesAssignment_0_3 = (Assignment)cGroup_0.eContents().get(3);
+		private final RuleCall cAttributesAttributeOperationsParserRuleCall_0_3_0 = (RuleCall)cAttributesAssignment_0_3.eContents().get(0);
+		private final Group cGroup_1 = (Group)cAlternatives.eContents().get(1);
+		private final Action cResourceBodyAction_1_0 = (Action)cGroup_1.eContents().get(0);
+		private final Assignment cAttributesAssignment_1_1 = (Assignment)cGroup_1.eContents().get(1);
+		private final RuleCall cAttributesAttributeOperationsParserRuleCall_1_1_0 = (RuleCall)cAttributesAssignment_1_1.eContents().get(0);
 		
 		//// Note: allows all AttributeOperation subtypes but this depends on the parent's type
 		//// VALIDATION checks allowed types	
 		//ResourceBody returns pp::ResourceBody:
-		//	nameExpr=Expression ":" attributes=AttributeOperations? | attributes=AttributeOperations;
+		//	{pp::ResourceBody} nameExpr=Expression ":" attributes=AttributeOperations? | {pp::ResourceBody}
+		//	attributes=AttributeOperations;
 		public ParserRule getRule() { return rule; }
 
-		//nameExpr=Expression ":" attributes=AttributeOperations? | attributes=AttributeOperations
+		//{pp::ResourceBody} nameExpr=Expression ":" attributes=AttributeOperations? | {pp::ResourceBody}
+		//attributes=AttributeOperations
 		public Alternatives getAlternatives() { return cAlternatives; }
 
-		//nameExpr=Expression ":" attributes=AttributeOperations?
+		//{pp::ResourceBody} nameExpr=Expression ":" attributes=AttributeOperations?
 		public Group getGroup_0() { return cGroup_0; }
 
+		//{pp::ResourceBody}
+		public Action getResourceBodyAction_0_0() { return cResourceBodyAction_0_0; }
+
 		//nameExpr=Expression
-		public Assignment getNameExprAssignment_0_0() { return cNameExprAssignment_0_0; }
+		public Assignment getNameExprAssignment_0_1() { return cNameExprAssignment_0_1; }
 
 		//Expression
-		public RuleCall getNameExprExpressionParserRuleCall_0_0_0() { return cNameExprExpressionParserRuleCall_0_0_0; }
+		public RuleCall getNameExprExpressionParserRuleCall_0_1_0() { return cNameExprExpressionParserRuleCall_0_1_0; }
 
 		//":"
-		public Keyword getColonKeyword_0_1() { return cColonKeyword_0_1; }
+		public Keyword getColonKeyword_0_2() { return cColonKeyword_0_2; }
 
 		//attributes=AttributeOperations?
-		public Assignment getAttributesAssignment_0_2() { return cAttributesAssignment_0_2; }
+		public Assignment getAttributesAssignment_0_3() { return cAttributesAssignment_0_3; }
 
 		//AttributeOperations
-		public RuleCall getAttributesAttributeOperationsParserRuleCall_0_2_0() { return cAttributesAttributeOperationsParserRuleCall_0_2_0; }
+		public RuleCall getAttributesAttributeOperationsParserRuleCall_0_3_0() { return cAttributesAttributeOperationsParserRuleCall_0_3_0; }
+
+		//{pp::ResourceBody} attributes=AttributeOperations
+		public Group getGroup_1() { return cGroup_1; }
+
+		//{pp::ResourceBody}
+		public Action getResourceBodyAction_1_0() { return cResourceBodyAction_1_0; }
 
 		//attributes=AttributeOperations
-		public Assignment getAttributesAssignment_1() { return cAttributesAssignment_1; }
+		public Assignment getAttributesAssignment_1_1() { return cAttributesAssignment_1_1; }
 
 		//AttributeOperations
-		public RuleCall getAttributesAttributeOperationsParserRuleCall_1_0() { return cAttributesAttributeOperationsParserRuleCall_1_0; }
+		public RuleCall getAttributesAttributeOperationsParserRuleCall_1_1_0() { return cAttributesAttributeOperationsParserRuleCall_1_1_0; }
 	}
 
 	public class AttributeOperationElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "AttributeOperation");
 		private final Group cGroup = (Group)rule.eContents().get(1);
-		private final Assignment cKeyAssignment_0 = (Assignment)cGroup.eContents().get(0);
-		private final RuleCall cKeyUnionNameOrReferenceParserRuleCall_0_0 = (RuleCall)cKeyAssignment_0.eContents().get(0);
-		private final Group cGroup_1 = (Group)cGroup.eContents().get(1);
-		private final Assignment cOpAssignment_1_0 = (Assignment)cGroup_1.eContents().get(0);
-		private final Alternatives cOpAlternatives_1_0_0 = (Alternatives)cOpAssignment_1_0.eContents().get(0);
-		private final Keyword cOpEqualsSignGreaterThanSignKeyword_1_0_0_0 = (Keyword)cOpAlternatives_1_0_0.eContents().get(0);
-		private final Keyword cOpPlusSignGreaterThanSignKeyword_1_0_0_1 = (Keyword)cOpAlternatives_1_0_0.eContents().get(1);
-		private final Assignment cValueAssignment_1_1 = (Assignment)cGroup_1.eContents().get(1);
-		private final RuleCall cValueExpressionParserRuleCall_1_1_0 = (RuleCall)cValueAssignment_1_1.eContents().get(0);
+		private final Action cAttributeOperationAction_0 = (Action)cGroup.eContents().get(0);
+		private final Assignment cKeyAssignment_1 = (Assignment)cGroup.eContents().get(1);
+		private final RuleCall cKeyUnionNameOrReferenceParserRuleCall_1_0 = (RuleCall)cKeyAssignment_1.eContents().get(0);
+		private final Group cGroup_2 = (Group)cGroup.eContents().get(2);
+		private final Assignment cOpAssignment_2_0 = (Assignment)cGroup_2.eContents().get(0);
+		private final Alternatives cOpAlternatives_2_0_0 = (Alternatives)cOpAssignment_2_0.eContents().get(0);
+		private final Keyword cOpEqualsSignGreaterThanSignKeyword_2_0_0_0 = (Keyword)cOpAlternatives_2_0_0.eContents().get(0);
+		private final Keyword cOpPlusSignGreaterThanSignKeyword_2_0_0_1 = (Keyword)cOpAlternatives_2_0_0.eContents().get(1);
+		private final Assignment cValueAssignment_2_1 = (Assignment)cGroup_2.eContents().get(1);
+		private final RuleCall cValueExpressionParserRuleCall_2_1_0 = (RuleCall)cValueAssignment_2_1.eContents().get(0);
 		
 		////// VALIDATION: checks that key is a NAME
 		////AttributeDefinition returns pp::AttributeDefinition
@@ -355,38 +370,41 @@ public class PPGrammarAccess extends AbstractGrammarElementFinder {
 		////	;
 		//// VALIDATION: key is a NAME, op is supported and Expression is not null
 		//AttributeOperation returns pp::AttributeOperation:
-		//	=> key=unionNameOrReference (op=("=>" | "+>") value=Expression)?;
+		//	{pp::AttributeOperation} key=unionNameOrReference (op=("=>" | "+>") value=Expression)?;
 		public ParserRule getRule() { return rule; }
 
-		//=> key=unionNameOrReference (op=("=>" | "+>") value=Expression)?
+		//{pp::AttributeOperation} key=unionNameOrReference (op=("=>" | "+>") value=Expression)?
 		public Group getGroup() { return cGroup; }
 
-		//=> key=unionNameOrReference
-		public Assignment getKeyAssignment_0() { return cKeyAssignment_0; }
+		//{pp::AttributeOperation}
+		public Action getAttributeOperationAction_0() { return cAttributeOperationAction_0; }
+
+		//key=unionNameOrReference
+		public Assignment getKeyAssignment_1() { return cKeyAssignment_1; }
 
 		//unionNameOrReference
-		public RuleCall getKeyUnionNameOrReferenceParserRuleCall_0_0() { return cKeyUnionNameOrReferenceParserRuleCall_0_0; }
+		public RuleCall getKeyUnionNameOrReferenceParserRuleCall_1_0() { return cKeyUnionNameOrReferenceParserRuleCall_1_0; }
 
 		//(op=("=>" | "+>") value=Expression)?
-		public Group getGroup_1() { return cGroup_1; }
+		public Group getGroup_2() { return cGroup_2; }
 
 		//op=("=>" | "+>")
-		public Assignment getOpAssignment_1_0() { return cOpAssignment_1_0; }
+		public Assignment getOpAssignment_2_0() { return cOpAssignment_2_0; }
 
 		//"=>" | "+>"
-		public Alternatives getOpAlternatives_1_0_0() { return cOpAlternatives_1_0_0; }
+		public Alternatives getOpAlternatives_2_0_0() { return cOpAlternatives_2_0_0; }
 
 		//"=>"
-		public Keyword getOpEqualsSignGreaterThanSignKeyword_1_0_0_0() { return cOpEqualsSignGreaterThanSignKeyword_1_0_0_0; }
+		public Keyword getOpEqualsSignGreaterThanSignKeyword_2_0_0_0() { return cOpEqualsSignGreaterThanSignKeyword_2_0_0_0; }
 
 		//"+>"
-		public Keyword getOpPlusSignGreaterThanSignKeyword_1_0_0_1() { return cOpPlusSignGreaterThanSignKeyword_1_0_0_1; }
+		public Keyword getOpPlusSignGreaterThanSignKeyword_2_0_0_1() { return cOpPlusSignGreaterThanSignKeyword_2_0_0_1; }
 
 		//value=Expression
-		public Assignment getValueAssignment_1_1() { return cValueAssignment_1_1; }
+		public Assignment getValueAssignment_2_1() { return cValueAssignment_2_1; }
 
 		//Expression
-		public RuleCall getValueExpressionParserRuleCall_1_1_0() { return cValueExpressionParserRuleCall_1_1_0; }
+		public RuleCall getValueExpressionParserRuleCall_2_1_0() { return cValueExpressionParserRuleCall_2_1_0; }
 	}
 
 	public class AttributeOperationsElements extends AbstractParserRuleElementFinder {
@@ -3211,7 +3229,8 @@ public class PPGrammarAccess extends AbstractGrammarElementFinder {
 		
 		//// captures names and references, complicated by the fact that a keyword may be part of the name
 		//// if the name contains '::' - for more info see the PPLexer
-		//unionNameOrReference hidden():
+		////hidden()
+		//unionNameOrReference:
 		//	WORD_CHARS | "class" | "default";
 		public ParserRule getRule() { return rule; }
 
@@ -3554,7 +3573,8 @@ public class PPGrammarAccess extends AbstractGrammarElementFinder {
 	//// Note: allows all AttributeOperation subtypes but this depends on the parent's type
 	//// VALIDATION checks allowed types	
 	//ResourceBody returns pp::ResourceBody:
-	//	nameExpr=Expression ":" attributes=AttributeOperations? | attributes=AttributeOperations;
+	//	{pp::ResourceBody} nameExpr=Expression ":" attributes=AttributeOperations? | {pp::ResourceBody}
+	//	attributes=AttributeOperations;
 	public ResourceBodyElements getResourceBodyAccess() {
 		return (pResourceBody != null) ? pResourceBody : (pResourceBody = new ResourceBodyElements());
 	}
@@ -3574,7 +3594,7 @@ public class PPGrammarAccess extends AbstractGrammarElementFinder {
 	////	;
 	//// VALIDATION: key is a NAME, op is supported and Expression is not null
 	//AttributeOperation returns pp::AttributeOperation:
-	//	=> key=unionNameOrReference (op=("=>" | "+>") value=Expression)?;
+	//	{pp::AttributeOperation} key=unionNameOrReference (op=("=>" | "+>") value=Expression)?;
 	public AttributeOperationElements getAttributeOperationAccess() {
 		return (pAttributeOperation != null) ? pAttributeOperation : (pAttributeOperation = new AttributeOperationElements());
 	}
@@ -4431,7 +4451,8 @@ public class PPGrammarAccess extends AbstractGrammarElementFinder {
 
 	//// captures names and references, complicated by the fact that a keyword may be part of the name
 	//// if the name contains '::' - for more info see the PPLexer
-	//unionNameOrReference hidden():
+	////hidden()
+	//unionNameOrReference:
 	//	WORD_CHARS | "class" | "default";
 	public UnionNameOrReferenceElements getUnionNameOrReferenceAccess() {
 		return (pUnionNameOrReference != null) ? pUnionNameOrReference : (pUnionNameOrReference = new UnionNameOrReferenceElements());

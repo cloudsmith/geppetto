@@ -177,6 +177,8 @@ public class PPResourceLinker implements IPPDiagnostics {
 				return candidate.equals(query);
 			if(query.getSegmentCount() > candidate.getSegmentCount())
 				return false;
+			if(query.getSegmentCount() == 0 && startsWith)
+				return true; // everything starts with nothing
 			if(!candidate.skipLast(1).equals(query.skipLast(1)))
 				return false;
 			if(!candidate.getLastSegment().startsWith(query.getLastSegment()))

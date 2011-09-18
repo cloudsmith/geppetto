@@ -255,6 +255,36 @@ public class PPFinder {
 
 	}
 
+	public List<IEObjectDescription> findDefinitions(EObject scopeDetermeningResource,
+			PPImportedNamesAdapter importedNames) {
+		// make all segments initial char lower case (if references is to the type itself - eg. 'File' instead of
+		// 'file', or 'Aa::Bb' instead of 'aa::bb'
+		QualifiedName fqn2 = QualifiedName.EMPTY;
+
+		// TODO: Note that order is important, TYPE has higher precedence and should be used for linking
+		// This used to work when list was iterated per type, not it is iterated once with type check
+		// first - thus if a definition is found before a type, it is earlier in the list.
+		return findExternal(scopeDetermeningResource, fqn2, importedNames, true, DEF_AND_TYPE);
+	}
+
+	public List<IEObjectDescription> findDefinitions(EObject scopeDetermeningResource, String name,
+			PPImportedNamesAdapter importedNames) {
+		if(name == null)
+			throw new IllegalArgumentException("name is null");
+		QualifiedName fqn = converter.toQualifiedName(name);
+		// make all segments initial char lower case (if references is to the type itself - eg. 'File' instead of
+		// 'file', or 'Aa::Bb' instead of 'aa::bb'
+		QualifiedName fqn2 = QualifiedName.EMPTY;
+		for(int i = 0; i < fqn.getSegmentCount(); i++)
+			fqn2 = fqn2.append(toInitialLowerCase(fqn.getSegment(i)));
+		// fqn2 = fqn.skipLast(1).append(toInitialLowerCase(fqn.getLastSegment()));
+
+		// TODO: Note that order is important, TYPE has higher precedence and should be used for linking
+		// This used to work when list was iterated per type, not it is iterated once with type check
+		// first - thus if a definition is found before a type, it is earlier in the list.
+		return findExternal(scopeDetermeningResource, fqn2, importedNames, false, DEF_AND_TYPE);
+	}
+
 	protected List<IEObjectDescription> findExternal(EObject scopeDetermeningObject, QualifiedName fqn,
 			PPImportedNamesAdapter importedNames, boolean prefixMatch, EClass... eClasses) {
 		if(scopeDetermeningObject == null)
@@ -269,7 +299,7 @@ public class PPFinder {
 
 		// Not meaningful to record the fact that an Absolute reference was used as nothing
 		// is named with an absolute FQN (i.e. it is only used to do lookup).
-		final boolean absoluteFQN = "".equals(fqn.getSegment(0));
+		final boolean absoluteFQN = fqn.getSegmentCount() > 0 && "".equals(fqn.getSegment(0));
 		if(importedNames != null)
 			importedNames.add(absoluteFQN
 					? fqn.skipFirst(1)

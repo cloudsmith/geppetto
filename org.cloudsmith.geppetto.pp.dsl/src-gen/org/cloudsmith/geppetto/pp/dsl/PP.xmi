@@ -119,11 +119,6 @@
     </type>
     <alternatives xsi:type="xtext:Alternatives">
       <elements xsi:type="xtext:Group">
-        <elements xsi:type="xtext:Action">
-          <type metamodel="//@metamodelDeclarations.1">
-            <classifier xsi:type="ecore:EClass" href="http://www.cloudsmith.org/geppetto/1.0.0/PP#//ResourceBody"/>
-          </type>
-        </elements>
         <elements xsi:type="xtext:Assignment" feature="nameExpr" operator="=">
           <terminal xsi:type="xtext:RuleCall" rule="//@rules.1"/>
         </elements>
@@ -132,15 +127,8 @@
           <terminal xsi:type="xtext:RuleCall" rule="//@rules.8"/>
         </elements>
       </elements>
-      <elements xsi:type="xtext:Group">
-        <elements xsi:type="xtext:Action">
-          <type metamodel="//@metamodelDeclarations.1">
-            <classifier xsi:type="ecore:EClass" href="http://www.cloudsmith.org/geppetto/1.0.0/PP#//ResourceBody"/>
-          </type>
-        </elements>
-        <elements xsi:type="xtext:Assignment" feature="attributes" operator="=">
-          <terminal xsi:type="xtext:RuleCall" rule="//@rules.8"/>
-        </elements>
+      <elements xsi:type="xtext:Assignment" feature="attributes" operator="=">
+        <terminal xsi:type="xtext:RuleCall" rule="//@rules.8"/>
       </elements>
     </alternatives>
   </rules>

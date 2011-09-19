@@ -49,6 +49,10 @@ public class TestPuppetResourceExpr extends AbstractPuppetTests {
 			"\t\towner => 'fred'\n" + //
 			"}";
 
+	static final String Sample_ResourceNoAttributes = "class {\n" + //
+			"\t'myclass' :\n" + //
+			"}";
+
 	static final String Sample_TwoResources = "file {\n" + //
 			"\t'r1' :\n" + //
 			"\t\towner => 'fred'\n" + //
@@ -170,6 +174,23 @@ public class TestPuppetResourceExpr extends AbstractPuppetTests {
 	 * 
 	 * @throws Exception
 	 */
+	public void test_Serialize_ResourceNoAttributes() throws Exception {
+		// --with attribute definition
+		PuppetManifest pp = pf.createPuppetManifest();
+		EList<Expression> statements = pp.getStatements();
+		statements.add(createResourceExpression("class", "myclass"));
+		String s = serializeFormatted(pp);
+		assertEquals("serialization should produce specified result", Sample_ResourceNoAttributes, s);
+
+	}
+
+	/**
+	 * Test serialization of Resource with one attribute
+	 * - attribute definition
+	 * - attribute additions
+	 * 
+	 * @throws Exception
+	 */
 	public void test_Serialize_ResourceOneAttribute() throws Exception {
 		// --with attribute definition
 		PuppetManifest pp = pf.createPuppetManifest();
@@ -249,7 +270,7 @@ public class TestPuppetResourceExpr extends AbstractPuppetTests {
 	public void test_Valdate_UnknownProperty() throws Exception {
 		String code = "file { 'afile': donor => 'A donor'}";
 		XtextResource r = getResourceFromStringAndExpect(code, UNKNOWN_EXPECTATION);
-		resourceErrorDiagnostics(r).assertDiagnostic(IPPDiagnostics.ISSUE__RESOURCE_UNKNOWN_PROPERTY);
+		resourceErrorDiagnostics(r).assertDiagnostic(IPPDiagnostics.ISSUE__RESOURCE_UNKNOWN_PROPERTY_PROP);
 
 	}
 
@@ -593,7 +614,8 @@ public class TestPuppetResourceExpr extends AbstractPuppetTests {
 			statements.add(re);
 			tester.validator().checkResourceExpression(re);
 			tester.validator().checkResourceBody(re.getResourceData().get(0));
-			tester.diagnose().assertAny(AssertableDiagnostics.errorCode(IPPDiagnostics.ISSUE__UNSUPPORTED_EXPRESSION));
+			tester.diagnose().assertAny(
+				AssertableDiagnostics.errorCode(IPPDiagnostics.ISSUE__UNSUPPORTED_EXPRESSION_STRING_OK));
 		}
 	}
 

@@ -106,8 +106,8 @@ ResourceExpression returns pp::Expression
 // Note: allows all AttributeOperation subtypes but this depends on the parent's type
 // VALIDATION checks allowed types	
 ResourceBody returns pp::ResourceBody
-	: {pp::ResourceBody} nameExpr = Expression  ':' attributes = AttributeOperations?
-	| {pp::ResourceBody} attributes = AttributeOperations
+	: nameExpr = Expression  ':' attributes = AttributeOperations?
+	| attributes = AttributeOperations
 	;
 
 //// VALIDATION: checks that key is a NAME

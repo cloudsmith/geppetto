@@ -1,0 +1,42 @@
+---
+layout: post
+title: geppetto 2.0.0 released
+---
+<p> The 2.0.0 release of Geppetto is available as download and updates from within
+    Geppetto for all users of 1.0.x.
+    Please see the <a href="http://cloudsmith.github.com/geppetto/faq.html">FAQ</a> for information
+    if you run into problems updating).
+    Checkout <a href="http://cloudsmith.github.com/geppetto/faq.html#2011/06/28/how-do-i-update">how to update</a>
+    if you don't know how.</p>
+ 
+<h2>In this release</h2>
+<ul>
+    <li> Code completion of resource expressions (types and definitions) and their attributes.</li>
+    <li> Selection of puppet target (2.6 or 2.7) can now be made in preferences.
+        Puppet 2.7 is now the default.</li>
+    <li> Tasks are now generated from comments. Comments with the tags "todo" or
+        "fixme" (case insensitive) are interpreted as "tasks" and show up
+        in the Task View. An exclamation mark "!" anywhere in the message makes the
+        task "important". When comments ends with a tag, the text on the same line up to the tag is used
+        as task text. e.g. '$mispeled = false # fixme'.</li>
+    <li> Support for search path and environment (removes many ambiguity
+        warnings). This feature provides detailed control over what is visible and
+        prioritizes among otherwise ambiguous matches. Preferences available globally and per project.</li>
+    <li> Wizards have been improved (added wizards, better names, error handling).</li>
+    <li> Improvements to validation (more cases and code-smells caught)</li>
+    <li> Suggestions and quickfix using "soundex" for "unknown names"-errors. Type 'gebud' and
+        Geppetto will guess you meant 'debug'.</li>
+    <li> Preference pages added, and preferences per project supported.</li>
+    <li> Auto edit (auto insert) of '' "" () {} [] /* */ can be turned on/off individually via preferences.</li>
+    <li> Check for updates of Geppetto turned on by default in packaged Geppetto. Check out the preferences
+        for detailed control over update policy.</li>
+    <li> Packaged Geppetto uses Eclipse Indigo as base (IDE version supports >=
+        Helios SR2). This means numerous bugfixes and enhancements to the general
+        platform.</li>
+    <li> Nice icons for files, Modulefile, Manifests and puppet projects.</li>
+    <li> Supports alternate location of forge (mainly for testing).</li>
+    <li> Log View added to packaged Geppetto (it was hard to find details about some errors without this).</li>
+    <li> Numerous issues fixes.</li>
+</ul>
+<p>See <a href="https://github.com/cloudsmith/geppetto/wiki/Release-Notes">the relase notes</a>
+for more detailed information about fixed issues.</p>

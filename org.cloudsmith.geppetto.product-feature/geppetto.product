@@ -14,7 +14,10 @@
    </configIni>
 
    <launcherArgs>
-      <vmArgsMac>-XX:MaxPermSize=128m -Xdock:icon=../Resources/geppetto.icns -XstartOnFirstThread -Dorg.eclipse.swt.internal.carbon.smallFonts</vmArgsMac>
+      <programArgs>--launcher.XXMaxPermSize 256m</programArgs>
+      <vmArgs>-Xms40m
+-Xmx256m</vmArgs>
+      <vmArgsMac>-Xdock:icon=../Resources/geppetto.icns -XstartOnFirstThread -Dorg.eclipse.swt.internal.carbon.smallFonts</vmArgsMac>
    </launcherArgs>
 
    <windowImages i16="geppetto.gif" i32="geppetto32.gif" i48="geppetto48.gif"/>

@@ -472,41 +472,51 @@ ruleResourceBody returns [EObject current=null]
     }
     @after { leaveRule(); }:
 (((
-	{ 
-	  /* */ 
-	}
-    {
-        $current = forceCreateModelElement(
-            grammarAccess.getResourceBodyAccess().getResourceBodyAction_0_0(),
-            $current);
-    }
-)(
 (
 		{ 
-	        newCompositeNode(grammarAccess.getResourceBodyAccess().getNameExprExpressionParserRuleCall_0_1_0()); 
+	        newCompositeNode(grammarAccess.getResourceBodyAccess().getNameExprExpressionParserRuleCall_0_0_0()); 
 	    }
-		lv_nameExpr_1_0=ruleExpression		{
+		lv_nameExpr_0_0=ruleExpression		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getResourceBodyRule());
 	        }
        		set(
        			$current, 
        			"nameExpr",
-        		lv_nameExpr_1_0, 
+        		lv_nameExpr_0_0, 
         		"Expression");
 	        afterParserOrEnumRuleCall();
 	    }
 
 )
 )
-	otherlv_2=KEYWORD_12
+	otherlv_1=KEYWORD_12
     {
-    	newLeafNode(otherlv_2, grammarAccess.getResourceBodyAccess().getColonKeyword_0_2());
+    	newLeafNode(otherlv_1, grammarAccess.getResourceBodyAccess().getColonKeyword_0_1());
     }
 (
 (
 		{ 
-	        newCompositeNode(grammarAccess.getResourceBodyAccess().getAttributesAttributeOperationsParserRuleCall_0_3_0()); 
+	        newCompositeNode(grammarAccess.getResourceBodyAccess().getAttributesAttributeOperationsParserRuleCall_0_2_0()); 
+	    }
+		lv_attributes_2_0=ruleAttributeOperations		{
+	        if ($current==null) {
+	            $current = createModelElementForParent(grammarAccess.getResourceBodyRule());
+	        }
+       		set(
+       			$current, 
+       			"attributes",
+        		lv_attributes_2_0, 
+        		"AttributeOperations");
+	        afterParserOrEnumRuleCall();
+	    }
+
+)
+)?)
+    |(
+(
+		{ 
+	        newCompositeNode(grammarAccess.getResourceBodyAccess().getAttributesAttributeOperationsParserRuleCall_1_0()); 
 	    }
 		lv_attributes_3_0=ruleAttributeOperations		{
 	        if ($current==null) {
@@ -521,35 +531,7 @@ ruleResourceBody returns [EObject current=null]
 	    }
 
 )
-)?)
-    |((
-	{ 
-	  /* */ 
-	}
-    {
-        $current = forceCreateModelElement(
-            grammarAccess.getResourceBodyAccess().getResourceBodyAction_1_0(),
-            $current);
-    }
-)(
-(
-		{ 
-	        newCompositeNode(grammarAccess.getResourceBodyAccess().getAttributesAttributeOperationsParserRuleCall_1_1_0()); 
-	    }
-		lv_attributes_5_0=ruleAttributeOperations		{
-	        if ($current==null) {
-	            $current = createModelElementForParent(grammarAccess.getResourceBodyRule());
-	        }
-       		set(
-       			$current, 
-       			"attributes",
-        		lv_attributes_5_0, 
-        		"AttributeOperations");
-	        afterParserOrEnumRuleCall();
-	    }
-
-)
-)))
+))
 ;
 
 

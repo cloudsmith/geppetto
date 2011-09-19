@@ -79,7 +79,6 @@ public class PPParser extends AbstractContentAssistParser {
 					put(grammarAccess.getResourceExpressionAccess().getGroup_1_2(), "rule__ResourceExpression__Group_1_2__0");
 					put(grammarAccess.getResourceExpressionAccess().getGroup_1_2_1(), "rule__ResourceExpression__Group_1_2_1__0");
 					put(grammarAccess.getResourceBodyAccess().getGroup_0(), "rule__ResourceBody__Group_0__0");
-					put(grammarAccess.getResourceBodyAccess().getGroup_1(), "rule__ResourceBody__Group_1__0");
 					put(grammarAccess.getAttributeOperationAccess().getGroup(), "rule__AttributeOperation__Group__0");
 					put(grammarAccess.getAttributeOperationAccess().getGroup_2(), "rule__AttributeOperation__Group_2__0");
 					put(grammarAccess.getAttributeOperationsAccess().getGroup(), "rule__AttributeOperations__Group__0");
@@ -183,9 +182,9 @@ public class PPParser extends AbstractContentAssistParser {
 					put(grammarAccess.getRelationshipExpressionAccess().getRightExprAssignment_1_2(), "rule__RelationshipExpression__RightExprAssignment_1_2");
 					put(grammarAccess.getResourceExpressionAccess().getResourceDataAssignment_1_2_0(), "rule__ResourceExpression__ResourceDataAssignment_1_2_0");
 					put(grammarAccess.getResourceExpressionAccess().getResourceDataAssignment_1_2_1_1(), "rule__ResourceExpression__ResourceDataAssignment_1_2_1_1");
-					put(grammarAccess.getResourceBodyAccess().getNameExprAssignment_0_1(), "rule__ResourceBody__NameExprAssignment_0_1");
-					put(grammarAccess.getResourceBodyAccess().getAttributesAssignment_0_3(), "rule__ResourceBody__AttributesAssignment_0_3");
-					put(grammarAccess.getResourceBodyAccess().getAttributesAssignment_1_1(), "rule__ResourceBody__AttributesAssignment_1_1");
+					put(grammarAccess.getResourceBodyAccess().getNameExprAssignment_0_0(), "rule__ResourceBody__NameExprAssignment_0_0");
+					put(grammarAccess.getResourceBodyAccess().getAttributesAssignment_0_2(), "rule__ResourceBody__AttributesAssignment_0_2");
+					put(grammarAccess.getResourceBodyAccess().getAttributesAssignment_1(), "rule__ResourceBody__AttributesAssignment_1");
 					put(grammarAccess.getAttributeOperationAccess().getKeyAssignment_1(), "rule__AttributeOperation__KeyAssignment_1");
 					put(grammarAccess.getAttributeOperationAccess().getOpAssignment_2_0(), "rule__AttributeOperation__OpAssignment_2_0");
 					put(grammarAccess.getAttributeOperationAccess().getValueAssignment_2_1(), "rule__AttributeOperation__ValueAssignment_2_1");

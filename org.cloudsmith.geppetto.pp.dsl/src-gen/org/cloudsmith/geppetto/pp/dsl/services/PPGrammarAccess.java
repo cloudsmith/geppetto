@@ -289,60 +289,46 @@ public class PPGrammarAccess extends AbstractGrammarElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "ResourceBody");
 		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
 		private final Group cGroup_0 = (Group)cAlternatives.eContents().get(0);
-		private final Action cResourceBodyAction_0_0 = (Action)cGroup_0.eContents().get(0);
-		private final Assignment cNameExprAssignment_0_1 = (Assignment)cGroup_0.eContents().get(1);
-		private final RuleCall cNameExprExpressionParserRuleCall_0_1_0 = (RuleCall)cNameExprAssignment_0_1.eContents().get(0);
-		private final Keyword cColonKeyword_0_2 = (Keyword)cGroup_0.eContents().get(2);
-		private final Assignment cAttributesAssignment_0_3 = (Assignment)cGroup_0.eContents().get(3);
-		private final RuleCall cAttributesAttributeOperationsParserRuleCall_0_3_0 = (RuleCall)cAttributesAssignment_0_3.eContents().get(0);
-		private final Group cGroup_1 = (Group)cAlternatives.eContents().get(1);
-		private final Action cResourceBodyAction_1_0 = (Action)cGroup_1.eContents().get(0);
-		private final Assignment cAttributesAssignment_1_1 = (Assignment)cGroup_1.eContents().get(1);
-		private final RuleCall cAttributesAttributeOperationsParserRuleCall_1_1_0 = (RuleCall)cAttributesAssignment_1_1.eContents().get(0);
+		private final Assignment cNameExprAssignment_0_0 = (Assignment)cGroup_0.eContents().get(0);
+		private final RuleCall cNameExprExpressionParserRuleCall_0_0_0 = (RuleCall)cNameExprAssignment_0_0.eContents().get(0);
+		private final Keyword cColonKeyword_0_1 = (Keyword)cGroup_0.eContents().get(1);
+		private final Assignment cAttributesAssignment_0_2 = (Assignment)cGroup_0.eContents().get(2);
+		private final RuleCall cAttributesAttributeOperationsParserRuleCall_0_2_0 = (RuleCall)cAttributesAssignment_0_2.eContents().get(0);
+		private final Assignment cAttributesAssignment_1 = (Assignment)cAlternatives.eContents().get(1);
+		private final RuleCall cAttributesAttributeOperationsParserRuleCall_1_0 = (RuleCall)cAttributesAssignment_1.eContents().get(0);
 		
 		//// Note: allows all AttributeOperation subtypes but this depends on the parent's type
 		//// VALIDATION checks allowed types	
 		//ResourceBody returns pp::ResourceBody:
-		//	{pp::ResourceBody} nameExpr=Expression ":" attributes=AttributeOperations? | {pp::ResourceBody}
-		//	attributes=AttributeOperations;
+		//	nameExpr=Expression ":" attributes=AttributeOperations? | attributes=AttributeOperations;
 		public ParserRule getRule() { return rule; }
 
-		//{pp::ResourceBody} nameExpr=Expression ":" attributes=AttributeOperations? | {pp::ResourceBody}
-		//attributes=AttributeOperations
+		//nameExpr=Expression ":" attributes=AttributeOperations? | attributes=AttributeOperations
 		public Alternatives getAlternatives() { return cAlternatives; }
 
-		//{pp::ResourceBody} nameExpr=Expression ":" attributes=AttributeOperations?
+		//nameExpr=Expression ":" attributes=AttributeOperations?
 		public Group getGroup_0() { return cGroup_0; }
 
-		//{pp::ResourceBody}
-		public Action getResourceBodyAction_0_0() { return cResourceBodyAction_0_0; }
-
 		//nameExpr=Expression
-		public Assignment getNameExprAssignment_0_1() { return cNameExprAssignment_0_1; }
+		public Assignment getNameExprAssignment_0_0() { return cNameExprAssignment_0_0; }
 
 		//Expression
-		public RuleCall getNameExprExpressionParserRuleCall_0_1_0() { return cNameExprExpressionParserRuleCall_0_1_0; }
+		public RuleCall getNameExprExpressionParserRuleCall_0_0_0() { return cNameExprExpressionParserRuleCall_0_0_0; }
 
 		//":"
-		public Keyword getColonKeyword_0_2() { return cColonKeyword_0_2; }
+		public Keyword getColonKeyword_0_1() { return cColonKeyword_0_1; }
 
 		//attributes=AttributeOperations?
-		public Assignment getAttributesAssignment_0_3() { return cAttributesAssignment_0_3; }
+		public Assignment getAttributesAssignment_0_2() { return cAttributesAssignment_0_2; }
 
 		//AttributeOperations
-		public RuleCall getAttributesAttributeOperationsParserRuleCall_0_3_0() { return cAttributesAttributeOperationsParserRuleCall_0_3_0; }
-
-		//{pp::ResourceBody} attributes=AttributeOperations
-		public Group getGroup_1() { return cGroup_1; }
-
-		//{pp::ResourceBody}
-		public Action getResourceBodyAction_1_0() { return cResourceBodyAction_1_0; }
+		public RuleCall getAttributesAttributeOperationsParserRuleCall_0_2_0() { return cAttributesAttributeOperationsParserRuleCall_0_2_0; }
 
 		//attributes=AttributeOperations
-		public Assignment getAttributesAssignment_1_1() { return cAttributesAssignment_1_1; }
+		public Assignment getAttributesAssignment_1() { return cAttributesAssignment_1; }
 
 		//AttributeOperations
-		public RuleCall getAttributesAttributeOperationsParserRuleCall_1_1_0() { return cAttributesAttributeOperationsParserRuleCall_1_1_0; }
+		public RuleCall getAttributesAttributeOperationsParserRuleCall_1_0() { return cAttributesAttributeOperationsParserRuleCall_1_0; }
 	}
 
 	public class AttributeOperationElements extends AbstractParserRuleElementFinder {
@@ -369,6 +355,7 @@ public class PPGrammarAccess extends AbstractGrammarElementFinder {
 		////	:  key = unionNameOrReference  '+>'  value = Expression
 		////	;
 		//// VALIDATION: key is a NAME, op is supported and Expression is not null
+		//// CONTENT ASSIST: must have op and value as optional, or state is nearly always wrong for CA.
 		//AttributeOperation returns pp::AttributeOperation:
 		//	{pp::AttributeOperation} key=unionNameOrReference (op=("=>" | "+>") value=Expression)?;
 		public ParserRule getRule() { return rule; }
@@ -3573,8 +3560,7 @@ public class PPGrammarAccess extends AbstractGrammarElementFinder {
 	//// Note: allows all AttributeOperation subtypes but this depends on the parent's type
 	//// VALIDATION checks allowed types	
 	//ResourceBody returns pp::ResourceBody:
-	//	{pp::ResourceBody} nameExpr=Expression ":" attributes=AttributeOperations? | {pp::ResourceBody}
-	//	attributes=AttributeOperations;
+	//	nameExpr=Expression ":" attributes=AttributeOperations? | attributes=AttributeOperations;
 	public ResourceBodyElements getResourceBodyAccess() {
 		return (pResourceBody != null) ? pResourceBody : (pResourceBody = new ResourceBodyElements());
 	}
@@ -3593,6 +3579,7 @@ public class PPGrammarAccess extends AbstractGrammarElementFinder {
 	////	:  key = unionNameOrReference  '+>'  value = Expression
 	////	;
 	//// VALIDATION: key is a NAME, op is supported and Expression is not null
+	//// CONTENT ASSIST: must have op and value as optional, or state is nearly always wrong for CA.
 	//AttributeOperation returns pp::AttributeOperation:
 	//	{pp::AttributeOperation} key=unionNameOrReference (op=("=>" | "+>") value=Expression)?;
 	public AttributeOperationElements getAttributeOperationAccess() {

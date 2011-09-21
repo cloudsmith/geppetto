@@ -89,10 +89,9 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.xtext.IGrammarAccess;
-import org.eclipse.xtext.RuleCall;
 import org.eclipse.xtext.nodemodel.ICompositeNode;
-import org.eclipse.xtext.nodemodel.ILeafNode;
 import org.eclipse.xtext.nodemodel.INode;
+import org.eclipse.xtext.nodemodel.impl.LeafNode;
 import org.eclipse.xtext.nodemodel.util.NodeModelUtils;
 import org.eclipse.xtext.util.Exceptions;
 import org.eclipse.xtext.util.PolymorphicDispatcher;
@@ -423,40 +422,29 @@ public class PPJavaValidator extends AbstractPPJavaValidator implements IPPDiagn
 				IPPDiagnostics.ISSUE__NULL_EXPRESSION);
 	}
 
-	/**
-	 * Checks that AttributeOperation objects in the list are separated by commas
-	 * (if there is an associated node model).
-	 * 
-	 * @param o
-	 */
 	@Check
 	public void checkAttributeOperations(AttributeOperations o) {
-		ICompositeNode rootNode = NodeModelUtils.getNode(o);
-		if(rootNode != null) {
-			boolean expectComma = false;
-			int expectOffset = 0;
-			for(INode n : rootNode.getChildren()) {
-				// skip whitespace and comments
-				if(n instanceof ILeafNode && ((ILeafNode) n).isHidden())
-					continue;
-				if(expectComma) {
-					if(!(n instanceof ILeafNode && ",".equals(n.getText()))) {
-						acceptor.acceptError("Missing comma.", n.getSemanticElement(),
-						// note that offset must be -1 as this ofter a hidden newline and this
-						// does not work otherwise. Any quickfix needs to adjust the offset on replacement.
-							expectOffset - 1, 2, IPPDiagnostics.ISSUE__MISSING_COMMA);
-					}
-					expectComma = false;
-				}
+		final int count = o.getAttributes().size();
+		EList<AttributeOperation> attrs = o.getAttributes();
+		for(int i = 0; i < count - 1; i++) {
+			INode n = NodeModelUtils.getNode(attrs.get(i));
+			INode n2 = NodeModelUtils.getNode(attrs.get(i + 1));
 
-				if(n.getGrammarElement() instanceof RuleCall) {
-					RuleCall rc = (RuleCall) n.getGrammarElement();
-					if(rc.getRule().getName().equals(puppetGrammarAccess.getAttributeOperationRule().getName())) {
-						expectComma = true;
-						// pos where would have liked to see a comma
-						expectOffset = n.getTotalOffset() + n.getTotalLength();
-					}
-				}
+			INode commaNode = null;
+			for(commaNode = n.getNextSibling(); commaNode != null; commaNode = commaNode.getNextSibling())
+				if(commaNode == n2)
+					break;
+				else if(commaNode instanceof LeafNode && ((LeafNode) commaNode).isHidden())
+					continue;
+				else
+					break;
+
+			if(commaNode == null || !",".equals(commaNode.getText())) {
+				int expectOffset = n.getTotalOffset() + n.getTotalLength();
+				acceptor.acceptError("Missing comma.", n.getSemanticElement(),
+				// note that offset must be -1 as this ofter a hidden newline and this
+				// does not work otherwise. Any quickfix needs to adjust the offset on replacement.
+					expectOffset - 1, 2, IPPDiagnostics.ISSUE__MISSING_COMMA);
 			}
 		}
 	}

@@ -11,6 +11,15 @@
 		<property name="feature.manifest" location="${sp:manifest}"/>
 		<extractFeatureVersion file="${feature.manifest}" property="product.version"/>
 
+		<scriptdef language="javascript" name="unqualified.version">
+		    <attribute name="version" /> 
+		    <attribute name="property" />
+
+		    project.setProperty( attributes.get( "property" ),
+				org.eclipse.buckminster.core.version.VersionHelper.replaceQualifier(
+					org.eclipse.equinox.p2.metadata.Version.create(attributes.get( "version" )), null).toString() );
+		</scriptdef>
+
 		<extractProductId file="${product.config}" property="product.id"/>
 		
 		<!-- -->
@@ -33,10 +42,11 @@
 			<iu id="${product.id}" />
 		</p2.director>
 
+		<unqualified.version version="${product.version}" property="unqualified.product.version"/>
 		<exec dir="${output}" executable="zip" outputproperty="zip.output" failonerror="true">
 			<arg value="-r"/>
 			<arg value="-9"/>
-			<arg value="${lc.product.name}-${product.os}.${product.ws}.${product.arch}_${build.id}.zip"/>
+			<arg value="${lc.product.name}-${product.os}.${product.ws}.${product.arch}-${unqualified.product.version}-${build.id}.zip"/>
 			<arg value="${lc.product.name}"/>
 		</exec>
 		<echo message="${zip.output}"/>

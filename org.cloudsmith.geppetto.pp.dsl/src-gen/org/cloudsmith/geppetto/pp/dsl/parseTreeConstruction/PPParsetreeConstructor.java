@@ -36,70 +36,71 @@ protected class ThisRootNode extends RootToken {
 			case 2: return new ExpressionList_Group(this, this, 2, inst);
 			case 3: return new RelationshipExpression_Group(this, this, 3, inst);
 			case 4: return new ResourceExpression_Group(this, this, 4, inst);
-			case 5: return new ResourceBody_Alternatives(this, this, 5, inst);
-			case 6: return new AttributeOperation_Group(this, this, 6, inst);
-			case 7: return new AttributeOperations_Group(this, this, 7, inst);
-			case 8: return new AssignmentExpression_Group(this, this, 8, inst);
-			case 9: return new AppendExpression_Group(this, this, 9, inst);
-			case 10: return new OrExpression_Group(this, this, 10, inst);
-			case 11: return new AndExpression_Group(this, this, 11, inst);
-			case 12: return new RelationalExpression_Group(this, this, 12, inst);
-			case 13: return new EqualityExpression_Group(this, this, 13, inst);
-			case 14: return new ShiftExpression_Group(this, this, 14, inst);
-			case 15: return new AdditiveExpression_Group(this, this, 15, inst);
-			case 16: return new MultiplicativeExpression_Group(this, this, 16, inst);
-			case 17: return new MatchingExpression_Group(this, this, 17, inst);
-			case 18: return new InExpression_Group(this, this, 18, inst);
-			case 19: return new UnaryOrHigherExpression_Alternatives(this, this, 19, inst);
-			case 20: return new UnaryMinusExpression_Group(this, this, 20, inst);
-			case 21: return new NotExpression_Group(this, this, 21, inst);
-			case 22: return new CollectExpression_Group(this, this, 22, inst);
-			case 23: return new CollectQuery_Alternatives(this, this, 23, inst);
-			case 24: return new VirtualCollectQuery_Group(this, this, 24, inst);
-			case 25: return new ExportedCollectQuery_Group(this, this, 25, inst);
-			case 26: return new SelectorExpression_Group(this, this, 26, inst);
-			case 27: return new SelectorEntry_Group(this, this, 27, inst);
-			case 28: return new AtExpression_Group(this, this, 28, inst);
-			case 29: return new FunctionCall_Group(this, this, 29, inst);
-			case 30: return new PrimaryExpression_Alternatives(this, this, 30, inst);
-			case 31: return new NodeDefinition_Group(this, this, 31, inst);
-			case 32: return new HostReference_Alternatives(this, this, 32, inst);
-			case 33: return new HostClassDefinition_Group(this, this, 33, inst);
-			case 34: return new ParentName_Alternatives(this, this, 34, inst);
-			case 35: return new Definition_Group(this, this, 35, inst);
-			case 36: return new DefinitionArgumentList_Group(this, this, 36, inst);
-			case 37: return new DefinitionArgument_Group(this, this, 37, inst);
-			case 38: return new CaseExpression_Group(this, this, 38, inst);
-			case 39: return new Case_Group(this, this, 39, inst);
-			case 40: return new IfExpression_Group(this, this, 40, inst);
-			case 41: return new ElseExpression_Group(this, this, 41, inst);
-			case 42: return new ElseIfExpression_Group(this, this, 42, inst);
-			case 43: return new LiteralExpression_Alternatives(this, this, 43, inst);
-			case 44: return new LiteralNameOrReference_ValueAssignment(this, this, 44, inst);
-			case 45: return new ParenthisedExpression_Group(this, this, 45, inst);
-			case 46: return new VirtualNameOrReference_Group(this, this, 46, inst);
-			case 47: return new ImportExpression_Group(this, this, 47, inst);
-			case 48: return new LiteralList_Group(this, this, 48, inst);
-			case 49: return new LiteralHash_Group(this, this, 49, inst);
-			case 50: return new HashEntry_Group(this, this, 50, inst);
-			case 51: return new LiteralNameOrString_Alternatives(this, this, 51, inst);
-			case 52: return new LiteralBoolean_ValueAssignment(this, this, 52, inst);
-			case 53: return new LiteralDefault_Group(this, this, 53, inst);
-			case 54: return new LiteralUndef_Group(this, this, 54, inst);
-			case 55: return new StringExpression_Alternatives(this, this, 55, inst);
-			case 56: return new QuotedString_Alternatives(this, this, 56, inst);
-			case 57: return new SingleQuotedString_Group(this, this, 57, inst);
-			case 58: return new DoubleQuotedString_Group(this, this, 58, inst);
-			case 59: return new TextExpression_DollarTextExpressionParserRuleCall(this, this, 59, inst);
-			case 60: return new DollarTextExpression_Group(this, this, 60, inst);
-			case 61: return new VariableTextExpression_Group(this, this, 61, inst);
-			case 62: return new ExpressionTextExpression_Group(this, this, 62, inst);
-			case 63: return new ExpressionWithHidden_Group(this, this, 63, inst);
-			case 64: return new StringPart_Group(this, this, 64, inst);
-			case 65: return new UnquotedString_Group(this, this, 65, inst);
-			case 66: return new LiteralRegex_ValueAssignment(this, this, 66, inst);
-			case 67: return new LiteralName_ValueAssignment(this, this, 67, inst);
-			case 68: return new VariableExpression_VarNameAssignment(this, this, 68, inst);
+			case 5: return new ResourceTypeExpression_Alternatives(this, this, 5, inst);
+			case 6: return new ResourceBody_Alternatives(this, this, 6, inst);
+			case 7: return new AttributeOperation_Group(this, this, 7, inst);
+			case 8: return new AttributeOperations_Group(this, this, 8, inst);
+			case 9: return new AssignmentExpression_Group(this, this, 9, inst);
+			case 10: return new AppendExpression_Group(this, this, 10, inst);
+			case 11: return new OrExpression_Group(this, this, 11, inst);
+			case 12: return new AndExpression_Group(this, this, 12, inst);
+			case 13: return new RelationalExpression_Group(this, this, 13, inst);
+			case 14: return new EqualityExpression_Group(this, this, 14, inst);
+			case 15: return new ShiftExpression_Group(this, this, 15, inst);
+			case 16: return new AdditiveExpression_Group(this, this, 16, inst);
+			case 17: return new MultiplicativeExpression_Group(this, this, 17, inst);
+			case 18: return new MatchingExpression_Group(this, this, 18, inst);
+			case 19: return new InExpression_Group(this, this, 19, inst);
+			case 20: return new UnaryOrHigherExpression_Alternatives(this, this, 20, inst);
+			case 21: return new UnaryMinusExpression_Group(this, this, 21, inst);
+			case 22: return new NotExpression_Group(this, this, 22, inst);
+			case 23: return new CollectExpression_Group(this, this, 23, inst);
+			case 24: return new CollectQuery_Alternatives(this, this, 24, inst);
+			case 25: return new VirtualCollectQuery_Group(this, this, 25, inst);
+			case 26: return new ExportedCollectQuery_Group(this, this, 26, inst);
+			case 27: return new SelectorExpression_Group(this, this, 27, inst);
+			case 28: return new SelectorEntry_Group(this, this, 28, inst);
+			case 29: return new AtExpression_Group(this, this, 29, inst);
+			case 30: return new FunctionCall_Group(this, this, 30, inst);
+			case 31: return new PrimaryExpression_Alternatives(this, this, 31, inst);
+			case 32: return new NodeDefinition_Group(this, this, 32, inst);
+			case 33: return new HostReference_Alternatives(this, this, 33, inst);
+			case 34: return new HostClassDefinition_Group(this, this, 34, inst);
+			case 35: return new ParentName_Alternatives(this, this, 35, inst);
+			case 36: return new Definition_Group(this, this, 36, inst);
+			case 37: return new DefinitionArgumentList_Group(this, this, 37, inst);
+			case 38: return new DefinitionArgument_Group(this, this, 38, inst);
+			case 39: return new CaseExpression_Group(this, this, 39, inst);
+			case 40: return new Case_Group(this, this, 40, inst);
+			case 41: return new IfExpression_Group(this, this, 41, inst);
+			case 42: return new ElseExpression_Group(this, this, 42, inst);
+			case 43: return new ElseIfExpression_Group(this, this, 43, inst);
+			case 44: return new LiteralExpression_Alternatives(this, this, 44, inst);
+			case 45: return new LiteralNameOrReference_ValueAssignment(this, this, 45, inst);
+			case 46: return new ParenthisedExpression_Group(this, this, 46, inst);
+			case 47: return new VirtualNameOrReference_Group(this, this, 47, inst);
+			case 48: return new ImportExpression_Group(this, this, 48, inst);
+			case 49: return new LiteralList_Group(this, this, 49, inst);
+			case 50: return new LiteralHash_Group(this, this, 50, inst);
+			case 51: return new HashEntry_Group(this, this, 51, inst);
+			case 52: return new LiteralNameOrString_Alternatives(this, this, 52, inst);
+			case 53: return new LiteralBoolean_ValueAssignment(this, this, 53, inst);
+			case 54: return new LiteralDefault_Group(this, this, 54, inst);
+			case 55: return new LiteralUndef_Group(this, this, 55, inst);
+			case 56: return new StringExpression_Alternatives(this, this, 56, inst);
+			case 57: return new QuotedString_Alternatives(this, this, 57, inst);
+			case 58: return new SingleQuotedString_Group(this, this, 58, inst);
+			case 59: return new DoubleQuotedString_Group(this, this, 59, inst);
+			case 60: return new TextExpression_DollarTextExpressionParserRuleCall(this, this, 60, inst);
+			case 61: return new DollarTextExpression_Group(this, this, 61, inst);
+			case 62: return new VariableTextExpression_Group(this, this, 62, inst);
+			case 63: return new ExpressionTextExpression_Group(this, this, 63, inst);
+			case 64: return new ExpressionWithHidden_Group(this, this, 64, inst);
+			case 65: return new StringPart_Group(this, this, 65, inst);
+			case 66: return new UnquotedString_Group(this, this, 66, inst);
+			case 67: return new LiteralRegex_ValueAssignment(this, this, 67, inst);
+			case 68: return new LiteralName_ValueAssignment(this, this, 68, inst);
+			case 69: return new VariableExpression_VarNameAssignment(this, this, 69, inst);
 			default: return null;
 		}	
 	}	
@@ -1404,6 +1405,174 @@ protected class ResourceExpression_RightCurlyBracketKeyword_1_3 extends KeywordT
 
 
 /************ end Rule ResourceExpression ****************/
+
+
+/************ begin Rule ResourceTypeExpression ****************
+ *
+ * ResourceTypeExpression returns pp::Expression:
+ * 	LiteralNameOrReference | VirtualNameOrReference | AtExpression;
+ *
+ **/
+
+// LiteralNameOrReference | VirtualNameOrReference | AtExpression
+protected class ResourceTypeExpression_Alternatives extends AlternativesToken {
+
+	public ResourceTypeExpression_Alternatives(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
+	}
+	
+	@Override
+	public Alternatives getGrammarElement() {
+		return grammarAccess.getResourceTypeExpressionAccess().getAlternatives();
+	}
+
+    @Override
+	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
+		switch(index) {
+			case 0: return new ResourceTypeExpression_LiteralNameOrReferenceParserRuleCall_0(lastRuleCallOrigin, this, 0, inst);
+			case 1: return new ResourceTypeExpression_VirtualNameOrReferenceParserRuleCall_1(lastRuleCallOrigin, this, 1, inst);
+			case 2: return new ResourceTypeExpression_AtExpressionParserRuleCall_2(lastRuleCallOrigin, this, 2, inst);
+			default: return null;
+		}	
+	}
+
+    @Override
+	public IEObjectConsumer tryConsume() {
+		if(getEObject().eClass() != grammarAccess.getAtExpressionAccess().getAtExpressionLeftExprAction_1_0().getType().getClassifier() && 
+		   getEObject().eClass() != grammarAccess.getCaseExpressionRule().getType().getClassifier() && 
+		   getEObject().eClass() != grammarAccess.getDefinitionRule().getType().getClassifier() && 
+		   getEObject().eClass() != grammarAccess.getDoubleQuotedStringRule().getType().getClassifier() && 
+		   getEObject().eClass() != grammarAccess.getFunctionCallAccess().getFunctionCallLeftExprAction_1_0().getType().getClassifier() && 
+		   getEObject().eClass() != grammarAccess.getHostClassDefinitionRule().getType().getClassifier() && 
+		   getEObject().eClass() != grammarAccess.getIfExpressionRule().getType().getClassifier() && 
+		   getEObject().eClass() != grammarAccess.getImportExpressionAccess().getImportExpressionAction_0().getType().getClassifier() && 
+		   getEObject().eClass() != grammarAccess.getLiteralBooleanRule().getType().getClassifier() && 
+		   getEObject().eClass() != grammarAccess.getLiteralDefaultAccess().getLiteralDefaultAction_0().getType().getClassifier() && 
+		   getEObject().eClass() != grammarAccess.getLiteralHashAccess().getLiteralHashAction_0().getType().getClassifier() && 
+		   getEObject().eClass() != grammarAccess.getLiteralListAccess().getLiteralListAction_0().getType().getClassifier() && 
+		   getEObject().eClass() != grammarAccess.getLiteralNameOrReferenceRule().getType().getClassifier() && 
+		   getEObject().eClass() != grammarAccess.getLiteralRegexRule().getType().getClassifier() && 
+		   getEObject().eClass() != grammarAccess.getLiteralUndefAccess().getLiteralUndefAction_0().getType().getClassifier() && 
+		   getEObject().eClass() != grammarAccess.getNodeDefinitionRule().getType().getClassifier() && 
+		   getEObject().eClass() != grammarAccess.getParenthisedExpressionAccess().getParenthesisedExpressionAction_1().getType().getClassifier() && 
+		   getEObject().eClass() != grammarAccess.getSingleQuotedStringAccess().getSingleQuotedStringAction_0().getType().getClassifier() && 
+		   getEObject().eClass() != grammarAccess.getUnquotedStringAccess().getUnquotedStringAction_0().getType().getClassifier() && 
+		   getEObject().eClass() != grammarAccess.getVariableExpressionRule().getType().getClassifier() && 
+		   getEObject().eClass() != grammarAccess.getVirtualNameOrReferenceRule().getType().getClassifier())
+			return null;
+		return eObjectConsumer;
+	}
+
+}
+
+// LiteralNameOrReference
+protected class ResourceTypeExpression_LiteralNameOrReferenceParserRuleCall_0 extends RuleCallToken {
+	
+	public ResourceTypeExpression_LiteralNameOrReferenceParserRuleCall_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
+	}
+	
+	@Override
+	public RuleCall getGrammarElement() {
+		return grammarAccess.getResourceTypeExpressionAccess().getLiteralNameOrReferenceParserRuleCall_0();
+	}
+
+    @Override
+	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
+		switch(index) {
+			case 0: return new LiteralNameOrReference_ValueAssignment(this, this, 0, inst);
+			default: return null;
+		}	
+	}
+
+    @Override
+	public IEObjectConsumer tryConsume() {
+		if(getEObject().eClass() != grammarAccess.getLiteralNameOrReferenceRule().getType().getClassifier())
+			return null;
+		if(checkForRecursion(LiteralNameOrReference_ValueAssignment.class, eObjectConsumer)) return null;
+		return eObjectConsumer;
+	}
+	
+    @Override
+	public AbstractToken createFollowerAfterReturn(AbstractToken next,	int actIndex, int index, IEObjectConsumer inst) {
+		switch(index) {
+			default: return lastRuleCallOrigin.createFollowerAfterReturn(next, actIndex , index, inst);
+		}	
+	}	
+}
+
+// VirtualNameOrReference
+protected class ResourceTypeExpression_VirtualNameOrReferenceParserRuleCall_1 extends RuleCallToken {
+	
+	public ResourceTypeExpression_VirtualNameOrReferenceParserRuleCall_1(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
+	}
+	
+	@Override
+	public RuleCall getGrammarElement() {
+		return grammarAccess.getResourceTypeExpressionAccess().getVirtualNameOrReferenceParserRuleCall_1();
+	}
+
+    @Override
+	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
+		switch(index) {
+			case 0: return new VirtualNameOrReference_Group(this, this, 0, inst);
+			default: return null;
+		}	
+	}
+
+    @Override
+	public IEObjectConsumer tryConsume() {
+		if(getEObject().eClass() != grammarAccess.getVirtualNameOrReferenceRule().getType().getClassifier())
+			return null;
+		if(checkForRecursion(VirtualNameOrReference_Group.class, eObjectConsumer)) return null;
+		return eObjectConsumer;
+	}
+	
+    @Override
+	public AbstractToken createFollowerAfterReturn(AbstractToken next,	int actIndex, int index, IEObjectConsumer inst) {
+		switch(index) {
+			default: return lastRuleCallOrigin.createFollowerAfterReturn(next, actIndex , index, inst);
+		}	
+	}	
+}
+
+// AtExpression
+protected class ResourceTypeExpression_AtExpressionParserRuleCall_2 extends RuleCallToken {
+	
+	public ResourceTypeExpression_AtExpressionParserRuleCall_2(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
+	}
+	
+	@Override
+	public RuleCall getGrammarElement() {
+		return grammarAccess.getResourceTypeExpressionAccess().getAtExpressionParserRuleCall_2();
+	}
+
+    @Override
+	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
+		switch(index) {
+			case 0: return new AtExpression_Group(this, this, 0, inst);
+			default: return null;
+		}	
+	}
+
+    @Override
+	public IEObjectConsumer tryConsume() {
+		if(checkForRecursion(AtExpression_Group.class, eObjectConsumer)) return null;
+		return eObjectConsumer;
+	}
+	
+    @Override
+	public AbstractToken createFollowerAfterReturn(AbstractToken next,	int actIndex, int index, IEObjectConsumer inst) {
+		switch(index) {
+			default: return lastRuleCallOrigin.createFollowerAfterReturn(next, actIndex , index, inst);
+		}	
+	}	
+}
+
+
+/************ end Rule ResourceTypeExpression ****************/
 
 
 /************ begin Rule ResourceBody ****************
@@ -9803,11 +9972,11 @@ protected class DefinitionArgumentList_RightParenthesisKeyword_4 extends Keyword
  * // VALIDATION: value expr is RVALUE
  * // 	
  * DefinitionArgument returns pp::DefinitionArgument:
- * 	argName=UNION_VARIABLE_OR_NAME ((op="=" | op="=>") value=Expression)?;
+ * 	argName=UNION_VARIABLE_OR_NAME ((op="=" | op="=>") value=AssignmentExpression)?;
  *
  **/
 
-// argName=UNION_VARIABLE_OR_NAME ((op="=" | op="=>") value=Expression)?
+// argName=UNION_VARIABLE_OR_NAME ((op="=" | op="=>") value=AssignmentExpression)?
 protected class DefinitionArgument_Group extends GroupToken {
 	
 	public DefinitionArgument_Group(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -9870,7 +10039,7 @@ protected class DefinitionArgument_ArgNameAssignment_0 extends AssignmentToken  
 
 }
 
-// ((op="=" | op="=>") value=Expression)?
+// ((op="=" | op="=>") value=AssignmentExpression)?
 protected class DefinitionArgument_Group_1 extends GroupToken {
 	
 	public DefinitionArgument_Group_1(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -9984,7 +10153,7 @@ protected class DefinitionArgument_OpAssignment_1_0_1 extends AssignmentToken  {
 }
 
 
-// value=Expression
+// value=AssignmentExpression
 protected class DefinitionArgument_ValueAssignment_1_1 extends AssignmentToken  {
 	
 	public DefinitionArgument_ValueAssignment_1_1(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -9999,7 +10168,7 @@ protected class DefinitionArgument_ValueAssignment_1_1 extends AssignmentToken  
     @Override
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
-			case 0: return new Expression_RelationshipExpressionParserRuleCall(this, this, 0, inst);
+			case 0: return new AssignmentExpression_Group(this, this, 0, inst);
 			default: return null;
 		}	
 	}
@@ -10010,9 +10179,9 @@ protected class DefinitionArgument_ValueAssignment_1_1 extends AssignmentToken  
 		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("value");
 		if(value instanceof EObject) { // org::eclipse::xtext::impl::RuleCallImpl
 			IEObjectConsumer param = createEObjectConsumer((EObject)value);
-			if(param.isInstanceOf(grammarAccess.getExpressionRule().getType().getClassifier())) {
+			if(param.isInstanceOf(grammarAccess.getAssignmentExpressionRule().getType().getClassifier())) {
 				type = AssignmentType.PARSER_RULE_CALL;
-				element = grammarAccess.getDefinitionArgumentAccess().getValueExpressionParserRuleCall_1_1_0(); 
+				element = grammarAccess.getDefinitionArgumentAccess().getValueAssignmentExpressionParserRuleCall_1_1_0(); 
 				consumed = obj;
 				return param;
 			}
@@ -10040,11 +10209,11 @@ protected class DefinitionArgument_ValueAssignment_1_1 extends AssignmentToken  
  * //-- CASE
  * //
  * CaseExpression returns pp::CaseExpression:
- * 	"case" switchExpr=Expression "{" cases+=Case* "}";
+ * 	"case" switchExpr=AssignmentExpression "{" cases+=Case* "}";
  *
  **/
 
-// "case" switchExpr=Expression "{" cases+=Case* "}"
+// "case" switchExpr=AssignmentExpression "{" cases+=Case* "}"
 protected class CaseExpression_Group extends GroupToken {
 	
 	public CaseExpression_Group(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -10094,7 +10263,7 @@ protected class CaseExpression_CaseKeyword_0 extends KeywordToken  {
 
 }
 
-// switchExpr=Expression
+// switchExpr=AssignmentExpression
 protected class CaseExpression_SwitchExprAssignment_1 extends AssignmentToken  {
 	
 	public CaseExpression_SwitchExprAssignment_1(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -10109,7 +10278,7 @@ protected class CaseExpression_SwitchExprAssignment_1 extends AssignmentToken  {
     @Override
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
-			case 0: return new Expression_RelationshipExpressionParserRuleCall(this, this, 0, inst);
+			case 0: return new AssignmentExpression_Group(this, this, 0, inst);
 			default: return null;
 		}	
 	}
@@ -10120,9 +10289,9 @@ protected class CaseExpression_SwitchExprAssignment_1 extends AssignmentToken  {
 		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("switchExpr");
 		if(value instanceof EObject) { // org::eclipse::xtext::impl::RuleCallImpl
 			IEObjectConsumer param = createEObjectConsumer((EObject)value);
-			if(param.isInstanceOf(grammarAccess.getExpressionRule().getType().getClassifier())) {
+			if(param.isInstanceOf(grammarAccess.getAssignmentExpressionRule().getType().getClassifier())) {
 				type = AssignmentType.PARSER_RULE_CALL;
-				element = grammarAccess.getCaseExpressionAccess().getSwitchExprExpressionParserRuleCall_1_0(); 
+				element = grammarAccess.getCaseExpressionAccess().getSwitchExprAssignmentExpressionParserRuleCall_1_0(); 
 				consumed = obj;
 				return param;
 			}
@@ -10239,11 +10408,11 @@ protected class CaseExpression_RightCurlyBracketKeyword_4 extends KeywordToken  
 /************ begin Rule Case ****************
  *
  * Case returns pp::Case:
- * 	values+=Expression ("," values+=Expression)* ":" "{" statements+=ExpressionList* "}";
+ * 	values+=AssignmentExpression ("," values+=AssignmentExpression)* ":" "{" statements+=ExpressionList* "}";
  *
  **/
 
-// values+=Expression ("," values+=Expression)* ":" "{" statements+=ExpressionList* "}"
+// values+=AssignmentExpression ("," values+=AssignmentExpression)* ":" "{" statements+=ExpressionList* "}"
 protected class Case_Group extends GroupToken {
 	
 	public Case_Group(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -10272,7 +10441,7 @@ protected class Case_Group extends GroupToken {
 
 }
 
-// values+=Expression
+// values+=AssignmentExpression
 protected class Case_ValuesAssignment_0 extends AssignmentToken  {
 	
 	public Case_ValuesAssignment_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -10287,7 +10456,7 @@ protected class Case_ValuesAssignment_0 extends AssignmentToken  {
     @Override
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
-			case 0: return new Expression_RelationshipExpressionParserRuleCall(this, this, 0, inst);
+			case 0: return new AssignmentExpression_Group(this, this, 0, inst);
 			default: return null;
 		}	
 	}
@@ -10298,9 +10467,9 @@ protected class Case_ValuesAssignment_0 extends AssignmentToken  {
 		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("values");
 		if(value instanceof EObject) { // org::eclipse::xtext::impl::RuleCallImpl
 			IEObjectConsumer param = createEObjectConsumer((EObject)value);
-			if(param.isInstanceOf(grammarAccess.getExpressionRule().getType().getClassifier())) {
+			if(param.isInstanceOf(grammarAccess.getAssignmentExpressionRule().getType().getClassifier())) {
 				type = AssignmentType.PARSER_RULE_CALL;
-				element = grammarAccess.getCaseAccess().getValuesExpressionParserRuleCall_0_0(); 
+				element = grammarAccess.getCaseAccess().getValuesAssignmentExpressionParserRuleCall_0_0(); 
 				consumed = obj;
 				return param;
 			}
@@ -10317,7 +10486,7 @@ protected class Case_ValuesAssignment_0 extends AssignmentToken  {
 	}	
 }
 
-// ("," values+=Expression)*
+// ("," values+=AssignmentExpression)*
 protected class Case_Group_1 extends GroupToken {
 	
 	public Case_Group_1(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -10362,7 +10531,7 @@ protected class Case_CommaKeyword_1_0 extends KeywordToken  {
 
 }
 
-// values+=Expression
+// values+=AssignmentExpression
 protected class Case_ValuesAssignment_1_1 extends AssignmentToken  {
 	
 	public Case_ValuesAssignment_1_1(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -10377,7 +10546,7 @@ protected class Case_ValuesAssignment_1_1 extends AssignmentToken  {
     @Override
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
-			case 0: return new Expression_RelationshipExpressionParserRuleCall(this, this, 0, inst);
+			case 0: return new AssignmentExpression_Group(this, this, 0, inst);
 			default: return null;
 		}	
 	}
@@ -10388,9 +10557,9 @@ protected class Case_ValuesAssignment_1_1 extends AssignmentToken  {
 		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("values");
 		if(value instanceof EObject) { // org::eclipse::xtext::impl::RuleCallImpl
 			IEObjectConsumer param = createEObjectConsumer((EObject)value);
-			if(param.isInstanceOf(grammarAccess.getExpressionRule().getType().getClassifier())) {
+			if(param.isInstanceOf(grammarAccess.getAssignmentExpressionRule().getType().getClassifier())) {
 				type = AssignmentType.PARSER_RULE_CALL;
-				element = grammarAccess.getCaseAccess().getValuesExpressionParserRuleCall_1_1_0(); 
+				element = grammarAccess.getCaseAccess().getValuesAssignmentExpressionParserRuleCall_1_1_0(); 
 				consumed = obj;
 				return param;
 			}
@@ -10535,13 +10704,13 @@ protected class Case_RightCurlyBracketKeyword_5 extends KeywordToken  {
  * // VALIDATION: checks that the elseStatement is an Else of Elsif, and validate that Else or Elsif
  * // only appears as parented by If, Else or Elseif
  * IfExpression returns pp::IfExpression:
- * 	"if" condExpr=Expression "{" thenStatements+=ExpressionList* "}" ("elsif" elseStatement=ElseIfExpression | "else"
- * 	elseStatement=ElseExpression)?;
+ * 	"if" condExpr=AssignmentExpression "{" thenStatements+=ExpressionList* "}" ("elsif" elseStatement=ElseIfExpression |
+ * 	"else" elseStatement=ElseExpression)?;
  *
  **/
 
-// "if" condExpr=Expression "{" thenStatements+=ExpressionList* "}" ("elsif" elseStatement=ElseIfExpression | "else"
-// elseStatement=ElseExpression)?
+// "if" condExpr=AssignmentExpression "{" thenStatements+=ExpressionList* "}" ("elsif" elseStatement=ElseIfExpression |
+// "else" elseStatement=ElseExpression)?
 protected class IfExpression_Group extends GroupToken {
 	
 	public IfExpression_Group(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -10592,7 +10761,7 @@ protected class IfExpression_IfKeyword_0 extends KeywordToken  {
 
 }
 
-// condExpr=Expression
+// condExpr=AssignmentExpression
 protected class IfExpression_CondExprAssignment_1 extends AssignmentToken  {
 	
 	public IfExpression_CondExprAssignment_1(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -10607,7 +10776,7 @@ protected class IfExpression_CondExprAssignment_1 extends AssignmentToken  {
     @Override
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
-			case 0: return new Expression_RelationshipExpressionParserRuleCall(this, this, 0, inst);
+			case 0: return new AssignmentExpression_Group(this, this, 0, inst);
 			default: return null;
 		}	
 	}
@@ -10618,9 +10787,9 @@ protected class IfExpression_CondExprAssignment_1 extends AssignmentToken  {
 		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("condExpr");
 		if(value instanceof EObject) { // org::eclipse::xtext::impl::RuleCallImpl
 			IEObjectConsumer param = createEObjectConsumer((EObject)value);
-			if(param.isInstanceOf(grammarAccess.getExpressionRule().getType().getClassifier())) {
+			if(param.isInstanceOf(grammarAccess.getAssignmentExpressionRule().getType().getClassifier())) {
 				type = AssignmentType.PARSER_RULE_CALL;
-				element = grammarAccess.getIfExpressionAccess().getCondExprExpressionParserRuleCall_1_0(); 
+				element = grammarAccess.getIfExpressionAccess().getCondExprAssignmentExpressionParserRuleCall_1_0(); 
 				consumed = obj;
 				return param;
 			}
@@ -11101,12 +11270,12 @@ protected class ElseExpression_RightCurlyBracketKeyword_3 extends KeywordToken  
 /************ begin Rule ElseIfExpression ****************
  *
  * ElseIfExpression returns pp::Expression:
- * 	{pp::ElseIfExpression} condExpr=Expression "{" thenStatements+=ExpressionList* "}" ("elsif"
+ * 	{pp::ElseIfExpression} condExpr=AssignmentExpression "{" thenStatements+=ExpressionList* "}" ("elsif"
  * 	elseStatement=ElseIfExpression | "else" elseStatement=ElseExpression)?;
  *
  **/
 
-// {pp::ElseIfExpression} condExpr=Expression "{" thenStatements+=ExpressionList* "}" ("elsif"
+// {pp::ElseIfExpression} condExpr=AssignmentExpression "{" thenStatements+=ExpressionList* "}" ("elsif"
 // elseStatement=ElseIfExpression | "else" elseStatement=ElseExpression)?
 protected class ElseIfExpression_Group extends GroupToken {
 	
@@ -11163,7 +11332,7 @@ protected class ElseIfExpression_ElseIfExpressionAction_0 extends ActionToken  {
 	}
 }
 
-// condExpr=Expression
+// condExpr=AssignmentExpression
 protected class ElseIfExpression_CondExprAssignment_1 extends AssignmentToken  {
 	
 	public ElseIfExpression_CondExprAssignment_1(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -11178,7 +11347,7 @@ protected class ElseIfExpression_CondExprAssignment_1 extends AssignmentToken  {
     @Override
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
-			case 0: return new Expression_RelationshipExpressionParserRuleCall(this, this, 0, inst);
+			case 0: return new AssignmentExpression_Group(this, this, 0, inst);
 			default: return null;
 		}	
 	}
@@ -11189,9 +11358,9 @@ protected class ElseIfExpression_CondExprAssignment_1 extends AssignmentToken  {
 		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("condExpr");
 		if(value instanceof EObject) { // org::eclipse::xtext::impl::RuleCallImpl
 			IEObjectConsumer param = createEObjectConsumer((EObject)value);
-			if(param.isInstanceOf(grammarAccess.getExpressionRule().getType().getClassifier())) {
+			if(param.isInstanceOf(grammarAccess.getAssignmentExpressionRule().getType().getClassifier())) {
 				type = AssignmentType.PARSER_RULE_CALL;
-				element = grammarAccess.getElseIfExpressionAccess().getCondExprExpressionParserRuleCall_1_0(); 
+				element = grammarAccess.getElseIfExpressionAccess().getCondExprAssignmentExpressionParserRuleCall_1_0(); 
 				consumed = obj;
 				return param;
 			}
@@ -11909,11 +12078,11 @@ protected class LiteralNameOrReference_ValueAssignment extends AssignmentToken  
  *
  * // validate that expr is not empty	
  * ParenthisedExpression returns pp::ParenthesisedExpression:
- * 	"(" {pp::ParenthesisedExpression} expr=Expression? ")";
+ * 	"(" {pp::ParenthesisedExpression} expr=AssignmentExpression? ")";
  *
  **/
 
-// "(" {pp::ParenthesisedExpression} expr=Expression? ")"
+// "(" {pp::ParenthesisedExpression} expr=AssignmentExpression? ")"
 protected class ParenthisedExpression_Group extends GroupToken {
 	
 	public ParenthisedExpression_Group(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -11990,7 +12159,7 @@ protected class ParenthisedExpression_ParenthesisedExpressionAction_1 extends Ac
 	}
 }
 
-// expr=Expression?
+// expr=AssignmentExpression?
 protected class ParenthisedExpression_ExprAssignment_2 extends AssignmentToken  {
 	
 	public ParenthisedExpression_ExprAssignment_2(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -12005,7 +12174,7 @@ protected class ParenthisedExpression_ExprAssignment_2 extends AssignmentToken  
     @Override
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
-			case 0: return new Expression_RelationshipExpressionParserRuleCall(this, this, 0, inst);
+			case 0: return new AssignmentExpression_Group(this, this, 0, inst);
 			default: return null;
 		}	
 	}
@@ -12016,9 +12185,9 @@ protected class ParenthisedExpression_ExprAssignment_2 extends AssignmentToken  
 		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("expr");
 		if(value instanceof EObject) { // org::eclipse::xtext::impl::RuleCallImpl
 			IEObjectConsumer param = createEObjectConsumer((EObject)value);
-			if(param.isInstanceOf(grammarAccess.getExpressionRule().getType().getClassifier())) {
+			if(param.isInstanceOf(grammarAccess.getAssignmentExpressionRule().getType().getClassifier())) {
 				type = AssignmentType.PARSER_RULE_CALL;
-				element = grammarAccess.getParenthisedExpressionAccess().getExprExpressionParserRuleCall_2_0(); 
+				element = grammarAccess.getParenthisedExpressionAccess().getExprAssignmentExpressionParserRuleCall_2_0(); 
 				consumed = obj;
 				return param;
 			}
@@ -12450,11 +12619,11 @@ protected class ImportExpression_ValuesAssignment_2_1_1 extends AssignmentToken 
 /************ begin Rule LiteralList ****************
  *
  * LiteralList returns pp::LiteralList:
- * 	{pp::LiteralList} "[" (elements+=Expression ("," elements+=Expression)*)? endComma? "]";
+ * 	{pp::LiteralList} "[" (elements+=AssignmentExpression ("," elements+=AssignmentExpression)*)? endComma? "]";
  *
  **/
 
-// {pp::LiteralList} "[" (elements+=Expression ("," elements+=Expression)*)? endComma? "]"
+// {pp::LiteralList} "[" (elements+=AssignmentExpression ("," elements+=AssignmentExpression)*)? endComma? "]"
 protected class LiteralList_Group extends GroupToken {
 	
 	public LiteralList_Group(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -12531,7 +12700,7 @@ protected class LiteralList_LeftSquareBracketKeyword_1 extends KeywordToken  {
 
 }
 
-// (elements+=Expression ("," elements+=Expression)*)?
+// (elements+=AssignmentExpression ("," elements+=AssignmentExpression)*)?
 protected class LiteralList_Group_2 extends GroupToken {
 	
 	public LiteralList_Group_2(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -12554,7 +12723,7 @@ protected class LiteralList_Group_2 extends GroupToken {
 
 }
 
-// elements+=Expression
+// elements+=AssignmentExpression
 protected class LiteralList_ElementsAssignment_2_0 extends AssignmentToken  {
 	
 	public LiteralList_ElementsAssignment_2_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -12569,7 +12738,7 @@ protected class LiteralList_ElementsAssignment_2_0 extends AssignmentToken  {
     @Override
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
-			case 0: return new Expression_RelationshipExpressionParserRuleCall(this, this, 0, inst);
+			case 0: return new AssignmentExpression_Group(this, this, 0, inst);
 			default: return null;
 		}	
 	}
@@ -12580,9 +12749,9 @@ protected class LiteralList_ElementsAssignment_2_0 extends AssignmentToken  {
 		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("elements");
 		if(value instanceof EObject) { // org::eclipse::xtext::impl::RuleCallImpl
 			IEObjectConsumer param = createEObjectConsumer((EObject)value);
-			if(param.isInstanceOf(grammarAccess.getExpressionRule().getType().getClassifier())) {
+			if(param.isInstanceOf(grammarAccess.getAssignmentExpressionRule().getType().getClassifier())) {
 				type = AssignmentType.PARSER_RULE_CALL;
-				element = grammarAccess.getLiteralListAccess().getElementsExpressionParserRuleCall_2_0_0(); 
+				element = grammarAccess.getLiteralListAccess().getElementsAssignmentExpressionParserRuleCall_2_0_0(); 
 				consumed = obj;
 				return param;
 			}
@@ -12600,7 +12769,7 @@ protected class LiteralList_ElementsAssignment_2_0 extends AssignmentToken  {
 	}	
 }
 
-// ("," elements+=Expression)*
+// ("," elements+=AssignmentExpression)*
 protected class LiteralList_Group_2_1 extends GroupToken {
 	
 	public LiteralList_Group_2_1(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -12645,7 +12814,7 @@ protected class LiteralList_CommaKeyword_2_1_0 extends KeywordToken  {
 
 }
 
-// elements+=Expression
+// elements+=AssignmentExpression
 protected class LiteralList_ElementsAssignment_2_1_1 extends AssignmentToken  {
 	
 	public LiteralList_ElementsAssignment_2_1_1(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -12660,7 +12829,7 @@ protected class LiteralList_ElementsAssignment_2_1_1 extends AssignmentToken  {
     @Override
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
-			case 0: return new Expression_RelationshipExpressionParserRuleCall(this, this, 0, inst);
+			case 0: return new AssignmentExpression_Group(this, this, 0, inst);
 			default: return null;
 		}	
 	}
@@ -12671,9 +12840,9 @@ protected class LiteralList_ElementsAssignment_2_1_1 extends AssignmentToken  {
 		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("elements");
 		if(value instanceof EObject) { // org::eclipse::xtext::impl::RuleCallImpl
 			IEObjectConsumer param = createEObjectConsumer((EObject)value);
-			if(param.isInstanceOf(grammarAccess.getExpressionRule().getType().getClassifier())) {
+			if(param.isInstanceOf(grammarAccess.getAssignmentExpressionRule().getType().getClassifier())) {
 				type = AssignmentType.PARSER_RULE_CALL;
-				element = grammarAccess.getLiteralListAccess().getElementsExpressionParserRuleCall_2_1_1_0(); 
+				element = grammarAccess.getLiteralListAccess().getElementsAssignmentExpressionParserRuleCall_2_1_1_0(); 
 				consumed = obj;
 				return param;
 			}
@@ -12998,11 +13167,11 @@ protected class LiteralHash_RightCurlyBracketKeyword_4 extends KeywordToken  {
  * // Use LiteralNameOrString to get different literals (to preserve quotes) as opposed to just the token value.
  * // TODO: Check constraints on LiteralNameOrString is ${name::name} allowed ?
  * HashEntry returns pp::HashEntry:
- * 	key=LiteralNameOrString "=>" value=Expression;
+ * 	key=LiteralNameOrString "=>" value=AssignmentExpression;
  *
  **/
 
-// key=LiteralNameOrString "=>" value=Expression
+// key=LiteralNameOrString "=>" value=AssignmentExpression
 protected class HashEntry_Group extends GroupToken {
 	
 	public HashEntry_Group(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -13098,7 +13267,7 @@ protected class HashEntry_EqualsSignGreaterThanSignKeyword_1 extends KeywordToke
 
 }
 
-// value=Expression
+// value=AssignmentExpression
 protected class HashEntry_ValueAssignment_2 extends AssignmentToken  {
 	
 	public HashEntry_ValueAssignment_2(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -13113,7 +13282,7 @@ protected class HashEntry_ValueAssignment_2 extends AssignmentToken  {
     @Override
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
-			case 0: return new Expression_RelationshipExpressionParserRuleCall(this, this, 0, inst);
+			case 0: return new AssignmentExpression_Group(this, this, 0, inst);
 			default: return null;
 		}	
 	}
@@ -13124,9 +13293,9 @@ protected class HashEntry_ValueAssignment_2 extends AssignmentToken  {
 		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("value");
 		if(value instanceof EObject) { // org::eclipse::xtext::impl::RuleCallImpl
 			IEObjectConsumer param = createEObjectConsumer((EObject)value);
-			if(param.isInstanceOf(grammarAccess.getExpressionRule().getType().getClassifier())) {
+			if(param.isInstanceOf(grammarAccess.getAssignmentExpressionRule().getType().getClassifier())) {
 				type = AssignmentType.PARSER_RULE_CALL;
-				element = grammarAccess.getHashEntryAccess().getValueExpressionParserRuleCall_2_0(); 
+				element = grammarAccess.getHashEntryAccess().getValueAssignmentExpressionParserRuleCall_2_0(); 
 				consumed = obj;
 				return param;
 			}
@@ -14764,11 +14933,11 @@ protected class ExpressionTextExpression_TrailingAssignment_1_4 extends Assignme
  * // Consumation without creation is ok, if made optional where it is assigned, it is not possible to
  * // insert WS and comments into ExpressioNTextExpression.
  * ExpressionWithHidden returns pp::Expression hidden(WS, SL_COMMENT, ML_COMMENT):
- * 	{pp::ParenthesisedExpression} expr=Expression?;
+ * 	{pp::ParenthesisedExpression} expr=AssignmentExpression?;
  *
  **/
 
-// {pp::ParenthesisedExpression} expr=Expression?
+// {pp::ParenthesisedExpression} expr=AssignmentExpression?
 protected class ExpressionWithHidden_Group extends GroupToken {
 	
 	public ExpressionWithHidden_Group(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -14824,7 +14993,7 @@ protected class ExpressionWithHidden_ParenthesisedExpressionAction_0 extends Act
 	}
 }
 
-// expr=Expression?
+// expr=AssignmentExpression?
 protected class ExpressionWithHidden_ExprAssignment_1 extends AssignmentToken  {
 	
 	public ExpressionWithHidden_ExprAssignment_1(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -14839,7 +15008,7 @@ protected class ExpressionWithHidden_ExprAssignment_1 extends AssignmentToken  {
     @Override
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
-			case 0: return new Expression_RelationshipExpressionParserRuleCall(this, this, 0, inst);
+			case 0: return new AssignmentExpression_Group(this, this, 0, inst);
 			default: return null;
 		}	
 	}
@@ -14850,9 +15019,9 @@ protected class ExpressionWithHidden_ExprAssignment_1 extends AssignmentToken  {
 		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("expr");
 		if(value instanceof EObject) { // org::eclipse::xtext::impl::RuleCallImpl
 			IEObjectConsumer param = createEObjectConsumer((EObject)value);
-			if(param.isInstanceOf(grammarAccess.getExpressionRule().getType().getClassifier())) {
+			if(param.isInstanceOf(grammarAccess.getAssignmentExpressionRule().getType().getClassifier())) {
 				type = AssignmentType.PARSER_RULE_CALL;
-				element = grammarAccess.getExpressionWithHiddenAccess().getExprExpressionParserRuleCall_1_0(); 
+				element = grammarAccess.getExpressionWithHiddenAccess().getExprAssignmentExpressionParserRuleCall_1_0(); 
 				consumed = obj;
 				return param;
 			}
@@ -14979,13 +15148,13 @@ protected class StringPart_TextAssignment_1 extends AssignmentToken  {
  *
  * UnquotedString returns pp::Expression: // allow comments between ${ and }
  * // validate that Expression is not empty == warning
- * 	{pp::UnquotedString} "${" expression=Expression? "}";
+ * 	{pp::UnquotedString} "${" expression=AssignmentExpression? "}";
  *
  **/
 
 // // allow comments between ${ and }
 // // validate that Expression is not empty == warning
-// {pp::UnquotedString} "${" expression=Expression? "}"
+// {pp::UnquotedString} "${" expression=AssignmentExpression? "}"
 protected class UnquotedString_Group extends GroupToken {
 	
 	public UnquotedString_Group(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -15064,7 +15233,7 @@ protected class UnquotedString_DollarSignLeftCurlyBracketKeyword_1 extends Keywo
 
 }
 
-// expression=Expression?
+// expression=AssignmentExpression?
 protected class UnquotedString_ExpressionAssignment_2 extends AssignmentToken  {
 	
 	public UnquotedString_ExpressionAssignment_2(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -15079,7 +15248,7 @@ protected class UnquotedString_ExpressionAssignment_2 extends AssignmentToken  {
     @Override
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
-			case 0: return new Expression_RelationshipExpressionParserRuleCall(this, this, 0, inst);
+			case 0: return new AssignmentExpression_Group(this, this, 0, inst);
 			default: return null;
 		}	
 	}
@@ -15090,9 +15259,9 @@ protected class UnquotedString_ExpressionAssignment_2 extends AssignmentToken  {
 		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("expression");
 		if(value instanceof EObject) { // org::eclipse::xtext::impl::RuleCallImpl
 			IEObjectConsumer param = createEObjectConsumer((EObject)value);
-			if(param.isInstanceOf(grammarAccess.getExpressionRule().getType().getClassifier())) {
+			if(param.isInstanceOf(grammarAccess.getAssignmentExpressionRule().getType().getClassifier())) {
 				type = AssignmentType.PARSER_RULE_CALL;
-				element = grammarAccess.getUnquotedStringAccess().getExpressionExpressionParserRuleCall_2_0(); 
+				element = grammarAccess.getUnquotedStringAccess().getExpressionAssignmentExpressionParserRuleCall_2_0(); 
 				consumed = obj;
 				return param;
 			}

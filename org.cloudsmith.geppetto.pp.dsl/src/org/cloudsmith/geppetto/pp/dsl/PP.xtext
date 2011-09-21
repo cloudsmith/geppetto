@@ -101,7 +101,11 @@ ResourceExpression returns pp::Expression
 				(resourceData += ResourceBody (';'  resourceData += ResourceBody)* ';'?)?
 			'}' 
 		)?
-		;
+	;
+
+ResourceTypeExpression returns pp::Expression :
+	LiteralNameOrReference | VirtualNameOrReference | AtExpression
+;
 
 // Note: allows all AttributeOperation subtypes but this depends on the parent's type
 // VALIDATION checks allowed types	
@@ -383,19 +387,19 @@ DefinitionArgumentList returns pp::DefinitionArgumentList
 // VALIDATION: value expr is RVALUE
 // 	
 DefinitionArgument returns pp::DefinitionArgument
-	: argName = UNION_VARIABLE_OR_NAME  ((op = '=' | op = '=>')  value = Expression)?
+	: argName = UNION_VARIABLE_OR_NAME  ((op = '=' | op = '=>')  value = AssignmentExpression)?
 	;
 
 //-- CASE
 //
 CaseExpression returns pp::CaseExpression
-	: 'case'  switchExpr = Expression 
+	: 'case'  switchExpr = AssignmentExpression 
 		'{'  cases += Case* 
 		'}'
 	;
 
 Case returns pp::Case
-	: values += Expression (','  values += Expression)* ':' 
+	: values += AssignmentExpression (','  values += AssignmentExpression)* ':' 
 		'{'  
 			(statements += ExpressionList)* 
 		'}'  
@@ -407,7 +411,7 @@ Case returns pp::Case
 // only appears as parented by If, Else or Elseif
 IfExpression returns pp::IfExpression
 	: 'if'  
-		condExpr = Expression 
+		condExpr = AssignmentExpression 
 		'{'  
 			(thenStatements += ExpressionList)*
 		'}' 
@@ -423,7 +427,7 @@ ElseExpression returns pp::Expression
 	
 ElseIfExpression returns pp::Expression
 	: 	{pp::ElseIfExpression}
-		condExpr = Expression 
+		condExpr = AssignmentExpression 
 		'{' 
 			(thenStatements += ExpressionList)*
 		'}' 
@@ -452,7 +456,7 @@ UNION_VARIABLE_OR_NAME
 	
 // validate that expr is not empty	
 ParenthisedExpression returns pp::ParenthesisedExpression
-	: '('  {pp::ParenthesisedExpression} expr = Expression? ')' 
+	: '('  {pp::ParenthesisedExpression} expr = AssignmentExpression? ')' 
 	;
 
 VirtualNameOrReference returns pp::VirtualNameOrReference 
@@ -472,7 +476,7 @@ ImportExpression returns pp::ImportExpression
 LiteralList returns pp::LiteralList
 	: {pp::LiteralList}
 		'['  
-			(elements += Expression (',' elements += Expression)*)? endComma?
+			(elements += AssignmentExpression (',' elements += AssignmentExpression)*)? endComma?
 		']' 
 	;
 
@@ -486,7 +490,7 @@ LiteralHash returns pp::LiteralHash
 // Use LiteralNameOrString to get different literals (to preserve quotes) as opposed to just the token value.
 // TODO: Check constraints on LiteralNameOrString is ${name::name} allowed ?
 HashEntry returns pp::HashEntry
-	: key = LiteralNameOrString '=>'  value = Expression
+	: key = LiteralNameOrString '=>'  value = AssignmentExpression
 	;
 
 // TODO: Check constraints on LiteralNameOrString is ${name::name} allowed ?
@@ -572,7 +576,7 @@ ExpressionTextExpression returns pp::TextExpression hidden():
 // Consumation without creation is ok, if made optional where it is assigned, it is not possible to
 // insert WS and comments into ExpressioNTextExpression.
 ExpressionWithHidden returns pp::Expression hidden(WS, SL_COMMENT, ML_COMMENT):
-	{pp::ParenthesisedExpression} expr = Expression?
+	{pp::ParenthesisedExpression} expr = AssignmentExpression?
 ;
 		
 StringPart returns pp::TextExpression hidden(): 
@@ -581,7 +585,7 @@ StringPart returns pp::TextExpression hidden():
 UnquotedString returns pp::Expression :
 	// allow comments between ${ and }
 	// validate that Expression is not empty == warning
-	{pp::UnquotedString} '${' expression = Expression? '}' 
+	{pp::UnquotedString} '${' expression = AssignmentExpression? '}' 
 	;
 
 // Has data conversion that strips leading/trailing single quotes

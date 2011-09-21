@@ -38,6 +38,7 @@ public class PPParser extends AbstractContentAssistParser {
 				private static final long serialVersionUID = 1L;
 				{
 					put(grammarAccess.getEdgeOperatorAccess().getAlternatives(), "rule__EdgeOperator__Alternatives");
+					put(grammarAccess.getResourceTypeExpressionAccess().getAlternatives(), "rule__ResourceTypeExpression__Alternatives");
 					put(grammarAccess.getResourceBodyAccess().getAlternatives(), "rule__ResourceBody__Alternatives");
 					put(grammarAccess.getAttributeOperationAccess().getOpAlternatives_2_0_0(), "rule__AttributeOperation__OpAlternatives_2_0_0");
 					put(grammarAccess.getAttributeOperationsAccess().getAlternatives_1(), "rule__AttributeOperations__Alternatives_1");

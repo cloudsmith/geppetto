@@ -457,6 +457,8 @@ ruleResourceExpression returns [EObject current=null]
 
 
 
+
+
 // Entry rule entryRuleResourceBody
 entryRuleResourceBody returns [EObject current=null]
 	:
@@ -3314,9 +3316,9 @@ ruleDefinitionArgument returns [EObject current=null]
 ))(
 (
 		{ 
-	        newCompositeNode(grammarAccess.getDefinitionArgumentAccess().getValueExpressionParserRuleCall_1_1_0()); 
+	        newCompositeNode(grammarAccess.getDefinitionArgumentAccess().getValueAssignmentExpressionParserRuleCall_1_1_0()); 
 	    }
-		lv_value_3_0=ruleExpression		{
+		lv_value_3_0=ruleAssignmentExpression		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getDefinitionArgumentRule());
 	        }
@@ -3324,7 +3326,7 @@ ruleDefinitionArgument returns [EObject current=null]
        			$current, 
        			"value",
         		lv_value_3_0, 
-        		"Expression");
+        		"AssignmentExpression");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -3358,9 +3360,9 @@ ruleCaseExpression returns [EObject current=null]
 (
 (
 		{ 
-	        newCompositeNode(grammarAccess.getCaseExpressionAccess().getSwitchExprExpressionParserRuleCall_1_0()); 
+	        newCompositeNode(grammarAccess.getCaseExpressionAccess().getSwitchExprAssignmentExpressionParserRuleCall_1_0()); 
 	    }
-		lv_switchExpr_1_0=ruleExpression		{
+		lv_switchExpr_1_0=ruleAssignmentExpression		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getCaseExpressionRule());
 	        }
@@ -3368,7 +3370,7 @@ ruleCaseExpression returns [EObject current=null]
        			$current, 
        			"switchExpr",
         		lv_switchExpr_1_0, 
-        		"Expression");
+        		"AssignmentExpression");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -3425,9 +3427,9 @@ ruleCase returns [EObject current=null]
 ((
 (
 		{ 
-	        newCompositeNode(grammarAccess.getCaseAccess().getValuesExpressionParserRuleCall_0_0()); 
+	        newCompositeNode(grammarAccess.getCaseAccess().getValuesAssignmentExpressionParserRuleCall_0_0()); 
 	    }
-		lv_values_0_0=ruleExpression		{
+		lv_values_0_0=ruleAssignmentExpression		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getCaseRule());
 	        }
@@ -3435,7 +3437,7 @@ ruleCase returns [EObject current=null]
        			$current, 
        			"values",
         		lv_values_0_0, 
-        		"Expression");
+        		"AssignmentExpression");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -3448,9 +3450,9 @@ ruleCase returns [EObject current=null]
 (
 (
 		{ 
-	        newCompositeNode(grammarAccess.getCaseAccess().getValuesExpressionParserRuleCall_1_1_0()); 
+	        newCompositeNode(grammarAccess.getCaseAccess().getValuesAssignmentExpressionParserRuleCall_1_1_0()); 
 	    }
-		lv_values_2_0=ruleExpression		{
+		lv_values_2_0=ruleAssignmentExpression		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getCaseRule());
 	        }
@@ -3458,7 +3460,7 @@ ruleCase returns [EObject current=null]
        			$current, 
        			"values",
         		lv_values_2_0, 
-        		"Expression");
+        		"AssignmentExpression");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -3525,9 +3527,9 @@ ruleIfExpression returns [EObject current=null]
 (
 (
 		{ 
-	        newCompositeNode(grammarAccess.getIfExpressionAccess().getCondExprExpressionParserRuleCall_1_0()); 
+	        newCompositeNode(grammarAccess.getIfExpressionAccess().getCondExprAssignmentExpressionParserRuleCall_1_0()); 
 	    }
-		lv_condExpr_1_0=ruleExpression		{
+		lv_condExpr_1_0=ruleAssignmentExpression		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getIfExpressionRule());
 	        }
@@ -3535,7 +3537,7 @@ ruleIfExpression returns [EObject current=null]
        			$current, 
        			"condExpr",
         		lv_condExpr_1_0, 
-        		"Expression");
+        		"AssignmentExpression");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -3710,9 +3712,9 @@ ruleElseIfExpression returns [EObject current=null]
 )(
 (
 		{ 
-	        newCompositeNode(grammarAccess.getElseIfExpressionAccess().getCondExprExpressionParserRuleCall_1_0()); 
+	        newCompositeNode(grammarAccess.getElseIfExpressionAccess().getCondExprAssignmentExpressionParserRuleCall_1_0()); 
 	    }
-		lv_condExpr_1_0=ruleExpression		{
+		lv_condExpr_1_0=ruleAssignmentExpression		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getElseIfExpressionRule());
 	        }
@@ -3720,7 +3722,7 @@ ruleElseIfExpression returns [EObject current=null]
        			$current, 
        			"condExpr",
         		lv_condExpr_1_0, 
-        		"Expression");
+        		"AssignmentExpression");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -4068,9 +4070,9 @@ ruleParenthisedExpression returns [EObject current=null]
 )(
 (
 		{ 
-	        newCompositeNode(grammarAccess.getParenthisedExpressionAccess().getExprExpressionParserRuleCall_2_0()); 
+	        newCompositeNode(grammarAccess.getParenthisedExpressionAccess().getExprAssignmentExpressionParserRuleCall_2_0()); 
 	    }
-		lv_expr_2_0=ruleExpression		{
+		lv_expr_2_0=ruleAssignmentExpression		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getParenthisedExpressionRule());
 	        }
@@ -4078,7 +4080,7 @@ ruleParenthisedExpression returns [EObject current=null]
        			$current, 
        			"expr",
         		lv_expr_2_0, 
-        		"Expression");
+        		"AssignmentExpression");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -4292,9 +4294,9 @@ ruleLiteralList returns [EObject current=null]
 ((
 (
 		{ 
-	        newCompositeNode(grammarAccess.getLiteralListAccess().getElementsExpressionParserRuleCall_2_0_0()); 
+	        newCompositeNode(grammarAccess.getLiteralListAccess().getElementsAssignmentExpressionParserRuleCall_2_0_0()); 
 	    }
-		lv_elements_2_0=ruleExpression		{
+		lv_elements_2_0=ruleAssignmentExpression		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getLiteralListRule());
 	        }
@@ -4302,7 +4304,7 @@ ruleLiteralList returns [EObject current=null]
        			$current, 
        			"elements",
         		lv_elements_2_0, 
-        		"Expression");
+        		"AssignmentExpression");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -4315,9 +4317,9 @@ ruleLiteralList returns [EObject current=null]
 (
 (
 		{ 
-	        newCompositeNode(grammarAccess.getLiteralListAccess().getElementsExpressionParserRuleCall_2_1_1_0()); 
+	        newCompositeNode(grammarAccess.getLiteralListAccess().getElementsAssignmentExpressionParserRuleCall_2_1_1_0()); 
 	    }
-		lv_elements_4_0=ruleExpression		{
+		lv_elements_4_0=ruleAssignmentExpression		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getLiteralListRule());
 	        }
@@ -4325,7 +4327,7 @@ ruleLiteralList returns [EObject current=null]
        			$current, 
        			"elements",
         		lv_elements_4_0, 
-        		"Expression");
+        		"AssignmentExpression");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -4485,9 +4487,9 @@ ruleHashEntry returns [EObject current=null]
 (
 (
 		{ 
-	        newCompositeNode(grammarAccess.getHashEntryAccess().getValueExpressionParserRuleCall_2_0()); 
+	        newCompositeNode(grammarAccess.getHashEntryAccess().getValueAssignmentExpressionParserRuleCall_2_0()); 
 	    }
-		lv_value_2_0=ruleExpression		{
+		lv_value_2_0=ruleAssignmentExpression		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getHashEntryRule());
 	        }
@@ -4495,7 +4497,7 @@ ruleHashEntry returns [EObject current=null]
        			$current, 
        			"value",
         		lv_value_2_0, 
-        		"Expression");
+        		"AssignmentExpression");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -5307,9 +5309,9 @@ ruleExpressionWithHidden returns [EObject current=null]
 )(
 (
 		{ 
-	        newCompositeNode(grammarAccess.getExpressionWithHiddenAccess().getExprExpressionParserRuleCall_1_0()); 
+	        newCompositeNode(grammarAccess.getExpressionWithHiddenAccess().getExprAssignmentExpressionParserRuleCall_1_0()); 
 	    }
-		lv_expr_1_0=ruleExpression		{
+		lv_expr_1_0=ruleAssignmentExpression		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getExpressionWithHiddenRule());
 	        }
@@ -5317,7 +5319,7 @@ ruleExpressionWithHidden returns [EObject current=null]
        			$current, 
        			"expr",
         		lv_expr_1_0, 
-        		"Expression");
+        		"AssignmentExpression");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -5421,9 +5423,9 @@ ruleUnquotedString returns [EObject current=null]
 (
 (
 		{ 
-	        newCompositeNode(grammarAccess.getUnquotedStringAccess().getExpressionExpressionParserRuleCall_2_0()); 
+	        newCompositeNode(grammarAccess.getUnquotedStringAccess().getExpressionAssignmentExpressionParserRuleCall_2_0()); 
 	    }
-		lv_expression_2_0=ruleExpression		{
+		lv_expression_2_0=ruleAssignmentExpression		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getUnquotedStringRule());
 	        }
@@ -5431,7 +5433,7 @@ ruleUnquotedString returns [EObject current=null]
        			$current, 
        			"expression",
         		lv_expression_2_0, 
-        		"Expression");
+        		"AssignmentExpression");
 	        afterParserOrEnumRuleCall();
 	    }
 

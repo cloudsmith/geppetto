@@ -28,6 +28,7 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
+import com.google.gson.JsonArray;
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -119,7 +120,18 @@ public class CatalogResourceImpl extends TaggableImpl implements CatalogResource
 				for(Map.Entry<String, JsonElement> entry : parameterHash.entrySet()) {
 					CatalogResourceParameter rp = CatalogFactory.eINSTANCE.createCatalogResourceParameter();
 					rp.setName(entry.getKey());
-					rp.setValue(entry.getValue().getAsString());
+					if(entry.getValue().isJsonArray()) {
+						StringBuilder values = new StringBuilder();
+						JsonArray multiValue = entry.getValue().getAsJsonArray();
+						for(JsonElement element : multiValue)
+							values.append(element.getAsString());
+						values.append(", ");
+						if(values.length() > 1)
+							values.setLength(values.length() - 2);
+						rp.setValue(values.toString());
+					}
+					else
+						rp.setValue(entry.getValue().getAsString());
 					pList.add(rp);
 				}
 

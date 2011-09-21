@@ -47,4 +47,20 @@ public class TestJsonLoad extends TestCase {
 
 	}
 
+	public void testLoadSample3() throws Exception {
+
+		File f = TestDataProvider.getTestFile(new Path("testData/sample3.json"));
+		Catalog c = CatalogJsonSerializer.load(f);
+
+		assertEquals("Should have the expected name", "backend.i-fcda579c", c.getName());
+		// Save the TargetEntry as a loadable resource
+		ResourceSet resourceSet = new ResourceSetImpl();
+		URI fileURI = URI.createFileURI(new File("testOutput/sample3.catalog").getAbsolutePath());
+		Resource targetResource = resourceSet.createResource(fileURI);
+		targetResource.getContents().add(c);
+		targetResource.save(null);
+		System.err.println("Target saved to: " + fileURI.toString());
+
+	}
+
 }

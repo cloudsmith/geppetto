@@ -819,7 +819,7 @@ public class PPJavaValidator extends AbstractPPJavaValidator implements IPPDiagn
 		if(nameExpr instanceof LiteralNameOrReference) {
 			if(((LiteralNameOrReference) nameExpr).getValue().contains("::")) {
 				acceptor.acceptError(
-					"Qualiied name must be quoted.", o, PPPackage.Literals.RESOURCE_BODY__NAME_EXPR,
+					"Qualified name must be quoted.", o, PPPackage.Literals.RESOURCE_BODY__NAME_EXPR,
 					INSIGNIFICANT_INDEX, IPPDiagnostics.ISSUE__UNQUOTED_QUALIFIED_NAME);
 			}
 		}

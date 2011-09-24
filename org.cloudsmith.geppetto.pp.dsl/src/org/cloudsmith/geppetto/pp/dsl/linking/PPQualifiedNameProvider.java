@@ -14,7 +14,10 @@ package org.cloudsmith.geppetto.pp.dsl.linking;
 import org.cloudsmith.geppetto.pp.Definition;
 import org.cloudsmith.geppetto.pp.DefinitionArgument;
 import org.cloudsmith.geppetto.pp.HostClassDefinition;
+import org.cloudsmith.geppetto.pp.PPPackage;
+import org.cloudsmith.geppetto.pp.VariableExpression;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.xtext.naming.DefaultDeclarativeQualifiedNameProvider;
 import org.eclipse.xtext.naming.IQualifiedNameConverter;
 import org.eclipse.xtext.naming.QualifiedName;
@@ -62,5 +65,25 @@ public class PPQualifiedNameProvider extends DefaultDeclarativeQualifiedNameProv
 
 	QualifiedName qualifiedName(HostClassDefinition o) {
 		return splice(getParentsFullyQualifiedName(o), converter.toQualifiedName(o.getClassName()));
+	}
+
+	QualifiedName qualifiedName(VariableExpression o) {
+		if(o.eContainer().eClass() != PPPackage.Literals.ASSIGNMENT_EXPRESSION)
+			return null;
+		EStructuralFeature feature = o.eContainingFeature();
+		if(feature == null || PPPackage.Literals.BINARY_EXPRESSION__LEFT_EXPR != feature)
+			return null;
+
+		// Do the export of the variable name in context
+		// TODO !!
+		String name = o.getVarName();
+		if(name.startsWith("$"))
+			if(name.length() > 1)
+				name = name.substring(1);
+			else
+				name = "";
+		if(name.length() > 0)
+			return splice(getParentsFullyQualifiedName(o), converter.toQualifiedName(name));
+		return null;
 	}
 }

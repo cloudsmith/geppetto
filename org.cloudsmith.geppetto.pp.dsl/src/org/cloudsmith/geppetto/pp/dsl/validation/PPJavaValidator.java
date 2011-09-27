@@ -282,13 +282,16 @@ public class PPJavaValidator extends AbstractPPJavaValidator implements IPPDiagn
 		// TODO: rhs is not validated, it allows expression, which includes rvalue, but some top level expressions
 		// are probably not allowed (case?)
 
-		// Variables in 'other namespaces' are not assignable.
 		if(leftExpr instanceof VariableExpression) {
 			VariableExpression varExpr = (VariableExpression) leftExpr;
+
+			// Variables in 'other namespaces' are not assignable.
 			if(varExpr.getVarName().contains("::"))
 				acceptor.acceptError("Cannot assign to variables in other namespaces", o, //
 					PPPackage.Literals.BINARY_EXPRESSION__LEFT_EXPR, INSIGNIFICANT_INDEX, //
 					IPPDiagnostics.ISSUE__ASSIGNMENT_OTHER_NAMESPACE);
+
+			// TODO: reassignment not allowed
 		}
 	}
 

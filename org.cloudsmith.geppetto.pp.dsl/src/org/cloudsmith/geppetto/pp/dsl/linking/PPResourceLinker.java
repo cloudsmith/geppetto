@@ -41,6 +41,7 @@ import org.cloudsmith.geppetto.pp.PPPackage;
 import org.cloudsmith.geppetto.pp.PuppetManifest;
 import org.cloudsmith.geppetto.pp.ResourceBody;
 import org.cloudsmith.geppetto.pp.ResourceExpression;
+import org.cloudsmith.geppetto.pp.VariableExpression;
 import org.cloudsmith.geppetto.pp.adapters.ClassifierAdapter;
 import org.cloudsmith.geppetto.pp.adapters.ClassifierAdapterFactory;
 import org.cloudsmith.geppetto.pp.dsl.PPDSLConstants;
@@ -608,6 +609,25 @@ public class PPResourceLinker implements IPPDiagnostics {
 				}
 			}
 		}
+	}
+
+	protected void _link(VariableExpression o, PPImportedNamesAdapter importedNames, IMessageAcceptor acceptor) {
+		// a definition of a variable (as opposed to a reference) is a leftExpr in an assignment expression
+		if(o.eContainer().eClass() == PPPackage.Literals.ASSIGNMENT_EXPRESSION &&
+				PPPackage.Literals.BINARY_EXPRESSION__LEFT_EXPR == o.eContainingFeature())
+			return; // is a definition
+
+		// reference
+		// TODO: what to search?
+		// - scope, outwards
+		// - inheritence
+		// - variables and parameters
+		// - facter variables
+
+		// In 2.8, names must be fully qualified to match in global scope (or is it that relative names only
+		// match in current scope, and must be fully qualified otherwise?
+		// TODO: Add preference check
+
 	}
 
 	private void buildExportedObjectsIndex(IResourceDescription descr, IResourceDescriptions descriptionIndex) {
@@ -1241,7 +1261,9 @@ public class PPResourceLinker implements IPPDiagnostics {
 			EObject o = everything.next();
 			EClass clazz = o.eClass();
 			long beforeLink = System.currentTimeMillis();
-			if(clazz == PPPackage.Literals.RESOURCE_EXPRESSION)
+			if(clazz == PPPackage.Literals.VARIABLE_EXPRESSION)
+				_link((VariableExpression) o, importedNames, acceptor);
+			else if(clazz == PPPackage.Literals.RESOURCE_EXPRESSION)
 				_link((ResourceExpression) o, importedNames, acceptor);
 			else if(clazz == PPPackage.Literals.RESOURCE_BODY)
 				_link((ResourceBody) o, importedNames, acceptor, profileThis);

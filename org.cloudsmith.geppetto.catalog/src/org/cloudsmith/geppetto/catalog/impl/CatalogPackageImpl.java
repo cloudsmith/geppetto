@@ -569,7 +569,7 @@ public class CatalogPackageImpl extends EPackageImpl implements CatalogPackage {
 			CatalogResourceParameter.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID,
 			IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(
-			getCatalogResourceParameter_Value(), ecorePackage.getEString(), "value", null, 1, 1,
+			getCatalogResourceParameter_Value(), ecorePackage.getEString(), "value", null, 1, -1,
 			CatalogResourceParameter.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID,
 			IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 

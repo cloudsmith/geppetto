@@ -11,6 +11,7 @@
  */
 package org.cloudsmith.geppetto.catalog;
 
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 
 /**
@@ -48,20 +49,20 @@ public interface CatalogResourceParameter extends EObject {
 	String getName();
 
 	/**
-	 * Returns the value of the '<em><b>Value</b></em>' attribute.
+	 * Returns the value of the '<em><b>Value</b></em>' attribute list.
+	 * The list contents are of type {@link java.lang.String}.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Value</em>' attribute isn't clear, there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * 
-	 * @return the value of the '<em>Value</em>' attribute.
-	 * @see #setValue(String)
+	 * @return the value of the '<em>Value</em>' attribute list.
 	 * @see org.cloudsmith.geppetto.catalog.CatalogPackage#getCatalogResourceParameter_Value()
 	 * @model required="true"
 	 * @generated
 	 */
-	String getValue();
+	EList<String> getValue();
 
 	/**
 	 * Sets the value of the '{@link org.cloudsmith.geppetto.catalog.CatalogResourceParameter#getName <em>Name</em>}' attribute.
@@ -74,17 +75,5 @@ public interface CatalogResourceParameter extends EObject {
 	 * @generated
 	 */
 	void setName(String value);
-
-	/**
-	 * Sets the value of the '{@link org.cloudsmith.geppetto.catalog.CatalogResourceParameter#getValue <em>Value</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * 
-	 * @param value
-	 *            the new value of the '<em>Value</em>' attribute.
-	 * @see #getValue()
-	 * @generated
-	 */
-	void setValue(String value);
 
 } // CatalogResourceParameter

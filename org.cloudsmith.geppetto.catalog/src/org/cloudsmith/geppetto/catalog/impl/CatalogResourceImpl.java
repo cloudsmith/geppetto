@@ -28,7 +28,6 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
-import com.google.gson.JsonArray;
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -65,6 +64,9 @@ public class CatalogResourceImpl extends TaggableImpl implements CatalogResource
 		}.getType();
 
 		private static java.lang.reflect.Type listOfTagsType = new TypeToken<EList<String>>() {
+		}.getType();
+
+		private static java.lang.reflect.Type listOfStringType = new TypeToken<EList<String>>() {
 		}.getType();
 
 		private static boolean getBoolean(JsonObject jsonObj, String key) {
@@ -114,6 +116,9 @@ public class CatalogResourceImpl extends TaggableImpl implements CatalogResource
 				deserializeInto(json, result.getTags(), String.class, context);
 
 			json = jsonObj.get("parameters");
+			// if(json != null) {
+			// deserializeInto(json, result.getParameters(), CatalogResourceParameter.class, context);
+			// }
 			if(json != null) {
 				JsonObject parameterHash = json.getAsJsonObject();
 				EList<CatalogResourceParameter> pList = result.getParameters();
@@ -121,17 +126,18 @@ public class CatalogResourceImpl extends TaggableImpl implements CatalogResource
 					CatalogResourceParameter rp = CatalogFactory.eINSTANCE.createCatalogResourceParameter();
 					rp.setName(entry.getKey());
 					if(entry.getValue().isJsonArray()) {
-						StringBuilder values = new StringBuilder();
-						JsonArray multiValue = entry.getValue().getAsJsonArray();
-						for(JsonElement element : multiValue)
-							values.append(element.getAsString());
-						values.append(", ");
-						if(values.length() > 1)
-							values.setLength(values.length() - 2);
-						rp.setValue(values.toString());
+						deserializeInto(entry.getValue(), rp.getValue(), String.class, context);
+						// StringBuilder values = new StringBuilder();
+						// JsonArray multiValue = entry.getValue().getAsJsonArray();
+						// for(JsonElement element : multiValue)
+						// values.append(element.getAsString());
+						// values.append(", ");
+						// if(values.length() > 1)
+						// values.setLength(values.length() - 2);
+						// rp.setValue(values.toString());
 					}
 					else
-						rp.setValue(entry.getValue().getAsString());
+						rp.getValue().add(entry.getValue().getAsString());
 					pList.add(rp);
 				}
 
@@ -155,8 +161,14 @@ public class CatalogResourceImpl extends TaggableImpl implements CatalogResource
 
 			if(cat.parameters != null) {
 				JsonObject jsonParameters = new JsonObject();
-				for(CatalogResourceParameter p : cat.parameters)
-					jsonParameters.add(p.getName(), new JsonPrimitive(p.getValue()));
+				for(CatalogResourceParameter p : cat.parameters) {
+					JsonElement valueElement;
+					if(p.getValue().size() == 1)
+						valueElement = new JsonPrimitive(p.getValue().get(0));
+					else
+						valueElement = context.serialize(p.getValue(), listOfStringType);
+					jsonParameters.add(p.getName(), valueElement);
+				}
 				result.add("parameters", jsonParameters);
 			}
 

@@ -11,14 +11,18 @@
  */
 package org.cloudsmith.geppetto.catalog.impl;
 
+import java.util.Collection;
+
 import org.cloudsmith.geppetto.catalog.CatalogFactory;
 import org.cloudsmith.geppetto.catalog.CatalogPackage;
 import org.cloudsmith.geppetto.catalog.CatalogResourceParameter;
 import org.cloudsmith.geppetto.catalog.util.CatalogJsonSerializer;
 import org.eclipse.emf.common.notify.Notification;
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
+import org.eclipse.emf.ecore.util.EDataTypeUniqueEList;
 
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonElement;
@@ -26,6 +30,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
 import com.google.gson.JsonSerializationContext;
 import com.google.gson.JsonSerializer;
+import com.google.gson.reflect.TypeToken;
 
 /**
  * <!-- begin-user-doc -->
@@ -42,8 +47,14 @@ import com.google.gson.JsonSerializer;
  * @generated
  */
 public class CatalogResourceParameterImpl extends EObjectImpl implements CatalogResourceParameter {
-	public static class JsonAdapter extends CatalogJsonSerializer.ContainerDeserializer<CatalogResourceParameter> implements
-			JsonSerializer<CatalogResourceParameter> {
+	/**
+	 * TODO: This serializer/deserializer is broken (and unused).
+	 * 
+	 */
+	public static class JsonAdapter extends CatalogJsonSerializer.ContainerDeserializer<CatalogResourceParameter>
+			implements JsonSerializer<CatalogResourceParameter> {
+		private static java.lang.reflect.Type listOfStringType = new TypeToken<EList<String>>() {
+		}.getType();
 
 		private static String getString(JsonObject jsonObj, String key) {
 			JsonElement json = jsonObj.get(key);
@@ -70,7 +81,11 @@ public class CatalogResourceParameterImpl extends EObjectImpl implements Catalog
 			JsonObject jsonObj = json.getAsJsonObject();
 
 			result.setName(getString(jsonObj, "name"));
-			result.setValue(getString(jsonObj, "value"));
+			JsonObject valueObj = jsonObj.getAsJsonObject("value");
+			if(valueObj.isJsonArray())
+				deserializeInto(valueObj, result.getValue(), String.class, context);
+			else
+				result.getValue().add(valueObj.getAsString());
 
 			return result;
 		}
@@ -82,7 +97,10 @@ public class CatalogResourceParameterImpl extends EObjectImpl implements Catalog
 			final CatalogResourceParameterImpl cat = (CatalogResourceParameterImpl) src;
 
 			putString(result, "name", cat.getName());
-			putString(result, "value", cat.getValue());
+			if(cat.getValue().size() == 1)
+				putString(result, "value", cat.getValue().get(0));
+			else
+				result.add("value", context.serialize(cat.getValue(), listOfStringType));
 
 			return result;
 		}
@@ -111,7 +129,7 @@ public class CatalogResourceParameterImpl extends EObjectImpl implements Catalog
 	protected String name = NAME_EDEFAULT;
 
 	/**
-	 * The default value of the '{@link #getValue() <em>Value</em>}' attribute.
+	 * The cached value of the '{@link #getValue() <em>Value</em>}' attribute list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
@@ -119,18 +137,7 @@ public class CatalogResourceParameterImpl extends EObjectImpl implements Catalog
 	 * @generated
 	 * @ordered
 	 */
-	protected static final String VALUE_EDEFAULT = null;
-
-	/**
-	 * The cached value of the '{@link #getValue() <em>Value</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * 
-	 * @see #getValue()
-	 * @generated
-	 * @ordered
-	 */
-	protected String value = VALUE_EDEFAULT;
+	protected EList<String> value;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -173,9 +180,7 @@ public class CatalogResourceParameterImpl extends EObjectImpl implements Catalog
 						? name != null
 						: !NAME_EDEFAULT.equals(name);
 			case CatalogPackage.CATALOG_RESOURCE_PARAMETER__VALUE:
-				return VALUE_EDEFAULT == null
-						? value != null
-						: !VALUE_EDEFAULT.equals(value);
+				return value != null && !value.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}
@@ -186,6 +191,7 @@ public class CatalogResourceParameterImpl extends EObjectImpl implements Catalog
 	 * 
 	 * @generated
 	 */
+	@SuppressWarnings("unchecked")
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch(featureID) {
@@ -193,7 +199,8 @@ public class CatalogResourceParameterImpl extends EObjectImpl implements Catalog
 				setName((String) newValue);
 				return;
 			case CatalogPackage.CATALOG_RESOURCE_PARAMETER__VALUE:
-				setValue((String) newValue);
+				getValue().clear();
+				getValue().addAll((Collection<? extends String>) newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -223,7 +230,7 @@ public class CatalogResourceParameterImpl extends EObjectImpl implements Catalog
 				setName(NAME_EDEFAULT);
 				return;
 			case CatalogPackage.CATALOG_RESOURCE_PARAMETER__VALUE:
-				setValue(VALUE_EDEFAULT);
+				getValue().clear();
 				return;
 		}
 		super.eUnset(featureID);
@@ -245,7 +252,11 @@ public class CatalogResourceParameterImpl extends EObjectImpl implements Catalog
 	 * 
 	 * @generated
 	 */
-	public String getValue() {
+	public EList<String> getValue() {
+		if(value == null) {
+			value = new EDataTypeUniqueEList<String>(
+				String.class, this, CatalogPackage.CATALOG_RESOURCE_PARAMETER__VALUE);
+		}
 		return value;
 	}
 
@@ -261,20 +272,6 @@ public class CatalogResourceParameterImpl extends EObjectImpl implements Catalog
 		if(eNotificationRequired())
 			eNotify(new ENotificationImpl(
 				this, Notification.SET, CatalogPackage.CATALOG_RESOURCE_PARAMETER__NAME, oldName, name));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * 
-	 * @generated
-	 */
-	public void setValue(String newValue) {
-		String oldValue = value;
-		value = newValue;
-		if(eNotificationRequired())
-			eNotify(new ENotificationImpl(
-				this, Notification.SET, CatalogPackage.CATALOG_RESOURCE_PARAMETER__VALUE, oldValue, value));
 	}
 
 	/**

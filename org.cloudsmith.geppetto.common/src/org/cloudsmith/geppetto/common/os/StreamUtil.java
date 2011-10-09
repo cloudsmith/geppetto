@@ -71,6 +71,16 @@ public class StreamUtil {
 		public LineNumberReader getReader() {
 			return new LineNumberReader(new InputStreamReader(getInputStream(), ASCII));
 		}
+
+		public boolean isEmpty() {
+			return count == 0;
+		}
+
+		public String toString(Charset charset) {
+			return count == 0
+					? ""
+					: new String(buf, 0, count, charset);
+		}
 	}
 
 	public static final Charset ASCII = Charset.forName("ASCII");

@@ -469,6 +469,8 @@ public class PPJavaValidator extends AbstractPPJavaValidator implements IPPDiagn
 	 */
 	@Check
 	public void checkCaseExpression(Case o) {
+		internalCheckTopLevelExpressions(o.getStatements());
+
 		for(Expression value : o.getValues()) {
 			if(value.eClass() == PPPackage.Literals.LITERAL_NAME_OR_REFERENCE) {
 				String v = ((LiteralNameOrReference) value).getValue();
@@ -514,6 +516,8 @@ public class PPJavaValidator extends AbstractPPJavaValidator implements IPPDiagn
 
 	@Check
 	public void checkDefinition(Definition o) {
+		internalCheckTopLevelExpressions(o.getStatements());
+
 		// Can only be contained by manifest (global scope), or another class.
 		EObject container = o.eContainer();
 		if(!(container instanceof PuppetManifest || container instanceof HostClassDefinition))
@@ -558,6 +562,7 @@ public class PPJavaValidator extends AbstractPPJavaValidator implements IPPDiagn
 
 	@Check
 	public void checkElseExpression(ElseExpression o) {
+		internalCheckTopLevelExpressions(o.getStatements());
 		EObject container = o.eContainer();
 		if(container instanceof IfExpression || container instanceof ElseExpression ||
 				container instanceof ElseIfExpression)
@@ -569,6 +574,7 @@ public class PPJavaValidator extends AbstractPPJavaValidator implements IPPDiagn
 
 	@Check
 	public void checkElseIfExpression(ElseIfExpression o) {
+		internalCheckTopLevelExpressions(o.getThenStatements());
 		EObject container = o.eContainer();
 		if(container instanceof IfExpression || container instanceof ElseExpression ||
 				container instanceof ElseIfExpression)
@@ -608,6 +614,7 @@ public class PPJavaValidator extends AbstractPPJavaValidator implements IPPDiagn
 
 	@Check
 	public void checkIfExpression(IfExpression o) {
+		internalCheckTopLevelExpressions(o.getThenStatements());
 		Expression elseStatement = o.getElseStatement();
 		if(elseStatement == null || elseStatement instanceof ElseExpression || elseStatement instanceof IfExpression ||
 				elseStatement instanceof ElseIfExpression)
@@ -700,6 +707,8 @@ public class PPJavaValidator extends AbstractPPJavaValidator implements IPPDiagn
 
 	@Check
 	public void checkNodeDefinition(NodeDefinition o) {
+		internalCheckTopLevelExpressions(o.getStatements());
+
 		// Can only be contained by manifest (global scope), or another class.
 		EObject container = o.eContainer();
 		if(!(container instanceof PuppetManifest || container instanceof HostClassDefinition))

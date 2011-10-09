@@ -25,12 +25,18 @@ import java.util.Map;
 import org.cloudsmith.geppetto.common.tracer.ITracer;
 import org.cloudsmith.geppetto.pp.AttributeOperation;
 import org.cloudsmith.geppetto.pp.AttributeOperations;
+import org.cloudsmith.geppetto.pp.Case;
+import org.cloudsmith.geppetto.pp.Definition;
+import org.cloudsmith.geppetto.pp.ElseExpression;
+import org.cloudsmith.geppetto.pp.ElseIfExpression;
 import org.cloudsmith.geppetto.pp.ExprList;
 import org.cloudsmith.geppetto.pp.Expression;
 import org.cloudsmith.geppetto.pp.FunctionCall;
 import org.cloudsmith.geppetto.pp.HostClassDefinition;
+import org.cloudsmith.geppetto.pp.IfExpression;
 import org.cloudsmith.geppetto.pp.LiteralExpression;
 import org.cloudsmith.geppetto.pp.LiteralNameOrReference;
+import org.cloudsmith.geppetto.pp.NodeDefinition;
 import org.cloudsmith.geppetto.pp.PPPackage;
 import org.cloudsmith.geppetto.pp.PuppetManifest;
 import org.cloudsmith.geppetto.pp.ResourceBody;
@@ -1245,6 +1251,18 @@ public class PPResourceLinker implements IPPDiagnostics {
 			// these are needed to link un-parenthesised function calls
 			else if(clazz == PPPackage.Literals.PUPPET_MANIFEST)
 				internalLinkUnparenthesisedCall(((PuppetManifest) o).getStatements(), importedNames, acceptor);
+			else if(clazz == PPPackage.Literals.IF_EXPRESSION)
+				internalLinkUnparenthesisedCall(((IfExpression) o).getThenStatements(), importedNames, acceptor);
+			else if(clazz == PPPackage.Literals.ELSE_EXPRESSION)
+				internalLinkUnparenthesisedCall(((ElseExpression) o).getStatements(), importedNames, acceptor);
+			else if(clazz == PPPackage.Literals.ELSE_IF_EXPRESSION)
+				internalLinkUnparenthesisedCall(((ElseIfExpression) o).getThenStatements(), importedNames, acceptor);
+			else if(clazz == PPPackage.Literals.NODE_DEFINITION)
+				internalLinkUnparenthesisedCall(((NodeDefinition) o).getStatements(), importedNames, acceptor);
+			else if(clazz == PPPackage.Literals.DEFINITION)
+				internalLinkUnparenthesisedCall(((Definition) o).getStatements(), importedNames, acceptor);
+			else if(clazz == PPPackage.Literals.CASE)
+				internalLinkUnparenthesisedCall(((Case) o).getStatements(), importedNames, acceptor);
 			else if(clazz == PPPackage.Literals.HOST_CLASS_DEFINITION) {
 				_link((HostClassDefinition) o, importedNames, acceptor);
 				internalLinkUnparenthesisedCall(((HostClassDefinition) o).getStatements(), importedNames, acceptor);

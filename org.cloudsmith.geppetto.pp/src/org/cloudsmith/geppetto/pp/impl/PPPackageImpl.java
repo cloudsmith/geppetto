@@ -45,6 +45,7 @@ import org.cloudsmith.geppetto.pp.ImportExpression;
 import org.cloudsmith.geppetto.pp.InExpression;
 import org.cloudsmith.geppetto.pp.InterpolatedVariable;
 import org.cloudsmith.geppetto.pp.LiteralBoolean;
+import org.cloudsmith.geppetto.pp.LiteralClass;
 import org.cloudsmith.geppetto.pp.LiteralDefault;
 import org.cloudsmith.geppetto.pp.LiteralExpression;
 import org.cloudsmith.geppetto.pp.LiteralHash;
@@ -645,6 +646,14 @@ public class PPPackageImpl extends EPackageImpl implements PPPackage {
 	 * 
 	 * @generated
 	 */
+	private EClass literalClassEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
 	private static boolean isInited = false;
 
 	/**
@@ -925,6 +934,8 @@ public class PPPackageImpl extends EPackageImpl implements PPPackage {
 
 		variableTEEClass = createEClass(VARIABLE_TE);
 		createEAttribute(variableTEEClass, VARIABLE_TE__VAR_NAME);
+
+		literalClassEClass = createEClass(LITERAL_CLASS);
 	}
 
 	/**
@@ -1613,6 +1624,16 @@ public class PPPackageImpl extends EPackageImpl implements PPPackage {
 	 * 
 	 * @generated
 	 */
+	public EClass getLiteralClass() {
+		return literalClassEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
 	public EClass getLiteralDefault() {
 		return literalDefaultEClass;
 	}
@@ -2291,6 +2312,7 @@ public class PPPackageImpl extends EPackageImpl implements PPPackage {
 		verbatimTEEClass.getESuperTypes().add(this.getTextExpression());
 		expressionTEEClass.getESuperTypes().add(this.getTextExpression());
 		variableTEEClass.getESuperTypes().add(this.getTextExpression());
+		literalClassEClass.getESuperTypes().add(this.getLiteralExpression());
 
 		// Initialize classes and features; add operations and parameters
 		initEClass(
@@ -2780,6 +2802,10 @@ public class PPPackageImpl extends EPackageImpl implements PPPackage {
 		initEAttribute(
 			getVariableTE_VarName(), ecorePackage.getEString(), "varName", null, 0, 1, VariableTE.class, !IS_TRANSIENT,
 			!IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(
+			literalClassEClass, LiteralClass.class, "LiteralClass", !IS_ABSTRACT, !IS_INTERFACE,
+			IS_GENERATED_INSTANCE_CLASS);
 
 		// Create resource
 		createResource(eNS_URI);

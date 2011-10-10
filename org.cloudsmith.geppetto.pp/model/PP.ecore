@@ -212,4 +212,5 @@
   <eClassifiers xsi:type="ecore:EClass" name="VariableTE" eSuperTypes="#//TextExpression">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="varName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="LiteralClass" eSuperTypes="#//LiteralExpression"/>
 </ecore:EPackage>

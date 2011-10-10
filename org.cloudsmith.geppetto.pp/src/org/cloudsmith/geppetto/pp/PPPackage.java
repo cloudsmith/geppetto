@@ -1333,6 +1333,17 @@ public interface PPPackage extends EPackage {
 		 */
 		EAttribute VARIABLE_TE__VAR_NAME = eINSTANCE.getVariableTE_VarName();
 
+		/**
+		 * The meta object literal for the '{@link org.cloudsmith.geppetto.pp.impl.LiteralClassImpl <em>Literal Class</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * 
+		 * @see org.cloudsmith.geppetto.pp.impl.LiteralClassImpl
+		 * @see org.cloudsmith.geppetto.pp.impl.PPPackageImpl#getLiteralClass()
+		 * @generated
+		 */
+		EClass LITERAL_CLASS = eINSTANCE.getLiteralClass();
+
 	}
 
 	/**
@@ -3990,6 +4001,27 @@ public interface PPPackage extends EPackage {
 	int VARIABLE_TE_FEATURE_COUNT = TEXT_EXPRESSION_FEATURE_COUNT + 1;
 
 	/**
+	 * The meta object id for the '{@link org.cloudsmith.geppetto.pp.impl.LiteralClassImpl <em>Literal Class</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @see org.cloudsmith.geppetto.pp.impl.LiteralClassImpl
+	 * @see org.cloudsmith.geppetto.pp.impl.PPPackageImpl#getLiteralClass()
+	 * @generated
+	 */
+	int LITERAL_CLASS = 68;
+
+	/**
+	 * The number of structural features of the '<em>Literal Class</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 * @ordered
+	 */
+	int LITERAL_CLASS_FEATURE_COUNT = LITERAL_EXPRESSION_FEATURE_COUNT + 0;
+
+	/**
 	 * Returns the meta object for class '{@link org.cloudsmith.geppetto.pp.AdditiveExpression <em>Additive Expression</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -4777,6 +4809,17 @@ public interface PPPackage extends EPackage {
 	 * @generated
 	 */
 	EAttribute getLiteralBoolean_Value();
+
+	/**
+	 * Returns the meta object for class '{@link org.cloudsmith.geppetto.pp.LiteralClass <em>Literal Class</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @return the meta object for class '<em>Literal Class</em>'.
+	 * @see org.cloudsmith.geppetto.pp.LiteralClass
+	 * @generated
+	 */
+	EClass getLiteralClass();
 
 	/**
 	 * Returns the meta object for class '{@link org.cloudsmith.geppetto.pp.LiteralDefault <em>Literal Default</em>}'.

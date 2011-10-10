@@ -101,11 +101,11 @@ ResourceExpression returns pp::Expression
 				(resourceData += ResourceBody (';'  resourceData += ResourceBody)* ';'?)?
 			'}' 
 		)?
+	| {pp::ResourceExpression} resourceExpr = LiteralClass
+			'{'  
+				(resourceData += ResourceBody (';'  resourceData += ResourceBody)* ';'?)?
+			'}' 
 	;
-
-ResourceTypeExpression returns pp::Expression :
-	LiteralNameOrReference | VirtualNameOrReference | AtExpression
-;
 
 // Note: allows all AttributeOperation subtypes but this depends on the parent's type
 // VALIDATION checks allowed types	
@@ -114,28 +114,12 @@ ResourceBody returns pp::ResourceBody
 	| attributes = AttributeOperations
 	;
 
-//// VALIDATION: checks that key is a NAME
-//AttributeDefinition returns pp::AttributeDefinition
-//	: unionNameOrReference ({pp::AttributeDefinition.key = current} '=>' value = Expression) 
-////	:  key = unionNameOrReference  '=>'  value = Expression 
-//	;
-
-//// VALIDATION: checks that key is a NAME
-//AttributeAddition returns pp::AttributeAddition
-//	:  key = unionNameOrReference  '+>'  value = Expression
-//	;
 
 // VALIDATION: key is a NAME, op is supported and Expression is not null
 // CONTENT ASSIST: must have op and value as optional, or state is nearly always wrong for CA.
 AttributeOperation returns pp::AttributeOperation
-	: {pp::AttributeOperation} key = unionNameOrReference (op = ('=>' | '+>') value = Expression)?
-	;
-
-//AttributeOperation returns pp::AttributeOperation
-//	: AttributeDefinition
-//	| AttributeAddition
-//	;
-	
+	: {pp::AttributeOperation} key = name (op = ('=>' | '+>') value = Expression)?
+	;	
 
 // VALIDATION: checks that there are ',' between operations
 // NOTE: if ','	is mandatory in grammar, backtracking will think statement is a different (faulty)
@@ -353,7 +337,7 @@ HostReference returns pp::Expression
 	
 HostClassDefinition returns pp::HostClassDefinition
 	: 'class'  
-		 className = unionNameOrReference  
+		 className = classname  
 		arguments = DefinitionArgumentList?
 		('inherits'  parent = ParentName)?	
 		'{'  
@@ -363,12 +347,13 @@ HostClassDefinition returns pp::HostClassDefinition
 	
 ParentName returns pp::LiteralExpression
 	: LiteralDefault
+	| LiteralClass
 	| LiteralNameOrReference
 	;
-	
+
 Definition returns pp::Definition
 	: 	'define' 
-		 className = unionNameOrReference 
+		 className = classname 
 		arguments = DefinitionArgumentList?
 		'{' 
 			(statements += ExpressionList)* 
@@ -446,12 +431,12 @@ LiteralExpression returns pp::Expression
 	;
 		
 LiteralNameOrReference returns pp::LiteralNameOrReference
-	:  value = unionNameOrReference 
+	:  value = name 
 	;
 	
 UNION_VARIABLE_OR_NAME 
-	:'$' (unionNameOrReference | keyword) 
-	| unionNameOrReference
+	: dollarVariable
+	| name
 	;
 	
 // validate that expr is not empty	
@@ -512,6 +497,10 @@ LiteralDefault 	returns pp::LiteralDefault
 	
 LiteralUndef 	returns pp::LiteralUndef
 	: {pp::LiteralUndef} 'undef'  
+	;
+	
+LiteralClass 	returns pp::LiteralClass
+	: {pp::LiteralClass} 'class'  
 	;
 
 StringExpression returns pp::Expression hidden(WS, SL_COMMENT, ML_COMMENT)
@@ -600,7 +589,7 @@ LiteralRegex returns pp::LiteralRegex
 
 // VALIDATION: checks that the name is a NAME (and not a reference).
 LiteralName returns pp::LiteralName
-	: value = unionNameOrReference 
+	: value = name 
 	; 
 	 
 VariableExpression returns pp::VariableExpression
@@ -608,21 +597,23 @@ VariableExpression returns pp::VariableExpression
 	; 
 
 dollarVariable hidden()
-	: '$' (variable | keyword)
+	: '$' (name | keyword)
 	;
 	
 keyword : ('and' | 'case' | 'class' | 'default' | 'define' | 'else' | 'elsif' | 'in' |'inherits' 
 		| 'import' | 'node' | 'or' | 'undef' | 'true' | 'false' | 'if')
 	;
 
-variable hidden()
+name
 	// a puppet grammar glitch allows '::' any number of times (\w*::)*\w+. Validation checks correctness.
 	: WORD_CHARS
 	;
 
+classname : name | 'class';
+
 // captures names and references, complicated by the fact that a keyword may be part of the name
 // if the name contains '::' - for more info see the PPLexer
-unionNameOrReference //hidden()
+unionNameOrReference
 	: WORD_CHARS | 'class' | 'default' 
 	;
 

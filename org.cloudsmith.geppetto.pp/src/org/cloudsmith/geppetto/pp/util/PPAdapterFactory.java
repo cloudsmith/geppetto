@@ -11,6 +11,7 @@
  */
 package org.cloudsmith.geppetto.pp.util;
 
+import org.cloudsmith.geppetto.pp.*;
 import org.cloudsmith.geppetto.pp.AdditiveExpression;
 import org.cloudsmith.geppetto.pp.AndExpression;
 import org.cloudsmith.geppetto.pp.AppendExpression;
@@ -280,6 +281,11 @@ public class PPAdapterFactory extends AdapterFactoryImpl {
 		@Override
 		public Adapter caseLiteralBoolean(LiteralBoolean object) {
 			return createLiteralBooleanAdapter();
+		}
+
+		@Override
+		public Adapter caseLiteralClass(LiteralClass object) {
+			return createLiteralClassAdapter();
 		}
 
 		@Override
@@ -1006,6 +1012,21 @@ public class PPAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createLiteralBooleanAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.cloudsmith.geppetto.pp.LiteralClass <em>Literal Class</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * 
+	 * @return the new adapter.
+	 * @see org.cloudsmith.geppetto.pp.LiteralClass
+	 * @generated
+	 */
+	public Adapter createLiteralClassAdapter() {
 		return null;
 	}
 

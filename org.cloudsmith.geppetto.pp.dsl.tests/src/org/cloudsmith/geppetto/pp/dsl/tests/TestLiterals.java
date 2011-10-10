@@ -58,14 +58,23 @@ public class TestLiterals extends AbstractPuppetTests {
 			assertEquals("parsed should be same as input", s, result.getRootNode().getText());
 		}
 		for(String s : validNames) {
+			if("class".equals(s))
+				continue; // 'class' alone is not a valid value expression
 			IParseResult result = parser.parse(ga.getExpressionRule(), new StringReader(s));
 			assertFalse("Should not have errors for: " + s, result.hasSyntaxErrors());
 			assertEquals("parsed should be same as input", s, result.getRootNode().getText());
 			EObject root = result.getRootASTElement();
+			// if("class".equals(s)) {
+			// assertTrue("Should be ResourceExpression", root instanceof ResourceExpression);
+			// }
+			// else {
 			assertTrue("Should be LiteralNameOrReference", root instanceof LiteralNameOrReference);
 			assertEquals("Literal should be same as input", s, ((LiteralNameOrReference) root).getValue());
+			// }
 		}
 		for(String s : validNames) {
+			if("class".equals(s))
+				continue; // 'class' alone is not a balid value expression
 			IParseResult result = parser.parse(ga.getPuppetManifestRule(), new StringReader(s));
 			assertFalse("Should not have errors for: " + s, result.hasSyntaxErrors());
 			assertEquals("parsed should be same as input", s, result.getRootNode().getText());
@@ -74,8 +83,14 @@ public class TestLiterals extends AbstractPuppetTests {
 			PuppetManifest pm = (PuppetManifest) root;
 			assertTrue("Manifest should have statements", pm.getStatements().size() > 0);
 			EObject expr = pm.getStatements().get(0);
+			// if("class".equals(s)) {
+			// assertTrue("Should be ResourceExpression", expr instanceof ResourceExpression);
+			// }
+			// else {
 			assertTrue("Should be LiteralNameOrReference", expr instanceof LiteralNameOrReference);
 			assertEquals("Literal should be same as input", s, ((LiteralNameOrReference) expr).getValue());
+			// }
+
 		}
 
 	}

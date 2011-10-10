@@ -323,6 +323,16 @@ public interface PPFactory extends EFactory {
 	LiteralBoolean createLiteralBoolean();
 
 	/**
+	 * Returns a new object of class '<em>Literal Class</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @return a new object of class '<em>Literal Class</em>'.
+	 * @generated
+	 */
+	LiteralClass createLiteralClass();
+
+	/**
 	 * Returns a new object of class '<em>Literal Default</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

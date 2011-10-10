@@ -284,16 +284,29 @@ public class PPFormatter extends AbstractDeclarativeFormatter {
 			c.setNoLinewrap().before(colon);
 		}
 		// + indent the body of the resource expression
-		Keyword lbr = ga.getResourceExpressionAccess().getLeftCurlyBracketKeyword_1_1();
-		Keyword rbr = ga.getResourceExpressionAccess().getRightCurlyBracketKeyword_1_3();
-		c.setIndentation(lbr, rbr);
-		c.setNoLinewrap().before(lbr);
-		c.setLinewrap().after(lbr);
-		c.setLinewrap().before(rbr);
-		c.setLinewrap().after(rbr);
-
-		Keyword endComma = ga.getAttributeOperationsAccess().getCommaKeyword_2();
-		c.setLinewrap(1).between(endComma, rbr);
+		{
+			Keyword lbr = ga.getResourceExpressionAccess().getLeftCurlyBracketKeyword_0_1_1();
+			Keyword rbr = ga.getResourceExpressionAccess().getRightCurlyBracketKeyword_0_1_3();
+			c.setIndentation(lbr, rbr);
+			c.setNoLinewrap().before(lbr);
+			c.setLinewrap().after(lbr);
+			c.setLinewrap().before(rbr);
+			c.setLinewrap().after(rbr);
+			Keyword endComma = ga.getAttributeOperationsAccess().getCommaKeyword_2();
+			c.setLinewrap(1).between(endComma, rbr);
+		}
+		// repeat for literal class for of the rule
+		{
+			Keyword lbr = ga.getResourceExpressionAccess().getLeftCurlyBracketKeyword_1_2();
+			Keyword rbr = ga.getResourceExpressionAccess().getRightCurlyBracketKeyword_1_4();
+			c.setIndentation(lbr, rbr);
+			c.setNoLinewrap().before(lbr);
+			c.setLinewrap().after(lbr);
+			c.setLinewrap().before(rbr);
+			c.setLinewrap().after(rbr);
+			Keyword endComma = ga.getAttributeOperationsAccess().getCommaKeyword_2();
+			c.setLinewrap(1).between(endComma, rbr);
+		}
 
 		// + linebreak after «attribute (=>|+>) expr,»
 		Keyword comma = ga.getAttributeOperationsAccess().getCommaKeyword_1_0_0();
@@ -306,12 +319,22 @@ public class PPFormatter extends AbstractDeclarativeFormatter {
 		// c.setLinewrap().after(comma);
 		// }
 		// linebreak after each resource body in a list of resource bodies
-		Keyword semi = ga.getResourceExpressionAccess().getSemicolonKeyword_1_2_1_0();
-		c.setNoLinewrap().before(semi);
-		c.setLinewrap(2).after(semi);
-		Keyword endSemi = ga.getResourceExpressionAccess().getSemicolonKeyword_1_2_2();
-		c.setNoLinewrap().before(endSemi);
-		c.setLinewrap(1).after(endSemi);
+		{
+			Keyword semi = ga.getResourceExpressionAccess().getSemicolonKeyword_0_1_2_1_0();
+			c.setNoLinewrap().before(semi);
+			c.setLinewrap(2).after(semi);
+			Keyword endSemi = ga.getResourceExpressionAccess().getSemicolonKeyword_0_1_2_2();
+			c.setNoLinewrap().before(endSemi);
+			c.setLinewrap(1).after(endSemi);
+		}
+		{ // repeat for second group
+			Keyword semi = ga.getResourceExpressionAccess().getSemicolonKeyword_1_3_1_0();
+			c.setNoLinewrap().before(semi);
+			c.setLinewrap(2).after(semi);
+			Keyword endSemi = ga.getResourceExpressionAccess().getSemicolonKeyword_1_3_2();
+			c.setNoLinewrap().before(endSemi);
+			c.setLinewrap(1).after(endSemi);
+		}
 		// c.setLinewrap(1).between(endSemi, rbr);
 
 		// no wrap when RESOURCE -> RESOURCE is used

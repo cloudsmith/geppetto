@@ -253,6 +253,8 @@ public class PPFactoryImpl extends EFactoryImpl implements PPFactory {
 				return createExpressionTE();
 			case PPPackage.VARIABLE_TE:
 				return createVariableTE();
+			case PPPackage.LITERAL_CLASS:
+				return createLiteralClass();
 			default:
 				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
@@ -575,6 +577,17 @@ public class PPFactoryImpl extends EFactoryImpl implements PPFactory {
 	public LiteralBoolean createLiteralBoolean() {
 		LiteralBooleanImpl literalBoolean = new LiteralBooleanImpl();
 		return literalBoolean;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
+	public LiteralClass createLiteralClass() {
+		LiteralClassImpl literalClass = new LiteralClassImpl();
+		return literalClass;
 	}
 
 	/**

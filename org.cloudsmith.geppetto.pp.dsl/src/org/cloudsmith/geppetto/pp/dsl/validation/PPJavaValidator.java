@@ -48,6 +48,7 @@ import org.cloudsmith.geppetto.pp.IfExpression;
 import org.cloudsmith.geppetto.pp.ImportExpression;
 import org.cloudsmith.geppetto.pp.InExpression;
 import org.cloudsmith.geppetto.pp.LiteralBoolean;
+import org.cloudsmith.geppetto.pp.LiteralClass;
 import org.cloudsmith.geppetto.pp.LiteralDefault;
 import org.cloudsmith.geppetto.pp.LiteralHash;
 import org.cloudsmith.geppetto.pp.LiteralList;
@@ -869,12 +870,15 @@ public class PPJavaValidator extends AbstractPPJavaValidator implements IPPDiagn
 		int resourceType = RESOURCE_IS_BAD; // unknown at this point
 		final Expression resourceExpr = o.getResourceExpr();
 		String resourceTypeName = null;
-		if(resourceExpr instanceof LiteralNameOrReference || resourceExpr instanceof VirtualNameOrReference) {
+		if(resourceExpr instanceof LiteralNameOrReference || resourceExpr instanceof VirtualNameOrReference ||
+				resourceExpr instanceof LiteralClass) {
 
 			if(resourceExpr instanceof LiteralNameOrReference) {
 				LiteralNameOrReference resourceTypeExpr = (LiteralNameOrReference) resourceExpr;
 				resourceTypeName = resourceTypeExpr.getValue();
 			}
+			else if(resourceExpr instanceof LiteralClass)
+				resourceTypeName = "class";
 			else {
 				VirtualNameOrReference vn = (VirtualNameOrReference) resourceExpr;
 				resourceTypeName = vn.getValue();

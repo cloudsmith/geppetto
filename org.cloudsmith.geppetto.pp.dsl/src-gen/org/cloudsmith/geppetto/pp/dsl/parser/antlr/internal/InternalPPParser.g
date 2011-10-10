@@ -5057,9 +5057,15 @@ ruleDoubleQuotedString returns [EObject current=null]
 
 )
 )
-	otherlv_2=KEYWORD_2
+	{ 
+	  /* */ 
+	}
+    { 
+        newCompositeNode(grammarAccess.getDoubleQuotedStringAccess().getEndDqQuoteParserRuleCall_2()); 
+    }
+ruleendDqQuote
     {
-    	newLeafNode(otherlv_2, grammarAccess.getDoubleQuotedStringAccess().getQuotationMarkKeyword_2());
+        afterParserOrEnumRuleCall();
     }
 )
 ;
@@ -5071,25 +5077,56 @@ finally {
 
 
 
-// Entry rule entryRuleTextExpression
-entryRuleTextExpression returns [EObject current=null]
+// Entry rule entryRuleendDqQuote
+entryRuleendDqQuote returns [String current=null] 
 	@init { 
-		HiddenTokens myHiddenTokenState = ((XtextTokenStream)input).setHiddenTokens();
+		HiddenTokens myHiddenTokenState = ((XtextTokenStream)input).setHiddenTokens("RULE_WS", "RULE_SL_COMMENT", "RULE_ML_COMMENT");
 	}
-	:
-	{ newCompositeNode(grammarAccess.getTextExpressionRule()); }
-	 iv_ruleTextExpression=ruleTextExpression 
-	 { $current=$iv_ruleTextExpression.current; } 
+:
+	{ newCompositeNode(grammarAccess.getEndDqQuoteRule()); } 
+	 iv_ruleendDqQuote=ruleendDqQuote 
+	 { $current=$iv_ruleendDqQuote.current.getText(); }  
 	 EOF 
 ;
 finally {
 	myHiddenTokenState.restore();
 }
 
+// Rule endDqQuote
+ruleendDqQuote returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] 
+    @init { enterRule(); 
+		HiddenTokens myHiddenTokenState = ((XtextTokenStream)input).setHiddenTokens("RULE_WS", "RULE_SL_COMMENT", "RULE_ML_COMMENT");
+    }
+    @after { leaveRule();
+    }:
+
+	kw=KEYWORD_2 
+    {
+        $current.merge(kw);
+        newLeafNode(kw, grammarAccess.getEndDqQuoteAccess().getQuotationMarkKeyword()); 
+    }
+
+    ;
+finally {
+	myHiddenTokenState.restore();
+}
+
+
+
+
+
+// Entry rule entryRuleTextExpression
+entryRuleTextExpression returns [EObject current=null]
+	:
+	{ newCompositeNode(grammarAccess.getTextExpressionRule()); }
+	 iv_ruleTextExpression=ruleTextExpression 
+	 { $current=$iv_ruleTextExpression.current; } 
+	 EOF 
+;
+
 // Rule TextExpression
 ruleTextExpression returns [EObject current=null] 
     @init { enterRule(); 
-		HiddenTokens myHiddenTokenState = ((XtextTokenStream)input).setHiddenTokens();
     }
     @after { leaveRule(); }:
 
@@ -5106,9 +5143,6 @@ ruleTextExpression returns [EObject current=null]
     }
 
 ;
-finally {
-	myHiddenTokenState.restore();
-}
 
 
 
@@ -5448,23 +5482,16 @@ finally {
 
 // Entry rule entryRuleStringPart
 entryRuleStringPart returns [EObject current=null]
-	@init { 
-		HiddenTokens myHiddenTokenState = ((XtextTokenStream)input).setHiddenTokens();
-	}
 	:
 	{ newCompositeNode(grammarAccess.getStringPartRule()); }
 	 iv_ruleStringPart=ruleStringPart 
 	 { $current=$iv_ruleStringPart.current; } 
 	 EOF 
 ;
-finally {
-	myHiddenTokenState.restore();
-}
 
 // Rule StringPart
 ruleStringPart returns [EObject current=null] 
     @init { enterRule(); 
-		HiddenTokens myHiddenTokenState = ((XtextTokenStream)input).setHiddenTokens();
     }
     @after { leaveRule(); }:
 ((
@@ -5496,9 +5523,6 @@ ruleStringPart returns [EObject current=null]
 )
 )?)
 ;
-finally {
-	myHiddenTokenState.restore();
-}
 
 
 

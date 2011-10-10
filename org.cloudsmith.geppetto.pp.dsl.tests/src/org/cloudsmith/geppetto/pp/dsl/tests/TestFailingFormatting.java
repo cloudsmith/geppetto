@@ -20,7 +20,7 @@ import org.eclipse.xtext.resource.XtextResource;
 public class TestFailingFormatting extends AbstractPuppetTests {
 
 	/**
-	 * Formatter seems to not switch back to non hidden state after import "".
+	 * Formatter seems to not switch back to non hidden state interpolation.
 	 * 
 	 */
 	public void test_Serialize_DqStringInterpolation() throws Exception {

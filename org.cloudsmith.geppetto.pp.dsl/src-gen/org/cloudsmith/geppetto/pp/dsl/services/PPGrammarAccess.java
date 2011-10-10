@@ -2811,7 +2811,7 @@ public class PPGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cQuotationMarkKeyword_0 = (Keyword)cGroup.eContents().get(0);
 		private final Assignment cTextExpressionAssignment_1 = (Assignment)cGroup.eContents().get(1);
 		private final RuleCall cTextExpressionTextExpressionParserRuleCall_1_0 = (RuleCall)cTextExpressionAssignment_1.eContents().get(0);
-		private final Keyword cQuotationMarkKeyword_2 = (Keyword)cGroup.eContents().get(2);
+		private final RuleCall cEndDqQuoteParserRuleCall_2 = (RuleCall)cGroup.eContents().get(2);
 		
 		//// Double quoted string with expression interpolation
 		//// handles:
@@ -2820,10 +2820,10 @@ public class PPGrammarAccess extends AbstractGrammarElementFinder {
 		//// - ${ expression } - evaluated and included in the string
 		////
 		//DoubleQuotedString returns pp::DoubleQuotedString hidden():
-		//	"\"" textExpression=TextExpression "\"";
+		//	"\"" textExpression=TextExpression endDqQuote;
 		public ParserRule getRule() { return rule; }
 
-		//"\"" textExpression=TextExpression "\""
+		//"\"" textExpression=TextExpression endDqQuote
 		public Group getGroup() { return cGroup; }
 
 		//"\""
@@ -2835,8 +2835,20 @@ public class PPGrammarAccess extends AbstractGrammarElementFinder {
 		//TextExpression
 		public RuleCall getTextExpressionTextExpressionParserRuleCall_1_0() { return cTextExpressionTextExpressionParserRuleCall_1_0; }
 
+		//endDqQuote
+		public RuleCall getEndDqQuoteParserRuleCall_2() { return cEndDqQuoteParserRuleCall_2; }
+	}
+
+	public class EndDqQuoteElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "endDqQuote");
+		private final Keyword cQuotationMarkKeyword = (Keyword)rule.eContents().get(1);
+		
+		//endDqQuote hidden(WS, SL_COMMENT, ML_COMMENT):
+		//	"\"";
+		public ParserRule getRule() { return rule; }
+
 		//"\""
-		public Keyword getQuotationMarkKeyword_2() { return cQuotationMarkKeyword_2; }
+		public Keyword getQuotationMarkKeyword() { return cQuotationMarkKeyword; }
 	}
 
 	public class TextExpressionElements extends AbstractParserRuleElementFinder {
@@ -2844,7 +2856,7 @@ public class PPGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cDollarTextExpressionParserRuleCall = (RuleCall)rule.eContents().get(1);
 		
 		//// Lowest precedence TextExpression
-		//TextExpression returns pp::TextExpression hidden():
+		/// *hidden()* / TextExpression returns pp::TextExpression:
 		//	DollarTextExpression;
 		public ParserRule getRule() { return rule; }
 
@@ -3018,7 +3030,7 @@ public class PPGrammarAccess extends AbstractGrammarElementFinder {
 		private final Assignment cTextAssignment_1 = (Assignment)cGroup.eContents().get(1);
 		private final RuleCall cTextDoubleStringCharactersParserRuleCall_1_0 = (RuleCall)cTextAssignment_1.eContents().get(0);
 		
-		//StringPart returns pp::TextExpression hidden():
+		/// *hidden()* / StringPart returns pp::TextExpression:
 		//	{pp::VerbatimTE} text=doubleStringCharacters?;
 		public ParserRule getRule() { return rule; }
 
@@ -3489,6 +3501,7 @@ public class PPGrammarAccess extends AbstractGrammarElementFinder {
 	private SingleQuotedStringElements pSingleQuotedString;
 	private DQT_DOLLARElements pDQT_DOLLAR;
 	private DoubleQuotedStringElements pDoubleQuotedString;
+	private EndDqQuoteElements pEndDqQuote;
 	private TextExpressionElements pTextExpression;
 	private DollarTextExpressionElements pDollarTextExpression;
 	private VariableTextExpressionElements pVariableTextExpression;
@@ -4355,7 +4368,7 @@ public class PPGrammarAccess extends AbstractGrammarElementFinder {
 	//// - ${ expression } - evaluated and included in the string
 	////
 	//DoubleQuotedString returns pp::DoubleQuotedString hidden():
-	//	"\"" textExpression=TextExpression "\"";
+	//	"\"" textExpression=TextExpression endDqQuote;
 	public DoubleQuotedStringElements getDoubleQuotedStringAccess() {
 		return (pDoubleQuotedString != null) ? pDoubleQuotedString : (pDoubleQuotedString = new DoubleQuotedStringElements());
 	}
@@ -4364,8 +4377,18 @@ public class PPGrammarAccess extends AbstractGrammarElementFinder {
 		return getDoubleQuotedStringAccess().getRule();
 	}
 
+	//endDqQuote hidden(WS, SL_COMMENT, ML_COMMENT):
+	//	"\"";
+	public EndDqQuoteElements getEndDqQuoteAccess() {
+		return (pEndDqQuote != null) ? pEndDqQuote : (pEndDqQuote = new EndDqQuoteElements());
+	}
+	
+	public ParserRule getEndDqQuoteRule() {
+		return getEndDqQuoteAccess().getRule();
+	}
+
 	//// Lowest precedence TextExpression
-	//TextExpression returns pp::TextExpression hidden():
+	/// *hidden()* / TextExpression returns pp::TextExpression:
 	//	DollarTextExpression;
 	public TextExpressionElements getTextExpressionAccess() {
 		return (pTextExpression != null) ? pTextExpression : (pTextExpression = new TextExpressionElements());
@@ -4418,7 +4441,7 @@ public class PPGrammarAccess extends AbstractGrammarElementFinder {
 		return getExpressionWithHiddenAccess().getRule();
 	}
 
-	//StringPart returns pp::TextExpression hidden():
+	/// *hidden()* / StringPart returns pp::TextExpression:
 	//	{pp::VerbatimTE} text=doubleStringCharacters?;
 	public StringPartElements getStringPartAccess() {
 		return (pStringPart != null) ? pStringPart : (pStringPart = new StringPartElements());

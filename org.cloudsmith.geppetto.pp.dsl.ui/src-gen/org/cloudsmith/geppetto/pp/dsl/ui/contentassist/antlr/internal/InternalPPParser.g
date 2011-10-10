@@ -2169,25 +2169,56 @@ finally {
 
 
 
-// Entry rule entryRuleTextExpression
-entryRuleTextExpression 
+// Entry rule entryRuleendDqQuote
+entryRuleendDqQuote 
 @init {
-	HiddenTokens myHiddenTokenState = ((XtextTokenStream)input).setHiddenTokens();
+	HiddenTokens myHiddenTokenState = ((XtextTokenStream)input).setHiddenTokens("RULE_WS", "RULE_SL_COMMENT", "RULE_ML_COMMENT");
 }
 :
-{ before(grammarAccess.getTextExpressionRule()); }
-	 ruleTextExpression
-{ after(grammarAccess.getTextExpressionRule()); } 
+{ before(grammarAccess.getEndDqQuoteRule()); }
+	 ruleendDqQuote
+{ after(grammarAccess.getEndDqQuoteRule()); } 
 	 EOF 
 ;
 finally {
 	myHiddenTokenState.restore();
 }
 
+// Rule endDqQuote
+ruleendDqQuote 
+    @init {
+		HiddenTokens myHiddenTokenState = ((XtextTokenStream)input).setHiddenTokens("RULE_WS", "RULE_SL_COMMENT", "RULE_ML_COMMENT");
+		int stackSize = keepStackSize();
+    }
+    :
+(
+{ before(grammarAccess.getEndDqQuoteAccess().getQuotationMarkKeyword()); }
+
+	KEYWORD_2 
+
+{ after(grammarAccess.getEndDqQuoteAccess().getQuotationMarkKeyword()); }
+)
+
+;
+finally {
+	restoreStackSize(stackSize);
+	myHiddenTokenState.restore();
+}
+
+
+
+// Entry rule entryRuleTextExpression
+entryRuleTextExpression 
+:
+{ before(grammarAccess.getTextExpressionRule()); }
+	 ruleTextExpression
+{ after(grammarAccess.getTextExpressionRule()); } 
+	 EOF 
+;
+
 // Rule TextExpression
 ruleTextExpression 
     @init {
-		HiddenTokens myHiddenTokenState = ((XtextTokenStream)input).setHiddenTokens();
 		int stackSize = keepStackSize();
     }
     :
@@ -2200,7 +2231,6 @@ ruleTextExpression
 ;
 finally {
 	restoreStackSize(stackSize);
-	myHiddenTokenState.restore();
 }
 
 
@@ -2351,23 +2381,16 @@ finally {
 
 // Entry rule entryRuleStringPart
 entryRuleStringPart 
-@init {
-	HiddenTokens myHiddenTokenState = ((XtextTokenStream)input).setHiddenTokens();
-}
 :
 { before(grammarAccess.getStringPartRule()); }
 	 ruleStringPart
 { after(grammarAccess.getStringPartRule()); } 
 	 EOF 
 ;
-finally {
-	myHiddenTokenState.restore();
-}
 
 // Rule StringPart
 ruleStringPart 
     @init {
-		HiddenTokens myHiddenTokenState = ((XtextTokenStream)input).setHiddenTokens();
 		int stackSize = keepStackSize();
     }
     :
@@ -2380,7 +2403,6 @@ ruleStringPart
 ;
 finally {
 	restoreStackSize(stackSize);
-	myHiddenTokenState.restore();
 }
 
 
@@ -12820,11 +12842,9 @@ rule__DoubleQuotedString__Group__2__Impl
     }
 :
 (
-{ before(grammarAccess.getDoubleQuotedStringAccess().getQuotationMarkKeyword_2()); }
-
-	KEYWORD_2 
-
-{ after(grammarAccess.getDoubleQuotedStringAccess().getQuotationMarkKeyword_2()); }
+{ before(grammarAccess.getDoubleQuotedStringAccess().getEndDqQuoteParserRuleCall_2()); }
+	ruleendDqQuote
+{ after(grammarAccess.getDoubleQuotedStringAccess().getEndDqQuoteParserRuleCall_2()); }
 )
 
 ;

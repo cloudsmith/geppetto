@@ -102,7 +102,7 @@ ResourceExpression returns pp::Expression
 			'}' 
 		)?
 	| {pp::ResourceExpression} resourceExpr = LiteralClass
-			'{'  
+			'{'
 				(resourceData += ResourceBody (';'  resourceData += ResourceBody)* ';'?)?
 			'}' 
 	;
@@ -532,7 +532,7 @@ DoubleQuotedString returns pp::DoubleQuotedString hidden()
 	;
 
 // Lowest precedence TextExpression
-TextExpression returns pp::TextExpression hidden(): 
+TextExpression returns pp::TextExpression /*hidden()*/: 
 	DollarTextExpression
 	;
 	
@@ -568,7 +568,7 @@ ExpressionWithHidden returns pp::Expression hidden(WS, SL_COMMENT, ML_COMMENT):
 	{pp::ParenthesisedExpression} expr = AssignmentExpression?
 ;
 		
-StringPart returns pp::TextExpression hidden(): 
+StringPart returns pp::TextExpression /*hidden()*/: 
 	{pp::VerbatimTE} text = doubleStringCharacters? ;
 
 UnquotedString returns pp::Expression :

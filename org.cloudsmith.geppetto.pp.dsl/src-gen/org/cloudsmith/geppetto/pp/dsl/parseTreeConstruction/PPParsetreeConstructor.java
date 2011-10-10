@@ -14316,11 +14316,11 @@ protected class SingleQuotedString_TextAssignment_1 extends AssignmentToken  {
  * // - ${ expression } - evaluated and included in the string
  * //
  * DoubleQuotedString returns pp::DoubleQuotedString hidden():
- * 	"\"" textExpression=TextExpression "\"";
+ * 	"\"" textExpression=TextExpression endDqQuote;
  *
  **/
 
-// "\"" textExpression=TextExpression "\""
+// "\"" textExpression=TextExpression endDqQuote
 protected class DoubleQuotedString_Group extends GroupToken {
 	
 	public DoubleQuotedString_Group(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -14335,7 +14335,7 @@ protected class DoubleQuotedString_Group extends GroupToken {
     @Override
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
-			case 0: return new DoubleQuotedString_QuotationMarkKeyword_2(lastRuleCallOrigin, this, 0, inst);
+			case 0: return new DoubleQuotedString_EndDqQuoteParserRuleCall_2(lastRuleCallOrigin, this, 0, inst);
 			default: return null;
 		}	
 	}
@@ -14416,16 +14416,16 @@ protected class DoubleQuotedString_TextExpressionAssignment_1 extends Assignment
 	}	
 }
 
-// "\""
-protected class DoubleQuotedString_QuotationMarkKeyword_2 extends KeywordToken  {
-	
-	public DoubleQuotedString_QuotationMarkKeyword_2(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+// endDqQuote
+protected class DoubleQuotedString_EndDqQuoteParserRuleCall_2 extends UnassignedTextToken {
+
+	public DoubleQuotedString_EndDqQuoteParserRuleCall_2(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
 		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
 	}
 	
 	@Override
-	public Keyword getGrammarElement() {
-		return grammarAccess.getDoubleQuotedStringAccess().getQuotationMarkKeyword_2();
+	public RuleCall getGrammarElement() {
+		return grammarAccess.getDoubleQuotedStringAccess().getEndDqQuoteParserRuleCall_2();
 	}
 
     @Override
@@ -14442,10 +14442,11 @@ protected class DoubleQuotedString_QuotationMarkKeyword_2 extends KeywordToken  
 /************ end Rule DoubleQuotedString ****************/
 
 
+
 /************ begin Rule TextExpression ****************
  *
  * // Lowest precedence TextExpression
- * TextExpression returns pp::TextExpression hidden():
+ * / *hidden()* / TextExpression returns pp::TextExpression:
  * 	DollarTextExpression;
  *
  **/
@@ -15327,7 +15328,7 @@ protected class ExpressionWithHidden_ExprAssignment_1 extends AssignmentToken  {
 
 /************ begin Rule StringPart ****************
  *
- * StringPart returns pp::TextExpression hidden():
+ * / *hidden()* / StringPart returns pp::TextExpression:
  * 	{pp::VerbatimTE} text=doubleStringCharacters?;
  *
  **/

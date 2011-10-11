@@ -20,7 +20,7 @@ import org.cloudsmith.geppetto.pp.PPPackage;
 import org.cloudsmith.geppetto.pp.ResourceBody;
 import org.cloudsmith.geppetto.pp.dsl.PPDSLConstants;
 import org.cloudsmith.geppetto.pp.dsl.adapters.PPImportedNamesAdapter;
-import org.cloudsmith.geppetto.pp.dsl.linking.PPResourceLinker.NameInScopeFilter;
+import org.cloudsmith.geppetto.pp.dsl.linking.NameInScopeFilter.Match;
 import org.cloudsmith.geppetto.pp.dsl.linking.PPSearchPath.ISearchPathProvider;
 import org.cloudsmith.geppetto.pp.pptp.PPTPPackage;
 import org.eclipse.emf.ecore.EClass;
@@ -49,6 +49,11 @@ import com.google.inject.name.Named;
  * 
  */
 public class PPFinder {
+
+	private final static EClass[] PARAMS_AND_VARIABLES = {
+			PPPackage.Literals.DEFINITION_ARGUMENT, PPTPPackage.Literals.TYPE_ARGUMENT,
+			PPPackage.Literals.VARIABLE_EXPRESSION };
+
 	private final static EClass[] DEF_AND_TYPE_ARGUMENTS = {
 			PPPackage.Literals.DEFINITION_ARGUMENT, PPTPPackage.Literals.TYPE_ARGUMENT };
 
@@ -185,48 +190,11 @@ public class PPFinder {
 			cacheMetaParameters(scopeDetermeningObject);
 		IEObjectDescription d = metaCache.get(fqn.getLastSegment());
 		if(d == null)
-			result = findAttributesWithGuard(
-				scopeDetermeningObject, fqn, importedNames, Lists.<QualifiedName> newArrayList(), false);
+			result = findInherited(
+				scopeDetermeningObject, fqn, importedNames, Lists.<QualifiedName> newArrayList(), Match.EQUALS,
+				DEF_AND_TYPE_ARGUMENTS);
 		else
 			result = Lists.newArrayList(d);
-		return result;
-	}
-
-	protected List<IEObjectDescription> findAttributesWithGuard(EObject scopeDetermeningObject, QualifiedName fqn,
-			PPImportedNamesAdapter importedNames, List<QualifiedName> stack, boolean prefixMatch) {
-		// Protect against circular inheritance
-		QualifiedName containerName = fqn.skipLast(1);
-		if(stack.contains(containerName))
-			return Collections.emptyList();
-		stack.add(containerName);
-
-		// find a regular DefinitionArgument, Property or Parameter
-		final List<IEObjectDescription> result = findExternal(
-			scopeDetermeningObject, fqn, importedNames, prefixMatch, DEF_AND_TYPE_ARGUMENTS);
-
-		// Search up the inheritance chain if no match (on exact match), or if a prefix search
-		if(result.isEmpty() || prefixMatch) {
-			// find the parent type
-			List<IEObjectDescription> parentResult = findExternal(
-				scopeDetermeningObject, fqn.skipLast(1), importedNames, false, DEF_AND_TYPE);
-			if(!parentResult.isEmpty()) {
-				IEObjectDescription firstFound = parentResult.get(0);
-				String parentName = firstFound.getUserData(PPDSLConstants.PARENT_NAME_DATA);
-				if(parentName != null && parentName.length() > 1) {
-					// find attributes for parent
-
-					QualifiedName attributeFqn = converter.toQualifiedName(parentName);
-					attributeFqn = attributeFqn.append(fqn.getLastSegment());
-					if(prefixMatch)
-						result.addAll(findAttributesWithGuard(
-							scopeDetermeningObject, attributeFqn, importedNames, stack, prefixMatch));
-
-					else
-						return findAttributesWithGuard(
-							scopeDetermeningObject, attributeFqn, importedNames, stack, prefixMatch);
-				}
-			}
-		}
 		return result;
 	}
 
@@ -250,7 +218,8 @@ public class PPFinder {
 			if(name.startsWith(fqnLast))
 				result.add(metaCache.get(name));
 
-		result.addAll(findAttributesWithGuard(resourceBody, fqn, null, Lists.<QualifiedName> newArrayList(), true));
+		result.addAll(findInherited(
+			resourceBody, fqn, null, Lists.<QualifiedName> newArrayList(), Match.STARTS_WITH, DEF_AND_TYPE_ARGUMENTS));
 		return result;
 
 	}
@@ -264,7 +233,7 @@ public class PPFinder {
 		// TODO: Note that order is important, TYPE has higher precedence and should be used for linking
 		// This used to work when list was iterated per type, not it is iterated once with type check
 		// first - thus if a definition is found before a type, it is earlier in the list.
-		return findExternal(scopeDetermeningResource, fqn2, importedNames, true, DEF_AND_TYPE);
+		return findExternal(scopeDetermeningResource, fqn2, importedNames, Match.STARTS_WITH, DEF_AND_TYPE);
 	}
 
 	public List<IEObjectDescription> findDefinitions(EObject scopeDetermeningResource, String name,
@@ -282,11 +251,11 @@ public class PPFinder {
 		// TODO: Note that order is important, TYPE has higher precedence and should be used for linking
 		// This used to work when list was iterated per type, not it is iterated once with type check
 		// first - thus if a definition is found before a type, it is earlier in the list.
-		return findExternal(scopeDetermeningResource, fqn2, importedNames, false, DEF_AND_TYPE);
+		return findExternal(scopeDetermeningResource, fqn2, importedNames, Match.EQUALS, DEF_AND_TYPE);
 	}
 
 	protected List<IEObjectDescription> findExternal(EObject scopeDetermeningObject, QualifiedName fqn,
-			PPImportedNamesAdapter importedNames, boolean prefixMatch, EClass... eClasses) {
+			PPImportedNamesAdapter importedNames, Match matchingStrategy, EClass... eClasses) {
 		if(scopeDetermeningObject == null)
 			throw new IllegalArgumentException("scope determening object is null");
 		if(fqn == null)
@@ -320,7 +289,7 @@ public class PPFinder {
 
 			// for(IContainer visibleContainer : manager.getVisibleContainers(descr, descriptionIndex)) {
 			// for(EClass aClass : eClasses)
-			for(IEObjectDescription objDesc : new NameInScopeFilter(prefixMatch, getExportedObjects(
+			for(IEObjectDescription objDesc : new NameInScopeFilter(matchingStrategy, getExportedObjects(
 				descr, descriptionIndex),
 			// visibleContainer.getExportedObjects(),
 			fqn, nameOfScope, eClasses))
@@ -329,8 +298,8 @@ public class PPFinder {
 		else {
 			// This is lookup from the main resource perspective
 			QualifiedName nameOfScope = getNameOfScope(scopeDetermeningObject);
-			for(IEObjectDescription objDesc : new NameInScopeFilter(prefixMatch, //
-				prefixMatch
+			for(IEObjectDescription objDesc : new NameInScopeFilter(matchingStrategy, //
+				matchingStrategy == Match.STARTS_WITH
 						? exportedPerLastSegment.values()
 						: exportedPerLastSegment.get(fqn.getLastSegment()), //
 				fqn, nameOfScope, eClasses))
@@ -346,7 +315,7 @@ public class PPFinder {
 
 	private List<IEObjectDescription> findFunction(EObject scopeDetermeningObject, QualifiedName fqn,
 			PPImportedNamesAdapter importedNames) {
-		return findExternal(scopeDetermeningObject, fqn, importedNames, false, FUNC);
+		return findExternal(scopeDetermeningObject, fqn, importedNames, Match.EQUALS, FUNC);
 	}
 
 	private List<IEObjectDescription> findFunction(EObject scopeDetermeningObject, String name,
@@ -362,7 +331,148 @@ public class PPFinder {
 		// make last segments initial char lower case (for references to the type itself - eg. 'File' instead of
 		// 'file'.
 		fqn = fqn.skipLast(1).append(toInitialLowerCase(fqn.getLastSegment()));
-		return findExternal(scopeDetermeningResource, fqn, importedNames, false, CLASS_AND_TYPE);
+		return findExternal(scopeDetermeningResource, fqn, importedNames, Match.EQUALS, CLASS_AND_TYPE);
+	}
+
+	protected List<IEObjectDescription> findInherited(EObject scopeDetermeningObject, QualifiedName fqn,
+			PPImportedNamesAdapter importedNames, List<QualifiedName> stack, Match matchingStrategy, EClass[] classes) {
+		// Protect against circular inheritance
+		QualifiedName containerName = fqn.skipLast(1);
+		if(stack.contains(containerName))
+			return Collections.emptyList();
+		stack.add(containerName);
+
+		// find a regular DefinitionArgument, Property or Parameter
+		final List<IEObjectDescription> result = findExternal(
+			scopeDetermeningObject, fqn, importedNames, matchingStrategy, classes);
+
+		// Search up the inheritance chain if no match (on exact match), or if a prefix search
+		if(result.isEmpty() || matchingStrategy != Match.EQUALS) {
+			// find the parent type
+			List<IEObjectDescription> parentResult = findExternal(
+				scopeDetermeningObject, fqn.skipLast(1), importedNames, Match.EQUALS, DEF_AND_TYPE);
+			if(!parentResult.isEmpty()) {
+				IEObjectDescription firstFound = parentResult.get(0);
+				String parentName = firstFound.getUserData(PPDSLConstants.PARENT_NAME_DATA);
+				if(parentName != null && parentName.length() > 1) {
+					// find attributes for parent
+
+					QualifiedName attributeFqn = converter.toQualifiedName(parentName);
+					attributeFqn = attributeFqn.append(fqn.getLastSegment());
+					result.addAll(findInherited(
+						scopeDetermeningObject, attributeFqn, importedNames, stack, matchingStrategy, classes));
+
+				}
+			}
+		}
+		return result;
+	}
+
+	// protected List<IEObjectDescription> findVariables(EObject scopeDetermeningObject, QualifiedName fqn,
+	// PPImportedNamesAdapter importedNames, List<QualifiedName> stack, Match matchingStrategy) {
+	// // Protect against circular inheritance
+	// QualifiedName containerName = fqn.skipLast(1);
+	// if(stack.contains(containerName))
+	// return Collections.emptyList();
+	// stack.add(containerName);
+	// //
+	// final List<IEObjectDescription> result = findExternal(
+	// scopeDetermeningObject, fqn, importedNames, matchingStrategy, PARAMS_AND_VARIABLES);
+	//
+	// // Search up the inheritance chain if no match (on exact match), or if a prefix search
+	// if(result.isEmpty() || matchingStrategy != Match.EQUALS) {
+	// // find the parent type
+	// List<IEObjectDescription> parentResult = findExternal(
+	// scopeDetermeningObject, fqn.skipLast(1), importedNames, Match.EQUALS, DEF_AND_TYPE);
+	// if(!parentResult.isEmpty()) {
+	// IEObjectDescription firstFound = parentResult.get(0);
+	// String parentName = firstFound.getUserData(PPDSLConstants.PARENT_NAME_DATA);
+	// if(parentName != null && parentName.length() > 1) {
+	// // find attributes for parent
+	//
+	// QualifiedName attributeFqn = converter.toQualifiedName(parentName);
+	// attributeFqn = attributeFqn.append(fqn.getLastSegment());
+	// result.addAll(findInherited(
+	// scopeDetermeningObject, attributeFqn, importedNames, stack, matchingStrategy,
+	// PARAMS_AND_VARIABLES));
+	// }
+	// }
+	// }
+	// return result;
+	//
+	// }
+
+	/**
+	 * Finds a parameter or variable with the given name. More than one may be returned if the definition
+	 * is ambiguous.
+	 * 
+	 * @param scopeDetermeningResource
+	 * @param name
+	 * @param importedNames
+	 * @return
+	 */
+	public List<IEObjectDescription> findVariable(EObject scopeDetermeningResource, String name,
+			PPImportedNamesAdapter importedNames) {
+		if(name == null)
+			throw new IllegalArgumentException("name is null");
+		QualifiedName fqn = converter.toQualifiedName(name);
+		return findVariables(scopeDetermeningResource, fqn, importedNames, Match.EQUALS);
+	}
+
+	/**
+	 * Finds all matching variables in current and inherited scopes.
+	 * 
+	 * @param scopeDetermeningResource
+	 * @param name
+	 * @param importedNames
+	 * @return
+	 */
+	public List<IEObjectDescription> findVariables(EObject scopeDetermeningResource, QualifiedName fqn,
+			PPImportedNamesAdapter importedNames) {
+		if(fqn == null)
+			throw new IllegalArgumentException("name is null");
+		return findVariables(scopeDetermeningResource, fqn, importedNames, Match.ALL_EQUALS);
+	}
+
+	/**
+	 * Fins parameters and/or variables with matching name using the given matching/search strategy.
+	 * 
+	 * @param scopeDetermeningObject
+	 * @param fqn
+	 * @param importedNames
+	 * @param matchingStrategy
+	 * @return
+	 */
+	protected List<IEObjectDescription> findVariables(EObject scopeDetermeningObject, QualifiedName fqn,
+			PPImportedNamesAdapter importedNames, Match matchingStrategy) {
+		List<IEObjectDescription> result = findExternal(
+			scopeDetermeningObject, fqn, importedNames, matchingStrategy, PARAMS_AND_VARIABLES);
+		if(result.size() > 0 && matchingStrategy == Match.EQUALS)
+			return result;
+		return findInherited(
+			scopeDetermeningObject, fqn, importedNames, Lists.<QualifiedName> newArrayList(), matchingStrategy,
+			PARAMS_AND_VARIABLES);
+	}
+
+	/**
+	 * Finds all matching variables in current and inherited scopes.
+	 * 
+	 * @param scopeDetermeningResource
+	 * @param name
+	 * @param importedNames
+	 * @return
+	 */
+	public List<IEObjectDescription> findVariables(EObject scopeDetermeningResource, String name,
+			PPImportedNamesAdapter importedNames) {
+		if(name == null)
+			throw new IllegalArgumentException("name is null");
+		QualifiedName fqn = converter.toQualifiedName(name);
+		return findVariables(scopeDetermeningResource, fqn, importedNames, Match.ALL_EQUALS);
+	}
+
+	public List<IEObjectDescription> findVariablesPrefixed(EObject scopeDetermeningObject, QualifiedName fqn,
+			PPImportedNamesAdapter importedNames) {
+		return findVariables(scopeDetermeningObject, fqn, importedNames, Match.STARTS_WITH);
 	}
 
 	private Iterable<IEObjectDescription> getExportedObjects(IResourceDescription descr,

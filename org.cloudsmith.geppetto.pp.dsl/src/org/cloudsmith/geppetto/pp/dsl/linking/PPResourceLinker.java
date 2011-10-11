@@ -17,7 +17,6 @@ import static org.cloudsmith.geppetto.pp.adapters.ClassifierAdapter.RESOURCE_IS_
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
 import java.util.Map;
@@ -51,6 +50,7 @@ import org.cloudsmith.geppetto.pp.dsl.adapters.ResourcePropertiesAdapter;
 import org.cloudsmith.geppetto.pp.dsl.adapters.ResourcePropertiesAdapterFactory;
 import org.cloudsmith.geppetto.pp.dsl.contentassist.PPProposalsGenerator;
 import org.cloudsmith.geppetto.pp.dsl.eval.PPStringConstantEvaluator;
+import org.cloudsmith.geppetto.pp.dsl.linking.NameInScopeFilter.Match;
 import org.cloudsmith.geppetto.pp.dsl.linking.PPSearchPath.ISearchPathProvider;
 import org.cloudsmith.geppetto.pp.dsl.validation.IPPDiagnostics;
 import org.cloudsmith.geppetto.pp.pptp.PPTPPackage;
@@ -72,10 +72,8 @@ import org.eclipse.xtext.resource.IResourceDescriptions;
 import org.eclipse.xtext.resource.IResourceServiceProvider;
 
 import com.google.common.base.Function;
-import com.google.common.base.Predicate;
 import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.Iterables;
-import com.google.common.collect.Iterators;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Multimap;
 import com.google.common.collect.Sets;
@@ -87,112 +85,6 @@ import com.google.inject.name.Named;
  * Handles special linking of ResourceExpression, ResourceBody and Function references.
  */
 public class PPResourceLinker implements IPPDiagnostics {
-
-	static class NameInScopeFilter implements Iterable<IEObjectDescription> {
-		private final Iterable<IEObjectDescription> unfiltered;
-
-		final private NameInScopePredicate filter;
-
-		NameInScopeFilter(boolean startsWith, Iterable<IEObjectDescription> unfiltered, QualifiedName name,
-				QualifiedName scope, EClass[] eclasses) {
-			boolean absolute = name.getSegmentCount() > 0 && "".equals(name.getSegment(0));
-			this.unfiltered = unfiltered;
-			filter = new NameInScopePredicate(absolute, startsWith, absolute
-					? name.skipFirst(1)
-					: name, scope, eclasses);
-		}
-
-		public Iterator<IEObjectDescription> iterator() {
-			return Iterators.filter(unfiltered.iterator(), filter);
-		}
-	}
-
-	public static class NameInScopePredicate implements Predicate<IEObjectDescription> {
-		final QualifiedName scopeName;
-
-		final QualifiedName name;
-
-		final boolean absolute;
-
-		final boolean startsWith;
-
-		final EClass[] eclasses;
-
-		public NameInScopePredicate(boolean absolute, boolean startsWith, QualifiedName name, QualifiedName scopeName,
-				EClass[] eclasses) {
-			this.absolute = absolute;
-			this.scopeName = scopeName == null
-					? QualifiedName.EMPTY
-					: scopeName;
-			this.name = name;
-			this.eclasses = eclasses;
-			this.startsWith = startsWith;
-		}
-
-		@Override
-		public boolean apply(IEObjectDescription candidate) {
-			QualifiedName candidateName = candidate.getQualifiedName();
-			// error, not a valid name (can not possibly match).
-			if(candidateName.getSegmentCount() == 0)
-				return false;
-
-			// it is faster to compare exact match as this is a common case, before trying isSuperTypeOf
-			int found = -1;
-			for(int i = 0; i < eclasses.length; i++)
-				if(eclasses[i] == candidate.getEClass() || eclasses[i].isSuperTypeOf(candidate.getEClass())) {
-					found = i;
-					break;
-				}
-			if(found < 0)
-				return false; // wrong type
-
-			if(absolute)
-				return candidateName.equals(name);
-
-			// Since most references are exact (they are global), this is the fastest for the common case.
-			if(matches(candidateName, name, startsWith))
-				return true;
-			// if(candidateName.equals(name) || (startsWith && candidateName.startsWith(name))
-			// return true;
-
-			// need to find the common outer scope
-			QualifiedName candidateParent = candidateName.skipLast(1);
-
-			// Note: it is not possible to refer to the parent i.e. class foo::bar { bar { }}
-
-			// find the common outer scope
-			int commonCount = 0;
-			int limit = Math.min(scopeName.getSegmentCount(), candidateParent.getSegmentCount());
-			for(int i = 0; i < limit; i++)
-				if(scopeName.getSegment(i).equals(candidateName.getSegment(i)))
-					commonCount++;
-				else
-					break;
-			// if no common ancestor, then equality check above should have found it.
-			if(commonCount == 0)
-				return false;
-
-			// commonPart+requestedName == candidate (i.e. wanted "c::d" in scope "a::b" - check "a::b::c::d"
-			if(startsWith)
-				return candidateName.startsWith(scopeName.skipLast(scopeName.getSegmentCount() - commonCount).append(
-					name));
-			return scopeName.skipLast(scopeName.getSegmentCount() - commonCount).append(name).equals(candidateName);
-		}
-
-		private boolean matches(QualifiedName candidate, QualifiedName query, boolean startsWith) {
-			if(!startsWith)
-				return candidate.equals(query);
-			if(query.getSegmentCount() > candidate.getSegmentCount())
-				return false;
-			if(query.getSegmentCount() == 0 && startsWith)
-				return true; // everything starts with nothing
-			if(!candidate.skipLast(1).equals(query.skipLast(1)))
-				return false;
-			if(!candidate.getLastSegment().startsWith(query.getLastSegment()))
-				return false;
-			return true;
-		}
-	}
 
 	private static class SearchResult {
 		private List<IEObjectDescription> adjusted;
@@ -617,16 +509,33 @@ public class PPResourceLinker implements IPPDiagnostics {
 				PPPackage.Literals.BINARY_EXPRESSION__LEFT_EXPR == o.eContainingFeature())
 			return; // is a definition
 
+		// In 2.8, names must be fully qualified to match in global scope (or is it that relative names only
+		// match in current scope, and must be fully qualified otherwise?
+		// Warn regarding all non qualified variable use.
+		if(o.getVarName() == null || o.getVarName().length() == 0)
+			return; // can happen during editing - just ignore (it is captured elsewhere if it was a model problem).
+
+		try {
+			QualifiedName qName = converter.toQualifiedName(o.getVarName());
+			if(qName.getSegmentCount() == 1) {
+				acceptor.acceptWarning(
+					"Unqualified name: '" + o.getVarName() + "'", o, PPPackage.Literals.VARIABLE_EXPRESSION__VAR_NAME,
+					IPPDiagnostics.ISSUE__UNQUALIFIED_VARIABLE);
+			}
+		}
+		catch(IllegalArgumentException iae) {
+			// Can happen if there is something seriously wrong with the qualified name, should be caught by
+			// validation - just ignore it here
+		}
+
+		// TODO: Add preference check
+
 		// reference
 		// TODO: what to search?
 		// - scope, outwards
 		// - inheritence
 		// - variables and parameters
 		// - facter variables
-
-		// In 2.8, names must be fully qualified to match in global scope (or is it that relative names only
-		// match in current scope, and must be fully qualified otherwise?
-		// TODO: Add preference check
 
 	}
 
@@ -845,7 +754,8 @@ public class PPResourceLinker implements IPPDiagnostics {
 
 			// for(IContainer visibleContainer : manager.getVisibleContainers(descr, descriptionIndex)) {
 			// for(EClass aClass : eClasses)
-			for(IEObjectDescription objDesc : new NameInScopeFilter(false, getExportedObjects(descr, descriptionIndex),
+			for(IEObjectDescription objDesc : new NameInScopeFilter(Match.EQUALS, getExportedObjects(
+				descr, descriptionIndex),
 			// visibleContainer.getExportedObjects(),
 			fqn, nameOfScope, eClasses))
 				targets.add(objDesc);
@@ -854,7 +764,7 @@ public class PPResourceLinker implements IPPDiagnostics {
 			// This is lookup from the main resource perspecive
 			QualifiedName nameOfScope = getNameOfScope(scopeDetermeningObject);
 			for(IEObjectDescription objDesc : new NameInScopeFilter(
-				false, exportedPerLastSegment.get(fqn.getLastSegment()), fqn, nameOfScope, eClasses))
+				Match.EQUALS, exportedPerLastSegment.get(fqn.getLastSegment()), fqn, nameOfScope, eClasses))
 				targets.add(objDesc);
 
 		}

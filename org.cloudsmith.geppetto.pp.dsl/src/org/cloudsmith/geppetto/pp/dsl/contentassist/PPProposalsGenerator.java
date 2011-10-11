@@ -113,12 +113,10 @@ public class PPProposalsGenerator {
 	 * Attempts to produce a list of more distinct names than the given name by making
 	 * name absolute.
 	 * 
-	 * @param name
-	 * @param s
-	 * @param statements
-	 * @param i
-	 * @param importedNames
-	 * @param acceptor
+	 * @param currentName
+	 *            the name for which proposals are wanted
+	 * @param descs
+	 *            index of descriptors
 	 */
 
 	public String[] computeDistinctProposals(String currentName, List<IEObjectDescription> descs) {

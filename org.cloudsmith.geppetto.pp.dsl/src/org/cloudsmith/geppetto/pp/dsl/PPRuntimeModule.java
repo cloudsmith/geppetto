@@ -22,6 +22,8 @@ import org.cloudsmith.geppetto.pp.dsl.linking.PPResourceDescriptionStrategy;
 import org.cloudsmith.geppetto.pp.dsl.linking.PPSearchPath.ISearchPathProvider;
 import org.cloudsmith.geppetto.pp.dsl.linking.PPSearchPathProvider;
 import org.cloudsmith.geppetto.pp.dsl.serialization.PPValueSerializer;
+import org.cloudsmith.geppetto.pp.dsl.validation.IValidationAdvisor;
+import org.cloudsmith.geppetto.pp.dsl.validation.ValidationAdvisorProvider;
 import org.eclipse.xtext.conversion.IValueConverterService;
 import org.eclipse.xtext.naming.IQualifiedNameConverter;
 import org.eclipse.xtext.naming.IQualifiedNameProvider;
@@ -132,5 +134,14 @@ public class PPRuntimeModule extends org.cloudsmith.geppetto.pp.dsl.AbstractPPRu
 	// contributed by org.eclipse.xtext.generator.parser.antlr.ex.rt.AntlrGeneratorFragment
 	public com.google.inject.Provider<PPOverridingLexer> providePPOverridingLexer() {
 		return org.eclipse.xtext.parser.antlr.LexerProvider.create(PPOverridingLexer.class);
+	}
+
+	/**
+	 * Bind a ValidationAdvisorProvider. This default implementation returns a 2.7 compliance advisor.
+	 * 
+	 * @return
+	 */
+	public com.google.inject.Provider<IValidationAdvisor> provideValidationAdvisor() {
+		return ValidationAdvisorProvider.create(IValidationAdvisor.ComplianceLevel.PUPPET_2_7);
 	}
 }

@@ -26,6 +26,8 @@ import org.cloudsmith.geppetto.pp.dsl.ui.editor.toggleComments.PPSingleLineComme
 import org.cloudsmith.geppetto.pp.dsl.ui.linking.PPUISearchPathProvider;
 import org.cloudsmith.geppetto.pp.dsl.ui.outline.PPLocationInFileProvider;
 import org.cloudsmith.geppetto.pp.dsl.ui.preferences.PPPreferencesHelper;
+import org.cloudsmith.geppetto.pp.dsl.ui.validation.PreferenceBasedValidationAdvisorProvider;
+import org.cloudsmith.geppetto.pp.dsl.validation.IValidationAdvisor;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.eclipse.xtext.resource.ILocationInFileProvider;
 import org.eclipse.xtext.ui.editor.autoedit.AbstractEditStrategyProvider;
@@ -143,4 +145,12 @@ public class PPUiModule extends org.cloudsmith.geppetto.pp.dsl.ui.AbstractPPUiMo
 		return new PPWorkspaceProjectsStateProvider();
 	}
 
+	/**
+	 * A Provider of validation compliance based on preferences.
+	 * 
+	 * @return
+	 */
+	public com.google.inject.Provider<IValidationAdvisor> provideValidationAdvisor() {
+		return PreferenceBasedValidationAdvisorProvider.create();
+	}
 }

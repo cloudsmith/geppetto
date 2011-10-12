@@ -24,7 +24,7 @@ import org.cloudsmith.geppetto.forge.Dependency;
 import org.cloudsmith.geppetto.forge.ForgeFactory;
 import org.cloudsmith.geppetto.forge.Metadata;
 import org.cloudsmith.geppetto.pp.dsl.ui.PPUiConstants;
-import org.cloudsmith.geppetto.pp.dsl.validation.PuppetCompatibilityHelper;
+import org.cloudsmith.geppetto.pp.dsl.validation.IValidationAdvisor;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IMarker;
 import org.eclipse.core.resources.IProject;
@@ -43,6 +43,8 @@ import org.eclipse.xtext.util.Wrapper;
 import com.google.common.collect.BiMap;
 import com.google.common.collect.HashBiMap;
 import com.google.common.collect.Lists;
+import com.google.inject.Inject;
+import com.google.inject.Provider;
 
 /**
  * Builder of Modulefile.
@@ -60,10 +62,14 @@ public class PPModulefileBuilder extends IncrementalProjectBuilder implements PP
 
 	private ITracer tracer;
 
-	public PPModulefileBuilder() {
+	private IValidationAdvisor validationAdvisor;
+
+	@Inject
+	public PPModulefileBuilder(Provider<IValidationAdvisor> validationAdvisorProvider) {
 		// Hm, can not inject this because it was not possible to inject this builder via the
 		// executable extension factory
 		tracer = new DefaultTracer(PPUiConstants.DEBUG_OPTION_MODULEFILE);
+		validationAdvisor = validationAdvisorProvider.get();
 	}
 
 	/*
@@ -114,7 +120,7 @@ public class PPModulefileBuilder extends IncrementalProjectBuilder implements PP
 			}
 			buf.append("]");
 			int circularSeverity = -1;
-			switch(PuppetCompatibilityHelper.circularDependencyPreference()) {
+			switch(validationAdvisor.circularDependencyPreference()) {
 				case ERROR:
 					circularSeverity = IMarker.SEVERITY_ERROR;
 					break;

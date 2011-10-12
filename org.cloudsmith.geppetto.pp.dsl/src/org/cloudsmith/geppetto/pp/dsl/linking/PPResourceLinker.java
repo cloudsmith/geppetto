@@ -53,6 +53,8 @@ import org.cloudsmith.geppetto.pp.dsl.eval.PPStringConstantEvaluator;
 import org.cloudsmith.geppetto.pp.dsl.linking.NameInScopeFilter.Match;
 import org.cloudsmith.geppetto.pp.dsl.linking.PPSearchPath.ISearchPathProvider;
 import org.cloudsmith.geppetto.pp.dsl.validation.IPPDiagnostics;
+import org.cloudsmith.geppetto.pp.dsl.validation.IValidationAdvisor;
+import org.cloudsmith.geppetto.pp.dsl.validation.ValidationPreference;
 import org.cloudsmith.geppetto.pp.pptp.PPTPPackage;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.TreeIterator;
@@ -78,6 +80,7 @@ import com.google.common.collect.Maps;
 import com.google.common.collect.Multimap;
 import com.google.common.collect.Sets;
 import com.google.inject.Inject;
+import com.google.inject.Provider;
 import com.google.inject.internal.Lists;
 import com.google.inject.name.Named;
 
@@ -183,6 +186,9 @@ public class PPResourceLinker implements IPPDiagnostics {
 	private ISearchPathProvider searchPathProvider;
 
 	private PPSearchPath searchPath;
+
+	@Inject
+	private Provider<IValidationAdvisor> validationAdvisorProvider;
 
 	/**
 	 * polymorph {@link #link(EObject, IMessageAcceptor)}
@@ -509,25 +515,42 @@ public class PPResourceLinker implements IPPDiagnostics {
 				PPPackage.Literals.BINARY_EXPRESSION__LEFT_EXPR == o.eContainingFeature())
 			return; // is a definition
 
-		// In 2.8, names must be fully qualified to match in global scope (or is it that relative names only
-		// match in current scope, and must be fully qualified otherwise?
-		// Warn regarding all non qualified variable use.
-		if(o.getVarName() == null || o.getVarName().length() == 0)
-			return; // can happen during editing - just ignore (it is captured elsewhere if it was a model problem).
-
+		boolean qualified = false;
+		boolean global = false;
+		QualifiedName qName = null;
 		try {
-			QualifiedName qName = converter.toQualifiedName(o.getVarName());
-			if(qName.getSegmentCount() == 1) {
-				acceptor.acceptWarning(
-					"Unqualified name: '" + o.getVarName() + "'", o, PPPackage.Literals.VARIABLE_EXPRESSION__VAR_NAME,
-					IPPDiagnostics.ISSUE__UNQUALIFIED_VARIABLE);
-			}
+			qName = converter.toQualifiedName(o.getVarName());
+			qualified = qName.getSegmentCount() > 1;
+			global = qName.getFirstSegment().length() == 0;
 		}
 		catch(IllegalArgumentException iae) {
 			// Can happen if there is something seriously wrong with the qualified name, should be caught by
 			// validation - just ignore it here
+			return;
 		}
 
+		IValidationAdvisor advisor = advisor();
+		if(!qualified && advisor.unqualifiedVariables().isWarningOrError()) {
+			// In 2.8, names must be fully qualified to match in global scope (or is it that relative names only
+			// match in current scope, and must be fully qualified otherwise?
+			// Warn regarding all non qualified variable use.
+			if(o.getVarName() == null || o.getVarName().length() == 0)
+				return; // can happen during editing - just ignore (it is captured elsewhere if it was a model problem).
+
+			if(advisor.unqualifiedVariables() == ValidationPreference.WARNING)
+				acceptor.acceptWarning(
+					"Unqualified name: '" + o.getVarName() + "'", o, PPPackage.Literals.VARIABLE_EXPRESSION__VAR_NAME,
+					IPPDiagnostics.ISSUE__UNQUALIFIED_VARIABLE);
+			else
+				acceptor.acceptError(
+					"Unqualified name: '" + o.getVarName() + "'", o, PPPackage.Literals.VARIABLE_EXPRESSION__VAR_NAME,
+					IPPDiagnostics.ISSUE__UNQUALIFIED_VARIABLE);
+		}
+
+		// Qualified variables that are not global references should always be found.
+		if(qualified && !global) {
+			// TODO: find variables
+		}
 		// TODO: Add preference check
 
 		// reference
@@ -537,6 +560,10 @@ public class PPResourceLinker implements IPPDiagnostics {
 		// - variables and parameters
 		// - facter variables
 
+	}
+
+	private IValidationAdvisor advisor() {
+		return validationAdvisorProvider.get();
 	}
 
 	private void buildExportedObjectsIndex(IResourceDescription descr, IResourceDescriptions descriptionIndex) {

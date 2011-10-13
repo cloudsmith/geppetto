@@ -24,6 +24,7 @@ import org.cloudsmith.geppetto.forge.Dependency;
 import org.cloudsmith.geppetto.forge.ForgeFactory;
 import org.cloudsmith.geppetto.forge.Metadata;
 import org.cloudsmith.geppetto.pp.dsl.ui.PPUiConstants;
+import org.cloudsmith.geppetto.pp.dsl.ui.internal.PPDSLActivator;
 import org.cloudsmith.geppetto.pp.dsl.validation.IValidationAdvisor;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IMarker;
@@ -43,7 +44,7 @@ import org.eclipse.xtext.util.Wrapper;
 import com.google.common.collect.BiMap;
 import com.google.common.collect.HashBiMap;
 import com.google.common.collect.Lists;
-import com.google.inject.Inject;
+import com.google.inject.Injector;
 import com.google.inject.Provider;
 
 /**
@@ -64,11 +65,12 @@ public class PPModulefileBuilder extends IncrementalProjectBuilder implements PP
 
 	private IValidationAdvisor validationAdvisor;
 
-	@Inject
-	public PPModulefileBuilder(Provider<IValidationAdvisor> validationAdvisorProvider) {
+	public PPModulefileBuilder() {
 		// Hm, can not inject this because it was not possible to inject this builder via the
 		// executable extension factory
+		Injector injector = ((PPDSLActivator) PPDSLActivator.getInstance()).getPPInjector();
 		tracer = new DefaultTracer(PPUiConstants.DEBUG_OPTION_MODULEFILE);
+		Provider<IValidationAdvisor> validationAdvisorProvider = injector.getProvider(IValidationAdvisor.class);
 		validationAdvisor = validationAdvisorProvider.get();
 	}
 

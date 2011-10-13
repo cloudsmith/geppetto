@@ -292,7 +292,7 @@ public class PPQuickfixProvider extends DefaultQuickfixProvider {
 					return; // it is in global scope (which was already proposed)
 
 				ppFinder.configure(varExpr);
-				for(IEObjectDescription desc : ppFinder.findVariables(varExpr, nameOfScope.append(issueString), null)) {
+				for(IEObjectDescription desc : ppFinder.findVariables(varExpr, nameOfScope.append(issueString), null).getAdjusted()) {
 					String nameInScopeString = converter.toString(desc.getName());
 					String foundNameOfScope = converter.toString(desc.getName().skipLast(1));
 					String scopeType = desc.getName().skipLast(1).equals(nameOfScope)
@@ -312,7 +312,7 @@ public class PPQuickfixProvider extends DefaultQuickfixProvider {
 					String nameInScopeString = converter.toString(nameInScope);
 					// TODO: Only propose if this name exists
 					// configure for lookup of things
-					if(ppFinder.findVariables(varExpr, nameInScopeString, null).size() > 0)
+					if(ppFinder.findVariables(varExpr, nameInScopeString, null).getAdjusted().size() > 0)
 						acceptor.accept(
 							issue, "Change to '$" + converter.toString(nameInScope) + "'", "Change to '$" +
 									issueString + "' in the outer scope:\n '" + converter.toString(qn) + "'", null,
@@ -322,7 +322,7 @@ public class PPQuickfixProvider extends DefaultQuickfixProvider {
 				}
 				// --VARIABLE OR PARAMETER IN A SUPERCLASS
 				List<IEObjectDescription> classes = ppFinder.findHostClasses(
-					varExpr, converter.toString(nameOfScope), null);
+					varExpr, converter.toString(nameOfScope), null).getAdjusted();
 				if(classes.size() > 0) {
 					// ignore ambiguities, just pick the first
 					// TODO: Complete PPFinder to search for variables with a search strategy exact, allscopes, allscopesStartsWith

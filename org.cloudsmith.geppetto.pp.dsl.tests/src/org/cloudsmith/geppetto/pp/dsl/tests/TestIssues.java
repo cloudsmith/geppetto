@@ -11,16 +11,17 @@
  */
 package org.cloudsmith.geppetto.pp.dsl.tests;
 
+import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.xtext.resource.XtextResource;
 
 /**
- * @author henrik
+ * Tests specific to reported issues.
  * 
  */
 public class TestIssues extends AbstractPuppetTests {
 
 	/**
-	 * [11] geppetto does not yet know about parametrized classes
+	 * [11] Geppetto does not yet know about parameterized classes
 	 * https://github.com/cloudsmith/geppetto/issues#issue/11
 	 * 
 	 * @throws Exception
@@ -47,5 +48,25 @@ public class TestIssues extends AbstractPuppetTests {
 				")";
 		XtextResource r = getResourceFromString(code);
 		tester.validate(r.getContents().get(0)).assertOK();
+	}
+
+	/**
+	 * [206] single char class name and inheritance results in things not being found
+	 * An unqualified reference to an inherited variable should produce no errors or warnings.
+	 * 
+	 * @throws Exception
+	 */
+	public void test_Issue206() throws Exception {
+		String code = "class a {\n" + //
+				"$x = 10\n" + //
+				"class bb inherits a {\n" + //
+				"$ref = $x\n" + //
+				"}\n" + //
+				"}\n"; //
+		;
+		Resource r = loadAndLinkSingleResource(code);
+		tester.validate(r.getContents().get(0)).assertOK();
+		resourceWarningDiagnostics(r).assertOK();
+		resourceErrorDiagnostics(r).assertOK();
 	}
 }

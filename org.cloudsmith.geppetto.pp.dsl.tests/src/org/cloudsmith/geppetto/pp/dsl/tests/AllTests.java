@@ -23,6 +23,7 @@ public class AllTests {
 	public static Test suite() {
 		TestSuite suite = new TestSuite(AllTests.class.getName());
 		// $JUnit-BEGIN$
+		suite.addTestSuite(TestVariables.class);
 		suite.addTestSuite(TestWsAndComments.class);
 		suite.addTestSuite(TestPuppetResourceExpr.class);
 		suite.addTestSuite(TestLiterals.class);

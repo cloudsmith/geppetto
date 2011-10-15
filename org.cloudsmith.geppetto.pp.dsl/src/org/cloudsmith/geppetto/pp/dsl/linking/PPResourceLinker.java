@@ -15,10 +15,8 @@ import static org.cloudsmith.geppetto.pp.adapters.ClassifierAdapter.RESOURCE_IS_
 import static org.cloudsmith.geppetto.pp.adapters.ClassifierAdapter.RESOURCE_IS_OVERRIDE;
 
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.List;
 import java.util.ListIterator;
-import java.util.Map;
 
 import org.cloudsmith.geppetto.common.tracer.ITracer;
 import org.cloudsmith.geppetto.pp.AttributeOperation;
@@ -69,7 +67,6 @@ import org.eclipse.xtext.resource.IEObjectDescription;
 import org.eclipse.xtext.resource.IResourceDescription;
 import org.eclipse.xtext.resource.IResourceDescriptions;
 
-import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
@@ -192,7 +189,7 @@ public class PPResourceLinker implements IPPDiagnostics {
 			return;
 
 		SearchResult searchResult = ppFinder.findHostClasses(o, parentString, importedNames);
-		List<IEObjectDescription> descs = searchResult.getAdjusted(); // findHostClasses(o, parentString, importedNames);
+		List<IEObjectDescription> descs = searchResult.getAdjusted();
 		if(descs.size() > 0) {
 			// make list only contain unique references
 			descs = Lists.newArrayList(Sets.newHashSet(descs));
@@ -217,7 +214,7 @@ public class PPResourceLinker implements IPPDiagnostics {
 			checkCircularInheritence(o, descs, visited, acceptor, importedNames);
 		}
 		else if(searchResult.getRaw().size() > 0) {
-			List<IEObjectDescription> raw = searchResult.getAdjusted(); // findHostClasses(o, parentString, importedNames);
+			List<IEObjectDescription> raw = searchResult.getAdjusted();
 
 			// Sort of ok, it is not on the current path
 			// record resolution at resource level, so recompile knows about the dependencies
@@ -261,7 +258,7 @@ public class PPResourceLinker implements IPPDiagnostics {
 				return; // not meaningful to continue
 			}
 			SearchResult searchResult = ppFinder.findHostClasses(o, className, importedNames);
-			List<IEObjectDescription> descs = searchResult.getAdjusted(); // findHostClasses(o, className, importedNames);
+			List<IEObjectDescription> descs = searchResult.getAdjusted();
 			if(descs.size() < 1) {
 				if(searchResult.getRaw().size() > 0) {
 					// Sort of ok
@@ -899,13 +896,9 @@ public class PPResourceLinker implements IPPDiagnostics {
 		PPImportedNamesAdapter importedNames = PPImportedNamesAdapterFactory.eINSTANCE.adapt(resource);
 		importedNames.clear();
 
-		// long before = System.currentTimeMillis();
 		IResourceDescriptions descriptionIndex = indexProvider.getResourceDescriptions(resource);
 		IResourceDescription descr = descriptionIndex.getResourceDescription(resource.getURI());
-		// long after = System.currentTimeMillis();
-		// if(profileThis) {
-		// System.err.printf("Getting index for resource takes (%s)\n", after - before);
-		// }
+
 		if(descr == null) {
 			if(tracer.isTracing()) {
 				tracer.trace("Cleaning resource: " + resource.getURI().path());
@@ -922,54 +915,62 @@ public class PPResourceLinker implements IPPDiagnostics {
 		// it is important that ResourceExpresion are linked before ResourceBodyExpression (but that should
 		// be ok with the tree iterator as the bodies are contained).
 
-		// TODO: Should also validate INHERIT for CLASS and DEFINITION
-		HashMap<EClass, Long> profilePerClass = Maps.newHashMap();
-		if(profileThis) {
-			profilePerClass.put(PPPackage.Literals.RESOURCE_EXPRESSION, 0L);
-			profilePerClass.put(PPPackage.Literals.RESOURCE_BODY, 0L);
-			profilePerClass.put(PPPackage.Literals.FUNCTION_CALL, 0L);
-			profilePerClass.put(PPPackage.Literals.PUPPET_MANIFEST, 0L);
-			profilePerClass.put(PPPackage.Literals.HOST_CLASS_DEFINITION, 0L);
-		}
 		while(everything.hasNext()) {
 			EObject o = everything.next();
 			EClass clazz = o.eClass();
-			long beforeLink = System.currentTimeMillis();
-			if(clazz == PPPackage.Literals.VARIABLE_EXPRESSION)
-				_link((VariableExpression) o, importedNames, acceptor);
-			else if(clazz == PPPackage.Literals.RESOURCE_EXPRESSION)
-				_link((ResourceExpression) o, importedNames, acceptor);
-			else if(clazz == PPPackage.Literals.RESOURCE_BODY)
-				_link((ResourceBody) o, importedNames, acceptor, profileThis);
-			else if(clazz == PPPackage.Literals.FUNCTION_CALL)
-				_link((FunctionCall) o, importedNames, acceptor);
+			switch(clazz.getClassifierID()) {
+				case PPPackage.VARIABLE_EXPRESSION:
+					_link((VariableExpression) o, importedNames, acceptor);
+					break;
 
-			// these are needed to link un-parenthesised function calls
-			else if(clazz == PPPackage.Literals.PUPPET_MANIFEST)
-				internalLinkUnparenthesisedCall(((PuppetManifest) o).getStatements(), importedNames, acceptor);
-			else if(clazz == PPPackage.Literals.IF_EXPRESSION)
-				internalLinkUnparenthesisedCall(((IfExpression) o).getThenStatements(), importedNames, acceptor);
-			else if(clazz == PPPackage.Literals.ELSE_EXPRESSION)
-				internalLinkUnparenthesisedCall(((ElseExpression) o).getStatements(), importedNames, acceptor);
-			else if(clazz == PPPackage.Literals.ELSE_IF_EXPRESSION)
-				internalLinkUnparenthesisedCall(((ElseIfExpression) o).getThenStatements(), importedNames, acceptor);
-			else if(clazz == PPPackage.Literals.NODE_DEFINITION)
-				internalLinkUnparenthesisedCall(((NodeDefinition) o).getStatements(), importedNames, acceptor);
-			else if(clazz == PPPackage.Literals.DEFINITION)
-				internalLinkUnparenthesisedCall(((Definition) o).getStatements(), importedNames, acceptor);
-			else if(clazz == PPPackage.Literals.CASE)
-				internalLinkUnparenthesisedCall(((Case) o).getStatements(), importedNames, acceptor);
-			else if(clazz == PPPackage.Literals.HOST_CLASS_DEFINITION) {
-				_link((HostClassDefinition) o, importedNames, acceptor);
-				internalLinkUnparenthesisedCall(((HostClassDefinition) o).getStatements(), importedNames, acceptor);
+				case PPPackage.RESOURCE_EXPRESSION:
+					_link((ResourceExpression) o, importedNames, acceptor);
+					break;
+
+				case PPPackage.RESOURCE_BODY:
+					_link((ResourceBody) o, importedNames, acceptor, profileThis);
+					break;
+
+				case PPPackage.FUNCTION_CALL:
+					_link((FunctionCall) o, importedNames, acceptor);
+					break;
+
+				// these are needed to link un-parenthesised function calls
+				case PPPackage.PUPPET_MANIFEST:
+					internalLinkUnparenthesisedCall(((PuppetManifest) o).getStatements(), importedNames, acceptor);
+					break;
+
+				case PPPackage.IF_EXPRESSION:
+					internalLinkUnparenthesisedCall(((IfExpression) o).getThenStatements(), importedNames, acceptor);
+					break;
+
+				case PPPackage.ELSE_EXPRESSION:
+					internalLinkUnparenthesisedCall(((ElseExpression) o).getStatements(), importedNames, acceptor);
+					break;
+
+				case PPPackage.ELSE_IF_EXPRESSION:
+					internalLinkUnparenthesisedCall(((ElseIfExpression) o).getThenStatements(), importedNames, acceptor);
+					break;
+
+				case PPPackage.NODE_DEFINITION:
+					internalLinkUnparenthesisedCall(((NodeDefinition) o).getStatements(), importedNames, acceptor);
+					break;
+
+				case PPPackage.DEFINITION:
+					internalLinkUnparenthesisedCall(((Definition) o).getStatements(), importedNames, acceptor);
+					break;
+
+				case PPPackage.CASE:
+					internalLinkUnparenthesisedCall(((Case) o).getStatements(), importedNames, acceptor);
+					break;
+
+				case PPPackage.HOST_CLASS_DEFINITION: {
+					_link((HostClassDefinition) o, importedNames, acceptor);
+					internalLinkUnparenthesisedCall(((HostClassDefinition) o).getStatements(), importedNames, acceptor);
+					break;
+				}
 			}
-			long afterLink = System.currentTimeMillis();
-			if(profileThis && profilePerClass.get(clazz) != null)
-				profilePerClass.put(clazz, profilePerClass.get(clazz) + (afterLink - beforeLink));
 		}
-		if(profileThis)
-			for(Map.Entry<EClass, Long> entry : profilePerClass.entrySet())
-				System.err.printf("Linking for class=%s (%s)\n", entry.getKey().getName(), entry.getValue());
 		if(tracer.isTracing())
 			tracer.trace("}");
 

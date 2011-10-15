@@ -88,18 +88,6 @@ public class PPResourceLinker implements IPPDiagnostics {
 	@Named(PPDSLConstants.PP_DEBUG_LINKER)
 	private ITracer tracer;
 
-	// /**
-	// * Access to container manager for PP language
-	// */
-	// @Inject
-	// private IContainer.Manager manager;
-
-	// /**
-	// * Access to the 'pp' services (container management and more).
-	// */
-	// @Inject
-	// private IResourceServiceProvider resourceServiceProvider;
-
 	/**
 	 * Access to the global index maintained by Xtext, is made via a special (non guice) provider
 	 * that is aware of the context (builder, dirty editors, etc.). It is used to obtain the
@@ -123,22 +111,11 @@ public class PPResourceLinker implements IPPDiagnostics {
 	@Inject
 	private PPProposalsGenerator proposer;
 
-	// /**
-	// * Access to naming of model elements.
-	// */
-	// @Inject
-	// private IQualifiedNameProvider fqnProvider;
-
 	@Inject
 	private PPFinder ppFinder;
 
 	@Inject
 	private PPStringConstantEvaluator stringConstantEvaluator;
-
-	// private Map<String, IEObjectDescription> metaCache;
-
-	// private final static EClass[] DEF_AND_TYPE_ARGUMENTS = {
-	// PPPackage.Literals.DEFINITION_ARGUMENT, PPTPPackage.Literals.TYPE_ARGUMENT };
 
 	// Note that order is important
 	private final static EClass[] DEF_AND_TYPE = { PPTPPackage.Literals.TYPE, PPPackage.Literals.DEFINITION };
@@ -154,8 +131,6 @@ public class PPResourceLinker implements IPPDiagnostics {
 		return issue + IPPDiagnostics.ISSUE_PROPOSAL_SUFFIX;
 	}
 
-	// private Multimap<String, IEObjectDescription> exportedPerLastSegment;
-
 	private Resource resource;
 
 	@Inject
@@ -169,7 +144,7 @@ public class PPResourceLinker implements IPPDiagnostics {
 	/**
 	 * polymorph {@link #link(EObject, IMessageAcceptor)}
 	 */
-	protected void _link(FunctionCall o, PPImportedNamesAdapter importedNames, IMessageAcceptor acceptor) {
+	private void _link(FunctionCall o, PPImportedNamesAdapter importedNames, IMessageAcceptor acceptor) {
 
 		// if not a name, then there is nothing to link, and this error is handled
 		// elsewhere
@@ -177,7 +152,7 @@ public class PPResourceLinker implements IPPDiagnostics {
 			return;
 		String name = ((LiteralNameOrReference) o.getLeftExpr()).getValue();
 
-		final SearchResult searchResult = findFunction(o, name, importedNames);
+		final SearchResult searchResult = ppFinder.findFunction(o, name, importedNames);
 		final List<IEObjectDescription> found = searchResult.getAdjusted(); // findFunction(o, name, importedNames);
 		if(found.size() > 0) {
 			// record resolution at resource level
@@ -204,7 +179,7 @@ public class PPResourceLinker implements IPPDiagnostics {
 		importedNames.addUnresolved(converter.toQualifiedName(name));
 	}
 
-	protected void _link(HostClassDefinition o, PPImportedNamesAdapter importedNames, IMessageAcceptor acceptor) {
+	private void _link(HostClassDefinition o, PPImportedNamesAdapter importedNames, IMessageAcceptor acceptor) {
 		LiteralExpression parent = o.getParent();
 		if(parent == null)
 			return;
@@ -216,7 +191,7 @@ public class PPResourceLinker implements IPPDiagnostics {
 		if(parentString == null || parentString.length() < 1)
 			return;
 
-		SearchResult searchResult = findHostClasses(o, parentString, importedNames);
+		SearchResult searchResult = ppFinder.findHostClasses(o, parentString, importedNames);
 		List<IEObjectDescription> descs = searchResult.getAdjusted(); // findHostClasses(o, parentString, importedNames);
 		if(descs.size() > 0) {
 			// make list only contain unique references
@@ -270,7 +245,7 @@ public class PPResourceLinker implements IPPDiagnostics {
 	/**
 	 * polymorph {@link #link(EObject, IMessageAcceptor)}
 	 */
-	protected void _link(ResourceBody o, PPImportedNamesAdapter importedNames, IMessageAcceptor acceptor,
+	private void _link(ResourceBody o, PPImportedNamesAdapter importedNames, IMessageAcceptor acceptor,
 			boolean profileThis) {
 
 		ResourceExpression resource = (ResourceExpression) o.eContainer();
@@ -285,7 +260,7 @@ public class PPResourceLinker implements IPPDiagnostics {
 					IPPDiagnostics.ISSUE__NOT_CLASSREF);
 				return; // not meaningful to continue
 			}
-			SearchResult searchResult = findHostClasses(o, className, importedNames);
+			SearchResult searchResult = ppFinder.findHostClasses(o, className, importedNames);
 			List<IEObjectDescription> descs = searchResult.getAdjusted(); // findHostClasses(o, className, importedNames);
 			if(descs.size() < 1) {
 				if(searchResult.getRaw().size() > 0) {
@@ -335,7 +310,7 @@ public class PPResourceLinker implements IPPDiagnostics {
 						// NOTE/TODO: If there are other problems (multiple definitions with same name etc,
 						// the property could be ok in one, but not in another instance.
 						// finding that A'::x exists but not A''::x requires a lot more work
-						if(findAttributes(o, fqn, importedNames, profileThis).size() > 0)
+						if(ppFinder.findAttributes(o, fqn, importedNames).getAdjusted().size() > 0)
 							continue; // found one such parameter == ok
 
 						String[] proposals = proposer.computeAttributeProposals(
@@ -367,7 +342,7 @@ public class PPResourceLinker implements IPPDiagnostics {
 						// NOTE/TODO: If there are other problems (multiple definitions with same name etc,
 						// the property could be ok in one, but not in another instance.
 						// finding that A'::x exists but not A''::x requires a lot more work
-						List<IEObjectDescription> foundAttributes = findAttributes(o, fqn, importedNames, profileThis);
+						List<IEObjectDescription> foundAttributes = ppFinder.findAttributes(o, fqn, importedNames).getAdjusted();
 						// if the ao is a namevar reference, remember it so uniqueness can be validated
 						if(foundAttributes.size() > 0) {
 							if(containsNameVar(foundAttributes))
@@ -404,7 +379,7 @@ public class PPResourceLinker implements IPPDiagnostics {
 	/**
 	 * polymorph {@link #link(EObject, IMessageAcceptor)}
 	 */
-	protected void _link(ResourceExpression o, PPImportedNamesAdapter importedNames, IMessageAcceptor acceptor) {
+	private void _link(ResourceExpression o, PPImportedNamesAdapter importedNames, IMessageAcceptor acceptor) {
 		classifier.classify(o);
 
 		ClassifierAdapter adapter = ClassifierAdapterFactory.eINSTANCE.adapt(o);
@@ -427,7 +402,7 @@ public class PPResourceLinker implements IPPDiagnostics {
 		}
 		else {
 			// normal resource
-			SearchResult searchResult = findDefinitions(o, resourceTypeName, importedNames);
+			SearchResult searchResult = ppFinder.findDefinitions(o, resourceTypeName, importedNames);
 			List<IEObjectDescription> descs = searchResult.getAdjusted(); // findDefinitions(o, resourceTypeName, importedNames);
 			if(descs.size() > 0) {
 				// make list only contain unique references
@@ -485,7 +460,7 @@ public class PPResourceLinker implements IPPDiagnostics {
 		}
 	}
 
-	protected void _link(VariableExpression o, PPImportedNamesAdapter importedNames, IMessageAcceptor acceptor) {
+	private void _link(VariableExpression o, PPImportedNamesAdapter importedNames, IMessageAcceptor acceptor) {
 		// a definition of a variable (as opposed to a reference) is a leftExpr in an assignment expression
 		if(o.eContainer().eClass() == PPPackage.Literals.ASSIGNMENT_EXPRESSION &&
 				PPPackage.Literals.BINARY_EXPRESSION__LEFT_EXPR == o.eContainingFeature())
@@ -494,107 +469,68 @@ public class PPResourceLinker implements IPPDiagnostics {
 		boolean qualified = false;
 		boolean global = false;
 		QualifiedName qName = null;
+		SearchResult searchResult = null;
+		boolean existsAdjusted = false; // variable found as stated
+		boolean existsOutside = false; // if not found, reflects if found outside search path
+
 		try {
 			qName = converter.toQualifiedName(o.getVarName());
 			qualified = qName.getSegmentCount() > 1;
 			global = qName.getFirstSegment().length() == 0;
+			searchResult = ppFinder.findVariable(o, qName, importedNames);
+			existsAdjusted = searchResult.getAdjusted().size() > 0;
+			existsOutside = existsAdjusted
+					? true
+					: searchResult.getRaw().size() > 0;
 		}
 		catch(IllegalArgumentException iae) {
 			// Can happen if there is something seriously wrong with the qualified name, should be caught by
 			// validation - just ignore it here
 			return;
 		}
-
 		IValidationAdvisor advisor = advisor();
-		if(!qualified && advisor.unqualifiedVariables().isWarningOrError()) {
-			// In 2.8, names must be fully qualified to match in global scope (or is it that relative names only
-			// match in current scope, and must be fully qualified otherwise?
-			// Warn regarding all non qualified variable use.
-			if(o.getVarName() == null || o.getVarName().length() == 0)
-				return; // can happen during editing - just ignore (it is captured elsewhere if it was a model problem).
 
-			if(advisor.unqualifiedVariables() == ValidationPreference.WARNING)
-				acceptor.acceptWarning(
-					"Unqualified name: '" + o.getVarName() + "'", o, PPPackage.Literals.VARIABLE_EXPRESSION__VAR_NAME,
-					IPPDiagnostics.ISSUE__UNQUALIFIED_VARIABLE);
-			else
-				acceptor.acceptError(
-					"Unqualified name: '" + o.getVarName() + "'", o, PPPackage.Literals.VARIABLE_EXPRESSION__VAR_NAME,
-					IPPDiagnostics.ISSUE__UNQUALIFIED_VARIABLE);
+		boolean mustExist = true;
+		if(qualified && global) { // && !(existsAdjusted || existsOutside)) {
+			// TODO: Possible future improvement when more global variables are known.
+			// if reported as error now, almost all global variables would be flagged as errors.
+			// Future enhancement could warn about those that are not found (resolved at runtime).
+			mustExist = false;
 		}
+		if(mustExist) {
+			if(!(existsAdjusted || existsOutside)) {
+				// found nowhere
+				if(qualified || advisor.unqualifiedVariables().isWarningOrError()) {
+					StringBuilder message = new StringBuilder();
+					message.append(qualified
+							? "Unknown variable: '"
+							: "Unqualified and Unknown variable: '");
+					message.append(o.getVarName());
+					message.append("'");
 
-		// Qualified variables that are not global references should always be found.
-		if(qualified && !global) {
-			SearchResult found = ppFinder.findVariable(o, qName, importedNames);
-			if(found.getAdjusted().size() < 1) {
-				if(found.getRaw().size() > 0) {
-					// found outside path
-					acceptor.acceptWarning(
-						"Found outside current search path: '" + o.getVarName() + "'", o,
-						PPPackage.Literals.VARIABLE_EXPRESSION__VAR_NAME, IPPDiagnostics.ISSUE__NOT_ON_PATH);
-
-				}
-				else {
-					// not found at all
-					acceptor.acceptError(
-						"Unknown variable: '" + o.getVarName() + "'", o,
-						PPPackage.Literals.VARIABLE_EXPRESSION__VAR_NAME, IPPDiagnostics.ISSUE__UNKNOWN_VARIABLE);
-
+					if(advisor.unqualifiedVariables() == ValidationPreference.WARNING)
+						acceptor.acceptWarning(
+							message.toString(), o, PPPackage.Literals.VARIABLE_EXPRESSION__VAR_NAME,
+							IPPDiagnostics.ISSUE__UNKNOWN_VARIABLE);
+					else
+						acceptor.acceptError(
+							message.toString(), o, PPPackage.Literals.VARIABLE_EXPRESSION__VAR_NAME,
+							IPPDiagnostics.ISSUE__UNKNOWN_VARIABLE);
 				}
 			}
+			else if(!existsAdjusted && existsOutside) {
+				// found outside
+				if(qualified || advisor.unqualifiedVariables().isWarningOrError())
+					acceptor.acceptWarning(
+						"Found outside current search path variable: '" + o.getVarName() + "'", o,
+						PPPackage.Literals.VARIABLE_EXPRESSION__VAR_NAME, IPPDiagnostics.ISSUE__NOT_ON_PATH);
+			}
 		}
-		// TODO: Add preference check
-
-		// reference
-		// TODO: what to search?
-		// - scope, outwards
-		// - inheritence
-		// - variables and parameters
-		// - facter variables
-
 	}
 
 	private IValidationAdvisor advisor() {
 		return validationAdvisorProvider.get();
 	}
-
-	// private void buildExportedObjectsIndex(IResourceDescription descr, IResourceDescriptions descriptionIndex) {
-	// // The current (possibly dirty) exported resources
-	// IResourceDescription dirty = resourceServiceProvider.getResourceDescriptionManager().getResourceDescription(
-	// resource);
-	// String pathToCurrent = resource.getURI().path();
-	//
-	// Multimap<String, IEObjectDescription> map = ArrayListMultimap.create();
-	// // add all (possibly dirty in global index)
-	// for(IEObjectDescription d : dirty.getExportedObjects())
-	// map.put(d.getQualifiedName().getLastSegment(), d);
-	// // add all from global index, except those for current resource
-	// for(IEObjectDescription d : getExportedObjects(descr, descriptionIndex))
-	// if(!d.getEObjectURI().path().equals(pathToCurrent))
-	// map.put(d.getQualifiedName().getLastSegment(), d);
-	// exportedPerLastSegment = map;
-	// }
-
-	// private void cacheMetaParameters(EObject scopeDetermeningObject) {
-	// // System.err.println("Computing meta cache");
-	// metaCache = Maps.newHashMap();
-	// Resource scopeDetermeningResource = scopeDetermeningObject.eResource();
-	//
-	// IResourceDescriptions descriptionIndex = indexProvider.getResourceDescriptions(scopeDetermeningResource);
-	// IResourceDescription descr = descriptionIndex.getResourceDescription(scopeDetermeningResource.getURI());
-	// if(descr == null)
-	// return; // give up - some sort of clean build
-	// EClass wantedType = PPTPPackage.Literals.TYPE_ARGUMENT;
-	// for(IContainer visibleContainer : manager.getVisibleContainers(descr, descriptionIndex)) {
-	// for(IEObjectDescription objDesc : visibleContainer.getExportedObjects()) {
-	// QualifiedName q = objDesc.getQualifiedName();
-	// if("Type".equals(q.getFirstSegment())) {
-	// if(wantedType == objDesc.getEClass() || wantedType.isSuperTypeOf(objDesc.getEClass()))
-	// metaCache.put(q.getLastSegment(), objDesc);
-	// }
-	// }
-	// }
-	// }
 
 	/**
 	 * Returns false if it is impossible that the given expression can result in a valid class
@@ -626,7 +562,7 @@ public class PPResourceLinker implements IPPDiagnostics {
 		return true;
 	}
 
-	protected void checkCircularInheritence(HostClassDefinition o, Collection<IEObjectDescription> descs,
+	private void checkCircularInheritence(HostClassDefinition o, Collection<IEObjectDescription> descs,
 			List<QualifiedName> stack, IMessageAcceptor acceptor, PPImportedNamesAdapter importedNames) {
 		for(IEObjectDescription d : descs) {
 			QualifiedName name = d.getName();
@@ -642,7 +578,7 @@ public class PPResourceLinker implements IPPDiagnostics {
 			String parentName = d.getUserData(PPDSLConstants.PARENT_NAME_DATA);
 			if(parentName == null || parentName.length() == 0)
 				continue;
-			SearchResult searchResult = findHostClasses(d.getEObjectOrProxy(), parentName, importedNames);
+			SearchResult searchResult = ppFinder.findHostClasses(d.getEObjectOrProxy(), parentName, importedNames);
 			List<IEObjectDescription> parents = searchResult.getAdjusted(); // findHostClasses(d.getEObjectOrProxy(), parentName, importedNames);
 			checkCircularInheritence(o, parents, stack, acceptor, importedNames);
 		}
@@ -654,129 +590,6 @@ public class PPResourceLinker implements IPPDiagnostics {
 				return true;
 		return false;
 	}
-
-	/**
-	 * Find an attribute being a DefinitionArgument, Property, or Parameter for the given type, or a
-	 * meta Property or Parameter defined for the type 'Type'.
-	 * 
-	 * @param scopeDetermeningObject
-	 * @param fqn
-	 * @return
-	 */
-	protected List<IEObjectDescription> findAttributes(EObject scopeDetermeningObject, QualifiedName fqn,
-			PPImportedNamesAdapter importedNames, boolean profileThis) {
-		return ppFinder.findAttributes(scopeDetermeningObject, fqn, importedNames).getAdjusted();
-		// List<IEObjectDescription> result = null;
-		//
-		// // do meta lookup first as this is made fast via a cache and these are used more frequent
-		// // than other parameters (measured).
-		// if(metaCache == null)
-		// cacheMetaParameters(scopeDetermeningObject);
-		// IEObjectDescription d = metaCache.get(fqn.getLastSegment());
-		// if(d == null)
-		// result = findAttributesWithGuard(
-		// scopeDetermeningObject, fqn, importedNames, Lists.<QualifiedName> newArrayList(), profileThis, "");
-		// else
-		// result = Lists.newArrayList(d);
-		// return result;
-	}
-
-	// private List<IEObjectDescription> findAttributesWithGuard(EObject scopeDetermeningObject, QualifiedName fqn,
-	// PPImportedNamesAdapter importedNames, List<QualifiedName> stack, boolean profileThis, String indent) {
-	//
-	// // Protect against circular inheritance
-	// if(stack.contains(fqn))
-	// return Collections.emptyList();
-	// stack.add(fqn);
-	// // if(profileThis)
-	// // System.err.println(indent + "Looking for  " + fqn);
-	//
-	// // find a regular DefinitionArgument, Property or Parameter
-	// SearchResult searchResult = findExternal(scopeDetermeningObject, fqn, importedNames, DEF_AND_TYPE_ARGUMENTS);
-	// List<IEObjectDescription> result = searchResult.getAdjusted(); // findExternal(
-	// // scopeDetermeningObject, fqn, importedNames, DEF_AND_TYPE_ARGUMENTS);
-	//
-	// // Search up the inheritance chain
-	// if(result.isEmpty()) {
-	// if(profileThis)
-	// System.err.println(indent + "  Searching parent " + fqn.skipLast(1));
-	// // find the parent type
-	// SearchResult searchResult2 = findExternal(
-	// scopeDetermeningObject, fqn.skipLast(1), importedNames, DEF_AND_TYPE);
-	// result = searchResult2.getAdjusted(); // findExternal(scopeDetermeningObject, fqn.skipLast(1), importedNames, DEF_AND_TYPE);
-	// if(!result.isEmpty()) {
-	// IEObjectDescription firstFound = result.get(0);
-	// String parentName = firstFound.getUserData(PPDSLConstants.PARENT_NAME_DATA);
-	// if(parentName != null && parentName.length() > 1) {
-	// // find attributes for parent
-	//
-	// QualifiedName attributeFqn = converter.toQualifiedName(parentName);
-	// attributeFqn = attributeFqn.append(fqn.getLastSegment());
-	// if(profileThis)
-	// System.err.println(indent + "  Returning result of search for " + attributeFqn);
-	// return findAttributesWithGuard(
-	// scopeDetermeningObject, attributeFqn, importedNames, stack, profileThis, indent + "    ");
-	// }
-	// result = Collections.emptyList();
-	// }
-	// }
-	// return result;
-	// }
-
-	private SearchResult findDefinitions(EObject scopeDetermeningResource, String name,
-			PPImportedNamesAdapter importedNames) {
-		return ppFinder.findDefinitions(scopeDetermeningResource, name, importedNames);
-		// if(name == null)
-		// throw new IllegalArgumentException("name is null");
-		// QualifiedName fqn = converter.toQualifiedName(name);
-		// // make all segments initial char lower case (if references is to the type itself - eg. 'File' instead of
-		// // 'file', or 'Aa::Bb' instead of 'aa::bb'
-		// QualifiedName fqn2 = QualifiedName.EMPTY;
-		// for(int i = 0; i < fqn.getSegmentCount(); i++)
-		// fqn2 = fqn2.append(toInitialLowerCase(fqn.getSegment(i)));
-		// // fqn2 = fqn.skipLast(1).append(toInitialLowerCase(fqn.getLastSegment()));
-		//
-		// // TODO: Note that order is important, TYPE has higher precedence and should be used for linking
-		// // This used to work when list was iterated per type, not it is iterated once with type check
-		// // first - thus if a definition is found before a type, it is earlier in the list.
-		// return findExternal(scopeDetermeningResource, fqn2, importedNames, DEF_AND_TYPE);
-	}
-
-	private SearchResult findFunction(EObject scopeDetermeningObject, QualifiedName fqn,
-			PPImportedNamesAdapter importedNames) {
-		return ppFinder.findFunction(scopeDetermeningObject, fqn, importedNames);
-		// return findExternal(scopeDetermeningObject, fqn, importedNames, FUNC);
-	}
-
-	private SearchResult findFunction(EObject scopeDetermeningObject, String name, PPImportedNamesAdapter importedNames) {
-		return findFunction(scopeDetermeningObject, converter.toQualifiedName(name), importedNames);
-	}
-
-	private SearchResult findHostClasses(EObject scopeDetermeningResource, String name,
-			PPImportedNamesAdapter importedNames) {
-		return ppFinder.findHostClasses(scopeDetermeningResource, name, importedNames);
-		// if(name == null)
-		// throw new IllegalArgumentException("name is null");
-		// QualifiedName fqn = converter.toQualifiedName(name);
-		// // make last segments initial char lower case (for references to the type itself - eg. 'File' instead of
-		// // 'file'.
-		// fqn = fqn.skipLast(1).append(toInitialLowerCase(fqn.getLastSegment()));
-		// return findExternal(scopeDetermeningResource, fqn, importedNames, CLASS_AND_TYPE);
-	}
-
-	// private Iterable<IEObjectDescription> getExportedObjects(IResourceDescription descr,
-	// IResourceDescriptions descriptionIndex) {
-	// return Iterables.concat(Iterables.transform(
-	// manager.getVisibleContainers(descr, descriptionIndex),
-	// new Function<IContainer, Iterable<IEObjectDescription>>() {
-	//
-	// @Override
-	// public Iterable<IEObjectDescription> apply(IContainer from) {
-	// return from.getExportedObjects();
-	// }
-	//
-	// }));
-	// }
 
 	/**
 	 * Returns the first type description. If none is found, the first description is returned.
@@ -792,16 +605,6 @@ public class PPResourceLinker implements IPPDiagnostics {
 		return descriptions.get(0);
 	}
 
-	// private QualifiedName getNameOfScope(EObject o) {
-	// QualifiedName result = null;
-	// for(; o != null; o = o.eContainer()) {
-	// result = fqnProvider.getFullyQualifiedName(o);
-	// if(result != null)
-	// return result;
-	// }
-	// return QualifiedName.EMPTY;
-	// }
-
 	/**
 	 * Link well known functions that must have references to defined things.
 	 * 
@@ -809,7 +612,7 @@ public class PPResourceLinker implements IPPDiagnostics {
 	 * @param importedNames
 	 * @param acceptor
 	 */
-	protected void internalLinkFunctionArguments(String name, FunctionCall o, PPImportedNamesAdapter importedNames,
+	private void internalLinkFunctionArguments(String name, FunctionCall o, PPImportedNamesAdapter importedNames,
 			IMessageAcceptor acceptor) {
 		// have 0:M classes as arguments
 		if("require".equals(name) || "include".equals(name)) {
@@ -818,7 +621,7 @@ public class PPResourceLinker implements IPPDiagnostics {
 				parameterIndex++;
 				String className = stringConstantEvaluator.doToString(pe);
 				if(className != null) {
-					SearchResult searchResult = findHostClasses(o, className, importedNames);
+					SearchResult searchResult = ppFinder.findHostClasses(o, className, importedNames);
 					List<IEObjectDescription> foundClasses = searchResult.getAdjusted(); // findHostClasses(o, className, importedNames);
 					if(foundClasses.size() > 1) {
 						// ambiguous
@@ -912,7 +715,7 @@ public class PPResourceLinker implements IPPDiagnostics {
 				parameterIndex++;
 				String className = stringConstantEvaluator.doToString(pe);
 				if(className != null) {
-					SearchResult searchResult = findHostClasses(s, className, importedNames);
+					SearchResult searchResult = ppFinder.findHostClasses(s, className, importedNames);
 					List<IEObjectDescription> foundClasses = searchResult.getAdjusted(); // findHostClasses(o, className, importedNames);
 					if(foundClasses.size() > 1) {
 						// ambiguous
@@ -1015,7 +818,7 @@ public class PPResourceLinker implements IPPDiagnostics {
 	 * @param statements
 	 * @param acceptor
 	 */
-	protected void internalLinkUnparenthesisedCall(EList<Expression> statements, PPImportedNamesAdapter importedNames,
+	private void internalLinkUnparenthesisedCall(EList<Expression> statements, PPImportedNamesAdapter importedNames,
 			IMessageAcceptor acceptor) {
 		if(statements == null || statements.size() == 0)
 			return;
@@ -1038,7 +841,7 @@ public class PPResourceLinker implements IPPDiagnostics {
 				i++;
 				// Expression arg = statements.get(i); // not used yet...
 				String name = ((LiteralNameOrReference) s).getValue();
-				SearchResult searchResult = findFunction(s, name, importedNames);
+				SearchResult searchResult = ppFinder.findFunction(s, name, importedNames);
 				if(searchResult.getAdjusted().size() > 0 || searchResult.getRaw().size() > 0) {
 					internalLinkFunctionArguments(
 						name, (LiteralNameOrReference) s, statements, i, importedNames, acceptor);
@@ -1071,7 +874,7 @@ public class PPResourceLinker implements IPPDiagnostics {
 	 * @param o
 	 * @return
 	 */
-	protected boolean isParent(IEObjectDescription desc, EObject o) {
+	private boolean isParent(IEObjectDescription desc, EObject o) {
 		URI descUri = desc.getEObjectURI();
 		URI oUri = o.eResource().getURI();
 		if(!descUri.path().equals(oUri.path()))
@@ -1109,15 +912,6 @@ public class PPResourceLinker implements IPPDiagnostics {
 			}
 			return;
 		}
-
-		// manager = resourceServiceProvider.getContainerManager();
-
-		// // Compute a cache based on last segment of qualified names
-		// before = System.currentTimeMillis();
-		// buildExportedObjectsIndex(descr, descriptionIndex);
-		// after = System.currentTimeMillis();
-		// if(profileThis)
-		// System.err.printf("Building index took: %s", after - before);
 
 		if(tracer.isTracing())
 			tracer.trace("Linking resource: ", resource.getURI().path(), "{");
@@ -1198,47 +992,13 @@ public class PPResourceLinker implements IPPDiagnostics {
 		}
 	}
 
-	// /**
-	// * Adjusts the list of found targets in accordance with the search path for the resource being
-	// * linked. This potentially resolves ambiguities (if found result is further away on the path).
-	// * May return more than one result, if more than one resolution exist with the same path index.
-	// *
-	// * @param targets
-	// * @return list of descriptions with lowest index.
-	// */
-	// private List<IEObjectDescription> searchPathAdjusted(List<IEObjectDescription> targets) {
-	// int minIdx = Integer.MAX_VALUE;
-	// List<IEObjectDescription> result = Lists.newArrayList();
-	// for(IEObjectDescription d : targets) {
-	// int idx = searchPath.searchIndexOf(d);
-	// if(idx < 0)
-	// continue; // not found, skip
-	// if(idx < minIdx) {
-	// minIdx = idx;
-	// result.clear(); // forget worse result
-	// }
-	// // only remember if equal to best found so far
-	// if(idx <= minIdx)
-	// result.add(d);
-	// }
-	// return result;
-	// }
-
-	// private String toInitialLowerCase(String s) {
-	// if(s.length() < 1 || Character.isLowerCase(s.charAt(0)))
-	// return s;
-	// StringBuffer buf = new StringBuffer(s);
-	// buf.setCharAt(0, Character.toLowerCase(buf.charAt(0)));
-	// return buf.toString();
-	// }
-
 	/**
 	 * Collects the (unique) set of resource paths and returns a message with <=5 (+ ... and x others).
 	 * 
 	 * @param descriptors
 	 * @return
 	 */
-	protected String visibleResourceList(Resource r, List<IEObjectDescription> descriptors) {
+	private String visibleResourceList(Resource r, List<IEObjectDescription> descriptors) {
 		ResourcePropertiesAdapter adapter = ResourcePropertiesAdapterFactory.eINSTANCE.adapt(r);
 		URI root = (URI) adapter.get(PPDSLConstants.RESOURCE_PROPERTY__ROOT_URI);
 
@@ -1272,8 +1032,6 @@ public class PPResourceLinker implements IPPDiagnostics {
 		for(String s : resources) {
 			if(count > 0)
 				buf.append(", ");
-			// buf.append(count);
-			// buf.append("=");
 			buf.append(s);
 			if(count++ > countCap) {
 				buf.append("and ");
@@ -1285,59 +1043,4 @@ public class PPResourceLinker implements IPPDiagnostics {
 		buf.append("]");
 		return buf.toString();
 	}
-
-	// private SearchResult xfindExternal(EObject scopeDetermeningObject, QualifiedName fqn,
-	// PPImportedNamesAdapter importedNames, EClass... eClasses) {
-	// if(scopeDetermeningObject == null)
-	// throw new IllegalArgumentException("scope determening object is null");
-	// if(fqn == null)
-	// throw new IllegalArgumentException("name is null");
-	// if(eClasses == null || eClasses.length < 1)
-	// throw new IllegalArgumentException("eClass is null or empty");
-	//
-	// if(fqn.getSegmentCount() == 1 && "".equals(fqn.getSegment(0)))
-	// throw new IllegalArgumentException("FQN has one empty segment");
-	//
-	// // Not meaningful to record the fact that an Absolute reference was used as nothing
-	// // is named with an absolute FQN (i.e. it is only used to do lookup).
-	// final boolean absoluteFQN = "".equals(fqn.getSegment(0));
-	// importedNames.add(absoluteFQN
-	// ? fqn.skipFirst(1)
-	// : fqn);
-	//
-	// List<IEObjectDescription> targets = Lists.newArrayList();
-	// Resource scopeDetermeningResource = scopeDetermeningObject.eResource();
-	//
-	// if(scopeDetermeningResource != resource) {
-	// // This is a lookup in the perspective of some other resource
-	// IResourceDescriptions descriptionIndex = indexProvider.getResourceDescriptions(scopeDetermeningResource);
-	// IResourceDescription descr = descriptionIndex.getResourceDescription(scopeDetermeningResource.getURI());
-	//
-	// // GIVE UP (the system is performing a build clean).
-	// if(descr == null)
-	// return new SearchResult(targets, targets);
-	// QualifiedName nameOfScope = getNameOfScope(scopeDetermeningObject);
-	//
-	// // for(IContainer visibleContainer : manager.getVisibleContainers(descr, descriptionIndex)) {
-	// // for(EClass aClass : eClasses)
-	// for(IEObjectDescription objDesc : new NameInScopeFilter(Match.EQUALS, getExportedObjects(
-	// descr, descriptionIndex),
-	// // visibleContainer.getExportedObjects(),
-	// fqn, nameOfScope, eClasses))
-	// targets.add(objDesc);
-	// }
-	// else {
-	// // This is lookup from the main resource perspecive
-	// QualifiedName nameOfScope = getNameOfScope(scopeDetermeningObject);
-	// for(IEObjectDescription objDesc : new NameInScopeFilter(
-	// Match.EQUALS, exportedPerLastSegment.get(fqn.getLastSegment()), fqn, nameOfScope, eClasses))
-	// targets.add(objDesc);
-	//
-	// }
-	// if(tracer.isTracing()) {
-	// for(IEObjectDescription d : targets)
-	// tracer.trace("    : ", converter.toString(d.getName()), " in: ", d.getEObjectURI().path());
-	// }
-	// return new SearchResult(searchPathAdjusted(targets), targets);
-	// }
 }

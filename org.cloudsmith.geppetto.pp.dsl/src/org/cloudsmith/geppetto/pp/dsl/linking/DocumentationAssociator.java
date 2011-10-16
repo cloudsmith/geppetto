@@ -76,6 +76,24 @@ public class DocumentationAssociator {
 	}
 
 	/**
+	 * @param text
+	 * @param node
+	 * @return
+	 */
+	private boolean hasNonWSBeforeStart(String text, INode node) {
+		int offset = node.getOffset();
+		for(int pos = offset - 1; pos >= 0; pos--) {
+			char c = text.charAt(pos);
+			if(c == '\r' || c == '\n')
+				return false;
+			if(c > ' ')
+				return true;
+		}
+		// reached start of parsed text
+		return false;
+	}
+
+	/**
 	 * Links comment nodes to classes listed in {@link #documentable} by collecting them in an
 	 * adapter (for later processing by formatter/styler).
 	 * 
@@ -115,6 +133,11 @@ public class DocumentationAssociator {
 					commentSequence.clear();
 				commentSequence.add(x);
 
+				// if comment has anything but whitespace before its start (on same line), it is not a documentation comment
+				if(hasNonWSBeforeStart(root.getText(), x)) {
+					commentSequence.clear();
+					continue;
+				}
 				// if next is not a comment, it may be an element that the documentation should be associated with
 				EObject siblingElement = sibling.getGrammarElement();
 				if(siblingElement == ga.getSL_COMMENTRule() || siblingElement == ga.getML_COMMENTRule())

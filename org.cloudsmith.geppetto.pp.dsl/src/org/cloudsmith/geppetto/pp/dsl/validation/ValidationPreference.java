@@ -17,5 +17,9 @@ package org.cloudsmith.geppetto.pp.dsl.validation;
  */
 public enum ValidationPreference {
 
-	IGNORE, INFO, WARNING, ERROR
+	IGNORE, INFO, WARNING, ERROR;
+
+	public boolean isWarningOrError() {
+		return this == WARNING || this == ERROR;
+	}
 }

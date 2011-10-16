@@ -215,7 +215,7 @@ public class PPProposalProvider extends AbstractPPProposalProvider {
 					return; // not a static expression
 				// Need the class to get its full name
 				ppFinder.configure(model.eResource());
-				List<IEObjectDescription> descs = ppFinder.findHostClasses(resourceBody, className, null);
+				List<IEObjectDescription> descs = ppFinder.findHostClasses(resourceBody, className, null).getAdjusted();
 				if(descs.size() < 1)
 					return; // can't find class, no proposals
 				IEObjectDescription desc = descs.get(0); // pick first if ambiguous
@@ -224,7 +224,7 @@ public class PPProposalProvider extends AbstractPPProposalProvider {
 				String prefix = context.getPrefix();
 				QualifiedName fqn = desc.getQualifiedName().append(prefix);
 
-				for(IEObjectDescription d : ppFinder.findAttributesWithPrefix(resourceBody, fqn))
+				for(IEObjectDescription d : ppFinder.findAttributesWithPrefix(resourceBody, fqn).getAdjusted())
 					acceptor.accept(createCompletionProposal(d.getName().getLastSegment(), context));
 
 			}
@@ -243,7 +243,7 @@ public class PPProposalProvider extends AbstractPPProposalProvider {
 					// which attribute(s) are we trying to find.
 					String prefix = context.getPrefix();
 					QualifiedName fqn = desc.getQualifiedName().append(prefix);
-					for(IEObjectDescription d : ppFinder.findAttributesWithPrefix(resourceBody, fqn))
+					for(IEObjectDescription d : ppFinder.findAttributesWithPrefix(resourceBody, fqn).getAdjusted())
 						acceptor.accept(createCompletionProposal(d.getName().getLastSegment(), context));
 
 				}
@@ -361,7 +361,7 @@ public class PPProposalProvider extends AbstractPPProposalProvider {
 
 		ppFinder.configure(model.eResource());
 
-		for(IEObjectDescription d : ppFinder.findDefinitions(model, null))
+		for(IEObjectDescription d : ppFinder.findDefinitions(model, null).getAdjusted())
 			acceptor.accept(createCompletionProposal(converter.toString(d.getQualifiedName()), context));
 
 	}

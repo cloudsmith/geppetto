@@ -148,4 +148,8 @@ public interface IPPDiagnostics {
 	 */
 	public static final String ISSUE__UNSUPPORTED_EXPRESSION_STRING_OK = ISSUE_PREFIX + "UnsupportedExpression_String";
 
+	public static final String ISSUE__UNQUALIFIED_VARIABLE = ISSUE_PREFIX + "UnqualifiedVariable";
+
+	public static final String ISSUE__UNKNOWN_VARIABLE = ISSUE_PREFIX + "UnknownVariable";
+
 }

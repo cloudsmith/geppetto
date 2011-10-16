@@ -11,6 +11,11 @@
  */
 package org.cloudsmith.geppetto.pp.dsl.tests;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.List;
+import java.util.Map;
+
 import org.cloudsmith.geppetto.pp.AttributeOperation;
 import org.cloudsmith.geppetto.pp.AttributeOperations;
 import org.cloudsmith.geppetto.pp.Expression;
@@ -23,18 +28,45 @@ import org.cloudsmith.geppetto.pp.VariableExpression;
 import org.cloudsmith.geppetto.pp.VirtualNameOrReference;
 import org.cloudsmith.geppetto.pp.dsl.validation.PPJavaValidator;
 import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.ecore.resource.Resource.Factory;
+import org.eclipse.emf.ecore.resource.ResourceSet;
+import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.xtext.junit.AbstractXtextTests;
 import org.eclipse.xtext.junit.validation.ValidatorTester;
+import org.eclipse.xtext.linking.ILinker;
+import org.eclipse.xtext.linking.lazy.LazyLinkingResource;
+import org.eclipse.xtext.mwe.ContainersStateFactory;
 import org.eclipse.xtext.resource.SaveOptions;
 import org.eclipse.xtext.resource.XtextResource;
+import org.eclipse.xtext.resource.XtextResourceSet;
+import org.eclipse.xtext.resource.containers.DelegatingIAllContainerAdapter;
+import org.eclipse.xtext.resource.containers.IAllContainersState;
+import org.eclipse.xtext.util.CancelIndicator;
+import org.eclipse.xtext.util.StringInputStream;
 import org.eclipse.xtext.validation.EValidatorRegistrar;
+
+import com.google.common.collect.ArrayListMultimap;
+import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
+import com.google.common.collect.Multimap;
+import com.google.inject.Provider;
 
 public class AbstractPuppetTests extends AbstractXtextTests {
 
 	protected ValidatorTester<PPJavaValidator> tester;
 
 	protected final PPFactory pf = PPFactory.eINSTANCE;
+
+	private ResourceSet resourceSet;
+
+	private Provider<ResourceSet> resourceSetProvider;
+
+	private ContainersStateFactory factory;
+
+	private ILinker linker;
 
 	protected void addResourceBody(ResourceExpression o, String title, Object... keyValPairs) {
 		o.getResourceData().add(createResourceBody(title, keyValPairs));
@@ -224,11 +256,127 @@ public class AbstractPuppetTests extends AbstractXtextTests {
 		return createResourceExpression(true, false, type, title, keyValPairs);
 	}
 
-	protected AssertableResourceDiagnostics resourceErrorDiagnostics(XtextResource r) {
+	/**
+	 * Configures the resoureset used by the various load methods. Must be called before loading.
+	 * 
+	 * @param paths
+	 */
+	protected void initializeResourceSet(List<URI> urisInTestContainer) {
+		// initialize things only needed when using a ResourceSet
+		// ppResourceServiceProvider = get(IResourceServiceProvider.class);
+		resourceSet = get(XtextResourceSet.class);
+		factory = get(ContainersStateFactory.class);
+
+		// linker = get(ILinker.class);
+
+		Multimap<String, URI> containerToURIMap = ArrayListMultimap.create();
+		String container = getClass().getName();
+		for(URI containedURI : urisInTestContainer)
+			containerToURIMap.put(container, containedURI);
+
+		IAllContainersState containersState = factory.getContainersState(
+			Lists.newArrayList(container), containerToURIMap);
+		resourceSet.eAdapters().add(new DelegatingIAllContainerAdapter(containersState));
+	}
+
+	public final Resource loadAndLinkSingleResource(String sourceString) throws Exception {
+		URI uri = makeManifestURI(1);
+		initializeResourceSet(Lists.newArrayList(uri));
+		Resource r = loadResource(sourceString, uri);
+		resolveCrossReferences(r);
+		return r;
+	}
+
+	/**
+	 * Loads a .pp, .pptp or .rb resource using the resource factory configured for the extension.
+	 * Returns null for a .rb resource that is not expected to contribute anything to the pptp.
+	 * All non null resources are added to the resource set.
+	 */
+	public Resource loadResource(InputStream in, URI uri) throws Exception {
+		// Lookup the factory to use for the resource
+		Factory factory = Resource.Factory.Registry.INSTANCE.getFactory(uri);
+
+		Map<String, String> options = Maps.newHashMap();
+		options.put(XtextResource.OPTION_ENCODING, "UTF8");
+
+		Resource r = factory.createResource(uri);
+		resourceSet.getResources().add(r);
+		r.load(in, options);
+
+		return r;
+	}
+
+	/**
+	 * Load a resource from a String. The URI must be well formed for the language being the
+	 * content of the given sourceString (the uri determined the factory to use and the encoding
+	 * via an IEncodingProvider).
+	 * 
+	 * @param sourceString
+	 * @param uri
+	 * @return
+	 * @throws Exception
+	 */
+	public final Resource loadResource(String sourceString, URI uri) throws Exception {
+		return loadResource(new StringInputStream(sourceString, "UTF8"), uri);
+	}
+
+	public Resource loadResource(URI uri) throws IOException {
+		Resource resource = resourceSet.createResource(uri);
+		Map<String, String> options = Maps.newHashMap();
+		options.put(XtextResource.OPTION_ENCODING, "UTF8");
+
+		resource.load(options);
+		resourceSet.getResources().add(resource);
+		return resource;
+	}
+
+	/**
+	 * Create a "fake" URI for a "file"
+	 * 
+	 * @param id
+	 * @return
+	 */
+	protected URI makeManifestURI(int id) {
+		StringBuilder builder = new StringBuilder();
+		builder.append("/test/");
+		builder.append(getClass().getName());
+		builder.append("/");
+		builder.append("file");
+		builder.append(id);
+		builder.append(".pp");
+
+		return URI.createURI(builder.toString());
+	}
+
+	public void resolveCrossReferences(Resource resource) {
+		if(resource instanceof LazyLinkingResource) {
+			// perform standard EMF resource linking
+			((LazyLinkingResource) resource).resolveLazyCrossReferences(CancelIndicator.NullImpl);
+
+			// // just in case some other crazy thing is sent here check that it is a pp resource
+			// // (pp resource linking is not relevant on anything but .pp resources).
+			// if(ppResourceServiceProvider.canHandle(resource.getURI())) {
+			// // The PP resource linking (normally done by PP Linker (but without documentation association)
+			// //
+			// final ListBasedDiagnosticConsumer consumer = new ListBasedDiagnosticConsumer();
+			// IMessageAcceptor acceptor = new DiagnosticConsumerBasedMessageAcceptor(consumer);
+			// linker.linkModel(
+			// ((LazyLinkingResource) resource).getParseResult().getRootASTElement(), acceptor);
+			// resource.getErrors().addAll(consumer.getResult(Severity.ERROR));
+			// resource.getWarnings().addAll(consumer.getResult(Severity.WARNING));
+			// }
+		}
+		else {
+			EcoreUtil.resolveAll(resource);
+		}
+
+	}
+
+	protected AssertableResourceDiagnostics resourceErrorDiagnostics(Resource r) {
 		return new AssertableResourceDiagnostics(r.getErrors());
 	}
 
-	protected AssertableResourceDiagnostics resourceWarningDiagnostics(XtextResource r) {
+	protected AssertableResourceDiagnostics resourceWarningDiagnostics(Resource r) {
 		return new AssertableResourceDiagnostics(r.getWarnings());
 	}
 

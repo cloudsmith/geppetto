@@ -102,6 +102,7 @@ import org.eclipse.xtext.validation.Check;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 import com.google.inject.Inject;
+import com.google.inject.Provider;
 
 public class PPJavaValidator extends AbstractPPJavaValidator implements IPPDiagnostics {
 
@@ -214,6 +215,9 @@ public class PPJavaValidator extends AbstractPPJavaValidator implements IPPDiagn
 
 	private PPGrammarAccess puppetGrammarAccess;
 
+	@Inject
+	private Provider<IValidationAdvisor> validationAdvisorProvider;
+
 	/**
 	 * Classes accepted as top level statements in a pp manifest.
 	 */
@@ -253,9 +257,13 @@ public class PPJavaValidator extends AbstractPPJavaValidator implements IPPDiagn
 	protected PPExpressionTypeNameProvider expressionTypeNameProvider;
 
 	@Inject
-	public PPJavaValidator(IGrammarAccess ga) {
+	public PPJavaValidator(IGrammarAccess ga, Provider<IValidationAdvisor> validationAdvisorProvider) {
 		acceptor = new ValidationBasedMessageAcceptor(this);
 		puppetGrammarAccess = (PPGrammarAccess) ga;
+	}
+
+	private IValidationAdvisor advisor() {
+		return validationAdvisorProvider.get();
 	}
 
 	@Check
@@ -282,13 +290,16 @@ public class PPJavaValidator extends AbstractPPJavaValidator implements IPPDiagn
 		// TODO: rhs is not validated, it allows expression, which includes rvalue, but some top level expressions
 		// are probably not allowed (case?)
 
-		// Variables in 'other namespaces' are not assignable.
 		if(leftExpr instanceof VariableExpression) {
 			VariableExpression varExpr = (VariableExpression) leftExpr;
+
+			// Variables in 'other namespaces' are not assignable.
 			if(varExpr.getVarName().contains("::"))
 				acceptor.acceptError("Cannot assign to variables in other namespaces", o, //
 					PPPackage.Literals.BINARY_EXPRESSION__LEFT_EXPR, INSIGNIFICANT_INDEX, //
 					IPPDiagnostics.ISSUE__ASSIGNMENT_OTHER_NAMESPACE);
+
+			// TODO: reassignment not allowed
 		}
 	}
 
@@ -317,7 +328,7 @@ public class PPJavaValidator extends AbstractPPJavaValidator implements IPPDiagn
 			// then, the leftExpression *must* be an AtExpression with a leftExpr being a variable
 			if(leftExpr instanceof AtExpression) {
 				// older versions limited access to two levels.
-				if(!PuppetCompatibilityHelper.allowMoreThan2AtInSequence()) {
+				if(!advisor().allowMoreThan2AtInSequence()) {
 					final Expression nestedLeftExpr = ((AtExpression) leftExpr).getLeftExpr();
 					// if nestedLeftExpr is null, it is validated for the nested instance
 					if(nestedLeftExpr != null &&
@@ -1307,7 +1318,7 @@ public class PPJavaValidator extends AbstractPPJavaValidator implements IPPDiagn
 				lhs instanceof VariableExpression || lhs instanceof FunctionCall || lhs instanceof LiteralBoolean ||
 				lhs instanceof LiteralUndef || lhs instanceof LiteralRegex || lhs instanceof LiteralDefault)
 			return true;
-		if(PuppetCompatibilityHelper.allowHashInSelector() && lhs instanceof AtExpression)
+		if(advisor().allowHashInSelector() && lhs instanceof AtExpression)
 			return true;
 		return false;
 	}

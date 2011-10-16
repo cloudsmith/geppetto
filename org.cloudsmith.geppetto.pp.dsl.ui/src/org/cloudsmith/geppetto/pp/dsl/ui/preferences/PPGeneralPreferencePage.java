@@ -28,6 +28,7 @@ public class PPGeneralPreferencePage extends AbstractPreferencePage {
 			"Puppet target version", 1, //
 			new String[][] { { "2.6", "2.6" }, //
 					{ "2.7", "2.7" }, //
+					{ "2.8", "2.8" }, //
 			}, getFieldEditorParent()));
 
 	}

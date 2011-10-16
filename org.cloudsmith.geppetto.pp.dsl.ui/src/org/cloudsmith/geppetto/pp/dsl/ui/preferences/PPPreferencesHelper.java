@@ -13,6 +13,7 @@ package org.cloudsmith.geppetto.pp.dsl.ui.preferences;
 
 import org.cloudsmith.geppetto.pp.dsl.ui.builder.PPBuildJob;
 import org.cloudsmith.geppetto.pp.dsl.ui.pptp.PptpTargetProjectHandler;
+import org.cloudsmith.geppetto.pp.dsl.validation.IValidationAdvisor;
 import org.eclipse.core.resources.IWorkspace;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.util.IPropertyChangeListener;
@@ -81,7 +82,22 @@ public class PPPreferencesHelper implements IPreferenceStoreInitializer, IProper
 	}
 
 	public String getPptpVersion() {
-		return store.getString(PPPreferenceConstants.PUPPET_TARGET_VERSION);
+		String result = store.getString(PPPreferenceConstants.PUPPET_TARGET_VERSION);
+		// TODO: Until there is an actual 2.8 pptp, return 2.7
+		if("2.8".equals(result))
+			return "2.7";
+		return result;
+	}
+
+	synchronized public IValidationAdvisor.ComplianceLevel getValidationComplianceLevel() {
+		String result = store.getString(PPPreferenceConstants.PUPPET_TARGET_VERSION);
+		if("2.6".equals(result))
+			return IValidationAdvisor.ComplianceLevel.PUPPET_2_6;
+		if("2.8".equals(result))
+			return IValidationAdvisor.ComplianceLevel.PUPPET_2_8;
+
+		// for 2.7 and default
+		return IValidationAdvisor.ComplianceLevel.PUPPET_2_7;
 	}
 
 	/*
@@ -143,9 +159,11 @@ public class PPPreferencesHelper implements IPreferenceStoreInitializer, IProper
 			autoInsertOverrides = Integer.valueOf((String) event.getNewValue());
 
 		// If pptp changes, recheck the workspace
-		if(PPPreferenceConstants.PUPPET_TARGET_VERSION.equals(event.getProperty()))
+		if(PPPreferenceConstants.PUPPET_TARGET_VERSION.equals(event.getProperty())) {
 			pptpHandler.initializePuppetWorkspace();
-
+			PPBuildJob job = new PPBuildJob(workspace);
+			job.schedule();
+		}
 		if(PPPreferenceConstants.PUPPET_ENVIRONMENT.equals(event.getProperty())) {
 			PPBuildJob job = new PPBuildJob(workspace);
 			job.schedule();

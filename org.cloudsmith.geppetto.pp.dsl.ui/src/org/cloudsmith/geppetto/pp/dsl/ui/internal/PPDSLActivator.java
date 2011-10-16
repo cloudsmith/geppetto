@@ -17,6 +17,7 @@ import org.cloudsmith.geppetto.pp.dsl.pptp.PptpRubyRuntimeModule;
 import org.cloudsmith.geppetto.pp.dsl.pptp.PptpRuntimeModule;
 import org.osgi.framework.BundleContext;
 
+import com.google.inject.Injector;
 import com.google.inject.Module;
 import com.google.inject.util.Modules;
 
@@ -25,6 +26,12 @@ import com.google.inject.util.Modules;
  * 
  */
 public class PPDSLActivator extends PPActivator {
+	public static final String PP_LANGUAGE_NAME = "org.cloudsmith.geppetto.pp.dsl.PP";
+
+	public Injector getPPInjector() {
+		return this.getInjector(PP_LANGUAGE_NAME);
+	}
+
 	/*
 	 * (non-Javadoc)
 	 * 

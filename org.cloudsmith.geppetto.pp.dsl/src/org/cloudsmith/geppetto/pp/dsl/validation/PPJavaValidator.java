@@ -83,7 +83,6 @@ import org.cloudsmith.geppetto.pp.adapters.ClassifierAdapterFactory;
 import org.cloudsmith.geppetto.pp.dsl.eval.PPStringConstantEvaluator;
 import org.cloudsmith.geppetto.pp.dsl.linking.IMessageAcceptor;
 import org.cloudsmith.geppetto.pp.dsl.linking.ValidationBasedMessageAcceptor;
-import org.cloudsmith.geppetto.pp.dsl.services.PPGrammarAccess;
 import org.cloudsmith.geppetto.pp.util.TextExpressionHelper;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
@@ -213,8 +212,6 @@ public class PPJavaValidator extends AbstractPPJavaValidator implements IPPDiagn
 	@Inject
 	private PPStringConstantEvaluator stringConstantEvaluator;
 
-	private PPGrammarAccess puppetGrammarAccess;
-
 	@Inject
 	private Provider<IValidationAdvisor> validationAdvisorProvider;
 
@@ -259,7 +256,6 @@ public class PPJavaValidator extends AbstractPPJavaValidator implements IPPDiagn
 	@Inject
 	public PPJavaValidator(IGrammarAccess ga, Provider<IValidationAdvisor> validationAdvisorProvider) {
 		acceptor = new ValidationBasedMessageAcceptor(this);
-		puppetGrammarAccess = (PPGrammarAccess) ga;
 	}
 
 	private IValidationAdvisor advisor() {
@@ -530,11 +526,14 @@ public class PPJavaValidator extends AbstractPPJavaValidator implements IPPDiagn
 	public void checkDefinition(Definition o) {
 		internalCheckTopLevelExpressions(o.getStatements());
 
+		String typeLabel = o instanceof HostClassDefinition
+				? "class"
+				: "define";
 		// Can only be contained by manifest (global scope), or another class.
 		EObject container = o.eContainer();
 		if(!(container instanceof PuppetManifest || container instanceof HostClassDefinition))
 			acceptor.acceptError(
-				"A definition may only appear at toplevel or directly inside classes.", o.eContainer(),
+				"A '" + typeLabel + "' may only appear at top level or directly inside a class.", o.eContainer(),
 				o.eContainingFeature(), INSIGNIFICANT_INDEX, IPPDiagnostics.ISSUE__NOT_AT_TOPLEVEL_OR_CLASS);
 
 		if(!isCLASSNAME(o.getClassName())) {
@@ -612,16 +611,7 @@ public class PPJavaValidator extends AbstractPPJavaValidator implements IPPDiagn
 
 	@Check
 	public void checkHostClassDefinition(HostClassDefinition o) {
-		// TODO: name must be NAME, CLASSNAME or "class"
-		// TODO: parent should be a known class
-
-		// Can only be contained by manifest (global scope), or another class.
-		EObject container = o.eContainer();
-		if(!(container instanceof PuppetManifest || container instanceof HostClassDefinition))
-			acceptor.acceptError(
-				"Classes may only appear at toplevel or directly inside other classes.", o,
-				IPPDiagnostics.ISSUE__NOT_AT_TOPLEVEL_OR_CLASS);
-		internalCheckTopLevelExpressions(o.getStatements());
+		// Checks performed by checkDefinition, and in PPResourceLinker
 	}
 
 	@Check

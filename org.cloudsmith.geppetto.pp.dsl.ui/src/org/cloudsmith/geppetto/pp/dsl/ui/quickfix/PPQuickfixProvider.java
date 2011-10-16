@@ -13,9 +13,11 @@ package org.cloudsmith.geppetto.pp.dsl.ui.quickfix;
 
 import java.util.List;
 
+import org.cloudsmith.geppetto.pp.LiteralNameOrReference;
 import org.cloudsmith.geppetto.pp.PPPackage;
 import org.cloudsmith.geppetto.pp.PuppetManifest;
 import org.cloudsmith.geppetto.pp.VariableExpression;
+import org.cloudsmith.geppetto.pp.VariableTE;
 import org.cloudsmith.geppetto.pp.dsl.contentassist.PPProposalsGenerator;
 import org.cloudsmith.geppetto.pp.dsl.linking.PPFinder;
 import org.cloudsmith.geppetto.pp.dsl.linking.PPSearchPath.ISearchPathProvider;
@@ -289,7 +291,7 @@ public class PPQuickfixProvider extends DefaultQuickfixProvider {
 			@Override
 			public void process(XtextResource state) throws Exception {
 				EObject varExpr = state.getEObject(issue.getUriToProblem().fragment());
-				if(!(varExpr instanceof VariableExpression))
+				if(!(varExpr instanceof VariableExpression || varExpr instanceof VariableTE || varExpr instanceof LiteralNameOrReference))
 					return; // something is wrong
 
 				String issueString = xtextDocument.get(issue.getOffset(), issue.getLength());
@@ -328,7 +330,7 @@ public class PPQuickfixProvider extends DefaultQuickfixProvider {
 			@Override
 			public void process(XtextResource state) throws Exception {
 				EObject varExpr = state.getEObject(issue.getUriToProblem().fragment());
-				if(!(varExpr instanceof VariableExpression))
+				if(!(varExpr instanceof VariableExpression || varExpr instanceof VariableTE || varExpr instanceof LiteralNameOrReference))
 					return; // something is wrong
 
 				String issueString = xtextDocument.get(issue.getOffset(), issue.getLength());

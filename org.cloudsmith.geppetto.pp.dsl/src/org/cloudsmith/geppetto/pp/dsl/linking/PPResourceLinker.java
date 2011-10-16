@@ -27,6 +27,7 @@ import org.cloudsmith.geppetto.pp.ElseExpression;
 import org.cloudsmith.geppetto.pp.ElseIfExpression;
 import org.cloudsmith.geppetto.pp.ExprList;
 import org.cloudsmith.geppetto.pp.Expression;
+import org.cloudsmith.geppetto.pp.ExpressionTE;
 import org.cloudsmith.geppetto.pp.FunctionCall;
 import org.cloudsmith.geppetto.pp.HostClassDefinition;
 import org.cloudsmith.geppetto.pp.IfExpression;
@@ -34,10 +35,12 @@ import org.cloudsmith.geppetto.pp.LiteralExpression;
 import org.cloudsmith.geppetto.pp.LiteralNameOrReference;
 import org.cloudsmith.geppetto.pp.NodeDefinition;
 import org.cloudsmith.geppetto.pp.PPPackage;
+import org.cloudsmith.geppetto.pp.ParenthesisedExpression;
 import org.cloudsmith.geppetto.pp.PuppetManifest;
 import org.cloudsmith.geppetto.pp.ResourceBody;
 import org.cloudsmith.geppetto.pp.ResourceExpression;
 import org.cloudsmith.geppetto.pp.VariableExpression;
+import org.cloudsmith.geppetto.pp.VariableTE;
 import org.cloudsmith.geppetto.pp.adapters.ClassifierAdapter;
 import org.cloudsmith.geppetto.pp.adapters.ClassifierAdapterFactory;
 import org.cloudsmith.geppetto.pp.dsl.PPDSLConstants;
@@ -56,6 +59,7 @@ import org.cloudsmith.geppetto.pp.pptp.PPTPPackage;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.TreeIterator;
 import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
@@ -137,6 +141,20 @@ public class PPResourceLinker implements IPPDiagnostics {
 
 	@Inject
 	private Provider<IValidationAdvisor> validationAdvisorProvider;
+
+	private void _link(ExpressionTE o, PPImportedNamesAdapter importedNames, IMessageAcceptor acceptor) {
+		Expression expr = o.getExpression();
+		if(expr instanceof ParenthesisedExpression)
+			expr = ((ParenthesisedExpression) expr).getExpr();
+		String varName = null;
+		if(expr instanceof LiteralNameOrReference)
+			varName = ((LiteralNameOrReference) expr).getValue();
+		if(varName == null)
+			return; // it is some other type of expression - it is validated as expression
+
+		internalLinkVariable(
+			expr, PPPackage.Literals.LITERAL_NAME_OR_REFERENCE__VALUE, varName, importedNames, acceptor);
+	}
 
 	/**
 	 * polymorph {@link #link(EObject, IMessageAcceptor)}
@@ -462,67 +480,13 @@ public class PPResourceLinker implements IPPDiagnostics {
 		if(o.eContainer().eClass() == PPPackage.Literals.ASSIGNMENT_EXPRESSION &&
 				PPPackage.Literals.BINARY_EXPRESSION__LEFT_EXPR == o.eContainingFeature())
 			return; // is a definition
+		internalLinkVariable(
+			o, PPPackage.Literals.VARIABLE_EXPRESSION__VAR_NAME, o.getVarName(), importedNames, acceptor);
 
-		boolean qualified = false;
-		boolean global = false;
-		QualifiedName qName = null;
-		SearchResult searchResult = null;
-		boolean existsAdjusted = false; // variable found as stated
-		boolean existsOutside = false; // if not found, reflects if found outside search path
+	}
 
-		try {
-			qName = converter.toQualifiedName(o.getVarName());
-			qualified = qName.getSegmentCount() > 1;
-			global = qName.getFirstSegment().length() == 0;
-			searchResult = ppFinder.findVariable(o, qName, importedNames);
-			existsAdjusted = searchResult.getAdjusted().size() > 0;
-			existsOutside = existsAdjusted
-					? true
-					: searchResult.getRaw().size() > 0;
-		}
-		catch(IllegalArgumentException iae) {
-			// Can happen if there is something seriously wrong with the qualified name, should be caught by
-			// validation - just ignore it here
-			return;
-		}
-		IValidationAdvisor advisor = advisor();
-
-		boolean mustExist = true;
-		if(qualified && global) { // && !(existsAdjusted || existsOutside)) {
-			// TODO: Possible future improvement when more global variables are known.
-			// if reported as error now, almost all global variables would be flagged as errors.
-			// Future enhancement could warn about those that are not found (resolved at runtime).
-			mustExist = false;
-		}
-		if(mustExist) {
-			if(!(existsAdjusted || existsOutside)) {
-				// found nowhere
-				if(qualified || advisor.unqualifiedVariables().isWarningOrError()) {
-					StringBuilder message = new StringBuilder();
-					message.append(qualified
-							? "Unknown variable: '"
-							: "Unqualified and Unknown variable: '");
-					message.append(o.getVarName());
-					message.append("'");
-
-					if(advisor.unqualifiedVariables() == ValidationPreference.WARNING)
-						acceptor.acceptWarning(
-							message.toString(), o, PPPackage.Literals.VARIABLE_EXPRESSION__VAR_NAME,
-							IPPDiagnostics.ISSUE__UNKNOWN_VARIABLE);
-					else
-						acceptor.acceptError(
-							message.toString(), o, PPPackage.Literals.VARIABLE_EXPRESSION__VAR_NAME,
-							IPPDiagnostics.ISSUE__UNKNOWN_VARIABLE);
-				}
-			}
-			else if(!existsAdjusted && existsOutside) {
-				// found outside
-				if(qualified || advisor.unqualifiedVariables().isWarningOrError())
-					acceptor.acceptWarning(
-						"Found outside current search path variable: '" + o.getVarName() + "'", o,
-						PPPackage.Literals.VARIABLE_EXPRESSION__VAR_NAME, IPPDiagnostics.ISSUE__NOT_ON_PATH);
-			}
-		}
+	private void _link(VariableTE o, PPImportedNamesAdapter importedNames, IMessageAcceptor acceptor) {
+		internalLinkVariable(o, PPPackage.Literals.VARIABLE_TE__VAR_NAME, o.getVarName(), importedNames, acceptor);
 	}
 
 	private IValidationAdvisor advisor() {
@@ -859,6 +823,66 @@ public class PPResourceLinker implements IPPDiagnostics {
 		}
 	}
 
+	private void internalLinkVariable(EObject o, EAttribute attr, String varName, PPImportedNamesAdapter importedNames,
+			IMessageAcceptor acceptor) {
+		boolean qualified = false;
+		boolean global = false;
+		QualifiedName qName = null;
+		SearchResult searchResult = null;
+		boolean existsAdjusted = false; // variable found as stated
+		boolean existsOutside = false; // if not found, reflects if found outside search path
+		try {
+			qName = converter.toQualifiedName(varName);
+			qualified = qName.getSegmentCount() > 1;
+			global = qName.getFirstSegment().length() == 0;
+			searchResult = ppFinder.findVariable(o, qName, importedNames);
+			existsAdjusted = searchResult.getAdjusted().size() > 0;
+			existsOutside = existsAdjusted
+					? true
+					: searchResult.getRaw().size() > 0;
+		}
+		catch(IllegalArgumentException iae) {
+			// Can happen if there is something seriously wrong with the qualified name, should be caught by
+			// validation - just ignore it here
+			return;
+		}
+		IValidationAdvisor advisor = advisor();
+
+		boolean mustExist = true;
+		if(qualified && global) { // && !(existsAdjusted || existsOutside)) {
+			// TODO: Possible future improvement when more global variables are known.
+			// if reported as error now, almost all global variables would be flagged as errors.
+			// Future enhancement could warn about those that are not found (resolved at runtime).
+			mustExist = false;
+		}
+		if(mustExist) {
+			if(!(existsAdjusted || existsOutside)) {
+				// found nowhere
+				if(qualified || advisor.unqualifiedVariables().isWarningOrError()) {
+					StringBuilder message = new StringBuilder();
+					message.append(qualified
+							? "Unknown variable: '"
+							: "Unqualified and Unknown variable: '");
+					message.append(varName);
+					message.append("'");
+
+					if(advisor.unqualifiedVariables() == ValidationPreference.WARNING)
+						acceptor.acceptWarning(message.toString(), o, attr, IPPDiagnostics.ISSUE__UNKNOWN_VARIABLE);
+					else
+						acceptor.acceptError(message.toString(), o, attr, IPPDiagnostics.ISSUE__UNKNOWN_VARIABLE);
+				}
+			}
+			else if(!existsAdjusted && existsOutside) {
+				// found outside
+				if(qualified || advisor.unqualifiedVariables().isWarningOrError())
+					acceptor.acceptWarning(
+						"Found outside current search path variable: '" + varName + "'", o, attr,
+						IPPDiagnostics.ISSUE__NOT_ON_PATH);
+			}
+		}
+
+	}
+
 	/**
 	 * Returns true if the descriptions resource path is the same as for the given object and
 	 * the fragment path of the given object starts with the fragment path of the description.
@@ -919,6 +943,14 @@ public class PPResourceLinker implements IPPDiagnostics {
 			EObject o = everything.next();
 			EClass clazz = o.eClass();
 			switch(clazz.getClassifierID()) {
+				case PPPackage.EXPRESSION_TE:
+					_link((ExpressionTE) o, importedNames, acceptor);
+					break;
+
+				case PPPackage.VARIABLE_TE:
+					_link((VariableTE) o, importedNames, acceptor);
+					break;
+
 				case PPPackage.VARIABLE_EXPRESSION:
 					_link((VariableExpression) o, importedNames, acceptor);
 					break;

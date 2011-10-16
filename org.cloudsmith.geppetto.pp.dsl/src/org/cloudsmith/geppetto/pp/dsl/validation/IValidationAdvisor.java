@@ -34,6 +34,13 @@ public interface IValidationAdvisor {
 	public boolean allowMoreThan2AtInSequence();
 
 	/**
+	 * Prior to 2.7 it was not possible to use unquoted qualified resource names.
+	 * 
+	 * @return
+	 */
+	public boolean allowUnquotedQualifiedResourceNames();
+
+	/**
 	 * How should circular module dependencies be reported (ignore, warning, error).
 	 * 
 	 * @return

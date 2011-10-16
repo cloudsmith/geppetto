@@ -37,6 +37,11 @@ public class ValidationAdvisor {
 			return true;
 		}
 
+		@Override
+		public boolean allowUnquotedQualifiedResourceNames() {
+			return false;
+		}
+
 		/**
 		 * @returns ValidationPreference.WARNING
 		 */
@@ -60,6 +65,11 @@ public class ValidationAdvisor {
 	 */
 	public static class ValidationAdvisor_2_7 extends ValidationAdvisor_2_6 implements IValidationAdvisor {
 
+		@Override
+		public boolean allowUnquotedQualifiedResourceNames() {
+			return true;
+		}
+
 		/**
 		 * @returns ValidationPreference.WARNING
 		 */
@@ -67,6 +77,7 @@ public class ValidationAdvisor {
 		public ValidationPreference unqualifiedVariables() {
 			return ValidationPreference.WARNING;
 		}
+
 	}
 
 	/**

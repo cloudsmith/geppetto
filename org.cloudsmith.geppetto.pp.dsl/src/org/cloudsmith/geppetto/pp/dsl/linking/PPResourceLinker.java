@@ -838,7 +838,7 @@ public class PPResourceLinker implements IPPDiagnostics {
 			searchResult = ppFinder.findVariable(o, qName, importedNames);
 			existsAdjusted = searchResult.getAdjusted().size() > 0;
 			existsOutside = existsAdjusted
-					? true
+					? false // we are not interested in that it may be both adjusted and raw
 					: searchResult.getRaw().size() > 0;
 		}
 		catch(IllegalArgumentException iae) {
@@ -855,8 +855,17 @@ public class PPResourceLinker implements IPPDiagnostics {
 			// Future enhancement could warn about those that are not found (resolved at runtime).
 			mustExist = false;
 		}
+
+		// Record facts at resource level about where variable was found
+		if(existsAdjusted)
+			importedNames.addResolved(searchResult.getAdjusted());
+		else if(existsOutside)
+			importedNames.addResolved(searchResult.getRaw());
+
 		if(mustExist) {
 			if(!(existsAdjusted || existsOutside)) {
+				importedNames.addUnresolved(qName);
+
 				// found nowhere
 				if(qualified || advisor.unqualifiedVariables().isWarningOrError()) {
 					StringBuilder message = new StringBuilder();

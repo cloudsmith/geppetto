@@ -2,7 +2,7 @@
 <feature
       id="org.cloudsmith.geppetto.product"
       label="%featureName"
-      version="2.0.1.qualifier"
+      version="2.1.0.qualifier"
       provider-name="%providerName"
       plugin="org.cloudsmith.geppetto"
       image="geppetto_update_120.jpg">

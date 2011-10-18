@@ -49,8 +49,6 @@ http://www.eclipse.org/legal/epl-v10.html
       <import plugin="org.apache.commons.compress"/>
       <import plugin="org.apache.commons.lang"/>
       <import plugin="org.apache.log4j"/>
-      <import plugin="org.eclipse.debug.core"/>
-      <import plugin="org.eclipse.debug.ui"/>
       <import plugin="org.eclipse.ui.views.log"/>
       <import plugin="org.eclipse.xtext"/>
       <import plugin="org.eclipse.xtext.builder"/>

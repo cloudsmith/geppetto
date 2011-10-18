@@ -875,10 +875,10 @@ public class PPResourceLinker implements IPPDiagnostics {
 					message.append(varName);
 					message.append("'");
 
-					if(advisor.unqualifiedVariables() == ValidationPreference.WARNING)
-						acceptor.acceptWarning(message.toString(), o, attr, IPPDiagnostics.ISSUE__UNKNOWN_VARIABLE);
-					else
+					if(advisor.unqualifiedVariables() == ValidationPreference.ERROR)
 						acceptor.acceptError(message.toString(), o, attr, IPPDiagnostics.ISSUE__UNKNOWN_VARIABLE);
+					else
+						acceptor.acceptWarning(message.toString(), o, attr, IPPDiagnostics.ISSUE__UNKNOWN_VARIABLE);
 				}
 			}
 			else if(!existsAdjusted && existsOutside) {

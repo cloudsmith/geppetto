@@ -356,6 +356,21 @@
              Decorates Puppet (nature) Projects
           </description>
        </decorator>
+       <decorator
+             adaptable="true"
+             class="org.cloudsmith.geppetto.pp.dsl.ui.jdt_ersatz.AggregateErrorLabelDecorator"
+             id="org.cloudsmith.geppetto.pp.dsl.ui.errorDecorator"
+             label="Aggregate Error Decorator"
+             lightweight="true">
+          <description>
+             Aggregates errors in resources to folders and projects.
+          </description>
+          <enablement>
+             <objectClass
+                   name="org.eclipse.core.resources.IResource">
+             </objectClass>
+          </enablement>
+       </decorator>
     </extension>
     <extension
           point="org.eclipse.ui.propertyPages">

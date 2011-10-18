@@ -52,7 +52,6 @@ http://www.eclipse.org/legal/epl-v10.html
       <import plugin="org.eclipse.ui.views.log"/>
       <import plugin="org.eclipse.xtext"/>
       <import plugin="org.eclipse.xtext.builder"/>
-      <import plugin="org.eclipse.xtext.common.types"/>
       <import plugin="org.eclipse.xtext.logging"/>
       <import plugin="org.eclipse.xtext.ui"/>
       <import plugin="org.eclipse.xtext.ui.shared"/>

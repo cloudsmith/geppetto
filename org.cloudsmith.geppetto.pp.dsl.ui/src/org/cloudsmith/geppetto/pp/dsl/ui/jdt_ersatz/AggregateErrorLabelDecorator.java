@@ -11,6 +11,7 @@
  */
 package org.cloudsmith.geppetto.pp.dsl.ui.jdt_ersatz;
 
+import org.cloudsmith.geppetto.pp.dsl.ui.internal.PPDSLActivator;
 import org.eclipse.core.resources.IMarker;
 import org.eclipse.core.resources.IMarkerDelta;
 import org.eclipse.core.resources.IResource;
@@ -39,7 +40,7 @@ public class AggregateErrorLabelDecorator implements ILightweightLabelDecorator 
 	private boolean useJDT;
 
 	public AggregateErrorLabelDecorator() {
-		useJDT = isJavaEnabled();
+		useJDT = PPDSLActivator.isJavaEnabled();
 		if(useJDT)
 			return;
 		IWorkspace workspace = ResourcesPlugin.getWorkspace();
@@ -126,22 +127,6 @@ public class AggregateErrorLabelDecorator implements ILightweightLabelDecorator 
 		if(listener != null)
 			ResourcesPlugin.getWorkspace().removeResourceChangeListener(listener);
 
-	}
-
-	/**
-	 * org.eclipse.jdt.core is added as an optional dependency in o.c.g.pp.dsl.ui and if JDT is present in
-	 * the runtime, there is no need for the AggregateErrorLabel to do anything.
-	 * 
-	 * @return true if JDT is present.
-	 */
-	private boolean isJavaEnabled() {
-		try {
-			org.eclipse.jdt.core.JavaCore.class.getName();
-			return true;
-		}
-		catch(Throwable e) {
-		}
-		return false;
 	}
 
 	/*

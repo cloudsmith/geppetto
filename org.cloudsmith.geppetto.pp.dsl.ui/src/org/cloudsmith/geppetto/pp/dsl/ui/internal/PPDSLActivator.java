@@ -28,6 +28,26 @@ import com.google.inject.util.Modules;
 public class PPDSLActivator extends PPActivator {
 	public static final String PP_LANGUAGE_NAME = "org.cloudsmith.geppetto.pp.dsl.PP";
 
+	private static BundleContext slaActivatorContext;
+
+	/**
+	 * org.eclipse.jdt.core is added as an optional dependency in o.c.g.pp.dsl.ui and if JDT is present in
+	 * the runtime, there is no need for the AggregateErrorLabel to do anything.
+	 * 
+	 * @return true if JDT is present.
+	 */
+	public static boolean isJavaEnabled() {
+		if(slaActivatorContext == null)
+			return false;
+		try {
+			slaActivatorContext.getBundle().loadClass("org.eclipse.jdt.core.JavaCore");
+			return true;
+		}
+		catch(Throwable e) {
+		}
+		return false;
+	}
+
 	public Injector getPPInjector() {
 		return this.getInjector(PP_LANGUAGE_NAME);
 	}
@@ -62,6 +82,7 @@ public class PPDSLActivator extends PPActivator {
 	@Override
 	public void start(BundleContext context) throws Exception {
 		super.start(context);
+		slaActivatorContext = context;
 		try {
 			registerInjectorFor(PPDSLConstants.PPTP_RUBY_LANGUAGE_NAME);
 			registerInjectorFor(PPDSLConstants.PPTP_LANGUAGE_NAME);
@@ -70,5 +91,11 @@ public class PPDSLActivator extends PPActivator {
 			Logger.getLogger(getClass()).error(e.getMessage(), e);
 			throw e;
 		}
+	}
+
+	@Override
+	public void stop(BundleContext context) throws Exception {
+		slaActivatorContext = null;
+		super.stop(context);
 	}
 }

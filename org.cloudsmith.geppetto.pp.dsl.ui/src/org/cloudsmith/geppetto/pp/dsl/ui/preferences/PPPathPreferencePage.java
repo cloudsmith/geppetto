@@ -12,6 +12,9 @@
 package org.cloudsmith.geppetto.pp.dsl.ui.preferences;
 
 //import org.eclipse.jface.preference.PathEditor;
+import java.util.ArrayList;
+import java.util.StringTokenizer;
+
 import org.cloudsmith.geppetto.pp.dsl.ui.preferences.editors.PathEditor;
 import org.cloudsmith.geppetto.pp.dsl.ui.preferences.editors.PromptDialog;
 import org.eclipse.swt.SWT;
@@ -23,6 +26,13 @@ import org.eclipse.swt.widgets.Composite;
  */
 public class PPPathPreferencePage extends AbstractRebuildingPreferencePage {
 	private static class PPPathEditor extends PathEditor {
+		/**
+		 * The PathEditor uses a platform specific path separator, which is not good
+		 * for platform agnostic preferences checked into repos. Since the search path
+		 * being edited here is not a system path, and does not contain windows drives etc,
+		 * it will work just fine with colon.
+		 */
+		private static final String pathSeparator = ":";
 
 		/**
 		 * @param puppetProjectPath
@@ -31,6 +41,23 @@ public class PPPathPreferencePage extends AbstractRebuildingPreferencePage {
 		 */
 		public PPPathEditor(String name, String label, Composite fieldEditorParent) {
 			super(name, label, "-", fieldEditorParent);
+		}
+
+		/*
+		 * (non-Javadoc)
+		 * Method declared on ListEditor.
+		 * Creates a single string from the given array by separating each
+		 * string with the appropriate OS-specific path separator.
+		 */
+		@Override
+		protected String createList(String[] items) {
+			StringBuffer path = new StringBuffer("");//$NON-NLS-1$
+
+			for(int i = 0; i < items.length; i++) {
+				path.append(items[i]);
+				path.append(pathSeparator);
+			}
+			return path.toString();
 		}
 
 		@Override
@@ -64,6 +91,20 @@ public class PPPathPreferencePage extends AbstractRebuildingPreferencePage {
 			// the default content + the project specific content.
 			getList().removeAll();
 			super.load();
+		}
+
+		/*
+		 * (non-Javadoc)
+		 * Method declared on ListEditor.
+		 */
+		@Override
+		protected String[] parseString(String stringList) {
+			StringTokenizer st = new StringTokenizer(stringList, pathSeparator + "\n\r");//$NON-NLS-1$
+			ArrayList<String> v = new ArrayList<String>();
+			while(st.hasMoreElements()) {
+				v.add((String) st.nextElement());
+			}
+			return v.toArray(new String[v.size()]);
 		}
 	}
 

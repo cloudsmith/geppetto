@@ -1,125 +1,116 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<cspec xmlns="http://www.eclipse.org/buckminster/CSpec-1.0" name="org.cloudsmith.geppetto.releng"
-	componentType="buckminster" version="2.0.0.qualifier" shortDesc="Cloudsmith Geppetto Releng"
->
-	<dependencies>
-		<dependency name="org.cloudsmith.geppetto.tests" componentType="osgi.bundle" />
-		<dependency name="org.cloudsmith.geppetto.product" componentType="eclipse.feature" />
-		<dependency name="org.cloudsmith.geppetto.site" componentType="eclipse.feature" />
-		<dependency name="org.eclipse.xtext.generator" componentType="osgi.bundle" />
-		<dependency name="org.eclipse.equinox.executable" componentType="eclipse.feature" />
-	</dependencies>
-
-	<actions>
-		<public name="product.zip-cocoa.macosx.x86" actor="ant">
-			<actorProperties>
-				<property key="buildFile" value="product.ant" />
-				<property key="targets" value="create.product.zip" />
-			</actorProperties>
-			<properties>
-				<property key="product.ws" value="cocoa" />
-				<property key="product.os" value="macosx" />
-				<property key="product.arch" value="x86" />
-			</properties>
-			<prerequisites>
-				<attribute component="org.cloudsmith.geppetto.site" name="site.p2" alias="product.repository" />
-				<attribute component="org.cloudsmith.geppetto.product" name="product.configuration.exports" alias="products" />
-				<attribute component="org.cloudsmith.geppetto.product" name="manifest" alias="manifest" />
-			</prerequisites>
-			<products alias="output" base="${buckminster.output}">
-				<path path="product.zips/" />
-			</products>
-		</public>
-
-		<public name="product.zip-cocoa.macosx.x86_64" actor="ant">
-			<actorProperties>
-				<property key="buildFile" value="product.ant" />
-				<property key="targets" value="create.product.zip" />
-			</actorProperties>
-			<properties>
-				<property key="product.ws" value="cocoa" />
-				<property key="product.os" value="macosx" />
-				<property key="product.arch" value="x86_64" />
-			</properties>
-			<prerequisites>
-				<attribute component="org.cloudsmith.geppetto.site" name="site.p2" alias="product.repository" />
-				<attribute component="org.cloudsmith.geppetto.product" name="product.configuration.exports" alias="products" />
-				<attribute component="org.cloudsmith.geppetto.product" name="manifest" alias="manifest" />
-			</prerequisites>
-			<products alias="output" base="${buckminster.output}">
-				<path path="product.zips/" />
-			</products>
-		</public>
-
-		<public name="product.zip-gtk.linux.x86" actor="ant">
-			<actorProperties>
-				<property key="buildFile" value="product.ant" />
-				<property key="targets" value="create.product.zip" />
-			</actorProperties>
-			<properties>
-				<property key="product.ws" value="gtk" />
-				<property key="product.os" value="linux" />
-				<property key="product.arch" value="x86" />
-			</properties>
-			<prerequisites>
-				<attribute component="org.cloudsmith.geppetto.site" name="site.p2" alias="product.repository" />
-				<attribute component="org.cloudsmith.geppetto.product" name="product.configuration.exports" alias="products" />
-				<attribute component="org.cloudsmith.geppetto.product" name="manifest" alias="manifest" />
-			</prerequisites>
-			<products alias="output" base="${buckminster.output}">
-				<path path="product.zips/" />
-			</products>
-		</public>
-
-		<public name="product.zip-gtk.linux.x86_64" actor="ant">
-			<actorProperties>
-				<property key="buildFile" value="product.ant" />
-				<property key="targets" value="create.product.zip" />
-			</actorProperties>
-			<properties>
-				<property key="product.ws" value="gtk" />
-				<property key="product.os" value="linux" />
-				<property key="product.arch" value="x86_64" />
-			</properties>
-			<prerequisites>
-				<attribute component="org.cloudsmith.geppetto.site" name="site.p2" alias="product.repository" />
-				<attribute component="org.cloudsmith.geppetto.product" name="product.configuration.exports" alias="products" />
-				<attribute component="org.cloudsmith.geppetto.product" name="manifest" alias="manifest" />
-			</prerequisites>
-			<products alias="output" base="${buckminster.output}">
-				<path path="product.zips/" />
-			</products>
-		</public>
-
-		<public name="product.zip-win32.win32.x86" actor="ant">
-			<actorProperties>
-				<property key="buildFile" value="product.ant" />
-				<property key="targets" value="create.product.zip" />
-			</actorProperties>
-			<properties>
-				<property key="product.ws" value="win32" />
-				<property key="product.os" value="win32" />
-				<property key="product.arch" value="x86" />
-			</properties>
-			<prerequisites>
-				<attribute component="org.cloudsmith.geppetto.site" name="site.p2" alias="product.repository" />
-				<attribute component="org.cloudsmith.geppetto.product" name="product.configuration.exports" alias="products" />
-				<attribute component="org.cloudsmith.geppetto.product" name="manifest" alias="manifest" />
-			</prerequisites>
-			<products alias="output" base="${buckminster.output}">
-				<path path="product.zips/" />
-			</products>
-		</public>
-	</actions>
- 
-	<groups>
-		<public name="all.product.zips">
-			<attribute name="product.zip-cocoa.macosx.x86" />
-			<attribute name="product.zip-cocoa.macosx.x86_64" />
-			<attribute name="product.zip-gtk.linux.x86" />
-			<attribute name="product.zip-gtk.linux.x86_64" />
-			<attribute name="product.zip-win32.win32.x86" />
-		</public>
-	</groups>
-
-</cspec>
+<cs:cspec xmlns:cs="http://www.eclipse.org/buckminster/CSpec-1.0" name="org.cloudsmith.geppetto.releng" componentType="buckminster" version="2.0.0.qualifier" shortDesc="Cloudsmith Geppetto Releng">
+    <cs:dependencies>
+        <cs:dependency name="org.cloudsmith.geppetto.product" componentType="eclipse.feature"/>
+        <cs:dependency name="org.cloudsmith.geppetto.site" componentType="eclipse.feature"/>
+        <cs:dependency name="org.cloudsmith.geppetto.tests" componentType="osgi.bundle"/>
+        <cs:dependency name="org.eclipse.equinox.executable" componentType="eclipse.feature"/>
+        <cs:dependency name="org.eclipse.xtext.generator" componentType="osgi.bundle" filter="(!(pruned.product.build=true))"/>
+    </cs:dependencies>
+    <cs:actions>
+        <cs:public name="product.zip-cocoa.macosx.x86" actor="ant">
+            <cs:actorProperties>
+                <cs:property key="buildFile" value="product.ant"/>
+                <cs:property key="targets" value="create.product.zip"/>
+            </cs:actorProperties>
+            <cs:properties>
+                <cs:property key="product.arch" value="x86"/>
+                <cs:property key="product.os" value="macosx"/>
+                <cs:property key="product.ws" value="cocoa"/>
+            </cs:properties>
+            <cs:prerequisites>
+                <cs:attribute name="site.p2" alias="product.repository" component="org.cloudsmith.geppetto.site"/>
+                <cs:attribute name="product.configuration.exports" alias="products" component="org.cloudsmith.geppetto.product"/>
+                <cs:attribute name="manifest" alias="manifest" component="org.cloudsmith.geppetto.product"/>
+            </cs:prerequisites>
+            <cs:products alias="output" base="${buckminster.output}/">
+                <cs:path path="product.zips/"/>
+            </cs:products>
+        </cs:public>
+        <cs:public name="product.zip-cocoa.macosx.x86_64" actor="ant">
+            <cs:actorProperties>
+                <cs:property key="buildFile" value="product.ant"/>
+                <cs:property key="targets" value="create.product.zip"/>
+            </cs:actorProperties>
+            <cs:properties>
+                <cs:property key="product.arch" value="x86_64"/>
+                <cs:property key="product.os" value="macosx"/>
+                <cs:property key="product.ws" value="cocoa"/>
+            </cs:properties>
+            <cs:prerequisites>
+                <cs:attribute name="site.p2" alias="product.repository" component="org.cloudsmith.geppetto.site"/>
+                <cs:attribute name="product.configuration.exports" alias="products" component="org.cloudsmith.geppetto.product"/>
+                <cs:attribute name="manifest" alias="manifest" component="org.cloudsmith.geppetto.product"/>
+            </cs:prerequisites>
+            <cs:products alias="output" base="${buckminster.output}/">
+                <cs:path path="product.zips/"/>
+            </cs:products>
+        </cs:public>
+        <cs:public name="product.zip-gtk.linux.x86" actor="ant">
+            <cs:actorProperties>
+                <cs:property key="buildFile" value="product.ant"/>
+                <cs:property key="targets" value="create.product.zip"/>
+            </cs:actorProperties>
+            <cs:properties>
+                <cs:property key="product.arch" value="x86"/>
+                <cs:property key="product.os" value="linux"/>
+                <cs:property key="product.ws" value="gtk"/>
+            </cs:properties>
+            <cs:prerequisites>
+                <cs:attribute name="site.p2" alias="product.repository" component="org.cloudsmith.geppetto.site"/>
+                <cs:attribute name="product.configuration.exports" alias="products" component="org.cloudsmith.geppetto.product"/>
+                <cs:attribute name="manifest" alias="manifest" component="org.cloudsmith.geppetto.product"/>
+            </cs:prerequisites>
+            <cs:products alias="output" base="${buckminster.output}/">
+                <cs:path path="product.zips/"/>
+            </cs:products>
+        </cs:public>
+        <cs:public name="product.zip-gtk.linux.x86_64" actor="ant">
+            <cs:actorProperties>
+                <cs:property key="buildFile" value="product.ant"/>
+                <cs:property key="targets" value="create.product.zip"/>
+            </cs:actorProperties>
+            <cs:properties>
+                <cs:property key="product.arch" value="x86_64"/>
+                <cs:property key="product.os" value="linux"/>
+                <cs:property key="product.ws" value="gtk"/>
+            </cs:properties>
+            <cs:prerequisites>
+                <cs:attribute name="site.p2" alias="product.repository" component="org.cloudsmith.geppetto.site"/>
+                <cs:attribute name="product.configuration.exports" alias="products" component="org.cloudsmith.geppetto.product"/>
+                <cs:attribute name="manifest" alias="manifest" component="org.cloudsmith.geppetto.product"/>
+            </cs:prerequisites>
+            <cs:products alias="output" base="${buckminster.output}/">
+                <cs:path path="product.zips/"/>
+            </cs:products>
+        </cs:public>
+        <cs:public name="product.zip-win32.win32.x86" actor="ant">
+            <cs:actorProperties>
+                <cs:property key="buildFile" value="product.ant"/>
+                <cs:property key="targets" value="create.product.zip"/>
+            </cs:actorProperties>
+            <cs:properties>
+                <cs:property key="product.arch" value="x86"/>
+                <cs:property key="product.os" value="win32"/>
+                <cs:property key="product.ws" value="win32"/>
+            </cs:properties>
+            <cs:prerequisites>
+                <cs:attribute name="site.p2" alias="product.repository" component="org.cloudsmith.geppetto.site"/>
+                <cs:attribute name="product.configuration.exports" alias="products" component="org.cloudsmith.geppetto.product"/>
+                <cs:attribute name="manifest" alias="manifest" component="org.cloudsmith.geppetto.product"/>
+            </cs:prerequisites>
+            <cs:products alias="output" base="${buckminster.output}/">
+                <cs:path path="product.zips/"/>
+            </cs:products>
+        </cs:public>
+    </cs:actions>
+    <cs:groups>
+        <cs:public name="all.product.zips">
+            <cs:attribute name="product.zip-cocoa.macosx.x86"/>
+            <cs:attribute name="product.zip-cocoa.macosx.x86_64"/>
+            <cs:attribute name="product.zip-gtk.linux.x86"/>
+            <cs:attribute name="product.zip-gtk.linux.x86_64"/>
+            <cs:attribute name="product.zip-win32.win32.x86"/>
+        </cs:public>
+    </cs:groups>
+</cs:cspec>

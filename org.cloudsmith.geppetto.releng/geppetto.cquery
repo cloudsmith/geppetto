@@ -6,5 +6,5 @@
     <cq:property key="target.arch" value="*"/>
     <cq:property key="target.os" value="*"/>
     <cq:property key="target.ws" value="*"/>
-    <cq:advisorNode namePattern=".*" useMaterialization="false" useTargetPlatform="false"/>
+    <cq:advisorNode namePattern="^org\.eclipse\.jdt(\..+)?$" filter="(pruned.product.build=true)" skipComponent="true" useMaterialization="false" useTargetPlatform="false"/>
 </cq:componentQuery>

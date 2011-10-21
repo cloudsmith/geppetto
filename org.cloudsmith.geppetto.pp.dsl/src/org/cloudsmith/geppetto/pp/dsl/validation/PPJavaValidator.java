@@ -479,14 +479,22 @@ public class PPJavaValidator extends AbstractPPJavaValidator implements IPPDiagn
 	public void checkCaseExpression(Case o) {
 		internalCheckTopLevelExpressions(o.getStatements());
 
-		for(Expression value : o.getValues()) {
-			if(value.eClass() == PPPackage.Literals.LITERAL_NAME_OR_REFERENCE) {
-				String v = ((LiteralNameOrReference) value).getValue();
-				if(v != null && v.contains("."))
-					acceptor.acceptError(
-						"A case value containing '.' (period) must be quoted", value,
-						IPPDiagnostics.ISSUE__REQUIRES_QUOTING);
-
+		ValidationPreference periodInCase = validationAdvisorProvider.get().periodInCase();
+		if(periodInCase != ValidationPreference.IGNORE) {
+			for(Expression value : o.getValues()) {
+				if(value.eClass() == PPPackage.Literals.LITERAL_NAME_OR_REFERENCE) {
+					String v = ((LiteralNameOrReference) value).getValue();
+					if(v != null && v.contains(".")) {
+						if(periodInCase == ValidationPreference.ERROR)
+							acceptor.acceptError(
+								"A case value containing '.' (period) must be quoted", value,
+								IPPDiagnostics.ISSUE__REQUIRES_QUOTING);
+						else
+							acceptor.acceptWarning(
+								"A case value containing '.' (period) should be quoted", value,
+								IPPDiagnostics.ISSUE__REQUIRES_QUOTING);
+					}
+				}
 			}
 		}
 	}

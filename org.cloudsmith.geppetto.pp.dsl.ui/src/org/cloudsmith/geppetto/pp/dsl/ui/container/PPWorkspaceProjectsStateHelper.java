@@ -18,6 +18,7 @@ import org.apache.log4j.Logger;
 import org.cloudsmith.geppetto.forge.Dependency;
 import org.cloudsmith.geppetto.forge.ForgeFactory;
 import org.cloudsmith.geppetto.forge.Metadata;
+import org.cloudsmith.geppetto.forge.VersionRequirement;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IWorkspace;
@@ -67,7 +68,10 @@ public class PPWorkspaceProjectsStateHelper extends AbstractStorage2UriMapperCli
 		if(candidates.isEmpty())
 			return null;
 
-		String best = d.getVersionRequirement().findBestMatch(candidates.values());
+		VersionRequirement vr = d.getVersionRequirement();
+		if(vr == null)
+			vr = VersionRequirement.EMPTY_REQUIREMENT;
+		String best = vr.findBestMatch(candidates.values());
 		return candidates.inverse().get(best);
 	}
 

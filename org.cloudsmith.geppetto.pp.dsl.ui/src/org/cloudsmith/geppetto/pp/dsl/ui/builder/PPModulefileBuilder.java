@@ -165,8 +165,12 @@ public class PPModulefileBuilder extends IncrementalProjectBuilder implements PP
 			m.setAttribute(IMarker.MESSAGE, message);
 			m.setAttribute(IMarker.PRIORITY, IMarker.PRIORITY_HIGH);
 			m.setAttribute(IMarker.SEVERITY, severity);
-			if(d != null)
-				m.setAttribute(IMarker.LOCATION, d.getName() + d.getVersionRequirement().toString());
+			if(d != null) {
+				VersionRequirement vr = d.getVersionRequirement();
+				m.setAttribute(IMarker.LOCATION, d.getName() + (vr == null
+						? ""
+						: vr.toString()));
+			}
 			else
 				m.setAttribute(IMarker.LOCATION, r.getName());
 		}
@@ -393,9 +397,10 @@ public class PPModulefileBuilder extends IncrementalProjectBuilder implements PP
 				if(best != null)
 					result.add(best);
 				else {
-					createErrorMarker(
-						moduleFile,
-						"Unresolved dependency :'" + d.getName() + "' version: " + d.getVersionRequirement(), d);
+					VersionRequirement vr = d.getVersionRequirement();
+					createErrorMarker(moduleFile, "Unresolved dependency :'" + d.getName() + (vr == null
+							? ""
+							: ("' version: " + vr)), d);
 				}
 			}
 		}

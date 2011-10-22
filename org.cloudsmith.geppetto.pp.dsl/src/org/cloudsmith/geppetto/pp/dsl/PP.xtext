@@ -533,16 +533,16 @@ DoubleQuotedString returns pp::DoubleQuotedString hidden()
 
 // Lowest precedence TextExpression
 TextExpression returns pp::TextExpression /*hidden()*/: 
-	DollarTextExpression
+	VariableTextExpression
 	;
 	
-DollarTextExpression returns pp::TextExpression hidden(): 
-	VariableTextExpression (
-		{pp::VerbatimTE.leading=current} 
-		text = DQT_DOLLAR 
-		trailing=TextExpression?
-	)*
-	;
+//DollarTextExpression returns pp::TextExpression hidden(): 
+//	VariableTextExpression (
+//		{pp::VerbatimTE.leading=current} 
+//		text = DQT_DOLLAR 
+//		trailing=TextExpression?
+//	)*
+//	;
 	
 VariableTextExpression returns pp::TextExpression hidden(): 
 	ExpressionTextExpression (
@@ -597,8 +597,10 @@ VariableExpression returns pp::VariableExpression
 	; 
 
 dollarVariable hidden()
-	: '$' (name | keyword)
+	: DOLLAR_VAR 
 	;
+//	: '$' (name | keyword)
+//	;
 	
 keyword : ('and' | 'case' | 'class' | 'default' | 'define' | 'else' | 'elsif' | 'in' |'inherits' 
 		| 'import' | 'node' | 'or' | 'undef' | 'true' | 'false' | 'if')
@@ -635,7 +637,8 @@ singleStringCharacters hidden()
 	: (WORD_CHARS
 	| ANY_OTHER
 	| WS
-	| '$' // terminates dq-, but not sq- string
+	| DOLLAR_VAR
+//	| '$' // terminates dq-, but not sq- string
 	| '${' // terminates dq-, but not sq- string
 	| '\\"'
 	| '\\\''
@@ -660,6 +663,10 @@ terminal SL_COMMENT : '#' !('\r' | '\n')* ('\r'? '\n')? ;
 terminal WS	
 	// Note that second space is a UNICODE NBSP
 	: (' ' | '\u00A0' | '\t' | '\r' | '\n')+
+	;
+
+terminal DOLLAR_VAR :
+	'$' ('::')? ('0'..'9'|'a'..'z'|'A'..'Z'|'_'|'-')+ ('::' ('0'..'9'|'a'..'z'|'A'..'Z'|'_'|'-')+)*
 	;
 
 terminal WORD_CHARS :

@@ -221,7 +221,7 @@ KEYWORD_2 : {!singleQuotedString}?=> '"'
 		doubleQuotedString = !doubleQuotedString;
 	};
 
-KEYWORD_3 : '$';
+// KEYWORD_3 : '$';
 
 KEYWORD_4 : {!doubleQuotedString}?=>'\''
 	{ 	// flip if in sq string or not
@@ -281,7 +281,12 @@ RULE_SL_COMMENT : {isNotInString()}?=> '#' ~(('\r'|'\n'))* ('\r'? '\n')?;
 
 RULE_WS : (' '|'\u00A0'|'\t'|'\r'|'\n')+;
 
-//RULE_WORD_CHARS : ((':' ':')=>RULE_NS)? ('0'..'9'|'a'..'z'|'A'..'Z'|'_'|'.'|'-')+ ( (':' ':')=>RULE_NS ('0'..'9'|'a'..'z'|'A'..'Z'|'_'|'.'|'-')+)*
+// Do not check if matched text is a keyword (it is allowed after a '$'
+RULE_DOLLAR_VAR : '$' 
+	((':' ':')=>RULE_NS)? ('0'..'9'|'a'..'z'|'A'..'Z'|'_'|'-')+ 
+	((':' ':')=>RULE_NS ('0'..'9'|'a'..'z'|'A'..'Z'|'_'|'-')+)* ;
+
+// Covers numbers and names
 RULE_WORD_CHARS : ('0'..'9'|'a'..'z'|'A'..'Z'|'_'|'.'|(':' ':')=>RULE_NS) ('0'..'9'|'a'..'z'|'A'..'Z'|'_'|'.'|'-'|(':' ':')=>RULE_NS)*
 {	// check if what was matched is a keyword - emit that instead
 	_type = replaceLiteral(_type, getText());

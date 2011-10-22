@@ -39,6 +39,8 @@ public interface VersionRequirement extends EObject {
 	 */
 	static Comparator<String> VERSION_COMPARATOR = new VersionRequirementImpl.VersionComparator();
 
+	static VersionRequirement EMPTY_REQUIREMENT = VersionRequirementImpl.parseVersionRequirement(">= 0");
+
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

@@ -23,6 +23,7 @@ import org.cloudsmith.geppetto.common.tracer.ITracer;
 import org.cloudsmith.geppetto.forge.Dependency;
 import org.cloudsmith.geppetto.forge.ForgeFactory;
 import org.cloudsmith.geppetto.forge.Metadata;
+import org.cloudsmith.geppetto.forge.VersionRequirement;
 import org.cloudsmith.geppetto.pp.dsl.ui.PPUiConstants;
 import org.cloudsmith.geppetto.pp.dsl.ui.internal.PPDSLActivator;
 import org.cloudsmith.geppetto.pp.dsl.validation.IValidationAdvisor;
@@ -251,7 +252,10 @@ public class PPModulefileBuilder extends IncrementalProjectBuilder implements PP
 			tracer.trace("Getting best version");
 		}
 		// find best version and do a lookup of project
-		String best = d.getVersionRequirement().findBestMatch(candidates.values());
+		VersionRequirement vr = d.getVersionRequirement();
+		if(vr == null)
+			vr = VersionRequirement.EMPTY_REQUIREMENT;
+		String best = vr.findBestMatch(candidates.values());
 		if(best == null || best.length() == 0) {
 			if(tracer.isTracing())
 				tracer.trace("No best match found");

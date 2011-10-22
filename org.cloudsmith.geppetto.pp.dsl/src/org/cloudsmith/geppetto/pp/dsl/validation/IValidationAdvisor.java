@@ -48,6 +48,13 @@ public interface IValidationAdvisor {
 	public ValidationPreference circularDependencyPreference();
 
 	/**
+	 * Prior to 2.7 (?) it was not possible to have case labels with a ".".
+	 * 
+	 * @return
+	 */
+	public ValidationPreference periodInCase();
+
+	/**
 	 * How should unqualified variable references be reported (ignore, warning, error).
 	 * 
 	 * @return

@@ -23,6 +23,7 @@ import org.cloudsmith.geppetto.common.tracer.ITracer;
 import org.cloudsmith.geppetto.forge.Dependency;
 import org.cloudsmith.geppetto.forge.ForgeFactory;
 import org.cloudsmith.geppetto.forge.Metadata;
+import org.cloudsmith.geppetto.forge.VersionRequirement;
 import org.cloudsmith.geppetto.pp.dsl.ui.PPUiConstants;
 import org.cloudsmith.geppetto.pp.dsl.ui.internal.PPDSLActivator;
 import org.cloudsmith.geppetto.pp.dsl.validation.IValidationAdvisor;
@@ -196,17 +197,21 @@ public class PPModulefileBuilder extends IncrementalProjectBuilder implements PP
 		// Names with "/" are not allowed
 		final String requiredName = d.getName().replace("/", "-").toLowerCase();
 		if(requiredName == null || requiredName.isEmpty()) {
-			tracer.trace("Dependency with mising name found");
+			if(tracer.isTracing())
+				tracer.trace("Dependency with mising name found");
 			return null;
 		}
-		tracer.trace("Resolving required name: ", requiredName);
+		if(tracer.isTracing())
+			tracer.trace("Resolving required name: ", requiredName);
 		BiMap<IProject, String> candidates = HashBiMap.create();
 
-		tracer.trace("Checking against all projects...");
+		if(tracer.isTracing())
+			tracer.trace("Checking against all projects...");
 		for(IProject p : getWorkspaceRoot().getProjects()) {
 			checkCancel(monitor);
 			if(!isAccessiblePuppetProject(p)) {
-				tracer.trace("Project not accessible: ", p.getName());
+				if(tracer.isTracing())
+					tracer.trace("Project not accessible: ", p.getName());
 				continue;
 			}
 
@@ -218,7 +223,8 @@ public class PPModulefileBuilder extends IncrementalProjectBuilder implements PP
 			catch(CoreException e) {
 				log.error("Could not read project Modulename property", e);
 			}
-			tracer.trace("Project: ", p.getName(), " has persisted name: ", moduleName);
+			if(tracer.isTracing())
+				tracer.trace("Project: ", p.getName(), " has persisted name: ", moduleName);
 			boolean matched = false;
 			if(requiredName.equals(moduleName))
 				matched = true;
@@ -251,7 +257,10 @@ public class PPModulefileBuilder extends IncrementalProjectBuilder implements PP
 			tracer.trace("Getting best version");
 		}
 		// find best version and do a lookup of project
-		String best = d.getVersionRequirement().findBestMatch(candidates.values());
+		VersionRequirement vr = d.getVersionRequirement();
+		if(vr == null)
+			vr = VersionRequirement.EMPTY_REQUIREMENT;
+		String best = vr.findBestMatch(candidates.values());
 		if(best == null || best.length() == 0) {
 			if(tracer.isTracing())
 				tracer.trace("No best match found");

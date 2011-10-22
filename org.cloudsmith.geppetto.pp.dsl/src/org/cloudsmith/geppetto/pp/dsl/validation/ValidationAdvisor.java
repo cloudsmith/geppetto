@@ -51,6 +51,14 @@ public class ValidationAdvisor {
 		}
 
 		/**
+		 * @returns ValidationPreference.ERROR
+		 */
+		@Override
+		public ValidationPreference periodInCase() {
+			return ValidationPreference.ERROR;
+		}
+
+		/**
 		 * @returns ValidationPreference.IGNORE
 		 */
 		@Override
@@ -68,6 +76,14 @@ public class ValidationAdvisor {
 		@Override
 		public boolean allowUnquotedQualifiedResourceNames() {
 			return true;
+		}
+
+		/**
+		 * @returns ValidationPreference.IGNORE
+		 */
+		@Override
+		public ValidationPreference periodInCase() {
+			return ValidationPreference.IGNORE;
 		}
 
 		/**

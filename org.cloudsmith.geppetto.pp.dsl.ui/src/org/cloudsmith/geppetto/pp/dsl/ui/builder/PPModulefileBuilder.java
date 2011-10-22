@@ -201,17 +201,21 @@ public class PPModulefileBuilder extends IncrementalProjectBuilder implements PP
 		// Names with "/" are not allowed
 		final String requiredName = d.getName().replace("/", "-").toLowerCase();
 		if(requiredName == null || requiredName.isEmpty()) {
-			tracer.trace("Dependency with mising name found");
+			if(tracer.isTracing())
+				tracer.trace("Dependency with mising name found");
 			return null;
 		}
-		tracer.trace("Resolving required name: ", requiredName);
+		if(tracer.isTracing())
+			tracer.trace("Resolving required name: ", requiredName);
 		BiMap<IProject, String> candidates = HashBiMap.create();
 
-		tracer.trace("Checking against all projects...");
+		if(tracer.isTracing())
+			tracer.trace("Checking against all projects...");
 		for(IProject p : getWorkspaceRoot().getProjects()) {
 			checkCancel(monitor);
 			if(!isAccessiblePuppetProject(p)) {
-				tracer.trace("Project not accessible: ", p.getName());
+				if(tracer.isTracing())
+					tracer.trace("Project not accessible: ", p.getName());
 				continue;
 			}
 
@@ -223,7 +227,8 @@ public class PPModulefileBuilder extends IncrementalProjectBuilder implements PP
 			catch(CoreException e) {
 				log.error("Could not read project Modulename property", e);
 			}
-			tracer.trace("Project: ", p.getName(), " has persisted name: ", moduleName);
+			if(tracer.isTracing())
+				tracer.trace("Project: ", p.getName(), " has persisted name: ", moduleName);
 			boolean matched = false;
 			if(requiredName.equals(moduleName))
 				matched = true;

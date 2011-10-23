@@ -478,8 +478,8 @@ public class TestExpressions extends AbstractPuppetTests {
 		v.setVarName("x");
 		tester.validate(v).assertError(IPPDiagnostics.ISSUE__NOT_VARNAME);
 
-		// minus allowd in names of things, but not in variables
-		v.setVarName("$3-4");
+		// period is allowed in names, but not in variables
+		v.setVarName("$3.4");
 		tester.validate(v).assertError(IPPDiagnostics.ISSUE__NOT_VARNAME);
 	}
 

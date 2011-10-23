@@ -32,6 +32,7 @@ import com.google.inject.internal.Maps;
 /**
  * TODO: Can probably be simplified further as there is less need for the fancy overrides required for the
  * Xtext 1.0 implementation.
+ * TODO: This class can probably be removed - with the change in dollarVar parsing there is nothing left it needs to do.
  * 
  */
 public class PPValueSerializer extends ValueSerializer {
@@ -59,7 +60,7 @@ public class PPValueSerializer extends ValueSerializer {
 		 * Note that keywords in the grammar are handled automatically (unless nested in a data rule ?).
 		 */
 		ruleToText = Maps.newHashMap();
-		ruleToText.put(pga.getDQT_DOLLARRule(), "$");
+		// ruleToText.put(pga.getDQT_DOLLARRule(), "$");
 		// ruleToText.put(pga.getDQT_QUOTERule(), "\"");
 	}
 

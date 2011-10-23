@@ -19,22 +19,22 @@ import java.util.HashMap;
 
   private static Map<String, Integer> getLiteralsMap() {
  	Map<String, Integer> result = new HashMap<String, Integer>();  
-  	result.put("inherits", KEYWORD_63 );
-	result.put("default", KEYWORD_62 );
-	result.put("import", KEYWORD_61 );
-	result.put("define", KEYWORD_60 );
-	result.put("undef", KEYWORD_59 );
-	result.put("false", KEYWORD_58 );
-	result.put("elsif", KEYWORD_57 );
-	result.put("class", KEYWORD_56 );
-	result.put("true", KEYWORD_55 );
-	result.put("node", KEYWORD_54 );
-	result.put("else", KEYWORD_53 );
-	result.put("case", KEYWORD_52 );
-	result.put("and", KEYWORD_50 );
-	result.put("if", KEYWORD_43 );
-	result.put("in", KEYWORD_44 );
-	result.put("or", KEYWORD_45 );
+  	result.put("inherits", KEYWORD_62 );
+	result.put("default", KEYWORD_61 );
+	result.put("import", KEYWORD_60 );
+	result.put("define", KEYWORD_59 );
+	result.put("undef", KEYWORD_58 );
+	result.put("false", KEYWORD_57 );
+	result.put("elsif", KEYWORD_56 );
+	result.put("class", KEYWORD_55 );
+	result.put("true", KEYWORD_54 );
+	result.put("node", KEYWORD_53 );
+	result.put("else", KEYWORD_52 );
+	result.put("case", KEYWORD_51 );
+	result.put("and", KEYWORD_49 );
+	result.put("if", KEYWORD_42 );
+	result.put("in", KEYWORD_43 );
+	result.put("or", KEYWORD_44 );
 	return result;
   }
   private boolean isReAcceptable() {
@@ -43,13 +43,13 @@ import java.util.HashMap;
   	// accept after ',' 'node', '{','}, '=~', '!~'
   	switch(lastSignificantToken) {
   		// NOTE: Must manually make sure these refer to the correct KEYWORD numbers
-  		case KEYWORD_9 : // ','
-  		case KEYWORD_54 : // 'node'
-  		case KEYWORD_21 : // '{'
-  		case KEYWORD_22 : // '}'
-  		case KEYWORD_36 : // '=~'
-  		case KEYWORD_24 : // '!~'
-  		case KEYWORD_63 : // 'inherits'
+  		case KEYWORD_8 : // ','
+  		case KEYWORD_53 : // 'node'
+  		case KEYWORD_20 : // '{'
+  		case KEYWORD_21 : // '}'
+  		case KEYWORD_35 : // '=~'
+  		case KEYWORD_23 : // '!~'
+  		case KEYWORD_62 : // 'inherits'
   		case 0 : // nothing seen before, used when serializing
   			return true;
   		default:
@@ -124,43 +124,43 @@ import java.util.HashMap;
 		return t;
 	}
 }
-KEYWORD_63 : {isNotInString()}?=>'inherits';
+KEYWORD_62 : {isNotInString()}?=>'inherits';
 
-KEYWORD_62 : {isNotInString()}?=> 'default';
+KEYWORD_61 : {isNotInString()}?=> 'default';
 
-KEYWORD_60 : {isNotInString()}?=>'define';
+KEYWORD_59 : {isNotInString()}?=>'define';
 
-KEYWORD_61 : {isNotInString()}?=>'import';
+KEYWORD_60 : {isNotInString()}?=>'import';
 
-KEYWORD_56 : {isNotInString()}?=>'class';
+KEYWORD_55 : {isNotInString()}?=>'class';
 
-KEYWORD_57 : {isNotInString()}?=>'elsif';
+KEYWORD_56 : {isNotInString()}?=>'elsif';
 
-KEYWORD_58 : {isNotInString()}?=>'false';
+KEYWORD_57 : {isNotInString()}?=>'false';
 
-KEYWORD_59 : {isNotInString()}?=>'undef';
+KEYWORD_58 : {isNotInString()}?=>'undef';
 
-KEYWORD_52 : {isNotInString()}?=>'case';
+KEYWORD_51 : {isNotInString()}?=>'case';
 
-KEYWORD_53 : {isNotInString()}?=>'else';
+KEYWORD_52 : {isNotInString()}?=>'else';
 
-KEYWORD_54 : {isNotInString()}?=>'node';
+KEYWORD_53 : {isNotInString()}?=>'node';
 
-KEYWORD_55 : {isNotInString()}?=>'true';
+KEYWORD_54 : {isNotInString()}?=>'true';
 
-KEYWORD_48 : {isNotInString()}?=>'<<|';
+KEYWORD_47 : {isNotInString()}?=>'<<|';
 
-KEYWORD_49 : '\\${';
+KEYWORD_48 : '\\${';
 
-KEYWORD_50 : {isNotInString()}?=>'and';
+KEYWORD_49 : {isNotInString()}?=>'and';
 
-KEYWORD_51 : {isNotInString()}?=>'|>>';
+KEYWORD_50 : {isNotInString()}?=>'|>>';
 
-KEYWORD_23 : {isNotInString()}?=>'!=';
+KEYWORD_22 : {isNotInString()}?=>'!=';
 
-KEYWORD_24 : {isNotInString()}?=>'!~';
+KEYWORD_23 : {isNotInString()}?=>'!~';
 
-KEYWORD_25 : '${' {
+KEYWORD_24 : '${' {
 	if(doubleQuotedString) {
 		// in string expression interpolation mode
 		pushDq();
@@ -168,51 +168,49 @@ KEYWORD_25 : '${' {
 	}
 };
 
-KEYWORD_26 : {isNotInString()}?=>'+=';
+KEYWORD_25 : {isNotInString()}?=>'+=';
 
-KEYWORD_27 : {isNotInString()}?=>'+>';
+KEYWORD_26 : {isNotInString()}?=>'+>';
 
-KEYWORD_28 : {isNotInString()}?=>'->';
+KEYWORD_27 : {isNotInString()}?=>'->';
 
-// KEYWORD_29 : '::';
+KEYWORD_28 : {isNotInString()}?=>'<-';
 
-KEYWORD_29 : {isNotInString()}?=>'<-';
+KEYWORD_29 : {isNotInString()}?=>'<<';
 
-KEYWORD_30 : {isNotInString()}?=>'<<';
+KEYWORD_30 : {isNotInString()}?=>'<=';
 
-KEYWORD_31 : {isNotInString()}?=>'<=';
+KEYWORD_31 : {isNotInString()}?=>'<|';
 
-KEYWORD_32 : {isNotInString()}?=>'<|';
+KEYWORD_32 : {isNotInString()}?=>'<~';
 
-KEYWORD_33 : {isNotInString()}?=>'<~';
+KEYWORD_33 : {isNotInString()}?=>'==';
 
-KEYWORD_34 : {isNotInString()}?=>'==';
+KEYWORD_34 : {isNotInString()}?=>'=>';
 
-KEYWORD_35 : {isNotInString()}?=>'=>';
+KEYWORD_35 : {isNotInString()}?=>'=~';
 
-KEYWORD_36 : {isNotInString()}?=>'=~';
+KEYWORD_36 : {isNotInString()}?=>'>=';
 
-KEYWORD_37 : {isNotInString()}?=>'>=';
+KEYWORD_37 : {isNotInString()}?=>'>>';
 
-KEYWORD_38 : {isNotInString()}?=>'>>';
+KEYWORD_38 : '\\"';
 
-KEYWORD_39 : '\\"';
+KEYWORD_39 : '\\$';
 
-KEYWORD_40 : '\\$';
+KEYWORD_40 : '\\\'';
 
-KEYWORD_41 : '\\\'';
+KEYWORD_41 : '\\\\';
 
-KEYWORD_42 : '\\\\';
+KEYWORD_42 : {isNotInString()}?=>'if';
 
-KEYWORD_43 : {isNotInString()}?=>'if';
+KEYWORD_43 : {isNotInString()}?=>'in';
 
-KEYWORD_44 : {isNotInString()}?=>'in';
+KEYWORD_44 : {isNotInString()}?=>'or';
 
-KEYWORD_45 : {isNotInString()}?=>'or';
+KEYWORD_45 : {isNotInString()}?=>'|>';
 
-KEYWORD_46 : {isNotInString()}?=>'|>';
-
-KEYWORD_47 : {isNotInString()}?=>'~>';
+KEYWORD_46 : {isNotInString()}?=>'~>';
 
 KEYWORD_1 : {isNotInString()}?=>'!';
 
@@ -221,56 +219,55 @@ KEYWORD_2 : {!singleQuotedString}?=> '"'
 		doubleQuotedString = !doubleQuotedString;
 	};
 
-// KEYWORD_3 : '$';
 
-KEYWORD_4 : {!doubleQuotedString}?=>'\''
+KEYWORD_3 : {!doubleQuotedString}?=>'\''
 	{ 	// flip if in sq string or not
 		singleQuotedString = !singleQuotedString;
 	};
 
-KEYWORD_5 : {isNotInString()}?=>'(';
+KEYWORD_4 : {isNotInString()}?=>'(';
 
-KEYWORD_6 : {isNotInString()}?=>')';
+KEYWORD_5 : {isNotInString()}?=>')';
 
-KEYWORD_7 : {isNotInString()}?=>'*';
+KEYWORD_6 : {isNotInString()}?=>'*';
 
-KEYWORD_8 : {isNotInString()}?=>'+';
+KEYWORD_7 : {isNotInString()}?=>'+';
 
-KEYWORD_9 : {isNotInString()}?=>',';
+KEYWORD_8 : {isNotInString()}?=>',';
 
-KEYWORD_10 : '-' {
+KEYWORD_9 : '-' {
 	if(singleQuotedString || doubleQuotedString)
 		_type = RULE_ANY_OTHER;
 };
 
-KEYWORD_11 : {isNotInString()}?=>'/' {
+KEYWORD_10 : {isNotInString()}?=>'/' {
 	if(isReAcceptable()) {
 		mRULE_REGULAR_EXPRESSION();
 		return;
 	}
 };
 
-KEYWORD_12 : {isNotInString()}?=>':';
+KEYWORD_11 : {isNotInString()}?=>':';
 
-KEYWORD_13 : {isNotInString()}?=>';';
+KEYWORD_12 : {isNotInString()}?=>';';
 
-KEYWORD_14 : {isNotInString()}?=>'<';
+KEYWORD_13 : {isNotInString()}?=>'<';
 
-KEYWORD_15 : {isNotInString()}?=>'=';
+KEYWORD_14 : {isNotInString()}?=>'=';
 
-KEYWORD_16 : {isNotInString()}?=>'>';
+KEYWORD_15 : {isNotInString()}?=>'>';
 
-KEYWORD_17 : {isNotInString()}?=>'?';
+KEYWORD_16 : {isNotInString()}?=>'?';
 
-KEYWORD_18 : {isNotInString()}?=>'@';
+KEYWORD_17 : {isNotInString()}?=>'@';
 
-KEYWORD_19 : {isNotInString()}?=>'[';
+KEYWORD_18 : {isNotInString()}?=>'[';
 
-KEYWORD_20 : {isNotInString()}?=>']';
+KEYWORD_19 : {isNotInString()}?=>']';
 
-KEYWORD_21 : {isNotInString()}?=>'{' {enterBrace();};
+KEYWORD_20 : {isNotInString()}?=>'{' {enterBrace();};
 
-KEYWORD_22 : {isNotInString()}?=>'}' {exitBrace();};
+KEYWORD_21 : {isNotInString()}?=>'}' {exitBrace();};
 
 // Standard /* */ comment that also eats trailing WS and endof line if that is all that is trailing
 RULE_ML_COMMENT : {isNotInString()}?=> (('/*' ( options {greedy=false;} : . )*'*/') (' '|'\u00A0'|'\t')* ('\r'? '\n')?) ;

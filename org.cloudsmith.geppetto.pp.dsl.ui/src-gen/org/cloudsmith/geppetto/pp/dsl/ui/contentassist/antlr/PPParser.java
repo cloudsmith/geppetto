@@ -63,7 +63,6 @@ public class PPParser extends AbstractContentAssistParser {
 					put(grammarAccess.getBooleanValueAccess().getAlternatives(), "rule__BooleanValue__Alternatives");
 					put(grammarAccess.getStringExpressionAccess().getAlternatives(), "rule__StringExpression__Alternatives");
 					put(grammarAccess.getQuotedStringAccess().getAlternatives(), "rule__QuotedString__Alternatives");
-					put(grammarAccess.getDollarVariableAccess().getAlternatives_1(), "rule__DollarVariable__Alternatives_1");
 					put(grammarAccess.getKeywordAccess().getAlternatives(), "rule__Keyword__Alternatives");
 					put(grammarAccess.getClassnameAccess().getAlternatives(), "rule__Classname__Alternatives");
 					put(grammarAccess.getUnionNameOrReferenceAccess().getAlternatives(), "rule__UnionNameOrReference__Alternatives");
@@ -168,8 +167,6 @@ public class PPParser extends AbstractContentAssistParser {
 					put(grammarAccess.getLiteralClassAccess().getGroup(), "rule__LiteralClass__Group__0");
 					put(grammarAccess.getSingleQuotedStringAccess().getGroup(), "rule__SingleQuotedString__Group__0");
 					put(grammarAccess.getDoubleQuotedStringAccess().getGroup(), "rule__DoubleQuotedString__Group__0");
-					put(grammarAccess.getDollarTextExpressionAccess().getGroup(), "rule__DollarTextExpression__Group__0");
-					put(grammarAccess.getDollarTextExpressionAccess().getGroup_1(), "rule__DollarTextExpression__Group_1__0");
 					put(grammarAccess.getVariableTextExpressionAccess().getGroup(), "rule__VariableTextExpression__Group__0");
 					put(grammarAccess.getVariableTextExpressionAccess().getGroup_1(), "rule__VariableTextExpression__Group_1__0");
 					put(grammarAccess.getExpressionTextExpressionAccess().getGroup(), "rule__ExpressionTextExpression__Group__0");
@@ -178,7 +175,6 @@ public class PPParser extends AbstractContentAssistParser {
 					put(grammarAccess.getStringPartAccess().getGroup(), "rule__StringPart__Group__0");
 					put(grammarAccess.getUnquotedStringAccess().getGroup(), "rule__UnquotedString__Group__0");
 					put(grammarAccess.getSqTextAccess().getGroup(), "rule__SqText__Group__0");
-					put(grammarAccess.getDollarVariableAccess().getGroup(), "rule__DollarVariable__Group__0");
 					put(grammarAccess.getPuppetManifestAccess().getStatementsAssignment_1(), "rule__PuppetManifest__StatementsAssignment_1");
 					put(grammarAccess.getExpressionListAccess().getExpressionsAssignment_1_2(), "rule__ExpressionList__ExpressionsAssignment_1_2");
 					put(grammarAccess.getExpressionListAccess().getExpressionsAssignment_1_3_1(), "rule__ExpressionList__ExpressionsAssignment_1_3_1");
@@ -276,8 +272,6 @@ public class PPParser extends AbstractContentAssistParser {
 					put(grammarAccess.getLiteralBooleanAccess().getValueAssignment(), "rule__LiteralBoolean__ValueAssignment");
 					put(grammarAccess.getSingleQuotedStringAccess().getTextAssignment_1(), "rule__SingleQuotedString__TextAssignment_1");
 					put(grammarAccess.getDoubleQuotedStringAccess().getTextExpressionAssignment_1(), "rule__DoubleQuotedString__TextExpressionAssignment_1");
-					put(grammarAccess.getDollarTextExpressionAccess().getTextAssignment_1_1(), "rule__DollarTextExpression__TextAssignment_1_1");
-					put(grammarAccess.getDollarTextExpressionAccess().getTrailingAssignment_1_2(), "rule__DollarTextExpression__TrailingAssignment_1_2");
 					put(grammarAccess.getVariableTextExpressionAccess().getVarNameAssignment_1_1(), "rule__VariableTextExpression__VarNameAssignment_1_1");
 					put(grammarAccess.getVariableTextExpressionAccess().getTrailingAssignment_1_2(), "rule__VariableTextExpression__TrailingAssignment_1_2");
 					put(grammarAccess.getExpressionTextExpressionAccess().getExpressionAssignment_1_2(), "rule__ExpressionTextExpression__ExpressionAssignment_1_2");

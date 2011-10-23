@@ -519,7 +519,7 @@ SingleQuotedString returns pp::SingleQuotedString
 	;
 
 // Special declarations to aid syntax coloring of a $ in a special place.	
-DQT_DOLLAR : '$' ;
+//DQT_DOLLAR : '$' ;
 
 // Double quoted string with expression interpolation
 // handles:

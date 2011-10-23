@@ -91,16 +91,15 @@ protected class ThisRootNode extends RootToken {
 			case 57: return new QuotedString_Alternatives(this, this, 57, inst);
 			case 58: return new SingleQuotedString_Group(this, this, 58, inst);
 			case 59: return new DoubleQuotedString_Group(this, this, 59, inst);
-			case 60: return new TextExpression_DollarTextExpressionParserRuleCall(this, this, 60, inst);
-			case 61: return new DollarTextExpression_Group(this, this, 61, inst);
-			case 62: return new VariableTextExpression_Group(this, this, 62, inst);
-			case 63: return new ExpressionTextExpression_Group(this, this, 63, inst);
-			case 64: return new ExpressionWithHidden_Group(this, this, 64, inst);
-			case 65: return new StringPart_Group(this, this, 65, inst);
-			case 66: return new UnquotedString_Group(this, this, 66, inst);
-			case 67: return new LiteralRegex_ValueAssignment(this, this, 67, inst);
-			case 68: return new LiteralName_ValueAssignment(this, this, 68, inst);
-			case 69: return new VariableExpression_VarNameAssignment(this, this, 69, inst);
+			case 60: return new TextExpression_VariableTextExpressionParserRuleCall(this, this, 60, inst);
+			case 61: return new VariableTextExpression_Group(this, this, 61, inst);
+			case 62: return new ExpressionTextExpression_Group(this, this, 62, inst);
+			case 63: return new ExpressionWithHidden_Group(this, this, 63, inst);
+			case 64: return new StringPart_Group(this, this, 64, inst);
+			case 65: return new UnquotedString_Group(this, this, 65, inst);
+			case 66: return new LiteralRegex_ValueAssignment(this, this, 66, inst);
+			case 67: return new LiteralName_ValueAssignment(this, this, 67, inst);
+			case 68: return new VariableExpression_VarNameAssignment(this, this, 68, inst);
 			default: return null;
 		}	
 	}	
@@ -14306,9 +14305,10 @@ protected class SingleQuotedString_TextAssignment_1 extends AssignmentToken  {
 /************ end Rule SingleQuotedString ****************/
 
 
-
 /************ begin Rule DoubleQuotedString ****************
  *
+ * // Special declarations to aid syntax coloring of a $ in a special place.	
+ * //DQT_DOLLAR : '$' ;
  * // Double quoted string with expression interpolation
  * // handles:
  * // - $ <non variable char or {> is a verbatim $ included in the string
@@ -14316,11 +14316,11 @@ protected class SingleQuotedString_TextAssignment_1 extends AssignmentToken  {
  * // - ${ expression } - evaluated and included in the string
  * //
  * DoubleQuotedString returns pp::DoubleQuotedString hidden():
- * 	"\"" textExpression=TextExpression endDqQuote;
+ * 	"\"" textExpression=TextExpression "\"";
  *
  **/
 
-// "\"" textExpression=TextExpression endDqQuote
+// "\"" textExpression=TextExpression "\""
 protected class DoubleQuotedString_Group extends GroupToken {
 	
 	public DoubleQuotedString_Group(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -14335,7 +14335,7 @@ protected class DoubleQuotedString_Group extends GroupToken {
     @Override
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
-			case 0: return new DoubleQuotedString_EndDqQuoteParserRuleCall_2(lastRuleCallOrigin, this, 0, inst);
+			case 0: return new DoubleQuotedString_QuotationMarkKeyword_2(lastRuleCallOrigin, this, 0, inst);
 			default: return null;
 		}	
 	}
@@ -14385,7 +14385,7 @@ protected class DoubleQuotedString_TextExpressionAssignment_1 extends Assignment
     @Override
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
-			case 0: return new TextExpression_DollarTextExpressionParserRuleCall(this, this, 0, inst);
+			case 0: return new TextExpression_VariableTextExpressionParserRuleCall(this, this, 0, inst);
 			default: return null;
 		}	
 	}
@@ -14416,16 +14416,16 @@ protected class DoubleQuotedString_TextExpressionAssignment_1 extends Assignment
 	}	
 }
 
-// endDqQuote
-protected class DoubleQuotedString_EndDqQuoteParserRuleCall_2 extends UnassignedTextToken {
-
-	public DoubleQuotedString_EndDqQuoteParserRuleCall_2(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+// "\""
+protected class DoubleQuotedString_QuotationMarkKeyword_2 extends KeywordToken  {
+	
+	public DoubleQuotedString_QuotationMarkKeyword_2(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
 		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
 	}
 	
 	@Override
-	public RuleCall getGrammarElement() {
-		return grammarAccess.getDoubleQuotedStringAccess().getEndDqQuoteParserRuleCall_2();
+	public Keyword getGrammarElement() {
+		return grammarAccess.getDoubleQuotedStringAccess().getQuotationMarkKeyword_2();
 	}
 
     @Override
@@ -14442,31 +14442,30 @@ protected class DoubleQuotedString_EndDqQuoteParserRuleCall_2 extends Unassigned
 /************ end Rule DoubleQuotedString ****************/
 
 
-
 /************ begin Rule TextExpression ****************
  *
  * // Lowest precedence TextExpression
  * / *hidden()* / TextExpression returns pp::TextExpression:
- * 	DollarTextExpression;
+ * 	VariableTextExpression;
  *
  **/
 
-// DollarTextExpression
-protected class TextExpression_DollarTextExpressionParserRuleCall extends RuleCallToken {
+// VariableTextExpression
+protected class TextExpression_VariableTextExpressionParserRuleCall extends RuleCallToken {
 	
-	public TextExpression_DollarTextExpressionParserRuleCall(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+	public TextExpression_VariableTextExpressionParserRuleCall(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
 		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
 	}
 	
 	@Override
 	public RuleCall getGrammarElement() {
-		return grammarAccess.getTextExpressionAccess().getDollarTextExpressionParserRuleCall();
+		return grammarAccess.getTextExpressionAccess().getVariableTextExpressionParserRuleCall();
 	}
 
     @Override
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
-			case 0: return new DollarTextExpression_Group(this, this, 0, inst);
+			case 0: return new VariableTextExpression_Group(this, this, 0, inst);
 			default: return null;
 		}	
 	}
@@ -14477,7 +14476,7 @@ protected class TextExpression_DollarTextExpressionParserRuleCall extends RuleCa
 		   getEObject().eClass() != grammarAccess.getVariableTextExpressionAccess().getVariableTELeadingAction_1_0().getType().getClassifier() && 
 		   getEObject().eClass() != grammarAccess.getStringPartAccess().getVerbatimTEAction_0().getType().getClassifier())
 			return null;
-		if(checkForRecursion(DollarTextExpression_Group.class, eObjectConsumer)) return null;
+		if(checkForRecursion(VariableTextExpression_Group.class, eObjectConsumer)) return null;
 		return eObjectConsumer;
 	}
 	
@@ -14492,226 +14491,15 @@ protected class TextExpression_DollarTextExpressionParserRuleCall extends RuleCa
 /************ end Rule TextExpression ****************/
 
 
-/************ begin Rule DollarTextExpression ****************
- *
- * DollarTextExpression returns pp::TextExpression hidden():
- * 	VariableTextExpression ({pp::VerbatimTE.leading=current} text=DQT_DOLLAR trailing=TextExpression?)*;
- *
- **/
-
-// VariableTextExpression ({pp::VerbatimTE.leading=current} text=DQT_DOLLAR trailing=TextExpression?)*
-protected class DollarTextExpression_Group extends GroupToken {
-	
-	public DollarTextExpression_Group(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
-		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
-	}
-	
-	@Override
-	public Group getGrammarElement() {
-		return grammarAccess.getDollarTextExpressionAccess().getGroup();
-	}
-
-    @Override
-	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
-		switch(index) {
-			case 0: return new DollarTextExpression_Group_1(lastRuleCallOrigin, this, 0, inst);
-			case 1: return new DollarTextExpression_VariableTextExpressionParserRuleCall_0(lastRuleCallOrigin, this, 1, inst);
-			default: return null;
-		}	
-	}
-
-    @Override
-	public IEObjectConsumer tryConsume() {
-		if(getEObject().eClass() != grammarAccess.getExpressionTextExpressionAccess().getExpressionTELeadingAction_1_0().getType().getClassifier() && 
-		   getEObject().eClass() != grammarAccess.getVariableTextExpressionAccess().getVariableTELeadingAction_1_0().getType().getClassifier() && 
-		   getEObject().eClass() != grammarAccess.getStringPartAccess().getVerbatimTEAction_0().getType().getClassifier())
-			return null;
-		return eObjectConsumer;
-	}
-
-}
-
-// VariableTextExpression
-protected class DollarTextExpression_VariableTextExpressionParserRuleCall_0 extends RuleCallToken {
-	
-	public DollarTextExpression_VariableTextExpressionParserRuleCall_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
-		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
-	}
-	
-	@Override
-	public RuleCall getGrammarElement() {
-		return grammarAccess.getDollarTextExpressionAccess().getVariableTextExpressionParserRuleCall_0();
-	}
-
-    @Override
-	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
-		switch(index) {
-			case 0: return new VariableTextExpression_Group(this, this, 0, inst);
-			default: return null;
-		}	
-	}
-
-    @Override
-	public IEObjectConsumer tryConsume() {
-		if(checkForRecursion(VariableTextExpression_Group.class, eObjectConsumer)) return null;
-		return eObjectConsumer;
-	}
-	
-    @Override
-	public AbstractToken createFollowerAfterReturn(AbstractToken next,	int actIndex, int index, IEObjectConsumer inst) {
-		switch(index) {
-			default: return lastRuleCallOrigin.createFollowerAfterReturn(next, actIndex , index, inst);
-		}	
-	}	
-}
-
-// ({pp::VerbatimTE.leading=current} text=DQT_DOLLAR trailing=TextExpression?)*
-protected class DollarTextExpression_Group_1 extends GroupToken {
-	
-	public DollarTextExpression_Group_1(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
-		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
-	}
-	
-	@Override
-	public Group getGrammarElement() {
-		return grammarAccess.getDollarTextExpressionAccess().getGroup_1();
-	}
-
-    @Override
-	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
-		switch(index) {
-			case 0: return new DollarTextExpression_TrailingAssignment_1_2(lastRuleCallOrigin, this, 0, inst);
-			case 1: return new DollarTextExpression_TextAssignment_1_1(lastRuleCallOrigin, this, 1, inst);
-			default: return null;
-		}	
-	}
-
-    @Override
-	public IEObjectConsumer tryConsume() {
-		if(getEObject().eClass() != grammarAccess.getDollarTextExpressionAccess().getVerbatimTELeadingAction_1_0().getType().getClassifier())
-			return null;
-		return eObjectConsumer;
-	}
-
-}
-
-// {pp::VerbatimTE.leading=current}
-protected class DollarTextExpression_VerbatimTELeadingAction_1_0 extends ActionToken  {
-
-	public DollarTextExpression_VerbatimTELeadingAction_1_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
-		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
-	}
-	
-	@Override
-	public Action getGrammarElement() {
-		return grammarAccess.getDollarTextExpressionAccess().getVerbatimTELeadingAction_1_0();
-	}
-
-    @Override
-	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
-		switch(index) {
-			case 0: return new DollarTextExpression_Group_1(lastRuleCallOrigin, this, 0, inst);
-			case 1: return new DollarTextExpression_VariableTextExpressionParserRuleCall_0(lastRuleCallOrigin, this, 1, inst);
-			default: return null;
-		}	
-	}
-
-    @Override
-	public IEObjectConsumer tryConsume() {
-		Object val = eObjectConsumer.getConsumable("leading", false);
-		if(val == null) return null;
-		if(!eObjectConsumer.isConsumedWithLastConsumtion("leading")) return null;
-		return createEObjectConsumer((EObject) val);
-	}
-}
-
-// text=DQT_DOLLAR
-protected class DollarTextExpression_TextAssignment_1_1 extends AssignmentToken  {
-	
-	public DollarTextExpression_TextAssignment_1_1(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
-		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
-	}
-	
-	@Override
-	public Assignment getGrammarElement() {
-		return grammarAccess.getDollarTextExpressionAccess().getTextAssignment_1_1();
-	}
-
-    @Override
-	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
-		switch(index) {
-			case 0: return new DollarTextExpression_VerbatimTELeadingAction_1_0(lastRuleCallOrigin, this, 0, inst);
-			default: return null;
-		}	
-	}
-
-    @Override	
-	public IEObjectConsumer tryConsume() {
-		if((value = eObjectConsumer.getConsumable("text",true)) == null) return null;
-		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("text");
-		if(valueSerializer.isValid(obj.getEObject(), grammarAccess.getDollarTextExpressionAccess().getTextDQT_DOLLARParserRuleCall_1_1_0(), value, null)) {
-			type = AssignmentType.DATATYPE_RULE_CALL;
-			element = grammarAccess.getDollarTextExpressionAccess().getTextDQT_DOLLARParserRuleCall_1_1_0();
-			return obj;
-		}
-		return null;
-	}
-
-}
-
-// trailing=TextExpression?
-protected class DollarTextExpression_TrailingAssignment_1_2 extends AssignmentToken  {
-	
-	public DollarTextExpression_TrailingAssignment_1_2(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
-		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
-	}
-	
-	@Override
-	public Assignment getGrammarElement() {
-		return grammarAccess.getDollarTextExpressionAccess().getTrailingAssignment_1_2();
-	}
-
-    @Override
-	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
-		switch(index) {
-			case 0: return new TextExpression_DollarTextExpressionParserRuleCall(this, this, 0, inst);
-			default: return null;
-		}	
-	}
-
-    @Override	
-	public IEObjectConsumer tryConsume() {
-		if((value = eObjectConsumer.getConsumable("trailing",false)) == null) return null;
-		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("trailing");
-		if(value instanceof EObject) { // org::eclipse::xtext::impl::RuleCallImpl
-			IEObjectConsumer param = createEObjectConsumer((EObject)value);
-			if(param.isInstanceOf(grammarAccess.getTextExpressionRule().getType().getClassifier())) {
-				type = AssignmentType.PARSER_RULE_CALL;
-				element = grammarAccess.getDollarTextExpressionAccess().getTrailingTextExpressionParserRuleCall_1_2_0(); 
-				consumed = obj;
-				return param;
-			}
-		}
-		return null;
-	}
-
-    @Override
-	public AbstractToken createFollowerAfterReturn(AbstractToken next,	int actIndex, int index, IEObjectConsumer inst) {
-		if(value == inst.getEObject() && !inst.isConsumed()) return null;
-		switch(index) {
-			case 0: return new DollarTextExpression_TextAssignment_1_1(lastRuleCallOrigin, next, actIndex, consumed);
-			default: return null;
-		}	
-	}	
-}
-
-
-
-/************ end Rule DollarTextExpression ****************/
-
-
 /************ begin Rule VariableTextExpression ****************
  *
+ * //DollarTextExpression returns pp::TextExpression hidden(): 
+ * //	VariableTextExpression (
+ * //		{pp::VerbatimTE.leading=current} 
+ * //		text = DQT_DOLLAR 
+ * //		trailing=TextExpression?
+ * //	)*
+ * //	;
  * VariableTextExpression returns pp::TextExpression hidden():
  * 	ExpressionTextExpression ({pp::VariableTE.leading=current} varName=dollarVariable trailing=TextExpression?)*;
  *
@@ -14895,7 +14683,7 @@ protected class VariableTextExpression_TrailingAssignment_1_2 extends Assignment
     @Override
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
-			case 0: return new TextExpression_DollarTextExpressionParserRuleCall(this, this, 0, inst);
+			case 0: return new TextExpression_VariableTextExpressionParserRuleCall(this, this, 0, inst);
 			default: return null;
 		}	
 	}
@@ -15175,7 +14963,7 @@ protected class ExpressionTextExpression_TrailingAssignment_1_4 extends Assignme
     @Override
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
-			case 0: return new TextExpression_DollarTextExpressionParserRuleCall(this, this, 0, inst);
+			case 0: return new TextExpression_VariableTextExpressionParserRuleCall(this, this, 0, inst);
 			default: return null;
 		}	
 	}

@@ -2792,27 +2792,16 @@ public class PPGrammarAccess extends AbstractGrammarElementFinder {
 		public RuleCall getTextSqTextParserRuleCall_1_0() { return cTextSqTextParserRuleCall_1_0; }
 	}
 
-	public class DQT_DOLLARElements extends AbstractParserRuleElementFinder {
-		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "DQT_DOLLAR");
-		private final Keyword cDollarSignKeyword = (Keyword)rule.eContents().get(1);
-		
-		//// Special declarations to aid syntax coloring of a $ in a special place.	
-		//DQT_DOLLAR:
-		//	"$";
-		public ParserRule getRule() { return rule; }
-
-		//"$"
-		public Keyword getDollarSignKeyword() { return cDollarSignKeyword; }
-	}
-
 	public class DoubleQuotedStringElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "DoubleQuotedString");
 		private final Group cGroup = (Group)rule.eContents().get(1);
 		private final Keyword cQuotationMarkKeyword_0 = (Keyword)cGroup.eContents().get(0);
 		private final Assignment cTextExpressionAssignment_1 = (Assignment)cGroup.eContents().get(1);
 		private final RuleCall cTextExpressionTextExpressionParserRuleCall_1_0 = (RuleCall)cTextExpressionAssignment_1.eContents().get(0);
-		private final RuleCall cEndDqQuoteParserRuleCall_2 = (RuleCall)cGroup.eContents().get(2);
+		private final Keyword cQuotationMarkKeyword_2 = (Keyword)cGroup.eContents().get(2);
 		
+		//// Special declarations to aid syntax coloring of a $ in a special place.	
+		////DQT_DOLLAR : '$' ;
 		//// Double quoted string with expression interpolation
 		//// handles:
 		//// - $ <non variable char or {> is a verbatim $ included in the string
@@ -2820,10 +2809,10 @@ public class PPGrammarAccess extends AbstractGrammarElementFinder {
 		//// - ${ expression } - evaluated and included in the string
 		////
 		//DoubleQuotedString returns pp::DoubleQuotedString hidden():
-		//	"\"" textExpression=TextExpression endDqQuote;
+		//	"\"" textExpression=TextExpression "\"";
 		public ParserRule getRule() { return rule; }
 
-		//"\"" textExpression=TextExpression endDqQuote
+		//"\"" textExpression=TextExpression "\""
 		public Group getGroup() { return cGroup; }
 
 		//"\""
@@ -2835,73 +2824,21 @@ public class PPGrammarAccess extends AbstractGrammarElementFinder {
 		//TextExpression
 		public RuleCall getTextExpressionTextExpressionParserRuleCall_1_0() { return cTextExpressionTextExpressionParserRuleCall_1_0; }
 
-		//endDqQuote
-		public RuleCall getEndDqQuoteParserRuleCall_2() { return cEndDqQuoteParserRuleCall_2; }
-	}
-
-	public class EndDqQuoteElements extends AbstractParserRuleElementFinder {
-		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "endDqQuote");
-		private final Keyword cQuotationMarkKeyword = (Keyword)rule.eContents().get(1);
-		
-		//endDqQuote hidden(WS, SL_COMMENT, ML_COMMENT):
-		//	"\"";
-		public ParserRule getRule() { return rule; }
-
 		//"\""
-		public Keyword getQuotationMarkKeyword() { return cQuotationMarkKeyword; }
+		public Keyword getQuotationMarkKeyword_2() { return cQuotationMarkKeyword_2; }
 	}
 
 	public class TextExpressionElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "TextExpression");
-		private final RuleCall cDollarTextExpressionParserRuleCall = (RuleCall)rule.eContents().get(1);
+		private final RuleCall cVariableTextExpressionParserRuleCall = (RuleCall)rule.eContents().get(1);
 		
 		//// Lowest precedence TextExpression
 		/// *hidden()* / TextExpression returns pp::TextExpression:
-		//	DollarTextExpression;
+		//	VariableTextExpression;
 		public ParserRule getRule() { return rule; }
-
-		//DollarTextExpression
-		public RuleCall getDollarTextExpressionParserRuleCall() { return cDollarTextExpressionParserRuleCall; }
-	}
-
-	public class DollarTextExpressionElements extends AbstractParserRuleElementFinder {
-		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "DollarTextExpression");
-		private final Group cGroup = (Group)rule.eContents().get(1);
-		private final RuleCall cVariableTextExpressionParserRuleCall_0 = (RuleCall)cGroup.eContents().get(0);
-		private final Group cGroup_1 = (Group)cGroup.eContents().get(1);
-		private final Action cVerbatimTELeadingAction_1_0 = (Action)cGroup_1.eContents().get(0);
-		private final Assignment cTextAssignment_1_1 = (Assignment)cGroup_1.eContents().get(1);
-		private final RuleCall cTextDQT_DOLLARParserRuleCall_1_1_0 = (RuleCall)cTextAssignment_1_1.eContents().get(0);
-		private final Assignment cTrailingAssignment_1_2 = (Assignment)cGroup_1.eContents().get(2);
-		private final RuleCall cTrailingTextExpressionParserRuleCall_1_2_0 = (RuleCall)cTrailingAssignment_1_2.eContents().get(0);
-		
-		//DollarTextExpression returns pp::TextExpression hidden():
-		//	VariableTextExpression ({pp::VerbatimTE.leading=current} text=DQT_DOLLAR trailing=TextExpression?)*;
-		public ParserRule getRule() { return rule; }
-
-		//VariableTextExpression ({pp::VerbatimTE.leading=current} text=DQT_DOLLAR trailing=TextExpression?)*
-		public Group getGroup() { return cGroup; }
 
 		//VariableTextExpression
-		public RuleCall getVariableTextExpressionParserRuleCall_0() { return cVariableTextExpressionParserRuleCall_0; }
-
-		//({pp::VerbatimTE.leading=current} text=DQT_DOLLAR trailing=TextExpression?)*
-		public Group getGroup_1() { return cGroup_1; }
-
-		//{pp::VerbatimTE.leading=current}
-		public Action getVerbatimTELeadingAction_1_0() { return cVerbatimTELeadingAction_1_0; }
-
-		//text=DQT_DOLLAR
-		public Assignment getTextAssignment_1_1() { return cTextAssignment_1_1; }
-
-		//DQT_DOLLAR
-		public RuleCall getTextDQT_DOLLARParserRuleCall_1_1_0() { return cTextDQT_DOLLARParserRuleCall_1_1_0; }
-
-		//trailing=TextExpression?
-		public Assignment getTrailingAssignment_1_2() { return cTrailingAssignment_1_2; }
-
-		//TextExpression
-		public RuleCall getTrailingTextExpressionParserRuleCall_1_2_0() { return cTrailingTextExpressionParserRuleCall_1_2_0; }
+		public RuleCall getVariableTextExpressionParserRuleCall() { return cVariableTextExpressionParserRuleCall; }
 	}
 
 	public class VariableTextExpressionElements extends AbstractParserRuleElementFinder {
@@ -2915,6 +2852,13 @@ public class PPGrammarAccess extends AbstractGrammarElementFinder {
 		private final Assignment cTrailingAssignment_1_2 = (Assignment)cGroup_1.eContents().get(2);
 		private final RuleCall cTrailingTextExpressionParserRuleCall_1_2_0 = (RuleCall)cTrailingAssignment_1_2.eContents().get(0);
 		
+		////DollarTextExpression returns pp::TextExpression hidden(): 
+		////	VariableTextExpression (
+		////		{pp::VerbatimTE.leading=current} 
+		////		text = DQT_DOLLAR 
+		////		trailing=TextExpression?
+		////	)*
+		////	;
 		//VariableTextExpression returns pp::TextExpression hidden():
 		//	ExpressionTextExpression ({pp::VariableTE.leading=current} varName=dollarVariable trailing=TextExpression?)*;
 		public ParserRule getRule() { return rule; }
@@ -3161,30 +3105,14 @@ public class PPGrammarAccess extends AbstractGrammarElementFinder {
 
 	public class DollarVariableElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "dollarVariable");
-		private final Group cGroup = (Group)rule.eContents().get(1);
-		private final Keyword cDollarSignKeyword_0 = (Keyword)cGroup.eContents().get(0);
-		private final Alternatives cAlternatives_1 = (Alternatives)cGroup.eContents().get(1);
-		private final RuleCall cNameParserRuleCall_1_0 = (RuleCall)cAlternatives_1.eContents().get(0);
-		private final RuleCall cKeywordParserRuleCall_1_1 = (RuleCall)cAlternatives_1.eContents().get(1);
+		private final RuleCall cDOLLAR_VARTerminalRuleCall = (RuleCall)rule.eContents().get(1);
 		
 		//dollarVariable hidden():
-		//	"$" (name | keyword);
+		//	DOLLAR_VAR;
 		public ParserRule getRule() { return rule; }
 
-		//"$" (name | keyword)
-		public Group getGroup() { return cGroup; }
-
-		//"$"
-		public Keyword getDollarSignKeyword_0() { return cDollarSignKeyword_0; }
-
-		//name | keyword
-		public Alternatives getAlternatives_1() { return cAlternatives_1; }
-
-		//name
-		public RuleCall getNameParserRuleCall_1_0() { return cNameParserRuleCall_1_0; }
-
-		//keyword
-		public RuleCall getKeywordParserRuleCall_1_1() { return cKeywordParserRuleCall_1_1; }
+		//DOLLAR_VAR
+		public RuleCall getDOLLAR_VARTerminalRuleCall() { return cDOLLAR_VARTerminalRuleCall; }
 	}
 
 	public class KeywordElements extends AbstractParserRuleElementFinder {
@@ -3207,6 +3135,8 @@ public class PPGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cFalseKeyword_14 = (Keyword)cAlternatives.eContents().get(14);
 		private final Keyword cIfKeyword_15 = (Keyword)cAlternatives.eContents().get(15);
 		
+		////	: '$' (name | keyword)
+		////	;
 		//keyword:
 		//	"and" | "case" | "class" | "default" | "define" | "else" | "elsif" | "in" | "inherits" | "import" | "node" | "or" |
 		//	"undef" | "true" | "false" | "if";
@@ -3375,7 +3305,7 @@ public class PPGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cWORD_CHARSTerminalRuleCall_0 = (RuleCall)cAlternatives.eContents().get(0);
 		private final RuleCall cANY_OTHERTerminalRuleCall_1 = (RuleCall)cAlternatives.eContents().get(1);
 		private final RuleCall cWSTerminalRuleCall_2 = (RuleCall)cAlternatives.eContents().get(2);
-		private final Keyword cDollarSignKeyword_3 = (Keyword)cAlternatives.eContents().get(3);
+		private final RuleCall cDOLLAR_VARTerminalRuleCall_3 = (RuleCall)cAlternatives.eContents().get(3);
 		private final Keyword cDollarSignLeftCurlyBracketKeyword_4 = (Keyword)cAlternatives.eContents().get(4);
 		private final Keyword cReverseSolidusQuotationMarkKeyword_5 = (Keyword)cAlternatives.eContents().get(5);
 		private final Keyword cReverseSolidusApostropheKeyword_6 = (Keyword)cAlternatives.eContents().get(6);
@@ -3385,13 +3315,13 @@ public class PPGrammarAccess extends AbstractGrammarElementFinder {
 		
 		//// special rules in lexer will deliver everything as one of these when in a string
 		//singleStringCharacters hidden():
-		//	(WORD_CHARS | ANY_OTHER | WS | // terminates dq-, but not sq- string
-		//	"$" | // terminates dq-, but not sq- string
+		//	(WORD_CHARS //	| '$' // terminates dq-, but not sq- string
+		//	| ANY_OTHER | WS | DOLLAR_VAR | // terminates dq-, but not sq- string
 		//	"${" | "\\\"" | "\\\'" | "\\$" | "\\${" | "\\\\")+;
 		public ParserRule getRule() { return rule; }
 
-		//(WORD_CHARS | ANY_OTHER | WS | // terminates dq-, but not sq- string
-		//"$" | // terminates dq-, but not sq- string
+		//(WORD_CHARS //	| '$' // terminates dq-, but not sq- string
+		//| ANY_OTHER | WS | DOLLAR_VAR | // terminates dq-, but not sq- string
 		//"${" | "\\\"" | "\\\'" | "\\$" | "\\${" | "\\\\")+
 		public Alternatives getAlternatives() { return cAlternatives; }
 
@@ -3404,9 +3334,8 @@ public class PPGrammarAccess extends AbstractGrammarElementFinder {
 		//WS
 		public RuleCall getWSTerminalRuleCall_2() { return cWSTerminalRuleCall_2; }
 
-		//// terminates dq-, but not sq- string
-		//"$"
-		public Keyword getDollarSignKeyword_3() { return cDollarSignKeyword_3; }
+		//DOLLAR_VAR
+		public RuleCall getDOLLAR_VARTerminalRuleCall_3() { return cDOLLAR_VARTerminalRuleCall_3; }
 
 		//// terminates dq-, but not sq- string
 		//"${"
@@ -3499,11 +3428,8 @@ public class PPGrammarAccess extends AbstractGrammarElementFinder {
 	private StringExpressionElements pStringExpression;
 	private QuotedStringElements pQuotedString;
 	private SingleQuotedStringElements pSingleQuotedString;
-	private DQT_DOLLARElements pDQT_DOLLAR;
 	private DoubleQuotedStringElements pDoubleQuotedString;
-	private EndDqQuoteElements pEndDqQuote;
 	private TextExpressionElements pTextExpression;
-	private DollarTextExpressionElements pDollarTextExpression;
 	private VariableTextExpressionElements pVariableTextExpression;
 	private ExpressionTextExpressionElements pExpressionTextExpression;
 	private ExpressionWithHiddenElements pExpressionWithHidden;
@@ -3523,6 +3449,7 @@ public class PPGrammarAccess extends AbstractGrammarElementFinder {
 	private TerminalRule tML_COMMENT;
 	private TerminalRule tSL_COMMENT;
 	private TerminalRule tWS;
+	private TerminalRule tDOLLAR_VAR;
 	private TerminalRule tWORD_CHARS;
 	private TerminalRule tREGULAR_EXPRESSION;
 	private TerminalRule tRE_BODY;
@@ -4351,16 +4278,7 @@ public class PPGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//// Special declarations to aid syntax coloring of a $ in a special place.	
-	//DQT_DOLLAR:
-	//	"$";
-	public DQT_DOLLARElements getDQT_DOLLARAccess() {
-		return (pDQT_DOLLAR != null) ? pDQT_DOLLAR : (pDQT_DOLLAR = new DQT_DOLLARElements());
-	}
-	
-	public ParserRule getDQT_DOLLARRule() {
-		return getDQT_DOLLARAccess().getRule();
-	}
-
+	////DQT_DOLLAR : '$' ;
 	//// Double quoted string with expression interpolation
 	//// handles:
 	//// - $ <non variable char or {> is a verbatim $ included in the string
@@ -4368,7 +4286,7 @@ public class PPGrammarAccess extends AbstractGrammarElementFinder {
 	//// - ${ expression } - evaluated and included in the string
 	////
 	//DoubleQuotedString returns pp::DoubleQuotedString hidden():
-	//	"\"" textExpression=TextExpression endDqQuote;
+	//	"\"" textExpression=TextExpression "\"";
 	public DoubleQuotedStringElements getDoubleQuotedStringAccess() {
 		return (pDoubleQuotedString != null) ? pDoubleQuotedString : (pDoubleQuotedString = new DoubleQuotedStringElements());
 	}
@@ -4377,19 +4295,9 @@ public class PPGrammarAccess extends AbstractGrammarElementFinder {
 		return getDoubleQuotedStringAccess().getRule();
 	}
 
-	//endDqQuote hidden(WS, SL_COMMENT, ML_COMMENT):
-	//	"\"";
-	public EndDqQuoteElements getEndDqQuoteAccess() {
-		return (pEndDqQuote != null) ? pEndDqQuote : (pEndDqQuote = new EndDqQuoteElements());
-	}
-	
-	public ParserRule getEndDqQuoteRule() {
-		return getEndDqQuoteAccess().getRule();
-	}
-
 	//// Lowest precedence TextExpression
 	/// *hidden()* / TextExpression returns pp::TextExpression:
-	//	DollarTextExpression;
+	//	VariableTextExpression;
 	public TextExpressionElements getTextExpressionAccess() {
 		return (pTextExpression != null) ? pTextExpression : (pTextExpression = new TextExpressionElements());
 	}
@@ -4398,16 +4306,13 @@ public class PPGrammarAccess extends AbstractGrammarElementFinder {
 		return getTextExpressionAccess().getRule();
 	}
 
-	//DollarTextExpression returns pp::TextExpression hidden():
-	//	VariableTextExpression ({pp::VerbatimTE.leading=current} text=DQT_DOLLAR trailing=TextExpression?)*;
-	public DollarTextExpressionElements getDollarTextExpressionAccess() {
-		return (pDollarTextExpression != null) ? pDollarTextExpression : (pDollarTextExpression = new DollarTextExpressionElements());
-	}
-	
-	public ParserRule getDollarTextExpressionRule() {
-		return getDollarTextExpressionAccess().getRule();
-	}
-
+	////DollarTextExpression returns pp::TextExpression hidden(): 
+	////	VariableTextExpression (
+	////		{pp::VerbatimTE.leading=current} 
+	////		text = DQT_DOLLAR 
+	////		trailing=TextExpression?
+	////	)*
+	////	;
 	//VariableTextExpression returns pp::TextExpression hidden():
 	//	ExpressionTextExpression ({pp::VariableTE.leading=current} varName=dollarVariable trailing=TextExpression?)*;
 	public VariableTextExpressionElements getVariableTextExpressionAccess() {
@@ -4506,7 +4411,7 @@ public class PPGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//dollarVariable hidden():
-	//	"$" (name | keyword);
+	//	DOLLAR_VAR;
 	public DollarVariableElements getDollarVariableAccess() {
 		return (pDollarVariable != null) ? pDollarVariable : (pDollarVariable = new DollarVariableElements());
 	}
@@ -4515,6 +4420,8 @@ public class PPGrammarAccess extends AbstractGrammarElementFinder {
 		return getDollarVariableAccess().getRule();
 	}
 
+	////	: '$' (name | keyword)
+	////	;
 	//keyword:
 	//	"and" | "case" | "class" | "default" | "define" | "else" | "elsif" | "in" | "inherits" | "import" | "node" | "or" |
 	//	"undef" | "true" | "false" | "if";
@@ -4572,8 +4479,8 @@ public class PPGrammarAccess extends AbstractGrammarElementFinder {
 
 	//// special rules in lexer will deliver everything as one of these when in a string
 	//singleStringCharacters hidden():
-	//	(WORD_CHARS | ANY_OTHER | WS | // terminates dq-, but not sq- string
-	//	"$" | // terminates dq-, but not sq- string
+	//	(WORD_CHARS //	| '$' // terminates dq-, but not sq- string
+	//	| ANY_OTHER | WS | DOLLAR_VAR | // terminates dq-, but not sq- string
 	//	"${" | "\\\"" | "\\\'" | "\\$" | "\\${" | "\\\\")+;
 	public SingleStringCharactersElements getSingleStringCharactersAccess() {
 		return (pSingleStringCharacters != null) ? pSingleStringCharacters : (pSingleStringCharacters = new SingleStringCharactersElements());
@@ -4606,6 +4513,12 @@ public class PPGrammarAccess extends AbstractGrammarElementFinder {
 	//	(" " | " " | "\t" | "\r" | "\n")+;
 	public TerminalRule getWSRule() {
 		return (tWS != null) ? tWS : (tWS = (TerminalRule) GrammarUtil.findRuleForName(getGrammar(), "WS"));
+	} 
+
+	//terminal DOLLAR_VAR:
+	//	"$" "::"? ("0".."9" | "a".."z" | "A".."Z" | "_" | "-")+ ("::" ("0".."9" | "a".."z" | "A".."Z" | "_" | "-")+)*;
+	public TerminalRule getDOLLAR_VARRule() {
+		return (tDOLLAR_VAR != null) ? tDOLLAR_VAR : (tDOLLAR_VAR = (TerminalRule) GrammarUtil.findRuleForName(getGrammar(), "DOLLAR_VAR"));
 	} 
 
 	//terminal WORD_CHARS:

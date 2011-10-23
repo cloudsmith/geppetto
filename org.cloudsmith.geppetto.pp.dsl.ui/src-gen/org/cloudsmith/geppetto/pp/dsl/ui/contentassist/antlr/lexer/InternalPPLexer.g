@@ -16,131 +16,129 @@ import org.eclipse.xtext.ui.editor.contentassist.antlr.internal.Lexer;
 
 
 
-KEYWORD_63 : 'inherits';
+KEYWORD_62 : 'inherits';
 
-KEYWORD_62 : 'default';
+KEYWORD_61 : 'default';
 
-KEYWORD_60 : 'define';
+KEYWORD_59 : 'define';
 
-KEYWORD_61 : 'import';
+KEYWORD_60 : 'import';
 
-KEYWORD_56 : 'class';
+KEYWORD_55 : 'class';
 
-KEYWORD_57 : 'elsif';
+KEYWORD_56 : 'elsif';
 
-KEYWORD_58 : 'false';
+KEYWORD_57 : 'false';
 
-KEYWORD_59 : 'undef';
+KEYWORD_58 : 'undef';
 
-KEYWORD_52 : 'case';
+KEYWORD_51 : 'case';
 
-KEYWORD_53 : 'else';
+KEYWORD_52 : 'else';
 
-KEYWORD_54 : 'node';
+KEYWORD_53 : 'node';
 
-KEYWORD_55 : 'true';
+KEYWORD_54 : 'true';
 
-KEYWORD_48 : '<<|';
+KEYWORD_47 : '<<|';
 
-KEYWORD_49 : '\\${';
+KEYWORD_48 : '\\${';
 
-KEYWORD_50 : 'and';
+KEYWORD_49 : 'and';
 
-KEYWORD_51 : '|>>';
+KEYWORD_50 : '|>>';
 
-KEYWORD_23 : '!=';
+KEYWORD_22 : '!=';
 
-KEYWORD_24 : '!~';
+KEYWORD_23 : '!~';
 
-KEYWORD_25 : '${';
+KEYWORD_24 : '${';
 
-KEYWORD_26 : '+=';
+KEYWORD_25 : '+=';
 
-KEYWORD_27 : '+>';
+KEYWORD_26 : '+>';
 
-KEYWORD_28 : '->';
+KEYWORD_27 : '->';
 
-KEYWORD_29 : '<-';
+KEYWORD_28 : '<-';
 
-KEYWORD_30 : '<<';
+KEYWORD_29 : '<<';
 
-KEYWORD_31 : '<=';
+KEYWORD_30 : '<=';
 
-KEYWORD_32 : '<|';
+KEYWORD_31 : '<|';
 
-KEYWORD_33 : '<~';
+KEYWORD_32 : '<~';
 
-KEYWORD_34 : '==';
+KEYWORD_33 : '==';
 
-KEYWORD_35 : '=>';
+KEYWORD_34 : '=>';
 
-KEYWORD_36 : '=~';
+KEYWORD_35 : '=~';
 
-KEYWORD_37 : '>=';
+KEYWORD_36 : '>=';
 
-KEYWORD_38 : '>>';
+KEYWORD_37 : '>>';
 
-KEYWORD_39 : '\\"';
+KEYWORD_38 : '\\"';
 
-KEYWORD_40 : '\\$';
+KEYWORD_39 : '\\$';
 
-KEYWORD_41 : '\\\'';
+KEYWORD_40 : '\\\'';
 
-KEYWORD_42 : '\\\\';
+KEYWORD_41 : '\\\\';
 
-KEYWORD_43 : 'if';
+KEYWORD_42 : 'if';
 
-KEYWORD_44 : 'in';
+KEYWORD_43 : 'in';
 
-KEYWORD_45 : 'or';
+KEYWORD_44 : 'or';
 
-KEYWORD_46 : '|>';
+KEYWORD_45 : '|>';
 
-KEYWORD_47 : '~>';
+KEYWORD_46 : '~>';
 
 KEYWORD_1 : '!';
 
 KEYWORD_2 : '"';
 
-KEYWORD_3 : '$';
+KEYWORD_3 : '\'';
 
-KEYWORD_4 : '\'';
+KEYWORD_4 : '(';
 
-KEYWORD_5 : '(';
+KEYWORD_5 : ')';
 
-KEYWORD_6 : ')';
+KEYWORD_6 : '*';
 
-KEYWORD_7 : '*';
+KEYWORD_7 : '+';
 
-KEYWORD_8 : '+';
+KEYWORD_8 : ',';
 
-KEYWORD_9 : ',';
+KEYWORD_9 : '-';
 
-KEYWORD_10 : '-';
+KEYWORD_10 : '/';
 
-KEYWORD_11 : '/';
+KEYWORD_11 : ':';
 
-KEYWORD_12 : ':';
+KEYWORD_12 : ';';
 
-KEYWORD_13 : ';';
+KEYWORD_13 : '<';
 
-KEYWORD_14 : '<';
+KEYWORD_14 : '=';
 
-KEYWORD_15 : '=';
+KEYWORD_15 : '>';
 
-KEYWORD_16 : '>';
+KEYWORD_16 : '?';
 
-KEYWORD_17 : '?';
+KEYWORD_17 : '@';
 
-KEYWORD_18 : '@';
+KEYWORD_18 : '[';
 
-KEYWORD_19 : '[';
+KEYWORD_19 : ']';
 
-KEYWORD_20 : ']';
+KEYWORD_20 : '{';
 
-KEYWORD_21 : '{';
-
-KEYWORD_22 : '}';
+KEYWORD_21 : '}';
 
 
 
@@ -149,6 +147,8 @@ RULE_ML_COMMENT : '/*' ( options {greedy=false;} : . )*'*/' (' '|'\u00A0'|'\t')*
 RULE_SL_COMMENT : '#' ~(('\r'|'\n'))* ('\r'? '\n')?;
 
 RULE_WS : (' '|'\u00A0'|'\t'|'\r'|'\n')+;
+
+RULE_DOLLAR_VAR : '$' '::'? ('0'..'9'|'a'..'z'|'A'..'Z'|'_'|'-')+ ('::' ('0'..'9'|'a'..'z'|'A'..'Z'|'_'|'-')+)*;
 
 RULE_WORD_CHARS : '::'? ('0'..'9'|'a'..'z'|'A'..'Z'|'_'|'.'|'-')+ ('::' ('0'..'9'|'a'..'z'|'A'..'Z'|'_'|'.'|'-')+)*;
 

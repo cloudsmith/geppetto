@@ -92,10 +92,6 @@ public class PPSemanticHighlightingCalculator implements ISemanticHighlightingCa
 
 	private AbstractRule ruleSqText;
 
-	// private AbstractRule ruleDQT_QUOTE;
-
-	private AbstractRule ruleDQT_DOLLAR;
-
 	private AbstractRule ruleDQ_STRING;
 
 	private AbstractRule ruleExpression;
@@ -111,20 +107,6 @@ public class PPSemanticHighlightingCalculator implements ISemanticHighlightingCa
 				return null;
 			}
 		});
-
-	// // navigate to the parse node corresponding to the semantic object and
-	// // fetch the leaf node that corresponds to the first feature with the given
-	// // name, or the assignment of a composite node to first feature with given name.
-	// //
-	// public AbstractNode getFirstFeatureNode(EObject semantic, String feature) {
-	// return NodeUtils.getFirstFeatureNode(semantic, feature);
-	// }
-
-	// // Sample semantic highlighting (highlighting based on model state)
-	// //
-	// public void highlight(SingleQuotedString o, IHighlightedPositionAcceptor acceptor){
-	// highlightObject(o, DefaultHighlightingConfiguration.STRING_ID, acceptor);
-	// }
 
 	@Inject
 	public PPSemanticHighlightingCalculator(IGrammarAccess grammarAccess) {
@@ -192,7 +174,7 @@ public class PPSemanticHighlightingCalculator implements ISemanticHighlightingCa
 			else if(ruleSqText == rule)
 				acceptor.addPosition(o.getOffset(), o.getLength(), DefaultHighlightingConfiguration.STRING_ID);
 
-			else if(ruleDQT_DOLLAR == rule /* || ruleDQT_QUOTE == rule */|| ruleDQ_STRING == rule)
+			else if(/* ruleDQT_DOLLAR == rule || ruleDQT_QUOTE == rule || */ruleDQ_STRING == rule)
 				acceptor.addPosition(o.getOffset(), o.getLength(), PPHighlightConfiguration.TEMPLATE_TEXT_ID);
 			else if(ruleExpression == rule) {
 				EObject semantic = o.getSemanticElement();
@@ -363,20 +345,6 @@ public class PPSemanticHighlightingCalculator implements ISemanticHighlightingCa
 
 	}
 
-	// NOTE: Currently unused, and needs to be modified for Xtext 2.0
-	// // helper method that takes care of highlighting the first feature element
-	// // of a semantic object using a given text style ID
-	// private void highlightFirstFeature(EObject semobject, String featurename, String highlightID,
-	// IHighlightedPositionAcceptor acceptor) {
-	// // fetch the parse node for the entity
-	// AbstractNode nodetohighlight = getFirstFeatureNode(semobject, featurename);
-	// if(nodetohighlight == null) {
-	// // TODO: WARNING - Could not find node
-	// return;
-	// }
-	// acceptor.addPosition(nodetohighlight.getOffset(), nodetohighlight.getLength(), highlightID);
-	// }
-
 	/**
 	 * Iterate over the generated model and provide highlighting
 	 * 
@@ -398,10 +366,6 @@ public class PPSemanticHighlightingCalculator implements ISemanticHighlightingCa
 		for(int i = 0; i < limit; i++)
 			if(isSpecialSpace(text.charAt(i)))
 				acceptor.addPosition(root.getOffset() + i, 1, PPHighlightConfiguration.SPECIAL_SPACE_ID);
-		// int fromIndex = 0;
-		// for(fromIndex = text.indexOf('\u00A0', fromIndex); fromIndex != -1; fromIndex = text.indexOf(
-		// '\u00A0', fromIndex + 1))
-		// acceptor.addPosition(root.getOffset() + fromIndex, 1, PPHighlightConfiguration.SPECIAL_SPACE_ID);
 	}
 
 	/**
@@ -410,8 +374,6 @@ public class PPSemanticHighlightingCalculator implements ISemanticHighlightingCa
 	private void setupRules() {
 		ruleVariable = grammarAccess.getDollarVariableRule();
 		ruleSqText = grammarAccess.getSqTextRule();
-		// ruleDQT_QUOTE = grammarAccess.getDQT_QUOTERule();
-		ruleDQT_DOLLAR = grammarAccess.getDQT_DOLLARRule();
 		ruleDQ_STRING = grammarAccess.getDoubleStringCharactersRule();
 		ruleExpression = grammarAccess.getExpressionRule();
 		ruleUNION_VARIABLE_OR_NAME = grammarAccess.getUNION_VARIABLE_OR_NAMERule();

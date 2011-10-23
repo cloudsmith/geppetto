@@ -97,10 +97,10 @@ public class TestDoubleQuotedString extends AbstractPuppetTests {
 		DoubleQuotedString string = (DoubleQuotedString) result;
 
 		List<TEPair> t = flattenTextExpression(string.getTextExpression());
-		assertEquals("List should have 3 entries", 3, t.size());
-		assertEquals("First element should be 'before'", "before", t.get(0).string);
-		assertEquals("Second element should be a $", "$", t.get(1).string);
-		assertEquals("Third element should be '/after'", "/after", t.get(2).string);
+		assertEquals("List should have 1 entry", 1, t.size());
+		assertEquals("First element should be 'before'", "before$/after", t.get(0).string);
+		// assertEquals("Second element should be a $", "$", t.get(1).string);
+		// assertEquals("Third element should be '/after'", "/after", t.get(2).string);
 	}
 
 	public void test_Parse_DoubleQuotedString_DollarExprVar() throws Exception {

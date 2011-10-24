@@ -68,8 +68,23 @@ public class PPTPAdapterFactory extends AdapterFactoryImpl {
 		}
 
 		@Override
+		public Adapter caseITargetElementContainer(ITargetElementContainer object) {
+			return createITargetElementContainerAdapter();
+		}
+
+		@Override
 		public Adapter caseMetaType(MetaType object) {
 			return createMetaTypeAdapter();
+		}
+
+		@Override
+		public Adapter caseMetaVariable(MetaVariable object) {
+			return createMetaVariableAdapter();
+		}
+
+		@Override
+		public Adapter caseNameSpace(NameSpace object) {
+			return createNameSpaceAdapter();
 		}
 
 		@Override
@@ -95,6 +110,11 @@ public class PPTPAdapterFactory extends AdapterFactoryImpl {
 		@Override
 		public Adapter caseTargetEntry(TargetEntry object) {
 			return createTargetEntryAdapter();
+		}
+
+		@Override
+		public Adapter caseTPVariable(TPVariable object) {
+			return createTPVariableAdapter();
 		}
 
 		@Override
@@ -220,6 +240,22 @@ public class PPTPAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
+	 * Creates a new adapter for an object of class '{@link org.cloudsmith.geppetto.pp.pptp.ITargetElementContainer
+	 * <em>ITarget Element Container</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * 
+	 * @return the new adapter.
+	 * @see org.cloudsmith.geppetto.pp.pptp.ITargetElementContainer
+	 * @generated
+	 */
+	public Adapter createITargetElementContainerAdapter() {
+		return null;
+	}
+
+	/**
 	 * Creates a new adapter for an object of class '{@link org.cloudsmith.geppetto.pp.pptp.MetaType <em>Meta Type</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
@@ -231,6 +267,36 @@ public class PPTPAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createMetaTypeAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.cloudsmith.geppetto.pp.pptp.MetaVariable <em>Meta Variable</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * 
+	 * @return the new adapter.
+	 * @see org.cloudsmith.geppetto.pp.pptp.MetaVariable
+	 * @generated
+	 */
+	public Adapter createMetaVariableAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.cloudsmith.geppetto.pp.pptp.NameSpace <em>Name Space</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * 
+	 * @return the new adapter.
+	 * @see org.cloudsmith.geppetto.pp.pptp.NameSpace
+	 * @generated
+	 */
+	public Adapter createNameSpaceAdapter() {
 		return null;
 	}
 
@@ -306,6 +372,21 @@ public class PPTPAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createTargetEntryAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.cloudsmith.geppetto.pp.pptp.TPVariable <em>TP Variable</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * 
+	 * @return the new adapter.
+	 * @see org.cloudsmith.geppetto.pp.pptp.TPVariable
+	 * @generated
+	 */
+	public Adapter createTPVariableAdapter() {
 		return null;
 	}
 

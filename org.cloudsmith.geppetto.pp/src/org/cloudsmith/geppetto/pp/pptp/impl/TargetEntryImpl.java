@@ -14,7 +14,9 @@ package org.cloudsmith.geppetto.pp.pptp.impl;
 import java.util.Collection;
 import org.cloudsmith.geppetto.pp.pptp.Function;
 import org.cloudsmith.geppetto.pp.pptp.MetaType;
+import org.cloudsmith.geppetto.pp.pptp.MetaVariable;
 import org.cloudsmith.geppetto.pp.pptp.PPTPPackage;
+import org.cloudsmith.geppetto.pp.pptp.TargetElement;
 import org.cloudsmith.geppetto.pp.pptp.TargetEntry;
 
 import org.cloudsmith.geppetto.pp.pptp.Type;
@@ -38,6 +40,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <p>
  * The following features are implemented:
  * <ul>
+ * <li>{@link org.cloudsmith.geppetto.pp.pptp.impl.TargetEntryImpl#getContents <em>Contents</em>}</li>
  * <li>{@link org.cloudsmith.geppetto.pp.pptp.impl.TargetEntryImpl#getDescription <em>Description</em>}</li>
  * <li>{@link org.cloudsmith.geppetto.pp.pptp.impl.TargetEntryImpl#getFunctions <em>Functions</em>}</li>
  * <li>{@link org.cloudsmith.geppetto.pp.pptp.impl.TargetEntryImpl#getTypes <em>Types</em>}</li>
@@ -45,12 +48,24 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <li>{@link org.cloudsmith.geppetto.pp.pptp.impl.TargetEntryImpl#getTypeFragments <em>Type Fragments</em>}</li>
  * <li>{@link org.cloudsmith.geppetto.pp.pptp.impl.TargetEntryImpl#getMetaType <em>Meta Type</em>}</li>
  * <li>{@link org.cloudsmith.geppetto.pp.pptp.impl.TargetEntryImpl#getLabel <em>Label</em>}</li>
+ * <li>{@link org.cloudsmith.geppetto.pp.pptp.impl.TargetEntryImpl#getMetaVariables <em>Meta Variables</em>}</li>
  * </ul>
  * </p>
  * 
  * @generated
  */
 public abstract class TargetEntryImpl extends EObjectImpl implements TargetEntry {
+	/**
+	 * The cached value of the '{@link #getContents() <em>Contents</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @see #getContents()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<TargetElement> contents;
+
 	/**
 	 * The default value of the '{@link #getDescription() <em>Description</em>}' attribute.
 	 * <!-- begin-user-doc -->
@@ -162,6 +177,17 @@ public abstract class TargetEntryImpl extends EObjectImpl implements TargetEntry
 	protected String label = LABEL_EDEFAULT;
 
 	/**
+	 * The cached value of the '{@link #getMetaVariables() <em>Meta Variables</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @see #getMetaVariables()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<MetaVariable> metaVariables;
+
+	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
@@ -200,6 +226,8 @@ public abstract class TargetEntryImpl extends EObjectImpl implements TargetEntry
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch(featureID) {
+			case PPTPPackage.TARGET_ENTRY__CONTENTS:
+				return getContents();
 			case PPTPPackage.TARGET_ENTRY__DESCRIPTION:
 				return getDescription();
 			case PPTPPackage.TARGET_ENTRY__FUNCTIONS:
@@ -214,6 +242,8 @@ public abstract class TargetEntryImpl extends EObjectImpl implements TargetEntry
 				return getMetaType();
 			case PPTPPackage.TARGET_ENTRY__LABEL:
 				return getLabel();
+			case PPTPPackage.TARGET_ENTRY__META_VARIABLES:
+				return getMetaVariables();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -227,6 +257,8 @@ public abstract class TargetEntryImpl extends EObjectImpl implements TargetEntry
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch(featureID) {
+			case PPTPPackage.TARGET_ENTRY__CONTENTS:
+				return ((InternalEList<?>) getContents()).basicRemove(otherEnd, msgs);
 			case PPTPPackage.TARGET_ENTRY__FUNCTIONS:
 				return ((InternalEList<?>) getFunctions()).basicRemove(otherEnd, msgs);
 			case PPTPPackage.TARGET_ENTRY__TYPES:
@@ -235,6 +267,8 @@ public abstract class TargetEntryImpl extends EObjectImpl implements TargetEntry
 				return ((InternalEList<?>) getTypeFragments()).basicRemove(otherEnd, msgs);
 			case PPTPPackage.TARGET_ENTRY__META_TYPE:
 				return basicSetMetaType(null, msgs);
+			case PPTPPackage.TARGET_ENTRY__META_VARIABLES:
+				return ((InternalEList<?>) getMetaVariables()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -248,6 +282,8 @@ public abstract class TargetEntryImpl extends EObjectImpl implements TargetEntry
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch(featureID) {
+			case PPTPPackage.TARGET_ENTRY__CONTENTS:
+				return contents != null && !contents.isEmpty();
 			case PPTPPackage.TARGET_ENTRY__DESCRIPTION:
 				return DESCRIPTION_EDEFAULT == null
 						? description != null
@@ -268,6 +304,8 @@ public abstract class TargetEntryImpl extends EObjectImpl implements TargetEntry
 				return LABEL_EDEFAULT == null
 						? label != null
 						: !LABEL_EDEFAULT.equals(label);
+			case PPTPPackage.TARGET_ENTRY__META_VARIABLES:
+				return metaVariables != null && !metaVariables.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}
@@ -282,6 +320,10 @@ public abstract class TargetEntryImpl extends EObjectImpl implements TargetEntry
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch(featureID) {
+			case PPTPPackage.TARGET_ENTRY__CONTENTS:
+				getContents().clear();
+				getContents().addAll((Collection<? extends TargetElement>) newValue);
+				return;
 			case PPTPPackage.TARGET_ENTRY__DESCRIPTION:
 				setDescription((String) newValue);
 				return;
@@ -305,6 +347,10 @@ public abstract class TargetEntryImpl extends EObjectImpl implements TargetEntry
 				return;
 			case PPTPPackage.TARGET_ENTRY__LABEL:
 				setLabel((String) newValue);
+				return;
+			case PPTPPackage.TARGET_ENTRY__META_VARIABLES:
+				getMetaVariables().clear();
+				getMetaVariables().addAll((Collection<? extends MetaVariable>) newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -330,6 +376,9 @@ public abstract class TargetEntryImpl extends EObjectImpl implements TargetEntry
 	@Override
 	public void eUnset(int featureID) {
 		switch(featureID) {
+			case PPTPPackage.TARGET_ENTRY__CONTENTS:
+				getContents().clear();
+				return;
 			case PPTPPackage.TARGET_ENTRY__DESCRIPTION:
 				setDescription(DESCRIPTION_EDEFAULT);
 				return;
@@ -351,8 +400,25 @@ public abstract class TargetEntryImpl extends EObjectImpl implements TargetEntry
 			case PPTPPackage.TARGET_ENTRY__LABEL:
 				setLabel(LABEL_EDEFAULT);
 				return;
+			case PPTPPackage.TARGET_ENTRY__META_VARIABLES:
+				getMetaVariables().clear();
+				return;
 		}
 		super.eUnset(featureID);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
+	public EList<TargetElement> getContents() {
+		if(contents == null) {
+			contents = new EObjectContainmentEList<TargetElement>(
+				TargetElement.class, this, PPTPPackage.TARGET_ENTRY__CONTENTS);
+		}
+		return contents;
 	}
 
 	/**
@@ -396,6 +462,20 @@ public abstract class TargetEntryImpl extends EObjectImpl implements TargetEntry
 	 */
 	public MetaType getMetaType() {
 		return metaType;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
+	public EList<MetaVariable> getMetaVariables() {
+		if(metaVariables == null) {
+			metaVariables = new EObjectContainmentEList<MetaVariable>(
+				MetaVariable.class, this, PPTPPackage.TARGET_ENTRY__META_VARIABLES);
+		}
+		return metaVariables;
 	}
 
 	/**

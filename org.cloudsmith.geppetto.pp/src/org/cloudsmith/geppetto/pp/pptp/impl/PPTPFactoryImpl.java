@@ -125,6 +125,12 @@ public class PPTPFactoryImpl extends EFactoryImpl implements PPTPFactory {
 				return createType();
 			case PPTPPackage.META_TYPE:
 				return createMetaType();
+			case PPTPPackage.NAME_SPACE:
+				return createNameSpace();
+			case PPTPPackage.TP_VARIABLE:
+				return createTPVariable();
+			case PPTPPackage.META_VARIABLE:
+				return createMetaVariable();
 			default:
 				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
@@ -185,6 +191,28 @@ public class PPTPFactoryImpl extends EFactoryImpl implements PPTPFactory {
 	 * 
 	 * @generated
 	 */
+	public MetaVariable createMetaVariable() {
+		MetaVariableImpl metaVariable = new MetaVariableImpl();
+		return metaVariable;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
+	public NameSpace createNameSpace() {
+		NameSpaceImpl nameSpace = new NameSpaceImpl();
+		return nameSpace;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
 	public Parameter createParameter() {
 		ParameterImpl parameter = new ParameterImpl();
 		return parameter;
@@ -210,6 +238,17 @@ public class PPTPFactoryImpl extends EFactoryImpl implements PPTPFactory {
 	public PuppetDistribution createPuppetDistribution() {
 		PuppetDistributionImpl puppetDistribution = new PuppetDistributionImpl();
 		return puppetDistribution;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
+	public TPVariable createTPVariable() {
+		TPVariableImpl tpVariable = new TPVariableImpl();
+		return tpVariable;
 	}
 
 	/**

@@ -123,6 +123,15 @@ public interface PPTPPackage extends EPackage {
 		EAttribute TARGET_ENTRY__LABEL = eINSTANCE.getTargetEntry_Label();
 
 		/**
+		 * The meta object literal for the '<em><b>Meta Variables</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * 
+		 * @generated
+		 */
+		EReference TARGET_ENTRY__META_VARIABLES = eINSTANCE.getTargetEntry_MetaVariables();
+
+		/**
 		 * The meta object literal for the '{@link org.cloudsmith.geppetto.pp.pptp.impl.PuppetDistributionImpl <em>Puppet Distribution</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -250,6 +259,77 @@ public interface PPTPPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute TYPE_ARGUMENT__NAMEVAR = eINSTANCE.getTypeArgument_Namevar();
+
+		/**
+		 * The meta object literal for the '{@link org.cloudsmith.geppetto.pp.pptp.impl.NameSpaceImpl <em>Name Space</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * 
+		 * @see org.cloudsmith.geppetto.pp.pptp.impl.NameSpaceImpl
+		 * @see org.cloudsmith.geppetto.pp.pptp.impl.PPTPPackageImpl#getNameSpace()
+		 * @generated
+		 */
+		EClass NAME_SPACE = eINSTANCE.getNameSpace();
+
+		/**
+		 * The meta object literal for the '<em><b>Reserved</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * 
+		 * @generated
+		 */
+		EAttribute NAME_SPACE__RESERVED = eINSTANCE.getNameSpace_Reserved();
+
+		/**
+		 * The meta object literal for the '{@link org.cloudsmith.geppetto.pp.pptp.impl.TPVariableImpl <em>TP Variable</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * 
+		 * @see org.cloudsmith.geppetto.pp.pptp.impl.TPVariableImpl
+		 * @see org.cloudsmith.geppetto.pp.pptp.impl.PPTPPackageImpl#getTPVariable()
+		 * @generated
+		 */
+		EClass TP_VARIABLE = eINSTANCE.getTPVariable();
+
+		/**
+		 * The meta object literal for the '<em><b>Assignable</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * 
+		 * @generated
+		 */
+		EAttribute TP_VARIABLE__ASSIGNABLE = eINSTANCE.getTPVariable_Assignable();
+
+		/**
+		 * The meta object literal for the '{@link org.cloudsmith.geppetto.pp.pptp.ITargetElementContainer <em>ITarget Element Container</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * 
+		 * @see org.cloudsmith.geppetto.pp.pptp.ITargetElementContainer
+		 * @see org.cloudsmith.geppetto.pp.pptp.impl.PPTPPackageImpl#getITargetElementContainer()
+		 * @generated
+		 */
+		EClass ITARGET_ELEMENT_CONTAINER = eINSTANCE.getITargetElementContainer();
+
+		/**
+		 * The meta object literal for the '<em><b>Contents</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * 
+		 * @generated
+		 */
+		EReference ITARGET_ELEMENT_CONTAINER__CONTENTS = eINSTANCE.getITargetElementContainer_Contents();
+
+		/**
+		 * The meta object literal for the '{@link org.cloudsmith.geppetto.pp.pptp.impl.MetaVariableImpl <em>Meta Variable</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * 
+		 * @see org.cloudsmith.geppetto.pp.pptp.impl.MetaVariableImpl
+		 * @see org.cloudsmith.geppetto.pp.pptp.impl.PPTPPackageImpl#getMetaVariable()
+		 * @generated
+		 */
+		EClass META_VARIABLE = eINSTANCE.getMetaVariable();
 
 		/**
 		 * The meta object literal for the '{@link org.cloudsmith.geppetto.pp.pptp.IDocumented <em>IDocumented</em>}' class.
@@ -394,6 +474,37 @@ public interface PPTPPackage extends EPackage {
 	PPTPPackage eINSTANCE = org.cloudsmith.geppetto.pp.pptp.impl.PPTPPackageImpl.init();
 
 	/**
+	 * The meta object id for the '{@link org.cloudsmith.geppetto.pp.pptp.ITargetElementContainer <em>ITarget Element Container</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @see org.cloudsmith.geppetto.pp.pptp.ITargetElementContainer
+	 * @see org.cloudsmith.geppetto.pp.pptp.impl.PPTPPackageImpl#getITargetElementContainer()
+	 * @generated
+	 */
+	int ITARGET_ELEMENT_CONTAINER = 15;
+
+	/**
+	 * The feature id for the '<em><b>Contents</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 * @ordered
+	 */
+	int ITARGET_ELEMENT_CONTAINER__CONTENTS = 0;
+
+	/**
+	 * The number of structural features of the '<em>ITarget Element Container</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 * @ordered
+	 */
+	int ITARGET_ELEMENT_CONTAINER_FEATURE_COUNT = 1;
+
+	/**
 	 * The meta object id for the '{@link org.cloudsmith.geppetto.pp.pptp.impl.TargetEntryImpl <em>Target Entry</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -449,6 +560,16 @@ public interface PPTPPackage extends EPackage {
 	int INAMED = 5;
 
 	/**
+	 * The feature id for the '<em><b>Contents</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 * @ordered
+	 */
+	int TARGET_ENTRY__CONTENTS = ITARGET_ELEMENT_CONTAINER__CONTENTS;
+
+	/**
 	 * The feature id for the '<em><b>Description</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -456,7 +577,7 @@ public interface PPTPPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int TARGET_ENTRY__DESCRIPTION = 0;
+	int TARGET_ENTRY__DESCRIPTION = ITARGET_ELEMENT_CONTAINER_FEATURE_COUNT + 0;
 
 	/**
 	 * The feature id for the '<em><b>Functions</b></em>' containment reference list.
@@ -466,7 +587,7 @@ public interface PPTPPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int TARGET_ENTRY__FUNCTIONS = 1;
+	int TARGET_ENTRY__FUNCTIONS = ITARGET_ELEMENT_CONTAINER_FEATURE_COUNT + 1;
 
 	/**
 	 * The feature id for the '<em><b>Types</b></em>' containment reference list.
@@ -476,7 +597,7 @@ public interface PPTPPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int TARGET_ENTRY__TYPES = 2;
+	int TARGET_ENTRY__TYPES = ITARGET_ELEMENT_CONTAINER_FEATURE_COUNT + 2;
 
 	/**
 	 * The feature id for the '<em><b>Version</b></em>' attribute.
@@ -486,7 +607,7 @@ public interface PPTPPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int TARGET_ENTRY__VERSION = 3;
+	int TARGET_ENTRY__VERSION = ITARGET_ELEMENT_CONTAINER_FEATURE_COUNT + 3;
 
 	/**
 	 * The feature id for the '<em><b>Type Fragments</b></em>' containment reference list.
@@ -496,7 +617,7 @@ public interface PPTPPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int TARGET_ENTRY__TYPE_FRAGMENTS = 4;
+	int TARGET_ENTRY__TYPE_FRAGMENTS = ITARGET_ELEMENT_CONTAINER_FEATURE_COUNT + 4;
 
 	/**
 	 * The feature id for the '<em><b>Meta Type</b></em>' containment reference.
@@ -506,7 +627,7 @@ public interface PPTPPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int TARGET_ENTRY__META_TYPE = 5;
+	int TARGET_ENTRY__META_TYPE = ITARGET_ELEMENT_CONTAINER_FEATURE_COUNT + 5;
 
 	/**
 	 * The feature id for the '<em><b>Label</b></em>' attribute.
@@ -516,7 +637,17 @@ public interface PPTPPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int TARGET_ENTRY__LABEL = 6;
+	int TARGET_ENTRY__LABEL = ITARGET_ELEMENT_CONTAINER_FEATURE_COUNT + 6;
+
+	/**
+	 * The feature id for the '<em><b>Meta Variables</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 * @ordered
+	 */
+	int TARGET_ENTRY__META_VARIABLES = ITARGET_ELEMENT_CONTAINER_FEATURE_COUNT + 7;
 
 	/**
 	 * The number of structural features of the '<em>Target Entry</em>' class.
@@ -526,7 +657,17 @@ public interface PPTPPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int TARGET_ENTRY_FEATURE_COUNT = 7;
+	int TARGET_ENTRY_FEATURE_COUNT = ITARGET_ELEMENT_CONTAINER_FEATURE_COUNT + 8;
+
+	/**
+	 * The feature id for the '<em><b>Contents</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 * @ordered
+	 */
+	int PUPPET_DISTRIBUTION__CONTENTS = TARGET_ENTRY__CONTENTS;
 
 	/**
 	 * The feature id for the '<em><b>Description</b></em>' attribute.
@@ -597,6 +738,16 @@ public interface PPTPPackage extends EPackage {
 	 * @ordered
 	 */
 	int PUPPET_DISTRIBUTION__LABEL = TARGET_ENTRY__LABEL;
+
+	/**
+	 * The feature id for the '<em><b>Meta Variables</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 * @ordered
+	 */
+	int PUPPET_DISTRIBUTION__META_VARIABLES = TARGET_ENTRY__META_VARIABLES;
 
 	/**
 	 * The number of structural features of the '<em>Puppet Distribution</em>' class.
@@ -1297,6 +1448,189 @@ public interface PPTPPackage extends EPackage {
 	int META_TYPE_FEATURE_COUNT = ABSTRACT_TYPE_FEATURE_COUNT + 0;
 
 	/**
+	 * The meta object id for the '{@link org.cloudsmith.geppetto.pp.pptp.impl.NameSpaceImpl <em>Name Space</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @see org.cloudsmith.geppetto.pp.pptp.impl.NameSpaceImpl
+	 * @see org.cloudsmith.geppetto.pp.pptp.impl.PPTPPackageImpl#getNameSpace()
+	 * @generated
+	 */
+	int NAME_SPACE = 13;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 * @ordered
+	 */
+	int NAME_SPACE__NAME = TARGET_ELEMENT__NAME;
+
+	/**
+	 * The feature id for the '<em><b>Documentation</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 * @ordered
+	 */
+	int NAME_SPACE__DOCUMENTATION = TARGET_ELEMENT__DOCUMENTATION;
+
+	/**
+	 * The feature id for the '<em><b>Deprecated</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 * @ordered
+	 */
+	int NAME_SPACE__DEPRECATED = TARGET_ELEMENT__DEPRECATED;
+
+	/**
+	 * The feature id for the '<em><b>Contents</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 * @ordered
+	 */
+	int NAME_SPACE__CONTENTS = TARGET_ELEMENT_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Reserved</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 * @ordered
+	 */
+	int NAME_SPACE__RESERVED = TARGET_ELEMENT_FEATURE_COUNT + 1;
+
+	/**
+	 * The number of structural features of the '<em>Name Space</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 * @ordered
+	 */
+	int NAME_SPACE_FEATURE_COUNT = TARGET_ELEMENT_FEATURE_COUNT + 2;
+
+	/**
+	 * The meta object id for the '{@link org.cloudsmith.geppetto.pp.pptp.impl.TPVariableImpl <em>TP Variable</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @see org.cloudsmith.geppetto.pp.pptp.impl.TPVariableImpl
+	 * @see org.cloudsmith.geppetto.pp.pptp.impl.PPTPPackageImpl#getTPVariable()
+	 * @generated
+	 */
+	int TP_VARIABLE = 14;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 * @ordered
+	 */
+	int TP_VARIABLE__NAME = TARGET_ELEMENT__NAME;
+
+	/**
+	 * The feature id for the '<em><b>Documentation</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 * @ordered
+	 */
+	int TP_VARIABLE__DOCUMENTATION = TARGET_ELEMENT__DOCUMENTATION;
+
+	/**
+	 * The feature id for the '<em><b>Deprecated</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 * @ordered
+	 */
+	int TP_VARIABLE__DEPRECATED = TARGET_ELEMENT__DEPRECATED;
+
+	/**
+	 * The feature id for the '<em><b>Assignable</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 * @ordered
+	 */
+	int TP_VARIABLE__ASSIGNABLE = TARGET_ELEMENT_FEATURE_COUNT + 0;
+
+	/**
+	 * The number of structural features of the '<em>TP Variable</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 * @ordered
+	 */
+	int TP_VARIABLE_FEATURE_COUNT = TARGET_ELEMENT_FEATURE_COUNT + 1;
+
+	/**
+	 * The meta object id for the '{@link org.cloudsmith.geppetto.pp.pptp.impl.MetaVariableImpl <em>Meta Variable</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @see org.cloudsmith.geppetto.pp.pptp.impl.MetaVariableImpl
+	 * @see org.cloudsmith.geppetto.pp.pptp.impl.PPTPPackageImpl#getMetaVariable()
+	 * @generated
+	 */
+	int META_VARIABLE = 16;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 * @ordered
+	 */
+	int META_VARIABLE__NAME = TARGET_ELEMENT__NAME;
+
+	/**
+	 * The feature id for the '<em><b>Documentation</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 * @ordered
+	 */
+	int META_VARIABLE__DOCUMENTATION = TARGET_ELEMENT__DOCUMENTATION;
+
+	/**
+	 * The feature id for the '<em><b>Deprecated</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 * @ordered
+	 */
+	int META_VARIABLE__DEPRECATED = TARGET_ELEMENT__DEPRECATED;
+
+	/**
+	 * The number of structural features of the '<em>Meta Variable</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 * @ordered
+	 */
+	int META_VARIABLE_FEATURE_COUNT = TARGET_ELEMENT_FEATURE_COUNT + 0;
+
+	/**
 	 * The meta object id for the '<em>File</em>' data type.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1305,7 +1639,7 @@ public interface PPTPPackage extends EPackage {
 	 * @see org.cloudsmith.geppetto.pp.pptp.impl.PPTPPackageImpl#getFile()
 	 * @generated
 	 */
-	int FILE = 13;
+	int FILE = 17;
 
 	/**
 	 * Returns the meta object for class '{@link org.cloudsmith.geppetto.pp.pptp.AbstractType <em>Abstract Type</em>}'.
@@ -1438,6 +1772,30 @@ public interface PPTPPackage extends EPackage {
 	EAttribute getINamed_Name();
 
 	/**
+	 * Returns the meta object for class '{@link org.cloudsmith.geppetto.pp.pptp.ITargetElementContainer <em>ITarget Element Container</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @return the meta object for class '<em>ITarget Element Container</em>'.
+	 * @see org.cloudsmith.geppetto.pp.pptp.ITargetElementContainer
+	 * @generated
+	 */
+	EClass getITargetElementContainer();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link org.cloudsmith.geppetto.pp.pptp.ITargetElementContainer#getContents
+	 * <em>Contents</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @return the meta object for the containment reference list '<em>Contents</em>'.
+	 * @see org.cloudsmith.geppetto.pp.pptp.ITargetElementContainer#getContents()
+	 * @see #getITargetElementContainer()
+	 * @generated
+	 */
+	EReference getITargetElementContainer_Contents();
+
+	/**
 	 * Returns the meta object for class '{@link org.cloudsmith.geppetto.pp.pptp.MetaType <em>Meta Type</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1447,6 +1805,40 @@ public interface PPTPPackage extends EPackage {
 	 * @generated
 	 */
 	EClass getMetaType();
+
+	/**
+	 * Returns the meta object for class '{@link org.cloudsmith.geppetto.pp.pptp.MetaVariable <em>Meta Variable</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @return the meta object for class '<em>Meta Variable</em>'.
+	 * @see org.cloudsmith.geppetto.pp.pptp.MetaVariable
+	 * @generated
+	 */
+	EClass getMetaVariable();
+
+	/**
+	 * Returns the meta object for class '{@link org.cloudsmith.geppetto.pp.pptp.NameSpace <em>Name Space</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @return the meta object for class '<em>Name Space</em>'.
+	 * @see org.cloudsmith.geppetto.pp.pptp.NameSpace
+	 * @generated
+	 */
+	EClass getNameSpace();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.cloudsmith.geppetto.pp.pptp.NameSpace#isReserved <em>Reserved</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @return the meta object for the attribute '<em>Reserved</em>'.
+	 * @see org.cloudsmith.geppetto.pp.pptp.NameSpace#isReserved()
+	 * @see #getNameSpace()
+	 * @generated
+	 */
+	EAttribute getNameSpace_Reserved();
 
 	/**
 	 * Returns the meta object for class '{@link org.cloudsmith.geppetto.pp.pptp.Parameter <em>Parameter</em>}'.
@@ -1575,6 +1967,19 @@ public interface PPTPPackage extends EPackage {
 	EReference getTargetEntry_MetaType();
 
 	/**
+	 * Returns the meta object for the containment reference list '{@link org.cloudsmith.geppetto.pp.pptp.TargetEntry#getMetaVariables
+	 * <em>Meta Variables</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @return the meta object for the containment reference list '<em>Meta Variables</em>'.
+	 * @see org.cloudsmith.geppetto.pp.pptp.TargetEntry#getMetaVariables()
+	 * @see #getTargetEntry()
+	 * @generated
+	 */
+	EReference getTargetEntry_MetaVariables();
+
+	/**
 	 * Returns the meta object for the containment reference list '{@link org.cloudsmith.geppetto.pp.pptp.TargetEntry#getTypeFragments
 	 * <em>Type Fragments</em>}'.
 	 * <!-- begin-user-doc -->
@@ -1610,6 +2015,29 @@ public interface PPTPPackage extends EPackage {
 	 * @generated
 	 */
 	EAttribute getTargetEntry_Version();
+
+	/**
+	 * Returns the meta object for class '{@link org.cloudsmith.geppetto.pp.pptp.TPVariable <em>TP Variable</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @return the meta object for class '<em>TP Variable</em>'.
+	 * @see org.cloudsmith.geppetto.pp.pptp.TPVariable
+	 * @generated
+	 */
+	EClass getTPVariable();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.cloudsmith.geppetto.pp.pptp.TPVariable#isAssignable <em>Assignable</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @return the meta object for the attribute '<em>Assignable</em>'.
+	 * @see org.cloudsmith.geppetto.pp.pptp.TPVariable#isAssignable()
+	 * @see #getTPVariable()
+	 * @generated
+	 */
+	EAttribute getTPVariable_Assignable();
 
 	/**
 	 * Returns the meta object for class '{@link org.cloudsmith.geppetto.pp.pptp.Type <em>Type</em>}'.

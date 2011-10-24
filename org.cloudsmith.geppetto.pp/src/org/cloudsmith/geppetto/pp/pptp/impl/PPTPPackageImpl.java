@@ -17,12 +17,16 @@ import org.cloudsmith.geppetto.pp.pptp.AbstractType;
 import org.cloudsmith.geppetto.pp.pptp.Function;
 import org.cloudsmith.geppetto.pp.pptp.IDocumented;
 import org.cloudsmith.geppetto.pp.pptp.INamed;
+import org.cloudsmith.geppetto.pp.pptp.ITargetElementContainer;
 import org.cloudsmith.geppetto.pp.pptp.MetaType;
+import org.cloudsmith.geppetto.pp.pptp.MetaVariable;
+import org.cloudsmith.geppetto.pp.pptp.NameSpace;
 import org.cloudsmith.geppetto.pp.pptp.PPTPFactory;
 import org.cloudsmith.geppetto.pp.pptp.PPTPPackage;
 import org.cloudsmith.geppetto.pp.pptp.Parameter;
 import org.cloudsmith.geppetto.pp.pptp.Property;
 import org.cloudsmith.geppetto.pp.pptp.PuppetDistribution;
+import org.cloudsmith.geppetto.pp.pptp.TPVariable;
 import org.cloudsmith.geppetto.pp.pptp.TargetElement;
 import org.cloudsmith.geppetto.pp.pptp.TargetEntry;
 import org.cloudsmith.geppetto.pp.pptp.Type;
@@ -98,6 +102,38 @@ public class PPTPPackageImpl extends EPackageImpl implements PPTPPackage {
 	 * @generated
 	 */
 	private EClass typeArgumentEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
+	private EClass nameSpaceEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
+	private EClass tpVariableEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
+	private EClass iTargetElementContainerEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
+	private EClass metaVariableEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -255,6 +291,7 @@ public class PPTPPackageImpl extends EPackageImpl implements PPTPPackage {
 		createEReference(targetEntryEClass, TARGET_ENTRY__TYPE_FRAGMENTS);
 		createEReference(targetEntryEClass, TARGET_ENTRY__META_TYPE);
 		createEAttribute(targetEntryEClass, TARGET_ENTRY__LABEL);
+		createEReference(targetEntryEClass, TARGET_ENTRY__META_VARIABLES);
 
 		puppetDistributionEClass = createEClass(PUPPET_DISTRIBUTION);
 
@@ -289,6 +326,17 @@ public class PPTPPackageImpl extends EPackageImpl implements PPTPPackage {
 		typeArgumentEClass = createEClass(TYPE_ARGUMENT);
 		createEAttribute(typeArgumentEClass, TYPE_ARGUMENT__REQUIRED);
 		createEAttribute(typeArgumentEClass, TYPE_ARGUMENT__NAMEVAR);
+
+		nameSpaceEClass = createEClass(NAME_SPACE);
+		createEAttribute(nameSpaceEClass, NAME_SPACE__RESERVED);
+
+		tpVariableEClass = createEClass(TP_VARIABLE);
+		createEAttribute(tpVariableEClass, TP_VARIABLE__ASSIGNABLE);
+
+		iTargetElementContainerEClass = createEClass(ITARGET_ELEMENT_CONTAINER);
+		createEReference(iTargetElementContainerEClass, ITARGET_ELEMENT_CONTAINER__CONTENTS);
+
+		metaVariableEClass = createEClass(META_VARIABLE);
 
 		// Create data types
 		fileEDataType = createEDataType(FILE);
@@ -410,8 +458,58 @@ public class PPTPPackageImpl extends EPackageImpl implements PPTPPackage {
 	 * 
 	 * @generated
 	 */
+	public EClass getITargetElementContainer() {
+		return iTargetElementContainerEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
+	public EReference getITargetElementContainer_Contents() {
+		return (EReference) iTargetElementContainerEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
 	public EClass getMetaType() {
 		return metaTypeEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
+	public EClass getMetaVariable() {
+		return metaVariableEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
+	public EClass getNameSpace() {
+		return nameSpaceEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
+	public EAttribute getNameSpace_Reserved() {
+		return (EAttribute) nameSpaceEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -530,6 +628,16 @@ public class PPTPPackageImpl extends EPackageImpl implements PPTPPackage {
 	 * 
 	 * @generated
 	 */
+	public EReference getTargetEntry_MetaVariables() {
+		return (EReference) targetEntryEClass.getEStructuralFeatures().get(7);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
 	public EReference getTargetEntry_TypeFragments() {
 		return (EReference) targetEntryEClass.getEStructuralFeatures().get(4);
 	}
@@ -552,6 +660,26 @@ public class PPTPPackageImpl extends EPackageImpl implements PPTPPackage {
 	 */
 	public EAttribute getTargetEntry_Version() {
 		return (EAttribute) targetEntryEClass.getEStructuralFeatures().get(3);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
+	public EClass getTPVariable() {
+		return tpVariableEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
+	public EAttribute getTPVariable_Assignable() {
+		return (EAttribute) tpVariableEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -637,6 +765,7 @@ public class PPTPPackageImpl extends EPackageImpl implements PPTPPackage {
 		// Set bounds for type parameters
 
 		// Add supertypes to classes
+		targetEntryEClass.getESuperTypes().add(this.getITargetElementContainer());
 		puppetDistributionEClass.getESuperTypes().add(this.getTargetEntry());
 		functionEClass.getESuperTypes().add(this.getIDocumented());
 		functionEClass.getESuperTypes().add(this.getTargetElement());
@@ -649,6 +778,10 @@ public class PPTPPackageImpl extends EPackageImpl implements PPTPPackage {
 		typeEClass.getESuperTypes().add(this.getAbstractType());
 		metaTypeEClass.getESuperTypes().add(this.getAbstractType());
 		typeArgumentEClass.getESuperTypes().add(this.getTargetElement());
+		nameSpaceEClass.getESuperTypes().add(this.getTargetElement());
+		nameSpaceEClass.getESuperTypes().add(this.getITargetElementContainer());
+		tpVariableEClass.getESuperTypes().add(this.getTargetElement());
+		metaVariableEClass.getESuperTypes().add(this.getTargetElement());
 
 		// Initialize classes and features; add operations and parameters
 		initEClass(
@@ -679,6 +812,10 @@ public class PPTPPackageImpl extends EPackageImpl implements PPTPPackage {
 		initEAttribute(
 			getTargetEntry_Label(), ecorePackage.getEString(), "label", null, 0, 1, TargetEntry.class, !IS_TRANSIENT,
 			!IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(
+			getTargetEntry_MetaVariables(), this.getMetaVariable(), null, "metaVariables", null, 0, -1,
+			TargetEntry.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES,
+			!IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(
 			puppetDistributionEClass, PuppetDistribution.class, "PuppetDistribution", !IS_ABSTRACT, !IS_INTERFACE,
@@ -748,6 +885,30 @@ public class PPTPPackageImpl extends EPackageImpl implements PPTPPackage {
 		initEAttribute(
 			getTypeArgument_Namevar(), ecorePackage.getEBoolean(), "namevar", null, 0, 1, TypeArgument.class,
 			!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(
+			nameSpaceEClass, NameSpace.class, "NameSpace", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(
+			getNameSpace_Reserved(), ecorePackage.getEBoolean(), "reserved", null, 0, 1, NameSpace.class,
+			!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(
+			tpVariableEClass, TPVariable.class, "TPVariable", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(
+			getTPVariable_Assignable(), ecorePackage.getEBoolean(), "assignable", null, 0, 1, TPVariable.class,
+			!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(
+			iTargetElementContainerEClass, ITargetElementContainer.class, "ITargetElementContainer", IS_ABSTRACT,
+			IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(
+			getITargetElementContainer_Contents(), this.getTargetElement(), null, "contents", null, 0, -1,
+			ITargetElementContainer.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE,
+			!IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(
+			metaVariableEClass, MetaVariable.class, "MetaVariable", !IS_ABSTRACT, !IS_INTERFACE,
+			IS_GENERATED_INSTANCE_CLASS);
 
 		// Initialize data types
 		initEDataType(fileEDataType, File.class, "File", IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS);

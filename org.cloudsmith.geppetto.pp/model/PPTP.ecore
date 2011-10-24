@@ -3,7 +3,7 @@
     xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="pptp"
     nsURI="http://www.cloudsmith.org/geppetto/1.0.0/PPTP" nsPrefix="pptp">
-  <eClassifiers xsi:type="ecore:EClass" name="TargetEntry" abstract="true">
+  <eClassifiers xsi:type="ecore:EClass" name="TargetEntry" abstract="true" eSuperTypes="#//ITargetElementContainer">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="description" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="functions" upperBound="-1"
         eType="#//Function" containment="true"/>
@@ -19,6 +19,8 @@
       </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="label" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="metaVariables" upperBound="-1"
+        eType="#//MetaVariable" containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="PuppetDistribution" eSuperTypes="#//TargetEntry"/>
   <eClassifiers xsi:type="ecore:EClass" name="Function" eSuperTypes="#//IDocumented #//TargetElement">
@@ -51,5 +53,21 @@
   <eClassifiers xsi:type="ecore:EClass" name="TypeArgument" abstract="true" eSuperTypes="#//TargetElement">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="required" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="namevar" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="NameSpace" eSuperTypes="#//TargetElement #//ITargetElementContainer">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="reserved" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="TPVariable" eSuperTypes="#//TargetElement">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="assignable" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ITargetElementContainer" abstract="true"
+      interface="true">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="contents" upperBound="-1"
+        eType="#//TargetElement" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="MetaVariable" eSuperTypes="#//TargetElement">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="A MetaVariable is a local variable available in every scope."/>
+    </eAnnotations>
   </eClassifiers>
 </ecore:EPackage>

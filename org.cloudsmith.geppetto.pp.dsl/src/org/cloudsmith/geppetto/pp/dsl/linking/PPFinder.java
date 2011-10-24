@@ -86,8 +86,9 @@ public class PPFinder {
 		}
 	}
 
-	private final static EClass[] PARAMS_AND_VARIABLES = {
-			PPPackage.Literals.DEFINITION_ARGUMENT, PPTPPackage.Literals.TYPE_ARGUMENT,
+	private final static EClass[] CLASSES_FOR_VARIABLES = { PPPackage.Literals.DEFINITION_ARGUMENT, //
+			PPTPPackage.Literals.TP_VARIABLE, //
+			PPTPPackage.Literals.TYPE_ARGUMENT, //
 			PPPackage.Literals.VARIABLE_EXPRESSION };
 
 	private final static EClass[] DEF_AND_TYPE_ARGUMENTS = {
@@ -151,6 +152,8 @@ public class PPFinder {
 
 	private Map<String, IEObjectDescription> metaCache;
 
+	private Map<String, IEObjectDescription> metaVarCache;
+
 	private void buildExportedObjectsIndex(IResourceDescription descr, IResourceDescriptions descriptionIndex) {
 		// The current (possibly dirty) exported resources
 		IResourceDescription dirty = resourceServiceProvider.getResourceDescriptionManager().getResourceDescription(
@@ -170,6 +173,8 @@ public class PPFinder {
 
 	private void cacheMetaParameters(EObject scopeDetermeningObject) {
 		metaCache = Maps.newHashMap();
+		metaVarCache = Maps.newHashMap();
+
 		Resource scopeDetermeningResource = scopeDetermeningObject.eResource();
 
 		IResourceDescriptions descriptionIndex = indexProvider.getResourceDescriptions(scopeDetermeningResource);
@@ -183,6 +188,9 @@ public class PPFinder {
 				if("Type".equals(q.getFirstSegment())) {
 					if(wantedType == objDesc.getEClass() || wantedType.isSuperTypeOf(objDesc.getEClass()))
 						metaCache.put(q.getLastSegment(), objDesc);
+				}
+				else if(objDesc.getEClass() == PPTPPackage.Literals.META_VARIABLE) {
+					metaVarCache.put(q.getLastSegment(), objDesc);
 				}
 			}
 		}
@@ -461,14 +469,31 @@ public class PPFinder {
 	 */
 	public SearchResult findVariables(EObject scopeDetermeningObject, QualifiedName fqn,
 			PPImportedNamesAdapter importedNames, SearchStrategy matchingStrategy) {
+		if(metaCache == null)
+			cacheMetaParameters(scopeDetermeningObject);
+
+		// If variable is a meta var, it is always found
+		final boolean singleSegment = fqn.getSegmentCount() == 1;
+		if(singleSegment) {
+			IEObjectDescription metaVar = metaVarCache.get(fqn.getLastSegment());
+			if(metaVar != null)
+				return new SearchResult(Lists.newArrayList(metaVar), Lists.newArrayList(metaVar)); // what a waste...
+
+			// if inside a define, all meta parameters are available
+			if(isContainedInDefinition(scopeDetermeningObject)) {
+				IEObjectDescription metaParam = metaCache.get(fqn.getLastSegment());
+				if(metaParam != null)
+					return new SearchResult(Lists.newArrayList(metaParam), Lists.newArrayList(metaParam)); // what a waste...
+			}
+		}
 		SearchResult result = findExternal(
-			scopeDetermeningObject, fqn, importedNames, matchingStrategy, PARAMS_AND_VARIABLES);
+			scopeDetermeningObject, fqn, importedNames, matchingStrategy, CLASSES_FOR_VARIABLES);
 		if(result.getAdjusted().size() > 0 && matchingStrategy.isExists())
 			return result;
 		fqn = getNameOfScope(scopeDetermeningObject).append(fqn);
 		return result.addAll(findInherited(
 			scopeDetermeningObject, fqn, importedNames, Lists.<QualifiedName> newArrayList(), matchingStrategy,
-			PARAMS_AND_VARIABLES));
+			CLASSES_FOR_VARIABLES));
 	}
 
 	/**
@@ -546,6 +571,13 @@ public class PPFinder {
 				return result;
 		}
 		return QualifiedName.EMPTY;
+	}
+
+	private boolean isContainedInDefinition(EObject scoped) {
+		for(EObject o = scoped; o != null; o = o.eContainer())
+			if(o.eClass() == PPPackage.Literals.DEFINITION)
+				return true;
+		return false;
 	}
 
 	/**

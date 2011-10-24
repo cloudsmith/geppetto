@@ -53,6 +53,26 @@ public interface PPTPFactory extends EFactory {
 	MetaType createMetaType();
 
 	/**
+	 * Returns a new object of class '<em>Meta Variable</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @return a new object of class '<em>Meta Variable</em>'.
+	 * @generated
+	 */
+	MetaVariable createMetaVariable();
+
+	/**
+	 * Returns a new object of class '<em>Name Space</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @return a new object of class '<em>Name Space</em>'.
+	 * @generated
+	 */
+	NameSpace createNameSpace();
+
+	/**
 	 * Returns a new object of class '<em>Parameter</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -81,6 +101,16 @@ public interface PPTPFactory extends EFactory {
 	 * @generated
 	 */
 	PuppetDistribution createPuppetDistribution();
+
+	/**
+	 * Returns a new object of class '<em>TP Variable</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @return a new object of class '<em>TP Variable</em>'.
+	 * @generated
+	 */
+	TPVariable createTPVariable();
 
 	/**
 	 * Returns a new object of class '<em>Type</em>'.

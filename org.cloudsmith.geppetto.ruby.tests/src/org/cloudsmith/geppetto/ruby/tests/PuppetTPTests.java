@@ -60,6 +60,13 @@ public class PuppetTPTests extends TestCase {
 		helper.setUp();
 		try {
 			TargetEntry target = helper.loadDistroTarget(distroDir);
+
+			// Load the variables in the settings:: namespace
+			helper.loadSettings(target);
+
+			// Load the default meta variables (available as local in every scope).
+			helper.loadMetaVariables(target);
+
 			for(Type t : target.getTypes())
 				System.err.println("Found t: " + t.getName());
 			for(Function f : target.getFunctions())
@@ -185,32 +192,33 @@ public class PuppetTPTests extends TestCase {
 		}
 	}
 
-	public void testLoadRealTP() throws Exception {
-		File distroDir = new File(
-			"/opt/local/var/macports/software/puppet/2.6.4_0/opt/local/lib/ruby/site_ruby/1.8/puppet/");
-		RubyHelper helper = new RubyHelper();
-		helper.setUp();
-		try {
-			TargetEntry target = helper.loadDistroTarget(distroDir);
-			for(Type t : target.getTypes())
-				System.err.println("Found t: " + t.getName());
-			assertEquals("Should have found 46 types", 46, target.getTypes().size());
-			for(Function f : target.getFunctions())
-				System.err.println("Found f: " + f.getName());
-			assertEquals("Should have found 29 functions", 29, target.getFunctions().size());
-
-			// Save the TargetEntry as a loadable resource
-			ResourceSet resourceSet = new ResourceSetImpl();
-			URI fileURI = URI.createFileURI(new File("puppet-2.6.4_0.pptp").getAbsolutePath());
-			Resource targetResource = resourceSet.createResource(fileURI);
-			targetResource.getContents().add(target);
-			targetResource.save(null);
-			System.err.println("Target saved to: " + fileURI.toString());
-
-		}
-		finally {
-			helper.tearDown();
-		}
-
-	}
+	// NOTE: On mac, macports changed format to a tgz file - can not load this (test has played out its role).
+	// public void testLoadRealTP() throws Exception {
+	// File distroDir = new File(
+	// "/opt/local/var/macports/software/puppet/2.6.4_0/opt/local/lib/ruby/site_ruby/1.8/puppet/");
+	// RubyHelper helper = new RubyHelper();
+	// helper.setUp();
+	// try {
+	// TargetEntry target = helper.loadDistroTarget(distroDir);
+	// for(Type t : target.getTypes())
+	// System.err.println("Found t: " + t.getName());
+	// assertEquals("Should have found 46 types", 46, target.getTypes().size());
+	// for(Function f : target.getFunctions())
+	// System.err.println("Found f: " + f.getName());
+	// assertEquals("Should have found 29 functions", 29, target.getFunctions().size());
+	//
+	// // Save the TargetEntry as a loadable resource
+	// ResourceSet resourceSet = new ResourceSetImpl();
+	// URI fileURI = URI.createFileURI(new File("puppet-2.6.4_0.pptp").getAbsolutePath());
+	// Resource targetResource = resourceSet.createResource(fileURI);
+	// targetResource.getContents().add(target);
+	// targetResource.save(null);
+	// System.err.println("Target saved to: " + fileURI.toString());
+	//
+	// }
+	// finally {
+	// helper.tearDown();
+	// }
+	//
+	// }
 }

@@ -12,9 +12,12 @@
 package org.cloudsmith.geppetto.pp.dsl.pptp;
 
 import org.cloudsmith.geppetto.pp.pptp.Function;
+import org.cloudsmith.geppetto.pp.pptp.MetaVariable;
+import org.cloudsmith.geppetto.pp.pptp.NameSpace;
 import org.cloudsmith.geppetto.pp.pptp.Parameter;
 import org.cloudsmith.geppetto.pp.pptp.Property;
 import org.cloudsmith.geppetto.pp.pptp.PuppetDistribution;
+import org.cloudsmith.geppetto.pp.pptp.TPVariable;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.xtext.naming.DefaultDeclarativeQualifiedNameProvider;
 import org.eclipse.xtext.naming.IQualifiedNameConverter;
@@ -56,6 +59,14 @@ public class PptpQualifiedNameProvider extends DefaultDeclarativeQualifiedNamePr
 		return splice(getParentsFullyQualifiedName(o), converter.toQualifiedName(o.getName()));
 	}
 
+	QualifiedName qualifiedName(MetaVariable o) {
+		return splice(getParentsFullyQualifiedName(o), converter.toQualifiedName(o.getName()));
+	}
+
+	QualifiedName qualifiedName(NameSpace o) {
+		return splice(getParentsFullyQualifiedName(o), converter.toQualifiedName(o.getName()));
+	}
+
 	QualifiedName qualifiedName(Parameter o) {
 		// stripping of $ is done by PPQualifiedNameConverter
 		return splice(getParentsFullyQualifiedName(o), converter.toQualifiedName(o.getName()));
@@ -67,5 +78,9 @@ public class PptpQualifiedNameProvider extends DefaultDeclarativeQualifiedNamePr
 
 	QualifiedName qualifiedName(PuppetDistribution o) {
 		return null;
+	}
+
+	QualifiedName qualifiedName(TPVariable o) {
+		return splice(getParentsFullyQualifiedName(o), converter.toQualifiedName(o.getName()));
 	}
 }

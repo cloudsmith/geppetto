@@ -12,7 +12,6 @@
 package org.cloudsmith.geppetto.pp.pptp;
 
 import org.eclipse.emf.common.util.EList;
-import org.eclipse.emf.ecore.EObject;
 
 /**
  * <!-- begin-user-doc -->
@@ -29,6 +28,7 @@ import org.eclipse.emf.ecore.EObject;
  * <li>{@link org.cloudsmith.geppetto.pp.pptp.TargetEntry#getTypeFragments <em>Type Fragments</em>}</li>
  * <li>{@link org.cloudsmith.geppetto.pp.pptp.TargetEntry#getMetaType <em>Meta Type</em>}</li>
  * <li>{@link org.cloudsmith.geppetto.pp.pptp.TargetEntry#getLabel <em>Label</em>}</li>
+ * <li>{@link org.cloudsmith.geppetto.pp.pptp.TargetEntry#getMetaVariables <em>Meta Variables</em>}</li>
  * </ul>
  * </p>
  * 
@@ -36,7 +36,7 @@ import org.eclipse.emf.ecore.EObject;
  * @model abstract="true"
  * @generated
  */
-public interface TargetEntry extends EObject {
+public interface TargetEntry extends ITargetElementContainer {
 	/**
 	 * Returns the value of the '<em><b>Description</b></em>' attribute.
 	 * <!-- begin-user-doc -->
@@ -100,6 +100,22 @@ public interface TargetEntry extends EObject {
 	 * @generated
 	 */
 	MetaType getMetaType();
+
+	/**
+	 * Returns the value of the '<em><b>Meta Variables</b></em>' containment reference list.
+	 * The list contents are of type {@link org.cloudsmith.geppetto.pp.pptp.MetaVariable}.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Meta Variables</em>' containment reference list isn't clear, there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * 
+	 * @return the value of the '<em>Meta Variables</em>' containment reference list.
+	 * @see org.cloudsmith.geppetto.pp.pptp.PPTPPackage#getTargetEntry_MetaVariables()
+	 * @model containment="true"
+	 * @generated
+	 */
+	EList<MetaVariable> getMetaVariables();
 
 	/**
 	 * Returns the value of the '<em><b>Type Fragments</b></em>' containment reference list.

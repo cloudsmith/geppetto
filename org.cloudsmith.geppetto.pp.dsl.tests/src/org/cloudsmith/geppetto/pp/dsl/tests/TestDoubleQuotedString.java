@@ -11,6 +11,9 @@
  */
 package org.cloudsmith.geppetto.pp.dsl.tests;
 
+import java.io.IOException;
+import java.io.OutputStream;
+import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,7 +35,6 @@ import org.eclipse.xtext.resource.XtextResource;
  * 
  */
 public class TestDoubleQuotedString extends AbstractPuppetTests {
-
 	private static class TEPair {
 		final TextExpression te;
 
@@ -55,6 +57,8 @@ public class TestDoubleQuotedString extends AbstractPuppetTests {
 			return clazz.isAssignableFrom(peExpr.getClass());
 		}
 	}
+
+	private PrintStream savedOut;
 
 	private String doubleQuote(String s) {
 		return '"' + s + '"';
@@ -80,6 +84,31 @@ public class TestDoubleQuotedString extends AbstractPuppetTests {
 		List<TEPair> result = new ArrayList<TEPair>();
 		flatten(result, te);
 		return result;
+	}
+
+	/**
+	 * Sends System.out to dev/null since there are many warnings about unknown variables (ignored unless
+	 * explicitly tested for).
+	 */
+	@Override
+	public void setUp() throws Exception {
+		super.setUp();
+		savedOut = System.out;
+		OutputStream sink = new OutputStream() {
+
+			@Override
+			public void write(int arg0) throws IOException {
+				// do nothing
+			}
+
+		};
+		System.setOut(new PrintStream(sink));
+	}
+
+	@Override
+	public void tearDown() throws Exception {
+		super.tearDown();
+		System.setOut(savedOut);
 	}
 
 	private TEPair tePair(TextExpression te, String s) {

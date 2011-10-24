@@ -11,6 +11,10 @@
  */
 package org.cloudsmith.geppetto.pp.dsl.tests;
 
+import java.io.IOException;
+import java.io.OutputStream;
+import java.io.PrintStream;
+
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.xtext.resource.XtextResource;
 
@@ -19,6 +23,33 @@ import org.eclipse.xtext.resource.XtextResource;
  * 
  */
 public class TestIssues extends AbstractPuppetTests {
+
+	private PrintStream savedOut;
+
+	/**
+	 * Sends System.out to dev/null since there are many warnings about unknown variables (ignored unless
+	 * explicitly tested for).
+	 */
+	@Override
+	public void setUp() throws Exception {
+		super.setUp();
+		savedOut = System.out;
+		OutputStream sink = new OutputStream() {
+
+			@Override
+			public void write(int arg0) throws IOException {
+				// do nothing
+			}
+
+		};
+		System.setOut(new PrintStream(sink));
+	}
+
+	@Override
+	public void tearDown() throws Exception {
+		super.tearDown();
+		System.setOut(savedOut);
+	}
 
 	/**
 	 * [11] Geppetto does not yet know about parameterized classes
@@ -69,4 +100,5 @@ public class TestIssues extends AbstractPuppetTests {
 		resourceWarningDiagnostics(r).assertOK();
 		resourceErrorDiagnostics(r).assertOK();
 	}
+
 }

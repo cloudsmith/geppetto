@@ -11,6 +11,10 @@
  */
 package org.cloudsmith.geppetto.pp.dsl.tests;
 
+import java.io.IOException;
+import java.io.OutputStream;
+import java.io.PrintStream;
+
 import org.cloudsmith.geppetto.pp.AppendExpression;
 import org.cloudsmith.geppetto.pp.AssignmentExpression;
 import org.cloudsmith.geppetto.pp.AtExpression;
@@ -32,7 +36,6 @@ import org.cloudsmith.geppetto.pp.VirtualNameOrReference;
 import org.cloudsmith.geppetto.pp.dsl.validation.IPPDiagnostics;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.xtext.junit.validation.AssertableDiagnostics;
-import org.eclipse.xtext.nodemodel.util.NodeModelUtils;
 import org.eclipse.xtext.resource.XtextResource;
 
 /**
@@ -40,6 +43,9 @@ import org.eclipse.xtext.resource.XtextResource;
  * 
  */
 public class TestExpressions extends AbstractPuppetTests {
+
+	private PrintStream savedOut;
+
 	// @formatter:off
 	static final String Sample_Relationship = "file {\n" + //
 			"\t'file1' :\n" + //
@@ -77,6 +83,31 @@ public class TestExpressions extends AbstractPuppetTests {
 			"else {\n" + //
 			"\ttrue\n" + //
 			"}";
+
+	/**
+	 * Sends System.out to dev/null since there are many warnings about unknown variables (ignored unless
+	 * explicitly tested for).
+	 */
+	@Override
+	public void setUp() throws Exception {
+		super.setUp();
+		savedOut = System.out;
+		OutputStream sink = new OutputStream() {
+
+			@Override
+			public void write(int arg0) throws IOException {
+				// do nothing
+			}
+
+		};
+		System.setOut(new PrintStream(sink));
+	}
+
+	@Override
+	public void tearDown() throws Exception {
+		super.tearDown();
+		System.setOut(savedOut);
+	}
 
 	// @formatter:on
 
@@ -161,7 +192,9 @@ public class TestExpressions extends AbstractPuppetTests {
 		String code = "import \"a\"\nimport \"b\"";
 		XtextResource r = getResourceFromString(code);
 		String s = serializeFormatted(r.getContents().get(0));
-		System.out.println(NodeModelUtils.compactDump(r.getParseResult().getRootNode(), false));
+
+		// DEBUG
+		// System.out.println(NodeModelUtils.compactDump(r.getParseResult().getRootNode(), false));
 
 		assertEquals("serialization should produce specified result", code, s);
 	}
@@ -170,7 +203,8 @@ public class TestExpressions extends AbstractPuppetTests {
 		String code = "import 'a'\nimport 'b'";
 		XtextResource r = getResourceFromString(code);
 		String s = serializeFormatted(r.getContents().get(0));
-		System.out.println(NodeModelUtils.compactDump(r.getParseResult().getRootNode(), false));
+		// DEBUG
+		// System.out.println(NodeModelUtils.compactDump(r.getParseResult().getRootNode(), false));
 
 		assertEquals("serialization should produce specified result", code, s);
 	}

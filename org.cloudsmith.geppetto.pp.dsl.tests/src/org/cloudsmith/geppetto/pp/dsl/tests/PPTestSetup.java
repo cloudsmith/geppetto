@@ -37,7 +37,7 @@ public class PPTestSetup extends PPStandaloneSetup {
 				public XtextResourceSet get() {
 					XtextResourceSet resourceSet = new SynchronizedXtextResourceSet();
 					resourceSet.getResource(
-						URI.createPlatformPluginURI("/org.cloudsmith.geppetto.pp.dsl/targets/puppet-2.6.4_0.pptp", true),
+						URI.createPlatformPluginURI("/org.cloudsmith.geppetto.pp.dsl/targets/puppet-2.7.1.pptp", true),
 						true);
 					return resourceSet;
 				}

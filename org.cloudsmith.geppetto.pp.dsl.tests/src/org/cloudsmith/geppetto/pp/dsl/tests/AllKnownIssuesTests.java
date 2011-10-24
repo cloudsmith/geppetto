@@ -15,23 +15,16 @@ import junit.framework.Test;
 import junit.framework.TestSuite;
 
 /**
- * All Puppet Tests.
+ * All Known Issues (failing) Puppet Tests.
  * 
  */
-public class AllTests {
+public class AllKnownIssuesTests {
 
 	public static Test suite() {
-		TestSuite suite = new TestSuite(AllTests.class.getName());
+		TestSuite suite = new TestSuite(AllKnownIssuesTests.class.getName());
 		// $JUnit-BEGIN$
-		suite.addTestSuite(TestVariables.class);
-		suite.addTestSuite(TestWsAndComments.class);
-		suite.addTestSuite(TestPuppetResourceExpr.class);
-		suite.addTestSuite(TestLiterals.class);
-		suite.addTestSuite(TestExpressions.class);
-		suite.addTestSuite(TestCollectExpression.class);
-		suite.addTestSuite(TestSelectorExpression.class);
-		suite.addTestSuite(TestDoubleQuotedString.class);
-		suite.addTestSuite(TestIssues.class);
+		suite.addTestSuite(TestFailingFormatting.class);
+		suite.addTestSuite(TestFailingSerialization.class);
 		// $JUnit-END$
 		return suite;
 	}

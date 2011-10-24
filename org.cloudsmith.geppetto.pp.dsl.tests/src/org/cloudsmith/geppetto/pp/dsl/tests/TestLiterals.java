@@ -35,9 +35,9 @@ public class TestLiterals extends AbstractPuppetTests {
 
 	public final static String[] invalidNames = { "if", "else", "%#", "define:" };
 
-	private String doubleQuote(String s) {
-		return '"' + s + '"';
-	}
+	// private String doubleQuote(String s) {
+	// return '"' + s + '"';
+	// }
 
 	public void test_Parse_LiteralNameOrReference_NotOk() {
 		PPGrammarAccess ga = (PPGrammarAccess) getGrammarAccess();

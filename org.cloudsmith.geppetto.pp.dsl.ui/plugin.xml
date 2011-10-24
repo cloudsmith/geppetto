@@ -361,7 +361,8 @@
              class="org.cloudsmith.geppetto.pp.dsl.ui.jdt_ersatz.AggregateErrorLabelDecorator"
              id="org.cloudsmith.geppetto.pp.dsl.ui.errorDecorator"
              label="Aggregate Error Decorator"
-             lightweight="true">
+             lightweight="true"
+             state="true">
           <description>
              Aggregates errors in resources to folders and projects.
           </description>

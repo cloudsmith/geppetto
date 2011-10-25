@@ -48,7 +48,6 @@ import org.cloudsmith.geppetto.pp.IfExpression;
 import org.cloudsmith.geppetto.pp.ImportExpression;
 import org.cloudsmith.geppetto.pp.InExpression;
 import org.cloudsmith.geppetto.pp.LiteralBoolean;
-import org.cloudsmith.geppetto.pp.LiteralClass;
 import org.cloudsmith.geppetto.pp.LiteralDefault;
 import org.cloudsmith.geppetto.pp.LiteralHash;
 import org.cloudsmith.geppetto.pp.LiteralList;
@@ -82,6 +81,7 @@ import org.cloudsmith.geppetto.pp.adapters.ClassifierAdapter;
 import org.cloudsmith.geppetto.pp.adapters.ClassifierAdapterFactory;
 import org.cloudsmith.geppetto.pp.dsl.eval.PPStringConstantEvaluator;
 import org.cloudsmith.geppetto.pp.dsl.linking.IMessageAcceptor;
+import org.cloudsmith.geppetto.pp.dsl.linking.PPClassifier;
 import org.cloudsmith.geppetto.pp.dsl.linking.ValidationBasedMessageAcceptor;
 import org.cloudsmith.geppetto.pp.util.TextExpressionHelper;
 import org.eclipse.emf.common.util.EList;
@@ -104,7 +104,6 @@ import com.google.inject.Inject;
 import com.google.inject.Provider;
 
 public class PPJavaValidator extends AbstractPPJavaValidator implements IPPDiagnostics {
-
 	/**
 	 * The CollectChecker is used to check the validity of puppet CollectExpression
 	 */
@@ -203,6 +202,12 @@ public class PPJavaValidator extends AbstractPPJavaValidator implements IPPDiagn
 			return Exceptions.throwUncheckedException(e);
 		}
 	}
+
+	/**
+	 * Classifies ResourceExpression based on its content (regular, override, etc).
+	 */
+	@Inject
+	private PPClassifier classifier;
 
 	final protected IMessageAcceptor acceptor;
 
@@ -875,44 +880,46 @@ public class PPJavaValidator extends AbstractPPJavaValidator implements IPPDiagn
 	 */
 	@Check
 	public void checkResourceExpression(ResourceExpression o) {
-		// A regular resource must have a classname
-		// Use of class reference is deprecated
-		// classname : NAME | "class" | CLASSNAME
-		int resourceType = RESOURCE_IS_BAD; // unknown at this point
-		final Expression resourceExpr = o.getResourceExpr();
-		String resourceTypeName = null;
-		if(resourceExpr instanceof LiteralNameOrReference || resourceExpr instanceof VirtualNameOrReference ||
-				resourceExpr instanceof LiteralClass) {
-
-			if(resourceExpr instanceof LiteralNameOrReference) {
-				LiteralNameOrReference resourceTypeExpr = (LiteralNameOrReference) resourceExpr;
-				resourceTypeName = resourceTypeExpr.getValue();
-			}
-			else if(resourceExpr instanceof LiteralClass)
-				resourceTypeName = "class";
-			else {
-				VirtualNameOrReference vn = (VirtualNameOrReference) resourceExpr;
-				resourceTypeName = vn.getValue();
-			}
-			if("class".equals(resourceTypeName))
-				resourceType = RESOURCE_IS_CLASSPARAMS;
-			else if(isCLASSREF(resourceTypeName))
-				resourceType = RESOURCE_IS_DEFAULT;
-			else if(isNAME(resourceTypeName) || isCLASSNAME(resourceTypeName))
-				resourceType = RESOURCE_IS_REGULAR;
-			// else the resource is BAD
-		}
-		if(resourceExpr instanceof AtExpression) {
-			resourceType = RESOURCE_IS_OVERRIDE;
-		}
-		/*
-		 * IMPORTANT: set the validated classifier to enable others to more quickly determine the type of
-		 * resource, and its typeName (what it is a reference to).
-		 */
+		classifier.classify(o);
+		// // A regular resource must have a classname
+		// // Use of class reference is deprecated
+		// // classname : NAME | "class" | CLASSNAME
+		// int resourceType = RESOURCE_IS_BAD; // unknown at this point
+		// final Expression resourceExpr = o.getResourceExpr();
+		// String resourceTypeName = null;
+		// if(resourceExpr instanceof LiteralNameOrReference || resourceExpr instanceof VirtualNameOrReference ||
+		// resourceExpr instanceof LiteralClass) {
+		//
+		// if(resourceExpr instanceof LiteralNameOrReference) {
+		// LiteralNameOrReference resourceTypeExpr = (LiteralNameOrReference) resourceExpr;
+		// resourceTypeName = resourceTypeExpr.getValue();
+		// }
+		// else if(resourceExpr instanceof LiteralClass)
+		// resourceTypeName = "class";
+		// else {
+		// VirtualNameOrReference vn = (VirtualNameOrReference) resourceExpr;
+		// resourceTypeName = vn.getValue();
+		// }
+		// if("class".equals(resourceTypeName))
+		// resourceType = RESOURCE_IS_CLASSPARAMS;
+		// else if(isCLASSREF(resourceTypeName))
+		// resourceType = RESOURCE_IS_DEFAULT;
+		// else if(isNAME(resourceTypeName) || isCLASSNAME(resourceTypeName))
+		// resourceType = RESOURCE_IS_REGULAR;
+		// // else the resource is BAD
+		// }
+		// if(resourceExpr instanceof AtExpression) {
+		// resourceType = RESOURCE_IS_OVERRIDE;
+		// }
+		// /*
+		// * IMPORTANT: set the validated classifier to enable others to more quickly determine the type of
+		// * resource, and its typeName (what it is a reference to).
+		// */
 		ClassifierAdapter adapter = ClassifierAdapterFactory.eINSTANCE.adapt(o);
-		adapter.setClassifier(resourceType);
-		adapter.setResourceType(null);
-		adapter.setResourceTypeName(resourceTypeName);
+		// adapter.setClassifier(resourceType);
+		// adapter.setResourceType(null);
+		// adapter.setResourceTypeName(resourceTypeName);
+		int resourceType = adapter.getClassifier();
 
 		if(resourceType == RESOURCE_IS_BAD) {
 			acceptor.acceptError(
@@ -924,7 +931,7 @@ public class PPJavaValidator extends AbstractPPJavaValidator implements IPPDiagn
 		}
 
 		// -- can not virtualize/export non regular resources
-		if(resourceExpr instanceof VirtualNameOrReference && resourceType != RESOURCE_IS_REGULAR) {
+		if(o.getResourceExpr() instanceof VirtualNameOrReference && resourceType != RESOURCE_IS_REGULAR) {
 			acceptor.acceptError(
 				"Only regular resources can be virtual", o, PPPackage.Literals.RESOURCE_EXPRESSION__RESOURCE_EXPR,
 				INSIGNIFICANT_INDEX, IPPDiagnostics.ISSUE__RESOURCE_NOT_VIRTUALIZEABLE);

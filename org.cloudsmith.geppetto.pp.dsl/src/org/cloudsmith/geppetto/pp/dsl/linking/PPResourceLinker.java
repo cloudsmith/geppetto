@@ -265,6 +265,10 @@ public class PPResourceLinker implements IPPDiagnostics {
 
 		ResourceExpression resource = (ResourceExpression) o.eContainer();
 		ClassifierAdapter adapter = ClassifierAdapterFactory.eINSTANCE.adapt(resource);
+		if(adapter.getClassifier() == ClassifierAdapter.UNKNOWN) {
+			classifier.classify(resource);
+			adapter = ClassifierAdapterFactory.eINSTANCE.adapt(resource);
+		}
 		if(adapter.getClassifier() == RESOURCE_IS_CLASSPARAMS) {
 			// pp: class { classname : parameter => value ... }
 

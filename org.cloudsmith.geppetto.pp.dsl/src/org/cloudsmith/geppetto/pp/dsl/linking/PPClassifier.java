@@ -19,6 +19,7 @@ import static org.cloudsmith.geppetto.pp.adapters.ClassifierAdapter.RESOURCE_IS_
 
 import org.cloudsmith.geppetto.pp.AtExpression;
 import org.cloudsmith.geppetto.pp.Expression;
+import org.cloudsmith.geppetto.pp.LiteralClass;
 import org.cloudsmith.geppetto.pp.LiteralNameOrReference;
 import org.cloudsmith.geppetto.pp.ResourceExpression;
 import org.cloudsmith.geppetto.pp.VirtualNameOrReference;
@@ -51,16 +52,18 @@ public class PPClassifier {
 		final Expression resourceExpr = o.getResourceExpr();
 		String resourceTypeName = null;
 
-		if(resourceExpr instanceof LiteralNameOrReference || resourceExpr instanceof VirtualNameOrReference) {
-
-			if(resourceExpr instanceof LiteralNameOrReference) {
-				LiteralNameOrReference resourceTypeExpr = (LiteralNameOrReference) resourceExpr;
-				resourceTypeName = resourceTypeExpr.getValue();
-			}
-			else {
-				VirtualNameOrReference vn = (VirtualNameOrReference) resourceExpr;
-				resourceTypeName = vn.getValue();
-			}
+		if(resourceExpr instanceof LiteralNameOrReference) {
+			LiteralNameOrReference resourceTypeExpr = (LiteralNameOrReference) resourceExpr;
+			resourceTypeName = resourceTypeExpr.getValue();
+		}
+		else if(resourceExpr instanceof LiteralClass) {
+			resourceTypeName = "class";
+		}
+		else if(resourceExpr instanceof VirtualNameOrReference) {
+			VirtualNameOrReference vn = (VirtualNameOrReference) resourceExpr;
+			resourceTypeName = vn.getValue();
+		}
+		if(resourceTypeName != null) {
 			if("class".equals(resourceTypeName))
 				resourceType = RESOURCE_IS_CLASSPARAMS;
 			else if(patternHelper.isCLASSREF(resourceTypeName))
@@ -69,7 +72,7 @@ public class PPClassifier {
 				resourceType = RESOURCE_IS_REGULAR;
 			// else the resource is BAD
 		}
-		if(resourceExpr instanceof AtExpression) {
+		else if(resourceExpr instanceof AtExpression) {
 			resourceType = RESOURCE_IS_OVERRIDE;
 		}
 

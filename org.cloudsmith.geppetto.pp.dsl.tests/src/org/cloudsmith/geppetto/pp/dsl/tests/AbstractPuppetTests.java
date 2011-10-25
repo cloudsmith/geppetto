@@ -279,6 +279,28 @@ public class AbstractPuppetTests extends AbstractXtextTests {
 		resourceSet.eAdapters().add(new DelegatingIAllContainerAdapter(containersState));
 	}
 
+	/**
+	 * Loads resources from a set of Strings with source code, and performs linking.
+	 * The linked result can be obtained from the returned ResourceSet.
+	 * Use makeManifestURI(int) to get the URI for given resources, staring with 1 for the first
+	 * given resource.
+	 * 
+	 * @param sourceStrings
+	 * @throws Exception
+	 */
+	public List<Resource> loadAndLinkResources(String... sourceStrings) throws Exception {
+		List<URI> uriList = Lists.newArrayListWithCapacity(sourceStrings.length);
+		for(int i = 1; i <= sourceStrings.length; i++)
+			uriList.add(makeManifestURI(i));
+		initializeResourceSet(uriList);
+		List<Resource> resources = Lists.newArrayListWithCapacity(sourceStrings.length);
+		for(int i = 0; i < sourceStrings.length; i++)
+			resources.add(loadResource(sourceStrings[i], uriList.get(i)));
+		for(Resource r : resources)
+			resolveCrossReferences(r);
+		return resources;
+	}
+
 	public final Resource loadAndLinkSingleResource(String sourceString) throws Exception {
 		URI uri = makeManifestURI(1);
 		initializeResourceSet(Lists.newArrayList(uri));
@@ -300,8 +322,8 @@ public class AbstractPuppetTests extends AbstractXtextTests {
 		options.put(XtextResource.OPTION_ENCODING, "UTF8");
 
 		Resource r = factory.createResource(uri);
-		resourceSet.getResources().add(r);
 		r.load(in, options);
+		resourceSet.getResources().add(r);
 
 		return r;
 	}
@@ -340,12 +362,12 @@ public class AbstractPuppetTests extends AbstractXtextTests {
 		StringBuilder builder = new StringBuilder();
 		builder.append("/test/");
 		builder.append(getClass().getName());
-		builder.append("/");
+		builder.append("/manifests/");
 		builder.append("file");
 		builder.append(id);
 		builder.append(".pp");
 
-		return URI.createURI(builder.toString());
+		return URI.createFileURI(builder.toString());
 	}
 
 	public void resolveCrossReferences(Resource resource) {

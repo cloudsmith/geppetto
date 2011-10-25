@@ -56,7 +56,9 @@
    </extension>
    -->
    <extension point="org.eclipse.ui.newWizards">
+      <primaryWizard id="org.cloudsmith.geppetto.ui.wizard.NewManifestWizard"/>
       <primaryWizard id="org.cloudsmith.geppetto.ui.NewPuppetProjectWizard"/>
+      <primaryWizard id="org.cloudsmith.geppetto.ui.NewPuppetModuleProjectWizard"/>
       <primaryWizard id="org.cloudsmith.geppetto.ui.NewPuppetProjectFromForgeWizard"/>
    </extension>
 </plugin>

@@ -26,7 +26,7 @@ import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import org.eclipse.core.runtime.Platform;
+import org.cloudsmith.geppetto.common.Activator;
 
 public class OsUtil {
 	public static boolean chgrp(File dir, String group, String... filenames) throws IOException {
@@ -228,7 +228,9 @@ public class OsUtil {
 	}
 
 	public static boolean isOS(String... oss) {
-		String currentOs = Platform.getOS();
+		String currentOs = Activator.getContext().getProperty("osgi.os");
+		if(currentOs == null)
+			throw new IllegalStateException("Missing required property: osgi.os");
 		for(String os : oss)
 			if(os.equals(currentOs))
 				return true;

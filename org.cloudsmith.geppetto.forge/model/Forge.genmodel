@@ -8,7 +8,16 @@
     language="">
   <foreignModel>Forge.ecore</foreignModel>
   <genPackages prefix="Forge" basePackage="org.cloudsmith.geppetto" disposableProviderFactory="true"
-      ecorePackage="Forge.ecore#/">
+      generateExampleClass="false" ecorePackage="Forge.ecore#/">
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="Forge.ecore#//MatchRule">
+      <genEnumLiterals ecoreEnumLiteral="Forge.ecore#//MatchRule/PERFECT"/>
+      <genEnumLiterals ecoreEnumLiteral="Forge.ecore#//MatchRule/EQUIVALENT"/>
+      <genEnumLiterals ecoreEnumLiteral="Forge.ecore#//MatchRule/COMPATIBLE"/>
+      <genEnumLiterals ecoreEnumLiteral="Forge.ecore#//MatchRule/LESS"/>
+      <genEnumLiterals ecoreEnumLiteral="Forge.ecore#//MatchRule/LESS_OR_EQUAL"/>
+      <genEnumLiterals ecoreEnumLiteral="Forge.ecore#//MatchRule/GREATER"/>
+      <genEnumLiterals ecoreEnumLiteral="Forge.ecore#//MatchRule/GREATER_OR_EQUAL"/>
+    </genEnums>
     <genEnums typeSafeEnumCompatible="false" ecoreEnum="Forge.ecore#//HttpMethod">
       <genEnumLiterals ecoreEnumLiteral="Forge.ecore#//HttpMethod/GET"/>
       <genEnumLiterals ecoreEnumLiteral="Forge.ecore#//HttpMethod/HEAD"/>
@@ -16,21 +25,24 @@
       <genEnumLiterals ecoreEnumLiteral="Forge.ecore#//HttpMethod/POST"/>
       <genEnumLiterals ecoreEnumLiteral="Forge.ecore#//HttpMethod/DELETE"/>
     </genEnums>
+    <genDataTypes ecoreDataType="Forge.ecore#//byteArray"/>
     <genDataTypes ecoreDataType="Forge.ecore#//File"/>
-    <genDataTypes ecoreDataType="Forge.ecore#//URI"/>
+    <genDataTypes ecoreDataType="Forge.ecore#//HttpURLConnection"/>
+    <genDataTypes ecoreDataType="Forge.ecore#//IllegalArgumentException"/>
+    <genDataTypes ecoreDataType="Forge.ecore#//IncompleteException"/>
     <genDataTypes ecoreDataType="Forge.ecore#//IOException"/>
     <genDataTypes ecoreDataType="Forge.ecore#//List">
       <genTypeParameters ecoreTypeParameter="Forge.ecore#//List/E"/>
     </genDataTypes>
-    <genDataTypes ecoreDataType="Forge.ecore#//HttpURLConnection"/>
-    <genDataTypes ecoreDataType="Forge.ecore#//byteArray"/>
     <genDataTypes ecoreDataType="Forge.ecore#//Map">
       <genTypeParameters ecoreTypeParameter="Forge.ecore#//Map/K"/>
       <genTypeParameters ecoreTypeParameter="Forge.ecore#//Map/V"/>
     </genDataTypes>
     <genDataTypes ecoreDataType="Forge.ecore#//StringArray"/>
-    <genDataTypes ecoreDataType="Forge.ecore#//IllegalArgumentException"/>
-    <genDataTypes ecoreDataType="Forge.ecore#//IncompleteException"/>
+    <genDataTypes ecoreDataType="Forge.ecore#//URI"/>
+    <genDataTypes ecoreDataType="Forge.ecore#//Iterable">
+      <genTypeParameters ecoreTypeParameter="Forge.ecore#//Iterable/E"/>
+    </genDataTypes>
     <genClasses ecoreClass="Forge.ecore#//Forge">
       <genFeatures property="Readonly" createChild="false" ecoreFeature="ecore:EAttribute Forge.ecore#//Forge/version"/>
       <genFeatures property="Readonly" createChild="false" ecoreFeature="ecore:EReference Forge.ecore#//Forge/repository"/>
@@ -145,11 +157,18 @@
       <genOperations ecoreOperation="Forge.ecore#//Metadata/saveModulefile">
         <genParameters ecoreParameter="Forge.ecore#//Metadata/saveModulefile/moduleFile"/>
       </genOperations>
+      <genOperations ecoreOperation="Forge.ecore#//Metadata/parseVersionRequirement">
+        <genParameters ecoreParameter="Forge.ecore#//Metadata/parseVersionRequirement/versionRequirement"/>
+      </genOperations>
     </genClasses>
     <genClasses ecoreClass="Forge.ecore#//Dependency">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Forge.ecore#//Dependency/name"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Forge.ecore#//Dependency/versionRequirement"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Forge.ecore#//Dependency/repository"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EReference Forge.ecore#//Dependency/versionRequirement"/>
+      <genOperations ecoreOperation="Forge.ecore#//Dependency/matches">
+        <genParameters ecoreParameter="Forge.ecore#//Dependency/matches/name"/>
+        <genParameters ecoreParameter="Forge.ecore#//Dependency/matches/version"/>
+      </genOperations>
     </genClasses>
     <genClasses ecoreClass="Forge.ecore#//Type">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Forge.ecore#//Type/parameters"/>
@@ -169,5 +188,15 @@
     </genClasses>
     <genClasses ecoreClass="Forge.ecore#//Property"/>
     <genClasses ecoreClass="Forge.ecore#//Provider"/>
+    <genClasses ecoreClass="Forge.ecore#//VersionRequirement">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Forge.ecore#//VersionRequirement/version"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Forge.ecore#//VersionRequirement/matchRule"/>
+      <genOperations ecoreOperation="Forge.ecore#//VersionRequirement/matches">
+        <genParameters ecoreParameter="Forge.ecore#//VersionRequirement/matches/version"/>
+      </genOperations>
+      <genOperations ecoreOperation="Forge.ecore#//VersionRequirement/findBestMatch">
+        <genParameters ecoreParameter="Forge.ecore#//VersionRequirement/findBestMatch/versions"/>
+      </genOperations>
+    </genClasses>
   </genPackages>
 </genmodel:GenModel>

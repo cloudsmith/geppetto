@@ -29,7 +29,7 @@ You can do this in Geppetto by:
        <contents xsi:type="pptp:TPVariable"
          name="myvar2"
          documentation="This is variable 2"/>
-     </pptp:PuppetDistribution>
+     &gt;/pptp:PuppetDistributiom&lt;
 
 Add as many variables as you need.
 

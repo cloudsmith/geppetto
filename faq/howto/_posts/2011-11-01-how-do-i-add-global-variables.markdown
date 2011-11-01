@@ -23,13 +23,13 @@ You can do this in Geppetto by:
          description="Adds Global vars"
          version=""
          label="puppet ">
-       <contents xsi:type="pptp:TPVariable"
-         name="myvar1"
-         documentation="This is variable 1"/>
-       <contents xsi:type="pptp:TPVariable"
-         name="myvar2"
-         documentation="This is variable 2"/>
-       &lt;/pptp:PuppetDistributiom&gt;
+          <contents xsi:type="pptp:TPVariable"
+            name="myvar1"
+            documentation="This is variable 1"/>
+          <contents xsi:type="pptp:TPVariable"
+            name="myvar2"
+            documentation="This is variable 2"/>
+       </pptp:PuppetDistributiom>;
 
 Add as many variables as you need.
 

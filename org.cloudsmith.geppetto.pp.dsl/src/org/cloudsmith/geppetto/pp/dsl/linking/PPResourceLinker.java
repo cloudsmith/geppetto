@@ -22,6 +22,7 @@ import org.cloudsmith.geppetto.common.tracer.ITracer;
 import org.cloudsmith.geppetto.pp.AttributeOperation;
 import org.cloudsmith.geppetto.pp.AttributeOperations;
 import org.cloudsmith.geppetto.pp.Case;
+import org.cloudsmith.geppetto.pp.CaseExpression;
 import org.cloudsmith.geppetto.pp.Definition;
 import org.cloudsmith.geppetto.pp.ElseExpression;
 import org.cloudsmith.geppetto.pp.ElseIfExpression;
@@ -39,6 +40,8 @@ import org.cloudsmith.geppetto.pp.ParenthesisedExpression;
 import org.cloudsmith.geppetto.pp.PuppetManifest;
 import org.cloudsmith.geppetto.pp.ResourceBody;
 import org.cloudsmith.geppetto.pp.ResourceExpression;
+import org.cloudsmith.geppetto.pp.SelectorEntry;
+import org.cloudsmith.geppetto.pp.UnquotedString;
 import org.cloudsmith.geppetto.pp.VariableExpression;
 import org.cloudsmith.geppetto.pp.VariableTE;
 import org.cloudsmith.geppetto.pp.adapters.ClassifierAdapter;
@@ -54,6 +57,7 @@ import org.cloudsmith.geppetto.pp.dsl.linking.PPFinder.SearchResult;
 import org.cloudsmith.geppetto.pp.dsl.linking.PPSearchPath.ISearchPathProvider;
 import org.cloudsmith.geppetto.pp.dsl.validation.IPPDiagnostics;
 import org.cloudsmith.geppetto.pp.dsl.validation.IValidationAdvisor;
+import org.cloudsmith.geppetto.pp.dsl.validation.PPPatternHelper;
 import org.cloudsmith.geppetto.pp.dsl.validation.ValidationPreference;
 import org.cloudsmith.geppetto.pp.pptp.PPTPPackage;
 import org.eclipse.emf.common.util.EList;
@@ -88,6 +92,12 @@ public class PPResourceLinker implements IPPDiagnostics {
 	@Inject
 	@Named(PPDSLConstants.PP_DEBUG_LINKER)
 	private ITracer tracer;
+
+	/**
+	 * Access to precompiled regular expressions
+	 */
+	@Inject
+	private PPPatternHelper patternHelper;
 
 	/**
 	 * Access to the global index maintained by Xtext, is made via a special (non guice) provider
@@ -556,6 +566,16 @@ public class PPResourceLinker implements IPPDiagnostics {
 		return false;
 	}
 
+	private boolean containsRegularExpression(EObject o) {
+		if(o.eClass().getClassifierID() == PPPackage.LITERAL_REGEX)
+			return true;
+		TreeIterator<EObject> itor = o.eAllContents();
+		while(itor.hasNext())
+			if(itor.next().eClass().getClassifierID() == PPPackage.LITERAL_REGEX)
+				return true;
+		return false;
+	}
+
 	/**
 	 * Returns the first type description. If none is found, the first description is returned.
 	 * 
@@ -778,6 +798,65 @@ public class PPResourceLinker implements IPPDiagnostics {
 	}
 
 	/**
+	 * Produces an error if the given EObject o is not contained (nested) in an expression that injects
+	 * the result of a regular expression evaluation (i.e. $0 - $n).
+	 * The injecting expressions are if, elseif, case (entry), case expression, and selector entry.
+	 * 
+	 * TODO: Check if there are (less obvious) expressions
+	 * 
+	 * @param o
+	 * @param varName
+	 * @param attr
+	 * @param acceptor
+	 */
+	private void internalLinkRegexpVariable(EObject o, String varName, EAttribute attr, IMessageAcceptor acceptor) {
+		// upp the containment chain
+		for(EObject p = o.eContainer() /* , contained = o */; p != null; /* contained = p, */p = p.eContainer()) {
+			switch(p.eClass().getClassifierID()) {
+				case PPPackage.IF_EXPRESSION:
+					// o is either in cond, then or else part
+					// TODO: pedantic, check position in cond, must have regexp to the left.
+					if(containsRegularExpression(((IfExpression) p).getCondExpr()))
+						return;
+					break;
+				case PPPackage.ELSE_IF_EXPRESSION:
+					// o is either in cond, then or else part
+					// TODO: pedantic, check position in cond, must have regexp to the left.
+					if(containsRegularExpression(((ElseIfExpression) p).getCondExpr()))
+						return;
+					break;
+				case PPPackage.SELECTOR_ENTRY:
+					// TODO: pedantic, check position in leftExpr, must have regexp to the left.
+					if(containsRegularExpression(((SelectorEntry) p).getLeftExpr()))
+						return;
+					break;
+				// TODO: CHECK IF THIS ISOTHERIC CASE IS SUPPORTED
+				// case PPPackage.SELECTOR_EXPRESSION:
+				// if(containsRegularExpression(((SelectorExpression)p).get))
+				// return;
+				// break;
+				case PPPackage.CASE:
+					// i.e. case expr { v0, v1, v2 : statements }
+					for(EObject v : ((Case) p).getValues())
+						if(containsRegularExpression(v))
+							return;
+					break;
+				case PPPackage.CASE_EXPRESSION:
+					// TODO: Investigate if this is allowed i.e.:
+					// case $α =~ /regexp { true : $a = $0; false : $a = $0 }
+					if(containsRegularExpression(((CaseExpression) p).getSwitchExpr()))
+						return;
+					break;
+			}
+		}
+		acceptor.acceptWarning(
+			"Corresponding regular expression not found. Value of '" + varName +
+					"' can only be undefined at this point: '" + varName + "'", o, attr,
+			IPPDiagnostics.ISSUE__UNKNOWN_REGEXP);
+
+	}
+
+	/**
 	 * Links/validates unparenthesized function calls.
 	 * 
 	 * @param statements
@@ -837,6 +916,11 @@ public class PPResourceLinker implements IPPDiagnostics {
 		boolean existsOutside = false; // if not found, reflects if found outside search path
 		try {
 			qName = converter.toQualifiedName(varName);
+			if(patternHelper.isDECIMALVAR(varName)) {
+				internalLinkRegexpVariable(o, varName, attr, acceptor);
+				return;
+			}
+
 			qualified = qName.getSegmentCount() > 1;
 			global = qName.getFirstSegment().length() == 0;
 			searchResult = ppFinder.findVariable(o, qName, importedNames);
@@ -1009,11 +1093,17 @@ public class PPResourceLinker implements IPPDiagnostics {
 					internalLinkUnparenthesisedCall(((Case) o).getStatements(), importedNames, acceptor);
 					break;
 
-				case PPPackage.HOST_CLASS_DEFINITION: {
+				case PPPackage.HOST_CLASS_DEFINITION:
 					_link((HostClassDefinition) o, importedNames, acceptor);
 					internalLinkUnparenthesisedCall(((HostClassDefinition) o).getStatements(), importedNames, acceptor);
 					break;
-				}
+				case PPPackage.UNQUOTED_STRING:
+					Expression expr = ((UnquotedString) o).getExpression();
+					if(expr != null && expr instanceof LiteralNameOrReference) {
+						internalLinkVariable(
+							expr, PPPackage.Literals.LITERAL_NAME_OR_REFERENCE__VALUE,
+							((LiteralNameOrReference) expr).getValue(), importedNames, acceptor);
+					}
 			}
 		}
 		if(tracer.isTracing())

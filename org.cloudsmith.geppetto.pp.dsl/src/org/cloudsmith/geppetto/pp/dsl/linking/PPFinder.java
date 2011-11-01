@@ -472,8 +472,9 @@ public class PPFinder {
 		if(metaCache == null)
 			cacheMetaParameters(scopeDetermeningObject);
 
-		// If variable is a meta var, it is always found
 		final boolean singleSegment = fqn.getSegmentCount() == 1;
+
+		// If variable is a meta var, it is always found
 		if(singleSegment) {
 			IEObjectDescription metaVar = metaVarCache.get(fqn.getLastSegment());
 			if(metaVar != null)

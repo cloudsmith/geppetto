@@ -52,6 +52,8 @@ public class PPPatternHelper {
 
 	protected final Pattern recognizedDQEscapes;
 
+	protected final Pattern decimalVarPattern;
+
 	/**
 	 * Intended as Ruby %r{[\w-]} equivalence
 	 */
@@ -85,6 +87,8 @@ public class PPPatternHelper {
 		unrecognizedDQEscapes = Pattern.compile("\\\\[^stn '\"\\\\\\r\\n\\$]");
 
 		recognizedDQEscapes = Pattern.compile("\\\\[\\\\nrst'\" \\$]");
+
+		decimalVarPattern = Pattern.compile("\\$?([0]|([1-9][0-9]*))");
 	}
 
 	/**
@@ -135,6 +139,12 @@ public class PPPatternHelper {
 		if(s == null || s.length() == 0)
 			return false;
 		return classRefPattern.matcher(s).matches() && !s.contains(":::");
+	}
+
+	public boolean isDECIMALVAR(String s) {
+		if(s == null || s.length() == 0)
+			return false;
+		return decimalVarPattern.matcher(s).matches();
 	}
 
 	public boolean isNAME(String s) {

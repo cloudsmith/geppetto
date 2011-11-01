@@ -152,4 +152,8 @@ public interface IPPDiagnostics {
 
 	public static final String ISSUE__UNKNOWN_VARIABLE = ISSUE_PREFIX + "UnknownVariable";
 
+	public static final String ISSUE__ASSIGNMENT_DECIMAL_VAR = ISSUE_PREFIX + "AssignmentDecimalVar";
+
+	public static final String ISSUE__UNKNOWN_REGEXP = ISSUE_PREFIX + "UnknownRegexp";
+
 }

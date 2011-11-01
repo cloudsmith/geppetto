@@ -300,6 +300,13 @@ public class PPJavaValidator extends AbstractPPJavaValidator implements IPPDiagn
 					PPPackage.Literals.BINARY_EXPRESSION__LEFT_EXPR, INSIGNIFICANT_INDEX, //
 					IPPDiagnostics.ISSUE__ASSIGNMENT_OTHER_NAMESPACE);
 
+			// Decimal numeric variables are not assignable (clash with magic regexp variables)
+			if(patternHelper.isDECIMALVAR(varExpr.getVarName())) {
+				acceptor.acceptError("Cannot assign to regular expression result variable", o, //
+					PPPackage.Literals.BINARY_EXPRESSION__LEFT_EXPR, INSIGNIFICANT_INDEX, //
+					IPPDiagnostics.ISSUE__ASSIGNMENT_DECIMAL_VAR);
+			}
+
 			// TODO: reassignment not allowed
 		}
 	}

@@ -16,6 +16,7 @@ import java.io.OutputStream;
 import java.io.PrintStream;
 
 import org.cloudsmith.geppetto.pp.dsl.validation.IPPDiagnostics;
+import org.cloudsmith.geppetto.pp.dsl.validation.PPPatternHelper;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.xtext.resource.XtextResource;
@@ -54,6 +55,149 @@ public class TestVariables extends AbstractPuppetTests {
 	protected void tearDown() throws Exception {
 		super.tearDown();
 		System.setOut(savedOut);
+	}
+
+	public void test_assignmentToDecVarNotAllowed() throws Exception {
+		// not allowed
+		String code = "$0 = 10"; //
+		Resource r = loadAndLinkSingleResource(code);
+		tester.validate(r.getContents().get(0)).assertError(IPPDiagnostics.ISSUE__ASSIGNMENT_DECIMAL_VAR);
+
+		// allowed, not decimal
+		code = "$01 = 10"; //
+		r = loadAndLinkSingleResource(code);
+		tester.validate(r.getContents().get(0)).assertOK();
+	}
+
+	public void test_decimalDollarVariables_notOk() throws Exception {
+		// if
+		String code = "if 'abc' == 'abc' {\n" + //
+				"notice(\"$1\")" + //
+				"}\n"; //
+		XtextResource r = getResourceFromString(code);
+		tester.validate(r.getContents().get(0)).assertOK();
+		resourceWarningDiagnostics(r).assertDiagnostic(IPPDiagnostics.ISSUE__UNKNOWN_REGEXP);
+		resourceErrorDiagnostics(r).assertOK();
+
+		// case
+		code = "case 'abc' {\n" + //
+				"abc:" + "{ notice(\"$1\") }" + //
+				"}\n"; //
+		r = getResourceFromString(code);
+		tester.validate(r.getContents().get(0)).assertOK();
+		resourceWarningDiagnostics(r).assertDiagnostic(IPPDiagnostics.ISSUE__UNKNOWN_REGEXP);
+		resourceErrorDiagnostics(r).assertOK();
+
+		// selector
+		code = "$a = 'abc' ? {\n" + //
+				"'abc' =>" + "$1\n" + //
+				"}\n"; //
+		r = getResourceFromString(code);
+		tester.validate(r.getContents().get(0)).assertOK();
+		resourceWarningDiagnostics(r).assertDiagnostic(IPPDiagnostics.ISSUE__UNKNOWN_REGEXP);
+		resourceErrorDiagnostics(r).assertOK();
+	}
+
+	public void test_decimalDollarVariables_ok() throws Exception {
+		// if
+		String code = "if 'abc' =~ /a(b)c/ {\n" + //
+				"notice(\"$1\")" + //
+				"}\n"; //
+		XtextResource r = getResourceFromString(code);
+		tester.validate(r.getContents().get(0)).assertOK();
+		resourceWarningDiagnostics(r).assertOK();
+		resourceErrorDiagnostics(r).assertOK();
+
+		// case
+		code = "case 'abc' {\n" + //
+				"/a(b)c/:" + "{ notice(\"$1\") }" + //
+				"}\n"; //
+		r = getResourceFromString(code);
+		tester.validate(r.getContents().get(0)).assertOK();
+		resourceWarningDiagnostics(r).assertOK();
+		resourceErrorDiagnostics(r).assertOK();
+
+		// selector
+		code = "$a = 'abc' ? {\n" + //
+				"/a(b)c/ =>" + "$1\n" + //
+				"}\n"; //
+		r = getResourceFromString(code);
+		tester.validate(r.getContents().get(0)).assertOK();
+		resourceWarningDiagnostics(r).assertOK();
+		resourceErrorDiagnostics(r).assertOK();
+	}
+
+	public void test_decimalVariables_notOk() throws Exception {
+		// if
+		String code = "if 'abc' == 'abc' {\n" + //
+				"notice(\"${1}\")" + //
+				"}\n"; //
+		XtextResource r = getResourceFromString(code);
+		tester.validate(r.getContents().get(0)).assertOK();
+		resourceWarningDiagnostics(r).assertDiagnostic(IPPDiagnostics.ISSUE__UNKNOWN_REGEXP);
+		resourceErrorDiagnostics(r).assertOK();
+
+		// case
+		code = "case 'abc' {\n" + //
+				"abc:" + "{ notice(\"${1}\") }" + //
+				"}\n"; //
+		r = getResourceFromString(code);
+		tester.validate(r.getContents().get(0)).assertOK();
+		resourceWarningDiagnostics(r).assertDiagnostic(IPPDiagnostics.ISSUE__UNKNOWN_REGEXP);
+		resourceErrorDiagnostics(r).assertOK();
+
+		// selector
+		code = "$a = 'abc' ? {\n" + //
+				"'abc' =>" + "${1}\n" + //
+				"}\n"; //
+		r = getResourceFromString(code);
+		tester.validate(r.getContents().get(0)).assertOK();
+		resourceWarningDiagnostics(r).assertDiagnostic(IPPDiagnostics.ISSUE__UNKNOWN_REGEXP);
+		resourceErrorDiagnostics(r).assertOK();
+	}
+
+	public void test_decimalVariables_ok() throws Exception {
+		// if
+		String code = "if 'abc' =~ /a(b)c/ {\n" + //
+				"notice(\"${1}\")" + //
+				"}\n"; //
+		XtextResource r = getResourceFromString(code);
+		tester.validate(r.getContents().get(0)).assertOK();
+		resourceWarningDiagnostics(r).assertOK();
+		resourceErrorDiagnostics(r).assertOK();
+
+		// case
+		code = "case 'abc' {\n" + //
+				"/a(b)c/:" + "{ notice(\"${1}\") }" + //
+				"}\n"; //
+		r = getResourceFromString(code);
+		tester.validate(r.getContents().get(0)).assertOK();
+		resourceWarningDiagnostics(r).assertOK();
+		resourceErrorDiagnostics(r).assertOK();
+
+		// selector
+		code = "$a = 'abc' ? {\n" + //
+				"/a(b)c/ =>" + "${1}\n" + //
+				"}\n"; //
+		r = getResourceFromString(code);
+		tester.validate(r.getContents().get(0)).assertOK();
+		resourceWarningDiagnostics(r).assertOK();
+		resourceErrorDiagnostics(r).assertOK();
+	}
+
+	public void test_linking2RegexpVar() throws Exception {
+		String code = "if 'abc' =~ /a(b)c/ { notice(\"$1\") } "; //
+		Resource r = loadAndLinkSingleResource(code);
+		tester.validate(r.getContents().get(0)).assertOK();
+		resourceWarningDiagnostics(r).assertOK();
+	}
+
+	public void test_numericVariableDetection() throws Exception {
+		PPPatternHelper patternHelper = new PPPatternHelper();
+		for(int i = 0; i < 21; i++) {
+			assertTrue("Should accept $" + i, patternHelper.isDECIMALVAR("$" + i));
+			assertTrue("Should accept " + i, patternHelper.isDECIMALVAR("" + i));
+		}
 	}
 
 	/**
@@ -232,7 +376,6 @@ public class TestVariables extends AbstractPuppetTests {
 				"$ref = $x\n" + //
 				"}\n" + //
 				"}\n"; //
-		;
 		XtextResource r = getResourceFromString(code);
 		tester.validate(r.getContents().get(0)).assertOK();
 		resourceWarningDiagnostics(r).assertDiagnostic(IPPDiagnostics.ISSUE__UNKNOWN_VARIABLE);

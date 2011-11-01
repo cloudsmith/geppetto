@@ -369,6 +369,8 @@ public class PPFinder {
 		QualifiedName fqn = converter.toQualifiedName(name);
 		// make last segments initial char lower case (for references to the type itself - eg. 'File' instead of
 		// 'file'.
+		if(fqn.getSegmentCount() == 0)
+			return new SearchResult(); // can happen while editing
 		fqn = fqn.skipLast(1).append(toInitialLowerCase(fqn.getLastSegment()));
 		return findExternal(scopeDetermeningResource, fqn, importedNames, Match.EQUALS, CLASS_AND_TYPE);
 	}

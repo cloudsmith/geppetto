@@ -473,8 +473,14 @@ public class PPModulefileBuilder extends IncrementalProjectBuilder implements PP
 						metadata.loadTypeFiles(tf);
 					metadata.loadChecksums(pf);
 					metadata.saveJSONMetadata(mf);
-					// must refresh the file as it was writting outside the resource framework
+					// must refresh the file as it was written outside the resource framework
 					IFile metadataResource = getProject().getFile("metadata.json");
+					try {
+						metadataResource.setDerived(true, monitor);
+					}
+					catch(CoreException e) {
+						log.error("Could not make 'metadata.json' derived", e);
+					}
 					try {
 						metadataResource.refreshLocal(IResource.DEPTH_ZERO, monitor);
 					}

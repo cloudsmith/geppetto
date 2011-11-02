@@ -163,7 +163,8 @@ public class PPFinder {
 		Multimap<String, IEObjectDescription> map = ArrayListMultimap.create();
 		// add all (possibly dirty in global index)
 		for(IEObjectDescription d : dirty.getExportedObjects())
-			map.put(d.getQualifiedName().getLastSegment(), d);
+			if(d.getQualifiedName().getSegmentCount() >= 1) // names may be empty while editing
+				map.put(d.getQualifiedName().getLastSegment(), d);
 		// add all from global index, except those for current resource
 		for(IEObjectDescription d : getExportedObjects(descr, descriptionIndex))
 			if(!d.getEObjectURI().path().equals(pathToCurrent))

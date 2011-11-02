@@ -152,6 +152,18 @@ public class PPResourceLinker implements IPPDiagnostics {
 	@Inject
 	private Provider<IValidationAdvisor> validationAdvisorProvider;
 
+	// /**
+	// * Checks that a variable in the value expression tree does not reference another definition
+	// * argument, or variables defined inside the class body. This can only happen when the
+	// * value is a fully qualified name as the relative lookup already takes the scope into account.
+	// *
+	// * @param o
+	// * @param acceptor
+	// */
+	// private void _check(DefinitionArgument o, IMessageAcceptor acceptor) {
+	//
+	// }
+
 	private void _link(ExpressionTE o, PPImportedNamesAdapter importedNames, IMessageAcceptor acceptor) {
 		Expression expr = o.getExpression();
 		if(expr instanceof ParenthesisedExpression)
@@ -910,6 +922,7 @@ public class PPResourceLinker implements IPPDiagnostics {
 			IMessageAcceptor acceptor) {
 		boolean qualified = false;
 		boolean global = false;
+		boolean disqualified = false;
 		QualifiedName qName = null;
 		SearchResult searchResult = null;
 		boolean existsAdjusted = false; // variable found as stated
@@ -924,6 +937,11 @@ public class PPResourceLinker implements IPPDiagnostics {
 			qualified = qName.getSegmentCount() > 1;
 			global = qName.getFirstSegment().length() == 0;
 			searchResult = ppFinder.findVariable(o, qName, importedNames);
+
+			// remove all references to not yet initialized variables
+			disqualified = (0 != removeDisqualifiedVariables(searchResult.getRaw(), o));
+			if(disqualified) // adjusted can not have disqualified entries if raw did not have them
+				removeDisqualifiedVariables(searchResult.getAdjusted(), o);
 			existsAdjusted = searchResult.getAdjusted().size() > 0;
 			existsOutside = existsAdjusted
 					? false // we are not interested in that it may be both adjusted and raw
@@ -957,16 +975,22 @@ public class PPResourceLinker implements IPPDiagnostics {
 				// found nowhere
 				if(qualified || advisor.unqualifiedVariables().isWarningOrError()) {
 					StringBuilder message = new StringBuilder();
-					message.append(qualified
-							? "Unknown variable: '"
-							: "Unqualified and Unknown variable: '");
+					if(disqualified)
+						message.append("Reference to not yet initialized variable");
+					else
+						message.append(qualified
+								? "Unknown variable: '"
+								: "Unqualified and Unknown variable: '");
 					message.append(varName);
 					message.append("'");
 
-					if(advisor.unqualifiedVariables() == ValidationPreference.ERROR)
-						acceptor.acceptError(message.toString(), o, attr, IPPDiagnostics.ISSUE__UNKNOWN_VARIABLE);
+					String issue = disqualified
+							? IPPDiagnostics.ISSUE__UNINITIALIZED_VARIABLE
+							: IPPDiagnostics.ISSUE__UNKNOWN_VARIABLE;
+					if(disqualified || advisor.unqualifiedVariables() == ValidationPreference.ERROR)
+						acceptor.acceptError(message.toString(), o, attr, issue);
 					else
-						acceptor.acceptWarning(message.toString(), o, attr, IPPDiagnostics.ISSUE__UNKNOWN_VARIABLE);
+						acceptor.acceptWarning(message.toString(), o, attr, issue);
 				}
 			}
 			else if(!existsAdjusted && existsOutside) {
@@ -1104,6 +1128,10 @@ public class PPResourceLinker implements IPPDiagnostics {
 							expr, PPPackage.Literals.LITERAL_NAME_OR_REFERENCE__VALUE,
 							((LiteralNameOrReference) expr).getValue(), importedNames, acceptor);
 					}
+					break;
+			// case PPPackage.DEFINITION_ARGUMENT:
+			// _check((DefinitionArgument) o, acceptor);
+			// break;
 			}
 		}
 		if(tracer.isTracing())
@@ -1118,7 +1146,9 @@ public class PPResourceLinker implements IPPDiagnostics {
 	 * @param descs
 	 * @param o
 	 */
-	private void removeDisqualifiedContainers(List<IEObjectDescription> descs, Expression o) {
+	private void removeDisqualifiedContainers(List<IEObjectDescription> descs, EObject o) {
+		if(descs == null)
+			return;
 		ListIterator<IEObjectDescription> litor = descs.listIterator();
 		while(litor.hasNext()) {
 			IEObjectDescription x = litor.next();
@@ -1126,6 +1156,45 @@ public class PPResourceLinker implements IPPDiagnostics {
 				continue;
 			litor.remove();
 		}
+	}
+
+	/**
+	 * Remove variables/entries that are not yet initialized. These are the values
+	 * defined in the same name and type if the variable is contained in a definition argument
+	 * 
+	 * <p>
+	 * e.g. in define selfref($selfa = $selfref::selfa, $selfb=$selfa::x) { $x=10 } none of the references to selfa, or x are disqualified.
+	 * 
+	 * @param descs
+	 * @param o
+	 * @return the number of disqualified variables removed from the list
+	 */
+	private int removeDisqualifiedVariables(List<IEObjectDescription> descs, EObject o) {
+		if(descs == null || descs.size() == 0)
+			return 0;
+		EObject p = o;
+		while(p != null && p.eClass().getClassifierID() != PPPackage.DEFINITION_ARGUMENT)
+			p = p.eContainer();
+		if(p == null)
+			return 0; // not in a definition argument value tree
+
+		// p is a DefinitionArgument at this point, we want it's parent being an abstract Definition
+		EObject d = p.eContainer();
+		if(d == null)
+			return 0; // broken model
+		d = d.eContainer();
+		final String definitionFragment = d.eResource().getURIFragment(d);
+
+		int removedCount = 0;
+		ListIterator<IEObjectDescription> litor = descs.listIterator();
+		while(litor.hasNext()) {
+			IEObjectDescription x = litor.next();
+			if(x.getEObjectURI().fragment().startsWith(definitionFragment)) {
+				litor.remove();
+				removedCount++;
+			}
+		}
+		return removedCount;
 	}
 
 	/**

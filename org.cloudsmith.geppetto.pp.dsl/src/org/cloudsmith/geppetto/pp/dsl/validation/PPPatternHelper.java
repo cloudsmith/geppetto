@@ -57,7 +57,7 @@ public class PPPatternHelper {
 	/**
 	 * Intended as Ruby %r{[\w-]} equivalence
 	 */
-	private static final String EXT_WORD_CHAR = "[0-9a-zA-Z_\\.-]";
+	private static final String EXT_WORD_CHAR = "[0-9a-zA-Z_-]";
 
 	/**
 	 * Intended as Ruby %r{-[\w]} equivalence

@@ -57,7 +57,7 @@ public class PPPatternHelper {
 	/**
 	 * Intended as Ruby %r{[\w-]} equivalence
 	 */
-	private static final String EXT_WORD_CHAR = "[0-9a-zA-Z_-]";
+	private static final String EXT_WORD_CHAR = "[0-9a-zA-Z_\\.-]";
 
 	/**
 	 * Intended as Ruby %r{-[\w]} equivalence
@@ -67,8 +67,8 @@ public class PPPatternHelper {
 	@Inject
 	public PPPatternHelper() {
 		namePattern = Pattern.compile("[0-9a-z]" + EXT_WORD_CHAR + "*");
-		classRefPattern = Pattern.compile("((::)?[A-Z]" + EXT_WORD_CHAR + "*)+");
-		classNamePattern = Pattern.compile("([a-z]" + EXT_WORD_CHAR + "*)?(::[a-z]" + EXT_WORD_CHAR + "*)*");
+		classRefPattern = Pattern.compile("((::)?[A-Z]" + WORD_CHAR + "*)+");
+		classNamePattern = Pattern.compile("([a-z]" + WORD_CHAR + "*)?(::[a-z]" + WORD_CHAR + "*)*");
 
 		// regexp may not:
 		// be empty - '//'

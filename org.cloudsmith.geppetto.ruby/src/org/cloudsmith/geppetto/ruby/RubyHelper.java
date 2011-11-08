@@ -541,6 +541,12 @@ public class RubyHelper {
 		metaTitle.setDocumentation("");
 		metaTitle.setDeprecated(false);
 		metaVars.add(metaTitle);
+
+		MetaVariable metaModuleName = PPTPFactory.eINSTANCE.createMetaVariable();
+		metaModuleName.setName("module_name");
+		metaModuleName.setDocumentation("The name of the containing module");
+		metaModuleName.setDeprecated(false);
+		metaVars.add(metaModuleName);
 	}
 
 	private void loadNagiosTypes(TargetEntry target, File rbFile) throws IOException, RubySyntaxException {

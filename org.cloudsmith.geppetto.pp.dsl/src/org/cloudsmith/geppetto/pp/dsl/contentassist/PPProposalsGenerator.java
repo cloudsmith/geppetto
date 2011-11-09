@@ -159,6 +159,9 @@ public class PPProposalsGenerator {
 	 */
 	public String[] computeProposals(final String currentName, Collection<IEObjectDescription> descs,
 			PPSearchPath searchPath, EClass... types) {
+		if(currentName == null || currentName.length() < 1)
+			return new String[0];
+
 		// compute the 5 best matches and only accept if score <= 5
 		ScoreKeeper<IEObjectDescription> tracker = new ScoreKeeper<IEObjectDescription>(5, false, 5);
 		// List<IEObjectDescription> metaphoneAlike = Lists.newArrayList();

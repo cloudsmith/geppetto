@@ -322,8 +322,8 @@ public class AbstractPuppetTests extends AbstractXtextTests {
 		options.put(XtextResource.OPTION_ENCODING, "UTF8");
 
 		Resource r = factory.createResource(uri);
-		r.load(in, options);
 		resourceSet.getResources().add(r);
+		r.load(in, options);
 
 		return r;
 	}

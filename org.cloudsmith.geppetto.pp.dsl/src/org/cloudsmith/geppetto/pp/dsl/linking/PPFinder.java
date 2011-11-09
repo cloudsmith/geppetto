@@ -163,7 +163,8 @@ public class PPFinder {
 		Multimap<String, IEObjectDescription> map = ArrayListMultimap.create();
 		// add all (possibly dirty in global index)
 		for(IEObjectDescription d : dirty.getExportedObjects())
-			map.put(d.getQualifiedName().getLastSegment(), d);
+			if(d.getQualifiedName().getSegmentCount() >= 1) // names may be empty while editing
+				map.put(d.getQualifiedName().getLastSegment(), d);
 		// add all from global index, except those for current resource
 		for(IEObjectDescription d : getExportedObjects(descr, descriptionIndex))
 			if(!d.getEObjectURI().path().equals(pathToCurrent))
@@ -369,6 +370,8 @@ public class PPFinder {
 		QualifiedName fqn = converter.toQualifiedName(name);
 		// make last segments initial char lower case (for references to the type itself - eg. 'File' instead of
 		// 'file'.
+		if(fqn.getSegmentCount() == 0)
+			return new SearchResult(); // can happen while editing
 		fqn = fqn.skipLast(1).append(toInitialLowerCase(fqn.getLastSegment()));
 		return findExternal(scopeDetermeningResource, fqn, importedNames, Match.EQUALS, CLASS_AND_TYPE);
 	}
@@ -472,8 +475,9 @@ public class PPFinder {
 		if(metaCache == null)
 			cacheMetaParameters(scopeDetermeningObject);
 
-		// If variable is a meta var, it is always found
 		final boolean singleSegment = fqn.getSegmentCount() == 1;
+
+		// If variable is a meta var, it is always found
 		if(singleSegment) {
 			IEObjectDescription metaVar = metaVarCache.get(fqn.getLastSegment());
 			if(metaVar != null)

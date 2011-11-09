@@ -52,6 +52,8 @@ public class PPPatternHelper {
 
 	protected final Pattern recognizedDQEscapes;
 
+	protected final Pattern decimalVarPattern;
+
 	/**
 	 * Intended as Ruby %r{[\w-]} equivalence
 	 */
@@ -65,8 +67,8 @@ public class PPPatternHelper {
 	@Inject
 	public PPPatternHelper() {
 		namePattern = Pattern.compile("[0-9a-z]" + EXT_WORD_CHAR + "*");
-		classRefPattern = Pattern.compile("((::)?[A-Z]" + EXT_WORD_CHAR + "*)+");
-		classNamePattern = Pattern.compile("([a-z]" + EXT_WORD_CHAR + "*)?(::[a-z]" + EXT_WORD_CHAR + "*)*");
+		classRefPattern = Pattern.compile("((::)?[A-Z]" + WORD_CHAR + "*)+");
+		classNamePattern = Pattern.compile("([a-z]" + WORD_CHAR + "*)?(::[a-z]" + WORD_CHAR + "*)*");
 
 		// regexp may not:
 		// be empty - '//'
@@ -85,6 +87,8 @@ public class PPPatternHelper {
 		unrecognizedDQEscapes = Pattern.compile("\\\\[^stn '\"\\\\\\r\\n\\$]");
 
 		recognizedDQEscapes = Pattern.compile("\\\\[\\\\nrst'\" \\$]");
+
+		decimalVarPattern = Pattern.compile("\\$?([0]|([1-9][0-9]*))");
 	}
 
 	/**
@@ -135,6 +139,12 @@ public class PPPatternHelper {
 		if(s == null || s.length() == 0)
 			return false;
 		return classRefPattern.matcher(s).matches() && !s.contains(":::");
+	}
+
+	public boolean isDECIMALVAR(String s) {
+		if(s == null || s.length() == 0)
+			return false;
+		return decimalVarPattern.matcher(s).matches();
 	}
 
 	public boolean isNAME(String s) {

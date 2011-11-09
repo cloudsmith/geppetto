@@ -22,6 +22,7 @@ import org.cloudsmith.geppetto.common.tracer.ITracer;
 import org.cloudsmith.geppetto.pp.AttributeOperation;
 import org.cloudsmith.geppetto.pp.AttributeOperations;
 import org.cloudsmith.geppetto.pp.Case;
+import org.cloudsmith.geppetto.pp.CaseExpression;
 import org.cloudsmith.geppetto.pp.Definition;
 import org.cloudsmith.geppetto.pp.ElseExpression;
 import org.cloudsmith.geppetto.pp.ElseIfExpression;
@@ -39,6 +40,8 @@ import org.cloudsmith.geppetto.pp.ParenthesisedExpression;
 import org.cloudsmith.geppetto.pp.PuppetManifest;
 import org.cloudsmith.geppetto.pp.ResourceBody;
 import org.cloudsmith.geppetto.pp.ResourceExpression;
+import org.cloudsmith.geppetto.pp.SelectorEntry;
+import org.cloudsmith.geppetto.pp.UnquotedString;
 import org.cloudsmith.geppetto.pp.VariableExpression;
 import org.cloudsmith.geppetto.pp.VariableTE;
 import org.cloudsmith.geppetto.pp.adapters.ClassifierAdapter;
@@ -54,6 +57,7 @@ import org.cloudsmith.geppetto.pp.dsl.linking.PPFinder.SearchResult;
 import org.cloudsmith.geppetto.pp.dsl.linking.PPSearchPath.ISearchPathProvider;
 import org.cloudsmith.geppetto.pp.dsl.validation.IPPDiagnostics;
 import org.cloudsmith.geppetto.pp.dsl.validation.IValidationAdvisor;
+import org.cloudsmith.geppetto.pp.dsl.validation.PPPatternHelper;
 import org.cloudsmith.geppetto.pp.dsl.validation.ValidationPreference;
 import org.cloudsmith.geppetto.pp.pptp.PPTPPackage;
 import org.eclipse.emf.common.util.EList;
@@ -88,6 +92,12 @@ public class PPResourceLinker implements IPPDiagnostics {
 	@Inject
 	@Named(PPDSLConstants.PP_DEBUG_LINKER)
 	private ITracer tracer;
+
+	/**
+	 * Access to precompiled regular expressions
+	 */
+	@Inject
+	private PPPatternHelper patternHelper;
 
 	/**
 	 * Access to the global index maintained by Xtext, is made via a special (non guice) provider
@@ -141,6 +151,18 @@ public class PPResourceLinker implements IPPDiagnostics {
 
 	@Inject
 	private Provider<IValidationAdvisor> validationAdvisorProvider;
+
+	// /**
+	// * Checks that a variable in the value expression tree does not reference another definition
+	// * argument, or variables defined inside the class body. This can only happen when the
+	// * value is a fully qualified name as the relative lookup already takes the scope into account.
+	// *
+	// * @param o
+	// * @param acceptor
+	// */
+	// private void _check(DefinitionArgument o, IMessageAcceptor acceptor) {
+	//
+	// }
 
 	private void _link(ExpressionTE o, PPImportedNamesAdapter importedNames, IMessageAcceptor acceptor) {
 		Expression expr = o.getExpression();
@@ -556,6 +578,16 @@ public class PPResourceLinker implements IPPDiagnostics {
 		return false;
 	}
 
+	private boolean containsRegularExpression(EObject o) {
+		if(o.eClass().getClassifierID() == PPPackage.LITERAL_REGEX)
+			return true;
+		TreeIterator<EObject> itor = o.eAllContents();
+		while(itor.hasNext())
+			if(itor.next().eClass().getClassifierID() == PPPackage.LITERAL_REGEX)
+				return true;
+		return false;
+	}
+
 	/**
 	 * Returns the first type description. If none is found, the first description is returned.
 	 * 
@@ -778,6 +810,65 @@ public class PPResourceLinker implements IPPDiagnostics {
 	}
 
 	/**
+	 * Produces an error if the given EObject o is not contained (nested) in an expression that injects
+	 * the result of a regular expression evaluation (i.e. $0 - $n).
+	 * The injecting expressions are if, elseif, case (entry), case expression, and selector entry.
+	 * 
+	 * TODO: Check if there are (less obvious) expressions
+	 * 
+	 * @param o
+	 * @param varName
+	 * @param attr
+	 * @param acceptor
+	 */
+	private void internalLinkRegexpVariable(EObject o, String varName, EAttribute attr, IMessageAcceptor acceptor) {
+		// upp the containment chain
+		for(EObject p = o.eContainer() /* , contained = o */; p != null; /* contained = p, */p = p.eContainer()) {
+			switch(p.eClass().getClassifierID()) {
+				case PPPackage.IF_EXPRESSION:
+					// o is either in cond, then or else part
+					// TODO: pedantic, check position in cond, must have regexp to the left.
+					if(containsRegularExpression(((IfExpression) p).getCondExpr()))
+						return;
+					break;
+				case PPPackage.ELSE_IF_EXPRESSION:
+					// o is either in cond, then or else part
+					// TODO: pedantic, check position in cond, must have regexp to the left.
+					if(containsRegularExpression(((ElseIfExpression) p).getCondExpr()))
+						return;
+					break;
+				case PPPackage.SELECTOR_ENTRY:
+					// TODO: pedantic, check position in leftExpr, must have regexp to the left.
+					if(containsRegularExpression(((SelectorEntry) p).getLeftExpr()))
+						return;
+					break;
+				// TODO: CHECK IF THIS ISOTHERIC CASE IS SUPPORTED
+				// case PPPackage.SELECTOR_EXPRESSION:
+				// if(containsRegularExpression(((SelectorExpression)p).get))
+				// return;
+				// break;
+				case PPPackage.CASE:
+					// i.e. case expr { v0, v1, v2 : statements }
+					for(EObject v : ((Case) p).getValues())
+						if(containsRegularExpression(v))
+							return;
+					break;
+				case PPPackage.CASE_EXPRESSION:
+					// TODO: Investigate if this is allowed i.e.:
+					// case $α =~ /regexp { true : $a = $0; false : $a = $0 }
+					if(containsRegularExpression(((CaseExpression) p).getSwitchExpr()))
+						return;
+					break;
+			}
+		}
+		acceptor.acceptWarning(
+			"Corresponding regular expression not found. Value of '" + varName +
+					"' can only be undefined at this point: '" + varName + "'", o, attr,
+			IPPDiagnostics.ISSUE__UNKNOWN_REGEXP);
+
+	}
+
+	/**
 	 * Links/validates unparenthesized function calls.
 	 * 
 	 * @param statements
@@ -831,15 +922,26 @@ public class PPResourceLinker implements IPPDiagnostics {
 			IMessageAcceptor acceptor) {
 		boolean qualified = false;
 		boolean global = false;
+		boolean disqualified = false;
 		QualifiedName qName = null;
 		SearchResult searchResult = null;
 		boolean existsAdjusted = false; // variable found as stated
 		boolean existsOutside = false; // if not found, reflects if found outside search path
 		try {
 			qName = converter.toQualifiedName(varName);
+			if(patternHelper.isDECIMALVAR(varName)) {
+				internalLinkRegexpVariable(o, varName, attr, acceptor);
+				return;
+			}
+
 			qualified = qName.getSegmentCount() > 1;
 			global = qName.getFirstSegment().length() == 0;
 			searchResult = ppFinder.findVariable(o, qName, importedNames);
+
+			// remove all references to not yet initialized variables
+			disqualified = (0 != removeDisqualifiedVariables(searchResult.getRaw(), o));
+			if(disqualified) // adjusted can not have disqualified entries if raw did not have them
+				removeDisqualifiedVariables(searchResult.getAdjusted(), o);
 			existsAdjusted = searchResult.getAdjusted().size() > 0;
 			existsOutside = existsAdjusted
 					? false // we are not interested in that it may be both adjusted and raw
@@ -873,16 +975,22 @@ public class PPResourceLinker implements IPPDiagnostics {
 				// found nowhere
 				if(qualified || advisor.unqualifiedVariables().isWarningOrError()) {
 					StringBuilder message = new StringBuilder();
-					message.append(qualified
-							? "Unknown variable: '"
-							: "Unqualified and Unknown variable: '");
+					if(disqualified)
+						message.append("Reference to not yet initialized variable");
+					else
+						message.append(qualified
+								? "Unknown variable: '"
+								: "Unqualified and Unknown variable: '");
 					message.append(varName);
 					message.append("'");
 
-					if(advisor.unqualifiedVariables() == ValidationPreference.ERROR)
-						acceptor.acceptError(message.toString(), o, attr, IPPDiagnostics.ISSUE__UNKNOWN_VARIABLE);
+					String issue = disqualified
+							? IPPDiagnostics.ISSUE__UNINITIALIZED_VARIABLE
+							: IPPDiagnostics.ISSUE__UNKNOWN_VARIABLE;
+					if(disqualified || advisor.unqualifiedVariables() == ValidationPreference.ERROR)
+						acceptor.acceptError(message.toString(), o, attr, issue);
 					else
-						acceptor.acceptWarning(message.toString(), o, attr, IPPDiagnostics.ISSUE__UNKNOWN_VARIABLE);
+						acceptor.acceptWarning(message.toString(), o, attr, issue);
 				}
 			}
 			else if(!existsAdjusted && existsOutside) {
@@ -1009,11 +1117,21 @@ public class PPResourceLinker implements IPPDiagnostics {
 					internalLinkUnparenthesisedCall(((Case) o).getStatements(), importedNames, acceptor);
 					break;
 
-				case PPPackage.HOST_CLASS_DEFINITION: {
+				case PPPackage.HOST_CLASS_DEFINITION:
 					_link((HostClassDefinition) o, importedNames, acceptor);
 					internalLinkUnparenthesisedCall(((HostClassDefinition) o).getStatements(), importedNames, acceptor);
 					break;
-				}
+				case PPPackage.UNQUOTED_STRING:
+					Expression expr = ((UnquotedString) o).getExpression();
+					if(expr != null && expr instanceof LiteralNameOrReference) {
+						internalLinkVariable(
+							expr, PPPackage.Literals.LITERAL_NAME_OR_REFERENCE__VALUE,
+							((LiteralNameOrReference) expr).getValue(), importedNames, acceptor);
+					}
+					break;
+			// case PPPackage.DEFINITION_ARGUMENT:
+			// _check((DefinitionArgument) o, acceptor);
+			// break;
 			}
 		}
 		if(tracer.isTracing())
@@ -1028,7 +1146,9 @@ public class PPResourceLinker implements IPPDiagnostics {
 	 * @param descs
 	 * @param o
 	 */
-	private void removeDisqualifiedContainers(List<IEObjectDescription> descs, Expression o) {
+	private void removeDisqualifiedContainers(List<IEObjectDescription> descs, EObject o) {
+		if(descs == null)
+			return;
 		ListIterator<IEObjectDescription> litor = descs.listIterator();
 		while(litor.hasNext()) {
 			IEObjectDescription x = litor.next();
@@ -1036,6 +1156,45 @@ public class PPResourceLinker implements IPPDiagnostics {
 				continue;
 			litor.remove();
 		}
+	}
+
+	/**
+	 * Remove variables/entries that are not yet initialized. These are the values
+	 * defined in the same name and type if the variable is contained in a definition argument
+	 * 
+	 * <p>
+	 * e.g. in define selfref($selfa = $selfref::selfa, $selfb=$selfa::x) { $x=10 } none of the references to selfa, or x are disqualified.
+	 * 
+	 * @param descs
+	 * @param o
+	 * @return the number of disqualified variables removed from the list
+	 */
+	private int removeDisqualifiedVariables(List<IEObjectDescription> descs, EObject o) {
+		if(descs == null || descs.size() == 0)
+			return 0;
+		EObject p = o;
+		while(p != null && p.eClass().getClassifierID() != PPPackage.DEFINITION_ARGUMENT)
+			p = p.eContainer();
+		if(p == null)
+			return 0; // not in a definition argument value tree
+
+		// p is a DefinitionArgument at this point, we want it's parent being an abstract Definition
+		EObject d = p.eContainer();
+		if(d == null)
+			return 0; // broken model
+		d = d.eContainer();
+		final String definitionFragment = d.eResource().getURIFragment(d);
+
+		int removedCount = 0;
+		ListIterator<IEObjectDescription> litor = descs.listIterator();
+		while(litor.hasNext()) {
+			IEObjectDescription x = litor.next();
+			if(x.getEObjectURI().fragment().startsWith(definitionFragment)) {
+				litor.remove();
+				removedCount++;
+			}
+		}
+		return removedCount;
 	}
 
 	/**

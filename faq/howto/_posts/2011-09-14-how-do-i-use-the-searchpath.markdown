@@ -12,7 +12,7 @@ By deault, the path is:
      lib/*:environments/$environment/*:manifests/*:modules/*
 
 Implicitly, the puppet environment selected under Preferences > Puppet > Puppet target version (i.e. the types, functions, and variables provided in a puppet distribution) is always searched before the search path is consulted.
-The search path conists of `:` separated entries, where each entry is a path to a directory relative to a project root.
+The search path consists of `:` separated entries, where each entry is a path to a directory relative to a project root.
 If the path ends with `/*` content in all subdirectories will become visible. If it does not end with `/*` only the direct contents of the given
 directory is made visible.
 

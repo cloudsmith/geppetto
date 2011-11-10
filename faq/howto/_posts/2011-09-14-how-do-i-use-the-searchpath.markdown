@@ -16,7 +16,7 @@ The search path consists of `:` separated entries, where each entry is a path to
 If the path ends with `/*` content in all subdirectories will become visible. If it does not end with `/*` only the direct contents of the given
 directory is made visible.
 
-Note that this path is not the same as the puppet modulepath, as it needs to speciy the directories where the content actually is (.pp and .rb files).
+Note that Geppetto's search path is not the same as the puppet modulepath, as it needs to speciy the directories where the content actually is (.pp and .rb files). In contrast, the puppet module path points to directories where modules can be found.
 
 The variable $environment can be used in the path. It will expand to the value of the environment preference. (You can naturally spell out the
 name if you want to). The intention is that a default path can be used for all/most projects, and only the environment preference needs to be set

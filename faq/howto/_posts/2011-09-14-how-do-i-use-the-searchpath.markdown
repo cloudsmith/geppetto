@@ -25,4 +25,4 @@ per project.
 If you set the search path to a single `*` you will get the same behaviour as in Geppetto 1.0.2 - i.e. everything is visible and there is no
 defined search order.
 
-You can not use the search path to point to other projects.
+Also note that the search path is applied relative to each project. You can not use the search path to point to other projects, or to files that are not in projects. (You can not use tricks like ../../ to navigate above the project). If you need external content in your workspace, you can use Linked Folders.

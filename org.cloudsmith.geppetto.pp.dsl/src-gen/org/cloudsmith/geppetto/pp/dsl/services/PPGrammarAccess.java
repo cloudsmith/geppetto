@@ -2796,9 +2796,10 @@ public class PPGrammarAccess extends AbstractGrammarElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "DoubleQuotedString");
 		private final Group cGroup = (Group)rule.eContents().get(1);
 		private final Keyword cQuotationMarkKeyword_0 = (Keyword)cGroup.eContents().get(0);
-		private final Assignment cTextExpressionAssignment_1 = (Assignment)cGroup.eContents().get(1);
-		private final RuleCall cTextExpressionTextExpressionParserRuleCall_1_0 = (RuleCall)cTextExpressionAssignment_1.eContents().get(0);
-		private final Keyword cQuotationMarkKeyword_2 = (Keyword)cGroup.eContents().get(2);
+		private final Action cDoubleQuotedStringAction_1 = (Action)cGroup.eContents().get(1);
+		private final Assignment cStringPartAssignment_2 = (Assignment)cGroup.eContents().get(2);
+		private final RuleCall cStringPartTextExpressionParserRuleCall_2_0 = (RuleCall)cStringPartAssignment_2.eContents().get(0);
+		private final Keyword cQuotationMarkKeyword_3 = (Keyword)cGroup.eContents().get(3);
 		
 		//// Special declarations to aid syntax coloring of a $ in a special place.	
 		////DQT_DOLLAR : '$' ;
@@ -2809,118 +2810,72 @@ public class PPGrammarAccess extends AbstractGrammarElementFinder {
 		//// - ${ expression } - evaluated and included in the string
 		////
 		//DoubleQuotedString returns pp::DoubleQuotedString hidden():
-		//	"\"" textExpression=TextExpression "\"";
+		//	"\"" {pp::DoubleQuotedString} stringPart+=TextExpression* "\"";
 		public ParserRule getRule() { return rule; }
 
-		//"\"" textExpression=TextExpression "\""
+		//"\"" {pp::DoubleQuotedString} stringPart+=TextExpression* "\""
 		public Group getGroup() { return cGroup; }
 
 		//"\""
 		public Keyword getQuotationMarkKeyword_0() { return cQuotationMarkKeyword_0; }
 
-		//textExpression=TextExpression
-		public Assignment getTextExpressionAssignment_1() { return cTextExpressionAssignment_1; }
+		//{pp::DoubleQuotedString}
+		public Action getDoubleQuotedStringAction_1() { return cDoubleQuotedStringAction_1; }
+
+		//stringPart+=TextExpression*
+		public Assignment getStringPartAssignment_2() { return cStringPartAssignment_2; }
 
 		//TextExpression
-		public RuleCall getTextExpressionTextExpressionParserRuleCall_1_0() { return cTextExpressionTextExpressionParserRuleCall_1_0; }
+		public RuleCall getStringPartTextExpressionParserRuleCall_2_0() { return cStringPartTextExpressionParserRuleCall_2_0; }
 
 		//"\""
-		public Keyword getQuotationMarkKeyword_2() { return cQuotationMarkKeyword_2; }
+		public Keyword getQuotationMarkKeyword_3() { return cQuotationMarkKeyword_3; }
 	}
 
 	public class TextExpressionElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "TextExpression");
-		private final RuleCall cVariableTextExpressionParserRuleCall = (RuleCall)rule.eContents().get(1);
-		
-		//// Lowest precedence TextExpression
-		/// *hidden()* / TextExpression returns pp::TextExpression:
-		//	VariableTextExpression;
-		public ParserRule getRule() { return rule; }
-
-		//VariableTextExpression
-		public RuleCall getVariableTextExpressionParserRuleCall() { return cVariableTextExpressionParserRuleCall; }
-	}
-
-	public class VariableTextExpressionElements extends AbstractParserRuleElementFinder {
-		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "VariableTextExpression");
-		private final Group cGroup = (Group)rule.eContents().get(1);
-		private final RuleCall cExpressionTextExpressionParserRuleCall_0 = (RuleCall)cGroup.eContents().get(0);
-		private final Group cGroup_1 = (Group)cGroup.eContents().get(1);
-		private final Action cVariableTELeadingAction_1_0 = (Action)cGroup_1.eContents().get(0);
-		private final Assignment cVarNameAssignment_1_1 = (Assignment)cGroup_1.eContents().get(1);
-		private final RuleCall cVarNameDollarVariableParserRuleCall_1_1_0 = (RuleCall)cVarNameAssignment_1_1.eContents().get(0);
-		private final Assignment cTrailingAssignment_1_2 = (Assignment)cGroup_1.eContents().get(2);
-		private final RuleCall cTrailingTextExpressionParserRuleCall_1_2_0 = (RuleCall)cTrailingAssignment_1_2.eContents().get(0);
-		
-		////DollarTextExpression returns pp::TextExpression hidden(): 
-		////	VariableTextExpression (
-		////		{pp::VerbatimTE.leading=current} 
-		////		text = DQT_DOLLAR 
-		////		trailing=TextExpression?
-		////	)*
-		////	;
-		//VariableTextExpression returns pp::TextExpression hidden():
-		//	ExpressionTextExpression ({pp::VariableTE.leading=current} varName=dollarVariable trailing=TextExpression?)*;
-		public ParserRule getRule() { return rule; }
-
-		//ExpressionTextExpression ({pp::VariableTE.leading=current} varName=dollarVariable trailing=TextExpression?)*
-		public Group getGroup() { return cGroup; }
-
-		//ExpressionTextExpression
-		public RuleCall getExpressionTextExpressionParserRuleCall_0() { return cExpressionTextExpressionParserRuleCall_0; }
-
-		//({pp::VariableTE.leading=current} varName=dollarVariable trailing=TextExpression?)*
-		public Group getGroup_1() { return cGroup_1; }
-
-		//{pp::VariableTE.leading=current}
-		public Action getVariableTELeadingAction_1_0() { return cVariableTELeadingAction_1_0; }
-
-		//varName=dollarVariable
-		public Assignment getVarNameAssignment_1_1() { return cVarNameAssignment_1_1; }
-
-		//dollarVariable
-		public RuleCall getVarNameDollarVariableParserRuleCall_1_1_0() { return cVarNameDollarVariableParserRuleCall_1_1_0; }
-
-		//trailing=TextExpression?
-		public Assignment getTrailingAssignment_1_2() { return cTrailingAssignment_1_2; }
-
-		//TextExpression
-		public RuleCall getTrailingTextExpressionParserRuleCall_1_2_0() { return cTrailingTextExpressionParserRuleCall_1_2_0; }
-	}
-
-	public class ExpressionTextExpressionElements extends AbstractParserRuleElementFinder {
-		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "ExpressionTextExpression");
-		private final Group cGroup = (Group)rule.eContents().get(1);
-		private final RuleCall cStringPartParserRuleCall_0 = (RuleCall)cGroup.eContents().get(0);
-		private final Group cGroup_1 = (Group)cGroup.eContents().get(1);
-		private final Action cExpressionTELeadingAction_1_0 = (Action)cGroup_1.eContents().get(0);
+		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
+		private final Group cGroup_0 = (Group)cAlternatives.eContents().get(0);
+		private final Action cVerbatimTEAction_0_0 = (Action)cGroup_0.eContents().get(0);
+		private final Assignment cTextAssignment_0_1 = (Assignment)cGroup_0.eContents().get(1);
+		private final RuleCall cTextDoubleStringCharactersParserRuleCall_0_1_0 = (RuleCall)cTextAssignment_0_1.eContents().get(0);
+		private final Group cGroup_1 = (Group)cAlternatives.eContents().get(1);
+		private final Action cExpressionTEAction_1_0 = (Action)cGroup_1.eContents().get(0);
 		private final Keyword cDollarSignLeftCurlyBracketKeyword_1_1 = (Keyword)cGroup_1.eContents().get(1);
 		private final Assignment cExpressionAssignment_1_2 = (Assignment)cGroup_1.eContents().get(2);
 		private final RuleCall cExpressionExpressionWithHiddenParserRuleCall_1_2_0 = (RuleCall)cExpressionAssignment_1_2.eContents().get(0);
 		private final Keyword cRightCurlyBracketKeyword_1_3 = (Keyword)cGroup_1.eContents().get(3);
-		private final Assignment cTrailingAssignment_1_4 = (Assignment)cGroup_1.eContents().get(4);
-		private final RuleCall cTrailingTextExpressionParserRuleCall_1_4_0 = (RuleCall)cTrailingAssignment_1_4.eContents().get(0);
+		private final Group cGroup_2 = (Group)cAlternatives.eContents().get(2);
+		private final Action cVariableTEAction_2_0 = (Action)cGroup_2.eContents().get(0);
+		private final Assignment cVarNameAssignment_2_1 = (Assignment)cGroup_2.eContents().get(1);
+		private final RuleCall cVarNameDollarVariableParserRuleCall_2_1_0 = (RuleCall)cVarNameAssignment_2_1.eContents().get(0);
 		
-		//ExpressionTextExpression returns pp::TextExpression hidden(): // allow comments between ${ and }
-		//// validate expression is not null == warning
-		//	StringPart ({pp::ExpressionTE.leading=current} "${" expression=ExpressionWithHidden "}" trailing=TextExpression?)*;
+		//TextExpression returns pp::TextExpression hidden():
+		//	{pp::VerbatimTE} text=doubleStringCharacters | {pp::ExpressionTE} "${" expression=ExpressionWithHidden "}" |
+		//	{pp::VariableTE} varName=dollarVariable;
 		public ParserRule getRule() { return rule; }
 
-		//// allow comments between ${ and }
-		//// validate expression is not null == warning
-		//StringPart ({pp::ExpressionTE.leading=current} "${" expression=ExpressionWithHidden "}" trailing=TextExpression?)*
-		public Group getGroup() { return cGroup; }
+		//{pp::VerbatimTE} text=doubleStringCharacters | {pp::ExpressionTE} "${" expression=ExpressionWithHidden "}" |
+		//{pp::VariableTE} varName=dollarVariable
+		public Alternatives getAlternatives() { return cAlternatives; }
 
-		//// allow comments between ${ and }
-		//// validate expression is not null == warning
-		//StringPart
-		public RuleCall getStringPartParserRuleCall_0() { return cStringPartParserRuleCall_0; }
+		//{pp::VerbatimTE} text=doubleStringCharacters
+		public Group getGroup_0() { return cGroup_0; }
 
-		//({pp::ExpressionTE.leading=current} "${" expression=ExpressionWithHidden "}" trailing=TextExpression?)*
+		//{pp::VerbatimTE}
+		public Action getVerbatimTEAction_0_0() { return cVerbatimTEAction_0_0; }
+
+		//text=doubleStringCharacters
+		public Assignment getTextAssignment_0_1() { return cTextAssignment_0_1; }
+
+		//doubleStringCharacters
+		public RuleCall getTextDoubleStringCharactersParserRuleCall_0_1_0() { return cTextDoubleStringCharactersParserRuleCall_0_1_0; }
+
+		//{pp::ExpressionTE} "${" expression=ExpressionWithHidden "}"
 		public Group getGroup_1() { return cGroup_1; }
 
-		//{pp::ExpressionTE.leading=current}
-		public Action getExpressionTELeadingAction_1_0() { return cExpressionTELeadingAction_1_0; }
+		//{pp::ExpressionTE}
+		public Action getExpressionTEAction_1_0() { return cExpressionTEAction_1_0; }
 
 		//"${"
 		public Keyword getDollarSignLeftCurlyBracketKeyword_1_1() { return cDollarSignLeftCurlyBracketKeyword_1_1; }
@@ -2934,11 +2889,17 @@ public class PPGrammarAccess extends AbstractGrammarElementFinder {
 		//"}"
 		public Keyword getRightCurlyBracketKeyword_1_3() { return cRightCurlyBracketKeyword_1_3; }
 
-		//trailing=TextExpression?
-		public Assignment getTrailingAssignment_1_4() { return cTrailingAssignment_1_4; }
+		//{pp::VariableTE} varName=dollarVariable
+		public Group getGroup_2() { return cGroup_2; }
 
-		//TextExpression
-		public RuleCall getTrailingTextExpressionParserRuleCall_1_4_0() { return cTrailingTextExpressionParserRuleCall_1_4_0; }
+		//{pp::VariableTE}
+		public Action getVariableTEAction_2_0() { return cVariableTEAction_2_0; }
+
+		//varName=dollarVariable
+		public Assignment getVarNameAssignment_2_1() { return cVarNameAssignment_2_1; }
+
+		//dollarVariable
+		public RuleCall getVarNameDollarVariableParserRuleCall_2_1_0() { return cVarNameDollarVariableParserRuleCall_2_1_0; }
 	}
 
 	public class ExpressionWithHiddenElements extends AbstractParserRuleElementFinder {
@@ -2948,6 +2909,26 @@ public class PPGrammarAccess extends AbstractGrammarElementFinder {
 		private final Assignment cExprAssignment_1 = (Assignment)cGroup.eContents().get(1);
 		private final RuleCall cExprAssignmentExpressionParserRuleCall_1_0 = (RuleCall)cExprAssignment_1.eContents().get(0);
 		
+		////// Lowest precedence TextExpression
+		////TextExpression returns pp::TextExpression / *hidden()* /: 
+		////	VariableTextExpression
+		////	;
+		////VariableTextExpression returns pp::TextExpression hidden(): 
+		////	ExpressionTextExpression (
+		////		{pp::VariableTE.leading=current} 
+		////		varName = dollarVariable 
+		////		trailing = TextExpression?
+		////	)*
+		////	;
+		////ExpressionTextExpression returns pp::TextExpression hidden():
+		////	// allow comments between ${ and }
+		////	// validate expression is not null == warning
+		////	StringPart (
+		////		{pp::ExpressionTE.leading=current} 
+		////		'${'  expression = ExpressionWithHidden '}'
+		////		trailing = TextExpression?
+		////	)*
+		////	;
 		//// Consumation without creation is ok, if made optional where it is assigned, it is not possible to
 		//// insert WS and comments into ExpressioNTextExpression.
 		//ExpressionWithHidden returns pp::Expression hidden(WS, SL_COMMENT, ML_COMMENT):
@@ -3430,8 +3411,6 @@ public class PPGrammarAccess extends AbstractGrammarElementFinder {
 	private SingleQuotedStringElements pSingleQuotedString;
 	private DoubleQuotedStringElements pDoubleQuotedString;
 	private TextExpressionElements pTextExpression;
-	private VariableTextExpressionElements pVariableTextExpression;
-	private ExpressionTextExpressionElements pExpressionTextExpression;
 	private ExpressionWithHiddenElements pExpressionWithHidden;
 	private StringPartElements pStringPart;
 	private UnquotedStringElements pUnquotedString;
@@ -4286,7 +4265,7 @@ public class PPGrammarAccess extends AbstractGrammarElementFinder {
 	//// - ${ expression } - evaluated and included in the string
 	////
 	//DoubleQuotedString returns pp::DoubleQuotedString hidden():
-	//	"\"" textExpression=TextExpression "\"";
+	//	"\"" {pp::DoubleQuotedString} stringPart+=TextExpression* "\"";
 	public DoubleQuotedStringElements getDoubleQuotedStringAccess() {
 		return (pDoubleQuotedString != null) ? pDoubleQuotedString : (pDoubleQuotedString = new DoubleQuotedStringElements());
 	}
@@ -4295,9 +4274,9 @@ public class PPGrammarAccess extends AbstractGrammarElementFinder {
 		return getDoubleQuotedStringAccess().getRule();
 	}
 
-	//// Lowest precedence TextExpression
-	/// *hidden()* / TextExpression returns pp::TextExpression:
-	//	VariableTextExpression;
+	//TextExpression returns pp::TextExpression hidden():
+	//	{pp::VerbatimTE} text=doubleStringCharacters | {pp::ExpressionTE} "${" expression=ExpressionWithHidden "}" |
+	//	{pp::VariableTE} varName=dollarVariable;
 	public TextExpressionElements getTextExpressionAccess() {
 		return (pTextExpression != null) ? pTextExpression : (pTextExpression = new TextExpressionElements());
 	}
@@ -4306,34 +4285,26 @@ public class PPGrammarAccess extends AbstractGrammarElementFinder {
 		return getTextExpressionAccess().getRule();
 	}
 
-	////DollarTextExpression returns pp::TextExpression hidden(): 
-	////	VariableTextExpression (
-	////		{pp::VerbatimTE.leading=current} 
-	////		text = DQT_DOLLAR 
-	////		trailing=TextExpression?
+	////// Lowest precedence TextExpression
+	////TextExpression returns pp::TextExpression / *hidden()* /: 
+	////	VariableTextExpression
+	////	;
+	////VariableTextExpression returns pp::TextExpression hidden(): 
+	////	ExpressionTextExpression (
+	////		{pp::VariableTE.leading=current} 
+	////		varName = dollarVariable 
+	////		trailing = TextExpression?
 	////	)*
 	////	;
-	//VariableTextExpression returns pp::TextExpression hidden():
-	//	ExpressionTextExpression ({pp::VariableTE.leading=current} varName=dollarVariable trailing=TextExpression?)*;
-	public VariableTextExpressionElements getVariableTextExpressionAccess() {
-		return (pVariableTextExpression != null) ? pVariableTextExpression : (pVariableTextExpression = new VariableTextExpressionElements());
-	}
-	
-	public ParserRule getVariableTextExpressionRule() {
-		return getVariableTextExpressionAccess().getRule();
-	}
-
-	//ExpressionTextExpression returns pp::TextExpression hidden(): // allow comments between ${ and }
-	//// validate expression is not null == warning
-	//	StringPart ({pp::ExpressionTE.leading=current} "${" expression=ExpressionWithHidden "}" trailing=TextExpression?)*;
-	public ExpressionTextExpressionElements getExpressionTextExpressionAccess() {
-		return (pExpressionTextExpression != null) ? pExpressionTextExpression : (pExpressionTextExpression = new ExpressionTextExpressionElements());
-	}
-	
-	public ParserRule getExpressionTextExpressionRule() {
-		return getExpressionTextExpressionAccess().getRule();
-	}
-
+	////ExpressionTextExpression returns pp::TextExpression hidden():
+	////	// allow comments between ${ and }
+	////	// validate expression is not null == warning
+	////	StringPart (
+	////		{pp::ExpressionTE.leading=current} 
+	////		'${'  expression = ExpressionWithHidden '}'
+	////		trailing = TextExpression?
+	////	)*
+	////	;
 	//// Consumation without creation is ok, if made optional where it is assigned, it is not possible to
 	//// insert WS and comments into ExpressioNTextExpression.
 	//ExpressionWithHidden returns pp::Expression hidden(WS, SL_COMMENT, ML_COMMENT):

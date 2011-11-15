@@ -181,8 +181,8 @@
         eType="#//Expression" containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="DoubleQuotedString" eSuperTypes="#//StringExpression #//IQuotedString">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="textExpression" eType="#//TextExpression"
-        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="stringPart" upperBound="-1"
+        eType="#//TextExpression" containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="SingleQuotedString" eSuperTypes="#//StringExpression #//IQuotedString">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="text" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
@@ -196,12 +196,7 @@
   <eClassifiers xsi:type="ecore:EClass" name="InterpolatedVariable" eSuperTypes="#//Expression">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="varName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="TextExpression" abstract="true">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="trailing" eType="#//TextExpression"
-        containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="leading" eType="#//TextExpression"
-        containment="true"/>
-  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="TextExpression" abstract="true"/>
   <eClassifiers xsi:type="ecore:EClass" name="VerbatimTE" eSuperTypes="#//TextExpression">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="text" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>

@@ -11,6 +11,8 @@
  */
 package org.cloudsmith.geppetto.pp;
 
+import org.eclipse.emf.common.util.EList;
+
 /**
  * <!-- begin-user-doc -->
  * A representation of the model object '<em><b>Double Quoted String</b></em>'.
@@ -19,7 +21,7 @@ package org.cloudsmith.geppetto.pp;
  * <p>
  * The following features are supported:
  * <ul>
- * <li>{@link org.cloudsmith.geppetto.pp.DoubleQuotedString#getTextExpression <em>Text Expression</em>}</li>
+ * <li>{@link org.cloudsmith.geppetto.pp.DoubleQuotedString#getStringPart <em>String Part</em>}</li>
  * </ul>
  * </p>
  * 
@@ -29,31 +31,19 @@ package org.cloudsmith.geppetto.pp;
  */
 public interface DoubleQuotedString extends StringExpression, IQuotedString {
 	/**
-	 * Returns the value of the '<em><b>Text Expression</b></em>' containment reference.
+	 * Returns the value of the '<em><b>String Part</b></em>' containment reference list.
+	 * The list contents are of type {@link org.cloudsmith.geppetto.pp.TextExpression}.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Text Expression</em>' containment reference isn't clear, there really should be more of a description here...
+	 * If the meaning of the '<em>String Part</em>' containment reference list isn't clear, there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * 
-	 * @return the value of the '<em>Text Expression</em>' containment reference.
-	 * @see #setTextExpression(TextExpression)
-	 * @see org.cloudsmith.geppetto.pp.PPPackage#getDoubleQuotedString_TextExpression()
+	 * @return the value of the '<em>String Part</em>' containment reference list.
+	 * @see org.cloudsmith.geppetto.pp.PPPackage#getDoubleQuotedString_StringPart()
 	 * @model containment="true"
 	 * @generated
 	 */
-	TextExpression getTextExpression();
-
-	/**
-	 * Sets the value of the '{@link org.cloudsmith.geppetto.pp.DoubleQuotedString#getTextExpression <em>Text Expression</em>}' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * 
-	 * @param value
-	 *            the new value of the '<em>Text Expression</em>' containment reference.
-	 * @see #getTextExpression()
-	 * @generated
-	 */
-	void setTextExpression(TextExpression value);
+	EList<TextExpression> getStringPart();
 
 } // DoubleQuotedString

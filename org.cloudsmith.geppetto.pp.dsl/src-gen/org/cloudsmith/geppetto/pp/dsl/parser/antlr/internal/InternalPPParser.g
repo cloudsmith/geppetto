@@ -5011,27 +5011,36 @@ ruleDoubleQuotedString returns [EObject current=null]
     	newLeafNode(otherlv_0, grammarAccess.getDoubleQuotedStringAccess().getQuotationMarkKeyword_0());
     }
 (
+	{ 
+	  /* */ 
+	}
+    {
+        $current = forceCreateModelElement(
+            grammarAccess.getDoubleQuotedStringAccess().getDoubleQuotedStringAction_1(),
+            $current);
+    }
+)(
 (
 		{ 
-	        newCompositeNode(grammarAccess.getDoubleQuotedStringAccess().getTextExpressionTextExpressionParserRuleCall_1_0()); 
+	        newCompositeNode(grammarAccess.getDoubleQuotedStringAccess().getStringPartTextExpressionParserRuleCall_2_0()); 
 	    }
-		lv_textExpression_1_0=ruleTextExpression		{
+		lv_stringPart_2_0=ruleTextExpression		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getDoubleQuotedStringRule());
 	        }
-       		set(
+       		add(
        			$current, 
-       			"textExpression",
-        		lv_textExpression_1_0, 
+       			"stringPart",
+        		lv_stringPart_2_0, 
         		"TextExpression");
 	        afterParserOrEnumRuleCall();
 	    }
 
 )
-)
-	otherlv_2=KEYWORD_2
+)*
+	otherlv_3=KEYWORD_2
     {
-    	newLeafNode(otherlv_2, grammarAccess.getDoubleQuotedStringAccess().getQuotationMarkKeyword_2());
+    	newLeafNode(otherlv_3, grammarAccess.getDoubleQuotedStringAccess().getQuotationMarkKeyword_3());
     }
 )
 ;
@@ -5045,214 +5054,119 @@ finally {
 
 // Entry rule entryRuleTextExpression
 entryRuleTextExpression returns [EObject current=null]
+	@init { 
+		HiddenTokens myHiddenTokenState = ((XtextTokenStream)input).setHiddenTokens();
+	}
 	:
 	{ newCompositeNode(grammarAccess.getTextExpressionRule()); }
 	 iv_ruleTextExpression=ruleTextExpression 
 	 { $current=$iv_ruleTextExpression.current; } 
 	 EOF 
 ;
+finally {
+	myHiddenTokenState.restore();
+}
 
 // Rule TextExpression
 ruleTextExpression returns [EObject current=null] 
     @init { enterRule(); 
-    }
-    @after { leaveRule(); }:
-
-	{ 
-	  /* */ 
-	}
-    { 
-        newCompositeNode(grammarAccess.getTextExpressionAccess().getVariableTextExpressionParserRuleCall()); 
-    }
-    this_VariableTextExpression_0=ruleVariableTextExpression
-    {
-        $current = $this_VariableTextExpression_0.current;
-        afterParserOrEnumRuleCall();
-    }
-
-;
-
-
-
-
-
-// Entry rule entryRuleVariableTextExpression
-entryRuleVariableTextExpression returns [EObject current=null]
-	@init { 
-		HiddenTokens myHiddenTokenState = ((XtextTokenStream)input).setHiddenTokens();
-	}
-	:
-	{ newCompositeNode(grammarAccess.getVariableTextExpressionRule()); }
-	 iv_ruleVariableTextExpression=ruleVariableTextExpression 
-	 { $current=$iv_ruleVariableTextExpression.current; } 
-	 EOF 
-;
-finally {
-	myHiddenTokenState.restore();
-}
-
-// Rule VariableTextExpression
-ruleVariableTextExpression returns [EObject current=null] 
-    @init { enterRule(); 
 		HiddenTokens myHiddenTokenState = ((XtextTokenStream)input).setHiddenTokens();
     }
     @after { leaveRule(); }:
-(
-	{ 
-	  /* */ 
-	}
-    { 
-        newCompositeNode(grammarAccess.getVariableTextExpressionAccess().getExpressionTextExpressionParserRuleCall_0()); 
-    }
-    this_ExpressionTextExpression_0=ruleExpressionTextExpression
-    {
-        $current = $this_ExpressionTextExpression_0.current;
-        afterParserOrEnumRuleCall();
-    }
-((
+(((
 	{ 
 	  /* */ 
 	}
     {
-        $current = forceCreateModelElementAndSet(
-            grammarAccess.getVariableTextExpressionAccess().getVariableTELeadingAction_1_0(),
+        $current = forceCreateModelElement(
+            grammarAccess.getTextExpressionAccess().getVerbatimTEAction_0_0(),
             $current);
     }
 )(
 (
 		{ 
-	        newCompositeNode(grammarAccess.getVariableTextExpressionAccess().getVarNameDollarVariableParserRuleCall_1_1_0()); 
+	        newCompositeNode(grammarAccess.getTextExpressionAccess().getTextDoubleStringCharactersParserRuleCall_0_1_0()); 
 	    }
-		lv_varName_2_0=ruledollarVariable		{
+		lv_text_1_0=ruledoubleStringCharacters		{
 	        if ($current==null) {
-	            $current = createModelElementForParent(grammarAccess.getVariableTextExpressionRule());
+	            $current = createModelElementForParent(grammarAccess.getTextExpressionRule());
 	        }
        		set(
        			$current, 
-       			"varName",
-        		lv_varName_2_0, 
-        		"dollarVariable");
+       			"text",
+        		lv_text_1_0, 
+        		"doubleStringCharacters");
 	        afterParserOrEnumRuleCall();
 	    }
 
 )
-)(
-(
-		{ 
-	        newCompositeNode(grammarAccess.getVariableTextExpressionAccess().getTrailingTextExpressionParserRuleCall_1_2_0()); 
-	    }
-		lv_trailing_3_0=ruleTextExpression		{
-	        if ($current==null) {
-	            $current = createModelElementForParent(grammarAccess.getVariableTextExpressionRule());
-	        }
-       		set(
-       			$current, 
-       			"trailing",
-        		lv_trailing_3_0, 
-        		"TextExpression");
-	        afterParserOrEnumRuleCall();
-	    }
-
-)
-)?)*)
-;
-finally {
-	myHiddenTokenState.restore();
-}
-
-
-
-
-
-// Entry rule entryRuleExpressionTextExpression
-entryRuleExpressionTextExpression returns [EObject current=null]
-	@init { 
-		HiddenTokens myHiddenTokenState = ((XtextTokenStream)input).setHiddenTokens();
-	}
-	:
-	{ newCompositeNode(grammarAccess.getExpressionTextExpressionRule()); }
-	 iv_ruleExpressionTextExpression=ruleExpressionTextExpression 
-	 { $current=$iv_ruleExpressionTextExpression.current; } 
-	 EOF 
-;
-finally {
-	myHiddenTokenState.restore();
-}
-
-// Rule ExpressionTextExpression
-ruleExpressionTextExpression returns [EObject current=null] 
-    @init { enterRule(); 
-		HiddenTokens myHiddenTokenState = ((XtextTokenStream)input).setHiddenTokens();
-    }
-    @after { leaveRule(); }:
-(
-	{ 
-	  /* */ 
-	}
-    { 
-        newCompositeNode(grammarAccess.getExpressionTextExpressionAccess().getStringPartParserRuleCall_0()); 
-    }
-    this_StringPart_0=ruleStringPart
-    {
-        $current = $this_StringPart_0.current;
-        afterParserOrEnumRuleCall();
-    }
-((
+))
+    |((
 	{ 
 	  /* */ 
 	}
     {
-        $current = forceCreateModelElementAndSet(
-            grammarAccess.getExpressionTextExpressionAccess().getExpressionTELeadingAction_1_0(),
+        $current = forceCreateModelElement(
+            grammarAccess.getTextExpressionAccess().getExpressionTEAction_1_0(),
             $current);
     }
 )
-	otherlv_2=KEYWORD_24
+	otherlv_3=KEYWORD_24
     {
-    	newLeafNode(otherlv_2, grammarAccess.getExpressionTextExpressionAccess().getDollarSignLeftCurlyBracketKeyword_1_1());
+    	newLeafNode(otherlv_3, grammarAccess.getTextExpressionAccess().getDollarSignLeftCurlyBracketKeyword_1_1());
     }
 (
 (
 		{ 
-	        newCompositeNode(grammarAccess.getExpressionTextExpressionAccess().getExpressionExpressionWithHiddenParserRuleCall_1_2_0()); 
+	        newCompositeNode(grammarAccess.getTextExpressionAccess().getExpressionExpressionWithHiddenParserRuleCall_1_2_0()); 
 	    }
-		lv_expression_3_0=ruleExpressionWithHidden		{
+		lv_expression_4_0=ruleExpressionWithHidden		{
 	        if ($current==null) {
-	            $current = createModelElementForParent(grammarAccess.getExpressionTextExpressionRule());
+	            $current = createModelElementForParent(grammarAccess.getTextExpressionRule());
 	        }
        		set(
        			$current, 
        			"expression",
-        		lv_expression_3_0, 
+        		lv_expression_4_0, 
         		"ExpressionWithHidden");
 	        afterParserOrEnumRuleCall();
 	    }
 
 )
 )
-	otherlv_4=KEYWORD_21
+	otherlv_5=KEYWORD_21
     {
-    	newLeafNode(otherlv_4, grammarAccess.getExpressionTextExpressionAccess().getRightCurlyBracketKeyword_1_3());
+    	newLeafNode(otherlv_5, grammarAccess.getTextExpressionAccess().getRightCurlyBracketKeyword_1_3());
     }
-(
+)
+    |((
+	{ 
+	  /* */ 
+	}
+    {
+        $current = forceCreateModelElement(
+            grammarAccess.getTextExpressionAccess().getVariableTEAction_2_0(),
+            $current);
+    }
+)(
 (
 		{ 
-	        newCompositeNode(grammarAccess.getExpressionTextExpressionAccess().getTrailingTextExpressionParserRuleCall_1_4_0()); 
+	        newCompositeNode(grammarAccess.getTextExpressionAccess().getVarNameDollarVariableParserRuleCall_2_1_0()); 
 	    }
-		lv_trailing_5_0=ruleTextExpression		{
+		lv_varName_7_0=ruledollarVariable		{
 	        if ($current==null) {
-	            $current = createModelElementForParent(grammarAccess.getExpressionTextExpressionRule());
+	            $current = createModelElementForParent(grammarAccess.getTextExpressionRule());
 	        }
        		set(
        			$current, 
-       			"trailing",
-        		lv_trailing_5_0, 
-        		"TextExpression");
+       			"varName",
+        		lv_varName_7_0, 
+        		"dollarVariable");
 	        afterParserOrEnumRuleCall();
 	    }
 
 )
-)?)*)
+)))
 ;
 finally {
 	myHiddenTokenState.restore();
@@ -5317,52 +5231,6 @@ finally {
 }
 
 
-
-
-
-// Entry rule entryRuleStringPart
-entryRuleStringPart returns [EObject current=null]
-	:
-	{ newCompositeNode(grammarAccess.getStringPartRule()); }
-	 iv_ruleStringPart=ruleStringPart 
-	 { $current=$iv_ruleStringPart.current; } 
-	 EOF 
-;
-
-// Rule StringPart
-ruleStringPart returns [EObject current=null] 
-    @init { enterRule(); 
-    }
-    @after { leaveRule(); }:
-((
-	{ 
-	  /* */ 
-	}
-    {
-        $current = forceCreateModelElement(
-            grammarAccess.getStringPartAccess().getVerbatimTEAction_0(),
-            $current);
-    }
-)(
-(
-		{ 
-	        newCompositeNode(grammarAccess.getStringPartAccess().getTextDoubleStringCharactersParserRuleCall_1_0()); 
-	    }
-		lv_text_1_0=ruledoubleStringCharacters		{
-	        if ($current==null) {
-	            $current = createModelElementForParent(grammarAccess.getStringPartRule());
-	        }
-       		set(
-       			$current, 
-       			"text",
-        		lv_text_1_0, 
-        		"doubleStringCharacters");
-	        afterParserOrEnumRuleCall();
-	    }
-
-)
-)?)
-;
 
 
 

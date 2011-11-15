@@ -11,14 +11,16 @@
  */
 package org.cloudsmith.geppetto.pp.impl;
 
+import java.util.Collection;
 import org.cloudsmith.geppetto.pp.DoubleQuotedString;
 import org.cloudsmith.geppetto.pp.PPPackage;
 import org.cloudsmith.geppetto.pp.TextExpression;
-import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
-import org.eclipse.emf.ecore.impl.ENotificationImpl;
+import org.eclipse.emf.ecore.util.EObjectContainmentEList;
+import org.eclipse.emf.ecore.util.InternalEList;
 
 /**
  * <!-- begin-user-doc -->
@@ -27,7 +29,7 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  * <p>
  * The following features are implemented:
  * <ul>
- * <li>{@link org.cloudsmith.geppetto.pp.impl.DoubleQuotedStringImpl#getTextExpression <em>Text Expression</em>}</li>
+ * <li>{@link org.cloudsmith.geppetto.pp.impl.DoubleQuotedStringImpl#getStringPart <em>String Part</em>}</li>
  * </ul>
  * </p>
  * 
@@ -35,15 +37,15 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  */
 public class DoubleQuotedStringImpl extends StringExpressionImpl implements DoubleQuotedString {
 	/**
-	 * The cached value of the '{@link #getTextExpression() <em>Text Expression</em>}' containment reference.
+	 * The cached value of the '{@link #getStringPart() <em>String Part</em>}' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
-	 * @see #getTextExpression()
+	 * @see #getStringPart()
 	 * @generated
 	 * @ordered
 	 */
-	protected TextExpression textExpression;
+	protected EList<TextExpression> stringPart;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -61,32 +63,11 @@ public class DoubleQuotedStringImpl extends StringExpressionImpl implements Doub
 	 * 
 	 * @generated
 	 */
-	public NotificationChain basicSetTextExpression(TextExpression newTextExpression, NotificationChain msgs) {
-		TextExpression oldTextExpression = textExpression;
-		textExpression = newTextExpression;
-		if(eNotificationRequired()) {
-			ENotificationImpl notification = new ENotificationImpl(
-				this, Notification.SET, PPPackage.DOUBLE_QUOTED_STRING__TEXT_EXPRESSION, oldTextExpression,
-				newTextExpression);
-			if(msgs == null)
-				msgs = notification;
-			else
-				msgs.add(notification);
-		}
-		return msgs;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * 
-	 * @generated
-	 */
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch(featureID) {
-			case PPPackage.DOUBLE_QUOTED_STRING__TEXT_EXPRESSION:
-				return getTextExpression();
+			case PPPackage.DOUBLE_QUOTED_STRING__STRING_PART:
+				return getStringPart();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -100,8 +81,8 @@ public class DoubleQuotedStringImpl extends StringExpressionImpl implements Doub
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch(featureID) {
-			case PPPackage.DOUBLE_QUOTED_STRING__TEXT_EXPRESSION:
-				return basicSetTextExpression(null, msgs);
+			case PPPackage.DOUBLE_QUOTED_STRING__STRING_PART:
+				return ((InternalEList<?>) getStringPart()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -115,8 +96,8 @@ public class DoubleQuotedStringImpl extends StringExpressionImpl implements Doub
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch(featureID) {
-			case PPPackage.DOUBLE_QUOTED_STRING__TEXT_EXPRESSION:
-				return textExpression != null;
+			case PPPackage.DOUBLE_QUOTED_STRING__STRING_PART:
+				return stringPart != null && !stringPart.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}
@@ -131,8 +112,9 @@ public class DoubleQuotedStringImpl extends StringExpressionImpl implements Doub
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch(featureID) {
-			case PPPackage.DOUBLE_QUOTED_STRING__TEXT_EXPRESSION:
-				setTextExpression((TextExpression) newValue);
+			case PPPackage.DOUBLE_QUOTED_STRING__STRING_PART:
+				getStringPart().clear();
+				getStringPart().addAll((Collection<? extends TextExpression>) newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -158,8 +140,8 @@ public class DoubleQuotedStringImpl extends StringExpressionImpl implements Doub
 	@Override
 	public void eUnset(int featureID) {
 		switch(featureID) {
-			case PPPackage.DOUBLE_QUOTED_STRING__TEXT_EXPRESSION:
-				setTextExpression((TextExpression) null);
+			case PPPackage.DOUBLE_QUOTED_STRING__STRING_PART:
+				getStringPart().clear();
 				return;
 		}
 		super.eUnset(featureID);
@@ -171,33 +153,12 @@ public class DoubleQuotedStringImpl extends StringExpressionImpl implements Doub
 	 * 
 	 * @generated
 	 */
-	public TextExpression getTextExpression() {
-		return textExpression;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * 
-	 * @generated
-	 */
-	public void setTextExpression(TextExpression newTextExpression) {
-		if(newTextExpression != textExpression) {
-			NotificationChain msgs = null;
-			if(textExpression != null)
-				msgs = ((InternalEObject) textExpression).eInverseRemove(this, EOPPOSITE_FEATURE_BASE -
-						PPPackage.DOUBLE_QUOTED_STRING__TEXT_EXPRESSION, null, msgs);
-			if(newTextExpression != null)
-				msgs = ((InternalEObject) newTextExpression).eInverseAdd(this, EOPPOSITE_FEATURE_BASE -
-						PPPackage.DOUBLE_QUOTED_STRING__TEXT_EXPRESSION, null, msgs);
-			msgs = basicSetTextExpression(newTextExpression, msgs);
-			if(msgs != null)
-				msgs.dispatch();
+	public EList<TextExpression> getStringPart() {
+		if(stringPart == null) {
+			stringPart = new EObjectContainmentEList<TextExpression>(
+				TextExpression.class, this, PPPackage.DOUBLE_QUOTED_STRING__STRING_PART);
 		}
-		else if(eNotificationRequired())
-			eNotify(new ENotificationImpl(
-				this, Notification.SET, PPPackage.DOUBLE_QUOTED_STRING__TEXT_EXPRESSION, newTextExpression,
-				newTextExpression));
+		return stringPart;
 	}
 
 } // DoubleQuotedStringImpl

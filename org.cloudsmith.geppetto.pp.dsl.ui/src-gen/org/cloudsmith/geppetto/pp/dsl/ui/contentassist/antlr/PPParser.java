@@ -63,6 +63,7 @@ public class PPParser extends AbstractContentAssistParser {
 					put(grammarAccess.getBooleanValueAccess().getAlternatives(), "rule__BooleanValue__Alternatives");
 					put(grammarAccess.getStringExpressionAccess().getAlternatives(), "rule__StringExpression__Alternatives");
 					put(grammarAccess.getQuotedStringAccess().getAlternatives(), "rule__QuotedString__Alternatives");
+					put(grammarAccess.getTextExpressionAccess().getAlternatives(), "rule__TextExpression__Alternatives");
 					put(grammarAccess.getKeywordAccess().getAlternatives(), "rule__Keyword__Alternatives");
 					put(grammarAccess.getClassnameAccess().getAlternatives(), "rule__Classname__Alternatives");
 					put(grammarAccess.getUnionNameOrReferenceAccess().getAlternatives(), "rule__UnionNameOrReference__Alternatives");
@@ -167,10 +168,9 @@ public class PPParser extends AbstractContentAssistParser {
 					put(grammarAccess.getLiteralClassAccess().getGroup(), "rule__LiteralClass__Group__0");
 					put(grammarAccess.getSingleQuotedStringAccess().getGroup(), "rule__SingleQuotedString__Group__0");
 					put(grammarAccess.getDoubleQuotedStringAccess().getGroup(), "rule__DoubleQuotedString__Group__0");
-					put(grammarAccess.getVariableTextExpressionAccess().getGroup(), "rule__VariableTextExpression__Group__0");
-					put(grammarAccess.getVariableTextExpressionAccess().getGroup_1(), "rule__VariableTextExpression__Group_1__0");
-					put(grammarAccess.getExpressionTextExpressionAccess().getGroup(), "rule__ExpressionTextExpression__Group__0");
-					put(grammarAccess.getExpressionTextExpressionAccess().getGroup_1(), "rule__ExpressionTextExpression__Group_1__0");
+					put(grammarAccess.getTextExpressionAccess().getGroup_0(), "rule__TextExpression__Group_0__0");
+					put(grammarAccess.getTextExpressionAccess().getGroup_1(), "rule__TextExpression__Group_1__0");
+					put(grammarAccess.getTextExpressionAccess().getGroup_2(), "rule__TextExpression__Group_2__0");
 					put(grammarAccess.getExpressionWithHiddenAccess().getGroup(), "rule__ExpressionWithHidden__Group__0");
 					put(grammarAccess.getStringPartAccess().getGroup(), "rule__StringPart__Group__0");
 					put(grammarAccess.getUnquotedStringAccess().getGroup(), "rule__UnquotedString__Group__0");
@@ -271,11 +271,10 @@ public class PPParser extends AbstractContentAssistParser {
 					put(grammarAccess.getHashEntryAccess().getValueAssignment_2(), "rule__HashEntry__ValueAssignment_2");
 					put(grammarAccess.getLiteralBooleanAccess().getValueAssignment(), "rule__LiteralBoolean__ValueAssignment");
 					put(grammarAccess.getSingleQuotedStringAccess().getTextAssignment_1(), "rule__SingleQuotedString__TextAssignment_1");
-					put(grammarAccess.getDoubleQuotedStringAccess().getTextExpressionAssignment_1(), "rule__DoubleQuotedString__TextExpressionAssignment_1");
-					put(grammarAccess.getVariableTextExpressionAccess().getVarNameAssignment_1_1(), "rule__VariableTextExpression__VarNameAssignment_1_1");
-					put(grammarAccess.getVariableTextExpressionAccess().getTrailingAssignment_1_2(), "rule__VariableTextExpression__TrailingAssignment_1_2");
-					put(grammarAccess.getExpressionTextExpressionAccess().getExpressionAssignment_1_2(), "rule__ExpressionTextExpression__ExpressionAssignment_1_2");
-					put(grammarAccess.getExpressionTextExpressionAccess().getTrailingAssignment_1_4(), "rule__ExpressionTextExpression__TrailingAssignment_1_4");
+					put(grammarAccess.getDoubleQuotedStringAccess().getStringPartAssignment_2(), "rule__DoubleQuotedString__StringPartAssignment_2");
+					put(grammarAccess.getTextExpressionAccess().getTextAssignment_0_1(), "rule__TextExpression__TextAssignment_0_1");
+					put(grammarAccess.getTextExpressionAccess().getExpressionAssignment_1_2(), "rule__TextExpression__ExpressionAssignment_1_2");
+					put(grammarAccess.getTextExpressionAccess().getVarNameAssignment_2_1(), "rule__TextExpression__VarNameAssignment_2_1");
 					put(grammarAccess.getExpressionWithHiddenAccess().getExprAssignment_1(), "rule__ExpressionWithHidden__ExprAssignment_1");
 					put(grammarAccess.getStringPartAccess().getTextAssignment_1(), "rule__StringPart__TextAssignment_1");
 					put(grammarAccess.getUnquotedStringAccess().getExpressionAssignment_2(), "rule__UnquotedString__ExpressionAssignment_2");

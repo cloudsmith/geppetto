@@ -14,7 +14,6 @@ package org.cloudsmith.geppetto.pp.dsl.tests;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintStream;
-import java.util.ArrayList;
 import java.util.List;
 
 import org.cloudsmith.geppetto.pp.DoubleQuotedString;
@@ -35,28 +34,6 @@ import org.eclipse.xtext.resource.XtextResource;
  * 
  */
 public class TestDoubleQuotedString extends AbstractPuppetTests {
-	private static class TEPair {
-		final TextExpression te;
-
-		final String string;
-
-		TEPair(final TextExpression firstElement, final String secondElement) {
-			te = firstElement;
-			string = secondElement;
-		}
-
-		boolean isExprClass(Class<?> clazz) {
-			if(!(te instanceof ExpressionTE))
-				return false;
-			Expression pe = ((ExpressionTE) te).getExpression();
-			if(!ParenthesisedExpression.class.isAssignableFrom(pe.getClass()))
-				return false;
-			Expression peExpr = ((ParenthesisedExpression) pe).getExpr();
-			if(peExpr == null)
-				return false;
-			return clazz.isAssignableFrom(peExpr.getClass());
-		}
-	}
 
 	private PrintStream savedOut;
 
@@ -64,26 +41,16 @@ public class TestDoubleQuotedString extends AbstractPuppetTests {
 		return '"' + s + '"';
 	}
 
-	private void flatten(List<TEPair> result, TextExpression te) {
-		if(te == null)
-			return;
-		if(te.getLeading() != null)
-			flatten(result, te.getLeading());
-		if(te instanceof VerbatimTE)
-			result.add(tePair(te, ((VerbatimTE) te).getText()));
-		else if(te instanceof VariableTE)
-			result.add(tePair(te, ((VariableTE) te).getVarName()));
-		else if(te instanceof ExpressionTE)
-			result.add(tePair(te, "EXPRESSION"));
-
-		if(te.getTrailing() != null)
-			flatten(result, te.getTrailing());
-	}
-
-	private List<TEPair> flattenTextExpression(TextExpression te) {
-		List<TEPair> result = new ArrayList<TEPair>();
-		flatten(result, te);
-		return result;
+	private boolean isExprClass(TextExpression te, Class<?> clazz) {
+		if(!(te instanceof ExpressionTE))
+			return false;
+		Expression pe = ((ExpressionTE) te).getExpression();
+		if(!ParenthesisedExpression.class.isAssignableFrom(pe.getClass()))
+			return false;
+		Expression peExpr = ((ParenthesisedExpression) pe).getExpr();
+		if(peExpr == null)
+			return false;
+		return clazz.isAssignableFrom(peExpr.getClass());
 	}
 
 	/**
@@ -111,10 +78,6 @@ public class TestDoubleQuotedString extends AbstractPuppetTests {
 		System.setOut(savedOut);
 	}
 
-	private TEPair tePair(TextExpression te, String s) {
-		return new TEPair(te, s);
-	}
-
 	public void test_Parse_DoubleQuotedString_Dollar() throws Exception {
 		String original = "before$/after";
 		String code = doubleQuote(original);
@@ -125,11 +88,10 @@ public class TestDoubleQuotedString extends AbstractPuppetTests {
 		assertTrue("Should be a DoubleQuotedString", result instanceof DoubleQuotedString);
 		DoubleQuotedString string = (DoubleQuotedString) result;
 
-		List<TEPair> t = flattenTextExpression(string.getTextExpression());
+		List<TextExpression> t = string.getStringPart();
 		assertEquals("List should have 1 entry", 1, t.size());
-		assertEquals("First element should be 'before'", "before$/after", t.get(0).string);
-		// assertEquals("Second element should be a $", "$", t.get(1).string);
-		// assertEquals("Third element should be '/after'", "/after", t.get(2).string);
+		assertTrue("List should have an instance of VerbatimTE", t.get(0) instanceof VerbatimTE);
+		assertEquals("First element should be 'before'", "before$/after", ((VerbatimTE) t.get(0)).getText());
 	}
 
 	public void test_Parse_DoubleQuotedString_DollarExprVar() throws Exception {
@@ -142,13 +104,15 @@ public class TestDoubleQuotedString extends AbstractPuppetTests {
 		assertTrue("Should be a DoubleQuotedString", result instanceof DoubleQuotedString);
 		DoubleQuotedString string = (DoubleQuotedString) result;
 
-		List<TEPair> t = flattenTextExpression(string.getTextExpression());
+		List<TextExpression> t = string.getStringPart();
 		assertEquals("List should have 3 entries", 3, t.size());
-		assertEquals("First element should be 'before'", "before", t.get(0).string);
+		assertTrue("List first entry should be VerbatimTE", t.get(0) instanceof VerbatimTE);
+		assertEquals("First element should be 'before'", "before", ((VerbatimTE) t.get(0)).getText());
 
 		assertTrue(
-			"Second element should be a LiteralNameOrReference", t.get(1).isExprClass(LiteralNameOrReference.class));
-		assertEquals("Third element should be '/after'", "/after", t.get(2).string);
+			"Second element should be a LiteralNameOrReference", isExprClass(t.get(1), LiteralNameOrReference.class));
+		assertTrue("Third element should be VertimTE", t.get(2) instanceof VerbatimTE);
+		assertEquals("Third element should be '/after'", "/after", ((VerbatimTE) t.get(2)).getText());
 
 	}
 
@@ -162,11 +126,12 @@ public class TestDoubleQuotedString extends AbstractPuppetTests {
 		assertTrue("Should be a DoubleQuotedString", result instanceof DoubleQuotedString);
 		DoubleQuotedString string = (DoubleQuotedString) result;
 
-		List<TEPair> t = flattenTextExpression(string.getTextExpression());
+		List<TextExpression> t = string.getStringPart(); // flattenTextExpression(string.getTextExpression());
 		assertEquals("List should have 3 entries", 3, t.size());
-		assertEquals("First element should be 'before'", "before", t.get(0).string);
-		assertEquals("Second element should be '$var'", "$var", t.get(1).string);
-		assertEquals("Third element should be '/after'", "/after", t.get(2).string);
+		assertEquals("First element should be 'before'", "before", ((VerbatimTE) t.get(0)).getText());
+		assertTrue("Second element should be VariableTE", t.get(1) instanceof VariableTE);
+		assertEquals("Second element should be '$var'", "$var", ((VariableTE) t.get(1)).getVarName());
+		assertEquals("Third element should be '/after'", "/after", ((VerbatimTE) t.get(2)).getText());
 	}
 
 	public void test_Parse_DoubleQuotedString_Simple() throws Exception {
@@ -180,9 +145,10 @@ public class TestDoubleQuotedString extends AbstractPuppetTests {
 		assertTrue("Should be a DoubleQuotedString", result instanceof DoubleQuotedString);
 
 		DoubleQuotedString string = (DoubleQuotedString) result;
-		TextExpression te = string.getTextExpression();
-		assertTrue("Should be a single verbatim TE", te instanceof VerbatimTE);
-		assertEquals("Should contain the original", original, ((VerbatimTE) te).getText());
+		List<TextExpression> te = string.getStringPart(); // string.getTextExpression();
+		assertEquals("Should be one text expression", 1, te.size());
+		assertTrue("Should be a single verbatim TE", te.get(0) instanceof VerbatimTE);
+		assertEquals("Should contain the original", original, ((VerbatimTE) te.get(0)).getText());
 	}
 
 	/**
@@ -227,10 +193,34 @@ public class TestDoubleQuotedString extends AbstractPuppetTests {
 		assertEquals("Serialization of interpolated string should produce same result", formatted, s);
 	}
 
+	/**
+	 * Formatter seems to not switch back to non hidden state interpolation.
+	 * 
+	 */
+	public void test_Serialize_DqStringInterpolation() throws Exception {
+		String code = "$a = \"a${1}b\"\nclass a {\n}";
+		XtextResource r = getResourceFromString(code);
+		String s = serializeFormatted(r.getContents().get(0));
+		// System.out.println(NodeModelUtils.compactDump(r.getParseResult().getRootNode(), false));
+		assertEquals("serialization should produce specified result", code, s);
+	}
+
+	/**
+	 * Without interpolation formatting does the right thing.
+	 */
+	public void test_Serialize_DqStringNoInterpolation() throws Exception {
+		String code = "$a = \"ab\"\nclass a {\n}";
+		XtextResource r = getResourceFromString(code);
+		String s = serializeFormatted(r.getContents().get(0));
+		// System.out.println(NodeModelUtils.compactDump(r.getParseResult().getRootNode(), false));
+
+		assertEquals("serialization should produce specified result", code, s);
+	}
+
 	public void test_Validate_DoubleQuotedString_Ok() {
 		DoubleQuotedString ls = pf.createDoubleQuotedString();
 		VerbatimTE te = pf.createVerbatimTE();
-		ls.setTextExpression(te);
+		ls.getStringPart().add(te);
 		te.setText("I am a single quoted string with a tab \\t char");
 		tester.validator().checkVerbatimTextExpression(te);
 		tester.diagnose().assertOK();

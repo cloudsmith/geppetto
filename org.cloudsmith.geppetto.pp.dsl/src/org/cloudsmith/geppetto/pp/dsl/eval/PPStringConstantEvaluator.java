@@ -20,7 +20,10 @@ import org.cloudsmith.geppetto.pp.LiteralName;
 import org.cloudsmith.geppetto.pp.LiteralNameOrReference;
 import org.cloudsmith.geppetto.pp.LiteralUndef;
 import org.cloudsmith.geppetto.pp.SingleQuotedString;
+import org.cloudsmith.geppetto.pp.TextExpression;
+import org.cloudsmith.geppetto.pp.VerbatimTE;
 import org.cloudsmith.geppetto.pp.util.TextExpressionHelper;
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.xtext.util.PolymorphicDispatcher;
 
 /**
@@ -41,9 +44,15 @@ public class PPStringConstantEvaluator {
 			return null;
 		// if there is no interpolation, there is by definition only one StringData
 		// ignore the fact that a static string could be interpolated since this is an
-		// esoteric case. TODO: Handle this esoteric case
-		// "abc${"xyz"}"
-		return TextExpressionHelper.getStringData(o).get(0).getString();
+		// esoteric case.
+		// TODO: Handle this esoteric case "abc${"xyz"}"
+		EList<TextExpression> parts = o.getStringPart();
+		if(parts.size() < 1)
+			return "";
+		if(parts.size() == 1) {
+			return ((VerbatimTE) parts.get(0)).getText();
+		}
+		throw new IllegalStateException("hasInterpolation() returned false, but there was interpolation");
 	}
 
 	protected String _string(LiteralBoolean o) {

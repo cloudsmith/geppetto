@@ -528,39 +528,38 @@ SingleQuotedString returns pp::SingleQuotedString
 // - ${ expression } - evaluated and included in the string
 //
 DoubleQuotedString returns pp::DoubleQuotedString hidden()
-	: '"' textExpression = TextExpression '"'
+	: '"' {pp::DoubleQuotedString} stringPart += TextExpression* '"'
 	;
 
-// Lowest precedence TextExpression
-TextExpression returns pp::TextExpression /*hidden()*/: 
-	VariableTextExpression
+TextExpression returns pp::TextExpression hidden()
+	: {pp::VerbatimTE} text = doubleStringCharacters
+	| {pp::ExpressionTE} '${'  expression = ExpressionWithHidden '}'
+	| {pp::VariableTE} varName = dollarVariable 
 	;
 	
-//DollarTextExpression returns pp::TextExpression hidden(): 
-//	VariableTextExpression (
-//		{pp::VerbatimTE.leading=current} 
-//		text = DQT_DOLLAR 
-//		trailing=TextExpression?
+//// Lowest precedence TextExpression
+//TextExpression returns pp::TextExpression /*hidden()*/: 
+//	VariableTextExpression
+//	;
+	
+	
+//VariableTextExpression returns pp::TextExpression hidden(): 
+//	ExpressionTextExpression (
+//		{pp::VariableTE.leading=current} 
+//		varName = dollarVariable 
+//		trailing = TextExpression?
 //	)*
 //	;
 	
-VariableTextExpression returns pp::TextExpression hidden(): 
-	ExpressionTextExpression (
-		{pp::VariableTE.leading=current} 
-		varName = dollarVariable 
-		trailing = TextExpression?
-	)*
-	;
-	
-ExpressionTextExpression returns pp::TextExpression hidden():
-	// allow comments between ${ and }
-	// validate expression is not null == warning
-	StringPart (
-		{pp::ExpressionTE.leading=current} 
-		'${'  expression = ExpressionWithHidden '}'
-		trailing = TextExpression?
-	)*
-	;
+//ExpressionTextExpression returns pp::TextExpression hidden():
+//	// allow comments between ${ and }
+//	// validate expression is not null == warning
+//	StringPart (
+//		{pp::ExpressionTE.leading=current} 
+//		'${'  expression = ExpressionWithHidden '}'
+//		trailing = TextExpression?
+//	)*
+//	;
 
 // Consumation without creation is ok, if made optional where it is assigned, it is not possible to
 // insert WS and comments into ExpressioNTextExpression.

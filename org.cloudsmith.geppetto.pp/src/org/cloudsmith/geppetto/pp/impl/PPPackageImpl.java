@@ -907,7 +907,7 @@ public class PPPackageImpl extends EPackageImpl implements PPPackage {
 		createEReference(exprListEClass, EXPR_LIST__EXPRESSIONS);
 
 		doubleQuotedStringEClass = createEClass(DOUBLE_QUOTED_STRING);
-		createEReference(doubleQuotedStringEClass, DOUBLE_QUOTED_STRING__TEXT_EXPRESSION);
+		createEReference(doubleQuotedStringEClass, DOUBLE_QUOTED_STRING__STRING_PART);
 
 		singleQuotedStringEClass = createEClass(SINGLE_QUOTED_STRING);
 		createEAttribute(singleQuotedStringEClass, SINGLE_QUOTED_STRING__TEXT);
@@ -923,8 +923,6 @@ public class PPPackageImpl extends EPackageImpl implements PPPackage {
 		createEAttribute(interpolatedVariableEClass, INTERPOLATED_VARIABLE__VAR_NAME);
 
 		textExpressionEClass = createEClass(TEXT_EXPRESSION);
-		createEReference(textExpressionEClass, TEXT_EXPRESSION__TRAILING);
-		createEReference(textExpressionEClass, TEXT_EXPRESSION__LEADING);
 
 		verbatimTEEClass = createEClass(VERBATIM_TE);
 		createEAttribute(verbatimTEEClass, VERBATIM_TE__TEXT);
@@ -1314,7 +1312,7 @@ public class PPPackageImpl extends EPackageImpl implements PPPackage {
 	 * 
 	 * @generated
 	 */
-	public EReference getDoubleQuotedString_TextExpression() {
+	public EReference getDoubleQuotedString_StringPart() {
 		return (EReference) doubleQuotedStringEClass.getEStructuralFeatures().get(0);
 	}
 
@@ -2054,26 +2052,6 @@ public class PPPackageImpl extends EPackageImpl implements PPPackage {
 	 * 
 	 * @generated
 	 */
-	public EReference getTextExpression_Leading() {
-		return (EReference) textExpressionEClass.getEStructuralFeatures().get(1);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * 
-	 * @generated
-	 */
-	public EReference getTextExpression_Trailing() {
-		return (EReference) textExpressionEClass.getEStructuralFeatures().get(0);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * 
-	 * @generated
-	 */
 	public EClass getUnaryExpression() {
 		return unaryExpressionEClass;
 	}
@@ -2736,7 +2714,7 @@ public class PPPackageImpl extends EPackageImpl implements PPPackage {
 			doubleQuotedStringEClass, DoubleQuotedString.class, "DoubleQuotedString", !IS_ABSTRACT, !IS_INTERFACE,
 			IS_GENERATED_INSTANCE_CLASS);
 		initEReference(
-			getDoubleQuotedString_TextExpression(), this.getTextExpression(), null, "textExpression", null, 0, 1,
+			getDoubleQuotedString_StringPart(), this.getTextExpression(), null, "stringPart", null, 0, -1,
 			DoubleQuotedString.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES,
 			!IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
@@ -2774,14 +2752,6 @@ public class PPPackageImpl extends EPackageImpl implements PPPackage {
 		initEClass(
 			textExpressionEClass, TextExpression.class, "TextExpression", IS_ABSTRACT, !IS_INTERFACE,
 			IS_GENERATED_INSTANCE_CLASS);
-		initEReference(
-			getTextExpression_Trailing(), this.getTextExpression(), null, "trailing", null, 0, 1, TextExpression.class,
-			!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE,
-			!IS_DERIVED, IS_ORDERED);
-		initEReference(
-			getTextExpression_Leading(), this.getTextExpression(), null, "leading", null, 0, 1, TextExpression.class,
-			!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE,
-			!IS_DERIVED, IS_ORDERED);
 
 		initEClass(
 			verbatimTEEClass, VerbatimTE.class, "VerbatimTE", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);

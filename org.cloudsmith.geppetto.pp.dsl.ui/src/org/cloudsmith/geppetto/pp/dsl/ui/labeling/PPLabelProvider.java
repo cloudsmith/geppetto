@@ -11,7 +11,6 @@
  */
 package org.cloudsmith.geppetto.pp.dsl.ui.labeling;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.cloudsmith.geppetto.pp.AppendExpression;
@@ -26,6 +25,7 @@ import org.cloudsmith.geppetto.pp.LiteralList;
 import org.cloudsmith.geppetto.pp.LiteralName;
 import org.cloudsmith.geppetto.pp.LiteralNameOrReference;
 import org.cloudsmith.geppetto.pp.NodeDefinition;
+import org.cloudsmith.geppetto.pp.ParenthesisedExpression;
 import org.cloudsmith.geppetto.pp.PuppetManifest;
 import org.cloudsmith.geppetto.pp.ResourceBody;
 import org.cloudsmith.geppetto.pp.ResourceExpression;
@@ -124,6 +124,24 @@ public class PPLabelProvider extends DefaultEObjectLabelProvider {
 		super(delegate);
 	}
 
+	private StyledString appendStyled(StyledString s, Object a) {
+		return appendStyled(s, a, null);
+	}
+
+	private StyledString appendStyled(StyledString s, Object a, Styler styler) {
+		if(a instanceof String)
+			s.append((String) a, styler);
+		else if(a instanceof StyledString) {
+			if(styler != null)
+				s.append(a.toString(), styler); // restyle
+			else
+				s.append((StyledString) a);
+		}
+		else
+			s.append(a.toString(), styler);
+		return s;
+	}
+
 	public Object image(AppendExpression o) {
 		return APPEND;
 	}
@@ -179,6 +197,35 @@ public class PPLabelProvider extends DefaultEObjectLabelProvider {
 		}
 	}
 
+	private StyledString literalNames(List<? extends EObject> exprs) {
+		StyledString result = new StyledString();
+		boolean first = true;
+		for(EObject expr : exprs) {
+			Object label = doGetText(expr);
+			if(first)
+				first = false;
+			else
+				result.append(", ");
+
+			if(label instanceof String)
+				result.append((String) label);
+			else if(label instanceof StyledString)
+				result.append((StyledString) label);
+			else
+				result.append("?");
+		}
+		// truncate long list (bad way, destroys individual styles)
+		if(result.length() > LABEL_LIMIT)
+			return new StyledString(result.getString().substring(0, LABEL_LIMIT) + "...");
+		return result;
+	}
+
+	private String nullSafeString(String s) {
+		return s == null
+				? ""
+				: s;
+	}
+
 	StyledString text(AtExpression o) {
 		StyledString label = new StyledString();
 		Object lo = doGetText(o.getLeftExpr());
@@ -200,8 +247,29 @@ public class PPLabelProvider extends DefaultEObjectLabelProvider {
 	}
 
 	StyledString text(DoubleQuotedString ele) {
-		StyledString s = text(ele.getTextExpression());
-		return s;
+		StyledString result = new StyledString();
+		for(TextExpression te : ele.getStringPart()) {
+			if(te instanceof VerbatimTE)
+				appendStyled(result, nullSafeString(((VerbatimTE) te).getText()));
+			else if(te instanceof VariableTE)
+				appendStyled(result, nullSafeString(((VariableTE) te).getVarName()), EXPR_STYLER);
+			else if(te instanceof ExpressionTE) {
+				ExpressionTE exprTe = (ExpressionTE) te;
+				Expression expr = exprTe.getExpression();
+				if(expr instanceof ParenthesisedExpression)
+					expr = ((ParenthesisedExpression) expr).getExpr();
+				Object label = doGetText(expr);
+				if(label == null)
+					label = "<expr>";
+				String stringLabel = label.toString();
+				if(stringLabel.length() > LABEL_LIMIT)
+					stringLabel = "${" + stringLabel.substring(0, LABEL_LIMIT) + "[...]}";
+				else
+					stringLabel = "${" + stringLabel + "}";
+				appendStyled(result, stringLabel, EXPR_STYLER);
+			}
+		}
+		return result;
 	}
 
 	StyledString text(HostClassDefinition ele) {
@@ -319,85 +387,5 @@ public class PPLabelProvider extends DefaultEObjectLabelProvider {
 
 	String text(VariableExpression ele) {
 		return ele.getVarName();
-	}
-
-	private StyledString appendStyled(StyledString s, Object a) {
-		return appendStyled(s, a, null);
-	}
-
-	private StyledString appendStyled(StyledString s, Object a, Styler styler) {
-		if(a instanceof String)
-			s.append((String) a, styler);
-		else if(a instanceof StyledString) {
-			if(styler != null)
-				s.append(a.toString(), styler); // restyle
-			else
-				s.append((StyledString) a);
-		}
-		else
-			s.append(a.toString(), styler);
-		return s;
-	}
-
-	private void flatten(List<StyledString> result, TextExpression te) {
-		if(te == null)
-			return;
-		if(te.getLeading() != null)
-			flatten(result, te.getLeading());
-		if(te instanceof VerbatimTE)
-			result.add(new StyledString(nullSafeString(((VerbatimTE) te).getText())));
-		else if(te instanceof VariableTE)
-			result.add(new StyledString(nullSafeString(((VariableTE) te).getVarName()), EXPR_STYLER));
-		else if(te instanceof ExpressionTE) {
-			ExpressionTE exprTe = (ExpressionTE) te;
-			Object label = doGetText(exprTe.getExpression());
-			String stringLabel = label.toString();
-			if(stringLabel.length() > LABEL_LIMIT)
-				stringLabel = "${" + stringLabel.substring(0, LABEL_LIMIT) + "[...]}";
-			else
-				stringLabel = "${" + stringLabel + "}";
-			result.add(new StyledString(stringLabel, EXPR_STYLER));
-		}
-
-		if(te.getTrailing() != null)
-			flatten(result, te.getTrailing());
-	}
-
-	private StyledString literalNames(List<? extends EObject> exprs) {
-		StyledString result = new StyledString();
-		boolean first = true;
-		for(EObject expr : exprs) {
-			Object label = doGetText(expr);
-			if(first)
-				first = false;
-			else
-				result.append(", ");
-
-			if(label instanceof String)
-				result.append((String) label);
-			else if(label instanceof StyledString)
-				result.append((StyledString) label);
-			else
-				result.append("?");
-		}
-		// truncate long list (bad way, destroys individual styles)
-		if(result.length() > LABEL_LIMIT)
-			return new StyledString(result.getString().substring(0, LABEL_LIMIT) + "...");
-		return result;
-	}
-
-	private String nullSafeString(String s) {
-		return s == null
-				? ""
-				: s;
-	}
-
-	private StyledString text(TextExpression te) {
-		List<StyledString> exprList = new ArrayList<StyledString>();
-		flatten(exprList, te);
-		StyledString result = new StyledString();
-		for(StyledString s : exprList)
-			result.append(s);
-		return result;
 	}
 }

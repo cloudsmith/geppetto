@@ -31,7 +31,7 @@ public class PPLocationInFileProvider extends DefaultLocationInFileProvider {
 		if(ec.equals(PPPackage.Literals.DEFINITION))
 			return PPPackage.Literals.DEFINITION__CLASS_NAME;
 		if(ec.equals(PPPackage.Literals.DOUBLE_QUOTED_STRING))
-			return PPPackage.Literals.DOUBLE_QUOTED_STRING__TEXT_EXPRESSION;
+			return PPPackage.Literals.DOUBLE_QUOTED_STRING__STRING_PART;
 		if(ec.equals(PPPackage.Literals.HOST_CLASS_DEFINITION))
 			return PPPackage.Literals.DEFINITION__CLASS_NAME;
 		if(ec.equals(PPPackage.Literals.IMPORT_EXPRESSION))

@@ -1154,13 +1154,13 @@ public interface PPPackage extends EPackage {
 		EClass DOUBLE_QUOTED_STRING = eINSTANCE.getDoubleQuotedString();
 
 		/**
-		 * The meta object literal for the '<em><b>Text Expression</b></em>' containment reference feature.
+		 * The meta object literal for the '<em><b>String Part</b></em>' containment reference list feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * 
 		 * @generated
 		 */
-		EReference DOUBLE_QUOTED_STRING__TEXT_EXPRESSION = eINSTANCE.getDoubleQuotedString_TextExpression();
+		EReference DOUBLE_QUOTED_STRING__STRING_PART = eINSTANCE.getDoubleQuotedString_StringPart();
 
 		/**
 		 * The meta object literal for the '{@link org.cloudsmith.geppetto.pp.impl.SingleQuotedStringImpl <em>Single Quoted String</em>}' class.
@@ -1254,24 +1254,6 @@ public interface PPPackage extends EPackage {
 		 * @generated
 		 */
 		EClass TEXT_EXPRESSION = eINSTANCE.getTextExpression();
-
-		/**
-		 * The meta object literal for the '<em><b>Trailing</b></em>' containment reference feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * 
-		 * @generated
-		 */
-		EReference TEXT_EXPRESSION__TRAILING = eINSTANCE.getTextExpression_Trailing();
-
-		/**
-		 * The meta object literal for the '<em><b>Leading</b></em>' containment reference feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * 
-		 * @generated
-		 */
-		EReference TEXT_EXPRESSION__LEADING = eINSTANCE.getTextExpression_Leading();
 
 		/**
 		 * The meta object literal for the '{@link org.cloudsmith.geppetto.pp.impl.VerbatimTEImpl <em>Verbatim TE</em>}' class.
@@ -3673,14 +3655,14 @@ public interface PPPackage extends EPackage {
 	int DOUBLE_QUOTED_STRING = 58;
 
 	/**
-	 * The feature id for the '<em><b>Text Expression</b></em>' containment reference.
+	 * The feature id for the '<em><b>String Part</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
 	 * @generated
 	 * @ordered
 	 */
-	int DOUBLE_QUOTED_STRING__TEXT_EXPRESSION = STRING_EXPRESSION_FEATURE_COUNT + 0;
+	int DOUBLE_QUOTED_STRING__STRING_PART = STRING_EXPRESSION_FEATURE_COUNT + 0;
 
 	/**
 	 * The number of structural features of the '<em>Double Quoted String</em>' class.
@@ -3818,26 +3800,6 @@ public interface PPPackage extends EPackage {
 	int TEXT_EXPRESSION = 64;
 
 	/**
-	 * The feature id for the '<em><b>Trailing</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * 
-	 * @generated
-	 * @ordered
-	 */
-	int TEXT_EXPRESSION__TRAILING = 0;
-
-	/**
-	 * The feature id for the '<em><b>Leading</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * 
-	 * @generated
-	 * @ordered
-	 */
-	int TEXT_EXPRESSION__LEADING = 1;
-
-	/**
 	 * The number of structural features of the '<em>Text Expression</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -3845,7 +3807,7 @@ public interface PPPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int TEXT_EXPRESSION_FEATURE_COUNT = 2;
+	int TEXT_EXPRESSION_FEATURE_COUNT = 0;
 
 	/**
 	 * The meta object id for the '{@link org.cloudsmith.geppetto.pp.impl.VerbatimTEImpl <em>Verbatim TE</em>}' class.
@@ -3857,26 +3819,6 @@ public interface PPPackage extends EPackage {
 	 * @generated
 	 */
 	int VERBATIM_TE = 65;
-
-	/**
-	 * The feature id for the '<em><b>Trailing</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * 
-	 * @generated
-	 * @ordered
-	 */
-	int VERBATIM_TE__TRAILING = TEXT_EXPRESSION__TRAILING;
-
-	/**
-	 * The feature id for the '<em><b>Leading</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * 
-	 * @generated
-	 * @ordered
-	 */
-	int VERBATIM_TE__LEADING = TEXT_EXPRESSION__LEADING;
 
 	/**
 	 * The feature id for the '<em><b>Text</b></em>' attribute.
@@ -3910,26 +3852,6 @@ public interface PPPackage extends EPackage {
 	int EXPRESSION_TE = 66;
 
 	/**
-	 * The feature id for the '<em><b>Trailing</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * 
-	 * @generated
-	 * @ordered
-	 */
-	int EXPRESSION_TE__TRAILING = TEXT_EXPRESSION__TRAILING;
-
-	/**
-	 * The feature id for the '<em><b>Leading</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * 
-	 * @generated
-	 * @ordered
-	 */
-	int EXPRESSION_TE__LEADING = TEXT_EXPRESSION__LEADING;
-
-	/**
 	 * The feature id for the '<em><b>Expression</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -3959,26 +3881,6 @@ public interface PPPackage extends EPackage {
 	 * @generated
 	 */
 	int VARIABLE_TE = 67;
-
-	/**
-	 * The feature id for the '<em><b>Trailing</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * 
-	 * @generated
-	 * @ordered
-	 */
-	int VARIABLE_TE__TRAILING = TEXT_EXPRESSION__TRAILING;
-
-	/**
-	 * The feature id for the '<em><b>Leading</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * 
-	 * @generated
-	 * @ordered
-	 */
-	int VARIABLE_TE__LEADING = TEXT_EXPRESSION__LEADING;
 
 	/**
 	 * The feature id for the '<em><b>Var Name</b></em>' attribute.
@@ -4453,17 +4355,17 @@ public interface PPPackage extends EPackage {
 	EClass getDoubleQuotedString();
 
 	/**
-	 * Returns the meta object for the containment reference '{@link org.cloudsmith.geppetto.pp.DoubleQuotedString#getTextExpression
-	 * <em>Text Expression</em>}'.
+	 * Returns the meta object for the containment reference list '{@link org.cloudsmith.geppetto.pp.DoubleQuotedString#getStringPart
+	 * <em>String Part</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
-	 * @return the meta object for the containment reference '<em>Text Expression</em>'.
-	 * @see org.cloudsmith.geppetto.pp.DoubleQuotedString#getTextExpression()
+	 * @return the meta object for the containment reference list '<em>String Part</em>'.
+	 * @see org.cloudsmith.geppetto.pp.DoubleQuotedString#getStringPart()
 	 * @see #getDoubleQuotedString()
 	 * @generated
 	 */
-	EReference getDoubleQuotedString_TextExpression();
+	EReference getDoubleQuotedString_StringPart();
 
 	/**
 	 * Returns the meta object for class '{@link org.cloudsmith.geppetto.pp.ElseExpression <em>Else Expression</em>}'.
@@ -5303,30 +5205,6 @@ public interface PPPackage extends EPackage {
 	 * @generated
 	 */
 	EClass getTextExpression();
-
-	/**
-	 * Returns the meta object for the containment reference '{@link org.cloudsmith.geppetto.pp.TextExpression#getLeading <em>Leading</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * 
-	 * @return the meta object for the containment reference '<em>Leading</em>'.
-	 * @see org.cloudsmith.geppetto.pp.TextExpression#getLeading()
-	 * @see #getTextExpression()
-	 * @generated
-	 */
-	EReference getTextExpression_Leading();
-
-	/**
-	 * Returns the meta object for the containment reference '{@link org.cloudsmith.geppetto.pp.TextExpression#getTrailing <em>Trailing</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * 
-	 * @return the meta object for the containment reference '<em>Trailing</em>'.
-	 * @see org.cloudsmith.geppetto.pp.TextExpression#getTrailing()
-	 * @see #getTextExpression()
-	 * @generated
-	 */
-	EReference getTextExpression_Trailing();
 
 	/**
 	 * Returns the meta object for class '{@link org.cloudsmith.geppetto.pp.UnaryExpression <em>Unary Expression</em>}'.

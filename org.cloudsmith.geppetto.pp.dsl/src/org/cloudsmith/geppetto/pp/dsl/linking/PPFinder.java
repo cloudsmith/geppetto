@@ -320,6 +320,10 @@ public class PPFinder {
 
 		if(scopeDetermeningResource != resource) {
 			// This is a lookup in the perspective of some other resource
+			// GIVE UP (the system is cleaning / is in bad state).
+			if(resource == null)
+				return new SearchResult(targets, targets);
+
 			IResourceDescriptions descriptionIndex = indexProvider.getResourceDescriptions(scopeDetermeningResource);
 			IResourceDescription descr = descriptionIndex.getResourceDescription(scopeDetermeningResource.getURI());
 

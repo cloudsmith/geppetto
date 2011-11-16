@@ -389,13 +389,9 @@ public class PPFormatter extends AbstractDeclarativeFormatter {
 	}
 
 	protected void stringExpressionConfiguration(FormattingConfig c) {
-		// PPGrammarAccess ga = (PPGrammarAccess) getGrammarAccess();
-		// c.setSpace(" ").after(ga.getDoubleQuotedStringAccess().getQuotationMarkKeyword_2());
-		// Keyword dollarLeft = ga.getExpressionTextExpressionAccess().getDollarSignLeftCurlyBracketKeyword_1_1();
-		// Keyword endBrace = ga.getExpressionTextExpressionAccess().getRightCurlyBracketKeyword_1_3();
-		// c.setNoSpace().around(dollarLeft);
-		// c.setNoSpace().around(endBrace);
-
+		PPGrammarAccess ga = (PPGrammarAccess) getGrammarAccess();
+		c.setNoSpace().after(ga.getUnquotedStringAccess().getDollarSignLeftCurlyBracketKeyword_1());
+		c.setNoSpace().before(ga.getUnquotedStringAccess().getRightCurlyBracketKeyword_3());
 	}
 
 	// /**

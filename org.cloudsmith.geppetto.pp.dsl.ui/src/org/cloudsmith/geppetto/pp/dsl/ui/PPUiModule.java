@@ -15,6 +15,7 @@ import org.cloudsmith.geppetto.common.tracer.DefaultTracer;
 import org.cloudsmith.geppetto.common.tracer.ITracer;
 import org.cloudsmith.geppetto.pp.dsl.lexer.PPOverridingLexer;
 import org.cloudsmith.geppetto.pp.dsl.linking.PPSearchPath.ISearchPathProvider;
+import org.cloudsmith.geppetto.pp.dsl.ui.builder.NatureAddingEditorCallback;
 import org.cloudsmith.geppetto.pp.dsl.ui.builder.PPModulefileBuilder;
 import org.cloudsmith.geppetto.pp.dsl.ui.coloring.PPHighlightConfiguration;
 import org.cloudsmith.geppetto.pp.dsl.ui.coloring.PPSemanticHighlightingCalculator;
@@ -102,6 +103,12 @@ public class PPUiModule extends org.cloudsmith.geppetto.pp.dsl.ui.AbstractPPUiMo
 
 	public Class<? extends ITokenTypeToPartitionTypeMapper> bindITokenTypeToPartitionTypeMapper() {
 		return PPTokenTypeToPartionMapper.class;
+	}
+
+	@Override
+	public Class<? extends org.eclipse.xtext.ui.editor.IXtextEditorCallback> bindIXtextEditorCallback() {
+		// Bind the Geppetto class that automatically adds puppet and xtext natures (without asking).
+		return NatureAddingEditorCallback.class;
 	}
 
 	public Class<? extends PPModulefileBuilder> bindModulefileBuilder() {

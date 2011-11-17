@@ -89,7 +89,7 @@ public class ToggleNatureAction implements IObjectActionDelegate {
 		return projects;
 	}
 
-	private boolean hasNature(IProject project) {
+	protected boolean hasNature(IProject project) {
 		try {
 			IProjectDescription description = project.getDescription();
 
@@ -197,7 +197,7 @@ public class ToggleNatureAction implements IObjectActionDelegate {
 	 * @param project
 	 *            to have sample nature added or removed
 	 */
-	private void toggleNature(IProject project) {
+	protected void toggleNature(IProject project) {
 
 		if(hasNature(project)) {
 			if(!turnOn)
@@ -205,5 +205,15 @@ public class ToggleNatureAction implements IObjectActionDelegate {
 		}
 		else if(turnOn)
 			addNature(project);
+	}
+
+	protected void toggleNature(IProject project, boolean on) {
+		if(hasNature(project)) {
+			if(!on)
+				removeNature(project);
+		}
+		else if(on)
+			addNature(project);
+
 	}
 }

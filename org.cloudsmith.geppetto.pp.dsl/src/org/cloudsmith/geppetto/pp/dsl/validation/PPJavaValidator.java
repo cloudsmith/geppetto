@@ -279,6 +279,32 @@ public class PPJavaValidator extends AbstractPPJavaValidator implements IPPDiagn
 			acceptor.acceptError(
 				"Not an appendable expression", o, PPPackage.Literals.BINARY_EXPRESSION__LEFT_EXPR,
 				INSIGNIFICANT_INDEX, IPPDiagnostics.ISSUE__NOT_APPENDABLE);
+		else
+			checkAssignability(o, (VariableExpression) leftExpr);
+
+	}
+
+	/**
+	 * Common functionality for $x = ... and $x += ...
+	 * 
+	 * @param o
+	 *            the binary expr where varExpr is the leftExpr
+	 * @param varExpr
+	 *            the leftExpr of the given o BinaryExpression
+	 */
+	private void checkAssignability(BinaryExpression o, VariableExpression varExpr) {
+
+		// Variables in 'other namespaces' are not assignable.
+		if(varExpr.getVarName().contains("::"))
+			acceptor.acceptError("Cannot assign to variables in other namespaces", o, //
+				PPPackage.Literals.BINARY_EXPRESSION__LEFT_EXPR, INSIGNIFICANT_INDEX, //
+				IPPDiagnostics.ISSUE__ASSIGNMENT_OTHER_NAMESPACE);
+
+		// Decimal numeric variables are not assignable (clash with magic regexp variables)
+		if(patternHelper.isDECIMALVAR(varExpr.getVarName()))
+			acceptor.acceptError("Cannot assign to regular expression result variable", o, //
+				PPPackage.Literals.BINARY_EXPRESSION__LEFT_EXPR, INSIGNIFICANT_INDEX, //
+				IPPDiagnostics.ISSUE__ASSIGNMENT_DECIMAL_VAR);
 	}
 
 	@Check
@@ -288,27 +314,11 @@ public class PPJavaValidator extends AbstractPPJavaValidator implements IPPDiagn
 			acceptor.acceptError(
 				"Not an assignable expression", o, PPPackage.Literals.BINARY_EXPRESSION__LEFT_EXPR,
 				INSIGNIFICANT_INDEX, IPPDiagnostics.ISSUE__NOT_ASSIGNABLE);
+		if(leftExpr instanceof VariableExpression)
+			checkAssignability(o, (VariableExpression) leftExpr);
+
 		// TODO: rhs is not validated, it allows expression, which includes rvalue, but some top level expressions
 		// are probably not allowed (case?)
-
-		if(leftExpr instanceof VariableExpression) {
-			VariableExpression varExpr = (VariableExpression) leftExpr;
-
-			// Variables in 'other namespaces' are not assignable.
-			if(varExpr.getVarName().contains("::"))
-				acceptor.acceptError("Cannot assign to variables in other namespaces", o, //
-					PPPackage.Literals.BINARY_EXPRESSION__LEFT_EXPR, INSIGNIFICANT_INDEX, //
-					IPPDiagnostics.ISSUE__ASSIGNMENT_OTHER_NAMESPACE);
-
-			// Decimal numeric variables are not assignable (clash with magic regexp variables)
-			if(patternHelper.isDECIMALVAR(varExpr.getVarName())) {
-				acceptor.acceptError("Cannot assign to regular expression result variable", o, //
-					PPPackage.Literals.BINARY_EXPRESSION__LEFT_EXPR, INSIGNIFICANT_INDEX, //
-					IPPDiagnostics.ISSUE__ASSIGNMENT_DECIMAL_VAR);
-			}
-
-			// TODO: reassignment not allowed
-		}
 	}
 
 	/**

@@ -23,7 +23,6 @@ public class AllKnownIssuesTests {
 	public static Test suite() {
 		TestSuite suite = new TestSuite(AllKnownIssuesTests.class.getName());
 		// $JUnit-BEGIN$
-		suite.addTestSuite(TestLinking.class);
 		suite.addTestSuite(TestFailingFormatting.class);
 		suite.addTestSuite(TestFailingSerialization.class);
 		// $JUnit-END$

@@ -144,31 +144,6 @@ public class TestFailingSerialization extends AbstractPuppetTests {
 	}
 
 	/**
-	 * Test that serialization without formatting does not alter the input.
-	 * Broken in Xtext 2.0 - produces formatted result, should leave string alone
-	 */
-	public void test_Serialize_IfExpression1() throws Exception {
-		String code = "if$a==1{true}else{false}if$a==1{true}elsif$b< -3{false}else{true}";
-		XtextResource r = getResourceFromString(code);
-		String s = serialize(r.getContents().get(0));
-
-		// Broken in Xtext 2.0 - produces formatted result, should leave string alone
-		assertEquals("serialization should produce same result as input", code, s);
-	}
-
-	/**
-	 * This serialization (with formatting produces the correct result).
-	 * 
-	 * @see #test_Serialize_IfExpression1()
-	 */
-	public void test_Serialize_IfExpression2() throws Exception {
-		String code = "if$a==1{true}else{false}if$a==1{true}elsif$b< -3{false}else{true}";
-		XtextResource r = getResourceFromString(code);
-		String s = serializeFormatted(r.getContents().get(0));
-		assertEquals("serialization should produce specified result", Sample_If, s);
-	}
-
-	/**
 	 * No matter how formatter tries to add linewrapping there is none in the formatted result.
 	 * 
 	 * @see PPFormatter#importExpressionConfiguration(FormattingConfig c)

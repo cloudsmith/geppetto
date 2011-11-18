@@ -68,14 +68,15 @@ public class PPQualifiedNameProvider extends DefaultDeclarativeQualifiedNameProv
 	}
 
 	QualifiedName qualifiedName(VariableExpression o) {
-		if(o.eContainer().eClass() != PPPackage.Literals.ASSIGNMENT_EXPRESSION)
+		boolean assignment = o.eContainer().eClass() == PPPackage.Literals.ASSIGNMENT_EXPRESSION;
+		boolean append = o.eContainer().eClass() == PPPackage.Literals.APPEND_EXPRESSION;
+		if(!(assignment || append))
 			return null;
 		EStructuralFeature feature = o.eContainingFeature();
 		if(feature == null || PPPackage.Literals.BINARY_EXPRESSION__LEFT_EXPR != feature)
 			return null;
 
 		// Do the export of the variable name in context
-		// TODO !!
 		String name = o.getVarName();
 		if(name.startsWith("$"))
 			if(name.length() > 1)

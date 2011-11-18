@@ -300,6 +300,24 @@ public class TestExpressions extends AbstractPuppetTests {
 	}
 
 	/**
+	 * Tests append Notok states:
+	 * - $a::b += expr
+	 */
+	public void test_Validate_AppendExpression_NotOk_Scope() {
+		PuppetManifest pp = pf.createPuppetManifest();
+		AppendExpression ae = pf.createAppendExpression();
+		LiteralBoolean b = pf.createLiteralBoolean();
+		VariableExpression v = pf.createVariableExpression();
+		v.setVarName("$a::b");
+		ae.setLeftExpr(v);
+		ae.setRightExpr(b);
+		pp.getStatements().add(ae);
+
+		tester.validate(pp).assertError(IPPDiagnostics.ISSUE__ASSIGNMENT_OTHER_NAMESPACE);
+
+	}
+
+	/**
 	 * Tests append ok states:
 	 * - $x += expr
 	 */
@@ -330,9 +348,8 @@ public class TestExpressions extends AbstractPuppetTests {
 	}
 
 	/**
-	 * Tests assignemt ok states:
-	 * - $x = expr
-	 * - $x[expr] = expr
+	 * Tests assignment not ok states:
+	 * - $0 = expr
 	 */
 	public void test_Validate_AssignmentExpression_NotOk_Decimal() {
 		PuppetManifest pp = pf.createPuppetManifest();
@@ -345,6 +362,23 @@ public class TestExpressions extends AbstractPuppetTests {
 		pp.getStatements().add(ae);
 
 		tester.validate(pp).assertError(IPPDiagnostics.ISSUE__ASSIGNMENT_DECIMAL_VAR);
+	}
+
+	/**
+	 * Tests assignment not ok states:
+	 * - $a::b = expr
+	 */
+	public void test_Validate_AssignmentExpression_NotOk_Scope() {
+		PuppetManifest pp = pf.createPuppetManifest();
+		AssignmentExpression ae = pf.createAssignmentExpression();
+		LiteralBoolean b = pf.createLiteralBoolean();
+		VariableExpression v = pf.createVariableExpression();
+		v.setVarName("$a::b");
+		ae.setLeftExpr(v);
+		ae.setRightExpr(b);
+		pp.getStatements().add(ae);
+
+		tester.validate(pp).assertError(IPPDiagnostics.ISSUE__ASSIGNMENT_OTHER_NAMESPACE);
 	}
 
 	/**

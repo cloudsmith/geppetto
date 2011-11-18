@@ -282,6 +282,24 @@ public class TestExpressions extends AbstractPuppetTests {
 	}
 
 	/**
+	 * Tests append Notok states:
+	 * - $0 += expr
+	 */
+	public void test_Validate_AppendExpression_NotOk_Decimal() {
+		PuppetManifest pp = pf.createPuppetManifest();
+		AppendExpression ae = pf.createAppendExpression();
+		LiteralBoolean b = pf.createLiteralBoolean();
+		VariableExpression v = pf.createVariableExpression();
+		v.setVarName("$0");
+		ae.setLeftExpr(v);
+		ae.setRightExpr(b);
+		pp.getStatements().add(ae);
+
+		tester.validate(pp).assertError(IPPDiagnostics.ISSUE__ASSIGNMENT_DECIMAL_VAR);
+
+	}
+
+	/**
 	 * Tests append ok states:
 	 * - $x += expr
 	 */
@@ -309,6 +327,24 @@ public class TestExpressions extends AbstractPuppetTests {
 
 		tester.validate(pp).assertError(IPPDiagnostics.ISSUE__NOT_ASSIGNABLE);
 
+	}
+
+	/**
+	 * Tests assignemt ok states:
+	 * - $x = expr
+	 * - $x[expr] = expr
+	 */
+	public void test_Validate_AssignmentExpression_NotOk_Decimal() {
+		PuppetManifest pp = pf.createPuppetManifest();
+		AssignmentExpression ae = pf.createAssignmentExpression();
+		LiteralBoolean b = pf.createLiteralBoolean();
+		VariableExpression v = pf.createVariableExpression();
+		v.setVarName("$0");
+		ae.setLeftExpr(v);
+		ae.setRightExpr(b);
+		pp.getStatements().add(ae);
+
+		tester.validate(pp).assertError(IPPDiagnostics.ISSUE__ASSIGNMENT_DECIMAL_VAR);
 	}
 
 	/**

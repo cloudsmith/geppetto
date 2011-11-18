@@ -53,6 +53,32 @@ public class TestLinking extends AbstractPuppetTests {
 	}
 
 	/**
+	 * A reference to a variable created with += should produce no errors or warnings
+	 * 
+	 * @throws Exception
+	 */
+	public void test_appendShouldCreateVariable() throws Exception {
+		String code1 = "$arr2 = ['a']\n" + //
+				"class foo {\n" + //
+				"$arr2 += ['b', 'c']\n" + //
+				"}\n";
+
+		String code2 = "$arr = $foo::arr2\n"; //
+
+		// XtextResource r = getResourceFromString(code);
+		List<Resource> resources = loadAndLinkResources(code1, code2);
+		Resource r = resources.get(0);
+		tester.validate(r.getContents().get(0)).assertOK();
+		resourceWarningDiagnostics(r).assertOK();
+		resourceErrorDiagnostics(r).assertOK();
+
+		r = resources.get(1);
+		tester.validate(r.getContents().get(0)).assertOK();
+		resourceWarningDiagnostics(r).assertOK();
+		resourceErrorDiagnostics(r).assertOK();
+	}
+
+	/**
 	 * An unqualified reference to an inherited variable should produce no errors or warnings.
 	 * 
 	 * @throws Exception
@@ -78,4 +104,5 @@ public class TestLinking extends AbstractPuppetTests {
 		resourceWarningDiagnostics(r).assertOK();
 		resourceErrorDiagnostics(r).assertOK();
 	}
+
 }

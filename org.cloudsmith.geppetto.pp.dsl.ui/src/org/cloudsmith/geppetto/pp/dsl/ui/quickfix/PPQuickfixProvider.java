@@ -29,6 +29,8 @@ import org.eclipse.jface.text.BadLocationException;
 import org.eclipse.xtext.naming.IQualifiedNameConverter;
 import org.eclipse.xtext.naming.IQualifiedNameProvider;
 import org.eclipse.xtext.naming.QualifiedName;
+import org.eclipse.xtext.nodemodel.ICompositeNode;
+import org.eclipse.xtext.nodemodel.util.NodeModelUtils;
 import org.eclipse.xtext.resource.IEObjectDescription;
 import org.eclipse.xtext.resource.XtextResource;
 import org.eclipse.xtext.ui.editor.model.IXtextDocument;
@@ -169,6 +171,51 @@ public class PPQuickfixProvider extends DefaultQuickfixProvider {
 				issue.getOffset() + 1, 0, ","));
 	}
 
+	@Fix(IPPDiagnostics.ISSUE__INTERPOLATED_HYPHEN)
+	public void interpolatedHyphen(final Issue issue, final IssueResolutionAcceptor acceptor) {
+		final IModificationContext modificationContext = getModificationContextFactory().createModificationContext(
+			issue);
+		final IXtextDocument xtextDocument = modificationContext.getXtextDocument();
+		xtextDocument.readOnly(new IUnitOfWork.Void<XtextResource>() {
+			@Override
+			public void process(XtextResource state) throws Exception {
+				EObject varExpr = state.getEObject(issue.getUriToProblem().fragment());
+				if(!(varExpr instanceof VariableTE))
+					return; // something is wrong
+
+				VariableTE varTE = (VariableTE) varExpr;
+				ICompositeNode node = NodeModelUtils.getNode(varTE);
+
+				// Offer two fixes for: $aaa-bbb:
+				// a) ${aaa-bbb} - i.e. the 2.7 way
+				// b) ${aaa}-bbb - i.e. the 2.6 way
+				//
+				String issueString = xtextDocument.get(issue.getOffset(), issue.getLength());
+				boolean dollarVar = issueString.startsWith("$");
+				if(dollarVar)
+					issueString = issueString.substring(1);
+
+				// --a)
+				StringBuilder builder = new StringBuilder();
+				builder.append("${");
+				builder.append(node.getText().substring(1));
+				builder.append("}");
+				acceptor.accept(issue, "Change to '" + builder.toString() + "'", "Change to 2.7 style", null, //
+					new ReplacingModification(node.getOffset(), node.getLength(), builder.toString()));
+
+				// --b)
+				builder = new StringBuilder();
+				builder.append("${");
+				int hyphenPos = issue.getOffset() - node.getOffset();
+				builder.append(node.getText().substring(1, hyphenPos));
+				builder.append("}");
+				acceptor.accept(issue, "Change to '" + builder.toString() + "'", "Change to 2.6 style", null, //
+					new ReplacingModification(node.getOffset(), hyphenPos, builder.toString()));
+			}
+		});
+
+	}
+
 	@Fix(IPPDiagnostics.ISSUE__NOT_NAME_OR_REF)
 	public void makeAllSegmentsSameCase(final Issue issue, IssueResolutionAcceptor acceptor) {
 		String data[] = issue.getData();
@@ -293,6 +340,9 @@ public class PPQuickfixProvider extends DefaultQuickfixProvider {
 				EObject varExpr = state.getEObject(issue.getUriToProblem().fragment());
 				if(!(varExpr instanceof VariableExpression || varExpr instanceof VariableTE || varExpr instanceof LiteralNameOrReference))
 					return; // something is wrong
+
+				if(issue.getOffset() < 0)
+					return; // something is wrong (while editing)
 
 				String issueString = xtextDocument.get(issue.getOffset(), issue.getLength());
 				boolean dollarVar = issueString.startsWith("$");

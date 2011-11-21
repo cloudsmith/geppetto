@@ -17,9 +17,33 @@ package org.cloudsmith.geppetto.pp.dsl.validation;
  */
 public enum ValidationPreference {
 
-	IGNORE, INFO, WARNING, ERROR;
+	IGNORE, WARNING, ERROR;
+
+	public static ValidationPreference fromString(String s) {
+		s = s.toLowerCase();
+		if("ignore".equals(s))
+			return IGNORE;
+		if("warning".equals(s))
+			return WARNING;
+		if("error".equals(s))
+			return ERROR;
+		throw new IllegalArgumentException("The string '" + s + "' does not represent a ValidationPreference");
+	}
 
 	public boolean isWarningOrError() {
 		return this == WARNING || this == ERROR;
+	}
+
+	@Override
+	public String toString() {
+		switch(this) {
+			case IGNORE:
+				return "Ignore";
+			case WARNING:
+				return "Warning";
+			case ERROR:
+				return "Error";
+		}
+		throw new IllegalStateException("Can not happen");
 	}
 }

@@ -75,6 +75,7 @@ import org.cloudsmith.geppetto.pp.UnaryExpression;
 import org.cloudsmith.geppetto.pp.UnaryMinusExpression;
 import org.cloudsmith.geppetto.pp.UnaryNotExpression;
 import org.cloudsmith.geppetto.pp.VariableExpression;
+import org.cloudsmith.geppetto.pp.VariableTE;
 import org.cloudsmith.geppetto.pp.VerbatimTE;
 import org.cloudsmith.geppetto.pp.VirtualNameOrReference;
 import org.cloudsmith.geppetto.pp.adapters.ClassifierAdapter;
@@ -1153,6 +1154,24 @@ public class PPJavaValidator extends AbstractPPJavaValidator implements IPPDiagn
 			acceptor.acceptError(
 				"Expected to comply with Variable rule", o, PPPackage.Literals.VARIABLE_EXPRESSION__VAR_NAME,
 				INSIGNIFICANT_INDEX, IPPDiagnostics.ISSUE__NOT_VARNAME);
+	}
+
+	@Check
+	void checkVariableTextExpression(VariableTE o) {
+		ValidationPreference hyphens = advisor().interpolatedNonBraceEnclosedHyphens();
+		if(hyphens.isWarningOrError()) {
+			int hyphenIdx = o.getVarName().indexOf("-");
+			if(hyphenIdx >= 0) {
+				String message = "Interpolation stops at '-' in puppet versions < 2.7";
+				ICompositeNode node = NodeModelUtils.getNode(o);
+				int offset = node.getOffset() + hyphenIdx;
+				int length = node.getLength() - hyphenIdx;
+				if(hyphens == ValidationPreference.WARNING)
+					acceptor.acceptWarning(message, o, offset, length, IPPDiagnostics.ISSUE__INTERPOLATED_HYPHEN);
+				else
+					acceptor.acceptError(message, o, offset, length, IPPDiagnostics.ISSUE__INTERPOLATED_HYPHEN);
+			}
+		}
 	}
 
 	@Check

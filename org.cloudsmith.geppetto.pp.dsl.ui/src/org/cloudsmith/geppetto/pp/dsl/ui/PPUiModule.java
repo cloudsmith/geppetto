@@ -27,7 +27,9 @@ import org.cloudsmith.geppetto.pp.dsl.ui.editor.toggleComments.PPSingleLineComme
 import org.cloudsmith.geppetto.pp.dsl.ui.linking.PPUISearchPathProvider;
 import org.cloudsmith.geppetto.pp.dsl.ui.outline.PPLocationInFileProvider;
 import org.cloudsmith.geppetto.pp.dsl.ui.preferences.PPPreferencesHelper;
+import org.cloudsmith.geppetto.pp.dsl.ui.validation.PreferenceBasedPotentialProblemsAdvisor;
 import org.cloudsmith.geppetto.pp.dsl.ui.validation.PreferenceBasedValidationAdvisorProvider;
+import org.cloudsmith.geppetto.pp.dsl.validation.IPotentialProblemsAdvisor;
 import org.cloudsmith.geppetto.pp.dsl.validation.IValidationAdvisor;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.eclipse.xtext.resource.ILocationInFileProvider;
@@ -74,6 +76,10 @@ public class PPUiModule extends org.cloudsmith.geppetto.pp.dsl.ui.AbstractPPUiMo
 	 */
 	public Class<? extends ILocationInFileProvider> bindILocationInFileProvider() {
 		return PPLocationInFileProvider.class;
+	}
+
+	public Class<? extends IPotentialProblemsAdvisor> bindIPotentialProblemsAdvisor() {
+		return PreferenceBasedPotentialProblemsAdvisor.class;
 	}
 
 	/**

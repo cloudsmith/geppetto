@@ -158,4 +158,6 @@ public interface IPPDiagnostics {
 
 	public static final String ISSUE__UNINITIALIZED_VARIABLE = ISSUE_PREFIX + "UninitializedVar";
 
+	public static final String ISSUE__INTERPOLATED_HYPHEN = ISSUE_PREFIX + "InterpolatedHypen";
+
 }

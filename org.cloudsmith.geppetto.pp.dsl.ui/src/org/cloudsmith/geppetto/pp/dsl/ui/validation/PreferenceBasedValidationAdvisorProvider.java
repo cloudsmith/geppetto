@@ -12,6 +12,7 @@
 package org.cloudsmith.geppetto.pp.dsl.ui.validation;
 
 import org.cloudsmith.geppetto.pp.dsl.ui.preferences.PPPreferencesHelper;
+import org.cloudsmith.geppetto.pp.dsl.validation.IPotentialProblemsAdvisor;
 import org.cloudsmith.geppetto.pp.dsl.validation.IValidationAdvisor;
 import org.cloudsmith.geppetto.pp.dsl.validation.ValidationAdvisor;
 
@@ -31,6 +32,9 @@ public class PreferenceBasedValidationAdvisorProvider<T extends IValidationAdvis
 	@Inject
 	private PPPreferencesHelper preferences;
 
+	@Inject
+	private Provider<IPotentialProblemsAdvisor> potentialProblemsAdvisorProvider;
+
 	public PreferenceBasedValidationAdvisorProvider() {
 	}
 
@@ -41,7 +45,8 @@ public class PreferenceBasedValidationAdvisorProvider<T extends IValidationAdvis
 	 */
 	@Override
 	public IValidationAdvisor get() {
-		return ValidationAdvisor.create(preferences.getValidationComplianceLevel());
+		return ValidationAdvisor.create(
+			preferences.getValidationComplianceLevel(), potentialProblemsAdvisorProvider.get());
 	}
 
 }

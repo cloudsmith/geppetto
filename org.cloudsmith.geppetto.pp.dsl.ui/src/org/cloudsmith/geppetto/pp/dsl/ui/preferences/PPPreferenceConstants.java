@@ -30,4 +30,8 @@ public class PPPreferenceConstants {
 	public static final String PUPPET_ENVIRONMENT__ENABLED = "puppetEnvironmentEnabled";
 
 	public static final String FORGE_LOCATION = "forgeLocation";
+
+	public static final String PROBLEM_INTERPOLATED_HYPHEN = "problemInterpolatedHyphen";
+
+	public static final String PROBLEM_CIRCULAR_DEPENDENCY = "circularModuleDependency";
 }

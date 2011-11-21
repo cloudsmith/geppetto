@@ -130,9 +130,6 @@ public class PPModulefileBuilder extends IncrementalProjectBuilder implements PP
 				case WARNING:
 					circularSeverity = IMarker.SEVERITY_WARNING;
 					break;
-				case INFO:
-					circularSeverity = IMarker.SEVERITY_INFO;
-					break;
 				case IGNORE: // just don't do it...
 					break;
 			}

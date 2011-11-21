@@ -16,7 +16,7 @@ package org.cloudsmith.geppetto.pp.dsl.validation;
  * to a language version.
  * 
  */
-public interface IValidationAdvisor {
+public interface IValidationAdvisor extends IPotentialProblemsAdvisor {
 	public enum ComplianceLevel {
 		PUPPET_2_6, PUPPET_2_7, PUPPET_2_8
 	}
@@ -39,13 +39,6 @@ public interface IValidationAdvisor {
 	 * @return
 	 */
 	public boolean allowUnquotedQualifiedResourceNames();
-
-	/**
-	 * How should circular module dependencies be reported (ignore, warning, error).
-	 * 
-	 * @return
-	 */
-	public ValidationPreference circularDependencyPreference();
 
 	/**
 	 * Prior to 2.7 (?) it was not possible to have case labels with a ".".

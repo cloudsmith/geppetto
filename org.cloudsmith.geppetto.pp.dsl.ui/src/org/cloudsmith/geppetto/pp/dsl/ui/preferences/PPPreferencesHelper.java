@@ -14,6 +14,7 @@ package org.cloudsmith.geppetto.pp.dsl.ui.preferences;
 import org.cloudsmith.geppetto.pp.dsl.ui.builder.PPBuildJob;
 import org.cloudsmith.geppetto.pp.dsl.ui.pptp.PptpTargetProjectHandler;
 import org.cloudsmith.geppetto.pp.dsl.validation.IValidationAdvisor;
+import org.cloudsmith.geppetto.pp.dsl.validation.ValidationPreference;
 import org.eclipse.core.resources.IWorkspace;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.util.IPropertyChangeListener;
@@ -77,8 +78,19 @@ public class PPPreferencesHelper implements IPreferenceStoreInitializer, IProper
 		}
 	}
 
+	/**
+	 * @return
+	 */
+	public ValidationPreference getcircularDependencyPreference() {
+		return ValidationPreference.fromString(store.getString(PPPreferenceConstants.PROBLEM_CIRCULAR_DEPENDENCY));
+	}
+
 	public String getForgeURI() {
 		return store.getString(PPPreferenceConstants.FORGE_LOCATION);
+	}
+
+	public ValidationPreference getInterpolatedNonBraceEnclosedHypens() {
+		return ValidationPreference.fromString(store.getString(PPPreferenceConstants.PROBLEM_INTERPOLATED_HYPHEN));
 	}
 
 	public String getPptpVersion() {
@@ -117,6 +129,9 @@ public class PPPreferencesHelper implements IPreferenceStoreInitializer, IProper
 		store.setDefault(PPPreferenceConstants.PUPPET_PROJECT_PATH, defaultProjectPath);
 		store.setDefault(PPPreferenceConstants.PUPPET_ENVIRONMENT, defaultPuppetEnvironment);
 		store.setDefault(PPPreferenceConstants.FORGE_LOCATION, defaultForgeURI);
+
+		store.setDefault(PPPreferenceConstants.PROBLEM_INTERPOLATED_HYPHEN, ValidationPreference.WARNING.toString());
+		store.setDefault(PPPreferenceConstants.PROBLEM_CIRCULAR_DEPENDENCY, ValidationPreference.WARNING.toString());
 
 		autoInsertOverrides = (int) store.getLong(PPPreferenceConstants.AUTO_EDIT_STRATEGY);
 		access.getWritablePreferenceStore().addPropertyChangeListener(this);
@@ -169,6 +184,14 @@ public class PPPreferencesHelper implements IPreferenceStoreInitializer, IProper
 			job.schedule();
 		}
 		if(PPPreferenceConstants.PUPPET_PROJECT_PATH.equals(event.getProperty())) {
+			PPBuildJob job = new PPBuildJob(workspace);
+			job.schedule();
+		}
+		if(PPPreferenceConstants.PROBLEM_INTERPOLATED_HYPHEN.equals(event.getProperty())) {
+			PPBuildJob job = new PPBuildJob(workspace);
+			job.schedule();
+		}
+		if(PPPreferenceConstants.PROBLEM_CIRCULAR_DEPENDENCY.equals(event.getProperty())) {
 			PPBuildJob job = new PPBuildJob(workspace);
 			job.schedule();
 		}

@@ -15,11 +15,48 @@ import org.cloudsmith.geppetto.pp.dsl.validation.IValidationAdvisor.ComplianceLe
 
 public class ValidationAdvisor {
 
+	public static class BaseValidationAdvisor implements IPotentialProblemsAdvisor {
+
+		private IPotentialProblemsAdvisor problemsAdvisor;
+
+		protected BaseValidationAdvisor(IPotentialProblemsAdvisor problemsAdvisor) {
+			this.problemsAdvisor = problemsAdvisor;
+		}
+
+		/*
+		 * (non-Javadoc)
+		 * 
+		 * @see org.cloudsmith.geppetto.pp.dsl.validation.IPotentialProblemsAdvisor#circularDependencyPreference()
+		 */
+		@Override
+		public ValidationPreference circularDependencyPreference() {
+			return problemsAdvisor.circularDependencyPreference();
+		}
+
+		/*
+		 * (non-Javadoc)
+		 * 
+		 * @see org.cloudsmith.geppetto.pp.dsl.validation.IPotentialProblemsAdvisor#interpolatedNonBraceEnclosedHyphens()
+		 */
+		@Override
+		public ValidationPreference interpolatedNonBraceEnclosedHyphens() {
+			return problemsAdvisor.interpolatedNonBraceEnclosedHyphens();
+		}
+
+	}
+
 	/**
 	 * Validation Advisor for Puppet 2.6
 	 * 
 	 */
-	public static class ValidationAdvisor_2_6 implements IValidationAdvisor {
+	public static class ValidationAdvisor_2_6 extends BaseValidationAdvisor implements IValidationAdvisor {
+
+		/**
+		 * @param problemsAdvisor
+		 */
+		protected ValidationAdvisor_2_6(IPotentialProblemsAdvisor problemsAdvisor) {
+			super(problemsAdvisor);
+		}
 
 		/**
 		 * @returns true
@@ -40,14 +77,6 @@ public class ValidationAdvisor {
 		@Override
 		public boolean allowUnquotedQualifiedResourceNames() {
 			return false;
-		}
-
-		/**
-		 * @returns ValidationPreference.WARNING
-		 */
-		@Override
-		public ValidationPreference circularDependencyPreference() {
-			return ValidationPreference.WARNING;
 		}
 
 		/**
@@ -72,6 +101,13 @@ public class ValidationAdvisor {
 	 * 
 	 */
 	public static class ValidationAdvisor_2_7 extends ValidationAdvisor_2_6 implements IValidationAdvisor {
+
+		/**
+		 * @param problemsAdvisor
+		 */
+		protected ValidationAdvisor_2_7(IPotentialProblemsAdvisor problemsAdvisor) {
+			super(problemsAdvisor);
+		}
 
 		@Override
 		public boolean allowUnquotedQualifiedResourceNames() {
@@ -103,6 +139,13 @@ public class ValidationAdvisor {
 	public static class ValidationAdvisor_2_8 extends ValidationAdvisor_2_7 implements IValidationAdvisor {
 
 		/**
+		 * @param problemsAdvisor
+		 */
+		protected ValidationAdvisor_2_8(IPotentialProblemsAdvisor problemsAdvisor) {
+			super(problemsAdvisor);
+		}
+
+		/**
 		 * @returns ValidationPreference.ERROR
 		 */
 		@Override
@@ -111,14 +154,14 @@ public class ValidationAdvisor {
 		}
 	}
 
-	public static IValidationAdvisor create(ComplianceLevel level) {
+	public static IValidationAdvisor create(ComplianceLevel level, IPotentialProblemsAdvisor problemsAdvisor) {
 		switch(level) {
 			case PUPPET_2_6:
-				return new ValidationAdvisor_2_6();
+				return new ValidationAdvisor_2_6(problemsAdvisor);
 			case PUPPET_2_7:
-				return new ValidationAdvisor_2_7();
+				return new ValidationAdvisor_2_7(problemsAdvisor);
 			case PUPPET_2_8:
-				return new ValidationAdvisor_2_8();
+				return new ValidationAdvisor_2_8(problemsAdvisor);
 		}
 		throw new IllegalArgumentException("Unsupported compliance level");
 	}

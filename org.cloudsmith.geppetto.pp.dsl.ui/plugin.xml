@@ -106,6 +106,12 @@
                  id="org.cloudsmith.geppetto.pp.dsl.ui.keyword_PP">
            </keywordReference>
         </page>
+        <page
+              category="org.cloudsmith.geppetto.pp.dsl.PP"
+              class="org.cloudsmith.geppetto.pp.dsl.ui.PPExecutableExtensionFactory:org.cloudsmith.geppetto.pp.dsl.ui.preferences.PPPotentialProblemsPreferencePage"
+              id="org.cloudsmith.geppetto.pp.dsl.PP.pproblem"
+              name="Potential Problems">
+        </page>
     </extension>
     <extension
         point="org.eclipse.ui.keywords">

@@ -36,7 +36,7 @@ public class ValidationAdvisorProvider<T extends IValidationAdvisor> implements 
 	 */
 	@Override
 	public IValidationAdvisor get() {
-		return ValidationAdvisor.create(level);
+		return ValidationAdvisor.create(level, new DefaultPotentialProblemsAdvisor());
 	}
 
 }

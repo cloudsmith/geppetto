@@ -30,8 +30,12 @@ import org.cloudsmith.geppetto.ui.dialog.ModuleListSelectionDialog;
 import org.cloudsmith.geppetto.ui.util.ResourceUtil;
 import org.cloudsmith.geppetto.ui.util.StringUtil;
 import org.eclipse.core.resources.IFile;
+import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
+import org.eclipse.core.resources.IResource;
+import org.eclipse.core.resources.IResourceVisitor;
 import org.eclipse.core.resources.ResourcesPlugin;
+import org.eclipse.core.runtime.CoreException;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.UniqueEList;
 import org.eclipse.jface.layout.GridDataFactory;
@@ -444,7 +448,7 @@ class ModuleMetadataOverviewPage extends FormPage {
 			if(moduleChoices == null) {
 				EList<Object> choices = new UniqueEList.FastCompare<Object>();
 
-				Map<String, ModuleInfo> modules = new HashMap<String, ModuleInfo>();
+				final Map<String, ModuleInfo> modules = new HashMap<String, ModuleInfo>();
 
 				// try {
 				// for(ModuleInfo module : getForge().search(null)) {
@@ -455,12 +459,16 @@ class ModuleMetadataOverviewPage extends FormPage {
 				// catch(IOException ioe) {
 				// ioe.printStackTrace();
 				// }
+				final IProject current = getCurrentProject();
+				final IFile currentModuleFile = getCurrentFile();
 
 				for(IProject project : ResourcesPlugin.getWorkspace().getRoot().getProjects()) {
 
 					try {
 						if(project.hasNature(XtextProjectHelper.NATURE_ID)) {
 							IFile moduleFile = ResourceUtil.getFile(project.getFullPath().append("Modulefile")); //$NON-NLS-1$
+							if(moduleFile.equals(currentModuleFile))
+								continue; // not meaningful to include dependency on itself
 
 							if(moduleFile.exists()) {
 								Metadata metadata = ForgeFactory.eINSTANCE.createMetadata();
@@ -471,6 +479,44 @@ class ModuleMetadataOverviewPage extends FormPage {
 								module.setVersion(metadata.getVersion());
 
 								modules.put(StringUtil.getModuleText(module), module);
+							}
+							else if(current != null && project.getName().equals(current.getName())) {
+								// Also add all embedded modules from current project
+								final IFolder modulesFolder = project.getFolder("modules");
+								if(modulesFolder.exists()) {
+									modulesFolder.accept(new IResourceVisitor() {
+
+										@Override
+										public boolean visit(IResource resource) throws CoreException {
+											if(resource.equals(modulesFolder))
+												return true;
+											try {
+												if(resource instanceof IFolder) {
+													IFile moduleFile = ResourceUtil.getFile(resource.getFullPath().append(
+														"Modulefile"));
+													if(moduleFile.equals(currentModuleFile))
+														return false; // not meaningful to include dependency on itself
+													if(moduleFile.exists()) {
+														Metadata metadata = ForgeFactory.eINSTANCE.createMetadata();
+														metadata.loadModuleFile(moduleFile.getLocation().toFile());
+
+														ModuleInfo module = ForgeFactory.eINSTANCE.createModuleInfo();
+														module.setFullName(metadata.getUser() + '/' +
+																metadata.getName());
+														module.setVersion(metadata.getVersion());
+
+														modules.put(StringUtil.getModuleText(module), module);
+													}
+												}
+											}
+											catch(Exception e) {
+												UIPlugin.INSTANCE.log(e);
+											}
+
+											return false;
+										}
+									}, IResource.DEPTH_ONE, false);
+								}
 							}
 						}
 					}
@@ -707,6 +753,17 @@ class ModuleMetadataOverviewPage extends FormPage {
 		managedForm.addPart(new DependenciesSectionPart(body, toolkit));
 
 		managedForm.addPart(new DetailsSectionPart(body, toolkit));
+	}
+
+	protected IFile getCurrentFile() {
+		return (IFile) getEditor().getEditorInput().getAdapter(IFile.class);
+	}
+
+	protected IProject getCurrentProject() {
+		IFile adapter = (IFile) getEditor().getEditorInput().getAdapter(IFile.class);
+		if(adapter == null)
+			return null;
+		return adapter.getProject();
 	}
 
 	protected Metadata getMetadata() {

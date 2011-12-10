@@ -96,7 +96,8 @@ public class PPPreferencesHelper implements IPreferenceStoreInitializer, IProper
 	public String getPptpVersion() {
 		String result = store.getString(PPPreferenceConstants.PUPPET_TARGET_VERSION);
 		// TODO: Until there is an actual 2.8 pptp, return 2.7
-		if("2.8".equals(result))
+		// PE 2.0 includes puppet 2.7
+		if("2.8".equals(result) || "PE 2.0".equals(result))
 			return "2.7";
 		return result;
 	}

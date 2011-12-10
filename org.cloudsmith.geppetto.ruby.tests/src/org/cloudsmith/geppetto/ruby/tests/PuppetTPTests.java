@@ -87,6 +87,12 @@ public class PuppetTPTests extends TestCase {
 
 	}
 
+	public void testLoad_PE_2_0() throws Exception {
+		performLoad(
+			new File("/Users/henrik/PuppetDistributions/puppet-enterprise-2.0.0-el-4-i386/lib/puppet"), new File(
+				"puppet_enterprise-2.0.0.pptp"));
+	}
+
 	public void testLoad2_6_9() throws Exception {
 		performLoad(
 			new File("/Users/henrik/PuppetDistributions/puppet-2.6.9/lib/puppet"), new File("puppet-2.6.9.pptp"));

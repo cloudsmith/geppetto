@@ -14843,26 +14843,6 @@ protected class TextExpression_VarNameAssignment_2_1 extends AssignmentToken  {
 
 /************ begin Rule ExpressionWithHidden ****************
  *
- * //// Lowest precedence TextExpression
- * //TextExpression returns pp::TextExpression / *hidden()* /: 
- * //	VariableTextExpression
- * //	;
- * //VariableTextExpression returns pp::TextExpression hidden(): 
- * //	ExpressionTextExpression (
- * //		{pp::VariableTE.leading=current} 
- * //		varName = dollarVariable 
- * //		trailing = TextExpression?
- * //	)*
- * //	;
- * //ExpressionTextExpression returns pp::TextExpression hidden():
- * //	// allow comments between ${ and }
- * //	// validate expression is not null == warning
- * //	StringPart (
- * //		{pp::ExpressionTE.leading=current} 
- * //		'${'  expression = ExpressionWithHidden '}'
- * //		trailing = TextExpression?
- * //	)*
- * //	;
  * // Consumation without creation is ok, if made optional where it is assigned, it is not possible to
  * // insert WS and comments into ExpressioNTextExpression.
  * ExpressionWithHidden returns pp::Expression hidden(WS, SL_COMMENT, ML_COMMENT):

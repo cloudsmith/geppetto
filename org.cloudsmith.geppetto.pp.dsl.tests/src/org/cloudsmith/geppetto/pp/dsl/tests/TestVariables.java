@@ -185,6 +185,14 @@ public class TestVariables extends AbstractPuppetTests {
 		resourceErrorDiagnostics(r).assertOK();
 	}
 
+	public void test_hyphenNotOk() throws Exception {
+		String code = "$a-b = 10";
+		XtextResource r = getResourceFromString(code);
+		tester.validate(r.getContents().get(0)).assertError(IPPDiagnostics.ISSUE__NOT_ASSIGNABLE);
+		resourceWarningDiagnostics(r).assertDiagnostic(IPPDiagnostics.ISSUE__UNKNOWN_VARIABLE);
+		resourceErrorDiagnostics(r).assertOK();
+	}
+
 	public void test_linking2RegexpVar() throws Exception {
 		String code = "if 'abc' =~ /a(b)c/ { notice(\"$1\") } "; //
 		Resource r = loadAndLinkSingleResource(code);

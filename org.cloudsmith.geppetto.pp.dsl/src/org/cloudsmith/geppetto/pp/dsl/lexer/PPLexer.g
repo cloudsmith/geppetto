@@ -280,8 +280,8 @@ RULE_WS : (' '|'\u00A0'|'\t'|'\r'|'\n')+;
 
 // Do not check if matched text is a keyword (it is allowed after a '$'
 RULE_DOLLAR_VAR : '$' 
-	((':' ':')=>RULE_NS)? ('0'..'9'|'a'..'z'|'A'..'Z'|'_'|'-')+ 
-	((':' ':')=>RULE_NS ('0'..'9'|'a'..'z'|'A'..'Z'|'_'|'-')+)* ;
+	((':' ':')=>RULE_NS)? ('0'..'9'|'a'..'z'|'A'..'Z'|'_')+ 
+	((':' ':')=>RULE_NS ('0'..'9'|'a'..'z'|'A'..'Z'|'_')+)* ;
 
 // Covers numbers and names
 RULE_WORD_CHARS : ('0'..'9'|'a'..'z'|'A'..'Z'|'_'|'.'|(':' ':')=>RULE_NS) ('0'..'9'|'a'..'z'|'A'..'Z'|'_'|'.'|'-'|(':' ':')=>RULE_NS)*

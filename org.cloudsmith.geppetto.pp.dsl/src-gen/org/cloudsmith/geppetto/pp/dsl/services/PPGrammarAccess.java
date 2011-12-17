@@ -2909,26 +2909,6 @@ public class PPGrammarAccess extends AbstractGrammarElementFinder {
 		private final Assignment cExprAssignment_1 = (Assignment)cGroup.eContents().get(1);
 		private final RuleCall cExprAssignmentExpressionParserRuleCall_1_0 = (RuleCall)cExprAssignment_1.eContents().get(0);
 		
-		////// Lowest precedence TextExpression
-		////TextExpression returns pp::TextExpression / *hidden()* /: 
-		////	VariableTextExpression
-		////	;
-		////VariableTextExpression returns pp::TextExpression hidden(): 
-		////	ExpressionTextExpression (
-		////		{pp::VariableTE.leading=current} 
-		////		varName = dollarVariable 
-		////		trailing = TextExpression?
-		////	)*
-		////	;
-		////ExpressionTextExpression returns pp::TextExpression hidden():
-		////	// allow comments between ${ and }
-		////	// validate expression is not null == warning
-		////	StringPart (
-		////		{pp::ExpressionTE.leading=current} 
-		////		'${'  expression = ExpressionWithHidden '}'
-		////		trailing = TextExpression?
-		////	)*
-		////	;
 		//// Consumation without creation is ok, if made optional where it is assigned, it is not possible to
 		//// insert WS and comments into ExpressioNTextExpression.
 		//ExpressionWithHidden returns pp::Expression hidden(WS, SL_COMMENT, ML_COMMENT):
@@ -3116,8 +3096,6 @@ public class PPGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cFalseKeyword_14 = (Keyword)cAlternatives.eContents().get(14);
 		private final Keyword cIfKeyword_15 = (Keyword)cAlternatives.eContents().get(15);
 		
-		////	: '$' (name | keyword)
-		////	;
 		//keyword:
 		//	"and" | "case" | "class" | "default" | "define" | "else" | "elsif" | "in" | "inherits" | "import" | "node" | "or" |
 		//	"undef" | "true" | "false" | "if";
@@ -4285,26 +4263,6 @@ public class PPGrammarAccess extends AbstractGrammarElementFinder {
 		return getTextExpressionAccess().getRule();
 	}
 
-	////// Lowest precedence TextExpression
-	////TextExpression returns pp::TextExpression / *hidden()* /: 
-	////	VariableTextExpression
-	////	;
-	////VariableTextExpression returns pp::TextExpression hidden(): 
-	////	ExpressionTextExpression (
-	////		{pp::VariableTE.leading=current} 
-	////		varName = dollarVariable 
-	////		trailing = TextExpression?
-	////	)*
-	////	;
-	////ExpressionTextExpression returns pp::TextExpression hidden():
-	////	// allow comments between ${ and }
-	////	// validate expression is not null == warning
-	////	StringPart (
-	////		{pp::ExpressionTE.leading=current} 
-	////		'${'  expression = ExpressionWithHidden '}'
-	////		trailing = TextExpression?
-	////	)*
-	////	;
 	//// Consumation without creation is ok, if made optional where it is assigned, it is not possible to
 	//// insert WS and comments into ExpressioNTextExpression.
 	//ExpressionWithHidden returns pp::Expression hidden(WS, SL_COMMENT, ML_COMMENT):
@@ -4391,8 +4349,6 @@ public class PPGrammarAccess extends AbstractGrammarElementFinder {
 		return getDollarVariableAccess().getRule();
 	}
 
-	////	: '$' (name | keyword)
-	////	;
 	//keyword:
 	//	"and" | "case" | "class" | "default" | "define" | "else" | "elsif" | "in" | "inherits" | "import" | "node" | "or" |
 	//	"undef" | "true" | "false" | "if";
@@ -4487,7 +4443,7 @@ public class PPGrammarAccess extends AbstractGrammarElementFinder {
 	} 
 
 	//terminal DOLLAR_VAR:
-	//	"$" "::"? ("0".."9" | "a".."z" | "A".."Z" | "_" | "-")+ ("::" ("0".."9" | "a".."z" | "A".."Z" | "_" | "-")+)*;
+	//	"$" "::"? ("0".."9" | "a".."z" | "A".."Z" | "_")+ ("::" ("0".."9" | "a".."z" | "A".."Z" | "_")+)*;
 	public TerminalRule getDOLLAR_VARRule() {
 		return (tDOLLAR_VAR != null) ? tDOLLAR_VAR : (tDOLLAR_VAR = (TerminalRule) GrammarUtil.findRuleForName(getGrammar(), "DOLLAR_VAR"));
 	} 

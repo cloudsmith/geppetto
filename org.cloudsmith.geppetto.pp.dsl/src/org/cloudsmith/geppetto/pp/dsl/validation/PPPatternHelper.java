@@ -64,6 +64,11 @@ public class PPPatternHelper {
 	 */
 	private static final String WORD_CHAR = "[0-9a-zA-Z_-]";
 
+	/**
+	 * No '-' allowed in variables.
+	 */
+	private static final String VAR_CHAR = "[0-9a-zA-Z_]";
+
 	@Inject
 	public PPPatternHelper() {
 		namePattern = Pattern.compile("[0-9a-z]" + EXT_WORD_CHAR + "*");
@@ -75,7 +80,7 @@ public class PPPatternHelper {
 		// start with a * - '/*...'
 		// contain newline character
 		regexpPattern = Pattern.compile("/([^/\\n\\*\\\\]|(\\\\[^\\n]))([^/\\n\\\\]|(\\\\[^\\n]))*/[a-z]*");
-		variablePattern = Pattern.compile("\\$(::)?(" + WORD_CHAR + "+::)*" + WORD_CHAR + "+");
+		variablePattern = Pattern.compile("\\$(::)?(" + VAR_CHAR + "+::)*" + VAR_CHAR + "+");
 
 		// sq string may not contain unescaped single quote
 		sqStringPattern = Pattern.compile("([^'\\\\]|\\\\.)*");

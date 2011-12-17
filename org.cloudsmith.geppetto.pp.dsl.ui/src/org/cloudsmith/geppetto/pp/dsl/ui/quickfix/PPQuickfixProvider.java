@@ -164,6 +164,28 @@ public class PPQuickfixProvider extends DefaultQuickfixProvider {
 		proposeDataAsChangeTo(issue, acceptor);
 	}
 
+	@Fix(IPPDiagnostics.ISSUE__HYPHEN_IN_NAME)
+	public void hyphenInName(final Issue issue, final IssueResolutionAcceptor acceptor) {
+		final IModificationContext modificationContext = getModificationContextFactory().createModificationContext(
+			issue);
+		final IXtextDocument xtextDocument = modificationContext.getXtextDocument();
+		xtextDocument.readOnly(new IUnitOfWork.Void<XtextResource>() {
+			@Override
+			public void process(XtextResource state) throws Exception {
+				String issueString = xtextDocument.get(issue.getOffset(), issue.getLength());
+				String replacementString = issueString.replaceAll("-", "_");
+
+				acceptor.accept(
+					issue, "Change to '" + replacementString + "'", "Changes all '-' to '_' in the name", null, //
+					new ReplacingModification(issue.getOffset(), issue.getLength(), replacementString));
+
+				replacementString = issueString.replaceAll("-", "");
+				acceptor.accept(issue, "Change to '" + replacementString + "'", "Removes all '-' from name", null, //
+					new ReplacingModification(issue.getOffset(), issue.getLength(), replacementString));
+			}
+		});
+	}
+
 	@Fix(IPPDiagnostics.ISSUE__MISSING_COMMA)
 	public void insertMissingComma(final Issue issue, IssueResolutionAcceptor acceptor) {
 		acceptor.accept(

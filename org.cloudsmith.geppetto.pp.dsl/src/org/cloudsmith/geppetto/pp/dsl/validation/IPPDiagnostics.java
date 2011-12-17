@@ -160,4 +160,6 @@ public interface IPPDiagnostics {
 
 	public static final String ISSUE__INTERPOLATED_HYPHEN = ISSUE_PREFIX + "InterpolatedHypen";
 
+	public static final String ISSUE__HYPHEN_IN_NAME = ISSUE_PREFIX + "HyphenInName";
+
 }

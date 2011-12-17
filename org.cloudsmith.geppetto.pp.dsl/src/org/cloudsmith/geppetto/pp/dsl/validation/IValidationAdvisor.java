@@ -41,6 +41,13 @@ public interface IValidationAdvisor extends IPotentialProblemsAdvisor {
 	public boolean allowUnquotedQualifiedResourceNames();
 
 	/**
+	 * Hyphens in names are deprecated
+	 * Puppet issue #10146
+	 * And will be errors in later releases.
+	 */
+	public ValidationPreference hyphensInNames();
+
+	/**
 	 * Prior to 2.7 (?) it was not possible to have case labels with a ".".
 	 * 
 	 * @return

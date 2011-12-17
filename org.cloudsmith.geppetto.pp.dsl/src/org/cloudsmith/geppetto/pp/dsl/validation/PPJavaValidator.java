@@ -572,6 +572,21 @@ public class PPJavaValidator extends AbstractPPJavaValidator implements IPPDiagn
 				"Must be a valid name (each segment must start with lower case letter)", o,
 				PPPackage.Literals.DEFINITION__CLASS_NAME, IPPDiagnostics.ISSUE__NOT_CLASSNAME);
 		}
+		else {
+			ValidationPreference hyphens = advisor().hyphensInNames();
+			if(hyphens.isWarningOrError()) {
+				int hyphenIdx = o.getClassName().indexOf("-");
+				if(hyphenIdx >= 0) {
+					String message = "Hypen '-' in name only unofficially supported in some puppet versions.";
+					if(hyphens == ValidationPreference.WARNING)
+						acceptor.acceptWarning(
+							message, o, PPPackage.Literals.DEFINITION__CLASS_NAME, IPPDiagnostics.ISSUE__HYPHEN_IN_NAME);
+					else
+						acceptor.acceptError(
+							message, o, PPPackage.Literals.DEFINITION__CLASS_NAME, IPPDiagnostics.ISSUE__HYPHEN_IN_NAME);
+				}
+			}
+		}
 	}
 
 	@Check
@@ -1158,20 +1173,20 @@ public class PPJavaValidator extends AbstractPPJavaValidator implements IPPDiagn
 
 	@Check
 	void checkVariableTextExpression(VariableTE o) {
-		ValidationPreference hyphens = advisor().interpolatedNonBraceEnclosedHyphens();
-		if(hyphens.isWarningOrError()) {
-			int hyphenIdx = o.getVarName().indexOf("-");
-			if(hyphenIdx >= 0) {
-				String message = "Interpolation stops at '-' in puppet versions < 2.7";
-				ICompositeNode node = NodeModelUtils.getNode(o);
-				int offset = node.getOffset() + hyphenIdx;
-				int length = node.getLength() - hyphenIdx;
-				if(hyphens == ValidationPreference.WARNING)
-					acceptor.acceptWarning(message, o, offset, length, IPPDiagnostics.ISSUE__INTERPOLATED_HYPHEN);
-				else
-					acceptor.acceptError(message, o, offset, length, IPPDiagnostics.ISSUE__INTERPOLATED_HYPHEN);
-			}
-		}
+		// ValidationPreference hyphens = advisor().interpolatedNonBraceEnclosedHyphens();
+		// if(hyphens.isWarningOrError()) {
+		// int hyphenIdx = o.getVarName().indexOf("-");
+		// if(hyphenIdx >= 0) {
+		// String message = "Interpolation stops at '-' in puppet versions < 2.7";
+		// ICompositeNode node = NodeModelUtils.getNode(o);
+		// int offset = node.getOffset() + hyphenIdx;
+		// int length = node.getLength() - hyphenIdx;
+		// if(hyphens == ValidationPreference.WARNING)
+		// acceptor.acceptWarning(message, o, offset, length, IPPDiagnostics.ISSUE__INTERPOLATED_HYPHEN);
+		// else
+		// acceptor.acceptError(message, o, offset, length, IPPDiagnostics.ISSUE__INTERPOLATED_HYPHEN);
+		// }
+		// }
 	}
 
 	@Check

@@ -80,6 +80,14 @@ public class ValidationAdvisor {
 		}
 
 		/**
+		 * @returns ValidationPreference.WARNING
+		 */
+		@Override
+		public ValidationPreference hyphensInNames() {
+			return ValidationPreference.WARNING;
+		}
+
+		/**
 		 * @returns ValidationPreference.ERROR
 		 */
 		@Override
@@ -143,6 +151,14 @@ public class ValidationAdvisor {
 		 */
 		protected ValidationAdvisor_2_8(IPotentialProblemsAdvisor problemsAdvisor) {
 			super(problemsAdvisor);
+		}
+
+		/**
+		 * @returns ValidationPreference.ERROR
+		 */
+		@Override
+		public ValidationPreference hyphensInNames() {
+			return ValidationPreference.ERROR;
 		}
 
 		/**

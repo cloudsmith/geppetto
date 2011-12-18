@@ -173,9 +173,17 @@ public class PPResourceLinker implements IPPDiagnostics {
 			varName = ((LiteralNameOrReference) expr).getValue();
 		if(varName == null)
 			return; // it is some other type of expression - it is validated as expression
-
-		internalLinkVariable(
-			expr, PPPackage.Literals.LITERAL_NAME_OR_REFERENCE__VALUE, varName, importedNames, acceptor);
+		StringBuilder varName2 = new StringBuilder();
+		if(!varName.startsWith("$"))
+			varName2.append("$");
+		varName2.append(varName);
+		if(patternHelper.isVARIABLE(varName2.toString()))
+			internalLinkVariable(
+				expr, PPPackage.Literals.LITERAL_NAME_OR_REFERENCE__VALUE, varName, importedNames, acceptor);
+		else
+			acceptor.acceptError(
+				"Not a valid variable name", expr, PPPackage.Literals.LITERAL_NAME_OR_REFERENCE__VALUE,
+				IPPDiagnostics.ISSUE__NOT_VARNAME);
 	}
 
 	/**

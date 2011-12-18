@@ -13,6 +13,7 @@ package org.cloudsmith.geppetto.pp.dsl.ui.quickfix;
 
 import java.util.List;
 
+import org.cloudsmith.geppetto.pp.DoubleQuotedString;
 import org.cloudsmith.geppetto.pp.LiteralNameOrReference;
 import org.cloudsmith.geppetto.pp.PPPackage;
 import org.cloudsmith.geppetto.pp.PuppetManifest;
@@ -29,8 +30,6 @@ import org.eclipse.jface.text.BadLocationException;
 import org.eclipse.xtext.naming.IQualifiedNameConverter;
 import org.eclipse.xtext.naming.IQualifiedNameProvider;
 import org.eclipse.xtext.naming.QualifiedName;
-import org.eclipse.xtext.nodemodel.ICompositeNode;
-import org.eclipse.xtext.nodemodel.util.NodeModelUtils;
 import org.eclipse.xtext.resource.IEObjectDescription;
 import org.eclipse.xtext.resource.XtextResource;
 import org.eclipse.xtext.ui.editor.model.IXtextDocument;
@@ -202,14 +201,12 @@ public class PPQuickfixProvider extends DefaultQuickfixProvider {
 			@Override
 			public void process(XtextResource state) throws Exception {
 				EObject varExpr = state.getEObject(issue.getUriToProblem().fragment());
-				if(!(varExpr instanceof VariableTE))
+				if(!(varExpr instanceof DoubleQuotedString))
 					return; // something is wrong
 
-				VariableTE varTE = (VariableTE) varExpr;
-				ICompositeNode node = NodeModelUtils.getNode(varTE);
+				// VariableTE varTE = (VariableTE) varExpr;
+				// ICompositeNode node = NodeModelUtils.getNode(varTE);
 
-				// Offer two fixes for: $aaa-bbb:
-				// a) ${aaa-bbb} - i.e. the 2.7 way
 				// b) ${aaa}-bbb - i.e. the 2.6 way
 				//
 				String issueString = xtextDocument.get(issue.getOffset(), issue.getLength());
@@ -220,19 +217,21 @@ public class PPQuickfixProvider extends DefaultQuickfixProvider {
 				// --a)
 				StringBuilder builder = new StringBuilder();
 				builder.append("${");
-				builder.append(node.getText().substring(1));
+				builder.append(issueString);
 				builder.append("}");
-				acceptor.accept(issue, "Change to '" + builder.toString() + "'", "Change to 2.7 style", null, //
-					new ReplacingModification(node.getOffset(), node.getLength(), builder.toString()));
+				acceptor.accept(
+					issue, "Change to '" + builder.toString() + "'",
+					"Enclose in { } to prevent '-' from being included in variable name", null, //
+					new ReplacingModification(issue.getOffset(), issue.getLength(), builder.toString()));
 
-				// --b)
-				builder = new StringBuilder();
-				builder.append("${");
-				int hyphenPos = issue.getOffset() - node.getOffset();
-				builder.append(node.getText().substring(1, hyphenPos));
-				builder.append("}");
-				acceptor.accept(issue, "Change to '" + builder.toString() + "'", "Change to 2.6 style", null, //
-					new ReplacingModification(node.getOffset(), hyphenPos, builder.toString()));
+				// // --b)
+				// builder = new StringBuilder();
+				// builder.append("${");
+				// int hyphenPos = issue.getOffset() - node.getOffset();
+				// builder.append(node.getText().substring(1, hyphenPos));
+				// builder.append("}");
+				// acceptor.accept(issue, "Change to '" + builder.toString() + "'", "Change to 2.6 style", null, //
+				// new ReplacingModification(node.getOffset(), hyphenPos, builder.toString()));
 			}
 		});
 

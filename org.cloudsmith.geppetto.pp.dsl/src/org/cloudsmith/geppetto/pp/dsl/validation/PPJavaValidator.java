@@ -71,6 +71,7 @@ import org.cloudsmith.geppetto.pp.SelectorExpression;
 import org.cloudsmith.geppetto.pp.ShiftExpression;
 import org.cloudsmith.geppetto.pp.SingleQuotedString;
 import org.cloudsmith.geppetto.pp.StringExpression;
+import org.cloudsmith.geppetto.pp.TextExpression;
 import org.cloudsmith.geppetto.pp.UnaryExpression;
 import org.cloudsmith.geppetto.pp.UnaryMinusExpression;
 import org.cloudsmith.geppetto.pp.UnaryNotExpression;
@@ -577,7 +578,7 @@ public class PPJavaValidator extends AbstractPPJavaValidator implements IPPDiagn
 			if(hyphens.isWarningOrError()) {
 				int hyphenIdx = o.getClassName().indexOf("-");
 				if(hyphenIdx >= 0) {
-					String message = "Hypen '-' in name only unofficially supported in some puppet versions.";
+					String message = "Hyphen '-' in name only unofficially supported in some puppet versions.";
 					if(hyphens == ValidationPreference.WARNING)
 						acceptor.acceptWarning(
 							message, o, PPPackage.Literals.DEFINITION__CLASS_NAME, IPPDiagnostics.ISSUE__HYPHEN_IN_NAME);
@@ -615,6 +616,36 @@ public class PPJavaValidator extends AbstractPPJavaValidator implements IPPDiagn
 				PPPackage.Literals.DEFINITION_ARGUMENT__OP, IPPDiagnostics.ISSUE__NOT_ASSIGNMENT_OP);
 		// -- RHS should be a rvalue
 		internalCheckRvalueExpression(o.getValue());
+	}
+
+	@Check
+	public void checkDoubleQuotedString(DoubleQuotedString o) {
+		// Check if a verbatim part starting with '-' follows a VariableTE.
+		// If so, issue configurable issue for the VariableTE
+		//
+		TextExpression previous = null;
+		int idx = 0;
+		for(TextExpression te : o.getStringPart()) {
+			if(idx > 0 && previous instanceof VariableTE && te instanceof VerbatimTE) {
+				VerbatimTE verbatim = (VerbatimTE) te;
+				if(verbatim.getText().startsWith("-")) {
+					ValidationPreference hyphens = advisor().interpolatedNonBraceEnclosedHyphens();
+					if(hyphens.isWarningOrError()) {
+						String message = "Interpolation continues past '-' in some puppet 2.7 versions";
+						if(hyphens == ValidationPreference.WARNING)
+							acceptor.acceptWarning(
+								message, o, PPPackage.Literals.DOUBLE_QUOTED_STRING__STRING_PART, idx - 1,
+								IPPDiagnostics.ISSUE__INTERPOLATED_HYPHEN);
+						else
+							acceptor.acceptError(
+								message, o, PPPackage.Literals.DOUBLE_QUOTED_STRING__STRING_PART, idx - 1,
+								IPPDiagnostics.ISSUE__INTERPOLATED_HYPHEN);
+					}
+				}
+			}
+			previous = te;
+			idx++;
+		}
 	}
 
 	@Check
@@ -1177,7 +1208,7 @@ public class PPJavaValidator extends AbstractPPJavaValidator implements IPPDiagn
 		// if(hyphens.isWarningOrError()) {
 		// int hyphenIdx = o.getVarName().indexOf("-");
 		// if(hyphenIdx >= 0) {
-		// String message = "Interpolation stops at '-' in puppet versions < 2.7";
+		// String message = "Interpolation continues past '-' in some puppet 2.7 versions";
 		// ICompositeNode node = NodeModelUtils.getNode(o);
 		// int offset = node.getOffset() + hyphenIdx;
 		// int length = node.getLength() - hyphenIdx;

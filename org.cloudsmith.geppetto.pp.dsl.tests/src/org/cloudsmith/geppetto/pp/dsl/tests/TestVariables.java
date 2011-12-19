@@ -19,6 +19,7 @@ import org.cloudsmith.geppetto.pp.dsl.validation.IPPDiagnostics;
 import org.cloudsmith.geppetto.pp.dsl.validation.PPPatternHelper;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.xtext.junit.validation.AssertableDiagnostics;
 import org.eclipse.xtext.resource.XtextResource;
 
 import com.google.common.collect.Lists;
@@ -188,7 +189,11 @@ public class TestVariables extends AbstractPuppetTests {
 	public void test_hyphenNotOk() throws Exception {
 		String code = "$a-b = 10";
 		XtextResource r = getResourceFromString(code);
-		tester.validate(r.getContents().get(0)).assertError(IPPDiagnostics.ISSUE__NOT_ASSIGNABLE);
+
+		AssertableDiagnostics asserter = tester.validate(r.getContents().get(0));
+		asserter.assertAny(
+			AssertableDiagnostics.errorCode(IPPDiagnostics.ISSUE__NOT_ASSIGNABLE),
+			AssertableDiagnostics.errorCode(IPPDiagnostics.ISSUE__NOT_NUMERIC));
 		resourceWarningDiagnostics(r).assertDiagnostic(IPPDiagnostics.ISSUE__UNKNOWN_VARIABLE);
 		resourceErrorDiagnostics(r).assertOK();
 	}

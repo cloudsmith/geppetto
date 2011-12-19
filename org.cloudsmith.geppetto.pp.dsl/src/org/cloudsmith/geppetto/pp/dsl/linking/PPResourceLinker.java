@@ -1132,9 +1132,21 @@ public class PPResourceLinker implements IPPDiagnostics {
 				case PPPackage.UNQUOTED_STRING:
 					Expression expr = ((UnquotedString) o).getExpression();
 					if(expr != null && expr instanceof LiteralNameOrReference) {
-						internalLinkVariable(
-							expr, PPPackage.Literals.LITERAL_NAME_OR_REFERENCE__VALUE,
-							((LiteralNameOrReference) expr).getValue(), importedNames, acceptor);
+						//
+						String varName = ((LiteralNameOrReference) expr).getValue();
+						StringBuilder varName2 = new StringBuilder();
+						if(!varName.startsWith("$"))
+							varName2.append("$");
+						varName2.append(varName);
+						if(patternHelper.isVARIABLE(varName2.toString()))
+							internalLinkVariable(
+								expr, PPPackage.Literals.LITERAL_NAME_OR_REFERENCE__VALUE, varName, importedNames,
+								acceptor);
+						else
+							acceptor.acceptError(
+								"Not a valid variable name", expr, PPPackage.Literals.LITERAL_NAME_OR_REFERENCE__VALUE,
+								IPPDiagnostics.ISSUE__NOT_VARNAME);
+
 					}
 					break;
 			// case PPPackage.DEFINITION_ARGUMENT:

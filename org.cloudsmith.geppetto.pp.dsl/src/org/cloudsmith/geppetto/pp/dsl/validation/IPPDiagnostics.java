@@ -162,4 +162,6 @@ public interface IPPDiagnostics {
 
 	public static final String ISSUE__HYPHEN_IN_NAME = ISSUE_PREFIX + "HyphenInName";
 
+	public static final String ISSUE__NOT_NUMERIC = ISSUE_PREFIX + "NotNumeric";
+
 }

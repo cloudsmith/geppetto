@@ -22,6 +22,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.regex.Matcher;
 
+import org.cloudsmith.geppetto.pp.AdditiveExpression;
 import org.cloudsmith.geppetto.pp.AndExpression;
 import org.cloudsmith.geppetto.pp.AppendExpression;
 import org.cloudsmith.geppetto.pp.AssignmentExpression;
@@ -82,6 +83,7 @@ import org.cloudsmith.geppetto.pp.VirtualNameOrReference;
 import org.cloudsmith.geppetto.pp.adapters.ClassifierAdapter;
 import org.cloudsmith.geppetto.pp.adapters.ClassifierAdapterFactory;
 import org.cloudsmith.geppetto.pp.dsl.eval.PPStringConstantEvaluator;
+import org.cloudsmith.geppetto.pp.dsl.eval.PPTypeEvaluator;
 import org.cloudsmith.geppetto.pp.dsl.linking.IMessageAcceptor;
 import org.cloudsmith.geppetto.pp.dsl.linking.PPClassifier;
 import org.cloudsmith.geppetto.pp.dsl.linking.ValidationBasedMessageAcceptor;
@@ -261,6 +263,9 @@ public class PPJavaValidator extends AbstractPPJavaValidator implements IPPDiagn
 	protected PPExpressionTypeNameProvider expressionTypeNameProvider;
 
 	@Inject
+	protected PPTypeEvaluator typeEvaluator;
+
+	@Inject
 	public PPJavaValidator(IGrammarAccess ga, Provider<IValidationAdvisor> validationAdvisorProvider) {
 		acceptor = new ValidationBasedMessageAcceptor(this);
 	}
@@ -270,8 +275,9 @@ public class PPJavaValidator extends AbstractPPJavaValidator implements IPPDiagn
 	}
 
 	@Check
-	public void checkAdditiveExpression(ShiftExpression o) {
+	public void checkAdditiveExpression(AdditiveExpression o) {
 		checkOperator(o, "+", "-");
+		checkNumericBinaryExpression(o);
 	}
 
 	@Check
@@ -782,6 +788,7 @@ public class PPJavaValidator extends AbstractPPJavaValidator implements IPPDiagn
 	@Check
 	public void checkMultiplicativeExpression(MultiplicativeExpression o) {
 		checkOperator(o, "*", "/");
+		checkNumericBinaryExpression(o);
 	}
 
 	@Check
@@ -803,6 +810,30 @@ public class PPJavaValidator extends AbstractPPJavaValidator implements IPPDiagn
 					"Must be a constant name/string expression.", o, PPPackage.Literals.NODE_DEFINITION__PARENT_NAME,
 					INSIGNIFICANT_INDEX, IPPDiagnostics.ISSUE__NOT_CONSTANT);
 		}
+	}
+
+	private void checkNumericBinaryExpression(BinaryOpExpression o) {
+		switch(typeEvaluator.numericType(o.getLeftExpr())) {
+			case YES:
+				break;
+			case NO:
+				acceptor.acceptError(
+					"Operator " + o.getOpName() + " requires numeric value.", o,
+					PPPackage.Literals.BINARY_EXPRESSION__LEFT_EXPR, IPPDiagnostics.ISSUE__NOT_NUMERIC);
+				break;
+			case INCONCLUSIVE:
+		}
+		switch(typeEvaluator.numericType(o.getRightExpr())) {
+			case YES:
+				break;
+			case NO:
+				acceptor.acceptError(
+					"Operator " + o.getOpName() + " requires numeric value.", o,
+					PPPackage.Literals.BINARY_EXPRESSION__RIGHT_EXPR, IPPDiagnostics.ISSUE__NOT_NUMERIC);
+				break;
+			case INCONCLUSIVE:
+		}
+
 	}
 
 	protected void checkOperator(BinaryOpExpression o, String... ops) {
@@ -1152,6 +1183,7 @@ public class PPJavaValidator extends AbstractPPJavaValidator implements IPPDiagn
 	@Check
 	public void checkShiftExpression(ShiftExpression o) {
 		checkOperator(o, "<<", ">>");
+		checkNumericBinaryExpression(o);
 	}
 
 	@Check

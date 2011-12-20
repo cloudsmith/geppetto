@@ -18,6 +18,14 @@ package org.cloudsmith.geppetto.pp.dsl.validation;
 public interface IPotentialProblemsAdvisor {
 
 	/**
+	 * Puppet interprets the strings "false" and "true" as boolean true when they are used in a boolean context.
+	 * This validation preference flags them as "not a boolean value"
+	 * 
+	 * @return
+	 */
+	public ValidationPreference booleansInStringForm();
+
+	/**
 	 * How should circular module dependencies be reported (ignore, warning, error).
 	 * 
 	 * @return

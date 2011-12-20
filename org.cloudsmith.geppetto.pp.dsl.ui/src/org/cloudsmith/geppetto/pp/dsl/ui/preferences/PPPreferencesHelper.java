@@ -81,6 +81,13 @@ public class PPPreferencesHelper implements IPreferenceStoreInitializer, IProper
 	/**
 	 * @return
 	 */
+	public ValidationPreference getBooleansInStringForm() {
+		return ValidationPreference.fromString(store.getString(PPPreferenceConstants.PROBLEM_BOOLEAN_STRING));
+	}
+
+	/**
+	 * @return
+	 */
 	public ValidationPreference getcircularDependencyPreference() {
 		return ValidationPreference.fromString(store.getString(PPPreferenceConstants.PROBLEM_CIRCULAR_DEPENDENCY));
 	}
@@ -133,6 +140,7 @@ public class PPPreferencesHelper implements IPreferenceStoreInitializer, IProper
 
 		store.setDefault(PPPreferenceConstants.PROBLEM_INTERPOLATED_HYPHEN, ValidationPreference.WARNING.toString());
 		store.setDefault(PPPreferenceConstants.PROBLEM_CIRCULAR_DEPENDENCY, ValidationPreference.WARNING.toString());
+		store.setDefault(PPPreferenceConstants.PROBLEM_BOOLEAN_STRING, ValidationPreference.WARNING.toString());
 
 		autoInsertOverrides = (int) store.getLong(PPPreferenceConstants.AUTO_EDIT_STRATEGY);
 		access.getWritablePreferenceStore().addPropertyChangeListener(this);
@@ -193,6 +201,10 @@ public class PPPreferencesHelper implements IPreferenceStoreInitializer, IProper
 			job.schedule();
 		}
 		if(PPPreferenceConstants.PROBLEM_CIRCULAR_DEPENDENCY.equals(event.getProperty())) {
+			PPBuildJob job = new PPBuildJob(workspace);
+			job.schedule();
+		}
+		if(PPPreferenceConstants.PROBLEM_BOOLEAN_STRING.equals(event.getProperty())) {
 			PPBuildJob job = new PPBuildJob(workspace);
 			job.schedule();
 		}

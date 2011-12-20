@@ -164,4 +164,6 @@ public interface IPPDiagnostics {
 
 	public static final String ISSUE__NOT_NUMERIC = ISSUE_PREFIX + "NotNumeric";
 
+	public static final String ISSUE__STRING_BOOLEAN = ISSUE_PREFIX + "StringBoolean";
+
 }

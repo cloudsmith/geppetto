@@ -16,21 +16,16 @@ package org.cloudsmith.geppetto.pp.dsl.validation;
  */
 public class DefaultPotentialProblemsAdvisor implements IPotentialProblemsAdvisor {
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.cloudsmith.geppetto.pp.dsl.validation.IPotentialProblemsAdvisor#circularDependencyPreference()
-	 */
+	@Override
+	public ValidationPreference booleansInStringForm() {
+		return ValidationPreference.WARNING;
+	}
+
 	@Override
 	public ValidationPreference circularDependencyPreference() {
 		return ValidationPreference.WARNING;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.cloudsmith.geppetto.pp.dsl.validation.IPotentialProblemsAdvisor#interpolatedNonBraceEnclosedHyphens()
-	 */
 	@Override
 	public ValidationPreference interpolatedNonBraceEnclosedHyphens() {
 		return ValidationPreference.WARNING;

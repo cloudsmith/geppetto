@@ -23,21 +23,16 @@ public class ValidationAdvisor {
 			this.problemsAdvisor = problemsAdvisor;
 		}
 
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see org.cloudsmith.geppetto.pp.dsl.validation.IPotentialProblemsAdvisor#circularDependencyPreference()
-		 */
+		@Override
+		public ValidationPreference booleansInStringForm() {
+			return problemsAdvisor.booleansInStringForm();
+		}
+
 		@Override
 		public ValidationPreference circularDependencyPreference() {
 			return problemsAdvisor.circularDependencyPreference();
 		}
 
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see org.cloudsmith.geppetto.pp.dsl.validation.IPotentialProblemsAdvisor#interpolatedNonBraceEnclosedHyphens()
-		 */
 		@Override
 		public ValidationPreference interpolatedNonBraceEnclosedHyphens() {
 			return problemsAdvisor.interpolatedNonBraceEnclosedHyphens();

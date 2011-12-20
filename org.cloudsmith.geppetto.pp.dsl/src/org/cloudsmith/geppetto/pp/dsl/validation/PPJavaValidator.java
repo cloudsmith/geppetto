@@ -631,11 +631,12 @@ public class PPJavaValidator extends AbstractPPJavaValidator implements IPPDiagn
 		//
 		TextExpression previous = null;
 		int idx = 0;
+		IValidationAdvisor advisor = advisor();
+		ValidationPreference hyphens = advisor.interpolatedNonBraceEnclosedHyphens();
 		for(TextExpression te : o.getStringPart()) {
 			if(idx > 0 && previous instanceof VariableTE && te instanceof VerbatimTE) {
 				VerbatimTE verbatim = (VerbatimTE) te;
 				if(verbatim.getText().startsWith("-")) {
-					ValidationPreference hyphens = advisor().interpolatedNonBraceEnclosedHyphens();
 					if(hyphens.isWarningOrError()) {
 						String message = "Interpolation continues past '-' in some puppet 2.7 versions";
 						if(hyphens == ValidationPreference.WARNING)
@@ -651,6 +652,21 @@ public class PPJavaValidator extends AbstractPPJavaValidator implements IPPDiagn
 			}
 			previous = te;
 			idx++;
+		}
+		ValidationPreference booleansInStringForm = advisor.booleansInStringForm();
+
+		BOOLEAN_STRING: if(booleansInStringForm.isWarningOrError()) {
+			// Check if string contains "true" or "false"
+			String constant = stringConstantEvaluator.doToString(o);
+			if(constant == null)
+				break BOOLEAN_STRING;
+			constant = constant.trim();
+			boolean flagIt = "true".equals(constant) || "false".equals(constant);
+			if(flagIt)
+				if(booleansInStringForm == ValidationPreference.WARNING)
+					acceptor.acceptWarning("This is not a boolean", o, IPPDiagnostics.ISSUE__STRING_BOOLEAN, constant);
+				else
+					acceptor.acceptError("This is not a boolean", o, IPPDiagnostics.ISSUE__STRING_BOOLEAN, constant);
 		}
 	}
 
@@ -1192,20 +1208,24 @@ public class PPJavaValidator extends AbstractPPJavaValidator implements IPPDiagn
 			acceptor.acceptError(
 				"Contains illegal character(s). Probably an unescaped single quote.", o,
 				PPPackage.Literals.SINGLE_QUOTED_STRING__TEXT, IPPDiagnostics.ISSUE__NOT_STRING);
-		// String s = o.getText();
 
-		// Unrecognized escape sequences are simply used verbatim in sq string, not need to check
-		// remove all escaped \ to make it easier to find the illegal escapes
-		// Matcher m1 = patternHelper.getRecognizedSQEscapePattern().matcher(s);
-		// s = m1.replaceAll("");
-		// Matcher m = patternHelper.getUnrecognizedSQEscapesPattern().matcher(s);
-		// StringBuffer unrecognized = new StringBuffer();
-		// while(m.find())
-		// unrecognized.append(m.group());
-		// if(unrecognized.length() > 0)
-		// acceptor.acceptWarning(
-		// "Unrecognized escape sequence(s): " + unrecognized.toString(), o,
-		// PPPackage.Literals.SINGLE_QUOTED_STRING__TEXT, IPPDiagnostics.ISSUE__UNRECOGNIZED_ESCAPE);
+		IValidationAdvisor advisor = advisor();
+		ValidationPreference booleansInStringForm = advisor.booleansInStringForm();
+
+		BOOLEAN_STRING: if(booleansInStringForm.isWarningOrError()) {
+			// Check if string contains "true" or "false"
+			String constant = o.getText();
+			if(constant == null)
+				break BOOLEAN_STRING;
+			constant = constant.trim();
+			boolean flagIt = "true".equals(constant) || "false".equals(constant);
+			if(flagIt)
+				if(booleansInStringForm == ValidationPreference.WARNING)
+					acceptor.acceptWarning("This is not a boolean", o, IPPDiagnostics.ISSUE__STRING_BOOLEAN, constant);
+				else
+					acceptor.acceptError("This is not a boolean", o, IPPDiagnostics.ISSUE__STRING_BOOLEAN, constant);
+		}
+
 	}
 
 	@Check

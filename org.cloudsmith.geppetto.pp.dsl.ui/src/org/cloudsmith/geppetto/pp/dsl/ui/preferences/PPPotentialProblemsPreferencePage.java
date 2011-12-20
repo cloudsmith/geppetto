@@ -29,6 +29,9 @@ public class PPPotentialProblemsPreferencePage extends AbstractPreferencePage {
 		this.addField(new ValidationPreferenceFieldEditor(
 			PPPreferenceConstants.PROBLEM_INTERPOLATED_HYPHEN, "Interpolated hyphen without surrounding {}",
 			getFieldEditorParent()));
+		this.addField(new ValidationPreferenceFieldEditor(
+			PPPreferenceConstants.PROBLEM_BOOLEAN_STRING, "Strings containing \"false\" or \"true\"",
+			getFieldEditorParent()));
 	}
 
 }

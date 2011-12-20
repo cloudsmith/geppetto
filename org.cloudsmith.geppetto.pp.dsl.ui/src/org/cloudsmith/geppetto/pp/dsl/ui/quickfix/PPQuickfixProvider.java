@@ -292,6 +292,15 @@ public class PPQuickfixProvider extends DefaultQuickfixProvider {
 		}
 	}
 
+	@Fix(IPPDiagnostics.ISSUE__STRING_BOOLEAN)
+	public void makeStringBoolean(final Issue issue, final IssueResolutionAcceptor acceptor) {
+		String booleanText = issue.getData()[0];
+		acceptor.accept(
+			issue, "Change to boolean " + booleanText,
+			"A string is always true in boolean sense.\nChange to a real boolean value.", null, //
+			new ReplacingModification(issue.getOffset(), issue.getLength(), booleanText));
+	}
+
 	private QualifiedName nameOfScope(EObject target) {
 		if(target instanceof PuppetManifest)
 			return converter.toQualifiedName("::"); // global scope

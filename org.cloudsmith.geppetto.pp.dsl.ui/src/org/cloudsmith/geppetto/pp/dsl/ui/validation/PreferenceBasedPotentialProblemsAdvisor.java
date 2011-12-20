@@ -32,21 +32,16 @@ public class PreferenceBasedPotentialProblemsAdvisor implements IPotentialProble
 		this.preferences = preferences;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.cloudsmith.geppetto.pp.dsl.validation.IPotentialProblemsAdvisor#circularDependencyPreference()
-	 */
+	@Override
+	public ValidationPreference booleansInStringForm() {
+		return preferences.getBooleansInStringForm();
+	}
+
 	@Override
 	public ValidationPreference circularDependencyPreference() {
 		return preferences.getcircularDependencyPreference();
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.cloudsmith.geppetto.pp.dsl.validation.IPotentialProblemsAdvisor#interpolatedNonBraceEnclosedHyphens()
-	 */
 	@Override
 	public ValidationPreference interpolatedNonBraceEnclosedHyphens() {
 		return preferences.getInterpolatedNonBraceEnclosedHypens();

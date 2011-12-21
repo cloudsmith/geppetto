@@ -116,7 +116,7 @@ public interface IPPDiagnostics {
 
 	public static final String ISSUE__RESOURCE_AMBIGUOUS_REFERENCE = ISSUE_PREFIX + "AmbigousReference";
 
-	public static final String ISSUE__MISSING_COMMA = ISSUE_PREFIX + "MissingCommad";
+	public static final String ISSUE__MISSING_COMMA = ISSUE_PREFIX + "MissingComma";
 
 	public static final String ISSUE__REQUIRES_QUOTING = ISSUE_PREFIX + "RequiresQuoting";
 
@@ -165,5 +165,7 @@ public interface IPPDiagnostics {
 	public static final String ISSUE__NOT_NUMERIC = ISSUE_PREFIX + "NotNumeric";
 
 	public static final String ISSUE__STRING_BOOLEAN = ISSUE_PREFIX + "StringBoolean";
+
+	public static final String ISSUE__ENDCOMMA = ISSUE_PREFIX + "EndComma";
 
 }

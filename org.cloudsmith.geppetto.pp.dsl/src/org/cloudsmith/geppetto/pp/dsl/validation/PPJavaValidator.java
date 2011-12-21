@@ -36,6 +36,7 @@ import org.cloudsmith.geppetto.pp.CaseExpression;
 import org.cloudsmith.geppetto.pp.CollectExpression;
 import org.cloudsmith.geppetto.pp.Definition;
 import org.cloudsmith.geppetto.pp.DefinitionArgument;
+import org.cloudsmith.geppetto.pp.DefinitionArgumentList;
 import org.cloudsmith.geppetto.pp.DoubleQuotedString;
 import org.cloudsmith.geppetto.pp.ElseExpression;
 import org.cloudsmith.geppetto.pp.ElseIfExpression;
@@ -93,6 +94,7 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.xtext.IGrammarAccess;
+import org.eclipse.xtext.RuleCall;
 import org.eclipse.xtext.nodemodel.ICompositeNode;
 import org.eclipse.xtext.nodemodel.INode;
 import org.eclipse.xtext.nodemodel.impl.LeafNode;
@@ -622,6 +624,34 @@ public class PPJavaValidator extends AbstractPPJavaValidator implements IPPDiagn
 				PPPackage.Literals.DEFINITION_ARGUMENT__OP, IPPDiagnostics.ISSUE__NOT_ASSIGNMENT_OP);
 		// -- RHS should be a rvalue
 		internalCheckRvalueExpression(o.getValue());
+	}
+
+	@Check
+	public void checkDefinitionArgumentList(DefinitionArgumentList o) {
+		IValidationAdvisor advisor = advisor();
+		ValidationPreference endComma = advisor.definitionArgumentListEndComma();
+		if(endComma.isWarningOrError()) {
+			// Check if list ends with optional comma.
+			INode n = NodeModelUtils.getNode(o);
+			for(INode i : n.getAsTreeIterable().reverse()) {
+				if(",".equals(i.getText())) {
+					EObject grammarE = i.getGrammarElement();
+					if(grammarE instanceof RuleCall && "endComma".equals(((RuleCall) grammarE).getRule().getName())) {
+						// not allowed in versions < 2.7.8
+						if(endComma.isError())
+							acceptor.acceptError(
+								"End comma not allowed in versions < 2.7.8", o, i.getOffset(), i.getLength(),
+								IPPDiagnostics.ISSUE__ENDCOMMA);
+						else
+							acceptor.acceptWarning(
+								"End comma not allowed in versions < 2.7.8", o, i.getOffset(), i.getLength(),
+								IPPDiagnostics.ISSUE__ENDCOMMA);
+						return;
+					}
+					return;
+				}
+			}
+		}
 	}
 
 	@Check

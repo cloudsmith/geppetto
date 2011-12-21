@@ -41,6 +41,13 @@ public interface IValidationAdvisor extends IPotentialProblemsAdvisor {
 	public boolean allowUnquotedQualifiedResourceNames();
 
 	/**
+	 * Prior to version 2.7.8, an optional end comma in a definition argument list causes parse exception.
+	 * 
+	 * @return
+	 */
+	public ValidationPreference definitionArgumentListEndComma();
+
+	/**
 	 * Hyphens in names are deprecated
 	 * Puppet issue #10146
 	 * And will be errors in later releases.

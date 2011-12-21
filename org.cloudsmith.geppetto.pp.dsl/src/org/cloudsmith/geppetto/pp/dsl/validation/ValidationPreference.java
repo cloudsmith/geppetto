@@ -30,6 +30,18 @@ public enum ValidationPreference {
 		throw new IllegalArgumentException("The string '" + s + "' does not represent a ValidationPreference");
 	}
 
+	public boolean isError() {
+		return this == ERROR;
+	}
+
+	public boolean isIgnore() {
+		return this == IGNORE;
+	}
+
+	public boolean isWarning() {
+		return this == WARNING;
+	}
+
 	public boolean isWarningOrError() {
 		return this == WARNING || this == ERROR;
 	}

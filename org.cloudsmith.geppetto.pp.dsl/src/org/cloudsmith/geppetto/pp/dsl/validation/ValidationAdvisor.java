@@ -75,6 +75,14 @@ public class ValidationAdvisor {
 		}
 
 		/**
+		 * @returns ValidationPreference.ERROR
+		 */
+		@Override
+		public ValidationPreference definitionArgumentListEndComma() {
+			return ValidationPreference.ERROR;
+		}
+
+		/**
 		 * @returns ValidationPreference.WARNING
 		 */
 		@Override
@@ -118,6 +126,14 @@ public class ValidationAdvisor {
 		}
 
 		/**
+		 * @returns ValidationPreference.WARNING
+		 */
+		@Override
+		public ValidationPreference definitionArgumentListEndComma() {
+			return ValidationPreference.WARNING;
+		}
+
+		/**
 		 * @returns ValidationPreference.IGNORE
 		 */
 		@Override
@@ -146,6 +162,14 @@ public class ValidationAdvisor {
 		 */
 		protected ValidationAdvisor_2_8(IPotentialProblemsAdvisor problemsAdvisor) {
 			super(problemsAdvisor);
+		}
+
+		/**
+		 * @returns ValidationPreference.IGNORE
+		 */
+		@Override
+		public ValidationPreference definitionArgumentListEndComma() {
+			return ValidationPreference.IGNORE;
 		}
 
 		/**

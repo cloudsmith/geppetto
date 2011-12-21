@@ -93,6 +93,10 @@ public class TextExpressionHelper {
 
 	}
 
+	public static int segmentCount(DoubleQuotedString dqString) {
+		return dqString.getStringPart().size();
+	}
+
 	public String doubleQuote(String s) {
 		return '"' + s + '"';
 	}

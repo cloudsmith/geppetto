@@ -1204,12 +1204,15 @@ public class PPResourceLinker implements IPPDiagnostics {
 			return 0; // broken model
 		d = d.eContainer();
 		final String definitionFragment = d.eResource().getURIFragment(d);
+		final String definitionURI = d.eResource().getURI().toString();
 
 		int removedCount = 0;
 		ListIterator<IEObjectDescription> litor = descs.listIterator();
 		while(litor.hasNext()) {
 			IEObjectDescription x = litor.next();
-			if(x.getEObjectURI().fragment().startsWith(definitionFragment)) {
+			URI xURI = x.getEObjectURI();
+			// if in the same resource, and contain by the same EObject
+			if(xURI.toString().startsWith(definitionURI) && xURI.fragment().startsWith(definitionFragment)) {
 				litor.remove();
 				removedCount++;
 			}

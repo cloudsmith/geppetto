@@ -83,6 +83,7 @@ import org.cloudsmith.geppetto.pp.VerbatimTE;
 import org.cloudsmith.geppetto.pp.VirtualNameOrReference;
 import org.cloudsmith.geppetto.pp.adapters.ClassifierAdapter;
 import org.cloudsmith.geppetto.pp.adapters.ClassifierAdapterFactory;
+import org.cloudsmith.geppetto.pp.dsl.eval.PPExpressionEquivalenceCalculator;
 import org.cloudsmith.geppetto.pp.dsl.eval.PPStringConstantEvaluator;
 import org.cloudsmith.geppetto.pp.dsl.eval.PPTypeEvaluator;
 import org.cloudsmith.geppetto.pp.dsl.linking.IMessageAcceptor;
@@ -225,6 +226,9 @@ public class PPJavaValidator extends AbstractPPJavaValidator implements IPPDiagn
 
 	@Inject
 	private Provider<IValidationAdvisor> validationAdvisorProvider;
+
+	@Inject
+	private PPExpressionEquivalenceCalculator eqCalculator;
 
 	/**
 	 * Classes accepted as top level statements in a pp manifest.
@@ -1218,12 +1222,71 @@ public class PPJavaValidator extends AbstractPPJavaValidator implements IPPDiagn
 				IPPDiagnostics.ISSUE__NULL_EXPRESSION);
 
 		// -- all parameters must be SelectorEntry instances
-		for(Expression e : o.getParameters())
+		// -- one of them should have LiteralDefault as left expr
+		// -- there should only be one default
+		boolean theDefaultIsSeen = false;
+		int counter = 0;
+		int expectedDefaultIndex = o.getParameters().size() - 1;
+		int unreachableAfter = expectedDefaultIndex;
+		for(Expression e : o.getParameters()) {
 			if(!(e instanceof SelectorEntry))
 				acceptor.acceptError(
 					"Must be a selector entry. Was:" + expressionTypeNameProvider.doToString(e), o,
 					PPPackage.Literals.PARAMETERIZED_EXPRESSION__PARAMETERS, o.getParameters().indexOf(e),
 					IPPDiagnostics.ISSUE__UNSUPPORTED_EXPRESSION);
+			else {
+				// it is a selector entry
+				SelectorEntry se = (SelectorEntry) e;
+				if(se.getLeftExpr() instanceof LiteralDefault) {
+					if(theDefaultIsSeen)
+						acceptor.acceptError(
+							"Redeclaration of 'default'.", o, PPPackage.Literals.PARAMETERIZED_EXPRESSION__PARAMETERS,
+							o.getParameters().indexOf(e), IPPDiagnostics.ISSUE__RESOURCE_DUPLICATE_PARAMETER);
+					if(!theDefaultIsSeen)
+						unreachableAfter = counter;
+					theDefaultIsSeen = true;
+					if(counter != expectedDefaultIndex)
+						acceptor.acceptWarning(
+							"A 'default' should be placed last", o,
+							PPPackage.Literals.PARAMETERIZED_EXPRESSION__PARAMETERS, o.getParameters().indexOf(e),
+							IPPDiagnostics.ISSUE__DEFAULT_NOT_LAST);
+				}
+			}
+			counter++;
+		}
+
+		// collect unreachable entries to avoid multiple unreachable markers for an entry
+		Set<Integer> unreachables = Sets.newHashSet();
+
+		// Check unreachable by equivalence
+		// all following expressions that are equivalent to a predecessor are unreachable
+		// all following an expression equivalent to the left expression are unreachable
+		for(int i = 0; i < o.getParameters().size(); i++) {
+			Expression e1 = o.getParameters().get(i);
+			if(e1 instanceof SelectorEntry == false)
+				continue;
+			SelectorEntry se1 = (SelectorEntry) e1;
+			boolean equalsLeft = eqCalculator.isEquivalent(se1.getLeftExpr(), o.getLeftExpr());
+			for(int j = i + 1; j < o.getParameters().size(); j++) {
+				Expression e2 = o.getParameters().get(j);
+				if(e2 instanceof SelectorEntry == false)
+					continue;
+				SelectorEntry se2 = (SelectorEntry) e2;
+				if(equalsLeft || eqCalculator.isEquivalent(se1.getLeftExpr(), se2.getLeftExpr()))
+					unreachables.add(j);
+			}
+		}
+		// mark all after 'default' as 'unreachable'
+		// mark all after 'same expression as selector expr' as 'unreachable'
+		for(int i = unreachableAfter + 1; i <= expectedDefaultIndex; i++) {
+			unreachables.add(i);
+		}
+
+		for(Integer i : unreachables)
+			acceptor.acceptWarning(
+				"Unreachable", o, PPPackage.Literals.PARAMETERIZED_EXPRESSION__PARAMETERS, i,
+				IPPDiagnostics.ISSUE__DEFAULT_NOT_LAST);
+
 	}
 
 	@Check

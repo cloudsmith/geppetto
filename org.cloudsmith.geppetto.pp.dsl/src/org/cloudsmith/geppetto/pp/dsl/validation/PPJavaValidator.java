@@ -1254,6 +1254,15 @@ public class PPJavaValidator extends AbstractPPJavaValidator implements IPPDiagn
 			}
 			counter++;
 		}
+		// check that there is a default
+		if(!theDefaultIsSeen) {
+			IValidationAdvisor advisor = advisor();
+			ValidationPreference missingDefaultInSwitch = advisor.missingDefaultInSwitch();
+			if(missingDefaultInSwitch.isError())
+				acceptor.acceptError("Missing 'default' case", o, IPPDiagnostics.ISSUE__MISSING_DEFAULT);
+			else if(missingDefaultInSwitch.isWarning())
+				acceptor.acceptWarning("Missing 'default' case", o, IPPDiagnostics.ISSUE__MISSING_DEFAULT);
+		}
 
 		// collect unreachable entries to avoid multiple unreachable markers for an entry
 		Set<Integer> unreachables = Sets.newHashSet();

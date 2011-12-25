@@ -47,4 +47,9 @@ public class PreferenceBasedPotentialProblemsAdvisor implements IPotentialProble
 		return preferences.getInterpolatedNonBraceEnclosedHypens();
 	}
 
+	@Override
+	public ValidationPreference missingDefaultInSwitch() {
+		return preferences.getMissingDefaultInSwitch();
+	}
+
 }

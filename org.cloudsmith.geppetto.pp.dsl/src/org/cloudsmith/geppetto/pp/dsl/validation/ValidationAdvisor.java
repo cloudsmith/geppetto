@@ -38,6 +38,11 @@ public class ValidationAdvisor {
 			return problemsAdvisor.interpolatedNonBraceEnclosedHyphens();
 		}
 
+		@Override
+		public ValidationPreference missingDefaultInSwitch() {
+			return problemsAdvisor.missingDefaultInSwitch();
+		}
+
 	}
 
 	/**

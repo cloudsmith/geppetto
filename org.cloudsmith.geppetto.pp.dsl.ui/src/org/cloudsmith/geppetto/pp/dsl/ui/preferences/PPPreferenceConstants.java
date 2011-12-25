@@ -36,4 +36,6 @@ public class PPPreferenceConstants {
 	public static final String PROBLEM_CIRCULAR_DEPENDENCY = "circularModuleDependency";
 
 	public static final String PROBLEM_BOOLEAN_STRING = "booleanString";
+
+	public static final String PROBLEM_MISSING_DEFAULT = "missingDefault";
 }

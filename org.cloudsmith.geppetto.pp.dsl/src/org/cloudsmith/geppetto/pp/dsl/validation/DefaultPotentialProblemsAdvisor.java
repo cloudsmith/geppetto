@@ -31,4 +31,9 @@ public class DefaultPotentialProblemsAdvisor implements IPotentialProblemsAdviso
 		return ValidationPreference.WARNING;
 	}
 
+	@Override
+	public ValidationPreference missingDefaultInSwitch() {
+		return ValidationPreference.WARNING;
+	}
+
 }

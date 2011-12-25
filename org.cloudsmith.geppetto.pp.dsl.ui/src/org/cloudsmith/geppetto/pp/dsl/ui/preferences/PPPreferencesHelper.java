@@ -100,6 +100,13 @@ public class PPPreferencesHelper implements IPreferenceStoreInitializer, IProper
 		return ValidationPreference.fromString(store.getString(PPPreferenceConstants.PROBLEM_INTERPOLATED_HYPHEN));
 	}
 
+	/**
+	 * @return
+	 */
+	public ValidationPreference getMissingDefaultInSwitch() {
+		return ValidationPreference.fromString(store.getString(PPPreferenceConstants.PROBLEM_MISSING_DEFAULT));
+	}
+
 	public String getPptpVersion() {
 		String result = store.getString(PPPreferenceConstants.PUPPET_TARGET_VERSION);
 		// TODO: Until there is an actual 2.8 pptp, return 2.7
@@ -141,6 +148,7 @@ public class PPPreferencesHelper implements IPreferenceStoreInitializer, IProper
 		store.setDefault(PPPreferenceConstants.PROBLEM_INTERPOLATED_HYPHEN, ValidationPreference.WARNING.toString());
 		store.setDefault(PPPreferenceConstants.PROBLEM_CIRCULAR_DEPENDENCY, ValidationPreference.WARNING.toString());
 		store.setDefault(PPPreferenceConstants.PROBLEM_BOOLEAN_STRING, ValidationPreference.WARNING.toString());
+		store.setDefault(PPPreferenceConstants.PROBLEM_MISSING_DEFAULT, ValidationPreference.WARNING.toString());
 
 		autoInsertOverrides = (int) store.getLong(PPPreferenceConstants.AUTO_EDIT_STRATEGY);
 		access.getWritablePreferenceStore().addPropertyChangeListener(this);
@@ -209,4 +217,5 @@ public class PPPreferencesHelper implements IPreferenceStoreInitializer, IProper
 			job.schedule();
 		}
 	}
+
 }

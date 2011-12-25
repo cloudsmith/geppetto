@@ -32,6 +32,9 @@ public class PPPotentialProblemsPreferencePage extends AbstractPreferencePage {
 		this.addField(new ValidationPreferenceFieldEditor(
 			PPPreferenceConstants.PROBLEM_BOOLEAN_STRING, "Strings containing \"false\" or \"true\"",
 			getFieldEditorParent()));
+		this.addField(new ValidationPreferenceFieldEditor(
+			PPPreferenceConstants.PROBLEM_MISSING_DEFAULT, "Missing 'default' in case and selectors",
+			getFieldEditorParent()));
 	}
 
 }

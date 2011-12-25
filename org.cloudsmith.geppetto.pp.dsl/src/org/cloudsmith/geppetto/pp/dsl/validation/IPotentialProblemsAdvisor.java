@@ -39,4 +39,11 @@ public interface IPotentialProblemsAdvisor {
 	 * @return
 	 */
 	public ValidationPreference interpolatedNonBraceEnclosedHyphens();
+
+	/**
+	 * How to validate a missing 'default' in switch type expressions i.e. 'case' and 'selector'
+	 * 
+	 * @return
+	 */
+	public ValidationPreference missingDefaultInSwitch();
 }

@@ -512,7 +512,7 @@ public class PPJavaValidator extends AbstractPPJavaValidator implements IPPDiagn
 	 * @param o
 	 */
 	@Check
-	public void checkCaseExpression(Case o) {
+	public void checkCase(Case o) {
 		internalCheckTopLevelExpressions(o.getStatements());
 
 		ValidationPreference periodInCase = validationAdvisorProvider.get().periodInCase();
@@ -533,6 +533,65 @@ public class PPJavaValidator extends AbstractPPJavaValidator implements IPPDiagn
 				}
 			}
 		}
+	}
+
+	@Check
+	public void checkCaseExpression(CaseExpression o) {
+		final Expression switchExpr = o.getSwitchExpr();
+
+		boolean theDefaultIsSeen = false;
+		int counter = 0;
+		// collect unreachable entries to avoid multiple unreachable markers for an entry
+		Set<Integer> unreachables = Sets.newHashSet();
+		List<Expression> caseExpressions = Lists.newArrayList();
+		for(Case caze : o.getCases()) {
+			for(Expression e : caze.getValues()) {
+				caseExpressions.add(e);
+				if(theDefaultIsSeen)
+					unreachables.add(counter);
+
+				if(e instanceof LiteralDefault)
+					theDefaultIsSeen = true;
+				counter++;
+			}
+		}
+
+		// check that there is a default
+		if(!theDefaultIsSeen) {
+			IValidationAdvisor advisor = advisor();
+			ValidationPreference missingDefaultInSwitch = advisor.missingDefaultInSwitch();
+			if(missingDefaultInSwitch.isError())
+				acceptor.acceptError("Missing 'default' case", o, IPPDiagnostics.ISSUE__MISSING_DEFAULT);
+			else if(missingDefaultInSwitch.isWarning())
+				acceptor.acceptWarning("Missing 'default' case", o, IPPDiagnostics.ISSUE__MISSING_DEFAULT);
+		}
+
+		// Check unreachable by equivalence
+		// all following expressions that are equivalent to a predecessor are unreachable
+		// all following an expression equivalent to the left expression are unreachable
+		for(int i = 0; i < caseExpressions.size(); i++) {
+			Expression e1 = caseExpressions.get(i);
+			// if a case value is equivalent to the switch expression, all following are unreachable
+			boolean equalsSwitch = eqCalculator.isEquivalent(e1, switchExpr);
+
+			// or if equal to the case expression e1, that this particular expression is unreachable
+			for(int j = i + 1; j < caseExpressions.size(); j++) {
+				Expression e2 = caseExpressions.get(j);
+				if(equalsSwitch || eqCalculator.isEquivalent(e1, e2))
+					unreachables.add(j);
+			}
+
+		}
+
+		// mark all that are unreachable
+		for(Integer i : unreachables) {
+			Expression e = caseExpressions.get(i);
+			Case c = (Case) e.eContainer();
+			acceptor.acceptWarning(
+				"Unreachable", c, PPPackage.Literals.CASE__VALUES, c.getValues().indexOf(e),
+				IPPDiagnostics.ISSUE__UNREACHABLE);
+		}
+
 	}
 
 	@Check
@@ -1294,7 +1353,7 @@ public class PPJavaValidator extends AbstractPPJavaValidator implements IPPDiagn
 		for(Integer i : unreachables)
 			acceptor.acceptWarning(
 				"Unreachable", o, PPPackage.Literals.PARAMETERIZED_EXPRESSION__PARAMETERS, i,
-				IPPDiagnostics.ISSUE__DEFAULT_NOT_LAST);
+				IPPDiagnostics.ISSUE__UNREACHABLE);
 
 	}
 

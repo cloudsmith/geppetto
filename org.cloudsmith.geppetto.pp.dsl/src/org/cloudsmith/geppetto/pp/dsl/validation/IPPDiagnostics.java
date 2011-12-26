@@ -172,4 +172,6 @@ public interface IPPDiagnostics {
 
 	public static final String ISSUE__MISSING_DEFAULT = ISSUE_PREFIX + "MissingDefault";
 
+	public static final String ISSUE__UNREACHABLE = ISSUE_PREFIX + "Unreachable";
+
 }

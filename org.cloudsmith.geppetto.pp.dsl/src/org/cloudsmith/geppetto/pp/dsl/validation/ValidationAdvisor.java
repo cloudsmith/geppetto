@@ -15,7 +15,7 @@ import org.cloudsmith.geppetto.pp.dsl.validation.IValidationAdvisor.ComplianceLe
 
 public class ValidationAdvisor {
 
-	public static class BaseValidationAdvisor implements IPotentialProblemsAdvisor {
+	public static class BaseValidationAdvisor implements IPotentialProblemsAdvisor, IStylisticProblemsAdvisor {
 
 		private IPotentialProblemsAdvisor problemsAdvisor;
 
@@ -26,6 +26,16 @@ public class ValidationAdvisor {
 		@Override
 		public ValidationPreference booleansInStringForm() {
 			return problemsAdvisor.booleansInStringForm();
+		}
+
+		/*
+		 * (non-Javadoc)
+		 * 
+		 * @see org.cloudsmith.geppetto.pp.dsl.validation.IPotentialProblemsAdvisor#caseDefaultShouldAppearLast()
+		 */
+		@Override
+		public ValidationPreference caseDefaultShouldAppearLast() {
+			return problemsAdvisor.caseDefaultShouldAppearLast();
 		}
 
 		@Override
@@ -39,8 +49,18 @@ public class ValidationAdvisor {
 		}
 
 		@Override
-		public ValidationPreference missingDefaultInSwitch() {
-			return problemsAdvisor.missingDefaultInSwitch();
+		public ValidationPreference missingDefaultInSelector() {
+			return problemsAdvisor.missingDefaultInSelector();
+		}
+
+		/*
+		 * (non-Javadoc)
+		 * 
+		 * @see org.cloudsmith.geppetto.pp.dsl.validation.IStylisticProblemsAdvisor#selectorDefaultShouldAppearLast()
+		 */
+		@Override
+		public ValidationPreference selectorDefaultShouldAppearLast() {
+			return problemsAdvisor.selectorDefaultShouldAppearLast();
 		}
 
 	}

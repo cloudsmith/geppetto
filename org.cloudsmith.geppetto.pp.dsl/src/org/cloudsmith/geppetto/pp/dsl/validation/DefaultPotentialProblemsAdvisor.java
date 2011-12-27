@@ -12,13 +12,24 @@
 package org.cloudsmith.geppetto.pp.dsl.validation;
 
 /**
- * A default implementation of IPotentialProblemsAdvisor that returns Warnings for all potential problems.
+ * A default implementation of IPotentialProblemsAdvisor that returns Warnings for all potential problems, and
+ * Ignore for all stylistic problems
  */
-public class DefaultPotentialProblemsAdvisor implements IPotentialProblemsAdvisor {
+public class DefaultPotentialProblemsAdvisor implements IPotentialProblemsAdvisor, IStylisticProblemsAdvisor {
 
 	@Override
 	public ValidationPreference booleansInStringForm() {
 		return ValidationPreference.WARNING;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.cloudsmith.geppetto.pp.dsl.validation.IPotentialProblemsAdvisor#caseDefaultShouldAppearLast()
+	 */
+	@Override
+	public ValidationPreference caseDefaultShouldAppearLast() {
+		return ValidationPreference.IGNORE;
 	}
 
 	@Override
@@ -32,8 +43,18 @@ public class DefaultPotentialProblemsAdvisor implements IPotentialProblemsAdviso
 	}
 
 	@Override
-	public ValidationPreference missingDefaultInSwitch() {
+	public ValidationPreference missingDefaultInSelector() {
 		return ValidationPreference.WARNING;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.cloudsmith.geppetto.pp.dsl.validation.IStylisticProblemsAdvisor#selectorDefaultShouldAppearLast()
+	 */
+	@Override
+	public ValidationPreference selectorDefaultShouldAppearLast() {
+		return ValidationPreference.IGNORE;
 	}
 
 }

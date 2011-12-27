@@ -75,6 +75,19 @@ public interface IMessageAcceptor {
 			String[] issueData);
 
 	/**
+	 * The same as calling {@link #accept(Severity, String, EObject, EStructuralFeature, int, String, String...)} with
+	 * with source.eContainer(), source.eContainingFeature(), {@link #indexOfSourceInParent(EObject)} instead of just source.
+	 * source.eContainer(), so
+	 * 
+	 * @param severity
+	 * @param message
+	 * @param source
+	 * @param issueCode
+	 * @param issueData
+	 */
+	void accept(Severity severity, String message, EObject source, String issueCode, String... issueData);
+
+	/**
 	 * <p>
 	 * Generates an error for the given {@link INode}
 	 * </p>

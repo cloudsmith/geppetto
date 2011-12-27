@@ -36,6 +36,13 @@ public abstract class AbstractMessageAcceptor implements IMessageAcceptor {
 	public abstract void accept(Severity severity, String message, EObject source, EStructuralFeature feature,
 			int index, String issueCode, String... issueData);
 
+	@Override
+	public void accept(Severity severity, String message, EObject source, String issueCode, String... issueData) {
+		accept(
+			severity, message, source.eContainer(), source.eContainingFeature(), indexOfSourceInParent(source),
+			issueCode, issueData);
+	}
+
 	/*
 	 * (non-Javadoc)
 	 * 

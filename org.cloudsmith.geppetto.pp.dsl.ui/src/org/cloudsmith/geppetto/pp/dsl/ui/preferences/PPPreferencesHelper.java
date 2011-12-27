@@ -88,6 +88,13 @@ public class PPPreferencesHelper implements IPreferenceStoreInitializer, IProper
 	/**
 	 * @return
 	 */
+	public ValidationPreference getCaseDefaultShouldAppearLast() {
+		return ValidationPreference.fromString(store.getString(PPPreferenceConstants.PROBLEM_CASE_DEFAULT_LAST));
+	}
+
+	/**
+	 * @return
+	 */
 	public ValidationPreference getcircularDependencyPreference() {
 		return ValidationPreference.fromString(store.getString(PPPreferenceConstants.PROBLEM_CIRCULAR_DEPENDENCY));
 	}
@@ -114,6 +121,13 @@ public class PPPreferencesHelper implements IPreferenceStoreInitializer, IProper
 		if("2.8".equals(result) || "PE 2.0".equals(result))
 			return "2.7";
 		return result;
+	}
+
+	/**
+	 * @return
+	 */
+	public ValidationPreference getSelectorDefaultShouldAppearLast() {
+		return ValidationPreference.fromString(store.getString(PPPreferenceConstants.PROBLEM_SELECTOR_DEFAULT_LAST));
 	}
 
 	synchronized public IValidationAdvisor.ComplianceLevel getValidationComplianceLevel() {
@@ -149,6 +163,10 @@ public class PPPreferencesHelper implements IPreferenceStoreInitializer, IProper
 		store.setDefault(PPPreferenceConstants.PROBLEM_CIRCULAR_DEPENDENCY, ValidationPreference.WARNING.toString());
 		store.setDefault(PPPreferenceConstants.PROBLEM_BOOLEAN_STRING, ValidationPreference.WARNING.toString());
 		store.setDefault(PPPreferenceConstants.PROBLEM_MISSING_DEFAULT, ValidationPreference.WARNING.toString());
+
+		// stylistic
+		store.setDefault(PPPreferenceConstants.PROBLEM_CASE_DEFAULT_LAST, ValidationPreference.IGNORE.toString());
+		store.setDefault(PPPreferenceConstants.PROBLEM_SELECTOR_DEFAULT_LAST, ValidationPreference.IGNORE.toString());
 
 		autoInsertOverrides = (int) store.getLong(PPPreferenceConstants.AUTO_EDIT_STRATEGY);
 		access.getWritablePreferenceStore().addPropertyChangeListener(this);
@@ -216,6 +234,20 @@ public class PPPreferencesHelper implements IPreferenceStoreInitializer, IProper
 			PPBuildJob job = new PPBuildJob(workspace);
 			job.schedule();
 		}
+
+		if(PPPreferenceConstants.PROBLEM_MISSING_DEFAULT.equals(event.getProperty())) {
+			PPBuildJob job = new PPBuildJob(workspace);
+			job.schedule();
+		}
+		if(PPPreferenceConstants.PROBLEM_CASE_DEFAULT_LAST.equals(event.getProperty())) {
+			PPBuildJob job = new PPBuildJob(workspace);
+			job.schedule();
+		}
+		if(PPPreferenceConstants.PROBLEM_SELECTOR_DEFAULT_LAST.equals(event.getProperty())) {
+			PPBuildJob job = new PPBuildJob(workspace);
+			job.schedule();
+		}
+
 	}
 
 }

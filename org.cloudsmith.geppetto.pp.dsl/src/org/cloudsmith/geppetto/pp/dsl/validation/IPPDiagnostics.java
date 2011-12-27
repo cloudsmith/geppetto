@@ -174,4 +174,6 @@ public interface IPPDiagnostics {
 
 	public static final String ISSUE__UNREACHABLE = ISSUE_PREFIX + "Unreachable";
 
+	public static final String ISSUE__DUPLICATE_CASE = ISSUE_PREFIX + "DuplicateCase";
+
 }

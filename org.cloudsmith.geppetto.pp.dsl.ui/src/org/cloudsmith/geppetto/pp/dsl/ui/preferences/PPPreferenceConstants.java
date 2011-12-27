@@ -38,4 +38,8 @@ public class PPPreferenceConstants {
 	public static final String PROBLEM_BOOLEAN_STRING = "booleanString";
 
 	public static final String PROBLEM_MISSING_DEFAULT = "missingDefault";
+
+	public static final String PROBLEM_SELECTOR_DEFAULT_LAST = "SelectDefaultLast";
+
+	public static final String PROBLEM_CASE_DEFAULT_LAST = "CaseDefaultLast";
 }

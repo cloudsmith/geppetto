@@ -15,7 +15,7 @@ package org.cloudsmith.geppetto.pp.dsl.validation;
  * An interface for potential problems preferences.
  * 
  */
-public interface IPotentialProblemsAdvisor {
+public interface IPotentialProblemsAdvisor extends IStylisticProblemsAdvisor {
 
 	/**
 	 * Puppet interprets the strings "false" and "true" as boolean true when they are used in a boolean context.
@@ -45,5 +45,5 @@ public interface IPotentialProblemsAdvisor {
 	 * 
 	 * @return
 	 */
-	public ValidationPreference missingDefaultInSwitch();
+	public ValidationPreference missingDefaultInSelector();
 }

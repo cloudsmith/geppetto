@@ -24,10 +24,10 @@ public class PPStylisticProblemsPreferencePage extends AbstractPreferencePage {
 	protected void createFieldEditors() {
 
 		this.addField(new ValidationPreferenceFieldEditor(
-			PPPreferenceConstants.PROBLEM_CASE_DEFAULT_LAST, "Case statement where default is not last",
+			PPPreferenceConstants.PROBLEM_CASE_DEFAULT_LAST, "Case statement where a 'default' is not last",
 			getFieldEditorParent()));
 		this.addField(new ValidationPreferenceFieldEditor(
-			PPPreferenceConstants.PROBLEM_SELECTOR_DEFAULT_LAST, "Selector expression where default is not last",
+			PPPreferenceConstants.PROBLEM_SELECTOR_DEFAULT_LAST, "Selector expression where a 'default' is not last",
 			getFieldEditorParent()));
 	}
 

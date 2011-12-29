@@ -2322,15 +2322,15 @@ ruleSelectorExpression returns [EObject current=null]
 	    }
 
 )
-)(
+)((
 	otherlv_5=KEYWORD_8
     {
-    	newLeafNode(otherlv_5, grammarAccess.getSelectorExpressionAccess().getCommaKeyword_1_2_0_2_0());
+    	newLeafNode(otherlv_5, grammarAccess.getSelectorExpressionAccess().getCommaKeyword_1_2_0_2_0_0());
     }
 (
 (
 		{ 
-	        newCompositeNode(grammarAccess.getSelectorExpressionAccess().getParametersSelectorEntryParserRuleCall_1_2_0_2_1_0()); 
+	        newCompositeNode(grammarAccess.getSelectorExpressionAccess().getParametersSelectorEntryParserRuleCall_1_2_0_2_0_1_0()); 
 	    }
 		lv_parameters_6_0=ruleSelectorEntry		{
 	        if ($current==null) {
@@ -2340,6 +2340,25 @@ ruleSelectorExpression returns [EObject current=null]
        			$current, 
        			"parameters",
         		lv_parameters_6_0, 
+        		"SelectorEntry");
+	        afterParserOrEnumRuleCall();
+	    }
+
+)
+))
+    |(
+(
+		{ 
+	        newCompositeNode(grammarAccess.getSelectorExpressionAccess().getParametersSelectorEntryParserRuleCall_1_2_0_2_1_0()); 
+	    }
+		lv_parameters_7_0=ruleSelectorEntry		{
+	        if ($current==null) {
+	            $current = createModelElementForParent(grammarAccess.getSelectorExpressionRule());
+	        }
+       		add(
+       			$current, 
+       			"parameters",
+        		lv_parameters_7_0, 
         		"SelectorEntry");
 	        afterParserOrEnumRuleCall();
 	    }
@@ -2357,9 +2376,9 @@ ruleendComma
         afterParserOrEnumRuleCall();
     }
 )?
-	otherlv_8=KEYWORD_21
+	otherlv_9=KEYWORD_21
     {
-    	newLeafNode(otherlv_8, grammarAccess.getSelectorExpressionAccess().getRightCurlyBracketKeyword_1_2_0_4());
+    	newLeafNode(otherlv_9, grammarAccess.getSelectorExpressionAccess().getRightCurlyBracketKeyword_1_2_0_4());
     }
 )
     |(
@@ -2367,14 +2386,14 @@ ruleendComma
 		{ 
 	        newCompositeNode(grammarAccess.getSelectorExpressionAccess().getParametersSelectorEntryParserRuleCall_1_2_1_0()); 
 	    }
-		lv_parameters_9_0=ruleSelectorEntry		{
+		lv_parameters_10_0=ruleSelectorEntry		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getSelectorExpressionRule());
 	        }
        		add(
        			$current, 
        			"parameters",
-        		lv_parameters_9_0, 
+        		lv_parameters_10_0, 
         		"SelectorEntry");
 	        afterParserOrEnumRuleCall();
 	    }

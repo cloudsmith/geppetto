@@ -268,7 +268,7 @@ SelectorExpression returns pp::Expression
 		 '?' 
 			( ('{' 
 				parameters += SelectorEntry 
-				(','  parameters += SelectorEntry)* endComma? 
+				((','  parameters += SelectorEntry) | (parameters += SelectorEntry))* endComma? 
 			   '}' )
 			   | parameters += SelectorEntry
 			)

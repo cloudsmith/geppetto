@@ -6616,13 +6616,13 @@ protected class ExportedCollectQuery_VerticalLineGreaterThanSignGreaterThanSignK
  *
  * SelectorExpression returns pp::Expression: // WAS: FunctionCall 
  * 	AtExpression ({pp::SelectorExpression.leftExpr=current} "?" ("{" parameters+=SelectorEntry (","
- * 	parameters+=SelectorEntry)* endComma? "}" | parameters+=SelectorEntry))?;
+ * 	parameters+=SelectorEntry | parameters+=SelectorEntry)* endComma? "}" | parameters+=SelectorEntry))?;
  *
  **/
 
 // // WAS: FunctionCall 
 // AtExpression ({pp::SelectorExpression.leftExpr=current} "?" ("{" parameters+=SelectorEntry (","
-// parameters+=SelectorEntry)* endComma? "}" | parameters+=SelectorEntry))?
+// parameters+=SelectorEntry | parameters+=SelectorEntry)* endComma? "}" | parameters+=SelectorEntry))?
 protected class SelectorExpression_Group extends GroupToken {
 	
 	public SelectorExpression_Group(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -6730,8 +6730,8 @@ protected class SelectorExpression_AtExpressionParserRuleCall_0 extends RuleCall
 	}	
 }
 
-// ({pp::SelectorExpression.leftExpr=current} "?" ("{" parameters+=SelectorEntry ("," parameters+=SelectorEntry)* endComma?
-// "}" | parameters+=SelectorEntry))?
+// ({pp::SelectorExpression.leftExpr=current} "?" ("{" parameters+=SelectorEntry ("," parameters+=SelectorEntry |
+// parameters+=SelectorEntry)* endComma? "}" | parameters+=SelectorEntry))?
 protected class SelectorExpression_Group_1 extends GroupToken {
 	
 	public SelectorExpression_Group_1(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -6811,7 +6811,8 @@ protected class SelectorExpression_QuestionMarkKeyword_1_1 extends KeywordToken 
 
 }
 
-// "{" parameters+=SelectorEntry ("," parameters+=SelectorEntry)* endComma? "}" | parameters+=SelectorEntry
+// "{" parameters+=SelectorEntry ("," parameters+=SelectorEntry | parameters+=SelectorEntry)* endComma? "}" |
+// parameters+=SelectorEntry
 protected class SelectorExpression_Alternatives_1_2 extends AlternativesToken {
 
 	public SelectorExpression_Alternatives_1_2(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -6834,7 +6835,7 @@ protected class SelectorExpression_Alternatives_1_2 extends AlternativesToken {
 
 }
 
-// "{" parameters+=SelectorEntry ("," parameters+=SelectorEntry)* endComma? "}"
+// "{" parameters+=SelectorEntry ("," parameters+=SelectorEntry | parameters+=SelectorEntry)* endComma? "}"
 protected class SelectorExpression_Group_1_2_0 extends GroupToken {
 	
 	public SelectorExpression_Group_1_2_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -6924,22 +6925,45 @@ protected class SelectorExpression_ParametersAssignment_1_2_0_1 extends Assignme
 	}	
 }
 
-// ("," parameters+=SelectorEntry)*
-protected class SelectorExpression_Group_1_2_0_2 extends GroupToken {
-	
-	public SelectorExpression_Group_1_2_0_2(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+// ("," parameters+=SelectorEntry | parameters+=SelectorEntry)*
+protected class SelectorExpression_Alternatives_1_2_0_2 extends AlternativesToken {
+
+	public SelectorExpression_Alternatives_1_2_0_2(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
 		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
 	}
 	
 	@Override
-	public Group getGrammarElement() {
-		return grammarAccess.getSelectorExpressionAccess().getGroup_1_2_0_2();
+	public Alternatives getGrammarElement() {
+		return grammarAccess.getSelectorExpressionAccess().getAlternatives_1_2_0_2();
 	}
 
     @Override
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
-			case 0: return new SelectorExpression_ParametersAssignment_1_2_0_2_1(lastRuleCallOrigin, this, 0, inst);
+			case 0: return new SelectorExpression_Group_1_2_0_2_0(lastRuleCallOrigin, this, 0, inst);
+			case 1: return new SelectorExpression_ParametersAssignment_1_2_0_2_1(lastRuleCallOrigin, this, 1, inst);
+			default: return null;
+		}	
+	}
+
+}
+
+// "," parameters+=SelectorEntry
+protected class SelectorExpression_Group_1_2_0_2_0 extends GroupToken {
+	
+	public SelectorExpression_Group_1_2_0_2_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
+	}
+	
+	@Override
+	public Group getGrammarElement() {
+		return grammarAccess.getSelectorExpressionAccess().getGroup_1_2_0_2_0();
+	}
+
+    @Override
+	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
+		switch(index) {
+			case 0: return new SelectorExpression_ParametersAssignment_1_2_0_2_0_1(lastRuleCallOrigin, this, 0, inst);
 			default: return null;
 		}	
 	}
@@ -6947,27 +6971,74 @@ protected class SelectorExpression_Group_1_2_0_2 extends GroupToken {
 }
 
 // ","
-protected class SelectorExpression_CommaKeyword_1_2_0_2_0 extends KeywordToken  {
+protected class SelectorExpression_CommaKeyword_1_2_0_2_0_0 extends KeywordToken  {
 	
-	public SelectorExpression_CommaKeyword_1_2_0_2_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+	public SelectorExpression_CommaKeyword_1_2_0_2_0_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
 		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
 	}
 	
 	@Override
 	public Keyword getGrammarElement() {
-		return grammarAccess.getSelectorExpressionAccess().getCommaKeyword_1_2_0_2_0();
+		return grammarAccess.getSelectorExpressionAccess().getCommaKeyword_1_2_0_2_0_0();
 	}
 
     @Override
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
-			case 0: return new SelectorExpression_Group_1_2_0_2(lastRuleCallOrigin, this, 0, inst);
+			case 0: return new SelectorExpression_Alternatives_1_2_0_2(lastRuleCallOrigin, this, 0, inst);
 			case 1: return new SelectorExpression_ParametersAssignment_1_2_0_1(lastRuleCallOrigin, this, 1, inst);
 			default: return null;
 		}	
 	}
 
 }
+
+// parameters+=SelectorEntry
+protected class SelectorExpression_ParametersAssignment_1_2_0_2_0_1 extends AssignmentToken  {
+	
+	public SelectorExpression_ParametersAssignment_1_2_0_2_0_1(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
+	}
+	
+	@Override
+	public Assignment getGrammarElement() {
+		return grammarAccess.getSelectorExpressionAccess().getParametersAssignment_1_2_0_2_0_1();
+	}
+
+    @Override
+	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
+		switch(index) {
+			case 0: return new SelectorEntry_Group(this, this, 0, inst);
+			default: return null;
+		}	
+	}
+
+    @Override	
+	public IEObjectConsumer tryConsume() {
+		if((value = eObjectConsumer.getConsumable("parameters",true)) == null) return null;
+		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("parameters");
+		if(value instanceof EObject) { // org::eclipse::xtext::impl::RuleCallImpl
+			IEObjectConsumer param = createEObjectConsumer((EObject)value);
+			if(param.isInstanceOf(grammarAccess.getSelectorEntryRule().getType().getClassifier())) {
+				type = AssignmentType.PARSER_RULE_CALL;
+				element = grammarAccess.getSelectorExpressionAccess().getParametersSelectorEntryParserRuleCall_1_2_0_2_0_1_0(); 
+				consumed = obj;
+				return param;
+			}
+		}
+		return null;
+	}
+
+    @Override
+	public AbstractToken createFollowerAfterReturn(AbstractToken next,	int actIndex, int index, IEObjectConsumer inst) {
+		if(value == inst.getEObject() && !inst.isConsumed()) return null;
+		switch(index) {
+			case 0: return new SelectorExpression_CommaKeyword_1_2_0_2_0_0(lastRuleCallOrigin, next, actIndex, consumed);
+			default: return null;
+		}	
+	}	
+}
+
 
 // parameters+=SelectorEntry
 protected class SelectorExpression_ParametersAssignment_1_2_0_2_1 extends AssignmentToken  {
@@ -6991,7 +7062,7 @@ protected class SelectorExpression_ParametersAssignment_1_2_0_2_1 extends Assign
 
     @Override	
 	public IEObjectConsumer tryConsume() {
-		if((value = eObjectConsumer.getConsumable("parameters",false)) == null) return null;
+		if((value = eObjectConsumer.getConsumable("parameters",true)) == null) return null;
 		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("parameters");
 		if(value instanceof EObject) { // org::eclipse::xtext::impl::RuleCallImpl
 			IEObjectConsumer param = createEObjectConsumer((EObject)value);
@@ -7009,7 +7080,8 @@ protected class SelectorExpression_ParametersAssignment_1_2_0_2_1 extends Assign
 	public AbstractToken createFollowerAfterReturn(AbstractToken next,	int actIndex, int index, IEObjectConsumer inst) {
 		if(value == inst.getEObject() && !inst.isConsumed()) return null;
 		switch(index) {
-			case 0: return new SelectorExpression_CommaKeyword_1_2_0_2_0(lastRuleCallOrigin, next, actIndex, consumed);
+			case 0: return new SelectorExpression_Alternatives_1_2_0_2(lastRuleCallOrigin, next, actIndex, consumed);
+			case 1: return new SelectorExpression_ParametersAssignment_1_2_0_1(lastRuleCallOrigin, next, actIndex, consumed);
 			default: return null;
 		}	
 	}	
@@ -7031,7 +7103,7 @@ protected class SelectorExpression_RightCurlyBracketKeyword_1_2_0_4 extends Keyw
     @Override
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
-			case 0: return new SelectorExpression_Group_1_2_0_2(lastRuleCallOrigin, this, 0, inst);
+			case 0: return new SelectorExpression_Alternatives_1_2_0_2(lastRuleCallOrigin, this, 0, inst);
 			case 1: return new SelectorExpression_ParametersAssignment_1_2_0_1(lastRuleCallOrigin, this, 1, inst);
 			default: return null;
 		}	

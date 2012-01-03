@@ -15,6 +15,7 @@ import org.apache.log4j.Logger;
 import org.cloudsmith.geppetto.pp.dsl.PPDSLConstants;
 import org.cloudsmith.geppetto.pp.dsl.pptp.PptpRubyRuntimeModule;
 import org.cloudsmith.geppetto.pp.dsl.pptp.PptpRuntimeModule;
+import org.cloudsmith.geppetto.pp.dsl.ui.preferences.PPPreferencesHelper;
 import org.osgi.framework.BundleContext;
 
 import com.google.inject.Injector;
@@ -95,6 +96,8 @@ public class PPDSLActivator extends PPActivator {
 
 	@Override
 	public void stop(BundleContext context) throws Exception {
+		PPPreferencesHelper preferenceHelper = getInjector(PP_LANGUAGE_NAME).getInstance(PPPreferencesHelper.class);
+		preferenceHelper.stop();
 		slaActivatorContext = null;
 		super.stop(context);
 	}

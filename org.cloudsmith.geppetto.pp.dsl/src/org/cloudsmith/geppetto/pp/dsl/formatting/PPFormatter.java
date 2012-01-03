@@ -380,7 +380,7 @@ public class PPFormatter extends AbstractDeclarativeFormatter {
 		c.setLinewrap().after(lbr);
 		c.setLinewrap().before(rbr);
 		c.setIndentation(lbr, rbr);
-		Keyword comma = ga.getSelectorExpressionAccess().getCommaKeyword_1_2_0_2_0();
+		Keyword comma = ga.getSelectorExpressionAccess().getCommaKeyword_1_2_0_2_0_0();
 		// RuleCall endcomma = ga.getSelectorExpressionAccess().getEndCommaParserRuleCall_1_3_0_4_0();
 
 		c.setLinewrap().after(comma);

@@ -11,11 +11,18 @@
  */
 package org.cloudsmith.geppetto.pp.dsl.ui.preferences;
 
+import java.util.List;
+import java.util.concurrent.LinkedBlockingQueue;
+
 import org.cloudsmith.geppetto.pp.dsl.ui.builder.PPBuildJob;
 import org.cloudsmith.geppetto.pp.dsl.ui.pptp.PptpTargetProjectHandler;
 import org.cloudsmith.geppetto.pp.dsl.validation.IValidationAdvisor;
 import org.cloudsmith.geppetto.pp.dsl.validation.ValidationPreference;
 import org.eclipse.core.resources.IWorkspace;
+import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Status;
+import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.util.IPropertyChangeListener;
 import org.eclipse.jface.util.PropertyChangeEvent;
@@ -24,6 +31,7 @@ import org.eclipse.xtext.ui.editor.preferences.IPreferenceStoreInitializer;
 
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
+import com.google.inject.internal.Lists;
 
 /**
  * A facade that helps with preference checking.
@@ -32,6 +40,37 @@ import com.google.inject.Singleton;
  */
 @Singleton
 public class PPPreferencesHelper implements IPreferenceStoreInitializer, IPropertyChangeListener {
+
+	private class RebuildChecker extends Job {
+		RebuildChecker() {
+			super("Pupept RebuildChecker");
+			setSystem(true);
+			this.setUser(false);
+		}
+
+		@Override
+		protected IStatus run(IProgressMonitor monitor) {
+			for(;;) {
+				try {
+					// wakeup when there is something on the queue
+					problemChanges.take();
+					// wait for more events before running
+					Thread.sleep(500);
+				}
+				catch(InterruptedException e) {
+					return Status.CANCEL_STATUS;
+				}
+				// drain the queue of everything pending
+				List<String> drained = Lists.newArrayList();
+				problemChanges.drainTo(drained);
+
+				// run a build
+				PPBuildJob job = new PPBuildJob(workspace);
+				job.schedule();
+			}
+		}
+
+	}
 
 	private int autoInsertOverrides = 0;
 
@@ -63,6 +102,26 @@ public class PPPreferencesHelper implements IPreferenceStoreInitializer, IProper
 	@Inject
 	IWorkspace workspace;
 
+	LinkedBlockingQueue<String> problemChanges;
+
+	Job backgroundRebuildChecker;
+
+	/**
+	 * IMPORTANT:
+	 * Add all preference that requires a rebuild when their value change.
+	 */
+	private List<String> requiresRebuild = Lists.newArrayList(//
+		PPPreferenceConstants.PUPPET_TARGET_VERSION, //
+		PPPreferenceConstants.PUPPET_ENVIRONMENT, //
+		PPPreferenceConstants.PUPPET_PROJECT_PATH, //
+		PPPreferenceConstants.PROBLEM_INTERPOLATED_HYPHEN, //
+		PPPreferenceConstants.PROBLEM_CIRCULAR_DEPENDENCY, //
+		PPPreferenceConstants.PROBLEM_BOOLEAN_STRING, //
+		PPPreferenceConstants.PROBLEM_MISSING_DEFAULT, //
+		PPPreferenceConstants.PROBLEM_CASE_DEFAULT_LAST, //
+		PPPreferenceConstants.PROBLEM_SELECTOR_DEFAULT_LAST //
+	);
+
 	public PPPreferencesHelper() {
 		configureAutoInsertOverride();
 	}
@@ -88,6 +147,13 @@ public class PPPreferencesHelper implements IPreferenceStoreInitializer, IProper
 	/**
 	 * @return
 	 */
+	public ValidationPreference getCaseDefaultShouldAppearLast() {
+		return ValidationPreference.fromString(store.getString(PPPreferenceConstants.PROBLEM_CASE_DEFAULT_LAST));
+	}
+
+	/**
+	 * @return
+	 */
 	public ValidationPreference getcircularDependencyPreference() {
 		return ValidationPreference.fromString(store.getString(PPPreferenceConstants.PROBLEM_CIRCULAR_DEPENDENCY));
 	}
@@ -100,6 +166,13 @@ public class PPPreferencesHelper implements IPreferenceStoreInitializer, IProper
 		return ValidationPreference.fromString(store.getString(PPPreferenceConstants.PROBLEM_INTERPOLATED_HYPHEN));
 	}
 
+	/**
+	 * @return
+	 */
+	public ValidationPreference getMissingDefaultInSwitch() {
+		return ValidationPreference.fromString(store.getString(PPPreferenceConstants.PROBLEM_MISSING_DEFAULT));
+	}
+
 	public String getPptpVersion() {
 		String result = store.getString(PPPreferenceConstants.PUPPET_TARGET_VERSION);
 		// TODO: Until there is an actual 2.8 pptp, return 2.7
@@ -107,6 +180,13 @@ public class PPPreferencesHelper implements IPreferenceStoreInitializer, IProper
 		if("2.8".equals(result) || "PE 2.0".equals(result))
 			return "2.7";
 		return result;
+	}
+
+	/**
+	 * @return
+	 */
+	public ValidationPreference getSelectorDefaultShouldAppearLast() {
+		return ValidationPreference.fromString(store.getString(PPPreferenceConstants.PROBLEM_SELECTOR_DEFAULT_LAST));
 	}
 
 	synchronized public IValidationAdvisor.ComplianceLevel getValidationComplianceLevel() {
@@ -141,9 +221,20 @@ public class PPPreferencesHelper implements IPreferenceStoreInitializer, IProper
 		store.setDefault(PPPreferenceConstants.PROBLEM_INTERPOLATED_HYPHEN, ValidationPreference.WARNING.toString());
 		store.setDefault(PPPreferenceConstants.PROBLEM_CIRCULAR_DEPENDENCY, ValidationPreference.WARNING.toString());
 		store.setDefault(PPPreferenceConstants.PROBLEM_BOOLEAN_STRING, ValidationPreference.WARNING.toString());
+		store.setDefault(PPPreferenceConstants.PROBLEM_MISSING_DEFAULT, ValidationPreference.WARNING.toString());
+
+		// stylistic
+		store.setDefault(PPPreferenceConstants.PROBLEM_CASE_DEFAULT_LAST, ValidationPreference.IGNORE.toString());
+		store.setDefault(PPPreferenceConstants.PROBLEM_SELECTOR_DEFAULT_LAST, ValidationPreference.IGNORE.toString());
 
 		autoInsertOverrides = (int) store.getLong(PPPreferenceConstants.AUTO_EDIT_STRATEGY);
-		access.getWritablePreferenceStore().addPropertyChangeListener(this);
+
+		// Schedule the background job that makes rebuild after property changes more efficient
+		// (Removes the need to run one rebuild per changing preference).
+		problemChanges = new LinkedBlockingQueue<String>();
+		backgroundRebuildChecker = new RebuildChecker();
+		backgroundRebuildChecker.schedule();
+		store.addPropertyChangeListener(this);
 
 	}
 
@@ -185,28 +276,22 @@ public class PPPreferencesHelper implements IPreferenceStoreInitializer, IProper
 		// If pptp changes, recheck the workspace
 		if(PPPreferenceConstants.PUPPET_TARGET_VERSION.equals(event.getProperty())) {
 			pptpHandler.initializePuppetWorkspace();
-			PPBuildJob job = new PPBuildJob(workspace);
-			job.schedule();
+			// problemChanges.offer(event.getProperty());
 		}
-		if(PPPreferenceConstants.PUPPET_ENVIRONMENT.equals(event.getProperty())) {
-			PPBuildJob job = new PPBuildJob(workspace);
-			job.schedule();
-		}
-		if(PPPreferenceConstants.PUPPET_PROJECT_PATH.equals(event.getProperty())) {
-			PPBuildJob job = new PPBuildJob(workspace);
-			job.schedule();
-		}
-		if(PPPreferenceConstants.PROBLEM_INTERPOLATED_HYPHEN.equals(event.getProperty())) {
-			PPBuildJob job = new PPBuildJob(workspace);
-			job.schedule();
-		}
-		if(PPPreferenceConstants.PROBLEM_CIRCULAR_DEPENDENCY.equals(event.getProperty())) {
-			PPBuildJob job = new PPBuildJob(workspace);
-			job.schedule();
-		}
-		if(PPPreferenceConstants.PROBLEM_BOOLEAN_STRING.equals(event.getProperty())) {
-			PPBuildJob job = new PPBuildJob(workspace);
-			job.schedule();
-		}
+		if(requiresRebuild.contains(event.getProperty()))
+			problemChanges.offer(event.getProperty());
+
 	}
+
+	/**
+	 * Stops the helper from checking for preference store changess and scheduling rebuilds.
+	 */
+	public void stop() {
+		store.removePropertyChangeListener(this);
+		if(backgroundRebuildChecker == null)
+			return;
+		if(!backgroundRebuildChecker.cancel())
+			backgroundRebuildChecker.getThread().interrupt();
+	}
+
 }

@@ -168,4 +168,12 @@ public interface IPPDiagnostics {
 
 	public static final String ISSUE__ENDCOMMA = ISSUE_PREFIX + "EndComma";
 
+	public static final String ISSUE__DEFAULT_NOT_LAST = ISSUE_PREFIX + "DefaultNotLast";
+
+	public static final String ISSUE__MISSING_DEFAULT = ISSUE_PREFIX + "MissingDefault";
+
+	public static final String ISSUE__UNREACHABLE = ISSUE_PREFIX + "Unreachable";
+
+	public static final String ISSUE__DUPLICATE_CASE = ISSUE_PREFIX + "DuplicateCase";
+
 }

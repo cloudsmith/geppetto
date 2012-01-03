@@ -37,6 +37,16 @@ public class PreferenceBasedPotentialProblemsAdvisor implements IPotentialProble
 		return preferences.getBooleansInStringForm();
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.cloudsmith.geppetto.pp.dsl.validation.IPotentialProblemsAdvisor#caseDefaultShouldAppearLast()
+	 */
+	@Override
+	public ValidationPreference caseDefaultShouldAppearLast() {
+		return preferences.getCaseDefaultShouldAppearLast();
+	}
+
 	@Override
 	public ValidationPreference circularDependencyPreference() {
 		return preferences.getcircularDependencyPreference();
@@ -45,6 +55,21 @@ public class PreferenceBasedPotentialProblemsAdvisor implements IPotentialProble
 	@Override
 	public ValidationPreference interpolatedNonBraceEnclosedHyphens() {
 		return preferences.getInterpolatedNonBraceEnclosedHypens();
+	}
+
+	@Override
+	public ValidationPreference missingDefaultInSelector() {
+		return preferences.getMissingDefaultInSwitch();
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.cloudsmith.geppetto.pp.dsl.validation.IStylisticProblemsAdvisor#selectorDefaultShouldAppearLast()
+	 */
+	@Override
+	public ValidationPreference selectorDefaultShouldAppearLast() {
+		return preferences.getSelectorDefaultShouldAppearLast();
 	}
 
 }

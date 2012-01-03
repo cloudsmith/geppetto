@@ -15,24 +15,20 @@ import org.cloudsmith.geppetto.pp.dsl.ui.preferences.editors.ValidationPreferenc
 import org.eclipse.xtext.ui.editor.preferences.AbstractPreferencePage;
 
 /**
- * A preference pane for potential problems.
+ * A preference pane for stylistic problems
  * 
  */
-public class PPPotentialProblemsPreferencePage extends AbstractPreferencePage {
+public class PPStylisticProblemsPreferencePage extends AbstractPreferencePage {
 
 	@Override
 	protected void createFieldEditors() {
 
 		this.addField(new ValidationPreferenceFieldEditor(
-			PPPreferenceConstants.PROBLEM_CIRCULAR_DEPENDENCY, "Circular Module Dependency", getFieldEditorParent()));
-		this.addField(new ValidationPreferenceFieldEditor(
-			PPPreferenceConstants.PROBLEM_INTERPOLATED_HYPHEN, "Interpolated hyphen without surrounding {}",
+			PPPreferenceConstants.PROBLEM_CASE_DEFAULT_LAST, "Case statement where a 'default' is not last",
 			getFieldEditorParent()));
 		this.addField(new ValidationPreferenceFieldEditor(
-			PPPreferenceConstants.PROBLEM_BOOLEAN_STRING, "Strings containing \"false\" or \"true\"",
+			PPPreferenceConstants.PROBLEM_SELECTOR_DEFAULT_LAST, "Selector expression where a 'default' is not last",
 			getFieldEditorParent()));
-		this.addField(new ValidationPreferenceFieldEditor(
-			PPPreferenceConstants.PROBLEM_MISSING_DEFAULT, "Missing 'default' in selector", getFieldEditorParent()));
 	}
 
 }

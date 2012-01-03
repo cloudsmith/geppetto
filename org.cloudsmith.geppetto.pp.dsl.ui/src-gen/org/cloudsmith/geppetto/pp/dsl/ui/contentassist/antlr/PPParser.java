@@ -51,6 +51,7 @@ public class PPParser extends AbstractContentAssistParser {
 					put(grammarAccess.getUnaryOrHigherExpressionAccess().getAlternatives(), "rule__UnaryOrHigherExpression__Alternatives");
 					put(grammarAccess.getCollectQueryAccess().getAlternatives(), "rule__CollectQuery__Alternatives");
 					put(grammarAccess.getSelectorExpressionAccess().getAlternatives_1_2(), "rule__SelectorExpression__Alternatives_1_2");
+					put(grammarAccess.getSelectorExpressionAccess().getAlternatives_1_2_0_2(), "rule__SelectorExpression__Alternatives_1_2_0_2");
 					put(grammarAccess.getPrimaryExpressionAccess().getAlternatives(), "rule__PrimaryExpression__Alternatives");
 					put(grammarAccess.getHostReferenceAccess().getAlternatives(), "rule__HostReference__Alternatives");
 					put(grammarAccess.getParentNameAccess().getAlternatives(), "rule__ParentName__Alternatives");
@@ -119,7 +120,7 @@ public class PPParser extends AbstractContentAssistParser {
 					put(grammarAccess.getSelectorExpressionAccess().getGroup(), "rule__SelectorExpression__Group__0");
 					put(grammarAccess.getSelectorExpressionAccess().getGroup_1(), "rule__SelectorExpression__Group_1__0");
 					put(grammarAccess.getSelectorExpressionAccess().getGroup_1_2_0(), "rule__SelectorExpression__Group_1_2_0__0");
-					put(grammarAccess.getSelectorExpressionAccess().getGroup_1_2_0_2(), "rule__SelectorExpression__Group_1_2_0_2__0");
+					put(grammarAccess.getSelectorExpressionAccess().getGroup_1_2_0_2_0(), "rule__SelectorExpression__Group_1_2_0_2_0__0");
 					put(grammarAccess.getSelectorEntryAccess().getGroup(), "rule__SelectorEntry__Group__0");
 					put(grammarAccess.getSelectorEntryAccess().getGroup_1(), "rule__SelectorEntry__Group_1__0");
 					put(grammarAccess.getAtExpressionAccess().getGroup(), "rule__AtExpression__Group__0");
@@ -219,6 +220,7 @@ public class PPParser extends AbstractContentAssistParser {
 					put(grammarAccess.getVirtualCollectQueryAccess().getExprAssignment_2(), "rule__VirtualCollectQuery__ExprAssignment_2");
 					put(grammarAccess.getExportedCollectQueryAccess().getExprAssignment_2(), "rule__ExportedCollectQuery__ExprAssignment_2");
 					put(grammarAccess.getSelectorExpressionAccess().getParametersAssignment_1_2_0_1(), "rule__SelectorExpression__ParametersAssignment_1_2_0_1");
+					put(grammarAccess.getSelectorExpressionAccess().getParametersAssignment_1_2_0_2_0_1(), "rule__SelectorExpression__ParametersAssignment_1_2_0_2_0_1");
 					put(grammarAccess.getSelectorExpressionAccess().getParametersAssignment_1_2_0_2_1(), "rule__SelectorExpression__ParametersAssignment_1_2_0_2_1");
 					put(grammarAccess.getSelectorExpressionAccess().getParametersAssignment_1_2_1(), "rule__SelectorExpression__ParametersAssignment_1_2_1");
 					put(grammarAccess.getSelectorEntryAccess().getRightExprAssignment_1_2(), "rule__SelectorEntry__RightExprAssignment_1_2");

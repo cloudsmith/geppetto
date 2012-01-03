@@ -25,6 +25,7 @@ import org.cloudsmith.geppetto.pp.SelectorExpression;
 import org.cloudsmith.geppetto.pp.SingleQuotedString;
 import org.cloudsmith.geppetto.pp.VariableExpression;
 import org.cloudsmith.geppetto.pp.dsl.validation.IPPDiagnostics;
+import org.eclipse.xtext.junit.validation.AssertableDiagnostics;
 
 /**
  * Tests validation and serialization of SelectorExpression
@@ -78,11 +79,15 @@ public class TestSelectorExpression extends AbstractPuppetTests {
 		entry.setLeftExpr(entrylhs);
 		entry.setRightExpr(pf.createLiteralBoolean());
 
-		tester.validate(se).assertError(IPPDiagnostics.ISSUE__UNSUPPORTED_EXPRESSION);
+		tester.validate(se).assertAll(
+			AssertableDiagnostics.warningCode(IPPDiagnostics.ISSUE__MISSING_DEFAULT),
+			AssertableDiagnostics.errorCode(IPPDiagnostics.ISSUE__UNSUPPORTED_EXPRESSION));
 
 		entry.setLeftExpr(slhs);
 		se.setLeftExpr(entrylhs);
-		tester.validate(se).assertError(IPPDiagnostics.ISSUE__UNSUPPORTED_EXPRESSION);
+		tester.validate(se).assertAll(
+			AssertableDiagnostics.warningCode(IPPDiagnostics.ISSUE__MISSING_DEFAULT),
+			AssertableDiagnostics.errorCode(IPPDiagnostics.ISSUE__UNSUPPORTED_EXPRESSION));
 
 	}
 
@@ -105,7 +110,7 @@ public class TestSelectorExpression extends AbstractPuppetTests {
 			entry.setLeftExpr(entrylhs);
 			entry.setRightExpr(pf.createLiteralBoolean());
 
-			tester.validate(se).assertOK();
+			tester.validate(se).assertAll(AssertableDiagnostics.warningCode(IPPDiagnostics.ISSUE__MISSING_DEFAULT));
 		}
 
 		// -- LiteralName
@@ -119,7 +124,7 @@ public class TestSelectorExpression extends AbstractPuppetTests {
 			entry.setLeftExpr(entrylhs);
 			entry.setRightExpr(pf.createLiteralBoolean());
 
-			tester.validate(se).assertOK();
+			tester.validate(se).assertAll(AssertableDiagnostics.warningCode(IPPDiagnostics.ISSUE__MISSING_DEFAULT));
 		}
 		// -- LiteralNameOrReference
 		{
@@ -130,7 +135,7 @@ public class TestSelectorExpression extends AbstractPuppetTests {
 			entry.setLeftExpr(entrylhs);
 			entry.setRightExpr(pf.createLiteralBoolean());
 
-			tester.validate(se).assertOK();
+			tester.validate(se).assertAll(AssertableDiagnostics.warningCode(IPPDiagnostics.ISSUE__MISSING_DEFAULT));
 		}
 		// -- variable
 		{
@@ -143,7 +148,7 @@ public class TestSelectorExpression extends AbstractPuppetTests {
 			entry.setLeftExpr(entrylhs);
 			entry.setRightExpr(pf.createLiteralBoolean());
 
-			tester.validate(se).assertOK();
+			tester.validate(se).assertAll(AssertableDiagnostics.warningCode(IPPDiagnostics.ISSUE__MISSING_DEFAULT));
 		}
 		// -- function call
 		{
@@ -158,7 +163,7 @@ public class TestSelectorExpression extends AbstractPuppetTests {
 			entry.setLeftExpr(entrylhs);
 			entry.setRightExpr(pf.createLiteralBoolean());
 
-			tester.validate(se).assertOK();
+			tester.validate(se).assertAll(AssertableDiagnostics.warningCode(IPPDiagnostics.ISSUE__MISSING_DEFAULT));
 		}
 		// boolean
 		{
@@ -169,7 +174,7 @@ public class TestSelectorExpression extends AbstractPuppetTests {
 			entry.setLeftExpr(entrylhs);
 			entry.setRightExpr(pf.createLiteralBoolean());
 
-			tester.validate(se).assertOK();
+			tester.validate(se).assertAll(AssertableDiagnostics.warningCode(IPPDiagnostics.ISSUE__MISSING_DEFAULT));
 		}
 		// -- undef
 		{
@@ -180,7 +185,7 @@ public class TestSelectorExpression extends AbstractPuppetTests {
 			entry.setLeftExpr(entrylhs);
 			entry.setRightExpr(pf.createLiteralBoolean());
 
-			tester.validate(se).assertOK();
+			tester.validate(se).assertAll(AssertableDiagnostics.warningCode(IPPDiagnostics.ISSUE__MISSING_DEFAULT));
 		}
 		// -- regex
 		{
@@ -193,9 +198,9 @@ public class TestSelectorExpression extends AbstractPuppetTests {
 			entry.setLeftExpr(entrylhs);
 			entry.setRightExpr(pf.createLiteralBoolean());
 
-			tester.validate(se).assertOK();
+			tester.validate(se).assertAll(AssertableDiagnostics.warningCode(IPPDiagnostics.ISSUE__MISSING_DEFAULT));
 		}
-		// -- undef
+		// -- default
 		{
 			LiteralDefault slhs = pf.createLiteralDefault();
 			LiteralDefault entrylhs = pf.createLiteralDefault();

@@ -1305,9 +1305,12 @@ public class PPGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cLeftCurlyBracketKeyword_1_2_0_0 = (Keyword)cGroup_1_2_0.eContents().get(0);
 		private final Assignment cParametersAssignment_1_2_0_1 = (Assignment)cGroup_1_2_0.eContents().get(1);
 		private final RuleCall cParametersSelectorEntryParserRuleCall_1_2_0_1_0 = (RuleCall)cParametersAssignment_1_2_0_1.eContents().get(0);
-		private final Group cGroup_1_2_0_2 = (Group)cGroup_1_2_0.eContents().get(2);
-		private final Keyword cCommaKeyword_1_2_0_2_0 = (Keyword)cGroup_1_2_0_2.eContents().get(0);
-		private final Assignment cParametersAssignment_1_2_0_2_1 = (Assignment)cGroup_1_2_0_2.eContents().get(1);
+		private final Alternatives cAlternatives_1_2_0_2 = (Alternatives)cGroup_1_2_0.eContents().get(2);
+		private final Group cGroup_1_2_0_2_0 = (Group)cAlternatives_1_2_0_2.eContents().get(0);
+		private final Keyword cCommaKeyword_1_2_0_2_0_0 = (Keyword)cGroup_1_2_0_2_0.eContents().get(0);
+		private final Assignment cParametersAssignment_1_2_0_2_0_1 = (Assignment)cGroup_1_2_0_2_0.eContents().get(1);
+		private final RuleCall cParametersSelectorEntryParserRuleCall_1_2_0_2_0_1_0 = (RuleCall)cParametersAssignment_1_2_0_2_0_1.eContents().get(0);
+		private final Assignment cParametersAssignment_1_2_0_2_1 = (Assignment)cAlternatives_1_2_0_2.eContents().get(1);
 		private final RuleCall cParametersSelectorEntryParserRuleCall_1_2_0_2_1_0 = (RuleCall)cParametersAssignment_1_2_0_2_1.eContents().get(0);
 		private final RuleCall cEndCommaParserRuleCall_1_2_0_3 = (RuleCall)cGroup_1_2_0.eContents().get(3);
 		private final Keyword cRightCurlyBracketKeyword_1_2_0_4 = (Keyword)cGroup_1_2_0.eContents().get(4);
@@ -1316,20 +1319,20 @@ public class PPGrammarAccess extends AbstractGrammarElementFinder {
 		
 		//SelectorExpression returns pp::Expression: // WAS: FunctionCall 
 		//	AtExpression ({pp::SelectorExpression.leftExpr=current} "?" ("{" parameters+=SelectorEntry (","
-		//	parameters+=SelectorEntry)* endComma? "}" | parameters+=SelectorEntry))?;
+		//	parameters+=SelectorEntry | parameters+=SelectorEntry)* endComma? "}" | parameters+=SelectorEntry))?;
 		public ParserRule getRule() { return rule; }
 
 		//// WAS: FunctionCall 
 		//AtExpression ({pp::SelectorExpression.leftExpr=current} "?" ("{" parameters+=SelectorEntry (","
-		//parameters+=SelectorEntry)* endComma? "}" | parameters+=SelectorEntry))?
+		//parameters+=SelectorEntry | parameters+=SelectorEntry)* endComma? "}" | parameters+=SelectorEntry))?
 		public Group getGroup() { return cGroup; }
 
 		//// WAS: FunctionCall 
 		//AtExpression
 		public RuleCall getAtExpressionParserRuleCall_0() { return cAtExpressionParserRuleCall_0; }
 
-		//({pp::SelectorExpression.leftExpr=current} "?" ("{" parameters+=SelectorEntry ("," parameters+=SelectorEntry)* endComma?
-		//"}" | parameters+=SelectorEntry))?
+		//({pp::SelectorExpression.leftExpr=current} "?" ("{" parameters+=SelectorEntry ("," parameters+=SelectorEntry |
+		//parameters+=SelectorEntry)* endComma? "}" | parameters+=SelectorEntry))?
 		public Group getGroup_1() { return cGroup_1; }
 
 		//{pp::SelectorExpression.leftExpr=current}
@@ -1338,10 +1341,11 @@ public class PPGrammarAccess extends AbstractGrammarElementFinder {
 		//"?"
 		public Keyword getQuestionMarkKeyword_1_1() { return cQuestionMarkKeyword_1_1; }
 
-		//"{" parameters+=SelectorEntry ("," parameters+=SelectorEntry)* endComma? "}" | parameters+=SelectorEntry
+		//"{" parameters+=SelectorEntry ("," parameters+=SelectorEntry | parameters+=SelectorEntry)* endComma? "}" |
+		//parameters+=SelectorEntry
 		public Alternatives getAlternatives_1_2() { return cAlternatives_1_2; }
 
-		//"{" parameters+=SelectorEntry ("," parameters+=SelectorEntry)* endComma? "}"
+		//"{" parameters+=SelectorEntry ("," parameters+=SelectorEntry | parameters+=SelectorEntry)* endComma? "}"
 		public Group getGroup_1_2_0() { return cGroup_1_2_0; }
 
 		//"{"
@@ -1353,11 +1357,20 @@ public class PPGrammarAccess extends AbstractGrammarElementFinder {
 		//SelectorEntry
 		public RuleCall getParametersSelectorEntryParserRuleCall_1_2_0_1_0() { return cParametersSelectorEntryParserRuleCall_1_2_0_1_0; }
 
-		//("," parameters+=SelectorEntry)*
-		public Group getGroup_1_2_0_2() { return cGroup_1_2_0_2; }
+		//("," parameters+=SelectorEntry | parameters+=SelectorEntry)*
+		public Alternatives getAlternatives_1_2_0_2() { return cAlternatives_1_2_0_2; }
+
+		//"," parameters+=SelectorEntry
+		public Group getGroup_1_2_0_2_0() { return cGroup_1_2_0_2_0; }
 
 		//","
-		public Keyword getCommaKeyword_1_2_0_2_0() { return cCommaKeyword_1_2_0_2_0; }
+		public Keyword getCommaKeyword_1_2_0_2_0_0() { return cCommaKeyword_1_2_0_2_0_0; }
+
+		//parameters+=SelectorEntry
+		public Assignment getParametersAssignment_1_2_0_2_0_1() { return cParametersAssignment_1_2_0_2_0_1; }
+
+		//SelectorEntry
+		public RuleCall getParametersSelectorEntryParserRuleCall_1_2_0_2_0_1_0() { return cParametersSelectorEntryParserRuleCall_1_2_0_2_0_1_0; }
 
 		//parameters+=SelectorEntry
 		public Assignment getParametersAssignment_1_2_0_2_1() { return cParametersAssignment_1_2_0_2_1; }
@@ -3838,7 +3851,7 @@ public class PPGrammarAccess extends AbstractGrammarElementFinder {
 
 	//SelectorExpression returns pp::Expression: // WAS: FunctionCall 
 	//	AtExpression ({pp::SelectorExpression.leftExpr=current} "?" ("{" parameters+=SelectorEntry (","
-	//	parameters+=SelectorEntry)* endComma? "}" | parameters+=SelectorEntry))?;
+	//	parameters+=SelectorEntry | parameters+=SelectorEntry)* endComma? "}" | parameters+=SelectorEntry))?;
 	public SelectorExpressionElements getSelectorExpressionAccess() {
 		return (pSelectorExpression != null) ? pSelectorExpression : (pSelectorExpression = new SelectorExpressionElements());
 	}

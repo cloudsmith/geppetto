@@ -94,8 +94,10 @@ public class TestVariables extends AbstractPuppetTests {
 				"'abc' =>" + "$1\n" + //
 				"}\n"; //
 		r = getResourceFromString(code);
-		tester.validate(r.getContents().get(0)).assertOK();
-		resourceWarningDiagnostics(r).assertDiagnostic(IPPDiagnostics.ISSUE__UNKNOWN_REGEXP);
+		AssertableDiagnostics asserter = tester.validate(r.getContents().get(0));
+		asserter.assertAll(AssertableDiagnostics.warningCode(IPPDiagnostics.ISSUE__MISSING_DEFAULT));
+		resourceWarningDiagnostics(r).assertAll(
+			AssertableResourceDiagnostics.diagnostic(IPPDiagnostics.ISSUE__UNKNOWN_REGEXP));
 		resourceErrorDiagnostics(r).assertOK();
 	}
 
@@ -123,7 +125,8 @@ public class TestVariables extends AbstractPuppetTests {
 				"/a(b)c/ =>" + "$1\n" + //
 				"}\n"; //
 		r = getResourceFromString(code);
-		tester.validate(r.getContents().get(0)).assertOK();
+		AssertableDiagnostics asserter = tester.validate(r.getContents().get(0));
+		asserter.assertAll(AssertableDiagnostics.warningCode(IPPDiagnostics.ISSUE__MISSING_DEFAULT));
 		resourceWarningDiagnostics(r).assertOK();
 		resourceErrorDiagnostics(r).assertOK();
 	}
@@ -152,7 +155,8 @@ public class TestVariables extends AbstractPuppetTests {
 				"'abc' =>" + "${1}\n" + //
 				"}\n"; //
 		r = getResourceFromString(code);
-		tester.validate(r.getContents().get(0)).assertOK();
+		AssertableDiagnostics asserter = tester.validate(r.getContents().get(0));
+		asserter.assertAll(AssertableDiagnostics.warningCode(IPPDiagnostics.ISSUE__MISSING_DEFAULT));
 		resourceWarningDiagnostics(r).assertDiagnostic(IPPDiagnostics.ISSUE__UNKNOWN_REGEXP);
 		resourceErrorDiagnostics(r).assertOK();
 	}
@@ -181,7 +185,8 @@ public class TestVariables extends AbstractPuppetTests {
 				"/a(b)c/ =>" + "${1}\n" + //
 				"}\n"; //
 		r = getResourceFromString(code);
-		tester.validate(r.getContents().get(0)).assertOK();
+		AssertableDiagnostics asserter = tester.validate(r.getContents().get(0));
+		asserter.assertAll(AssertableDiagnostics.warningCode(IPPDiagnostics.ISSUE__MISSING_DEFAULT));
 		resourceWarningDiagnostics(r).assertOK();
 		resourceErrorDiagnostics(r).assertOK();
 	}

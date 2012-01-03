@@ -83,6 +83,7 @@ import org.cloudsmith.geppetto.pp.VerbatimTE;
 import org.cloudsmith.geppetto.pp.VirtualNameOrReference;
 import org.cloudsmith.geppetto.pp.adapters.ClassifierAdapter;
 import org.cloudsmith.geppetto.pp.adapters.ClassifierAdapterFactory;
+import org.cloudsmith.geppetto.pp.dsl.eval.PPExpressionEquivalenceCalculator;
 import org.cloudsmith.geppetto.pp.dsl.eval.PPStringConstantEvaluator;
 import org.cloudsmith.geppetto.pp.dsl.eval.PPTypeEvaluator;
 import org.cloudsmith.geppetto.pp.dsl.linking.IMessageAcceptor;
@@ -95,6 +96,7 @@ import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.xtext.IGrammarAccess;
 import org.eclipse.xtext.RuleCall;
+import org.eclipse.xtext.diagnostics.Severity;
 import org.eclipse.xtext.nodemodel.ICompositeNode;
 import org.eclipse.xtext.nodemodel.INode;
 import org.eclipse.xtext.nodemodel.impl.LeafNode;
@@ -225,6 +227,9 @@ public class PPJavaValidator extends AbstractPPJavaValidator implements IPPDiagn
 
 	@Inject
 	private Provider<IValidationAdvisor> validationAdvisorProvider;
+
+	@Inject
+	private PPExpressionEquivalenceCalculator eqCalculator;
 
 	/**
 	 * Classes accepted as top level statements in a pp manifest.
@@ -508,7 +513,7 @@ public class PPJavaValidator extends AbstractPPJavaValidator implements IPPDiagn
 	 * @param o
 	 */
 	@Check
-	public void checkCaseExpression(Case o) {
+	public void checkCase(Case o) {
 		internalCheckTopLevelExpressions(o.getStatements());
 
 		ValidationPreference periodInCase = validationAdvisorProvider.get().periodInCase();
@@ -529,6 +534,65 @@ public class PPJavaValidator extends AbstractPPJavaValidator implements IPPDiagn
 				}
 			}
 		}
+	}
+
+	@Check
+	public void checkCaseExpression(CaseExpression o) {
+		final Expression switchExpr = o.getSwitchExpr();
+
+		boolean theDefaultIsSeen = false;
+		// collect unreachable entries to avoid multiple unreachable markers for an entry
+		Set<Integer> unreachables = Sets.newHashSet();
+		Set<Integer> duplicates = Sets.newHashSet();
+		List<Expression> caseExpressions = Lists.newArrayList();
+		for(Case caze : o.getCases()) {
+			for(Expression e : caze.getValues()) {
+				caseExpressions.add(e);
+
+				if(e instanceof LiteralDefault)
+					theDefaultIsSeen = true;
+			}
+		}
+
+		// if a default is seen it should (optionally) appear last
+		if(theDefaultIsSeen) {
+			IValidationAdvisor advisor = advisor();
+			ValidationPreference shouldBeLast = advisor.caseDefaultShouldAppearLast();
+			if(shouldBeLast.isWarningOrError()) {
+				int last = caseExpressions.size() - 1;
+				for(int i = 0; i < last; i++)
+					if(caseExpressions.get(i) instanceof LiteralDefault)
+						acceptor.accept(
+							severity(shouldBeLast), "A 'default' should appear last", caseExpressions.get(i),
+							IPPDiagnostics.ISSUE__DEFAULT_NOT_LAST);
+			}
+		}
+
+		// Check duplicate by equivalence (mark as duplicate)
+		// Check equality to switch expression (mark all others as unreachable),
+		for(int i = 0; i < caseExpressions.size(); i++) {
+			Expression e1 = caseExpressions.get(i);
+
+			// if a case value is equivalent to the switch expression, all other are unreachable
+			if(eqCalculator.isEquivalent(e1, switchExpr))
+				for(int u = 0; u < caseExpressions.size(); u++)
+					if(u != i)
+						unreachables.add(u);
+
+			// or if equal to the case expression e1, that this particular expression is a duplicate (mark both).
+			for(int j = i + 1; j < caseExpressions.size(); j++)
+				if(eqCalculator.isEquivalent(e1, caseExpressions.get(j)))
+					duplicates.addAll(Lists.newArrayList(i, j));
+		}
+
+		// mark all that are unreachable
+		for(Integer i : unreachables)
+			acceptor.acceptWarning("Unreachable case", caseExpressions.get(i), IPPDiagnostics.ISSUE__UNREACHABLE);
+
+		// mark all that are duplicates
+		for(Integer i : duplicates)
+			acceptor.acceptError("Duplicate case", caseExpressions.get(i), IPPDiagnostics.ISSUE__DUPLICATE_CASE);
+
 	}
 
 	@Check
@@ -1218,12 +1282,118 @@ public class PPJavaValidator extends AbstractPPJavaValidator implements IPPDiagn
 				IPPDiagnostics.ISSUE__NULL_EXPRESSION);
 
 		// -- all parameters must be SelectorEntry instances
-		for(Expression e : o.getParameters())
-			if(!(e instanceof SelectorEntry))
+		// -- one of them should have LiteralDefault as left expr
+		// -- there should only be one default
+		boolean theDefaultIsSeen = false;
+		IValidationAdvisor advisor = advisor();
+		// collect unreachable entries to avoid multiple unreachable markers for an entry
+		Set<Integer> unreachables = Sets.newHashSet();
+		Set<Integer> duplicates = Sets.newHashSet();
+		List<Expression> caseExpressions = Lists.newArrayList();
+
+		for(Expression e : o.getParameters()) {
+			if(!(e instanceof SelectorEntry)) {
 				acceptor.acceptError(
 					"Must be a selector entry. Was:" + expressionTypeNameProvider.doToString(e), o,
 					PPPackage.Literals.PARAMETERIZED_EXPRESSION__PARAMETERS, o.getParameters().indexOf(e),
 					IPPDiagnostics.ISSUE__UNSUPPORTED_EXPRESSION);
+				caseExpressions.add(null); // to be skipped later
+			}
+			else {
+				// it is a selector entry
+				SelectorEntry se = (SelectorEntry) e;
+				Expression e1 = se.getLeftExpr();
+				caseExpressions.add(e1);
+				if(e1 instanceof LiteralDefault)
+					theDefaultIsSeen = true;
+			}
+		}
+
+		ValidationPreference defaultLast = advisor.selectorDefaultShouldAppearLast();
+		if(defaultLast.isWarningOrError() && theDefaultIsSeen) {
+			for(int i = 0; i < caseExpressions.size() - 1; i++) {
+				Expression e1 = caseExpressions.get(i);
+				if(e1 == null)
+					continue;
+				if(e1 instanceof LiteralDefault) {
+					acceptor.accept(
+						severity(defaultLast), "A 'default' should be placed last", e1,
+						IPPDiagnostics.ISSUE__DEFAULT_NOT_LAST);
+				}
+			}
+		}
+
+		// check that there is a default
+		if(!theDefaultIsSeen) {
+			ValidationPreference missingDefaultInSelector = advisor.missingDefaultInSelector();
+			if(missingDefaultInSelector.isWarningOrError())
+				acceptor.accept(
+					severity(missingDefaultInSelector), "Missing 'default' selector case", o,
+					IPPDiagnostics.ISSUE__MISSING_DEFAULT);
+		}
+
+		// Check unreachable by equivalence
+		// If a case expr is the same as the switch, all other are unreachable
+		// Check for duplicates
+		for(int i = 0; i < caseExpressions.size(); i++) {
+			Expression e1 = caseExpressions.get(i);
+			if(e1 == null)
+				continue;
+			if(eqCalculator.isEquivalent(e1, o.getLeftExpr()))
+				for(int u = 0; u < caseExpressions.size(); u++) {
+					if(i == u || caseExpressions.get(u) == null)
+						continue;
+					unreachables.add(u);
+				}
+			for(int j = i + 1; j < caseExpressions.size(); j++) {
+				Expression e2 = caseExpressions.get(j);
+				if(e2 == null)
+					continue;
+				if(eqCalculator.isEquivalent(e1, e2)) {
+					duplicates.add(i);
+					duplicates.add(j);
+				}
+			}
+		}
+
+		for(Integer i : unreachables)
+			if(caseExpressions.get(i) != null)
+				acceptor.acceptWarning("Unreachable", caseExpressions.get(i), IPPDiagnostics.ISSUE__UNREACHABLE);
+
+		for(Integer i : duplicates)
+			if(caseExpressions.get(i) != null)
+				acceptor.acceptError(
+					"Duplicate selector case", caseExpressions.get(i), IPPDiagnostics.ISSUE__DUPLICATE_CASE);
+
+		// check missing comma between entries
+		final int count = o.getParameters().size();
+		EList<Expression> params = o.getParameters();
+		for(int i = 0; i < count - 1; i++) {
+			// do not complain about missing ',' if expression is not a selector entry
+			Expression e1 = params.get(i);
+			if(e1 instanceof SelectorEntry == false)
+				continue;
+			INode n = NodeModelUtils.getNode(e1);
+			INode n2 = NodeModelUtils.getNode(params.get(i + 1));
+
+			INode commaNode = null;
+			for(commaNode = n.getNextSibling(); commaNode != null; commaNode = commaNode.getNextSibling())
+				if(commaNode == n2)
+					break;
+				else if(commaNode instanceof LeafNode && ((LeafNode) commaNode).isHidden())
+					continue;
+				else
+					break;
+
+			if(commaNode == null || !",".equals(commaNode.getText())) {
+				int expectOffset = n.getTotalOffset() + n.getTotalLength();
+				acceptor.acceptError("Missing comma.", n.getSemanticElement(),
+				// note that offset must be -1 as this ofter a hidden newline and this
+				// does not work otherwise. Any quickfix needs to adjust the offset on replacement.
+					expectOffset - 1, 2, IPPDiagnostics.ISSUE__MISSING_COMMA);
+			}
+		}
+
 	}
 
 	@Check
@@ -1242,18 +1412,16 @@ public class PPJavaValidator extends AbstractPPJavaValidator implements IPPDiagn
 		IValidationAdvisor advisor = advisor();
 		ValidationPreference booleansInStringForm = advisor.booleansInStringForm();
 
-		BOOLEAN_STRING: if(booleansInStringForm.isWarningOrError()) {
+		if(booleansInStringForm.isWarningOrError()) {
 			// Check if string contains "true" or "false"
 			String constant = o.getText();
-			if(constant == null)
-				break BOOLEAN_STRING;
-			constant = constant.trim();
-			boolean flagIt = "true".equals(constant) || "false".equals(constant);
-			if(flagIt)
-				if(booleansInStringForm == ValidationPreference.WARNING)
-					acceptor.acceptWarning("This is not a boolean", o, IPPDiagnostics.ISSUE__STRING_BOOLEAN, constant);
-				else
-					acceptor.acceptError("This is not a boolean", o, IPPDiagnostics.ISSUE__STRING_BOOLEAN, constant);
+			if(constant != null) {
+				constant = constant.trim();
+				if("true".equals(constant) || "false".equals(constant))
+					acceptor.accept(
+						severity(booleansInStringForm), "This is not a boolean", o,
+						IPPDiagnostics.ISSUE__STRING_BOOLEAN, constant);
+			}
 		}
 
 	}
@@ -1507,5 +1675,11 @@ public class PPJavaValidator extends AbstractPPJavaValidator implements IPPDiagn
 
 	private boolean isVARIABLE(String s) {
 		return patternHelper.isVARIABLE(s);
+	}
+
+	private Severity severity(ValidationPreference pref) {
+		return pref.isError()
+				? Severity.ERROR
+				: Severity.WARNING;
 	}
 }

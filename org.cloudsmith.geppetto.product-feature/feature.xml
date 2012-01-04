@@ -28,7 +28,6 @@ http://www.eclipse.org/legal/epl-v10.html
          version="0.0.0"/>
 
    <requires>
-      <import feature="org.eclipse.egit"/>
       <import feature="org.eclipse.emf.common"/>
       <import feature="org.eclipse.emf.common.ui"/>
       <import feature="org.eclipse.emf.ecore"/>
@@ -36,11 +35,7 @@ http://www.eclipse.org/legal/epl-v10.html
       <import feature="org.eclipse.emf.edit"/>
       <import feature="org.eclipse.emf.edit.ui"/>
       <import feature="org.eclipse.equinox.p2.user.ui"/>
-      <import feature="org.eclipse.jgit"/>
       <import feature="org.eclipse.rcp" version="3.6.0" match="greaterOrEqual"/>
-      <import feature="org.eclipse.team.svn"/>
-      <import feature="org.polarion.eclipse.team.svn.connector"/>
-      <import feature="org.polarion.eclipse.team.svn.connector.svnkit16"/>
       <import plugin="com.google.gson"/>
       <import plugin="com.google.inject"/>
       <import plugin="org.antlr.runtime"/>

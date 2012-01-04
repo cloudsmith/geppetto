@@ -40,6 +40,11 @@
 			roaming="true"
 			extraarguments="-profileProperties org.eclipse.update.install.features=true">
 			<iu id="${product.id}" />
+		    <iu id="org.eclipse.team.svn.feature.group"/>
+		    <iu id="org.polarion.eclipse.team.svn.connector.feature.group"/>
+		    <iu id="org.polarion.eclipse.team.svn.connector.svnkit16.feature.group"/>
+		    <iu id="org.eclipse.egit.feature.group"/>
+		    <iu id="org.eclipse.jgit.feature.group"/>
 		</p2.director>
 
 		<unqualified.version version="${product.version}" property="unqualified.product.version"/>

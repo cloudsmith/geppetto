@@ -92,6 +92,6 @@
 
 	<rm:property key="cloudsmith.github.prefix" value="git://github.com/cloudsmith" />
     <rm:property key="git.clones.root" value="${user.home}/git"/>
-	<rm:property key="svn.connectors.repository.url" value="http://community.polarion.com/projects/subversive/download/eclipse/2.0/update-site" />
+	<rm:property key="svn.connectors.repository.url" value="http://community.polarion.com/projects/subversive/download/eclipse/2.0/indigo-site/" />
 	<rm:property key="eclipse.download" value="http://download.eclipse.org" />
 </rm:rmap>

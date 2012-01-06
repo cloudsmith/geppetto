@@ -1,0 +1,14 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: One Time Install
+Bundle-SymbolicName: org.cloudsmith.geppetto.onetimeinstall;singleton:=true
+Bundle-Version: 1.0.0.qualifier
+Bundle-Activator: org.cloudsmith.geppetto.onetimeinstall.Activator
+Bundle-Vendor: Cloudsmith Org.
+Require-Bundle: org.eclipse.core.runtime,
+ org.eclipse.equinox.p2.director,
+ org.eclipse.equinox.p2.core,
+ org.eclipse.equinox.p2.engine,
+ org.eclipse.equinox.p2.director.app,
+ org.eclipse.equinox.p2.metadata
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6

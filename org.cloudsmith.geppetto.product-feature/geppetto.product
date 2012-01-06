@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?pde version="3.5"?>
 
-<product name="Geppetto" uid="org.cloudsmith.geppetto.ide" id="org.cloudsmith.geppetto.ide" application="org.eclipse.ui.ide.workbench" version="0.0.0" useFeatures="true" includeLaunchers="true">
+<product name="Geppetto" uid="org.cloudsmith.geppetto.ide2" id="org.cloudsmith.geppetto.ide2" application="org.eclipse.ui.ide.workbench" version="0.0.0" useFeatures="true" includeLaunchers="true">
 
    <aboutInfo>
       <image path="geppetto_lg.gif"/>

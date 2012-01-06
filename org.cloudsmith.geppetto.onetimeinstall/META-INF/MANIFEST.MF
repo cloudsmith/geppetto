@@ -9,6 +9,5 @@ Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.equinox.p2.director,
  org.eclipse.equinox.p2.core,
  org.eclipse.equinox.p2.engine,
- org.eclipse.equinox.p2.director.app,
  org.eclipse.equinox.p2.metadata
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6

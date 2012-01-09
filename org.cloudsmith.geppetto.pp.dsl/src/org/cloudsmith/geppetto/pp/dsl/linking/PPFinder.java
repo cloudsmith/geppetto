@@ -498,10 +498,14 @@ public class PPFinder {
 			scopeDetermeningObject, fqn, importedNames, matchingStrategy, CLASSES_FOR_VARIABLES);
 		if(result.getAdjusted().size() > 0 && matchingStrategy.isExists())
 			return result;
-		fqn = getNameOfScope(scopeDetermeningObject).append(fqn);
-		return result.addAll(findInherited(
-			scopeDetermeningObject, fqn, importedNames, Lists.<QualifiedName> newArrayList(), matchingStrategy,
-			CLASSES_FOR_VARIABLES));
+		QualifiedName scopeName = getNameOfScope(scopeDetermeningObject);
+		if(!scopeName.isEmpty()) {
+			fqn = scopeName.append(fqn);
+			return result.addAll(findInherited(
+				scopeDetermeningObject, fqn, importedNames, Lists.<QualifiedName> newArrayList(), matchingStrategy,
+				CLASSES_FOR_VARIABLES));
+		}
+		return result;
 	}
 
 	/**
@@ -571,7 +575,7 @@ public class PPFinder {
 	 * @param o
 	 * @return
 	 */
-	private QualifiedName getNameOfScope(EObject o) {
+	public QualifiedName getNameOfScope(EObject o) {
 		QualifiedName result = null;
 		for(; o != null; o = o.eContainer()) {
 			result = fqnProvider.getFullyQualifiedName(o);

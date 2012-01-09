@@ -304,8 +304,8 @@ public class PPFinder {
 		if(eClasses == null || eClasses.length < 1)
 			throw new IllegalArgumentException("eClass is null or empty");
 
-		if(fqn.getSegmentCount() == 1 && "".equals(fqn.getSegment(0)))
-			throw new IllegalArgumentException("FQN has one empty segment");
+		// if(fqn.getSegmentCount() == 1 && "".equals(fqn.getSegment(0)))
+		// throw new IllegalArgumentException("FQN has one empty segment");
 
 		// Not meaningful to record the fact that an Absolute reference was used as nothing
 		// is named with an absolute FQN (i.e. it is only used to do lookup).

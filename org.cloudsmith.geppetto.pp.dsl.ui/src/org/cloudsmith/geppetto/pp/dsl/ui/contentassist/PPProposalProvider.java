@@ -432,7 +432,8 @@ public class PPProposalProvider extends AbstractPPProposalProvider {
 	public void completeTextExpression_VarName(EObject model, Assignment assignment, ContentAssistContext context,
 			ICompletionProposalAcceptor acceptor) {
 		// TODO Auto-generated method stub
-		super.completeTextExpression_VarName(model, assignment, context, acceptor);
+		completeVariableExpression_VarName(model, assignment, context, acceptor);
+		// super.completeTextExpression_VarName(model, assignment, context, acceptor);
 	}
 
 	/*
@@ -529,7 +530,7 @@ public class PPProposalProvider extends AbstractPPProposalProvider {
 					fqn = fqn.skipFirst(1);
 
 				// normal converter does not add trailing empty segment, do so here to enable search in xxx::* namespace
-				if(prefix.endsWith("::"))
+				if(prefix.endsWith("::") && fqn.getSegmentCount() > 0)
 					fqn = fqn.append("");
 
 				// find variables using prefixed variant of find

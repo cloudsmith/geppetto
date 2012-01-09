@@ -138,8 +138,10 @@ public class NameInScopeFilter implements Iterable<IEObjectDescription> {
 			for(int i = 0; i < query.getSegmentCount() - 1; i++)
 				if(!candidate.getSegment(i).equals(query.getSegment(i)))
 					return false;
-			// the last segment in query, must be the start of the corresponding segment in candidate
-			if(!candidate.getSegment(query.getSegmentCount() - 1).startsWith(query.getLastSegment()))
+
+			// the last segment in query, must be the start of the corresponding segment in candidate or be empty
+			if(!("".equals(query.getLastSegment()) || candidate.getSegment(query.getSegmentCount() - 1).startsWith(
+				query.getLastSegment())))
 				return false;
 			return true;
 		}

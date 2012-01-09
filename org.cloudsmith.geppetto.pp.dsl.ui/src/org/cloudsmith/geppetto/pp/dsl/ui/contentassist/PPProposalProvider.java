@@ -179,10 +179,12 @@ public class PPProposalProvider extends AbstractPPProposalProvider {
 	@Override
 	public void completeAssignment(Assignment assignment, ContentAssistContext contentAssistContext,
 			ICompletionProposalAcceptor acceptor) {
+		// // DEBUG PRINTOUT
 		// ParserRule parserRule = GrammarUtil.containingParserRule(assignment);
 		// String methodName = "complete" + Strings.toFirstUpper(parserRule.getName()) + "_" +
 		// Strings.toFirstUpper(assignment.getFeature());
 		// System.err.println("completeAssigment('" + methodName + "')");
+		// // DEBUG END
 		super.completeAssignment(assignment, contentAssistContext, acceptor);
 	}
 
@@ -414,11 +416,26 @@ public class PPProposalProvider extends AbstractPPProposalProvider {
 	@Override
 	public void completeRuleCall(RuleCall ruleCall, ContentAssistContext contentAssistContext,
 			ICompletionProposalAcceptor acceptor) {
+		// // DEBUG OUTPUT
 		// AbstractRule calledRule = ruleCall.getRule();
 		// String methodName = "complete_" + calledRule.getName();
 		// System.err.println("completeRuleCall('" + methodName + "')");
-
+		// // DEBUG END
 		super.completeRuleCall(ruleCall, contentAssistContext, acceptor);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.cloudsmith.geppetto.pp.dsl.ui.contentassist.AbstractPPProposalProvider#completeTextExpression_Expression(org.eclipse.emf.ecore.EObject,
+	 * org.eclipse.xtext.Assignment, org.eclipse.xtext.ui.editor.contentassist.ContentAssistContext,
+	 * org.eclipse.xtext.ui.editor.contentassist.ICompletionProposalAcceptor)
+	 */
+	@Override
+	public void completeTextExpression_Expression(EObject model, Assignment assignment, ContentAssistContext context,
+			ICompletionProposalAcceptor acceptor) {
+		completeVarNameCommon(model, assignment, context, acceptor, false, true);
 	}
 
 	/*
@@ -431,7 +448,22 @@ public class PPProposalProvider extends AbstractPPProposalProvider {
 	@Override
 	public void completeTextExpression_VarName(EObject model, Assignment assignment, ContentAssistContext context,
 			ICompletionProposalAcceptor acceptor) {
-		completeVarNameCommon(model, assignment, context, acceptor, true);
+		completeVarNameCommon(model, assignment, context, acceptor, true, false);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.cloudsmith.geppetto.pp.dsl.ui.contentassist.AbstractPPProposalProvider#completeUnquotedString_Expression(org.eclipse.emf.ecore.EObject,
+	 * org.eclipse.xtext.Assignment, org.eclipse.xtext.ui.editor.contentassist.ContentAssistContext,
+	 * org.eclipse.xtext.ui.editor.contentassist.ICompletionProposalAcceptor)
+	 */
+	@Override
+	public void completeUnquotedString_Expression(EObject model, Assignment assignment, ContentAssistContext context,
+			ICompletionProposalAcceptor acceptor) {
+		// TODO Auto-generated method stub
+		completeVarNameCommon(model, assignment, context, acceptor, false, true);
 	}
 
 	/*
@@ -444,11 +476,11 @@ public class PPProposalProvider extends AbstractPPProposalProvider {
 	@Override
 	public void completeVariableExpression_VarName(EObject model, Assignment ruleCall, ContentAssistContext context,
 			ICompletionProposalAcceptor acceptor) {
-		completeVarNameCommon(model, ruleCall, context, acceptor, false);
+		completeVarNameCommon(model, ruleCall, context, acceptor, false, false);
 	}
 
 	private void completeVarNameCommon(EObject model, Assignment ruleCall, ContentAssistContext context,
-			ICompletionProposalAcceptor acceptor, boolean braced) {
+			ICompletionProposalAcceptor acceptor, boolean bracedProposal, boolean bracedInput) {
 		final INode currentNode = context.getCurrentNode();
 		EObject semantic = null;
 		EStructuralFeature feature = null;
@@ -483,7 +515,14 @@ public class PPProposalProvider extends AbstractPPProposalProvider {
 			// uses prefix and replacement-offset/length
 			//
 			String prefix = context.getPrefix();
-			if("".equals(prefix) && context.getLastCompleteNode().getText().startsWith("$")) {
+			if(bracedInput) {
+				if("${".equals(prefix)) {
+					prefix = "";
+					replacementOffset += 2;
+					replacementLength -= 2;
+				}
+			}
+			else if("".equals(prefix) && context.getLastCompleteNode().getText().startsWith("$")) {
 				prefix = context.getLastCompleteNode().getText();
 				replacementOffset = context.getLastCompleteNode().getOffset();
 				replacementLength = context.getLastCompleteNode().getLength();
@@ -493,40 +532,25 @@ public class PPProposalProvider extends AbstractPPProposalProvider {
 				replacementOffset = context.getLastCompleteNode().getOffset();
 				replacementLength = context.getLastCompleteNode().getLength() + 1; // +1 for the prefix ':'
 			}
-
-			if(prefix.startsWith("$")) {
+			else if(prefix.endsWith("$")) {
+				// this happens in a string when at '"aaa$|..."'
+				replacementOffset += prefix.length() - 1;
+				replacementLength = 1;
+				prefix = "$";
+			}
+			if((prefix.startsWith("$") && !prefix.startsWith("${")) || bracedInput) {
 				// messy
 				// when after a $ a variable is not recognized until a valid sequence follows i.e (::)?<varchar>. When (::)?<varchar> has been seen
 				// it is recognized as a VariableExpression
 				// if inside ${ }, literal names should be proposed, but not if there is a $expr inside - e.g. ${$|, ${...$|, etc.
 
-				// // DEBUG PRINTOUT
-				// StringBuilder result = new StringBuilder();
-				// if(semantic instanceof VariableExpression) {
-				// result.append("Variable expression ");
-				// }
-				// else if(prefix.startsWith("${")) {
-				// result.append("Literal names ");
-				// }
-				// else {
-				// result.append("Assumed variable expression ");
-				// }
-				// String source = currentNode.getText();
-				// int caret = context.getOffset() - currentNode.getTotalOffset();
-				// for(int i = 0; i < currentNode.getTotalLength(); i++) {
-				// if(caret == i)
-				// result.append("|");
-				// result.append(source.charAt(i));
-				// }
-				// if(caret >= currentNode.getTotalLength())
-				// result.append("|");
-				// System.err.println("PROPOSE: " + result.toString() + " PREFIX: " + prefix);
-
 				// create indexed finder from the perspective of the current resource
 				ppFinder.configure(model.eResource());
 
 				// get the fqn (skip the '$') of the name to complete
-				QualifiedName fqn = converter.toQualifiedName(prefix.substring(1));
+				QualifiedName fqn = converter.toQualifiedName(prefix.substring(bracedInput
+						? 0
+						: 1));
 
 				// turn global references '::x' into non global
 				if(fqn.getSegmentCount() > 1 && fqn.getSegment(0).length() == 0)
@@ -557,8 +581,9 @@ public class PPProposalProvider extends AbstractPPProposalProvider {
 					String description = null;
 
 					// All proposals are variables, so start with $
-					b.append("$");
-					if(braced)
+					if(!bracedInput)
+						b.append("$");
+					if(bracedProposal)
 						b.append("{");
 
 					// All proposals consisting of one segment are global
@@ -587,7 +612,7 @@ public class PPProposalProvider extends AbstractPPProposalProvider {
 						else if(dclass == PPPackage.Literals.DEFINITION_ARGUMENT)
 							description = "definition/class parameter";
 					}
-					if(braced)
+					if(bracedProposal)
 						b.append("}");
 
 					// default description is 'variable'

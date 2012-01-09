@@ -554,7 +554,7 @@ UnquotedString returns pp::Expression :
 
 // Has data conversion that strips leading/trailing single quotes
 sqText returns ecore::EString hidden():
-	'\'' singleStringCharacters? '\''
+	=>'\'' singleStringCharacters? '\''
 	;
 
 // Has validation rule that checks regex validity	

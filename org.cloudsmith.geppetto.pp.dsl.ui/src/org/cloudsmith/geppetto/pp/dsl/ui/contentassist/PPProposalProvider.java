@@ -431,9 +431,7 @@ public class PPProposalProvider extends AbstractPPProposalProvider {
 	@Override
 	public void completeTextExpression_VarName(EObject model, Assignment assignment, ContentAssistContext context,
 			ICompletionProposalAcceptor acceptor) {
-		// TODO Auto-generated method stub
-		completeVariableExpression_VarName(model, assignment, context, acceptor);
-		// super.completeTextExpression_VarName(model, assignment, context, acceptor);
+		completeVarNameCommon(model, assignment, context, acceptor, true);
 	}
 
 	/*
@@ -446,6 +444,11 @@ public class PPProposalProvider extends AbstractPPProposalProvider {
 	@Override
 	public void completeVariableExpression_VarName(EObject model, Assignment ruleCall, ContentAssistContext context,
 			ICompletionProposalAcceptor acceptor) {
+		completeVarNameCommon(model, ruleCall, context, acceptor, false);
+	}
+
+	private void completeVarNameCommon(EObject model, Assignment ruleCall, ContentAssistContext context,
+			ICompletionProposalAcceptor acceptor, boolean braced) {
 		final INode currentNode = context.getCurrentNode();
 		EObject semantic = null;
 		EStructuralFeature feature = null;
@@ -492,13 +495,13 @@ public class PPProposalProvider extends AbstractPPProposalProvider {
 			}
 
 			if(prefix.startsWith("$")) {
-				StringBuilder result = new StringBuilder();
 				// messy
 				// when after a $ a variable is not recognized until a valid sequence follows i.e (::)?<varchar>. When (::)?<varchar> has been seen
 				// it is recognized as a VariableExpression
 				// if inside ${ }, literal names should be proposed, but not if there is a $expr inside - e.g. ${$|, ${...$|, etc.
 
 				// // DEBUG PRINTOUT
+				// StringBuilder result = new StringBuilder();
 				// if(semantic instanceof VariableExpression) {
 				// result.append("Variable expression ");
 				// }
@@ -555,6 +558,8 @@ public class PPProposalProvider extends AbstractPPProposalProvider {
 
 					// All proposals are variables, so start with $
 					b.append("$");
+					if(braced)
+						b.append("{");
 
 					// All proposals consisting of one segment are global
 					if(fqn.getSegmentCount() == 1)
@@ -582,6 +587,9 @@ public class PPProposalProvider extends AbstractPPProposalProvider {
 						else if(dclass == PPPackage.Literals.DEFINITION_ARGUMENT)
 							description = "definition/class parameter";
 					}
+					if(braced)
+						b.append("}");
+
 					// default description is 'variable'
 					description = description == null
 							? "variable"

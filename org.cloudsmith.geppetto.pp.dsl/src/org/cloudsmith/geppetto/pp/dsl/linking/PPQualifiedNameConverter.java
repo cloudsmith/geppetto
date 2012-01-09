@@ -38,7 +38,7 @@ public class PPQualifiedNameConverter extends IQualifiedNameConverter.DefaultImp
 	 */
 	@Override
 	public QualifiedName toQualifiedName(String qualifiedNameAsString) {
-		if(qualifiedNameAsString == null || qualifiedNameAsString.length() < 1)
+		if(qualifiedNameAsString == null || qualifiedNameAsString.length() < 1 || qualifiedNameAsString.equals("$"))
 			return QualifiedName.EMPTY;
 		return super.toQualifiedName(qualifiedNameAsString.startsWith("$")
 				? qualifiedNameAsString.substring(1)

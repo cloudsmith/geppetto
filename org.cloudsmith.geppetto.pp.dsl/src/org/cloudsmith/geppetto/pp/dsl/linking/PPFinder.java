@@ -304,8 +304,8 @@ public class PPFinder {
 		if(eClasses == null || eClasses.length < 1)
 			throw new IllegalArgumentException("eClass is null or empty");
 
-		if(fqn.getSegmentCount() == 1 && "".equals(fqn.getSegment(0)))
-			throw new IllegalArgumentException("FQN has one empty segment");
+		// if(fqn.getSegmentCount() == 1 && "".equals(fqn.getSegment(0)))
+		// throw new IllegalArgumentException("FQN has one empty segment");
 
 		// Not meaningful to record the fact that an Absolute reference was used as nothing
 		// is named with an absolute FQN (i.e. it is only used to do lookup).
@@ -498,10 +498,14 @@ public class PPFinder {
 			scopeDetermeningObject, fqn, importedNames, matchingStrategy, CLASSES_FOR_VARIABLES);
 		if(result.getAdjusted().size() > 0 && matchingStrategy.isExists())
 			return result;
-		fqn = getNameOfScope(scopeDetermeningObject).append(fqn);
-		return result.addAll(findInherited(
-			scopeDetermeningObject, fqn, importedNames, Lists.<QualifiedName> newArrayList(), matchingStrategy,
-			CLASSES_FOR_VARIABLES));
+		QualifiedName scopeName = getNameOfScope(scopeDetermeningObject);
+		if(!scopeName.isEmpty()) {
+			fqn = scopeName.append(fqn);
+			return result.addAll(findInherited(
+				scopeDetermeningObject, fqn, importedNames, Lists.<QualifiedName> newArrayList(), matchingStrategy,
+				CLASSES_FOR_VARIABLES));
+		}
+		return result;
 	}
 
 	/**
@@ -571,7 +575,7 @@ public class PPFinder {
 	 * @param o
 	 * @return
 	 */
-	private QualifiedName getNameOfScope(EObject o) {
+	public QualifiedName getNameOfScope(EObject o) {
 		QualifiedName result = null;
 		for(; o != null; o = o.eContainer()) {
 			result = fqnProvider.getFullyQualifiedName(o);

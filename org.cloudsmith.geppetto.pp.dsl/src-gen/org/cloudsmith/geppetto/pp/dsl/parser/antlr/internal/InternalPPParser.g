@@ -4978,7 +4978,9 @@ ruleSingleQuotedString returns [EObject current=null]
             grammarAccess.getSingleQuotedStringAccess().getSingleQuotedStringAction_0(),
             $current);
     }
-)(
+)((
+KEYWORD_3
+)=>
 (
 		{ 
 	        newCompositeNode(grammarAccess.getSingleQuotedStringAccess().getTextSqTextParserRuleCall_1_0()); 
@@ -5335,13 +5337,15 @@ rulesqText returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()]
     }
     @after { leaveRule();
     }:
-(
+(((
+	KEYWORD_3 
+)=>
 	kw=KEYWORD_3 
     {
         $current.merge(kw);
         newLeafNode(kw, grammarAccess.getSqTextAccess().getApostropheKeyword_0()); 
     }
-(
+)(
     { 
         newCompositeNode(grammarAccess.getSqTextAccess().getSingleStringCharactersParserRuleCall_1()); 
     }

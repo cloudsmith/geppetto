@@ -7727,11 +7727,11 @@ public class InternalPPParser extends AbstractInternalContentAssistParser {
             else if ( (LA5_0==RULE_WORD_CHARS) ) {
                 int LA5_2 = input.LA(2);
 
-                if ( (LA5_2==KEYWORD_47||LA5_2==KEYWORD_49||(LA5_2>=KEYWORD_22 && LA5_2<=KEYWORD_23)||LA5_2==KEYWORD_25||(LA5_2>=KEYWORD_27 && LA5_2<=KEYWORD_33)||(LA5_2>=KEYWORD_35 && LA5_2<=KEYWORD_37)||(LA5_2>=KEYWORD_43 && LA5_2<=KEYWORD_44)||LA5_2==KEYWORD_46||LA5_2==KEYWORD_4||(LA5_2>=KEYWORD_6 && LA5_2<=KEYWORD_7)||(LA5_2>=KEYWORD_9 && LA5_2<=KEYWORD_11)||(LA5_2>=KEYWORD_13 && LA5_2<=KEYWORD_16)||LA5_2==KEYWORD_18||LA5_2==KEYWORD_20) ) {
-                    alt5=1;
-                }
-                else if ( (LA5_2==EOF||LA5_2==KEYWORD_26||LA5_2==KEYWORD_34||LA5_2==KEYWORD_8||LA5_2==KEYWORD_12||LA5_2==KEYWORD_21||LA5_2==RULE_WORD_CHARS) ) {
+                if ( (LA5_2==EOF||LA5_2==KEYWORD_26||LA5_2==KEYWORD_34||LA5_2==KEYWORD_8||LA5_2==KEYWORD_12||LA5_2==KEYWORD_21||LA5_2==RULE_WORD_CHARS) ) {
                     alt5=2;
+                }
+                else if ( (LA5_2==KEYWORD_47||LA5_2==KEYWORD_49||(LA5_2>=KEYWORD_22 && LA5_2<=KEYWORD_23)||LA5_2==KEYWORD_25||(LA5_2>=KEYWORD_27 && LA5_2<=KEYWORD_33)||(LA5_2>=KEYWORD_35 && LA5_2<=KEYWORD_37)||(LA5_2>=KEYWORD_43 && LA5_2<=KEYWORD_44)||LA5_2==KEYWORD_46||LA5_2==KEYWORD_4||(LA5_2>=KEYWORD_6 && LA5_2<=KEYWORD_7)||(LA5_2>=KEYWORD_9 && LA5_2<=KEYWORD_11)||(LA5_2>=KEYWORD_13 && LA5_2<=KEYWORD_16)||LA5_2==KEYWORD_18||LA5_2==KEYWORD_20) ) {
+                    alt5=1;
                 }
                 else {
                     if (state.backtracking>0) {state.failed=true; return ;}
@@ -37456,22 +37456,28 @@ public class InternalPPParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__SqText__Group__0__Impl"
-    // ../org.cloudsmith.geppetto.pp.dsl.ui/src-gen/org/cloudsmith/geppetto/pp/dsl/ui/contentassist/antlr/internal/InternalPPParser.g:13025:1: rule__SqText__Group__0__Impl : ( KEYWORD_3 ) ;
+    // ../org.cloudsmith.geppetto.pp.dsl.ui/src-gen/org/cloudsmith/geppetto/pp/dsl/ui/contentassist/antlr/internal/InternalPPParser.g:13025:1: rule__SqText__Group__0__Impl : ( ( KEYWORD_3 ) ) ;
     public final void rule__SqText__Group__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.cloudsmith.geppetto.pp.dsl.ui/src-gen/org/cloudsmith/geppetto/pp/dsl/ui/contentassist/antlr/internal/InternalPPParser.g:13029:1: ( ( KEYWORD_3 ) )
-            // ../org.cloudsmith.geppetto.pp.dsl.ui/src-gen/org/cloudsmith/geppetto/pp/dsl/ui/contentassist/antlr/internal/InternalPPParser.g:13030:1: ( KEYWORD_3 )
+            // ../org.cloudsmith.geppetto.pp.dsl.ui/src-gen/org/cloudsmith/geppetto/pp/dsl/ui/contentassist/antlr/internal/InternalPPParser.g:13029:1: ( ( ( KEYWORD_3 ) ) )
+            // ../org.cloudsmith.geppetto.pp.dsl.ui/src-gen/org/cloudsmith/geppetto/pp/dsl/ui/contentassist/antlr/internal/InternalPPParser.g:13030:1: ( ( KEYWORD_3 ) )
             {
-            // ../org.cloudsmith.geppetto.pp.dsl.ui/src-gen/org/cloudsmith/geppetto/pp/dsl/ui/contentassist/antlr/internal/InternalPPParser.g:13030:1: ( KEYWORD_3 )
-            // ../org.cloudsmith.geppetto.pp.dsl.ui/src-gen/org/cloudsmith/geppetto/pp/dsl/ui/contentassist/antlr/internal/InternalPPParser.g:13031:1: KEYWORD_3
+            // ../org.cloudsmith.geppetto.pp.dsl.ui/src-gen/org/cloudsmith/geppetto/pp/dsl/ui/contentassist/antlr/internal/InternalPPParser.g:13030:1: ( ( KEYWORD_3 ) )
+            // ../org.cloudsmith.geppetto.pp.dsl.ui/src-gen/org/cloudsmith/geppetto/pp/dsl/ui/contentassist/antlr/internal/InternalPPParser.g:13031:1: ( KEYWORD_3 )
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getSqTextAccess().getApostropheKeyword_0()); 
             }
-            match(input,KEYWORD_3,FOLLOW_KEYWORD_3_in_rule__SqText__Group__0__Impl26476); if (state.failed) return ;
+            // ../org.cloudsmith.geppetto.pp.dsl.ui/src-gen/org/cloudsmith/geppetto/pp/dsl/ui/contentassist/antlr/internal/InternalPPParser.g:13032:1: ( KEYWORD_3 )
+            // ../org.cloudsmith.geppetto.pp.dsl.ui/src-gen/org/cloudsmith/geppetto/pp/dsl/ui/contentassist/antlr/internal/InternalPPParser.g:13033:2: KEYWORD_3
+            {
+            match(input,KEYWORD_3,FOLLOW_KEYWORD_3_in_rule__SqText__Group__0__Impl26477); if (state.failed) return ;
+
+            }
+
             if ( state.backtracking==0 ) {
                after(grammarAccess.getSqTextAccess().getApostropheKeyword_0()); 
             }
@@ -37506,12 +37512,12 @@ public class InternalPPParser extends AbstractInternalContentAssistParser {
             // ../org.cloudsmith.geppetto.pp.dsl.ui/src-gen/org/cloudsmith/geppetto/pp/dsl/ui/contentassist/antlr/internal/InternalPPParser.g:13048:1: ( rule__SqText__Group__1__Impl rule__SqText__Group__2 )
             // ../org.cloudsmith.geppetto.pp.dsl.ui/src-gen/org/cloudsmith/geppetto/pp/dsl/ui/contentassist/antlr/internal/InternalPPParser.g:13049:2: rule__SqText__Group__1__Impl rule__SqText__Group__2
             {
-            pushFollow(FOLLOW_rule__SqText__Group__1__Impl_in_rule__SqText__Group__126507);
+            pushFollow(FOLLOW_rule__SqText__Group__1__Impl_in_rule__SqText__Group__126509);
             rule__SqText__Group__1__Impl();
 
             state._fsp--;
             if (state.failed) return ;
-            pushFollow(FOLLOW_rule__SqText__Group__2_in_rule__SqText__Group__126510);
+            pushFollow(FOLLOW_rule__SqText__Group__2_in_rule__SqText__Group__126512);
             rule__SqText__Group__2();
 
             state._fsp--;
@@ -37561,7 +37567,7 @@ public class InternalPPParser extends AbstractInternalContentAssistParser {
                 case 1 :
                     // ../org.cloudsmith.geppetto.pp.dsl.ui/src-gen/org/cloudsmith/geppetto/pp/dsl/ui/contentassist/antlr/internal/InternalPPParser.g:13063:3: rulesingleStringCharacters
                     {
-                    pushFollow(FOLLOW_rulesingleStringCharacters_in_rule__SqText__Group__1__Impl26538);
+                    pushFollow(FOLLOW_rulesingleStringCharacters_in_rule__SqText__Group__1__Impl26540);
                     rulesingleStringCharacters();
 
                     state._fsp--;
@@ -37606,7 +37612,7 @@ public class InternalPPParser extends AbstractInternalContentAssistParser {
             // ../org.cloudsmith.geppetto.pp.dsl.ui/src-gen/org/cloudsmith/geppetto/pp/dsl/ui/contentassist/antlr/internal/InternalPPParser.g:13077:1: ( rule__SqText__Group__2__Impl )
             // ../org.cloudsmith.geppetto.pp.dsl.ui/src-gen/org/cloudsmith/geppetto/pp/dsl/ui/contentassist/antlr/internal/InternalPPParser.g:13078:2: rule__SqText__Group__2__Impl
             {
-            pushFollow(FOLLOW_rule__SqText__Group__2__Impl_in_rule__SqText__Group__226569);
+            pushFollow(FOLLOW_rule__SqText__Group__2__Impl_in_rule__SqText__Group__226571);
             rule__SqText__Group__2__Impl();
 
             state._fsp--;
@@ -37645,7 +37651,7 @@ public class InternalPPParser extends AbstractInternalContentAssistParser {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getSqTextAccess().getApostropheKeyword_2()); 
             }
-            match(input,KEYWORD_3,FOLLOW_KEYWORD_3_in_rule__SqText__Group__2__Impl26597); if (state.failed) return ;
+            match(input,KEYWORD_3,FOLLOW_KEYWORD_3_in_rule__SqText__Group__2__Impl26599); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getSqTextAccess().getApostropheKeyword_2()); 
             }
@@ -37686,7 +37692,7 @@ public class InternalPPParser extends AbstractInternalContentAssistParser {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getPuppetManifestAccess().getStatementsExpressionListParserRuleCall_1_0()); 
             }
-            pushFollow(FOLLOW_ruleExpressionList_in_rule__PuppetManifest__StatementsAssignment_126639);
+            pushFollow(FOLLOW_ruleExpressionList_in_rule__PuppetManifest__StatementsAssignment_126641);
             ruleExpressionList();
 
             state._fsp--;
@@ -37731,7 +37737,7 @@ public class InternalPPParser extends AbstractInternalContentAssistParser {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getExpressionListAccess().getExpressionsRelationshipExpressionParserRuleCall_1_2_0()); 
             }
-            pushFollow(FOLLOW_ruleRelationshipExpression_in_rule__ExpressionList__ExpressionsAssignment_1_226670);
+            pushFollow(FOLLOW_ruleRelationshipExpression_in_rule__ExpressionList__ExpressionsAssignment_1_226672);
             ruleRelationshipExpression();
 
             state._fsp--;
@@ -37776,7 +37782,7 @@ public class InternalPPParser extends AbstractInternalContentAssistParser {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getExpressionListAccess().getExpressionsRelationshipExpressionParserRuleCall_1_3_1_0()); 
             }
-            pushFollow(FOLLOW_ruleRelationshipExpression_in_rule__ExpressionList__ExpressionsAssignment_1_3_126701);
+            pushFollow(FOLLOW_ruleRelationshipExpression_in_rule__ExpressionList__ExpressionsAssignment_1_3_126703);
             ruleRelationshipExpression();
 
             state._fsp--;
@@ -37821,7 +37827,7 @@ public class InternalPPParser extends AbstractInternalContentAssistParser {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getRelationshipExpressionAccess().getOpNameEdgeOperatorParserRuleCall_1_1_0()); 
             }
-            pushFollow(FOLLOW_ruleEdgeOperator_in_rule__RelationshipExpression__OpNameAssignment_1_126732);
+            pushFollow(FOLLOW_ruleEdgeOperator_in_rule__RelationshipExpression__OpNameAssignment_1_126734);
             ruleEdgeOperator();
 
             state._fsp--;
@@ -37866,7 +37872,7 @@ public class InternalPPParser extends AbstractInternalContentAssistParser {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getRelationshipExpressionAccess().getRightExprResourceExpressionParserRuleCall_1_2_0()); 
             }
-            pushFollow(FOLLOW_ruleResourceExpression_in_rule__RelationshipExpression__RightExprAssignment_1_226763);
+            pushFollow(FOLLOW_ruleResourceExpression_in_rule__RelationshipExpression__RightExprAssignment_1_226765);
             ruleResourceExpression();
 
             state._fsp--;
@@ -37911,7 +37917,7 @@ public class InternalPPParser extends AbstractInternalContentAssistParser {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getResourceExpressionAccess().getResourceDataResourceBodyParserRuleCall_0_1_2_0_0()); 
             }
-            pushFollow(FOLLOW_ruleResourceBody_in_rule__ResourceExpression__ResourceDataAssignment_0_1_2_026794);
+            pushFollow(FOLLOW_ruleResourceBody_in_rule__ResourceExpression__ResourceDataAssignment_0_1_2_026796);
             ruleResourceBody();
 
             state._fsp--;
@@ -37956,7 +37962,7 @@ public class InternalPPParser extends AbstractInternalContentAssistParser {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getResourceExpressionAccess().getResourceDataResourceBodyParserRuleCall_0_1_2_1_1_0()); 
             }
-            pushFollow(FOLLOW_ruleResourceBody_in_rule__ResourceExpression__ResourceDataAssignment_0_1_2_1_126825);
+            pushFollow(FOLLOW_ruleResourceBody_in_rule__ResourceExpression__ResourceDataAssignment_0_1_2_1_126827);
             ruleResourceBody();
 
             state._fsp--;
@@ -38001,7 +38007,7 @@ public class InternalPPParser extends AbstractInternalContentAssistParser {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getResourceExpressionAccess().getResourceExprLiteralClassParserRuleCall_1_1_0()); 
             }
-            pushFollow(FOLLOW_ruleLiteralClass_in_rule__ResourceExpression__ResourceExprAssignment_1_126856);
+            pushFollow(FOLLOW_ruleLiteralClass_in_rule__ResourceExpression__ResourceExprAssignment_1_126858);
             ruleLiteralClass();
 
             state._fsp--;
@@ -38046,7 +38052,7 @@ public class InternalPPParser extends AbstractInternalContentAssistParser {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getResourceExpressionAccess().getResourceDataResourceBodyParserRuleCall_1_3_0_0()); 
             }
-            pushFollow(FOLLOW_ruleResourceBody_in_rule__ResourceExpression__ResourceDataAssignment_1_3_026887);
+            pushFollow(FOLLOW_ruleResourceBody_in_rule__ResourceExpression__ResourceDataAssignment_1_3_026889);
             ruleResourceBody();
 
             state._fsp--;
@@ -38091,7 +38097,7 @@ public class InternalPPParser extends AbstractInternalContentAssistParser {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getResourceExpressionAccess().getResourceDataResourceBodyParserRuleCall_1_3_1_1_0()); 
             }
-            pushFollow(FOLLOW_ruleResourceBody_in_rule__ResourceExpression__ResourceDataAssignment_1_3_1_126918);
+            pushFollow(FOLLOW_ruleResourceBody_in_rule__ResourceExpression__ResourceDataAssignment_1_3_1_126920);
             ruleResourceBody();
 
             state._fsp--;
@@ -38136,7 +38142,7 @@ public class InternalPPParser extends AbstractInternalContentAssistParser {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getResourceBodyAccess().getNameExprExpressionParserRuleCall_0_0_0()); 
             }
-            pushFollow(FOLLOW_ruleExpression_in_rule__ResourceBody__NameExprAssignment_0_026949);
+            pushFollow(FOLLOW_ruleExpression_in_rule__ResourceBody__NameExprAssignment_0_026951);
             ruleExpression();
 
             state._fsp--;
@@ -38181,7 +38187,7 @@ public class InternalPPParser extends AbstractInternalContentAssistParser {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getResourceBodyAccess().getAttributesAttributeOperationsParserRuleCall_0_2_0()); 
             }
-            pushFollow(FOLLOW_ruleAttributeOperations_in_rule__ResourceBody__AttributesAssignment_0_226980);
+            pushFollow(FOLLOW_ruleAttributeOperations_in_rule__ResourceBody__AttributesAssignment_0_226982);
             ruleAttributeOperations();
 
             state._fsp--;
@@ -38226,7 +38232,7 @@ public class InternalPPParser extends AbstractInternalContentAssistParser {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getResourceBodyAccess().getAttributesAttributeOperationsParserRuleCall_1_0()); 
             }
-            pushFollow(FOLLOW_ruleAttributeOperations_in_rule__ResourceBody__AttributesAssignment_127011);
+            pushFollow(FOLLOW_ruleAttributeOperations_in_rule__ResourceBody__AttributesAssignment_127013);
             ruleAttributeOperations();
 
             state._fsp--;
@@ -38271,7 +38277,7 @@ public class InternalPPParser extends AbstractInternalContentAssistParser {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getAttributeOperationAccess().getKeyNameParserRuleCall_1_0()); 
             }
-            pushFollow(FOLLOW_rulename_in_rule__AttributeOperation__KeyAssignment_127042);
+            pushFollow(FOLLOW_rulename_in_rule__AttributeOperation__KeyAssignment_127044);
             rulename();
 
             state._fsp--;
@@ -38319,7 +38325,7 @@ public class InternalPPParser extends AbstractInternalContentAssistParser {
             // ../org.cloudsmith.geppetto.pp.dsl.ui/src-gen/org/cloudsmith/geppetto/pp/dsl/ui/contentassist/antlr/internal/InternalPPParser.g:13327:1: ( rule__AttributeOperation__OpAlternatives_2_0_0 )
             // ../org.cloudsmith.geppetto.pp.dsl.ui/src-gen/org/cloudsmith/geppetto/pp/dsl/ui/contentassist/antlr/internal/InternalPPParser.g:13327:2: rule__AttributeOperation__OpAlternatives_2_0_0
             {
-            pushFollow(FOLLOW_rule__AttributeOperation__OpAlternatives_2_0_0_in_rule__AttributeOperation__OpAssignment_2_027073);
+            pushFollow(FOLLOW_rule__AttributeOperation__OpAlternatives_2_0_0_in_rule__AttributeOperation__OpAssignment_2_027075);
             rule__AttributeOperation__OpAlternatives_2_0_0();
 
             state._fsp--;
@@ -38367,7 +38373,7 @@ public class InternalPPParser extends AbstractInternalContentAssistParser {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getAttributeOperationAccess().getValueExpressionParserRuleCall_2_1_0()); 
             }
-            pushFollow(FOLLOW_ruleExpression_in_rule__AttributeOperation__ValueAssignment_2_127106);
+            pushFollow(FOLLOW_ruleExpression_in_rule__AttributeOperation__ValueAssignment_2_127108);
             ruleExpression();
 
             state._fsp--;
@@ -38412,7 +38418,7 @@ public class InternalPPParser extends AbstractInternalContentAssistParser {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getAttributeOperationsAccess().getAttributesAttributeOperationParserRuleCall_0_0()); 
             }
-            pushFollow(FOLLOW_ruleAttributeOperation_in_rule__AttributeOperations__AttributesAssignment_027137);
+            pushFollow(FOLLOW_ruleAttributeOperation_in_rule__AttributeOperations__AttributesAssignment_027139);
             ruleAttributeOperation();
 
             state._fsp--;
@@ -38457,7 +38463,7 @@ public class InternalPPParser extends AbstractInternalContentAssistParser {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getAttributeOperationsAccess().getAttributesAttributeOperationParserRuleCall_1_0_1_0()); 
             }
-            pushFollow(FOLLOW_ruleAttributeOperation_in_rule__AttributeOperations__AttributesAssignment_1_0_127168);
+            pushFollow(FOLLOW_ruleAttributeOperation_in_rule__AttributeOperations__AttributesAssignment_1_0_127170);
             ruleAttributeOperation();
 
             state._fsp--;
@@ -38502,7 +38508,7 @@ public class InternalPPParser extends AbstractInternalContentAssistParser {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getAttributeOperationsAccess().getAttributesAttributeOperationParserRuleCall_1_1_0()); 
             }
-            pushFollow(FOLLOW_ruleAttributeOperation_in_rule__AttributeOperations__AttributesAssignment_1_127199);
+            pushFollow(FOLLOW_ruleAttributeOperation_in_rule__AttributeOperations__AttributesAssignment_1_127201);
             ruleAttributeOperation();
 
             state._fsp--;
@@ -38547,7 +38553,7 @@ public class InternalPPParser extends AbstractInternalContentAssistParser {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getAssignmentExpressionAccess().getRightExprAppendExpressionParserRuleCall_1_2_0()); 
             }
-            pushFollow(FOLLOW_ruleAppendExpression_in_rule__AssignmentExpression__RightExprAssignment_1_227230);
+            pushFollow(FOLLOW_ruleAppendExpression_in_rule__AssignmentExpression__RightExprAssignment_1_227232);
             ruleAppendExpression();
 
             state._fsp--;
@@ -38592,7 +38598,7 @@ public class InternalPPParser extends AbstractInternalContentAssistParser {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getAppendExpressionAccess().getRightExprOrExpressionParserRuleCall_1_2_0()); 
             }
-            pushFollow(FOLLOW_ruleOrExpression_in_rule__AppendExpression__RightExprAssignment_1_227261);
+            pushFollow(FOLLOW_ruleOrExpression_in_rule__AppendExpression__RightExprAssignment_1_227263);
             ruleOrExpression();
 
             state._fsp--;
@@ -38637,7 +38643,7 @@ public class InternalPPParser extends AbstractInternalContentAssistParser {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getOrExpressionAccess().getRightExprAndExpressionParserRuleCall_1_2_0()); 
             }
-            pushFollow(FOLLOW_ruleAndExpression_in_rule__OrExpression__RightExprAssignment_1_227292);
+            pushFollow(FOLLOW_ruleAndExpression_in_rule__OrExpression__RightExprAssignment_1_227294);
             ruleAndExpression();
 
             state._fsp--;
@@ -38682,7 +38688,7 @@ public class InternalPPParser extends AbstractInternalContentAssistParser {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getAndExpressionAccess().getRightExprRelationalExpressionParserRuleCall_1_2_0()); 
             }
-            pushFollow(FOLLOW_ruleRelationalExpression_in_rule__AndExpression__RightExprAssignment_1_227323);
+            pushFollow(FOLLOW_ruleRelationalExpression_in_rule__AndExpression__RightExprAssignment_1_227325);
             ruleRelationalExpression();
 
             state._fsp--;
@@ -38727,7 +38733,7 @@ public class InternalPPParser extends AbstractInternalContentAssistParser {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getRelationalExpressionAccess().getOpNameRelationalOperatorParserRuleCall_1_1_0()); 
             }
-            pushFollow(FOLLOW_ruleRelationalOperator_in_rule__RelationalExpression__OpNameAssignment_1_127354);
+            pushFollow(FOLLOW_ruleRelationalOperator_in_rule__RelationalExpression__OpNameAssignment_1_127356);
             ruleRelationalOperator();
 
             state._fsp--;
@@ -38772,7 +38778,7 @@ public class InternalPPParser extends AbstractInternalContentAssistParser {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getRelationalExpressionAccess().getRightExprEqualityExpressionParserRuleCall_1_2_0()); 
             }
-            pushFollow(FOLLOW_ruleEqualityExpression_in_rule__RelationalExpression__RightExprAssignment_1_227385);
+            pushFollow(FOLLOW_ruleEqualityExpression_in_rule__RelationalExpression__RightExprAssignment_1_227387);
             ruleEqualityExpression();
 
             state._fsp--;
@@ -38817,7 +38823,7 @@ public class InternalPPParser extends AbstractInternalContentAssistParser {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getEqualityExpressionAccess().getOpNameEqualityOperatorParserRuleCall_1_1_0()); 
             }
-            pushFollow(FOLLOW_ruleEqualityOperator_in_rule__EqualityExpression__OpNameAssignment_1_127416);
+            pushFollow(FOLLOW_ruleEqualityOperator_in_rule__EqualityExpression__OpNameAssignment_1_127418);
             ruleEqualityOperator();
 
             state._fsp--;
@@ -38862,7 +38868,7 @@ public class InternalPPParser extends AbstractInternalContentAssistParser {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getEqualityExpressionAccess().getRightExprShiftExpressionParserRuleCall_1_2_0()); 
             }
-            pushFollow(FOLLOW_ruleShiftExpression_in_rule__EqualityExpression__RightExprAssignment_1_227447);
+            pushFollow(FOLLOW_ruleShiftExpression_in_rule__EqualityExpression__RightExprAssignment_1_227449);
             ruleShiftExpression();
 
             state._fsp--;
@@ -38907,7 +38913,7 @@ public class InternalPPParser extends AbstractInternalContentAssistParser {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getShiftExpressionAccess().getOpNameShiftOperatorParserRuleCall_1_1_0()); 
             }
-            pushFollow(FOLLOW_ruleShiftOperator_in_rule__ShiftExpression__OpNameAssignment_1_127478);
+            pushFollow(FOLLOW_ruleShiftOperator_in_rule__ShiftExpression__OpNameAssignment_1_127480);
             ruleShiftOperator();
 
             state._fsp--;
@@ -38952,7 +38958,7 @@ public class InternalPPParser extends AbstractInternalContentAssistParser {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getShiftExpressionAccess().getRightExprAdditiveExpressionParserRuleCall_1_2_0()); 
             }
-            pushFollow(FOLLOW_ruleAdditiveExpression_in_rule__ShiftExpression__RightExprAssignment_1_227509);
+            pushFollow(FOLLOW_ruleAdditiveExpression_in_rule__ShiftExpression__RightExprAssignment_1_227511);
             ruleAdditiveExpression();
 
             state._fsp--;
@@ -38997,7 +39003,7 @@ public class InternalPPParser extends AbstractInternalContentAssistParser {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getAdditiveExpressionAccess().getOpNameAdditiveOperatorParserRuleCall_1_1_0()); 
             }
-            pushFollow(FOLLOW_ruleAdditiveOperator_in_rule__AdditiveExpression__OpNameAssignment_1_127540);
+            pushFollow(FOLLOW_ruleAdditiveOperator_in_rule__AdditiveExpression__OpNameAssignment_1_127542);
             ruleAdditiveOperator();
 
             state._fsp--;
@@ -39042,7 +39048,7 @@ public class InternalPPParser extends AbstractInternalContentAssistParser {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getAdditiveExpressionAccess().getRightExprMultiplicativeExpressionParserRuleCall_1_2_0()); 
             }
-            pushFollow(FOLLOW_ruleMultiplicativeExpression_in_rule__AdditiveExpression__RightExprAssignment_1_227571);
+            pushFollow(FOLLOW_ruleMultiplicativeExpression_in_rule__AdditiveExpression__RightExprAssignment_1_227573);
             ruleMultiplicativeExpression();
 
             state._fsp--;
@@ -39087,7 +39093,7 @@ public class InternalPPParser extends AbstractInternalContentAssistParser {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getMultiplicativeExpressionAccess().getOpNameMultiplicativeOperatorParserRuleCall_1_1_0()); 
             }
-            pushFollow(FOLLOW_ruleMultiplicativeOperator_in_rule__MultiplicativeExpression__OpNameAssignment_1_127602);
+            pushFollow(FOLLOW_ruleMultiplicativeOperator_in_rule__MultiplicativeExpression__OpNameAssignment_1_127604);
             ruleMultiplicativeOperator();
 
             state._fsp--;
@@ -39132,7 +39138,7 @@ public class InternalPPParser extends AbstractInternalContentAssistParser {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getMultiplicativeExpressionAccess().getRightExprMatchingExpressionParserRuleCall_1_2_0()); 
             }
-            pushFollow(FOLLOW_ruleMatchingExpression_in_rule__MultiplicativeExpression__RightExprAssignment_1_227633);
+            pushFollow(FOLLOW_ruleMatchingExpression_in_rule__MultiplicativeExpression__RightExprAssignment_1_227635);
             ruleMatchingExpression();
 
             state._fsp--;
@@ -39177,7 +39183,7 @@ public class InternalPPParser extends AbstractInternalContentAssistParser {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getMatchingExpressionAccess().getOpNameMatchingOperatorParserRuleCall_1_1_0()); 
             }
-            pushFollow(FOLLOW_ruleMatchingOperator_in_rule__MatchingExpression__OpNameAssignment_1_127664);
+            pushFollow(FOLLOW_ruleMatchingOperator_in_rule__MatchingExpression__OpNameAssignment_1_127666);
             ruleMatchingOperator();
 
             state._fsp--;
@@ -39222,7 +39228,7 @@ public class InternalPPParser extends AbstractInternalContentAssistParser {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getMatchingExpressionAccess().getRightExprLiteralRegexParserRuleCall_1_2_0()); 
             }
-            pushFollow(FOLLOW_ruleLiteralRegex_in_rule__MatchingExpression__RightExprAssignment_1_227695);
+            pushFollow(FOLLOW_ruleLiteralRegex_in_rule__MatchingExpression__RightExprAssignment_1_227697);
             ruleLiteralRegex();
 
             state._fsp--;
@@ -39273,7 +39279,7 @@ public class InternalPPParser extends AbstractInternalContentAssistParser {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getInExpressionAccess().getOpNameInKeyword_1_1_0()); 
             }
-            match(input,KEYWORD_43,FOLLOW_KEYWORD_43_in_rule__InExpression__OpNameAssignment_1_127731); if (state.failed) return ;
+            match(input,KEYWORD_43,FOLLOW_KEYWORD_43_in_rule__InExpression__OpNameAssignment_1_127733); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getInExpressionAccess().getOpNameInKeyword_1_1_0()); 
             }
@@ -39320,7 +39326,7 @@ public class InternalPPParser extends AbstractInternalContentAssistParser {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getInExpressionAccess().getRightExprUnaryOrHigherExpressionParserRuleCall_1_2_0()); 
             }
-            pushFollow(FOLLOW_ruleUnaryOrHigherExpression_in_rule__InExpression__RightExprAssignment_1_227770);
+            pushFollow(FOLLOW_ruleUnaryOrHigherExpression_in_rule__InExpression__RightExprAssignment_1_227772);
             ruleUnaryOrHigherExpression();
 
             state._fsp--;
@@ -39365,7 +39371,7 @@ public class InternalPPParser extends AbstractInternalContentAssistParser {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getUnaryMinusExpressionAccess().getExprCollectExpressionParserRuleCall_1_0()); 
             }
-            pushFollow(FOLLOW_ruleCollectExpression_in_rule__UnaryMinusExpression__ExprAssignment_127801);
+            pushFollow(FOLLOW_ruleCollectExpression_in_rule__UnaryMinusExpression__ExprAssignment_127803);
             ruleCollectExpression();
 
             state._fsp--;
@@ -39410,7 +39416,7 @@ public class InternalPPParser extends AbstractInternalContentAssistParser {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getNotExpressionAccess().getExprCollectExpressionParserRuleCall_1_0()); 
             }
-            pushFollow(FOLLOW_ruleCollectExpression_in_rule__NotExpression__ExprAssignment_127832);
+            pushFollow(FOLLOW_ruleCollectExpression_in_rule__NotExpression__ExprAssignment_127834);
             ruleCollectExpression();
 
             state._fsp--;
@@ -39455,7 +39461,7 @@ public class InternalPPParser extends AbstractInternalContentAssistParser {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getCollectExpressionAccess().getQueryCollectQueryParserRuleCall_1_1_0()); 
             }
-            pushFollow(FOLLOW_ruleCollectQuery_in_rule__CollectExpression__QueryAssignment_1_127863);
+            pushFollow(FOLLOW_ruleCollectQuery_in_rule__CollectExpression__QueryAssignment_1_127865);
             ruleCollectQuery();
 
             state._fsp--;
@@ -39500,7 +39506,7 @@ public class InternalPPParser extends AbstractInternalContentAssistParser {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getCollectExpressionAccess().getAttributesAttributeOperationsParserRuleCall_1_2_1_0()); 
             }
-            pushFollow(FOLLOW_ruleAttributeOperations_in_rule__CollectExpression__AttributesAssignment_1_2_127894);
+            pushFollow(FOLLOW_ruleAttributeOperations_in_rule__CollectExpression__AttributesAssignment_1_2_127896);
             ruleAttributeOperations();
 
             state._fsp--;
@@ -39545,7 +39551,7 @@ public class InternalPPParser extends AbstractInternalContentAssistParser {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getVirtualCollectQueryAccess().getExprExpressionParserRuleCall_2_0()); 
             }
-            pushFollow(FOLLOW_ruleExpression_in_rule__VirtualCollectQuery__ExprAssignment_227925);
+            pushFollow(FOLLOW_ruleExpression_in_rule__VirtualCollectQuery__ExprAssignment_227927);
             ruleExpression();
 
             state._fsp--;
@@ -39590,7 +39596,7 @@ public class InternalPPParser extends AbstractInternalContentAssistParser {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getExportedCollectQueryAccess().getExprExpressionParserRuleCall_2_0()); 
             }
-            pushFollow(FOLLOW_ruleExpression_in_rule__ExportedCollectQuery__ExprAssignment_227956);
+            pushFollow(FOLLOW_ruleExpression_in_rule__ExportedCollectQuery__ExprAssignment_227958);
             ruleExpression();
 
             state._fsp--;
@@ -39635,7 +39641,7 @@ public class InternalPPParser extends AbstractInternalContentAssistParser {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getSelectorExpressionAccess().getParametersSelectorEntryParserRuleCall_1_2_0_1_0()); 
             }
-            pushFollow(FOLLOW_ruleSelectorEntry_in_rule__SelectorExpression__ParametersAssignment_1_2_0_127987);
+            pushFollow(FOLLOW_ruleSelectorEntry_in_rule__SelectorExpression__ParametersAssignment_1_2_0_127989);
             ruleSelectorEntry();
 
             state._fsp--;
@@ -39680,7 +39686,7 @@ public class InternalPPParser extends AbstractInternalContentAssistParser {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getSelectorExpressionAccess().getParametersSelectorEntryParserRuleCall_1_2_0_2_0_1_0()); 
             }
-            pushFollow(FOLLOW_ruleSelectorEntry_in_rule__SelectorExpression__ParametersAssignment_1_2_0_2_0_128018);
+            pushFollow(FOLLOW_ruleSelectorEntry_in_rule__SelectorExpression__ParametersAssignment_1_2_0_2_0_128020);
             ruleSelectorEntry();
 
             state._fsp--;
@@ -39725,7 +39731,7 @@ public class InternalPPParser extends AbstractInternalContentAssistParser {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getSelectorExpressionAccess().getParametersSelectorEntryParserRuleCall_1_2_0_2_1_0()); 
             }
-            pushFollow(FOLLOW_ruleSelectorEntry_in_rule__SelectorExpression__ParametersAssignment_1_2_0_2_128049);
+            pushFollow(FOLLOW_ruleSelectorEntry_in_rule__SelectorExpression__ParametersAssignment_1_2_0_2_128051);
             ruleSelectorEntry();
 
             state._fsp--;
@@ -39770,7 +39776,7 @@ public class InternalPPParser extends AbstractInternalContentAssistParser {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getSelectorExpressionAccess().getParametersSelectorEntryParserRuleCall_1_2_1_0()); 
             }
-            pushFollow(FOLLOW_ruleSelectorEntry_in_rule__SelectorExpression__ParametersAssignment_1_2_128080);
+            pushFollow(FOLLOW_ruleSelectorEntry_in_rule__SelectorExpression__ParametersAssignment_1_2_128082);
             ruleSelectorEntry();
 
             state._fsp--;
@@ -39815,7 +39821,7 @@ public class InternalPPParser extends AbstractInternalContentAssistParser {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getSelectorEntryAccess().getRightExprExpressionParserRuleCall_1_2_0()); 
             }
-            pushFollow(FOLLOW_ruleExpression_in_rule__SelectorEntry__RightExprAssignment_1_228111);
+            pushFollow(FOLLOW_ruleExpression_in_rule__SelectorEntry__RightExprAssignment_1_228113);
             ruleExpression();
 
             state._fsp--;
@@ -39860,7 +39866,7 @@ public class InternalPPParser extends AbstractInternalContentAssistParser {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getAtExpressionAccess().getParametersExpressionParserRuleCall_1_2_0_0()); 
             }
-            pushFollow(FOLLOW_ruleExpression_in_rule__AtExpression__ParametersAssignment_1_2_028142);
+            pushFollow(FOLLOW_ruleExpression_in_rule__AtExpression__ParametersAssignment_1_2_028144);
             ruleExpression();
 
             state._fsp--;
@@ -39905,7 +39911,7 @@ public class InternalPPParser extends AbstractInternalContentAssistParser {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getAtExpressionAccess().getParametersExpressionParserRuleCall_1_2_1_1_0()); 
             }
-            pushFollow(FOLLOW_ruleExpression_in_rule__AtExpression__ParametersAssignment_1_2_1_128173);
+            pushFollow(FOLLOW_ruleExpression_in_rule__AtExpression__ParametersAssignment_1_2_1_128175);
             ruleExpression();
 
             state._fsp--;
@@ -39950,7 +39956,7 @@ public class InternalPPParser extends AbstractInternalContentAssistParser {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getFunctionCallAccess().getParametersExpressionParserRuleCall_1_2_0_0()); 
             }
-            pushFollow(FOLLOW_ruleExpression_in_rule__FunctionCall__ParametersAssignment_1_2_028204);
+            pushFollow(FOLLOW_ruleExpression_in_rule__FunctionCall__ParametersAssignment_1_2_028206);
             ruleExpression();
 
             state._fsp--;
@@ -39995,7 +40001,7 @@ public class InternalPPParser extends AbstractInternalContentAssistParser {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getFunctionCallAccess().getParametersExpressionParserRuleCall_1_2_1_1_0()); 
             }
-            pushFollow(FOLLOW_ruleExpression_in_rule__FunctionCall__ParametersAssignment_1_2_1_128235);
+            pushFollow(FOLLOW_ruleExpression_in_rule__FunctionCall__ParametersAssignment_1_2_1_128237);
             ruleExpression();
 
             state._fsp--;
@@ -40040,7 +40046,7 @@ public class InternalPPParser extends AbstractInternalContentAssistParser {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getNodeDefinitionAccess().getHostNamesHostReferenceParserRuleCall_1_0()); 
             }
-            pushFollow(FOLLOW_ruleHostReference_in_rule__NodeDefinition__HostNamesAssignment_128266);
+            pushFollow(FOLLOW_ruleHostReference_in_rule__NodeDefinition__HostNamesAssignment_128268);
             ruleHostReference();
 
             state._fsp--;
@@ -40085,7 +40091,7 @@ public class InternalPPParser extends AbstractInternalContentAssistParser {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getNodeDefinitionAccess().getHostNamesHostReferenceParserRuleCall_2_1_0()); 
             }
-            pushFollow(FOLLOW_ruleHostReference_in_rule__NodeDefinition__HostNamesAssignment_2_128297);
+            pushFollow(FOLLOW_ruleHostReference_in_rule__NodeDefinition__HostNamesAssignment_2_128299);
             ruleHostReference();
 
             state._fsp--;
@@ -40130,7 +40136,7 @@ public class InternalPPParser extends AbstractInternalContentAssistParser {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getNodeDefinitionAccess().getParentNameHostReferenceParserRuleCall_3_1_0()); 
             }
-            pushFollow(FOLLOW_ruleHostReference_in_rule__NodeDefinition__ParentNameAssignment_3_128328);
+            pushFollow(FOLLOW_ruleHostReference_in_rule__NodeDefinition__ParentNameAssignment_3_128330);
             ruleHostReference();
 
             state._fsp--;
@@ -40175,7 +40181,7 @@ public class InternalPPParser extends AbstractInternalContentAssistParser {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getNodeDefinitionAccess().getStatementsExpressionListParserRuleCall_5_0()); 
             }
-            pushFollow(FOLLOW_ruleExpressionList_in_rule__NodeDefinition__StatementsAssignment_528359);
+            pushFollow(FOLLOW_ruleExpressionList_in_rule__NodeDefinition__StatementsAssignment_528361);
             ruleExpressionList();
 
             state._fsp--;
@@ -40220,7 +40226,7 @@ public class InternalPPParser extends AbstractInternalContentAssistParser {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getHostClassDefinitionAccess().getClassNameClassnameParserRuleCall_1_0()); 
             }
-            pushFollow(FOLLOW_ruleclassname_in_rule__HostClassDefinition__ClassNameAssignment_128390);
+            pushFollow(FOLLOW_ruleclassname_in_rule__HostClassDefinition__ClassNameAssignment_128392);
             ruleclassname();
 
             state._fsp--;
@@ -40265,7 +40271,7 @@ public class InternalPPParser extends AbstractInternalContentAssistParser {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getHostClassDefinitionAccess().getArgumentsDefinitionArgumentListParserRuleCall_2_0()); 
             }
-            pushFollow(FOLLOW_ruleDefinitionArgumentList_in_rule__HostClassDefinition__ArgumentsAssignment_228421);
+            pushFollow(FOLLOW_ruleDefinitionArgumentList_in_rule__HostClassDefinition__ArgumentsAssignment_228423);
             ruleDefinitionArgumentList();
 
             state._fsp--;
@@ -40310,7 +40316,7 @@ public class InternalPPParser extends AbstractInternalContentAssistParser {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getHostClassDefinitionAccess().getParentParentNameParserRuleCall_3_1_0()); 
             }
-            pushFollow(FOLLOW_ruleParentName_in_rule__HostClassDefinition__ParentAssignment_3_128452);
+            pushFollow(FOLLOW_ruleParentName_in_rule__HostClassDefinition__ParentAssignment_3_128454);
             ruleParentName();
 
             state._fsp--;
@@ -40355,7 +40361,7 @@ public class InternalPPParser extends AbstractInternalContentAssistParser {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getHostClassDefinitionAccess().getStatementsExpressionListParserRuleCall_5_0()); 
             }
-            pushFollow(FOLLOW_ruleExpressionList_in_rule__HostClassDefinition__StatementsAssignment_528483);
+            pushFollow(FOLLOW_ruleExpressionList_in_rule__HostClassDefinition__StatementsAssignment_528485);
             ruleExpressionList();
 
             state._fsp--;
@@ -40400,7 +40406,7 @@ public class InternalPPParser extends AbstractInternalContentAssistParser {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getDefinitionAccess().getClassNameClassnameParserRuleCall_1_0()); 
             }
-            pushFollow(FOLLOW_ruleclassname_in_rule__Definition__ClassNameAssignment_128514);
+            pushFollow(FOLLOW_ruleclassname_in_rule__Definition__ClassNameAssignment_128516);
             ruleclassname();
 
             state._fsp--;
@@ -40445,7 +40451,7 @@ public class InternalPPParser extends AbstractInternalContentAssistParser {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getDefinitionAccess().getArgumentsDefinitionArgumentListParserRuleCall_2_0()); 
             }
-            pushFollow(FOLLOW_ruleDefinitionArgumentList_in_rule__Definition__ArgumentsAssignment_228545);
+            pushFollow(FOLLOW_ruleDefinitionArgumentList_in_rule__Definition__ArgumentsAssignment_228547);
             ruleDefinitionArgumentList();
 
             state._fsp--;
@@ -40490,7 +40496,7 @@ public class InternalPPParser extends AbstractInternalContentAssistParser {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getDefinitionAccess().getStatementsExpressionListParserRuleCall_4_0()); 
             }
-            pushFollow(FOLLOW_ruleExpressionList_in_rule__Definition__StatementsAssignment_428576);
+            pushFollow(FOLLOW_ruleExpressionList_in_rule__Definition__StatementsAssignment_428578);
             ruleExpressionList();
 
             state._fsp--;
@@ -40535,7 +40541,7 @@ public class InternalPPParser extends AbstractInternalContentAssistParser {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getDefinitionArgumentListAccess().getArgumentsDefinitionArgumentParserRuleCall_2_0_0()); 
             }
-            pushFollow(FOLLOW_ruleDefinitionArgument_in_rule__DefinitionArgumentList__ArgumentsAssignment_2_028607);
+            pushFollow(FOLLOW_ruleDefinitionArgument_in_rule__DefinitionArgumentList__ArgumentsAssignment_2_028609);
             ruleDefinitionArgument();
 
             state._fsp--;
@@ -40580,7 +40586,7 @@ public class InternalPPParser extends AbstractInternalContentAssistParser {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getDefinitionArgumentListAccess().getArgumentsDefinitionArgumentParserRuleCall_2_1_1_0()); 
             }
-            pushFollow(FOLLOW_ruleDefinitionArgument_in_rule__DefinitionArgumentList__ArgumentsAssignment_2_1_128638);
+            pushFollow(FOLLOW_ruleDefinitionArgument_in_rule__DefinitionArgumentList__ArgumentsAssignment_2_1_128640);
             ruleDefinitionArgument();
 
             state._fsp--;
@@ -40625,7 +40631,7 @@ public class InternalPPParser extends AbstractInternalContentAssistParser {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getDefinitionArgumentAccess().getArgNameUNION_VARIABLE_OR_NAMEParserRuleCall_0_0()); 
             }
-            pushFollow(FOLLOW_ruleUNION_VARIABLE_OR_NAME_in_rule__DefinitionArgument__ArgNameAssignment_028669);
+            pushFollow(FOLLOW_ruleUNION_VARIABLE_OR_NAME_in_rule__DefinitionArgument__ArgNameAssignment_028671);
             ruleUNION_VARIABLE_OR_NAME();
 
             state._fsp--;
@@ -40676,7 +40682,7 @@ public class InternalPPParser extends AbstractInternalContentAssistParser {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getDefinitionArgumentAccess().getOpEqualsSignKeyword_1_0_0_0()); 
             }
-            match(input,KEYWORD_14,FOLLOW_KEYWORD_14_in_rule__DefinitionArgument__OpAssignment_1_0_028705); if (state.failed) return ;
+            match(input,KEYWORD_14,FOLLOW_KEYWORD_14_in_rule__DefinitionArgument__OpAssignment_1_0_028707); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getDefinitionArgumentAccess().getOpEqualsSignKeyword_1_0_0_0()); 
             }
@@ -40729,7 +40735,7 @@ public class InternalPPParser extends AbstractInternalContentAssistParser {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getDefinitionArgumentAccess().getOpEqualsSignGreaterThanSignKeyword_1_0_1_0()); 
             }
-            match(input,KEYWORD_34,FOLLOW_KEYWORD_34_in_rule__DefinitionArgument__OpAssignment_1_0_128749); if (state.failed) return ;
+            match(input,KEYWORD_34,FOLLOW_KEYWORD_34_in_rule__DefinitionArgument__OpAssignment_1_0_128751); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getDefinitionArgumentAccess().getOpEqualsSignGreaterThanSignKeyword_1_0_1_0()); 
             }
@@ -40776,7 +40782,7 @@ public class InternalPPParser extends AbstractInternalContentAssistParser {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getDefinitionArgumentAccess().getValueAssignmentExpressionParserRuleCall_1_1_0()); 
             }
-            pushFollow(FOLLOW_ruleAssignmentExpression_in_rule__DefinitionArgument__ValueAssignment_1_128788);
+            pushFollow(FOLLOW_ruleAssignmentExpression_in_rule__DefinitionArgument__ValueAssignment_1_128790);
             ruleAssignmentExpression();
 
             state._fsp--;
@@ -40821,7 +40827,7 @@ public class InternalPPParser extends AbstractInternalContentAssistParser {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getCaseExpressionAccess().getSwitchExprAssignmentExpressionParserRuleCall_1_0()); 
             }
-            pushFollow(FOLLOW_ruleAssignmentExpression_in_rule__CaseExpression__SwitchExprAssignment_128819);
+            pushFollow(FOLLOW_ruleAssignmentExpression_in_rule__CaseExpression__SwitchExprAssignment_128821);
             ruleAssignmentExpression();
 
             state._fsp--;
@@ -40866,7 +40872,7 @@ public class InternalPPParser extends AbstractInternalContentAssistParser {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getCaseExpressionAccess().getCasesCaseParserRuleCall_3_0()); 
             }
-            pushFollow(FOLLOW_ruleCase_in_rule__CaseExpression__CasesAssignment_328850);
+            pushFollow(FOLLOW_ruleCase_in_rule__CaseExpression__CasesAssignment_328852);
             ruleCase();
 
             state._fsp--;
@@ -40911,7 +40917,7 @@ public class InternalPPParser extends AbstractInternalContentAssistParser {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getCaseAccess().getValuesAssignmentExpressionParserRuleCall_0_0()); 
             }
-            pushFollow(FOLLOW_ruleAssignmentExpression_in_rule__Case__ValuesAssignment_028881);
+            pushFollow(FOLLOW_ruleAssignmentExpression_in_rule__Case__ValuesAssignment_028883);
             ruleAssignmentExpression();
 
             state._fsp--;
@@ -40956,7 +40962,7 @@ public class InternalPPParser extends AbstractInternalContentAssistParser {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getCaseAccess().getValuesAssignmentExpressionParserRuleCall_1_1_0()); 
             }
-            pushFollow(FOLLOW_ruleAssignmentExpression_in_rule__Case__ValuesAssignment_1_128912);
+            pushFollow(FOLLOW_ruleAssignmentExpression_in_rule__Case__ValuesAssignment_1_128914);
             ruleAssignmentExpression();
 
             state._fsp--;
@@ -41001,7 +41007,7 @@ public class InternalPPParser extends AbstractInternalContentAssistParser {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getCaseAccess().getStatementsExpressionListParserRuleCall_4_0()); 
             }
-            pushFollow(FOLLOW_ruleExpressionList_in_rule__Case__StatementsAssignment_428943);
+            pushFollow(FOLLOW_ruleExpressionList_in_rule__Case__StatementsAssignment_428945);
             ruleExpressionList();
 
             state._fsp--;
@@ -41046,7 +41052,7 @@ public class InternalPPParser extends AbstractInternalContentAssistParser {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getIfExpressionAccess().getCondExprAssignmentExpressionParserRuleCall_1_0()); 
             }
-            pushFollow(FOLLOW_ruleAssignmentExpression_in_rule__IfExpression__CondExprAssignment_128974);
+            pushFollow(FOLLOW_ruleAssignmentExpression_in_rule__IfExpression__CondExprAssignment_128976);
             ruleAssignmentExpression();
 
             state._fsp--;
@@ -41091,7 +41097,7 @@ public class InternalPPParser extends AbstractInternalContentAssistParser {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getIfExpressionAccess().getThenStatementsExpressionListParserRuleCall_3_0()); 
             }
-            pushFollow(FOLLOW_ruleExpressionList_in_rule__IfExpression__ThenStatementsAssignment_329005);
+            pushFollow(FOLLOW_ruleExpressionList_in_rule__IfExpression__ThenStatementsAssignment_329007);
             ruleExpressionList();
 
             state._fsp--;
@@ -41136,7 +41142,7 @@ public class InternalPPParser extends AbstractInternalContentAssistParser {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getIfExpressionAccess().getElseStatementElseIfExpressionParserRuleCall_5_0_1_0()); 
             }
-            pushFollow(FOLLOW_ruleElseIfExpression_in_rule__IfExpression__ElseStatementAssignment_5_0_129036);
+            pushFollow(FOLLOW_ruleElseIfExpression_in_rule__IfExpression__ElseStatementAssignment_5_0_129038);
             ruleElseIfExpression();
 
             state._fsp--;
@@ -41181,7 +41187,7 @@ public class InternalPPParser extends AbstractInternalContentAssistParser {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getIfExpressionAccess().getElseStatementElseExpressionParserRuleCall_5_1_1_0()); 
             }
-            pushFollow(FOLLOW_ruleElseExpression_in_rule__IfExpression__ElseStatementAssignment_5_1_129067);
+            pushFollow(FOLLOW_ruleElseExpression_in_rule__IfExpression__ElseStatementAssignment_5_1_129069);
             ruleElseExpression();
 
             state._fsp--;
@@ -41226,7 +41232,7 @@ public class InternalPPParser extends AbstractInternalContentAssistParser {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getElseExpressionAccess().getStatementsExpressionListParserRuleCall_2_0()); 
             }
-            pushFollow(FOLLOW_ruleExpressionList_in_rule__ElseExpression__StatementsAssignment_229098);
+            pushFollow(FOLLOW_ruleExpressionList_in_rule__ElseExpression__StatementsAssignment_229100);
             ruleExpressionList();
 
             state._fsp--;
@@ -41271,7 +41277,7 @@ public class InternalPPParser extends AbstractInternalContentAssistParser {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getElseIfExpressionAccess().getCondExprAssignmentExpressionParserRuleCall_1_0()); 
             }
-            pushFollow(FOLLOW_ruleAssignmentExpression_in_rule__ElseIfExpression__CondExprAssignment_129129);
+            pushFollow(FOLLOW_ruleAssignmentExpression_in_rule__ElseIfExpression__CondExprAssignment_129131);
             ruleAssignmentExpression();
 
             state._fsp--;
@@ -41316,7 +41322,7 @@ public class InternalPPParser extends AbstractInternalContentAssistParser {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getElseIfExpressionAccess().getThenStatementsExpressionListParserRuleCall_3_0()); 
             }
-            pushFollow(FOLLOW_ruleExpressionList_in_rule__ElseIfExpression__ThenStatementsAssignment_329160);
+            pushFollow(FOLLOW_ruleExpressionList_in_rule__ElseIfExpression__ThenStatementsAssignment_329162);
             ruleExpressionList();
 
             state._fsp--;
@@ -41361,7 +41367,7 @@ public class InternalPPParser extends AbstractInternalContentAssistParser {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getElseIfExpressionAccess().getElseStatementElseIfExpressionParserRuleCall_5_0_1_0()); 
             }
-            pushFollow(FOLLOW_ruleElseIfExpression_in_rule__ElseIfExpression__ElseStatementAssignment_5_0_129191);
+            pushFollow(FOLLOW_ruleElseIfExpression_in_rule__ElseIfExpression__ElseStatementAssignment_5_0_129193);
             ruleElseIfExpression();
 
             state._fsp--;
@@ -41406,7 +41412,7 @@ public class InternalPPParser extends AbstractInternalContentAssistParser {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getElseIfExpressionAccess().getElseStatementElseExpressionParserRuleCall_5_1_1_0()); 
             }
-            pushFollow(FOLLOW_ruleElseExpression_in_rule__ElseIfExpression__ElseStatementAssignment_5_1_129222);
+            pushFollow(FOLLOW_ruleElseExpression_in_rule__ElseIfExpression__ElseStatementAssignment_5_1_129224);
             ruleElseExpression();
 
             state._fsp--;
@@ -41451,7 +41457,7 @@ public class InternalPPParser extends AbstractInternalContentAssistParser {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getLiteralNameOrReferenceAccess().getValueNameParserRuleCall_0()); 
             }
-            pushFollow(FOLLOW_rulename_in_rule__LiteralNameOrReference__ValueAssignment29253);
+            pushFollow(FOLLOW_rulename_in_rule__LiteralNameOrReference__ValueAssignment29255);
             rulename();
 
             state._fsp--;
@@ -41496,7 +41502,7 @@ public class InternalPPParser extends AbstractInternalContentAssistParser {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getParenthisedExpressionAccess().getExprAssignmentExpressionParserRuleCall_2_0()); 
             }
-            pushFollow(FOLLOW_ruleAssignmentExpression_in_rule__ParenthisedExpression__ExprAssignment_229284);
+            pushFollow(FOLLOW_ruleAssignmentExpression_in_rule__ParenthisedExpression__ExprAssignment_229286);
             ruleAssignmentExpression();
 
             state._fsp--;
@@ -41541,7 +41547,7 @@ public class InternalPPParser extends AbstractInternalContentAssistParser {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getVirtualNameOrReferenceAccess().getExportedATBooleanParserRuleCall_1_0()); 
             }
-            pushFollow(FOLLOW_ruleATBoolean_in_rule__VirtualNameOrReference__ExportedAssignment_129315);
+            pushFollow(FOLLOW_ruleATBoolean_in_rule__VirtualNameOrReference__ExportedAssignment_129317);
             ruleATBoolean();
 
             state._fsp--;
@@ -41586,7 +41592,7 @@ public class InternalPPParser extends AbstractInternalContentAssistParser {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getVirtualNameOrReferenceAccess().getValueUnionNameOrReferenceParserRuleCall_2_0()); 
             }
-            pushFollow(FOLLOW_ruleunionNameOrReference_in_rule__VirtualNameOrReference__ValueAssignment_229346);
+            pushFollow(FOLLOW_ruleunionNameOrReference_in_rule__VirtualNameOrReference__ValueAssignment_229348);
             ruleunionNameOrReference();
 
             state._fsp--;
@@ -41631,7 +41637,7 @@ public class InternalPPParser extends AbstractInternalContentAssistParser {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getImportExpressionAccess().getValuesQuotedStringParserRuleCall_2_0_0()); 
             }
-            pushFollow(FOLLOW_ruleQuotedString_in_rule__ImportExpression__ValuesAssignment_2_029377);
+            pushFollow(FOLLOW_ruleQuotedString_in_rule__ImportExpression__ValuesAssignment_2_029379);
             ruleQuotedString();
 
             state._fsp--;
@@ -41676,7 +41682,7 @@ public class InternalPPParser extends AbstractInternalContentAssistParser {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getImportExpressionAccess().getValuesQuotedStringParserRuleCall_2_1_1_0()); 
             }
-            pushFollow(FOLLOW_ruleQuotedString_in_rule__ImportExpression__ValuesAssignment_2_1_129408);
+            pushFollow(FOLLOW_ruleQuotedString_in_rule__ImportExpression__ValuesAssignment_2_1_129410);
             ruleQuotedString();
 
             state._fsp--;
@@ -41721,7 +41727,7 @@ public class InternalPPParser extends AbstractInternalContentAssistParser {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getLiteralListAccess().getElementsAssignmentExpressionParserRuleCall_2_0_0()); 
             }
-            pushFollow(FOLLOW_ruleAssignmentExpression_in_rule__LiteralList__ElementsAssignment_2_029439);
+            pushFollow(FOLLOW_ruleAssignmentExpression_in_rule__LiteralList__ElementsAssignment_2_029441);
             ruleAssignmentExpression();
 
             state._fsp--;
@@ -41766,7 +41772,7 @@ public class InternalPPParser extends AbstractInternalContentAssistParser {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getLiteralListAccess().getElementsAssignmentExpressionParserRuleCall_2_1_1_0()); 
             }
-            pushFollow(FOLLOW_ruleAssignmentExpression_in_rule__LiteralList__ElementsAssignment_2_1_129470);
+            pushFollow(FOLLOW_ruleAssignmentExpression_in_rule__LiteralList__ElementsAssignment_2_1_129472);
             ruleAssignmentExpression();
 
             state._fsp--;
@@ -41811,7 +41817,7 @@ public class InternalPPParser extends AbstractInternalContentAssistParser {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getLiteralHashAccess().getElementsHashEntryParserRuleCall_2_0_0()); 
             }
-            pushFollow(FOLLOW_ruleHashEntry_in_rule__LiteralHash__ElementsAssignment_2_029501);
+            pushFollow(FOLLOW_ruleHashEntry_in_rule__LiteralHash__ElementsAssignment_2_029503);
             ruleHashEntry();
 
             state._fsp--;
@@ -41856,7 +41862,7 @@ public class InternalPPParser extends AbstractInternalContentAssistParser {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getLiteralHashAccess().getElementsHashEntryParserRuleCall_2_1_1_0()); 
             }
-            pushFollow(FOLLOW_ruleHashEntry_in_rule__LiteralHash__ElementsAssignment_2_1_129532);
+            pushFollow(FOLLOW_ruleHashEntry_in_rule__LiteralHash__ElementsAssignment_2_1_129534);
             ruleHashEntry();
 
             state._fsp--;
@@ -41901,7 +41907,7 @@ public class InternalPPParser extends AbstractInternalContentAssistParser {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getHashEntryAccess().getKeyLiteralNameOrStringParserRuleCall_0_0()); 
             }
-            pushFollow(FOLLOW_ruleLiteralNameOrString_in_rule__HashEntry__KeyAssignment_029563);
+            pushFollow(FOLLOW_ruleLiteralNameOrString_in_rule__HashEntry__KeyAssignment_029565);
             ruleLiteralNameOrString();
 
             state._fsp--;
@@ -41946,7 +41952,7 @@ public class InternalPPParser extends AbstractInternalContentAssistParser {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getHashEntryAccess().getValueAssignmentExpressionParserRuleCall_2_0()); 
             }
-            pushFollow(FOLLOW_ruleAssignmentExpression_in_rule__HashEntry__ValueAssignment_229594);
+            pushFollow(FOLLOW_ruleAssignmentExpression_in_rule__HashEntry__ValueAssignment_229596);
             ruleAssignmentExpression();
 
             state._fsp--;
@@ -41991,7 +41997,7 @@ public class InternalPPParser extends AbstractInternalContentAssistParser {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getLiteralBooleanAccess().getValueBooleanValueParserRuleCall_0()); 
             }
-            pushFollow(FOLLOW_ruleBooleanValue_in_rule__LiteralBoolean__ValueAssignment29625);
+            pushFollow(FOLLOW_ruleBooleanValue_in_rule__LiteralBoolean__ValueAssignment29627);
             ruleBooleanValue();
 
             state._fsp--;
@@ -42036,7 +42042,7 @@ public class InternalPPParser extends AbstractInternalContentAssistParser {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getSingleQuotedStringAccess().getTextSqTextParserRuleCall_1_0()); 
             }
-            pushFollow(FOLLOW_rulesqText_in_rule__SingleQuotedString__TextAssignment_129656);
+            pushFollow(FOLLOW_rulesqText_in_rule__SingleQuotedString__TextAssignment_129658);
             rulesqText();
 
             state._fsp--;
@@ -42081,7 +42087,7 @@ public class InternalPPParser extends AbstractInternalContentAssistParser {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getDoubleQuotedStringAccess().getStringPartTextExpressionParserRuleCall_2_0()); 
             }
-            pushFollow(FOLLOW_ruleTextExpression_in_rule__DoubleQuotedString__StringPartAssignment_229687);
+            pushFollow(FOLLOW_ruleTextExpression_in_rule__DoubleQuotedString__StringPartAssignment_229689);
             ruleTextExpression();
 
             state._fsp--;
@@ -42126,7 +42132,7 @@ public class InternalPPParser extends AbstractInternalContentAssistParser {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getTextExpressionAccess().getTextDoubleStringCharactersParserRuleCall_0_1_0()); 
             }
-            pushFollow(FOLLOW_ruledoubleStringCharacters_in_rule__TextExpression__TextAssignment_0_129718);
+            pushFollow(FOLLOW_ruledoubleStringCharacters_in_rule__TextExpression__TextAssignment_0_129720);
             ruledoubleStringCharacters();
 
             state._fsp--;
@@ -42171,7 +42177,7 @@ public class InternalPPParser extends AbstractInternalContentAssistParser {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getTextExpressionAccess().getExpressionExpressionWithHiddenParserRuleCall_1_2_0()); 
             }
-            pushFollow(FOLLOW_ruleExpressionWithHidden_in_rule__TextExpression__ExpressionAssignment_1_229749);
+            pushFollow(FOLLOW_ruleExpressionWithHidden_in_rule__TextExpression__ExpressionAssignment_1_229751);
             ruleExpressionWithHidden();
 
             state._fsp--;
@@ -42216,7 +42222,7 @@ public class InternalPPParser extends AbstractInternalContentAssistParser {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getTextExpressionAccess().getVarNameDollarVariableParserRuleCall_2_1_0()); 
             }
-            pushFollow(FOLLOW_ruledollarVariable_in_rule__TextExpression__VarNameAssignment_2_129780);
+            pushFollow(FOLLOW_ruledollarVariable_in_rule__TextExpression__VarNameAssignment_2_129782);
             ruledollarVariable();
 
             state._fsp--;
@@ -42261,7 +42267,7 @@ public class InternalPPParser extends AbstractInternalContentAssistParser {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getExpressionWithHiddenAccess().getExprAssignmentExpressionParserRuleCall_1_0()); 
             }
-            pushFollow(FOLLOW_ruleAssignmentExpression_in_rule__ExpressionWithHidden__ExprAssignment_129811);
+            pushFollow(FOLLOW_ruleAssignmentExpression_in_rule__ExpressionWithHidden__ExprAssignment_129813);
             ruleAssignmentExpression();
 
             state._fsp--;
@@ -42306,7 +42312,7 @@ public class InternalPPParser extends AbstractInternalContentAssistParser {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getUnquotedStringAccess().getExpressionAssignmentExpressionParserRuleCall_2_0()); 
             }
-            pushFollow(FOLLOW_ruleAssignmentExpression_in_rule__UnquotedString__ExpressionAssignment_229843);
+            pushFollow(FOLLOW_ruleAssignmentExpression_in_rule__UnquotedString__ExpressionAssignment_229845);
             ruleAssignmentExpression();
 
             state._fsp--;
@@ -42351,7 +42357,7 @@ public class InternalPPParser extends AbstractInternalContentAssistParser {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getLiteralRegexAccess().getValueREGULAR_EXPRESSIONTerminalRuleCall_0()); 
             }
-            match(input,RULE_REGULAR_EXPRESSION,FOLLOW_RULE_REGULAR_EXPRESSION_in_rule__LiteralRegex__ValueAssignment29874); if (state.failed) return ;
+            match(input,RULE_REGULAR_EXPRESSION,FOLLOW_RULE_REGULAR_EXPRESSION_in_rule__LiteralRegex__ValueAssignment29876); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getLiteralRegexAccess().getValueREGULAR_EXPRESSIONTerminalRuleCall_0()); 
             }
@@ -42392,7 +42398,7 @@ public class InternalPPParser extends AbstractInternalContentAssistParser {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getLiteralNameAccess().getValueNameParserRuleCall_0()); 
             }
-            pushFollow(FOLLOW_rulename_in_rule__LiteralName__ValueAssignment29905);
+            pushFollow(FOLLOW_rulename_in_rule__LiteralName__ValueAssignment29907);
             rulename();
 
             state._fsp--;
@@ -42437,7 +42443,7 @@ public class InternalPPParser extends AbstractInternalContentAssistParser {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getVariableExpressionAccess().getVarNameDollarVariableParserRuleCall_0()); 
             }
-            pushFollow(FOLLOW_ruledollarVariable_in_rule__VariableExpression__VarNameAssignment29936);
+            pushFollow(FOLLOW_ruledollarVariable_in_rule__VariableExpression__VarNameAssignment29938);
             ruledollarVariable();
 
             state._fsp--;
@@ -43140,7 +43146,7 @@ public class InternalPPParser extends AbstractInternalContentAssistParser {
     static final String DFA1_acceptS =
         "\1\uffff\1\2\10\uffff\1\1";
     static final String DFA1_specialS =
-        "\2\uffff\1\4\1\5\1\6\1\1\1\0\1\7\1\3\1\2\1\uffff}>";
+        "\2\uffff\1\3\1\6\1\7\1\2\1\1\1\0\1\5\1\4\1\uffff}>";
     static final String[] DFA1_transitionS = {
             "\1\10\4\uffff\1\1\15\uffff\1\5\1\7\1\6\1\11\6\uffff\1\1\25\uffff"+
             "\1\4\1\1\1\2\6\uffff\1\3",
@@ -43193,6 +43199,21 @@ public class InternalPPParser extends AbstractInternalContentAssistParser {
         	int _s = s;
             switch ( s ) {
                     case 0 : 
+                        int LA1_7 = input.LA(1);
+
+                         
+                        int index1_7 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred1_InternalPPParser()) ) {s = 10;}
+
+                        else if ( (true) ) {s = 1;}
+
+                         
+                        input.seek(index1_7);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 1 : 
                         int LA1_6 = input.LA(1);
 
                          
@@ -43207,7 +43228,7 @@ public class InternalPPParser extends AbstractInternalContentAssistParser {
                         input.seek(index1_6);
                         if ( s>=0 ) return s;
                         break;
-                    case 1 : 
+                    case 2 : 
                         int LA1_5 = input.LA(1);
 
                          
@@ -43222,37 +43243,7 @@ public class InternalPPParser extends AbstractInternalContentAssistParser {
                         input.seek(index1_5);
                         if ( s>=0 ) return s;
                         break;
-                    case 2 : 
-                        int LA1_9 = input.LA(1);
-
-                         
-                        int index1_9 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred1_InternalPPParser()) ) {s = 10;}
-
-                        else if ( (true) ) {s = 1;}
-
-                         
-                        input.seek(index1_9);
-                        if ( s>=0 ) return s;
-                        break;
                     case 3 : 
-                        int LA1_8 = input.LA(1);
-
-                         
-                        int index1_8 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred1_InternalPPParser()) ) {s = 10;}
-
-                        else if ( (true) ) {s = 1;}
-
-                         
-                        input.seek(index1_8);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 4 : 
                         int LA1_2 = input.LA(1);
 
                          
@@ -43267,7 +43258,37 @@ public class InternalPPParser extends AbstractInternalContentAssistParser {
                         input.seek(index1_2);
                         if ( s>=0 ) return s;
                         break;
+                    case 4 : 
+                        int LA1_9 = input.LA(1);
+
+                         
+                        int index1_9 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred1_InternalPPParser()) ) {s = 10;}
+
+                        else if ( (true) ) {s = 1;}
+
+                         
+                        input.seek(index1_9);
+                        if ( s>=0 ) return s;
+                        break;
                     case 5 : 
+                        int LA1_8 = input.LA(1);
+
+                         
+                        int index1_8 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred1_InternalPPParser()) ) {s = 10;}
+
+                        else if ( (true) ) {s = 1;}
+
+                         
+                        input.seek(index1_8);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 6 : 
                         int LA1_3 = input.LA(1);
 
                          
@@ -43282,7 +43303,7 @@ public class InternalPPParser extends AbstractInternalContentAssistParser {
                         input.seek(index1_3);
                         if ( s>=0 ) return s;
                         break;
-                    case 6 : 
+                    case 7 : 
                         int LA1_4 = input.LA(1);
 
                          
@@ -43295,21 +43316,6 @@ public class InternalPPParser extends AbstractInternalContentAssistParser {
 
                          
                         input.seek(index1_4);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 7 : 
-                        int LA1_7 = input.LA(1);
-
-                         
-                        int index1_7 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred1_InternalPPParser()) ) {s = 10;}
-
-                        else if ( (true) ) {s = 1;}
-
-                         
-                        input.seek(index1_7);
                         if ( s>=0 ) return s;
                         break;
             }
@@ -45217,118 +45223,118 @@ public class InternalPPParser extends AbstractInternalContentAssistParser {
     public static final BitSet FOLLOW_KEYWORD_21_in_rule__UnquotedString__Group__3__Impl26406 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__SqText__Group__0__Impl_in_rule__SqText__Group__026445 = new BitSet(new long[]{0x000080F000420000L,0x0000000000002070L});
     public static final BitSet FOLLOW_rule__SqText__Group__1_in_rule__SqText__Group__026448 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_KEYWORD_3_in_rule__SqText__Group__0__Impl26476 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__SqText__Group__1__Impl_in_rule__SqText__Group__126507 = new BitSet(new long[]{0x000080F000420000L,0x0000000000002070L});
-    public static final BitSet FOLLOW_rule__SqText__Group__2_in_rule__SqText__Group__126510 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rulesingleStringCharacters_in_rule__SqText__Group__1__Impl26538 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__SqText__Group__2__Impl_in_rule__SqText__Group__226569 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_KEYWORD_3_in_rule__SqText__Group__2__Impl26597 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleExpressionList_in_rule__PuppetManifest__StatementsAssignment_126639 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleRelationshipExpression_in_rule__ExpressionList__ExpressionsAssignment_1_226670 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleRelationshipExpression_in_rule__ExpressionList__ExpressionsAssignment_1_3_126701 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleEdgeOperator_in_rule__RelationshipExpression__OpNameAssignment_1_126732 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleResourceExpression_in_rule__RelationshipExpression__RightExprAssignment_1_226763 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleResourceBody_in_rule__ResourceExpression__ResourceDataAssignment_0_1_2_026794 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleResourceBody_in_rule__ResourceExpression__ResourceDataAssignment_0_1_2_1_126825 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleLiteralClass_in_rule__ResourceExpression__ResourceExprAssignment_1_126856 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleResourceBody_in_rule__ResourceExpression__ResourceDataAssignment_1_3_026887 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleResourceBody_in_rule__ResourceExpression__ResourceDataAssignment_1_3_1_126918 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleExpression_in_rule__ResourceBody__NameExprAssignment_0_026949 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleAttributeOperations_in_rule__ResourceBody__AttributesAssignment_0_226980 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleAttributeOperations_in_rule__ResourceBody__AttributesAssignment_127011 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rulename_in_rule__AttributeOperation__KeyAssignment_127042 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__AttributeOperation__OpAlternatives_2_0_0_in_rule__AttributeOperation__OpAssignment_2_027073 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleExpression_in_rule__AttributeOperation__ValueAssignment_2_127106 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleAttributeOperation_in_rule__AttributeOperations__AttributesAssignment_027137 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleAttributeOperation_in_rule__AttributeOperations__AttributesAssignment_1_0_127168 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleAttributeOperation_in_rule__AttributeOperations__AttributesAssignment_1_127199 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleAppendExpression_in_rule__AssignmentExpression__RightExprAssignment_1_227230 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleOrExpression_in_rule__AppendExpression__RightExprAssignment_1_227261 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleAndExpression_in_rule__OrExpression__RightExprAssignment_1_227292 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleRelationalExpression_in_rule__AndExpression__RightExprAssignment_1_227323 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleRelationalOperator_in_rule__RelationalExpression__OpNameAssignment_1_127354 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleEqualityExpression_in_rule__RelationalExpression__RightExprAssignment_1_227385 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleEqualityOperator_in_rule__EqualityExpression__OpNameAssignment_1_127416 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleShiftExpression_in_rule__EqualityExpression__RightExprAssignment_1_227447 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleShiftOperator_in_rule__ShiftExpression__OpNameAssignment_1_127478 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleAdditiveExpression_in_rule__ShiftExpression__RightExprAssignment_1_227509 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleAdditiveOperator_in_rule__AdditiveExpression__OpNameAssignment_1_127540 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleMultiplicativeExpression_in_rule__AdditiveExpression__RightExprAssignment_1_227571 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleMultiplicativeOperator_in_rule__MultiplicativeExpression__OpNameAssignment_1_127602 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleMatchingExpression_in_rule__MultiplicativeExpression__RightExprAssignment_1_227633 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleMatchingOperator_in_rule__MatchingExpression__OpNameAssignment_1_127664 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleLiteralRegex_in_rule__MatchingExpression__RightExprAssignment_1_227695 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_KEYWORD_43_in_rule__InExpression__OpNameAssignment_1_127731 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleUnaryOrHigherExpression_in_rule__InExpression__RightExprAssignment_1_227770 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleCollectExpression_in_rule__UnaryMinusExpression__ExprAssignment_127801 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleCollectExpression_in_rule__NotExpression__ExprAssignment_127832 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleCollectQuery_in_rule__CollectExpression__QueryAssignment_1_127863 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleAttributeOperations_in_rule__CollectExpression__AttributesAssignment_1_2_127894 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleExpression_in_rule__VirtualCollectQuery__ExprAssignment_227925 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleExpression_in_rule__ExportedCollectQuery__ExprAssignment_227956 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleSelectorEntry_in_rule__SelectorExpression__ParametersAssignment_1_2_0_127987 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleSelectorEntry_in_rule__SelectorExpression__ParametersAssignment_1_2_0_2_0_128018 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleSelectorEntry_in_rule__SelectorExpression__ParametersAssignment_1_2_0_2_128049 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleSelectorEntry_in_rule__SelectorExpression__ParametersAssignment_1_2_128080 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleExpression_in_rule__SelectorEntry__RightExprAssignment_1_228111 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleExpression_in_rule__AtExpression__ParametersAssignment_1_2_028142 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleExpression_in_rule__AtExpression__ParametersAssignment_1_2_1_128173 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleExpression_in_rule__FunctionCall__ParametersAssignment_1_2_028204 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleExpression_in_rule__FunctionCall__ParametersAssignment_1_2_1_128235 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleHostReference_in_rule__NodeDefinition__HostNamesAssignment_128266 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleHostReference_in_rule__NodeDefinition__HostNamesAssignment_2_128297 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleHostReference_in_rule__NodeDefinition__ParentNameAssignment_3_128328 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleExpressionList_in_rule__NodeDefinition__StatementsAssignment_528359 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleclassname_in_rule__HostClassDefinition__ClassNameAssignment_128390 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleDefinitionArgumentList_in_rule__HostClassDefinition__ArgumentsAssignment_228421 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleParentName_in_rule__HostClassDefinition__ParentAssignment_3_128452 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleExpressionList_in_rule__HostClassDefinition__StatementsAssignment_528483 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleclassname_in_rule__Definition__ClassNameAssignment_128514 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleDefinitionArgumentList_in_rule__Definition__ArgumentsAssignment_228545 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleExpressionList_in_rule__Definition__StatementsAssignment_428576 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleDefinitionArgument_in_rule__DefinitionArgumentList__ArgumentsAssignment_2_028607 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleDefinitionArgument_in_rule__DefinitionArgumentList__ArgumentsAssignment_2_1_128638 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleUNION_VARIABLE_OR_NAME_in_rule__DefinitionArgument__ArgNameAssignment_028669 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_KEYWORD_14_in_rule__DefinitionArgument__OpAssignment_1_0_028705 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_KEYWORD_34_in_rule__DefinitionArgument__OpAssignment_1_0_128749 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleAssignmentExpression_in_rule__DefinitionArgument__ValueAssignment_1_128788 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleAssignmentExpression_in_rule__CaseExpression__SwitchExprAssignment_128819 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleCase_in_rule__CaseExpression__CasesAssignment_328850 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleAssignmentExpression_in_rule__Case__ValuesAssignment_028881 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleAssignmentExpression_in_rule__Case__ValuesAssignment_1_128912 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleExpressionList_in_rule__Case__StatementsAssignment_428943 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleAssignmentExpression_in_rule__IfExpression__CondExprAssignment_128974 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleExpressionList_in_rule__IfExpression__ThenStatementsAssignment_329005 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleElseIfExpression_in_rule__IfExpression__ElseStatementAssignment_5_0_129036 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleElseExpression_in_rule__IfExpression__ElseStatementAssignment_5_1_129067 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleExpressionList_in_rule__ElseExpression__StatementsAssignment_229098 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleAssignmentExpression_in_rule__ElseIfExpression__CondExprAssignment_129129 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleExpressionList_in_rule__ElseIfExpression__ThenStatementsAssignment_329160 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleElseIfExpression_in_rule__ElseIfExpression__ElseStatementAssignment_5_0_129191 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleElseExpression_in_rule__ElseIfExpression__ElseStatementAssignment_5_1_129222 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rulename_in_rule__LiteralNameOrReference__ValueAssignment29253 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleAssignmentExpression_in_rule__ParenthisedExpression__ExprAssignment_229284 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleATBoolean_in_rule__VirtualNameOrReference__ExportedAssignment_129315 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleunionNameOrReference_in_rule__VirtualNameOrReference__ValueAssignment_229346 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleQuotedString_in_rule__ImportExpression__ValuesAssignment_2_029377 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleQuotedString_in_rule__ImportExpression__ValuesAssignment_2_1_129408 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleAssignmentExpression_in_rule__LiteralList__ElementsAssignment_2_029439 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleAssignmentExpression_in_rule__LiteralList__ElementsAssignment_2_1_129470 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleHashEntry_in_rule__LiteralHash__ElementsAssignment_2_029501 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleHashEntry_in_rule__LiteralHash__ElementsAssignment_2_1_129532 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleLiteralNameOrString_in_rule__HashEntry__KeyAssignment_029563 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleAssignmentExpression_in_rule__HashEntry__ValueAssignment_229594 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleBooleanValue_in_rule__LiteralBoolean__ValueAssignment29625 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rulesqText_in_rule__SingleQuotedString__TextAssignment_129656 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleTextExpression_in_rule__DoubleQuotedString__StringPartAssignment_229687 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruledoubleStringCharacters_in_rule__TextExpression__TextAssignment_0_129718 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleExpressionWithHidden_in_rule__TextExpression__ExpressionAssignment_1_229749 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruledollarVariable_in_rule__TextExpression__VarNameAssignment_2_129780 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleAssignmentExpression_in_rule__ExpressionWithHidden__ExprAssignment_129811 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleAssignmentExpression_in_rule__UnquotedString__ExpressionAssignment_229843 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_REGULAR_EXPRESSION_in_rule__LiteralRegex__ValueAssignment29874 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rulename_in_rule__LiteralName__ValueAssignment29905 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruledollarVariable_in_rule__VariableExpression__VarNameAssignment29936 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_KEYWORD_3_in_rule__SqText__Group__0__Impl26477 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__SqText__Group__1__Impl_in_rule__SqText__Group__126509 = new BitSet(new long[]{0x000080F000420000L,0x0000000000002070L});
+    public static final BitSet FOLLOW_rule__SqText__Group__2_in_rule__SqText__Group__126512 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rulesingleStringCharacters_in_rule__SqText__Group__1__Impl26540 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__SqText__Group__2__Impl_in_rule__SqText__Group__226571 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_KEYWORD_3_in_rule__SqText__Group__2__Impl26599 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleExpressionList_in_rule__PuppetManifest__StatementsAssignment_126641 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleRelationshipExpression_in_rule__ExpressionList__ExpressionsAssignment_1_226672 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleRelationshipExpression_in_rule__ExpressionList__ExpressionsAssignment_1_3_126703 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleEdgeOperator_in_rule__RelationshipExpression__OpNameAssignment_1_126734 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleResourceExpression_in_rule__RelationshipExpression__RightExprAssignment_1_226765 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleResourceBody_in_rule__ResourceExpression__ResourceDataAssignment_0_1_2_026796 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleResourceBody_in_rule__ResourceExpression__ResourceDataAssignment_0_1_2_1_126827 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleLiteralClass_in_rule__ResourceExpression__ResourceExprAssignment_1_126858 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleResourceBody_in_rule__ResourceExpression__ResourceDataAssignment_1_3_026889 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleResourceBody_in_rule__ResourceExpression__ResourceDataAssignment_1_3_1_126920 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleExpression_in_rule__ResourceBody__NameExprAssignment_0_026951 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleAttributeOperations_in_rule__ResourceBody__AttributesAssignment_0_226982 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleAttributeOperations_in_rule__ResourceBody__AttributesAssignment_127013 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rulename_in_rule__AttributeOperation__KeyAssignment_127044 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__AttributeOperation__OpAlternatives_2_0_0_in_rule__AttributeOperation__OpAssignment_2_027075 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleExpression_in_rule__AttributeOperation__ValueAssignment_2_127108 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleAttributeOperation_in_rule__AttributeOperations__AttributesAssignment_027139 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleAttributeOperation_in_rule__AttributeOperations__AttributesAssignment_1_0_127170 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleAttributeOperation_in_rule__AttributeOperations__AttributesAssignment_1_127201 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleAppendExpression_in_rule__AssignmentExpression__RightExprAssignment_1_227232 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleOrExpression_in_rule__AppendExpression__RightExprAssignment_1_227263 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleAndExpression_in_rule__OrExpression__RightExprAssignment_1_227294 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleRelationalExpression_in_rule__AndExpression__RightExprAssignment_1_227325 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleRelationalOperator_in_rule__RelationalExpression__OpNameAssignment_1_127356 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleEqualityExpression_in_rule__RelationalExpression__RightExprAssignment_1_227387 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleEqualityOperator_in_rule__EqualityExpression__OpNameAssignment_1_127418 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleShiftExpression_in_rule__EqualityExpression__RightExprAssignment_1_227449 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleShiftOperator_in_rule__ShiftExpression__OpNameAssignment_1_127480 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleAdditiveExpression_in_rule__ShiftExpression__RightExprAssignment_1_227511 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleAdditiveOperator_in_rule__AdditiveExpression__OpNameAssignment_1_127542 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleMultiplicativeExpression_in_rule__AdditiveExpression__RightExprAssignment_1_227573 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleMultiplicativeOperator_in_rule__MultiplicativeExpression__OpNameAssignment_1_127604 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleMatchingExpression_in_rule__MultiplicativeExpression__RightExprAssignment_1_227635 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleMatchingOperator_in_rule__MatchingExpression__OpNameAssignment_1_127666 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleLiteralRegex_in_rule__MatchingExpression__RightExprAssignment_1_227697 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_KEYWORD_43_in_rule__InExpression__OpNameAssignment_1_127733 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleUnaryOrHigherExpression_in_rule__InExpression__RightExprAssignment_1_227772 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleCollectExpression_in_rule__UnaryMinusExpression__ExprAssignment_127803 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleCollectExpression_in_rule__NotExpression__ExprAssignment_127834 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleCollectQuery_in_rule__CollectExpression__QueryAssignment_1_127865 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleAttributeOperations_in_rule__CollectExpression__AttributesAssignment_1_2_127896 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleExpression_in_rule__VirtualCollectQuery__ExprAssignment_227927 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleExpression_in_rule__ExportedCollectQuery__ExprAssignment_227958 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleSelectorEntry_in_rule__SelectorExpression__ParametersAssignment_1_2_0_127989 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleSelectorEntry_in_rule__SelectorExpression__ParametersAssignment_1_2_0_2_0_128020 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleSelectorEntry_in_rule__SelectorExpression__ParametersAssignment_1_2_0_2_128051 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleSelectorEntry_in_rule__SelectorExpression__ParametersAssignment_1_2_128082 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleExpression_in_rule__SelectorEntry__RightExprAssignment_1_228113 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleExpression_in_rule__AtExpression__ParametersAssignment_1_2_028144 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleExpression_in_rule__AtExpression__ParametersAssignment_1_2_1_128175 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleExpression_in_rule__FunctionCall__ParametersAssignment_1_2_028206 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleExpression_in_rule__FunctionCall__ParametersAssignment_1_2_1_128237 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleHostReference_in_rule__NodeDefinition__HostNamesAssignment_128268 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleHostReference_in_rule__NodeDefinition__HostNamesAssignment_2_128299 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleHostReference_in_rule__NodeDefinition__ParentNameAssignment_3_128330 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleExpressionList_in_rule__NodeDefinition__StatementsAssignment_528361 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleclassname_in_rule__HostClassDefinition__ClassNameAssignment_128392 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleDefinitionArgumentList_in_rule__HostClassDefinition__ArgumentsAssignment_228423 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleParentName_in_rule__HostClassDefinition__ParentAssignment_3_128454 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleExpressionList_in_rule__HostClassDefinition__StatementsAssignment_528485 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleclassname_in_rule__Definition__ClassNameAssignment_128516 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleDefinitionArgumentList_in_rule__Definition__ArgumentsAssignment_228547 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleExpressionList_in_rule__Definition__StatementsAssignment_428578 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleDefinitionArgument_in_rule__DefinitionArgumentList__ArgumentsAssignment_2_028609 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleDefinitionArgument_in_rule__DefinitionArgumentList__ArgumentsAssignment_2_1_128640 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleUNION_VARIABLE_OR_NAME_in_rule__DefinitionArgument__ArgNameAssignment_028671 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_KEYWORD_14_in_rule__DefinitionArgument__OpAssignment_1_0_028707 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_KEYWORD_34_in_rule__DefinitionArgument__OpAssignment_1_0_128751 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleAssignmentExpression_in_rule__DefinitionArgument__ValueAssignment_1_128790 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleAssignmentExpression_in_rule__CaseExpression__SwitchExprAssignment_128821 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleCase_in_rule__CaseExpression__CasesAssignment_328852 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleAssignmentExpression_in_rule__Case__ValuesAssignment_028883 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleAssignmentExpression_in_rule__Case__ValuesAssignment_1_128914 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleExpressionList_in_rule__Case__StatementsAssignment_428945 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleAssignmentExpression_in_rule__IfExpression__CondExprAssignment_128976 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleExpressionList_in_rule__IfExpression__ThenStatementsAssignment_329007 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleElseIfExpression_in_rule__IfExpression__ElseStatementAssignment_5_0_129038 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleElseExpression_in_rule__IfExpression__ElseStatementAssignment_5_1_129069 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleExpressionList_in_rule__ElseExpression__StatementsAssignment_229100 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleAssignmentExpression_in_rule__ElseIfExpression__CondExprAssignment_129131 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleExpressionList_in_rule__ElseIfExpression__ThenStatementsAssignment_329162 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleElseIfExpression_in_rule__ElseIfExpression__ElseStatementAssignment_5_0_129193 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleElseExpression_in_rule__ElseIfExpression__ElseStatementAssignment_5_1_129224 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rulename_in_rule__LiteralNameOrReference__ValueAssignment29255 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleAssignmentExpression_in_rule__ParenthisedExpression__ExprAssignment_229286 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleATBoolean_in_rule__VirtualNameOrReference__ExportedAssignment_129317 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleunionNameOrReference_in_rule__VirtualNameOrReference__ValueAssignment_229348 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleQuotedString_in_rule__ImportExpression__ValuesAssignment_2_029379 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleQuotedString_in_rule__ImportExpression__ValuesAssignment_2_1_129410 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleAssignmentExpression_in_rule__LiteralList__ElementsAssignment_2_029441 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleAssignmentExpression_in_rule__LiteralList__ElementsAssignment_2_1_129472 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleHashEntry_in_rule__LiteralHash__ElementsAssignment_2_029503 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleHashEntry_in_rule__LiteralHash__ElementsAssignment_2_1_129534 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleLiteralNameOrString_in_rule__HashEntry__KeyAssignment_029565 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleAssignmentExpression_in_rule__HashEntry__ValueAssignment_229596 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleBooleanValue_in_rule__LiteralBoolean__ValueAssignment29627 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rulesqText_in_rule__SingleQuotedString__TextAssignment_129658 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleTextExpression_in_rule__DoubleQuotedString__StringPartAssignment_229689 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruledoubleStringCharacters_in_rule__TextExpression__TextAssignment_0_129720 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleExpressionWithHidden_in_rule__TextExpression__ExpressionAssignment_1_229751 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruledollarVariable_in_rule__TextExpression__VarNameAssignment_2_129782 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleAssignmentExpression_in_rule__ExpressionWithHidden__ExprAssignment_129813 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleAssignmentExpression_in_rule__UnquotedString__ExpressionAssignment_229845 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_REGULAR_EXPRESSION_in_rule__LiteralRegex__ValueAssignment29876 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rulename_in_rule__LiteralName__ValueAssignment29907 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruledollarVariable_in_rule__VariableExpression__VarNameAssignment29938 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__DoubleStringCharacters__Alternatives_in_synpred1_InternalPPParser5436 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__SelectorExpression__Group_1_2_0__0_in_synpred21_InternalPPParser6353 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__RelationshipExpression__Group_1__0_in_synpred77_InternalPPParser8624 = new BitSet(new long[]{0x0000000000000002L});

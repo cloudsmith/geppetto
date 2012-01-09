@@ -3014,10 +3014,10 @@ public class PPGrammarAccess extends AbstractGrammarElementFinder {
 		//	"\'" singleStringCharacters? "\'";
 		public ParserRule getRule() { return rule; }
 
-		//"\'" singleStringCharacters? "\'"
+		//=> "\'" singleStringCharacters? "\'"
 		public Group getGroup() { return cGroup; }
 
-		//"\'"
+		//=> "\'"
 		public Keyword getApostropheKeyword_0() { return cApostropheKeyword_0; }
 
 		//singleStringCharacters?

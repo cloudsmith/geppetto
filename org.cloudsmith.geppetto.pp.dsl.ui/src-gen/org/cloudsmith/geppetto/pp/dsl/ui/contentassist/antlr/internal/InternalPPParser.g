@@ -13029,9 +13029,9 @@ rule__SqText__Group__0__Impl
 :
 (
 { before(grammarAccess.getSqTextAccess().getApostropheKeyword_0()); }
-
+(
 	KEYWORD_3 
-
+)
 { after(grammarAccess.getSqTextAccess().getApostropheKeyword_0()); }
 )
 

@@ -43,7 +43,7 @@ public class PPPreferencesHelper implements IPreferenceStoreInitializer, IProper
 
 	private class RebuildChecker extends Job {
 		RebuildChecker() {
-			super("Pupept RebuildChecker");
+			super("Puppet RebuildChecker");
 			setSystem(true);
 			this.setUser(false);
 		}

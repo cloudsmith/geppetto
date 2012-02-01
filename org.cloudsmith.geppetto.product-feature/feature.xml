@@ -58,6 +58,7 @@ http://www.eclipse.org/legal/epl-v10.html
       <import plugin="org.eclipse.help.ui"/>
       <import plugin="org.eclipse.help.webapp"/>
       <import plugin="org.eclipse.platform.doc.user"/>
+      <import plugin="org.eclipse.ui.net"/>
    </requires>
 
 </feature>

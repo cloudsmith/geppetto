@@ -365,7 +365,7 @@ public class PPSemanticHighlightingCalculator implements ISemanticHighlightingCa
 		int limit = text.length();
 		for(int i = 0; i < limit; i++)
 			if(isSpecialSpace(text.charAt(i)))
-				acceptor.addPosition(root.getOffset() + i, 1, PPHighlightConfiguration.SPECIAL_SPACE_ID);
+				acceptor.addPosition(i, 1, PPHighlightConfiguration.SPECIAL_SPACE_ID);
 	}
 
 	/**

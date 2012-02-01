@@ -51,10 +51,10 @@
      inkscape:current-layer="layer1"
      showgrid="true"
      inkscape:window-width="1680"
-     inkscape:window-height="1030"
-     inkscape:window-x="-4"
-     inkscape:window-y="-3"
-     inkscape:window-maximized="1"
+     inkscape:window-height="954"
+     inkscape:window-x="1280"
+     inkscape:window-y="0"
+     inkscape:window-maximized="0"
      showguides="true"
      inkscape:guide-bbox="true"
      inkscape:snap-to-guides="false">
@@ -106,14 +106,12 @@
          y="882.36218">Geppetto</tspan></text>
     <text
        xml:space="preserve"
-       style="font-size:14px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;line-height:100%;writing-mode:lr-tb;text-anchor:middle;fill:#f9c753;fill-opacity:1;stroke:none;font-family:Verdana;-inkscape-font-specification:Verdana"
+       style="font-size:14px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;line-height:100%;writing-mode:lr;text-anchor:middle;fill:#f9c753;fill-opacity:1;stroke:none;font-family:Verdana;-inkscape-font-specification:Verdana"
        x="227"
        y="986.36218"
        id="text3723"
        sodipodi:linespacing="100%"><tspan
          sodipodi:role="line"
-         id="tspan2893"
-         x="227"
-         y="986.36218">© Cloudsmith Inc., 2011.  All rights reserved.</tspan></text>
+         id="tspan2821">© Cloudsmith Inc., 2012.  All rights reserved.</tspan></text>
   </g>
 </svg>

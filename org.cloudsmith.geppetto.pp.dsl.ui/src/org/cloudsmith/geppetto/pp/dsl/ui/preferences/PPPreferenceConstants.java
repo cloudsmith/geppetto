@@ -42,4 +42,10 @@ public class PPPreferenceConstants {
 	public static final String PROBLEM_SELECTOR_DEFAULT_LAST = "SelectDefaultLast";
 
 	public static final String PROBLEM_CASE_DEFAULT_LAST = "CaseDefaultLast";
+
+	public static final String SAVE_ACTION_TRIM_LINES = "trimLines";
+
+	public static final String SAVE_ACTION_ENSURE_ENDS_WITH_NL = "ensureEndsWithNewLine";
+
+	public static final String SAVE_ACTION_REPLACE_FUNKY_SPACES = "replaceFunkySpaces";
 }

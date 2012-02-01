@@ -18,6 +18,7 @@ import org.cloudsmith.geppetto.pp.dsl.ui.builder.PPBuildJob;
 import org.cloudsmith.geppetto.pp.dsl.ui.pptp.PptpTargetProjectHandler;
 import org.cloudsmith.geppetto.pp.dsl.validation.IValidationAdvisor;
 import org.cloudsmith.geppetto.pp.dsl.validation.ValidationPreference;
+import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.IWorkspace;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
@@ -26,6 +27,7 @@ import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.util.IPropertyChangeListener;
 import org.eclipse.jface.util.PropertyChangeEvent;
+import org.eclipse.xtext.resource.containers.IAllContainersState;
 import org.eclipse.xtext.ui.editor.preferences.IPreferenceStoreAccess;
 import org.eclipse.xtext.ui.editor.preferences.IPreferenceStoreInitializer;
 
@@ -122,6 +124,11 @@ public class PPPreferencesHelper implements IPreferenceStoreInitializer, IProper
 		PPPreferenceConstants.PROBLEM_SELECTOR_DEFAULT_LAST //
 	);
 
+	@Inject
+	private IAllContainersState allContainers;
+
+	private IPreferenceStoreAccess preferenceStoreAccess;
+
 	public PPPreferencesHelper() {
 		configureAutoInsertOverride();
 	}
@@ -182,6 +189,41 @@ public class PPPreferencesHelper implements IPreferenceStoreInitializer, IProper
 		return result;
 	}
 
+	private boolean getResourceSpecificBoolean(IResource r, String property) {
+		//
+		// String handle = allContainers.getContainerHandle(r.getURI());
+		// IProject project = workspace.getRoot().getProject(handle);
+
+		// get project specific preference and use them if they are enabled
+		IPreferenceStore store = preferenceStoreAccess.getContextPreferenceStore(r.getProject());
+		return store.getBoolean(property);
+
+	}
+
+	public boolean getSaveActionEnsureEndsWithNewLine() {
+		return store.getBoolean(PPPreferenceConstants.SAVE_ACTION_ENSURE_ENDS_WITH_NL);
+	}
+
+	public boolean getSaveActionEnsureEndsWithNewLine(IResource r) {
+		return getResourceSpecificBoolean(r, PPPreferenceConstants.SAVE_ACTION_ENSURE_ENDS_WITH_NL);
+	}
+
+	public boolean getSaveActionReplaceFunkySpaces() {
+		return store.getBoolean(PPPreferenceConstants.SAVE_ACTION_REPLACE_FUNKY_SPACES);
+	}
+
+	public boolean getSaveActionReplaceFunkySpaces(IResource r) {
+		return getResourceSpecificBoolean(r, PPPreferenceConstants.SAVE_ACTION_REPLACE_FUNKY_SPACES);
+	}
+
+	public boolean getSaveActionTrimLines() {
+		return store.getBoolean(PPPreferenceConstants.SAVE_ACTION_TRIM_LINES);
+	}
+
+	public boolean getSaveActionTrimLines(IResource r) {
+		return getResourceSpecificBoolean(r, PPPreferenceConstants.SAVE_ACTION_TRIM_LINES);
+	}
+
 	/**
 	 * @return
 	 */
@@ -211,7 +253,8 @@ public class PPPreferencesHelper implements IPreferenceStoreInitializer, IProper
 		// if already initialized
 		if(store != null)
 			return;
-		store = access.getWritablePreferenceStore();
+		preferenceStoreAccess = access;
+		store = preferenceStoreAccess.getWritablePreferenceStore();
 		store.setDefault(PPPreferenceConstants.AUTO_EDIT_STRATEGY, 0);
 		store.setDefault(PPPreferenceConstants.PUPPET_TARGET_VERSION, "2.7");
 		store.setDefault(PPPreferenceConstants.PUPPET_PROJECT_PATH, defaultProjectPath);
@@ -226,6 +269,11 @@ public class PPPreferencesHelper implements IPreferenceStoreInitializer, IProper
 		// stylistic
 		store.setDefault(PPPreferenceConstants.PROBLEM_CASE_DEFAULT_LAST, ValidationPreference.IGNORE.toString());
 		store.setDefault(PPPreferenceConstants.PROBLEM_SELECTOR_DEFAULT_LAST, ValidationPreference.IGNORE.toString());
+
+		// save actions
+		store.setDefault(PPPreferenceConstants.SAVE_ACTION_ENSURE_ENDS_WITH_NL, false);
+		store.setDefault(PPPreferenceConstants.SAVE_ACTION_TRIM_LINES, false);
+		store.setDefault(PPPreferenceConstants.SAVE_ACTION_REPLACE_FUNKY_SPACES, false);
 
 		autoInsertOverrides = (int) store.getLong(PPPreferenceConstants.AUTO_EDIT_STRATEGY);
 

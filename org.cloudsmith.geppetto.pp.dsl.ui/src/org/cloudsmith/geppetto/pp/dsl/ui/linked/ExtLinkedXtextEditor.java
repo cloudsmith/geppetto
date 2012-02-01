@@ -73,6 +73,9 @@ public class ExtLinkedXtextEditor extends XtextEditor {
 	public static final QualifiedName LAST_SAVEAS_LOCATION = new QualifiedName(
 		"org.cloudsmith.geppetto.pp.dsl.ui", "lastSaveLocation");
 
+	@Inject
+	ISaveActions saveActions;
+
 	/**
 	 * Does nothing except server as a place to set a breakpoint :)
 	 */
@@ -101,6 +104,7 @@ public class ExtLinkedXtextEditor extends XtextEditor {
 	 */
 	@Override
 	public void doSave(IProgressMonitor progressMonitor) {
+
 		// If document is a temporary / untitled document, change "save" to "saveAs"
 		final IEditorInput input = getEditorInput();
 		if(input instanceof IFileEditorInput &&
@@ -122,6 +126,7 @@ public class ExtLinkedXtextEditor extends XtextEditor {
 				return;
 			}
 		}
+		saveActions.perform(getResource(), getDocument());
 		super.doSave(progressMonitor);
 	}
 
@@ -132,6 +137,7 @@ public class ExtLinkedXtextEditor extends XtextEditor {
 	 */
 	@Override
 	public void doSaveAs() {
+		saveActions.perform(getResource(), getDocument());
 		super.doSaveAs();
 		// make sure the outline is fully refreshed
 		IContentOutlinePage outlinePage = (IContentOutlinePage) getAdapter(IContentOutlinePage.class);

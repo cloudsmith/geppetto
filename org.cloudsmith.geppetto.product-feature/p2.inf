@@ -151,6 +151,12 @@ units.0.requires.7.name=configure.org.cloudsmith.geppetto.onetimeinstall
 units.0.requires.7.range=0.0.0
 units.0.requires.7.greedy=true
 
+#provider isn't correctly generated for the product itself
+properties.0.name=org.eclipse.equinox.p2.provider
+properties.0.value=%providerName
+properties.1.name=df_LT.providerName
+properties.1.value=Cloudsmith Inc.
+
 instructions.configure=\
 	org.eclipse.equinox.p2.touchpoint.eclipse.addRepository(type:0,location:http${#58}//download.eclipse.org/releases/indigo,name:Indigo);\
 	org.eclipse.equinox.p2.touchpoint.eclipse.addRepository(type:1,location:http${#58}//download.eclipse.org/releases/indigo,name:Indigo);\

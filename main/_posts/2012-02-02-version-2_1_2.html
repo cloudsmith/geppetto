@@ -1,0 +1,58 @@
+---
+layout: post
+title: geppetto 2.1.2 released
+---
+<p> The 2.1.2 maintenance release of Geppetto is available as ready to run download or update from within Geppetto for all users of 2.x
+Please see the
+<a href="http://cloudsmith.github.com/geppetto/faq.html">FAQ</a>
+for information if you run into problems updating).
+Checkout
+<a href="http://cloudsmith.github.com/geppetto/faq.html#2011/06/28/how-do-i-update">how to update</a>
+if you don't know how.
+</p>
+ 
+<h2>In this release</h2>
+<ul>
+<li> Code completion of variables and quick fixes based on closest matching names. Works in string interpolation too.
+</li>
+<li> Helps correct problems with the confusing addition and removal of hyphen as a legal character in variable names.
+     These are now validated and quickfixes are available. </li>
+<li> Save actions preferences that will automatically remove trailing whitespace from lines,
+     replace all "funky" spaces (non breaking space, and all other variants of space) with regular space, and
+     ensuring that file ends with a newline. These save actions are configurable for the workspace
+     and projects can have individual (persisted) settings.
+</li>
+<li> Preferences available for Potential Problems, and Stylistic Problems where it is possible to control
+     if these checks should be made and if they are ignored, flagged as errors or warnings.
+</li>
+<li> Checks added for selector expressions and case statements (default, duplicated and unreachable entries, etc.)
+</li>
+<li> Improved validation:
+<ul>
+<li> Illegal assignments to numerical variables
+</li>
+<li> "false" != false, "true" != true
+</li>
+<li> Numerical operations on known non-numerical operands (e.g. 1 + 'hello')
+</li>
+<li> Missing comma between entries improved (better message, and quickfix added)
+</li>
+</ul>
+</li>
+<li> Turns on puppet nature automatically when opening editor on a .pp file
+</li>
+<li> SVN and Git support are now separately updateable (and uninstallable). 
+  This enables users to switch to Subclipse (from the bundled Subversion) to get
+  support for SVN 1.7.
+</li>
+<li> Files external to Geppetto workspace can now be opened and edited. 
+  Geppetto links them to an automatically created special project (and unlinks them on close).
+  This makes the files open in a reasonable context, and it is possible to navigate to them from error markers etc.
+  This is not a substitute for having proper projects, but is very useful when just wanting to look at/edit/copy text from a file
+  available in the filesystem. (Note that files in this special project resolve references against
+  all other files in the same project).
+</li>
+</ul>
+<p>See <a href="https://github.com/cloudsmith/geppetto/wiki/Release-Notes"
+>the relase notes</a>
+for more detailed information about fixed issues.</p>

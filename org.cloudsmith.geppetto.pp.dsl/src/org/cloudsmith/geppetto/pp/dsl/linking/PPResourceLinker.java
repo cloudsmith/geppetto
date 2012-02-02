@@ -299,15 +299,24 @@ public class PPResourceLinker implements IPPDiagnostics {
 			classifier.classify(resource);
 			adapter = ClassifierAdapterFactory.eINSTANCE.adapt(resource);
 		}
-		if(adapter.getClassifier() == RESOURCE_IS_CLASSPARAMS) {
+		CLASSPARAMS: if(adapter.getClassifier() == RESOURCE_IS_CLASSPARAMS) {
 			// pp: class { classname : parameter => value ... }
 
 			final String className = stringConstantEvaluator.doToString(o.getNameExpr());
 			if(className == null) {
-				acceptor.acceptError(
-					"Not a valid class reference", o, PPPackage.Literals.RESOURCE_BODY__NAME_EXPR,
-					IPPDiagnostics.ISSUE__NOT_CLASSREF);
-				return; // not meaningful to continue
+				if(canBeAClassReference(o.getNameExpr())) {
+					acceptor.acceptWarning(
+						"Can not determine until runtime if this is a valid class reference (parameters not validated).", //
+						o, // Flag entire body
+							// PPPackage.Literals.RESOURCE_BODY__NAME_EXPR, //
+						IPPDiagnostics.ISSUE__RESOURCE_UNKNOWN_TYPE);
+				}
+				else {
+					acceptor.acceptError(
+						"Not a valid class reference", o, PPPackage.Literals.RESOURCE_BODY__NAME_EXPR,
+						IPPDiagnostics.ISSUE__NOT_CLASSREF);
+				}
+				break CLASSPARAMS;
 			}
 			SearchResult searchResult = ppFinder.findHostClasses(o, className, importedNames);
 			List<IEObjectDescription> descs = searchResult.getAdjusted();

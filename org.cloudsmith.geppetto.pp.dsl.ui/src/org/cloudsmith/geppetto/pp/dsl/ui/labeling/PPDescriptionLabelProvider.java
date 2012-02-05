@@ -15,6 +15,8 @@ import org.cloudsmith.geppetto.pp.PPPackage;
 import org.cloudsmith.geppetto.pp.dsl.linking.PPQualifiedNameConverter;
 import org.cloudsmith.geppetto.pp.pptp.PPTPPackage;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EPackage;
+import org.eclipse.jface.viewers.StyledString;
 import org.eclipse.xtext.resource.IEObjectDescription;
 import org.eclipse.xtext.ui.label.DefaultDescriptionLabelProvider;
 
@@ -31,7 +33,20 @@ public class PPDescriptionLabelProvider extends DefaultDescriptionLabelProvider 
 
 	private String getClassLabel(EClass clazz) {
 		if(clazz.getEPackage() == PPTPPackage.eINSTANCE) {
-			return "PPTP(" + clazz.getName() + ")";
+			switch(clazz.getClassifierID()) {
+				case PPTPPackage.TYPE:
+					return "Type";
+				case PPTPPackage.TP_VARIABLE:
+					return "Variable";
+				case PPTPPackage.PARAMETER:
+					return "Parameter";
+				case PPTPPackage.PROPERTY:
+					return "Property";
+				case PPTPPackage.FUNCTION:
+					return "Function";
+			}
+			// Should not really ever be displayed
+			return "PPTP-class(" + clazz.getName() + ")";
 		}
 		else if(clazz.getEPackage() == PPPackage.eINSTANCE) {
 			switch(clazz.getClassifierID()) {
@@ -44,7 +59,8 @@ public class PPDescriptionLabelProvider extends DefaultDescriptionLabelProvider 
 				case PPPackage.DEFINITION_ARGUMENT:
 					return "Parameter";
 				default:
-					return "T.B.D (" + clazz.getName() + ")";
+					// Should not really ever be displayed
+					return "PP-class (" + clazz.getName() + ")";
 			}
 		}
 		return clazz.getName();
@@ -115,11 +131,12 @@ public class PPDescriptionLabelProvider extends DefaultDescriptionLabelProvider 
 	 */
 	@Override
 	public Object text(IEObjectDescription element) {
-		if(element.getEClass().getEPackage() == PPTPPackage.eINSTANCE) {
-			return nameConverter.toString(element.getName()) + " : " + getClassLabel(element.getEClass());
-		}
-		else if(element.getEClass().getEPackage() == PPPackage.eINSTANCE) {
-			return nameConverter.toString(element.getName()) + " : " + getClassLabel(element.getEClass());
+
+		EPackage epkg = element.getEClass().getEPackage();
+		if(epkg == PPTPPackage.eINSTANCE || epkg == PPPackage.eINSTANCE) {
+			StyledString bld = new StyledString(nameConverter.toString(element.getName()));
+			bld.append(" : " + getClassLabel(element.getEClass()), StyledString.DECORATIONS_STYLER);
+			return bld;
 		}
 		return super.text(element);
 	}

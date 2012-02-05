@@ -438,9 +438,9 @@
           point="org.eclipse.ui.commands">
        <command
              categoryId="org.eclipse.ui.category.window"
-             description="Open puppet manifest containing definition"
+             description="Open puppet manifest or ruby file containing a definition"
              id="org.cloudsmith.geppetto.pp.dsl.ui.OpenPPElementCommand"
-             name="Open Puppet Manifest">
+             name="Open Puppet Element">
        </command>
     </extension>
     <extension

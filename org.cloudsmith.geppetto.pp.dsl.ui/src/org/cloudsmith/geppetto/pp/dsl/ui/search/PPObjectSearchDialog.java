@@ -73,7 +73,7 @@ public class PPObjectSearchDialog extends ListDialog {
 	private Label matchingElementsLabel;
 
 	/** @since 2.0 */
-	protected Text typeSearchControl;
+	// protected Text typeSearchControl;
 
 	private IPPEObjectSearch searchEngine;
 
@@ -202,11 +202,11 @@ public class PPObjectSearchDialog extends ListDialog {
 		// TODO: NOT MEANINGFUL TO SEARCH FOR ANY ECLASS - OFFER A SELECTION INSTEAD
 		// TODO: HANDLE (FUTURE) SEARCH FOR RESOURCE WHERE USER DOES NOT KNOW THE ENCODING OF THE FQN
 		//
-		Label typePatternLabel = new Label(composite, SWT.NONE);
-		typePatternLabel.setText("EClass name prefix or pattern");
-		setDefaultGridData(typePatternLabel);
-		typeSearchControl = new Text(composite, SWT.BORDER | SWT.SEARCH | SWT.ICON_CANCEL);
-		setDefaultGridData(typeSearchControl);
+		// Label typePatternLabel = new Label(composite, SWT.NONE);
+		// typePatternLabel.setText("EClass name prefix or pattern");
+		// setDefaultGridData(typePatternLabel);
+		// typeSearchControl = new Text(composite, SWT.BORDER | SWT.SEARCH | SWT.ICON_CANCEL);
+		// setDefaultGridData(typeSearchControl);
 
 		Composite labelComposite = new Composite(composite, SWT.NONE);
 		setDefaultGridData(labelComposite);
@@ -225,23 +225,24 @@ public class PPObjectSearchDialog extends ListDialog {
 			}
 		};
 		searchControl.addModifyListener(textModifyListener);
-		typeSearchControl.addModifyListener(textModifyListener);
+		// typeSearchControl.addModifyListener(textModifyListener);
 
-		searchControl.addKeyListener(new KeyAdapter() {
-			@Override
-			public void keyPressed(KeyEvent e) {
-				if(e.keyCode == SWT.ARROW_DOWN) {
-					typeSearchControl.setFocus();
-				}
-			}
-		});
+		// searchControl.addKeyListener(new KeyAdapter() {
+		// @Override
+		// public void keyPressed(KeyEvent e) {
+		// if(e.keyCode == SWT.ARROW_DOWN) {
+		// typeSearchControl.setFocus();
+		// }
+		// }
+		// });
 
 		if(initialPatternText != null) {
 			searchControl.setText(initialPatternText);
 			searchControl.selectAll();
 		}
 
-		typeSearchControl.addKeyListener(new KeyAdapter() {
+		// typeSearchControl.addKeyListener(new KeyAdapter() {
+		searchControl.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyPressed(KeyEvent e) {
 				if(e.keyCode == SWT.ARROW_DOWN) {
@@ -286,11 +287,13 @@ public class PPObjectSearchDialog extends ListDialog {
 					String text = ((ITextSelection) selection).getText();
 					if(text != null) {
 						text = text.trim();
+						// skip interpolation start
 						if(text.startsWith("${"))
 							text = text.substring(2);
+						// skip interpolation end
 						while(text.endsWith("}"))
 							text = text.substring(0, text.length() - 1);
-						// Skip a leading $, since thi
+						// Skip a leading $ for variable
 						if(text.startsWith("$"))
 							text = text.substring(1);
 						if(text.length() > 0) {

@@ -13,6 +13,7 @@
 package org.cloudsmith.geppetto.pp.dsl.ui.search;
 
 import org.apache.log4j.Logger;
+import org.cloudsmith.geppetto.pp.dsl.ui.labeling.PPDescriptionLabelProvider;
 import org.eclipse.core.commands.AbstractHandler;
 import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.commands.ExecutionException;
@@ -22,8 +23,6 @@ import org.eclipse.ui.dialogs.ListDialog;
 import org.eclipse.ui.handlers.HandlerUtil;
 import org.eclipse.xtext.resource.IEObjectDescription;
 import org.eclipse.xtext.ui.editor.IURIEditorOpener;
-import org.eclipse.xtext.ui.label.GlobalDescriptionLabelProvider;
-import org.eclipse.xtext.ui.search.IXtextEObjectSearch;
 
 import com.google.inject.Inject;
 import com.google.inject.name.Named;
@@ -37,12 +36,10 @@ public class OpenPuppetElementHandler extends AbstractHandler {
 	private IURIEditorOpener uriEditorOpener;
 
 	@Inject
-	private IXtextEObjectSearch searchEngine;
+	private IPPEObjectSearch searchEngine;
 
-	// TODO: Passing a globalDescriptionsLabelProvider is not very good - want specialized formatting anyway.
-	// So, this label provider can be removed
 	@Inject
-	private GlobalDescriptionLabelProvider globalDescriptionLabelProvider;
+	private PPDescriptionLabelProvider labelProvider;
 
 	// TODO: This does not have to be configurable
 	@Inject(optional = true)
@@ -51,9 +48,9 @@ public class OpenPuppetElementHandler extends AbstractHandler {
 
 	private static final Logger LOG = Logger.getLogger(OpenPuppetElementHandler.class);
 
-	protected ListDialog createSearchDialog(ExecutionEvent event, Shell activeShell, IXtextEObjectSearch searchEngine) {
+	protected ListDialog createSearchDialog(ExecutionEvent event, Shell activeShell, IPPEObjectSearch searchEngine) {
 		return new PPObjectSearchDialog(
-			activeShell, searchEngine, globalDescriptionLabelProvider, isEnableStyledLabels());
+			activeShell, searchEngine, /* globalDescriptionLabelProvider */labelProvider, isEnableStyledLabels());
 	}
 
 	public Object execute(ExecutionEvent event) throws ExecutionException {

@@ -15,6 +15,7 @@ package org.cloudsmith.geppetto.pp.dsl.ui.search;
 import java.util.Collection;
 
 import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.ecore.EClass;
 import org.eclipse.jface.internal.text.TableOwnerDrawSupport;
 import org.eclipse.jface.text.ITextSelection;
 import org.eclipse.jface.viewers.DelegatingStyledCellLabelProvider.IStyledLabelProvider;
@@ -51,7 +52,6 @@ import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.dialogs.ListDialog;
 import org.eclipse.xtext.resource.IEObjectDescription;
 import org.eclipse.xtext.ui.search.EObjectDescriptionContentProvider;
-import org.eclipse.xtext.ui.search.IXtextEObjectSearch;
 
 /**
  * @author Jan Koehnlein - Initial contribution and API
@@ -75,13 +75,13 @@ public class PPObjectSearchDialog extends ListDialog {
 	/** @since 2.0 */
 	protected Text typeSearchControl;
 
-	private IXtextEObjectSearch searchEngine;
+	private IPPEObjectSearch searchEngine;
 
 	private final ILabelProvider labelProvider;
 
 	private boolean enableStyledLabels;
 
-	public PPObjectSearchDialog(Shell parent, IXtextEObjectSearch searchEngine, ILabelProvider labelProvider) {
+	public PPObjectSearchDialog(Shell parent, IPPEObjectSearch searchEngine, ILabelProvider labelProvider) {
 		super(parent);
 		this.searchEngine = searchEngine;
 		this.labelProvider = labelProvider;
@@ -104,7 +104,7 @@ public class PPObjectSearchDialog extends ListDialog {
 		setLabelProvider(labelProvider);
 	}
 
-	public PPObjectSearchDialog(Shell parent, IXtextEObjectSearch searchEngine, ILabelProvider labelProvider,
+	public PPObjectSearchDialog(Shell parent, IPPEObjectSearch searchEngine, ILabelProvider labelProvider,
 			boolean enableStyledLabels) {
 		this(parent, searchEngine, labelProvider);
 		this.enableStyledLabels = enableStyledLabels;
@@ -119,9 +119,12 @@ public class PPObjectSearchDialog extends ListDialog {
 	 */
 	protected void applyFilter() {
 		String searchPattern = searchControl.getText();
-		String typeSearchPattern = typeSearchControl.getText();
-		if(searchPattern != null || typeSearchPattern != null) {
-			Iterable<IEObjectDescription> matches = getSearchEngine().findMatches(searchPattern, typeSearchPattern);
+
+		// TODO: get a set of accepted classes - null or empty collection means all/any
+		// String typeSearchPattern = typeSearchControl.getText();
+		Collection<EClass> acceptedClasses = null;
+		if(searchPattern != null) {
+			Iterable<IEObjectDescription> matches = getSearchEngine().findMatches(searchPattern, acceptedClasses);
 			startSizeCalculation(matches);
 		}
 	}
@@ -143,7 +146,9 @@ public class PPObjectSearchDialog extends ListDialog {
 					IEObjectDescription description = (IEObjectDescription) item.getData();
 					if(description != null) {
 						StyledString styledString = styledLabelProvider.getStyledText(description);
-						String displayString = styledString.toString();
+						String displayString = styledString == null
+								? description.toString()
+								: styledString.toString();
 						StyleRange[] styleRanges = styledString.getStyleRanges();
 						item.setText(displayString);
 						TableOwnerDrawSupport.storeStyleRanges(item, 0, styleRanges);
@@ -262,10 +267,7 @@ public class PPObjectSearchDialog extends ListDialog {
 		return initialPatternText;
 	}
 
-	/**
-	 * @since 2.0
-	 */
-	protected IXtextEObjectSearch getSearchEngine() {
+	protected IPPEObjectSearch getSearchEngine() {
 		return searchEngine;
 	}
 
@@ -284,6 +286,13 @@ public class PPObjectSearchDialog extends ListDialog {
 					String text = ((ITextSelection) selection).getText();
 					if(text != null) {
 						text = text.trim();
+						if(text.startsWith("${"))
+							text = text.substring(2);
+						while(text.endsWith("}"))
+							text = text.substring(0, text.length() - 1);
+						// Skip a leading $, since thi
+						if(text.startsWith("$"))
+							text = text.substring(1);
 						if(text.length() > 0) {
 							setInitialPattern(text);
 						}

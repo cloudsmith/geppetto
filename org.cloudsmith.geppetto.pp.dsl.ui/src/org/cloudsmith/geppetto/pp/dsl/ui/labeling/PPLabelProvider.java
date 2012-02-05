@@ -37,6 +37,7 @@ import org.cloudsmith.geppetto.pp.VerbatimTE;
 import org.cloudsmith.geppetto.pp.adapters.ClassifierAdapter;
 import org.cloudsmith.geppetto.pp.adapters.ClassifierAdapterFactory;
 import org.cloudsmith.geppetto.pp.dsl.validation.PPJavaValidator;
+import org.cloudsmith.geppetto.pp.pptp.Function;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
@@ -58,7 +59,7 @@ import com.google.inject.Inject;
  * 
  * see http://www.eclipse.org/Xtext/documentation/latest/xtext.html#labelProvider
  */
-public class PPLabelProvider extends DefaultEObjectLabelProvider {
+public class PPLabelProvider extends DefaultEObjectLabelProvider implements IIconNames {
 	private static class DefaultStyler extends Styler {
 		private final String fForegroundColorName;
 
@@ -85,30 +86,6 @@ public class PPLabelProvider extends DefaultEObjectLabelProvider {
 	private PPJavaValidator validator;
 
 	// public static final String UNIT = "obj16/unit_obj.gif";
-
-	public static final String CLASS = "obj16/class_obj.gif";
-
-	public static final String IMPORT_LIST = "obj16/impc_obj.gif";
-
-	public static final String IMPORT = "obj16/imp_obj.gif";
-
-	public static final String IMPORTS = "obj16/impc_obj.gif";
-
-	public static final String RESOURCE_REGULAR = "obj16/methpub_obj.gif"; // green circle
-
-	public static final String RESOURCE_OVERRIDE = "obj16/methpro_obj.gif"; // yellow diamond
-
-	public static final String RESOURCE_DEFAULTS = "obj16/methdef_obj.gif"; // blue triangle
-
-	public static final String RESOURCE_UNKNOWN = "obj16/methpri_obj.gif"; // red square
-
-	public static final String APPEND = "obj16/plus.gif"; // plus sign
-
-	public static final String FILE = "obj16/file_obj.gif";
-
-	public static final String DEFINITION = "obj16/concern.png";
-
-	public static final String NODE = "obj16/node.png";
 
 	/**
 	 * Length after which a label is truncated with '...'
@@ -154,6 +131,10 @@ public class PPLabelProvider extends DefaultEObjectLabelProvider {
 		if(o.eContainer() instanceof ImportExpression)
 			return IMPORT;
 		return null;
+	}
+
+	public Object image(Function o) {
+		return FUNCTION;
 	}
 
 	public Object image(HostClassDefinition element) {

@@ -33,6 +33,20 @@ public interface IPotentialProblemsAdvisor extends IStylisticProblemsAdvisor {
 	public ValidationPreference circularDependencyPreference();
 
 	/**
+	 * How to validate a dq string - style guide says single quoted should be used if possible.
+	 * 
+	 * @return
+	 */
+	public ValidationPreference dqStringNotRequired();
+
+	/**
+	 * How to validate a dq string when it only contains a single interpolated variable.
+	 * 
+	 * @return
+	 */
+	public ValidationPreference dqStringNotRequiredVariable();
+
+	/**
 	 * How to validate hyphens in non brace enclosed interpolations. In < 2.7 interpolation stops at a hyphen, but
 	 * not in 2.7. Thus when using 2.6 code in 2.7 or vice versa, the result is different.
 	 * 
@@ -46,4 +60,19 @@ public interface IPotentialProblemsAdvisor extends IStylisticProblemsAdvisor {
 	 * @return
 	 */
 	public ValidationPreference missingDefaultInSelector();
+
+	/**
+	 * How to validate unbraced interpolation.
+	 * 
+	 * @return
+	 */
+	public ValidationPreference unbracedInterpolation();
+
+	/**
+	 * How to validate a literal resource title. Style guide says they should be single quoted.
+	 * 
+	 * @return
+	 */
+	public ValidationPreference unquotedResourceTitles();
+
 }

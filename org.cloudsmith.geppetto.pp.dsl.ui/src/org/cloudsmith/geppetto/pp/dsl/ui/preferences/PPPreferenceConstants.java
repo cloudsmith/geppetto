@@ -48,4 +48,12 @@ public class PPPreferenceConstants {
 	public static final String SAVE_ACTION_ENSURE_ENDS_WITH_NL = "ensureEndsWithNewLine";
 
 	public static final String SAVE_ACTION_REPLACE_FUNKY_SPACES = "replaceFunkySpaces";
+
+	public static final String PROBLEM_DQ_STRING_NOT_REQUIRED = "dqStringNotRequired";
+
+	public static final String PROBLEM_UNBRACED_INTERPOLATION = "unbracedInterpolation";
+
+	public static final String PROBLEM_UNQUOTED_RESOURCE_TITLE = "unquotedResourceTitle";
+
+	public static final String PROBLEM_DQ_STRING_NOT_REQUIRED_VAR = "dqStringNotRequiredVar";
 }

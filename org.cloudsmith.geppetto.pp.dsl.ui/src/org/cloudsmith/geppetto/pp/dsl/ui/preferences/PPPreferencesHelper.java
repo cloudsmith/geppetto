@@ -121,7 +121,13 @@ public class PPPreferencesHelper implements IPreferenceStoreInitializer, IProper
 		PPPreferenceConstants.PROBLEM_BOOLEAN_STRING, //
 		PPPreferenceConstants.PROBLEM_MISSING_DEFAULT, //
 		PPPreferenceConstants.PROBLEM_CASE_DEFAULT_LAST, //
-		PPPreferenceConstants.PROBLEM_SELECTOR_DEFAULT_LAST //
+		PPPreferenceConstants.PROBLEM_SELECTOR_DEFAULT_LAST, //
+
+		PPPreferenceConstants.PROBLEM_UNQUOTED_RESOURCE_TITLE, //
+		PPPreferenceConstants.PROBLEM_DQ_STRING_NOT_REQUIRED, //
+		PPPreferenceConstants.PROBLEM_DQ_STRING_NOT_REQUIRED_VAR, //
+		PPPreferenceConstants.PROBLEM_UNBRACED_INTERPOLATION //
+
 	);
 
 	@Inject
@@ -163,6 +169,20 @@ public class PPPreferencesHelper implements IPreferenceStoreInitializer, IProper
 	 */
 	public ValidationPreference getcircularDependencyPreference() {
 		return ValidationPreference.fromString(store.getString(PPPreferenceConstants.PROBLEM_CIRCULAR_DEPENDENCY));
+	}
+
+	/**
+	 * @return
+	 */
+	public ValidationPreference getDqStringNotRequired() {
+		return ValidationPreference.fromString(store.getString(PPPreferenceConstants.PROBLEM_DQ_STRING_NOT_REQUIRED));
+	}
+
+	/**
+	 * @return
+	 */
+	public ValidationPreference getDqStringNotRequiredVar() {
+		return ValidationPreference.fromString(store.getString(PPPreferenceConstants.PROBLEM_DQ_STRING_NOT_REQUIRED_VAR));
 	}
 
 	public String getForgeURI() {
@@ -231,6 +251,20 @@ public class PPPreferencesHelper implements IPreferenceStoreInitializer, IProper
 		return ValidationPreference.fromString(store.getString(PPPreferenceConstants.PROBLEM_SELECTOR_DEFAULT_LAST));
 	}
 
+	/**
+	 * @return
+	 */
+	public ValidationPreference getUnbracedInterpolation() {
+		return ValidationPreference.fromString(store.getString(PPPreferenceConstants.PROBLEM_UNBRACED_INTERPOLATION));
+	}
+
+	/**
+	 * @return
+	 */
+	public ValidationPreference getUnquotedResourceTitles() {
+		return ValidationPreference.fromString(store.getString(PPPreferenceConstants.PROBLEM_UNQUOTED_RESOURCE_TITLE));
+	}
+
 	synchronized public IValidationAdvisor.ComplianceLevel getValidationComplianceLevel() {
 		String result = store.getString(PPPreferenceConstants.PUPPET_TARGET_VERSION);
 		if("2.6".equals(result))
@@ -269,6 +303,12 @@ public class PPPreferencesHelper implements IPreferenceStoreInitializer, IProper
 		// stylistic
 		store.setDefault(PPPreferenceConstants.PROBLEM_CASE_DEFAULT_LAST, ValidationPreference.IGNORE.toString());
 		store.setDefault(PPPreferenceConstants.PROBLEM_SELECTOR_DEFAULT_LAST, ValidationPreference.IGNORE.toString());
+
+		store.setDefault(PPPreferenceConstants.PROBLEM_UNQUOTED_RESOURCE_TITLE, ValidationPreference.IGNORE.toString());
+		store.setDefault(PPPreferenceConstants.PROBLEM_DQ_STRING_NOT_REQUIRED, ValidationPreference.IGNORE.toString());
+		store.setDefault(
+			PPPreferenceConstants.PROBLEM_DQ_STRING_NOT_REQUIRED_VAR, ValidationPreference.IGNORE.toString());
+		store.setDefault(PPPreferenceConstants.PROBLEM_UNBRACED_INTERPOLATION, ValidationPreference.IGNORE.toString());
 
 		// save actions
 		store.setDefault(PPPreferenceConstants.SAVE_ACTION_ENSURE_ENDS_WITH_NL, false);

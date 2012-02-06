@@ -47,6 +47,7 @@ import org.cloudsmith.geppetto.pp.VariableTE;
 import org.cloudsmith.geppetto.pp.adapters.ClassifierAdapter;
 import org.cloudsmith.geppetto.pp.adapters.ClassifierAdapterFactory;
 import org.cloudsmith.geppetto.pp.dsl.PPDSLConstants;
+import org.cloudsmith.geppetto.pp.dsl.adapters.CrossReferenceAdapter;
 import org.cloudsmith.geppetto.pp.dsl.adapters.PPImportedNamesAdapter;
 import org.cloudsmith.geppetto.pp.dsl.adapters.PPImportedNamesAdapterFactory;
 import org.cloudsmith.geppetto.pp.dsl.adapters.ResourcePropertiesAdapter;
@@ -242,6 +243,7 @@ public class PPResourceLinker implements IPPDiagnostics {
 			// make list only contain unique references
 			descs = Lists.newArrayList(Sets.newHashSet(descs));
 
+			CrossReferenceAdapter.set(parent, descs);
 			// record resolution at resource level
 			importedNames.addResolved(descs);
 
@@ -262,7 +264,8 @@ public class PPResourceLinker implements IPPDiagnostics {
 			checkCircularInheritence(o, descs, visited, acceptor, importedNames);
 		}
 		else if(searchResult.getRaw().size() > 0) {
-			List<IEObjectDescription> raw = searchResult.getAdjusted();
+			List<IEObjectDescription> raw = searchResult.getRaw();
+			CrossReferenceAdapter.set(parent, raw);
 
 			// Sort of ok, it is not on the current path
 			// record resolution at resource level, so recompile knows about the dependencies
@@ -275,6 +278,7 @@ public class PPResourceLinker implements IPPDiagnostics {
 		else {
 			// record unresolved name at resource level
 			importedNames.addUnresolved(converter.toQualifiedName(parentString));
+			CrossReferenceAdapter.clear(parent);
 
 			// ... and finally, if there was neither a type nor a definition reference
 			String[] proposals = proposer.computeProposals(
@@ -979,15 +983,24 @@ public class PPResourceLinker implements IPPDiagnostics {
 			mustExist = false;
 		}
 
-		// Record facts at resource level about where variable was found
-		if(existsAdjusted)
-			importedNames.addResolved(searchResult.getAdjusted());
-		else if(existsOutside)
-			importedNames.addResolved(searchResult.getRaw());
+		// Record facts at resource and model levels about where variable was found
+		recordCrossReference(qName, searchResult, existsAdjusted, existsOutside, mustExist, importedNames, o);
+		// if(existsAdjusted) {
+		// List<IEObjectDescription> descriptions = searchResult.getAdjusted();
+		// importedNames.addResolved(descriptions);
+		// CrossReferenceAdapter.set(o, descriptions);
+		// }
+		// else if(existsOutside) {
+		// List<IEObjectDescription> descriptions = searchResult.getRaw();
+		// importedNames.addResolved(descriptions);
+		// CrossReferenceAdapter.set(o, descriptions);
+		// } else {
+		// CrossReferenceAdapter.clear(o);
+		// }
 
 		if(mustExist) {
 			if(!(existsAdjusted || existsOutside)) {
-				importedNames.addUnresolved(qName);
+				// importedNames.addUnresolved(qName);
 
 				// found nowhere
 				if(qualified || advisor.unqualifiedVariables().isWarningOrError()) {
@@ -1165,6 +1178,45 @@ public class PPResourceLinker implements IPPDiagnostics {
 		}
 		if(tracer.isTracing())
 			tracer.trace("}");
+
+	}
+
+	/**
+	 * Record facts about resolution of qName at model and resource level
+	 * 
+	 * @param qName
+	 *            - the name being resolved
+	 * @param searchResult
+	 *            - the result
+	 * @param existsAdjusted
+	 *            - if the adjusted result should be used
+	 * @param existsOutside
+	 *            - if the raw result should be used
+	 * @param mustExists
+	 *            - if non existence should be recored as unresolved
+	 * @param importedNames
+	 *            - resource level fact recorder
+	 * @param o
+	 *            - the model element where positive result is (also) recorded.
+	 */
+	private void recordCrossReference(QualifiedName qName, SearchResult searchResult, boolean existsAdjusted,
+			boolean existsOutside, boolean mustExists, PPImportedNamesAdapter importedNames, EObject o) {
+		List<IEObjectDescription> descriptions = null;
+
+		if(existsAdjusted)
+			descriptions = searchResult.getAdjusted();
+		else if(existsOutside)
+			searchResult.getRaw();
+
+		if(descriptions != null) {
+			importedNames.addResolved(descriptions);
+			CrossReferenceAdapter.set(o, descriptions);
+		}
+		else {
+			CrossReferenceAdapter.clear(o);
+		}
+		if(mustExists && !(existsAdjusted || existsOutside))
+			importedNames.addUnresolved(qName);
 
 	}
 

@@ -50,8 +50,9 @@ public class PPTokenTypeToPartionMapper extends TokenTypeToStringMapper implemen
 			return STRING_LITERAL_PARTITION;
 		if("'$'".equals(tokenName))
 			return STRING_LITERAL_PARTITION;
-		if("'${'".equals(tokenName))
-			return STRING_LITERAL_PARTITION;
+		// issue #276, screws up bracket matching
+		// if("'${'".equals(tokenName))
+		// return STRING_LITERAL_PARTITION;
 		if("'\\''".equals(tokenName))
 			return STRING_LITERAL_PARTITION;
 		if("'\\\"'".equals(tokenName))

@@ -1019,7 +1019,7 @@ public class PPResourceLinker implements IPPDiagnostics {
 				if(qualified || advisor.unqualifiedVariables().isWarningOrError()) {
 					StringBuilder message = new StringBuilder();
 					if(disqualified)
-						message.append("Reference to not yet initialized variable");
+						message.append("Reference to not yet initialized variable: ");
 					else
 						message.append(qualified
 								? "Unknown variable: '"
@@ -1249,6 +1249,48 @@ public class PPResourceLinker implements IPPDiagnostics {
 		}
 	}
 
+	private int removeDisqualifiedVariables(List<IEObjectDescription> descs, EObject o) {
+		return removeDisqualifiedVariablesDefinitionArg(descs, o) + removeDisqualifiedVariablesAssignment(descs, o);
+	}
+
+	/**
+	 * Disqualifies variables that appear on the lhs of an assignment
+	 * 
+	 * @param descs
+	 * @param o
+	 * @return
+	 */
+	private int removeDisqualifiedVariablesAssignment(List<IEObjectDescription> descs, EObject o) {
+		if(descs == null || descs.size() == 0)
+			return 0;
+		EObject p = null;
+		for(p = o; p != null; p = p.eContainer()) {
+			int classifierId = p.eClass().getClassifierID();
+			if(classifierId == PPPackage.ASSIGNMENT_EXPRESSION || classifierId == PPPackage.APPEND_EXPRESSION)
+				break;
+		}
+		if(p == null)
+			return 0; // not in an assignment expression
+
+		// p is a BinaryExpression at this point, we want it's parent being an abstract Definition
+		final String definitionFragment = p.eResource().getURIFragment(p);
+		final String definitionURI = p.eResource().getURI().toString();
+
+		int removedCount = 0;
+		ListIterator<IEObjectDescription> litor = descs.listIterator();
+		while(litor.hasNext()) {
+			IEObjectDescription x = litor.next();
+			URI xURI = x.getEObjectURI();
+			// if in the same resource, and contain by the same EObject
+			if(xURI.toString().startsWith(definitionURI) && xURI.fragment().startsWith(definitionFragment)) {
+				litor.remove();
+				removedCount++;
+			}
+		}
+		return removedCount;
+
+	}
+
 	/**
 	 * Remove variables/entries that are not yet initialized. These are the values
 	 * defined in the same name and type if the variable is contained in a definition argument
@@ -1260,7 +1302,7 @@ public class PPResourceLinker implements IPPDiagnostics {
 	 * @param o
 	 * @return the number of disqualified variables removed from the list
 	 */
-	private int removeDisqualifiedVariables(List<IEObjectDescription> descs, EObject o) {
+	private int removeDisqualifiedVariablesDefinitionArg(List<IEObjectDescription> descs, EObject o) {
 		if(descs == null || descs.size() == 0)
 			return 0;
 		EObject p = o;

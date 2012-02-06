@@ -203,6 +203,7 @@ public class PPResourceLinker implements IPPDiagnostics {
 		if(found.size() > 0) {
 			// record resolution at resource level
 			importedNames.addResolved(found);
+			CrossReferenceAdapter.set(o.getLeftExpr(), found);
 			internalLinkFunctionArguments(name, o, importedNames, acceptor);
 			return; // ok, found
 		}
@@ -211,6 +212,7 @@ public class PPResourceLinker implements IPPDiagnostics {
 			// not found on path, but exists somewhere in what is visible
 			// record resolution at resource level
 			importedNames.addResolved(searchResult.getRaw());
+			CrossReferenceAdapter.set(o.getLeftExpr(), searchResult.getRaw());
 			internalLinkFunctionArguments(name, o, importedNames, acceptor);
 			acceptor.acceptWarning("Found outside current path: '" + name + "'", o.getLeftExpr(), //
 				IPPDiagnostics.ISSUE__NOT_ON_PATH //
@@ -223,6 +225,7 @@ public class PPResourceLinker implements IPPDiagnostics {
 			proposals);
 		// record failure at resource level
 		importedNames.addUnresolved(converter.toQualifiedName(name));
+		CrossReferenceAdapter.clear(o.getLeftExpr());
 	}
 
 	private void _link(HostClassDefinition o, PPImportedNamesAdapter importedNames, IMessageAcceptor acceptor) {
@@ -919,10 +922,17 @@ public class PPResourceLinker implements IPPDiagnostics {
 				// Expression arg = statements.get(i); // not used yet...
 				String name = ((LiteralNameOrReference) s).getValue();
 				SearchResult searchResult = ppFinder.findFunction(s, name, importedNames);
-				if(searchResult.getAdjusted().size() > 0 || searchResult.getRaw().size() > 0) {
+				final boolean existsAdjusted = searchResult.getAdjusted().size() > 0;
+				final boolean existsOutside = searchResult.getRaw().size() > 0;
+
+				recordCrossReference(
+					converter.toQualifiedName(name), searchResult, existsAdjusted, existsOutside, true, importedNames,
+					s);
+				if(existsAdjusted || existsOutside) {
 					internalLinkFunctionArguments(
 						name, (LiteralNameOrReference) s, statements, i, importedNames, acceptor);
-					if(searchResult.getAdjusted().size() < 1)
+
+					if(!existsAdjusted)
 						acceptor.acceptWarning("Found outside current path: '" + name + "'", s, //
 							IPPDiagnostics.ISSUE__NOT_ON_PATH);
 					continue each_top; // ok, found

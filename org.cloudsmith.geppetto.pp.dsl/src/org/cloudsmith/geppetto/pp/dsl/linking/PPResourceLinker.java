@@ -478,6 +478,7 @@ public class PPResourceLinker implements IPPDiagnostics {
 				if(descs.size() > 0) {
 					usedResolution = getFirstTypeDescription(descs);
 					adapter.setTargetObject(usedResolution);
+					CrossReferenceAdapter.set(o.getResourceExpr(), descs);
 				}
 
 				if(descs.size() > 1) {
@@ -500,6 +501,8 @@ public class PPResourceLinker implements IPPDiagnostics {
 			else if(searchResult.getRaw().size() > 0) {
 				// sort of ok
 				importedNames.addResolved(searchResult.getRaw());
+				CrossReferenceAdapter.set(o.getResourceExpr(), searchResult.getRaw());
+
 				// do not record the type
 
 				acceptor.acceptWarning(
@@ -509,6 +512,7 @@ public class PPResourceLinker implements IPPDiagnostics {
 			}
 			// only report unresolved if no raw (since if not found adjusted, error is reported as warning)
 			if(searchResult.getRaw().size() < 1) {
+				CrossReferenceAdapter.clear(o.getResourceExpr());
 				// ... and finally, if there was neither a type nor a definition reference
 				if(adapter.getResourceType() == null && adapter.getTargetObjectDescription() == null) {
 					// Add unresolved info at resource level

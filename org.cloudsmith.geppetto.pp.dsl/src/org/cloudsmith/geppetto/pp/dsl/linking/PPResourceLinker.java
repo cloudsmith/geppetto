@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2011 Cloudsmith Inc. and other contributors, as listed below.
+ * Copyright (c) 2011, 2012 Cloudsmith Inc. and other contributors, as listed below.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -1001,7 +1001,7 @@ public class PPResourceLinker implements IPPDiagnostics {
 		IValidationAdvisor advisor = advisor();
 
 		boolean mustExist = true;
-		if(qualified && global) { // && !(existsAdjusted || existsOutside)) {
+		if(qualified && global) {
 			// TODO: Possible future improvement when more global variables are known.
 			// if reported as error now, almost all global variables would be flagged as errors.
 			// Future enhancement could warn about those that are not found (resolved at runtime).
@@ -1010,18 +1010,6 @@ public class PPResourceLinker implements IPPDiagnostics {
 
 		// Record facts at resource and model levels about where variable was found
 		recordCrossReference(qName, searchResult, existsAdjusted, existsOutside, mustExist, importedNames, o);
-		// if(existsAdjusted) {
-		// List<IEObjectDescription> descriptions = searchResult.getAdjusted();
-		// importedNames.addResolved(descriptions);
-		// CrossReferenceAdapter.set(o, descriptions);
-		// }
-		// else if(existsOutside) {
-		// List<IEObjectDescription> descriptions = searchResult.getRaw();
-		// importedNames.addResolved(descriptions);
-		// CrossReferenceAdapter.set(o, descriptions);
-		// } else {
-		// CrossReferenceAdapter.clear(o);
-		// }
 
 		if(mustExist) {
 			if(!(existsAdjusted || existsOutside)) {
@@ -1196,9 +1184,6 @@ public class PPResourceLinker implements IPPDiagnostics {
 
 					}
 					break;
-			// case PPPackage.DEFINITION_ARGUMENT:
-			// _check((DefinitionArgument) o, acceptor);
-			// break;
 			}
 		}
 		if(tracer.isTracing())

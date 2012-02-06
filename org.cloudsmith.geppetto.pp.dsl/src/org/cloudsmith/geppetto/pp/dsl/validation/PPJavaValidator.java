@@ -762,6 +762,20 @@ public class PPJavaValidator extends AbstractPPJavaValidator implements IPPDiagn
 				else
 					acceptor.acceptError("This is not a boolean", o, IPPDiagnostics.ISSUE__STRING_BOOLEAN, constant);
 		}
+
+		// DQ_STRING_NOT_REQUIRED
+		ValidationPreference dqStringNotRequired = advisor.dqStringNotRequired();
+		if(dqStringNotRequired.isWarningOrError() && !hasInterpolation(o)) {
+			// contains escape sequences?
+			String constant = stringConstantEvaluator.doToString(o);
+			if(!constant.contains("\\"))
+				warningOrError(
+					acceptor, dqStringNotRequired, "Double quoted string not required", o,
+					IPPDiagnostics.ISSUE__DQ_STRING_NOT_REQUIRED);
+		}
+		// UNBRACED INTERPOLATION
+		// TODO: CONTINUE HERE
+		// SINGLE INTERPOLATION
 	}
 
 	@Check
@@ -1681,5 +1695,15 @@ public class PPJavaValidator extends AbstractPPJavaValidator implements IPPDiagn
 		return pref.isError()
 				? Severity.ERROR
 				: Severity.WARNING;
+	}
+
+	private void warningOrError(IMessageAcceptor acceptor, ValidationPreference validationPreference, String message,
+			EObject o, String issueCode, String... data) {
+		if(validationPreference.isWarning())
+			acceptor.acceptWarning(message, o, IPPDiagnostics.ISSUE__DQ_STRING_NOT_REQUIRED);
+		else if(validationPreference.isError())
+			acceptor.acceptError(message, o, IPPDiagnostics.ISSUE__DQ_STRING_NOT_REQUIRED);
+
+		// remaining case is "ignore"...
 	}
 }

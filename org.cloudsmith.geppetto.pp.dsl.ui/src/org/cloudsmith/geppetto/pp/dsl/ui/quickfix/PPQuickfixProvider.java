@@ -148,6 +148,27 @@ public class PPQuickfixProvider extends DefaultQuickfixProvider {
 	@Inject
 	private PPFinder ppFinder;
 
+	@Fix(IPPDiagnostics.ISSUE__DQ_STRING_NOT_REQUIRED)
+	public void changeToSQString(final Issue issue, final IssueResolutionAcceptor acceptor) {
+		final IModificationContext modificationContext = getModificationContextFactory().createModificationContext(
+			issue);
+		final IXtextDocument xtextDocument = modificationContext.getXtextDocument();
+		xtextDocument.readOnly(new IUnitOfWork.Void<XtextResource>() {
+			@Override
+			public void process(XtextResource state) throws Exception {
+
+				String issueString = xtextDocument.get(issue.getOffset(), issue.getLength());
+				StringBuilder replacement = new StringBuilder();
+				replacement.append("'");
+				replacement.append(issueString.substring(1, issueString.length() - 1));
+				replacement.append("'");
+
+				acceptor.accept(issue, "Replace with single quoted string", "Changes \" to '", null, //
+					new ReplacingModification(issue.getOffset(), issueString.length(), replacement.toString()));
+			}
+		});
+	}
+
 	@Fix(IPPDiagnostics.ISSUE__RESOURCE_UNKNOWN_TYPE_PROP)
 	public void findClosestClassName(final Issue issue, IssueResolutionAcceptor acceptor) {
 		proposeDataAsChangeTo(issue, acceptor);

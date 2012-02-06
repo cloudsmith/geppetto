@@ -663,6 +663,7 @@ public class PPResourceLinker implements IPPDiagnostics {
 						if(searchResult.getRaw().size() > 0) {
 							// sort of ok
 							importedNames.addResolved(searchResult.getRaw());
+							CrossReferenceAdapter.set(pe, searchResult.getRaw());
 							acceptor.acceptWarning(
 								"Found outside current search path: '" + className + "'", o,
 								PPPackage.Literals.PARAMETERIZED_EXPRESSION__PARAMETERS, parameterIndex,
@@ -672,6 +673,7 @@ public class PPResourceLinker implements IPPDiagnostics {
 							// not found
 							// record unresolved name at resource level
 							importedNames.addUnresolved(converter.toQualifiedName(className));
+							CrossReferenceAdapter.clear(pe);
 
 							String[] p = proposer.computeProposals(
 								className, ppFinder.getExportedDescriptions(), searchPath, CLASS_AND_TYPE);
@@ -685,9 +687,11 @@ public class PPResourceLinker implements IPPDiagnostics {
 					else {
 						// found
 						importedNames.addResolved(foundClasses);
+						CrossReferenceAdapter.set(pe, foundClasses);
 					}
 				}
 				else {
+					CrossReferenceAdapter.clear(pe);
 					// warning or error depending on if this is a reasonable class reference expr or not
 					if(canBeAClassReference(pe)) {
 						acceptor.acceptWarning(
@@ -769,6 +773,8 @@ public class PPResourceLinker implements IPPDiagnostics {
 						if(searchResult.getRaw().size() > 0) {
 							// sort of ok
 							importedNames.addResolved(searchResult.getRaw());
+							CrossReferenceAdapter.set(pe, searchResult.getRaw());
+
 							if(param instanceof ExprList)
 								acceptor.acceptWarning(
 									"Found outside current search path: '" + className + "'", param,
@@ -784,6 +790,7 @@ public class PPResourceLinker implements IPPDiagnostics {
 							// not found
 							// record unresolved name at resource level
 							importedNames.addUnresolved(converter.toQualifiedName(className));
+							CrossReferenceAdapter.clear(pe);
 
 							String[] proposals = proposer.computeProposals(
 								className, ppFinder.getExportedDescriptions(), searchPath, CLASS_AND_TYPE);
@@ -806,9 +813,12 @@ public class PPResourceLinker implements IPPDiagnostics {
 					else {
 						// found
 						importedNames.addResolved(foundClasses);
+						CrossReferenceAdapter.set(pe, foundClasses);
 					}
 				}
 				else {
+					CrossReferenceAdapter.clear(pe);
+
 					// warning or error depending on if this is a reasonable class reference expr or not
 					String msg = null;
 					boolean error = false;

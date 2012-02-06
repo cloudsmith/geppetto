@@ -27,7 +27,6 @@ import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.util.IPropertyChangeListener;
 import org.eclipse.jface.util.PropertyChangeEvent;
-import org.eclipse.xtext.resource.containers.IAllContainersState;
 import org.eclipse.xtext.ui.editor.preferences.IPreferenceStoreAccess;
 import org.eclipse.xtext.ui.editor.preferences.IPreferenceStoreInitializer;
 
@@ -130,9 +129,6 @@ public class PPPreferencesHelper implements IPreferenceStoreInitializer, IProper
 
 	);
 
-	@Inject
-	private IAllContainersState allContainers;
-
 	private IPreferenceStoreAccess preferenceStoreAccess;
 
 	public PPPreferencesHelper() {
@@ -210,10 +206,6 @@ public class PPPreferencesHelper implements IPreferenceStoreInitializer, IProper
 	}
 
 	private boolean getResourceSpecificBoolean(IResource r, String property) {
-		//
-		// String handle = allContainers.getContainerHandle(r.getURI());
-		// IProject project = workspace.getRoot().getProject(handle);
-
 		// get project specific preference and use them if they are enabled
 		IPreferenceStore store = preferenceStoreAccess.getContextPreferenceStore(r.getProject());
 		return store.getBoolean(property);

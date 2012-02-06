@@ -18,6 +18,7 @@ import org.cloudsmith.geppetto.pp.Definition;
 import org.cloudsmith.geppetto.pp.Expression;
 import org.cloudsmith.geppetto.pp.ExpressionTE;
 import org.cloudsmith.geppetto.pp.HostClassDefinition;
+import org.cloudsmith.geppetto.pp.LiteralList;
 import org.cloudsmith.geppetto.pp.LiteralNameOrReference;
 import org.cloudsmith.geppetto.pp.NodeDefinition;
 import org.cloudsmith.geppetto.pp.PuppetManifest;
@@ -230,8 +231,15 @@ public class PPSemanticHighlightingCalculator implements ISemanticHighlightingCa
 				// TextExpressionHelper.hasInterpolation((DoubleQuotedString) nameExpr))
 				// continue;
 				ICompositeNode node = NodeModelUtils.getNode(nameExpr);
+				int offset = node.getOffset();
+				int length = node.getLength();
+				// if the name is a list of names, skip the opening and closing brackets
+				if(nameExpr instanceof LiteralList) {
+					offset++;
+					length -= Math.min(2, length);
+				}
 				if(node != null) {
-					acceptor.addPosition(node.getOffset(), node.getLength(), PPHighlightConfiguration.RESOURCE_TITLE_ID);
+					acceptor.addPosition(offset, length, PPHighlightConfiguration.RESOURCE_TITLE_ID);
 				}
 			}
 		}

@@ -64,9 +64,11 @@ public class PPHyperlinkHelper extends HyperlinkHelper {
 
 	public void createHyperlinksTo(XtextResource from, Region region, IEObjectDescription to,
 			IHyperlinkAcceptor acceptor) {
+		if(!isAcceptableTarget(to))
+			return;
 		final URIConverter uriConverter = from.getResourceSet().getURIConverter();
 		final String hyperlinkText = labelProvider.getText(to);
-		final URI uri = to.getEObjectURI(); // EcoreUtil.getURI(to);
+		final URI uri = to.getEObjectURI();
 		final URI normalized = uriConverter.normalize(uri);
 
 		XtextHyperlink result = getHyperlinkProvider().get();
@@ -74,6 +76,16 @@ public class PPHyperlinkHelper extends HyperlinkHelper {
 		result.setURI(normalized);
 		result.setHyperlinkText(hyperlinkText);
 		acceptor.accept(result);
+	}
+
+	public boolean isAcceptableTarget(IEObjectDescription to) {
+		String path = to.getEObjectURI().path();
+		if(path == null)
+			return false;
+		// not meaningful to open a .pptp file (XML)
+		if(path.endsWith(".pptp"))
+			return false;
+		return true;
 	}
 
 }

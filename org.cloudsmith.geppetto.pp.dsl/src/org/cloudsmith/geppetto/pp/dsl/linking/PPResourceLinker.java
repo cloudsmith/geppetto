@@ -153,18 +153,14 @@ public class PPResourceLinker implements IPPDiagnostics {
 	@Inject
 	private Provider<IValidationAdvisor> validationAdvisorProvider;
 
-	// /**
-	// * Checks that a variable in the value expression tree does not reference another definition
-	// * argument, or variables defined inside the class body. This can only happen when the
-	// * value is a fully qualified name as the relative lookup already takes the scope into account.
-	// *
-	// * @param o
-	// * @param acceptor
-	// */
-	// private void _check(DefinitionArgument o, IMessageAcceptor acceptor) {
-	//
-	// }
-
+	/**
+	 * Links an arbitrary interpolation expression. Handles the special case of a literal name expression e.g. "${literalName}" as
+	 * if it was "${$literalname}"
+	 * 
+	 * @param o
+	 * @param importedNames
+	 * @param acceptor
+	 */
 	private void _link(ExpressionTE o, PPImportedNamesAdapter importedNames, IMessageAcceptor acceptor) {
 		Expression expr = o.getExpression();
 		if(expr instanceof ParenthesisedExpression)
@@ -323,6 +319,7 @@ public class PPResourceLinker implements IPPDiagnostics {
 						"Not a valid class reference", o, PPPackage.Literals.RESOURCE_BODY__NAME_EXPR,
 						IPPDiagnostics.ISSUE__NOT_CLASSREF);
 				}
+				CrossReferenceAdapter.clear(o.getNameExpr());
 				break CLASSPARAMS;
 			}
 			SearchResult searchResult = ppFinder.findHostClasses(o, className, importedNames);
@@ -331,6 +328,7 @@ public class PPResourceLinker implements IPPDiagnostics {
 				if(searchResult.getRaw().size() > 0) {
 					// Sort of ok
 					importedNames.addResolved(searchResult.getRaw());
+					CrossReferenceAdapter.set(o.getNameExpr(), searchResult.getRaw());
 					acceptor.acceptWarning(
 						"Found outside currect search path (parameters not validated): '" + className + "'", o,
 						PPPackage.Literals.RESOURCE_BODY__NAME_EXPR, IPPDiagnostics.ISSUE__NOT_ON_PATH);
@@ -340,6 +338,8 @@ public class PPResourceLinker implements IPPDiagnostics {
 
 				// Add unresolved info at resource level
 				importedNames.addUnresolved(converter.toQualifiedName(className));
+				CrossReferenceAdapter.clear(o.getNameExpr());
+
 				String[] proposals = proposer.computeProposals(
 					className, ppFinder.getExportedDescriptions(), searchPath, CLASS_AND_TYPE);
 				acceptor.acceptError(
@@ -353,6 +353,7 @@ public class PPResourceLinker implements IPPDiagnostics {
 				descs = Lists.newArrayList(Sets.newHashSet(descs));
 				// Report resolution at resource level
 				importedNames.addResolved(descs);
+				CrossReferenceAdapter.set(o.getNameExpr(), descs);
 
 				if(descs.size() > 1) {
 					// this is an ambiguous link - multiple targets available and order depends on the

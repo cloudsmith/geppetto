@@ -406,9 +406,8 @@ public class PPQuickfixProvider extends DefaultQuickfixProvider {
 	@Fix(IPPDiagnostics.ISSUE__UNQUOTED_QUALIFIED_NAME)
 	public void surroundWithSingleQuote(final Issue issue, IssueResolutionAcceptor acceptor) {
 
-		acceptor.accept(
-			issue, "Quote qualified name", "Replace qualified name with quoted name.", null,
-			new SurroundWithTextModification(issue.getOffset(), issue.getLength(), "'"));
+		acceptor.accept(issue, "Quote name", "Replace name with quoted name.", null, new SurroundWithTextModification(
+			issue.getOffset(), issue.getLength(), "'"));
 	}
 
 	@Fix(IPPDiagnostics.ISSUE__UNKNOWN_VARIABLE)

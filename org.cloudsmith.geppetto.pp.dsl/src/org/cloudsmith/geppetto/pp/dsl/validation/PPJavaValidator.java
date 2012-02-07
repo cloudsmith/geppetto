@@ -1094,14 +1094,26 @@ public class PPJavaValidator extends AbstractPPJavaValidator implements IPPDiagn
 				INSIGNIFICANT_INDEX, IPPDiagnostics.ISSUE__UNSUPPORTED_EXPRESSION_STRING_OK);
 
 		// prior to 2.7 a qualified name caused problems
+		boolean unquotedNameFlagged = false;
 		if(!validationAdvisorProvider.get().allowUnquotedQualifiedResourceNames())
 			if(nameExpr instanceof LiteralNameOrReference) {
 				if(((LiteralNameOrReference) nameExpr).getValue().contains("::")) {
 					acceptor.acceptError(
 						"Qualified name must be quoted.", o, PPPackage.Literals.RESOURCE_BODY__NAME_EXPR,
 						INSIGNIFICANT_INDEX, IPPDiagnostics.ISSUE__UNQUOTED_QUALIFIED_NAME);
+					unquotedNameFlagged = true;
 				}
 			}
+		if(!unquotedNameFlagged && nameExpr instanceof LiteralNameOrReference) {
+			IValidationAdvisor advisor = advisor();
+			ValidationPreference unquotedResourceTitles = advisor.unquotedResourceTitles();
+			if(unquotedResourceTitles.isWarningOrError()) {
+				warningOrError(
+					acceptor, unquotedResourceTitles, "Unquoted resource title", nameExpr,
+					IPPDiagnostics.ISSUE__UNQUOTED_QUALIFIED_NAME);
+			}
+
+		}
 		// check for duplicate use of parameter
 		Set<String> duplicates = Sets.newHashSet();
 		Set<String> processed = Sets.newHashSet();

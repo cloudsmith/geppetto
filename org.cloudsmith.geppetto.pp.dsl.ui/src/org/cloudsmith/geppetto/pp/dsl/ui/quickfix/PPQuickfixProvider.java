@@ -148,6 +148,24 @@ public class PPQuickfixProvider extends DefaultQuickfixProvider {
 	@Inject
 	private PPFinder ppFinder;
 
+	@Fix(IPPDiagnostics.ISSUE__UNBRACED_INTERPOLATION)
+	public void changeToBracedInterpolation(final Issue issue, final IssueResolutionAcceptor acceptor) {
+		final IModificationContext modificationContext = getModificationContextFactory().createModificationContext(
+			issue);
+		final IXtextDocument xtextDocument = modificationContext.getXtextDocument();
+		xtextDocument.readOnly(new IUnitOfWork.Void<XtextResource>() {
+			@Override
+			public void process(XtextResource state) throws Exception {
+
+				String issueString = xtextDocument.get(issue.getOffset(), issue.getLength());
+
+				acceptor.accept(issue, "Surround interpolated variable with ${ }", //
+					"Changes '" + issueString + "' to '${" + issueString.substring(1) + "}'", null, //
+					new SurroundWithTextModification(issue.getOffset() + 1, issueString.length() - 1, "{", "}"));
+			}
+		});
+	}
+
 	@Fix(IPPDiagnostics.ISSUE__DQ_STRING_NOT_REQUIRED)
 	public void changeToSQString(final Issue issue, final IssueResolutionAcceptor acceptor) {
 		final IModificationContext modificationContext = getModificationContextFactory().createModificationContext(

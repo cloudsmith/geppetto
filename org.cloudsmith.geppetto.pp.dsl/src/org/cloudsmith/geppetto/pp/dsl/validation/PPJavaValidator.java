@@ -774,6 +774,16 @@ public class PPJavaValidator extends AbstractPPJavaValidator implements IPPDiagn
 					IPPDiagnostics.ISSUE__DQ_STRING_NOT_REQUIRED);
 		}
 		// UNBRACED INTERPOLATION
+		ValidationPreference unbracedInterpolation = advisor.unbracedInterpolation();
+		if(unbracedInterpolation.isWarningOrError()) {
+			for(TextExpression te : o.getStringPart()) {
+				if(te.eClass().getClassifierID() == PPPackage.VARIABLE_TE) {
+					warningOrError(
+						acceptor, unbracedInterpolation, "Unbraced interpolation of variable", te,
+						IPPDiagnostics.ISSUE__UNBRACED_INTERPOLATION);
+				}
+			}
+		}
 		// TODO: CONTINUE HERE
 		// SINGLE INTERPOLATION
 	}
@@ -1700,9 +1710,9 @@ public class PPJavaValidator extends AbstractPPJavaValidator implements IPPDiagn
 	private void warningOrError(IMessageAcceptor acceptor, ValidationPreference validationPreference, String message,
 			EObject o, String issueCode, String... data) {
 		if(validationPreference.isWarning())
-			acceptor.acceptWarning(message, o, IPPDiagnostics.ISSUE__DQ_STRING_NOT_REQUIRED);
+			acceptor.acceptWarning(message, o, issueCode, data);
 		else if(validationPreference.isError())
-			acceptor.acceptError(message, o, IPPDiagnostics.ISSUE__DQ_STRING_NOT_REQUIRED);
+			acceptor.acceptError(message, o, issueCode, data);
 
 		// remaining case is "ignore"...
 	}

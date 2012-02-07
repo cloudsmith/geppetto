@@ -784,8 +784,32 @@ public class PPJavaValidator extends AbstractPPJavaValidator implements IPPDiagn
 				}
 			}
 		}
-		// TODO: CONTINUE HERE
 		// SINGLE INTERPOLATION
+		ValidationPreference dqStringNotRequiredVariable = advisor.dqStringNotRequiredVariable();
+		SINGLE_INTERPOLATION: if(dqStringNotRequiredVariable.isWarningOrError()) {
+			if(o.getStringPart().size() == 1) {
+				String replacement = null;
+				TextExpression te = o.getStringPart().get(0);
+				switch(te.eClass().getClassifierID()) {
+					case PPPackage.VARIABLE_TE:
+						replacement = ((VariableTE) te).getVarName();
+						break;
+					case PPPackage.EXPRESSION_TE:
+						Expression expr = ((ExpressionTE) te).getExpression();
+						expr = ((ParenthesisedExpression) expr).getExpr();
+						if(expr instanceof LiteralNameOrReference)
+							replacement = "$" + ((LiteralNameOrReference) expr).getValue();
+						break;
+					default:
+						break SINGLE_INTERPOLATION;
+				}
+				if(replacement != null) {
+					warningOrError(
+						acceptor, dqStringNotRequiredVariable, "Double quoted string not required", o,
+						IPPDiagnostics.ISSUE__DQ_STRING_NOT_REQUIRED_VAR, replacement);
+				}
+			}
+		}
 	}
 
 	@Check

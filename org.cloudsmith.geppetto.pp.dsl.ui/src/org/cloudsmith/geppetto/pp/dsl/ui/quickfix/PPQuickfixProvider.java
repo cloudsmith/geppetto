@@ -187,6 +187,23 @@ public class PPQuickfixProvider extends DefaultQuickfixProvider {
 		});
 	}
 
+	@Fix(IPPDiagnostics.ISSUE__DQ_STRING_NOT_REQUIRED_VAR)
+	public void changeToVariable(final Issue issue, final IssueResolutionAcceptor acceptor) {
+		final IModificationContext modificationContext = getModificationContextFactory().createModificationContext(
+			issue);
+		final IXtextDocument xtextDocument = modificationContext.getXtextDocument();
+		xtextDocument.readOnly(new IUnitOfWork.Void<XtextResource>() {
+			@Override
+			public void process(XtextResource state) throws Exception {
+
+				String issueString = xtextDocument.get(issue.getOffset(), issue.getLength());
+
+				acceptor.accept(issue, "Replace with variable", "Replace string with " + issue.getData()[0], null, //
+					new ReplacingModification(issue.getOffset(), issueString.length(), issue.getData()[0]));
+			}
+		});
+	}
+
 	@Fix(IPPDiagnostics.ISSUE__RESOURCE_UNKNOWN_TYPE_PROP)
 	public void findClosestClassName(final Issue issue, IssueResolutionAcceptor acceptor) {
 		proposeDataAsChangeTo(issue, acceptor);

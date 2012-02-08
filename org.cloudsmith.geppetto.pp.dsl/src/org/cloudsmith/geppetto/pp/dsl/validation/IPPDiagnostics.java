@@ -176,4 +176,12 @@ public interface IPPDiagnostics {
 
 	public static final String ISSUE__DUPLICATE_CASE = ISSUE_PREFIX + "DuplicateCase";
 
+	public static final String ISSUE__DQ_STRING_NOT_REQUIRED = ISSUE_PREFIX + "SqStringNotRequired";
+
+	public static final String ISSUE__DQ_STRING_NOT_REQUIRED_VAR = ISSUE_PREFIX + "SqStringNotRequiredVar";
+
+	public static final String ISSUE__UNBRACED_INTERPOLATION = ISSUE_PREFIX + "UnbracedInterpolation";
+
+	public static final String ISSUE__UNQUOTED_RESOURCE_TITLE = ISSUE_PREFIX + "UnquotedResourceTitle";
+
 }

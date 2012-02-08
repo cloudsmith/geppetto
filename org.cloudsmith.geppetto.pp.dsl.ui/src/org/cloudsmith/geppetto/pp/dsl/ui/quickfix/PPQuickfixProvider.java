@@ -148,6 +148,62 @@ public class PPQuickfixProvider extends DefaultQuickfixProvider {
 	@Inject
 	private PPFinder ppFinder;
 
+	@Fix(IPPDiagnostics.ISSUE__UNBRACED_INTERPOLATION)
+	public void changeToBracedInterpolation(final Issue issue, final IssueResolutionAcceptor acceptor) {
+		final IModificationContext modificationContext = getModificationContextFactory().createModificationContext(
+			issue);
+		final IXtextDocument xtextDocument = modificationContext.getXtextDocument();
+		xtextDocument.readOnly(new IUnitOfWork.Void<XtextResource>() {
+			@Override
+			public void process(XtextResource state) throws Exception {
+
+				String issueString = xtextDocument.get(issue.getOffset(), issue.getLength());
+
+				acceptor.accept(issue, "Surround interpolated variable with ${ }", //
+					"Changes '" + issueString + "' to '${" + issueString.substring(1) + "}'", null, //
+					new SurroundWithTextModification(issue.getOffset() + 1, issueString.length() - 1, "{", "}"));
+			}
+		});
+	}
+
+	@Fix(IPPDiagnostics.ISSUE__DQ_STRING_NOT_REQUIRED)
+	public void changeToSQString(final Issue issue, final IssueResolutionAcceptor acceptor) {
+		final IModificationContext modificationContext = getModificationContextFactory().createModificationContext(
+			issue);
+		final IXtextDocument xtextDocument = modificationContext.getXtextDocument();
+		xtextDocument.readOnly(new IUnitOfWork.Void<XtextResource>() {
+			@Override
+			public void process(XtextResource state) throws Exception {
+
+				String issueString = xtextDocument.get(issue.getOffset(), issue.getLength());
+				StringBuilder replacement = new StringBuilder();
+				replacement.append("'");
+				replacement.append(issueString.substring(1, issueString.length() - 1));
+				replacement.append("'");
+
+				acceptor.accept(issue, "Replace with single quoted string", "Changes \" to '", null, //
+					new ReplacingModification(issue.getOffset(), issueString.length(), replacement.toString()));
+			}
+		});
+	}
+
+	@Fix(IPPDiagnostics.ISSUE__DQ_STRING_NOT_REQUIRED_VAR)
+	public void changeToVariable(final Issue issue, final IssueResolutionAcceptor acceptor) {
+		final IModificationContext modificationContext = getModificationContextFactory().createModificationContext(
+			issue);
+		final IXtextDocument xtextDocument = modificationContext.getXtextDocument();
+		xtextDocument.readOnly(new IUnitOfWork.Void<XtextResource>() {
+			@Override
+			public void process(XtextResource state) throws Exception {
+
+				String issueString = xtextDocument.get(issue.getOffset(), issue.getLength());
+
+				acceptor.accept(issue, "Replace with variable", "Replace string with " + issue.getData()[0], null, //
+					new ReplacingModification(issue.getOffset(), issueString.length(), issue.getData()[0]));
+			}
+		});
+	}
+
 	@Fix(IPPDiagnostics.ISSUE__RESOURCE_UNKNOWN_TYPE_PROP)
 	public void findClosestClassName(final Issue issue, IssueResolutionAcceptor acceptor) {
 		proposeDataAsChangeTo(issue, acceptor);
@@ -350,9 +406,8 @@ public class PPQuickfixProvider extends DefaultQuickfixProvider {
 	@Fix(IPPDiagnostics.ISSUE__UNQUOTED_QUALIFIED_NAME)
 	public void surroundWithSingleQuote(final Issue issue, IssueResolutionAcceptor acceptor) {
 
-		acceptor.accept(
-			issue, "Quote qualified name", "Replace qualified name with quoted name.", null,
-			new SurroundWithTextModification(issue.getOffset(), issue.getLength(), "'"));
+		acceptor.accept(issue, "Quote name", "Replace name with quoted name.", null, new SurroundWithTextModification(
+			issue.getOffset(), issue.getLength(), "'"));
 	}
 
 	@Fix(IPPDiagnostics.ISSUE__UNKNOWN_VARIABLE)

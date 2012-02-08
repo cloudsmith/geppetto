@@ -52,6 +52,26 @@ public class PreferenceBasedPotentialProblemsAdvisor implements IPotentialProble
 		return preferences.getcircularDependencyPreference();
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.cloudsmith.geppetto.pp.dsl.validation.IPotentialProblemsAdvisor#dqStringNotRequired()
+	 */
+	@Override
+	public ValidationPreference dqStringNotRequired() {
+		return preferences.getDqStringNotRequired();
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.cloudsmith.geppetto.pp.dsl.validation.IPotentialProblemsAdvisor#dqStringNotRequiredVariable()
+	 */
+	@Override
+	public ValidationPreference dqStringNotRequiredVariable() {
+		return preferences.getDqStringNotRequiredVar();
+	}
+
 	@Override
 	public ValidationPreference interpolatedNonBraceEnclosedHyphens() {
 		return preferences.getInterpolatedNonBraceEnclosedHypens();
@@ -70,6 +90,26 @@ public class PreferenceBasedPotentialProblemsAdvisor implements IPotentialProble
 	@Override
 	public ValidationPreference selectorDefaultShouldAppearLast() {
 		return preferences.getSelectorDefaultShouldAppearLast();
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.cloudsmith.geppetto.pp.dsl.validation.IPotentialProblemsAdvisor#unbracedInterpolation()
+	 */
+	@Override
+	public ValidationPreference unbracedInterpolation() {
+		return preferences.getUnbracedInterpolation();
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.cloudsmith.geppetto.pp.dsl.validation.IPotentialProblemsAdvisor#unquotedResourceTitles()
+	 */
+	@Override
+	public ValidationPreference unquotedResourceTitles() {
+		return preferences.getUnquotedResourceTitles();
 	}
 
 }

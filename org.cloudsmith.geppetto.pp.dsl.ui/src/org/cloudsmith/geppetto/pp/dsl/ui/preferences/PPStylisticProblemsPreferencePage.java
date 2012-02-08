@@ -23,12 +23,29 @@ public class PPStylisticProblemsPreferencePage extends AbstractPreferencePage {
 	@Override
 	protected void createFieldEditors() {
 
+		// case and selector
 		this.addField(new ValidationPreferenceFieldEditor(
 			PPPreferenceConstants.PROBLEM_CASE_DEFAULT_LAST, "Case statement where a 'default' is not last",
 			getFieldEditorParent()));
 		this.addField(new ValidationPreferenceFieldEditor(
 			PPPreferenceConstants.PROBLEM_SELECTOR_DEFAULT_LAST, "Selector expression where a 'default' is not last",
 			getFieldEditorParent()));
+
+		// strings and interpolation
+		this.addField(new ValidationPreferenceFieldEditor(
+			PPPreferenceConstants.PROBLEM_DQ_STRING_NOT_REQUIRED, "Strings that do not require double quoting",
+			getFieldEditorParent()));
+		this.addField(new ValidationPreferenceFieldEditor(
+			PPPreferenceConstants.PROBLEM_DQ_STRING_NOT_REQUIRED_VAR, "Strings containing a single interpolation",
+			getFieldEditorParent()));
+		this.addField(new ValidationPreferenceFieldEditor(
+			PPPreferenceConstants.PROBLEM_UNBRACED_INTERPOLATION, "Interpolated variables without brances",
+			getFieldEditorParent()));
+
+		// Resources
+		this.addField(new ValidationPreferenceFieldEditor(
+			PPPreferenceConstants.PROBLEM_UNQUOTED_RESOURCE_TITLE, "Unquoted resource titles", getFieldEditorParent()));
+
 	}
 
 }

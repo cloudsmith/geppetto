@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2011 Cloudsmith Inc. and other contributors, as listed below.
+ * Copyright (c) 2011, 2012 Cloudsmith Inc. and other contributors, as listed below.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -47,6 +47,7 @@ import org.cloudsmith.geppetto.pp.VariableTE;
 import org.cloudsmith.geppetto.pp.adapters.ClassifierAdapter;
 import org.cloudsmith.geppetto.pp.adapters.ClassifierAdapterFactory;
 import org.cloudsmith.geppetto.pp.dsl.PPDSLConstants;
+import org.cloudsmith.geppetto.pp.dsl.adapters.CrossReferenceAdapter;
 import org.cloudsmith.geppetto.pp.dsl.adapters.PPImportedNamesAdapter;
 import org.cloudsmith.geppetto.pp.dsl.adapters.PPImportedNamesAdapterFactory;
 import org.cloudsmith.geppetto.pp.dsl.adapters.ResourcePropertiesAdapter;
@@ -152,18 +153,14 @@ public class PPResourceLinker implements IPPDiagnostics {
 	@Inject
 	private Provider<IValidationAdvisor> validationAdvisorProvider;
 
-	// /**
-	// * Checks that a variable in the value expression tree does not reference another definition
-	// * argument, or variables defined inside the class body. This can only happen when the
-	// * value is a fully qualified name as the relative lookup already takes the scope into account.
-	// *
-	// * @param o
-	// * @param acceptor
-	// */
-	// private void _check(DefinitionArgument o, IMessageAcceptor acceptor) {
-	//
-	// }
-
+	/**
+	 * Links an arbitrary interpolation expression. Handles the special case of a literal name expression e.g. "${literalName}" as
+	 * if it was "${$literalname}"
+	 * 
+	 * @param o
+	 * @param importedNames
+	 * @param acceptor
+	 */
 	private void _link(ExpressionTE o, PPImportedNamesAdapter importedNames, IMessageAcceptor acceptor) {
 		Expression expr = o.getExpression();
 		if(expr instanceof ParenthesisedExpression)
@@ -202,6 +199,7 @@ public class PPResourceLinker implements IPPDiagnostics {
 		if(found.size() > 0) {
 			// record resolution at resource level
 			importedNames.addResolved(found);
+			CrossReferenceAdapter.set(o.getLeftExpr(), found);
 			internalLinkFunctionArguments(name, o, importedNames, acceptor);
 			return; // ok, found
 		}
@@ -210,6 +208,7 @@ public class PPResourceLinker implements IPPDiagnostics {
 			// not found on path, but exists somewhere in what is visible
 			// record resolution at resource level
 			importedNames.addResolved(searchResult.getRaw());
+			CrossReferenceAdapter.set(o.getLeftExpr(), searchResult.getRaw());
 			internalLinkFunctionArguments(name, o, importedNames, acceptor);
 			acceptor.acceptWarning("Found outside current path: '" + name + "'", o.getLeftExpr(), //
 				IPPDiagnostics.ISSUE__NOT_ON_PATH //
@@ -222,6 +221,7 @@ public class PPResourceLinker implements IPPDiagnostics {
 			proposals);
 		// record failure at resource level
 		importedNames.addUnresolved(converter.toQualifiedName(name));
+		CrossReferenceAdapter.clear(o.getLeftExpr());
 	}
 
 	private void _link(HostClassDefinition o, PPImportedNamesAdapter importedNames, IMessageAcceptor acceptor) {
@@ -242,6 +242,7 @@ public class PPResourceLinker implements IPPDiagnostics {
 			// make list only contain unique references
 			descs = Lists.newArrayList(Sets.newHashSet(descs));
 
+			CrossReferenceAdapter.set(parent, descs);
 			// record resolution at resource level
 			importedNames.addResolved(descs);
 
@@ -262,7 +263,8 @@ public class PPResourceLinker implements IPPDiagnostics {
 			checkCircularInheritence(o, descs, visited, acceptor, importedNames);
 		}
 		else if(searchResult.getRaw().size() > 0) {
-			List<IEObjectDescription> raw = searchResult.getAdjusted();
+			List<IEObjectDescription> raw = searchResult.getRaw();
+			CrossReferenceAdapter.set(parent, raw);
 
 			// Sort of ok, it is not on the current path
 			// record resolution at resource level, so recompile knows about the dependencies
@@ -275,6 +277,7 @@ public class PPResourceLinker implements IPPDiagnostics {
 		else {
 			// record unresolved name at resource level
 			importedNames.addUnresolved(converter.toQualifiedName(parentString));
+			CrossReferenceAdapter.clear(parent);
 
 			// ... and finally, if there was neither a type nor a definition reference
 			String[] proposals = proposer.computeProposals(
@@ -316,6 +319,7 @@ public class PPResourceLinker implements IPPDiagnostics {
 						"Not a valid class reference", o, PPPackage.Literals.RESOURCE_BODY__NAME_EXPR,
 						IPPDiagnostics.ISSUE__NOT_CLASSREF);
 				}
+				CrossReferenceAdapter.clear(o.getNameExpr());
 				break CLASSPARAMS;
 			}
 			SearchResult searchResult = ppFinder.findHostClasses(o, className, importedNames);
@@ -324,6 +328,7 @@ public class PPResourceLinker implements IPPDiagnostics {
 				if(searchResult.getRaw().size() > 0) {
 					// Sort of ok
 					importedNames.addResolved(searchResult.getRaw());
+					CrossReferenceAdapter.set(o.getNameExpr(), searchResult.getRaw());
 					acceptor.acceptWarning(
 						"Found outside currect search path (parameters not validated): '" + className + "'", o,
 						PPPackage.Literals.RESOURCE_BODY__NAME_EXPR, IPPDiagnostics.ISSUE__NOT_ON_PATH);
@@ -333,6 +338,8 @@ public class PPResourceLinker implements IPPDiagnostics {
 
 				// Add unresolved info at resource level
 				importedNames.addUnresolved(converter.toQualifiedName(className));
+				CrossReferenceAdapter.clear(o.getNameExpr());
+
 				String[] proposals = proposer.computeProposals(
 					className, ppFinder.getExportedDescriptions(), searchPath, CLASS_AND_TYPE);
 				acceptor.acceptError(
@@ -346,6 +353,7 @@ public class PPResourceLinker implements IPPDiagnostics {
 				descs = Lists.newArrayList(Sets.newHashSet(descs));
 				// Report resolution at resource level
 				importedNames.addResolved(descs);
+				CrossReferenceAdapter.set(o.getNameExpr(), descs);
 
 				if(descs.size() > 1) {
 					// this is an ambiguous link - multiple targets available and order depends on the
@@ -471,6 +479,7 @@ public class PPResourceLinker implements IPPDiagnostics {
 				if(descs.size() > 0) {
 					usedResolution = getFirstTypeDescription(descs);
 					adapter.setTargetObject(usedResolution);
+					CrossReferenceAdapter.set(o.getResourceExpr(), descs);
 				}
 
 				if(descs.size() > 1) {
@@ -493,6 +502,8 @@ public class PPResourceLinker implements IPPDiagnostics {
 			else if(searchResult.getRaw().size() > 0) {
 				// sort of ok
 				importedNames.addResolved(searchResult.getRaw());
+				CrossReferenceAdapter.set(o.getResourceExpr(), searchResult.getRaw());
+
 				// do not record the type
 
 				acceptor.acceptWarning(
@@ -502,6 +513,7 @@ public class PPResourceLinker implements IPPDiagnostics {
 			}
 			// only report unresolved if no raw (since if not found adjusted, error is reported as warning)
 			if(searchResult.getRaw().size() < 1) {
+				CrossReferenceAdapter.clear(o.getResourceExpr());
 				// ... and finally, if there was neither a type nor a definition reference
 				if(adapter.getResourceType() == null && adapter.getTargetObjectDescription() == null) {
 					// Add unresolved info at resource level
@@ -651,6 +663,7 @@ public class PPResourceLinker implements IPPDiagnostics {
 						if(searchResult.getRaw().size() > 0) {
 							// sort of ok
 							importedNames.addResolved(searchResult.getRaw());
+							CrossReferenceAdapter.set(pe, searchResult.getRaw());
 							acceptor.acceptWarning(
 								"Found outside current search path: '" + className + "'", o,
 								PPPackage.Literals.PARAMETERIZED_EXPRESSION__PARAMETERS, parameterIndex,
@@ -660,6 +673,7 @@ public class PPResourceLinker implements IPPDiagnostics {
 							// not found
 							// record unresolved name at resource level
 							importedNames.addUnresolved(converter.toQualifiedName(className));
+							CrossReferenceAdapter.clear(pe);
 
 							String[] p = proposer.computeProposals(
 								className, ppFinder.getExportedDescriptions(), searchPath, CLASS_AND_TYPE);
@@ -673,9 +687,11 @@ public class PPResourceLinker implements IPPDiagnostics {
 					else {
 						// found
 						importedNames.addResolved(foundClasses);
+						CrossReferenceAdapter.set(pe, foundClasses);
 					}
 				}
 				else {
+					CrossReferenceAdapter.clear(pe);
 					// warning or error depending on if this is a reasonable class reference expr or not
 					if(canBeAClassReference(pe)) {
 						acceptor.acceptWarning(
@@ -757,6 +773,8 @@ public class PPResourceLinker implements IPPDiagnostics {
 						if(searchResult.getRaw().size() > 0) {
 							// sort of ok
 							importedNames.addResolved(searchResult.getRaw());
+							CrossReferenceAdapter.set(pe, searchResult.getRaw());
+
 							if(param instanceof ExprList)
 								acceptor.acceptWarning(
 									"Found outside current search path: '" + className + "'", param,
@@ -772,6 +790,7 @@ public class PPResourceLinker implements IPPDiagnostics {
 							// not found
 							// record unresolved name at resource level
 							importedNames.addUnresolved(converter.toQualifiedName(className));
+							CrossReferenceAdapter.clear(pe);
 
 							String[] proposals = proposer.computeProposals(
 								className, ppFinder.getExportedDescriptions(), searchPath, CLASS_AND_TYPE);
@@ -794,9 +813,12 @@ public class PPResourceLinker implements IPPDiagnostics {
 					else {
 						// found
 						importedNames.addResolved(foundClasses);
+						CrossReferenceAdapter.set(pe, foundClasses);
 					}
 				}
 				else {
+					CrossReferenceAdapter.clear(pe);
+
 					// warning or error depending on if this is a reasonable class reference expr or not
 					String msg = null;
 					boolean error = false;
@@ -915,10 +937,17 @@ public class PPResourceLinker implements IPPDiagnostics {
 				// Expression arg = statements.get(i); // not used yet...
 				String name = ((LiteralNameOrReference) s).getValue();
 				SearchResult searchResult = ppFinder.findFunction(s, name, importedNames);
-				if(searchResult.getAdjusted().size() > 0 || searchResult.getRaw().size() > 0) {
+				final boolean existsAdjusted = searchResult.getAdjusted().size() > 0;
+				final boolean existsOutside = searchResult.getRaw().size() > 0;
+
+				recordCrossReference(
+					converter.toQualifiedName(name), searchResult, existsAdjusted, existsOutside, true, importedNames,
+					s);
+				if(existsAdjusted || existsOutside) {
 					internalLinkFunctionArguments(
 						name, (LiteralNameOrReference) s, statements, i, importedNames, acceptor);
-					if(searchResult.getAdjusted().size() < 1)
+
+					if(!existsAdjusted)
 						acceptor.acceptWarning("Found outside current path: '" + name + "'", s, //
 							IPPDiagnostics.ISSUE__NOT_ON_PATH);
 					continue each_top; // ok, found
@@ -972,28 +1001,25 @@ public class PPResourceLinker implements IPPDiagnostics {
 		IValidationAdvisor advisor = advisor();
 
 		boolean mustExist = true;
-		if(qualified && global) { // && !(existsAdjusted || existsOutside)) {
+		if(qualified && global) {
 			// TODO: Possible future improvement when more global variables are known.
 			// if reported as error now, almost all global variables would be flagged as errors.
 			// Future enhancement could warn about those that are not found (resolved at runtime).
 			mustExist = false;
 		}
 
-		// Record facts at resource level about where variable was found
-		if(existsAdjusted)
-			importedNames.addResolved(searchResult.getAdjusted());
-		else if(existsOutside)
-			importedNames.addResolved(searchResult.getRaw());
+		// Record facts at resource and model levels about where variable was found
+		recordCrossReference(qName, searchResult, existsAdjusted, existsOutside, mustExist, importedNames, o);
 
 		if(mustExist) {
 			if(!(existsAdjusted || existsOutside)) {
-				importedNames.addUnresolved(qName);
+				// importedNames.addUnresolved(qName);
 
 				// found nowhere
 				if(qualified || advisor.unqualifiedVariables().isWarningOrError()) {
 					StringBuilder message = new StringBuilder();
 					if(disqualified)
-						message.append("Reference to not yet initialized variable");
+						message.append("Reference to not yet initialized variable: ");
 					else
 						message.append(qualified
 								? "Unknown variable: '"
@@ -1158,13 +1184,49 @@ public class PPResourceLinker implements IPPDiagnostics {
 
 					}
 					break;
-			// case PPPackage.DEFINITION_ARGUMENT:
-			// _check((DefinitionArgument) o, acceptor);
-			// break;
 			}
 		}
 		if(tracer.isTracing())
 			tracer.trace("}");
+
+	}
+
+	/**
+	 * Record facts about resolution of qName at model and resource level
+	 * 
+	 * @param qName
+	 *            - the name being resolved
+	 * @param searchResult
+	 *            - the result
+	 * @param existsAdjusted
+	 *            - if the adjusted result should be used
+	 * @param existsOutside
+	 *            - if the raw result should be used
+	 * @param mustExists
+	 *            - if non existence should be recored as unresolved
+	 * @param importedNames
+	 *            - resource level fact recorder
+	 * @param o
+	 *            - the model element where positive result is (also) recorded.
+	 */
+	private void recordCrossReference(QualifiedName qName, SearchResult searchResult, boolean existsAdjusted,
+			boolean existsOutside, boolean mustExists, PPImportedNamesAdapter importedNames, EObject o) {
+		List<IEObjectDescription> descriptions = null;
+
+		if(existsAdjusted)
+			descriptions = searchResult.getAdjusted();
+		else if(existsOutside)
+			searchResult.getRaw();
+
+		if(descriptions != null) {
+			importedNames.addResolved(descriptions);
+			CrossReferenceAdapter.set(o, descriptions);
+		}
+		else {
+			CrossReferenceAdapter.clear(o);
+		}
+		if(mustExists && !(existsAdjusted || existsOutside))
+			importedNames.addUnresolved(qName);
 
 	}
 
@@ -1187,6 +1249,48 @@ public class PPResourceLinker implements IPPDiagnostics {
 		}
 	}
 
+	private int removeDisqualifiedVariables(List<IEObjectDescription> descs, EObject o) {
+		return removeDisqualifiedVariablesDefinitionArg(descs, o) + removeDisqualifiedVariablesAssignment(descs, o);
+	}
+
+	/**
+	 * Disqualifies variables that appear on the lhs of an assignment
+	 * 
+	 * @param descs
+	 * @param o
+	 * @return
+	 */
+	private int removeDisqualifiedVariablesAssignment(List<IEObjectDescription> descs, EObject o) {
+		if(descs == null || descs.size() == 0)
+			return 0;
+		EObject p = null;
+		for(p = o; p != null; p = p.eContainer()) {
+			int classifierId = p.eClass().getClassifierID();
+			if(classifierId == PPPackage.ASSIGNMENT_EXPRESSION || classifierId == PPPackage.APPEND_EXPRESSION)
+				break;
+		}
+		if(p == null)
+			return 0; // not in an assignment expression
+
+		// p is a BinaryExpression at this point, we want it's parent being an abstract Definition
+		final String definitionFragment = p.eResource().getURIFragment(p);
+		final String definitionURI = p.eResource().getURI().toString();
+
+		int removedCount = 0;
+		ListIterator<IEObjectDescription> litor = descs.listIterator();
+		while(litor.hasNext()) {
+			IEObjectDescription x = litor.next();
+			URI xURI = x.getEObjectURI();
+			// if in the same resource, and contain by the same EObject
+			if(xURI.toString().startsWith(definitionURI) && xURI.fragment().startsWith(definitionFragment)) {
+				litor.remove();
+				removedCount++;
+			}
+		}
+		return removedCount;
+
+	}
+
 	/**
 	 * Remove variables/entries that are not yet initialized. These are the values
 	 * defined in the same name and type if the variable is contained in a definition argument
@@ -1198,7 +1302,7 @@ public class PPResourceLinker implements IPPDiagnostics {
 	 * @param o
 	 * @return the number of disqualified variables removed from the list
 	 */
-	private int removeDisqualifiedVariables(List<IEObjectDescription> descs, EObject o) {
+	private int removeDisqualifiedVariablesDefinitionArg(List<IEObjectDescription> descs, EObject o) {
 		if(descs == null || descs.size() == 0)
 			return 0;
 		EObject p = o;

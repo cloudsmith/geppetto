@@ -762,6 +762,54 @@ public class PPJavaValidator extends AbstractPPJavaValidator implements IPPDiagn
 				else
 					acceptor.acceptError("This is not a boolean", o, IPPDiagnostics.ISSUE__STRING_BOOLEAN, constant);
 		}
+
+		// DQ_STRING_NOT_REQUIRED
+		ValidationPreference dqStringNotRequired = advisor.dqStringNotRequired();
+		if(dqStringNotRequired.isWarningOrError() && !hasInterpolation(o)) {
+			// contains escape sequences?
+			String constant = stringConstantEvaluator.doToString(o);
+			if(!constant.contains("\\"))
+				warningOrError(
+					acceptor, dqStringNotRequired, "Double quoted string not required", o,
+					IPPDiagnostics.ISSUE__DQ_STRING_NOT_REQUIRED);
+		}
+		// UNBRACED INTERPOLATION
+		ValidationPreference unbracedInterpolation = advisor.unbracedInterpolation();
+		if(unbracedInterpolation.isWarningOrError()) {
+			for(TextExpression te : o.getStringPart()) {
+				if(te.eClass().getClassifierID() == PPPackage.VARIABLE_TE) {
+					warningOrError(
+						acceptor, unbracedInterpolation, "Unbraced interpolation of variable", te,
+						IPPDiagnostics.ISSUE__UNBRACED_INTERPOLATION);
+				}
+			}
+		}
+		// SINGLE INTERPOLATION
+		ValidationPreference dqStringNotRequiredVariable = advisor.dqStringNotRequiredVariable();
+		SINGLE_INTERPOLATION: if(dqStringNotRequiredVariable.isWarningOrError()) {
+			if(o.getStringPart().size() == 1) {
+				String replacement = null;
+				TextExpression te = o.getStringPart().get(0);
+				switch(te.eClass().getClassifierID()) {
+					case PPPackage.VARIABLE_TE:
+						replacement = ((VariableTE) te).getVarName();
+						break;
+					case PPPackage.EXPRESSION_TE:
+						Expression expr = ((ExpressionTE) te).getExpression();
+						expr = ((ParenthesisedExpression) expr).getExpr();
+						if(expr instanceof LiteralNameOrReference)
+							replacement = "$" + ((LiteralNameOrReference) expr).getValue();
+						break;
+					default:
+						break SINGLE_INTERPOLATION;
+				}
+				if(replacement != null) {
+					warningOrError(
+						acceptor, dqStringNotRequiredVariable, "Double quoted string not required", o,
+						IPPDiagnostics.ISSUE__DQ_STRING_NOT_REQUIRED_VAR, replacement);
+				}
+			}
+		}
 	}
 
 	@Check
@@ -1046,14 +1094,26 @@ public class PPJavaValidator extends AbstractPPJavaValidator implements IPPDiagn
 				INSIGNIFICANT_INDEX, IPPDiagnostics.ISSUE__UNSUPPORTED_EXPRESSION_STRING_OK);
 
 		// prior to 2.7 a qualified name caused problems
+		boolean unquotedNameFlagged = false;
 		if(!validationAdvisorProvider.get().allowUnquotedQualifiedResourceNames())
 			if(nameExpr instanceof LiteralNameOrReference) {
 				if(((LiteralNameOrReference) nameExpr).getValue().contains("::")) {
 					acceptor.acceptError(
 						"Qualified name must be quoted.", o, PPPackage.Literals.RESOURCE_BODY__NAME_EXPR,
 						INSIGNIFICANT_INDEX, IPPDiagnostics.ISSUE__UNQUOTED_QUALIFIED_NAME);
+					unquotedNameFlagged = true;
 				}
 			}
+		if(!unquotedNameFlagged && nameExpr instanceof LiteralNameOrReference) {
+			IValidationAdvisor advisor = advisor();
+			ValidationPreference unquotedResourceTitles = advisor.unquotedResourceTitles();
+			if(unquotedResourceTitles.isWarningOrError()) {
+				warningOrError(
+					acceptor, unquotedResourceTitles, "Unquoted resource title", nameExpr,
+					IPPDiagnostics.ISSUE__UNQUOTED_QUALIFIED_NAME);
+			}
+
+		}
 		// check for duplicate use of parameter
 		Set<String> duplicates = Sets.newHashSet();
 		Set<String> processed = Sets.newHashSet();
@@ -1681,5 +1741,15 @@ public class PPJavaValidator extends AbstractPPJavaValidator implements IPPDiagn
 		return pref.isError()
 				? Severity.ERROR
 				: Severity.WARNING;
+	}
+
+	private void warningOrError(IMessageAcceptor acceptor, ValidationPreference validationPreference, String message,
+			EObject o, String issueCode, String... data) {
+		if(validationPreference.isWarning())
+			acceptor.acceptWarning(message, o, issueCode, data);
+		else if(validationPreference.isError())
+			acceptor.acceptError(message, o, issueCode, data);
+
+		// remaining case is "ignore"...
 	}
 }

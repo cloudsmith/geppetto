@@ -24,6 +24,7 @@ import org.cloudsmith.geppetto.pp.dsl.ui.container.PPWorkspaceProjectsStateProvi
 import org.cloudsmith.geppetto.pp.dsl.ui.editor.actions.SaveActions;
 import org.cloudsmith.geppetto.pp.dsl.ui.editor.autoedit.PPEditStrategyProvider;
 import org.cloudsmith.geppetto.pp.dsl.ui.editor.autoedit.PPTokenTypeToPartionMapper;
+import org.cloudsmith.geppetto.pp.dsl.ui.editor.hyperlinking.PPHyperlinkHelper;
 import org.cloudsmith.geppetto.pp.dsl.ui.editor.toggleComments.PPSingleLineCommentHelper;
 import org.cloudsmith.geppetto.pp.dsl.ui.linked.ExtLinkedXtextEditor;
 import org.cloudsmith.geppetto.pp.dsl.ui.linked.ISaveActions;
@@ -38,6 +39,7 @@ import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.eclipse.xtext.resource.ILocationInFileProvider;
 import org.eclipse.xtext.ui.editor.XtextEditor;
 import org.eclipse.xtext.ui.editor.autoedit.AbstractEditStrategyProvider;
+import org.eclipse.xtext.ui.editor.hyperlinking.IHyperlinkHelper;
 import org.eclipse.xtext.ui.editor.model.IResourceForEditorInputFactory;
 import org.eclipse.xtext.ui.editor.model.ITokenTypeToPartitionTypeMapper;
 import org.eclipse.xtext.ui.editor.model.ResourceForIEditorInputFactory;
@@ -68,6 +70,10 @@ public class PPUiModule extends org.cloudsmith.geppetto.pp.dsl.ui.AbstractPPUiMo
 	@Override
 	public Class<? extends AbstractEditStrategyProvider> bindAbstractEditStrategyProvider() {
 		return PPEditStrategyProvider.class;
+	}
+
+	public Class<? extends IHyperlinkHelper> bindIHyperlinkHelper() {
+		return PPHyperlinkHelper.class;
 	}
 
 	public Class<? extends IHighlightingConfiguration> bindILexicalHighlightingConfiguration() {
@@ -178,4 +184,5 @@ public class PPUiModule extends org.cloudsmith.geppetto.pp.dsl.ui.AbstractPPUiMo
 	public com.google.inject.Provider<IValidationAdvisor> provideValidationAdvisor() {
 		return PreferenceBasedValidationAdvisorProvider.create();
 	}
+
 }

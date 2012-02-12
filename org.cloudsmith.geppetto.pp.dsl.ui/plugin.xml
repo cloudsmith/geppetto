@@ -175,7 +175,7 @@
 	</extension>
 	<extension point="org.eclipse.ui.handlers">
 	    <handler
-            class="org.cloudsmith.geppetto.pp.dsl.ui.PPExecutableExtensionFactory:org.eclipse.xtext.ui.editor.findrefs.FindReferencesHandler"
+            class="org.cloudsmith.geppetto.pp.dsl.ui.PPExecutableExtensionFactory:org.cloudsmith.geppetto.pp.dsl.ui.editor.findrefs.FindReferencesHandler"
             commandId="org.eclipse.xtext.ui.editor.FindReferences">
             <activeWhen>
                 <reference
@@ -470,5 +470,13 @@
           </command>
        </menuContribution>
     </extension>
+ 	<extension point="org.eclipse.search.searchResultViewPages">
+    	<viewPage
+          class="org.cloudsmith.geppetto.pp.dsl.ui.PPExecutableExtensionFactory:org.cloudsmith.geppetto.pp.dsl.ui.editor.findrefs.PPReferenceSearchViewPage"
+          icon="icons/searchpage.gif"
+          id="org.cloudsmith.geppetto.pp.dsl.ui.editor.findrefs.PPReferenceSearchViewPage"
+          searchResultClass="org.cloudsmith.geppetto.pp.dsl.ui.editor.findrefs.PPReferenceSearchResult">
+    	</viewPage>
+ 	</extension>
 
 </plugin>

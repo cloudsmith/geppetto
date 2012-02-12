@@ -3,7 +3,7 @@ Bundle-ManifestVersion: 2
 Bundle-Name: %pluginName
 Bundle-Vendor: %providerName
 Bundle-Localization: plugin
-Bundle-Version: 2.1.1.qualifier
+Bundle-Version: 2.2.0.qualifier
 Bundle-SymbolicName: org.cloudsmith.geppetto.pp.dsl.ui;singleton:=true
 Bundle-ActivationPolicy: lazy
 Require-Bundle: org.cloudsmith.geppetto.pp.dsl;visibility:=reexport,
@@ -23,7 +23,8 @@ Require-Bundle: org.cloudsmith.geppetto.pp.dsl;visibility:=reexport,
  org.cloudsmith.geppetto.common.injectable,
  org.cloudsmith.geppetto.common,
  org.apache.commons.lang;bundle-version="2.4.0",
- org.eclipse.core.filesystem;bundle-version="1.3.100"
+ org.eclipse.core.filesystem;bundle-version="1.3.100",
+ org.eclipse.search;bundle-version="3.6.0"
 Import-Package: org.apache.log4j,
  org.eclipse.jdt.core;resolution:=optional
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6

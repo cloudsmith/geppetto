@@ -14,11 +14,14 @@ package org.cloudsmith.geppetto.pp.dsl.ui.labeling;
 import org.cloudsmith.geppetto.pp.PPPackage;
 import org.cloudsmith.geppetto.pp.dsl.linking.PPQualifiedNameConverter;
 import org.cloudsmith.geppetto.pp.pptp.PPTPPackage;
+import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.jface.viewers.StyledString;
 import org.eclipse.xtext.resource.IEObjectDescription;
+import org.eclipse.xtext.resource.IReferenceDescription;
 import org.eclipse.xtext.ui.label.DefaultDescriptionLabelProvider;
+import org.eclipse.xtext.ui.label.DefaultEditorImageUtil;
 
 import com.google.inject.Inject;
 
@@ -30,6 +33,9 @@ import com.google.inject.Inject;
 public class PPDescriptionLabelProvider extends DefaultDescriptionLabelProvider implements IIconNames {
 	@Inject
 	PPQualifiedNameConverter nameConverter;
+
+	@Inject
+	private DefaultEditorImageUtil imageUtil;
 
 	private String getClassLabel(EClass clazz) {
 		if(clazz.getEPackage() == PPTPPackage.eINSTANCE) {
@@ -82,6 +88,32 @@ public class PPDescriptionLabelProvider extends DefaultDescriptionLabelProvider 
 		return super.image(element);
 	}
 
+	// public Object image(PPReferenceDescription element) {
+	// IEObjectDescription sourceContainer = element.getSourceContainer();
+	// if(sourceContainer != null)
+	// return doGetImage(sourceContainer);
+	// URI uri = element.getSourceReference();
+	// String fileName = uri.lastSegment();
+	// return imageUtil.getDefaultEditorImageDescriptor(fileName);
+	//
+	// }
+
+	/**
+	 * This method is only invoked if the containerEObjectURI of the {@link IReferenceDescription} is null, i.e. the
+	 * reference is owned by an element without any indexed container.
+	 * 
+	 * @since 2.1
+	 */
+	@Override
+	public Object image(IReferenceDescription element) {
+		URI uri = element.getSourceEObjectUri();
+		if(uri != null) {
+			String fileName = uri.lastSegment();
+			return imageUtil.getDefaultEditorImageDescriptor(fileName);
+		}
+		return null;
+	}
+
 	protected Object ppImage(IEObjectDescription element) {
 		switch(element.getEClass().getClassifierID()) {
 			case PPPackage.DEFINITION:
@@ -114,17 +146,6 @@ public class PPDescriptionLabelProvider extends DefaultDescriptionLabelProvider 
 	}
 
 	/*
-	 * //Labels and icons can be computed like this:
-	 * 
-	 * String text(IEObjectDescription ele) {
-	 * return "my "+ele.getName();
-	 * }
-	 * 
-	 * String image(IEObjectDescription ele) {
-	 * return ele.getEClass().getName() + ".gif";
-	 * }
-	 */
-	/*
 	 * (non-Javadoc)
 	 * 
 	 * @see org.eclipse.xtext.ui.label.DefaultDescriptionLabelProvider#text(org.eclipse.xtext.resource.IEObjectDescription)
@@ -140,4 +161,23 @@ public class PPDescriptionLabelProvider extends DefaultDescriptionLabelProvider 
 		}
 		return super.text(element);
 	}
+
+	@Override
+	public Object text(IReferenceDescription element) {
+		// IEObjectDescription sourceContainer = element.getSourceContainer();
+		// if(sourceContainer != null)
+		// return doGetText(sourceContainer);
+		StyledString bld = new StyledString("::");
+		bld.append("  Top Level Scope", StyledString.DECORATIONS_STYLER);
+		return bld;
+	}
+
+	// public Object text(PPReferenceDescription element) {
+	// IEObjectDescription sourceContainer = element.getSourceContainer();
+	// if(sourceContainer != null)
+	// return doGetText(sourceContainer);
+	// StyledString bld = new StyledString("::");
+	// bld.append("  Top Level Scope", StyledString.DECORATIONS_STYLER);
+	// return bld;
+	// }
 }

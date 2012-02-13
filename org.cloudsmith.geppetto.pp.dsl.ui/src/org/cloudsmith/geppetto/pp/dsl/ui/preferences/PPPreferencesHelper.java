@@ -364,14 +364,25 @@ public class PPPreferencesHelper implements IPreferenceStoreInitializer, IProper
 	}
 
 	/**
-	 * Stops the helper from checking for preference store changess and scheduling rebuilds.
+	 * Stops the helper from checking for preference store changes and scheduling rebuilds.
 	 */
 	public void stop() {
 		store.removePropertyChangeListener(this);
 		if(backgroundRebuildChecker == null)
 			return;
-		if(!backgroundRebuildChecker.cancel())
-			backgroundRebuildChecker.getThread().interrupt();
+		if(!backgroundRebuildChecker.cancel()) {
+			// if not in cancelable state, poke it harder
+			Thread t = backgroundRebuildChecker.getThread();
+			t.interrupt();
+			try {
+				// must wait for *job* to die
+				backgroundRebuildChecker.join();
+			}
+			catch(InterruptedException e) {
+				// ok ok, I was interrupted when stopping... no need to make it worse...
+				System.err.println("Interrupted");
+			}
+		}
 	}
 
 }

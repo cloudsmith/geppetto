@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2011 Cloudsmith, Inc. and others.
+ * Copyright (c) 2011, 2012 Cloudsmith, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -11,17 +11,24 @@
  */
 package org.cloudsmith.geppetto.pp.dsl.ui.labeling;
 
+import java.util.Iterator;
+
 import org.cloudsmith.geppetto.pp.PPPackage;
 import org.cloudsmith.geppetto.pp.dsl.linking.PPQualifiedNameConverter;
 import org.cloudsmith.geppetto.pp.pptp.PPTPPackage;
+import org.eclipse.core.resources.IProject;
+import org.eclipse.core.resources.IStorage;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.jface.viewers.StyledString;
 import org.eclipse.xtext.resource.IEObjectDescription;
 import org.eclipse.xtext.resource.IReferenceDescription;
-import org.eclipse.xtext.ui.label.DefaultDescriptionLabelProvider;
+import org.eclipse.xtext.resource.IResourceDescription;
+import org.eclipse.xtext.ui.label.DeclarativeLabelProvider;
 import org.eclipse.xtext.ui.label.DefaultEditorImageUtil;
+import org.eclipse.xtext.ui.resource.IStorage2UriMapper;
+import org.eclipse.xtext.util.Pair;
 
 import com.google.inject.Inject;
 
@@ -30,9 +37,12 @@ import com.google.inject.Inject;
  * 
  * see http://www.eclipse.org/Xtext/documentation/latest/xtext.html#labelProvider
  */
-public class PPDescriptionLabelProvider extends DefaultDescriptionLabelProvider implements IIconNames {
+public class PPDescriptionLabelProvider extends DeclarativeLabelProvider implements IIconNames {
 	@Inject
 	PPQualifiedNameConverter nameConverter;
+
+	@Inject
+	private IStorage2UriMapper storage2UriMapper;
 
 	@Inject
 	private DefaultEditorImageUtil imageUtil;
@@ -72,12 +82,6 @@ public class PPDescriptionLabelProvider extends DefaultDescriptionLabelProvider 
 		return clazz.getName();
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.xtext.ui.label.DefaultDescriptionLabelProvider#image(org.eclipse.xtext.resource.IEObjectDescription)
-	 */
-	@Override
 	public Object image(IEObjectDescription element) {
 		if(element.getEClass().getEPackage() == PPTPPackage.eINSTANCE) {
 			return pptpImage(element);
@@ -85,18 +89,8 @@ public class PPDescriptionLabelProvider extends DefaultDescriptionLabelProvider 
 		else if(element.getEClass().getEPackage() == PPPackage.eINSTANCE) {
 			return ppImage(element);
 		}
-		return super.image(element);
+		return element.getQualifiedName() + " - " + element.getEClass().getName();
 	}
-
-	// public Object image(PPReferenceDescription element) {
-	// IEObjectDescription sourceContainer = element.getSourceContainer();
-	// if(sourceContainer != null)
-	// return doGetImage(sourceContainer);
-	// URI uri = element.getSourceReference();
-	// String fileName = uri.lastSegment();
-	// return imageUtil.getDefaultEditorImageDescriptor(fileName);
-	//
-	// }
 
 	/**
 	 * This method is only invoked if the containerEObjectURI of the {@link IReferenceDescription} is null, i.e. the
@@ -104,7 +98,6 @@ public class PPDescriptionLabelProvider extends DefaultDescriptionLabelProvider 
 	 * 
 	 * @since 2.1
 	 */
-	@Override
 	public Object image(IReferenceDescription element) {
 		URI uri = element.getSourceEObjectUri();
 		if(uri != null) {
@@ -145,12 +138,6 @@ public class PPDescriptionLabelProvider extends DefaultDescriptionLabelProvider 
 		return null;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.xtext.ui.label.DefaultDescriptionLabelProvider#text(org.eclipse.xtext.resource.IEObjectDescription)
-	 */
-	@Override
 	public Object text(IEObjectDescription element) {
 
 		EPackage epkg = element.getEClass().getEPackage();
@@ -162,22 +149,18 @@ public class PPDescriptionLabelProvider extends DefaultDescriptionLabelProvider 
 		return super.text(element);
 	}
 
-	@Override
 	public Object text(IReferenceDescription element) {
-		// IEObjectDescription sourceContainer = element.getSourceContainer();
-		// if(sourceContainer != null)
-		// return doGetText(sourceContainer);
 		StyledString bld = new StyledString("::");
 		bld.append("  Top Level Scope", StyledString.DECORATIONS_STYLER);
 		return bld;
 	}
 
-	// public Object text(PPReferenceDescription element) {
-	// IEObjectDescription sourceContainer = element.getSourceContainer();
-	// if(sourceContainer != null)
-	// return doGetText(sourceContainer);
-	// StyledString bld = new StyledString("::");
-	// bld.append("  Top Level Scope", StyledString.DECORATIONS_STYLER);
-	// return bld;
-	// }
+	public Object text(IResourceDescription element) {
+		Iterator<Pair<IStorage, IProject>> storages = storage2UriMapper.getStorages(element.getURI()).iterator();
+		if(storages.hasNext()) {
+			IStorage storage = storages.next().getFirst();
+			return storage.getFullPath().toString();
+		}
+		return null;
+	}
 }

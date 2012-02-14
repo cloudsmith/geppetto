@@ -52,6 +52,8 @@ public class PPPreferencesHelper implements IPreferenceStoreInitializer, IProper
 		@Override
 		protected IStatus run(IProgressMonitor monitor) {
 			for(;;) {
+				if(monitor.isCanceled())
+					return Status.CANCEL_STATUS;
 				try {
 					// wakeup when there is something on the queue
 					problemChanges.take();
@@ -61,9 +63,14 @@ public class PPPreferencesHelper implements IPreferenceStoreInitializer, IProper
 				catch(InterruptedException e) {
 					return Status.CANCEL_STATUS;
 				}
+				if(monitor.isCanceled())
+					return Status.CANCEL_STATUS;
 				// drain the queue of everything pending
 				List<String> drained = Lists.newArrayList();
 				problemChanges.drainTo(drained);
+
+				if(monitor.isCanceled())
+					return Status.CANCEL_STATUS;
 
 				// run a build
 				PPBuildJob job = new PPBuildJob(workspace);

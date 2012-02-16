@@ -43,39 +43,57 @@ import com.google.inject.internal.Lists;
 public class PPPreferencesHelper implements IPreferenceStoreInitializer, IPropertyChangeListener {
 
 	private class RebuildChecker extends Job {
+		private boolean drainAndBuild;
+
 		RebuildChecker() {
 			super("Puppet RebuildChecker");
 			setSystem(true);
 			this.setUser(false);
+			drainAndBuild = false;
 		}
 
 		@Override
 		protected IStatus run(IProgressMonitor monitor) {
-			for(;;) {
-				if(monitor.isCanceled())
-					return Status.CANCEL_STATUS;
-				try {
-					// wakeup when there is something on the queue
-					problemChanges.take();
-					// wait for more events before running
-					Thread.sleep(500);
-				}
-				catch(InterruptedException e) {
-					return Status.CANCEL_STATUS;
-				}
-				if(monitor.isCanceled())
-					return Status.CANCEL_STATUS;
-				// drain the queue of everything pending
-				List<String> drained = Lists.newArrayList();
-				problemChanges.drainTo(drained);
-
-				if(monitor.isCanceled())
-					return Status.CANCEL_STATUS;
-
-				// run a build
-				PPBuildJob job = new PPBuildJob(workspace);
-				job.schedule();
+			// for(;;) {
+			if(monitor.isCanceled())
+				return Status.CANCEL_STATUS;
+			// try {
+			// wakeup when there is something on the queue
+			// problemChanges.take();
+			if(problemChanges.peek() == null) {
+				drainAndBuild = false;
+				this.schedule(500);
+				return Status.OK_STATUS;
 			}
+			// if one event found, wait 500ms and then drain queue and rebuild
+			if(!drainAndBuild) {
+				drainAndBuild = true;
+				this.schedule(500);
+				return Status.OK_STATUS;
+			}
+			drainAndBuild = false;
+
+			// // wait for more events before running
+			// Thread.sleep(500);
+			// }
+			// catch(InterruptedException e) {
+			// return Status.CANCEL_STATUS;
+			// }
+			if(monitor.isCanceled())
+				return Status.CANCEL_STATUS;
+			// drain the queue of everything pending
+			List<String> drained = Lists.newArrayList();
+			problemChanges.drainTo(drained);
+
+			if(monitor.isCanceled())
+				return Status.CANCEL_STATUS;
+
+			// run a build
+			PPBuildJob job = new PPBuildJob(workspace);
+			job.schedule();
+			this.schedule(1000);
+			// }
+			return Status.OK_STATUS;
 		}
 
 	}

@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2011 Cloudsmith Inc. and other contributors, as listed below.
+ * Copyright (c) 2011, 2012 Cloudsmith Inc. and other contributors, as listed below.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -45,6 +45,11 @@ public class PPPreferencesHelper implements IPreferenceStoreInitializer, IProper
 	private class RebuildChecker extends Job {
 		private boolean drainAndBuild;
 
+		/**
+		 * The purpose of the RebuildChecker is to collect/aggregate events for validation preferences
+		 * to avoid having to issue multiple rebuilds for a set of changes.
+		 * This job reschedules itself.
+		 */
 		RebuildChecker() {
 			super("Puppet RebuildChecker");
 			setSystem(true);
@@ -54,12 +59,8 @@ public class PPPreferencesHelper implements IPreferenceStoreInitializer, IProper
 
 		@Override
 		protected IStatus run(IProgressMonitor monitor) {
-			// for(;;) {
 			if(monitor.isCanceled())
 				return Status.CANCEL_STATUS;
-			// try {
-			// wakeup when there is something on the queue
-			// problemChanges.take();
 			if(problemChanges.peek() == null) {
 				drainAndBuild = false;
 				this.schedule(500);
@@ -73,12 +74,6 @@ public class PPPreferencesHelper implements IPreferenceStoreInitializer, IProper
 			}
 			drainAndBuild = false;
 
-			// // wait for more events before running
-			// Thread.sleep(500);
-			// }
-			// catch(InterruptedException e) {
-			// return Status.CANCEL_STATUS;
-			// }
 			if(monitor.isCanceled())
 				return Status.CANCEL_STATUS;
 			// drain the queue of everything pending
@@ -92,7 +87,7 @@ public class PPPreferencesHelper implements IPreferenceStoreInitializer, IProper
 			PPBuildJob job = new PPBuildJob(workspace);
 			job.schedule();
 			this.schedule(1000);
-			// }
+
 			return Status.OK_STATUS;
 		}
 

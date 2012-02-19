@@ -47,42 +47,36 @@ public class TestExpressions extends AbstractPuppetTests {
 	private PrintStream savedOut;
 
 	// @formatter:off
-	static final String Sample_Relationship = "file {\n" + //
-			"\t'file1' :\n" + //
-			"} -> file {\n" + //
-			"\t'file2' :\n" + //
-			"} -> file {\n" + //
-			"\t'file3' :\n" + //
-			"}";
+	static final String Sample_Relationship = "file { 'file1':\n" + //
+			"} -> file { 'file2':\n" + //
+			"} -> file { 'file3':\n" + //
+			"}\n";
 
-	static final String Sample_Assignment1 = "$x = false";
+	static final String Sample_Assignment1 = "$x = false\n";
 
-	static final String Sample_Assignment2 = "$x[a] = false";
+	static final String Sample_Assignment2 = "$x[a] = false\n";
 
-	static final String Sample_Append = "$x += false";
+	static final String Sample_Append = "$x += false\n";
 
-	static final String Sample_Match1 = "$x =~ /[a-z]*/";
+	static final String Sample_Match1 = "$x =~ /[a-z]*/\n";
 
-	static final String Sample_Match2 = "$x !~ /[a-z]*/";
+	static final String Sample_Match2 = "$x !~ /[a-z]*/\n";
 
-	static final String Sample_ClassDefinition = "class testClass {\n}";
+	static final String Sample_ClassDefinition = "class testClass {\n}\n";
 
 	static final String Sample_If = //
 	"if $a == 1 {\n" + //
-			"\ttrue\n" + //
-			"}\n" + //
-			"else {\n" + //
-			"\tfalse\n" + //
+			"  true\n" + //
+			"} else {\n" + //
+			"  false\n" + //
 			"}\n" + //
 			"if $a == 1 {\n" + //
-			"\ttrue\n" + //
-			"}\n" + //
-			"elsif $b < -3 {\n" + //
-			"\tfalse\n" + //
-			"}\n" + //
-			"else {\n" + //
-			"\ttrue\n" + //
-			"}";
+			"  true\n" + //
+			"} elsif $b < -3 {\n" + //
+			"  false\n" + //
+			"} else {\n" + //
+			"  true\n" + //
+			"}\n";
 
 	/**
 	 * Sends System.out to dev/null since there are many warnings about unknown variables (ignored unless
@@ -112,7 +106,7 @@ public class TestExpressions extends AbstractPuppetTests {
 	// @formatter:on
 
 	public void test_Parse_MatchingExpression() throws Exception {
-		String code = "$a =~ /[a-z]*/";
+		String code = "$a =~ /[a-z]*/\n";
 		XtextResource r = getResourceFromString(code);
 		String s = serialize(r.getContents().get(0));
 		assertEquals("serialization should produce same result", code, s);
@@ -171,14 +165,15 @@ public class TestExpressions extends AbstractPuppetTests {
 
 	}
 
-	public void test_Serialize_IfExpression1() throws Exception {
-		String code = "if$a==1{true}else{false}if$a==1{true}elsif$b< -3{false}else{true}";
-		XtextResource r = getResourceFromString(code);
-		String s = serialize(r.getContents().get(0));
-
-		// Broken in Xtext 2.0 - produces a semi formatted result, should leave string alone
-		assertEquals("serialization should produce same result as input", code, s);
-	}
+	// Not relevant since new serializer always pretty prints
+	// public void test_Serialize_IfExpression1() throws Exception {
+	// String code = "if$a==1{true}else{false}if$a==1{true}elsif$b< -3{false}else{true}";
+	// XtextResource r = getResourceFromString(code);
+	// String s = serialize(r.getContents().get(0));
+	//
+	// // Broken in Xtext 2.0 - produces a semi formatted result, should leave string alone
+	// assertEquals("serialization should produce same result as input", code, s);
+	// }
 
 	public void test_Serialize_IfExpression2() throws Exception {
 		String code = "if$a==1{true}else{false}if$a==1{true}elsif$b< -3{false}else{true}";
@@ -189,7 +184,7 @@ public class TestExpressions extends AbstractPuppetTests {
 	}
 
 	public void test_Serialize_ImportExpressionDq() throws Exception {
-		String code = "import \"a\"\nimport \"b\"";
+		String code = "import \"a\"\nimport \"b\"\n";
 		XtextResource r = getResourceFromString(code);
 		String s = serializeFormatted(r.getContents().get(0));
 
@@ -200,7 +195,7 @@ public class TestExpressions extends AbstractPuppetTests {
 	}
 
 	public void test_Serialize_ImportExpressionSq() throws Exception {
-		String code = "import 'a'\nimport 'b'";
+		String code = "import 'a'\nimport 'b'\n";
 		XtextResource r = getResourceFromString(code);
 		String s = serializeFormatted(r.getContents().get(0));
 		// DEBUG

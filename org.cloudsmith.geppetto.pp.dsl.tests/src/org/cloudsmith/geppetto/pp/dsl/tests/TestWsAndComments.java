@@ -60,7 +60,7 @@ public class TestWsAndComments extends AbstractPuppetTests {
 	}
 
 	public void test_Serialize_SmokeTest() throws Exception {
-		String code = "$a";
+		String code = "$a\n";
 		XtextResource r = getResourceFromString(code);
 		String s = serializeFormatted(r.getContents().get(0));
 		assertEquals("serialization should produce same result", code, s);
@@ -70,14 +70,14 @@ public class TestWsAndComments extends AbstractPuppetTests {
 	}
 
 	public void test_Serialize_SmokeTest2() throws Exception {
-		String code = "$a + $b";
+		String code = "$a + $b\n";
 		XtextResource r = getResourceFromString(code);
 		String s = serialize(r.getContents().get(0));
 		assertEquals("serialization should produce same result", code, s);
 	}
 
 	public void test_Serialize_SmokeTest2Formatted() throws Exception {
-		String code = "$a + $b";
+		String code = "$a + $b\n";
 		XtextResource r = getResourceFromString(code);
 		String s = serializeFormatted(r.getContents().get(0));
 		assertEquals("serialization with formatting should produce same result", code, s);
@@ -87,7 +87,7 @@ public class TestWsAndComments extends AbstractPuppetTests {
 		String code = "$a+$b";
 		XtextResource r = getResourceFromString(code);
 		String s = serializeFormatted(r.getContents().get(0));
-		assertEquals("serialization with formatting should add space around +", "$a + $b", s);
+		assertEquals("serialization with formatting should add space around +", "$a + $b\n", s);
 	}
 
 	public void test_Serialize_SmokeTest2WithComment() throws Exception {
@@ -99,7 +99,7 @@ public class TestWsAndComments extends AbstractPuppetTests {
 	}
 
 	public void test_Serialize_SmokeTest3() throws Exception {
-		String code = "$a + 'apa'";
+		String code = "$a + 'apa'\n";
 		XtextResource r = getResourceFromString(code);
 		String s = serialize(r.getContents().get(0));
 		assertEquals("serialization should produce same result", code, s);

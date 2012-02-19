@@ -17,18 +17,20 @@ import java.io.Writer;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.xtext.nodemodel.ICompositeNode;
 import org.eclipse.xtext.nodemodel.util.NodeModelUtils;
-import org.eclipse.xtext.parsetree.reconstr.ITokenStream;
-import org.eclipse.xtext.parsetree.reconstr.impl.TokenStringBuffer;
-import org.eclipse.xtext.parsetree.reconstr.impl.WriterTokenStream;
 import org.eclipse.xtext.resource.SaveOptions;
 import org.eclipse.xtext.serializer.ISerializer;
 import org.eclipse.xtext.util.ReplaceRegion;
+
+import com.google.inject.Inject;
 
 /**
  * @author henrik
  * 
  */
 public class PPSerializer implements ISerializer {
+
+	@Inject
+	PPExpressionFormatter expressionFormatter;
 
 	/*
 	 * (non-Javadoc)
@@ -40,8 +42,9 @@ public class PPSerializer implements ISerializer {
 		return serialize(obj, SaveOptions.defaultOptions());
 	}
 
-	protected void serialize(EObject obj, ITokenStream tokenStream, SaveOptions options) throws IOException {
-		throw new UnsupportedOperationException("Please implement me...");
+	protected void serialize(EObject obj, IFormStream stream, SaveOptions options) throws IOException {
+		expressionFormatter.doFormat(obj, stream);
+		stream.flush();
 	}
 
 	/*
@@ -51,14 +54,14 @@ public class PPSerializer implements ISerializer {
 	 */
 	@Override
 	public String serialize(EObject obj, SaveOptions options) {
-		TokenStringBuffer tokenStringBuffer = new TokenStringBuffer();
+		IFormStream tokenStringBuffer = new FormStream();
 		try {
 			serialize(obj, tokenStringBuffer, options);
 		}
 		catch(IOException e) {
 			throw new RuntimeException(e);
 		}
-		return tokenStringBuffer.toString();
+		return tokenStringBuffer.getText();
 	}
 
 	/*
@@ -68,7 +71,7 @@ public class PPSerializer implements ISerializer {
 	 */
 	@Override
 	public void serialize(EObject obj, Writer writer, SaveOptions options) throws IOException {
-		serialize(obj, new WriterTokenStream(writer), options);
+		serialize(obj, new FormStream.WriterFormStream(writer), options);
 	}
 
 	/*

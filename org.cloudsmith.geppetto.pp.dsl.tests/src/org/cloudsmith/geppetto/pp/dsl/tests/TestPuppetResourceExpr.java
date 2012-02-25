@@ -12,11 +12,13 @@
 package org.cloudsmith.geppetto.pp.dsl.tests;
 
 import org.cloudsmith.geppetto.pp.AdditiveExpression;
+import org.cloudsmith.geppetto.pp.AssignmentExpression;
 import org.cloudsmith.geppetto.pp.AtExpression;
 import org.cloudsmith.geppetto.pp.Expression;
 import org.cloudsmith.geppetto.pp.LiteralList;
 import org.cloudsmith.geppetto.pp.LiteralName;
 import org.cloudsmith.geppetto.pp.LiteralNameOrReference;
+import org.cloudsmith.geppetto.pp.PPFactory;
 import org.cloudsmith.geppetto.pp.PuppetManifest;
 import org.cloudsmith.geppetto.pp.ResourceExpression;
 import org.cloudsmith.geppetto.pp.SelectorEntry;
@@ -117,6 +119,21 @@ public class TestPuppetResourceExpr extends AbstractPuppetTests {
 		String fmt = "file { 'afile':\n  owner => 'foo',\n}\n";
 		XtextResource r = getResourceFromString(code);
 		String s = serialize(r.getContents().get(0));
+		assertEquals("serialization should produce same result", fmt, s);
+	}
+
+	public void test_Serialize_assignArray() throws Exception {
+		PuppetManifest pp = pf.createPuppetManifest();
+		EList<Expression> statements = pp.getStatements();
+		AssignmentExpression assignment = PPFactory.eINSTANCE.createAssignmentExpression();
+		assignment.setLeftExpr(createVariable("$a"));
+		LiteralList pplist = PPFactory.eINSTANCE.createLiteralList();
+		assignment.setRightExpr(pplist);
+		pplist.getElements().add(createSqString("10"));
+		pplist.getElements().add(createSqString("20"));
+		pp.getStatements().add(assignment);
+		String fmt = "$a = [10, 20]\n";
+		String s = serialize(pp);
 		assertEquals("serialization should produce same result", fmt, s);
 	}
 

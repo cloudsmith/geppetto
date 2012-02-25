@@ -11,32 +11,16 @@
  */
 package org.cloudsmith.geppetto.pp.dsl.formatting;
 
-import java.io.IOException;
+import org.cloudsmith.geppetto.pp.dsl.xt.dommodel.IDomNode;
+import org.eclipse.xtext.util.ITextRegion;
+import org.eclipse.xtext.util.ReplaceRegion;
+
+import com.google.inject.internal.Nullable;
 
 /**
- * Inerface for PP formatting stream.
+ * @author henrik
  * 
  */
-interface IFormStream {
-
-	public void breakLine();
-
-	public void dedent();
-
-	public void flush() throws IOException;
-
-	public String getText();
-
-	public void indent();
-
-	public void noSpace();
-
-	public void oneSpace();
-
-	public int size();
-
-	public void space(int count);
-
-	public void text(String s);
-
+interface IFormatter {
+	ReplaceRegion format(/* @NotNull */IDomNode root, @Nullable ITextRegion regionToFormat, IFormattingContext ctx);
 }

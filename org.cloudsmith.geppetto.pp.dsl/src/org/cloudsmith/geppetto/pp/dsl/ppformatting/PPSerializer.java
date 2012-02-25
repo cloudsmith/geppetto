@@ -9,7 +9,7 @@
  *   Cloudsmith
  * 
  */
-package org.cloudsmith.geppetto.pp.dsl.formatting;
+package org.cloudsmith.geppetto.pp.dsl.ppformatting;
 
 import java.io.IOException;
 import java.io.Writer;
@@ -43,7 +43,7 @@ public class PPSerializer implements ISerializer {
 	}
 
 	protected void serialize(EObject obj, IFormStream stream, SaveOptions options) throws IOException {
-		expressionFormatter.doFormat(obj, stream);
+		expressionFormatter.format(obj, stream);
 		stream.flush();
 	}
 

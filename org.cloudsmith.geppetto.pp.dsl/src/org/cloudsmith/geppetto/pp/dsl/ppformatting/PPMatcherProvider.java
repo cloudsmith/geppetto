@@ -9,7 +9,7 @@
  *   Cloudsmith
  * 
  */
-package org.cloudsmith.geppetto.pp.dsl.formatting;
+package org.cloudsmith.geppetto.pp.dsl.ppformatting;
 
 import java.util.Collection;
 

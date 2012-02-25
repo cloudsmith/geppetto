@@ -12,7 +12,7 @@
 package org.cloudsmith.geppetto.pp.dsl.tests;
 
 import org.cloudsmith.geppetto.pp.PuppetManifest;
-import org.cloudsmith.geppetto.pp.dsl.formatting.PPFormatter;
+import org.cloudsmith.geppetto.pp.dsl.ppformatting.PPFormatter;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.xtext.formatting.impl.FormattingConfig;
 import org.eclipse.xtext.resource.XtextResource;

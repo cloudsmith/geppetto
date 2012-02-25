@@ -104,4 +104,14 @@ public class TestWsAndComments extends AbstractPuppetTests {
 		String s = serialize(r.getContents().get(0));
 		assertEquals("serialization should produce same result", code, s);
 	}
+
+	public void test_SerializeCommentMix() throws Exception {
+		String code = "/* 1 */ class /* 2 */ a /* 3 */ { /* 4 */\n" + //
+				"  /* 5 */ $b /* 6 */ = /* 7 */ 10 /* 8 */\n" + //
+				"/* 9 */ } /* 10 */\n" + //
+				"/* 11 */\n";
+		XtextResource r = getResourceFromString(code);
+		String s = serialize(r.getContents().get(0));
+		assertEquals("serialization should produce same result", code, s);
+	}
 }

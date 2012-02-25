@@ -13,7 +13,6 @@ package org.cloudsmith.geppetto.pp.dsl;
 
 import org.cloudsmith.geppetto.common.tracer.DefaultTracer;
 import org.cloudsmith.geppetto.common.tracer.ITracer;
-import org.cloudsmith.geppetto.pp.dsl.formatting.PPSerializer;
 import org.cloudsmith.geppetto.pp.dsl.lexer.PPOverridingLexer;
 import org.cloudsmith.geppetto.pp.dsl.linking.PPLinker;
 import org.cloudsmith.geppetto.pp.dsl.linking.PPQualifiedNameConverter;
@@ -31,7 +30,6 @@ import org.eclipse.xtext.naming.IQualifiedNameProvider;
 import org.eclipse.xtext.parser.antlr.Lexer;
 import org.eclipse.xtext.resource.IDefaultResourceDescriptionStrategy;
 import org.eclipse.xtext.resource.IResourceDescription;
-import org.eclipse.xtext.serializer.ISerializer;
 import org.eclipse.xtext.validation.CompositeEValidator;
 
 import com.google.inject.name.Names;
@@ -85,10 +83,10 @@ public class PPRuntimeModule extends org.cloudsmith.geppetto.pp.dsl.AbstractPPRu
 		return PPResourceDescriptionManager.class;
 	}
 
-	@Override
-	public Class<? extends ISerializer> bindISerializer() {
-		return PPSerializer.class;
-	}
+	// @Override
+	// public Class<? extends ISerializer> bindISerializer() {
+	// return PPSerializer.class;
+	// }
 
 	// add transient value serialization service to enable skipping values that are transient from
 	// a grammar perspective
@@ -151,4 +149,5 @@ public class PPRuntimeModule extends org.cloudsmith.geppetto.pp.dsl.AbstractPPRu
 	public com.google.inject.Provider<IValidationAdvisor> provideValidationAdvisor() {
 		return ValidationAdvisorProvider.create(IValidationAdvisor.ComplianceLevel.PUPPET_2_7);
 	}
+
 }

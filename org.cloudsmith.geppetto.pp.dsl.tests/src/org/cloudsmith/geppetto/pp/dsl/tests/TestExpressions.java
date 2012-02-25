@@ -122,6 +122,7 @@ public class TestExpressions extends AbstractPuppetTests {
 		PuppetManifest pp = pf.createPuppetManifest();
 		AppendExpression ae = pf.createAppendExpression();
 		LiteralBoolean b = pf.createLiteralBoolean();
+		b.setValue(true);
 		VariableExpression v = pf.createVariableExpression();
 		v.setVarName("$x");
 		ae.setLeftExpr(v);
@@ -136,6 +137,7 @@ public class TestExpressions extends AbstractPuppetTests {
 		PuppetManifest pp = pf.createPuppetManifest();
 		AssignmentExpression ae = pf.createAssignmentExpression();
 		LiteralBoolean b = pf.createLiteralBoolean();
+		b.setValue(true);
 		VariableExpression v = pf.createVariableExpression();
 		v.setVarName("$x");
 		ae.setLeftExpr(v);
@@ -176,7 +178,7 @@ public class TestExpressions extends AbstractPuppetTests {
 	// }
 
 	public void test_Serialize_IfExpression2() throws Exception {
-		String code = "if$a==1{true}else{false}if$a==1{true}elsif$b< -3{false}else{true}";
+		String code = "if$a==1{true}else{ false }if$a==1{true}elsif$b< -3{false}else{true}";
 		XtextResource r = getResourceFromString(code);
 		String s = serializeFormatted(r.getContents().get(0));
 		assertEquals("serialization should produce specified result", Sample_If, s);

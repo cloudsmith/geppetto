@@ -53,7 +53,9 @@ public class TestSelectorExpression extends AbstractPuppetTests {
 
 		se.setLeftExpr(slhs);
 		entry.setLeftExpr(entrylhs);
-		entry.setRightExpr(pf.createLiteralBoolean());
+		LiteralBoolean b = pf.createLiteralBoolean();
+		b.setValue(true);
+		entry.setRightExpr(b);
 
 		String s = serializeFormatted(pp);
 		assertEquals("serialization should produce specified result", Sample_Selector, s);

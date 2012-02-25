@@ -9,7 +9,7 @@
  *   Cloudsmith
  * 
  */
-package org.cloudsmith.geppetto.pp.dsl.formatting;
+package org.cloudsmith.geppetto.pp.dsl.ppformatting;
 
 import java.util.Collections;
 import java.util.Iterator;
@@ -67,12 +67,18 @@ import org.cloudsmith.geppetto.pp.VariableTE;
 import org.cloudsmith.geppetto.pp.VerbatimTE;
 import org.cloudsmith.geppetto.pp.VirtualCollectQuery;
 import org.cloudsmith.geppetto.pp.VirtualNameOrReference;
+import org.cloudsmith.geppetto.pp.dsl.ppformatting.FormattingCommentAssociator.CommentAssociations;
 import org.cloudsmith.geppetto.pp.dsl.services.PPGrammarAccess;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.xtext.IGrammarAccess;
+import org.eclipse.xtext.nodemodel.INode;
+import org.eclipse.xtext.nodemodel.util.NodeModelUtils;
+import org.eclipse.xtext.serializer.sequencer.IContextFinder;
+import org.eclipse.xtext.util.EmfFormatter;
 import org.eclipse.xtext.util.PolymorphicDispatcher;
 
+import com.google.common.collect.Sets;
 import com.google.inject.Inject;
 
 /**
@@ -82,7 +88,10 @@ import com.google.inject.Inject;
 public class PPExpressionFormatter {
 
 	@Inject
-	private IGrammarAccess grammarAccess;
+	private PPGrammarAccess grammarAccess;
+
+	@Inject
+	protected IContextFinder contextFinder;
 
 	private PolymorphicDispatcher<Void> formatDispatcher = new PolymorphicDispatcher<Void>(
 		"_format", 2, 2, Collections.singletonList(this), PolymorphicDispatcher.NullErrorHandler.<Void> get()) {
@@ -92,7 +101,25 @@ public class PPExpressionFormatter {
 		}
 	};
 
+	@Inject
+	FormattingCommentAssociator commentAssociator;
+
+	private CommentAssociations commentAssociations;
+
+	@Inject
+	public PPExpressionFormatter(IGrammarAccess ga) {
+		// let it crash - it is a configuration error
+		grammarAccess = (PPGrammarAccess) ga;
+	}
+
 	protected void _format(AndExpression o, IFormStream stream) {
+		// AndExpressionElements access = grammarAccess.getAndExpressionAccess();
+		// doFormat(o.getLeftExpr(), stream, access.getAndExpressionLeftExprAction_1_0());
+		// stream.oneSpace();
+		// stream.text(op);
+		// stream.oneSpace();
+		// doFormat(o.getRightExpr(), stream);
+
 		internalFormatBinaryExpression(o, "and", stream);
 	}
 
@@ -574,8 +601,32 @@ public class PPExpressionFormatter {
 		stream.text(o.getValue());
 	}
 
-	public void doFormat(EObject o, IFormStream stream) {
+	private void doFormat(EObject o, IFormStream stream) {
+		// EObject context = getContext(o);
+
+		Iterator<INode> itor = commentAssociations.before(o);
+		while(itor.hasNext()) {
+			INode n = itor.next();
+			stream.text(n.getText());
+		}
+
 		formatDispatcher.invoke(o, stream);
+		itor = commentAssociations.after(o);
+		while(itor.hasNext()) {
+			INode n = itor.next();
+			stream.text(n.getText());
+		}
+	}
+
+	public void format(EObject o, IFormStream stream) {
+		NodeModelUtils.findActualNodeFor(o);
+		commentAssociations = commentAssociator.associateCommentsWithSemanticEObjects(
+			o, Sets.newHashSet(NodeModelUtils.findActualNodeFor(o).getRootNode()));
+		doFormat(o, stream);
+		// trailing comments
+		Iterator<INode> itor = commentAssociations.before(null);
+		while(itor.hasNext())
+			stream.text(itor.next().getText());
 	}
 
 	protected void formatStatementList(EList<Expression> statements, IFormStream stream) {
@@ -596,8 +647,15 @@ public class PPExpressionFormatter {
 		}
 	}
 
+	protected EObject getContext(EObject semanticObject) {
+		Iterator<EObject> contexts = contextFinder.findContextsByContentsAndContainer(semanticObject, null).iterator();
+		if(!contexts.hasNext())
+			throw new RuntimeException("No Context for " + EmfFormatter.objPath(semanticObject) + " could be found");
+		return contexts.next();
+	}
+
 	private PPGrammarAccess getGrammarAccess() {
-		return (PPGrammarAccess) grammarAccess;
+		return grammarAccess;
 	}
 
 	/**

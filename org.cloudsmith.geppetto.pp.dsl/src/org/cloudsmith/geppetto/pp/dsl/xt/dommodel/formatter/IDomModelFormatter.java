@@ -6,20 +6,26 @@
  * http://www.eclipse.org/legal/epl-v10.html
  * 
  * Contributors:
- *   Cloudsmith
+ *   Itemis - initial API
+ *   Cloudsmith - initial API and implementation
  * 
  */
 package org.cloudsmith.geppetto.pp.dsl.xt.dommodel.formatter;
 
-import org.eclipse.xtext.parsetree.reconstr.ITokenStream;
-import org.eclipse.xtext.serializer.acceptor.ISequenceAcceptor;
+import org.cloudsmith.geppetto.pp.dsl.xt.dommodel.IDomNode;
+import org.eclipse.xtext.serializer.diagnostic.ISerializationDiagnostic;
+import org.eclipse.xtext.util.ITextRegion;
+import org.eclipse.xtext.util.ReplaceRegion;
+
+import com.google.inject.internal.Nullable;
 
 /**
  * A Formatter capable of formatting a DomModel
- * 
+ * TODO: rename to IFormatter (named differently to maintain sanity while implementing)
  */
 public interface IDomModelFormatter {
-	ISequenceAcceptor createFormatterStream(String initalIndentation, ITokenStream outputStream,
-			boolean preserveWhitespaces);
+
+	public ReplaceRegion format(IDomNode dom, @Nullable ITextRegion regionToFormat,
+			IFormattingContext formattingContext, ISerializationDiagnostic.Acceptor errors);
 
 }

@@ -13,6 +13,7 @@ package org.cloudsmith.geppetto.pp.dsl.xt.serializer.acceptor;
 
 import java.util.List;
 
+import org.cloudsmith.geppetto.pp.dsl.xt.dommodel.IDomNode;
 import org.cloudsmith.geppetto.pp.dsl.xt.dommodel.impl.BaseDomNode;
 import org.cloudsmith.geppetto.pp.dsl.xt.dommodel.impl.CompositeDomNode;
 import org.cloudsmith.geppetto.pp.dsl.xt.dommodel.impl.LeafDomNode;
@@ -26,6 +27,7 @@ import org.eclipse.xtext.nodemodel.ICompositeNode;
 import org.eclipse.xtext.nodemodel.ILeafNode;
 import org.eclipse.xtext.nodemodel.INode;
 import org.eclipse.xtext.serializer.acceptor.ISequenceAcceptor;
+import org.eclipse.xtext.serializer.diagnostic.ISerializationDiagnostic;
 
 import com.google.inject.internal.Lists;
 
@@ -35,13 +37,16 @@ import com.google.inject.internal.Lists;
  */
 public class DomModelSequenceAdapter implements ISequenceAcceptor {
 
+	protected ISerializationDiagnostic.Acceptor errorAcceptor;
+
 	private CompositeDomNode current;
 
 	private List<CompositeDomNode> stack;
 
-	public DomModelSequenceAdapter() {
+	public DomModelSequenceAdapter(ISerializationDiagnostic.Acceptor errorAcceptor) {
 		current = new CompositeDomNode();
 		stack = Lists.newArrayList();
+		this.errorAcceptor = errorAcceptor;
 	}
 
 	/*
@@ -290,6 +295,15 @@ public class DomModelSequenceAdapter implements ISequenceAcceptor {
 	}
 
 	protected CompositeDomNode getCurrent() {
+		return current;
+	}
+
+	/**
+	 * Returns the constructed Dom model. The returned IDomNode is always a composite node
+	 * 
+	 * @return the constructed dom model root
+	 */
+	public IDomNode getDomModel() {
 		return current;
 	}
 

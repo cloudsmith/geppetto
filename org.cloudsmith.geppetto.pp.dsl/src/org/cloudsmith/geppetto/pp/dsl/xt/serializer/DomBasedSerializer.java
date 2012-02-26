@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2011 Cloudsmith Inc. and other contributors, as listed below.
+ * Copyright (c) 2012 Cloudsmith Inc. and other contributors, as listed below.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -33,8 +33,10 @@ import org.eclipse.xtext.validation.IConcreteSyntaxValidator;
 import com.google.inject.Inject;
 
 /**
+ * Extends Serializer and modifies the API (ITokenStream based formatting/output not supported).
+ * Use Serializer methods that does not take ITokenStream as an argument.
+ * TODO: This is a temporary solution.
  * 
- *
  */
 public class DomBasedSerializer extends Serializer {
 
@@ -44,16 +46,14 @@ public class DomBasedSerializer extends Serializer {
 	@Inject
 	FormattingContextProvider formattingContextProvider;
 
+	/**
+	 * @throws UnsupportedOperationException
+	 */
 	@Override
 	protected void serialize(EObject obj, ITokenStream tokenStream, SaveOptions options) throws IOException {
 		throw new UnsupportedOperationException("Use new API");
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.xtext.serializer.impl.Serializer#serialize(org.eclipse.emf.ecore.EObject, org.eclipse.xtext.resource.SaveOptions)
-	 */
 	@Override
 	public String serialize(EObject obj, SaveOptions options) {
 		// TODO: Faster to use a non synchronizing implementation such as StringBuilderWriter
@@ -70,6 +70,7 @@ public class DomBasedSerializer extends Serializer {
 	@Override
 	public void serialize(EObject obj, Writer writer, SaveOptions options) throws IOException {
 
+		// FROM SUPER VERSION
 		// use the CSV as long as there are cases where is provides better messages than the serializer itself.
 		if(options.isValidating()) {
 			List<Diagnostic> diagnostics = new ArrayList<Diagnostic>();
@@ -79,7 +80,9 @@ public class DomBasedSerializer extends Serializer {
 				throw new IConcreteSyntaxValidator.InvalidConcreteSyntaxException(
 					"These errors need to be fixed before the model can be serialized.", diagnostics);
 		}
+		// END FROM SUPER VERSION
 
+		// Uses DomModelSequencer and new formatter interface
 		ISerializationDiagnostic.Acceptor errors = ISerializationDiagnostic.EXCEPTION_THROWING_ACCEPTOR;
 		DomModelSequenceAdapter acceptor = new DomModelSequenceAdapter(errors);
 		EObject context = getContext(obj);

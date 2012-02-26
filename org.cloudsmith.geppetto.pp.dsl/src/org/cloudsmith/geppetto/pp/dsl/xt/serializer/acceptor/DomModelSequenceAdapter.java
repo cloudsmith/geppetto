@@ -291,7 +291,10 @@ public class DomModelSequenceAdapter implements ISequenceAcceptor {
 	 */
 	@Override
 	public void finish() {
-		current.doLayout();
+		if(stack.size() > 0)
+			pop();
+		else
+			current.doLayout();
 	}
 
 	protected CompositeDomNode getCurrent() {
@@ -348,7 +351,7 @@ public class DomModelSequenceAdapter implements ISequenceAcceptor {
 	 */
 	protected void pop() {
 		CompositeDomNode top = stack.remove(stack.size() - 1);
-		top.addChild(current);
+		// top.addChild(current);
 		current = top;
 	}
 
@@ -357,7 +360,9 @@ public class DomModelSequenceAdapter implements ISequenceAcceptor {
 	 */
 	protected void push() {
 		stack.add(current);
-		current = new CompositeDomNode();
+		CompositeDomNode newCurrent = new CompositeDomNode();
+		current.addChild(newCurrent);
+		current = newCurrent;
 	}
 
 }

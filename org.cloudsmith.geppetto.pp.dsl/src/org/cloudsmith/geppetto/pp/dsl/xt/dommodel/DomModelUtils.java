@@ -13,6 +13,7 @@ package org.cloudsmith.geppetto.pp.dsl.xt.dommodel;
 
 import java.io.IOException;
 
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.xtext.grammaranalysis.impl.GrammarElementTitleSwitch;
 import org.eclipse.xtext.nodemodel.BidiIterator;
 import org.eclipse.xtext.nodemodel.ICompositeNode;
@@ -49,6 +50,11 @@ public class DomModelUtils {
 			result.append("\n");
 			result.append(prefix);
 		}
+		// TODO: OUTPUT SEMNTIC INFORMATION
+		result.append("s: ");
+		result.append(semanticTitle(node));
+
+		result.append(" g: ");
 		if(node == null) {
 			result.append("(null)");
 		}
@@ -171,5 +177,13 @@ public class DomModelUtils {
 	 */
 	public static boolean isWhitespace(IDomNode node) {
 		return node.getNodeStatus().contains(IDomNode.NodeStatus.WHITESPACE);
+	}
+
+	private static String semanticTitle(IDomNode node) {
+
+		EObject o = node.getSemanticElement();
+		if(o == null)
+			return "(null)";
+		return o.eClass().getName();
 	}
 }

@@ -19,7 +19,7 @@ import org.eclipse.xtext.util.ReplaceRegion;
 import org.eclipse.xtext.util.TextRegion;
 
 /**
- * A Dom Model Formatter that ensures a single whitepsace between tokens.
+ * A Dom Model Formatter that ensures a single whitespace between tokens.
  * 
  */
 public class OneWhitespaceDomFormatter implements IDomModelFormatter {
@@ -52,14 +52,16 @@ public class OneWhitespaceDomFormatter implements IDomModelFormatter {
 			StringBuilder builder) {
 
 		if(DomModelUtils.isWhitespace(node) && formattingContext.isWhitespacePreservation()) {
-			if(regionToFormat.contains(node.getOffset()))
+			if(isFormattingWanted(node, regionToFormat))
 				builder.append(node.getText());
 			wsWritten = true;
 			return;
 		}
-		writeSpaceIfNecessary(node, builder);
+		if(isFormattingWanted(node, regionToFormat)) {
+			writeSpaceIfNecessary(node, builder);
+			builder.append(node.getText());
+		}
 		hasStarted = true;
-		builder.append(node.getText());
 
 	}
 

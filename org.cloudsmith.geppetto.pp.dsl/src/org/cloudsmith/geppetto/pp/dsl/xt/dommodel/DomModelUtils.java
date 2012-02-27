@@ -50,10 +50,17 @@ public class DomModelUtils {
 			result.append("\n");
 			result.append(prefix);
 		}
-		// TODO: OUTPUT SEMNTIC INFORMATION
+		// Semantic
 		result.append("s: ");
 		result.append(semanticTitle(node));
 
+		// Has INode or not
+		if(node != null) {
+			result.append(" n: ");
+			result.append(Boolean.toString(node.getNode() != null));
+		}
+
+		// Grammar
 		result.append(" g: ");
 		if(node == null) {
 			result.append("(null)");

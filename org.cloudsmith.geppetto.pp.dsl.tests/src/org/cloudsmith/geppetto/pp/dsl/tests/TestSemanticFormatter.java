@@ -20,6 +20,7 @@ import org.cloudsmith.geppetto.pp.dsl.xt.dommodel.DomModelUtils;
 import org.cloudsmith.geppetto.pp.dsl.xt.dommodel.IDomNode;
 import org.cloudsmith.geppetto.pp.dsl.xt.dommodel.formatter.IDomModelFormatter;
 import org.cloudsmith.geppetto.pp.dsl.xt.dommodel.formatter.IFormattingContext;
+import org.cloudsmith.geppetto.pp.dsl.xt.dommodel.formatter.OneWhitespaceDomFormatter;
 import org.cloudsmith.geppetto.pp.dsl.xt.serializer.DomBasedSerializer;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.xtext.formatting.IIndentationInformation;
@@ -68,7 +69,7 @@ public class TestSemanticFormatter extends AbstractPuppetTests {
 				super.configure(binder);
 				binder.bind(ISerializer.class).to(DomBasedSerializer.class);
 				binder.bind(IIndentationInformation.class).to(IIndentationInformation.Default.class);
-				binder.bind(IDomModelFormatter.class).to(DebugFormatter.class);
+				binder.bind(IDomModelFormatter.class).to(OneWhitespaceDomFormatter.class);
 			}
 		}
 
@@ -90,7 +91,7 @@ public class TestSemanticFormatter extends AbstractPuppetTests {
 		PuppetManifest pp = pf.createPuppetManifest();
 		EList<Expression> statements = pp.getStatements();
 		AssignmentExpression assignment = PPFactory.eINSTANCE.createAssignmentExpression();
-		assignment.setLeftExpr(createVariable("$a"));
+		assignment.setLeftExpr(createVariable("a"));
 		LiteralList pplist = PPFactory.eINSTANCE.createLiteralList();
 		assignment.setRightExpr(pplist);
 		pplist.getElements().add(createSqString("10"));

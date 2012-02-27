@@ -25,8 +25,15 @@ import org.eclipse.emf.common.util.Diagnostic;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.xtext.parsetree.reconstr.ITokenStream;
 import org.eclipse.xtext.resource.SaveOptions;
+import org.eclipse.xtext.serializer.acceptor.ISemanticSequenceAcceptor;
+import org.eclipse.xtext.serializer.acceptor.ISequenceAcceptor;
+import org.eclipse.xtext.serializer.acceptor.ISyntacticSequenceAcceptor;
+import org.eclipse.xtext.serializer.acceptor.TokenStreamSequenceAdapter;
 import org.eclipse.xtext.serializer.diagnostic.ISerializationDiagnostic;
 import org.eclipse.xtext.serializer.impl.Serializer;
+import org.eclipse.xtext.serializer.sequencer.IHiddenTokenSequencer;
+import org.eclipse.xtext.serializer.sequencer.ISemanticSequencer;
+import org.eclipse.xtext.serializer.sequencer.ISyntacticSequencer;
 import org.eclipse.xtext.util.ReplaceRegion;
 import org.eclipse.xtext.validation.IConcreteSyntaxValidator;
 
@@ -45,6 +52,31 @@ public class DomBasedSerializer extends Serializer {
 
 	@Inject
 	FormattingContextProvider formattingContextProvider;
+
+	/**
+	 * NOTE: This overrided method is required to initialize the DomModelSequences.
+	 * The base implementation checks if the tokens paramter is a specific adapter, and
+	 * then initializes it. This method does the same but for DomModelSequenceAdapter.
+	 * 
+	 */
+	@Override
+	protected void serialize(EObject semanticObject, EObject context, ISequenceAcceptor tokens,
+			ISerializationDiagnostic.Acceptor errors) {
+		ISemanticSequencer semantic = semanticSequencerProvider.get();
+		ISyntacticSequencer syntactic = syntacticSequencerProvider.get();
+		IHiddenTokenSequencer hidden = hiddenTokenSequencerProvider.get();
+		semantic.init((ISemanticSequenceAcceptor) syntactic, errors);
+		syntactic.init(context, semanticObject, (ISyntacticSequenceAcceptor) hidden, errors);
+		hidden.init(context, semanticObject, tokens, errors);
+
+		// NOTE: This is not so nice
+		if(tokens instanceof TokenStreamSequenceAdapter)
+			((TokenStreamSequenceAdapter) tokens).init(context);
+		else if(tokens instanceof DomModelSequenceAdapter)
+			((DomModelSequenceAdapter) tokens).init(context, semanticObject);
+
+		semantic.createSequence(context, semanticObject);
+	}
 
 	/**
 	 * @throws UnsupportedOperationException

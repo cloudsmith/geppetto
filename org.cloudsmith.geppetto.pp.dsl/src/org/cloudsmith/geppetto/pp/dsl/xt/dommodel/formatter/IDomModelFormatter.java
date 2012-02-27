@@ -22,9 +22,25 @@ import com.google.inject.internal.Nullable;
 /**
  * A Formatter capable of formatting a DomModel
  * TODO: rename to IFormatter (named differently to maintain sanity while implementing)
+ * TODO: is the description of how the produced ReplaceRegion's offset/length correct?
  */
 public interface IDomModelFormatter {
 
+	/**
+	 * Formats the given dom node (and its children) and produces a ReplaceRegion with the formatted text.
+	 * The returned region has the offset and length given by the regionToFormat, or if this region is null,
+	 * offset 0, and the length of the produced formatted text.
+	 * 
+	 * @param dom
+	 *            - the dom to format
+	 * @param regionToFormat
+	 *            - the region to format, or null if everything should be formatted
+	 * @param formattingContext
+	 *            - formatting parameters
+	 * @param errors
+	 *            - an acceptor of errors discovered during formatting
+	 * @return
+	 */
 	public ReplaceRegion format(IDomNode dom, @Nullable ITextRegion regionToFormat,
 			IFormattingContext formattingContext, ISerializationDiagnostic.Acceptor errors);
 

@@ -14,6 +14,7 @@ package org.cloudsmith.geppetto.pp.dsl.xt.serializer.acceptor;
 import java.util.List;
 
 import org.cloudsmith.geppetto.pp.dsl.xt.dommodel.IDomNode;
+import org.cloudsmith.geppetto.pp.dsl.xt.dommodel.IDomNode.NodeStatus;
 import org.cloudsmith.geppetto.pp.dsl.xt.dommodel.impl.BaseDomNode;
 import org.cloudsmith.geppetto.pp.dsl.xt.dommodel.impl.CompositeDomNode;
 import org.cloudsmith.geppetto.pp.dsl.xt.dommodel.impl.LeafDomNode;
@@ -25,7 +26,6 @@ import org.eclipse.xtext.Keyword;
 import org.eclipse.xtext.RuleCall;
 import org.eclipse.xtext.nodemodel.ICompositeNode;
 import org.eclipse.xtext.nodemodel.ILeafNode;
-import org.eclipse.xtext.nodemodel.INode;
 import org.eclipse.xtext.serializer.acceptor.ISequenceAcceptor;
 import org.eclipse.xtext.serializer.diagnostic.ISerializationDiagnostic;
 
@@ -59,7 +59,7 @@ public class DomModelSequenceAdapter implements ISequenceAcceptor {
 	@Override
 	public void acceptAssignedCrossRefDatatype(RuleCall datatypeRC, String token, EObject value, int index,
 			ICompositeNode node) {
-		addLeafNodeToCurrent(GrammarUtil.containingCrossReference(datatypeRC), token, node);
+		addCompositeNodeToCurrent(GrammarUtil.containingCrossReference(datatypeRC), token, node);
 	}
 
 	/**
@@ -68,7 +68,7 @@ public class DomModelSequenceAdapter implements ISequenceAcceptor {
 	 */
 	@Override
 	public void acceptAssignedCrossRefEnum(RuleCall enumRC, String token, EObject value, int index, ICompositeNode node) {
-		addLeafNodeToCurrent(GrammarUtil.containingCrossReference(enumRC), token, node);
+		addCompositeNodeToCurrent(GrammarUtil.containingCrossReference(enumRC), token, node);
 	}
 
 	/**
@@ -87,7 +87,7 @@ public class DomModelSequenceAdapter implements ISequenceAcceptor {
 	 */
 	@Override
 	public void acceptAssignedDatatype(RuleCall datatypeRC, String token, Object value, int index, ICompositeNode node) {
-		addLeafNodeToCurrent(datatypeRC, token, node);
+		addCompositeNodeToCurrent(datatypeRC, token, node);
 	}
 
 	/**
@@ -96,7 +96,7 @@ public class DomModelSequenceAdapter implements ISequenceAcceptor {
 	 */
 	@Override
 	public void acceptAssignedEnum(RuleCall enumRC, String token, Object value, int index, ICompositeNode node) {
-		addLeafNodeToCurrent(enumRC, token, node);
+		addCompositeNodeToCurrent(enumRC, token, node);
 	}
 
 	/**
@@ -132,7 +132,9 @@ public class DomModelSequenceAdapter implements ISequenceAcceptor {
 	 */
 	@Override
 	public void acceptComment(AbstractRule rule, String token, ILeafNode node) {
-		addLeafNodeToCurrent(rule, token, node);
+		BaseDomNode n = addLeafNodeToCurrent(rule, token, node);
+		n.flip(true, NodeStatus.COMMENT);
+
 	}
 
 	/**
@@ -152,7 +154,7 @@ public class DomModelSequenceAdapter implements ISequenceAcceptor {
 	 */
 	@Override
 	public void acceptUnassignedDatatype(RuleCall datatypeRC, String token, ICompositeNode node) {
-		addLeafNodeToCurrent(datatypeRC, token, node);
+		addCompositeNodeToCurrent(datatypeRC, token, node);
 	}
 
 	/**
@@ -161,7 +163,7 @@ public class DomModelSequenceAdapter implements ISequenceAcceptor {
 	 */
 	@Override
 	public void acceptUnassignedEnum(RuleCall enumRC, String token, ICompositeNode node) {
-		addLeafNodeToCurrent(enumRC, token, node);
+		addCompositeNodeToCurrent(enumRC, token, node);
 	}
 
 	/**
@@ -188,15 +190,30 @@ public class DomModelSequenceAdapter implements ISequenceAcceptor {
 	 */
 	@Override
 	public void acceptWhitespace(AbstractRule rule, String token, ILeafNode node) {
-		addLeafNodeToCurrent(rule, token, node);
+		BaseDomNode n = addLeafNodeToCurrent(rule, token, node);
+		n.flip(true, NodeStatus.WHITESPACE);
+
 	}
 
-	protected void addLeafNodeToCurrent(EObject rule, String token, INode node) {
+	protected BaseDomNode addCompositeNodeToCurrent(EObject rule, String token, ICompositeNode node) {
 		BaseDomNode result = new LeafDomNode();
 		result.setText(token);
 		result.setNode(node);
 		result.setGrammarElement(rule);
 		addNodeToCurrent(result);
+		return result;
+	}
+
+	protected BaseDomNode addLeafNodeToCurrent(EObject rule, String token, ILeafNode node) {
+		BaseDomNode result = new LeafDomNode();
+		result.setText(token);
+		result.setNode(node);
+		result.setGrammarElement(rule);
+		if(node != null) {
+			result.flip(node.isHidden(), NodeStatus.HIDDEN);
+		}
+		addNodeToCurrent(result);
+		return result;
 	}
 
 	protected void addNodeToCurrent(BaseDomNode node) {

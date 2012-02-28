@@ -24,6 +24,7 @@ import org.cloudsmith.geppetto.pp.dsl.xt.dommodel.formatter.OneWhitespaceDomForm
 import org.cloudsmith.geppetto.pp.dsl.xt.serializer.DomBasedSerializer;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.xtext.formatting.IIndentationInformation;
+import org.eclipse.xtext.resource.XtextResource;
 import org.eclipse.xtext.serializer.ISerializer;
 import org.eclipse.xtext.serializer.diagnostic.ISerializationDiagnostic.Acceptor;
 import org.eclipse.xtext.util.ITextRegion;
@@ -85,6 +86,14 @@ public class TestSemanticFormatter extends AbstractPuppetTests {
 		super.setUp();
 		// with(PPStandaloneSetup.class);
 		with(TestSetup.class);
+	}
+
+	public void test_Serialize_arrayWithComments() throws Exception {
+		String code = "/*1*/$a/*2*/=/*3*/[/*4*/'10'/*5*/,/*6*/'20'/*7*/]/*8*/";
+		String fmt = "/*1*/ $a /*2*/ = /*3*/ [ /*4*/ '10' /*5*/ , /*6*/ '20' /*7*/ ] /*8*/";
+		XtextResource r = getResourceFromString(code);
+		String s = serializeFormatted(r.getContents().get(0));
+		assertEquals("serialization should produce same result", fmt, s);
 	}
 
 	public void test_Serialize_assignArray() throws Exception {

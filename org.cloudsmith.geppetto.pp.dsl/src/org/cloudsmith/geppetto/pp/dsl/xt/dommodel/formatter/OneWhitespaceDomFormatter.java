@@ -51,10 +51,15 @@ public class OneWhitespaceDomFormatter implements IDomModelFormatter {
 	protected void formatLeaf(IDomNode node, ITextRegion regionToFormat, IFormattingContext formattingContext,
 			StringBuilder builder) {
 
-		if(DomModelUtils.isWhitespace(node) && formattingContext.isWhitespacePreservation()) {
-			if(isFormattingWanted(node, regionToFormat))
-				builder.append(node.getText());
-			wsWritten = true;
+		if(DomModelUtils.isWhitespace(node)) {
+			if(formattingContext.isWhitespacePreservation()) {
+				String text = node.getText();
+				if(isFormattingWanted(node, regionToFormat))
+					builder.append(text);
+				if(text.length() > 0)
+					wsWritten = true;
+
+			}
 			return;
 		}
 		if(isFormattingWanted(node, regionToFormat)) {
@@ -62,7 +67,7 @@ public class OneWhitespaceDomFormatter implements IDomModelFormatter {
 			builder.append(node.getText());
 		}
 		hasStarted = true;
-
+		wsWritten = false;
 	}
 
 	protected void internalFormat(IDomNode node, ITextRegion regionToFormat, IFormattingContext formattingContext,
@@ -83,6 +88,7 @@ public class OneWhitespaceDomFormatter implements IDomModelFormatter {
 	protected void writeSpaceIfNecessary(IDomNode node, StringBuilder builder) {
 		if(hasStarted && !wsWritten) {
 			builder.append(" ");
+			wsWritten = true;
 		}
 	}
 }

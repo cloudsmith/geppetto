@@ -29,7 +29,7 @@ public abstract class AbstractDomNode implements IDomNode {
 
 	protected EnumSet<IDomNode.NodeStatus> nodeStatus = EnumSet.noneOf(NodeStatus.class);
 
-	protected void flip(boolean flag, NodeStatus status) {
+	public void flip(boolean flag, NodeStatus status) {
 		if(flag)
 			nodeStatus.add(status);
 		else

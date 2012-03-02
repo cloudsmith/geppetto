@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2011 Cloudsmith Inc. and other contributors, as listed below.
+ * Copyright (c) 2012 Cloudsmith Inc. and other contributors, as listed below.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -10,6 +10,20 @@
  * 
  */
 package org.cloudsmith.geppetto.pp.dsl.xt.serializer.acceptor;
+
+import static org.cloudsmith.geppetto.pp.dsl.xt.dommodel.IDomNode.NodeStatus.ACTION;
+import static org.cloudsmith.geppetto.pp.dsl.xt.dommodel.IDomNode.NodeStatus.ASSIGNED;
+import static org.cloudsmith.geppetto.pp.dsl.xt.dommodel.IDomNode.NodeStatus.COMMENT;
+import static org.cloudsmith.geppetto.pp.dsl.xt.dommodel.IDomNode.NodeStatus.CROSSREF;
+import static org.cloudsmith.geppetto.pp.dsl.xt.dommodel.IDomNode.NodeStatus.DATATYPE;
+import static org.cloudsmith.geppetto.pp.dsl.xt.dommodel.IDomNode.NodeStatus.ENUM;
+import static org.cloudsmith.geppetto.pp.dsl.xt.dommodel.IDomNode.NodeStatus.HIDDEN;
+import static org.cloudsmith.geppetto.pp.dsl.xt.dommodel.IDomNode.NodeStatus.INSTANTIATION;
+import static org.cloudsmith.geppetto.pp.dsl.xt.dommodel.IDomNode.NodeStatus.KEYWORD;
+import static org.cloudsmith.geppetto.pp.dsl.xt.dommodel.IDomNode.NodeStatus.RULECALL;
+import static org.cloudsmith.geppetto.pp.dsl.xt.dommodel.IDomNode.NodeStatus.TERMINAL;
+import static org.cloudsmith.geppetto.pp.dsl.xt.dommodel.IDomNode.NodeStatus.UNASSIGNED;
+import static org.cloudsmith.geppetto.pp.dsl.xt.dommodel.IDomNode.NodeStatus.WHITESPACE;
 
 import java.util.List;
 
@@ -59,7 +73,8 @@ public class DomModelSequenceAdapter implements ISequenceAcceptor {
 	@Override
 	public void acceptAssignedCrossRefDatatype(RuleCall datatypeRC, String token, EObject value, int index,
 			ICompositeNode node) {
-		addCompositeNodeToCurrent(GrammarUtil.containingCrossReference(datatypeRC), token, node);
+		addCompositeNodeToCurrent(
+			GrammarUtil.containingCrossReference(datatypeRC), token, node, DATATYPE, CROSSREF, ASSIGNED);
 	}
 
 	/**
@@ -68,7 +83,7 @@ public class DomModelSequenceAdapter implements ISequenceAcceptor {
 	 */
 	@Override
 	public void acceptAssignedCrossRefEnum(RuleCall enumRC, String token, EObject value, int index, ICompositeNode node) {
-		addCompositeNodeToCurrent(GrammarUtil.containingCrossReference(enumRC), token, node);
+		addCompositeNodeToCurrent(GrammarUtil.containingCrossReference(enumRC), token, node, ENUM, CROSSREF, ASSIGNED);
 	}
 
 	/**
@@ -78,7 +93,8 @@ public class DomModelSequenceAdapter implements ISequenceAcceptor {
 	@Override
 	public void acceptAssignedCrossRefTerminal(RuleCall terminalRC, String token, EObject value, int index,
 			ILeafNode node) {
-		addLeafNodeToCurrent(GrammarUtil.containingCrossReference(terminalRC), token, node);
+		addLeafNodeToCurrent(
+			GrammarUtil.containingCrossReference(terminalRC), token, node, TERMINAL, CROSSREF, ASSIGNED);
 	}
 
 	/**
@@ -87,7 +103,7 @@ public class DomModelSequenceAdapter implements ISequenceAcceptor {
 	 */
 	@Override
 	public void acceptAssignedDatatype(RuleCall datatypeRC, String token, Object value, int index, ICompositeNode node) {
-		addCompositeNodeToCurrent(datatypeRC, token, node);
+		addCompositeNodeToCurrent(datatypeRC, token, node, DATATYPE, ASSIGNED);
 	}
 
 	/**
@@ -96,7 +112,7 @@ public class DomModelSequenceAdapter implements ISequenceAcceptor {
 	 */
 	@Override
 	public void acceptAssignedEnum(RuleCall enumRC, String token, Object value, int index, ICompositeNode node) {
-		addCompositeNodeToCurrent(enumRC, token, node);
+		addCompositeNodeToCurrent(enumRC, token, node, ENUM, ASSIGNED);
 	}
 
 	/**
@@ -105,7 +121,7 @@ public class DomModelSequenceAdapter implements ISequenceAcceptor {
 	 */
 	@Override
 	public void acceptAssignedKeyword(Keyword keyword, String token, Boolean value, int index, ILeafNode node) {
-		addLeafNodeToCurrent(keyword, token, node);
+		addLeafNodeToCurrent(keyword, token, node, KEYWORD, ASSIGNED);
 	}
 
 	/**
@@ -114,7 +130,7 @@ public class DomModelSequenceAdapter implements ISequenceAcceptor {
 	 */
 	@Override
 	public void acceptAssignedKeyword(Keyword keyword, String token, String value, int index, ILeafNode node) {
-		addLeafNodeToCurrent(keyword, token, node);
+		addLeafNodeToCurrent(keyword, token, node, KEYWORD, ASSIGNED);
 	}
 
 	/**
@@ -123,7 +139,7 @@ public class DomModelSequenceAdapter implements ISequenceAcceptor {
 	 */
 	@Override
 	public void acceptAssignedTerminal(RuleCall terminalRC, String token, Object value, int index, ILeafNode node) {
-		addLeafNodeToCurrent(terminalRC, token, node);
+		addLeafNodeToCurrent(terminalRC, token, node, TERMINAL, ASSIGNED);
 	}
 
 	/**
@@ -132,9 +148,7 @@ public class DomModelSequenceAdapter implements ISequenceAcceptor {
 	 */
 	@Override
 	public void acceptComment(AbstractRule rule, String token, ILeafNode node) {
-		BaseDomNode n = addLeafNodeToCurrent(rule, token, node);
-		n.flip(true, NodeStatus.COMMENT);
-
+		addLeafNodeToCurrent(rule, token, node, COMMENT);
 	}
 
 	/**
@@ -146,6 +160,8 @@ public class DomModelSequenceAdapter implements ISequenceAcceptor {
 	 */
 	@Override
 	public void acceptUnassignedAction(Action action) {
+		BaseDomNode n = addLeafNodeToCurrent(action, "", null, ACTION, INSTANTIATION);
+		n.setSemanticElement(action.getType().getClassifier());
 	}
 
 	/**
@@ -154,7 +170,7 @@ public class DomModelSequenceAdapter implements ISequenceAcceptor {
 	 */
 	@Override
 	public void acceptUnassignedDatatype(RuleCall datatypeRC, String token, ICompositeNode node) {
-		addCompositeNodeToCurrent(datatypeRC, token, node);
+		addCompositeNodeToCurrent(datatypeRC, token, node, DATATYPE, UNASSIGNED);
 	}
 
 	/**
@@ -163,7 +179,7 @@ public class DomModelSequenceAdapter implements ISequenceAcceptor {
 	 */
 	@Override
 	public void acceptUnassignedEnum(RuleCall enumRC, String token, ICompositeNode node) {
-		addCompositeNodeToCurrent(enumRC, token, node);
+		addCompositeNodeToCurrent(enumRC, token, node, ENUM, UNASSIGNED);
 	}
 
 	/**
@@ -172,7 +188,7 @@ public class DomModelSequenceAdapter implements ISequenceAcceptor {
 	 */
 	@Override
 	public void acceptUnassignedKeyword(Keyword keyword, String token, ILeafNode node) {
-		addLeafNodeToCurrent(keyword, token, node);
+		addLeafNodeToCurrent(keyword, token, node, KEYWORD, ASSIGNED);
 	}
 
 	/**
@@ -181,36 +197,41 @@ public class DomModelSequenceAdapter implements ISequenceAcceptor {
 	 */
 	@Override
 	public void acceptUnassignedTerminal(RuleCall terminalRC, String token, ILeafNode node) {
-		addLeafNodeToCurrent(terminalRC, token, node);
+		addLeafNodeToCurrent(terminalRC, token, node, TERMINAL, UNASSIGNED);
 	}
 
 	/**
+	 * TODO: When the ILeafNode is null, it is not possible to know if this is HIDDEN or not.
+	 * Currently, HIDDEN is set if node is null, else this is controlled by node.isHidden().
+	 * 
 	 * @see org.eclipse.xtext.serializer.acceptor.ISequenceAcceptor#acceptWhitespace(org.eclipse.xtext.AbstractRule, java.lang.String,
 	 *      org.eclipse.xtext.nodemodel.ILeafNode)
 	 */
 	@Override
 	public void acceptWhitespace(AbstractRule rule, String token, ILeafNode node) {
-		BaseDomNode n = addLeafNodeToCurrent(rule, token, node);
-		n.flip(true, NodeStatus.WHITESPACE);
-
+		addLeafNodeToCurrent(rule, token, node, WHITESPACE, HIDDEN);
 	}
 
-	protected BaseDomNode addCompositeNodeToCurrent(EObject rule, String token, ICompositeNode node) {
+	protected BaseDomNode addCompositeNodeToCurrent(EObject rule, String token, ICompositeNode node,
+			NodeStatus... statusBits) {
 		BaseDomNode result = new LeafDomNode();
 		result.setText(token);
 		result.setNode(node);
 		result.setGrammarElement(rule);
+		result.flip(true, statusBits);
 		addNodeToCurrent(result);
 		return result;
 	}
 
-	protected BaseDomNode addLeafNodeToCurrent(EObject rule, String token, ILeafNode node) {
+	protected BaseDomNode addLeafNodeToCurrent(EObject rule, String token, ILeafNode node, NodeStatus... statusBits) {
 		BaseDomNode result = new LeafDomNode();
 		result.setText(token);
 		result.setNode(node);
 		result.setGrammarElement(rule);
+
+		result.flip(true, statusBits);
 		if(node != null) {
-			result.flip(node.isHidden(), NodeStatus.HIDDEN);
+			result.flip(node.isHidden(), HIDDEN);
 		}
 		addNodeToCurrent(result);
 		return result;
@@ -230,7 +251,7 @@ public class DomModelSequenceAdapter implements ISequenceAcceptor {
 		current.setGrammarElement(action);
 		current.setSemanticElement(semanticChild);
 		current.setNode(node);
-
+		current.flip(true, ACTION, ASSIGNED);
 		return true;
 	}
 
@@ -244,14 +265,14 @@ public class DomModelSequenceAdapter implements ISequenceAcceptor {
 		current.setGrammarElement(rc);
 		current.setSemanticElement(semanticChild);
 		current.setNode(node);
-
+		current.flip(true, RULECALL, ASSIGNED);
 		return true;
 	}
 
 	/**
 	 * This information is not terribly useful in the DOM as it says that the grammar has performed
 	 * a rule call and is now in a particular rule. Eventually the rule will result is something.
-	 * This implementatino simply does nothing.
+	 * This implementation simply does nothing.
 	 * 
 	 * @see org.eclipse.xtext.serializer.acceptor.ISyntacticSequenceAcceptor#enterUnassignedParserRuleCall(org.eclipse.xtext.RuleCall)
 	 */

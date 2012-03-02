@@ -11,16 +11,12 @@
  */
 package org.cloudsmith.geppetto.pp.dsl.xt.dommodel.impl;
 
+import java.util.Collections;
 import java.util.List;
-import java.util.ListIterator;
 
 import org.cloudsmith.geppetto.pp.dsl.xt.dommodel.DomModelUtils;
 import org.cloudsmith.geppetto.pp.dsl.xt.dommodel.IDomNode;
-import org.eclipse.xtext.nodemodel.BidiIterable;
-import org.eclipse.xtext.nodemodel.BidiIterator;
-import org.eclipse.xtext.nodemodel.util.ReversedBidiIterable;
 
-import com.google.common.collect.UnmodifiableIterator;
 import com.google.inject.internal.Lists;
 
 /**
@@ -28,35 +24,35 @@ import com.google.inject.internal.Lists;
  * 
  */
 public class CompositeDomNode extends BaseDomNode {
-	public class ListBidiIterator extends UnmodifiableIterator<IDomNode> implements BidiIterator<IDomNode> {
-
-		ListIterator<? extends IDomNode> listItor;
-
-		ListBidiIterator() {
-			listItor = children.listIterator();
-		}
-
-		@Override
-		public boolean hasNext() {
-			return listItor.hasNext();
-		}
-
-		@Override
-		public boolean hasPrevious() {
-			return listItor.hasPrevious();
-		}
-
-		@Override
-		public IDomNode next() {
-			return listItor.next();
-		}
-
-		@Override
-		public IDomNode previous() {
-			return listItor.previous();
-		}
-
-	}
+	// public class ListBidiIterator extends UnmodifiableIterator<IDomNode> implements BidiIterator<IDomNode> {
+	//
+	// ListIterator<? extends IDomNode> listItor;
+	//
+	// ListBidiIterator() {
+	// listItor = children.listIterator();
+	// }
+	//
+	// @Override
+	// public boolean hasNext() {
+	// return listItor.hasNext();
+	// }
+	//
+	// @Override
+	// public boolean hasPrevious() {
+	// return listItor.hasPrevious();
+	// }
+	//
+	// @Override
+	// public IDomNode next() {
+	// return listItor.next();
+	// }
+	//
+	// @Override
+	// public IDomNode previous() {
+	// return listItor.previous();
+	// }
+	//
+	// }
 
 	List<BaseDomNode> children;
 
@@ -108,19 +104,8 @@ public class CompositeDomNode extends BaseDomNode {
 	}
 
 	@Override
-	public BidiIterable<IDomNode> getChildren() {
-		return new BidiIterable<IDomNode>() {
-
-			@Override
-			public BidiIterator<IDomNode> iterator() {
-				return new ListBidiIterator();
-			}
-
-			@Override
-			public BidiIterable<IDomNode> reverse() {
-				return new ReversedBidiIterable<IDomNode>(this);
-			}
-		};
+	public List<BaseDomNode> getChildren() {
+		return Collections.unmodifiableList(children);
 	}
 
 	@Override

@@ -11,7 +11,6 @@
  */
 package org.cloudsmith.geppetto.pp.dsl.xt.dommodel.impl;
 
-
 import org.cloudsmith.geppetto.pp.dsl.xt.dommodel.IDomNode;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.xtext.nodemodel.INode;
@@ -64,6 +63,18 @@ public abstract class BaseDomNode extends AbstractDomNode {
 		return length;
 	}
 
+	@Override
+	public IDomNode getNextSibling() {
+		if(getParent() == null)
+			return null;
+		try {
+			return getParent().getChildren().get(index + 1);
+		}
+		catch(IndexOutOfBoundsException e) {
+			return null;
+		}
+	}
+
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -96,6 +107,13 @@ public abstract class BaseDomNode extends AbstractDomNode {
 		if(p instanceof BaseDomNode == false)
 			throw new IllegalStateException("A BaseDomNode must be parented by a BaseDomNode");
 		return (BaseDomNode) p;
+	}
+
+	@Override
+	public IDomNode getPreviousSibling() {
+		if(getParent() == null || index == 0)
+			return null;
+		return getParent().getChildren().get(index - 1);
 	}
 
 	BaseDomNode getRootNode() {
@@ -168,5 +186,4 @@ public abstract class BaseDomNode extends AbstractDomNode {
 	public void setText(String text) {
 		this.text = text;
 	}
-
 }

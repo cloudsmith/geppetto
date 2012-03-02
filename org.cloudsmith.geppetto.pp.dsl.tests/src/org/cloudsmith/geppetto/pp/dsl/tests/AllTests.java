@@ -33,7 +33,8 @@ public class AllTests {
 		suite.addTestSuite(TestDoubleQuotedString.class);
 		suite.addTestSuite(TestIssues.class);
 		suite.addTestSuite(TestLinking.class);
-		suite.addTestSuite(TestSemanticFormatter.class);
+		suite.addTestSuite(TestSemanticOneSpaceFormatter.class);
+		suite.addTestSuite(TestSemanticCssFormatter.class);
 
 		// $JUnit-END$
 		return suite;

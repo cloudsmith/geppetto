@@ -13,11 +13,17 @@
  */
 package org.cloudsmith.geppetto.pp.dsl.xt.dommodel;
 
+import java.util.Collections;
+import java.util.EnumSet;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Set;
 
+import org.cloudsmith.geppetto.pp.dsl.xt.dommodel.formatter.css.StyleSet;
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.xtext.nodemodel.BidiIterable;
 import org.eclipse.xtext.nodemodel.INode;
+
+import com.google.common.collect.Sets;
 
 /**
  * A node in a document model.
@@ -62,9 +68,75 @@ public interface IDomNode {
 		 * Contains one or more nodes with associated error(s).
 		 */
 		CONTAINS_ERROR,
+
+		/**
+		 * Node represents an instantiation. The semantic EObject is a reference to the EClassifier (class)
+		 * of which an instance is created.
+		 */
+		INSTANTIATION,
+
+		/**
+		 * Node represents a keyword.
+		 */
+		KEYWORD,
+
+		/**
+		 * Node represents a terminal.
+		 */
+		TERMINAL,
+
+		/**
+		 * Node represents an enumerator.
+		 */
+		ENUM,
+
+		/**
+		 * Node represents a cross reference
+		 */
+		CROSSREF,
+
+		/**
+		 * Node represents a data type.
+		 */
+		DATATYPE,
+
+		/**
+		 * Node represents token that is unassigned
+		 */
+		UNASSIGNED,
+
+		/**
+		 * Node represents token that is assigned.
+		 */
+		ASSIGNED,
+
+		/**
+		 * Node represents an action.
+		 */
+		ACTION,
+
+		/**
+		 * Node represents a rule call.
+		 */
+		RULECALL, ;
+
+		/**
+		 * Count of enums - useful for "any" check
+		 */
+		public static final int numberOfValues = 17;
+
+		// All bits set except for those that represent non whitepsace
+		public static final Set<NodeStatus> whitespaceMask = Collections.unmodifiableSet(Sets.complementOf( //
+		EnumSet.of(COMMENT, KEYWORD, TERMINAL, ENUM, DATATYPE)));
+
+		// All bits set except for whitepsace
+		public static final Set<NodeStatus> nonWhitespaceMask = Collections.unmodifiableSet(Sets.complementOf(EnumSet.of(NodeStatus.WHITESPACE)));
+
+		public static final Set<NodeStatus> anyMask = Collections.unmodifiableSet(EnumSet.noneOf(NodeStatus.class));
+
 	}
 
-	public BidiIterable<IDomNode> getChildren();
+	public List<? extends IDomNode> getChildren();
 
 	/**
 	 * NOTE: If there a nodes in the DOM that represents layout structure e.g. table/columns it is not possible to
@@ -90,6 +162,8 @@ public interface IDomNode {
 	 */
 	public int getLength();
 
+	public IDomNode getNextSibling();
+
 	/**
 	 * Returns the INode that covers the same text as this IDomNode. May return <code>null</null> if there is
 	 * no such node.
@@ -97,6 +171,14 @@ public interface IDomNode {
 	 * @return the INode that covers the same logical text sequence as this IDomNode. May return <code>null</code>
 	 */
 	public INode getNode();
+
+	/**
+	 * Returns a node identifier which may be used in selection rules. May return null (in which case selection
+	 * on identity is not possible).
+	 * 
+	 * @return the user assigned identity of the node.
+	 */
+	public Object getNodeId();
 
 	Set<NodeStatus> getNodeStatus();
 
@@ -116,6 +198,8 @@ public interface IDomNode {
 	 */
 	public IDomNode getParent();
 
+	public IDomNode getPreviousSibling();
+
 	/**
 	 * Returns the nearest semantic object that is associated with the (sub) tree rooted in this node.
 	 * May return <code>null</code> for situation like when a parser refused to create any objects due to
@@ -124,6 +208,19 @@ public interface IDomNode {
 	 * @return the nearest semantic object that is associated with the (sub) tree rooted in this node. May return <code>null</code>.
 	 */
 	public EObject getSemanticElement();
+
+	/**
+	 * Returns a mutable set of style classifiers which may be used in matching rules.
+	 */
+	public Set<? extends Object> getStyleClassifiers();
+
+	/**
+	 * A DomNode may have an associated StyleSet - styles applicable only to this node that match with the
+	 * highest specificity.
+	 * 
+	 * @return
+	 */
+	public StyleSet getStyles();
 
 	/**
 	 * Returns the text that is covered by this node (including hidden tokens). The result is never <code>null</code> but may be empty.
@@ -146,4 +243,17 @@ public interface IDomNode {
 	 * @return true if node is a leaf node
 	 */
 	public boolean isLeaf();
+
+	/**
+	 * Returns an iterator over this nodes parents, starting with the immediate parent.
+	 * 
+	 * @return
+	 */
+	public Iterator<IDomNode> parents();
+
+	/**
+	 * Sets a node identifier which may be used in selection rules. If not set, a node has a null (non selectable)
+	 * identity.
+	 */
+	public void setNodeId(Object id);
 }

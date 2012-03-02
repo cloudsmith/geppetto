@@ -17,7 +17,7 @@ import java.io.IOException;
  * Inerface for PP formatting stream.
  * 
  */
-interface IFormStream {
+public interface IFormStream {
 
 	public void breakLine();
 

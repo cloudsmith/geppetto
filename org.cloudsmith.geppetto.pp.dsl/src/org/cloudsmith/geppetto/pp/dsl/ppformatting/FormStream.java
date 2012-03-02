@@ -14,7 +14,7 @@ package org.cloudsmith.geppetto.pp.dsl.ppformatting;
 import java.io.IOException;
 import java.io.Writer;
 
-class FormStream implements IFormStream {
+public class FormStream implements IFormStream {
 	public static class WriterFormStream extends FormStream {
 		private Writer out;
 

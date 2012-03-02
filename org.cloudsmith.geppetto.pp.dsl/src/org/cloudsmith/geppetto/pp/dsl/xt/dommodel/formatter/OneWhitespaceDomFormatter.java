@@ -64,6 +64,9 @@ public class OneWhitespaceDomFormatter implements IDomModelFormatter {
 		}
 		if(isFormattingWanted(node, regionToFormat)) {
 			writeSpaceIfNecessary(node, builder);
+			String text = node.getText();
+			if(text.length() == 0)
+				return;
 			builder.append(node.getText());
 		}
 		hasStarted = true;

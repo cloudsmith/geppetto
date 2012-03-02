@@ -12,10 +12,12 @@
 package org.cloudsmith.geppetto.pp.dsl.xt.dommodel;
 
 import java.io.IOException;
+import java.util.Iterator;
+import java.util.Set;
 
+import org.cloudsmith.geppetto.pp.dsl.xt.dommodel.IDomNode.NodeStatus;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.xtext.grammaranalysis.impl.GrammarElementTitleSwitch;
-import org.eclipse.xtext.nodemodel.BidiIterator;
 import org.eclipse.xtext.nodemodel.ICompositeNode;
 import org.eclipse.xtext.nodemodel.INode;
 import org.eclipse.xtext.nodemodel.SyntaxErrorMessage;
@@ -25,6 +27,11 @@ import org.eclipse.xtext.nodemodel.SyntaxErrorMessage;
  * 
  */
 public class DomModelUtils {
+
+	private static void appendNodeStatus(Appendable result, Set<NodeStatus> statusBits) throws IOException {
+		result.append(" ");
+		result.append(statusBits.toString());
+	}
 
 	/**
 	 * Creates a string representation of the given node. Useful for debugging.
@@ -67,12 +74,14 @@ public class DomModelUtils {
 		}
 		else if(!node.isLeaf()) {
 			if(node.getGrammarElement() != null)
-				result.append(new GrammarElementTitleSwitch().doSwitch(node.getGrammarElement()));
+				result.append(new GrammarElementTitleSwitch().showAssignments().doSwitch(node.getGrammarElement()));
 			else
 				result.append("(unknown)");
+			appendNodeStatus(result, node.getNodeStatus());
+
 			String newPrefix = prefix + "  ";
 			result.append(" {");
-			BidiIterator<IDomNode> children = node.getChildren().iterator();
+			Iterator<? extends IDomNode> children = node.getChildren().iterator();
 			while(children.hasNext()) {
 				IDomNode child = children.next();
 				compactDump(child, showHidden, newPrefix, result);
@@ -80,6 +89,7 @@ public class DomModelUtils {
 			result.append("\n");
 			result.append(prefix);
 			result.append("}");
+
 			if(containsError(node) && node.getNode() != null) {
 				SyntaxErrorMessage error = node.getNode().getSyntaxErrorMessage();
 				if(error != null)
@@ -91,12 +101,13 @@ public class DomModelUtils {
 			if(isHidden(node))
 				result.append("hidden ");
 			if(node.getGrammarElement() != null)
-				result.append(new GrammarElementTitleSwitch().doSwitch(node.getGrammarElement()));
+				result.append(new GrammarElementTitleSwitch().showAssignments().doSwitch(node.getGrammarElement()));
 			else
 				result.append("(unknown)");
 			result.append(" => '");
 			result.append(node.getText());
 			result.append("'");
+			appendNodeStatus(result, node.getNodeStatus());
 			if(containsError(node) && node.getNode() != null) {
 				SyntaxErrorMessage error = node.getNode().getSyntaxErrorMessage();
 				if(error != null)
@@ -123,6 +134,15 @@ public class DomModelUtils {
 
 	public static boolean containsWhitespace(IDomNode node) {
 		return node.getNodeStatus().contains(IDomNode.NodeStatus.CONTAINS_WHITESPACE);
+	}
+
+	public static IDomNode firstLeaf(IDomNode node) {
+		if(node == null || node.isLeaf())
+			return node;
+		int sz = node.getChildren().size();
+		if(sz == 0)
+			return nextLeaf(node);
+		return firstLeaf(node.getChildren().get(0));
 	}
 
 	/**
@@ -184,6 +204,45 @@ public class DomModelUtils {
 	 */
 	public static boolean isWhitespace(IDomNode node) {
 		return node.getNodeStatus().contains(IDomNode.NodeStatus.WHITESPACE);
+	}
+
+	public static IDomNode lastLeaf(IDomNode node) {
+		if(node == null || node.isLeaf())
+			return node;
+		int sz = node.getChildren().size();
+		if(sz == 0)
+			return preceedingLeaf(node);
+		return lastLeaf(node.getChildren().get(sz - 1));
+	}
+
+	public static IDomNode nextLeaf(IDomNode node) {
+		IDomNode n = node.getNextSibling();
+		if(n != null)
+			return firstLeaf(n);
+		Iterator<IDomNode> parents = node.parents();
+		while(parents.hasNext()) {
+			IDomNode parent = parents.next();
+			IDomNode p = parent.getNextSibling();
+			if(p != null)
+				return firstLeaf(p);
+		}
+		// ran out of parents
+		return null;
+	}
+
+	public static IDomNode preceedingLeaf(IDomNode node) {
+		IDomNode n = node.getPreviousSibling();
+		if(n != null)
+			return lastLeaf(n);
+		Iterator<IDomNode> parents = node.parents();
+		while(parents.hasNext()) {
+			IDomNode parent = parents.next();
+			IDomNode p = parent.getPreviousSibling();
+			if(p != null)
+				return lastLeaf(p);
+		}
+		// ran out of parents
+		return null;
 	}
 
 	private static String semanticTitle(IDomNode node) {

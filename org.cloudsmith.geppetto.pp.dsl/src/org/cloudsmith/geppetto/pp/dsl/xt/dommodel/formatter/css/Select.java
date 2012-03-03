@@ -18,7 +18,7 @@ import java.util.Set;
 
 import org.cloudsmith.geppetto.pp.dsl.xt.dommodel.DomModelUtils;
 import org.cloudsmith.geppetto.pp.dsl.xt.dommodel.IDomNode;
-import org.cloudsmith.geppetto.pp.dsl.xt.dommodel.IDomNode.NodeStatus;
+import org.cloudsmith.geppetto.pp.dsl.xt.dommodel.IDomNode.NodeType;
 import org.eclipse.emf.ecore.EObject;
 
 import com.google.common.collect.Iterators;
@@ -70,20 +70,20 @@ public class Select {
 		}
 
 		@Override
-		public boolean matches(IDomNode element) {
-			if(element == null)
+		public boolean matches(IDomNode node) {
+			if(node == null)
 				return false;
 			for(int i = 0; i < selectors.length; i++)
-				if(!selectors[i].matches(element))
+				if(!selectors[i].matches(node))
 					return false;
 			return true;
 		}
 	}
 
 	/**
-	 * Matches containment where each selector must match an containing element.
+	 * Matches containment where each selector must match an containing node.
 	 * The interpretation allows for "holes" - i.e. the rule (==A ==C) matches the containment
-	 * in the context (X Y A B C element) since element is contained in a C, that in turn is contained
+	 * in the context (X Y A B C node) since node is contained in a C, that in turn is contained
 	 * in an A). This is similar to how the CSS containment rule works.
 	 */
 	public static class Containment extends Selector {
@@ -128,10 +128,10 @@ public class Select {
 		 * context vector has nearest container first
 		 */
 		@Override
-		public boolean matches(IDomNode element) {
-			if(element == null)
+		public boolean matches(IDomNode node) {
+			if(node == null)
 				return false;
-			IDomNode[] context = Iterators.toArray(element.parents(), IDomNode.class);
+			IDomNode[] context = Iterators.toArray(node.parents(), IDomNode.class);
 			int startIdx = 0;
 			int matchCount = 0;
 			for(int si = 0; si < selectors.length; si++) {
@@ -152,186 +152,8 @@ public class Select {
 	}
 
 	/**
-	 * Matches on Element on NodeStatus, style class, and id.
-	 * 
-	 */
-	public static class Element extends Selector {
-
-		private Set<NodeStatus> matchElement;
-
-		private Set<Object> matchClasses;
-
-		private Object matchId;
-
-		private int specificity = 0;
-
-		private static String NoIdMatch = "";
-
-		/**
-		 * Selects all/any element.
-		 */
-		public Element() {
-			this(EnumSet.noneOf(NodeStatus.class), null, null);
-		}
-
-		/**
-		 * Node must have all the given style classes.
-		 * 
-		 * @param styleClasses
-		 */
-		public Element(Collection<Object> styleClasses) {
-			this(EnumSet.noneOf(NodeStatus.class), styleClasses, null);
-		}
-
-		/**
-		 * Node must have all of the given style classes and the given id.
-		 * 
-		 * @param styleClasses
-		 * @param id
-		 */
-		public Element(Collection<Object> styleClasses, Object id) {
-			this(EnumSet.noneOf(NodeStatus.class), styleClasses, id);
-		}
-
-		/**
-		 * Node must have the given node status (may have other node status set).
-		 * 
-		 * @param t
-		 */
-		public Element(NodeStatus t) {
-			this(EnumSet.of(t), null, null);
-		}
-
-		/**
-		 * Node must have the given node status (may have other node status set), and
-		 * all of the given style classes.
-		 * 
-		 * @param elementType
-		 * @param styleClasses
-		 */
-		public Element(NodeStatus elementType, Collection<Object> styleClasses) {
-			this(EnumSet.of(elementType), styleClasses, null);
-		}
-
-		/**
-		 * Node must have the given node type (may have other node status set), and all
-		 * of the style classes and the given id.
-		 * 
-		 * @param elementType
-		 * @param styleClasses
-		 * @param id
-		 */
-		public Element(NodeStatus elementType, Collection<Object> styleClasses, Object id) {
-			this(EnumSet.of(elementType), styleClasses, id);
-		}
-
-		/**
-		 * Node must have the given node type (may have other node status set), and the given style class
-		 * (may have other style classes assigned), and the given id).
-		 * 
-		 * @param elementType
-		 * @param styleClass
-		 * @param id
-		 */
-		public Element(NodeStatus elementType, Object styleClass, Object id) {
-			this(EnumSet.of(elementType), Sets.newHashSet(styleClass), id);
-		}
-
-		/**
-		 * Node must have all the given node statuses (may have other node status set).
-		 * 
-		 * @param elementType
-		 */
-		public Element(Set<NodeStatus> elementType) {
-			this(elementType, null, null);
-		}
-
-		/**
-		 * Node must have the given node statuses (may have other status set), and all of the given style classes.
-		 * 
-		 * @param elementTypes
-		 * @param styleClasses
-		 */
-		public Element(Set<NodeStatus> elementTypes, Collection<Object> styleClasses) {
-			this(elementTypes, styleClasses, null);
-		}
-
-		/**
-		 * Node must have all the given node statuses (may have other status set), and all of the given style classes
-		 * and the given id.
-		 * 
-		 * @param elementType
-		 *            - may be null (any type)
-		 * @param styleClass
-		 *            - may be null (any class)
-		 * @param id
-		 *            - may be null (any id)
-		 */
-		public Element(Set<NodeStatus> elementType, Collection<Object> styleClass, Object id) {
-
-			if(elementType == null) {
-				elementType = EnumSet.noneOf(NodeStatus.class);
-			}
-			this.matchElement = elementType;
-			this.matchClasses = Sets.newHashSet();
-			if(styleClass != null)
-				this.matchClasses.addAll(styleClass);
-			this.matchId = id != null
-					? id
-					: NoIdMatch;
-		}
-
-		@Override
-		public boolean equalMatch(Selector selector) {
-			if(!(selector instanceof Element))
-				return false;
-			Element e = (Element) selector;
-			if(!matchElement.equals(e.matchElement))
-				return false;
-			if(!(matchClasses.size() == e.matchClasses.size() && e.matchClasses.containsAll(matchClasses)))
-				return false;
-			if(!matchId.equals(e.matchId))
-				return false;
-			return true;
-		}
-
-		@Override
-		public int getSpecificity() {
-			if(specificity > 0)
-				return specificity;
-			specificity = 0;
-
-			if(matchId != NoIdMatch)
-				specificity += IDSPECIFICITY;
-
-			// NOTE: the number per matching class must be bigger than NodeStatus.numberOfValues
-
-			specificity += matchClasses.size() * CLASSSPECIFICITY;
-
-			specificity += matchElement.size();
-			return specificity;
-		}
-
-		@Override
-		public boolean matches(IDomNode element) {
-			if(element == null)
-				return false;
-
-			if(!element.getNodeStatus().containsAll(matchElement))
-				return false;
-
-			// i.e styleClass && styleClass && ...
-			if(matchClasses.size() > 0 && !element.getStyleClassifiers().containsAll(matchClasses))
-				return false;
-			if(matchId != NoIdMatch && !matchId.equals(element.getNodeId()))
-				return false;
-			return true;
-		}
-	}
-
-	/**
 	 * Selects on grammar element - may contain one or more grammar elements.
-	 * Selector matches if a dome node is associated with one of the grammar elements.
+	 * Selector matches if a DOM node is associated with one of the grammar elements.
 	 */
 	public static class Grammar extends Selector {
 		private Set<EObject> matchGrammar;
@@ -353,10 +175,10 @@ public class Select {
 		}
 
 		@Override
-		public boolean matches(IDomNode element) {
-			if(element == null)
+		public boolean matches(IDomNode node) {
+			if(node == null)
 				return false;
-			return matchGrammar.contains(element.getGrammarElement());
+			return matchGrammar.contains(node.getGrammarElement());
 		}
 	}
 
@@ -381,7 +203,7 @@ public class Select {
 		}
 
 		@Override
-		public boolean matches(IDomNode element) {
+		public boolean matches(IDomNode node) {
 			return true;
 		}
 	}
@@ -391,17 +213,17 @@ public class Select {
 	 * 
 	 */
 	public static class Instance extends Selector {
-		private final IDomNode element;
+		private final IDomNode node;
 
-		public Instance(IDomNode element) {
-			this.element = element;
+		public Instance(IDomNode node) {
+			this.node = node;
 		}
 
 		@Override
 		public boolean equalMatch(Selector selector) {
 			if(!(selector instanceof Instance))
 				return false;
-			return this.element == ((Instance) selector).element;
+			return this.node == ((Instance) selector).node;
 		}
 
 		@Override
@@ -410,15 +232,203 @@ public class Select {
 		}
 
 		@Override
-		public boolean matches(IDomNode element) {
-			return this.element == element;
+		public boolean matches(IDomNode node) {
+			return this.node == node;
+		}
+	}
+
+	/**
+	 * Matches IDomNodes on NodeType, style classifier, and id.
+	 * 
+	 */
+	public static class NodeSelector extends Selector {
+
+		private Set<NodeType> matchingNodeTypes;
+
+		private Set<Object> matchingClassifiers;
+
+		private Object matchingId;
+
+		private int specificity = 0;
+
+		private static String NoIdMatch = "";
+
+		/**
+		 * Selects all/any node.
+		 */
+		public NodeSelector() {
+			this(NodeType.anySet, null, null);
+		}
+
+		/**
+		 * Node must have all the given style classifiers.
+		 * 
+		 * @param styleClasses
+		 */
+		public NodeSelector(Collection<Object> styleClasses) {
+			this(NodeType.anySet, styleClasses, null);
+		}
+
+		/**
+		 * Node must have all of the given style classifiers and the given id.
+		 * 
+		 * @param styleClasses
+		 * @param id
+		 */
+		public NodeSelector(Collection<Object> styleClasses, Object id) {
+			this(NodeType.anySet, styleClasses, id);
+		}
+
+		/**
+		 * Node must have the given node type
+		 * 
+		 * @param t
+		 */
+		public NodeSelector(NodeType t) {
+			this(EnumSet.of(t), null, null);
+		}
+
+		/**
+		 * Node must have the given node type and all of the given style classifiers.
+		 * 
+		 * @param nodeType
+		 * @param styleClasses
+		 */
+		public NodeSelector(NodeType nodeType, Collection<Object> styleClasses) {
+			this(EnumSet.of(nodeType), styleClasses, null);
+		}
+
+		/**
+		 * Node must have the given node type, and all of the give style classifiers and the given id.
+		 * 
+		 * @param nodeType
+		 * @param styleClasses
+		 * @param id
+		 */
+		public NodeSelector(NodeType nodeType, Collection<Object> styleClasses, Object id) {
+			this(EnumSet.of(nodeType), styleClasses, id);
+		}
+
+		/**
+		 * Node must have the given node type, and the given style classifier
+		 * (may have other style classes assigned), and the given id).
+		 * 
+		 * @param nodeType
+		 * @param styleClass
+		 * @param id
+		 */
+		public NodeSelector(NodeType nodeType, Object styleClass, Object id) {
+			this(EnumSet.of(nodeType), Sets.newHashSet(styleClass), id);
+		}
+
+		/**
+		 * Node must have all the given node statuses (may have other node status set).
+		 * 
+		 * @param nodeTypes
+		 */
+		public NodeSelector(Set<NodeType> nodeTypes) {
+			this(nodeTypes, null, null);
+		}
+
+		/**
+		 * Node must have the given node statuses (may have other status set), and all of the given style classes.
+		 * 
+		 * @param nodeTypes
+		 * @param styleClasses
+		 */
+		public NodeSelector(Set<NodeType> nodeTypes, Collection<Object> styleClasses) {
+			this(nodeTypes, styleClasses, null);
+		}
+
+		/**
+		 * Node must have all the given node statuses (may have other status set), and all of the given style classes
+		 * and the given id.
+		 * 
+		 * @param nodeTypes
+		 *            - may be null (any type)
+		 * @param styleClass
+		 *            - may be null (any class)
+		 * @param id
+		 *            - may be null (any id)
+		 */
+		public NodeSelector(Set<NodeType> nodeTypes, Collection<Object> styleClass, Object id) {
+
+			if(nodeTypes == null) {
+				nodeTypes = EnumSet.noneOf(NodeType.class);
+			}
+			this.matchingNodeTypes = nodeTypes;
+			this.matchingClassifiers = Sets.newHashSet();
+			if(styleClass != null)
+				this.matchingClassifiers.addAll(styleClass);
+			this.matchingId = id != null
+					? id
+					: NoIdMatch;
+		}
+
+		@Override
+		public boolean equalMatch(Selector selector) {
+			if(!(selector instanceof NodeSelector))
+				return false;
+			NodeSelector e = (NodeSelector) selector;
+			if(!matchingNodeTypes.equals(e.matchingNodeTypes))
+				return false;
+			if(!(matchingClassifiers.size() == e.matchingClassifiers.size() && e.matchingClassifiers.containsAll(matchingClassifiers)))
+				return false;
+			if(!matchingId.equals(e.matchingId))
+				return false;
+			return true;
+		}
+
+		@Override
+		public int getSpecificity() {
+			if(specificity > 0)
+				return specificity;
+			specificity = 0;
+
+			if(matchingId != NoIdMatch)
+				specificity += IDSPECIFICITY;
+
+			// NOTE: the number per matching class must be bigger than NodeStatus.numberOfValues
+
+			specificity += matchingClassifiers.size() * CLASSSPECIFICITY;
+
+			switch(matchingNodeTypes.size()) {
+				case 0: // will never matching anything - specificity does not matter
+					break;
+				case 1: // matches one type
+					specificity += 2;
+					break;
+				case NodeType.numberOfValues:
+					// matches all types (not very specific at all)
+					break;
+				default:
+					// matches several but not all types (less specific than matching one)
+					specificity += 1;
+			}
+			return specificity;
+		}
+
+		@Override
+		public boolean matches(IDomNode node) {
+			if(node == null)
+				return false;
+
+			if(!matchingNodeTypes.contains(node.getNodeType()))
+				return false;
+
+			// i.e styleClass && styleClass && ...
+			if(matchingClassifiers.size() > 0 && !node.getStyleClassifiers().containsAll(matchingClassifiers))
+				return false;
+			if(matchingId != NoIdMatch && !matchingId.equals(node.getNodeId()))
+				return false;
+			return true;
 		}
 	}
 
 	/**
 	 * Negates a selector and increases the specificity by one.
 	 * e.g. selection of not(a) is more important than selection of just a.
-	 * Not does not select a null element.
+	 * Not does not select a null node.
 	 * 
 	 */
 	public static class Not extends Selector {
@@ -442,10 +452,10 @@ public class Select {
 		}
 
 		@Override
-		public boolean matches(IDomNode element) {
-			if(element == null)
+		public boolean matches(IDomNode node) {
+			if(node == null)
 				return false;
-			return !this.selector.matches(element);
+			return !this.selector.matches(node);
 		}
 
 	}
@@ -467,14 +477,14 @@ public class Select {
 		}
 
 		@Override
-		public boolean matches(IDomNode element) {
+		public boolean matches(IDomNode node) {
 			return false;
 		}
 
 	}
 
 	/**
-	 * Applies the delegate selector to the parent of the element being matched.
+	 * Applies the delegate selector to the parent of the node being matched.
 	 * 
 	 */
 	public static class ParentSelector extends Selector {
@@ -497,10 +507,10 @@ public class Select {
 		}
 
 		@Override
-		public boolean matches(IDomNode element) {
-			if(element == null)
+		public boolean matches(IDomNode node) {
+			if(node == null)
 				return false;
-			return parentSelector.matches(element.getParent());
+			return parentSelector.matches(node.getParent());
 		}
 	}
 
@@ -524,10 +534,10 @@ public class Select {
 		}
 
 		@Override
-		public boolean matches(IDomNode element) {
-			if(element == null)
+		public boolean matches(IDomNode node) {
+			if(node == null)
 				return false;
-			return predecessorSelector.matches(DomModelUtils.preceedingLeaf(element));
+			return predecessorSelector.matches(DomModelUtils.previousLeaf(node));
 		}
 	}
 
@@ -543,11 +553,11 @@ public class Select {
 		public static final int GRAMMARSPECIFICITY = 100;
 
 		static {
-			assert (GRAMMARSPECIFICITY > NodeStatus.numberOfValues);
-			assert (IDSPECIFICITY + 100 * CLASSSPECIFICITY + GRAMMARSPECIFICITY + NodeStatus.numberOfValues < IMPORTANT_SPECIFICITY);
+			assert (GRAMMARSPECIFICITY > NodeType.numberOfValues);
+			assert (IDSPECIFICITY + 100 * CLASSSPECIFICITY + GRAMMARSPECIFICITY + NodeType.numberOfValues < IMPORTANT_SPECIFICITY);
 			assert (IDSPECIFICITY > GRAMMARSPECIFICITY);
 			assert (CLASSSPECIFICITY > GRAMMARSPECIFICITY);
-			assert (CLASSSPECIFICITY - GRAMMARSPECIFICITY > NodeStatus.numberOfValues);
+			assert (CLASSSPECIFICITY - GRAMMARSPECIFICITY > NodeType.numberOfValues);
 		}
 
 		public And and(Selector selector) {
@@ -564,7 +574,7 @@ public class Select {
 		 */
 		public abstract int getSpecificity();
 
-		public abstract boolean matches(IDomNode element);
+		public abstract boolean matches(IDomNode node);
 
 		public Rule withStyle(IStyle<? extends Object> styles) {
 			return new Rule(this, StyleSet.withStyles(styles));
@@ -580,7 +590,7 @@ public class Select {
 	}
 
 	/**
-	 * Applies the delegate selector to the successor of the matched element.
+	 * Applies the delegate selector to the successor of the matching node.
 	 * 
 	 */
 	public static class SuccessorSelector extends Selector {
@@ -603,10 +613,10 @@ public class Select {
 		}
 
 		@Override
-		public boolean matches(IDomNode element) {
-			if(element == null)
+		public boolean matches(IDomNode node) {
+			if(node == null)
 				return false;
-			return successorSelector.matches(DomModelUtils.nextLeaf(element));
+			return successorSelector.matches(DomModelUtils.nextLeaf(node));
 		}
 	}
 
@@ -636,83 +646,67 @@ public class Select {
 		}
 
 		@Override
-		public boolean matches(IDomNode element) {
-			if(element == null)
+		public boolean matches(IDomNode node) {
+			if(node == null)
 				return false;
-			return this.text.equals(element.getText());
+			return this.text.equals(node.getText());
 		}
 	}
 
-	public static Select.And after(Selector elementSelector, Selector succcessor) {
-		return new And(elementSelector, new SuccessorSelector(succcessor));
+	/**
+	 * Selects a node that is matched by the given nodeSelector if the node's predecessor matches
+	 * the given predecessor selector.
+	 * 
+	 * @param nodeSelector
+	 * @param predecessor
+	 * @return
+	 */
+	public static Select.And after(Selector nodeSelector, Selector predecessor) {
+		return new And(nodeSelector, new PredecessorSelector(predecessor));
 	}
 
 	public static Select.And and(Select.Selector... selectors) {
 		return new Select.And(selectors);
 	}
 
-	public static Select.Element any() {
-		return new Select.Element();
+	public static Select.NodeSelector any() {
+		return new Select.NodeSelector();
 	}
 
-	public static Select.Element any(Object styleClass) {
-		return new Select.Element(Sets.newHashSet(styleClass));
+	public static Select.NodeSelector any(Object styleClass) {
+		return new Select.NodeSelector(Sets.newHashSet(styleClass));
 	}
 
-	public static Select.Element any(Object styleClass, String id) {
-		return new Select.Element(Sets.newHashSet(styleClass), id);
+	public static Select.NodeSelector any(Object styleClass, String id) {
+		return new Select.NodeSelector(Sets.newHashSet(styleClass), id);
 	}
 
-	public static Select.And before(Selector elementSelector, Selector predecessor) {
-		return new And(elementSelector, new PredecessorSelector(predecessor));
+	/**
+	 * Selects a node matching the given nodeSelector, if this node is before a node matching the
+	 * given successor selector.
+	 * 
+	 * @param nodeSelector
+	 * @param successor
+	 * @return
+	 */
+	public static Select.And before(Selector nodeSelector, Selector successor) {
+		return new And(nodeSelector, new SuccessorSelector(successor));
 	}
 
 	public static Select.And between(Selector predecessor, Selector successor) {
 		return new And(new PredecessorSelector(predecessor), new SuccessorSelector(successor));
 	}
 
-	public static Select.And between(Selector elementSelector, Selector predecessor, Selector successor) {
-		return new And(elementSelector, new And(new PredecessorSelector(predecessor), new SuccessorSelector(successor)));
+	public static Select.And between(Selector nodeSelector, Selector predecessor, Selector successor) {
+		return new And(nodeSelector, new And(new PredecessorSelector(predecessor), new SuccessorSelector(successor)));
 	}
 
-	public static Select.Element comment() {
-		return new Select.Element(NodeStatus.COMMENT);
+	public static Select.NodeSelector comment() {
+		return new Select.NodeSelector(NodeType.COMMENT);
 	}
 
 	public static Select.Containment containment(Select.Selector... selectors) {
 		return new Select.Containment(selectors);
-	}
-
-	public static Select.Element element(Collection<Object> styleClasses) {
-		return new Select.Element(styleClasses, null);
-	}
-
-	public static Select.Element element(Collection<Object> styleClasses, String id) {
-		return new Select.Element(styleClasses, id);
-	}
-
-	public static Select.Element element(NodeStatus type) {
-		return new Select.Element(type);
-	}
-
-	public static Select.Element element(NodeStatus type, Collection<String> styleClasses, String id) {
-		return new Select.Element(type, styleClasses, id);
-	}
-
-	public static Select.Element element(NodeStatus type, String styleClass) {
-		return new Select.Element(type, Collections.singleton(styleClass), null);
-	}
-
-	public static Select.Element element(NodeStatus type, String styleClass, String id) {
-		return new Select.Element(type, Collections.singleton(styleClass), id);
-	}
-
-	public static Select.Element element(Object styleClass) {
-		return new Select.Element(Collections.singleton(styleClass), null);
-	}
-
-	public static Select.Element element(Object styleClass, String id) {
-		return new Select.Element(Collections.singleton(styleClass), id);
 	}
 
 	public static Select.Instance instance(IDomNode x) {
@@ -720,7 +714,39 @@ public class Select {
 	}
 
 	public static Select.And keyword(String text) {
-		return new Select.And(new Element(NodeStatus.KEYWORD), new Text(text));
+		return new Select.And(new NodeSelector(NodeType.KEYWORD), new Text(text));
+	}
+
+	public static Select.NodeSelector node(Collection<Object> styleClasses) {
+		return new Select.NodeSelector(styleClasses, null);
+	}
+
+	public static Select.NodeSelector node(Collection<Object> styleClasses, String id) {
+		return new Select.NodeSelector(styleClasses, id);
+	}
+
+	public static Select.NodeSelector node(NodeType type) {
+		return new Select.NodeSelector(type);
+	}
+
+	public static Select.NodeSelector node(NodeType type, Collection<String> styleClasses, String id) {
+		return new Select.NodeSelector(type, styleClasses, id);
+	}
+
+	public static Select.NodeSelector node(NodeType type, String styleClass) {
+		return new Select.NodeSelector(type, Collections.singleton(styleClass), null);
+	}
+
+	public static Select.NodeSelector node(NodeType type, String styleClass, String id) {
+		return new Select.NodeSelector(type, Collections.singleton(styleClass), id);
+	}
+
+	public static Select.NodeSelector node(Object styleClass) {
+		return new Select.NodeSelector(Collections.singleton(styleClass), null);
+	}
+
+	public static Select.NodeSelector node(Object styleClass, String id) {
+		return new Select.NodeSelector(Collections.singleton(styleClass), id);
 	}
 
 	public static Select.Not not(Select.Selector selector) {
@@ -735,7 +761,7 @@ public class Select {
 		return new Select.ParentSelector(selector);
 	}
 
-	public static Select.Element whitespace() {
-		return new Select.Element(NodeStatus.WHITESPACE);
+	public static Select.NodeSelector whitespace() {
+		return new Select.NodeSelector(NodeType.WHITESPACE);
 	}
 }

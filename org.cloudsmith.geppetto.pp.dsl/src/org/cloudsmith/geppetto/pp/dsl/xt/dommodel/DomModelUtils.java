@@ -13,14 +13,15 @@ package org.cloudsmith.geppetto.pp.dsl.xt.dommodel;
 
 import java.io.IOException;
 import java.util.Iterator;
-import java.util.Set;
 
-import org.cloudsmith.geppetto.pp.dsl.xt.dommodel.IDomNode.NodeStatus;
+import org.cloudsmith.geppetto.pp.dsl.xt.dommodel.IDomNode.NodeType;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.xtext.grammaranalysis.impl.GrammarElementTitleSwitch;
 import org.eclipse.xtext.nodemodel.ICompositeNode;
 import org.eclipse.xtext.nodemodel.INode;
 import org.eclipse.xtext.nodemodel.SyntaxErrorMessage;
+
+import com.google.common.base.Joiner;
 
 /**
  * Utilities for a IDomModel
@@ -28,9 +29,20 @@ import org.eclipse.xtext.nodemodel.SyntaxErrorMessage;
  */
 public class DomModelUtils {
 
-	private static void appendNodeStatus(Appendable result, Set<NodeStatus> statusBits) throws IOException {
+	private static void appendTypeAndClassifiers(Appendable result, IDomNode node) throws IOException {
 		result.append(" ");
-		result.append(statusBits.toString());
+		NodeType nodeType = node.getNodeType();
+		if(nodeType == null)
+			result.append("(unknown node type)");
+		else
+			result.append(nodeType.toString());
+
+		if(node != null && node.getStyleClassifiers().size() > 0) {
+			result.append(" [");
+			Joiner.on(", ").appendTo(result, node.getStyleClassifiers());
+			result.append("] ");
+		}
+
 	}
 
 	/**
@@ -67,6 +79,8 @@ public class DomModelUtils {
 			result.append(Boolean.toString(node.getNode() != null));
 		}
 
+		// Style classifiers
+
 		// Grammar
 		result.append(" g: ");
 		if(node == null) {
@@ -77,7 +91,7 @@ public class DomModelUtils {
 				result.append(new GrammarElementTitleSwitch().showAssignments().doSwitch(node.getGrammarElement()));
 			else
 				result.append("(unknown)");
-			appendNodeStatus(result, node.getNodeStatus());
+			appendTypeAndClassifiers(result, node);
 
 			String newPrefix = prefix + "  ";
 			result.append(" {");
@@ -107,7 +121,7 @@ public class DomModelUtils {
 			result.append(" => '");
 			result.append(node.getText());
 			result.append("'");
-			appendNodeStatus(result, node.getNodeStatus());
+			appendTypeAndClassifiers(result, node);
 			if(containsError(node) && node.getNode() != null) {
 				SyntaxErrorMessage error = node.getNode().getSyntaxErrorMessage();
 				if(error != null)
@@ -115,25 +129,25 @@ public class DomModelUtils {
 			}
 		}
 		else {
-			result.append("unknown type ");
+			result.append("neither leaf nor composite!! ");
 			result.append(node.getClass().getName());
 		}
 	}
 
 	public static boolean containsComment(IDomNode node) {
-		return node.getNodeStatus().contains(IDomNode.NodeStatus.CONTAINS_COMMENT);
+		return node.getStyleClassifiers().contains(IDomNode.NodeClassifier.CONTAINS_COMMENT);
 	}
 
 	public static boolean containsError(IDomNode node) {
-		return node.getNodeStatus().contains(IDomNode.NodeStatus.CONTAINS_ERROR);
+		return node.getStyleClassifiers().contains(IDomNode.NodeClassifier.CONTAINS_ERROR);
 	}
 
 	public static boolean containsHidden(IDomNode node) {
-		return node.getNodeStatus().contains(IDomNode.NodeStatus.CONTAINS_HIDDEN);
+		return node.getStyleClassifiers().contains(IDomNode.NodeClassifier.CONTAINS_HIDDEN);
 	}
 
 	public static boolean containsWhitespace(IDomNode node) {
-		return node.getNodeStatus().contains(IDomNode.NodeStatus.CONTAINS_WHITESPACE);
+		return node.getStyleClassifiers().contains(IDomNode.NodeClassifier.CONTAINS_WHITESPACE);
 	}
 
 	public static IDomNode firstLeaf(IDomNode node) {
@@ -143,6 +157,20 @@ public class DomModelUtils {
 		if(sz == 0)
 			return nextLeaf(node);
 		return firstLeaf(node.getChildren().get(0));
+	}
+
+	/**
+	 * Returns the first node representing a textual non whitespace token. (i.e. a leaf node
+	 * that has a textual representation).
+	 * 
+	 * @param node
+	 * @return
+	 */
+	public static IDomNode firstToken(IDomNode node) {
+		IDomNode n = firstLeaf(node);
+		while(n != null && !isLeafWithText(n))
+			n = nextLeaf(n);
+		return n;
 	}
 
 	/**
@@ -179,13 +207,13 @@ public class DomModelUtils {
 	}
 
 	/**
-	 * Returns true if rue if node holds only comment tokens - hidden or not.
+	 * Returns true if node holds only comment tokens - hidden or not.
 	 * 
 	 * @return true if node holds only comment tokens
 	 */
 
 	public static boolean isComment(IDomNode node) {
-		return node.getNodeStatus().contains(IDomNode.NodeStatus.COMMENT);
+		return node.getNodeType() == IDomNode.NodeType.COMMENT;
 	}
 
 	/**
@@ -194,7 +222,23 @@ public class DomModelUtils {
 	 * @return true if node holds only hidden tokens
 	 */
 	public static boolean isHidden(IDomNode node) {
-		return node.getNodeStatus().contains(IDomNode.NodeStatus.HIDDEN);
+		return node.getStyleClassifiers().contains(IDomNode.NodeClassifier.HIDDEN);
+	}
+
+	/**
+	 * Returns true for a node that is non whitspace and has a textual representation.
+	 * 
+	 * @param node
+	 * @return
+	 */
+	public static boolean isLeafWithText(IDomNode node) {
+		if(!node.isLeaf())
+			return false;
+		if(node.getNodeType() == NodeType.WHITESPACE || node.getNodeType() == NodeType.ACTION)
+			return false;
+		if(node.getText().length() == 0)
+			return false;
+		return true;
 	}
 
 	/**
@@ -203,7 +247,7 @@ public class DomModelUtils {
 	 * @return true if node holds only whitespace tokens
 	 */
 	public static boolean isWhitespace(IDomNode node) {
-		return node.getNodeStatus().contains(IDomNode.NodeStatus.WHITESPACE);
+		return node.getNodeType() == IDomNode.NodeType.WHITESPACE;
 	}
 
 	public static IDomNode lastLeaf(IDomNode node) {
@@ -211,8 +255,22 @@ public class DomModelUtils {
 			return node;
 		int sz = node.getChildren().size();
 		if(sz == 0)
-			return preceedingLeaf(node);
+			return previousLeaf(node);
 		return lastLeaf(node.getChildren().get(sz - 1));
+	}
+
+	/**
+	 * Returns the last node representing a textual non whitespace token. (i.e. a leaf node
+	 * that has a textual representation).
+	 * 
+	 * @param node
+	 * @return
+	 */
+	public static IDomNode lastToken(IDomNode node) {
+		IDomNode n = lastLeaf(node);
+		while(n != null && !isLeafWithText(n))
+			n = previousLeaf(n);
+		return n;
 	}
 
 	public static IDomNode nextLeaf(IDomNode node) {
@@ -230,7 +288,7 @@ public class DomModelUtils {
 		return null;
 	}
 
-	public static IDomNode preceedingLeaf(IDomNode node) {
+	public static IDomNode previousLeaf(IDomNode node) {
 		IDomNode n = node.getPreviousSibling();
 		if(n != null)
 			return lastLeaf(n);

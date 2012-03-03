@@ -33,21 +33,15 @@ import com.google.common.collect.Sets;
  */
 public interface IDomNode {
 
-	public enum NodeStatus {
+	/**
+	 * Generic NodeClassifiers that are suitable as "style classifiers".
+	 * 
+	 */
+	public enum NodeClassifier {
 		/**
 		 * Consists of only hidden tokens.
 		 */
 		HIDDEN,
-
-		/**
-		 * Consists of only comment tokens
-		 */
-		COMMENT,
-
-		/**
-		 * Consists of only whitespace tokens
-		 */
-		WHITESPACE,
 
 		/**
 		 * Contains one or more whitespace tokens
@@ -65,6 +59,21 @@ public interface IDomNode {
 		CONTAINS_HIDDEN,
 
 		/**
+		 * Content is only comment(s)
+		 */
+		ALL_COMMENT,
+
+		/**
+		 * Content is only whitespace(s)
+		 */
+		ALL_WHITESPACE,
+
+		/**
+		 * Content consists of only whitespace and comments
+		 */
+		ALL_COMMENT_WHITESPACE,
+
+		/**
 		 * Contains one or more nodes with associated error(s).
 		 */
 		CONTAINS_ERROR,
@@ -74,6 +83,45 @@ public interface IDomNode {
 		 * of which an instance is created.
 		 */
 		INSTANTIATION,
+
+		/**
+		 * Node represents a cross reference
+		 */
+		CROSSREF,
+
+		/**
+		 * Node represents token that is unassigned
+		 */
+		UNASSIGNED,
+
+		/**
+		 * Node represents token that is assigned.
+		 */
+		ASSIGNED,
+
+		/**
+		 * First non whitespace
+		 */
+		FIRST_TOKEN,
+
+		/**
+		 * Last non whitespae
+		 */
+		LAST_TOKEN,
+
+	}
+
+	public enum NodeType {
+
+		/**
+		 * Consists of only comment tokens
+		 */
+		COMMENT,
+
+		/**
+		 * Consists of only whitespace tokens
+		 */
+		WHITESPACE,
 
 		/**
 		 * Node represents a keyword.
@@ -91,24 +139,9 @@ public interface IDomNode {
 		ENUM,
 
 		/**
-		 * Node represents a cross reference
-		 */
-		CROSSREF,
-
-		/**
 		 * Node represents a data type.
 		 */
 		DATATYPE,
-
-		/**
-		 * Node represents token that is unassigned
-		 */
-		UNASSIGNED,
-
-		/**
-		 * Node represents token that is assigned.
-		 */
-		ASSIGNED,
 
 		/**
 		 * Node represents an action.
@@ -123,16 +156,14 @@ public interface IDomNode {
 		/**
 		 * Count of enums - useful for "any" check
 		 */
-		public static final int numberOfValues = 17;
+		public static final int numberOfValues = 8;
 
-		// All bits set except for those that represent non whitepsace
-		public static final Set<NodeStatus> whitespaceMask = Collections.unmodifiableSet(Sets.complementOf( //
-		EnumSet.of(COMMENT, KEYWORD, TERMINAL, ENUM, DATATYPE)));
+		public static final Set<NodeType> whitespaceSet = Collections.unmodifiableSet(EnumSet.of(WHITESPACE));
 
 		// All bits set except for whitepsace
-		public static final Set<NodeStatus> nonWhitespaceMask = Collections.unmodifiableSet(Sets.complementOf(EnumSet.of(NodeStatus.WHITESPACE)));
+		public static final Set<NodeType> nonWhitespaceSet = Collections.unmodifiableSet(Sets.complementOf(EnumSet.of(NodeType.WHITESPACE)));
 
-		public static final Set<NodeStatus> anyMask = Collections.unmodifiableSet(EnumSet.noneOf(NodeStatus.class));
+		public static final Set<NodeType> anySet = Collections.unmodifiableSet(EnumSet.allOf(NodeType.class));
 
 	}
 
@@ -180,7 +211,7 @@ public interface IDomNode {
 	 */
 	public Object getNodeId();
 
-	Set<NodeStatus> getNodeStatus();
+	NodeType getNodeType();
 
 	/**
 	 * Returns the offset of this node excluding hidden tokens. If this node is a hidden leaf node or
@@ -210,12 +241,12 @@ public interface IDomNode {
 	public EObject getSemanticElement();
 
 	/**
-	 * Returns a mutable set of style classifiers which may be used in matching rules.
+	 * Returns an immutable set of style classifiers which may be used in matching rules.
 	 */
 	public Set<? extends Object> getStyleClassifiers();
 
 	/**
-	 * A DomNode may have an associated StyleSet - styles applicable only to this node that match with the
+	 * A DomNode may have an associated StyleSet; styles applicable only to this node that match with the
 	 * highest specificity.
 	 * 
 	 * @return
@@ -256,4 +287,5 @@ public interface IDomNode {
 	 * identity.
 	 */
 	public void setNodeId(Object id);
+
 }

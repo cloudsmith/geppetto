@@ -14,7 +14,7 @@ package org.cloudsmith.geppetto.pp.dsl.xt.dommodel.formatter.css;
 import java.util.Set;
 
 import org.cloudsmith.geppetto.pp.dsl.xt.dommodel.IDomNode;
-import org.cloudsmith.geppetto.pp.dsl.xt.dommodel.IDomNode.NodeStatus;
+import org.cloudsmith.geppetto.pp.dsl.xt.dommodel.IDomNode.NodeType;
 
 import com.google.common.base.Function;
 import com.google.inject.Inject;
@@ -32,7 +32,7 @@ public class StyleFactory implements IStyleFactory {
 
 		private StyleType style;
 
-		private Set<NodeStatus> types;
+		private Set<NodeType> types;
 
 		private T value;
 
@@ -63,19 +63,19 @@ public class StyleFactory implements IStyleFactory {
 			return function != null;
 		}
 
-		protected void setTypes(Set<NodeStatus> types) {
+		protected void setTypes(Set<NodeType> types) {
 			this.types = types;
 		}
 
 		@Override
-		public boolean supports(NodeStatus type) {
+		public boolean supports(NodeType type) {
 			return types == null
 					? true
 					: types.contains(type);
 		}
 
 		@Override
-		public boolean supports(Set<NodeStatus> types) {
+		public boolean supports(Set<NodeType> types) {
 			return types == null
 					? true
 					: this.types.containsAll(types);
@@ -85,12 +85,12 @@ public class StyleFactory implements IStyleFactory {
 	public static class Align extends AbstractStyle<Alignment> {
 		public Align(Alignment align) {
 			super(StyleType.align, align);
-			setTypes(NodeStatus.nonWhitespaceMask);
+			setTypes(NodeType.nonWhitespaceSet);
 		}
 
 		public Align(Function<IDomNode, Alignment> f) {
 			super(StyleType.align, f);
-			setTypes(NodeStatus.nonWhitespaceMask);
+			setTypes(NodeType.nonWhitespaceSet);
 		}
 
 		@Override
@@ -112,12 +112,12 @@ public class StyleFactory implements IStyleFactory {
 	public static class ContainerNamesStyle extends AbstractStyle<Set<String>> {
 		public ContainerNamesStyle(Function<IDomNode, Set<String>> f) {
 			super(StyleType.containerNames, f);
-			setTypes(NodeStatus.nonWhitespaceMask);
+			setTypes(NodeType.nonWhitespaceSet);
 		}
 
 		public ContainerNamesStyle(Set<String> spacing) {
 			super(StyleType.containerNames, spacing);
-			setTypes(NodeStatus.nonWhitespaceMask);
+			setTypes(NodeType.nonWhitespaceSet);
 		}
 
 		@Override
@@ -199,12 +199,12 @@ public class StyleFactory implements IStyleFactory {
 	public static class LineBreakStyle extends AbstractStyle<LineBreaks> {
 		public LineBreakStyle(Function<IDomNode, LineBreaks> f) {
 			super(StyleType.lineBreaks, f);
-			setTypes(NodeStatus.whitespaceMask);
+			setTypes(NodeType.whitespaceSet);
 		}
 
 		public LineBreakStyle(LineBreaks lineBreaks) {
 			super(StyleType.spacing, lineBreaks);
-			setTypes(NodeStatus.whitespaceMask);
+			setTypes(NodeType.whitespaceSet);
 		}
 
 		@Override
@@ -217,12 +217,12 @@ public class StyleFactory implements IStyleFactory {
 	public static class SpacingStyle extends AbstractStyle<Spacing> {
 		public SpacingStyle(Function<IDomNode, Spacing> f) {
 			super(StyleType.spacing, f);
-			setTypes(NodeStatus.whitespaceMask);
+			setTypes(NodeType.whitespaceSet);
 		}
 
 		public SpacingStyle(Spacing spacing) {
 			super(StyleType.spacing, spacing);
-			setTypes(NodeStatus.whitespaceMask);
+			setTypes(NodeType.whitespaceSet);
 		}
 
 		@Override

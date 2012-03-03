@@ -69,8 +69,18 @@ public class CompositeDomNode extends BaseDomNode {
 
 	/**
 	 * Performs the "layout" by iterating over nodes and computing the offsets and total length
-	 * of all children. A check is also made if all children are hidden, and if so, then this node
-	 * is also considered to be hidden.
+	 * of all children. Basic style classification is performed to aid with selection:
+	 * <ul>
+	 * <li>{@link NodeClassifier#ALL_HIDDEN}</li>
+	 * <li>{@link NodeClassifier#ALL_WHITESPACE}</li>
+	 * <li>{@link NodeClassifier#ALL_COMMENT}</li>
+	 * <li>{@link NodeClassifier#ALL_COMMENT_WHITESPACE}</li>
+	 * <li>{@link NodeClassifier#CONTAINS_HIDDEN}</li>
+	 * <li>{@link NodeClassifier#CONTAINS_WHITESPACE}</li>
+	 * <li>{@link NodeClassifier#CONTAINS_COMMENT}</li>
+	 * <li>{@link NodeClassifier#LAST_TOKEN}</li>
+	 * <li>{@link NodeClassifier#FIRST_TOKEN}</li>
+	 * </ul>
 	 */
 	@Override
 	public void doLayout() {
@@ -90,17 +100,27 @@ public class CompositeDomNode extends BaseDomNode {
 		}
 		setLength(length);
 		int childCount = children.size();
-		flip(hiddenCount == childCount, NodeStatus.HIDDEN);
-		flip(whitespaceCount == childCount, NodeStatus.WHITESPACE);
-		flip(commentCount == childCount, NodeStatus.COMMENT);
+		setClassifiers(hiddenCount == childCount, NodeClassifier.HIDDEN);
+		setClassifiers(whitespaceCount == childCount, NodeClassifier.ALL_WHITESPACE);
+		setClassifiers(commentCount == childCount, NodeClassifier.ALL_COMMENT);
+		setClassifiers(commentCount + whitespaceCount == childCount, NodeClassifier.ALL_COMMENT_WHITESPACE);
 
-		flip(hiddenCount > 0, NodeStatus.CONTAINS_HIDDEN);
-		flip(whitespaceCount > 0, NodeStatus.CONTAINS_WHITESPACE);
-		flip(commentCount > 0, NodeStatus.CONTAINS_COMMENT);
+		setClassifiers(hiddenCount > 0, NodeClassifier.CONTAINS_HIDDEN);
+		setClassifiers(whitespaceCount > 0, NodeClassifier.CONTAINS_WHITESPACE);
+		setClassifiers(commentCount > 0, NodeClassifier.CONTAINS_COMMENT);
 
-		// if this is the root recalculate offsets starting with 0
-		if(getParent() == null)
+		// if this is the root
+		if(getParent() == null) {
+			// recalculate offsets starting with 0
 			setOffset(0);
+			// find and mark first and last token
+			IDomNode first = DomModelUtils.firstToken(this);
+			IDomNode last = DomModelUtils.lastToken(this);
+			if(first != null && first instanceof AbstractDomNode)
+				((AbstractDomNode) first).setClassifiers(true, NodeClassifier.FIRST_TOKEN);
+			if(last != null && last instanceof AbstractDomNode)
+				((AbstractDomNode) last).setClassifiers(true, NodeClassifier.LAST_TOKEN);
+		}
 	}
 
 	@Override

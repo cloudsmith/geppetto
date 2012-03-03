@@ -11,24 +11,20 @@
  */
 package org.cloudsmith.geppetto.pp.dsl.xt.serializer.acceptor;
 
-import static org.cloudsmith.geppetto.pp.dsl.xt.dommodel.IDomNode.NodeStatus.ACTION;
-import static org.cloudsmith.geppetto.pp.dsl.xt.dommodel.IDomNode.NodeStatus.ASSIGNED;
-import static org.cloudsmith.geppetto.pp.dsl.xt.dommodel.IDomNode.NodeStatus.COMMENT;
-import static org.cloudsmith.geppetto.pp.dsl.xt.dommodel.IDomNode.NodeStatus.CROSSREF;
-import static org.cloudsmith.geppetto.pp.dsl.xt.dommodel.IDomNode.NodeStatus.DATATYPE;
-import static org.cloudsmith.geppetto.pp.dsl.xt.dommodel.IDomNode.NodeStatus.ENUM;
-import static org.cloudsmith.geppetto.pp.dsl.xt.dommodel.IDomNode.NodeStatus.HIDDEN;
-import static org.cloudsmith.geppetto.pp.dsl.xt.dommodel.IDomNode.NodeStatus.INSTANTIATION;
-import static org.cloudsmith.geppetto.pp.dsl.xt.dommodel.IDomNode.NodeStatus.KEYWORD;
-import static org.cloudsmith.geppetto.pp.dsl.xt.dommodel.IDomNode.NodeStatus.RULECALL;
-import static org.cloudsmith.geppetto.pp.dsl.xt.dommodel.IDomNode.NodeStatus.TERMINAL;
-import static org.cloudsmith.geppetto.pp.dsl.xt.dommodel.IDomNode.NodeStatus.UNASSIGNED;
-import static org.cloudsmith.geppetto.pp.dsl.xt.dommodel.IDomNode.NodeStatus.WHITESPACE;
+import static org.cloudsmith.geppetto.pp.dsl.xt.dommodel.IDomNode.NodeType.ACTION;
+import static org.cloudsmith.geppetto.pp.dsl.xt.dommodel.IDomNode.NodeType.COMMENT;
+import static org.cloudsmith.geppetto.pp.dsl.xt.dommodel.IDomNode.NodeType.DATATYPE;
+import static org.cloudsmith.geppetto.pp.dsl.xt.dommodel.IDomNode.NodeType.ENUM;
+import static org.cloudsmith.geppetto.pp.dsl.xt.dommodel.IDomNode.NodeType.KEYWORD;
+import static org.cloudsmith.geppetto.pp.dsl.xt.dommodel.IDomNode.NodeType.RULECALL;
+import static org.cloudsmith.geppetto.pp.dsl.xt.dommodel.IDomNode.NodeType.TERMINAL;
+import static org.cloudsmith.geppetto.pp.dsl.xt.dommodel.IDomNode.NodeType.WHITESPACE;
 
 import java.util.List;
 
 import org.cloudsmith.geppetto.pp.dsl.xt.dommodel.IDomNode;
-import org.cloudsmith.geppetto.pp.dsl.xt.dommodel.IDomNode.NodeStatus;
+import org.cloudsmith.geppetto.pp.dsl.xt.dommodel.IDomNode.NodeClassifier;
+import org.cloudsmith.geppetto.pp.dsl.xt.dommodel.IDomNode.NodeType;
 import org.cloudsmith.geppetto.pp.dsl.xt.dommodel.impl.BaseDomNode;
 import org.cloudsmith.geppetto.pp.dsl.xt.dommodel.impl.CompositeDomNode;
 import org.cloudsmith.geppetto.pp.dsl.xt.dommodel.impl.LeafDomNode;
@@ -73,8 +69,8 @@ public class DomModelSequenceAdapter implements ISequenceAcceptor {
 	@Override
 	public void acceptAssignedCrossRefDatatype(RuleCall datatypeRC, String token, EObject value, int index,
 			ICompositeNode node) {
-		addCompositeNodeToCurrent(
-			GrammarUtil.containingCrossReference(datatypeRC), token, node, DATATYPE, CROSSREF, ASSIGNED);
+		addCompositeNodeToCurrent(GrammarUtil.containingCrossReference(datatypeRC), token, node, DATATYPE, //
+			NodeClassifier.CROSSREF, NodeClassifier.ASSIGNED);
 	}
 
 	/**
@@ -83,7 +79,8 @@ public class DomModelSequenceAdapter implements ISequenceAcceptor {
 	 */
 	@Override
 	public void acceptAssignedCrossRefEnum(RuleCall enumRC, String token, EObject value, int index, ICompositeNode node) {
-		addCompositeNodeToCurrent(GrammarUtil.containingCrossReference(enumRC), token, node, ENUM, CROSSREF, ASSIGNED);
+		addCompositeNodeToCurrent(GrammarUtil.containingCrossReference(enumRC), token, node, ENUM, //
+			NodeClassifier.CROSSREF, NodeClassifier.ASSIGNED);
 	}
 
 	/**
@@ -93,8 +90,8 @@ public class DomModelSequenceAdapter implements ISequenceAcceptor {
 	@Override
 	public void acceptAssignedCrossRefTerminal(RuleCall terminalRC, String token, EObject value, int index,
 			ILeafNode node) {
-		addLeafNodeToCurrent(
-			GrammarUtil.containingCrossReference(terminalRC), token, node, TERMINAL, CROSSREF, ASSIGNED);
+		addLeafNodeToCurrent(GrammarUtil.containingCrossReference(terminalRC), token, node, TERMINAL, //
+			NodeClassifier.CROSSREF, NodeClassifier.ASSIGNED);
 	}
 
 	/**
@@ -103,7 +100,8 @@ public class DomModelSequenceAdapter implements ISequenceAcceptor {
 	 */
 	@Override
 	public void acceptAssignedDatatype(RuleCall datatypeRC, String token, Object value, int index, ICompositeNode node) {
-		addCompositeNodeToCurrent(datatypeRC, token, node, DATATYPE, ASSIGNED);
+		addCompositeNodeToCurrent(datatypeRC, token, node, DATATYPE, //
+			NodeClassifier.ASSIGNED);
 	}
 
 	/**
@@ -112,7 +110,8 @@ public class DomModelSequenceAdapter implements ISequenceAcceptor {
 	 */
 	@Override
 	public void acceptAssignedEnum(RuleCall enumRC, String token, Object value, int index, ICompositeNode node) {
-		addCompositeNodeToCurrent(enumRC, token, node, ENUM, ASSIGNED);
+		addCompositeNodeToCurrent(enumRC, token, node, ENUM, //
+			NodeClassifier.ASSIGNED);
 	}
 
 	/**
@@ -121,7 +120,8 @@ public class DomModelSequenceAdapter implements ISequenceAcceptor {
 	 */
 	@Override
 	public void acceptAssignedKeyword(Keyword keyword, String token, Boolean value, int index, ILeafNode node) {
-		addLeafNodeToCurrent(keyword, token, node, KEYWORD, ASSIGNED);
+		addLeafNodeToCurrent(keyword, token, node, KEYWORD, //
+			NodeClassifier.ASSIGNED);
 	}
 
 	/**
@@ -130,7 +130,8 @@ public class DomModelSequenceAdapter implements ISequenceAcceptor {
 	 */
 	@Override
 	public void acceptAssignedKeyword(Keyword keyword, String token, String value, int index, ILeafNode node) {
-		addLeafNodeToCurrent(keyword, token, node, KEYWORD, ASSIGNED);
+		addLeafNodeToCurrent(keyword, token, node, KEYWORD, //
+			NodeClassifier.ASSIGNED);
 	}
 
 	/**
@@ -139,7 +140,8 @@ public class DomModelSequenceAdapter implements ISequenceAcceptor {
 	 */
 	@Override
 	public void acceptAssignedTerminal(RuleCall terminalRC, String token, Object value, int index, ILeafNode node) {
-		addLeafNodeToCurrent(terminalRC, token, node, TERMINAL, ASSIGNED);
+		addLeafNodeToCurrent(terminalRC, token, node, TERMINAL, //
+			NodeClassifier.ASSIGNED);
 	}
 
 	/**
@@ -160,7 +162,8 @@ public class DomModelSequenceAdapter implements ISequenceAcceptor {
 	 */
 	@Override
 	public void acceptUnassignedAction(Action action) {
-		BaseDomNode n = addLeafNodeToCurrent(action, "", null, ACTION, INSTANTIATION);
+		BaseDomNode n = addLeafNodeToCurrent(action, "", null, ACTION, //
+			NodeClassifier.INSTANTIATION);
 		n.setSemanticElement(action.getType().getClassifier());
 	}
 
@@ -170,7 +173,8 @@ public class DomModelSequenceAdapter implements ISequenceAcceptor {
 	 */
 	@Override
 	public void acceptUnassignedDatatype(RuleCall datatypeRC, String token, ICompositeNode node) {
-		addCompositeNodeToCurrent(datatypeRC, token, node, DATATYPE, UNASSIGNED);
+		addCompositeNodeToCurrent(datatypeRC, token, node, DATATYPE, //
+			NodeClassifier.UNASSIGNED);
 	}
 
 	/**
@@ -179,7 +183,8 @@ public class DomModelSequenceAdapter implements ISequenceAcceptor {
 	 */
 	@Override
 	public void acceptUnassignedEnum(RuleCall enumRC, String token, ICompositeNode node) {
-		addCompositeNodeToCurrent(enumRC, token, node, ENUM, UNASSIGNED);
+		addCompositeNodeToCurrent(enumRC, token, node, ENUM, //
+			NodeClassifier.UNASSIGNED);
 	}
 
 	/**
@@ -188,7 +193,8 @@ public class DomModelSequenceAdapter implements ISequenceAcceptor {
 	 */
 	@Override
 	public void acceptUnassignedKeyword(Keyword keyword, String token, ILeafNode node) {
-		addLeafNodeToCurrent(keyword, token, node, KEYWORD, ASSIGNED);
+		addLeafNodeToCurrent(keyword, token, node, KEYWORD, //
+			NodeClassifier.ASSIGNED);
 	}
 
 	/**
@@ -197,7 +203,8 @@ public class DomModelSequenceAdapter implements ISequenceAcceptor {
 	 */
 	@Override
 	public void acceptUnassignedTerminal(RuleCall terminalRC, String token, ILeafNode node) {
-		addLeafNodeToCurrent(terminalRC, token, node, TERMINAL, UNASSIGNED);
+		addLeafNodeToCurrent(terminalRC, token, node, TERMINAL, //
+			NodeClassifier.UNASSIGNED);
 	}
 
 	/**
@@ -209,29 +216,32 @@ public class DomModelSequenceAdapter implements ISequenceAcceptor {
 	 */
 	@Override
 	public void acceptWhitespace(AbstractRule rule, String token, ILeafNode node) {
-		addLeafNodeToCurrent(rule, token, node, WHITESPACE, HIDDEN);
+		addLeafNodeToCurrent(rule, token, node, WHITESPACE, //
+			NodeClassifier.HIDDEN);
 	}
 
-	protected BaseDomNode addCompositeNodeToCurrent(EObject rule, String token, ICompositeNode node,
-			NodeStatus... statusBits) {
+	protected BaseDomNode addCompositeNodeToCurrent(EObject rule, String token, ICompositeNode node, NodeType nodeType,
+			Object... classifiers) {
 		BaseDomNode result = new LeafDomNode();
 		result.setText(token);
 		result.setNode(node);
 		result.setGrammarElement(rule);
-		result.flip(true, statusBits);
+		result.setNodeType(nodeType);
+		result.setClassifiers(true, classifiers);
 		addNodeToCurrent(result);
 		return result;
 	}
 
-	protected BaseDomNode addLeafNodeToCurrent(EObject rule, String token, ILeafNode node, NodeStatus... statusBits) {
+	protected BaseDomNode addLeafNodeToCurrent(EObject rule, String token, ILeafNode node, NodeType nodeType,
+			Object... classifiers) {
 		BaseDomNode result = new LeafDomNode();
 		result.setText(token);
 		result.setNode(node);
 		result.setGrammarElement(rule);
-
-		result.flip(true, statusBits);
-		if(node != null) {
-			result.flip(node.isHidden(), HIDDEN);
+		result.setNodeType(nodeType);
+		result.setClassifiers(true, classifiers);
+		if(node != null && node.isHidden()) {
+			result.setClassifiers(true, NodeClassifier.HIDDEN);
 		}
 		addNodeToCurrent(result);
 		return result;
@@ -251,7 +261,8 @@ public class DomModelSequenceAdapter implements ISequenceAcceptor {
 		current.setGrammarElement(action);
 		current.setSemanticElement(semanticChild);
 		current.setNode(node);
-		current.flip(true, ACTION, ASSIGNED);
+		current.setNodeType(ACTION);
+		current.setClassifiers(true, NodeClassifier.ASSIGNED);
 		return true;
 	}
 
@@ -265,7 +276,8 @@ public class DomModelSequenceAdapter implements ISequenceAcceptor {
 		current.setGrammarElement(rc);
 		current.setSemanticElement(semanticChild);
 		current.setNode(node);
-		current.flip(true, RULECALL, ASSIGNED);
+		current.setNodeType(RULECALL);
+		current.setClassifiers(true, NodeClassifier.ASSIGNED);
 		return true;
 	}
 

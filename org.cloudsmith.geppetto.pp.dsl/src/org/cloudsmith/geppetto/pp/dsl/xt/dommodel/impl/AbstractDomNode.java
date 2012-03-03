@@ -12,7 +12,6 @@
 package org.cloudsmith.geppetto.pp.dsl.xt.dommodel.impl;
 
 import java.util.Collections;
-import java.util.EnumSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
@@ -57,20 +56,15 @@ public abstract class AbstractDomNode implements IDomNode {
 
 	protected IDomNode parentNode;
 
-	private Set<? extends Object> styleClassifiers = Sets.newHashSet();
+	private Set<Object> styleClassifiers = Sets.newHashSet();
+
+	private Set<Object> nonModifiableStyleClassifiers = Collections.unmodifiableSet(styleClassifiers);
 
 	private Object nodeId = null;
 
-	protected EnumSet<IDomNode.NodeStatus> nodeStatus = EnumSet.noneOf(NodeStatus.class);
+	protected IDomNode.NodeType nodeType = null;
 
 	private StyleSet styles = new StyleSet();
-
-	public void flip(boolean flag, NodeStatus... status) {
-		if(flag)
-			nodeStatus.addAll(Lists.newArrayList(status));
-		else
-			nodeStatus.removeAll(Lists.newArrayList(status));
-	}
 
 	/*
 	 * (non-Javadoc)
@@ -117,8 +111,8 @@ public abstract class AbstractDomNode implements IDomNode {
 	}
 
 	@Override
-	public Set<NodeStatus> getNodeStatus() {
-		return nodeStatus;
+	public NodeType getNodeType() {
+		return nodeType;
 	}
 
 	/*
@@ -160,8 +154,8 @@ public abstract class AbstractDomNode implements IDomNode {
 	 * @see org.cloudsmith.geppetto.pp.dsl.xt.dommodel.IDomNode#getStyleClassifiers()
 	 */
 	@Override
-	public Set<? extends Object> getStyleClassifiers() {
-		return styleClassifiers;
+	public Set<Object> getStyleClassifiers() {
+		return nonModifiableStyleClassifiers;
 	}
 
 	@Override
@@ -193,6 +187,14 @@ public abstract class AbstractDomNode implements IDomNode {
 		return new ParentIterator(this);
 	}
 
+	public void setClassifiers(boolean flag, Object... classifiers) {
+		if(flag)
+			styleClassifiers.addAll(Lists.newArrayList(classifiers));
+		else
+			styleClassifiers.removeAll(Lists.newArrayList(classifiers));
+		nonModifiableStyleClassifiers = Collections.unmodifiableSet(styleClassifiers);
+	}
+
 	/**
 	 * @param nodeId
 	 *            the nodeId to set
@@ -202,11 +204,12 @@ public abstract class AbstractDomNode implements IDomNode {
 		this.nodeId = nodeId;
 	}
 
+	public void setNodeType(NodeType nodeType) {
+		this.nodeType = nodeType;
+	}
+
 	public void setParent(IDomNode node) {
 		parentNode = node;
 	}
 
-	protected void setStatusOf(NodeStatus first, NodeStatus... rest) {
-		nodeStatus = EnumSet.of(first, rest);
-	}
 }

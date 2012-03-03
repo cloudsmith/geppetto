@@ -15,6 +15,7 @@ import org.cloudsmith.geppetto.pp.dsl.ppformatting.FormStream;
 import org.cloudsmith.geppetto.pp.dsl.ppformatting.IFormStream;
 import org.cloudsmith.geppetto.pp.dsl.xt.dommodel.DomModelUtils;
 import org.cloudsmith.geppetto.pp.dsl.xt.dommodel.IDomNode;
+import org.cloudsmith.geppetto.pp.dsl.xt.dommodel.IDomNode.NodeClassifier;
 import org.cloudsmith.geppetto.pp.dsl.xt.dommodel.formatter.css.GraphCSS;
 import org.cloudsmith.geppetto.pp.dsl.xt.dommodel.formatter.css.IFunctionFactory;
 import org.cloudsmith.geppetto.pp.dsl.xt.dommodel.formatter.css.IStyleFactory;
@@ -111,10 +112,17 @@ public class CSSDomFormatter implements IDomModelFormatter {
 
 		css.addRules( //
 			// Default nodes print their text
-			Select.any().withStyle(styles.tokenText(functions.textOfNode())), //
+			Select.any().withStyle(//
+				styles.tokenText(functions.textOfNode())), //
 
 			// Default spacing is one space per whitespace
-			Select.whitespace().withStyle(styles.oneSpace()) // , //
+			Select.whitespace().withStyle(//
+				styles.oneSpace()), //
+
+			// Except for leading whitepsace
+			Select.before(Select.whitespace(), Select.node(NodeClassifier.FIRST_TOKEN)).withStyle(//
+				styles.noSpace()), Select.after(Select.whitespace(), Select.node(NodeClassifier.LAST_TOKEN)).withStyle(//
+				styles.noSpace())
 		//
 		// // Test rules around keyword ","
 		// Select.before(Select.whitespace(), Select.keyword(",")).withStyles(styles.noSpace()), //

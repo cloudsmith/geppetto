@@ -14,7 +14,7 @@ package org.cloudsmith.geppetto.pp.dsl.xt.dommodel.formatter.css;
 import java.util.Set;
 
 import org.cloudsmith.geppetto.pp.dsl.xt.dommodel.IDomNode;
-import org.cloudsmith.geppetto.pp.dsl.xt.dommodel.IDomNode.NodeStatus;
+import org.cloudsmith.geppetto.pp.dsl.xt.dommodel.IDomNode.NodeType;
 
 /**
  * Interface for a style.
@@ -51,7 +51,7 @@ public interface IStyle<T> {
 	 * @param type
 	 * @return
 	 */
-	public boolean supports(NodeStatus type);
+	public boolean supports(NodeType type);
 
 	/**
 	 * Returns true if the style supports an IDomNode with the given set of NodeStatus bits.
@@ -59,7 +59,7 @@ public interface IStyle<T> {
 	 * @param types
 	 * @return
 	 */
-	public boolean supports(Set<NodeStatus> types);
+	public boolean supports(Set<NodeType> types);
 
 	/**
 	 * Visiting this IStyle means it will call back to the given visitor method named after the style type.

@@ -21,7 +21,7 @@ import org.cloudsmith.geppetto.pp.PPFactory;
 import org.cloudsmith.geppetto.pp.PuppetManifest;
 import org.cloudsmith.geppetto.pp.dsl.xt.dommodel.DomModelUtils;
 import org.cloudsmith.geppetto.pp.dsl.xt.dommodel.IDomNode;
-import org.cloudsmith.geppetto.pp.dsl.xt.dommodel.IDomNode.NodeStatus;
+import org.cloudsmith.geppetto.pp.dsl.xt.dommodel.IDomNode.NodeType;
 import org.cloudsmith.geppetto.pp.dsl.xt.dommodel.formatter.CSSDomFormatter;
 import org.cloudsmith.geppetto.pp.dsl.xt.dommodel.formatter.IDomModelFormatter;
 import org.cloudsmith.geppetto.pp.dsl.xt.dommodel.formatter.IFormattingContext;
@@ -137,8 +137,8 @@ public class TestSemanticCssFormatter extends AbstractPuppetTests {
 
 	public void testBasicEnumSets() {
 		// assert that containsAll of empty set is true
-		Set<NodeStatus> none = EnumSet.noneOf(NodeStatus.class);
-		Set<NodeStatus> ws = EnumSet.of(NodeStatus.WHITESPACE);
+		Set<NodeType> none = EnumSet.noneOf(NodeType.class);
+		Set<NodeType> ws = EnumSet.of(NodeType.WHITESPACE);
 		assertTrue(ws.containsAll(none));
 	}
 }

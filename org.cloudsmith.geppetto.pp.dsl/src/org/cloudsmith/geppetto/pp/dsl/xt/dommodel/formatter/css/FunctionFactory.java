@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2011 Cloudsmith Inc. and other contributors, as listed below.
+ * Copyright (c) 2012 Cloudsmith Inc. and other contributors, as listed below.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -20,7 +20,7 @@ import com.google.inject.Singleton;
 
 /**
  * A FunctionFactory producing values that are dynamically produced when applying a style to
- * a graph element.
+ * an {@link IDomNode}.
  * 
  */
 @Singleton
@@ -34,13 +34,8 @@ public class FunctionFactory implements IFunctionFactory {
 			this.value = value;
 		}
 
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see com.google.common.base.Function#apply(java.lang.Object)
-		 */
 		@Override
-		public String apply(IDomNode ge) {
+		public String apply(IDomNode node) {
 			return value;
 		}
 	}
@@ -53,13 +48,8 @@ public class FunctionFactory implements IFunctionFactory {
 			this.value = value;
 		}
 
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see com.google.common.base.Function#apply(java.lang.Object)
-		 */
 		@Override
-		public Set<String> apply(IDomNode ge) {
+		public Set<String> apply(IDomNode node) {
 			return value;
 		}
 	}
@@ -72,14 +62,9 @@ public class FunctionFactory implements IFunctionFactory {
 			this.function = function;
 		}
 
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see com.google.common.base.Function#apply(java.lang.Object)
-		 */
 		@Override
-		public Boolean apply(IDomNode ge) {
-			return !function.apply(ge);
+		public Boolean apply(IDomNode node) {
+			return !function.apply(node);
 		}
 
 	}
@@ -87,19 +72,24 @@ public class FunctionFactory implements IFunctionFactory {
 	private static final Function<IDomNode, String> textOfNodeFunc = new Function<IDomNode, String>() {
 
 		@Override
-		public String apply(IDomNode from) {
-			return from.getText();
+		public String apply(IDomNode node) {
+			return node.getText();
 		}
 	};
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.cloudsmith.graph.graphcss.IFunctionFactory#literalString(java.lang.String)
-	 */
 	@Override
 	public Function<IDomNode, String> literalString(String s) {
 		return new LiteralString(s);
+	}
+
+	@Override
+	public Function<IDomNode, Set<String>> literalStringSet(Set<String> set) {
+		return new LiteralStringSet(set);
+	}
+
+	@Override
+	public Function<IDomNode, Boolean> not(Function<IDomNode, Boolean> f) {
+		return new Not(f);
 	}
 
 	@Override

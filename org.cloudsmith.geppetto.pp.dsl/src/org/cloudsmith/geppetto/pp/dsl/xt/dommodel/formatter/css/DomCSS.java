@@ -20,10 +20,10 @@ import java.util.List;
 import org.cloudsmith.geppetto.pp.dsl.xt.dommodel.IDomNode;
 
 /**
- * A Graph CSS consists of a set of {@link Rule} describing the styling of an {@link IGraph}.
+ * A DOM CSS consists of a set of {@link Rule} describing the styling of an {@link IDomNode}.
  * 
  */
-public class GraphCSS {
+public class DomCSS {
 	ArrayList<Rule> cssRules;
 
 	/**
@@ -41,8 +41,8 @@ public class GraphCSS {
 
 			// if they are equal - they should be ordered on their index in the ruleset
 			// the one with the lower index
-			r1s = r1.getGraphCSS().indexOf(r1);
-			r2s = r2.getGraphCSS().indexOf(r2);
+			r1s = r1.getDomCSS().indexOf(r1);
+			r2s = r2.getDomCSS().indexOf(r2);
 			if(r1s < r2s)
 				return -1;
 			if(r1s > r2s)
@@ -51,16 +51,16 @@ public class GraphCSS {
 		}
 	};
 
-	public GraphCSS() {
+	public DomCSS() {
 		cssRules = new ArrayList<Rule>();
 	}
 
 	/**
-	 * Adds all rules from another ruleset.
+	 * Adds all rules from another style sheet.
 	 * 
 	 * @param ruleSet
 	 */
-	public void addAll(GraphCSS ruleSet) {
+	public void addAll(DomCSS ruleSet) {
 		// can't just add them using collection routines as the parent ruleSet must be set,
 		// and rule cloned.
 		//
@@ -74,8 +74,8 @@ public class GraphCSS {
 	}
 
 	/**
-	 * Adds a rule to this rule set. If the rule is already in another ruleset, the rule is cloned.
-	 * The added rule ruleSet property is set to this ruleSet.
+	 * Adds a rule to this rule set. If the rule is already in another style sheet, the rule is cloned before
+	 * being added. The added rule's domCSS property is set to this style sheet.
 	 * 
 	 * @param rule
 	 */
@@ -83,10 +83,10 @@ public class GraphCSS {
 		if(rule == Rule.NULL_RULE)
 			return;
 
-		rule = rule.getGraphCSS() != null
+		rule = rule.getDomCSS() != null
 				? (Rule) rule.clone()
 				: rule;
-		rule.setGraphCSS(this);
+		rule.setDomCSS(this);
 		cssRules.add(rule);
 	}
 
@@ -101,6 +101,12 @@ public class GraphCSS {
 			addRule(r);
 	}
 
+	/**
+	 * Adds rules to this style sheet if they have a selector that is not equal to a selector already
+	 * in the style sheet.
+	 * 
+	 * @param rules
+	 */
 	public void addUnique(Collection<Rule> rules) {
 		boolean add;
 		for(Rule r : rules) {
@@ -120,36 +126,38 @@ public class GraphCSS {
 	}
 
 	/**
-	 * Adds all unique rules from the argument ruleSet to this ruleset. A rule is considered unique if it has a
+	 * Adds all unique rules from the given style sheet to this style sheet. A rule is considered unique if it has a
 	 * different selector pattern than existing rules
 	 * 
-	 * @param ruleSet
+	 * @param domCSS
 	 */
-	public void addUnique(GraphCSS ruleSet) {
-		addUnique(ruleSet.cssRules);
+	public void addUnique(DomCSS domCSS) {
+		addUnique(domCSS.cssRules);
 	}
 
 	/**
-	 * Collects an (ordered) list of rules in order of specificity (lowest first).
+	 * Collects an (ordered) list of rules in order of specificity (lowest first) that matches the given node.
+	 * The node's instance style is taken into consideration with 'instance' specificity.
 	 * If two rules have the same specificity, the one added first to the rule set will have a lower index.
 	 * 
-	 * @return
+	 * @return - a list of matching Rules for the given node
 	 */
-	public List<Rule> collectRules(IDomNode element) {
+	public List<Rule> collectRules(IDomNode node) {
 		ArrayList<Rule> matches = new ArrayList<Rule>(cssRules.size() / 2); // guessing on size
 
 		// if element has a style map, add a (matched) rule for it
-		if(element.getStyles() != null)
-			matches.add(new Rule(new Select.Instance(element), element.getStyles()));
+		if(node.getStyles() != null)
+			matches.add(new Rule(new Select.Instance(node), node.getStyles()));
 		for(Rule r : cssRules)
-			if(r.matches(element))
+			if(r.matches(node))
 				matches.add(r);
 		Collections.sort(matches, RULE_COMPARATOR);
 		return matches;
 	}
 
 	/**
-	 * Collects the style applicable to the element.
+	 * Collects the style applicable to the given node. (The styles from all matching rules are reduced to a
+	 * resulting style set).
 	 * 
 	 * @param context
 	 * @param element
@@ -175,6 +183,12 @@ public class GraphCSS {
 			s.visit(node, collector);
 	}
 
+	/**
+	 * Returns the style sheet index of the given rule.
+	 * 
+	 * @param rule
+	 * @return
+	 */
 	public int indexOf(Rule rule) {
 		return cssRules.indexOf(rule);
 	}

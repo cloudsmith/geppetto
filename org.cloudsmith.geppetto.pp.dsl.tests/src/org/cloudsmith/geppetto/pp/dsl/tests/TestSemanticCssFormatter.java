@@ -15,7 +15,6 @@ import java.util.EnumSet;
 import java.util.Set;
 
 import org.cloudsmith.geppetto.pp.AssignmentExpression;
-import org.cloudsmith.geppetto.pp.Expression;
 import org.cloudsmith.geppetto.pp.LiteralList;
 import org.cloudsmith.geppetto.pp.PPFactory;
 import org.cloudsmith.geppetto.pp.PuppetManifest;
@@ -31,7 +30,6 @@ import org.cloudsmith.geppetto.pp.dsl.xt.dommodel.formatter.css.IFunctionFactory
 import org.cloudsmith.geppetto.pp.dsl.xt.dommodel.formatter.css.IStyleFactory;
 import org.cloudsmith.geppetto.pp.dsl.xt.dommodel.formatter.css.StyleFactory;
 import org.cloudsmith.geppetto.pp.dsl.xt.serializer.DomBasedSerializer;
-import org.eclipse.emf.common.util.EList;
 import org.eclipse.xtext.formatting.IIndentationInformation;
 import org.eclipse.xtext.resource.XtextResource;
 import org.eclipse.xtext.serializer.ISerializer;
@@ -126,7 +124,6 @@ public class TestSemanticCssFormatter extends AbstractPuppetTests {
 
 	public void test_Serialize_assignArray() throws Exception {
 		PuppetManifest pp = pf.createPuppetManifest();
-		EList<Expression> statements = pp.getStatements();
 		AssignmentExpression assignment = PPFactory.eINSTANCE.createAssignmentExpression();
 		assignment.setLeftExpr(createVariable("a"));
 		LiteralList pplist = PPFactory.eINSTANCE.createLiteralList();

@@ -14,14 +14,14 @@ package org.cloudsmith.geppetto.pp.dsl.xt.dommodel.formatter.css;
 import org.cloudsmith.geppetto.pp.dsl.xt.dommodel.IDomNode;
 
 /**
- * A graph style rule contains a selector {@link Select.Selector} (which can be compound), and
+ * A DOM style rule contains a selector {@link Select.Selector} (which can be compound), and
  * a {@link StyleSet}.
  * 
- * A graph style rule is typically added to a {@link GraphCSS}.
- * A rule can only be added to one GCSS (at a time).
+ * A DOM style rule is typically added to a {@link DomCSS}.
+ * A rule can only be added to one DomCSS (at a time).
  * 
  * Note that the easiest is to use {@link Select.Selector#withStyles(IStyle...)} and related methods
- * to create a Rule.
+ * to create Rule instances.
  */
 public final class Rule implements Cloneable {
 	/**
@@ -41,9 +41,9 @@ public final class Rule implements Cloneable {
 	private StyleSet styleSet;
 
 	/**
-	 * The GCSS this Rule is contained in.
+	 * The CSS this Rule is contained in.
 	 */
-	private GraphCSS graphCSS;
+	private DomCSS domCSS;
 
 	/**
 	 * Create a Rule with an empty style set.
@@ -58,18 +58,25 @@ public final class Rule implements Cloneable {
 	 * Create a Rule with a copy of the content of the given style set.
 	 * 
 	 * @param selector
-	 * @param smap
-	 *            may be null
+	 *            - the rule selector
+	 * @param styles
+	 *            - the styles to use may be null
 	 */
-	public Rule(Select.Selector selector, StyleSet smap) {
+	public Rule(Select.Selector selector, StyleSet styles) {
 		this.selector = selector;
 		// create a new style map so things can be added to it without
 		// destroying the input map
 		styleSet = new StyleSet();
-		if(smap != null)
-			styleSet.add(smap);
+		if(styles != null)
+			styleSet.add(styles);
 	}
 
+	/**
+	 * Add given style to rule's style set.
+	 * 
+	 * @param style
+	 *            - style to add
+	 */
 	public void add(IStyle<?> style) {
 		styleSet.put(style);
 	}
@@ -86,7 +93,7 @@ public final class Rule implements Cloneable {
 	}
 
 	/**
-	 * Add all styles to the given style set and return it.
+	 * Add all styles in this rule to the given style set and return the given set.
 	 * 
 	 * @param result
 	 * @return
@@ -97,48 +104,68 @@ public final class Rule implements Cloneable {
 	}
 
 	/**
-	 * Add all matching styles to the given style set and return it.
+	 * Add all matching styles in this rule to the given style set and return the given set if the given node
+	 * matches the selector.
 	 * 
 	 * @param result
-	 * @param element
+	 *            - where styles are added if given node matches selector
+	 * @param node
+	 *            - the node to match against the selector
 	 * @return
 	 */
-	public StyleSet collectStylesIfMatch(StyleSet result, IDomNode element) {
-		if(selector.matches(element))
+	public StyleSet collectStylesIfMatch(StyleSet result, IDomNode node) {
+		if(selector.matches(node))
 			result.add(styleSet);
 		return result;
 	}
 
 	/**
-	 * Returns true if this rule has the same selector match as the argument. Note for each type of selector
-	 * how the selector equality is tested.
+	 * Returns true if this rule has the same selector match as the given rule. (Note for each type of selector
+	 * how the selector equality is tested).
 	 * 
 	 * @param rule
+	 *            - the rule to test for equal selectors
 	 * @return true if they have the same selector matching
 	 */
 	public boolean equalSelectorMatches(Rule rule) {
 		return selector.equalMatch(rule.selector);
 	}
 
-	public GraphCSS getGraphCSS() {
-		return graphCSS;
+	/**
+	 * Return the DomCSS this rule is part of.
+	 * 
+	 * @return
+	 */
+	public DomCSS getDomCSS() {
+		return domCSS;
 	}
 
+	/**
+	 * Return the specificity of the rule's selector.
+	 * 
+	 * @return the selector specificity
+	 */
 	public int getSpecificity() {
 		return selector.getSpecificity();
 	}
 
-	public boolean matches(IDomNode element) {
-		return selector.matches(element);
+	/**
+	 * Matches the given node against the rule's selector and returns the result.
+	 * 
+	 * @param node
+	 * @return
+	 */
+	public boolean matches(IDomNode node) {
+		return selector.matches(node);
 	}
 
 	/**
-	 * Sets the parent rule set of this rule.
+	 * Sets the parent style sheet of this rule.
 	 * DON'T CALL THIS METHOD UNLESS YOU KNOW WHAT YOU ARE DOING.
 	 * 
-	 * @param ruleSet
+	 * @param styleSheet
 	 */
-	public void setGraphCSS(GraphCSS ruleSet) {
-		graphCSS = ruleSet;
+	public void setDomCSS(DomCSS styleSheet) {
+		domCSS = styleSheet;
 	}
 }

@@ -58,4 +58,5 @@ public enum StyleType {
 	 */
 	tokenText,
 
+	;
 }

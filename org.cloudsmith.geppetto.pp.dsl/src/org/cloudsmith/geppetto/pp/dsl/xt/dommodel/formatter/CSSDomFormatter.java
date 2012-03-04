@@ -16,7 +16,7 @@ import org.cloudsmith.geppetto.pp.dsl.ppformatting.IFormStream;
 import org.cloudsmith.geppetto.pp.dsl.xt.dommodel.DomModelUtils;
 import org.cloudsmith.geppetto.pp.dsl.xt.dommodel.IDomNode;
 import org.cloudsmith.geppetto.pp.dsl.xt.dommodel.IDomNode.NodeClassifier;
-import org.cloudsmith.geppetto.pp.dsl.xt.dommodel.formatter.css.GraphCSS;
+import org.cloudsmith.geppetto.pp.dsl.xt.dommodel.formatter.css.DomCSS;
 import org.cloudsmith.geppetto.pp.dsl.xt.dommodel.formatter.css.IFunctionFactory;
 import org.cloudsmith.geppetto.pp.dsl.xt.dommodel.formatter.css.IStyleFactory;
 import org.cloudsmith.geppetto.pp.dsl.xt.dommodel.formatter.css.IStyleVisitor;
@@ -100,7 +100,7 @@ public class CSSDomFormatter implements IDomModelFormatter {
 
 	IFunctionFactory functions;
 
-	private GraphCSS css;
+	private DomCSS css;
 
 	@Inject
 	public CSSDomFormatter(IStyleFactory styles, IFunctionFactory functions) {
@@ -108,7 +108,7 @@ public class CSSDomFormatter implements IDomModelFormatter {
 		this.functions = functions;
 
 		// Starting with a static CSS
-		css = new GraphCSS();
+		css = new DomCSS();
 
 		css.addRules( //
 			// Default nodes print their text

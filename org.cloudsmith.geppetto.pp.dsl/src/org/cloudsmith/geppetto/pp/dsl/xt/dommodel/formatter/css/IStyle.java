@@ -38,26 +38,30 @@ public interface IStyle<T> {
 	public T getValue(IDomNode ge);
 
 	/**
-	 * A style with a value determined as a function of a graphic element returns true. A style that
-	 * returns false allows null being passed as the graph element in a call to {@link #getValue(IGraphElement)}.
+	 * A style with a value determined as a function of a {@link IDomNode} returns true. A style that
+	 * returns false allows null being passed as the graph element in a call to {@link #getValue(IDomNode)}.
 	 * 
-	 * @return
+	 * @return true if style value is determined by a function
 	 */
 	public boolean isFunction();
 
 	/**
-	 * Returns true if the style is supported for a particular type of element.
+	 * Returns true if this style is supported for the given type.
 	 * 
+	 * @See {@link IDomNode#getNodeType()}
 	 * @param type
-	 * @return
+	 *            - the {@link NodeType} being tested if it is supported
+	 * @return true if given type is supported
 	 */
 	public boolean supports(NodeType type);
 
 	/**
-	 * Returns true if the style supports an IDomNode with the given set of NodeStatus bits.
+	 * Returns true if this style supports all of the given types.
 	 * 
+	 * @See {@link IDomNode#getNodeType()}
 	 * @param types
-	 * @return
+	 *            - the set of {@link NodeType} being tested if they are all supported
+	 * @return true if all of the given types are supported
 	 */
 	public boolean supports(Set<NodeType> types);
 
@@ -65,7 +69,7 @@ public interface IStyle<T> {
 	 * Visiting this IStyle means it will call back to the given visitor method named after the style type.
 	 * 
 	 * @param node
-	 *            The visited node element
+	 *            The visited node
 	 * @param visitor
 	 *            The visitor that will be called
 	 */

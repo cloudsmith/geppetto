@@ -18,28 +18,25 @@ import org.cloudsmith.geppetto.pp.dsl.xt.dommodel.IDomNode.NodeType;
 
 /**
  * Interface for a style.
- * A style has a {@link StyleType} and a value of type <T>.
+ * A style has a value of type <T>.
  * 
  * @param <T>
  */
 public interface IStyle<T> {
 
-	public StyleType getStyleType();
-
 	/**
-	 * Gets the value of the style. A graph element must be provided as the style may be dynamic
-	 * and produce its value as a function of the given graph element. If a style returns false
-	 * from {@link #isFunction()}, the parameter ge may be null. At all other times must ge be a valid
-	 * graph element.
+	 * Gets the value of the style. A {@link IDomNode} must be provided as the style may be dynamic
+	 * and produce its value as a function of the given node. If a style returns false
+	 * from {@link #isFunction()}, the parameter node may be null. At all other times must node be a valid {@link IDomNode}.
 	 * 
-	 * @param ge
-	 * @return
+	 * @param node
+	 * @return the style's value
 	 */
-	public T getValue(IDomNode ge);
+	public T getValue(IDomNode node);
 
 	/**
-	 * A style with a value determined as a function of a {@link IDomNode} returns true. A style that
-	 * returns false allows null being passed as the graph element in a call to {@link #getValue(IDomNode)}.
+	 * A style with a value determined by a function applied to an {@link IDomNode} returns true. A style that
+	 * returns false allows null being passed as the node in a call to {@link #getValue(IDomNode)}.
 	 * 
 	 * @return true if style value is determined by a function
 	 */

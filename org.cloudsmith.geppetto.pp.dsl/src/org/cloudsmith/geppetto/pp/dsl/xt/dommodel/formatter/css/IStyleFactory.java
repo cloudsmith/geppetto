@@ -14,171 +14,165 @@ package org.cloudsmith.geppetto.pp.dsl.xt.dommodel.formatter.css;
 import java.util.Set;
 
 import org.cloudsmith.geppetto.pp.dsl.xt.dommodel.IDomNode;
+import org.cloudsmith.geppetto.pp.dsl.xt.dommodel.formatter.css.StyleFactory.AlignmentStyle;
+import org.cloudsmith.geppetto.pp.dsl.xt.dommodel.formatter.css.StyleFactory.ContainerNamesStyle;
+import org.cloudsmith.geppetto.pp.dsl.xt.dommodel.formatter.css.StyleFactory.ContainerStyle;
+import org.cloudsmith.geppetto.pp.dsl.xt.dommodel.formatter.css.StyleFactory.DedentStyle;
+import org.cloudsmith.geppetto.pp.dsl.xt.dommodel.formatter.css.StyleFactory.IndentStyle;
+import org.cloudsmith.geppetto.pp.dsl.xt.dommodel.formatter.css.StyleFactory.LineBreakStyle;
+import org.cloudsmith.geppetto.pp.dsl.xt.dommodel.formatter.css.StyleFactory.SpacingStyle;
+import org.cloudsmith.geppetto.pp.dsl.xt.dommodel.formatter.css.StyleFactory.StyleNameStyle;
+import org.cloudsmith.geppetto.pp.dsl.xt.dommodel.formatter.css.StyleFactory.TokenTextStyle;
 
 import com.google.common.base.Function;
+import com.google.inject.ImplementedBy;
 
 /**
- * A Factory for style values - see {@link IStyle}.
+ * A Factory for basic DOM styling - see {@link IStyle}.
  * 
+ * Note to implementors: To extend formatting, simply created wanted {@link IStyle} implementations
+ * that are supported by an extended formatter. Do not extend this interface.
  */
+@ImplementedBy(StyleFactory.class)
 public interface IStyleFactory {
 
 	/**
-	 * @see StyleType#align
-	 * @param containerNames
-	 * @return
+	 * @param x
+	 *            the alignment
+	 * @return style with literal {@link Alignment}
 	 */
-	public IStyle<Alignment> align(Alignment x);
+	public AlignmentStyle align(Alignment x);
 
 	/**
-	 * @see StyleType#align
-	 * @param containerNames
-	 * @return
+	 * @param f
+	 *            - function producing {@link Alignment}
+	 * @return style with dynamic {@link Alignment}
 	 */
-	public IStyle<Alignment> align(Function<IDomNode, Alignment> f);
+	public AlignmentStyle align(Function<IDomNode, Alignment> f);
 
 	/**
-	 * @see StyleType#container
+	 * @param f
+	 *            - function producing a container name
+	 * @return style with dynamically determined container name
+	 */
+	public ContainerStyle container(Function<IDomNode, String> f);
+
+	/**
 	 * @param containerName
-	 * @return
+	 *            - literal container name
+	 * @return style with literal container name
 	 */
-	public IStyle<String> container(Function<IDomNode, String> f);
+	public ContainerStyle container(String containerName);
 
 	/**
-	 * @see StyleType#container
-	 * @param containerName
-	 * @return
+	 * @param f
+	 *            - function producing a set of container names
+	 * @return style with dynamic set of container names
 	 */
-	public IStyle<String> container(String containerName);
+	public ContainerNamesStyle containerNames(Function<IDomNode, Set<String>> f);
 
 	/**
-	 * @see StyleType#containerNames
 	 * @param containerNames
-	 * @return
+	 *            - a set of literal container names
+	 * @return style with literal set of container names
 	 */
-	public IStyle<Set<String>> containerNames(Function<IDomNode, Set<String>> f);
-
-	/**
-	 * @see StyleType#containerNames
-	 * @param containerNames
-	 * @return
-	 */
-	public IStyle<Set<String>> containerNames(Set<String> containerNames);
+	public ContainerNamesStyle containerNames(Set<String> containerNames);
 
 	/**
 	 * Dedent 1.
 	 * 
-	 * @see StyleType#dedent
-	 * @param containerNames
-	 * @return
+	 * @return style with dedent count 1 (number of indents to reverse)
 	 */
-	public IStyle<Integer> dedent();
+	public DedentStyle dedent();
 
 	/**
-	 * @see StyleType#dedent
-	 * @param containerNames
-	 * @return
+	 * @param f
+	 *            - function producing integer dedent value
+	 * @return style with dynamically determined dedent count (number of indents to reverse)
 	 */
-	public IStyle<Integer> dedent(Function<IDomNode, Integer> f);
+	public DedentStyle dedent(Function<IDomNode, Integer> f);
 
 	/**
-	 * @see StyleType#dedent
-	 * @param containerNames
-	 * @return
+	 * @param i
+	 * @return style with literal dedent (number of indents to reverse)
 	 */
-	public IStyle<Integer> dedent(Integer s);
+	public DedentStyle dedent(Integer i);
 
 	/**
 	 * Indent 1.
 	 * 
-	 * @see StyleType#indent
 	 * @param containerNames
-	 * @return
+	 * @return style with one literal indent
 	 */
-	public IStyle<Integer> indent();
+	public IndentStyle indent();
 
 	/**
-	 * @see StyleType#indent
 	 * @param containerNames
-	 * @return
+	 * @return style with dynamically determined indent (number of indents)
 	 */
-	public IStyle<Integer> indent(Function<IDomNode, Integer> f);
+	public IndentStyle indent(Function<IDomNode, Integer> f);
 
 	/**
-	 * @see StyleType#indent
-	 * @param containerNames
-	 * @return
+	 * @param i
+	 * @return style with literal number of indents
 	 */
-	public IStyle<Integer> indent(Integer s);
+	public IndentStyle indent(Integer i);
 
 	/**
-	 * @see StyleType#spacing
-	 * @param containerNames
-	 * @return
+	 * @param f
+	 * @return style with dynamically determined {@link LineBreaks} information.
 	 */
-	public IStyle<LineBreaks> lineBreaks(Function<IDomNode, LineBreaks> f);
+	public LineBreakStyle lineBreaks(Function<IDomNode, LineBreaks> f);
 
 	/**
-	 * @see StyleType#spacing
-	 * @param containerNames
-	 * @return
+	 * @return style with literal {@link LineBreaks} information describing "no line breaks"
 	 */
-	public IStyle<LineBreaks> noLineBreak();
+	public LineBreakStyle noLineBreak();
 
 	/**
-	 * @see StyleType#spacing
-	 * @param containerNames
-	 * @return
+	 * @return style with literal {@link Spacing} information describing "no space"
 	 */
-	public IStyle<Spacing> noSpace();
+	public SpacingStyle noSpace();
 
 	/**
-	 * @see StyleType#spacing
-	 * @param containerNames
-	 * @return
+	 * @return literal {@link LineBreaks} information describing "one line break"
 	 */
-	public IStyle<LineBreaks> oneLineBreak();
+	public LineBreakStyle oneLineBreak();
 
 	/**
-	 * @see StyleType#spacing
-	 * @param containerNames
-	 * @return
+	 * @return literal {@link Spacing} information describing "one space"
 	 */
-	public IStyle<Spacing> oneSpace();
+	public SpacingStyle oneSpace();
 
 	/**
-	 * @see StyleType#spacing
-	 * @param containerNames
-	 * @return
+	 * @param f
+	 *            - function producing {@link Spacing} information
+	 * @return dynamically determined {@link Spacing} information
 	 */
-	public IStyle<Spacing> spacing(Function<IDomNode, Spacing> f);
+	public SpacingStyle spacing(Function<IDomNode, Spacing> f);
 
 	/**
-	 * @see StyleType#styleName
-	 * @param containerNames
-	 * @return
+	 * @return style with dynamically determined "style name" (for open ended use).
 	 */
-	public IStyle<String> styleName(Function<IDomNode, String> f);
+	public StyleNameStyle styleName(Function<IDomNode, String> f);
 
 	/**
-	 * @see StyleType#styleName
-	 * @param containerNames
-	 * @return
+	 * @return style with literal "style name" (for open ended use)
 	 */
-	public IStyle<String> styleName(String s);
+	public StyleNameStyle styleName(String s);
 
 	/**
-	 * @see StyleType#tokenText
-	 * @param containerNames
-	 * @return
+	 * @param f
+	 *            - function producing token text
+	 * @return a style with dynamically determined token text
 	 */
-	public IStyle<String> tokenText(Function<IDomNode, String> f);
+	public TokenTextStyle tokenText(Function<IDomNode, String> f);
 
 	/**
-	 * @see StyleType#tokenText
-	 * @param containerNames
-	 * @return
+	 * @param s
+	 *            - literal token text
+	 * @return a style with literal token text
 	 */
-	public IStyle<String> tokenText(String s);
+	public TokenTextStyle tokenText(String s);
 
 }

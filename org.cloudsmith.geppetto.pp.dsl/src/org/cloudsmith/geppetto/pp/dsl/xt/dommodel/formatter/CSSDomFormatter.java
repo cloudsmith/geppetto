@@ -19,10 +19,13 @@ import org.cloudsmith.geppetto.pp.dsl.xt.dommodel.IDomNode.NodeClassifier;
 import org.cloudsmith.geppetto.pp.dsl.xt.dommodel.formatter.css.DomCSS;
 import org.cloudsmith.geppetto.pp.dsl.xt.dommodel.formatter.css.IFunctionFactory;
 import org.cloudsmith.geppetto.pp.dsl.xt.dommodel.formatter.css.IStyleFactory;
-import org.cloudsmith.geppetto.pp.dsl.xt.dommodel.formatter.css.IStyleVisitor;
 import org.cloudsmith.geppetto.pp.dsl.xt.dommodel.formatter.css.LineBreaks;
 import org.cloudsmith.geppetto.pp.dsl.xt.dommodel.formatter.css.Select;
 import org.cloudsmith.geppetto.pp.dsl.xt.dommodel.formatter.css.Spacing;
+import org.cloudsmith.geppetto.pp.dsl.xt.dommodel.formatter.css.StyleFactory.LineBreakStyle;
+import org.cloudsmith.geppetto.pp.dsl.xt.dommodel.formatter.css.StyleFactory.SpacingStyle;
+import org.cloudsmith.geppetto.pp.dsl.xt.dommodel.formatter.css.StyleFactory.TokenTextStyle;
+import org.cloudsmith.geppetto.pp.dsl.xt.dommodel.formatter.css.StyleSet;
 import org.eclipse.xtext.serializer.diagnostic.ISerializationDiagnostic.Acceptor;
 import org.eclipse.xtext.util.ITextRegion;
 import org.eclipse.xtext.util.ReplaceRegion;
@@ -35,62 +38,9 @@ import com.google.inject.Inject;
  * 
  */
 public class CSSDomFormatter implements IDomModelFormatter {
+	private static final Spacing defaultSpacing = new Spacing(1);
 
-	private static class WhitespaceStyleCollector extends IStyleVisitor.Default {
-		private Spacing spacing;
-
-		private LineBreaks lineBreaks;
-
-		private String text;
-
-		/**
-		 * @return the lineBreaks
-		 */
-		public LineBreaks getLineBreaks() {
-			return lineBreaks;
-		}
-
-		/**
-		 * @return the spacing
-		 */
-		public Spacing getSpacing() {
-			if(spacing == null) {
-				// TODO: DEBUG OUTPUT REMOVAL
-				System.err.println("No spacing collected - using default");
-				spacing = new Spacing(1);
-			}
-			return spacing;
-		}
-
-		/**
-		 * @return the text
-		 */
-		public String getText() {
-			return text;
-		}
-
-		@Override
-		public void lineBreaks(LineBreaks lineBreakInfo) {
-			if(lineBreaks == null)
-				lineBreaks = new LineBreaks(0);
-			lineBreaks = lineBreakInfo;
-		}
-
-		@Override
-		public void spacing(Spacing value) {
-			spacing = value;
-		}
-
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see org.cloudsmith.geppetto.pp.dsl.xt.dommodel.formatter.css.IStyleVisitor.Default#tokenText(java.lang.String)
-		 */
-		@Override
-		public void tokenText(String text) {
-			this.text = text;
-		}
-	}
+	private static final LineBreaks defaultLineBreaks = new LineBreaks(0);
 
 	boolean hasStarted;
 
@@ -205,12 +155,11 @@ public class CSSDomFormatter implements IDomModelFormatter {
 				wsWritten = true;
 		}
 		else {
-			WhitespaceStyleCollector collector = new WhitespaceStyleCollector();
-			css.collectStyles(node, collector);
+			StyleSet styleSet = css.collectStyles(node);
 
-			Spacing spacing = collector.getSpacing();
-			LineBreaks lineBreaks = collector.getLineBreaks();
-			String text = collector.getText();
+			Spacing spacing = styleSet.getStyleValue(SpacingStyle.class, node, defaultSpacing);
+			LineBreaks lineBreaks = styleSet.getStyleValue(LineBreakStyle.class, node);
+			String text = styleSet.getStyleValue(TokenTextStyle.class, node);
 
 			// TODO: deal with line break
 			int count = calculateSpaces(text, spacing);

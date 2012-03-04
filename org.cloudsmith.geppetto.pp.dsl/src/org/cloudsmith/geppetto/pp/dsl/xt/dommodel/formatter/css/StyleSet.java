@@ -13,7 +13,7 @@ package org.cloudsmith.geppetto.pp.dsl.xt.dommodel.formatter.css;
 
 import java.util.Collection;
 import java.util.Collections;
-import java.util.EnumMap;
+import java.util.HashMap;
 import java.util.Map;
 
 import org.cloudsmith.geppetto.pp.dsl.xt.dommodel.IDomNode;
@@ -60,7 +60,7 @@ public class StyleSet {
 	}
 
 	// protected Map<Class<?>, StyleBase<? extends Object>> styleMap;
-	protected Map<StyleType, IStyle<? extends Object>> styleMap;
+	protected Map<Class<?>, IStyle<?>> styleMap;
 
 	public StyleSet() {
 	}
@@ -76,12 +76,25 @@ public class StyleSet {
 		if(map == null || map.styleMap == null || map.styleMap.size() == 0)
 			return this;
 		if(styleMap == null)
-			styleMap = new EnumMap<StyleType, IStyle<? extends Object>>(StyleType.class);
+			styleMap = new HashMap<Class<?>, IStyle<?>>();
 		styleMap.putAll(map.styleMap);
 		return this;
 	}
 
-	public Collection<IStyle<? extends Object>> getStyles() {
+	/**
+	 * Returns the style of the gicen class, or null of this style is not included in the the set.
+	 * 
+	 * @param x
+	 * @param node
+	 * @return
+	 */
+	public <T> T getStyle(Class<T> x, IDomNode node) {
+		if(styleMap == null)
+			return null;
+		return x.cast(styleMap.get(x));
+	}
+
+	public Collection<IStyle<?>> getStyles() {
 		if(styleMap == null)
 			return Collections.emptyList();
 		return styleMap.values();
@@ -91,13 +104,35 @@ public class StyleSet {
 	 * Gets the value of a particular style, or null if not set. See the respective style type (doc) for
 	 * information about returned type.
 	 * 
+	 * @param <T>
+	 * 
 	 * @param x
 	 * @return
 	 */
-	public Object getStyleValue(StyleType x, IDomNode ge) {
+	@SuppressWarnings("unchecked")
+	public <T> T getStyleValue(Class<? extends IStyle<T>> x, IDomNode node) {
 		if(styleMap == null)
 			return null;
-		return styleMap.get(x).getValue(ge);
+		IStyle<?> style = styleMap.get(x);
+		if(style == null)
+			return null;
+		return (T) (style.getValue(node));
+	}
+
+	/**
+	 * Gets the value of a particular style, or the given default value if not set.
+	 * See the respective style type (doc) for information about returned type.
+	 * 
+	 * @param <T>
+	 * 
+	 * @param x
+	 * @return
+	 */
+	public <T> T getStyleValue(Class<? extends IStyle<T>> x, IDomNode node, T defaultValue) {
+		T style = getStyleValue(x, node);
+		return style == null
+				? defaultValue
+				: style;
 	}
 
 	/**
@@ -105,9 +140,9 @@ public class StyleSet {
 	 * 
 	 * @param style
 	 */
-	public void put(IStyle<? extends Object> style) {
+	public void put(IStyle<?> style) {
 		if(styleMap == null)
-			styleMap = new EnumMap<StyleType, IStyle<? extends Object>>(StyleType.class);
-		styleMap.put(style.getStyleType(), style);
+			styleMap = new HashMap<Class<?>, IStyle<?>>();
+		styleMap.put(style.getClass(), style);
 	}
 }

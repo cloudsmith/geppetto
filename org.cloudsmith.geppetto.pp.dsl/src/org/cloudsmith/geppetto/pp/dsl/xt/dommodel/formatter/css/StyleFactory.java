@@ -30,25 +30,16 @@ public class StyleFactory implements IStyleFactory {
 	protected static abstract class AbstractStyle<T> implements IStyle<T> {
 		private Function<IDomNode, T> function;
 
-		private StyleType style;
-
 		private Set<NodeType> types;
 
 		private T value;
 
-		public AbstractStyle(StyleType style, Function<IDomNode, T> function) {
-			this.style = style;
+		public AbstractStyle(Function<IDomNode, T> function) {
 			this.function = function;
 		}
 
-		public AbstractStyle(StyleType style, T value) {
-			this.style = style;
+		public AbstractStyle(T value) {
 			this.value = value;
-		}
-
-		@Override
-		public StyleType getStyleType() {
-			return style;
 		}
 
 		@Override
@@ -82,14 +73,14 @@ public class StyleFactory implements IStyleFactory {
 		}
 	}
 
-	public static class Align extends AbstractStyle<Alignment> {
-		public Align(Alignment align) {
-			super(StyleType.align, align);
+	public static class AlignmentStyle extends AbstractStyle<Alignment> {
+		public AlignmentStyle(Alignment align) {
+			super(align);
 			setTypes(NodeType.nonWhitespaceSet);
 		}
 
-		public Align(Function<IDomNode, Alignment> f) {
-			super(StyleType.align, f);
+		public AlignmentStyle(Function<IDomNode, Alignment> f) {
+			super(f);
 			setTypes(NodeType.nonWhitespaceSet);
 		}
 
@@ -100,23 +91,23 @@ public class StyleFactory implements IStyleFactory {
 	}
 
 	public abstract static class BooleanStyle extends AbstractStyle<Boolean> {
-		public BooleanStyle(StyleType style, Boolean value) {
-			super(style, value);
+		public BooleanStyle(Boolean value) {
+			super(value);
 		}
 
-		public BooleanStyle(StyleType style, Function<IDomNode, Boolean> value) {
-			super(style, value);
+		public BooleanStyle(Function<IDomNode, Boolean> value) {
+			super(value);
 		}
 	}
 
 	public static class ContainerNamesStyle extends AbstractStyle<Set<String>> {
 		public ContainerNamesStyle(Function<IDomNode, Set<String>> f) {
-			super(StyleType.containerNames, f);
+			super(f);
 			setTypes(NodeType.nonWhitespaceSet);
 		}
 
 		public ContainerNamesStyle(Set<String> spacing) {
-			super(StyleType.containerNames, spacing);
+			super(spacing);
 			setTypes(NodeType.nonWhitespaceSet);
 		}
 
@@ -129,27 +120,27 @@ public class StyleFactory implements IStyleFactory {
 
 	public static class ContainerStyle extends StringStyle {
 		public ContainerStyle(Function<IDomNode, String> f) {
-			super(StyleType.container, f);
+			super(f);
 		}
 
 		public ContainerStyle(String spacing) {
-			super(StyleType.container, spacing);
+			super(spacing);
 		}
 
 		@Override
-		public void visit(IDomNode ge, IStyleVisitor visitor) {
-			visitor.container(getValue(ge));
+		public void visit(IDomNode node, IStyleVisitor visitor) {
+			visitor.container(getValue(node));
 		}
 
 	}
 
 	public static class DedentStyle extends IntegerStyle {
 		public DedentStyle(Function<IDomNode, Integer> f) {
-			super(StyleType.dedent, f);
+			super(f);
 		}
 
 		public DedentStyle(Integer spacing) {
-			super(StyleType.dedent, spacing);
+			super(spacing);
 		}
 
 		@Override
@@ -160,23 +151,23 @@ public class StyleFactory implements IStyleFactory {
 	}
 
 	protected abstract static class DoubleStyle extends AbstractStyle<Double> {
-		public DoubleStyle(StyleType style, Double value) {
-			super(style, value);
+		public DoubleStyle(Double value) {
+			super(value);
 		}
 
-		public DoubleStyle(StyleType style, Function<IDomNode, Double> value) {
-			super(style, value);
+		public DoubleStyle(Function<IDomNode, Double> value) {
+			super(value);
 		}
 
 	}
 
 	public static class IndentStyle extends IntegerStyle {
 		public IndentStyle(Function<IDomNode, Integer> f) {
-			super(StyleType.indent, f);
+			super(f);
 		}
 
 		public IndentStyle(Integer count) {
-			super(StyleType.indent, count);
+			super(count);
 		}
 
 		@Override
@@ -187,23 +178,23 @@ public class StyleFactory implements IStyleFactory {
 	}
 
 	protected abstract static class IntegerStyle extends AbstractStyle<Integer> {
-		public IntegerStyle(StyleType style, Function<IDomNode, Integer> value) {
-			super(style, value);
+		public IntegerStyle(Function<IDomNode, Integer> value) {
+			super(value);
 		}
 
-		public IntegerStyle(StyleType style, Integer value) {
-			super(style, value);
+		public IntegerStyle(Integer value) {
+			super(value);
 		}
 	}
 
 	public static class LineBreakStyle extends AbstractStyle<LineBreaks> {
 		public LineBreakStyle(Function<IDomNode, LineBreaks> f) {
-			super(StyleType.lineBreaks, f);
+			super(f);
 			setTypes(NodeType.whitespaceSet);
 		}
 
 		public LineBreakStyle(LineBreaks lineBreaks) {
-			super(StyleType.spacing, lineBreaks);
+			super(lineBreaks);
 			setTypes(NodeType.whitespaceSet);
 		}
 
@@ -216,12 +207,12 @@ public class StyleFactory implements IStyleFactory {
 
 	public static class SpacingStyle extends AbstractStyle<Spacing> {
 		public SpacingStyle(Function<IDomNode, Spacing> f) {
-			super(StyleType.spacing, f);
+			super(f);
 			setTypes(NodeType.whitespaceSet);
 		}
 
 		public SpacingStyle(Spacing spacing) {
-			super(StyleType.spacing, spacing);
+			super(spacing);
 			setTypes(NodeType.whitespaceSet);
 		}
 
@@ -233,23 +224,23 @@ public class StyleFactory implements IStyleFactory {
 	}
 
 	protected abstract static class StringStyle extends AbstractStyle<String> {
-		public StringStyle(StyleType style, Function<IDomNode, String> value) {
-			super(style, value);
+		public StringStyle(Function<IDomNode, String> value) {
+			super(value);
 		}
 
-		public StringStyle(StyleType style, String value) {
-			super(style, value);
+		public StringStyle(String value) {
+			super(value);
 		}
 
 	}
 
 	public static class StyleNameStyle extends StringStyle {
 		public StyleNameStyle(Function<IDomNode, String> f) {
-			super(StyleType.styleName, f);
+			super(f);
 		}
 
 		public StyleNameStyle(String name) {
-			super(StyleType.styleName, name);
+			super(name);
 		}
 
 		@Override
@@ -261,11 +252,11 @@ public class StyleFactory implements IStyleFactory {
 
 	public static class TokenTextStyle extends StringStyle {
 		public TokenTextStyle(Function<IDomNode, String> f) {
-			super(StyleType.tokenText, f);
+			super(f);
 		}
 
 		public TokenTextStyle(String spacing) {
-			super(StyleType.tokenText, spacing);
+			super(spacing);
 		}
 
 		@Override
@@ -275,128 +266,125 @@ public class StyleFactory implements IStyleFactory {
 
 	}
 
-	private IFunctionFactory functions;
+	private static final SpacingStyle ONESPACE = new SpacingStyle(new Spacing(1));
 
-	private static final IStyle<Spacing> ONESPACE = new SpacingStyle(new Spacing(1));
+	private static final SpacingStyle NOSPACE = new SpacingStyle(new Spacing(0));
 
-	private static final IStyle<Spacing> NOSPACE = new SpacingStyle(new Spacing(0));
+	private static final LineBreakStyle NOLINE = new LineBreakStyle(new LineBreaks(0));
 
-	private static final IStyle<LineBreaks> NOLINE = new LineBreakStyle(new LineBreaks(0));
-
-	private static final IStyle<LineBreaks> ONELINE = new LineBreakStyle(new LineBreaks(0));
+	private static final LineBreakStyle ONELINE = new LineBreakStyle(new LineBreaks(0));
 
 	@Inject
-	public StyleFactory(IFunctionFactory factory) {
-		this.functions = factory;
+	public StyleFactory() {
 	}
 
 	@Override
-	public Align align(Alignment x) {
-		return new Align(x);
+	public AlignmentStyle align(Alignment x) {
+		return new AlignmentStyle(x);
 	}
 
 	@Override
-	public Align align(Function<IDomNode, Alignment> f) {
-		return new Align(f);
+	public AlignmentStyle align(Function<IDomNode, Alignment> f) {
+		return new AlignmentStyle(f);
 	}
 
 	@Override
-	public IStyle<String> container(Function<IDomNode, String> f) {
+	public ContainerStyle container(Function<IDomNode, String> f) {
 		return new ContainerStyle(f);
 	}
 
 	@Override
-	public IStyle<String> container(String containerName) {
+	public ContainerStyle container(String containerName) {
 		return new ContainerStyle(containerName);
 	}
 
 	@Override
-	public IStyle<Set<String>> containerNames(Function<IDomNode, Set<String>> f) {
+	public ContainerNamesStyle containerNames(Function<IDomNode, Set<String>> f) {
 		return new ContainerNamesStyle(f);
 	}
 
 	@Override
-	public IStyle<Set<String>> containerNames(Set<String> containerNames) {
+	public ContainerNamesStyle containerNames(Set<String> containerNames) {
 		return new ContainerNamesStyle(containerNames);
 	}
 
 	@Override
-	public IStyle<Integer> dedent() {
+	public DedentStyle dedent() {
 		return new DedentStyle(1);
 	}
 
 	@Override
-	public IStyle<Integer> dedent(Function<IDomNode, Integer> f) {
+	public DedentStyle dedent(Function<IDomNode, Integer> f) {
 		return new DedentStyle(f);
 	}
 
 	@Override
-	public IStyle<Integer> dedent(Integer i) {
+	public DedentStyle dedent(Integer i) {
 		return new DedentStyle(i);
 	}
 
 	@Override
-	public IStyle<Integer> indent() {
+	public IndentStyle indent() {
 		return new IndentStyle(1);
 	}
 
 	@Override
-	public IStyle<Integer> indent(Function<IDomNode, Integer> f) {
+	public IndentStyle indent(Function<IDomNode, Integer> f) {
 		return new IndentStyle(f);
 	}
 
 	@Override
-	public IStyle<Integer> indent(Integer i) {
+	public IndentStyle indent(Integer i) {
 		return new IndentStyle(i);
 	}
 
 	@Override
-	public IStyle<LineBreaks> lineBreaks(Function<IDomNode, LineBreaks> f) {
+	public LineBreakStyle lineBreaks(Function<IDomNode, LineBreaks> f) {
 		return new LineBreakStyle(f);
 	}
 
 	@Override
-	public IStyle<LineBreaks> noLineBreak() {
+	public LineBreakStyle noLineBreak() {
 		return NOLINE;
 	}
 
 	@Override
-	public IStyle<Spacing> noSpace() {
+	public SpacingStyle noSpace() {
 		return NOSPACE;
 	}
 
 	@Override
-	public IStyle<LineBreaks> oneLineBreak() {
+	public LineBreakStyle oneLineBreak() {
 		return ONELINE;
 	}
 
 	@Override
-	public IStyle<Spacing> oneSpace() {
+	public SpacingStyle oneSpace() {
 		return ONESPACE;
 	}
 
 	@Override
-	public IStyle<Spacing> spacing(Function<IDomNode, Spacing> f) {
+	public SpacingStyle spacing(Function<IDomNode, Spacing> f) {
 		return new SpacingStyle(f);
 	}
 
 	@Override
-	public IStyle<String> styleName(Function<IDomNode, String> f) {
+	public StyleNameStyle styleName(Function<IDomNode, String> f) {
 		return new StyleNameStyle(f);
 	}
 
 	@Override
-	public IStyle<String> styleName(String s) {
+	public StyleNameStyle styleName(String s) {
 		return new StyleNameStyle(s);
 	}
 
 	@Override
-	public IStyle<String> tokenText(Function<IDomNode, String> f) {
+	public TokenTextStyle tokenText(Function<IDomNode, String> f) {
 		return new TokenTextStyle(f);
 	}
 
 	@Override
-	public IStyle<String> tokenText(String s) {
+	public TokenTextStyle tokenText(String s) {
 		return new TokenTextStyle(s);
 	}
 

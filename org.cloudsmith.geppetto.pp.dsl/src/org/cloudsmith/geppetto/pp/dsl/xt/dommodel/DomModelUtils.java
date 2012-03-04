@@ -166,7 +166,7 @@ public class DomModelUtils {
 	 * @param node
 	 * @return
 	 */
-	public static IDomNode firstToken(IDomNode node) {
+	public static IDomNode firstTokenWithText(IDomNode node) {
 		IDomNode n = firstLeaf(node);
 		while(n != null && !isLeafWithText(n))
 			n = nextLeaf(n);
@@ -242,6 +242,20 @@ public class DomModelUtils {
 	}
 
 	/**
+	 * Returns true for a node that has textual representation (even if text has zero length).
+	 * 
+	 * @param node
+	 * @return
+	 */
+	public static boolean isToken(IDomNode node) {
+		if(!node.isLeaf())
+			return false;
+		if(node.getNodeType() == NodeType.ACTION)
+			return false;
+		return true;
+	}
+
+	/**
 	 * Returns true if node holds only whitespace tokens - hidden or not.
 	 * 
 	 * @return true if node holds only whitespace tokens
@@ -266,7 +280,7 @@ public class DomModelUtils {
 	 * @param node
 	 * @return
 	 */
-	public static IDomNode lastToken(IDomNode node) {
+	public static IDomNode lastTokenWithText(IDomNode node) {
 		IDomNode n = lastLeaf(node);
 		while(n != null && !isLeafWithText(n))
 			n = previousLeaf(n);
@@ -288,6 +302,13 @@ public class DomModelUtils {
 		return null;
 	}
 
+	public static IDomNode nextToken(IDomNode node) {
+		IDomNode n = nextLeaf(node);
+		while(n != null && !isLeafWithText(n))
+			n = nextLeaf(n);
+		return n;
+	}
+
 	public static IDomNode previousLeaf(IDomNode node) {
 		IDomNode n = node.getPreviousSibling();
 		if(n != null)
@@ -301,6 +322,13 @@ public class DomModelUtils {
 		}
 		// ran out of parents
 		return null;
+	}
+
+	public static IDomNode previousToken(IDomNode node) {
+		IDomNode n = previousLeaf(node);
+		while(n != null && !isLeafWithText(n))
+			n = previousLeaf(n);
+		return n;
 	}
 
 	private static String semanticTitle(IDomNode node) {

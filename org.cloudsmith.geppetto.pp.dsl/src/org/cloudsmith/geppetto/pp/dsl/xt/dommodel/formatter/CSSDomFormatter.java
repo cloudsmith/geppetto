@@ -121,12 +121,21 @@ public class CSSDomFormatter implements IDomModelFormatter {
 
 			// Except for leading whitepsace
 			Select.before(Select.whitespace(), Select.node(NodeClassifier.FIRST_TOKEN)).withStyle(//
-				styles.noSpace()), Select.after(Select.whitespace(), Select.node(NodeClassifier.LAST_TOKEN)).withStyle(//
-				styles.noSpace())
-		//
-		// // Test rules around keyword ","
-		// Select.before(Select.whitespace(), Select.keyword(",")).withStyles(styles.noSpace()), //
-		// Select.after(Select.whitespace(), Select.keyword(",")).withStyles(styles.oneSpace()) //
+				styles.noSpace()), //
+			Select.after(Select.whitespace(), Select.node(NodeClassifier.LAST_TOKEN)).withStyle(//
+				styles.noSpace()),
+
+			// Test rules around keyword ","
+			Select.before(Select.whitespace(), Select.keyword(",")).withStyles(//
+				styles.noSpace()), //
+			Select.after(Select.whitespace(), Select.keyword(",")).withStyles(//
+				styles.oneSpace()), //
+
+			// Test rules inside brackets "[" and "]"
+			Select.after(Select.whitespace(), Select.keyword("[")).withStyles(//
+				styles.noSpace()), //
+			Select.before(Select.whitespace(), Select.keyword("]")).withStyles(//
+				styles.noSpace()) //
 		);
 	}
 
@@ -207,8 +216,9 @@ public class CSSDomFormatter implements IDomModelFormatter {
 			int count = calculateSpaces(text, spacing);
 			if(isFormattingWanted(node, regionToFormat))
 				output.space(count);
-			if(count > 0)
-				wsWritten = true;
+			// if(count > 0)
+			// mark ws as written even if 0, since this is exactly what the rules dictated
+			wsWritten = true;
 		}
 	}
 

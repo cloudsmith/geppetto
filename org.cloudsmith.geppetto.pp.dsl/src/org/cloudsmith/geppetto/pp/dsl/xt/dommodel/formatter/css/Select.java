@@ -537,7 +537,7 @@ public class Select {
 		public boolean matches(IDomNode node) {
 			if(node == null)
 				return false;
-			return predecessorSelector.matches(DomModelUtils.previousLeaf(node));
+			return predecessorSelector.matches(DomModelUtils.previousToken(node));
 		}
 	}
 
@@ -616,7 +616,7 @@ public class Select {
 		public boolean matches(IDomNode node) {
 			if(node == null)
 				return false;
-			return successorSelector.matches(DomModelUtils.nextLeaf(node));
+			return successorSelector.matches(DomModelUtils.nextToken(node));
 		}
 	}
 

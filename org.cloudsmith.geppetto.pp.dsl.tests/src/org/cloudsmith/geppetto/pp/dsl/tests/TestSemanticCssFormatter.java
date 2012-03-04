@@ -19,6 +19,7 @@ import org.cloudsmith.geppetto.pp.Expression;
 import org.cloudsmith.geppetto.pp.LiteralList;
 import org.cloudsmith.geppetto.pp.PPFactory;
 import org.cloudsmith.geppetto.pp.PuppetManifest;
+import org.cloudsmith.geppetto.pp.dsl.serializer.HiddenTokenSequencerForDom;
 import org.cloudsmith.geppetto.pp.dsl.xt.dommodel.DomModelUtils;
 import org.cloudsmith.geppetto.pp.dsl.xt.dommodel.IDomNode;
 import org.cloudsmith.geppetto.pp.dsl.xt.dommodel.IDomNode.NodeType;
@@ -35,6 +36,7 @@ import org.eclipse.xtext.formatting.IIndentationInformation;
 import org.eclipse.xtext.resource.XtextResource;
 import org.eclipse.xtext.serializer.ISerializer;
 import org.eclipse.xtext.serializer.diagnostic.ISerializationDiagnostic.Acceptor;
+import org.eclipse.xtext.serializer.sequencer.IHiddenTokenSequencer;
 import org.eclipse.xtext.util.ITextRegion;
 import org.eclipse.xtext.util.ReplaceRegion;
 
@@ -87,6 +89,8 @@ public class TestSemanticCssFormatter extends AbstractPuppetTests {
 				binder.bind(IDomModelFormatter.class).to(DebugFormatter.class);
 				binder.bind(IFunctionFactory.class).to(FunctionFactory.class);
 				binder.bind(IStyleFactory.class).to(StyleFactory.class);
+				// Want serializer to insert empty WS even if there is no node model
+				binder.bind(IHiddenTokenSequencer.class).to(HiddenTokenSequencerForDom.class);
 			}
 		}
 
@@ -106,7 +110,7 @@ public class TestSemanticCssFormatter extends AbstractPuppetTests {
 
 	public void test_Serialize_arrayNoSpaces() throws Exception {
 		String code = "$a=['10','20']";
-		String fmt = "$a = [ '10' , '20' ]";
+		String fmt = "$a = ['10', '20']";
 		XtextResource r = getResourceFromString(code);
 		String s = serializeFormatted(r.getContents().get(0));
 		assertEquals("serialization should produce same result", fmt, s);
@@ -114,7 +118,7 @@ public class TestSemanticCssFormatter extends AbstractPuppetTests {
 
 	public void test_Serialize_arrayWithComments() throws Exception {
 		String code = "/*1*/$a/*2*/=/*3*/[/*4*/'10'/*5*/,/*6*/'20'/*7*/]/*8*/";
-		String fmt = "/*1*/ $a /*2*/ = /*3*/ [ /*4*/ '10' /*5*/ , /*6*/ '20' /*7*/ ] /*8*/";
+		String fmt = "/*1*/ $a /*2*/ = /*3*/ [/*4*/ '10' /*5*/, /*6*/ '20' /*7*/] /*8*/";
 		XtextResource r = getResourceFromString(code);
 		String s = serializeFormatted(r.getContents().get(0));
 		assertEquals("serialization should produce same result", fmt, s);
@@ -130,8 +134,8 @@ public class TestSemanticCssFormatter extends AbstractPuppetTests {
 		pplist.getElements().add(createSqString("10"));
 		pplist.getElements().add(createSqString("20"));
 		pp.getStatements().add(assignment);
-		String fmt = "$a = ['10', '20']\n";
-		String s = serialize(pp);
+		String fmt = "$a = ['10', '20']";
+		String s = serializeFormatted(pp);
 		assertEquals("serialization should produce same result", fmt, s);
 	}
 

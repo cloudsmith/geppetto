@@ -54,8 +54,8 @@ public class DomBasedSerializer extends Serializer {
 	FormattingContextProvider formattingContextProvider;
 
 	/**
-	 * NOTE: This overrided method is required to initialize the DomModelSequences.
-	 * The base implementation checks if the tokens paramter is a specific adapter, and
+	 * NOTE: This overridden method is required to initialize the DomModelSequences.
+	 * The base implementation checks if the tokens parameter is a specific adapter, and
 	 * then initializes it. This method does the same but for DomModelSequenceAdapter.
 	 * 
 	 */

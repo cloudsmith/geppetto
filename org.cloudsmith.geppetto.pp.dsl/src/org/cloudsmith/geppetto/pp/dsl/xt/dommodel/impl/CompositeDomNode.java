@@ -114,8 +114,8 @@ public class CompositeDomNode extends BaseDomNode {
 			// recalculate offsets starting with 0
 			setOffset(0);
 			// find and mark first and last token
-			IDomNode first = DomModelUtils.firstToken(this);
-			IDomNode last = DomModelUtils.lastToken(this);
+			IDomNode first = DomModelUtils.firstTokenWithText(this);
+			IDomNode last = DomModelUtils.lastTokenWithText(this);
 			if(first != null && first instanceof AbstractDomNode)
 				((AbstractDomNode) first).setClassifiers(true, NodeClassifier.FIRST_TOKEN);
 			if(last != null && last instanceof AbstractDomNode)

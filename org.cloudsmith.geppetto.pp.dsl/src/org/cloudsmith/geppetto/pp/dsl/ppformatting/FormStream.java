@@ -14,19 +14,19 @@ package org.cloudsmith.geppetto.pp.dsl.ppformatting;
 import java.io.IOException;
 import java.io.Writer;
 
+import org.cloudsmith.geppetto.pp.dsl.xt.dommodel.formatter.IFormattingContext;
+
+import com.google.inject.Inject;
+
 public class FormStream implements IFormStream {
 	public static class WriterFormStream extends FormStream {
 		private Writer out;
 
-		public WriterFormStream(Writer out) {
+		public WriterFormStream(IFormattingContext context, Writer out) {
+			super(context);
 			this.out = out;
 		}
 
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see org.cloudsmith.geppetto.pp.dsl.formatting.FormStream#flush()
-		 */
 		@Override
 		public void flush() throws IOException {
 			out.write(getText());
@@ -43,9 +43,14 @@ public class FormStream implements IFormStream {
 
 	private final String spaceBuffer;
 
+	private final String indentBuffer;
+
 	private final String oneSpace;
 
-	public FormStream() {
+	private final String lineSeparator;
+
+	@Inject
+	public FormStream(IFormattingContext formattingContext) {
 		this.indent = 0;
 		this.builder = new StringBuilder();
 		this.lastWasBreak = false;
@@ -55,16 +60,33 @@ public class FormStream implements IFormStream {
 			spaces.append(spaces);
 		spaceBuffer = spaces.toString();
 		oneSpace = spaceStr(1);
+		String indentationString = formattingContext.getIndentationInformation().getIndentString();
+
+		indentSize = indentationString.length();
+		String indentBufferToUse = spaceBuffer;
+		if(indentSize > 0) {
+			char c = indentationString.charAt(0);
+			for(int i = 0; i < indentSize; i++)
+				if(indentationString.charAt(i) != c)
+					throw new IllegalStateException("Indentation string must consist of the same character");
+			if(c != ' ') {
+				StringBuilder indents = new StringBuilder(256);
+				for(int i = 0; i < 256; i++)
+					indents.append(c);
+				indentBufferToUse = indents.toString();
+			}
+		}
+		indentBuffer = indentBufferToUse;
+
+		lineSeparator = formattingContext.getLineSeparatorInformation().getLineSeparator();
 	}
 
-	/**
-	 * break line, do not output indent until some other output takes place
-	 * as it may be preceded by a dedent.
-	 */
 	@Override
-	public void breakLine() {
-		builder.append("\n");
-		lastWasBreak = true;
+	public void changeIndentation(int count) {
+		if(count == 0)
+			return;
+		indent += count * indentSize;
+		indent = Math.max(0, indent);
 	}
 
 	@Override
@@ -75,7 +97,7 @@ public class FormStream implements IFormStream {
 	private void emit(String s) {
 		if(lastWasBreak) {
 			lastWasBreak = false;
-			builder.append(spaceStr(indent));
+			builder.append(indentStr(indent));
 		}
 		builder.append(s);
 	}
@@ -95,9 +117,30 @@ public class FormStream implements IFormStream {
 		indent += indentSize;
 	}
 
-	@Override
-	public void noSpace() {
+	private String indentStr(int size) {
+		if(size == 0)
+			return "";
+		if(size < 0)
+			return "";
+		return indentBuffer.substring(0, size);
+	}
 
+	/**
+	 * break line, do not output indent until some other output takes place
+	 * as it may be preceded by a dedent.
+	 */
+	@Override
+	public void lineBreak() {
+		builder.append(lineSeparator);
+		lastWasBreak = true;
+	}
+
+	@Override
+	public void lineBreaks(int count) {
+		if(count < 0)
+			return;
+		for(int i = 0; i < count; i++)
+			lineBreak();
 	}
 
 	/**
@@ -119,7 +162,7 @@ public class FormStream implements IFormStream {
 	 * @param count
 	 */
 	@Override
-	public void space(int count) {
+	public void spaces(int count) {
 		if(count < 0)
 			return;
 		while(count > 256) {

@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2011 Cloudsmith Inc. and other contributors, as listed below.
+ * Copyright (c) 2012 Cloudsmith Inc. and other contributors, as listed below.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -14,6 +14,7 @@ package org.cloudsmith.geppetto.pp.dsl.ppformatting;
 import java.io.IOException;
 import java.io.Writer;
 
+import org.cloudsmith.geppetto.pp.dsl.xt.dommodel.formatter.IFormattingContext;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.xtext.nodemodel.ICompositeNode;
 import org.eclipse.xtext.nodemodel.util.NodeModelUtils;
@@ -24,13 +25,17 @@ import org.eclipse.xtext.util.ReplaceRegion;
 import com.google.inject.Inject;
 
 /**
- * @author henrik
+ * A serializer using a handwritten formatter for PP.
+ * TODO: This was experimental, and will be superseeded by the new DomFormatter.
  * 
  */
 public class PPSerializer implements ISerializer {
 
 	@Inject
 	PPExpressionFormatter expressionFormatter;
+
+	@Inject
+	IFormattingContext formattingContext;
 
 	/*
 	 * (non-Javadoc)
@@ -54,7 +59,7 @@ public class PPSerializer implements ISerializer {
 	 */
 	@Override
 	public String serialize(EObject obj, SaveOptions options) {
-		IFormStream tokenStringBuffer = new FormStream();
+		IFormStream tokenStringBuffer = new FormStream(formattingContext);
 		try {
 			serialize(obj, tokenStringBuffer, options);
 		}
@@ -71,7 +76,7 @@ public class PPSerializer implements ISerializer {
 	 */
 	@Override
 	public void serialize(EObject obj, Writer writer, SaveOptions options) throws IOException {
-		serialize(obj, new FormStream.WriterFormStream(writer), options);
+		serialize(obj, new FormStream.WriterFormStream(formattingContext, writer), options);
 	}
 
 	/*

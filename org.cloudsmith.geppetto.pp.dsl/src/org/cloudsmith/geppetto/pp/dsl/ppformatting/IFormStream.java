@@ -14,12 +14,19 @@ package org.cloudsmith.geppetto.pp.dsl.ppformatting;
 import java.io.IOException;
 
 /**
- * Inerface for PP formatting stream.
+ * Interface for formatting stream.
  * 
  */
 public interface IFormStream {
 
-	public void breakLine();
+	/**
+	 * Changes indentation by +/- count.<br/>
+	 * . A count of 0 has no efect on indentation.
+	 * <b>Example:</b>
+	 * Calling this method with count 3 is the same as calling {@link #indent()} 3 times. Calling this method
+	 * with count -3 is the same as calling {@link #dedent()} 3 times.
+	 */
+	public void changeIndentation(int count);
 
 	public void dedent();
 
@@ -29,13 +36,15 @@ public interface IFormStream {
 
 	public void indent();
 
-	public void noSpace();
+	public void lineBreak();
+
+	public void lineBreaks(int count);
 
 	public void oneSpace();
 
 	public int size();
 
-	public void space(int count);
+	public void spaces(int count);
 
 	public void text(String s);
 

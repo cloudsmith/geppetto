@@ -35,7 +35,7 @@ public interface IDomNode {
 
 	/**
 	 * Generic NodeClassifiers that are suitable as "style classifiers".
-	 * 
+	 * It is expected that an creator of a DOM provides these as styleClassifiers for resulting nodes.
 	 */
 	public enum NodeClassifier {
 		/**
@@ -105,7 +105,7 @@ public interface IDomNode {
 		FIRST_TOKEN,
 
 		/**
-		 * Last non whitespae
+		 * Last non whitespace
 		 */
 		LAST_TOKEN,
 

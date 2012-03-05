@@ -21,8 +21,7 @@ import com.google.inject.Inject;
 import com.google.inject.Singleton;
 
 /**
- * An IStyleFacory implementation for graphviz dot language.
- * TODO: Check consistency of all parameter names (copy/paste...)
+ * An IStyleFacory implementation for Xtext IDomNode
  */
 @Singleton
 public class StyleFactory implements IStyleFactory {
@@ -272,7 +271,7 @@ public class StyleFactory implements IStyleFactory {
 
 	private static final LineBreakStyle NOLINE = new LineBreakStyle(new LineBreaks(0));
 
-	private static final LineBreakStyle ONELINE = new LineBreakStyle(new LineBreaks(0));
+	private static final LineBreakStyle ONELINE = new LineBreakStyle(new LineBreaks(1));
 
 	@Inject
 	public StyleFactory() {
@@ -341,6 +340,16 @@ public class StyleFactory implements IStyleFactory {
 	@Override
 	public LineBreakStyle lineBreaks(Function<IDomNode, LineBreaks> f) {
 		return new LineBreakStyle(f);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.cloudsmith.geppetto.pp.dsl.xt.dommodel.formatter.css.IStyleFactory#lineBreaks(int, int, int)
+	 */
+	@Override
+	public LineBreakStyle lineBreaks(int min, int normal, int max) {
+		return new LineBreakStyle(new LineBreaks(min, normal, max));
 	}
 
 	@Override

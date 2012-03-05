@@ -125,6 +125,15 @@ public interface IStyleFactory {
 	public LineBreakStyle lineBreaks(Function<IDomNode, LineBreaks> f);
 
 	/**
+	 * @See {@link LineBreaks}
+	 * @param min
+	 * @param normal
+	 * @param max
+	 * @return
+	 */
+	public LineBreakStyle lineBreaks(int min, int normal, int max);
+
+	/**
 	 * @return style with literal {@link LineBreaks} information describing "no line breaks"
 	 */
 	public LineBreakStyle noLineBreak();

@@ -109,6 +109,11 @@ public interface IDomNode {
 		 */
 		LAST_TOKEN,
 
+		/**
+		 * The content in the node is implied (typically used with automatically inserted whitespace).
+		 */
+		IMPLIED, ;
+
 	}
 
 	public enum NodeType {

@@ -22,6 +22,7 @@ import static org.cloudsmith.geppetto.pp.dsl.xt.dommodel.IDomNode.NodeType.WHITE
 
 import java.util.List;
 
+import org.cloudsmith.geppetto.pp.dsl.serializer.HiddenTokenSequencerForDom;
 import org.cloudsmith.geppetto.pp.dsl.xt.dommodel.DomModelUtils;
 import org.cloudsmith.geppetto.pp.dsl.xt.dommodel.IDomNode;
 import org.cloudsmith.geppetto.pp.dsl.xt.dommodel.IDomNode.NodeClassifier;
@@ -223,8 +224,13 @@ public class DomModelSequenceAdapter implements ISequenceAcceptor {
 	 */
 	@Override
 	public void acceptWhitespace(AbstractRule rule, String token, ILeafNode node) {
-		addLeafNodeToCurrent(rule, token, node, WHITESPACE, //
+		BaseDomNode n = addLeafNodeToCurrent(rule, token, node, WHITESPACE, //
 			NodeClassifier.HIDDEN);
+
+		// TODO: Not a very robust way of checking if the whitespace is implied
+		// Will probably need to change when also creating a dom model from the node model
+		//
+		n.setClassifiers(token == HiddenTokenSequencerForDom.IMPLIED_EMPTY_WHITESPACE, NodeClassifier.IMPLIED);
 	}
 
 	protected BaseDomNode addCompositeNodeToCurrent(EObject rule, String token, ICompositeNode node, NodeType nodeType,
@@ -314,7 +320,8 @@ public class DomModelSequenceAdapter implements ISequenceAcceptor {
 			IDomNode lastLeaf = DomModelUtils.lastLeaf(current);
 			if(lastLeaf != null) {
 				if(!DomModelUtils.isWhitespace(lastLeaf))
-					acceptWhitespace(hiddenTokenHelper.getWhitespaceRuleFor(null, ""), "", null);
+					acceptWhitespace(hiddenTokenHelper.getWhitespaceRuleFor(null, ""), //
+						HiddenTokenSequencerForDom.IMPLIED_EMPTY_WHITESPACE, null);
 			}
 			current.doLayout();
 		}

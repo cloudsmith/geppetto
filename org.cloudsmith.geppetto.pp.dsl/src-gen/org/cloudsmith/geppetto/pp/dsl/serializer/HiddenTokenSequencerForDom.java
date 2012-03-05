@@ -24,11 +24,13 @@ import org.eclipse.xtext.serializer.sequencer.HiddenTokenSequencer;
  * 
  */
 public class HiddenTokenSequencerForDom extends HiddenTokenSequencer {
+	public static final String IMPLIED_EMPTY_WHITESPACE = "";
+
 	@Override
 	protected List<INode> getHiddenNodesBetween(INode from, INode to) {
 		List<INode> result = super.getHiddenNodesBetween(from, to);
 		if(result == null) {
-			delegate.acceptWhitespace(hiddenTokenHelper.getWhitespaceRuleFor(null, ""), "", null);
+			delegate.acceptWhitespace(hiddenTokenHelper.getWhitespaceRuleFor(null, ""), IMPLIED_EMPTY_WHITESPACE, null);
 		}
 		return result;
 	}

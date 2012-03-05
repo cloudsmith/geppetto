@@ -163,7 +163,7 @@ public class CSSDomFormatter implements IDomModelFormatter {
 			String text = node.getText();
 			if(text.length() == 0)
 				return;
-			writeSpaceIfNecessary(node, output);
+			// writeSpaceIfNecessary(node, output);
 			output.text(node.getText());
 		}
 		hasStarted = true;
@@ -172,11 +172,17 @@ public class CSSDomFormatter implements IDomModelFormatter {
 
 	protected void formatWhitespace(StyleSet styleSet, IDomNode node, ITextRegion regionToFormat,
 			IFormattingContext formattingContext, IFormStream output) {
-		if(formattingContext.isWhitespacePreservation()) {
+
+		// Verbatim or Formatting mode?
+		// (If Verbatim and whitespace is implied, it should be formatted).
+		if(formattingContext.isWhitespacePreservation() && !node.getStyleClassifiers().contains(NodeClassifier.IMPLIED)) {
+			// Formatting should only be done on whitespace nodes that are implied.
+			// all other whitespace nodes should be passed verbatim.
 			String text = node.getText();
 
 			if(isFormattingWanted(node, regionToFormat))
 				output.text(text);
+			;
 			if(text.length() > 0)
 				wsWritten = true;
 		}

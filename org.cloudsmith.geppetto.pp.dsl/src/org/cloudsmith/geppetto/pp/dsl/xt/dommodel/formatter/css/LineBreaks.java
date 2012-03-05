@@ -12,48 +12,19 @@
 package org.cloudsmith.geppetto.pp.dsl.xt.dommodel.formatter.css;
 
 /**
- * Describes desired line breaks in terms of min, max, and normal
+ * Describes desired line breaks as an {@link IFlexibleQuantity}.
  * 
  */
-public class LineBreaks {
-	private int normal;
-
-	private int max;
-
-	private int min;
-
+public class LineBreaks extends FlexibleQuantity {
 	public LineBreaks() {
-		this(1);
+		super(1);
 	}
 
 	public LineBreaks(int normal) {
-		this(normal, normal, normal);
+		super(normal, normal, normal);
 	}
 
 	public LineBreaks(int min, int normal, int max) {
-		this.min = min;
-		this.max = max;
-		this.normal = normal;
-	}
-
-	/**
-	 * @return the max
-	 */
-	public int getMax() {
-		return max;
-	}
-
-	/**
-	 * @return the min
-	 */
-	public int getMin() {
-		return min;
-	}
-
-	/**
-	 * @return the normal
-	 */
-	public int getNormal() {
-		return normal;
+		super(min, normal, max);
 	}
 }

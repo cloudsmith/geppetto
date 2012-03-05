@@ -22,6 +22,7 @@ import static org.cloudsmith.geppetto.pp.dsl.xt.dommodel.IDomNode.NodeType.WHITE
 
 import java.util.List;
 
+import org.cloudsmith.geppetto.pp.dsl.xt.dommodel.DomModelUtils;
 import org.cloudsmith.geppetto.pp.dsl.xt.dommodel.IDomNode;
 import org.cloudsmith.geppetto.pp.dsl.xt.dommodel.IDomNode.NodeClassifier;
 import org.cloudsmith.geppetto.pp.dsl.xt.dommodel.IDomNode.NodeType;
@@ -36,9 +37,11 @@ import org.eclipse.xtext.Keyword;
 import org.eclipse.xtext.RuleCall;
 import org.eclipse.xtext.nodemodel.ICompositeNode;
 import org.eclipse.xtext.nodemodel.ILeafNode;
+import org.eclipse.xtext.parsetree.reconstr.IHiddenTokenHelper;
 import org.eclipse.xtext.serializer.acceptor.ISequenceAcceptor;
 import org.eclipse.xtext.serializer.diagnostic.ISerializationDiagnostic;
 
+import com.google.inject.Inject;
 import com.google.inject.internal.Lists;
 
 /**
@@ -56,10 +59,14 @@ public class DomModelSequenceAdapter implements ISequenceAcceptor {
 
 	private List<CompositeDomNode> stack;
 
-	public DomModelSequenceAdapter(ISerializationDiagnostic.Acceptor errorAcceptor) {
+	protected IHiddenTokenHelper hiddenTokenHelper;
+
+	@Inject
+	public DomModelSequenceAdapter(IHiddenTokenHelper hiddenTokenHelper, ISerializationDiagnostic.Acceptor errorAcceptor) {
 		current = new CompositeDomNode();
 		stack = Lists.newArrayList();
 		this.errorAcceptor = errorAcceptor;
+		this.hiddenTokenHelper = hiddenTokenHelper;
 	}
 
 	/**
@@ -301,8 +308,16 @@ public class DomModelSequenceAdapter implements ISequenceAcceptor {
 	public void finish() {
 		if(stack.size() > 0)
 			pop();
-		else
+		else {
+			// TODO: Discuss this issue
+			// ensure there is a whitespace node at the very end (to enable trailing WS rule)
+			IDomNode lastLeaf = DomModelUtils.lastLeaf(current);
+			if(lastLeaf != null) {
+				if(!DomModelUtils.isWhitespace(lastLeaf))
+					acceptWhitespace(hiddenTokenHelper.getWhitespaceRuleFor(null, ""), "", null);
+			}
 			current.doLayout();
+		}
 	}
 
 	protected CompositeDomNode getCurrent() {

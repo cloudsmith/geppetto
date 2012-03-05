@@ -23,6 +23,7 @@ import org.cloudsmith.geppetto.pp.dsl.xt.dommodel.formatter.IFormattingContext.F
 import org.cloudsmith.geppetto.pp.dsl.xt.serializer.acceptor.DomModelSequenceAdapter;
 import org.eclipse.emf.common.util.Diagnostic;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.xtext.parsetree.reconstr.IHiddenTokenHelper;
 import org.eclipse.xtext.parsetree.reconstr.ITokenStream;
 import org.eclipse.xtext.resource.SaveOptions;
 import org.eclipse.xtext.serializer.acceptor.ISemanticSequenceAcceptor;
@@ -52,6 +53,9 @@ public class DomBasedSerializer extends Serializer {
 
 	@Inject
 	FormattingContextProvider formattingContextProvider;
+
+	@Inject
+	IHiddenTokenHelper hiddenTokenHelper;
 
 	/**
 	 * NOTE: This overridden method is required to initialize the DomModelSequences.
@@ -116,7 +120,7 @@ public class DomBasedSerializer extends Serializer {
 
 		// Uses DomModelSequencer and new formatter interface
 		ISerializationDiagnostic.Acceptor errors = ISerializationDiagnostic.EXCEPTION_THROWING_ACCEPTOR;
-		DomModelSequenceAdapter acceptor = new DomModelSequenceAdapter(errors);
+		DomModelSequenceAdapter acceptor = new DomModelSequenceAdapter(hiddenTokenHelper, errors);
 		EObject context = getContext(obj);
 		serialize(obj, context, acceptor, errors);
 		ReplaceRegion r = domFormatter.format(

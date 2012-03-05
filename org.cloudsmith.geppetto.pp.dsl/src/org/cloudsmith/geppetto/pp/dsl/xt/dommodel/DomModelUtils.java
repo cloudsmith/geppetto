@@ -119,7 +119,7 @@ public class DomModelUtils {
 			else
 				result.append("(unknown)");
 			result.append(" => '");
-			result.append(node.getText());
+			result.append(encodedString(node.getText()));
 			result.append("'");
 			appendTypeAndClassifiers(result, node);
 			if(containsError(node) && node.getNode() != null) {
@@ -148,6 +148,14 @@ public class DomModelUtils {
 
 	public static boolean containsWhitespace(IDomNode node) {
 		return node.getStyleClassifiers().contains(IDomNode.NodeClassifier.CONTAINS_WHITESPACE);
+	}
+
+	public static String encodedString(String input) {
+		input = input.replace("\n", "\\n");
+		input = input.replace("\t", "\\t");
+		input = input.replace("\r", "\\r");
+		return input;
+
 	}
 
 	public static IDomNode firstLeaf(IDomNode node) {

@@ -18,6 +18,7 @@ import java.util.Map;
 
 import org.cloudsmith.geppetto.pp.dsl.xt.dommodel.IDomNode;
 
+import com.google.common.base.Function;
 import com.google.common.collect.ImmutableMap;
 
 /**
@@ -117,6 +118,28 @@ public class StyleSet {
 		if(style == null)
 			return null;
 		return (T) (style.getValue(node));
+	}
+
+	/**
+	 * Gets the value of a particular style, or the result of the function applied to the node if the
+	 * style is not set.
+	 * See the respective style type (doc) for information about returned type.
+	 * 
+	 * @param <T>
+	 * 
+	 * @param styleClass
+	 *            - the class of the wanted style
+	 * @param node
+	 *            - the node for which a style value is wanted
+	 * @param defaultFunc
+	 *            - a function producing a default value
+	 * @return the value of the style
+	 */
+	public <T> T getStyleValue(Class<? extends IStyle<T>> styleClass, IDomNode node, Function<IDomNode, T> defaultFunc) {
+		T style = getStyleValue(styleClass, node);
+		return style == null
+				? defaultFunc.apply(node)
+				: style;
 	}
 
 	/**

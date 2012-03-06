@@ -26,6 +26,8 @@ import org.cloudsmith.geppetto.pp.dsl.xt.dommodel.IDomNode.NodeType;
 import org.cloudsmith.geppetto.pp.dsl.xt.dommodel.formatter.CSSDomFormatter;
 import org.cloudsmith.geppetto.pp.dsl.xt.dommodel.formatter.IDomModelFormatter;
 import org.cloudsmith.geppetto.pp.dsl.xt.dommodel.formatter.IFormattingContext;
+import org.cloudsmith.geppetto.pp.dsl.xt.dommodel.formatter.css.DefaultStylesheetProvider;
+import org.cloudsmith.geppetto.pp.dsl.xt.dommodel.formatter.css.DomCSS;
 import org.cloudsmith.geppetto.pp.dsl.xt.dommodel.formatter.css.FunctionFactory;
 import org.cloudsmith.geppetto.pp.dsl.xt.dommodel.formatter.css.IFunctionFactory;
 import org.cloudsmith.geppetto.pp.dsl.xt.dommodel.formatter.css.IStyleFactory;
@@ -43,6 +45,7 @@ import com.google.inject.Binder;
 import com.google.inject.Guice;
 import com.google.inject.Inject;
 import com.google.inject.Injector;
+import com.google.inject.Provider;
 import com.google.inject.util.Modules;
 
 /**
@@ -53,8 +56,8 @@ public class TestSemanticCssFormatter extends AbstractPuppetTests {
 	public static class DebugFormatter extends CSSDomFormatter {
 
 		@Inject
-		public DebugFormatter(IStyleFactory styles, IFunctionFactory functions) {
-			super(styles, functions);
+		public DebugFormatter(Provider<DomCSS> domProvider) {
+			super(domProvider);
 		}
 
 		@Override
@@ -79,6 +82,8 @@ public class TestSemanticCssFormatter extends AbstractPuppetTests {
 				// Want serializer to insert empty WS even if there is no node model
 				binder.bind(IHiddenTokenSequencer.class).to(HiddenTokenSequencerForDom.class);
 
+				// Bind the default style sheet (TODO: should use a test specific sheet)
+				binder.bind(DomCSS.class).toProvider(DefaultStylesheetProvider.class);
 				// specific to pp (2 spaces).
 				binder.bind(IIndentationInformation.class).to(PPIndentationInformation.class);
 				// binder.bind(IIndentationInformation.class).to(IIndentationInformation.Default.class);

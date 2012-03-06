@@ -18,9 +18,7 @@ import org.cloudsmith.geppetto.pp.dsl.xt.dommodel.IDomNode;
 import org.cloudsmith.geppetto.pp.dsl.xt.dommodel.IDomNode.NodeClassifier;
 import org.cloudsmith.geppetto.pp.dsl.xt.dommodel.formatter.css.DomCSS;
 import org.cloudsmith.geppetto.pp.dsl.xt.dommodel.formatter.css.IFunctionFactory;
-import org.cloudsmith.geppetto.pp.dsl.xt.dommodel.formatter.css.IStyleFactory;
 import org.cloudsmith.geppetto.pp.dsl.xt.dommodel.formatter.css.LineBreaks;
-import org.cloudsmith.geppetto.pp.dsl.xt.dommodel.formatter.css.Select;
 import org.cloudsmith.geppetto.pp.dsl.xt.dommodel.formatter.css.Spacing;
 import org.cloudsmith.geppetto.pp.dsl.xt.dommodel.formatter.css.StyleFactory.DedentStyle;
 import org.cloudsmith.geppetto.pp.dsl.xt.dommodel.formatter.css.StyleFactory.IndentStyle;
@@ -35,9 +33,14 @@ import org.eclipse.xtext.util.Strings;
 import org.eclipse.xtext.util.TextRegion;
 
 import com.google.inject.Inject;
+import com.google.inject.Provider;
 
 /**
- * A Dom Model Formatter that ensures a single whitespace between tokens.
+ * A Dom Model Formatter driven by rules in a {@link DomCSS}.
+ * <p>
+ * If there are no rules for spacing and line breaks in the style sheet produced by the given domProvider, default rules for "one space" and
+ * "no line break" will be used. This makes this formatter function as a "one space formatter" in the default case.
+ * </p>
  * 
  */
 public class CSSDomFormatter implements IDomModelFormatter {
@@ -45,67 +48,44 @@ public class CSSDomFormatter implements IDomModelFormatter {
 
 	private static final LineBreaks defaultLineBreaks = new LineBreaks(0);
 
-	boolean hasStarted;
-
-	boolean wsWritten;
-
-	IStyleFactory styles;
-
-	private IFunctionFactory functions;
-
 	private DomCSS css;
 
+	private final static Integer DEFAULT_0 = Integer.valueOf(0);
+
 	@Inject
-	public CSSDomFormatter(IStyleFactory styles, IFunctionFactory functions) {
-		this.styles = styles;
-		this.functions = functions;
+	IFunctionFactory functions;
 
-		// Starting with a static CSS
-		css = new DomCSS();
-
-		css.addRules( //
-			// Default nodes print their text
-			Select.any().withStyle(//
-				styles.tokenText(functions.textOfNode())), //
-
-			// Default spacing is one space per whitespace, no linebreak
-			Select.whitespace().withStyles(//
-				styles.oneSpace(), //
-				styles.noLineBreak()), //
-
-			// Except for leading whitepsace
-			Select.before(Select.whitespace(), Select.node(NodeClassifier.FIRST_TOKEN)).withStyle(//
-				styles.noSpace()), //
-			Select.after(Select.whitespace(), Select.node(NodeClassifier.LAST_TOKEN)).withStyles(//
-				styles.noSpace(), //
-				styles.lineBreaks(1, 1, 2)),
-
-			// Test rules around keyword ","
-			Select.before(Select.whitespace(), Select.keyword(",")).withStyles( //
-				styles.noSpace()), //
-			Select.after(Select.whitespace(), Select.keyword(",")).withStyles( //
-				styles.oneSpace()), //
-
-			// Test rules inside brackets "[" and "]"
-			Select.after(Select.whitespace(), Select.keyword("[")).withStyles( //
-				styles.noSpace()), //
-			Select.before(Select.whitespace(), Select.keyword("]")).withStyles( //
-				styles.noSpace()), //
-
-			// Test rules for java like indentation and line breaks for { }
-			//
-			Select.after(Select.whitespace(), Select.keyword("{")).withStyles( //
-				styles.indent(), //
-				styles.oneLineBreak()), //
-
-			Select.before(Select.whitespace(), Select.keyword("}")).withStyles( //
-				styles.dedent(), //
-				styles.oneLineBreak()), //
-			Select.after(Select.whitespace(), Select.keyword("}")).withStyles( //
-				styles.oneLineBreak()) //
-		);
+	@Inject
+	public CSSDomFormatter(Provider<DomCSS> domProvider) {
+		css = domProvider.get();
 	}
 
+	/**
+	 * Outputs the result of applying the given {@link Spacing} and {@link LineBreaks} specifications to the given
+	 * text to the given output {@link IFormStream}.
+	 * <p>
+	 * Called when it has been decided that a whitespace should be processed (it is included in the region to format).
+	 * </p>
+	 * <p>
+	 * If the given {@link LineBreaks} has a <i>normal</i> {@link LineBreaks#getNormal()} or <i>max</i> {@link LineBreaks#getMax()} greater than 0 the
+	 * line break specification wins, and no spaces are produced.
+	 * </p>
+	 * <p>
+	 * A missing quantity will produce the <i>normal</i> quantity, a quantity less than <i>min</i> will produce a <i>min</i> quantity, and a quantity
+	 * greater than <i>max</i> will produce a <i>max</i> quantity.
+	 * </p>
+	 * 
+	 * @param context
+	 *            - provides line separator information
+	 * @param text
+	 *            - the text applied to spacing and line break specifications
+	 * @param spacing
+	 *            - the spacing specification
+	 * @param linebreaks
+	 *            - the line break specification
+	 * @param output
+	 *            - where output is produced
+	 */
 	protected void applySpacingAndLinebreaks(IFormattingContext context, String text, Spacing spacing,
 			LineBreaks linebreaks, IFormStream output) {
 		text = text == null
@@ -129,9 +109,6 @@ public class CSSDomFormatter implements IDomModelFormatter {
 	public ReplaceRegion format(IDomNode dom, ITextRegion regionToFormat, IFormattingContext formattingContext,
 			Acceptor errors) {
 
-		hasStarted = false;
-		wsWritten = false;
-		// final StringBuilder builder = new StringBuilder();
 		final IFormStream output = new FormStream(formattingContext);
 		internalFormat(dom, regionToFormat, formattingContext, output);
 		final String text = output.getText();
@@ -150,24 +127,23 @@ public class CSSDomFormatter implements IDomModelFormatter {
 			IFormStream output) {
 
 		final StyleSet styleSet = css.collectStyles(node);
-		// this looks a bit odd, but protects against the pathological case where a style
-		// has both indents and dedents. If both indent and dedent are 0, indentation are unchanged.
-		output.changeIndentation(styleSet.getStyleValue(IndentStyle.class, node, Integer.valueOf(0)) -
-				styleSet.getStyleValue(DedentStyle.class, node, Integer.valueOf(0)));
+
+		// Process indentation for all types of leafs.
+		// This looks a bit odd, but protects against the pathological case where a style
+		// has both indents and dedents. If both indent and dedent are 0, indentation is unchanged.
+		output.changeIndentation(styleSet.getStyleValue(IndentStyle.class, node, DEFAULT_0) -
+				styleSet.getStyleValue(DedentStyle.class, node, DEFAULT_0));
 
 		if(DomModelUtils.isWhitespace(node)) {
 			formatWhitespace(styleSet, node, regionToFormat, formattingContext, output);
 			return;
 		}
 		if(isFormattingWanted(node, regionToFormat)) {
+			styleSet.getStyleValue(TokenTextStyle.class, node, functions.textOfNode());
 			String text = node.getText();
-			if(text.length() == 0)
-				return;
-			// writeSpaceIfNecessary(node, output);
-			output.text(node.getText());
+			if(text.length() > 0)
+				output.text(text);
 		}
-		hasStarted = true;
-		wsWritten = false;
 	}
 
 	protected void formatWhitespace(StyleSet styleSet, IDomNode node, ITextRegion regionToFormat,
@@ -182,9 +158,6 @@ public class CSSDomFormatter implements IDomModelFormatter {
 
 			if(isFormattingWanted(node, regionToFormat))
 				output.text(text);
-			;
-			if(text.length() > 0)
-				wsWritten = true;
 		}
 		else {
 			Spacing spacing = styleSet.getStyleValue(SpacingStyle.class, node, defaultSpacing);
@@ -194,9 +167,6 @@ public class CSSDomFormatter implements IDomModelFormatter {
 			if(isFormattingWanted(node, regionToFormat)) {
 				applySpacingAndLinebreaks(formattingContext, text, spacing, lineBreaks, output);
 			}
-			// if(count > 0)
-			// mark ws as written even if 0, since this is exactly what the rules dictated
-			wsWritten = true;
 		}
 	}
 
@@ -213,12 +183,5 @@ public class CSSDomFormatter implements IDomModelFormatter {
 		if(regionToFormat == null)
 			return true;
 		return regionToFormat.contains(node.getOffset());
-	}
-
-	protected void writeSpaceIfNecessary(IDomNode node, IFormStream output) {
-		if(hasStarted && !wsWritten) {
-			output.oneSpace();
-			wsWritten = true;
-		}
 	}
 }

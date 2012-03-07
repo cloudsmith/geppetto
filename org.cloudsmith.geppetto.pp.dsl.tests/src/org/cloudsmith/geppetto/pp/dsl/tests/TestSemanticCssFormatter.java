@@ -19,7 +19,6 @@ import org.cloudsmith.geppetto.pp.LiteralList;
 import org.cloudsmith.geppetto.pp.PPFactory;
 import org.cloudsmith.geppetto.pp.PuppetManifest;
 import org.cloudsmith.geppetto.pp.dsl.ppformatting.PPIndentationInformation;
-import org.cloudsmith.geppetto.pp.dsl.serializer.HiddenTokenSequencerForDom;
 import org.cloudsmith.geppetto.pp.dsl.xt.dommodel.DomModelUtils;
 import org.cloudsmith.geppetto.pp.dsl.xt.dommodel.IDomNode;
 import org.cloudsmith.geppetto.pp.dsl.xt.dommodel.IDomNode.NodeType;
@@ -80,7 +79,8 @@ public class TestSemanticCssFormatter extends AbstractPuppetTests {
 				binder.bind(IFunctionFactory.class).to(FunctionFactory.class);
 				binder.bind(IStyleFactory.class).to(StyleFactory.class);
 				// Want serializer to insert empty WS even if there is no node model
-				binder.bind(IHiddenTokenSequencer.class).to(HiddenTokenSequencerForDom.class);
+				binder.bind(IHiddenTokenSequencer.class).to(
+					org.cloudsmith.geppetto.pp.dsl.xt.serializer.acceptor.HiddenTokenSequencer.class);
 
 				// Bind the default style sheet (TODO: should use a test specific sheet)
 				binder.bind(DomCSS.class).toProvider(DefaultStylesheetProvider.class);
@@ -105,8 +105,8 @@ public class TestSemanticCssFormatter extends AbstractPuppetTests {
 	}
 
 	public void test_Serialize_arrayNoSpaces() throws Exception {
-		String code = "$a=['10','20']";
-		String fmt = "$a = ['10', '20']\n";
+		String code = "$a=[\"10\",'20']";
+		String fmt = "$a = [\"10\", '20']\n";
 		XtextResource r = getResourceFromString(code);
 		String s = serializeFormatted(r.getContents().get(0));
 		assertEquals("serialization should produce same result", fmt, s);

@@ -22,11 +22,11 @@ import static org.cloudsmith.geppetto.pp.dsl.xt.dommodel.IDomNode.NodeType.WHITE
 
 import java.util.List;
 
-import org.cloudsmith.geppetto.pp.dsl.serializer.HiddenTokenSequencerForDom;
 import org.cloudsmith.geppetto.pp.dsl.xt.dommodel.DomModelUtils;
 import org.cloudsmith.geppetto.pp.dsl.xt.dommodel.IDomNode;
 import org.cloudsmith.geppetto.pp.dsl.xt.dommodel.IDomNode.NodeClassifier;
 import org.cloudsmith.geppetto.pp.dsl.xt.dommodel.IDomNode.NodeType;
+import org.cloudsmith.geppetto.pp.dsl.xt.dommodel.formatter.CSSDomFormatter;
 import org.cloudsmith.geppetto.pp.dsl.xt.dommodel.impl.BaseDomNode;
 import org.cloudsmith.geppetto.pp.dsl.xt.dommodel.impl.CompositeDomNode;
 import org.cloudsmith.geppetto.pp.dsl.xt.dommodel.impl.LeafDomNode;
@@ -42,8 +42,9 @@ import org.eclipse.xtext.parsetree.reconstr.IHiddenTokenHelper;
 import org.eclipse.xtext.serializer.acceptor.ISequenceAcceptor;
 import org.eclipse.xtext.serializer.diagnostic.ISerializationDiagnostic;
 
+import com.google.common.base.Function;
+import com.google.common.collect.Lists;
 import com.google.inject.Inject;
-import com.google.inject.internal.Lists;
 
 /**
  * TODO: (list of things to discuss)
@@ -60,12 +61,23 @@ public class DomModelSequenceAdapter implements ISequenceAcceptor {
 
 	private List<CompositeDomNode> stack;
 
+	private List<List<AbstractRule>> hiddenStack;
+
 	protected IHiddenTokenHelper hiddenTokenHelper;
+
+	Function<AbstractRule, String> ruleToName = new Function<AbstractRule, String>() {
+
+		@Override
+		public String apply(AbstractRule from) {
+			return from.getName();
+		}
+	};
 
 	@Inject
 	public DomModelSequenceAdapter(IHiddenTokenHelper hiddenTokenHelper, ISerializationDiagnostic.Acceptor errorAcceptor) {
 		current = new CompositeDomNode();
 		stack = Lists.newArrayList();
+		hiddenStack = Lists.newArrayList();
 		this.errorAcceptor = errorAcceptor;
 		this.hiddenTokenHelper = hiddenTokenHelper;
 	}
@@ -230,7 +242,7 @@ public class DomModelSequenceAdapter implements ISequenceAcceptor {
 		// TODO: Not a very robust way of checking if the whitespace is implied
 		// Will probably need to change when also creating a dom model from the node model
 		//
-		n.setClassifiers(token == HiddenTokenSequencerForDom.IMPLIED_EMPTY_WHITESPACE, NodeClassifier.IMPLIED);
+		n.setClassifiers(token == CSSDomFormatter.IMPLIED_EMPTY_WHITESPACE, NodeClassifier.IMPLIED);
 	}
 
 	protected BaseDomNode addCompositeNodeToCurrent(EObject rule, String token, ICompositeNode node, NodeType nodeType,
@@ -303,6 +315,20 @@ public class DomModelSequenceAdapter implements ISequenceAcceptor {
 	 */
 	@Override
 	public void enterUnassignedParserRuleCall(RuleCall rc) {
+		// // For debug printout of entered rule with hidden
+		// AbstractRule r = rc.getRule();
+		// if(r instanceof ParserRule) {
+		// ParserRule pr = ((ParserRule) r);
+		// if(pr.isDefinesHiddenTokens()) {
+		// StringBuilder builder = new StringBuilder();
+		// builder.append("HIDDEN(");
+		// Joiner joiner = Joiner.on(", ");
+		// if(pr.getHiddenTokens().size() != 0)
+		// joiner.appendTo(builder, Iterables.transform(pr.getHiddenTokens(), ruleToName));
+		// builder.append(")");
+		// System.out.println(builder.toString());
+		// }
+		// }
 		// push();
 		// current.setGrammarElement(rc);
 	}
@@ -321,7 +347,7 @@ public class DomModelSequenceAdapter implements ISequenceAcceptor {
 			if(lastLeaf != null) {
 				if(!DomModelUtils.isWhitespace(lastLeaf))
 					acceptWhitespace(hiddenTokenHelper.getWhitespaceRuleFor(null, ""), //
-						HiddenTokenSequencerForDom.IMPLIED_EMPTY_WHITESPACE, null);
+						CSSDomFormatter.IMPLIED_EMPTY_WHITESPACE, null);
 			}
 			current.doLayout();
 		}

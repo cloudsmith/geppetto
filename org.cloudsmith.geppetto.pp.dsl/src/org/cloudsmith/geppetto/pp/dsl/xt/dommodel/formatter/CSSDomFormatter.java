@@ -44,6 +44,9 @@ import com.google.inject.Provider;
  * 
  */
 public class CSSDomFormatter implements IDomModelFormatter {
+	// IMPORTANT: Must be a unique instance of empty string - do not change to = ""
+	public static final String IMPLIED_EMPTY_WHITESPACE = new String("");
+
 	private static final Spacing defaultSpacing = new Spacing(1);
 
 	private static final LineBreaks defaultLineBreaks = new LineBreaks(0);

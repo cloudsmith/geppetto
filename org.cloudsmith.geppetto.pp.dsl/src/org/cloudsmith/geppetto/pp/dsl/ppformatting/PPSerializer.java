@@ -15,6 +15,8 @@ import java.io.IOException;
 import java.io.Writer;
 
 import org.cloudsmith.geppetto.pp.dsl.xt.dommodel.formatter.IFormattingContext;
+import org.cloudsmith.geppetto.pp.dsl.xt.formatter.FormStream;
+import org.cloudsmith.geppetto.pp.dsl.xt.formatter.ITextProducingStream;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.xtext.nodemodel.ICompositeNode;
 import org.eclipse.xtext.nodemodel.util.NodeModelUtils;
@@ -47,9 +49,10 @@ public class PPSerializer implements ISerializer {
 		return serialize(obj, SaveOptions.defaultOptions());
 	}
 
-	protected void serialize(EObject obj, IFormStream stream, SaveOptions options) throws IOException {
+	protected void serialize(EObject obj, ITextProducingStream stream, SaveOptions options) throws IOException {
 		expressionFormatter.format(obj, stream);
-		stream.flush();
+		if(stream instanceof FormStream)
+			((FormStream) stream).flush();
 	}
 
 	/*
@@ -59,7 +62,7 @@ public class PPSerializer implements ISerializer {
 	 */
 	@Override
 	public String serialize(EObject obj, SaveOptions options) {
-		IFormStream tokenStringBuffer = new FormStream(formattingContext);
+		ITextProducingStream tokenStringBuffer = new FormStream(formattingContext);
 		try {
 			serialize(obj, tokenStringBuffer, options);
 		}

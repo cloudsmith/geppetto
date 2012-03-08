@@ -70,6 +70,8 @@ import org.cloudsmith.geppetto.pp.VirtualNameOrReference;
 import org.cloudsmith.geppetto.pp.dsl.ppformatting.FormattingCommentAssociator.CommentAssociations;
 import org.cloudsmith.geppetto.pp.dsl.services.PPGrammarAccess;
 import org.cloudsmith.geppetto.pp.dsl.xt.dommodel.formatter.IFormattingContext;
+import org.cloudsmith.geppetto.pp.dsl.xt.formatter.FormStream;
+import org.cloudsmith.geppetto.pp.dsl.xt.formatter.ITextProducingStream;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.xtext.IGrammarAccess;
@@ -116,7 +118,7 @@ public class PPExpressionFormatter {
 		grammarAccess = (PPGrammarAccess) ga;
 	}
 
-	protected void _format(AndExpression o, IFormStream stream) {
+	protected void _format(AndExpression o, ITextProducingStream stream) {
 		// AndExpressionElements access = grammarAccess.getAndExpressionAccess();
 		// doFormat(o.getLeftExpr(), stream, access.getAndExpressionLeftExprAction_1_0());
 		// stream.oneSpace();
@@ -127,15 +129,15 @@ public class PPExpressionFormatter {
 		internalFormatBinaryExpression(o, "and", stream);
 	}
 
-	protected void _format(AppendExpression o, IFormStream stream) {
+	protected void _format(AppendExpression o, ITextProducingStream stream) {
 		internalFormatBinaryExpression(o, "+=", stream);
 	}
 
-	protected void _format(AssignmentExpression o, IFormStream stream) {
+	protected void _format(AssignmentExpression o, ITextProducingStream stream) {
 		internalFormatBinaryExpression(o, "=", stream);
 	}
 
-	protected void _format(AtExpression o, IFormStream stream) {
+	protected void _format(AtExpression o, ITextProducingStream stream) {
 		// TODO: wrap the list if wider than max width
 		doFormat(o.getLeftExpr(), stream);
 		stream.text("[");
@@ -150,27 +152,27 @@ public class PPExpressionFormatter {
 		stream.text("]");
 	}
 
-	protected void _format(BinaryOpExpression o, IFormStream stream) {
+	protected void _format(BinaryOpExpression o, ITextProducingStream stream) {
 		internalFormatBinaryExpression(o, o.getOpName(), stream);
 	}
 
-	protected void _format(Case o, IFormStream stream) {
+	protected void _format(Case o, ITextProducingStream stream) {
 
 	}
 
-	protected void _format(CaseExpression o, IFormStream stream) {
+	protected void _format(CaseExpression o, ITextProducingStream stream) {
 		stream.text("case");
 		stream.oneSpace();
 		doFormat(o.getSwitchExpr(), stream);
 		stream.oneSpace();
 		stream.text("{");
-		stream.indent();
-		stream.lineBreak();
+		stream.changeIndentation(1);
+		stream.breaks(1);
 
 		// process cases
 		int width = 0;
 		for(Case c : o.getCases()) {
-			IFormStream inner = new FormStream(formattingContext);
+			ITextProducingStream inner = new FormStream(formattingContext);
 			Iterator<Expression> itor = c.getValues().iterator();
 			while(itor.hasNext()) {
 				doFormat(itor.next(), inner);
@@ -197,34 +199,35 @@ public class PPExpressionFormatter {
 			stream.text(":");
 			stream.oneSpace();
 			stream.text("{");
-			stream.indent();
+			stream.changeIndentation(1);
+			;
 			formatStatementList(c.getStatements(), stream);
-			stream.dedent();
+			stream.changeIndentation(-1);
 			stream.text("}");
-			stream.lineBreak();
+			stream.breaks(1);
 		}
 
-		stream.dedent();
-		stream.lineBreak();
+		stream.changeIndentation(-1);
+		stream.breaks(1);
 		stream.text("}");
 
 	}
 
-	protected void _format(CollectExpression o, IFormStream stream) {
+	protected void _format(CollectExpression o, ITextProducingStream stream) {
 		doFormat(o.getClassReference(), stream);
 		stream.oneSpace();
 		doFormat(o.getQuery(), stream);
 		stream.oneSpace();
 		stream.text("{");
-		stream.indent();
-		stream.lineBreak();
+		stream.changeIndentation(1);
+		stream.breaks(1);
 		internalFormat(o.getAttributes(), true, stream);
-		stream.dedent();
-		stream.lineBreak();
+		stream.changeIndentation(-1);
+		stream.breaks(1);
 		stream.text("}");
 	}
 
-	protected void _format(Definition o, IFormStream stream) {
+	protected void _format(Definition o, ITextProducingStream stream) {
 		stream.text("define");
 		stream.oneSpace();
 		stream.text(o.getClassName());
@@ -233,16 +236,16 @@ public class PPExpressionFormatter {
 		if(o.getArguments() != null)
 			stream.oneSpace();
 		stream.text("{");
-		stream.indent();
-		stream.lineBreak();
+		stream.changeIndentation(1);
+		stream.breaks(1);
 
 		formatStatementList(o.getStatements(), stream);
-		stream.dedent();
-		stream.lineBreak();
+		stream.changeIndentation(-1);
+		stream.breaks(1);
 		stream.text("}");
 	}
 
-	protected void _format(DoubleQuotedString o, IFormStream stream) {
+	protected void _format(DoubleQuotedString o, ITextProducingStream stream) {
 		stream.text("\"");
 		for(TextExpression te : o.getStringPart()) {
 			doFormat(te, stream);
@@ -250,27 +253,27 @@ public class PPExpressionFormatter {
 		stream.text("\"");
 	}
 
-	protected void _format(ElseExpression o, IFormStream stream) {
+	protected void _format(ElseExpression o, ITextProducingStream stream) {
 		stream.text("else");
 		stream.oneSpace();
 		stream.text("{");
-		stream.indent();
-		stream.lineBreak();
+		stream.changeIndentation(1);
+		stream.breaks(1);
 		formatStatementList(o.getStatements(), stream);
-		stream.dedent();
+		stream.changeIndentation(-1);
 		stream.text("}");
 	}
 
-	protected void _format(ElseIfExpression o, IFormStream stream) {
+	protected void _format(ElseIfExpression o, ITextProducingStream stream) {
 		stream.text("elsif");
 		stream.oneSpace();
 		doFormat(o.getCondExpr(), stream);
 		stream.oneSpace();
 		stream.text("{");
-		stream.indent();
-		stream.lineBreak();
+		stream.changeIndentation(1);
+		stream.breaks(1);
 		formatStatementList(o.getThenStatements(), stream);
-		stream.dedent();
+		stream.changeIndentation(-1);
 		stream.text("}");
 		if(o.getElseStatement() != null) {
 			stream.oneSpace();
@@ -278,7 +281,7 @@ public class PPExpressionFormatter {
 		}
 	}
 
-	protected void _format(ExportedCollectQuery o, IFormStream stream) {
+	protected void _format(ExportedCollectQuery o, ITextProducingStream stream) {
 		stream.text("<<|");
 		stream.oneSpace();
 		doFormat(o.getExpr(), stream);
@@ -286,13 +289,13 @@ public class PPExpressionFormatter {
 		stream.text("|>>");
 	}
 
-	protected void _format(ExpressionTE o, IFormStream stream) {
+	protected void _format(ExpressionTE o, ITextProducingStream stream) {
 		stream.text("${");
 		doFormat(((ParenthesisedExpression) o.getExpression()).getExpr(), stream);
 		stream.text("}");
 	}
 
-	protected void _format(ExprList o, IFormStream stream) {
+	protected void _format(ExprList o, ITextProducingStream stream) {
 		int size = o.getExpressions().size();
 		for(int i = 0; i < size; i++) {
 			Expression e = o.getExpressions().get(i);
@@ -304,7 +307,7 @@ public class PPExpressionFormatter {
 		}
 	}
 
-	protected void _format(HashEntry o, IFormStream stream) {
+	protected void _format(HashEntry o, ITextProducingStream stream) {
 		doFormat(o.getKey(), stream);
 		stream.oneSpace();
 		stream.text("=>");
@@ -312,7 +315,7 @@ public class PPExpressionFormatter {
 		doFormat(o.getValue(), stream);
 	}
 
-	protected void _format(HostClassDefinition o, IFormStream stream) {
+	protected void _format(HostClassDefinition o, ITextProducingStream stream) {
 		stream.text("class");
 		stream.oneSpace();
 		stream.text(o.getClassName());
@@ -328,26 +331,27 @@ public class PPExpressionFormatter {
 		}
 		stream.text("{");
 		if(o.getStatements().size() > 0) {
-			stream.indent();
-			stream.lineBreak();
+			stream.changeIndentation(1);
+			;
+			stream.breaks(1);
 
 			formatStatementList(o.getStatements(), stream);
-			stream.dedent();
+			stream.changeIndentation(-1);
 		}
-		stream.lineBreak();
+		stream.breaks(1);
 		stream.text("}");
 	}
 
-	protected void _format(IfExpression o, IFormStream stream) {
+	protected void _format(IfExpression o, ITextProducingStream stream) {
 		stream.text("if");
 		stream.oneSpace();
 		doFormat(o.getCondExpr(), stream);
 		stream.oneSpace();
 		stream.text("{");
-		stream.indent();
-		stream.lineBreak();
+		stream.changeIndentation(1);
+		stream.breaks(1);
 		formatStatementList(o.getThenStatements(), stream);
-		stream.dedent();
+		stream.changeIndentation(-1);
 		stream.text("}");
 		if(o.getElseStatement() != null) {
 			stream.oneSpace();
@@ -356,7 +360,7 @@ public class PPExpressionFormatter {
 
 	}
 
-	protected void _format(ImportExpression o, IFormStream stream) {
+	protected void _format(ImportExpression o, ITextProducingStream stream) {
 		stream.text("import");
 		stream.oneSpace();
 		Iterator<IQuotedString> itor = o.getValues().iterator();
@@ -369,47 +373,47 @@ public class PPExpressionFormatter {
 		}
 	}
 
-	protected void _format(LiteralBoolean o, IFormStream stream) {
+	protected void _format(LiteralBoolean o, ITextProducingStream stream) {
 		stream.text(String.valueOf(o.isValue()));
 	}
 
-	protected void _format(LiteralClass o, IFormStream stream) {
+	protected void _format(LiteralClass o, ITextProducingStream stream) {
 		stream.text("class");
 	}
 
-	protected void _format(LiteralDefault o, IFormStream stream) {
+	protected void _format(LiteralDefault o, ITextProducingStream stream) {
 		stream.text("default");
 	}
 
-	protected void _format(LiteralHash o, IFormStream stream) {
+	protected void _format(LiteralHash o, ITextProducingStream stream) {
 		stream.text("[");
 		internalCommaSeparatedList(o.getElements(), stream);
 		stream.text("]");
 	}
 
-	protected void _format(LiteralList o, IFormStream stream) {
+	protected void _format(LiteralList o, ITextProducingStream stream) {
 		stream.text("[");
 		internalCommaSeparatedList(o.getElements(), stream);
 		stream.text("]");
 	}
 
-	protected void _format(LiteralName o, IFormStream stream) {
+	protected void _format(LiteralName o, ITextProducingStream stream) {
 		stream.text(o.getValue());
 	}
 
-	protected void _format(LiteralNameOrReference o, IFormStream stream) {
+	protected void _format(LiteralNameOrReference o, ITextProducingStream stream) {
 		stream.text(o.getValue());
 	}
 
-	protected void _format(LiteralRegex o, IFormStream stream) {
+	protected void _format(LiteralRegex o, ITextProducingStream stream) {
 		stream.text(o.getValue());
 	}
 
-	protected void _format(LiteralUndef o, IFormStream stream) {
+	protected void _format(LiteralUndef o, ITextProducingStream stream) {
 		stream.text("undef");
 	}
 
-	protected void _format(NodeDefinition o, IFormStream stream) {
+	protected void _format(NodeDefinition o, ITextProducingStream stream) {
 		stream.text("node");
 		stream.oneSpace();
 		internalCommaSeparatedList(o.getHostNames(), stream);
@@ -419,39 +423,39 @@ public class PPExpressionFormatter {
 			stream.oneSpace();
 		}
 		stream.text("{");
-		stream.indent();
-		stream.lineBreak();
+		stream.changeIndentation(1);
+		stream.breaks(1);
 		formatStatementList(o.getStatements(), stream);
-		stream.dedent();
+		stream.changeIndentation(-1);
 		stream.text("}");
 	}
 
-	protected void _format(OrExpression o, IFormStream stream) {
+	protected void _format(OrExpression o, ITextProducingStream stream) {
 		internalFormatBinaryExpression(o, "or", stream);
 	}
 
-	protected void _format(ParenthesisedExpression o, IFormStream stream) {
+	protected void _format(ParenthesisedExpression o, ITextProducingStream stream) {
 		stream.text("(");
 		doFormat(o.getExpr(), stream);
 		stream.text(")");
 	}
 
-	protected void _format(PuppetManifest o, IFormStream stream) {
+	protected void _format(PuppetManifest o, ITextProducingStream stream) {
 		formatStatementList(o.getStatements(), stream);
 	}
 
-	protected void _format(ResourceBody o, IFormStream stream) {
+	protected void _format(ResourceBody o, ITextProducingStream stream) {
 		throw new UnsupportedOperationException("Should not be called - use internalFormat");
 	}
 
-	protected void _format(ResourceExpression o, IFormStream stream) {
+	protected void _format(ResourceExpression o, ITextProducingStream stream) {
 		doFormat(o.getResourceExpr(), stream);
 		stream.oneSpace();
 		stream.text("{");
 		int bodyCount = o.getResourceData().size();
 		switch(bodyCount) {
 			case 0:
-				stream.lineBreak();
+				stream.breaks(1);
 				break;
 			case 1:
 				ResourceBody body = o.getResourceData().get(0);
@@ -459,21 +463,22 @@ public class PPExpressionFormatter {
 				if(body.getNameExpr() != null)
 					stream.oneSpace();
 				internalFormatResourceBody(body, true, stream);
-				stream.lineBreak();
+				stream.breaks(1);
 				break;
 			default:
-				stream.indent();
-				stream.lineBreak();
+				stream.changeIndentation(1);
+				;
+				stream.breaks(1);
 				Iterator<ResourceBody> itor = o.getResourceData().iterator();
 				while(itor.hasNext()) {
 					internalFormatResourceBody(itor.next(), false, stream);
 					stream.text(";");
-					stream.lineBreak();
+					stream.breaks(1);
 					// add extra blank line between resoures, but not between last and closing brace
 					if(itor.hasNext())
-						stream.lineBreak();
+						stream.breaks(1);
 				}
-				stream.dedent();
+				stream.changeIndentation(-1);
 				break;
 		}
 		stream.text("}");
@@ -485,11 +490,11 @@ public class PPExpressionFormatter {
 	 * @param o
 	 * @param stream
 	 */
-	protected void _format(SelectorEntry o, IFormStream stream) {
+	protected void _format(SelectorEntry o, ITextProducingStream stream) {
 		internalFormatBinaryExpression(o, "=>", stream);
 	}
 
-	protected void _format(SelectorExpression o, IFormStream stream) {
+	protected void _format(SelectorExpression o, ITextProducingStream stream) {
 		doFormat(o.getLeftExpr(), stream);
 		stream.oneSpace();
 		stream.text("?");
@@ -497,8 +502,8 @@ public class PPExpressionFormatter {
 
 		// always surround with {} even if they are optional when there is only one entry
 		stream.text("{");
-		stream.indent();
-		stream.lineBreak();
+		stream.changeIndentation(1);
+		stream.breaks(1);
 
 		// calculate column width
 		// Simply skip entries that can be very wide/unknown - format the rest
@@ -506,7 +511,7 @@ public class PPExpressionFormatter {
 		//
 		int width = 0;
 		for(Expression e : o.getParameters()) {
-			IFormStream inner = new FormStream(formattingContext);
+			ITextProducingStream inner = new FormStream(formattingContext);
 			// if e is not a SelectorEntry, it is really a syntax error, but do something reasonable
 			doFormat(e instanceof SelectorEntry
 					? ((SelectorEntry) e).getLeftExpr()
@@ -516,7 +521,7 @@ public class PPExpressionFormatter {
 		for(Expression e : o.getParameters()) {
 			if(e instanceof SelectorEntry == false) {
 				doFormat(e, stream);
-				stream.lineBreak();
+				stream.breaks(1);
 			}
 			else {
 				SelectorEntry se = (SelectorEntry) e;
@@ -530,48 +535,48 @@ public class PPExpressionFormatter {
 				stream.oneSpace();
 				doFormat(se.getRightExpr(), stream);
 				stream.text(",");
-				stream.lineBreak();
+				stream.breaks(1);
 			}
 		}
-		stream.dedent();
+		stream.changeIndentation(-1);
 		stream.text("}");
 	}
 
-	protected void _format(SingleQuotedString o, IFormStream stream) {
+	protected void _format(SingleQuotedString o, ITextProducingStream stream) {
 		stream.text("'");
 		stream.text(o.getText());
 		stream.text("'");
 	}
 
-	protected void _format(UnaryMinusExpression o, IFormStream stream) {
+	protected void _format(UnaryMinusExpression o, ITextProducingStream stream) {
 		stream.text("-");
 		doFormat(o.getExpr(), stream);
 	}
 
-	protected void _format(UnaryNotExpression o, IFormStream stream) {
+	protected void _format(UnaryNotExpression o, ITextProducingStream stream) {
 		stream.text("!");
 		doFormat(o.getExpr(), stream);
 	}
 
-	protected void _format(UnquotedString o, IFormStream stream) {
+	protected void _format(UnquotedString o, ITextProducingStream stream) {
 		stream.text("${");
 		doFormat(o.getExpression(), stream);
 		stream.text("}");
 	}
 
-	protected void _format(VariableExpression o, IFormStream stream) {
+	protected void _format(VariableExpression o, ITextProducingStream stream) {
 		stream.text(o.getVarName());
 	}
 
-	protected void _format(VariableTE o, IFormStream stream) {
+	protected void _format(VariableTE o, ITextProducingStream stream) {
 		stream.text(o.getVarName());
 	}
 
-	protected void _format(VerbatimTE o, IFormStream stream) {
+	protected void _format(VerbatimTE o, ITextProducingStream stream) {
 		stream.text(o.getText());
 	}
 
-	protected void _format(VirtualCollectQuery o, IFormStream stream) {
+	protected void _format(VirtualCollectQuery o, ITextProducingStream stream) {
 		stream.text("<|");
 		stream.oneSpace();
 		doFormat(o.getExpr(), stream);
@@ -579,7 +584,7 @@ public class PPExpressionFormatter {
 		stream.text("|>");
 	}
 
-	protected void _format(VirtualNameOrReference o, IFormStream stream) {
+	protected void _format(VirtualNameOrReference o, ITextProducingStream stream) {
 		stream.text("@");
 		if(o.isExported()) {
 			stream.text("@");
@@ -587,7 +592,7 @@ public class PPExpressionFormatter {
 		stream.text(o.getValue());
 	}
 
-	private void doFormat(EObject o, IFormStream stream) {
+	private void doFormat(EObject o, ITextProducingStream stream) {
 		// EObject context = getContext(o);
 
 		Iterator<INode> itor = commentAssociations.before(o);
@@ -604,7 +609,7 @@ public class PPExpressionFormatter {
 		}
 	}
 
-	public void format(EObject o, IFormStream stream) {
+	public void format(EObject o, ITextProducingStream stream) {
 		NodeModelUtils.findActualNodeFor(o);
 		commentAssociations = commentAssociator.associateCommentsWithSemanticEObjects(
 			o, Sets.newHashSet(NodeModelUtils.findActualNodeFor(o).getRootNode()));
@@ -615,7 +620,7 @@ public class PPExpressionFormatter {
 			stream.text(itor.next().getText());
 	}
 
-	protected void formatStatementList(EList<Expression> statements, IFormStream stream) {
+	protected void formatStatementList(EList<Expression> statements, ITextProducingStream stream) {
 		int size = statements.size();
 		for(int i = 0; i < size; i++) {
 			Expression s = statements.get(i);
@@ -629,7 +634,7 @@ public class PPExpressionFormatter {
 			}
 			else
 				doFormat(s, stream);
-			stream.lineBreak();
+			stream.breaks(1);
 		}
 	}
 
@@ -648,7 +653,7 @@ public class PPExpressionFormatter {
 	 * @param hostNames
 	 * @param stream
 	 */
-	private void internalCommaSeparatedList(Iterable<? extends EObject> elements, IFormStream stream) {
+	private void internalCommaSeparatedList(Iterable<? extends EObject> elements, ITextProducingStream stream) {
 		Iterator<? extends EObject> itor = elements.iterator();
 		while(itor.hasNext()) {
 			doFormat(itor.next(), stream);
@@ -659,7 +664,7 @@ public class PPExpressionFormatter {
 		}
 	}
 
-	protected void internalFormat(AttributeOperations o, boolean commaLast, IFormStream stream) {
+	protected void internalFormat(AttributeOperations o, boolean commaLast, ITextProducingStream stream) {
 		if(o == null)
 			return;
 		int maxWidth = 0;
@@ -683,7 +688,7 @@ public class PPExpressionFormatter {
 				if(commaLast || counter + 1 < size)
 					stream.text(",");
 				if(counter + 1 < size)
-					stream.lineBreak();
+					stream.breaks(1);
 				counter++;
 			}
 		}
@@ -694,7 +699,7 @@ public class PPExpressionFormatter {
 	 * @param arguments
 	 * @param stream
 	 */
-	private void internalFormatArguments(DefinitionArgumentList arguments, IFormStream stream) {
+	private void internalFormatArguments(DefinitionArgumentList arguments, ITextProducingStream stream) {
 		if(arguments == null)
 			return;
 		stream.text("(");
@@ -709,7 +714,7 @@ public class PPExpressionFormatter {
 		stream.text(")");
 	}
 
-	protected void internalFormatBinaryExpression(BinaryExpression o, String op, IFormStream stream) {
+	protected void internalFormatBinaryExpression(BinaryExpression o, String op, ITextProducingStream stream) {
 		doFormat(o.getLeftExpr(), stream);
 		stream.oneSpace();
 		stream.text(op);
@@ -717,16 +722,16 @@ public class PPExpressionFormatter {
 		doFormat(o.getRightExpr(), stream);
 	}
 
-	protected void internalFormatResourceBody(ResourceBody o, boolean commaLast, IFormStream stream) {
+	protected void internalFormatResourceBody(ResourceBody o, boolean commaLast, ITextProducingStream stream) {
 		if(o.getNameExpr() != null) {
 			doFormat(o.getNameExpr(), stream);
 			stream.text(":");
 		}
 		if(o.getAttributes() != null && o.getAttributes().getAttributes().size() > 0) {
-			stream.indent();
-			stream.lineBreak();
+			stream.changeIndentation(1);
+			stream.breaks(1);
 			internalFormat(o.getAttributes(), commaLast, stream);
-			stream.dedent();
+			stream.changeIndentation(-1);
 		}
 	}
 }

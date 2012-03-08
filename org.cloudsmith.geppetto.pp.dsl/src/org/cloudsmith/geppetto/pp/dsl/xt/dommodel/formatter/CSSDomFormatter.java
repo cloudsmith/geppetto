@@ -11,8 +11,6 @@
  */
 package org.cloudsmith.geppetto.pp.dsl.xt.dommodel.formatter;
 
-import org.cloudsmith.geppetto.pp.dsl.ppformatting.FormStream;
-import org.cloudsmith.geppetto.pp.dsl.ppformatting.IFormStream;
 import org.cloudsmith.geppetto.pp.dsl.xt.dommodel.DomModelUtils;
 import org.cloudsmith.geppetto.pp.dsl.xt.dommodel.IDomNode;
 import org.cloudsmith.geppetto.pp.dsl.xt.dommodel.IDomNode.NodeClassifier;
@@ -26,6 +24,9 @@ import org.cloudsmith.geppetto.pp.dsl.xt.dommodel.formatter.css.StyleFactory.Lin
 import org.cloudsmith.geppetto.pp.dsl.xt.dommodel.formatter.css.StyleFactory.SpacingStyle;
 import org.cloudsmith.geppetto.pp.dsl.xt.dommodel.formatter.css.StyleFactory.TokenTextStyle;
 import org.cloudsmith.geppetto.pp.dsl.xt.dommodel.formatter.css.StyleSet;
+import org.cloudsmith.geppetto.pp.dsl.xt.formatter.FormStream;
+import org.cloudsmith.geppetto.pp.dsl.xt.formatter.IFormStream;
+import org.cloudsmith.geppetto.pp.dsl.xt.formatter.ITextProducingStream;
 import org.eclipse.xtext.serializer.diagnostic.ISerializationDiagnostic.Acceptor;
 import org.eclipse.xtext.util.ITextRegion;
 import org.eclipse.xtext.util.ReplaceRegion;
@@ -98,7 +99,7 @@ public class CSSDomFormatter implements IDomModelFormatter {
 		// if line break is wanted, it wins
 		if(linebreaks.getNormal() > 0 || linebreaks.getMax() > 0) {
 			// output a conforming number of line breaks
-			output.lineBreaks(linebreaks.apply(Strings.countLines(text, lineSep.toCharArray())));
+			output.breaks(linebreaks.apply(Strings.countLines(text, lineSep.toCharArray())));
 		}
 		else {
 			// remove all line breaks by replacing them with spaces
@@ -112,7 +113,7 @@ public class CSSDomFormatter implements IDomModelFormatter {
 	public ReplaceRegion format(IDomNode dom, ITextRegion regionToFormat, IFormattingContext formattingContext,
 			Acceptor errors) {
 
-		final IFormStream output = new FormStream(formattingContext);
+		final ITextProducingStream output = new FormStream(formattingContext);
 		internalFormat(dom, regionToFormat, formattingContext, output);
 		final String text = output.getText();
 		if(regionToFormat == null)

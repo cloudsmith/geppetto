@@ -9,7 +9,7 @@
  *   Cloudsmith
  * 
  */
-package org.cloudsmith.geppetto.pp.dsl.ppformatting;
+package org.cloudsmith.geppetto.pp.dsl.xt.formatter;
 
 import java.io.IOException;
 import java.io.Writer;
@@ -18,7 +18,7 @@ import org.cloudsmith.geppetto.pp.dsl.xt.dommodel.formatter.IFormattingContext;
 
 import com.google.inject.Inject;
 
-public class FormStream implements IFormStream {
+public class FormStream implements IFormStream, ITextProducingStream {
 	public static class WriterFormStream extends FormStream {
 		private Writer out;
 
@@ -82,16 +82,20 @@ public class FormStream implements IFormStream {
 	}
 
 	@Override
+	public void breaks(int count) {
+		if(count <= 0)
+			return;
+		for(int i = 0; i < count; i++)
+			builder.append(lineSeparator);
+		lastWasBreak = true;
+	}
+
+	@Override
 	public void changeIndentation(int count) {
 		if(count == 0)
 			return;
 		indent += count * indentSize;
 		indent = Math.max(0, indent);
-	}
-
-	@Override
-	public void dedent() {
-		indent = Math.max(0, indent - indentSize);
 	}
 
 	private void emit(String s) {
@@ -102,19 +106,18 @@ public class FormStream implements IFormStream {
 		builder.append(s);
 	}
 
-	@Override
 	public void flush() throws IOException {
 
 	}
 
 	@Override
-	public String getText() {
-		return builder.toString();
+	public int getIndentation() {
+		return indent / indentSize;
 	}
 
 	@Override
-	public void indent() {
-		indent += indentSize;
+	public String getText() {
+		return builder.toString();
 	}
 
 	private String indentStr(int size) {
@@ -125,30 +128,15 @@ public class FormStream implements IFormStream {
 		return indentBuffer.substring(0, size);
 	}
 
-	/**
-	 * break line, do not output indent until some other output takes place
-	 * as it may be preceded by a dedent.
-	 */
-	@Override
-	public void lineBreak() {
-		builder.append(lineSeparator);
-		lastWasBreak = true;
-	}
-
-	@Override
-	public void lineBreaks(int count) {
-		if(count < 0)
-			return;
-		for(int i = 0; i < count; i++)
-			lineBreak();
-	}
-
-	/**
-	 * one space, SL comment, or space MLComment space ( 1 MLCMNT + 2 )
-	 */
 	@Override
 	public void oneSpace() {
 		emit(oneSpace);
+	}
+
+	@Override
+	public void setIndentation(int count) {
+		indent = Math.max(0, count * indentSize);
+
 	}
 
 	@Override
@@ -163,14 +151,18 @@ public class FormStream implements IFormStream {
 	 */
 	@Override
 	public void spaces(int count) {
-		if(count < 0)
+		if(count <= 0)
 			return;
-		while(count > 256) {
-			emit(spaceStr(256));
-			count -= 256;
+		if(count > 1) {
+			while(count > 256) {
+				emit(spaceStr(256));
+				count -= 256;
+			}
+			if(count > 0)
+				emit(spaceStr(count));
 		}
-		if(count > 0)
-			emit(spaceStr(count));
+		else
+			emit(oneSpace);
 	}
 
 	private String spaceStr(int size) {

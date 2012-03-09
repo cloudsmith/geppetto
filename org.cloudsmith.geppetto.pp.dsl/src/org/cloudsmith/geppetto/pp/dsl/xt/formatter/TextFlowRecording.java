@@ -18,7 +18,11 @@ import org.cloudsmith.geppetto.pp.dsl.xt.dommodel.formatter.IFormattingContext;
 import com.google.inject.Inject;
 import com.google.inject.internal.Lists;
 
-public class RecordingMeasuringTextStream extends MeasuringTextStream implements IRecordingStream {
+/**
+ * An implementation of ITextFlow that records and measures the appended content.
+ * 
+ */
+public class TextFlowRecording extends MeasuredTextFlow implements ITextFlow.Recording {
 
 	private static class BreakCount implements TextBite {
 		int count;
@@ -27,8 +31,8 @@ public class RecordingMeasuringTextStream extends MeasuringTextStream implements
 			this.count = count;
 		}
 
-		public void visit(IFormStream stream) {
-			stream.breaks(count);
+		public void visit(ITextFlow stream) {
+			stream.appendBreaks(count);
 		}
 	}
 
@@ -39,8 +43,20 @@ public class RecordingMeasuringTextStream extends MeasuringTextStream implements
 			this.change = change;
 		}
 
-		public void visit(IFormStream stream) {
+		public void visit(ITextFlow stream) {
 			stream.changeIndentation(change);
+		}
+	}
+
+	private static class Indentation implements TextBite {
+		int count;
+
+		Indentation(int count) {
+			this.count = count;
+		}
+
+		public void visit(ITextFlow stream) {
+			stream.setIndentation(count);
 		}
 	}
 
@@ -51,74 +67,69 @@ public class RecordingMeasuringTextStream extends MeasuringTextStream implements
 			this.count = count;
 		}
 
-		public void visit(IFormStream stream) {
-			stream.spaces(count);
+		public void visit(ITextFlow stream) {
+			stream.appendSpaces(count);
 		}
 	}
 
 	private static class Text implements TextBite {
-		String text;
+		CharSequence text;
 
-		Text(String s) {
+		Text(CharSequence s) {
 			this.text = s;
 		}
 
-		public void visit(IFormStream stream) {
-			stream.text(text);
+		public void visit(ITextFlow stream) {
+			stream.appendText(text);
 		}
 	}
 
 	private interface TextBite {
-		public void visit(IFormStream stream);
+		public void visit(ITextFlow stream);
 	}
 
 	private List<TextBite> tape = Lists.newArrayList();
 
 	@Inject
-	public RecordingMeasuringTextStream(IFormattingContext formattingContext) {
+	public TextFlowRecording(IFormattingContext formattingContext) {
 		super(formattingContext);
 	}
 
 	@Override
-	public void appendTo(IFormStream output) {
+	public ITextFlow appendBreaks(int count) {
+		tape.add(new BreakCount(count));
+		return super.appendBreaks(count);
+	}
+
+	@Override
+	public ITextFlow appendSpaces(int count) {
+		tape.add(new SpaceCount(count));
+		return super.appendSpaces(count);
+	}
+
+	@Override
+	public void appendTo(ITextFlow output) {
 		for(TextBite tb : tape)
 			tb.visit(output);
 	}
 
 	@Override
-	public void breaks(int count) {
-		super.breaks(count);
-		tape.add(new BreakCount(count));
-	}
-
-	@Override
-	public void changeIndentation(int count) {
-		super.changeIndentation(count);
-		if(count == 0)
-			return;
-		indent += count * indentSize;
-		indent = Math.max(0, indent);
+	public ITextFlow changeIndentation(int count) {
 		tape.add(new ChangeIndentation(count));
+		return super.changeIndentation(count);
 	}
 
 	@Override
-	protected void doTextLine(String s) {
+	protected void doTextLine(CharSequence s) {
 		super.doTextLine(s);
 		tape.add(new Text(s));
 
 	}
 
 	@Override
-	public void setIndentation(int count) {
-		indent = Math.max(0, count * indentSize);
+	public ITextFlow setIndentation(int count) {
+		tape.add(new Indentation(count));
+		return super.setIndentation(count);
 
-	}
-
-	@Override
-	public void spaces(int count) {
-		super.spaces(count);
-		if(count <= 0)
-			return;
-		tape.add(new SpaceCount(count));
 	}
 }

@@ -40,6 +40,7 @@ Export-Package: org.cloudsmith.geppetto.pp.dsl,
  org.cloudsmith.geppetto.pp.dsl.xt.dommodel,
  org.cloudsmith.geppetto.pp.dsl.xt.dommodel.formatter,
  org.cloudsmith.geppetto.pp.dsl.xt.dommodel.formatter.css,
+ org.cloudsmith.geppetto.pp.dsl.xt.formatter,
  org.cloudsmith.geppetto.pp.dsl.xt.serializer,
  org.cloudsmith.geppetto.pp.dsl.xt.serializer.acceptor
 

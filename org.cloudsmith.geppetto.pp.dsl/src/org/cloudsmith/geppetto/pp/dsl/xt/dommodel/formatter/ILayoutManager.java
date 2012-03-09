@@ -13,13 +13,13 @@ package org.cloudsmith.geppetto.pp.dsl.xt.dommodel.formatter;
 
 import org.cloudsmith.geppetto.pp.dsl.formatting.ILineSeparatorInformation;
 import org.cloudsmith.geppetto.pp.dsl.xt.dommodel.IDomNode;
-import org.cloudsmith.geppetto.pp.dsl.xt.formatter.IFormStream;
+import org.cloudsmith.geppetto.pp.dsl.xt.formatter.ITextFlow;
 import org.eclipse.xtext.formatting.IIndentationInformation;
 import org.eclipse.xtext.serializer.diagnostic.ISerializationDiagnostic.Acceptor;
 import org.eclipse.xtext.util.ITextRegion;
 
 /**
- * An ILayoutManager is responsible for providing textual output to an {@link IFormStream}.
+ * An ILayoutManager is responsible for providing textual output to an {@link ITextFlow}.
  * 
  * 
  * 
@@ -41,5 +41,5 @@ public interface ILayoutManager {
 		public ITextRegion getRegionToFormat();
 	}
 
-	public IFormStream format(IDomNode dom, ILayoutContext context);
+	public ITextFlow format(IDomNode dom, ILayoutContext context);
 }

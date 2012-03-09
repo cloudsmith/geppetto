@@ -31,6 +31,10 @@ import org.cloudsmith.geppetto.pp.dsl.xt.dommodel.formatter.css.FunctionFactory;
 import org.cloudsmith.geppetto.pp.dsl.xt.dommodel.formatter.css.IFunctionFactory;
 import org.cloudsmith.geppetto.pp.dsl.xt.dommodel.formatter.css.IStyleFactory;
 import org.cloudsmith.geppetto.pp.dsl.xt.dommodel.formatter.css.StyleFactory;
+import org.cloudsmith.geppetto.pp.dsl.xt.formatter.ITextFlow;
+import org.cloudsmith.geppetto.pp.dsl.xt.formatter.MeasuredTextFlow;
+import org.cloudsmith.geppetto.pp.dsl.xt.formatter.TextFlow;
+import org.cloudsmith.geppetto.pp.dsl.xt.formatter.TextFlowRecording;
 import org.cloudsmith.geppetto.pp.dsl.xt.serializer.DomBasedSerializer;
 import org.eclipse.xtext.formatting.IIndentationInformation;
 import org.eclipse.xtext.resource.XtextResource;
@@ -97,11 +101,81 @@ public class TestSemanticCssFormatter extends AbstractPuppetTests {
 		}
 	}
 
+	private void appendSampleFlow(ITextFlow flow) {
+		flow.appendText("123456");
+		flow.appendBreak();
+		flow.appendText("123456789");
+		flow.changeIndentation(1);
+		flow.appendBreak();
+		flow.appendText("123");
+		flow.changeIndentation(-1);
+		flow.appendBreak();
+		flow.appendBreak();
+	}
+
+	/**
+	 * @param flow
+	 */
+	private void assertFlowOneLineNoBreak(ITextFlow.IMetrics flow) {
+		assertFalse("ends with break", flow.endsWithBreak());
+		assertEquals("Height", 1, flow.getHeight());
+		assertEquals("Last used indent", 0, flow.getLastUsedIndentation());
+		assertEquals("Current indent", 0, flow.getIndentation());
+		assertEquals("Width", 3, flow.getWidth());
+		assertEquals("Width of last line", 3, flow.getWidthOfLastLine());
+		assertFalse("Empty", flow.isEmpty());
+
+	}
+
+	/**
+	 * @param flow
+	 */
+	private void assertSampleFlowMetrics(ITextFlow.IMetrics flow) {
+		assertTrue("ends with break notTrue", flow.endsWithBreak());
+		assertEquals("Height", 4, flow.getHeight());
+		assertEquals("Last used indent", 1, flow.getLastUsedIndentation());
+		assertEquals("Current indent", 0, flow.getIndentation());
+		assertEquals("Width", 9, flow.getWidth());
+		assertEquals("Width of last line", 5, flow.getWidthOfLastLine());
+		assertFalse("Not empty", flow.isEmpty());
+	}
+
 	@Override
 	public void setUp() throws Exception {
 		super.setUp();
 		// with(PPStandaloneSetup.class);
 		with(TestSetup.class);
+	}
+
+	public void test_MeasuringTextStream() {
+		MeasuredTextFlow flow = this.getInjector().getInstance(MeasuredTextFlow.class);
+		appendSampleFlow(flow);
+		assertSampleFlowMetrics(flow);
+
+	}
+
+	public void test_MeasuringTextStreamEmpty() {
+		MeasuredTextFlow flow = this.getInjector().getInstance(MeasuredTextFlow.class);
+		appendSampleFlow(flow);
+		assertSampleFlowMetrics(flow);
+	}
+
+	public void test_MeasuringTextStreamOneLineNoBreak() {
+		MeasuredTextFlow flow = this.getInjector().getInstance(MeasuredTextFlow.class);
+		flow.appendText("123");
+		assertFlowOneLineNoBreak(flow);
+	}
+
+	public void test_Recording() {
+		MeasuredTextFlow flow = this.getInjector().getInstance(TextFlowRecording.class);
+		appendSampleFlow(flow);
+		assertSampleFlowMetrics(flow);
+	}
+
+	public void test_RecordingOneLineNoBreak() {
+		MeasuredTextFlow flow = this.getInjector().getInstance(TextFlowRecording.class);
+		flow.appendText("123");
+		assertFlowOneLineNoBreak(flow);
 	}
 
 	public void test_Serialize_arrayNoSpaces() throws Exception {
@@ -141,6 +215,37 @@ public class TestSemanticCssFormatter extends AbstractPuppetTests {
 		XtextResource r = getResourceFromString(code);
 		String s = serializeFormatted(r.getContents().get(0));
 		assertEquals("serialization should produce same result", fmt, s);
+	}
+
+	public void test_TextFlow() {
+		MeasuredTextFlow flow = this.getInjector().getInstance(TextFlow.class);
+		appendSampleFlow(flow);
+		assertSampleFlowMetrics(flow);
+
+	}
+
+	public void test_TextFlowEmpty() {
+		MeasuredTextFlow flow = this.getInjector().getInstance(TextFlow.class);
+		appendSampleFlow(flow);
+		assertSampleFlowMetrics(flow);
+	}
+
+	public void test_TextFlowOneLineNoBreak() {
+		MeasuredTextFlow flow = this.getInjector().getInstance(TextFlow.class);
+		flow.appendText("123");
+		assertFlowOneLineNoBreak(flow);
+	}
+
+	public void test_TextRecordingEmpty() {
+		MeasuredTextFlow flow = this.getInjector().getInstance(TextFlowRecording.class);
+		assertFalse("ends with break", flow.endsWithBreak());
+		assertEquals("Height", 0, flow.getHeight());
+		assertEquals("Last used indent", 0, flow.getLastUsedIndentation());
+		assertEquals("Current indent", 0, flow.getIndentation());
+		assertEquals("Width", 0, flow.getWidth());
+		assertEquals("Width of last line", 0, flow.getWidthOfLastLine());
+		assertTrue("Empty", flow.isEmpty());
+
 	}
 
 	public void testBasicEnumSets() {

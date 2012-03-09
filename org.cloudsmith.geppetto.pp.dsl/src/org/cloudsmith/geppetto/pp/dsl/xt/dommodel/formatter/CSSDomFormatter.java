@@ -24,9 +24,8 @@ import org.cloudsmith.geppetto.pp.dsl.xt.dommodel.formatter.css.StyleFactory.Lin
 import org.cloudsmith.geppetto.pp.dsl.xt.dommodel.formatter.css.StyleFactory.SpacingStyle;
 import org.cloudsmith.geppetto.pp.dsl.xt.dommodel.formatter.css.StyleFactory.TokenTextStyle;
 import org.cloudsmith.geppetto.pp.dsl.xt.dommodel.formatter.css.StyleSet;
-import org.cloudsmith.geppetto.pp.dsl.xt.formatter.FormStream;
-import org.cloudsmith.geppetto.pp.dsl.xt.formatter.IFormStream;
-import org.cloudsmith.geppetto.pp.dsl.xt.formatter.ITextProducingStream;
+import org.cloudsmith.geppetto.pp.dsl.xt.formatter.ITextFlow;
+import org.cloudsmith.geppetto.pp.dsl.xt.formatter.TextFlow;
 import org.eclipse.xtext.serializer.diagnostic.ISerializationDiagnostic.Acceptor;
 import org.eclipse.xtext.util.ITextRegion;
 import org.eclipse.xtext.util.ReplaceRegion;
@@ -66,7 +65,7 @@ public class CSSDomFormatter implements IDomModelFormatter {
 
 	/**
 	 * Outputs the result of applying the given {@link Spacing} and {@link LineBreaks} specifications to the given
-	 * text to the given output {@link IFormStream}.
+	 * text to the given output {@link ITextFlow}.
 	 * <p>
 	 * Called when it has been decided that a whitespace should be processed (it is included in the region to format).
 	 * </p>
@@ -91,7 +90,7 @@ public class CSSDomFormatter implements IDomModelFormatter {
 	 *            - where output is produced
 	 */
 	protected void applySpacingAndLinebreaks(IFormattingContext context, String text, Spacing spacing,
-			LineBreaks linebreaks, IFormStream output) {
+			LineBreaks linebreaks, ITextFlow output) {
 		text = text == null
 				? ""
 				: text;
@@ -99,13 +98,13 @@ public class CSSDomFormatter implements IDomModelFormatter {
 		// if line break is wanted, it wins
 		if(linebreaks.getNormal() > 0 || linebreaks.getMax() > 0) {
 			// output a conforming number of line breaks
-			output.breaks(linebreaks.apply(Strings.countLines(text, lineSep.toCharArray())));
+			output.appendBreaks(linebreaks.apply(Strings.countLines(text, lineSep.toCharArray())));
 		}
 		else {
 			// remove all line breaks by replacing them with spaces
 			text = text.replace(lineSep, " ");
 			// output a conforming number of spaces
-			output.spaces(spacing.apply(text.length()));
+			output.appendSpaces(spacing.apply(text.length()));
 		}
 	}
 
@@ -113,7 +112,7 @@ public class CSSDomFormatter implements IDomModelFormatter {
 	public ReplaceRegion format(IDomNode dom, ITextRegion regionToFormat, IFormattingContext formattingContext,
 			Acceptor errors) {
 
-		final ITextProducingStream output = new FormStream(formattingContext);
+		final ITextFlow.WithText output = new TextFlow(formattingContext);
 		internalFormat(dom, regionToFormat, formattingContext, output);
 		final String text = output.getText();
 		if(regionToFormat == null)
@@ -122,13 +121,13 @@ public class CSSDomFormatter implements IDomModelFormatter {
 	}
 
 	protected void formatComposite(IDomNode node, ITextRegion regionToFormat, IFormattingContext formattingContext,
-			IFormStream output) {
+			ITextFlow output) {
 		for(IDomNode n : node.getChildren())
 			internalFormat(n, regionToFormat, formattingContext, output);
 	}
 
 	protected void formatLeaf(IDomNode node, ITextRegion regionToFormat, IFormattingContext formattingContext,
-			IFormStream output) {
+			ITextFlow output) {
 
 		final StyleSet styleSet = css.collectStyles(node);
 
@@ -146,12 +145,12 @@ public class CSSDomFormatter implements IDomModelFormatter {
 			styleSet.getStyleValue(TokenTextStyle.class, node, functions.textOfNode());
 			String text = node.getText();
 			if(text.length() > 0)
-				output.text(text);
+				output.appendText(text);
 		}
 	}
 
 	protected void formatWhitespace(StyleSet styleSet, IDomNode node, ITextRegion regionToFormat,
-			IFormattingContext formattingContext, IFormStream output) {
+			IFormattingContext formattingContext, ITextFlow output) {
 
 		// Verbatim or Formatting mode?
 		// (If Verbatim and whitespace is implied, it should be formatted).
@@ -161,7 +160,7 @@ public class CSSDomFormatter implements IDomModelFormatter {
 			String text = node.getText();
 
 			if(isFormattingWanted(node, regionToFormat))
-				output.text(text);
+				output.appendText(text);
 		}
 		else {
 			Spacing spacing = styleSet.getStyleValue(SpacingStyle.class, node, defaultSpacing);
@@ -175,7 +174,7 @@ public class CSSDomFormatter implements IDomModelFormatter {
 	}
 
 	protected void internalFormat(IDomNode node, ITextRegion regionToFormat, IFormattingContext formattingContext,
-			IFormStream output) {
+			ITextFlow output) {
 		if(node.isLeaf())
 			formatLeaf(node, regionToFormat, formattingContext, output);
 		else

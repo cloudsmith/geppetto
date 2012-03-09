@@ -15,8 +15,8 @@ import java.io.IOException;
 import java.io.Writer;
 
 import org.cloudsmith.geppetto.pp.dsl.xt.dommodel.formatter.IFormattingContext;
-import org.cloudsmith.geppetto.pp.dsl.xt.formatter.FormStream;
-import org.cloudsmith.geppetto.pp.dsl.xt.formatter.ITextProducingStream;
+import org.cloudsmith.geppetto.pp.dsl.xt.formatter.ITextFlow;
+import org.cloudsmith.geppetto.pp.dsl.xt.formatter.TextFlow;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.xtext.nodemodel.ICompositeNode;
 import org.eclipse.xtext.nodemodel.util.NodeModelUtils;
@@ -27,8 +27,8 @@ import org.eclipse.xtext.util.ReplaceRegion;
 import com.google.inject.Inject;
 
 /**
- * A serializer using a handwritten formatter for PP.
- * TODO: This was experimental, and will be superseeded by the new DomFormatter.
+ * An {@link ISerializer} using a handwritten formatter for PP.
+ * TODO: This was experimental, and will be superseded by the new DomFormatter.
  * 
  */
 public class PPSerializer implements ISerializer {
@@ -49,10 +49,10 @@ public class PPSerializer implements ISerializer {
 		return serialize(obj, SaveOptions.defaultOptions());
 	}
 
-	protected void serialize(EObject obj, ITextProducingStream stream, SaveOptions options) throws IOException {
+	protected void serialize(EObject obj, ITextFlow.WithText stream, SaveOptions options) throws IOException {
 		expressionFormatter.format(obj, stream);
-		if(stream instanceof FormStream)
-			((FormStream) stream).flush();
+		if(stream instanceof TextFlow)
+			((TextFlow) stream).flush();
 	}
 
 	/*
@@ -62,7 +62,7 @@ public class PPSerializer implements ISerializer {
 	 */
 	@Override
 	public String serialize(EObject obj, SaveOptions options) {
-		ITextProducingStream tokenStringBuffer = new FormStream(formattingContext);
+		ITextFlow.WithText tokenStringBuffer = new TextFlow(formattingContext);
 		try {
 			serialize(obj, tokenStringBuffer, options);
 		}
@@ -79,7 +79,7 @@ public class PPSerializer implements ISerializer {
 	 */
 	@Override
 	public void serialize(EObject obj, Writer writer, SaveOptions options) throws IOException {
-		serialize(obj, new FormStream.WriterFormStream(formattingContext, writer), options);
+		serialize(obj, new TextFlow(writer, formattingContext), options);
 	}
 
 	/*

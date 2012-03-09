@@ -24,8 +24,8 @@ import org.cloudsmith.geppetto.pp.dsl.xt.dommodel.formatter.css.StyleFactory.Lin
 import org.cloudsmith.geppetto.pp.dsl.xt.dommodel.formatter.css.StyleFactory.SpacingStyle;
 import org.cloudsmith.geppetto.pp.dsl.xt.dommodel.formatter.css.StyleFactory.TokenTextStyle;
 import org.cloudsmith.geppetto.pp.dsl.xt.dommodel.formatter.css.StyleSet;
-import org.cloudsmith.geppetto.pp.dsl.xt.formatter.ITextFlow;
-import org.cloudsmith.geppetto.pp.dsl.xt.formatter.TextFlow;
+import org.cloudsmith.geppetto.pp.dsl.xt.textflow.ITextFlow;
+import org.cloudsmith.geppetto.pp.dsl.xt.textflow.TextFlow;
 import org.eclipse.xtext.serializer.diagnostic.ISerializationDiagnostic.Acceptor;
 import org.eclipse.xtext.util.ITextRegion;
 import org.eclipse.xtext.util.ReplaceRegion;

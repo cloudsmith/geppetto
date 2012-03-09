@@ -13,7 +13,7 @@ package org.cloudsmith.geppetto.pp.dsl.xt.dommodel.formatter;
 
 import org.cloudsmith.geppetto.pp.dsl.formatting.ILineSeparatorInformation;
 import org.cloudsmith.geppetto.pp.dsl.xt.dommodel.IDomNode;
-import org.cloudsmith.geppetto.pp.dsl.xt.formatter.ITextFlow;
+import org.cloudsmith.geppetto.pp.dsl.xt.textflow.ITextFlow;
 import org.eclipse.xtext.formatting.IIndentationInformation;
 import org.eclipse.xtext.serializer.diagnostic.ISerializationDiagnostic.Acceptor;
 import org.eclipse.xtext.util.ITextRegion;

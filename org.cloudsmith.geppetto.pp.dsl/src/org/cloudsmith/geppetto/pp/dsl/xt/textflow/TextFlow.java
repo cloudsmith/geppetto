@@ -9,7 +9,7 @@
  *   Cloudsmith
  * 
  */
-package org.cloudsmith.geppetto.pp.dsl.xt.formatter;
+package org.cloudsmith.geppetto.pp.dsl.xt.textflow;
 
 import java.io.IOException;
 

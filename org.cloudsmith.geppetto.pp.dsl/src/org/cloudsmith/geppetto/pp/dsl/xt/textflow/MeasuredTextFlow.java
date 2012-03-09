@@ -9,7 +9,7 @@
  *   Cloudsmith
  * 
  */
-package org.cloudsmith.geppetto.pp.dsl.xt.formatter;
+package org.cloudsmith.geppetto.pp.dsl.xt.textflow;
 
 import org.cloudsmith.geppetto.pp.dsl.xt.dommodel.formatter.IFormattingContext;
 

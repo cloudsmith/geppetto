@@ -9,7 +9,7 @@
  *   Cloudsmith
  * 
  */
-package org.cloudsmith.geppetto.pp.dsl.xt.formatter;
+package org.cloudsmith.geppetto.pp.dsl.xt.textflow;
 
 /**
  * An implementation of utility CharSequences providing efficient strings consisting of a fixed space,

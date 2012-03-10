@@ -37,10 +37,10 @@ Export-Package: org.cloudsmith.geppetto.pp.dsl,
  org.cloudsmith.geppetto.pp.dsl.serializer,
  org.cloudsmith.geppetto.pp.dsl.services,
  org.cloudsmith.geppetto.pp.dsl.validation,
- org.cloudsmith.geppetto.pp.dsl.xt.dommodel,
- org.cloudsmith.geppetto.pp.dsl.xt.dommodel.formatter,
- org.cloudsmith.geppetto.pp.dsl.xt.dommodel.formatter.css,
- org.cloudsmith.geppetto.pp.dsl.xt.serializer,
- org.cloudsmith.geppetto.pp.dsl.xt.serializer.acceptor,
- org.cloudsmith.geppetto.pp.dsl.xt.textflow
+ org.cloudsmith.xtext.dommodel,
+ org.cloudsmith.xtext.dommodel.formatter,
+ org.cloudsmith.xtext.dommodel.formatter.css,
+ org.cloudsmith.xtext.serializer,
+ org.cloudsmith.xtext.serializer.acceptor,
+ org.cloudsmith.xtext.textflow
 

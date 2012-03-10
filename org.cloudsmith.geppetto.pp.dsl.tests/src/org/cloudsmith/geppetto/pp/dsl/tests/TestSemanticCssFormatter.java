@@ -19,24 +19,24 @@ import org.cloudsmith.geppetto.pp.LiteralList;
 import org.cloudsmith.geppetto.pp.PPFactory;
 import org.cloudsmith.geppetto.pp.PuppetManifest;
 import org.cloudsmith.geppetto.pp.dsl.ppformatting.PPIndentationInformation;
-import org.cloudsmith.geppetto.pp.dsl.xt.dommodel.DomModelUtils;
-import org.cloudsmith.geppetto.pp.dsl.xt.dommodel.IDomNode;
-import org.cloudsmith.geppetto.pp.dsl.xt.dommodel.IDomNode.NodeType;
-import org.cloudsmith.geppetto.pp.dsl.xt.dommodel.formatter.CSSDomFormatter;
-import org.cloudsmith.geppetto.pp.dsl.xt.dommodel.formatter.DomNodeLayoutFeeder;
-import org.cloudsmith.geppetto.pp.dsl.xt.dommodel.formatter.IDomModelFormatter;
-import org.cloudsmith.geppetto.pp.dsl.xt.dommodel.formatter.IFormattingContext;
-import org.cloudsmith.geppetto.pp.dsl.xt.dommodel.formatter.css.DefaultStylesheetProvider;
-import org.cloudsmith.geppetto.pp.dsl.xt.dommodel.formatter.css.DomCSS;
-import org.cloudsmith.geppetto.pp.dsl.xt.dommodel.formatter.css.FunctionFactory;
-import org.cloudsmith.geppetto.pp.dsl.xt.dommodel.formatter.css.IFunctionFactory;
-import org.cloudsmith.geppetto.pp.dsl.xt.dommodel.formatter.css.IStyleFactory;
-import org.cloudsmith.geppetto.pp.dsl.xt.dommodel.formatter.css.StyleFactory;
-import org.cloudsmith.geppetto.pp.dsl.xt.serializer.DomBasedSerializer;
-import org.cloudsmith.geppetto.pp.dsl.xt.textflow.ITextFlow;
-import org.cloudsmith.geppetto.pp.dsl.xt.textflow.MeasuredTextFlow;
-import org.cloudsmith.geppetto.pp.dsl.xt.textflow.TextFlow;
-import org.cloudsmith.geppetto.pp.dsl.xt.textflow.TextFlowRecording;
+import org.cloudsmith.xtext.dommodel.DomModelUtils;
+import org.cloudsmith.xtext.dommodel.IDomNode;
+import org.cloudsmith.xtext.dommodel.IDomNode.NodeType;
+import org.cloudsmith.xtext.dommodel.formatter.CSSDomFormatter;
+import org.cloudsmith.xtext.dommodel.formatter.DomNodeLayoutFeeder;
+import org.cloudsmith.xtext.dommodel.formatter.IDomModelFormatter;
+import org.cloudsmith.xtext.dommodel.formatter.IFormattingContext;
+import org.cloudsmith.xtext.dommodel.formatter.css.DefaultStylesheetProvider;
+import org.cloudsmith.xtext.dommodel.formatter.css.DomCSS;
+import org.cloudsmith.xtext.dommodel.formatter.css.FunctionFactory;
+import org.cloudsmith.xtext.dommodel.formatter.css.IFunctionFactory;
+import org.cloudsmith.xtext.dommodel.formatter.css.IStyleFactory;
+import org.cloudsmith.xtext.dommodel.formatter.css.StyleFactory;
+import org.cloudsmith.xtext.serializer.DomBasedSerializer;
+import org.cloudsmith.xtext.textflow.ITextFlow;
+import org.cloudsmith.xtext.textflow.MeasuredTextFlow;
+import org.cloudsmith.xtext.textflow.TextFlow;
+import org.cloudsmith.xtext.textflow.TextFlowRecording;
 import org.eclipse.xtext.formatting.IIndentationInformation;
 import org.eclipse.xtext.resource.XtextResource;
 import org.eclipse.xtext.serializer.ISerializer;
@@ -85,7 +85,7 @@ public class TestSemanticCssFormatter extends AbstractPuppetTests {
 				binder.bind(IStyleFactory.class).to(StyleFactory.class);
 				// Want serializer to insert empty WS even if there is no node model
 				binder.bind(IHiddenTokenSequencer.class).to(
-					org.cloudsmith.geppetto.pp.dsl.xt.serializer.acceptor.HiddenTokenSequencer.class);
+					org.cloudsmith.xtext.serializer.acceptor.HiddenTokenSequencer.class);
 
 				// Bind the default style sheet (TODO: should use a test specific sheet)
 				binder.bind(DomCSS.class).toProvider(DefaultStylesheetProvider.class);

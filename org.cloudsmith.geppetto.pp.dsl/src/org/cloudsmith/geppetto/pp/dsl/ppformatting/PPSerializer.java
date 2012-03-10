@@ -14,9 +14,9 @@ package org.cloudsmith.geppetto.pp.dsl.ppformatting;
 import java.io.IOException;
 import java.io.Writer;
 
-import org.cloudsmith.geppetto.pp.dsl.xt.dommodel.formatter.IFormattingContext;
-import org.cloudsmith.geppetto.pp.dsl.xt.textflow.ITextFlow;
-import org.cloudsmith.geppetto.pp.dsl.xt.textflow.TextFlow;
+import org.cloudsmith.xtext.dommodel.formatter.IFormattingContext;
+import org.cloudsmith.xtext.textflow.ITextFlow;
+import org.cloudsmith.xtext.textflow.TextFlow;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.xtext.nodemodel.ICompositeNode;
 import org.eclipse.xtext.nodemodel.util.NodeModelUtils;

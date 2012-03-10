@@ -63,6 +63,10 @@ public interface IStyleVisitor {
 		public void tokenText(String text) {
 		}
 
+		@Override
+		public void width(Integer value) {
+		}
+
 	}
 
 	public void align(Alignment x);
@@ -84,5 +88,7 @@ public interface IStyleVisitor {
 	public void styleName(String name);
 
 	public void tokenText(String text);
+
+	public void width(Integer value);
 
 }

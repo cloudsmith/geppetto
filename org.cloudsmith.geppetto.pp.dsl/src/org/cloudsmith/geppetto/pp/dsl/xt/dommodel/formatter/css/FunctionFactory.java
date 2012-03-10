@@ -12,6 +12,8 @@
 package org.cloudsmith.geppetto.pp.dsl.xt.dommodel.formatter.css;
 
 import java.util.Set;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.cloudsmith.geppetto.pp.dsl.xt.dommodel.IDomNode;
 
@@ -76,6 +78,48 @@ public class FunctionFactory implements IFunctionFactory {
 			return node.getText();
 		}
 	};
+
+	private static final Pattern NON_WORD_CHAR_PATTERN = Pattern.compile("\\W+");
+
+	private static final Function<IDomNode, Integer> firstNonWordFunc = new Function<IDomNode, Integer>() {
+
+		@Override
+		public Integer apply(IDomNode from) {
+			Matcher m = NON_WORD_CHAR_PATTERN.matcher(from.getText());
+			if(!m.find())
+				return -1;
+			return m.start();
+		}
+
+	};
+
+	private static final Function<IDomNode, Integer> lastNonWordFunc = new Function<IDomNode, Integer>() {
+
+		@Override
+		public Integer apply(IDomNode from) {
+			// reverses the string, and searches from the end
+			// returns the index to the first char in the last location
+			// i.e. xxx...yy returns 3
+
+			String s = from.getText();
+			String r = new StringBuilder(s).reverse().toString();
+			Matcher m = NON_WORD_CHAR_PATTERN.matcher(s);
+			if(!m.find())
+				return -1;
+			return s.length() - m.end();
+		}
+
+	};
+
+	@Override
+	public Function<IDomNode, Integer> firstNonWordChar() {
+		return firstNonWordFunc;
+	}
+
+	@Override
+	public Function<IDomNode, Integer> lastNonWordChar() {
+		return lastNonWordFunc;
+	}
 
 	@Override
 	public Function<IDomNode, String> literalString(String s) {

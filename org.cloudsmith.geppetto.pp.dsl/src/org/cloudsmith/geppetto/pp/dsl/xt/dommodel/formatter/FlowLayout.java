@@ -13,13 +13,17 @@ package org.cloudsmith.geppetto.pp.dsl.xt.dommodel.formatter;
 
 import org.cloudsmith.geppetto.pp.dsl.xt.dommodel.IDomNode;
 import org.cloudsmith.geppetto.pp.dsl.xt.dommodel.IDomNode.NodeClassifier;
+import org.cloudsmith.geppetto.pp.dsl.xt.dommodel.formatter.css.Alignment;
 import org.cloudsmith.geppetto.pp.dsl.xt.dommodel.formatter.css.DomCSS;
 import org.cloudsmith.geppetto.pp.dsl.xt.dommodel.formatter.css.IFunctionFactory;
 import org.cloudsmith.geppetto.pp.dsl.xt.dommodel.formatter.css.LineBreaks;
 import org.cloudsmith.geppetto.pp.dsl.xt.dommodel.formatter.css.Spacing;
+import org.cloudsmith.geppetto.pp.dsl.xt.dommodel.formatter.css.StyleFactory.AlignedSeparatorIndex;
+import org.cloudsmith.geppetto.pp.dsl.xt.dommodel.formatter.css.StyleFactory.AlignmentStyle;
 import org.cloudsmith.geppetto.pp.dsl.xt.dommodel.formatter.css.StyleFactory.LineBreakStyle;
 import org.cloudsmith.geppetto.pp.dsl.xt.dommodel.formatter.css.StyleFactory.SpacingStyle;
 import org.cloudsmith.geppetto.pp.dsl.xt.dommodel.formatter.css.StyleFactory.TokenTextStyle;
+import org.cloudsmith.geppetto.pp.dsl.xt.dommodel.formatter.css.StyleFactory.WidthStyle;
 import org.cloudsmith.geppetto.pp.dsl.xt.dommodel.formatter.css.StyleSet;
 import org.cloudsmith.geppetto.pp.dsl.xt.textflow.ITextFlow;
 
@@ -50,10 +54,49 @@ public class FlowLayout extends AbstractLayout implements ILayoutManager {
 	@Override
 	protected void formatToken(StyleSet styleSet, IDomNode node, ITextFlow output, ILayoutContext context) {
 		if(isFormattingWanted(node, context)) {
-			styleSet.getStyleValue(TokenTextStyle.class, node, functions.textOfNode());
-			String text = node.getText();
-			if(text.length() > 0)
-				output.appendText(text);
+			// TEXT
+			String text = styleSet.getStyleValue(TokenTextStyle.class, node, functions.textOfNode());
+
+			// ALIGNMENT
+			// is left by default
+			//
+			Alignment alignment = styleSet.getStyleValue(AlignmentStyle.class, node, Alignment.left);
+			final int textLength = text.length();
+			final Integer widthObject = styleSet.getStyleValue(WidthStyle.class, node);
+			final int width = widthObject == null
+					? textLength
+					: widthObject.intValue();
+			final int diff = width - textLength;
+
+			switch(alignment) {
+				case left:
+					output.appendText(text).appendSpaces(diff); // ok if 0 or negative = no spaces
+					break;
+				case right:
+					output.appendSpaces(diff).appendText(text);
+					break;
+				case center:
+					int leftpad = (diff) / 2;
+					output.appendSpaces(leftpad).appendText(text).appendSpaces(diff - leftpad);
+					break;
+				case separator:
+					// width must have been set as it is otherwise meaningless to try to align on
+					// separator.
+					if(widthObject == null) {
+						output.appendText(text);
+					}
+					else {
+						// use first non word char as default
+						// right align in the given width
+						int separatorIndex = styleSet.getStyleValue(
+							AlignedSeparatorIndex.class, node, functions.firstNonWordChar());
+						if(separatorIndex > -1)
+							output.appendSpaces(width - separatorIndex).appendText(text);
+						else
+							output.appendSpaces(diff).appendText(text);
+					}
+					break;
+			}
 		}
 	}
 

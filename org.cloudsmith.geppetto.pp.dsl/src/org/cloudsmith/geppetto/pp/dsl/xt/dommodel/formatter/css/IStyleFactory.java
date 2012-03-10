@@ -169,6 +169,18 @@ public interface IStyleFactory {
 
 	/**
 	 * @param f
+	 * @return
+	 */
+	IndentStyle separatorAlignmentIndex(Function<IDomNode, Integer> f);
+
+	/**
+	 * @param i
+	 * @return
+	 */
+	IndentStyle separatorAlignmentIndex(Integer i);
+
+	/**
+	 * @param f
 	 *            - function producing {@link Spacing} information
 	 * @return dynamically determined {@link Spacing} information
 	 */
@@ -197,5 +209,17 @@ public interface IStyleFactory {
 	 * @return a style with literal token text
 	 */
 	public TokenTextStyle tokenText(String s);
+
+	/**
+	 * @param f
+	 * @return
+	 */
+	IndentStyle width(Function<IDomNode, Integer> f);
+
+	/**
+	 * @param i
+	 * @return
+	 */
+	IndentStyle width(Integer i);
 
 }

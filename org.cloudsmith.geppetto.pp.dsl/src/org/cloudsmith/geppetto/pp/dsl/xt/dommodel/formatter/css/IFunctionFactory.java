@@ -23,6 +23,10 @@ import com.google.common.base.Function;
  */
 public interface IFunctionFactory {
 
+	public Function<IDomNode, Integer> firstNonWordChar();
+
+	public Function<IDomNode, Integer> lastNonWordChar();
+
 	/**
 	 * A function producing a literal string when applied to a node (ignores the given node).
 	 * 

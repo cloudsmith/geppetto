@@ -12,11 +12,19 @@
  */
 package org.cloudsmith.geppetto.pp.dsl.xt.dommodel.formatter.css;
 
+import org.cloudsmith.geppetto.pp.dsl.xt.dommodel.formatter.css.StyleFactory.AlignedSeparatorIndex;
+
 /**
  * Describes Horizontal Alignment
  * 
  */
 public enum Alignment {
-	center, left, right, text;
+	center, left, right,
+	/**
+	 * Alignment on separator. The separator's position is determined by the style {@link AlignedSeparatorIndex}.
+	 * It is expected that a formatter defaults to regular expression "non word character" pattern, and uses the first
+	 * matching character's index as the separator index.
+	 */
+	separator;
 
 }

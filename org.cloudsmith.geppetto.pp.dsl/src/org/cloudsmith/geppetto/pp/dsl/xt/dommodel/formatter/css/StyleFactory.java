@@ -73,6 +73,22 @@ public class StyleFactory implements IStyleFactory {
 		}
 	}
 
+	public static class AlignedSeparatorIndex extends IntegerStyle {
+		public AlignedSeparatorIndex(Function<IDomNode, Integer> f) {
+			super(f);
+		}
+
+		public AlignedSeparatorIndex(Integer count) {
+			super(count);
+		}
+
+		@Override
+		public void visit(IDomNode ge, IStyleVisitor visitor) {
+			visitor.indent(getValue(ge));
+		}
+
+	}
+
 	public static class AlignmentStyle extends AbstractStyle<Alignment> {
 		public AlignmentStyle(Alignment align) {
 			super(align);
@@ -284,6 +300,22 @@ public class StyleFactory implements IStyleFactory {
 
 	}
 
+	public static class WidthStyle extends IntegerStyle {
+		public WidthStyle(Function<IDomNode, Integer> f) {
+			super(f);
+		}
+
+		public WidthStyle(Integer width) {
+			super(width);
+		}
+
+		@Override
+		public void visit(IDomNode ge, IStyleVisitor visitor) {
+			visitor.width(getValue(ge));
+		}
+
+	}
+
 	private static final SpacingStyle ONESPACE = new SpacingStyle(new Spacing(1));
 
 	private static final SpacingStyle NOSPACE = new SpacingStyle(new Spacing(0));
@@ -397,6 +429,16 @@ public class StyleFactory implements IStyleFactory {
 	}
 
 	@Override
+	public IndentStyle separatorAlignmentIndex(Function<IDomNode, Integer> f) {
+		return new IndentStyle(f);
+	}
+
+	@Override
+	public IndentStyle separatorAlignmentIndex(Integer i) {
+		return new IndentStyle(i);
+	}
+
+	@Override
 	public SpacingStyle spacing(Function<IDomNode, Spacing> f) {
 		return new SpacingStyle(f);
 	}
@@ -419,6 +461,16 @@ public class StyleFactory implements IStyleFactory {
 	@Override
 	public TokenTextStyle tokenText(String s) {
 		return new TokenTextStyle(s);
+	}
+
+	@Override
+	public IndentStyle width(Function<IDomNode, Integer> f) {
+		return new IndentStyle(f);
+	}
+
+	@Override
+	public IndentStyle width(Integer i) {
+		return new IndentStyle(i);
 	}
 
 }

@@ -16,7 +16,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 
-import org.cloudsmith.geppetto.pp.dsl.xt.dommodel.formatter.CSSDomFormatter;
+import org.cloudsmith.geppetto.pp.dsl.xt.dommodel.IDomNode;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.xtext.AbstractRule;
 import org.eclipse.xtext.Action;
@@ -240,7 +240,7 @@ public class HiddenTokenSequencer implements IHiddenTokenSequencer, ISyntacticSe
 					? null
 					: stack.get(sz - 1), from, to);
 			if(implied) {
-				delegate.acceptWhitespace(ws, CSSDomFormatter.IMPLIED_EMPTY_WHITESPACE, null);
+				delegate.acceptWhitespace(ws, IDomNode.IMPLIED_EMPTY_WHITESPACE, null);
 			}
 		}
 		return result;

@@ -13,6 +13,8 @@ package org.cloudsmith.geppetto.pp.dsl.xt.dommodel.formatter.css;
 
 import java.util.Set;
 
+import org.cloudsmith.geppetto.pp.dsl.xt.dommodel.formatter.ILayoutManager;
+
 /**
  * A visitor for IStyle
  * 
@@ -42,6 +44,10 @@ public interface IStyleVisitor {
 		}
 
 		@Override
+		public void layout(ILayoutManager value) {
+		}
+
+		@Override
 		public void lineBreaks(LineBreaks lineBreakInfo) {
 		}
 
@@ -68,6 +74,8 @@ public interface IStyleVisitor {
 	public void dedent(int count);
 
 	public void indent(int count);
+
+	public void layout(ILayoutManager value);
 
 	public void lineBreaks(LineBreaks lineBreakInfo);
 

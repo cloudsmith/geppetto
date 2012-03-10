@@ -13,7 +13,7 @@ package org.cloudsmith.geppetto.pp.dsl.xt.serializer.acceptor;
 
 import java.util.List;
 
-import org.cloudsmith.geppetto.pp.dsl.xt.dommodel.formatter.CSSDomFormatter;
+import org.cloudsmith.geppetto.pp.dsl.xt.dommodel.IDomNode;
 import org.eclipse.xtext.nodemodel.INode;
 import org.eclipse.xtext.serializer.sequencer.HiddenTokenSequencer;
 
@@ -31,7 +31,7 @@ public class HiddenTokenSequencerForDom extends HiddenTokenSequencer {
 		List<INode> result = super.getHiddenNodesBetween(from, to);
 		if(result == null) {
 			delegate.acceptWhitespace(
-				hiddenTokenHelper.getWhitespaceRuleFor(null, ""), CSSDomFormatter.IMPLIED_EMPTY_WHITESPACE, null);
+				hiddenTokenHelper.getWhitespaceRuleFor(null, ""), IDomNode.IMPLIED_EMPTY_WHITESPACE, null);
 		}
 		return result;
 	}

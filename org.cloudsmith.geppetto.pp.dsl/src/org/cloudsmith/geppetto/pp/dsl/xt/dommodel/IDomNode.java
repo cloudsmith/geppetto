@@ -32,7 +32,6 @@ import com.google.common.collect.Sets;
  * 
  */
 public interface IDomNode {
-
 	/**
 	 * Generic NodeClassifiers that are suitable as "style classifiers".
 	 * It is expected that an creator of a DOM provides these as styleClassifiers for resulting nodes.
@@ -171,6 +170,9 @@ public interface IDomNode {
 		public static final Set<NodeType> anySet = Collections.unmodifiableSet(EnumSet.allOf(NodeType.class));
 
 	}
+
+	// IMPORTANT: Must be a unique instance of empty string - do not change to = ""
+	public static final String IMPLIED_EMPTY_WHITESPACE = new String("");
 
 	public List<? extends IDomNode> getChildren();
 

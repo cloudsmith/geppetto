@@ -14,11 +14,13 @@ package org.cloudsmith.geppetto.pp.dsl.xt.dommodel.formatter.css;
 import java.util.Set;
 
 import org.cloudsmith.geppetto.pp.dsl.xt.dommodel.IDomNode;
+import org.cloudsmith.geppetto.pp.dsl.xt.dommodel.formatter.ILayoutManager;
 import org.cloudsmith.geppetto.pp.dsl.xt.dommodel.formatter.css.StyleFactory.AlignmentStyle;
 import org.cloudsmith.geppetto.pp.dsl.xt.dommodel.formatter.css.StyleFactory.ContainerNamesStyle;
 import org.cloudsmith.geppetto.pp.dsl.xt.dommodel.formatter.css.StyleFactory.ContainerStyle;
 import org.cloudsmith.geppetto.pp.dsl.xt.dommodel.formatter.css.StyleFactory.DedentStyle;
 import org.cloudsmith.geppetto.pp.dsl.xt.dommodel.formatter.css.StyleFactory.IndentStyle;
+import org.cloudsmith.geppetto.pp.dsl.xt.dommodel.formatter.css.StyleFactory.LayoutManagerStyle;
 import org.cloudsmith.geppetto.pp.dsl.xt.dommodel.formatter.css.StyleFactory.LineBreakStyle;
 import org.cloudsmith.geppetto.pp.dsl.xt.dommodel.formatter.css.StyleFactory.SpacingStyle;
 import org.cloudsmith.geppetto.pp.dsl.xt.dommodel.formatter.css.StyleFactory.StyleNameStyle;
@@ -117,6 +119,18 @@ public interface IStyleFactory {
 	 * @return style with literal number of indents
 	 */
 	public IndentStyle indent(Integer i);
+
+	/**
+	 * @param f
+	 * @return style with dynamically determined layout manager
+	 */
+	LayoutManagerStyle layout(Function<IDomNode, ILayoutManager> f);
+
+	/**
+	 * @param manager
+	 * @return style with layout manager
+	 */
+	LayoutManagerStyle layout(ILayoutManager manager);
 
 	/**
 	 * @param f

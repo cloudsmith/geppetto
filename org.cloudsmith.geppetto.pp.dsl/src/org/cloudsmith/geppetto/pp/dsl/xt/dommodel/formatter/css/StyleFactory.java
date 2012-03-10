@@ -15,6 +15,7 @@ import java.util.Set;
 
 import org.cloudsmith.geppetto.pp.dsl.xt.dommodel.IDomNode;
 import org.cloudsmith.geppetto.pp.dsl.xt.dommodel.IDomNode.NodeType;
+import org.cloudsmith.geppetto.pp.dsl.xt.dommodel.formatter.ILayoutManager;
 
 import com.google.common.base.Function;
 import com.google.inject.Inject;
@@ -186,6 +187,24 @@ public class StyleFactory implements IStyleFactory {
 		}
 	}
 
+	public static class LayoutManagerStyle extends AbstractStyle<ILayoutManager> {
+		public LayoutManagerStyle(Function<IDomNode, ILayoutManager> f) {
+			super(f);
+			setTypes(NodeType.whitespaceSet);
+		}
+
+		public LayoutManagerStyle(ILayoutManager lineBreaks) {
+			super(lineBreaks);
+			setTypes(NodeType.whitespaceSet);
+		}
+
+		@Override
+		public void visit(IDomNode ge, IStyleVisitor visitor) {
+			visitor.layout(getValue(ge));
+		}
+
+	}
+
 	public static class LineBreakStyle extends AbstractStyle<LineBreaks> {
 		public LineBreakStyle(Function<IDomNode, LineBreaks> f) {
 			super(f);
@@ -338,15 +357,20 @@ public class StyleFactory implements IStyleFactory {
 	}
 
 	@Override
+	public LayoutManagerStyle layout(Function<IDomNode, ILayoutManager> f) {
+		return new LayoutManagerStyle(f);
+	}
+
+	@Override
+	public LayoutManagerStyle layout(ILayoutManager manager) {
+		return new LayoutManagerStyle(manager);
+	}
+
+	@Override
 	public LineBreakStyle lineBreaks(Function<IDomNode, LineBreaks> f) {
 		return new LineBreakStyle(f);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.cloudsmith.geppetto.pp.dsl.xt.dommodel.formatter.css.IStyleFactory#lineBreaks(int, int, int)
-	 */
 	@Override
 	public LineBreakStyle lineBreaks(int min, int normal, int max) {
 		return new LineBreakStyle(new LineBreaks(min, normal, max));

@@ -23,6 +23,7 @@ import org.cloudsmith.geppetto.pp.dsl.xt.dommodel.DomModelUtils;
 import org.cloudsmith.geppetto.pp.dsl.xt.dommodel.IDomNode;
 import org.cloudsmith.geppetto.pp.dsl.xt.dommodel.IDomNode.NodeType;
 import org.cloudsmith.geppetto.pp.dsl.xt.dommodel.formatter.CSSDomFormatter;
+import org.cloudsmith.geppetto.pp.dsl.xt.dommodel.formatter.DomNodeLayoutFeeder;
 import org.cloudsmith.geppetto.pp.dsl.xt.dommodel.formatter.IDomModelFormatter;
 import org.cloudsmith.geppetto.pp.dsl.xt.dommodel.formatter.IFormattingContext;
 import org.cloudsmith.geppetto.pp.dsl.xt.dommodel.formatter.css.DefaultStylesheetProvider;
@@ -31,11 +32,11 @@ import org.cloudsmith.geppetto.pp.dsl.xt.dommodel.formatter.css.FunctionFactory;
 import org.cloudsmith.geppetto.pp.dsl.xt.dommodel.formatter.css.IFunctionFactory;
 import org.cloudsmith.geppetto.pp.dsl.xt.dommodel.formatter.css.IStyleFactory;
 import org.cloudsmith.geppetto.pp.dsl.xt.dommodel.formatter.css.StyleFactory;
-import org.cloudsmith.geppetto.pp.dsl.xt.formatter.ITextFlow;
-import org.cloudsmith.geppetto.pp.dsl.xt.formatter.MeasuredTextFlow;
-import org.cloudsmith.geppetto.pp.dsl.xt.formatter.TextFlow;
-import org.cloudsmith.geppetto.pp.dsl.xt.formatter.TextFlowRecording;
 import org.cloudsmith.geppetto.pp.dsl.xt.serializer.DomBasedSerializer;
+import org.cloudsmith.geppetto.pp.dsl.xt.textflow.ITextFlow;
+import org.cloudsmith.geppetto.pp.dsl.xt.textflow.MeasuredTextFlow;
+import org.cloudsmith.geppetto.pp.dsl.xt.textflow.TextFlow;
+import org.cloudsmith.geppetto.pp.dsl.xt.textflow.TextFlowRecording;
 import org.eclipse.xtext.formatting.IIndentationInformation;
 import org.eclipse.xtext.resource.XtextResource;
 import org.eclipse.xtext.serializer.ISerializer;
@@ -59,8 +60,8 @@ public class TestSemanticCssFormatter extends AbstractPuppetTests {
 	public static class DebugFormatter extends CSSDomFormatter {
 
 		@Inject
-		public DebugFormatter(Provider<DomCSS> domProvider) {
-			super(domProvider);
+		public DebugFormatter(Provider<DomCSS> domProvider, DomNodeLayoutFeeder feeder) {
+			super(domProvider, feeder);
 		}
 
 		@Override

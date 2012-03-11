@@ -12,11 +12,13 @@
 package org.cloudsmith.xtext.dommodel.impl;
 
 import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
 
 import org.cloudsmith.xtext.dommodel.DomModelUtils;
 import org.cloudsmith.xtext.dommodel.IDomNode;
 
+import com.google.common.collect.Iterators;
 import com.google.inject.internal.Lists;
 
 /**
@@ -53,6 +55,45 @@ public class CompositeDomNode extends BaseDomNode {
 	// }
 	//
 	// }
+
+	private static class TreeIterator implements Iterator<IDomNode> {
+
+		private List<Iterator<? extends IDomNode>> stack = Lists.newArrayList();
+
+		private Iterator<? extends IDomNode> currentIterator;
+
+		private TreeIterator(CompositeDomNode root) {
+			currentIterator = Iterators.singletonIterator(root);
+		}
+
+		@Override
+		public boolean hasNext() {
+			if(currentIterator.hasNext())
+				return true;
+			while(!currentIterator.hasNext() && stack.size() > 0)
+				currentIterator = stack.remove(stack.size() - 1);
+			return currentIterator.hasNext();
+		}
+
+		@Override
+		public IDomNode next() {
+			IDomNode current = currentIterator.next();
+			if(!current.isLeaf()) {
+				// come back to currentIterator later if there are more
+				if(currentIterator.hasNext())
+					stack.add(currentIterator);
+				currentIterator = current.getChildren().iterator();
+			}
+			return current;
+		}
+
+		@Override
+		public void remove() {
+			throw new UnsupportedOperationException();
+
+		}
+
+	}
 
 	List<BaseDomNode> children;
 
@@ -163,5 +204,10 @@ public class CompositeDomNode extends BaseDomNode {
 			d.setOffset(o);
 			o += d.getLength();
 		}
+	}
+
+	@Override
+	public Iterator<IDomNode> treeIterator() {
+		return new TreeIterator(this);
 	}
 }

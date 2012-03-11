@@ -58,7 +58,7 @@ public abstract class AbstractDomNode implements IDomNode {
 
 	private Set<Object> styleClassifiers = Sets.newHashSet();
 
-	private Set<Object> nonModifiableStyleClassifiers = Collections.unmodifiableSet(styleClassifiers);
+	// private Set<Object> nonModifiableStyleClassifiers = Collections.unmodifiableSet(styleClassifiers);
 
 	private Object nodeId = null;
 
@@ -66,21 +66,11 @@ public abstract class AbstractDomNode implements IDomNode {
 
 	private StyleSet styles = new StyleSet();
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.cloudsmith.geppetto.pp.dsl.dommodel.IDomNode#getChildren()
-	 */
 	@Override
 	public List<? extends IDomNode> getChildren() {
 		return Collections.emptyList();
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.cloudsmith.geppetto.pp.dsl.dommodel.IDomNode#getGrammarElement()
-	 */
 	@Override
 	public abstract EObject getGrammarElement();
 
@@ -99,11 +89,6 @@ public abstract class AbstractDomNode implements IDomNode {
 		return null;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.cloudsmith.geppetto.pp.dsl.dommodel.IDomNode#getNode()
-	 */
 	@Override
 	public abstract INode getNode();
 
@@ -120,22 +105,12 @@ public abstract class AbstractDomNode implements IDomNode {
 		return nodeType;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.cloudsmith.geppetto.pp.dsl.dommodel.IDomNode#getOffSet()
-	 */
 	@Override
 	public int getOffset() {
 		// TODO Auto-generated method stub
 		return 0;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.cloudsmith.geppetto.pp.dsl.dommodel.IDomNode#getParent()
-	 */
 	@Override
 	public IDomNode getParent() {
 		return parentNode;
@@ -146,11 +121,6 @@ public abstract class AbstractDomNode implements IDomNode {
 		return null;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.cloudsmith.geppetto.pp.dsl.xt.dommodel.IDomNode#getStyleClassifiers()
-	 */
 	@Override
 	public Set<Object> getStyleClassifiers() {
 		return styleClassifiers;
@@ -161,19 +131,9 @@ public abstract class AbstractDomNode implements IDomNode {
 		return styles;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.cloudsmith.geppetto.pp.dsl.dommodel.IDomNode#getText()
-	 */
 	@Override
 	public abstract String getText();
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.cloudsmith.geppetto.pp.dsl.dommodel.IDomNode#hasChildren()
-	 */
 	@Override
 	public abstract boolean hasChildren();
 
@@ -190,7 +150,7 @@ public abstract class AbstractDomNode implements IDomNode {
 			styleClassifiers.addAll(Lists.newArrayList(classifiers));
 		else
 			styleClassifiers.removeAll(Lists.newArrayList(classifiers));
-		nonModifiableStyleClassifiers = Collections.unmodifiableSet(styleClassifiers);
+		// nonModifiableStyleClassifiers = Collections.unmodifiableSet(styleClassifiers);
 	}
 
 	/**

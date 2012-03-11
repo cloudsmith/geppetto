@@ -25,6 +25,7 @@ import org.cloudsmith.xtext.dommodel.formatter.css.StyleFactory.LineBreakStyle;
 import org.cloudsmith.xtext.dommodel.formatter.css.StyleFactory.SpacingStyle;
 import org.cloudsmith.xtext.dommodel.formatter.css.StyleFactory.StyleNameStyle;
 import org.cloudsmith.xtext.dommodel.formatter.css.StyleFactory.TokenTextStyle;
+import org.cloudsmith.xtext.dommodel.formatter.css.StyleFactory.WidthStyle;
 
 import com.google.common.base.Function;
 import com.google.inject.ImplementedBy;
@@ -214,12 +215,12 @@ public interface IStyleFactory {
 	 * @param f
 	 * @return
 	 */
-	IndentStyle width(Function<IDomNode, Integer> f);
+	WidthStyle width(Function<IDomNode, Integer> f);
 
 	/**
 	 * @param i
 	 * @return
 	 */
-	IndentStyle width(Integer i);
+	WidthStyle width(Integer i);
 
 }

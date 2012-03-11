@@ -277,7 +277,7 @@ public interface IDomNode {
 	public EObject getSemanticObject();
 
 	/**
-	 * Returns an immutable set of style classifiers which may be used in matching rules.
+	 * Returns an mutable set of style classifiers which may be used in matching rules.
 	 */
 	public Set<Object> getStyleClassifiers();
 
@@ -323,5 +323,10 @@ public interface IDomNode {
 	 * identity.
 	 */
 	public void setNodeId(Object id);
+
+	/**
+	 * @return
+	 */
+	Iterator<IDomNode> treeIterator();
 
 }

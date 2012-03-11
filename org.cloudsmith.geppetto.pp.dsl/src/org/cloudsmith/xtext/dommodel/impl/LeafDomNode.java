@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2011 Cloudsmith Inc. and other contributors, as listed below.
+ * Copyright (c) 2012 Cloudsmith Inc. and other contributors, as listed below.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -11,7 +11,11 @@
  */
 package org.cloudsmith.xtext.dommodel.impl;
 
+import java.util.Iterator;
+
 import org.cloudsmith.xtext.dommodel.IDomNode;
+
+import com.google.common.collect.Iterators;
 
 /**
  * A Leaf DomNode
@@ -19,33 +23,23 @@ import org.cloudsmith.xtext.dommodel.IDomNode;
  */
 public class LeafDomNode extends BaseDomNode {
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.cloudsmith.geppetto.pp.dsl.xt.dommodel.impl.BaseDomNode#getNodeAt(int)
-	 */
 	@Override
 	IDomNode getNodeAt(int index) {
 		throw new UnsupportedOperationException("A LeafNode does not support getNodeAt(i)");
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.cloudsmith.geppetto.pp.dsl.xt.dommodel.impl.AbstractDomNode#hasChildren()
-	 */
 	@Override
 	public boolean hasChildren() {
 		return false;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.cloudsmith.geppetto.pp.dsl.xt.dommodel.impl.AbstractDomNode#isLeaf()
-	 */
 	@Override
 	public boolean isLeaf() {
 		return true;
+	}
+
+	@Override
+	public Iterator<IDomNode> treeIterator() {
+		return Iterators.<IDomNode> singletonIterator(this);
 	}
 }

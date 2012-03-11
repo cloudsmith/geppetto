@@ -462,13 +462,13 @@ public class StyleFactory implements IStyleFactory {
 	}
 
 	@Override
-	public IndentStyle width(Function<IDomNode, Integer> f) {
-		return new IndentStyle(f);
+	public WidthStyle width(Function<IDomNode, Integer> f) {
+		return new WidthStyle(f);
 	}
 
 	@Override
-	public IndentStyle width(Integer i) {
-		return new IndentStyle(i);
+	public WidthStyle width(Integer i) {
+		return new WidthStyle(i);
 	}
 
 }

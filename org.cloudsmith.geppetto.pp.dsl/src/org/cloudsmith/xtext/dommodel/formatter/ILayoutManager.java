@@ -23,26 +23,67 @@ import org.eclipse.xtext.util.ITextRegion;
 /**
  * An ILayoutManager is responsible for providing textual output to an {@link ITextFlow}.
  * 
- * 
- * 
  */
 public interface ILayoutManager {
 
 	public interface ILayoutContext {
+		/**
+		 * 
+		 * @return the style sheet to use
+		 */
 		public DomCSS getCSS();
 
+		/**
+		 * 
+		 * @return where any errors should be emitted
+		 */
 		public Acceptor getErrorAcceptor();
 
+		/**
+		 * 
+		 * @return the indentation information to use
+		 */
 		public IIndentationInformation getIndentationInformation();
 
+		/**
+		 * 
+		 * @return the line separator information to use
+		 */
 		public ILineSeparatorInformation getLineSeparatorInformation();
 
+		/**
+		 * 
+		 * @return the text region to format (or null for "everything").
+		 */
 		public ITextRegion getRegionToFormat();
 
+		/**
+		 * 
+		 * @return true if existing (non implied) white space should be preserved
+		 */
 		public boolean isWhitespacePreservation();
 	}
 
+	/**
+	 * Formats the dom node and produces output in the flow.
+	 * 
+	 * @param dom
+	 * @param flow
+	 * @param context
+	 * @return true if the layout manager processed all children of the given node
+	 */
 	public boolean format(IDomNode dom, ITextFlow flow, ILayoutContext context);
 
+	/**
+	 * Formats the dom node and produces output in the flow. The given style set is the styles that
+	 * should be applied to the given dom node. (This is typically the result of collecting the style from
+	 * the css passed in the layout context).
+	 * 
+	 * @param styleset
+	 * @param dom
+	 * @param flow
+	 * @param context
+	 * @return true if the layout manager processed all children of the given node
+	 */
 	public boolean format(StyleSet styleset, IDomNode dom, ITextFlow flow, ILayoutContext context);
 }

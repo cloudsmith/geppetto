@@ -74,6 +74,7 @@ public class PPLayouts {
 					rstyle = re.getResourceData().get(0).getNameExpr() != null
 							? ResourceStyle.SINGLEBODY_TITLE
 							: ResourceStyle.SINGLEBODY_NO_TITLE;
+					break;
 				default:
 					rstyle = ResourceStyle.MULTIPLE_BODIES;
 					break;

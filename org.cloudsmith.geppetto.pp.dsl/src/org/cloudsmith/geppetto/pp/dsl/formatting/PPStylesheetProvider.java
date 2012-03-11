@@ -11,6 +11,7 @@
  */
 package org.cloudsmith.geppetto.pp.dsl.formatting;
 
+import org.cloudsmith.geppetto.pp.PPPackage;
 import org.cloudsmith.geppetto.pp.dsl.services.PPGrammarAccess;
 import org.cloudsmith.xtext.dommodel.formatter.css.DefaultStylesheetProvider;
 import org.cloudsmith.xtext.dommodel.formatter.css.DomCSS;
@@ -52,11 +53,11 @@ public class PPStylesheetProvider extends DefaultStylesheetProvider {
 
 		css.addRules( //
 			// ResourceExpression Layout
-			Select.grammar(ga.getResourceExpressionRule()).withStyles( //
+			Select.semantic(PPPackage.Literals.RESOURCE_EXPRESSION).withStyles( //
 				styles.layout(resourceExpressionLayout)), //
-			Select.grammar(ga.getResourceBodyRule()).withStyles( //
+			Select.semantic(PPPackage.Literals.RESOURCE_BODY).withStyles( //
 				styles.layout(resourceBodyLayout)), //
-			Select.grammar(ga.getAttributeOperationsRule()).withStyles( //
+			Select.semantic(PPPackage.Literals.ATTRIBUTE_OPERATIONS).withStyles( //
 				styles.layout(attributeOperationLayout)));
 		return css;
 	}

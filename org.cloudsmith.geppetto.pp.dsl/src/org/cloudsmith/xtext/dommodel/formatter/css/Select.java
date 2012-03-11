@@ -19,6 +19,7 @@ import java.util.Set;
 import org.cloudsmith.xtext.dommodel.DomModelUtils;
 import org.cloudsmith.xtext.dommodel.IDomNode;
 import org.cloudsmith.xtext.dommodel.IDomNode.NodeType;
+import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 
 import com.google.common.collect.Iterators;
@@ -544,9 +545,11 @@ public class Select {
 	public static abstract class Selector {
 		public static final int MAX_SPECIFICITY = Integer.MAX_VALUE;
 
-		public static final int IMPORTANT_SPECIFICITY = 30000;
+		public static final int IMPORTANT_SPECIFICITY = 50000;
 
 		public static final int IDSPECIFICITY = 15000;
+
+		public static final int SEMANTICSPECIFICITY = 13000;
 
 		public static final int CLASSSPECIFICITY = 120;
 
@@ -586,6 +589,52 @@ public class Select {
 
 		public Rule withStyles(IStyle<?>... styles) {
 			return new Rule(this, StyleSet.withStyles(styles));
+		}
+	}
+
+	/**
+	 * Applies the delegate selector to the successor of the matching node.
+	 * 
+	 */
+	public static class SemanticSelector extends Selector {
+		private EClass eClass;
+
+		private boolean instance;
+
+		private boolean nearest;
+
+		public SemanticSelector(EClass eClass, boolean nearest, boolean instance) {
+			this.eClass = eClass;
+			this.instance = instance;
+			this.nearest = nearest;
+		}
+
+		@Override
+		public boolean equalMatch(Selector s) {
+			if(!(s instanceof SemanticSelector))
+				return false;
+			SemanticSelector other = (SemanticSelector) s;
+			return instance == other.instance && nearest == other.nearest && eClass.equals(other.eClass);
+
+		}
+
+		@Override
+		public int getSpecificity() {
+			return SEMANTICSPECIFICITY;
+		}
+
+		@Override
+		public boolean matches(IDomNode node) {
+			if(node == null)
+				return false;
+			EObject semantic = nearest
+					? node.getNearestSemanticObject()
+					: node.getSemanticObject();
+			if(semantic == null)
+				return false;
+			if(instance)
+				return eClass.isInstance(semantic);
+			return eClass.isSuperTypeOf(semantic.eClass());
 		}
 	}
 
@@ -721,6 +770,26 @@ public class Select {
 		return new Select.And(new NodeSelector(NodeType.KEYWORD), new Text(text));
 	}
 
+	/**
+	 * Select node with a nearest semantic object with given clazz, or a supertype of given clazz.
+	 * 
+	 * @param clazz
+	 * @return
+	 */
+	public static Select.SemanticSelector nearestSemantic(EClass clazz) {
+		return new SemanticSelector(clazz, true, false);
+	}
+
+	/**
+	 * Select node with a nearest semantic object being an instance of the given clazz.
+	 * 
+	 * @param clazz
+	 * @return
+	 */
+	public static Select.SemanticSelector nearestSemanticInstance(EClass clazz) {
+		return new SemanticSelector(clazz, true, true);
+	}
+
 	public static Select.NodeSelector node(Collection<Object> styleClasses) {
 		return new Select.NodeSelector(styleClasses, null);
 	}
@@ -763,6 +832,26 @@ public class Select {
 
 	public static Select.ParentSelector parent(Selector selector) {
 		return new Select.ParentSelector(selector);
+	}
+
+	/**
+	 * Select node with a direct semantic object with given clazz, or a supertype of given clazz.
+	 * 
+	 * @param clazz
+	 * @return
+	 */
+	public static Select.SemanticSelector semantic(EClass clazz) {
+		return new SemanticSelector(clazz, false, false);
+	}
+
+	/**
+	 * Select node with a direct semantic object with given clazz.
+	 * 
+	 * @param clazz
+	 * @return
+	 */
+	public static Select.SemanticSelector semanticInstance(EClass clazz) {
+		return new SemanticSelector(clazz, false, true);
 	}
 
 	public static Select.NodeSelector whitespace() {

@@ -153,7 +153,7 @@ public abstract class AbstractDomNode implements IDomNode {
 	 */
 	@Override
 	public Set<Object> getStyleClassifiers() {
-		return nonModifiableStyleClassifiers;
+		return styleClassifiers;
 	}
 
 	@Override

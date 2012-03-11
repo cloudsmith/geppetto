@@ -206,12 +206,10 @@ public class StyleFactory implements IStyleFactory {
 	public static class LayoutManagerStyle extends AbstractStyle<ILayoutManager> {
 		public LayoutManagerStyle(Function<IDomNode, ILayoutManager> f) {
 			super(f);
-			setTypes(NodeType.whitespaceSet);
 		}
 
-		public LayoutManagerStyle(ILayoutManager lineBreaks) {
-			super(lineBreaks);
-			setTypes(NodeType.whitespaceSet);
+		public LayoutManagerStyle(ILayoutManager layout) {
+			super(layout);
 		}
 
 		@Override

@@ -174,6 +174,12 @@ public interface IDomNode {
 	// IMPORTANT: Must be a unique instance of empty string - do not change to = ""
 	public static final String IMPLIED_EMPTY_WHITESPACE = new String("");
 
+	/**
+	 * Returns the children of a composite node, or an empty list if the node is a leaf, or a composite with no
+	 * children.
+	 * 
+	 * @return a list of this node's children (or an empty list)
+	 */
 	public List<? extends IDomNode> getChildren();
 
 	/**
@@ -200,6 +206,20 @@ public interface IDomNode {
 	 */
 	public int getLength();
 
+	/**
+	 * Returns the nearest semantic object that is associated with the (sub) tree rooted in this node.
+	 * May return <code>null</code> for situation like when a parser refused to create any objects due to
+	 * unrecoverable errors.
+	 * 
+	 * @return the nearest semantic object that is associated with the (sub) tree rooted in this node. May return <code>null</code>.
+	 */
+	public EObject getNearestSemanticObject();
+
+	/**
+	 * Returns the next sibling of this node, or null, if this is the last sibling in a composite node.
+	 * 
+	 * @return
+	 */
 	public IDomNode getNextSibling();
 
 	/**
@@ -218,7 +238,12 @@ public interface IDomNode {
 	 */
 	public Object getNodeId();
 
-	NodeType getNodeType();
+	/**
+	 * Returns the {@link NodeType} of this dom node.
+	 * 
+	 * @return
+	 */
+	public NodeType getNodeType();
 
 	/**
 	 * Returns the offset of this node excluding hidden tokens. If this node is a hidden leaf node or
@@ -236,21 +261,25 @@ public interface IDomNode {
 	 */
 	public IDomNode getParent();
 
+	/**
+	 * Returns the node being the previous node among this node's parent's children.
+	 * 
+	 * @return the previous sibling, or null if this node is the first child (or not a child at all).
+	 */
 	public IDomNode getPreviousSibling();
 
 	/**
-	 * Returns the nearest semantic object that is associated with the (sub) tree rooted in this node.
-	 * May return <code>null</code> for situation like when a parser refused to create any objects due to
-	 * unrecoverable errors.
+	 * Returns the semantic object associated with the (sub) tree rooted in this node, or null if
+	 * no semantic object is directly associated with this node. Also see {@link #getNearestSemanticObject()}.
 	 * 
-	 * @return the nearest semantic object that is associated with the (sub) tree rooted in this node. May return <code>null</code>.
+	 * @return the direct semantic object, or null
 	 */
-	public EObject getSemanticElement();
+	public EObject getSemanticObject();
 
 	/**
 	 * Returns an immutable set of style classifiers which may be used in matching rules.
 	 */
-	public Set<? extends Object> getStyleClassifiers();
+	public Set<Object> getStyleClassifiers();
 
 	/**
 	 * A DomNode may have an associated StyleSet; styles applicable only to this node that match with the

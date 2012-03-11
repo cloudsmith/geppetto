@@ -123,16 +123,9 @@ public abstract class BaseDomNode extends AbstractDomNode {
 		return x;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.cloudsmith.geppetto.pp.dsl.xt.dommodel.impl.AbstractDomNode#getSemanticElement()
-	 */
 	@Override
-	public EObject getSemanticElement() {
-		if(semanticElement != null)
-			return semanticElement;
-		return super.getSemanticElement();
+	public EObject getSemanticObject() {
+		return semanticElement;
 	}
 
 	/*

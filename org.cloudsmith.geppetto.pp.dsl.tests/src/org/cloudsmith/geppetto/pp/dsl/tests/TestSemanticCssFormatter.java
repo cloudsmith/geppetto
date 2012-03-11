@@ -18,6 +18,7 @@ import org.cloudsmith.geppetto.pp.AssignmentExpression;
 import org.cloudsmith.geppetto.pp.LiteralList;
 import org.cloudsmith.geppetto.pp.PPFactory;
 import org.cloudsmith.geppetto.pp.PuppetManifest;
+import org.cloudsmith.geppetto.pp.dsl.formatting.PPStylesheetProvider;
 import org.cloudsmith.geppetto.pp.dsl.ppformatting.PPIndentationInformation;
 import org.cloudsmith.xtext.dommodel.DomModelUtils;
 import org.cloudsmith.xtext.dommodel.IDomNode;
@@ -26,7 +27,6 @@ import org.cloudsmith.xtext.dommodel.formatter.CSSDomFormatter;
 import org.cloudsmith.xtext.dommodel.formatter.DomNodeLayoutFeeder;
 import org.cloudsmith.xtext.dommodel.formatter.IDomModelFormatter;
 import org.cloudsmith.xtext.dommodel.formatter.IFormattingContext;
-import org.cloudsmith.xtext.dommodel.formatter.css.DefaultStylesheetProvider;
 import org.cloudsmith.xtext.dommodel.formatter.css.DomCSS;
 import org.cloudsmith.xtext.dommodel.formatter.css.FunctionFactory;
 import org.cloudsmith.xtext.dommodel.formatter.css.IFunctionFactory;
@@ -88,7 +88,7 @@ public class TestSemanticCssFormatter extends AbstractPuppetTests {
 					org.cloudsmith.xtext.serializer.acceptor.HiddenTokenSequencer.class);
 
 				// Bind the default style sheet (TODO: should use a test specific sheet)
-				binder.bind(DomCSS.class).toProvider(DefaultStylesheetProvider.class);
+				binder.bind(DomCSS.class).toProvider(PPStylesheetProvider.class);
 				// specific to pp (2 spaces).
 				binder.bind(IIndentationInformation.class).to(PPIndentationInformation.class);
 				// binder.bind(IIndentationInformation.class).to(IIndentationInformation.Default.class);
@@ -165,6 +165,14 @@ public class TestSemanticCssFormatter extends AbstractPuppetTests {
 		MeasuredTextFlow flow = this.getInjector().getInstance(MeasuredTextFlow.class);
 		flow.appendText("123");
 		assertFlowOneLineNoBreak(flow);
+	}
+
+	public void test_PPResourceOneBody() throws Exception {
+		String code = "file { 'title': owner => 777, ensure => present }";
+		String fmt = "file { 'title':\n  owner  => 777,\n  ensure => present\n}";
+		XtextResource r = getResourceFromString(code);
+		String s = serializeFormatted(r.getContents().get(0));
+		assertEquals("serialization should produce same result", fmt, s);
 	}
 
 	public void test_Recording() {

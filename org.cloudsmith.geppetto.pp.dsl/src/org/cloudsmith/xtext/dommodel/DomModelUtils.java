@@ -341,7 +341,7 @@ public class DomModelUtils {
 
 	private static String semanticTitle(IDomNode node) {
 
-		EObject o = node.getSemanticElement();
+		EObject o = node.getSemanticObject();
 		if(o == null)
 			return "(null)";
 		return o.eClass().getName();

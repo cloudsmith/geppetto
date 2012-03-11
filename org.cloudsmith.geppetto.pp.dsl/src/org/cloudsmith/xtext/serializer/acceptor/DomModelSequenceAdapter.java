@@ -314,6 +314,13 @@ public class DomModelSequenceAdapter implements ISequenceAcceptor {
 	 */
 	@Override
 	public void enterUnassignedParserRuleCall(RuleCall rc) {
+		// push();
+		// current.setGrammarElement(rc);
+		// current.setSemanticElement(null);
+		// current.setNode(null);
+		// current.setNodeType(RULECALL);
+		// current.setClassifiers(true, NodeClassifier.UNASSIGNED);
+
 		// // For debug printout of entered rule with hidden
 		// AbstractRule r = rc.getRule();
 		// if(r instanceof ParserRule) {

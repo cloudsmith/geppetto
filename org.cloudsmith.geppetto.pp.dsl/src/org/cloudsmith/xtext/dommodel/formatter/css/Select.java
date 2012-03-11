@@ -159,7 +159,7 @@ public class Select {
 		private Set<EObject> matchGrammar;
 
 		Grammar(EObject... grammarElements) {
-			Sets.newHashSet(grammarElements);
+			matchGrammar = Sets.newHashSet(grammarElements);
 		}
 
 		@Override
@@ -707,6 +707,10 @@ public class Select {
 
 	public static Select.Containment containment(Select.Selector... selectors) {
 		return new Select.Containment(selectors);
+	}
+
+	public static Select.Grammar grammar(EObject... grammarElements) {
+		return new Select.Grammar(grammarElements);
 	}
 
 	public static Select.Instance instance(IDomNode x) {

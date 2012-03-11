@@ -84,14 +84,19 @@ public abstract class AbstractDomNode implements IDomNode {
 	@Override
 	public abstract EObject getGrammarElement();
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.cloudsmith.geppetto.pp.dsl.dommodel.IDomNode#getLength()
-	 */
 	@Override
 	public int getLength() {
 		return 0;
+	}
+
+	@Override
+	public EObject getNearestSemanticObject() {
+		EObject semantic = getSemanticObject();
+		if(semantic != null)
+			return semantic;
+		if(parentNode != null)
+			return parentNode.getSemanticObject();
+		return null;
 	}
 
 	/*
@@ -136,15 +141,8 @@ public abstract class AbstractDomNode implements IDomNode {
 		return parentNode;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.cloudsmith.geppetto.pp.dsl.dommodel.IDomNode#getSemanticElement()
-	 */
 	@Override
-	public EObject getSemanticElement() {
-		if(parentNode != null)
-			return parentNode.getSemanticElement();
+	public EObject getSemanticObject() {
 		return null;
 	}
 

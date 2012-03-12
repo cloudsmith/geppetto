@@ -156,18 +156,18 @@ public class Select {
 	 * Selects on grammar element - may contain one or more grammar elements.
 	 * Selector matches if a DOM node is associated with one of the grammar elements.
 	 */
-	public static class Grammar extends Selector {
+	public static class GrammarSelector extends Selector {
 		private Set<EObject> matchGrammar;
 
-		Grammar(EObject... grammarElements) {
+		GrammarSelector(EObject... grammarElements) {
 			matchGrammar = Sets.newHashSet(grammarElements);
 		}
 
 		@Override
 		public boolean equalMatch(Selector selector) {
-			if(selector instanceof Grammar == false)
+			if(selector instanceof GrammarSelector == false)
 				return false;
-			return matchGrammar.equals(((Grammar) selector).matchGrammar);
+			return matchGrammar.equals(((GrammarSelector) selector).matchGrammar);
 		}
 
 		@Override
@@ -754,12 +754,18 @@ public class Select {
 		return new Select.NodeSelector(NodeType.COMMENT);
 	}
 
+	/**
+	 * Matches containment where each selector must match an containing node.
+	 * The interpretation allows for "holes" - i.e. the rule (==A ==C) matches the containment
+	 * in the context (X Y A B C node) since node is contained in a C, that in turn is contained
+	 * in an A). This is similar to how the CSS containment rule works.
+	 */
 	public static Select.Containment containment(Select.Selector... selectors) {
 		return new Select.Containment(selectors);
 	}
 
-	public static Select.Grammar grammar(EObject... grammarElements) {
-		return new Select.Grammar(grammarElements);
+	public static Select.GrammarSelector grammar(EObject... grammarElements) {
+		return new Select.GrammarSelector(grammarElements);
 	}
 
 	public static Select.Instance instance(IDomNode x) {
@@ -856,5 +862,15 @@ public class Select {
 
 	public static Select.NodeSelector whitespace() {
 		return new Select.NodeSelector(NodeType.WHITESPACE);
+	}
+
+	public static Selector whitespaceAfter(Selector predecessor) {
+		return new And(new Select.NodeSelector(NodeType.WHITESPACE), new PredecessorSelector(predecessor));
+
+	}
+
+	public static Selector whitespaceBefore(Selector succcessor) {
+		return new And(new Select.NodeSelector(NodeType.WHITESPACE), new SuccessorSelector(succcessor));
+
 	}
 }

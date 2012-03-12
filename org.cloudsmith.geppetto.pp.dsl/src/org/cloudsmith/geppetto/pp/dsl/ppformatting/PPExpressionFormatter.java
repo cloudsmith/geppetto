@@ -474,7 +474,7 @@ public class PPExpressionFormatter {
 					internalFormatResourceBody(itor.next(), false, stream);
 					stream.appendText(";");
 					stream.appendBreaks(1);
-					// add extra blank line between resoures, but not between last and closing brace
+					// add extra blank line between resources, but not between last and closing brace
 					if(itor.hasNext())
 						stream.appendBreaks(1);
 				}

@@ -13,11 +13,12 @@ package org.cloudsmith.xtext.dommodel.formatter;
 
 import org.cloudsmith.xtext.dommodel.IDomNode;
 import org.cloudsmith.xtext.dommodel.formatter.ILayoutManager.ILayoutContext;
-import org.cloudsmith.xtext.dommodel.formatter.css.StyleSet;
 import org.cloudsmith.xtext.dommodel.formatter.css.StyleFactory.LayoutManagerStyle;
+import org.cloudsmith.xtext.dommodel.formatter.css.StyleSet;
 import org.cloudsmith.xtext.textflow.ITextFlow;
 
 import com.google.inject.Inject;
+import com.google.inject.name.Named;
 
 /**
  * <p>
@@ -40,7 +41,8 @@ import com.google.inject.Inject;
 public class DomNodeLayoutFeeder {
 
 	@Inject
-	protected FlowLayout defaultFlowLayout;
+	@Named("Default")
+	protected ILayoutManager defaultLayout;
 
 	/**
 	 * Sequences the IDomNode in depth first order. Each node is passed to an
@@ -60,7 +62,7 @@ public class DomNodeLayoutFeeder {
 
 	protected void sequenceComposite(IDomNode node, ITextFlow output, ILayoutContext context) {
 		final StyleSet styleSet = context.getCSS().collectStyles(node);
-		final ILayoutManager layout = styleSet.getStyleValue(LayoutManagerStyle.class, node, defaultFlowLayout);
+		final ILayoutManager layout = styleSet.getStyleValue(LayoutManagerStyle.class, node, defaultLayout);
 
 		// if layout of composite by layout manager returns true, children are already processed
 		if(!layout.format(styleSet, node, output, context))
@@ -70,7 +72,7 @@ public class DomNodeLayoutFeeder {
 
 	protected void sequenceLeaf(IDomNode node, ITextFlow output, ILayoutContext context) {
 		final StyleSet styleSet = context.getCSS().collectStyles(node);
-		final ILayoutManager layout = styleSet.getStyleValue(LayoutManagerStyle.class, node, defaultFlowLayout);
+		final ILayoutManager layout = styleSet.getStyleValue(LayoutManagerStyle.class, node, defaultLayout);
 		layout.format(styleSet, node, output, context);
 	}
 }

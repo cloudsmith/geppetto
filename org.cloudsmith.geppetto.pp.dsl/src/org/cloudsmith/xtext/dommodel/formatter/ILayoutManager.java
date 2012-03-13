@@ -65,6 +65,27 @@ public interface ILayoutManager {
 	}
 
 	/**
+	 * Called after all children of a composite have been processed. This call is always performed (even if format of the composite
+	 * returned true).
+	 * 
+	 * @param styleSet
+	 * @param node
+	 * @param output
+	 * @param context
+	 */
+	public void afterComposite(StyleSet styleSet, IDomNode node, ITextFlow output, ILayoutContext context);
+
+	/**
+	 * Called before format of a composite.
+	 * 
+	 * @param styleSet
+	 * @param node
+	 * @param output
+	 * @param context
+	 */
+	public void beforeComposite(StyleSet styleSet, IDomNode node, ITextFlow output, ILayoutContext context);
+
+	/**
 	 * Formats the dom node and produces output in the flow.
 	 * 
 	 * @param dom

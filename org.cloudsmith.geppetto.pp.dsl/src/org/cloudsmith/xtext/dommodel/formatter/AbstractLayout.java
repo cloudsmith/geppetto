@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2011 Cloudsmith Inc. and other contributors, as listed below.
+ * Copyright (c) 2012 Cloudsmith Inc. and other contributors, as listed below.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -14,9 +14,9 @@ package org.cloudsmith.xtext.dommodel.formatter;
 import org.cloudsmith.xtext.dommodel.IDomNode;
 import org.cloudsmith.xtext.dommodel.formatter.css.LineBreaks;
 import org.cloudsmith.xtext.dommodel.formatter.css.Spacing;
-import org.cloudsmith.xtext.dommodel.formatter.css.StyleSet;
 import org.cloudsmith.xtext.dommodel.formatter.css.StyleFactory.DedentStyle;
 import org.cloudsmith.xtext.dommodel.formatter.css.StyleFactory.IndentStyle;
+import org.cloudsmith.xtext.dommodel.formatter.css.StyleSet;
 import org.cloudsmith.xtext.textflow.ITextFlow;
 import org.eclipse.xtext.util.ITextRegion;
 import org.eclipse.xtext.util.Strings;
@@ -27,6 +27,18 @@ import org.eclipse.xtext.util.Strings;
  */
 public abstract class AbstractLayout implements ILayoutManager {
 	private final static Integer DEFAULT_0 = Integer.valueOf(0);
+
+	/**
+	 * Reverses any indentation set before the composite.
+	 */
+	@Override
+	public void afterComposite(StyleSet styleSet, IDomNode node, ITextFlow output, ILayoutContext context) {
+		// Process indentation for all types of composites.
+		// This looks a bit odd, but protects against the pathological case where a style
+		// has both indents and dedents. If both indent and dedent are 0, indentation is unchanged.
+		output.changeIndentation(styleSet.getStyleValue(DedentStyle.class, node, DEFAULT_0) -
+				styleSet.getStyleValue(IndentStyle.class, node, DEFAULT_0));
+	}
 
 	/**
 	 * Outputs the result of applying the given {@link Spacing} and {@link LineBreaks} specifications to the given
@@ -71,6 +83,18 @@ public abstract class AbstractLayout implements ILayoutManager {
 			// output a conforming number of spaces
 			output.appendSpaces(spacing.apply(text.length()));
 		}
+	}
+
+	/**
+	 * This implementation applies indentation set in a composite.
+	 */
+	@Override
+	public void beforeComposite(StyleSet styleSet, IDomNode node, ITextFlow output, ILayoutContext context) {
+		// Process indentation for all types of composites.
+		// This looks a bit odd, but protects against the pathological case where a style
+		// has both indents and dedents. If both indent and dedent are 0, indentation is unchanged.
+		output.changeIndentation(styleSet.getStyleValue(IndentStyle.class, node, DEFAULT_0) -
+				styleSet.getStyleValue(DedentStyle.class, node, DEFAULT_0));
 	}
 
 	@Override
@@ -192,5 +216,4 @@ public abstract class AbstractLayout implements ILayoutManager {
 			return true;
 		return regionToFormat.contains(node.getOffset());
 	}
-
 }

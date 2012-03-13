@@ -163,6 +163,10 @@ public class Select {
 			matchGrammar = Sets.newHashSet(grammarElements);
 		}
 
+		GrammarSelector(Iterable<? extends EObject> grammarElements) {
+			matchGrammar = Sets.newHashSet(grammarElements);
+		}
+
 		@Override
 		public boolean equalMatch(Selector selector) {
 			if(selector instanceof GrammarSelector == false)
@@ -764,8 +768,20 @@ public class Select {
 		return new Select.Containment(selectors);
 	}
 
+	public static Select.GrammarSelector grammar(Collection<? extends EObject> grammarElements) {
+		return new Select.GrammarSelector(grammarElements);
+	}
+
 	public static Select.GrammarSelector grammar(EObject... grammarElements) {
 		return new Select.GrammarSelector(grammarElements);
+	}
+
+	public static Selector important() {
+		return new Important();
+	}
+
+	public static Selector important(Selector s) {
+		return new And(new Important(), s);
 	}
 
 	public static Select.Instance instance(IDomNode x) {

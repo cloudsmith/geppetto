@@ -64,10 +64,12 @@ public class DomNodeLayoutFeeder {
 		final StyleSet styleSet = context.getCSS().collectStyles(node);
 		final ILayoutManager layout = styleSet.getStyleValue(LayoutManagerStyle.class, node, defaultLayout);
 
+		layout.beforeComposite(styleSet, node, output, context);
 		// if layout of composite by layout manager returns true, children are already processed
 		if(!layout.format(styleSet, node, output, context))
 			for(IDomNode n : node.getChildren())
 				sequence(n, output, context);
+		layout.afterComposite(styleSet, node, output, context);
 	}
 
 	protected void sequenceLeaf(IDomNode node, ITextFlow output, ILayoutContext context) {

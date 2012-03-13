@@ -12,10 +12,12 @@
 package org.cloudsmith.geppetto.pp.dsl.formatting;
 
 import org.cloudsmith.geppetto.pp.AttributeOperations;
+import org.cloudsmith.geppetto.pp.ResourceBody;
 import org.cloudsmith.geppetto.pp.ResourceExpression;
 import org.cloudsmith.geppetto.pp.dsl.services.PPGrammarAccess;
 import org.cloudsmith.xtext.dommodel.IDomNode;
-import org.cloudsmith.xtext.dommodel.formatter.AbstractSemanticFlowLayout;
+import org.cloudsmith.xtext.dommodel.formatter.DeclarativeSemanticFlowLayout;
+import org.cloudsmith.xtext.dommodel.formatter.DomNodeLayoutFeeder;
 import org.cloudsmith.xtext.dommodel.formatter.LayoutUtils;
 import org.cloudsmith.xtext.dommodel.formatter.css.Alignment;
 import org.cloudsmith.xtext.dommodel.formatter.css.IStyleFactory;
@@ -30,7 +32,7 @@ import com.google.inject.Singleton;
  * 
  */
 @Singleton
-public class PPSemanticLayout extends AbstractSemanticFlowLayout {
+public class PPSemanticLayout extends DeclarativeSemanticFlowLayout {
 	public enum ResourceStyle {
 		EMPTY, SINGLEBODY_TITLE, SINGLEBODY_NO_TITLE, MULTIPLE_BODIES;
 	}
@@ -40,6 +42,23 @@ public class PPSemanticLayout extends AbstractSemanticFlowLayout {
 
 	@Inject
 	PPGrammarAccess grammarAccess;
+
+	@Inject
+	DomNodeLayoutFeeder feeder;
+
+	protected void _after(AttributeOperations aos, StyleSet styleSet, IDomNode node, ITextFlow flow,
+			ILayoutContext context) {
+		if(aos.eContainer() instanceof ResourceBody) {
+			flow.changeIndentation(-1);
+		}
+	}
+
+	protected void _before(AttributeOperations aos, StyleSet styleSet, IDomNode node, ITextFlow flow,
+			ILayoutContext context) {
+		if(aos.eContainer() instanceof ResourceBody) {
+			flow.changeIndentation(1);
+		}
+	}
 
 	protected boolean _format(AttributeOperations aos, StyleSet styleSet, IDomNode node, ITextFlow flow,
 			ILayoutContext context) {

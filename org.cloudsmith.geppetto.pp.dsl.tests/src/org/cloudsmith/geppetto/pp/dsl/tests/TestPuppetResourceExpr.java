@@ -102,6 +102,13 @@ public class TestPuppetResourceExpr extends AbstractPuppetTests {
 
 	// @formatter:on
 
+	@Override
+	protected boolean shouldTestSerializer(XtextResource resource) {
+		// Do not test the serializer the way the JUnit test does it - it will barf on
+		// magic insertion of text not in the node model.
+		return false;
+	}
+
 	private void subTestValidateExpressionTitles(Expression titleExpr) {
 		PuppetManifest pp = pf.createPuppetManifest();
 		EList<Expression> statements = pp.getStatements();

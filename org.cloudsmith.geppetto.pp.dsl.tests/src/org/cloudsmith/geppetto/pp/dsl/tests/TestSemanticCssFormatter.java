@@ -21,7 +21,6 @@ import org.cloudsmith.geppetto.pp.PuppetManifest;
 import org.cloudsmith.geppetto.pp.dsl.formatting.PPSemanticLayout;
 import org.cloudsmith.geppetto.pp.dsl.formatting.PPStylesheetProvider;
 import org.cloudsmith.geppetto.pp.dsl.ppformatting.PPIndentationInformation;
-import org.cloudsmith.xtext.dommodel.DomModelUtils;
 import org.cloudsmith.xtext.dommodel.IDomNode;
 import org.cloudsmith.xtext.dommodel.IDomNode.NodeType;
 import org.cloudsmith.xtext.dommodel.formatter.CSSDomFormatter;
@@ -70,7 +69,8 @@ public class TestSemanticCssFormatter extends AbstractPuppetTests {
 		@Override
 		public ReplaceRegion format(IDomNode dom, ITextRegion regionToFormat, IFormattingContext formattingContext,
 				Acceptor errors) {
-			System.err.println(DomModelUtils.compactDump(dom, true));
+			// System.err.println("TestSemanticCssFormatter.DebugFormatter");
+			// System.err.println(DomModelUtils.compactDump(dom, true));
 			return super.format(dom, regionToFormat, formattingContext, errors);
 		}
 
@@ -183,9 +183,30 @@ public class TestSemanticCssFormatter extends AbstractPuppetTests {
 		assertFlowOneLineNoBreak(flow);
 	}
 
+	public void test_PPResourceMultipleBodies() throws Exception {
+		String code = "file { 'title': owner => 777, ensure => present; 'title2': owner=>777,ensure=>present }";
+		String fmt = //
+		"file {\n  'title':\n    owner  => 777,\n    ensure => present,;\n\n" + //
+				"  'title2':\n    owner  => 777,\n    ensure => present,;\n}\n";
+		// for(int i = 0; i < 1000; i++) {
+
+		XtextResource r = getResourceFromString(code);
+		String s = serializeFormatted(r.getContents().get(0));
+		assertEquals("serialization should produce same result", fmt, s);
+		// }
+	}
+
 	public void test_PPResourceOneBody() throws Exception {
 		String code = "file { 'title': owner => 777, ensure => present }";
-		String fmt = "file { 'title':\n  owner  => 777,\n  ensure => present\n}\n";
+		String fmt = "file { 'title':\n  owner  => 777,\n  ensure => present,\n}\n";
+		XtextResource r = getResourceFromString(code);
+		String s = serializeFormatted(r.getContents().get(0));
+		assertEquals("serialization should produce same result", fmt, s);
+	}
+
+	public void test_PPResourceOneBodyNoTitle() throws Exception {
+		String code = "File { owner => 777, ensure => present }";
+		String fmt = "File {\n  owner  => 777,\n  ensure => present,\n}\n";
 		XtextResource r = getResourceFromString(code);
 		String s = serializeFormatted(r.getContents().get(0));
 		assertEquals("serialization should produce same result", fmt, s);
@@ -236,7 +257,7 @@ public class TestSemanticCssFormatter extends AbstractPuppetTests {
 	public void test_Serialize_simpleResource() throws Exception {
 		String code = "file{'afile':owner=>'foo'}\n\n\n\n\n";
 		// this is not wanted end result, only used to test intermediate progress on indentation and linebreak
-		String fmt = "file { 'afile':\n  owner => 'foo'\n}\n\n";
+		String fmt = "file { 'afile':\n  owner => 'foo',\n}\n\n";
 		XtextResource r = getResourceFromString(code);
 		String s = serializeFormatted(r.getContents().get(0));
 		assertEquals("serialization should produce same result", fmt, s);

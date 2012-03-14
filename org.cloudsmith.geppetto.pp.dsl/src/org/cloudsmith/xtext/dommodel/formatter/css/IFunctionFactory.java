@@ -16,11 +16,13 @@ import java.util.Set;
 import org.cloudsmith.xtext.dommodel.IDomNode;
 
 import com.google.common.base.Function;
+import com.google.inject.ImplementedBy;
 
 /**
  * Interface for commonly used functions in Dom based formatting.
  * 
  */
+@ImplementedBy(FunctionFactory.class)
 public interface IFunctionFactory {
 
 	public Function<IDomNode, Integer> firstNonWordChar();

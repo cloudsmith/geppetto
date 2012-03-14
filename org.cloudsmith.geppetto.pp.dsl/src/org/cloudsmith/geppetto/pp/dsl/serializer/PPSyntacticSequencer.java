@@ -2,6 +2,7 @@ package org.cloudsmith.geppetto.pp.dsl.serializer;
 
 import java.util.List;
 
+import org.cloudsmith.geppetto.pp.ResourceBody;
 import org.cloudsmith.geppetto.pp.ResourceExpression;
 import org.cloudsmith.geppetto.pp.dsl.services.PPGrammarAccess;
 import org.eclipse.emf.ecore.EObject;
@@ -22,8 +23,13 @@ public class PPSyntacticSequencer extends AbstractPPSyntacticSequencer {
 	@Override
 	protected void emit_AttributeOperations_CommaKeyword_2_q(EObject semanticObject, ISynNavigable transition,
 			List<INode> nodes) {
-		acceptUnassignedKeyword(
-			grammar.getAttributeOperationsAccess().getCommaKeyword_2(), ",", nodes == null || nodes.isEmpty()
+		EObject container = semanticObject.eContainer();
+
+		boolean multiBody = (container instanceof ResourceBody && ((ResourceExpression) container.eContainer()).getResourceData().size() > 1);
+
+		if(!multiBody)
+			acceptUnassignedKeyword(grammar.getAttributeOperationsAccess().getCommaKeyword_2(), ",", nodes == null ||
+					nodes.isEmpty()
 					? null
 					: (ILeafNode) nodes.get(0));
 	}

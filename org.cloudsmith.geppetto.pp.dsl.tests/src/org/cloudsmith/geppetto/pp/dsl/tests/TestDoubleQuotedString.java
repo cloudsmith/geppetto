@@ -73,6 +73,12 @@ public class TestDoubleQuotedString extends AbstractPuppetTests {
 	}
 
 	@Override
+	protected boolean shouldTestSerializer(XtextResource resource) {
+		// NOTE: The serializer tester seems to screw up the comparison of strings
+		return true;
+	}
+
+	@Override
 	public void tearDown() throws Exception {
 		super.tearDown();
 		System.setOut(savedOut);

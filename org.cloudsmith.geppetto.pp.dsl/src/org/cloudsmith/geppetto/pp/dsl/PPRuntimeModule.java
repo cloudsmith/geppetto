@@ -13,6 +13,8 @@ package org.cloudsmith.geppetto.pp.dsl;
 
 import org.cloudsmith.geppetto.common.tracer.DefaultTracer;
 import org.cloudsmith.geppetto.common.tracer.ITracer;
+import org.cloudsmith.geppetto.pp.dsl.formatting.PPSemanticLayout;
+import org.cloudsmith.geppetto.pp.dsl.formatting.PPStylesheetProvider;
 import org.cloudsmith.geppetto.pp.dsl.lexer.PPOverridingLexer;
 import org.cloudsmith.geppetto.pp.dsl.linking.PPLinker;
 import org.cloudsmith.geppetto.pp.dsl.linking.PPQualifiedNameConverter;
@@ -21,15 +23,24 @@ import org.cloudsmith.geppetto.pp.dsl.linking.PPResourceDescriptionManager;
 import org.cloudsmith.geppetto.pp.dsl.linking.PPResourceDescriptionStrategy;
 import org.cloudsmith.geppetto.pp.dsl.linking.PPSearchPath.ISearchPathProvider;
 import org.cloudsmith.geppetto.pp.dsl.linking.PPSearchPathProvider;
+import org.cloudsmith.geppetto.pp.dsl.ppformatting.PPIndentationInformation;
 import org.cloudsmith.geppetto.pp.dsl.serialization.PPValueSerializer;
 import org.cloudsmith.geppetto.pp.dsl.validation.IValidationAdvisor;
 import org.cloudsmith.geppetto.pp.dsl.validation.ValidationAdvisorProvider;
+import org.cloudsmith.xtext.dommodel.formatter.CSSDomFormatter;
+import org.cloudsmith.xtext.dommodel.formatter.IDomModelFormatter;
+import org.cloudsmith.xtext.dommodel.formatter.ILayoutManager;
+import org.cloudsmith.xtext.dommodel.formatter.css.DomCSS;
+import org.cloudsmith.xtext.serializer.DomBasedSerializer;
 import org.eclipse.xtext.conversion.IValueConverterService;
+import org.eclipse.xtext.formatting.IIndentationInformation;
 import org.eclipse.xtext.naming.IQualifiedNameConverter;
 import org.eclipse.xtext.naming.IQualifiedNameProvider;
 import org.eclipse.xtext.parser.antlr.Lexer;
 import org.eclipse.xtext.resource.IDefaultResourceDescriptionStrategy;
 import org.eclipse.xtext.resource.IResourceDescription;
+import org.eclipse.xtext.serializer.ISerializer;
+import org.eclipse.xtext.serializer.sequencer.IHiddenTokenSequencer;
 import org.eclipse.xtext.validation.CompositeEValidator;
 
 import com.google.inject.name.Names;
@@ -83,10 +94,10 @@ public class PPRuntimeModule extends org.cloudsmith.geppetto.pp.dsl.AbstractPPRu
 		return PPResourceDescriptionManager.class;
 	}
 
-	// @Override
-	// public Class<? extends ISerializer> bindISerializer() {
-	// return PPSerializer.class;
-	// }
+	@Override
+	public Class<? extends ISerializer> bindISerializer() {
+		return DomBasedSerializer.class;
+	}
 
 	// add transient value serialization service to enable skipping values that are transient from
 	// a grammar perspective
@@ -125,6 +136,21 @@ public class PPRuntimeModule extends org.cloudsmith.geppetto.pp.dsl.AbstractPPRu
 		binder.bindConstant().annotatedWith( //
 			com.google.inject.name.Names.named(//
 			CompositeEValidator.USE_EOBJECT_VALIDATOR)).to(false);
+	}
+
+	public void configureFormatting(com.google.inject.Binder binder) {
+		binder.bind(IDomModelFormatter.class).to(CSSDomFormatter.class);
+		// Want serializer to insert empty WS even if there is no node model
+		binder.bind(IHiddenTokenSequencer.class).to(org.cloudsmith.xtext.serializer.acceptor.HiddenTokenSequencer.class);
+
+		// Bind the default style sheet (TODO: Not a nice way to bind impl class - use names)
+		binder.bind(DomCSS.class).toProvider(PPStylesheetProvider.class);
+
+		// binder.bind(IIndentationInformation.class).to(IIndentationInformation.Default.class);
+		binder.bind(IIndentationInformation.class).to(PPIndentationInformation.class);
+
+		// The layout manager to use by default (when not overridden in style sheet).
+		binder.bind(ILayoutManager.class).annotatedWith(Names.named("Default")).to(PPSemanticLayout.class);
 	}
 
 	// Is now done via an external lexer that is automatically configured into the module

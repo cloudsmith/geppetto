@@ -34,7 +34,7 @@ import org.eclipse.xtext.junit.validation.AssertableDiagnostics;
 public class TestSelectorExpression extends AbstractPuppetTests {
 	// @formatter:off
 
-	static final String Sample_Selector = "x ? {\n  a => false,\n}\n";
+	static final String Sample_Selector = "x ? {\n  a => true,\n}\n";
 
 	// @formatter:on
 

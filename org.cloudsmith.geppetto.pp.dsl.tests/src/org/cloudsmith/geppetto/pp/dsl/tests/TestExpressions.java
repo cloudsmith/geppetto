@@ -52,11 +52,11 @@ public class TestExpressions extends AbstractPuppetTests {
 			"} -> file { 'file3':\n" + //
 			"}\n";
 
-	static final String Sample_Assignment1 = "$x = false\n";
+	static final String Sample_Assignment1 = "$x = true\n";
 
-	static final String Sample_Assignment2 = "$x[a] = false\n";
+	static final String Sample_Assignment2 = "$x[a] = true\n";
 
-	static final String Sample_Append = "$x += false\n";
+	static final String Sample_Append = "$x += true\n";
 
 	static final String Sample_Match1 = "$x =~ /[a-z]*/\n";
 

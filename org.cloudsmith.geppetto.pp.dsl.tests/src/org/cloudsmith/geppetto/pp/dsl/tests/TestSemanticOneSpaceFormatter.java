@@ -114,7 +114,7 @@ public class TestSemanticOneSpaceFormatter extends AbstractPuppetTests {
 		pplist.getElements().add(createSqString("10"));
 		pplist.getElements().add(createSqString("20"));
 		pp.getStatements().add(assignment);
-		String fmt = "$a = [ '10', '20' ]\n";
+		String fmt = "$a = [ '10' , '20' ]\n";
 		String s = serialize(pp);
 		assertEquals("serialization should single spaced result", fmt, s);
 	}

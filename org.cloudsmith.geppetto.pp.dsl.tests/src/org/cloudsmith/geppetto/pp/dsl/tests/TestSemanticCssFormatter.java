@@ -12,6 +12,8 @@
 package org.cloudsmith.geppetto.pp.dsl.tests;
 
 import java.util.EnumSet;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Set;
 
 import org.cloudsmith.geppetto.pp.AssignmentExpression;
@@ -29,23 +31,26 @@ import org.cloudsmith.xtext.dommodel.formatter.IDomModelFormatter;
 import org.cloudsmith.xtext.dommodel.formatter.IFormattingContext;
 import org.cloudsmith.xtext.dommodel.formatter.ILayoutManager;
 import org.cloudsmith.xtext.dommodel.formatter.css.DomCSS;
-import org.cloudsmith.xtext.dommodel.formatter.css.FunctionFactory;
-import org.cloudsmith.xtext.dommodel.formatter.css.IFunctionFactory;
-import org.cloudsmith.xtext.dommodel.formatter.css.IStyleFactory;
-import org.cloudsmith.xtext.dommodel.formatter.css.StyleFactory;
 import org.cloudsmith.xtext.serializer.DomBasedSerializer;
 import org.cloudsmith.xtext.textflow.ITextFlow;
 import org.cloudsmith.xtext.textflow.MeasuredTextFlow;
 import org.cloudsmith.xtext.textflow.TextFlow;
 import org.cloudsmith.xtext.textflow.TextFlowRecording;
+import org.eclipse.emf.common.notify.Adapter;
+import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.xtext.formatting.IIndentationInformation;
+import org.eclipse.xtext.nodemodel.ICompositeNode;
 import org.eclipse.xtext.resource.XtextResource;
 import org.eclipse.xtext.serializer.ISerializer;
 import org.eclipse.xtext.serializer.diagnostic.ISerializationDiagnostic.Acceptor;
 import org.eclipse.xtext.serializer.sequencer.IHiddenTokenSequencer;
 import org.eclipse.xtext.util.ITextRegion;
+import org.eclipse.xtext.util.Pair;
 import org.eclipse.xtext.util.ReplaceRegion;
+import org.eclipse.xtext.util.Tuples;
 
+import com.google.common.collect.Lists;
 import com.google.inject.Binder;
 import com.google.inject.Guice;
 import com.google.inject.Inject;
@@ -84,8 +89,6 @@ public class TestSemanticCssFormatter extends AbstractPuppetTests {
 				super.configure(binder);
 				binder.bind(ISerializer.class).to(DomBasedSerializer.class);
 				binder.bind(IDomModelFormatter.class).to(DebugFormatter.class);
-				binder.bind(IFunctionFactory.class).to(FunctionFactory.class);
-				binder.bind(IStyleFactory.class).to(StyleFactory.class);
 				// Want serializer to insert empty WS even if there is no node model
 				binder.bind(IHiddenTokenSequencer.class).to(
 					org.cloudsmith.xtext.serializer.acceptor.HiddenTokenSequencer.class);
@@ -146,11 +149,29 @@ public class TestSemanticCssFormatter extends AbstractPuppetTests {
 		assertFalse("Not empty", flow.isEmpty());
 	}
 
-	@Override
-	public void setUp() throws Exception {
-		super.setUp();
-		// with(PPStandaloneSetup.class);
-		with(TestSetup.class);
+	// @Override
+	// public void setUp() throws Exception {
+	// super.setUp();
+	// // with(PPStandaloneSetup.class);
+	// with(TestSetup.class);
+	// }
+
+	protected void brutalDetachNodeModel(EObject eObject) {
+		EcoreUtil.resolveAll(eObject);
+		List<Pair<EObject, ICompositeNode>> result = Lists.newArrayList();
+		Iterator<Object> iterator = EcoreUtil.getAllContents(eObject.eResource(), false);
+		while(iterator.hasNext()) {
+			EObject object = (EObject) iterator.next();
+			Iterator<Adapter> adapters = object.eAdapters().iterator();
+			while(adapters.hasNext()) {
+				Adapter adapter = adapters.next();
+				if(adapter instanceof ICompositeNode) {
+					adapters.remove();
+					result.add(Tuples.create(object, (ICompositeNode) adapter));
+					break;
+				}
+			}
+		}
 	}
 
 	/*
@@ -168,7 +189,6 @@ public class TestSemanticCssFormatter extends AbstractPuppetTests {
 		MeasuredTextFlow flow = this.getInjector().getInstance(MeasuredTextFlow.class);
 		appendSampleFlow(flow);
 		assertSampleFlowMetrics(flow);
-
 	}
 
 	public void test_MeasuringTextStreamEmpty() {
@@ -191,6 +211,7 @@ public class TestSemanticCssFormatter extends AbstractPuppetTests {
 		// for(int i = 0; i < 1000; i++) {
 
 		XtextResource r = getResourceFromString(code);
+		brutalDetachNodeModel(r.getContents().get(0));
 		String s = serializeFormatted(r.getContents().get(0));
 		assertEquals("serialization should produce same result", fmt, s);
 		// }
@@ -199,9 +220,12 @@ public class TestSemanticCssFormatter extends AbstractPuppetTests {
 	public void test_PPResourceOneBody() throws Exception {
 		String code = "file { 'title': owner => 777, ensure => present }";
 		String fmt = "file { 'title':\n  owner  => 777,\n  ensure => present,\n}\n";
-		XtextResource r = getResourceFromString(code);
-		String s = serializeFormatted(r.getContents().get(0));
-		assertEquals("serialization should produce same result", fmt, s);
+		for(int i = 0; i < 1; i++) {
+			XtextResource r = getResourceFromString(code);
+			// brutalDetachNodeModel(r.getContents().get(0));
+			String s = serializeFormatted(r.getContents().get(0));
+			assertEquals("serialization should produce same result", fmt, s);
+		}
 	}
 
 	public void test_PPResourceOneBodyNoTitle() throws Exception {
@@ -259,6 +283,7 @@ public class TestSemanticCssFormatter extends AbstractPuppetTests {
 		// this is not wanted end result, only used to test intermediate progress on indentation and linebreak
 		String fmt = "file { 'afile':\n  owner => 'foo',\n}\n\n";
 		XtextResource r = getResourceFromString(code);
+
 		String s = serializeFormatted(r.getContents().get(0));
 		assertEquals("serialization should produce same result", fmt, s);
 	}

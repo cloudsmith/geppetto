@@ -65,6 +65,9 @@ public class PPStylesheetProvider extends DefaultStylesheetProvider {
 			styles.oneLineBreak(), //
 			styles.noSpace(), //
 			styles.dedent(0));
+		final StyleSet noSpaceNoLine = StyleSet.withImmutableStyles(styles.noSpace(), styles.noLineBreak());
+
+		final Selector atExpressionLeftBracket = Select.grammar(grammarAccess.getAtExpressionAccess().getLeftSquareBracketKeyword_1_1());
 
 		DomCSS css = super.get();
 
@@ -92,7 +95,8 @@ public class PPStylesheetProvider extends DefaultStylesheetProvider {
 
 			// break bodies apart on body semicolon
 			Select.whitespaceAfter(resourceBodySemicolon).withStyles(//
-				styles.lineBreaks(2, 2, 2)), Select.whitespaceBefore(resourceBodySemicolon).withStyles(//
+				styles.lineBreaks(2, 2, 2)),
+			Select.whitespaceBefore(resourceBodySemicolon).withStyles(//
 				styles.noSpace(), //
 				styles.noLineBreak()),
 
@@ -114,9 +118,23 @@ public class PPStylesheetProvider extends DefaultStylesheetProvider {
 				styles.oneLineBreak()), //
 
 			// ATTRIBUTE OPERATIONS have each operation on a separate line
-			//
+			// a => b, c => d
+			// -------^
 			Select.whitespaceAfter(attributeOperationsComma).withStyles(//
-				styles.oneLineBreak())
+				styles.oneLineBreak()),
+
+			// xxx []
+			// ---^
+			Select.whitespaceBefore(atExpressionLeftBracket).withStyles(styles.noSpace(), styles.noLineBreak()),
+
+			// @ name
+			// -^
+			// @@ name
+			// --^
+			Select.whitespaceAfter(Select.keyword("@")).withStyle(noSpaceNoLine),
+			Select.whitespaceAfter(
+				Select.grammar(grammarAccess.getVirtualNameOrReferenceAccess().getExportedATBooleanParserRuleCall_1_0())).withStyle(
+				noSpaceNoLine)
 
 		);
 		return css;

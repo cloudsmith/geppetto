@@ -143,7 +143,15 @@ public class PPStylesheetProvider extends DefaultStylesheetProvider {
 				Select.grammar(grammarAccess.getVirtualNameOrReferenceAccess().getExportedATBooleanParserRuleCall_1_0())).withStyle(
 				noSpaceNoLine),
 
-			Select.whitespaceBefore(elseAndElsifKeywords).withStyle(oneSpaceNoLine) //
+			Select.whitespaceBefore(elseAndElsifKeywords).withStyle(oneSpaceNoLine), //
+
+			Select.whitespaceAfter(
+				Select.grammar(grammarAccess.getUnaryMinusExpressionAccess().getHyphenMinusKeyword_0())).withStyle(//
+				noSpaceNoLine), //
+
+			Select.whitespaceAfter(Select.grammar(grammarAccess.getNotExpressionAccess().getExclamationMarkKeyword_0())).withStyle(//
+				noSpaceNoLine)
+
 		);
 		return css;
 	}

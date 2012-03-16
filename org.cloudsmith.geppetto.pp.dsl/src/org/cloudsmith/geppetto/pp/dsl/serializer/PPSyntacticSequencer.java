@@ -66,4 +66,14 @@ public class PPSyntacticSequencer extends AbstractPPSyntacticSequencer {
 			// only if present in node model
 			super.emit_ResourceExpression_SemicolonKeyword_1_3_2_q(semanticObject, transition, nodes);
 	}
+
+	@Override
+	protected void emit_SelectorExpression_EndCommaParserRuleCall_1_2_0_3_q(EObject semanticObject,
+			ISynNavigable transition, List<INode> nodes) {
+		acceptUnassignedTerminal(
+			grammar.getSelectorExpressionAccess().getEndCommaParserRuleCall_1_2_0_3(), ",",
+			nodes == null || nodes.isEmpty()
+					? null
+					: (ILeafNode) nodes.get(0));
+	}
 }

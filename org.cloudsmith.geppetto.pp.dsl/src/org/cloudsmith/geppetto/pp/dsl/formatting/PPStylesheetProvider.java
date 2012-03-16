@@ -74,6 +74,7 @@ public class PPStylesheetProvider extends DefaultStylesheetProvider {
 			styles.dedent(0));
 
 		final StyleSet noSpaceNoLine = StyleSet.withImmutableStyles(styles.noSpace(), styles.noLineBreak());
+		final StyleSet noSpaceOneLine = StyleSet.withImmutableStyles(styles.noSpace(), styles.oneLineBreak());
 		final StyleSet oneSpaceNoLine = StyleSet.withImmutableStyles(styles.oneSpace(), styles.noLineBreak());
 
 		final Selector atExpressionLeftBracket = Select.grammar(grammarAccess.getAtExpressionAccess().getLeftSquareBracketKeyword_1_1());
@@ -156,7 +157,15 @@ public class PPStylesheetProvider extends DefaultStylesheetProvider {
 
 			// Relationships are typically resource {} -> resource {}
 			Select.whitespaceBefore(relationshipEdgeOperator).withStyle(oneSpaceNoLine), //
-			Select.whitespaceAfter(relationshipEdgeOperator).withStyle(oneSpaceNoLine)
+			Select.whitespaceAfter(relationshipEdgeOperator).withStyle(oneSpaceNoLine), //
+
+			// Selector Expression
+			Select.whitespaceBefore(
+				Select.grammar(grammarAccess.getSelectorExpressionAccess().getEndCommaParserRuleCall_1_2_0_3())).withStyle(//
+				noSpaceNoLine),
+			Select.whitespaceAfter(
+				Select.grammar(grammarAccess.getSelectorExpressionAccess().getCommaKeyword_1_2_0_2_0_0())).withStyle(//
+				noSpaceOneLine)
 
 		);
 		return css;

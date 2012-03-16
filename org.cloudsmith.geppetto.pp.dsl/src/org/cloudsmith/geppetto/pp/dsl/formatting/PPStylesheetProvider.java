@@ -66,6 +66,8 @@ public class PPStylesheetProvider extends DefaultStylesheetProvider {
 			grammarAccess.getIfExpressionAccess().findKeywords("else", "elsif"), //
 			grammarAccess.getElseIfExpressionAccess().findKeywords("else", "elsif")));
 
+		final Selector relationshipEdgeOperator = Select.grammar(grammarAccess.getRelationshipExpressionAccess().getOpNameEdgeOperatorParserRuleCall_1_1_0());
+
 		final StyleSet resourceRightCurlyStyleNoDedent = StyleSet.withImmutableStyles(//
 			styles.oneLineBreak(), //
 			styles.noSpace(), //
@@ -150,7 +152,11 @@ public class PPStylesheetProvider extends DefaultStylesheetProvider {
 				noSpaceNoLine), //
 
 			Select.whitespaceAfter(Select.grammar(grammarAccess.getNotExpressionAccess().getExclamationMarkKeyword_0())).withStyle(//
-				noSpaceNoLine)
+				noSpaceNoLine), //
+
+			// Relationships are typically resource {} -> resource {}
+			Select.whitespaceBefore(relationshipEdgeOperator).withStyle(oneSpaceNoLine), //
+			Select.whitespaceAfter(relationshipEdgeOperator).withStyle(oneSpaceNoLine)
 
 		);
 		return css;

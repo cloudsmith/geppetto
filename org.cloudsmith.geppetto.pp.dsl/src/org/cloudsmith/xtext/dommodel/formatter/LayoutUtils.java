@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2011 Cloudsmith Inc. and other contributors, as listed below.
+ * Copyright (c) 2012 Cloudsmith Inc. and other contributors, as listed below.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -14,6 +14,7 @@ package org.cloudsmith.xtext.dommodel.formatter;
 import java.util.Iterator;
 import java.util.List;
 
+import org.cloudsmith.xtext.dommodel.DomModelUtils;
 import org.cloudsmith.xtext.dommodel.IDomNode;
 import org.cloudsmith.xtext.dommodel.formatter.css.Alignment;
 import org.cloudsmith.xtext.dommodel.formatter.css.StyleFactory;
@@ -49,6 +50,7 @@ public class LayoutUtils {
 		while(iterator.hasNext()) {
 			IDomNode node = iterator.next();
 			if(node.getGrammarElement() == grammarElement) {
+				node = DomModelUtils.firstTokenWithText(node);
 				max = Math.max(max, node.getText() == null
 						? 0
 						: node.getText().length());

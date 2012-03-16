@@ -206,8 +206,8 @@ public class TestSemanticCssFormatter extends AbstractPuppetTests {
 	public void test_PPResourceMultipleBodies() throws Exception {
 		String code = "file { 'title': owner => 777, ensure => present; 'title2': owner=>777,ensure=>present }";
 		String fmt = //
-		"file {\n  'title':\n    owner  => 777,\n    ensure => present,;\n\n" + //
-				"  'title2':\n    owner  => 777,\n    ensure => present,;\n}\n";
+		"file {\n  'title':\n    owner  => 777,\n    ensure => present;\n\n" + //
+				"  'title2':\n    owner  => 777,\n    ensure => present;\n}\n";
 		// for(int i = 0; i < 1000; i++) {
 
 		XtextResource r = getResourceFromString(code);

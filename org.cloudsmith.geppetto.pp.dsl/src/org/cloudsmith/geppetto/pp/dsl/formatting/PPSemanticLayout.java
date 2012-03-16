@@ -14,6 +14,7 @@ package org.cloudsmith.geppetto.pp.dsl.formatting;
 import org.cloudsmith.geppetto.pp.AttributeOperations;
 import org.cloudsmith.geppetto.pp.ResourceBody;
 import org.cloudsmith.geppetto.pp.ResourceExpression;
+import org.cloudsmith.geppetto.pp.SelectorExpression;
 import org.cloudsmith.geppetto.pp.dsl.services.PPGrammarAccess;
 import org.cloudsmith.xtext.dommodel.IDomNode;
 import org.cloudsmith.xtext.dommodel.formatter.DeclarativeSemanticFlowLayout;
@@ -85,5 +86,13 @@ public class PPSemanticLayout extends DeclarativeSemanticFlowLayout {
 		}
 		node.getStyleClassifiers().add(rstyle);
 		return false;
+	}
+
+	protected boolean _format(SelectorExpression se, StyleSet styleSet, IDomNode node, ITextFlow flow,
+			ILayoutContext context) {
+		LayoutUtils.unifyWidthAndAlign(
+			node, grammarAccess.getSelectorEntryAccess().getSelectorEntryLeftExprAction_1_0(), Alignment.left);
+		return false;
+
 	}
 }

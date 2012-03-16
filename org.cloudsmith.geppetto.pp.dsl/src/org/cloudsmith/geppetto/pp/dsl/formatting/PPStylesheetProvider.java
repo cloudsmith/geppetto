@@ -23,6 +23,7 @@ import org.cloudsmith.xtext.dommodel.formatter.css.Select.Selector;
 import org.cloudsmith.xtext.dommodel.formatter.css.StyleSet;
 
 import com.google.inject.Inject;
+import com.google.inject.internal.Iterables;
 
 /**
  * Provides the style sheet for PP.
@@ -61,11 +62,17 @@ public class PPStylesheetProvider extends DefaultStylesheetProvider {
 			resourceExpressionAccess.getSemicolonKeyword_0_1_2_2(), //
 			resourceExpressionAccess.getSemicolonKeyword_1_3_2());
 
+		final Selector elseAndElsifKeywords = Select.grammar(Iterables.concat(
+			grammarAccess.getIfExpressionAccess().findKeywords("else", "elsif"), //
+			grammarAccess.getElseIfExpressionAccess().findKeywords("else", "elsif")));
+
 		final StyleSet resourceRightCurlyStyleNoDedent = StyleSet.withImmutableStyles(//
 			styles.oneLineBreak(), //
 			styles.noSpace(), //
 			styles.dedent(0));
+
 		final StyleSet noSpaceNoLine = StyleSet.withImmutableStyles(styles.noSpace(), styles.noLineBreak());
+		final StyleSet oneSpaceNoLine = StyleSet.withImmutableStyles(styles.oneSpace(), styles.noLineBreak());
 
 		final Selector atExpressionLeftBracket = Select.grammar(grammarAccess.getAtExpressionAccess().getLeftSquareBracketKeyword_1_1());
 
@@ -134,8 +141,9 @@ public class PPStylesheetProvider extends DefaultStylesheetProvider {
 			Select.whitespaceAfter(Select.keyword("@")).withStyle(noSpaceNoLine),
 			Select.whitespaceAfter(
 				Select.grammar(grammarAccess.getVirtualNameOrReferenceAccess().getExportedATBooleanParserRuleCall_1_0())).withStyle(
-				noSpaceNoLine)
+				noSpaceNoLine),
 
+			Select.whitespaceBefore(elseAndElsifKeywords).withStyle(oneSpaceNoLine) //
 		);
 		return css;
 	}

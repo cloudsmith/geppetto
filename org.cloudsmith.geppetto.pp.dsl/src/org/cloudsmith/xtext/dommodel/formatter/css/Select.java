@@ -776,6 +776,10 @@ public class Select {
 		return new Select.GrammarSelector(grammarElements);
 	}
 
+	public static Select.GrammarSelector grammar(Iterable<? extends EObject> grammarElements) {
+		return new Select.GrammarSelector(grammarElements);
+	}
+
 	public static Selector important() {
 		return new Important();
 	}

@@ -136,8 +136,13 @@ public class CatalogResourceImpl extends TaggableImpl implements CatalogResource
 						// values.setLength(values.length() - 2);
 						// rp.setValue(values.toString());
 					}
-					else
+					else if(entry.getValue().isJsonPrimitive()) {
 						rp.getValue().add(entry.getValue().getAsString());
+					}
+					else if(entry.getValue().isJsonNull())
+						rp.getValue().add("(null)");
+					else
+						rp.getValue().add("DATA"); // don't know how to deserialize in this case, could be anything
 					pList.add(rp);
 				}
 

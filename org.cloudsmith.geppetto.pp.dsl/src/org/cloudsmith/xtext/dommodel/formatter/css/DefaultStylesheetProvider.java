@@ -75,6 +75,12 @@ public class DefaultStylesheetProvider implements Provider<DomCSS> {
 			Select.before(Select.whitespace(), Select.keyword("]")).withStyles( //
 				styles.noSpace()), //
 
+			// No space after '(' and no space before ')'
+			Select.after(Select.whitespace(), Select.keyword("(")).withStyles( //
+				styles.noSpace()), //
+			Select.before(Select.whitespace(), Select.keyword(")")).withStyles( //
+				styles.noSpace()), //
+
 			// Start indent on '{' and break line
 			Select.after(Select.whitespace(), Select.keyword("{")).withStyles( //
 				styles.indent(), //

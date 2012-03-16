@@ -12,7 +12,6 @@
 package org.cloudsmith.geppetto.pp.dsl.tests;
 
 import org.cloudsmith.geppetto.pp.AssignmentExpression;
-import org.cloudsmith.geppetto.pp.Expression;
 import org.cloudsmith.geppetto.pp.LiteralList;
 import org.cloudsmith.geppetto.pp.PPFactory;
 import org.cloudsmith.geppetto.pp.PuppetManifest;
@@ -22,7 +21,6 @@ import org.cloudsmith.xtext.dommodel.formatter.IDomModelFormatter;
 import org.cloudsmith.xtext.dommodel.formatter.IFormattingContext;
 import org.cloudsmith.xtext.dommodel.formatter.OneWhitespaceDomFormatter;
 import org.cloudsmith.xtext.serializer.DomBasedSerializer;
-import org.eclipse.emf.common.util.EList;
 import org.eclipse.xtext.formatting.IIndentationInformation;
 import org.eclipse.xtext.resource.XtextResource;
 import org.eclipse.xtext.serializer.ISerializer;
@@ -36,7 +34,8 @@ import com.google.inject.Injector;
 import com.google.inject.util.Modules;
 
 /**
- * @author henrik
+ * Tests the OneSpace Semantic Formatter.
+ * (This is not the most important formatter, and there are only a few smoke tests).
  * 
  */
 public class TestSemanticOneSpaceFormatter extends AbstractPuppetTests {
@@ -106,7 +105,6 @@ public class TestSemanticOneSpaceFormatter extends AbstractPuppetTests {
 
 	public void test_Serialize_assignArray() throws Exception {
 		PuppetManifest pp = pf.createPuppetManifest();
-		EList<Expression> statements = pp.getStatements();
 		AssignmentExpression assignment = PPFactory.eINSTANCE.createAssignmentExpression();
 		assignment.setLeftExpr(createVariable("a"));
 		LiteralList pplist = PPFactory.eINSTANCE.createLiteralList();
@@ -114,9 +112,10 @@ public class TestSemanticOneSpaceFormatter extends AbstractPuppetTests {
 		pplist.getElements().add(createSqString("10"));
 		pplist.getElements().add(createSqString("20"));
 		pp.getStatements().add(assignment);
-		String fmt = "$a = [ '10' , '20' ]\n";
+		String fmt = "$a = [ '10' , '20' ]";
 		String s = serialize(pp);
-		assertEquals("serialization should single spaced result", fmt, s);
+		assertEquals("serialization should produce single spaced result", fmt, s);
+
 	}
 
 }

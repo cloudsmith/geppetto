@@ -75,7 +75,7 @@ public class TestDoubleQuotedString extends AbstractPuppetTests {
 	@Override
 	protected boolean shouldTestSerializer(XtextResource resource) {
 		// NOTE: The serializer tester seems to screw up the comparison of strings
-		return true;
+		return false;
 	}
 
 	@Override
@@ -225,6 +225,16 @@ public class TestDoubleQuotedString extends AbstractPuppetTests {
 		assertEquals("serialization should produce specified result", code, s);
 	}
 
+	public void test_serializeSimpleDqString() throws Exception {
+		String code = "$x = \"a${var}\"";
+		XtextResource r = getResourceFromString(code);
+		EObject result = r.getContents().get(0);
+		String s = serializeFormatted(result);
+
+		assertEquals("Serialization of interpolated string should produce same result", "$x = \"a${var}\"\n", s);
+
+	}
+
 	public void test_Validate_DoubleQuotedString_Ok() {
 		DoubleQuotedString ls = pf.createDoubleQuotedString();
 		VerbatimTE te = pf.createVerbatimTE();
@@ -291,4 +301,5 @@ public class TestDoubleQuotedString extends AbstractPuppetTests {
 		tester.validator().checkVerbatimTextExpression(te);
 		tester.diagnose().assertWarning(IPPDiagnostics.ISSUE__UNRECOGNIZED_ESCAPE);
 	}
+
 }

@@ -67,6 +67,15 @@ public class PPStylesheetProvider extends DefaultStylesheetProvider {
 			grammarAccess.getElseIfExpressionAccess().findKeywords("else", "elsif")));
 
 		final Selector relationshipEdgeOperator = Select.grammar(grammarAccess.getRelationshipExpressionAccess().getOpNameEdgeOperatorParserRuleCall_1_1_0());
+		final Selector atExpressionLeftBracket = Select.grammar(grammarAccess.getAtExpressionAccess().getLeftSquareBracketKeyword_1_1());
+
+		// interpoation
+		final Selector interpolationStart = Select.grammar(
+			grammarAccess.getTextExpressionAccess().getDollarSignLeftCurlyBracketKeyword_1_1(), //
+			grammarAccess.getUnquotedStringAccess().getDollarSignLeftCurlyBracketKeyword_1());
+		final Selector interpolationEnd = Select.grammar(
+			grammarAccess.getTextExpressionAccess().getRightCurlyBracketKeyword_1_3(), //
+			grammarAccess.getUnquotedStringAccess().getRightCurlyBracketKeyword_3());
 
 		final StyleSet resourceRightCurlyStyleNoDedent = StyleSet.withImmutableStyles(//
 			styles.oneLineBreak(), //
@@ -76,8 +85,6 @@ public class PPStylesheetProvider extends DefaultStylesheetProvider {
 		final StyleSet noSpaceNoLine = StyleSet.withImmutableStyles(styles.noSpace(), styles.noLineBreak());
 		final StyleSet noSpaceOneLine = StyleSet.withImmutableStyles(styles.noSpace(), styles.oneLineBreak());
 		final StyleSet oneSpaceNoLine = StyleSet.withImmutableStyles(styles.oneSpace(), styles.noLineBreak());
-
-		final Selector atExpressionLeftBracket = Select.grammar(grammarAccess.getAtExpressionAccess().getLeftSquareBracketKeyword_1_1());
 
 		DomCSS css = super.get();
 
@@ -165,7 +172,11 @@ public class PPStylesheetProvider extends DefaultStylesheetProvider {
 				noSpaceNoLine),
 			Select.whitespaceAfter(
 				Select.grammar(grammarAccess.getSelectorExpressionAccess().getCommaKeyword_1_2_0_2_0_0())).withStyle(//
-				noSpaceOneLine)
+				noSpaceOneLine),
+
+			// Interpolation
+			Select.whitespaceAfter(interpolationStart).withStyle(noSpaceNoLine), //
+			Select.whitespaceBefore(interpolationEnd).withStyle(noSpaceNoLine)
 
 		);
 		return css;

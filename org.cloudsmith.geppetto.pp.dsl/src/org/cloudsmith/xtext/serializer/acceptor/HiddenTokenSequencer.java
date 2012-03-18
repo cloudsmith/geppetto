@@ -13,6 +13,7 @@
 package org.cloudsmith.xtext.serializer.acceptor;
 
 import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
@@ -71,6 +72,8 @@ public class HiddenTokenSequencer implements IHiddenTokenSequencer, ISyntacticSe
 
 	protected List<RuleCall> stack = Lists.newArrayList();
 
+	private List<RuleCall> debugStack = Lists.newArrayList();
+
 	public void acceptAssignedCrossRefDatatype(RuleCall rc, String tkn, EObject val, int index, ICompositeNode node) {
 		emitHiddenTokens(getHiddenNodesBetween(lastNode, node));
 		lastNode = getLastLeaf(node);
@@ -124,27 +127,53 @@ public class HiddenTokenSequencer implements IHiddenTokenSequencer, ISyntacticSe
 	}
 
 	public void acceptUnassignedDatatype(RuleCall datatypeRC, String token, ICompositeNode node) {
+		saveHidden(datatypeRC);
 		emitHiddenTokens(getHiddenNodesBetween(lastNode, node));
 		lastNode = getLastLeaf(node);
 		delegate.acceptUnassignedDatatype(datatypeRC, token, node);
+		restoreHidden();
 	}
 
 	public void acceptUnassignedEnum(RuleCall enumRC, String token, ICompositeNode node) {
+		saveHidden(enumRC);
 		emitHiddenTokens(getHiddenNodesBetween(lastNode, node));
 		lastNode = getLastLeaf(node);
 		delegate.acceptUnassignedEnum(enumRC, token, node);
+		restoreHidden();
 	}
 
 	public void acceptUnassignedKeyword(Keyword keyword, String token, ILeafNode node) {
+		saveHidden(keyword);
 		emitHiddenTokens(getHiddenNodesBetween(lastNode, node));
 		lastNode = node;
 		delegate.acceptUnassignedKeyword(keyword, token, node);
+		restoreHidden();
 	}
 
 	public void acceptUnassignedTerminal(RuleCall terminalRC, String token, ILeafNode node) {
+		saveHidden(terminalRC);
 		emitHiddenTokens(getHiddenNodesBetween(lastNode, node));
 		lastNode = node;
 		delegate.acceptUnassignedTerminal(terminalRC, token, node);
+		restoreHidden();
+	}
+
+	private ParserRule closestContainingParserRule(EObject element) {
+		while(element != null && element instanceof ParserRule == false)
+			element = element.eContainer();
+		return (ParserRule) element;
+	}
+
+	private String debugStringForHidden(List<AbstractRule> rules) {
+		StringBuilder builder = new StringBuilder();
+		Iterator<AbstractRule> itor = rules.iterator();
+		while(itor.hasNext()) {
+			AbstractRule r = itor.next();
+			builder.append(r.getName());
+			if(itor.hasNext())
+				builder.append(", ");
+		}
+		return builder.toString();
 	}
 
 	protected void emitHiddenTokens(List<INode> hiddens /* Set<INode> comments, */) {
@@ -199,8 +228,6 @@ public class HiddenTokenSequencer implements IHiddenTokenSequencer, ISyntacticSe
 	}
 
 	public void finish() {
-		if(stack.size() > 0)
-			pop();
 		if(rootNode != null && rootNode == rootNode.getRootNode()) {
 			List<INode> hidden = getRemainingHiddenNodesInContainer(lastNode, rootNode);
 			if(!hidden.isEmpty()) {
@@ -209,6 +236,9 @@ public class HiddenTokenSequencer implements IHiddenTokenSequencer, ISyntacticSe
 			}
 		}
 		delegate.finish();
+		// System.err.println("FINISH : " + stack.size());
+		if(stack.size() > 0)
+			pop();
 	}
 
 	protected Set<INode> getCommentsForEObject(EObject semanticObject, INode node) {
@@ -359,28 +389,65 @@ public class HiddenTokenSequencer implements IHiddenTokenSequencer, ISyntacticSe
 
 	protected void pop() {
 		int sz = stack.size();
-		if(sz == 0)
+		if(sz == 0) {
+			// System.err.println("POP of empty stack");
 			return;
+		}
 		RuleCall top = stack.remove(sz - 1);
 
 		// if the rule call on top defines hidden, it pushed on the hidden stack, and state needs to
 		// be restored
-		if(top.getRule() instanceof ParserRule == false)
+		if(top.getRule() instanceof ParserRule == false) {
+			// System.err.println("POP of non parser rule: " + top.getRule().getName());
 			return;
-		if(((ParserRule) top.getRule()).isDefinesHiddenTokens())
+		}
+		// System.err.print("POP of: " + top.getRule().getName());
+		if(((ParserRule) top.getRule()).isDefinesHiddenTokens()) {
+			// RuleCall debugHidden = debugStack.remove(debugStack.size() - 1);
+			// if(debugHidden != top) {
+			// System.err.print(" UNBALANCED POP (pops hidden from different rule)");
+			// }
+			// System.err.print(" BEFORE POP [" + debugStringForHidden(currentHidden) + "]");
 			currentHidden = hiddenStack.remove(hiddenStack.size() - 1);
+			// System.err.print(" AFTER POP[" + debugStringForHidden(currentHidden) + "]");
+		}
+		// System.err.println(" size = " + (sz - 1));
 	}
 
 	protected void push(RuleCall rc) {
+		// System.err.print("PUSH call to rule: " + rc.getRule().getName());
 		stack.add(rc);
 
-		if(rc.getRule() instanceof ParserRule == false)
+		if(rc.getRule() instanceof ParserRule == false) {
+			System.err.println("");
 			return;
+		}
 		ParserRule pr = (ParserRule) rc.getRule();
-		if(!pr.isDefinesHiddenTokens())
+		if(!pr.isDefinesHiddenTokens()) {
+			// System.err.println("");
 			return;
+		}
+		// System.err.print(" BEFORE PUSH [" + debugStringForHidden(currentHidden) + "]");
+		// System.err.println(" AFTER PUSH [" + debugStringForHidden(pr.getHiddenTokens()) + "]");
 		// if rule defines hidden, remember previous hidden, and set the new as current
 		hiddenStack.add(currentHidden);
+		// debugStack.add(rc);
 		currentHidden = pr.getHiddenTokens();
+	}
+
+	private void restoreHidden() {
+		currentHidden = hiddenStack.remove(hiddenStack.size() - 1);
+	}
+
+	/**
+	 * Save hidden while performing an operation. Must be paired with a restoreHidden() when done.
+	 * 
+	 * @param eobj
+	 */
+	private void saveHidden(EObject eobj) {
+		hiddenStack.add(currentHidden);
+		ParserRule r = closestContainingParserRule(eobj);
+		if(r != null && r.isDefinesHiddenTokens())
+			currentHidden = r.getHiddenTokens();
 	}
 }

@@ -67,7 +67,7 @@ public abstract class AbstractDomNode implements IDomNode {
 	private StyleSet styles = new StyleSet();
 
 	@Override
-	public List<? extends IDomNode> getChildren() {
+	public List<IDomNode> getChildren() {
 		return Collections.emptyList();
 	}
 

@@ -180,7 +180,7 @@ public interface IDomNode {
 	 * 
 	 * @return a list of this node's children (or an empty list)
 	 */
-	public List<? extends IDomNode> getChildren();
+	public List<IDomNode> getChildren();
 
 	/**
 	 * NOTE: If there a nodes in the DOM that represents layout structure e.g. table/columns it is not possible to

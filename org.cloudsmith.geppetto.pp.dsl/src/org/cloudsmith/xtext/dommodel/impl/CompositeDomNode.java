@@ -165,8 +165,8 @@ public class CompositeDomNode extends BaseDomNode {
 	}
 
 	@Override
-	public List<BaseDomNode> getChildren() {
-		return Collections.unmodifiableList(children);
+	public List<IDomNode> getChildren() {
+		return Collections.<IDomNode> unmodifiableList(children);
 	}
 
 	@Override

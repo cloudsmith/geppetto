@@ -12,6 +12,7 @@
 package org.cloudsmith.geppetto.pp.dsl.formatting;
 
 import org.cloudsmith.geppetto.pp.dsl.formatting.PPSemanticLayout.ResourceStyle;
+import org.cloudsmith.geppetto.pp.dsl.formatting.PPSemanticLayout.StatementStyle;
 import org.cloudsmith.geppetto.pp.dsl.services.PPGrammarAccess;
 import org.cloudsmith.geppetto.pp.dsl.services.PPGrammarAccess.ResourceExpressionElements;
 import org.cloudsmith.xtext.dommodel.formatter.css.DefaultStylesheetProvider;
@@ -176,7 +177,13 @@ public class PPStylesheetProvider extends DefaultStylesheetProvider {
 
 			// Interpolation
 			Select.whitespaceAfter(interpolationStart).withStyle(noSpaceNoLine), //
-			Select.whitespaceBefore(interpolationEnd).withStyle(noSpaceNoLine)
+			Select.whitespaceBefore(interpolationEnd).withStyle(noSpaceNoLine), //
+
+			// Statements
+			// ws before subsequent statements in a block
+			Select.whitespaceBefore(
+				Select.and(Select.node(StatementStyle.STATEMENT), Select.not(Select.node(StatementStyle.FIRST)))).withStyle(//
+				noSpaceOneLine)
 
 		);
 		return css;

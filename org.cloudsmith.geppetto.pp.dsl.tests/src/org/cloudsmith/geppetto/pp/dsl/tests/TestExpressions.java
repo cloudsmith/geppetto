@@ -33,8 +33,10 @@ import org.cloudsmith.geppetto.pp.ResourceExpression;
 import org.cloudsmith.geppetto.pp.VariableExpression;
 import org.cloudsmith.geppetto.pp.VirtualCollectQuery;
 import org.cloudsmith.geppetto.pp.VirtualNameOrReference;
+import org.cloudsmith.geppetto.pp.dsl.ppformatting.PPFormatter;
 import org.cloudsmith.geppetto.pp.dsl.validation.IPPDiagnostics;
 import org.eclipse.emf.common.util.EList;
+import org.eclipse.xtext.formatting.impl.FormattingConfig;
 import org.eclipse.xtext.junit.validation.AssertableDiagnostics;
 import org.eclipse.xtext.resource.XtextResource;
 
@@ -156,12 +158,16 @@ public class TestExpressions extends AbstractPuppetTests {
 		assertEquals("serialization should produce specified result", Sample_Assignment2, s);
 	}
 
-	public void test_Serialize_CaseExpression() throws Exception {
-		String code = "case $a {present : { $x=1 $y=2 } absent,foo: {$x=2 $y=2}}";
-		String fmt = "case $a {\n  present     : {\n    $x = 1\n    $y = 2\n  }\n  absent, foo : {\n    $x = 2\n    $y = 2\n  }\n}\n";
+	/**
+	 * No matter how formatter tries to add linewrapping there is none in the formatted result.
+	 * 
+	 * @see PPFormatter#functionCallConfiguration(FormattingConfig c)
+	 */
+	public void test_Serialize_CallAndDefine() throws Exception {
+		String code = "class a {\n}\n$a = include('a')\ndefine b {\n}\n";
 		XtextResource r = getResourceFromString(code);
 		String s = serializeFormatted(r.getContents().get(0));
-		assertEquals("serialization should produce specified result", fmt, s);
+		assertEquals("serialization should produce specified result", code, s);
 	}
 
 	// Not relevant since new serializer always pretty prints
@@ -173,6 +179,14 @@ public class TestExpressions extends AbstractPuppetTests {
 	// // Broken in Xtext 2.0 - produces a semi formatted result, should leave string alone
 	// assertEquals("serialization should produce same result as input", code, s);
 	// }
+
+	public void test_Serialize_CaseExpression() throws Exception {
+		String code = "case $a {present : { $x=1 $y=2 } absent,foo: {$x=2 $y=2}}";
+		String fmt = "case $a {\n  present     : {\n    $x = 1\n    $y = 2\n  }\n  absent, foo : {\n    $x = 2\n    $y = 2\n  }\n}\n";
+		XtextResource r = getResourceFromString(code);
+		String s = serializeFormatted(r.getContents().get(0));
+		assertEquals("serialization should produce specified result", fmt, s);
+	}
 
 	public void test_Serialize_Definition() throws Exception {
 		String code = "define a {$a=10 $b=20}";
@@ -646,4 +660,5 @@ public class TestExpressions extends AbstractPuppetTests {
 		tester.validate(v).assertOK();
 
 	}
+
 }

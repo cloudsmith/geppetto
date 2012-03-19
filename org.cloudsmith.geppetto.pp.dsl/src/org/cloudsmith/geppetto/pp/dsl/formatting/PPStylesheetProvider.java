@@ -183,7 +183,12 @@ public class PPStylesheetProvider extends DefaultStylesheetProvider {
 			// ws before subsequent statements in a block
 			Select.whitespaceBefore(
 				Select.and(Select.node(StatementStyle.STATEMENT), Select.not(Select.node(StatementStyle.FIRST)))).withStyle(//
-				noSpaceOneLine)
+				noSpaceOneLine),
+
+			// No space between function name and ()
+			Select.whitespaceBefore(
+				Select.grammar(grammarAccess.getFunctionCallAccess().getLeftParenthesisKeyword_1_1())).withStyle(//
+				noSpaceNoLine)
 
 		);
 		return css;

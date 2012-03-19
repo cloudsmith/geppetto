@@ -15,6 +15,8 @@ import java.util.Iterator;
 import java.util.List;
 
 import org.cloudsmith.geppetto.pp.AttributeOperations;
+import org.cloudsmith.geppetto.pp.Case;
+import org.cloudsmith.geppetto.pp.CaseExpression;
 import org.cloudsmith.geppetto.pp.Definition;
 import org.cloudsmith.geppetto.pp.ElseExpression;
 import org.cloudsmith.geppetto.pp.ElseIfExpression;
@@ -36,10 +38,14 @@ import org.cloudsmith.xtext.dommodel.formatter.css.Alignment;
 import org.cloudsmith.xtext.dommodel.formatter.css.IStyleFactory;
 import org.cloudsmith.xtext.dommodel.formatter.css.StyleSet;
 import org.cloudsmith.xtext.textflow.ITextFlow;
+import org.cloudsmith.xtext.textflow.MeasuredTextFlow;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.xtext.RuleCall;
 
+import com.google.common.base.Predicate;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
+import com.google.inject.internal.Lists;
 
 /**
  * Semantic layouts for PP
@@ -64,6 +70,15 @@ public class PPSemanticLayout extends DeclarativeSemanticFlowLayout {
 	@Inject
 	DomNodeLayoutFeeder feeder;
 
+	protected final Predicate<IDomNode> caseColonPredicate = new Predicate<IDomNode>() {
+
+		@Override
+		public boolean apply(IDomNode input) {
+			return input.getGrammarElement() == grammarAccess.getCaseAccess().getColonKeyword_2();
+		}
+
+	};
+
 	protected void _after(AttributeOperations aos, StyleSet styleSet, IDomNode node, ITextFlow flow,
 			ILayoutContext context) {
 		if(aos.eContainer() instanceof ResourceBody) {
@@ -82,6 +97,49 @@ public class PPSemanticLayout extends DeclarativeSemanticFlowLayout {
 			ILayoutContext context) {
 		LayoutUtils.unifyWidthAndAlign(
 			node, grammarAccess.getAttributeOperationAccess().getKeyNameParserRuleCall_1_0(), Alignment.left);
+		return false;
+	}
+
+	protected boolean _format(Case o, StyleSet styleSet, IDomNode node, ITextFlow flow, ILayoutContext context) {
+		internalFormatStatementList(
+			node.getChildren(), grammarAccess.getCaseAccess().getStatementsExpressionListParserRuleCall_4_0());
+		return false;
+	}
+
+	protected boolean _format(CaseExpression o, StyleSet styleSet, IDomNode node, ITextFlow flow, ILayoutContext context) {
+		// unify the width of case expressions
+
+		// to find the case nodes
+		RuleCall caseRuleCall = grammarAccess.getCaseExpressionAccess().getCasesCaseParserRuleCall_3_0();
+		// used to measure output of formatted case values
+		ITextFlow.Measuring measuredFlow = new MeasuredTextFlow(context);
+		// used to collect the widths of each case's width of its values
+		List<Integer> widths = Lists.newArrayList();
+		for(IDomNode n : node.getChildren()) {
+			if(n.getGrammarElement() == caseRuleCall) {
+				// visit all nodes in case until the colon is hit, and format the output to the measured flow
+				feeder.sequence(n, measuredFlow, context, caseColonPredicate);
+				// collect the width of the last case's values
+				widths.add(measuredFlow.getWidthOfLastLine());
+				measuredFlow.appendBreak(); // break to enable calculating width
+			}
+		}
+		// pad the colons on their left side to equal width
+		int max = measuredFlow.getWidth();
+		for(IDomNode n : node.getChildren()) {
+			if(n.getGrammarElement() == caseRuleCall) {
+				Iterator<IDomNode> caseIterator = n.treeIterator();
+				while(caseIterator.hasNext()) {
+					IDomNode c = caseIterator.next();
+					if(caseColonPredicate.apply(c)) {
+						c.getStyles().add(
+							StyleSet.withStyles(styles.align(Alignment.right), styles.width(1 + max - widths.remove(0))));
+						break; // no need to continue past the ":"
+					}
+				}
+			}
+		}
+
 		return false;
 	}
 

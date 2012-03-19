@@ -156,12 +156,11 @@ public class TestExpressions extends AbstractPuppetTests {
 		assertEquals("serialization should produce specified result", Sample_Assignment2, s);
 	}
 
-	public void test_Serialize_Definition() throws Exception {
-		String code = "define a {$a=10 $b=20}";
-		String fmt = "define a {\n  $a = 10\n  $b = 20\n}\n";
+	public void test_Serialize_CaseExpression() throws Exception {
+		String code = "case $a {present : { $x=1 $y=2 } absent,foo: {$x=2 $y=2}}";
+		String fmt = "case $a {\n  present     : {\n    $x = 1\n    $y = 2\n  }\n  absent, foo : {\n    $x = 2\n    $y = 2\n  }\n}\n";
 		XtextResource r = getResourceFromString(code);
 		String s = serializeFormatted(r.getContents().get(0));
-
 		assertEquals("serialization should produce specified result", fmt, s);
 	}
 
@@ -174,6 +173,15 @@ public class TestExpressions extends AbstractPuppetTests {
 	// // Broken in Xtext 2.0 - produces a semi formatted result, should leave string alone
 	// assertEquals("serialization should produce same result as input", code, s);
 	// }
+
+	public void test_Serialize_Definition() throws Exception {
+		String code = "define a {$a=10 $b=20}";
+		String fmt = "define a {\n  $a = 10\n  $b = 20\n}\n";
+		XtextResource r = getResourceFromString(code);
+		String s = serializeFormatted(r.getContents().get(0));
+
+		assertEquals("serialization should produce specified result", fmt, s);
+	}
 
 	public void test_Serialize_HostClassDefinition() throws Exception {
 		String code = "class a {$a=1 $b=2}";

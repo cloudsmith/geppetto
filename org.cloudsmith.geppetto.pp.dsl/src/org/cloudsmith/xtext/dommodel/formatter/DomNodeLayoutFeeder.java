@@ -17,6 +17,8 @@ import org.cloudsmith.xtext.dommodel.formatter.css.StyleFactory.LayoutManagerSty
 import org.cloudsmith.xtext.dommodel.formatter.css.StyleSet;
 import org.cloudsmith.xtext.textflow.ITextFlow;
 
+import com.google.common.base.Predicate;
+import com.google.common.base.Predicates;
 import com.google.inject.Inject;
 import com.google.inject.name.Named;
 
@@ -53,22 +55,30 @@ public class DomNodeLayoutFeeder {
 	 * @param context
 	 */
 	public void sequence(IDomNode node, ITextFlow output, ILayoutContext context) {
+		sequence(node, output, context, Predicates.<IDomNode> alwaysFalse());
+	}
+
+	public void sequence(IDomNode node, ITextFlow output, ILayoutContext context, Predicate<IDomNode> until) {
+		if(until.apply(node))
+			return;
 		if(node.isLeaf())
 			sequenceLeaf(node, output, context);
 		else
-			sequenceComposite(node, output, context);
-
+			sequenceComposite(node, output, context, until);
 	}
 
-	protected void sequenceComposite(IDomNode node, ITextFlow output, ILayoutContext context) {
+	protected void sequenceComposite(IDomNode node, ITextFlow output, ILayoutContext context, Predicate<IDomNode> until) {
 		final StyleSet styleSet = context.getCSS().collectStyles(node);
 		final ILayoutManager layout = styleSet.getStyleValue(LayoutManagerStyle.class, node, defaultLayout);
 
 		layout.beforeComposite(styleSet, node, output, context);
 		// if layout of composite by layout manager returns true, children are already processed
 		if(!layout.format(styleSet, node, output, context))
-			for(IDomNode n : node.getChildren())
-				sequence(n, output, context);
+			for(IDomNode n : node.getChildren()) {
+				if(until.apply(n))
+					return;
+				sequence(n, output, context, until);
+			}
 		layout.afterComposite(styleSet, node, output, context);
 	}
 

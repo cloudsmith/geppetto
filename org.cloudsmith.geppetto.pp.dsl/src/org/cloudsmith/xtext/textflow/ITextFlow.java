@@ -127,6 +127,14 @@ public interface ITextFlow extends Appendable {
 	}
 
 	/**
+	 * A text flow that measures
+	 * 
+	 */
+	public interface Measuring extends ITextFlow, IMetrics {
+
+	}
+
+	/**
 	 * Interface for an ITextFlow that can append its content as individual calls to an output flow.
 	 * 
 	 */

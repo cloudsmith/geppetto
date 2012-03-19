@@ -26,7 +26,7 @@ import org.eclipse.xtext.util.ITextRegion;
  */
 public interface ILayoutManager {
 
-	public interface ILayoutContext {
+	public interface ILayoutContext extends IFormattingContext {
 		/**
 		 * 
 		 * @return the style sheet to use

@@ -175,6 +175,15 @@ public class TestExpressions extends AbstractPuppetTests {
 	// assertEquals("serialization should produce same result as input", code, s);
 	// }
 
+	public void test_Serialize_HostClassDefinition() throws Exception {
+		String code = "class a {$a=1 $b=2}";
+		String fmt = "class a {\n  $a = 1\n  $b = 2\n}\n";
+		XtextResource r = getResourceFromString(code);
+		String s = serializeFormatted(r.getContents().get(0));
+		assertEquals("serialization should produce specified result", fmt, s);
+
+	}
+
 	public void test_Serialize_HostClassExpression() {
 		PuppetManifest pp = pf.createPuppetManifest();
 		HostClassDefinition cd = pf.createHostClassDefinition();
@@ -242,6 +251,15 @@ public class TestExpressions extends AbstractPuppetTests {
 		me.setOpName("!~");
 		s = serializeFormatted(pp);
 		assertEquals("serialization should produce specified result", Sample_Match2, s);
+	}
+
+	public void test_Serialize_NodeDefinition() throws Exception {
+		String code = "node a {$a=1 $b=2}";
+		String fmt = "node a {\n  $a = 1\n  $b = 2\n}\n";
+		XtextResource r = getResourceFromString(code);
+		String s = serializeFormatted(r.getContents().get(0));
+		assertEquals("serialization should produce specified result", fmt, s);
+
 	}
 
 	public void test_Serialize_RelationshipExpression() {

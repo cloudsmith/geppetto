@@ -18,8 +18,10 @@ import org.cloudsmith.geppetto.pp.AttributeOperations;
 import org.cloudsmith.geppetto.pp.Definition;
 import org.cloudsmith.geppetto.pp.ElseExpression;
 import org.cloudsmith.geppetto.pp.ElseIfExpression;
+import org.cloudsmith.geppetto.pp.HostClassDefinition;
 import org.cloudsmith.geppetto.pp.IfExpression;
 import org.cloudsmith.geppetto.pp.LiteralNameOrReference;
+import org.cloudsmith.geppetto.pp.NodeDefinition;
 import org.cloudsmith.geppetto.pp.PuppetManifest;
 import org.cloudsmith.geppetto.pp.ResourceBody;
 import org.cloudsmith.geppetto.pp.ResourceExpression;
@@ -103,10 +105,24 @@ public class PPSemanticLayout extends DeclarativeSemanticFlowLayout {
 		return false;
 	}
 
+	protected boolean _format(HostClassDefinition o, StyleSet styleSet, IDomNode node, ITextFlow flow,
+			ILayoutContext context) {
+		internalFormatStatementList(
+			node.getChildren(),
+			grammarAccess.getHostClassDefinitionAccess().getStatementsExpressionListParserRuleCall_5_0());
+		return false;
+	}
+
 	protected boolean _format(IfExpression o, StyleSet styleSet, IDomNode node, ITextFlow flow, ILayoutContext context) {
 		internalFormatStatementList(
 			node.getChildren(),
 			grammarAccess.getIfExpressionAccess().getThenStatementsExpressionListParserRuleCall_3_0());
+		return false;
+	}
+
+	protected boolean _format(NodeDefinition o, StyleSet styleSet, IDomNode node, ITextFlow flow, ILayoutContext context) {
+		internalFormatStatementList(
+			node.getChildren(), grammarAccess.getNodeDefinitionAccess().getStatementsExpressionListParserRuleCall_5_0());
 		return false;
 	}
 

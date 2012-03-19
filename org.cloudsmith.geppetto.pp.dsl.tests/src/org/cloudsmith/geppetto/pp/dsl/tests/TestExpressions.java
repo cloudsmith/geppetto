@@ -156,15 +156,13 @@ public class TestExpressions extends AbstractPuppetTests {
 		assertEquals("serialization should produce specified result", Sample_Assignment2, s);
 	}
 
-	public void test_Serialize_HostClassExpression() {
-		PuppetManifest pp = pf.createPuppetManifest();
-		HostClassDefinition cd = pf.createHostClassDefinition();
-		pp.getStatements().add(cd);
-		cd.setClassName("testClass");
+	public void test_Serialize_Definition() throws Exception {
+		String code = "define a {$a=10 $b=20}";
+		String fmt = "define a {\n  $a = 10\n  $b = 20\n}\n";
+		XtextResource r = getResourceFromString(code);
+		String s = serializeFormatted(r.getContents().get(0));
 
-		String s = serializeFormatted(pp);
-		assertEquals("serialization should produce specified result", Sample_ClassDefinition, s);
-
+		assertEquals("serialization should produce specified result", fmt, s);
 	}
 
 	// Not relevant since new serializer always pretty prints
@@ -177,11 +175,31 @@ public class TestExpressions extends AbstractPuppetTests {
 	// assertEquals("serialization should produce same result as input", code, s);
 	// }
 
+	public void test_Serialize_HostClassExpression() {
+		PuppetManifest pp = pf.createPuppetManifest();
+		HostClassDefinition cd = pf.createHostClassDefinition();
+		pp.getStatements().add(cd);
+		cd.setClassName("testClass");
+
+		String s = serializeFormatted(pp);
+		assertEquals("serialization should produce specified result", Sample_ClassDefinition, s);
+
+	}
+
 	public void test_Serialize_IfExpression2() throws Exception {
 		String code = "if$a==1{true}else{ false }if$a==1{true}elsif$b< -3{false}else{true}";
 		XtextResource r = getResourceFromString(code);
 		String s = serializeFormatted(r.getContents().get(0));
 		assertEquals("serialization should produce specified result", Sample_If, s);
+
+	}
+
+	public void test_Serialize_IfExpression3() throws Exception {
+		String code = "if$a==1{$x=1 $y=2}elsif $a==2 {$x=3 $y=4}else{ $x=5 $y=6 }";
+		String fmt = "if $a == 1 {\n  $x = 1\n  $y = 2\n} elsif $a == 2 {\n  $x = 3\n  $y = 4\n} else {\n  $x = 5\n  $y = 6\n}\n";
+		XtextResource r = getResourceFromString(code);
+		String s = serializeFormatted(r.getContents().get(0));
+		assertEquals("serialization should produce specified result", fmt, s);
 
 	}
 

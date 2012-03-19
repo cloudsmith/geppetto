@@ -15,6 +15,10 @@ import java.util.Iterator;
 import java.util.List;
 
 import org.cloudsmith.geppetto.pp.AttributeOperations;
+import org.cloudsmith.geppetto.pp.Definition;
+import org.cloudsmith.geppetto.pp.ElseExpression;
+import org.cloudsmith.geppetto.pp.ElseIfExpression;
+import org.cloudsmith.geppetto.pp.IfExpression;
 import org.cloudsmith.geppetto.pp.LiteralNameOrReference;
 import org.cloudsmith.geppetto.pp.PuppetManifest;
 import org.cloudsmith.geppetto.pp.ResourceBody;
@@ -76,6 +80,33 @@ public class PPSemanticLayout extends DeclarativeSemanticFlowLayout {
 			ILayoutContext context) {
 		LayoutUtils.unifyWidthAndAlign(
 			node, grammarAccess.getAttributeOperationAccess().getKeyNameParserRuleCall_1_0(), Alignment.left);
+		return false;
+	}
+
+	protected boolean _format(Definition o, StyleSet styleSet, IDomNode node, ITextFlow flow, ILayoutContext context) {
+		internalFormatStatementList(
+			node.getChildren(), grammarAccess.getDefinitionAccess().getStatementsExpressionListParserRuleCall_4_0());
+		return false;
+	}
+
+	protected boolean _format(ElseExpression o, StyleSet styleSet, IDomNode node, ITextFlow flow, ILayoutContext context) {
+		internalFormatStatementList(
+			node.getChildren(), grammarAccess.getElseExpressionAccess().getStatementsExpressionListParserRuleCall_2_0());
+		return false;
+	}
+
+	protected boolean _format(ElseIfExpression o, StyleSet styleSet, IDomNode node, ITextFlow flow,
+			ILayoutContext context) {
+		internalFormatStatementList(
+			node.getChildren(),
+			grammarAccess.getElseIfExpressionAccess().getThenStatementsExpressionListParserRuleCall_3_0());
+		return false;
+	}
+
+	protected boolean _format(IfExpression o, StyleSet styleSet, IDomNode node, ITextFlow flow, ILayoutContext context) {
+		internalFormatStatementList(
+			node.getChildren(),
+			grammarAccess.getIfExpressionAccess().getThenStatementsExpressionListParserRuleCall_3_0());
 		return false;
 	}
 

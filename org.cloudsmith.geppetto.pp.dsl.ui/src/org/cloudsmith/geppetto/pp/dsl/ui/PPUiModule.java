@@ -21,6 +21,7 @@ import org.cloudsmith.geppetto.pp.dsl.ui.coloring.PPHighlightConfiguration;
 import org.cloudsmith.geppetto.pp.dsl.ui.coloring.PPSemanticHighlightingCalculator;
 import org.cloudsmith.geppetto.pp.dsl.ui.coloring.PPTokenToAttributeIdMapper;
 import org.cloudsmith.geppetto.pp.dsl.ui.container.PPWorkspaceProjectsStateProvider;
+import org.cloudsmith.geppetto.pp.dsl.ui.contentassist.PPContentAssistLexer;
 import org.cloudsmith.geppetto.pp.dsl.ui.editor.actions.SaveActions;
 import org.cloudsmith.geppetto.pp.dsl.ui.editor.autoedit.PPEditStrategyProvider;
 import org.cloudsmith.geppetto.pp.dsl.ui.editor.autoedit.PPTokenTypeToPartionMapper;
@@ -141,6 +142,30 @@ public class PPUiModule extends org.cloudsmith.geppetto.pp.dsl.ui.AbstractPPUiMo
 
 	public Class<? extends AbstractAntlrTokenToAttributeIdMapper> bindTokenToAttributeIdMapper() {
 		return PPTokenToAttributeIdMapper.class;
+	}
+
+	/**
+	 * Override that injects a wrapper for the external lexer used by the main parser.
+	 * contributed by org.eclipse.xtext.generator.parser.antlr.ex.ca.ContentAssistParserGeneratorFragment
+	 */
+	@Override
+	public void configureContentAssistLexer(com.google.inject.Binder binder) {
+		// Need to use the external lexer here
+		// TODO:
+		binder.bind(org.eclipse.xtext.ui.editor.contentassist.antlr.internal.Lexer.class).annotatedWith(
+			com.google.inject.name.Names.named(org.eclipse.xtext.ui.LexerUIBindings.CONTENT_ASSIST)).to(
+			PPContentAssistLexer.class);
+		// org.cloudsmith.geppetto.pp.dsl.ui.contentassist.antlr.lexer.InternalPPLexer.class);
+	}
+
+	/**
+	 * Override that injects a wrapper for the external lexer used by the main parser.
+	 * contributed by org.eclipse.xtext.generator.parser.antlr.ex.ca.ContentAssistParserGeneratorFragment
+	 */
+	@Override
+	public void configureContentAssistLexerProvider(com.google.inject.Binder binder) {
+		binder.bind(PPContentAssistLexer.class).toProvider(
+			org.eclipse.xtext.parser.antlr.LexerProvider.create(PPContentAssistLexer.class));
 	}
 
 	public void configureDebugTracing(com.google.inject.Binder binder) {

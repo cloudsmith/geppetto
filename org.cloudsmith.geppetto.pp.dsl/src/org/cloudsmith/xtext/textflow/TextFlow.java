@@ -123,6 +123,16 @@ public class TextFlow extends MeasuredTextFlow implements ITextFlow.WithText {
 	}
 
 	@Override
+	public void setIndentFirstLine(boolean flag) {
+		super.setIndentFirstLine(flag);
+		// if not empty, just remembers the flag
+		if(!isEmpty())
+			return;
+
+		lastWasBreak = flag; // fake a break, or clear
+	}
+
+	@Override
 	public int size() {
 		return length;
 	}

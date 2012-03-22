@@ -318,6 +318,15 @@ public class TestSemanticCssFormatter extends AbstractPuppetTests {
 		assertFlowOneLineNoBreak(flow);
 	}
 
+	public void test_TextIndentFirst() {
+		TextFlow flow = this.getInjector().getInstance(TextFlow.class);
+		flow.setIndentation(1);
+		flow.setIndentFirstLine(true);
+		flow.appendText("1234");
+		assertEquals("  1234", new StringBuilder(flow.getText()).toString());
+
+	}
+
 	public void test_TextLinewrap() {
 		// default is 132 characters before a wrap and 0 wrap indent
 		MeasuredTextFlow flow = this.getInjector().getInstance(TextFlow.class);

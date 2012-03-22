@@ -39,6 +39,8 @@ public class MeasuredTextFlow extends AbstractTextFlow implements ITextFlow.Meas
 
 	private int pendingIndent;
 
+	private boolean indentFirstLine;
+
 	@Inject
 	public MeasuredTextFlow(IFormattingContext formattingContext) {
 		super(formattingContext);
@@ -142,11 +144,13 @@ public class MeasuredTextFlow extends AbstractTextFlow implements ITextFlow.Meas
 	public int getWidth() {
 		if(lastWasBreak)
 			return maxWidth;
+		// TODO: must take non emitted indent into account if there is a run width
 		return Math.max(maxWidth, currentLineWidth + getRunWidth());
 	}
 
 	@Override
 	public int getWidthOfLastLine() {
+		// TODO: must take non emitted indent into account if there is a run width
 		return lastWasBreak
 				? lastLineWidth
 				: currentLineWidth + getRunWidth();
@@ -155,6 +159,11 @@ public class MeasuredTextFlow extends AbstractTextFlow implements ITextFlow.Meas
 	@Override
 	public boolean isEmpty() {
 		return getWidth() == 0 && numberOfBreaks == 0;
+	}
+
+	@Override
+	public boolean isIndentFirstLine() {
+		return indentFirstLine;
 	}
 
 	@Override
@@ -171,16 +180,24 @@ public class MeasuredTextFlow extends AbstractTextFlow implements ITextFlow.Meas
 			changeIndentation(-getWrapIndentation());
 		}
 		// do nothing, just keep the currentRun
-		//
-		// else
-		// super.processTextLine(s);
-
 	}
 
 	@Override
 	public ITextFlow setIndentation(int count) {
 		indent = Math.max(0, count * indentSize);
 		return this;
+	}
+
+	@Override
+	public void setIndentFirstLine(boolean flag) {
+		indentFirstLine = flag;
+		// if not empty, just remembers the flag
+		if(!isEmpty())
+			return;
+
+		if(flag)
+			pendingIndent = indent;
+		lastWasBreak = flag; // fake a break
 	}
 
 	/**

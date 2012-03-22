@@ -81,18 +81,8 @@ public class TextFlow extends MeasuredTextFlow implements ITextFlow.WithText {
 
 	@Override
 	protected void doTextLine(CharSequence s) {
-		if(shouldLineBeWrapped(s)) {
-			// wrap indent, output text, restore indent
-			changeIndentation(getWrapIndentation());
-			appendBreak();
-			super.doTextLine(s);
-			emit(s);
-			changeIndentation(-getWrapIndentation());
-		}
-		else {
-			super.doTextLine(s);
-			emit(s);
-		}
+		super.doTextLine(s);
+		emit(s);
 	}
 
 	private void emit(CharSequence s) {
@@ -110,8 +100,12 @@ public class TextFlow extends MeasuredTextFlow implements ITextFlow.WithText {
 	}
 
 	@Override
-	public String getText() {
-		return builder.toString();
+	public CharSequence getText() {
+		CharSequence a = (builder instanceof CharSequence)
+				? (CharSequence) builder
+				: builder.toString();
+		// include the not yet fully processed text
+		return CharSequences.concatenate(a, getCurrentRun());
 	}
 
 	private void internal_append(CharSequence s) {

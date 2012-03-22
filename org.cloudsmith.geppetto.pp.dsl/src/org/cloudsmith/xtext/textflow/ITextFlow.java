@@ -166,7 +166,7 @@ public interface ITextFlow extends Appendable {
 		 * 
 		 * @return the formatted content
 		 */
-		public String getText();
+		public CharSequence getText();
 
 		/**
 		 * Returns the length of the text that will be returned from {@link #getText()}.

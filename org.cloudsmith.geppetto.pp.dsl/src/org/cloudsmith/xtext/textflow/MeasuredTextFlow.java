@@ -35,6 +35,10 @@ public class MeasuredTextFlow extends AbstractTextFlow implements ITextFlow.Meas
 
 	private int lastUsedIndent;
 
+	private CharSequence currentRun;
+
+	private int pendingIndent;
+
 	@Inject
 	public MeasuredTextFlow(IFormattingContext formattingContext) {
 		super(formattingContext);
@@ -44,25 +48,36 @@ public class MeasuredTextFlow extends AbstractTextFlow implements ITextFlow.Meas
 		numberOfBreaks = 0;
 		currentLineWidth = 0;
 		maxWidth = 0;
+		pendingIndent = 0;
 	}
 
 	@Override
 	public ITextFlow appendBreaks(int count) {
+		if(currentRun != null) {
+			doTextLine(currentRun);
+			currentRun = null;
+		}
+		lastWasSpace = true;
 		if(count <= 0)
 			return this;
 		lastWasBreak = true;
-		lastWasSpace = true;
 		numberOfBreaks += count;
 		maxWidth = Math.max(maxWidth, currentLineWidth);
 		lastLineWidth = currentLineWidth == 0
 				? lastLineWidth
 				: currentLineWidth;
 		currentLineWidth = 0;
+		pendingIndent = indent;
 		return this;
 	}
 
 	@Override
 	public ITextFlow appendSpaces(int count) {
+		if(currentRun != null) {
+			CharSequence run = currentRun;
+			currentRun = null;
+			doTextLine(run);
+		}
 		emit(count);
 		lastWasSpace = true;
 		return this;
@@ -82,8 +97,8 @@ public class MeasuredTextFlow extends AbstractTextFlow implements ITextFlow.Meas
 	private void emit(int count) {
 		if(lastWasBreak) {
 			lastWasBreak = false;
-			lastUsedIndent = indent;
-			currentLineWidth += indent;
+			lastUsedIndent = pendingIndent; // was indent, does not work when buffering
+			currentLineWidth += pendingIndent; // was indent, does not work when buffering
 		}
 		currentLineWidth += Math.max(0, count);
 	}
@@ -91,6 +106,12 @@ public class MeasuredTextFlow extends AbstractTextFlow implements ITextFlow.Meas
 	@Override
 	public boolean endsWithBreak() {
 		return lastWasBreak;
+	}
+
+	protected CharSequence getCurrentRun() {
+		return currentRun == null
+				? ""
+				: currentRun;
 	}
 
 	@Override
@@ -107,18 +128,24 @@ public class MeasuredTextFlow extends AbstractTextFlow implements ITextFlow.Meas
 		return lastUsedIndent / indentSize;
 	}
 
+	private int getRunWidth() {
+		return currentRun == null
+				? 0
+				: currentRun.length();
+	}
+
 	@Override
 	public int getWidth() {
 		if(lastWasBreak)
 			return maxWidth;
-		return Math.max(maxWidth, currentLineWidth);
+		return Math.max(maxWidth, currentLineWidth + getRunWidth());
 	}
 
 	@Override
 	public int getWidthOfLastLine() {
 		return lastWasBreak
 				? lastLineWidth
-				: currentLineWidth;
+				: currentLineWidth + getRunWidth();
 	}
 
 	@Override
@@ -128,15 +155,21 @@ public class MeasuredTextFlow extends AbstractTextFlow implements ITextFlow.Meas
 
 	@Override
 	protected void processTextLine(CharSequence s) {
-		if(shouldLineBeWrapped(s)) {
+		currentRun = CharSequences.concatenate(currentRun, s); // handles null
+
+		if(shouldLineBeWrapped(currentRun)) {
 			// wrap indent, output text, restore indent
+			CharSequence processRun = currentRun;
+			currentRun = null;
 			changeIndentation(getWrapIndentation());
 			appendBreak();
-			super.processTextLine(s);
+			super.processTextLine(processRun);
 			changeIndentation(-getWrapIndentation());
 		}
-		else
-			super.processTextLine(s);
+		// do nothing, just keep the currentRun
+		//
+		// else
+		// super.processTextLine(s);
 
 	}
 
@@ -158,7 +191,7 @@ public class MeasuredTextFlow extends AbstractTextFlow implements ITextFlow.Meas
 		final int textLength = s.length();
 		final int pos = endsWithBreak()
 				? indent
-				: getWidthOfLastLine();
+				: currentLineWidth;
 		int unwrappedWidth = textLength + pos;
 		if(unwrappedWidth > getPreferredMaxWidth()) {
 			if(!(lastWasBreak || lastWasSpace))

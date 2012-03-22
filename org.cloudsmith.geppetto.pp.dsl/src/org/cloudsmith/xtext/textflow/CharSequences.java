@@ -176,4 +176,26 @@ public class CharSequences {
 		}
 
 	}
+
+	/**
+	 * Produces an efficient concatenation of two CharSequences in a safe way (they may be null).
+	 * No copies are being made (thus for excessive iteration of the result it is better to
+	 * make a copy of the result).
+	 * If a concatenation is not really needed (one is null or empty) the other sequence is returned.
+	 * 
+	 * @param a
+	 * @param b
+	 * @return a CharSequence being a concatenation
+	 */
+	public static CharSequence concatenate(CharSequence a, CharSequence b) {
+		if(a == null)
+			a = "";
+		if(b == null)
+			b = "";
+		if(a.length() == 0)
+			return b;
+		if(b.length() == 0)
+			return a;
+		return new Concatenation(a, b);
+	}
 }

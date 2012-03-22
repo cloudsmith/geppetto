@@ -105,10 +105,18 @@ public class CSSDomFormatter implements IDomModelFormatter {
 		layoutFeeder.sequence(dom, output, layoutContext);
 
 		// internalFormat(dom, output, layoutContext);
-		final String text = output.getText();
+		final CharSequence text = output.getText();
+		String textString = null;
+		if(text instanceof String)
+			textString = (String) text;
+		else if(text instanceof StringBuilder)
+			textString = ((StringBuilder) text).toString();
+		else
+			textString = new StringBuilder(text).toString();
+
 		return new ReplaceRegion(regionToFormat == null
 				? new TextRegion(0, text.length())
-				: regionToFormat, text);
+				: regionToFormat, textString);
 	}
 
 	protected ITextFlow.WithText getTextFlow(IFormattingContext context) {

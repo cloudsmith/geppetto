@@ -39,6 +39,15 @@ public class PPSerializer implements ISerializer {
 	@Inject
 	IFormattingContext formattingContext;
 
+	private String getString(CharSequence s) {
+		if(s instanceof String)
+			return (String) s;
+		if(s instanceof StringBuilder)
+			return ((StringBuilder) s).toString();
+		return new StringBuilder(s).toString();
+
+	}
+
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -69,7 +78,7 @@ public class PPSerializer implements ISerializer {
 		catch(IOException e) {
 			throw new RuntimeException(e);
 		}
-		return tokenStringBuffer.getText();
+		return getString(tokenStringBuffer.getText());
 	}
 
 	/*

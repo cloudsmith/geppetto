@@ -306,6 +306,21 @@ public class TestSemanticCssFormatter extends AbstractPuppetTests {
 
 	}
 
+	public void test_TextFlow_PendingMeasures() {
+		TextFlow flow = this.getInjector().getInstance(TextFlow.class);
+		flow.appendText("1234");
+		assertEquals(4, flow.getWidthOfLastLine());
+		assertEquals(1, flow.getHeight());
+		flow.appendBreak();
+		assertEquals(4, flow.getWidthOfLastLine());
+		assertEquals(1, flow.getHeight());
+		flow.changeIndentation(1);
+		flow.appendBreak();
+		flow.appendText("3");
+		flow.appendText("45");
+		assertEquals(5, flow.getWidthOfLastLine());
+	}
+
 	public void test_TextFlowEmpty() {
 		MeasuredTextFlow flow = this.getInjector().getInstance(TextFlow.class);
 		appendSampleFlow(flow);

@@ -86,9 +86,10 @@ public class MeasuredTextFlow extends AbstractTextFlow implements ITextFlow.Meas
 	}
 
 	/**
-	 * Measures the text line.
+	 * Must be called from a derived method since this method performs measuring.
 	 * 
 	 * @param s
+	 *            the text that will be emitted.
 	 */
 	@Override
 	protected void doTextLine(CharSequence s) {
@@ -142,18 +143,23 @@ public class MeasuredTextFlow extends AbstractTextFlow implements ITextFlow.Meas
 
 	@Override
 	public int getWidth() {
+		// break only, or break + unprocessed
 		if(lastWasBreak)
-			return maxWidth;
-		// TODO: must take non emitted indent into account if there is a run width
+			return Math.max(maxWidth, currentRun == null
+					? 0
+					: currentRun.length() + pendingIndent);
+
+		// something else than break processed, but there can be unprocessed
 		return Math.max(maxWidth, currentLineWidth + getRunWidth());
 	}
 
 	@Override
 	public int getWidthOfLastLine() {
-		// TODO: must take non emitted indent into account if there is a run width
-		return lastWasBreak
-				? lastLineWidth
-				: currentLineWidth + getRunWidth();
+		if(lastWasBreak)
+			return currentRun == null
+					? lastLineWidth
+					: pendingIndent + currentRun.length();
+		return currentLineWidth + getRunWidth();
 	}
 
 	@Override

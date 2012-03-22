@@ -200,7 +200,7 @@ public class MeasuredTextFlow extends AbstractTextFlow implements ITextFlow.Meas
 		if(unwrappedWidth > getPreferredMaxWidth()) {
 			if(!(lastWasBreak || lastWasSpace))
 				return false; // not allowed to wrap
-			int wrappedWidth = textLength + indent + getWrapIndentation();
+			int wrappedWidth = textLength + indent + getWrapIndentation() * indentSize;
 			return wrappedWidth < unwrappedWidth;
 		}
 		return false;

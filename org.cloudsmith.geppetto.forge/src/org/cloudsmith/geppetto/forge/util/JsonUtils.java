@@ -27,6 +27,7 @@ import org.cloudsmith.geppetto.forge.impl.RepositoryImpl;
 import org.cloudsmith.geppetto.forge.impl.TypeImpl;
 import org.eclipse.emf.common.util.EList;
 
+import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
@@ -116,6 +117,7 @@ public class JsonUtils {
 
 	static {
 		GsonBuilder bld = new GsonBuilder();
+		bld.setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES);
 		bld.setPrettyPrinting();
 		bld.excludeFieldsWithoutExposeAnnotation();
 		bld.registerTypeAdapter(new TypeToken<EList<Dependency>>() {

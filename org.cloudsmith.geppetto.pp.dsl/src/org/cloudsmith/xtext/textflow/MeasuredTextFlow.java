@@ -193,13 +193,14 @@ public class MeasuredTextFlow extends AbstractTextFlow implements ITextFlow.Meas
 	 */
 	protected boolean shouldLineBeWrapped(CharSequence s) {
 		final int textLength = s.length();
-		final int pos = endsWithBreak()
-				? indent
+		final int pos = lastWasBreak
+				? pendingIndent // indent for preceding break
 				: currentLineWidth;
 		int unwrappedWidth = textLength + pos;
 		if(unwrappedWidth > getPreferredMaxWidth()) {
 			if(!(lastWasBreak || lastWasSpace))
 				return false; // not allowed to wrap
+			// note: use indent here, it is the indent for next break made
 			int wrappedWidth = textLength + indent + getWrapIndentation() * indentSize;
 			return wrappedWidth < unwrappedWidth;
 		}

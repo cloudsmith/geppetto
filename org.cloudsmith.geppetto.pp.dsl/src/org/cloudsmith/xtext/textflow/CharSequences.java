@@ -19,6 +19,42 @@ package org.cloudsmith.xtext.textflow;
 public class CharSequences {
 
 	/**
+	 * A CharSequence consisting of a concatenation of two sequences
+	 * 
+	 */
+	public static class Concatenation implements CharSequence {
+		private CharSequence b;
+
+		private CharSequence a;
+
+		private int aLength;
+
+		public Concatenation(CharSequence a, CharSequence b) {
+			this.a = a;
+			this.aLength = a.length();
+			this.b = b;
+		}
+
+		@Override
+		public char charAt(int index) {
+			if(index < aLength)
+				return a.charAt(index);
+			return b.charAt(index - aLength);
+		}
+
+		@Override
+		public int length() {
+			return a.length() + b.length();
+		}
+
+		@Override
+		public CharSequence subSequence(int start, int end) {
+			return new SubSequence(this, start, end);
+		}
+
+	}
+
+	/**
 	 * An CharSequence consisting of a sequence of the same character.
 	 * 
 	 */

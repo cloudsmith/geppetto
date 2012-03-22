@@ -80,8 +80,18 @@ public class CSSDomFormatter implements IDomModelFormatter {
 			}
 
 			@Override
+			public int getPreferredMaxWidth() {
+				return formattingContext.getPreferredMaxWidth();
+			}
+
+			@Override
 			public ITextRegion getRegionToFormat() {
 				return regionToFormat;
+			}
+
+			@Override
+			public int getWrapIndentSize() {
+				return formattingContext.getWrapIndentSize();
 			}
 
 			@Override

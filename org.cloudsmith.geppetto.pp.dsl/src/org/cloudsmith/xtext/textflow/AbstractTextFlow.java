@@ -69,8 +69,14 @@ public abstract class AbstractTextFlow implements ITextFlow {
 
 	protected final char indentChar;
 
+	protected int wrapIndentSize;
+
+	protected final int preferredMaxWidth;
+
 	@Inject
 	protected AbstractTextFlow(IFormattingContext formattingContext) {
+		this.preferredMaxWidth = formattingContext.getPreferredMaxWidth();
+		this.wrapIndentSize = formattingContext.getWrapIndentSize();
 		lineSeparator = formattingContext.getLineSeparatorInformation().getLineSeparator();
 		String indentationString = formattingContext.getIndentationInformation().getIndentString();
 
@@ -147,17 +153,31 @@ public abstract class AbstractTextFlow implements ITextFlow {
 		return lineSeparator;
 	}
 
+	@Override
+	public int getPreferredMaxWidth() {
+		return preferredMaxWidth;
+	}
+
+	@Override
+	public int getWrapIndentation() {
+		return wrapIndentSize;
+	}
+
+	protected void processTextLine(CharSequence s) {
+		doTextLine(s);
+	}
+
 	protected void processTextLines(CharSequence s) {
 		List<CharSequence> lines = split(s, lineSeparator);
 		int sz = lines.size();
 		for(int i = 0; i < sz - 1; i++) {
-			doTextLine(lines.get(i));
+			processTextLine(lines.get(i));
 			appendBreaks(1);
 		}
 		// last line (may be terminated with line separator)
 		if(sz > 0) {
 			CharSequence line = lines.get(sz - 1);
-			doTextLine(line);
+			processTextLine(line);
 			if(endsWith(line, lineSeparator))
 				appendBreaks(1);
 		}
@@ -169,6 +189,9 @@ public abstract class AbstractTextFlow implements ITextFlow {
 		indent = Math.max(0, count * indentSize);
 		return this;
 
-	}
+	};
 
+	public void setWrapIndentation(int count) {
+		wrapIndentSize = count;
+	}
 }

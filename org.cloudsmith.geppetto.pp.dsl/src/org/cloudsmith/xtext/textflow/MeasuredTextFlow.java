@@ -23,6 +23,8 @@ public class MeasuredTextFlow extends AbstractTextFlow implements ITextFlow.Meas
 
 	private boolean lastWasBreak;
 
+	private boolean lastWasSpace;
+
 	private int numberOfBreaks;
 
 	private int currentLineWidth;
@@ -37,6 +39,7 @@ public class MeasuredTextFlow extends AbstractTextFlow implements ITextFlow.Meas
 	public MeasuredTextFlow(IFormattingContext formattingContext) {
 		super(formattingContext);
 		this.lastWasBreak = false;
+		this.lastWasSpace = false;
 
 		numberOfBreaks = 0;
 		currentLineWidth = 0;
@@ -48,6 +51,7 @@ public class MeasuredTextFlow extends AbstractTextFlow implements ITextFlow.Meas
 		if(count <= 0)
 			return this;
 		lastWasBreak = true;
+		lastWasSpace = true;
 		numberOfBreaks += count;
 		maxWidth = Math.max(maxWidth, currentLineWidth);
 		lastLineWidth = currentLineWidth == 0
@@ -60,6 +64,7 @@ public class MeasuredTextFlow extends AbstractTextFlow implements ITextFlow.Meas
 	@Override
 	public ITextFlow appendSpaces(int count) {
 		emit(count);
+		lastWasSpace = true;
 		return this;
 	}
 
@@ -71,6 +76,7 @@ public class MeasuredTextFlow extends AbstractTextFlow implements ITextFlow.Meas
 	@Override
 	protected void doTextLine(CharSequence s) {
 		emit(s.length());
+		lastWasSpace = false;
 	}
 
 	private void emit(int count) {
@@ -121,8 +127,45 @@ public class MeasuredTextFlow extends AbstractTextFlow implements ITextFlow.Meas
 	}
 
 	@Override
+	protected void processTextLine(CharSequence s) {
+		if(shouldLineBeWrapped(s)) {
+			// wrap indent, output text, restore indent
+			changeIndentation(getWrapIndentation());
+			appendBreak();
+			super.processTextLine(s);
+			changeIndentation(-getWrapIndentation());
+		}
+		else
+			super.processTextLine(s);
+
+	}
+
+	@Override
 	public ITextFlow setIndentation(int count) {
 		indent = Math.max(0, count * indentSize);
 		return this;
+	}
+
+	/**
+	 * Returns true if the text would cause text to be wider that the preferred max width, and placing
+	 * it on the next line with the current indent would either make it fit or cause less overrun.
+	 * Otherwise false is returned.
+	 * 
+	 * @param s
+	 * @return true if the given characters should be placed on the next line
+	 */
+	protected boolean shouldLineBeWrapped(CharSequence s) {
+		final int textLength = s.length();
+		final int pos = endsWithBreak()
+				? indent
+				: getWidthOfLastLine();
+		int unwrappedWidth = textLength + pos;
+		if(unwrappedWidth > getPreferredMaxWidth()) {
+			if(!(lastWasBreak || lastWasSpace))
+				return false; // not allowed to wrap
+			int wrappedWidth = textLength + indent + getWrapIndentation();
+			return wrappedWidth < unwrappedWidth;
+		}
+		return false;
 	}
 }

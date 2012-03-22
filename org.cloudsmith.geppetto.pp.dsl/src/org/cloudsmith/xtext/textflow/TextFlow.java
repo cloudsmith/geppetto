@@ -81,9 +81,18 @@ public class TextFlow extends MeasuredTextFlow implements ITextFlow.WithText {
 
 	@Override
 	protected void doTextLine(CharSequence s) {
-		super.doTextLine(s);
-		emit(s);
-
+		if(shouldLineBeWrapped(s)) {
+			// wrap indent, output text, restore indent
+			changeIndentation(getWrapIndentation());
+			appendBreak();
+			super.doTextLine(s);
+			emit(s);
+			changeIndentation(-getWrapIndentation());
+		}
+		else {
+			super.doTextLine(s);
+			emit(s);
+		}
 	}
 
 	private void emit(CharSequence s) {

@@ -32,6 +32,8 @@ import org.cloudsmith.xtext.dommodel.formatter.IFormattingContext;
 import org.cloudsmith.xtext.dommodel.formatter.ILayoutManager;
 import org.cloudsmith.xtext.dommodel.formatter.css.DomCSS;
 import org.cloudsmith.xtext.serializer.DomBasedSerializer;
+import org.cloudsmith.xtext.textflow.CharSequences;
+import org.cloudsmith.xtext.textflow.CharSequences.Fixed;
 import org.cloudsmith.xtext.textflow.ITextFlow;
 import org.cloudsmith.xtext.textflow.MeasuredTextFlow;
 import org.cloudsmith.xtext.textflow.TextFlow;
@@ -305,6 +307,26 @@ public class TestSemanticCssFormatter extends AbstractPuppetTests {
 		MeasuredTextFlow flow = this.getInjector().getInstance(TextFlow.class);
 		flow.appendText("123");
 		assertFlowOneLineNoBreak(flow);
+	}
+
+	public void test_TextLinewrap() {
+		// default is 132 characters before a wrap and 0 wrap indent
+		MeasuredTextFlow flow = this.getInjector().getInstance(TextFlow.class);
+		Fixed stars = new CharSequences.Fixed('*', 22);
+		for(int i = 0; i < 24; i++) {
+			flow.appendText(stars);
+			flow.appendSpaces(0);
+		}
+		assertEquals(4, flow.getHeight());
+		assertEquals(132, flow.getWidth());
+
+		flow = this.getInjector().getInstance(TextFlow.class);
+		for(int i = 0; i < 24; i++) {
+			flow.appendText(stars);
+			flow.appendSpaces(1);
+		}
+		assertEquals(5, flow.getHeight());
+		assertEquals(115, flow.getWidth());
 	}
 
 	public void test_TextRecordingEmpty() {

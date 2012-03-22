@@ -37,8 +37,13 @@ public interface IFormattingContext {
 
 		private boolean whitespacePreservation;
 
+		private int preferredMaxWidth;
+
+		private int wrapIndentSize;
+
 		/**
-		 * Produces a non whitespace preserving formatting context.
+		 * Produces a non whitespace preserving formatting context using a preferred max width of 132
+		 * characters.
 		 * 
 		 * @param lineInfo
 		 * @param indentInfo
@@ -48,11 +53,26 @@ public interface IFormattingContext {
 			this(lineInfo, indentInfo, false);
 		}
 
+		/**
+		 * Produces a context using a preferred max width of 132, and 0 additional wrap indent.
+		 * characters.
+		 * 
+		 * @param lineInfo
+		 * @param indentInfo
+		 * @param whitespacePreservation
+		 */
 		public Default(ILineSeparatorInformation lineInfo, IIndentationInformation indentInfo,
 				boolean whitespacePreservation) {
+			this(lineInfo, indentInfo, whitespacePreservation, 132, 0);
+		}
+
+		public Default(ILineSeparatorInformation lineInfo, IIndentationInformation indentInfo,
+				boolean whitespacePreservation, int preferredMaxWidth, int wrapIndentSize) {
 			this.lineInfo = lineInfo;
 			this.indentInfo = indentInfo;
 			this.whitespacePreservation = whitespacePreservation;
+			this.preferredMaxWidth = preferredMaxWidth;
+			this.wrapIndentSize = wrapIndentSize;
 		}
 
 		@Override
@@ -66,10 +86,19 @@ public interface IFormattingContext {
 		}
 
 		@Override
+		public int getPreferredMaxWidth() {
+			return preferredMaxWidth;
+		}
+
+		@Override
+		public int getWrapIndentSize() {
+			return wrapIndentSize;
+		}
+
+		@Override
 		public boolean isWhitespacePreservation() {
 			return whitespacePreservation;
 		}
-
 	}
 
 	/**
@@ -112,6 +141,16 @@ public interface IFormattingContext {
 	public IIndentationInformation getIndentationInformation();
 
 	public ILineSeparatorInformation getLineSeparatorInformation();
+
+	/**
+	 * @return the maximum preferred width of a text flow
+	 */
+	public int getPreferredMaxWidth();
+
+	/**
+	 * @return the wanted (additional) indent size for auto wrapped lines.
+	 */
+	public int getWrapIndentSize();
 
 	public boolean isWhitespacePreservation();
 }

@@ -229,6 +229,19 @@ public interface ITextFlow extends Appendable {
 	public int getIndentation();
 
 	/**
+	 * 
+	 * @return the allowed max width in number of characters before automatic wrapping kicks in.
+	 */
+	public int getPreferredMaxWidth();
+
+	/**
+	 * Returns the current wrap indentation.
+	 * 
+	 * @return the current wrap indentation
+	 */
+	public int getWrapIndentation();
+
+	/**
 	 * <p>
 	 * Sets the current indentation count. This is the same as calling<br/>
 	 * <code>setIndentation(0);<br/>
@@ -242,5 +255,14 @@ public interface ITextFlow extends Appendable {
 	 *            - the number of indents to set.
 	 */
 	public ITextFlow setIndentation(int count);
+
+	/**
+	 * <p>
+	 * Sets the additional increment to use when a line is auto wrapped (does not fit on current line). The default is 1.
+	 * </p>
+	 * 
+	 * @param count
+	 */
+	public void setWrapIndentation(int count);
 
 }

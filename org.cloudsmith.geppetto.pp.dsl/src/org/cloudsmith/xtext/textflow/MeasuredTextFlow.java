@@ -105,7 +105,7 @@ public class MeasuredTextFlow extends AbstractTextFlow implements ITextFlow.Meas
 
 	@Override
 	public boolean endsWithBreak() {
-		return lastWasBreak;
+		return lastWasBreak && currentRun == null;
 	}
 
 	protected CharSequence getCurrentRun() {
@@ -126,6 +126,10 @@ public class MeasuredTextFlow extends AbstractTextFlow implements ITextFlow.Meas
 	@Override
 	public int getLastUsedIndentation() {
 		return lastUsedIndent / indentSize;
+	}
+
+	protected int getPendingIndent() {
+		return pendingIndent;
 	}
 
 	private int getRunWidth() {

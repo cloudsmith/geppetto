@@ -297,6 +297,15 @@ public class TestSemanticCssFormatter extends AbstractPuppetTests {
 
 	}
 
+	public void test_TextFlow_pendingIndent() {
+		TextFlow flow = this.getInjector().getInstance(TextFlow.class);
+		flow.changeIndentation(1);
+		flow.appendBreaks(1);
+		flow.appendText("123");
+		assertEquals("\n  123", new StringBuilder(flow.getText()).toString());
+
+	}
+
 	public void test_TextFlowEmpty() {
 		MeasuredTextFlow flow = this.getInjector().getInstance(TextFlow.class);
 		appendSampleFlow(flow);

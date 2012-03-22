@@ -88,9 +88,9 @@ public class TextFlow extends MeasuredTextFlow implements ITextFlow.WithText {
 	private void emit(CharSequence s) {
 		if(lastWasBreak) {
 			lastWasBreak = false;
-			internal_append(indent == 0
+			internal_append(getPendingIndent() == 0
 					? ""
-					: new CharSequences.Fixed(indentChar, indent));
+					: new CharSequences.Fixed(indentChar, getPendingIndent()));
 		}
 		internal_append(s);
 	}
@@ -104,7 +104,10 @@ public class TextFlow extends MeasuredTextFlow implements ITextFlow.WithText {
 		CharSequence a = (builder instanceof CharSequence)
 				? (CharSequence) builder
 				: builder.toString();
-		// include the not yet fully processed text
+		// include the not yet fully processed text by adding indent and current run
+		CharSequence b = getCurrentRun();
+		if(lastWasBreak && b.length() > 0)
+			a = CharSequences.concatenate(a, new CharSequences.Fixed(indentChar, getPendingIndent()));
 		return CharSequences.concatenate(a, getCurrentRun());
 	}
 

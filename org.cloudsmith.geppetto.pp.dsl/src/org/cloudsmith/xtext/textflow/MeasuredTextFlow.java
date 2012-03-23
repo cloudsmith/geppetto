@@ -54,9 +54,9 @@ public class MeasuredTextFlow extends AbstractTextFlow implements ITextFlow.Meas
 	}
 
 	@Override
-	public ITextFlow appendBreaks(int count) {
+	public ITextFlow appendBreaks(int count, boolean verbatim) {
 		if(currentRun != null) {
-			doText(currentRun);
+			doText(currentRun, verbatim);
 			currentRun = null;
 		}
 		lastWasSpace = true;
@@ -69,7 +69,11 @@ public class MeasuredTextFlow extends AbstractTextFlow implements ITextFlow.Meas
 				? lastLineWidth
 				: currentLineWidth;
 		currentLineWidth = 0;
-		pendingIndent = indent;
+
+		// verbatim break simply means, no indentation
+		pendingIndent = verbatim
+				? 0
+				: indent;
 		return this;
 	}
 
@@ -78,7 +82,7 @@ public class MeasuredTextFlow extends AbstractTextFlow implements ITextFlow.Meas
 		if(currentRun != null) {
 			CharSequence run = currentRun;
 			currentRun = null;
-			doText(run);
+			doText(run, true);
 		}
 		emit(count);
 		lastWasSpace = true;
@@ -92,7 +96,7 @@ public class MeasuredTextFlow extends AbstractTextFlow implements ITextFlow.Meas
 	 *            the text that will be emitted.
 	 */
 	@Override
-	protected void doText(CharSequence s) {
+	protected void doText(CharSequence s, boolean verbatim) {
 		emit(s.length());
 		lastWasSpace = false;
 	}
@@ -173,11 +177,21 @@ public class MeasuredTextFlow extends AbstractTextFlow implements ITextFlow.Meas
 	}
 
 	/**
-	 * This implementation buffers non-breakable sequences and performs auto line wrapping.
-	 * 
+	 * This implementation buffers non-breakable sequences and performs auto line wrapping if <code>verbatim</code> is <code>false</code>.
+	 * When output is <i>verbatim</i> pending output is flushed, and new output is immediately processed, and not
+	 * automatic line wrapping will take place.
 	 */
 	@Override
-	protected void processTextSequence(CharSequence s) {
+	protected void processTextSequence(CharSequence s, boolean verbatim) {
+
+		if(verbatim) {
+			if(currentRun != null) {
+				doText(currentRun, false); // if there was a current run, it is not verbatim
+				currentRun = null;
+			}
+			doText(s, true);
+			return;
+		}
 		currentRun = CharSequences.concatenate(currentRun, s); // handles null
 
 		if(shouldLineBeWrapped(currentRun)) {
@@ -186,7 +200,7 @@ public class MeasuredTextFlow extends AbstractTextFlow implements ITextFlow.Meas
 			currentRun = null;
 			changeIndentation(getWrapIndentation());
 			appendBreak();
-			super.processTextSequence(processRun);
+			super.processTextSequence(processRun, verbatim);
 			changeIndentation(-getWrapIndentation());
 		}
 		// do nothing, just keep the currentRun

@@ -18,13 +18,13 @@ import org.cloudsmith.xtext.dommodel.formatter.css.DomCSS;
 import org.cloudsmith.xtext.dommodel.formatter.css.IFunctionFactory;
 import org.cloudsmith.xtext.dommodel.formatter.css.LineBreaks;
 import org.cloudsmith.xtext.dommodel.formatter.css.Spacing;
-import org.cloudsmith.xtext.dommodel.formatter.css.StyleSet;
 import org.cloudsmith.xtext.dommodel.formatter.css.StyleFactory.AlignedSeparatorIndex;
 import org.cloudsmith.xtext.dommodel.formatter.css.StyleFactory.AlignmentStyle;
 import org.cloudsmith.xtext.dommodel.formatter.css.StyleFactory.LineBreakStyle;
 import org.cloudsmith.xtext.dommodel.formatter.css.StyleFactory.SpacingStyle;
 import org.cloudsmith.xtext.dommodel.formatter.css.StyleFactory.TokenTextStyle;
 import org.cloudsmith.xtext.dommodel.formatter.css.StyleFactory.WidthStyle;
+import org.cloudsmith.xtext.dommodel.formatter.css.StyleSet;
 import org.cloudsmith.xtext.textflow.ITextFlow;
 
 import com.google.inject.Inject;
@@ -57,45 +57,53 @@ public class FlowLayout extends AbstractLayout implements ILayoutManager {
 			// TEXT
 			String text = styleSet.getStyleValue(TokenTextStyle.class, node, functions.textOfNode());
 
-			// ALIGNMENT
-			// is left by default
-			//
-			Alignment alignment = styleSet.getStyleValue(AlignmentStyle.class, node, Alignment.left);
-			final int textLength = text.length();
-			final Integer widthObject = styleSet.getStyleValue(WidthStyle.class, node);
-			final int width = widthObject == null
-					? textLength
-					: widthObject.intValue();
-			final int diff = width - textLength;
+			if(context.isWhitespacePreservation()) {
+				// alignment modifies spacing, just output text
+				// TODO: "whitespacePreservation should really use the text from the node, not
+				// after having passed a potential formatting function?
+				output.appendText(text, true);
+			}
+			else {
+				// ALIGNMENT
+				// is left by default
+				//
+				Alignment alignment = styleSet.getStyleValue(AlignmentStyle.class, node, Alignment.left);
+				final int textLength = text.length();
+				final Integer widthObject = styleSet.getStyleValue(WidthStyle.class, node);
+				final int width = widthObject == null
+						? textLength
+						: widthObject.intValue();
+				final int diff = width - textLength;
 
-			switch(alignment) {
-				case left:
-					output.appendText(text).appendSpaces(diff); // ok if 0 or negative = no spaces
-					break;
-				case right:
-					output.appendSpaces(diff).appendText(text);
-					break;
-				case center:
-					int leftpad = (diff) / 2;
-					output.appendSpaces(leftpad).appendText(text).appendSpaces(diff - leftpad);
-					break;
-				case separator:
-					// width must have been set as it is otherwise meaningless to try to align on
-					// separator.
-					if(widthObject == null) {
-						output.appendText(text);
-					}
-					else {
-						// use first non word char as default
-						// right align in the given width
-						int separatorIndex = styleSet.getStyleValue(
-							AlignedSeparatorIndex.class, node, functions.firstNonWordChar());
-						if(separatorIndex > -1)
-							output.appendSpaces(width - separatorIndex).appendText(text);
-						else
-							output.appendSpaces(diff).appendText(text);
-					}
-					break;
+				switch(alignment) {
+					case left:
+						output.appendText(text).appendSpaces(diff); // ok if 0 or negative = no spaces
+						break;
+					case right:
+						output.appendSpaces(diff).appendText(text);
+						break;
+					case center:
+						int leftpad = (diff) / 2;
+						output.appendSpaces(leftpad).appendText(text).appendSpaces(diff - leftpad);
+						break;
+					case separator:
+						// width must have been set as it is otherwise meaningless to try to align on
+						// separator.
+						if(widthObject == null) {
+							output.appendText(text);
+						}
+						else {
+							// use first non word char as default
+							// right align in the given width
+							int separatorIndex = styleSet.getStyleValue(
+								AlignedSeparatorIndex.class, node, functions.firstNonWordChar());
+							if(separatorIndex > -1)
+								output.appendSpaces(width - separatorIndex).appendText(text);
+							else
+								output.appendSpaces(diff).appendText(text);
+						}
+						break;
+				}
 			}
 		}
 	}

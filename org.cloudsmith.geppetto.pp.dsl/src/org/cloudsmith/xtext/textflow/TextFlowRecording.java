@@ -96,9 +96,9 @@ public class TextFlowRecording extends MeasuredTextFlow implements ITextFlow.Rec
 	}
 
 	@Override
-	public ITextFlow appendBreaks(int count) {
+	public ITextFlow appendBreaks(int count, boolean verbatim) {
 		tape.add(new BreakCount(count));
-		return super.appendBreaks(count);
+		return super.appendBreaks(count, verbatim);
 	}
 
 	@Override
@@ -120,8 +120,8 @@ public class TextFlowRecording extends MeasuredTextFlow implements ITextFlow.Rec
 	}
 
 	@Override
-	protected void doText(CharSequence s) {
-		super.doText(s);
+	protected void doText(CharSequence s, boolean verbatim) {
+		super.doText(s, verbatim);
 		tape.add(new Text(s));
 
 	}

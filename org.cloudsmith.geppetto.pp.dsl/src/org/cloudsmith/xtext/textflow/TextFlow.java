@@ -56,8 +56,8 @@ public class TextFlow extends MeasuredTextFlow implements ITextFlow.WithText {
 	}
 
 	@Override
-	public ITextFlow appendBreaks(int count) {
-		super.appendBreaks(count);
+	public ITextFlow appendBreaks(int count, boolean verbatim) {
+		super.appendBreaks(count, verbatim);
 		if(count <= 0)
 			return this;
 		internal_append(count == 1
@@ -84,8 +84,8 @@ public class TextFlow extends MeasuredTextFlow implements ITextFlow.WithText {
 	 * unspecified). Keeps metrics up to date.
 	 */
 	@Override
-	protected void doText(CharSequence s) {
-		super.doText(s);
+	protected void doText(CharSequence s, boolean verbatim) {
+		super.doText(s, verbatim);
 		emit(s);
 	}
 

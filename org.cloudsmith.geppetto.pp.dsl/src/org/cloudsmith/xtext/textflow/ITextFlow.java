@@ -177,22 +177,37 @@ public interface ITextFlow extends Appendable {
 	}
 
 	/**
-	 * Appends one line break. This is the same as calling <ocde>appendBreaks(1)</code>
+	 * Appends one line break. This is the same as calling <ocde>appendBreaks(1, false)</code>
 	 * 
-	 * @return
+	 * @return the flow
 	 */
 	public ITextFlow appendBreak();
 
 	/**
 	 * Appends the given amount of line breaks to the stream. A value <= 0 is ignored.
+	 * This is the same as calling <code>appendBreaks(count, false)</code>.
 	 * 
 	 * @param count
 	 *            >=0 number of line breaks
+	 * @return the flow
 	 */
 	public ITextFlow appendBreaks(int count);
 
 	/**
+	 * Appends the given amount of line breaks to the stream. A value <= 0 is ignored but is interpreted
+	 * as a position where automatic line-wrap may occur. If the verbatim flag is <code>true</code> the break will not
+	 * output any indentation.
+	 * 
+	 * @param count
+	 * @param verbatim
+	 * @return the flow
+	 */
+	public ITextFlow appendBreaks(int count, boolean verbatim);
+
+	/**
 	 * Appends one space to the stream. This is the same as calling <code>spaces(1)</code>.
+	 * 
+	 * @return the flow
 	 */
 	public ITextFlow appendSpace();
 
@@ -200,22 +215,42 @@ public interface ITextFlow extends Appendable {
 	 * Appends the given amount of spaces to the stream.
 	 * 
 	 * @param count
+	 * @return the flow
 	 */
 	public ITextFlow appendSpaces(int count);
 
 	/**
-	 * Appends the given string to the flow. The text may contain line separators, but each line is
-	 * subject to indentation. If the given string has leading whitespace this should most
-	 * likely be removed first (see {@link Strings#removeLeadingWhitespace(String)}).
+	 * <p>
+	 * Appends the given string to the flow. The text may contain line separators, but each line is subject to indentation. If the given string has
+	 * leading whitespace this should most likely be removed first (see {@link Strings#removeLeadingWhitespace(String)}).
+	 * </p>
+	 * <p>
+	 * To output text verbatim, see {@link #appendText(CharSequence, boolean)}.
+	 * </p>
 	 * 
 	 * @param s
 	 *            the text to append to the stream
+	 * @return the flow
 	 */
 	public ITextFlow appendText(CharSequence s);
 
 	/**
+	 * Outputs the verbatim text. If any line separators are found in the text they are included in {@link IMetrics} but they do not trigger
+	 * indentation.
+	 * 
+	 * @param s
+	 *            the text to append to the stream
+	 * @param verbatim
+	 *            - if true text is not subject to indentation processing
+	 * @return the flow
+	 */
+	public ITextFlow appendText(CharSequence s, boolean verbatim);
+
+	/**
 	 * Changes indentation by +/- count.<br/>
 	 * A count of 0 has no effect on indentation.<br/>
+	 * 
+	 * @return the flow
 	 */
 	public ITextFlow changeIndentation(int count);
 

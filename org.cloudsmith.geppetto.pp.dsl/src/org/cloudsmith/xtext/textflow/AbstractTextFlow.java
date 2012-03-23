@@ -76,7 +76,13 @@ public abstract class AbstractTextFlow implements ITextFlow {
 	}
 
 	@Override
-	public abstract ITextFlow appendBreaks(int count);
+	public ITextFlow appendBreaks(int count) {
+		appendBreaks(count, false);
+		return this;
+	}
+
+	@Override
+	public abstract ITextFlow appendBreaks(int count, boolean verbatim);
 
 	@Override
 	public ITextFlow appendSpace() {
@@ -93,7 +99,12 @@ public abstract class AbstractTextFlow implements ITextFlow {
 	 */
 	@Override
 	public ITextFlow appendText(CharSequence s) {
-		processEmbeddedLinebreaks(s);
+		return appendText(s, false);
+	}
+
+	@Override
+	public ITextFlow appendText(CharSequence s, boolean verbatim) {
+		processEmbeddedLinebreaks(s, verbatim);
 		return this;
 	}
 
@@ -106,7 +117,7 @@ public abstract class AbstractTextFlow implements ITextFlow {
 		return this;
 	}
 
-	protected abstract void doText(CharSequence s);
+	protected abstract void doText(CharSequence s, boolean verbatim);
 
 	@Override
 	public int getIndentation() {
@@ -134,19 +145,19 @@ public abstract class AbstractTextFlow implements ITextFlow {
 	 * 
 	 * @param s
 	 */
-	protected void processEmbeddedLinebreaks(CharSequence s) {
+	protected void processEmbeddedLinebreaks(CharSequence s, boolean verbatim) {
 		List<CharSequence> lines = CharSequences.split(s, lineSeparator);
 		int sz = lines.size();
 		for(int i = 0; i < sz - 1; i++) {
-			processTextSequence(lines.get(i));
-			appendBreaks(1);
+			processTextSequence(lines.get(i), verbatim);
+			appendBreaks(1, verbatim);
 		}
 		// last line (may be terminated with line separator)
 		if(sz > 0) {
 			CharSequence line = lines.get(sz - 1);
-			processTextSequence(line);
+			processTextSequence(line, verbatim);
 			if(CharSequences.endsWith(line, lineSeparator))
-				appendBreaks(1);
+				appendBreaks(1, verbatim);
 		}
 
 	}
@@ -157,8 +168,8 @@ public abstract class AbstractTextFlow implements ITextFlow {
 	 * 
 	 * @param s
 	 */
-	protected void processTextSequence(CharSequence s) {
-		doText(s);
+	protected void processTextSequence(CharSequence s, boolean verbatim) {
+		doText(s, verbatim);
 	}
 
 	@Override

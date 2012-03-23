@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2011 Cloudsmith Inc. and other contributors, as listed below.
+ * Copyright (c) 2012 Cloudsmith Inc. and other contributors, as listed below.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -11,9 +11,15 @@
  */
 package org.cloudsmith.xtext.textflow;
 
+import java.util.List;
+
+import com.google.inject.internal.Lists;
+
 /**
- * An implementation of utility CharSequences providing efficient strings consisting of a fixed space,
- * or specified character, and a repeating sequence.
+ * A CharSequence utilities class providing efficient "strings" consisting of a fixed space,
+ * or specified character, a repeating sequence, concatenation, sub sequence and replacement methods for
+ * String methods {@link #endsWith(CharSequence, String)}, {@link #indexOf(CharSequence, String, int)}, and a method
+ * that splits a CharSequence into a List.
  * 
  */
 public class CharSequences {
@@ -105,6 +111,8 @@ public class CharSequences {
 
 		@Override
 		public char charAt(int index) {
+			if(index >= count * length)
+				throw new IndexOutOfBoundsException();
 			return s.charAt(index % length);
 		}
 
@@ -115,6 +123,9 @@ public class CharSequences {
 
 		@Override
 		public CharSequence subSequence(int start, int end) {
+			int max = length();
+			if(start < 0 || end < 0 || start > end || end > max)
+				throw new IndexOutOfBoundsException();
 			return new SubSequence(this, start, end);
 		}
 	}
@@ -198,4 +209,42 @@ public class CharSequences {
 			return a;
 		return new Concatenation(a, b);
 	}
+
+	public static boolean endsWith(CharSequence value, String end) {
+		if(value instanceof String)
+			return ((String) value).endsWith(end);
+		int sz = value.length();
+		int szEnd = end.length();
+		if(value.length() < end.length())
+			return false;
+		return value.subSequence(sz - szEnd - 1, sz).equals(end);
+	}
+
+	public static int indexOf(CharSequence value, String delimiter, int from) {
+		if(value instanceof String)
+			return ((String) value).indexOf(delimiter, from);
+		else if(value instanceof StringBuilder)
+			return ((StringBuilder) value).indexOf(delimiter, from);
+		return value.toString().indexOf(delimiter, from);
+
+	}
+
+	/**
+	 * @param value
+	 * @param delimiter
+	 * @return
+	 */
+	public static List<CharSequence> split(CharSequence value, String delimiter) {
+		List<CharSequence> result = Lists.newArrayList();
+		int lastIndex = 0;
+		int index = indexOf(value, delimiter, lastIndex);
+		while(index != -1) {
+			result.add(value.subSequence(lastIndex, index));
+			lastIndex = index + delimiter.length();
+			index = indexOf(value, delimiter, lastIndex);
+		}
+		result.add(value.subSequence(lastIndex, value.length()));
+		return result;
+	}
+
 }

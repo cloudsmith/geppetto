@@ -56,7 +56,7 @@ public class MeasuredTextFlow extends AbstractTextFlow implements ITextFlow.Meas
 	@Override
 	public ITextFlow appendBreaks(int count) {
 		if(currentRun != null) {
-			doTextLine(currentRun);
+			doText(currentRun);
 			currentRun = null;
 		}
 		lastWasSpace = true;
@@ -78,7 +78,7 @@ public class MeasuredTextFlow extends AbstractTextFlow implements ITextFlow.Meas
 		if(currentRun != null) {
 			CharSequence run = currentRun;
 			currentRun = null;
-			doTextLine(run);
+			doText(run);
 		}
 		emit(count);
 		lastWasSpace = true;
@@ -92,7 +92,7 @@ public class MeasuredTextFlow extends AbstractTextFlow implements ITextFlow.Meas
 	 *            the text that will be emitted.
 	 */
 	@Override
-	protected void doTextLine(CharSequence s) {
+	protected void doText(CharSequence s) {
 		emit(s.length());
 		lastWasSpace = false;
 	}
@@ -172,8 +172,12 @@ public class MeasuredTextFlow extends AbstractTextFlow implements ITextFlow.Meas
 		return indentFirstLine;
 	}
 
+	/**
+	 * This implementation buffers non-breakable sequences and performs auto line wrapping.
+	 * 
+	 */
 	@Override
-	protected void processTextLine(CharSequence s) {
+	protected void processTextSequence(CharSequence s) {
 		currentRun = CharSequences.concatenate(currentRun, s); // handles null
 
 		if(shouldLineBeWrapped(currentRun)) {
@@ -182,7 +186,7 @@ public class MeasuredTextFlow extends AbstractTextFlow implements ITextFlow.Meas
 			currentRun = null;
 			changeIndentation(getWrapIndentation());
 			appendBreak();
-			super.processTextLine(processRun);
+			super.processTextSequence(processRun);
 			changeIndentation(-getWrapIndentation());
 		}
 		// do nothing, just keep the currentRun

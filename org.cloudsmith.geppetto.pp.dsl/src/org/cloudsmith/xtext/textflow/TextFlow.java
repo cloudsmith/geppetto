@@ -79,9 +79,13 @@ public class TextFlow extends MeasuredTextFlow implements ITextFlow.WithText {
 		return this;
 	}
 
+	/**
+	 * This implementation emits the text to the {@link Appendable} given to the constructor (or an internal buffer if
+	 * unspecified). Keeps metrics up to date.
+	 */
 	@Override
-	protected void doTextLine(CharSequence s) {
-		super.doTextLine(s);
+	protected void doText(CharSequence s) {
+		super.doText(s);
 		emit(s);
 	}
 
@@ -93,10 +97,6 @@ public class TextFlow extends MeasuredTextFlow implements ITextFlow.WithText {
 					: new CharSequences.Fixed(indentChar, getPendingIndent()));
 		}
 		internal_append(s);
-	}
-
-	public void flush() throws IOException {
-
 	}
 
 	@Override

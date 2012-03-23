@@ -120,8 +120,8 @@ public class TextFlowRecording extends MeasuredTextFlow implements ITextFlow.Rec
 	}
 
 	@Override
-	protected void doTextLine(CharSequence s) {
-		super.doTextLine(s);
+	protected void doText(CharSequence s) {
+		super.doText(s);
 		tape.add(new Text(s));
 
 	}

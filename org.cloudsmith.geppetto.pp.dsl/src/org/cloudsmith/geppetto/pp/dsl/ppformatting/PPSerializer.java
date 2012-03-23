@@ -60,8 +60,8 @@ public class PPSerializer implements ISerializer {
 
 	protected void serialize(EObject obj, ITextFlow.WithText stream, SaveOptions options) throws IOException {
 		expressionFormatter.format(obj, stream);
-		if(stream instanceof TextFlow)
-			((TextFlow) stream).flush();
+		// if(stream instanceof TextFlow)
+		// ((TextFlow) stream).flush();
 	}
 
 	/*

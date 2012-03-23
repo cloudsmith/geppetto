@@ -17,49 +17,12 @@ import java.util.List;
 import org.cloudsmith.xtext.dommodel.formatter.IFormattingContext;
 
 import com.google.inject.Inject;
-import com.google.inject.internal.Lists;
 
 /**
  * An abstract implementation of an ITextFlow.
  * 
  */
 public abstract class AbstractTextFlow implements ITextFlow {
-	protected static boolean endsWith(CharSequence value, String end) {
-		if(value instanceof String)
-			return ((String) value).endsWith(end);
-		int sz = value.length();
-		int szEnd = end.length();
-		if(value.length() < end.length())
-			return false;
-		return value.subSequence(sz - szEnd - 1, sz).equals(end);
-	}
-
-	protected static int indexOf(CharSequence value, String delimiter, int from) {
-		if(value instanceof String)
-			return ((String) value).indexOf(delimiter, from);
-		else if(value instanceof StringBuilder)
-			return ((StringBuilder) value).indexOf(delimiter, from);
-		return value.toString().indexOf(delimiter, from);
-
-	}
-
-	/**
-	 * @param value
-	 * @param delimiter
-	 * @return
-	 */
-	protected static List<CharSequence> split(CharSequence value, String delimiter) {
-		List<CharSequence> result = Lists.newArrayList();
-		int lastIndex = 0;
-		int index = indexOf(value, delimiter, lastIndex);
-		while(index != -1) {
-			result.add(value.subSequence(lastIndex, index));
-			lastIndex = index + delimiter.length();
-			index = indexOf(value, delimiter, lastIndex);
-		}
-		result.add(value.subSequence(lastIndex, value.length()));
-		return result;
-	}
 
 	protected int indent;
 
@@ -124,12 +87,13 @@ public abstract class AbstractTextFlow implements ITextFlow {
 	public abstract ITextFlow appendSpaces(int count);
 
 	/**
-	 * Breaks lines into separate lines and calls a sequence of {@link #doTextLine(String)} and {@link #oneBreak(int)}.
-	 * A derived class should not override this method, and instead override {@link #doTextLine(String)}.
+	 * Breaks lines into separate lines and calls a sequence of {@link #doText(String)} and {@link #oneBreak(int)}.
+	 * A derived class should not override this method, and instead override {@link #doText(String)} to perform the emit of
+	 * the actual text, or {@link #processTextSequence(CharSequence)} to do processing before emit (wrapping, etc).
 	 */
 	@Override
 	public ITextFlow appendText(CharSequence s) {
-		processTextLines(s);
+		processEmbeddedLinebreaks(s);
 		return this;
 	}
 
@@ -142,7 +106,7 @@ public abstract class AbstractTextFlow implements ITextFlow {
 		return this;
 	}
 
-	protected abstract void doTextLine(CharSequence s);
+	protected abstract void doText(CharSequence s);
 
 	@Override
 	public int getIndentation() {
@@ -163,25 +127,38 @@ public abstract class AbstractTextFlow implements ITextFlow {
 		return wrapIndentSize;
 	}
 
-	protected void processTextLine(CharSequence s) {
-		doTextLine(s);
-	}
-
-	protected void processTextLines(CharSequence s) {
-		List<CharSequence> lines = split(s, lineSeparator);
+	/**
+	 * Process (and output) given sequence for embedded line breaks (must be counted and subject to indentation).
+	 * Results in a series of calls to {@link #processTextSequence(CharSequence)} and (if there are
+	 * any embedded breaks) {@link #appendBreaks(1)}.
+	 * 
+	 * @param s
+	 */
+	protected void processEmbeddedLinebreaks(CharSequence s) {
+		List<CharSequence> lines = CharSequences.split(s, lineSeparator);
 		int sz = lines.size();
 		for(int i = 0; i < sz - 1; i++) {
-			processTextLine(lines.get(i));
+			processTextSequence(lines.get(i));
 			appendBreaks(1);
 		}
 		// last line (may be terminated with line separator)
 		if(sz > 0) {
 			CharSequence line = lines.get(sz - 1);
-			processTextLine(line);
-			if(endsWith(line, lineSeparator))
+			processTextSequence(line);
+			if(CharSequences.endsWith(line, lineSeparator))
 				appendBreaks(1);
 		}
 
+	}
+
+	/**
+	 * This default implementation does nothing but call {@link #doText(CharSequence)} - a derived implementation
+	 * may buffer, perform auto line wrapping etc.
+	 * 
+	 * @param s
+	 */
+	protected void processTextSequence(CharSequence s) {
+		doText(s);
 	}
 
 	@Override

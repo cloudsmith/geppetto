@@ -18,6 +18,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import org.cloudsmith.xtext.dommodel.IDomNode;
 import org.cloudsmith.xtext.dommodel.formatter.IDomModelFormatter;
 import org.cloudsmith.xtext.dommodel.formatter.IFormattingContext.FormattingContextProvider;
 import org.cloudsmith.xtext.serializer.acceptor.DomModelSequenceAdapter;
@@ -126,5 +127,21 @@ public class DomBasedSerializer extends Serializer {
 		ReplaceRegion r = domFormatter.format(
 			acceptor.getDomModel(), null /* all text */, formattingContextProvider.get(!options.isFormatting()), errors);
 		writer.append(r.getText());
+	}
+
+	/**
+	 * Don't know if this should be here - temporary solution to get the dom model
+	 * 
+	 * @param obj
+	 * @param preserveWhitespace
+	 * @return
+	 */
+	public IDomNode serializeToDom(EObject obj, boolean preserveWhitespace) {
+		// Uses DomModelSequencer and new formatter interface
+		ISerializationDiagnostic.Acceptor errors = ISerializationDiagnostic.EXCEPTION_THROWING_ACCEPTOR;
+		DomModelSequenceAdapter acceptor = new DomModelSequenceAdapter(hiddenTokenHelper, errors);
+		EObject context = getContext(obj);
+		serialize(obj, context, acceptor, errors);
+		return acceptor.getDomModel();
 	}
 }

@@ -15,6 +15,7 @@ import org.cloudsmith.geppetto.pp.dsl.formatting.PPSemanticLayout.ResourceStyle;
 import org.cloudsmith.geppetto.pp.dsl.formatting.PPSemanticLayout.StatementStyle;
 import org.cloudsmith.geppetto.pp.dsl.services.PPGrammarAccess;
 import org.cloudsmith.geppetto.pp.dsl.services.PPGrammarAccess.ResourceExpressionElements;
+import org.cloudsmith.xtext.dommodel.IDomNode.NodeType;
 import org.cloudsmith.xtext.dommodel.formatter.css.DefaultStylesheetProvider;
 import org.cloudsmith.xtext.dommodel.formatter.css.DomCSS;
 import org.cloudsmith.xtext.dommodel.formatter.css.IFunctionFactory;
@@ -188,7 +189,11 @@ public class PPStylesheetProvider extends DefaultStylesheetProvider {
 			// No space between function name and ()
 			Select.whitespaceBefore(
 				Select.grammar(grammarAccess.getFunctionCallAccess().getLeftParenthesisKeyword_1_1())).withStyle(//
-				noSpaceNoLine)
+				noSpaceNoLine),
+				
+			// PP parser includes trailing WS in ML comment, and SL comment always ends with line break
+			Select.whitespaceAfter(Select.node(NodeType.COMMENT)).withStyle(//
+				styles.noSpace())
 
 		);
 		return css;

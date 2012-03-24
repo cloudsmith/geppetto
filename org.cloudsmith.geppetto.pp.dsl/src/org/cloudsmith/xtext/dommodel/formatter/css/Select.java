@@ -153,6 +153,35 @@ public class Select {
 	}
 
 	/**
+	 * A selector that is useful when debugging matching (wrap a real selector and set a breakpoint in {@link #matches(IDomNode)}.
+	 */
+	public static class DebugSelector extends Selector {
+		private Selector wrappedSelector;
+
+		public DebugSelector(Selector wrappedSelector) {
+			this.wrappedSelector = wrappedSelector;
+		}
+
+		@Override
+		public boolean equalMatch(Selector s) {
+			return wrappedSelector.equalMatch(s);
+		}
+
+		@Override
+		public int getSpecificity() {
+			return wrappedSelector.getSpecificity();
+		}
+
+		@Override
+		public boolean matches(IDomNode node) {
+			boolean matches = false;
+			if(node != null)
+				matches = wrappedSelector.matches(node);
+			return matches;
+		}
+	}
+
+	/**
 	 * Selects on grammar element - may contain one or more grammar elements.
 	 * Selector matches if a DOM node is associated with one of the grammar elements.
 	 */

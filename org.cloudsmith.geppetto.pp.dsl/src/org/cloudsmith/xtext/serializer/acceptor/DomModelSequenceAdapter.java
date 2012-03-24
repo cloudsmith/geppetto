@@ -60,8 +60,6 @@ public class DomModelSequenceAdapter implements ISequenceAcceptor {
 
 	private List<CompositeDomNode> stack;
 
-	private List<List<AbstractRule>> hiddenStack;
-
 	protected IHiddenTokenHelper hiddenTokenHelper;
 
 	Function<AbstractRule, String> ruleToName = new Function<AbstractRule, String>() {
@@ -76,7 +74,6 @@ public class DomModelSequenceAdapter implements ISequenceAcceptor {
 	public DomModelSequenceAdapter(IHiddenTokenHelper hiddenTokenHelper, ISerializationDiagnostic.Acceptor errorAcceptor) {
 		current = new CompositeDomNode();
 		stack = Lists.newArrayList();
-		hiddenStack = Lists.newArrayList();
 		this.errorAcceptor = errorAcceptor;
 		this.hiddenTokenHelper = hiddenTokenHelper;
 	}

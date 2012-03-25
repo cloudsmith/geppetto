@@ -143,7 +143,7 @@ public class DomCSS {
 	 * @return - a list of matching Rules for the given node
 	 */
 	public List<Rule> collectRules(IDomNode node) {
-		ArrayList<Rule> matches = new ArrayList<Rule>(cssRules.size() / 2); // guessing on size
+		ArrayList<Rule> matches = new ArrayList<Rule>(5); // guessing on size
 
 		// if element has a style map, add a (matched) rule for it
 		if(node.getStyles() != null)

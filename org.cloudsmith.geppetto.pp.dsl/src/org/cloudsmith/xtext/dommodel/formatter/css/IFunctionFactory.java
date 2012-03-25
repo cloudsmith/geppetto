@@ -56,6 +56,22 @@ public interface IFunctionFactory {
 	public Function<IDomNode, Boolean> not(Function<IDomNode, Boolean> f);
 
 	/**
+	 * Produces a LineBreaks style of 1 linebreak unless the following node is a comment that ends with
+	 * a linebreak.
+	 * 
+	 * @return
+	 */
+	public Function<IDomNode, LineBreaks> oneLineBreakUnlessNextIsLinebreakingComment();
+
+	/**
+	 * Produces a SpacingStyle of 1 space unless node is whitespace terminated in which case
+	 * it produces SpacingStyle 0
+	 * 
+	 * @return
+	 */
+	public Function<IDomNode, Spacing> oneSpaceUnlessWhitespaceTerminated();
+
+	/**
 	 * A function returning the {@link IDomNode#getText()} of the node it is applied to.
 	 * 
 	 * @return

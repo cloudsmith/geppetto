@@ -84,7 +84,7 @@ public class DefaultStylesheetProvider implements Provider<DomCSS> {
 			// Start indent on '{' and break line
 			Select.after(Select.whitespace(), Select.keyword("{")).withStyles( //
 				styles.indent(), //
-				styles.oneLineBreak()), //
+				styles.lineBreaks(functions.oneLineBreakUnlessNextIsLinebreakingComment())), //
 
 			// Stop indent on '}' and break line before and after
 			Select.before(Select.whitespace(), Select.keyword("}")).withStyles( //

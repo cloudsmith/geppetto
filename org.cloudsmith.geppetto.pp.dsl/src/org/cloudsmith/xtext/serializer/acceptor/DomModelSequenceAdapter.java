@@ -29,6 +29,7 @@ import org.cloudsmith.xtext.dommodel.IDomNode.NodeType;
 import org.cloudsmith.xtext.dommodel.impl.BaseDomNode;
 import org.cloudsmith.xtext.dommodel.impl.CompositeDomNode;
 import org.cloudsmith.xtext.dommodel.impl.LeafDomNode;
+import org.cloudsmith.xtext.formatting.ILineSeparatorInformation;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.xtext.AbstractRule;
 import org.eclipse.xtext.Action;
@@ -70,12 +71,19 @@ public class DomModelSequenceAdapter implements ISequenceAcceptor {
 		}
 	};
 
+	/**
+	 * Required to encode certain facts about comments in a generic way
+	 */
+	ILineSeparatorInformation lineSeparatorInformation;
+
 	@Inject
-	public DomModelSequenceAdapter(IHiddenTokenHelper hiddenTokenHelper, ISerializationDiagnostic.Acceptor errorAcceptor) {
+	public DomModelSequenceAdapter(IHiddenTokenHelper hiddenTokenHelper,
+			ILineSeparatorInformation lineSeparatorInformation, ISerializationDiagnostic.Acceptor errorAcceptor) {
 		current = new CompositeDomNode();
 		stack = Lists.newArrayList();
 		this.errorAcceptor = errorAcceptor;
 		this.hiddenTokenHelper = hiddenTokenHelper;
+		this.lineSeparatorInformation = lineSeparatorInformation;
 	}
 
 	/**
@@ -166,7 +174,17 @@ public class DomModelSequenceAdapter implements ISequenceAcceptor {
 	 */
 	@Override
 	public void acceptComment(AbstractRule rule, String token, ILeafNode node) {
-		addLeafNodeToCurrent(rule, token, node, COMMENT);
+		// It is of value to know if a comment extends over multiple lines or if it ends with a line separator
+		//
+		final String lineSep = lineSeparatorInformation.getLineSeparator();
+		List<NodeClassifier> commentClassification = Lists.newArrayList();
+		if(token.endsWith(lineSep))
+			commentClassification.add(NodeClassifier.LINESEPARATOR_TERMINATED);
+		final int lineSepIx = token.indexOf(lineSep);
+		if(lineSepIx != -1 && lineSepIx != token.lastIndexOf(lineSep))
+			commentClassification.add(NodeClassifier.MULTIPLE_LINES);
+
+		addLeafNodeToCurrent(rule, token, node, COMMENT, commentClassification.toArray());
 	}
 
 	/**

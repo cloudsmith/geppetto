@@ -21,6 +21,7 @@ import java.util.List;
 import org.cloudsmith.xtext.dommodel.IDomNode;
 import org.cloudsmith.xtext.dommodel.formatter.IDomModelFormatter;
 import org.cloudsmith.xtext.dommodel.formatter.IFormattingContext.FormattingContextProvider;
+import org.cloudsmith.xtext.formatting.ILineSeparatorInformation;
 import org.cloudsmith.xtext.serializer.acceptor.DomModelSequenceAdapter;
 import org.eclipse.emf.common.util.Diagnostic;
 import org.eclipse.emf.ecore.EObject;
@@ -57,6 +58,9 @@ public class DomBasedSerializer extends Serializer {
 
 	@Inject
 	IHiddenTokenHelper hiddenTokenHelper;
+
+	@Inject
+	ILineSeparatorInformation lineSeparatorInformation;
 
 	/**
 	 * NOTE: This overridden method is required to initialize the DomModelSequences.
@@ -121,7 +125,8 @@ public class DomBasedSerializer extends Serializer {
 
 		// Uses DomModelSequencer and new formatter interface
 		ISerializationDiagnostic.Acceptor errors = ISerializationDiagnostic.EXCEPTION_THROWING_ACCEPTOR;
-		DomModelSequenceAdapter acceptor = new DomModelSequenceAdapter(hiddenTokenHelper, errors);
+		DomModelSequenceAdapter acceptor = new DomModelSequenceAdapter(
+			hiddenTokenHelper, lineSeparatorInformation, errors);
 		EObject context = getContext(obj);
 		serialize(obj, context, acceptor, errors);
 		ReplaceRegion r = domFormatter.format(
@@ -139,7 +144,8 @@ public class DomBasedSerializer extends Serializer {
 	public IDomNode serializeToDom(EObject obj, boolean preserveWhitespace) {
 		// Uses DomModelSequencer and new formatter interface
 		ISerializationDiagnostic.Acceptor errors = ISerializationDiagnostic.EXCEPTION_THROWING_ACCEPTOR;
-		DomModelSequenceAdapter acceptor = new DomModelSequenceAdapter(hiddenTokenHelper, errors);
+		DomModelSequenceAdapter acceptor = new DomModelSequenceAdapter(
+			hiddenTokenHelper, lineSeparatorInformation, errors);
 		EObject context = getContext(obj);
 		serialize(obj, context, acceptor, errors);
 		return acceptor.getDomModel();

@@ -15,7 +15,10 @@ import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.cloudsmith.xtext.dommodel.DomModelUtils;
 import org.cloudsmith.xtext.dommodel.IDomNode;
+import org.cloudsmith.xtext.dommodel.IDomNode.NodeClassifier;
+import org.cloudsmith.xtext.dommodel.IDomNode.NodeType;
 
 import com.google.common.base.Function;
 import com.google.inject.Singleton;
@@ -81,6 +84,8 @@ public class FunctionFactory implements IFunctionFactory {
 
 	private static final Pattern NON_WORD_CHAR_PATTERN = Pattern.compile("\\W+");
 
+	private static final Pattern WHITESPACE_PATTERN = Pattern.compile("\\s+");
+
 	private static final Function<IDomNode, Integer> firstNonWordFunc = new Function<IDomNode, Integer>() {
 
 		@Override
@@ -103,10 +108,44 @@ public class FunctionFactory implements IFunctionFactory {
 
 			String s = from.getText();
 			String r = new StringBuilder(s).reverse().toString();
-			Matcher m = NON_WORD_CHAR_PATTERN.matcher(s);
+			Matcher m = NON_WORD_CHAR_PATTERN.matcher(r);
 			if(!m.find())
 				return -1;
 			return s.length() - m.end();
+		}
+
+	};
+
+	private static Spacing oneSpace = new Spacing(1, 1, 1);
+
+	private static Spacing noSpace = new Spacing(0, 0, 0);
+
+	private static LineBreaks oneLine = new LineBreaks(1, 1, 1);
+
+	private static LineBreaks noLine = new LineBreaks(0, 0, 0);
+
+	private static final Function<IDomNode, Spacing> oneSpaceUnlessWhitespaceTerminated = new Function<IDomNode, Spacing>() {
+
+		@Override
+		public Spacing apply(IDomNode from) {
+			String text = from.getText();
+			if(text == null || text.length() == 0 ||
+					!WHITESPACE_PATTERN.matcher(text.subSequence(text.length() - 1, text.length())).matches())
+				return oneSpace;
+			return noSpace;
+		}
+
+	};
+
+	private static final Function<IDomNode, LineBreaks> oneLineBreakUnlessNextIsLinebreakingComment = new Function<IDomNode, LineBreaks>() {
+
+		@Override
+		public LineBreaks apply(IDomNode from) {
+			IDomNode n = DomModelUtils.nextLeaf(from);
+			if(n == null || n.getNodeType() != NodeType.COMMENT ||
+					!n.getStyleClassifiers().contains(NodeClassifier.LINESEPARATOR_TERMINATED))
+				return oneLine;
+			return noLine;
 		}
 
 	};
@@ -134,6 +173,21 @@ public class FunctionFactory implements IFunctionFactory {
 	@Override
 	public Function<IDomNode, Boolean> not(Function<IDomNode, Boolean> f) {
 		return new Not(f);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.cloudsmith.xtext.dommodel.formatter.css.IFunctionFactory#oneLineBreakUnlessNextIsLinebreakingComment()
+	 */
+	@Override
+	public Function<IDomNode, LineBreaks> oneLineBreakUnlessNextIsLinebreakingComment() {
+		return oneLineBreakUnlessNextIsLinebreakingComment;
+	}
+
+	@Override
+	public Function<IDomNode, Spacing> oneSpaceUnlessWhitespaceTerminated() {
+		return oneSpaceUnlessWhitespaceTerminated;
 	}
 
 	@Override

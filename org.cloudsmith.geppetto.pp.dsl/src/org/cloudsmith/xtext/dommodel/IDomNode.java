@@ -111,7 +111,21 @@ public interface IDomNode {
 		/**
 		 * The content in the node is implied (typically used with automatically inserted whitespace).
 		 */
-		IMPLIED, ;
+		IMPLIED,
+
+		/**
+		 * Used in combination with @link {@link NodeType#COMMENT} to describe that the comment ends with
+		 * a new line.
+		 */
+		LINESEPARATOR_TERMINATED,
+
+		/**
+		 * Used in combination with @link {@link NodeType#COMMENT} to describe that the comment token
+		 * contains multiple lines.
+		 */
+		MULTIPLE_LINES,
+
+		;
 
 	}
 

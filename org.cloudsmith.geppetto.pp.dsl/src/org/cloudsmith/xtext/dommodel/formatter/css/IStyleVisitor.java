@@ -11,8 +11,6 @@
  */
 package org.cloudsmith.xtext.dommodel.formatter.css;
 
-import java.util.Set;
-
 import org.cloudsmith.xtext.dommodel.formatter.ILayoutManager;
 
 /**
@@ -25,14 +23,6 @@ public interface IStyleVisitor {
 
 		@Override
 		public void align(Alignment x) {
-		}
-
-		@Override
-		public void container(String name) {
-		}
-
-		@Override
-		public void containerNames(Set<String> names) {
 		}
 
 		@Override
@@ -70,10 +60,6 @@ public interface IStyleVisitor {
 	}
 
 	public void align(Alignment x);
-
-	public void container(String name);
-
-	public void containerNames(Set<String> names);
 
 	public void dedent(int count);
 

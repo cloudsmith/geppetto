@@ -11,13 +11,9 @@
  */
 package org.cloudsmith.xtext.dommodel.formatter.css;
 
-import java.util.Set;
-
 import org.cloudsmith.xtext.dommodel.IDomNode;
 import org.cloudsmith.xtext.dommodel.formatter.ILayoutManager;
 import org.cloudsmith.xtext.dommodel.formatter.css.StyleFactory.AlignmentStyle;
-import org.cloudsmith.xtext.dommodel.formatter.css.StyleFactory.ContainerNamesStyle;
-import org.cloudsmith.xtext.dommodel.formatter.css.StyleFactory.ContainerStyle;
 import org.cloudsmith.xtext.dommodel.formatter.css.StyleFactory.DedentStyle;
 import org.cloudsmith.xtext.dommodel.formatter.css.StyleFactory.IndentStyle;
 import org.cloudsmith.xtext.dommodel.formatter.css.StyleFactory.LayoutManagerStyle;
@@ -52,34 +48,6 @@ public interface IStyleFactory {
 	 * @return style with dynamic {@link Alignment}
 	 */
 	public AlignmentStyle align(Function<IDomNode, Alignment> f);
-
-	/**
-	 * @param f
-	 *            - function producing a container name
-	 * @return style with dynamically determined container name
-	 */
-	public ContainerStyle container(Function<IDomNode, String> f);
-
-	/**
-	 * @param containerName
-	 *            - literal container name
-	 * @return style with literal container name
-	 */
-	public ContainerStyle container(String containerName);
-
-	/**
-	 * @param f
-	 *            - function producing a set of container names
-	 * @return style with dynamic set of container names
-	 */
-	public ContainerNamesStyle containerNames(Function<IDomNode, Set<String>> f);
-
-	/**
-	 * @param containerNames
-	 *            - a set of literal container names
-	 * @return style with literal set of container names
-	 */
-	public ContainerNamesStyle containerNames(Set<String> containerNames);
 
 	/**
 	 * Dedent 1.

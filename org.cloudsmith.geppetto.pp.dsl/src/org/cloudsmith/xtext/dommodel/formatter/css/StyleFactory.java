@@ -116,40 +116,6 @@ public class StyleFactory implements IStyleFactory {
 		}
 	}
 
-	public static class ContainerNamesStyle extends AbstractStyle<Set<String>> {
-		public ContainerNamesStyle(Function<IDomNode, Set<String>> f) {
-			super(f);
-			setTypes(NodeType.nonWhitespaceSet);
-		}
-
-		public ContainerNamesStyle(Set<String> spacing) {
-			super(spacing);
-			setTypes(NodeType.nonWhitespaceSet);
-		}
-
-		@Override
-		public void visit(IDomNode ge, IStyleVisitor visitor) {
-			visitor.containerNames(getValue(ge));
-		}
-
-	}
-
-	public static class ContainerStyle extends StringStyle {
-		public ContainerStyle(Function<IDomNode, String> f) {
-			super(f);
-		}
-
-		public ContainerStyle(String spacing) {
-			super(spacing);
-		}
-
-		@Override
-		public void visit(IDomNode node, IStyleVisitor visitor) {
-			visitor.container(getValue(node));
-		}
-
-	}
-
 	public static class DedentStyle extends IntegerStyle {
 		public DedentStyle(Function<IDomNode, Integer> f) {
 			super(f);
@@ -334,26 +300,6 @@ public class StyleFactory implements IStyleFactory {
 	@Override
 	public AlignmentStyle align(Function<IDomNode, Alignment> f) {
 		return new AlignmentStyle(f);
-	}
-
-	@Override
-	public ContainerStyle container(Function<IDomNode, String> f) {
-		return new ContainerStyle(f);
-	}
-
-	@Override
-	public ContainerStyle container(String containerName) {
-		return new ContainerStyle(containerName);
-	}
-
-	@Override
-	public ContainerNamesStyle containerNames(Function<IDomNode, Set<String>> f) {
-		return new ContainerNamesStyle(f);
-	}
-
-	@Override
-	public ContainerNamesStyle containerNames(Set<String> containerNames) {
-		return new ContainerNamesStyle(containerNames);
 	}
 
 	@Override

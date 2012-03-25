@@ -69,7 +69,7 @@ public interface IFunctionFactory {
 	 * 
 	 * @return
 	 */
-	public Function<IDomNode, Spacing> oneSpaceUnlessWhitespaceTerminated();
+	public Function<IDomNode, Spacing> oneSpaceUnlessPredecessorIsWhitespaceTerminated();
 
 	/**
 	 * A function returning the {@link IDomNode#getText()} of the node it is applied to.

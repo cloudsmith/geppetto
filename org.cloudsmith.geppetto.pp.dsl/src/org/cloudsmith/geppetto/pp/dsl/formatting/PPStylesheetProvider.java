@@ -193,7 +193,7 @@ public class PPStylesheetProvider extends DefaultStylesheetProvider {
 
 			// PP parser includes trailing WS in ML comment, and SL comment always ends with line break
 			Select.whitespaceAfter(Select.node(NodeType.COMMENT)).withStyle(//
-				styles.spacing(functions.oneSpaceUnlessWhitespaceTerminated()))
+				styles.spacing(functions.oneSpaceUnlessPredecessorIsWhitespaceTerminated()))
 
 		);
 		return css;

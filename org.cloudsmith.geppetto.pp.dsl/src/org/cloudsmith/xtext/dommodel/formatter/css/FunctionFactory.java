@@ -122,13 +122,16 @@ public class FunctionFactory implements IFunctionFactory {
 
 	private static LineBreaks oneLine = new LineBreaks(1, 1, 1);
 
-	private static LineBreaks noLine = new LineBreaks(0, 0, 0);
+	private static LineBreaks noLineUnlessPresent = new LineBreaks(0, 0, 1);
 
-	private static final Function<IDomNode, Spacing> oneSpaceUnlessWhitespaceTerminated = new Function<IDomNode, Spacing>() {
+	private static final Function<IDomNode, Spacing> oneSpaceUnlessPredecessorIsWhitespaceTerminated = new Function<IDomNode, Spacing>() {
 
 		@Override
 		public Spacing apply(IDomNode from) {
-			String text = from.getText();
+			IDomNode n = DomModelUtils.previousLeaf(from);
+			if(n == null)
+				return oneSpace;
+			String text = n.getText();
 			if(text == null || text.length() == 0 ||
 					!WHITESPACE_PATTERN.matcher(text.subSequence(text.length() - 1, text.length())).matches())
 				return oneSpace;
@@ -145,7 +148,7 @@ public class FunctionFactory implements IFunctionFactory {
 			if(n == null || n.getNodeType() != NodeType.COMMENT ||
 					!n.getStyleClassifiers().contains(NodeClassifier.LINESEPARATOR_TERMINATED))
 				return oneLine;
-			return noLine;
+			return noLineUnlessPresent;
 		}
 
 	};
@@ -186,8 +189,8 @@ public class FunctionFactory implements IFunctionFactory {
 	}
 
 	@Override
-	public Function<IDomNode, Spacing> oneSpaceUnlessWhitespaceTerminated() {
-		return oneSpaceUnlessWhitespaceTerminated;
+	public Function<IDomNode, Spacing> oneSpaceUnlessPredecessorIsWhitespaceTerminated() {
+		return oneSpaceUnlessPredecessorIsWhitespaceTerminated;
 	}
 
 	@Override

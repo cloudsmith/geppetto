@@ -127,7 +127,7 @@ public class FlowLayout extends AbstractLayout implements ILayoutManager {
 			String text = styleSet.getStyleValue(TokenTextStyle.class, node);
 
 			if(isFormattingWanted(node, context)) {
-				applySpacingAndLinebreaks(context, text, spacing, lineBreaks, output);
+				applySpacingAndLinebreaks(context, node, text, spacing, lineBreaks, output);
 			}
 		}
 	}

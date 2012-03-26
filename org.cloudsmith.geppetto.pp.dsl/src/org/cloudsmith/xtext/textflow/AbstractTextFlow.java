@@ -120,6 +120,9 @@ public abstract class AbstractTextFlow implements ITextFlow {
 	protected abstract void doText(CharSequence s, boolean verbatim);
 
 	@Override
+	public abstract ITextFlow ensureBreaks(int count);
+
+	@Override
 	public int getIndentation() {
 		return indent / indentSize;
 	}

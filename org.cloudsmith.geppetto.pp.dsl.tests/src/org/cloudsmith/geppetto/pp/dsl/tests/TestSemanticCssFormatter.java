@@ -12,14 +12,8 @@
 package org.cloudsmith.geppetto.pp.dsl.tests;
 
 import java.util.EnumSet;
-import java.util.Iterator;
-import java.util.List;
 import java.util.Set;
 
-import org.cloudsmith.geppetto.pp.AssignmentExpression;
-import org.cloudsmith.geppetto.pp.LiteralList;
-import org.cloudsmith.geppetto.pp.PPFactory;
-import org.cloudsmith.geppetto.pp.PuppetManifest;
 import org.cloudsmith.geppetto.pp.dsl.formatting.PPSemanticLayout;
 import org.cloudsmith.geppetto.pp.dsl.formatting.PPStylesheetProvider;
 import org.cloudsmith.geppetto.pp.dsl.ppformatting.PPIndentationInformation;
@@ -38,21 +32,14 @@ import org.cloudsmith.xtext.textflow.ITextFlow;
 import org.cloudsmith.xtext.textflow.MeasuredTextFlow;
 import org.cloudsmith.xtext.textflow.TextFlow;
 import org.cloudsmith.xtext.textflow.TextFlowRecording;
-import org.eclipse.emf.common.notify.Adapter;
-import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.xtext.formatting.IIndentationInformation;
-import org.eclipse.xtext.nodemodel.ICompositeNode;
 import org.eclipse.xtext.resource.XtextResource;
 import org.eclipse.xtext.serializer.ISerializer;
 import org.eclipse.xtext.serializer.diagnostic.ISerializationDiagnostic.Acceptor;
 import org.eclipse.xtext.serializer.sequencer.IHiddenTokenSequencer;
 import org.eclipse.xtext.util.ITextRegion;
-import org.eclipse.xtext.util.Pair;
 import org.eclipse.xtext.util.ReplaceRegion;
-import org.eclipse.xtext.util.Tuples;
 
-import com.google.common.collect.Lists;
 import com.google.inject.Binder;
 import com.google.inject.Guice;
 import com.google.inject.Inject;
@@ -62,8 +49,8 @@ import com.google.inject.name.Names;
 import com.google.inject.util.Modules;
 
 /**
- * Tests PP language formatting using the new DomFormatter.
- * 
+ * Tests CSS formatting using the new DomFormatter.
+ * (TODO: Not generic - requires PP to have a grammar / rules to test).
  */
 public class TestSemanticCssFormatter extends AbstractPuppetTests {
 	public static class DebugFormatter extends CSSDomFormatter {
@@ -151,36 +138,6 @@ public class TestSemanticCssFormatter extends AbstractPuppetTests {
 		assertFalse("Not empty", flow.isEmpty());
 	}
 
-	// @Override
-	// public void setUp() throws Exception {
-	// super.setUp();
-	// // with(PPStandaloneSetup.class);
-	// with(TestSetup.class);
-	// }
-
-	protected void brutalDetachNodeModel(EObject eObject) {
-		EcoreUtil.resolveAll(eObject);
-		List<Pair<EObject, ICompositeNode>> result = Lists.newArrayList();
-		Iterator<Object> iterator = EcoreUtil.getAllContents(eObject.eResource(), false);
-		while(iterator.hasNext()) {
-			EObject object = (EObject) iterator.next();
-			Iterator<Adapter> adapters = object.eAdapters().iterator();
-			while(adapters.hasNext()) {
-				Adapter adapter = adapters.next();
-				if(adapter instanceof ICompositeNode) {
-					adapters.remove();
-					result.add(Tuples.create(object, (ICompositeNode) adapter));
-					break;
-				}
-			}
-		}
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.xtext.junit.AbstractXtextTests#shouldTestSerializer(org.eclipse.xtext.resource.XtextResource)
-	 */
 	@Override
 	protected boolean shouldTestSerializer(XtextResource resource) {
 		// true here (the default), just makes testing slower and it intermittently fails ?!?
@@ -205,39 +162,6 @@ public class TestSemanticCssFormatter extends AbstractPuppetTests {
 		assertFlowOneLineNoBreak(flow);
 	}
 
-	public void test_PPResourceMultipleBodies() throws Exception {
-		String code = "file { 'title': owner => 777, ensure => present; 'title2': owner=>777,ensure=>present }";
-		String fmt = //
-		"file {\n  'title':\n    owner  => 777,\n    ensure => present;\n\n" + //
-				"  'title2':\n    owner  => 777,\n    ensure => present;\n}\n";
-		// for(int i = 0; i < 1000; i++) {
-
-		XtextResource r = getResourceFromString(code);
-		brutalDetachNodeModel(r.getContents().get(0));
-		String s = serializeFormatted(r.getContents().get(0));
-		assertEquals("serialization should produce same result", fmt, s);
-		// }
-	}
-
-	public void test_PPResourceOneBody() throws Exception {
-		String code = "file { 'title': owner => 777, ensure => present }";
-		String fmt = "file { 'title':\n  owner  => 777,\n  ensure => present,\n}\n";
-		for(int i = 0; i < 1; i++) {
-			XtextResource r = getResourceFromString(code);
-			// brutalDetachNodeModel(r.getContents().get(0));
-			String s = serializeFormatted(r.getContents().get(0));
-			assertEquals("serialization should produce same result", fmt, s);
-		}
-	}
-
-	public void test_PPResourceOneBodyNoTitle() throws Exception {
-		String code = "File { owner => 777, ensure => present }";
-		String fmt = "File {\n  owner  => 777,\n  ensure => present,\n}\n";
-		XtextResource r = getResourceFromString(code);
-		String s = serializeFormatted(r.getContents().get(0));
-		assertEquals("serialization should produce same result", fmt, s);
-	}
-
 	public void test_Recording() {
 		MeasuredTextFlow flow = this.getInjector().getInstance(TextFlowRecording.class);
 		appendSampleFlow(flow);
@@ -248,46 +172,6 @@ public class TestSemanticCssFormatter extends AbstractPuppetTests {
 		MeasuredTextFlow flow = this.getInjector().getInstance(TextFlowRecording.class);
 		flow.appendText("123");
 		assertFlowOneLineNoBreak(flow);
-	}
-
-	public void test_Serialize_arrayNoSpaces() throws Exception {
-		String code = "$a=[\"10\",'20']";
-		String fmt = "$a = [\"10\", '20']\n";
-		XtextResource r = getResourceFromString(code);
-		String s = serializeFormatted(r.getContents().get(0));
-		assertEquals("serialization should produce same result", fmt, s);
-	}
-
-	public void test_Serialize_arrayWithComments() throws Exception {
-		String code = "/*1*/$a/*2*/=/*3*/[/*4*/'10'/*5*/,/*6*/'20'/*7*/]/*8*/";
-		String fmt = "/*1*/ $a /*2*/ = /*3*/ [/*4*/ '10' /*5*/, /*6*/ '20' /*7*/] /*8*/\n";
-		XtextResource r = getResourceFromString(code);
-		String s = serializeFormatted(r.getContents().get(0));
-		assertEquals("serialization should produce same result", fmt, s);
-	}
-
-	public void test_Serialize_assignArray() throws Exception {
-		PuppetManifest pp = pf.createPuppetManifest();
-		AssignmentExpression assignment = PPFactory.eINSTANCE.createAssignmentExpression();
-		assignment.setLeftExpr(createVariable("a"));
-		LiteralList pplist = PPFactory.eINSTANCE.createLiteralList();
-		assignment.setRightExpr(pplist);
-		pplist.getElements().add(createSqString("10"));
-		pplist.getElements().add(createSqString("20"));
-		pp.getStatements().add(assignment);
-		String fmt = "$a = ['10', '20']\n";
-		String s = serializeFormatted(pp);
-		assertEquals("serialization should produce same result", fmt, s);
-	}
-
-	public void test_Serialize_simpleResource() throws Exception {
-		String code = "file{'afile':owner=>'foo'}\n\n\n\n\n";
-		// this is not wanted end result, only used to test intermediate progress on indentation and linebreak
-		String fmt = "file { 'afile':\n  owner => 'foo',\n}\n\n";
-		XtextResource r = getResourceFromString(code);
-
-		String s = serializeFormatted(r.getContents().get(0));
-		assertEquals("serialization should produce same result", fmt, s);
 	}
 
 	public void test_TextFlow() {

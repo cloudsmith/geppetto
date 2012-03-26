@@ -62,6 +62,21 @@ public interface ILayoutManager {
 		 * @return true if existing (non implied) white space should be preserved
 		 */
 		public boolean isWhitespacePreservation();
+		
+		/**
+		 * Marks the given node as consumed - a formatter that gets a node that is marked consumed
+		 * should simply ignore the node as its text has already been included /handled by an earlier
+		 * rule.
+		 * @param node
+		 */
+		public void markConsumed(IDomNode node);
+		
+		/**
+		 * Returns true if the given node has been marked as consumed. See {@link #markConsumed(IDomNode)}.
+		 * @param node
+		 * @return
+		 */
+		public boolean isConsumed(IDomNode node);
 	}
 
 	/**

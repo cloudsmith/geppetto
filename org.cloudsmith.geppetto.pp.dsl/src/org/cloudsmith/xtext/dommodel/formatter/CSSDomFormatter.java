@@ -57,7 +57,7 @@ public class CSSDomFormatter implements IDomModelFormatter {
 	public ReplaceRegion format(IDomNode dom, final ITextRegion regionToFormat,
 			final IFormattingContext formattingContext, final Acceptor errors) {
 
-		ILayoutContext layoutContext = new ILayoutContext() {
+		ILayoutContext layoutContext = new AbstractLayoutContext() {
 
 			@Override
 			public DomCSS getCSS() {

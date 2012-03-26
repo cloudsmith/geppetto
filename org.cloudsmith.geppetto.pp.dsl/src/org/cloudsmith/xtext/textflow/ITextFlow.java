@@ -70,11 +70,16 @@ public interface ITextFlow extends Appendable {
 	 */
 	public interface IMetrics {
 		/**
-		 * Returns true if the measured flow ends with a break
+		 * Returns true if the measured flow ends with one or more breaks.
 		 * 
 		 * @return true if flow ends with break
 		 */
 		public boolean endsWithBreak();
+
+		/**
+		 * @return number of breaks at end of flow
+		 */
+		int getEndBreakCount();
 
 		/**
 		 * <p>
@@ -177,7 +182,7 @@ public interface ITextFlow extends Appendable {
 	}
 
 	/**
-	 * Appends one line break. This is the same as calling <ocde>appendBreaks(1, false)</code>
+	 * Appends one line break. This is the same as calling <code>appendBreaks(1, false)</code>
 	 * 
 	 * @return the flow
 	 */
@@ -253,6 +258,28 @@ public interface ITextFlow extends Appendable {
 	 * @return the flow
 	 */
 	public ITextFlow changeIndentation(int count);
+
+	/**
+	 * Returns true if the measured flow ends with one or more breaks.
+	 * 
+	 * @return true if flow ends with break
+	 */
+	public boolean endsWithBreak();
+
+	/**
+	 * Ensures that flow ends with at least the given amount of line breaks. If the number of line breaks at
+	 * the end of the flow is already >= count, then this call has no effect. If smaller than count, the flow will have
+	 * the given amount of line breaks at the end of the flow after the operation completes.
+	 * 
+	 * @param count
+	 * @return
+	 */
+	public ITextFlow ensureBreaks(int count);
+
+	/**
+	 * @return number of breaks at end of flow
+	 */
+	int getEndBreakCount();
 
 	/**
 	 * Returns the current indentation count. This can be used to temporarily change indentation

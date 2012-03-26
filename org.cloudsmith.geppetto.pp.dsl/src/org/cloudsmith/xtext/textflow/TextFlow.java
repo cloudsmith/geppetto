@@ -90,6 +90,8 @@ public class TextFlow extends MeasuredTextFlow implements ITextFlow.WithText {
 	}
 
 	private void emit(CharSequence s) {
+		if(s == null || s.length() == 0)
+			return; // do not change state on empty output
 		if(lastWasBreak) {
 			lastWasBreak = false;
 			internal_append(getPendingIndent() == 0

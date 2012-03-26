@@ -132,10 +132,23 @@ public class FunctionFactory implements IFunctionFactory {
 			if(n == null)
 				return oneSpace;
 			String text = n.getText();
-			if(text == null || text.length() == 0 ||
+			if(text == null || text.length() == 0 || n.getNodeType() != NodeType.COMMENT ||
 					!WHITESPACE_PATTERN.matcher(text.subSequence(text.length() - 1, text.length())).matches())
 				return oneSpace;
 			return noSpace;
+		}
+
+	};
+
+	private static final Function<IDomNode, LineBreaks> oneLineBreakUnlessPredecessorIsLinebreakingComment = new Function<IDomNode, LineBreaks>() {
+
+		@Override
+		public LineBreaks apply(IDomNode from) {
+			IDomNode n = DomModelUtils.previousLeaf(from);
+			if(n == null || n.getNodeType() != NodeType.COMMENT ||
+					!n.getStyleClassifiers().contains(NodeClassifier.LINESEPARATOR_TERMINATED))
+				return oneLine;
+			return noLineUnlessPresent;
 		}
 
 	};
@@ -149,6 +162,19 @@ public class FunctionFactory implements IFunctionFactory {
 					!n.getStyleClassifiers().contains(NodeClassifier.LINESEPARATOR_TERMINATED))
 				return oneLine;
 			return noLineUnlessPresent;
+		}
+
+	};
+
+	private static final Function<IDomNode, Spacing> noSpaceUnlessNextIsLinebreakingComment = new Function<IDomNode, Spacing>() {
+
+		@Override
+		public Spacing apply(IDomNode from) {
+			IDomNode n = DomModelUtils.nextLeaf(from);
+			if(n == null || n.getNodeType() != NodeType.COMMENT ||
+					!n.getStyleClassifiers().contains(NodeClassifier.LINESEPARATOR_TERMINATED))
+				return noSpace;
+			return oneSpace;
 		}
 
 	};
@@ -174,18 +200,23 @@ public class FunctionFactory implements IFunctionFactory {
 	}
 
 	@Override
+	public Function<IDomNode, Spacing> noSpaceUnlessNextIsLinebreakingComment() {
+		return noSpaceUnlessNextIsLinebreakingComment;
+	}
+
+	@Override
 	public Function<IDomNode, Boolean> not(Function<IDomNode, Boolean> f) {
 		return new Not(f);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.cloudsmith.xtext.dommodel.formatter.css.IFunctionFactory#oneLineBreakUnlessNextIsLinebreakingComment()
-	 */
 	@Override
 	public Function<IDomNode, LineBreaks> oneLineBreakUnlessNextIsLinebreakingComment() {
 		return oneLineBreakUnlessNextIsLinebreakingComment;
+	}
+
+	@Override
+	public Function<IDomNode, LineBreaks> oneLineBreakUnlessPredecessorIsLinebreakingComment() {
+		return oneLineBreakUnlessPredecessorIsLinebreakingComment;
 	}
 
 	@Override

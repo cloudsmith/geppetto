@@ -21,7 +21,7 @@ import com.google.inject.Inject;
  */
 public class MeasuredTextFlow extends AbstractTextFlow implements ITextFlow.Measuring {
 
-	private boolean lastWasBreak;
+	private int lastWasBreak;
 
 	private boolean lastWasSpace;
 
@@ -44,7 +44,7 @@ public class MeasuredTextFlow extends AbstractTextFlow implements ITextFlow.Meas
 	@Inject
 	public MeasuredTextFlow(IFormattingContext formattingContext) {
 		super(formattingContext);
-		this.lastWasBreak = false;
+		this.lastWasBreak = 0; // false;
 		this.lastWasSpace = false;
 
 		numberOfBreaks = 0;
@@ -62,7 +62,7 @@ public class MeasuredTextFlow extends AbstractTextFlow implements ITextFlow.Meas
 		lastWasSpace = true;
 		if(count <= 0)
 			return this;
-		lastWasBreak = true;
+		lastWasBreak += count; // = true;
 		numberOfBreaks += count;
 		maxWidth = Math.max(maxWidth, currentLineWidth);
 		lastLineWidth = currentLineWidth == 0
@@ -98,12 +98,15 @@ public class MeasuredTextFlow extends AbstractTextFlow implements ITextFlow.Meas
 	@Override
 	protected void doText(CharSequence s, boolean verbatim) {
 		emit(s.length());
-		lastWasSpace = false;
+		if(s.length() > 0)
+			lastWasSpace = false;
 	}
 
 	private void emit(int count) {
-		if(lastWasBreak) {
-			lastWasBreak = false;
+		if(count == 0)
+			return; // do not change state
+		if(lastWasBreak > 0) {
+			lastWasBreak = 0; // false;
 			lastUsedIndent = pendingIndent; // was indent, does not work when buffering
 			currentLineWidth += pendingIndent; // was indent, does not work when buffering
 		}
@@ -112,7 +115,21 @@ public class MeasuredTextFlow extends AbstractTextFlow implements ITextFlow.Meas
 
 	@Override
 	public boolean endsWithBreak() {
-		return lastWasBreak && currentRun == null;
+		return lastWasBreak > 0 && currentRun == null;
+	}
+
+	@Override
+	public ITextFlow ensureBreaks(int count) {
+		if(!endsWithBreak())
+			return appendBreaks(count, false);
+
+		int missingBreaks = Math.max(0, count - lastWasBreak);
+		if(missingBreaks == 0)
+			pendingIndent = indent;
+		else
+			return appendBreaks(missingBreaks, false);
+
+		return this;
 	}
 
 	protected CharSequence getCurrentRun() {
@@ -122,10 +139,19 @@ public class MeasuredTextFlow extends AbstractTextFlow implements ITextFlow.Meas
 	}
 
 	@Override
+	public int getEndBreakCount() {
+		// if there is pending text, then the lastWasBreak is pending and not at the end at all
+		// report as 0
+		return currentRun != null
+				? 0
+				: lastWasBreak;
+	}
+
+	@Override
 	public int getHeight() {
 		if(isEmpty())
 			return 0;
-		if(lastWasBreak)
+		if(lastWasBreak > 0)
 			return numberOfBreaks;
 		return numberOfBreaks + 1;
 	}
@@ -148,7 +174,7 @@ public class MeasuredTextFlow extends AbstractTextFlow implements ITextFlow.Meas
 	@Override
 	public int getWidth() {
 		// break only, or break + unprocessed
-		if(lastWasBreak)
+		if(lastWasBreak > 0)
 			return Math.max(maxWidth, currentRun == null
 					? 0
 					: currentRun.length() + pendingIndent);
@@ -159,7 +185,7 @@ public class MeasuredTextFlow extends AbstractTextFlow implements ITextFlow.Meas
 
 	@Override
 	public int getWidthOfLastLine() {
-		if(lastWasBreak)
+		if(lastWasBreak > 0)
 			return currentRun == null
 					? lastLineWidth
 					: pendingIndent + currentRun.length();
@@ -183,7 +209,8 @@ public class MeasuredTextFlow extends AbstractTextFlow implements ITextFlow.Meas
 	 */
 	@Override
 	protected void processTextSequence(CharSequence s, boolean verbatim) {
-
+		if(s == null || s.length() == 0)
+			return; // no text, do nothing
 		if(verbatim) {
 			if(currentRun != null) {
 				doText(currentRun, false); // if there was a current run, it is not verbatim
@@ -221,7 +248,7 @@ public class MeasuredTextFlow extends AbstractTextFlow implements ITextFlow.Meas
 
 		if(flag)
 			pendingIndent = indent;
-		lastWasBreak = flag; // fake a break
+		lastWasBreak = 1; // fake a break
 	}
 
 	/**
@@ -234,12 +261,12 @@ public class MeasuredTextFlow extends AbstractTextFlow implements ITextFlow.Meas
 	 */
 	protected boolean shouldLineBeWrapped(CharSequence s) {
 		final int textLength = s.length();
-		final int pos = lastWasBreak
+		final int pos = lastWasBreak > 0
 				? pendingIndent // indent for preceding break
 				: currentLineWidth;
 		int unwrappedWidth = textLength + pos;
 		if(unwrappedWidth > getPreferredMaxWidth()) {
-			if(!(lastWasBreak || lastWasSpace))
+			if(!(lastWasBreak > 0 || lastWasSpace))
 				return false; // not allowed to wrap
 			// note: use indent here, it is the indent for next break made
 			int wrappedWidth = textLength + indent + getWrapIndentation() * indentSize;

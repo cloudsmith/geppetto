@@ -185,6 +185,7 @@ public class PPStylesheetProvider extends DefaultStylesheetProvider {
 			Select.whitespaceBefore(
 				Select.and(Select.node(StatementStyle.STATEMENT), Select.not(Select.node(StatementStyle.FIRST)))).withStyle(//
 				noSpaceOneLine),
+			// styles.noSpace(), styles.lineBreaks(functions.oneLineBreakUnlessPredecessorIsLinebreakingComment())),
 
 			// No space between function name and ()
 			Select.whitespaceBefore(

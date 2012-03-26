@@ -11,11 +11,15 @@
  */
 package org.cloudsmith.xtext.dommodel.formatter;
 
+import org.cloudsmith.xtext.dommodel.DomModelUtils;
 import org.cloudsmith.xtext.dommodel.IDomNode;
+import org.cloudsmith.xtext.dommodel.IDomNode.NodeClassifier;
+import org.cloudsmith.xtext.dommodel.IDomNode.NodeType;
 import org.cloudsmith.xtext.dommodel.formatter.css.LineBreaks;
 import org.cloudsmith.xtext.dommodel.formatter.css.Spacing;
 import org.cloudsmith.xtext.dommodel.formatter.css.StyleFactory.DedentStyle;
 import org.cloudsmith.xtext.dommodel.formatter.css.StyleFactory.IndentStyle;
+import org.cloudsmith.xtext.dommodel.formatter.css.StyleFactory.LayoutManagerStyle;
 import org.cloudsmith.xtext.dommodel.formatter.css.StyleSet;
 import org.cloudsmith.xtext.textflow.ITextFlow;
 import org.eclipse.xtext.util.ITextRegion;
@@ -66,7 +70,7 @@ public abstract class AbstractLayout implements ILayoutManager {
 	 * @param output
 	 *            - where output is produced
 	 */
-	protected void applySpacingAndLinebreaks(ILayoutContext context, String text, Spacing spacing,
+	protected void applySpacingAndLinebreaks(ILayoutContext context, IDomNode node, String text, Spacing spacing,
 			LineBreaks linebreaks, ITextFlow output) {
 		text = text == null
 				? ""
@@ -75,7 +79,32 @@ public abstract class AbstractLayout implements ILayoutManager {
 		// if line break is wanted, it wins
 		if(linebreaks.getNormal() > 0 || linebreaks.getMax() > 0) {
 			// output a conforming number of line breaks
-			output.appendBreaks(linebreaks.apply(Strings.countLines(text, lineSep.toCharArray())));
+			final int existingLinebreaks = Strings.countLines(text, lineSep.toCharArray());
+			// possibly accept a comment as a linebreak if this whitespace did not already contain
+			// a break
+			int emittedLinebreaks = 0;
+			if(existingLinebreaks == 0 && linebreaks.isCommentEndingWithBreakAcceptable()) {
+				IDomNode n = DomModelUtils.nextLeaf(node);
+				if(n != null && n.getNodeType() == NodeType.COMMENT &&
+						n.getStyleClassifiers().contains(NodeClassifier.LINESEPARATOR_TERMINATED)) {
+					// comment breaks the line
+					output.appendSpaces(1); // separate the comment with a space
+
+					// format the comment with layout manager given by rules (or this layout by default)
+					final StyleSet styleSet = context.getCSS().collectStyles(n);
+					final ILayoutManager layout = styleSet.getStyleValue(LayoutManagerStyle.class, n, this);
+					layout.format(styleSet, n, output, context);
+					// do not process this comment again
+					context.markConsumed(n);
+
+					// comment counts as one linebreak
+					emittedLinebreaks++;
+				}
+			}
+			if(linebreaks.isExistingAcceptable())
+				output.ensureBreaks(linebreaks.apply(existingLinebreaks));
+			else
+				output.appendBreaks(linebreaks.apply(existingLinebreaks) - emittedLinebreaks);
 		}
 		else {
 			// remove all line breaks by replacing them with spaces
@@ -106,6 +135,9 @@ public abstract class AbstractLayout implements ILayoutManager {
 
 	@Override
 	public boolean format(StyleSet styleSet, IDomNode node, ITextFlow flow, ILayoutContext context) {
+		// if already consumed by previous formatting - skip it and report as formatted
+		if(context.isConsumed(node))
+			return true;
 		if(!node.isLeaf())
 			return formatComposite(styleSet, node, flow, context);
 		formatLeaf(styleSet, node, flow, context);

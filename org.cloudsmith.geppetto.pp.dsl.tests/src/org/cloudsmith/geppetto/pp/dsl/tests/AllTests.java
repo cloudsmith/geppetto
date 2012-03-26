@@ -35,6 +35,7 @@ public class AllTests {
 		suite.addTestSuite(TestLinking.class);
 		suite.addTestSuite(TestSemanticOneSpaceFormatter.class);
 		suite.addTestSuite(TestSemanticCssFormatter.class);
+		suite.addTestSuite(TestPPFormatting.class);
 
 		// $JUnit-END$
 		return suite;

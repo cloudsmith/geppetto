@@ -48,6 +48,11 @@ public interface IFunctionFactory {
 	public Function<IDomNode, Set<String>> literalStringSet(Set<String> set);
 
 	/**
+	 * @return
+	 */
+	public Function<IDomNode, Spacing> noSpaceUnlessNextIsLinebreakingComment();
+
+	/**
 	 * A function returning the inverse of the Boolean returned by the given function applied to the given node.
 	 * 
 	 * @param f
@@ -62,6 +67,11 @@ public interface IFunctionFactory {
 	 * @return
 	 */
 	public Function<IDomNode, LineBreaks> oneLineBreakUnlessNextIsLinebreakingComment();
+
+	/**
+	 * @return
+	 */
+	public Function<IDomNode, LineBreaks> oneLineBreakUnlessPredecessorIsLinebreakingComment();
 
 	/**
 	 * Produces a SpacingStyle of 1 space unless node is whitespace terminated in which case

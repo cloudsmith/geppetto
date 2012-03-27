@@ -67,7 +67,10 @@ public class FlowLayout extends AbstractLayout implements ILayoutManager {
 				// ALIGNMENT
 				// is left by default
 				//
-				Alignment alignment = styleSet.getStyleValue(AlignmentStyle.class, node, Alignment.left);
+				Alignment alignment = styleSet.getStyleValue(AlignmentStyle.class, node);
+				boolean defaultAlignment = alignment == null;
+				if(defaultAlignment)
+					alignment = Alignment.left;
 				final int textLength = text.length();
 				final Integer widthObject = styleSet.getStyleValue(WidthStyle.class, node);
 				final int width = widthObject == null
@@ -77,9 +80,15 @@ public class FlowLayout extends AbstractLayout implements ILayoutManager {
 
 				switch(alignment) {
 					case left:
-						output.appendText(text).appendSpaces(diff); // ok if 0 or negative = no spaces
+						output.appendText(text);
+						// need to output padding separately as a 0 space gives the text flow permission to wrap which is a surprise
+						// just because everything is left aligned by default.
+						//
+						if(diff > 0 || !defaultAlignment)
+							output.appendSpaces(diff); // ok if 0 or negative = no spaces
 						break;
 					case right:
+						// ok to output 0 space that potentially triggers wrapping
 						output.appendSpaces(diff).appendText(text);
 						break;
 					case center:

@@ -448,7 +448,7 @@ public class PPProposalProvider extends AbstractPPProposalProvider {
 	@Override
 	public void completeTextExpression_VarName(EObject model, Assignment assignment, ContentAssistContext context,
 			ICompletionProposalAcceptor acceptor) {
-		completeVarNameCommon(model, assignment, context, acceptor, true, false);
+		completeVarNameCommon(model, assignment, context, acceptor, false, false);
 	}
 
 	/*

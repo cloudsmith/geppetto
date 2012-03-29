@@ -11,6 +11,7 @@
  */
 package org.cloudsmith.geppetto.pp.dsl.ui.editor.actions;
 
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.cloudsmith.geppetto.pp.dsl.ui.linked.ISaveActions;
@@ -68,19 +69,48 @@ public class SaveActions implements ISaveActions {
 		if(ensureNl || replaceFunkySpace || trimLines) {
 			String content = document.get();
 			if(ensureNl)
-				if(!content.endsWith("\n"))
+				if(!content.endsWith("\n")) {
 					content = content + "\n";
-			if(trimLines)
-				content = trimPattern.matcher(content).replaceAll("$1");
-			// content = content.replaceAll("[ \\t\\f\\x0B\\u00A0]+(\\r\\n|\\n)", "$1");
-			if(replaceFunkySpace)
-				content = funkySpacePattern.matcher(content).replaceAll(" ");
-			// content = content.replaceAll("[\\f\\x0B\\u00A0]", " ");
-			try {
-				document.replace(0, document.getLength(), content);
+					try {
+						document.replace(content.length() - 1, 0, "\n");
+						content = document.get();
+					}
+					catch(BadLocationException e) {
+						// ignore
+					}
+				}
+			if(trimLines) {
+				Matcher matcher = trimPattern.matcher(content);
+				boolean mustRefetch = false;
+				;
+				while(matcher.find()) {
+					int offset = matcher.start();
+					int length = matcher.end() - offset;
+					try {
+						document.replace(offset, length, matcher.group(1));
+						mustRefetch = true;
+					}
+					catch(BadLocationException e) {
+						// ignore
+					}
+				}
+				// content = trimPattern.matcher(content).replaceAll("$1");
+				if(mustRefetch)
+					content = document.get();
 			}
-			catch(BadLocationException e1) {
-				// ignore, can't happen.
+			if(replaceFunkySpace) {
+				Matcher matcher = funkySpacePattern.matcher(content);
+				while(matcher.find()) {
+					int offset = matcher.start();
+					int length = matcher.end() - offset;
+					try {
+						document.replace(offset, length, " ");
+					}
+					catch(BadLocationException e) {
+						// ignore
+					}
+				}
+				content = funkySpacePattern.matcher(content).replaceAll(" ");
 			}
 		}
 		// // USE THIS IF SEMANTIC CHANGES ARE NEEDED LATER

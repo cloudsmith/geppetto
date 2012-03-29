@@ -87,9 +87,14 @@ public class TestSemanticOneSpaceFormatter extends AbstractPuppetTests {
 		with(TestSetup.class);
 	}
 
+	@Override
+	protected boolean shouldTestSerializer(XtextResource resource) {
+		return false;
+	}
+
 	public void test_Serialize_arrayNoSpaces() throws Exception {
 		String code = "$a=['10','20']";
-		String fmt = "$a = [ '10' , '20' ]";
+		String fmt = "$a = [ '10' , '20' , ]";
 		XtextResource r = getResourceFromString(code);
 		String s = serializeFormatted(r.getContents().get(0));
 		assertEquals("serialization should produce same result", fmt, s);
@@ -97,7 +102,7 @@ public class TestSemanticOneSpaceFormatter extends AbstractPuppetTests {
 
 	public void test_Serialize_arrayWithComments() throws Exception {
 		String code = "/*1*/$a/*2*/=/*3*/[/*4*/'10'/*5*/,/*6*/'20'/*7*/]/*8*/";
-		String fmt = "/*1*/ $a /*2*/ = /*3*/ [ /*4*/ '10' /*5*/ , /*6*/ '20' /*7*/ ] /*8*/";
+		String fmt = "/*1*/ $a /*2*/ = /*3*/ [ /*4*/ '10' /*5*/ , /*6*/ '20', /*7*/ ] /*8*/";
 		XtextResource r = getResourceFromString(code);
 		String s = serializeFormatted(r.getContents().get(0));
 		assertEquals("serialization should produce same result", fmt, s);
@@ -112,10 +117,9 @@ public class TestSemanticOneSpaceFormatter extends AbstractPuppetTests {
 		pplist.getElements().add(createSqString("10"));
 		pplist.getElements().add(createSqString("20"));
 		pp.getStatements().add(assignment);
-		String fmt = "$a = [ '10' , '20' ]";
+		String fmt = "$a = [ '10' , '20' , ]";
 		String s = serialize(pp);
 		assertEquals("serialization should produce single spaced result", fmt, s);
 
 	}
-
 }

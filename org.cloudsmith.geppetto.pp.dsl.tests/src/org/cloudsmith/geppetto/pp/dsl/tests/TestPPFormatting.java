@@ -155,7 +155,7 @@ public class TestPPFormatting extends AbstractPuppetTests {
 
 	public void test_List() throws Exception {
 		String code = "$a=[\"10\",'20']";
-		String fmt = "$a = [\"10\", '20']\n";
+		String fmt = "$a = [\"10\", '20',]\n";
 		XtextResource r = getResourceFromString(code);
 		String s = serializeFormatted(r.getContents().get(0));
 		assertEquals("formatting should produce wanted result", fmt, s);
@@ -170,14 +170,14 @@ public class TestPPFormatting extends AbstractPuppetTests {
 		pplist.getElements().add(createSqString("10"));
 		pplist.getElements().add(createSqString("20"));
 		pp.getStatements().add(assignment);
-		String fmt = "$a = ['10', '20']\n";
+		String fmt = "$a = ['10', '20',]\n";
 		String s = serializeFormatted(pp);
 		assertEquals("formatting should produce wanted result", fmt, s);
 	}
 
 	public void test_List_WithComments() throws Exception {
 		String code = "/*1*/$a/*2*/=/*3*/[/*4*/'10'/*5*/,/*6*/'20'/*7*/]/*8*/";
-		String fmt = "/*1*/ $a /*2*/ = /*3*/ [/*4*/ '10' /*5*/, /*6*/ '20' /*7*/] /*8*/\n";
+		String fmt = "/*1*/ $a /*2*/ = /*3*/ [/*4*/ '10' /*5*/, /*6*/ '20', /*7*/] /*8*/\n";
 		XtextResource r = getResourceFromString(code);
 		String s = serializeFormatted(r.getContents().get(0));
 		assertEquals("formatting should produce wanted result", fmt, s);

@@ -461,7 +461,7 @@ ImportExpression returns pp::ImportExpression
 LiteralList returns pp::LiteralList
 	: {pp::LiteralList}
 		'['  
-			(elements += AssignmentExpression (',' elements += AssignmentExpression)*)? endComma?
+			(elements += AssignmentExpression (',' elements += AssignmentExpression)* ','?)?
 		']' 
 	;
 

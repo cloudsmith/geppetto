@@ -34,6 +34,27 @@ public class PPSyntacticSequencer extends AbstractPPSyntacticSequencer {
 					: (ILeafNode) nodes.get(0));
 	}
 
+	// /**
+	// * The optional endComma in lists should always be there.
+	// */
+	// @Override
+	// protected void emit_LiteralList_EndCommaParserRuleCall_3_q(EObject semanticObject, ISynNavigable transition,
+	// List<INode> nodes) {
+	// acceptUnassignedDatatype(grammar.getLiteralListAccess().getEndCommaParserRuleCall_3(), ",", nodes == null ||
+	// nodes.isEmpty()
+	// ? null
+	// : (ICompositeNode) nodes.get(0));
+	// }
+
+	@Override
+	protected void emit_LiteralList_CommaKeyword_2_2_q(EObject semanticObject, ISynNavigable transition,
+			List<INode> nodes) {
+		acceptUnassignedKeyword(
+			grammarAccess.getLiteralListAccess().getCommaKeyword_2_2(), ",", nodes == null || nodes.isEmpty()
+					? null
+					: (ILeafNode) nodes.get(0));
+	}
+
 	/**
 	 * The ";" after last body is optional, but should always be there if there is more than one body.
 	 */

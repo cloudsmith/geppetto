@@ -6,8 +6,10 @@ import org.cloudsmith.geppetto.pp.AttributeOperation;
 import org.cloudsmith.geppetto.pp.AttributeOperations;
 import org.cloudsmith.geppetto.pp.Expression;
 import org.cloudsmith.geppetto.pp.LiteralBoolean;
+import org.cloudsmith.geppetto.pp.LiteralList;
 import org.cloudsmith.geppetto.pp.SelectorExpression;
 import org.cloudsmith.geppetto.pp.dsl.services.PPGrammarAccess.AttributeOperationsElements;
+import org.cloudsmith.geppetto.pp.dsl.services.PPGrammarAccess.LiteralListElements;
 import org.cloudsmith.geppetto.pp.dsl.services.PPGrammarAccess.SelectorExpressionElements;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.xtext.serializer.acceptor.SequenceFeeder;
@@ -57,6 +59,35 @@ public class PPSemanticSequencer extends AbstractPPSemanticSequencer {
 		feeder.accept(
 			grammarAccess.getLiteralBooleanAccess().getValueBooleanValueParserRuleCall_0(), semanticObject.isValue());
 		feeder.finish();
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.cloudsmith.geppetto.pp.dsl.serializer.AbstractPPSemanticSequencer#sequence_LiteralList(org.eclipse.emf.ecore.EObject,
+	 * org.cloudsmith.geppetto.pp.LiteralList)
+	 */
+	@Override
+	protected void sequence_LiteralList(EObject context, LiteralList semanticObject) {
+		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
+		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
+		LiteralListElements access = grammarAccess.getLiteralListAccess();
+
+		Iterator<Expression> itor = semanticObject.getElements().iterator();
+		int index = 0;
+		while(itor.hasNext()) {
+			Expression p = itor.next();
+			if(index == 0)
+				feeder.accept(access.getElementsAssignmentExpressionParserRuleCall_2_0_0(), p, index);
+			else
+				feeder.accept(access.getElementsAssignmentExpressionParserRuleCall_2_1_1_0(), p, index);
+			index++;
+		}
+		feeder.finish();
+		// super.sequence_SelectorExpression(context, semanticObject);
+
+		// TODO Auto-generated method stub
+		// super.sequence_LiteralList(context, semanticObject);
 	}
 
 	/*

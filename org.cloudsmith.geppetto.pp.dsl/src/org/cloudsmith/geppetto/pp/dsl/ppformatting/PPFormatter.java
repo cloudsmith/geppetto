@@ -214,7 +214,7 @@ public class PPFormatter extends AbstractDeclarativeFormatter {
 		// -- no space after opening [
 		// -- no space before closing ]
 		c.setNoSpace().after(ga.getLiteralListAccess().getLeftSquareBracketKeyword_1());
-		c.setNoSpace().before(ga.getLiteralListAccess().getRightSquareBracketKeyword_4());
+		c.setNoSpace().before(ga.getLiteralListAccess().getRightSquareBracketKeyword_3());
 
 		// -- no space after opening {
 		// -- no space before closing }

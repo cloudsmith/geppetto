@@ -14,13 +14,11 @@ package org.cloudsmith.geppetto.pp.dsl.ui.internal;
 import org.apache.log4j.Logger;
 import org.cloudsmith.geppetto.pp.dsl.PPDSLConstants;
 import org.cloudsmith.geppetto.pp.dsl.pptp.PptpRubyRuntimeModule;
-import org.cloudsmith.geppetto.pp.dsl.pptp.PptpRuntimeModule;
 import org.cloudsmith.geppetto.pp.dsl.ui.preferences.PPPreferencesHelper;
 import org.osgi.framework.BundleContext;
 
 import com.google.inject.Injector;
 import com.google.inject.Module;
-import com.google.inject.util.Modules;
 
 /**
  * Adds support for PPTP Ruby by creating injectors and caching them using a language key
@@ -63,7 +61,7 @@ public class PPDSLActivator extends PPActivator {
 		if(PPDSLConstants.PPTP_RUBY_LANGUAGE_NAME.equals(grammar))
 			return new PptpRubyRuntimeModule();
 		else if(PPDSLConstants.PPTP_LANGUAGE_NAME.equals(grammar))
-			return new PptpRuntimeModule();
+			return new PptpUIModule();
 		return super.getRuntimeModule(grammar);
 	}
 
@@ -75,7 +73,7 @@ public class PPDSLActivator extends PPActivator {
 	@Override
 	protected Module getUiModule(String grammar) {
 		if(PPDSLConstants.PPTP_RUBY_LANGUAGE_NAME.equals(grammar) || PPDSLConstants.PPTP_LANGUAGE_NAME.equals(grammar))
-			return Modules.EMPTY_MODULE;
+			return new PptpUIModule(); // Modules.EMPTY_MODULE;
 
 		return super.getUiModule(grammar);
 	}

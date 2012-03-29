@@ -128,6 +128,11 @@ public class PPJavaValidator extends AbstractPPJavaValidator implements IPPDiagn
 			doCheck(o.getRightExpr());
 		}
 
+		public void check(AtExpression o, boolean left) {
+			if(left)
+				check(o);
+		}
+
 		public void check(EqualityExpression o) {
 			doCheck(o.getLeftExpr(), Boolean.TRUE);
 			doCheck(o.getRightExpr(), Boolean.FALSE);
@@ -139,7 +144,7 @@ public class PPJavaValidator extends AbstractPPJavaValidator implements IPPDiagn
 
 		public void check(Expression o) {
 			acceptor.acceptError(
-				"Expression type not allowed here.", o, o.eContainingFeature(), INSIGNIFICANT_INDEX,
+				"Expression type not allowed here.", o.eContainer(), o.eContainingFeature(), INSIGNIFICANT_INDEX,
 				IPPDiagnostics.ISSUE__UNSUPPORTED_EXPRESSION);
 		}
 
@@ -147,7 +152,7 @@ public class PPJavaValidator extends AbstractPPJavaValidator implements IPPDiagn
 			acceptor.acceptError(
 				"Expression type not allowed as " + (left
 						? "left"
-						: "right") + " expression.", o, o.eContainingFeature(), INSIGNIFICANT_INDEX,
+						: "right") + " expression.", o.eContainer(), o.eContainingFeature(), INSIGNIFICANT_INDEX,
 				IPPDiagnostics.ISSUE__UNSUPPORTED_EXPRESSION);
 		}
 

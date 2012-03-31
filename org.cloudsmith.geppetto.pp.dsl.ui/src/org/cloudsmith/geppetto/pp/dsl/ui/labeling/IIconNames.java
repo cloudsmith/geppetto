@@ -49,4 +49,6 @@ public interface IIconNames {
 
 	public static final String TYPE = "obj16/steel-t-16.png";
 
+	public static final String BLUE_CIRCLE = "obj16/blue_circle.gif";
+
 }

@@ -86,9 +86,10 @@ public class PPFinder {
 		}
 	}
 
-	private final static EClass[] CLASSES_FOR_VARIABLES = { PPPackage.Literals.DEFINITION_ARGUMENT, //
+	private final static EClass[] CLASSES_FOR_VARIABLES = { //
+	PPPackage.Literals.DEFINITION_ARGUMENT, //
 			PPTPPackage.Literals.TP_VARIABLE, //
-			PPTPPackage.Literals.TYPE_ARGUMENT, //
+			// PPTPPackage.Literals.TYPE_ARGUMENT, //
 			PPPackage.Literals.VARIABLE_EXPRESSION };
 
 	private final static EClass[] DEF_AND_TYPE_ARGUMENTS = {

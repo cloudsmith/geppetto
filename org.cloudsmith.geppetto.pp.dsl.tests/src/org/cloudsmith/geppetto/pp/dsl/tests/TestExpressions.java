@@ -103,13 +103,23 @@ public class TestExpressions extends AbstractPuppetTests {
 		System.setOut(new PrintStream(sink));
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.xtext.junit.AbstractXtextTests#shouldTestSerializer(org.eclipse.xtext.resource.XtextResource)
+	 */
+	@Override
+	protected boolean shouldTestSerializer(XtextResource resource) {
+		return false;
+	}
+
+	// @formatter:on
+
 	@Override
 	public void tearDown() throws Exception {
 		super.tearDown();
 		System.setOut(savedOut);
 	}
-
-	// @formatter:on
 
 	public void test_Parse_MatchingExpression() throws Exception {
 		String code = "$a =~ /[a-z]*/";

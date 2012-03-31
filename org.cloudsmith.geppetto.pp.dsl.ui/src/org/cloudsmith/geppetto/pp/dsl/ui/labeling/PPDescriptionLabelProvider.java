@@ -47,7 +47,7 @@ public class PPDescriptionLabelProvider extends DeclarativeLabelProvider impleme
 	@Inject
 	private DefaultEditorImageUtil imageUtil;
 
-	private String getClassLabel(EClass clazz) {
+	public String getClassLabel(EClass clazz) {
 		if(clazz.getEPackage() == PPTPPackage.eINSTANCE) {
 			switch(clazz.getClassifierID()) {
 				case PPTPPackage.TYPE:
@@ -163,4 +163,5 @@ public class PPDescriptionLabelProvider extends DeclarativeLabelProvider impleme
 		}
 		return null;
 	}
+
 }

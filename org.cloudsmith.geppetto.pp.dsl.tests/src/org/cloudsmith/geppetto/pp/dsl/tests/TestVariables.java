@@ -50,6 +50,16 @@ public class TestVariables extends AbstractPuppetTests {
 	/*
 	 * (non-Javadoc)
 	 * 
+	 * @see org.eclipse.xtext.junit.AbstractXtextTests#shouldTestSerializer(org.eclipse.xtext.resource.XtextResource)
+	 */
+	@Override
+	protected boolean shouldTestSerializer(XtextResource resource) {
+		return false;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see org.eclipse.xtext.junit.AbstractXtextTests#tearDown()
 	 */
 	@Override

@@ -22,8 +22,8 @@ import org.cloudsmith.geppetto.pp.VariableTE;
 import org.cloudsmith.geppetto.pp.dsl.contentassist.PPProposalsGenerator;
 import org.cloudsmith.geppetto.pp.dsl.linking.PPFinder;
 import org.cloudsmith.geppetto.pp.dsl.linking.PPSearchPath.ISearchPathProvider;
+import org.cloudsmith.geppetto.pp.dsl.ui.labeling.PPDescriptionLabelProvider;
 import org.cloudsmith.geppetto.pp.dsl.validation.IPPDiagnostics;
-import org.cloudsmith.geppetto.pp.pptp.PPTPPackage;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.jface.text.BadLocationException;
@@ -106,8 +106,13 @@ public class PPQuickfixProvider extends DefaultQuickfixProvider {
 
 	}
 
-	private final static EClass[] PARAMS_AND_VARIABLES = {
-			PPPackage.Literals.DEFINITION_ARGUMENT, PPTPPackage.Literals.TYPE_ARGUMENT,
+	@Inject
+	protected PPDescriptionLabelProvider descriptionLabelProvider;
+
+	private final static EClass[] PARAMS_AND_VARIABLES = { //
+	//
+			PPPackage.Literals.DEFINITION_ARGUMENT, //
+			// PPTPPackage.Literals.TYPE_ARGUMENT, //
 			PPPackage.Literals.VARIABLE_EXPRESSION };
 
 	private static String toInitialCase(String s, boolean upper) {

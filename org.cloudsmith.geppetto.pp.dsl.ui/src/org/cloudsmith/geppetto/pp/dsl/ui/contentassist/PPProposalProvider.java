@@ -28,12 +28,14 @@ import org.cloudsmith.geppetto.pp.adapters.ClassifierAdapterFactory;
 import org.cloudsmith.geppetto.pp.dsl.eval.PPStringConstantEvaluator;
 import org.cloudsmith.geppetto.pp.dsl.linking.PPFinder;
 import org.cloudsmith.geppetto.pp.dsl.linking.PPFinder.SearchResult;
+import org.cloudsmith.geppetto.pp.dsl.ui.labeling.PPDescriptionLabelProvider;
 import org.cloudsmith.geppetto.pp.pptp.PPTPPackage;
 import org.eclipse.emf.common.util.URI;
-import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.jface.viewers.StyledString;
+import org.eclipse.swt.graphics.Image;
 import org.eclipse.xtext.Assignment;
 import org.eclipse.xtext.Keyword;
 import org.eclipse.xtext.RuleCall;
@@ -54,6 +56,9 @@ import com.google.inject.Inject;
 public class PPProposalProvider extends AbstractPPProposalProvider {
 	@Inject
 	private PPStringConstantEvaluator stringConstantEvaluator;
+
+	@Inject
+	protected PPDescriptionLabelProvider descriptionLabelProvider;
 
 	@Inject
 	private PPFinder ppFinder;
@@ -402,17 +407,17 @@ public class PPProposalProvider extends AbstractPPProposalProvider {
 
 		ppFinder.configure(model.eResource());
 
-		for(IEObjectDescription d : ppFinder.findDefinitions(model, null).getAdjusted())
-			acceptor.accept(createCompletionProposal(converter.toString(d.getQualifiedName()), context));
+		for(IEObjectDescription d : ppFinder.findDefinitions(model, null).getAdjusted()) {
+			String name = converter.toString(d.getQualifiedName());
+			StyledString styledDescription = new StyledString(name);
+			styledDescription.append(typeSuffix(d));
+			acceptor.accept(createCompletionProposal(
+				name, styledDescription, descriptionLabelProvider.getImage(d), context));
+		}
+		// acceptor.accept(createCompletionProposal(converter.toString(d.getQualifiedName()), context));
 
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.xtext.ui.editor.contentassist.AbstractJavaBasedContentProposalProvider#completeRuleCall(org.eclipse.xtext.RuleCall,
-	 * org.eclipse.xtext.ui.editor.contentassist.ContentAssistContext, org.eclipse.xtext.ui.editor.contentassist.ICompletionProposalAcceptor)
-	 */
 	@Override
 	public void completeRuleCall(RuleCall ruleCall, ContentAssistContext contentAssistContext,
 			ICompletionProposalAcceptor acceptor) {
@@ -424,41 +429,18 @@ public class PPProposalProvider extends AbstractPPProposalProvider {
 		super.completeRuleCall(ruleCall, contentAssistContext, acceptor);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.cloudsmith.geppetto.pp.dsl.ui.contentassist.AbstractPPProposalProvider#completeTextExpression_Expression(org.eclipse.emf.ecore.EObject,
-	 * org.eclipse.xtext.Assignment, org.eclipse.xtext.ui.editor.contentassist.ContentAssistContext,
-	 * org.eclipse.xtext.ui.editor.contentassist.ICompletionProposalAcceptor)
-	 */
 	@Override
 	public void completeTextExpression_Expression(EObject model, Assignment assignment, ContentAssistContext context,
 			ICompletionProposalAcceptor acceptor) {
 		completeVarNameCommon(model, assignment, context, acceptor, false, true);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.cloudsmith.geppetto.pp.dsl.ui.contentassist.AbstractPPProposalProvider#completeTextExpression_VarName(org.eclipse.emf.ecore.EObject,
-	 * org.eclipse.xtext.Assignment, org.eclipse.xtext.ui.editor.contentassist.ContentAssistContext,
-	 * org.eclipse.xtext.ui.editor.contentassist.ICompletionProposalAcceptor)
-	 */
 	@Override
 	public void completeTextExpression_VarName(EObject model, Assignment assignment, ContentAssistContext context,
 			ICompletionProposalAcceptor acceptor) {
 		completeVarNameCommon(model, assignment, context, acceptor, false, false);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.cloudsmith.geppetto.pp.dsl.ui.contentassist.AbstractPPProposalProvider#completeUnquotedString_Expression(org.eclipse.emf.ecore.EObject,
-	 * org.eclipse.xtext.Assignment, org.eclipse.xtext.ui.editor.contentassist.ContentAssistContext,
-	 * org.eclipse.xtext.ui.editor.contentassist.ICompletionProposalAcceptor)
-	 */
 	@Override
 	public void completeUnquotedString_Expression(EObject model, Assignment assignment, ContentAssistContext context,
 			ICompletionProposalAcceptor acceptor) {
@@ -466,13 +448,6 @@ public class PPProposalProvider extends AbstractPPProposalProvider {
 		completeVarNameCommon(model, assignment, context, acceptor, false, true);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.cloudsmith.geppetto.pp.dsl.ui.contentassist.AbstractPPProposalProvider#complete_VariableExpression(org.eclipse.emf.ecore.EObject,
-	 * org.eclipse.xtext.RuleCall, org.eclipse.xtext.ui.editor.contentassist.ContentAssistContext,
-	 * org.eclipse.xtext.ui.editor.contentassist.ICompletionProposalAcceptor)
-	 */
 	@Override
 	public void completeVariableExpression_VarName(EObject model, Assignment ruleCall, ContentAssistContext context,
 			ICompletionProposalAcceptor acceptor) {
@@ -578,7 +553,8 @@ public class PPProposalProvider extends AbstractPPProposalProvider {
 
 					fqn = d.getQualifiedName();
 					StringBuilder b = new StringBuilder();
-					String description = null;
+					// String description = null;
+					Image image = null;
 
 					// All proposals are variables, so start with $
 					if(!bracedInput)
@@ -590,11 +566,15 @@ public class PPProposalProvider extends AbstractPPProposalProvider {
 					if(fqn.getSegmentCount() == 1)
 						b.append("::");
 
+					// TODO: As a consequence of fixing issue #305, this will never happen.
+					// Investigate if meta parameters should be included at all as variables
+					//
 					// If a Parameter, and is Type::name - use only name, display "meta-parameter" (i.e. parameters "inherited" by all types).
 					if(fqn.getSegmentCount() > 1 && d.getEClass() == PPTPPackage.Literals.PARAMETER &&
 							"Type".equals(fqn.getFirstSegment())) {
 						b.append(fqn.getSegment(1));
-						description = "meta-parameter";
+						// TODO: description "meta-parameter" should be provided by description label provider
+						// description = "meta-parameter";
 					}
 					else {
 						// if name is in same scope as reference, make it a local reference
@@ -603,36 +583,28 @@ public class PPProposalProvider extends AbstractPPProposalProvider {
 						else
 							b.append(converter.toString(fqn));
 
-						// figure out appropriate description
-						EClass dclass = d.getEClass();
-						if(dclass == PPTPPackage.Literals.PROPERTY)
-							description = "property";
-						else if(dclass == PPTPPackage.Literals.PARAMETER)
-							description = "parameter";
-						else if(dclass == PPPackage.Literals.DEFINITION_ARGUMENT)
-							description = "definition/class parameter";
+						// description = descriptionLabelProvider.typeText(d);
+						image = descriptionLabelProvider.getImage(d);
+
 					}
 					if(bracedProposal)
 						b.append("}");
 
-					// default description is 'variable'
-					description = description == null
-							? "variable"
-							: description;
-
-					StyledString styledDescription = new StyledString(b.toString());
-					styledDescription.append(" - " + description, StyledString.DECORATIONS_STYLER);
+					// since $ is in icon, not needed in description (just makes it more difficult to read).
+					StyledString styledDescription = new StyledString(b.substring(bracedInput
+							? 0
+							: 1));
+					styledDescription.append(typeSuffix(d));
 					ConfigurableCompletionProposal proposal = doCreateProposal(
-						b.toString(), styledDescription, null, getPriorityHelper().getDefaultPriority(), context);
+						b.toString(), styledDescription, image, getPriorityHelper().getDefaultPriority(), context);
 					proposal.setReplacementOffset(replacementOffset);
 					proposal.setReplacementLength(replacementLength);
 					acceptor.accept(proposal);
-					// System.err.println("Proposing: " + b.toString() + " of type: " + d.getEClass());
 				}
 
 			}
 		}
-	};
+	}
 
 	/**
 	 * Remove variables/entries that are not yet initialized. These are the values
@@ -720,5 +692,18 @@ public class PPProposalProvider extends AbstractPPProposalProvider {
 		count += removeDisqualifiedAssignmentVariables(descs, o);
 
 		return count;
+	}
+
+	public StyledString typeSuffix(IEObjectDescription element) {
+		EPackage epkg = element.getEClass().getEPackage();
+		StyledString bld = new StyledString();
+		if(epkg == PPTPPackage.eINSTANCE || epkg == PPPackage.eINSTANCE) {
+			bld.append(
+				" : " + descriptionLabelProvider.getClassLabel(element.getEClass()), StyledString.DECORATIONS_STYLER);
+			bld.append(" - " + element.getEObjectURI().lastSegment(), StyledString.QUALIFIER_STYLER);
+			return bld;
+		}
+		bld.append(" : ", StyledString.DECORATIONS_STYLER);
+		return descriptionLabelProvider.getStyledText(element);
 	}
 }

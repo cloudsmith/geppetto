@@ -28,6 +28,7 @@ import org.cloudsmith.geppetto.pp.adapters.ClassifierAdapterFactory;
 import org.cloudsmith.geppetto.pp.dsl.eval.PPStringConstantEvaluator;
 import org.cloudsmith.geppetto.pp.dsl.linking.PPFinder;
 import org.cloudsmith.geppetto.pp.dsl.linking.PPFinder.SearchResult;
+import org.cloudsmith.geppetto.pp.dsl.ui.labeling.IIconNames;
 import org.cloudsmith.geppetto.pp.dsl.ui.labeling.PPDescriptionLabelProvider;
 import org.cloudsmith.geppetto.pp.pptp.PPTPPackage;
 import org.eclipse.emf.common.util.URI;
@@ -44,6 +45,7 @@ import org.eclipse.xtext.naming.QualifiedName;
 import org.eclipse.xtext.nodemodel.INode;
 import org.eclipse.xtext.nodemodel.util.NodeModelUtils;
 import org.eclipse.xtext.resource.IEObjectDescription;
+import org.eclipse.xtext.ui.IImageHelper;
 import org.eclipse.xtext.ui.editor.contentassist.ConfigurableCompletionProposal;
 import org.eclipse.xtext.ui.editor.contentassist.ContentAssistContext;
 import org.eclipse.xtext.ui.editor.contentassist.ICompletionProposalAcceptor;
@@ -65,6 +67,8 @@ public class PPProposalProvider extends AbstractPPProposalProvider {
 
 	// @Inject
 	// private IGrammarAccess grammarAccess;
+	@Inject
+	private IImageHelper imageHelper;
 
 	/**
 	 * PP FQN to/from Xtext QualifiedName converter.
@@ -72,13 +76,6 @@ public class PPProposalProvider extends AbstractPPProposalProvider {
 	@Inject
 	IQualifiedNameConverter converter;
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.cloudsmith.geppetto.pp.dsl.ui.contentassist.AbstractPPProposalProvider#complete_AttributeOperation(org.eclipse.emf.ecore.EObject,
-	 * org.eclipse.xtext.RuleCall, org.eclipse.xtext.ui.editor.contentassist.ContentAssistContext,
-	 * org.eclipse.xtext.ui.editor.contentassist.ICompletionProposalAcceptor)
-	 */
 	@Override
 	public void complete_AttributeOperation(EObject model, RuleCall ruleCall, ContentAssistContext context,
 			ICompletionProposalAcceptor acceptor) {
@@ -87,13 +84,6 @@ public class PPProposalProvider extends AbstractPPProposalProvider {
 		super.complete_AttributeOperation(model, ruleCall, context, acceptor);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.cloudsmith.geppetto.pp.dsl.ui.contentassist.AbstractPPProposalProvider#complete_AttributeOperations(org.eclipse.emf.ecore.EObject,
-	 * org.eclipse.xtext.RuleCall, org.eclipse.xtext.ui.editor.contentassist.ContentAssistContext,
-	 * org.eclipse.xtext.ui.editor.contentassist.ICompletionProposalAcceptor)
-	 */
 	@Override
 	public void complete_AttributeOperations(EObject model, RuleCall ruleCall, ContentAssistContext context,
 			ICompletionProposalAcceptor acceptor) {
@@ -102,13 +92,6 @@ public class PPProposalProvider extends AbstractPPProposalProvider {
 		super.complete_AttributeOperations(model, ruleCall, context, acceptor);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.cloudsmith.geppetto.pp.dsl.ui.contentassist.AbstractPPProposalProvider#complete_ResourceBody(org.eclipse.emf.ecore.EObject,
-	 * org.eclipse.xtext.RuleCall, org.eclipse.xtext.ui.editor.contentassist.ContentAssistContext,
-	 * org.eclipse.xtext.ui.editor.contentassist.ICompletionProposalAcceptor)
-	 */
 	@Override
 	public void complete_ResourceBody(EObject model, RuleCall ruleCall, ContentAssistContext context,
 			ICompletionProposalAcceptor acceptor) {
@@ -117,13 +100,6 @@ public class PPProposalProvider extends AbstractPPProposalProvider {
 		super.complete_ResourceBody(model, ruleCall, context, acceptor);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.cloudsmith.geppetto.pp.dsl.ui.contentassist.AbstractPPProposalProvider#complete_ResourceExpression(org.eclipse.emf.ecore.EObject,
-	 * org.eclipse.xtext.RuleCall, org.eclipse.xtext.ui.editor.contentassist.ContentAssistContext,
-	 * org.eclipse.xtext.ui.editor.contentassist.ICompletionProposalAcceptor)
-	 */
 	@Override
 	public void complete_ResourceExpression(EObject model, RuleCall ruleCall, ContentAssistContext context,
 			ICompletionProposalAcceptor acceptor) {
@@ -131,13 +107,6 @@ public class PPProposalProvider extends AbstractPPProposalProvider {
 		super.complete_ResourceExpression(model, ruleCall, context, acceptor);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.cloudsmith.geppetto.pp.dsl.ui.contentassist.AbstractPPProposalProvider#complete_AttributeOperation(org.eclipse.emf.ecore.EObject,
-	 * org.eclipse.xtext.RuleCall, org.eclipse.xtext.ui.editor.contentassist.ContentAssistContext,
-	 * org.eclipse.xtext.ui.editor.contentassist.ICompletionProposalAcceptor)
-	 */
 	@Override
 	public void complete_unionNameOrReference(EObject model, RuleCall ruleCall, ContentAssistContext context,
 			ICompletionProposalAcceptor acceptor) {
@@ -147,13 +116,6 @@ public class PPProposalProvider extends AbstractPPProposalProvider {
 
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.cloudsmith.geppetto.pp.dsl.ui.contentassist.AbstractPPProposalProvider#complete_VariableExpression(org.eclipse.emf.ecore.EObject,
-	 * org.eclipse.xtext.RuleCall, org.eclipse.xtext.ui.editor.contentassist.ContentAssistContext,
-	 * org.eclipse.xtext.ui.editor.contentassist.ICompletionProposalAcceptor)
-	 */
 	@Override
 	public void complete_VariableExpression(EObject model, RuleCall ruleCall, ContentAssistContext context,
 			ICompletionProposalAcceptor acceptor) {
@@ -169,18 +131,12 @@ public class PPProposalProvider extends AbstractPPProposalProvider {
 			prefix = "$";
 		if(!prefix.startsWith("$")) {
 			StyledString description = new StyledString("$");
-			description.append(" - $<variable>", StyledString.DECORATIONS_STYLER);
-			acceptor.accept(createCompletionProposal("$", description, null, context));
+			description.append(" - $variable", StyledString.DECORATIONS_STYLER);
+			acceptor.accept(createCompletionProposal("$", description, getImage(IIconNames.BLUE_CIRCLE), context));
 		}
 		super.complete_VariableExpression(model, ruleCall, context, acceptor);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.xtext.ui.editor.contentassist.AbstractJavaBasedContentProposalProvider#completeAssignment(org.eclipse.xtext.Assignment,
-	 * org.eclipse.xtext.ui.editor.contentassist.ContentAssistContext, org.eclipse.xtext.ui.editor.contentassist.ICompletionProposalAcceptor)
-	 */
 	@Override
 	public void completeAssignment(Assignment assignment, ContentAssistContext contentAssistContext,
 			ICompletionProposalAcceptor acceptor) {
@@ -193,13 +149,6 @@ public class PPProposalProvider extends AbstractPPProposalProvider {
 		super.completeAssignment(assignment, contentAssistContext, acceptor);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.cloudsmith.geppetto.pp.dsl.ui.contentassist.AbstractPPProposalProvider#completeAttributeOperation_Key(org.eclipse.emf.ecore.EObject,
-	 * org.eclipse.xtext.Assignment, org.eclipse.xtext.ui.editor.contentassist.ContentAssistContext,
-	 * org.eclipse.xtext.ui.editor.contentassist.ICompletionProposalAcceptor)
-	 */
 	@Override
 	public void completeAttributeOperation_Key(EObject model, Assignment assignment, ContentAssistContext context,
 			ICompletionProposalAcceptor acceptor) {
@@ -347,13 +296,6 @@ public class PPProposalProvider extends AbstractPPProposalProvider {
 		}
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.cloudsmith.geppetto.pp.dsl.ui.contentassist.AbstractPPProposalProvider#completeAttributeOperation_Value(org.eclipse.emf.ecore.EObject,
-	 * org.eclipse.xtext.Assignment, org.eclipse.xtext.ui.editor.contentassist.ContentAssistContext,
-	 * org.eclipse.xtext.ui.editor.contentassist.ICompletionProposalAcceptor)
-	 */
 	@Override
 	public void completeAttributeOperation_Value(EObject model, Assignment assignment, ContentAssistContext context,
 			ICompletionProposalAcceptor acceptor) {
@@ -361,14 +303,6 @@ public class PPProposalProvider extends AbstractPPProposalProvider {
 		// super.completeAttributeOperation_Value(model, assignment, context, acceptor);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.cloudsmith.geppetto.pp.dsl.ui.contentassist.AbstractPPProposalProvider#completeAttributeOperations_Attributes(org.eclipse.emf.ecore.EObject
-	 * , org.eclipse.xtext.Assignment, org.eclipse.xtext.ui.editor.contentassist.ContentAssistContext,
-	 * org.eclipse.xtext.ui.editor.contentassist.ICompletionProposalAcceptor)
-	 */
 	@Override
 	public void completeAttributeOperations_Attributes(EObject model, Assignment assignment,
 			ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
@@ -377,12 +311,6 @@ public class PPProposalProvider extends AbstractPPProposalProvider {
 		super.completeAttributeOperations_Attributes(model, assignment, context, acceptor);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.xtext.ui.editor.contentassist.AbstractJavaBasedContentProposalProvider#completeKeyword(org.eclipse.xtext.Keyword,
-	 * org.eclipse.xtext.ui.editor.contentassist.ContentAssistContext, org.eclipse.xtext.ui.editor.contentassist.ICompletionProposalAcceptor)
-	 */
 	@Override
 	public void completeKeyword(Keyword keyword, ContentAssistContext contentAssistContext,
 			ICompletionProposalAcceptor acceptor) {
@@ -392,14 +320,6 @@ public class PPProposalProvider extends AbstractPPProposalProvider {
 		super.completeKeyword(keyword, contentAssistContext, acceptor);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.cloudsmith.geppetto.pp.dsl.ui.contentassist.AbstractPPProposalProvider#completePuppetManifest_Statements(org.eclipse.emf.ecore.EObject,
-	 * org.eclipse.xtext.Assignment, org.eclipse.xtext.ui.editor.contentassist.ContentAssistContext,
-	 * org.eclipse.xtext.ui.editor.contentassist.ICompletionProposalAcceptor)
-	 */
 	@Override
 	public void completePuppetManifest_Statements(EObject model, Assignment assignment, ContentAssistContext context,
 			ICompletionProposalAcceptor acceptor) {
@@ -604,6 +524,10 @@ public class PPProposalProvider extends AbstractPPProposalProvider {
 
 			}
 		}
+	}
+
+	protected Image getImage(String imageName) {
+		return imageHelper.getImage(imageName);
 	}
 
 	/**

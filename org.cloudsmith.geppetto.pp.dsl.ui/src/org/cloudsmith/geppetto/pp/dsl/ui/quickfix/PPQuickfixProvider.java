@@ -52,16 +52,33 @@ public class PPQuickfixProvider extends DefaultQuickfixProvider {
 
 		final protected String text;
 
+		final protected boolean handleQuotes;
+
 		ReplacingModification(int offset, int length, String text) {
+			this(offset, length, text, false);
+		}
+
+		ReplacingModification(int offset, int length, String text, boolean handleQuotes) {
 			this.length = length;
 			this.offset = offset;
 			this.text = text;
+			this.handleQuotes = handleQuotes;
 		}
 
 		@Override
 		public void apply(IModificationContext context) throws BadLocationException {
 			IXtextDocument xtextDocument = context.getXtextDocument();
-			xtextDocument.replace(offset, length, text);
+			int o = offset;
+			int l = length;
+			if(handleQuotes) {
+				String s = xtextDocument.get(offset, length);
+				char c = s.charAt(0);
+				if(s.charAt(s.length() - 1) == c && (c == '\'' || c == '"')) {
+					o++;
+					l -= 2;
+				}
+			}
+			xtextDocument.replace(o, l, text);
 		}
 
 	}
@@ -388,7 +405,7 @@ public class PPQuickfixProvider extends DefaultQuickfixProvider {
 				intString = "0" + intString;
 			acceptor.accept(issue, intString + ". Change to '" + proposal + "'", //
 				"Change to (guessed value) '" + proposal + "'", null, new ReplacingModification(
-					issue.getOffset(), issue.getLength(), proposal));
+					issue.getOffset(), issue.getLength(), proposal, true));
 		}
 	}
 

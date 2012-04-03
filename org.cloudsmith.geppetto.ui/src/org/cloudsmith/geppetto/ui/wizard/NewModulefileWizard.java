@@ -26,10 +26,7 @@ import org.eclipse.xtext.util.StringInputStream;
  * resource in the provided container. If the container resource
  * (a folder or a project) is selected in the workspace
  * when the wizard is opened, it will accept it as the target
- * container. The wizard creates one file with the extension
- * "pp". If a sample multi-page editor (also available
- * as a template) is registered for the same extension, it will
- * be able to open it.
+ * container. The wizard creates one file called "Modulefile".
  */
 
 public class NewModulefileWizard extends BasicNewResourceWizard implements INewWizard {
@@ -108,10 +105,6 @@ public class NewModulefileWizard extends BasicNewResourceWizard implements INewW
 		setDefaultPageImageDescriptor(desc);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * Method declared on IWizard.
-	 */
 	@Override
 	public boolean performFinish() {
 		IFile file = page.createNewFile();

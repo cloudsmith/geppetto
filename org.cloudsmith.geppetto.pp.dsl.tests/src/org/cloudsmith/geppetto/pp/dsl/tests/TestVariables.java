@@ -28,7 +28,7 @@ import com.google.common.collect.Lists;
  * Test validation/linking of variables.
  * 
  */
-public class TestVariables extends AbstractPuppetTests {
+public class TestVariables extends AbstractPuppetTests implements AbstractPuppetTests.SerializationTestControl {
 
 	private PrintStream savedOut;
 
@@ -45,6 +45,11 @@ public class TestVariables extends AbstractPuppetTests {
 
 		};
 		System.setOut(new PrintStream(sink));
+	}
+
+	@Override
+	public boolean shouldTestSerializer(XtextResource resource) {
+		return false;
 	}
 
 	/*

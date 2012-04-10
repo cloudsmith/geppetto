@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2011 Cloudsmith Inc. and other contributors, as listed below.
+ * Copyright (c) 2011, 2012 Cloudsmith Inc. and other contributors, as listed below.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -27,7 +27,6 @@ import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.util.IPropertyChangeListener;
 import org.eclipse.jface.util.PropertyChangeEvent;
-import org.eclipse.xtext.resource.containers.IAllContainersState;
 import org.eclipse.xtext.ui.editor.preferences.IPreferenceStoreAccess;
 import org.eclipse.xtext.ui.editor.preferences.IPreferenceStoreInitializer;
 
@@ -44,32 +43,52 @@ import com.google.inject.internal.Lists;
 public class PPPreferencesHelper implements IPreferenceStoreInitializer, IPropertyChangeListener {
 
 	private class RebuildChecker extends Job {
+		private boolean drainAndBuild;
+
+		/**
+		 * The purpose of the RebuildChecker is to collect/aggregate events for validation preferences
+		 * to avoid having to issue multiple rebuilds for a set of changes.
+		 * This job reschedules itself.
+		 */
 		RebuildChecker() {
 			super("Puppet RebuildChecker");
 			setSystem(true);
 			this.setUser(false);
+			drainAndBuild = false;
 		}
 
 		@Override
 		protected IStatus run(IProgressMonitor monitor) {
-			for(;;) {
-				try {
-					// wakeup when there is something on the queue
-					problemChanges.take();
-					// wait for more events before running
-					Thread.sleep(500);
-				}
-				catch(InterruptedException e) {
-					return Status.CANCEL_STATUS;
-				}
-				// drain the queue of everything pending
-				List<String> drained = Lists.newArrayList();
-				problemChanges.drainTo(drained);
-
-				// run a build
-				PPBuildJob job = new PPBuildJob(workspace);
-				job.schedule();
+			if(monitor.isCanceled())
+				return Status.CANCEL_STATUS;
+			if(problemChanges.peek() == null) {
+				drainAndBuild = false;
+				this.schedule(500);
+				return Status.OK_STATUS;
 			}
+			// if one event found, wait 500ms and then drain queue and rebuild
+			if(!drainAndBuild) {
+				drainAndBuild = true;
+				this.schedule(500);
+				return Status.OK_STATUS;
+			}
+			drainAndBuild = false;
+
+			if(monitor.isCanceled())
+				return Status.CANCEL_STATUS;
+			// drain the queue of everything pending
+			List<String> drained = Lists.newArrayList();
+			problemChanges.drainTo(drained);
+
+			if(monitor.isCanceled())
+				return Status.CANCEL_STATUS;
+
+			// run a build
+			PPBuildJob job = new PPBuildJob(workspace);
+			job.schedule();
+			this.schedule(1000);
+
+			return Status.OK_STATUS;
 		}
 
 	}
@@ -121,11 +140,14 @@ public class PPPreferencesHelper implements IPreferenceStoreInitializer, IProper
 		PPPreferenceConstants.PROBLEM_BOOLEAN_STRING, //
 		PPPreferenceConstants.PROBLEM_MISSING_DEFAULT, //
 		PPPreferenceConstants.PROBLEM_CASE_DEFAULT_LAST, //
-		PPPreferenceConstants.PROBLEM_SELECTOR_DEFAULT_LAST //
-	);
+		PPPreferenceConstants.PROBLEM_SELECTOR_DEFAULT_LAST, //
 
-	@Inject
-	private IAllContainersState allContainers;
+		PPPreferenceConstants.PROBLEM_UNQUOTED_RESOURCE_TITLE, //
+		PPPreferenceConstants.PROBLEM_DQ_STRING_NOT_REQUIRED, //
+		PPPreferenceConstants.PROBLEM_DQ_STRING_NOT_REQUIRED_VAR, //
+		PPPreferenceConstants.PROBLEM_UNBRACED_INTERPOLATION //
+
+	);
 
 	private IPreferenceStoreAccess preferenceStoreAccess;
 
@@ -165,6 +187,20 @@ public class PPPreferencesHelper implements IPreferenceStoreInitializer, IProper
 		return ValidationPreference.fromString(store.getString(PPPreferenceConstants.PROBLEM_CIRCULAR_DEPENDENCY));
 	}
 
+	/**
+	 * @return
+	 */
+	public ValidationPreference getDqStringNotRequired() {
+		return ValidationPreference.fromString(store.getString(PPPreferenceConstants.PROBLEM_DQ_STRING_NOT_REQUIRED));
+	}
+
+	/**
+	 * @return
+	 */
+	public ValidationPreference getDqStringNotRequiredVar() {
+		return ValidationPreference.fromString(store.getString(PPPreferenceConstants.PROBLEM_DQ_STRING_NOT_REQUIRED_VAR));
+	}
+
 	public String getForgeURI() {
 		return store.getString(PPPreferenceConstants.FORGE_LOCATION);
 	}
@@ -190,10 +226,6 @@ public class PPPreferencesHelper implements IPreferenceStoreInitializer, IProper
 	}
 
 	private boolean getResourceSpecificBoolean(IResource r, String property) {
-		//
-		// String handle = allContainers.getContainerHandle(r.getURI());
-		// IProject project = workspace.getRoot().getProject(handle);
-
 		// get project specific preference and use them if they are enabled
 		IPreferenceStore store = preferenceStoreAccess.getContextPreferenceStore(r.getProject());
 		return store.getBoolean(property);
@@ -229,6 +261,20 @@ public class PPPreferencesHelper implements IPreferenceStoreInitializer, IProper
 	 */
 	public ValidationPreference getSelectorDefaultShouldAppearLast() {
 		return ValidationPreference.fromString(store.getString(PPPreferenceConstants.PROBLEM_SELECTOR_DEFAULT_LAST));
+	}
+
+	/**
+	 * @return
+	 */
+	public ValidationPreference getUnbracedInterpolation() {
+		return ValidationPreference.fromString(store.getString(PPPreferenceConstants.PROBLEM_UNBRACED_INTERPOLATION));
+	}
+
+	/**
+	 * @return
+	 */
+	public ValidationPreference getUnquotedResourceTitles() {
+		return ValidationPreference.fromString(store.getString(PPPreferenceConstants.PROBLEM_UNQUOTED_RESOURCE_TITLE));
 	}
 
 	synchronized public IValidationAdvisor.ComplianceLevel getValidationComplianceLevel() {
@@ -269,6 +315,12 @@ public class PPPreferencesHelper implements IPreferenceStoreInitializer, IProper
 		// stylistic
 		store.setDefault(PPPreferenceConstants.PROBLEM_CASE_DEFAULT_LAST, ValidationPreference.IGNORE.toString());
 		store.setDefault(PPPreferenceConstants.PROBLEM_SELECTOR_DEFAULT_LAST, ValidationPreference.IGNORE.toString());
+
+		store.setDefault(PPPreferenceConstants.PROBLEM_UNQUOTED_RESOURCE_TITLE, ValidationPreference.IGNORE.toString());
+		store.setDefault(PPPreferenceConstants.PROBLEM_DQ_STRING_NOT_REQUIRED, ValidationPreference.IGNORE.toString());
+		store.setDefault(
+			PPPreferenceConstants.PROBLEM_DQ_STRING_NOT_REQUIRED_VAR, ValidationPreference.IGNORE.toString());
+		store.setDefault(PPPreferenceConstants.PROBLEM_UNBRACED_INTERPOLATION, ValidationPreference.IGNORE.toString());
 
 		// save actions
 		store.setDefault(PPPreferenceConstants.SAVE_ACTION_ENSURE_ENDS_WITH_NL, false);
@@ -332,14 +384,25 @@ public class PPPreferencesHelper implements IPreferenceStoreInitializer, IProper
 	}
 
 	/**
-	 * Stops the helper from checking for preference store changess and scheduling rebuilds.
+	 * Stops the helper from checking for preference store changes and scheduling rebuilds.
 	 */
 	public void stop() {
 		store.removePropertyChangeListener(this);
 		if(backgroundRebuildChecker == null)
 			return;
-		if(!backgroundRebuildChecker.cancel())
-			backgroundRebuildChecker.getThread().interrupt();
+		if(!backgroundRebuildChecker.cancel()) {
+			// if not in cancelable state, poke it harder
+			Thread t = backgroundRebuildChecker.getThread();
+			t.interrupt();
+			try {
+				// must wait for *job* to die
+				backgroundRebuildChecker.join();
+			}
+			catch(InterruptedException e) {
+				// ok ok, I was interrupted when stopping... no need to make it worse...
+				System.err.println("Interrupted");
+			}
+		}
 	}
 
 }

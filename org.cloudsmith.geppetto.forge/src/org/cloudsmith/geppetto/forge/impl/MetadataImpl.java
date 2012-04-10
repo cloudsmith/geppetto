@@ -1009,11 +1009,13 @@ public class MetadataImpl extends EObjectImpl implements Metadata {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
-	 * @generated
+	 * @generated NOT
 	 */
 	@Override
 	public String getUser() {
-		return user;
+		return user == USER_EDEFAULT
+				? author
+				: user;
 	}
 
 	/**
@@ -1226,9 +1228,14 @@ public class MetadataImpl extends EObjectImpl implements Metadata {
 			setName(null);
 		}
 		else {
-			String[] sp = ForgeServiceImpl.userAndModuleFrom(fullName);
-			setUser(sp[0]);
-			setName(sp[1]);
+			try {
+				String[] sp = ForgeServiceImpl.userAndModuleFrom(fullName);
+				setUser(sp[0]);
+				setName(sp[1]);
+			}
+			catch(IllegalArgumentException e) {
+				setName(fullName);
+			}
 		}
 	}
 

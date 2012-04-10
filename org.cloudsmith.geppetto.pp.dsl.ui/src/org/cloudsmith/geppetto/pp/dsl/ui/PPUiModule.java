@@ -21,9 +21,12 @@ import org.cloudsmith.geppetto.pp.dsl.ui.coloring.PPHighlightConfiguration;
 import org.cloudsmith.geppetto.pp.dsl.ui.coloring.PPSemanticHighlightingCalculator;
 import org.cloudsmith.geppetto.pp.dsl.ui.coloring.PPTokenToAttributeIdMapper;
 import org.cloudsmith.geppetto.pp.dsl.ui.container.PPWorkspaceProjectsStateProvider;
+import org.cloudsmith.geppetto.pp.dsl.ui.contentassist.PPContentAssistLexer;
 import org.cloudsmith.geppetto.pp.dsl.ui.editor.actions.SaveActions;
 import org.cloudsmith.geppetto.pp.dsl.ui.editor.autoedit.PPEditStrategyProvider;
 import org.cloudsmith.geppetto.pp.dsl.ui.editor.autoedit.PPTokenTypeToPartionMapper;
+import org.cloudsmith.geppetto.pp.dsl.ui.editor.folding.PPFoldingRegionProvider;
+import org.cloudsmith.geppetto.pp.dsl.ui.editor.hyperlinking.PPHyperlinkHelper;
 import org.cloudsmith.geppetto.pp.dsl.ui.editor.toggleComments.PPSingleLineCommentHelper;
 import org.cloudsmith.geppetto.pp.dsl.ui.linked.ExtLinkedXtextEditor;
 import org.cloudsmith.geppetto.pp.dsl.ui.linked.ISaveActions;
@@ -38,6 +41,8 @@ import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.eclipse.xtext.resource.ILocationInFileProvider;
 import org.eclipse.xtext.ui.editor.XtextEditor;
 import org.eclipse.xtext.ui.editor.autoedit.AbstractEditStrategyProvider;
+import org.eclipse.xtext.ui.editor.folding.IFoldingRegionProvider;
+import org.eclipse.xtext.ui.editor.hyperlinking.IHyperlinkHelper;
 import org.eclipse.xtext.ui.editor.model.IResourceForEditorInputFactory;
 import org.eclipse.xtext.ui.editor.model.ITokenTypeToPartitionTypeMapper;
 import org.eclipse.xtext.ui.editor.model.ResourceForIEditorInputFactory;
@@ -68,6 +73,14 @@ public class PPUiModule extends org.cloudsmith.geppetto.pp.dsl.ui.AbstractPPUiMo
 	@Override
 	public Class<? extends AbstractEditStrategyProvider> bindAbstractEditStrategyProvider() {
 		return PPEditStrategyProvider.class;
+	}
+
+	public Class<? extends IFoldingRegionProvider> bindIFoldingRegionProvider() {
+		return PPFoldingRegionProvider.class;
+	}
+
+	public Class<? extends IHyperlinkHelper> bindIHyperlinkHelper() {
+		return PPHyperlinkHelper.class;
 	}
 
 	public Class<? extends IHighlightingConfiguration> bindILexicalHighlightingConfiguration() {
@@ -137,6 +150,30 @@ public class PPUiModule extends org.cloudsmith.geppetto.pp.dsl.ui.AbstractPPUiMo
 		return PPTokenToAttributeIdMapper.class;
 	}
 
+	/**
+	 * Override that injects a wrapper for the external lexer used by the main parser.
+	 * contributed by org.eclipse.xtext.generator.parser.antlr.ex.ca.ContentAssistParserGeneratorFragment
+	 */
+	@Override
+	public void configureContentAssistLexer(com.google.inject.Binder binder) {
+		// Need to use the external lexer here
+		// TODO:
+		binder.bind(org.eclipse.xtext.ui.editor.contentassist.antlr.internal.Lexer.class).annotatedWith(
+			com.google.inject.name.Names.named(org.eclipse.xtext.ui.LexerUIBindings.CONTENT_ASSIST)).to(
+			PPContentAssistLexer.class);
+		// org.cloudsmith.geppetto.pp.dsl.ui.contentassist.antlr.lexer.InternalPPLexer.class);
+	}
+
+	/**
+	 * Override that injects a wrapper for the external lexer used by the main parser.
+	 * contributed by org.eclipse.xtext.generator.parser.antlr.ex.ca.ContentAssistParserGeneratorFragment
+	 */
+	@Override
+	public void configureContentAssistLexerProvider(com.google.inject.Binder binder) {
+		binder.bind(PPContentAssistLexer.class).toProvider(
+			org.eclipse.xtext.parser.antlr.LexerProvider.create(PPContentAssistLexer.class));
+	}
+
 	public void configureDebugTracing(com.google.inject.Binder binder) {
 		binder.bind(ITracer.class).annotatedWith(Names.named(PPUiConstants.DEBUG_OPTION_MODULEFILE)).toInstance(
 			new DefaultTracer(PPUiConstants.DEBUG_OPTION_MODULEFILE));
@@ -178,4 +215,5 @@ public class PPUiModule extends org.cloudsmith.geppetto.pp.dsl.ui.AbstractPPUiMo
 	public com.google.inject.Provider<IValidationAdvisor> provideValidationAdvisor() {
 		return PreferenceBasedValidationAdvisorProvider.create();
 	}
+
 }

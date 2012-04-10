@@ -13,6 +13,7 @@ package org.cloudsmith.geppetto.pp.dsl.lexer;
 
 import org.antlr.runtime.CharStream;
 import org.antlr.runtime.RecognitionException;
+import org.antlr.runtime.RecognizerSharedState;
 import org.antlr.runtime.Token;
 
 public class PPOverridingLexer extends PPLexer {
@@ -23,6 +24,10 @@ public class PPOverridingLexer extends PPLexer {
 
 	public PPOverridingLexer(CharStream input) {
 		super(input);
+	}
+
+	public PPOverridingLexer(CharStream input, RecognizerSharedState state) {
+		super(input, state);
 	}
 
 	/**

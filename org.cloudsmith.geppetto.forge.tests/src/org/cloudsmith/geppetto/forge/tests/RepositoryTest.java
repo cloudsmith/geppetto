@@ -128,7 +128,7 @@ public class RepositoryTest extends TestCase {
 	public void testConnect__HttpMethod_String() {
 		try {
 			HttpURLConnection conn = getFixture().connect(HttpMethod.HEAD, CacheTest.FILE_TO_TEST);
-			assertEquals("Unexpected content type", "application/x-gzip", conn.getContentType());
+			assertEquals("Unexpected content type", "application/octet-stream", conn.getContentType());
 		}
 		catch(IOException e) {
 			fail(e.getMessage());

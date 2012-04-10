@@ -18,8 +18,10 @@ import org.cloudsmith.geppetto.pp.Definition;
 import org.cloudsmith.geppetto.pp.Expression;
 import org.cloudsmith.geppetto.pp.ExpressionTE;
 import org.cloudsmith.geppetto.pp.HostClassDefinition;
+import org.cloudsmith.geppetto.pp.LiteralList;
 import org.cloudsmith.geppetto.pp.LiteralNameOrReference;
 import org.cloudsmith.geppetto.pp.NodeDefinition;
+import org.cloudsmith.geppetto.pp.ParenthesisedExpression;
 import org.cloudsmith.geppetto.pp.PuppetManifest;
 import org.cloudsmith.geppetto.pp.ResourceBody;
 import org.cloudsmith.geppetto.pp.ResourceExpression;
@@ -179,8 +181,12 @@ public class PPSemanticHighlightingCalculator implements ISemanticHighlightingCa
 			else if(ruleExpression == rule) {
 				EObject semantic = o.getSemanticElement();
 				if(semantic instanceof ExpressionTE) {
-					if(((ExpressionTE) semantic).getExpression() instanceof LiteralNameOrReference)
-						acceptor.addPosition(o.getOffset(), o.getLength(), PPHighlightConfiguration.VARIABLE_ID);
+					Expression expr = ((ExpressionTE) semantic).getExpression();
+					expr = ((ParenthesisedExpression) expr).getExpr();
+					if(expr instanceof LiteralNameOrReference)
+						acceptor.addPosition(
+							o.getOffset(), ((LiteralNameOrReference) expr).getValue().length() + 3,
+							PPHighlightConfiguration.VARIABLE_ID);
 
 				}
 			}
@@ -230,8 +236,15 @@ public class PPSemanticHighlightingCalculator implements ISemanticHighlightingCa
 				// TextExpressionHelper.hasInterpolation((DoubleQuotedString) nameExpr))
 				// continue;
 				ICompositeNode node = NodeModelUtils.getNode(nameExpr);
+				int offset = node.getOffset();
+				int length = node.getLength();
+				// if the name is a list of names, skip the opening and closing brackets
+				if(nameExpr instanceof LiteralList) {
+					offset++;
+					length -= Math.min(2, length);
+				}
 				if(node != null) {
-					acceptor.addPosition(node.getOffset(), node.getLength(), PPHighlightConfiguration.RESOURCE_TITLE_ID);
+					acceptor.addPosition(offset, length, PPHighlightConfiguration.RESOURCE_TITLE_ID);
 				}
 			}
 		}
@@ -325,10 +338,10 @@ public class PPSemanticHighlightingCalculator implements ISemanticHighlightingCa
 		for(INode node : allNodes) {
 			EObject gElem = node.getGrammarElement();
 			if(gElem instanceof RuleCall) {
-				doHighlight(node, acceptor);
+				highlight(node, acceptor);
 			}
 			else if(gElem instanceof Keyword) {
-				doHighlight(node, acceptor);
+				highlight(node, acceptor);
 			}
 		}
 	}
@@ -375,7 +388,7 @@ public class PPSemanticHighlightingCalculator implements ISemanticHighlightingCa
 		ruleVariable = grammarAccess.getDollarVariableRule();
 		ruleSqText = grammarAccess.getSqTextRule();
 		ruleDQ_STRING = grammarAccess.getDoubleStringCharactersRule();
-		ruleExpression = grammarAccess.getExpressionRule();
+		ruleExpression = grammarAccess.getTextExpressionRule();
 		ruleUNION_VARIABLE_OR_NAME = grammarAccess.getUNION_VARIABLE_OR_NAMERule();
 		ruleUnionNameOrReference = grammarAccess.getUnionNameOrReferenceRule();
 	}

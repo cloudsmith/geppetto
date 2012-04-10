@@ -22,8 +22,8 @@ import org.cloudsmith.geppetto.pp.VariableTE;
 import org.cloudsmith.geppetto.pp.dsl.contentassist.PPProposalsGenerator;
 import org.cloudsmith.geppetto.pp.dsl.linking.PPFinder;
 import org.cloudsmith.geppetto.pp.dsl.linking.PPSearchPath.ISearchPathProvider;
+import org.cloudsmith.geppetto.pp.dsl.ui.labeling.PPDescriptionLabelProvider;
 import org.cloudsmith.geppetto.pp.dsl.validation.IPPDiagnostics;
-import org.cloudsmith.geppetto.pp.pptp.PPTPPackage;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.jface.text.BadLocationException;
@@ -52,16 +52,33 @@ public class PPQuickfixProvider extends DefaultQuickfixProvider {
 
 		final protected String text;
 
+		final protected boolean handleQuotes;
+
 		ReplacingModification(int offset, int length, String text) {
+			this(offset, length, text, false);
+		}
+
+		ReplacingModification(int offset, int length, String text, boolean handleQuotes) {
 			this.length = length;
 			this.offset = offset;
 			this.text = text;
+			this.handleQuotes = handleQuotes;
 		}
 
 		@Override
 		public void apply(IModificationContext context) throws BadLocationException {
 			IXtextDocument xtextDocument = context.getXtextDocument();
-			xtextDocument.replace(offset, length, text);
+			int o = offset;
+			int l = length;
+			if(handleQuotes) {
+				String s = xtextDocument.get(offset, length);
+				char c = s.charAt(0);
+				if(s.charAt(s.length() - 1) == c && (c == '\'' || c == '"')) {
+					o++;
+					l -= 2;
+				}
+			}
+			xtextDocument.replace(o, l, text);
 		}
 
 	}
@@ -106,8 +123,13 @@ public class PPQuickfixProvider extends DefaultQuickfixProvider {
 
 	}
 
-	private final static EClass[] PARAMS_AND_VARIABLES = {
-			PPPackage.Literals.DEFINITION_ARGUMENT, PPTPPackage.Literals.TYPE_ARGUMENT,
+	@Inject
+	protected PPDescriptionLabelProvider descriptionLabelProvider;
+
+	private final static EClass[] PARAMS_AND_VARIABLES = { //
+	//
+			PPPackage.Literals.DEFINITION_ARGUMENT, //
+			// PPTPPackage.Literals.TYPE_ARGUMENT, //
 			PPPackage.Literals.VARIABLE_EXPRESSION };
 
 	private static String toInitialCase(String s, boolean upper) {
@@ -147,6 +169,62 @@ public class PPQuickfixProvider extends DefaultQuickfixProvider {
 
 	@Inject
 	private PPFinder ppFinder;
+
+	@Fix(IPPDiagnostics.ISSUE__UNBRACED_INTERPOLATION)
+	public void changeToBracedInterpolation(final Issue issue, final IssueResolutionAcceptor acceptor) {
+		final IModificationContext modificationContext = getModificationContextFactory().createModificationContext(
+			issue);
+		final IXtextDocument xtextDocument = modificationContext.getXtextDocument();
+		xtextDocument.readOnly(new IUnitOfWork.Void<XtextResource>() {
+			@Override
+			public void process(XtextResource state) throws Exception {
+
+				String issueString = xtextDocument.get(issue.getOffset(), issue.getLength());
+
+				acceptor.accept(issue, "Surround interpolated variable with ${ }", //
+					"Changes '" + issueString + "' to '${" + issueString.substring(1) + "}'", null, //
+					new SurroundWithTextModification(issue.getOffset() + 1, issueString.length() - 1, "{", "}"));
+			}
+		});
+	}
+
+	@Fix(IPPDiagnostics.ISSUE__DQ_STRING_NOT_REQUIRED)
+	public void changeToSQString(final Issue issue, final IssueResolutionAcceptor acceptor) {
+		final IModificationContext modificationContext = getModificationContextFactory().createModificationContext(
+			issue);
+		final IXtextDocument xtextDocument = modificationContext.getXtextDocument();
+		xtextDocument.readOnly(new IUnitOfWork.Void<XtextResource>() {
+			@Override
+			public void process(XtextResource state) throws Exception {
+
+				String issueString = xtextDocument.get(issue.getOffset(), issue.getLength());
+				StringBuilder replacement = new StringBuilder();
+				replacement.append("'");
+				replacement.append(issueString.substring(1, issueString.length() - 1));
+				replacement.append("'");
+
+				acceptor.accept(issue, "Replace with single quoted string", "Changes \" to '", null, //
+					new ReplacingModification(issue.getOffset(), issueString.length(), replacement.toString()));
+			}
+		});
+	}
+
+	@Fix(IPPDiagnostics.ISSUE__DQ_STRING_NOT_REQUIRED_VAR)
+	public void changeToVariable(final Issue issue, final IssueResolutionAcceptor acceptor) {
+		final IModificationContext modificationContext = getModificationContextFactory().createModificationContext(
+			issue);
+		final IXtextDocument xtextDocument = modificationContext.getXtextDocument();
+		xtextDocument.readOnly(new IUnitOfWork.Void<XtextResource>() {
+			@Override
+			public void process(XtextResource state) throws Exception {
+
+				String issueString = xtextDocument.get(issue.getOffset(), issue.getLength());
+
+				acceptor.accept(issue, "Replace with variable", "Replace string with " + issue.getData()[0], null, //
+					new ReplacingModification(issue.getOffset(), issueString.length(), issue.getData()[0]));
+			}
+		});
+	}
 
 	@Fix(IPPDiagnostics.ISSUE__RESOURCE_UNKNOWN_TYPE_PROP)
 	public void findClosestClassName(final Issue issue, IssueResolutionAcceptor acceptor) {
@@ -327,7 +405,7 @@ public class PPQuickfixProvider extends DefaultQuickfixProvider {
 				intString = "0" + intString;
 			acceptor.accept(issue, intString + ". Change to '" + proposal + "'", //
 				"Change to (guessed value) '" + proposal + "'", null, new ReplacingModification(
-					issue.getOffset(), issue.getLength(), proposal));
+					issue.getOffset(), issue.getLength(), proposal, true));
 		}
 	}
 
@@ -350,9 +428,8 @@ public class PPQuickfixProvider extends DefaultQuickfixProvider {
 	@Fix(IPPDiagnostics.ISSUE__UNQUOTED_QUALIFIED_NAME)
 	public void surroundWithSingleQuote(final Issue issue, IssueResolutionAcceptor acceptor) {
 
-		acceptor.accept(
-			issue, "Quote qualified name", "Replace qualified name with quoted name.", null,
-			new SurroundWithTextModification(issue.getOffset(), issue.getLength(), "'"));
+		acceptor.accept(issue, "Quote name", "Replace name with quoted name.", null, new SurroundWithTextModification(
+			issue.getOffset(), issue.getLength(), "'"));
 	}
 
 	@Fix(IPPDiagnostics.ISSUE__UNKNOWN_VARIABLE)

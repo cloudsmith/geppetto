@@ -165,6 +165,8 @@ KEYWORD_24 : '${' {
 		// in string expression interpolation mode
 		pushDq();
 		enterBrace();
+	} else if(singleQuotedString) {
+		_type = RULE_ANY_OTHER;
 	}
 };
 

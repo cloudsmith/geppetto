@@ -78,8 +78,13 @@ public class DependencyImpl extends EObjectImpl implements Dependency {
 			String repo = getString(jsonObj, "repository");
 			if(repo != null)
 				result.setRepository(URI.create(repo));
-			result.setVersionRequirement(VersionRequirementImpl.parseVersionRequirement(getString(
-				jsonObj, "versionRequirement")));
+
+			String vr = getString(jsonObj, "version_requirement");
+			if(vr == null)
+				// Test the camel case too since they were serialized them that way due to bug #302
+				vr = getString(jsonObj, "versionRequirement");
+
+			result.setVersionRequirement(VersionRequirementImpl.parseVersionRequirement(vr));
 			return result;
 		}
 
@@ -92,7 +97,7 @@ public class DependencyImpl extends EObjectImpl implements Dependency {
 				putString(result, "repository", repository.toString());
 			VersionRequirement vr = src.getVersionRequirement();
 			if(vr != null)
-				putString(result, "versionRequirement", vr.toString());
+				putString(result, "version_requirement", vr.toString());
 			return result;
 		}
 	}

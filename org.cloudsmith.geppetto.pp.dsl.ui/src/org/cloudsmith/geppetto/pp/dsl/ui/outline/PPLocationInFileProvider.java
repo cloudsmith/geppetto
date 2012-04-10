@@ -40,6 +40,8 @@ public class PPLocationInFileProvider extends DefaultLocationInFileProvider {
 			return PPPackage.Literals.RESOURCE_EXPRESSION__RESOURCE_EXPR;
 		if(ec.equals(PPPackage.Literals.RESOURCE_BODY))
 			return PPPackage.Literals.RESOURCE_BODY__NAME_EXPR;
+		if(ec.equals(PPPackage.Literals.DEFINITION_ARGUMENT))
+			return PPPackage.Literals.DEFINITION_ARGUMENT__ARG_NAME;
 
 		return super.getIdentifierFeature(obj);
 	}

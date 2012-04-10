@@ -152,6 +152,9 @@ public class TarUtils {
 				throw new IOException("No entry in the tar file");
 			}
 			do {
+				if(te.isGlobalPaxHeader())
+					continue;
+
 				String name = te.getName();
 				if(skipTopFolder) {
 					int firstSlash = name.indexOf('/');

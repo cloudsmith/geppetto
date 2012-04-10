@@ -6,7 +6,7 @@
 
 	<rm:locator pattern="^org\.eclipse\.[ej]git(\..+)?$" searchPathRef="git" />
 	<rm:locator pattern="^org\.polarion\.eclipse\.team\.svn\.connector(\..+)?$" searchPathRef="svn.connectors" />
-	<rm:locator pattern="^org\.apache\.commons\.compress(\..+)?$" searchPathRef="maven.central" />
+	<rm:locator pattern="^org\.apache\.commons\.compress(\..+)?$" searchPathRef="commons-compress" />
 	<rm:locator pattern="^org\.jrubyparser(\..+)?$" searchPathRef="jrubyparser" />
 	<rm:locator pattern="^org\.jruby(\..+)?$" searchPathRef="maven.central" />
 
@@ -35,6 +35,15 @@
 		<rm:provider componentTypes="osgi.bundle" readerType="git" source="true">
 			<rm:property key="git.remote.uri" value="${cloudsmith.github.prefix}/jruby-parser.git" />
 			<rm:uri format="{0}/jruby-parser">
+				<bc:propertyRef key="git.clones.root" />
+			</rm:uri>
+		</rm:provider>
+	</rm:searchPath>
+
+	<rm:searchPath name="commons-compress">
+		<rm:provider componentTypes="osgi.bundle" readerType="git" source="true">
+			<rm:property key="git.remote.uri" value="${cloudsmith.github.prefix}/commons-compress.git" />
+			<rm:uri format="{0}/commons-compress">
 				<bc:propertyRef key="git.clones.root" />
 			</rm:uri>
 		</rm:provider>

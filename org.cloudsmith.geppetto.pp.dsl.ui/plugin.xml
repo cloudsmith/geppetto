@@ -175,7 +175,7 @@
 	</extension>
 	<extension point="org.eclipse.ui.handlers">
 	    <handler
-            class="org.cloudsmith.geppetto.pp.dsl.ui.PPExecutableExtensionFactory:org.eclipse.xtext.ui.editor.findrefs.FindReferencesHandler"
+            class="org.cloudsmith.geppetto.pp.dsl.ui.PPExecutableExtensionFactory:org.cloudsmith.geppetto.pp.dsl.ui.editor.findrefs.FindReferencesHandler"
             commandId="org.eclipse.xtext.ui.editor.FindReferences">
             <activeWhen>
                 <reference
@@ -325,7 +325,7 @@
     <extension
           point="org.eclipse.xtext.extension_resourceServiceProvider">
        <resourceServiceProvider
-             class="org.cloudsmith.geppetto.pp.dsl.ui.pptp.PptpExecutableExtensionFactory:org.eclipse.xtext.resource.IResourceServiceProvider"
+             class="org.cloudsmith.geppetto.pp.dsl.ui.pptp.PptpExecutableExtensionFactory:org.eclipse.xtext.ui.resource.IResourceUIServiceProvider"
              uriExtension="pptp">
        </resourceServiceProvider>
     </extension>
@@ -434,5 +434,49 @@
              objectClass="org.eclipse.core.resources.IProject">
        </page>
     </extension>
+    <extension
+          point="org.eclipse.ui.commands">
+       <command
+             categoryId="org.eclipse.ui.category.window"
+             description="Open puppet manifest or ruby file containing a definition"
+             id="org.cloudsmith.geppetto.pp.dsl.ui.OpenPPElementCommand"
+             name="Open Puppet Element">
+       </command>
+    </extension>
+    <extension
+          point="org.eclipse.ui.handlers">
+       <handler
+             class="org.cloudsmith.geppetto.pp.dsl.ui.PPExecutableExtensionFactory:org.cloudsmith.geppetto.pp.dsl.ui.search.OpenPuppetElementHandler"
+             commandId="org.cloudsmith.geppetto.pp.dsl.ui.OpenPPElementCommand">
+       </handler>
+    </extension>
+    <extension
+          point="org.eclipse.ui.bindings">
+       <key
+             commandId="org.cloudsmith.geppetto.pp.dsl.ui.OpenPPElementCommand"
+             contextId="org.eclipse.ui.contexts.window"
+             schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
+             sequence="M1+SHIFT+. O">
+       </key>
+    </extension>
+    <extension
+          point="org.eclipse.ui.menus">
+       <menuContribution
+             allPopups="false"
+             locationURI="menu:navigate?after=open.ext4">
+          <command
+                commandId="org.cloudsmith.geppetto.pp.dsl.ui.OpenPPElementCommand"
+                style="push">
+          </command>
+       </menuContribution>
+    </extension>
+ 	<extension point="org.eclipse.search.searchResultViewPages">
+    	<viewPage
+          class="org.cloudsmith.geppetto.pp.dsl.ui.PPExecutableExtensionFactory:org.cloudsmith.geppetto.pp.dsl.ui.editor.findrefs.PPReferenceSearchViewPage"
+          icon="icons/searchpage.gif"
+          id="org.cloudsmith.geppetto.pp.dsl.ui.editor.findrefs.PPReferenceSearchViewPage"
+          searchResultClass="org.cloudsmith.geppetto.pp.dsl.ui.editor.findrefs.PPReferenceSearchResult">
+    	</viewPage>
+ 	</extension>
 
 </plugin>

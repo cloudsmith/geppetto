@@ -26,8 +26,11 @@ public class PPTokenTypeToPartionMapper extends TokenTypeToStringMapper implemen
 
 	public final static String REGEX_LITERAL_PARTITION = "__regex";
 
+	public final static String SL_COMMENT_PARTITION = "__sl_comment";
+
 	protected static final String[] SUPPORTED_PARTITIONS = new String[] {
-			COMMENT_PARTITION, STRING_LITERAL_PARTITION, REGEX_LITERAL_PARTITION, IDocument.DEFAULT_CONTENT_TYPE };
+			COMMENT_PARTITION, SL_COMMENT_PARTITION, STRING_LITERAL_PARTITION, REGEX_LITERAL_PARTITION,
+			IDocument.DEFAULT_CONTENT_TYPE };
 
 	/*
 	 * (non-Javadoc)
@@ -36,8 +39,13 @@ public class PPTokenTypeToPartionMapper extends TokenTypeToStringMapper implemen
 	 */
 	@Override
 	protected String calculateId(String tokenName, int tokenType) {
-		if("RULE_ML_COMMENT".equals(tokenName) || "RULE_SL_COMMENT".equals(tokenName))
+		// if("RULE_ML_COMMENT".equals(tokenName) || "RULE_SL_COMMENT".equals(tokenName))
+		// return COMMENT_PARTITION;
+		if("RULE_ML_COMMENT".equals(tokenName))
 			return COMMENT_PARTITION;
+
+		if("RULE_SL_COMMENT".equals(tokenName))
+			return SL_COMMENT_PARTITION;
 
 		// This is not really what we want - WS can not be a LITERAL_PARTION unless it is
 		// in a string...
@@ -50,8 +58,9 @@ public class PPTokenTypeToPartionMapper extends TokenTypeToStringMapper implemen
 			return STRING_LITERAL_PARTITION;
 		if("'$'".equals(tokenName))
 			return STRING_LITERAL_PARTITION;
-		if("'${'".equals(tokenName))
-			return STRING_LITERAL_PARTITION;
+		// issue #276, screws up bracket matching
+		// if("'${'".equals(tokenName))
+		// return STRING_LITERAL_PARTITION;
 		if("'\\''".equals(tokenName))
 			return STRING_LITERAL_PARTITION;
 		if("'\\\"'".equals(tokenName))

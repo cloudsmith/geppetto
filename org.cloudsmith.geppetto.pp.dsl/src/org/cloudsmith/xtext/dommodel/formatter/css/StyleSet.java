@@ -83,7 +83,7 @@ public class StyleSet {
 	}
 
 	/**
-	 * Returns the style of the gicen class, or null of this style is not included in the the set.
+	 * Returns the style of the given class, or null of this style is not included in the the set.
 	 * 
 	 * @param x
 	 * @param node

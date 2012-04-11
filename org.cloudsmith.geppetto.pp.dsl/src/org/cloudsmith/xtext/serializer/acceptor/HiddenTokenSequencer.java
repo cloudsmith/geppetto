@@ -53,6 +53,9 @@ import com.google.inject.Inject;
 public class HiddenTokenSequencer implements IHiddenTokenSequencer, ISyntacticSequenceAcceptor {
 
 	@Inject
+	protected IHiddenTokenSequencerAdvisor advisor;
+
+	@Inject
 	protected IHiddenTokenHelper hiddenTokenHelper;
 
 	@Inject
@@ -448,7 +451,8 @@ public class HiddenTokenSequencer implements IHiddenTokenSequencer, ISyntacticSe
 	}
 
 	private void restoreHidden() {
-		currentHidden = hiddenStack.remove(hiddenStack.size() - 1);
+		if(advisor.shouldSaveRestoreState())
+			currentHidden = hiddenStack.remove(hiddenStack.size() - 1);
 	}
 
 	/**
@@ -457,6 +461,9 @@ public class HiddenTokenSequencer implements IHiddenTokenSequencer, ISyntacticSe
 	 * @param eobj
 	 */
 	private void saveHidden(EObject eobj) {
+		if(!advisor.shouldSaveRestoreState())
+			return;
+
 		hiddenStack.add(currentHidden);
 		ParserRule r = closestContainingParserRule(eobj);
 		if(r != null && r.isDefinesHiddenTokens())

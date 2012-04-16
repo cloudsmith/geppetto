@@ -22,6 +22,7 @@ import org.cloudsmith.xtext.dommodel.IDomNode.NodeType;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 
+import com.google.common.base.Joiner;
 import com.google.common.collect.Iterators;
 import com.google.common.collect.Sets;
 
@@ -78,6 +79,16 @@ public class Select {
 				if(!selectors[i].matches(node))
 					return false;
 			return true;
+		}
+
+		@Override
+		public String toString() {
+			StringBuilder builder = new StringBuilder();
+			Joiner joiner = Joiner.on(", ");
+			builder.append("and(");
+			joiner.appendTo(builder, selectors);
+			builder.append(")");
+			return builder.toString();
 		}
 	}
 
@@ -150,6 +161,15 @@ public class Select {
 					: false;
 		}
 
+		@Override
+		public String toString() {
+			StringBuilder builder = new StringBuilder();
+			builder.append("containment(");
+			Joiner joiner = Joiner.on(", ");
+			joiner.appendTo(builder, selectors);
+			return builder.toString();
+		}
+
 	}
 
 	/**
@@ -178,6 +198,15 @@ public class Select {
 			if(node != null)
 				matches = wrappedSelector.matches(node);
 			return matches;
+		}
+
+		@Override
+		public String toString() {
+			StringBuilder builder = new StringBuilder();
+			builder.append("debug(");
+			builder.append(wrappedSelector.toString());
+			builder.append(")");
+			return builder.toString();
 		}
 	}
 
@@ -214,6 +243,15 @@ public class Select {
 				return false;
 			return matchGrammar.contains(node.getGrammarElement());
 		}
+
+		@Override
+		public String toString() {
+			StringBuilder builder = new StringBuilder();
+			builder.append("grammar(");
+			builder.append(matchGrammar.toString());
+			builder.append(")");
+			return builder.toString();
+		}
 	}
 
 	/**
@@ -239,6 +277,11 @@ public class Select {
 		@Override
 		public boolean matches(IDomNode node) {
 			return true;
+		}
+
+		@Override
+		public String toString() {
+			return "imortant()";
 		}
 	}
 
@@ -268,6 +311,17 @@ public class Select {
 		@Override
 		public boolean matches(IDomNode node) {
 			return this.node == node;
+		}
+
+		@Override
+		public String toString() {
+			StringBuilder builder = new StringBuilder();
+			builder.append("instance(");
+			builder.append(node.getNodeType());
+			builder.append(", ");
+			builder.append(node.hashCode());
+			builder.append(")");
+			return builder.toString();
 		}
 	}
 
@@ -457,6 +511,28 @@ public class Select {
 				return false;
 			return true;
 		}
+
+		@Override
+		public String toString() {
+			StringBuilder builder = new StringBuilder();
+			builder.append("node(type(");
+			Joiner typeJoiner = Joiner.on(" || ");
+			typeJoiner.appendTo(builder, matchingNodeTypes);
+			builder.append(")");
+			if(matchingClassifiers.size() > 0) {
+				builder.append(", class(");
+				Joiner classJoiner = Joiner.on(" && ");
+				classJoiner.appendTo(builder, matchingClassifiers);
+				builder.append(")");
+			}
+			if(matchingId != NoIdMatch) {
+				builder.append(", id(");
+				builder.append(matchingId);
+				builder.append(")");
+			}
+			builder.append(")");
+			return builder.toString();
+		}
 	}
 
 	/**
@@ -492,6 +568,15 @@ public class Select {
 			return !this.selector.matches(node);
 		}
 
+		@Override
+		public String toString() {
+			StringBuilder builder = new StringBuilder();
+			builder.append("not(");
+			builder.append(selector.toString());
+			builder.append(")");
+			return builder.toString();
+		}
+
 	}
 
 	/**
@@ -515,6 +600,10 @@ public class Select {
 			return false;
 		}
 
+		@Override
+		public String toString() {
+			return "nullSelector()";
+		}
 	}
 
 	/**
@@ -546,6 +635,16 @@ public class Select {
 				return false;
 			return parentSelector.matches(node.getParent());
 		}
+
+		@Override
+		public String toString() {
+			StringBuilder builder = new StringBuilder();
+			builder.append("parent(");
+			builder.append(parentSelector.toString());
+			builder.append(")");
+			return builder.toString();
+		}
+
 	}
 
 	public static class PredecessorSelector extends Selector {
@@ -573,6 +672,16 @@ public class Select {
 				return false;
 			return predecessorSelector.matches(DomModelUtils.previousToken(node));
 		}
+
+		@Override
+		public String toString() {
+			StringBuilder builder = new StringBuilder();
+			builder.append("predecessor(");
+			builder.append(predecessorSelector.toString());
+			builder.append(")");
+			return builder.toString();
+		}
+
 	}
 
 	public static abstract class Selector {
@@ -626,7 +735,7 @@ public class Select {
 	}
 
 	/**
-	 * Applies the delegate selector to the successor of the matching node.
+	 * A Selector matching on semantic information
 	 * 
 	 */
 	public static class SemanticSelector extends Selector {
@@ -669,6 +778,23 @@ public class Select {
 				return eClass.isInstance(semantic);
 			return eClass.isSuperTypeOf(semantic.eClass());
 		}
+
+		@Override
+		public String toString() {
+			StringBuilder builder = new StringBuilder();
+			builder.append("semantic(");
+			builder.append(eClass.getName());
+			builder.append(", ");
+			builder.append(nearest
+					? "nearest"
+					: "assigned");
+			builder.append(", ");
+			builder.append(instance
+					? "instance"
+					: "typeof");
+			builder.append(")");
+			return builder.toString();
+		}
 	}
 
 	/**
@@ -699,6 +825,15 @@ public class Select {
 			if(node == null)
 				return false;
 			return successorSelector.matches(DomModelUtils.nextToken(node));
+		}
+
+		@Override
+		public String toString() {
+			StringBuilder builder = new StringBuilder();
+			builder.append("successor(");
+			builder.append(successorSelector.toString());
+			builder.append(")");
+			return builder.toString();
 		}
 	}
 
@@ -732,6 +867,15 @@ public class Select {
 			if(node == null)
 				return false;
 			return this.text.equals(node.getText());
+		}
+
+		@Override
+		public String toString() {
+			StringBuilder builder = new StringBuilder();
+			builder.append("text('");
+			builder.append(text);
+			builder.append("')");
+			return builder.toString();
 		}
 	}
 

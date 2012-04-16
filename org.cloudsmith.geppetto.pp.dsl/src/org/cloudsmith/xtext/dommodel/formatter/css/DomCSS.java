@@ -164,10 +164,12 @@ public class DomCSS {
 	 * @return a style set with all collected styles
 	 */
 	public StyleSet collectStyles(IDomNode element) {
-		StyleSet result = new StyleSet();
+		StyleSetWithTracking result = new StyleSetWithTracking();
 		for(Rule r : collectRules(element)) {
+			result.setSource(r);
 			r.collectStyles(result);
 		}
+		result.setSource(null); // just in case something else manipulates this set
 		return result;
 	}
 

@@ -45,6 +45,8 @@ public final class Rule implements Cloneable {
 	 */
 	private DomCSS domCSS;
 
+	private String ruleName = "";
+
 	/**
 	 * Create a Rule with an empty style set.
 	 * 
@@ -157,6 +159,14 @@ public final class Rule implements Cloneable {
 	 */
 	public boolean matches(IDomNode node) {
 		return selector.matches(node);
+	}
+
+	public String ruleName() {
+		return ruleName;
+	}
+
+	public void ruleName(String name) {
+		ruleName = name;
 	}
 
 	/**

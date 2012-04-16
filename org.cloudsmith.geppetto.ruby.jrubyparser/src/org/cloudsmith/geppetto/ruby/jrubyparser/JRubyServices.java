@@ -137,11 +137,19 @@ public class JRubyServices implements IRubyServices {
 		if (!(arguments instanceof List))
 			return functions;
 		List<?> argList = (List<?>) arguments;
-		if (argList.size() != 2)
+		
+	    if (argList.size() < 1)
 			return functions;
 		Object name = argList.get(0);
 		if (!(name instanceof String))
 			return functions;
+		
+		// Functions can lack rtype and documentation. In that case they just have name
+		if (argList.size() == 1) {
+			functions.add(new PPFunctionInfo((String) name, false, ""));
+			return functions;
+		}
+
 		Object hash = argList.get(1);
 		if (!(hash instanceof Map<?, ?>))
 			return functions;

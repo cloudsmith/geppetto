@@ -30,9 +30,9 @@ import org.eclipse.jface.util.PropertyChangeEvent;
 import org.eclipse.xtext.ui.editor.preferences.IPreferenceStoreAccess;
 import org.eclipse.xtext.ui.editor.preferences.IPreferenceStoreInitializer;
 
+import com.google.common.collect.Lists;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
-import com.google.inject.internal.Lists;
 
 /**
  * A facade that helps with preference checking.

@@ -40,11 +40,11 @@ import org.eclipse.xtext.resource.IResourceServiceProvider;
 import com.google.common.base.Function;
 import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.Iterables;
+import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Multimap;
 import com.google.common.collect.Multimaps;
 import com.google.inject.Inject;
-import com.google.inject.internal.Lists;
 import com.google.inject.name.Named;
 
 /**

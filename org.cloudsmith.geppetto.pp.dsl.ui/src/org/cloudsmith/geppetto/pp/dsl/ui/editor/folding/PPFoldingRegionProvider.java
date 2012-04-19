@@ -27,7 +27,7 @@ import org.eclipse.xtext.ui.editor.model.TerminalsTokenTypeToPartitionMapper;
 import org.eclipse.xtext.util.ITextRegion;
 import org.eclipse.xtext.util.TextRegion;
 
-import com.google.inject.internal.Lists;
+import com.google.common.collect.Lists;
 
 /**
  * A folding RegionProvider that provides folding of sequence of SL Comment

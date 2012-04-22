@@ -187,8 +187,8 @@ public class PPDevDebug extends AbstractHandler {
 	}
 
 	private IStatus doDebug(XtextResource resource) {
-		// return visibleResourcesDump(resource);
-		return checkExpressionEq(resource);
+		return visibleResourcesDump(resource);
+		// return checkExpressionEq(resource);
 	}
 
 	public void dumpParseTree(XtextResource resource) {

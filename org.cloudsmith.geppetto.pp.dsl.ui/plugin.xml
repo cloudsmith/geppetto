@@ -318,7 +318,7 @@
     <extension
           point="org.eclipse.xtext.extension_resourceServiceProvider">
        <resourceServiceProvider
-             class="org.cloudsmith.geppetto.pp.dsl.ui.pptp.PptpRubyExecutableExtensionFactory:org.eclipse.xtext.resource.IResourceServiceProvider"
+             class="org.cloudsmith.geppetto.pp.dsl.ui.pptp.PptpRubyExecutableExtensionFactory:org.eclipse.xtext.ui.resource.IResourceUIServiceProvider"
              uriExtension="rb">
        </resourceServiceProvider>
     </extension>

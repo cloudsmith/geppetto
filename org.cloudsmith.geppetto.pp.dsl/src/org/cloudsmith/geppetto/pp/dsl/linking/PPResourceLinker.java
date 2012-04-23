@@ -807,7 +807,7 @@ public class PPResourceLinker implements IPPDiagnostics {
 						else {
 							// not found
 							// record unresolved name at resource level
-							addUnresolved(importedNames, name, NodeModelUtils.findActualNodeFor(pe));
+							addUnresolved(importedNames, className, NodeModelUtils.findActualNodeFor(pe));
 							// importedNames.addUnresolved(converter.toQualifiedName(className));
 							CrossReferenceAdapter.clear(pe);
 

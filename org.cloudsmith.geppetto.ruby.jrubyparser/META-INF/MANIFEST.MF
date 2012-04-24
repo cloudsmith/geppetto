@@ -7,10 +7,10 @@ Bundle-SymbolicName: org.cloudsmith.geppetto.ruby.jrubyparser;singleton:=true
 Bundle-Version: 2.0.0.qualifier
 Bundle-Activator: org.cloudsmith.geppetto.ruby.jrubyparser.Activator
 Require-Bundle: org.eclipse.core.runtime;bundle-version="3.6.0",
- com.google.collect;bundle-version="1.0.0",
  org.cloudsmith.geppetto.ruby,
  org.jrubyparser,
  org.cloudsmith.geppetto.common
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Export-Package: org.cloudsmith.geppetto.ruby.jrubyparser;x-friends:="org.cloudsmith.geppetto.ruby.tests"
+Import-Package: com.google.common.collect

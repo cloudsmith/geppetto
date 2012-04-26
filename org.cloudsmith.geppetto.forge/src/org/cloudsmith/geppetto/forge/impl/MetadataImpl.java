@@ -40,7 +40,6 @@ import org.cloudsmith.geppetto.forge.VersionRequirement;
 import org.cloudsmith.geppetto.forge.util.JsonUtils;
 import org.cloudsmith.geppetto.forge.util.RubyParserUtils;
 import org.eclipse.core.filesystem.EFS;
-import org.eclipse.core.internal.filesystem.local.LocalFileSystem;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.EList;
@@ -260,7 +259,7 @@ public class MetadataImpl extends EObjectImpl implements Metadata {
 	}
 
 	private static boolean isChecksumCandidate(File file) {
-		if(LocalFileSystem.getInstance().fromLocalFile(file).fetchInfo().getAttribute(EFS.ATTRIBUTE_SYMLINK))
+		if(EFS.getLocalFileSystem().fromLocalFile(file).fetchInfo().getAttribute(EFS.ATTRIBUTE_SYMLINK))
 			return false;
 		String filename = file.getName();
 		return !("metadata.json".equals(filename) || "REVISION".equals(filename) || ARTIFACTS.matcher(filename).matches());

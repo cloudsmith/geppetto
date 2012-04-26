@@ -37,7 +37,7 @@ import org.cloudsmith.geppetto.forge.Repository;
  */
 public class CacheTest extends TestCase {
 
-	static final String FILE_TO_TEST = "/system/releases/g/ghoneycutt/ghoneycutt-rsync-1.0.1.tar.gz";
+	static final String FILE_TO_TEST = "/system/releases/p/puppetlabs/puppetlabs-stdlib-2.3.1.tar.gz";
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->

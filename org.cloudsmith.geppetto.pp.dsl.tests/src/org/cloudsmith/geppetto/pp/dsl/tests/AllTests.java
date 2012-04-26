@@ -18,7 +18,7 @@ import junit.framework.TestSuite;
  * All Puppet Tests.
  * 
  */
-public class AllTests {
+public class AllTests extends TestSuite {
 
 	public static Test suite() {
 		TestSuite suite = new TestSuite(AllTests.class.getName());

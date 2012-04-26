@@ -242,12 +242,13 @@ public class ForgeTest extends TestCase {
 	 */
 	public void testInstall__String_File_boolean_boolean() {
 		try {
-			File installFolder = ForgeTests.getTestOutputFolder("rsync-install", true);
-			fixture.install("ghoneycutt/rsync", installFolder, false, true);
-			File found = new File(installFolder, "rsync");
+			File installFolder = ForgeTests.getTestOutputFolder("stdlib-install", true);
+			fixture.install("puppetlabs/stdlib", installFolder, false, true);
+			File found = new File(installFolder, "stdlib");
 			assertTrue("Installation did not produce the expected result", found.isDirectory());
 		}
 		catch(IOException e) {
+			e.printStackTrace();
 			fail(e.getMessage());
 		}
 	}

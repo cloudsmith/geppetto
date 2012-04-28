@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2011 Cloudsmith Inc. and other contributors, as listed below.
+ * Copyright (c) 2011, 2012 Cloudsmith Inc. and other contributors, as listed below.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -31,19 +31,22 @@ public class PPOverridingLexer extends PPLexer {
 	}
 
 	/**
-	 * Special processing for keywords 'and' 'or' 'in' that recognizes these keywords only if they are
-	 * not followed by a non word character (letter or digit or _).
+	 * {@inheritDoc}
 	 * 
 	 */
 	@Override
 	public void mTokens() throws RecognitionException {
+		// Does nothing - but is useful when debugging (set breakpoint here, the super impl is used in more
+		// than one lexer subclass.
+		//
 		super.mTokens();
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.xtext.parser.antlr.Lexer#nextToken()
+	/**
+	 * {@inheritDoc}
+	 * <p>
+	 * This override keeps track of 'last significant token' as this is required as a predicated for other token rules.
+	 * </p>
 	 */
 	@Override
 	public Token nextToken() {

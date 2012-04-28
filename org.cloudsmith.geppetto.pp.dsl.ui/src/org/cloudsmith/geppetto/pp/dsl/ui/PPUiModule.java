@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2011 Cloudsmith, Inc. and others.
+ * Copyright (c) 2011, 2012 Cloudsmith, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -33,12 +33,17 @@ import org.cloudsmith.geppetto.pp.dsl.ui.linked.ISaveActions;
 import org.cloudsmith.geppetto.pp.dsl.ui.linking.PPUISearchPathProvider;
 import org.cloudsmith.geppetto.pp.dsl.ui.outline.PPLocationInFileProvider;
 import org.cloudsmith.geppetto.pp.dsl.ui.preferences.PPPreferencesHelper;
+import org.cloudsmith.geppetto.pp.dsl.ui.resource.PPResource;
+import org.cloudsmith.geppetto.pp.dsl.ui.resource.PPResourceFactory;
 import org.cloudsmith.geppetto.pp.dsl.ui.validation.PreferenceBasedPotentialProblemsAdvisor;
 import org.cloudsmith.geppetto.pp.dsl.ui.validation.PreferenceBasedValidationAdvisorProvider;
 import org.cloudsmith.geppetto.pp.dsl.validation.IPotentialProblemsAdvisor;
 import org.cloudsmith.geppetto.pp.dsl.validation.IValidationAdvisor;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
+import org.eclipse.xtext.linking.lazy.LazyLinker;
 import org.eclipse.xtext.resource.ILocationInFileProvider;
+import org.eclipse.xtext.resource.IResourceFactory;
+import org.eclipse.xtext.resource.XtextResource;
 import org.eclipse.xtext.ui.editor.XtextEditor;
 import org.eclipse.xtext.ui.editor.autoedit.AbstractEditStrategyProvider;
 import org.eclipse.xtext.ui.editor.folding.IFoldingRegionProvider;
@@ -65,20 +70,24 @@ public class PPUiModule extends org.cloudsmith.geppetto.pp.dsl.ui.AbstractPPUiMo
 		super(plugin);
 	}
 
-	// public Class<? extends IContainer.Manager> bindIContainer$Manager() {
-	// return StateBasedContainerManager.class;
-	// }
-
-	// Make auto edit configurable with preferences
+	/**
+	 * This binding makes auto edit configurable with preferences
+	 */
 	@Override
 	public Class<? extends AbstractEditStrategyProvider> bindAbstractEditStrategyProvider() {
 		return PPEditStrategyProvider.class;
 	}
 
+	/**
+	 * This binding makes SL comments fold as expected.
+	 */
 	public Class<? extends IFoldingRegionProvider> bindIFoldingRegionProvider() {
 		return PPFoldingRegionProvider.class;
 	}
 
+	/**
+	 * This binding adds ability to find/cross reference PP elements (since they do not use EReferences).
+	 */
 	public Class<? extends IHyperlinkHelper> bindIHyperlinkHelper() {
 		return PPHyperlinkHelper.class;
 	}
@@ -88,7 +97,21 @@ public class PPUiModule extends org.cloudsmith.geppetto.pp.dsl.ui.AbstractPPUiMo
 	}
 
 	/**
-	 * Add specialization that selects better "significant part" per semantic object.
+	 * The runtime module uses PPLinker.class which performs PP linking and documentation association
+	 * as part of the linking process. This is not suitable for use in the UI, where the PPResource is
+	 * instead taking over the responsibility. <br/>
+	 * Overrides the default runtime module's binding
+	 * 
+	 * @see #bindIResourceFactory()
+	 */
+	public Class<? extends org.eclipse.xtext.linking.ILinker> bindILinker() {
+		return LazyLinker.class;
+	}
+
+	/**
+	 * Add specialization that selects better "significant part" per semantic object than the default.
+	 * (This is used when a location in a file is wanted for selection when opening the file and there is a reference
+	 * to the object - which of each features / text should be selected).
 	 * 
 	 */
 	public Class<? extends ILocationInFileProvider> bindILocationInFileProvider() {
@@ -100,7 +123,16 @@ public class PPUiModule extends org.cloudsmith.geppetto.pp.dsl.ui.AbstractPPUiMo
 	}
 
 	/**
-	 * Deal with dependency on JDT.
+	 * This is an override of the runtime module's configuration as the UI should use PPResource instead of
+	 * LazyLinkingResource for PP linking to work correctly with the global build index.
+	 * 
+	 */
+	public Class<? extends IResourceFactory> bindIResourceFactory() {
+		return PPResourceFactory.class;
+	}
+
+	/**
+	 * Deal with dependency on JDT (not wanted)
 	 */
 	@Override
 	public Class<? extends IResourceForEditorInputFactory> bindIResourceForEditorInputFactory() {
@@ -108,7 +140,7 @@ public class PPUiModule extends org.cloudsmith.geppetto.pp.dsl.ui.AbstractPPUiMo
 	}
 
 	/**
-	 * Deal with dependency on JDT.
+	 * Deal with dependency on JDT (not wanted)
 	 */
 	@Override
 	public Class<? extends IResourceSetProvider> bindIResourceSetProvider() {
@@ -151,16 +183,25 @@ public class PPUiModule extends org.cloudsmith.geppetto.pp.dsl.ui.AbstractPPUiMo
 	}
 
 	/**
+	 * This is an override of the runtime modules binding (using a regular LazyLinkingResource).
+	 */
+	public Class<? extends XtextResource> bindXtextResource() {
+		return PPResource.class;
+	}
+
+	/**
 	 * Override that injects a wrapper for the external lexer used by the main parser.
-	 * contributed by org.eclipse.xtext.generator.parser.antlr.ex.ca.ContentAssistParserGeneratorFragment
+	 * contributed by org.eclipse.xtext.generator.parser.antlr.ex.ca.ContentAssistParserGeneratorFragment.
+	 * 
+	 * Without this override, a default generated lexer will be used and this lexer will not be correct as
+	 * PP parsing requires an external lexer. The binding reuses the main lexer.
 	 */
 	@Override
 	public void configureContentAssistLexer(com.google.inject.Binder binder) {
-		// Need to use the external lexer here
-		// TODO:
 		binder.bind(org.eclipse.xtext.ui.editor.contentassist.antlr.internal.Lexer.class).annotatedWith(
 			com.google.inject.name.Names.named(org.eclipse.xtext.ui.LexerUIBindings.CONTENT_ASSIST)).to(
 			PPContentAssistLexer.class);
+		// This is the default generated one:
 		// org.cloudsmith.geppetto.pp.dsl.ui.contentassist.antlr.lexer.InternalPPLexer.class);
 	}
 
@@ -199,7 +240,7 @@ public class PPUiModule extends org.cloudsmith.geppetto.pp.dsl.ui.AbstractPPUiMo
 	}
 
 	/**
-	 * Deal with dependency on JDT.
+	 * Deal with dependency on JDT (not wanted).
 	 */
 	@Override
 	public com.google.inject.Provider<org.eclipse.xtext.resource.containers.IAllContainersState> provideIAllContainersState() {
@@ -209,11 +250,8 @@ public class PPUiModule extends org.cloudsmith.geppetto.pp.dsl.ui.AbstractPPUiMo
 
 	/**
 	 * A Provider of validation compliance based on preferences.
-	 * 
-	 * @return
 	 */
 	public com.google.inject.Provider<IValidationAdvisor> provideValidationAdvisor() {
 		return PreferenceBasedValidationAdvisorProvider.create();
 	}
-
 }

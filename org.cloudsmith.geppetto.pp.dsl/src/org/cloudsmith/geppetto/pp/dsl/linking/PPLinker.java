@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2011 Cloudsmith Inc. and other contributors, as listed below.
+ * Copyright (c) 2012 Cloudsmith Inc. and other contributors, as listed below.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -19,6 +19,9 @@ import com.google.inject.Inject;
 
 /**
  * Adds handling of documentation comments and linking of resources.
+ * This implementation should be used when the PP additions should be performed once as part of linking.
+ * (As is the case when running standalone/runtime only). This class should not be used for PP when participating
+ * in the ui where a PPResource (in the ui package) and its PPResourceFactory should be used instead.
  * 
  */
 
@@ -30,12 +33,6 @@ public class PPLinker extends LazyLinker {
 	@Inject
 	PPResourceLinker resourceLinker;
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.xtext.linking.impl.AbstractCleaningLinker#afterModelLinked(org.eclipse.emf.ecore.EObject,
-	 * org.eclipse.xtext.diagnostics.IDiagnosticConsumer)
-	 */
 	@Override
 	protected void afterModelLinked(EObject model, IDiagnosticConsumer diagnosticsConsumer) {
 		IMessageAcceptor acceptor = new DiagnosticConsumerBasedMessageAcceptor(diagnosticsConsumer);

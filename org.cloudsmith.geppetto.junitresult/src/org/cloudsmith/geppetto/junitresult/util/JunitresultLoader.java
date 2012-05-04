@@ -142,7 +142,11 @@ public class JunitresultLoader {
 			Element errorElement = (Element) negativeNode;
 			o.setMessage(errorElement.getAttribute("message"));
 			o.setType(errorElement.getAttribute("type"));
-			o.setValue(errorElement.getNodeValue());
+			// value (if any) is in a child node
+			NodeList children = errorElement.getChildNodes();
+			Node n = children.item(0);
+			if(n != null)
+				o.setValue(n.getNodeValue());
 		}
 	}
 
@@ -186,7 +190,7 @@ public class JunitresultLoader {
 		}
 		Testrun o = JunitresultFactory.eINSTANCE.createTestrun();
 		loadAbstractAggregatedPart(o, element);
-		o.setName(element.getAttribute("project"));
+		o.setProject(element.getAttribute("project"));
 		o.setStarted(getIntAttributeWith0Default(element, "started"));
 		o.setIgnored(getIntAttributeWith0Default(element, "ignored"));
 

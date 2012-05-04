@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testrun name="net.cars.engine.BougieTest" tests="2" started="2" failures="0" errors="1" ignored="0">
+  <testsuite name="net.cars.engine.BougieTest" time="0.017">
+    <testcase name="sparkDry" classname="net.cars.engine.BougieTest" time="0.001"/>
+    <testcase name="sparkHumid" classname="net.cars.engine.BougieTest" time="0.005">
+      <error>java.lang.RuntimeException: humidity level too high
+	at net.cars.engine.Bougie.spark(Unknown Source)
+	at net.cars.engine.BougieTest.sparkHumid(BougieTest.java:36)
+</error>
+    </testcase>
+  </testsuite>
+</testrun>

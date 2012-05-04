@@ -10,3 +10,5 @@ Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.emf.ecore;visibility:=reexport
 Bundle-ActivationPolicy: lazy
+Export-Package: org.cloudsmith.geppetto.junitresult,
+ org.cloudsmith.geppetto.junitresult.util

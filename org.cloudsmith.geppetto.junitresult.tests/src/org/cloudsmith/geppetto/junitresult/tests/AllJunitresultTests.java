@@ -20,6 +20,8 @@ public class AllJunitresultTests {
 		TestSuite suite = new TestSuite(AllJunitresultTests.class.getName());
 		// $JUnit-BEGIN$
 		suite.addTestSuite(TestTestrun.class);
+		suite.addTestSuite(TestTessuite.class);
+
 		// $JUnit-END$
 		return suite;
 	}

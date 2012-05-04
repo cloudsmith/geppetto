@@ -258,7 +258,7 @@ public class JunitresultLoader {
 				else if("properties".equalsIgnoreCase(n.getNodeName())) {
 					NodeList properties = ((Element) n).getElementsByTagName("property");
 					for(int j = 0; j < properties.getLength(); j++) {
-						Node pn = properties.item(i);
+						Node pn = properties.item(j);
 						if(pn.getNodeType() == Node.ELEMENT_NODE) {
 							Element propertyElement = (Element) pn;
 							Property p = JunitresultFactory.eINSTANCE.createProperty();
@@ -268,18 +268,6 @@ public class JunitresultLoader {
 						}
 					}
 				}
-		}
-		// properties (optional)
-		NodeList properties = element.getElementsByTagName("property");
-		for(int i = 0; i < properties.getLength(); i++) {
-			Node n = properties.item(i);
-			if(n.getNodeType() == Node.ELEMENT_NODE) {
-				Element propertyElement = (Element) n;
-				Property p = JunitresultFactory.eINSTANCE.createProperty();
-				p.setName(propertyElement.getAttribute("name"));
-				p.setValue(propertyElement.getAttribute("value"));
-				o.getProperties().add(p);
-			}
 		}
 
 		return o;

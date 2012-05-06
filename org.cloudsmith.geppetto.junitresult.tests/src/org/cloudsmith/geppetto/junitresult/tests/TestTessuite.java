@@ -93,4 +93,15 @@ public class TestTessuite extends TestCase {
 				"\tat net.cars.engine.CarburateurTest.mix(CarburateurTest.java:34)\n", failure.getValue());
 
 	}
+
+	public void testLoad_DelcoTest() throws IOException {
+		File f = TestDataProvider.getTestFile(new Path("testData/DelcoTest_testsuite.xml"));
+		JunitResult result = JunitresultLoader.loadFromXML(f);
+		assertTrue("should be a Testsuite instance", result instanceof Testsuite);
+		Testsuite rootsuite = (Testsuite) result;
+		assertEquals("net.cars.engine.DelcoTest", rootsuite.getName());
+
+		assertEquals("Rotation is simulated for a four spark engine with an angle of 0?.\n", rootsuite.getSystem_out());
+		assertEquals("TestText", rootsuite.getSystem_err());
+	}
 }

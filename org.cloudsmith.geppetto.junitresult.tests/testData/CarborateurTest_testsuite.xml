@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<testsuite errors="0" failures="1" hostname="hazelnut.osuosl.org" name="net.cars.engine.CarburateurTest" tests="1" time="0.013" timestamp="2007-11-02T23:13:50">
+  <testcase classname="net.cars.engine.CarburateurTest" name="mix" time="0.0040">
+    <failure message="Mix should be exactly 25. expected:&lt;25&gt; but was:&lt;20&gt;" type="junit.framework.AssertionFailedError">junit.framework.AssertionFailedError: Mix should be exactly 25. expected:&lt;25&gt; but was:&lt;20&gt;
+	at net.cars.engine.CarburateurTest.mix(CarburateurTest.java:34)
+</failure>
+  </testcase>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

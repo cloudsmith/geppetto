@@ -18,6 +18,7 @@ import java.util.Date;
 
 import junit.framework.TestCase;
 
+import org.cloudsmith.geppetto.junitresult.Failure;
 import org.cloudsmith.geppetto.junitresult.JunitResult;
 import org.cloudsmith.geppetto.junitresult.Property;
 import org.cloudsmith.geppetto.junitresult.Testcase;
@@ -72,5 +73,24 @@ public class TestTessuite extends TestCase {
 		Property p = rootsuite.getProperties().get(0);
 		assertEquals("java.vendor", p.getName());
 		assertEquals("IBM Corporation", p.getValue());
+	}
+
+	public void testLoad_CarborateurTest() throws IOException {
+		File f = TestDataProvider.getTestFile(new Path("testData/CarborateurTest_testsuite.xml"));
+		JunitResult result = JunitresultLoader.loadFromXML(f);
+		assertTrue("should be a Testsuite instance", result instanceof Testsuite);
+		Testsuite rootsuite = (Testsuite) result;
+		assertEquals("net.cars.engine.CarburateurTest", rootsuite.getName());
+
+		// should have one testcase with a failure
+		assertEquals("There should be one testcase", 1, rootsuite.getTestcases().size());
+		Testcase tc = rootsuite.getTestcases().get(0);
+		Failure failure = tc.getFailure();
+		assertNotNull(failure);
+		assertNull(tc.getError());
+		assertEquals("Mix should be exactly 25. expected:<25> but was:<20>", failure.getMessage());
+		assertEquals("junit.framework.AssertionFailedError: Mix should be exactly 25. expected:<25> but was:<20>\n" + //
+				"\tat net.cars.engine.CarburateurTest.mix(CarburateurTest.java:34)\n", failure.getValue());
+
 	}
 }

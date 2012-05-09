@@ -36,10 +36,10 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <p>
  * The following features are implemented:
  * <ul>
- * <li>{@link org.cloudsmith.geppetto.junitresult.impl.TestsuitesImpl#getTestsuites <em>Testsuites</em>}</li>
+ *   <li>{@link org.cloudsmith.geppetto.junitresult.impl.TestsuitesImpl#getTestsuites <em>Testsuites</em>}</li>
  * </ul>
  * </p>
- * 
+ *
  * @generated
  */
 public class TestsuitesImpl extends EObjectImpl implements Testsuites {
@@ -47,7 +47,6 @@ public class TestsuitesImpl extends EObjectImpl implements Testsuites {
 	 * The cached value of the '{@link #getTestsuites() <em>Testsuites</em>}' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @see #getTestsuites()
 	 * @generated
 	 * @ordered
@@ -57,7 +56,6 @@ public class TestsuitesImpl extends EObjectImpl implements Testsuites {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	protected TestsuitesImpl() {
@@ -67,12 +65,11 @@ public class TestsuitesImpl extends EObjectImpl implements Testsuites {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
-		switch(featureID) {
+		switch (featureID) {
 			case JunitresultPackage.TESTSUITES__TESTSUITES:
 				return getTestsuites();
 		}
@@ -82,14 +79,13 @@ public class TestsuitesImpl extends EObjectImpl implements Testsuites {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
-		switch(featureID) {
+		switch (featureID) {
 			case JunitresultPackage.TESTSUITES__TESTSUITES:
-				return ((InternalEList<?>) getTestsuites()).basicRemove(otherEnd, msgs);
+				return ((InternalEList<?>)getTestsuites()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -97,12 +93,11 @@ public class TestsuitesImpl extends EObjectImpl implements Testsuites {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	@Override
 	public boolean eIsSet(int featureID) {
-		switch(featureID) {
+		switch (featureID) {
 			case JunitresultPackage.TESTSUITES__TESTSUITES:
 				return testsuites != null && !testsuites.isEmpty();
 		}
@@ -112,16 +107,15 @@ public class TestsuitesImpl extends EObjectImpl implements Testsuites {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	@SuppressWarnings("unchecked")
 	@Override
 	public void eSet(int featureID, Object newValue) {
-		switch(featureID) {
+		switch (featureID) {
 			case JunitresultPackage.TESTSUITES__TESTSUITES:
 				getTestsuites().clear();
-				getTestsuites().addAll((Collection<? extends Testsuite>) newValue);
+				getTestsuites().addAll((Collection<? extends Testsuite>)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -130,7 +124,6 @@ public class TestsuitesImpl extends EObjectImpl implements Testsuites {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	@Override
@@ -141,12 +134,11 @@ public class TestsuitesImpl extends EObjectImpl implements Testsuites {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	@Override
 	public void eUnset(int featureID) {
-		switch(featureID) {
+		switch (featureID) {
 			case JunitresultPackage.TESTSUITES__TESTSUITES:
 				getTestsuites().clear();
 				return;
@@ -157,13 +149,11 @@ public class TestsuitesImpl extends EObjectImpl implements Testsuites {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public EList<Testsuite> getTestsuites() {
-		if(testsuites == null) {
-			testsuites = new EObjectContainmentEList<Testsuite>(
-				Testsuite.class, this, JunitresultPackage.TESTSUITES__TESTSUITES);
+		if (testsuites == null) {
+			testsuites = new EObjectContainmentEList<Testsuite>(Testsuite.class, this, JunitresultPackage.TESTSUITES__TESTSUITES);
 		}
 		return testsuites;
 	}

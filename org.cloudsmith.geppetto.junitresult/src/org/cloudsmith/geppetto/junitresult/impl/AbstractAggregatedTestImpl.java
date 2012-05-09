@@ -28,13 +28,13 @@ import org.eclipse.emf.ecore.impl.EObjectImpl;
  * <p>
  * The following features are implemented:
  * <ul>
- * <li>{@link org.cloudsmith.geppetto.junitresult.impl.AbstractAggregatedTestImpl#getName <em>Name</em>}</li>
- * <li>{@link org.cloudsmith.geppetto.junitresult.impl.AbstractAggregatedTestImpl#getTests <em>Tests</em>}</li>
- * <li>{@link org.cloudsmith.geppetto.junitresult.impl.AbstractAggregatedTestImpl#getFailures <em>Failures</em>}</li>
- * <li>{@link org.cloudsmith.geppetto.junitresult.impl.AbstractAggregatedTestImpl#getErrors <em>Errors</em>}</li>
+ *   <li>{@link org.cloudsmith.geppetto.junitresult.impl.AbstractAggregatedTestImpl#getName <em>Name</em>}</li>
+ *   <li>{@link org.cloudsmith.geppetto.junitresult.impl.AbstractAggregatedTestImpl#getTests <em>Tests</em>}</li>
+ *   <li>{@link org.cloudsmith.geppetto.junitresult.impl.AbstractAggregatedTestImpl#getFailures <em>Failures</em>}</li>
+ *   <li>{@link org.cloudsmith.geppetto.junitresult.impl.AbstractAggregatedTestImpl#getErrors <em>Errors</em>}</li>
  * </ul>
  * </p>
- * 
+ *
  * @generated
  */
 public abstract class AbstractAggregatedTestImpl extends EObjectImpl implements AbstractAggregatedTest {
@@ -42,7 +42,6 @@ public abstract class AbstractAggregatedTestImpl extends EObjectImpl implements 
 	 * The default value of the '{@link #getName() <em>Name</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @see #getName()
 	 * @generated
 	 * @ordered
@@ -53,7 +52,6 @@ public abstract class AbstractAggregatedTestImpl extends EObjectImpl implements 
 	 * The cached value of the '{@link #getName() <em>Name</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @see #getName()
 	 * @generated
 	 * @ordered
@@ -64,7 +62,6 @@ public abstract class AbstractAggregatedTestImpl extends EObjectImpl implements 
 	 * The default value of the '{@link #getTests() <em>Tests</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @see #getTests()
 	 * @generated
 	 * @ordered
@@ -75,7 +72,6 @@ public abstract class AbstractAggregatedTestImpl extends EObjectImpl implements 
 	 * The cached value of the '{@link #getTests() <em>Tests</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @see #getTests()
 	 * @generated
 	 * @ordered
@@ -86,7 +82,6 @@ public abstract class AbstractAggregatedTestImpl extends EObjectImpl implements 
 	 * The default value of the '{@link #getFailures() <em>Failures</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @see #getFailures()
 	 * @generated
 	 * @ordered
@@ -97,7 +92,6 @@ public abstract class AbstractAggregatedTestImpl extends EObjectImpl implements 
 	 * The cached value of the '{@link #getFailures() <em>Failures</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @see #getFailures()
 	 * @generated
 	 * @ordered
@@ -108,7 +102,6 @@ public abstract class AbstractAggregatedTestImpl extends EObjectImpl implements 
 	 * The default value of the '{@link #getErrors() <em>Errors</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @see #getErrors()
 	 * @generated
 	 * @ordered
@@ -119,7 +112,6 @@ public abstract class AbstractAggregatedTestImpl extends EObjectImpl implements 
 	 * The cached value of the '{@link #getErrors() <em>Errors</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @see #getErrors()
 	 * @generated
 	 * @ordered
@@ -129,7 +121,6 @@ public abstract class AbstractAggregatedTestImpl extends EObjectImpl implements 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	protected AbstractAggregatedTestImpl() {
@@ -139,12 +130,11 @@ public abstract class AbstractAggregatedTestImpl extends EObjectImpl implements 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
-		switch(featureID) {
+		switch (featureID) {
 			case JunitresultPackage.ABSTRACT_AGGREGATED_TEST__NAME:
 				return getName();
 			case JunitresultPackage.ABSTRACT_AGGREGATED_TEST__TESTS:
@@ -160,16 +150,13 @@ public abstract class AbstractAggregatedTestImpl extends EObjectImpl implements 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	@Override
 	public boolean eIsSet(int featureID) {
-		switch(featureID) {
+		switch (featureID) {
 			case JunitresultPackage.ABSTRACT_AGGREGATED_TEST__NAME:
-				return NAME_EDEFAULT == null
-						? name != null
-						: !NAME_EDEFAULT.equals(name);
+				return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
 			case JunitresultPackage.ABSTRACT_AGGREGATED_TEST__TESTS:
 				return tests != TESTS_EDEFAULT;
 			case JunitresultPackage.ABSTRACT_AGGREGATED_TEST__FAILURES:
@@ -183,23 +170,22 @@ public abstract class AbstractAggregatedTestImpl extends EObjectImpl implements 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	@Override
 	public void eSet(int featureID, Object newValue) {
-		switch(featureID) {
+		switch (featureID) {
 			case JunitresultPackage.ABSTRACT_AGGREGATED_TEST__NAME:
-				setName((String) newValue);
+				setName((String)newValue);
 				return;
 			case JunitresultPackage.ABSTRACT_AGGREGATED_TEST__TESTS:
-				setTests((Integer) newValue);
+				setTests((Integer)newValue);
 				return;
 			case JunitresultPackage.ABSTRACT_AGGREGATED_TEST__FAILURES:
-				setFailures((Integer) newValue);
+				setFailures((Integer)newValue);
 				return;
 			case JunitresultPackage.ABSTRACT_AGGREGATED_TEST__ERRORS:
-				setErrors((Integer) newValue);
+				setErrors((Integer)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -208,7 +194,6 @@ public abstract class AbstractAggregatedTestImpl extends EObjectImpl implements 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	@Override
@@ -219,12 +204,11 @@ public abstract class AbstractAggregatedTestImpl extends EObjectImpl implements 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	@Override
 	public void eUnset(int featureID) {
-		switch(featureID) {
+		switch (featureID) {
 			case JunitresultPackage.ABSTRACT_AGGREGATED_TEST__NAME:
 				setName(NAME_EDEFAULT);
 				return;
@@ -244,7 +228,6 @@ public abstract class AbstractAggregatedTestImpl extends EObjectImpl implements 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public int getErrors() {
@@ -254,7 +237,6 @@ public abstract class AbstractAggregatedTestImpl extends EObjectImpl implements 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public int getFailures() {
@@ -264,7 +246,6 @@ public abstract class AbstractAggregatedTestImpl extends EObjectImpl implements 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public String getName() {
@@ -274,7 +255,6 @@ public abstract class AbstractAggregatedTestImpl extends EObjectImpl implements 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public int getTests() {
@@ -284,69 +264,59 @@ public abstract class AbstractAggregatedTestImpl extends EObjectImpl implements 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public void setErrors(int newErrors) {
 		int oldErrors = errors;
 		errors = newErrors;
-		if(eNotificationRequired())
-			eNotify(new ENotificationImpl(
-				this, Notification.SET, JunitresultPackage.ABSTRACT_AGGREGATED_TEST__ERRORS, oldErrors, errors));
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, JunitresultPackage.ABSTRACT_AGGREGATED_TEST__ERRORS, oldErrors, errors));
 	}
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public void setFailures(int newFailures) {
 		int oldFailures = failures;
 		failures = newFailures;
-		if(eNotificationRequired())
-			eNotify(new ENotificationImpl(
-				this, Notification.SET, JunitresultPackage.ABSTRACT_AGGREGATED_TEST__FAILURES, oldFailures, failures));
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, JunitresultPackage.ABSTRACT_AGGREGATED_TEST__FAILURES, oldFailures, failures));
 	}
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public void setName(String newName) {
 		String oldName = name;
 		name = newName;
-		if(eNotificationRequired())
-			eNotify(new ENotificationImpl(
-				this, Notification.SET, JunitresultPackage.ABSTRACT_AGGREGATED_TEST__NAME, oldName, name));
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, JunitresultPackage.ABSTRACT_AGGREGATED_TEST__NAME, oldName, name));
 	}
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public void setTests(int newTests) {
 		int oldTests = tests;
 		tests = newTests;
-		if(eNotificationRequired())
-			eNotify(new ENotificationImpl(
-				this, Notification.SET, JunitresultPackage.ABSTRACT_AGGREGATED_TEST__TESTS, oldTests, tests));
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, JunitresultPackage.ABSTRACT_AGGREGATED_TEST__TESTS, oldTests, tests));
 	}
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	@Override
 	public String toString() {
-		if(eIsProxy())
-			return super.toString();
+		if (eIsProxy()) return super.toString();
 
 		StringBuffer result = new StringBuffer(super.toString());
 		result.append(" (name: ");

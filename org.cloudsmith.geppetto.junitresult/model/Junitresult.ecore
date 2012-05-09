@@ -29,15 +29,15 @@
         <details key="documentation" value="Package is used by a testsuite when testsuite is part of a junitreport."/>
       </eAnnotations>
     </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="disabled" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="skipped" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Property">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Testcase">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="error" eType="#//Error"
-        containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="failure" eType="#//Failure"
+    <eStructuralFeatures xsi:type="ecore:EReference" name="negativeResult" eType="#//NegativeResult"
         containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="classname" lowerBound="1"
         eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
@@ -82,4 +82,5 @@
         eType="#//Testsuite" containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="JunitResult" abstract="true" interface="true"/>
+  <eClassifiers xsi:type="ecore:EClass" name="Skipped" eSuperTypes="#//NegativeResult"/>
 </ecore:EPackage>

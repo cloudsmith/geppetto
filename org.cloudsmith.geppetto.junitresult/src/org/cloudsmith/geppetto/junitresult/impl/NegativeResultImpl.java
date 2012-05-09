@@ -28,12 +28,12 @@ import org.eclipse.emf.ecore.impl.EObjectImpl;
  * <p>
  * The following features are implemented:
  * <ul>
- * <li>{@link org.cloudsmith.geppetto.junitresult.impl.NegativeResultImpl#getMessage <em>Message</em>}</li>
- * <li>{@link org.cloudsmith.geppetto.junitresult.impl.NegativeResultImpl#getType <em>Type</em>}</li>
- * <li>{@link org.cloudsmith.geppetto.junitresult.impl.NegativeResultImpl#getValue <em>Value</em>}</li>
+ *   <li>{@link org.cloudsmith.geppetto.junitresult.impl.NegativeResultImpl#getMessage <em>Message</em>}</li>
+ *   <li>{@link org.cloudsmith.geppetto.junitresult.impl.NegativeResultImpl#getType <em>Type</em>}</li>
+ *   <li>{@link org.cloudsmith.geppetto.junitresult.impl.NegativeResultImpl#getValue <em>Value</em>}</li>
  * </ul>
  * </p>
- * 
+ *
  * @generated
  */
 public abstract class NegativeResultImpl extends EObjectImpl implements NegativeResult {
@@ -41,7 +41,6 @@ public abstract class NegativeResultImpl extends EObjectImpl implements Negative
 	 * The default value of the '{@link #getMessage() <em>Message</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @see #getMessage()
 	 * @generated
 	 * @ordered
@@ -52,7 +51,6 @@ public abstract class NegativeResultImpl extends EObjectImpl implements Negative
 	 * The cached value of the '{@link #getMessage() <em>Message</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @see #getMessage()
 	 * @generated
 	 * @ordered
@@ -63,7 +61,6 @@ public abstract class NegativeResultImpl extends EObjectImpl implements Negative
 	 * The default value of the '{@link #getType() <em>Type</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @see #getType()
 	 * @generated
 	 * @ordered
@@ -74,7 +71,6 @@ public abstract class NegativeResultImpl extends EObjectImpl implements Negative
 	 * The cached value of the '{@link #getType() <em>Type</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @see #getType()
 	 * @generated
 	 * @ordered
@@ -85,7 +81,6 @@ public abstract class NegativeResultImpl extends EObjectImpl implements Negative
 	 * The default value of the '{@link #getValue() <em>Value</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @see #getValue()
 	 * @generated
 	 * @ordered
@@ -96,7 +91,6 @@ public abstract class NegativeResultImpl extends EObjectImpl implements Negative
 	 * The cached value of the '{@link #getValue() <em>Value</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @see #getValue()
 	 * @generated
 	 * @ordered
@@ -106,7 +100,6 @@ public abstract class NegativeResultImpl extends EObjectImpl implements Negative
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	protected NegativeResultImpl() {
@@ -116,12 +109,11 @@ public abstract class NegativeResultImpl extends EObjectImpl implements Negative
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
-		switch(featureID) {
+		switch (featureID) {
 			case JunitresultPackage.NEGATIVE_RESULT__MESSAGE:
 				return getMessage();
 			case JunitresultPackage.NEGATIVE_RESULT__TYPE:
@@ -135,24 +127,17 @@ public abstract class NegativeResultImpl extends EObjectImpl implements Negative
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	@Override
 	public boolean eIsSet(int featureID) {
-		switch(featureID) {
+		switch (featureID) {
 			case JunitresultPackage.NEGATIVE_RESULT__MESSAGE:
-				return MESSAGE_EDEFAULT == null
-						? message != null
-						: !MESSAGE_EDEFAULT.equals(message);
+				return MESSAGE_EDEFAULT == null ? message != null : !MESSAGE_EDEFAULT.equals(message);
 			case JunitresultPackage.NEGATIVE_RESULT__TYPE:
-				return TYPE_EDEFAULT == null
-						? type != null
-						: !TYPE_EDEFAULT.equals(type);
+				return TYPE_EDEFAULT == null ? type != null : !TYPE_EDEFAULT.equals(type);
 			case JunitresultPackage.NEGATIVE_RESULT__VALUE:
-				return VALUE_EDEFAULT == null
-						? value != null
-						: !VALUE_EDEFAULT.equals(value);
+				return VALUE_EDEFAULT == null ? value != null : !VALUE_EDEFAULT.equals(value);
 		}
 		return super.eIsSet(featureID);
 	}
@@ -160,20 +145,19 @@ public abstract class NegativeResultImpl extends EObjectImpl implements Negative
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	@Override
 	public void eSet(int featureID, Object newValue) {
-		switch(featureID) {
+		switch (featureID) {
 			case JunitresultPackage.NEGATIVE_RESULT__MESSAGE:
-				setMessage((String) newValue);
+				setMessage((String)newValue);
 				return;
 			case JunitresultPackage.NEGATIVE_RESULT__TYPE:
-				setType((String) newValue);
+				setType((String)newValue);
 				return;
 			case JunitresultPackage.NEGATIVE_RESULT__VALUE:
-				setValue((String) newValue);
+				setValue((String)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -182,7 +166,6 @@ public abstract class NegativeResultImpl extends EObjectImpl implements Negative
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	@Override
@@ -193,12 +176,11 @@ public abstract class NegativeResultImpl extends EObjectImpl implements Negative
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	@Override
 	public void eUnset(int featureID) {
-		switch(featureID) {
+		switch (featureID) {
 			case JunitresultPackage.NEGATIVE_RESULT__MESSAGE:
 				setMessage(MESSAGE_EDEFAULT);
 				return;
@@ -215,7 +197,6 @@ public abstract class NegativeResultImpl extends EObjectImpl implements Negative
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public String getMessage() {
@@ -225,7 +206,6 @@ public abstract class NegativeResultImpl extends EObjectImpl implements Negative
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public String getType() {
@@ -235,7 +215,6 @@ public abstract class NegativeResultImpl extends EObjectImpl implements Negative
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public String getValue() {
@@ -245,55 +224,47 @@ public abstract class NegativeResultImpl extends EObjectImpl implements Negative
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public void setMessage(String newMessage) {
 		String oldMessage = message;
 		message = newMessage;
-		if(eNotificationRequired())
-			eNotify(new ENotificationImpl(
-				this, Notification.SET, JunitresultPackage.NEGATIVE_RESULT__MESSAGE, oldMessage, message));
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, JunitresultPackage.NEGATIVE_RESULT__MESSAGE, oldMessage, message));
 	}
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public void setType(String newType) {
 		String oldType = type;
 		type = newType;
-		if(eNotificationRequired())
-			eNotify(new ENotificationImpl(
-				this, Notification.SET, JunitresultPackage.NEGATIVE_RESULT__TYPE, oldType, type));
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, JunitresultPackage.NEGATIVE_RESULT__TYPE, oldType, type));
 	}
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public void setValue(String newValue) {
 		String oldValue = value;
 		value = newValue;
-		if(eNotificationRequired())
-			eNotify(new ENotificationImpl(
-				this, Notification.SET, JunitresultPackage.NEGATIVE_RESULT__VALUE, oldValue, value));
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, JunitresultPackage.NEGATIVE_RESULT__VALUE, oldValue, value));
 	}
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	@Override
 	public String toString() {
-		if(eIsProxy())
-			return super.toString();
+		if (eIsProxy()) return super.toString();
 
 		StringBuffer result = new StringBuffer(super.toString());
 		result.append(" (message: ");

@@ -33,6 +33,8 @@ import org.eclipse.emf.common.util.EList;
  * <li>{@link org.cloudsmith.geppetto.junitresult.Testsuite#getTestsuites <em>Testsuites</em>}</li>
  * <li>{@link org.cloudsmith.geppetto.junitresult.Testsuite#getId <em>Id</em>}</li>
  * <li>{@link org.cloudsmith.geppetto.junitresult.Testsuite#getPackage <em>Package</em>}</li>
+ * <li>{@link org.cloudsmith.geppetto.junitresult.Testsuite#getDisabled <em>Disabled</em>}</li>
+ * <li>{@link org.cloudsmith.geppetto.junitresult.Testsuite#getSkipped <em>Skipped</em>}</li>
  * </ul>
  * </p>
  * 
@@ -41,6 +43,22 @@ import org.eclipse.emf.common.util.EList;
  * @generated
  */
 public interface Testsuite extends AbstractAggregatedTest {
+	/**
+	 * Returns the value of the '<em><b>Disabled</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Disabled</em>' attribute isn't clear, there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * 
+	 * @return the value of the '<em>Disabled</em>' attribute.
+	 * @see #setDisabled(int)
+	 * @see org.cloudsmith.geppetto.junitresult.JunitresultPackage#getTestsuite_Disabled()
+	 * @model
+	 * @generated
+	 */
+	int getDisabled();
+
 	/**
 	 * Returns the value of the '<em><b>Hostname</b></em>' attribute.
 	 * <!-- begin-user-doc -->
@@ -104,6 +122,22 @@ public interface Testsuite extends AbstractAggregatedTest {
 	 * @generated
 	 */
 	EList<Property> getProperties();
+
+	/**
+	 * Returns the value of the '<em><b>Skipped</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Skipped</em>' attribute isn't clear, there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * 
+	 * @return the value of the '<em>Skipped</em>' attribute.
+	 * @see #setSkipped(int)
+	 * @see org.cloudsmith.geppetto.junitresult.JunitresultPackage#getTestsuite_Skipped()
+	 * @model
+	 * @generated
+	 */
+	int getSkipped();
 
 	/**
 	 * Returns the value of the '<em><b>System err</b></em>' attribute.
@@ -202,6 +236,18 @@ public interface Testsuite extends AbstractAggregatedTest {
 	Date getTimestamp();
 
 	/**
+	 * Sets the value of the '{@link org.cloudsmith.geppetto.junitresult.Testsuite#getDisabled <em>Disabled</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @param value
+	 *            the new value of the '<em>Disabled</em>' attribute.
+	 * @see #getDisabled()
+	 * @generated
+	 */
+	void setDisabled(int value);
+
+	/**
 	 * Sets the value of the '{@link org.cloudsmith.geppetto.junitresult.Testsuite#getHostname <em>Hostname</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -236,6 +282,18 @@ public interface Testsuite extends AbstractAggregatedTest {
 	 * @generated
 	 */
 	void setPackage(String value);
+
+	/**
+	 * Sets the value of the '{@link org.cloudsmith.geppetto.junitresult.Testsuite#getSkipped <em>Skipped</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @param value
+	 *            the new value of the '<em>Skipped</em>' attribute.
+	 * @see #getSkipped()
+	 * @generated
+	 */
+	void setSkipped(int value);
 
 	/**
 	 * Sets the value of the '{@link org.cloudsmith.geppetto.junitresult.Testsuite#getSystem_err <em>System err</em>}' attribute.

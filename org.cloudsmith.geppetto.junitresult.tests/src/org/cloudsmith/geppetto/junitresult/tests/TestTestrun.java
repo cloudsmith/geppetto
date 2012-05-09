@@ -17,6 +17,7 @@ import java.io.IOException;
 import junit.framework.TestCase;
 
 import org.cloudsmith.geppetto.junitresult.JunitResult;
+import org.cloudsmith.geppetto.junitresult.NegativeResult;
 import org.cloudsmith.geppetto.junitresult.Testcase;
 import org.cloudsmith.geppetto.junitresult.Testrun;
 import org.cloudsmith.geppetto.junitresult.Testsuite;
@@ -59,7 +60,8 @@ public class TestTestrun extends TestCase {
 		assertEquals("net.cars.engine.BougieTest", tc2.getClassname());
 		assertEquals("0.005", tc2.getTime());
 
-		org.cloudsmith.geppetto.junitresult.Error error = tc2.getError();
+		NegativeResult error = tc2.getNegativeResult();
+		assertTrue(error instanceof org.cloudsmith.geppetto.junitresult.Error);
 		assertEquals("java.lang.RuntimeException: humidity level too high\n" + //
 				"\tat net.cars.engine.Bougie.spark(Unknown Source)\n" + //
 				"\tat net.cars.engine.BougieTest.sparkHumid(BougieTest.java:36)\n", error.getValue());

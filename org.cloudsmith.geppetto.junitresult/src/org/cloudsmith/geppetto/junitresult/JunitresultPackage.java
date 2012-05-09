@@ -149,6 +149,24 @@ public interface JunitresultPackage extends EPackage {
 		EAttribute TESTSUITE__PACKAGE = eINSTANCE.getTestsuite_Package();
 
 		/**
+		 * The meta object literal for the '<em><b>Disabled</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * 
+		 * @generated
+		 */
+		EAttribute TESTSUITE__DISABLED = eINSTANCE.getTestsuite_Disabled();
+
+		/**
+		 * The meta object literal for the '<em><b>Skipped</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * 
+		 * @generated
+		 */
+		EAttribute TESTSUITE__SKIPPED = eINSTANCE.getTestsuite_Skipped();
+
+		/**
 		 * The meta object literal for the '{@link org.cloudsmith.geppetto.junitresult.impl.PropertyImpl <em>Property</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -189,22 +207,13 @@ public interface JunitresultPackage extends EPackage {
 		EClass TESTCASE = eINSTANCE.getTestcase();
 
 		/**
-		 * The meta object literal for the '<em><b>Error</b></em>' containment reference feature.
+		 * The meta object literal for the '<em><b>Negative Result</b></em>' containment reference feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * 
 		 * @generated
 		 */
-		EReference TESTCASE__ERROR = eINSTANCE.getTestcase_Error();
-
-		/**
-		 * The meta object literal for the '<em><b>Failure</b></em>' containment reference feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * 
-		 * @generated
-		 */
-		EReference TESTCASE__FAILURE = eINSTANCE.getTestcase_Failure();
+		EReference TESTCASE__NEGATIVE_RESULT = eINSTANCE.getTestcase_NegativeResult();
 
 		/**
 		 * The meta object literal for the '<em><b>Classname</b></em>' attribute feature.
@@ -418,6 +427,17 @@ public interface JunitresultPackage extends EPackage {
 		 * @generated
 		 */
 		EClass JUNIT_RESULT = eINSTANCE.getJunitResult();
+
+		/**
+		 * The meta object literal for the '{@link org.cloudsmith.geppetto.junitresult.impl.SkippedImpl <em>Skipped</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * 
+		 * @see org.cloudsmith.geppetto.junitresult.impl.SkippedImpl
+		 * @see org.cloudsmith.geppetto.junitresult.impl.JunitresultPackageImpl#getSkipped()
+		 * @generated
+		 */
+		EClass SKIPPED = eINSTANCE.getSkipped();
 
 	}
 
@@ -692,6 +712,26 @@ public interface JunitresultPackage extends EPackage {
 	int TESTSUITE__PACKAGE = ABSTRACT_AGGREGATED_TEST_FEATURE_COUNT + 9;
 
 	/**
+	 * The feature id for the '<em><b>Disabled</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 * @ordered
+	 */
+	int TESTSUITE__DISABLED = ABSTRACT_AGGREGATED_TEST_FEATURE_COUNT + 10;
+
+	/**
+	 * The feature id for the '<em><b>Skipped</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 * @ordered
+	 */
+	int TESTSUITE__SKIPPED = ABSTRACT_AGGREGATED_TEST_FEATURE_COUNT + 11;
+
+	/**
 	 * The number of structural features of the '<em>Testsuite</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -699,7 +739,7 @@ public interface JunitresultPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int TESTSUITE_FEATURE_COUNT = ABSTRACT_AGGREGATED_TEST_FEATURE_COUNT + 10;
+	int TESTSUITE_FEATURE_COUNT = ABSTRACT_AGGREGATED_TEST_FEATURE_COUNT + 12;
 
 	/**
 	 * The meta object id for the '{@link org.cloudsmith.geppetto.junitresult.impl.PropertyImpl <em>Property</em>}' class.
@@ -754,24 +794,14 @@ public interface JunitresultPackage extends EPackage {
 	int TESTCASE = 2;
 
 	/**
-	 * The feature id for the '<em><b>Error</b></em>' containment reference.
+	 * The feature id for the '<em><b>Negative Result</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
 	 * @generated
 	 * @ordered
 	 */
-	int TESTCASE__ERROR = 0;
-
-	/**
-	 * The feature id for the '<em><b>Failure</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * 
-	 * @generated
-	 * @ordered
-	 */
-	int TESTCASE__FAILURE = 1;
+	int TESTCASE__NEGATIVE_RESULT = 0;
 
 	/**
 	 * The feature id for the '<em><b>Classname</b></em>' attribute.
@@ -781,7 +811,7 @@ public interface JunitresultPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int TESTCASE__CLASSNAME = 2;
+	int TESTCASE__CLASSNAME = 1;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -791,7 +821,7 @@ public interface JunitresultPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int TESTCASE__NAME = 3;
+	int TESTCASE__NAME = 2;
 
 	/**
 	 * The feature id for the '<em><b>Time</b></em>' attribute.
@@ -801,7 +831,7 @@ public interface JunitresultPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int TESTCASE__TIME = 4;
+	int TESTCASE__TIME = 3;
 
 	/**
 	 * The number of structural features of the '<em>Testcase</em>' class.
@@ -811,7 +841,7 @@ public interface JunitresultPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int TESTCASE_FEATURE_COUNT = 5;
+	int TESTCASE_FEATURE_COUNT = 4;
 
 	/**
 	 * The meta object id for the '{@link org.cloudsmith.geppetto.junitresult.impl.NegativeResultImpl <em>Negative Result</em>}' class.
@@ -1099,6 +1129,57 @@ public interface JunitresultPackage extends EPackage {
 	int TESTSUITES_FEATURE_COUNT = JUNIT_RESULT_FEATURE_COUNT + 1;
 
 	/**
+	 * The meta object id for the '{@link org.cloudsmith.geppetto.junitresult.impl.SkippedImpl <em>Skipped</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @see org.cloudsmith.geppetto.junitresult.impl.SkippedImpl
+	 * @see org.cloudsmith.geppetto.junitresult.impl.JunitresultPackageImpl#getSkipped()
+	 * @generated
+	 */
+	int SKIPPED = 10;
+
+	/**
+	 * The feature id for the '<em><b>Message</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 * @ordered
+	 */
+	int SKIPPED__MESSAGE = NEGATIVE_RESULT__MESSAGE;
+
+	/**
+	 * The feature id for the '<em><b>Type</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 * @ordered
+	 */
+	int SKIPPED__TYPE = NEGATIVE_RESULT__TYPE;
+
+	/**
+	 * The feature id for the '<em><b>Value</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 * @ordered
+	 */
+	int SKIPPED__VALUE = NEGATIVE_RESULT__VALUE;
+
+	/**
+	 * The number of structural features of the '<em>Skipped</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 * @ordered
+	 */
+	int SKIPPED_FEATURE_COUNT = NEGATIVE_RESULT_FEATURE_COUNT + 0;
+
+	/**
 	 * Returns the meta object for class '{@link org.cloudsmith.geppetto.junitresult.AbstractAggregatedTest <em>Abstract Aggregated Test</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1283,6 +1364,17 @@ public interface JunitresultPackage extends EPackage {
 	EAttribute getProperty_Value();
 
 	/**
+	 * Returns the meta object for class '{@link org.cloudsmith.geppetto.junitresult.Skipped <em>Skipped</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @return the meta object for class '<em>Skipped</em>'.
+	 * @see org.cloudsmith.geppetto.junitresult.Skipped
+	 * @generated
+	 */
+	EClass getSkipped();
+
+	/**
 	 * Returns the meta object for class '{@link org.cloudsmith.geppetto.junitresult.Testcase <em>Testcase</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1306,30 +1398,6 @@ public interface JunitresultPackage extends EPackage {
 	EAttribute getTestcase_Classname();
 
 	/**
-	 * Returns the meta object for the containment reference '{@link org.cloudsmith.geppetto.junitresult.Testcase#getError <em>Error</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * 
-	 * @return the meta object for the containment reference '<em>Error</em>'.
-	 * @see org.cloudsmith.geppetto.junitresult.Testcase#getError()
-	 * @see #getTestcase()
-	 * @generated
-	 */
-	EReference getTestcase_Error();
-
-	/**
-	 * Returns the meta object for the containment reference '{@link org.cloudsmith.geppetto.junitresult.Testcase#getFailure <em>Failure</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * 
-	 * @return the meta object for the containment reference '<em>Failure</em>'.
-	 * @see org.cloudsmith.geppetto.junitresult.Testcase#getFailure()
-	 * @see #getTestcase()
-	 * @generated
-	 */
-	EReference getTestcase_Failure();
-
-	/**
 	 * Returns the meta object for the attribute '{@link org.cloudsmith.geppetto.junitresult.Testcase#getName <em>Name</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1340,6 +1408,19 @@ public interface JunitresultPackage extends EPackage {
 	 * @generated
 	 */
 	EAttribute getTestcase_Name();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link org.cloudsmith.geppetto.junitresult.Testcase#getNegativeResult
+	 * <em>Negative Result</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @return the meta object for the containment reference '<em>Negative Result</em>'.
+	 * @see org.cloudsmith.geppetto.junitresult.Testcase#getNegativeResult()
+	 * @see #getTestcase()
+	 * @generated
+	 */
+	EReference getTestcase_NegativeResult();
 
 	/**
 	 * Returns the meta object for the attribute '{@link org.cloudsmith.geppetto.junitresult.Testcase#getTime <em>Time</em>}'.
@@ -1425,6 +1506,18 @@ public interface JunitresultPackage extends EPackage {
 	EClass getTestsuite();
 
 	/**
+	 * Returns the meta object for the attribute '{@link org.cloudsmith.geppetto.junitresult.Testsuite#getDisabled <em>Disabled</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @return the meta object for the attribute '<em>Disabled</em>'.
+	 * @see org.cloudsmith.geppetto.junitresult.Testsuite#getDisabled()
+	 * @see #getTestsuite()
+	 * @generated
+	 */
+	EAttribute getTestsuite_Disabled();
+
+	/**
 	 * Returns the meta object for the attribute '{@link org.cloudsmith.geppetto.junitresult.Testsuite#getHostname <em>Hostname</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1472,6 +1565,18 @@ public interface JunitresultPackage extends EPackage {
 	 * @generated
 	 */
 	EReference getTestsuite_Properties();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.cloudsmith.geppetto.junitresult.Testsuite#getSkipped <em>Skipped</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @return the meta object for the attribute '<em>Skipped</em>'.
+	 * @see org.cloudsmith.geppetto.junitresult.Testsuite#getSkipped()
+	 * @see #getTestsuite()
+	 * @generated
+	 */
+	EAttribute getTestsuite_Skipped();
 
 	/**
 	 * Returns the meta object for the attribute '{@link org.cloudsmith.geppetto.junitresult.Testsuite#getSystem_err <em>System err</em>}'.

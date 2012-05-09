@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<testsuite errors="0" failures="6" skipped="0" tests="7" time="0.001598" timestamp="2012-05-08T02:12:52+02:00">
+  <properties />
+  <testcase classname="./gameb_spec.rb" name="Game has tests elesehere" time="8.7e-05" />
+  <testcase classname="./game_spec.rb" name="Game#score returns 0 for all gutter game" time="0.0002">
+    <failure message="failure" type="failure">
+<![CDATA[ expected: 4
+     got: 0 (using ==)
+./game_spec.rb:9 ]]>
+    </failure>
+  </testcase>
+  <testcase classname="./game_spec.rb" name="Game#score returns 1 for all dummy game" time="0.000144">
+    <failure message="failure" type="failure">
+<![CDATA[ expected: 1
+     got: 0 (using ==)
+./game_spec.rb:17 ]]>
+    </failure>
+  </testcase>
+  <testcase classname="./game_spec.rb" name="Game#score actually returns 0" time="0.000125">
+    <failure message="failure" type="failure">
+<![CDATA[ expected: 1
+     got: 0 (using ==)
+./game_spec.rb:21 ]]>
+    </failure>
+  </testcase>
+  <testcase classname="./gameb_spec.rb" name="Gameb#score returns 0 for all gutter game" time="0.000196">
+    <failure message="failure" type="failure">
+<![CDATA[ expected: 4
+     got: 0 (using ==)
+./gameb_spec.rb:14 ]]>
+    </failure>
+  </testcase>
+  <testcase classname="./gameb_spec.rb" name="Gameb#score returns 1 for all dummy game" time="0.000143">
+    <failure message="failure" type="failure">
+<![CDATA[ expected: 1
+     got: 0 (using ==)
+./gameb_spec.rb:22 ]]>
+    </failure>
+  </testcase>
+  <testcase classname="./gameb_spec.rb" name="Gameb#score actually returns 0" time="0.000147">
+    <failure message="failure" type="failure">
+<![CDATA[ expected: 1
+     got: 0 (using ==)
+./gameb_spec.rb:26 ]]>
+    </failure>
+  </testcase>

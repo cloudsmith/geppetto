@@ -63,6 +63,16 @@ public interface JunitresultFactory extends EFactory {
 	Property createProperty();
 
 	/**
+	 * Returns a new object of class '<em>Skipped</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @return a new object of class '<em>Skipped</em>'.
+	 * @generated
+	 */
+	Skipped createSkipped();
+
+	/**
 	 * Returns a new object of class '<em>Testcase</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

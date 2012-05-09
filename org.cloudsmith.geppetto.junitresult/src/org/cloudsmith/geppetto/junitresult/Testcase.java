@@ -21,8 +21,7 @@ import org.eclipse.emf.ecore.EObject;
  * <p>
  * The following features are supported:
  * <ul>
- * <li>{@link org.cloudsmith.geppetto.junitresult.Testcase#getError <em>Error</em>}</li>
- * <li>{@link org.cloudsmith.geppetto.junitresult.Testcase#getFailure <em>Failure</em>}</li>
+ * <li>{@link org.cloudsmith.geppetto.junitresult.Testcase#getNegativeResult <em>Negative Result</em>}</li>
  * <li>{@link org.cloudsmith.geppetto.junitresult.Testcase#getClassname <em>Classname</em>}</li>
  * <li>{@link org.cloudsmith.geppetto.junitresult.Testcase#getName <em>Name</em>}</li>
  * <li>{@link org.cloudsmith.geppetto.junitresult.Testcase#getTime <em>Time</em>}</li>
@@ -51,38 +50,6 @@ public interface Testcase extends EObject {
 	String getClassname();
 
 	/**
-	 * Returns the value of the '<em><b>Error</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Error</em>' containment reference isn't clear, there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * 
-	 * @return the value of the '<em>Error</em>' containment reference.
-	 * @see #setError(org.cloudsmith.geppetto.junitresult.Error)
-	 * @see org.cloudsmith.geppetto.junitresult.JunitresultPackage#getTestcase_Error()
-	 * @model containment="true"
-	 * @generated
-	 */
-	org.cloudsmith.geppetto.junitresult.Error getError();
-
-	/**
-	 * Returns the value of the '<em><b>Failure</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Failure</em>' containment reference isn't clear, there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * 
-	 * @return the value of the '<em>Failure</em>' containment reference.
-	 * @see #setFailure(Failure)
-	 * @see org.cloudsmith.geppetto.junitresult.JunitresultPackage#getTestcase_Failure()
-	 * @model containment="true"
-	 * @generated
-	 */
-	Failure getFailure();
-
-	/**
 	 * Returns the value of the '<em><b>Name</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <p>
@@ -97,6 +64,22 @@ public interface Testcase extends EObject {
 	 * @generated
 	 */
 	String getName();
+
+	/**
+	 * Returns the value of the '<em><b>Negative Result</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Negative Result</em>' containment reference isn't clear, there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * 
+	 * @return the value of the '<em>Negative Result</em>' containment reference.
+	 * @see #setNegativeResult(NegativeResult)
+	 * @see org.cloudsmith.geppetto.junitresult.JunitresultPackage#getTestcase_NegativeResult()
+	 * @model containment="true"
+	 * @generated
+	 */
+	NegativeResult getNegativeResult();
 
 	/**
 	 * Returns the value of the '<em><b>Time</b></em>' attribute.
@@ -127,30 +110,6 @@ public interface Testcase extends EObject {
 	void setClassname(String value);
 
 	/**
-	 * Sets the value of the '{@link org.cloudsmith.geppetto.junitresult.Testcase#getError <em>Error</em>}' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * 
-	 * @param value
-	 *            the new value of the '<em>Error</em>' containment reference.
-	 * @see #getError()
-	 * @generated
-	 */
-	void setError(org.cloudsmith.geppetto.junitresult.Error value);
-
-	/**
-	 * Sets the value of the '{@link org.cloudsmith.geppetto.junitresult.Testcase#getFailure <em>Failure</em>}' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * 
-	 * @param value
-	 *            the new value of the '<em>Failure</em>' containment reference.
-	 * @see #getFailure()
-	 * @generated
-	 */
-	void setFailure(Failure value);
-
-	/**
 	 * Sets the value of the '{@link org.cloudsmith.geppetto.junitresult.Testcase#getName <em>Name</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -161,6 +120,18 @@ public interface Testcase extends EObject {
 	 * @generated
 	 */
 	void setName(String value);
+
+	/**
+	 * Sets the value of the '{@link org.cloudsmith.geppetto.junitresult.Testcase#getNegativeResult <em>Negative Result</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @param value
+	 *            the new value of the '<em>Negative Result</em>' containment reference.
+	 * @see #getNegativeResult()
+	 * @generated
+	 */
+	void setNegativeResult(NegativeResult value);
 
 	/**
 	 * Sets the value of the '{@link org.cloudsmith.geppetto.junitresult.Testcase#getTime <em>Time</em>}' attribute.

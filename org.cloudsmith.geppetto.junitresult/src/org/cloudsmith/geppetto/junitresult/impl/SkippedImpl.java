@@ -11,27 +11,27 @@
  */
 package org.cloudsmith.geppetto.junitresult.impl;
 
-import org.cloudsmith.geppetto.junitresult.Failure;
 import org.cloudsmith.geppetto.junitresult.JunitresultPackage;
+import org.cloudsmith.geppetto.junitresult.Skipped;
 
 import org.eclipse.emf.ecore.EClass;
 
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Failure</b></em>'.
+ * An implementation of the model object '<em><b>Skipped</b></em>'.
  * <!-- end-user-doc -->
  * <p>
  * </p>
  *
  * @generated
  */
-public class FailureImpl extends NegativeResultImpl implements Failure {
+public class SkippedImpl extends NegativeResultImpl implements Skipped {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected FailureImpl() {
+	protected SkippedImpl() {
 		super();
 	}
 
@@ -42,7 +42,7 @@ public class FailureImpl extends NegativeResultImpl implements Failure {
 	 */
 	@Override
 	protected EClass eStaticClass() {
-		return JunitresultPackage.Literals.FAILURE;
+		return JunitresultPackage.Literals.SKIPPED;
 	}
 
-} // FailureImpl
+} //SkippedImpl

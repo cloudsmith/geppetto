@@ -20,6 +20,7 @@ import junit.framework.TestCase;
 
 import org.cloudsmith.geppetto.junitresult.Failure;
 import org.cloudsmith.geppetto.junitresult.JunitResult;
+import org.cloudsmith.geppetto.junitresult.NegativeResult;
 import org.cloudsmith.geppetto.junitresult.Property;
 import org.cloudsmith.geppetto.junitresult.Testcase;
 import org.cloudsmith.geppetto.junitresult.Testsuite;
@@ -64,7 +65,8 @@ public class TestTessuite extends TestCase {
 		assertEquals("net.cars.engine.BougieTest", tc2.getClassname());
 		assertEquals("0.0050", tc2.getTime());
 
-		org.cloudsmith.geppetto.junitresult.Error error = tc2.getError();
+		NegativeResult error = tc2.getNegativeResult();
+		assertTrue(error instanceof org.cloudsmith.geppetto.junitresult.Error);
 		assertEquals("java.lang.RuntimeException: humidity level too high\n" + //
 				"\tat net.cars.engine.Bougie.spark(Unknown Source)\n" + //
 				"\tat net.cars.engine.BougieTest.sparkHumid(BougieTest.java:36)\n", error.getValue());
@@ -85,9 +87,9 @@ public class TestTessuite extends TestCase {
 		// should have one testcase with a failure
 		assertEquals("There should be one testcase", 1, rootsuite.getTestcases().size());
 		Testcase tc = rootsuite.getTestcases().get(0);
-		Failure failure = tc.getFailure();
+		NegativeResult failure = tc.getNegativeResult();
 		assertNotNull(failure);
-		assertNull(tc.getError());
+		assertTrue(failure instanceof Failure);
 		assertEquals("Mix should be exactly 25. expected:<25> but was:<20>", failure.getMessage());
 		assertEquals("junit.framework.AssertionFailedError: Mix should be exactly 25. expected:<25> but was:<20>\n" + //
 				"\tat net.cars.engine.CarburateurTest.mix(CarburateurTest.java:34)\n", failure.getValue());

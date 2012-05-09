@@ -15,6 +15,7 @@ import org.cloudsmith.geppetto.junitresult.Failure;
 import org.cloudsmith.geppetto.junitresult.JunitresultFactory;
 import org.cloudsmith.geppetto.junitresult.JunitresultPackage;
 import org.cloudsmith.geppetto.junitresult.Property;
+import org.cloudsmith.geppetto.junitresult.Skipped;
 import org.cloudsmith.geppetto.junitresult.Testcase;
 import org.cloudsmith.geppetto.junitresult.Testrun;
 import org.cloudsmith.geppetto.junitresult.Testsuite;
@@ -32,14 +33,12 @@ import org.eclipse.emf.ecore.plugin.EcorePlugin;
  * <!-- begin-user-doc -->
  * An implementation of the model <b>Factory</b>.
  * <!-- end-user-doc -->
- * 
  * @generated
  */
 public class JunitresultFactoryImpl extends EFactoryImpl implements JunitresultFactory {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @deprecated
 	 * @generated
 	 */
@@ -52,17 +51,16 @@ public class JunitresultFactoryImpl extends EFactoryImpl implements JunitresultF
 	 * Creates the default factory implementation.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public static JunitresultFactory init() {
 		try {
-			JunitresultFactory theJunitresultFactory = (JunitresultFactory) EPackage.Registry.INSTANCE.getEFactory("http://www.cloudsmith.org/geppetto/1.0.0/Junitresult");
-			if(theJunitresultFactory != null) {
+			JunitresultFactory theJunitresultFactory = (JunitresultFactory)EPackage.Registry.INSTANCE.getEFactory("http://www.cloudsmith.org/geppetto/1.0.0/Junitresult"); 
+			if (theJunitresultFactory != null) {
 				return theJunitresultFactory;
 			}
 		}
-		catch(Exception exception) {
+		catch (Exception exception) {
 			EcorePlugin.INSTANCE.log(exception);
 		}
 		return new JunitresultFactoryImpl();
@@ -72,7 +70,6 @@ public class JunitresultFactoryImpl extends EFactoryImpl implements JunitresultF
 	 * Creates an instance of the factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public JunitresultFactoryImpl() {
@@ -82,26 +79,19 @@ public class JunitresultFactoryImpl extends EFactoryImpl implements JunitresultF
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	@Override
 	public EObject create(EClass eClass) {
-		switch(eClass.getClassifierID()) {
-			case JunitresultPackage.TESTSUITE:
-				return createTestsuite();
-			case JunitresultPackage.PROPERTY:
-				return createProperty();
-			case JunitresultPackage.TESTCASE:
-				return createTestcase();
-			case JunitresultPackage.ERROR:
-				return createError();
-			case JunitresultPackage.FAILURE:
-				return createFailure();
-			case JunitresultPackage.TESTRUN:
-				return createTestrun();
-			case JunitresultPackage.TESTSUITES:
-				return createTestsuites();
+		switch (eClass.getClassifierID()) {
+			case JunitresultPackage.TESTSUITE: return createTestsuite();
+			case JunitresultPackage.PROPERTY: return createProperty();
+			case JunitresultPackage.TESTCASE: return createTestcase();
+			case JunitresultPackage.ERROR: return createError();
+			case JunitresultPackage.FAILURE: return createFailure();
+			case JunitresultPackage.TESTRUN: return createTestrun();
+			case JunitresultPackage.TESTSUITES: return createTestsuites();
+			case JunitresultPackage.SKIPPED: return createSkipped();
 			default:
 				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
@@ -110,7 +100,6 @@ public class JunitresultFactoryImpl extends EFactoryImpl implements JunitresultF
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public org.cloudsmith.geppetto.junitresult.Error createError() {
@@ -121,7 +110,6 @@ public class JunitresultFactoryImpl extends EFactoryImpl implements JunitresultF
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public Failure createFailure() {
@@ -132,7 +120,6 @@ public class JunitresultFactoryImpl extends EFactoryImpl implements JunitresultF
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public Property createProperty() {
@@ -143,7 +130,6 @@ public class JunitresultFactoryImpl extends EFactoryImpl implements JunitresultF
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public Testcase createTestcase() {
@@ -154,7 +140,6 @@ public class JunitresultFactoryImpl extends EFactoryImpl implements JunitresultF
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public Testrun createTestrun() {
@@ -165,7 +150,6 @@ public class JunitresultFactoryImpl extends EFactoryImpl implements JunitresultF
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public Testsuite createTestsuite() {
@@ -176,7 +160,6 @@ public class JunitresultFactoryImpl extends EFactoryImpl implements JunitresultF
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public Testsuites createTestsuites() {
@@ -187,11 +170,20 @@ public class JunitresultFactoryImpl extends EFactoryImpl implements JunitresultF
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
+	 * @generated
+	 */
+	public Skipped createSkipped() {
+		SkippedImpl skipped = new SkippedImpl();
+		return skipped;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	public JunitresultPackage getJunitresultPackage() {
-		return (JunitresultPackage) getEPackage();
+		return (JunitresultPackage)getEPackage();
 	}
 
 } // JunitresultFactoryImpl

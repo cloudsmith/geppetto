@@ -16,6 +16,7 @@ import org.cloudsmith.geppetto.junitresult.JunitResult;
 import org.cloudsmith.geppetto.junitresult.JunitresultFactory;
 import org.cloudsmith.geppetto.junitresult.NegativeResult;
 import org.cloudsmith.geppetto.junitresult.Property;
+import org.cloudsmith.geppetto.junitresult.Skipped;
 import org.cloudsmith.geppetto.junitresult.Testcase;
 import org.cloudsmith.geppetto.junitresult.Testrun;
 import org.cloudsmith.geppetto.junitresult.Testsuite;
@@ -159,19 +160,35 @@ public class JunitresultLoader {
 		o.setName(element.getAttribute("name"));
 		o.setTime(element.getAttribute("time"));
 
-		// Error element
-		NodeList errors = element.getElementsByTagName("error");
-		if(errors.getLength() > 0) {
-			Error error = JunitresultFactory.eINSTANCE.createError();
-			loadNegativeResult(error, errors);
-			o.setError(error);
+		// Only one of these are allowed - error, failure, skipped
+		// let the last win
+
+		{
+			// Error element
+			NodeList errors = element.getElementsByTagName("error");
+			if(errors.getLength() > 0) {
+				Error error = JunitresultFactory.eINSTANCE.createError();
+				loadNegativeResult(error, errors);
+				o.setNegativeResult(error);
+			}
 		}
-		// Failure element
-		NodeList failures = element.getElementsByTagName("failure");
-		if(failures.getLength() > 0) {
-			Failure failure = JunitresultFactory.eINSTANCE.createFailure();
-			loadNegativeResult(failure, failures);
-			o.setFailure(failure);
+		{
+			// Failure element
+			NodeList failures = element.getElementsByTagName("failure");
+			if(failures.getLength() > 0) {
+				Failure failure = JunitresultFactory.eINSTANCE.createFailure();
+				loadNegativeResult(failure, failures);
+				o.setNegativeResult(failure);
+			}
+		}
+		{
+			// Failure element
+			NodeList skipps = element.getElementsByTagName("skipped");
+			if(skipps.getLength() > 0) {
+				Skipped skipped = JunitresultFactory.eINSTANCE.createSkipped();
+				loadNegativeResult(skipped, skipps);
+				o.setNegativeResult(skipped);
+			}
 		}
 
 		return o;
@@ -237,6 +254,10 @@ public class JunitresultLoader {
 		o.setHostname(element.getAttribute("hostname"));
 		o.setTime(element.getAttribute("time"));
 		o.setTimestamp(getTimestamp(element, "timestamp"));
+
+		// JUnit 4 - (?)
+		o.setDisabled(getIntAttributeWith0Default(element, "disabled"));
+		o.setSkipped(getIntAttributeWith0Default(element, "skipped"));
 
 		// when embedded in a junitreport result where <testsuites> is the document root these two
 		// attributes are present in each nested testsuite.

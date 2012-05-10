@@ -83,34 +83,37 @@ public class SaveActions implements ISaveActions {
 				Matcher matcher = trimPattern.matcher(content);
 				boolean mustRefetch = false;
 				;
+				int lengthAdjustment = 0;
 				while(matcher.find()) {
 					int offset = matcher.start();
 					int length = matcher.end() - offset;
 					try {
-						document.replace(offset, length, matcher.group(1));
+						String replacement = matcher.group(1);
+						document.replace(offset - lengthAdjustment, length, replacement);
+						lengthAdjustment += (length - replacement.length());
 						mustRefetch = true;
 					}
 					catch(BadLocationException e) {
 						// ignore
 					}
 				}
-				// content = trimPattern.matcher(content).replaceAll("$1");
 				if(mustRefetch)
 					content = document.get();
 			}
 			if(replaceFunkySpace) {
 				Matcher matcher = funkySpacePattern.matcher(content);
+				int lengthAdjustment = 0;
 				while(matcher.find()) {
 					int offset = matcher.start();
 					int length = matcher.end() - offset;
 					try {
-						document.replace(offset, length, " ");
+						document.replace(offset - lengthAdjustment, length, " ");
+						lengthAdjustment += length - 1;
 					}
 					catch(BadLocationException e) {
 						// ignore
 					}
 				}
-				content = funkySpacePattern.matcher(content).replaceAll(" ");
 			}
 		}
 		// // USE THIS IF SEMANTIC CHANGES ARE NEEDED LATER

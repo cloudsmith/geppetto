@@ -114,6 +114,11 @@ public class JunitresultLoader {
 
 	public JunitResult loadFromXMLFile(File f) throws ParserConfigurationException, SAXException, IOException {
 		DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+
+		// set coalescing to true to make text and CDATA in nodes using concatenated into a single
+		// text string.
+		dbFactory.setCoalescing(true);
+
 		DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
 		Document doc = dBuilder.parse(f);
 

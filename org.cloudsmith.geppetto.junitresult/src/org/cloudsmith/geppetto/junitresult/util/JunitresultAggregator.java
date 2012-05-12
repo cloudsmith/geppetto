@@ -15,11 +15,15 @@ import java.io.File;
 import java.io.FileFilter;
 import java.io.FilenameFilter;
 import java.io.IOException;
+import java.text.DecimalFormat;
 import java.util.List;
 
 import org.cloudsmith.geppetto.junitresult.Error;
+import org.cloudsmith.geppetto.junitresult.Failure;
 import org.cloudsmith.geppetto.junitresult.JunitResult;
 import org.cloudsmith.geppetto.junitresult.JunitresultFactory;
+import org.cloudsmith.geppetto.junitresult.NegativeResult;
+import org.cloudsmith.geppetto.junitresult.Skipped;
 import org.cloudsmith.geppetto.junitresult.Testcase;
 import org.cloudsmith.geppetto.junitresult.Testrun;
 import org.cloudsmith.geppetto.junitresult.Testsuite;
@@ -28,8 +32,11 @@ import org.eclipse.core.filesystem.EFS;
 import org.eclipse.core.internal.filesystem.local.LocalFileSystem;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
+import org.eclipse.emf.common.util.EList;
 
+import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.Lists;
+import com.google.common.collect.Multimap;
 
 /**
  * Aggregates JUnit result output stored in XML files under a given directory into a single testsuite
@@ -37,6 +44,38 @@ import com.google.common.collect.Lists;
  * 
  */
 public class JunitresultAggregator {
+
+	private static class Stats {
+		private int count;
+
+		private int errors;
+
+		private int failures;
+
+		private int skipped;
+
+		private int disabled;
+
+		private double time;
+
+		Stats() {
+			// all fields are 0
+		}
+
+		Stats(int c, int e, int f, int s, int d, double t) {
+			count = c;
+			errors = e;
+			failures = f;
+			skipped = s;
+			disabled = d;
+			time = t;
+		}
+
+		Stats add(Stats s) {
+			return new Stats(count + s.count, errors + s.errors, failures + s.failures, skipped + s.skipped, disabled +
+					s.disabled, time + s.time);
+		}
+	}
 
 	private static final FileFilter directoryFilter = new FileFilter() {
 
@@ -66,6 +105,8 @@ public class JunitresultAggregator {
 
 	private Testsuite rootSuite;
 
+	private Path rootPath;
+
 	/**
 	 * @param rootSuite
 	 * @param f
@@ -79,8 +120,8 @@ public class JunitresultAggregator {
 		StringBuilder builder = new StringBuilder();
 		builder.append("Can not load junit xml result from file: ").append(f.getAbsolutePath()).append("\n");
 		builder.append("Caused by: ").append(e.toString());
-		error.setMessage(e.getMessage());
 		error.setValue(builder.toString());
+		error.setMessage(e.getMessage());
 
 		tc.setNegativeResult(error);
 		rootSuite.getTestcases().add(tc);
@@ -141,12 +182,16 @@ public class JunitresultAggregator {
 	 * @return
 	 */
 	public JunitResult aggregate(File reportDir, File rootDir) {
+		// must be called to ensure that the LocalFileSystem is instantiated
+		EFS.getLocalFileSystem();
+
 		// check parameters
 		if(!reportDir.getAbsolutePath().startsWith(rootDir.getAbsolutePath()))
 			throw new IllegalArgumentException("given directory must be same or subdirectoryu of given root");
 
 		this.reportDir = reportDir;
 		this.rootDir = rootDir;
+		this.rootPath = new Path(rootDir.getParentFile().getAbsolutePath());
 
 		this.rootSuite = createRootSuite(reportDir, rootDir);
 
@@ -173,6 +218,7 @@ public class JunitresultAggregator {
 			}
 
 		}
+		// fix-up all counts and time
 		aggregateCountAndTime();
 		return rootSuite;
 	}
@@ -181,7 +227,7 @@ public class JunitresultAggregator {
 	 * Iterates over the rootSuite and ensures that all counts and times are aggregated.
 	 */
 	private void aggregateCountAndTime() {
-		// TODO Auto-generated method stub
+		updateStats(rootSuite);
 
 	}
 
@@ -203,7 +249,7 @@ public class JunitresultAggregator {
 
 	private Testsuite createRootSuite(File reportDir, File rootDir) {
 		IPath p = new Path(reportDir.getAbsolutePath());
-		IPath relative = p.makeRelativeTo(new Path(rootDir.getAbsolutePath()));
+		IPath relative = p.makeRelativeTo(rootPath);
 		Testsuite testsuite = JunitresultFactory.eINSTANCE.createTestsuite();
 		testsuite.setName(relative.toString());
 		return testsuite;
@@ -220,31 +266,205 @@ public class JunitresultAggregator {
 		return findFiles(root, xmlFileFilter);
 	}
 
+	private String formatDecimal(double d) {
+		DecimalFormat myFormatter = new DecimalFormat("0*.0*");
+		return myFormatter.format(d);
+	}
+
+	private boolean isExtraRspecFormatterStyle(Testsuite testsuite) {
+		EList<Testcase> tcs = testsuite.getTestcases();
+		for(Testcase tc : tcs) {
+			String classname = tc.getClassname();
+			if(classname != null && classname.endsWith(".rb"))
+				return true;
+		}
+		return false;
+	}
+
+	private boolean isSuiteWrappingSingleCase(Testsuite testsuite) {
+		EList<Testcase> tcs = testsuite.getTestcases();
+		if(tcs.size() != 1)
+			return false;
+		Testcase tc = tcs.get(0);
+		String tsname = testsuite.getName();
+		String tcname = tc.getName();
+		if(tsname == null || tcname == null)
+			return false;
+		return tsname.equals(tcname);
+	}
+
 	/**
+	 * Wraps the content of the 'testrun' into a new 'testsuite' named after the file, and
+	 * adds the resulting container to the root suite.
+	 * 
 	 * @param f
 	 * @param testrun
 	 */
 	private void processTestrun(File f, Testrun testrun) {
-		// TODO Auto-generated method stub
-
+		Testsuite containerSuite = JunitresultFactory.eINSTANCE.createTestsuite();
+		containerSuite.setName(suitename(f));
+		containerSuite.getTestsuites().addAll(testrun.getTestsuites());
+		rootSuite.getTestsuites().add(containerSuite);
 	}
 
 	/**
+	 * Processes the given testsuite; if it is produced by "rspec extra formatters", the content is
+	 * rewrapped based on the source spec.rb file, and if produced by ci_reporter where each tc is
+	 * wrapped in a testsuite with the same name, the testsuite is renamed after the file.
+	 * 
+	 * The resulting container (or container(s) in case of "rspec extra formatters" style) is/are added
+	 * to the root container.
+	 * 
 	 * @param f
 	 * @param testsuite
 	 */
 	private void processTestsuite(File f, Testsuite testsuite) {
-		// TODO Auto-generated method stub
+		// Is this a testsuite with testcases where testcases have a classname that is a reference to
+		// a .rb spec file?
+		if(isExtraRspecFormatterStyle(testsuite)) {
+			// create a new testsuite to act as the container for all contained (computed suites).
+			// this container is named after the path/file
+			Testsuite containerSuite = JunitresultFactory.eINSTANCE.createTestsuite();
+			containerSuite.setName(suitename(f));
+
+			// create one suite per source classname and add test cases belonging to that suite
+			Multimap<String, Testcase> map = ArrayListMultimap.create();
+			for(Testcase tc : testsuite.getTestcases()) {
+				String key = tc.getClassname();
+				if(key == null || key.length() == 0 || !key.endsWith(".rb"))
+					key = "unspecified-source";
+				map.put(key, tc);
+			}
+			for(String key : map.keySet()) {
+				Testsuite suitePerClass = JunitresultFactory.eINSTANCE.createTestsuite();
+				// suite name is classname without leading ./ and trailing .rb
+				String suitename = key.substring(key.startsWith("./")
+						? 2
+						: 0, //
+					key.length() - (key.endsWith(".rb")
+							? 3
+							: 0));
+				suitePerClass.setName(suitename);
+				// add all testcases from the same source (i.e. same "classname")
+				suitePerClass.getTestcases().addAll(map.get(key));
+				containerSuite.getTestsuites().add(suitePerClass);
+			}
+			rootSuite.getTestsuites().add(containerSuite);
+			// all work done
+		}
+		else if(isSuiteWrappingSingleCase(testsuite)) {
+			// this is the ci_reporter style where each individual tc is wrapped in a testsuite
+			// and saved in a separate file. The name of the file is important as it dissambiguifies
+			// between tests with same name from different spec sources (the source is *not* included in
+			// ci_reporter's output).
+
+			// Simply rename the wrapping testsuite to reflect the name of the file
+			testsuite.setName(suitename(f));
+			rootSuite.getTestsuites().add(testsuite);
+			// all work done
+		}
+		else {
+			// this is some form of testsuite that is not known - simply include it
+			// make sure it has a name, if not, name it after the file
+			String suitename = testsuite.getName();
+			if(suitename == null || suitename.length() < 1)
+				testsuite.setName(suitename(f));
+			rootSuite.getTestsuites().add(testsuite);
+			// all work done
+		}
 
 	}
 
 	/**
+	 * Wraps the content of the 'testsuites' into a new 'testsuite' named after the file, and
+	 * adds the resulting container to the root suite.
+	 * 
 	 * @param f
 	 * @param testsuites
 	 */
 	private void processTestsuites(File f, Testsuites testsuites) {
-		// TODO Auto-generated method stub
+		Testsuite containerSuite = JunitresultFactory.eINSTANCE.createTestsuite();
+		containerSuite.setName(suitename(f));
+		containerSuite.getTestsuites().addAll(testsuites.getTestsuites());
+		rootSuite.getTestsuites().add(containerSuite);
+	}
 
+	/**
+	 * Produces a suite-name based on the name of the path of the given f, relative to the given root.
+	 * 
+	 * @param f
+	 * @return
+	 */
+	private String suitename(File f) {
+		IPath p = new Path(f.getAbsolutePath());
+		IPath relative = p.makeRelativeTo(rootPath);
+		relative = relative.removeFileExtension();
+		return relative.toString();
+	}
+
+	/**
+	 * Returns the time as a double, or 0.0 if the given timeString is null, empty, or can not be parsed as
+	 * a double number.
+	 * 
+	 * @param timeString
+	 * @return
+	 */
+	private double time(String timeString) {
+		if(timeString == null || timeString.length() < 1)
+			return 0.0;
+		try {
+			// make sure value is not negative as this screws up aggregation
+			return Math.abs(Double.valueOf(timeString));
+		}
+		catch(NumberFormatException e) {
+			return 0.0;
+		}
+	}
+
+	private Stats updateStats(Testcase tc) {
+		Stats s = new Stats(1, 0, 0, 0, 0, time(tc.getTime()));
+
+		NegativeResult r = tc.getNegativeResult();
+		if(r != null) {
+			if(r instanceof Error)
+				s.errors = 1;
+			else if(r instanceof Failure)
+				s.failures = 1;
+			else if(r instanceof Skipped)
+				s.skipped = 1;
+		}
+		return s;
+	}
+
+	private Stats updateStats(Testsuite testsuite) {
+		Stats s = new Stats();
+		for(Testcase tc : testsuite.getTestcases())
+			s = s.add(updateStats(tc));
+		for(Testsuite ts : testsuite.getTestsuites())
+			s = s.add(updateStats(ts));
+
+		testsuite.setTests(s.count);
+		testsuite.setErrors(s.errors);
+		testsuite.setFailures(s.failures);
+		testsuite.setSkipped(s.skipped);
+		testsuite.setDisabled(s.disabled);
+		testsuite.setTime(Double.toString(s.time));
+		return s;
+	}
+
+	private Stats updateStats(Testsuites testsuites) {
+		Stats s = new Stats();
+		for(Testsuite ts : testsuites.getTestsuites())
+			s = s.add(updateStats(ts));
+
+		// TODO !! : ADD Attributes to Testsuites
+		// testsuites.setTests(s.count);
+		// testsuites.setErrors(s.errors);
+		// testsuites.setFailures(s.failures);
+		// testsuites.setSkipped(s.skipped);
+		// testsuites.setDisabled(s.disabled);
+		// testsuites.setTime(Double.toString(s.time));
+		return s;
 	}
 
 }

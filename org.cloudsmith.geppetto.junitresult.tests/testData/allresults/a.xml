@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<testsuite errors="0" failures="1" skipped="0" tests="2" time="0.001598" timestamp="2012-05-08T02:12:52+02:00">
+  <testcase classname="./game_spec.rb" name="Game1aa" time="0.0001" />
+  <testcase classname="./game_spec.rb" name="Game2aa" time="0.0002">
+    <failure message="failure" type="failure" />
+  </testcase>
+</testsuite>

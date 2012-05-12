@@ -21,7 +21,7 @@ public class AllJunitresultTests {
 		// $JUnit-BEGIN$
 		suite.addTestSuite(TestTestrun.class);
 		suite.addTestSuite(TestTessuite.class);
-
+		suite.addTestSuite(TestAggregator.class);
 		// $JUnit-END$
 		return suite;
 	}

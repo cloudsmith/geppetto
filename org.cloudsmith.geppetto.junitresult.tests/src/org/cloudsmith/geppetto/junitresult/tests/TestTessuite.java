@@ -51,7 +51,7 @@ public class TestTessuite extends TestCase {
 
 		Testsuite testsuite = rootsuite;
 		assertEquals("net.cars.engine.BougieTest", testsuite.getName());
-		assertEquals("0.017", testsuite.getTime());
+		assertEquals(0.017, testsuite.getTime());
 
 		assertEquals("There should be two testcases", 2, testsuite.getTestcases().size());
 		Testcase tc1 = testsuite.getTestcases().get(0);
@@ -59,13 +59,14 @@ public class TestTessuite extends TestCase {
 
 		assertEquals("sparkDry", tc1.getName());
 		assertEquals("net.cars.engine.BougieTest", tc1.getClassname());
-		assertEquals("0.0010", tc1.getTime());
+		assertEquals(0.0010, tc1.getTime());
 
 		assertEquals("sparkHumid", tc2.getName());
 		assertEquals("net.cars.engine.BougieTest", tc2.getClassname());
-		assertEquals("0.0050", tc2.getTime());
+		assertEquals(0.0050, tc2.getTime());
 
-		NegativeResult error = tc2.getNegativeResult();
+		assertEquals(1, tc2.getErrors().size());
+		NegativeResult error = tc2.getErrors().get(0);
 		assertTrue(error instanceof org.cloudsmith.geppetto.junitresult.Error);
 		assertEquals("java.lang.RuntimeException: humidity level too high\n" + //
 				"\tat net.cars.engine.Bougie.spark(Unknown Source)\n" + //
@@ -87,7 +88,8 @@ public class TestTessuite extends TestCase {
 		// should have one testcase with a failure
 		assertEquals("There should be one testcase", 1, rootsuite.getTestcases().size());
 		Testcase tc = rootsuite.getTestcases().get(0);
-		NegativeResult failure = tc.getNegativeResult();
+		assertEquals(1, tc.getFailures().size());
+		NegativeResult failure = tc.getFailures().get(0);
 		assertNotNull(failure);
 		assertTrue(failure instanceof Failure);
 		assertEquals("Mix should be exactly 25. expected:<25> but was:<20>", failure.getMessage());

@@ -43,7 +43,7 @@ public interface NegativeResult extends EObject {
 	 * @return the value of the '<em>Message</em>' attribute.
 	 * @see #setMessage(String)
 	 * @see org.cloudsmith.geppetto.junitresult.JunitresultPackage#getNegativeResult_Message()
-	 * @model required="true"
+	 * @model
 	 * @generated
 	 */
 	String getMessage();
@@ -59,7 +59,7 @@ public interface NegativeResult extends EObject {
 	 * @return the value of the '<em>Type</em>' attribute.
 	 * @see #setType(String)
 	 * @see org.cloudsmith.geppetto.junitresult.JunitresultPackage#getNegativeResult_Type()
-	 * @model required="true"
+	 * @model
 	 * @generated
 	 */
 	String getType();

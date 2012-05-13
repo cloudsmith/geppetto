@@ -12,6 +12,7 @@
 package org.cloudsmith.geppetto.junitresult.util;
 
 import java.io.OutputStream;
+import java.text.DecimalFormat;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -23,6 +24,8 @@ import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 
+import org.cloudsmith.geppetto.junitresult.Error;
+import org.cloudsmith.geppetto.junitresult.Failure;
 import org.cloudsmith.geppetto.junitresult.JunitResult;
 import org.cloudsmith.geppetto.junitresult.JunitresultPackage;
 import org.cloudsmith.geppetto.junitresult.NegativeResult;
@@ -46,6 +49,15 @@ public class JunitresultDomSerializer {
 	private Document doc;
 
 	/**
+	 * Format time using as many digits as possible for seconds, and always three digits for ms.
+	 */
+	final private DecimalFormat timeFormat = new DecimalFormat("0.000");
+
+	private String formatTime(double d) {
+		return timeFormat.format(d);
+	}
+
+	/**
 	 * @param negativeResult
 	 * @return
 	 */
@@ -62,17 +74,7 @@ public class JunitresultDomSerializer {
 		}
 	}
 
-	/**
-	 * @param e
-	 * @param tc
-	 */
-	private void processTestcase(Node n, Testcase tc) {
-		Element e = doc.createElement("testcase");
-		e.setAttribute("name", tc.getName());
-		e.setAttribute("time", tc.getTime());
-		if(!Strings.isNullOrEmpty(tc.getClassname()))
-			e.setAttribute("classname", tc.getClassname());
-		NegativeResult negativeResult = tc.getNegativeResult();
+	private void processNegativeResult(Node n, NegativeResult negativeResult) {
 		if(negativeResult != null) {
 			Element ne = doc.createElement(negativeResultToTag(negativeResult));
 			ne.setAttribute("message", negativeResult.getMessage());
@@ -81,15 +83,37 @@ public class JunitresultDomSerializer {
 				CDATASection value = doc.createCDATASection(negativeResult.getValue());
 				ne.appendChild(value);
 			}
-			e.appendChild(ne);
+			n.appendChild(ne);
 		}
+	}
+
+	/**
+	 * @param e
+	 * @param tc
+	 */
+	private void processTestcase(Node n, Testcase tc) {
+		Element e = doc.createElement("testcase");
+		e.setAttribute("name", tc.getName());
+		e.setAttribute("time", formatTime(tc.getTime()));
+		if(!Strings.isNullOrEmpty(tc.getClassname()))
+			e.setAttribute("classname", tc.getClassname());
+		for(Error error : tc.getErrors())
+			processNegativeResult(e, error);
+		for(Failure failure : tc.getFailures())
+			processNegativeResult(e, failure);
+		if(tc.getSkipped() != null)
+			processNegativeResult(e, tc.getSkipped());
+
+		// TODO: System_out (multiple)
+		// TODO: System_err (multiple)
+
 		n.appendChild(e);
 	}
 
 	private void processTestsuite(Node n, Testsuite r) {
 		Element e = doc.createElement("testsuite");
 		e.setAttribute("name", r.getName());
-		e.setAttribute("time", r.getTime());
+		e.setAttribute("time", formatTime(r.getTime()));
 		// TODO: Correct timeformat
 		if(r.getTimestamp() != null)
 			e.setAttribute("timestamp", r.getTimestamp().toString());
@@ -103,6 +127,9 @@ public class JunitresultDomSerializer {
 			processTestcase(e, tc);
 		for(Testsuite ts : r.getTestsuites())
 			processTestsuite(e, ts);
+
+		// TODO: System_out
+		// TODO: System_err
 
 		n.appendChild(e);
 	}

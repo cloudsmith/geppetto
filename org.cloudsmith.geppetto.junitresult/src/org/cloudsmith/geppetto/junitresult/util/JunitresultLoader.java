@@ -28,6 +28,8 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 import org.xml.sax.SAXNotSupportedException;
 
+import com.google.common.base.Strings;
+
 public class JunitresultLoader {
 	/**
 	 * Loader of so called JUnit result format, as first defined by the ANT junit task. Three main formats
@@ -89,6 +91,18 @@ public class JunitresultLoader {
 			}
 		}
 		return null;
+	}
+
+	private double getTime(Element element, String attribute) {
+		String t = element.getAttribute(attribute);
+		if(Strings.isNullOrEmpty(t))
+			return 0.0;
+		try {
+			return Math.abs(Double.parseDouble(t));
+		}
+		catch(NumberFormatException e) {
+			return 0.0; // always return a time
+		}
 	}
 
 	private Date getTimestamp(Element element, String attribute) {
@@ -163,7 +177,7 @@ public class JunitresultLoader {
 
 		o.setClassname(element.getAttribute("classname"));
 		o.setName(element.getAttribute("name"));
-		o.setTime(element.getAttribute("time"));
+		o.setTime(getTime(element, "time"));
 
 		// Only one of these are allowed - error, failure, skipped
 		// let the last win
@@ -171,19 +185,19 @@ public class JunitresultLoader {
 		{
 			// Error element
 			NodeList errors = element.getElementsByTagName("error");
-			if(errors.getLength() > 0) {
+			for(int i = 0; i < errors.getLength(); i++) {
 				Error error = JunitresultFactory.eINSTANCE.createError();
 				loadNegativeResult(error, errors);
-				o.setNegativeResult(error);
+				o.getErrors().add(error);
 			}
 		}
 		{
 			// Failure element
 			NodeList failures = element.getElementsByTagName("failure");
-			if(failures.getLength() > 0) {
+			for(int i = 0; i < failures.getLength(); i++) {
 				Failure failure = JunitresultFactory.eINSTANCE.createFailure();
 				loadNegativeResult(failure, failures);
-				o.setNegativeResult(failure);
+				o.getFailures().add(failure);
 			}
 		}
 		{
@@ -192,7 +206,7 @@ public class JunitresultLoader {
 			if(skipps.getLength() > 0) {
 				Skipped skipped = JunitresultFactory.eINSTANCE.createSkipped();
 				loadNegativeResult(skipped, skipps);
-				o.setNegativeResult(skipped);
+				o.setSkipped(skipped);
 			}
 		}
 
@@ -257,7 +271,7 @@ public class JunitresultLoader {
 		o.setSystem_err(getTagValue(element, "system-err"));
 		o.setSystem_out(getTagValue(element, "system-out"));
 		o.setHostname(element.getAttribute("hostname"));
-		o.setTime(element.getAttribute("time"));
+		o.setTime(getTime(element, "time"));
 		o.setTimestamp(getTimestamp(element, "timestamp"));
 
 		// JUnit 4 - (?)
@@ -303,13 +317,16 @@ public class JunitresultLoader {
 	 * Loads a &lt;testsuites&gt; element as found in the result from a junitreport. All nested
 	 * &lt;testsuite&gt; elements have extended attributes.
 	 * 
-	 * @param docElement
+	 * @param element
 	 * @return
 	 */
-	private Testsuites loadTestSuites(Element docElement) {
+	private Testsuites loadTestSuites(Element element) {
 		Testsuites o = JunitresultFactory.eINSTANCE.createTestsuites();
+		loadAbstractAggregatedPart(o, element);
+		o.setTime(getTime(element, "time"));
+		o.setDisabled(getIntAttributeWith0Default(element, "disabled"));
 
-		NodeList children = docElement.getChildNodes();
+		NodeList children = element.getChildNodes();
 		for(int i = 0; i < children.getLength(); i++) {
 			Node n = children.item(i);
 			if(n.getNodeType() == Node.ELEMENT_NODE && "testsuite".equalsIgnoreCase(n.getNodeName()))

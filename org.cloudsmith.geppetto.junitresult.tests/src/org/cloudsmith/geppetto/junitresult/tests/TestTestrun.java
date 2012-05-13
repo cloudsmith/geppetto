@@ -46,7 +46,7 @@ public class TestTestrun extends TestCase {
 		assertEquals("There should be one testsuite", 1, testrun.getTestsuites().size());
 		Testsuite testsuite = testrun.getTestsuites().get(0);
 		assertEquals("net.cars.engine.BougieTest", testsuite.getName());
-		assertEquals("0.017", testsuite.getTime());
+		assertEquals(0.017, testsuite.getTime());
 
 		assertEquals("There should be two testcases", 2, testsuite.getTestcases().size());
 		Testcase tc1 = testsuite.getTestcases().get(0);
@@ -54,13 +54,14 @@ public class TestTestrun extends TestCase {
 
 		assertEquals("sparkDry", tc1.getName());
 		assertEquals("net.cars.engine.BougieTest", tc1.getClassname());
-		assertEquals("0.001", tc1.getTime());
+		assertEquals(0.001, tc1.getTime());
 
 		assertEquals("sparkHumid", tc2.getName());
 		assertEquals("net.cars.engine.BougieTest", tc2.getClassname());
-		assertEquals("0.005", tc2.getTime());
+		assertEquals(0.005, tc2.getTime());
 
-		NegativeResult error = tc2.getNegativeResult();
+		assertEquals(1, tc2.getErrors().size());
+		NegativeResult error = tc2.getErrors().get(0);
 		assertTrue(error instanceof org.cloudsmith.geppetto.junitresult.Error);
 		assertEquals("java.lang.RuntimeException: humidity level too high\n" + //
 				"\tat net.cars.engine.Bougie.spark(Unknown Source)\n" + //

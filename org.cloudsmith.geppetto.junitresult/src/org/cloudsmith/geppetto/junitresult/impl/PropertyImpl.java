@@ -28,11 +28,11 @@ import org.eclipse.emf.ecore.impl.EObjectImpl;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.cloudsmith.geppetto.junitresult.impl.PropertyImpl#getName <em>Name</em>}</li>
- *   <li>{@link org.cloudsmith.geppetto.junitresult.impl.PropertyImpl#getValue <em>Value</em>}</li>
+ * <li>{@link org.cloudsmith.geppetto.junitresult.impl.PropertyImpl#getName <em>Name</em>}</li>
+ * <li>{@link org.cloudsmith.geppetto.junitresult.impl.PropertyImpl#getValue <em>Value</em>}</li>
  * </ul>
  * </p>
- *
+ * 
  * @generated
  */
 public class PropertyImpl extends EObjectImpl implements Property {
@@ -40,6 +40,7 @@ public class PropertyImpl extends EObjectImpl implements Property {
 	 * The default value of the '{@link #getName() <em>Name</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @see #getName()
 	 * @generated
 	 * @ordered
@@ -50,6 +51,7 @@ public class PropertyImpl extends EObjectImpl implements Property {
 	 * The cached value of the '{@link #getName() <em>Name</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @see #getName()
 	 * @generated
 	 * @ordered
@@ -60,6 +62,7 @@ public class PropertyImpl extends EObjectImpl implements Property {
 	 * The default value of the '{@link #getValue() <em>Value</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @see #getValue()
 	 * @generated
 	 * @ordered
@@ -70,6 +73,7 @@ public class PropertyImpl extends EObjectImpl implements Property {
 	 * The cached value of the '{@link #getValue() <em>Value</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @see #getValue()
 	 * @generated
 	 * @ordered
@@ -79,6 +83,7 @@ public class PropertyImpl extends EObjectImpl implements Property {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	protected PropertyImpl() {
@@ -88,11 +93,12 @@ public class PropertyImpl extends EObjectImpl implements Property {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
-		switch (featureID) {
+		switch(featureID) {
 			case JunitresultPackage.PROPERTY__NAME:
 				return getName();
 			case JunitresultPackage.PROPERTY__VALUE:
@@ -104,15 +110,20 @@ public class PropertyImpl extends EObjectImpl implements Property {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@Override
 	public boolean eIsSet(int featureID) {
-		switch (featureID) {
+		switch(featureID) {
 			case JunitresultPackage.PROPERTY__NAME:
-				return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
+				return NAME_EDEFAULT == null
+						? name != null
+						: !NAME_EDEFAULT.equals(name);
 			case JunitresultPackage.PROPERTY__VALUE:
-				return VALUE_EDEFAULT == null ? value != null : !VALUE_EDEFAULT.equals(value);
+				return VALUE_EDEFAULT == null
+						? value != null
+						: !VALUE_EDEFAULT.equals(value);
 		}
 		return super.eIsSet(featureID);
 	}
@@ -120,16 +131,17 @@ public class PropertyImpl extends EObjectImpl implements Property {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@Override
 	public void eSet(int featureID, Object newValue) {
-		switch (featureID) {
+		switch(featureID) {
 			case JunitresultPackage.PROPERTY__NAME:
-				setName((String)newValue);
+				setName((String) newValue);
 				return;
 			case JunitresultPackage.PROPERTY__VALUE:
-				setValue((String)newValue);
+				setValue((String) newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -138,6 +150,7 @@ public class PropertyImpl extends EObjectImpl implements Property {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@Override
@@ -148,11 +161,12 @@ public class PropertyImpl extends EObjectImpl implements Property {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@Override
 	public void eUnset(int featureID) {
-		switch (featureID) {
+		switch(featureID) {
 			case JunitresultPackage.PROPERTY__NAME:
 				setName(NAME_EDEFAULT);
 				return;
@@ -166,6 +180,7 @@ public class PropertyImpl extends EObjectImpl implements Property {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	public String getName() {
@@ -175,6 +190,7 @@ public class PropertyImpl extends EObjectImpl implements Property {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	public String getValue() {
@@ -184,35 +200,39 @@ public class PropertyImpl extends EObjectImpl implements Property {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	public void setName(String newName) {
 		String oldName = name;
 		name = newName;
-		if (eNotificationRequired())
+		if(eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, JunitresultPackage.PROPERTY__NAME, oldName, name));
 	}
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	public void setValue(String newValue) {
 		String oldValue = value;
 		value = newValue;
-		if (eNotificationRequired())
+		if(eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, JunitresultPackage.PROPERTY__VALUE, oldValue, value));
 	}
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@Override
 	public String toString() {
-		if (eIsProxy()) return super.toString();
+		if(eIsProxy())
+			return super.toString();
 
 		StringBuffer result = new StringBuffer(super.toString());
 		result.append(" (name: ");

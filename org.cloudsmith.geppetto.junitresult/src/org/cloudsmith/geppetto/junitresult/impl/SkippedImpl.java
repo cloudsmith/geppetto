@@ -22,13 +22,14 @@ import org.eclipse.emf.ecore.EClass;
  * <!-- end-user-doc -->
  * <p>
  * </p>
- *
+ * 
  * @generated
  */
 public class SkippedImpl extends NegativeResultImpl implements Skipped {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	protected SkippedImpl() {
@@ -38,6 +39,7 @@ public class SkippedImpl extends NegativeResultImpl implements Skipped {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@Override
@@ -45,4 +47,4 @@ public class SkippedImpl extends NegativeResultImpl implements Skipped {
 		return JunitresultPackage.Literals.SKIPPED;
 	}
 
-} //SkippedImpl
+} // SkippedImpl

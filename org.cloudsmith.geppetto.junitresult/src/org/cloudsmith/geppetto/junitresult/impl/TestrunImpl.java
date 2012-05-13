@@ -37,13 +37,13 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.cloudsmith.geppetto.junitresult.impl.TestrunImpl#getProject <em>Project</em>}</li>
- *   <li>{@link org.cloudsmith.geppetto.junitresult.impl.TestrunImpl#getStarted <em>Started</em>}</li>
- *   <li>{@link org.cloudsmith.geppetto.junitresult.impl.TestrunImpl#getIgnored <em>Ignored</em>}</li>
- *   <li>{@link org.cloudsmith.geppetto.junitresult.impl.TestrunImpl#getTestsuites <em>Testsuites</em>}</li>
+ * <li>{@link org.cloudsmith.geppetto.junitresult.impl.TestrunImpl#getProject <em>Project</em>}</li>
+ * <li>{@link org.cloudsmith.geppetto.junitresult.impl.TestrunImpl#getStarted <em>Started</em>}</li>
+ * <li>{@link org.cloudsmith.geppetto.junitresult.impl.TestrunImpl#getIgnored <em>Ignored</em>}</li>
+ * <li>{@link org.cloudsmith.geppetto.junitresult.impl.TestrunImpl#getTestsuites <em>Testsuites</em>}</li>
  * </ul>
  * </p>
- *
+ * 
  * @generated
  */
 public class TestrunImpl extends AbstractAggregatedTestImpl implements Testrun {
@@ -51,6 +51,7 @@ public class TestrunImpl extends AbstractAggregatedTestImpl implements Testrun {
 	 * The default value of the '{@link #getProject() <em>Project</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @see #getProject()
 	 * @generated
 	 * @ordered
@@ -61,6 +62,7 @@ public class TestrunImpl extends AbstractAggregatedTestImpl implements Testrun {
 	 * The cached value of the '{@link #getProject() <em>Project</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @see #getProject()
 	 * @generated
 	 * @ordered
@@ -71,6 +73,7 @@ public class TestrunImpl extends AbstractAggregatedTestImpl implements Testrun {
 	 * The default value of the '{@link #getStarted() <em>Started</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @see #getStarted()
 	 * @generated
 	 * @ordered
@@ -81,6 +84,7 @@ public class TestrunImpl extends AbstractAggregatedTestImpl implements Testrun {
 	 * The cached value of the '{@link #getStarted() <em>Started</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @see #getStarted()
 	 * @generated
 	 * @ordered
@@ -91,6 +95,7 @@ public class TestrunImpl extends AbstractAggregatedTestImpl implements Testrun {
 	 * The default value of the '{@link #getIgnored() <em>Ignored</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @see #getIgnored()
 	 * @generated
 	 * @ordered
@@ -101,6 +106,7 @@ public class TestrunImpl extends AbstractAggregatedTestImpl implements Testrun {
 	 * The cached value of the '{@link #getIgnored() <em>Ignored</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @see #getIgnored()
 	 * @generated
 	 * @ordered
@@ -111,6 +117,7 @@ public class TestrunImpl extends AbstractAggregatedTestImpl implements Testrun {
 	 * The cached value of the '{@link #getTestsuites() <em>Testsuites</em>}' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @see #getTestsuites()
 	 * @generated
 	 * @ordered
@@ -120,6 +127,7 @@ public class TestrunImpl extends AbstractAggregatedTestImpl implements Testrun {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	protected TestrunImpl() {
@@ -129,11 +137,12 @@ public class TestrunImpl extends AbstractAggregatedTestImpl implements Testrun {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
-		switch (featureID) {
+		switch(featureID) {
 			case JunitresultPackage.TESTRUN__PROJECT:
 				return getProject();
 			case JunitresultPackage.TESTRUN__STARTED:
@@ -149,13 +158,14 @@ public class TestrunImpl extends AbstractAggregatedTestImpl implements Testrun {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
-		switch (featureID) {
+		switch(featureID) {
 			case JunitresultPackage.TESTRUN__TESTSUITES:
-				return ((InternalEList<?>)getTestsuites()).basicRemove(otherEnd, msgs);
+				return ((InternalEList<?>) getTestsuites()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -163,13 +173,16 @@ public class TestrunImpl extends AbstractAggregatedTestImpl implements Testrun {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@Override
 	public boolean eIsSet(int featureID) {
-		switch (featureID) {
+		switch(featureID) {
 			case JunitresultPackage.TESTRUN__PROJECT:
-				return PROJECT_EDEFAULT == null ? project != null : !PROJECT_EDEFAULT.equals(project);
+				return PROJECT_EDEFAULT == null
+						? project != null
+						: !PROJECT_EDEFAULT.equals(project);
 			case JunitresultPackage.TESTRUN__STARTED:
 				return started != STARTED_EDEFAULT;
 			case JunitresultPackage.TESTRUN__IGNORED:
@@ -183,24 +196,25 @@ public class TestrunImpl extends AbstractAggregatedTestImpl implements Testrun {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@SuppressWarnings("unchecked")
 	@Override
 	public void eSet(int featureID, Object newValue) {
-		switch (featureID) {
+		switch(featureID) {
 			case JunitresultPackage.TESTRUN__PROJECT:
-				setProject((String)newValue);
+				setProject((String) newValue);
 				return;
 			case JunitresultPackage.TESTRUN__STARTED:
-				setStarted((Integer)newValue);
+				setStarted((Integer) newValue);
 				return;
 			case JunitresultPackage.TESTRUN__IGNORED:
-				setIgnored((Integer)newValue);
+				setIgnored((Integer) newValue);
 				return;
 			case JunitresultPackage.TESTRUN__TESTSUITES:
 				getTestsuites().clear();
-				getTestsuites().addAll((Collection<? extends Testsuite>)newValue);
+				getTestsuites().addAll((Collection<? extends Testsuite>) newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -209,6 +223,7 @@ public class TestrunImpl extends AbstractAggregatedTestImpl implements Testrun {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@Override
@@ -219,11 +234,12 @@ public class TestrunImpl extends AbstractAggregatedTestImpl implements Testrun {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@Override
 	public void eUnset(int featureID) {
-		switch (featureID) {
+		switch(featureID) {
 			case JunitresultPackage.TESTRUN__PROJECT:
 				setProject(PROJECT_EDEFAULT);
 				return;
@@ -243,6 +259,7 @@ public class TestrunImpl extends AbstractAggregatedTestImpl implements Testrun {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	public int getIgnored() {
@@ -252,6 +269,7 @@ public class TestrunImpl extends AbstractAggregatedTestImpl implements Testrun {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	public String getProject() {
@@ -261,6 +279,7 @@ public class TestrunImpl extends AbstractAggregatedTestImpl implements Testrun {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	public int getStarted() {
@@ -270,11 +289,13 @@ public class TestrunImpl extends AbstractAggregatedTestImpl implements Testrun {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	public EList<Testsuite> getTestsuites() {
-		if (testsuites == null) {
-			testsuites = new EObjectContainmentEList<Testsuite>(Testsuite.class, this, JunitresultPackage.TESTRUN__TESTSUITES);
+		if(testsuites == null) {
+			testsuites = new EObjectContainmentEList<Testsuite>(
+				Testsuite.class, this, JunitresultPackage.TESTRUN__TESTSUITES);
 		}
 		return testsuites;
 	}
@@ -282,47 +303,55 @@ public class TestrunImpl extends AbstractAggregatedTestImpl implements Testrun {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	public void setIgnored(int newIgnored) {
 		int oldIgnored = ignored;
 		ignored = newIgnored;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, JunitresultPackage.TESTRUN__IGNORED, oldIgnored, ignored));
+		if(eNotificationRequired())
+			eNotify(new ENotificationImpl(
+				this, Notification.SET, JunitresultPackage.TESTRUN__IGNORED, oldIgnored, ignored));
 	}
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	public void setProject(String newProject) {
 		String oldProject = project;
 		project = newProject;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, JunitresultPackage.TESTRUN__PROJECT, oldProject, project));
+		if(eNotificationRequired())
+			eNotify(new ENotificationImpl(
+				this, Notification.SET, JunitresultPackage.TESTRUN__PROJECT, oldProject, project));
 	}
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	public void setStarted(int newStarted) {
 		int oldStarted = started;
 		started = newStarted;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, JunitresultPackage.TESTRUN__STARTED, oldStarted, started));
+		if(eNotificationRequired())
+			eNotify(new ENotificationImpl(
+				this, Notification.SET, JunitresultPackage.TESTRUN__STARTED, oldStarted, started));
 	}
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@Override
 	public String toString() {
-		if (eIsProxy()) return super.toString();
+		if(eIsProxy())
+			return super.toString();
 
 		StringBuffer result = new StringBuffer(super.toString());
 		result.append(" (project: ");

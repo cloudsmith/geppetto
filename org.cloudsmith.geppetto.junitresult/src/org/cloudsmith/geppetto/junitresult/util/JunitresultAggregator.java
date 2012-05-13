@@ -19,11 +19,8 @@ import java.text.DecimalFormat;
 import java.util.List;
 
 import org.cloudsmith.geppetto.junitresult.Error;
-import org.cloudsmith.geppetto.junitresult.Failure;
 import org.cloudsmith.geppetto.junitresult.JunitResult;
 import org.cloudsmith.geppetto.junitresult.JunitresultFactory;
-import org.cloudsmith.geppetto.junitresult.NegativeResult;
-import org.cloudsmith.geppetto.junitresult.Skipped;
 import org.cloudsmith.geppetto.junitresult.Testcase;
 import org.cloudsmith.geppetto.junitresult.Testrun;
 import org.cloudsmith.geppetto.junitresult.Testsuite;
@@ -45,7 +42,7 @@ import com.google.common.collect.Multimap;
  */
 public class JunitresultAggregator {
 
-	private static class Stats {
+	public static class Stats {
 		private int count;
 
 		private int errors;
@@ -99,10 +96,6 @@ public class JunitresultAggregator {
 		return LocalFileSystem.getInstance().fromLocalFile(f).fetchInfo().getAttribute(EFS.ATTRIBUTE_SYMLINK);
 	}
 
-	private File reportDir;
-
-	private File rootDir;
-
 	private Testsuite rootSuite;
 
 	private Path rootPath;
@@ -123,7 +116,7 @@ public class JunitresultAggregator {
 		error.setValue(builder.toString());
 		error.setMessage(e.getMessage());
 
-		tc.setNegativeResult(error);
+		tc.getErrors().add(error);
 		rootSuite.getTestcases().add(tc);
 	}
 
@@ -189,8 +182,8 @@ public class JunitresultAggregator {
 		if(!reportDir.getAbsolutePath().startsWith(rootDir.getAbsolutePath()))
 			throw new IllegalArgumentException("given directory must be same or subdirectoryu of given root");
 
-		this.reportDir = reportDir;
-		this.rootDir = rootDir;
+		// this.reportDir = reportDir;
+		// this.rootDir = rootDir;
 		this.rootPath = new Path(rootDir.getParentFile().getAbsolutePath());
 
 		this.rootSuite = createRootSuite(reportDir, rootDir);
@@ -402,41 +395,78 @@ public class JunitresultAggregator {
 		return relative.toString();
 	}
 
+	// /**
+	// * Returns the time as a double, or 0.0 if the given timeString is null, empty, or can not be parsed as
+	// * a double number.
+	// *
+	// * @param timeString
+	// * @return
+	// */
+	// private double time(String timeString) {
+	// if(timeString == null || timeString.length() < 1)
+	// return 0.0;
+	// try {
+	// // make sure value is not negative as this screws up aggregation
+	// return Math.abs(Double.valueOf(timeString));
+	// }
+	// catch(NumberFormatException e) {
+	// return 0.0;
+	// }
+	// }
+
 	/**
-	 * Returns the time as a double, or 0.0 if the given timeString is null, empty, or can not be parsed as
-	 * a double number.
+	 * Produces a Stats instance populated with the data from the given testcase.
 	 * 
-	 * @param timeString
+	 * Junit4 allows multiple failures, errors and one skipped...
+	 * There are no rules that describes how they are counted - it seems
+	 * reasonable that:
+	 * - the count is the number of tc in different states, not the number of individually logged errors
+	 * - if there is a Skipped - then the TC counts as skipped
+	 * - if there is an Error - the TC is counted as an error
+	 * - else, if there is a Failure, it is counted as a Failure
+	 * - else it is ok.
+	 * 
+	 * @param tc
 	 * @return
 	 */
-	private double time(String timeString) {
-		if(timeString == null || timeString.length() < 1)
-			return 0.0;
-		try {
-			// make sure value is not negative as this screws up aggregation
-			return Math.abs(Double.valueOf(timeString));
-		}
-		catch(NumberFormatException e) {
-			return 0.0;
-		}
-	}
-
 	private Stats updateStats(Testcase tc) {
-		Stats s = new Stats(1, 0, 0, 0, 0, time(tc.getTime()));
+		Stats s = new Stats(1, 0, 0, 0, 0, tc.getTime());
 
-		NegativeResult r = tc.getNegativeResult();
-		if(r != null) {
-			if(r instanceof Error)
-				s.errors = 1;
-			else if(r instanceof Failure)
-				s.failures = 1;
-			else if(r instanceof Skipped)
-				s.skipped = 1;
-		}
+		if(tc.getSkipped() != null)
+			s.skipped = 1;
+		else if(tc.getErrors().size() > 0)
+			s.errors = 1;
+		else if(tc.getFailures().size() > 0)
+			s.failures = 1;
+
 		return s;
 	}
 
-	private Stats updateStats(Testsuite testsuite) {
+	public Stats updateStats(Testrun testrun) {
+		Stats s = new Stats();
+		for(Testsuite ts : testrun.getTestsuites())
+			s = s.add(updateStats(ts));
+
+		testrun.setTests(s.count);
+		testrun.setErrors(s.errors);
+		testrun.setFailures(s.failures);
+		// there is only one "ignored" that counts tests that did not run
+		// use that for tests reported as "disabled" or "skipped" (they are never both).
+		testrun.setIgnored(s.disabled + s.skipped);
+
+		// NOTE: "started" counts how many of the tests in the report that were actually started and
+		// should have produced a result - this is different from the total number of testcases (i.e. "tests").
+		// this is only known by the user of a "testrun" and can not be detected since there is no notion
+		// of a "positive testcase" - the existence of a tc is interpreted as success if it is not skipped, has
+		// an error, or failure.
+		// testrun.setStarted(??)
+
+		// testrun does not have concept of aggregated time
+		// testrun.setTime(s.time);
+		return s;
+	}
+
+	public Stats updateStats(Testsuite testsuite) {
 		Stats s = new Stats();
 		for(Testcase tc : testsuite.getTestcases())
 			s = s.add(updateStats(tc));
@@ -448,22 +478,22 @@ public class JunitresultAggregator {
 		testsuite.setFailures(s.failures);
 		testsuite.setSkipped(s.skipped);
 		testsuite.setDisabled(s.disabled);
-		testsuite.setTime(Double.toString(s.time));
+		testsuite.setTime(s.time);
 		return s;
 	}
 
-	private Stats updateStats(Testsuites testsuites) {
+	public Stats updateStats(Testsuites testsuites) {
 		Stats s = new Stats();
 		for(Testsuite ts : testsuites.getTestsuites())
 			s = s.add(updateStats(ts));
 
-		// TODO !! : ADD Attributes to Testsuites
-		// testsuites.setTests(s.count);
-		// testsuites.setErrors(s.errors);
-		// testsuites.setFailures(s.failures);
-		// testsuites.setSkipped(s.skipped);
-		// testsuites.setDisabled(s.disabled);
-		// testsuites.setTime(Double.toString(s.time));
+		testsuites.setTests(s.count);
+		testsuites.setErrors(s.errors);
+		testsuites.setFailures(s.failures);
+		// there is only one "disabled" that counts tests that did not run
+		// use that for tests reported as "disabled" or "skipped" (they are never both).
+		testsuites.setDisabled(s.disabled + s.skipped);
+		testsuites.setTime(s.time);
 		return s;
 	}
 

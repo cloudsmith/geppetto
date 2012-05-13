@@ -42,7 +42,7 @@ public interface AbstractAggregatedTest extends JunitResult {
 	 * @return the value of the '<em>Errors</em>' attribute.
 	 * @see #setErrors(int)
 	 * @see org.cloudsmith.geppetto.junitresult.JunitresultPackage#getAbstractAggregatedTest_Errors()
-	 * @model required="true"
+	 * @model
 	 * @generated
 	 */
 	int getErrors();
@@ -58,7 +58,7 @@ public interface AbstractAggregatedTest extends JunitResult {
 	 * @return the value of the '<em>Failures</em>' attribute.
 	 * @see #setFailures(int)
 	 * @see org.cloudsmith.geppetto.junitresult.JunitresultPackage#getAbstractAggregatedTest_Failures()
-	 * @model required="true"
+	 * @model
 	 * @generated
 	 */
 	int getFailures();

@@ -70,7 +70,7 @@ public interface Testsuite extends AbstractAggregatedTest {
 	 * @return the value of the '<em>Hostname</em>' attribute.
 	 * @see #setHostname(String)
 	 * @see org.cloudsmith.geppetto.junitresult.JunitresultPackage#getTestsuite_Hostname()
-	 * @model required="true"
+	 * @model
 	 * @generated
 	 */
 	String getHostname();
@@ -150,7 +150,7 @@ public interface Testsuite extends AbstractAggregatedTest {
 	 * @return the value of the '<em>System err</em>' attribute.
 	 * @see #setSystem_err(String)
 	 * @see org.cloudsmith.geppetto.junitresult.JunitresultPackage#getTestsuite_System_err()
-	 * @model required="true"
+	 * @model
 	 * @generated
 	 */
 	String getSystem_err();
@@ -166,7 +166,7 @@ public interface Testsuite extends AbstractAggregatedTest {
 	 * @return the value of the '<em>System out</em>' attribute.
 	 * @see #setSystem_out(String)
 	 * @see org.cloudsmith.geppetto.junitresult.JunitresultPackage#getTestsuite_System_out()
-	 * @model required="true"
+	 * @model
 	 * @generated
 	 */
 	String getSystem_out();
@@ -212,12 +212,12 @@ public interface Testsuite extends AbstractAggregatedTest {
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the value of the '<em>Time</em>' attribute.
-	 * @see #setTime(String)
+	 * @see #setTime(double)
 	 * @see org.cloudsmith.geppetto.junitresult.JunitresultPackage#getTestsuite_Time()
-	 * @model required="true"
+	 * @model
 	 * @generated
 	 */
-	String getTime();
+	double getTime();
 
 	/**
 	 * Returns the value of the '<em><b>Timestamp</b></em>' attribute.
@@ -230,7 +230,7 @@ public interface Testsuite extends AbstractAggregatedTest {
 	 * @return the value of the '<em>Timestamp</em>' attribute.
 	 * @see #setTimestamp(Date)
 	 * @see org.cloudsmith.geppetto.junitresult.JunitresultPackage#getTestsuite_Timestamp()
-	 * @model required="true"
+	 * @model
 	 * @generated
 	 */
 	Date getTimestamp();
@@ -329,7 +329,7 @@ public interface Testsuite extends AbstractAggregatedTest {
 	 * @see #getTime()
 	 * @generated
 	 */
-	void setTime(String value);
+	void setTime(double value);
 
 	/**
 	 * Sets the value of the '{@link org.cloudsmith.geppetto.junitresult.Testsuite#getTimestamp <em>Timestamp</em>}' attribute.

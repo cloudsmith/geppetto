@@ -21,13 +21,14 @@ import org.eclipse.emf.ecore.EClass;
  * <!-- end-user-doc -->
  * <p>
  * </p>
- *
+ * 
  * @generated
  */
 public class ErrorImpl extends NegativeResultImpl implements org.cloudsmith.geppetto.junitresult.Error {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	protected ErrorImpl() {
@@ -37,6 +38,7 @@ public class ErrorImpl extends NegativeResultImpl implements org.cloudsmith.gepp
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@Override

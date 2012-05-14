@@ -44,6 +44,17 @@ import com.google.common.collect.Multimap;
 public class JunitresultAggregator {
 
 	public static class Stats {
+		static Date latest(Date a, Date b) {
+			if(a == null)
+				return b;
+			if(b == null)
+				return a;
+
+			return a.after(b)
+					? a
+					: b;
+		}
+
 		private int count;
 
 		private int errors;
@@ -56,22 +67,25 @@ public class JunitresultAggregator {
 
 		private double time;
 
+		private Date timestamp;
+
 		Stats() {
-			// all fields are 0
+			// all fields are 0 (or null).
 		}
 
-		Stats(int c, int e, int f, int s, int d, double t) {
+		Stats(int c, int e, int f, int s, int d, double t, Date ts) {
 			count = c;
 			errors = e;
 			failures = f;
 			skipped = s;
 			disabled = d;
 			time = t;
+			timestamp = ts;
 		}
 
 		Stats add(Stats s) {
 			return new Stats(count + s.count, errors + s.errors, failures + s.failures, skipped + s.skipped, disabled +
-					s.disabled, time + s.time);
+					s.disabled, time + s.time, latest(timestamp, s.timestamp));
 		}
 	}
 
@@ -330,6 +344,14 @@ public class JunitresultAggregator {
 	 * @param testsuite
 	 */
 	private void processTestsuite(File f, Testsuite testsuite) {
+
+		// get reported timestamp and if missing construct it from the timestamp of the
+		// resultfile.
+		//
+		Date timestamp = testsuite.getTimestamp();
+		if(timestamp == null)
+			timestamp = new Date(f.lastModified());
+
 		// Is this a testsuite with testcases where testcases have a classname that is a reference to
 		// a .rb spec file?
 		if(isExtraRspecFormatterStyle(testsuite)) {
@@ -337,6 +359,7 @@ public class JunitresultAggregator {
 			// this container is named after the path/file
 			Testsuite containerSuite = JunitresultFactory.eINSTANCE.createTestsuite();
 			containerSuite.setName(suitename(f));
+			containerSuite.setTimestamp(timestamp);
 
 			// create one suite per source classname and add test cases belonging to that suite
 			Multimap<String, Testcase> map = ArrayListMultimap.create();
@@ -356,6 +379,8 @@ public class JunitresultAggregator {
 							? 3
 							: 0));
 				suitePerClass.setName(suitename);
+				suitePerClass.setTimestamp(timestamp);
+
 				// add all testcases from the same source (i.e. same "classname")
 				suitePerClass.getTestcases().addAll(map.get(key));
 				containerSuite.getTestsuites().add(suitePerClass);
@@ -371,6 +396,7 @@ public class JunitresultAggregator {
 
 			// Simply rename the wrapping testsuite to reflect the name of the file
 			testsuite.setName(suitename(f));
+			testsuite.setTimestamp(timestamp);
 			rootSuite.getTestsuites().add(testsuite);
 			// all work done
 		}
@@ -380,6 +406,7 @@ public class JunitresultAggregator {
 			String suitename = testsuite.getName();
 			if(suitename == null || suitename.length() < 1)
 				testsuite.setName(suitename(f));
+			testsuite.setTimestamp(timestamp);
 			rootSuite.getTestsuites().add(testsuite);
 			// all work done
 		}
@@ -394,9 +421,16 @@ public class JunitresultAggregator {
 	 * @param testsuites
 	 */
 	private void processTestsuites(File f, Testsuites testsuites) {
+		Date fileTs = new Date(f.lastModified());
+
 		Testsuite containerSuite = JunitresultFactory.eINSTANCE.createTestsuite();
 		containerSuite.setName(suitename(f));
 		containerSuite.getTestsuites().addAll(testsuites.getTestsuites());
+		// make sure that at least the top level testsuite instances have timestamps
+		for(Testsuite ts : testsuites.getTestsuites()) {
+			if(ts.getTimestamp() == null)
+				ts.setTimestamp(fileTs);
+		}
 		rootSuite.getTestsuites().add(containerSuite);
 	}
 
@@ -448,7 +482,7 @@ public class JunitresultAggregator {
 	 * @return
 	 */
 	private Stats updateStats(Testcase tc) {
-		Stats s = new Stats(1, 0, 0, 0, 0, tc.getTime());
+		Stats s = new Stats(1, 0, 0, 0, 0, tc.getTime(), null);
 
 		if(tc.getSkipped() != null)
 			s.skipped = 1;

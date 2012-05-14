@@ -13,6 +13,8 @@ package org.cloudsmith.geppetto.junitresult.util;
 
 import java.io.OutputStream;
 import java.text.DecimalFormat;
+import java.util.Calendar;
+import java.util.Date;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -52,6 +54,14 @@ public class JunitresultDomSerializer {
 	 * Format time using as many digits as possible for seconds, and always three digits for ms.
 	 */
 	final private DecimalFormat timeFormat = new DecimalFormat("0.000");
+
+	private String dateToString(Date d) {
+		Calendar cal = Calendar.getInstance();
+		cal.setTime(d);
+
+		return javax.xml.bind.DatatypeConverter.printDateTime(cal);
+
+	}
 
 	private String formatTime(double d) {
 		return timeFormat.format(d);
@@ -114,9 +124,8 @@ public class JunitresultDomSerializer {
 		Element e = doc.createElement("testsuite");
 		e.setAttribute("name", r.getName());
 		e.setAttribute("time", formatTime(r.getTime()));
-		// TODO: Correct timeformat
 		if(r.getTimestamp() != null)
-			e.setAttribute("timestamp", r.getTimestamp().toString());
+			e.setAttribute("timestamp", dateToString(r.getTimestamp()));
 		e.setAttribute("tests", Integer.toString(r.getTests()));
 		e.setAttribute("errors", Integer.toString(r.getErrors()));
 		e.setAttribute("failures", Integer.toString(r.getFailures()));

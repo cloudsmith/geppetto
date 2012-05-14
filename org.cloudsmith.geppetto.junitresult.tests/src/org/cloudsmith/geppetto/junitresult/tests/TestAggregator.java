@@ -38,8 +38,8 @@ public class TestAggregator extends TestCase {
 		assertTrue(result instanceof Testsuites);
 		Testsuites testsuite = (Testsuites) result;
 		assertEquals("allresults", testsuite.getName());
-		assertEquals(0, testsuite.getErrors());
-		assertEquals(11, testsuite.getTests());
+		assertEquals(1, testsuite.getErrors());
+		assertEquals(13, testsuite.getTests());
 		assertEquals(7, testsuite.getFailures());
 
 		JunitresultDomSerializer serializer = new JunitresultDomSerializer();

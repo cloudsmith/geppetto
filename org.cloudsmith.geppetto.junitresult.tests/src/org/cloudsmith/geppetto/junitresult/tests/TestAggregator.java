@@ -20,7 +20,7 @@ import javax.xml.transform.TransformerException;
 import junit.framework.TestCase;
 
 import org.cloudsmith.geppetto.junitresult.JunitResult;
-import org.cloudsmith.geppetto.junitresult.Testsuite;
+import org.cloudsmith.geppetto.junitresult.Testsuites;
 import org.cloudsmith.geppetto.junitresult.util.JunitresultAggregator;
 import org.cloudsmith.geppetto.junitresult.util.JunitresultDomSerializer;
 import org.eclipse.core.runtime.Path;
@@ -35,8 +35,8 @@ public class TestAggregator extends TestCase {
 		JunitresultAggregator aggregator = new JunitresultAggregator();
 		File root = TestDataProvider.getTestFile(new Path("testData/allresults/"));
 		JunitResult result = aggregator.aggregate(root, root);
-		assertTrue(result instanceof Testsuite);
-		Testsuite testsuite = (Testsuite) result;
+		assertTrue(result instanceof Testsuites);
+		Testsuites testsuite = (Testsuites) result;
 		assertEquals("allresults", testsuite.getName());
 		assertEquals(0, testsuite.getErrors());
 		assertEquals(11, testsuite.getTests());

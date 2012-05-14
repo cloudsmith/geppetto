@@ -155,13 +155,27 @@ public class JunitresultDomSerializer {
 	}
 
 	/**
+	 * Serializes a testrun as the root of the document.
+	 * 
 	 * @param r
 	 */
 	private void serializeTestrun(Testrun r) {
-		// Waiting
+		Element e = doc.createElement("testrun");
+		e.setAttribute("name", r.getName());
+		e.setAttribute("tests", Integer.toString(r.getTests()));
+		e.setAttribute("errors", Integer.toString(r.getErrors()));
+		e.setAttribute("failures", Integer.toString(r.getFailures()));
+		e.setAttribute("ignored", Integer.toString(r.getIgnored()));
+		e.setAttribute("started", Integer.toString(r.getStarted()));
+		for(Testsuite ts : r.getTestsuites())
+			processTestsuite(e, ts);
+
+		doc.appendChild(e);
 	}
 
 	/**
+	 * Serializes a testsuite as the root of the document.
+	 * 
 	 * @param r
 	 */
 	private void serializeTestsuite(Testsuite r) {
@@ -170,10 +184,22 @@ public class JunitresultDomSerializer {
 	}
 
 	/**
+	 * Serializes a testsuites as the root of the document
+	 * 
 	 * @param r
 	 */
 	private void serializeTestsuites(Testsuites r) {
-		// TODO: waiting with this until Testsuites has all the attributes
+		Element e = doc.createElement("testsuites");
+		e.setAttribute("name", r.getName());
+		e.setAttribute("time", formatTime(r.getTime()));
+		e.setAttribute("tests", Integer.toString(r.getTests()));
+		e.setAttribute("errors", Integer.toString(r.getErrors()));
+		e.setAttribute("failures", Integer.toString(r.getFailures()));
+		e.setAttribute("disabled", Integer.toString(r.getDisabled()));
+		for(Testsuite ts : r.getTestsuites())
+			processTestsuite(e, ts);
+
+		doc.appendChild(e);
 	}
 
 	public Document serializeToDom(JunitResult r) throws ParserConfigurationException {

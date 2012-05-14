@@ -16,6 +16,7 @@ import java.io.FileFilter;
 import java.io.FilenameFilter;
 import java.io.IOException;
 import java.text.DecimalFormat;
+import java.util.Date;
 import java.util.List;
 
 import org.cloudsmith.geppetto.junitresult.Error;
@@ -96,16 +97,33 @@ public class JunitresultAggregator {
 		return LocalFileSystem.getInstance().fromLocalFile(f).fetchInfo().getAttribute(EFS.ATTRIBUTE_SYMLINK);
 	}
 
-	private Testsuite rootSuite;
+	/**
+	 * The produced/returned aggregation is a Testsuites since this is what most tools can handle.
+	 * (The eclipse specific Testrun is almost the same thing - but the Eclipse viewer can open a testsuites
+	 * or testsuite file).
+	 */
+	private Testsuites rootSuite;
 
 	private Path rootPath;
 
+	private Testsuite loadExceptionSuite;
+
 	/**
+	 * Adds an exceptional suite to the root suite (f not already added). Adds an error testcase to
+	 * the exceptional suite. This way, any load errors are encoded in the testresult as an exception and
+	 * count as an error.
+	 * 
 	 * @param rootSuite
 	 * @param f
 	 * @param e
 	 */
 	private void addExceptionalCase(File f, Exception e) {
+		if(loadExceptionSuite == null) {
+			loadExceptionSuite = JunitresultFactory.eINSTANCE.createTestsuite();
+			loadExceptionSuite.setName("Exceptions computing aggregated testresult");
+			loadExceptionSuite.setTimestamp(new Date());
+			rootSuite.getTestsuites().add(loadExceptionSuite);
+		}
 		Testcase tc = JunitresultFactory.eINSTANCE.createTestcase();
 		tc.setName("Error loading: " + f.getAbsolutePath());
 
@@ -117,7 +135,7 @@ public class JunitresultAggregator {
 		error.setMessage(e.getMessage());
 
 		tc.getErrors().add(error);
-		rootSuite.getTestcases().add(tc);
+		loadExceptionSuite.getTestcases().add(tc);
 	}
 
 	/**
@@ -240,12 +258,12 @@ public class JunitresultAggregator {
 				collectFiles(f, filter, result);
 	}
 
-	private Testsuite createRootSuite(File reportDir, File rootDir) {
+	private Testsuites createRootSuite(File reportDir, File rootDir) {
 		IPath p = new Path(reportDir.getAbsolutePath());
 		IPath relative = p.makeRelativeTo(rootPath);
-		Testsuite testsuite = JunitresultFactory.eINSTANCE.createTestsuite();
-		testsuite.setName(relative.toString());
-		return testsuite;
+		Testsuites testsuites = JunitresultFactory.eINSTANCE.createTestsuites();
+		testsuites.setName(relative.toString());
+		return testsuites;
 	}
 
 	private List<File> findFiles(File root, FilenameFilter filter) {

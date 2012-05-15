@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <testsuite errors="0" failures="0" skipped="0" tests="2" time="0.001598" timestamp="2012-05-08T02:12:52+02:00">
   <testcase classname="./game_spec.rb" name="Game1aa" time="0.001" />
-  <testcase classname="./game_spec.rb" name="Game2aa" time="12.002">
+  <testcase classname="./game_spec.rb" name="Game2WithSystemOutput" time="12.002">
+     <system-err>This is system error output</system-err>
+     <system-out>This is system out output</system-out>
   </testcase>
 </testsuite>

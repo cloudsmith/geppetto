@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -29,6 +30,7 @@ import org.xml.sax.SAXException;
 import org.xml.sax.SAXNotSupportedException;
 
 import com.google.common.base.Strings;
+import com.google.common.collect.Lists;
 
 public class JunitresultLoader {
 	/**
@@ -91,6 +93,22 @@ public class JunitresultLoader {
 			}
 		}
 		return null;
+	}
+
+	private List<String> getTagValues(Element element, String tag) {
+		List<String> result = Lists.newArrayList();
+		NodeList children = element.getChildNodes();
+		for(int i = 0; i < children.getLength(); i++) {
+			Node n = children.item(i);
+			if(n.getNodeType() == Node.ELEMENT_NODE && tag.equalsIgnoreCase(n.getNodeName())) {
+				NodeList content = n.getChildNodes();
+				Node node = content.item(0);
+				if(node != null)
+					result.add(node.getNodeValue());
+			}
+		}
+		return result;
+
 	}
 
 	private double getTime(Element element, String attribute) {
@@ -209,7 +227,8 @@ public class JunitresultLoader {
 				o.setSkipped(skipped);
 			}
 		}
-
+		o.getSystem_err().addAll(getTagValues(element, "system-err"));
+		o.getSystem_out().addAll(getTagValues(element, "system-out"));
 		return o;
 
 	}

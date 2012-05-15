@@ -43,7 +43,7 @@ import org.w3c.dom.Node;
 import com.google.common.base.Strings;
 
 /**
- * @author henrik
+ * Serializes a Junitresult model to XML DOM.
  * 
  */
 public class JunitresultDomSerializer {
@@ -54,6 +54,22 @@ public class JunitresultDomSerializer {
 	 * Format time using as many digits as possible for seconds, and always three digits for ms.
 	 */
 	final private DecimalFormat timeFormat = new DecimalFormat("0.000");
+
+	/**
+	 * Appends an element with CDATA content to the given Node n with given elementName and containing
+	 * given cdata. If cdata is null or empty, not element is appended to n.
+	 * 
+	 * @param n
+	 * @param cdata
+	 * @param elementName
+	 */
+	private void appendCDATANode(Node n, String cdata, String elementName) {
+		if(Strings.isNullOrEmpty(cdata))
+			return;
+		Element cdataElement = doc.createElement(elementName);
+		n.appendChild(cdataElement);
+		cdataElement.appendChild(doc.createCDATASection(cdata));
+	}
 
 	private String dateToString(Date d) {
 		Calendar cal = Calendar.getInstance();
@@ -97,6 +113,14 @@ public class JunitresultDomSerializer {
 		}
 	}
 
+	private void processSystemErr(Node n, String s) {
+		appendCDATANode(n, s, "system-err");
+	}
+
+	private void processSystemOut(Node n, String s) {
+		appendCDATANode(n, s, "system-out");
+	}
+
 	/**
 	 * @param e
 	 * @param tc
@@ -114,8 +138,10 @@ public class JunitresultDomSerializer {
 		if(tc.getSkipped() != null)
 			processNegativeResult(e, tc.getSkipped());
 
-		// TODO: System_out (multiple)
-		// TODO: System_err (multiple)
+		for(String s : tc.getSystem_out())
+			processSystemOut(e, s);
+		for(String s : tc.getSystem_err())
+			processSystemErr(e, s);
 
 		n.appendChild(e);
 	}
@@ -137,8 +163,8 @@ public class JunitresultDomSerializer {
 		for(Testsuite ts : r.getTestsuites())
 			processTestsuite(e, ts);
 
-		// TODO: System_out
-		// TODO: System_err
+		processSystemOut(e, r.getSystem_out());
+		processSystemErr(e, r.getSystem_err());
 
 		n.appendChild(e);
 	}

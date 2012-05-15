@@ -1,3 +1,14 @@
+/**
+ * Copyright (c) 2012 Cloudsmith Inc. and other contributors, as listed below.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ * 
+ * Contributors:
+ *   Cloudsmith
+ * 
+ */
 package org.cloudsmith.geppetto.junitresult.util;
 
 import java.io.File;
@@ -200,33 +211,30 @@ public class JunitresultLoader {
 		// Only one of these are allowed - error, failure, skipped
 		// let the last win
 
-		{
-			// Error element
-			NodeList errors = element.getElementsByTagName("error");
-			for(int i = 0; i < errors.getLength(); i++) {
-				Error error = JunitresultFactory.eINSTANCE.createError();
-				loadNegativeResult(error, errors);
-				o.getErrors().add(error);
-			}
+		// Error element
+		NodeList errors = element.getElementsByTagName("error");
+		for(int i = 0; i < errors.getLength(); i++) {
+			Error error = JunitresultFactory.eINSTANCE.createError();
+			loadNegativeResult(error, errors);
+			o.getErrors().add(error);
 		}
-		{
-			// Failure element
-			NodeList failures = element.getElementsByTagName("failure");
-			for(int i = 0; i < failures.getLength(); i++) {
-				Failure failure = JunitresultFactory.eINSTANCE.createFailure();
-				loadNegativeResult(failure, failures);
-				o.getFailures().add(failure);
-			}
+
+		// Failure element
+		NodeList failures = element.getElementsByTagName("failure");
+		for(int i = 0; i < failures.getLength(); i++) {
+			Failure failure = JunitresultFactory.eINSTANCE.createFailure();
+			loadNegativeResult(failure, failures);
+			o.getFailures().add(failure);
 		}
-		{
-			// Failure element
-			NodeList skipps = element.getElementsByTagName("skipped");
-			if(skipps.getLength() > 0) {
-				Skipped skipped = JunitresultFactory.eINSTANCE.createSkipped();
-				loadNegativeResult(skipped, skipps);
-				o.setSkipped(skipped);
-			}
+
+		// Skipped element
+		NodeList skipps = element.getElementsByTagName("skipped");
+		if(skipps.getLength() > 0) {
+			Skipped skipped = JunitresultFactory.eINSTANCE.createSkipped();
+			loadNegativeResult(skipped, skipps);
+			o.setSkipped(skipped);
 		}
+
 		o.getSystem_err().addAll(getTagValues(element, "system-err"));
 		o.getSystem_out().addAll(getTagValues(element, "system-out"));
 		return o;

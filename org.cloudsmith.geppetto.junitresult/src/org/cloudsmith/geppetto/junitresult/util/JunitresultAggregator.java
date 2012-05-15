@@ -15,7 +15,6 @@ import java.io.File;
 import java.io.FileFilter;
 import java.io.FilenameFilter;
 import java.io.IOException;
-import java.text.DecimalFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -291,11 +290,6 @@ public class JunitresultAggregator {
 		return findFiles(root, xmlFileFilter);
 	}
 
-	private String formatDecimal(double d) {
-		DecimalFormat myFormatter = new DecimalFormat("0*.0*");
-		return myFormatter.format(d);
-	}
-
 	private boolean isExtraRspecFormatterStyle(Testsuite testsuite) {
 		EList<Testcase> tcs = testsuite.getTestcases();
 		for(Testcase tc : tcs) {
@@ -446,25 +440,6 @@ public class JunitresultAggregator {
 		relative = relative.removeFileExtension();
 		return relative.toString();
 	}
-
-	// /**
-	// * Returns the time as a double, or 0.0 if the given timeString is null, empty, or can not be parsed as
-	// * a double number.
-	// *
-	// * @param timeString
-	// * @return
-	// */
-	// private double time(String timeString) {
-	// if(timeString == null || timeString.length() < 1)
-	// return 0.0;
-	// try {
-	// // make sure value is not negative as this screws up aggregation
-	// return Math.abs(Double.valueOf(timeString));
-	// }
-	// catch(NumberFormatException e) {
-	// return 0.0;
-	// }
-	// }
 
 	/**
 	 * Produces a Stats instance populated with the data from the given testcase.

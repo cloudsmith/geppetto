@@ -47,6 +47,16 @@ public class AutoEditPreferencePage extends AbstractPreferencePage {
 			}
 
 			@Override
+			protected void doStore() {
+				if(result == null) {
+					// Do NOT do this - it overwrites the stored preference if they are unchanged
+					// getPreferenceStore().setToDefault(getPreferenceName());
+					return;
+				}
+				getPreferenceStore().setValue(getPreferenceName(), result);
+			}
+
+			@Override
 			protected boolean isSelected(String fieldName, String valueToSet) {
 				int value = 0;
 				try {

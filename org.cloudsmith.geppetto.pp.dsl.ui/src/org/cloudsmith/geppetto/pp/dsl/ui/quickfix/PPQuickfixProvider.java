@@ -200,7 +200,7 @@ public class PPQuickfixProvider extends DefaultQuickfixProvider {
 				String issueString = xtextDocument.get(issue.getOffset(), issue.getLength());
 				StringBuilder replacement = new StringBuilder();
 				replacement.append("'");
-				replacement.append(issueString.substring(1, issueString.length() - 1));
+				replacement.append(escapeChar(issueString.substring(1, issueString.length() - 1), '\''));
 				replacement.append("'");
 
 				acceptor.accept(issue, "Replace with single quoted string", "Changes \" to '", null, //
@@ -224,6 +224,27 @@ public class PPQuickfixProvider extends DefaultQuickfixProvider {
 					new ReplacingModification(issue.getOffset(), issueString.length(), issue.getData()[0]));
 			}
 		});
+	}
+
+	private String escapeChar(String s, char x) {
+		StringBuilder result = new StringBuilder();
+		boolean nextIsEscaped = false;
+		for(int i = 0; i < s.length(); i++) {
+			char c = s.charAt(i);
+			if(c == '\\') {
+				nextIsEscaped = !nextIsEscaped;
+			}
+			else if(c == x) {
+				if(!nextIsEscaped)
+					result.append('\\');
+				nextIsEscaped = false;
+			}
+			else {
+				nextIsEscaped = false;
+			}
+			result.append(c);
+		}
+		return result.toString();
 	}
 
 	@Fix(IPPDiagnostics.ISSUE__RESOURCE_UNKNOWN_TYPE_PROP)

@@ -52,6 +52,7 @@ public class JRubyServices implements IRubyServices {
 	 */
 	public static class Result implements IRubyParseResult {
 		private List<IRubyIssue> issues;
+
 		private Node AST;
 
 		Result(Node rootNode, List<IRubyIssue> issues) {
@@ -79,9 +80,9 @@ public class JRubyServices implements IRubyServices {
 
 		@Override
 		public boolean hasErrors() {
-			if (issues != null)
-				for (IRubyIssue issue : issues)
-					if (issue.isSyntaxError())
+			if(issues != null)
+				for(IRubyIssue issue : issues)
+					if(issue.isSyntaxError())
 						return true;
 			return false;
 		}
@@ -104,84 +105,80 @@ public class JRubyServices implements IRubyServices {
 	private final CompatVersion rubyVersion = CompatVersion.RUBY1_9;
 
 	private ParserConfiguration parserConfiguration;
+
 	// private Ruby rubyRuntime;
 
 	// private static final String[] functionModuleFQN = new String[] {
 	// "Puppet", "Parser", "Functions"};
 	private static final String functionDefinition = "newfunction";
-	private static final String[] newFunctionFQN = new String[] { "Puppet",
-			"Parser", "Functions", functionDefinition };
 
-	private static final String[] NAGIOS_BASE_PATH = new String[] { "puppet",
-			"external", "nagios", "base.rb" };
+	private static final String[] newFunctionFQN = new String[] { "Puppet", "Parser", "Functions", functionDefinition };
+
+	private static final String[] NAGIOS_BASE_PATH = new String[] { "puppet", "external", "nagios", "base.rb" };
 
 	@Override
-	public List<PPFunctionInfo> getFunctionInfo(File file) throws IOException,
-			RubySyntaxException {
+	public List<PPFunctionInfo> getFunctionInfo(File file) throws IOException, RubySyntaxException {
 		Result result = internalParse(file);
 		return getFunctionInfo(result);
 	}
 
-	protected List<PPFunctionInfo> getFunctionInfo(Result result)
-			throws IOException, RubySyntaxException {
-		if (result.hasErrors())
+	protected List<PPFunctionInfo> getFunctionInfo(Result result) throws IOException, RubySyntaxException {
+		if(result.hasErrors())
 			throw new RubySyntaxException(result.getIssues());
 		List<PPFunctionInfo> functions = Lists.newArrayList();
 		RubyCallFinder callFinder = new RubyCallFinder();
-		GenericCallNode found = callFinder.findCall(result.getAST(),
-				newFunctionFQN);
-		if (found == null)
+		GenericCallNode found = callFinder.findCall(result.getAST(), newFunctionFQN);
+		if(found == null)
 			return functions;
 		Object arguments = new ConstEvaluator().eval(found.getArgsNode());
 		// Result should be a list with a String, and a Map
-		if (!(arguments instanceof List))
+		if(!(arguments instanceof List))
 			return functions;
 		List<?> argList = (List<?>) arguments;
-		
-	    if (argList.size() < 1)
+
+		if(argList.size() < 1)
 			return functions;
 		Object name = argList.get(0);
-		if (!(name instanceof String))
+		if(!(name instanceof String))
 			return functions;
-		
+
 		// Functions can lack rtype and documentation. In that case they just have name
-		if (argList.size() == 1) {
+		if(argList.size() == 1) {
 			functions.add(new PPFunctionInfo((String) name, false, ""));
 			return functions;
 		}
 
 		Object hash = argList.get(1);
-		if (!(hash instanceof Map<?, ?>))
+		if(!(hash instanceof Map<?, ?>))
 			return functions;
 		Object type = ((Map<?, ?>) hash).get("type");
 		boolean rValue = "rvalue".equals(type);
 		Object doc = ((Map<?, ?>) hash).get("doc");
-		String docString = doc == null ? "" : doc.toString();
+		String docString = doc == null
+				? ""
+				: doc.toString();
 
 		functions.add(new PPFunctionInfo((String) name, rValue, docString));
 		return functions;
 	}
 
 	@Override
-	public List<PPFunctionInfo> getFunctionInfo(String fileName, Reader reader)
-			throws IOException, RubySyntaxException {
+	public List<PPFunctionInfo> getFunctionInfo(String fileName, Reader reader) throws IOException, RubySyntaxException {
 		Result result = internalParse(fileName, reader);
 		return getFunctionInfo(result);
 	}
 
 	@Override
-	public List<PPFunctionInfo> getLogFunctions(File file) throws IOException,
-			RubySyntaxException {
+	public List<PPFunctionInfo> getLogFunctions(File file) throws IOException, RubySyntaxException {
 		List<PPFunctionInfo> functions = Lists.newArrayList();
 		Result result = internalParse(file);
 		Node root = result.getAST();
-		ClassNode logClass = new RubyClassFinder().findClass(root, "Puppet",
-				"Util", "Log");
-		if (logClass == null)
+		ClassNode logClass = new RubyClassFinder().findClass(root, "Puppet", "Util", "Log");
+		if(logClass == null)
 			return functions;
 
-		for (Node n : logClass.getBodyNode().childNodes()) {
-			if (n.getNodeType() == NodeType.NEWLINENODE)
+		for(Node n : logClass.getBodyNode().childNodes()) {
+			if(n.getNodeType() == NodeType.NEWLINENODE)
 				n = ((NewlineNode) n).getNextNode();
 			// if (n.getNodeType() == NodeType.CLASSNODE) {
 			// ClassNode cn = (ClassNode) n;
@@ -193,17 +190,15 @@ public class JRubyServices implements IRubyServices {
 			// for (Node n2 : cn.getBodyNode().childNodes()) {
 			// if (n.getNodeType() == NodeType.NEWLINENODE)
 			// n = ((NewlineNode) n).getNextNode();
-			if (n.getNodeType() == NodeType.INSTASGNNODE) {
+			if(n.getNodeType() == NodeType.INSTASGNNODE) {
 				InstAsgnNode instAsgn = (InstAsgnNode) n;
-				if ("@levels".equals(instAsgn.getName())) {
-					Object value = new ConstEvaluator().eval(instAsgn
-							.getValueNode());
-					if (!(value instanceof List<?>))
+				if("@levels".equals(instAsgn.getName())) {
+					Object value = new ConstEvaluator().eval(instAsgn.getValueNode());
+					if(!(value instanceof List<?>))
 						return functions;
-					for (Object o : (List<?>) value) {
-						functions.add(new PPFunctionInfo((String) o, false,
-								"Log a message on the server at level " + o
-										+ "."));
+					for(Object o : (List<?>) value) {
+						functions.add(new PPFunctionInfo((String) o, false, "Log a message on the server at level " +
+								o + "."));
 					}
 
 				}
@@ -216,15 +211,13 @@ public class JRubyServices implements IRubyServices {
 	}
 
 	@Override
-	public PPTypeInfo getMetaTypeProperties(File file) throws IOException,
-			RubySyntaxException {
+	public PPTypeInfo getMetaTypeProperties(File file) throws IOException, RubySyntaxException {
 		Result result = internalParse(file);
 		return getMetaTypeProperties(result);
 	}
 
-	protected PPTypeInfo getMetaTypeProperties(Result result)
-			throws IOException, RubySyntaxException {
-		if (result.hasErrors())
+	protected PPTypeInfo getMetaTypeProperties(Result result) throws IOException, RubySyntaxException {
+		if(result.hasErrors())
 			throw new RubySyntaxException(result.getIssues());
 		PPTypeFinder typeFinder = new PPTypeFinder();
 		PPTypeInfo typeInfo = typeFinder.findMetaTypeInfo(result.getAST());
@@ -232,64 +225,74 @@ public class JRubyServices implements IRubyServices {
 	}
 
 	@Override
-	public PPTypeInfo getMetaTypeProperties(String fileName, Reader reader)
-			throws IOException, RubySyntaxException {
+	public PPTypeInfo getMetaTypeProperties(String fileName, Reader reader) throws IOException, RubySyntaxException {
 		return getMetaTypeProperties(internalParse(fileName, reader));
 
 	}
 
 	@Override
-	public List<PPTypeInfo> getTypeInfo(File file) throws IOException,
-			RubySyntaxException {
+	public Map<String, String> getRakefileTaskDescriptions(File file) throws IOException {
+		return getRakefileTaskDescriptions(internalParse(file));
+	}
+
+	/**
+	 * @param result
+	 *            - the parsed result (without syntax errors)
+	 * @return
+	 */
+	private Map<String, String> getRakefileTaskDescriptions(Result result) {
+		RubyRakefileTaskFinder taskFinder = new RubyRakefileTaskFinder();
+		Map<String, String> info = taskFinder.findTasks(result.getAST());
+
+		return info;
+	}
+
+	@Override
+	public List<PPTypeInfo> getTypeInfo(File file) throws IOException, RubySyntaxException {
 		final Result result = internalParse(file);
 		return getTypeInfo(result, isNagiosLoad(file));
 	}
 
-	protected List<PPTypeInfo> getTypeInfo(Result result, boolean nagiosLoad)
-			throws IOException, RubySyntaxException {
-		if (result.hasErrors())
+	protected List<PPTypeInfo> getTypeInfo(Result result, boolean nagiosLoad) throws IOException, RubySyntaxException {
+		if(result.hasErrors())
 			throw new RubySyntaxException(result.getIssues());
 		PPTypeFinder typeFinder = new PPTypeFinder();
 
-		if (nagiosLoad)
+		if(nagiosLoad)
 			return typeFinder.findNagiosTypeInfo(result.getAST());
 
 		List<PPTypeInfo> types = Lists.newArrayList();
 		PPTypeInfo typeInfo = typeFinder.findTypeInfo(result.getAST());
-		if (typeInfo != null)
+		if(typeInfo != null)
 			types.add(typeInfo);
 		return types;
 	}
 
 	@Override
-	public List<PPTypeInfo> getTypeInfo(String fileName, Reader reader)
-			throws IOException, RubySyntaxException {
+	public List<PPTypeInfo> getTypeInfo(String fileName, Reader reader) throws IOException, RubySyntaxException {
 		Result result = internalParse(fileName, reader);
 		return getTypeInfo(result, isNagiosLoad(fileName));
 	}
 
 	@Override
-	public List<PPTypeInfo> getTypePropertiesInfo(File file)
-			throws IOException, RubySyntaxException {
+	public List<PPTypeInfo> getTypePropertiesInfo(File file) throws IOException, RubySyntaxException {
 		return getTypePropertiesInfo(internalParse(file));
 	}
 
-	public List<PPTypeInfo> getTypePropertiesInfo(Result result)
-			throws IOException, RubySyntaxException {
+	public List<PPTypeInfo> getTypePropertiesInfo(Result result) throws IOException, RubySyntaxException {
 		List<PPTypeInfo> types = Lists.newArrayList();
-		if (result.hasErrors())
+		if(result.hasErrors())
 			throw new RubySyntaxException(result.getIssues());
 		PPTypeFinder typeFinder = new PPTypeFinder();
-		List<PPTypeInfo> typeInfo = typeFinder.findTypePropertyInfo(result
-				.getAST());
-		if (typeInfo != null)
+		List<PPTypeInfo> typeInfo = typeFinder.findTypePropertyInfo(result.getAST());
+		if(typeInfo != null)
 			types.addAll(typeInfo);
 		return types;
 	}
 
 	@Override
-	public List<PPTypeInfo> getTypePropertiesInfo(String fileName, Reader reader)
-			throws IOException, RubySyntaxException {
+	public List<PPTypeInfo> getTypePropertiesInfo(String fileName, Reader reader) throws IOException,
+			RubySyntaxException {
 		return getTypePropertiesInfo(internalParse(fileName, reader));
 	}
 
@@ -301,24 +304,24 @@ public class JRubyServices implements IRubyServices {
 	 * @return
 	 */
 	protected Result internalParse(File file) throws IOException {
-		if (!file.exists())
+		if(!file.exists())
 			throw new FileNotFoundException(file.getPath());
 		final Reader reader = new BufferedReader(new FileReader(file));
 		try {
-			return internalParse(file.getAbsolutePath(), reader,
-					parserConfiguration);
-		} finally {
+			return internalParse(file.getAbsolutePath(), reader, parserConfiguration);
+		}
+		finally {
 			StreamUtil.close(reader);
 		}
 	}
 
-	protected Result internalParse(String path, Reader reader)
-			throws IOException {
-		if (!(reader instanceof BufferedReader))
+	protected Result internalParse(String path, Reader reader) throws IOException {
+		if(!(reader instanceof BufferedReader))
 			reader = new BufferedReader(reader);
 		try {
 			return internalParse(path, reader, parserConfiguration);
-		} finally {
+		}
+		finally {
 			StreamUtil.close(reader);
 		}
 
@@ -335,25 +338,25 @@ public class JRubyServices implements IRubyServices {
 	 * @return
 	 * @throws IOException
 	 */
-	protected Result internalParse(String file, Reader content,
-			ParserConfiguration configuration) throws IOException {
+	protected Result internalParse(String file, Reader content, ParserConfiguration configuration) throws IOException {
 		RubyParser parser;
-		if (configuration.getVersion() == CompatVersion.RUBY1_8) {
+		if(configuration.getVersion() == CompatVersion.RUBY1_8) {
 			parser = new Ruby18Parser();
-		} else {
+		}
+		else {
 			parser = new Ruby19Parser();
 		}
 		RubyParserWarningsCollector warnings = new RubyParserWarningsCollector();
 		parser.setWarnings(warnings);
 
-		LexerSource lexerSource = LexerSource.getSource(file, content,
-				configuration);
+		LexerSource lexerSource = LexerSource.getSource(file, content, configuration);
 
 		Node parserResult = null;
 		try {
 			parserResult = parser.parse(configuration, lexerSource).getAST();
 
-		} catch (SyntaxException e) {
+		}
+		catch(SyntaxException e) {
 			warnings.syntaxError(e);
 		}
 		return new Result(parserResult, warnings.getIssues());
@@ -374,9 +377,8 @@ public class JRubyServices implements IRubyServices {
 		final IPath path = Path.fromOSString(filePath);
 		final int length = path.segmentCount();
 		boolean nagiosLoad = true; // until proven wrong
-		for (int ix = 0; ix > -4 && nagiosLoad; ix--) {
-			nagiosLoad = NAGIOS_BASE_PATH[nlength - 1 + ix].equals(path
-					.segment(length - 1 + ix));
+		for(int ix = 0; ix > -4 && nagiosLoad; ix--) {
+			nagiosLoad = NAGIOS_BASE_PATH[nlength - 1 + ix].equals(path.segment(length - 1 + ix));
 		}
 		return nagiosLoad;
 	}
@@ -394,8 +396,7 @@ public class JRubyServices implements IRubyServices {
 	}
 
 	@Override
-	public IRubyParseResult parse(String path, Reader reader)
-			throws IOException {
+	public IRubyParseResult parse(String path, Reader reader) throws IOException {
 		return internalParse(path, reader);
 	}
 

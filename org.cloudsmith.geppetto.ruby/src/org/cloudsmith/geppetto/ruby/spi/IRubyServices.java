@@ -15,6 +15,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.Reader;
 import java.util.List;
+import java.util.Map;
 
 import org.cloudsmith.geppetto.ruby.PPFunctionInfo;
 import org.cloudsmith.geppetto.ruby.PPTypeInfo;
@@ -28,11 +29,9 @@ import org.cloudsmith.geppetto.ruby.RubySyntaxException;
  */
 public interface IRubyServices {
 
-	public List<PPFunctionInfo> getFunctionInfo(File file) throws IOException,
-			RubySyntaxException;
+	public List<PPFunctionInfo> getFunctionInfo(File file) throws IOException, RubySyntaxException;
 
-	public List<PPFunctionInfo> getFunctionInfo(String fileName, Reader reader)
-			throws IOException, RubySyntaxException;
+	public List<PPFunctionInfo> getFunctionInfo(String fileName, Reader reader) throws IOException, RubySyntaxException;
 
 	/**
 	 * Turns the array called "@levels" in class Puppet::Utils::Log into
@@ -44,8 +43,7 @@ public interface IRubyServices {
 	 * @throws IOException
 	 * @throws RubySyntaxException
 	 */
-	public List<PPFunctionInfo> getLogFunctions(File file) throws IOException,
-			RubySyntaxException;
+	public List<PPFunctionInfo> getLogFunctions(File file) throws IOException, RubySyntaxException;
 
 	/**
 	 * Loads a PPTypeInfo describing metaparameters.
@@ -57,17 +55,24 @@ public interface IRubyServices {
 	 * @throws IOException
 	 * @throws RubySyntaxException
 	 */
-	public PPTypeInfo getMetaTypeProperties(File file) throws IOException,
-			RubySyntaxException;
+	public PPTypeInfo getMetaTypeProperties(File file) throws IOException, RubySyntaxException;
 
-	public PPTypeInfo getMetaTypeProperties(String fileName, Reader reader)
-			throws IOException, RubySyntaxException;
+	public PPTypeInfo getMetaTypeProperties(String fileName, Reader reader) throws IOException, RubySyntaxException;
 
-	public List<PPTypeInfo> getTypeInfo(File file) throws IOException,
-			RubySyntaxException;
+	/**
+	 * Produce a Map of taks to description mapping. For tasks without a description, the description
+	 * should be set ot an empty string.
+	 * 
+	 * @param file
+	 * @return
+	 * @throws IOException
+	 *             , RubySyntaxException
+	 */
+	public Map<String, String> getRakefileTaskDescriptions(File file) throws IOException, RubySyntaxException;
 
-	public List<PPTypeInfo> getTypeInfo(String fileName, Reader reader)
-			throws IOException, RubySyntaxException;
+	public List<PPTypeInfo> getTypeInfo(File file) throws IOException, RubySyntaxException;
+
+	public List<PPTypeInfo> getTypeInfo(String fileName, Reader reader) throws IOException, RubySyntaxException;
 
 	/**
 	 * Parses and returns additional properties from a ruby file - such "extra"
@@ -79,11 +84,10 @@ public interface IRubyServices {
 	 * @throws IOException
 	 * @throws RubySyntaxException
 	 */
-	public List<PPTypeInfo> getTypePropertiesInfo(File file)
-			throws IOException, RubySyntaxException;
+	public List<PPTypeInfo> getTypePropertiesInfo(File file) throws IOException, RubySyntaxException;
 
-	public List<PPTypeInfo> getTypePropertiesInfo(String fileName, Reader reader)
-			throws IOException, RubySyntaxException;
+	public List<PPTypeInfo> getTypePropertiesInfo(String fileName, Reader reader) throws IOException,
+			RubySyntaxException;
 
 	/**
 	 * Indicates if this is a real service or one that produces no results.

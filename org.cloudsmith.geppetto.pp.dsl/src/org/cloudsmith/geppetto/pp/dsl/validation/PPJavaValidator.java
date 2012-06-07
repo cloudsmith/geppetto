@@ -810,7 +810,8 @@ public class PPJavaValidator extends AbstractPPJavaValidator implements IPPDiagn
 				}
 				if(replacement != null) {
 					warningOrError(
-						acceptor, dqStringNotRequiredVariable, "Double quoted string not required", o,
+						acceptor, dqStringNotRequiredVariable,
+						"String contains single interpolated variable. Double quotes not required.", o,
 						IPPDiagnostics.ISSUE__DQ_STRING_NOT_REQUIRED_VAR, replacement);
 				}
 			}

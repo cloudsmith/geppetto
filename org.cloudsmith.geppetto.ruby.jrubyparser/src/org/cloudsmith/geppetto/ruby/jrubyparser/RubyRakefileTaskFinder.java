@@ -258,12 +258,19 @@ public class RubyRakefileTaskFinder {
 		try {
 			if(mName.equals("new")) {
 				List<String> receiver = constEvaluator.stringList(constEvaluator.eval(root.getReceiverNode()));
-				if(receiver.equals(rspecTask) || receiver.equals(cucumberTask)) {
+				boolean isRspec = receiver.equals(rspecTask);
+				boolean isCucumber = !isRspec && receiver.equals(cucumberTask);
+				if(isRspec || isCucumber) {
 					// recognized as a task
 					Node argsNode = getTaskNameNodeFromArgNode(root.getArgsNode());
-					String taskName = Joiner.on(":").join(
-						Iterables.concat(
-							Lists.reverse(nameStack), constEvaluator.stringList(constEvaluator.eval(argsNode))));
+					List<String> nameList = constEvaluator.stringList(constEvaluator.eval(argsNode));
+					if(nameList.size() < 1) {
+						if(isRspec)
+							nameList = Lists.newArrayList("spec");
+						else
+							nameList = Lists.newArrayList("cucumber");
+					}
+					String taskName = Joiner.on(":").join(Iterables.concat(Lists.reverse(nameStack), nameList));
 					resultMap.put(taskName, lastDesc);
 					// System.err.println("Added task: " + taskName + " with description: " + lastDesc);
 					lastDesc = ""; // consumed
@@ -274,6 +281,7 @@ public class RubyRakefileTaskFinder {
 			// Failed to handle some constant evaluation - not sure what, should not fail, could be
 			// caused by faulty ruby code (syntax errors etc.) causing a strange model.
 			// Should be handled elsewhere.
+			return false;
 		}
 		return false;
 	}

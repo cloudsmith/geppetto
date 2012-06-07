@@ -255,17 +255,25 @@ public class RubyRakefileTaskFinder {
 	 */
 	private boolean processCallNode(CallNode root, Map<String, String> resultMap) {
 		String mName = root.getName();
-		if(mName.equals("new")) {
-			List<String> receiver = constEvaluator.stringList(constEvaluator.eval(root.getReceiverNode()));
-			if(receiver.equals(rspecTask) || receiver.equals(cucumberTask)) {
-				// recognized as a task
-				Node argsNode = getTaskNameNodeFromArgNode(root.getArgsNode());
-				String taskName = Joiner.on(":").join(
-					Iterables.concat(Lists.reverse(nameStack), constEvaluator.stringList(constEvaluator.eval(argsNode))));
-				resultMap.put(taskName, lastDesc);
-				// System.err.println("Added task: " + taskName + " with description: " + lastDesc);
-				lastDesc = ""; // consumed
+		try {
+			if(mName.equals("new")) {
+				List<String> receiver = constEvaluator.stringList(constEvaluator.eval(root.getReceiverNode()));
+				if(receiver.equals(rspecTask) || receiver.equals(cucumberTask)) {
+					// recognized as a task
+					Node argsNode = getTaskNameNodeFromArgNode(root.getArgsNode());
+					String taskName = Joiner.on(":").join(
+						Iterables.concat(
+							Lists.reverse(nameStack), constEvaluator.stringList(constEvaluator.eval(argsNode))));
+					resultMap.put(taskName, lastDesc);
+					// System.err.println("Added task: " + taskName + " with description: " + lastDesc);
+					lastDesc = ""; // consumed
+				}
 			}
+		}
+		catch(RuntimeException e) {
+			// Failed to handle some constant evaluation - not sure what, should not fail, could be
+			// caused by faulty ruby code (syntax errors etc.) causing a strange model.
+			// Should be handled elsewhere.
 		}
 		return false;
 	}

@@ -122,15 +122,6 @@ public interface JunitresultPackage extends EPackage {
 		EAttribute TESTSUITE__TIME = eINSTANCE.getTestsuite_Time();
 
 		/**
-		 * The meta object literal for the '<em><b>Testsuites</b></em>' containment reference list feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * 
-		 * @generated
-		 */
-		EReference TESTSUITE__TESTSUITES = eINSTANCE.getTestsuite_Testsuites();
-
-		/**
 		 * The meta object literal for the '<em><b>Id</b></em>' attribute feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -395,15 +386,6 @@ public interface JunitresultPackage extends EPackage {
 		EAttribute TESTRUN__IGNORED = eINSTANCE.getTestrun_Ignored();
 
 		/**
-		 * The meta object literal for the '<em><b>Testsuites</b></em>' containment reference list feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * 
-		 * @generated
-		 */
-		EReference TESTRUN__TESTSUITES = eINSTANCE.getTestrun_Testsuites();
-
-		/**
 		 * The meta object literal for the '{@link org.cloudsmith.geppetto.junitresult.impl.AbstractAggregatedTestImpl
 		 * <em>Abstract Aggregated Test</em>}' class.
 		 * <!-- begin-user-doc -->
@@ -452,6 +434,15 @@ public interface JunitresultPackage extends EPackage {
 		EAttribute ABSTRACT_AGGREGATED_TEST__ERRORS = eINSTANCE.getAbstractAggregatedTest_Errors();
 
 		/**
+		 * The meta object literal for the '<em><b>Testsuites</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * 
+		 * @generated
+		 */
+		EReference ABSTRACT_AGGREGATED_TEST__TESTSUITES = eINSTANCE.getAbstractAggregatedTest_Testsuites();
+
+		/**
 		 * The meta object literal for the '{@link org.cloudsmith.geppetto.junitresult.impl.TestsuitesImpl <em>Testsuites</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -461,15 +452,6 @@ public interface JunitresultPackage extends EPackage {
 		 * @generated
 		 */
 		EClass TESTSUITES = eINSTANCE.getTestsuites();
-
-		/**
-		 * The meta object literal for the '<em><b>Testsuites</b></em>' containment reference list feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * 
-		 * @generated
-		 */
-		EReference TESTSUITES__TESTSUITES = eINSTANCE.getTestsuites_Testsuites();
 
 		/**
 		 * The meta object literal for the '<em><b>Time</b></em>' attribute feature.
@@ -623,6 +605,16 @@ public interface JunitresultPackage extends EPackage {
 	int ABSTRACT_AGGREGATED_TEST__ERRORS = JUNIT_RESULT_FEATURE_COUNT + 3;
 
 	/**
+	 * The feature id for the '<em><b>Testsuites</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 * @ordered
+	 */
+	int ABSTRACT_AGGREGATED_TEST__TESTSUITES = JUNIT_RESULT_FEATURE_COUNT + 4;
+
+	/**
 	 * The number of structural features of the '<em>Abstract Aggregated Test</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -630,7 +622,7 @@ public interface JunitresultPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int ABSTRACT_AGGREGATED_TEST_FEATURE_COUNT = JUNIT_RESULT_FEATURE_COUNT + 4;
+	int ABSTRACT_AGGREGATED_TEST_FEATURE_COUNT = JUNIT_RESULT_FEATURE_COUNT + 5;
 
 	/**
 	 * The meta object id for the '{@link org.cloudsmith.geppetto.junitresult.impl.TestsuiteImpl <em>Testsuite</em>}' class.
@@ -682,6 +674,16 @@ public interface JunitresultPackage extends EPackage {
 	 * @ordered
 	 */
 	int TESTSUITE__ERRORS = ABSTRACT_AGGREGATED_TEST__ERRORS;
+
+	/**
+	 * The feature id for the '<em><b>Testsuites</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 * @ordered
+	 */
+	int TESTSUITE__TESTSUITES = ABSTRACT_AGGREGATED_TEST__TESTSUITES;
 
 	/**
 	 * The feature id for the '<em><b>Properties</b></em>' containment reference list.
@@ -754,16 +756,6 @@ public interface JunitresultPackage extends EPackage {
 	int TESTSUITE__TIME = ABSTRACT_AGGREGATED_TEST_FEATURE_COUNT + 6;
 
 	/**
-	 * The feature id for the '<em><b>Testsuites</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * 
-	 * @generated
-	 * @ordered
-	 */
-	int TESTSUITE__TESTSUITES = ABSTRACT_AGGREGATED_TEST_FEATURE_COUNT + 7;
-
-	/**
 	 * The feature id for the '<em><b>Id</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -771,7 +763,7 @@ public interface JunitresultPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int TESTSUITE__ID = ABSTRACT_AGGREGATED_TEST_FEATURE_COUNT + 8;
+	int TESTSUITE__ID = ABSTRACT_AGGREGATED_TEST_FEATURE_COUNT + 7;
 
 	/**
 	 * The feature id for the '<em><b>Package</b></em>' attribute.
@@ -781,7 +773,7 @@ public interface JunitresultPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int TESTSUITE__PACKAGE = ABSTRACT_AGGREGATED_TEST_FEATURE_COUNT + 9;
+	int TESTSUITE__PACKAGE = ABSTRACT_AGGREGATED_TEST_FEATURE_COUNT + 8;
 
 	/**
 	 * The feature id for the '<em><b>Disabled</b></em>' attribute.
@@ -791,7 +783,7 @@ public interface JunitresultPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int TESTSUITE__DISABLED = ABSTRACT_AGGREGATED_TEST_FEATURE_COUNT + 10;
+	int TESTSUITE__DISABLED = ABSTRACT_AGGREGATED_TEST_FEATURE_COUNT + 9;
 
 	/**
 	 * The feature id for the '<em><b>Skipped</b></em>' attribute.
@@ -801,7 +793,7 @@ public interface JunitresultPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int TESTSUITE__SKIPPED = ABSTRACT_AGGREGATED_TEST_FEATURE_COUNT + 11;
+	int TESTSUITE__SKIPPED = ABSTRACT_AGGREGATED_TEST_FEATURE_COUNT + 10;
 
 	/**
 	 * The number of structural features of the '<em>Testsuite</em>' class.
@@ -811,7 +803,7 @@ public interface JunitresultPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int TESTSUITE_FEATURE_COUNT = ABSTRACT_AGGREGATED_TEST_FEATURE_COUNT + 12;
+	int TESTSUITE_FEATURE_COUNT = ABSTRACT_AGGREGATED_TEST_FEATURE_COUNT + 11;
 
 	/**
 	 * The meta object id for the '{@link org.cloudsmith.geppetto.junitresult.impl.PropertyImpl <em>Property</em>}' class.
@@ -1180,6 +1172,16 @@ public interface JunitresultPackage extends EPackage {
 	int TESTRUN__ERRORS = ABSTRACT_AGGREGATED_TEST__ERRORS;
 
 	/**
+	 * The feature id for the '<em><b>Testsuites</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 * @ordered
+	 */
+	int TESTRUN__TESTSUITES = ABSTRACT_AGGREGATED_TEST__TESTSUITES;
+
+	/**
 	 * The feature id for the '<em><b>Project</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1210,16 +1212,6 @@ public interface JunitresultPackage extends EPackage {
 	int TESTRUN__IGNORED = ABSTRACT_AGGREGATED_TEST_FEATURE_COUNT + 2;
 
 	/**
-	 * The feature id for the '<em><b>Testsuites</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * 
-	 * @generated
-	 * @ordered
-	 */
-	int TESTRUN__TESTSUITES = ABSTRACT_AGGREGATED_TEST_FEATURE_COUNT + 3;
-
-	/**
 	 * The number of structural features of the '<em>Testrun</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1227,7 +1219,7 @@ public interface JunitresultPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int TESTRUN_FEATURE_COUNT = ABSTRACT_AGGREGATED_TEST_FEATURE_COUNT + 4;
+	int TESTRUN_FEATURE_COUNT = ABSTRACT_AGGREGATED_TEST_FEATURE_COUNT + 3;
 
 	/**
 	 * The meta object id for the '{@link org.cloudsmith.geppetto.junitresult.impl.TestsuitesImpl <em>Testsuites</em>}' class.
@@ -1288,7 +1280,7 @@ public interface JunitresultPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int TESTSUITES__TESTSUITES = ABSTRACT_AGGREGATED_TEST_FEATURE_COUNT + 0;
+	int TESTSUITES__TESTSUITES = ABSTRACT_AGGREGATED_TEST__TESTSUITES;
 
 	/**
 	 * The feature id for the '<em><b>Time</b></em>' attribute.
@@ -1298,7 +1290,7 @@ public interface JunitresultPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int TESTSUITES__TIME = ABSTRACT_AGGREGATED_TEST_FEATURE_COUNT + 1;
+	int TESTSUITES__TIME = ABSTRACT_AGGREGATED_TEST_FEATURE_COUNT + 0;
 
 	/**
 	 * The feature id for the '<em><b>Disabled</b></em>' attribute.
@@ -1308,7 +1300,7 @@ public interface JunitresultPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int TESTSUITES__DISABLED = ABSTRACT_AGGREGATED_TEST_FEATURE_COUNT + 2;
+	int TESTSUITES__DISABLED = ABSTRACT_AGGREGATED_TEST_FEATURE_COUNT + 1;
 
 	/**
 	 * The number of structural features of the '<em>Testsuites</em>' class.
@@ -1318,7 +1310,7 @@ public interface JunitresultPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int TESTSUITES_FEATURE_COUNT = ABSTRACT_AGGREGATED_TEST_FEATURE_COUNT + 3;
+	int TESTSUITES_FEATURE_COUNT = ABSTRACT_AGGREGATED_TEST_FEATURE_COUNT + 2;
 
 	/**
 	 * The meta object id for the '{@link org.cloudsmith.geppetto.junitresult.impl.SkippedImpl <em>Skipped</em>}' class.
@@ -1429,6 +1421,19 @@ public interface JunitresultPackage extends EPackage {
 	 * @generated
 	 */
 	EAttribute getAbstractAggregatedTest_Tests();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link org.cloudsmith.geppetto.junitresult.AbstractAggregatedTest#getTestsuites
+	 * <em>Testsuites</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @return the meta object for the containment reference list '<em>Testsuites</em>'.
+	 * @see org.cloudsmith.geppetto.junitresult.AbstractAggregatedTest#getTestsuites()
+	 * @see #getAbstractAggregatedTest()
+	 * @generated
+	 */
+	EReference getAbstractAggregatedTest_Testsuites();
 
 	/**
 	 * Returns the meta object for class '{@link org.cloudsmith.geppetto.junitresult.Error <em>Error</em>}'.
@@ -1746,19 +1751,6 @@ public interface JunitresultPackage extends EPackage {
 	EAttribute getTestrun_Started();
 
 	/**
-	 * Returns the meta object for the containment reference list '{@link org.cloudsmith.geppetto.junitresult.Testrun#getTestsuites
-	 * <em>Testsuites</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * 
-	 * @return the meta object for the containment reference list '<em>Testsuites</em>'.
-	 * @see org.cloudsmith.geppetto.junitresult.Testrun#getTestsuites()
-	 * @see #getTestrun()
-	 * @generated
-	 */
-	EReference getTestrun_Testsuites();
-
-	/**
 	 * Returns the meta object for class '{@link org.cloudsmith.geppetto.junitresult.Testsuite <em>Testsuite</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1880,19 +1872,6 @@ public interface JunitresultPackage extends EPackage {
 	EReference getTestsuite_Testcases();
 
 	/**
-	 * Returns the meta object for the containment reference list '{@link org.cloudsmith.geppetto.junitresult.Testsuite#getTestsuites
-	 * <em>Testsuites</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * 
-	 * @return the meta object for the containment reference list '<em>Testsuites</em>'.
-	 * @see org.cloudsmith.geppetto.junitresult.Testsuite#getTestsuites()
-	 * @see #getTestsuite()
-	 * @generated
-	 */
-	EReference getTestsuite_Testsuites();
-
-	/**
 	 * Returns the meta object for the attribute '{@link org.cloudsmith.geppetto.junitresult.Testsuite#getTime <em>Time</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1938,19 +1917,6 @@ public interface JunitresultPackage extends EPackage {
 	 * @generated
 	 */
 	EAttribute getTestsuites_Disabled();
-
-	/**
-	 * Returns the meta object for the containment reference list '{@link org.cloudsmith.geppetto.junitresult.Testsuites#getTestsuites
-	 * <em>Testsuites</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * 
-	 * @return the meta object for the containment reference list '<em>Testsuites</em>'.
-	 * @see org.cloudsmith.geppetto.junitresult.Testsuites#getTestsuites()
-	 * @see #getTestsuites()
-	 * @generated
-	 */
-	EReference getTestsuites_Testsuites();
 
 	/**
 	 * Returns the meta object for the attribute '{@link org.cloudsmith.geppetto.junitresult.Testsuites#getTime <em>Time</em>}'.

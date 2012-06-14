@@ -11,15 +11,22 @@
  */
 package org.cloudsmith.geppetto.junitresult.impl;
 
+import java.util.Collection;
 import org.cloudsmith.geppetto.junitresult.AbstractAggregatedTest;
 import org.cloudsmith.geppetto.junitresult.JunitresultPackage;
 
+import org.cloudsmith.geppetto.junitresult.Testsuite;
 import org.eclipse.emf.common.notify.Notification;
 
+import org.eclipse.emf.common.notify.NotificationChain;
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 
+import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
+import org.eclipse.emf.ecore.util.EObjectContainmentEList;
+import org.eclipse.emf.ecore.util.InternalEList;
 
 /**
  * <!-- begin-user-doc -->
@@ -32,6 +39,7 @@ import org.eclipse.emf.ecore.impl.EObjectImpl;
  * <li>{@link org.cloudsmith.geppetto.junitresult.impl.AbstractAggregatedTestImpl#getTests <em>Tests</em>}</li>
  * <li>{@link org.cloudsmith.geppetto.junitresult.impl.AbstractAggregatedTestImpl#getFailures <em>Failures</em>}</li>
  * <li>{@link org.cloudsmith.geppetto.junitresult.impl.AbstractAggregatedTestImpl#getErrors <em>Errors</em>}</li>
+ * <li>{@link org.cloudsmith.geppetto.junitresult.impl.AbstractAggregatedTestImpl#getTestsuites <em>Testsuites</em>}</li>
  * </ul>
  * </p>
  * 
@@ -127,6 +135,17 @@ public abstract class AbstractAggregatedTestImpl extends EObjectImpl implements 
 	protected int errors = ERRORS_EDEFAULT;
 
 	/**
+	 * The cached value of the '{@link #getTestsuites() <em>Testsuites</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @see #getTestsuites()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<Testsuite> testsuites;
+
+	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
@@ -153,8 +172,25 @@ public abstract class AbstractAggregatedTestImpl extends EObjectImpl implements 
 				return getFailures();
 			case JunitresultPackage.ABSTRACT_AGGREGATED_TEST__ERRORS:
 				return getErrors();
+			case JunitresultPackage.ABSTRACT_AGGREGATED_TEST__TESTSUITES:
+				return getTestsuites();
 		}
 		return super.eGet(featureID, resolve, coreType);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
+	@Override
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch(featureID) {
+			case JunitresultPackage.ABSTRACT_AGGREGATED_TEST__TESTSUITES:
+				return ((InternalEList<?>) getTestsuites()).basicRemove(otherEnd, msgs);
+		}
+		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
 
 	/**
@@ -176,6 +212,8 @@ public abstract class AbstractAggregatedTestImpl extends EObjectImpl implements 
 				return failures != FAILURES_EDEFAULT;
 			case JunitresultPackage.ABSTRACT_AGGREGATED_TEST__ERRORS:
 				return errors != ERRORS_EDEFAULT;
+			case JunitresultPackage.ABSTRACT_AGGREGATED_TEST__TESTSUITES:
+				return testsuites != null && !testsuites.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}
@@ -186,6 +224,7 @@ public abstract class AbstractAggregatedTestImpl extends EObjectImpl implements 
 	 * 
 	 * @generated
 	 */
+	@SuppressWarnings("unchecked")
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch(featureID) {
@@ -200,6 +239,10 @@ public abstract class AbstractAggregatedTestImpl extends EObjectImpl implements 
 				return;
 			case JunitresultPackage.ABSTRACT_AGGREGATED_TEST__ERRORS:
 				setErrors((Integer) newValue);
+				return;
+			case JunitresultPackage.ABSTRACT_AGGREGATED_TEST__TESTSUITES:
+				getTestsuites().clear();
+				getTestsuites().addAll((Collection<? extends Testsuite>) newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -236,6 +279,9 @@ public abstract class AbstractAggregatedTestImpl extends EObjectImpl implements 
 				return;
 			case JunitresultPackage.ABSTRACT_AGGREGATED_TEST__ERRORS:
 				setErrors(ERRORS_EDEFAULT);
+				return;
+			case JunitresultPackage.ABSTRACT_AGGREGATED_TEST__TESTSUITES:
+				getTestsuites().clear();
 				return;
 		}
 		super.eUnset(featureID);
@@ -279,6 +325,20 @@ public abstract class AbstractAggregatedTestImpl extends EObjectImpl implements 
 	 */
 	public int getTests() {
 		return tests;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
+	public EList<Testsuite> getTestsuites() {
+		if(testsuites == null) {
+			testsuites = new EObjectContainmentEList<Testsuite>(
+				Testsuite.class, this, JunitresultPackage.ABSTRACT_AGGREGATED_TEST__TESTSUITES);
+		}
+		return testsuites;
 	}
 
 	/**

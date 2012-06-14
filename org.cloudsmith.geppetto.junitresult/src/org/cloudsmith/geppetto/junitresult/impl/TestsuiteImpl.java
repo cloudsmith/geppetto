@@ -46,7 +46,6 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <li>{@link org.cloudsmith.geppetto.junitresult.impl.TestsuiteImpl#getHostname <em>Hostname</em>}</li>
  * <li>{@link org.cloudsmith.geppetto.junitresult.impl.TestsuiteImpl#getTimestamp <em>Timestamp</em>}</li>
  * <li>{@link org.cloudsmith.geppetto.junitresult.impl.TestsuiteImpl#getTime <em>Time</em>}</li>
- * <li>{@link org.cloudsmith.geppetto.junitresult.impl.TestsuiteImpl#getTestsuites <em>Testsuites</em>}</li>
  * <li>{@link org.cloudsmith.geppetto.junitresult.impl.TestsuiteImpl#getId <em>Id</em>}</li>
  * <li>{@link org.cloudsmith.geppetto.junitresult.impl.TestsuiteImpl#getPackage <em>Package</em>}</li>
  * <li>{@link org.cloudsmith.geppetto.junitresult.impl.TestsuiteImpl#getDisabled <em>Disabled</em>}</li>
@@ -190,17 +189,6 @@ public class TestsuiteImpl extends AbstractAggregatedTestImpl implements Testsui
 	protected double time = TIME_EDEFAULT;
 
 	/**
-	 * The cached value of the '{@link #getTestsuites() <em>Testsuites</em>}' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * 
-	 * @see #getTestsuites()
-	 * @generated
-	 * @ordered
-	 */
-	protected EList<Testsuite> testsuites;
-
-	/**
 	 * The default value of the '{@link #getId() <em>Id</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -321,8 +309,6 @@ public class TestsuiteImpl extends AbstractAggregatedTestImpl implements Testsui
 				return getTimestamp();
 			case JunitresultPackage.TESTSUITE__TIME:
 				return getTime();
-			case JunitresultPackage.TESTSUITE__TESTSUITES:
-				return getTestsuites();
 			case JunitresultPackage.TESTSUITE__ID:
 				return getId();
 			case JunitresultPackage.TESTSUITE__PACKAGE:
@@ -348,8 +334,6 @@ public class TestsuiteImpl extends AbstractAggregatedTestImpl implements Testsui
 				return ((InternalEList<?>) getProperties()).basicRemove(otherEnd, msgs);
 			case JunitresultPackage.TESTSUITE__TESTCASES:
 				return ((InternalEList<?>) getTestcases()).basicRemove(otherEnd, msgs);
-			case JunitresultPackage.TESTSUITE__TESTSUITES:
-				return ((InternalEList<?>) getTestsuites()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -385,8 +369,6 @@ public class TestsuiteImpl extends AbstractAggregatedTestImpl implements Testsui
 						: !TIMESTAMP_EDEFAULT.equals(timestamp);
 			case JunitresultPackage.TESTSUITE__TIME:
 				return time != TIME_EDEFAULT;
-			case JunitresultPackage.TESTSUITE__TESTSUITES:
-				return testsuites != null && !testsuites.isEmpty();
 			case JunitresultPackage.TESTSUITE__ID:
 				return id != ID_EDEFAULT;
 			case JunitresultPackage.TESTSUITE__PACKAGE:
@@ -433,10 +415,6 @@ public class TestsuiteImpl extends AbstractAggregatedTestImpl implements Testsui
 				return;
 			case JunitresultPackage.TESTSUITE__TIME:
 				setTime((Double) newValue);
-				return;
-			case JunitresultPackage.TESTSUITE__TESTSUITES:
-				getTestsuites().clear();
-				getTestsuites().addAll((Collection<? extends Testsuite>) newValue);
 				return;
 			case JunitresultPackage.TESTSUITE__ID:
 				setId((Integer) newValue);
@@ -494,9 +472,6 @@ public class TestsuiteImpl extends AbstractAggregatedTestImpl implements Testsui
 				return;
 			case JunitresultPackage.TESTSUITE__TIME:
 				setTime(TIME_EDEFAULT);
-				return;
-			case JunitresultPackage.TESTSUITE__TESTSUITES:
-				getTestsuites().clear();
 				return;
 			case JunitresultPackage.TESTSUITE__ID:
 				setId(ID_EDEFAULT);
@@ -610,20 +585,6 @@ public class TestsuiteImpl extends AbstractAggregatedTestImpl implements Testsui
 				Testcase.class, this, JunitresultPackage.TESTSUITE__TESTCASES);
 		}
 		return testcases;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * 
-	 * @generated
-	 */
-	public EList<Testsuite> getTestsuites() {
-		if(testsuites == null) {
-			testsuites = new EObjectContainmentEList<Testsuite>(
-				Testsuite.class, this, JunitresultPackage.TESTSUITE__TESTSUITES);
-		}
-		return testsuites;
 	}
 
 	/**

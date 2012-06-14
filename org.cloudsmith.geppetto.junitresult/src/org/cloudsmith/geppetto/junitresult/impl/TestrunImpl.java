@@ -11,24 +11,11 @@
  */
 package org.cloudsmith.geppetto.junitresult.impl;
 
-import java.util.Collection;
-
 import org.cloudsmith.geppetto.junitresult.JunitresultPackage;
 import org.cloudsmith.geppetto.junitresult.Testrun;
-import org.cloudsmith.geppetto.junitresult.Testsuite;
-
 import org.eclipse.emf.common.notify.Notification;
-import org.eclipse.emf.common.notify.NotificationChain;
-
-import org.eclipse.emf.common.util.EList;
-
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.InternalEObject;
-
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-
-import org.eclipse.emf.ecore.util.EObjectContainmentEList;
-import org.eclipse.emf.ecore.util.InternalEList;
 
 /**
  * <!-- begin-user-doc -->
@@ -40,7 +27,6 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <li>{@link org.cloudsmith.geppetto.junitresult.impl.TestrunImpl#getProject <em>Project</em>}</li>
  * <li>{@link org.cloudsmith.geppetto.junitresult.impl.TestrunImpl#getStarted <em>Started</em>}</li>
  * <li>{@link org.cloudsmith.geppetto.junitresult.impl.TestrunImpl#getIgnored <em>Ignored</em>}</li>
- * <li>{@link org.cloudsmith.geppetto.junitresult.impl.TestrunImpl#getTestsuites <em>Testsuites</em>}</li>
  * </ul>
  * </p>
  * 
@@ -114,17 +100,6 @@ public class TestrunImpl extends AbstractAggregatedTestImpl implements Testrun {
 	protected int ignored = IGNORED_EDEFAULT;
 
 	/**
-	 * The cached value of the '{@link #getTestsuites() <em>Testsuites</em>}' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * 
-	 * @see #getTestsuites()
-	 * @generated
-	 * @ordered
-	 */
-	protected EList<Testsuite> testsuites;
-
-	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
@@ -149,25 +124,8 @@ public class TestrunImpl extends AbstractAggregatedTestImpl implements Testrun {
 				return getStarted();
 			case JunitresultPackage.TESTRUN__IGNORED:
 				return getIgnored();
-			case JunitresultPackage.TESTRUN__TESTSUITES:
-				return getTestsuites();
 		}
 		return super.eGet(featureID, resolve, coreType);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * 
-	 * @generated
-	 */
-	@Override
-	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
-		switch(featureID) {
-			case JunitresultPackage.TESTRUN__TESTSUITES:
-				return ((InternalEList<?>) getTestsuites()).basicRemove(otherEnd, msgs);
-		}
-		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
 
 	/**
@@ -187,8 +145,6 @@ public class TestrunImpl extends AbstractAggregatedTestImpl implements Testrun {
 				return started != STARTED_EDEFAULT;
 			case JunitresultPackage.TESTRUN__IGNORED:
 				return ignored != IGNORED_EDEFAULT;
-			case JunitresultPackage.TESTRUN__TESTSUITES:
-				return testsuites != null && !testsuites.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}
@@ -211,10 +167,6 @@ public class TestrunImpl extends AbstractAggregatedTestImpl implements Testrun {
 				return;
 			case JunitresultPackage.TESTRUN__IGNORED:
 				setIgnored((Integer) newValue);
-				return;
-			case JunitresultPackage.TESTRUN__TESTSUITES:
-				getTestsuites().clear();
-				getTestsuites().addAll((Collection<? extends Testsuite>) newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -249,9 +201,6 @@ public class TestrunImpl extends AbstractAggregatedTestImpl implements Testrun {
 			case JunitresultPackage.TESTRUN__IGNORED:
 				setIgnored(IGNORED_EDEFAULT);
 				return;
-			case JunitresultPackage.TESTRUN__TESTSUITES:
-				getTestsuites().clear();
-				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -284,20 +233,6 @@ public class TestrunImpl extends AbstractAggregatedTestImpl implements Testrun {
 	 */
 	public int getStarted() {
 		return started;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * 
-	 * @generated
-	 */
-	public EList<Testsuite> getTestsuites() {
-		if(testsuites == null) {
-			testsuites = new EObjectContainmentEList<Testsuite>(
-				Testsuite.class, this, JunitresultPackage.TESTRUN__TESTSUITES);
-		}
-		return testsuites;
 	}
 
 	/**

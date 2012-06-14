@@ -30,7 +30,6 @@ import org.eclipse.emf.common.util.EList;
  * <li>{@link org.cloudsmith.geppetto.junitresult.Testsuite#getHostname <em>Hostname</em>}</li>
  * <li>{@link org.cloudsmith.geppetto.junitresult.Testsuite#getTimestamp <em>Timestamp</em>}</li>
  * <li>{@link org.cloudsmith.geppetto.junitresult.Testsuite#getTime <em>Time</em>}</li>
- * <li>{@link org.cloudsmith.geppetto.junitresult.Testsuite#getTestsuites <em>Testsuites</em>}</li>
  * <li>{@link org.cloudsmith.geppetto.junitresult.Testsuite#getId <em>Id</em>}</li>
  * <li>{@link org.cloudsmith.geppetto.junitresult.Testsuite#getPackage <em>Package</em>}</li>
  * <li>{@link org.cloudsmith.geppetto.junitresult.Testsuite#getDisabled <em>Disabled</em>}</li>
@@ -186,22 +185,6 @@ public interface Testsuite extends AbstractAggregatedTest {
 	 * @generated
 	 */
 	EList<Testcase> getTestcases();
-
-	/**
-	 * Returns the value of the '<em><b>Testsuites</b></em>' containment reference list.
-	 * The list contents are of type {@link org.cloudsmith.geppetto.junitresult.Testsuite}.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Testsuites</em>' containment reference list isn't clear, there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * 
-	 * @return the value of the '<em>Testsuites</em>' containment reference list.
-	 * @see org.cloudsmith.geppetto.junitresult.JunitresultPackage#getTestsuite_Testsuites()
-	 * @model containment="true"
-	 * @generated
-	 */
-	EList<Testsuite> getTestsuites();
 
 	/**
 	 * Returns the value of the '<em><b>Time</b></em>' attribute.

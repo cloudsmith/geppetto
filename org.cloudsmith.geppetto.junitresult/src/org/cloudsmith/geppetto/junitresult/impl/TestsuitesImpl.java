@@ -11,23 +11,12 @@
  */
 package org.cloudsmith.geppetto.junitresult.impl;
 
-import java.util.Collection;
-
 import org.cloudsmith.geppetto.junitresult.JunitresultPackage;
-import org.cloudsmith.geppetto.junitresult.Testsuite;
 import org.cloudsmith.geppetto.junitresult.Testsuites;
 
 import org.eclipse.emf.common.notify.Notification;
-import org.eclipse.emf.common.notify.NotificationChain;
-
-import org.eclipse.emf.common.util.EList;
-
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.InternalEObject;
-
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-import org.eclipse.emf.ecore.util.EObjectContainmentEList;
-import org.eclipse.emf.ecore.util.InternalEList;
 
 /**
  * <!-- begin-user-doc -->
@@ -36,7 +25,6 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <p>
  * The following features are implemented:
  * <ul>
- * <li>{@link org.cloudsmith.geppetto.junitresult.impl.TestsuitesImpl#getTestsuites <em>Testsuites</em>}</li>
  * <li>{@link org.cloudsmith.geppetto.junitresult.impl.TestsuitesImpl#getTime <em>Time</em>}</li>
  * <li>{@link org.cloudsmith.geppetto.junitresult.impl.TestsuitesImpl#getDisabled <em>Disabled</em>}</li>
  * </ul>
@@ -45,17 +33,6 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * @generated
  */
 public class TestsuitesImpl extends AbstractAggregatedTestImpl implements Testsuites {
-	/**
-	 * The cached value of the '{@link #getTestsuites() <em>Testsuites</em>}' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * 
-	 * @see #getTestsuites()
-	 * @generated
-	 * @ordered
-	 */
-	protected EList<Testsuite> testsuites;
-
 	/**
 	 * The default value of the '{@link #getTime() <em>Time</em>}' attribute.
 	 * <!-- begin-user-doc -->
@@ -119,8 +96,6 @@ public class TestsuitesImpl extends AbstractAggregatedTestImpl implements Testsu
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch(featureID) {
-			case JunitresultPackage.TESTSUITES__TESTSUITES:
-				return getTestsuites();
 			case JunitresultPackage.TESTSUITES__TIME:
 				return getTime();
 			case JunitresultPackage.TESTSUITES__DISABLED:
@@ -136,25 +111,8 @@ public class TestsuitesImpl extends AbstractAggregatedTestImpl implements Testsu
 	 * @generated
 	 */
 	@Override
-	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
-		switch(featureID) {
-			case JunitresultPackage.TESTSUITES__TESTSUITES:
-				return ((InternalEList<?>) getTestsuites()).basicRemove(otherEnd, msgs);
-		}
-		return super.eInverseRemove(otherEnd, featureID, msgs);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * 
-	 * @generated
-	 */
-	@Override
 	public boolean eIsSet(int featureID) {
 		switch(featureID) {
-			case JunitresultPackage.TESTSUITES__TESTSUITES:
-				return testsuites != null && !testsuites.isEmpty();
 			case JunitresultPackage.TESTSUITES__TIME:
 				return time != TIME_EDEFAULT;
 			case JunitresultPackage.TESTSUITES__DISABLED:
@@ -173,10 +131,6 @@ public class TestsuitesImpl extends AbstractAggregatedTestImpl implements Testsu
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch(featureID) {
-			case JunitresultPackage.TESTSUITES__TESTSUITES:
-				getTestsuites().clear();
-				getTestsuites().addAll((Collection<? extends Testsuite>) newValue);
-				return;
 			case JunitresultPackage.TESTSUITES__TIME:
 				setTime((Double) newValue);
 				return;
@@ -207,9 +161,6 @@ public class TestsuitesImpl extends AbstractAggregatedTestImpl implements Testsu
 	@Override
 	public void eUnset(int featureID) {
 		switch(featureID) {
-			case JunitresultPackage.TESTSUITES__TESTSUITES:
-				getTestsuites().clear();
-				return;
 			case JunitresultPackage.TESTSUITES__TIME:
 				setTime(TIME_EDEFAULT);
 				return;
@@ -228,20 +179,6 @@ public class TestsuitesImpl extends AbstractAggregatedTestImpl implements Testsu
 	 */
 	public int getDisabled() {
 		return disabled;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * 
-	 * @generated
-	 */
-	public EList<Testsuite> getTestsuites() {
-		if(testsuites == null) {
-			testsuites = new EObjectContainmentEList<Testsuite>(
-				Testsuite.class, this, JunitresultPackage.TESTSUITES__TESTSUITES);
-		}
-		return testsuites;
 	}
 
 	/**

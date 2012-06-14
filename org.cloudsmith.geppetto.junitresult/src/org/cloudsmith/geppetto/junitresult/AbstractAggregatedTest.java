@@ -11,6 +11,8 @@
  */
 package org.cloudsmith.geppetto.junitresult;
 
+import org.eclipse.emf.common.util.EList;
+
 /**
  * <!-- begin-user-doc -->
  * A representation of the model object '<em><b>Abstract Aggregated Test</b></em>'.
@@ -23,6 +25,7 @@ package org.cloudsmith.geppetto.junitresult;
  * <li>{@link org.cloudsmith.geppetto.junitresult.AbstractAggregatedTest#getTests <em>Tests</em>}</li>
  * <li>{@link org.cloudsmith.geppetto.junitresult.AbstractAggregatedTest#getFailures <em>Failures</em>}</li>
  * <li>{@link org.cloudsmith.geppetto.junitresult.AbstractAggregatedTest#getErrors <em>Errors</em>}</li>
+ * <li>{@link org.cloudsmith.geppetto.junitresult.AbstractAggregatedTest#getTestsuites <em>Testsuites</em>}</li>
  * </ul>
  * </p>
  * 
@@ -94,6 +97,22 @@ public interface AbstractAggregatedTest extends JunitResult {
 	 * @generated
 	 */
 	int getTests();
+
+	/**
+	 * Returns the value of the '<em><b>Testsuites</b></em>' containment reference list.
+	 * The list contents are of type {@link org.cloudsmith.geppetto.junitresult.Testsuite}.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Testsuites</em>' containment reference list isn't clear, there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * 
+	 * @return the value of the '<em>Testsuites</em>' containment reference list.
+	 * @see org.cloudsmith.geppetto.junitresult.JunitresultPackage#getAbstractAggregatedTest_Testsuites()
+	 * @model containment="true"
+	 * @generated
+	 */
+	EList<Testsuite> getTestsuites();
 
 	/**
 	 * Sets the value of the '{@link org.cloudsmith.geppetto.junitresult.AbstractAggregatedTest#getErrors <em>Errors</em>}' attribute.

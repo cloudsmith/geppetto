@@ -11,8 +11,6 @@
  */
 package org.cloudsmith.geppetto.junitresult;
 
-import org.eclipse.emf.common.util.EList;
-
 /**
  * <!-- begin-user-doc -->
  * A representation of the model object '<em><b>Testrun</b></em>'.
@@ -29,7 +27,6 @@ import org.eclipse.emf.common.util.EList;
  * <li>{@link org.cloudsmith.geppetto.junitresult.Testrun#getProject <em>Project</em>}</li>
  * <li>{@link org.cloudsmith.geppetto.junitresult.Testrun#getStarted <em>Started</em>}</li>
  * <li>{@link org.cloudsmith.geppetto.junitresult.Testrun#getIgnored <em>Ignored</em>}</li>
- * <li>{@link org.cloudsmith.geppetto.junitresult.Testrun#getTestsuites <em>Testsuites</em>}</li>
  * </ul>
  * </p>
  * 
@@ -85,22 +82,6 @@ public interface Testrun extends AbstractAggregatedTest {
 	 * @generated
 	 */
 	int getStarted();
-
-	/**
-	 * Returns the value of the '<em><b>Testsuites</b></em>' containment reference list.
-	 * The list contents are of type {@link org.cloudsmith.geppetto.junitresult.Testsuite}.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Testsuites</em>' containment reference list isn't clear, there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * 
-	 * @return the value of the '<em>Testsuites</em>' containment reference list.
-	 * @see org.cloudsmith.geppetto.junitresult.JunitresultPackage#getTestrun_Testsuites()
-	 * @model containment="true"
-	 * @generated
-	 */
-	EList<Testsuite> getTestsuites();
 
 	/**
 	 * Sets the value of the '{@link org.cloudsmith.geppetto.junitresult.Testrun#getIgnored <em>Ignored</em>}' attribute.

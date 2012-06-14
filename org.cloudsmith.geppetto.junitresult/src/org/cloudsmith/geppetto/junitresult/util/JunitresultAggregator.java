@@ -16,8 +16,8 @@ import java.io.FileFilter;
 import java.io.FilenameFilter;
 import java.io.IOException;
 import java.util.Date;
-import java.util.List;
 
+import org.cloudsmith.geppetto.junitresult.AbstractAggregatedTest;
 import org.cloudsmith.geppetto.junitresult.Error;
 import org.cloudsmith.geppetto.junitresult.JunitResult;
 import org.cloudsmith.geppetto.junitresult.JunitresultFactory;
@@ -32,7 +32,6 @@ import org.eclipse.core.runtime.Path;
 import org.eclipse.emf.common.util.EList;
 
 import com.google.common.collect.ArrayListMultimap;
-import com.google.common.collect.Lists;
 import com.google.common.collect.Multimap;
 
 /**
@@ -211,37 +210,13 @@ public class JunitresultAggregator {
 
 		// check parameters
 		if(!reportDir.getAbsolutePath().startsWith(rootDir.getAbsolutePath()))
-			throw new IllegalArgumentException("given directory must be same or subdirectoryu of given root");
+			throw new IllegalArgumentException("given directory must be same or subdirectory of given root");
 
-		// this.reportDir = reportDir;
-		// this.rootDir = rootDir;
 		this.rootPath = new Path(rootDir.getParentFile().getAbsolutePath());
 
-		this.rootSuite = createRootSuite(reportDir, rootDir);
+		this.rootSuite = createRootSuite(reportDir);
+		processFiles(rootSuite, reportDir);
 
-		processingXmlFiles: for(File f : findXMLFiles(reportDir)) {
-			JunitResult loaded = null;
-			try {
-				loaded = JunitresultLoader.loadFromXML(f);
-				if(loaded instanceof Testrun) // a bit strange - this is an eclipse JUnit result
-					processTestrun(f, ((Testrun) loaded));
-				else if(loaded instanceof Testsuite)
-					processTestsuite(f, ((Testsuite) loaded));
-				else if(loaded instanceof Testsuites)
-					processTestsuites(f, ((Testsuites) loaded));
-				else
-					throw new RuntimeException("Internal error: expected testrun, testsuite or testsuites");
-			}
-			catch(IOException e) {
-				addExceptionalCase(f, e);
-				continue processingXmlFiles;
-			}
-			catch(RuntimeException e) {
-				addExceptionalCase(f, e);
-				continue processingXmlFiles;
-			}
-
-		}
 		// fix-up all counts and time
 		aggregateCountAndTime();
 		return rootSuite;
@@ -255,23 +230,7 @@ public class JunitresultAggregator {
 
 	}
 
-	/**
-	 * Collects file matching filter while skipping all symbolically linked files.
-	 * 
-	 * @param root
-	 * @param filter
-	 * @param result
-	 */
-	private void collectFiles(File root, FilenameFilter filter, List<File> result) {
-		for(File f : root.listFiles(filter))
-			if(!isSymlink(f))
-				result.add(f);
-		for(File f : root.listFiles(directoryFilter))
-			if(!isSymlink(f))
-				collectFiles(f, filter, result);
-	}
-
-	private Testsuites createRootSuite(File reportDir, File rootDir) {
+	private Testsuites createRootSuite(File reportDir) {
 		IPath p = new Path(reportDir.getAbsolutePath());
 		IPath relative = p.makeRelativeTo(rootPath);
 		Testsuites testsuites = JunitresultFactory.eINSTANCE.createTestsuites();
@@ -279,15 +238,10 @@ public class JunitresultAggregator {
 		return testsuites;
 	}
 
-	private List<File> findFiles(File root, FilenameFilter filter) {
-		List<File> result = Lists.newArrayList();
-		collectFiles(root, filter, result);
-		return result;
-
-	}
-
-	private List<File> findXMLFiles(File root) {
-		return findFiles(root, xmlFileFilter);
+	private Testsuite createSuite(File reportDir) {
+		Testsuite testsuite = JunitresultFactory.eINSTANCE.createTestsuite();
+		testsuite.setName(reportDir.getName());
+		return testsuite;
 	}
 
 	private boolean isExtraRspecFormatterStyle(Testsuite testsuite) {
@@ -312,6 +266,18 @@ public class JunitresultAggregator {
 		return tsname.equals(tcname);
 	}
 
+	private void processFiles(AbstractAggregatedTest parent, File root) {
+		for(File f : root.listFiles(xmlFileFilter))
+			if(!isSymlink(f))
+				processXMLFile(parent, f);
+		for(File d : root.listFiles(directoryFilter))
+			if(!isSymlink(d)) {
+				Testsuite dirSuite = createSuite(d);
+				parent.getTestsuites().add(dirSuite);
+				processFiles(dirSuite, d);
+			}
+	}
+
 	/**
 	 * Wraps the content of the 'testrun' into a new 'testsuite' named after the file, and
 	 * adds the resulting container to the root suite.
@@ -319,11 +285,11 @@ public class JunitresultAggregator {
 	 * @param f
 	 * @param testrun
 	 */
-	private void processTestrun(File f, Testrun testrun) {
+	private void processTestrun(AbstractAggregatedTest parent, File f, Testrun testrun) {
 		Testsuite containerSuite = JunitresultFactory.eINSTANCE.createTestsuite();
 		containerSuite.setName(suitename(f));
 		containerSuite.getTestsuites().addAll(testrun.getTestsuites());
-		rootSuite.getTestsuites().add(containerSuite);
+		parent.getTestsuites().add(containerSuite);
 	}
 
 	/**
@@ -337,7 +303,7 @@ public class JunitresultAggregator {
 	 * @param f
 	 * @param testsuite
 	 */
-	private void processTestsuite(File f, Testsuite testsuite) {
+	private void processTestsuite(final AbstractAggregatedTest parent, final File f, final Testsuite testsuite) {
 
 		// get reported timestamp and if missing construct it from the timestamp of the
 		// resultfile.
@@ -379,7 +345,7 @@ public class JunitresultAggregator {
 				suitePerClass.getTestcases().addAll(map.get(key));
 				containerSuite.getTestsuites().add(suitePerClass);
 			}
-			rootSuite.getTestsuites().add(containerSuite);
+			parent.getTestsuites().add(containerSuite);
 			// all work done
 		}
 		else if(isSuiteWrappingSingleCase(testsuite)) {
@@ -391,17 +357,22 @@ public class JunitresultAggregator {
 			// Simply rename the wrapping testsuite to reflect the name of the file
 			testsuite.setName(suitename(f));
 			testsuite.setTimestamp(timestamp);
-			rootSuite.getTestsuites().add(testsuite);
+			parent.getTestsuites().add(testsuite);
 			// all work done
 		}
 		else {
 			// this is some form of testsuite that is not known - simply include it
 			// make sure it has a name, if not, name it after the file
+
+			// TODO: Actually, the above is wrong! ci_reporter does NOT always output
+			// testsuites with a single TC
+			// This means, that it is possible that names clash and are only differentiated by
+			// the filename - FIXME: take the filename into account if this becomes a problem
 			String suitename = testsuite.getName();
 			if(suitename == null || suitename.length() < 1)
 				testsuite.setName(suitename(f));
 			testsuite.setTimestamp(timestamp);
-			rootSuite.getTestsuites().add(testsuite);
+			parent.getTestsuites().add(testsuite);
 			// all work done
 		}
 
@@ -414,7 +385,7 @@ public class JunitresultAggregator {
 	 * @param f
 	 * @param testsuites
 	 */
-	private void processTestsuites(File f, Testsuites testsuites) {
+	private void processTestsuites(final AbstractAggregatedTest parent, final File f, final Testsuites testsuites) {
 		Date fileTs = new Date(f.lastModified());
 
 		Testsuite containerSuite = JunitresultFactory.eINSTANCE.createTestsuite();
@@ -425,7 +396,28 @@ public class JunitresultAggregator {
 			if(ts.getTimestamp() == null)
 				ts.setTimestamp(fileTs);
 		}
-		rootSuite.getTestsuites().add(containerSuite);
+		parent.getTestsuites().add(containerSuite);
+	}
+
+	private void processXMLFile(AbstractAggregatedTest parent, File f) {
+		try {
+			JunitResult loaded = JunitresultLoader.loadFromXML(f);
+			if(loaded instanceof Testrun) // a bit strange - this is an eclipse JUnit result
+				processTestrun(parent, f, ((Testrun) loaded));
+			else if(loaded instanceof Testsuite)
+				processTestsuite(parent, f, ((Testsuite) loaded));
+			else if(loaded instanceof Testsuites)
+				processTestsuites(parent, f, ((Testsuites) loaded));
+			else
+				throw new RuntimeException("Internal error: expected testrun, testsuite or testsuites");
+		}
+		catch(IOException e) {
+			addExceptionalCase(f, e);
+		}
+		catch(RuntimeException e) {
+			addExceptionalCase(f, e);
+		}
+
 	}
 
 	/**

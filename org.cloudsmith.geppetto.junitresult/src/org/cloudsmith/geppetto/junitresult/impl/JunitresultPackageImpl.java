@@ -227,7 +227,6 @@ public class JunitresultPackageImpl extends EPackageImpl implements JunitresultP
 		createEAttribute(testsuiteEClass, TESTSUITE__HOSTNAME);
 		createEAttribute(testsuiteEClass, TESTSUITE__TIMESTAMP);
 		createEAttribute(testsuiteEClass, TESTSUITE__TIME);
-		createEReference(testsuiteEClass, TESTSUITE__TESTSUITES);
 		createEAttribute(testsuiteEClass, TESTSUITE__ID);
 		createEAttribute(testsuiteEClass, TESTSUITE__PACKAGE);
 		createEAttribute(testsuiteEClass, TESTSUITE__DISABLED);
@@ -262,16 +261,15 @@ public class JunitresultPackageImpl extends EPackageImpl implements JunitresultP
 		createEAttribute(testrunEClass, TESTRUN__PROJECT);
 		createEAttribute(testrunEClass, TESTRUN__STARTED);
 		createEAttribute(testrunEClass, TESTRUN__IGNORED);
-		createEReference(testrunEClass, TESTRUN__TESTSUITES);
 
 		abstractAggregatedTestEClass = createEClass(ABSTRACT_AGGREGATED_TEST);
 		createEAttribute(abstractAggregatedTestEClass, ABSTRACT_AGGREGATED_TEST__NAME);
 		createEAttribute(abstractAggregatedTestEClass, ABSTRACT_AGGREGATED_TEST__TESTS);
 		createEAttribute(abstractAggregatedTestEClass, ABSTRACT_AGGREGATED_TEST__FAILURES);
 		createEAttribute(abstractAggregatedTestEClass, ABSTRACT_AGGREGATED_TEST__ERRORS);
+		createEReference(abstractAggregatedTestEClass, ABSTRACT_AGGREGATED_TEST__TESTSUITES);
 
 		testsuitesEClass = createEClass(TESTSUITES);
-		createEReference(testsuitesEClass, TESTSUITES__TESTSUITES);
 		createEAttribute(testsuitesEClass, TESTSUITES__TIME);
 		createEAttribute(testsuitesEClass, TESTSUITES__DISABLED);
 
@@ -328,6 +326,16 @@ public class JunitresultPackageImpl extends EPackageImpl implements JunitresultP
 	 */
 	public EAttribute getAbstractAggregatedTest_Tests() {
 		return (EAttribute) abstractAggregatedTestEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
+	public EReference getAbstractAggregatedTest_Testsuites() {
+		return (EReference) abstractAggregatedTestEClass.getEStructuralFeatures().get(4);
 	}
 
 	/**
@@ -606,16 +614,6 @@ public class JunitresultPackageImpl extends EPackageImpl implements JunitresultP
 	 * 
 	 * @generated
 	 */
-	public EReference getTestrun_Testsuites() {
-		return (EReference) testrunEClass.getEStructuralFeatures().get(3);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * 
-	 * @generated
-	 */
 	public EClass getTestsuite() {
 		return testsuiteEClass;
 	}
@@ -627,7 +625,7 @@ public class JunitresultPackageImpl extends EPackageImpl implements JunitresultP
 	 * @generated
 	 */
 	public EAttribute getTestsuite_Disabled() {
-		return (EAttribute) testsuiteEClass.getEStructuralFeatures().get(10);
+		return (EAttribute) testsuiteEClass.getEStructuralFeatures().get(9);
 	}
 
 	/**
@@ -647,7 +645,7 @@ public class JunitresultPackageImpl extends EPackageImpl implements JunitresultP
 	 * @generated
 	 */
 	public EAttribute getTestsuite_Id() {
-		return (EAttribute) testsuiteEClass.getEStructuralFeatures().get(8);
+		return (EAttribute) testsuiteEClass.getEStructuralFeatures().get(7);
 	}
 
 	/**
@@ -657,7 +655,7 @@ public class JunitresultPackageImpl extends EPackageImpl implements JunitresultP
 	 * @generated
 	 */
 	public EAttribute getTestsuite_Package() {
-		return (EAttribute) testsuiteEClass.getEStructuralFeatures().get(9);
+		return (EAttribute) testsuiteEClass.getEStructuralFeatures().get(8);
 	}
 
 	/**
@@ -677,7 +675,7 @@ public class JunitresultPackageImpl extends EPackageImpl implements JunitresultP
 	 * @generated
 	 */
 	public EAttribute getTestsuite_Skipped() {
-		return (EAttribute) testsuiteEClass.getEStructuralFeatures().get(11);
+		return (EAttribute) testsuiteEClass.getEStructuralFeatures().get(10);
 	}
 
 	/**
@@ -708,16 +706,6 @@ public class JunitresultPackageImpl extends EPackageImpl implements JunitresultP
 	 */
 	public EReference getTestsuite_Testcases() {
 		return (EReference) testsuiteEClass.getEStructuralFeatures().get(1);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * 
-	 * @generated
-	 */
-	public EReference getTestsuite_Testsuites() {
-		return (EReference) testsuiteEClass.getEStructuralFeatures().get(7);
 	}
 
 	/**
@@ -757,17 +745,7 @@ public class JunitresultPackageImpl extends EPackageImpl implements JunitresultP
 	 * @generated
 	 */
 	public EAttribute getTestsuites_Disabled() {
-		return (EAttribute) testsuitesEClass.getEStructuralFeatures().get(2);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * 
-	 * @generated
-	 */
-	public EReference getTestsuites_Testsuites() {
-		return (EReference) testsuitesEClass.getEStructuralFeatures().get(0);
+		return (EAttribute) testsuitesEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -777,7 +755,7 @@ public class JunitresultPackageImpl extends EPackageImpl implements JunitresultP
 	 * @generated
 	 */
 	public EAttribute getTestsuites_Time() {
-		return (EAttribute) testsuitesEClass.getEStructuralFeatures().get(1);
+		return (EAttribute) testsuitesEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -837,10 +815,6 @@ public class JunitresultPackageImpl extends EPackageImpl implements JunitresultP
 		initEAttribute(
 			getTestsuite_Time(), ecorePackage.getEDouble(), "time", null, 0, 1, Testsuite.class, !IS_TRANSIENT,
 			!IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(
-			getTestsuite_Testsuites(), this.getTestsuite(), null, "testsuites", null, 0, -1, Testsuite.class,
-			!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE,
-			!IS_DERIVED, IS_ORDERED);
 		initEAttribute(
 			getTestsuite_Id(), ecorePackage.getEInt(), "id", null, 0, 1, Testsuite.class, !IS_TRANSIENT, !IS_VOLATILE,
 			IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -926,10 +900,6 @@ public class JunitresultPackageImpl extends EPackageImpl implements JunitresultP
 		initEAttribute(
 			getTestrun_Ignored(), ecorePackage.getEInt(), "ignored", null, 1, 1, Testrun.class, !IS_TRANSIENT,
 			!IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(
-			getTestrun_Testsuites(), this.getTestsuite(), null, "testsuites", null, 0, -1, Testrun.class,
-			!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE,
-			!IS_DERIVED, IS_ORDERED);
 
 		initEClass(
 			abstractAggregatedTestEClass, AbstractAggregatedTest.class, "AbstractAggregatedTest", IS_ABSTRACT,
@@ -950,13 +920,13 @@ public class JunitresultPackageImpl extends EPackageImpl implements JunitresultP
 			getAbstractAggregatedTest_Errors(), ecorePackage.getEInt(), "errors", null, 0, 1,
 			AbstractAggregatedTest.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID,
 			IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(
+			getAbstractAggregatedTest_Testsuites(), this.getTestsuite(), null, "testsuites", null, 0, -1,
+			AbstractAggregatedTest.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE,
+			!IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(
 			testsuitesEClass, Testsuites.class, "Testsuites", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(
-			getTestsuites_Testsuites(), this.getTestsuite(), null, "testsuites", null, 0, -1, Testsuites.class,
-			!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE,
-			!IS_DERIVED, IS_ORDERED);
 		initEAttribute(
 			getTestsuites_Time(), ecorePackage.getEDouble(), "time", null, 0, 1, Testsuites.class, !IS_TRANSIENT,
 			!IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

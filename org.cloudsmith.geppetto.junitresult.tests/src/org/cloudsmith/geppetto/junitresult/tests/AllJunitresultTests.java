@@ -22,6 +22,8 @@ public class AllJunitresultTests {
 		suite.addTestSuite(TestTestrun.class);
 		suite.addTestSuite(TestTessuite.class);
 		suite.addTestSuite(TestAggregator.class);
+		// requires manual setup
+		// suite.addTestSuite(TestJenkinsAggregation.class);
 		// $JUnit-END$
 		return suite;
 	}

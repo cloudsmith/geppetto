@@ -311,6 +311,13 @@ public class PPFinder {
 		// if(fqn.getSegmentCount() == 1 && "".equals(fqn.getSegment(0)))
 		// throw new IllegalArgumentException("FQN has one empty segment");
 
+		List<IEObjectDescription> targets = Lists.newArrayList();
+		Resource scopeDetermeningResource = scopeDetermeningObject.eResource();
+
+		// Not meaningful to continue if the name is empty (looking up nothing)
+		if(fqn.getSegmentCount() == 0)
+			return new SearchResult(targets, targets);
+
 		// Not meaningful to record the fact that an Absolute reference was used as nothing
 		// is named with an absolute FQN (i.e. it is only used to do lookup).
 		final boolean absoluteFQN = fqn.getSegmentCount() > 0 && "".equals(fqn.getSegment(0));
@@ -318,9 +325,6 @@ public class PPFinder {
 			importedNames.add(absoluteFQN
 					? fqn.skipFirst(1)
 					: fqn);
-
-		List<IEObjectDescription> targets = Lists.newArrayList();
-		Resource scopeDetermeningResource = scopeDetermeningObject.eResource();
 
 		if(scopeDetermeningResource != resource) {
 			// This is a lookup in the perspective of some other resource

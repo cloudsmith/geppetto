@@ -170,7 +170,8 @@ public class JunitresultDomSerializer {
 	}
 
 	/**
-	 * Serializes and outputs the result as XML text to the given output stream.
+	 * Serializes and outputs the result as XML text to the given output stream using
+	 * the default encoding.
 	 * 
 	 * @param r
 	 * @param stream
@@ -178,6 +179,21 @@ public class JunitresultDomSerializer {
 	 * @throws ParserConfigurationException
 	 */
 	public void serialize(JunitResult r, OutputStream stream) throws TransformerException, ParserConfigurationException {
+		serialize(r, stream, null);
+	}
+
+	/**
+	 * Serializes and outputs the result as XML text to the given output stream.
+	 * 
+	 * @param r
+	 * @param stream
+	 * @param encoding
+	 *            The encoding to use for the transformation or <code>null</code> for default
+	 * @throws TransformerException
+	 * @throws ParserConfigurationException
+	 */
+	public void serialize(JunitResult r, OutputStream stream, String encoding) throws TransformerException,
+			ParserConfigurationException {
 		// write the content into xml file
 		TransformerFactory transformerFactory = TransformerFactory.newInstance();
 		Transformer transformer = transformerFactory.newTransformer();
@@ -185,6 +201,8 @@ public class JunitresultDomSerializer {
 
 		StreamResult result = new StreamResult(stream);
 		transformer.setOutputProperty(OutputKeys.INDENT, "yes");
+		if(encoding != null)
+			transformer.setOutputProperty(OutputKeys.ENCODING, encoding);
 		transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "2");
 		transformer.transform(source, result);
 	}

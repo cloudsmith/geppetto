@@ -713,7 +713,7 @@ public class PPResourceLinker implements IPPDiagnostics {
 					// warning or error depending on if this is a reasonable class reference expr or not
 					if(canBeAClassReference(pe)) {
 						acceptor.acceptWarning(
-							"Can not determine until runtime if this is valid class reference", //
+							"Can not determine until runtime if this is a valid class reference", //
 							o, //
 							PPPackage.Literals.PARAMETERIZED_EXPRESSION__PARAMETERS, parameterIndex,
 							IPPDiagnostics.ISSUE__RESOURCE_UNKNOWN_TYPE);
@@ -842,7 +842,7 @@ public class PPResourceLinker implements IPPDiagnostics {
 					String msg = null;
 					boolean error = false;
 					if(canBeAClassReference(pe)) {
-						msg = "Can not determine until runtime if this is valid class reference";
+						msg = "Can not determine until runtime if this is a valid class reference";
 					}
 					else {
 						msg = "Not an acceptable parameter. Function '" + name + "' requires a class reference.";

@@ -218,9 +218,10 @@ public class PPPreferencesHelper implements IPreferenceStoreInitializer, IProper
 
 	public String getPptpVersion() {
 		String result = store.getString(PPPreferenceConstants.PUPPET_TARGET_VERSION);
-		// TODO: Until there is an actual 2.8 pptp, return 2.7
-		// PE 2.0 includes puppet 2.7
-		if("2.8".equals(result) || "PE 2.0".equals(result))
+		// there never was a 2.8, but older preferences settings may still have this string, use 3.0 instead
+		if("2.8".equals(result))
+			return "3.0";
+		else if("PE 2.0".equals(result)) // PE 2.0 includes puppet 2.7
 			return "2.7";
 		return result;
 	}
@@ -281,8 +282,8 @@ public class PPPreferencesHelper implements IPreferenceStoreInitializer, IProper
 		String result = store.getString(PPPreferenceConstants.PUPPET_TARGET_VERSION);
 		if("2.6".equals(result))
 			return IValidationAdvisor.ComplianceLevel.PUPPET_2_6;
-		if("2.8".equals(result))
-			return IValidationAdvisor.ComplianceLevel.PUPPET_2_8;
+		if("3.0".equals(result) || "2.8".equals(result))
+			return IValidationAdvisor.ComplianceLevel.PUPPET_3_0; // TODO: Rename Compliance 2.8 to Compliance 3.0
 
 		// for 2.7 and default
 		return IValidationAdvisor.ComplianceLevel.PUPPET_2_7;
@@ -302,7 +303,7 @@ public class PPPreferencesHelper implements IPreferenceStoreInitializer, IProper
 		preferenceStoreAccess = access;
 		store = preferenceStoreAccess.getWritablePreferenceStore();
 		store.setDefault(PPPreferenceConstants.AUTO_EDIT_STRATEGY, 0);
-		store.setDefault(PPPreferenceConstants.PUPPET_TARGET_VERSION, "2.7");
+		store.setDefault(PPPreferenceConstants.PUPPET_TARGET_VERSION, "3.0");
 		store.setDefault(PPPreferenceConstants.PUPPET_PROJECT_PATH, defaultProjectPath);
 		store.setDefault(PPPreferenceConstants.PUPPET_ENVIRONMENT, defaultPuppetEnvironment);
 		store.setDefault(PPPreferenceConstants.FORGE_LOCATION, defaultForgeURI);

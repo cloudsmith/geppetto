@@ -200,6 +200,17 @@ public class RubyHelper {
 		return var;
 	}
 
+	private String[] extractVersionFromName(String name) {
+		String[] result = new String[] { name, "" };
+		int lastHypen = name.lastIndexOf('-');
+		if(lastHypen == -1)
+			return result;
+		result[0] = name.substring(0, lastHypen);
+		result[1] = name.substring(lastHypen + 1);
+		return result;
+
+	}
+
 	private List<Function> functionInfoToFunction(List<PPFunctionInfo> functionInfos) {
 		List<Function> result = Lists.newArrayList();
 		for(PPFunctionInfo info : functionInfos) {
@@ -388,10 +399,10 @@ public class RubyHelper {
 	}
 
 	/**
-	 * Loads a Puppet distribution target. The file should point to the "puppet"
+	 * Loads a Puppet distribution target. The file should point to the "lib/puppet"
 	 * directory where the sub-directories "parser" and "type" are. The path to
-	 * this file is expected to contain a version segment after the first
-	 * "puppet" segment e.g. '/somewhere/puppet/2.6.0_0/somewhere/puppet/'
+	 * this directory is expected to have a ../../ name on the form puppet-version
+	 * e.g. /somewhere/puppet-2.6.9/lib/puppet.
 	 * 
 	 * The implementation will scan the known locations for definitions that
 	 * should be reflected in the target - i.e. parser/functions/*.rb and
@@ -413,18 +424,25 @@ public class RubyHelper {
 		PuppetDistribution puppetDistro = PPTPFactory.eINSTANCE.createPuppetDistribution();
 		puppetDistro.setDescription("Puppet Distribution");
 		IPath path = Path.fromOSString(file.getAbsolutePath());
+
+		// NOTE: This is wrong, will always result in a version == "" as the version is
+		// part of the "puppet" directory, not the directory puppet-x.x.x/lib/puppet that is given to
+		// this function.
+		//
 		String versionString = "";
 		boolean nextIsVersion = false;
-		for(String s : path.segments())
-			if(nextIsVersion) {
-				versionString = s;
-				break;
-			}
-			else if("puppet".equals(s))
-				nextIsVersion = true;
+		String[] segments = path.segments();
+		int sc = segments.length;
+		if(segments.length < 3 || !"puppet".equals(segments[sc - 1]) || !"lib".equals(segments[sc - 2]))
+			throw new IllegalArgumentException("path to .../puppet/lib is not correct");
+		final String distroName = segments[sc - 3];
+		if(!distroName.startsWith("puppet-"))
+			throw new IllegalArgumentException(
+				"The ../../ of the given directory must be named on the form: 'puppet-<version>'");
 
-		puppetDistro.setLabel("puppet " + versionString);
-		puppetDistro.setVersion(versionString);
+		puppetDistro.setLabel("puppet");
+		// 7 is the first char after 'puppet-'
+		puppetDistro.setVersion(distroName.substring(7));
 
 		// Load functions
 		File parserDir = new File(file, "parser");
@@ -572,6 +590,54 @@ public class RubyHelper {
 		for(Type t : transform(getTypeInfo(rbFile))) {
 			target.getTypes().add(t);
 		}
+	}
+
+	public List<TargetEntry> loadPluginsTarget(File pluginsRoot) throws IOException, RubySyntaxException {
+
+		List<TargetEntry> result = Lists.newArrayList();
+		// for all the directories in pluginsRoot, load the content of that directory
+		// as a module
+		if(pluginsRoot == null || !pluginsRoot.isDirectory())
+			return result; // do nothing (an empty list)
+
+		for(File pluginRoot : pluginsRoot.listFiles()) {
+			String[] nameParts = extractVersionFromName(pluginRoot.getName());
+			PuppetDistribution plugin = PPTPFactory.eINSTANCE.createPuppetDistribution();
+			plugin.setDescription("Puppet Plugin");
+			plugin.setLabel(nameParts[0]);
+			plugin.setVersion(nameParts[1]);
+
+			// load functions (lib/puppet/parser/functions/*), and types (lib/puppet/type/*)
+			File lib = new File(pluginRoot, "lib/puppet");
+			if(!lib.exists())
+				continue; // has no content that can be handled
+
+			// Load Functions
+			File functionsDir = new File(new File(lib, "parser"), "functions");
+			loadFunctions(plugin, functionsDir);
+
+			// Load Types
+			try {
+				File typesDir = new File(lib, "type");
+				loadTypes(plugin, typesDir);
+
+				// load additional properties into types
+				// (currently only known such construct is for 'file' type
+				// this implementation does however search all subdirectories
+				// for such additions
+				//
+				if(typesDir != null && typesDir.isDirectory())
+					for(File subDir : typesDir.listFiles(dirFilter))
+						loadTypeFragments(plugin, subDir);
+
+				if(plugin.getFunctions().size() > 0 || plugin.getTypes().size() > 0)
+					result.add(plugin);
+			}
+			catch(FileNotFoundException e) {
+				// ignore, just skipping functions, types etc if not present in plugin
+			}
+		}
+		return result;
 	}
 
 	/**

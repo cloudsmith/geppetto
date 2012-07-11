@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2011 Cloudsmith Inc. and other contributors, as listed below.
+ * Copyright (c) 2011, 2012 Cloudsmith Inc. and other contributors, as listed below.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -18,7 +18,7 @@ package org.cloudsmith.geppetto.pp.dsl.validation;
  */
 public interface IValidationAdvisor extends IPotentialProblemsAdvisor {
 	public enum ComplianceLevel {
-		PUPPET_2_6, PUPPET_2_7, PUPPET_2_8
+		PUPPET_2_6, PUPPET_2_7, PUPPET_3_0
 	}
 
 	/**

@@ -62,6 +62,8 @@ public class PptpTargetProjectHandler {
 
 	private final String PUPPET_TARGET_2_6 = "targets/puppet-2.6.9.pptp";
 
+	private final String PUPPET_TARGET_3_0 = "targets/puppet-3.0.0.pptp";
+
 	private final static Logger log = Logger.getLogger(PptpTargetProjectHandler.class);
 
 	/**
@@ -156,10 +158,14 @@ public class PptpTargetProjectHandler {
 		// get a handle to the wanted target platform (.pptp) file from preferences
 		//
 		try {
-			// very simple, since there is only two to choose from
-			String path = PUPPET_TARGET_2_7;
-			if("2.6".equals(preferenceHelper.getPptpVersion()))
+			// Set highest as default (that way a reference to "2.8" will get "3.0")
+			//
+			String path = PUPPET_TARGET_3_0;
+			String pptpVersion = preferenceHelper.getPptpVersion();
+			if("2.6".equals(pptpVersion))
 				path = PUPPET_TARGET_2_6;
+			else if("2.7".equals(pptpVersion))
+				path = PUPPET_TARGET_2_7;
 
 			IPath defaultTPPath = new Path(path);
 			File pptpFile = BundledFilesUtils.getFileFromClassBundle(PptpRuntimeModule.class, defaultTPPath);

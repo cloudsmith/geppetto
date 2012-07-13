@@ -230,8 +230,7 @@ public class PPJavaValidator extends AbstractPPJavaValidator implements IPPDiagn
 	@Inject
 	private PPStringConstantEvaluator stringConstantEvaluator;
 
-	@Inject
-	private Provider<IValidationAdvisor> validationAdvisorProvider;
+	private final Provider<IValidationAdvisor> validationAdvisorProvider;
 
 	@Inject
 	private PPExpressionEquivalenceCalculator eqCalculator;
@@ -280,6 +279,7 @@ public class PPJavaValidator extends AbstractPPJavaValidator implements IPPDiagn
 	@Inject
 	public PPJavaValidator(IGrammarAccess ga, Provider<IValidationAdvisor> validationAdvisorProvider) {
 		acceptor = new ValidationBasedMessageAcceptor(this);
+		this.validationAdvisorProvider = validationAdvisorProvider;
 	}
 
 	private IValidationAdvisor advisor() {

@@ -60,9 +60,65 @@ public class PPPathPreferencePage extends AbstractRebuildingPreferencePage {
 			return path.toString();
 		}
 
+		/*
+		 * (non-Javadoc)
+		 * 
+		 * @see org.cloudsmith.geppetto.pp.dsl.ui.preferences.editors.ListEditor#getEditedInput(java.lang.String)
+		 */
+		@Override
+		protected String getEditedInput(String input) {
+			PromptDialog dialog = new PromptDialog(getShell(), SWT.SHEET) {
+				@Override
+				protected boolean isValid(String text) {
+					boolean result = true;
+					if(text.contains(":")) {
+						result = false;
+						setErrorMessage("Colon ':' is not allowed");
+					}
+					else if(text.contains("//")) {
+						result = false;
+						setErrorMessage("Empty segment '//' not allowed");
+					}
+					return result;
+				}
+			};
+			String[] value = new String[] { input };
+			int[] allSubdirs = new int[] { input.endsWith("/*")
+					? 1
+					: 0 };
+			int[] okCancel = new int[] { 1 };
+
+			dialog.prompt(
+				"Edit Path Segement", "Edit relative path", "Search all subdirectories", value, allSubdirs, okCancel);
+			if(okCancel[0] == 0)
+				return input;
+			String result = value[0].trim();
+			if(allSubdirs[0] == 0) {
+				if(result.endsWith("/*"))
+					result = result.substring(0, result.length() - 2);
+			}
+			else if(!result.endsWith("/*"))
+				result += "/*";
+			return result;
+		}
+
 		@Override
 		protected String getNewInputObject() {
-			PromptDialog dialog = new PromptDialog(getShell(), SWT.SHEET);
+			PromptDialog dialog = new PromptDialog(getShell(), SWT.SHEET) {
+				@Override
+				protected boolean isValid(String text) {
+					boolean result = true;
+					if(text.contains(":")) {
+						result = false;
+						setErrorMessage("Colon ':' is not allowed");
+					}
+					else if(text.contains("//")) {
+						result = false;
+						setErrorMessage("Empty segment '//' not allowed");
+					}
+					return result;
+				}
+			};
 			String[] value = new String[] { "" };
 			int[] allSubdirs = new int[] { 1 };
 			int[] okCancel = new int[] { 1 };

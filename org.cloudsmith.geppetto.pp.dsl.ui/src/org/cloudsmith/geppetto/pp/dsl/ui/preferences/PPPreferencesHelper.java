@@ -238,7 +238,10 @@ public class PPPreferencesHelper implements IPreferenceStoreInitializer, IProper
 	}
 
 	public boolean getSaveActionEnsureEndsWithNewLine(IResource r) {
-		return getResourceSpecificBoolean(r, PPPreferenceConstants.SAVE_ACTION_ENSURE_ENDS_WITH_NL);
+		boolean projectSpecific = getResourceSpecificBoolean(r, PPPreferenceConstants.SAVE_ACTIONS_USE_PROJECT_SETTINGS);
+		return projectSpecific
+				? getResourceSpecificBoolean(r, PPPreferenceConstants.SAVE_ACTION_ENSURE_ENDS_WITH_NL)
+				: getSaveActionEnsureEndsWithNewLine();
 	}
 
 	public boolean getSaveActionReplaceFunkySpaces() {
@@ -246,7 +249,10 @@ public class PPPreferencesHelper implements IPreferenceStoreInitializer, IProper
 	}
 
 	public boolean getSaveActionReplaceFunkySpaces(IResource r) {
-		return getResourceSpecificBoolean(r, PPPreferenceConstants.SAVE_ACTION_REPLACE_FUNKY_SPACES);
+		boolean projectSpecific = getResourceSpecificBoolean(r, PPPreferenceConstants.SAVE_ACTIONS_USE_PROJECT_SETTINGS);
+		return projectSpecific
+				? getResourceSpecificBoolean(r, PPPreferenceConstants.SAVE_ACTION_REPLACE_FUNKY_SPACES)
+				: getSaveActionReplaceFunkySpaces();
 	}
 
 	public boolean getSaveActionTrimLines() {
@@ -254,7 +260,10 @@ public class PPPreferencesHelper implements IPreferenceStoreInitializer, IProper
 	}
 
 	public boolean getSaveActionTrimLines(IResource r) {
-		return getResourceSpecificBoolean(r, PPPreferenceConstants.SAVE_ACTION_TRIM_LINES);
+		boolean projectSpecific = getResourceSpecificBoolean(r, PPPreferenceConstants.SAVE_ACTIONS_USE_PROJECT_SETTINGS);
+		return projectSpecific
+				? getResourceSpecificBoolean(r, PPPreferenceConstants.SAVE_ACTION_TRIM_LINES)
+				: getSaveActionTrimLines();
 	}
 
 	/**

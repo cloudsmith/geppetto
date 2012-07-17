@@ -33,6 +33,7 @@ import org.cloudsmith.geppetto.pp.dsl.ui.linked.ISaveActions;
 import org.cloudsmith.geppetto.pp.dsl.ui.linking.PPUISearchPathProvider;
 import org.cloudsmith.geppetto.pp.dsl.ui.outline.PPLocationInFileProvider;
 import org.cloudsmith.geppetto.pp.dsl.ui.preferences.PPPreferencesHelper;
+import org.cloudsmith.geppetto.pp.dsl.ui.preferences.editors.PPPreferenceStoreAccess;
 import org.cloudsmith.geppetto.pp.dsl.ui.resource.PPResource;
 import org.cloudsmith.geppetto.pp.dsl.ui.resource.PPResourceFactory;
 import org.cloudsmith.geppetto.pp.dsl.ui.validation.PreferenceBasedPotentialProblemsAdvisor;
@@ -51,6 +52,7 @@ import org.eclipse.xtext.ui.editor.hyperlinking.IHyperlinkHelper;
 import org.eclipse.xtext.ui.editor.model.IResourceForEditorInputFactory;
 import org.eclipse.xtext.ui.editor.model.ITokenTypeToPartitionTypeMapper;
 import org.eclipse.xtext.ui.editor.model.ResourceForIEditorInputFactory;
+import org.eclipse.xtext.ui.editor.preferences.IPreferenceStoreAccess;
 import org.eclipse.xtext.ui.editor.preferences.IPreferenceStoreInitializer;
 import org.eclipse.xtext.ui.editor.syntaxcoloring.AbstractAntlrTokenToAttributeIdMapper;
 import org.eclipse.xtext.ui.editor.syntaxcoloring.IHighlightingConfiguration;
@@ -120,6 +122,10 @@ public class PPUiModule extends org.cloudsmith.geppetto.pp.dsl.ui.AbstractPPUiMo
 
 	public Class<? extends IPotentialProblemsAdvisor> bindIPotentialProblemsAdvisor() {
 		return PreferenceBasedPotentialProblemsAdvisor.class;
+	}
+
+	public Class<? extends IPreferenceStoreAccess> bindIPreferenceStoreAccess() {
+		return PPPreferenceStoreAccess.class;
 	}
 
 	/**
@@ -254,4 +260,5 @@ public class PPUiModule extends org.cloudsmith.geppetto.pp.dsl.ui.AbstractPPUiMo
 	public com.google.inject.Provider<IValidationAdvisor> provideValidationAdvisor() {
 		return PreferenceBasedValidationAdvisorProvider.create();
 	}
+
 }

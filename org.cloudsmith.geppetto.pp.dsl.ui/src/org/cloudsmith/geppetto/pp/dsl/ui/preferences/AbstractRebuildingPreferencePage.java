@@ -12,11 +12,11 @@
 package org.cloudsmith.geppetto.pp.dsl.ui.preferences;
 
 import org.cloudsmith.geppetto.pp.dsl.ui.builder.PPBuildJob;
+import org.cloudsmith.geppetto.pp.dsl.ui.preferences.editors.AbstractPreferencePage;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.util.IPropertyChangeListener;
 import org.eclipse.jface.util.PropertyChangeEvent;
-import org.eclipse.xtext.ui.editor.preferences.AbstractPreferencePage;
 
 /**
  * Adds behavior to the abstract preference page that checks if a single preference id has

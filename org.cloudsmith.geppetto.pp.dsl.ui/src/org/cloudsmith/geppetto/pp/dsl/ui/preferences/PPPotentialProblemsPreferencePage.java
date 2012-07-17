@@ -11,8 +11,8 @@
  */
 package org.cloudsmith.geppetto.pp.dsl.ui.preferences;
 
+import org.cloudsmith.geppetto.pp.dsl.ui.preferences.editors.AbstractPreferencePage;
 import org.cloudsmith.geppetto.pp.dsl.ui.preferences.editors.ValidationPreferenceFieldEditor;
-import org.eclipse.xtext.ui.editor.preferences.AbstractPreferencePage;
 
 /**
  * A preference pane for potential problems.

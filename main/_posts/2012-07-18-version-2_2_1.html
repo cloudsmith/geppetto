@@ -1,0 +1,33 @@
+---
+layout: post
+title: geppetto 2.2.1 released
+---
+<p> The 2.2.1 maintenance release of Geppetto is available as ready to run download or update from within Geppetto for all users of 2.x
+Please see the
+<a href="http://cloudsmith.github.com/geppetto/faq.html">FAQ</a>
+for information if you run into problems updating).
+Checkout
+<a href="http://cloudsmith.github.com/geppetto/faq.html#2011/06/28/how-do-i-update">how to update</a>
+if you don't know how.
+</p>
+ 
+<h2>In this release</h2>
+<ul>
+<li> Recognition of hiera functions is now included in all puppet targets.
+</li>
+<li> Project specific preference flags are now stored in the project itself instead of in the workspace metadata.
+     If you have used project specific settings you may need to re-enable them after the update.
+     The good news is that project specific settings can be checked in and takes effect automatically when importing
+     the project into a new workspace/instance of Geppetto. Project specific preferences now also behaves as
+     expected (platform bugs had surprising results regarding what was actually saved).
+</li>
+<li> Malfunction in Auto Save Actions could destroy content (this was released as a hot-fix).
+</li>
+<li> The fictional 2.8 target is now replaced with a 3.0.0 target based on the puppet 3.0.0 release candidate 3.
+     If you had 2.8 selected as a target, you will automatically get the new 3.0 target.
+</li>
+<li> General stability fixes, and fixes of spelling/wording errors.
+</ul>
+<p>See <a href="https://github.com/cloudsmith/geppetto/wiki/Release-Notes"
+>the relase notes</a>
+for more detailed information about fixed issues.</p>

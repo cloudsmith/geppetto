@@ -24,8 +24,8 @@ import org.cloudsmith.xtext.dommodel.formatter.css.Select;
 import org.cloudsmith.xtext.dommodel.formatter.css.Select.Selector;
 import org.cloudsmith.xtext.dommodel.formatter.css.StyleSet;
 
+import com.google.common.collect.Iterables;
 import com.google.inject.Inject;
-import com.google.inject.internal.Iterables;
 
 /**
  * Provides the style sheet for PP.

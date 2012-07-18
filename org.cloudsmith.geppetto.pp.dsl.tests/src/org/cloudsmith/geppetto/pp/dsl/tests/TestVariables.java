@@ -28,7 +28,7 @@ import com.google.common.collect.Lists;
  * Test validation/linking of variables.
  * 
  */
-public class TestVariables extends AbstractPuppetTests {
+public class TestVariables extends AbstractPuppetTests implements AbstractPuppetTests.SerializationTestControl {
 
 	private PrintStream savedOut;
 
@@ -48,7 +48,7 @@ public class TestVariables extends AbstractPuppetTests {
 	}
 
 	@Override
-	protected boolean shouldTestSerializer(XtextResource resource) {
+	public boolean shouldTestSerializer(XtextResource resource) {
 		// The serializer validator screws up when optional content is always inserted by serializer
 		return false;
 	}

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<testsuite errors="0" failures="0" hostname="hazelnut.osuosl.org" name="net.cars.engine.DelcoTest" tests="1" time="0.0090" timestamp="2007-11-02T23:13:50">
+  <testcase classname="net.cars.engine.DelcoTest" name="rotate" time="0.0" />
+  <system-out><![CDATA[Rotation is simulated for a four spark engine with an angle of 0?.
+]]></system-out>
+  <system-err><![CDATA[TestText]]></system-err>
+</testsuite>

@@ -11,8 +11,13 @@
  */
 package org.cloudsmith.geppetto.pp.dsl.ui.preferences.editors;
 
+import org.eclipse.jface.fieldassist.ControlDecoration;
+import org.eclipse.jface.fieldassist.FieldDecoration;
+import org.eclipse.jface.fieldassist.FieldDecorationRegistry;
 import org.eclipse.jface.resource.JFaceResources;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.ModifyEvent;
+import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
@@ -28,12 +33,57 @@ import org.eclipse.swt.widgets.Text;
 
 public class PromptDialog extends Dialog {
 
+	private Text valueText;
+
+	private Button[] buttons;
+
+	private ControlDecoration valueTextDecorator;
+
+	protected String errorMessage = "";
+
 	public PromptDialog(Shell parent) {
 		this(parent, 0);
 	}
 
 	public PromptDialog(Shell parent, int style) {
 		super(parent, style);
+	}
+
+	public void clearError() {
+		if(valueTextDecorator != null) {
+			valueTextDecorator.hide();
+		}
+	}
+
+	private ControlDecoration createDecorator(Text text, String message) {
+		ControlDecoration controlDecoration = new ControlDecoration(text, SWT.LEFT | SWT.TOP);
+		controlDecoration.setDescriptionText(message);
+		FieldDecoration fieldDecoration = FieldDecorationRegistry.getDefault().getFieldDecoration(
+			FieldDecorationRegistry.DEC_ERROR);
+		controlDecoration.setImage(fieldDecoration.getImage());
+		return controlDecoration;
+	}
+
+	private void disableOk() {
+		if(buttons != null && buttons[1] != null)
+			buttons[1].setEnabled(false);
+	}
+
+	private void enableOk() {
+		if(buttons != null && buttons[1] != null)
+			buttons[1].setEnabled(true);
+	}
+
+	protected String getErrorMessage() {
+		return errorMessage;
+	}
+
+	protected boolean isValid(String text) {
+		return true;
+	}
+
+	protected boolean isValueRequired() {
+		return true;
 	}
 
 	public void prompt(String title, String text, String check, final String[] value, final int[] checkValue,
@@ -61,7 +111,19 @@ public class PromptDialog extends Dialog {
 
 		label.setLayoutData(data);
 
-		final Text valueText = new Text(shell, SWT.BORDER);
+		valueText = new Text(shell, SWT.BORDER);
+		valueTextDecorator = createDecorator(valueText, "initial");
+		valueTextDecorator.setMarginWidth(5);
+		valueTextDecorator.hide();
+
+		valueText.addModifyListener(new ModifyListener() {
+
+			@Override
+			public void modifyText(ModifyEvent e) {
+				updateStatus();
+			}
+		});
+
 		if(value[0] != null)
 			valueText.setText(value[0]);
 		data = new GridData();
@@ -78,7 +140,7 @@ public class PromptDialog extends Dialog {
 		valueText.setTextLimit(200);
 		valueText.setLayoutData(data);
 
-		final Button[] buttons = new Button[3];
+		buttons = new Button[3];
 		Listener listener = new Listener() {
 			public void handleEvent(Event event) {
 				if(buttons[0] != null)
@@ -118,12 +180,46 @@ public class PromptDialog extends Dialog {
 		// make RETURN trigger OK
 		shell.setDefaultButton(buttons[1]);
 
+		// update status based on current value
+		updateStatus();
+
 		shell.pack();
 		shell.open();
 		Display display = parent.getDisplay();
 		while(!shell.isDisposed()) {
 			if(!display.readAndDispatch())
 				display.sleep();
+		}
+	}
+
+	public void setError(String message) {
+		valueTextDecorator.setDescriptionText(message);
+		valueTextDecorator.show();
+		valueTextDecorator.showHoverText(message);
+	}
+
+	protected void setErrorMessage(String errorMessage) {
+		this.errorMessage = errorMessage;
+	}
+
+	private void updateStatus() {
+		String theText = valueText.getText();
+		if(isValueRequired()) {
+			if(theText.trim().length() < 1) {
+				// do not report as an error, just disable ok, but
+				// must clear any previous error.
+				clearError();
+				disableOk();
+				return;
+			}
+		}
+		if(isValid(theText)) {
+			clearError();
+			enableOk();
+		}
+		else {
+			setError(getErrorMessage());
+			disableOk();
 		}
 	}
 }

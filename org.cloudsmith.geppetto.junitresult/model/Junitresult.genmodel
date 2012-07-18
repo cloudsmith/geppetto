@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<genmodel:GenModel xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
+    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" copyrightText="Copyright (c) 2012 Cloudsmith Inc. and other contributors, as listed below.&#xA;All rights reserved. This program and the accompanying materials&#xA;are made available under the terms of the Eclipse Public License v1.0&#xA;which accompanies this distribution, and is available at&#xA;http://www.eclipse.org/legal/epl-v10.html&#xA;&#xA;Contributors:&#xA;  Cloudsmith&#xA;"
+    modelDirectory="/org.cloudsmith.geppetto.junitresult/src" editDirectory="" editorDirectory=""
+    modelPluginID="org.cloudsmith.geppetto.junitresult" modelName="Junitresult" editPluginClass=""
+    editorPluginClass="" testsDirectory="" importerID="org.eclipse.emf.importer.ecore"
+    complianceLevel="6.0" copyrightFields="false" editPluginID="org.cloudsmith.geppetto.junitresult.edit"
+    editorPluginID="org.cloudsmith.geppetto.junitresult.edit">
+  <foreignModel>Junitresult.ecore</foreignModel>
+  <genPackages prefix="Junitresult" basePackage="org.cloudsmith.geppetto" disposableProviderFactory="true"
+      ecorePackage="Junitresult.ecore#/">
+    <genClasses ecoreClass="Junitresult.ecore#//Testsuite">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Junitresult.ecore#//Testsuite/properties"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Junitresult.ecore#//Testsuite/testcases"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Junitresult.ecore#//Testsuite/system_out"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Junitresult.ecore#//Testsuite/system_err"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Junitresult.ecore#//Testsuite/hostname"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Junitresult.ecore#//Testsuite/timestamp"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Junitresult.ecore#//Testsuite/time"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Junitresult.ecore#//Testsuite/testsuites"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Junitresult.ecore#//Testsuite/id"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Junitresult.ecore#//Testsuite/package"/>
+    </genClasses>
+    <genClasses ecoreClass="Junitresult.ecore#//Property">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Junitresult.ecore#//Property/name"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Junitresult.ecore#//Property/value"/>
+    </genClasses>
+    <genClasses ecoreClass="Junitresult.ecore#//Testcase">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Junitresult.ecore#//Testcase/error"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Junitresult.ecore#//Testcase/failure"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Junitresult.ecore#//Testcase/classname"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Junitresult.ecore#//Testcase/name"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Junitresult.ecore#//Testcase/time"/>
+    </genClasses>
+    <genClasses ecoreClass="Junitresult.ecore#//Error"/>
+    <genClasses ecoreClass="Junitresult.ecore#//Failure"/>
+    <genClasses image="false" ecoreClass="Junitresult.ecore#//NegaitveResult">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Junitresult.ecore#//NegaitveResult/message"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Junitresult.ecore#//NegaitveResult/type"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Junitresult.ecore#//NegaitveResult/value"/>
+    </genClasses>
+    <genClasses ecoreClass="Junitresult.ecore#//Testrun">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Junitresult.ecore#//Testrun/project"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Junitresult.ecore#//Testrun/started"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Junitresult.ecore#//Testrun/ignored"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Junitresult.ecore#//Testrun/testsuites"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="Junitresult.ecore#//AbstractAggregatedTest">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Junitresult.ecore#//AbstractAggregatedTest/name"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Junitresult.ecore#//AbstractAggregatedTest/tests"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Junitresult.ecore#//AbstractAggregatedTest/failures"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Junitresult.ecore#//AbstractAggregatedTest/errors"/>
+    </genClasses>
+    <genClasses ecoreClass="Junitresult.ecore#//Testsuites">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Junitresult.ecore#//Testsuites/EReference0"/>
+    </genClasses>
+  </genPackages>
+</genmodel:GenModel>

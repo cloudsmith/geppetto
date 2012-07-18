@@ -77,6 +77,9 @@ import org.eclipse.ui.forms.widgets.FormToolkit;
 import org.eclipse.ui.forms.widgets.Section;
 import org.eclipse.xtext.ui.XtextProjectHelper;
 
+import com.google.common.collect.BiMap;
+import com.google.common.collect.HashBiMap;
+
 class ModuleMetadataOverviewPage extends FormPage {
 
 	protected class DependenciesSectionPart extends SectionPart {
@@ -94,6 +97,8 @@ class ModuleMetadataOverviewPage extends FormPage {
 			protected String initialVersion = null;
 
 			protected String version = null;
+
+			protected BiMap<String, String> criterionMap = null;
 
 			public EditDependencyDialog(Shell parent) {
 				super(parent);
@@ -121,21 +126,35 @@ class ModuleMetadataOverviewPage extends FormPage {
 
 				criterionField = new CCombo(composite, SWT.BORDER | SWT.READ_ONLY);
 
-				for(MatchRule rule : MatchRule.VALUES) {
-					criterionField.add(rule.getLiteral());
-				}
+				// populate bi directional map value <-> label in commonality order descending
+				criterionMap = HashBiMap.create();
+				criterionMap.put("==", "== Exactly equal");
+				criterionField.add(criterionMap.get("=="));
+				criterionMap.put("=", "=  Equal major and minor number");
+				criterionField.add(criterionMap.get("="));
+				criterionMap.put("~", "~  Equal major number");
+				criterionField.add(criterionMap.get("~"));
+				criterionMap.put(">=", ">= Greater or Equal");
+				criterionField.add(criterionMap.get(">="));
+				criterionMap.put(">", ">  Greater");
+				criterionField.add(criterionMap.get(">"));
+				criterionMap.put("<=", "<= Less or Equal");
+				criterionField.add(criterionMap.get("<="));
+				criterionMap.put("<", "<  Less");
+				criterionField.add(criterionMap.get("<"));
 
 				criterionField.addModifyListener(new ModifyListener() {
 
 					@Override
 					public void modifyText(ModifyEvent me) {
-						criterion = criterionField.getText();
+						criterion = criterionMap.inverse().get(criterionField.getText());
+						// criterion = criterionField.getText();
 					}
 				});
 
-				criterionField.setText(initialCriterion == null
+				criterionField.setText(criterionMap.get(initialCriterion == null
 						? MatchRule.PERFECT.getLiteral()
-						: initialCriterion);
+						: initialCriterion));
 
 				GridDataFactory.fillDefaults().align(SWT.FILL, SWT.CENTER).grab(true, false).applyTo(criterionField);
 

@@ -22,8 +22,8 @@ import org.cloudsmith.geppetto.pp.VariableTE;
 import org.cloudsmith.geppetto.pp.dsl.contentassist.PPProposalsGenerator;
 import org.cloudsmith.geppetto.pp.dsl.linking.PPFinder;
 import org.cloudsmith.geppetto.pp.dsl.linking.PPSearchPath.ISearchPathProvider;
+import org.cloudsmith.geppetto.pp.dsl.ui.labeling.PPDescriptionLabelProvider;
 import org.cloudsmith.geppetto.pp.dsl.validation.IPPDiagnostics;
-import org.cloudsmith.geppetto.pp.pptp.PPTPPackage;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.jface.text.BadLocationException;
@@ -52,16 +52,33 @@ public class PPQuickfixProvider extends DefaultQuickfixProvider {
 
 		final protected String text;
 
+		final protected boolean handleQuotes;
+
 		ReplacingModification(int offset, int length, String text) {
+			this(offset, length, text, false);
+		}
+
+		ReplacingModification(int offset, int length, String text, boolean handleQuotes) {
 			this.length = length;
 			this.offset = offset;
 			this.text = text;
+			this.handleQuotes = handleQuotes;
 		}
 
 		@Override
 		public void apply(IModificationContext context) throws BadLocationException {
 			IXtextDocument xtextDocument = context.getXtextDocument();
-			xtextDocument.replace(offset, length, text);
+			int o = offset;
+			int l = length;
+			if(handleQuotes) {
+				String s = xtextDocument.get(offset, length);
+				char c = s.charAt(0);
+				if(s.charAt(s.length() - 1) == c && (c == '\'' || c == '"')) {
+					o++;
+					l -= 2;
+				}
+			}
+			xtextDocument.replace(o, l, text);
 		}
 
 	}
@@ -106,8 +123,13 @@ public class PPQuickfixProvider extends DefaultQuickfixProvider {
 
 	}
 
-	private final static EClass[] PARAMS_AND_VARIABLES = {
-			PPPackage.Literals.DEFINITION_ARGUMENT, PPTPPackage.Literals.TYPE_ARGUMENT,
+	@Inject
+	protected PPDescriptionLabelProvider descriptionLabelProvider;
+
+	private final static EClass[] PARAMS_AND_VARIABLES = { //
+	//
+			PPPackage.Literals.DEFINITION_ARGUMENT, //
+			// PPTPPackage.Literals.TYPE_ARGUMENT, //
 			PPPackage.Literals.VARIABLE_EXPRESSION };
 
 	private static String toInitialCase(String s, boolean upper) {
@@ -178,7 +200,7 @@ public class PPQuickfixProvider extends DefaultQuickfixProvider {
 				String issueString = xtextDocument.get(issue.getOffset(), issue.getLength());
 				StringBuilder replacement = new StringBuilder();
 				replacement.append("'");
-				replacement.append(issueString.substring(1, issueString.length() - 1));
+				replacement.append(escapeChar(issueString.substring(1, issueString.length() - 1), '\''));
 				replacement.append("'");
 
 				acceptor.accept(issue, "Replace with single quoted string", "Changes \" to '", null, //
@@ -202,6 +224,27 @@ public class PPQuickfixProvider extends DefaultQuickfixProvider {
 					new ReplacingModification(issue.getOffset(), issueString.length(), issue.getData()[0]));
 			}
 		});
+	}
+
+	private String escapeChar(String s, char x) {
+		StringBuilder result = new StringBuilder();
+		boolean nextIsEscaped = false;
+		for(int i = 0; i < s.length(); i++) {
+			char c = s.charAt(i);
+			if(c == '\\') {
+				nextIsEscaped = !nextIsEscaped;
+			}
+			else if(c == x) {
+				if(!nextIsEscaped)
+					result.append('\\');
+				nextIsEscaped = false;
+			}
+			else {
+				nextIsEscaped = false;
+			}
+			result.append(c);
+		}
+		return result.toString();
 	}
 
 	@Fix(IPPDiagnostics.ISSUE__RESOURCE_UNKNOWN_TYPE_PROP)
@@ -383,7 +426,7 @@ public class PPQuickfixProvider extends DefaultQuickfixProvider {
 				intString = "0" + intString;
 			acceptor.accept(issue, intString + ". Change to '" + proposal + "'", //
 				"Change to (guessed value) '" + proposal + "'", null, new ReplacingModification(
-					issue.getOffset(), issue.getLength(), proposal));
+					issue.getOffset(), issue.getLength(), proposal, true));
 		}
 	}
 

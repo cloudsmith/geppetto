@@ -63,21 +63,26 @@ public class RubyCallFinder {
 	private ConstEvaluator constEvaluator = new ConstEvaluator();
 
 	public GenericCallNode findCall(Node root, String... qualifiedName) {
-		if (qualifiedName.length < 1)
+		if(qualifiedName.length < 1)
 			throw new IllegalArgumentException("qualifiedName can not be empty");
 
 		this.stack = Lists.newLinkedList();
 		this.nameStack = Lists.newLinkedList();
 
-		// NOTE: opportunity to make this better if guava a.k.a google.collect
+		// OLD CODE, NOW FIXED
+		// opportunity to make this better if guava a.k.a google.collect
 		// 2.0 is used
 		// since it has a Lists.reverse method - now this ugly construct is
 		// used.
-		this.qualifiedName = Lists.newArrayList(Iterables.reverse(Lists
-				.newArrayList(qualifiedName)));
+		// OLD CODE
+		// this.qualifiedName = Lists.newArrayList(Iterables.reverse(Lists
+		// .newArrayList(qualifiedName)));
+		this.qualifiedName = Lists.reverse(Lists.newArrayList(qualifiedName));
 
 		List<GenericCallNode> result = findCallInternal(root, true);
-		return result == null || result.size() != 1 ? null : result.get(0);
+		return result == null || result.size() != 1
+				? null
+				: result.get(0);
 	}
 
 	private List<GenericCallNode> findCallInternal(Node root, boolean findFirst) {
@@ -85,56 +90,53 @@ public class RubyCallFinder {
 		List<GenericCallNode> result = null;
 
 		SEARCH: {
-			switch (root.getNodeType()) {
-			case MODULENODE:
-				ModuleNode module = (ModuleNode) root;
-				// Evaluate the name(s)
-				pushNames(constEvaluator.stringList(constEvaluator.eval(module
-						.getCPath())));
-				if (!inCompatibleScope())
-					break SEARCH;
-				break; // search children
+			switch(root.getNodeType()) {
+				case MODULENODE:
+					ModuleNode module = (ModuleNode) root;
+					// Evaluate the name(s)
+					pushNames(constEvaluator.stringList(constEvaluator.eval(module.getCPath())));
+					if(!inCompatibleScope())
+						break SEARCH;
+					break; // search children
 
-			case CLASSNODE:
-				ClassNode classNode = (ClassNode) root;
-				pushNames(constEvaluator.stringList(constEvaluator
-						.eval(classNode.getCPath())));
-				if (!inCompatibleScope())
-					break SEARCH;
-				break; // search children
+				case CLASSNODE:
+					ClassNode classNode = (ClassNode) root;
+					pushNames(constEvaluator.stringList(constEvaluator.eval(classNode.getCPath())));
+					if(!inCompatibleScope())
+						break SEARCH;
+					break; // search children
 
-			case CALLNODE:
-				CallNode callNode = (CallNode) root;
-				if (!callNode.getName().equals(qualifiedName.get(0)))
-					break SEARCH;
-				pushNames(constEvaluator.stringList(constEvaluator
-						.eval(callNode.getReceiverNode())));
-				if (inWantedScope())
-					return Lists.newArrayList(new GenericCallNode(callNode));
-				pop(root); // clear the pushed names
-				push(root); // push it again
-				break; // continue search inside the function
+				case CALLNODE:
+					CallNode callNode = (CallNode) root;
+					if(!callNode.getName().equals(qualifiedName.get(0)))
+						break SEARCH;
+					pushNames(constEvaluator.stringList(constEvaluator.eval(callNode.getReceiverNode())));
+					if(inWantedScope())
+						return Lists.newArrayList(new GenericCallNode(callNode));
+					pop(root); // clear the pushed names
+					push(root); // push it again
+					break; // continue search inside the function
 
-			case FCALLNODE:
-				FCallNode fcallNode = (FCallNode) root;
-				if (!fcallNode.getName().equals(qualifiedName.get(0)))
-					break SEARCH;
-				if (inWantedScope())
-					return Lists.newArrayList(new GenericCallNode(fcallNode));
-				break; // continue search inside the function
+				case FCALLNODE:
+					FCallNode fcallNode = (FCallNode) root;
+					if(!fcallNode.getName().equals(qualifiedName.get(0)))
+						break SEARCH;
+					if(inWantedScope())
+						return Lists.newArrayList(new GenericCallNode(fcallNode));
+					break; // continue search inside the function
 			}
 
-			for (Node n : root.childNodes()) {
-				if (n.getNodeType() == NodeType.NEWLINENODE)
+			for(Node n : root.childNodes()) {
+				if(n.getNodeType() == NodeType.NEWLINENODE)
 					n = ((NewlineNode) n).getNextNode();
 				List<GenericCallNode> r = findCallInternal(n, findFirst);
-				if (r != null) {
-					if (result == null)
+				if(r != null) {
+					if(result == null)
 						result = r;
 					else
 						result.addAll(r);
 					// only collect one
-					if (findFirst)
+					if(findFirst)
 						return result;
 				}
 			}
@@ -142,11 +144,13 @@ public class RubyCallFinder {
 
 		pop(root);
 		// return a found result or null
-		return result == null || result.size() == 0 ? null : result;
+		return result == null || result.size() == 0
+				? null
+				: result;
 	}
 
 	public List<GenericCallNode> findCalls(Node root, String... qualifiedName) {
-		if (qualifiedName.length < 1)
+		if(qualifiedName.length < 1)
 			throw new IllegalArgumentException("qualifiedName can not be empty");
 
 		this.stack = Lists.newLinkedList();
@@ -156,8 +160,7 @@ public class RubyCallFinder {
 		// 2.0 is used
 		// since it has a Lists.reverse method - now this ugly construct is
 		// used.
-		this.qualifiedName = Lists.newArrayList(Iterables.reverse(Lists
-				.newArrayList(qualifiedName)));
+		this.qualifiedName = Lists.newArrayList(Iterables.reverse(Lists.newArrayList(qualifiedName)));
 
 		// TODO: make this return more than one
 		return findCallInternal(root, false);
@@ -173,7 +176,7 @@ public class RubyCallFinder {
 		// i.e. we find module a::b::c::d(::_)* when we are looking for
 		// a::b::c::FUNC
 		//
-		if (nameStack.size() >= qualifiedName.size())
+		if(nameStack.size() >= qualifiedName.size())
 			return false; // will not be found in this module - it is out of
 							// scope
 
@@ -183,9 +186,11 @@ public class RubyCallFinder {
 		int sizeX = qualifiedName.size();
 		int sizeY = nameStack.size();
 		try {
-			return qualifiedName.subList(sizeX - sizeY, sizeX)
-					.equals(nameStack) ? true : false;
-		} catch (IndexOutOfBoundsException e) {
+			return qualifiedName.subList(sizeX - sizeY, sizeX).equals(nameStack)
+					? true
+					: false;
+		}
+		catch(IndexOutOfBoundsException e) {
 			return false;
 		}
 	}
@@ -199,9 +204,11 @@ public class RubyCallFinder {
 		// we are in wanted scope if all segments (except the function name)
 		// match.
 		try {
-			return qualifiedName.subList(1, qualifiedName.size()).equals(
-					nameStack) ? true : false;
-		} catch (IndexOutOfBoundsException e) {
+			return qualifiedName.subList(1, qualifiedName.size()).equals(nameStack)
+					? true
+					: false;
+		}
+		catch(IndexOutOfBoundsException e) {
 			return false;
 		}
 	}
@@ -212,9 +219,9 @@ public class RubyCallFinder {
 	 * @param n
 	 */
 	private void pop(Node n) {
-		while (stack.peek() != n) {
+		while(stack.peek() != n) {
 			Object x = stack.pop();
-			if (x instanceof String)
+			if(x instanceof String)
 				popName();
 		}
 		stack.pop();
@@ -249,13 +256,12 @@ public class RubyCallFinder {
 	}
 
 	/**
-	 * Convenience for pushing 0-n names in a list. Same as call
-	 * {@link #pushName(String)} for each.
+	 * Convenience for pushing 0-n names in a list. Same as call {@link #pushName(String)} for each.
 	 * 
 	 * @param names
 	 */
 	private void pushNames(List<String> names) {
-		for (String name : names)
+		for(String name : names)
 			pushName(name);
 	}
 }

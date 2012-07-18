@@ -39,7 +39,6 @@ import org.eclipse.xtext.util.concurrent.IUnitOfWork;
 import com.google.common.base.Function;
 import com.google.common.collect.Iterables;
 import com.google.inject.Inject;
-import com.google.inject.internal.Nullable;
 
 /**
  * This is a repackaing of the class from the xtext findrefs package - it implements a package private interface in a class
@@ -56,7 +55,6 @@ public class EditorResourceAccess implements ILocalResourceAccess {
 	private static final Logger LOG = Logger.getLogger(EditorResourceAccess.class);
 
 	@Inject(optional = true)
-	@Nullable
 	private IWorkbench workbench;
 
 	@Inject

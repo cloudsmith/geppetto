@@ -13,7 +13,7 @@ package org.cloudsmith.xtext.textflow;
 
 import java.util.List;
 
-import com.google.inject.internal.Lists;
+import com.google.common.collect.Lists;
 
 /**
  * A CharSequence utilities class providing efficient "strings" consisting of a fixed space,

@@ -21,7 +21,7 @@ import org.cloudsmith.xtext.dommodel.formatter.css.StyleFactory;
 import org.cloudsmith.xtext.dommodel.formatter.css.StyleSet;
 import org.eclipse.xtext.AbstractElement;
 
-import com.google.inject.internal.Lists;
+import com.google.common.collect.Lists;
 
 /**
  * Layout Utility functions

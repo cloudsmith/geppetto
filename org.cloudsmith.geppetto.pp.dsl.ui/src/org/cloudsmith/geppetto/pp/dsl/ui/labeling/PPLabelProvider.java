@@ -48,6 +48,7 @@ import org.eclipse.jface.resource.JFaceResources;
 import org.eclipse.jface.viewers.StyledString;
 import org.eclipse.jface.viewers.StyledString.Styler;
 import org.eclipse.swt.graphics.TextStyle;
+import org.eclipse.xtext.Keyword;
 import org.eclipse.xtext.ui.label.DefaultEObjectLabelProvider;
 import org.eclipse.xtext.util.Strings;
 
@@ -145,6 +146,10 @@ public class PPLabelProvider extends DefaultEObjectLabelProvider implements IIco
 		if(element.getValues().size() <= 1)
 			return IMPORT;
 		return IMPORTS;
+	}
+
+	public Object image(Keyword o) {
+		return BLUE_CIRCLE;
 	}
 
 	public Object image(NodeDefinition o) {

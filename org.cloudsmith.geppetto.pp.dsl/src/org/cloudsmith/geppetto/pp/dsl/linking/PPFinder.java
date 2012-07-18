@@ -40,11 +40,11 @@ import org.eclipse.xtext.resource.IResourceServiceProvider;
 import com.google.common.base.Function;
 import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.Iterables;
+import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Multimap;
 import com.google.common.collect.Multimaps;
 import com.google.inject.Inject;
-import com.google.inject.internal.Lists;
 import com.google.inject.name.Named;
 
 /**
@@ -86,9 +86,10 @@ public class PPFinder {
 		}
 	}
 
-	private final static EClass[] CLASSES_FOR_VARIABLES = { PPPackage.Literals.DEFINITION_ARGUMENT, //
+	private final static EClass[] CLASSES_FOR_VARIABLES = { //
+	PPPackage.Literals.DEFINITION_ARGUMENT, //
 			PPTPPackage.Literals.TP_VARIABLE, //
-			PPTPPackage.Literals.TYPE_ARGUMENT, //
+			// PPTPPackage.Literals.TYPE_ARGUMENT, //
 			PPPackage.Literals.VARIABLE_EXPRESSION };
 
 	private final static EClass[] DEF_AND_TYPE_ARGUMENTS = {
@@ -162,12 +163,15 @@ public class PPFinder {
 
 		Multimap<String, IEObjectDescription> map = ArrayListMultimap.create();
 		// add all (possibly dirty in global index)
+		// check for empty qualified names which may be present in case of syntax errors / while editing etc.
+		// empty names are simply skipped (they can not be found anyway).
+		//
 		for(IEObjectDescription d : dirty.getExportedObjects())
-			if(d.getQualifiedName().getSegmentCount() >= 1) // names may be empty while editing
+			if(d.getQualifiedName().getSegmentCount() >= 1)
 				map.put(d.getQualifiedName().getLastSegment(), d);
 		// add all from global index, except those for current resource
 		for(IEObjectDescription d : getExportedObjects(descr, descriptionIndex))
-			if(!d.getEObjectURI().path().equals(pathToCurrent))
+			if(!d.getEObjectURI().path().equals(pathToCurrent) && d.getQualifiedName().getSegmentCount() >= 1)
 				map.put(d.getQualifiedName().getLastSegment(), d);
 		exportedPerLastSegment = map;
 	}
@@ -307,6 +311,13 @@ public class PPFinder {
 		// if(fqn.getSegmentCount() == 1 && "".equals(fqn.getSegment(0)))
 		// throw new IllegalArgumentException("FQN has one empty segment");
 
+		List<IEObjectDescription> targets = Lists.newArrayList();
+		Resource scopeDetermeningResource = scopeDetermeningObject.eResource();
+
+		// Not meaningful to continue if the name is empty (looking up nothing)
+		if(fqn.getSegmentCount() == 0)
+			return new SearchResult(targets, targets);
+
 		// Not meaningful to record the fact that an Absolute reference was used as nothing
 		// is named with an absolute FQN (i.e. it is only used to do lookup).
 		final boolean absoluteFQN = fqn.getSegmentCount() > 0 && "".equals(fqn.getSegment(0));
@@ -315,13 +326,10 @@ public class PPFinder {
 					? fqn.skipFirst(1)
 					: fqn);
 
-		List<IEObjectDescription> targets = Lists.newArrayList();
-		Resource scopeDetermeningResource = scopeDetermeningObject.eResource();
-
 		if(scopeDetermeningResource != resource) {
 			// This is a lookup in the perspective of some other resource
 			// GIVE UP (the system is cleaning / is in bad state).
-			if(resource == null)
+			if(resource == null || scopeDetermeningResource == null)
 				return new SearchResult(targets, targets);
 
 			IResourceDescriptions descriptionIndex = indexProvider.getResourceDescriptions(scopeDetermeningResource);

@@ -48,11 +48,11 @@ import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 
 import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
 
 /**
  * Provides access to ruby parsing / information services. If an implementation
- * is not available, a mock service is used - this can be checked with
- * {@link #isRubyServicesAvailable()}. The mock service will provide an empty
+ * is not available, a mock service is used - this can be checked with {@link #isRubyServicesAvailable()}. The mock service will provide an empty
  * parse result (i.e. "no errors or warning"), and will return empty results for
  * information.
  * 
@@ -86,6 +86,7 @@ public class RubyHelper {
 		}
 
 		private static final List<PPFunctionInfo> emptyFunctionInfo = Collections.emptyList();
+
 		private static final List<PPTypeInfo> emptyTypeInfo = Collections.emptyList();
 
 		private static final IRubyParseResult emptyParseResult = new EmptyParseResult();
@@ -100,13 +101,6 @@ public class RubyHelper {
 			return emptyFunctionInfo;
 		}
 
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see
-		 * org.cloudsmith.geppetto.ruby.spi.IRubyServices#getLogFunctions(java
-		 * .io.File)
-		 */
 		@Override
 		public List<PPFunctionInfo> getLogFunctions(File file) throws IOException, RubySyntaxException {
 			return emptyFunctionInfo;
@@ -120,6 +114,11 @@ public class RubyHelper {
 		@Override
 		public PPTypeInfo getMetaTypeProperties(String fileName, Reader reader) {
 			return emptyTypeInfo.get(0);
+		}
+
+		@Override
+		public Map<String, String> getRakefileTaskDescriptions(File file) {
+			return Maps.newHashMap(); // empty map - can't discover anything about rakefiles
 		}
 
 		@Override
@@ -138,7 +137,8 @@ public class RubyHelper {
 		}
 
 		@Override
-		public List<PPTypeInfo> getTypePropertiesInfo(String fileName, Reader reader) throws IOException, RubySyntaxException {
+		public List<PPTypeInfo> getTypePropertiesInfo(String fileName, Reader reader) throws IOException,
+				RubySyntaxException {
 			return emptyTypeInfo;
 		}
 
@@ -170,6 +170,7 @@ public class RubyHelper {
 	}
 
 	private IRubyServices rubyProvider;
+
 	private static final FilenameFilter rbFileFilter = new FilenameFilter() {
 
 		@Override
@@ -188,7 +189,8 @@ public class RubyHelper {
 
 	};
 
-	private TPVariable addTPVariable(ITargetElementContainer container, String name, String documentation, boolean deprecated) {
+	private TPVariable addTPVariable(ITargetElementContainer container, String name, String documentation,
+			boolean deprecated) {
 		TPVariable var = PPTPFactory.eINSTANCE.createTPVariable();
 		var.setName(name);
 		var.setDocumentation(documentation);
@@ -198,9 +200,20 @@ public class RubyHelper {
 		return var;
 	}
 
+	private String[] extractVersionFromName(String name) {
+		String[] result = new String[] { name, "" };
+		int lastHypen = name.lastIndexOf('-');
+		if(lastHypen == -1)
+			return result;
+		result[0] = name.substring(0, lastHypen);
+		result[1] = name.substring(lastHypen + 1);
+		return result;
+
+	}
+
 	private List<Function> functionInfoToFunction(List<PPFunctionInfo> functionInfos) {
 		List<Function> result = Lists.newArrayList();
-		for (PPFunctionInfo info : functionInfos) {
+		for(PPFunctionInfo info : functionInfos) {
 			Function pptpFunc = PPTPFactory.eINSTANCE.createFunction();
 			pptpFunc.setName(info.getFunctionName());
 			pptpFunc.setRValue(info.isRValue());
@@ -223,11 +236,11 @@ public class RubyHelper {
 	 *             - if setUp was not called
 	 */
 	public List<PPFunctionInfo> getFunctionInfo(File file) throws IOException, RubySyntaxException {
-		if (rubyProvider == null)
+		if(rubyProvider == null)
 			throw new IllegalStateException("Must call setUp() before getFunctionInfo(File).");
-		if (file == null)
+		if(file == null)
 			throw new IllegalArgumentException("Given file is null - JRubyService.getFunctionInfo");
-		if (!file.exists())
+		if(!file.exists())
 			throw new FileNotFoundException(file.getPath());
 
 		return rubyProvider.getFunctionInfo(file);
@@ -235,11 +248,11 @@ public class RubyHelper {
 	}
 
 	public List<PPFunctionInfo> getFunctionInfo(String fileName, Reader reader) throws IOException, RubySyntaxException {
-		if (rubyProvider == null)
+		if(rubyProvider == null)
 			throw new IllegalStateException("Must call setUp() before getFunctionInfo(File).");
-		if (fileName == null)
+		if(fileName == null)
 			throw new IllegalArgumentException("Given filename is null");
-		if (reader == null)
+		if(reader == null)
 			throw new IllegalArgumentException("Given reader is null");
 
 		return rubyProvider.getFunctionInfo(fileName, reader);
@@ -247,42 +260,54 @@ public class RubyHelper {
 	}
 
 	public PPTypeInfo getMetaTypeInfo(File file) throws IOException, RubySyntaxException {
-		if (rubyProvider == null)
+		if(rubyProvider == null)
 			throw new IllegalStateException("Must call setUp() before getTypeInfo(File).");
-		if (file == null)
+		if(file == null)
 			throw new IllegalArgumentException("Given file is null - JRubyService.getTypeInfo");
-		if (!file.exists())
+		if(!file.exists())
 			throw new FileNotFoundException(file.getPath());
 		return rubyProvider.getMetaTypeProperties(file);
 
 	}
 
 	public PPTypeInfo getMetaTypeInfo(String fileName, Reader reader) throws IOException, RubySyntaxException {
-		if (rubyProvider == null)
+		if(rubyProvider == null)
 			throw new IllegalStateException("Must call setUp() before calling this method");
-		if (fileName == null)
+		if(fileName == null)
 			throw new IllegalArgumentException("Given fileName is null");
-		if (reader == null)
+		if(reader == null)
 			throw new IllegalArgumentException("Given reader is null");
 		return rubyProvider.getMetaTypeProperties(fileName, reader);
 	}
 
+	public Map<String, String> getRakefileTaskDescriptions(File file) throws IOException, RubySyntaxException {
+		if(rubyProvider == null)
+			throw new IllegalStateException("Must call setUp() before calling this method.");
+		if(file == null)
+			throw new IllegalArgumentException("Given file is null");
+		if(!file.exists())
+			throw new FileNotFoundException(file.getPath());
+
+		return rubyProvider.getRakefileTaskDescriptions(file);
+
+	}
+
 	public List<PPTypeInfo> getTypeFragments(File file) throws IOException, RubySyntaxException {
-		if (rubyProvider == null)
+		if(rubyProvider == null)
 			throw new IllegalStateException("Must call setUp() before getTypeInfo(File).");
-		if (file == null)
+		if(file == null)
 			throw new IllegalArgumentException("Given file is null - JRubyService.getTypeInfo");
-		if (!file.exists())
+		if(!file.exists())
 			throw new FileNotFoundException(file.getPath());
 		return rubyProvider.getTypePropertiesInfo(file);
 	}
 
 	public List<PPTypeInfo> getTypeFragments(String fileName, Reader reader) throws IOException, RubySyntaxException {
-		if (rubyProvider == null)
+		if(rubyProvider == null)
 			throw new IllegalStateException("Must call setUp() before calling this method.");
-		if (fileName == null)
+		if(fileName == null)
 			throw new IllegalArgumentException("Given file is null");
-		if (reader == null)
+		if(reader == null)
 			throw new IllegalArgumentException("Given reader is null");
 		return rubyProvider.getTypePropertiesInfo(fileName, reader);
 	}
@@ -299,11 +324,11 @@ public class RubyHelper {
 	 *             - if setUp was not called
 	 */
 	public List<PPTypeInfo> getTypeInfo(File file) throws IOException, RubySyntaxException {
-		if (rubyProvider == null)
+		if(rubyProvider == null)
 			throw new IllegalStateException("Must call setUp() before getTypeInfo(File).");
-		if (file == null)
+		if(file == null)
 			throw new IllegalArgumentException("Given file is null - JRubyService.getTypeInfo");
-		if (!file.exists())
+		if(!file.exists())
 			throw new FileNotFoundException(file.getPath());
 		return rubyProvider.getTypeInfo(file);
 
@@ -321,11 +346,11 @@ public class RubyHelper {
 	 *             - if setUp was not called
 	 */
 	public List<PPTypeInfo> getTypeInfo(String fileName, Reader reader) throws IOException, RubySyntaxException {
-		if (rubyProvider == null)
+		if(rubyProvider == null)
 			throw new IllegalStateException("Must call setUp() before getTypeInfo(File).");
-		if (fileName == null)
+		if(fileName == null)
 			throw new IllegalArgumentException("Given filename is null - JRubyService.getTypeInfo");
-		if (reader == null)
+		if(reader == null)
 			throw new IllegalArgumentException("Given reader is null - JRubyService.getTypeInfo");
 		return rubyProvider.getTypeInfo(fileName, reader);
 	}
@@ -334,7 +359,7 @@ public class RubyHelper {
 	 * Returns true if real ruby services are available.
 	 */
 	public boolean isRubyServicesAvailable() {
-		if (rubyProvider == null)
+		if(rubyProvider == null)
 			loadRubyServiceExtension();
 		return !rubyProvider.isMockService();
 	}
@@ -374,10 +399,10 @@ public class RubyHelper {
 	}
 
 	/**
-	 * Loads a Puppet distribution target. The file should point to the "puppet"
+	 * Loads a Puppet distribution target. The file should point to the "lib/puppet"
 	 * directory where the sub-directories "parser" and "type" are. The path to
-	 * this file is expected to contain a version segment after the first
-	 * "puppet" segment e.g. '/somewhere/puppet/2.6.0_0/somewhere/puppet/'
+	 * this directory is expected to have a ../../ name on the form puppet-version
+	 * e.g. /somewhere/puppet-2.6.9/lib/puppet.
 	 * 
 	 * The implementation will scan the known locations for definitions that
 	 * should be reflected in the target - i.e. parser/functions/*.rb and
@@ -391,7 +416,7 @@ public class RubyHelper {
 	 *             if there are syntax exceptions in the parsed ruby code
 	 */
 	public TargetEntry loadDistroTarget(File file) throws IOException, RubySyntaxException {
-		if (file == null)
+		if(file == null)
 			throw new IllegalArgumentException("File can not be null");
 
 		// Create a puppet distro target and parse info from the file path
@@ -399,17 +424,25 @@ public class RubyHelper {
 		PuppetDistribution puppetDistro = PPTPFactory.eINSTANCE.createPuppetDistribution();
 		puppetDistro.setDescription("Puppet Distribution");
 		IPath path = Path.fromOSString(file.getAbsolutePath());
+
+		// NOTE: This is wrong, will always result in a version == "" as the version is
+		// part of the "puppet" directory, not the directory puppet-x.x.x/lib/puppet that is given to
+		// this function.
+		//
 		String versionString = "";
 		boolean nextIsVersion = false;
-		for (String s : path.segments())
-			if (nextIsVersion) {
-				versionString = s;
-				break;
-			} else if ("puppet".equals(s))
-				nextIsVersion = true;
+		String[] segments = path.segments();
+		int sc = segments.length;
+		if(segments.length < 3 || !"puppet".equals(segments[sc - 1]) || !"lib".equals(segments[sc - 2]))
+			throw new IllegalArgumentException("path to .../puppet/lib is not correct");
+		final String distroName = segments[sc - 3];
+		if(!distroName.startsWith("puppet-"))
+			throw new IllegalArgumentException(
+				"The ../../ of the given directory must be named on the form: 'puppet-<version>'");
 
-		puppetDistro.setLabel("puppet " + versionString);
-		puppetDistro.setVersion(versionString);
+		puppetDistro.setLabel("puppet");
+		// 7 is the first char after 'puppet-'
+		puppetDistro.setVersion(distroName.substring(7));
 
 		// Load functions
 		File parserDir = new File(file, "parser");
@@ -417,7 +450,7 @@ public class RubyHelper {
 		loadFunctions(puppetDistro, functionsDir);
 
 		// Load logger functions
-		for (Function f : loadLoggerFunctions(new File(file, "util/log.rb")))
+		for(Function f : loadLoggerFunctions(new File(file, "util/log.rb")))
 			puppetDistro.getFunctions().add(f);
 
 		// Load types
@@ -430,10 +463,11 @@ public class RubyHelper {
 			// this implementation does however search all subdirectories
 			// for such additions
 			//
-			for (File subDir : typesDir.listFiles(dirFilter))
+			for(File subDir : typesDir.listFiles(dirFilter))
 				loadTypeFragments(puppetDistro, subDir);
 
-		} catch (FileNotFoundException e) {
+		}
+		catch(FileNotFoundException e) {
 			// ignore
 		}
 
@@ -441,7 +475,8 @@ public class RubyHelper {
 		try {
 			File nagios = new File(file, "external/nagios/base.rb");
 			loadNagiosTypes(puppetDistro, nagios);
-		} catch (FileNotFoundException e) {
+		}
+		catch(FileNotFoundException e) {
 			// ignore - no nagios
 		}
 
@@ -449,7 +484,8 @@ public class RubyHelper {
 		try {
 			File typeFile = new File(file, "type.rb");
 			loadMetaType(puppetDistro, typeFile);
-		} catch (FileNotFoundException e) {
+		}
+		catch(FileNotFoundException e) {
 			// ignore
 		}
 
@@ -479,18 +515,18 @@ public class RubyHelper {
 	 * @throws RubySyntaxException
 	 */
 	private void loadFunctions(TargetEntry target, File functionsDir) throws IOException, RubySyntaxException {
-		if (functionsDir.isDirectory())
-			for (File rbFile : functionsDir.listFiles(rbFileFilter))
-				for (Function f : loadFunctions(rbFile))
+		if(functionsDir.isDirectory())
+			for(File rbFile : functionsDir.listFiles(rbFileFilter))
+				for(Function f : loadFunctions(rbFile))
 					target.getFunctions().add(f);
 	}
 
 	public List<Function> loadLoggerFunctions(File rbFile) throws IOException, RubySyntaxException {
-		if (rubyProvider == null)
+		if(rubyProvider == null)
 			throw new IllegalStateException("Must call setUp() before getTypeInfo(File).");
-		if (rbFile == null)
+		if(rbFile == null)
 			throw new IllegalArgumentException("Given file is null - JRubyService.getTypeInfo");
-		if (!rbFile.exists())
+		if(!rbFile.exists())
 			throw new FileNotFoundException(rbFile.getPath());
 		return functionInfoToFunction(rubyProvider.getLogFunctions(rbFile));
 	}
@@ -500,7 +536,7 @@ public class RubyHelper {
 		MetaType type = PPTPFactory.eINSTANCE.createMetaType();
 		type.setName(info.getTypeName());
 		type.setDocumentation(info.getDocumentation());
-		for (Map.Entry<String, PPTypeInfo.Entry> entry : info.getParameters().entrySet()) {
+		for(Map.Entry<String, PPTypeInfo.Entry> entry : info.getParameters().entrySet()) {
 			Parameter parameter = PPTPFactory.eINSTANCE.createParameter();
 			parameter.setName(entry.getKey());
 			parameter.setDocumentation(entry.getValue().documentation);
@@ -551,9 +587,57 @@ public class RubyHelper {
 
 	private void loadNagiosTypes(TargetEntry target, File rbFile) throws IOException, RubySyntaxException {
 
-		for (Type t : transform(getTypeInfo(rbFile))) {
+		for(Type t : transform(getTypeInfo(rbFile))) {
 			target.getTypes().add(t);
 		}
+	}
+
+	public List<TargetEntry> loadPluginsTarget(File pluginsRoot) throws IOException, RubySyntaxException {
+
+		List<TargetEntry> result = Lists.newArrayList();
+		// for all the directories in pluginsRoot, load the content of that directory
+		// as a module
+		if(pluginsRoot == null || !pluginsRoot.isDirectory())
+			return result; // do nothing (an empty list)
+
+		for(File pluginRoot : pluginsRoot.listFiles()) {
+			String[] nameParts = extractVersionFromName(pluginRoot.getName());
+			PuppetDistribution plugin = PPTPFactory.eINSTANCE.createPuppetDistribution();
+			plugin.setDescription("Puppet Plugin");
+			plugin.setLabel(nameParts[0]);
+			plugin.setVersion(nameParts[1]);
+
+			// load functions (lib/puppet/parser/functions/*), and types (lib/puppet/type/*)
+			File lib = new File(pluginRoot, "lib/puppet");
+			if(!lib.exists())
+				continue; // has no content that can be handled
+
+			// Load Functions
+			File functionsDir = new File(new File(lib, "parser"), "functions");
+			loadFunctions(plugin, functionsDir);
+
+			// Load Types
+			try {
+				File typesDir = new File(lib, "type");
+				loadTypes(plugin, typesDir);
+
+				// load additional properties into types
+				// (currently only known such construct is for 'file' type
+				// this implementation does however search all subdirectories
+				// for such additions
+				//
+				if(typesDir != null && typesDir.isDirectory())
+					for(File subDir : typesDir.listFiles(dirFilter))
+						loadTypeFragments(plugin, subDir);
+
+				if(plugin.getFunctions().size() > 0 || plugin.getTypes().size() > 0)
+					result.add(plugin);
+			}
+			catch(FileNotFoundException e) {
+				// ignore, just skipping functions, types etc if not present in plugin
+			}
+		}
+		return result;
 	}
 
 	/**
@@ -561,19 +645,21 @@ public class RubyHelper {
 	 */
 	private void loadRubyServiceExtension() {
 		IConfigurationElement[] configs = Platform.getExtensionRegistry().getConfigurationElementsFor(
-				Activator.EXTENSION__RUBY_SERVICE);
+			Activator.EXTENSION__RUBY_SERVICE);
 		List<IRubyServices> services = Lists.newArrayList();
-		for (IConfigurationElement e : configs) {
+		for(IConfigurationElement e : configs) {
 			try {
 				services.add(IRubyServices.class.cast(e.createExecutableExtension(Activator.EXTENSION__RUBY_SERVICE_SERVICECLASS)));
-			} catch (Exception e1) {
+			}
+			catch(Exception e1) {
 				System.err.println("Loading of RuntimeModule extension failed with exception: " + e1.getMessage());
 			}
 		}
-		if (services.size() < 1) {
+		if(services.size() < 1) {
 			System.err.println("No RubyServices loaded - some functionality will be limited.");
 			rubyProvider = new MockRubyServices();
-		} else
+		}
+		else
 			rubyProvider = services.get(0);
 	}
 
@@ -600,19 +686,19 @@ public class RubyHelper {
 		// warnings
 		//
 		SettingsData settingsData = new SettingsData();
-		for (SettingsData.Setting s : settingsData.settings) {
+		for(SettingsData.Setting s : settingsData.settings) {
 			addTPVariable(settings, s.name, s.documentation, s.deprecated);
 		}
 	}
 
 	public List<TypeFragment> loadTypeFragments(File rbFile) throws IOException, RubySyntaxException {
 		List<TypeFragment> result = Lists.newArrayList();
-		for (PPTypeInfo type : getTypeFragments(rbFile)) {
+		for(PPTypeInfo type : getTypeFragments(rbFile)) {
 			TypeFragment fragment = PPTPFactory.eINSTANCE.createTypeFragment();
 			fragment.setName(type.getTypeName());
 
 			// add the properties (will typically load just one).
-			for (Map.Entry<String, PPTypeInfo.Entry> entry : type.getProperties().entrySet()) {
+			for(Map.Entry<String, PPTypeInfo.Entry> entry : type.getProperties().entrySet()) {
 				Property property = PPTPFactory.eINSTANCE.createProperty();
 				property.setName(entry.getKey());
 				property.setDocumentation(entry.getValue().documentation);
@@ -621,7 +707,7 @@ public class RubyHelper {
 			}
 
 			// add the parameters (will typically load just one).
-			for (Map.Entry<String, PPTypeInfo.Entry> entry : type.getParameters().entrySet()) {
+			for(Map.Entry<String, PPTypeInfo.Entry> entry : type.getParameters().entrySet()) {
 				Parameter parameter = PPTPFactory.eINSTANCE.createParameter();
 				parameter.setName(entry.getKey());
 				parameter.setDocumentation(entry.getValue().documentation);
@@ -636,10 +722,10 @@ public class RubyHelper {
 	}
 
 	private void loadTypeFragments(TargetEntry target, File subDir) throws IOException, RubySyntaxException {
-		for (File f : subDir.listFiles(rbFileFilter)) {
+		for(File f : subDir.listFiles(rbFileFilter)) {
 			// try to get type property additions
 			List<TypeFragment> result = loadTypeFragments(f);
-			for (TypeFragment tf : result)
+			for(TypeFragment tf : result)
 				target.getTypeFragments().add(tf);
 		}
 	}
@@ -693,10 +779,10 @@ public class RubyHelper {
 	 * @throws RubySyntaxException
 	 */
 	private void loadTypes(TargetEntry target, File typesDir) throws IOException, RubySyntaxException {
-		if (!typesDir.isDirectory())
+		if(!typesDir.isDirectory())
 			return;
-		for (File rbFile : typesDir.listFiles(rbFileFilter))
-			for (Type t : loadTypes(rbFile))
+		for(File rbFile : typesDir.listFiles(rbFileFilter))
+			for(Type t : loadTypes(rbFile))
 				target.getTypes().add(t);
 	}
 
@@ -711,7 +797,7 @@ public class RubyHelper {
 	 *             if setUp was not called.
 	 */
 	public IRubyParseResult parse(File file) throws IOException {
-		if (rubyProvider == null)
+		if(rubyProvider == null)
 			throw new IllegalStateException("Must call setUp() before parse(File).");
 		return rubyProvider.parse(file);
 	}
@@ -727,7 +813,7 @@ public class RubyHelper {
 	 *             if setUp was not called.
 	 */
 	public IRubyParseResult parse(String path, Reader reader) throws IOException {
-		if (rubyProvider == null)
+		if(rubyProvider == null)
 			throw new IllegalStateException("Must call setUp() before parse(File).");
 		return rubyProvider.parse(path, reader);
 	}
@@ -737,13 +823,13 @@ public class RubyHelper {
 	 * be paired with a call to tearDown or resources will be wasted.
 	 */
 	public void setUp() {
-		if (rubyProvider == null)
+		if(rubyProvider == null)
 			loadRubyServiceExtension();
 		rubyProvider.setUp();
 	}
 
 	public void tearDown() {
-		if (rubyProvider == null)
+		if(rubyProvider == null)
 			return; // ignore silently
 
 		rubyProvider.tearDown();
@@ -752,11 +838,11 @@ public class RubyHelper {
 
 	private List<Type> transform(List<PPTypeInfo> typeInfos) {
 		List<Type> result = Lists.newArrayList();
-		for (PPTypeInfo info : typeInfos) {
+		for(PPTypeInfo info : typeInfos) {
 			Type type = PPTPFactory.eINSTANCE.createType();
 			type.setName(info.getTypeName());
 			type.setDocumentation(info.getDocumentation());
-			for (Map.Entry<String, PPTypeInfo.Entry> entry : info.getParameters().entrySet()) {
+			for(Map.Entry<String, PPTypeInfo.Entry> entry : info.getParameters().entrySet()) {
 				Parameter parameter = PPTPFactory.eINSTANCE.createParameter();
 				parameter.setName(entry.getKey());
 				parameter.setDocumentation(entry.getValue().documentation);
@@ -764,7 +850,7 @@ public class RubyHelper {
 				parameter.setNamevar(entry.getValue().isNamevar());
 				type.getParameters().add(parameter);
 			}
-			for (Map.Entry<String, PPTypeInfo.Entry> entry : info.getProperties().entrySet()) {
+			for(Map.Entry<String, PPTypeInfo.Entry> entry : info.getProperties().entrySet()) {
 				Property property = PPTPFactory.eINSTANCE.createProperty();
 				property.setName(entry.getKey());
 				property.setDocumentation(entry.getValue().documentation);

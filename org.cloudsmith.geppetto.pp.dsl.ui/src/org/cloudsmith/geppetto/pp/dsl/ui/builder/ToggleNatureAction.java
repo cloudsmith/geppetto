@@ -27,7 +27,7 @@ import org.eclipse.ui.IObjectActionDelegate;
 import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.xtext.ui.XtextProjectHelper;
 
-import com.google.inject.internal.Lists;
+import com.google.common.collect.Lists;
 
 public class ToggleNatureAction implements IObjectActionDelegate {
 	private final static Logger log = Logger.getLogger(ToggleNatureAction.class);

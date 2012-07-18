@@ -21,8 +21,8 @@ import org.cloudsmith.xtext.dommodel.formatter.css.StyleSet;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.xtext.nodemodel.INode;
 
+import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
-import com.google.inject.internal.Lists;
 
 /**
  * Abstract implementation of IDomNode

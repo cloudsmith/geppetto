@@ -2,7 +2,7 @@
 <feature
       id="org.cloudsmith.geppetto.product"
       label="%featureName"
-      version="2.1.2.qualifier"
+      version="2.2.1.qualifier"
       provider-name="%providerName"
       plugin="org.cloudsmith.geppetto"
       image="geppetto_update_120.jpg">
@@ -36,7 +36,7 @@ http://www.eclipse.org/legal/epl-v10.html
       <import feature="org.eclipse.emf.edit.ui"/>
       <import feature="org.eclipse.equinox.p2.user.ui"/>
       <import feature="org.eclipse.rcp" version="3.6.0" match="greaterOrEqual"/>
-      <import plugin="com.google.gson"/>
+      <import plugin="com.google.gson" version="1.6.0" match="greaterOrEqual"/>
       <import plugin="com.google.inject"/>
       <import plugin="org.antlr.runtime"/>
       <import plugin="org.aopalliance"/>

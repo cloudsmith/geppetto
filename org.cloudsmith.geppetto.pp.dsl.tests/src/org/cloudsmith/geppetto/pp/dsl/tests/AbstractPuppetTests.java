@@ -56,6 +56,10 @@ import com.google.inject.Provider;
 
 public class AbstractPuppetTests extends AbstractXtextTests {
 
+	interface SerializationTestControl {
+		public boolean shouldTestSerializer(XtextResource resource);
+	}
+
 	protected ValidatorTester<PPJavaValidator> tester;
 
 	protected final PPFactory pf = PPFactory.eINSTANCE;

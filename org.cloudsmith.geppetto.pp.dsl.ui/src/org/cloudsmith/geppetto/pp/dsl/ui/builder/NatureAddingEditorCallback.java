@@ -12,15 +12,15 @@
 package org.cloudsmith.geppetto.pp.dsl.ui.builder;
 
 import org.eclipse.core.resources.IResource;
-import org.eclipse.xtext.ui.editor.AbstractDirtyStateAwareEditorCallback;
 import org.eclipse.xtext.ui.editor.XtextEditor;
+import org.eclipse.xtext.ui.editor.validation.ValidatingEditorCallback;
 
 import com.google.inject.Inject;
 
 /**
  * Turns on puppet and xtext natures when a file opens if these natures are not already in effect on the project.
  */
-public class NatureAddingEditorCallback extends AbstractDirtyStateAwareEditorCallback {
+public class NatureAddingEditorCallback extends ValidatingEditorCallback {
 	@Inject
 	private ToggleNatureAction toggleNature;
 

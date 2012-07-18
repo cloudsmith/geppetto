@@ -128,6 +128,11 @@ public class PPJavaValidator extends AbstractPPJavaValidator implements IPPDiagn
 			doCheck(o.getRightExpr());
 		}
 
+		public void check(AtExpression o, boolean left) {
+			if(left)
+				check(o);
+		}
+
 		public void check(EqualityExpression o) {
 			doCheck(o.getLeftExpr(), Boolean.TRUE);
 			doCheck(o.getRightExpr(), Boolean.FALSE);
@@ -139,7 +144,7 @@ public class PPJavaValidator extends AbstractPPJavaValidator implements IPPDiagn
 
 		public void check(Expression o) {
 			acceptor.acceptError(
-				"Expression type not allowed here.", o, o.eContainingFeature(), INSIGNIFICANT_INDEX,
+				"Expression type not allowed here.", o.eContainer(), o.eContainingFeature(), INSIGNIFICANT_INDEX,
 				IPPDiagnostics.ISSUE__UNSUPPORTED_EXPRESSION);
 		}
 
@@ -147,7 +152,7 @@ public class PPJavaValidator extends AbstractPPJavaValidator implements IPPDiagn
 			acceptor.acceptError(
 				"Expression type not allowed as " + (left
 						? "left"
-						: "right") + " expression.", o, o.eContainingFeature(), INSIGNIFICANT_INDEX,
+						: "right") + " expression.", o.eContainer(), o.eContainingFeature(), INSIGNIFICANT_INDEX,
 				IPPDiagnostics.ISSUE__UNSUPPORTED_EXPRESSION);
 		}
 
@@ -225,8 +230,7 @@ public class PPJavaValidator extends AbstractPPJavaValidator implements IPPDiagn
 	@Inject
 	private PPStringConstantEvaluator stringConstantEvaluator;
 
-	@Inject
-	private Provider<IValidationAdvisor> validationAdvisorProvider;
+	private final Provider<IValidationAdvisor> validationAdvisorProvider;
 
 	@Inject
 	private PPExpressionEquivalenceCalculator eqCalculator;
@@ -275,6 +279,7 @@ public class PPJavaValidator extends AbstractPPJavaValidator implements IPPDiagn
 	@Inject
 	public PPJavaValidator(IGrammarAccess ga, Provider<IValidationAdvisor> validationAdvisorProvider) {
 		acceptor = new ValidationBasedMessageAcceptor(this);
+		this.validationAdvisorProvider = validationAdvisorProvider;
 	}
 
 	private IValidationAdvisor advisor() {
@@ -805,7 +810,8 @@ public class PPJavaValidator extends AbstractPPJavaValidator implements IPPDiagn
 				}
 				if(replacement != null) {
 					warningOrError(
-						acceptor, dqStringNotRequiredVariable, "Double quoted string not required", o,
+						acceptor, dqStringNotRequiredVariable,
+						"String contains single interpolated variable. Double quotes not required.", o,
 						IPPDiagnostics.ISSUE__DQ_STRING_NOT_REQUIRED_VAR, replacement);
 				}
 			}

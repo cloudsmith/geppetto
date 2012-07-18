@@ -72,14 +72,16 @@ import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.xtext.diagnostics.Severity;
 import org.eclipse.xtext.naming.IQualifiedNameConverter;
 import org.eclipse.xtext.naming.QualifiedName;
+import org.eclipse.xtext.nodemodel.INode;
+import org.eclipse.xtext.nodemodel.util.NodeModelUtils;
 import org.eclipse.xtext.resource.IEObjectDescription;
 import org.eclipse.xtext.resource.IResourceDescription;
 import org.eclipse.xtext.resource.IResourceDescriptions;
 
+import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
-import com.google.inject.internal.Lists;
 import com.google.inject.name.Named;
 
 /**
@@ -192,7 +194,7 @@ public class PPResourceLinker implements IPPDiagnostics {
 		// elsewhere
 		if(!(o.getLeftExpr() instanceof LiteralNameOrReference))
 			return;
-		String name = ((LiteralNameOrReference) o.getLeftExpr()).getValue();
+		final String name = ((LiteralNameOrReference) o.getLeftExpr()).getValue();
 
 		final SearchResult searchResult = ppFinder.findFunction(o, name, importedNames);
 		final List<IEObjectDescription> found = searchResult.getAdjusted(); // findFunction(o, name, importedNames);
@@ -220,12 +222,12 @@ public class PPResourceLinker implements IPPDiagnostics {
 			proposalIssue(IPPDiagnostics.ISSUE__UNKNOWN_FUNCTION_REFERENCE, proposals), //
 			proposals);
 		// record failure at resource level
-		importedNames.addUnresolved(converter.toQualifiedName(name));
+		addUnresolved(importedNames, name, NodeModelUtils.findActualNodeFor(o.getLeftExpr()));
 		CrossReferenceAdapter.clear(o.getLeftExpr());
 	}
 
 	private void _link(HostClassDefinition o, PPImportedNamesAdapter importedNames, IMessageAcceptor acceptor) {
-		LiteralExpression parent = o.getParent();
+		final LiteralExpression parent = o.getParent();
 		if(parent == null)
 			return;
 		String parentString = null;
@@ -276,7 +278,9 @@ public class PPResourceLinker implements IPPDiagnostics {
 		}
 		else {
 			// record unresolved name at resource level
-			importedNames.addUnresolved(converter.toQualifiedName(parentString));
+			addUnresolved(
+				importedNames, converter.toQualifiedName(parentString), NodeModelUtils.findActualNodeFor(parent));
+			// importedNames.addUnresolved(converter.toQualifiedName(parentString));
 			CrossReferenceAdapter.clear(parent);
 
 			// ... and finally, if there was neither a type nor a definition reference
@@ -337,7 +341,10 @@ public class PPResourceLinker implements IPPDiagnostics {
 				}
 
 				// Add unresolved info at resource level
-				importedNames.addUnresolved(converter.toQualifiedName(className));
+				addUnresolved(
+					importedNames, converter.toQualifiedName(className),
+					NodeModelUtils.findActualNodeFor(o.getNameExpr()));
+				// importedNames.addUnresolved(converter.toQualifiedName(className));
 				CrossReferenceAdapter.clear(o.getNameExpr());
 
 				String[] proposals = proposer.computeProposals(
@@ -517,7 +524,9 @@ public class PPResourceLinker implements IPPDiagnostics {
 				// ... and finally, if there was neither a type nor a definition reference
 				if(adapter.getResourceType() == null && adapter.getTargetObjectDescription() == null) {
 					// Add unresolved info at resource level
-					importedNames.addUnresolved(converter.toQualifiedName(resourceTypeName));
+					addUnresolved(
+						importedNames, resourceTypeName, NodeModelUtils.findActualNodeFor(o.getResourceExpr()));
+					// importedNames.addUnresolved(converter.toQualifiedName(resourceTypeName));
 					String[] proposals = proposer.computeProposals(
 						resourceTypeName, ppFinder.getExportedDescriptions(), searchPath, DEF_AND_TYPE);
 					acceptor.acceptError(
@@ -542,6 +551,14 @@ public class PPResourceLinker implements IPPDiagnostics {
 
 	private void _link(VariableTE o, PPImportedNamesAdapter importedNames, IMessageAcceptor acceptor) {
 		internalLinkVariable(o, PPPackage.Literals.VARIABLE_TE__VAR_NAME, o.getVarName(), importedNames, acceptor);
+	}
+
+	private void addUnresolved(PPImportedNamesAdapter importedNames, QualifiedName name, INode node) {
+		importedNames.addUnresolved(name, node.getTotalStartLine(), node.getTotalOffset(), node.getTotalLength());
+	}
+
+	private void addUnresolved(PPImportedNamesAdapter importedNames, String name, INode node) {
+		addUnresolved(importedNames, converter.toQualifiedName(name), node);
 	}
 
 	private IValidationAdvisor advisor() {
@@ -645,7 +662,7 @@ public class PPResourceLinker implements IPPDiagnostics {
 			int parameterIndex = -1;
 			for(Expression pe : o.getParameters()) {
 				parameterIndex++;
-				String className = stringConstantEvaluator.doToString(pe);
+				final String className = stringConstantEvaluator.doToString(pe);
 				if(className != null) {
 					SearchResult searchResult = ppFinder.findHostClasses(o, className, importedNames);
 					List<IEObjectDescription> foundClasses = searchResult.getAdjusted(); // findHostClasses(o, className, importedNames);
@@ -672,7 +689,8 @@ public class PPResourceLinker implements IPPDiagnostics {
 						else {
 							// not found
 							// record unresolved name at resource level
-							importedNames.addUnresolved(converter.toQualifiedName(className));
+							addUnresolved(importedNames, className, NodeModelUtils.findActualNodeFor(pe));
+							// importedNames.addUnresolved(converter.toQualifiedName(className));
 							CrossReferenceAdapter.clear(pe);
 
 							String[] p = proposer.computeProposals(
@@ -695,7 +713,7 @@ public class PPResourceLinker implements IPPDiagnostics {
 					// warning or error depending on if this is a reasonable class reference expr or not
 					if(canBeAClassReference(pe)) {
 						acceptor.acceptWarning(
-							"Can not determine until runtime if this is valid class reference", //
+							"Can not determine until runtime if this is a valid class reference", //
 							o, //
 							PPPackage.Literals.PARAMETERIZED_EXPRESSION__PARAMETERS, parameterIndex,
 							IPPDiagnostics.ISSUE__RESOURCE_UNKNOWN_TYPE);
@@ -743,7 +761,7 @@ public class PPResourceLinker implements IPPDiagnostics {
 			int parameterIndex = -1;
 			for(Expression pe : parameterList) {
 				parameterIndex++;
-				String className = stringConstantEvaluator.doToString(pe);
+				final String className = stringConstantEvaluator.doToString(pe);
 				if(className != null) {
 					SearchResult searchResult = ppFinder.findHostClasses(s, className, importedNames);
 					List<IEObjectDescription> foundClasses = searchResult.getAdjusted(); // findHostClasses(o, className, importedNames);
@@ -789,7 +807,8 @@ public class PPResourceLinker implements IPPDiagnostics {
 						else {
 							// not found
 							// record unresolved name at resource level
-							importedNames.addUnresolved(converter.toQualifiedName(className));
+							addUnresolved(importedNames, className, NodeModelUtils.findActualNodeFor(pe));
+							// importedNames.addUnresolved(converter.toQualifiedName(className));
 							CrossReferenceAdapter.clear(pe);
 
 							String[] proposals = proposer.computeProposals(
@@ -823,7 +842,7 @@ public class PPResourceLinker implements IPPDiagnostics {
 					String msg = null;
 					boolean error = false;
 					if(canBeAClassReference(pe)) {
-						msg = "Can not determine until runtime if this is valid class reference";
+						msg = "Can not determine until runtime if this is a valid class reference";
 					}
 					else {
 						msg = "Not an acceptable parameter. Function '" + name + "' requires a class reference.";
@@ -1225,8 +1244,10 @@ public class PPResourceLinker implements IPPDiagnostics {
 		else {
 			CrossReferenceAdapter.clear(o);
 		}
-		if(mustExists && !(existsAdjusted || existsOutside))
-			importedNames.addUnresolved(qName);
+		if(mustExists && !(existsAdjusted || existsOutside)) {
+			addUnresolved(importedNames, qName, NodeModelUtils.findActualNodeFor(o));
+			// importedNames.addUnresolved(qName);
+		}
 
 	}
 

@@ -168,7 +168,8 @@ public class PPRuntimeModule extends org.cloudsmith.geppetto.pp.dsl.AbstractPPRu
 	}
 
 	/**
-	 * Bind a ValidationAdvisorProvider. This default implementation returns a 2.7 compliance advisor.
+	 * Bind a ValidationAdvisorProvider. This default implementation returns a 2.7 advisor, configured with
+	 * a DefaultPotentialProblemsAdvisor.
 	 * 
 	 * @return
 	 */

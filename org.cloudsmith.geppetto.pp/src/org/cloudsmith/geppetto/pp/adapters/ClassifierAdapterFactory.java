@@ -24,7 +24,7 @@ public class ClassifierAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Type safe variant of adapt
+	 * Type safe variant of adapt that synchronizes on target.
 	 * 
 	 * @param <T>
 	 * @param target
@@ -32,7 +32,9 @@ public class ClassifierAdapterFactory extends AdapterFactoryImpl {
 	 * @return
 	 */
 	public <T> T adapt(EObject target, Class<T> type) {
-		return type.cast(super.adapt(target, type));
+		synchronized(target) {
+			return type.cast(super.adapt(target, type));
+		}
 	}
 
 	@Override

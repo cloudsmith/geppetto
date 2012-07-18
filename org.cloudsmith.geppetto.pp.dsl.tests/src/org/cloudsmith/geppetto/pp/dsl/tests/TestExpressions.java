@@ -45,7 +45,7 @@ import org.eclipse.xtext.resource.XtextResource;
  * Tests for expressions not covered by separate test classes.
  * 
  */
-public class TestExpressions extends AbstractPuppetTests {
+public class TestExpressions extends AbstractPuppetTests implements AbstractPuppetTests.SerializationTestControl {
 
 	private PrintStream savedOut;
 
@@ -102,6 +102,13 @@ public class TestExpressions extends AbstractPuppetTests {
 
 		};
 		System.setOut(new PrintStream(sink));
+	}
+
+	// @formatter:on
+
+	@Override
+	public boolean shouldTestSerializer(XtextResource resource) {
+		return false;
 	}
 
 	// @formatter:on

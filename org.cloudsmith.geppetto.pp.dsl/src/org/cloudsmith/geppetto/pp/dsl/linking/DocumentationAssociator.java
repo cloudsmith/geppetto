@@ -99,7 +99,7 @@ public class DocumentationAssociator {
 	 * 
 	 * TODO: provide checks that documentation is consistent with the model
 	 */
-	protected void linkDocumentation(EObject model, IMessageAcceptor acceptor) {
+	public void linkDocumentation(EObject model, IMessageAcceptor acceptor) {
 		// clear stored tasks
 		associateTasks(model, null);
 		List<PPTask> tasks = Lists.newArrayList();

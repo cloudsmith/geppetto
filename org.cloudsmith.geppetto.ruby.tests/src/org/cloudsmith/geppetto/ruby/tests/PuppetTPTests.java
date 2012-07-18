@@ -55,7 +55,7 @@ public class PuppetTPTests extends TestCase {
 		return null;
 	}
 
-	private void performLoad(File distroDir, File tptpFile) throws Exception {
+	private void performLoad(File distroDir, File pluginsDir, File tptpFile) throws Exception {
 		RubyHelper helper = new RubyHelper();
 		helper.setUp();
 		try {
@@ -72,11 +72,18 @@ public class PuppetTPTests extends TestCase {
 			for(Function f : target.getFunctions())
 				System.err.println("Found f: " + f.getName());
 
+			// Load (optional) any plugins
+			List<TargetEntry> plugins = helper.loadPluginsTarget(pluginsDir);
+
 			// Save the TargetEntry as a loadable resource
 			ResourceSet resourceSet = new ResourceSetImpl();
 			URI fileURI = URI.createFileURI(tptpFile.getAbsolutePath());
 			Resource targetResource = resourceSet.createResource(fileURI);
+
+			// Add all (optional) plugins
 			targetResource.getContents().add(target);
+			for(TargetEntry entry : plugins)
+				targetResource.getContents().add(entry);
 			targetResource.save(null);
 			System.err.println("Target saved to: " + fileURI.toString());
 
@@ -87,20 +94,40 @@ public class PuppetTPTests extends TestCase {
 
 	}
 
-	public void testLoad_PE_2_0() throws Exception {
-		performLoad(
-			new File("/Users/henrik/PuppetDistributions/puppet-enterprise-2.0.0-el-4-i386/lib/puppet"), new File(
-				"puppet_enterprise-2.0.0.pptp"));
-	}
+	// Puppet PE 2.0 unzipped is not a full distribution - has no source to scan
+	// public void testLoad_PE_2_0() throws Exception {
+	// performLoad(new File("/Users/henrik/PuppetDistributions/puppet-enterprise-2.0.0-el-4-i386/lib/puppet"), //
+	// null, //
+	// new File("puppet_enterprise-2.0.0.pptp"));
+	// }
 
 	public void testLoad2_6_9() throws Exception {
-		performLoad(
-			new File("/Users/henrik/PuppetDistributions/puppet-2.6.9/lib/puppet"), new File("puppet-2.6.9.pptp"));
+		final File puppetDistros = new File("/Users/henrik/PuppetDistributions/");
+		performLoad(new File(puppetDistros, "puppet-2.6.9/lib/puppet"), //
+			new File(puppetDistros, "plugins-3.0.0"), //
+			new File("puppet-2.6.9.pptp"));
+
+		// performLoad(new File("/Users/henrik/PuppetDistributions/puppet-2.6.9/lib/puppet"), //
+		// null, //
+		// new File("puppet-2.6.9.pptp"));
 	}
 
 	public void testLoad2_7_1() throws Exception {
-		performLoad(
-			new File("/Users/henrik/PuppetDistributions/puppet-2.7.1/lib/puppet"), new File("puppet-2.7.1.pptp"));
+		final File puppetDistros = new File("/Users/henrik/PuppetDistributions/");
+		performLoad(new File(puppetDistros, "puppet-2.7.1/lib/puppet"), //
+			new File(puppetDistros, "plugins-3.0.0"), //
+			new File("puppet-2.7.1.pptp"));
+
+		// performLoad(new File("/Users/henrik/PuppetDistributions/puppet-2.7.1/lib/puppet"), //
+		// null, //
+		// new File("puppet-2.7.1.pptp"));
+	}
+
+	public void testLoad3_0_0() throws Exception {
+		final File puppetDistros = new File("/Users/henrik/PuppetDistributions/");
+		performLoad(new File(puppetDistros, "puppet-3.0.0rc3/lib/puppet"), //
+			new File(puppetDistros, "plugins-3.0.0"), //
+			new File("puppet-3.0.0.pptp"));
 	}
 
 	public void testLoadEMFTP() throws Exception {
@@ -124,7 +151,7 @@ public class PuppetTPTests extends TestCase {
 	}
 
 	public void testLoadMockDistro() throws Exception {
-		File distroDir = TestDataProvider.getTestFile(new Path("testData/mock-puppet-distro/puppet/2.6.2_0/puppet"));
+		File distroDir = TestDataProvider.getTestFile(new Path("testData/mock-puppet-distro/puppet-2.6.2_0/lib/puppet"));
 		RubyHelper helper = new RubyHelper();
 		helper.setUp();
 		try {
@@ -133,7 +160,8 @@ public class PuppetTPTests extends TestCase {
 			// check the target itself
 			assertNotNull("Should have resultet in a TargetEntry", target);
 			assertEquals("Should have defined description", "Puppet Distribution", target.getDescription());
-			assertEquals("Should have defined name", "puppet 2.6.2_0", target.getLabel());
+			assertEquals("Should have defined name", "puppet", target.getLabel());
+			assertEquals("Should have defined version", "2.6.2_0", target.getVersion());
 
 			// should have found one type "mocktype"
 			assertEquals("Should have found one type", 1, target.getTypes().size());

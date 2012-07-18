@@ -17,12 +17,14 @@ import org.eclipse.xtext.serializer.diagnostic.ISerializationDiagnostic;
 import org.eclipse.xtext.util.ITextRegion;
 import org.eclipse.xtext.util.ReplaceRegion;
 
-import com.google.inject.internal.Nullable;
+// TODO: Fix next import
+// import com.sun.istack.internal.Nullable;
 
 /**
  * A Formatter capable of formatting a DomModel
  * TODO: rename to IFormatter (named differently to maintain sanity while implementing)
  * TODO: is the description of how the produced ReplaceRegion's offset/length correct?
+ * TODO: Add @Nullable to the regionToFormat parameter (not found in com.google.inject.internal.Nullable).
  */
 public interface IDomModelFormatter {
 
@@ -41,7 +43,7 @@ public interface IDomModelFormatter {
 	 *            - an acceptor of errors discovered during formatting
 	 * @return
 	 */
-	public ReplaceRegion format(IDomNode dom, @Nullable ITextRegion regionToFormat,
+	public ReplaceRegion format(IDomNode dom, /* @Nullable */ITextRegion regionToFormat,
 			IFormattingContext formattingContext, ISerializationDiagnostic.Acceptor errors);
 
 }

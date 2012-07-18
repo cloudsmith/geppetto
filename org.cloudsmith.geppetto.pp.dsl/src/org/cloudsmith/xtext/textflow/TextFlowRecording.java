@@ -15,8 +15,8 @@ import java.util.List;
 
 import org.cloudsmith.xtext.dommodel.formatter.IFormattingContext;
 
+import com.google.common.collect.Lists;
 import com.google.inject.Inject;
-import com.google.inject.internal.Lists;
 
 /**
  * An implementation of ITextFlow that records and measures the appended content.

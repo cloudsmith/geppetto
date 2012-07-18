@@ -19,7 +19,7 @@ import org.cloudsmith.xtext.dommodel.DomModelUtils;
 import org.cloudsmith.xtext.dommodel.IDomNode;
 
 import com.google.common.collect.Iterators;
-import com.google.inject.internal.Lists;
+import com.google.common.collect.Lists;
 
 /**
  * A default implementation of IDomNode that has the capacity to hold AbstractDomNode children.

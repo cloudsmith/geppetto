@@ -11,6 +11,7 @@
  */
 package org.cloudsmith.geppetto.pp.dsl.ui.editor.actions;
 
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.cloudsmith.geppetto.pp.dsl.ui.linked.ISaveActions;
@@ -68,19 +69,51 @@ public class SaveActions implements ISaveActions {
 		if(ensureNl || replaceFunkySpace || trimLines) {
 			String content = document.get();
 			if(ensureNl)
-				if(!content.endsWith("\n"))
+				if(!content.endsWith("\n")) {
 					content = content + "\n";
-			if(trimLines)
-				content = trimPattern.matcher(content).replaceAll("$1");
-			// content = content.replaceAll("[ \\t\\f\\x0B\\u00A0]+(\\r\\n|\\n)", "$1");
-			if(replaceFunkySpace)
-				content = funkySpacePattern.matcher(content).replaceAll(" ");
-			// content = content.replaceAll("[\\f\\x0B\\u00A0]", " ");
-			try {
-				document.replace(0, document.getLength(), content);
+					try {
+						document.replace(content.length() - 1, 0, "\n");
+						content = document.get();
+					}
+					catch(BadLocationException e) {
+						// ignore
+					}
+				}
+			if(trimLines) {
+				Matcher matcher = trimPattern.matcher(content);
+				boolean mustRefetch = false;
+				;
+				int lengthAdjustment = 0;
+				while(matcher.find()) {
+					int offset = matcher.start();
+					int length = matcher.end() - offset;
+					try {
+						String replacement = matcher.group(1);
+						document.replace(offset - lengthAdjustment, length, replacement);
+						lengthAdjustment += (length - replacement.length());
+						mustRefetch = true;
+					}
+					catch(BadLocationException e) {
+						// ignore
+					}
+				}
+				if(mustRefetch)
+					content = document.get();
 			}
-			catch(BadLocationException e1) {
-				// ignore, can't happen.
+			if(replaceFunkySpace) {
+				Matcher matcher = funkySpacePattern.matcher(content);
+				int lengthAdjustment = 0;
+				while(matcher.find()) {
+					int offset = matcher.start();
+					int length = matcher.end() - offset;
+					try {
+						document.replace(offset - lengthAdjustment, length, " ");
+						lengthAdjustment += length - 1;
+					}
+					catch(BadLocationException e) {
+						// ignore
+					}
+				}
 			}
 		}
 		// // USE THIS IF SEMANTIC CHANGES ARE NEEDED LATER

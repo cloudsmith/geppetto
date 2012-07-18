@@ -21,8 +21,8 @@ import org.cloudsmith.geppetto.pp.dsl.services.PPGrammarAccess;
 import org.eclipse.xtext.IGrammarAccess;
 import org.eclipse.xtext.nodemodel.INode;
 
+import com.google.common.collect.Lists;
 import com.google.inject.Inject;
-import com.google.inject.internal.Lists;
 
 /**
  * Provides parsing of puppet documentation.

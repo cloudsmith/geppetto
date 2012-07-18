@@ -4,15 +4,16 @@
 >
 	<rm:locator pattern="^org\.cloudsmith\.geppetto(\..+)?$" searchPathRef="geppetto" />
 
+	<rm:locator pattern="^org\.eclipse\.xtext(\..+)?$" searchPathRef="tmf" />
 	<rm:locator pattern="^org\.eclipse\.[ej]git(\..+)?$" searchPathRef="git" />
 	<rm:locator pattern="^org\.polarion\.eclipse\.team\.svn\.connector(\..+)?$" searchPathRef="svn.connectors" />
 	<rm:locator pattern="^org\.apache\.commons\.compress(\..+)?$" searchPathRef="commons-compress" />
 	<rm:locator pattern="^org\.jrubyparser(\..+)?$" searchPathRef="jrubyparser" />
 	<rm:locator pattern="^org\.jruby(\..+)?$" searchPathRef="maven.central" />
 
+	<rm:locator searchPathRef="orbit" failOnError="false" />
 	<rm:locator searchPathRef="platform" failOnError="false" />
 	<rm:locator searchPathRef="indigo" failOnError="false" />
-	<rm:locator searchPathRef="orbit" />
 
 	<rm:searchPath name="geppetto">
 		<rm:provider componentTypes="osgi.bundle,buckminster" readerType="git" source="true">
@@ -57,6 +58,14 @@
 		</rm:provider>
 	</rm:searchPath>
 
+	<rm:searchPath name="tmf">
+		<rm:provider componentTypes="osgi.bundle,eclipse.feature" readerType="p2" source="false" mutable="false">
+			<rm:uri format="{0}/modeling/tmf/xtext/updates/releases/head/R201112130541">
+				<bc:propertyRef key="eclipse.download" />
+			</rm:uri>
+		</rm:provider>
+	</rm:searchPath>
+
 	<rm:searchPath name="svn.connectors">
 		<rm:provider componentTypes="osgi.bundle,eclipse.feature" readerType="p2" source="false" mutable="false">
 			<rm:uri format="{0}">
@@ -77,7 +86,7 @@
 
 	<rm:searchPath name="platform">
 		<rm:provider componentTypes="osgi.bundle,eclipse.feature" readerType="p2" source="false" mutable="false">
-			<rm:uri format="{0}/eclipse/updates/3.7">
+			<rm:uri format="{0}/eclipse/updates/3.7/R-3.7.2-201202080800">
 				<bc:propertyRef key="eclipse.download" />
 			</rm:uri>
 		</rm:provider>
@@ -85,7 +94,7 @@
 
 	<rm:searchPath name="indigo">
 		<rm:provider componentTypes="osgi.bundle,eclipse.feature" readerType="p2" source="false" mutable="false">
-			<rm:uri format="{0}/releases/indigo">
+			<rm:uri format="{0}/releases/indigo/201202240900">
 				<bc:propertyRef key="eclipse.download" />
 			</rm:uri>
 		</rm:provider>
@@ -93,7 +102,7 @@
 
 	<rm:searchPath name="orbit">
 		<rm:provider componentTypes="osgi.bundle,eclipse.feature" readerType="p2" source="false" mutable="false">
-			<rm:uri format="{0}/tools/orbit/downloads/drops/R20110523182458/repository">
+			<rm:uri format="{0}/tools/orbit/downloads/drops/R20120526062928/repository">
 				<bc:propertyRef key="eclipse.download" />
 			</rm:uri>
 		</rm:provider>

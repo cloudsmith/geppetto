@@ -11,7 +11,7 @@
  */
 package org.cloudsmith.geppetto.pp.dsl.ui.preferences;
 
-import org.eclipse.xtext.ui.editor.preferences.AbstractPreferencePage;
+import org.cloudsmith.geppetto.pp.dsl.ui.preferences.editors.AbstractPreferencePage;
 import org.eclipse.xtext.ui.editor.preferences.fields.CheckBoxGroupFieldEditor;
 
 /**
@@ -44,6 +44,16 @@ public class AutoEditPreferencePage extends AbstractPreferencePage {
 					}
 				}
 				return String.valueOf(~result);
+			}
+
+			@Override
+			protected void doStore() {
+				if(result == null) {
+					// Do NOT do this - it overwrites the stored preference if they are unchanged
+					// getPreferenceStore().setToDefault(getPreferenceName());
+					return;
+				}
+				getPreferenceStore().setValue(getPreferenceName(), result);
 			}
 
 			@Override

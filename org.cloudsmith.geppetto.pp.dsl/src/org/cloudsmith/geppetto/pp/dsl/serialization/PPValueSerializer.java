@@ -26,8 +26,8 @@ import org.eclipse.xtext.util.Exceptions;
 import org.eclipse.xtext.util.PolymorphicDispatcher;
 import org.eclipse.xtext.util.PolymorphicDispatcher.ErrorHandler;
 
+import com.google.common.collect.Maps;
 import com.google.inject.Inject;
-import com.google.inject.internal.Maps;
 
 /**
  * TODO: Can probably be simplified further as there is less need for the fancy overrides required for the

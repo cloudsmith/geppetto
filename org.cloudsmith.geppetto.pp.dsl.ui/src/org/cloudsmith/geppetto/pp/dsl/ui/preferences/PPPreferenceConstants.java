@@ -43,6 +43,15 @@ public class PPPreferenceConstants {
 
 	public static final String PROBLEM_CASE_DEFAULT_LAST = "CaseDefaultLast";
 
+	/**
+	 * Appended to preference ID to form name of 'use project settings' flag
+	 */
+	public static final String USE_PROJECT_SETTINGS = "useProjectSettings";
+
+	public static final String SAVE_ACTIONS_ID = "org.cloudsmith.geppetto.pp.dsl.PP.saveactions";
+
+	public static final String SAVE_ACTIONS_USE_PROJECT_SETTINGS = SAVE_ACTIONS_ID + "." + USE_PROJECT_SETTINGS;
+
 	public static final String SAVE_ACTION_TRIM_LINES = "trimLines";
 
 	public static final String SAVE_ACTION_ENSURE_ENDS_WITH_NL = "ensureEndsWithNewLine";

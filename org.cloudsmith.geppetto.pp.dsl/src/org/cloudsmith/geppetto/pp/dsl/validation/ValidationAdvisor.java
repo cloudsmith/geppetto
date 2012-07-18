@@ -217,15 +217,15 @@ public class ValidationAdvisor {
 	}
 
 	/**
-	 * Validation Advisor for Puppet 2.8
+	 * Validation Advisor for Puppet 3.0
 	 * 
 	 */
-	public static class ValidationAdvisor_2_8 extends ValidationAdvisor_2_7 implements IValidationAdvisor {
+	public static class ValidationAdvisor_3_0 extends ValidationAdvisor_2_7 implements IValidationAdvisor {
 
 		/**
 		 * @param problemsAdvisor
 		 */
-		protected ValidationAdvisor_2_8(IPotentialProblemsAdvisor problemsAdvisor) {
+		protected ValidationAdvisor_3_0(IPotentialProblemsAdvisor problemsAdvisor) {
 			super(problemsAdvisor);
 		}
 
@@ -260,8 +260,8 @@ public class ValidationAdvisor {
 				return new ValidationAdvisor_2_6(problemsAdvisor);
 			case PUPPET_2_7:
 				return new ValidationAdvisor_2_7(problemsAdvisor);
-			case PUPPET_2_8:
-				return new ValidationAdvisor_2_8(problemsAdvisor);
+			case PUPPET_3_0:
+				return new ValidationAdvisor_3_0(problemsAdvisor);
 		}
 		throw new IllegalArgumentException("Unsupported compliance level");
 	}

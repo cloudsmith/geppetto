@@ -14,6 +14,7 @@ package org.cloudsmith.geppetto.pp.dsl.adapters;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import org.eclipse.emf.common.notify.impl.AdapterImpl;
@@ -21,6 +22,7 @@ import org.eclipse.xtext.naming.QualifiedName;
 import org.eclipse.xtext.resource.IEObjectDescription;
 
 import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
 
 /**
@@ -28,12 +30,47 @@ import com.google.common.collect.Sets;
  * <ul>
  * <li>"imported" (x-referenced) names that have been searched in order to find a resolution.</li>
  * <li>a set of resolutions (i.e. IEObjectDescriptions) that have been used to resolve an x-reference</li>
- * <li>a set of unresolved named</li>
+ * <li>a set of unresolved names</li>
  * </ul>
  * 
  * @TODO: consider changing the name of this class as it handls more that just "imported names".
  */
 public class PPImportedNamesAdapter extends AdapterImpl {
+
+	public static class Location {
+		private int line;
+
+		private int offset;
+
+		private int length;
+
+		Location(int line, int offset, int length) {
+			this.line = line;
+			this.offset = offset;
+			this.length = length;
+		}
+
+		/**
+		 * @return the length
+		 */
+		public int getLength() {
+			return length;
+		}
+
+		/**
+		 * @return the line
+		 */
+		public int getLine() {
+			return line;
+		}
+
+		/**
+		 * @return the offset
+		 */
+		public int getOffset() {
+			return offset;
+		}
+	}
 
 	private final static List<QualifiedName> EMPTY = Collections.emptyList();
 
@@ -41,9 +78,11 @@ public class PPImportedNamesAdapter extends AdapterImpl {
 
 	private final static Set<QualifiedName> EMPTY_NAMESET = Collections.emptySet();
 
-	List<QualifiedName> importedNames;
+	private final static Map<QualifiedName, List<Location>> EMPTY_UNRESOLVED = Collections.emptyMap();
 
-	Set<QualifiedName> unresolvedNames;
+	Map<QualifiedName, List<Location>> unresolvedNames;
+
+	List<QualifiedName> importedNames;
 
 	Set<IEObjectDescription> resolvedDescriptions;
 
@@ -107,26 +146,32 @@ public class PPImportedNamesAdapter extends AdapterImpl {
 	}
 
 	/**
-	 * Adds a collection of names to the set of unresolved names.
-	 * 
-	 * @param unresolved
-	 */
-	public void addUnresolved(Collection<QualifiedName> unresolved) {
-		synchronized(this) {
-			if(unresolvedNames == null)
-				unresolvedNames = Sets.newHashSet();
-		}
-		unresolvedNames.addAll(unresolved);
-	}
-
-	/**
 	 * Adds a single name to the set of unresolved names.
 	 * 
 	 * @param name
 	 */
-	public void addUnresolved(QualifiedName name) {
-		addUnresolved(Sets.newHashSet(name));
+	public void addUnresolved(QualifiedName name, int line, int offset, int length) {
+		synchronized(this) {
+			if(unresolvedNames == null)
+				unresolvedNames = Maps.newHashMap(); // Sets.newHashSet();
+			if(unresolvedNames.get(name) == null)
+				unresolvedNames.put(name, Lists.<Location> newArrayList());
+		}
+		unresolvedNames.get(name).add(new Location(line, offset, length));
 	}
+
+	// /**
+	// * Adds a collection of names to the set of unresolved names.
+	// *
+	// * @param unresolved
+	// */
+	// private void addxUnresolved(Collection<QualifiedName> unresolved) {
+	// synchronized(this) {
+	// if(unresolvedNames == null)
+	// unresolvedNames = Maps.newHashMap(); // Sets.newHashSet();
+	// }
+	// unresolvedNames.addAll(unresolved);
+	// }
 
 	public void clear() {
 		importedNames = null;
@@ -162,11 +207,24 @@ public class PPImportedNamesAdapter extends AdapterImpl {
 	}
 
 	/**
+	 * Returns all unresolved information in an unmodifiable map. The keys are the qualified name
+	 * of an unresolved element, and there is one or more Locations describing where the qualified name
+	 * is found in the resource.
+	 * 
+	 * @return
+	 */
+	public Map<QualifiedName, List<Location>> getUnresolved() {
+		return unresolvedNames == null
+				? EMPTY_UNRESOLVED
+				: Collections.unmodifiableMap(unresolvedNames);
+	}
+
+	/**
 	 * @return the unresolved names or an empty Collection if there are no unresolved x-references.
 	 */
 	public Collection<QualifiedName> getUnresolvedNames() {
 		return Collections.unmodifiableSet(unresolvedNames != null
-				? unresolvedNames
+				? unresolvedNames.keySet()
 				: EMPTY_NAMESET);
 	}
 

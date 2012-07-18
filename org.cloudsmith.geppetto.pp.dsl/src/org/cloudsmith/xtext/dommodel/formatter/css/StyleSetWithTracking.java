@@ -28,8 +28,9 @@ public class StyleSetWithTracking extends StyleSet {
 		StyleSet result = super.add(map);
 		if(sourceMap == null)
 			sourceMap = new HashMap<Class<?>, Rule>();
-		for(Class<?> clazz : map.styleMap.keySet())
-			sourceMap.put(clazz, source);
+		if(map.styleMap != null)
+			for(Class<?> clazz : map.styleMap.keySet())
+				sourceMap.put(clazz, source);
 		return result;
 	}
 

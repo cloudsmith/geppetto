@@ -11,7 +11,7 @@
  */
 package org.cloudsmith.geppetto.pp.dsl.tests;
 
-import org.cloudsmith.geppetto.pp.DoubleQuotedString;
+import org.cloudsmith.geppetto.pp.AssignmentExpression;
 import org.cloudsmith.geppetto.pp.PuppetManifest;
 import org.cloudsmith.geppetto.pp.dsl.formatting.PPSemanticLayout;
 import org.cloudsmith.geppetto.pp.dsl.formatting.PPStylesheetProvider;
@@ -162,10 +162,10 @@ public class TestPPFormattingFailing extends AbstractPuppetTests {
 	public void setUp() throws Exception {
 		super.setUp();
 		// Produces debug output for the hidden sequencer
-		with(TestSetupDebugOutput.class);
+		// with(TestSetupDebugOutput.class);
 
 		// // Runs with configuration that shows problem
-		// with(TestSpecificSetup.class);
+		with(TestSpecificSetup.class);
 	}
 
 	/**
@@ -188,14 +188,14 @@ public class TestPPFormattingFailing extends AbstractPuppetTests {
 	public void test_Serialize_DoubleQuotedString_1() throws Exception {
 		// String original = "before${var}/after${1+2}$$${$var}";
 		// String formatted = doubleQuote("before${var}/after${1 + 2}$$${$var}");
-		String code = doubleQuote("${1+2}");
-		String formatted = doubleQuote("${1 + 2}");
+		String code = "$a = " + doubleQuote("${1+2}");
+		String formatted = "$a = " + doubleQuote("${1 + 2}");
 		formatted += "\n";
 		XtextResource r = getResourceFromString(code);
 		EObject result = r.getContents().get(0);
 		assertTrue("Should be a PuppetManifest", result instanceof PuppetManifest);
 		result = ((PuppetManifest) result).getStatements().get(0);
-		assertTrue("Should be a DoubleQuotedString", result instanceof DoubleQuotedString);
+		assertTrue("Should be a DoubleQuotedString", result instanceof AssignmentExpression);
 
 		String s = serializeFormatted(r.getContents().get(0));
 		if(theDebugAcceptor != null)

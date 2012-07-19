@@ -8,15 +8,15 @@ Bundle-Version: 1.0.0.qualifier
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Import-Package: org.apache.log4j,
  org.cloudsmith.geppetto.pp.impl
-Require-Bundle: org.eclipse.xtext;bundle-version="2.0.0",
- org.eclipse.xtext.generator;bundle-version="2.0.0";resolution:=optional,
+Require-Bundle: org.eclipse.xtext;bundle-version="2.3.0.v201206120633",
+ org.eclipse.xtext.generator;bundle-version="2.3.0.v201206120633";resolution:=optional,
  org.apache.commons.logging;bundle-version="1.0.4";resolution:=optional,
  org.eclipse.emf.codegen.ecore;bundle-version="2.7.0";resolution:=optional,
  org.eclipse.emf.mwe.utils;bundle-version="1.1.0";resolution:=optional,
  org.eclipse.emf.mwe2.launch;bundle-version="2.0.0";resolution:=optional,
  com.ibm.icu;bundle-version="4.2.1";resolution:=optional,
  org.eclipse.xtext.xtend;resolution:=optional,
- org.eclipse.xtext.util;bundle-version="2.0.0",
+ org.eclipse.xtext.util;bundle-version="2.3.0.v201206120633",
  org.eclipse.emf.ecore;bundle-version="2.7.0",
  org.eclipse.emf.common;bundle-version="2.7.0",
  org.antlr.runtime;bundle-version="3.2.0",

@@ -107,6 +107,18 @@ public class DomModelSequenceAdapter implements ISequenceAcceptor {
 			NodeClassifier.CROSSREF, NodeClassifier.ASSIGNED);
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.xtext.serializer.acceptor.ISemanticSequenceAcceptor#acceptAssignedCrossRefKeyword(org.eclipse.xtext.Keyword, java.lang.String,
+	 * org.eclipse.emf.ecore.EObject, int, org.eclipse.xtext.nodemodel.ILeafNode)
+	 */
+	@Override
+	public void acceptAssignedCrossRefKeyword(Keyword kw, String token, EObject value, int index, ILeafNode node) {
+		// TODO Auto-generated method stub
+
+	}
+
 	/**
 	 * @see org.eclipse.xtext.serializer.acceptor.ISemanticSequenceAcceptor#acceptAssignedCrossRefTerminal(org.eclipse.xtext.RuleCall,
 	 *      java.lang.String, org.eclipse.emf.ecore.EObject, int, org.eclipse.xtext.nodemodel.ILeafNode)
@@ -138,24 +150,11 @@ public class DomModelSequenceAdapter implements ISequenceAcceptor {
 			NodeClassifier.ASSIGNED);
 	}
 
-	/**
-	 * @see org.eclipse.xtext.serializer.acceptor.ISemanticSequenceAcceptor#acceptAssignedKeyword(org.eclipse.xtext.Keyword, java.lang.String,
-	 *      java.lang.Boolean, int, org.eclipse.xtext.nodemodel.ILeafNode)
-	 */
 	@Override
-	public void acceptAssignedKeyword(Keyword keyword, String token, Boolean value, int index, ILeafNode node) {
+	public void acceptAssignedKeyword(Keyword keyword, String token, Object value, int index, ILeafNode node) {
 		addLeafNodeToCurrent(keyword, token, node, KEYWORD, //
 			NodeClassifier.ASSIGNED);
-	}
 
-	/**
-	 * @see org.eclipse.xtext.serializer.acceptor.ISemanticSequenceAcceptor#acceptAssignedKeyword(org.eclipse.xtext.Keyword, java.lang.String,
-	 *      java.lang.String, int, org.eclipse.xtext.nodemodel.ILeafNode)
-	 */
-	@Override
-	public void acceptAssignedKeyword(Keyword keyword, String token, String value, int index, ILeafNode node) {
-		addLeafNodeToCurrent(keyword, token, node, KEYWORD, //
-			NodeClassifier.ASSIGNED);
 	}
 
 	/**

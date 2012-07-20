@@ -107,15 +107,14 @@ public class DomModelSequenceAdapter implements ISequenceAcceptor {
 			NodeClassifier.CROSSREF, NodeClassifier.ASSIGNED);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
+	/**
 	 * @see org.eclipse.xtext.serializer.acceptor.ISemanticSequenceAcceptor#acceptAssignedCrossRefKeyword(org.eclipse.xtext.Keyword, java.lang.String,
-	 * org.eclipse.emf.ecore.EObject, int, org.eclipse.xtext.nodemodel.ILeafNode)
+	 *      org.eclipse.emf.ecore.EObject, int, org.eclipse.xtext.nodemodel.ILeafNode)
 	 */
 	@Override
 	public void acceptAssignedCrossRefKeyword(Keyword kw, String token, EObject value, int index, ILeafNode node) {
-		// TODO Auto-generated method stub
+		addLeafNodeToCurrent(GrammarUtil.containingCrossReference(kw), token, node, KEYWORD, //
+			NodeClassifier.CROSSREF, NodeClassifier.ASSIGNED);
 
 	}
 
@@ -433,8 +432,13 @@ public class DomModelSequenceAdapter implements ISequenceAcceptor {
 	 *             - if the calls to push/pop are not balanced and the stack is empty.
 	 */
 	protected void pop() {
-		CompositeDomNode top = stack.remove(stack.size() - 1);
-		current = top;
+		try {
+			CompositeDomNode top = stack.remove(stack.size() - 1);
+			current = top;
+		}
+		catch(ArrayIndexOutOfBoundsException e) {
+			// throw e;
+		}
 	}
 
 	/**

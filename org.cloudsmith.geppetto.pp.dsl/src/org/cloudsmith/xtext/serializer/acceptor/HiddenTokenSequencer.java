@@ -77,6 +77,7 @@ public class HiddenTokenSequencer implements IHiddenTokenSequencer, ISyntacticSe
 
 	private List<RuleCall> debugStack = Lists.newArrayList();
 
+	@Override
 	public void acceptAssignedCrossRefDatatype(RuleCall rc, String tkn, EObject val, int index, ICompositeNode node) {
 		emitHiddenTokens(getHiddenNodesBetween(lastNode, node));
 		if(node != null)
@@ -84,6 +85,7 @@ public class HiddenTokenSequencer implements IHiddenTokenSequencer, ISyntacticSe
 		delegate.acceptAssignedCrossRefDatatype(rc, tkn, val, index, node);
 	}
 
+	@Override
 	public void acceptAssignedCrossRefEnum(RuleCall rc, String token, EObject value, int index, ICompositeNode node) {
 		emitHiddenTokens(getHiddenNodesBetween(lastNode, node));
 		if(node != null)
@@ -91,6 +93,15 @@ public class HiddenTokenSequencer implements IHiddenTokenSequencer, ISyntacticSe
 		delegate.acceptAssignedCrossRefEnum(rc, token, value, index, node);
 	}
 
+	@Override
+	public void acceptAssignedCrossRefKeyword(Keyword kw, String token, EObject value, int index, ILeafNode node) {
+		emitHiddenTokens(getHiddenNodesBetween(lastNode, node));
+		if(node != null)
+			lastNode = getLastLeaf(node);
+		delegate.acceptAssignedCrossRefKeyword(kw, token, value, index, node);
+	}
+
+	@Override
 	public void acceptAssignedCrossRefTerminal(RuleCall rc, String token, EObject value, int index, ILeafNode node) {
 		emitHiddenTokens(getHiddenNodesBetween(lastNode, node));
 		if(node != null)
@@ -98,6 +109,7 @@ public class HiddenTokenSequencer implements IHiddenTokenSequencer, ISyntacticSe
 		delegate.acceptAssignedCrossRefTerminal(rc, token, value, index, node);
 	}
 
+	@Override
 	public void acceptAssignedDatatype(RuleCall rc, String token, Object value, int index, ICompositeNode node) {
 		emitHiddenTokens(getHiddenNodesBetween(lastNode, node));
 		if(node != null)
@@ -105,6 +117,7 @@ public class HiddenTokenSequencer implements IHiddenTokenSequencer, ISyntacticSe
 		delegate.acceptAssignedDatatype(rc, token, value, index, node);
 	}
 
+	@Override
 	public void acceptAssignedEnum(RuleCall enumRC, String token, Object value, int index, ICompositeNode node) {
 		emitHiddenTokens(getHiddenNodesBetween(lastNode, node));
 		if(node != null)
@@ -112,20 +125,15 @@ public class HiddenTokenSequencer implements IHiddenTokenSequencer, ISyntacticSe
 		delegate.acceptAssignedEnum(enumRC, token, value, index, node);
 	}
 
-	public void acceptAssignedKeyword(Keyword keyword, String token, Boolean value, int index, ILeafNode node) {
+	@Override
+	public void acceptAssignedKeyword(Keyword keyword, String token, Object value, int index, ILeafNode node) {
 		emitHiddenTokens(getHiddenNodesBetween(lastNode, node));
 		if(node != null)
 			lastNode = node;
 		delegate.acceptAssignedKeyword(keyword, token, value, index, node);
 	}
 
-	public void acceptAssignedKeyword(Keyword keyword, String token, String value, int index, ILeafNode node) {
-		emitHiddenTokens(getHiddenNodesBetween(lastNode, node));
-		if(node != null)
-			lastNode = node;
-		delegate.acceptAssignedKeyword(keyword, token, value, index, node);
-	}
-
+	@Override
 	public void acceptAssignedTerminal(RuleCall terminalRC, String token, Object value, int index, ILeafNode node) {
 		emitHiddenTokens(getHiddenNodesBetween(lastNode, node));
 		if(node != null)
@@ -133,10 +141,12 @@ public class HiddenTokenSequencer implements IHiddenTokenSequencer, ISyntacticSe
 		delegate.acceptAssignedTerminal(terminalRC, token, value, index, node);
 	}
 
+	@Override
 	public void acceptUnassignedAction(Action action) {
 		delegate.acceptUnassignedAction(action);
 	}
 
+	@Override
 	public void acceptUnassignedDatatype(RuleCall datatypeRC, String token, ICompositeNode node) {
 		saveHidden(datatypeRC);
 		emitHiddenTokens(getHiddenNodesBetween(lastNode, node));
@@ -146,6 +156,7 @@ public class HiddenTokenSequencer implements IHiddenTokenSequencer, ISyntacticSe
 		restoreHidden();
 	}
 
+	@Override
 	public void acceptUnassignedEnum(RuleCall enumRC, String token, ICompositeNode node) {
 		saveHidden(enumRC);
 		emitHiddenTokens(getHiddenNodesBetween(lastNode, node));
@@ -155,6 +166,7 @@ public class HiddenTokenSequencer implements IHiddenTokenSequencer, ISyntacticSe
 		restoreHidden();
 	}
 
+	@Override
 	public void acceptUnassignedKeyword(Keyword keyword, String token, ILeafNode node) {
 		saveHidden(keyword);
 		emitHiddenTokens(getHiddenNodesBetween(lastNode, node));
@@ -164,6 +176,7 @@ public class HiddenTokenSequencer implements IHiddenTokenSequencer, ISyntacticSe
 		restoreHidden();
 	}
 
+	@Override
 	public void acceptUnassignedTerminal(RuleCall terminalRC, String token, ILeafNode node) {
 		saveHidden(terminalRC);
 		emitHiddenTokens(getHiddenNodesBetween(lastNode, node));

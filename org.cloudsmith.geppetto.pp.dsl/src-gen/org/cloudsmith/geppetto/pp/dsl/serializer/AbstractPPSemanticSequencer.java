@@ -66,38 +66,18 @@ import org.eclipse.xtext.serializer.acceptor.ISemanticSequenceAcceptor;
 import org.eclipse.xtext.serializer.acceptor.SequenceFeeder;
 import org.eclipse.xtext.serializer.diagnostic.ISemanticSequencerDiagnosticProvider;
 import org.eclipse.xtext.serializer.diagnostic.ISerializationDiagnostic.Acceptor;
-import org.eclipse.xtext.serializer.sequencer.AbstractSemanticSequencer;
+import org.eclipse.xtext.serializer.sequencer.AbstractDelegatingSemanticSequencer;
 import org.eclipse.xtext.serializer.sequencer.GenericSequencer;
 import org.eclipse.xtext.serializer.sequencer.ISemanticNodeProvider.INodesForEObjectProvider;
 import org.eclipse.xtext.serializer.sequencer.ISemanticSequencer;
 import org.eclipse.xtext.serializer.sequencer.ITransientValueService;
 import org.eclipse.xtext.serializer.sequencer.ITransientValueService.ValueTransient;
 
-@SuppressWarnings("restriction")
-public class AbstractPPSemanticSequencer extends AbstractSemanticSequencer {
+@SuppressWarnings("all")
+public abstract class AbstractPPSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 
 	@Inject
-	protected PPGrammarAccess grammarAccess;
-	
-	@Inject
-	protected ISemanticSequencerDiagnosticProvider diagnosticProvider;
-	
-	@Inject
-	protected ITransientValueService transientValues;
-	
-	@Inject
-	@GenericSequencer
-	protected Provider<ISemanticSequencer> genericSequencerProvider;
-	
-	protected ISemanticSequencer genericSequencer;
-	
-	
-	@Override
-	public void init(ISemanticSequencer sequencer, ISemanticSequenceAcceptor sequenceAcceptor, Acceptor errorAcceptor) {
-		super.init(sequencer, sequenceAcceptor, errorAcceptor);
-		this.genericSequencer = genericSequencerProvider.get();
-		this.genericSequencer.init(sequencer, sequenceAcceptor, errorAcceptor);
-	}
+	private PPGrammarAccess grammarAccess;
 	
 	public void createSequence(EObject context, EObject semanticObject) {
 		if(semanticObject.eClass().getEPackage() == PPPackage.eINSTANCE) switch(semanticObject.eClass().getClassifierID()) {
@@ -777,7 +757,7 @@ public class AbstractPPSemanticSequencer extends AbstractSemanticSequencer {
 			case PPPackage.LITERAL_CLASS:
 				if(context == grammarAccess.getLiteralClassRule() ||
 				   context == grammarAccess.getParentNameRule()) {
-					sequence_ParentName(context, (LiteralClass) semanticObject); 
+					sequence_LiteralClass(context, (LiteralClass) semanticObject); 
 					return; 
 				}
 				else break;
@@ -827,7 +807,7 @@ public class AbstractPPSemanticSequencer extends AbstractSemanticSequencer {
 				   context == grammarAccess.getShiftExpressionRule() ||
 				   context == grammarAccess.getShiftExpressionAccess().getShiftExpressionLeftExprAction_1_0() ||
 				   context == grammarAccess.getUnaryOrHigherExpressionRule()) {
-					sequence_Expression(context, (LiteralDefault) semanticObject); 
+					sequence_LiteralDefault(context, (LiteralDefault) semanticObject); 
 					return; 
 				}
 				else break;
@@ -1077,7 +1057,7 @@ public class AbstractPPSemanticSequencer extends AbstractSemanticSequencer {
 				   context == grammarAccess.getShiftExpressionRule() ||
 				   context == grammarAccess.getShiftExpressionAccess().getShiftExpressionLeftExprAction_1_0() ||
 				   context == grammarAccess.getUnaryOrHigherExpressionRule()) {
-					sequence_Expression(context, (LiteralUndef) semanticObject); 
+					sequence_LiteralUndef(context, (LiteralUndef) semanticObject); 
 					return; 
 				}
 				else break;
@@ -1938,24 +1918,6 @@ public class AbstractPPSemanticSequencer extends AbstractSemanticSequencer {
 	
 	/**
 	 * Constraint:
-	 *     {LiteralDefault}
-	 */
-	protected void sequence_Expression(EObject context, LiteralDefault semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
-	}
-	
-	
-	/**
-	 * Constraint:
-	 *     {LiteralUndef}
-	 */
-	protected void sequence_Expression(EObject context, LiteralUndef semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
-	}
-	
-	
-	/**
-	 * Constraint:
 	 *     ((leftExpr=FunctionCall_FunctionCall_1_0 (parameters+=Expression parameters+=Expression*)?) | leftExpr=FunctionCall_FunctionCall_1_0)
 	 */
 	protected void sequence_FunctionCall(EObject context, FunctionCall semanticObject) {
@@ -2049,6 +2011,24 @@ public class AbstractPPSemanticSequencer extends AbstractSemanticSequencer {
 	
 	/**
 	 * Constraint:
+	 *     {LiteralClass}
+	 */
+	protected void sequence_LiteralClass(EObject context, LiteralClass semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     {LiteralDefault}
+	 */
+	protected void sequence_LiteralDefault(EObject context, LiteralDefault semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
 	 *     ((elements+=HashEntry elements+=HashEntry*)?)
 	 */
 	protected void sequence_LiteralHash(EObject context, LiteralHash semanticObject) {
@@ -2110,6 +2090,15 @@ public class AbstractPPSemanticSequencer extends AbstractSemanticSequencer {
 		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
 		feeder.accept(grammarAccess.getLiteralRegexAccess().getValueREGULAR_EXPRESSIONTerminalRuleCall_0(), semanticObject.getValue());
 		feeder.finish();
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     {LiteralUndef}
+	 */
+	protected void sequence_LiteralUndef(EObject context, LiteralUndef semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
 	}
 	
 	
@@ -2198,15 +2187,6 @@ public class AbstractPPSemanticSequencer extends AbstractSemanticSequencer {
 		feeder.accept(grammarAccess.getOrExpressionAccess().getOrExpressionLeftExprAction_1_0(), semanticObject.getLeftExpr());
 		feeder.accept(grammarAccess.getOrExpressionAccess().getRightExprAndExpressionParserRuleCall_1_2_0(), semanticObject.getRightExpr());
 		feeder.finish();
-	}
-	
-	
-	/**
-	 * Constraint:
-	 *     {LiteralClass}
-	 */
-	protected void sequence_ParentName(EObject context, LiteralClass semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
 	}
 	
 	

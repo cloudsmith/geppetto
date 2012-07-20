@@ -25,7 +25,6 @@ import org.cloudsmith.xtext.dommodel.formatter.IFormattingContext;
 import org.cloudsmith.xtext.dommodel.formatter.ILayoutManager;
 import org.cloudsmith.xtext.dommodel.formatter.css.DomCSS;
 import org.cloudsmith.xtext.serializer.DomBasedSerializer;
-import org.cloudsmith.xtext.serializer.acceptor.IHiddenTokenSequencerAdvisor;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.xtext.formatting.IIndentationInformation;
 import org.eclipse.xtext.junit.serializer.DebugSequenceAcceptor;
@@ -78,19 +77,19 @@ public class TestPPFormattingFailing extends AbstractPuppetTests {
 
 	}
 
-	/**
-	 * Advices a hidden token sequencer to *not* save and restore the hidden state when processing
-	 * rulecalls.
-	 * 
-	 */
-	public static class NonSaveRestorHiddenStateAdvise implements IHiddenTokenSequencerAdvisor {
-
-		@Override
-		public boolean shouldSaveRestoreState() {
-			return false;
-		}
-
-	}
+	// /**
+	// * Advices a hidden token sequencer to *not* save and restore the hidden state when processing
+	// * rulecalls.
+	// * TODO: No longer needed
+	// */
+	// public static class NonSaveRestorHiddenStateAdvise implements IHiddenTokenSequencerAdvisor {
+	//
+	// @Override
+	// public boolean shouldSaveRestoreState() {
+	// return false;
+	// }
+	//
+	// }
 
 	public static class TestSetupDebugOutput extends TestSpecificSetup {
 		public static class TestDebugModule extends TestSpecificSetup.TestModule {
@@ -98,7 +97,7 @@ public class TestPPFormattingFailing extends AbstractPuppetTests {
 			@Override
 			public void configureIHiddenTokenSequencer(Binder binder) {
 				binder.bind(IHiddenTokenSequencer.class).toProvider(DebugHiddenProvider.class);
-				binder.bind(IHiddenTokenSequencerAdvisor.class).to(NonSaveRestorHiddenStateAdvise.class);
+				// binder.bind(IHiddenTokenSequencerAdvisor.class).to(NonSaveRestorHiddenStateAdvise.class);
 			}
 		}
 
@@ -136,7 +135,7 @@ public class TestPPFormattingFailing extends AbstractPuppetTests {
 				binder.bind(IHiddenTokenSequencer.class).to(
 					org.cloudsmith.xtext.serializer.acceptor.HiddenTokenSequencer.class);
 				// advise it to not save / restore hidden state to trigger error
-				binder.bind(IHiddenTokenSequencerAdvisor.class).to(NonSaveRestorHiddenStateAdvise.class);
+				// binder.bind(IHiddenTokenSequencerAdvisor.class).to(NonSaveRestorHiddenStateAdvise.class);
 
 			}
 		}

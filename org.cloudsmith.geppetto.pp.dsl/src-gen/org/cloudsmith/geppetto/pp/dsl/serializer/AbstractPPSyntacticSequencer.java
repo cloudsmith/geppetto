@@ -14,8 +14,8 @@ import org.eclipse.xtext.serializer.analysis.ISyntacticSequencerPDAProvider.ISyn
 import org.eclipse.xtext.serializer.analysis.ISyntacticSequencerPDAProvider.ISynTransition;
 import org.eclipse.xtext.serializer.sequencer.AbstractSyntacticSequencer;
 
-@SuppressWarnings("restriction")
-public class AbstractPPSyntacticSequencer extends AbstractSyntacticSequencer {
+@SuppressWarnings("all")
+public abstract class AbstractPPSyntacticSequencer extends AbstractSyntacticSequencer {
 
 	protected PPGrammarAccess grammarAccess;
 	protected AbstractElementAlias match_AttributeOperations_CommaKeyword_2_q;
@@ -49,6 +49,9 @@ public class AbstractPPSyntacticSequencer extends AbstractSyntacticSequencer {
 		return "";
 	}
 	
+	/**
+	 * endComma : ',' ;
+	 */
 	protected String getendCommaToken(EObject semanticObject, RuleCall ruleCall, INode node) {
 		if (node != null)
 			return getTokenText(node);

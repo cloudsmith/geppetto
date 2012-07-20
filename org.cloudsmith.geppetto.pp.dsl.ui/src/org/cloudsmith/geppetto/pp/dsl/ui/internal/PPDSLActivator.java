@@ -11,12 +11,16 @@
  */
 package org.cloudsmith.geppetto.pp.dsl.ui.internal;
 
+import java.util.Collections;
+import java.util.Map;
+
 import org.apache.log4j.Logger;
 import org.cloudsmith.geppetto.pp.dsl.PPDSLConstants;
 import org.cloudsmith.geppetto.pp.dsl.pptp.PptpRubyRuntimeModule;
 import org.cloudsmith.geppetto.pp.dsl.ui.preferences.PPPreferencesHelper;
 import org.osgi.framework.BundleContext;
 
+import com.google.common.collect.Maps;
 import com.google.inject.Injector;
 import com.google.inject.Module;
 
@@ -45,6 +49,22 @@ public class PPDSLActivator extends PPActivator {
 		catch(Throwable e) {
 		}
 		return false;
+	}
+
+	private Map<String, Injector> injectors = Collections.synchronizedMap(Maps.<String, Injector> newHashMapWithExpectedSize(1));
+
+	@Override
+	public Injector getInjector(String language) {
+		if(ORG_CLOUDSMITH_GEPPETTO_PP_DSL_PP.equals(language))
+			return super.getInjector(language);
+
+		synchronized(injectors) {
+			Injector injector = injectors.get(language);
+			if(injector == null) {
+				injectors.put(language, injector = createInjector(language));
+			}
+			return injector;
+		}
 	}
 
 	public Injector getPPInjector() {
@@ -78,6 +98,11 @@ public class PPDSLActivator extends PPActivator {
 			return new PptpRubyUIModule();
 
 		return super.getUiModule(grammar);
+	}
+
+	protected void registerInjectorFor(String language) throws Exception {
+		injectors.put(language, createInjector(language));
+		// override(override(getRuntimeModule(language)).with(getSharedStateModule())).with(getUiModule(language))));
 	}
 
 	@Override

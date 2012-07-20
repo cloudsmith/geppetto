@@ -48,7 +48,7 @@ import com.google.inject.Inject;
 
 /**
  * TODO: (list of things to discuss)
- * - Calls the pass a data object and an index
+ * - Calls that pass a data object and an index
  * - Initialization (the Serializer calls init depending on implementation class).
  * Suggest adding init(EObject context, EObject semantic) to ISequenceAcceptor.
  * 
@@ -357,11 +357,10 @@ public class DomModelSequenceAdapter implements ISequenceAcceptor {
 	 */
 	@Override
 	public void finish() {
-		if(stack.size() > 0)
-			pop();
-		else {
+		if(stack.size() == 0) {
 			// TODO: Discuss this issue
-			// ensure there is a whitespace node at the very end (to enable trailing WS rule)
+			// ensure there is a whitespace node at the very end (to enable defining a
+			// formatting rule for trailing WS)
 			IDomNode lastLeaf = DomModelUtils.lastLeaf(current);
 			if(lastLeaf != null) {
 				if(!DomModelUtils.isWhitespace(lastLeaf))
@@ -415,6 +414,7 @@ public class DomModelSequenceAdapter implements ISequenceAcceptor {
 	/**
 	 * Since the information about entry to a RuleCall is not recorded, neither is leaving it.
 	 * This implementation does nothing.
+	 * TODO: Method name is misspelled in the interface - report issue
 	 * 
 	 * @see org.eclipse.xtext.serializer.acceptor.ISyntacticSequenceAcceptor#leaveUnssignedParserRuleCall(org.eclipse.xtext.RuleCall)
 	 */
@@ -437,7 +437,7 @@ public class DomModelSequenceAdapter implements ISequenceAcceptor {
 			current = top;
 		}
 		catch(ArrayIndexOutOfBoundsException e) {
-			// throw e;
+			throw e;
 		}
 	}
 

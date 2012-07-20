@@ -34,4 +34,5 @@ Export-Package: org.cloudsmith.geppetto.pp.dsl.ui,
  org.cloudsmith.geppetto.pp.dsl.ui.commands,
  org.cloudsmith.geppetto.pp.dsl.ui.internal;x-friends:="org.cloudsmith.geppetto.ui",
  org.cloudsmith.geppetto.pp.dsl.ui.jdt_ersatz,
- org.cloudsmith.geppetto.pp.dsl.ui.preferences
+ org.cloudsmith.geppetto.pp.dsl.ui.preferences,
+ org.cloudsmith.geppetto.pp.dsl.ui.contentassist

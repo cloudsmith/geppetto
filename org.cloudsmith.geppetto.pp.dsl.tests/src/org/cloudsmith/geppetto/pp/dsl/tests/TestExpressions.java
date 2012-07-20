@@ -104,14 +104,11 @@ public class TestExpressions extends AbstractPuppetTests implements AbstractPupp
 		System.setOut(new PrintStream(sink));
 	}
 
-	// @formatter:on
 
 	@Override
 	public boolean shouldTestSerializer(XtextResource resource) {
 		return false;
 	}
-
-	// @formatter:on
 
 	@Override
 	public void tearDown() throws Exception {

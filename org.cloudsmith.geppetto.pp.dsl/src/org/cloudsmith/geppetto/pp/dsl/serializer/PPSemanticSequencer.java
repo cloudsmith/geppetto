@@ -8,6 +8,7 @@ import org.cloudsmith.geppetto.pp.Expression;
 import org.cloudsmith.geppetto.pp.LiteralBoolean;
 import org.cloudsmith.geppetto.pp.LiteralList;
 import org.cloudsmith.geppetto.pp.SelectorExpression;
+import org.cloudsmith.geppetto.pp.dsl.services.PPGrammarAccess;
 import org.cloudsmith.geppetto.pp.dsl.services.PPGrammarAccess.AttributeOperationsElements;
 import org.cloudsmith.geppetto.pp.dsl.services.PPGrammarAccess.LiteralListElements;
 import org.cloudsmith.geppetto.pp.dsl.services.PPGrammarAccess.SelectorExpressionElements;
@@ -15,7 +16,13 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.xtext.serializer.acceptor.SequenceFeeder;
 import org.eclipse.xtext.serializer.sequencer.ISemanticNodeProvider.INodesForEObjectProvider;
 
+import com.google.inject.Inject;
+
 public class PPSemanticSequencer extends AbstractPPSemanticSequencer {
+
+	@Inject
+	private PPGrammarAccess grammarAccess;
+
 	/**
 	 * Constraint:
 	 * (attributes+=AttributeOperation (attributes+=AttributeOperation | attributes+=AttributeOperation)*)

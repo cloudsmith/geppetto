@@ -45,8 +45,19 @@ public class ContentFormatterFactory implements IContentFormatterFactory {
 			IXtextDocument doc = (IXtextDocument) document;
 			ReplaceRegion r = doc.readOnly(new FormattingUnitOfWork(region));
 			try {
-				if(r != null)
-					doc.replace(r.getOffset(), r.getLength(), r.getText());
+				if(r != null) {
+
+					String current = null;
+					try {
+						current = doc.get(r.getOffset(), r.getLength());
+					}
+					catch(BadLocationException e) {
+						// ignore, current is null
+					}
+					// Optimize - if replacement is equal to current
+					if(current == null || !current.equals(r.getText()))
+						doc.replace(r.getOffset(), r.getLength(), r.getText());
+				}
 			}
 			catch(BadLocationException e) {
 				throw new RuntimeException(e);

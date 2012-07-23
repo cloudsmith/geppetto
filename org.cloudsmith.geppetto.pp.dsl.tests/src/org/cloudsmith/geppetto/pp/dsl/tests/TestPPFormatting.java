@@ -155,12 +155,15 @@ public class TestPPFormatting extends AbstractPuppetTests {
 
 	public void test_List() throws Exception {
 		String code = "$a=[\"10\",'20']";
-		String fmt = "$a = [\"10\", '20',]\n";
+		String fmt = "$a = [\"10\", '20']\n";
 		XtextResource r = getResourceFromString(code);
 		String s = serializeFormatted(r.getContents().get(0));
 		assertEquals("formatting should produce wanted result", fmt, s);
 	}
 
+	/**
+	 * Test that model without node-model formats and adds the optional end comma in a list.
+	 */
 	public void test_List_NoNodeModel() throws Exception {
 		PuppetManifest pp = pf.createPuppetManifest();
 		AssignmentExpression assignment = PPFactory.eINSTANCE.createAssignmentExpression();
@@ -177,7 +180,7 @@ public class TestPPFormatting extends AbstractPuppetTests {
 
 	public void test_List_WithComments() throws Exception {
 		String code = "/*1*/$a/*2*/=/*3*/[/*4*/'10'/*5*/,/*6*/'20'/*7*/]/*8*/";
-		String fmt = "/*1*/ $a /*2*/ = /*3*/ [/*4*/ '10' /*5*/, /*6*/ '20', /*7*/] /*8*/\n";
+		String fmt = "/*1*/ $a /*2*/ = /*3*/ [/*4*/ '10' /*5*/, /*6*/ '20' /*7*/] /*8*/\n";
 		XtextResource r = getResourceFromString(code);
 		String s = serializeFormatted(r.getContents().get(0));
 		assertEquals("formatting should produce wanted result", fmt, s);
@@ -185,7 +188,7 @@ public class TestPPFormatting extends AbstractPuppetTests {
 
 	public void test_OptionalTrailingBreaks() throws Exception {
 		String code = "file{'afile':owner=>'foo'}\n\n\n\n\n";
-		String fmt = "file { 'afile':\n  owner => 'foo',\n}\n\n";
+		String fmt = "file { 'afile':\n  owner => 'foo'\n}\n\n";
 		XtextResource r = getResourceFromString(code);
 
 		String s = serializeFormatted(r.getContents().get(0));
@@ -196,30 +199,43 @@ public class TestPPFormatting extends AbstractPuppetTests {
 		String code = "file { 'title': owner => 777, ensure => present; 'title2': owner=>777,ensure=>present }";
 		String fmt = //
 		"file {\n  'title':\n    owner  => 777,\n    ensure => present;\n\n" + //
+				"  'title2':\n    owner  => 777,\n    ensure => present\n}\n";
+		String fmt2 = //
+		"file {\n  'title':\n    owner  => 777,\n    ensure => present;\n\n" + //
 				"  'title2':\n    owner  => 777,\n    ensure => present;\n}\n";
 
+		XtextResource r = getResourceFromString(code);
+		String s = serializeFormatted(r.getContents().get(0));
+		assertEquals("formatting with node model should produce wanted result", fmt, s);
+
+		brutalDetachNodeModel(r.getContents().get(0));
+		s = serializeFormatted(r.getContents().get(0));
+		assertEquals("formatting without node model should produce wanted result", fmt2, s);
+	}
+
+	public void test_Resource_OneBody() throws Exception {
+		String code = "file { 'title': owner => 777, ensure => present }";
+		String fmt = "file { 'title':\n  owner  => 777,\n  ensure => present\n}\n";
+		String fmt2 = "file { 'title':\n  owner  => 777,\n  ensure => present,\n}\n";
+		XtextResource r = getResourceFromString(code);
+		String s = serializeFormatted(r.getContents().get(0));
+		assertEquals("formatting with node-model should produce wanted result", fmt, s);
+
+		brutalDetachNodeModel(r.getContents().get(0));
+		s = serializeFormatted(r.getContents().get(0));
+		assertEquals("formatting without node-model should produce wanted result", fmt2, s);
+	}
+
+	public void test_Resource_OneBody_NoTitle() throws Exception {
+		String code = "File { owner => 777, ensure => present }";
+		String fmt = "File {\n  owner  => 777,\n  ensure => present\n}\n";
+		String fmt2 = "File {\n  owner  => 777,\n  ensure => present,\n}\n";
 		XtextResource r = getResourceFromString(code);
 		String s = serializeFormatted(r.getContents().get(0));
 		assertEquals("formatting should produce wanted result", fmt, s);
 
 		brutalDetachNodeModel(r.getContents().get(0));
 		s = serializeFormatted(r.getContents().get(0));
-		assertEquals("formatting should produce wanted result", fmt, s);
-	}
-
-	public void test_Resource_OneBody() throws Exception {
-		String code = "file { 'title': owner => 777, ensure => present }";
-		String fmt = "file { 'title':\n  owner  => 777,\n  ensure => present,\n}\n";
-		XtextResource r = getResourceFromString(code);
-		String s = serializeFormatted(r.getContents().get(0));
-		assertEquals("formatting should produce wanted result", fmt, s);
-	}
-
-	public void test_Resource_OneBody_NoTitle() throws Exception {
-		String code = "File { owner => 777, ensure => present }";
-		String fmt = "File {\n  owner  => 777,\n  ensure => present,\n}\n";
-		XtextResource r = getResourceFromString(code);
-		String s = serializeFormatted(r.getContents().get(0));
-		assertEquals("formatting should produce wanted result", fmt, s);
+		assertEquals("formatting without node-model should produce wanted result", fmt2, s);
 	}
 }

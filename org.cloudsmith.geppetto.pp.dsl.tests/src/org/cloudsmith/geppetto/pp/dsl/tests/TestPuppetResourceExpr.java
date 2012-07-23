@@ -123,10 +123,11 @@ public class TestPuppetResourceExpr extends AbstractPuppetTests {
 
 	public void test_Serialize_1() throws Exception {
 		String code = "file { 'afile': owner => 'foo'}";
-		String fmt = "file { 'afile':\n  owner => 'foo',\n}\n";
+		String fmt = "file { 'afile':\n  owner => 'foo'\n}\n";
 		XtextResource r = getResourceFromString(code);
 		String s = serializeFormatted(r.getContents().get(0));
 		assertEquals("serialization should produce same result", fmt, s);
+
 	}
 
 	public void test_Serialize_assignArray() throws Exception {

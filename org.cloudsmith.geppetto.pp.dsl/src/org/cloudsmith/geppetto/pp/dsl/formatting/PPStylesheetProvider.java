@@ -86,6 +86,7 @@ public class PPStylesheetProvider extends DefaultStylesheetProvider {
 
 		final StyleSet noSpaceNoLine = StyleSet.withImmutableStyles(styles.noSpace(), styles.noLineBreak());
 		final StyleSet noSpaceOneLine = StyleSet.withImmutableStyles(styles.noSpace(), styles.oneLineBreak());
+		final StyleSet noSpaceTwoLines = StyleSet.withImmutableStyles(styles.noSpace(), styles.lineBreaks(2, 2, 2));
 		final StyleSet oneSpaceNoLine = StyleSet.withImmutableStyles(styles.oneSpace(), styles.noLineBreak());
 
 		DomCSS css = super.get();
@@ -182,6 +183,12 @@ public class PPStylesheetProvider extends DefaultStylesheetProvider {
 
 			// Statements
 			// ws before subsequent statements in a block
+			Select.whitespaceBefore(Select.and(//
+				Select.node(StatementStyle.STATEMENT), //
+				Select.node(StatementStyle.BLOCK), //
+				Select.not(Select.node(StatementStyle.FIRST)))).withStyle(//
+				noSpaceTwoLines),
+
 			Select.whitespaceBefore(
 				Select.and(Select.node(StatementStyle.STATEMENT), Select.not(Select.node(StatementStyle.FIRST)))).withStyle(//
 				noSpaceOneLine),

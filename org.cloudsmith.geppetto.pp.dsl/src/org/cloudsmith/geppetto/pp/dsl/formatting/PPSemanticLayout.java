@@ -58,7 +58,30 @@ public class PPSemanticLayout extends DeclarativeSemanticFlowLayout {
 	}
 
 	public enum StatementStyle {
-		FIRST, STATEMENT, UNPARENTHESIZED_FUNCTION, UNPARENTHESIZED_ARG;
+		/**
+		 * Statement is first in a statement list
+		 */
+		FIRST,
+
+		/**
+		 * This is a statement.
+		 */
+		STATEMENT,
+
+		/**
+		 * This is an unparenthesized call (an expression, not a statement)
+		 */
+		UNPARENTHESIZED_FUNCTION,
+
+		/**
+		 * This is an argument (an expression, not a statement)
+		 */
+		UNPARENTHESIZED_ARG,
+
+		/**
+		 * This statement is a block statement.
+		 */
+		BLOCK;
 	}
 
 	@Inject
@@ -207,6 +230,10 @@ public class PPSemanticLayout extends DeclarativeSemanticFlowLayout {
 				rstyle = ResourceStyle.MULTIPLE_BODIES;
 				break;
 		}
+
+		IDomNode firstToken = DomModelUtils.firstTokenWithText(node);
+		if(firstToken != null)
+			firstToken.getStyleClassifiers().add(StatementStyle.BLOCK);
 		node.getStyleClassifiers().add(rstyle);
 		return false;
 	}

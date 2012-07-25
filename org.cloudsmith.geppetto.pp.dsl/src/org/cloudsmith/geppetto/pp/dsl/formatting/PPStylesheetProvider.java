@@ -99,109 +99,151 @@ public class PPStylesheetProvider extends DefaultStylesheetProvider {
 			.withStyles( //
 				styles.noLineBreak(), //
 				styles.oneSpace(), //
-				styles.indent(0)),
+				styles.indent(0))//
+			.withRuleName("WsAfterLeftCurlyBracket.InASingleBodiedResourceWithTitle"),
 
 			// Resource expression with single body without title, should not indent, as the body is
 			// indented
 			Select.and(inASingleBodiesResourceWithoutTitle, Select.whitespaceAfter(resourceLeftCurlyBracket)) //
 			.withStyles( //
 				styles.oneLineBreak(), //
-				styles.indent(0)),
+				styles.indent(0)) //
+			.withRuleName("WsAfterLeftCurlyBracket.InASingleBodiedResourceWithoutTitle"),
 
 			Select.and(inASingleBodiesResourceWithTitle, Select.whitespaceBefore(resourceRightCurlyBracket)) //
-			.withStyle(resourceRightCurlyStyleNoDedent),
+			.withStyle(resourceRightCurlyStyleNoDedent)//
+			.withRuleName("WsBeforeRightCurlyBracket.InASingleBodiesResourceWithTitle."),
+
 			Select.and(inASingleBodiesResourceWithoutTitle, Select.whitespaceBefore(resourceRightCurlyBracket)) //
-			.withStyle(resourceRightCurlyStyleNoDedent),
+			.withStyle(resourceRightCurlyStyleNoDedent)//
+			.withRuleName("WsBeforeRightCurlyBracket.InASingleBodiesResourceWithoutTitle."),
 
 			// break bodies apart on body semicolon
 			Select.whitespaceAfter(resourceBodySemicolon).withStyles(//
-				styles.lineBreaks(2, 2, 2)),
+				styles.lineBreaks(2, 2, 2)).withRuleName("WsAfterResourceBodySemicolon"),
 			Select.whitespaceBefore(resourceBodySemicolon).withStyles(//
 				styles.noSpace(), //
-				styles.noLineBreak()),
+				styles.noLineBreak())//
+			.withRuleName("WsBeforeResourceBodySemicolon"),
 
 			// only one line break after the end semicolon
-			Select.whitespaceAfter(Select.important(optionalResourceEndBodySemicolon)).withStyles(//
+			Select.whitespaceAfter(Select.important(optionalResourceEndBodySemicolon))//
+			.withStyles(//
 				styles.noSpace(), //
-				styles.oneLineBreak()),
+				styles.oneLineBreak())//
+			.withRuleName("WsAfterImportantResourceEndBodySemicolon"),
 
 			// Note: Closing Resource "}" has DEDENT BREAK "}" BREAK by default
 
 			// RESOURCE BODY
 			// No space before the resource body title colon
-			Select.whitespaceBefore(resourceBodyTitleColon).withStyles(styles.noSpace()),
+			Select.whitespaceBefore(resourceBodyTitleColon)//
+			.withStyles(styles.noSpace())//
+			.withRuleName("WsBeforeResourceBodyTitleColon"),
 
 			// A resource body has its attribute operations indented after the title ':'
 			//
-			Select.whitespaceAfter(resourceBodyTitleColon).withStyles( //
+			Select.whitespaceAfter(resourceBodyTitleColon)//
+			.withStyles( //
 				// styles.indent(), //
-				styles.oneLineBreak()), //
+				styles.oneLineBreak())//
+			.withRuleName("WsAfterResourceBodyTitleColon"), //
 
 			// ATTRIBUTE OPERATIONS have each operation on a separate line
 			// a => b, c => d
 			// -------^
-			Select.whitespaceAfter(attributeOperationsComma).withStyles(//
-				styles.oneLineBreak()),
+			Select.whitespaceAfter(attributeOperationsComma)//
+			.withStyles(styles.oneLineBreak())//
+			.withRuleName("WsAfterAttributeOperationsComma"),
 
 			// xxx []
 			// ---^
-			Select.whitespaceBefore(atExpressionLeftBracket).withStyles(styles.noSpace(), styles.noLineBreak()),
+			Select.whitespaceBefore(atExpressionLeftBracket)//
+			.withStyles(styles.noSpace(), //
+				styles.noLineBreak())//
+			.withRuleName("WsbeforeAtExpressionLeftBracket"),
 
 			// @ name
 			// -^
 			// @@ name
 			// --^
-			Select.whitespaceAfter(Select.keyword("@")).withStyle(noSpaceNoLine),
+			Select.whitespaceAfter(Select.keyword("@"))//
+			.withStyle(noSpaceNoLine)//
+			.withRuleName("WsAfterKeyword@"),
 			Select.whitespaceAfter(
-				Select.grammar(grammarAccess.getVirtualNameOrReferenceAccess().getExportedATBooleanParserRuleCall_1_0())).withStyle(
-				noSpaceNoLine),
+				Select.grammar(grammarAccess.getVirtualNameOrReferenceAccess().getExportedATBooleanParserRuleCall_1_0()))//
+			.withStyle(noSpaceNoLine)//
+			.withRuleName("WsAfterExportedMarker@"),
 
-			Select.whitespaceBefore(elseAndElsifKeywords).withStyle(oneSpaceNoLine), //
+			Select.whitespaceBefore(elseAndElsifKeywords)//
+			.withStyle(oneSpaceNoLine)//
+			.withRuleName("WsBeforeKeywordsElseAndElseif"), //
 
 			Select.whitespaceAfter(
-				Select.grammar(grammarAccess.getUnaryMinusExpressionAccess().getHyphenMinusKeyword_0())).withStyle(//
-				noSpaceNoLine), //
+				Select.grammar(grammarAccess.getUnaryMinusExpressionAccess().getHyphenMinusKeyword_0()))//
+			.withStyle(noSpaceNoLine)//
+			.withRuleName("WsAfterUnaryMinus"), //
 
-			Select.whitespaceAfter(Select.grammar(grammarAccess.getNotExpressionAccess().getExclamationMarkKeyword_0())).withStyle(//
-				noSpaceNoLine), //
+			Select.whitespaceAfter(Select.grammar(grammarAccess.getNotExpressionAccess().getExclamationMarkKeyword_0()))//
+			.withStyle(noSpaceNoLine)//
+			.withRuleName("WsAfterUnaryNotEclamationMark"), //
 
 			// Relationships are typically resource {} -> resource {}
-			Select.whitespaceBefore(relationshipEdgeOperator).withStyle(oneSpaceNoLine), //
-			Select.whitespaceAfter(relationshipEdgeOperator).withStyle(oneSpaceNoLine), //
+			Select.whitespaceBefore(relationshipEdgeOperator)//
+			.withStyle(oneSpaceNoLine)//
+			.withRuleName("WsBeforeRelationshipEdgeOperator"), //
 
-			// Selector Expression
+			Select.whitespaceAfter(relationshipEdgeOperator)//
+			.withStyle(oneSpaceNoLine)//
+			.withRuleName("WsAfterRelationshipEdgeOperator"), //
+
+			// --Selector Expression
 			Select.whitespaceBefore(
-				Select.grammar(grammarAccess.getSelectorExpressionAccess().getEndCommaParserRuleCall_1_2_0_3())).withStyle(//
-				noSpaceNoLine),
+				Select.grammar(grammarAccess.getSelectorExpressionAccess().getEndCommaParserRuleCall_1_2_0_3()))//
+			.withStyle(noSpaceNoLine)//
+			.withRuleName("WsBeforeSelectorExpressionEndComma"), //
+
 			Select.whitespaceAfter(
-				Select.grammar(grammarAccess.getSelectorExpressionAccess().getCommaKeyword_1_2_0_2_0_0())).withStyle(//
-				noSpaceOneLine),
+				Select.grammar(grammarAccess.getSelectorExpressionAccess().getCommaKeyword_1_2_0_2_0_0()))//
+			.withStyle(noSpaceOneLine)//
+			.withRuleName("WsAfterSelectorExpressionComma"), //
 
-			// Interpolation
-			Select.whitespaceAfter(interpolationStart).withStyle(noSpaceNoLine), //
-			Select.whitespaceBefore(interpolationEnd).withStyle(noSpaceNoLine), //
+			// --Interpolation
+			Select.whitespaceAfter(interpolationStart)//
+			.withStyle(noSpaceNoLine)//
+			.withRuleName("WsAfterInterpolationStart"), //
 
-			// Statements
+			Select.whitespaceBefore(interpolationEnd)//
+			.withStyle(noSpaceNoLine)//
+			.withRuleName("WsBeforeInterpolationEnd"), //
+
+			// --Statements
 			// ws before subsequent statements in a block
 			Select.whitespaceBefore(Select.and(//
 				Select.node(StatementStyle.STATEMENT), //
 				Select.node(StatementStyle.BLOCK), //
-				Select.not(Select.node(StatementStyle.FIRST)))).withStyle(//
-				noSpaceTwoLines),
+				Select.not(Select.node(StatementStyle.FIRST))))//
+			.withStyle(noSpaceTwoLines)//
+			.withRuleName("WsBeforeSubsequentStatementInABlock"),
 
-			Select.whitespaceBefore(
-				Select.and(Select.node(StatementStyle.STATEMENT), Select.not(Select.node(StatementStyle.FIRST)))).withStyle(//
-				noSpaceOneLine),
+			Select.whitespaceBefore(Select.and(//
+				Select.node(StatementStyle.STATEMENT), //
+				Select.not(Select.node(StatementStyle.FIRST))))//
+			.withStyle(noSpaceOneLine)//
+			.withRuleName("WsBeforeFirstStatementInABlock"), //
+
 			// styles.noSpace(), styles.lineBreaks(functions.oneLineBreakUnlessPredecessorIsLinebreakingComment())),
 
 			// No space between function name and ()
 			Select.whitespaceBefore(
-				Select.grammar(grammarAccess.getFunctionCallAccess().getLeftParenthesisKeyword_1_1())).withStyle(//
-				noSpaceNoLine),
+				Select.grammar(grammarAccess.getFunctionCallAccess().getLeftParenthesisKeyword_1_1()))//
+			.withStyle(noSpaceNoLine) //
+			.withRuleName("WsBeforeFunctionCallLeftParenthesis"),
 
 			// PP parser includes trailing WS in ML comment, and SL comment always ends with line break
-			Select.whitespaceAfter(Select.node(NodeType.COMMENT)).withStyle(//
-				styles.spacing(functions.oneSpaceUnlessPredecessorIsWhitespaceTerminated()))
+			Select.whitespaceAfter(Select.node(NodeType.COMMENT))//
+			.withStyle(styles.spacing(functions.oneSpaceUnlessPredecessorIsWhitespaceTerminated()))//
+			.withRuleName("WsAfterComment")
 		// ,
 
 		// Select.whitespaceBefore(Select.grammar(grammarAccess.getLiteralListAccess().getEndCommaParserRuleCall_3())).withStyle(//

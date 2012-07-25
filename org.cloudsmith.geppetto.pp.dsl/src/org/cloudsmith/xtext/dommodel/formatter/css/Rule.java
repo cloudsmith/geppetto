@@ -142,6 +142,10 @@ public final class Rule implements Cloneable {
 		return domCSS;
 	}
 
+	public String getRuleName() {
+		return ruleName;
+	}
+
 	/**
 	 * Return the specificity of the rule's selector.
 	 * 
@@ -161,14 +165,6 @@ public final class Rule implements Cloneable {
 		return selector.matches(node);
 	}
 
-	public String ruleName() {
-		return ruleName;
-	}
-
-	public void ruleName(String name) {
-		ruleName = name;
-	}
-
 	/**
 	 * Sets the parent style sheet of this rule.
 	 * DON'T CALL THIS METHOD UNLESS YOU KNOW WHAT YOU ARE DOING.
@@ -177,5 +173,14 @@ public final class Rule implements Cloneable {
 	 */
 	public void setDomCSS(DomCSS styleSheet) {
 		domCSS = styleSheet;
+	}
+
+	public void setRuleName(String name) {
+		ruleName = name;
+	}
+
+	public Rule withRuleName(String name) {
+		setRuleName(name);
+		return this;
 	}
 }

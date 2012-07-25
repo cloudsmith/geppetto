@@ -101,7 +101,7 @@ public class PPResource extends LazyLinkingResource {
 		final ListBasedDiagnosticConsumer diagnosticsConsumer = new ListBasedDiagnosticConsumer();
 		IMessageAcceptor acceptor = new DiagnosticConsumerBasedMessageAcceptor(diagnosticsConsumer);
 		EObject model = this.getParseResult().getRootASTElement();
-		documentationAssociator.linkDocumentation(model, acceptor);
+		documentationAssociator.validateDocumentation(model, acceptor);
 		resourceLinker.link(model, acceptor, false);
 
 		if(!isValidationDisabled()) {
@@ -135,6 +135,9 @@ public class PPResource extends LazyLinkingResource {
 			discardLinkedState();
 		}
 		super.updateInternalState(oldParseResult, newParseResult);
+		EObject model = newParseResult.getRootASTElement();
+
+		documentationAssociator.linkDocumentation(model);
 	}
 
 }

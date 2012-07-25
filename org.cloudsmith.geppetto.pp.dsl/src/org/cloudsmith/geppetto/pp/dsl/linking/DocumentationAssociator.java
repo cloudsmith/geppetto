@@ -97,9 +97,8 @@ public class DocumentationAssociator {
 	 * Links comment nodes to classes listed in {@link #documentable} by collecting them in an
 	 * adapter (for later processing by formatter/styler).
 	 * 
-	 * TODO: provide checks that documentation is consistent with the model
 	 */
-	public void linkDocumentation(EObject model, IMessageAcceptor acceptor) {
+	public void linkDocumentation(EObject model) {
 		// clear stored tasks
 		associateTasks(model, null);
 		List<PPTask> tasks = Lists.newArrayList();
@@ -246,5 +245,16 @@ public class DocumentationAssociator {
 			startPos = endIndex + 1;
 			previousTagIndex = firstTagIndex;
 		}
+	}
+
+	/**
+	 * Validate the state of documentation in model.
+	 * TODO: Implement this (currently does nothing).
+	 * 
+	 * @param model
+	 * @param acceptor
+	 */
+	public void validateDocumentation(EObject model, IMessageAcceptor acceptor) {
+
 	}
 }

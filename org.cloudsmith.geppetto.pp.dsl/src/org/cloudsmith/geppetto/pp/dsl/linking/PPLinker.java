@@ -36,7 +36,8 @@ public class PPLinker extends LazyLinker {
 	@Override
 	protected void afterModelLinked(EObject model, IDiagnosticConsumer diagnosticsConsumer) {
 		IMessageAcceptor acceptor = new DiagnosticConsumerBasedMessageAcceptor(diagnosticsConsumer);
-		documentationAssociator.linkDocumentation(model, acceptor);
+		documentationAssociator.linkDocumentation(model);
+		documentationAssociator.validateDocumentation(model, acceptor);
 		resourceLinker.link(model, acceptor, false);
 	}
 

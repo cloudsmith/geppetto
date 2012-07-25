@@ -44,60 +44,75 @@ public class DefaultStylesheetProvider implements Provider<DomCSS> {
 
 		css.addRules( //
 			// All nodes print their text
-			Select.any().withStyle(//
-				styles.tokenText(functions.textOfNode())), //
+			Select.any()//
+			.withStyle(styles.tokenText(functions.textOfNode()))//
+			.withRuleName("DefaultCSS.TextOfNode"), //
 
 			// Default spacing is one space per whitespace, no line break
-			Select.whitespace().withStyles(//
+			Select.whitespace()//
+			.withStyles(//
 				styles.oneSpace(), //
-				styles.noLineBreak()), //
+				styles.noLineBreak()) //
+			.withRuleName("DefaultCSS.DefaultSpacing"), //
 
 			// No leading whitespace, but accept a single empty line
-			Select.before(Select.whitespace(), Select.node(NodeClassifier.FIRST_TOKEN)).withStyles(//
+			Select.before(Select.whitespace(), Select.node(NodeClassifier.FIRST_TOKEN))//
+			.withStyles(//
 				styles.noSpace(), //
-				styles.lineBreaks(0, 0, 1) //
-			), //
+				styles.lineBreaks(0, 0, 1))//
+			.withRuleName("DefaultCSS.NoLeadingButOneOptionalLineBeforeFirstToken"), //
 
 			// One trailing line break minimum, but accept two
 			Select.after(Select.whitespace(), Select.node(NodeClassifier.LAST_TOKEN)).withStyles(//
 				styles.noSpace(), //
-				styles.lineBreaks(1, 1, 2)),
+				styles.lineBreaks(1, 1, 2))//
+			.withRuleName("DefaultCSS.MinOneTrailingLinebreakOptionallyTwo"),
 
 			// No space before ',', and one space after
-			Select.before(Select.whitespace(), Select.keyword(",")).withStyles( //
-				styles.noSpace()), //
-			Select.after(Select.whitespace(), Select.keyword(",")).withStyles( //
-				styles.oneSpace()), //
+			Select.before(Select.whitespace(), Select.keyword(","))//
+			.withStyles(styles.noSpace())//
+			.withRuleName("DefaultCSS.NoSpaceBeforeComma"), //
+			Select.after(Select.whitespace(), Select.keyword(","))//
+			.withStyles(styles.oneSpace())//
+			.withRuleName("DefaultCSS.OneSpaceAfterComma"), //
 
 			// No space after '[' and no space before ']'
-			Select.after(Select.whitespace(), Select.keyword("[")).withStyles( //
-				styles.noSpace()), //
-			Select.before(Select.whitespace(), Select.keyword("]")).withStyles( //
-				styles.noSpace()), //
+			Select.after(Select.whitespace(), Select.keyword("["))//
+			.withStyles(styles.noSpace()) //
+			.withRuleName("DefaultCSS.NoSpaceAfterLeftSquareBracket"), //
+			Select.before(Select.whitespace(), Select.keyword("]"))//
+			.withStyles(styles.noSpace()) //
+			.withRuleName("DefaultCSS.NoSpaceAfterRightSquareBracket"), //
 
 			// No space after '(' and no space before ')'
-			Select.after(Select.whitespace(), Select.keyword("(")).withStyles( //
-				styles.noSpace()), //
-			Select.before(Select.whitespace(), Select.keyword(")")).withStyles( //
-				styles.noSpace()), //
+			Select.after(Select.whitespace(), Select.keyword("("))//
+			.withStyles(styles.noSpace())//
+			.withRuleName("DefaultCSS.NoSpaceAfterRightParenthesis"), //
+			Select.before(Select.whitespace(), Select.keyword(")"))//
+			.withStyles(styles.noSpace()) //
+			.withRuleName("DefaultCSS.NoSpaceBeforeRightParenthesis"), //
 
 			// Start indent on '{' and break line
 
 			Select.whitespaceAfter(Select.keyword("{")).withStyles( //
 				styles.indent(), //
 				styles.noSpace(), //
-				styles.oneLineBreak()), //
+				styles.oneLineBreak())//
+			.withRuleName("DefaultCSS.StartIndentOnLeftCurlyBracket"), //
 
 			// Stop indent on '}' and break line before and after
-			Select.whitespaceBefore(Select.keyword("}")).withStyles( //
+			Select.whitespaceBefore(Select.keyword("}"))//
+			.withStyles( //
 				styles.noSpace(), //
 				styles.dedent(), //
-				styles.oneLineBreak()), //
+				styles.oneLineBreak()) //
+			.withRuleName("DefaultCSS.StopIndentAfterRightCurlyBracket"), //
 
-			Select.after(Select.whitespace(), Select.keyword("}")).withStyles( //
+			Select.after(Select.whitespace(), Select.keyword("}"))//
+			.withStyles( //
 				styles.noSpace(), //
 				styles.oneLineBreak()) //
-		);
+			.withRuleName("DefaultCSS.BreakLineAfterRightCurlyBracket"));
 		return css;
 	}
 

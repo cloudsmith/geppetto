@@ -24,10 +24,13 @@ import org.cloudsmith.geppetto.pp.HostClassDefinition;
 import org.cloudsmith.geppetto.pp.IfExpression;
 import org.cloudsmith.geppetto.pp.LiteralNameOrReference;
 import org.cloudsmith.geppetto.pp.NodeDefinition;
+import org.cloudsmith.geppetto.pp.PPPackage;
 import org.cloudsmith.geppetto.pp.PuppetManifest;
 import org.cloudsmith.geppetto.pp.ResourceBody;
 import org.cloudsmith.geppetto.pp.ResourceExpression;
 import org.cloudsmith.geppetto.pp.SelectorExpression;
+import org.cloudsmith.geppetto.pp.dsl.adapters.DocumentationAdapter;
+import org.cloudsmith.geppetto.pp.dsl.adapters.DocumentationAdapterFactory;
 import org.cloudsmith.geppetto.pp.dsl.services.PPGrammarAccess;
 import org.cloudsmith.xtext.dommodel.DomModelUtils;
 import org.cloudsmith.xtext.dommodel.IDomNode;
@@ -41,6 +44,7 @@ import org.cloudsmith.xtext.textflow.ITextFlow;
 import org.cloudsmith.xtext.textflow.MeasuredTextFlow;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.xtext.RuleCall;
+import org.eclipse.xtext.nodemodel.INode;
 
 import com.google.common.base.Predicate;
 import com.google.common.collect.Lists;
@@ -102,6 +106,14 @@ public class PPSemanticLayout extends DeclarativeSemanticFlowLayout {
 
 	};
 
+	/**
+	 * array of classifiers that represent {@link StatementStyle.BLOCK} - used for fast lookup (faster
+	 * that Xtext polymorph and EMF Switch)
+	 */
+	protected final static int[] blockClassIds = new int[] {
+			PPPackage.CASE, PPPackage.DEFINITION, PPPackage.HOST_CLASS_DEFINITION, PPPackage.IF_EXPRESSION,
+			PPPackage.NODE_DEFINITION, PPPackage.RESOURCE_EXPRESSION, PPPackage.SELECTOR_EXPRESSION };
+
 	protected void _after(AttributeOperations aos, StyleSet styleSet, IDomNode node, ITextFlow flow,
 			ILayoutContext context) {
 		if(aos.eContainer() instanceof ResourceBody) {
@@ -124,8 +136,7 @@ public class PPSemanticLayout extends DeclarativeSemanticFlowLayout {
 	}
 
 	protected boolean _format(Case o, StyleSet styleSet, IDomNode node, ITextFlow flow, ILayoutContext context) {
-		internalFormatStatementList(
-			node.getChildren(), grammarAccess.getCaseAccess().getStatementsExpressionListParserRuleCall_4_0());
+		internalFormatStatementList(node, grammarAccess.getCaseAccess().getStatementsExpressionListParserRuleCall_4_0());
 		return false;
 	}
 
@@ -167,50 +178,50 @@ public class PPSemanticLayout extends DeclarativeSemanticFlowLayout {
 	}
 
 	protected boolean _format(Definition o, StyleSet styleSet, IDomNode node, ITextFlow flow, ILayoutContext context) {
+
 		internalFormatStatementList(
-			node.getChildren(), grammarAccess.getDefinitionAccess().getStatementsExpressionListParserRuleCall_4_0());
+			node, grammarAccess.getDefinitionAccess().getStatementsExpressionListParserRuleCall_4_0());
 		return false;
 	}
 
 	protected boolean _format(ElseExpression o, StyleSet styleSet, IDomNode node, ITextFlow flow, ILayoutContext context) {
 		internalFormatStatementList(
-			node.getChildren(), grammarAccess.getElseExpressionAccess().getStatementsExpressionListParserRuleCall_2_0());
+			node, grammarAccess.getElseExpressionAccess().getStatementsExpressionListParserRuleCall_2_0());
 		return false;
 	}
 
 	protected boolean _format(ElseIfExpression o, StyleSet styleSet, IDomNode node, ITextFlow flow,
 			ILayoutContext context) {
 		internalFormatStatementList(
-			node.getChildren(),
-			grammarAccess.getElseIfExpressionAccess().getThenStatementsExpressionListParserRuleCall_3_0());
+			node, grammarAccess.getElseIfExpressionAccess().getThenStatementsExpressionListParserRuleCall_3_0());
 		return false;
 	}
 
 	protected boolean _format(HostClassDefinition o, StyleSet styleSet, IDomNode node, ITextFlow flow,
 			ILayoutContext context) {
+
 		internalFormatStatementList(
-			node.getChildren(),
-			grammarAccess.getHostClassDefinitionAccess().getStatementsExpressionListParserRuleCall_5_0());
+			node, grammarAccess.getHostClassDefinitionAccess().getStatementsExpressionListParserRuleCall_5_0());
 		return false;
 	}
 
 	protected boolean _format(IfExpression o, StyleSet styleSet, IDomNode node, ITextFlow flow, ILayoutContext context) {
 		internalFormatStatementList(
-			node.getChildren(),
-			grammarAccess.getIfExpressionAccess().getThenStatementsExpressionListParserRuleCall_3_0());
+			node, grammarAccess.getIfExpressionAccess().getThenStatementsExpressionListParserRuleCall_3_0());
 		return false;
 	}
 
 	protected boolean _format(NodeDefinition o, StyleSet styleSet, IDomNode node, ITextFlow flow, ILayoutContext context) {
+
 		internalFormatStatementList(
-			node.getChildren(), grammarAccess.getNodeDefinitionAccess().getStatementsExpressionListParserRuleCall_5_0());
+			node, grammarAccess.getNodeDefinitionAccess().getStatementsExpressionListParserRuleCall_5_0());
 		return false;
 	}
 
 	protected boolean _format(PuppetManifest manifest, StyleSet styleSet, IDomNode node, ITextFlow flow,
 			ILayoutContext context) {
 		internalFormatStatementList(
-			node.getChildren(), grammarAccess.getPuppetManifestAccess().getStatementsExpressionListParserRuleCall_1_0());
+			node, grammarAccess.getPuppetManifestAccess().getStatementsExpressionListParserRuleCall_1_0());
 		return false;
 	}
 
@@ -230,10 +241,7 @@ public class PPSemanticLayout extends DeclarativeSemanticFlowLayout {
 				rstyle = ResourceStyle.MULTIPLE_BODIES;
 				break;
 		}
-
-		IDomNode firstToken = DomModelUtils.firstTokenWithText(node);
-		if(firstToken != null)
-			firstToken.getStyleClassifiers().add(StatementStyle.BLOCK);
+		// the style is set on the container and is used in containment checks for resource bodies.
 		node.getStyleClassifiers().add(rstyle);
 		return false;
 	}
@@ -246,13 +254,49 @@ public class PPSemanticLayout extends DeclarativeSemanticFlowLayout {
 
 	}
 
-	protected void internalFormatStatementList(List<IDomNode> nodes, EObject grammarElement) {
+	/**
+	 * Returns the first significant IDomNode in a Statement - this is either the first
+	 * token that represents documentation of the statement, or the first non documentation token
+	 * (for non documentable, and documentable without documentation).
+	 * 
+	 * @param node
+	 * @return
+	 */
+	protected IDomNode firstSignificantNode(IDomNode node) {
+		IDomNode firstToken = DomModelUtils.firstTokenWithText(node);
+		EObject o = node.getSemanticObject();
+		if(o == null)
+			return firstToken;
+		DocumentationAdapter adapter = DocumentationAdapterFactory.eINSTANCE.adapt(o);
+		List<INode> docNodes = adapter == null
+				? null
+				: adapter.getNodes();
+		if(docNodes != null && docNodes.size() > 0) {
+			INode firstDoc = docNodes.get(0);
+			Iterator<IDomNode> itor = node.treeIterator();
+			while(itor.hasNext()) {
+				IDomNode n = itor.next();
+				if(n.getNode() == firstDoc) {
+					firstToken = n;
+					break;
+				}
+				if(n == firstToken)
+					break; // stop looking
+			}
+		}
+		return firstToken;
+	}
+
+	protected void internalFormatStatementList(IDomNode node, EObject grammarElement) {
+		List<IDomNode> nodes = node.getChildren();
 		boolean first = true;
 		Iterator<IDomNode> itor = nodes.iterator();
 		while(itor.hasNext()) {
 			IDomNode n = itor.next();
 			if(n.getGrammarElement() == grammarElement) {
-				IDomNode firstToken = DomModelUtils.firstTokenWithText(n);
+				IDomNode firstToken = firstSignificantNode(n);
+				// IDomNode firstToken = DomModelUtils.firstTokenWithText(n);
+				EObject semantic = n.getSemanticObject();
 				if(first) {
 					// first in body
 					firstToken.getStyleClassifiers().add(StatementStyle.FIRST);
@@ -260,9 +304,13 @@ public class PPSemanticLayout extends DeclarativeSemanticFlowLayout {
 				}
 				// mark all (except func args) as being a STATEMENT
 				firstToken.getStyleClassifiers().add(StatementStyle.STATEMENT);
-				if(n.getSemanticObject() instanceof LiteralNameOrReference) {
-					// in case it is needed
+				if(isBlockStatement(semantic)) {
+					firstToken.getStyleClassifiers().add(StatementStyle.BLOCK);
+				}
+				else if(semantic instanceof LiteralNameOrReference) {
+					// this is an unparenthesized function call
 					firstToken.getStyleClassifiers().add(StatementStyle.UNPARENTHESIZED_FUNCTION);
+					// skip the optional single argument that follows
 					if(itor.hasNext()) {
 						n = itor.next();
 					}
@@ -270,5 +318,24 @@ public class PPSemanticLayout extends DeclarativeSemanticFlowLayout {
 			}
 		}
 
+	}
+
+	/**
+	 * Returns true if the semantic object represents a block statement (one that should be
+	 * marked with {@link StatementStyle.BLOCK}.)
+	 * 
+	 * @param semantic
+	 * @return
+	 */
+	protected boolean isBlockStatement(EObject semantic) {
+
+		if(semantic == null)
+			return false;
+		final int id = semantic.eClass().getClassifierID();
+		int length = blockClassIds.length;
+		for(int i = 0; i < length; i++)
+			if(blockClassIds[i] == id)
+				return true;
+		return false;
 	}
 }

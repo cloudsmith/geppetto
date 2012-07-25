@@ -11,6 +11,8 @@
  */
 package org.cloudsmith.xtext.dommodel.formatter.css;
 
+import com.google.common.base.Joiner;
+
 /**
  * Describes desired spacing as an {@link IFlexibleQuantity}.
  * 
@@ -27,4 +29,14 @@ public class Spacing extends FlexibleQuantity {
 	public Spacing(int min, int normal, int max) {
 		super(min, normal, max);
 	}
+
+	@Override
+	public String toString() {
+		StringBuilder builder = new StringBuilder();
+		builder.append("Spacing(");
+		Joiner.on(",").appendTo(builder, getMin(), getNormal(), getMax());
+		builder.append(")");
+		return builder.toString();
+	}
+
 }

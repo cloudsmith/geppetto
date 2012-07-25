@@ -15,6 +15,7 @@ import org.cloudsmith.xtext.dommodel.IDomNode;
 import org.cloudsmith.xtext.dommodel.formatter.ILayoutManager.ILayoutContext;
 import org.cloudsmith.xtext.dommodel.formatter.css.StyleFactory.LayoutManagerStyle;
 import org.cloudsmith.xtext.dommodel.formatter.css.StyleSet;
+import org.cloudsmith.xtext.dommodel.formatter.css.debug.FormattingTracer;
 import org.cloudsmith.xtext.textflow.ITextFlow;
 
 import com.google.common.base.Predicate;
@@ -46,6 +47,9 @@ public class DomNodeLayoutFeeder {
 	@Named("Default")
 	protected ILayoutManager defaultLayout;
 
+	@Inject
+	protected FormattingTracer tracer;
+
 	/**
 	 * Sequences the IDomNode in depth first order. Each node is passed to an
 	 * {@link ILayoutManager#format(StyleSet, IDomNode, ITextFlow, ILayoutContext)} where the layout manager is obtained via style collection.
@@ -69,6 +73,8 @@ public class DomNodeLayoutFeeder {
 
 	protected void sequenceComposite(IDomNode node, ITextFlow output, ILayoutContext context, Predicate<IDomNode> until) {
 		final StyleSet styleSet = context.getCSS().collectStyles(node);
+		tracer.recordEffectiveStyle(node, styleSet);
+
 		final ILayoutManager layout = styleSet.getStyleValue(LayoutManagerStyle.class, node, defaultLayout);
 
 		layout.beforeComposite(styleSet, node, output, context);
@@ -84,6 +90,8 @@ public class DomNodeLayoutFeeder {
 
 	protected void sequenceLeaf(IDomNode node, ITextFlow output, ILayoutContext context) {
 		final StyleSet styleSet = context.getCSS().collectStyles(node);
+		tracer.recordEffectiveStyle(node, styleSet);
+
 		final ILayoutManager layout = styleSet.getStyleValue(LayoutManagerStyle.class, node, defaultLayout);
 		layout.format(styleSet, node, output, context);
 	}

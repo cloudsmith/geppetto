@@ -11,6 +11,8 @@
  */
 package org.cloudsmith.xtext.dommodel.formatter.css;
 
+import com.google.common.base.Joiner;
+
 /**
  * Describes desired line breaks as an {@link IFlexibleQuantity}, how to handle
  * already emitted line breaks ({@link #isExistingAcceptable()} in which case the number of new line breaks
@@ -80,5 +82,15 @@ public class LineBreaks extends FlexibleQuantity {
 	 */
 	public boolean isExistingAcceptable() {
 		return acceptExisting;
+	}
+
+	@Override
+	public String toString() {
+		StringBuilder builder = new StringBuilder();
+		builder.append("LineBreaks(");
+		Joiner.on(",").appendTo(
+			builder, getMin(), getNormal(), getMax(), isCommentEndingWithBreakAcceptable(), isExistingAcceptable());
+		builder.append(")");
+		return builder.toString();
 	}
 }

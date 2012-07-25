@@ -21,15 +21,21 @@ import org.cloudsmith.xtext.dommodel.formatter.css.StyleFactory.DedentStyle;
 import org.cloudsmith.xtext.dommodel.formatter.css.StyleFactory.IndentStyle;
 import org.cloudsmith.xtext.dommodel.formatter.css.StyleFactory.LayoutManagerStyle;
 import org.cloudsmith.xtext.dommodel.formatter.css.StyleSet;
+import org.cloudsmith.xtext.dommodel.formatter.css.debug.FormattingTracer;
 import org.cloudsmith.xtext.textflow.ITextFlow;
 import org.eclipse.xtext.util.ITextRegion;
 import org.eclipse.xtext.util.Strings;
+
+import com.google.inject.Inject;
 
 /**
  * Abstract implementation of ILayoutManaager
  * 
  */
 public abstract class AbstractLayout implements ILayoutManager {
+	@Inject
+	protected FormattingTracer tracer;
+
 	private final static Integer DEFAULT_0 = Integer.valueOf(0);
 
 	/**
@@ -92,6 +98,8 @@ public abstract class AbstractLayout implements ILayoutManager {
 
 					// format the comment with layout manager given by rules (or this layout by default)
 					final StyleSet styleSet = context.getCSS().collectStyles(n);
+					tracer.recordEffectiveStyle(node, styleSet);
+
 					final ILayoutManager layout = styleSet.getStyleValue(LayoutManagerStyle.class, n, this);
 					layout.format(styleSet, n, output, context);
 					// do not process this comment again
@@ -129,6 +137,7 @@ public abstract class AbstractLayout implements ILayoutManager {
 	@Override
 	public boolean format(IDomNode node, ITextFlow flow, ILayoutContext context) {
 		StyleSet styleSet = context.getCSS().collectStyles(node);
+		tracer.recordEffectiveStyle(node, styleSet);
 
 		return format(styleSet, node, flow, context);
 	}

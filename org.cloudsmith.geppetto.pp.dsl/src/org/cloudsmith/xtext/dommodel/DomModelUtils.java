@@ -15,6 +15,11 @@ import java.io.IOException;
 import java.util.Iterator;
 
 import org.cloudsmith.xtext.dommodel.IDomNode.NodeType;
+import org.cloudsmith.xtext.dommodel.formatter.css.IStyle;
+import org.cloudsmith.xtext.dommodel.formatter.css.StyleSet;
+import org.cloudsmith.xtext.dommodel.formatter.css.StyleSetWithTracking;
+import org.cloudsmith.xtext.dommodel.formatter.css.debug.EffectiveStyleAppender;
+import org.cloudsmith.xtext.dommodel.formatter.css.debug.FormattingTracer;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.xtext.grammaranalysis.impl.GrammarElementTitleSwitch;
 import org.eclipse.xtext.nodemodel.ICompositeNode;
@@ -22,12 +27,68 @@ import org.eclipse.xtext.nodemodel.INode;
 import org.eclipse.xtext.nodemodel.SyntaxErrorMessage;
 
 import com.google.common.base.Joiner;
+import com.google.common.collect.ArrayListMultimap;
+import com.google.inject.Inject;
 
 /**
  * Utilities for a IDomModel
  * 
  */
 public class DomModelUtils {
+
+	// IMPORTANT: To use this, call binder.requestStaticInjection(DomModelUtils.class)
+	@Inject
+	private static FormattingTracer tracer;
+
+	private static void appendEffectiveStyle(Appendable result, IDomNode node, String prefix) throws IOException {
+		if(tracer == null) {
+			result.append(" effective: [-off-]");
+			return;
+		}
+		StyleSet effective = tracer.getEffectiveStyle(node);
+		if(effective == null) {
+			result.append(" effective: [null]");
+			return;
+		}
+		if(prefix.length() != 0) {
+			result.append("\n");
+			result.append(prefix);
+		}
+
+		result.append(" effective: [");
+		EffectiveStyleAppender styleAppender = new EffectiveStyleAppender(result);
+		ArrayListMultimap<String, IStyle<?>> ruleToStyle = ArrayListMultimap.create();
+		if(effective instanceof StyleSetWithTracking) {
+			StyleSetWithTracking trackingSet = (StyleSetWithTracking) effective;
+			for(IStyle<?> style : effective.getStyles()) {
+				ruleToStyle.put(trackingSet.getStyleSource(style).getRuleName(), style);
+			}
+		}
+		else {
+			for(IStyle<?> style : effective.getStyles()) {
+				ruleToStyle.put("(unknown source)", style);
+			}
+		}
+		boolean firstSource = true;
+		for(String source : ruleToStyle.keySet()) {
+			if(!firstSource)
+				result.append(", ");
+			firstSource = false;
+			result.append("From: ");
+			result.append(source);
+			result.append(" {");
+			boolean firstStyle = true;
+			for(IStyle<?> style : ruleToStyle.get(source)) {
+				if(!firstStyle)
+					result.append(", ");
+				firstStyle = false;
+				style.visit(node, styleAppender);
+			}
+			result.append("}");
+		}
+		result.append("]");
+
+	}
 
 	private static void appendTypeAndClassifiers(Appendable result, IDomNode node) throws IOException {
 		result.append(" ");
@@ -65,6 +126,7 @@ public class DomModelUtils {
 			throws IOException {
 		if(!showHidden && isHidden(node))
 			return;
+
 		if(prefix.length() != 0) {
 			result.append("\n");
 			result.append(prefix);
@@ -104,6 +166,9 @@ public class DomModelUtils {
 			result.append(prefix);
 			result.append("}");
 
+			// appendTypeAndClassifiers(result, node);
+			appendEffectiveStyle(result, node, "");
+
 			if(containsError(node) && node.getNode() != null) {
 				SyntaxErrorMessage error = node.getNode().getSyntaxErrorMessage();
 				if(error != null)
@@ -122,6 +187,7 @@ public class DomModelUtils {
 			result.append(encodedString(node.getText()));
 			result.append("'");
 			appendTypeAndClassifiers(result, node);
+			appendEffectiveStyle(result, node, prefix + "    ");
 			if(containsError(node) && node.getNode() != null) {
 				SyntaxErrorMessage error = node.getNode().getSyntaxErrorMessage();
 				if(error != null)
@@ -346,4 +412,5 @@ public class DomModelUtils {
 			return "(null)";
 		return o.eClass().getName();
 	}
+
 }

@@ -27,10 +27,12 @@ import org.cloudsmith.geppetto.pp.dsl.ppformatting.PPIndentationInformation;
 import org.cloudsmith.geppetto.pp.dsl.serialization.PPValueSerializer;
 import org.cloudsmith.geppetto.pp.dsl.validation.IValidationAdvisor;
 import org.cloudsmith.geppetto.pp.dsl.validation.ValidationAdvisorProvider;
+import org.cloudsmith.xtext.dommodel.DomModelUtils;
 import org.cloudsmith.xtext.dommodel.formatter.CSSDomFormatter;
 import org.cloudsmith.xtext.dommodel.formatter.IDomModelFormatter;
 import org.cloudsmith.xtext.dommodel.formatter.ILayoutManager;
 import org.cloudsmith.xtext.dommodel.formatter.css.DomCSS;
+import org.cloudsmith.xtext.dommodel.formatter.css.debug.FormattingTracer;
 import org.cloudsmith.xtext.serializer.DomBasedSerializer;
 import org.eclipse.xtext.conversion.IValueConverterService;
 import org.eclipse.xtext.formatting.IIndentationInformation;
@@ -127,6 +129,11 @@ public class PPRuntimeModule extends org.cloudsmith.geppetto.pp.dsl.AbstractPPRu
 	public void configureDebugTracing(com.google.inject.Binder binder) {
 		binder.bind(ITracer.class).annotatedWith(Names.named(PPDSLConstants.PP_DEBUG_LINKER)).toInstance(
 			new DefaultTracer(PPDSLConstants.PP_DEBUG_LINKER));
+		binder.bind(ITracer.class).annotatedWith(Names.named(FormattingTracer.DEBUG_FORMATTER)).toInstance(
+			new DefaultTracer(FormattingTracer.DEBUG_FORMATTER));
+		binder.bind(FormattingTracer.class).asEagerSingleton();
+		// DomModelUtils provides debugging formatting and wants access to the singleton FormattingTracer
+		binder.requestStaticInjection(DomModelUtils.class);
 	}
 
 	/**

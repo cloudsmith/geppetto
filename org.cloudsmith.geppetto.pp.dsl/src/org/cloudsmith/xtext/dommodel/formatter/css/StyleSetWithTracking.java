@@ -34,7 +34,7 @@ public class StyleSetWithTracking extends StyleSet {
 		return result;
 	}
 
-	public Rule getStyleSource(Class<? extends IStyle<?>> x) {
+	public Rule getStyleSource(IStyle<?> x) {
 		return sourceMap == null
 				? null
 				: sourceMap.get(x.getClass());

@@ -40,9 +40,16 @@ public class FileUtils {
 	}
 
 	public static void cp(InputStream source, File destDir, String fileName) throws IOException {
-		OutputStream out = new FileOutputStream(new File(destDir, fileName));
+		cp(source, destDir, fileName, -1);
+	}
+
+	public static void cp(InputStream source, File destDir, String fileName, long timestamp) throws IOException {
+		File target = new File(destDir, fileName);
+		OutputStream out = new FileOutputStream(target);
 		try {
 			StreamUtil.copy(source, out);
+			if(timestamp > 0)
+				target.setLastModified(timestamp);
 		}
 		finally {
 			StreamUtil.close(out);
@@ -141,7 +148,7 @@ public class FileUtils {
 					throw new IOException("Not a directory: " + destDir.getAbsolutePath());
 				continue;
 			}
-			cp(input, dest, name);
+			cp(input, dest, name, entry.getTime());
 		}
 	}
 }

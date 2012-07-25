@@ -11,7 +11,7 @@
  */
 package org.cloudsmith.geppetto.pp.dsl.ui.preferences;
 
-import org.eclipse.xtext.ui.editor.preferences.AbstractPreferencePage;
+import org.cloudsmith.geppetto.pp.dsl.ui.preferences.editors.AbstractPreferencePage;
 import org.eclipse.xtext.ui.editor.preferences.fields.CheckBoxGroupFieldEditor;
 
 /**

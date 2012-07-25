@@ -11,15 +11,14 @@
  */
 package org.cloudsmith.geppetto.pp.dsl.ui.preferences;
 
+import org.cloudsmith.geppetto.pp.dsl.ui.preferences.editors.AbstractPreferencePage;
 import org.eclipse.jface.preference.BooleanFieldEditor;
-import org.eclipse.xtext.ui.editor.preferences.AbstractPreferencePage;
 
 /**
  * Preference Page for Save Actions
  * 
  */
 public class PPSaveActionsPreferencePage extends AbstractPreferencePage {
-	private static final String PAGE_ID = "org.cloudsmith.geppetto.pp.dsl.PP.saveactions";
 
 	@Override
 	protected void createFieldEditors() {
@@ -38,7 +37,7 @@ public class PPSaveActionsPreferencePage extends AbstractPreferencePage {
 	 */
 	@Override
 	protected String qualifiedName() {
-		return PAGE_ID;
+		return PPPreferenceConstants.SAVE_ACTIONS_ID;
 	}
 
 }

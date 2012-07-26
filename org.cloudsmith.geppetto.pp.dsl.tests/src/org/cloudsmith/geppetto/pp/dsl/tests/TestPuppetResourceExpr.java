@@ -55,7 +55,7 @@ public class TestPuppetResourceExpr extends AbstractPuppetTests {
 
 	static final String Sample_TwoResources = "file { 'r1':\n" + //
 			"  owner => 'fred',\n" + //
-			"}\n" + //
+			"}\n\n" + //
 			"file { 'r2':\n" + //
 			"  owner => 'fred',\n" + //
 			"}\n";

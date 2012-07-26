@@ -153,6 +153,45 @@ public class TestPPFormatting extends AbstractPuppetTests {
 
 	}
 
+	public void test_CommentShouldNotBeTurnedIntoDocumentation() throws Exception {
+		// issue caused linebreaks between comment and statement to be removed
+		String code = "# wtf\n\nclass foo {\n}\n";
+		XtextResource r = getResourceFromString(code);
+		String s = serializeFormatted(r.getContents().get(0));
+		assertEquals("formatting should produce wanted result", code, s);
+
+		code = "/* wtf */\n\nclass foo {\n}\n";
+		r = getResourceFromString(code);
+		s = serializeFormatted(r.getContents().get(0));
+		assertEquals("formatting should produce wanted result", code, s);
+	}
+
+	public void test_DocumentationShouldStickToElement() throws Exception {
+		// issue caused documentation comment to be separated from its element
+		String code = "class foo {\n}\n# doc\nclass foo {\n}\n";
+		String fmt = "class foo {\n}\n\n# doc\nclass foo {\n}\n";
+		XtextResource r = getResourceFromString(code);
+		String s = serializeFormatted(r.getContents().get(0));
+		assertEquals("formatting should produce wanted result", fmt, s);
+
+		code = "class foo {\n}\n/* doc */\nclass foo {\n}\n";
+		fmt = "class foo {\n}\n\n/* doc */\nclass foo {\n}\n";
+		r = getResourceFromString(code);
+		s = serializeFormatted(r.getContents().get(0));
+		assertEquals("formatting should produce wanted result", fmt, s);
+	}
+
+	public void test_issue142_Interpolation() throws Exception {
+		String code = "$a = 10\n" + //
+				"$b = \"123${a}234\"\n" + //
+				"\n" + //
+				"class x {\n" + //
+				"}\n";
+		XtextResource r = getResourceFromString(code);
+		String s = serializeFormatted(r.getContents().get(0));
+		assertEquals("formatting should produce wanted result", code, s);
+	}
+
 	public void test_List() throws Exception {
 		String code = "$a=[\"10\",'20']";
 		String fmt = "$a = [\"10\", '20']\n";
@@ -184,6 +223,19 @@ public class TestPPFormatting extends AbstractPuppetTests {
 		XtextResource r = getResourceFromString(code);
 		String s = serializeFormatted(r.getContents().get(0));
 		assertEquals("formatting should produce wanted result", fmt, s);
+	}
+
+	public void test_NoFunnyLeadingInsert() throws Exception {
+		// one issue caused a space to be inserted when the first element was a comment
+		String code = "# wtf\n$a = 1\n";
+		XtextResource r = getResourceFromString(code);
+		String s = serializeFormatted(r.getContents().get(0));
+		assertEquals("formatting should produce wanted result", code, s);
+
+		code = "/* wtf */\n$a = 1\n";
+		r = getResourceFromString(code);
+		s = serializeFormatted(r.getContents().get(0));
+		assertEquals("formatting should produce wanted result", code, s);
 	}
 
 	public void test_OptionalTrailingBreaks() throws Exception {

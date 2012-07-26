@@ -207,10 +207,11 @@ public class TestDoubleQuotedString extends AbstractPuppetTests {
 	 */
 	public void test_Serialize_DqStringInterpolation() throws Exception {
 		String code = "$a = \"a${1}b\"\nclass a {\n}\n";
+		String fmt = "$a = \"a${1}b\"\n\nclass a {\n}\n";
 		XtextResource r = getResourceFromString(code);
 		String s = serializeFormatted(r.getContents().get(0));
 		// System.out.println(NodeModelUtils.compactDump(r.getParseResult().getRootNode(), false));
-		assertEquals("serialization should produce specified result", code, s);
+		assertEquals("serialization should produce specified result", fmt, s);
 	}
 
 	/**
@@ -218,11 +219,12 @@ public class TestDoubleQuotedString extends AbstractPuppetTests {
 	 */
 	public void test_Serialize_DqStringNoInterpolation() throws Exception {
 		String code = "$a = \"ab\"\nclass a {\n}\n";
+		String fmt = "$a = \"ab\"\n\nclass a {\n}\n";
 		XtextResource r = getResourceFromString(code);
 		String s = serializeFormatted(r.getContents().get(0));
 		// System.out.println(NodeModelUtils.compactDump(r.getParseResult().getRootNode(), false));
 
-		assertEquals("serialization should produce specified result", code, s);
+		assertEquals("serialization should produce specified result", fmt, s);
 	}
 
 	public void test_serializeSimpleDqString() throws Exception {

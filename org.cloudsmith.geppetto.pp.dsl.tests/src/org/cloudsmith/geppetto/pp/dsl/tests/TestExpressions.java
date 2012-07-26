@@ -72,7 +72,7 @@ public class TestExpressions extends AbstractPuppetTests implements AbstractPupp
 			"  true\n" + //
 			"} else {\n" + //
 			"  false\n" + //
-			"}\n" + //
+			"}\n\n" + //
 			"if $a == 1 {\n" + //
 			"  true\n" + //
 			"} elsif $b < -3 {\n" + //
@@ -103,7 +103,6 @@ public class TestExpressions extends AbstractPuppetTests implements AbstractPupp
 		};
 		System.setOut(new PrintStream(sink));
 	}
-
 
 	@Override
 	public boolean shouldTestSerializer(XtextResource resource) {
@@ -196,9 +195,10 @@ public class TestExpressions extends AbstractPuppetTests implements AbstractPupp
 	 */
 	public void test_Serialize_CallAndDefine() throws Exception {
 		String code = "class a {\n}\n$a = include('a')\ndefine b {\n}\n";
+		String fmt = "class a {\n}\n$a = include('a')\n\ndefine b {\n}\n";
 		XtextResource r = getResourceFromString(code);
 		String s = serializeFormatted(r.getContents().get(0));
-		assertEquals("serialization should produce specified result", code, s);
+		assertEquals("serialization should produce specified result", fmt, s);
 	}
 
 	public void test_Serialize_CaseExpression() throws Exception {
@@ -247,9 +247,10 @@ public class TestExpressions extends AbstractPuppetTests implements AbstractPupp
 	 */
 	public void test_Serialize_DqStringFollowedByDefine() throws Exception {
 		String code = "import \"foo\"\ndefine b {\n  $a = 1\n}\n";
+		String fmt = "import \"foo\"\n\ndefine b {\n  $a = 1\n}\n";
 		XtextResource r = getResourceFromString(code);
 		String s = serializeFormatted(r.getContents().get(0));
-		assertEquals("serialization should produce specified result", code, s);
+		assertEquals("serialization should produce specified result", fmt, s);
 	}
 
 	/**
@@ -258,10 +259,11 @@ public class TestExpressions extends AbstractPuppetTests implements AbstractPupp
 	 */
 	public void test_Serialize_DqStringInterpolation() throws Exception {
 		String code = "$a = \"a${1}b\"\nclass a {\n}\n";
+		String fmt = "$a = \"a${1}b\"\n\nclass a {\n}\n";
 		XtextResource r = getResourceFromString(code);
 		String s = serializeFormatted(r.getContents().get(0));
 		// System.out.println(NodeModelUtils.compactDump(r.getParseResult().getRootNode(), false));
-		assertEquals("serialization should produce specified result", code, s);
+		assertEquals("serialization should produce specified result", fmt, s);
 	}
 
 	/**
@@ -269,11 +271,12 @@ public class TestExpressions extends AbstractPuppetTests implements AbstractPupp
 	 */
 	public void test_Serialize_DqStringNoInterpolation() throws Exception {
 		String code = "$a = \"ab\"\nclass a {\n}\n";
+		String fmt = "$a = \"ab\"\n\nclass a {\n}\n";
 		XtextResource r = getResourceFromString(code);
 		String s = serializeFormatted(r.getContents().get(0));
 		// System.out.println(NodeModelUtils.compactDump(r.getParseResult().getRootNode(), false));
 
-		assertEquals("serialization should produce specified result", code, s);
+		assertEquals("serialization should produce specified result", fmt, s);
 	}
 
 	public void test_Serialize_HostClassDefinition() throws Exception {

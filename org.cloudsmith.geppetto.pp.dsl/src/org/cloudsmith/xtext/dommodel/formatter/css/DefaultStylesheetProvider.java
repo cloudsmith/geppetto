@@ -59,7 +59,7 @@ public class DefaultStylesheetProvider implements Provider<DomCSS> {
 			Select.before(Select.whitespace(), Select.node(NodeClassifier.FIRST_TOKEN))//
 			.withStyles(//
 				styles.noSpace(), //
-				styles.lineBreaks(0, 0, 1))//
+				styles.lineBreaks(0, 0, 1, false, false))//
 			.withRuleName("DefaultCSS.NoLeadingButOneOptionalLineBeforeFirstToken"), //
 
 			// One trailing line break minimum, but accept two
@@ -115,5 +115,4 @@ public class DefaultStylesheetProvider implements Provider<DomCSS> {
 			.withRuleName("DefaultCSS.BreakLineAfterRightCurlyBracket"));
 		return css;
 	}
-
 }

@@ -116,6 +116,9 @@ public interface IStyleFactory {
 	 */
 	public LineBreakStyle lineBreaks(int min, int normal, int max);
 
+	public LineBreakStyle lineBreaks(int min, int normal, int max, boolean acceptCommentWithBreak,
+			boolean acceptExisting);
+
 	/**
 	 * @return style with literal {@link LineBreaks} information describing "no line breaks"
 	 */

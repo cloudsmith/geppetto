@@ -59,7 +59,7 @@ public class LineBreaks extends FlexibleQuantity {
 	 */
 	public LineBreaks(int min, int normal, int max, boolean acceptCommentEndingWithBreak, boolean acceptExisting) {
 		super(min, normal, max);
-		acceptComment = acceptCommentEndingWithBreak;
+		this.acceptComment = acceptCommentEndingWithBreak;
 		this.acceptExisting = acceptExisting;
 	}
 

@@ -353,6 +353,12 @@ public class StyleFactory implements IStyleFactory {
 	}
 
 	@Override
+	public LineBreakStyle lineBreaks(int min, int normal, int max, boolean acceptCommentEndingWithBreak,
+			boolean acceptExisting) {
+		return new LineBreakStyle(new LineBreaks(min, normal, max, acceptCommentEndingWithBreak, acceptExisting));
+	}
+
+	@Override
 	public LineBreakStyle noLineBreak() {
 		return NOLINE;
 	}

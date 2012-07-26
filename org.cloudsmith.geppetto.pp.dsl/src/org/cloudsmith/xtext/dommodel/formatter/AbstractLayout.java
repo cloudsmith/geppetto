@@ -82,10 +82,10 @@ public abstract class AbstractLayout implements ILayoutManager {
 				? ""
 				: text;
 		final String lineSep = context.getLineSeparatorInformation().getLineSeparator();
+		final int existingLinebreaks = Strings.countLines(text, lineSep.toCharArray());
 		// if line break is wanted, it wins
-		if(linebreaks.getNormal() > 0 || linebreaks.getMax() > 0) {
+		if(linebreaks.getNormal() > 0 || (linebreaks.getMax() > 0 && existingLinebreaks > 0)) {
 			// output a conforming number of line breaks
-			final int existingLinebreaks = Strings.countLines(text, lineSep.toCharArray());
 			// possibly accept a comment as a linebreak if this whitespace did not already contain
 			// a break
 			int emittedLinebreaks = 0;

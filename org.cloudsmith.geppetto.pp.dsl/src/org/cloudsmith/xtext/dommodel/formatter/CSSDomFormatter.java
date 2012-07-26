@@ -43,13 +43,13 @@ import com.google.inject.Provider;
  */
 public class CSSDomFormatter implements IDomModelFormatter {
 
-	private DomCSS css;
-
 	private DomNodeLayoutFeeder layoutFeeder;
+
+	private Provider<DomCSS> cssProvider;
 
 	@Inject
 	public CSSDomFormatter(Provider<DomCSS> domProvider, DomNodeLayoutFeeder layoutFeeder) {
-		this.css = domProvider.get();
+		cssProvider = domProvider;
 		this.layoutFeeder = layoutFeeder;
 	}
 
@@ -57,6 +57,7 @@ public class CSSDomFormatter implements IDomModelFormatter {
 	public ReplaceRegion format(IDomNode dom, final ITextRegion regionToFormat,
 			final IFormattingContext formattingContext, final Acceptor errors) {
 
+		final DomCSS css = cssProvider.get();
 		ILayoutContext layoutContext = new AbstractLayoutContext() {
 
 			@Override

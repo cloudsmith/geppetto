@@ -28,6 +28,7 @@ import org.cloudsmith.xtext.dommodel.formatter.css.DomCSS;
 import org.cloudsmith.xtext.serializer.DomBasedSerializer;
 import org.cloudsmith.xtext.textflow.CharSequences;
 import org.cloudsmith.xtext.textflow.CharSequences.Fixed;
+import org.cloudsmith.xtext.textflow.CommentProcessor;
 import org.cloudsmith.xtext.textflow.ITextFlow;
 import org.cloudsmith.xtext.textflow.MeasuredTextFlow;
 import org.cloudsmith.xtext.textflow.TextFlow;
@@ -142,6 +143,22 @@ public class TestSemanticCssFormatter extends AbstractPuppetTests {
 	protected boolean shouldTestSerializer(XtextResource resource) {
 		// true here (the default), just makes testing slower and it intermittently fails ?!?
 		return false;
+	}
+
+	public void test_CommentProcessor() {
+		CommentProcessor cp = new CommentProcessor("/*", "*", "*/");
+		String source = "/* the\nquick\n     *brown\n * fox\n   \n\n*/ ";
+		CharSequence s = cp.processComment(source, 0, 80, "\n");
+		String expected = "/* the\n *quick\n *brown\n * fox\n */ ";
+		assertEquals("Should produce expected result", expected, s.toString());
+	}
+
+	public void test_CommentProcessor_Indented() {
+		CommentProcessor cp = new CommentProcessor("/*", "*", "*/");
+		String source = "/* the\n  quick\n       *brown\n   * fox\n     \n  \n  */ ";
+		CharSequence s = cp.processComment(source, 2, 80, "\n");
+		String expected = "/* the\n   *quick\n   *brown\n   * fox\n   */ ";
+		assertEquals("Should produce expected result", expected, s.toString());
 	}
 
 	public void test_MeasuringTextStream() {

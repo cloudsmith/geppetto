@@ -144,7 +144,8 @@ public class JunitresultLoader {
 		catch(IllegalArgumentException e) {
 			// ouch - a date is always expected in ISO8601 form (gregorian)
 			// be kind and do not fail - the spec is not formal.
-			return new Date(); // pretend it was "now"
+			// return new Date(); // pretend it was "now"
+			return null; // return null if no timestamp is available - it will be fixed later (based on the source XML file's timestamp)
 		}
 	}
 

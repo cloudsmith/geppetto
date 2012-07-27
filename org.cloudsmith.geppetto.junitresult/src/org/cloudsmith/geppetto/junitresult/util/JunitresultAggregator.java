@@ -42,13 +42,13 @@ import com.google.common.collect.Multimap;
 public class JunitresultAggregator {
 
 	public static class Stats {
-		static Date latest(Date a, Date b) {
+		static Date oldest(Date a, Date b) {
 			if(a == null)
 				return b;
 			if(b == null)
 				return a;
 
-			return a.after(b)
+			return a.before(b)
 					? a
 					: b;
 		}
@@ -83,7 +83,7 @@ public class JunitresultAggregator {
 
 		Stats add(Stats s) {
 			return new Stats(count + s.count, errors + s.errors, failures + s.failures, skipped + s.skipped, disabled +
-					s.disabled, time + s.time, latest(timestamp, s.timestamp));
+					s.disabled, time + s.time, oldest(timestamp, s.timestamp));
 		}
 	}
 
@@ -498,6 +498,15 @@ public class JunitresultAggregator {
 		testsuite.setSkipped(s.skipped);
 		testsuite.setDisabled(s.disabled);
 		testsuite.setTime(s.time);
+
+		// set the oldest timestamp or current time if no timestamp is available in the whole subtree and not set on the item itself
+		if(s.timestamp != null)
+			testsuite.setTimestamp(s.timestamp);
+		else if(testsuite.getTimestamp() == null)
+			testsuite.setTimestamp(s.timestamp = new Date());
+		else
+			s.timestamp = testsuite.getTimestamp();
+
 		return s;
 	}
 

@@ -229,6 +229,14 @@ public class CharSequences {
 
 	}
 
+	public static int lastIndexOf(CharSequence value, String delimiter, int from) {
+		if(value instanceof String)
+			return ((String) value).lastIndexOf(delimiter, from);
+		else if(value instanceof StringBuilder)
+			return ((StringBuilder) value).lastIndexOf(delimiter, from);
+		return value.toString().lastIndexOf(delimiter, from);
+	}
+
 	/**
 	 * @param value
 	 * @param delimiter

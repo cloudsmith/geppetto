@@ -260,7 +260,7 @@ public class CommentProcessor {
 			if(s.length() > width) {
 				// shorten if banner, else fold
 				if(isBanner(s)) {
-					lines.set(i, s.subSequence(0, width));
+					lines.set(i, s.subSequence(0, width + 1));
 				}
 				else {
 					List<CharSequence> folded = foldLine(s, width);

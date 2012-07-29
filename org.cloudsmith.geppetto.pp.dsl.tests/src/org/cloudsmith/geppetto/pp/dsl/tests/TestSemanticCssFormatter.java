@@ -164,6 +164,27 @@ public class TestSemanticCssFormatter extends AbstractPuppetTests {
 		assertEquals("Should produce expected result", expected, s.toString());
 	}
 
+	public void test_CommentProcessor_bannerfolding() {
+		CommentFormattingOptions options = new CommentFormattingOptions(24, 1, 1);
+		CommentProcessor cp = new CommentProcessor(new ICommentContext.JavaLikeMLComment(0));
+
+		String source = //
+		"/*******************************************\n"//
+				+ "* 0123456789 0123456789 0123456789 0123456789\n"//
+				+ "* abc\n" //
+				+ "* 0123456789 0123456789 0123456789 0123456789\n"//
+				+ "*/";
+		String expected = //
+		"/***********************\n"//
+				+ " * 0123456789 0123456789\n * 0123456789 0123456789\n"//
+				+ " * abc\n" //
+				+ " * 0123456789 0123456789\n * 0123456789 0123456789\n"//
+				+ " */";
+
+		CharSequence s = cp.formatComment(source, options, "\n");
+		assertEquals("Should produce expected result", expected, s.toString());
+	}
+
 	public void test_CommentProcessor_folding() {
 		CommentFormattingOptions options = new CommentFormattingOptions(24, 1, 1);
 		CommentProcessor cp = new CommentProcessor(new ICommentContext.JavaLikeMLComment(0));

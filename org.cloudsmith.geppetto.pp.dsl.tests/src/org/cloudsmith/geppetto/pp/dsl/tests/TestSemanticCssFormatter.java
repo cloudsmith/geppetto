@@ -29,6 +29,8 @@ import org.cloudsmith.xtext.serializer.DomBasedSerializer;
 import org.cloudsmith.xtext.textflow.CharSequences;
 import org.cloudsmith.xtext.textflow.CharSequences.Fixed;
 import org.cloudsmith.xtext.textflow.CommentProcessor;
+import org.cloudsmith.xtext.textflow.CommentProcessor.CommentFormattingOptions;
+import org.cloudsmith.xtext.textflow.ICommentContext;
 import org.cloudsmith.xtext.textflow.ITextFlow;
 import org.cloudsmith.xtext.textflow.MeasuredTextFlow;
 import org.cloudsmith.xtext.textflow.TextFlow;
@@ -145,20 +147,70 @@ public class TestSemanticCssFormatter extends AbstractPuppetTests {
 		return false;
 	}
 
+	public void test_CharSequences_trim() {
+		assertEquals("Should have trimmed", "abc", CharSequences.trim("   abc   ", 3, 9).toString());
+		assertEquals("Should have trimmed 1 left", "  abc", CharSequences.trim("   abc   ", 1, 9).toString());
+		assertEquals("Should have trimmed all", "", CharSequences.trim("         ", 1, 9).toString());
+		assertEquals("Empty string should trim to empty string", "", CharSequences.trim("", 1, 9).toString());
+		assertEquals("Empty string should trim to single space", " ", CharSequences.trim("   ", 1, 1).toString());
+	}
+
 	public void test_CommentProcessor() {
-		CommentProcessor cp = new CommentProcessor("/*", "*", "*/");
+		CommentFormattingOptions options = new CommentFormattingOptions(80, 1, 1);
+		CommentProcessor cp = new CommentProcessor(new ICommentContext.JavaLikeMLComment(0));
 		String source = "/* the\nquick\n     *brown\n * fox\n   \n\n*/ ";
-		CharSequence s = cp.processComment(source, 0, 80, "\n");
-		String expected = "/* the\n *quick\n *brown\n * fox\n */ ";
+		CharSequence s = cp.formatComment(source, options, "\n");
+		String expected = "/* the\n * quick\n * brown\n * fox\n */ ";
+		assertEquals("Should produce expected result", expected, s.toString());
+	}
+
+	public void test_CommentProcessor_folding() {
+		CommentFormattingOptions options = new CommentFormattingOptions(24, 1, 1);
+		CommentProcessor cp = new CommentProcessor(new ICommentContext.JavaLikeMLComment(0));
+
+		String source = //
+		"/* 0123456789 0123456789 0123456789 0123456789\n"//
+				+ "* abc\n" //
+				+ "* 0123456789 0123456789 0123456789 0123456789\n"//
+				+ "*/";
+		String expected = //
+		"/* 0123456789 0123456789\n * 0123456789 0123456789\n"//
+				+ " * abc\n" //
+				+ " * 0123456789 0123456789\n * 0123456789 0123456789\n"//
+				+ " */";
+
+		CharSequence s = cp.formatComment(source, options, "\n");
+		assertEquals("Should produce expected result", expected, s.toString());
+	}
+
+	public void test_CommentProcessor_folding_indent() {
+		CommentFormattingOptions options = new CommentFormattingOptions(26, 1, 1);
+		CommentProcessor cp = new CommentProcessor(new ICommentContext.JavaLikeMLComment(0));
+
+		String source = //
+		"/*   0123456789 0123456789 0123456789 0123456789\n"//
+				+ "* abc\n" //
+				+ "* 0123456789 0123456789 0123456789 0123456789\n"//
+				+ "*/";
+		String expected = //
+		"/*   0123456789 0123456789\n *   0123456789 0123456789\n"//
+				+ " * abc\n" //
+				+ " * 0123456789 0123456789\n * 0123456789 0123456789\n"//
+				+ " */";
+
+		CharSequence s = cp.formatComment(source, options, "\n");
 		assertEquals("Should produce expected result", expected, s.toString());
 	}
 
 	public void test_CommentProcessor_Indented() {
-		CommentProcessor cp = new CommentProcessor("/*", "*", "*/");
+		CommentProcessor cp = new CommentProcessor(new ICommentContext.JavaLikeMLComment(2));
+		CommentFormattingOptions options = new CommentFormattingOptions(80, 1, 1);
 		String source = "/* the\n  quick\n       *brown\n   * fox\n     \n  \n  */ ";
-		CharSequence s = cp.processComment(source, 2, 80, "\n");
-		String expected = "/* the\n   *quick\n   *brown\n   * fox\n   */ ";
-		assertEquals("Should produce expected result", expected, s.toString());
+		CharSequence s = cp.formatComment(source, options, "\n");
+		// pad expected and result with 2 spaces to emulate the inserting of the result
+		// (makes comparison look nicer if test fails)
+		String expected = "  /* the\n   * quick\n   * brown\n   * fox\n   */ ";
+		assertEquals("Should produce expected result", expected, "  " + s.toString());
 	}
 
 	public void test_MeasuringTextStream() {

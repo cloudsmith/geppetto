@@ -188,6 +188,10 @@ public class CharSequences {
 
 	}
 
+	private static final Spaces oneSpace = new Spaces(1);
+
+	private static final Spaces zeroSpace = new Spaces(0);
+
 	/**
 	 * Produces an efficient concatenation of two CharSequences in a safe way (they may be null).
 	 * No copies are being made (thus for excessive iteration of the result it is better to
@@ -229,6 +233,41 @@ public class CharSequences {
 
 	}
 
+	public static int indexOfNonWhitespace(CharSequence value, int from) {
+		for(int i = from; i < value.length(); i++)
+			if(!Character.isWhitespace(value.charAt(i)))
+				return i;
+		return -1;
+	}
+
+	public static int indexOfWhitespace(CharSequence value, int from) {
+		for(int i = from; i < value.length(); i++)
+			if(Character.isWhitespace(value.charAt(i)))
+				return i;
+		return -1;
+	}
+
+	public static boolean isEmpty(CharSequence s) {
+		return indexOfNonWhitespace(s, 0) < 0;
+	}
+
+	/**
+	 * Returns true if the comment consists of a repeated single character, or is empty.
+	 * 
+	 * @param s
+	 * @return
+	 */
+	public static boolean isHomogeneous(CharSequence s) {
+		if(s.length() < 1)
+			return true;
+		char c = s.charAt(0);
+		int limit = s.length();
+		for(int i = 1; i < limit; i++)
+			if(c != s.charAt(i))
+				return false;
+		return true;
+	}
+
 	public static int lastIndexOf(CharSequence value, String delimiter, int from) {
 		if(value instanceof String)
 			return ((String) value).lastIndexOf(delimiter, from);
@@ -237,7 +276,33 @@ public class CharSequences {
 		return value.toString().lastIndexOf(delimiter, from);
 	}
 
+	public static int lastIndexOfNonWhitepace(CharSequence value, int from) {
+		for(int i = from; i >= 0; i--)
+			if(!Character.isWhitespace(value.charAt(i)))
+				return i;
+		return -1;
+	}
+
+	public static int lastIndexOfWhitespace(CharSequence value, int from) {
+		for(int i = from; i >= 0; i--)
+			if(Character.isWhitespace(value.charAt(i)))
+				return i;
+		return -1;
+	}
+
+	public static Spaces spaces(int count) {
+		if(count < 0)
+			return zeroSpace;
+		if(count == 0)
+			return zeroSpace;
+		if(count == 1)
+			return oneSpace;
+		return new Spaces(count);
+	}
+
 	/**
+	 * Split sequence on delimiter
+	 * 
 	 * @param value
 	 * @param delimiter
 	 * @return
@@ -255,4 +320,25 @@ public class CharSequences {
 		return result;
 	}
 
+	/**
+	 * Trims both left and right whitespace up to given limits. The maxLeftCount is only enforced if
+	 * right trimming stops before the maxLeftCountPosition.
+	 * 
+	 * @param s
+	 * @param maxLeftCount
+	 * @param maxRightCount
+	 * @return a trimmed CharSequence
+	 */
+	public static CharSequence trim(CharSequence s, int maxLeftCount, int maxRightCount) {
+		int limit = s.length();
+		int start = 0;
+		int end = limit;
+
+		while(maxLeftCount-- > 0 && start < limit - 1 && Character.isWhitespace(s.charAt(start)))
+			start++;
+		while(maxRightCount-- > 0 && end > 0 && Character.isWhitespace(s.charAt(end - 1)))
+			end--;
+		return s.subSequence(Math.min(start, end), end);
+
+	}
 }

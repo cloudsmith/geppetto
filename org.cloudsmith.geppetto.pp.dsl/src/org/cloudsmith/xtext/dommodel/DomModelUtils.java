@@ -20,6 +20,7 @@ import org.cloudsmith.xtext.dommodel.formatter.css.StyleSet;
 import org.cloudsmith.xtext.dommodel.formatter.css.StyleSetWithTracking;
 import org.cloudsmith.xtext.dommodel.formatter.css.debug.EffectiveStyleAppender;
 import org.cloudsmith.xtext.dommodel.formatter.css.debug.FormattingTracer;
+import org.cloudsmith.xtext.textflow.CharSequences;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.xtext.grammaranalysis.impl.GrammarElementTitleSwitch;
 import org.eclipse.xtext.nodemodel.ICompositeNode;
@@ -383,6 +384,13 @@ public class DomModelUtils {
 		return n;
 	}
 
+	public static int posOnLine(IDomNode node, String lineDelimiter) {
+		final INode n = node.getNode();
+		if(n == null)
+			return -1;
+		return CharSequences.lastIndexOf(n.getRootNode().getText(), lineDelimiter, node.getNode().getTotalOffset() - 1);
+	}
+
 	public static IDomNode previousLeaf(IDomNode node) {
 		IDomNode n = node.getPreviousSibling();
 		if(n != null)
@@ -412,5 +420,4 @@ public class DomModelUtils {
 			return "(null)";
 		return o.eClass().getName();
 	}
-
 }

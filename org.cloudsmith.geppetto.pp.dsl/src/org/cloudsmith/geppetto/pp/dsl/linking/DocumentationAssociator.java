@@ -139,7 +139,8 @@ public class DocumentationAssociator {
 				}
 				// if next is not a comment, it may be an element that the documentation should be associated with
 				EObject siblingElement = sibling.getGrammarElement();
-				if(siblingElement == ga.getSL_COMMENTRule() || siblingElement == ga.getML_COMMENTRule())
+				if(siblingElement == ga.getSL_COMMENTRule() || siblingElement == ga.getML_COMMENTRule() ||
+						siblingElement == ga.getWSRule())
 					continue; // keep on collecting
 
 				EObject semantic = NodeModelUtils.findActualSemanticObjectFor(sibling);

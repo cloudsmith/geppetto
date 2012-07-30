@@ -11,9 +11,11 @@
  */
 package org.cloudsmith.xtext.textflow;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.cloudsmith.xtext.dommodel.formatter.IFormattingContext;
 import org.cloudsmith.xtext.dommodel.formatter.css.Alignment;
 
 import com.google.common.collect.Lists;
@@ -98,14 +100,17 @@ public class CommentProcessor {
 
 		private int maxEmptyTrailing;
 
+		private boolean retainInline;
+
 		public CommentFormattingOptions(int maxWidth) {
-			this(maxWidth, 1, 1);
+			this(maxWidth, 1, 1, true);
 		}
 
-		public CommentFormattingOptions(int maxWidth, int minEmptyTrailing, int maxEmptyTrailing) {
+		public CommentFormattingOptions(int maxWidth, int minEmptyTrailing, int maxEmptyTrailing, boolean retainInline) {
 			this.maxWidth = maxWidth;
 			this.minEmptyTrailing = minEmptyTrailing;
 			this.maxEmptyTrailing = maxEmptyTrailing;
+			this.retainInline = retainInline;
 		}
 
 		/**
@@ -129,20 +134,41 @@ public class CommentProcessor {
 			return minEmptyTrailing;
 		}
 
+		/**
+		 * @return true if an inline comment should be retained on a single line
+		 */
+		public boolean isRetainInline() {
+			return retainInline;
+
+		}
+
 	}
 
-	private CharSequence trailingText;
+	public static class CommentText {
+		private CharSequence trailingContainerText;
 
-	private ICommentContext in;
+		private List<CharSequence> lines;
 
-	public CommentProcessor(ICommentContext in) {
-		this.in = in;
-		this.trailingText = "";
+		public CommentText(List<CharSequence> lines, CharSequence trailingContainerText) {
+			this.lines = lines;
+			this.trailingContainerText = trailingContainerText;
+		}
+
+		List<CharSequence> getLines() {
+			return lines;
+		}
 	}
 
-	protected CharSequence emit(List<CharSequence> lines, ICommentContext out, CommentFormattingOptions options,
-			String lineSeparator) {
-		StringBuilder builder = new StringBuilder();
+	public CommentProcessor() {
+	}
+
+	protected TextFlow emit(CommentText commentText, ICommentContext out, CommentFormattingOptions options,
+			IFormattingContext formattingContext) {
+		final String lineSeparator = formattingContext.getLineSeparatorInformation().getLineSeparator();
+		List<CharSequence> lines = commentText.lines;
+		TextFlow flow = new TextFlow(formattingContext);
+		// StringBuilder builder = new StringBuilder();
+
 		int indentSize = out.getLeftPosition();
 		int leftMarginSize = out.getLeftMargin();
 		if(Alignment.right == out.getMarkerColumnAlignment())
@@ -151,37 +177,52 @@ public class CommentProcessor {
 		CharSequence leftMargin = new CharSequences.Spaces(leftMarginSize);
 
 		ensureTrailingLines(lines, options);
+		try {
+			// always process first line even if it is also the last
+			int limit = Math.max(1, lines.size() - 1);
+			boolean singleLine = lines.size() == 1;
+			for(int i = 0; i < limit; i++) {
+				CharSequence s = lines.get(i);
+				if(i == 0)
+					flow.append(out.getStartToken());
+				else
+					flow.append(indent).append(out.getRepeatingToken());
 
-		int limit = lines.size() - 1;
-		for(int i = 0; i < limit; i++) {
-			CharSequence s = lines.get(i);
-			if(i == 0)
-				builder.append(out.getStartToken());
-			else
-				builder.append(indent).append(out.getRepeatingToken());
-
-			if(s.length() > 0) {
-				// Homogeneous lines should not have a leftMargin e.g. '#---' '********'
-				if(!CharSequences.isHomogeneous(s))
-					builder.append(leftMargin);
-				builder.append(s);
+				if(s.length() > 0) {
+					// Homogeneous lines should not have a leftMargin e.g. '#---' '********'
+					// anything starting with letter or digit, or that is not homogeneous has a leftMargin
+					if(Character.isLetterOrDigit(s.charAt(0)) || !(CharSequences.isHomogeneous(s)))
+						flow.append(leftMargin);
+					flow.append(s);
+				}
+				if(!singleLine)
+					flow.append(lineSeparator);
 			}
-			builder.append(lineSeparator);
-		}
 
-		// process last line
-		CharSequence s = lines.get(limit);
-		builder.append(indent);
-		if(s.length() > 0) {
-			builder.append(out.getRepeatingToken());
-			if(!CharSequences.isHomogeneous(s))
-				builder.append(leftMargin);
-			builder.append(s);
+			// process last line
+			if(singleLine) {
+				// last line is the same as the first
+				flow.append(" ");
+			}
+			else {
+				CharSequence s = lines.get(limit);
+				flow.append(indent);
+				if(s.length() > 0) {
+					flow.append(out.getRepeatingToken());
+					if(!CharSequences.isHomogeneous(s))
+						flow.append(leftMargin);
+					flow.append(s);
+					flow.append(" ");
+				}
+			}
+			flow.append(out.getEndToken());
+			// finally append trailing stuff
+			flow.append(commentText.trailingContainerText);
 		}
-		builder.append(out.getEndToken());
-		// finally append trailing stuff
-		builder.append(trailingText);
-		return builder;
+		catch(IOException e) {
+			// can't happen here, since the TextFlow uses a StringBuilder
+		}
+		return flow;
 	}
 
 	/**
@@ -190,6 +231,9 @@ public class CommentProcessor {
 	 * @param lines
 	 */
 	private void ensureTrailingLines(List<CharSequence> lines, CommentFormattingOptions options) {
+		if(lines.size() == 1 && options.isRetainInline())
+			return; // do nothing for inline/same-line comments
+
 		int nbrEmpty = numberOfTrailingEmptyLines(lines);
 		int minEmptyTrailing = options.getMinEmptyTrailing();
 		int maxEmptyTrailing = options.getMaxEmptyTrailing();
@@ -271,46 +315,24 @@ public class CommentProcessor {
 		}
 	}
 
-	public CharSequence formatComment(CharSequence s, CommentFormattingOptions options, String lineSeparator) {
-		return formatComment(s, in, options, lineSeparator);
+	public TextFlow formatComment(CharSequence s, ICommentContext in, ICommentContext out,
+			CommentFormattingOptions options, IFormattingContext context) {
+		String lineSeparator = context.getLineSeparatorInformation().getLineSeparator();
+		return formatComment(separateCommentFromContainer(s, out, lineSeparator), out, options, context);
 	}
 
-	public CharSequence formatComment(CharSequence s, ICommentContext out, CommentFormattingOptions options,
-			String lineSeparator) {
-
-		// Split lines (lineSeparators removed)
-		List<CharSequence> lines = CharSequences.split(s, lineSeparator);
-
-		// parse and trim first line
-		lines.set(0, trim(lines.get(0), in.getStartToken(), in));
-
-		// remove the endToken from the last line
-		// but remember any trailing stuff after the end token
-		String endToken = in.getEndToken();
-		if(!in.isSLStyle() && in.getEndToken().length() > 0) {
-			int lastLineNbr = lines.size() - 1;
-			CharSequence lastLine = lines.get(lastLineNbr);
-			int lastLineLength = lastLine.length();
-			int endsAt = CharSequences.lastIndexOf(lastLine, endToken, lastLineLength - 1);
-			if(endsAt + endToken.length() < lastLineLength)
-				trailingText = lastLine.subSequence(endsAt + endToken.length(), lastLineLength);
-			lines.set(lastLineNbr, lastLine.subSequence(0, endsAt));
-		}
-		// Note, first line is already handled, and last line already has its marker removed, so any content
-		// before the end token, as in "* some text */" is covered by the repeatRule, and text like
-		// "    some text */" is covered by the computed beginning of the text before the end marker.
-		//
-		for(int i = 1; i < lines.size(); i++)
-			lines.set(i, trim(lines.get(i), in.getRepeatingToken(), in));
-
-		foldLines(lines, options.getMaxWidth() - out.getMarkerColumnWidth() - out.getLeftMargin());
-		CharSequence result = emit(lines, out, options, lineSeparator);
+	public TextFlow formatComment(CommentText commentText, ICommentContext out, CommentFormattingOptions options,
+			IFormattingContext context) {
+		foldLines(commentText.lines, options.getMaxWidth() - out.getMarkerColumnWidth() - out.getLeftMargin());
+		TextFlow result = emit(commentText, out, options, context);
 		return result;
+
 	}
 
 	/**
-	 * Returns true if the line has length 5 or longer and {@link #isHomogeneous(CharSequence)}. This is intended
-	 * to answer true for lines that can be shortened instead of wrapped when they exceed the width.
+	 * Returns true if the line has length 5 or longer and {@link #isHomogeneous(CharSequence)} and the sequence
+	 * of characters is not a letter or digit. This is intended
+	 * to answer true for lines that can be truncated instead of wrapped when they exceed the width.
 	 * It also enables extending such lines to the max allowed width.
 	 * 
 	 * The number 5 is selected since certain comment processors (RDoc is one) use '---' and '+++' and similar instructions
@@ -320,7 +342,7 @@ public class CommentProcessor {
 	 * @return
 	 */
 	protected boolean isBanner(CharSequence s) {
-		return s.length() > 4 && CharSequences.isHomogeneous(s);
+		return s.length() > 4 && !Character.isLetterOrDigit(s.charAt(0)) && CharSequences.isHomogeneous(s);
 	}
 
 	protected int numberOfTrailingEmptyLines(List<CharSequence> lines) {
@@ -332,6 +354,33 @@ public class CommentProcessor {
 				break;
 		}
 		return count;
+	}
+
+	/**
+	 * Separates the comment text from its surrounding container. The result is a sequence of trimmed text lines.
+	 * The text does not contain any of the comment start/repeat/end tokens, and the text is relative to
+	 * the comment's natural margin.
+	 * 
+	 * @return {@link CommentText} with trimmed lines and any trailing text after endToken
+	 */
+	public CommentText separateCommentFromContainer(CharSequence s, ICommentContext in, String lineSeparator) {
+		// separate the comment between start-end (if any) from any trailing stuff
+		final String endToken = in.getEndToken();
+		CharSequence trailingText = "";
+		if(!in.isSLStyle() && endToken.length() > 0) {
+			List<CharSequence> bodyAndTrailing = CharSequences.split(s, endToken);
+			s = bodyAndTrailing.get(0);
+			trailingText = bodyAndTrailing.get(1);
+		}
+
+		// Split lines (i.e. lineSeparators removed)
+		List<CharSequence> lines = CharSequences.split(s, lineSeparator);
+		// parse and trim first line (removes startToken as well)
+		lines.set(0, trim(lines.get(0), in.getStartToken(), in));
+
+		for(int i = 1; i < lines.size(); i++)
+			lines.set(i, trim(lines.get(i), in.getRepeatingToken(), in));
+		return new CommentText(lines, trailingText);
 	}
 
 	/**

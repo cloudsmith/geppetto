@@ -58,6 +58,10 @@ public class CharSequences {
 			return new SubSequence(this, start, end);
 		}
 
+		@Override
+		public String toString() {
+			return a.toString() + b.toString();
+		}
 	}
 
 	/**
@@ -88,6 +92,14 @@ public class CharSequences {
 		@Override
 		public CharSequence subSequence(int start, int end) {
 			return new Fixed(c, end - start);
+		}
+
+		@Override
+		public String toString() {
+			StringBuilder builder = new StringBuilder(count);
+			for(int i = 0; i < count; i++)
+				builder.append(c);
+			return builder.toString();
 		}
 	}
 
@@ -128,6 +140,15 @@ public class CharSequences {
 				throw new IndexOutOfBoundsException();
 			return new SubSequence(this, start, end);
 		}
+
+		@Override
+		public String toString() {
+			StringBuilder builder = new StringBuilder(count);
+			for(int i = 0; i < count; i++)
+				builder.append(s);
+			return builder.toString();
+		}
+
 	}
 
 	/**
@@ -156,6 +177,15 @@ public class CharSequences {
 		public CharSequence subSequence(int start, int end) {
 			return new Spaces(end - start);
 		}
+
+		@Override
+		public String toString() {
+			StringBuilder builder = new StringBuilder(count);
+			for(int i = 0; i < count; i++)
+				builder.append(' ');
+			return builder.toString();
+		}
+
 	}
 
 	public static class SubSequence implements CharSequence {
@@ -184,6 +214,15 @@ public class CharSequences {
 		@Override
 		public CharSequence subSequence(int start, int end) {
 			return new SubSequence(this, start, end);
+		}
+
+		@Override
+		public String toString() {
+			int limit = length();
+			StringBuilder builder = new StringBuilder(limit);
+			for(int i = 0; i < limit; i++)
+				builder.append(this.charAt(i));
+			return builder.toString();
 		}
 
 	}

@@ -31,6 +31,7 @@ import org.cloudsmith.xtext.textflow.CharSequences.Fixed;
 import org.cloudsmith.xtext.textflow.CommentProcessor;
 import org.cloudsmith.xtext.textflow.CommentProcessor.CommentFormattingOptions;
 import org.cloudsmith.xtext.textflow.ICommentContext;
+import org.cloudsmith.xtext.textflow.ICommentContext.JavaLikeMLComment;
 import org.cloudsmith.xtext.textflow.ITextFlow;
 import org.cloudsmith.xtext.textflow.MeasuredTextFlow;
 import org.cloudsmith.xtext.textflow.TextFlow;
@@ -156,17 +157,20 @@ public class TestSemanticCssFormatter extends AbstractPuppetTests {
 	}
 
 	public void test_CommentProcessor() {
-		CommentFormattingOptions options = new CommentFormattingOptions(80, 1, 1);
-		CommentProcessor cp = new CommentProcessor(new ICommentContext.JavaLikeMLComment(0));
+		CommentFormattingOptions options = new CommentFormattingOptions(80);
+		JavaLikeMLComment in = new ICommentContext.JavaLikeMLComment(0);
+		CommentProcessor cp = new CommentProcessor();
 		String source = "/* the\nquick\n     *brown\n * fox\n   \n\n*/ ";
-		CharSequence s = cp.formatComment(source, options, "\n");
+		IFormattingContext fmtCtx = get(IFormattingContext.class);
+		TextFlow s = cp.formatComment(source, in, in, options, fmtCtx);
 		String expected = "/* the\n * quick\n * brown\n * fox\n */ ";
-		assertEquals("Should produce expected result", expected, s.toString());
+		assertEquals("Should produce expected result", expected, s.getText().toString());
 	}
 
 	public void test_CommentProcessor_bannerfolding() {
-		CommentFormattingOptions options = new CommentFormattingOptions(24, 1, 1);
-		CommentProcessor cp = new CommentProcessor(new ICommentContext.JavaLikeMLComment(0));
+		CommentFormattingOptions options = new CommentFormattingOptions(24);
+		JavaLikeMLComment in = new ICommentContext.JavaLikeMLComment(0);
+		CommentProcessor cp = new CommentProcessor();
 
 		String source = //
 		"/*******************************************\n"//
@@ -180,14 +184,15 @@ public class TestSemanticCssFormatter extends AbstractPuppetTests {
 				+ " * abc\n" //
 				+ " * 0123456789 0123456789\n * 0123456789 0123456789\n"//
 				+ " */";
-
-		CharSequence s = cp.formatComment(source, options, "\n");
-		assertEquals("Should produce expected result", expected, s.toString());
+		IFormattingContext fmtCtx = get(IFormattingContext.class);
+		TextFlow s = cp.formatComment(source, in, in, options, fmtCtx);
+		assertEquals("Should produce expected result", expected, s.getText().toString());
 	}
 
 	public void test_CommentProcessor_folding() {
-		CommentFormattingOptions options = new CommentFormattingOptions(24, 1, 1);
-		CommentProcessor cp = new CommentProcessor(new ICommentContext.JavaLikeMLComment(0));
+		CommentFormattingOptions options = new CommentFormattingOptions(24);
+		JavaLikeMLComment in = new ICommentContext.JavaLikeMLComment(0);
+		CommentProcessor cp = new CommentProcessor();
 
 		String source = //
 		"/* 0123456789 0123456789 0123456789 0123456789\n"//
@@ -200,13 +205,15 @@ public class TestSemanticCssFormatter extends AbstractPuppetTests {
 				+ " * 0123456789 0123456789\n * 0123456789 0123456789\n"//
 				+ " */";
 
-		CharSequence s = cp.formatComment(source, options, "\n");
-		assertEquals("Should produce expected result", expected, s.toString());
+		IFormattingContext fmtCtx = get(IFormattingContext.class);
+		TextFlow s = cp.formatComment(source, in, in, options, fmtCtx);
+		assertEquals("Should produce expected result", expected, s.getText().toString());
 	}
 
 	public void test_CommentProcessor_folding_indent() {
-		CommentFormattingOptions options = new CommentFormattingOptions(26, 1, 1);
-		CommentProcessor cp = new CommentProcessor(new ICommentContext.JavaLikeMLComment(0));
+		CommentFormattingOptions options = new CommentFormattingOptions(26);
+		JavaLikeMLComment in = new ICommentContext.JavaLikeMLComment(0);
+		CommentProcessor cp = new CommentProcessor();
 
 		String source = //
 		"/*   0123456789 0123456789 0123456789 0123456789\n"//
@@ -218,20 +225,22 @@ public class TestSemanticCssFormatter extends AbstractPuppetTests {
 				+ " * abc\n" //
 				+ " * 0123456789 0123456789\n * 0123456789 0123456789\n"//
 				+ " */";
-
-		CharSequence s = cp.formatComment(source, options, "\n");
-		assertEquals("Should produce expected result", expected, s.toString());
+		IFormattingContext fmtCtx = get(IFormattingContext.class);
+		TextFlow s = cp.formatComment(source, in, in, options, fmtCtx);
+		assertEquals("Should produce expected result", expected, s.getText().toString());
 	}
 
 	public void test_CommentProcessor_Indented() {
-		CommentProcessor cp = new CommentProcessor(new ICommentContext.JavaLikeMLComment(2));
-		CommentFormattingOptions options = new CommentFormattingOptions(80, 1, 1);
+		JavaLikeMLComment in = new ICommentContext.JavaLikeMLComment(2);
+		CommentProcessor cp = new CommentProcessor();
+		CommentFormattingOptions options = new CommentFormattingOptions(80);
 		String source = "/* the\n  quick\n       *brown\n   * fox\n     \n  \n  */ ";
-		CharSequence s = cp.formatComment(source, options, "\n");
+		IFormattingContext fmtCtx = get(IFormattingContext.class);
+		TextFlow s = cp.formatComment(source, in, in, options, fmtCtx);
 		// pad expected and result with 2 spaces to emulate the inserting of the result
 		// (makes comparison look nicer if test fails)
 		String expected = "  /* the\n   * quick\n   * brown\n   * fox\n   */ ";
-		assertEquals("Should produce expected result", expected, "  " + s.toString());
+		assertEquals("Should produce expected result", expected, "  " + s.getText().toString());
 	}
 
 	public void test_MeasuringTextStream() {

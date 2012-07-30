@@ -31,6 +31,7 @@ import org.cloudsmith.geppetto.pp.ResourceExpression;
 import org.cloudsmith.geppetto.pp.SelectorExpression;
 import org.cloudsmith.geppetto.pp.dsl.adapters.DocumentationAdapter;
 import org.cloudsmith.geppetto.pp.dsl.adapters.DocumentationAdapterFactory;
+import org.cloudsmith.geppetto.pp.dsl.formatting.PPSemanticLayout.StatementStyle;
 import org.cloudsmith.geppetto.pp.dsl.services.PPGrammarAccess;
 import org.cloudsmith.xtext.dommodel.DomModelUtils;
 import org.cloudsmith.xtext.dommodel.IDomNode;
@@ -40,8 +41,14 @@ import org.cloudsmith.xtext.dommodel.formatter.LayoutUtils;
 import org.cloudsmith.xtext.dommodel.formatter.css.Alignment;
 import org.cloudsmith.xtext.dommodel.formatter.css.IStyleFactory;
 import org.cloudsmith.xtext.dommodel.formatter.css.StyleSet;
+import org.cloudsmith.xtext.textflow.CharSequences;
+import org.cloudsmith.xtext.textflow.CommentProcessor;
+import org.cloudsmith.xtext.textflow.CommentProcessor.CommentFormattingOptions;
+import org.cloudsmith.xtext.textflow.CommentProcessor.CommentText;
+import org.cloudsmith.xtext.textflow.ICommentContext;
 import org.cloudsmith.xtext.textflow.ITextFlow;
 import org.cloudsmith.xtext.textflow.MeasuredTextFlow;
+import org.cloudsmith.xtext.textflow.TextFlow;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.xtext.RuleCall;
 import org.eclipse.xtext.nodemodel.INode;
@@ -285,6 +292,85 @@ public class PPSemanticLayout extends DeclarativeSemanticFlowLayout {
 			}
 		}
 		return firstToken;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.cloudsmith.xtext.dommodel.formatter.FlowLayout#formatComment(org.cloudsmith.xtext.dommodel.formatter.css.StyleSet,
+	 * org.cloudsmith.xtext.dommodel.IDomNode, org.cloudsmith.xtext.textflow.ITextFlow,
+	 * org.cloudsmith.xtext.dommodel.formatter.ILayoutManager.ILayoutContext)
+	 */
+	@Override
+	protected void formatComment(StyleSet styleSet, IDomNode node, ITextFlow output, ILayoutContext context) {
+		// if output provides information about metrics, it is possible to reposition/reformat a comment.
+		// Without information about current output position etc. a formatted result based on original position
+		// may not be nice at all.
+
+		// TODO: (do better when output is not measured)
+		if(context.isWhitespacePreservation() || output instanceof ITextFlow.Measuring == false)
+			super.formatComment(styleSet, node, output, context);
+		else if(node.getGrammarElement() == this.grammarAccess.getML_COMMENTRule())
+			formatMLComment(styleSet, node, (ITextFlow.Measuring) output, context);
+		else
+			super.formatComment(styleSet, node, output, context);
+
+	}
+
+	protected void formatMLComment(StyleSet styleSet, IDomNode node, ITextFlow.Measuring output,
+			ILayoutContext layoutContext) {
+		// How much space is left?
+		int maxWidth = output.getPreferredMaxWidth();
+		int current = output.getAppendLinePosition();
+		int available = maxWidth - current;
+		final String lineSeparator = layoutContext.getLineSeparatorInformation().getLineSeparator();
+
+		// how wide will the output be if hanging at current?
+		// position on line (can be -1 if there was no node model
+		int pos = DomModelUtils.posOnLine(node, lineSeparator);
+		// set up extraction context (use 0 if there was no INode model)
+		ICommentContext in = new ICommentContext.JavaLikeMLComment(Math.max(0, pos));
+		CommentProcessor cpr = new CommentProcessor();
+		CommentText comment = cpr.separateCommentFromContainer(node.getText(), in, lineSeparator);
+
+		// format in position 0 to measure it
+		ICommentContext out = new ICommentContext.JavaLikeMLComment(0);
+		TextFlow formatted = cpr.formatComment(
+			comment, out, new CommentFormattingOptions(Integer.MAX_VALUE), layoutContext);
+		int w = formatted.getWidth();
+		if(w <= available) {
+			// yay, it will fit as a hanging comment, reformat for this position.
+			out = new ICommentContext.JavaLikeMLComment(current);
+			formatted = cpr.formatComment(comment, out, new CommentFormattingOptions(Integer.MAX_VALUE), layoutContext);
+			output.appendText(formatted.getText(), true);
+		}
+		else {
+			// Did not fit, move to new line if not first on line.
+
+			int use = current;
+			// if output ends with a break, then current is at the leftmost position already
+			if(!output.endsWithBreak()) {
+				// if comment fits with effective indent, use that
+				// otherwise, if comment fits with same indent, use that
+				// otherwise, reformat for effective indent
+				//
+				final int indentationSize = layoutContext.getIndentationInformation().getIndentString().length();
+				int pos_sameIndent = output.getLastUsedIndentation() * indentationSize;
+				int pos_effectiveIndent = output.getIndentation() * indentationSize;
+				use = pos_effectiveIndent;
+				if(!(use + w <= available) && pos_sameIndent + w <= available)
+					use = pos_sameIndent;
+
+				// break and manually indent first line
+				output.appendText(lineSeparator, true);
+				output.appendText(CharSequences.spaces(use), true);
+			}
+			out = new ICommentContext.JavaLikeMLComment(use);
+			// format (will wrap if required)
+			formatted = cpr.formatComment(comment, out, new CommentFormattingOptions(maxWidth - use), layoutContext);
+			output.appendText(formatted.getText(), true);
+		}
+
 	}
 
 	protected void internalFormatStatementList(IDomNode node, EObject grammarElement) {

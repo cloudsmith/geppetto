@@ -132,6 +132,15 @@ public class MeasuredTextFlow extends AbstractTextFlow implements ITextFlow.Meas
 		return this;
 	}
 
+	@Override
+	public int getAppendLinePosition() {
+		if(lastWasBreak > 0)
+			return pendingIndent + (currentRun == null
+					? 0
+					: currentRun.length());
+		return currentLineWidth + getRunWidth();
+	}
+
 	protected CharSequence getCurrentRun() {
 		return currentRun == null
 				? ""

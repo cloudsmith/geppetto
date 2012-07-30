@@ -77,6 +77,13 @@ public interface ITextFlow extends Appendable {
 		public boolean endsWithBreak();
 
 		/**
+		 * Returns the position on the line where next unwrapped text will appear.
+		 * 
+		 * @return start position on line
+		 */
+		int getAppendLinePosition();
+
+		/**
 		 * @return number of breaks at end of flow
 		 */
 		int getEndBreakCount();

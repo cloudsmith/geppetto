@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2011 Cloudsmith Inc. and other contributors, as listed below.
+ * Copyright (c) 2012 Cloudsmith Inc. and other contributors, as listed below.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -14,13 +14,13 @@ package org.cloudsmith.geppetto.pp.dsl.adapters;
 import org.eclipse.emf.common.notify.Adapter;
 import org.eclipse.emf.common.notify.Notifier;
 import org.eclipse.emf.common.notify.impl.AdapterFactoryImpl;
-import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.resource.Resource;
 
-public class DocumentationAdapterFactory extends AdapterFactoryImpl {
-	public static DocumentationAdapterFactory eINSTANCE = new DocumentationAdapterFactory();
+public class ResourceDocumentationAdapterFactory extends AdapterFactoryImpl {
+	public static ResourceDocumentationAdapterFactory eINSTANCE = new ResourceDocumentationAdapterFactory();
 
-	public DocumentationAdapter adapt(EObject target) {
-		return adapt(target, DocumentationAdapter.class);
+	public ResourceDocumentationAdapter adapt(Resource target) {
+		return adapt(target, ResourceDocumentationAdapter.class);
 	}
 
 	/**
@@ -31,17 +31,17 @@ public class DocumentationAdapterFactory extends AdapterFactoryImpl {
 	 * @param type
 	 * @return
 	 */
-	public <T> T adapt(EObject target, Class<T> type) {
+	public <T> T adapt(Resource target, Class<T> type) {
 		return type.cast(super.adapt(target, type));
 	}
 
 	@Override
 	protected Adapter createAdapter(Notifier target, Object type) {
-		return new DocumentationAdapter();
+		return new ResourceDocumentationAdapter();
 	}
 
 	@Override
 	public boolean isFactoryForType(Object type) {
-		return type == DocumentationAdapter.class;
+		return type == ResourceDocumentationAdapter.class;
 	}
 }

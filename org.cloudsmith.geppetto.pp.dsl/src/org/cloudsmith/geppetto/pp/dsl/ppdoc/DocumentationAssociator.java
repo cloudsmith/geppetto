@@ -9,7 +9,7 @@
  *   Cloudsmith
  * 
  */
-package org.cloudsmith.geppetto.pp.dsl.linking;
+package org.cloudsmith.geppetto.pp.dsl.ppdoc;
 
 import java.util.List;
 
@@ -17,15 +17,18 @@ import org.cloudsmith.geppetto.pp.Definition;
 import org.cloudsmith.geppetto.pp.HostClassDefinition;
 import org.cloudsmith.geppetto.pp.NodeDefinition;
 import org.cloudsmith.geppetto.pp.dsl.PPDSLConstants;
-import org.cloudsmith.geppetto.pp.dsl.adapters.DocumentationAdapter;
-import org.cloudsmith.geppetto.pp.dsl.adapters.DocumentationAdapterFactory;
+import org.cloudsmith.geppetto.pp.dsl.adapters.ResourceDocumentationAdapter;
+import org.cloudsmith.geppetto.pp.dsl.adapters.ResourceDocumentationAdapterFactory;
 import org.cloudsmith.geppetto.pp.dsl.adapters.ResourcePropertiesAdapter;
 import org.cloudsmith.geppetto.pp.dsl.adapters.ResourcePropertiesAdapterFactory;
+import org.cloudsmith.geppetto.pp.dsl.linking.IMessageAcceptor;
+import org.cloudsmith.geppetto.pp.dsl.linking.PPTask;
 import org.cloudsmith.geppetto.pp.dsl.services.PPGrammarAccess;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.xtext.IGrammarAccess;
 import org.eclipse.xtext.TerminalRule;
+import org.eclipse.xtext.nodemodel.BidiTreeIterator;
 import org.eclipse.xtext.nodemodel.ICompositeNode;
 import org.eclipse.xtext.nodemodel.INode;
 import org.eclipse.xtext.nodemodel.util.NodeModelUtils;
@@ -58,8 +61,8 @@ public class DocumentationAssociator {
 		for(INode n : commentSequence)
 			buf.append(n.getText());
 
-		DocumentationAdapter adapter = DocumentationAdapterFactory.eINSTANCE.adapt(semantic);
-		adapter.setNodes(commentSequence);
+		ResourceDocumentationAdapter adapter = ResourceDocumentationAdapterFactory.eINSTANCE.adapt(semantic.eResource());
+		adapter.put(semantic, commentSequence);
 
 	}
 
@@ -69,6 +72,27 @@ public class DocumentationAssociator {
 			return; // not in a resource, sorry.
 		ResourcePropertiesAdapter adapter = ResourcePropertiesAdapterFactory.eINSTANCE.adapt(r);
 		adapter.put(PPDSLConstants.RESOURCE_PROPERTY__TASK_LIST, tasks);
+	}
+
+	private void clearDocumentation(EObject model) {
+		Resource r = model.eResource();
+		if(r == null)
+			return;
+		ResourceDocumentationAdapter adapter = ResourceDocumentationAdapterFactory.eINSTANCE.adapt(r);
+		if(adapter != null)
+			adapter.clear();
+
+	}
+
+	public List<INode> getDocumentation(EObject semantic) {
+		Resource r = semantic.eResource();
+		if(r == null)
+			return null;
+		ResourceDocumentationAdapter adapter = ResourceDocumentationAdapterFactory.eINSTANCE.adapt(r);
+		return adapter != null
+				? adapter.get(semantic)
+				: null;
+
 	}
 
 	private String[] getTaskTags() {
@@ -101,7 +125,12 @@ public class DocumentationAssociator {
 	public void linkDocumentation(EObject model) {
 		// clear stored tasks
 		associateTasks(model, null);
+		clearDocumentation(model);
 		List<PPTask> tasks = Lists.newArrayList();
+
+		final TerminalRule mlRule = ga.getML_COMMENTRule();
+		final TerminalRule slRule = ga.getSL_COMMENTRule();
+		final TerminalRule wsRule = ga.getWSRule();
 
 		// a sequence of SL comment or a single ML comment that is immediately (no NL) before
 		// a definition, class, or node is taken to be a documentation comment, as is associated with
@@ -110,26 +139,36 @@ public class DocumentationAssociator {
 		ICompositeNode node = NodeModelUtils.getNode(model);
 		ICompositeNode root = node.getRootNode();
 		List<INode> commentSequence = Lists.newArrayList();
-		for(INode x : root.getAsTreeIterable()) {
+		BidiTreeIterator<INode> itor = root.getAsTreeIterable().iterator();
+		COLLECT_LOOP: while(itor.hasNext()) {
+			// for(INode x : root.getAsTreeIterable()) {
+			INode x = itor.next();
 			EObject grammarElement = x.getGrammarElement();
 			// process comments
-			if(grammarElement == ga.getSL_COMMENTRule() || grammarElement == ga.getML_COMMENTRule()) {
+			if(grammarElement == slRule || grammarElement == mlRule) {
 				processCommentNode(x, tasks);
-				// if nothing follows the comment (we are probably at the end)
-				if(!x.hasNextSibling()) {
+				// skip all whitespace unless it contains a break which also breaks collection
+				INode sibling = x.getNextSibling();
+				while(sibling != null && sibling.getGrammarElement() == wsRule) {
+					if(sibling.getText().contains("\n")) {
+						commentSequence.clear();
+						continue COLLECT_LOOP;
+					}
+					sibling = sibling.getNextSibling();
+				}
+				if(sibling == null) {
 					commentSequence.clear();
 					continue;
 				}
 
-				// if next is a blank line, throw away any collected comments.
-				INode sibling = x.getNextSibling();
-				if(sibling.getGrammarElement() == ga.getWSRule() && sibling.getText().contains("\n")) {
-					commentSequence.clear();
-					continue;
+				// if adding a ML comment, use only the last, if adding a SL drop a preceding ML rule
+				if(commentSequence.size() > 0) {
+					if(grammarElement == mlRule)
+						commentSequence.clear();
+					else if(grammarElement == slRule &&
+							commentSequence.get(commentSequence.size() - 1).getGrammarElement() == mlRule)
+						commentSequence.clear();
 				}
-				// if adding a ML comment, use only the last
-				if(grammarElement == ga.getML_COMMENTRule())
-					commentSequence.clear();
 				commentSequence.add(x);
 
 				// if comment has anything but whitespace before its start (on same line), it is not a documentation comment
@@ -137,10 +176,10 @@ public class DocumentationAssociator {
 					commentSequence.clear();
 					continue;
 				}
-				// if next is not a comment, it may be an element that the documentation should be associated with
+				// if next is not a comment, it may be an element that the documentation should be associated with,
+				// but keep collecting if next is a comment
 				EObject siblingElement = sibling.getGrammarElement();
-				if(siblingElement == ga.getSL_COMMENTRule() || siblingElement == ga.getML_COMMENTRule() ||
-						siblingElement == ga.getWSRule())
+				if(siblingElement == ga.getSL_COMMENTRule() || siblingElement == ga.getML_COMMENTRule())
 					continue; // keep on collecting
 
 				EObject semantic = NodeModelUtils.findActualSemanticObjectFor(sibling);
@@ -156,9 +195,12 @@ public class DocumentationAssociator {
 						if(clazz.isAssignableFrom(semantic.getClass())) {
 							// found sequence is documentation for semantic
 							associateDocumentation(semantic, commentSequence);
+							// need a new sequence, or the one just given away may be cleared
+							commentSequence = Lists.newArrayList();
 							break found;
 						}
 					}
+					// next was not the right kind of element
 					commentSequence.clear();
 				}
 			}

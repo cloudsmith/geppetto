@@ -29,9 +29,7 @@ import org.cloudsmith.geppetto.pp.PuppetManifest;
 import org.cloudsmith.geppetto.pp.ResourceBody;
 import org.cloudsmith.geppetto.pp.ResourceExpression;
 import org.cloudsmith.geppetto.pp.SelectorExpression;
-import org.cloudsmith.geppetto.pp.dsl.adapters.DocumentationAdapter;
-import org.cloudsmith.geppetto.pp.dsl.adapters.DocumentationAdapterFactory;
-import org.cloudsmith.geppetto.pp.dsl.formatting.PPSemanticLayout.StatementStyle;
+import org.cloudsmith.geppetto.pp.dsl.ppdoc.DocumentationAssociator;
 import org.cloudsmith.geppetto.pp.dsl.services.PPGrammarAccess;
 import org.cloudsmith.xtext.dommodel.DomModelUtils;
 import org.cloudsmith.xtext.dommodel.IDomNode;
@@ -103,6 +101,9 @@ public class PPSemanticLayout extends DeclarativeSemanticFlowLayout {
 
 	@Inject
 	DomNodeLayoutFeeder feeder;
+
+	@Inject
+	DocumentationAssociator documentationAssociator;
 
 	protected final Predicate<IDomNode> caseColonPredicate = new Predicate<IDomNode>() {
 
@@ -274,10 +275,13 @@ public class PPSemanticLayout extends DeclarativeSemanticFlowLayout {
 		EObject o = node.getSemanticObject();
 		if(o == null)
 			return firstToken;
-		DocumentationAdapter adapter = DocumentationAdapterFactory.eINSTANCE.adapt(o);
-		List<INode> docNodes = adapter == null
-				? null
-				: adapter.getNodes();
+		List<INode> docNodes = documentationAssociator.getDocumentation(o);
+
+		// TODO: Cleanup
+		// ResourceDocumentationAdapter adapter = ResourceDocumentationAdapterFactory.eINSTANCE.adapt(o);
+		// List<INode> docNodes = adapter == null
+		// ? null
+		// : adapter.getNodes();
 		if(docNodes != null && docNodes.size() > 0) {
 			INode firstDoc = docNodes.get(0);
 			Iterator<IDomNode> itor = node.treeIterator();

@@ -12,6 +12,7 @@
 package org.cloudsmith.geppetto.pp.dsl;
 
 import org.cloudsmith.geppetto.pp.DefinitionArgument;
+import org.cloudsmith.geppetto.pp.dsl.linking.PPTask;
 import org.eclipse.xtext.resource.IEObjectDescription;
 
 /**
@@ -43,7 +44,7 @@ public interface PPDSLConstants {
 	public static final String RESOURCE_PROPERTY__ROOT_URI = "org.cloudsmith.geppetto.pp.dsl.resource.rootUri";
 
 	/**
-	 * Property key for Resource Properties. This key should refer to a Collection of
+	 * Property key for Resource Properties. This key should refer to a Collection of {@link PPTask}.
 	 */
 	public static final String RESOURCE_PROPERTY__TASK_LIST = "org.cloudsmith.geppetto.pp.dsl.resource.taskList";
 

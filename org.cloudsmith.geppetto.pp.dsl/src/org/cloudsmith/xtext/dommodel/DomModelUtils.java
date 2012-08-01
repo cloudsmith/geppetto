@@ -384,11 +384,21 @@ public class DomModelUtils {
 		return n;
 	}
 
+	/**
+	 * The position on the line for the IDomNode searches backwards in the total text from the start position
+	 * of the text in the given node.
+	 * 
+	 * @param node
+	 * @param lineDelimiter
+	 * @return
+	 */
 	public static int posOnLine(IDomNode node, String lineDelimiter) {
 		final INode n = node.getNode();
 		if(n == null)
 			return -1;
-		return CharSequences.lastIndexOf(n.getRootNode().getText(), lineDelimiter, node.getNode().getTotalOffset() - 1);
+		int offsetOfNode = node.getNode().getTotalOffset();
+		return Math.min(
+			offsetOfNode, CharSequences.lastIndexOf(n.getRootNode().getText(), lineDelimiter, offsetOfNode - 1));
 	}
 
 	public static IDomNode previousLeaf(IDomNode node) {

@@ -127,7 +127,7 @@ public class StyleFactory implements IStyleFactory {
 
 		@Override
 		public void visit(IDomNode ge, IStyleVisitor visitor) {
-			visitor.indent(getValue(ge));
+			visitor.dedent(getValue(ge));
 		}
 
 	}

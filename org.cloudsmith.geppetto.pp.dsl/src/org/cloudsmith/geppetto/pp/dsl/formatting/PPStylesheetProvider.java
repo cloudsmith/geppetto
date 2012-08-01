@@ -241,6 +241,14 @@ public class PPStylesheetProvider extends DefaultStylesheetProvider {
 			.withRuleName("WsBeforeFunctionCallLeftParenthesis"),
 
 			// PP parser includes trailing WS in ML comment, and SL comment always ends with line break
+			// These two rules allows the WS before a comment to have a break (even if in an expression)
+			// and one space after (unless the predecessor is whitespace terminated).
+			Select.whitespaceBefore(Select.node(NodeType.COMMENT))//
+			.withStyles(//
+				styles.oneSpace(),//
+				styles.lineBreaks(0, 0, 2, false, false))//
+			.withRuleName("WsBeforeComment"),
+
 			Select.whitespaceAfter(Select.node(NodeType.COMMENT))//
 			.withStyles(//
 				styles.spacing(functions.oneSpaceUnlessPredecessorIsWhitespaceTerminated()),//

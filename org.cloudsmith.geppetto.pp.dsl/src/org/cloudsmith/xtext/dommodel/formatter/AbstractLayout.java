@@ -22,6 +22,7 @@ import org.cloudsmith.xtext.dommodel.formatter.css.StyleFactory.IndentStyle;
 import org.cloudsmith.xtext.dommodel.formatter.css.StyleFactory.LayoutManagerStyle;
 import org.cloudsmith.xtext.dommodel.formatter.css.StyleSet;
 import org.cloudsmith.xtext.dommodel.formatter.css.debug.FormattingTracer;
+import org.cloudsmith.xtext.textflow.CharSequences;
 import org.cloudsmith.xtext.textflow.ITextFlow;
 import org.eclipse.xtext.util.ITextRegion;
 import org.eclipse.xtext.util.Strings;
@@ -117,8 +118,11 @@ public abstract class AbstractLayout implements ILayoutManager {
 		else {
 			// remove all line breaks by replacing them with spaces
 			text = text.replace(lineSep, " ");
-			// output a conforming number of spaces
-			output.appendSpaces(spacing.apply(text.length()));
+			// output a conforming number of spaces, and make it nonBreakableSpace if required.
+			if(spacing.isBreakable())
+				output.appendSpaces(spacing.apply(text.length()));
+			else
+				output.appendText(CharSequences.spaces(spacing.apply(text.length())));
 		}
 	}
 

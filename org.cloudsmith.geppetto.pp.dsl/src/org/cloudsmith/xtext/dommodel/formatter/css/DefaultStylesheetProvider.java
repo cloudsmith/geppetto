@@ -58,19 +58,19 @@ public class DefaultStylesheetProvider implements Provider<DomCSS> {
 			// No leading whitespace, but accept a single empty line
 			Select.before(Select.whitespace(), Select.node(NodeClassifier.FIRST_TOKEN))//
 			.withStyles(//
-				styles.noSpace(), //
+				styles.noSpaceUnlessWrapped(), //
 				styles.lineBreaks(0, 0, 1, false, false))//
 			.withRuleName("DefaultCSS.NoLeadingButOneOptionalLineBeforeFirstToken"), //
 
 			// One trailing line break minimum, but accept two
 			Select.after(Select.whitespace(), Select.node(NodeClassifier.LAST_TOKEN)).withStyles(//
-				styles.noSpace(), //
+				styles.noSpaceUnlessWrapped(), //
 				styles.lineBreaks(1, 1, 2))//
 			.withRuleName("DefaultCSS.MinOneTrailingLinebreakOptionallyTwo"),
 
 			// No space before ',', and one space after
 			Select.before(Select.whitespace(), Select.keyword(","))//
-			.withStyles(styles.noSpace())//
+			.withStyles(styles.noSpaceUnlessWrapped())//
 			.withRuleName("DefaultCSS.NoSpaceBeforeComma"), //
 			Select.after(Select.whitespace(), Select.keyword(","))//
 			.withStyles(styles.oneSpace())//
@@ -78,39 +78,39 @@ public class DefaultStylesheetProvider implements Provider<DomCSS> {
 
 			// No space after '[' and no space before ']'
 			Select.after(Select.whitespace(), Select.keyword("["))//
-			.withStyles(styles.noSpace()) //
+			.withStyles(styles.noSpaceUnlessWrapped()) //
 			.withRuleName("DefaultCSS.NoSpaceAfterLeftSquareBracket"), //
 			Select.before(Select.whitespace(), Select.keyword("]"))//
-			.withStyles(styles.noSpace()) //
+			.withStyles(styles.noSpaceUnlessWrapped()) //
 			.withRuleName("DefaultCSS.NoSpaceAfterRightSquareBracket"), //
 
 			// No space after '(' and no space before ')'
 			Select.after(Select.whitespace(), Select.keyword("("))//
-			.withStyles(styles.noSpace())//
+			.withStyles(styles.noSpaceUnlessWrapped())//
 			.withRuleName("DefaultCSS.NoSpaceAfterRightParenthesis"), //
 			Select.before(Select.whitespace(), Select.keyword(")"))//
-			.withStyles(styles.noSpace()) //
+			.withStyles(styles.noSpaceUnlessWrapped()) //
 			.withRuleName("DefaultCSS.NoSpaceBeforeRightParenthesis"), //
 
 			// Start indent on '{' and break line
 
 			Select.whitespaceAfter(Select.keyword("{")).withStyles( //
 				styles.indent(), //
-				styles.noSpace(), //
+				styles.noSpaceUnlessWrapped(), //
 				styles.oneLineBreak())//
 			.withRuleName("DefaultCSS.StartIndentOnLeftCurlyBracket"), //
 
 			// Stop indent on '}' and break line before and after
 			Select.whitespaceBefore(Select.keyword("}"))//
 			.withStyles( //
-				styles.noSpace(), //
+				styles.noSpaceUnlessWrapped(), //
 				styles.dedent(), //
 				styles.oneLineBreak()) //
 			.withRuleName("DefaultCSS.StopIndentAfterRightCurlyBracket"), //
 
 			Select.after(Select.whitespace(), Select.keyword("}"))//
 			.withStyles( //
-				styles.noSpace(), //
+				styles.noSpaceUnlessWrapped(), //
 				styles.oneLineBreak()) //
 			.withRuleName("DefaultCSS.BreakLineAfterRightCurlyBracket"));
 		return css;

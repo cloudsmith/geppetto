@@ -280,9 +280,13 @@ public class StyleFactory implements IStyleFactory {
 
 	}
 
-	private static final SpacingStyle ONESPACE = new SpacingStyle(new Spacing(1));
+	private static final SpacingStyle ONESPACE = new SpacingStyle(new Spacing(1, true));
 
-	private static final SpacingStyle NOSPACE = new SpacingStyle(new Spacing(0));
+	private static final SpacingStyle ONE_NON_WRAPPABLE_SPACE = new SpacingStyle(new Spacing(1, false));
+
+	private static final SpacingStyle NOSPACE_UNLESS_WRAPPED = new SpacingStyle(new Spacing(0, true));
+
+	private static final SpacingStyle NOSPACE = new SpacingStyle(new Spacing(0, false));
 
 	private static final LineBreakStyle NOLINE = new LineBreakStyle(new LineBreaks(0));
 
@@ -369,8 +373,18 @@ public class StyleFactory implements IStyleFactory {
 	}
 
 	@Override
+	public SpacingStyle noSpaceUnlessWrapped() {
+		return NOSPACE_UNLESS_WRAPPED;
+	}
+
+	@Override
 	public LineBreakStyle oneLineBreak() {
 		return ONELINE;
+	}
+
+	@Override
+	public SpacingStyle oneNonWrappableSpace() {
+		return ONE_NON_WRAPPABLE_SPACE;
 	}
 
 	@Override

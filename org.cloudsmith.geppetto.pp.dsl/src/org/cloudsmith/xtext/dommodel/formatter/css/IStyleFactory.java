@@ -125,9 +125,14 @@ public interface IStyleFactory {
 	public LineBreakStyle noLineBreak();
 
 	/**
-	 * @return style with literal {@link Spacing} information describing "no space"
+	 * @return style with literal {@link Spacing} information describing "no space" that may not be wrapped.
 	 */
 	public SpacingStyle noSpace();
+
+	/**
+	 * @return style with literal {@link Spacing} information describing "no space" but that may be wrapped.
+	 */
+	public SpacingStyle noSpaceUnlessWrapped();
 
 	/**
 	 * @return literal {@link LineBreaks} information describing "one line break"
@@ -135,7 +140,12 @@ public interface IStyleFactory {
 	public LineBreakStyle oneLineBreak();
 
 	/**
-	 * @return literal {@link Spacing} information describing "one space"
+	 * @return literal {@link Spacing} information describing "one space". This space may not be wrapped
+	 */
+	public SpacingStyle oneNonWrappableSpace();
+
+	/**
+	 * @return literal {@link Spacing} information describing "one space". This space may be wrapped
 	 */
 	public SpacingStyle oneSpace();
 

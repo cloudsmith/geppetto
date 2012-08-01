@@ -81,14 +81,14 @@ public class PPStylesheetProvider extends DefaultStylesheetProvider {
 
 		final StyleSet resourceRightCurlyStyleNoDedent = StyleSet.withImmutableStyles(//
 			styles.oneLineBreak(), //
-			styles.noSpace(), //
+			styles.noSpaceUnlessWrapped(), //
 			styles.dedent(0));
 
-		final StyleSet noSpaceNoLine = StyleSet.withImmutableStyles(styles.noSpace(), styles.noLineBreak());
-		final StyleSet noSpaceOneLine = StyleSet.withImmutableStyles(styles.noSpace(), styles.oneLineBreak());
+		final StyleSet noSpaceNoLine = StyleSet.withImmutableStyles(styles.noSpaceUnlessWrapped(), styles.noLineBreak());
+		final StyleSet noSpaceOneLine = StyleSet.withImmutableStyles(styles.noSpaceUnlessWrapped(), styles.oneLineBreak());
 		final StyleSet noSpaceOneLineOptionallyTwo = StyleSet.withImmutableStyles(
-			styles.noSpace(), styles.lineBreaks(1, 1, 2));
-		final StyleSet noSpaceTwoLines = StyleSet.withImmutableStyles(styles.noSpace(), styles.lineBreaks(2, 2, 2));
+			styles.noSpaceUnlessWrapped(), styles.lineBreaks(1, 1, 2));
+		final StyleSet noSpaceTwoLines = StyleSet.withImmutableStyles(styles.noSpaceUnlessWrapped(), styles.lineBreaks(2, 2, 2));
 		final StyleSet oneSpaceNoLine = StyleSet.withImmutableStyles(styles.oneSpace(), styles.noLineBreak());
 
 		DomCSS css = super.get();
@@ -124,14 +124,14 @@ public class PPStylesheetProvider extends DefaultStylesheetProvider {
 			Select.whitespaceAfter(resourceBodySemicolon).withStyles(//
 				styles.lineBreaks(2, 2, 2)).withRuleName("WsAfterResourceBodySemicolon"),
 			Select.whitespaceBefore(resourceBodySemicolon).withStyles(//
-				styles.noSpace(), //
+				styles.noSpaceUnlessWrapped(), //
 				styles.noLineBreak())//
 			.withRuleName("WsBeforeResourceBodySemicolon"),
 
 			// only one line break after the end semicolon
 			Select.whitespaceAfter(Select.important(optionalResourceEndBodySemicolon))//
 			.withStyles(//
-				styles.noSpace(), //
+				styles.noSpaceUnlessWrapped(), //
 				styles.oneLineBreak())//
 			.withRuleName("WsAfterImportantResourceEndBodySemicolon"),
 
@@ -140,7 +140,7 @@ public class PPStylesheetProvider extends DefaultStylesheetProvider {
 			// RESOURCE BODY
 			// No space before the resource body title colon
 			Select.whitespaceBefore(resourceBodyTitleColon)//
-			.withStyles(styles.noSpace())//
+			.withStyles(styles.noSpaceUnlessWrapped())//
 			.withRuleName("WsBeforeResourceBodyTitleColon"),
 
 			// A resource body has its attribute operations indented after the title ':'
@@ -161,7 +161,7 @@ public class PPStylesheetProvider extends DefaultStylesheetProvider {
 			// xxx []
 			// ---^
 			Select.whitespaceBefore(atExpressionLeftBracket)//
-			.withStyles(styles.noSpace(), //
+			.withStyles(styles.noSpaceUnlessWrapped(), //
 				styles.noLineBreak())//
 			.withRuleName("WsbeforeAtExpressionLeftBracket"),
 

@@ -224,7 +224,9 @@ public interface ITextFlow extends Appendable {
 	public ITextFlow appendSpace();
 
 	/**
-	 * Appends the given amount of spaces to the stream.
+	 * Appends the given amount of spaces to the stream. If the given count is 0, no space is emitted, and the
+	 * flow is given the permission to break the line at this position to satisfy the max width constraint. If
+	 * the given count is < 0, no space is emitted, and the flow is not permitted to break at this position.
 	 * 
 	 * @param count
 	 * @return the flow

@@ -23,6 +23,11 @@ import org.cloudsmith.geppetto.pp.PuppetManifest;
 import org.cloudsmith.geppetto.pp.dsl.eval.PPExpressionEquivalenceCalculator;
 import org.cloudsmith.geppetto.pp.dsl.ui.PPUiConstants;
 import org.cloudsmith.geppetto.pp.dsl.ui.internal.PPActivator;
+import org.cloudsmith.xtext.dommodel.DomModelUtils;
+import org.cloudsmith.xtext.dommodel.IDomNode;
+import org.cloudsmith.xtext.dommodel.formatter.IDomModelFormatter;
+import org.cloudsmith.xtext.dommodel.formatter.IFormattingContext.FormattingContextProvider;
+import org.cloudsmith.xtext.serializer.DomBasedSerializer;
 import org.eclipse.core.commands.AbstractHandler;
 import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.commands.ExecutionException;
@@ -42,10 +47,14 @@ import org.eclipse.xtext.resource.IContainer;
 import org.eclipse.xtext.resource.IEObjectDescription;
 import org.eclipse.xtext.resource.IResourceDescription;
 import org.eclipse.xtext.resource.IResourceDescriptions;
+import org.eclipse.xtext.resource.SaveOptions;
 import org.eclipse.xtext.resource.XtextResource;
+import org.eclipse.xtext.serializer.ISerializer;
+import org.eclipse.xtext.serializer.diagnostic.ISerializationDiagnostic;
 import org.eclipse.xtext.ui.editor.XtextEditor;
 import org.eclipse.xtext.ui.editor.model.IXtextDocument;
 import org.eclipse.xtext.ui.editor.model.XtextDocumentUtil;
+import org.eclipse.xtext.util.ReplaceRegion;
 import org.eclipse.xtext.util.concurrent.IUnitOfWork;
 
 import com.google.inject.Inject;
@@ -128,6 +137,15 @@ public class PPDevDebug extends AbstractHandler {
 	private Provider<PPExpressionEquivalenceCalculator> eqProvider;
 
 	@Inject
+	private ISerializer serializer;
+
+	@Inject
+	IDomModelFormatter domFormatter;
+
+	@Inject
+	FormattingContextProvider formattingContextProvider;
+
+	@Inject
 	public PPDevDebug() {
 
 	}
@@ -187,7 +205,8 @@ public class PPDevDebug extends AbstractHandler {
 	}
 
 	private IStatus doDebug(XtextResource resource) {
-		return visibleResourcesDump(resource);
+		return formattedDomDump(resource);
+		// return visibleResourcesDump(resource);
 		// return checkExpressionEq(resource);
 	}
 
@@ -225,6 +244,31 @@ public class PPDevDebug extends AbstractHandler {
 		});
 		System.out.println("DEVDEBUG DONE STATUS : " + result.toString() + "\n)");
 		return null; // dictated by Handler API
+	}
+
+	/**
+	 * Performs a format and then dumps the result to stdout.
+	 * 
+	 * @param resource
+	 * @return
+	 */
+	private IStatus formattedDomDump(XtextResource resource) {
+		if(serializer instanceof DomBasedSerializer == false)
+			return new Status(
+				IStatus.ERROR, "org.cloudsmith.geppetto.pp.dsl.ui", "Not configured to use DomBasedSerializer");
+		DomBasedSerializer domSerializer = ((DomBasedSerializer) serializer);
+		IDomNode dom = domSerializer.serializeToDom(resource.getContents().get(0), false);
+		ISerializationDiagnostic.Acceptor errors = ISerializationDiagnostic.EXCEPTION_THROWING_ACCEPTOR;
+
+		ReplaceRegion r = domFormatter.format(dom, null /* all text */, formattingContextProvider.get(false), errors);
+
+		serializer.serialize(resource.getContents().get(0), SaveOptions.newBuilder().format().getOptions());
+
+		System.out.println("Dom Dump after formatting:");
+		System.out.print(DomModelUtils.compactDump(dom, true));
+		System.out.println("");
+		return Status.OK_STATUS;
+
 	}
 
 	public void listAllResources(Resource myResource, IResourceDescriptions index) {

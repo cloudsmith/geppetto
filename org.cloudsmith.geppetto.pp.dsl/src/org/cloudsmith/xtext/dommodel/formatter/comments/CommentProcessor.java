@@ -108,6 +108,10 @@ public class CommentProcessor {
 			this(maxWidth, 1, 1, true);
 		}
 
+		public CommentFormattingOptions(int maxWidth, int trailing) {
+			this(maxWidth, trailing, trailing, true);
+		}
+
 		public CommentFormattingOptions(int maxWidth, int minEmptyTrailing, int maxEmptyTrailing, boolean retainInline) {
 			this.maxWidth = maxWidth;
 			this.minEmptyTrailing = minEmptyTrailing;

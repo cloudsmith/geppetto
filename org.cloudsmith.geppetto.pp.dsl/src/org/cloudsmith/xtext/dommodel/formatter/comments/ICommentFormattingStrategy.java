@@ -97,7 +97,12 @@ public interface ICommentFormattingStrategy {
 				}
 				out = commentContext.getContextForPosition(use);
 				// format (will wrap if required)
-				formatted = cpr.formatComment(comment, out, new CommentFormattingOptions(maxWidth - use), layoutContext);
+				// Enforce a min trailing empty line of 1 if this is a ML comment that is not on the same line,
+				// but use 0 for SL comments (rule may be applied after split).
+				formatted = cpr.formatComment(
+					comment, out, new CommentFormattingOptions(maxWidth - use, commentContext.isSLStyle()
+							? 0
+							: 1), layoutContext);
 				output.appendText(formatted.getText()); // , true);
 			}
 

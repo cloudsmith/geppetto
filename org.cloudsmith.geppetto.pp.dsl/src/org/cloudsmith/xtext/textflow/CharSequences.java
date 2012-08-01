@@ -339,6 +339,10 @@ public class CharSequences {
 		return new Spaces(count);
 	}
 
+	public static List<CharSequence> split(CharSequence value, String delimiter) {
+		return split(value, delimiter, true);
+	}
+
 	/**
 	 * Split sequence on delimiter
 	 * 
@@ -346,7 +350,7 @@ public class CharSequences {
 	 * @param delimiter
 	 * @return
 	 */
-	public static List<CharSequence> split(CharSequence value, String delimiter) {
+	public static List<CharSequence> split(CharSequence value, String delimiter, boolean includeTrailingEmpty) {
 		List<CharSequence> result = Lists.newArrayList();
 		int lastIndex = 0;
 		int index = indexOf(value, delimiter, lastIndex);
@@ -355,7 +359,9 @@ public class CharSequences {
 			lastIndex = index + delimiter.length();
 			index = indexOf(value, delimiter, lastIndex);
 		}
-		result.add(value.subSequence(lastIndex, value.length()));
+		CharSequence last = value.subSequence(lastIndex, value.length());
+		if(includeTrailingEmpty || last.length() > 0)
+			result.add(last);
 		return result;
 	}
 

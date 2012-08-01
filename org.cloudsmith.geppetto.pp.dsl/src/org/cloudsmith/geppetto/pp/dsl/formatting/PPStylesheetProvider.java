@@ -86,6 +86,8 @@ public class PPStylesheetProvider extends DefaultStylesheetProvider {
 
 		final StyleSet noSpaceNoLine = StyleSet.withImmutableStyles(styles.noSpace(), styles.noLineBreak());
 		final StyleSet noSpaceOneLine = StyleSet.withImmutableStyles(styles.noSpace(), styles.oneLineBreak());
+		final StyleSet noSpaceOneLineOptionallyTwo = StyleSet.withImmutableStyles(
+			styles.noSpace(), styles.lineBreaks(1, 1, 2));
 		final StyleSet noSpaceTwoLines = StyleSet.withImmutableStyles(styles.noSpace(), styles.lineBreaks(2, 2, 2));
 		final StyleSet oneSpaceNoLine = StyleSet.withImmutableStyles(styles.oneSpace(), styles.noLineBreak());
 
@@ -224,13 +226,13 @@ public class PPStylesheetProvider extends DefaultStylesheetProvider {
 				Select.node(StatementStyle.BLOCK), //
 				Select.not(Select.node(StatementStyle.FIRST))))//
 			.withStyle(noSpaceTwoLines)//
-			.withRuleName("WsBeforeSubsequentStatementInABlock"),
+			.withRuleName("WsBeforeNonFirstBlockStatement"),
 
 			Select.whitespaceBefore(Select.and(//
 				Select.node(StatementStyle.STATEMENT), //
 				Select.not(Select.node(StatementStyle.FIRST))))//
-			.withStyle(noSpaceOneLine)//
-			.withRuleName("WsBeforeFirstStatementInABlock"), //
+			.withStyle(noSpaceOneLineOptionallyTwo)//
+			.withRuleName("WsBeforeNonFirstStatement"), //
 
 			// styles.noSpace(), styles.lineBreaks(functions.oneLineBreakUnlessPredecessorIsLinebreakingComment())),
 

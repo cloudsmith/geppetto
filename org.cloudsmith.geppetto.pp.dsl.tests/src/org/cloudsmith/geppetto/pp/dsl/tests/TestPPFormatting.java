@@ -153,6 +153,20 @@ public class TestPPFormatting extends AbstractPuppetTests {
 
 	}
 
+	public void test_CommentShouldNotBeMoved1() throws Exception {
+		String code = "$a = 10\n# comment\n$b = 20\n";
+		XtextResource r = getResourceFromString(code);
+		String s = serializeFormatted(r.getContents().get(0));
+		assertEquals("formatting should produce same result", code, s);
+	}
+
+	public void test_CommentShouldNotBeMoved2() throws Exception {
+		String code = "$a = 10\n\n# comment\n$b = 20\n";
+		XtextResource r = getResourceFromString(code);
+		String s = serializeFormatted(r.getContents().get(0));
+		assertEquals("formatting should produce same result", code, s);
+	}
+
 	public void test_CommentShouldNotBeMovedToNextLine() throws Exception {
 		// issue caused linebreaks between comment and statement to be removed
 		String code = "$a = 10 # comment\n";
@@ -168,7 +182,6 @@ public class TestPPFormatting extends AbstractPuppetTests {
 		XtextResource r = getResourceFromString(code);
 		String s = serializeFormatted(r.getContents().get(0));
 		assertEquals("formatting should produce same result", code, s);
-
 	}
 
 	public void test_CommentShouldNotBeTurnedIntoDocumentation() throws Exception {

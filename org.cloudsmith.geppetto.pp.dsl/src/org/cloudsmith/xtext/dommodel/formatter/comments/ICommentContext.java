@@ -9,7 +9,7 @@
  *   Cloudsmith
  * 
  */
-package org.cloudsmith.xtext.textflow;
+package org.cloudsmith.xtext.dommodel.formatter.comments;
 
 import org.cloudsmith.xtext.dommodel.formatter.css.Alignment;
 
@@ -21,8 +21,13 @@ import org.cloudsmith.xtext.dommodel.formatter.css.Alignment;
  * and {@link HashSLComment}.
  */
 public interface ICommentContext {
+
 	public static abstract class AbstractCommentContext implements ICommentContext {
 		private final int leftPosition;
+
+		protected AbstractCommentContext() {
+			this.leftPosition = 0;
+		}
 
 		protected AbstractCommentContext(int leftPosition) {
 			this.leftPosition = leftPosition;
@@ -51,6 +56,9 @@ public interface ICommentContext {
 	}
 
 	public abstract static class AbstractSLComment extends ICommentContext.AbstractCommentContext {
+		public AbstractSLComment() {
+		}
+
 		public AbstractSLComment(int leftPosition) {
 			super(leftPosition);
 		}
@@ -83,8 +91,16 @@ public interface ICommentContext {
 
 	public static class HashSLComment extends ICommentContext.AbstractSLComment {
 
+		public HashSLComment() {
+		}
+
 		public HashSLComment(int leftPosition) {
 			super(leftPosition);
+		}
+
+		@Override
+		public ICommentContext getContextForPosition(int leftPosition) {
+			return new HashSLComment(leftPosition);
 		}
 
 		@Override
@@ -100,20 +116,39 @@ public interface ICommentContext {
 	}
 
 	public static class JavaDocLikeComment extends ICommentContext.JavaLikeMLComment {
+		public JavaDocLikeComment() {
+
+		}
+
 		public JavaDocLikeComment(int leftPosition) {
 			super(leftPosition);
+		}
+
+		@Override
+		public ICommentContext getContextForPosition(int leftPosition) {
+			return new JavaDocLikeComment(leftPosition);
 		}
 
 		@Override
 		public String getStartToken() {
 			return "/**";
 		}
+
 	}
 
 	public static class JavaLikeMLComment extends ICommentContext.AbstractCommentContext {
 
+		public JavaLikeMLComment() {
+
+		}
+
 		public JavaLikeMLComment(int leftPosition) {
 			super(leftPosition);
+		}
+
+		@Override
+		public ICommentContext getContextForPosition(int leftPosition) {
+			return new JavaLikeMLComment(leftPosition);
 		}
 
 		/**
@@ -157,11 +192,21 @@ public interface ICommentContext {
 		public boolean isSLStyle() {
 			return false;
 		}
+
 	}
 
 	public static class JavaSLComment extends ICommentContext.AbstractSLComment {
+		public JavaSLComment() {
+
+		}
+
 		public JavaSLComment(int leftPosition) {
 			super(leftPosition);
+		}
+
+		@Override
+		public ICommentContext getContextForPosition(int leftPosition) {
+			return new JavaSLComment(leftPosition);
 		}
 
 		@Override
@@ -175,6 +220,14 @@ public interface ICommentContext {
 	}
 
 	public boolean allowBannerInLeftMargin();
+
+	/**
+	 * 
+	 * @param leftPosition
+	 *            the wanted leftmost position
+	 * @return a new ICommentConext configured the same way as this context but for a different leftPosition
+	 */
+	public ICommentContext getContextForPosition(int leftPosition);
 
 	/**
 	 * @return the ending token or "" if this is a {@link #isSLStyle()} type comment.
@@ -197,7 +250,7 @@ public interface ICommentContext {
 	public Alignment getMarkerColumnAlignment();
 
 	/**
-	 * @return the width of the Marker Column (in which repating is aligned)
+	 * @return the width of the Marker Column (in which repeating is aligned)
 	 */
 	public int getMarkerColumnWidth();
 

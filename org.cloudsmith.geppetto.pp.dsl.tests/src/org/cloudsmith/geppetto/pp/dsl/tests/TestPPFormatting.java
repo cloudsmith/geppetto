@@ -153,8 +153,26 @@ public class TestPPFormatting extends AbstractPuppetTests {
 
 	}
 
-	public void test_CommentShouldNotBeTurnedIntoDocumentation() throws Exception {
+	public void test_CommentShouldNotBeMovedToNextLine() throws Exception {
 		// issue caused linebreaks between comment and statement to be removed
+		String code = "$a = 10 # comment\n";
+		XtextResource r = getResourceFromString(code);
+		String s = serializeFormatted(r.getContents().get(0));
+		assertEquals("formatting should produce same result", code, s);
+
+	}
+
+	public void test_CommentShouldNotBeMovedToPreviousLine() throws Exception {
+		// issue caused linebreaks between comment and statement to be removed
+		String code = "$a = 10\n# comment\n";
+		XtextResource r = getResourceFromString(code);
+		String s = serializeFormatted(r.getContents().get(0));
+		assertEquals("formatting should produce same result", code, s);
+
+	}
+
+	public void test_CommentShouldNotBeTurnedIntoDocumentation() throws Exception {
+		// issue caused linebreaks after comment, before statement to be removed
 		String code = "# wtf\n\nclass foo {\n}\n";
 		XtextResource r = getResourceFromString(code);
 		String s = serializeFormatted(r.getContents().get(0));

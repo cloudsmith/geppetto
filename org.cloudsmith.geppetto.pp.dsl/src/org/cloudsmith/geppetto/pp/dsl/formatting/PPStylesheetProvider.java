@@ -84,11 +84,15 @@ public class PPStylesheetProvider extends DefaultStylesheetProvider {
 			styles.noSpaceUnlessWrapped(), //
 			styles.dedent(0));
 
-		final StyleSet noSpaceNoLine = StyleSet.withImmutableStyles(styles.noSpaceUnlessWrapped(), styles.noLineBreak());
-		final StyleSet noSpaceOneLine = StyleSet.withImmutableStyles(styles.noSpaceUnlessWrapped(), styles.oneLineBreak());
+		final StyleSet noSpaceUnlessWrappedNoLine = StyleSet.withImmutableStyles(
+			styles.noSpaceUnlessWrapped(), styles.noLineBreak());
+		final StyleSet noSpaceNoLine = StyleSet.withImmutableStyles(styles.noSpace(), styles.noLineBreak());
+		final StyleSet noSpaceOneLine = StyleSet.withImmutableStyles(
+			styles.noSpaceUnlessWrapped(), styles.oneLineBreak());
 		final StyleSet noSpaceOneLineOptionallyTwo = StyleSet.withImmutableStyles(
 			styles.noSpaceUnlessWrapped(), styles.lineBreaks(1, 1, 2));
-		final StyleSet noSpaceTwoLines = StyleSet.withImmutableStyles(styles.noSpaceUnlessWrapped(), styles.lineBreaks(2, 2, 2));
+		final StyleSet noSpaceTwoLines = StyleSet.withImmutableStyles(
+			styles.noSpaceUnlessWrapped(), styles.lineBreaks(2, 2, 2));
 		final StyleSet oneSpaceNoLine = StyleSet.withImmutableStyles(styles.oneSpace(), styles.noLineBreak());
 
 		DomCSS css = super.get();
@@ -170,11 +174,11 @@ public class PPStylesheetProvider extends DefaultStylesheetProvider {
 			// @@ name
 			// --^
 			Select.whitespaceAfter(Select.keyword("@"))//
-			.withStyle(noSpaceNoLine)//
+			.withStyle(noSpaceUnlessWrappedNoLine)//
 			.withRuleName("WsAfterKeyword@"),
 			Select.whitespaceAfter(
 				Select.grammar(grammarAccess.getVirtualNameOrReferenceAccess().getExportedATBooleanParserRuleCall_1_0()))//
-			.withStyle(noSpaceNoLine)//
+			.withStyle(noSpaceUnlessWrappedNoLine)//
 			.withRuleName("WsAfterExportedMarker@"),
 
 			Select.whitespaceBefore(elseAndElsifKeywords)//
@@ -183,11 +187,11 @@ public class PPStylesheetProvider extends DefaultStylesheetProvider {
 
 			Select.whitespaceAfter(
 				Select.grammar(grammarAccess.getUnaryMinusExpressionAccess().getHyphenMinusKeyword_0()))//
-			.withStyle(noSpaceNoLine)//
+			.withStyle(noSpaceUnlessWrappedNoLine)//
 			.withRuleName("WsAfterUnaryMinus"), //
 
 			Select.whitespaceAfter(Select.grammar(grammarAccess.getNotExpressionAccess().getExclamationMarkKeyword_0()))//
-			.withStyle(noSpaceNoLine)//
+			.withStyle(noSpaceUnlessWrappedNoLine)//
 			.withRuleName("WsAfterUnaryNotEclamationMark"), //
 
 			// Relationships are typically resource {} -> resource {}
@@ -202,7 +206,7 @@ public class PPStylesheetProvider extends DefaultStylesheetProvider {
 			// --Selector Expression
 			Select.whitespaceBefore(
 				Select.grammar(grammarAccess.getSelectorExpressionAccess().getEndCommaParserRuleCall_1_2_0_3()))//
-			.withStyle(noSpaceNoLine)//
+			.withStyle(noSpaceUnlessWrappedNoLine)//
 			.withRuleName("WsBeforeSelectorExpressionEndComma"), //
 
 			Select.whitespaceAfter(
@@ -239,7 +243,7 @@ public class PPStylesheetProvider extends DefaultStylesheetProvider {
 			// No space between function name and ()
 			Select.whitespaceBefore(
 				Select.grammar(grammarAccess.getFunctionCallAccess().getLeftParenthesisKeyword_1_1()))//
-			.withStyle(noSpaceNoLine) //
+			.withStyle(noSpaceUnlessWrappedNoLine) //
 			.withRuleName("WsBeforeFunctionCallLeftParenthesis"),
 
 			// PP parser includes trailing WS in ML comment, and SL comment always ends with line break

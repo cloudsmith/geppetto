@@ -25,9 +25,15 @@ import org.cloudsmith.geppetto.pp.dsl.ui.PPUiConstants;
 import org.cloudsmith.geppetto.pp.dsl.ui.internal.PPActivator;
 import org.cloudsmith.xtext.dommodel.DomModelUtils;
 import org.cloudsmith.xtext.dommodel.IDomNode;
+import org.cloudsmith.xtext.dommodel.formatter.CSSDomFormatter;
+import org.cloudsmith.xtext.dommodel.formatter.DomNodeLayoutFeeder;
 import org.cloudsmith.xtext.dommodel.formatter.IDomModelFormatter;
+import org.cloudsmith.xtext.dommodel.formatter.IFormattingContext;
 import org.cloudsmith.xtext.dommodel.formatter.IFormattingContext.FormattingContextProvider;
+import org.cloudsmith.xtext.dommodel.formatter.css.DomCSS;
 import org.cloudsmith.xtext.serializer.DomBasedSerializer;
+import org.cloudsmith.xtext.textflow.ITextFlow.WithText;
+import org.cloudsmith.xtext.textflow.TextFlowWithDebugRecording;
 import org.eclipse.core.commands.AbstractHandler;
 import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.commands.ExecutionException;
@@ -146,6 +152,14 @@ public class PPDevDebug extends AbstractHandler {
 	FormattingContextProvider formattingContextProvider;
 
 	@Inject
+	private DomNodeLayoutFeeder layoutFeeder;
+
+	@Inject
+	private Provider<DomCSS> cssProvider;
+
+	private TextFlowWithDebugRecording recordedDebugFormatResult;
+
+	@Inject
 	public PPDevDebug() {
 
 	}
@@ -260,15 +274,33 @@ public class PPDevDebug extends AbstractHandler {
 		IDomNode dom = domSerializer.serializeToDom(resource.getContents().get(0), false);
 		ISerializationDiagnostic.Acceptor errors = ISerializationDiagnostic.EXCEPTION_THROWING_ACCEPTOR;
 
-		ReplaceRegion r = domFormatter.format(dom, null /* all text */, formattingContextProvider.get(false), errors);
+		// ReplaceRegion r = domFormatter.format(dom, null /* all text */, formattingContextProvider.get(false), errors);
+		ReplaceRegion r = getDomFormatter().format(
+			dom, null /* all text */, formattingContextProvider.get(false), errors);
 
 		serializer.serialize(resource.getContents().get(0), SaveOptions.newBuilder().format().getOptions());
 
 		System.out.println("Dom Dump after formatting:");
 		System.out.print(DomModelUtils.compactDump(dom, true));
 		System.out.println("");
+
+		System.out.println("Recorded TextFlow:\n");
+		StringBuilder textFlowOperations = new StringBuilder();
+		recordedDebugFormatResult.appendTo(textFlowOperations);
+		System.out.println(textFlowOperations.toString());
+
 		return Status.OK_STATUS;
 
+	}
+
+	private IDomModelFormatter getDomFormatter() {
+		return new CSSDomFormatter(cssProvider, layoutFeeder) {
+			@Override
+			protected WithText getTextFlow(IFormattingContext context) {
+				recordedDebugFormatResult = new TextFlowWithDebugRecording(context);
+				return recordedDebugFormatResult;
+			}
+		};
 	}
 
 	public void listAllResources(Resource myResource, IResourceDescriptions index) {

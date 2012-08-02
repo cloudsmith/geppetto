@@ -55,7 +55,7 @@ public class Spacing extends FlexibleQuantity {
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
 		builder.append("Spacing(");
-		Joiner.on(",").appendTo(builder, getMin(), getNormal(), getMax());
+		Joiner.on(",").appendTo(builder, getMin(), getNormal(), getMax(), isBreakable());
 		builder.append(")");
 		return builder.toString();
 	}

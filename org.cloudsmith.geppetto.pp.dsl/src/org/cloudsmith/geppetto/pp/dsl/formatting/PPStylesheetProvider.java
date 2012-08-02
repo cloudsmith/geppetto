@@ -215,7 +215,8 @@ public class PPStylesheetProvider extends DefaultStylesheetProvider {
 			.withRuleName("WsAfterSelectorExpressionComma"), //
 
 			// --Interpolation
-			interpolationStart.withStyle(styles.indent()), //
+			interpolationStart.withStyle(styles.indent())//
+			.withRuleName("InterpolationStart"), //
 
 			Select.whitespaceAfter(interpolationStart)//
 			.withStyles(//

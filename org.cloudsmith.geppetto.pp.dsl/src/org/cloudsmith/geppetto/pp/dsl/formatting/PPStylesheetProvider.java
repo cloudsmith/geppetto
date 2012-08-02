@@ -215,12 +215,20 @@ public class PPStylesheetProvider extends DefaultStylesheetProvider {
 			.withRuleName("WsAfterSelectorExpressionComma"), //
 
 			// --Interpolation
+			interpolationStart.withStyle(styles.indent()), //
+
 			Select.whitespaceAfter(interpolationStart)//
-			.withStyle(noSpaceNoLine)//
+			.withStyles(//
+				styles.noSpace(), // non wrappable
+				styles.noLineBreak(), //
+				styles.indent()) // may contain a complex expression
 			.withRuleName("WsAfterInterpolationStart"), //
 
 			Select.whitespaceBefore(interpolationEnd)//
-			.withStyle(noSpaceNoLine)//
+			.withStyles(//
+				styles.noSpace(), // non wrappable
+				styles.noLineBreak(), //
+				styles.dedent()) // may contain a complex expression
 			.withRuleName("WsBeforeInterpolationEnd"), //
 
 			// --Statements

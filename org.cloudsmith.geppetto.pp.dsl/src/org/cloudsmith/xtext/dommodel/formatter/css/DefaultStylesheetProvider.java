@@ -78,10 +78,12 @@ public class DefaultStylesheetProvider implements Provider<DomCSS> {
 
 			// No space after '[' and no space before ']'
 			Select.after(Select.whitespace(), Select.keyword("["))//
-			.withStyles(styles.noSpaceUnlessWrapped()) //
+			.withStyles(styles.noSpaceUnlessWrapped(), //
+				styles.indent()) //
 			.withRuleName("DefaultCSS.NoSpaceAfterLeftSquareBracket"), //
 			Select.before(Select.whitespace(), Select.keyword("]"))//
-			.withStyles(styles.noSpaceUnlessWrapped()) //
+			.withStyles(styles.noSpaceUnlessWrapped(), //
+				styles.dedent()) //
 			.withRuleName("DefaultCSS.NoSpaceAfterRightSquareBracket"), //
 
 			// No space after '(' and no space before ')'

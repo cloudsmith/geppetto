@@ -77,67 +77,65 @@ public class HiddenTokenSequencer implements IHiddenTokenSequencer, ISyntacticSe
 
 	protected List<RuleCall> stack = Lists.newArrayList();
 
+	/**
+	 * When searching for hidden nodes between INodes 'from' and 'to', the {@link #hiddenInLastNode} describes
+	 * the state of 'hidden' when 'from' was sequenced, and {@link #currentHidden} when 'to' is sequenced.
+	 */
+	protected List<AbstractRule> hiddenInLastNode;
+
 	@Override
 	public void acceptAssignedCrossRefDatatype(RuleCall rc, String tkn, EObject val, int index, ICompositeNode node) {
 		emitHiddenTokens(getHiddenNodesBetween(lastNode, node));
-		if(node != null)
-			lastNode = getLastLeaf(node);
+		rememberNode(node);
 		delegate.acceptAssignedCrossRefDatatype(rc, tkn, val, index, node);
 	}
 
 	@Override
 	public void acceptAssignedCrossRefEnum(RuleCall rc, String token, EObject value, int index, ICompositeNode node) {
 		emitHiddenTokens(getHiddenNodesBetween(lastNode, node));
-		if(node != null)
-			lastNode = getLastLeaf(node);
+		rememberLastLeaf(node);
 		delegate.acceptAssignedCrossRefEnum(rc, token, value, index, node);
 	}
 
 	@Override
 	public void acceptAssignedCrossRefKeyword(Keyword kw, String token, EObject value, int index, ILeafNode node) {
 		emitHiddenTokens(getHiddenNodesBetween(lastNode, node));
-		if(node != null)
-			lastNode = getLastLeaf(node);
+		rememberLastLeaf(node);
 		delegate.acceptAssignedCrossRefKeyword(kw, token, value, index, node);
 	}
 
 	@Override
 	public void acceptAssignedCrossRefTerminal(RuleCall rc, String token, EObject value, int index, ILeafNode node) {
 		emitHiddenTokens(getHiddenNodesBetween(lastNode, node));
-		if(node != null)
-			lastNode = node;
+		rememberNode(node);
 		delegate.acceptAssignedCrossRefTerminal(rc, token, value, index, node);
 	}
 
 	@Override
 	public void acceptAssignedDatatype(RuleCall rc, String token, Object value, int index, ICompositeNode node) {
 		emitHiddenTokens(getHiddenNodesBetween(lastNode, node));
-		if(node != null)
-			lastNode = getLastLeaf(node);
+		rememberLastLeaf(node);
 		delegate.acceptAssignedDatatype(rc, token, value, index, node);
 	}
 
 	@Override
 	public void acceptAssignedEnum(RuleCall enumRC, String token, Object value, int index, ICompositeNode node) {
 		emitHiddenTokens(getHiddenNodesBetween(lastNode, node));
-		if(node != null)
-			lastNode = getLastLeaf(node);
+		rememberLastLeaf(node);
 		delegate.acceptAssignedEnum(enumRC, token, value, index, node);
 	}
 
 	@Override
 	public void acceptAssignedKeyword(Keyword keyword, String token, Object value, int index, ILeafNode node) {
 		emitHiddenTokens(getHiddenNodesBetween(lastNode, node));
-		if(node != null)
-			lastNode = node;
+		rememberNode(node);
 		delegate.acceptAssignedKeyword(keyword, token, value, index, node);
 	}
 
 	@Override
 	public void acceptAssignedTerminal(RuleCall terminalRC, String token, Object value, int index, ILeafNode node) {
 		emitHiddenTokens(getHiddenNodesBetween(lastNode, node));
-		if(node != null)
-			lastNode = node;
+		rememberNode(node);
 		delegate.acceptAssignedTerminal(terminalRC, token, value, index, node);
 	}
 
@@ -149,32 +147,28 @@ public class HiddenTokenSequencer implements IHiddenTokenSequencer, ISyntacticSe
 	@Override
 	public void acceptUnassignedDatatype(RuleCall datatypeRC, String token, ICompositeNode node) {
 		emitHiddenTokens(getHiddenNodesBetween(lastNode, node));
-		if(node != null)
-			lastNode = getLastLeaf(node);
+		rememberLastLeaf(node);
 		delegate.acceptUnassignedDatatype(datatypeRC, token, node);
 	}
 
 	@Override
 	public void acceptUnassignedEnum(RuleCall enumRC, String token, ICompositeNode node) {
 		emitHiddenTokens(getHiddenNodesBetween(lastNode, node));
-		if(node != null)
-			lastNode = getLastLeaf(node);
+		rememberLastLeaf(node);
 		delegate.acceptUnassignedEnum(enumRC, token, node);
 	}
 
 	@Override
 	public void acceptUnassignedKeyword(Keyword keyword, String token, ILeafNode node) {
 		emitHiddenTokens(getHiddenNodesBetween(lastNode, node));
-		if(node != null)
-			lastNode = node;
+		rememberNode(node);
 		delegate.acceptUnassignedKeyword(keyword, token, node);
 	}
 
 	@Override
 	public void acceptUnassignedTerminal(RuleCall terminalRC, String token, ILeafNode node) {
 		emitHiddenTokens(getHiddenNodesBetween(lastNode, node));
-		if(node != null)
-			lastNode = node;
+		rememberNode(node);
 		delegate.acceptUnassignedTerminal(terminalRC, token, node);
 	}
 
@@ -210,7 +204,8 @@ public class HiddenTokenSequencer implements IHiddenTokenSequencer, ISyntacticSe
 		// THIS IS PROBABLY STILL NOT ENOUGH, as it may overrule the attempt to treat visible WS as eligible for formatting
 		// see isImpliedWhitespace and where it is called.
 
-		if(lastNonWhitespace && currentHidden.contains(ws)) {
+		// if(lastNonWhitespace && currentHidden.contains(ws)) {
+		if(lastNonWhitespace && hiddenInLastNode.contains(ws)) {
 			delegate.acceptWhitespace(ws, "", null);
 		}
 	}
@@ -263,7 +258,10 @@ public class HiddenTokenSequencer implements IHiddenTokenSequencer, ISyntacticSe
 			AbstractRule ws = hiddenTokenHelper.getWhitespaceRuleFor(null, "");
 			// only emit hidden whitespace, or visible whitespace where this is overridden using
 			// isImpliedWhitespace
-			boolean implied = currentHidden != null && currentHidden.contains(ws);
+			// boolean implied = currentHidden != null && currentHidden.contains(ws);
+			boolean impliedFrom = hiddenInLastNode != null && hiddenInLastNode.contains(ws);
+			boolean impliedTo = currentHidden != null && currentHidden.contains(ws);
+			boolean implied = impliedFrom || impliedTo;
 			int sz = stack.size();
 			implied = isImpliedWhitespace(implied, sz == 0
 					? null
@@ -306,7 +304,7 @@ public class HiddenTokenSequencer implements IHiddenTokenSequencer, ISyntacticSe
 		return out;
 	}
 
-	protected INode getLastLeaf(INode node) {
+	private INode getLastLeaf(INode node) {
 		while(node instanceof ICompositeNode)
 			node = ((ICompositeNode) node).getLastChild();
 		return node;
@@ -350,6 +348,8 @@ public class HiddenTokenSequencer implements IHiddenTokenSequencer, ISyntacticSe
 				Grammar grammar = GrammarUtil.getGrammar(context);
 				currentHidden = grammar.getHiddenTokens();
 			}
+			// TODO: Verify this is correct
+			hiddenInLastNode = currentHidden;
 		}
 
 	}
@@ -406,5 +406,29 @@ public class HiddenTokenSequencer implements IHiddenTokenSequencer, ISyntacticSe
 			hiddenStack.add(currentHidden);
 			currentHidden = ((ParserRule) r).getHiddenTokens();
 		}
+	}
+
+	/**
+	 * Remembers the last leaf of given node unless it is null.
+	 * 
+	 * @param nodeToRemember
+	 */
+	private void rememberLastLeaf(INode node) {
+		if(node == null)
+			return;
+		lastNode = getLastLeaf(node);
+		hiddenInLastNode = currentHidden;
+	}
+
+	/**
+	 * Remembers the given node unless it is null.
+	 * 
+	 * @param nodeToRemember
+	 */
+	private void rememberNode(INode nodeToRemember) {
+		if(nodeToRemember == null)
+			return;
+		lastNode = nodeToRemember;
+		hiddenInLastNode = currentHidden;
 	}
 }

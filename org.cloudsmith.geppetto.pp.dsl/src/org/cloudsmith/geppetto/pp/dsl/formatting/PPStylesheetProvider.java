@@ -221,8 +221,7 @@ public class PPStylesheetProvider extends DefaultStylesheetProvider {
 			Select.whitespaceAfter(interpolationStart)//
 			.withStyles(//
 				styles.noSpace(), // non wrappable
-				styles.noLineBreak(), //
-				styles.indent()) // may contain a complex expression
+				styles.noLineBreak()) // may contain a complex expression
 			.withRuleName("WsAfterInterpolationStart"), //
 
 			Select.whitespaceBefore(interpolationEnd)//

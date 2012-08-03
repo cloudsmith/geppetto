@@ -76,14 +76,19 @@ public class DefaultStylesheetProvider implements Provider<DomCSS> {
 			.withStyles(styles.oneSpace())//
 			.withRuleName("DefaultCSS.OneSpaceAfterComma"), //
 
+			// Indent content between []
+			Select.keyword("[").withStyle(styles.indent()) //
+			.withRuleName("DefaultCSS.IndentLeftSquareBracket"), //
+
+			Select.keyword("]").withStyle(styles.dedent()) //
+			.withRuleName("DefaultCSS.DedentRightSquareBracket"), //
+
 			// No space after '[' and no space before ']'
 			Select.after(Select.whitespace(), Select.keyword("["))//
-			.withStyles(styles.noSpaceUnlessWrapped(), //
-				styles.indent()) //
+			.withStyles(styles.noSpaceUnlessWrapped()) //
 			.withRuleName("DefaultCSS.NoSpaceAfterLeftSquareBracket"), //
 			Select.before(Select.whitespace(), Select.keyword("]"))//
-			.withStyles(styles.noSpaceUnlessWrapped(), //
-				styles.dedent()) //
+			.withStyles(styles.noSpaceUnlessWrapped()) //
 			.withRuleName("DefaultCSS.NoSpaceAfterRightSquareBracket"), //
 
 			// No space after '(' and no space before ')'

@@ -212,6 +212,13 @@ public class TestPPFormatting extends AbstractPuppetTests {
 		assertEquals("formatting should produce wanted result", fmt, s);
 	}
 
+	public void test_IndentsBracketsOk() throws Exception {
+		String code = "file { \"x\":\n  notify => Service[\"y\"],\n}\n";
+		XtextResource r = getResourceFromString(code);
+		String s = serializeFormatted(r.getContents().get(0));
+		assertEquals("formatting should produce wanted result", code, s);
+	}
+
 	public void test_issue142_Interpolation() throws Exception {
 		String code = "$a = 10\n" + //
 				"$b = \"123${a}234\"\n" + //

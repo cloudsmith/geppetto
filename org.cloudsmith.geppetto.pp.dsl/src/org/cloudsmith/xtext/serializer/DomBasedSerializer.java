@@ -20,7 +20,8 @@ import java.util.List;
 
 import org.cloudsmith.xtext.dommodel.IDomNode;
 import org.cloudsmith.xtext.dommodel.formatter.IDomModelFormatter;
-import org.cloudsmith.xtext.dommodel.formatter.IFormattingContext.FormattingContextProvider;
+import org.cloudsmith.xtext.dommodel.formatter.context.IFormattingContextFactory;
+import org.cloudsmith.xtext.dommodel.formatter.context.IFormattingContextFactory.FormattingOption;
 import org.cloudsmith.xtext.formatting.ILineSeparatorInformation;
 import org.cloudsmith.xtext.serializer.acceptor.DomModelSequenceAdapter;
 import org.eclipse.emf.common.util.Diagnostic;
@@ -54,13 +55,19 @@ public class DomBasedSerializer extends Serializer {
 	IDomModelFormatter domFormatter;
 
 	@Inject
-	FormattingContextProvider formattingContextProvider;
+	IFormattingContextFactory formattingContextFactory;
 
 	@Inject
 	IHiddenTokenHelper hiddenTokenHelper;
 
 	@Inject
 	ILineSeparatorInformation lineSeparatorInformation;
+
+	private FormattingOption formatting(SaveOptions options) {
+		return options.isFormatting()
+				? FormattingOption.Format
+				: FormattingOption.PreserveWhitespace;
+	}
 
 	/**
 	 * NOTE: This overridden method is required to initialize the DomModelSequences.
@@ -130,7 +137,8 @@ public class DomBasedSerializer extends Serializer {
 		EObject context = getContext(obj);
 		serialize(obj, context, acceptor, errors);
 		ReplaceRegion r = domFormatter.format(
-			acceptor.getDomModel(), null /* all text */, formattingContextProvider.get(!options.isFormatting()), errors);
+			acceptor.getDomModel(), null /* all text */, formattingContextFactory.create(obj, formatting(options)),
+			errors);
 		writer.append(r.getText());
 	}
 

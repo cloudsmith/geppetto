@@ -15,7 +15,8 @@ import java.util.Iterator;
 
 import org.cloudsmith.xtext.dommodel.IDomNode;
 import org.cloudsmith.xtext.dommodel.formatter.IDomModelFormatter;
-import org.cloudsmith.xtext.dommodel.formatter.IFormattingContext.FormattingContextProvider;
+import org.cloudsmith.xtext.dommodel.formatter.context.IFormattingContextFactory;
+import org.cloudsmith.xtext.dommodel.formatter.context.IFormattingContextFactory.FormattingOption;
 import org.cloudsmith.xtext.serializer.DomBasedSerializer;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.jface.text.BadLocationException;
@@ -85,7 +86,8 @@ public class ContentFormatterFactory implements IContentFormatterFactory {
 			// EObject context = getContext(state.getContents().get(0));
 			IDomNode root = serializer.serializeToDom(state.getContents().get(0), false);
 			org.eclipse.xtext.util.ReplaceRegion r = formatter.format(
-				root, new TextRegion(region.getOffset(), region.getLength()), formattingContextProvider.get(), errors);
+				root, new TextRegion(region.getOffset(), region.getLength()), //
+				formattingContextFactory.create(state, FormattingOption.Format), errors);
 			return new ReplaceRegion(r.getOffset(), r.getLength(), r.getText());
 		}
 
@@ -102,7 +104,7 @@ public class ContentFormatterFactory implements IContentFormatterFactory {
 	protected IDomModelFormatter formatter;
 
 	@Inject
-	FormattingContextProvider formattingContextProvider;
+	IFormattingContextFactory formattingContextFactory;
 
 	@Inject
 	protected IContextFinder contextFinder;

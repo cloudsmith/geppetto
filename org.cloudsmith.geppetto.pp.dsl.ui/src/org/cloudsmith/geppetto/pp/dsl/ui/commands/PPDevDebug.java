@@ -28,8 +28,9 @@ import org.cloudsmith.xtext.dommodel.IDomNode;
 import org.cloudsmith.xtext.dommodel.formatter.CSSDomFormatter;
 import org.cloudsmith.xtext.dommodel.formatter.DomNodeLayoutFeeder;
 import org.cloudsmith.xtext.dommodel.formatter.IDomModelFormatter;
-import org.cloudsmith.xtext.dommodel.formatter.IFormattingContext;
-import org.cloudsmith.xtext.dommodel.formatter.IFormattingContext.FormattingContextProvider;
+import org.cloudsmith.xtext.dommodel.formatter.context.IFormattingContext;
+import org.cloudsmith.xtext.dommodel.formatter.context.IFormattingContextFactory;
+import org.cloudsmith.xtext.dommodel.formatter.context.IFormattingContextFactory.FormattingOption;
 import org.cloudsmith.xtext.dommodel.formatter.css.DomCSS;
 import org.cloudsmith.xtext.serializer.DomBasedSerializer;
 import org.cloudsmith.xtext.textflow.ITextFlow.WithText;
@@ -149,7 +150,7 @@ public class PPDevDebug extends AbstractHandler {
 	IDomModelFormatter domFormatter;
 
 	@Inject
-	FormattingContextProvider formattingContextProvider;
+	IFormattingContextFactory formattingContextFactory;
 
 	@Inject
 	private DomNodeLayoutFeeder layoutFeeder;
@@ -276,7 +277,7 @@ public class PPDevDebug extends AbstractHandler {
 
 		// ReplaceRegion r = domFormatter.format(dom, null /* all text */, formattingContextProvider.get(false), errors);
 		ReplaceRegion r = getDomFormatter().format(
-			dom, null /* all text */, formattingContextProvider.get(false), errors);
+			dom, null /* all text */, formattingContextFactory.create(resource, FormattingOption.Format), errors);
 
 		serializer.serialize(resource.getContents().get(0), SaveOptions.newBuilder().format().getOptions());
 

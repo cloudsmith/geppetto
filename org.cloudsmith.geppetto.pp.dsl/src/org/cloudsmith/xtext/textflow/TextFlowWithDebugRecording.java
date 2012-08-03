@@ -13,7 +13,7 @@ package org.cloudsmith.xtext.textflow;
 
 import java.util.List;
 
-import org.cloudsmith.xtext.dommodel.formatter.IFormattingContext;
+import org.cloudsmith.xtext.dommodel.formatter.context.IFormattingContext;
 
 import com.google.common.collect.Lists;
 import com.google.inject.Inject;

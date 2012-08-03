@@ -31,6 +31,8 @@ import org.cloudsmith.xtext.dommodel.DomModelUtils;
 import org.cloudsmith.xtext.dommodel.formatter.CSSDomFormatter;
 import org.cloudsmith.xtext.dommodel.formatter.IDomModelFormatter;
 import org.cloudsmith.xtext.dommodel.formatter.ILayoutManager;
+import org.cloudsmith.xtext.dommodel.formatter.context.DefaultFormattingContext;
+import org.cloudsmith.xtext.dommodel.formatter.context.IFormattingContextFactory;
 import org.cloudsmith.xtext.dommodel.formatter.css.DomCSS;
 import org.cloudsmith.xtext.dommodel.formatter.css.debug.FormattingTracer;
 import org.cloudsmith.xtext.serializer.DomBasedSerializer;
@@ -58,6 +60,10 @@ public class PPRuntimeModule extends org.cloudsmith.geppetto.pp.dsl.AbstractPPRu
 	 */
 	public Class<? extends IDefaultResourceDescriptionStrategy> bindIDefaultResourceDescriptionStrategy() {
 		return PPResourceDescriptionStrategy.class;
+	}
+
+	public Class<? extends IFormattingContextFactory> bindIFormattingContextFactory() {
+		return DefaultFormattingContext.Factory.class;
 	}
 
 	/**

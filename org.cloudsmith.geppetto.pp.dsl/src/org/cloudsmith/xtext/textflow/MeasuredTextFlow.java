@@ -11,7 +11,7 @@
  */
 package org.cloudsmith.xtext.textflow;
 
-import org.cloudsmith.xtext.dommodel.formatter.IFormattingContext;
+import org.cloudsmith.xtext.dommodel.formatter.context.IFormattingContext;
 
 import com.google.inject.Inject;
 

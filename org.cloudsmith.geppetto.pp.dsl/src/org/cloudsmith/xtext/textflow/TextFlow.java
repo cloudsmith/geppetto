@@ -13,7 +13,7 @@ package org.cloudsmith.xtext.textflow;
 
 import java.io.IOException;
 
-import org.cloudsmith.xtext.dommodel.formatter.IFormattingContext;
+import org.cloudsmith.xtext.dommodel.formatter.context.IFormattingContext;
 import org.eclipse.emf.common.util.WrappedException;
 import org.eclipse.xtext.util.Exceptions;
 

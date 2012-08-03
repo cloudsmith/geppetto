@@ -205,7 +205,8 @@ public class HiddenTokenSequencer implements IHiddenTokenSequencer, ISyntacticSe
 		// see isImpliedWhitespace and where it is called.
 
 		// if(lastNonWhitespace && currentHidden.contains(ws)) {
-		if(lastNonWhitespace && hiddenInLastNode.contains(ws)) {
+		if(lastNonWhitespace && (hiddenInLastNode.contains(ws) || currentHidden.contains(ws))) {
+			// hiddenInLastNode.contains(ws)) {
 			delegate.acceptWhitespace(ws, "", null);
 		}
 	}

@@ -17,6 +17,7 @@ import org.cloudsmith.xtext.dommodel.IDomNode;
 import org.cloudsmith.xtext.dommodel.formatter.IDomModelFormatter;
 import org.cloudsmith.xtext.dommodel.formatter.context.IFormattingContextFactory;
 import org.cloudsmith.xtext.dommodel.formatter.context.IFormattingContextFactory.FormattingOption;
+import org.cloudsmith.xtext.resource.ResourceAccessScope;
 import org.cloudsmith.xtext.serializer.DomBasedSerializer;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.jface.text.BadLocationException;
@@ -38,6 +39,7 @@ import org.eclipse.xtext.util.TextRegion;
 import org.eclipse.xtext.util.concurrent.IUnitOfWork;
 
 import com.google.inject.Inject;
+import com.google.inject.Provider;
 
 public class ContentFormatterFactory implements IContentFormatterFactory {
 
@@ -80,15 +82,22 @@ public class ContentFormatterFactory implements IContentFormatterFactory {
 		}
 
 		public ReplaceRegion exec(XtextResource state) throws Exception {
+
 			// TODO: viewer related parameters passed to formatting context?
 			// TODO: get the dom root
 			ISerializationDiagnostic.Acceptor errors = ISerializationDiagnostic.EXCEPTION_THROWING_ACCEPTOR;
-			// EObject context = getContext(state.getContents().get(0));
-			IDomNode root = serializer.serializeToDom(state.getContents().get(0), false);
-			org.eclipse.xtext.util.ReplaceRegion r = formatter.format(
-				root, new TextRegion(region.getOffset(), region.getLength()), //
-				formattingContextFactory.create(state, FormattingOption.Format), errors);
-			return new ReplaceRegion(r.getOffset(), r.getLength(), r.getText());
+			try {
+				resourceScope.enter(state);
+				// EObject context = getContext(state.getContents().get(0));
+				IDomNode root = getSerializer().serializeToDom(state.getContents().get(0), false);
+				org.eclipse.xtext.util.ReplaceRegion r = getFormatter().format(
+					root, new TextRegion(region.getOffset(), region.getLength()), //
+					getFormattingContextFactory().create(state, FormattingOption.Format), errors);
+				return new ReplaceRegion(r.getOffset(), r.getLength(), r.getText());
+			}
+			finally {
+				resourceScope.exit();
+			}
 		}
 
 		protected EObject getContext(EObject semanticObject) {
@@ -101,19 +110,22 @@ public class ContentFormatterFactory implements IContentFormatterFactory {
 	}
 
 	@Inject
-	protected IDomModelFormatter formatter;
+	private Provider<IDomModelFormatter> formatterProvider;
 
 	@Inject
-	IFormattingContextFactory formattingContextFactory;
+	private Provider<IFormattingContextFactory> formattingContextProvider;
+
+	@Inject
+	private ResourceAccessScope resourceScope;
 
 	@Inject
 	protected IContextFinder contextFinder;
 
 	@Inject
-	IHiddenTokenHelper hiddenTokenHelper;
+	private Provider<DomBasedSerializer> serializerProvider;
 
 	@Inject
-	DomBasedSerializer serializer;
+	IHiddenTokenHelper hiddenTokenHelper;
 
 	public IContentFormatter createConfiguredFormatter(SourceViewerConfiguration configuration,
 			ISourceViewer sourceViewer) {
@@ -121,6 +133,25 @@ public class ContentFormatterFactory implements IContentFormatterFactory {
 		// configuration.getTabWidth(sourceViewer); // ?? Always returns 4 ?!?
 
 		return new ContentFormatter();
+	}
+
+	protected IDomModelFormatter getFormatter() {
+		// get via injector, as formatter is resource dependent
+		// return injector.getInstance(IDomModelFormatter.class);
+		return formatterProvider.get();
+	}
+
+	protected IFormattingContextFactory getFormattingContextFactory() {
+		// get via injector, as formatting context may be resource dependent
+		// return injector.getInstance(IFormattingContextFactory.class);
+		return formattingContextProvider.get();
+	}
+
+	protected DomBasedSerializer getSerializer() {
+		// get via injector, as formatting context as serialization uses the formatter
+		// which is resource dependent
+		// return injector.getInstance(DomBasedSerializer.class);
+		return serializerProvider.get();
 	}
 
 }

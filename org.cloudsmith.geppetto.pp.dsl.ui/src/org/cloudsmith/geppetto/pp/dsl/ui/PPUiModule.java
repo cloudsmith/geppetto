@@ -40,7 +40,9 @@ import org.cloudsmith.geppetto.pp.dsl.ui.validation.PreferenceBasedPotentialProb
 import org.cloudsmith.geppetto.pp.dsl.ui.validation.PreferenceBasedValidationAdvisorProvider;
 import org.cloudsmith.geppetto.pp.dsl.validation.IPotentialProblemsAdvisor;
 import org.cloudsmith.geppetto.pp.dsl.validation.IValidationAdvisor;
+import org.cloudsmith.xtext.formatting.ILineSeparatorInformation;
 import org.cloudsmith.xtext.ui.editor.formatting.ContentFormatterFactory;
+import org.cloudsmith.xtext.ui.editor.formatting.ResourceILineSeparatorProvider;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.eclipse.xtext.linking.lazy.LazyLinker;
 import org.eclipse.xtext.resource.ILocationInFileProvider;
@@ -250,6 +252,14 @@ public class PPUiModule extends org.cloudsmith.geppetto.pp.dsl.ui.AbstractPPUiMo
 		binder.bind(org.eclipse.xtext.parser.antlr.Lexer.class).annotatedWith(
 			com.google.inject.name.Names.named(org.eclipse.xtext.ui.LexerUIBindings.HIGHLIGHTING)).to(
 			PPOverridingLexer.class);
+	}
+
+	/**
+	 * Binds providers of resource specific information (e.g. resource metadata, scoped preferences,
+	 * workspace etc.)
+	 */
+	public void configureResourceSpecificProviders(com.google.inject.Binder binder) {
+		binder.bind(ILineSeparatorInformation.class).toProvider(ResourceILineSeparatorProvider.class);
 	}
 
 	/**

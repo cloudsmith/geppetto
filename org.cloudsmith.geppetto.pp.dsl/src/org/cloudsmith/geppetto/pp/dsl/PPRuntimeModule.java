@@ -35,6 +35,8 @@ import org.cloudsmith.xtext.dommodel.formatter.context.DefaultFormattingContext;
 import org.cloudsmith.xtext.dommodel.formatter.context.IFormattingContextFactory;
 import org.cloudsmith.xtext.dommodel.formatter.css.DomCSS;
 import org.cloudsmith.xtext.dommodel.formatter.css.debug.FormattingTracer;
+import org.cloudsmith.xtext.resource.ResourceAccess;
+import org.cloudsmith.xtext.resource.ResourceAccessScope;
 import org.cloudsmith.xtext.serializer.DomBasedSerializer;
 import org.eclipse.xtext.conversion.IValueConverterService;
 import org.eclipse.xtext.formatting.IIndentationInformation;
@@ -164,6 +166,16 @@ public class PPRuntimeModule extends org.cloudsmith.geppetto.pp.dsl.AbstractPPRu
 
 		// The layout manager to use by default (when not overridden in style sheet).
 		binder.bind(ILayoutManager.class).annotatedWith(Names.named("Default")).to(PPSemanticLayout.class);
+	}
+
+	/**
+	 * Configures the {@code ResourceAccessScope}.
+	 * 
+	 */
+	public void configureResourceContext(com.google.inject.Binder binder) {
+		final ResourceAccessScope resourceAccessScope = new ResourceAccessScope();
+		binder.bind(ResourceAccessScope.class).toInstance(resourceAccessScope);
+		binder.bind(ResourceAccess.class).toProvider(resourceAccessScope);
 	}
 
 	// Is now done via an external lexer that is automatically configured into the module

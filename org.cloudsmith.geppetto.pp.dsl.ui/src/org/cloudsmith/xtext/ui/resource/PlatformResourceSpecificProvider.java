@@ -11,7 +11,6 @@
  */
 package org.cloudsmith.xtext.ui.resource;
 
-import org.cloudsmith.xtext.dommodel.formatter.context.ResourceContext;
 import org.cloudsmith.xtext.resource.ResourceAccess;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;

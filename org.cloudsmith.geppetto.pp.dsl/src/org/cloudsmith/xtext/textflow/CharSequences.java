@@ -156,6 +156,7 @@ public class CharSequences {
 	 * 
 	 */
 	public static class Spaces implements CharSequence {
+		private static String space16 = "                ";
 
 		private int count;
 
@@ -180,6 +181,8 @@ public class CharSequences {
 
 		@Override
 		public String toString() {
+			if(count < 17)
+				return space16.substring(0, count);
 			StringBuilder builder = new StringBuilder(count);
 			for(int i = 0; i < count; i++)
 				builder.append(' ');

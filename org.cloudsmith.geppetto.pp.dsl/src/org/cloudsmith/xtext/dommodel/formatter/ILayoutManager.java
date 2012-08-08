@@ -22,10 +22,16 @@ import org.eclipse.xtext.serializer.diagnostic.ISerializationDiagnostic.Acceptor
 import org.eclipse.xtext.util.ITextRegion;
 
 /**
- * An ILayoutManager is responsible for providing textual output to an {@link ITextFlow}.
+ * An ILayoutManager adds handling of before/after composite dom nodes and expects a sequence of calls for a composite node:
+ * <ul>
+ * <li>{@link #beforeComposite(StyleSet, IDomNode, ITextFlow, ILayoutContext)}</li>
+ * <li>{@link #format(IDomNode, ITextFlow, ILayoutContext)}</li>
+ * <li>{@link #afterComposite(StyleSet, IDomNode, ITextFlow, ILayoutContext)}</li>
+ * </ul>
+ * 
  * 
  */
-public interface ILayoutManager {
+public interface ILayoutManager extends ILayout {
 
 	public interface ILayoutContext extends IFormattingContext {
 		/**
@@ -59,25 +65,27 @@ public interface ILayoutManager {
 		public ITextRegion getRegionToFormat();
 
 		/**
-		 * 
-		 * @return true if existing (non implied) white space should be preserved
-		 */
-		public boolean isWhitespacePreservation();
-		
-		/**
-		 * Marks the given node as consumed - a formatter that gets a node that is marked consumed
-		 * should simply ignore the node as its text has already been included /handled by an earlier
-		 * rule.
-		 * @param node
-		 */
-		public void markConsumed(IDomNode node);
-		
-		/**
 		 * Returns true if the given node has been marked as consumed. See {@link #markConsumed(IDomNode)}.
+		 * 
 		 * @param node
 		 * @return
 		 */
 		public boolean isConsumed(IDomNode node);
+
+		/**
+		 * 
+		 * @return true if existing (non implied) white space should be preserved
+		 */
+		public boolean isWhitespacePreservation();
+
+		/**
+		 * Marks the given node as consumed - a formatter that gets a node that is marked consumed
+		 * should simply ignore the node as its text has already been included /handled by an earlier
+		 * rule.
+		 * 
+		 * @param node
+		 */
+		public void markConsumed(IDomNode node);
 	}
 
 	/**

@@ -133,6 +133,15 @@
                  id="org.cloudsmith.geppetto.pp.dsl.ui.keyword_PP">
            </keywordReference>
         </page>
+        <page
+              category="org.cloudsmith.geppetto.pp.dsl.PP"
+              class="org.cloudsmith.geppetto.pp.dsl.ui.PPExecutableExtensionFactory:org.cloudsmith.geppetto.pp.dsl.ui.preferences.PPFormatterPreferencePage"
+              id="org.cloudsmith.geppetto.pp.dsl.PP.formatter"
+              name="Formatter">
+           <keywordReference
+                 id="org.cloudsmith.geppetto.pp.dsl.ui.keyword_PP">
+           </keywordReference>
+        </page>
     </extension>
     <extension
         point="org.eclipse.ui.keywords">
@@ -431,6 +440,14 @@
              class="org.cloudsmith.geppetto.pp.dsl.ui.PPExecutableExtensionFactory:org.cloudsmith.geppetto.pp.dsl.ui.preferences.PPSaveActionsPreferencePage"
              id="org.cloudsmith.geppetto.pp.dsl.PP.saveactions"
              name="Save Actions"
+             objectClass="org.eclipse.core.resources.IProject">
+       </page>
+       <page
+             adaptable="true"
+             category="org.cloudsmith.geppetto.pp.dsl.PP.properties"
+             class="org.cloudsmith.geppetto.pp.dsl.ui.PPExecutableExtensionFactory:org.cloudsmith.geppetto.pp.dsl.ui.preferences.PPFormatterPreferencePage"
+             id="org.cloudsmith.geppetto.pp.dsl.PP.formatter"
+             name="Formatter"
              objectClass="org.eclipse.core.resources.IProject">
        </page>
     </extension>

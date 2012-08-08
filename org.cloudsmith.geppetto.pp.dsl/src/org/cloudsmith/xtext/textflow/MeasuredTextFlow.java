@@ -19,7 +19,7 @@ import com.google.inject.Inject;
  * A text flow that measures the appended content but that does not contain the actual text.
  * 
  */
-public class MeasuredTextFlow extends AbstractTextFlow implements ITextFlow.Measuring {
+public class MeasuredTextFlow extends AbstractTextFlow {
 
 	private int lastWasBreak;
 

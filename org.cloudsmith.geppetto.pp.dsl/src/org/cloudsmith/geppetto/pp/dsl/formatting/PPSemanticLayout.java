@@ -29,7 +29,6 @@ import org.cloudsmith.geppetto.pp.PuppetManifest;
 import org.cloudsmith.geppetto.pp.ResourceBody;
 import org.cloudsmith.geppetto.pp.ResourceExpression;
 import org.cloudsmith.geppetto.pp.SelectorExpression;
-import org.cloudsmith.geppetto.pp.dsl.formatting.PPSemanticLayout.StatementStyle;
 import org.cloudsmith.geppetto.pp.dsl.ppdoc.DocumentationAssociator;
 import org.cloudsmith.geppetto.pp.dsl.services.PPGrammarAccess;
 import org.cloudsmith.xtext.dommodel.DomModelUtils;
@@ -37,8 +36,6 @@ import org.cloudsmith.xtext.dommodel.IDomNode;
 import org.cloudsmith.xtext.dommodel.formatter.DeclarativeSemanticFlowLayout;
 import org.cloudsmith.xtext.dommodel.formatter.DomNodeLayoutFeeder;
 import org.cloudsmith.xtext.dommodel.formatter.LayoutUtils;
-import org.cloudsmith.xtext.dommodel.formatter.comments.ICommentContext;
-import org.cloudsmith.xtext.dommodel.formatter.comments.ICommentFormattingStrategy;
 import org.cloudsmith.xtext.dommodel.formatter.css.Alignment;
 import org.cloudsmith.xtext.dommodel.formatter.css.IStyleFactory;
 import org.cloudsmith.xtext.dommodel.formatter.css.StyleSet;
@@ -119,8 +116,8 @@ public class PPSemanticLayout extends DeclarativeSemanticFlowLayout {
 			PPPackage.CASE, PPPackage.DEFINITION, PPPackage.HOST_CLASS_DEFINITION, PPPackage.IF_EXPRESSION,
 			PPPackage.NODE_DEFINITION, PPPackage.RESOURCE_EXPRESSION, PPPackage.SELECTOR_EXPRESSION };
 
-	@Inject
-	ICommentFormattingStrategy.MoveThenFold commentStrategy;
+	// @Inject
+	// ICommentFormattingStrategy.MoveThenFold commentStrategy;
 
 	protected void _after(AttributeOperations aos, StyleSet styleSet, IDomNode node, ITextFlow flow,
 			ILayoutContext context) {
@@ -154,7 +151,7 @@ public class PPSemanticLayout extends DeclarativeSemanticFlowLayout {
 		// to find the case nodes
 		RuleCall caseRuleCall = grammarAccess.getCaseExpressionAccess().getCasesCaseParserRuleCall_3_0();
 		// used to measure output of formatted case values
-		ITextFlow.Measuring measuredFlow = new MeasuredTextFlow(context);
+		ITextFlow measuredFlow = new MeasuredTextFlow(context);
 		// used to collect the widths of each case's width of its values
 		List<Integer> widths = Lists.newArrayList();
 		for(IDomNode n : node.getChildren()) {
@@ -298,40 +295,39 @@ public class PPSemanticLayout extends DeclarativeSemanticFlowLayout {
 		return firstToken;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.cloudsmith.xtext.dommodel.formatter.FlowLayout#formatComment(org.cloudsmith.xtext.dommodel.formatter.css.StyleSet,
-	 * org.cloudsmith.xtext.dommodel.IDomNode, org.cloudsmith.xtext.textflow.ITextFlow,
-	 * org.cloudsmith.xtext.dommodel.formatter.ILayoutManager.ILayoutContext)
-	 */
-	@Override
-	protected void formatComment(StyleSet styleSet, IDomNode node, ITextFlow output, ILayoutContext context) {
-		// if output provides information about metrics, it is possible to reposition/reformat a comment.
-		// Without information about current output position etc. a formatted result based on original position
-		// may not be nice at all.
-
-		// TODO: (do better when output is not measured)
-		if(context.isWhitespacePreservation() || output instanceof ITextFlow.Measuring == false)
-			super.formatComment(styleSet, node, output, context);
-		else if(node.getGrammarElement() == this.grammarAccess.getML_COMMENTRule())
-			formatMLComment(styleSet, node, (ITextFlow.Measuring) output, context);
-		else
-			formatSLComment(styleSet, node, (ITextFlow.Measuring) output, context);
-
-	}
-
-	protected void formatMLComment(StyleSet styleSet, IDomNode node, ITextFlow.Measuring output,
-			ILayoutContext layoutContext) {
-		// TODO: Pick strategy from preferences? and/or default from runtime module
-		commentStrategy.format(styleSet, node, output, layoutContext, new ICommentContext.JavaLikeMLComment());
-	}
-
-	protected void formatSLComment(StyleSet styleSet, IDomNode node, ITextFlow.Measuring output,
-			ILayoutContext layoutContext) {
-		// TODO: Pick strategy from preferences? and/or default from runtime module
-		commentStrategy.format(styleSet, node, output, layoutContext, new ICommentContext.HashSLComment());
-	}
+	// /*
+	// * (non-Javadoc)
+	// *
+	// * @see org.cloudsmith.xtext.dommodel.formatter.FlowLayout#formatComment(org.cloudsmith.xtext.dommodel.formatter.css.StyleSet,
+	// * org.cloudsmith.xtext.dommodel.IDomNode, org.cloudsmith.xtext.textflow.ITextFlow,
+	// * org.cloudsmith.xtext.dommodel.formatter.ILayoutManager.ILayoutContext)
+	// */
+	// @Override
+	// protected void formatComment(StyleSet styleSet, IDomNode node, ITextFlow output, ILayoutContext context) {
+	// // if output provides information about metrics, it is possible to reposition/reformat a comment.
+	// // Without information about current output position etc. a formatted result based on original position
+	// // may not be nice at all.
+	//
+	// if(context.isWhitespacePreservation())
+	// super.formatComment(styleSet, node, output, context);
+	// else if(node.getGrammarElement() == this.grammarAccess.getML_COMMENTRule())
+	// formatMLComment(styleSet, node, output, context);
+	// else
+	// formatSLComment(styleSet, node, output, context);
+	//
+	// }
+	//
+	// protected void formatMLComment(StyleSet styleSet, IDomNode node, ITextFlow output, ILayoutContext layoutContext) {
+	// // TODO: Pick strategy from preferences? and/or default from runtime module
+	// commentStrategy.format(
+	// styleSet, node, output, layoutContext, new ICommentContainerInformation.JavaLikeMLCommentContainer(), mlCommentAdvice);
+	// }
+	//
+	// protected void formatSLComment(StyleSet styleSet, IDomNode node, ITextFlow output, ILayoutContext layoutContext) {
+	// // TODO: Pick strategy from preferences? and/or default from runtime module
+	// commentStrategy.format(
+	// styleSet, node, output, layoutContext, new ICommentContainerInformation.HashSLCommentContainer(), slCommentAdvice);
+	// }
 
 	protected void internalFormatStatementList(IDomNode node, EObject grammarElement) {
 		List<IDomNode> nodes = node.getChildren();

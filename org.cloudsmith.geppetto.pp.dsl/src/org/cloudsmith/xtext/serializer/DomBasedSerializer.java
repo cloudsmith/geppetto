@@ -20,6 +20,7 @@ import java.util.List;
 
 import org.cloudsmith.xtext.dommodel.IDomNode;
 import org.cloudsmith.xtext.dommodel.formatter.IDomModelFormatter;
+import org.cloudsmith.xtext.dommodel.formatter.comments.ICommentConfiguration;
 import org.cloudsmith.xtext.dommodel.formatter.context.IFormattingContextFactory;
 import org.cloudsmith.xtext.dommodel.formatter.context.IFormattingContextFactory.FormattingOption;
 import org.cloudsmith.xtext.formatting.ILineSeparatorInformation;
@@ -62,6 +63,9 @@ public class DomBasedSerializer extends Serializer {
 
 	@Inject
 	ILineSeparatorInformation lineSeparatorInformation;
+
+	@Inject
+	ICommentConfiguration<?> commentConfiguration;
 
 	private FormattingOption formatting(SaveOptions options) {
 		return options.isFormatting()
@@ -133,7 +137,7 @@ public class DomBasedSerializer extends Serializer {
 		// Uses DomModelSequencer and new formatter interface
 		ISerializationDiagnostic.Acceptor errors = ISerializationDiagnostic.EXCEPTION_THROWING_ACCEPTOR;
 		DomModelSequenceAdapter acceptor = new DomModelSequenceAdapter(
-			hiddenTokenHelper, lineSeparatorInformation, errors);
+			hiddenTokenHelper, commentConfiguration, lineSeparatorInformation, errors);
 		EObject context = getContext(obj);
 		serialize(obj, context, acceptor, errors);
 		ReplaceRegion r = domFormatter.format(
@@ -153,7 +157,7 @@ public class DomBasedSerializer extends Serializer {
 		// Uses DomModelSequencer and new formatter interface
 		ISerializationDiagnostic.Acceptor errors = ISerializationDiagnostic.EXCEPTION_THROWING_ACCEPTOR;
 		DomModelSequenceAdapter acceptor = new DomModelSequenceAdapter(
-			hiddenTokenHelper, lineSeparatorInformation, errors);
+			hiddenTokenHelper, commentConfiguration, lineSeparatorInformation, errors);
 		EObject context = getContext(obj);
 		serialize(obj, context, acceptor, errors);
 		return acceptor.getDomModel();

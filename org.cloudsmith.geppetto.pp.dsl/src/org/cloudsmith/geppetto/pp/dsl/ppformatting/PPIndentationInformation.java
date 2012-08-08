@@ -14,8 +14,8 @@ package org.cloudsmith.geppetto.pp.dsl.ppformatting;
 import org.eclipse.xtext.formatting.IIndentationInformation;
 
 /**
- * PP indentation is 2 spaces by default.
- * TODO: make it possible to change this via preferences.
+ * This is the default 2 spaces indentation information. It is not aware of any preferences or
+ * settings. Use this class is headless scenarios, serializing model to text etc.
  * 
  */
 public class PPIndentationInformation implements IIndentationInformation {

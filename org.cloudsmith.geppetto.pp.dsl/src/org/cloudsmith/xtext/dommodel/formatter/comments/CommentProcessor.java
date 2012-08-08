@@ -23,10 +23,13 @@ import org.cloudsmith.xtext.textflow.TextFlow;
 import com.google.common.collect.Lists;
 
 /**
- * This comment processor is used to parse and format comments spanning multiple lines.
- * Comments may be a sequence of single line comments, or a multi line comment.
- * When processing a sequence of single line comments, everything in the passed region to format
- * must be comment text or whitespace - input in this example:
+ * <p>
+ * This comment processor is used to parse and format comments spanning multiple lines. It is a low-level class that can be used to implement higher
+ * order comment formatting strategies.
+ * </p>
+ * <p>
+ * Comments may be a sequence of single line comments, or a multi line comment. When processing a sequence of single line comments, everything in the
+ * passed region to format must be comment text or whitespace - input in this example:
  * 
  * <pre>
  *  # comment
@@ -72,7 +75,7 @@ import com.google.common.collect.Lists;
  * }
  * </pre>
  * 
- * To relocate the comment, or output it in a different style, use a second {@link ICommentContext} in the format call.
+ * To relocate the comment, or output it in a different style, use a second {@link ICommentContainerInformation} in the format call.
  * The same input example as before can be output to look like this:
  * 
  * <pre>
@@ -92,11 +95,10 @@ import com.google.common.collect.Lists;
  * <p>
  * It is possible to constrain trailing empty lines min/max.
  * </p>
+ * TODO: Needs to know about the ICommentFormatterAdvice !
  */
 public class CommentProcessor {
 
-	// @Inject
-	// IFormatting
 	public static class CommentFormattingOptions {
 		private int maxWidth;
 
@@ -170,8 +172,8 @@ public class CommentProcessor {
 	public CommentProcessor() {
 	}
 
-	protected TextFlow emit(CommentText commentText, ICommentContext out, CommentFormattingOptions options,
-			IFormattingContext formattingContext) {
+	protected TextFlow emit(CommentText commentText, ICommentContainerInformation out,
+			CommentFormattingOptions options, IFormattingContext formattingContext) {
 		final String lineSeparator = formattingContext.getLineSeparatorInformation().getLineSeparator();
 		final String endToken = out.getEndToken();
 		List<CharSequence> lines = commentText.lines;
@@ -191,12 +193,13 @@ public class CommentProcessor {
 			int limit = Math.max(1, lines.size() - 1);
 			boolean singleLine = lines.size() == 1;
 			for(int i = 0; i < limit; i++) {
-				CharSequence s = lines.get(i);
+				// comment container
 				if(i == 0)
 					flow.append(out.getStartToken());
 				else
 					flow.append(indent).append(out.getRepeatingToken());
 
+				CharSequence s = lines.get(i);
 				if(s.length() > 0) {
 					// Homogeneous lines should not have a leftMargin e.g. '#---' '********'
 					// anything starting with letter or digit, or that is not homogeneous has a leftMargin
@@ -328,14 +331,14 @@ public class CommentProcessor {
 		}
 	}
 
-	public TextFlow formatComment(CharSequence s, ICommentContext in, ICommentContext out,
+	public TextFlow formatComment(CharSequence s, ICommentContainerInformation in, ICommentContainerInformation out,
 			CommentFormattingOptions options, IFormattingContext context) {
 		String lineSeparator = context.getLineSeparatorInformation().getLineSeparator();
 		return formatComment(separateCommentFromContainer(s, out, lineSeparator), out, options, context);
 	}
 
-	public TextFlow formatComment(CommentText commentText, ICommentContext out, CommentFormattingOptions options,
-			IFormattingContext context) {
+	public TextFlow formatComment(CommentText commentText, ICommentContainerInformation out,
+			CommentFormattingOptions options, IFormattingContext context) {
 		foldLines(commentText.lines, options.getMaxWidth() - out.getMarkerColumnWidth() - out.getLeftMargin());
 		TextFlow result = emit(commentText, out, options, context);
 		return result;
@@ -376,7 +379,8 @@ public class CommentProcessor {
 	 * 
 	 * @return {@link CommentText} with trimmed lines and any trailing text after endToken
 	 */
-	public CommentText separateCommentFromContainer(CharSequence s, ICommentContext in, String lineSeparator) {
+	public CommentText separateCommentFromContainer(CharSequence s, ICommentContainerInformation in,
+			String lineSeparator) {
 		// separate the comment between start-end (if any) from any trailing stuff
 		final String endToken = in.getEndToken();
 		List<CharSequence> lines = null;
@@ -425,7 +429,7 @@ public class CommentProcessor {
 	 * @param s
 	 * @return
 	 */
-	protected CharSequence trim(CharSequence s, String expectedToken, ICommentContext in) {
+	protected CharSequence trim(CharSequence s, String expectedToken, ICommentContainerInformation in) {
 		if(s.length() < 1)
 			return s;
 		int start = 0;

@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2011 Cloudsmith Inc. and other contributors, as listed below.
+ * Copyright (c) 2011, 2012 Cloudsmith Inc. and other contributors, as listed below.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -13,6 +13,7 @@ package org.cloudsmith.geppetto.pp.dsl;
 
 import org.cloudsmith.geppetto.common.tracer.DefaultTracer;
 import org.cloudsmith.geppetto.common.tracer.ITracer;
+import org.cloudsmith.geppetto.pp.dsl.formatting.PPCommentConfiguration;
 import org.cloudsmith.geppetto.pp.dsl.formatting.PPSemanticLayout;
 import org.cloudsmith.geppetto.pp.dsl.formatting.PPStylesheetProvider;
 import org.cloudsmith.geppetto.pp.dsl.lexer.PPOverridingLexer;
@@ -29,8 +30,14 @@ import org.cloudsmith.geppetto.pp.dsl.validation.IValidationAdvisor;
 import org.cloudsmith.geppetto.pp.dsl.validation.ValidationAdvisorProvider;
 import org.cloudsmith.xtext.dommodel.DomModelUtils;
 import org.cloudsmith.xtext.dommodel.formatter.CSSDomFormatter;
+import org.cloudsmith.xtext.dommodel.formatter.FlowLayout;
 import org.cloudsmith.xtext.dommodel.formatter.IDomModelFormatter;
+import org.cloudsmith.xtext.dommodel.formatter.ILayout;
 import org.cloudsmith.xtext.dommodel.formatter.ILayoutManager;
+import org.cloudsmith.xtext.dommodel.formatter.comments.ICommentConfiguration;
+import org.cloudsmith.xtext.dommodel.formatter.comments.ICommentConfiguration.CommentType;
+import org.cloudsmith.xtext.dommodel.formatter.comments.ICommentFormatterAdvice;
+import org.cloudsmith.xtext.dommodel.formatter.comments.MoveThenFoldCommentLayout;
 import org.cloudsmith.xtext.dommodel.formatter.context.DefaultFormattingContext;
 import org.cloudsmith.xtext.dommodel.formatter.context.IFormattingContextFactory;
 import org.cloudsmith.xtext.dommodel.formatter.css.DomCSS;
@@ -49,12 +56,14 @@ import org.eclipse.xtext.serializer.ISerializer;
 import org.eclipse.xtext.serializer.sequencer.IHiddenTokenSequencer;
 import org.eclipse.xtext.validation.CompositeEValidator;
 
+import com.google.inject.TypeLiteral;
 import com.google.inject.name.Names;
 
 /**
  * Use this class to register components to be used at runtime / without the Equinox extension registry.
  */
 public class PPRuntimeModule extends org.cloudsmith.geppetto.pp.dsl.AbstractPPRuntimeModule {
+
 	/**
 	 * Binds resource description strategy that binds parent data for inheritance
 	 * 
@@ -166,6 +175,25 @@ public class PPRuntimeModule extends org.cloudsmith.geppetto.pp.dsl.AbstractPPRu
 
 		// The layout manager to use by default (when not overridden in style sheet).
 		binder.bind(ILayoutManager.class).annotatedWith(Names.named("Default")).to(PPSemanticLayout.class);
+
+		// This binding is good for both headless and ui
+		// binder.bind(ICommentConfiguration.class).to(PPCommentConfiguration.class);
+		binder.bind(new TypeLiteral<ICommentConfiguration<CommentType>>() {
+		}).to(PPCommentConfiguration.class);
+
+		// This binding should be overridden in ui binding with preference and resource specific provider
+		binder.bind(ICommentFormatterAdvice.class) //
+		.annotatedWith(com.google.inject.name.Names.named(PPCommentConfiguration.SL_FORMATTER_ADVICE_NAME))//
+		.to(ICommentFormatterAdvice.DefaultCommentAdvice.class);
+
+		// This binding should be overridden in ui binding with preference and resource specific provider
+		binder.bind(ICommentFormatterAdvice.class) //
+		.annotatedWith(com.google.inject.name.Names.named(PPCommentConfiguration.ML_FORMATTER_ADVICE_NAME))//
+		.to(ICommentFormatterAdvice.DefaultCommentAdvice.class);
+
+		// Bind default layout for all types of comments to MoveThenFold layout
+		binder.bind(ILayout.class).annotatedWith(com.google.inject.name.Names.named(FlowLayout.COMMENT_LAYOUT_NAME)) //
+		.to(MoveThenFoldCommentLayout.class);
 	}
 
 	/**

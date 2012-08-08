@@ -26,6 +26,7 @@ import org.cloudsmith.xtext.dommodel.DomModelUtils;
 import org.cloudsmith.xtext.dommodel.IDomNode;
 import org.cloudsmith.xtext.dommodel.IDomNode.NodeClassifier;
 import org.cloudsmith.xtext.dommodel.IDomNode.NodeType;
+import org.cloudsmith.xtext.dommodel.formatter.comments.ICommentConfiguration;
 import org.cloudsmith.xtext.dommodel.impl.BaseDomNode;
 import org.cloudsmith.xtext.dommodel.impl.CompositeDomNode;
 import org.cloudsmith.xtext.dommodel.impl.LeafDomNode;
@@ -76,14 +77,17 @@ public class DomModelSequenceAdapter implements ISequenceAcceptor {
 	 */
 	ILineSeparatorInformation lineSeparatorInformation;
 
+	ICommentConfiguration<?> commentConfiguration;
+
 	@Inject
-	public DomModelSequenceAdapter(IHiddenTokenHelper hiddenTokenHelper,
+	public DomModelSequenceAdapter(IHiddenTokenHelper hiddenTokenHelper, ICommentConfiguration<?> commentConfiguration,
 			ILineSeparatorInformation lineSeparatorInformation, ISerializationDiagnostic.Acceptor errorAcceptor) {
 		current = new CompositeDomNode();
 		stack = Lists.newArrayList();
 		this.errorAcceptor = errorAcceptor;
 		this.hiddenTokenHelper = hiddenTokenHelper;
 		this.lineSeparatorInformation = lineSeparatorInformation;
+		this.commentConfiguration = commentConfiguration;
 	}
 
 	/**
@@ -175,12 +179,16 @@ public class DomModelSequenceAdapter implements ISequenceAcceptor {
 		// It is of value to know if a comment extends over multiple lines or if it ends with a line separator
 		//
 		final String lineSep = lineSeparatorInformation.getLineSeparator();
-		List<NodeClassifier> commentClassification = Lists.newArrayList();
+		List<Object> commentClassification = Lists.newArrayList();
+		// generic, textual classification
 		if(token.endsWith(lineSep))
 			commentClassification.add(NodeClassifier.LINESEPARATOR_TERMINATED);
 		final int lineSepIx = token.indexOf(lineSep);
 		if(lineSepIx != -1 && lineSepIx != token.lastIndexOf(lineSep))
 			commentClassification.add(NodeClassifier.MULTIPLE_LINES);
+
+		// semantic comment classification
+		commentClassification.add(commentConfiguration.classify(rule));
 
 		addLeafNodeToCurrent(rule, token, node, COMMENT, commentClassification.toArray());
 	}

@@ -65,4 +65,13 @@ public class PPPreferenceConstants {
 	public static final String PROBLEM_UNQUOTED_RESOURCE_TITLE = "unquotedResourceTitle";
 
 	public static final String PROBLEM_DQ_STRING_NOT_REQUIRED_VAR = "dqStringNotRequiredVar";
+
+	public static final String FORMATTER_GENERAL_ID = "org.cloudsmith.geppetto.pp.dsl.PP.formatter";
+
+	public static final String FORMATTER_GENERAL_USE_PROJECT_SETTINGS = FORMATTER_GENERAL_ID + "." +
+			USE_PROJECT_SETTINGS;
+
+	public static final String FORMATTER_INDENTSIZE = "formatterIndentSize";
+
+	public static final String FORMATTER_MAXWIDTH = "formatterPreferredWidth";
 }

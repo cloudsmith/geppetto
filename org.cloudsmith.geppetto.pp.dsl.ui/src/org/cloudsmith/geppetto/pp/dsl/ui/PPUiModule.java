@@ -13,6 +13,7 @@ package org.cloudsmith.geppetto.pp.dsl.ui;
 
 import org.cloudsmith.geppetto.common.tracer.DefaultTracer;
 import org.cloudsmith.geppetto.common.tracer.ITracer;
+import org.cloudsmith.geppetto.pp.dsl.formatting.PPCommentConfiguration;
 import org.cloudsmith.geppetto.pp.dsl.lexer.PPOverridingLexer;
 import org.cloudsmith.geppetto.pp.dsl.linking.PPSearchPath.ISearchPathProvider;
 import org.cloudsmith.geppetto.pp.dsl.ui.builder.NatureAddingEditorCallback;
@@ -40,6 +41,7 @@ import org.cloudsmith.geppetto.pp.dsl.ui.validation.PreferenceBasedPotentialProb
 import org.cloudsmith.geppetto.pp.dsl.ui.validation.PreferenceBasedValidationAdvisorProvider;
 import org.cloudsmith.geppetto.pp.dsl.validation.IPotentialProblemsAdvisor;
 import org.cloudsmith.geppetto.pp.dsl.validation.IValidationAdvisor;
+import org.cloudsmith.xtext.dommodel.formatter.comments.ICommentFormatterAdvice;
 import org.cloudsmith.xtext.formatting.ILineSeparatorInformation;
 import org.cloudsmith.xtext.ui.editor.formatting.ContentFormatterFactory;
 import org.cloudsmith.xtext.ui.editor.formatting.ResourceILineSeparatorProvider;
@@ -244,6 +246,26 @@ public class PPUiModule extends org.cloudsmith.geppetto.pp.dsl.ui.AbstractPPUiMo
 
 	public void configureEditor(Binder binder) {
 		binder.bind(XtextEditor.class).to(ExtLinkedXtextEditor.class);
+	}
+
+	/**
+	 * @see #configureResourceSpecificProviders(Binder)
+	 */
+	public void configureFormatting(com.google.inject.Binder binder) {
+		// TODO: bind general formatting advice to preference based provider
+
+		// TODO: replace with preference based binding
+		// This binding should be overridden in ui binding with preference and resource specific provider
+		binder.bind(ICommentFormatterAdvice.class) //
+		.annotatedWith(com.google.inject.name.Names.named(PPCommentConfiguration.SL_FORMATTER_ADVICE_NAME))//
+		.to(ICommentFormatterAdvice.DefaultCommentAdvice.class);
+
+		// TODO: replace with preference based binding
+		// This binding should be overridden in ui binding with preference and resource specific provider
+		binder.bind(ICommentFormatterAdvice.class) //
+		.annotatedWith(com.google.inject.name.Names.named(PPCommentConfiguration.ML_FORMATTER_ADVICE_NAME))//
+		.to(ICommentFormatterAdvice.DefaultCommentAdvice.class);
+
 	}
 
 	// contributed by org.eclipse.xtext.generator.parser.antlr.ex.rt.AntlrGeneratorFragment

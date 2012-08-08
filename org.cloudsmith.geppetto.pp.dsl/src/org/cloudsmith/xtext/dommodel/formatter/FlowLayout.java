@@ -27,17 +27,28 @@ import org.cloudsmith.xtext.dommodel.formatter.css.StyleFactory.WidthStyle;
 import org.cloudsmith.xtext.dommodel.formatter.css.StyleSet;
 import org.cloudsmith.xtext.textflow.ITextFlow;
 
+import com.google.common.base.Preconditions;
 import com.google.inject.Inject;
+import com.google.inject.name.Named;
 
 /**
+ * <p>
  * A Dom Model Formatter driven by rules in a {@link DomCSS}.
+ * </p>
  * <p>
  * If there are no rules for spacing and line breaks in the style sheet produced by the given domProvider, default rules for "one space" and
  * "no line break" will be used. This makes this formatter function as a "one space formatter" in the default case.
  * </p>
- * 
+ * <p>
+ * Comment formatting is performed by delegating to an instance of {@link ILayout} that is bound to the name {@value #COMMENT_LAYOUT_NAME}.
+ * </p>
  */
-public class FlowLayout extends AbstractLayout implements ILayoutManager {
+public class FlowLayout extends AbstractLayoutManager implements ILayoutManager {
+
+	/**
+	 * The name of the wanted ILayoutManager to handle comment formatting.
+	 */
+	public static final String COMMENT_LAYOUT_NAME = "CommentsLayout";
 
 	private static final Spacing defaultSpacing = new Spacing(1);
 
@@ -46,9 +57,16 @@ public class FlowLayout extends AbstractLayout implements ILayoutManager {
 	@Inject
 	private IFunctionFactory functions;
 
+	@Inject
+	@Named(COMMENT_LAYOUT_NAME)
+	protected ILayout commentLayout;
+
 	@Override
 	protected void formatComment(StyleSet styleSet, IDomNode node, ITextFlow output, ILayoutContext context) {
-		formatToken(styleSet, node, output, context);
+		if(!isFormattingWanted(node, context))
+			return;
+		Preconditions.checkState(commentLayout != null, "setCommentLayout(ILayout) must have been called first.");
+		commentLayout.format(styleSet, node, output, context);
 	}
 
 	@Override
@@ -60,7 +78,9 @@ public class FlowLayout extends AbstractLayout implements ILayoutManager {
 			if(context.isWhitespacePreservation()) {
 				// alignment modifies spacing, just output text
 				// TODO: "whitespacePreservation should really use the text from the node, not
-				// after having passed a potential formatting function?
+				// after having passed a potential formatting function? But semantics of whitespacePreservation
+				// is unclear; does it mean no format of whitespace, or not formatting what so ever?
+				//
 				output.appendText(text, true);
 			}
 			else {
@@ -140,4 +160,5 @@ public class FlowLayout extends AbstractLayout implements ILayoutManager {
 			}
 		}
 	}
+
 }

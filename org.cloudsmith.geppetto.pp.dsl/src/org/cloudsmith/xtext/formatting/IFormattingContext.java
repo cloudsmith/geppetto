@@ -12,6 +12,7 @@
 package org.cloudsmith.xtext.formatting;
 
 import org.eclipse.xtext.formatting.IIndentationInformation;
+import org.eclipse.xtext.formatting.ILineSeparatorInformation;
 
 /**
  * @author henrik

@@ -64,7 +64,7 @@ import com.google.inject.Inject;
  * editors are not opened for the same file.
  * 
  */
-public class ExtLinkedXtextEditor extends XtextEditor {
+public class ExtLinkedXtextEditor2 extends XtextEditor {
 
 	@Inject
 	private IExtXtextEditorCustomizer editorCustomizer;
@@ -95,12 +95,13 @@ public class ExtLinkedXtextEditor extends XtextEditor {
 	 */
 	private final static String PRINT_MARGIN_COLUMN = AbstractDecoratedTextEditorPreferenceConstants.EDITOR_PRINT_MARGIN_COLUMN;
 
-	@Inject
 	private IPreferenceStoreAccess preferenceAccess;
 
 	@Inject
-	public ExtLinkedXtextEditor() {
-		super();
+	public ExtLinkedXtextEditor2(IPreferenceStoreAccess preferenceAccess) {
+		this.preferenceAccess = preferenceAccess;
+		setPreferenceStore(preferenceAccess.getPreferenceStore());
+
 	}
 
 	@Override
@@ -205,14 +206,6 @@ public class ExtLinkedXtextEditor extends XtextEditor {
 	 */
 	@Override
 	public void init(IEditorSite site, IEditorInput input) throws PartInitException {
-		// Can't do this until this time due to stupid callbacks from constructor before
-		// injections have taken place.
-
-		// ISourceViewer sourceViewer = getSourceViewer();
-		// SourceViewerDecorationSupport decorationSupport = getSourceViewerDecorationSupport(sourceViewer);
-		// decorationSupport.setMarginPainterPreferenceKeys(
-		// PRINT_MARGIN, PRINT_MARGIN_COLOR, PPPreferenceConstants.FORMATTER_MAXWIDTH);
-
 		// THE ISSUE HERE:
 		// In the IDE, the File Open Dialog (and elsewhere) uses a FilestoreEditorInput class
 		// which is an IDE specific implementation.
@@ -255,14 +248,20 @@ public class ExtLinkedXtextEditor extends XtextEditor {
 			return;
 		}
 		super.init(site, input);
-
 	}
 
-	// @Override
-	// protected void initializeEditor() {
-	// setPreferenceStore(preferenceAccess.getPreferenceStore());
-	// // setPreferenceStore(EditorsPlugin.getDefault().getPreferenceStore());
-	// }
+	/**
+	 * Initializes this editor. Subclasses may re-implement. If sub-classes do
+	 * not change the contract, this method should not be extended, i.e. do not
+	 * call <code>super.initializeEditor()</code> in order to avoid the
+	 * temporary creation of objects that are immediately overwritten by
+	 * subclasses.
+	 */
+	@Override
+	protected void initializeEditor() {
+		// setPreferenceStore(preferenceAccess.getPreferenceStore());
+		// setPreferenceStore(EditorsPlugin.getDefault().getPreferenceStore());
+	}
 
 	// SaveAs support for linked files - saves them on local disc, not to workspace if file is in special
 	// hidden external file link project.

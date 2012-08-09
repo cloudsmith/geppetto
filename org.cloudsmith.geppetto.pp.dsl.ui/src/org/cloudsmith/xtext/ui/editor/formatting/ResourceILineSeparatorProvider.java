@@ -11,7 +11,7 @@
  */
 package org.cloudsmith.xtext.ui.editor.formatting;
 
-import org.cloudsmith.xtext.formatting.ILineSeparatorInformation;
+import org.eclipse.xtext.formatting.ILineSeparatorInformation;
 import org.cloudsmith.xtext.ui.resource.PlatformResourceSpecificProvider;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.ProjectScope;

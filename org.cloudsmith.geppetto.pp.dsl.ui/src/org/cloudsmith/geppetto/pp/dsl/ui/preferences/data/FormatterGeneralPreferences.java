@@ -14,24 +14,33 @@ package org.cloudsmith.geppetto.pp.dsl.ui.preferences.data;
 import org.cloudsmith.geppetto.pp.dsl.ui.preferences.PPPreferenceConstants;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.jface.preference.IPreferenceStore;
-import org.eclipse.xtext.ui.editor.preferences.IPreferenceStoreAccess;
+import org.eclipse.jface.util.IPropertyChangeListener;
+import org.eclipse.jface.util.PropertyChangeEvent;
 
 import com.google.inject.Singleton;
 
 /**
- * @author henrik
+ * Manages the Formatter General preferences.
  * 
  */
 @Singleton
 public class FormatterGeneralPreferences extends AbstractPreferenceData {
 
-	IPreferenceStoreAccess access;
+	IPropertyChangeListener pChangeListener;
 
 	@Override
 	protected void doInitialize(IPreferenceStore store) {
 		// formatting
 		store.setDefault(PPPreferenceConstants.FORMATTER_INDENTSIZE, "2");
 		store.setDefault(PPPreferenceConstants.FORMATTER_MAXWIDTH, "132");
+		store.addPropertyChangeListener(new IPropertyChangeListener() {
+
+			@Override
+			public void propertyChange(PropertyChangeEvent event) {
+				System.out.println("Property changed: " + event.getProperty() + "old: " + event.getOldValue() +
+						" new value:" + event.getNewValue());
+			}
+		});
 	}
 
 	/**

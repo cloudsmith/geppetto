@@ -17,6 +17,7 @@ import org.eclipse.xtext.ui.editor.preferences.IPreferenceStoreAccess;
 import org.eclipse.xtext.ui.editor.preferences.IPreferenceStoreInitializer;
 
 import com.google.common.base.Preconditions;
+import com.google.inject.Inject;
 
 /**
  * @author henrik
@@ -24,7 +25,10 @@ import com.google.common.base.Preconditions;
  */
 public abstract class AbstractPreferenceData implements IPreferenceStoreInitializer {
 
+	@Inject
 	IPreferenceStoreAccess access;
+
+	private boolean initialized;
 
 	protected abstract void doInitialize(IPreferenceStore store);
 
@@ -69,8 +73,12 @@ public abstract class AbstractPreferenceData implements IPreferenceStoreInitiali
 
 	@Override
 	public void initialize(IPreferenceStoreAccess access) {
+		if(initialized)
+			return;
+
 		this.access = access;
 		doInitialize(access.getWritablePreferenceStore());
+		initialized = true;
 	}
 
 	/**

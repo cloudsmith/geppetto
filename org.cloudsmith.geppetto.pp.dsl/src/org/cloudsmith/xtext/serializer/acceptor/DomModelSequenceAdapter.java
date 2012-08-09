@@ -30,7 +30,7 @@ import org.cloudsmith.xtext.dommodel.formatter.comments.ICommentConfiguration;
 import org.cloudsmith.xtext.dommodel.impl.BaseDomNode;
 import org.cloudsmith.xtext.dommodel.impl.CompositeDomNode;
 import org.cloudsmith.xtext.dommodel.impl.LeafDomNode;
-import org.cloudsmith.xtext.formatting.ILineSeparatorInformation;
+import org.eclipse.xtext.formatting.ILineSeparatorInformation;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.xtext.AbstractRule;
 import org.eclipse.xtext.Action;

@@ -29,11 +29,14 @@ import org.cloudsmith.geppetto.pp.dsl.ui.editor.autoedit.PPTokenTypeToPartionMap
 import org.cloudsmith.geppetto.pp.dsl.ui.editor.folding.PPFoldingRegionProvider;
 import org.cloudsmith.geppetto.pp.dsl.ui.editor.hyperlinking.PPHyperlinkHelper;
 import org.cloudsmith.geppetto.pp.dsl.ui.editor.toggleComments.PPSingleLineCommentHelper;
+import org.cloudsmith.geppetto.pp.dsl.ui.formatting.ResourceIIndentationInformationProvider;
+import org.cloudsmith.geppetto.pp.dsl.ui.formatting.ResourceIPreferredWidthInformationProvider;
 import org.cloudsmith.geppetto.pp.dsl.ui.linked.ExtLinkedXtextEditor;
 import org.cloudsmith.geppetto.pp.dsl.ui.linked.ISaveActions;
 import org.cloudsmith.geppetto.pp.dsl.ui.linking.PPUISearchPathProvider;
 import org.cloudsmith.geppetto.pp.dsl.ui.outline.PPLocationInFileProvider;
 import org.cloudsmith.geppetto.pp.dsl.ui.preferences.PPPreferencesHelper;
+import org.cloudsmith.geppetto.pp.dsl.ui.preferences.data.FormatterGeneralPreferences;
 import org.cloudsmith.geppetto.pp.dsl.ui.preferences.editors.PPPreferenceStoreAccess;
 import org.cloudsmith.geppetto.pp.dsl.ui.resource.PPResource;
 import org.cloudsmith.geppetto.pp.dsl.ui.resource.PPResourceFactory;
@@ -42,10 +45,12 @@ import org.cloudsmith.geppetto.pp.dsl.ui.validation.PreferenceBasedValidationAdv
 import org.cloudsmith.geppetto.pp.dsl.validation.IPotentialProblemsAdvisor;
 import org.cloudsmith.geppetto.pp.dsl.validation.IValidationAdvisor;
 import org.cloudsmith.xtext.dommodel.formatter.comments.ICommentFormatterAdvice;
-import org.cloudsmith.xtext.formatting.ILineSeparatorInformation;
+import org.cloudsmith.xtext.formatting.IPreferredMaxWidthInformation;
 import org.cloudsmith.xtext.ui.editor.formatting.ContentFormatterFactory;
 import org.cloudsmith.xtext.ui.editor.formatting.ResourceILineSeparatorProvider;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
+import org.eclipse.xtext.formatting.IIndentationInformation;
+import org.eclipse.xtext.formatting.ILineSeparatorInformation;
 import org.eclipse.xtext.linking.lazy.LazyLinker;
 import org.eclipse.xtext.resource.ILocationInFileProvider;
 import org.eclipse.xtext.resource.IResourceFactory;
@@ -103,6 +108,11 @@ public class PPUiModule extends org.cloudsmith.geppetto.pp.dsl.ui.AbstractPPUiMo
 	 */
 	public Class<? extends IHyperlinkHelper> bindIHyperlinkHelper() {
 		return PPHyperlinkHelper.class;
+	}
+
+	@Override
+	public Class<? extends IIndentationInformation> bindIIndentationInformation() {
+		return null; // block the super version
 	}
 
 	public Class<? extends IHighlightingConfiguration> bindILexicalHighlightingConfiguration() {
@@ -242,6 +252,8 @@ public class PPUiModule extends org.cloudsmith.geppetto.pp.dsl.ui.AbstractPPUiMo
 	public void configureDefaultPreferences(Binder binder) {
 		binder.bind(IPreferenceStoreInitializer.class).annotatedWith(Names.named("PPPreferencesHelper")) //$NON-NLS-1$
 		.to(PPPreferencesHelper.class);
+		binder.bind(IPreferenceStoreInitializer.class).annotatedWith(Names.named("FormatterGeneralPreferences")) //$NON-NLS-1$
+		.to(FormatterGeneralPreferences.class);
 	}
 
 	public void configureEditor(Binder binder) {
@@ -276,14 +288,29 @@ public class PPUiModule extends org.cloudsmith.geppetto.pp.dsl.ui.AbstractPPUiMo
 			PPOverridingLexer.class);
 	}
 
+	public void configureIIndentationInformationProvider(Binder binder) {
+		binder.bind(IIndentationInformation.class).toProvider(ResourceIIndentationInformationProvider.class);
+		// return new ResourceIIndentationInformationProvider();
+	}
+
 	/**
 	 * Binds providers of resource specific information (e.g. resource metadata, scoped preferences,
 	 * workspace etc.)
 	 */
 	public void configureResourceSpecificProviders(com.google.inject.Binder binder) {
 		binder.bind(ILineSeparatorInformation.class).toProvider(ResourceILineSeparatorProvider.class);
+		// binder.bind(IIndentationInformation.class).toProvider(ResourceIIndentationInformationProvider.class);
+		binder.bind(IPreferredMaxWidthInformation.class).toProvider(ResourceIPreferredWidthInformationProvider.class);
 	}
 
+	// /* (non-Javadoc)
+	// * @see org.eclipse.xtext.ui.DefaultUiModule#bindIIndentationInformation()
+	// */
+	// @Override
+	// public Class<? extends IIndentationInformation> bindIIndentationInformation() {
+	// // TODO Auto-generated method stub
+	// return super.bindIIndentationInformation();
+	// }
 	/**
 	 * Deal with dependency on JDT (not wanted).
 	 */

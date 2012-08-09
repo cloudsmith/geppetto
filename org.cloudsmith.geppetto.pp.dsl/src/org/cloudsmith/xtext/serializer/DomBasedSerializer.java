@@ -23,7 +23,7 @@ import org.cloudsmith.xtext.dommodel.formatter.IDomModelFormatter;
 import org.cloudsmith.xtext.dommodel.formatter.comments.ICommentConfiguration;
 import org.cloudsmith.xtext.dommodel.formatter.context.IFormattingContextFactory;
 import org.cloudsmith.xtext.dommodel.formatter.context.IFormattingContextFactory.FormattingOption;
-import org.cloudsmith.xtext.formatting.ILineSeparatorInformation;
+import org.eclipse.xtext.formatting.ILineSeparatorInformation;
 import org.cloudsmith.xtext.serializer.acceptor.DomModelSequenceAdapter;
 import org.eclipse.emf.common.util.Diagnostic;
 import org.eclipse.emf.ecore.EObject;

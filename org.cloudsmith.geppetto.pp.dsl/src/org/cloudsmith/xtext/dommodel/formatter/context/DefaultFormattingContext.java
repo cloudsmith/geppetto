@@ -11,9 +11,10 @@
  */
 package org.cloudsmith.xtext.dommodel.formatter.context;
 
-import org.cloudsmith.xtext.formatting.ILineSeparatorInformation;
+import org.cloudsmith.xtext.formatting.IPreferredMaxWidthInformation;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.xtext.formatting.IIndentationInformation;
+import org.eclipse.xtext.formatting.ILineSeparatorInformation;
 import org.eclipse.xtext.resource.XtextResource;
 
 import com.google.inject.Inject;
@@ -54,13 +55,19 @@ public class DefaultFormattingContext implements IFormattingContext {
 		@Inject
 		private Provider<IIndentationInformation> identInfoProvider;
 
+		@Inject
+		private Provider<IPreferredMaxWidthInformation> maxWidthProvider;
+
 		public IFormattingContext create(EObject semantic) {
 			return create(semantic, FormattingOption.Format);
 		}
 
 		public IFormattingContext create(EObject semantic, FormattingOption option) {
-			return new DefaultFormattingContext(
-				lineInfoProvider.get(), identInfoProvider.get(), option == FormattingOption.PreserveWhitespace);
+			return new DefaultFormattingContext(lineInfoProvider.get(), //
+				identInfoProvider.get(), //
+				option == FormattingOption.PreserveWhitespace, //
+				maxWidthProvider.get(), //
+				0); // additional indent - TODO: consider removing this option
 		}
 
 		@Override
@@ -80,42 +87,27 @@ public class DefaultFormattingContext implements IFormattingContext {
 
 	private boolean whitespacePreservation;
 
-	private int preferredMaxWidth;
+	private IPreferredMaxWidthInformation preferredMaxWidthInfo;
 
 	private int wrapIndentSize;
 
-	/**
-	 * Produces a non whitespace preserving formatting context using a preferred max width of 132
-	 * characters.
-	 * 
-	 * @param lineInfo
-	 * @param indentInfo
-	 */
-	@Inject
-	public DefaultFormattingContext(ILineSeparatorInformation lineInfo, IIndentationInformation indentInfo) {
-		this(lineInfo, indentInfo, false);
-	}
-
-	/**
-	 * Produces a context using a preferred max width of 132, and 0 additional wrap indent.
-	 * characters.
-	 * 
-	 * @param lineInfo
-	 * @param indentInfo
-	 * @param whitespacePreservation
-	 */
 	public DefaultFormattingContext(ILineSeparatorInformation lineInfo, IIndentationInformation indentInfo,
-			boolean whitespacePreservation) {
-		this(lineInfo, indentInfo, whitespacePreservation, 132, 0);
-	}
-
-	public DefaultFormattingContext(ILineSeparatorInformation lineInfo, IIndentationInformation indentInfo,
-			boolean whitespacePreservation, int preferredMaxWidth, int wrapIndentSize) {
+			boolean whitespacePreservation, IPreferredMaxWidthInformation preferredMaxWidthInfo, int wrapIndentSize) {
 		this.lineInfo = lineInfo;
 		this.indentInfo = indentInfo;
 		this.whitespacePreservation = whitespacePreservation;
-		this.preferredMaxWidth = preferredMaxWidth;
+		this.preferredMaxWidthInfo = preferredMaxWidthInfo;
 		this.wrapIndentSize = wrapIndentSize;
+
+	}
+
+	/**
+	 * Produces a non whitespace preserving formatting context.
+	 */
+	@Inject
+	public DefaultFormattingContext(ILineSeparatorInformation lineInfo, IIndentationInformation indentInfo,
+			IPreferredMaxWidthInformation maxWidthInfo) {
+		this(lineInfo, indentInfo, false, maxWidthInfo, 0);
 	}
 
 	@Override
@@ -130,7 +122,7 @@ public class DefaultFormattingContext implements IFormattingContext {
 
 	@Override
 	public int getPreferredMaxWidth() {
-		return preferredMaxWidth;
+		return preferredMaxWidthInfo.getPreferredMaxWidth();
 	}
 
 	@Override

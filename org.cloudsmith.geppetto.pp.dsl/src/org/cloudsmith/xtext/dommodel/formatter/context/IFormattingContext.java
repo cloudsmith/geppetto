@@ -11,7 +11,7 @@
  */
 package org.cloudsmith.xtext.dommodel.formatter.context;
 
-import org.cloudsmith.xtext.formatting.ILineSeparatorInformation;
+import org.eclipse.xtext.formatting.ILineSeparatorInformation;
 import org.eclipse.xtext.formatting.IIndentationInformation;
 
 import com.google.inject.ImplementedBy;

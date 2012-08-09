@@ -12,7 +12,7 @@
 package org.cloudsmith.geppetto.pp.dsl.ui.formatting;
 
 import org.cloudsmith.geppetto.pp.dsl.ui.preferences.data.FormatterGeneralPreferences;
-import org.cloudsmith.xtext.textflow.CharSequences;
+import org.cloudsmith.xtext.formatting.IPreferredMaxWidthInformation;
 import org.cloudsmith.xtext.ui.resource.PlatformResourceSpecificProvider;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.xtext.formatting.IIndentationInformation;
@@ -24,19 +24,19 @@ import com.google.inject.Inject;
  * resource.
  * 
  */
-public class ResourceIPreferredWidthInformationProvider extends PlatformResourceSpecificProvider<IIndentationInformation> {
+public class ResourceIPreferredWidthInformationProvider extends
+		PlatformResourceSpecificProvider<IPreferredMaxWidthInformation> {
 	@Inject
 	private FormatterGeneralPreferences formatterPreferences;
 
 	@Override
-	protected IIndentationInformation dataForResource(IResource resource) {
-		int indentSize = formatterPreferences.getIndentSize(resource);
-		final String indentString = CharSequences.spaces(indentSize).toString();
-		return new IIndentationInformation() {
+	protected IPreferredMaxWidthInformation dataForResource(IResource resource) {
+		final int maxWidth = formatterPreferences.getPreferredMaxWidth(resource);
+		return new IPreferredMaxWidthInformation() {
 
 			@Override
-			public String getIndentString() {
-				return indentString;
+			public int getPreferredMaxWidth() {
+				return maxWidth;
 			}
 
 		};

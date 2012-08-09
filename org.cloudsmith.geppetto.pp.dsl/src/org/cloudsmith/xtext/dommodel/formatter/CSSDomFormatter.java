@@ -17,7 +17,7 @@ import org.cloudsmith.xtext.dommodel.IDomNode;
 import org.cloudsmith.xtext.dommodel.formatter.ILayoutManager.ILayoutContext;
 import org.cloudsmith.xtext.dommodel.formatter.context.IFormattingContext;
 import org.cloudsmith.xtext.dommodel.formatter.css.DomCSS;
-import org.cloudsmith.xtext.formatting.ILineSeparatorInformation;
+import org.eclipse.xtext.formatting.ILineSeparatorInformation;
 import org.cloudsmith.xtext.textflow.ITextFlow;
 import org.cloudsmith.xtext.textflow.TextFlow;
 import org.eclipse.xtext.formatting.IIndentationInformation;

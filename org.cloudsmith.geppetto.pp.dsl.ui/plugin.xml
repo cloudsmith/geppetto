@@ -142,6 +142,15 @@
                  id="org.cloudsmith.geppetto.pp.dsl.ui.keyword_PP">
            </keywordReference>
         </page>
+        <page
+              category="org.cloudsmith.geppetto.pp.dsl.PP.formatter"
+              class="org.cloudsmith.geppetto.pp.dsl.ui.PPExecutableExtensionFactory:org.cloudsmith.geppetto.pp.dsl.ui.preferences.PPCommentsPreferencePage"
+              id="org.cloudsmith.geppetto.pp.dsl.PP.formatter.comments"
+              name="Comments">
+           <keywordReference
+                 id="org.cloudsmith.geppetto.pp.dsl.ui.keyword_PP">
+           </keywordReference>
+        </page>
     </extension>
     <extension
         point="org.eclipse.ui.keywords">
@@ -448,6 +457,14 @@
              class="org.cloudsmith.geppetto.pp.dsl.ui.PPExecutableExtensionFactory:org.cloudsmith.geppetto.pp.dsl.ui.preferences.PPFormatterPreferencePage"
              id="org.cloudsmith.geppetto.pp.dsl.PP.formatter"
              name="Formatter"
+             objectClass="org.eclipse.core.resources.IProject">
+       </page>
+       <page
+             adaptable="true"
+             category="org.cloudsmith.geppetto.pp.dsl.PP.formatter"
+             class="org.cloudsmith.geppetto.pp.dsl.ui.PPExecutableExtensionFactory:org.cloudsmith.geppetto.pp.dsl.ui.preferences.PPCommentsPreferencePage"
+             id="org.cloudsmith.geppetto.pp.dsl.PP.formatter.comments"
+             name="Comments"
              objectClass="org.eclipse.core.resources.IProject">
        </page>
     </extension>

@@ -14,7 +14,6 @@ package org.cloudsmith.geppetto.pp.dsl.ui.preferences.data;
 import org.cloudsmith.geppetto.pp.dsl.ui.preferences.PPPreferenceConstants;
 import org.cloudsmith.xtext.dommodel.formatter.comments.ICommentFormatterAdvice.BannerAdvice;
 import org.cloudsmith.xtext.dommodel.formatter.comments.ICommentFormatterAdvice.CommentTextAdvice;
-import org.cloudsmith.xtext.dommodel.formatter.comments.ICommentFormatterAdvice.LineAlignment;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.jface.preference.IPreferenceStore;
 
@@ -46,10 +45,28 @@ public class CommentPreferences extends AbstractPreferenceData {
 		store.setDefault(FORMATTER_COMMENTS_BANNERS, BannerAdvice.Truncate.toString());
 		store.setDefault(FORMATTER_COMMENTS_SL_ENABLED, "true");
 		store.setDefault(FORMATTER_COMMENTS_ML_ENABLED, "true");
-		store.setDefault(FORMATTER_COMMENTS_SPECIAL_LINES_ALIGNMENT, LineAlignment.Left.toString());
+		store.setDefault(FORMATTER_COMMENTS_SPECIAL_LINES_ALIGNMENT, "true");
 		store.setDefault(FORMATTER_COMMENTS_VERBATIM_DOUBLEDOLLAR, "true");
 		store.setDefault(FORMATTER_COMMENTS_TEXT, CommentTextAdvice.Fold.toString());
 
+	}
+
+	/**
+	 * Returns how <i>homogeneous</i> special lines (other than banners) should be aligned.
+	 * 
+	 * @return true, if line should be flush left
+	 */
+	public boolean getAlignSpecialLinesLeft() {
+		return getBoolean(FORMATTER_COMMENTS_SPECIAL_LINES_ALIGNMENT);
+	}
+
+	/**
+	 * Returns how <i>homogeneous</i> special lines (other than banners) should be aligned in the context of the given {@code IResource}.
+	 * 
+	 * @return true, if line should be flush left
+	 */
+	public boolean getAlignSpecialLinesLeft(IResource r) {
+		return getContextualBoolean(r, FORMATTER_COMMENTS_SPECIAL_LINES_ALIGNMENT);
 	}
 
 	/**
@@ -92,24 +109,6 @@ public class CommentPreferences extends AbstractPreferenceData {
 	public CommentTextAdvice getCommentTextAdvice(IResource r) {
 		return getContextualEnum(r, CommentTextAdvice.class, FORMATTER_COMMENTS_TEXT, CommentTextAdvice.Fold);
 
-	}
-
-	/**
-	 * Returns how <i>homogeneous</i> special lines (other than banners) should be aligned.
-	 * 
-	 * @return how special lines should be aligned
-	 */
-	public LineAlignment getHomogenousLineAlignment() {
-		return getEnum(LineAlignment.class, FORMATTER_COMMENTS_SPECIAL_LINES_ALIGNMENT, LineAlignment.Left);
-	}
-
-	/**
-	 * Returns how <i>homogeneous</i> special lines (other than banners) should be aligned in the context of the given {@code IResource}.
-	 * 
-	 * @return how special lines should be aligned
-	 */
-	public LineAlignment getHomogenousLineAlignment(IResource r) {
-		return getContextualEnum(r, LineAlignment.class, FORMATTER_COMMENTS_SPECIAL_LINES_ALIGNMENT, LineAlignment.Left);
 	}
 
 	@Override

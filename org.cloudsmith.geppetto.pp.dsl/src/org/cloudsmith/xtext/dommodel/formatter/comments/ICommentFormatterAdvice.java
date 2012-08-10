@@ -111,6 +111,15 @@ public interface ICommentFormatterAdvice {
 		}
 
 		/**
+		 * @return {@link org.cloudsmith.xtext.dommodel.formatter.comments.ICommentFormatterAdvice.LineAlignment.LineAlignment#LEFT
+		 *         LineAlignment.LEFT}
+		 */
+		@Override
+		public boolean getAlignSpecialLinesLeft() {
+			return true;
+		}
+
+		/**
 		 * Describes how a comment processor should handle banner lines that are longer than the
 		 * available width. A <i>banner line</li> is a line with 5 or more identical non letter or digit
 		 * characters (they do not have to be the same as the comment style's beginning of line character(s).
@@ -125,15 +134,6 @@ public interface ICommentFormatterAdvice {
 			return CommentTextAdvice.Fold;
 		}
 
-		/**
-		 * @return {@link org.cloudsmith.xtext.dommodel.formatter.comments.ICommentFormatterAdvice.LineAlignment.LineAlignment#LEFT
-		 *         LineAlignment.LEFT}
-		 */
-		@Override
-		public LineAlignment getHomogenousLineAlignment() {
-			return LineAlignment.Left;
-		}
-
 		@Override
 		public boolean isDoubleDollarVerbatim() {
 			return true;
@@ -141,22 +141,22 @@ public interface ICommentFormatterAdvice {
 
 	}
 
-	public static enum LineAlignment {
-		/**
-		 * The line is placed flush left (no left margin).
-		 */
-		Left,
-
-		/**
-		 * The line is aligned with the text's left margin.
-		 */
-		Text,
-
-		/**
-		 * The line is left as it is (no leading WS removed or inserted).
-		 */
-		Verbatim, ;
-	}
+	// public static enum LineAlignment {
+	// /**
+	// * The line is placed flush left (no left margin).
+	// */
+	// Left,
+	//
+	// /**
+	// * The line is aligned with the text's left margin.
+	// */
+	// Text,
+	//
+	// /**
+	// * The line is left as it is (no leading WS removed or inserted).
+	// */
+	// Verbatim, ;
+	// }
 
 	/**
 	 * If the advice is enabled, the more detailed advice should be used. If not, the comment should
@@ -165,6 +165,13 @@ public interface ICommentFormatterAdvice {
 	 * @return true if the advice is enabled
 	 */
 	public boolean enabled();
+
+	/**
+	 * Returns how <i>homogeneous</i> lines (other than banners) should be aligned.
+	 * 
+	 * @return
+	 */
+	public boolean getAlignSpecialLinesLeft();
 
 	/**
 	 * Returns how <i>banner lines</li> should be formatted.
@@ -181,13 +188,6 @@ public interface ICommentFormatterAdvice {
 	 * @return how comment text lines should be formatted
 	 */
 	public CommentTextAdvice getCommentTextAdvice();
-
-	/**
-	 * Returns how <i>homogeneous</i> lines (other than banners) should be aligned.
-	 * 
-	 * @return
-	 */
-	public LineAlignment getHomogenousLineAlignment();
 
 	/**
 	 * Returns if embedded sequences of $ ... $ should be verbatim or not

@@ -16,6 +16,7 @@ import org.cloudsmith.xtext.dommodel.formatter.comments.ICommentContainerInforma
 import org.cloudsmith.xtext.dommodel.formatter.comments.ICommentFormatterAdvice;
 
 import com.google.inject.Inject;
+import com.google.inject.Provider;
 import com.google.inject.name.Named;
 
 /**
@@ -29,11 +30,11 @@ public class PPCommentConfiguration extends ICommentConfiguration.Default {
 
 	@Inject
 	@Named(SL_FORMATTER_ADVICE_NAME)
-	ICommentFormatterAdvice slAdvice;
+	Provider<ICommentFormatterAdvice> slAdvice;
 
 	@Inject
 	@Named(ML_FORMATTER_ADVICE_NAME)
-	ICommentFormatterAdvice mlAdvice;
+	Provider<ICommentFormatterAdvice> mlAdvice;
 
 	@Override
 	public ICommentContainerInformation getContainerInformation(CommentType commentType) {
@@ -52,9 +53,9 @@ public class PPCommentConfiguration extends ICommentConfiguration.Default {
 		// CommentType commentType = (CommentType) genericCommentType;
 		switch(commentType) {
 			case SingleLine:
-				return slAdvice;
+				return slAdvice.get();
 			case Multiline:
-				return mlAdvice;
+				return mlAdvice.get();
 		}
 		// should not really happen - something is wrong, but return the Default advice.
 		return super.getFormatterAdvice(commentType);

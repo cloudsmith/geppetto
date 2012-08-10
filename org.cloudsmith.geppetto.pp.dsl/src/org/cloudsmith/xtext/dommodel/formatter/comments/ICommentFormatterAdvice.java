@@ -11,9 +11,7 @@
  */
 package org.cloudsmith.xtext.dommodel.formatter.comments;
 
-import org.cloudsmith.geppetto.pp.dsl.formatting.IFormattingAdvisor.DefaultCommentAdvice;
-
-import com.google.inject.ImplementedBy;
+import com.google.inject.Provider;
 
 /**
  * <p>
@@ -35,7 +33,6 @@ import com.google.inject.ImplementedBy;
  * with a special mechanism to apply it.
  * </p>
  */
-@ImplementedBy(DefaultCommentAdvice.class)
 public interface ICommentFormatterAdvice {
 
 	public static enum BannerAdvice {
@@ -137,6 +134,14 @@ public interface ICommentFormatterAdvice {
 		@Override
 		public boolean isDoubleDollarVerbatim() {
 			return true;
+		}
+
+	}
+
+	public static class DefaultCommentAdviceProvider implements Provider<ICommentFormatterAdvice> {
+		@Override
+		public ICommentFormatterAdvice get() {
+			return new DefaultCommentAdvice();
 		}
 
 	}

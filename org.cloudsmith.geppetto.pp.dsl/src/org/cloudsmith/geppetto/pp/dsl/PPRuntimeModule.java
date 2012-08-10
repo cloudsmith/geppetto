@@ -184,12 +184,12 @@ public class PPRuntimeModule extends org.cloudsmith.geppetto.pp.dsl.AbstractPPRu
 		// This binding should be overridden in ui binding with preference and resource specific provider
 		binder.bind(ICommentFormatterAdvice.class) //
 		.annotatedWith(com.google.inject.name.Names.named(PPCommentConfiguration.SL_FORMATTER_ADVICE_NAME))//
-		.to(ICommentFormatterAdvice.DefaultCommentAdvice.class);
+		.toProvider(ICommentFormatterAdvice.DefaultCommentAdviceProvider.class);
 
 		// This binding should be overridden in ui binding with preference and resource specific provider
 		binder.bind(ICommentFormatterAdvice.class) //
 		.annotatedWith(com.google.inject.name.Names.named(PPCommentConfiguration.ML_FORMATTER_ADVICE_NAME))//
-		.to(ICommentFormatterAdvice.DefaultCommentAdvice.class);
+		.toProvider(ICommentFormatterAdvice.DefaultCommentAdviceProvider.class);
 
 		// Bind default layout for all types of comments to MoveThenFold layout
 		binder.bind(ILayout.class).annotatedWith(com.google.inject.name.Names.named(FlowLayout.COMMENT_LAYOUT_NAME)) //

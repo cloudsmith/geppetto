@@ -112,7 +112,7 @@ public class CommentPreferences extends AbstractPreferenceData {
 	}
 
 	@Override
-	protected String getUseProjectSettingsID() {
+	public String getUseProjectSettingsID() {
 		return FORMATTER_COMMENTS_USE_PROJECT_SETTINGS;
 	}
 
@@ -121,7 +121,7 @@ public class CommentPreferences extends AbstractPreferenceData {
 	 * 
 	 * @return true if text between $ should be verbatim
 	 */
-	boolean isDoubleDollarVerbatim() {
+	public boolean isDoubleDollarVerbatim() {
 		return getBoolean(FORMATTER_COMMENTS_VERBATIM_DOUBLEDOLLAR);
 	}
 
@@ -130,7 +130,7 @@ public class CommentPreferences extends AbstractPreferenceData {
 	 * 
 	 * @return true if text between $ should be verbatim
 	 */
-	boolean isDoubleDollarVerbatim(IResource r) {
+	public boolean isDoubleDollarVerbatim(IResource r) {
 		return getContextualBoolean(r, FORMATTER_COMMENTS_VERBATIM_DOUBLEDOLLAR);
 	}
 

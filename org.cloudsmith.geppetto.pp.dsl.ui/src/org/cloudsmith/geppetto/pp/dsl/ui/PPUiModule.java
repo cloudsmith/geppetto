@@ -29,6 +29,7 @@ import org.cloudsmith.geppetto.pp.dsl.ui.editor.autoedit.PPTokenTypeToPartionMap
 import org.cloudsmith.geppetto.pp.dsl.ui.editor.folding.PPFoldingRegionProvider;
 import org.cloudsmith.geppetto.pp.dsl.ui.editor.hyperlinking.PPHyperlinkHelper;
 import org.cloudsmith.geppetto.pp.dsl.ui.editor.toggleComments.PPSingleLineCommentHelper;
+import org.cloudsmith.geppetto.pp.dsl.ui.formatting.ResourceICommentFormatterAdviceProviders;
 import org.cloudsmith.geppetto.pp.dsl.ui.formatting.ResourceIIndentationInformationProvider;
 import org.cloudsmith.geppetto.pp.dsl.ui.formatting.ResourceIPreferredWidthInformationProvider;
 import org.cloudsmith.geppetto.pp.dsl.ui.linked.ExtLinkedXtextEditor;
@@ -267,19 +268,16 @@ public class PPUiModule extends org.cloudsmith.geppetto.pp.dsl.ui.AbstractPPUiMo
 	 * @see #configureResourceSpecificProviders(Binder)
 	 */
 	public void configureFormatting(com.google.inject.Binder binder) {
-		// TODO: bind general formatting advice to preference based provider
 
-		// TODO: replace with preference based binding
-		// This binding should be overridden in ui binding with preference and resource specific provider
+		// Binds resource specific comment advice provider for SL comments
 		binder.bind(ICommentFormatterAdvice.class) //
 		.annotatedWith(com.google.inject.name.Names.named(PPCommentConfiguration.SL_FORMATTER_ADVICE_NAME))//
-		.to(ICommentFormatterAdvice.DefaultCommentAdvice.class);
+		.toProvider(ResourceICommentFormatterAdviceProviders.SLCommentAdviceProvider.class);
 
-		// TODO: replace with preference based binding
-		// This binding should be overridden in ui binding with preference and resource specific provider
+		// Binds resource specific comment advice provider for ML comments
 		binder.bind(ICommentFormatterAdvice.class) //
 		.annotatedWith(com.google.inject.name.Names.named(PPCommentConfiguration.ML_FORMATTER_ADVICE_NAME))//
-		.to(ICommentFormatterAdvice.DefaultCommentAdvice.class);
+		.toProvider(ResourceICommentFormatterAdviceProviders.MLCommentAdviceProvider.class);
 
 	}
 
@@ -304,6 +302,7 @@ public class PPUiModule extends org.cloudsmith.geppetto.pp.dsl.ui.AbstractPPUiMo
 		binder.bind(ILineSeparatorInformation.class).toProvider(ResourceILineSeparatorProvider.class);
 		// binder.bind(IIndentationInformation.class).toProvider(ResourceIIndentationInformationProvider.class);
 		binder.bind(IPreferredMaxWidthInformation.class).toProvider(ResourceIPreferredWidthInformationProvider.class);
+
 	}
 
 	// /* (non-Javadoc)

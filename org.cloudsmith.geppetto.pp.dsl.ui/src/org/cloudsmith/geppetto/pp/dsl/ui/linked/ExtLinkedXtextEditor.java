@@ -10,7 +10,7 @@ package org.cloudsmith.geppetto.pp.dsl.ui.linked;
 
 import java.io.File;
 
-import org.cloudsmith.geppetto.pp.dsl.ui.preferences.PPPreferenceConstants;
+import org.cloudsmith.geppetto.pp.dsl.ui.preferences.data.FormatterGeneralPreferences;
 import org.eclipse.core.filesystem.EFS;
 import org.eclipse.core.filesystem.IFileStore;
 import org.eclipse.core.filesystem.URIUtil;
@@ -107,7 +107,7 @@ public class ExtLinkedXtextEditor extends XtextEditor {
 	protected void configureSourceViewerDecorationSupport(SourceViewerDecorationSupport support) {
 		super.configureSourceViewerDecorationSupport(support);
 		support.setMarginPainterPreferenceKeys(
-			PRINT_MARGIN, PRINT_MARGIN_COLOR, PPPreferenceConstants.FORMATTER_MAXWIDTH);
+			PRINT_MARGIN, PRINT_MARGIN_COLOR, FormatterGeneralPreferences.FORMATTER_MAXWIDTH);
 
 		// support.setCharacterPairMatcher(characterPairMatcher);
 		// support.setMatchingCharacterPainterPreferenceKeys(BracketMatchingPreferencesInitializer.IS_ACTIVE_KEY,

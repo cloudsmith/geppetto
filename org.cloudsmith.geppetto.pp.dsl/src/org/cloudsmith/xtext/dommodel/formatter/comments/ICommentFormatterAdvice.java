@@ -11,10 +11,6 @@
  */
 package org.cloudsmith.xtext.dommodel.formatter.comments;
 
-import java.util.Collections;
-import java.util.List;
-import java.util.regex.Pattern;
-
 import org.cloudsmith.geppetto.pp.dsl.formatting.IFormattingAdvisor.DefaultCommentAdvice;
 
 import com.google.inject.ImplementedBy;
@@ -139,8 +135,8 @@ public interface ICommentFormatterAdvice {
 		}
 
 		@Override
-		public List<SpecialLineAdvice> getSpecialLinesAdvice() {
-			return Collections.emptyList();
+		public boolean isDoubleDollarVerbatim() {
+			return true;
 		}
 
 	}
@@ -160,31 +156,6 @@ public interface ICommentFormatterAdvice {
 		 * The line is left as it is (no leading WS removed or inserted).
 		 */
 		Verbatim, ;
-	}
-
-	public interface SpecialLineAdvice {
-		/**
-		 * How a
-		 * 
-		 * @return
-		 */
-		public CommentTextAdvice getCommentTextAdvice();
-
-		/**
-		 * Describes how a matching line should be aligned.
-		 * 
-		 * @return a line alignment
-		 */
-		public LineAlignment getLineAlignment();
-
-		/**
-		 * If a line of text (after comment container characters have been removed) matches the
-		 * pattern, the line will will be aligned as described by {@link #getLineAlignment()},
-		 * and formatted as described by {@link #getCommentTextAdvice()}
-		 * 
-		 * @return pattern matching a verbatim line
-		 */
-		public Pattern getLinePattern();
 	}
 
 	/**
@@ -219,11 +190,10 @@ public interface ICommentFormatterAdvice {
 	public LineAlignment getHomogenousLineAlignment();
 
 	/**
-	 * Returns a list of advice for lines that should be treated specially. This allows
-	 * advice for lines that have machine readable identifiers (e.g. text injected by CM system).
+	 * Returns if embedded sequences of $ ... $ should be verbatim or not
 	 * 
-	 * @return
+	 * @return true if text between $ should be verbatim
 	 */
-	public List<SpecialLineAdvice> getSpecialLinesAdvice();
+	boolean isDoubleDollarVerbatim();
 
 }

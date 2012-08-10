@@ -11,6 +11,7 @@
  */
 package org.cloudsmith.geppetto.pp.dsl.ui.preferences;
 
+import org.cloudsmith.geppetto.pp.dsl.ui.preferences.data.FormatterGeneralPreferences;
 import org.cloudsmith.geppetto.pp.dsl.ui.preferences.editors.AbstractPreferencePage;
 import org.cloudsmith.geppetto.pp.dsl.ui.preferences.editors.IntegerFieldEditor;
 
@@ -25,14 +26,14 @@ public class PPFormatterPreferencePage extends AbstractPreferencePage {
 	protected void createFieldEditors() {
 
 		IntegerFieldEditor indentSizeFieldEditor = new IntegerFieldEditor(
-			PPPreferenceConstants.FORMATTER_INDENTSIZE, "Indentation size", getFieldEditorParent(), 2, 4);
+			FormatterGeneralPreferences.FORMATTER_INDENTSIZE, "Indentation size", getFieldEditorParent(), 2, 4);
 		indentSizeFieldEditor.setEmptyStringAllowed(false);
 		indentSizeFieldEditor.setTextLimit(2);
 		indentSizeFieldEditor.setValidRange(2, 16);
 		addField(indentSizeFieldEditor);
 
 		IntegerFieldEditor maxWidthFieldEditor = new IntegerFieldEditor(
-			PPPreferenceConstants.FORMATTER_MAXWIDTH, "Preferred max width", getFieldEditorParent(), 3, 4);
+			FormatterGeneralPreferences.FORMATTER_MAXWIDTH, "Preferred max width", getFieldEditorParent(), 3, 4);
 		maxWidthFieldEditor.setEmptyStringAllowed(false);
 		indentSizeFieldEditor.setTextLimit(3);
 		maxWidthFieldEditor.setValidRange(40, 255);

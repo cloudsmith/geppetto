@@ -37,9 +37,18 @@ public abstract class AbstractPreferenceData implements IPreferenceStoreInitiali
 	}
 
 	protected boolean getContextualBoolean(IResource r, String property) {
-		Preconditions.checkNotNull(access, getInitializationErrorMessage());
-		IPreferenceStore store = access.getContextPreferenceStore(r.getProject());
-		return store.getBoolean(property);
+		return getContextualStore(r).getBoolean(property);
+
+	}
+
+	protected <T extends Enum<T>> T getContextualEnum(IResource r, Class<T> anEnum, String property, T defaultValue) {
+		Preconditions.checkNotNull(defaultValue);
+		try {
+			return Enum.valueOf(anEnum, getContextualString(r, property));
+		}
+		catch(IllegalArgumentException e) {
+			return defaultValue;
+		}
 
 	}
 
@@ -47,6 +56,26 @@ public abstract class AbstractPreferenceData implements IPreferenceStoreInitiali
 		Preconditions.checkNotNull(access, getInitializationErrorMessage());
 		IPreferenceStore store = access.getContextPreferenceStore(r.getProject());
 		return store.getInt(property);
+	}
+
+	protected IPreferenceStore getContextualStore(IResource r) {
+		Preconditions.checkNotNull(access, getInitializationErrorMessage());
+		return access.getContextPreferenceStore(r.getProject());
+	}
+
+	protected String getContextualString(IResource r, String property) {
+		return getContextualStore(r).getString(property);
+
+	}
+
+	protected <T extends Enum<T>> T getEnum(Class<T> anEnum, String property, T defaultValue) {
+		Preconditions.checkNotNull(defaultValue);
+		try {
+			return Enum.valueOf(anEnum, getString(property));
+		}
+		catch(IllegalArgumentException e) {
+			return defaultValue;
+		}
 	}
 
 	private String getInitializationErrorMessage() {
@@ -69,6 +98,17 @@ public abstract class AbstractPreferenceData implements IPreferenceStoreInitiali
 		return access;
 	}
 
+	protected String getString(String property) {
+		return access.getPreferenceStore().getString(property);
+	}
+
+	/**
+	 * Return the ID of the Boolean preference to use to indicate that the preferences managed by the concrete class
+	 * are project specific. This boolean is set to true when they are, and is false, or not set at all when the
+	 * general defaults should be used.
+	 * 
+	 * @return the name of a the Boolean preference indicating that the preferences are project specific
+	 */
 	protected abstract String getUseProjectSettingsID();
 
 	@Override

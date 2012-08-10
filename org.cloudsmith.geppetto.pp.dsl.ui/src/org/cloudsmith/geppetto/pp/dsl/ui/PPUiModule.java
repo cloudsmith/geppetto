@@ -36,6 +36,7 @@ import org.cloudsmith.geppetto.pp.dsl.ui.linked.ISaveActions;
 import org.cloudsmith.geppetto.pp.dsl.ui.linking.PPUISearchPathProvider;
 import org.cloudsmith.geppetto.pp.dsl.ui.outline.PPLocationInFileProvider;
 import org.cloudsmith.geppetto.pp.dsl.ui.preferences.PPPreferencesHelper;
+import org.cloudsmith.geppetto.pp.dsl.ui.preferences.data.CommentPreferences;
 import org.cloudsmith.geppetto.pp.dsl.ui.preferences.data.FormatterGeneralPreferences;
 import org.cloudsmith.geppetto.pp.dsl.ui.preferences.editors.PPPreferenceStoreAccess;
 import org.cloudsmith.geppetto.pp.dsl.ui.resource.PPResource;
@@ -254,6 +255,8 @@ public class PPUiModule extends org.cloudsmith.geppetto.pp.dsl.ui.AbstractPPUiMo
 		.to(PPPreferencesHelper.class);
 		binder.bind(IPreferenceStoreInitializer.class).annotatedWith(Names.named("FormatterGeneralPreferences")) //$NON-NLS-1$
 		.to(FormatterGeneralPreferences.class);
+		binder.bind(IPreferenceStoreInitializer.class).annotatedWith(Names.named("CommentPreferences")) //$NON-NLS-1$
+		.to(CommentPreferences.class);
 	}
 
 	public void configureEditor(Binder binder) {

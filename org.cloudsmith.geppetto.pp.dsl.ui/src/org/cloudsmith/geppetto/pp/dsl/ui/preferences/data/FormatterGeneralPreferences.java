@@ -15,7 +15,6 @@ import org.cloudsmith.geppetto.pp.dsl.ui.preferences.PPPreferenceConstants;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.util.IPropertyChangeListener;
-import org.eclipse.jface.util.PropertyChangeEvent;
 
 import com.google.inject.Singleton;
 
@@ -28,19 +27,28 @@ public class FormatterGeneralPreferences extends AbstractPreferenceData {
 
 	IPropertyChangeListener pChangeListener;
 
+	public static final String FORMATTER_MAXWIDTH = "formatterPreferredWidth";
+
+	public static final String FORMATTER_INDENTSIZE = "formatterIndentSize";
+
+	public static final String FORMATTER_GENERAL_ID = "org.cloudsmith.geppetto.pp.dsl.PP.formatter";
+
+	public static final String FORMATTER_GENERAL_USE_PROJECT_SETTINGS = FORMATTER_GENERAL_ID + "." +
+			PPPreferenceConstants.USE_PROJECT_SETTINGS;
+
 	@Override
 	protected void doInitialize(IPreferenceStore store) {
 		// formatting
-		store.setDefault(PPPreferenceConstants.FORMATTER_INDENTSIZE, "2");
-		store.setDefault(PPPreferenceConstants.FORMATTER_MAXWIDTH, "132");
-		store.addPropertyChangeListener(new IPropertyChangeListener() {
-
-			@Override
-			public void propertyChange(PropertyChangeEvent event) {
-				System.out.println("Property changed: " + event.getProperty() + "old: " + event.getOldValue() +
-						" new value:" + event.getNewValue());
-			}
-		});
+		store.setDefault(FormatterGeneralPreferences.FORMATTER_INDENTSIZE, "2");
+		store.setDefault(FormatterGeneralPreferences.FORMATTER_MAXWIDTH, "132");
+		// store.addPropertyChangeListener(new IPropertyChangeListener() {
+		//
+		// @Override
+		// public void propertyChange(PropertyChangeEvent event) {
+		// System.out.println("Property changed: " + event.getProperty() + "old: " + event.getOldValue() +
+		// " new value:" + event.getNewValue());
+		// }
+		// });
 	}
 
 	/**
@@ -49,7 +57,7 @@ public class FormatterGeneralPreferences extends AbstractPreferenceData {
 	 * @return size of indent (spaces) measured in number of characters
 	 */
 	public int getIndentSize() {
-		return getInt(PPPreferenceConstants.FORMATTER_INDENTSIZE);
+		return getInt(FormatterGeneralPreferences.FORMATTER_INDENTSIZE);
 	}
 
 	/**
@@ -58,7 +66,7 @@ public class FormatterGeneralPreferences extends AbstractPreferenceData {
 	 * @return size of indent (spaces) measured in number of characters
 	 */
 	public int getIndentSize(IResource r) {
-		return getInt(r, PPPreferenceConstants.FORMATTER_INDENTSIZE);
+		return getInt(r, FormatterGeneralPreferences.FORMATTER_INDENTSIZE);
 	}
 
 	/**
@@ -67,7 +75,7 @@ public class FormatterGeneralPreferences extends AbstractPreferenceData {
 	 * @return size of indent (spaces) measured in number of characters
 	 */
 	public int getPreferredMaxWidth() {
-		return getInt(PPPreferenceConstants.FORMATTER_MAXWIDTH);
+		return getInt(FormatterGeneralPreferences.FORMATTER_MAXWIDTH);
 	}
 
 	/**
@@ -76,12 +84,12 @@ public class FormatterGeneralPreferences extends AbstractPreferenceData {
 	 * @return size of indent (spaces) measured in number of characters
 	 */
 	public int getPreferredMaxWidth(IResource r) {
-		return getInt(r, PPPreferenceConstants.FORMATTER_MAXWIDTH);
+		return getInt(r, FormatterGeneralPreferences.FORMATTER_MAXWIDTH);
 	}
 
 	@Override
 	protected String getUseProjectSettingsID() {
-		return PPPreferenceConstants.FORMATTER_GENERAL_USE_PROJECT_SETTINGS;
+		return FormatterGeneralPreferences.FORMATTER_GENERAL_USE_PROJECT_SETTINGS;
 	}
 
 }

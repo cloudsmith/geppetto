@@ -108,19 +108,23 @@ public class CommentProcessor {
 
 		private boolean retainInline;
 
-		public CommentFormattingOptions(int maxWidth) {
-			this(maxWidth, 1, 1, true);
+		private ICommentFormatterAdvice advice;
+
+		public CommentFormattingOptions(ICommentFormatterAdvice advice, int maxWidth) {
+			this(advice, maxWidth, 1, 1, true);
 		}
 
-		public CommentFormattingOptions(int maxWidth, int trailing) {
-			this(maxWidth, trailing, trailing, true);
+		public CommentFormattingOptions(ICommentFormatterAdvice advice, int maxWidth, int trailing) {
+			this(advice, maxWidth, trailing, trailing, true);
 		}
 
-		public CommentFormattingOptions(int maxWidth, int minEmptyTrailing, int maxEmptyTrailing, boolean retainInline) {
+		public CommentFormattingOptions(ICommentFormatterAdvice advice, int maxWidth, int minEmptyTrailing,
+				int maxEmptyTrailing, boolean retainInline) {
 			this.maxWidth = maxWidth;
 			this.minEmptyTrailing = minEmptyTrailing;
 			this.maxEmptyTrailing = maxEmptyTrailing;
 			this.retainInline = retainInline;
+			this.advice = advice;
 		}
 
 		/**
@@ -174,6 +178,7 @@ public class CommentProcessor {
 
 	protected TextFlow emit(CommentText commentText, ICommentContainerInformation out,
 			CommentFormattingOptions options, IFormattingContext formattingContext) {
+		final ICommentFormatterAdvice advice = options.advice;
 		final String lineSeparator = formattingContext.getLineSeparatorInformation().getLineSeparator();
 		final String endToken = out.getEndToken();
 		List<CharSequence> lines = commentText.lines;
@@ -201,16 +206,27 @@ public class CommentProcessor {
 
 				CharSequence s = lines.get(i);
 				if(s.length() > 0) {
-					// Homogeneous lines should not have a leftMargin e.g. '#---' '********'
+					boolean hasBannerLength = s.length() > 4;
+					boolean alignSpecialLeft = advice.getAlignSpecialLinesLeft();
+
+					// Homogeneous lines should not have a leftMargin e.g. '#---' '********' unless advice says so
 					// anything starting with letter or digit, or that is not homogeneous has a leftMargin
-					if(Character.isLetterOrDigit(s.charAt(0)) || !(CharSequences.isHomogeneous(s)))
+					if(Character.isLetterOrDigit(s.charAt(0)) //
+							||
+							!(CharSequences.isHomogeneous(s) && (hasBannerLength || alignSpecialLeft)))
 						flow.append(leftMargin);
 					flow.append(s);
+
+					// // Homogeneous lines should not have a leftMargin e.g. '#---' '********' unless advice says so
+					// // anything starting with letter or digit, or that is not homogeneous has a leftMargin
+					// if(Character.isLetterOrDigit(s.charAt(0)) || !advice.getAlignSpecialLinesLeft() ||
+					// !(CharSequences.isHomogeneous(s)))
+					// flow.append(leftMargin);
+					// flow.append(s);
 				}
 				if(!singleLine)
 					flow.append(lineSeparator);
 			}
-
 			// process last line
 			if(singleLine) {
 				// last line is the same as the first
@@ -266,7 +282,7 @@ public class CommentProcessor {
 
 	}
 
-	public List<CharSequence> foldLine(CharSequence s, int width) {
+	public List<CharSequence> foldLine(CharSequence s, int width, ICommentFormatterAdvice advice) {
 		ArrayList<CharSequence> result = Lists.newArrayList();
 		int originalIndentation = CharSequences.indexOfNonWhitespace(s, 0);
 		if(originalIndentation == -1) {
@@ -276,12 +292,16 @@ public class CommentProcessor {
 			result.add(s);
 		}
 		else {
+			CharSequence template = protectedRegionsTemplate(s, advice);
+
 			while(s != null && s.length() > width) {
 				// chop of first part
-				int end = CharSequences.lastIndexOfWhitespace(s, width);
+				// int end = CharSequences.lastIndexOfWhitespace(s, width);
+				int end = CharSequences.lastIndexOfWhitespace(template, width);
 				if(end < 0) {
 					// could not make first part of string comply with width, make it as short as possible
-					end = CharSequences.indexOfWhitespace(s, width);
+					// end = CharSequences.indexOfWhitespace(s, width);
+					end = CharSequences.indexOfWhitespace(template, width);
 				}
 				if(end == -1 || end == s.length() - 1) {
 					// have to accept all of it
@@ -290,19 +310,24 @@ public class CommentProcessor {
 				}
 				else {
 					CharSequence t = s.subSequence(0, end);
-					CharSequences.trim(t, 0, end);
+					t = CharSequences.trim(t, 0, end);
 					result.add(t);
 
+					// adjust s and template
 					s = s.subSequence(end, s.length());
+					template = template.subSequence(end, template.length());
+
 					// if just spaces, or empty stuff, do not make it into a line
 					if(CharSequences.isEmpty(s)) {
 						s = null;
 					}
 					else {
 						s = CharSequences.trim(s, end, 0);
+						template = CharSequences.trim(template, end, 0);
 						// indent the hacked off part to same position as original
 						// (note that spaces function returns empty sequence if count < 0)
 						s = CharSequences.concatenate(CharSequences.spaces(originalIndentation), s);
+						template = CharSequences.concatenate(CharSequences.spaces(originalIndentation), template);
 					}
 				}
 			}
@@ -313,17 +338,28 @@ public class CommentProcessor {
 		return result;
 	}
 
-	public void foldLines(List<CharSequence> lines, int width) {
+	public void foldLines(List<CharSequence> lines, ICommentFormatterAdvice advice, int width) {
 		int limit = lines.size();
 		for(int i = 0; i < limit; i++) {
 			CharSequence s = lines.get(i);
 			if(s.length() > width) {
 				// shorten if banner, else fold
 				if(isBanner(s)) {
-					lines.set(i, s.subSequence(0, width + 1));
+					switch(advice.getBannerAdvice()) {
+						case Truncate:
+							lines.set(i, s.subSequence(0, width + 1));
+							break;
+						case Fold:
+							lines.set(i, s.subSequence(0, width + 1));
+							lines.add(i + 1, s.subSequence(width, s.length()));
+							break;
+						case NoWrap:
+							// keep it
+							break;
+					}
 				}
 				else {
-					List<CharSequence> folded = foldLine(s, width);
+					List<CharSequence> folded = foldLine(s, width, advice);
 					lines.set(i, folded.get(0));
 					lines.addAll(i + 1, folded.subList(1, folded.size()));
 				}
@@ -339,7 +375,8 @@ public class CommentProcessor {
 
 	public TextFlow formatComment(CommentText commentText, ICommentContainerInformation out,
 			CommentFormattingOptions options, IFormattingContext context) {
-		foldLines(commentText.lines, options.getMaxWidth() - out.getMarkerColumnWidth() - out.getLeftMargin());
+		foldLines(
+			commentText.lines, options.advice, options.getMaxWidth() - out.getMarkerColumnWidth() - out.getLeftMargin());
 		TextFlow result = emit(commentText, out, options, context);
 		return result;
 
@@ -370,6 +407,30 @@ public class CommentProcessor {
 				break;
 		}
 		return count;
+	}
+
+	private CharSequence protectedRegionsTemplate(CharSequence s, ICommentFormatterAdvice advice) {
+		if(!advice.isDoubleDollarVerbatim())
+			return s;
+		boolean inProtectedArea = false;
+		StringBuilder builder = new StringBuilder(s.length());
+		for(int i = 0; i < s.length(); i++) {
+			char c = s.charAt(i);
+			if(inProtectedArea)
+				builder.append("x");
+			else {
+				if(c == '$') {
+					if(inProtectedArea)
+						inProtectedArea = false;
+					else {
+						if(CharSequences.indexOf(s, "$", i + 1) > 0)
+							inProtectedArea = true;
+					}
+				}
+				builder.append(c);
+			}
+		}
+		return builder;
 	}
 
 	/**

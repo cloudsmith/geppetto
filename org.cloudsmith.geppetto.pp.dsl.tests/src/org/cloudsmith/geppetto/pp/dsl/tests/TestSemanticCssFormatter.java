@@ -27,6 +27,7 @@ import org.cloudsmith.xtext.dommodel.formatter.comments.CommentProcessor;
 import org.cloudsmith.xtext.dommodel.formatter.comments.CommentProcessor.CommentFormattingOptions;
 import org.cloudsmith.xtext.dommodel.formatter.comments.ICommentContainerInformation;
 import org.cloudsmith.xtext.dommodel.formatter.comments.ICommentContainerInformation.JavaLikeMLCommentContainer;
+import org.cloudsmith.xtext.dommodel.formatter.comments.ICommentFormatterAdvice;
 import org.cloudsmith.xtext.dommodel.formatter.context.IFormattingContext;
 import org.cloudsmith.xtext.dommodel.formatter.css.DomCSS;
 import org.cloudsmith.xtext.serializer.DomBasedSerializer;
@@ -158,7 +159,8 @@ public class TestSemanticCssFormatter extends AbstractPuppetTests {
 	}
 
 	public void test_CommentProcessor() {
-		CommentFormattingOptions options = new CommentFormattingOptions(80);
+		CommentFormattingOptions options = new CommentFormattingOptions(
+			new ICommentFormatterAdvice.DefaultCommentAdvice(), 80);
 		JavaLikeMLCommentContainer in = new ICommentContainerInformation.JavaLikeMLCommentContainer(0);
 		CommentProcessor cp = new CommentProcessor();
 		String source = "/* the\nquick\n     *brown\n * fox\n   \n\n*/ ";
@@ -169,7 +171,8 @@ public class TestSemanticCssFormatter extends AbstractPuppetTests {
 	}
 
 	public void test_CommentProcessor_bannerfolding() {
-		CommentFormattingOptions options = new CommentFormattingOptions(24);
+		CommentFormattingOptions options = new CommentFormattingOptions(
+			new ICommentFormatterAdvice.DefaultCommentAdvice(), 24);
 		JavaLikeMLCommentContainer in = new ICommentContainerInformation.JavaLikeMLCommentContainer(0);
 		CommentProcessor cp = new CommentProcessor();
 
@@ -191,7 +194,8 @@ public class TestSemanticCssFormatter extends AbstractPuppetTests {
 	}
 
 	public void test_CommentProcessor_folding() {
-		CommentFormattingOptions options = new CommentFormattingOptions(24);
+		CommentFormattingOptions options = new CommentFormattingOptions(
+			new ICommentFormatterAdvice.DefaultCommentAdvice(), 24);
 		JavaLikeMLCommentContainer in = new ICommentContainerInformation.JavaLikeMLCommentContainer(0);
 		CommentProcessor cp = new CommentProcessor();
 
@@ -212,7 +216,8 @@ public class TestSemanticCssFormatter extends AbstractPuppetTests {
 	}
 
 	public void test_CommentProcessor_folding_indent() {
-		CommentFormattingOptions options = new CommentFormattingOptions(26);
+		CommentFormattingOptions options = new CommentFormattingOptions(
+			new ICommentFormatterAdvice.DefaultCommentAdvice(), 26);
 		JavaLikeMLCommentContainer in = new ICommentContainerInformation.JavaLikeMLCommentContainer(0);
 		CommentProcessor cp = new CommentProcessor();
 
@@ -234,7 +239,8 @@ public class TestSemanticCssFormatter extends AbstractPuppetTests {
 	public void test_CommentProcessor_Indented() {
 		JavaLikeMLCommentContainer in = new ICommentContainerInformation.JavaLikeMLCommentContainer(2);
 		CommentProcessor cp = new CommentProcessor();
-		CommentFormattingOptions options = new CommentFormattingOptions(80);
+		CommentFormattingOptions options = new CommentFormattingOptions(
+			new ICommentFormatterAdvice.DefaultCommentAdvice(), 80);
 		String source = "/* the\n  quick\n       *brown\n   * fox\n     \n  \n  */ ";
 		IFormattingContext fmtCtx = get(IFormattingContext.class);
 		TextFlow s = cp.formatComment(source, in, in, options, fmtCtx);

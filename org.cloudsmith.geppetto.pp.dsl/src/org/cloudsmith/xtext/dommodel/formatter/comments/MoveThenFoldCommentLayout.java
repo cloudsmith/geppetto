@@ -133,12 +133,13 @@ public class MoveThenFoldCommentLayout extends AbstractLayout {
 		// format in position 0 to measure it
 		ICommentContainerInformation out = pos0Context;
 		TextFlow formatted = cpr.formatComment(
-			comment, out, new CommentFormattingOptions(Integer.MAX_VALUE), layoutContext);
+			comment, out, new CommentFormattingOptions(advice, Integer.MAX_VALUE), layoutContext);
 		int w = formatted.getWidth();
 		if(w <= available) {
 			// yay, it will fit as a hanging comment, reformat for this position.
 			out = commentContext.create(current);
-			formatted = cpr.formatComment(comment, out, new CommentFormattingOptions(Integer.MAX_VALUE), layoutContext);
+			formatted = cpr.formatComment(
+				comment, out, new CommentFormattingOptions(advice, Integer.MAX_VALUE), layoutContext);
 			output.appendText(formatted.getText()); // , true);
 		}
 		else {
@@ -166,8 +167,8 @@ public class MoveThenFoldCommentLayout extends AbstractLayout {
 			// format (will wrap if required)
 			// Enforce a min trailing empty line of 1 if this is a ML comment that is not on the same line,
 			// but use 0 for SL comments (rule may be applied after split).
-			formatted = cpr.formatComment(
-				comment, out, new CommentFormattingOptions(maxWidth - use, commentContext.isSLStyle()
+			formatted = cpr.formatComment(comment, out, new CommentFormattingOptions(
+				advice, maxWidth - use, commentContext.isSLStyle()
 						? 0
 						: 1), layoutContext);
 			output.appendText(formatted.getText()); // , true);

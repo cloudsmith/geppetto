@@ -62,16 +62,18 @@ public class DomNodeLayoutFeeder {
 		sequence(node, output, context, Predicates.<IDomNode> alwaysFalse());
 	}
 
-	public void sequence(IDomNode node, ITextFlow output, ILayoutContext context, Predicate<IDomNode> until) {
+	public IDomNode sequence(IDomNode node, ITextFlow output, ILayoutContext context, Predicate<IDomNode> until) {
 		if(until.apply(node))
-			return;
+			return node;
 		if(node.isLeaf())
 			sequenceLeaf(node, output, context);
 		else
-			sequenceComposite(node, output, context, until);
+			return sequenceComposite(node, output, context, until);
+		return null;
 	}
 
-	protected void sequenceComposite(IDomNode node, ITextFlow output, ILayoutContext context, Predicate<IDomNode> until) {
+	protected IDomNode sequenceComposite(IDomNode node, ITextFlow output, ILayoutContext context,
+			Predicate<IDomNode> until) {
 		final StyleSet styleSet = context.getCSS().collectStyles(node);
 		tracer.recordEffectiveStyle(node, styleSet);
 
@@ -79,13 +81,15 @@ public class DomNodeLayoutFeeder {
 
 		layout.beforeComposite(styleSet, node, output, context);
 		// if layout of composite by layout manager returns true, children are already processed
+		IDomNode last = null;
 		if(!layout.format(styleSet, node, output, context))
 			for(IDomNode n : node.getChildren()) {
 				if(until.apply(n))
-					return;
-				sequence(n, output, context, until);
+					return n;
+				last = sequence(n, output, context, until);
 			}
 		layout.afterComposite(styleSet, node, output, context);
+		return last;
 	}
 
 	protected void sequenceLeaf(IDomNode node, ITextFlow output, ILayoutContext context) {

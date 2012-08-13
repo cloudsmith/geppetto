@@ -70,7 +70,7 @@ public class DefaultStylesheetProvider implements Provider<DomCSS> {
 
 			// No space before ',', and one space after
 			Select.before(Select.whitespace(), Select.keyword(","))//
-			.withStyles(styles.noSpaceUnlessWrapped())//
+			.withStyles(styles.noSpace())//
 			.withRuleName("DefaultCSS.NoSpaceBeforeComma"), //
 			Select.after(Select.whitespace(), Select.keyword(","))//
 			.withStyles(styles.oneSpace())//

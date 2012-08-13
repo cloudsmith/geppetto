@@ -37,6 +37,7 @@ public class AllTests extends TestSuite {
 		suite.addTestSuite(TestSemanticCssFormatter.class);
 		suite.addTestSuite(TestPPFormatting.class);
 		suite.addTestSuite(TestPPFormattingFailing.class);
+		suite.addTestSuite(TestFormatterUtils.class);
 
 		// $JUnit-END$
 		return suite;

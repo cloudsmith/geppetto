@@ -34,7 +34,21 @@ public abstract class AbstractTextFlow implements ITextFlow {
 
 	protected int wrapIndentSize;
 
-	protected final int preferredMaxWidth;
+	protected int preferredMaxWidth;
+
+	/**
+	 * Copy constructor
+	 * 
+	 * @param original
+	 */
+	protected AbstractTextFlow(AbstractTextFlow original) {
+		this.indent = original.indent;
+		this.lineSeparator = original.lineSeparator;
+		this.indentChar = original.indentChar;
+		this.indentSize = original.indentSize;
+		this.wrapIndentSize = original.wrapIndentSize;
+		this.preferredMaxWidth = original.preferredMaxWidth;
+	}
 
 	@Inject
 	protected AbstractTextFlow(IFormattingContext formattingContext) {
@@ -127,6 +141,11 @@ public abstract class AbstractTextFlow implements ITextFlow {
 		return indent / indentSize;
 	}
 
+	@Override
+	public int getIndentSize() {
+		return indentSize;
+	}
+
 	protected String getLineSeparator() {
 		return lineSeparator;
 	}
@@ -180,6 +199,11 @@ public abstract class AbstractTextFlow implements ITextFlow {
 		indent = Math.max(0, count * indentSize);
 		return this;
 
+	}
+
+	@Override
+	public void setPreferredMaxWidth(int preferredMaxWidth) {
+		this.preferredMaxWidth = preferredMaxWidth;
 	};
 
 	public void setWrapIndentation(int count) {

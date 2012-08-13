@@ -53,6 +53,23 @@ public class MeasuredTextFlow extends AbstractTextFlow {
 		pendingIndent = 0;
 	}
 
+	/**
+	 * Copy constructor
+	 * 
+	 * @param original
+	 */
+	public MeasuredTextFlow(MeasuredTextFlow original) {
+		super(original);
+		this.lastWasBreak = original.lastWasBreak;
+		this.lastWasSpace = original.lastWasSpace;
+		this.numberOfBreaks = original.numberOfBreaks;
+		this.currentLineWidth = original.currentLineWidth;
+		this.lastUsedIndent = original.lastUsedIndent;
+		this.currentRun = original.currentRun;
+		this.pendingIndent = original.pendingIndent;
+		this.indentFirstLine = original.indentFirstLine;
+	}
+
 	@Override
 	public ITextFlow appendBreaks(int count, boolean verbatim) {
 		if(currentRun != null) {

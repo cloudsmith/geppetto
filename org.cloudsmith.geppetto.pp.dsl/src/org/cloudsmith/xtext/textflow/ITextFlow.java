@@ -178,6 +178,11 @@ public interface ITextFlow extends Appendable, IMetrics {
 	public int getIndentation();
 
 	/**
+	 * @return size of one indent measured in number of characters
+	 */
+	int getIndentSize();
+
+	/**
 	 * 
 	 * @return the allowed max width in number of characters before automatic wrapping kicks in.
 	 */
@@ -220,6 +225,14 @@ public interface ITextFlow extends Appendable, IMetrics {
 	 * @param flag
 	 */
 	public void setIndentFirstLine(boolean flag);
+
+	/**
+	 * Sets a new preferredMaxWidth. The value takes effect on the next output and does not change what has already been
+	 * appended.
+	 * 
+	 * @param preferredMaxWidth
+	 */
+	public void setPreferredMaxWidth(int preferredMaxWidth);
 
 	/**
 	 * <p>

@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2011 Cloudsmith Inc. and other contributors, as listed below.
+ * Copyright (c) 2011, 2012 Cloudsmith Inc. and other contributors, as listed below.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -18,7 +18,9 @@ import org.cloudsmith.geppetto.pp.dsl.ui.linked.ISaveActions;
 import org.cloudsmith.geppetto.pp.dsl.ui.preferences.PPPreferencesHelper;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.jface.text.BadLocationException;
+import org.eclipse.xtext.resource.XtextResource;
 import org.eclipse.xtext.ui.editor.model.IXtextDocument;
+import org.eclipse.xtext.util.concurrent.IUnitOfWork;
 
 import com.google.inject.Inject;
 
@@ -61,69 +63,70 @@ public class SaveActions implements ISaveActions {
 	 * org.eclipse.xtext.ui.editor.model.IXtextDocument)
 	 */
 	@Override
-	public void perform(IResource r, IXtextDocument document) {
-		boolean ensureNl = preferenceHelper.getSaveActionEnsureEndsWithNewLine(r);
-		boolean replaceFunkySpace = preferenceHelper.getSaveActionReplaceFunkySpaces(r);
-		boolean trimLines = preferenceHelper.getSaveActionTrimLines(r);
+	public void perform(IResource r, final IXtextDocument document) {
+		final boolean ensureNl = preferenceHelper.getSaveActionEnsureEndsWithNewLine(r);
+		final boolean replaceFunkySpace = preferenceHelper.getSaveActionReplaceFunkySpaces(r);
+		final boolean trimLines = preferenceHelper.getSaveActionTrimLines(r);
 
 		if(ensureNl || replaceFunkySpace || trimLines) {
-			String content = document.get();
-			if(ensureNl)
-				if(!content.endsWith("\n")) {
-					content = content + "\n";
-					try {
-						document.replace(content.length() - 1, 0, "\n");
-						content = document.get();
+			document.modify(new IUnitOfWork.Void<XtextResource>() {
+
+				@Override
+				public void process(XtextResource state) throws Exception {
+					// Do any semantic changes here
+
+					String content = document.get();
+					if(ensureNl)
+						if(!content.endsWith("\n")) {
+							content = content + "\n";
+							try {
+								document.replace(content.length() - 1, 0, "\n");
+								content = document.get();
+							}
+							catch(BadLocationException e) {
+								// ignore
+							}
+						}
+					if(trimLines) {
+						Matcher matcher = trimPattern.matcher(content);
+						boolean mustRefetch = false;
+						;
+						int lengthAdjustment = 0;
+						while(matcher.find()) {
+							int offset = matcher.start();
+							int length = matcher.end() - offset;
+							try {
+								String replacement = matcher.group(1);
+								document.replace(offset - lengthAdjustment, length, replacement);
+								lengthAdjustment += (length - replacement.length());
+								mustRefetch = true;
+							}
+							catch(BadLocationException e) {
+								// ignore
+							}
+						}
+						if(mustRefetch)
+							content = document.get();
 					}
-					catch(BadLocationException e) {
-						// ignore
+					if(replaceFunkySpace) {
+						Matcher matcher = funkySpacePattern.matcher(content);
+						int lengthAdjustment = 0;
+						while(matcher.find()) {
+							int offset = matcher.start();
+							int length = matcher.end() - offset;
+							try {
+								document.replace(offset - lengthAdjustment, length, " ");
+								lengthAdjustment += length - 1;
+							}
+							catch(BadLocationException e) {
+								// ignore
+							}
+						}
 					}
 				}
-			if(trimLines) {
-				Matcher matcher = trimPattern.matcher(content);
-				boolean mustRefetch = false;
-				;
-				int lengthAdjustment = 0;
-				while(matcher.find()) {
-					int offset = matcher.start();
-					int length = matcher.end() - offset;
-					try {
-						String replacement = matcher.group(1);
-						document.replace(offset - lengthAdjustment, length, replacement);
-						lengthAdjustment += (length - replacement.length());
-						mustRefetch = true;
-					}
-					catch(BadLocationException e) {
-						// ignore
-					}
-				}
-				if(mustRefetch)
-					content = document.get();
-			}
-			if(replaceFunkySpace) {
-				Matcher matcher = funkySpacePattern.matcher(content);
-				int lengthAdjustment = 0;
-				while(matcher.find()) {
-					int offset = matcher.start();
-					int length = matcher.end() - offset;
-					try {
-						document.replace(offset - lengthAdjustment, length, " ");
-						lengthAdjustment += length - 1;
-					}
-					catch(BadLocationException e) {
-						// ignore
-					}
-				}
-			}
+			});
+
 		}
-		// // USE THIS IF SEMANTIC CHANGES ARE NEEDED LATER
-		// document.modify(new IUnitOfWork.Void<XtextResource>() {
-		//
-		// @Override
-		// public void process(XtextResource state) throws Exception {
-		// // Do any semantic changes here
-		// }
-		// });
 
 	}
 }

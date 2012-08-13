@@ -12,11 +12,13 @@
 package org.cloudsmith.geppetto.pp.dsl.tests;
 
 import org.cloudsmith.geppetto.pp.AdditiveExpression;
+import org.cloudsmith.geppetto.pp.AssignmentExpression;
 import org.cloudsmith.geppetto.pp.AtExpression;
 import org.cloudsmith.geppetto.pp.Expression;
 import org.cloudsmith.geppetto.pp.LiteralList;
 import org.cloudsmith.geppetto.pp.LiteralName;
 import org.cloudsmith.geppetto.pp.LiteralNameOrReference;
+import org.cloudsmith.geppetto.pp.PPFactory;
 import org.cloudsmith.geppetto.pp.PuppetManifest;
 import org.cloudsmith.geppetto.pp.ResourceExpression;
 import org.cloudsmith.geppetto.pp.SelectorEntry;
@@ -44,66 +46,68 @@ public class TestPuppetResourceExpr extends AbstractPuppetTests {
 
 	// IMPORTANT - MAKE SURE THESE ARE NOT SCREWED UP ON CHECKIN - MAKES IT VERY DIFFICULT TO READ
 	// @formatter:off
-	static final String Sample_ResourceOneAttribute = "file {\n" + //
-			"\t'a resource' :\n" + //
-			"\t\towner => 'fred'\n" + //
-			"}";
+	static final String Sample_ResourceOneAttribute = "file { 'a resource':\n" + //
+			"  owner => 'fred',\n" + //
+			"}\n";
 
-	static final String Sample_ResourceNoAttributes = "class {\n" + //
-			"\t'myclass' :\n" + //
-			"}";
+	static final String Sample_ResourceNoAttributes = "class { 'myclass':\n" + //
+			"}\n";
 
-	static final String Sample_TwoResources = "file {\n" + //
-			"\t'r1' :\n" + //
-			"\t\towner => 'fred'\n" + //
-			"}\n" + //
-			"file {\n" + "\t'r2' :\n" + //
-			"\t\towner => 'fred'\n" + //
-			"}";;
+	static final String Sample_TwoResources = "file { 'r1':\n" + //
+			"  owner => 'fred',\n" + //
+			"}\n\n" + //
+			"file { 'r2':\n" + //
+			"  owner => 'fred',\n" + //
+			"}\n";
 
-	static final String Sample_VirtualResource = "@file {\n" + //
-			"\t'a resource' :\n" + //
-			"\t\towner => 'fred'\n" + //
-			"}";
+	static final String Sample_VirtualResource = "@file { 'a resource':\n" + //
+			"  owner => 'fred',\n" + //
+			"}\n";
 
-	static final String Sample_ResourceWithRequire = "file {\n" + //
-			"\t'x' :\n" + //
-			"\t\trequire => Package['a', 'b', 'c']\n" + "}";
+	static final String Sample_ResourceWithRequire = "file { 'x':\n" + //
+			"  require => Package['a', 'b', 'c'],\n" + //
+			"}\n";
 
-	static final String Sample_VirtualResourceExported = "@@file {\n" + //
-			"\t'a resource' :\n" + //
-			"\t\towner => 'fred'\n" + "}";
+	static final String Sample_VirtualResourceExported = "@@file { 'a resource':\n" + //
+			"  owner => 'fred',\n" + //
+			"}\n";
 
-	static final String Sample_ResourceOneAddAttribute = "File {\n" + //
-			"\t'a resource' :\n" + //
-			"\t\towner +> 'fred'\n" //
-			+ "}";
+	static final String Sample_ResourceOneAddAttribute = "File { 'a resource':\n" + //
+			"  owner +> 'fred',\n" //
+			+ "}\n";
 
 	static final String Sample_DefaultResource = "File {\n" + //
-			"\towner => 0777,\n" + //
-			"\tgroup => 0666,\n" + "\tother => 0555\n" + //
-			"}";
+			"  owner => 0777,\n" + //
+			"  group => 0666,\n" + //
+			"  other => 0555,\n" + //
+			"}\n";
 
-	static final String Sample_ResourceMAttributes = "file {\n" + //
-			"\t'a resource' :\n" + //
-			"\t\towner => 0777,\n" + //
-			"\t\tgroup => 0666,\n" + //
-			"\t\tother => 0555\n" + //
-			"}";
+	static final String Sample_ResourceMAttributes = "file { 'a resource':\n" + //
+			"  owner => 0777,\n" + //
+			"  group => 0666,\n" + //
+			"  other => 0555,\n" + //
+			"}\n";
 
 	static final String Sample_MResourcesMAttributes = "file {\n" + //
-			"\t'a resource' :\n" + //
-			"\t\towner => 0777,\n" + //
-			"\t\tgroup => 0666,\n" + //
-			"\t\tother => 0555 ;\n" + //
+			"  'a resource':\n" + //
+			"    owner => 0777,\n" + //
+			"    group => 0666,\n" + //
+			"    other => 0555;\n" + //
 			"\n" + //
-			"\t'another resource' :\n" + //
-			"\t\ta => 1,\n" + //
-			"\t\tb => 2,\n" + //
-			"\t\tc => 3\n" + //
-			"}";
+			"  'another resource':\n" + //
+			"    a   => 1,\n" + //
+			"    bb  => 2,\n" + //
+			"    ccc => 3;\n" + //
+			"}\n";
 
 	// @formatter:on
+
+	@Override
+	protected boolean shouldTestSerializer(XtextResource resource) {
+		// Do not test the serializer the way the JUnit test does it - it will barf on
+		// magic insertion of text not in the node model.
+		return false;
+	}
 
 	private void subTestValidateExpressionTitles(Expression titleExpr) {
 		PuppetManifest pp = pf.createPuppetManifest();
@@ -119,9 +123,26 @@ public class TestPuppetResourceExpr extends AbstractPuppetTests {
 
 	public void test_Serialize_1() throws Exception {
 		String code = "file { 'afile': owner => 'foo'}";
+		String fmt = "file { 'afile':\n  owner => 'foo'\n}\n";
 		XtextResource r = getResourceFromString(code);
-		String s = serialize(r.getContents().get(0));
-		assertEquals("serialization should produce same result", code, s);
+		String s = serializeFormatted(r.getContents().get(0));
+		assertEquals("serialization should produce same result", fmt, s);
+
+	}
+
+	public void test_Serialize_assignArray() throws Exception {
+		PuppetManifest pp = pf.createPuppetManifest();
+		EList<Expression> statements = pp.getStatements();
+		AssignmentExpression assignment = PPFactory.eINSTANCE.createAssignmentExpression();
+		assignment.setLeftExpr(createVariable("a"));
+		LiteralList pplist = PPFactory.eINSTANCE.createLiteralList();
+		assignment.setRightExpr(pplist);
+		pplist.getElements().add(createSqString("10"));
+		pplist.getElements().add(createSqString("20"));
+		pp.getStatements().add(assignment);
+		String fmt = "$a = ['10', '20',]\n";
+		String s = serialize(pp);
+		assertEquals("serialization should produce same result", fmt, s);
 	}
 
 	public void test_Serialize_DefaultResource() throws Exception {
@@ -141,7 +162,7 @@ public class TestPuppetResourceExpr extends AbstractPuppetTests {
 		statements.add(var);
 
 		String s = serialize(pp);
-		assertEquals("serialization should produce same result", "$a", s);
+		assertEquals("serialization should produce same result", "$a\n", s);
 	}
 
 	public void test_Serialize_MResourcesMAttributes() throws Exception {
@@ -151,7 +172,8 @@ public class TestPuppetResourceExpr extends AbstractPuppetTests {
 			"file", "a resource", "owner", createValue("0777"), "group", createValue("0666"), "other",
 			createValue("0555"));
 		re.getResourceData().add(
-			createResourceBody("another resource", "a", createValue("1"), "b", createValue("2"), "c", createValue("3")));
+			createResourceBody(
+				"another resource", "a", createValue("1"), "bb", createValue("2"), "ccc", createValue("3")));
 		statements.add(re);
 		String s = serializeFormatted(pp);
 		assertEquals("serialization should produce specified result", Sample_MResourcesMAttributes, s);

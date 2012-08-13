@@ -34,7 +34,9 @@ import org.eclipse.xtext.junit.validation.AssertableDiagnostics;
 public class TestSelectorExpression extends AbstractPuppetTests {
 	// @formatter:off
 
-	static final String Sample_Selector = "x ? {\n\ta => false\n}";
+	static final String Sample_Selector = "x ? {\n  a => true,\n}\n";
+
+	static final String Sample_Selector2 = "x ? {\n  a  => true,\n  be => false,\n}\n";
 
 	// @formatter:on
 
@@ -53,10 +55,27 @@ public class TestSelectorExpression extends AbstractPuppetTests {
 
 		se.setLeftExpr(slhs);
 		entry.setLeftExpr(entrylhs);
-		entry.setRightExpr(pf.createLiteralBoolean());
+		LiteralBoolean b = pf.createLiteralBoolean();
+		b.setValue(true);
+		entry.setRightExpr(b);
 
 		String s = serializeFormatted(pp);
 		assertEquals("serialization should produce specified result", Sample_Selector, s);
+
+		// add a second entry and format
+		entry = pf.createSelectorEntry();
+		se.getParameters().add(entry);
+
+		entrylhs = pf.createLiteralNameOrReference();
+		entrylhs.setValue("be");
+		entry.setLeftExpr(entrylhs);
+		b = pf.createLiteralBoolean();
+		b.setValue(false);
+		entry.setRightExpr(b);
+
+		s = serializeFormatted(pp);
+		assertEquals("serialization should produce specified result", Sample_Selector2, s);
+
 	}
 
 	public void test_Validate_SelectorExpression_NotOk() {

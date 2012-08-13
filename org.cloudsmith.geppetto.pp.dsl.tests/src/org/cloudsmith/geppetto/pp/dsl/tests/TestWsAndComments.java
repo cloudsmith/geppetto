@@ -52,7 +52,7 @@ public class TestWsAndComments extends AbstractPuppetTests {
 	}
 
 	public void test_Serialize_LeadingComments() throws Exception {
-		String code = "# 1. sl cmnt\n" + "# 2. sl cmnt\n" + "$a";
+		String code = "# 1. sl cmnt\n" + "# 2. sl cmnt\n" + "$a\n";
 		XtextResource r = getResourceFromString(code);
 		String s = serialize(r.getContents().get(0));
 		assertEquals("serialization should produce same result", code, s);
@@ -60,7 +60,7 @@ public class TestWsAndComments extends AbstractPuppetTests {
 	}
 
 	public void test_Serialize_SmokeTest() throws Exception {
-		String code = "$a";
+		String code = "$a\n";
 		XtextResource r = getResourceFromString(code);
 		String s = serializeFormatted(r.getContents().get(0));
 		assertEquals("serialization should produce same result", code, s);
@@ -70,14 +70,14 @@ public class TestWsAndComments extends AbstractPuppetTests {
 	}
 
 	public void test_Serialize_SmokeTest2() throws Exception {
-		String code = "$a + $b";
+		String code = "$a + $b\n";
 		XtextResource r = getResourceFromString(code);
 		String s = serialize(r.getContents().get(0));
 		assertEquals("serialization should produce same result", code, s);
 	}
 
 	public void test_Serialize_SmokeTest2Formatted() throws Exception {
-		String code = "$a + $b";
+		String code = "$a + $b\n";
 		XtextResource r = getResourceFromString(code);
 		String s = serializeFormatted(r.getContents().get(0));
 		assertEquals("serialization with formatting should produce same result", code, s);
@@ -87,19 +87,29 @@ public class TestWsAndComments extends AbstractPuppetTests {
 		String code = "$a+$b";
 		XtextResource r = getResourceFromString(code);
 		String s = serializeFormatted(r.getContents().get(0));
-		assertEquals("serialization with formatting should add space around +", "$a + $b", s);
+		assertEquals("serialization with formatting should add space around +", "$a + $b\n", s);
 	}
 
 	public void test_Serialize_SmokeTest2WithComment() throws Exception {
-		String code = "$x = $a/* add a */+/* with b */$b";
+		String code = "$x = $a/* add a */+/* with b */$b\n";
 		XtextResource r = getResourceFromString(code);
 		String s = serializeFormatted(r.getContents().get(0));
 		assertEquals(
-			"serialization with formatting should add space around +", "$x = $a /* add a */ + /* with b */ $b", s);
+			"serialization with formatting should add space around +", "$x = $a /* add a */ + /* with b */ $b\n", s);
 	}
 
 	public void test_Serialize_SmokeTest3() throws Exception {
-		String code = "$a + 'apa'";
+		String code = "$a + 'apa'\n";
+		XtextResource r = getResourceFromString(code);
+		String s = serialize(r.getContents().get(0));
+		assertEquals("serialization should produce same result", code, s);
+	}
+
+	public void test_SerializeCommentMix() throws Exception {
+		String code = "/* 1 */ class /* 2 */ a /* 3 */ { /* 4 */\n" + //
+				"  /* 5 */ $b /* 6 */ = /* 7 */ 10 /* 8 */\n" + //
+				"/* 9 */ } /* 10 */\n" + //
+				"/* 11 */\n";
 		XtextResource r = getResourceFromString(code);
 		String s = serialize(r.getContents().get(0));
 		assertEquals("serialization should produce same result", code, s);

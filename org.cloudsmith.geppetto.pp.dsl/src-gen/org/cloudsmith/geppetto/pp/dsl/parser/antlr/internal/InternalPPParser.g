@@ -4428,21 +4428,15 @@ ruleLiteralList returns [EObject current=null]
 	    }
 
 )
-))*)?(
-	{ 
-	  /* */ 
-	}
-    { 
-        newCompositeNode(grammarAccess.getLiteralListAccess().getEndCommaParserRuleCall_3()); 
-    }
-ruleendComma
+))*(
+	otherlv_5=KEYWORD_8
     {
-        afterParserOrEnumRuleCall();
+    	newLeafNode(otherlv_5, grammarAccess.getLiteralListAccess().getCommaKeyword_2_2());
     }
-)?
+)?)?
 	otherlv_6=KEYWORD_19
     {
-    	newLeafNode(otherlv_6, grammarAccess.getLiteralListAccess().getRightSquareBracketKeyword_4());
+    	newLeafNode(otherlv_6, grammarAccess.getLiteralListAccess().getRightSquareBracketKeyword_3());
     }
 )
 ;

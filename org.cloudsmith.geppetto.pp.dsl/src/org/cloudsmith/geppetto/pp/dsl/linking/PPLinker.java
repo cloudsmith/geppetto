@@ -11,6 +11,7 @@
  */
 package org.cloudsmith.geppetto.pp.dsl.linking;
 
+import org.cloudsmith.geppetto.pp.dsl.ppdoc.DocumentationAssociator;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.xtext.diagnostics.IDiagnosticConsumer;
 import org.eclipse.xtext.linking.lazy.LazyLinker;
@@ -36,7 +37,8 @@ public class PPLinker extends LazyLinker {
 	@Override
 	protected void afterModelLinked(EObject model, IDiagnosticConsumer diagnosticsConsumer) {
 		IMessageAcceptor acceptor = new DiagnosticConsumerBasedMessageAcceptor(diagnosticsConsumer);
-		documentationAssociator.linkDocumentation(model, acceptor);
+		documentationAssociator.linkDocumentation(model);
+		documentationAssociator.validateDocumentation(model, acceptor);
 		resourceLinker.link(model, acceptor, false);
 	}
 

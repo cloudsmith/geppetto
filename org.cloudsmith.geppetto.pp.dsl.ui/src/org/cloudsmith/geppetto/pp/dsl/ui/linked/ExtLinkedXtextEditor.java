@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2010, Cloudsmith Inc.
+ * Copyright (c) 2010, 2012 Cloudsmith Inc.
  * The code, documentation and other materials contained herein have been
  * licensed under the Eclipse Public License - v 1.0 by the copyright holder
  * listed above, as the Initial Contributor under such license. The text of
@@ -10,6 +10,7 @@ package org.cloudsmith.geppetto.pp.dsl.ui.linked;
 
 import java.io.File;
 
+import org.cloudsmith.geppetto.pp.dsl.ui.preferences.data.FormatterGeneralPreferences;
 import org.eclipse.core.filesystem.EFS;
 import org.eclipse.core.filesystem.IFileStore;
 import org.eclipse.core.filesystem.URIUtil;
@@ -39,10 +40,13 @@ import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.ide.FileStoreEditorInput;
 import org.eclipse.ui.internal.editors.text.EditorsPlugin;
 import org.eclipse.ui.part.FileEditorInput;
+import org.eclipse.ui.texteditor.AbstractDecoratedTextEditorPreferenceConstants;
 import org.eclipse.ui.texteditor.IDocumentProvider;
+import org.eclipse.ui.texteditor.SourceViewerDecorationSupport;
 import org.eclipse.ui.views.contentoutline.IContentOutlinePage;
 import org.eclipse.xtext.ui.editor.XtextEditor;
 import org.eclipse.xtext.ui.editor.outline.impl.OutlinePage;
+import org.eclipse.xtext.ui.editor.preferences.IPreferenceStoreAccess;
 
 import com.google.inject.Inject;
 
@@ -77,10 +81,37 @@ public class ExtLinkedXtextEditor extends XtextEditor {
 	ISaveActions saveActions;
 
 	/**
-	 * Does nothing except server as a place to set a breakpoint :)
+	 * Preference key for showing print margin ruler.
 	 */
+	private final static String PRINT_MARGIN = AbstractDecoratedTextEditorPreferenceConstants.EDITOR_PRINT_MARGIN;
+
+	/**
+	 * Preference key for print margin ruler color.
+	 */
+	private final static String PRINT_MARGIN_COLOR = AbstractDecoratedTextEditorPreferenceConstants.EDITOR_PRINT_MARGIN_COLOR;
+
+	/**
+	 * Preference key for print margin ruler column.
+	 */
+	private final static String PRINT_MARGIN_COLUMN = AbstractDecoratedTextEditorPreferenceConstants.EDITOR_PRINT_MARGIN_COLUMN;
+
+	@Inject
+	private IPreferenceStoreAccess preferenceAccess;
+
+	@Inject
 	public ExtLinkedXtextEditor() {
 		super();
+	}
+
+	@Override
+	protected void configureSourceViewerDecorationSupport(SourceViewerDecorationSupport support) {
+		super.configureSourceViewerDecorationSupport(support);
+		support.setMarginPainterPreferenceKeys(
+			PRINT_MARGIN, PRINT_MARGIN_COLOR, FormatterGeneralPreferences.FORMATTER_MAXWIDTH);
+
+		// support.setCharacterPairMatcher(characterPairMatcher);
+		// support.setMatchingCharacterPainterPreferenceKeys(BracketMatchingPreferencesInitializer.IS_ACTIVE_KEY,
+		// BracketMatchingPreferencesInitializer.COLOR_KEY);
 	}
 
 	/**
@@ -174,6 +205,14 @@ public class ExtLinkedXtextEditor extends XtextEditor {
 	 */
 	@Override
 	public void init(IEditorSite site, IEditorInput input) throws PartInitException {
+		// Can't do this until this time due to stupid callbacks from constructor before
+		// injections have taken place.
+
+		// ISourceViewer sourceViewer = getSourceViewer();
+		// SourceViewerDecorationSupport decorationSupport = getSourceViewerDecorationSupport(sourceViewer);
+		// decorationSupport.setMarginPainterPreferenceKeys(
+		// PRINT_MARGIN, PRINT_MARGIN_COLOR, PPPreferenceConstants.FORMATTER_MAXWIDTH);
+
 		// THE ISSUE HERE:
 		// In the IDE, the File Open Dialog (and elsewhere) uses a FilestoreEditorInput class
 		// which is an IDE specific implementation.
@@ -216,7 +255,14 @@ public class ExtLinkedXtextEditor extends XtextEditor {
 			return;
 		}
 		super.init(site, input);
+
 	}
+
+	// @Override
+	// protected void initializeEditor() {
+	// setPreferenceStore(preferenceAccess.getPreferenceStore());
+	// // setPreferenceStore(EditorsPlugin.getDefault().getPreferenceStore());
+	// }
 
 	// SaveAs support for linked files - saves them on local disc, not to workspace if file is in special
 	// hidden external file link project.

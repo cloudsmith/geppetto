@@ -33,8 +33,11 @@ import org.cloudsmith.geppetto.pp.ResourceExpression;
 import org.cloudsmith.geppetto.pp.VariableExpression;
 import org.cloudsmith.geppetto.pp.VirtualCollectQuery;
 import org.cloudsmith.geppetto.pp.VirtualNameOrReference;
+import org.cloudsmith.geppetto.pp.dsl.ppformatting.PPFormatter;
 import org.cloudsmith.geppetto.pp.dsl.validation.IPPDiagnostics;
 import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.ecore.EObject;
+import org.eclipse.xtext.formatting.impl.FormattingConfig;
 import org.eclipse.xtext.junit.validation.AssertableDiagnostics;
 import org.eclipse.xtext.resource.XtextResource;
 
@@ -47,42 +50,40 @@ public class TestExpressions extends AbstractPuppetTests implements AbstractPupp
 	private PrintStream savedOut;
 
 	// @formatter:off
-	static final String Sample_Relationship = "file {\n" + //
-			"\t'file1' :\n" + //
-			"} -> file {\n" + //
-			"\t'file2' :\n" + //
-			"} -> file {\n" + //
-			"\t'file3' :\n" + //
-			"}";
+	static final String Sample_Relationship = "file { 'file1':\n" + //
+			"} -> file { 'file2':\n" + //
+			"} -> file { 'file3':\n" + //
+			"}\n";
 
-	static final String Sample_Assignment1 = "$x = false";
+	static final String Sample_Assignment1 = "$x = true\n";
 
-	static final String Sample_Assignment2 = "$x[a] = false";
+	static final String Sample_Assignment2 = "$x[a] = true\n";
 
-	static final String Sample_Append = "$x += false";
+	static final String Sample_Append = "$x += true\n";
 
-	static final String Sample_Match1 = "$x =~ /[a-z]*/";
+	static final String Sample_Match1 = "$x =~ /[a-z]*/\n";
 
-	static final String Sample_Match2 = "$x !~ /[a-z]*/";
+	static final String Sample_Match2 = "$x !~ /[a-z]*/\n";
 
-	static final String Sample_ClassDefinition = "class testClass {\n}";
+	static final String Sample_ClassDefinition = "class testClass {\n}\n";
 
 	static final String Sample_If = //
 	"if $a == 1 {\n" + //
-			"\ttrue\n" + //
-			"}\n" + //
-			"else {\n" + //
-			"\tfalse\n" + //
-			"}\n" + //
+			"  true\n" + //
+			"} else {\n" + //
+			"  false\n" + //
+			"}\n\n" + //
 			"if $a == 1 {\n" + //
-			"\ttrue\n" + //
-			"}\n" + //
-			"elsif $b < -3 {\n" + //
-			"\tfalse\n" + //
-			"}\n" + //
-			"else {\n" + //
-			"\ttrue\n" + //
-			"}";
+			"  true\n" + //
+			"} elsif $b < -3 {\n" + //
+			"  false\n" + //
+			"} else {\n" + //
+			"  true\n" + //
+			"}\n";
+
+	private String doubleQuote(String s) {
+		return '"' + s + '"';
+	}
 
 	/**
 	 * Sends System.out to dev/null since there are many warnings about unknown variables (ignored unless
@@ -108,16 +109,26 @@ public class TestExpressions extends AbstractPuppetTests implements AbstractPupp
 		return false;
 	}
 
-	// @formatter:on
-
 	@Override
 	public void tearDown() throws Exception {
 		super.tearDown();
 		System.setOut(savedOut);
 	}
 
+	/**
+	 * No matter how formatter tries to add linewrapping there is none in the formatted result.
+	 * 
+	 * @see PPFormatter#assignmentExpressionConfiguration(FormattingConfig c)
+	 */
+	public void test_Format_AssignmentExpression() throws Exception {
+		String code = "$a = 1\n$b = 2\n";
+		XtextResource r = getResourceFromString(code);
+		String s = serializeFormatted(r.getContents().get(0));
+		assertEquals("serialization should produce specified result", code, s);
+	}
+
 	public void test_Parse_MatchingExpression() throws Exception {
-		String code = "$a =~ /[a-z]*/";
+		String code = "$a =~ /[a-z]*/\n";
 		XtextResource r = getResourceFromString(code);
 		String s = serialize(r.getContents().get(0));
 		assertEquals("serialization should produce same result", code, s);
@@ -133,6 +144,7 @@ public class TestExpressions extends AbstractPuppetTests implements AbstractPupp
 		PuppetManifest pp = pf.createPuppetManifest();
 		AppendExpression ae = pf.createAppendExpression();
 		LiteralBoolean b = pf.createLiteralBoolean();
+		b.setValue(true);
 		VariableExpression v = pf.createVariableExpression();
 		v.setVarName("$x");
 		ae.setLeftExpr(v);
@@ -143,10 +155,21 @@ public class TestExpressions extends AbstractPuppetTests implements AbstractPupp
 		assertEquals("serialization should produce specified result", Sample_Append, s);
 	}
 
+	// Not relevant since new serializer always pretty prints
+	// public void test_Serialize_IfExpression1() throws Exception {
+	// String code = "if$a==1{true}else{false}if$a==1{true}elsif$b< -3{false}else{true}";
+	// XtextResource r = getResourceFromString(code);
+	// String s = serialize(r.getContents().get(0));
+	//
+	// // Broken in Xtext 2.0 - produces a semi formatted result, should leave string alone
+	// assertEquals("serialization should produce same result as input", code, s);
+	// }
+
 	public void test_Serialize_AssignmentExpression() {
 		PuppetManifest pp = pf.createPuppetManifest();
 		AssignmentExpression ae = pf.createAssignmentExpression();
 		LiteralBoolean b = pf.createLiteralBoolean();
+		b.setValue(true);
 		VariableExpression v = pf.createVariableExpression();
 		v.setVarName("$x");
 		ae.setLeftExpr(v);
@@ -165,6 +188,106 @@ public class TestExpressions extends AbstractPuppetTests implements AbstractPupp
 		assertEquals("serialization should produce specified result", Sample_Assignment2, s);
 	}
 
+	/**
+	 * No matter how formatter tries to add linewrapping there is none in the formatted result.
+	 * 
+	 * @see PPFormatter#functionCallConfiguration(FormattingConfig c)
+	 */
+	public void test_Serialize_CallAndDefine() throws Exception {
+		String code = "class a {\n}\n$a = include('a')\ndefine b {\n}\n";
+		String fmt = "class a {\n}\n$a = include('a')\n\ndefine b {\n}\n";
+		XtextResource r = getResourceFromString(code);
+		String s = serializeFormatted(r.getContents().get(0));
+		assertEquals("serialization should produce specified result", fmt, s);
+	}
+
+	public void test_Serialize_CaseExpression() throws Exception {
+		String code = "case $a {present : { $x=1 $y=2 } absent,foo: {$x=2 $y=2}}";
+		String fmt = "case $a {\n  present     : {\n    $x = 1\n    $y = 2\n  }\n  absent, foo : {\n    $x = 2\n    $y = 2\n  }\n}\n";
+		XtextResource r = getResourceFromString(code);
+		String s = serializeFormatted(r.getContents().get(0));
+		assertEquals("serialization should produce specified result", fmt, s);
+	}
+
+	public void test_Serialize_Definition() throws Exception {
+		String code = "define a {$a=10 $b=20}";
+		String fmt = "define a {\n  $a = 10\n  $b = 20\n}\n";
+		XtextResource r = getResourceFromString(code);
+		String s = serializeFormatted(r.getContents().get(0));
+
+		assertEquals("serialization should produce specified result", fmt, s);
+	}
+
+	/**
+	 * Due to issues in the (old) formatter, this test may hit a bug that inserts whitespace
+	 * between quotes and string - no workaround found - needs to be fixed in Xtext formatter.
+	 * Also see {@link #test_Serialize_DoubleQuotedString_2()}
+	 * 
+	 * @see #test_Serialize_DoubleQuotedString_2() for a non failing tests.
+	 * 
+	 * 
+	 * @throws Exception
+	 */
+	public void test_Serialize_DoubleQuotedString_1() throws Exception {
+		String original = "before${var}/after${1 + 2}$$${$var}";
+		String code = doubleQuote(original) + "\n";
+		XtextResource r = getResourceFromString(code);
+		EObject result = r.getContents().get(0);
+		assertTrue("Should be a PuppetManifest", result instanceof PuppetManifest);
+		result = ((PuppetManifest) result).getStatements().get(0);
+
+		String s = serializeFormatted(r.getContents().get(0));
+		assertEquals("Serialization of interpolated string should produce same result", code, s);
+	}
+
+	/**
+	 * Formatter did not switch back to non hidden state after import "".
+	 * If changed to '' string it behaved differently.
+	 * 
+	 */
+	public void test_Serialize_DqStringFollowedByDefine() throws Exception {
+		String code = "import \"foo\"\ndefine b {\n  $a = 1\n}\n";
+		String fmt = "import \"foo\"\n\ndefine b {\n  $a = 1\n}\n";
+		XtextResource r = getResourceFromString(code);
+		String s = serializeFormatted(r.getContents().get(0));
+		assertEquals("serialization should produce specified result", fmt, s);
+	}
+
+	/**
+	 * Formatter seems to not switch back to non hidden state interpolation.
+	 * 
+	 */
+	public void test_Serialize_DqStringInterpolation() throws Exception {
+		String code = "$a = \"a${1}b\"\nclass a {\n}\n";
+		String fmt = "$a = \"a${1}b\"\n\nclass a {\n}\n";
+		XtextResource r = getResourceFromString(code);
+		String s = serializeFormatted(r.getContents().get(0));
+		// System.out.println(NodeModelUtils.compactDump(r.getParseResult().getRootNode(), false));
+		assertEquals("serialization should produce specified result", fmt, s);
+	}
+
+	/**
+	 * Without interpolation formatting does the right thing.
+	 */
+	public void test_Serialize_DqStringNoInterpolation() throws Exception {
+		String code = "$a = \"ab\"\nclass a {\n}\n";
+		String fmt = "$a = \"ab\"\n\nclass a {\n}\n";
+		XtextResource r = getResourceFromString(code);
+		String s = serializeFormatted(r.getContents().get(0));
+		// System.out.println(NodeModelUtils.compactDump(r.getParseResult().getRootNode(), false));
+
+		assertEquals("serialization should produce specified result", fmt, s);
+	}
+
+	public void test_Serialize_HostClassDefinition() throws Exception {
+		String code = "class a {$a=1 $b=2}";
+		String fmt = "class a {\n  $a = 1\n  $b = 2\n}\n";
+		XtextResource r = getResourceFromString(code);
+		String s = serializeFormatted(r.getContents().get(0));
+		assertEquals("serialization should produce specified result", fmt, s);
+
+	}
+
 	public void test_Serialize_HostClassExpression() {
 		PuppetManifest pp = pf.createPuppetManifest();
 		HostClassDefinition cd = pf.createHostClassDefinition();
@@ -176,25 +299,53 @@ public class TestExpressions extends AbstractPuppetTests implements AbstractPupp
 
 	}
 
-	public void test_Serialize_IfExpression1() throws Exception {
-		String code = "if$a==1{true}else{false}if$a==1{true}elsif$b< -3{false}else{true}";
-		XtextResource r = getResourceFromString(code);
-		String s = serialize(r.getContents().get(0));
-
-		// Broken in Xtext 2.0 - produces a semi formatted result, should leave string alone
-		assertEquals("serialization should produce same result as input", code, s);
-	}
-
 	public void test_Serialize_IfExpression2() throws Exception {
-		String code = "if$a==1{true}else{false}if$a==1{true}elsif$b< -3{false}else{true}";
+		String code = "if$a==1{true}else{ false }if$a==1{true}elsif$b< -3{false}else{true}";
 		XtextResource r = getResourceFromString(code);
 		String s = serializeFormatted(r.getContents().get(0));
 		assertEquals("serialization should produce specified result", Sample_If, s);
 
 	}
 
+	public void test_Serialize_IfExpression3() throws Exception {
+		String code = "if$a==1{$x=1 $y=2}elsif $a==2 {$x=3 $y=4}else{ $x=5 $y=6 }";
+		String fmt = "if $a == 1 {\n  $x = 1\n  $y = 2\n} elsif $a == 2 {\n  $x = 3\n  $y = 4\n} else {\n  $x = 5\n  $y = 6\n}\n";
+		XtextResource r = getResourceFromString(code);
+		String s = serializeFormatted(r.getContents().get(0));
+		assertEquals("serialization should produce specified result", fmt, s);
+
+	}
+
+	/**
+	 * No matter how formatter tried to add linewrapping there was none in the formatted result.
+	 * 
+	 * @see PPFormatter#importExpressionConfiguration(FormattingConfig c)
+	 * @see #test_Serialize_ImportExpression2() - for different failing result
+	 */
+	public void test_Serialize_ImportExpression1() throws Exception {
+		String code = "import \"a\"\nimport \"b\"\n";
+		XtextResource r = getResourceFromString(code);
+		String s = serializeFormatted(r.getContents().get(0));
+		assertEquals("serialization should produce specified result", code, s);
+	}
+
+	/**
+	 * No matter how formatter tried to add linewrapping there was none in the formatted result.
+	 * Note that result was different than in {@link #test_Serialize_ImportExpression1()} due to issue
+	 * with the different use of hidden() for DQ string.
+	 * 
+	 * @see PPFormatter#importExpressionConfiguration(FormattingConfig c)
+	 * @see #test_Serialize_ImportExpression1() - for different failing result
+	 */
+	public void test_Serialize_ImportExpression2() throws Exception {
+		String code = "import 'a'\nimport 'b'\n";
+		XtextResource r = getResourceFromString(code);
+		String s = serializeFormatted(r.getContents().get(0));
+		assertEquals("serialization should produce specified result", code, s);
+	}
+
 	public void test_Serialize_ImportExpressionDq() throws Exception {
-		String code = "import \"a\"\nimport \"b\"";
+		String code = "import \"a\"\nimport \"b\"\n";
 		XtextResource r = getResourceFromString(code);
 		String s = serializeFormatted(r.getContents().get(0));
 
@@ -205,7 +356,7 @@ public class TestExpressions extends AbstractPuppetTests implements AbstractPupp
 	}
 
 	public void test_Serialize_ImportExpressionSq() throws Exception {
-		String code = "import 'a'\nimport 'b'";
+		String code = "import 'a'\nimport 'b'\n";
 		XtextResource r = getResourceFromString(code);
 		String s = serializeFormatted(r.getContents().get(0));
 		// DEBUG
@@ -232,6 +383,15 @@ public class TestExpressions extends AbstractPuppetTests implements AbstractPupp
 		me.setOpName("!~");
 		s = serializeFormatted(pp);
 		assertEquals("serialization should produce specified result", Sample_Match2, s);
+	}
+
+	public void test_Serialize_NodeDefinition() throws Exception {
+		String code = "node a {$a=1 $b=2}";
+		String fmt = "node a {\n  $a = 1\n  $b = 2\n}\n";
+		XtextResource r = getResourceFromString(code);
+		String s = serializeFormatted(r.getContents().get(0));
+		assertEquals("serialization should produce specified result", fmt, s);
+
 	}
 
 	public void test_Serialize_RelationshipExpression() {
@@ -610,4 +770,5 @@ public class TestExpressions extends AbstractPuppetTests implements AbstractPupp
 		tester.validate(v).assertOK();
 
 	}
+
 }

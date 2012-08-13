@@ -8,6 +8,8 @@ import org.osgi.framework.Bundle;
 
 import com.google.inject.Injector;
 
+import org.cloudsmith.geppetto.pp.dsl.ui.internal.PPActivator;
+
 /**
  * This class was generated. Customizations should only happen in a newly
  * introduced subclass. 
@@ -16,12 +18,12 @@ public class PPExecutableExtensionFactory extends AbstractGuiceAwareExecutableEx
 
 	@Override
 	protected Bundle getBundle() {
-		return org.cloudsmith.geppetto.pp.dsl.ui.internal.PPActivator.getInstance().getBundle();
+		return PPActivator.getInstance().getBundle();
 	}
 	
 	@Override
 	protected Injector getInjector() {
-		return org.cloudsmith.geppetto.pp.dsl.ui.internal.PPActivator.getInstance().getInjector("org.cloudsmith.geppetto.pp.dsl.PP");
+		return PPActivator.getInstance().getInjector(PPActivator.ORG_CLOUDSMITH_GEPPETTO_PP_DSL_PP);
 	}
 	
 }

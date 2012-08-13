@@ -49,6 +49,7 @@ public class TestVariables extends AbstractPuppetTests implements AbstractPuppet
 
 	@Override
 	public boolean shouldTestSerializer(XtextResource resource) {
+		// The serializer validator screws up when optional content is always inserted by serializer
 		return false;
 	}
 

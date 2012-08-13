@@ -14,6 +14,11 @@ Workflow {
     bean = StandaloneSetup {
     	registerGeneratedEPackage = "org.cloudsmith.geppetto.pp.PPPackage"
 		platformUri = "${runtimeProject}/.."
+		scanClassPath = true
+//		registerGenModelFile = "${puppetModelURI}/PP.genmodel"
+//		registerEcoreFile = "${puppetModelURI}/PP.ecore"
+		registerGenModelFile = "../org.cloudsmith.geppetto.pp/model/PP.genmodel"
+		registerEcoreFile = "../org.cloudsmith.geppetto.pp/model/PP.ecore"
 	}
 
 	component = DirectoryCleaner {
@@ -40,23 +45,25 @@ Workflow {
 
 			// generates Java API for the generated EPackages 
 			fragment = ecore.EcoreGeneratorFragment {
-			// referencedGenModels = "uri to genmodel, uri to next genmodel"
-			//	referencedGenModels = "classpath:/model/PP.genmodel"
+				
+//			referencedGenModels = "uri to genmodel, uri to next genmodel"
+			// referencedGenModels = "classpath:/model/PP.genmodel"
 				skipGenerate = true // Puppet grammar does not have its own model
 				// Puppet model
-				saveMapping = {
-        			from = "classpath:/model/PP.genmodel"
-        			to = "${puppetModelURI}/PP.genmodel"
-    			}
-				saveMapping = {
-					from = "classpath:/model/PP.ecore"
-					to = "${puppetModelURI}/PP.ecore"
-				}
+//				saveMapping = {
+//        			from = "classpath:/model/PP.genmodel"
+//        			to = "${puppetModelURI}/PP.genmodel"
+//    			}
+//				saveMapping = {
+//					from = "classpath:/model/PP.ecore"
+//					to = "${puppetModelURI}/PP.ecore"
+//				}
 			
 			}
 
 			// the serialization component
-			fragment = parseTreeConstructor.ParseTreeConstructorFragment {}
+			fragment = serializer.SerializerFragment {} // 2.0 ->
+//			fragment = parseTreeConstructor.ParseTreeConstructorFragment {} // 1.0 ->
 
 			// a custom ResourceFactory for use with EMF 
 			fragment = resourceFactory.ResourceFactoryFragment {

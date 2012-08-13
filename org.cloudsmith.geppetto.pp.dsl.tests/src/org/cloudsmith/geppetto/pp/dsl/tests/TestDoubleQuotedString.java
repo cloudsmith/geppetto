@@ -73,6 +73,12 @@ public class TestDoubleQuotedString extends AbstractPuppetTests {
 	}
 
 	@Override
+	protected boolean shouldTestSerializer(XtextResource resource) {
+		// NOTE: The serializer tester seems to screw up the comparison of strings
+		return false;
+	}
+
+	@Override
 	public void tearDown() throws Exception {
 		super.tearDown();
 		System.setOut(savedOut);
@@ -161,6 +167,7 @@ public class TestDoubleQuotedString extends AbstractPuppetTests {
 	public void test_Serialize_DoubleQuotedString_1() throws Exception {
 		String original = "before${var}/after${1+2}$$${$var}";
 		String formatted = doubleQuote("before${var}/after${1 + 2}$$${$var}");
+		formatted += "\n";
 		String code = doubleQuote(original);
 		XtextResource r = getResourceFromString(code);
 		EObject result = r.getContents().get(0);
@@ -185,6 +192,7 @@ public class TestDoubleQuotedString extends AbstractPuppetTests {
 		String original = "before${var}/after${1+2}$$${$var}";
 		String code = "$a = " + doubleQuote(original);
 		String formatted = "$a = " + doubleQuote("before${var}/after${1 + 2}$$${$var}");
+		formatted += "\n";
 		XtextResource r = getResourceFromString(code);
 		EObject result = r.getContents().get(0);
 		assertTrue("Should be a PuppetManifest", result instanceof PuppetManifest);
@@ -198,23 +206,35 @@ public class TestDoubleQuotedString extends AbstractPuppetTests {
 	 * 
 	 */
 	public void test_Serialize_DqStringInterpolation() throws Exception {
-		String code = "$a = \"a${1}b\"\nclass a {\n}";
+		String code = "$a = \"a${1}b\"\nclass a {\n}\n";
+		String fmt = "$a = \"a${1}b\"\n\nclass a {\n}\n";
 		XtextResource r = getResourceFromString(code);
 		String s = serializeFormatted(r.getContents().get(0));
 		// System.out.println(NodeModelUtils.compactDump(r.getParseResult().getRootNode(), false));
-		assertEquals("serialization should produce specified result", code, s);
+		assertEquals("serialization should produce specified result", fmt, s);
 	}
 
 	/**
 	 * Without interpolation formatting does the right thing.
 	 */
 	public void test_Serialize_DqStringNoInterpolation() throws Exception {
-		String code = "$a = \"ab\"\nclass a {\n}";
+		String code = "$a = \"ab\"\nclass a {\n}\n";
+		String fmt = "$a = \"ab\"\n\nclass a {\n}\n";
 		XtextResource r = getResourceFromString(code);
 		String s = serializeFormatted(r.getContents().get(0));
 		// System.out.println(NodeModelUtils.compactDump(r.getParseResult().getRootNode(), false));
 
-		assertEquals("serialization should produce specified result", code, s);
+		assertEquals("serialization should produce specified result", fmt, s);
+	}
+
+	public void test_serializeSimpleDqString() throws Exception {
+		String code = "$x = \"a${var}\"";
+		XtextResource r = getResourceFromString(code);
+		EObject result = r.getContents().get(0);
+		String s = serializeFormatted(result);
+
+		assertEquals("Serialization of interpolated string should produce same result", "$x = \"a${var}\"\n", s);
+
 	}
 
 	public void test_Validate_DoubleQuotedString_Ok() {
@@ -283,4 +303,5 @@ public class TestDoubleQuotedString extends AbstractPuppetTests {
 		tester.validator().checkVerbatimTextExpression(te);
 		tester.diagnose().assertWarning(IPPDiagnostics.ISSUE__UNRECOGNIZED_ESCAPE);
 	}
+
 }

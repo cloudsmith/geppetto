@@ -13,26 +13,25 @@ package org.cloudsmith.geppetto.pp.dsl.ui.coloring;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 
-import org.cloudsmith.geppetto.pp.Definition;
 import org.cloudsmith.geppetto.pp.Expression;
 import org.cloudsmith.geppetto.pp.ExpressionTE;
-import org.cloudsmith.geppetto.pp.HostClassDefinition;
 import org.cloudsmith.geppetto.pp.LiteralList;
 import org.cloudsmith.geppetto.pp.LiteralNameOrReference;
-import org.cloudsmith.geppetto.pp.NodeDefinition;
 import org.cloudsmith.geppetto.pp.ParenthesisedExpression;
 import org.cloudsmith.geppetto.pp.PuppetManifest;
 import org.cloudsmith.geppetto.pp.ResourceBody;
 import org.cloudsmith.geppetto.pp.ResourceExpression;
 import org.cloudsmith.geppetto.pp.dsl.PPDSLConstants;
-import org.cloudsmith.geppetto.pp.dsl.adapters.DocumentationAdapter;
-import org.cloudsmith.geppetto.pp.dsl.adapters.DocumentationAdapterFactory;
+import org.cloudsmith.geppetto.pp.dsl.adapters.ResourceDocumentationAdapter;
+import org.cloudsmith.geppetto.pp.dsl.adapters.ResourceDocumentationAdapterFactory;
 import org.cloudsmith.geppetto.pp.dsl.adapters.ResourcePropertiesAdapter;
 import org.cloudsmith.geppetto.pp.dsl.adapters.ResourcePropertiesAdapterFactory;
 import org.cloudsmith.geppetto.pp.dsl.linking.PPTask;
+import org.cloudsmith.geppetto.pp.dsl.ppdoc.PPDocumentationParser;
+import org.cloudsmith.geppetto.pp.dsl.ppdoc.PPDocumentationParser.DocNode;
 import org.cloudsmith.geppetto.pp.dsl.services.PPGrammarAccess;
-import org.cloudsmith.geppetto.pp.dsl.ui.coloring.PPDocumentationParser.DocNode;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.TreeIterator;
 import org.eclipse.emf.ecore.EObject;
@@ -125,16 +124,6 @@ public class PPSemanticHighlightingCalculator implements ISemanticHighlightingCa
 		Exceptions.throwUncheckedException(e);
 	}
 
-	public void highlight(Definition semantic, IHighlightedPositionAcceptor acceptor) {
-		DocumentationAdapter adapter = DocumentationAdapterFactory.eINSTANCE.adapt(semantic);
-		if(adapter != null && adapter.getNodes() != null) {
-			List<DocNode> docNodes = docParser.parse(adapter.getNodes());
-			for(DocNode dn : docNodes) {
-				acceptor.addPosition(dn.getOffset(), dn.getLength(), highlightIDForDocStyle(dn.getStyle()));
-			}
-		}
-	}
-
 	/**
 	 * A default 'do nothing' highlighting handler
 	 */
@@ -143,16 +132,6 @@ public class PPSemanticHighlightingCalculator implements ISemanticHighlightingCa
 
 		// Uncomment next For debugging, and seeing opportunities for syntax highlighting
 		// System.err.println("Missing highlight() method for: "+ o.getClass().getSimpleName());
-	}
-
-	public void highlight(HostClassDefinition semantic, IHighlightedPositionAcceptor acceptor) {
-		DocumentationAdapter adapter = DocumentationAdapterFactory.eINSTANCE.adapt(semantic);
-		if(adapter != null && adapter.getNodes() != null) {
-			List<DocNode> docNodes = docParser.parse(adapter.getNodes());
-			for(DocNode dn : docNodes) {
-				acceptor.addPosition(dn.getOffset(), dn.getLength(), highlightIDForDocStyle(dn.getStyle()));
-			}
-		}
 	}
 
 	public void highlight(INode o, IHighlightedPositionAcceptor acceptor) {
@@ -197,16 +176,6 @@ public class PPSemanticHighlightingCalculator implements ISemanticHighlightingCa
 		}
 	}
 
-	public void highlight(NodeDefinition semantic, IHighlightedPositionAcceptor acceptor) {
-		DocumentationAdapter adapter = DocumentationAdapterFactory.eINSTANCE.adapt(semantic);
-		if(adapter != null && adapter.getNodes() != null) {
-			List<DocNode> docNodes = docParser.parse(adapter.getNodes());
-			for(DocNode dn : docNodes) {
-				acceptor.addPosition(dn.getOffset(), dn.getLength(), highlightIDForDocStyle(dn.getStyle()));
-			}
-		}
-	}
-
 	public void highlight(PuppetManifest model, IHighlightedPositionAcceptor acceptor) {
 		TreeIterator<EObject> all = model.eAllContents();
 		while(all.hasNext())
@@ -230,11 +199,6 @@ public class PPSemanticHighlightingCalculator implements ISemanticHighlightingCa
 		for(ResourceBody body : expr.getResourceData()) {
 			if(body.getNameExpr() != null) {
 				Expression nameExpr = body.getNameExpr();
-				// TODO: FIX THIS WORKAROUND
-				// See https://github.com/cloudsmith/geppetto/issues/72
-				// if(nameExpr instanceof DoubleQuotedString &&
-				// TextExpressionHelper.hasInterpolation((DoubleQuotedString) nameExpr))
-				// continue;
 				ICompositeNode node = NodeModelUtils.getNode(nameExpr);
 				int offset = node.getOffset();
 				int length = node.getLength();
@@ -356,6 +320,17 @@ public class PPSemanticHighlightingCalculator implements ISemanticHighlightingCa
 			acceptor.addPosition(task.getOffset(), task.getLength(), PPHighlightConfiguration.TASK_ID);
 		}
 
+		ResourceDocumentationAdapter docAdapter = ResourceDocumentationAdapterFactory.eINSTANCE.adapt(resource);
+		if(docAdapter != null) {
+			Map<EObject, List<INode>> associations = docAdapter.getAssociations();
+			for(List<INode> sequence : associations.values()) {
+				List<DocNode> docNodes = docParser.parse(sequence);
+				for(DocNode dn : docNodes) {
+					acceptor.addPosition(dn.getOffset(), dn.getLength(), highlightIDForDocStyle(dn.getStyle()));
+				}
+
+			}
+		}
 	}
 
 	/**

@@ -7,6 +7,8 @@ package org.cloudsmith.geppetto.pp.dsl.services;
 import com.google.inject.Singleton;
 import com.google.inject.Inject;
 
+import java.util.List;
+
 import org.eclipse.xtext.*;
 import org.eclipse.xtext.service.GrammarProvider;
 import org.eclipse.xtext.service.AbstractElementFinder.*;
@@ -2485,14 +2487,14 @@ public class PPGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cCommaKeyword_2_1_0 = (Keyword)cGroup_2_1.eContents().get(0);
 		private final Assignment cElementsAssignment_2_1_1 = (Assignment)cGroup_2_1.eContents().get(1);
 		private final RuleCall cElementsAssignmentExpressionParserRuleCall_2_1_1_0 = (RuleCall)cElementsAssignment_2_1_1.eContents().get(0);
-		private final RuleCall cEndCommaParserRuleCall_3 = (RuleCall)cGroup.eContents().get(3);
-		private final Keyword cRightSquareBracketKeyword_4 = (Keyword)cGroup.eContents().get(4);
+		private final Keyword cCommaKeyword_2_2 = (Keyword)cGroup_2.eContents().get(2);
+		private final Keyword cRightSquareBracketKeyword_3 = (Keyword)cGroup.eContents().get(3);
 		
 		//LiteralList returns pp::LiteralList:
-		//	{pp::LiteralList} "[" (elements+=AssignmentExpression ("," elements+=AssignmentExpression)*)? endComma? "]";
+		//	{pp::LiteralList} "[" (elements+=AssignmentExpression ("," elements+=AssignmentExpression)* ","?)? "]";
 		public ParserRule getRule() { return rule; }
 
-		//{pp::LiteralList} "[" (elements+=AssignmentExpression ("," elements+=AssignmentExpression)*)? endComma? "]"
+		//{pp::LiteralList} "[" (elements+=AssignmentExpression ("," elements+=AssignmentExpression)* ","?)? "]"
 		public Group getGroup() { return cGroup; }
 
 		//{pp::LiteralList}
@@ -2501,7 +2503,7 @@ public class PPGrammarAccess extends AbstractGrammarElementFinder {
 		//"["
 		public Keyword getLeftSquareBracketKeyword_1() { return cLeftSquareBracketKeyword_1; }
 
-		//(elements+=AssignmentExpression ("," elements+=AssignmentExpression)*)?
+		//(elements+=AssignmentExpression ("," elements+=AssignmentExpression)* ","?)?
 		public Group getGroup_2() { return cGroup_2; }
 
 		//elements+=AssignmentExpression
@@ -2522,11 +2524,11 @@ public class PPGrammarAccess extends AbstractGrammarElementFinder {
 		//AssignmentExpression
 		public RuleCall getElementsAssignmentExpressionParserRuleCall_2_1_1_0() { return cElementsAssignmentExpressionParserRuleCall_2_1_1_0; }
 
-		//endComma?
-		public RuleCall getEndCommaParserRuleCall_3() { return cEndCommaParserRuleCall_3; }
+		//","?
+		public Keyword getCommaKeyword_2_2() { return cCommaKeyword_2_2; }
 
 		//"]"
-		public Keyword getRightSquareBracketKeyword_4() { return cRightSquareBracketKeyword_4; }
+		public Keyword getRightSquareBracketKeyword_3() { return cRightSquareBracketKeyword_3; }
 	}
 
 	public class LiteralHashElements extends AbstractParserRuleElementFinder {
@@ -3429,15 +3431,32 @@ public class PPGrammarAccess extends AbstractGrammarElementFinder {
 	private TerminalRule tRE_FLAGS;
 	private TerminalRule tANY_OTHER;
 	
-	private final GrammarProvider grammarProvider;
+	private final Grammar grammar;
 
 	@Inject
 	public PPGrammarAccess(GrammarProvider grammarProvider) {
-		this.grammarProvider = grammarProvider;
+		this.grammar = internalFindGrammar(grammarProvider);
 	}
 	
-	public Grammar getGrammar() {	
-		return grammarProvider.getGrammar(this);
+	protected Grammar internalFindGrammar(GrammarProvider grammarProvider) {
+		Grammar grammar = grammarProvider.getGrammar(this);
+		while (grammar != null) {
+			if ("org.cloudsmith.geppetto.pp.dsl.PP".equals(grammar.getName())) {
+				return grammar;
+			}
+			List<Grammar> grammars = grammar.getUsedGrammars();
+			if (!grammars.isEmpty()) {
+				grammar = grammars.iterator().next();
+			} else {
+				return null;
+			}
+		}
+		return grammar;
+	}
+	
+	
+	public Grammar getGrammar() {
+		return grammar;
 	}
 	
 
@@ -4124,7 +4143,7 @@ public class PPGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//LiteralList returns pp::LiteralList:
-	//	{pp::LiteralList} "[" (elements+=AssignmentExpression ("," elements+=AssignmentExpression)*)? endComma? "]";
+	//	{pp::LiteralList} "[" (elements+=AssignmentExpression ("," elements+=AssignmentExpression)* ","?)? "]";
 	public LiteralListElements getLiteralListAccess() {
 		return (pLiteralList != null) ? pLiteralList : (pLiteralList = new LiteralListElements());
 	}

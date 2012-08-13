@@ -28,14 +28,20 @@ import org.cloudsmith.geppetto.pp.VirtualCollectQuery;
 public class TestCollectExpression extends AbstractPuppetTests {
 
 	// @formatter:off
-	static final String Sample_Collect = "User <| name == Luke |> {\n" + "\trole => jedi,\n"
-			+ "\ttasks +> rakeleaves\n" + "}";
+	static final String Sample_Collect = "User <| name == Luke |> {\n" + //
+			"  role  => jedi,\n" + //
+			"  tasks +> rakeleaves,\n" + //
+			"}\n";
 
-	static final String Sample_Collect_Exported = "User <<| name == Luke |>> {\n" + "\trole => jedi,\n"
-			+ "\ttasks +> rakeleaves\n" + "}";
+	static final String Sample_Collect_Exported = "User <<| name == Luke |>> {\n" + //
+			"  role  => jedi,\n" + //
+			"  tasks +> rakeleaves,\n" + //
+			"}\n";
 
-	static final String Sample_Collect_Complex = "User <<| name != Luke and (name != Darth or name != Vader) |>> {\n"
-			+ "\trole => jedi,\n" + "\ttasks +> rakeleaves\n" + "}";
+	static final String Sample_Collect_Complex = "User <<| name != Luke and (name != Darth or name != Vader) |>> {\n" + //
+			"  role  => jedi,\n" + //
+			"  tasks +> rakeleaves,\n" + //
+			"}\n";
 
 	// @formatter:on
 

@@ -41,6 +41,8 @@ public class MeasuredTextFlow extends AbstractTextFlow {
 
 	private boolean indentFirstLine;
 
+	private int indentAtRunStart;
+
 	@Inject
 	public MeasuredTextFlow(IFormattingContext formattingContext) {
 		super(formattingContext);
@@ -51,6 +53,7 @@ public class MeasuredTextFlow extends AbstractTextFlow {
 		currentLineWidth = 0;
 		maxWidth = 0;
 		pendingIndent = 0;
+		indentAtRunStart = 0;
 	}
 
 	/**
@@ -68,6 +71,7 @@ public class MeasuredTextFlow extends AbstractTextFlow {
 		this.currentRun = original.currentRun;
 		this.pendingIndent = original.pendingIndent;
 		this.indentFirstLine = original.indentFirstLine;
+		this.indentAtRunStart = original.indentAtRunStart;
 	}
 
 	@Override
@@ -75,6 +79,7 @@ public class MeasuredTextFlow extends AbstractTextFlow {
 		if(currentRun != null) {
 			doText(currentRun, verbatim);
 			currentRun = null;
+			indentAtRunStart = this.getIndentation();
 		}
 		lastWasSpace = true;
 		if(count <= 0)
@@ -100,6 +105,7 @@ public class MeasuredTextFlow extends AbstractTextFlow {
 			CharSequence run = currentRun;
 			currentRun = null;
 			doText(run, true);
+			indentAtRunStart = this.getIndentation();
 		}
 		emit(count);
 		lastWasSpace = true;
@@ -230,7 +236,7 @@ public class MeasuredTextFlow extends AbstractTextFlow {
 
 	/**
 	 * This implementation buffers non-breakable sequences and performs auto line wrapping if <code>verbatim</code> is <code>false</code>.
-	 * When output is <i>verbatim</i> pending output is flushed, and new output is immediately processed, and not
+	 * When output is <i>verbatim</i> pending output is flushed, and new output is immediately processed, and no
 	 * automatic line wrapping will take place.
 	 */
 	@Override
@@ -241,6 +247,7 @@ public class MeasuredTextFlow extends AbstractTextFlow {
 			if(currentRun != null) {
 				doText(currentRun, false); // if there was a current run, it is not verbatim
 				currentRun = null;
+				indentAtRunStart = this.getIndentation();
 			}
 			doText(s, true);
 			return;
@@ -251,10 +258,13 @@ public class MeasuredTextFlow extends AbstractTextFlow {
 			// wrap indent, output text, restore indent
 			CharSequence processRun = currentRun;
 			currentRun = null;
-			changeIndentation(getWrapIndentation());
+			int tmpIndentation = getIndentation();
+			setIndentation(indentAtRunStart);
+			// changeIndentation(getWrapIndentation());
 			appendBreak();
+			setIndentation(tmpIndentation);
 			super.processTextSequence(processRun, verbatim);
-			changeIndentation(-getWrapIndentation());
+			// changeIndentation(-getWrapIndentation());
 		}
 		// do nothing, just keep the currentRun
 	}

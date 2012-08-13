@@ -124,6 +124,7 @@ public abstract class AbstractTextFlow implements ITextFlow {
 
 	@Override
 	public ITextFlow changeIndentation(int count) {
+
 		if(count == 0)
 			return this;
 		indent += count * indentSize;

@@ -130,10 +130,12 @@ AttributeOperations returns pp::AttributeOperations
 		','?
 	;
 
-// NOTE: This construct is required due to an Xtext bug, it would be preferred to state (',' )? directly
+/*// NOTE: This construct is required due to an Xtext bug, it would be preferred to state (',' )? directly
 // in rules using endComma as this makes formatting work ok. The construct below will hide the  and
 // formatting needs to be aware of the  in an endComma.
 endComma : ',' ;
+* 
+*/
 
 // VALIDATION checks leftExpr must be '@' or Variable
 AssignmentExpression returns pp::Expression
@@ -268,7 +270,7 @@ SelectorExpression returns pp::Expression
 		 '?' 
 			( ('{' 
 				parameters += SelectorEntry 
-				((','  parameters += SelectorEntry) | (parameters += SelectorEntry))* endComma? 
+				((','  parameters += SelectorEntry) | (parameters += SelectorEntry))* ','? /* endcomma? */ 
 			   '}' )
 			   | parameters += SelectorEntry
 			)
@@ -302,7 +304,7 @@ AtExpression  returns pp::Expression:
 FunctionCall returns pp::Expression 
 	: PrimaryExpression ({pp::FunctionCall.leftExpr = current}
 		'('  
-			(parameters+=Expression (',' parameters += Expression)* endComma?)?
+			(parameters+=Expression (',' parameters += Expression)* ','? /*endComma? */)?
 		')' )?
 	;
 
@@ -363,7 +365,7 @@ Definition returns pp::Definition
 DefinitionArgumentList returns pp::DefinitionArgumentList
 	: {pp::DefinitionArgumentList}
 		'(' 
-			(arguments += DefinitionArgument (',' arguments += DefinitionArgument)*)? endComma?
+			(arguments += DefinitionArgument (',' arguments += DefinitionArgument)*)? ','? /* endComma? */
 	  	')' 
 	;
 	
@@ -468,7 +470,7 @@ LiteralList returns pp::LiteralList
 LiteralHash returns pp::LiteralHash
 	: {pp::LiteralHash}
 		'{'  
-			(elements += HashEntry (',' elements += HashEntry)* )? endComma?
+			(elements += HashEntry (',' elements += HashEntry)* )? ','? /* endComma? */
 		'}' 
 	;
 

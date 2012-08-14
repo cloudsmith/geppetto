@@ -205,7 +205,7 @@ public class PPStylesheetProvider extends DefaultStylesheetProvider {
 
 			// --Selector Expression
 			Select.whitespaceBefore(
-				Select.grammar(grammarAccess.getSelectorExpressionAccess().getEndCommaParserRuleCall_1_2_0_3()))//
+				Select.grammar(grammarAccess.getSelectorExpressionAccess().getCommaKeyword_1_2_0_3()))//
 			.withStyle(noSpaceUnlessWrappedNoLine)//
 			.withRuleName("WsBeforeSelectorExpressionEndComma"), //
 

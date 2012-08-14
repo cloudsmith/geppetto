@@ -128,7 +128,10 @@ public class PPFormatter extends AbstractDeclarativeFormatter {
 		for(Keyword comma : ga.findKeywords(",")) {
 			c.setNoSpace().before(comma);
 		}
-		c.setNoSpace().before(ga.getEndCommaRule());
+
+		// TODO: Old formatter needs this fixed since there is no endComma rule - they are just optional commas in
+		// various expressions. They may be ok already with a general rule "no space before a comma keyword".
+		// c.setNoSpace().before(ga.getEndCommaRule());
 
 		// no space between unary operators (! -) and the following expression
 		c.setNoSpace().after(ga.getNotExpressionAccess().getExclamationMarkKeyword_0());

@@ -374,36 +374,6 @@ finally {
 
 
 
-// Entry rule entryRuleendComma
-entryRuleendComma 
-:
-{ before(grammarAccess.getEndCommaRule()); }
-	 ruleendComma
-{ after(grammarAccess.getEndCommaRule()); } 
-	 EOF 
-;
-
-// Rule endComma
-ruleendComma 
-    @init {
-		int stackSize = keepStackSize();
-    }
-    :
-(
-{ before(grammarAccess.getEndCommaAccess().getCommaKeyword()); }
-
-	KEYWORD_8 
-
-{ after(grammarAccess.getEndCommaAccess().getCommaKeyword()); }
-)
-
-;
-finally {
-	restoreStackSize(stackSize);
-}
-
-
-
 // Entry rule entryRuleAssignmentExpression
 entryRuleAssignmentExpression 
 :
@@ -7733,9 +7703,11 @@ rule__SelectorExpression__Group_1_2_0__3__Impl
     }
 :
 (
-{ before(grammarAccess.getSelectorExpressionAccess().getEndCommaParserRuleCall_1_2_0_3()); }
-(	ruleendComma)?
-{ after(grammarAccess.getSelectorExpressionAccess().getEndCommaParserRuleCall_1_2_0_3()); }
+{ before(grammarAccess.getSelectorExpressionAccess().getCommaKeyword_1_2_0_3()); }
+(
+	KEYWORD_8 
+)?
+{ after(grammarAccess.getSelectorExpressionAccess().getCommaKeyword_1_2_0_3()); }
 )
 
 ;
@@ -8583,9 +8555,11 @@ rule__FunctionCall__Group_1_2__2__Impl
     }
 :
 (
-{ before(grammarAccess.getFunctionCallAccess().getEndCommaParserRuleCall_1_2_2()); }
-(	ruleendComma)?
-{ after(grammarAccess.getFunctionCallAccess().getEndCommaParserRuleCall_1_2_2()); }
+{ before(grammarAccess.getFunctionCallAccess().getCommaKeyword_1_2_2()); }
+(
+	KEYWORD_8 
+)?
+{ after(grammarAccess.getFunctionCallAccess().getCommaKeyword_1_2_2()); }
 )
 
 ;
@@ -9596,9 +9570,11 @@ rule__DefinitionArgumentList__Group__3__Impl
     }
 :
 (
-{ before(grammarAccess.getDefinitionArgumentListAccess().getEndCommaParserRuleCall_3()); }
-(	ruleendComma)?
-{ after(grammarAccess.getDefinitionArgumentListAccess().getEndCommaParserRuleCall_3()); }
+{ before(grammarAccess.getDefinitionArgumentListAccess().getCommaKeyword_3()); }
+(
+	KEYWORD_8 
+)?
+{ after(grammarAccess.getDefinitionArgumentListAccess().getCommaKeyword_3()); }
 )
 
 ;
@@ -11908,9 +11884,11 @@ rule__LiteralHash__Group__3__Impl
     }
 :
 (
-{ before(grammarAccess.getLiteralHashAccess().getEndCommaParserRuleCall_3()); }
-(	ruleendComma)?
-{ after(grammarAccess.getLiteralHashAccess().getEndCommaParserRuleCall_3()); }
+{ before(grammarAccess.getLiteralHashAccess().getCommaKeyword_3()); }
+(
+	KEYWORD_8 
+)?
+{ after(grammarAccess.getLiteralHashAccess().getCommaKeyword_3()); }
 )
 
 ;

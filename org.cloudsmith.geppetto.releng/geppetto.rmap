@@ -2,18 +2,16 @@
 <rm:rmap xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:bc="http://www.eclipse.org/buckminster/Common-1.0" xmlns:maven="http://www.eclipse.org/buckminster/MavenProvider-1.0" xmlns:rm="http://www.eclipse.org/buckminster/RMap-1.0">
   <rm:property key="cloudsmith.github.prefix" value="git://github.com/cloudsmith"/>
   <rm:property key="git.clones.root" value="${user.home}/git"/>
-  <rm:property key="svn.connectors.repository.url" value="http://community.polarion.com/projects/subversive/download/eclipse/2.0/indigo-site/"/>
+  <rm:property key="svn.connectors.repository.url" value="http://community.polarion.com/projects/subversive/download/eclipse/3.0/juno-site/"/>
   <rm:property key="eclipse.download" value="http://download.eclipse.org"/>
   <rm:locator pattern="^org\.cloudsmith\.geppetto(\..+)?$" searchPathRef="geppetto"/>
-  <rm:locator pattern="^org\.eclipse\.xtext(\..+)?$" searchPathRef="tmf"/>
-  <rm:locator pattern="^org\.eclipse\.[ej]git(\..+)?$" searchPathRef="git"/>
   <rm:locator pattern="^org\.polarion\.eclipse\.team\.svn\.connector(\..+)?$" searchPathRef="svn.connectors"/>
   <rm:locator pattern="^org\.apache\.commons\.compress(\..+)?$" searchPathRef="commons-compress"/>
   <rm:locator pattern="^org\.jrubyparser(\..+)?$" searchPathRef="jrubyparser"/>
   <rm:locator pattern="^org\.jruby(\..+)?$" searchPathRef="maven.central"/>
   <rm:locator searchPathRef="orbit" failOnError="false"/>
   <rm:locator searchPathRef="platform" failOnError="false"/>
-  <rm:locator searchPathRef="indigo" failOnError="false"/>
+  <rm:locator searchPathRef="juno" failOnError="false"/>
   <rm:searchPath name="geppetto">
     <rm:provider componentTypes="osgi.bundle,buckminster" readerType="git">
       <rm:property key="git.remote.uri" value="${cloudsmith.github.prefix}/geppetto.git"/>
@@ -46,24 +44,6 @@
       </rm:uri>
     </rm:provider>
   </rm:searchPath>
-  <rm:searchPath name="git">
-    <rm:provider componentTypes="osgi.bundle,eclipse.feature" readerType="p2" source="false" mutable="false">
-      <rm:property key="buckminster.source" value="false"/>
-      <rm:property key="buckminster.mutable" value="false"/>
-      <rm:uri format="{0}/egit/updates">
-        <bc:propertyRef key="eclipse.download"/>
-      </rm:uri>
-    </rm:provider>
-  </rm:searchPath>
-  <rm:searchPath name="tmf">
-    <rm:provider componentTypes="osgi.bundle,eclipse.feature" readerType="p2" source="false" mutable="false">
-      <rm:property key="buckminster.source" value="false"/>
-      <rm:property key="buckminster.mutable" value="false"/>
-      <rm:uri format="{0}/modeling/tmf/xtext/updates/releases/head/R201206120633">
-        <bc:propertyRef key="eclipse.download"/>
-      </rm:uri>
-    </rm:provider>
-  </rm:searchPath>
   <rm:searchPath name="svn.connectors">
     <rm:provider componentTypes="osgi.bundle,eclipse.feature" readerType="p2" source="false" mutable="false">
       <rm:property key="buckminster.source" value="false"/>
@@ -88,16 +68,16 @@
     <rm:provider componentTypes="osgi.bundle,eclipse.feature" readerType="p2" source="false" mutable="false">
       <rm:property key="buckminster.source" value="false"/>
       <rm:property key="buckminster.mutable" value="false"/>
-      <rm:uri format="{0}/eclipse/updates/3.7/R-3.7.2-201202080800">
+      <rm:uri format="{0}/eclipse/updates/4.2/R-4.2-201206081400">
         <bc:propertyRef key="eclipse.download"/>
       </rm:uri>
     </rm:provider>
   </rm:searchPath>
-  <rm:searchPath name="indigo">
+  <rm:searchPath name="juno">
     <rm:provider componentTypes="osgi.bundle,eclipse.feature" readerType="p2" source="false" mutable="false">
       <rm:property key="buckminster.source" value="false"/>
       <rm:property key="buckminster.mutable" value="false"/>
-      <rm:uri format="{0}/releases/indigo/201202240900">
+      <rm:uri format="{0}/releases/juno/201206270900">
         <bc:propertyRef key="eclipse.download"/>
       </rm:uri>
     </rm:provider>

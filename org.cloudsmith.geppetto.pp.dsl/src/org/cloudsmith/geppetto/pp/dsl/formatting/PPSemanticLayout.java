@@ -123,6 +123,10 @@ public class PPSemanticLayout extends DeclarativeSemanticFlowLayout {
 			PPPackage.CASE, PPPackage.DEFINITION, PPPackage.HOST_CLASS_DEFINITION, PPPackage.IF_EXPRESSION,
 			PPPackage.NODE_DEFINITION, PPPackage.RESOURCE_EXPRESSION, PPPackage.SELECTOR_EXPRESSION };
 
+	private static final int ATTRIBUTE_OPERATIONS_CLUSTER_SIZE = 20;
+
+	private static final int SELECTOR_EXPRESSION_CLUSTER_SIZE = 20;
+
 	protected void _after(AttributeOperations aos, StyleSet styleSet, IDomNode node, ITextFlow flow,
 			ILayoutContext context) {
 		if(aos.eContainer() instanceof ResourceBody) {
@@ -140,7 +144,8 @@ public class PPSemanticLayout extends DeclarativeSemanticFlowLayout {
 	protected boolean _format(AttributeOperations aos, StyleSet styleSet, IDomNode node, ITextFlow flow,
 			ILayoutContext context) {
 		LayoutUtils.unifyWidthAndAlign(
-			node, grammarAccess.getAttributeOperationAccess().getKeyNameParserRuleCall_1_0(), Alignment.left);
+			node, grammarAccess.getAttributeOperationAccess().getKeyNameParserRuleCall_1_0(), Alignment.left,
+			ATTRIBUTE_OPERATIONS_CLUSTER_SIZE);
 		return false;
 	}
 
@@ -295,7 +300,8 @@ public class PPSemanticLayout extends DeclarativeSemanticFlowLayout {
 	protected boolean _format(SelectorExpression se, StyleSet styleSet, IDomNode node, ITextFlow flow,
 			ILayoutContext context) {
 		LayoutUtils.unifyWidthAndAlign(
-			node, grammarAccess.getSelectorEntryAccess().getSelectorEntryLeftExprAction_1_0(), Alignment.left);
+			node, grammarAccess.getSelectorEntryAccess().getSelectorEntryLeftExprAction_1_0(), Alignment.left,
+			SELECTOR_EXPRESSION_CLUSTER_SIZE);
 		return false;
 
 	}

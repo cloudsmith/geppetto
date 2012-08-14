@@ -19,6 +19,7 @@ import org.cloudsmith.xtext.dommodel.IDomNode;
 import org.cloudsmith.xtext.dommodel.formatter.css.Alignment;
 import org.cloudsmith.xtext.dommodel.formatter.css.StyleFactory;
 import org.cloudsmith.xtext.dommodel.formatter.css.StyleSet;
+import org.cloudsmith.xtext.formatting.utils.IntegerCluster;
 import org.eclipse.xtext.AbstractElement;
 
 import com.google.common.collect.Lists;
@@ -43,23 +44,31 @@ public class LayoutUtils {
 	 *            - the subtree root to scan
 	 * @param grammarElement
 	 */
-	public static void unifyWidthAndAlign(IDomNode dom, AbstractElement grammarElement, Alignment alignment) {
-		int max = 0;
+	public static void unifyWidthAndAlign(IDomNode dom, AbstractElement grammarElement, Alignment alignment,
+			int clusterMax) {
+
+		IntegerCluster cluster = new IntegerCluster(clusterMax);
+		// int max = 0;
 		Iterator<IDomNode> iterator = dom.treeIterator();
 		List<IDomNode> affected = Lists.newArrayList();
 		while(iterator.hasNext()) {
 			IDomNode node = iterator.next();
 			if(node.getGrammarElement() == grammarElement) {
 				node = DomModelUtils.firstTokenWithText(node);
-				max = Math.max(max, node.getText() == null
-						? 0
-						: node.getText().length());
+				if(node.getText() == null)
+					continue;
+				int length = node.getText().length();
+				cluster.add(length);
+				//
+				// max = Math.max(max, node.getText() == null
+				// ? 0
+				// : node.getText().length());
 				affected.add(node);
 			}
 		}
 		for(IDomNode node : affected)
 			node.getStyles().add(StyleSet.withStyles(//
-				new StyleFactory.WidthStyle(max), //
+				new StyleFactory.WidthStyle(cluster.clusterMax(node.getText().length())), //
 				new StyleFactory.AlignmentStyle(alignment)));
 	}
 }

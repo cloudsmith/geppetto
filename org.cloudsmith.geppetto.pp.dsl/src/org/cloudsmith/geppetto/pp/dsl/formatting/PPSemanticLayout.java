@@ -227,7 +227,7 @@ public class PPSemanticLayout extends DeclarativeSemanticFlowLayout {
 
 	protected boolean _format(DefinitionArgumentList o, StyleSet styleSet, IDomNode node, ITextFlow flow,
 			ILayoutContext context) {
-		return definitionListArgumentLayout._format(o, styleSet, node, flow, context);
+		return definitionListArgumentLayout.format(o, styleSet, node, flow, context);
 	}
 
 	protected boolean _format(ElseExpression o, StyleSet styleSet, IDomNode node, ITextFlow flow, ILayoutContext context) {

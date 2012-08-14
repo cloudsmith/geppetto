@@ -69,20 +69,6 @@ public class DefinitionArgumentListLayout {
 
 	};
 
-	protected boolean _format(DefinitionArgumentList o, StyleSet styleSet, IDomNode node, ITextFlow flow,
-			ILayoutContext context) {
-
-		if(fitsOnSameLine(o, styleSet, node, flow, context)) {
-			return false; // that was easy
-		}
-
-		// TODO: remove trace
-		System.out.println("Definition argument list: DOES NOT FIT ON LINE");
-		markup(o, styleSet, node, flow, context);
-
-		return false;
-	}
-
 	private void assignAlignmentAndWidths(Map<IDomNode, Integer> operatorNodes, IntegerCluster cluster) {
 		for(Entry<IDomNode, Integer> entry : operatorNodes.entrySet()) {
 			int w = entry.getValue();
@@ -105,6 +91,14 @@ public class DefinitionArgumentListLayout {
 		return h1 <= h0 && continuedFlow.getWidthOfLastLine() < continuedFlow.getPreferredMaxWidth();
 	}
 
+	protected boolean format(DefinitionArgumentList o, StyleSet styleSet, IDomNode node, ITextFlow flow,
+			ILayoutContext context) {
+
+		if(!fitsOnSameLine(o, styleSet, node, flow, context))
+			markup(o, styleSet, node, flow, context); // that was easy
+		return false;
+	}
+
 	protected void markup(DefinitionArgumentList o, StyleSet styleSet, IDomNode node, ITextFlow flow,
 			ILayoutContext context) {
 
@@ -115,7 +109,7 @@ public class DefinitionArgumentListLayout {
 		// With a little help From the grammar:
 		// DefinitionArgumentList returns pp::DefinitionArgumentList : {pp::DefinitionArgumentList}
 		// '('
-		// (arguments += DefinitionArgument (',' arguments += DefinitionArgument)*)? endComma?
+		// (arguments += DefinitionArgument (',' arguments += DefinitionArgument)*)? ','?
 		// ')'
 		// ;
 		//

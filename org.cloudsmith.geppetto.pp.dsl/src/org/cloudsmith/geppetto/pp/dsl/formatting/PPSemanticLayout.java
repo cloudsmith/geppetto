@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2011 Cloudsmith Inc. and other contributors, as listed below.
+ * Copyright (c) 2011,2012 Cloudsmith Inc. and other contributors, as listed below.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -18,6 +18,7 @@ import org.cloudsmith.geppetto.pp.AttributeOperations;
 import org.cloudsmith.geppetto.pp.Case;
 import org.cloudsmith.geppetto.pp.CaseExpression;
 import org.cloudsmith.geppetto.pp.Definition;
+import org.cloudsmith.geppetto.pp.DefinitionArgumentList;
 import org.cloudsmith.geppetto.pp.ElseExpression;
 import org.cloudsmith.geppetto.pp.ElseIfExpression;
 import org.cloudsmith.geppetto.pp.HostClassDefinition;
@@ -102,6 +103,9 @@ public class PPSemanticLayout extends DeclarativeSemanticFlowLayout {
 	@Inject
 	DocumentationAssociator documentationAssociator;
 
+	@Inject
+	DefinitionArgumentListLayout definitionListArgumentLayout;
+
 	protected final Predicate<IDomNode> caseColonPredicate = new Predicate<IDomNode>() {
 
 		@Override
@@ -118,9 +122,6 @@ public class PPSemanticLayout extends DeclarativeSemanticFlowLayout {
 	protected final static int[] blockClassIds = new int[] {
 			PPPackage.CASE, PPPackage.DEFINITION, PPPackage.HOST_CLASS_DEFINITION, PPPackage.IF_EXPRESSION,
 			PPPackage.NODE_DEFINITION, PPPackage.RESOURCE_EXPRESSION, PPPackage.SELECTOR_EXPRESSION };
-
-	// @Inject
-	// ICommentFormattingStrategy.MoveThenFold commentStrategy;
 
 	protected void _after(AttributeOperations aos, StyleSet styleSet, IDomNode node, ITextFlow flow,
 			ILayoutContext context) {
@@ -159,11 +160,9 @@ public class PPSemanticLayout extends DeclarativeSemanticFlowLayout {
 		MeasuredTextFlow continuedFlow = new MeasuredTextFlow((MeasuredTextFlow) flow);
 
 		int currentMaxWidth = flow.getPreferredMaxWidth();
-		// case always breaks the line and indents +1 from current indent
-
 		int availableWidth = 0; // set when first case is seen
 
-		// to find the case nodes
+		// used to find the case nodes
 		RuleCall caseRuleCall = grammarAccess.getCaseExpressionAccess().getCasesCaseParserRuleCall_3_0();
 
 		// used to collect the widths of each case's width of its values
@@ -207,7 +206,7 @@ public class PPSemanticLayout extends DeclarativeSemanticFlowLayout {
 				feeder.sequence(n, continuedFlow, dlc);
 			}
 		}
-		// faster variant
+		// assign widths and alignment to the colon nodes
 		for(int i = 0; i < colonNodes.size(); i++) {
 			IDomNode c = colonNodes.get(i);
 			int w = widths.get(i);
@@ -215,23 +214,6 @@ public class PPSemanticLayout extends DeclarativeSemanticFlowLayout {
 			c.getStyles().add(StyleSet.withStyles(styles.align(Alignment.right), //
 				styles.width(1 + mw - w)));
 		}
-
-		// // pad the colons on their left side to equal width
-		// // int max = measuredFlow.getWidth();
-		// int max = maxLastLine;
-		// for(IDomNode n : node.getChildren()) {
-		// if(n.getGrammarElement() == caseRuleCall) {
-		// Iterator<IDomNode> caseIterator = n.treeIterator();
-		// while(caseIterator.hasNext()) {
-		// IDomNode c = caseIterator.next();
-		// if(caseColonPredicate.apply(c)) {
-		// c.getStyles().add(
-		// StyleSet.withStyles(styles.align(Alignment.right), styles.width(1 + max - widths.remove(0))));
-		// break; // no need to continue past the ":"
-		// }
-		// }
-		// }
-		// }
 
 		return false;
 	}
@@ -241,6 +223,11 @@ public class PPSemanticLayout extends DeclarativeSemanticFlowLayout {
 		internalFormatStatementList(
 			node, grammarAccess.getDefinitionAccess().getStatementsExpressionListParserRuleCall_4_0());
 		return false;
+	}
+
+	protected boolean _format(DefinitionArgumentList o, StyleSet styleSet, IDomNode node, ITextFlow flow,
+			ILayoutContext context) {
+		return definitionListArgumentLayout._format(o, styleSet, node, flow, context);
 	}
 
 	protected boolean _format(ElseExpression o, StyleSet styleSet, IDomNode node, ITextFlow flow, ILayoutContext context) {
@@ -348,40 +335,6 @@ public class PPSemanticLayout extends DeclarativeSemanticFlowLayout {
 		}
 		return firstToken;
 	}
-
-	// /*
-	// * (non-Javadoc)
-	// *
-	// * @see org.cloudsmith.xtext.dommodel.formatter.FlowLayout#formatComment(org.cloudsmith.xtext.dommodel.formatter.css.StyleSet,
-	// * org.cloudsmith.xtext.dommodel.IDomNode, org.cloudsmith.xtext.textflow.ITextFlow,
-	// * org.cloudsmith.xtext.dommodel.formatter.ILayoutManager.ILayoutContext)
-	// */
-	// @Override
-	// protected void formatComment(StyleSet styleSet, IDomNode node, ITextFlow output, ILayoutContext context) {
-	// // if output provides information about metrics, it is possible to reposition/reformat a comment.
-	// // Without information about current output position etc. a formatted result based on original position
-	// // may not be nice at all.
-	//
-	// if(context.isWhitespacePreservation())
-	// super.formatComment(styleSet, node, output, context);
-	// else if(node.getGrammarElement() == this.grammarAccess.getML_COMMENTRule())
-	// formatMLComment(styleSet, node, output, context);
-	// else
-	// formatSLComment(styleSet, node, output, context);
-	//
-	// }
-	//
-	// protected void formatMLComment(StyleSet styleSet, IDomNode node, ITextFlow output, ILayoutContext layoutContext) {
-	// // TODO: Pick strategy from preferences? and/or default from runtime module
-	// commentStrategy.format(
-	// styleSet, node, output, layoutContext, new ICommentContainerInformation.JavaLikeMLCommentContainer(), mlCommentAdvice);
-	// }
-	//
-	// protected void formatSLComment(StyleSet styleSet, IDomNode node, ITextFlow output, ILayoutContext layoutContext) {
-	// // TODO: Pick strategy from preferences? and/or default from runtime module
-	// commentStrategy.format(
-	// styleSet, node, output, layoutContext, new ICommentContainerInformation.HashSLCommentContainer(), slCommentAdvice);
-	// }
 
 	protected void internalFormatStatementList(IDomNode node, EObject grammarElement) {
 		List<IDomNode> nodes = node.getChildren();

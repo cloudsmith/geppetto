@@ -118,13 +118,17 @@ public class MoveThenFoldCommentLayout extends AbstractLayout {
 		// How much space is left?
 		int maxWidth = output.getPreferredMaxWidth();
 		int current = output.getAppendLinePosition();
-		int available = maxWidth - current;
+		final int available = maxWidth - current;
 		final String lineSeparator = layoutContext.getLineSeparatorInformation().getLineSeparator();
 		final ICommentContainerInformation pos0Context = commentContext.create(0);
 
 		// how wide will the output be if hanging at current?
 		// position on line (can be -1 if there was no node model
-		int pos = DomModelUtils.posOnLine(node, lineSeparator);
+		final int pos = DomModelUtils.posOnLine(node, lineSeparator);
+		final int indentationSize = layoutContext.getIndentationInformation().getIndentString().length();
+		// final int pos_sameIndent = output.getLastUsedIndentation() * indentationSize;
+		final int pos_effectiveIndent = output.getIndentation() * indentationSize;
+
 		// set up extraction context (use 0 if there was no INode model)
 		ICommentContainerInformation in = commentContext.create(Math.max(0, pos));
 		CommentProcessor cpr = new CommentProcessor();
@@ -132,46 +136,62 @@ public class MoveThenFoldCommentLayout extends AbstractLayout {
 
 		// format in position 0 to measure it
 		ICommentContainerInformation out = pos0Context;
-		TextFlow formatted = cpr.formatComment(
-			comment, out, new CommentFormattingOptions(advice, Integer.MAX_VALUE), layoutContext);
+		TextFlow formatted = cpr.formatComment(comment, pos0Context, new CommentFormattingOptions(
+			advice, Integer.MAX_VALUE), layoutContext);
 		int w = formatted.getWidth();
 		if(w <= available) {
-			// yay, it will fit as a hanging comment, reformat for this position.
-			out = commentContext.create(current);
-			formatted = cpr.formatComment(
-				comment, out, new CommentFormattingOptions(advice, Integer.MAX_VALUE), layoutContext);
-			output.appendText(formatted.getText()); // , true);
+			// yay, it will fit as a hanging comment, reformat for this position if the position is not
+			// at an even indent multiple.
+			int use = current - pos_effectiveIndent;
+			if(use > 0) {
+				// out = commentContext.create(use);
+				formatted = cpr.formatComment(comment, commentContext.create(use), new CommentFormattingOptions(
+					advice, Integer.MAX_VALUE), layoutContext);
+			}
+			output.appendText(CharSequences.trimLeft(formatted.getText())); // , true);
 		}
 		else {
-			// Did not fit, move to new line if not first on line.
+			// Did not fit un-wrapped
 
-			int use = current;
-			// if output ends with a break, then current is at the leftmost position already
-			if(!(output.endsWithBreak() || output.isEmpty())) {
-				// if comment fits with effective indent, use that
-				// otherwise, if comment fits with same indent, use that
-				// otherwise, reformat for effective indent
-				//
-				final int indentationSize = layoutContext.getIndentationInformation().getIndentString().length();
-				int pos_sameIndent = output.getLastUsedIndentation() * indentationSize;
-				int pos_effectiveIndent = output.getIndentation() * indentationSize;
-				use = pos_effectiveIndent;
-				if(!(use + w <= available) && pos_sameIndent + w <= available)
-					use = pos_sameIndent;
+			// number of wanted empty trailing lines wanted in output
+			final int trailing = commentContext.isSLStyle()
+					? 0
+					: 1;
 
-				// break and manually indent first line
-				output.appendText(lineSeparator); // , true);
-				output.appendText(CharSequences.spaces(use)); // , true);
+			// if output ends with a break, then current is at the leftmost position already, and moving it
+			// is not an option. The position is also at an indent multiple, so no need to reposition the comment.
+			//
+			if(output.endsWithBreak() || output.isEmpty()) {
+
+				// re-format for effective indent
+				formatted = cpr.formatComment(//
+					comment, //
+					pos0Context, //
+					new CommentFormattingOptions(advice, maxWidth - pos_effectiveIndent, trailing), layoutContext);
 			}
-			out = commentContext.create(use);
-			// format (will wrap if required)
-			// Enforce a min trailing empty line of 1 if this is a ML comment that is not on the same line,
-			// but use 0 for SL comments (rule may be applied after split).
-			formatted = cpr.formatComment(comment, out, new CommentFormattingOptions(
-				advice, maxWidth - use, commentContext.isSLStyle()
-						? 0
-						: 1), layoutContext);
-			output.appendText(formatted.getText()); // , true);
+			else {
+				// re-format for the available space (hanging at current position)
+				formatted = cpr.formatComment(//
+					comment, //
+					commentContext.create(current - pos_effectiveIndent), //
+					new CommentFormattingOptions(advice, available, trailing), layoutContext);
+
+				// if comment formatted for hanging at current does not fit the width (because it
+				// has non-breakable content, or starts at an awkward position)
+				// then reformat and move the comment to the effective indent.
+				if(formatted.getWidth() > maxWidth - pos_effectiveIndent) {
+
+					// ouch, not possible to format it as hanging at current position, must move it to the next line.
+					output.appendBreak();
+
+					// re-format for the effective indent position space
+					formatted = cpr.formatComment(//
+						comment, //
+						pos0Context, //
+						new CommentFormattingOptions(advice, maxWidth - pos_effectiveIndent, trailing), layoutContext);
+				}
+			}
+			output.appendText(CharSequences.trimLeft(formatted.getText())); // , true);
 		}
 
 	}

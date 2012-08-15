@@ -247,7 +247,7 @@ public class TestSemanticCssFormatter extends AbstractPuppetTests {
 		// pad expected and result with 2 spaces to emulate the inserting of the result
 		// (makes comparison look nicer if test fails)
 		String expected = "  /* the\n   * quick\n   * brown\n   * fox\n   */ ";
-		assertEquals("Should produce expected result", expected, "  " + s.getText().toString());
+		assertEquals("Should produce expected result", expected, "  " + CharSequences.trimLeft(s.getText()).toString());
 	}
 
 	public void test_MeasuringTextStream() {

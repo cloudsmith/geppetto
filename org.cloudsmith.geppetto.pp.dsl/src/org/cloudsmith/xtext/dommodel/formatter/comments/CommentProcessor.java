@@ -95,6 +95,10 @@ import com.google.common.collect.Lists;
  * <p>
  * It is possible to constrain trailing empty lines min/max.
  * </p>
+ * <p>
+ * Note that the result will contain leading whitespace up to the position passed as the starting position. When appending the text to an existing
+ * flow already at this position, the method {@link CharSequences#trimLeft(CharSequence)} can be used to adjust the text to this position.
+ * </p>
  * TODO: Needs to know about the ICommentFormatterAdvice !
  */
 public class CommentProcessor {
@@ -200,7 +204,7 @@ public class CommentProcessor {
 			for(int i = 0; i < limit; i++) {
 				// comment container
 				if(i == 0)
-					flow.append(out.getStartToken());
+					flow.append(CharSequences.spaces(out.getLeftPosition())).append(out.getStartToken());
 				else
 					flow.append(indent).append(out.getRepeatingToken());
 

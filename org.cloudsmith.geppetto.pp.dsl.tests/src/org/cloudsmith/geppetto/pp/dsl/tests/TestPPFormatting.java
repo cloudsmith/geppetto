@@ -153,6 +153,33 @@ public class TestPPFormatting extends AbstractPuppetTests {
 
 	}
 
+	public void test_CommentFoldingSL() throws Exception {
+		StringBuilder builder = new StringBuilder();
+		for(int i = 0; i < 133; i++)
+			builder.append("f");
+		String _133f = builder.toString();
+		String code = "# ok askdj faöskdjf öalskdjf aalksjf alskdjf kdj " + _133f + " ffffffffffff\n";
+		String expected = "# ok askdj faöskdjf öalskdjf aalksjf alskdjf kdj\n# " + _133f + "\n# ffffffffffff\n";
+		XtextResource r = getResourceFromString(code);
+		String s = serializeFormatted(r.getContents().get(0));
+		assertEquals("formatting should produce wanted result", expected, s);
+
+	}
+
+	public void test_CommentShouldBeIndentedOkML() throws Exception {
+		String code = "class foo {\n" + "  /* ok comment\n" + "   * ok comment\n" + "   */\n" + "}\n";
+		XtextResource r = getResourceFromString(code);
+		String s = serializeFormatted(r.getContents().get(0));
+		assertEquals("formatting should produce wanted result", code, s);
+	}
+
+	public void test_CommentShouldBeIndentedOkSL() throws Exception {
+		String code = "class foo {\n" + "  # ok comment\n" + "  # ok comment\n" + "  #\n" + "}\n";
+		XtextResource r = getResourceFromString(code);
+		String s = serializeFormatted(r.getContents().get(0));
+		assertEquals("formatting should produce wanted result", code, s);
+	}
+
 	public void test_CommentShouldNotBeMoved1() throws Exception {
 		String code = "$a = 10\n# comment\n$b = 20\n";
 		XtextResource r = getResourceFromString(code);

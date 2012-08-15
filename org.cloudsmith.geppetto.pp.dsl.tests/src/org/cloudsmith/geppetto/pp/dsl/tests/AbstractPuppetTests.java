@@ -27,6 +27,7 @@ import org.cloudsmith.geppetto.pp.SingleQuotedString;
 import org.cloudsmith.geppetto.pp.VariableExpression;
 import org.cloudsmith.geppetto.pp.VirtualNameOrReference;
 import org.cloudsmith.geppetto.pp.dsl.validation.PPJavaValidator;
+import org.cloudsmith.xtext.serializer.DomBasedSerializer;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
@@ -44,10 +45,13 @@ import org.eclipse.xtext.resource.XtextResource;
 import org.eclipse.xtext.resource.XtextResourceSet;
 import org.eclipse.xtext.resource.containers.DelegatingIAllContainerAdapter;
 import org.eclipse.xtext.resource.containers.IAllContainersState;
+import org.eclipse.xtext.serializer.ISerializer;
 import org.eclipse.xtext.util.CancelIndicator;
+import org.eclipse.xtext.util.ITextRegion;
 import org.eclipse.xtext.util.StringInputStream;
 import org.eclipse.xtext.validation.EValidatorRegistrar;
 
+import com.google.common.base.Preconditions;
 import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
@@ -415,6 +419,12 @@ public class AbstractPuppetTests extends AbstractXtextTests {
 
 	public String serializeFormatted(EObject obj) {
 		return getSerializer().serialize(obj, SaveOptions.newBuilder().format().getOptions());
+	}
+
+	public String serializeFormatted(EObject obj, ITextRegion regionToFormat) {
+		ISerializer s = getSerializer();
+		Preconditions.checkState(s instanceof DomBasedSerializer);
+		return ((DomBasedSerializer) s).serialize(obj, SaveOptions.newBuilder().format().getOptions(), regionToFormat);
 	}
 
 	@Override

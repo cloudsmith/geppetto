@@ -41,6 +41,7 @@ import org.eclipse.xtext.serializer.sequencer.IHiddenTokenSequencer;
 import org.eclipse.xtext.util.ITextRegion;
 import org.eclipse.xtext.util.Pair;
 import org.eclipse.xtext.util.ReplaceRegion;
+import org.eclipse.xtext.util.TextRegion;
 import org.eclipse.xtext.util.Tuples;
 
 import com.google.common.collect.Lists;
@@ -354,5 +355,26 @@ public class TestPPFormatting extends AbstractPuppetTests {
 		brutalDetachNodeModel(r.getContents().get(0));
 		s = serializeFormatted(r.getContents().get(0));
 		assertEquals("formatting without node-model should produce wanted result", fmt2, s);
+	}
+
+	public void test_selectiveFormatting1() throws Exception {
+		String code1 /*
+		      */= "class x {\n";
+		//
+		String code2 /*
+	          */= "  exec { 'x':\n" //
+				+ "    command => 'echo gotcha',\n" //
+				+ "  }\n"; //
+		String code3 = /*
+		        */"}\n";
+
+		String code = code1 + code2 + code3;
+		XtextResource r = getResourceFromString(code);
+		String s = serializeFormatted(r.getContents().get(0));
+		assertEquals("formatting should produce wanted result", code, s);
+
+		s = serializeFormatted(r.getContents().get(0), new TextRegion(10, 47));
+		assertEquals("formatting should produce wanted result", code2, s);
+
 	}
 }

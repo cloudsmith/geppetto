@@ -235,17 +235,18 @@ public class CommentProcessor {
 			if(singleLine) {
 				// last line is the same as the first
 				if(endToken.length() > 0)
-					flow.append(" ");
+					flow.append(" "); // space before end token (if one will be output)
 			}
 			else {
 				CharSequence s = lines.get(limit);
 				flow.append(indent);
 				if(s.length() > 0) {
 					flow.append(out.getRepeatingToken());
-					if(!CharSequences.isHomogeneous(s))
+					if(Character.isLetterOrDigit(s.charAt(0)) || !CharSequences.isHomogeneous(s))
 						flow.append(leftMargin);
 					flow.append(s);
-					flow.append(" ");
+					if(!out.isSLStyle())
+						flow.append(" "); // a ML comment may be followed by something
 				}
 			}
 			if(endToken.length() > 0)
@@ -343,8 +344,7 @@ public class CommentProcessor {
 	}
 
 	public void foldLines(List<CharSequence> lines, ICommentFormatterAdvice advice, int width) {
-		int limit = lines.size();
-		for(int i = 0; i < limit; i++) {
+		for(int i = 0; i < lines.size(); i++) {
 			CharSequence s = lines.get(i);
 			if(s.length() > width) {
 				// shorten if banner, else fold
@@ -366,6 +366,7 @@ public class CommentProcessor {
 					List<CharSequence> folded = foldLine(s, width, advice);
 					lines.set(i, folded.get(0));
 					lines.addAll(i + 1, folded.subList(1, folded.size()));
+					i += folded.size() - 1; // skip lines that are already folded
 				}
 			}
 		}

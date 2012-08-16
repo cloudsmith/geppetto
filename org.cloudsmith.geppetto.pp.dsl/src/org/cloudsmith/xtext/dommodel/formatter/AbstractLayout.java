@@ -19,10 +19,11 @@ import org.eclipse.xtext.util.ITextRegion;
 import com.google.inject.Inject;
 
 /**
- * @author henrik
+ * Abstract implementation of the most basic layout interface.
  * 
  */
 public abstract class AbstractLayout implements ILayout {
+
 	@Inject
 	protected FormattingTracer tracer;
 

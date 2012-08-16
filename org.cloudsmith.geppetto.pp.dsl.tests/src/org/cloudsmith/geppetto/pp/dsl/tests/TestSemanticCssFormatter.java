@@ -376,7 +376,7 @@ public class TestSemanticCssFormatter extends AbstractPuppetTests {
 
 	public void testRegionMatcher_after() {
 		RegionMatch match = new RegionMatch("abc", 5, new TextRegion(3, 2));
-		assertEquals("Should be AFTER", RegionMatch.RegionMatchType.AFTER, match.getType());
+		assertEquals("Should be AFTER", RegionMatch.IntersectionType.AFTER, match.getIntersectionType());
 		Triple<CharSequence, CharSequence, CharSequence> applied = match.apply();
 		assertEquals("", applied.getFirst().toString());
 		assertEquals("", applied.getSecond().toString());
@@ -385,66 +385,66 @@ public class TestSemanticCssFormatter extends AbstractPuppetTests {
 
 	public void testRegionMatcher_before() {
 		RegionMatch match = new RegionMatch("abc", 0, new TextRegion(3, 2));
-		assertEquals("Should be BEFORE", RegionMatch.RegionMatchType.BEFORE, match.getType());
+		assertEquals("Should be BEFORE", RegionMatch.IntersectionType.BEFORE, match.getIntersectionType());
 		Triple<CharSequence, CharSequence, CharSequence> applied = match.apply();
-		assertEquals("abc", applied.getFirst().toString());
-		assertEquals("", applied.getSecond().toString());
+		assertEquals("", applied.getFirst().toString());
+		assertEquals("abc", applied.getSecond().toString());
 		assertEquals("", applied.getThird().toString());
 	}
 
 	public void testRegionMatcher_contained() {
 		// left aligned in region
 		RegionMatch match = new RegionMatch("abc", 0, new TextRegion(0, 5));
-		assertEquals("Should be CONTAINED left", RegionMatch.RegionMatchType.CONTAINED, match.getType());
+		assertEquals("Should be CONTAINED left", RegionMatch.IntersectionType.CONTAINED, match.getIntersectionType());
 		Triple<CharSequence, CharSequence, CharSequence> applied = match.apply();
-		assertEquals("", applied.getFirst().toString());
-		assertEquals("abc", applied.getSecond().toString());
+		assertEquals("abc", applied.getFirst().toString());
+		assertEquals("", applied.getSecond().toString());
 		assertEquals("", applied.getThird().toString());
 
 		// "centered" in region
 		match = new RegionMatch("abc", 2, new TextRegion(0, 6));
-		assertEquals("Should be CONTAINED centered", RegionMatch.RegionMatchType.CONTAINED, match.getType());
+		assertEquals("Should be CONTAINED centered", RegionMatch.IntersectionType.CONTAINED, match.getIntersectionType());
 		applied = match.apply();
-		assertEquals("", applied.getFirst().toString());
-		assertEquals("abc", applied.getSecond().toString());
+		assertEquals("abc", applied.getFirst().toString());
+		assertEquals("", applied.getSecond().toString());
 		assertEquals("", applied.getThird().toString());
 
 		// right aligned in region
 		match = new RegionMatch("abc", 2, new TextRegion(0, 5));
-		assertEquals("Should be CONTAINED right", RegionMatch.RegionMatchType.CONTAINED, match.getType());
+		assertEquals("Should be CONTAINED right", RegionMatch.IntersectionType.CONTAINED, match.getIntersectionType());
 		applied = match.apply();
-		assertEquals("", applied.getFirst().toString());
-		assertEquals("abc", applied.getSecond().toString());
+		assertEquals("abc", applied.getFirst().toString());
+		assertEquals("", applied.getSecond().toString());
 		assertEquals("", applied.getThird().toString());
 
 	}
 
 	public void testRegionMatcher_firstPartInside() {
 		RegionMatch match = new RegionMatch("abc", 4, new TextRegion(0, 5));
-		assertEquals("Should be FIRSTPART_INSIDE", RegionMatch.RegionMatchType.FIRSTPART_INSIDE, match.getType());
+		assertEquals("Should be FIRSTPART_INSIDE", RegionMatch.IntersectionType.FIRSTPART_INSIDE, match.getIntersectionType());
 		Triple<CharSequence, CharSequence, CharSequence> applied = match.apply();
-		assertEquals("", applied.getFirst().toString());
-		assertEquals("a", applied.getSecond().toString());
+		assertEquals("a", applied.getFirst().toString());
+		assertEquals("", applied.getSecond().toString());
 		assertEquals("bc", applied.getThird().toString());
 
 	}
 
 	public void testRegionMatcher_lastPartInside() {
 		RegionMatch match = new RegionMatch("abc", 0, new TextRegion(2, 5));
-		assertEquals("Should be LASTPART_INSIDE", RegionMatch.RegionMatchType.LASTPART_INSIDE, match.getType());
+		assertEquals("Should be LASTPART_INSIDE", RegionMatch.IntersectionType.LASTPART_INSIDE, match.getIntersectionType());
 		Triple<CharSequence, CharSequence, CharSequence> applied = match.apply();
-		assertEquals("ab", applied.getFirst().toString());
-		assertEquals("c", applied.getSecond().toString());
+		assertEquals("c", applied.getFirst().toString());
+		assertEquals("ab", applied.getSecond().toString());
 		assertEquals("", applied.getThird().toString());
 
 	}
 
 	public void testRegionMatcher_midPartInside() {
 		RegionMatch match = new RegionMatch("abc", 0, new TextRegion(1, 1));
-		assertEquals("Should be MIDPART_INSIDE", RegionMatch.RegionMatchType.MIDPART_INSIDE, match.getType());
+		assertEquals("Should be MIDPART_INSIDE", RegionMatch.IntersectionType.MIDPART_INSIDE, match.getIntersectionType());
 		Triple<CharSequence, CharSequence, CharSequence> applied = match.apply();
-		assertEquals("a", applied.getFirst().toString());
-		assertEquals("b", applied.getSecond().toString());
+		assertEquals("b", applied.getFirst().toString());
+		assertEquals("a", applied.getSecond().toString());
 		assertEquals("c", applied.getThird().toString());
 
 	}

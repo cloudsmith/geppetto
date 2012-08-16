@@ -23,16 +23,16 @@ import com.google.common.base.Preconditions;
  * {@link ITextRegion} to compute the match/relationship between the given text and the region.
  * </p>
  * <p>
- * The matcher is then used to answer question about the relationship {@link #isOutside()}, or {@link #getType()}, and can also apply a split based on
+ * The matcher is then used to answer question about the relationship {@link #isOutside()}, or {@link #getIntersectionType()}, and can also apply a split based on
  * the relationship using {@link #apply()}.
  * 
  */
 public class RegionMatch {
-	public static enum RegionMatchType {
+	public static enum IntersectionType {
 		BEFORE, CONTAINED, LASTPART_INSIDE, MIDPART_INSIDE, FIRSTPART_INSIDE, AFTER
 	}
 
-	final RegionMatch.RegionMatchType type;
+	final RegionMatch.IntersectionType type;
 
 	final int regionOffset;
 
@@ -57,7 +57,7 @@ public class RegionMatch {
 
 		int regionEnd = 0;
 		if(region == null) {
-			this.type = RegionMatchType.CONTAINED;
+			this.type = IntersectionType.CONTAINED;
 			regionOffset = 0;
 			regionLength = Integer.MAX_VALUE;
 			regionEnd = Integer.MAX_VALUE;
@@ -69,22 +69,22 @@ public class RegionMatch {
 			int textEnd = textOffset + Math.max(0, textLength - 1);
 
 			if(startOffset > regionEnd) {
-				type = RegionMatchType.AFTER;
+				type = IntersectionType.AFTER;
 			}
 			else if(textEnd < regionOffset) {
-				type = RegionMatchType.BEFORE;
+				type = IntersectionType.BEFORE;
 			}
 			else if(textOffset < regionOffset && textEnd > regionEnd) {
-				type = RegionMatchType.MIDPART_INSIDE;
+				type = IntersectionType.MIDPART_INSIDE;
 			}
 			else if(startOffset < regionOffset) {
-				type = RegionMatchType.LASTPART_INSIDE;
+				type = IntersectionType.LASTPART_INSIDE;
 			}
 			else if(textEnd > regionEnd) {
-				type = RegionMatchType.FIRSTPART_INSIDE;
+				type = IntersectionType.FIRSTPART_INSIDE;
 			}
 			else
-				type = RegionMatchType.CONTAINED;
+				type = IntersectionType.CONTAINED;
 		}
 	}
 
@@ -94,7 +94,7 @@ public class RegionMatch {
 
 	/**
 	 * Applies the region match to the text captured from the node when the match was made.
-	 * The return {@link Triple} returns first = part before region, second = part inside region, third = part after
+	 * The return {@link Triple} returns first = part inside region, second = part before region, third = part after
 	 * region. All three elements are always set - non existant parts are represented by empty sequences.
 	 * 
 	 * @return a Triple with parts(before, inside, after)
@@ -104,32 +104,52 @@ public class RegionMatch {
 		int limit = 0;
 		switch(type) {
 			case BEFORE:
-				return Tuples.create(text, emptySequence, emptySequence);
+				return Tuples.create(emptySequence, text, emptySequence);
 			case AFTER:
 				return Tuples.create(emptySequence, emptySequence, text);
 			case CONTAINED:
-				return Tuples.create(emptySequence, text, emptySequence);
+				return Tuples.create(text, emptySequence, emptySequence);
 			case LASTPART_INSIDE:
 				limit = regionOffset - textOffset;
-				return Tuples.create(text.subSequence(0, limit), text.subSequence(limit, textLength), emptySequence);
+				return Tuples.create(text.subSequence(limit, textLength), text.subSequence(0, limit), emptySequence);
 			case MIDPART_INSIDE:
 				limit = regionOffset - textOffset;
 				return Tuples.create(
-					text.subSequence(0, limit), text.subSequence(limit, limit + regionLength),
+					text.subSequence(limit, limit + regionLength), text.subSequence(0, limit),
 					text.subSequence(limit + regionLength, textLength));
 			case FIRSTPART_INSIDE:
 				limit = regionOffset + regionLength - textOffset;
-				return Tuples.create(emptySequence, text.subSequence(0, limit), text.subSequence(limit, textLength));
+				return Tuples.create(text.subSequence(0, limit), emptySequence, text.subSequence(limit, textLength));
 			default:
 				throw new IllegalStateException("should not happen - not a supported region match case");
 		}
 	}
 
-	public RegionMatch.RegionMatchType getType() {
+	/**
+	 * @return the text region intersection type
+	 */
+	public RegionMatch.IntersectionType getIntersectionType() {
 		return type;
 	}
 
+	/**
+	 * @return true when both start and end are inside the region
+	 */
+	public boolean isContained() {
+		return type == IntersectionType.CONTAINED;
+	}
+
+	/**
+	 * @return true when start or end is inside the region
+	 */
+	public boolean isInside() {
+		return !isOutside();
+	}
+
+	/**
+	 * @return true when neither start nor end is inside the region
+	 */
 	public boolean isOutside() {
-		return type == RegionMatchType.BEFORE || type == RegionMatchType.AFTER;
+		return type == IntersectionType.BEFORE || type == IntersectionType.AFTER;
 	}
 }

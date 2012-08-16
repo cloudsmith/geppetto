@@ -13,6 +13,7 @@ package org.cloudsmith.xtext.dommodel.formatter.comments;
 
 import org.cloudsmith.xtext.dommodel.DomModelUtils;
 import org.cloudsmith.xtext.dommodel.IDomNode;
+import org.cloudsmith.xtext.dommodel.RegionMatch;
 import org.cloudsmith.xtext.dommodel.formatter.AbstractLayout;
 import org.cloudsmith.xtext.dommodel.formatter.ILayoutManager.ILayoutContext;
 import org.cloudsmith.xtext.dommodel.formatter.comments.CommentProcessor.CommentFormattingOptions;
@@ -57,45 +58,24 @@ public class MoveThenFoldCommentLayout extends AbstractLayout {
 
 	@Override
 	public boolean format(StyleSet styleSet, IDomNode dom, ITextFlow flow, ILayoutContext context) {
-		if(!isFormattingWanted(dom, context))
-			return true; // don't know why I was called really...
-
-		// format or not?
-		if(context.isWhitespacePreservation()) {
-			flow.appendText(dom.getText(), true);
-			return true;
+		RegionMatch match = intersect(dom, context);
+		if(match.isInside()) {
+			if(match.isContained() && !context.isWhitespacePreservation()) {
+				CommentType commentType = commentConfiguration.classify(dom);
+				ICommentFormatterAdvice advice = commentConfiguration.getFormatterAdvice(commentType);
+				if(!advice.enabled() || CommentType.Unknown == commentType) {
+					flow.appendText(dom.getText(), true);
+					return true;
+				}
+				this.formatComment(styleSet, dom, flow, context, //
+					commentConfiguration.getContainerInformation(commentType), advice);
+			}
+			else
+				// output the part of the text that is inside the region as verbatim text
+				flow.appendText(match.apply().getFirst(), true);
 		}
-
-		CommentType commentType = commentConfiguration.classify(dom);
-		ICommentFormatterAdvice advice = commentConfiguration.getFormatterAdvice(commentType);
-		if(!advice.enabled() || CommentType.Unknown == commentType) {
-			flow.appendText(dom.getText(), true);
-			return true;
-		}
-		this.formatComment(styleSet, dom, flow, context, //
-			commentConfiguration.getContainerInformation(commentType), advice);
 
 		return true;
-	}
-
-	protected void formatComment(StyleSet styleSet, IDomNode node, ITextFlow output, ILayoutContext context) {
-		if(!isFormattingWanted(node, context))
-			return;
-
-		// format or not?
-		if(context.isWhitespacePreservation()) {
-			output.appendText(node.getText(), true);
-			return;
-		}
-
-		CommentType commentType = commentConfiguration.classify(node);
-		ICommentFormatterAdvice advice = commentConfiguration.getFormatterAdvice(commentType);
-		if(!advice.enabled() || CommentType.Unknown == commentType) {
-			output.appendText(node.getText(), true);
-			return;
-		}
-		this.formatComment(styleSet, node, output, context, //
-			commentConfiguration.getContainerInformation(commentType), advice);
 	}
 
 	/**
@@ -135,7 +115,6 @@ public class MoveThenFoldCommentLayout extends AbstractLayout {
 		CommentText comment = cpr.separateCommentFromContainer(node.getText(), in, lineSeparator);
 
 		// format in position 0 to measure it
-		ICommentContainerInformation out = pos0Context;
 		TextFlow formatted = cpr.formatComment(comment, pos0Context, new CommentFormattingOptions(
 			advice, Integer.MAX_VALUE), layoutContext);
 		int w = formatted.getWidth();

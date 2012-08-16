@@ -364,9 +364,9 @@ public class TestPPFormatting extends AbstractPuppetTests {
 		String code2 /*
 	          */= "  exec { 'x':\n" //
 				+ "    command => 'echo gotcha',\n" //
-				+ "  }\n"; //
+				+ "  }"; //
 		String code3 = /*
-		        */"}\n";
+		        */"\n}\n";
 
 		String code = code1 + code2 + code3;
 		XtextResource r = getResourceFromString(code);

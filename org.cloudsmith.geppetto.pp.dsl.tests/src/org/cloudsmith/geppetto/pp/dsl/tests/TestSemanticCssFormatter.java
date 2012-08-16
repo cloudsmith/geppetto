@@ -19,6 +19,7 @@ import org.cloudsmith.geppetto.pp.dsl.formatting.PPStylesheetProvider;
 import org.cloudsmith.geppetto.pp.dsl.ppformatting.PPIndentationInformation;
 import org.cloudsmith.xtext.dommodel.IDomNode;
 import org.cloudsmith.xtext.dommodel.IDomNode.NodeType;
+import org.cloudsmith.xtext.dommodel.RegionMatch;
 import org.cloudsmith.xtext.dommodel.formatter.CSSDomFormatter;
 import org.cloudsmith.xtext.dommodel.formatter.DomNodeLayoutFeeder;
 import org.cloudsmith.xtext.dommodel.formatter.IDomModelFormatter;
@@ -45,6 +46,8 @@ import org.eclipse.xtext.serializer.diagnostic.ISerializationDiagnostic.Acceptor
 import org.eclipse.xtext.serializer.sequencer.IHiddenTokenSequencer;
 import org.eclipse.xtext.util.ITextRegion;
 import org.eclipse.xtext.util.ReplaceRegion;
+import org.eclipse.xtext.util.TextRegion;
+import org.eclipse.xtext.util.Triple;
 
 import com.google.inject.Binder;
 import com.google.inject.Guice;
@@ -369,5 +372,80 @@ public class TestSemanticCssFormatter extends AbstractPuppetTests {
 		Set<NodeType> none = EnumSet.noneOf(NodeType.class);
 		Set<NodeType> ws = EnumSet.of(NodeType.WHITESPACE);
 		assertTrue(ws.containsAll(none));
+	}
+
+	public void testRegionMatcher_after() {
+		RegionMatch match = new RegionMatch("abc", 5, new TextRegion(3, 2));
+		assertEquals("Should be AFTER", RegionMatch.RegionMatchType.AFTER, match.getType());
+		Triple<CharSequence, CharSequence, CharSequence> applied = match.apply();
+		assertEquals("", applied.getFirst().toString());
+		assertEquals("", applied.getSecond().toString());
+		assertEquals("abc", applied.getThird().toString());
+	}
+
+	public void testRegionMatcher_before() {
+		RegionMatch match = new RegionMatch("abc", 0, new TextRegion(3, 2));
+		assertEquals("Should be BEFORE", RegionMatch.RegionMatchType.BEFORE, match.getType());
+		Triple<CharSequence, CharSequence, CharSequence> applied = match.apply();
+		assertEquals("abc", applied.getFirst().toString());
+		assertEquals("", applied.getSecond().toString());
+		assertEquals("", applied.getThird().toString());
+	}
+
+	public void testRegionMatcher_contained() {
+		// left aligned in region
+		RegionMatch match = new RegionMatch("abc", 0, new TextRegion(0, 5));
+		assertEquals("Should be CONTAINED left", RegionMatch.RegionMatchType.CONTAINED, match.getType());
+		Triple<CharSequence, CharSequence, CharSequence> applied = match.apply();
+		assertEquals("", applied.getFirst().toString());
+		assertEquals("abc", applied.getSecond().toString());
+		assertEquals("", applied.getThird().toString());
+
+		// "centered" in region
+		match = new RegionMatch("abc", 2, new TextRegion(0, 6));
+		assertEquals("Should be CONTAINED centered", RegionMatch.RegionMatchType.CONTAINED, match.getType());
+		applied = match.apply();
+		assertEquals("", applied.getFirst().toString());
+		assertEquals("abc", applied.getSecond().toString());
+		assertEquals("", applied.getThird().toString());
+
+		// right aligned in region
+		match = new RegionMatch("abc", 2, new TextRegion(0, 5));
+		assertEquals("Should be CONTAINED right", RegionMatch.RegionMatchType.CONTAINED, match.getType());
+		applied = match.apply();
+		assertEquals("", applied.getFirst().toString());
+		assertEquals("abc", applied.getSecond().toString());
+		assertEquals("", applied.getThird().toString());
+
+	}
+
+	public void testRegionMatcher_firstPartInside() {
+		RegionMatch match = new RegionMatch("abc", 4, new TextRegion(0, 5));
+		assertEquals("Should be FIRSTPART_INSIDE", RegionMatch.RegionMatchType.FIRSTPART_INSIDE, match.getType());
+		Triple<CharSequence, CharSequence, CharSequence> applied = match.apply();
+		assertEquals("", applied.getFirst().toString());
+		assertEquals("a", applied.getSecond().toString());
+		assertEquals("bc", applied.getThird().toString());
+
+	}
+
+	public void testRegionMatcher_lastPartInside() {
+		RegionMatch match = new RegionMatch("abc", 0, new TextRegion(2, 5));
+		assertEquals("Should be LASTPART_INSIDE", RegionMatch.RegionMatchType.LASTPART_INSIDE, match.getType());
+		Triple<CharSequence, CharSequence, CharSequence> applied = match.apply();
+		assertEquals("ab", applied.getFirst().toString());
+		assertEquals("c", applied.getSecond().toString());
+		assertEquals("", applied.getThird().toString());
+
+	}
+
+	public void testRegionMatcher_midPartInside() {
+		RegionMatch match = new RegionMatch("abc", 0, new TextRegion(1, 1));
+		assertEquals("Should be MIDPART_INSIDE", RegionMatch.RegionMatchType.MIDPART_INSIDE, match.getType());
+		Triple<CharSequence, CharSequence, CharSequence> applied = match.apply();
+		assertEquals("a", applied.getFirst().toString());
+		assertEquals("b", applied.getSecond().toString());
+		assertEquals("c", applied.getThird().toString());
+
 	}
 }

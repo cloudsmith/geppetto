@@ -256,6 +256,10 @@ public class CharSequences {
 		return new Concatenation(a, b);
 	}
 
+	public static CharSequence empty() {
+		return "";
+	}
+
 	public static boolean endsWith(CharSequence value, String end) {
 		if(value instanceof String)
 			return ((String) value).endsWith(end);

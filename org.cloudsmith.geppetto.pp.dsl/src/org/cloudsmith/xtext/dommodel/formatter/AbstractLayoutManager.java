@@ -23,7 +23,6 @@ import org.cloudsmith.xtext.dommodel.formatter.css.StyleFactory.LayoutManagerSty
 import org.cloudsmith.xtext.dommodel.formatter.css.StyleSet;
 import org.cloudsmith.xtext.textflow.CharSequences;
 import org.cloudsmith.xtext.textflow.ITextFlow;
-import org.eclipse.xtext.util.ITextRegion;
 import org.eclipse.xtext.util.Strings;
 
 /**
@@ -235,26 +234,4 @@ public abstract class AbstractLayoutManager extends AbstractLayout implements IL
 	 */
 	protected abstract void formatWhitespace(StyleSet styleSet, IDomNode node, ITextFlow output, ILayoutContext context);
 
-	/**
-	 * <p>
-	 * Checks if the given node is within the specified region to format given by the {@link ILayoutContext#getRegionToFormat()}.
-	 * </p>
-	 * <p>
-	 * Note that even if text is not wanted for a node, does not mean it does nmot have to be processed - it may still affect the formatting in the
-	 * wanted region.
-	 * </p>
-	 * 
-	 * <b>TODO</b>: Consider returning Enum (BEFORE,IN, AFTER) to enable pruning of nodes after the region to format.
-	 * 
-	 * @param node
-	 * @param context
-	 * @return true if the node should be formatted and text produced
-	 */
-	@Override
-	protected boolean isFormattingWanted(IDomNode node, ILayoutContext context) {
-		ITextRegion regionToFormat = context.getRegionToFormat();
-		if(regionToFormat == null)
-			return true;
-		return regionToFormat.contains(node.getOffset());
-	}
 }

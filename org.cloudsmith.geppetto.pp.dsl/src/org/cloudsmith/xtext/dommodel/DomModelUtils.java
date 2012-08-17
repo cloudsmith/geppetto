@@ -288,7 +288,7 @@ public class DomModelUtils {
 	 */
 
 	public static boolean isComment(IDomNode node) {
-		return node.getNodeType() == IDomNode.NodeType.COMMENT;
+		return node.getNodeType().equals(IDomNode.NodeType.COMMENT);
 	}
 
 	/**
@@ -397,8 +397,8 @@ public class DomModelUtils {
 		if(n == null)
 			return -1;
 		int offsetOfNode = node.getNode().getTotalOffset();
-		return Math.min(
-			offsetOfNode, CharSequences.lastIndexOf(n.getRootNode().getText(), lineDelimiter, offsetOfNode - 1));
+		return offsetOfNode -
+				Math.max(0, 1 + CharSequences.lastIndexOf(n.getRootNode().getText(), lineDelimiter, offsetOfNode - 1));
 	}
 
 	public static IDomNode previousLeaf(IDomNode node) {

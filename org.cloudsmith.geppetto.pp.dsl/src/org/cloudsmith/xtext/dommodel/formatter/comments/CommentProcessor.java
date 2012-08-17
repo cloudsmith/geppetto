@@ -123,6 +123,11 @@ public class CommentProcessor {
 		}
 
 		public CommentFormattingOptions(ICommentFormatterAdvice advice, int maxWidth, int minEmptyTrailing,
+				int maxEmptyTrailing) {
+			this(advice, maxWidth, minEmptyTrailing, maxEmptyTrailing, true);
+		}
+
+		public CommentFormattingOptions(ICommentFormatterAdvice advice, int maxWidth, int minEmptyTrailing,
 				int maxEmptyTrailing, boolean retainInline) {
 			this.maxWidth = maxWidth;
 			this.minEmptyTrailing = minEmptyTrailing;
@@ -240,13 +245,15 @@ public class CommentProcessor {
 			else {
 				CharSequence s = lines.get(limit);
 				flow.append(indent);
-				if(s.length() > 0) {
+				if(s.length() > 0 || out.isSLStyle()) {
 					flow.append(out.getRepeatingToken());
-					if(Character.isLetterOrDigit(s.charAt(0)) || !CharSequences.isHomogeneous(s))
-						flow.append(leftMargin);
-					flow.append(s);
-					if(!out.isSLStyle())
-						flow.append(" "); // a ML comment may be followed by something
+					if(s.length() > 0) {
+						if(Character.isLetterOrDigit(s.charAt(0)) || !CharSequences.isHomogeneous(s))
+							flow.append(leftMargin);
+						flow.append(s);
+						if(!out.isSLStyle())
+							flow.append(" "); // a ML comment may be followed by something
+					}
 				}
 			}
 			if(endToken.length() > 0)

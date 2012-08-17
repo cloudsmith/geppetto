@@ -336,7 +336,7 @@ public class DomModelUtils {
 	 * @return true if node holds only whitespace tokens
 	 */
 	public static boolean isWhitespace(IDomNode node) {
-		return node.getNodeType() == IDomNode.NodeType.WHITESPACE;
+		return node != null && node.getNodeType() == IDomNode.NodeType.WHITESPACE;
 	}
 
 	public static IDomNode lastLeaf(IDomNode node) {
@@ -384,6 +384,14 @@ public class DomModelUtils {
 		return n;
 	}
 
+	public static IDomNode nextWhitespace(IDomNode node) {
+		for(IDomNode n = nextLeaf(node); n != null; n = nextLeaf(n)) {
+			if(isWhitespace(n))
+				return n;
+		}
+		return null;
+	}
+
 	/**
 	 * The position on the line for the IDomNode searches backwards in the total text from the start position
 	 * of the text in the given node.
@@ -421,6 +429,14 @@ public class DomModelUtils {
 		while(n != null && !isLeafWithText(n))
 			n = previousLeaf(n);
 		return n;
+	}
+
+	public static IDomNode previousWhitespace(IDomNode node) {
+		for(IDomNode n = previousLeaf(node); n != null; n = previousLeaf(n)) {
+			if(isWhitespace(n))
+				return n;
+		}
+		return null;
 	}
 
 	private static String semanticTitle(IDomNode node) {

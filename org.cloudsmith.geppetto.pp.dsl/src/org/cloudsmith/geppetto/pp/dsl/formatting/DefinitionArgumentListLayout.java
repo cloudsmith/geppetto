@@ -22,15 +22,13 @@ import org.cloudsmith.geppetto.pp.dsl.services.PPGrammarAccess;
 import org.cloudsmith.geppetto.pp.dsl.services.PPGrammarAccess.DefinitionArgumentListElements;
 import org.cloudsmith.xtext.dommodel.DomModelUtils;
 import org.cloudsmith.xtext.dommodel.IDomNode;
-import org.cloudsmith.xtext.dommodel.formatter.DelegatingLayoutContext;
-import org.cloudsmith.xtext.dommodel.formatter.DomNodeLayoutFeeder;
 import org.cloudsmith.xtext.dommodel.formatter.ILayoutManager.ILayoutContext;
+import org.cloudsmith.xtext.dommodel.formatter.LayoutUtils;
 import org.cloudsmith.xtext.dommodel.formatter.css.Alignment;
 import org.cloudsmith.xtext.dommodel.formatter.css.IStyleFactory;
 import org.cloudsmith.xtext.dommodel.formatter.css.StyleSet;
 import org.cloudsmith.xtext.formatting.utils.IntegerCluster;
 import org.cloudsmith.xtext.textflow.ITextFlow;
-import org.cloudsmith.xtext.textflow.MeasuredTextFlow;
 import org.eclipse.emf.ecore.EObject;
 
 import com.google.common.collect.Maps;
@@ -53,16 +51,16 @@ import com.google.inject.Provider;
  */
 public class DefinitionArgumentListLayout {
 	@Inject
-	IStyleFactory styles;
+	private IStyleFactory styles;
 
 	@Inject
-	PPGrammarAccess grammarAccess;
+	private PPGrammarAccess grammarAccess;
 
 	@Inject
-	DomNodeLayoutFeeder feeder;
+	private Provider<IBreakAndAlignAdvice> breakAlignAdviceProvider;
 
 	@Inject
-	Provider<IBreakAndAlignAdvice> breakAlignAdviceProvider;
+	private LayoutUtils layoutUtils;
 
 	private void assignAlignmentAndWidths(Map<IDomNode, Integer> operatorNodes, IntegerCluster cluster) {
 		for(Entry<IDomNode, Integer> entry : operatorNodes.entrySet()) {
@@ -79,19 +77,6 @@ public class DefinitionArgumentListLayout {
 				return true;
 		}
 		return false;
-	}
-
-	protected boolean fitsOnSameLine(DefinitionArgumentList o, StyleSet styleSet, IDomNode node, ITextFlow flow,
-			ILayoutContext context) {
-		DelegatingLayoutContext dlc = new DelegatingLayoutContext(context);
-		MeasuredTextFlow continuedFlow = new MeasuredTextFlow((MeasuredTextFlow) flow);
-		int h0 = continuedFlow.getHeight();
-		for(IDomNode n : node.getChildren()) {
-			feeder.sequence(n, continuedFlow, dlc);
-		}
-		int h1 = continuedFlow.getHeight();
-		// if output causes break (height increases), or at edge (the '{' will not fit).
-		return h1 <= h0 && continuedFlow.getWidthOfLastLine() < continuedFlow.getPreferredMaxWidth();
 	}
 
 	protected boolean format(DefinitionArgumentList o, StyleSet styleSet, IDomNode node, ITextFlow flow,
@@ -115,7 +100,7 @@ public class DefinitionArgumentListLayout {
 				}
 				// fall through
 			case OnOverflow:
-				if(!fitsOnSameLine(o, styleSet, node, flow, context))
+				if(!layoutUtils.fitsOnSameLine(node, flow, context))
 					breakAndAlign = true;
 				break;
 		}

@@ -55,4 +55,10 @@ public class PPCommentsPreferencePage extends AbstractPreferencePage {
 			"Spaces in text between two '$' are non-breaking", getFieldEditorParent());
 		addField(doubleDollarVerbatim);
 	}
+
+	@Override
+	protected String qualifiedName() {
+		return CommentPreferences.FORMATTER_COMMENTS_ID;
+	}
+
 }

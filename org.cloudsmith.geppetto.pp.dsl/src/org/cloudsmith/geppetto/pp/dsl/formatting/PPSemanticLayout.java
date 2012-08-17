@@ -23,6 +23,7 @@ import org.cloudsmith.geppetto.pp.ElseExpression;
 import org.cloudsmith.geppetto.pp.ElseIfExpression;
 import org.cloudsmith.geppetto.pp.HostClassDefinition;
 import org.cloudsmith.geppetto.pp.IfExpression;
+import org.cloudsmith.geppetto.pp.LiteralList;
 import org.cloudsmith.geppetto.pp.LiteralNameOrReference;
 import org.cloudsmith.geppetto.pp.NodeDefinition;
 import org.cloudsmith.geppetto.pp.PPPackage;
@@ -106,6 +107,9 @@ public class PPSemanticLayout extends DeclarativeSemanticFlowLayout {
 	@Inject
 	DefinitionArgumentListLayout definitionListArgumentLayout;
 
+	@Inject
+	LiteralListLayout literaListLayout;
+
 	protected final Predicate<IDomNode> caseColonPredicate = new Predicate<IDomNode>() {
 
 		@Override
@@ -116,7 +120,7 @@ public class PPSemanticLayout extends DeclarativeSemanticFlowLayout {
 	};
 
 	/**
-	 * array of classifiers that represent {@link StatementStyle.BLOCK} - used for fast lookup (faster
+	 * array of classifiers that represent {@code StatementStyle.BLOCK} - used for fast lookup (faster
 	 * that Xtext polymorph and EMF Switch)
 	 */
 	protected final static int[] blockClassIds = new int[] {
@@ -260,6 +264,10 @@ public class PPSemanticLayout extends DeclarativeSemanticFlowLayout {
 		internalFormatStatementList(
 			node, grammarAccess.getIfExpressionAccess().getThenStatementsExpressionListParserRuleCall_3_0());
 		return false;
+	}
+
+	protected boolean _format(LiteralList o, StyleSet styleSet, IDomNode node, ITextFlow flow, ILayoutContext context) {
+		return literaListLayout.format(o, styleSet, node, flow, context);
 	}
 
 	protected boolean _format(NodeDefinition o, StyleSet styleSet, IDomNode node, ITextFlow flow, ILayoutContext context) {

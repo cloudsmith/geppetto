@@ -17,6 +17,7 @@ import java.util.Map.Entry;
 
 import org.cloudsmith.geppetto.pp.DefinitionArgument;
 import org.cloudsmith.geppetto.pp.DefinitionArgumentList;
+import org.cloudsmith.geppetto.pp.dsl.formatting.IBreakAndAlignAdvice.WhenToApplyForDefinition;
 import org.cloudsmith.geppetto.pp.dsl.services.PPGrammarAccess;
 import org.cloudsmith.geppetto.pp.dsl.services.PPGrammarAccess.DefinitionArgumentListElements;
 import org.cloudsmith.xtext.dommodel.DomModelUtils;
@@ -35,6 +36,7 @@ import org.eclipse.emf.ecore.EObject;
 import com.google.common.base.Predicate;
 import com.google.common.collect.Maps;
 import com.google.inject.Inject;
+import com.google.inject.Provider;
 
 /**
  * <p>
@@ -60,6 +62,9 @@ public class DefinitionArgumentListLayout {
 	@Inject
 	DomNodeLayoutFeeder feeder;
 
+	@Inject
+	Provider<IBreakAndAlignAdvice> breakAlignAdviceProvider;
+
 	protected final Predicate<IDomNode> caseColonPredicate = new Predicate<IDomNode>() {
 
 		@Override
@@ -78,6 +83,14 @@ public class DefinitionArgumentListLayout {
 
 	}
 
+	protected boolean defaultsArePresent(DefinitionArgumentList o) {
+		for(DefinitionArgument x : o.getArguments()) {
+			if(x.getValue() != null)
+				return true;
+		}
+		return false;
+	}
+
 	protected boolean fitsOnSameLine(DefinitionArgumentList o, StyleSet styleSet, IDomNode node, ITextFlow flow,
 			ILayoutContext context) {
 		DelegatingLayoutContext dlc = new DelegatingLayoutContext(context);
@@ -94,17 +107,41 @@ public class DefinitionArgumentListLayout {
 	protected boolean format(DefinitionArgumentList o, StyleSet styleSet, IDomNode node, ITextFlow flow,
 			ILayoutContext context) {
 
-		if(!fitsOnSameLine(o, styleSet, node, flow, context))
-			markup(o, styleSet, node, flow, context); // that was easy
+		final IBreakAndAlignAdvice advisor = getAlignAdvice();
+		final WhenToApplyForDefinition advice = advisor.definitionParameterListAdvice();
+		final int clusterWidth = advisor.clusterSize();
+
+		boolean breakAndAlign = false;
+		switch(advice) {
+			case Never:
+				break;
+			case Always:
+				breakAndAlign = true;
+				break;
+			case DefaultsPresent:
+				if(defaultsArePresent(o)) {
+					breakAndAlign = true;
+					break;
+				}
+				// fall through
+			case OnOverflow:
+				if(!fitsOnSameLine(o, styleSet, node, flow, context))
+					breakAndAlign = true;
+				break;
+		}
+		markup(node, breakAndAlign, clusterWidth); // that was easy
 		return false;
 	}
 
-	protected void markup(DefinitionArgumentList o, StyleSet styleSet, IDomNode node, ITextFlow flow,
-			ILayoutContext context) {
+	protected IBreakAndAlignAdvice getAlignAdvice() {
+		return breakAlignAdviceProvider.get();
+	}
+
+	protected void markup(IDomNode node, final boolean breakAndAlign, final int clusterWidth) {
 
 		Iterator<IDomNode> itor = node.treeIterator();
 		Map<IDomNode, Integer> operatorNodes = Maps.newHashMap();
-		IntegerCluster cluster = new IntegerCluster(20);
+		IntegerCluster cluster = new IntegerCluster(clusterWidth);
 
 		// With a little help From the grammar:
 		// DefinitionArgumentList returns pp::DefinitionArgumentList : {pp::DefinitionArgumentList}
@@ -123,39 +160,45 @@ public class DefinitionArgumentListLayout {
 			if(ge == access.getLeftParenthesisKeyword_1()) {
 				IDomNode nextLeaf = DomModelUtils.nextLeaf(n);
 				if(DomModelUtils.isWhitespace(nextLeaf))
-					nextLeaf.getStyles().add(StyleSet.withStyles(styles.oneLineBreak(), styles.indent()));
+					if(breakAndAlign)
+						nextLeaf.getStyles().add(StyleSet.withStyles(styles.oneLineBreak(), styles.indent()));
+					else
+						nextLeaf.getStyles().add(StyleSet.withStyles(styles.indent()));
 			}
 			else if(ge == access.getRightParenthesisKeyword_4()) {
 				IDomNode prevLeaf = DomModelUtils.previousLeaf(n);
 				if(DomModelUtils.isWhitespace(prevLeaf))
 					prevLeaf.getStyles().add(StyleSet.withStyles(styles.dedent()));
 			}
-			else if(ge == access.getCommaKeyword_2_1_0()) {
-				IDomNode nextLeaf = DomModelUtils.nextLeaf(n);
-				if(DomModelUtils.isWhitespace(nextLeaf))
-					nextLeaf.getStyles().add(StyleSet.withStyles(styles.oneLineBreak()));
-			}
-			// Break on endcomma does not look good - here is how it would be done though...
-			// else if(ge == grammarAccess.getDefinitionArgumentListAccess().getEndCommaParserRuleCall_3()) {
-			// IDomNode spaceAfterEndComma = DomModelUtils.nextLeaf(DomModelUtils.firstTokenWithText(n));
-			// if(DomModelUtils.isWhitespace(spaceAfterEndComma))
-			// spaceAfterEndComma.getStyles().add(StyleSet.withStyles(styles.oneLineBreak()));
-			//
-			// }
-			else if(ge == grammarAccess.getDefinitionArgumentAccess().getOpEqualsSignGreaterThanSignKeyword_1_0_1_0() ||
-					ge == grammarAccess.getDefinitionArgumentAccess().getOpEqualsSignKeyword_1_0_0_0()) {
-				EObject semantic = n.getParent().getSemanticObject();
-				if(semantic != null && semantic instanceof DefinitionArgument) {
-					DefinitionArgument da = (DefinitionArgument) semantic;
-					int length = da.getArgName() == null
-							? 0
-							: da.getArgName().length();
-					operatorNodes.put(n, length);
-					cluster.add(length);
+			else if(breakAndAlign) {
+				if(ge == access.getCommaKeyword_2_1_0()) {
+					IDomNode nextLeaf = DomModelUtils.nextLeaf(n);
+					if(DomModelUtils.isWhitespace(nextLeaf))
+						nextLeaf.getStyles().add(StyleSet.withStyles(styles.oneLineBreak()));
+				}
+				// Break on endcomma does not look good - here is how it would be done though...
+				// else if(ge == grammarAccess.getDefinitionArgumentListAccess().getEndCommaParserRuleCall_3()) {
+				// IDomNode spaceAfterEndComma = DomModelUtils.nextLeaf(DomModelUtils.firstTokenWithText(n));
+				// if(DomModelUtils.isWhitespace(spaceAfterEndComma))
+				// spaceAfterEndComma.getStyles().add(StyleSet.withStyles(styles.oneLineBreak()));
+				//
+				// }
+				else if(ge == grammarAccess.getDefinitionArgumentAccess().getOpEqualsSignGreaterThanSignKeyword_1_0_1_0() ||
+						ge == grammarAccess.getDefinitionArgumentAccess().getOpEqualsSignKeyword_1_0_0_0()) {
+					EObject semantic = n.getParent().getSemanticObject();
+					if(semantic != null && semantic instanceof DefinitionArgument) {
+						DefinitionArgument da = (DefinitionArgument) semantic;
+						int length = da.getArgName() == null
+								? 0
+								: da.getArgName().length();
+						operatorNodes.put(n, length);
+						cluster.add(length);
+					}
 				}
 			}
 		}
-		assignAlignmentAndWidths(operatorNodes, cluster);
+		if(breakAndAlign)
+			assignAlignmentAndWidths(operatorNodes, cluster);
 	}
 
 }

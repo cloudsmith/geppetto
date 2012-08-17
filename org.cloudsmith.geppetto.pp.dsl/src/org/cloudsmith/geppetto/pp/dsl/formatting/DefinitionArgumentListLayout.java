@@ -33,7 +33,6 @@ import org.cloudsmith.xtext.textflow.ITextFlow;
 import org.cloudsmith.xtext.textflow.MeasuredTextFlow;
 import org.eclipse.emf.ecore.EObject;
 
-import com.google.common.base.Predicate;
 import com.google.common.collect.Maps;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
@@ -64,15 +63,6 @@ public class DefinitionArgumentListLayout {
 
 	@Inject
 	Provider<IBreakAndAlignAdvice> breakAlignAdviceProvider;
-
-	protected final Predicate<IDomNode> caseColonPredicate = new Predicate<IDomNode>() {
-
-		@Override
-		public boolean apply(IDomNode input) {
-			return input.getGrammarElement() == grammarAccess.getCaseAccess().getColonKeyword_2();
-		}
-
-	};
 
 	private void assignAlignmentAndWidths(Map<IDomNode, Integer> operatorNodes, IntegerCluster cluster) {
 		for(Entry<IDomNode, Integer> entry : operatorNodes.entrySet()) {

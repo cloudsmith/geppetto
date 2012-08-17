@@ -43,7 +43,7 @@ import com.google.inject.Provider;
  * if the DefinitionArgumentList list does not fit on the same line:
  * <ul>
  * <li>break after '(' and indent</li>
- * <li>break after each item on ',' (and break on end comma)</li>
+ * <li>break after each item on ',' (but not on end comma)</li>
  * <li>align '=' using clustered width padding</li>
  * <li>dedent on ')'</li>
  * </ul>

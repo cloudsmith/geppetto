@@ -11,6 +11,8 @@
  */
 package org.cloudsmith.xtext.dommodel.formatter;
 
+import java.util.Collection;
+
 import org.cloudsmith.xtext.dommodel.IDomNode;
 import org.cloudsmith.xtext.dommodel.formatter.ILayoutManager.ILayoutContext;
 import org.cloudsmith.xtext.dommodel.formatter.css.StyleFactory.LayoutManagerStyle;
@@ -49,6 +51,29 @@ public class DomNodeLayoutFeeder {
 
 	@Inject
 	protected FormattingTracer tracer;
+
+	/**
+	 * Sequences a collection of IDomNode in depth first order. Each node is passed to an
+	 * {@link ILayoutManager#format(StyleSet, IDomNode, ITextFlow, ILayoutContext)} where the layout manager is obtained via style collection.
+	 * 
+	 * @param dom
+	 * @param output
+	 * @param context
+	 */
+	public void sequence(Collection<IDomNode> nodes, ITextFlow output, ILayoutContext context) {
+		sequence(nodes, output, context, Predicates.<IDomNode> alwaysFalse());
+	}
+
+	public IDomNode sequence(Collection<IDomNode> nodes, ITextFlow output, ILayoutContext context,
+			Predicate<IDomNode> until) {
+		IDomNode last = null;
+		for(IDomNode n : nodes) {
+			if(until.apply(n))
+				return n;
+			last = sequence(n, output, context, until);
+		}
+		return last;
+	}
 
 	/**
 	 * Sequences the IDomNode in depth first order. Each node is passed to an

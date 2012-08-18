@@ -23,6 +23,7 @@ import org.cloudsmith.geppetto.pp.ElseExpression;
 import org.cloudsmith.geppetto.pp.ElseIfExpression;
 import org.cloudsmith.geppetto.pp.HostClassDefinition;
 import org.cloudsmith.geppetto.pp.IfExpression;
+import org.cloudsmith.geppetto.pp.LiteralHash;
 import org.cloudsmith.geppetto.pp.LiteralList;
 import org.cloudsmith.geppetto.pp.LiteralNameOrReference;
 import org.cloudsmith.geppetto.pp.NodeDefinition;
@@ -31,6 +32,7 @@ import org.cloudsmith.geppetto.pp.PuppetManifest;
 import org.cloudsmith.geppetto.pp.ResourceBody;
 import org.cloudsmith.geppetto.pp.ResourceExpression;
 import org.cloudsmith.geppetto.pp.SelectorExpression;
+import org.cloudsmith.geppetto.pp.dsl.formatting.PPSemanticLayout.StatementStyle;
 import org.cloudsmith.geppetto.pp.dsl.ppdoc.DocumentationAssociator;
 import org.cloudsmith.geppetto.pp.dsl.services.PPGrammarAccess;
 import org.cloudsmith.xtext.dommodel.DomModelUtils;
@@ -93,22 +95,25 @@ public class PPSemanticLayout extends DeclarativeSemanticFlowLayout {
 	}
 
 	@Inject
-	IStyleFactory styles;
+	private IStyleFactory styles;
 
 	@Inject
-	PPGrammarAccess grammarAccess;
+	private PPGrammarAccess grammarAccess;
 
 	@Inject
-	DomNodeLayoutFeeder feeder;
+	private DomNodeLayoutFeeder feeder;
 
 	@Inject
-	DocumentationAssociator documentationAssociator;
+	private DocumentationAssociator documentationAssociator;
 
 	@Inject
-	DefinitionArgumentListLayout definitionListArgumentLayout;
+	private DefinitionArgumentListLayout definitionListArgumentLayout;
 
 	@Inject
-	LiteralListLayout literaListLayout;
+	private LiteralListLayout literaListLayout;
+
+	@Inject
+	private LiteralHashLayout literaHashLayout;
 
 	protected final Predicate<IDomNode> caseColonPredicate = new Predicate<IDomNode>() {
 
@@ -266,8 +271,12 @@ public class PPSemanticLayout extends DeclarativeSemanticFlowLayout {
 		return false;
 	}
 
+	protected boolean _format(LiteralHash o, StyleSet styleSet, IDomNode node, ITextFlow flow, ILayoutContext context) {
+		return literaHashLayout.format(node, flow, context);
+	}
+
 	protected boolean _format(LiteralList o, StyleSet styleSet, IDomNode node, ITextFlow flow, ILayoutContext context) {
-		return literaListLayout.format(o, styleSet, node, flow, context);
+		return literaListLayout.format(node, flow, context);
 	}
 
 	protected boolean _format(NodeDefinition o, StyleSet styleSet, IDomNode node, ITextFlow flow, ILayoutContext context) {

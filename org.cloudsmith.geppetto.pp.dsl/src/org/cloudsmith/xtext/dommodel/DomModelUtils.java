@@ -92,7 +92,7 @@ public class DomModelUtils {
 	}
 
 	private static void appendTypeAndClassifiers(Appendable result, IDomNode node) throws IOException {
-		result.append(" ");
+		result.append(", ");
 		NodeType nodeType = node.getNodeType();
 		if(nodeType == null)
 			result.append("(unknown node type)");
@@ -125,6 +125,11 @@ public class DomModelUtils {
 
 	private static void compactDump(IDomNode node, boolean showHidden, String prefix, Appendable result)
 			throws IOException {
+		if(node == null) {
+			result.append("null");
+			return;
+		}
+
 		if(!showHidden && isHidden(node))
 			return;
 
@@ -132,24 +137,28 @@ public class DomModelUtils {
 			result.append("\n");
 			result.append(prefix);
 		}
+		// Text
+		result.append("'");
+		if(node.getText() != null)
+			result.append(encodedString(node.getText()));
+		result.append("' ");
+
 		// Semantic
 		result.append("s: ");
 		result.append(semanticTitle(node));
 
-		// Has INode or not
-		if(node != null) {
-			result.append(" n: ");
-			result.append(Boolean.toString(node.getNode() != null));
-		}
+		// Has INode or not (most have)
+		if(node.getNode() == null)
+			result.append(" NoNode");
 
 		// Style classifiers
 
 		// Grammar
 		result.append(" g: ");
-		if(node == null) {
-			result.append("(null)");
-		}
-		else if(!node.isLeaf()) {
+		// if(node == null)
+		// result.append("-");
+
+		if(!node.isLeaf()) {
 			if(node.getGrammarElement() != null)
 				result.append(new GrammarElementTitleSwitch().showAssignments().doSwitch(node.getGrammarElement()));
 			else
@@ -184,9 +193,10 @@ public class DomModelUtils {
 				result.append(new GrammarElementTitleSwitch().showAssignments().doSwitch(node.getGrammarElement()));
 			else
 				result.append("(unknown)");
-			result.append(" => '");
-			result.append(encodedString(node.getText()));
-			result.append("'");
+			// result.append(" => '");
+			// result.append(encodedString(node.getText()));
+			// result.append("'");
+
 			appendTypeAndClassifiers(result, node);
 			appendEffectiveStyle(result, node, prefix + "    ");
 			if(containsError(node) && node.getNode() != null) {
@@ -443,7 +453,7 @@ public class DomModelUtils {
 
 		EObject o = node.getSemanticObject();
 		if(o == null)
-			return "(null)";
+			return "-";
 		return o.eClass().getName();
 	}
 }

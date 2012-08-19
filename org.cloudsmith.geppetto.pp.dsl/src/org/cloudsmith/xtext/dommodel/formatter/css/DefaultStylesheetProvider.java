@@ -112,14 +112,14 @@ public class DefaultStylesheetProvider implements Provider<DomCSS> {
 			.withStyles( //
 				styles.noSpaceUnlessWrapped(), //
 				styles.dedent(), //
-				styles.oneLineBreak()) //
-			.withRuleName("DefaultCSS.StopIndentAfterRightCurlyBracket"), //
+				styles.lineBreaks(1, 1, 2)) //
+			.withRuleName("DefaultCSS.StopIndentAfterRightCurlyBrace"), //
 
 			Select.after(Select.whitespace(), Select.keyword("}"))//
 			.withStyles( //
 				styles.noSpaceUnlessWrapped(), //
-				styles.oneLineBreak()) //
-			.withRuleName("DefaultCSS.BreakLineAfterRightCurlyBracket"));
+				styles.lineBreaks(1, 1, 2)) //
+			.withRuleName("DefaultCSS.BreakLineAfterRightCurlyBrace"));
 		return css;
 	}
 }

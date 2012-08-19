@@ -32,7 +32,6 @@ import org.cloudsmith.geppetto.pp.PuppetManifest;
 import org.cloudsmith.geppetto.pp.ResourceBody;
 import org.cloudsmith.geppetto.pp.ResourceExpression;
 import org.cloudsmith.geppetto.pp.SelectorExpression;
-import org.cloudsmith.geppetto.pp.dsl.formatting.PPSemanticLayout.StatementStyle;
 import org.cloudsmith.geppetto.pp.dsl.ppdoc.DocumentationAssociator;
 import org.cloudsmith.geppetto.pp.dsl.services.PPGrammarAccess;
 import org.cloudsmith.xtext.dommodel.DomModelUtils;
@@ -125,7 +124,8 @@ public class PPSemanticLayout extends DeclarativeSemanticFlowLayout {
 	};
 
 	/**
-	 * array of classifiers that represent {@code StatementStyle.BLOCK} - used for fast lookup (faster
+	 * array of classifiers that represent {@code org.cloudsmith.geppetto.pp.dsl.formatting.PPSemanticLayout.StatementStyle.BLOCK} - used for fast
+	 * lookup (faster
 	 * that Xtext polymorph and EMF Switch)
 	 */
 	protected final static int[] blockClassIds = new int[] {
@@ -394,7 +394,7 @@ public class PPSemanticLayout extends DeclarativeSemanticFlowLayout {
 
 	/**
 	 * Returns true if the semantic object represents a block statement (one that should be
-	 * marked with {@link StatementStyle.BLOCK}.)
+	 * marked with {@link org.cloudsmith.geppetto.pp.dsl.formatting.PPSemanticLayout.StatementStyle.BLOCK}.)
 	 * 
 	 * @param semantic
 	 * @return

@@ -129,7 +129,7 @@ public class PPSemanticLayout extends DeclarativeSemanticFlowLayout {
 	 * that Xtext polymorph and EMF Switch)
 	 */
 	protected final static int[] blockClassIds = new int[] {
-			PPPackage.CASE, PPPackage.DEFINITION, PPPackage.HOST_CLASS_DEFINITION, PPPackage.IF_EXPRESSION,
+			PPPackage.CASE_EXPRESSION, PPPackage.DEFINITION, PPPackage.HOST_CLASS_DEFINITION, PPPackage.IF_EXPRESSION,
 			PPPackage.NODE_DEFINITION, PPPackage.RESOURCE_EXPRESSION, PPPackage.SELECTOR_EXPRESSION };
 
 	private static final int ATTRIBUTE_OPERATIONS_CLUSTER_SIZE = 20;

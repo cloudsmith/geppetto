@@ -61,16 +61,16 @@ public class DomNodeLayoutFeeder {
 	 * @param context
 	 */
 	public void sequence(Collection<IDomNode> nodes, ITextFlow output, ILayoutContext context) {
-		sequence(nodes, output, context, Predicates.<IDomNode> alwaysFalse());
+		sequence(nodes, output, context, Predicates.<IDomNode> alwaysTrue(), Predicates.<IDomNode> alwaysFalse());
 	}
 
 	public IDomNode sequence(Collection<IDomNode> nodes, ITextFlow output, ILayoutContext context,
-			Predicate<IDomNode> until) {
+			Predicate<IDomNode> include, Predicate<IDomNode> until) {
 		IDomNode last = null;
 		for(IDomNode n : nodes) {
 			if(until.apply(n))
 				return n;
-			last = sequence(n, output, context, until);
+			last = sequence(n, output, context, include, until);
 		}
 		return last;
 	}
@@ -84,21 +84,28 @@ public class DomNodeLayoutFeeder {
 	 * @param context
 	 */
 	public void sequence(IDomNode node, ITextFlow output, ILayoutContext context) {
-		sequence(node, output, context, Predicates.<IDomNode> alwaysFalse());
+		sequence(node, output, context, Predicates.<IDomNode> alwaysTrue(), Predicates.<IDomNode> alwaysFalse());
 	}
 
 	public IDomNode sequence(IDomNode node, ITextFlow output, ILayoutContext context, Predicate<IDomNode> until) {
+		return sequence(node, output, context, Predicates.<IDomNode> alwaysTrue(), until);
+	}
+
+	public IDomNode sequence(IDomNode node, ITextFlow output, ILayoutContext context, Predicate<IDomNode> include,
+			Predicate<IDomNode> until) {
 		if(until.apply(node))
 			return node;
-		if(node.isLeaf())
-			sequenceLeaf(node, output, context);
+		if(node.isLeaf()) {
+			if(include.apply(node))
+				sequenceLeaf(node, output, context);
+		}
 		else
-			return sequenceComposite(node, output, context, until);
+			return sequenceComposite(node, output, context, include, until);
 		return null;
 	}
 
 	protected IDomNode sequenceComposite(IDomNode node, ITextFlow output, ILayoutContext context,
-			Predicate<IDomNode> until) {
+			Predicate<IDomNode> include, Predicate<IDomNode> until) {
 		final StyleSet styleSet = context.getCSS().collectStyles(node);
 		tracer.recordEffectiveStyle(node, styleSet);
 
@@ -111,7 +118,7 @@ public class DomNodeLayoutFeeder {
 			for(IDomNode n : node.getChildren()) {
 				if(until.apply(n))
 					return n;
-				last = sequence(n, output, context, until);
+				last = sequence(n, output, context, include, until);
 			}
 		layout.afterComposite(styleSet, node, output, context);
 		return last;

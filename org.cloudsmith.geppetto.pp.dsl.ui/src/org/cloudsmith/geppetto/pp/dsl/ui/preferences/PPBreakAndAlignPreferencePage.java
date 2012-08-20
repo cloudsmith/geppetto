@@ -17,7 +17,13 @@ import org.cloudsmith.geppetto.pp.dsl.ui.preferences.data.BreakAndAlignPreferenc
 import org.cloudsmith.geppetto.pp.dsl.ui.preferences.editors.AbstractPreferencePage;
 import org.cloudsmith.geppetto.pp.dsl.ui.preferences.editors.EnumPreferenceFieldEditor;
 import org.cloudsmith.geppetto.pp.dsl.ui.preferences.editors.IntegerFieldEditor;
+import org.eclipse.jface.layout.GridDataFactory;
 import org.eclipse.jface.preference.BooleanFieldEditor;
+import org.eclipse.swt.SWT;
+import org.eclipse.swt.layout.GridLayout;
+import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Group;
+import org.eclipse.xtext.ui.editor.preferences.fields.LabelFieldEditor;
 
 /**
  * This is the preference pane for break and alignment formatting.
@@ -43,9 +49,24 @@ public class PPBreakAndAlignPreferencePage extends AbstractPreferencePage {
 			"Align Hash Elements", getFieldEditorParent());
 		addField(hashes);
 
+		LabelFieldEditor caseLabel = new LabelFieldEditor("Format case statements:", getFieldEditorParent());
+		addField(caseLabel);
+		Group caseGroup = new Group(getFieldEditorParent(), SWT.SHADOW_IN);
+		GridDataFactory.defaultsFor(caseGroup).grab(true, false).span(2, 1).applyTo(caseGroup);
+		caseGroup.setLayout(new GridLayout());
+
+		Composite parent = new Composite(caseGroup, SWT.NULL);
+		GridDataFactory.defaultsFor(parent).grab(true, false).span(2, 1).indent(5, 0).applyTo(parent);
+		caseGroup.setLayout(new GridLayout());
+
+		BooleanFieldEditor alignCases = new BooleanFieldEditor(BreakAndAlignPreferences.FORMATTER_ALIGN_CASES, //
+			"Align on :", //
+			parent);
+		addField(alignCases);
+
 		BooleanFieldEditor compactCase = new BooleanFieldEditor(BreakAndAlignPreferences.FORMATTER_COMPACT_CASES, //
-			"Compact Case Statements when possible", //
-			getFieldEditorParent());
+			"Compact when possible", //
+			parent);
 		addField(compactCase);
 
 		IntegerFieldEditor clusterMax = new IntegerFieldEditor(BreakAndAlignPreferences.FORMATTER_ALIGN_CLUSTERWIDTH, //

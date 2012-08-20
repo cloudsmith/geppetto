@@ -100,6 +100,7 @@ public class CaseLayout {
 
 		IBreakAndAlignAdvice advice = adviceProvider.get();
 		final boolean doCompaction = advice.compactCasesWhenPossible();
+		final boolean doAlignment = advice.isAlignCases();
 
 		// used to collect the widths of each case's width of its values
 		List<Integer> widths = Lists.newArrayList();
@@ -145,7 +146,8 @@ public class CaseLayout {
 				feeder.sequence(n, continuedFlow, dlc);
 			}
 		}
-		List<Integer> remainingWidths = markupWidths(colonNodes, widths, availableWidth, clusters, doCompaction);
+		List<Integer> remainingWidths = markupWidths(
+			colonNodes, widths, availableWidth, clusters, doCompaction, doAlignment);
 
 		if(doCompaction && allCompactable)
 			markupCompact(colonNodes, remainingWidths, context);
@@ -207,7 +209,7 @@ public class CaseLayout {
 	 * @return
 	 */
 	private List<Integer> markupWidths(List<IDomNode> colonNodes, List<Integer> widths, int availableWidth,
-			IntegerCluster clusters, boolean doCompaction) {
+			IntegerCluster clusters, boolean doCompaction, boolean doAlignment) {
 		// assign widths and alignment to the colon nodes
 		// compute available width for remainder if all cases are compactable
 		List<Integer> remainingWidths = doCompaction
@@ -216,9 +218,12 @@ public class CaseLayout {
 		for(int i = 0; i < colonNodes.size(); i++) {
 			IDomNode c = colonNodes.get(i);
 			int w = widths.get(i);
-			int mw = clusters.clusterMax(w);
-			c.getStyles().add(StyleSet.withStyles(styles.align(Alignment.right), //
-				styles.width(1 + mw - w)));
+			int mw = doAlignment
+					? clusters.clusterMax(w)
+					: w;
+			if(doAlignment)
+				c.getStyles().add(StyleSet.withStyles(styles.align(Alignment.right), //
+					styles.width(1 + mw - w)));
 			if(doCompaction)
 				remainingWidths.add(availableWidth - mw - 6); // 6 = ": { " +" }"
 		}

@@ -23,7 +23,7 @@ public interface IBreakAndAlignAdvice {
 	public static class Default implements IBreakAndAlignAdvice {
 
 		/**
-		 * @returns 20
+		 * @return 20
 		 */
 		@Override
 		public int clusterSize() {
@@ -36,7 +36,7 @@ public interface IBreakAndAlignAdvice {
 		}
 
 		/**
-		 * @returns OnOverflow
+		 * @return OnOverflow
 		 */
 		@Override
 		public WhenToApplyForDefinition definitionParameterListAdvice() {
@@ -44,7 +44,7 @@ public interface IBreakAndAlignAdvice {
 		}
 
 		/**
-		 * @returns OnOverflow
+		 * @return OnOverflow
 		 */
 		@Override
 		public WhenToApply hashesAdvice() {
@@ -52,7 +52,15 @@ public interface IBreakAndAlignAdvice {
 		}
 
 		/**
-		 * @returns OnOverflow
+		 * @return true
+		 */
+		@Override
+		public boolean isAlignCases() {
+			return true;
+		}
+
+		/**
+		 * @return OnOverflow
 		 */
 		@Override
 		public WhenToApply listsAdvice() {
@@ -87,6 +95,11 @@ public interface IBreakAndAlignAdvice {
 	 * When to break/align hashes
 	 */
 	public WhenToApply hashesAdvice();
+
+	/**
+	 * If cases should be aligned on ':'
+	 */
+	boolean isAlignCases();
 
 	/**
 	 * When to break/align lists

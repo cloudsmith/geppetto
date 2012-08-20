@@ -402,6 +402,16 @@ public class DomModelUtils {
 		return null;
 	}
 
+	public static IDomNode nodeForGrammarElement(IDomNode node, EObject grammarElement) {
+		Iterator<IDomNode> itor = node.treeIterator();
+		if(itor.hasNext())
+			for(IDomNode n = itor.next(); itor.hasNext(); n = itor.next()) {
+				if(grammarElement == n.getGrammarElement())
+					return n;
+			}
+		return null;
+	}
+
 	/**
 	 * The position on the line for the IDomNode searches backwards in the total text from the start position
 	 * of the text in the given node.

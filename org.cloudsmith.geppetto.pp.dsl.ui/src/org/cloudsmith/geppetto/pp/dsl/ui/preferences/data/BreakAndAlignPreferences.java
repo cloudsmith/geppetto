@@ -33,6 +33,8 @@ public class BreakAndAlignPreferences extends AbstractPreferenceData {
 
 	public static final String FORMATTER_ALIGN_HASHES = "formatAlignHashes";
 
+	public static final String FORMATTER_COMPACT_CASES = "formatCompactCases";
+
 	public static final String FORMATTER_ALIGN_CLUSTERWIDTH = "formatClusterWidth";
 
 	@Override
@@ -41,6 +43,7 @@ public class BreakAndAlignPreferences extends AbstractPreferenceData {
 		store.setDefault(FORMATTER_ALIGN_DEFINITION_PARAMS, WhenToApplyForDefinition.OnOverflow.toString());
 		store.setDefault(FORMATTER_ALIGN_LISTS, WhenToApply.OnOverflow.toString());
 		store.setDefault(FORMATTER_ALIGN_HASHES, WhenToApply.OnOverflow.toString());
+		store.setDefault(FORMATTER_COMPACT_CASES, true);
 	}
 
 	/**
@@ -126,6 +129,24 @@ public class BreakAndAlignPreferences extends AbstractPreferenceData {
 	@Override
 	public String getUseProjectSettingsID() {
 		return FORMATTER_ALIGN_USE_PROJECT_SETTINGS;
+	}
+
+	/**
+	 * Returns if compactable cases should be rendered in compact form
+	 * 
+	 * @return true if compactable cases should be rendered in compact form
+	 */
+	public boolean isCompactCases() {
+		return getBoolean(FORMATTER_COMPACT_CASES);
+	}
+
+	/**
+	 * Returns if compactable cases should be rendered in compact form
+	 * 
+	 * @return true if compactable cases should be rendered in compact form
+	 */
+	public boolean isCompactCases(IResource r) {
+		return getContextualBoolean(r, FORMATTER_COMPACT_CASES);
 	}
 
 }

@@ -17,6 +17,7 @@ import org.cloudsmith.geppetto.pp.dsl.ui.preferences.data.BreakAndAlignPreferenc
 import org.cloudsmith.geppetto.pp.dsl.ui.preferences.editors.AbstractPreferencePage;
 import org.cloudsmith.geppetto.pp.dsl.ui.preferences.editors.EnumPreferenceFieldEditor;
 import org.cloudsmith.geppetto.pp.dsl.ui.preferences.editors.IntegerFieldEditor;
+import org.eclipse.jface.preference.BooleanFieldEditor;
 
 /**
  * This is the preference pane for break and alignment formatting.
@@ -42,9 +43,14 @@ public class PPBreakAndAlignPreferencePage extends AbstractPreferencePage {
 			"Align Hash Elements", getFieldEditorParent());
 		addField(hashes);
 
-		IntegerFieldEditor clusterMax = new IntegerFieldEditor(
-			BreakAndAlignPreferences.FORMATTER_ALIGN_CLUSTERWIDTH, "Max Alignment Padding", getFieldEditorParent(), 3,
-			4);
+		BooleanFieldEditor compactCase = new BooleanFieldEditor(BreakAndAlignPreferences.FORMATTER_COMPACT_CASES, //
+			"Compact Case Statements when possible", //
+			getFieldEditorParent());
+		addField(compactCase);
+
+		IntegerFieldEditor clusterMax = new IntegerFieldEditor(BreakAndAlignPreferences.FORMATTER_ALIGN_CLUSTERWIDTH, //
+			"Max Alignment Padding", getFieldEditorParent(), //
+			3, 4);
 		clusterMax.setEmptyStringAllowed(false);
 		clusterMax.setTextLimit(3);
 		clusterMax.setValidRange(0, 255);

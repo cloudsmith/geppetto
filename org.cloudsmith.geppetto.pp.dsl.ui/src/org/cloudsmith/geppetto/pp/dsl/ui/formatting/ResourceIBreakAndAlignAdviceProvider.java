@@ -35,11 +35,17 @@ public class ResourceIBreakAndAlignAdviceProvider extends PlatformResourceSpecif
 		final WhenToApplyForDefinition definitionParameters = formatterPreferences.getDefinitionParametersAdvice(resource);
 		final WhenToApply hashes = formatterPreferences.getHashesAdvice(resource);
 		final WhenToApply lists = formatterPreferences.getListsAdvice(resource);
+		final boolean compact = formatterPreferences.isCompactCases();
 		return new IBreakAndAlignAdvice() {
 
 			@Override
 			public int clusterSize() {
 				return clusterSize;
+			}
+
+			@Override
+			public boolean compactCasesWhenPossible() {
+				return compact;
 			}
 
 			@Override
@@ -56,7 +62,6 @@ public class ResourceIBreakAndAlignAdviceProvider extends PlatformResourceSpecif
 			public WhenToApply listsAdvice() {
 				return lists;
 			}
-
 		};
 	}
 

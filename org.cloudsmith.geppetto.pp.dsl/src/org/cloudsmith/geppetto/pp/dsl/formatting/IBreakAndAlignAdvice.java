@@ -30,6 +30,11 @@ public interface IBreakAndAlignAdvice {
 			return 20;
 		}
 
+		@Override
+		public boolean compactCasesWhenPossible() {
+			return true;
+		}
+
 		/**
 		 * @returns OnOverflow
 		 */
@@ -53,7 +58,6 @@ public interface IBreakAndAlignAdvice {
 		public WhenToApply listsAdvice() {
 			return WhenToApply.OnOverflow;
 		}
-
 	}
 
 	public enum WhenToApply {
@@ -68,6 +72,11 @@ public interface IBreakAndAlignAdvice {
 	 * When aligning, what is the max cluster size (amount of max inserted padding when aligning).
 	 */
 	public int clusterSize();
+
+	/**
+	 * Should cases be compacted if possible?
+	 */
+	public boolean compactCasesWhenPossible();
 
 	/**
 	 * When to break align definition argument lists (i.e. class and definition parameters)

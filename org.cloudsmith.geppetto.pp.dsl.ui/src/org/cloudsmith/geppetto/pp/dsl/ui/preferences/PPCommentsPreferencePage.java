@@ -19,8 +19,7 @@ import org.cloudsmith.xtext.dommodel.formatter.comments.ICommentFormatterAdvice.
 import org.eclipse.jface.preference.BooleanFieldEditor;
 
 /**
- * This is the puppet root preference pane for formatting preferences as well as the editor pane for
- * the two most basic formatter related preferences (indent size, and preferred width).
+ * This is the puppet preference pane for comment formatting.
  * 
  */
 public class PPCommentsPreferencePage extends AbstractPreferencePage {
@@ -56,4 +55,10 @@ public class PPCommentsPreferencePage extends AbstractPreferencePage {
 			"Spaces in text between two '$' are non-breaking", getFieldEditorParent());
 		addField(doubleDollarVerbatim);
 	}
+
+	@Override
+	protected String qualifiedName() {
+		return CommentPreferences.FORMATTER_COMMENTS_ID;
+	}
+
 }

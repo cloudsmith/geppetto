@@ -256,6 +256,10 @@ public class CharSequences {
 		return new Concatenation(a, b);
 	}
 
+	public static CharSequence empty() {
+		return "";
+	}
+
 	public static boolean endsWith(CharSequence value, String end) {
 		if(value instanceof String)
 			return ((String) value).endsWith(end);
@@ -368,6 +372,11 @@ public class CharSequences {
 		return result;
 	}
 
+	public static CharSequence trim(CharSequence s) {
+		int len = s.length();
+		return trim(s, len, len);
+	}
+
 	/**
 	 * Trims both left and right whitespace up to given limits. The maxLeftCount is only enforced if
 	 * right trimming stops before the maxLeftCountPosition.
@@ -387,6 +396,13 @@ public class CharSequences {
 		while(maxRightCount-- > 0 && end > 0 && Character.isWhitespace(s.charAt(end - 1)))
 			end--;
 		return s.subSequence(Math.min(start, end), end);
+	}
 
+	public static CharSequence trimLeft(CharSequence s) {
+		return s.subSequence(indexOfNonWhitespace(s, 0), s.length());
+	}
+
+	public static CharSequence trimRight(CharSequence s) {
+		return s.subSequence(0, lastIndexOfNonWhitepace(s, s.length() - 1));
 	}
 }

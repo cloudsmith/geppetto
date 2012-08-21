@@ -92,7 +92,7 @@ public class DomModelUtils {
 	}
 
 	private static void appendTypeAndClassifiers(Appendable result, IDomNode node) throws IOException {
-		result.append(" ");
+		result.append(", ");
 		NodeType nodeType = node.getNodeType();
 		if(nodeType == null)
 			result.append("(unknown node type)");
@@ -125,6 +125,11 @@ public class DomModelUtils {
 
 	private static void compactDump(IDomNode node, boolean showHidden, String prefix, Appendable result)
 			throws IOException {
+		if(node == null) {
+			result.append("null");
+			return;
+		}
+
 		if(!showHidden && isHidden(node))
 			return;
 
@@ -132,24 +137,28 @@ public class DomModelUtils {
 			result.append("\n");
 			result.append(prefix);
 		}
+		// Text
+		result.append("'");
+		if(node.getText() != null)
+			result.append(encodedString(node.getText()));
+		result.append("' ");
+
 		// Semantic
 		result.append("s: ");
 		result.append(semanticTitle(node));
 
-		// Has INode or not
-		if(node != null) {
-			result.append(" n: ");
-			result.append(Boolean.toString(node.getNode() != null));
-		}
+		// Has INode or not (most have)
+		if(node.getNode() == null)
+			result.append(" NoNode");
 
 		// Style classifiers
 
 		// Grammar
 		result.append(" g: ");
-		if(node == null) {
-			result.append("(null)");
-		}
-		else if(!node.isLeaf()) {
+		// if(node == null)
+		// result.append("-");
+
+		if(!node.isLeaf()) {
 			if(node.getGrammarElement() != null)
 				result.append(new GrammarElementTitleSwitch().showAssignments().doSwitch(node.getGrammarElement()));
 			else
@@ -184,9 +193,10 @@ public class DomModelUtils {
 				result.append(new GrammarElementTitleSwitch().showAssignments().doSwitch(node.getGrammarElement()));
 			else
 				result.append("(unknown)");
-			result.append(" => '");
-			result.append(encodedString(node.getText()));
-			result.append("'");
+			// result.append(" => '");
+			// result.append(encodedString(node.getText()));
+			// result.append("'");
+
 			appendTypeAndClassifiers(result, node);
 			appendEffectiveStyle(result, node, prefix + "    ");
 			if(containsError(node) && node.getNode() != null) {
@@ -288,7 +298,7 @@ public class DomModelUtils {
 	 */
 
 	public static boolean isComment(IDomNode node) {
-		return node.getNodeType() == IDomNode.NodeType.COMMENT;
+		return node.getNodeType().equals(IDomNode.NodeType.COMMENT);
 	}
 
 	/**
@@ -336,7 +346,7 @@ public class DomModelUtils {
 	 * @return true if node holds only whitespace tokens
 	 */
 	public static boolean isWhitespace(IDomNode node) {
-		return node.getNodeType() == IDomNode.NodeType.WHITESPACE;
+		return node != null && node.getNodeType() == IDomNode.NodeType.WHITESPACE;
 	}
 
 	public static IDomNode lastLeaf(IDomNode node) {
@@ -384,6 +394,24 @@ public class DomModelUtils {
 		return n;
 	}
 
+	public static IDomNode nextWhitespace(IDomNode node) {
+		for(IDomNode n = nextLeaf(node); n != null; n = nextLeaf(n)) {
+			if(isWhitespace(n))
+				return n;
+		}
+		return null;
+	}
+
+	public static IDomNode nodeForGrammarElement(IDomNode node, EObject grammarElement) {
+		Iterator<IDomNode> itor = node.treeIterator();
+		if(itor.hasNext())
+			for(IDomNode n = itor.next(); itor.hasNext(); n = itor.next()) {
+				if(grammarElement == n.getGrammarElement())
+					return n;
+			}
+		return null;
+	}
+
 	/**
 	 * The position on the line for the IDomNode searches backwards in the total text from the start position
 	 * of the text in the given node.
@@ -397,8 +425,8 @@ public class DomModelUtils {
 		if(n == null)
 			return -1;
 		int offsetOfNode = node.getNode().getTotalOffset();
-		return Math.min(
-			offsetOfNode, CharSequences.lastIndexOf(n.getRootNode().getText(), lineDelimiter, offsetOfNode - 1));
+		return offsetOfNode -
+				Math.max(0, 1 + CharSequences.lastIndexOf(n.getRootNode().getText(), lineDelimiter, offsetOfNode - 1));
 	}
 
 	public static IDomNode previousLeaf(IDomNode node) {
@@ -423,11 +451,19 @@ public class DomModelUtils {
 		return n;
 	}
 
+	public static IDomNode previousWhitespace(IDomNode node) {
+		for(IDomNode n = previousLeaf(node); n != null; n = previousLeaf(n)) {
+			if(isWhitespace(n))
+				return n;
+		}
+		return null;
+	}
+
 	private static String semanticTitle(IDomNode node) {
 
 		EObject o = node.getSemanticObject();
 		if(o == null)
-			return "(null)";
+			return "-";
 		return o.eClass().getName();
 	}
 }

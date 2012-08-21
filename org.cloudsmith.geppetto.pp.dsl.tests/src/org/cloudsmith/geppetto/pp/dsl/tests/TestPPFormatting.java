@@ -41,6 +41,7 @@ import org.eclipse.xtext.serializer.sequencer.IHiddenTokenSequencer;
 import org.eclipse.xtext.util.ITextRegion;
 import org.eclipse.xtext.util.Pair;
 import org.eclipse.xtext.util.ReplaceRegion;
+import org.eclipse.xtext.util.TextRegion;
 import org.eclipse.xtext.util.Tuples;
 
 import com.google.common.collect.Lists;
@@ -151,6 +152,33 @@ public class TestPPFormatting extends AbstractPuppetTests {
 		s = serializeFormatted(r.getContents().get(0));
 		assertEquals("formatting should produce wanted result", code, s);
 
+	}
+
+	public void test_CommentFoldingSL() throws Exception {
+		StringBuilder builder = new StringBuilder();
+		for(int i = 0; i < 133; i++)
+			builder.append("f");
+		String _133f = builder.toString();
+		String code = "# ok askdj faöskdjf öalskdjf aalksjf alskdjf kdj " + _133f + " ffffffffffff\n";
+		String expected = "# ok askdj faöskdjf öalskdjf aalksjf alskdjf kdj\n# " + _133f + "\n# ffffffffffff\n";
+		XtextResource r = getResourceFromString(code);
+		String s = serializeFormatted(r.getContents().get(0));
+		assertEquals("formatting should produce wanted result", expected, s);
+
+	}
+
+	public void test_CommentShouldBeIndentedOkML() throws Exception {
+		String code = "class foo {\n" + "  /* ok comment\n" + "   * ok comment\n" + "   */\n" + "}\n";
+		XtextResource r = getResourceFromString(code);
+		String s = serializeFormatted(r.getContents().get(0));
+		assertEquals("formatting should produce wanted result", code, s);
+	}
+
+	public void test_CommentShouldBeIndentedOkSL() throws Exception {
+		String code = "class foo {\n" + "  # ok comment\n" + "  # ok comment\n" + "  #\n" + "}\n";
+		XtextResource r = getResourceFromString(code);
+		String s = serializeFormatted(r.getContents().get(0));
+		assertEquals("formatting should produce wanted result", code, s);
 	}
 
 	public void test_CommentShouldNotBeMoved1() throws Exception {
@@ -327,5 +355,26 @@ public class TestPPFormatting extends AbstractPuppetTests {
 		brutalDetachNodeModel(r.getContents().get(0));
 		s = serializeFormatted(r.getContents().get(0));
 		assertEquals("formatting without node-model should produce wanted result", fmt2, s);
+	}
+
+	public void test_selectiveFormatting1() throws Exception {
+		String code1 /*
+		      */= "class x {\n";
+		//
+		String code2 /*
+	          */= "  exec { 'x':\n" //
+				+ "    command => 'echo gotcha',\n" //
+				+ "  }"; //
+		String code3 = /*
+		        */"\n}\n";
+
+		String code = code1 + code2 + code3;
+		XtextResource r = getResourceFromString(code);
+		String s = serializeFormatted(r.getContents().get(0));
+		assertEquals("formatting should produce wanted result", code, s);
+
+		s = serializeFormatted(r.getContents().get(0), new TextRegion(10, 47));
+		assertEquals("formatting should produce wanted result", code2, s);
+
 	}
 }

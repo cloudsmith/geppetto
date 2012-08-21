@@ -80,14 +80,27 @@ public class PPSyntacticSequencer extends AbstractPPSyntacticSequencer {
 	 * Insert the optional end-comma in selector expression if there is no node model.
 	 */
 	@Override
-	protected void emit_SelectorExpression_EndCommaParserRuleCall_1_2_0_3_q(EObject semanticObject,
-			ISynNavigable transition, List<INode> nodes) {
-
+	protected void emit_SelectorExpression_CommaKeyword_1_2_0_3_q(EObject semanticObject, ISynNavigable transition,
+			List<INode> nodes) {
 		// only insert end-comma when there is no node-model
 		if(nodes == null)
-			acceptUnassignedTerminal(
-				grammar.getSelectorExpressionAccess().getEndCommaParserRuleCall_1_2_0_3(), ",", null);
+			acceptUnassignedKeyword(grammar.getSelectorExpressionAccess().getCommaKeyword_1_2_0_3(), ",", null);
 		else
-			super.emit_SelectorExpression_EndCommaParserRuleCall_1_2_0_3_q(semanticObject, transition, nodes);
+
+			super.emit_SelectorExpression_CommaKeyword_1_2_0_3_q(semanticObject, transition, nodes);
 	}
+	// /**
+	// * Insert the optional end-comma in selector expression if there is no node model.
+	// */
+	// @Override
+	// protected void emit_SelectorExpression_EndCommaParserRuleCall_1_2_0_3_q(EObject semanticObject,
+	// ISynNavigable transition, List<INode> nodes) {
+	//
+	// // only insert end-comma when there is no node-model
+	// if(nodes == null)
+	// acceptUnassignedTerminal(
+	// grammar.getSelectorExpressionAccess().getEndCommaParserRuleCall_1_2_0_3(), ",", null);
+	// else
+	// super.emit_SelectorExpression_EndCommaParserRuleCall_1_2_0_3_q(semanticObject, transition, nodes);
+	// }
 }

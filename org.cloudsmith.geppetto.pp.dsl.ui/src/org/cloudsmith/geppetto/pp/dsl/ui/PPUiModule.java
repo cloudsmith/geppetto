@@ -13,6 +13,7 @@ package org.cloudsmith.geppetto.pp.dsl.ui;
 
 import org.cloudsmith.geppetto.common.tracer.DefaultTracer;
 import org.cloudsmith.geppetto.common.tracer.ITracer;
+import org.cloudsmith.geppetto.pp.dsl.formatting.IBreakAndAlignAdvice;
 import org.cloudsmith.geppetto.pp.dsl.formatting.PPCommentConfiguration;
 import org.cloudsmith.geppetto.pp.dsl.lexer.PPOverridingLexer;
 import org.cloudsmith.geppetto.pp.dsl.linking.PPSearchPath.ISearchPathProvider;
@@ -29,6 +30,7 @@ import org.cloudsmith.geppetto.pp.dsl.ui.editor.autoedit.PPTokenTypeToPartionMap
 import org.cloudsmith.geppetto.pp.dsl.ui.editor.folding.PPFoldingRegionProvider;
 import org.cloudsmith.geppetto.pp.dsl.ui.editor.hyperlinking.PPHyperlinkHelper;
 import org.cloudsmith.geppetto.pp.dsl.ui.editor.toggleComments.PPSingleLineCommentHelper;
+import org.cloudsmith.geppetto.pp.dsl.ui.formatting.ResourceIBreakAndAlignAdviceProvider;
 import org.cloudsmith.geppetto.pp.dsl.ui.formatting.ResourceICommentFormatterAdviceProviders;
 import org.cloudsmith.geppetto.pp.dsl.ui.formatting.ResourceIIndentationInformationProvider;
 import org.cloudsmith.geppetto.pp.dsl.ui.formatting.ResourceIPreferredWidthInformationProvider;
@@ -37,6 +39,7 @@ import org.cloudsmith.geppetto.pp.dsl.ui.linked.ISaveActions;
 import org.cloudsmith.geppetto.pp.dsl.ui.linking.PPUISearchPathProvider;
 import org.cloudsmith.geppetto.pp.dsl.ui.outline.PPLocationInFileProvider;
 import org.cloudsmith.geppetto.pp.dsl.ui.preferences.PPPreferencesHelper;
+import org.cloudsmith.geppetto.pp.dsl.ui.preferences.data.BreakAndAlignPreferences;
 import org.cloudsmith.geppetto.pp.dsl.ui.preferences.data.CommentPreferences;
 import org.cloudsmith.geppetto.pp.dsl.ui.preferences.data.FormatterGeneralPreferences;
 import org.cloudsmith.geppetto.pp.dsl.ui.preferences.editors.PPPreferenceStoreAccess;
@@ -258,6 +261,8 @@ public class PPUiModule extends org.cloudsmith.geppetto.pp.dsl.ui.AbstractPPUiMo
 		.to(FormatterGeneralPreferences.class);
 		binder.bind(IPreferenceStoreInitializer.class).annotatedWith(Names.named("CommentPreferences")) //$NON-NLS-1$
 		.to(CommentPreferences.class);
+		binder.bind(IPreferenceStoreInitializer.class).annotatedWith(Names.named("BreakAndAlignPreferences")) //$NON-NLS-1$
+		.to(BreakAndAlignPreferences.class);
 	}
 
 	public void configureEditor(Binder binder) {
@@ -278,6 +283,9 @@ public class PPUiModule extends org.cloudsmith.geppetto.pp.dsl.ui.AbstractPPUiMo
 		binder.bind(ICommentFormatterAdvice.class) //
 		.annotatedWith(com.google.inject.name.Names.named(PPCommentConfiguration.ML_FORMATTER_ADVICE_NAME))//
 		.toProvider(ResourceICommentFormatterAdviceProviders.MLCommentAdviceProvider.class);
+
+		binder.bind(IBreakAndAlignAdvice.class) //
+		.toProvider(ResourceIBreakAndAlignAdviceProvider.class);
 
 	}
 

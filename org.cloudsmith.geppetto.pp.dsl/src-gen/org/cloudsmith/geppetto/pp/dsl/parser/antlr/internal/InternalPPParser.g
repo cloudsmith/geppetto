@@ -806,34 +806,6 @@ ruleAttributeOperations returns [EObject current=null]
 
 
 
-// Entry rule entryRuleendComma
-entryRuleendComma returns [String current=null] 
-:
-	{ newCompositeNode(grammarAccess.getEndCommaRule()); } 
-	 iv_ruleendComma=ruleendComma 
-	 { $current=$iv_ruleendComma.current.getText(); }  
-	 EOF 
-;
-
-// Rule endComma
-ruleendComma returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] 
-    @init { enterRule(); 
-    }
-    @after { leaveRule();
-    }:
-
-	kw=KEYWORD_8 
-    {
-        $current.merge(kw);
-        newLeafNode(kw, grammarAccess.getEndCommaAccess().getCommaKeyword()); 
-    }
-
-    ;
-
-
-
-
-
 // Entry rule entryRuleAssignmentExpression
 entryRuleAssignmentExpression returns [EObject current=null]
 	:
@@ -2365,15 +2337,9 @@ ruleSelectorExpression returns [EObject current=null]
 
 )
 ))*(
-	{ 
-	  /* */ 
-	}
-    { 
-        newCompositeNode(grammarAccess.getSelectorExpressionAccess().getEndCommaParserRuleCall_1_2_0_3()); 
-    }
-ruleendComma
+	otherlv_8=KEYWORD_8
     {
-        afterParserOrEnumRuleCall();
+    	newLeafNode(otherlv_8, grammarAccess.getSelectorExpressionAccess().getCommaKeyword_1_2_0_3());
     }
 )?
 	otherlv_9=KEYWORD_21
@@ -2646,15 +2612,9 @@ ruleFunctionCall returns [EObject current=null]
 
 )
 ))*(
-	{ 
-	  /* */ 
-	}
-    { 
-        newCompositeNode(grammarAccess.getFunctionCallAccess().getEndCommaParserRuleCall_1_2_2()); 
-    }
-ruleendComma
+	otherlv_6=KEYWORD_8
     {
-        afterParserOrEnumRuleCall();
+    	newLeafNode(otherlv_6, grammarAccess.getFunctionCallAccess().getCommaKeyword_1_2_2());
     }
 )?)?
 	otherlv_7=KEYWORD_5
@@ -3340,15 +3300,9 @@ ruleDefinitionArgumentList returns [EObject current=null]
 
 )
 ))*)?(
-	{ 
-	  /* */ 
-	}
-    { 
-        newCompositeNode(grammarAccess.getDefinitionArgumentListAccess().getEndCommaParserRuleCall_3()); 
-    }
-ruleendComma
+	otherlv_5=KEYWORD_8
     {
-        afterParserOrEnumRuleCall();
+    	newLeafNode(otherlv_5, grammarAccess.getDefinitionArgumentListAccess().getCommaKeyword_3());
     }
 )?
 	otherlv_6=KEYWORD_5
@@ -4515,15 +4469,9 @@ ruleLiteralHash returns [EObject current=null]
 
 )
 ))*)?(
-	{ 
-	  /* */ 
-	}
-    { 
-        newCompositeNode(grammarAccess.getLiteralHashAccess().getEndCommaParserRuleCall_3()); 
-    }
-ruleendComma
+	otherlv_5=KEYWORD_8
     {
-        afterParserOrEnumRuleCall();
+    	newLeafNode(otherlv_5, grammarAccess.getLiteralHashAccess().getCommaKeyword_3());
     }
 )?
 	otherlv_6=KEYWORD_21

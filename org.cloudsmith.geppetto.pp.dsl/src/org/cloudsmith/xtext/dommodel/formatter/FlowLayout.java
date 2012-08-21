@@ -13,6 +13,7 @@ package org.cloudsmith.xtext.dommodel.formatter;
 
 import org.cloudsmith.xtext.dommodel.IDomNode;
 import org.cloudsmith.xtext.dommodel.IDomNode.NodeClassifier;
+import org.cloudsmith.xtext.dommodel.RegionMatch;
 import org.cloudsmith.xtext.dommodel.formatter.css.Alignment;
 import org.cloudsmith.xtext.dommodel.formatter.css.DomCSS;
 import org.cloudsmith.xtext.dommodel.formatter.css.IFunctionFactory;
@@ -63,100 +64,112 @@ public class FlowLayout extends AbstractLayoutManager implements ILayoutManager 
 
 	@Override
 	protected void formatComment(StyleSet styleSet, IDomNode node, ITextFlow output, ILayoutContext context) {
-		if(!isFormattingWanted(node, context))
-			return;
-		Preconditions.checkState(commentLayout != null, "setCommentLayout(ILayout) must have been called first.");
-		commentLayout.format(styleSet, node, output, context);
+		RegionMatch match = intersect(node, context);
+		if(match.isInside()) {
+			if(match.isContained() && !context.isWhitespacePreservation()) {
+				Preconditions.checkState(
+					commentLayout != null, "setCommentLayout(ILayout) must have been called first.");
+				commentLayout.format(styleSet, node, output, context);
+			}
+			else
+				// output the part of the text that is inside the region as verbatim text
+				output.appendText(match.apply().getFirst(), true);
+		}
 	}
 
 	@Override
 	protected void formatToken(StyleSet styleSet, IDomNode node, ITextFlow output, ILayoutContext context) {
-		if(isFormattingWanted(node, context)) {
-			// TEXT
-			String text = styleSet.getStyleValue(TokenTextStyle.class, node, functions.textOfNode());
+		RegionMatch match = intersect(node, context);
+		if(match.isInside()) {
+			if(match.isContained() && !context.isWhitespacePreservation())
+				formatTokenInternal(styleSet, node, output, context);
+			else
+				// output the part of the text that is inside the region as verbatim text
+				output.appendText(match.apply().getFirst(), true);
+		}
 
-			if(context.isWhitespacePreservation()) {
-				// alignment modifies spacing, just output text
-				// TODO: "whitespacePreservation should really use the text from the node, not
-				// after having passed a potential formatting function? But semantics of whitespacePreservation
-				// is unclear; does it mean no format of whitespace, or not formatting what so ever?
-				//
-				output.appendText(text, true);
-			}
-			else {
-				// ALIGNMENT
-				// is left by default
-				//
-				Alignment alignment = styleSet.getStyleValue(AlignmentStyle.class, node);
-				boolean defaultAlignment = alignment == null;
-				if(defaultAlignment)
-					alignment = Alignment.left;
-				final int textLength = text.length();
-				final Integer widthObject = styleSet.getStyleValue(WidthStyle.class, node);
-				final int width = widthObject == null
-						? textLength
-						: widthObject.intValue();
-				final int diff = width - textLength;
+	}
 
-				switch(alignment) {
-					case left:
-						output.appendText(text);
-						// need to output padding separately as a 0 space gives the text flow permission to wrap which is a surprise
-						// just because everything is left aligned by default.
-						//
-						if(diff > 0 || !defaultAlignment)
-							output.appendSpaces(diff); // ok if 0 or negative = no spaces
-						break;
-					case right:
-						// ok to output 0 space that potentially triggers wrapping
-						output.appendSpaces(diff).appendText(text);
-						break;
-					case center:
-						int leftpad = (diff) / 2;
-						output.appendSpaces(leftpad).appendText(text).appendSpaces(diff - leftpad);
-						break;
-					case separator:
-						// width must have been set as it is otherwise meaningless to try to align on
-						// separator.
-						if(widthObject == null) {
-							output.appendText(text);
-						}
-						else {
-							// use first non word char as default
-							// right align in the given width
-							int separatorIndex = styleSet.getStyleValue(
-								AlignedSeparatorIndex.class, node, functions.firstNonWordChar());
-							if(separatorIndex > -1)
-								output.appendSpaces(width - separatorIndex).appendText(text);
-							else
-								output.appendSpaces(diff).appendText(text);
-						}
-						break;
+	/**
+	 * Formats the node without any checks for whitespace preservation or matching the contexts formatting region.
+	 * 
+	 * @param styleSet
+	 * @param node
+	 * @param output
+	 * @param context
+	 */
+	private void formatTokenInternal(StyleSet styleSet, IDomNode node, ITextFlow output, ILayoutContext context) {
+		String text = styleSet.getStyleValue(TokenTextStyle.class, node, functions.textOfNode());
+
+		Alignment alignment = styleSet.getStyleValue(AlignmentStyle.class, node);
+		final boolean defaultAlignment = alignment == null;
+		if(defaultAlignment)
+			alignment = Alignment.left;
+		final int textLength = text.length();
+		final Integer widthObject = styleSet.getStyleValue(WidthStyle.class, node);
+		final int width = widthObject == null
+				? textLength
+				: widthObject.intValue();
+		final int diff = width - textLength;
+
+		switch(alignment) {
+			case left:
+				output.appendText(text);
+				// need to output padding separately as a 0 space gives the text flow permission to wrap which is a surprise
+				// just because everything is left aligned by default.
+				//
+				if(diff > 0 || !defaultAlignment)
+					output.appendSpaces(diff); // ok if 0 or negative = no spaces
+				break;
+			case right:
+				// ok to output 0 space that potentially triggers wrapping
+				output.appendSpaces(diff).appendText(text);
+				break;
+			case center:
+				int leftpad = (diff) / 2;
+				output.appendSpaces(leftpad).appendText(text).appendSpaces(diff - leftpad);
+				break;
+			case separator:
+				// width must have been set as it is otherwise meaningless to try to align on
+				// separator.
+				if(widthObject == null) {
+					output.appendText(text);
 				}
-			}
+				else {
+					// use first non word char as default
+					// right align in the given width
+					int separatorIndex = styleSet.getStyleValue(
+						AlignedSeparatorIndex.class, node, functions.firstNonWordChar());
+					if(separatorIndex > -1)
+						output.appendSpaces(width - separatorIndex).appendText(text);
+					else
+						output.appendSpaces(diff).appendText(text);
+				}
+				break;
 		}
 	}
 
 	@Override
 	protected void formatWhitespace(StyleSet styleSet, IDomNode node, ITextFlow output, ILayoutContext context) {
+		RegionMatch match = intersect(node, context);
+		boolean wsp = context.isWhitespacePreservation();
+		boolean implied = node.getStyleClassifiers().contains(NodeClassifier.IMPLIED);
 
-		// Verbatim or Formatting mode?
-		// (If Verbatim and whitespace is implied, it should be formatted).
-		if(context.isWhitespacePreservation() && !node.getStyleClassifiers().contains(NodeClassifier.IMPLIED)) {
-			// Formatting should only be done on whitespace nodes that are implied.
-			// all other whitespace nodes should be passed verbatim.
-			String text = node.getText();
-
-			if(isFormattingWanted(node, context))
-				output.appendText(text);
-		}
-		else {
-			Spacing spacing = styleSet.getStyleValue(SpacingStyle.class, node, defaultSpacing);
-			LineBreaks lineBreaks = styleSet.getStyleValue(LineBreakStyle.class, node, defaultLineBreaks);
-			String text = styleSet.getStyleValue(TokenTextStyle.class, node);
-
-			if(isFormattingWanted(node, context)) {
+		// TODO: the combination of whitespacePreservation, implied-space AND regional formatting is not
+		// tested - it implies a priori knowledge of the textual representation of a serialized model without
+		// any source text nodes; and will probably in practice never be requested. (A serialization pass would
+		// needed to get the text to figure out where nodes are...)
+		//
+		if(match.isInside()) {
+			if(match.isContained() && (!wsp || implied)) {
+				// format if contained and formatting is wanted, or the space is implied
+				Spacing spacing = styleSet.getStyleValue(SpacingStyle.class, node, defaultSpacing);
+				LineBreaks lineBreaks = styleSet.getStyleValue(LineBreakStyle.class, node, defaultLineBreaks);
+				String text = styleSet.getStyleValue(TokenTextStyle.class, node);
 				applySpacingAndLinebreaks(context, node, text, spacing, lineBreaks, output);
+			}
+			else {
+				output.appendText(match.apply().getFirst());
 			}
 		}
 	}

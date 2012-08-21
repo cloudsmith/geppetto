@@ -3,7 +3,7 @@ Bundle-ManifestVersion: 2
 Bundle-Name: %pluginName
 Bundle-Vendor: %providerName
 Bundle-Localization: plugin
-Bundle-Version: 2.2.0.qualifier
+Bundle-Version: 3.0.0.qualifier
 Bundle-SymbolicName: org.cloudsmith.geppetto.pp.dsl;singleton:=true
 Bundle-ActivationPolicy: lazy
 Require-Bundle: org.eclipse.xtext;bundle-version="2.3.0.v201206120633",

@@ -23,10 +23,10 @@ import org.cloudsmith.xtext.dommodel.formatter.IDomModelFormatter;
 import org.cloudsmith.xtext.dommodel.formatter.comments.ICommentConfiguration;
 import org.cloudsmith.xtext.dommodel.formatter.context.IFormattingContextFactory;
 import org.cloudsmith.xtext.dommodel.formatter.context.IFormattingContextFactory.FormattingOption;
-import org.eclipse.xtext.formatting.ILineSeparatorInformation;
 import org.cloudsmith.xtext.serializer.acceptor.DomModelSequenceAdapter;
 import org.eclipse.emf.common.util.Diagnostic;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.xtext.formatting.ILineSeparatorInformation;
 import org.eclipse.xtext.parsetree.reconstr.IHiddenTokenHelper;
 import org.eclipse.xtext.parsetree.reconstr.ITokenStream;
 import org.eclipse.xtext.resource.SaveOptions;
@@ -39,6 +39,7 @@ import org.eclipse.xtext.serializer.impl.Serializer;
 import org.eclipse.xtext.serializer.sequencer.IHiddenTokenSequencer;
 import org.eclipse.xtext.serializer.sequencer.ISemanticSequencer;
 import org.eclipse.xtext.serializer.sequencer.ISyntacticSequencer;
+import org.eclipse.xtext.util.ITextRegion;
 import org.eclipse.xtext.util.ReplaceRegion;
 import org.eclipse.xtext.validation.IConcreteSyntaxValidator;
 
@@ -108,10 +109,14 @@ public class DomBasedSerializer extends Serializer {
 
 	@Override
 	public String serialize(EObject obj, SaveOptions options) {
-		// TODO: Faster to use a non synchronizing implementation such as StringBuilderWriter
+		return serialize(obj, options, null);
+	}
+
+	public String serialize(EObject obj, SaveOptions options, ITextRegion regionToFormat) {
+		// TODO: Faster to use a non synchronizing implementation such as StringBuilderWriter from apache commons io
 		Writer writer = new StringWriter();
 		try {
-			serialize(obj, writer, options);
+			serialize(obj, writer, options, regionToFormat);
 		}
 		catch(IOException e) {
 			throw new RuntimeException(e);
@@ -121,8 +126,13 @@ public class DomBasedSerializer extends Serializer {
 
 	@Override
 	public void serialize(EObject obj, Writer writer, SaveOptions options) throws IOException {
+		serialize(obj, writer, options, null /* all text */);
+	}
 
-		// FROM SUPER VERSION
+	public void serialize(EObject obj, Writer writer, SaveOptions options, ITextRegion regionToFormat)
+			throws IOException {
+
+		// FROM SUPER VERSION (without the ITextRegion)
 		// use the CSV as long as there are cases where is provides better messages than the serializer itself.
 		if(options.isValidating()) {
 			List<Diagnostic> diagnostics = new ArrayList<Diagnostic>();
@@ -141,8 +151,7 @@ public class DomBasedSerializer extends Serializer {
 		EObject context = getContext(obj);
 		serialize(obj, context, acceptor, errors);
 		ReplaceRegion r = domFormatter.format(
-			acceptor.getDomModel(), null /* all text */, formattingContextFactory.create(obj, formatting(options)),
-			errors);
+			acceptor.getDomModel(), regionToFormat, formattingContextFactory.create(obj, formatting(options)), errors);
 		writer.append(r.getText());
 	}
 

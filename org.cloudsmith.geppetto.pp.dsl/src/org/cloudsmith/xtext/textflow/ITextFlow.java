@@ -220,7 +220,7 @@ public interface ITextFlow extends Appendable, IMetrics {
 	/**
 	 * Puts the text flow in a mode where the first output will use the current indent before output of first
 	 * text. This only has effect if a) an indent other than 0 has already been set, and b) no output has been appended.
-	 * Note that changes to the indent after etIndentFirstLine(true) has been called does not alter the initial indent.
+	 * Note that changes to the indent after setIndentFirstLine(true) has been called does not alter the initial indent.
 	 * 
 	 * @param flag
 	 */

@@ -8,5 +8,6 @@ Bundle-Localization: plugin
 Require-Bundle: org.eclipse.ui.ide.application;bundle-version="1.0.0",
  org.cloudsmith.geppetto.pp.dsl.ui,
  org.cloudsmith.geppetto.ui,
- org.eclipse.ui.intro;bundle-version="3.4.0"
+ org.eclipse.ui.intro;bundle-version="3.4.0",
+ org.cloudsmith.geppetto.themes
 Bundle-ActivationPolicy: lazy

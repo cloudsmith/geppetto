@@ -45,6 +45,14 @@
          <property
                name="introDescription-tutorials"
                value="%introDescription-tutorials"/>
+         <property
+               name="applicationCSSResources"
+               value="platform:/plugin/org.cloudsmith.geppetto/images">
+         </property>
+         <property
+               name="cssTheme"
+               value="org.cloudsmith.geppetto.themes.classic">
+         </property>
       </product>
    </extension>
    <!--
@@ -61,4 +69,74 @@
       <primaryWizard id="org.cloudsmith.geppetto.ui.NewPuppetModuleProjectWizard"/>
       <primaryWizard id="org.cloudsmith.geppetto.ui.NewPuppetProjectFromForgeWizard"/>
    </extension>
+      <extension
+         point="org.eclipse.e4.ui.css.swt.theme">
+      <theme
+            basestylesheeturi="css/e4_default.css"
+            id="org.eclipse.e4.ui.css.theme.e4_default.noos"
+            label="%theme.default">
+      </theme>
+      <theme
+            basestylesheeturi="css/e4_classic_winxp.css"
+            id="org.eclipse.e4.ui.css.theme.e4_classic"
+            label="%theme.classic">
+      </theme>
+      <theme
+            basestylesheeturi="css/e4_default_gtk.css"
+            id="org.eclipse.e4.ui.css.theme.e4_default"
+            label="%theme.gtk"
+            os="linux">
+      </theme>
+      <theme
+            basestylesheeturi="css/e4_default_mac.css"
+            id="org.eclipse.e4.ui.css.theme.e4_default"
+            label="%theme.mac"
+            os="macosx">
+      </theme>
+      <theme
+            basestylesheeturi="css/e4_default_win7.css"
+            id="org.eclipse.e4.ui.css.theme.e4_default"
+            label="%theme.win7"
+            os="win32"
+            os_version="6.1">
+      </theme>
+            <theme
+                  basestylesheeturi="css/e4_default_winxp_blu.css"
+                  id="org.eclipse.e4.ui.css.theme.e4_default"
+                  label="%theme.winxpBlue"
+                  os="win32">
+      </theme>
+	  <theme
+            basestylesheeturi="css/e4_default_winxp_olv.css"
+            id="org.eclipse.e4.ui.css.theme.e4_default.xpolive"
+            label="%theme.winxpOlive"
+            os="win32">
+      </theme>
+   <theme
+         basestylesheeturi="css/e4_classic_win7.css"
+         id="org.eclipse.e4.ui.css.theme.e4_classic"
+         label="%theme.win7Classic"
+         os="win32"
+         os_version="6.1">
+   </theme>
+   <theme
+         basestylesheeturi="css/e4_default_gtk.css"
+         id="org.eclipse.e4.ui.css.theme.e4_default"
+         label="%theme.solaris"
+         os="solaris">
+   </theme>
+   <theme
+         basestylesheeturi="css/e4_default_gtk.css"
+         id="org.eclipse.e4.ui.css.theme.e4_default"
+         label="%theme.aix"
+         os="aix">
+   </theme>
+   <theme
+         basestylesheeturi="css/e4_classic_winxp.css"
+         id="org.eclipse.e4.ui.css.theme.e4_default"
+         label="%theme.hpux"
+         os="hpux">
+   </theme>
+      </extension>
+   
 </plugin>

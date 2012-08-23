@@ -177,6 +177,47 @@ public class ExtLinkedXtextEditor extends XtextEditor {
 	}
 
 	/**
+	 * Adds modulename as a prefix to the filename if it is site.pp or init.pp
+	 * 
+	 * TODO: Move this to a PP specific editor class.
+	 * 
+	 * @see org.eclipse.xtext.ui.editor.XtextEditor#doSetInput(org.eclipse.ui.IEditorInput)
+	 */
+	@Override
+	protected void doSetInput(IEditorInput input) throws CoreException {
+		super.doSetInput(input);
+		if(input != null) {
+			if(input instanceof FileEditorInput) {
+				IFile source = ((FileEditorInput) input).getFile();
+				if("init.pp".equals(source.getName()) || "site.pp".equals(source.getName())) {
+					IPath path = source.getFullPath();
+					String modulename = "";
+					boolean modulesSeen = false;
+					for(int i = 0; i < path.segmentCount(); i++) {
+						if("modules".equals(path.segment(i)))
+							modulesSeen = true;
+						else if(modulesSeen) {
+							modulename = path.segment(i);
+							break;
+						}
+					}
+					if(modulename.length() < 1) {
+						modulename = source.getProject().getName();
+					}
+					this.setPartName(modulename + "::" + this.getPartName());
+				}
+			}
+
+		}
+	}
+
+	// @Override
+	// protected void initializeEditor() {
+	// setPreferenceStore(preferenceAccess.getPreferenceStore());
+	// // setPreferenceStore(EditorsPlugin.getDefault().getPreferenceStore());
+	// }
+
+	/**
 	 * Overridden to allow customization of editor context menu via injected handler
 	 * 
 	 * @see org.eclipse.ui.editors.text.TextEditor#editorContextMenuAboutToShow(org.eclipse.jface.action.IMenuManager)
@@ -257,12 +298,6 @@ public class ExtLinkedXtextEditor extends XtextEditor {
 		super.init(site, input);
 
 	}
-
-	// @Override
-	// protected void initializeEditor() {
-	// setPreferenceStore(preferenceAccess.getPreferenceStore());
-	// // setPreferenceStore(EditorsPlugin.getDefault().getPreferenceStore());
-	// }
 
 	// SaveAs support for linked files - saves them on local disc, not to workspace if file is in special
 	// hidden external file link project.

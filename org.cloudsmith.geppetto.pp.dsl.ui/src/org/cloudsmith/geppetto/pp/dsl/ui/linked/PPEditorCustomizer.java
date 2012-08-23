@@ -22,7 +22,7 @@ import org.eclipse.ui.part.FileEditorInput;
  */
 public class PPEditorCustomizer extends DefaultExtXtextEditorCustomizer {
 	/**
-	 * @see org.cloudsmith.geppetto.pp.dsl.ui.linked.DefaultExtXtextEditorCustomizer#customEditorTitle(org.eclipse.ui.IEditorInput)
+	 * Sets the title for init.pp and site.pp to include prefix to identify module.
 	 */
 	@Override
 	public String customEditorTitle(IEditorInput input) {

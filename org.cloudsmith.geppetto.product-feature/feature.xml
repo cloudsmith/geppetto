@@ -56,6 +56,16 @@ http://www.eclipse.org/legal/epl-v10.html
       <import plugin="org.eclipse.help.base"/>
       <import plugin="org.eclipse.help.ui"/>
       <import plugin="org.eclipse.help.webapp"/>
+      <import plugin="org.eclipse.equinox.http.jetty"/>
+      <import plugin="org.eclipse.equinox.http.registry"/>
+      <import plugin="org.eclipse.equinox.http.servlet"/>
+      <import plugin="org.eclipse.equinox.jsp.jasper"/>
+      <import plugin="org.eclipse.equinox.jsp.jasper.registry"/>
+      <import plugin="org.eclipse.jetty.continuation"/>
+      <import plugin="org.eclipse.jetty.http"/>
+      <import plugin="org.eclipse.jetty.io"/>
+      <import plugin="org.eclipse.jetty.security"/>
+      <import plugin="org.eclipse.jetty.server"/>
       <import plugin="org.eclipse.platform.doc.user"/>
       <import plugin="org.eclipse.ui.net"/>
       <import plugin="org.eclipse.xtext.xbase.lib"/>

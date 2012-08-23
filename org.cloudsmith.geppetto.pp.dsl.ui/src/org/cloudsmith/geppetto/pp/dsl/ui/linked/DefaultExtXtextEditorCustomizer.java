@@ -9,12 +9,19 @@
 package org.cloudsmith.geppetto.pp.dsl.ui.linked;
 
 import org.eclipse.jface.action.IMenuManager;
+import org.eclipse.ui.IEditorInput;
 
 /**
  *
  *
  */
 public class DefaultExtXtextEditorCustomizer implements IExtXtextEditorCustomizer {
+	@Override
+	public String customEditorTitle(IEditorInput input) {
+		return null;
+	}
+
+	@Override
 	public void customizeEditorContextMenu(IMenuManager menuManager) {
 		// do nothing
 	}

@@ -35,7 +35,9 @@ import org.cloudsmith.geppetto.pp.dsl.ui.formatting.ResourceICommentFormatterAdv
 import org.cloudsmith.geppetto.pp.dsl.ui.formatting.ResourceIIndentationInformationProvider;
 import org.cloudsmith.geppetto.pp.dsl.ui.formatting.ResourceIPreferredWidthInformationProvider;
 import org.cloudsmith.geppetto.pp.dsl.ui.linked.ExtLinkedXtextEditor;
+import org.cloudsmith.geppetto.pp.dsl.ui.linked.IExtXtextEditorCustomizer;
 import org.cloudsmith.geppetto.pp.dsl.ui.linked.ISaveActions;
+import org.cloudsmith.geppetto.pp.dsl.ui.linked.PPEditorCustomizer;
 import org.cloudsmith.geppetto.pp.dsl.ui.linking.PPUISearchPathProvider;
 import org.cloudsmith.geppetto.pp.dsl.ui.outline.PPLocationInFileProvider;
 import org.cloudsmith.geppetto.pp.dsl.ui.preferences.PPPreferencesHelper;
@@ -99,6 +101,13 @@ public class PPUiModule extends org.cloudsmith.geppetto.pp.dsl.ui.AbstractPPUiMo
 	@Override
 	public Class<? extends IContentFormatterFactory> bindIContentFormatterFactory() {
 		return ContentFormatterFactory.class;
+	}
+
+	/**
+	 * Binds an editor customizer with PP specific features.
+	 */
+	public Class<? extends IExtXtextEditorCustomizer> bindIExtXtextEditorCustomizer() {
+		return PPEditorCustomizer.class;
 	}
 
 	/**
@@ -299,7 +308,6 @@ public class PPUiModule extends org.cloudsmith.geppetto.pp.dsl.ui.AbstractPPUiMo
 
 	public void configureIIndentationInformationProvider(Binder binder) {
 		binder.bind(IIndentationInformation.class).toProvider(ResourceIIndentationInformationProvider.class);
-		// return new ResourceIIndentationInformationProvider();
 	}
 
 	/**
@@ -313,14 +321,6 @@ public class PPUiModule extends org.cloudsmith.geppetto.pp.dsl.ui.AbstractPPUiMo
 
 	}
 
-	// /* (non-Javadoc)
-	// * @see org.eclipse.xtext.ui.DefaultUiModule#bindIIndentationInformation()
-	// */
-	// @Override
-	// public Class<? extends IIndentationInformation> bindIIndentationInformation() {
-	// // TODO Auto-generated method stub
-	// return super.bindIIndentationInformation();
-	// }
 	/**
 	 * Deal with dependency on JDT (not wanted).
 	 */

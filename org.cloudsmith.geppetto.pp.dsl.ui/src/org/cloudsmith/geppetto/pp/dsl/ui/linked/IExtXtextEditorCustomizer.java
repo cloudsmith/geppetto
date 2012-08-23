@@ -9,6 +9,7 @@
 package org.cloudsmith.geppetto.pp.dsl.ui.linked;
 
 import org.eclipse.jface.action.IMenuManager;
+import org.eclipse.ui.IEditorInput;
 
 import com.google.inject.ImplementedBy;
 
@@ -18,5 +19,14 @@ import com.google.inject.ImplementedBy;
  */
 @ImplementedBy(DefaultExtXtextEditorCustomizer.class)
 public interface IExtXtextEditorCustomizer {
+	/**
+	 * Provides opportunity to provide the editor label/tab-title. If null is returned, the
+	 * default title is used.
+	 * 
+	 * @param input
+	 * @return an alternate editor tab label, or null to keep the default
+	 */
+	public String customEditorTitle(IEditorInput input);
+
 	public void customizeEditorContextMenu(IMenuManager menuManager);
 }

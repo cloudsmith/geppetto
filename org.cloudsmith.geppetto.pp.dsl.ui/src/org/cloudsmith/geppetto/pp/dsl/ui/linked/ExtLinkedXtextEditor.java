@@ -90,11 +90,12 @@ public class ExtLinkedXtextEditor extends XtextEditor {
 	 */
 	private final static String PRINT_MARGIN_COLOR = AbstractDecoratedTextEditorPreferenceConstants.EDITOR_PRINT_MARGIN_COLOR;
 
-	/**
-	 * Preference key for print margin ruler column.
-	 */
-	private final static String PRINT_MARGIN_COLUMN = AbstractDecoratedTextEditorPreferenceConstants.EDITOR_PRINT_MARGIN_COLUMN;
-
+	// This is the preference for the default print margin, PP uses the margin set in the formatter preferences
+	// /**
+	// * Preference key for print margin ruler column.
+	// */
+	// private final static String PRINT_MARGIN_COLUMN = AbstractDecoratedTextEditorPreferenceConstants.EDITOR_PRINT_MARGIN_COLUMN;
+	//
 	@Inject
 	private IPreferenceStoreAccess preferenceAccess;
 
@@ -177,38 +178,17 @@ public class ExtLinkedXtextEditor extends XtextEditor {
 	}
 
 	/**
-	 * Adds modulename as a prefix to the filename if it is site.pp or init.pp
+	 * Allows customization of the editor title.
 	 * 
-	 * TODO: Move this to a PP specific editor class.
 	 * 
 	 * @see org.eclipse.xtext.ui.editor.XtextEditor#doSetInput(org.eclipse.ui.IEditorInput)
 	 */
 	@Override
 	protected void doSetInput(IEditorInput input) throws CoreException {
 		super.doSetInput(input);
-		if(input != null) {
-			if(input instanceof FileEditorInput) {
-				IFile source = ((FileEditorInput) input).getFile();
-				if("init.pp".equals(source.getName()) || "site.pp".equals(source.getName())) {
-					IPath path = source.getFullPath();
-					String modulename = "";
-					boolean modulesSeen = false;
-					for(int i = 0; i < path.segmentCount(); i++) {
-						if("modules".equals(path.segment(i)))
-							modulesSeen = true;
-						else if(modulesSeen) {
-							modulename = path.segment(i);
-							break;
-						}
-					}
-					if(modulename.length() < 1) {
-						modulename = source.getProject().getName();
-					}
-					this.setPartName(modulename + "::" + this.getPartName());
-				}
-			}
-
-		}
+		String customTitle = editorCustomizer.customEditorTitle(input);
+		if(customTitle != null)
+			this.setPartName(customTitle);
 	}
 
 	// @Override

@@ -97,8 +97,8 @@ units.0.requires.2.greedy = true
 units.0.requires.2.optional = false
 
 units.0.requires.3.namespace = org.eclipse.equinox.p2.iu
-units.0.requires.3.name = org.polarion.eclipse.team.svn.connector.svnkit16.feature.group
-units.0.requires.3.range = 2.2.2
+units.0.requires.3.name = org.polarion.eclipse.team.svn.connector.svnkit17.feature.group
+units.0.requires.3.range = 3.0.0
 units.0.requires.3.greedy = true
 units.0.requires.3.optional = false
 

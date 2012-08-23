@@ -21,7 +21,7 @@
    <feature id="org.polarion.eclipse.team.svn.connector" version="0.0.0">
       <category name="svn"/>
    </feature>
-   <feature id="org.polarion.eclipse.team.svn.connector.svnkit16" version="0.0.0">
+   <feature id="org.polarion.eclipse.team.svn.connector.svnkit17" version="0.0.0">
       <category name="svn"/>
    </feature>
    <feature id="org.eclipse.emf.common" version="0.0.0">

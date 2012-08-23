@@ -65,7 +65,7 @@
          version="0.0.0"/>
 
    <includes
-         id="org.polarion.eclipse.team.svn.connector.svnkit16"
+         id="org.polarion.eclipse.team.svn.connector.svnkit17"
          version="0.0.0"/>
 
    <includes

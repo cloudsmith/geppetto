@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<notation:Diagram xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:layoutoptions="http://kieler.cs.cau.de/LayoutOptions" xmlns:notation="http://www.eclipse.org/gmf/runtime/1.0.2/notation" xmi:id="_redQcM9hEeCOu7La9-yqlQ" type="EcoreTools" name="Catalog" measurementUnit="Pixel">
+<notation:Diagram xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:notation="http://www.eclipse.org/gmf/runtime/1.0.2/notation" xmi:id="_redQcM9hEeCOu7La9-yqlQ" type="EcoreTools" name="Catalog" measurementUnit="Pixel">
   <children xmi:type="notation:Node" xmi:id="_s4zHgM9hEeCOu7La9-yqlQ" type="1001">
     <children xmi:type="notation:Node" xmi:id="_s42x4M9hEeCOu7La9-yqlQ" type="4001"/>
     <children xmi:type="notation:Node" xmi:id="_s44nEM9hEeCOu7La9-yqlQ" type="5001">
@@ -153,12 +153,8 @@
     <layoutConstraint xmi:type="notation:Bounds" xmi:id="_n_r_Us9oEeCOu7La9-yqlQ" x="202" y="298"/>
   </children>
   <styles xmi:type="notation:DiagramStyle" xmi:id="_redQcc9hEeCOu7La9-yqlQ"/>
-  <styles xmi:type="layoutoptions:LayoutOptionStyle" xmi:id="_OPiJEM9qEeCOu7La9-yqlQ">
-    <options xmi:type="layoutoptions:KOption" xmi:id="_OPjXMM9qEeCOu7La9-yqlQ" key="de.cau.cs.kieler.layout.options.minSpacing" value="40.0"/>
-    <options xmi:type="layoutoptions:KOption" xmi:id="_QzodgM9qEeCOu7La9-yqlQ" key="de.cau.cs.kieler.kiml.ogdf.option.labelEdgeDistance" value="100.0"/>
-    <options xmi:type="layoutoptions:KOption" xmi:id="_oSXY0M9qEeCOu7La9-yqlQ" key="de.cau.cs.kieler.layout.options.randomSeed" value="1"/>
-    <options xmi:type="layoutoptions:KOption" xmi:id="_s-qI0M9qEeCOu7La9-yqlQ" key="de.cau.cs.kieler.layout.options.borderSpacing" value="50.0"/>
-  </styles>
+  <styles xmi:type="notation:StringValueStyle" xmi:id="_LBlyce44EeGBtOaHEzQaRQ" name="layout:de.cau.cs.kieler.algorithm" stringValue="de.cau.cs.kieler.type.orthogonal"/>
+  <styles xmi:type="notation:StringValueStyle" xmi:id="_XtrDgO44EeGBtOaHEzQaRQ" name="layout:de.cau.cs.kieler.edgeRouting" stringValue="ORTHOGONAL"/>
   <element xmi:type="ecore:EPackage" href="Catalog.ecore#/"/>
   <edges xmi:type="notation:Edge" xmi:id="_MoBK8M9lEeCOu7La9-yqlQ" type="3002" source="_s4zHgM9hEeCOu7La9-yqlQ" target="_LckEcM9lEeCOu7La9-yqlQ">
     <children xmi:type="notation:Node" xmi:id="_MoByAM9lEeCOu7La9-yqlQ" type="4011">

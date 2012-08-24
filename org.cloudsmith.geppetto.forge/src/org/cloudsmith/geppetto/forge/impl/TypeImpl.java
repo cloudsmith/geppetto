@@ -90,6 +90,37 @@ public class TypeImpl extends DocumentedImpl implements Type {
 		}
 	}
 
+	private static String stringValue(Node node) throws IOException {
+		switch(node.getNodeType()) {
+			case NEWLINENODE:
+				return "\n";
+			case COMMENTNODE:
+				return "";
+			case SYMBOLNODE:
+				return ((SymbolNode) node).getName();
+			case STRNODE:
+				return ((StrNode) node).getValue();
+			case FALSENODE:
+				return "false";
+			case TRUENODE:
+				return "true";
+			case CALLNODE: {
+				// We can handle simple string concatenation
+				CallNode argCall = (CallNode) node;
+				if("+".equals(argCall.getName())) {
+					StringBuilder bld = new StringBuilder();
+					bld.append(stringValue(argCall.getReceiverNode()));
+					for(Node arg : argCall.getArgsNode().childNodes())
+						bld.append(stringValue(arg));
+					return bld.toString();
+				}
+				throw new IOException("Unable to evaluate call node " + argCall.getName() + " into a string");
+			}
+			default:
+				throw new IOException("Unable to evaluate node of type " + node.getNodeType() + " into a string");
+		}
+	}
+
 	/**
 	 * The cached value of the '{@link #getParameters() <em>Parameters</em>}' containment reference list.
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -498,13 +529,11 @@ public class TypeImpl extends DocumentedImpl implements Type {
 			for(Node pnode : pnodes) {
 				FCallNode pcallNode = (FCallNode) pnode;
 				if("desc".equals(pcallNode.getName())) {
-					List<Node> dnodes = RubyParserUtils.findNodes(
-						pcallNode.getArgsNode(), new NodeType[] { NodeType.STRNODE });
-					if(dnodes.size() != 1)
+					List<Node> args = pcallNode.getArgsNode().childNodes();
+					if(args.size() != 1)
 						throw new IOException(
-							"A newparam or newproperty desc call does not take exactly one string parameter in " +
-									typeFileStr);
-					elem.setDoc(((StrNode) dnodes.get(0)).getValue());
+							"A newparam or newproperty desc call does not take exactly one parameter in " + typeFileStr);
+					elem.setDoc(stringValue(args.get(0)));
 					break;
 				}
 			}

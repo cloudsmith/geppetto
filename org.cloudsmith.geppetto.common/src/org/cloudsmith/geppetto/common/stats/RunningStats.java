@@ -9,7 +9,7 @@
  *   Cloudsmith
  * 
  */
-package org.cloudsmith.xtext.formatting.utils;
+package org.cloudsmith.geppetto.common.stats;
 
 import com.google.common.base.Preconditions;
 

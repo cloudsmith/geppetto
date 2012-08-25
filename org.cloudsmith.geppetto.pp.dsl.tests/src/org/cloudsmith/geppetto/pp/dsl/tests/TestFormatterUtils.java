@@ -13,7 +13,7 @@ package org.cloudsmith.geppetto.pp.dsl.tests;
 
 import junit.framework.TestCase;
 
-import org.cloudsmith.xtext.formatting.utils.IntegerCluster;
+import org.cloudsmith.geppetto.common.stats.IntegerCluster;
 
 /**
  * Tests formatting utility classes.

@@ -14,13 +14,13 @@ package org.cloudsmith.xtext.dommodel.formatter;
 import java.util.Iterator;
 import java.util.List;
 
+import org.cloudsmith.geppetto.common.stats.IntegerCluster;
 import org.cloudsmith.xtext.dommodel.DomModelUtils;
 import org.cloudsmith.xtext.dommodel.IDomNode;
 import org.cloudsmith.xtext.dommodel.formatter.ILayoutManager.ILayoutContext;
 import org.cloudsmith.xtext.dommodel.formatter.css.Alignment;
 import org.cloudsmith.xtext.dommodel.formatter.css.StyleFactory;
 import org.cloudsmith.xtext.dommodel.formatter.css.StyleSet;
-import org.cloudsmith.xtext.formatting.utils.IntegerCluster;
 import org.cloudsmith.xtext.textflow.ITextFlow;
 import org.cloudsmith.xtext.textflow.MeasuredTextFlow;
 import org.eclipse.xtext.AbstractElement;

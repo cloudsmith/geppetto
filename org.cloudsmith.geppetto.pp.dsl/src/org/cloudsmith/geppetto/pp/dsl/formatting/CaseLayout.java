@@ -13,6 +13,7 @@ package org.cloudsmith.geppetto.pp.dsl.formatting;
 
 import java.util.List;
 
+import org.cloudsmith.geppetto.common.stats.IntegerCluster;
 import org.cloudsmith.geppetto.pp.CaseExpression;
 import org.cloudsmith.geppetto.pp.dsl.formatting.PPSemanticLayout.StatementStyle;
 import org.cloudsmith.geppetto.pp.dsl.services.PPGrammarAccess;
@@ -24,7 +25,6 @@ import org.cloudsmith.xtext.dommodel.formatter.ILayoutManager.ILayoutContext;
 import org.cloudsmith.xtext.dommodel.formatter.css.Alignment;
 import org.cloudsmith.xtext.dommodel.formatter.css.IStyleFactory;
 import org.cloudsmith.xtext.dommodel.formatter.css.StyleSet;
-import org.cloudsmith.xtext.formatting.utils.IntegerCluster;
 import org.cloudsmith.xtext.textflow.ITextFlow;
 import org.cloudsmith.xtext.textflow.MeasuredTextFlow;
 import org.cloudsmith.xtext.textflow.TextFlow;

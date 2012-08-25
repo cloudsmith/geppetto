@@ -9,7 +9,7 @@
  *   Cloudsmith
  * 
  */
-package org.cloudsmith.xtext.formatting.utils;
+package org.cloudsmith.geppetto.common.stats;
 
 import java.util.Collections;
 import java.util.Comparator;
@@ -108,6 +108,11 @@ public class IntegerCluster {
 		dirty = true;
 	}
 
+	public void addAll(Iterable<Integer> iterable) {
+		for(Integer i : iterable)
+			add(i);
+	}
+
 	private void cluster() {
 		Collections.sort(clusterList, comparator);
 
@@ -156,10 +161,22 @@ public class IntegerCluster {
 
 	}
 
+	/**
+	 * Returns the max value for the cluster x is a member of.
+	 * 
+	 * @param x
+	 * @return
+	 */
 	public int clusterMax(int x) {
 		return clusterForValue(x).max();
 	}
 
+	/**
+	 * Returns the min value for the cluster x is a member of.
+	 * 
+	 * @param x
+	 * @return
+	 */
 	public int clusterMin(int x) {
 		return clusterForValue(x).min();
 	}
@@ -170,6 +187,11 @@ public class IntegerCluster {
 		return high - low;
 	}
 
+	/**
+	 * Return the number of clusters.
+	 * 
+	 * @return
+	 */
 	public int getClusterCount() {
 		lazyCluster();
 		return clusterList.size();

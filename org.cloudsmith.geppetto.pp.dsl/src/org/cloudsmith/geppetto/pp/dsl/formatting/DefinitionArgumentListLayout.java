@@ -15,6 +15,7 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import org.cloudsmith.geppetto.common.stats.IntegerCluster;
 import org.cloudsmith.geppetto.pp.DefinitionArgument;
 import org.cloudsmith.geppetto.pp.DefinitionArgumentList;
 import org.cloudsmith.geppetto.pp.dsl.formatting.IBreakAndAlignAdvice.WhenToApplyForDefinition;
@@ -27,7 +28,6 @@ import org.cloudsmith.xtext.dommodel.formatter.LayoutUtils;
 import org.cloudsmith.xtext.dommodel.formatter.css.Alignment;
 import org.cloudsmith.xtext.dommodel.formatter.css.IStyleFactory;
 import org.cloudsmith.xtext.dommodel.formatter.css.StyleSet;
-import org.cloudsmith.xtext.formatting.utils.IntegerCluster;
 import org.cloudsmith.xtext.textflow.ITextFlow;
 import org.eclipse.emf.ecore.EObject;
 

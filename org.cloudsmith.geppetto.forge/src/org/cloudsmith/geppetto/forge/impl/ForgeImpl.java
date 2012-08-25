@@ -78,7 +78,7 @@ public class ForgeImpl extends EObjectImpl implements Forge {
 	private static void installTemplate(Metadata metadata, File destinationBase, File template, int templateBaseLength)
 			throws IOException {
 
-		if(MetadataImpl.ARTIFACTS.matcher(template.getName()).matches())
+		if(MetadataImpl.DEFAULT_EXCLUDES_PATTERN.matcher(template.getName()).matches())
 			// We do not want SCM files etc. to be included here
 			return;
 
@@ -187,7 +187,7 @@ public class ForgeImpl extends EObjectImpl implements Forge {
 		File moduleArchive = new File(destination, fullNameWithVersion + ".tar.gz");
 		OutputStream out = new GZIPOutputStream(new FileOutputStream(moduleArchive));
 		// Pack closes its output
-		TarUtils.pack(moduleSource, out, MetadataImpl.ARTIFACTS, false, fullNameWithVersion);
+		TarUtils.pack(moduleSource, out, MetadataImpl.DEFAULT_EXCLUDES_PATTERN, false, fullNameWithVersion);
 		return md;
 	}
 

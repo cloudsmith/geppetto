@@ -186,4 +186,6 @@ public interface IPPDiagnostics {
 
 	public static final String ISSUE__NOT_INITIAL_LOWERCASE = ISSUE_PREFIX + "NotInitialLowerCase";
 
+	public static final String ISSUE__DUPLICATE_PARAMETER = ISSUE_PREFIX + "DuplicateParameter";
+
 }

@@ -702,6 +702,18 @@ public class PPJavaValidator extends AbstractPPJavaValidator implements IPPDiagn
 
 	@Check
 	public void checkDefinitionArgumentList(DefinitionArgumentList o) {
+		Set<String> seen = Sets.newHashSet();
+		for(DefinitionArgument arg : o.getArguments()) {
+			String s = arg.getArgName();
+			if(s.startsWith("$"))
+				s = s.substring(1);
+			if(seen.contains(s)) {
+				acceptor.acceptError(
+					"Duplicate definition of parameter", arg, IPPDiagnostics.ISSUE__DUPLICATE_PARAMETER);
+			}
+			else
+				seen.add(s);
+		}
 		IValidationAdvisor advisor = advisor();
 		ValidationPreference endComma = advisor.definitionArgumentListEndComma();
 		if(endComma.isWarningOrError()) {

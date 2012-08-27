@@ -62,6 +62,11 @@ public interface IPotentialProblemsAdvisor extends IStylisticProblemsAdvisor {
 	public ValidationPreference missingDefaultInSelector();
 
 	/**
+	 * How to 'validate' the precense of ML comments.
+	 */
+	public ValidationPreference mlComments();
+
+	/**
 	 * How to validate unbraced interpolation.
 	 * 
 	 * @return

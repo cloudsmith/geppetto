@@ -24,6 +24,19 @@ import org.cloudsmith.geppetto.pp.dsl.linking.PPFinder;
 import org.cloudsmith.geppetto.pp.dsl.linking.PPSearchPath.ISearchPathProvider;
 import org.cloudsmith.geppetto.pp.dsl.ui.labeling.PPDescriptionLabelProvider;
 import org.cloudsmith.geppetto.pp.dsl.validation.IPPDiagnostics;
+import org.cloudsmith.xtext.dommodel.formatter.comments.CommentProcessor;
+import org.cloudsmith.xtext.dommodel.formatter.comments.CommentProcessor.CommentFormattingOptions;
+import org.cloudsmith.xtext.dommodel.formatter.comments.CommentProcessor.CommentText;
+import org.cloudsmith.xtext.dommodel.formatter.comments.ICommentConfiguration;
+import org.cloudsmith.xtext.dommodel.formatter.comments.ICommentConfiguration.CommentType;
+import org.cloudsmith.xtext.dommodel.formatter.comments.ICommentContainerInformation;
+import org.cloudsmith.xtext.dommodel.formatter.comments.ICommentContainerInformation.HashSLCommentContainer;
+import org.cloudsmith.xtext.dommodel.formatter.comments.ICommentContainerInformation.JavaLikeMLCommentContainer;
+import org.cloudsmith.xtext.dommodel.formatter.context.IFormattingContextFactory;
+import org.cloudsmith.xtext.dommodel.formatter.context.IFormattingContextFactory.FormattingOption;
+import org.cloudsmith.xtext.resource.ResourceAccessScope;
+import org.cloudsmith.xtext.textflow.CharSequences;
+import org.cloudsmith.xtext.textflow.TextFlow;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.jface.text.BadLocationException;
@@ -42,6 +55,7 @@ import org.eclipse.xtext.util.concurrent.IUnitOfWork;
 import org.eclipse.xtext.validation.Issue;
 
 import com.google.inject.Inject;
+import com.google.inject.Provider;
 
 public class PPQuickfixProvider extends DefaultQuickfixProvider {
 	private static class ReplacingModification implements IModification {
@@ -169,6 +183,61 @@ public class PPQuickfixProvider extends DefaultQuickfixProvider {
 
 	@Inject
 	private PPFinder ppFinder;
+
+	@Inject
+	IFormattingContextFactory formattingContextFactory;
+
+	@Inject
+	protected Provider<ICommentConfiguration<CommentType>> commentConfigurationProvider;
+
+	@Inject
+	private ResourceAccessScope resourceScope;
+
+	@Fix(IPPDiagnostics.ISSUE_UNWANTED_ML_COMMENT)
+	public void changeMLCommentToSLComment(final Issue issue, final IssueResolutionAcceptor acceptor) {
+		final IModificationContext modificationContext = getModificationContextFactory().createModificationContext(
+			issue);
+		final IXtextDocument xtextDocument = modificationContext.getXtextDocument();
+		xtextDocument.readOnly(new IUnitOfWork.Void<XtextResource>() {
+			@Override
+			public void process(XtextResource state) throws Exception {
+				resourceScope.enter(state);
+				try {
+
+					String issueString = xtextDocument.get(issue.getOffset(), issue.getLength());
+					final boolean endsWithBreak = issue.getData() != null && issue.getData().length == 1 &&
+							"true".equals(issue.getData()[0]);
+					CommentProcessor commentProcessor = new CommentProcessor();
+					JavaLikeMLCommentContainer mlContainer = new ICommentContainerInformation.JavaLikeMLCommentContainer();
+					HashSLCommentContainer hashContainer = new ICommentContainerInformation.HashSLCommentContainer();
+					int offsetOfNode = issue.getOffset();
+
+					int posOnLine = offsetOfNode -
+							Math.max(0, 1 + CharSequences.lastIndexOf(
+								xtextDocument.get(0, xtextDocument.getLength()), "\n", offsetOfNode - 1));
+
+					CommentText commentText = commentProcessor.separateCommentFromContainer(
+						issueString, mlContainer.create(posOnLine), "\n");
+					TextFlow result = commentProcessor.formatComment(
+						commentText, hashContainer.create(posOnLine), new CommentFormattingOptions(
+							commentConfigurationProvider.get().getFormatterAdvice(CommentType.SingleLine),
+							Integer.MAX_VALUE, 0, 1), formattingContextFactory.create(state, FormattingOption.Format));
+
+					if(!endsWithBreak)
+						result.appendBreak();
+					String replacement = CharSequences.trimLeft(result.getText()).toString();
+
+					acceptor.accept(
+						issue, "Change to # style comment",
+						"Changes comment to # style (any trailing logic on last line is moved to separate line", null,
+						new ReplacingModification(issue.getOffset(), issue.getLength(), replacement));
+				}
+				finally {
+					resourceScope.exit();
+				}
+			}
+		});
+	}
 
 	@Fix(IPPDiagnostics.ISSUE__UNBRACED_INTERPOLATION)
 	public void changeToBracedInterpolation(final Issue issue, final IssueResolutionAcceptor acceptor) {

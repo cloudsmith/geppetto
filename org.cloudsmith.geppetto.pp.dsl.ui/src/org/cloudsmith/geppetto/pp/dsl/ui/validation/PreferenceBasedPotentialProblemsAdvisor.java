@@ -37,11 +37,6 @@ public class PreferenceBasedPotentialProblemsAdvisor implements IPotentialProble
 		return preferences.getBooleansInStringForm();
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.cloudsmith.geppetto.pp.dsl.validation.IPotentialProblemsAdvisor#caseDefaultShouldAppearLast()
-	 */
 	@Override
 	public ValidationPreference caseDefaultShouldAppearLast() {
 		return preferences.getCaseDefaultShouldAppearLast();
@@ -52,21 +47,11 @@ public class PreferenceBasedPotentialProblemsAdvisor implements IPotentialProble
 		return preferences.getcircularDependencyPreference();
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.cloudsmith.geppetto.pp.dsl.validation.IPotentialProblemsAdvisor#dqStringNotRequired()
-	 */
 	@Override
 	public ValidationPreference dqStringNotRequired() {
 		return preferences.getDqStringNotRequired();
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.cloudsmith.geppetto.pp.dsl.validation.IPotentialProblemsAdvisor#dqStringNotRequiredVariable()
-	 */
 	@Override
 	public ValidationPreference dqStringNotRequiredVariable() {
 		return preferences.getDqStringNotRequiredVar();
@@ -82,31 +67,21 @@ public class PreferenceBasedPotentialProblemsAdvisor implements IPotentialProble
 		return preferences.getMissingDefaultInSwitch();
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.cloudsmith.geppetto.pp.dsl.validation.IStylisticProblemsAdvisor#selectorDefaultShouldAppearLast()
-	 */
+	@Override
+	public ValidationPreference mlComments() {
+		return preferences.getMLCommentsValidationPreference();
+	}
+
 	@Override
 	public ValidationPreference selectorDefaultShouldAppearLast() {
 		return preferences.getSelectorDefaultShouldAppearLast();
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.cloudsmith.geppetto.pp.dsl.validation.IPotentialProblemsAdvisor#unbracedInterpolation()
-	 */
 	@Override
 	public ValidationPreference unbracedInterpolation() {
 		return preferences.getUnbracedInterpolation();
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.cloudsmith.geppetto.pp.dsl.validation.IPotentialProblemsAdvisor#unquotedResourceTitles()
-	 */
 	@Override
 	public ValidationPreference unquotedResourceTitles() {
 		return preferences.getUnquotedResourceTitles();

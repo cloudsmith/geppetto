@@ -28,11 +28,6 @@ public class ValidationAdvisor {
 			return problemsAdvisor.booleansInStringForm();
 		}
 
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see org.cloudsmith.geppetto.pp.dsl.validation.IPotentialProblemsAdvisor#caseDefaultShouldAppearLast()
-		 */
 		@Override
 		public ValidationPreference caseDefaultShouldAppearLast() {
 			return problemsAdvisor.caseDefaultShouldAppearLast();
@@ -43,21 +38,11 @@ public class ValidationAdvisor {
 			return problemsAdvisor.circularDependencyPreference();
 		}
 
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see org.cloudsmith.geppetto.pp.dsl.validation.IPotentialProblemsAdvisor#dqStringNotRequired()
-		 */
 		@Override
 		public ValidationPreference dqStringNotRequired() {
 			return problemsAdvisor.dqStringNotRequired();
 		}
 
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see org.cloudsmith.geppetto.pp.dsl.validation.IPotentialProblemsAdvisor#dqStringNotRequiredVariable()
-		 */
 		@Override
 		public ValidationPreference dqStringNotRequiredVariable() {
 			return problemsAdvisor.dqStringNotRequiredVariable();
@@ -73,31 +58,21 @@ public class ValidationAdvisor {
 			return problemsAdvisor.missingDefaultInSelector();
 		}
 
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see org.cloudsmith.geppetto.pp.dsl.validation.IStylisticProblemsAdvisor#selectorDefaultShouldAppearLast()
-		 */
+		@Override
+		public ValidationPreference mlComments() {
+			return problemsAdvisor.mlComments();
+		}
+
 		@Override
 		public ValidationPreference selectorDefaultShouldAppearLast() {
 			return problemsAdvisor.selectorDefaultShouldAppearLast();
 		}
 
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see org.cloudsmith.geppetto.pp.dsl.validation.IPotentialProblemsAdvisor#unbracedInterpolation()
-		 */
 		@Override
 		public ValidationPreference unbracedInterpolation() {
 			return problemsAdvisor.unbracedInterpolation();
 		}
 
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see org.cloudsmith.geppetto.pp.dsl.validation.IPotentialProblemsAdvisor#unquotedResourceTitles()
-		 */
 		@Override
 		public ValidationPreference unquotedResourceTitles() {
 			return problemsAdvisor.unquotedResourceTitles();

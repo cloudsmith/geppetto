@@ -46,6 +46,9 @@ public class PPStylisticProblemsPreferencePage extends AbstractPreferencePage {
 		this.addField(new ValidationPreferenceFieldEditor(
 			PPPreferenceConstants.PROBLEM_UNQUOTED_RESOURCE_TITLE, "Unquoted resource titles", getFieldEditorParent()));
 
+		this.addField(new ValidationPreferenceFieldEditor(
+			PPPreferenceConstants.PROBLEM_ML_COMMENTS, "Comments using /* */", getFieldEditorParent()));
+
 	}
 
 }

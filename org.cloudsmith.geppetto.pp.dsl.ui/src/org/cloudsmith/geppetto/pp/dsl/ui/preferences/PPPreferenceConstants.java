@@ -66,4 +66,6 @@ public class PPPreferenceConstants {
 
 	public static final String PROBLEM_DQ_STRING_NOT_REQUIRED_VAR = "dqStringNotRequiredVar";
 
+	public static final String PROBLEM_ML_COMMENTS = "mlComments";
+
 }

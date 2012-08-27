@@ -145,7 +145,8 @@ public class PPPreferencesHelper implements IPreferenceStoreInitializer, IProper
 		PPPreferenceConstants.PROBLEM_UNQUOTED_RESOURCE_TITLE, //
 		PPPreferenceConstants.PROBLEM_DQ_STRING_NOT_REQUIRED, //
 		PPPreferenceConstants.PROBLEM_DQ_STRING_NOT_REQUIRED_VAR, //
-		PPPreferenceConstants.PROBLEM_UNBRACED_INTERPOLATION //
+		PPPreferenceConstants.PROBLEM_UNBRACED_INTERPOLATION, //
+		PPPreferenceConstants.PROBLEM_ML_COMMENTS //
 
 	);
 
@@ -214,6 +215,13 @@ public class PPPreferencesHelper implements IPreferenceStoreInitializer, IProper
 	 */
 	public ValidationPreference getMissingDefaultInSwitch() {
 		return ValidationPreference.fromString(store.getString(PPPreferenceConstants.PROBLEM_MISSING_DEFAULT));
+	}
+
+	/**
+	 * @return
+	 */
+	public ValidationPreference getMLCommentsValidationPreference() {
+		return ValidationPreference.fromString(store.getString(PPPreferenceConstants.PROBLEM_ML_COMMENTS));
 	}
 
 	public String getPptpVersion() {
@@ -331,6 +339,7 @@ public class PPPreferencesHelper implements IPreferenceStoreInitializer, IProper
 		store.setDefault(
 			PPPreferenceConstants.PROBLEM_DQ_STRING_NOT_REQUIRED_VAR, ValidationPreference.IGNORE.toString());
 		store.setDefault(PPPreferenceConstants.PROBLEM_UNBRACED_INTERPOLATION, ValidationPreference.IGNORE.toString());
+		store.setDefault(PPPreferenceConstants.PROBLEM_ML_COMMENTS, ValidationPreference.IGNORE.toString());
 
 		// save actions
 		store.setDefault(PPPreferenceConstants.SAVE_ACTION_ENSURE_ENDS_WITH_NL, false);

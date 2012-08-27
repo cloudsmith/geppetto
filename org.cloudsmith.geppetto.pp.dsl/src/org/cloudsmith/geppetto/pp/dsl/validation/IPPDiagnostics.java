@@ -188,4 +188,6 @@ public interface IPPDiagnostics {
 
 	public static final String ISSUE__DUPLICATE_PARAMETER = ISSUE_PREFIX + "DuplicateParameter";
 
+	public static final String ISSUE_UNWANTED_ML_COMMENT = ISSUE_PREFIX + "UnwantedMLComment";
+
 }

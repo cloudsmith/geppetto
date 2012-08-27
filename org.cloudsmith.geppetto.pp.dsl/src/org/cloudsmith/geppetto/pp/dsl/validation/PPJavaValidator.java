@@ -89,6 +89,7 @@ import org.cloudsmith.geppetto.pp.dsl.eval.PPTypeEvaluator;
 import org.cloudsmith.geppetto.pp.dsl.linking.IMessageAcceptor;
 import org.cloudsmith.geppetto.pp.dsl.linking.PPClassifier;
 import org.cloudsmith.geppetto.pp.dsl.linking.ValidationBasedMessageAcceptor;
+import org.cloudsmith.geppetto.pp.dsl.services.PPGrammarAccess;
 import org.cloudsmith.geppetto.pp.util.TextExpressionHelper;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
@@ -275,6 +276,9 @@ public class PPJavaValidator extends AbstractPPJavaValidator implements IPPDiagn
 
 	@Inject
 	protected PPTypeEvaluator typeEvaluator;
+
+	@Inject
+	private PPGrammarAccess grammarAccess;
 
 	@Inject
 	public PPJavaValidator(IGrammarAccess ga, Provider<IValidationAdvisor> validationAdvisorProvider) {
@@ -1060,6 +1064,7 @@ public class PPJavaValidator extends AbstractPPJavaValidator implements IPPDiagn
 	@Check
 	public void checkPuppetManifest(PuppetManifest o) {
 		internalCheckTopLevelExpressions(o.getStatements());
+		internalCheckComments(o);
 	}
 
 	@Check
@@ -1591,6 +1596,23 @@ public class PPJavaValidator extends AbstractPPJavaValidator implements IPPDiagn
 		return TextExpressionHelper.hasInterpolation((DoubleQuotedString) s);
 	}
 
+	public void internalCheckComments(PuppetManifest o) {
+		ValidationPreference mlComments = validationAdvisorProvider.get().mlComments();
+		if(mlComments.isWarningOrError()) {
+			INode root = NodeModelUtils.getNode(o);
+			if(root != null) {
+				root = root.getRootNode();
+			}
+			for(INode n : root.getAsTreeIterable()) {
+				if(n.getGrammarElement() == grammarAccess.getML_COMMENTRule())
+					warningOrError(
+						acceptor, mlComments, "Unwanted /* */ comment", n, IPPDiagnostics.ISSUE_UNWANTED_ML_COMMENT,
+						Boolean.toString(n.getText().endsWith("\n")));
+			}
+		}
+
+	}
+
 	private void internalCheckRelationshipOperand(RelationshipExpression r, Expression o, EReference feature) {
 
 		// -- chained relationsips A -> B -> C
@@ -1781,6 +1803,16 @@ public class PPJavaValidator extends AbstractPPJavaValidator implements IPPDiagn
 			acceptor.acceptWarning(message, o, issueCode, data);
 		else if(validationPreference.isError())
 			acceptor.acceptError(message, o, issueCode, data);
+
+		// remaining case is "ignore"...
+	}
+
+	private void warningOrError(IMessageAcceptor acceptor, ValidationPreference validationPreference, String message,
+			INode n, String issueCode, String... data) {
+		if(validationPreference.isWarning())
+			acceptor.acceptWarning(message, n, issueCode, data);
+		else if(validationPreference.isError())
+			acceptor.acceptError(message, n.getSemanticElement(), n.getOffset(), n.getLength(), issueCode, data);
 
 		// remaining case is "ignore"...
 	}

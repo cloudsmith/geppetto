@@ -184,4 +184,6 @@ public interface IPPDiagnostics {
 
 	public static final String ISSUE__UNQUOTED_RESOURCE_TITLE = ISSUE_PREFIX + "UnquotedResourceTitle";
 
+	public static final String ISSUE__NOT_INITIAL_LOWERCASE = ISSUE_PREFIX + "NotInitialLowerCase";
+
 }

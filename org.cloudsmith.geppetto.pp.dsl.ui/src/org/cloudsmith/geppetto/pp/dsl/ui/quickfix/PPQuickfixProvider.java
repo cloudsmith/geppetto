@@ -188,6 +188,64 @@ public class PPQuickfixProvider extends DefaultQuickfixProvider {
 		});
 	}
 
+	@Fix(IPPDiagnostics.ISSUE__NOT_INITIAL_LOWERCASE)
+	public void changeToInitialLowerCase(final Issue issue, final IssueResolutionAcceptor acceptor) {
+		final IModificationContext modificationContext = getModificationContextFactory().createModificationContext(
+			issue);
+		final IXtextDocument xtextDocument = modificationContext.getXtextDocument();
+		xtextDocument.readOnly(new IUnitOfWork.Void<XtextResource>() {
+			@Override
+			public void process(XtextResource state) throws Exception {
+				String issueString = xtextDocument.get(issue.getOffset(), issue.getLength());
+				int pos = issueString.startsWith("$")
+						? 1
+						: 0;
+				if(issueString.length() > pos) {
+					char c = issueString.charAt(pos);
+					if(Character.isLetter(c)) {
+						StringBuilder builder = new StringBuilder();
+						builder.append("Change '").append(c).append("' to '").append(Character.toLowerCase(c)).append(
+							"'.");
+						if(Character.isLetter(issueString.charAt(pos)))
+							acceptor.accept(
+								issue,
+								"Change first character to lower case",
+								builder.toString(),
+								null,
+								new ReplacingModification(
+									issue.getOffset() + pos, 1, Character.toString(Character.toLowerCase(c))));
+					}
+					else {
+						if(c == '_') {
+							int count = 0;
+							for(int i = pos; i < issueString.length() && issueString.charAt(i) == '_'; i++)
+								count++;
+
+							acceptor.accept(
+								issue, "Remove the leading underscore", "Removes all leading underscores.", null,
+								new ReplacingModification(issue.getOffset() + pos, count, ""));
+						}
+						else if(Character.isDigit(c)) {
+							int count = 0;
+							for(int i = pos; i < issueString.length() && Character.isDigit(issueString.charAt(i)); i++)
+								count++;
+							acceptor.accept(
+								issue, "Remove the leading digits", "Removes all leading digits", null,
+								new ReplacingModification(issue.getOffset() + pos, count, ""));
+
+						}
+						// ? insert 'a' ? (stupid, but perhaps better than nothing)
+						acceptor.accept(
+							issue, "Insert an 'a' before first character.",
+							"Inserts the lower case letter 'a' before the first character", null,
+							new ReplacingModification(issue.getOffset() + pos, 0, "a"));
+
+					}
+				}
+			}
+		});
+	}
+
 	@Fix(IPPDiagnostics.ISSUE__DQ_STRING_NOT_REQUIRED)
 	public void changeToSQString(final Issue issue, final IssueResolutionAcceptor acceptor) {
 		final IModificationContext modificationContext = getModificationContextFactory().createModificationContext(

@@ -687,6 +687,11 @@ public class PPJavaValidator extends AbstractPPJavaValidator implements IPPDiagn
 				"Not a valid variable name", o, PPPackage.Literals.DEFINITION_ARGUMENT__ARG_NAME, INSIGNIFICANT_INDEX,
 				IPPDiagnostics.ISSUE__NOT_VARNAME);
 
+		else if(!isFirstNonDollarLowerCase(argName))
+			acceptor.acceptError(
+				"A parameter must start with a lower case letter", o, PPPackage.Literals.DEFINITION_ARGUMENT__ARG_NAME,
+				INSIGNIFICANT_INDEX, IPPDiagnostics.ISSUE__NOT_INITIAL_LOWERCASE);
+
 		if(o.getOp() != null && !"=".equals(o.getOp()))
 			acceptor.acceptError(
 				"Must be an assignment operator '=' (not definition '=>')", o,
@@ -1673,6 +1678,15 @@ public class PPJavaValidator extends AbstractPPJavaValidator implements IPPDiagn
 
 	private boolean isCLASSREF(String s) {
 		return patternHelper.isCLASSREF(s);
+	}
+
+	private boolean isFirstNonDollarLowerCase(String s) {
+		int pos = s.startsWith("$")
+				? 1
+				: 0;
+		if(s.length() <= pos)
+			return false;
+		return Character.isLowerCase(s.charAt(pos));
 	}
 
 	// NOT considered to be keywords:

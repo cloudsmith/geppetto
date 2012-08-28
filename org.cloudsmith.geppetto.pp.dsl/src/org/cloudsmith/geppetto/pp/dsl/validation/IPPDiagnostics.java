@@ -192,4 +192,6 @@ public interface IPPDiagnostics {
 
 	public static final String ISSUE_RIGHT_TO_LEFT_RELATIONSHIP = ISSUE_PREFIX + "RightToLeftRelatinship";
 
+	public static final String ISSUE__UNSUPPORTED_UNLESS = ISSUE_PREFIX + "UnsupportedUnless";
+
 }

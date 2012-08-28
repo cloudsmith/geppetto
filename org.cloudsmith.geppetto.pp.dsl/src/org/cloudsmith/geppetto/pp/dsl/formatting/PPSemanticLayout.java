@@ -32,6 +32,7 @@ import org.cloudsmith.geppetto.pp.PuppetManifest;
 import org.cloudsmith.geppetto.pp.ResourceBody;
 import org.cloudsmith.geppetto.pp.ResourceExpression;
 import org.cloudsmith.geppetto.pp.SelectorExpression;
+import org.cloudsmith.geppetto.pp.UnlessExpression;
 import org.cloudsmith.geppetto.pp.dsl.ppdoc.DocumentationAssociator;
 import org.cloudsmith.geppetto.pp.dsl.services.PPGrammarAccess;
 import org.cloudsmith.xtext.dommodel.DomModelUtils;
@@ -250,6 +251,13 @@ public class PPSemanticLayout extends DeclarativeSemanticFlowLayout {
 			SELECTOR_EXPRESSION_CLUSTER_SIZE);
 		return false;
 
+	}
+
+	protected boolean _format(UnlessExpression o, StyleSet styleSet, IDomNode node, ITextFlow flow,
+			ILayoutContext context) {
+		internalFormatStatementList(
+			node, grammarAccess.getUnlessExpressionAccess().getThenStatementsExpressionListParserRuleCall_3_0());
+		return false;
 	}
 
 	/**

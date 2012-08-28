@@ -41,6 +41,7 @@ import org.cloudsmith.geppetto.pp.PuppetManifest;
 import org.cloudsmith.geppetto.pp.ResourceBody;
 import org.cloudsmith.geppetto.pp.ResourceExpression;
 import org.cloudsmith.geppetto.pp.SelectorEntry;
+import org.cloudsmith.geppetto.pp.UnlessExpression;
 import org.cloudsmith.geppetto.pp.UnquotedString;
 import org.cloudsmith.geppetto.pp.VariableExpression;
 import org.cloudsmith.geppetto.pp.VariableTE;
@@ -870,7 +871,7 @@ public class PPResourceLinker implements IPPDiagnostics {
 	/**
 	 * Produces an error if the given EObject o is not contained (nested) in an expression that injects
 	 * the result of a regular expression evaluation (i.e. $0 - $n).
-	 * The injecting expressions are if, elseif, case (entry), case expression, and selector entry.
+	 * The injecting expressions are unless, if, elseif, case (entry), case expression, and selector entry.
 	 * 
 	 * TODO: Check if there are (less obvious) expressions
 	 * 
@@ -883,6 +884,12 @@ public class PPResourceLinker implements IPPDiagnostics {
 		// upp the containment chain
 		for(EObject p = o.eContainer() /* , contained = o */; p != null; /* contained = p, */p = p.eContainer()) {
 			switch(p.eClass().getClassifierID()) {
+				case PPPackage.UNLESS_EXPRESSION:
+					// o is either in cond, or then part
+					// TODO: pedantic, check position in cond, must have regexp to the left.
+					if(containsRegularExpression(((UnlessExpression) p).getCondExpr()))
+						return;
+					break;
 				case PPPackage.IF_EXPRESSION:
 					// o is either in cond, then or else part
 					// TODO: pedantic, check position in cond, must have regexp to the left.
@@ -1157,6 +1164,10 @@ public class PPResourceLinker implements IPPDiagnostics {
 
 				case PPPackage.IF_EXPRESSION:
 					internalLinkUnparenthesisedCall(((IfExpression) o).getThenStatements(), importedNames, acceptor);
+					break;
+
+				case PPPackage.UNLESS_EXPRESSION:
+					internalLinkUnparenthesisedCall(((UnlessExpression) o).getThenStatements(), importedNames, acceptor);
 					break;
 
 				case PPPackage.ELSE_EXPRESSION:

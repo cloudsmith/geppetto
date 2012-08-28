@@ -61,6 +61,7 @@ import org.cloudsmith.geppetto.pp.SingleQuotedString;
 import org.cloudsmith.geppetto.pp.TextExpression;
 import org.cloudsmith.geppetto.pp.UnaryMinusExpression;
 import org.cloudsmith.geppetto.pp.UnaryNotExpression;
+import org.cloudsmith.geppetto.pp.UnlessExpression;
 import org.cloudsmith.geppetto.pp.UnquotedString;
 import org.cloudsmith.geppetto.pp.VariableExpression;
 import org.cloudsmith.geppetto.pp.VariableTE;
@@ -556,6 +557,19 @@ public class PPExpressionFormatter {
 	protected void _format(UnaryNotExpression o, ITextFlow.WithText stream) {
 		stream.appendText("!");
 		doFormat(o.getExpr(), stream);
+	}
+
+	protected void _format(UnlessExpression o, ITextFlow.WithText stream) {
+		stream.appendText("if");
+		stream.appendSpace();
+		doFormat(o.getCondExpr(), stream);
+		stream.appendSpace();
+		stream.appendText("{");
+		stream.changeIndentation(1);
+		stream.appendBreaks(1);
+		formatStatementList(o.getThenStatements(), stream);
+		stream.changeIndentation(-1);
+		stream.appendText("}");
 	}
 
 	protected void _format(UnquotedString o, ITextFlow.WithText stream) {

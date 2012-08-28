@@ -310,6 +310,7 @@ FunctionCall returns pp::Expression
 
 PrimaryExpression returns pp::Expression
 	: IfExpression
+	| UnlessExpression
 	| CaseExpression
 	| ImportExpression
 	| Definition
@@ -392,6 +393,11 @@ Case returns pp::Case
 		'}'  
 	;
 
+//-- UNLESS (is the same as if !(e) {}, but without support for "else"
+UnlessExpression returns pp::UnlessExpression
+	: 'unless' condExpr = AssignmentExpression '{' (thenStatements += ExpressionList)* '}'
+    ;
+	 
 //-- IF 
 //
 // VALIDATION: checks that the elseStatement is an Else of Elsif, and validate that Else or Elsif

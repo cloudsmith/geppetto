@@ -54,6 +54,7 @@ import org.cloudsmith.geppetto.pp.ShiftExpression;
 import org.cloudsmith.geppetto.pp.SingleQuotedString;
 import org.cloudsmith.geppetto.pp.UnaryMinusExpression;
 import org.cloudsmith.geppetto.pp.UnaryNotExpression;
+import org.cloudsmith.geppetto.pp.UnlessExpression;
 import org.cloudsmith.geppetto.pp.UnquotedString;
 import org.cloudsmith.geppetto.pp.VariableExpression;
 import org.cloudsmith.geppetto.pp.VariableTE;
@@ -1508,6 +1509,53 @@ public abstract class AbstractPPSemanticSequencer extends AbstractDelegatingSema
 					return; 
 				}
 				else break;
+			case PPPackage.UNLESS_EXPRESSION:
+				if(context == grammarAccess.getAdditiveExpressionRule() ||
+				   context == grammarAccess.getAdditiveExpressionAccess().getAdditiveExpressionLeftExprAction_1_0() ||
+				   context == grammarAccess.getAndExpressionRule() ||
+				   context == grammarAccess.getAndExpressionAccess().getAndExpressionLeftExprAction_1_0() ||
+				   context == grammarAccess.getAppendExpressionRule() ||
+				   context == grammarAccess.getAppendExpressionAccess().getAppendExpressionLeftExprAction_1_0() ||
+				   context == grammarAccess.getAssignmentExpressionRule() ||
+				   context == grammarAccess.getAssignmentExpressionAccess().getAssignmentExpressionLeftExprAction_1_0() ||
+				   context == grammarAccess.getAtExpressionRule() ||
+				   context == grammarAccess.getAtExpressionAccess().getAtExpressionLeftExprAction_1_0() ||
+				   context == grammarAccess.getCollectExpressionRule() ||
+				   context == grammarAccess.getCollectExpressionAccess().getCollectExpressionClassReferenceAction_1_0() ||
+				   context == grammarAccess.getEqualityExpressionRule() ||
+				   context == grammarAccess.getEqualityExpressionAccess().getEqualityExpressionLeftExprAction_1_0() ||
+				   context == grammarAccess.getExpressionRule() ||
+				   context == grammarAccess.getExpressionListRule() ||
+				   context == grammarAccess.getExpressionListAccess().getExprListExpressionsAction_1_0() ||
+				   context == grammarAccess.getFunctionCallRule() ||
+				   context == grammarAccess.getFunctionCallAccess().getFunctionCallLeftExprAction_1_0() ||
+				   context == grammarAccess.getInExpressionRule() ||
+				   context == grammarAccess.getInExpressionAccess().getInExpressionLeftExprAction_1_0() ||
+				   context == grammarAccess.getMatchingExpressionRule() ||
+				   context == grammarAccess.getMatchingExpressionAccess().getMatchingExpressionLeftExprAction_1_0() ||
+				   context == grammarAccess.getMultiplicativeExpressionRule() ||
+				   context == grammarAccess.getMultiplicativeExpressionAccess().getMultiplicativeExpressionLeftExprAction_1_0() ||
+				   context == grammarAccess.getOrExpressionRule() ||
+				   context == grammarAccess.getOrExpressionAccess().getOrExpressionLeftExprAction_1_0() ||
+				   context == grammarAccess.getPrimaryExpressionRule() ||
+				   context == grammarAccess.getRelationalExpressionRule() ||
+				   context == grammarAccess.getRelationalExpressionAccess().getRelationalExpressionLeftExprAction_1_0() ||
+				   context == grammarAccess.getRelationshipExpressionRule() ||
+				   context == grammarAccess.getRelationshipExpressionAccess().getRelationshipExpressionLeftExprAction_1_0() ||
+				   context == grammarAccess.getResourceExpressionRule() ||
+				   context == grammarAccess.getResourceExpressionAccess().getResourceExpressionResourceExprAction_0_1_0() ||
+				   context == grammarAccess.getSelectorEntryRule() ||
+				   context == grammarAccess.getSelectorEntryAccess().getSelectorEntryLeftExprAction_1_0() ||
+				   context == grammarAccess.getSelectorExpressionRule() ||
+				   context == grammarAccess.getSelectorExpressionAccess().getSelectorExpressionLeftExprAction_1_0() ||
+				   context == grammarAccess.getShiftExpressionRule() ||
+				   context == grammarAccess.getShiftExpressionAccess().getShiftExpressionLeftExprAction_1_0() ||
+				   context == grammarAccess.getUnaryOrHigherExpressionRule() ||
+				   context == grammarAccess.getUnlessExpressionRule()) {
+					sequence_UnlessExpression(context, (UnlessExpression) semanticObject); 
+					return; 
+				}
+				else break;
 			case PPPackage.UNQUOTED_STRING:
 				if(context == grammarAccess.getAdditiveExpressionRule() ||
 				   context == grammarAccess.getAdditiveExpressionAccess().getAdditiveExpressionLeftExprAction_1_0() ||
@@ -2413,6 +2461,15 @@ public abstract class AbstractPPSemanticSequencer extends AbstractDelegatingSema
 		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
 		feeder.accept(grammarAccess.getUnaryMinusExpressionAccess().getExprCollectExpressionParserRuleCall_1_0(), semanticObject.getExpr());
 		feeder.finish();
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (condExpr=AssignmentExpression thenStatements+=ExpressionList*)
+	 */
+	protected void sequence_UnlessExpression(EObject context, UnlessExpression semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
 	}
 	
 	

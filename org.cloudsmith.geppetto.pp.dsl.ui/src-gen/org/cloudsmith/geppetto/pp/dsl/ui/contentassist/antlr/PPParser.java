@@ -145,6 +145,7 @@ public class PPParser extends AbstractContentAssistParser {
 					put(grammarAccess.getCaseExpressionAccess().getGroup(), "rule__CaseExpression__Group__0");
 					put(grammarAccess.getCaseAccess().getGroup(), "rule__Case__Group__0");
 					put(grammarAccess.getCaseAccess().getGroup_1(), "rule__Case__Group_1__0");
+					put(grammarAccess.getUnlessExpressionAccess().getGroup(), "rule__UnlessExpression__Group__0");
 					put(grammarAccess.getIfExpressionAccess().getGroup(), "rule__IfExpression__Group__0");
 					put(grammarAccess.getIfExpressionAccess().getGroup_5_0(), "rule__IfExpression__Group_5_0__0");
 					put(grammarAccess.getIfExpressionAccess().getGroup_5_1(), "rule__IfExpression__Group_5_1__0");
@@ -250,6 +251,8 @@ public class PPParser extends AbstractContentAssistParser {
 					put(grammarAccess.getCaseAccess().getValuesAssignment_0(), "rule__Case__ValuesAssignment_0");
 					put(grammarAccess.getCaseAccess().getValuesAssignment_1_1(), "rule__Case__ValuesAssignment_1_1");
 					put(grammarAccess.getCaseAccess().getStatementsAssignment_4(), "rule__Case__StatementsAssignment_4");
+					put(grammarAccess.getUnlessExpressionAccess().getCondExprAssignment_1(), "rule__UnlessExpression__CondExprAssignment_1");
+					put(grammarAccess.getUnlessExpressionAccess().getThenStatementsAssignment_3(), "rule__UnlessExpression__ThenStatementsAssignment_3");
 					put(grammarAccess.getIfExpressionAccess().getCondExprAssignment_1(), "rule__IfExpression__CondExprAssignment_1");
 					put(grammarAccess.getIfExpressionAccess().getThenStatementsAssignment_3(), "rule__IfExpression__ThenStatementsAssignment_3");
 					put(grammarAccess.getIfExpressionAccess().getElseStatementAssignment_5_0_1(), "rule__IfExpression__ElseStatementAssignment_5_0_1");

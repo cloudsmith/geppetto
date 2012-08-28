@@ -22,83 +22,84 @@ import java.util.HashMap;
 @SuppressWarnings("all")
 public class InternalPPParser extends AbstractInternalAntlrParser {
     public static final String[] tokenNames = new String[] {
-        "<invalid>", "<EOR>", "<DOWN>", "<UP>", "KEYWORD_62", "KEYWORD_61", "KEYWORD_59", "KEYWORD_60", "KEYWORD_55", "KEYWORD_56", "KEYWORD_57", "KEYWORD_58", "KEYWORD_51", "KEYWORD_52", "KEYWORD_53", "KEYWORD_54", "KEYWORD_47", "KEYWORD_48", "KEYWORD_49", "KEYWORD_50", "KEYWORD_22", "KEYWORD_23", "KEYWORD_24", "KEYWORD_25", "KEYWORD_26", "KEYWORD_27", "KEYWORD_28", "KEYWORD_29", "KEYWORD_30", "KEYWORD_31", "KEYWORD_32", "KEYWORD_33", "KEYWORD_34", "KEYWORD_35", "KEYWORD_36", "KEYWORD_37", "KEYWORD_38", "KEYWORD_39", "KEYWORD_40", "KEYWORD_41", "KEYWORD_42", "KEYWORD_43", "KEYWORD_44", "KEYWORD_45", "KEYWORD_46", "KEYWORD_1", "KEYWORD_2", "KEYWORD_3", "KEYWORD_4", "KEYWORD_5", "KEYWORD_6", "KEYWORD_7", "KEYWORD_8", "KEYWORD_9", "KEYWORD_10", "KEYWORD_11", "KEYWORD_12", "KEYWORD_13", "KEYWORD_14", "KEYWORD_15", "KEYWORD_16", "KEYWORD_17", "KEYWORD_18", "KEYWORD_19", "KEYWORD_20", "KEYWORD_21", "RULE_ML_COMMENT", "RULE_SL_COMMENT", "RULE_WS", "RULE_DOLLAR_VAR", "RULE_WORD_CHARS", "RULE_RE_BODY", "RULE_RE_FLAGS", "RULE_REGULAR_EXPRESSION", "RULE_RE_FIRST_CHAR", "RULE_RE_FOLLOW_CHAR", "RULE_RE_BACKSLASH_SEQUENCE", "RULE_ANY_OTHER"
+        "<invalid>", "<EOR>", "<DOWN>", "<UP>", "KEYWORD_63", "KEYWORD_62", "KEYWORD_59", "KEYWORD_60", "KEYWORD_61", "KEYWORD_55", "KEYWORD_56", "KEYWORD_57", "KEYWORD_58", "KEYWORD_51", "KEYWORD_52", "KEYWORD_53", "KEYWORD_54", "KEYWORD_47", "KEYWORD_48", "KEYWORD_49", "KEYWORD_50", "KEYWORD_22", "KEYWORD_23", "KEYWORD_24", "KEYWORD_25", "KEYWORD_26", "KEYWORD_27", "KEYWORD_28", "KEYWORD_29", "KEYWORD_30", "KEYWORD_31", "KEYWORD_32", "KEYWORD_33", "KEYWORD_34", "KEYWORD_35", "KEYWORD_36", "KEYWORD_37", "KEYWORD_38", "KEYWORD_39", "KEYWORD_40", "KEYWORD_41", "KEYWORD_42", "KEYWORD_43", "KEYWORD_44", "KEYWORD_45", "KEYWORD_46", "KEYWORD_1", "KEYWORD_2", "KEYWORD_3", "KEYWORD_4", "KEYWORD_5", "KEYWORD_6", "KEYWORD_7", "KEYWORD_8", "KEYWORD_9", "KEYWORD_10", "KEYWORD_11", "KEYWORD_12", "KEYWORD_13", "KEYWORD_14", "KEYWORD_15", "KEYWORD_16", "KEYWORD_17", "KEYWORD_18", "KEYWORD_19", "KEYWORD_20", "KEYWORD_21", "RULE_ML_COMMENT", "RULE_SL_COMMENT", "RULE_WS", "RULE_DOLLAR_VAR", "RULE_WORD_CHARS", "RULE_RE_BODY", "RULE_RE_FLAGS", "RULE_REGULAR_EXPRESSION", "RULE_RE_FIRST_CHAR", "RULE_RE_FOLLOW_CHAR", "RULE_RE_BACKSLASH_SEQUENCE", "RULE_ANY_OTHER"
     };
-    public static final int RULE_REGULAR_EXPRESSION=73;
-    public static final int RULE_ANY_OTHER=77;
-    public static final int RULE_RE_FLAGS=72;
-    public static final int KEYWORD_56=9;
-    public static final int KEYWORD_19=63;
-    public static final int KEYWORD_55=8;
-    public static final int KEYWORD_54=15;
-    public static final int KEYWORD_17=61;
-    public static final int KEYWORD_53=14;
-    public static final int KEYWORD_18=62;
-    public static final int RULE_RE_FOLLOW_CHAR=75;
-    public static final int KEYWORD_52=13;
-    public static final int KEYWORD_15=59;
-    public static final int KEYWORD_51=12;
-    public static final int KEYWORD_16=60;
-    public static final int KEYWORD_13=57;
-    public static final int KEYWORD_50=19;
-    public static final int KEYWORD_14=58;
-    public static final int KEYWORD_11=55;
+    public static final int RULE_REGULAR_EXPRESSION=74;
+    public static final int RULE_ANY_OTHER=78;
+    public static final int RULE_RE_FLAGS=73;
+    public static final int KEYWORD_56=10;
+    public static final int KEYWORD_19=64;
+    public static final int KEYWORD_55=9;
+    public static final int KEYWORD_54=16;
+    public static final int KEYWORD_17=62;
+    public static final int KEYWORD_53=15;
+    public static final int KEYWORD_18=63;
+    public static final int RULE_RE_FOLLOW_CHAR=76;
+    public static final int KEYWORD_52=14;
+    public static final int KEYWORD_15=60;
+    public static final int KEYWORD_51=13;
+    public static final int KEYWORD_16=61;
+    public static final int KEYWORD_13=58;
+    public static final int KEYWORD_50=20;
+    public static final int KEYWORD_14=59;
+    public static final int KEYWORD_11=56;
     public static final int EOF=-1;
-    public static final int KEYWORD_12=56;
-    public static final int KEYWORD_10=54;
+    public static final int KEYWORD_12=57;
+    public static final int KEYWORD_10=55;
     public static final int KEYWORD_59=6;
-    public static final int KEYWORD_58=11;
-    public static final int KEYWORD_57=10;
-    public static final int KEYWORD_6=50;
-    public static final int KEYWORD_7=51;
-    public static final int KEYWORD_8=52;
-    public static final int KEYWORD_9=53;
-    public static final int KEYWORD_28=26;
-    public static final int KEYWORD_29=27;
-    public static final int KEYWORD_61=5;
-    public static final int KEYWORD_24=22;
+    public static final int KEYWORD_58=12;
+    public static final int KEYWORD_57=11;
+    public static final int KEYWORD_6=51;
+    public static final int KEYWORD_7=52;
+    public static final int KEYWORD_8=53;
+    public static final int KEYWORD_9=54;
+    public static final int KEYWORD_28=27;
+    public static final int KEYWORD_29=28;
+    public static final int KEYWORD_61=8;
+    public static final int KEYWORD_24=23;
     public static final int KEYWORD_60=7;
-    public static final int KEYWORD_25=23;
-    public static final int KEYWORD_26=24;
-    public static final int RULE_RE_FIRST_CHAR=74;
-    public static final int KEYWORD_62=4;
-    public static final int KEYWORD_27=25;
-    public static final int KEYWORD_20=64;
-    public static final int KEYWORD_21=65;
-    public static final int KEYWORD_22=20;
-    public static final int KEYWORD_23=21;
-    public static final int RULE_RE_BACKSLASH_SEQUENCE=76;
-    public static final int KEYWORD_30=28;
-    public static final int KEYWORD_1=45;
-    public static final int KEYWORD_34=32;
-    public static final int KEYWORD_5=49;
-    public static final int KEYWORD_33=31;
-    public static final int KEYWORD_4=48;
-    public static final int RULE_WORD_CHARS=70;
-    public static final int KEYWORD_32=30;
-    public static final int KEYWORD_3=47;
-    public static final int KEYWORD_31=29;
-    public static final int KEYWORD_2=46;
-    public static final int KEYWORD_38=36;
-    public static final int KEYWORD_37=35;
-    public static final int RULE_SL_COMMENT=67;
-    public static final int RULE_RE_BODY=71;
-    public static final int KEYWORD_36=34;
-    public static final int KEYWORD_35=33;
-    public static final int RULE_ML_COMMENT=66;
-    public static final int KEYWORD_39=37;
-    public static final int KEYWORD_41=39;
-    public static final int KEYWORD_40=38;
-    public static final int KEYWORD_43=41;
-    public static final int KEYWORD_42=40;
-    public static final int KEYWORD_45=43;
-    public static final int KEYWORD_44=42;
-    public static final int KEYWORD_47=16;
-    public static final int RULE_WS=68;
-    public static final int KEYWORD_46=44;
-    public static final int KEYWORD_49=18;
-    public static final int KEYWORD_48=17;
-    public static final int RULE_DOLLAR_VAR=69;
+    public static final int KEYWORD_25=24;
+    public static final int KEYWORD_63=4;
+    public static final int KEYWORD_26=25;
+    public static final int RULE_RE_FIRST_CHAR=75;
+    public static final int KEYWORD_62=5;
+    public static final int KEYWORD_27=26;
+    public static final int KEYWORD_20=65;
+    public static final int KEYWORD_21=66;
+    public static final int KEYWORD_22=21;
+    public static final int KEYWORD_23=22;
+    public static final int RULE_RE_BACKSLASH_SEQUENCE=77;
+    public static final int KEYWORD_30=29;
+    public static final int KEYWORD_1=46;
+    public static final int KEYWORD_34=33;
+    public static final int KEYWORD_5=50;
+    public static final int KEYWORD_33=32;
+    public static final int KEYWORD_4=49;
+    public static final int RULE_WORD_CHARS=71;
+    public static final int KEYWORD_32=31;
+    public static final int KEYWORD_3=48;
+    public static final int KEYWORD_31=30;
+    public static final int KEYWORD_2=47;
+    public static final int KEYWORD_38=37;
+    public static final int KEYWORD_37=36;
+    public static final int RULE_SL_COMMENT=68;
+    public static final int RULE_RE_BODY=72;
+    public static final int KEYWORD_36=35;
+    public static final int KEYWORD_35=34;
+    public static final int RULE_ML_COMMENT=67;
+    public static final int KEYWORD_39=38;
+    public static final int KEYWORD_41=40;
+    public static final int KEYWORD_40=39;
+    public static final int KEYWORD_43=42;
+    public static final int KEYWORD_42=41;
+    public static final int KEYWORD_45=44;
+    public static final int KEYWORD_44=43;
+    public static final int KEYWORD_47=17;
+    public static final int RULE_WS=69;
+    public static final int KEYWORD_46=45;
+    public static final int KEYWORD_49=19;
+    public static final int KEYWORD_48=18;
+    public static final int RULE_DOLLAR_VAR=70;
 
     // delegates
     // delegators
@@ -225,7 +226,7 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
                 int alt1=2;
                 int LA1_0 = input.LA(1);
 
-                if ( ((LA1_0>=KEYWORD_61 && LA1_0<=KEYWORD_55)||(LA1_0>=KEYWORD_57 && LA1_0<=KEYWORD_51)||(LA1_0>=KEYWORD_53 && LA1_0<=KEYWORD_54)||LA1_0==KEYWORD_24||LA1_0==KEYWORD_42||(LA1_0>=KEYWORD_1 && LA1_0<=KEYWORD_4)||LA1_0==KEYWORD_9||(LA1_0>=KEYWORD_17 && LA1_0<=KEYWORD_18)||LA1_0==KEYWORD_20||(LA1_0>=RULE_DOLLAR_VAR && LA1_0<=RULE_WORD_CHARS)||LA1_0==RULE_REGULAR_EXPRESSION) ) {
+                if ( ((LA1_0>=KEYWORD_62 && LA1_0<=KEYWORD_55)||(LA1_0>=KEYWORD_57 && LA1_0<=KEYWORD_51)||(LA1_0>=KEYWORD_53 && LA1_0<=KEYWORD_54)||LA1_0==KEYWORD_24||LA1_0==KEYWORD_42||(LA1_0>=KEYWORD_1 && LA1_0<=KEYWORD_4)||LA1_0==KEYWORD_9||(LA1_0>=KEYWORD_17 && LA1_0<=KEYWORD_18)||LA1_0==KEYWORD_20||(LA1_0>=RULE_DOLLAR_VAR && LA1_0<=RULE_WORD_CHARS)||LA1_0==RULE_REGULAR_EXPRESSION) ) {
                     alt1=1;
                 }
 
@@ -1128,17 +1129,17 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
             int alt13=2;
             int LA13_0 = input.LA(1);
 
-            if ( ((LA13_0>=KEYWORD_61 && LA13_0<=KEYWORD_60)||(LA13_0>=KEYWORD_57 && LA13_0<=KEYWORD_51)||(LA13_0>=KEYWORD_53 && LA13_0<=KEYWORD_54)||LA13_0==KEYWORD_24||LA13_0==KEYWORD_42||(LA13_0>=KEYWORD_1 && LA13_0<=KEYWORD_4)||LA13_0==KEYWORD_9||(LA13_0>=KEYWORD_17 && LA13_0<=KEYWORD_18)||LA13_0==KEYWORD_20||(LA13_0>=RULE_DOLLAR_VAR && LA13_0<=RULE_WORD_CHARS)||LA13_0==RULE_REGULAR_EXPRESSION) ) {
+            if ( ((LA13_0>=KEYWORD_62 && LA13_0<=KEYWORD_61)||(LA13_0>=KEYWORD_57 && LA13_0<=KEYWORD_51)||(LA13_0>=KEYWORD_53 && LA13_0<=KEYWORD_54)||LA13_0==KEYWORD_24||LA13_0==KEYWORD_42||(LA13_0>=KEYWORD_1 && LA13_0<=KEYWORD_4)||LA13_0==KEYWORD_9||(LA13_0>=KEYWORD_17 && LA13_0<=KEYWORD_18)||LA13_0==KEYWORD_20||(LA13_0>=RULE_DOLLAR_VAR && LA13_0<=RULE_WORD_CHARS)||LA13_0==RULE_REGULAR_EXPRESSION) ) {
                 alt13=1;
             }
             else if ( (LA13_0==KEYWORD_55) ) {
                 int LA13_2 = input.LA(2);
 
-                if ( (LA13_2==KEYWORD_55||LA13_2==RULE_WORD_CHARS) ) {
-                    alt13=1;
-                }
-                else if ( (LA13_2==KEYWORD_20) ) {
+                if ( (LA13_2==KEYWORD_20) ) {
                     alt13=2;
+                }
+                else if ( (LA13_2==KEYWORD_55||LA13_2==RULE_WORD_CHARS) ) {
+                    alt13=1;
                 }
                 else {
                     if (state.backtracking>0) {state.failed=true; return current;}
@@ -1226,7 +1227,7 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
                             int alt8=2;
                             int LA8_0 = input.LA(1);
 
-                            if ( ((LA8_0>=KEYWORD_61 && LA8_0<=KEYWORD_55)||(LA8_0>=KEYWORD_57 && LA8_0<=KEYWORD_51)||(LA8_0>=KEYWORD_53 && LA8_0<=KEYWORD_54)||LA8_0==KEYWORD_24||LA8_0==KEYWORD_42||(LA8_0>=KEYWORD_1 && LA8_0<=KEYWORD_4)||LA8_0==KEYWORD_9||(LA8_0>=KEYWORD_17 && LA8_0<=KEYWORD_18)||LA8_0==KEYWORD_20||(LA8_0>=RULE_DOLLAR_VAR && LA8_0<=RULE_WORD_CHARS)||LA8_0==RULE_REGULAR_EXPRESSION) ) {
+                            if ( ((LA8_0>=KEYWORD_62 && LA8_0<=KEYWORD_55)||(LA8_0>=KEYWORD_57 && LA8_0<=KEYWORD_51)||(LA8_0>=KEYWORD_53 && LA8_0<=KEYWORD_54)||LA8_0==KEYWORD_24||LA8_0==KEYWORD_42||(LA8_0>=KEYWORD_1 && LA8_0<=KEYWORD_4)||LA8_0==KEYWORD_9||(LA8_0>=KEYWORD_17 && LA8_0<=KEYWORD_18)||LA8_0==KEYWORD_20||(LA8_0>=RULE_DOLLAR_VAR && LA8_0<=RULE_WORD_CHARS)||LA8_0==RULE_REGULAR_EXPRESSION) ) {
                                 alt8=1;
                             }
                             switch (alt8) {
@@ -1277,7 +1278,7 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
                                         if ( (LA6_0==KEYWORD_12) ) {
                                             int LA6_1 = input.LA(2);
 
-                                            if ( ((LA6_1>=KEYWORD_61 && LA6_1<=KEYWORD_55)||(LA6_1>=KEYWORD_57 && LA6_1<=KEYWORD_51)||(LA6_1>=KEYWORD_53 && LA6_1<=KEYWORD_54)||LA6_1==KEYWORD_24||LA6_1==KEYWORD_42||(LA6_1>=KEYWORD_1 && LA6_1<=KEYWORD_4)||LA6_1==KEYWORD_9||(LA6_1>=KEYWORD_17 && LA6_1<=KEYWORD_18)||LA6_1==KEYWORD_20||(LA6_1>=RULE_DOLLAR_VAR && LA6_1<=RULE_WORD_CHARS)||LA6_1==RULE_REGULAR_EXPRESSION) ) {
+                                            if ( ((LA6_1>=KEYWORD_62 && LA6_1<=KEYWORD_55)||(LA6_1>=KEYWORD_57 && LA6_1<=KEYWORD_51)||(LA6_1>=KEYWORD_53 && LA6_1<=KEYWORD_54)||LA6_1==KEYWORD_24||LA6_1==KEYWORD_42||(LA6_1>=KEYWORD_1 && LA6_1<=KEYWORD_4)||LA6_1==KEYWORD_9||(LA6_1>=KEYWORD_17 && LA6_1<=KEYWORD_18)||LA6_1==KEYWORD_20||(LA6_1>=RULE_DOLLAR_VAR && LA6_1<=RULE_WORD_CHARS)||LA6_1==RULE_REGULAR_EXPRESSION) ) {
                                                 alt6=1;
                                             }
 
@@ -1455,7 +1456,7 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
                     int alt12=2;
                     int LA12_0 = input.LA(1);
 
-                    if ( ((LA12_0>=KEYWORD_61 && LA12_0<=KEYWORD_55)||(LA12_0>=KEYWORD_57 && LA12_0<=KEYWORD_51)||(LA12_0>=KEYWORD_53 && LA12_0<=KEYWORD_54)||LA12_0==KEYWORD_24||LA12_0==KEYWORD_42||(LA12_0>=KEYWORD_1 && LA12_0<=KEYWORD_4)||LA12_0==KEYWORD_9||(LA12_0>=KEYWORD_17 && LA12_0<=KEYWORD_18)||LA12_0==KEYWORD_20||(LA12_0>=RULE_DOLLAR_VAR && LA12_0<=RULE_WORD_CHARS)||LA12_0==RULE_REGULAR_EXPRESSION) ) {
+                    if ( ((LA12_0>=KEYWORD_62 && LA12_0<=KEYWORD_55)||(LA12_0>=KEYWORD_57 && LA12_0<=KEYWORD_51)||(LA12_0>=KEYWORD_53 && LA12_0<=KEYWORD_54)||LA12_0==KEYWORD_24||LA12_0==KEYWORD_42||(LA12_0>=KEYWORD_1 && LA12_0<=KEYWORD_4)||LA12_0==KEYWORD_9||(LA12_0>=KEYWORD_17 && LA12_0<=KEYWORD_18)||LA12_0==KEYWORD_20||(LA12_0>=RULE_DOLLAR_VAR && LA12_0<=RULE_WORD_CHARS)||LA12_0==RULE_REGULAR_EXPRESSION) ) {
                         alt12=1;
                     }
                     switch (alt12) {
@@ -1506,7 +1507,7 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
                                 if ( (LA10_0==KEYWORD_12) ) {
                                     int LA10_1 = input.LA(2);
 
-                                    if ( ((LA10_1>=KEYWORD_61 && LA10_1<=KEYWORD_55)||(LA10_1>=KEYWORD_57 && LA10_1<=KEYWORD_51)||(LA10_1>=KEYWORD_53 && LA10_1<=KEYWORD_54)||LA10_1==KEYWORD_24||LA10_1==KEYWORD_42||(LA10_1>=KEYWORD_1 && LA10_1<=KEYWORD_4)||LA10_1==KEYWORD_9||(LA10_1>=KEYWORD_17 && LA10_1<=KEYWORD_18)||LA10_1==KEYWORD_20||(LA10_1>=RULE_DOLLAR_VAR && LA10_1<=RULE_WORD_CHARS)||LA10_1==RULE_REGULAR_EXPRESSION) ) {
+                                    if ( ((LA10_1>=KEYWORD_62 && LA10_1<=KEYWORD_55)||(LA10_1>=KEYWORD_57 && LA10_1<=KEYWORD_51)||(LA10_1>=KEYWORD_53 && LA10_1<=KEYWORD_54)||LA10_1==KEYWORD_24||LA10_1==KEYWORD_42||(LA10_1>=KEYWORD_1 && LA10_1<=KEYWORD_4)||LA10_1==KEYWORD_9||(LA10_1>=KEYWORD_17 && LA10_1<=KEYWORD_18)||LA10_1==KEYWORD_20||(LA10_1>=RULE_DOLLAR_VAR && LA10_1<=RULE_WORD_CHARS)||LA10_1==RULE_REGULAR_EXPRESSION) ) {
                                         alt10=1;
                                     }
 
@@ -1694,7 +1695,7 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
             int alt15=2;
             int LA15_0 = input.LA(1);
 
-            if ( ((LA15_0>=KEYWORD_61 && LA15_0<=KEYWORD_55)||(LA15_0>=KEYWORD_57 && LA15_0<=KEYWORD_51)||(LA15_0>=KEYWORD_53 && LA15_0<=KEYWORD_54)||LA15_0==KEYWORD_24||LA15_0==KEYWORD_42||(LA15_0>=KEYWORD_1 && LA15_0<=KEYWORD_4)||LA15_0==KEYWORD_9||(LA15_0>=KEYWORD_17 && LA15_0<=KEYWORD_18)||LA15_0==KEYWORD_20||LA15_0==RULE_DOLLAR_VAR||LA15_0==RULE_REGULAR_EXPRESSION) ) {
+            if ( ((LA15_0>=KEYWORD_62 && LA15_0<=KEYWORD_55)||(LA15_0>=KEYWORD_57 && LA15_0<=KEYWORD_51)||(LA15_0>=KEYWORD_53 && LA15_0<=KEYWORD_54)||LA15_0==KEYWORD_24||LA15_0==KEYWORD_42||(LA15_0>=KEYWORD_1 && LA15_0<=KEYWORD_4)||LA15_0==KEYWORD_9||(LA15_0>=KEYWORD_17 && LA15_0<=KEYWORD_18)||LA15_0==KEYWORD_20||LA15_0==RULE_DOLLAR_VAR||LA15_0==RULE_REGULAR_EXPRESSION) ) {
                 alt15=1;
             }
             else if ( (LA15_0==RULE_WORD_CHARS) ) {
@@ -5614,9 +5615,10 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
                 alt37=2;
                 }
                 break;
-            case KEYWORD_61:
+            case KEYWORD_62:
             case KEYWORD_59:
             case KEYWORD_60:
+            case KEYWORD_61:
             case KEYWORD_55:
             case KEYWORD_57:
             case KEYWORD_58:
@@ -6487,7 +6489,7 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
             int alt42=2;
             int LA42_0 = input.LA(1);
 
-            if ( ((LA42_0>=KEYWORD_61 && LA42_0<=KEYWORD_55)||(LA42_0>=KEYWORD_57 && LA42_0<=KEYWORD_51)||(LA42_0>=KEYWORD_53 && LA42_0<=KEYWORD_54)||LA42_0==KEYWORD_24||LA42_0==KEYWORD_42||(LA42_0>=KEYWORD_1 && LA42_0<=KEYWORD_4)||LA42_0==KEYWORD_9||(LA42_0>=KEYWORD_17 && LA42_0<=KEYWORD_18)||LA42_0==KEYWORD_20||(LA42_0>=RULE_DOLLAR_VAR && LA42_0<=RULE_WORD_CHARS)||LA42_0==RULE_REGULAR_EXPRESSION) ) {
+            if ( ((LA42_0>=KEYWORD_62 && LA42_0<=KEYWORD_55)||(LA42_0>=KEYWORD_57 && LA42_0<=KEYWORD_51)||(LA42_0>=KEYWORD_53 && LA42_0<=KEYWORD_54)||LA42_0==KEYWORD_24||LA42_0==KEYWORD_42||(LA42_0>=KEYWORD_1 && LA42_0<=KEYWORD_4)||LA42_0==KEYWORD_9||(LA42_0>=KEYWORD_17 && LA42_0<=KEYWORD_18)||LA42_0==KEYWORD_20||(LA42_0>=RULE_DOLLAR_VAR && LA42_0<=RULE_WORD_CHARS)||LA42_0==RULE_REGULAR_EXPRESSION) ) {
                 alt42=1;
             }
             switch (alt42) {
@@ -6644,7 +6646,7 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
             int alt43=2;
             int LA43_0 = input.LA(1);
 
-            if ( ((LA43_0>=KEYWORD_61 && LA43_0<=KEYWORD_55)||(LA43_0>=KEYWORD_57 && LA43_0<=KEYWORD_51)||(LA43_0>=KEYWORD_53 && LA43_0<=KEYWORD_54)||LA43_0==KEYWORD_24||LA43_0==KEYWORD_42||(LA43_0>=KEYWORD_1 && LA43_0<=KEYWORD_4)||LA43_0==KEYWORD_9||(LA43_0>=KEYWORD_17 && LA43_0<=KEYWORD_18)||LA43_0==KEYWORD_20||(LA43_0>=RULE_DOLLAR_VAR && LA43_0<=RULE_WORD_CHARS)||LA43_0==RULE_REGULAR_EXPRESSION) ) {
+            if ( ((LA43_0>=KEYWORD_62 && LA43_0<=KEYWORD_55)||(LA43_0>=KEYWORD_57 && LA43_0<=KEYWORD_51)||(LA43_0>=KEYWORD_53 && LA43_0<=KEYWORD_54)||LA43_0==KEYWORD_24||LA43_0==KEYWORD_42||(LA43_0>=KEYWORD_1 && LA43_0<=KEYWORD_4)||LA43_0==KEYWORD_9||(LA43_0>=KEYWORD_17 && LA43_0<=KEYWORD_18)||LA43_0==KEYWORD_20||(LA43_0>=RULE_DOLLAR_VAR && LA43_0<=RULE_WORD_CHARS)||LA43_0==RULE_REGULAR_EXPRESSION) ) {
                 alt43=1;
             }
             switch (alt43) {
@@ -6900,13 +6902,13 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
                                 if ( (LA44_0==KEYWORD_8) ) {
                                     int LA44_1 = input.LA(2);
 
-                                    if ( ((LA44_1>=KEYWORD_61 && LA44_1<=KEYWORD_55)||(LA44_1>=KEYWORD_57 && LA44_1<=KEYWORD_51)||(LA44_1>=KEYWORD_53 && LA44_1<=KEYWORD_54)||LA44_1==KEYWORD_24||LA44_1==KEYWORD_42||(LA44_1>=KEYWORD_1 && LA44_1<=KEYWORD_4)||LA44_1==KEYWORD_9||(LA44_1>=KEYWORD_17 && LA44_1<=KEYWORD_18)||LA44_1==KEYWORD_20||(LA44_1>=RULE_DOLLAR_VAR && LA44_1<=RULE_WORD_CHARS)||LA44_1==RULE_REGULAR_EXPRESSION) ) {
+                                    if ( ((LA44_1>=KEYWORD_62 && LA44_1<=KEYWORD_55)||(LA44_1>=KEYWORD_57 && LA44_1<=KEYWORD_51)||(LA44_1>=KEYWORD_53 && LA44_1<=KEYWORD_54)||LA44_1==KEYWORD_24||LA44_1==KEYWORD_42||(LA44_1>=KEYWORD_1 && LA44_1<=KEYWORD_4)||LA44_1==KEYWORD_9||(LA44_1>=KEYWORD_17 && LA44_1<=KEYWORD_18)||LA44_1==KEYWORD_20||(LA44_1>=RULE_DOLLAR_VAR && LA44_1<=RULE_WORD_CHARS)||LA44_1==RULE_REGULAR_EXPRESSION) ) {
                                         alt44=1;
                                     }
 
 
                                 }
-                                else if ( ((LA44_0>=KEYWORD_61 && LA44_0<=KEYWORD_55)||(LA44_0>=KEYWORD_57 && LA44_0<=KEYWORD_51)||(LA44_0>=KEYWORD_53 && LA44_0<=KEYWORD_54)||LA44_0==KEYWORD_24||LA44_0==KEYWORD_42||(LA44_0>=KEYWORD_1 && LA44_0<=KEYWORD_4)||LA44_0==KEYWORD_9||(LA44_0>=KEYWORD_17 && LA44_0<=KEYWORD_18)||LA44_0==KEYWORD_20||(LA44_0>=RULE_DOLLAR_VAR && LA44_0<=RULE_WORD_CHARS)||LA44_0==RULE_REGULAR_EXPRESSION) ) {
+                                else if ( ((LA44_0>=KEYWORD_62 && LA44_0<=KEYWORD_55)||(LA44_0>=KEYWORD_57 && LA44_0<=KEYWORD_51)||(LA44_0>=KEYWORD_53 && LA44_0<=KEYWORD_54)||LA44_0==KEYWORD_24||LA44_0==KEYWORD_42||(LA44_0>=KEYWORD_1 && LA44_0<=KEYWORD_4)||LA44_0==KEYWORD_9||(LA44_0>=KEYWORD_17 && LA44_0<=KEYWORD_18)||LA44_0==KEYWORD_20||(LA44_0>=RULE_DOLLAR_VAR && LA44_0<=RULE_WORD_CHARS)||LA44_0==RULE_REGULAR_EXPRESSION) ) {
                                     alt44=2;
                                 }
 
@@ -7424,7 +7426,7 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
             	    int alt50=2;
             	    int LA50_0 = input.LA(1);
 
-            	    if ( ((LA50_0>=KEYWORD_61 && LA50_0<=KEYWORD_55)||(LA50_0>=KEYWORD_57 && LA50_0<=KEYWORD_51)||(LA50_0>=KEYWORD_53 && LA50_0<=KEYWORD_54)||LA50_0==KEYWORD_24||LA50_0==KEYWORD_42||(LA50_0>=KEYWORD_1 && LA50_0<=KEYWORD_4)||LA50_0==KEYWORD_9||(LA50_0>=KEYWORD_17 && LA50_0<=KEYWORD_18)||LA50_0==KEYWORD_20||(LA50_0>=RULE_DOLLAR_VAR && LA50_0<=RULE_WORD_CHARS)||LA50_0==RULE_REGULAR_EXPRESSION) ) {
+            	    if ( ((LA50_0>=KEYWORD_62 && LA50_0<=KEYWORD_55)||(LA50_0>=KEYWORD_57 && LA50_0<=KEYWORD_51)||(LA50_0>=KEYWORD_53 && LA50_0<=KEYWORD_54)||LA50_0==KEYWORD_24||LA50_0==KEYWORD_42||(LA50_0>=KEYWORD_1 && LA50_0<=KEYWORD_4)||LA50_0==KEYWORD_9||(LA50_0>=KEYWORD_17 && LA50_0<=KEYWORD_18)||LA50_0==KEYWORD_20||(LA50_0>=RULE_DOLLAR_VAR && LA50_0<=RULE_WORD_CHARS)||LA50_0==RULE_REGULAR_EXPRESSION) ) {
             	        alt50=1;
             	    }
             	    switch (alt50) {
@@ -7695,7 +7697,7 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
                     int alt54=2;
                     int LA54_0 = input.LA(1);
 
-                    if ( ((LA54_0>=KEYWORD_61 && LA54_0<=KEYWORD_55)||(LA54_0>=KEYWORD_57 && LA54_0<=KEYWORD_51)||(LA54_0>=KEYWORD_53 && LA54_0<=KEYWORD_54)||LA54_0==KEYWORD_24||LA54_0==KEYWORD_42||(LA54_0>=KEYWORD_1 && LA54_0<=KEYWORD_4)||LA54_0==KEYWORD_9||(LA54_0>=KEYWORD_17 && LA54_0<=KEYWORD_18)||LA54_0==KEYWORD_20||(LA54_0>=RULE_DOLLAR_VAR && LA54_0<=RULE_WORD_CHARS)||LA54_0==RULE_REGULAR_EXPRESSION) ) {
+                    if ( ((LA54_0>=KEYWORD_62 && LA54_0<=KEYWORD_55)||(LA54_0>=KEYWORD_57 && LA54_0<=KEYWORD_51)||(LA54_0>=KEYWORD_53 && LA54_0<=KEYWORD_54)||LA54_0==KEYWORD_24||LA54_0==KEYWORD_42||(LA54_0>=KEYWORD_1 && LA54_0<=KEYWORD_4)||LA54_0==KEYWORD_9||(LA54_0>=KEYWORD_17 && LA54_0<=KEYWORD_18)||LA54_0==KEYWORD_20||(LA54_0>=RULE_DOLLAR_VAR && LA54_0<=RULE_WORD_CHARS)||LA54_0==RULE_REGULAR_EXPRESSION) ) {
                         alt54=1;
                     }
                     switch (alt54) {
@@ -7746,7 +7748,7 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
                                 if ( (LA52_0==KEYWORD_8) ) {
                                     int LA52_1 = input.LA(2);
 
-                                    if ( ((LA52_1>=KEYWORD_61 && LA52_1<=KEYWORD_55)||(LA52_1>=KEYWORD_57 && LA52_1<=KEYWORD_51)||(LA52_1>=KEYWORD_53 && LA52_1<=KEYWORD_54)||LA52_1==KEYWORD_24||LA52_1==KEYWORD_42||(LA52_1>=KEYWORD_1 && LA52_1<=KEYWORD_4)||LA52_1==KEYWORD_9||(LA52_1>=KEYWORD_17 && LA52_1<=KEYWORD_18)||LA52_1==KEYWORD_20||(LA52_1>=RULE_DOLLAR_VAR && LA52_1<=RULE_WORD_CHARS)||LA52_1==RULE_REGULAR_EXPRESSION) ) {
+                                    if ( ((LA52_1>=KEYWORD_62 && LA52_1<=KEYWORD_55)||(LA52_1>=KEYWORD_57 && LA52_1<=KEYWORD_51)||(LA52_1>=KEYWORD_53 && LA52_1<=KEYWORD_54)||LA52_1==KEYWORD_24||LA52_1==KEYWORD_42||(LA52_1>=KEYWORD_1 && LA52_1<=KEYWORD_4)||LA52_1==KEYWORD_9||(LA52_1>=KEYWORD_17 && LA52_1<=KEYWORD_18)||LA52_1==KEYWORD_20||(LA52_1>=RULE_DOLLAR_VAR && LA52_1<=RULE_WORD_CHARS)||LA52_1==RULE_REGULAR_EXPRESSION) ) {
                                         alt52=1;
                                     }
 
@@ -7912,39 +7914,41 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "rulePrimaryExpression"
-    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:2641:1: rulePrimaryExpression returns [EObject current=null] : (this_IfExpression_0= ruleIfExpression | this_CaseExpression_1= ruleCaseExpression | this_ImportExpression_2= ruleImportExpression | this_Definition_3= ruleDefinition | this_HostClassDefinition_4= ruleHostClassDefinition | this_NodeDefinition_5= ruleNodeDefinition | this_VirtualNameOrReference_6= ruleVirtualNameOrReference | this_LiteralExpression_7= ruleLiteralExpression | this_VariableExpression_8= ruleVariableExpression | this_ParenthisedExpression_9= ruleParenthisedExpression ) ;
+    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:2641:1: rulePrimaryExpression returns [EObject current=null] : (this_IfExpression_0= ruleIfExpression | this_UnlessExpression_1= ruleUnlessExpression | this_CaseExpression_2= ruleCaseExpression | this_ImportExpression_3= ruleImportExpression | this_Definition_4= ruleDefinition | this_HostClassDefinition_5= ruleHostClassDefinition | this_NodeDefinition_6= ruleNodeDefinition | this_VirtualNameOrReference_7= ruleVirtualNameOrReference | this_LiteralExpression_8= ruleLiteralExpression | this_VariableExpression_9= ruleVariableExpression | this_ParenthisedExpression_10= ruleParenthisedExpression ) ;
     public final EObject rulePrimaryExpression() throws RecognitionException {
         EObject current = null;
 
         EObject this_IfExpression_0 = null;
 
-        EObject this_CaseExpression_1 = null;
+        EObject this_UnlessExpression_1 = null;
 
-        EObject this_ImportExpression_2 = null;
+        EObject this_CaseExpression_2 = null;
 
-        EObject this_Definition_3 = null;
+        EObject this_ImportExpression_3 = null;
 
-        EObject this_HostClassDefinition_4 = null;
+        EObject this_Definition_4 = null;
 
-        EObject this_NodeDefinition_5 = null;
+        EObject this_HostClassDefinition_5 = null;
 
-        EObject this_VirtualNameOrReference_6 = null;
+        EObject this_NodeDefinition_6 = null;
 
-        EObject this_LiteralExpression_7 = null;
+        EObject this_VirtualNameOrReference_7 = null;
 
-        EObject this_VariableExpression_8 = null;
+        EObject this_LiteralExpression_8 = null;
 
-        EObject this_ParenthisedExpression_9 = null;
+        EObject this_VariableExpression_9 = null;
+
+        EObject this_ParenthisedExpression_10 = null;
 
 
          enterRule(); 
             
         try {
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:2644:28: ( (this_IfExpression_0= ruleIfExpression | this_CaseExpression_1= ruleCaseExpression | this_ImportExpression_2= ruleImportExpression | this_Definition_3= ruleDefinition | this_HostClassDefinition_4= ruleHostClassDefinition | this_NodeDefinition_5= ruleNodeDefinition | this_VirtualNameOrReference_6= ruleVirtualNameOrReference | this_LiteralExpression_7= ruleLiteralExpression | this_VariableExpression_8= ruleVariableExpression | this_ParenthisedExpression_9= ruleParenthisedExpression ) )
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:2645:1: (this_IfExpression_0= ruleIfExpression | this_CaseExpression_1= ruleCaseExpression | this_ImportExpression_2= ruleImportExpression | this_Definition_3= ruleDefinition | this_HostClassDefinition_4= ruleHostClassDefinition | this_NodeDefinition_5= ruleNodeDefinition | this_VirtualNameOrReference_6= ruleVirtualNameOrReference | this_LiteralExpression_7= ruleLiteralExpression | this_VariableExpression_8= ruleVariableExpression | this_ParenthisedExpression_9= ruleParenthisedExpression )
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:2644:28: ( (this_IfExpression_0= ruleIfExpression | this_UnlessExpression_1= ruleUnlessExpression | this_CaseExpression_2= ruleCaseExpression | this_ImportExpression_3= ruleImportExpression | this_Definition_4= ruleDefinition | this_HostClassDefinition_5= ruleHostClassDefinition | this_NodeDefinition_6= ruleNodeDefinition | this_VirtualNameOrReference_7= ruleVirtualNameOrReference | this_LiteralExpression_8= ruleLiteralExpression | this_VariableExpression_9= ruleVariableExpression | this_ParenthisedExpression_10= ruleParenthisedExpression ) )
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:2645:1: (this_IfExpression_0= ruleIfExpression | this_UnlessExpression_1= ruleUnlessExpression | this_CaseExpression_2= ruleCaseExpression | this_ImportExpression_3= ruleImportExpression | this_Definition_4= ruleDefinition | this_HostClassDefinition_5= ruleHostClassDefinition | this_NodeDefinition_6= ruleNodeDefinition | this_VirtualNameOrReference_7= ruleVirtualNameOrReference | this_LiteralExpression_8= ruleLiteralExpression | this_VariableExpression_9= ruleVariableExpression | this_ParenthisedExpression_10= ruleParenthisedExpression )
             {
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:2645:1: (this_IfExpression_0= ruleIfExpression | this_CaseExpression_1= ruleCaseExpression | this_ImportExpression_2= ruleImportExpression | this_Definition_3= ruleDefinition | this_HostClassDefinition_4= ruleHostClassDefinition | this_NodeDefinition_5= ruleNodeDefinition | this_VirtualNameOrReference_6= ruleVirtualNameOrReference | this_LiteralExpression_7= ruleLiteralExpression | this_VariableExpression_8= ruleVariableExpression | this_ParenthisedExpression_9= ruleParenthisedExpression )
-            int alt56=10;
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:2645:1: (this_IfExpression_0= ruleIfExpression | this_UnlessExpression_1= ruleUnlessExpression | this_CaseExpression_2= ruleCaseExpression | this_ImportExpression_3= ruleImportExpression | this_Definition_4= ruleDefinition | this_HostClassDefinition_5= ruleHostClassDefinition | this_NodeDefinition_6= ruleNodeDefinition | this_VirtualNameOrReference_7= ruleVirtualNameOrReference | this_LiteralExpression_8= ruleLiteralExpression | this_VariableExpression_9= ruleVariableExpression | this_ParenthisedExpression_10= ruleParenthisedExpression )
+            int alt56=11;
             alt56 = dfa56.predict(input);
             switch (alt56) {
                 case 1 :
@@ -7975,7 +7979,7 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 2 :
-                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:2659:2: this_CaseExpression_1= ruleCaseExpression
+                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:2659:2: this_UnlessExpression_1= ruleUnlessExpression
                     {
                     if ( state.backtracking==0 ) {
                        
@@ -7984,17 +7988,17 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
                     }
                     if ( state.backtracking==0 ) {
                        
-                              newCompositeNode(grammarAccess.getPrimaryExpressionAccess().getCaseExpressionParserRuleCall_1()); 
+                              newCompositeNode(grammarAccess.getPrimaryExpressionAccess().getUnlessExpressionParserRuleCall_1()); 
                           
                     }
-                    pushFollow(FOLLOW_ruleCaseExpression_in_rulePrimaryExpression5758);
-                    this_CaseExpression_1=ruleCaseExpression();
+                    pushFollow(FOLLOW_ruleUnlessExpression_in_rulePrimaryExpression5758);
+                    this_UnlessExpression_1=ruleUnlessExpression();
 
                     state._fsp--;
                     if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
-                              current = this_CaseExpression_1;
+                              current = this_UnlessExpression_1;
                               afterParserOrEnumRuleCall();
                           
                     }
@@ -8002,7 +8006,7 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 3 :
-                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:2672:2: this_ImportExpression_2= ruleImportExpression
+                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:2672:2: this_CaseExpression_2= ruleCaseExpression
                     {
                     if ( state.backtracking==0 ) {
                        
@@ -8011,17 +8015,17 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
                     }
                     if ( state.backtracking==0 ) {
                        
-                              newCompositeNode(grammarAccess.getPrimaryExpressionAccess().getImportExpressionParserRuleCall_2()); 
+                              newCompositeNode(grammarAccess.getPrimaryExpressionAccess().getCaseExpressionParserRuleCall_2()); 
                           
                     }
-                    pushFollow(FOLLOW_ruleImportExpression_in_rulePrimaryExpression5788);
-                    this_ImportExpression_2=ruleImportExpression();
+                    pushFollow(FOLLOW_ruleCaseExpression_in_rulePrimaryExpression5788);
+                    this_CaseExpression_2=ruleCaseExpression();
 
                     state._fsp--;
                     if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
-                              current = this_ImportExpression_2;
+                              current = this_CaseExpression_2;
                               afterParserOrEnumRuleCall();
                           
                     }
@@ -8029,7 +8033,7 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 4 :
-                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:2685:2: this_Definition_3= ruleDefinition
+                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:2685:2: this_ImportExpression_3= ruleImportExpression
                     {
                     if ( state.backtracking==0 ) {
                        
@@ -8038,17 +8042,17 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
                     }
                     if ( state.backtracking==0 ) {
                        
-                              newCompositeNode(grammarAccess.getPrimaryExpressionAccess().getDefinitionParserRuleCall_3()); 
+                              newCompositeNode(grammarAccess.getPrimaryExpressionAccess().getImportExpressionParserRuleCall_3()); 
                           
                     }
-                    pushFollow(FOLLOW_ruleDefinition_in_rulePrimaryExpression5818);
-                    this_Definition_3=ruleDefinition();
+                    pushFollow(FOLLOW_ruleImportExpression_in_rulePrimaryExpression5818);
+                    this_ImportExpression_3=ruleImportExpression();
 
                     state._fsp--;
                     if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
-                              current = this_Definition_3;
+                              current = this_ImportExpression_3;
                               afterParserOrEnumRuleCall();
                           
                     }
@@ -8056,7 +8060,7 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 5 :
-                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:2698:2: this_HostClassDefinition_4= ruleHostClassDefinition
+                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:2698:2: this_Definition_4= ruleDefinition
                     {
                     if ( state.backtracking==0 ) {
                        
@@ -8065,17 +8069,17 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
                     }
                     if ( state.backtracking==0 ) {
                        
-                              newCompositeNode(grammarAccess.getPrimaryExpressionAccess().getHostClassDefinitionParserRuleCall_4()); 
+                              newCompositeNode(grammarAccess.getPrimaryExpressionAccess().getDefinitionParserRuleCall_4()); 
                           
                     }
-                    pushFollow(FOLLOW_ruleHostClassDefinition_in_rulePrimaryExpression5848);
-                    this_HostClassDefinition_4=ruleHostClassDefinition();
+                    pushFollow(FOLLOW_ruleDefinition_in_rulePrimaryExpression5848);
+                    this_Definition_4=ruleDefinition();
 
                     state._fsp--;
                     if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
-                              current = this_HostClassDefinition_4;
+                              current = this_Definition_4;
                               afterParserOrEnumRuleCall();
                           
                     }
@@ -8083,7 +8087,7 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 6 :
-                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:2711:2: this_NodeDefinition_5= ruleNodeDefinition
+                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:2711:2: this_HostClassDefinition_5= ruleHostClassDefinition
                     {
                     if ( state.backtracking==0 ) {
                        
@@ -8092,17 +8096,17 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
                     }
                     if ( state.backtracking==0 ) {
                        
-                              newCompositeNode(grammarAccess.getPrimaryExpressionAccess().getNodeDefinitionParserRuleCall_5()); 
+                              newCompositeNode(grammarAccess.getPrimaryExpressionAccess().getHostClassDefinitionParserRuleCall_5()); 
                           
                     }
-                    pushFollow(FOLLOW_ruleNodeDefinition_in_rulePrimaryExpression5878);
-                    this_NodeDefinition_5=ruleNodeDefinition();
+                    pushFollow(FOLLOW_ruleHostClassDefinition_in_rulePrimaryExpression5878);
+                    this_HostClassDefinition_5=ruleHostClassDefinition();
 
                     state._fsp--;
                     if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
-                              current = this_NodeDefinition_5;
+                              current = this_HostClassDefinition_5;
                               afterParserOrEnumRuleCall();
                           
                     }
@@ -8110,7 +8114,7 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 7 :
-                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:2724:2: this_VirtualNameOrReference_6= ruleVirtualNameOrReference
+                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:2724:2: this_NodeDefinition_6= ruleNodeDefinition
                     {
                     if ( state.backtracking==0 ) {
                        
@@ -8119,17 +8123,17 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
                     }
                     if ( state.backtracking==0 ) {
                        
-                              newCompositeNode(grammarAccess.getPrimaryExpressionAccess().getVirtualNameOrReferenceParserRuleCall_6()); 
+                              newCompositeNode(grammarAccess.getPrimaryExpressionAccess().getNodeDefinitionParserRuleCall_6()); 
                           
                     }
-                    pushFollow(FOLLOW_ruleVirtualNameOrReference_in_rulePrimaryExpression5908);
-                    this_VirtualNameOrReference_6=ruleVirtualNameOrReference();
+                    pushFollow(FOLLOW_ruleNodeDefinition_in_rulePrimaryExpression5908);
+                    this_NodeDefinition_6=ruleNodeDefinition();
 
                     state._fsp--;
                     if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
-                              current = this_VirtualNameOrReference_6;
+                              current = this_NodeDefinition_6;
                               afterParserOrEnumRuleCall();
                           
                     }
@@ -8137,7 +8141,7 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 8 :
-                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:2737:2: this_LiteralExpression_7= ruleLiteralExpression
+                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:2737:2: this_VirtualNameOrReference_7= ruleVirtualNameOrReference
                     {
                     if ( state.backtracking==0 ) {
                        
@@ -8146,17 +8150,17 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
                     }
                     if ( state.backtracking==0 ) {
                        
-                              newCompositeNode(grammarAccess.getPrimaryExpressionAccess().getLiteralExpressionParserRuleCall_7()); 
+                              newCompositeNode(grammarAccess.getPrimaryExpressionAccess().getVirtualNameOrReferenceParserRuleCall_7()); 
                           
                     }
-                    pushFollow(FOLLOW_ruleLiteralExpression_in_rulePrimaryExpression5938);
-                    this_LiteralExpression_7=ruleLiteralExpression();
+                    pushFollow(FOLLOW_ruleVirtualNameOrReference_in_rulePrimaryExpression5938);
+                    this_VirtualNameOrReference_7=ruleVirtualNameOrReference();
 
                     state._fsp--;
                     if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
-                              current = this_LiteralExpression_7;
+                              current = this_VirtualNameOrReference_7;
                               afterParserOrEnumRuleCall();
                           
                     }
@@ -8164,7 +8168,7 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 9 :
-                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:2750:2: this_VariableExpression_8= ruleVariableExpression
+                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:2750:2: this_LiteralExpression_8= ruleLiteralExpression
                     {
                     if ( state.backtracking==0 ) {
                        
@@ -8173,17 +8177,17 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
                     }
                     if ( state.backtracking==0 ) {
                        
-                              newCompositeNode(grammarAccess.getPrimaryExpressionAccess().getVariableExpressionParserRuleCall_8()); 
+                              newCompositeNode(grammarAccess.getPrimaryExpressionAccess().getLiteralExpressionParserRuleCall_8()); 
                           
                     }
-                    pushFollow(FOLLOW_ruleVariableExpression_in_rulePrimaryExpression5968);
-                    this_VariableExpression_8=ruleVariableExpression();
+                    pushFollow(FOLLOW_ruleLiteralExpression_in_rulePrimaryExpression5968);
+                    this_LiteralExpression_8=ruleLiteralExpression();
 
                     state._fsp--;
                     if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
-                              current = this_VariableExpression_8;
+                              current = this_LiteralExpression_8;
                               afterParserOrEnumRuleCall();
                           
                     }
@@ -8191,7 +8195,7 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 10 :
-                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:2763:2: this_ParenthisedExpression_9= ruleParenthisedExpression
+                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:2763:2: this_VariableExpression_9= ruleVariableExpression
                     {
                     if ( state.backtracking==0 ) {
                        
@@ -8200,17 +8204,44 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
                     }
                     if ( state.backtracking==0 ) {
                        
-                              newCompositeNode(grammarAccess.getPrimaryExpressionAccess().getParenthisedExpressionParserRuleCall_9()); 
+                              newCompositeNode(grammarAccess.getPrimaryExpressionAccess().getVariableExpressionParserRuleCall_9()); 
                           
                     }
-                    pushFollow(FOLLOW_ruleParenthisedExpression_in_rulePrimaryExpression5998);
-                    this_ParenthisedExpression_9=ruleParenthisedExpression();
+                    pushFollow(FOLLOW_ruleVariableExpression_in_rulePrimaryExpression5998);
+                    this_VariableExpression_9=ruleVariableExpression();
 
                     state._fsp--;
                     if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
-                              current = this_ParenthisedExpression_9;
+                              current = this_VariableExpression_9;
+                              afterParserOrEnumRuleCall();
+                          
+                    }
+
+                    }
+                    break;
+                case 11 :
+                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:2776:2: this_ParenthisedExpression_10= ruleParenthisedExpression
+                    {
+                    if ( state.backtracking==0 ) {
+                       
+                      	  /* */ 
+                      	
+                    }
+                    if ( state.backtracking==0 ) {
+                       
+                              newCompositeNode(grammarAccess.getPrimaryExpressionAccess().getParenthisedExpressionParserRuleCall_10()); 
+                          
+                    }
+                    pushFollow(FOLLOW_ruleParenthisedExpression_in_rulePrimaryExpression6028);
+                    this_ParenthisedExpression_10=ruleParenthisedExpression();
+
+                    state._fsp--;
+                    if (state.failed) return current;
+                    if ( state.backtracking==0 ) {
+
+                              current = this_ParenthisedExpression_10;
                               afterParserOrEnumRuleCall();
                           
                     }
@@ -8240,7 +8271,7 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleNodeDefinition"
-    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:2782:1: entryRuleNodeDefinition returns [EObject current=null] : iv_ruleNodeDefinition= ruleNodeDefinition EOF ;
+    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:2795:1: entryRuleNodeDefinition returns [EObject current=null] : iv_ruleNodeDefinition= ruleNodeDefinition EOF ;
     public final EObject entryRuleNodeDefinition() throws RecognitionException {
         EObject current = null;
 
@@ -8248,13 +8279,13 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:2783:2: (iv_ruleNodeDefinition= ruleNodeDefinition EOF )
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:2784:2: iv_ruleNodeDefinition= ruleNodeDefinition EOF
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:2796:2: (iv_ruleNodeDefinition= ruleNodeDefinition EOF )
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:2797:2: iv_ruleNodeDefinition= ruleNodeDefinition EOF
             {
             if ( state.backtracking==0 ) {
                newCompositeNode(grammarAccess.getNodeDefinitionRule()); 
             }
-            pushFollow(FOLLOW_ruleNodeDefinition_in_entryRuleNodeDefinition6032);
+            pushFollow(FOLLOW_ruleNodeDefinition_in_entryRuleNodeDefinition6062);
             iv_ruleNodeDefinition=ruleNodeDefinition();
 
             state._fsp--;
@@ -8262,7 +8293,7 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
             if ( state.backtracking==0 ) {
                current =iv_ruleNodeDefinition; 
             }
-            match(input,EOF,FOLLOW_EOF_in_entryRuleNodeDefinition6042); if (state.failed) return current;
+            match(input,EOF,FOLLOW_EOF_in_entryRuleNodeDefinition6072); if (state.failed) return current;
 
             }
 
@@ -8280,7 +8311,7 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleNodeDefinition"
-    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:2791:1: ruleNodeDefinition returns [EObject current=null] : (otherlv_0= KEYWORD_53 ( (lv_hostNames_1_0= ruleHostReference ) ) (otherlv_2= KEYWORD_8 ( (lv_hostNames_3_0= ruleHostReference ) ) )* (otherlv_4= KEYWORD_62 ( (lv_parentName_5_0= ruleHostReference ) ) )? otherlv_6= KEYWORD_20 ( (lv_statements_7_0= ruleExpressionList ) )* otherlv_8= KEYWORD_21 ) ;
+    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:2804:1: ruleNodeDefinition returns [EObject current=null] : (otherlv_0= KEYWORD_53 ( (lv_hostNames_1_0= ruleHostReference ) ) (otherlv_2= KEYWORD_8 ( (lv_hostNames_3_0= ruleHostReference ) ) )* (otherlv_4= KEYWORD_63 ( (lv_parentName_5_0= ruleHostReference ) ) )? otherlv_6= KEYWORD_20 ( (lv_statements_7_0= ruleExpressionList ) )* otherlv_8= KEYWORD_21 ) ;
     public final EObject ruleNodeDefinition() throws RecognitionException {
         EObject current = null;
 
@@ -8301,30 +8332,30 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:2794:28: ( (otherlv_0= KEYWORD_53 ( (lv_hostNames_1_0= ruleHostReference ) ) (otherlv_2= KEYWORD_8 ( (lv_hostNames_3_0= ruleHostReference ) ) )* (otherlv_4= KEYWORD_62 ( (lv_parentName_5_0= ruleHostReference ) ) )? otherlv_6= KEYWORD_20 ( (lv_statements_7_0= ruleExpressionList ) )* otherlv_8= KEYWORD_21 ) )
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:2795:1: (otherlv_0= KEYWORD_53 ( (lv_hostNames_1_0= ruleHostReference ) ) (otherlv_2= KEYWORD_8 ( (lv_hostNames_3_0= ruleHostReference ) ) )* (otherlv_4= KEYWORD_62 ( (lv_parentName_5_0= ruleHostReference ) ) )? otherlv_6= KEYWORD_20 ( (lv_statements_7_0= ruleExpressionList ) )* otherlv_8= KEYWORD_21 )
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:2807:28: ( (otherlv_0= KEYWORD_53 ( (lv_hostNames_1_0= ruleHostReference ) ) (otherlv_2= KEYWORD_8 ( (lv_hostNames_3_0= ruleHostReference ) ) )* (otherlv_4= KEYWORD_63 ( (lv_parentName_5_0= ruleHostReference ) ) )? otherlv_6= KEYWORD_20 ( (lv_statements_7_0= ruleExpressionList ) )* otherlv_8= KEYWORD_21 ) )
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:2808:1: (otherlv_0= KEYWORD_53 ( (lv_hostNames_1_0= ruleHostReference ) ) (otherlv_2= KEYWORD_8 ( (lv_hostNames_3_0= ruleHostReference ) ) )* (otherlv_4= KEYWORD_63 ( (lv_parentName_5_0= ruleHostReference ) ) )? otherlv_6= KEYWORD_20 ( (lv_statements_7_0= ruleExpressionList ) )* otherlv_8= KEYWORD_21 )
             {
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:2795:1: (otherlv_0= KEYWORD_53 ( (lv_hostNames_1_0= ruleHostReference ) ) (otherlv_2= KEYWORD_8 ( (lv_hostNames_3_0= ruleHostReference ) ) )* (otherlv_4= KEYWORD_62 ( (lv_parentName_5_0= ruleHostReference ) ) )? otherlv_6= KEYWORD_20 ( (lv_statements_7_0= ruleExpressionList ) )* otherlv_8= KEYWORD_21 )
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:2796:2: otherlv_0= KEYWORD_53 ( (lv_hostNames_1_0= ruleHostReference ) ) (otherlv_2= KEYWORD_8 ( (lv_hostNames_3_0= ruleHostReference ) ) )* (otherlv_4= KEYWORD_62 ( (lv_parentName_5_0= ruleHostReference ) ) )? otherlv_6= KEYWORD_20 ( (lv_statements_7_0= ruleExpressionList ) )* otherlv_8= KEYWORD_21
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:2808:1: (otherlv_0= KEYWORD_53 ( (lv_hostNames_1_0= ruleHostReference ) ) (otherlv_2= KEYWORD_8 ( (lv_hostNames_3_0= ruleHostReference ) ) )* (otherlv_4= KEYWORD_63 ( (lv_parentName_5_0= ruleHostReference ) ) )? otherlv_6= KEYWORD_20 ( (lv_statements_7_0= ruleExpressionList ) )* otherlv_8= KEYWORD_21 )
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:2809:2: otherlv_0= KEYWORD_53 ( (lv_hostNames_1_0= ruleHostReference ) ) (otherlv_2= KEYWORD_8 ( (lv_hostNames_3_0= ruleHostReference ) ) )* (otherlv_4= KEYWORD_63 ( (lv_parentName_5_0= ruleHostReference ) ) )? otherlv_6= KEYWORD_20 ( (lv_statements_7_0= ruleExpressionList ) )* otherlv_8= KEYWORD_21
             {
-            otherlv_0=(Token)match(input,KEYWORD_53,FOLLOW_KEYWORD_53_in_ruleNodeDefinition6080); if (state.failed) return current;
+            otherlv_0=(Token)match(input,KEYWORD_53,FOLLOW_KEYWORD_53_in_ruleNodeDefinition6110); if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
                   	newLeafNode(otherlv_0, grammarAccess.getNodeDefinitionAccess().getNodeKeyword_0());
                   
             }
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:2800:1: ( (lv_hostNames_1_0= ruleHostReference ) )
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:2801:1: (lv_hostNames_1_0= ruleHostReference )
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:2813:1: ( (lv_hostNames_1_0= ruleHostReference ) )
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:2814:1: (lv_hostNames_1_0= ruleHostReference )
             {
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:2801:1: (lv_hostNames_1_0= ruleHostReference )
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:2802:3: lv_hostNames_1_0= ruleHostReference
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:2814:1: (lv_hostNames_1_0= ruleHostReference )
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:2815:3: lv_hostNames_1_0= ruleHostReference
             {
             if ( state.backtracking==0 ) {
                
               	        newCompositeNode(grammarAccess.getNodeDefinitionAccess().getHostNamesHostReferenceParserRuleCall_1_0()); 
               	    
             }
-            pushFollow(FOLLOW_ruleHostReference_in_ruleNodeDefinition6100);
+            pushFollow(FOLLOW_ruleHostReference_in_ruleNodeDefinition6130);
             lv_hostNames_1_0=ruleHostReference();
 
             state._fsp--;
@@ -8348,7 +8379,7 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
 
             }
 
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:2818:2: (otherlv_2= KEYWORD_8 ( (lv_hostNames_3_0= ruleHostReference ) ) )*
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:2831:2: (otherlv_2= KEYWORD_8 ( (lv_hostNames_3_0= ruleHostReference ) ) )*
             loop57:
             do {
                 int alt57=2;
@@ -8361,26 +8392,26 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
 
                 switch (alt57) {
             	case 1 :
-            	    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:2819:2: otherlv_2= KEYWORD_8 ( (lv_hostNames_3_0= ruleHostReference ) )
+            	    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:2832:2: otherlv_2= KEYWORD_8 ( (lv_hostNames_3_0= ruleHostReference ) )
             	    {
-            	    otherlv_2=(Token)match(input,KEYWORD_8,FOLLOW_KEYWORD_8_in_ruleNodeDefinition6114); if (state.failed) return current;
+            	    otherlv_2=(Token)match(input,KEYWORD_8,FOLLOW_KEYWORD_8_in_ruleNodeDefinition6144); if (state.failed) return current;
             	    if ( state.backtracking==0 ) {
 
             	          	newLeafNode(otherlv_2, grammarAccess.getNodeDefinitionAccess().getCommaKeyword_2_0());
             	          
             	    }
-            	    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:2823:1: ( (lv_hostNames_3_0= ruleHostReference ) )
-            	    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:2824:1: (lv_hostNames_3_0= ruleHostReference )
+            	    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:2836:1: ( (lv_hostNames_3_0= ruleHostReference ) )
+            	    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:2837:1: (lv_hostNames_3_0= ruleHostReference )
             	    {
-            	    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:2824:1: (lv_hostNames_3_0= ruleHostReference )
-            	    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:2825:3: lv_hostNames_3_0= ruleHostReference
+            	    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:2837:1: (lv_hostNames_3_0= ruleHostReference )
+            	    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:2838:3: lv_hostNames_3_0= ruleHostReference
             	    {
             	    if ( state.backtracking==0 ) {
             	       
             	      	        newCompositeNode(grammarAccess.getNodeDefinitionAccess().getHostNamesHostReferenceParserRuleCall_2_1_0()); 
             	      	    
             	    }
-            	    pushFollow(FOLLOW_ruleHostReference_in_ruleNodeDefinition6134);
+            	    pushFollow(FOLLOW_ruleHostReference_in_ruleNodeDefinition6164);
             	    lv_hostNames_3_0=ruleHostReference();
 
             	    state._fsp--;
@@ -8413,35 +8444,35 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
                 }
             } while (true);
 
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:2841:4: (otherlv_4= KEYWORD_62 ( (lv_parentName_5_0= ruleHostReference ) ) )?
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:2854:4: (otherlv_4= KEYWORD_63 ( (lv_parentName_5_0= ruleHostReference ) ) )?
             int alt58=2;
             int LA58_0 = input.LA(1);
 
-            if ( (LA58_0==KEYWORD_62) ) {
+            if ( (LA58_0==KEYWORD_63) ) {
                 alt58=1;
             }
             switch (alt58) {
                 case 1 :
-                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:2842:2: otherlv_4= KEYWORD_62 ( (lv_parentName_5_0= ruleHostReference ) )
+                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:2855:2: otherlv_4= KEYWORD_63 ( (lv_parentName_5_0= ruleHostReference ) )
                     {
-                    otherlv_4=(Token)match(input,KEYWORD_62,FOLLOW_KEYWORD_62_in_ruleNodeDefinition6150); if (state.failed) return current;
+                    otherlv_4=(Token)match(input,KEYWORD_63,FOLLOW_KEYWORD_63_in_ruleNodeDefinition6180); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                           	newLeafNode(otherlv_4, grammarAccess.getNodeDefinitionAccess().getInheritsKeyword_3_0());
                           
                     }
-                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:2846:1: ( (lv_parentName_5_0= ruleHostReference ) )
-                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:2847:1: (lv_parentName_5_0= ruleHostReference )
+                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:2859:1: ( (lv_parentName_5_0= ruleHostReference ) )
+                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:2860:1: (lv_parentName_5_0= ruleHostReference )
                     {
-                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:2847:1: (lv_parentName_5_0= ruleHostReference )
-                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:2848:3: lv_parentName_5_0= ruleHostReference
+                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:2860:1: (lv_parentName_5_0= ruleHostReference )
+                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:2861:3: lv_parentName_5_0= ruleHostReference
                     {
                     if ( state.backtracking==0 ) {
                        
                       	        newCompositeNode(grammarAccess.getNodeDefinitionAccess().getParentNameHostReferenceParserRuleCall_3_1_0()); 
                       	    
                     }
-                    pushFollow(FOLLOW_ruleHostReference_in_ruleNodeDefinition6170);
+                    pushFollow(FOLLOW_ruleHostReference_in_ruleNodeDefinition6200);
                     lv_parentName_5_0=ruleHostReference();
 
                     state._fsp--;
@@ -8471,36 +8502,36 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
 
             }
 
-            otherlv_6=(Token)match(input,KEYWORD_20,FOLLOW_KEYWORD_20_in_ruleNodeDefinition6185); if (state.failed) return current;
+            otherlv_6=(Token)match(input,KEYWORD_20,FOLLOW_KEYWORD_20_in_ruleNodeDefinition6215); if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
                   	newLeafNode(otherlv_6, grammarAccess.getNodeDefinitionAccess().getLeftCurlyBracketKeyword_4());
                   
             }
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:2869:1: ( (lv_statements_7_0= ruleExpressionList ) )*
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:2882:1: ( (lv_statements_7_0= ruleExpressionList ) )*
             loop59:
             do {
                 int alt59=2;
                 int LA59_0 = input.LA(1);
 
-                if ( ((LA59_0>=KEYWORD_61 && LA59_0<=KEYWORD_55)||(LA59_0>=KEYWORD_57 && LA59_0<=KEYWORD_51)||(LA59_0>=KEYWORD_53 && LA59_0<=KEYWORD_54)||LA59_0==KEYWORD_24||LA59_0==KEYWORD_42||(LA59_0>=KEYWORD_1 && LA59_0<=KEYWORD_4)||LA59_0==KEYWORD_9||(LA59_0>=KEYWORD_17 && LA59_0<=KEYWORD_18)||LA59_0==KEYWORD_20||(LA59_0>=RULE_DOLLAR_VAR && LA59_0<=RULE_WORD_CHARS)||LA59_0==RULE_REGULAR_EXPRESSION) ) {
+                if ( ((LA59_0>=KEYWORD_62 && LA59_0<=KEYWORD_55)||(LA59_0>=KEYWORD_57 && LA59_0<=KEYWORD_51)||(LA59_0>=KEYWORD_53 && LA59_0<=KEYWORD_54)||LA59_0==KEYWORD_24||LA59_0==KEYWORD_42||(LA59_0>=KEYWORD_1 && LA59_0<=KEYWORD_4)||LA59_0==KEYWORD_9||(LA59_0>=KEYWORD_17 && LA59_0<=KEYWORD_18)||LA59_0==KEYWORD_20||(LA59_0>=RULE_DOLLAR_VAR && LA59_0<=RULE_WORD_CHARS)||LA59_0==RULE_REGULAR_EXPRESSION) ) {
                     alt59=1;
                 }
 
 
                 switch (alt59) {
             	case 1 :
-            	    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:2870:1: (lv_statements_7_0= ruleExpressionList )
+            	    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:2883:1: (lv_statements_7_0= ruleExpressionList )
             	    {
-            	    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:2870:1: (lv_statements_7_0= ruleExpressionList )
-            	    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:2871:3: lv_statements_7_0= ruleExpressionList
+            	    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:2883:1: (lv_statements_7_0= ruleExpressionList )
+            	    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:2884:3: lv_statements_7_0= ruleExpressionList
             	    {
             	    if ( state.backtracking==0 ) {
             	       
             	      	        newCompositeNode(grammarAccess.getNodeDefinitionAccess().getStatementsExpressionListParserRuleCall_5_0()); 
             	      	    
             	    }
-            	    pushFollow(FOLLOW_ruleExpressionList_in_ruleNodeDefinition6205);
+            	    pushFollow(FOLLOW_ruleExpressionList_in_ruleNodeDefinition6235);
             	    lv_statements_7_0=ruleExpressionList();
 
             	    state._fsp--;
@@ -8530,7 +8561,7 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
                 }
             } while (true);
 
-            otherlv_8=(Token)match(input,KEYWORD_21,FOLLOW_KEYWORD_21_in_ruleNodeDefinition6219); if (state.failed) return current;
+            otherlv_8=(Token)match(input,KEYWORD_21,FOLLOW_KEYWORD_21_in_ruleNodeDefinition6249); if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
                   	newLeafNode(otherlv_8, grammarAccess.getNodeDefinitionAccess().getRightCurlyBracketKeyword_6());
@@ -8559,7 +8590,7 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleHostReference"
-    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:2900:1: entryRuleHostReference returns [EObject current=null] : iv_ruleHostReference= ruleHostReference EOF ;
+    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:2913:1: entryRuleHostReference returns [EObject current=null] : iv_ruleHostReference= ruleHostReference EOF ;
     public final EObject entryRuleHostReference() throws RecognitionException {
         EObject current = null;
 
@@ -8567,13 +8598,13 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:2901:2: (iv_ruleHostReference= ruleHostReference EOF )
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:2902:2: iv_ruleHostReference= ruleHostReference EOF
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:2914:2: (iv_ruleHostReference= ruleHostReference EOF )
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:2915:2: iv_ruleHostReference= ruleHostReference EOF
             {
             if ( state.backtracking==0 ) {
                newCompositeNode(grammarAccess.getHostReferenceRule()); 
             }
-            pushFollow(FOLLOW_ruleHostReference_in_entryRuleHostReference6253);
+            pushFollow(FOLLOW_ruleHostReference_in_entryRuleHostReference6283);
             iv_ruleHostReference=ruleHostReference();
 
             state._fsp--;
@@ -8581,7 +8612,7 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
             if ( state.backtracking==0 ) {
                current =iv_ruleHostReference; 
             }
-            match(input,EOF,FOLLOW_EOF_in_entryRuleHostReference6263); if (state.failed) return current;
+            match(input,EOF,FOLLOW_EOF_in_entryRuleHostReference6293); if (state.failed) return current;
 
             }
 
@@ -8599,7 +8630,7 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleHostReference"
-    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:2909:1: ruleHostReference returns [EObject current=null] : (this_StringExpression_0= ruleStringExpression | this_LiteralRegex_1= ruleLiteralRegex | this_LiteralDefault_2= ruleLiteralDefault | this_LiteralNameOrReference_3= ruleLiteralNameOrReference ) ;
+    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:2922:1: ruleHostReference returns [EObject current=null] : (this_StringExpression_0= ruleStringExpression | this_LiteralRegex_1= ruleLiteralRegex | this_LiteralDefault_2= ruleLiteralDefault | this_LiteralNameOrReference_3= ruleLiteralNameOrReference ) ;
     public final EObject ruleHostReference() throws RecognitionException {
         EObject current = null;
 
@@ -8615,10 +8646,10 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:2912:28: ( (this_StringExpression_0= ruleStringExpression | this_LiteralRegex_1= ruleLiteralRegex | this_LiteralDefault_2= ruleLiteralDefault | this_LiteralNameOrReference_3= ruleLiteralNameOrReference ) )
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:2913:1: (this_StringExpression_0= ruleStringExpression | this_LiteralRegex_1= ruleLiteralRegex | this_LiteralDefault_2= ruleLiteralDefault | this_LiteralNameOrReference_3= ruleLiteralNameOrReference )
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:2925:28: ( (this_StringExpression_0= ruleStringExpression | this_LiteralRegex_1= ruleLiteralRegex | this_LiteralDefault_2= ruleLiteralDefault | this_LiteralNameOrReference_3= ruleLiteralNameOrReference ) )
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:2926:1: (this_StringExpression_0= ruleStringExpression | this_LiteralRegex_1= ruleLiteralRegex | this_LiteralDefault_2= ruleLiteralDefault | this_LiteralNameOrReference_3= ruleLiteralNameOrReference )
             {
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:2913:1: (this_StringExpression_0= ruleStringExpression | this_LiteralRegex_1= ruleLiteralRegex | this_LiteralDefault_2= ruleLiteralDefault | this_LiteralNameOrReference_3= ruleLiteralNameOrReference )
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:2926:1: (this_StringExpression_0= ruleStringExpression | this_LiteralRegex_1= ruleLiteralRegex | this_LiteralDefault_2= ruleLiteralDefault | this_LiteralNameOrReference_3= ruleLiteralNameOrReference )
             int alt60=4;
             switch ( input.LA(1) ) {
             case KEYWORD_24:
@@ -8633,7 +8664,7 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
                 alt60=2;
                 }
                 break;
-            case KEYWORD_61:
+            case KEYWORD_62:
                 {
                 alt60=3;
                 }
@@ -8653,7 +8684,7 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
 
             switch (alt60) {
                 case 1 :
-                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:2914:2: this_StringExpression_0= ruleStringExpression
+                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:2927:2: this_StringExpression_0= ruleStringExpression
                     {
                     if ( state.backtracking==0 ) {
                        
@@ -8665,7 +8696,7 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
                               newCompositeNode(grammarAccess.getHostReferenceAccess().getStringExpressionParserRuleCall_0()); 
                           
                     }
-                    pushFollow(FOLLOW_ruleStringExpression_in_ruleHostReference6313);
+                    pushFollow(FOLLOW_ruleStringExpression_in_ruleHostReference6343);
                     this_StringExpression_0=ruleStringExpression();
 
                     state._fsp--;
@@ -8680,7 +8711,7 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 2 :
-                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:2927:2: this_LiteralRegex_1= ruleLiteralRegex
+                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:2940:2: this_LiteralRegex_1= ruleLiteralRegex
                     {
                     if ( state.backtracking==0 ) {
                        
@@ -8692,7 +8723,7 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
                               newCompositeNode(grammarAccess.getHostReferenceAccess().getLiteralRegexParserRuleCall_1()); 
                           
                     }
-                    pushFollow(FOLLOW_ruleLiteralRegex_in_ruleHostReference6343);
+                    pushFollow(FOLLOW_ruleLiteralRegex_in_ruleHostReference6373);
                     this_LiteralRegex_1=ruleLiteralRegex();
 
                     state._fsp--;
@@ -8707,7 +8738,7 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 3 :
-                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:2940:2: this_LiteralDefault_2= ruleLiteralDefault
+                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:2953:2: this_LiteralDefault_2= ruleLiteralDefault
                     {
                     if ( state.backtracking==0 ) {
                        
@@ -8719,7 +8750,7 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
                               newCompositeNode(grammarAccess.getHostReferenceAccess().getLiteralDefaultParserRuleCall_2()); 
                           
                     }
-                    pushFollow(FOLLOW_ruleLiteralDefault_in_ruleHostReference6373);
+                    pushFollow(FOLLOW_ruleLiteralDefault_in_ruleHostReference6403);
                     this_LiteralDefault_2=ruleLiteralDefault();
 
                     state._fsp--;
@@ -8734,7 +8765,7 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 4 :
-                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:2953:2: this_LiteralNameOrReference_3= ruleLiteralNameOrReference
+                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:2966:2: this_LiteralNameOrReference_3= ruleLiteralNameOrReference
                     {
                     if ( state.backtracking==0 ) {
                        
@@ -8746,7 +8777,7 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
                               newCompositeNode(grammarAccess.getHostReferenceAccess().getLiteralNameOrReferenceParserRuleCall_3()); 
                           
                     }
-                    pushFollow(FOLLOW_ruleLiteralNameOrReference_in_ruleHostReference6403);
+                    pushFollow(FOLLOW_ruleLiteralNameOrReference_in_ruleHostReference6433);
                     this_LiteralNameOrReference_3=ruleLiteralNameOrReference();
 
                     state._fsp--;
@@ -8783,7 +8814,7 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleHostClassDefinition"
-    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:2972:1: entryRuleHostClassDefinition returns [EObject current=null] : iv_ruleHostClassDefinition= ruleHostClassDefinition EOF ;
+    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:2985:1: entryRuleHostClassDefinition returns [EObject current=null] : iv_ruleHostClassDefinition= ruleHostClassDefinition EOF ;
     public final EObject entryRuleHostClassDefinition() throws RecognitionException {
         EObject current = null;
 
@@ -8791,13 +8822,13 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:2973:2: (iv_ruleHostClassDefinition= ruleHostClassDefinition EOF )
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:2974:2: iv_ruleHostClassDefinition= ruleHostClassDefinition EOF
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:2986:2: (iv_ruleHostClassDefinition= ruleHostClassDefinition EOF )
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:2987:2: iv_ruleHostClassDefinition= ruleHostClassDefinition EOF
             {
             if ( state.backtracking==0 ) {
                newCompositeNode(grammarAccess.getHostClassDefinitionRule()); 
             }
-            pushFollow(FOLLOW_ruleHostClassDefinition_in_entryRuleHostClassDefinition6437);
+            pushFollow(FOLLOW_ruleHostClassDefinition_in_entryRuleHostClassDefinition6467);
             iv_ruleHostClassDefinition=ruleHostClassDefinition();
 
             state._fsp--;
@@ -8805,7 +8836,7 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
             if ( state.backtracking==0 ) {
                current =iv_ruleHostClassDefinition; 
             }
-            match(input,EOF,FOLLOW_EOF_in_entryRuleHostClassDefinition6447); if (state.failed) return current;
+            match(input,EOF,FOLLOW_EOF_in_entryRuleHostClassDefinition6477); if (state.failed) return current;
 
             }
 
@@ -8823,7 +8854,7 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleHostClassDefinition"
-    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:2981:1: ruleHostClassDefinition returns [EObject current=null] : (otherlv_0= KEYWORD_55 ( (lv_className_1_0= ruleclassname ) ) ( (lv_arguments_2_0= ruleDefinitionArgumentList ) )? (otherlv_3= KEYWORD_62 ( (lv_parent_4_0= ruleParentName ) ) )? otherlv_5= KEYWORD_20 ( (lv_statements_6_0= ruleExpressionList ) )* otherlv_7= KEYWORD_21 ) ;
+    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:2994:1: ruleHostClassDefinition returns [EObject current=null] : (otherlv_0= KEYWORD_55 ( (lv_className_1_0= ruleclassname ) ) ( (lv_arguments_2_0= ruleDefinitionArgumentList ) )? (otherlv_3= KEYWORD_63 ( (lv_parent_4_0= ruleParentName ) ) )? otherlv_5= KEYWORD_20 ( (lv_statements_6_0= ruleExpressionList ) )* otherlv_7= KEYWORD_21 ) ;
     public final EObject ruleHostClassDefinition() throws RecognitionException {
         EObject current = null;
 
@@ -8843,30 +8874,30 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:2984:28: ( (otherlv_0= KEYWORD_55 ( (lv_className_1_0= ruleclassname ) ) ( (lv_arguments_2_0= ruleDefinitionArgumentList ) )? (otherlv_3= KEYWORD_62 ( (lv_parent_4_0= ruleParentName ) ) )? otherlv_5= KEYWORD_20 ( (lv_statements_6_0= ruleExpressionList ) )* otherlv_7= KEYWORD_21 ) )
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:2985:1: (otherlv_0= KEYWORD_55 ( (lv_className_1_0= ruleclassname ) ) ( (lv_arguments_2_0= ruleDefinitionArgumentList ) )? (otherlv_3= KEYWORD_62 ( (lv_parent_4_0= ruleParentName ) ) )? otherlv_5= KEYWORD_20 ( (lv_statements_6_0= ruleExpressionList ) )* otherlv_7= KEYWORD_21 )
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:2997:28: ( (otherlv_0= KEYWORD_55 ( (lv_className_1_0= ruleclassname ) ) ( (lv_arguments_2_0= ruleDefinitionArgumentList ) )? (otherlv_3= KEYWORD_63 ( (lv_parent_4_0= ruleParentName ) ) )? otherlv_5= KEYWORD_20 ( (lv_statements_6_0= ruleExpressionList ) )* otherlv_7= KEYWORD_21 ) )
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:2998:1: (otherlv_0= KEYWORD_55 ( (lv_className_1_0= ruleclassname ) ) ( (lv_arguments_2_0= ruleDefinitionArgumentList ) )? (otherlv_3= KEYWORD_63 ( (lv_parent_4_0= ruleParentName ) ) )? otherlv_5= KEYWORD_20 ( (lv_statements_6_0= ruleExpressionList ) )* otherlv_7= KEYWORD_21 )
             {
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:2985:1: (otherlv_0= KEYWORD_55 ( (lv_className_1_0= ruleclassname ) ) ( (lv_arguments_2_0= ruleDefinitionArgumentList ) )? (otherlv_3= KEYWORD_62 ( (lv_parent_4_0= ruleParentName ) ) )? otherlv_5= KEYWORD_20 ( (lv_statements_6_0= ruleExpressionList ) )* otherlv_7= KEYWORD_21 )
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:2986:2: otherlv_0= KEYWORD_55 ( (lv_className_1_0= ruleclassname ) ) ( (lv_arguments_2_0= ruleDefinitionArgumentList ) )? (otherlv_3= KEYWORD_62 ( (lv_parent_4_0= ruleParentName ) ) )? otherlv_5= KEYWORD_20 ( (lv_statements_6_0= ruleExpressionList ) )* otherlv_7= KEYWORD_21
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:2998:1: (otherlv_0= KEYWORD_55 ( (lv_className_1_0= ruleclassname ) ) ( (lv_arguments_2_0= ruleDefinitionArgumentList ) )? (otherlv_3= KEYWORD_63 ( (lv_parent_4_0= ruleParentName ) ) )? otherlv_5= KEYWORD_20 ( (lv_statements_6_0= ruleExpressionList ) )* otherlv_7= KEYWORD_21 )
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:2999:2: otherlv_0= KEYWORD_55 ( (lv_className_1_0= ruleclassname ) ) ( (lv_arguments_2_0= ruleDefinitionArgumentList ) )? (otherlv_3= KEYWORD_63 ( (lv_parent_4_0= ruleParentName ) ) )? otherlv_5= KEYWORD_20 ( (lv_statements_6_0= ruleExpressionList ) )* otherlv_7= KEYWORD_21
             {
-            otherlv_0=(Token)match(input,KEYWORD_55,FOLLOW_KEYWORD_55_in_ruleHostClassDefinition6485); if (state.failed) return current;
+            otherlv_0=(Token)match(input,KEYWORD_55,FOLLOW_KEYWORD_55_in_ruleHostClassDefinition6515); if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
                   	newLeafNode(otherlv_0, grammarAccess.getHostClassDefinitionAccess().getClassKeyword_0());
                   
             }
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:2990:1: ( (lv_className_1_0= ruleclassname ) )
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:2991:1: (lv_className_1_0= ruleclassname )
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3003:1: ( (lv_className_1_0= ruleclassname ) )
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3004:1: (lv_className_1_0= ruleclassname )
             {
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:2991:1: (lv_className_1_0= ruleclassname )
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:2992:3: lv_className_1_0= ruleclassname
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3004:1: (lv_className_1_0= ruleclassname )
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3005:3: lv_className_1_0= ruleclassname
             {
             if ( state.backtracking==0 ) {
                
               	        newCompositeNode(grammarAccess.getHostClassDefinitionAccess().getClassNameClassnameParserRuleCall_1_0()); 
               	    
             }
-            pushFollow(FOLLOW_ruleclassname_in_ruleHostClassDefinition6505);
+            pushFollow(FOLLOW_ruleclassname_in_ruleHostClassDefinition6535);
             lv_className_1_0=ruleclassname();
 
             state._fsp--;
@@ -8890,7 +8921,7 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
 
             }
 
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3008:2: ( (lv_arguments_2_0= ruleDefinitionArgumentList ) )?
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3021:2: ( (lv_arguments_2_0= ruleDefinitionArgumentList ) )?
             int alt61=2;
             int LA61_0 = input.LA(1);
 
@@ -8899,17 +8930,17 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
             }
             switch (alt61) {
                 case 1 :
-                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3009:1: (lv_arguments_2_0= ruleDefinitionArgumentList )
+                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3022:1: (lv_arguments_2_0= ruleDefinitionArgumentList )
                     {
-                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3009:1: (lv_arguments_2_0= ruleDefinitionArgumentList )
-                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3010:3: lv_arguments_2_0= ruleDefinitionArgumentList
+                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3022:1: (lv_arguments_2_0= ruleDefinitionArgumentList )
+                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3023:3: lv_arguments_2_0= ruleDefinitionArgumentList
                     {
                     if ( state.backtracking==0 ) {
                        
                       	        newCompositeNode(grammarAccess.getHostClassDefinitionAccess().getArgumentsDefinitionArgumentListParserRuleCall_2_0()); 
                       	    
                     }
-                    pushFollow(FOLLOW_ruleDefinitionArgumentList_in_ruleHostClassDefinition6526);
+                    pushFollow(FOLLOW_ruleDefinitionArgumentList_in_ruleHostClassDefinition6556);
                     lv_arguments_2_0=ruleDefinitionArgumentList();
 
                     state._fsp--;
@@ -8936,35 +8967,35 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
 
             }
 
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3026:3: (otherlv_3= KEYWORD_62 ( (lv_parent_4_0= ruleParentName ) ) )?
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3039:3: (otherlv_3= KEYWORD_63 ( (lv_parent_4_0= ruleParentName ) ) )?
             int alt62=2;
             int LA62_0 = input.LA(1);
 
-            if ( (LA62_0==KEYWORD_62) ) {
+            if ( (LA62_0==KEYWORD_63) ) {
                 alt62=1;
             }
             switch (alt62) {
                 case 1 :
-                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3027:2: otherlv_3= KEYWORD_62 ( (lv_parent_4_0= ruleParentName ) )
+                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3040:2: otherlv_3= KEYWORD_63 ( (lv_parent_4_0= ruleParentName ) )
                     {
-                    otherlv_3=(Token)match(input,KEYWORD_62,FOLLOW_KEYWORD_62_in_ruleHostClassDefinition6541); if (state.failed) return current;
+                    otherlv_3=(Token)match(input,KEYWORD_63,FOLLOW_KEYWORD_63_in_ruleHostClassDefinition6571); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                           	newLeafNode(otherlv_3, grammarAccess.getHostClassDefinitionAccess().getInheritsKeyword_3_0());
                           
                     }
-                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3031:1: ( (lv_parent_4_0= ruleParentName ) )
-                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3032:1: (lv_parent_4_0= ruleParentName )
+                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3044:1: ( (lv_parent_4_0= ruleParentName ) )
+                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3045:1: (lv_parent_4_0= ruleParentName )
                     {
-                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3032:1: (lv_parent_4_0= ruleParentName )
-                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3033:3: lv_parent_4_0= ruleParentName
+                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3045:1: (lv_parent_4_0= ruleParentName )
+                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3046:3: lv_parent_4_0= ruleParentName
                     {
                     if ( state.backtracking==0 ) {
                        
                       	        newCompositeNode(grammarAccess.getHostClassDefinitionAccess().getParentParentNameParserRuleCall_3_1_0()); 
                       	    
                     }
-                    pushFollow(FOLLOW_ruleParentName_in_ruleHostClassDefinition6561);
+                    pushFollow(FOLLOW_ruleParentName_in_ruleHostClassDefinition6591);
                     lv_parent_4_0=ruleParentName();
 
                     state._fsp--;
@@ -8994,36 +9025,36 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
 
             }
 
-            otherlv_5=(Token)match(input,KEYWORD_20,FOLLOW_KEYWORD_20_in_ruleHostClassDefinition6576); if (state.failed) return current;
+            otherlv_5=(Token)match(input,KEYWORD_20,FOLLOW_KEYWORD_20_in_ruleHostClassDefinition6606); if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
                   	newLeafNode(otherlv_5, grammarAccess.getHostClassDefinitionAccess().getLeftCurlyBracketKeyword_4());
                   
             }
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3054:1: ( (lv_statements_6_0= ruleExpressionList ) )*
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3067:1: ( (lv_statements_6_0= ruleExpressionList ) )*
             loop63:
             do {
                 int alt63=2;
                 int LA63_0 = input.LA(1);
 
-                if ( ((LA63_0>=KEYWORD_61 && LA63_0<=KEYWORD_55)||(LA63_0>=KEYWORD_57 && LA63_0<=KEYWORD_51)||(LA63_0>=KEYWORD_53 && LA63_0<=KEYWORD_54)||LA63_0==KEYWORD_24||LA63_0==KEYWORD_42||(LA63_0>=KEYWORD_1 && LA63_0<=KEYWORD_4)||LA63_0==KEYWORD_9||(LA63_0>=KEYWORD_17 && LA63_0<=KEYWORD_18)||LA63_0==KEYWORD_20||(LA63_0>=RULE_DOLLAR_VAR && LA63_0<=RULE_WORD_CHARS)||LA63_0==RULE_REGULAR_EXPRESSION) ) {
+                if ( ((LA63_0>=KEYWORD_62 && LA63_0<=KEYWORD_55)||(LA63_0>=KEYWORD_57 && LA63_0<=KEYWORD_51)||(LA63_0>=KEYWORD_53 && LA63_0<=KEYWORD_54)||LA63_0==KEYWORD_24||LA63_0==KEYWORD_42||(LA63_0>=KEYWORD_1 && LA63_0<=KEYWORD_4)||LA63_0==KEYWORD_9||(LA63_0>=KEYWORD_17 && LA63_0<=KEYWORD_18)||LA63_0==KEYWORD_20||(LA63_0>=RULE_DOLLAR_VAR && LA63_0<=RULE_WORD_CHARS)||LA63_0==RULE_REGULAR_EXPRESSION) ) {
                     alt63=1;
                 }
 
 
                 switch (alt63) {
             	case 1 :
-            	    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3055:1: (lv_statements_6_0= ruleExpressionList )
+            	    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3068:1: (lv_statements_6_0= ruleExpressionList )
             	    {
-            	    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3055:1: (lv_statements_6_0= ruleExpressionList )
-            	    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3056:3: lv_statements_6_0= ruleExpressionList
+            	    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3068:1: (lv_statements_6_0= ruleExpressionList )
+            	    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3069:3: lv_statements_6_0= ruleExpressionList
             	    {
             	    if ( state.backtracking==0 ) {
             	       
             	      	        newCompositeNode(grammarAccess.getHostClassDefinitionAccess().getStatementsExpressionListParserRuleCall_5_0()); 
             	      	    
             	    }
-            	    pushFollow(FOLLOW_ruleExpressionList_in_ruleHostClassDefinition6596);
+            	    pushFollow(FOLLOW_ruleExpressionList_in_ruleHostClassDefinition6626);
             	    lv_statements_6_0=ruleExpressionList();
 
             	    state._fsp--;
@@ -9053,7 +9084,7 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
                 }
             } while (true);
 
-            otherlv_7=(Token)match(input,KEYWORD_21,FOLLOW_KEYWORD_21_in_ruleHostClassDefinition6610); if (state.failed) return current;
+            otherlv_7=(Token)match(input,KEYWORD_21,FOLLOW_KEYWORD_21_in_ruleHostClassDefinition6640); if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
                   	newLeafNode(otherlv_7, grammarAccess.getHostClassDefinitionAccess().getRightCurlyBracketKeyword_6());
@@ -9082,7 +9113,7 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleParentName"
-    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3085:1: entryRuleParentName returns [EObject current=null] : iv_ruleParentName= ruleParentName EOF ;
+    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3098:1: entryRuleParentName returns [EObject current=null] : iv_ruleParentName= ruleParentName EOF ;
     public final EObject entryRuleParentName() throws RecognitionException {
         EObject current = null;
 
@@ -9090,13 +9121,13 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3086:2: (iv_ruleParentName= ruleParentName EOF )
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3087:2: iv_ruleParentName= ruleParentName EOF
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3099:2: (iv_ruleParentName= ruleParentName EOF )
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3100:2: iv_ruleParentName= ruleParentName EOF
             {
             if ( state.backtracking==0 ) {
                newCompositeNode(grammarAccess.getParentNameRule()); 
             }
-            pushFollow(FOLLOW_ruleParentName_in_entryRuleParentName6644);
+            pushFollow(FOLLOW_ruleParentName_in_entryRuleParentName6674);
             iv_ruleParentName=ruleParentName();
 
             state._fsp--;
@@ -9104,7 +9135,7 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
             if ( state.backtracking==0 ) {
                current =iv_ruleParentName; 
             }
-            match(input,EOF,FOLLOW_EOF_in_entryRuleParentName6654); if (state.failed) return current;
+            match(input,EOF,FOLLOW_EOF_in_entryRuleParentName6684); if (state.failed) return current;
 
             }
 
@@ -9122,7 +9153,7 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleParentName"
-    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3094:1: ruleParentName returns [EObject current=null] : (this_LiteralDefault_0= ruleLiteralDefault | this_LiteralClass_1= ruleLiteralClass | this_LiteralNameOrReference_2= ruleLiteralNameOrReference ) ;
+    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3107:1: ruleParentName returns [EObject current=null] : (this_LiteralDefault_0= ruleLiteralDefault | this_LiteralClass_1= ruleLiteralClass | this_LiteralNameOrReference_2= ruleLiteralNameOrReference ) ;
     public final EObject ruleParentName() throws RecognitionException {
         EObject current = null;
 
@@ -9136,13 +9167,13 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3097:28: ( (this_LiteralDefault_0= ruleLiteralDefault | this_LiteralClass_1= ruleLiteralClass | this_LiteralNameOrReference_2= ruleLiteralNameOrReference ) )
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3098:1: (this_LiteralDefault_0= ruleLiteralDefault | this_LiteralClass_1= ruleLiteralClass | this_LiteralNameOrReference_2= ruleLiteralNameOrReference )
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3110:28: ( (this_LiteralDefault_0= ruleLiteralDefault | this_LiteralClass_1= ruleLiteralClass | this_LiteralNameOrReference_2= ruleLiteralNameOrReference ) )
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3111:1: (this_LiteralDefault_0= ruleLiteralDefault | this_LiteralClass_1= ruleLiteralClass | this_LiteralNameOrReference_2= ruleLiteralNameOrReference )
             {
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3098:1: (this_LiteralDefault_0= ruleLiteralDefault | this_LiteralClass_1= ruleLiteralClass | this_LiteralNameOrReference_2= ruleLiteralNameOrReference )
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3111:1: (this_LiteralDefault_0= ruleLiteralDefault | this_LiteralClass_1= ruleLiteralClass | this_LiteralNameOrReference_2= ruleLiteralNameOrReference )
             int alt64=3;
             switch ( input.LA(1) ) {
-            case KEYWORD_61:
+            case KEYWORD_62:
                 {
                 alt64=1;
                 }
@@ -9167,7 +9198,7 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
 
             switch (alt64) {
                 case 1 :
-                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3099:2: this_LiteralDefault_0= ruleLiteralDefault
+                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3112:2: this_LiteralDefault_0= ruleLiteralDefault
                     {
                     if ( state.backtracking==0 ) {
                        
@@ -9179,7 +9210,7 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
                               newCompositeNode(grammarAccess.getParentNameAccess().getLiteralDefaultParserRuleCall_0()); 
                           
                     }
-                    pushFollow(FOLLOW_ruleLiteralDefault_in_ruleParentName6704);
+                    pushFollow(FOLLOW_ruleLiteralDefault_in_ruleParentName6734);
                     this_LiteralDefault_0=ruleLiteralDefault();
 
                     state._fsp--;
@@ -9194,7 +9225,7 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 2 :
-                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3112:2: this_LiteralClass_1= ruleLiteralClass
+                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3125:2: this_LiteralClass_1= ruleLiteralClass
                     {
                     if ( state.backtracking==0 ) {
                        
@@ -9206,7 +9237,7 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
                               newCompositeNode(grammarAccess.getParentNameAccess().getLiteralClassParserRuleCall_1()); 
                           
                     }
-                    pushFollow(FOLLOW_ruleLiteralClass_in_ruleParentName6734);
+                    pushFollow(FOLLOW_ruleLiteralClass_in_ruleParentName6764);
                     this_LiteralClass_1=ruleLiteralClass();
 
                     state._fsp--;
@@ -9221,7 +9252,7 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 3 :
-                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3125:2: this_LiteralNameOrReference_2= ruleLiteralNameOrReference
+                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3138:2: this_LiteralNameOrReference_2= ruleLiteralNameOrReference
                     {
                     if ( state.backtracking==0 ) {
                        
@@ -9233,7 +9264,7 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
                               newCompositeNode(grammarAccess.getParentNameAccess().getLiteralNameOrReferenceParserRuleCall_2()); 
                           
                     }
-                    pushFollow(FOLLOW_ruleLiteralNameOrReference_in_ruleParentName6764);
+                    pushFollow(FOLLOW_ruleLiteralNameOrReference_in_ruleParentName6794);
                     this_LiteralNameOrReference_2=ruleLiteralNameOrReference();
 
                     state._fsp--;
@@ -9270,7 +9301,7 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleDefinition"
-    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3144:1: entryRuleDefinition returns [EObject current=null] : iv_ruleDefinition= ruleDefinition EOF ;
+    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3157:1: entryRuleDefinition returns [EObject current=null] : iv_ruleDefinition= ruleDefinition EOF ;
     public final EObject entryRuleDefinition() throws RecognitionException {
         EObject current = null;
 
@@ -9278,13 +9309,13 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3145:2: (iv_ruleDefinition= ruleDefinition EOF )
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3146:2: iv_ruleDefinition= ruleDefinition EOF
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3158:2: (iv_ruleDefinition= ruleDefinition EOF )
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3159:2: iv_ruleDefinition= ruleDefinition EOF
             {
             if ( state.backtracking==0 ) {
                newCompositeNode(grammarAccess.getDefinitionRule()); 
             }
-            pushFollow(FOLLOW_ruleDefinition_in_entryRuleDefinition6798);
+            pushFollow(FOLLOW_ruleDefinition_in_entryRuleDefinition6828);
             iv_ruleDefinition=ruleDefinition();
 
             state._fsp--;
@@ -9292,7 +9323,7 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
             if ( state.backtracking==0 ) {
                current =iv_ruleDefinition; 
             }
-            match(input,EOF,FOLLOW_EOF_in_entryRuleDefinition6808); if (state.failed) return current;
+            match(input,EOF,FOLLOW_EOF_in_entryRuleDefinition6838); if (state.failed) return current;
 
             }
 
@@ -9310,7 +9341,7 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleDefinition"
-    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3153:1: ruleDefinition returns [EObject current=null] : (otherlv_0= KEYWORD_59 ( (lv_className_1_0= ruleclassname ) ) ( (lv_arguments_2_0= ruleDefinitionArgumentList ) )? otherlv_3= KEYWORD_20 ( (lv_statements_4_0= ruleExpressionList ) )* otherlv_5= KEYWORD_21 ) ;
+    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3166:1: ruleDefinition returns [EObject current=null] : (otherlv_0= KEYWORD_59 ( (lv_className_1_0= ruleclassname ) ) ( (lv_arguments_2_0= ruleDefinitionArgumentList ) )? otherlv_3= KEYWORD_20 ( (lv_statements_4_0= ruleExpressionList ) )* otherlv_5= KEYWORD_21 ) ;
     public final EObject ruleDefinition() throws RecognitionException {
         EObject current = null;
 
@@ -9327,30 +9358,30 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3156:28: ( (otherlv_0= KEYWORD_59 ( (lv_className_1_0= ruleclassname ) ) ( (lv_arguments_2_0= ruleDefinitionArgumentList ) )? otherlv_3= KEYWORD_20 ( (lv_statements_4_0= ruleExpressionList ) )* otherlv_5= KEYWORD_21 ) )
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3157:1: (otherlv_0= KEYWORD_59 ( (lv_className_1_0= ruleclassname ) ) ( (lv_arguments_2_0= ruleDefinitionArgumentList ) )? otherlv_3= KEYWORD_20 ( (lv_statements_4_0= ruleExpressionList ) )* otherlv_5= KEYWORD_21 )
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3169:28: ( (otherlv_0= KEYWORD_59 ( (lv_className_1_0= ruleclassname ) ) ( (lv_arguments_2_0= ruleDefinitionArgumentList ) )? otherlv_3= KEYWORD_20 ( (lv_statements_4_0= ruleExpressionList ) )* otherlv_5= KEYWORD_21 ) )
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3170:1: (otherlv_0= KEYWORD_59 ( (lv_className_1_0= ruleclassname ) ) ( (lv_arguments_2_0= ruleDefinitionArgumentList ) )? otherlv_3= KEYWORD_20 ( (lv_statements_4_0= ruleExpressionList ) )* otherlv_5= KEYWORD_21 )
             {
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3157:1: (otherlv_0= KEYWORD_59 ( (lv_className_1_0= ruleclassname ) ) ( (lv_arguments_2_0= ruleDefinitionArgumentList ) )? otherlv_3= KEYWORD_20 ( (lv_statements_4_0= ruleExpressionList ) )* otherlv_5= KEYWORD_21 )
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3158:2: otherlv_0= KEYWORD_59 ( (lv_className_1_0= ruleclassname ) ) ( (lv_arguments_2_0= ruleDefinitionArgumentList ) )? otherlv_3= KEYWORD_20 ( (lv_statements_4_0= ruleExpressionList ) )* otherlv_5= KEYWORD_21
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3170:1: (otherlv_0= KEYWORD_59 ( (lv_className_1_0= ruleclassname ) ) ( (lv_arguments_2_0= ruleDefinitionArgumentList ) )? otherlv_3= KEYWORD_20 ( (lv_statements_4_0= ruleExpressionList ) )* otherlv_5= KEYWORD_21 )
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3171:2: otherlv_0= KEYWORD_59 ( (lv_className_1_0= ruleclassname ) ) ( (lv_arguments_2_0= ruleDefinitionArgumentList ) )? otherlv_3= KEYWORD_20 ( (lv_statements_4_0= ruleExpressionList ) )* otherlv_5= KEYWORD_21
             {
-            otherlv_0=(Token)match(input,KEYWORD_59,FOLLOW_KEYWORD_59_in_ruleDefinition6846); if (state.failed) return current;
+            otherlv_0=(Token)match(input,KEYWORD_59,FOLLOW_KEYWORD_59_in_ruleDefinition6876); if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
                   	newLeafNode(otherlv_0, grammarAccess.getDefinitionAccess().getDefineKeyword_0());
                   
             }
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3162:1: ( (lv_className_1_0= ruleclassname ) )
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3163:1: (lv_className_1_0= ruleclassname )
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3175:1: ( (lv_className_1_0= ruleclassname ) )
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3176:1: (lv_className_1_0= ruleclassname )
             {
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3163:1: (lv_className_1_0= ruleclassname )
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3164:3: lv_className_1_0= ruleclassname
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3176:1: (lv_className_1_0= ruleclassname )
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3177:3: lv_className_1_0= ruleclassname
             {
             if ( state.backtracking==0 ) {
                
               	        newCompositeNode(grammarAccess.getDefinitionAccess().getClassNameClassnameParserRuleCall_1_0()); 
               	    
             }
-            pushFollow(FOLLOW_ruleclassname_in_ruleDefinition6866);
+            pushFollow(FOLLOW_ruleclassname_in_ruleDefinition6896);
             lv_className_1_0=ruleclassname();
 
             state._fsp--;
@@ -9374,7 +9405,7 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
 
             }
 
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3180:2: ( (lv_arguments_2_0= ruleDefinitionArgumentList ) )?
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3193:2: ( (lv_arguments_2_0= ruleDefinitionArgumentList ) )?
             int alt65=2;
             int LA65_0 = input.LA(1);
 
@@ -9383,17 +9414,17 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
             }
             switch (alt65) {
                 case 1 :
-                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3181:1: (lv_arguments_2_0= ruleDefinitionArgumentList )
+                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3194:1: (lv_arguments_2_0= ruleDefinitionArgumentList )
                     {
-                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3181:1: (lv_arguments_2_0= ruleDefinitionArgumentList )
-                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3182:3: lv_arguments_2_0= ruleDefinitionArgumentList
+                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3194:1: (lv_arguments_2_0= ruleDefinitionArgumentList )
+                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3195:3: lv_arguments_2_0= ruleDefinitionArgumentList
                     {
                     if ( state.backtracking==0 ) {
                        
                       	        newCompositeNode(grammarAccess.getDefinitionAccess().getArgumentsDefinitionArgumentListParserRuleCall_2_0()); 
                       	    
                     }
-                    pushFollow(FOLLOW_ruleDefinitionArgumentList_in_ruleDefinition6887);
+                    pushFollow(FOLLOW_ruleDefinitionArgumentList_in_ruleDefinition6917);
                     lv_arguments_2_0=ruleDefinitionArgumentList();
 
                     state._fsp--;
@@ -9420,36 +9451,36 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
 
             }
 
-            otherlv_3=(Token)match(input,KEYWORD_20,FOLLOW_KEYWORD_20_in_ruleDefinition6901); if (state.failed) return current;
+            otherlv_3=(Token)match(input,KEYWORD_20,FOLLOW_KEYWORD_20_in_ruleDefinition6931); if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
                   	newLeafNode(otherlv_3, grammarAccess.getDefinitionAccess().getLeftCurlyBracketKeyword_3());
                   
             }
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3203:1: ( (lv_statements_4_0= ruleExpressionList ) )*
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3216:1: ( (lv_statements_4_0= ruleExpressionList ) )*
             loop66:
             do {
                 int alt66=2;
                 int LA66_0 = input.LA(1);
 
-                if ( ((LA66_0>=KEYWORD_61 && LA66_0<=KEYWORD_55)||(LA66_0>=KEYWORD_57 && LA66_0<=KEYWORD_51)||(LA66_0>=KEYWORD_53 && LA66_0<=KEYWORD_54)||LA66_0==KEYWORD_24||LA66_0==KEYWORD_42||(LA66_0>=KEYWORD_1 && LA66_0<=KEYWORD_4)||LA66_0==KEYWORD_9||(LA66_0>=KEYWORD_17 && LA66_0<=KEYWORD_18)||LA66_0==KEYWORD_20||(LA66_0>=RULE_DOLLAR_VAR && LA66_0<=RULE_WORD_CHARS)||LA66_0==RULE_REGULAR_EXPRESSION) ) {
+                if ( ((LA66_0>=KEYWORD_62 && LA66_0<=KEYWORD_55)||(LA66_0>=KEYWORD_57 && LA66_0<=KEYWORD_51)||(LA66_0>=KEYWORD_53 && LA66_0<=KEYWORD_54)||LA66_0==KEYWORD_24||LA66_0==KEYWORD_42||(LA66_0>=KEYWORD_1 && LA66_0<=KEYWORD_4)||LA66_0==KEYWORD_9||(LA66_0>=KEYWORD_17 && LA66_0<=KEYWORD_18)||LA66_0==KEYWORD_20||(LA66_0>=RULE_DOLLAR_VAR && LA66_0<=RULE_WORD_CHARS)||LA66_0==RULE_REGULAR_EXPRESSION) ) {
                     alt66=1;
                 }
 
 
                 switch (alt66) {
             	case 1 :
-            	    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3204:1: (lv_statements_4_0= ruleExpressionList )
+            	    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3217:1: (lv_statements_4_0= ruleExpressionList )
             	    {
-            	    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3204:1: (lv_statements_4_0= ruleExpressionList )
-            	    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3205:3: lv_statements_4_0= ruleExpressionList
+            	    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3217:1: (lv_statements_4_0= ruleExpressionList )
+            	    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3218:3: lv_statements_4_0= ruleExpressionList
             	    {
             	    if ( state.backtracking==0 ) {
             	       
             	      	        newCompositeNode(grammarAccess.getDefinitionAccess().getStatementsExpressionListParserRuleCall_4_0()); 
             	      	    
             	    }
-            	    pushFollow(FOLLOW_ruleExpressionList_in_ruleDefinition6921);
+            	    pushFollow(FOLLOW_ruleExpressionList_in_ruleDefinition6951);
             	    lv_statements_4_0=ruleExpressionList();
 
             	    state._fsp--;
@@ -9479,7 +9510,7 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
                 }
             } while (true);
 
-            otherlv_5=(Token)match(input,KEYWORD_21,FOLLOW_KEYWORD_21_in_ruleDefinition6935); if (state.failed) return current;
+            otherlv_5=(Token)match(input,KEYWORD_21,FOLLOW_KEYWORD_21_in_ruleDefinition6965); if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
                   	newLeafNode(otherlv_5, grammarAccess.getDefinitionAccess().getRightCurlyBracketKeyword_5());
@@ -9508,7 +9539,7 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleDefinitionArgumentList"
-    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3234:1: entryRuleDefinitionArgumentList returns [EObject current=null] : iv_ruleDefinitionArgumentList= ruleDefinitionArgumentList EOF ;
+    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3247:1: entryRuleDefinitionArgumentList returns [EObject current=null] : iv_ruleDefinitionArgumentList= ruleDefinitionArgumentList EOF ;
     public final EObject entryRuleDefinitionArgumentList() throws RecognitionException {
         EObject current = null;
 
@@ -9516,13 +9547,13 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3235:2: (iv_ruleDefinitionArgumentList= ruleDefinitionArgumentList EOF )
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3236:2: iv_ruleDefinitionArgumentList= ruleDefinitionArgumentList EOF
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3248:2: (iv_ruleDefinitionArgumentList= ruleDefinitionArgumentList EOF )
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3249:2: iv_ruleDefinitionArgumentList= ruleDefinitionArgumentList EOF
             {
             if ( state.backtracking==0 ) {
                newCompositeNode(grammarAccess.getDefinitionArgumentListRule()); 
             }
-            pushFollow(FOLLOW_ruleDefinitionArgumentList_in_entryRuleDefinitionArgumentList6969);
+            pushFollow(FOLLOW_ruleDefinitionArgumentList_in_entryRuleDefinitionArgumentList6999);
             iv_ruleDefinitionArgumentList=ruleDefinitionArgumentList();
 
             state._fsp--;
@@ -9530,7 +9561,7 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
             if ( state.backtracking==0 ) {
                current =iv_ruleDefinitionArgumentList; 
             }
-            match(input,EOF,FOLLOW_EOF_in_entryRuleDefinitionArgumentList6979); if (state.failed) return current;
+            match(input,EOF,FOLLOW_EOF_in_entryRuleDefinitionArgumentList7009); if (state.failed) return current;
 
             }
 
@@ -9548,7 +9579,7 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleDefinitionArgumentList"
-    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3243:1: ruleDefinitionArgumentList returns [EObject current=null] : ( () otherlv_1= KEYWORD_4 ( ( (lv_arguments_2_0= ruleDefinitionArgument ) ) (otherlv_3= KEYWORD_8 ( (lv_arguments_4_0= ruleDefinitionArgument ) ) )* )? (otherlv_5= KEYWORD_8 )? otherlv_6= KEYWORD_5 ) ;
+    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3256:1: ruleDefinitionArgumentList returns [EObject current=null] : ( () otherlv_1= KEYWORD_4 ( ( (lv_arguments_2_0= ruleDefinitionArgument ) ) (otherlv_3= KEYWORD_8 ( (lv_arguments_4_0= ruleDefinitionArgument ) ) )* )? (otherlv_5= KEYWORD_8 )? otherlv_6= KEYWORD_5 ) ;
     public final EObject ruleDefinitionArgumentList() throws RecognitionException {
         EObject current = null;
 
@@ -9564,14 +9595,14 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3246:28: ( ( () otherlv_1= KEYWORD_4 ( ( (lv_arguments_2_0= ruleDefinitionArgument ) ) (otherlv_3= KEYWORD_8 ( (lv_arguments_4_0= ruleDefinitionArgument ) ) )* )? (otherlv_5= KEYWORD_8 )? otherlv_6= KEYWORD_5 ) )
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3247:1: ( () otherlv_1= KEYWORD_4 ( ( (lv_arguments_2_0= ruleDefinitionArgument ) ) (otherlv_3= KEYWORD_8 ( (lv_arguments_4_0= ruleDefinitionArgument ) ) )* )? (otherlv_5= KEYWORD_8 )? otherlv_6= KEYWORD_5 )
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3259:28: ( ( () otherlv_1= KEYWORD_4 ( ( (lv_arguments_2_0= ruleDefinitionArgument ) ) (otherlv_3= KEYWORD_8 ( (lv_arguments_4_0= ruleDefinitionArgument ) ) )* )? (otherlv_5= KEYWORD_8 )? otherlv_6= KEYWORD_5 ) )
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3260:1: ( () otherlv_1= KEYWORD_4 ( ( (lv_arguments_2_0= ruleDefinitionArgument ) ) (otherlv_3= KEYWORD_8 ( (lv_arguments_4_0= ruleDefinitionArgument ) ) )* )? (otherlv_5= KEYWORD_8 )? otherlv_6= KEYWORD_5 )
             {
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3247:1: ( () otherlv_1= KEYWORD_4 ( ( (lv_arguments_2_0= ruleDefinitionArgument ) ) (otherlv_3= KEYWORD_8 ( (lv_arguments_4_0= ruleDefinitionArgument ) ) )* )? (otherlv_5= KEYWORD_8 )? otherlv_6= KEYWORD_5 )
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3247:2: () otherlv_1= KEYWORD_4 ( ( (lv_arguments_2_0= ruleDefinitionArgument ) ) (otherlv_3= KEYWORD_8 ( (lv_arguments_4_0= ruleDefinitionArgument ) ) )* )? (otherlv_5= KEYWORD_8 )? otherlv_6= KEYWORD_5
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3260:1: ( () otherlv_1= KEYWORD_4 ( ( (lv_arguments_2_0= ruleDefinitionArgument ) ) (otherlv_3= KEYWORD_8 ( (lv_arguments_4_0= ruleDefinitionArgument ) ) )* )? (otherlv_5= KEYWORD_8 )? otherlv_6= KEYWORD_5 )
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3260:2: () otherlv_1= KEYWORD_4 ( ( (lv_arguments_2_0= ruleDefinitionArgument ) ) (otherlv_3= KEYWORD_8 ( (lv_arguments_4_0= ruleDefinitionArgument ) ) )* )? (otherlv_5= KEYWORD_8 )? otherlv_6= KEYWORD_5
             {
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3247:2: ()
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3248:2: 
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3260:2: ()
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3261:2: 
             {
             if ( state.backtracking==0 ) {
                
@@ -9588,13 +9619,13 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
 
             }
 
-            otherlv_1=(Token)match(input,KEYWORD_4,FOLLOW_KEYWORD_4_in_ruleDefinitionArgumentList7029); if (state.failed) return current;
+            otherlv_1=(Token)match(input,KEYWORD_4,FOLLOW_KEYWORD_4_in_ruleDefinitionArgumentList7059); if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
                   	newLeafNode(otherlv_1, grammarAccess.getDefinitionArgumentListAccess().getLeftParenthesisKeyword_1());
                   
             }
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3261:1: ( ( (lv_arguments_2_0= ruleDefinitionArgument ) ) (otherlv_3= KEYWORD_8 ( (lv_arguments_4_0= ruleDefinitionArgument ) ) )* )?
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3274:1: ( ( (lv_arguments_2_0= ruleDefinitionArgument ) ) (otherlv_3= KEYWORD_8 ( (lv_arguments_4_0= ruleDefinitionArgument ) ) )* )?
             int alt68=2;
             int LA68_0 = input.LA(1);
 
@@ -9603,20 +9634,20 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
             }
             switch (alt68) {
                 case 1 :
-                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3261:2: ( (lv_arguments_2_0= ruleDefinitionArgument ) ) (otherlv_3= KEYWORD_8 ( (lv_arguments_4_0= ruleDefinitionArgument ) ) )*
+                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3274:2: ( (lv_arguments_2_0= ruleDefinitionArgument ) ) (otherlv_3= KEYWORD_8 ( (lv_arguments_4_0= ruleDefinitionArgument ) ) )*
                     {
-                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3261:2: ( (lv_arguments_2_0= ruleDefinitionArgument ) )
-                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3262:1: (lv_arguments_2_0= ruleDefinitionArgument )
+                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3274:2: ( (lv_arguments_2_0= ruleDefinitionArgument ) )
+                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3275:1: (lv_arguments_2_0= ruleDefinitionArgument )
                     {
-                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3262:1: (lv_arguments_2_0= ruleDefinitionArgument )
-                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3263:3: lv_arguments_2_0= ruleDefinitionArgument
+                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3275:1: (lv_arguments_2_0= ruleDefinitionArgument )
+                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3276:3: lv_arguments_2_0= ruleDefinitionArgument
                     {
                     if ( state.backtracking==0 ) {
                        
                       	        newCompositeNode(grammarAccess.getDefinitionArgumentListAccess().getArgumentsDefinitionArgumentParserRuleCall_2_0_0()); 
                       	    
                     }
-                    pushFollow(FOLLOW_ruleDefinitionArgument_in_ruleDefinitionArgumentList7050);
+                    pushFollow(FOLLOW_ruleDefinitionArgument_in_ruleDefinitionArgumentList7080);
                     lv_arguments_2_0=ruleDefinitionArgument();
 
                     state._fsp--;
@@ -9640,7 +9671,7 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
 
                     }
 
-                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3279:2: (otherlv_3= KEYWORD_8 ( (lv_arguments_4_0= ruleDefinitionArgument ) ) )*
+                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3292:2: (otherlv_3= KEYWORD_8 ( (lv_arguments_4_0= ruleDefinitionArgument ) ) )*
                     loop67:
                     do {
                         int alt67=2;
@@ -9659,26 +9690,26 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
 
                         switch (alt67) {
                     	case 1 :
-                    	    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3280:2: otherlv_3= KEYWORD_8 ( (lv_arguments_4_0= ruleDefinitionArgument ) )
+                    	    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3293:2: otherlv_3= KEYWORD_8 ( (lv_arguments_4_0= ruleDefinitionArgument ) )
                     	    {
-                    	    otherlv_3=(Token)match(input,KEYWORD_8,FOLLOW_KEYWORD_8_in_ruleDefinitionArgumentList7064); if (state.failed) return current;
+                    	    otherlv_3=(Token)match(input,KEYWORD_8,FOLLOW_KEYWORD_8_in_ruleDefinitionArgumentList7094); if (state.failed) return current;
                     	    if ( state.backtracking==0 ) {
 
                     	          	newLeafNode(otherlv_3, grammarAccess.getDefinitionArgumentListAccess().getCommaKeyword_2_1_0());
                     	          
                     	    }
-                    	    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3284:1: ( (lv_arguments_4_0= ruleDefinitionArgument ) )
-                    	    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3285:1: (lv_arguments_4_0= ruleDefinitionArgument )
+                    	    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3297:1: ( (lv_arguments_4_0= ruleDefinitionArgument ) )
+                    	    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3298:1: (lv_arguments_4_0= ruleDefinitionArgument )
                     	    {
-                    	    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3285:1: (lv_arguments_4_0= ruleDefinitionArgument )
-                    	    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3286:3: lv_arguments_4_0= ruleDefinitionArgument
+                    	    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3298:1: (lv_arguments_4_0= ruleDefinitionArgument )
+                    	    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3299:3: lv_arguments_4_0= ruleDefinitionArgument
                     	    {
                     	    if ( state.backtracking==0 ) {
                     	       
                     	      	        newCompositeNode(grammarAccess.getDefinitionArgumentListAccess().getArgumentsDefinitionArgumentParserRuleCall_2_1_1_0()); 
                     	      	    
                     	    }
-                    	    pushFollow(FOLLOW_ruleDefinitionArgument_in_ruleDefinitionArgumentList7084);
+                    	    pushFollow(FOLLOW_ruleDefinitionArgument_in_ruleDefinitionArgumentList7114);
                     	    lv_arguments_4_0=ruleDefinitionArgument();
 
                     	    state._fsp--;
@@ -9717,7 +9748,7 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
 
             }
 
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3302:6: (otherlv_5= KEYWORD_8 )?
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3315:6: (otherlv_5= KEYWORD_8 )?
             int alt69=2;
             int LA69_0 = input.LA(1);
 
@@ -9726,9 +9757,9 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
             }
             switch (alt69) {
                 case 1 :
-                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3303:2: otherlv_5= KEYWORD_8
+                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3316:2: otherlv_5= KEYWORD_8
                     {
-                    otherlv_5=(Token)match(input,KEYWORD_8,FOLLOW_KEYWORD_8_in_ruleDefinitionArgumentList7102); if (state.failed) return current;
+                    otherlv_5=(Token)match(input,KEYWORD_8,FOLLOW_KEYWORD_8_in_ruleDefinitionArgumentList7132); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                           	newLeafNode(otherlv_5, grammarAccess.getDefinitionArgumentListAccess().getCommaKeyword_3());
@@ -9740,7 +9771,7 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
 
             }
 
-            otherlv_6=(Token)match(input,KEYWORD_5,FOLLOW_KEYWORD_5_in_ruleDefinitionArgumentList7116); if (state.failed) return current;
+            otherlv_6=(Token)match(input,KEYWORD_5,FOLLOW_KEYWORD_5_in_ruleDefinitionArgumentList7146); if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
                   	newLeafNode(otherlv_6, grammarAccess.getDefinitionArgumentListAccess().getRightParenthesisKeyword_4());
@@ -9769,7 +9800,7 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleDefinitionArgument"
-    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3320:1: entryRuleDefinitionArgument returns [EObject current=null] : iv_ruleDefinitionArgument= ruleDefinitionArgument EOF ;
+    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3333:1: entryRuleDefinitionArgument returns [EObject current=null] : iv_ruleDefinitionArgument= ruleDefinitionArgument EOF ;
     public final EObject entryRuleDefinitionArgument() throws RecognitionException {
         EObject current = null;
 
@@ -9777,13 +9808,13 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3321:2: (iv_ruleDefinitionArgument= ruleDefinitionArgument EOF )
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3322:2: iv_ruleDefinitionArgument= ruleDefinitionArgument EOF
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3334:2: (iv_ruleDefinitionArgument= ruleDefinitionArgument EOF )
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3335:2: iv_ruleDefinitionArgument= ruleDefinitionArgument EOF
             {
             if ( state.backtracking==0 ) {
                newCompositeNode(grammarAccess.getDefinitionArgumentRule()); 
             }
-            pushFollow(FOLLOW_ruleDefinitionArgument_in_entryRuleDefinitionArgument7150);
+            pushFollow(FOLLOW_ruleDefinitionArgument_in_entryRuleDefinitionArgument7180);
             iv_ruleDefinitionArgument=ruleDefinitionArgument();
 
             state._fsp--;
@@ -9791,7 +9822,7 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
             if ( state.backtracking==0 ) {
                current =iv_ruleDefinitionArgument; 
             }
-            match(input,EOF,FOLLOW_EOF_in_entryRuleDefinitionArgument7160); if (state.failed) return current;
+            match(input,EOF,FOLLOW_EOF_in_entryRuleDefinitionArgument7190); if (state.failed) return current;
 
             }
 
@@ -9809,7 +9840,7 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleDefinitionArgument"
-    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3329:1: ruleDefinitionArgument returns [EObject current=null] : ( ( (lv_argName_0_0= ruleUNION_VARIABLE_OR_NAME ) ) ( ( ( (lv_op_1_0= KEYWORD_14 ) ) | ( (lv_op_2_0= KEYWORD_34 ) ) ) ( (lv_value_3_0= ruleAssignmentExpression ) ) )? ) ;
+    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3342:1: ruleDefinitionArgument returns [EObject current=null] : ( ( (lv_argName_0_0= ruleUNION_VARIABLE_OR_NAME ) ) ( ( ( (lv_op_1_0= KEYWORD_14 ) ) | ( (lv_op_2_0= KEYWORD_34 ) ) ) ( (lv_value_3_0= ruleAssignmentExpression ) ) )? ) ;
     public final EObject ruleDefinitionArgument() throws RecognitionException {
         EObject current = null;
 
@@ -9823,24 +9854,24 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3332:28: ( ( ( (lv_argName_0_0= ruleUNION_VARIABLE_OR_NAME ) ) ( ( ( (lv_op_1_0= KEYWORD_14 ) ) | ( (lv_op_2_0= KEYWORD_34 ) ) ) ( (lv_value_3_0= ruleAssignmentExpression ) ) )? ) )
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3333:1: ( ( (lv_argName_0_0= ruleUNION_VARIABLE_OR_NAME ) ) ( ( ( (lv_op_1_0= KEYWORD_14 ) ) | ( (lv_op_2_0= KEYWORD_34 ) ) ) ( (lv_value_3_0= ruleAssignmentExpression ) ) )? )
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3345:28: ( ( ( (lv_argName_0_0= ruleUNION_VARIABLE_OR_NAME ) ) ( ( ( (lv_op_1_0= KEYWORD_14 ) ) | ( (lv_op_2_0= KEYWORD_34 ) ) ) ( (lv_value_3_0= ruleAssignmentExpression ) ) )? ) )
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3346:1: ( ( (lv_argName_0_0= ruleUNION_VARIABLE_OR_NAME ) ) ( ( ( (lv_op_1_0= KEYWORD_14 ) ) | ( (lv_op_2_0= KEYWORD_34 ) ) ) ( (lv_value_3_0= ruleAssignmentExpression ) ) )? )
             {
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3333:1: ( ( (lv_argName_0_0= ruleUNION_VARIABLE_OR_NAME ) ) ( ( ( (lv_op_1_0= KEYWORD_14 ) ) | ( (lv_op_2_0= KEYWORD_34 ) ) ) ( (lv_value_3_0= ruleAssignmentExpression ) ) )? )
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3333:2: ( (lv_argName_0_0= ruleUNION_VARIABLE_OR_NAME ) ) ( ( ( (lv_op_1_0= KEYWORD_14 ) ) | ( (lv_op_2_0= KEYWORD_34 ) ) ) ( (lv_value_3_0= ruleAssignmentExpression ) ) )?
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3346:1: ( ( (lv_argName_0_0= ruleUNION_VARIABLE_OR_NAME ) ) ( ( ( (lv_op_1_0= KEYWORD_14 ) ) | ( (lv_op_2_0= KEYWORD_34 ) ) ) ( (lv_value_3_0= ruleAssignmentExpression ) ) )? )
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3346:2: ( (lv_argName_0_0= ruleUNION_VARIABLE_OR_NAME ) ) ( ( ( (lv_op_1_0= KEYWORD_14 ) ) | ( (lv_op_2_0= KEYWORD_34 ) ) ) ( (lv_value_3_0= ruleAssignmentExpression ) ) )?
             {
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3333:2: ( (lv_argName_0_0= ruleUNION_VARIABLE_OR_NAME ) )
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3334:1: (lv_argName_0_0= ruleUNION_VARIABLE_OR_NAME )
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3346:2: ( (lv_argName_0_0= ruleUNION_VARIABLE_OR_NAME ) )
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3347:1: (lv_argName_0_0= ruleUNION_VARIABLE_OR_NAME )
             {
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3334:1: (lv_argName_0_0= ruleUNION_VARIABLE_OR_NAME )
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3335:3: lv_argName_0_0= ruleUNION_VARIABLE_OR_NAME
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3347:1: (lv_argName_0_0= ruleUNION_VARIABLE_OR_NAME )
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3348:3: lv_argName_0_0= ruleUNION_VARIABLE_OR_NAME
             {
             if ( state.backtracking==0 ) {
                
               	        newCompositeNode(grammarAccess.getDefinitionArgumentAccess().getArgNameUNION_VARIABLE_OR_NAMEParserRuleCall_0_0()); 
               	    
             }
-            pushFollow(FOLLOW_ruleUNION_VARIABLE_OR_NAME_in_ruleDefinitionArgument7206);
+            pushFollow(FOLLOW_ruleUNION_VARIABLE_OR_NAME_in_ruleDefinitionArgument7236);
             lv_argName_0_0=ruleUNION_VARIABLE_OR_NAME();
 
             state._fsp--;
@@ -9864,7 +9895,7 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
 
             }
 
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3351:2: ( ( ( (lv_op_1_0= KEYWORD_14 ) ) | ( (lv_op_2_0= KEYWORD_34 ) ) ) ( (lv_value_3_0= ruleAssignmentExpression ) ) )?
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3364:2: ( ( ( (lv_op_1_0= KEYWORD_14 ) ) | ( (lv_op_2_0= KEYWORD_34 ) ) ) ( (lv_value_3_0= ruleAssignmentExpression ) ) )?
             int alt71=2;
             int LA71_0 = input.LA(1);
 
@@ -9873,9 +9904,9 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
             }
             switch (alt71) {
                 case 1 :
-                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3351:3: ( ( (lv_op_1_0= KEYWORD_14 ) ) | ( (lv_op_2_0= KEYWORD_34 ) ) ) ( (lv_value_3_0= ruleAssignmentExpression ) )
+                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3364:3: ( ( (lv_op_1_0= KEYWORD_14 ) ) | ( (lv_op_2_0= KEYWORD_34 ) ) ) ( (lv_value_3_0= ruleAssignmentExpression ) )
                     {
-                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3351:3: ( ( (lv_op_1_0= KEYWORD_14 ) ) | ( (lv_op_2_0= KEYWORD_34 ) ) )
+                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3364:3: ( ( (lv_op_1_0= KEYWORD_14 ) ) | ( (lv_op_2_0= KEYWORD_34 ) ) )
                     int alt70=2;
                     int LA70_0 = input.LA(1);
 
@@ -9894,15 +9925,15 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
                     }
                     switch (alt70) {
                         case 1 :
-                            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3351:4: ( (lv_op_1_0= KEYWORD_14 ) )
+                            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3364:4: ( (lv_op_1_0= KEYWORD_14 ) )
                             {
-                            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3351:4: ( (lv_op_1_0= KEYWORD_14 ) )
-                            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3352:1: (lv_op_1_0= KEYWORD_14 )
+                            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3364:4: ( (lv_op_1_0= KEYWORD_14 ) )
+                            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3365:1: (lv_op_1_0= KEYWORD_14 )
                             {
-                            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3352:1: (lv_op_1_0= KEYWORD_14 )
-                            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3353:3: lv_op_1_0= KEYWORD_14
+                            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3365:1: (lv_op_1_0= KEYWORD_14 )
+                            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3366:3: lv_op_1_0= KEYWORD_14
                             {
-                            lv_op_1_0=(Token)match(input,KEYWORD_14,FOLLOW_KEYWORD_14_in_ruleDefinitionArgument7227); if (state.failed) return current;
+                            lv_op_1_0=(Token)match(input,KEYWORD_14,FOLLOW_KEYWORD_14_in_ruleDefinitionArgument7257); if (state.failed) return current;
                             if ( state.backtracking==0 ) {
 
                                       newLeafNode(lv_op_1_0, grammarAccess.getDefinitionArgumentAccess().getOpEqualsSignKeyword_1_0_0_0());
@@ -9926,15 +9957,15 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
                             }
                             break;
                         case 2 :
-                            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3368:6: ( (lv_op_2_0= KEYWORD_34 ) )
+                            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3381:6: ( (lv_op_2_0= KEYWORD_34 ) )
                             {
-                            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3368:6: ( (lv_op_2_0= KEYWORD_34 ) )
-                            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3369:1: (lv_op_2_0= KEYWORD_34 )
+                            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3381:6: ( (lv_op_2_0= KEYWORD_34 ) )
+                            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3382:1: (lv_op_2_0= KEYWORD_34 )
                             {
-                            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3369:1: (lv_op_2_0= KEYWORD_34 )
-                            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3370:3: lv_op_2_0= KEYWORD_34
+                            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3382:1: (lv_op_2_0= KEYWORD_34 )
+                            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3383:3: lv_op_2_0= KEYWORD_34
                             {
-                            lv_op_2_0=(Token)match(input,KEYWORD_34,FOLLOW_KEYWORD_34_in_ruleDefinitionArgument7263); if (state.failed) return current;
+                            lv_op_2_0=(Token)match(input,KEYWORD_34,FOLLOW_KEYWORD_34_in_ruleDefinitionArgument7293); if (state.failed) return current;
                             if ( state.backtracking==0 ) {
 
                                       newLeafNode(lv_op_2_0, grammarAccess.getDefinitionArgumentAccess().getOpEqualsSignGreaterThanSignKeyword_1_0_1_0());
@@ -9960,18 +9991,18 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
 
                     }
 
-                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3384:3: ( (lv_value_3_0= ruleAssignmentExpression ) )
-                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3385:1: (lv_value_3_0= ruleAssignmentExpression )
+                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3397:3: ( (lv_value_3_0= ruleAssignmentExpression ) )
+                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3398:1: (lv_value_3_0= ruleAssignmentExpression )
                     {
-                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3385:1: (lv_value_3_0= ruleAssignmentExpression )
-                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3386:3: lv_value_3_0= ruleAssignmentExpression
+                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3398:1: (lv_value_3_0= ruleAssignmentExpression )
+                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3399:3: lv_value_3_0= ruleAssignmentExpression
                     {
                     if ( state.backtracking==0 ) {
                        
                       	        newCompositeNode(grammarAccess.getDefinitionArgumentAccess().getValueAssignmentExpressionParserRuleCall_1_1_0()); 
                       	    
                     }
-                    pushFollow(FOLLOW_ruleAssignmentExpression_in_ruleDefinitionArgument7296);
+                    pushFollow(FOLLOW_ruleAssignmentExpression_in_ruleDefinitionArgument7326);
                     lv_value_3_0=ruleAssignmentExpression();
 
                     state._fsp--;
@@ -10024,7 +10055,7 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleCaseExpression"
-    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3410:1: entryRuleCaseExpression returns [EObject current=null] : iv_ruleCaseExpression= ruleCaseExpression EOF ;
+    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3423:1: entryRuleCaseExpression returns [EObject current=null] : iv_ruleCaseExpression= ruleCaseExpression EOF ;
     public final EObject entryRuleCaseExpression() throws RecognitionException {
         EObject current = null;
 
@@ -10032,13 +10063,13 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3411:2: (iv_ruleCaseExpression= ruleCaseExpression EOF )
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3412:2: iv_ruleCaseExpression= ruleCaseExpression EOF
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3424:2: (iv_ruleCaseExpression= ruleCaseExpression EOF )
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3425:2: iv_ruleCaseExpression= ruleCaseExpression EOF
             {
             if ( state.backtracking==0 ) {
                newCompositeNode(grammarAccess.getCaseExpressionRule()); 
             }
-            pushFollow(FOLLOW_ruleCaseExpression_in_entryRuleCaseExpression7333);
+            pushFollow(FOLLOW_ruleCaseExpression_in_entryRuleCaseExpression7363);
             iv_ruleCaseExpression=ruleCaseExpression();
 
             state._fsp--;
@@ -10046,7 +10077,7 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
             if ( state.backtracking==0 ) {
                current =iv_ruleCaseExpression; 
             }
-            match(input,EOF,FOLLOW_EOF_in_entryRuleCaseExpression7343); if (state.failed) return current;
+            match(input,EOF,FOLLOW_EOF_in_entryRuleCaseExpression7373); if (state.failed) return current;
 
             }
 
@@ -10064,7 +10095,7 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleCaseExpression"
-    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3419:1: ruleCaseExpression returns [EObject current=null] : (otherlv_0= KEYWORD_51 ( (lv_switchExpr_1_0= ruleAssignmentExpression ) ) otherlv_2= KEYWORD_20 ( (lv_cases_3_0= ruleCase ) )* otherlv_4= KEYWORD_21 ) ;
+    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3432:1: ruleCaseExpression returns [EObject current=null] : (otherlv_0= KEYWORD_51 ( (lv_switchExpr_1_0= ruleAssignmentExpression ) ) otherlv_2= KEYWORD_20 ( (lv_cases_3_0= ruleCase ) )* otherlv_4= KEYWORD_21 ) ;
     public final EObject ruleCaseExpression() throws RecognitionException {
         EObject current = null;
 
@@ -10079,30 +10110,30 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3422:28: ( (otherlv_0= KEYWORD_51 ( (lv_switchExpr_1_0= ruleAssignmentExpression ) ) otherlv_2= KEYWORD_20 ( (lv_cases_3_0= ruleCase ) )* otherlv_4= KEYWORD_21 ) )
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3423:1: (otherlv_0= KEYWORD_51 ( (lv_switchExpr_1_0= ruleAssignmentExpression ) ) otherlv_2= KEYWORD_20 ( (lv_cases_3_0= ruleCase ) )* otherlv_4= KEYWORD_21 )
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3435:28: ( (otherlv_0= KEYWORD_51 ( (lv_switchExpr_1_0= ruleAssignmentExpression ) ) otherlv_2= KEYWORD_20 ( (lv_cases_3_0= ruleCase ) )* otherlv_4= KEYWORD_21 ) )
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3436:1: (otherlv_0= KEYWORD_51 ( (lv_switchExpr_1_0= ruleAssignmentExpression ) ) otherlv_2= KEYWORD_20 ( (lv_cases_3_0= ruleCase ) )* otherlv_4= KEYWORD_21 )
             {
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3423:1: (otherlv_0= KEYWORD_51 ( (lv_switchExpr_1_0= ruleAssignmentExpression ) ) otherlv_2= KEYWORD_20 ( (lv_cases_3_0= ruleCase ) )* otherlv_4= KEYWORD_21 )
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3424:2: otherlv_0= KEYWORD_51 ( (lv_switchExpr_1_0= ruleAssignmentExpression ) ) otherlv_2= KEYWORD_20 ( (lv_cases_3_0= ruleCase ) )* otherlv_4= KEYWORD_21
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3436:1: (otherlv_0= KEYWORD_51 ( (lv_switchExpr_1_0= ruleAssignmentExpression ) ) otherlv_2= KEYWORD_20 ( (lv_cases_3_0= ruleCase ) )* otherlv_4= KEYWORD_21 )
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3437:2: otherlv_0= KEYWORD_51 ( (lv_switchExpr_1_0= ruleAssignmentExpression ) ) otherlv_2= KEYWORD_20 ( (lv_cases_3_0= ruleCase ) )* otherlv_4= KEYWORD_21
             {
-            otherlv_0=(Token)match(input,KEYWORD_51,FOLLOW_KEYWORD_51_in_ruleCaseExpression7381); if (state.failed) return current;
+            otherlv_0=(Token)match(input,KEYWORD_51,FOLLOW_KEYWORD_51_in_ruleCaseExpression7411); if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
                   	newLeafNode(otherlv_0, grammarAccess.getCaseExpressionAccess().getCaseKeyword_0());
                   
             }
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3428:1: ( (lv_switchExpr_1_0= ruleAssignmentExpression ) )
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3429:1: (lv_switchExpr_1_0= ruleAssignmentExpression )
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3441:1: ( (lv_switchExpr_1_0= ruleAssignmentExpression ) )
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3442:1: (lv_switchExpr_1_0= ruleAssignmentExpression )
             {
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3429:1: (lv_switchExpr_1_0= ruleAssignmentExpression )
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3430:3: lv_switchExpr_1_0= ruleAssignmentExpression
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3442:1: (lv_switchExpr_1_0= ruleAssignmentExpression )
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3443:3: lv_switchExpr_1_0= ruleAssignmentExpression
             {
             if ( state.backtracking==0 ) {
                
               	        newCompositeNode(grammarAccess.getCaseExpressionAccess().getSwitchExprAssignmentExpressionParserRuleCall_1_0()); 
               	    
             }
-            pushFollow(FOLLOW_ruleAssignmentExpression_in_ruleCaseExpression7401);
+            pushFollow(FOLLOW_ruleAssignmentExpression_in_ruleCaseExpression7431);
             lv_switchExpr_1_0=ruleAssignmentExpression();
 
             state._fsp--;
@@ -10126,36 +10157,36 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
 
             }
 
-            otherlv_2=(Token)match(input,KEYWORD_20,FOLLOW_KEYWORD_20_in_ruleCaseExpression7414); if (state.failed) return current;
+            otherlv_2=(Token)match(input,KEYWORD_20,FOLLOW_KEYWORD_20_in_ruleCaseExpression7444); if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
                   	newLeafNode(otherlv_2, grammarAccess.getCaseExpressionAccess().getLeftCurlyBracketKeyword_2());
                   
             }
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3451:1: ( (lv_cases_3_0= ruleCase ) )*
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3464:1: ( (lv_cases_3_0= ruleCase ) )*
             loop72:
             do {
                 int alt72=2;
                 int LA72_0 = input.LA(1);
 
-                if ( ((LA72_0>=KEYWORD_61 && LA72_0<=KEYWORD_55)||(LA72_0>=KEYWORD_57 && LA72_0<=KEYWORD_51)||(LA72_0>=KEYWORD_53 && LA72_0<=KEYWORD_54)||LA72_0==KEYWORD_24||LA72_0==KEYWORD_42||(LA72_0>=KEYWORD_1 && LA72_0<=KEYWORD_4)||LA72_0==KEYWORD_9||(LA72_0>=KEYWORD_17 && LA72_0<=KEYWORD_18)||LA72_0==KEYWORD_20||(LA72_0>=RULE_DOLLAR_VAR && LA72_0<=RULE_WORD_CHARS)||LA72_0==RULE_REGULAR_EXPRESSION) ) {
+                if ( ((LA72_0>=KEYWORD_62 && LA72_0<=KEYWORD_55)||(LA72_0>=KEYWORD_57 && LA72_0<=KEYWORD_51)||(LA72_0>=KEYWORD_53 && LA72_0<=KEYWORD_54)||LA72_0==KEYWORD_24||LA72_0==KEYWORD_42||(LA72_0>=KEYWORD_1 && LA72_0<=KEYWORD_4)||LA72_0==KEYWORD_9||(LA72_0>=KEYWORD_17 && LA72_0<=KEYWORD_18)||LA72_0==KEYWORD_20||(LA72_0>=RULE_DOLLAR_VAR && LA72_0<=RULE_WORD_CHARS)||LA72_0==RULE_REGULAR_EXPRESSION) ) {
                     alt72=1;
                 }
 
 
                 switch (alt72) {
             	case 1 :
-            	    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3452:1: (lv_cases_3_0= ruleCase )
+            	    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3465:1: (lv_cases_3_0= ruleCase )
             	    {
-            	    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3452:1: (lv_cases_3_0= ruleCase )
-            	    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3453:3: lv_cases_3_0= ruleCase
+            	    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3465:1: (lv_cases_3_0= ruleCase )
+            	    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3466:3: lv_cases_3_0= ruleCase
             	    {
             	    if ( state.backtracking==0 ) {
             	       
             	      	        newCompositeNode(grammarAccess.getCaseExpressionAccess().getCasesCaseParserRuleCall_3_0()); 
             	      	    
             	    }
-            	    pushFollow(FOLLOW_ruleCase_in_ruleCaseExpression7434);
+            	    pushFollow(FOLLOW_ruleCase_in_ruleCaseExpression7464);
             	    lv_cases_3_0=ruleCase();
 
             	    state._fsp--;
@@ -10185,7 +10216,7 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
                 }
             } while (true);
 
-            otherlv_4=(Token)match(input,KEYWORD_21,FOLLOW_KEYWORD_21_in_ruleCaseExpression7448); if (state.failed) return current;
+            otherlv_4=(Token)match(input,KEYWORD_21,FOLLOW_KEYWORD_21_in_ruleCaseExpression7478); if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
                   	newLeafNode(otherlv_4, grammarAccess.getCaseExpressionAccess().getRightCurlyBracketKeyword_4());
@@ -10214,7 +10245,7 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleCase"
-    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3482:1: entryRuleCase returns [EObject current=null] : iv_ruleCase= ruleCase EOF ;
+    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3495:1: entryRuleCase returns [EObject current=null] : iv_ruleCase= ruleCase EOF ;
     public final EObject entryRuleCase() throws RecognitionException {
         EObject current = null;
 
@@ -10222,13 +10253,13 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3483:2: (iv_ruleCase= ruleCase EOF )
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3484:2: iv_ruleCase= ruleCase EOF
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3496:2: (iv_ruleCase= ruleCase EOF )
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3497:2: iv_ruleCase= ruleCase EOF
             {
             if ( state.backtracking==0 ) {
                newCompositeNode(grammarAccess.getCaseRule()); 
             }
-            pushFollow(FOLLOW_ruleCase_in_entryRuleCase7482);
+            pushFollow(FOLLOW_ruleCase_in_entryRuleCase7512);
             iv_ruleCase=ruleCase();
 
             state._fsp--;
@@ -10236,7 +10267,7 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
             if ( state.backtracking==0 ) {
                current =iv_ruleCase; 
             }
-            match(input,EOF,FOLLOW_EOF_in_entryRuleCase7492); if (state.failed) return current;
+            match(input,EOF,FOLLOW_EOF_in_entryRuleCase7522); if (state.failed) return current;
 
             }
 
@@ -10254,7 +10285,7 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleCase"
-    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3491:1: ruleCase returns [EObject current=null] : ( ( (lv_values_0_0= ruleAssignmentExpression ) ) (otherlv_1= KEYWORD_8 ( (lv_values_2_0= ruleAssignmentExpression ) ) )* otherlv_3= KEYWORD_11 otherlv_4= KEYWORD_20 ( (lv_statements_5_0= ruleExpressionList ) )* otherlv_6= KEYWORD_21 ) ;
+    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3504:1: ruleCase returns [EObject current=null] : ( ( (lv_values_0_0= ruleAssignmentExpression ) ) (otherlv_1= KEYWORD_8 ( (lv_values_2_0= ruleAssignmentExpression ) ) )* otherlv_3= KEYWORD_11 otherlv_4= KEYWORD_20 ( (lv_statements_5_0= ruleExpressionList ) )* otherlv_6= KEYWORD_21 ) ;
     public final EObject ruleCase() throws RecognitionException {
         EObject current = null;
 
@@ -10272,24 +10303,24 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3494:28: ( ( ( (lv_values_0_0= ruleAssignmentExpression ) ) (otherlv_1= KEYWORD_8 ( (lv_values_2_0= ruleAssignmentExpression ) ) )* otherlv_3= KEYWORD_11 otherlv_4= KEYWORD_20 ( (lv_statements_5_0= ruleExpressionList ) )* otherlv_6= KEYWORD_21 ) )
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3495:1: ( ( (lv_values_0_0= ruleAssignmentExpression ) ) (otherlv_1= KEYWORD_8 ( (lv_values_2_0= ruleAssignmentExpression ) ) )* otherlv_3= KEYWORD_11 otherlv_4= KEYWORD_20 ( (lv_statements_5_0= ruleExpressionList ) )* otherlv_6= KEYWORD_21 )
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3507:28: ( ( ( (lv_values_0_0= ruleAssignmentExpression ) ) (otherlv_1= KEYWORD_8 ( (lv_values_2_0= ruleAssignmentExpression ) ) )* otherlv_3= KEYWORD_11 otherlv_4= KEYWORD_20 ( (lv_statements_5_0= ruleExpressionList ) )* otherlv_6= KEYWORD_21 ) )
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3508:1: ( ( (lv_values_0_0= ruleAssignmentExpression ) ) (otherlv_1= KEYWORD_8 ( (lv_values_2_0= ruleAssignmentExpression ) ) )* otherlv_3= KEYWORD_11 otherlv_4= KEYWORD_20 ( (lv_statements_5_0= ruleExpressionList ) )* otherlv_6= KEYWORD_21 )
             {
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3495:1: ( ( (lv_values_0_0= ruleAssignmentExpression ) ) (otherlv_1= KEYWORD_8 ( (lv_values_2_0= ruleAssignmentExpression ) ) )* otherlv_3= KEYWORD_11 otherlv_4= KEYWORD_20 ( (lv_statements_5_0= ruleExpressionList ) )* otherlv_6= KEYWORD_21 )
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3495:2: ( (lv_values_0_0= ruleAssignmentExpression ) ) (otherlv_1= KEYWORD_8 ( (lv_values_2_0= ruleAssignmentExpression ) ) )* otherlv_3= KEYWORD_11 otherlv_4= KEYWORD_20 ( (lv_statements_5_0= ruleExpressionList ) )* otherlv_6= KEYWORD_21
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3508:1: ( ( (lv_values_0_0= ruleAssignmentExpression ) ) (otherlv_1= KEYWORD_8 ( (lv_values_2_0= ruleAssignmentExpression ) ) )* otherlv_3= KEYWORD_11 otherlv_4= KEYWORD_20 ( (lv_statements_5_0= ruleExpressionList ) )* otherlv_6= KEYWORD_21 )
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3508:2: ( (lv_values_0_0= ruleAssignmentExpression ) ) (otherlv_1= KEYWORD_8 ( (lv_values_2_0= ruleAssignmentExpression ) ) )* otherlv_3= KEYWORD_11 otherlv_4= KEYWORD_20 ( (lv_statements_5_0= ruleExpressionList ) )* otherlv_6= KEYWORD_21
             {
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3495:2: ( (lv_values_0_0= ruleAssignmentExpression ) )
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3496:1: (lv_values_0_0= ruleAssignmentExpression )
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3508:2: ( (lv_values_0_0= ruleAssignmentExpression ) )
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3509:1: (lv_values_0_0= ruleAssignmentExpression )
             {
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3496:1: (lv_values_0_0= ruleAssignmentExpression )
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3497:3: lv_values_0_0= ruleAssignmentExpression
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3509:1: (lv_values_0_0= ruleAssignmentExpression )
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3510:3: lv_values_0_0= ruleAssignmentExpression
             {
             if ( state.backtracking==0 ) {
                
               	        newCompositeNode(grammarAccess.getCaseAccess().getValuesAssignmentExpressionParserRuleCall_0_0()); 
               	    
             }
-            pushFollow(FOLLOW_ruleAssignmentExpression_in_ruleCase7538);
+            pushFollow(FOLLOW_ruleAssignmentExpression_in_ruleCase7568);
             lv_values_0_0=ruleAssignmentExpression();
 
             state._fsp--;
@@ -10313,7 +10344,7 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
 
             }
 
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3513:2: (otherlv_1= KEYWORD_8 ( (lv_values_2_0= ruleAssignmentExpression ) ) )*
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3526:2: (otherlv_1= KEYWORD_8 ( (lv_values_2_0= ruleAssignmentExpression ) ) )*
             loop73:
             do {
                 int alt73=2;
@@ -10326,26 +10357,26 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
 
                 switch (alt73) {
             	case 1 :
-            	    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3514:2: otherlv_1= KEYWORD_8 ( (lv_values_2_0= ruleAssignmentExpression ) )
+            	    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3527:2: otherlv_1= KEYWORD_8 ( (lv_values_2_0= ruleAssignmentExpression ) )
             	    {
-            	    otherlv_1=(Token)match(input,KEYWORD_8,FOLLOW_KEYWORD_8_in_ruleCase7552); if (state.failed) return current;
+            	    otherlv_1=(Token)match(input,KEYWORD_8,FOLLOW_KEYWORD_8_in_ruleCase7582); if (state.failed) return current;
             	    if ( state.backtracking==0 ) {
 
             	          	newLeafNode(otherlv_1, grammarAccess.getCaseAccess().getCommaKeyword_1_0());
             	          
             	    }
-            	    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3518:1: ( (lv_values_2_0= ruleAssignmentExpression ) )
-            	    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3519:1: (lv_values_2_0= ruleAssignmentExpression )
+            	    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3531:1: ( (lv_values_2_0= ruleAssignmentExpression ) )
+            	    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3532:1: (lv_values_2_0= ruleAssignmentExpression )
             	    {
-            	    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3519:1: (lv_values_2_0= ruleAssignmentExpression )
-            	    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3520:3: lv_values_2_0= ruleAssignmentExpression
+            	    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3532:1: (lv_values_2_0= ruleAssignmentExpression )
+            	    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3533:3: lv_values_2_0= ruleAssignmentExpression
             	    {
             	    if ( state.backtracking==0 ) {
             	       
             	      	        newCompositeNode(grammarAccess.getCaseAccess().getValuesAssignmentExpressionParserRuleCall_1_1_0()); 
             	      	    
             	    }
-            	    pushFollow(FOLLOW_ruleAssignmentExpression_in_ruleCase7572);
+            	    pushFollow(FOLLOW_ruleAssignmentExpression_in_ruleCase7602);
             	    lv_values_2_0=ruleAssignmentExpression();
 
             	    state._fsp--;
@@ -10378,42 +10409,42 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
                 }
             } while (true);
 
-            otherlv_3=(Token)match(input,KEYWORD_11,FOLLOW_KEYWORD_11_in_ruleCase7587); if (state.failed) return current;
+            otherlv_3=(Token)match(input,KEYWORD_11,FOLLOW_KEYWORD_11_in_ruleCase7617); if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
                   	newLeafNode(otherlv_3, grammarAccess.getCaseAccess().getColonKeyword_2());
                   
             }
-            otherlv_4=(Token)match(input,KEYWORD_20,FOLLOW_KEYWORD_20_in_ruleCase7599); if (state.failed) return current;
+            otherlv_4=(Token)match(input,KEYWORD_20,FOLLOW_KEYWORD_20_in_ruleCase7629); if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
                   	newLeafNode(otherlv_4, grammarAccess.getCaseAccess().getLeftCurlyBracketKeyword_3());
                   
             }
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3546:1: ( (lv_statements_5_0= ruleExpressionList ) )*
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3559:1: ( (lv_statements_5_0= ruleExpressionList ) )*
             loop74:
             do {
                 int alt74=2;
                 int LA74_0 = input.LA(1);
 
-                if ( ((LA74_0>=KEYWORD_61 && LA74_0<=KEYWORD_55)||(LA74_0>=KEYWORD_57 && LA74_0<=KEYWORD_51)||(LA74_0>=KEYWORD_53 && LA74_0<=KEYWORD_54)||LA74_0==KEYWORD_24||LA74_0==KEYWORD_42||(LA74_0>=KEYWORD_1 && LA74_0<=KEYWORD_4)||LA74_0==KEYWORD_9||(LA74_0>=KEYWORD_17 && LA74_0<=KEYWORD_18)||LA74_0==KEYWORD_20||(LA74_0>=RULE_DOLLAR_VAR && LA74_0<=RULE_WORD_CHARS)||LA74_0==RULE_REGULAR_EXPRESSION) ) {
+                if ( ((LA74_0>=KEYWORD_62 && LA74_0<=KEYWORD_55)||(LA74_0>=KEYWORD_57 && LA74_0<=KEYWORD_51)||(LA74_0>=KEYWORD_53 && LA74_0<=KEYWORD_54)||LA74_0==KEYWORD_24||LA74_0==KEYWORD_42||(LA74_0>=KEYWORD_1 && LA74_0<=KEYWORD_4)||LA74_0==KEYWORD_9||(LA74_0>=KEYWORD_17 && LA74_0<=KEYWORD_18)||LA74_0==KEYWORD_20||(LA74_0>=RULE_DOLLAR_VAR && LA74_0<=RULE_WORD_CHARS)||LA74_0==RULE_REGULAR_EXPRESSION) ) {
                     alt74=1;
                 }
 
 
                 switch (alt74) {
             	case 1 :
-            	    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3547:1: (lv_statements_5_0= ruleExpressionList )
+            	    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3560:1: (lv_statements_5_0= ruleExpressionList )
             	    {
-            	    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3547:1: (lv_statements_5_0= ruleExpressionList )
-            	    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3548:3: lv_statements_5_0= ruleExpressionList
+            	    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3560:1: (lv_statements_5_0= ruleExpressionList )
+            	    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3561:3: lv_statements_5_0= ruleExpressionList
             	    {
             	    if ( state.backtracking==0 ) {
             	       
             	      	        newCompositeNode(grammarAccess.getCaseAccess().getStatementsExpressionListParserRuleCall_4_0()); 
             	      	    
             	    }
-            	    pushFollow(FOLLOW_ruleExpressionList_in_ruleCase7619);
+            	    pushFollow(FOLLOW_ruleExpressionList_in_ruleCase7649);
             	    lv_statements_5_0=ruleExpressionList();
 
             	    state._fsp--;
@@ -10443,7 +10474,7 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
                 }
             } while (true);
 
-            otherlv_6=(Token)match(input,KEYWORD_21,FOLLOW_KEYWORD_21_in_ruleCase7633); if (state.failed) return current;
+            otherlv_6=(Token)match(input,KEYWORD_21,FOLLOW_KEYWORD_21_in_ruleCase7663); if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
                   	newLeafNode(otherlv_6, grammarAccess.getCaseAccess().getRightCurlyBracketKeyword_5());
@@ -10471,8 +10502,198 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
     // $ANTLR end "ruleCase"
 
 
+    // $ANTLR start "entryRuleUnlessExpression"
+    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3590:1: entryRuleUnlessExpression returns [EObject current=null] : iv_ruleUnlessExpression= ruleUnlessExpression EOF ;
+    public final EObject entryRuleUnlessExpression() throws RecognitionException {
+        EObject current = null;
+
+        EObject iv_ruleUnlessExpression = null;
+
+
+        try {
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3591:2: (iv_ruleUnlessExpression= ruleUnlessExpression EOF )
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3592:2: iv_ruleUnlessExpression= ruleUnlessExpression EOF
+            {
+            if ( state.backtracking==0 ) {
+               newCompositeNode(grammarAccess.getUnlessExpressionRule()); 
+            }
+            pushFollow(FOLLOW_ruleUnlessExpression_in_entryRuleUnlessExpression7697);
+            iv_ruleUnlessExpression=ruleUnlessExpression();
+
+            state._fsp--;
+            if (state.failed) return current;
+            if ( state.backtracking==0 ) {
+               current =iv_ruleUnlessExpression; 
+            }
+            match(input,EOF,FOLLOW_EOF_in_entryRuleUnlessExpression7707); if (state.failed) return current;
+
+            }
+
+        }
+         
+        	catch (RecognitionException re) { 
+        	    recover(input,re); 
+        	    appendSkippedTokens();
+        	}
+        finally {
+        }
+        return current;
+    }
+    // $ANTLR end "entryRuleUnlessExpression"
+
+
+    // $ANTLR start "ruleUnlessExpression"
+    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3599:1: ruleUnlessExpression returns [EObject current=null] : (otherlv_0= KEYWORD_61 ( (lv_condExpr_1_0= ruleAssignmentExpression ) ) otherlv_2= KEYWORD_20 ( (lv_thenStatements_3_0= ruleExpressionList ) )* otherlv_4= KEYWORD_21 ) ;
+    public final EObject ruleUnlessExpression() throws RecognitionException {
+        EObject current = null;
+
+        Token otherlv_0=null;
+        Token otherlv_2=null;
+        Token otherlv_4=null;
+        EObject lv_condExpr_1_0 = null;
+
+        EObject lv_thenStatements_3_0 = null;
+
+
+         enterRule(); 
+            
+        try {
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3602:28: ( (otherlv_0= KEYWORD_61 ( (lv_condExpr_1_0= ruleAssignmentExpression ) ) otherlv_2= KEYWORD_20 ( (lv_thenStatements_3_0= ruleExpressionList ) )* otherlv_4= KEYWORD_21 ) )
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3603:1: (otherlv_0= KEYWORD_61 ( (lv_condExpr_1_0= ruleAssignmentExpression ) ) otherlv_2= KEYWORD_20 ( (lv_thenStatements_3_0= ruleExpressionList ) )* otherlv_4= KEYWORD_21 )
+            {
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3603:1: (otherlv_0= KEYWORD_61 ( (lv_condExpr_1_0= ruleAssignmentExpression ) ) otherlv_2= KEYWORD_20 ( (lv_thenStatements_3_0= ruleExpressionList ) )* otherlv_4= KEYWORD_21 )
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3604:2: otherlv_0= KEYWORD_61 ( (lv_condExpr_1_0= ruleAssignmentExpression ) ) otherlv_2= KEYWORD_20 ( (lv_thenStatements_3_0= ruleExpressionList ) )* otherlv_4= KEYWORD_21
+            {
+            otherlv_0=(Token)match(input,KEYWORD_61,FOLLOW_KEYWORD_61_in_ruleUnlessExpression7745); if (state.failed) return current;
+            if ( state.backtracking==0 ) {
+
+                  	newLeafNode(otherlv_0, grammarAccess.getUnlessExpressionAccess().getUnlessKeyword_0());
+                  
+            }
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3608:1: ( (lv_condExpr_1_0= ruleAssignmentExpression ) )
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3609:1: (lv_condExpr_1_0= ruleAssignmentExpression )
+            {
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3609:1: (lv_condExpr_1_0= ruleAssignmentExpression )
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3610:3: lv_condExpr_1_0= ruleAssignmentExpression
+            {
+            if ( state.backtracking==0 ) {
+               
+              	        newCompositeNode(grammarAccess.getUnlessExpressionAccess().getCondExprAssignmentExpressionParserRuleCall_1_0()); 
+              	    
+            }
+            pushFollow(FOLLOW_ruleAssignmentExpression_in_ruleUnlessExpression7765);
+            lv_condExpr_1_0=ruleAssignmentExpression();
+
+            state._fsp--;
+            if (state.failed) return current;
+            if ( state.backtracking==0 ) {
+
+              	        if (current==null) {
+              	            current = createModelElementForParent(grammarAccess.getUnlessExpressionRule());
+              	        }
+                     		set(
+                     			current, 
+                     			"condExpr",
+                      		lv_condExpr_1_0, 
+                      		"AssignmentExpression");
+              	        afterParserOrEnumRuleCall();
+              	    
+            }
+
+            }
+
+
+            }
+
+            otherlv_2=(Token)match(input,KEYWORD_20,FOLLOW_KEYWORD_20_in_ruleUnlessExpression7778); if (state.failed) return current;
+            if ( state.backtracking==0 ) {
+
+                  	newLeafNode(otherlv_2, grammarAccess.getUnlessExpressionAccess().getLeftCurlyBracketKeyword_2());
+                  
+            }
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3631:1: ( (lv_thenStatements_3_0= ruleExpressionList ) )*
+            loop75:
+            do {
+                int alt75=2;
+                int LA75_0 = input.LA(1);
+
+                if ( ((LA75_0>=KEYWORD_62 && LA75_0<=KEYWORD_55)||(LA75_0>=KEYWORD_57 && LA75_0<=KEYWORD_51)||(LA75_0>=KEYWORD_53 && LA75_0<=KEYWORD_54)||LA75_0==KEYWORD_24||LA75_0==KEYWORD_42||(LA75_0>=KEYWORD_1 && LA75_0<=KEYWORD_4)||LA75_0==KEYWORD_9||(LA75_0>=KEYWORD_17 && LA75_0<=KEYWORD_18)||LA75_0==KEYWORD_20||(LA75_0>=RULE_DOLLAR_VAR && LA75_0<=RULE_WORD_CHARS)||LA75_0==RULE_REGULAR_EXPRESSION) ) {
+                    alt75=1;
+                }
+
+
+                switch (alt75) {
+            	case 1 :
+            	    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3632:1: (lv_thenStatements_3_0= ruleExpressionList )
+            	    {
+            	    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3632:1: (lv_thenStatements_3_0= ruleExpressionList )
+            	    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3633:3: lv_thenStatements_3_0= ruleExpressionList
+            	    {
+            	    if ( state.backtracking==0 ) {
+            	       
+            	      	        newCompositeNode(grammarAccess.getUnlessExpressionAccess().getThenStatementsExpressionListParserRuleCall_3_0()); 
+            	      	    
+            	    }
+            	    pushFollow(FOLLOW_ruleExpressionList_in_ruleUnlessExpression7798);
+            	    lv_thenStatements_3_0=ruleExpressionList();
+
+            	    state._fsp--;
+            	    if (state.failed) return current;
+            	    if ( state.backtracking==0 ) {
+
+            	      	        if (current==null) {
+            	      	            current = createModelElementForParent(grammarAccess.getUnlessExpressionRule());
+            	      	        }
+            	             		add(
+            	             			current, 
+            	             			"thenStatements",
+            	              		lv_thenStatements_3_0, 
+            	              		"ExpressionList");
+            	      	        afterParserOrEnumRuleCall();
+            	      	    
+            	    }
+
+            	    }
+
+
+            	    }
+            	    break;
+
+            	default :
+            	    break loop75;
+                }
+            } while (true);
+
+            otherlv_4=(Token)match(input,KEYWORD_21,FOLLOW_KEYWORD_21_in_ruleUnlessExpression7812); if (state.failed) return current;
+            if ( state.backtracking==0 ) {
+
+                  	newLeafNode(otherlv_4, grammarAccess.getUnlessExpressionAccess().getRightCurlyBracketKeyword_4());
+                  
+            }
+
+            }
+
+
+            }
+
+            if ( state.backtracking==0 ) {
+               leaveRule(); 
+            }
+        }
+         
+        	catch (RecognitionException re) { 
+        	    recover(input,re); 
+        	    appendSkippedTokens();
+        	}
+        finally {
+        }
+        return current;
+    }
+    // $ANTLR end "ruleUnlessExpression"
+
+
     // $ANTLR start "entryRuleIfExpression"
-    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3577:1: entryRuleIfExpression returns [EObject current=null] : iv_ruleIfExpression= ruleIfExpression EOF ;
+    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3662:1: entryRuleIfExpression returns [EObject current=null] : iv_ruleIfExpression= ruleIfExpression EOF ;
     public final EObject entryRuleIfExpression() throws RecognitionException {
         EObject current = null;
 
@@ -10480,13 +10701,13 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3578:2: (iv_ruleIfExpression= ruleIfExpression EOF )
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3579:2: iv_ruleIfExpression= ruleIfExpression EOF
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3663:2: (iv_ruleIfExpression= ruleIfExpression EOF )
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3664:2: iv_ruleIfExpression= ruleIfExpression EOF
             {
             if ( state.backtracking==0 ) {
                newCompositeNode(grammarAccess.getIfExpressionRule()); 
             }
-            pushFollow(FOLLOW_ruleIfExpression_in_entryRuleIfExpression7667);
+            pushFollow(FOLLOW_ruleIfExpression_in_entryRuleIfExpression7846);
             iv_ruleIfExpression=ruleIfExpression();
 
             state._fsp--;
@@ -10494,7 +10715,7 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
             if ( state.backtracking==0 ) {
                current =iv_ruleIfExpression; 
             }
-            match(input,EOF,FOLLOW_EOF_in_entryRuleIfExpression7677); if (state.failed) return current;
+            match(input,EOF,FOLLOW_EOF_in_entryRuleIfExpression7856); if (state.failed) return current;
 
             }
 
@@ -10512,7 +10733,7 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleIfExpression"
-    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3586:1: ruleIfExpression returns [EObject current=null] : (otherlv_0= KEYWORD_42 ( (lv_condExpr_1_0= ruleAssignmentExpression ) ) otherlv_2= KEYWORD_20 ( (lv_thenStatements_3_0= ruleExpressionList ) )* otherlv_4= KEYWORD_21 ( ( ( ( KEYWORD_56 )=>otherlv_5= KEYWORD_56 ) ( (lv_elseStatement_6_0= ruleElseIfExpression ) ) ) | ( ( ( KEYWORD_52 )=>otherlv_7= KEYWORD_52 ) ( (lv_elseStatement_8_0= ruleElseExpression ) ) ) )? ) ;
+    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3671:1: ruleIfExpression returns [EObject current=null] : (otherlv_0= KEYWORD_42 ( (lv_condExpr_1_0= ruleAssignmentExpression ) ) otherlv_2= KEYWORD_20 ( (lv_thenStatements_3_0= ruleExpressionList ) )* otherlv_4= KEYWORD_21 ( ( ( ( KEYWORD_56 )=>otherlv_5= KEYWORD_56 ) ( (lv_elseStatement_6_0= ruleElseIfExpression ) ) ) | ( ( ( KEYWORD_52 )=>otherlv_7= KEYWORD_52 ) ( (lv_elseStatement_8_0= ruleElseExpression ) ) ) )? ) ;
     public final EObject ruleIfExpression() throws RecognitionException {
         EObject current = null;
 
@@ -10533,30 +10754,30 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3589:28: ( (otherlv_0= KEYWORD_42 ( (lv_condExpr_1_0= ruleAssignmentExpression ) ) otherlv_2= KEYWORD_20 ( (lv_thenStatements_3_0= ruleExpressionList ) )* otherlv_4= KEYWORD_21 ( ( ( ( KEYWORD_56 )=>otherlv_5= KEYWORD_56 ) ( (lv_elseStatement_6_0= ruleElseIfExpression ) ) ) | ( ( ( KEYWORD_52 )=>otherlv_7= KEYWORD_52 ) ( (lv_elseStatement_8_0= ruleElseExpression ) ) ) )? ) )
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3590:1: (otherlv_0= KEYWORD_42 ( (lv_condExpr_1_0= ruleAssignmentExpression ) ) otherlv_2= KEYWORD_20 ( (lv_thenStatements_3_0= ruleExpressionList ) )* otherlv_4= KEYWORD_21 ( ( ( ( KEYWORD_56 )=>otherlv_5= KEYWORD_56 ) ( (lv_elseStatement_6_0= ruleElseIfExpression ) ) ) | ( ( ( KEYWORD_52 )=>otherlv_7= KEYWORD_52 ) ( (lv_elseStatement_8_0= ruleElseExpression ) ) ) )? )
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3674:28: ( (otherlv_0= KEYWORD_42 ( (lv_condExpr_1_0= ruleAssignmentExpression ) ) otherlv_2= KEYWORD_20 ( (lv_thenStatements_3_0= ruleExpressionList ) )* otherlv_4= KEYWORD_21 ( ( ( ( KEYWORD_56 )=>otherlv_5= KEYWORD_56 ) ( (lv_elseStatement_6_0= ruleElseIfExpression ) ) ) | ( ( ( KEYWORD_52 )=>otherlv_7= KEYWORD_52 ) ( (lv_elseStatement_8_0= ruleElseExpression ) ) ) )? ) )
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3675:1: (otherlv_0= KEYWORD_42 ( (lv_condExpr_1_0= ruleAssignmentExpression ) ) otherlv_2= KEYWORD_20 ( (lv_thenStatements_3_0= ruleExpressionList ) )* otherlv_4= KEYWORD_21 ( ( ( ( KEYWORD_56 )=>otherlv_5= KEYWORD_56 ) ( (lv_elseStatement_6_0= ruleElseIfExpression ) ) ) | ( ( ( KEYWORD_52 )=>otherlv_7= KEYWORD_52 ) ( (lv_elseStatement_8_0= ruleElseExpression ) ) ) )? )
             {
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3590:1: (otherlv_0= KEYWORD_42 ( (lv_condExpr_1_0= ruleAssignmentExpression ) ) otherlv_2= KEYWORD_20 ( (lv_thenStatements_3_0= ruleExpressionList ) )* otherlv_4= KEYWORD_21 ( ( ( ( KEYWORD_56 )=>otherlv_5= KEYWORD_56 ) ( (lv_elseStatement_6_0= ruleElseIfExpression ) ) ) | ( ( ( KEYWORD_52 )=>otherlv_7= KEYWORD_52 ) ( (lv_elseStatement_8_0= ruleElseExpression ) ) ) )? )
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3591:2: otherlv_0= KEYWORD_42 ( (lv_condExpr_1_0= ruleAssignmentExpression ) ) otherlv_2= KEYWORD_20 ( (lv_thenStatements_3_0= ruleExpressionList ) )* otherlv_4= KEYWORD_21 ( ( ( ( KEYWORD_56 )=>otherlv_5= KEYWORD_56 ) ( (lv_elseStatement_6_0= ruleElseIfExpression ) ) ) | ( ( ( KEYWORD_52 )=>otherlv_7= KEYWORD_52 ) ( (lv_elseStatement_8_0= ruleElseExpression ) ) ) )?
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3675:1: (otherlv_0= KEYWORD_42 ( (lv_condExpr_1_0= ruleAssignmentExpression ) ) otherlv_2= KEYWORD_20 ( (lv_thenStatements_3_0= ruleExpressionList ) )* otherlv_4= KEYWORD_21 ( ( ( ( KEYWORD_56 )=>otherlv_5= KEYWORD_56 ) ( (lv_elseStatement_6_0= ruleElseIfExpression ) ) ) | ( ( ( KEYWORD_52 )=>otherlv_7= KEYWORD_52 ) ( (lv_elseStatement_8_0= ruleElseExpression ) ) ) )? )
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3676:2: otherlv_0= KEYWORD_42 ( (lv_condExpr_1_0= ruleAssignmentExpression ) ) otherlv_2= KEYWORD_20 ( (lv_thenStatements_3_0= ruleExpressionList ) )* otherlv_4= KEYWORD_21 ( ( ( ( KEYWORD_56 )=>otherlv_5= KEYWORD_56 ) ( (lv_elseStatement_6_0= ruleElseIfExpression ) ) ) | ( ( ( KEYWORD_52 )=>otherlv_7= KEYWORD_52 ) ( (lv_elseStatement_8_0= ruleElseExpression ) ) ) )?
             {
-            otherlv_0=(Token)match(input,KEYWORD_42,FOLLOW_KEYWORD_42_in_ruleIfExpression7715); if (state.failed) return current;
+            otherlv_0=(Token)match(input,KEYWORD_42,FOLLOW_KEYWORD_42_in_ruleIfExpression7894); if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
                   	newLeafNode(otherlv_0, grammarAccess.getIfExpressionAccess().getIfKeyword_0());
                   
             }
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3595:1: ( (lv_condExpr_1_0= ruleAssignmentExpression ) )
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3596:1: (lv_condExpr_1_0= ruleAssignmentExpression )
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3680:1: ( (lv_condExpr_1_0= ruleAssignmentExpression ) )
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3681:1: (lv_condExpr_1_0= ruleAssignmentExpression )
             {
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3596:1: (lv_condExpr_1_0= ruleAssignmentExpression )
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3597:3: lv_condExpr_1_0= ruleAssignmentExpression
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3681:1: (lv_condExpr_1_0= ruleAssignmentExpression )
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3682:3: lv_condExpr_1_0= ruleAssignmentExpression
             {
             if ( state.backtracking==0 ) {
                
               	        newCompositeNode(grammarAccess.getIfExpressionAccess().getCondExprAssignmentExpressionParserRuleCall_1_0()); 
               	    
             }
-            pushFollow(FOLLOW_ruleAssignmentExpression_in_ruleIfExpression7735);
+            pushFollow(FOLLOW_ruleAssignmentExpression_in_ruleIfExpression7914);
             lv_condExpr_1_0=ruleAssignmentExpression();
 
             state._fsp--;
@@ -10580,36 +10801,36 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
 
             }
 
-            otherlv_2=(Token)match(input,KEYWORD_20,FOLLOW_KEYWORD_20_in_ruleIfExpression7748); if (state.failed) return current;
+            otherlv_2=(Token)match(input,KEYWORD_20,FOLLOW_KEYWORD_20_in_ruleIfExpression7927); if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
                   	newLeafNode(otherlv_2, grammarAccess.getIfExpressionAccess().getLeftCurlyBracketKeyword_2());
                   
             }
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3618:1: ( (lv_thenStatements_3_0= ruleExpressionList ) )*
-            loop75:
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3703:1: ( (lv_thenStatements_3_0= ruleExpressionList ) )*
+            loop76:
             do {
-                int alt75=2;
-                int LA75_0 = input.LA(1);
+                int alt76=2;
+                int LA76_0 = input.LA(1);
 
-                if ( ((LA75_0>=KEYWORD_61 && LA75_0<=KEYWORD_55)||(LA75_0>=KEYWORD_57 && LA75_0<=KEYWORD_51)||(LA75_0>=KEYWORD_53 && LA75_0<=KEYWORD_54)||LA75_0==KEYWORD_24||LA75_0==KEYWORD_42||(LA75_0>=KEYWORD_1 && LA75_0<=KEYWORD_4)||LA75_0==KEYWORD_9||(LA75_0>=KEYWORD_17 && LA75_0<=KEYWORD_18)||LA75_0==KEYWORD_20||(LA75_0>=RULE_DOLLAR_VAR && LA75_0<=RULE_WORD_CHARS)||LA75_0==RULE_REGULAR_EXPRESSION) ) {
-                    alt75=1;
+                if ( ((LA76_0>=KEYWORD_62 && LA76_0<=KEYWORD_55)||(LA76_0>=KEYWORD_57 && LA76_0<=KEYWORD_51)||(LA76_0>=KEYWORD_53 && LA76_0<=KEYWORD_54)||LA76_0==KEYWORD_24||LA76_0==KEYWORD_42||(LA76_0>=KEYWORD_1 && LA76_0<=KEYWORD_4)||LA76_0==KEYWORD_9||(LA76_0>=KEYWORD_17 && LA76_0<=KEYWORD_18)||LA76_0==KEYWORD_20||(LA76_0>=RULE_DOLLAR_VAR && LA76_0<=RULE_WORD_CHARS)||LA76_0==RULE_REGULAR_EXPRESSION) ) {
+                    alt76=1;
                 }
 
 
-                switch (alt75) {
+                switch (alt76) {
             	case 1 :
-            	    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3619:1: (lv_thenStatements_3_0= ruleExpressionList )
+            	    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3704:1: (lv_thenStatements_3_0= ruleExpressionList )
             	    {
-            	    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3619:1: (lv_thenStatements_3_0= ruleExpressionList )
-            	    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3620:3: lv_thenStatements_3_0= ruleExpressionList
+            	    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3704:1: (lv_thenStatements_3_0= ruleExpressionList )
+            	    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3705:3: lv_thenStatements_3_0= ruleExpressionList
             	    {
             	    if ( state.backtracking==0 ) {
             	       
             	      	        newCompositeNode(grammarAccess.getIfExpressionAccess().getThenStatementsExpressionListParserRuleCall_3_0()); 
             	      	    
             	    }
-            	    pushFollow(FOLLOW_ruleExpressionList_in_ruleIfExpression7768);
+            	    pushFollow(FOLLOW_ruleExpressionList_in_ruleIfExpression7947);
             	    lv_thenStatements_3_0=ruleExpressionList();
 
             	    state._fsp--;
@@ -10635,37 +10856,37 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
             	    break;
 
             	default :
-            	    break loop75;
+            	    break loop76;
                 }
             } while (true);
 
-            otherlv_4=(Token)match(input,KEYWORD_21,FOLLOW_KEYWORD_21_in_ruleIfExpression7782); if (state.failed) return current;
+            otherlv_4=(Token)match(input,KEYWORD_21,FOLLOW_KEYWORD_21_in_ruleIfExpression7961); if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
                   	newLeafNode(otherlv_4, grammarAccess.getIfExpressionAccess().getRightCurlyBracketKeyword_4());
                   
             }
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3641:1: ( ( ( ( KEYWORD_56 )=>otherlv_5= KEYWORD_56 ) ( (lv_elseStatement_6_0= ruleElseIfExpression ) ) ) | ( ( ( KEYWORD_52 )=>otherlv_7= KEYWORD_52 ) ( (lv_elseStatement_8_0= ruleElseExpression ) ) ) )?
-            int alt76=3;
-            int LA76_0 = input.LA(1);
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3726:1: ( ( ( ( KEYWORD_56 )=>otherlv_5= KEYWORD_56 ) ( (lv_elseStatement_6_0= ruleElseIfExpression ) ) ) | ( ( ( KEYWORD_52 )=>otherlv_7= KEYWORD_52 ) ( (lv_elseStatement_8_0= ruleElseExpression ) ) ) )?
+            int alt77=3;
+            int LA77_0 = input.LA(1);
 
-            if ( (LA76_0==KEYWORD_56) ) {
-                alt76=1;
+            if ( (LA77_0==KEYWORD_56) ) {
+                alt77=1;
             }
-            else if ( (LA76_0==KEYWORD_52) ) {
-                alt76=2;
+            else if ( (LA77_0==KEYWORD_52) ) {
+                alt77=2;
             }
-            switch (alt76) {
+            switch (alt77) {
                 case 1 :
-                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3641:2: ( ( ( KEYWORD_56 )=>otherlv_5= KEYWORD_56 ) ( (lv_elseStatement_6_0= ruleElseIfExpression ) ) )
+                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3726:2: ( ( ( KEYWORD_56 )=>otherlv_5= KEYWORD_56 ) ( (lv_elseStatement_6_0= ruleElseIfExpression ) ) )
                     {
-                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3641:2: ( ( ( KEYWORD_56 )=>otherlv_5= KEYWORD_56 ) ( (lv_elseStatement_6_0= ruleElseIfExpression ) ) )
-                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3641:3: ( ( KEYWORD_56 )=>otherlv_5= KEYWORD_56 ) ( (lv_elseStatement_6_0= ruleElseIfExpression ) )
+                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3726:2: ( ( ( KEYWORD_56 )=>otherlv_5= KEYWORD_56 ) ( (lv_elseStatement_6_0= ruleElseIfExpression ) ) )
+                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3726:3: ( ( KEYWORD_56 )=>otherlv_5= KEYWORD_56 ) ( (lv_elseStatement_6_0= ruleElseIfExpression ) )
                     {
-                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3641:3: ( ( KEYWORD_56 )=>otherlv_5= KEYWORD_56 )
-                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3641:4: ( KEYWORD_56 )=>otherlv_5= KEYWORD_56
+                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3726:3: ( ( KEYWORD_56 )=>otherlv_5= KEYWORD_56 )
+                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3726:4: ( KEYWORD_56 )=>otherlv_5= KEYWORD_56
                     {
-                    otherlv_5=(Token)match(input,KEYWORD_56,FOLLOW_KEYWORD_56_in_ruleIfExpression7803); if (state.failed) return current;
+                    otherlv_5=(Token)match(input,KEYWORD_56,FOLLOW_KEYWORD_56_in_ruleIfExpression7982); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                           	newLeafNode(otherlv_5, grammarAccess.getIfExpressionAccess().getElsifKeyword_5_0_0());
@@ -10674,18 +10895,18 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
 
                     }
 
-                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3648:2: ( (lv_elseStatement_6_0= ruleElseIfExpression ) )
-                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3649:1: (lv_elseStatement_6_0= ruleElseIfExpression )
+                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3733:2: ( (lv_elseStatement_6_0= ruleElseIfExpression ) )
+                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3734:1: (lv_elseStatement_6_0= ruleElseIfExpression )
                     {
-                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3649:1: (lv_elseStatement_6_0= ruleElseIfExpression )
-                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3650:3: lv_elseStatement_6_0= ruleElseIfExpression
+                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3734:1: (lv_elseStatement_6_0= ruleElseIfExpression )
+                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3735:3: lv_elseStatement_6_0= ruleElseIfExpression
                     {
                     if ( state.backtracking==0 ) {
                        
                       	        newCompositeNode(grammarAccess.getIfExpressionAccess().getElseStatementElseIfExpressionParserRuleCall_5_0_1_0()); 
                       	    
                     }
-                    pushFollow(FOLLOW_ruleElseIfExpression_in_ruleIfExpression7824);
+                    pushFollow(FOLLOW_ruleElseIfExpression_in_ruleIfExpression8003);
                     lv_elseStatement_6_0=ruleElseIfExpression();
 
                     state._fsp--;
@@ -10716,15 +10937,15 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 2 :
-                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3667:6: ( ( ( KEYWORD_52 )=>otherlv_7= KEYWORD_52 ) ( (lv_elseStatement_8_0= ruleElseExpression ) ) )
+                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3752:6: ( ( ( KEYWORD_52 )=>otherlv_7= KEYWORD_52 ) ( (lv_elseStatement_8_0= ruleElseExpression ) ) )
                     {
-                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3667:6: ( ( ( KEYWORD_52 )=>otherlv_7= KEYWORD_52 ) ( (lv_elseStatement_8_0= ruleElseExpression ) ) )
-                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3667:7: ( ( KEYWORD_52 )=>otherlv_7= KEYWORD_52 ) ( (lv_elseStatement_8_0= ruleElseExpression ) )
+                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3752:6: ( ( ( KEYWORD_52 )=>otherlv_7= KEYWORD_52 ) ( (lv_elseStatement_8_0= ruleElseExpression ) ) )
+                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3752:7: ( ( KEYWORD_52 )=>otherlv_7= KEYWORD_52 ) ( (lv_elseStatement_8_0= ruleElseExpression ) )
                     {
-                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3667:7: ( ( KEYWORD_52 )=>otherlv_7= KEYWORD_52 )
-                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3667:8: ( KEYWORD_52 )=>otherlv_7= KEYWORD_52
+                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3752:7: ( ( KEYWORD_52 )=>otherlv_7= KEYWORD_52 )
+                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3752:8: ( KEYWORD_52 )=>otherlv_7= KEYWORD_52
                     {
-                    otherlv_7=(Token)match(input,KEYWORD_52,FOLLOW_KEYWORD_52_in_ruleIfExpression7852); if (state.failed) return current;
+                    otherlv_7=(Token)match(input,KEYWORD_52,FOLLOW_KEYWORD_52_in_ruleIfExpression8031); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                           	newLeafNode(otherlv_7, grammarAccess.getIfExpressionAccess().getElseKeyword_5_1_0());
@@ -10733,18 +10954,18 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
 
                     }
 
-                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3674:2: ( (lv_elseStatement_8_0= ruleElseExpression ) )
-                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3675:1: (lv_elseStatement_8_0= ruleElseExpression )
+                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3759:2: ( (lv_elseStatement_8_0= ruleElseExpression ) )
+                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3760:1: (lv_elseStatement_8_0= ruleElseExpression )
                     {
-                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3675:1: (lv_elseStatement_8_0= ruleElseExpression )
-                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3676:3: lv_elseStatement_8_0= ruleElseExpression
+                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3760:1: (lv_elseStatement_8_0= ruleElseExpression )
+                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3761:3: lv_elseStatement_8_0= ruleElseExpression
                     {
                     if ( state.backtracking==0 ) {
                        
                       	        newCompositeNode(grammarAccess.getIfExpressionAccess().getElseStatementElseExpressionParserRuleCall_5_1_1_0()); 
                       	    
                     }
-                    pushFollow(FOLLOW_ruleElseExpression_in_ruleIfExpression7873);
+                    pushFollow(FOLLOW_ruleElseExpression_in_ruleIfExpression8052);
                     lv_elseStatement_8_0=ruleElseExpression();
 
                     state._fsp--;
@@ -10800,7 +11021,7 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleElseExpression"
-    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3700:1: entryRuleElseExpression returns [EObject current=null] : iv_ruleElseExpression= ruleElseExpression EOF ;
+    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3785:1: entryRuleElseExpression returns [EObject current=null] : iv_ruleElseExpression= ruleElseExpression EOF ;
     public final EObject entryRuleElseExpression() throws RecognitionException {
         EObject current = null;
 
@@ -10808,13 +11029,13 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3701:2: (iv_ruleElseExpression= ruleElseExpression EOF )
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3702:2: iv_ruleElseExpression= ruleElseExpression EOF
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3786:2: (iv_ruleElseExpression= ruleElseExpression EOF )
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3787:2: iv_ruleElseExpression= ruleElseExpression EOF
             {
             if ( state.backtracking==0 ) {
                newCompositeNode(grammarAccess.getElseExpressionRule()); 
             }
-            pushFollow(FOLLOW_ruleElseExpression_in_entryRuleElseExpression7911);
+            pushFollow(FOLLOW_ruleElseExpression_in_entryRuleElseExpression8090);
             iv_ruleElseExpression=ruleElseExpression();
 
             state._fsp--;
@@ -10822,7 +11043,7 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
             if ( state.backtracking==0 ) {
                current =iv_ruleElseExpression; 
             }
-            match(input,EOF,FOLLOW_EOF_in_entryRuleElseExpression7921); if (state.failed) return current;
+            match(input,EOF,FOLLOW_EOF_in_entryRuleElseExpression8100); if (state.failed) return current;
 
             }
 
@@ -10840,7 +11061,7 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleElseExpression"
-    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3709:1: ruleElseExpression returns [EObject current=null] : ( () otherlv_1= KEYWORD_20 ( (lv_statements_2_0= ruleExpressionList ) )* otherlv_3= KEYWORD_21 ) ;
+    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3794:1: ruleElseExpression returns [EObject current=null] : ( () otherlv_1= KEYWORD_20 ( (lv_statements_2_0= ruleExpressionList ) )* otherlv_3= KEYWORD_21 ) ;
     public final EObject ruleElseExpression() throws RecognitionException {
         EObject current = null;
 
@@ -10852,14 +11073,14 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3712:28: ( ( () otherlv_1= KEYWORD_20 ( (lv_statements_2_0= ruleExpressionList ) )* otherlv_3= KEYWORD_21 ) )
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3713:1: ( () otherlv_1= KEYWORD_20 ( (lv_statements_2_0= ruleExpressionList ) )* otherlv_3= KEYWORD_21 )
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3797:28: ( ( () otherlv_1= KEYWORD_20 ( (lv_statements_2_0= ruleExpressionList ) )* otherlv_3= KEYWORD_21 ) )
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3798:1: ( () otherlv_1= KEYWORD_20 ( (lv_statements_2_0= ruleExpressionList ) )* otherlv_3= KEYWORD_21 )
             {
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3713:1: ( () otherlv_1= KEYWORD_20 ( (lv_statements_2_0= ruleExpressionList ) )* otherlv_3= KEYWORD_21 )
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3713:2: () otherlv_1= KEYWORD_20 ( (lv_statements_2_0= ruleExpressionList ) )* otherlv_3= KEYWORD_21
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3798:1: ( () otherlv_1= KEYWORD_20 ( (lv_statements_2_0= ruleExpressionList ) )* otherlv_3= KEYWORD_21 )
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3798:2: () otherlv_1= KEYWORD_20 ( (lv_statements_2_0= ruleExpressionList ) )* otherlv_3= KEYWORD_21
             {
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3713:2: ()
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3714:2: 
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3798:2: ()
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3799:2: 
             {
             if ( state.backtracking==0 ) {
                
@@ -10876,36 +11097,36 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
 
             }
 
-            otherlv_1=(Token)match(input,KEYWORD_20,FOLLOW_KEYWORD_20_in_ruleElseExpression7971); if (state.failed) return current;
+            otherlv_1=(Token)match(input,KEYWORD_20,FOLLOW_KEYWORD_20_in_ruleElseExpression8150); if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
                   	newLeafNode(otherlv_1, grammarAccess.getElseExpressionAccess().getLeftCurlyBracketKeyword_1());
                   
             }
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3727:1: ( (lv_statements_2_0= ruleExpressionList ) )*
-            loop77:
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3812:1: ( (lv_statements_2_0= ruleExpressionList ) )*
+            loop78:
             do {
-                int alt77=2;
-                int LA77_0 = input.LA(1);
+                int alt78=2;
+                int LA78_0 = input.LA(1);
 
-                if ( ((LA77_0>=KEYWORD_61 && LA77_0<=KEYWORD_55)||(LA77_0>=KEYWORD_57 && LA77_0<=KEYWORD_51)||(LA77_0>=KEYWORD_53 && LA77_0<=KEYWORD_54)||LA77_0==KEYWORD_24||LA77_0==KEYWORD_42||(LA77_0>=KEYWORD_1 && LA77_0<=KEYWORD_4)||LA77_0==KEYWORD_9||(LA77_0>=KEYWORD_17 && LA77_0<=KEYWORD_18)||LA77_0==KEYWORD_20||(LA77_0>=RULE_DOLLAR_VAR && LA77_0<=RULE_WORD_CHARS)||LA77_0==RULE_REGULAR_EXPRESSION) ) {
-                    alt77=1;
+                if ( ((LA78_0>=KEYWORD_62 && LA78_0<=KEYWORD_55)||(LA78_0>=KEYWORD_57 && LA78_0<=KEYWORD_51)||(LA78_0>=KEYWORD_53 && LA78_0<=KEYWORD_54)||LA78_0==KEYWORD_24||LA78_0==KEYWORD_42||(LA78_0>=KEYWORD_1 && LA78_0<=KEYWORD_4)||LA78_0==KEYWORD_9||(LA78_0>=KEYWORD_17 && LA78_0<=KEYWORD_18)||LA78_0==KEYWORD_20||(LA78_0>=RULE_DOLLAR_VAR && LA78_0<=RULE_WORD_CHARS)||LA78_0==RULE_REGULAR_EXPRESSION) ) {
+                    alt78=1;
                 }
 
 
-                switch (alt77) {
+                switch (alt78) {
             	case 1 :
-            	    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3728:1: (lv_statements_2_0= ruleExpressionList )
+            	    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3813:1: (lv_statements_2_0= ruleExpressionList )
             	    {
-            	    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3728:1: (lv_statements_2_0= ruleExpressionList )
-            	    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3729:3: lv_statements_2_0= ruleExpressionList
+            	    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3813:1: (lv_statements_2_0= ruleExpressionList )
+            	    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3814:3: lv_statements_2_0= ruleExpressionList
             	    {
             	    if ( state.backtracking==0 ) {
             	       
             	      	        newCompositeNode(grammarAccess.getElseExpressionAccess().getStatementsExpressionListParserRuleCall_2_0()); 
             	      	    
             	    }
-            	    pushFollow(FOLLOW_ruleExpressionList_in_ruleElseExpression7991);
+            	    pushFollow(FOLLOW_ruleExpressionList_in_ruleElseExpression8170);
             	    lv_statements_2_0=ruleExpressionList();
 
             	    state._fsp--;
@@ -10931,11 +11152,11 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
             	    break;
 
             	default :
-            	    break loop77;
+            	    break loop78;
                 }
             } while (true);
 
-            otherlv_3=(Token)match(input,KEYWORD_21,FOLLOW_KEYWORD_21_in_ruleElseExpression8005); if (state.failed) return current;
+            otherlv_3=(Token)match(input,KEYWORD_21,FOLLOW_KEYWORD_21_in_ruleElseExpression8184); if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
                   	newLeafNode(otherlv_3, grammarAccess.getElseExpressionAccess().getRightCurlyBracketKeyword_3());
@@ -10964,7 +11185,7 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleElseIfExpression"
-    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3758:1: entryRuleElseIfExpression returns [EObject current=null] : iv_ruleElseIfExpression= ruleElseIfExpression EOF ;
+    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3843:1: entryRuleElseIfExpression returns [EObject current=null] : iv_ruleElseIfExpression= ruleElseIfExpression EOF ;
     public final EObject entryRuleElseIfExpression() throws RecognitionException {
         EObject current = null;
 
@@ -10972,13 +11193,13 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3759:2: (iv_ruleElseIfExpression= ruleElseIfExpression EOF )
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3760:2: iv_ruleElseIfExpression= ruleElseIfExpression EOF
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3844:2: (iv_ruleElseIfExpression= ruleElseIfExpression EOF )
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3845:2: iv_ruleElseIfExpression= ruleElseIfExpression EOF
             {
             if ( state.backtracking==0 ) {
                newCompositeNode(grammarAccess.getElseIfExpressionRule()); 
             }
-            pushFollow(FOLLOW_ruleElseIfExpression_in_entryRuleElseIfExpression8039);
+            pushFollow(FOLLOW_ruleElseIfExpression_in_entryRuleElseIfExpression8218);
             iv_ruleElseIfExpression=ruleElseIfExpression();
 
             state._fsp--;
@@ -10986,7 +11207,7 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
             if ( state.backtracking==0 ) {
                current =iv_ruleElseIfExpression; 
             }
-            match(input,EOF,FOLLOW_EOF_in_entryRuleElseIfExpression8049); if (state.failed) return current;
+            match(input,EOF,FOLLOW_EOF_in_entryRuleElseIfExpression8228); if (state.failed) return current;
 
             }
 
@@ -11004,7 +11225,7 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleElseIfExpression"
-    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3767:1: ruleElseIfExpression returns [EObject current=null] : ( () ( (lv_condExpr_1_0= ruleAssignmentExpression ) ) otherlv_2= KEYWORD_20 ( (lv_thenStatements_3_0= ruleExpressionList ) )* otherlv_4= KEYWORD_21 ( ( ( ( KEYWORD_56 )=>otherlv_5= KEYWORD_56 ) ( (lv_elseStatement_6_0= ruleElseIfExpression ) ) ) | ( ( ( KEYWORD_52 )=>otherlv_7= KEYWORD_52 ) ( (lv_elseStatement_8_0= ruleElseExpression ) ) ) )? ) ;
+    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3852:1: ruleElseIfExpression returns [EObject current=null] : ( () ( (lv_condExpr_1_0= ruleAssignmentExpression ) ) otherlv_2= KEYWORD_20 ( (lv_thenStatements_3_0= ruleExpressionList ) )* otherlv_4= KEYWORD_21 ( ( ( ( KEYWORD_56 )=>otherlv_5= KEYWORD_56 ) ( (lv_elseStatement_6_0= ruleElseIfExpression ) ) ) | ( ( ( KEYWORD_52 )=>otherlv_7= KEYWORD_52 ) ( (lv_elseStatement_8_0= ruleElseExpression ) ) ) )? ) ;
     public final EObject ruleElseIfExpression() throws RecognitionException {
         EObject current = null;
 
@@ -11024,14 +11245,14 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3770:28: ( ( () ( (lv_condExpr_1_0= ruleAssignmentExpression ) ) otherlv_2= KEYWORD_20 ( (lv_thenStatements_3_0= ruleExpressionList ) )* otherlv_4= KEYWORD_21 ( ( ( ( KEYWORD_56 )=>otherlv_5= KEYWORD_56 ) ( (lv_elseStatement_6_0= ruleElseIfExpression ) ) ) | ( ( ( KEYWORD_52 )=>otherlv_7= KEYWORD_52 ) ( (lv_elseStatement_8_0= ruleElseExpression ) ) ) )? ) )
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3771:1: ( () ( (lv_condExpr_1_0= ruleAssignmentExpression ) ) otherlv_2= KEYWORD_20 ( (lv_thenStatements_3_0= ruleExpressionList ) )* otherlv_4= KEYWORD_21 ( ( ( ( KEYWORD_56 )=>otherlv_5= KEYWORD_56 ) ( (lv_elseStatement_6_0= ruleElseIfExpression ) ) ) | ( ( ( KEYWORD_52 )=>otherlv_7= KEYWORD_52 ) ( (lv_elseStatement_8_0= ruleElseExpression ) ) ) )? )
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3855:28: ( ( () ( (lv_condExpr_1_0= ruleAssignmentExpression ) ) otherlv_2= KEYWORD_20 ( (lv_thenStatements_3_0= ruleExpressionList ) )* otherlv_4= KEYWORD_21 ( ( ( ( KEYWORD_56 )=>otherlv_5= KEYWORD_56 ) ( (lv_elseStatement_6_0= ruleElseIfExpression ) ) ) | ( ( ( KEYWORD_52 )=>otherlv_7= KEYWORD_52 ) ( (lv_elseStatement_8_0= ruleElseExpression ) ) ) )? ) )
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3856:1: ( () ( (lv_condExpr_1_0= ruleAssignmentExpression ) ) otherlv_2= KEYWORD_20 ( (lv_thenStatements_3_0= ruleExpressionList ) )* otherlv_4= KEYWORD_21 ( ( ( ( KEYWORD_56 )=>otherlv_5= KEYWORD_56 ) ( (lv_elseStatement_6_0= ruleElseIfExpression ) ) ) | ( ( ( KEYWORD_52 )=>otherlv_7= KEYWORD_52 ) ( (lv_elseStatement_8_0= ruleElseExpression ) ) ) )? )
             {
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3771:1: ( () ( (lv_condExpr_1_0= ruleAssignmentExpression ) ) otherlv_2= KEYWORD_20 ( (lv_thenStatements_3_0= ruleExpressionList ) )* otherlv_4= KEYWORD_21 ( ( ( ( KEYWORD_56 )=>otherlv_5= KEYWORD_56 ) ( (lv_elseStatement_6_0= ruleElseIfExpression ) ) ) | ( ( ( KEYWORD_52 )=>otherlv_7= KEYWORD_52 ) ( (lv_elseStatement_8_0= ruleElseExpression ) ) ) )? )
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3771:2: () ( (lv_condExpr_1_0= ruleAssignmentExpression ) ) otherlv_2= KEYWORD_20 ( (lv_thenStatements_3_0= ruleExpressionList ) )* otherlv_4= KEYWORD_21 ( ( ( ( KEYWORD_56 )=>otherlv_5= KEYWORD_56 ) ( (lv_elseStatement_6_0= ruleElseIfExpression ) ) ) | ( ( ( KEYWORD_52 )=>otherlv_7= KEYWORD_52 ) ( (lv_elseStatement_8_0= ruleElseExpression ) ) ) )?
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3856:1: ( () ( (lv_condExpr_1_0= ruleAssignmentExpression ) ) otherlv_2= KEYWORD_20 ( (lv_thenStatements_3_0= ruleExpressionList ) )* otherlv_4= KEYWORD_21 ( ( ( ( KEYWORD_56 )=>otherlv_5= KEYWORD_56 ) ( (lv_elseStatement_6_0= ruleElseIfExpression ) ) ) | ( ( ( KEYWORD_52 )=>otherlv_7= KEYWORD_52 ) ( (lv_elseStatement_8_0= ruleElseExpression ) ) ) )? )
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3856:2: () ( (lv_condExpr_1_0= ruleAssignmentExpression ) ) otherlv_2= KEYWORD_20 ( (lv_thenStatements_3_0= ruleExpressionList ) )* otherlv_4= KEYWORD_21 ( ( ( ( KEYWORD_56 )=>otherlv_5= KEYWORD_56 ) ( (lv_elseStatement_6_0= ruleElseIfExpression ) ) ) | ( ( ( KEYWORD_52 )=>otherlv_7= KEYWORD_52 ) ( (lv_elseStatement_8_0= ruleElseExpression ) ) ) )?
             {
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3771:2: ()
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3772:2: 
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3856:2: ()
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3857:2: 
             {
             if ( state.backtracking==0 ) {
                
@@ -11048,18 +11269,18 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
 
             }
 
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3780:2: ( (lv_condExpr_1_0= ruleAssignmentExpression ) )
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3781:1: (lv_condExpr_1_0= ruleAssignmentExpression )
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3865:2: ( (lv_condExpr_1_0= ruleAssignmentExpression ) )
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3866:1: (lv_condExpr_1_0= ruleAssignmentExpression )
             {
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3781:1: (lv_condExpr_1_0= ruleAssignmentExpression )
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3782:3: lv_condExpr_1_0= ruleAssignmentExpression
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3866:1: (lv_condExpr_1_0= ruleAssignmentExpression )
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3867:3: lv_condExpr_1_0= ruleAssignmentExpression
             {
             if ( state.backtracking==0 ) {
                
               	        newCompositeNode(grammarAccess.getElseIfExpressionAccess().getCondExprAssignmentExpressionParserRuleCall_1_0()); 
               	    
             }
-            pushFollow(FOLLOW_ruleAssignmentExpression_in_ruleElseIfExpression8107);
+            pushFollow(FOLLOW_ruleAssignmentExpression_in_ruleElseIfExpression8286);
             lv_condExpr_1_0=ruleAssignmentExpression();
 
             state._fsp--;
@@ -11083,36 +11304,36 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
 
             }
 
-            otherlv_2=(Token)match(input,KEYWORD_20,FOLLOW_KEYWORD_20_in_ruleElseIfExpression8120); if (state.failed) return current;
+            otherlv_2=(Token)match(input,KEYWORD_20,FOLLOW_KEYWORD_20_in_ruleElseIfExpression8299); if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
                   	newLeafNode(otherlv_2, grammarAccess.getElseIfExpressionAccess().getLeftCurlyBracketKeyword_2());
                   
             }
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3803:1: ( (lv_thenStatements_3_0= ruleExpressionList ) )*
-            loop78:
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3888:1: ( (lv_thenStatements_3_0= ruleExpressionList ) )*
+            loop79:
             do {
-                int alt78=2;
-                int LA78_0 = input.LA(1);
+                int alt79=2;
+                int LA79_0 = input.LA(1);
 
-                if ( ((LA78_0>=KEYWORD_61 && LA78_0<=KEYWORD_55)||(LA78_0>=KEYWORD_57 && LA78_0<=KEYWORD_51)||(LA78_0>=KEYWORD_53 && LA78_0<=KEYWORD_54)||LA78_0==KEYWORD_24||LA78_0==KEYWORD_42||(LA78_0>=KEYWORD_1 && LA78_0<=KEYWORD_4)||LA78_0==KEYWORD_9||(LA78_0>=KEYWORD_17 && LA78_0<=KEYWORD_18)||LA78_0==KEYWORD_20||(LA78_0>=RULE_DOLLAR_VAR && LA78_0<=RULE_WORD_CHARS)||LA78_0==RULE_REGULAR_EXPRESSION) ) {
-                    alt78=1;
+                if ( ((LA79_0>=KEYWORD_62 && LA79_0<=KEYWORD_55)||(LA79_0>=KEYWORD_57 && LA79_0<=KEYWORD_51)||(LA79_0>=KEYWORD_53 && LA79_0<=KEYWORD_54)||LA79_0==KEYWORD_24||LA79_0==KEYWORD_42||(LA79_0>=KEYWORD_1 && LA79_0<=KEYWORD_4)||LA79_0==KEYWORD_9||(LA79_0>=KEYWORD_17 && LA79_0<=KEYWORD_18)||LA79_0==KEYWORD_20||(LA79_0>=RULE_DOLLAR_VAR && LA79_0<=RULE_WORD_CHARS)||LA79_0==RULE_REGULAR_EXPRESSION) ) {
+                    alt79=1;
                 }
 
 
-                switch (alt78) {
+                switch (alt79) {
             	case 1 :
-            	    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3804:1: (lv_thenStatements_3_0= ruleExpressionList )
+            	    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3889:1: (lv_thenStatements_3_0= ruleExpressionList )
             	    {
-            	    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3804:1: (lv_thenStatements_3_0= ruleExpressionList )
-            	    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3805:3: lv_thenStatements_3_0= ruleExpressionList
+            	    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3889:1: (lv_thenStatements_3_0= ruleExpressionList )
+            	    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3890:3: lv_thenStatements_3_0= ruleExpressionList
             	    {
             	    if ( state.backtracking==0 ) {
             	       
             	      	        newCompositeNode(grammarAccess.getElseIfExpressionAccess().getThenStatementsExpressionListParserRuleCall_3_0()); 
             	      	    
             	    }
-            	    pushFollow(FOLLOW_ruleExpressionList_in_ruleElseIfExpression8140);
+            	    pushFollow(FOLLOW_ruleExpressionList_in_ruleElseIfExpression8319);
             	    lv_thenStatements_3_0=ruleExpressionList();
 
             	    state._fsp--;
@@ -11138,37 +11359,37 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
             	    break;
 
             	default :
-            	    break loop78;
+            	    break loop79;
                 }
             } while (true);
 
-            otherlv_4=(Token)match(input,KEYWORD_21,FOLLOW_KEYWORD_21_in_ruleElseIfExpression8154); if (state.failed) return current;
+            otherlv_4=(Token)match(input,KEYWORD_21,FOLLOW_KEYWORD_21_in_ruleElseIfExpression8333); if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
                   	newLeafNode(otherlv_4, grammarAccess.getElseIfExpressionAccess().getRightCurlyBracketKeyword_4());
                   
             }
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3826:1: ( ( ( ( KEYWORD_56 )=>otherlv_5= KEYWORD_56 ) ( (lv_elseStatement_6_0= ruleElseIfExpression ) ) ) | ( ( ( KEYWORD_52 )=>otherlv_7= KEYWORD_52 ) ( (lv_elseStatement_8_0= ruleElseExpression ) ) ) )?
-            int alt79=3;
-            int LA79_0 = input.LA(1);
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3911:1: ( ( ( ( KEYWORD_56 )=>otherlv_5= KEYWORD_56 ) ( (lv_elseStatement_6_0= ruleElseIfExpression ) ) ) | ( ( ( KEYWORD_52 )=>otherlv_7= KEYWORD_52 ) ( (lv_elseStatement_8_0= ruleElseExpression ) ) ) )?
+            int alt80=3;
+            int LA80_0 = input.LA(1);
 
-            if ( (LA79_0==KEYWORD_56) ) {
-                alt79=1;
+            if ( (LA80_0==KEYWORD_56) ) {
+                alt80=1;
             }
-            else if ( (LA79_0==KEYWORD_52) ) {
-                alt79=2;
+            else if ( (LA80_0==KEYWORD_52) ) {
+                alt80=2;
             }
-            switch (alt79) {
+            switch (alt80) {
                 case 1 :
-                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3826:2: ( ( ( KEYWORD_56 )=>otherlv_5= KEYWORD_56 ) ( (lv_elseStatement_6_0= ruleElseIfExpression ) ) )
+                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3911:2: ( ( ( KEYWORD_56 )=>otherlv_5= KEYWORD_56 ) ( (lv_elseStatement_6_0= ruleElseIfExpression ) ) )
                     {
-                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3826:2: ( ( ( KEYWORD_56 )=>otherlv_5= KEYWORD_56 ) ( (lv_elseStatement_6_0= ruleElseIfExpression ) ) )
-                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3826:3: ( ( KEYWORD_56 )=>otherlv_5= KEYWORD_56 ) ( (lv_elseStatement_6_0= ruleElseIfExpression ) )
+                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3911:2: ( ( ( KEYWORD_56 )=>otherlv_5= KEYWORD_56 ) ( (lv_elseStatement_6_0= ruleElseIfExpression ) ) )
+                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3911:3: ( ( KEYWORD_56 )=>otherlv_5= KEYWORD_56 ) ( (lv_elseStatement_6_0= ruleElseIfExpression ) )
                     {
-                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3826:3: ( ( KEYWORD_56 )=>otherlv_5= KEYWORD_56 )
-                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3826:4: ( KEYWORD_56 )=>otherlv_5= KEYWORD_56
+                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3911:3: ( ( KEYWORD_56 )=>otherlv_5= KEYWORD_56 )
+                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3911:4: ( KEYWORD_56 )=>otherlv_5= KEYWORD_56
                     {
-                    otherlv_5=(Token)match(input,KEYWORD_56,FOLLOW_KEYWORD_56_in_ruleElseIfExpression8175); if (state.failed) return current;
+                    otherlv_5=(Token)match(input,KEYWORD_56,FOLLOW_KEYWORD_56_in_ruleElseIfExpression8354); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                           	newLeafNode(otherlv_5, grammarAccess.getElseIfExpressionAccess().getElsifKeyword_5_0_0());
@@ -11177,18 +11398,18 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
 
                     }
 
-                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3833:2: ( (lv_elseStatement_6_0= ruleElseIfExpression ) )
-                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3834:1: (lv_elseStatement_6_0= ruleElseIfExpression )
+                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3918:2: ( (lv_elseStatement_6_0= ruleElseIfExpression ) )
+                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3919:1: (lv_elseStatement_6_0= ruleElseIfExpression )
                     {
-                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3834:1: (lv_elseStatement_6_0= ruleElseIfExpression )
-                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3835:3: lv_elseStatement_6_0= ruleElseIfExpression
+                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3919:1: (lv_elseStatement_6_0= ruleElseIfExpression )
+                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3920:3: lv_elseStatement_6_0= ruleElseIfExpression
                     {
                     if ( state.backtracking==0 ) {
                        
                       	        newCompositeNode(grammarAccess.getElseIfExpressionAccess().getElseStatementElseIfExpressionParserRuleCall_5_0_1_0()); 
                       	    
                     }
-                    pushFollow(FOLLOW_ruleElseIfExpression_in_ruleElseIfExpression8196);
+                    pushFollow(FOLLOW_ruleElseIfExpression_in_ruleElseIfExpression8375);
                     lv_elseStatement_6_0=ruleElseIfExpression();
 
                     state._fsp--;
@@ -11219,15 +11440,15 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 2 :
-                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3852:6: ( ( ( KEYWORD_52 )=>otherlv_7= KEYWORD_52 ) ( (lv_elseStatement_8_0= ruleElseExpression ) ) )
+                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3937:6: ( ( ( KEYWORD_52 )=>otherlv_7= KEYWORD_52 ) ( (lv_elseStatement_8_0= ruleElseExpression ) ) )
                     {
-                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3852:6: ( ( ( KEYWORD_52 )=>otherlv_7= KEYWORD_52 ) ( (lv_elseStatement_8_0= ruleElseExpression ) ) )
-                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3852:7: ( ( KEYWORD_52 )=>otherlv_7= KEYWORD_52 ) ( (lv_elseStatement_8_0= ruleElseExpression ) )
+                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3937:6: ( ( ( KEYWORD_52 )=>otherlv_7= KEYWORD_52 ) ( (lv_elseStatement_8_0= ruleElseExpression ) ) )
+                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3937:7: ( ( KEYWORD_52 )=>otherlv_7= KEYWORD_52 ) ( (lv_elseStatement_8_0= ruleElseExpression ) )
                     {
-                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3852:7: ( ( KEYWORD_52 )=>otherlv_7= KEYWORD_52 )
-                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3852:8: ( KEYWORD_52 )=>otherlv_7= KEYWORD_52
+                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3937:7: ( ( KEYWORD_52 )=>otherlv_7= KEYWORD_52 )
+                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3937:8: ( KEYWORD_52 )=>otherlv_7= KEYWORD_52
                     {
-                    otherlv_7=(Token)match(input,KEYWORD_52,FOLLOW_KEYWORD_52_in_ruleElseIfExpression8224); if (state.failed) return current;
+                    otherlv_7=(Token)match(input,KEYWORD_52,FOLLOW_KEYWORD_52_in_ruleElseIfExpression8403); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                           	newLeafNode(otherlv_7, grammarAccess.getElseIfExpressionAccess().getElseKeyword_5_1_0());
@@ -11236,18 +11457,18 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
 
                     }
 
-                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3859:2: ( (lv_elseStatement_8_0= ruleElseExpression ) )
-                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3860:1: (lv_elseStatement_8_0= ruleElseExpression )
+                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3944:2: ( (lv_elseStatement_8_0= ruleElseExpression ) )
+                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3945:1: (lv_elseStatement_8_0= ruleElseExpression )
                     {
-                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3860:1: (lv_elseStatement_8_0= ruleElseExpression )
-                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3861:3: lv_elseStatement_8_0= ruleElseExpression
+                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3945:1: (lv_elseStatement_8_0= ruleElseExpression )
+                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3946:3: lv_elseStatement_8_0= ruleElseExpression
                     {
                     if ( state.backtracking==0 ) {
                        
                       	        newCompositeNode(grammarAccess.getElseIfExpressionAccess().getElseStatementElseExpressionParserRuleCall_5_1_1_0()); 
                       	    
                     }
-                    pushFollow(FOLLOW_ruleElseExpression_in_ruleElseIfExpression8245);
+                    pushFollow(FOLLOW_ruleElseExpression_in_ruleElseIfExpression8424);
                     lv_elseStatement_8_0=ruleElseExpression();
 
                     state._fsp--;
@@ -11303,7 +11524,7 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleLiteralExpression"
-    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3885:1: entryRuleLiteralExpression returns [EObject current=null] : iv_ruleLiteralExpression= ruleLiteralExpression EOF ;
+    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3970:1: entryRuleLiteralExpression returns [EObject current=null] : iv_ruleLiteralExpression= ruleLiteralExpression EOF ;
     public final EObject entryRuleLiteralExpression() throws RecognitionException {
         EObject current = null;
 
@@ -11311,13 +11532,13 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3886:2: (iv_ruleLiteralExpression= ruleLiteralExpression EOF )
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3887:2: iv_ruleLiteralExpression= ruleLiteralExpression EOF
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3971:2: (iv_ruleLiteralExpression= ruleLiteralExpression EOF )
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3972:2: iv_ruleLiteralExpression= ruleLiteralExpression EOF
             {
             if ( state.backtracking==0 ) {
                newCompositeNode(grammarAccess.getLiteralExpressionRule()); 
             }
-            pushFollow(FOLLOW_ruleLiteralExpression_in_entryRuleLiteralExpression8283);
+            pushFollow(FOLLOW_ruleLiteralExpression_in_entryRuleLiteralExpression8462);
             iv_ruleLiteralExpression=ruleLiteralExpression();
 
             state._fsp--;
@@ -11325,7 +11546,7 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
             if ( state.backtracking==0 ) {
                current =iv_ruleLiteralExpression; 
             }
-            match(input,EOF,FOLLOW_EOF_in_entryRuleLiteralExpression8293); if (state.failed) return current;
+            match(input,EOF,FOLLOW_EOF_in_entryRuleLiteralExpression8472); if (state.failed) return current;
 
             }
 
@@ -11343,7 +11564,7 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleLiteralExpression"
-    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3894:1: ruleLiteralExpression returns [EObject current=null] : (this_LiteralBoolean_0= ruleLiteralBoolean | this_LiteralUndef_1= ruleLiteralUndef | this_LiteralDefault_2= ruleLiteralDefault | this_LiteralList_3= ruleLiteralList | this_LiteralHash_4= ruleLiteralHash | this_LiteralRegex_5= ruleLiteralRegex | this_StringExpression_6= ruleStringExpression | this_LiteralNameOrReference_7= ruleLiteralNameOrReference ) ;
+    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3979:1: ruleLiteralExpression returns [EObject current=null] : (this_LiteralBoolean_0= ruleLiteralBoolean | this_LiteralUndef_1= ruleLiteralUndef | this_LiteralDefault_2= ruleLiteralDefault | this_LiteralList_3= ruleLiteralList | this_LiteralHash_4= ruleLiteralHash | this_LiteralRegex_5= ruleLiteralRegex | this_StringExpression_6= ruleStringExpression | this_LiteralNameOrReference_7= ruleLiteralNameOrReference ) ;
     public final EObject ruleLiteralExpression() throws RecognitionException {
         EObject current = null;
 
@@ -11367,66 +11588,66 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3897:28: ( (this_LiteralBoolean_0= ruleLiteralBoolean | this_LiteralUndef_1= ruleLiteralUndef | this_LiteralDefault_2= ruleLiteralDefault | this_LiteralList_3= ruleLiteralList | this_LiteralHash_4= ruleLiteralHash | this_LiteralRegex_5= ruleLiteralRegex | this_StringExpression_6= ruleStringExpression | this_LiteralNameOrReference_7= ruleLiteralNameOrReference ) )
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3898:1: (this_LiteralBoolean_0= ruleLiteralBoolean | this_LiteralUndef_1= ruleLiteralUndef | this_LiteralDefault_2= ruleLiteralDefault | this_LiteralList_3= ruleLiteralList | this_LiteralHash_4= ruleLiteralHash | this_LiteralRegex_5= ruleLiteralRegex | this_StringExpression_6= ruleStringExpression | this_LiteralNameOrReference_7= ruleLiteralNameOrReference )
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3982:28: ( (this_LiteralBoolean_0= ruleLiteralBoolean | this_LiteralUndef_1= ruleLiteralUndef | this_LiteralDefault_2= ruleLiteralDefault | this_LiteralList_3= ruleLiteralList | this_LiteralHash_4= ruleLiteralHash | this_LiteralRegex_5= ruleLiteralRegex | this_StringExpression_6= ruleStringExpression | this_LiteralNameOrReference_7= ruleLiteralNameOrReference ) )
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3983:1: (this_LiteralBoolean_0= ruleLiteralBoolean | this_LiteralUndef_1= ruleLiteralUndef | this_LiteralDefault_2= ruleLiteralDefault | this_LiteralList_3= ruleLiteralList | this_LiteralHash_4= ruleLiteralHash | this_LiteralRegex_5= ruleLiteralRegex | this_StringExpression_6= ruleStringExpression | this_LiteralNameOrReference_7= ruleLiteralNameOrReference )
             {
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3898:1: (this_LiteralBoolean_0= ruleLiteralBoolean | this_LiteralUndef_1= ruleLiteralUndef | this_LiteralDefault_2= ruleLiteralDefault | this_LiteralList_3= ruleLiteralList | this_LiteralHash_4= ruleLiteralHash | this_LiteralRegex_5= ruleLiteralRegex | this_StringExpression_6= ruleStringExpression | this_LiteralNameOrReference_7= ruleLiteralNameOrReference )
-            int alt80=8;
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3983:1: (this_LiteralBoolean_0= ruleLiteralBoolean | this_LiteralUndef_1= ruleLiteralUndef | this_LiteralDefault_2= ruleLiteralDefault | this_LiteralList_3= ruleLiteralList | this_LiteralHash_4= ruleLiteralHash | this_LiteralRegex_5= ruleLiteralRegex | this_StringExpression_6= ruleStringExpression | this_LiteralNameOrReference_7= ruleLiteralNameOrReference )
+            int alt81=8;
             switch ( input.LA(1) ) {
             case KEYWORD_57:
             case KEYWORD_54:
                 {
-                alt80=1;
+                alt81=1;
                 }
                 break;
             case KEYWORD_58:
                 {
-                alt80=2;
+                alt81=2;
                 }
                 break;
-            case KEYWORD_61:
+            case KEYWORD_62:
                 {
-                alt80=3;
+                alt81=3;
                 }
                 break;
             case KEYWORD_18:
                 {
-                alt80=4;
+                alt81=4;
                 }
                 break;
             case KEYWORD_20:
                 {
-                alt80=5;
+                alt81=5;
                 }
                 break;
             case RULE_REGULAR_EXPRESSION:
                 {
-                alt80=6;
+                alt81=6;
                 }
                 break;
             case KEYWORD_24:
             case KEYWORD_2:
             case KEYWORD_3:
                 {
-                alt80=7;
+                alt81=7;
                 }
                 break;
             case RULE_WORD_CHARS:
                 {
-                alt80=8;
+                alt81=8;
                 }
                 break;
             default:
                 if (state.backtracking>0) {state.failed=true; return current;}
                 NoViableAltException nvae =
-                    new NoViableAltException("", 80, 0, input);
+                    new NoViableAltException("", 81, 0, input);
 
                 throw nvae;
             }
 
-            switch (alt80) {
+            switch (alt81) {
                 case 1 :
-                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3899:2: this_LiteralBoolean_0= ruleLiteralBoolean
+                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3984:2: this_LiteralBoolean_0= ruleLiteralBoolean
                     {
                     if ( state.backtracking==0 ) {
                        
@@ -11438,7 +11659,7 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
                               newCompositeNode(grammarAccess.getLiteralExpressionAccess().getLiteralBooleanParserRuleCall_0()); 
                           
                     }
-                    pushFollow(FOLLOW_ruleLiteralBoolean_in_ruleLiteralExpression8343);
+                    pushFollow(FOLLOW_ruleLiteralBoolean_in_ruleLiteralExpression8522);
                     this_LiteralBoolean_0=ruleLiteralBoolean();
 
                     state._fsp--;
@@ -11453,7 +11674,7 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 2 :
-                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3912:2: this_LiteralUndef_1= ruleLiteralUndef
+                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3997:2: this_LiteralUndef_1= ruleLiteralUndef
                     {
                     if ( state.backtracking==0 ) {
                        
@@ -11465,7 +11686,7 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
                               newCompositeNode(grammarAccess.getLiteralExpressionAccess().getLiteralUndefParserRuleCall_1()); 
                           
                     }
-                    pushFollow(FOLLOW_ruleLiteralUndef_in_ruleLiteralExpression8373);
+                    pushFollow(FOLLOW_ruleLiteralUndef_in_ruleLiteralExpression8552);
                     this_LiteralUndef_1=ruleLiteralUndef();
 
                     state._fsp--;
@@ -11480,7 +11701,7 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 3 :
-                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3925:2: this_LiteralDefault_2= ruleLiteralDefault
+                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4010:2: this_LiteralDefault_2= ruleLiteralDefault
                     {
                     if ( state.backtracking==0 ) {
                        
@@ -11492,7 +11713,7 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
                               newCompositeNode(grammarAccess.getLiteralExpressionAccess().getLiteralDefaultParserRuleCall_2()); 
                           
                     }
-                    pushFollow(FOLLOW_ruleLiteralDefault_in_ruleLiteralExpression8403);
+                    pushFollow(FOLLOW_ruleLiteralDefault_in_ruleLiteralExpression8582);
                     this_LiteralDefault_2=ruleLiteralDefault();
 
                     state._fsp--;
@@ -11507,7 +11728,7 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 4 :
-                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3938:2: this_LiteralList_3= ruleLiteralList
+                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4023:2: this_LiteralList_3= ruleLiteralList
                     {
                     if ( state.backtracking==0 ) {
                        
@@ -11519,7 +11740,7 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
                               newCompositeNode(grammarAccess.getLiteralExpressionAccess().getLiteralListParserRuleCall_3()); 
                           
                     }
-                    pushFollow(FOLLOW_ruleLiteralList_in_ruleLiteralExpression8433);
+                    pushFollow(FOLLOW_ruleLiteralList_in_ruleLiteralExpression8612);
                     this_LiteralList_3=ruleLiteralList();
 
                     state._fsp--;
@@ -11534,7 +11755,7 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 5 :
-                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3951:2: this_LiteralHash_4= ruleLiteralHash
+                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4036:2: this_LiteralHash_4= ruleLiteralHash
                     {
                     if ( state.backtracking==0 ) {
                        
@@ -11546,7 +11767,7 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
                               newCompositeNode(grammarAccess.getLiteralExpressionAccess().getLiteralHashParserRuleCall_4()); 
                           
                     }
-                    pushFollow(FOLLOW_ruleLiteralHash_in_ruleLiteralExpression8463);
+                    pushFollow(FOLLOW_ruleLiteralHash_in_ruleLiteralExpression8642);
                     this_LiteralHash_4=ruleLiteralHash();
 
                     state._fsp--;
@@ -11561,7 +11782,7 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 6 :
-                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3964:2: this_LiteralRegex_5= ruleLiteralRegex
+                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4049:2: this_LiteralRegex_5= ruleLiteralRegex
                     {
                     if ( state.backtracking==0 ) {
                        
@@ -11573,7 +11794,7 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
                               newCompositeNode(grammarAccess.getLiteralExpressionAccess().getLiteralRegexParserRuleCall_5()); 
                           
                     }
-                    pushFollow(FOLLOW_ruleLiteralRegex_in_ruleLiteralExpression8493);
+                    pushFollow(FOLLOW_ruleLiteralRegex_in_ruleLiteralExpression8672);
                     this_LiteralRegex_5=ruleLiteralRegex();
 
                     state._fsp--;
@@ -11588,7 +11809,7 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 7 :
-                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3977:2: this_StringExpression_6= ruleStringExpression
+                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4062:2: this_StringExpression_6= ruleStringExpression
                     {
                     if ( state.backtracking==0 ) {
                        
@@ -11600,7 +11821,7 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
                               newCompositeNode(grammarAccess.getLiteralExpressionAccess().getStringExpressionParserRuleCall_6()); 
                           
                     }
-                    pushFollow(FOLLOW_ruleStringExpression_in_ruleLiteralExpression8523);
+                    pushFollow(FOLLOW_ruleStringExpression_in_ruleLiteralExpression8702);
                     this_StringExpression_6=ruleStringExpression();
 
                     state._fsp--;
@@ -11615,7 +11836,7 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 8 :
-                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:3990:2: this_LiteralNameOrReference_7= ruleLiteralNameOrReference
+                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4075:2: this_LiteralNameOrReference_7= ruleLiteralNameOrReference
                     {
                     if ( state.backtracking==0 ) {
                        
@@ -11627,7 +11848,7 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
                               newCompositeNode(grammarAccess.getLiteralExpressionAccess().getLiteralNameOrReferenceParserRuleCall_7()); 
                           
                     }
-                    pushFollow(FOLLOW_ruleLiteralNameOrReference_in_ruleLiteralExpression8553);
+                    pushFollow(FOLLOW_ruleLiteralNameOrReference_in_ruleLiteralExpression8732);
                     this_LiteralNameOrReference_7=ruleLiteralNameOrReference();
 
                     state._fsp--;
@@ -11664,7 +11885,7 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleLiteralNameOrReference"
-    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4009:1: entryRuleLiteralNameOrReference returns [EObject current=null] : iv_ruleLiteralNameOrReference= ruleLiteralNameOrReference EOF ;
+    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4094:1: entryRuleLiteralNameOrReference returns [EObject current=null] : iv_ruleLiteralNameOrReference= ruleLiteralNameOrReference EOF ;
     public final EObject entryRuleLiteralNameOrReference() throws RecognitionException {
         EObject current = null;
 
@@ -11672,13 +11893,13 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4010:2: (iv_ruleLiteralNameOrReference= ruleLiteralNameOrReference EOF )
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4011:2: iv_ruleLiteralNameOrReference= ruleLiteralNameOrReference EOF
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4095:2: (iv_ruleLiteralNameOrReference= ruleLiteralNameOrReference EOF )
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4096:2: iv_ruleLiteralNameOrReference= ruleLiteralNameOrReference EOF
             {
             if ( state.backtracking==0 ) {
                newCompositeNode(grammarAccess.getLiteralNameOrReferenceRule()); 
             }
-            pushFollow(FOLLOW_ruleLiteralNameOrReference_in_entryRuleLiteralNameOrReference8587);
+            pushFollow(FOLLOW_ruleLiteralNameOrReference_in_entryRuleLiteralNameOrReference8766);
             iv_ruleLiteralNameOrReference=ruleLiteralNameOrReference();
 
             state._fsp--;
@@ -11686,7 +11907,7 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
             if ( state.backtracking==0 ) {
                current =iv_ruleLiteralNameOrReference; 
             }
-            match(input,EOF,FOLLOW_EOF_in_entryRuleLiteralNameOrReference8597); if (state.failed) return current;
+            match(input,EOF,FOLLOW_EOF_in_entryRuleLiteralNameOrReference8776); if (state.failed) return current;
 
             }
 
@@ -11704,7 +11925,7 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleLiteralNameOrReference"
-    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4018:1: ruleLiteralNameOrReference returns [EObject current=null] : ( (lv_value_0_0= rulename ) ) ;
+    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4103:1: ruleLiteralNameOrReference returns [EObject current=null] : ( (lv_value_0_0= rulename ) ) ;
     public final EObject ruleLiteralNameOrReference() throws RecognitionException {
         EObject current = null;
 
@@ -11714,21 +11935,21 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4021:28: ( ( (lv_value_0_0= rulename ) ) )
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4022:1: ( (lv_value_0_0= rulename ) )
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4106:28: ( ( (lv_value_0_0= rulename ) ) )
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4107:1: ( (lv_value_0_0= rulename ) )
             {
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4022:1: ( (lv_value_0_0= rulename ) )
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4023:1: (lv_value_0_0= rulename )
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4107:1: ( (lv_value_0_0= rulename ) )
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4108:1: (lv_value_0_0= rulename )
             {
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4023:1: (lv_value_0_0= rulename )
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4024:3: lv_value_0_0= rulename
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4108:1: (lv_value_0_0= rulename )
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4109:3: lv_value_0_0= rulename
             {
             if ( state.backtracking==0 ) {
                
               	        newCompositeNode(grammarAccess.getLiteralNameOrReferenceAccess().getValueNameParserRuleCall_0()); 
               	    
             }
-            pushFollow(FOLLOW_rulename_in_ruleLiteralNameOrReference8642);
+            pushFollow(FOLLOW_rulename_in_ruleLiteralNameOrReference8821);
             lv_value_0_0=rulename();
 
             state._fsp--;
@@ -11772,7 +11993,7 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleUNION_VARIABLE_OR_NAME"
-    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4048:1: entryRuleUNION_VARIABLE_OR_NAME returns [String current=null] : iv_ruleUNION_VARIABLE_OR_NAME= ruleUNION_VARIABLE_OR_NAME EOF ;
+    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4133:1: entryRuleUNION_VARIABLE_OR_NAME returns [String current=null] : iv_ruleUNION_VARIABLE_OR_NAME= ruleUNION_VARIABLE_OR_NAME EOF ;
     public final String entryRuleUNION_VARIABLE_OR_NAME() throws RecognitionException {
         String current = null;
 
@@ -11780,13 +12001,13 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4049:1: (iv_ruleUNION_VARIABLE_OR_NAME= ruleUNION_VARIABLE_OR_NAME EOF )
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4050:2: iv_ruleUNION_VARIABLE_OR_NAME= ruleUNION_VARIABLE_OR_NAME EOF
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4134:1: (iv_ruleUNION_VARIABLE_OR_NAME= ruleUNION_VARIABLE_OR_NAME EOF )
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4135:2: iv_ruleUNION_VARIABLE_OR_NAME= ruleUNION_VARIABLE_OR_NAME EOF
             {
             if ( state.backtracking==0 ) {
                newCompositeNode(grammarAccess.getUNION_VARIABLE_OR_NAMERule()); 
             }
-            pushFollow(FOLLOW_ruleUNION_VARIABLE_OR_NAME_in_entryRuleUNION_VARIABLE_OR_NAME8677);
+            pushFollow(FOLLOW_ruleUNION_VARIABLE_OR_NAME_in_entryRuleUNION_VARIABLE_OR_NAME8856);
             iv_ruleUNION_VARIABLE_OR_NAME=ruleUNION_VARIABLE_OR_NAME();
 
             state._fsp--;
@@ -11794,7 +12015,7 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
             if ( state.backtracking==0 ) {
                current =iv_ruleUNION_VARIABLE_OR_NAME.getText(); 
             }
-            match(input,EOF,FOLLOW_EOF_in_entryRuleUNION_VARIABLE_OR_NAME8688); if (state.failed) return current;
+            match(input,EOF,FOLLOW_EOF_in_entryRuleUNION_VARIABLE_OR_NAME8867); if (state.failed) return current;
 
             }
 
@@ -11812,7 +12033,7 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleUNION_VARIABLE_OR_NAME"
-    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4057:1: ruleUNION_VARIABLE_OR_NAME returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : (this_dollarVariable_0= ruledollarVariable | this_name_1= rulename ) ;
+    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4142:1: ruleUNION_VARIABLE_OR_NAME returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : (this_dollarVariable_0= ruledollarVariable | this_name_1= rulename ) ;
     public final AntlrDatatypeRuleToken ruleUNION_VARIABLE_OR_NAME() throws RecognitionException {
         AntlrDatatypeRuleToken current = new AntlrDatatypeRuleToken();
 
@@ -11824,36 +12045,36 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4061:6: ( (this_dollarVariable_0= ruledollarVariable | this_name_1= rulename ) )
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4062:1: (this_dollarVariable_0= ruledollarVariable | this_name_1= rulename )
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4146:6: ( (this_dollarVariable_0= ruledollarVariable | this_name_1= rulename ) )
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4147:1: (this_dollarVariable_0= ruledollarVariable | this_name_1= rulename )
             {
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4062:1: (this_dollarVariable_0= ruledollarVariable | this_name_1= rulename )
-            int alt81=2;
-            int LA81_0 = input.LA(1);
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4147:1: (this_dollarVariable_0= ruledollarVariable | this_name_1= rulename )
+            int alt82=2;
+            int LA82_0 = input.LA(1);
 
-            if ( (LA81_0==RULE_DOLLAR_VAR) ) {
-                alt81=1;
+            if ( (LA82_0==RULE_DOLLAR_VAR) ) {
+                alt82=1;
             }
-            else if ( (LA81_0==RULE_WORD_CHARS) ) {
-                alt81=2;
+            else if ( (LA82_0==RULE_WORD_CHARS) ) {
+                alt82=2;
             }
             else {
                 if (state.backtracking>0) {state.failed=true; return current;}
                 NoViableAltException nvae =
-                    new NoViableAltException("", 81, 0, input);
+                    new NoViableAltException("", 82, 0, input);
 
                 throw nvae;
             }
-            switch (alt81) {
+            switch (alt82) {
                 case 1 :
-                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4063:5: this_dollarVariable_0= ruledollarVariable
+                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4148:5: this_dollarVariable_0= ruledollarVariable
                     {
                     if ( state.backtracking==0 ) {
                        
                               newCompositeNode(grammarAccess.getUNION_VARIABLE_OR_NAMEAccess().getDollarVariableParserRuleCall_0()); 
                           
                     }
-                    pushFollow(FOLLOW_ruledollarVariable_in_ruleUNION_VARIABLE_OR_NAME8735);
+                    pushFollow(FOLLOW_ruledollarVariable_in_ruleUNION_VARIABLE_OR_NAME8914);
                     this_dollarVariable_0=ruledollarVariable();
 
                     state._fsp--;
@@ -11872,14 +12093,14 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 2 :
-                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4075:5: this_name_1= rulename
+                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4160:5: this_name_1= rulename
                     {
                     if ( state.backtracking==0 ) {
                        
                               newCompositeNode(grammarAccess.getUNION_VARIABLE_OR_NAMEAccess().getNameParserRuleCall_1()); 
                           
                     }
-                    pushFollow(FOLLOW_rulename_in_ruleUNION_VARIABLE_OR_NAME8768);
+                    pushFollow(FOLLOW_rulename_in_ruleUNION_VARIABLE_OR_NAME8947);
                     this_name_1=rulename();
 
                     state._fsp--;
@@ -11921,7 +12142,7 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleParenthisedExpression"
-    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4093:1: entryRuleParenthisedExpression returns [EObject current=null] : iv_ruleParenthisedExpression= ruleParenthisedExpression EOF ;
+    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4178:1: entryRuleParenthisedExpression returns [EObject current=null] : iv_ruleParenthisedExpression= ruleParenthisedExpression EOF ;
     public final EObject entryRuleParenthisedExpression() throws RecognitionException {
         EObject current = null;
 
@@ -11929,13 +12150,13 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4094:2: (iv_ruleParenthisedExpression= ruleParenthisedExpression EOF )
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4095:2: iv_ruleParenthisedExpression= ruleParenthisedExpression EOF
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4179:2: (iv_ruleParenthisedExpression= ruleParenthisedExpression EOF )
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4180:2: iv_ruleParenthisedExpression= ruleParenthisedExpression EOF
             {
             if ( state.backtracking==0 ) {
                newCompositeNode(grammarAccess.getParenthisedExpressionRule()); 
             }
-            pushFollow(FOLLOW_ruleParenthisedExpression_in_entryRuleParenthisedExpression8812);
+            pushFollow(FOLLOW_ruleParenthisedExpression_in_entryRuleParenthisedExpression8991);
             iv_ruleParenthisedExpression=ruleParenthisedExpression();
 
             state._fsp--;
@@ -11943,7 +12164,7 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
             if ( state.backtracking==0 ) {
                current =iv_ruleParenthisedExpression; 
             }
-            match(input,EOF,FOLLOW_EOF_in_entryRuleParenthisedExpression8822); if (state.failed) return current;
+            match(input,EOF,FOLLOW_EOF_in_entryRuleParenthisedExpression9001); if (state.failed) return current;
 
             }
 
@@ -11961,7 +12182,7 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleParenthisedExpression"
-    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4102:1: ruleParenthisedExpression returns [EObject current=null] : (otherlv_0= KEYWORD_4 () ( (lv_expr_2_0= ruleAssignmentExpression ) )? otherlv_3= KEYWORD_5 ) ;
+    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4187:1: ruleParenthisedExpression returns [EObject current=null] : (otherlv_0= KEYWORD_4 () ( (lv_expr_2_0= ruleAssignmentExpression ) )? otherlv_3= KEYWORD_5 ) ;
     public final EObject ruleParenthisedExpression() throws RecognitionException {
         EObject current = null;
 
@@ -11973,20 +12194,20 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4105:28: ( (otherlv_0= KEYWORD_4 () ( (lv_expr_2_0= ruleAssignmentExpression ) )? otherlv_3= KEYWORD_5 ) )
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4106:1: (otherlv_0= KEYWORD_4 () ( (lv_expr_2_0= ruleAssignmentExpression ) )? otherlv_3= KEYWORD_5 )
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4190:28: ( (otherlv_0= KEYWORD_4 () ( (lv_expr_2_0= ruleAssignmentExpression ) )? otherlv_3= KEYWORD_5 ) )
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4191:1: (otherlv_0= KEYWORD_4 () ( (lv_expr_2_0= ruleAssignmentExpression ) )? otherlv_3= KEYWORD_5 )
             {
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4106:1: (otherlv_0= KEYWORD_4 () ( (lv_expr_2_0= ruleAssignmentExpression ) )? otherlv_3= KEYWORD_5 )
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4107:2: otherlv_0= KEYWORD_4 () ( (lv_expr_2_0= ruleAssignmentExpression ) )? otherlv_3= KEYWORD_5
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4191:1: (otherlv_0= KEYWORD_4 () ( (lv_expr_2_0= ruleAssignmentExpression ) )? otherlv_3= KEYWORD_5 )
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4192:2: otherlv_0= KEYWORD_4 () ( (lv_expr_2_0= ruleAssignmentExpression ) )? otherlv_3= KEYWORD_5
             {
-            otherlv_0=(Token)match(input,KEYWORD_4,FOLLOW_KEYWORD_4_in_ruleParenthisedExpression8860); if (state.failed) return current;
+            otherlv_0=(Token)match(input,KEYWORD_4,FOLLOW_KEYWORD_4_in_ruleParenthisedExpression9039); if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
                   	newLeafNode(otherlv_0, grammarAccess.getParenthisedExpressionAccess().getLeftParenthesisKeyword_0());
                   
             }
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4111:1: ()
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4112:2: 
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4196:1: ()
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4197:2: 
             {
             if ( state.backtracking==0 ) {
                
@@ -12003,26 +12224,26 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
 
             }
 
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4120:2: ( (lv_expr_2_0= ruleAssignmentExpression ) )?
-            int alt82=2;
-            int LA82_0 = input.LA(1);
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4205:2: ( (lv_expr_2_0= ruleAssignmentExpression ) )?
+            int alt83=2;
+            int LA83_0 = input.LA(1);
 
-            if ( ((LA82_0>=KEYWORD_61 && LA82_0<=KEYWORD_55)||(LA82_0>=KEYWORD_57 && LA82_0<=KEYWORD_51)||(LA82_0>=KEYWORD_53 && LA82_0<=KEYWORD_54)||LA82_0==KEYWORD_24||LA82_0==KEYWORD_42||(LA82_0>=KEYWORD_1 && LA82_0<=KEYWORD_4)||LA82_0==KEYWORD_9||(LA82_0>=KEYWORD_17 && LA82_0<=KEYWORD_18)||LA82_0==KEYWORD_20||(LA82_0>=RULE_DOLLAR_VAR && LA82_0<=RULE_WORD_CHARS)||LA82_0==RULE_REGULAR_EXPRESSION) ) {
-                alt82=1;
+            if ( ((LA83_0>=KEYWORD_62 && LA83_0<=KEYWORD_55)||(LA83_0>=KEYWORD_57 && LA83_0<=KEYWORD_51)||(LA83_0>=KEYWORD_53 && LA83_0<=KEYWORD_54)||LA83_0==KEYWORD_24||LA83_0==KEYWORD_42||(LA83_0>=KEYWORD_1 && LA83_0<=KEYWORD_4)||LA83_0==KEYWORD_9||(LA83_0>=KEYWORD_17 && LA83_0<=KEYWORD_18)||LA83_0==KEYWORD_20||(LA83_0>=RULE_DOLLAR_VAR && LA83_0<=RULE_WORD_CHARS)||LA83_0==RULE_REGULAR_EXPRESSION) ) {
+                alt83=1;
             }
-            switch (alt82) {
+            switch (alt83) {
                 case 1 :
-                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4121:1: (lv_expr_2_0= ruleAssignmentExpression )
+                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4206:1: (lv_expr_2_0= ruleAssignmentExpression )
                     {
-                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4121:1: (lv_expr_2_0= ruleAssignmentExpression )
-                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4122:3: lv_expr_2_0= ruleAssignmentExpression
+                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4206:1: (lv_expr_2_0= ruleAssignmentExpression )
+                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4207:3: lv_expr_2_0= ruleAssignmentExpression
                     {
                     if ( state.backtracking==0 ) {
                        
                       	        newCompositeNode(grammarAccess.getParenthisedExpressionAccess().getExprAssignmentExpressionParserRuleCall_2_0()); 
                       	    
                     }
-                    pushFollow(FOLLOW_ruleAssignmentExpression_in_ruleParenthisedExpression8892);
+                    pushFollow(FOLLOW_ruleAssignmentExpression_in_ruleParenthisedExpression9071);
                     lv_expr_2_0=ruleAssignmentExpression();
 
                     state._fsp--;
@@ -12049,7 +12270,7 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
 
             }
 
-            otherlv_3=(Token)match(input,KEYWORD_5,FOLLOW_KEYWORD_5_in_ruleParenthisedExpression8906); if (state.failed) return current;
+            otherlv_3=(Token)match(input,KEYWORD_5,FOLLOW_KEYWORD_5_in_ruleParenthisedExpression9085); if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
                   	newLeafNode(otherlv_3, grammarAccess.getParenthisedExpressionAccess().getRightParenthesisKeyword_3());
@@ -12078,7 +12299,7 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleVirtualNameOrReference"
-    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4151:1: entryRuleVirtualNameOrReference returns [EObject current=null] : iv_ruleVirtualNameOrReference= ruleVirtualNameOrReference EOF ;
+    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4236:1: entryRuleVirtualNameOrReference returns [EObject current=null] : iv_ruleVirtualNameOrReference= ruleVirtualNameOrReference EOF ;
     public final EObject entryRuleVirtualNameOrReference() throws RecognitionException {
         EObject current = null;
 
@@ -12086,13 +12307,13 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4152:2: (iv_ruleVirtualNameOrReference= ruleVirtualNameOrReference EOF )
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4153:2: iv_ruleVirtualNameOrReference= ruleVirtualNameOrReference EOF
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4237:2: (iv_ruleVirtualNameOrReference= ruleVirtualNameOrReference EOF )
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4238:2: iv_ruleVirtualNameOrReference= ruleVirtualNameOrReference EOF
             {
             if ( state.backtracking==0 ) {
                newCompositeNode(grammarAccess.getVirtualNameOrReferenceRule()); 
             }
-            pushFollow(FOLLOW_ruleVirtualNameOrReference_in_entryRuleVirtualNameOrReference8940);
+            pushFollow(FOLLOW_ruleVirtualNameOrReference_in_entryRuleVirtualNameOrReference9119);
             iv_ruleVirtualNameOrReference=ruleVirtualNameOrReference();
 
             state._fsp--;
@@ -12100,7 +12321,7 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
             if ( state.backtracking==0 ) {
                current =iv_ruleVirtualNameOrReference; 
             }
-            match(input,EOF,FOLLOW_EOF_in_entryRuleVirtualNameOrReference8950); if (state.failed) return current;
+            match(input,EOF,FOLLOW_EOF_in_entryRuleVirtualNameOrReference9129); if (state.failed) return current;
 
             }
 
@@ -12118,7 +12339,7 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleVirtualNameOrReference"
-    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4160:1: ruleVirtualNameOrReference returns [EObject current=null] : (otherlv_0= KEYWORD_17 ( (lv_exported_1_0= ruleATBoolean ) )? ( (lv_value_2_0= ruleunionNameOrReference ) ) ) ;
+    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4245:1: ruleVirtualNameOrReference returns [EObject current=null] : (otherlv_0= KEYWORD_17 ( (lv_exported_1_0= ruleATBoolean ) )? ( (lv_value_2_0= ruleunionNameOrReference ) ) ) ;
     public final EObject ruleVirtualNameOrReference() throws RecognitionException {
         EObject current = null;
 
@@ -12131,38 +12352,38 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4163:28: ( (otherlv_0= KEYWORD_17 ( (lv_exported_1_0= ruleATBoolean ) )? ( (lv_value_2_0= ruleunionNameOrReference ) ) ) )
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4164:1: (otherlv_0= KEYWORD_17 ( (lv_exported_1_0= ruleATBoolean ) )? ( (lv_value_2_0= ruleunionNameOrReference ) ) )
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4248:28: ( (otherlv_0= KEYWORD_17 ( (lv_exported_1_0= ruleATBoolean ) )? ( (lv_value_2_0= ruleunionNameOrReference ) ) ) )
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4249:1: (otherlv_0= KEYWORD_17 ( (lv_exported_1_0= ruleATBoolean ) )? ( (lv_value_2_0= ruleunionNameOrReference ) ) )
             {
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4164:1: (otherlv_0= KEYWORD_17 ( (lv_exported_1_0= ruleATBoolean ) )? ( (lv_value_2_0= ruleunionNameOrReference ) ) )
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4165:2: otherlv_0= KEYWORD_17 ( (lv_exported_1_0= ruleATBoolean ) )? ( (lv_value_2_0= ruleunionNameOrReference ) )
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4249:1: (otherlv_0= KEYWORD_17 ( (lv_exported_1_0= ruleATBoolean ) )? ( (lv_value_2_0= ruleunionNameOrReference ) ) )
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4250:2: otherlv_0= KEYWORD_17 ( (lv_exported_1_0= ruleATBoolean ) )? ( (lv_value_2_0= ruleunionNameOrReference ) )
             {
-            otherlv_0=(Token)match(input,KEYWORD_17,FOLLOW_KEYWORD_17_in_ruleVirtualNameOrReference8988); if (state.failed) return current;
+            otherlv_0=(Token)match(input,KEYWORD_17,FOLLOW_KEYWORD_17_in_ruleVirtualNameOrReference9167); if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
                   	newLeafNode(otherlv_0, grammarAccess.getVirtualNameOrReferenceAccess().getCommercialAtKeyword_0());
                   
             }
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4169:1: ( (lv_exported_1_0= ruleATBoolean ) )?
-            int alt83=2;
-            int LA83_0 = input.LA(1);
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4254:1: ( (lv_exported_1_0= ruleATBoolean ) )?
+            int alt84=2;
+            int LA84_0 = input.LA(1);
 
-            if ( (LA83_0==KEYWORD_17) ) {
-                alt83=1;
+            if ( (LA84_0==KEYWORD_17) ) {
+                alt84=1;
             }
-            switch (alt83) {
+            switch (alt84) {
                 case 1 :
-                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4170:1: (lv_exported_1_0= ruleATBoolean )
+                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4255:1: (lv_exported_1_0= ruleATBoolean )
                     {
-                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4170:1: (lv_exported_1_0= ruleATBoolean )
-                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4171:3: lv_exported_1_0= ruleATBoolean
+                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4255:1: (lv_exported_1_0= ruleATBoolean )
+                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4256:3: lv_exported_1_0= ruleATBoolean
                     {
                     if ( state.backtracking==0 ) {
                        
                       	        newCompositeNode(grammarAccess.getVirtualNameOrReferenceAccess().getExportedATBooleanParserRuleCall_1_0()); 
                       	    
                     }
-                    pushFollow(FOLLOW_ruleATBoolean_in_ruleVirtualNameOrReference9008);
+                    pushFollow(FOLLOW_ruleATBoolean_in_ruleVirtualNameOrReference9187);
                     lv_exported_1_0=ruleATBoolean();
 
                     state._fsp--;
@@ -12189,18 +12410,18 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
 
             }
 
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4187:3: ( (lv_value_2_0= ruleunionNameOrReference ) )
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4188:1: (lv_value_2_0= ruleunionNameOrReference )
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4272:3: ( (lv_value_2_0= ruleunionNameOrReference ) )
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4273:1: (lv_value_2_0= ruleunionNameOrReference )
             {
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4188:1: (lv_value_2_0= ruleunionNameOrReference )
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4189:3: lv_value_2_0= ruleunionNameOrReference
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4273:1: (lv_value_2_0= ruleunionNameOrReference )
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4274:3: lv_value_2_0= ruleunionNameOrReference
             {
             if ( state.backtracking==0 ) {
                
               	        newCompositeNode(grammarAccess.getVirtualNameOrReferenceAccess().getValueUnionNameOrReferenceParserRuleCall_2_0()); 
               	    
             }
-            pushFollow(FOLLOW_ruleunionNameOrReference_in_ruleVirtualNameOrReference9030);
+            pushFollow(FOLLOW_ruleunionNameOrReference_in_ruleVirtualNameOrReference9209);
             lv_value_2_0=ruleunionNameOrReference();
 
             state._fsp--;
@@ -12247,7 +12468,7 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleATBoolean"
-    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4213:1: entryRuleATBoolean returns [String current=null] : iv_ruleATBoolean= ruleATBoolean EOF ;
+    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4298:1: entryRuleATBoolean returns [String current=null] : iv_ruleATBoolean= ruleATBoolean EOF ;
     public final String entryRuleATBoolean() throws RecognitionException {
         String current = null;
 
@@ -12255,13 +12476,13 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4214:1: (iv_ruleATBoolean= ruleATBoolean EOF )
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4215:2: iv_ruleATBoolean= ruleATBoolean EOF
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4299:1: (iv_ruleATBoolean= ruleATBoolean EOF )
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4300:2: iv_ruleATBoolean= ruleATBoolean EOF
             {
             if ( state.backtracking==0 ) {
                newCompositeNode(grammarAccess.getATBooleanRule()); 
             }
-            pushFollow(FOLLOW_ruleATBoolean_in_entryRuleATBoolean9066);
+            pushFollow(FOLLOW_ruleATBoolean_in_entryRuleATBoolean9245);
             iv_ruleATBoolean=ruleATBoolean();
 
             state._fsp--;
@@ -12269,7 +12490,7 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
             if ( state.backtracking==0 ) {
                current =iv_ruleATBoolean.getText(); 
             }
-            match(input,EOF,FOLLOW_EOF_in_entryRuleATBoolean9077); if (state.failed) return current;
+            match(input,EOF,FOLLOW_EOF_in_entryRuleATBoolean9256); if (state.failed) return current;
 
             }
 
@@ -12287,7 +12508,7 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleATBoolean"
-    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4222:1: ruleATBoolean returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : kw= KEYWORD_17 ;
+    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4307:1: ruleATBoolean returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : kw= KEYWORD_17 ;
     public final AntlrDatatypeRuleToken ruleATBoolean() throws RecognitionException {
         AntlrDatatypeRuleToken current = new AntlrDatatypeRuleToken();
 
@@ -12296,10 +12517,10 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4226:6: (kw= KEYWORD_17 )
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4228:2: kw= KEYWORD_17
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4311:6: (kw= KEYWORD_17 )
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4313:2: kw= KEYWORD_17
             {
-            kw=(Token)match(input,KEYWORD_17,FOLLOW_KEYWORD_17_in_ruleATBoolean9114); if (state.failed) return current;
+            kw=(Token)match(input,KEYWORD_17,FOLLOW_KEYWORD_17_in_ruleATBoolean9293); if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
                       current.merge(kw);
@@ -12327,7 +12548,7 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleImportExpression"
-    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4241:1: entryRuleImportExpression returns [EObject current=null] : iv_ruleImportExpression= ruleImportExpression EOF ;
+    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4326:1: entryRuleImportExpression returns [EObject current=null] : iv_ruleImportExpression= ruleImportExpression EOF ;
     public final EObject entryRuleImportExpression() throws RecognitionException {
         EObject current = null;
 
@@ -12335,13 +12556,13 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4242:2: (iv_ruleImportExpression= ruleImportExpression EOF )
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4243:2: iv_ruleImportExpression= ruleImportExpression EOF
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4327:2: (iv_ruleImportExpression= ruleImportExpression EOF )
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4328:2: iv_ruleImportExpression= ruleImportExpression EOF
             {
             if ( state.backtracking==0 ) {
                newCompositeNode(grammarAccess.getImportExpressionRule()); 
             }
-            pushFollow(FOLLOW_ruleImportExpression_in_entryRuleImportExpression9152);
+            pushFollow(FOLLOW_ruleImportExpression_in_entryRuleImportExpression9331);
             iv_ruleImportExpression=ruleImportExpression();
 
             state._fsp--;
@@ -12349,7 +12570,7 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
             if ( state.backtracking==0 ) {
                current =iv_ruleImportExpression; 
             }
-            match(input,EOF,FOLLOW_EOF_in_entryRuleImportExpression9162); if (state.failed) return current;
+            match(input,EOF,FOLLOW_EOF_in_entryRuleImportExpression9341); if (state.failed) return current;
 
             }
 
@@ -12367,7 +12588,7 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleImportExpression"
-    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4250:1: ruleImportExpression returns [EObject current=null] : ( () otherlv_1= KEYWORD_60 ( ( (lv_values_2_0= ruleQuotedString ) ) (otherlv_3= KEYWORD_8 ( (lv_values_4_0= ruleQuotedString ) ) )* )? ) ;
+    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4335:1: ruleImportExpression returns [EObject current=null] : ( () otherlv_1= KEYWORD_60 ( ( (lv_values_2_0= ruleQuotedString ) ) (otherlv_3= KEYWORD_8 ( (lv_values_4_0= ruleQuotedString ) ) )* )? ) ;
     public final EObject ruleImportExpression() throws RecognitionException {
         EObject current = null;
 
@@ -12381,14 +12602,14 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4253:28: ( ( () otherlv_1= KEYWORD_60 ( ( (lv_values_2_0= ruleQuotedString ) ) (otherlv_3= KEYWORD_8 ( (lv_values_4_0= ruleQuotedString ) ) )* )? ) )
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4254:1: ( () otherlv_1= KEYWORD_60 ( ( (lv_values_2_0= ruleQuotedString ) ) (otherlv_3= KEYWORD_8 ( (lv_values_4_0= ruleQuotedString ) ) )* )? )
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4338:28: ( ( () otherlv_1= KEYWORD_60 ( ( (lv_values_2_0= ruleQuotedString ) ) (otherlv_3= KEYWORD_8 ( (lv_values_4_0= ruleQuotedString ) ) )* )? ) )
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4339:1: ( () otherlv_1= KEYWORD_60 ( ( (lv_values_2_0= ruleQuotedString ) ) (otherlv_3= KEYWORD_8 ( (lv_values_4_0= ruleQuotedString ) ) )* )? )
             {
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4254:1: ( () otherlv_1= KEYWORD_60 ( ( (lv_values_2_0= ruleQuotedString ) ) (otherlv_3= KEYWORD_8 ( (lv_values_4_0= ruleQuotedString ) ) )* )? )
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4254:2: () otherlv_1= KEYWORD_60 ( ( (lv_values_2_0= ruleQuotedString ) ) (otherlv_3= KEYWORD_8 ( (lv_values_4_0= ruleQuotedString ) ) )* )?
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4339:1: ( () otherlv_1= KEYWORD_60 ( ( (lv_values_2_0= ruleQuotedString ) ) (otherlv_3= KEYWORD_8 ( (lv_values_4_0= ruleQuotedString ) ) )* )? )
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4339:2: () otherlv_1= KEYWORD_60 ( ( (lv_values_2_0= ruleQuotedString ) ) (otherlv_3= KEYWORD_8 ( (lv_values_4_0= ruleQuotedString ) ) )* )?
             {
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4254:2: ()
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4255:2: 
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4339:2: ()
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4340:2: 
             {
             if ( state.backtracking==0 ) {
                
@@ -12405,31 +12626,31 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
 
             }
 
-            otherlv_1=(Token)match(input,KEYWORD_60,FOLLOW_KEYWORD_60_in_ruleImportExpression9212); if (state.failed) return current;
+            otherlv_1=(Token)match(input,KEYWORD_60,FOLLOW_KEYWORD_60_in_ruleImportExpression9391); if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
                   	newLeafNode(otherlv_1, grammarAccess.getImportExpressionAccess().getImportKeyword_1());
                   
             }
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4268:1: ( ( (lv_values_2_0= ruleQuotedString ) ) (otherlv_3= KEYWORD_8 ( (lv_values_4_0= ruleQuotedString ) ) )* )?
-            int alt85=2;
-            alt85 = dfa85.predict(input);
-            switch (alt85) {
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4353:1: ( ( (lv_values_2_0= ruleQuotedString ) ) (otherlv_3= KEYWORD_8 ( (lv_values_4_0= ruleQuotedString ) ) )* )?
+            int alt86=2;
+            alt86 = dfa86.predict(input);
+            switch (alt86) {
                 case 1 :
-                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4268:2: ( (lv_values_2_0= ruleQuotedString ) ) (otherlv_3= KEYWORD_8 ( (lv_values_4_0= ruleQuotedString ) ) )*
+                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4353:2: ( (lv_values_2_0= ruleQuotedString ) ) (otherlv_3= KEYWORD_8 ( (lv_values_4_0= ruleQuotedString ) ) )*
                     {
-                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4268:2: ( (lv_values_2_0= ruleQuotedString ) )
-                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4269:1: (lv_values_2_0= ruleQuotedString )
+                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4353:2: ( (lv_values_2_0= ruleQuotedString ) )
+                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4354:1: (lv_values_2_0= ruleQuotedString )
                     {
-                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4269:1: (lv_values_2_0= ruleQuotedString )
-                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4270:3: lv_values_2_0= ruleQuotedString
+                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4354:1: (lv_values_2_0= ruleQuotedString )
+                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4355:3: lv_values_2_0= ruleQuotedString
                     {
                     if ( state.backtracking==0 ) {
                        
                       	        newCompositeNode(grammarAccess.getImportExpressionAccess().getValuesQuotedStringParserRuleCall_2_0_0()); 
                       	    
                     }
-                    pushFollow(FOLLOW_ruleQuotedString_in_ruleImportExpression9233);
+                    pushFollow(FOLLOW_ruleQuotedString_in_ruleImportExpression9412);
                     lv_values_2_0=ruleQuotedString();
 
                     state._fsp--;
@@ -12453,33 +12674,33 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
 
                     }
 
-                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4286:2: (otherlv_3= KEYWORD_8 ( (lv_values_4_0= ruleQuotedString ) ) )*
-                    loop84:
+                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4371:2: (otherlv_3= KEYWORD_8 ( (lv_values_4_0= ruleQuotedString ) ) )*
+                    loop85:
                     do {
-                        int alt84=2;
-                        alt84 = dfa84.predict(input);
-                        switch (alt84) {
+                        int alt85=2;
+                        alt85 = dfa85.predict(input);
+                        switch (alt85) {
                     	case 1 :
-                    	    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4287:2: otherlv_3= KEYWORD_8 ( (lv_values_4_0= ruleQuotedString ) )
+                    	    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4372:2: otherlv_3= KEYWORD_8 ( (lv_values_4_0= ruleQuotedString ) )
                     	    {
-                    	    otherlv_3=(Token)match(input,KEYWORD_8,FOLLOW_KEYWORD_8_in_ruleImportExpression9247); if (state.failed) return current;
+                    	    otherlv_3=(Token)match(input,KEYWORD_8,FOLLOW_KEYWORD_8_in_ruleImportExpression9426); if (state.failed) return current;
                     	    if ( state.backtracking==0 ) {
 
                     	          	newLeafNode(otherlv_3, grammarAccess.getImportExpressionAccess().getCommaKeyword_2_1_0());
                     	          
                     	    }
-                    	    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4291:1: ( (lv_values_4_0= ruleQuotedString ) )
-                    	    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4292:1: (lv_values_4_0= ruleQuotedString )
+                    	    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4376:1: ( (lv_values_4_0= ruleQuotedString ) )
+                    	    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4377:1: (lv_values_4_0= ruleQuotedString )
                     	    {
-                    	    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4292:1: (lv_values_4_0= ruleQuotedString )
-                    	    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4293:3: lv_values_4_0= ruleQuotedString
+                    	    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4377:1: (lv_values_4_0= ruleQuotedString )
+                    	    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4378:3: lv_values_4_0= ruleQuotedString
                     	    {
                     	    if ( state.backtracking==0 ) {
                     	       
                     	      	        newCompositeNode(grammarAccess.getImportExpressionAccess().getValuesQuotedStringParserRuleCall_2_1_1_0()); 
                     	      	    
                     	    }
-                    	    pushFollow(FOLLOW_ruleQuotedString_in_ruleImportExpression9267);
+                    	    pushFollow(FOLLOW_ruleQuotedString_in_ruleImportExpression9446);
                     	    lv_values_4_0=ruleQuotedString();
 
                     	    state._fsp--;
@@ -12508,7 +12729,7 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
                     	    break;
 
                     	default :
-                    	    break loop84;
+                    	    break loop85;
                         }
                     } while (true);
 
@@ -12541,7 +12762,7 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleLiteralList"
-    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4317:1: entryRuleLiteralList returns [EObject current=null] : iv_ruleLiteralList= ruleLiteralList EOF ;
+    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4402:1: entryRuleLiteralList returns [EObject current=null] : iv_ruleLiteralList= ruleLiteralList EOF ;
     public final EObject entryRuleLiteralList() throws RecognitionException {
         EObject current = null;
 
@@ -12549,13 +12770,13 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4318:2: (iv_ruleLiteralList= ruleLiteralList EOF )
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4319:2: iv_ruleLiteralList= ruleLiteralList EOF
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4403:2: (iv_ruleLiteralList= ruleLiteralList EOF )
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4404:2: iv_ruleLiteralList= ruleLiteralList EOF
             {
             if ( state.backtracking==0 ) {
                newCompositeNode(grammarAccess.getLiteralListRule()); 
             }
-            pushFollow(FOLLOW_ruleLiteralList_in_entryRuleLiteralList9306);
+            pushFollow(FOLLOW_ruleLiteralList_in_entryRuleLiteralList9485);
             iv_ruleLiteralList=ruleLiteralList();
 
             state._fsp--;
@@ -12563,7 +12784,7 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
             if ( state.backtracking==0 ) {
                current =iv_ruleLiteralList; 
             }
-            match(input,EOF,FOLLOW_EOF_in_entryRuleLiteralList9316); if (state.failed) return current;
+            match(input,EOF,FOLLOW_EOF_in_entryRuleLiteralList9495); if (state.failed) return current;
 
             }
 
@@ -12581,7 +12802,7 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleLiteralList"
-    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4326:1: ruleLiteralList returns [EObject current=null] : ( () otherlv_1= KEYWORD_18 ( ( (lv_elements_2_0= ruleAssignmentExpression ) ) (otherlv_3= KEYWORD_8 ( (lv_elements_4_0= ruleAssignmentExpression ) ) )* (otherlv_5= KEYWORD_8 )? )? otherlv_6= KEYWORD_19 ) ;
+    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4411:1: ruleLiteralList returns [EObject current=null] : ( () otherlv_1= KEYWORD_18 ( ( (lv_elements_2_0= ruleAssignmentExpression ) ) (otherlv_3= KEYWORD_8 ( (lv_elements_4_0= ruleAssignmentExpression ) ) )* (otherlv_5= KEYWORD_8 )? )? otherlv_6= KEYWORD_19 ) ;
     public final EObject ruleLiteralList() throws RecognitionException {
         EObject current = null;
 
@@ -12597,14 +12818,14 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4329:28: ( ( () otherlv_1= KEYWORD_18 ( ( (lv_elements_2_0= ruleAssignmentExpression ) ) (otherlv_3= KEYWORD_8 ( (lv_elements_4_0= ruleAssignmentExpression ) ) )* (otherlv_5= KEYWORD_8 )? )? otherlv_6= KEYWORD_19 ) )
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4330:1: ( () otherlv_1= KEYWORD_18 ( ( (lv_elements_2_0= ruleAssignmentExpression ) ) (otherlv_3= KEYWORD_8 ( (lv_elements_4_0= ruleAssignmentExpression ) ) )* (otherlv_5= KEYWORD_8 )? )? otherlv_6= KEYWORD_19 )
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4414:28: ( ( () otherlv_1= KEYWORD_18 ( ( (lv_elements_2_0= ruleAssignmentExpression ) ) (otherlv_3= KEYWORD_8 ( (lv_elements_4_0= ruleAssignmentExpression ) ) )* (otherlv_5= KEYWORD_8 )? )? otherlv_6= KEYWORD_19 ) )
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4415:1: ( () otherlv_1= KEYWORD_18 ( ( (lv_elements_2_0= ruleAssignmentExpression ) ) (otherlv_3= KEYWORD_8 ( (lv_elements_4_0= ruleAssignmentExpression ) ) )* (otherlv_5= KEYWORD_8 )? )? otherlv_6= KEYWORD_19 )
             {
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4330:1: ( () otherlv_1= KEYWORD_18 ( ( (lv_elements_2_0= ruleAssignmentExpression ) ) (otherlv_3= KEYWORD_8 ( (lv_elements_4_0= ruleAssignmentExpression ) ) )* (otherlv_5= KEYWORD_8 )? )? otherlv_6= KEYWORD_19 )
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4330:2: () otherlv_1= KEYWORD_18 ( ( (lv_elements_2_0= ruleAssignmentExpression ) ) (otherlv_3= KEYWORD_8 ( (lv_elements_4_0= ruleAssignmentExpression ) ) )* (otherlv_5= KEYWORD_8 )? )? otherlv_6= KEYWORD_19
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4415:1: ( () otherlv_1= KEYWORD_18 ( ( (lv_elements_2_0= ruleAssignmentExpression ) ) (otherlv_3= KEYWORD_8 ( (lv_elements_4_0= ruleAssignmentExpression ) ) )* (otherlv_5= KEYWORD_8 )? )? otherlv_6= KEYWORD_19 )
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4415:2: () otherlv_1= KEYWORD_18 ( ( (lv_elements_2_0= ruleAssignmentExpression ) ) (otherlv_3= KEYWORD_8 ( (lv_elements_4_0= ruleAssignmentExpression ) ) )* (otherlv_5= KEYWORD_8 )? )? otherlv_6= KEYWORD_19
             {
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4330:2: ()
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4331:2: 
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4415:2: ()
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4416:2: 
             {
             if ( state.backtracking==0 ) {
                
@@ -12621,35 +12842,35 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
 
             }
 
-            otherlv_1=(Token)match(input,KEYWORD_18,FOLLOW_KEYWORD_18_in_ruleLiteralList9366); if (state.failed) return current;
+            otherlv_1=(Token)match(input,KEYWORD_18,FOLLOW_KEYWORD_18_in_ruleLiteralList9545); if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
                   	newLeafNode(otherlv_1, grammarAccess.getLiteralListAccess().getLeftSquareBracketKeyword_1());
                   
             }
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4344:1: ( ( (lv_elements_2_0= ruleAssignmentExpression ) ) (otherlv_3= KEYWORD_8 ( (lv_elements_4_0= ruleAssignmentExpression ) ) )* (otherlv_5= KEYWORD_8 )? )?
-            int alt88=2;
-            int LA88_0 = input.LA(1);
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4429:1: ( ( (lv_elements_2_0= ruleAssignmentExpression ) ) (otherlv_3= KEYWORD_8 ( (lv_elements_4_0= ruleAssignmentExpression ) ) )* (otherlv_5= KEYWORD_8 )? )?
+            int alt89=2;
+            int LA89_0 = input.LA(1);
 
-            if ( ((LA88_0>=KEYWORD_61 && LA88_0<=KEYWORD_55)||(LA88_0>=KEYWORD_57 && LA88_0<=KEYWORD_51)||(LA88_0>=KEYWORD_53 && LA88_0<=KEYWORD_54)||LA88_0==KEYWORD_24||LA88_0==KEYWORD_42||(LA88_0>=KEYWORD_1 && LA88_0<=KEYWORD_4)||LA88_0==KEYWORD_9||(LA88_0>=KEYWORD_17 && LA88_0<=KEYWORD_18)||LA88_0==KEYWORD_20||(LA88_0>=RULE_DOLLAR_VAR && LA88_0<=RULE_WORD_CHARS)||LA88_0==RULE_REGULAR_EXPRESSION) ) {
-                alt88=1;
+            if ( ((LA89_0>=KEYWORD_62 && LA89_0<=KEYWORD_55)||(LA89_0>=KEYWORD_57 && LA89_0<=KEYWORD_51)||(LA89_0>=KEYWORD_53 && LA89_0<=KEYWORD_54)||LA89_0==KEYWORD_24||LA89_0==KEYWORD_42||(LA89_0>=KEYWORD_1 && LA89_0<=KEYWORD_4)||LA89_0==KEYWORD_9||(LA89_0>=KEYWORD_17 && LA89_0<=KEYWORD_18)||LA89_0==KEYWORD_20||(LA89_0>=RULE_DOLLAR_VAR && LA89_0<=RULE_WORD_CHARS)||LA89_0==RULE_REGULAR_EXPRESSION) ) {
+                alt89=1;
             }
-            switch (alt88) {
+            switch (alt89) {
                 case 1 :
-                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4344:2: ( (lv_elements_2_0= ruleAssignmentExpression ) ) (otherlv_3= KEYWORD_8 ( (lv_elements_4_0= ruleAssignmentExpression ) ) )* (otherlv_5= KEYWORD_8 )?
+                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4429:2: ( (lv_elements_2_0= ruleAssignmentExpression ) ) (otherlv_3= KEYWORD_8 ( (lv_elements_4_0= ruleAssignmentExpression ) ) )* (otherlv_5= KEYWORD_8 )?
                     {
-                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4344:2: ( (lv_elements_2_0= ruleAssignmentExpression ) )
-                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4345:1: (lv_elements_2_0= ruleAssignmentExpression )
+                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4429:2: ( (lv_elements_2_0= ruleAssignmentExpression ) )
+                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4430:1: (lv_elements_2_0= ruleAssignmentExpression )
                     {
-                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4345:1: (lv_elements_2_0= ruleAssignmentExpression )
-                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4346:3: lv_elements_2_0= ruleAssignmentExpression
+                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4430:1: (lv_elements_2_0= ruleAssignmentExpression )
+                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4431:3: lv_elements_2_0= ruleAssignmentExpression
                     {
                     if ( state.backtracking==0 ) {
                        
                       	        newCompositeNode(grammarAccess.getLiteralListAccess().getElementsAssignmentExpressionParserRuleCall_2_0_0()); 
                       	    
                     }
-                    pushFollow(FOLLOW_ruleAssignmentExpression_in_ruleLiteralList9387);
+                    pushFollow(FOLLOW_ruleAssignmentExpression_in_ruleLiteralList9566);
                     lv_elements_2_0=ruleAssignmentExpression();
 
                     state._fsp--;
@@ -12673,45 +12894,45 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
 
                     }
 
-                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4362:2: (otherlv_3= KEYWORD_8 ( (lv_elements_4_0= ruleAssignmentExpression ) ) )*
-                    loop86:
+                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4447:2: (otherlv_3= KEYWORD_8 ( (lv_elements_4_0= ruleAssignmentExpression ) ) )*
+                    loop87:
                     do {
-                        int alt86=2;
-                        int LA86_0 = input.LA(1);
+                        int alt87=2;
+                        int LA87_0 = input.LA(1);
 
-                        if ( (LA86_0==KEYWORD_8) ) {
-                            int LA86_1 = input.LA(2);
+                        if ( (LA87_0==KEYWORD_8) ) {
+                            int LA87_1 = input.LA(2);
 
-                            if ( ((LA86_1>=KEYWORD_61 && LA86_1<=KEYWORD_55)||(LA86_1>=KEYWORD_57 && LA86_1<=KEYWORD_51)||(LA86_1>=KEYWORD_53 && LA86_1<=KEYWORD_54)||LA86_1==KEYWORD_24||LA86_1==KEYWORD_42||(LA86_1>=KEYWORD_1 && LA86_1<=KEYWORD_4)||LA86_1==KEYWORD_9||(LA86_1>=KEYWORD_17 && LA86_1<=KEYWORD_18)||LA86_1==KEYWORD_20||(LA86_1>=RULE_DOLLAR_VAR && LA86_1<=RULE_WORD_CHARS)||LA86_1==RULE_REGULAR_EXPRESSION) ) {
-                                alt86=1;
+                            if ( ((LA87_1>=KEYWORD_62 && LA87_1<=KEYWORD_55)||(LA87_1>=KEYWORD_57 && LA87_1<=KEYWORD_51)||(LA87_1>=KEYWORD_53 && LA87_1<=KEYWORD_54)||LA87_1==KEYWORD_24||LA87_1==KEYWORD_42||(LA87_1>=KEYWORD_1 && LA87_1<=KEYWORD_4)||LA87_1==KEYWORD_9||(LA87_1>=KEYWORD_17 && LA87_1<=KEYWORD_18)||LA87_1==KEYWORD_20||(LA87_1>=RULE_DOLLAR_VAR && LA87_1<=RULE_WORD_CHARS)||LA87_1==RULE_REGULAR_EXPRESSION) ) {
+                                alt87=1;
                             }
 
 
                         }
 
 
-                        switch (alt86) {
+                        switch (alt87) {
                     	case 1 :
-                    	    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4363:2: otherlv_3= KEYWORD_8 ( (lv_elements_4_0= ruleAssignmentExpression ) )
+                    	    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4448:2: otherlv_3= KEYWORD_8 ( (lv_elements_4_0= ruleAssignmentExpression ) )
                     	    {
-                    	    otherlv_3=(Token)match(input,KEYWORD_8,FOLLOW_KEYWORD_8_in_ruleLiteralList9401); if (state.failed) return current;
+                    	    otherlv_3=(Token)match(input,KEYWORD_8,FOLLOW_KEYWORD_8_in_ruleLiteralList9580); if (state.failed) return current;
                     	    if ( state.backtracking==0 ) {
 
                     	          	newLeafNode(otherlv_3, grammarAccess.getLiteralListAccess().getCommaKeyword_2_1_0());
                     	          
                     	    }
-                    	    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4367:1: ( (lv_elements_4_0= ruleAssignmentExpression ) )
-                    	    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4368:1: (lv_elements_4_0= ruleAssignmentExpression )
+                    	    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4452:1: ( (lv_elements_4_0= ruleAssignmentExpression ) )
+                    	    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4453:1: (lv_elements_4_0= ruleAssignmentExpression )
                     	    {
-                    	    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4368:1: (lv_elements_4_0= ruleAssignmentExpression )
-                    	    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4369:3: lv_elements_4_0= ruleAssignmentExpression
+                    	    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4453:1: (lv_elements_4_0= ruleAssignmentExpression )
+                    	    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4454:3: lv_elements_4_0= ruleAssignmentExpression
                     	    {
                     	    if ( state.backtracking==0 ) {
                     	       
                     	      	        newCompositeNode(grammarAccess.getLiteralListAccess().getElementsAssignmentExpressionParserRuleCall_2_1_1_0()); 
                     	      	    
                     	    }
-                    	    pushFollow(FOLLOW_ruleAssignmentExpression_in_ruleLiteralList9421);
+                    	    pushFollow(FOLLOW_ruleAssignmentExpression_in_ruleLiteralList9600);
                     	    lv_elements_4_0=ruleAssignmentExpression();
 
                     	    state._fsp--;
@@ -12740,22 +12961,22 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
                     	    break;
 
                     	default :
-                    	    break loop86;
+                    	    break loop87;
                         }
                     } while (true);
 
-                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4385:4: (otherlv_5= KEYWORD_8 )?
-                    int alt87=2;
-                    int LA87_0 = input.LA(1);
+                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4470:4: (otherlv_5= KEYWORD_8 )?
+                    int alt88=2;
+                    int LA88_0 = input.LA(1);
 
-                    if ( (LA87_0==KEYWORD_8) ) {
-                        alt87=1;
+                    if ( (LA88_0==KEYWORD_8) ) {
+                        alt88=1;
                     }
-                    switch (alt87) {
+                    switch (alt88) {
                         case 1 :
-                            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4386:2: otherlv_5= KEYWORD_8
+                            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4471:2: otherlv_5= KEYWORD_8
                             {
-                            otherlv_5=(Token)match(input,KEYWORD_8,FOLLOW_KEYWORD_8_in_ruleLiteralList9437); if (state.failed) return current;
+                            otherlv_5=(Token)match(input,KEYWORD_8,FOLLOW_KEYWORD_8_in_ruleLiteralList9616); if (state.failed) return current;
                             if ( state.backtracking==0 ) {
 
                                   	newLeafNode(otherlv_5, grammarAccess.getLiteralListAccess().getCommaKeyword_2_2());
@@ -12773,7 +12994,7 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
 
             }
 
-            otherlv_6=(Token)match(input,KEYWORD_19,FOLLOW_KEYWORD_19_in_ruleLiteralList9453); if (state.failed) return current;
+            otherlv_6=(Token)match(input,KEYWORD_19,FOLLOW_KEYWORD_19_in_ruleLiteralList9632); if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
                   	newLeafNode(otherlv_6, grammarAccess.getLiteralListAccess().getRightSquareBracketKeyword_3());
@@ -12802,7 +13023,7 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleLiteralHash"
-    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4403:1: entryRuleLiteralHash returns [EObject current=null] : iv_ruleLiteralHash= ruleLiteralHash EOF ;
+    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4488:1: entryRuleLiteralHash returns [EObject current=null] : iv_ruleLiteralHash= ruleLiteralHash EOF ;
     public final EObject entryRuleLiteralHash() throws RecognitionException {
         EObject current = null;
 
@@ -12810,13 +13031,13 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4404:2: (iv_ruleLiteralHash= ruleLiteralHash EOF )
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4405:2: iv_ruleLiteralHash= ruleLiteralHash EOF
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4489:2: (iv_ruleLiteralHash= ruleLiteralHash EOF )
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4490:2: iv_ruleLiteralHash= ruleLiteralHash EOF
             {
             if ( state.backtracking==0 ) {
                newCompositeNode(grammarAccess.getLiteralHashRule()); 
             }
-            pushFollow(FOLLOW_ruleLiteralHash_in_entryRuleLiteralHash9487);
+            pushFollow(FOLLOW_ruleLiteralHash_in_entryRuleLiteralHash9666);
             iv_ruleLiteralHash=ruleLiteralHash();
 
             state._fsp--;
@@ -12824,7 +13045,7 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
             if ( state.backtracking==0 ) {
                current =iv_ruleLiteralHash; 
             }
-            match(input,EOF,FOLLOW_EOF_in_entryRuleLiteralHash9497); if (state.failed) return current;
+            match(input,EOF,FOLLOW_EOF_in_entryRuleLiteralHash9676); if (state.failed) return current;
 
             }
 
@@ -12842,7 +13063,7 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleLiteralHash"
-    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4412:1: ruleLiteralHash returns [EObject current=null] : ( () otherlv_1= KEYWORD_20 ( ( (lv_elements_2_0= ruleHashEntry ) ) (otherlv_3= KEYWORD_8 ( (lv_elements_4_0= ruleHashEntry ) ) )* )? (otherlv_5= KEYWORD_8 )? otherlv_6= KEYWORD_21 ) ;
+    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4497:1: ruleLiteralHash returns [EObject current=null] : ( () otherlv_1= KEYWORD_20 ( ( (lv_elements_2_0= ruleHashEntry ) ) (otherlv_3= KEYWORD_8 ( (lv_elements_4_0= ruleHashEntry ) ) )* )? (otherlv_5= KEYWORD_8 )? otherlv_6= KEYWORD_21 ) ;
     public final EObject ruleLiteralHash() throws RecognitionException {
         EObject current = null;
 
@@ -12858,14 +13079,14 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4415:28: ( ( () otherlv_1= KEYWORD_20 ( ( (lv_elements_2_0= ruleHashEntry ) ) (otherlv_3= KEYWORD_8 ( (lv_elements_4_0= ruleHashEntry ) ) )* )? (otherlv_5= KEYWORD_8 )? otherlv_6= KEYWORD_21 ) )
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4416:1: ( () otherlv_1= KEYWORD_20 ( ( (lv_elements_2_0= ruleHashEntry ) ) (otherlv_3= KEYWORD_8 ( (lv_elements_4_0= ruleHashEntry ) ) )* )? (otherlv_5= KEYWORD_8 )? otherlv_6= KEYWORD_21 )
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4500:28: ( ( () otherlv_1= KEYWORD_20 ( ( (lv_elements_2_0= ruleHashEntry ) ) (otherlv_3= KEYWORD_8 ( (lv_elements_4_0= ruleHashEntry ) ) )* )? (otherlv_5= KEYWORD_8 )? otherlv_6= KEYWORD_21 ) )
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4501:1: ( () otherlv_1= KEYWORD_20 ( ( (lv_elements_2_0= ruleHashEntry ) ) (otherlv_3= KEYWORD_8 ( (lv_elements_4_0= ruleHashEntry ) ) )* )? (otherlv_5= KEYWORD_8 )? otherlv_6= KEYWORD_21 )
             {
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4416:1: ( () otherlv_1= KEYWORD_20 ( ( (lv_elements_2_0= ruleHashEntry ) ) (otherlv_3= KEYWORD_8 ( (lv_elements_4_0= ruleHashEntry ) ) )* )? (otherlv_5= KEYWORD_8 )? otherlv_6= KEYWORD_21 )
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4416:2: () otherlv_1= KEYWORD_20 ( ( (lv_elements_2_0= ruleHashEntry ) ) (otherlv_3= KEYWORD_8 ( (lv_elements_4_0= ruleHashEntry ) ) )* )? (otherlv_5= KEYWORD_8 )? otherlv_6= KEYWORD_21
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4501:1: ( () otherlv_1= KEYWORD_20 ( ( (lv_elements_2_0= ruleHashEntry ) ) (otherlv_3= KEYWORD_8 ( (lv_elements_4_0= ruleHashEntry ) ) )* )? (otherlv_5= KEYWORD_8 )? otherlv_6= KEYWORD_21 )
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4501:2: () otherlv_1= KEYWORD_20 ( ( (lv_elements_2_0= ruleHashEntry ) ) (otherlv_3= KEYWORD_8 ( (lv_elements_4_0= ruleHashEntry ) ) )* )? (otherlv_5= KEYWORD_8 )? otherlv_6= KEYWORD_21
             {
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4416:2: ()
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4417:2: 
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4501:2: ()
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4502:2: 
             {
             if ( state.backtracking==0 ) {
                
@@ -12882,35 +13103,35 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
 
             }
 
-            otherlv_1=(Token)match(input,KEYWORD_20,FOLLOW_KEYWORD_20_in_ruleLiteralHash9547); if (state.failed) return current;
+            otherlv_1=(Token)match(input,KEYWORD_20,FOLLOW_KEYWORD_20_in_ruleLiteralHash9726); if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
                   	newLeafNode(otherlv_1, grammarAccess.getLiteralHashAccess().getLeftCurlyBracketKeyword_1());
                   
             }
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4430:1: ( ( (lv_elements_2_0= ruleHashEntry ) ) (otherlv_3= KEYWORD_8 ( (lv_elements_4_0= ruleHashEntry ) ) )* )?
-            int alt90=2;
-            int LA90_0 = input.LA(1);
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4515:1: ( ( (lv_elements_2_0= ruleHashEntry ) ) (otherlv_3= KEYWORD_8 ( (lv_elements_4_0= ruleHashEntry ) ) )* )?
+            int alt91=2;
+            int LA91_0 = input.LA(1);
 
-            if ( (LA90_0==KEYWORD_24||(LA90_0>=KEYWORD_2 && LA90_0<=KEYWORD_3)||LA90_0==RULE_WORD_CHARS) ) {
-                alt90=1;
+            if ( (LA91_0==KEYWORD_24||(LA91_0>=KEYWORD_2 && LA91_0<=KEYWORD_3)||LA91_0==RULE_WORD_CHARS) ) {
+                alt91=1;
             }
-            switch (alt90) {
+            switch (alt91) {
                 case 1 :
-                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4430:2: ( (lv_elements_2_0= ruleHashEntry ) ) (otherlv_3= KEYWORD_8 ( (lv_elements_4_0= ruleHashEntry ) ) )*
+                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4515:2: ( (lv_elements_2_0= ruleHashEntry ) ) (otherlv_3= KEYWORD_8 ( (lv_elements_4_0= ruleHashEntry ) ) )*
                     {
-                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4430:2: ( (lv_elements_2_0= ruleHashEntry ) )
-                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4431:1: (lv_elements_2_0= ruleHashEntry )
+                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4515:2: ( (lv_elements_2_0= ruleHashEntry ) )
+                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4516:1: (lv_elements_2_0= ruleHashEntry )
                     {
-                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4431:1: (lv_elements_2_0= ruleHashEntry )
-                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4432:3: lv_elements_2_0= ruleHashEntry
+                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4516:1: (lv_elements_2_0= ruleHashEntry )
+                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4517:3: lv_elements_2_0= ruleHashEntry
                     {
                     if ( state.backtracking==0 ) {
                        
                       	        newCompositeNode(grammarAccess.getLiteralHashAccess().getElementsHashEntryParserRuleCall_2_0_0()); 
                       	    
                     }
-                    pushFollow(FOLLOW_ruleHashEntry_in_ruleLiteralHash9568);
+                    pushFollow(FOLLOW_ruleHashEntry_in_ruleLiteralHash9747);
                     lv_elements_2_0=ruleHashEntry();
 
                     state._fsp--;
@@ -12934,45 +13155,45 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
 
                     }
 
-                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4448:2: (otherlv_3= KEYWORD_8 ( (lv_elements_4_0= ruleHashEntry ) ) )*
-                    loop89:
+                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4533:2: (otherlv_3= KEYWORD_8 ( (lv_elements_4_0= ruleHashEntry ) ) )*
+                    loop90:
                     do {
-                        int alt89=2;
-                        int LA89_0 = input.LA(1);
+                        int alt90=2;
+                        int LA90_0 = input.LA(1);
 
-                        if ( (LA89_0==KEYWORD_8) ) {
-                            int LA89_1 = input.LA(2);
+                        if ( (LA90_0==KEYWORD_8) ) {
+                            int LA90_1 = input.LA(2);
 
-                            if ( (LA89_1==KEYWORD_24||(LA89_1>=KEYWORD_2 && LA89_1<=KEYWORD_3)||LA89_1==RULE_WORD_CHARS) ) {
-                                alt89=1;
+                            if ( (LA90_1==KEYWORD_24||(LA90_1>=KEYWORD_2 && LA90_1<=KEYWORD_3)||LA90_1==RULE_WORD_CHARS) ) {
+                                alt90=1;
                             }
 
 
                         }
 
 
-                        switch (alt89) {
+                        switch (alt90) {
                     	case 1 :
-                    	    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4449:2: otherlv_3= KEYWORD_8 ( (lv_elements_4_0= ruleHashEntry ) )
+                    	    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4534:2: otherlv_3= KEYWORD_8 ( (lv_elements_4_0= ruleHashEntry ) )
                     	    {
-                    	    otherlv_3=(Token)match(input,KEYWORD_8,FOLLOW_KEYWORD_8_in_ruleLiteralHash9582); if (state.failed) return current;
+                    	    otherlv_3=(Token)match(input,KEYWORD_8,FOLLOW_KEYWORD_8_in_ruleLiteralHash9761); if (state.failed) return current;
                     	    if ( state.backtracking==0 ) {
 
                     	          	newLeafNode(otherlv_3, grammarAccess.getLiteralHashAccess().getCommaKeyword_2_1_0());
                     	          
                     	    }
-                    	    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4453:1: ( (lv_elements_4_0= ruleHashEntry ) )
-                    	    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4454:1: (lv_elements_4_0= ruleHashEntry )
+                    	    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4538:1: ( (lv_elements_4_0= ruleHashEntry ) )
+                    	    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4539:1: (lv_elements_4_0= ruleHashEntry )
                     	    {
-                    	    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4454:1: (lv_elements_4_0= ruleHashEntry )
-                    	    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4455:3: lv_elements_4_0= ruleHashEntry
+                    	    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4539:1: (lv_elements_4_0= ruleHashEntry )
+                    	    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4540:3: lv_elements_4_0= ruleHashEntry
                     	    {
                     	    if ( state.backtracking==0 ) {
                     	       
                     	      	        newCompositeNode(grammarAccess.getLiteralHashAccess().getElementsHashEntryParserRuleCall_2_1_1_0()); 
                     	      	    
                     	    }
-                    	    pushFollow(FOLLOW_ruleHashEntry_in_ruleLiteralHash9602);
+                    	    pushFollow(FOLLOW_ruleHashEntry_in_ruleLiteralHash9781);
                     	    lv_elements_4_0=ruleHashEntry();
 
                     	    state._fsp--;
@@ -13001,7 +13222,7 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
                     	    break;
 
                     	default :
-                    	    break loop89;
+                    	    break loop90;
                         }
                     } while (true);
 
@@ -13011,18 +13232,18 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
 
             }
 
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4471:6: (otherlv_5= KEYWORD_8 )?
-            int alt91=2;
-            int LA91_0 = input.LA(1);
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4556:6: (otherlv_5= KEYWORD_8 )?
+            int alt92=2;
+            int LA92_0 = input.LA(1);
 
-            if ( (LA91_0==KEYWORD_8) ) {
-                alt91=1;
+            if ( (LA92_0==KEYWORD_8) ) {
+                alt92=1;
             }
-            switch (alt91) {
+            switch (alt92) {
                 case 1 :
-                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4472:2: otherlv_5= KEYWORD_8
+                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4557:2: otherlv_5= KEYWORD_8
                     {
-                    otherlv_5=(Token)match(input,KEYWORD_8,FOLLOW_KEYWORD_8_in_ruleLiteralHash9620); if (state.failed) return current;
+                    otherlv_5=(Token)match(input,KEYWORD_8,FOLLOW_KEYWORD_8_in_ruleLiteralHash9799); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                           	newLeafNode(otherlv_5, grammarAccess.getLiteralHashAccess().getCommaKeyword_3());
@@ -13034,7 +13255,7 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
 
             }
 
-            otherlv_6=(Token)match(input,KEYWORD_21,FOLLOW_KEYWORD_21_in_ruleLiteralHash9634); if (state.failed) return current;
+            otherlv_6=(Token)match(input,KEYWORD_21,FOLLOW_KEYWORD_21_in_ruleLiteralHash9813); if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
                   	newLeafNode(otherlv_6, grammarAccess.getLiteralHashAccess().getRightCurlyBracketKeyword_4());
@@ -13063,7 +13284,7 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleHashEntry"
-    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4489:1: entryRuleHashEntry returns [EObject current=null] : iv_ruleHashEntry= ruleHashEntry EOF ;
+    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4574:1: entryRuleHashEntry returns [EObject current=null] : iv_ruleHashEntry= ruleHashEntry EOF ;
     public final EObject entryRuleHashEntry() throws RecognitionException {
         EObject current = null;
 
@@ -13071,13 +13292,13 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4490:2: (iv_ruleHashEntry= ruleHashEntry EOF )
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4491:2: iv_ruleHashEntry= ruleHashEntry EOF
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4575:2: (iv_ruleHashEntry= ruleHashEntry EOF )
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4576:2: iv_ruleHashEntry= ruleHashEntry EOF
             {
             if ( state.backtracking==0 ) {
                newCompositeNode(grammarAccess.getHashEntryRule()); 
             }
-            pushFollow(FOLLOW_ruleHashEntry_in_entryRuleHashEntry9668);
+            pushFollow(FOLLOW_ruleHashEntry_in_entryRuleHashEntry9847);
             iv_ruleHashEntry=ruleHashEntry();
 
             state._fsp--;
@@ -13085,7 +13306,7 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
             if ( state.backtracking==0 ) {
                current =iv_ruleHashEntry; 
             }
-            match(input,EOF,FOLLOW_EOF_in_entryRuleHashEntry9678); if (state.failed) return current;
+            match(input,EOF,FOLLOW_EOF_in_entryRuleHashEntry9857); if (state.failed) return current;
 
             }
 
@@ -13103,7 +13324,7 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleHashEntry"
-    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4498:1: ruleHashEntry returns [EObject current=null] : ( ( (lv_key_0_0= ruleLiteralNameOrString ) ) otherlv_1= KEYWORD_34 ( (lv_value_2_0= ruleAssignmentExpression ) ) ) ;
+    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4583:1: ruleHashEntry returns [EObject current=null] : ( ( (lv_key_0_0= ruleLiteralNameOrString ) ) otherlv_1= KEYWORD_34 ( (lv_value_2_0= ruleAssignmentExpression ) ) ) ;
     public final EObject ruleHashEntry() throws RecognitionException {
         EObject current = null;
 
@@ -13116,24 +13337,24 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4501:28: ( ( ( (lv_key_0_0= ruleLiteralNameOrString ) ) otherlv_1= KEYWORD_34 ( (lv_value_2_0= ruleAssignmentExpression ) ) ) )
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4502:1: ( ( (lv_key_0_0= ruleLiteralNameOrString ) ) otherlv_1= KEYWORD_34 ( (lv_value_2_0= ruleAssignmentExpression ) ) )
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4586:28: ( ( ( (lv_key_0_0= ruleLiteralNameOrString ) ) otherlv_1= KEYWORD_34 ( (lv_value_2_0= ruleAssignmentExpression ) ) ) )
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4587:1: ( ( (lv_key_0_0= ruleLiteralNameOrString ) ) otherlv_1= KEYWORD_34 ( (lv_value_2_0= ruleAssignmentExpression ) ) )
             {
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4502:1: ( ( (lv_key_0_0= ruleLiteralNameOrString ) ) otherlv_1= KEYWORD_34 ( (lv_value_2_0= ruleAssignmentExpression ) ) )
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4502:2: ( (lv_key_0_0= ruleLiteralNameOrString ) ) otherlv_1= KEYWORD_34 ( (lv_value_2_0= ruleAssignmentExpression ) )
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4587:1: ( ( (lv_key_0_0= ruleLiteralNameOrString ) ) otherlv_1= KEYWORD_34 ( (lv_value_2_0= ruleAssignmentExpression ) ) )
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4587:2: ( (lv_key_0_0= ruleLiteralNameOrString ) ) otherlv_1= KEYWORD_34 ( (lv_value_2_0= ruleAssignmentExpression ) )
             {
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4502:2: ( (lv_key_0_0= ruleLiteralNameOrString ) )
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4503:1: (lv_key_0_0= ruleLiteralNameOrString )
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4587:2: ( (lv_key_0_0= ruleLiteralNameOrString ) )
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4588:1: (lv_key_0_0= ruleLiteralNameOrString )
             {
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4503:1: (lv_key_0_0= ruleLiteralNameOrString )
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4504:3: lv_key_0_0= ruleLiteralNameOrString
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4588:1: (lv_key_0_0= ruleLiteralNameOrString )
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4589:3: lv_key_0_0= ruleLiteralNameOrString
             {
             if ( state.backtracking==0 ) {
                
               	        newCompositeNode(grammarAccess.getHashEntryAccess().getKeyLiteralNameOrStringParserRuleCall_0_0()); 
               	    
             }
-            pushFollow(FOLLOW_ruleLiteralNameOrString_in_ruleHashEntry9724);
+            pushFollow(FOLLOW_ruleLiteralNameOrString_in_ruleHashEntry9903);
             lv_key_0_0=ruleLiteralNameOrString();
 
             state._fsp--;
@@ -13157,24 +13378,24 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
 
             }
 
-            otherlv_1=(Token)match(input,KEYWORD_34,FOLLOW_KEYWORD_34_in_ruleHashEntry9737); if (state.failed) return current;
+            otherlv_1=(Token)match(input,KEYWORD_34,FOLLOW_KEYWORD_34_in_ruleHashEntry9916); if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
                   	newLeafNode(otherlv_1, grammarAccess.getHashEntryAccess().getEqualsSignGreaterThanSignKeyword_1());
                   
             }
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4525:1: ( (lv_value_2_0= ruleAssignmentExpression ) )
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4526:1: (lv_value_2_0= ruleAssignmentExpression )
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4610:1: ( (lv_value_2_0= ruleAssignmentExpression ) )
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4611:1: (lv_value_2_0= ruleAssignmentExpression )
             {
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4526:1: (lv_value_2_0= ruleAssignmentExpression )
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4527:3: lv_value_2_0= ruleAssignmentExpression
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4611:1: (lv_value_2_0= ruleAssignmentExpression )
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4612:3: lv_value_2_0= ruleAssignmentExpression
             {
             if ( state.backtracking==0 ) {
                
               	        newCompositeNode(grammarAccess.getHashEntryAccess().getValueAssignmentExpressionParserRuleCall_2_0()); 
               	    
             }
-            pushFollow(FOLLOW_ruleAssignmentExpression_in_ruleHashEntry9757);
+            pushFollow(FOLLOW_ruleAssignmentExpression_in_ruleHashEntry9936);
             lv_value_2_0=ruleAssignmentExpression();
 
             state._fsp--;
@@ -13221,7 +13442,7 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleLiteralNameOrString"
-    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4551:1: entryRuleLiteralNameOrString returns [EObject current=null] : iv_ruleLiteralNameOrString= ruleLiteralNameOrString EOF ;
+    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4636:1: entryRuleLiteralNameOrString returns [EObject current=null] : iv_ruleLiteralNameOrString= ruleLiteralNameOrString EOF ;
     public final EObject entryRuleLiteralNameOrString() throws RecognitionException {
         EObject current = null;
 
@@ -13229,13 +13450,13 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4552:2: (iv_ruleLiteralNameOrString= ruleLiteralNameOrString EOF )
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4553:2: iv_ruleLiteralNameOrString= ruleLiteralNameOrString EOF
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4637:2: (iv_ruleLiteralNameOrString= ruleLiteralNameOrString EOF )
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4638:2: iv_ruleLiteralNameOrString= ruleLiteralNameOrString EOF
             {
             if ( state.backtracking==0 ) {
                newCompositeNode(grammarAccess.getLiteralNameOrStringRule()); 
             }
-            pushFollow(FOLLOW_ruleLiteralNameOrString_in_entryRuleLiteralNameOrString9792);
+            pushFollow(FOLLOW_ruleLiteralNameOrString_in_entryRuleLiteralNameOrString9971);
             iv_ruleLiteralNameOrString=ruleLiteralNameOrString();
 
             state._fsp--;
@@ -13243,7 +13464,7 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
             if ( state.backtracking==0 ) {
                current =iv_ruleLiteralNameOrString; 
             }
-            match(input,EOF,FOLLOW_EOF_in_entryRuleLiteralNameOrString9802); if (state.failed) return current;
+            match(input,EOF,FOLLOW_EOF_in_entryRuleLiteralNameOrString9981); if (state.failed) return current;
 
             }
 
@@ -13261,7 +13482,7 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleLiteralNameOrString"
-    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4560:1: ruleLiteralNameOrString returns [EObject current=null] : (this_StringExpression_0= ruleStringExpression | this_LiteralName_1= ruleLiteralName ) ;
+    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4645:1: ruleLiteralNameOrString returns [EObject current=null] : (this_StringExpression_0= ruleStringExpression | this_LiteralName_1= ruleLiteralName ) ;
     public final EObject ruleLiteralNameOrString() throws RecognitionException {
         EObject current = null;
 
@@ -13273,29 +13494,29 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4563:28: ( (this_StringExpression_0= ruleStringExpression | this_LiteralName_1= ruleLiteralName ) )
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4564:1: (this_StringExpression_0= ruleStringExpression | this_LiteralName_1= ruleLiteralName )
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4648:28: ( (this_StringExpression_0= ruleStringExpression | this_LiteralName_1= ruleLiteralName ) )
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4649:1: (this_StringExpression_0= ruleStringExpression | this_LiteralName_1= ruleLiteralName )
             {
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4564:1: (this_StringExpression_0= ruleStringExpression | this_LiteralName_1= ruleLiteralName )
-            int alt92=2;
-            int LA92_0 = input.LA(1);
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4649:1: (this_StringExpression_0= ruleStringExpression | this_LiteralName_1= ruleLiteralName )
+            int alt93=2;
+            int LA93_0 = input.LA(1);
 
-            if ( (LA92_0==KEYWORD_24||(LA92_0>=KEYWORD_2 && LA92_0<=KEYWORD_3)) ) {
-                alt92=1;
+            if ( (LA93_0==KEYWORD_24||(LA93_0>=KEYWORD_2 && LA93_0<=KEYWORD_3)) ) {
+                alt93=1;
             }
-            else if ( (LA92_0==RULE_WORD_CHARS) ) {
-                alt92=2;
+            else if ( (LA93_0==RULE_WORD_CHARS) ) {
+                alt93=2;
             }
             else {
                 if (state.backtracking>0) {state.failed=true; return current;}
                 NoViableAltException nvae =
-                    new NoViableAltException("", 92, 0, input);
+                    new NoViableAltException("", 93, 0, input);
 
                 throw nvae;
             }
-            switch (alt92) {
+            switch (alt93) {
                 case 1 :
-                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4565:2: this_StringExpression_0= ruleStringExpression
+                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4650:2: this_StringExpression_0= ruleStringExpression
                     {
                     if ( state.backtracking==0 ) {
                        
@@ -13307,7 +13528,7 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
                               newCompositeNode(grammarAccess.getLiteralNameOrStringAccess().getStringExpressionParserRuleCall_0()); 
                           
                     }
-                    pushFollow(FOLLOW_ruleStringExpression_in_ruleLiteralNameOrString9852);
+                    pushFollow(FOLLOW_ruleStringExpression_in_ruleLiteralNameOrString10031);
                     this_StringExpression_0=ruleStringExpression();
 
                     state._fsp--;
@@ -13322,7 +13543,7 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 2 :
-                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4578:2: this_LiteralName_1= ruleLiteralName
+                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4663:2: this_LiteralName_1= ruleLiteralName
                     {
                     if ( state.backtracking==0 ) {
                        
@@ -13334,7 +13555,7 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
                               newCompositeNode(grammarAccess.getLiteralNameOrStringAccess().getLiteralNameParserRuleCall_1()); 
                           
                     }
-                    pushFollow(FOLLOW_ruleLiteralName_in_ruleLiteralNameOrString9882);
+                    pushFollow(FOLLOW_ruleLiteralName_in_ruleLiteralNameOrString10061);
                     this_LiteralName_1=ruleLiteralName();
 
                     state._fsp--;
@@ -13371,7 +13592,7 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleBooleanValue"
-    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4597:1: entryRuleBooleanValue returns [String current=null] : iv_ruleBooleanValue= ruleBooleanValue EOF ;
+    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4682:1: entryRuleBooleanValue returns [String current=null] : iv_ruleBooleanValue= ruleBooleanValue EOF ;
     public final String entryRuleBooleanValue() throws RecognitionException {
         String current = null;
 
@@ -13379,13 +13600,13 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4598:1: (iv_ruleBooleanValue= ruleBooleanValue EOF )
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4599:2: iv_ruleBooleanValue= ruleBooleanValue EOF
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4683:1: (iv_ruleBooleanValue= ruleBooleanValue EOF )
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4684:2: iv_ruleBooleanValue= ruleBooleanValue EOF
             {
             if ( state.backtracking==0 ) {
                newCompositeNode(grammarAccess.getBooleanValueRule()); 
             }
-            pushFollow(FOLLOW_ruleBooleanValue_in_entryRuleBooleanValue9917);
+            pushFollow(FOLLOW_ruleBooleanValue_in_entryRuleBooleanValue10096);
             iv_ruleBooleanValue=ruleBooleanValue();
 
             state._fsp--;
@@ -13393,7 +13614,7 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
             if ( state.backtracking==0 ) {
                current =iv_ruleBooleanValue.getText(); 
             }
-            match(input,EOF,FOLLOW_EOF_in_entryRuleBooleanValue9928); if (state.failed) return current;
+            match(input,EOF,FOLLOW_EOF_in_entryRuleBooleanValue10107); if (state.failed) return current;
 
             }
 
@@ -13411,7 +13632,7 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleBooleanValue"
-    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4606:1: ruleBooleanValue returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : (kw= KEYWORD_54 | kw= KEYWORD_57 ) ;
+    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4691:1: ruleBooleanValue returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : (kw= KEYWORD_54 | kw= KEYWORD_57 ) ;
     public final AntlrDatatypeRuleToken ruleBooleanValue() throws RecognitionException {
         AntlrDatatypeRuleToken current = new AntlrDatatypeRuleToken();
 
@@ -13420,31 +13641,31 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4610:6: ( (kw= KEYWORD_54 | kw= KEYWORD_57 ) )
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4611:1: (kw= KEYWORD_54 | kw= KEYWORD_57 )
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4695:6: ( (kw= KEYWORD_54 | kw= KEYWORD_57 ) )
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4696:1: (kw= KEYWORD_54 | kw= KEYWORD_57 )
             {
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4611:1: (kw= KEYWORD_54 | kw= KEYWORD_57 )
-            int alt93=2;
-            int LA93_0 = input.LA(1);
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4696:1: (kw= KEYWORD_54 | kw= KEYWORD_57 )
+            int alt94=2;
+            int LA94_0 = input.LA(1);
 
-            if ( (LA93_0==KEYWORD_54) ) {
-                alt93=1;
+            if ( (LA94_0==KEYWORD_54) ) {
+                alt94=1;
             }
-            else if ( (LA93_0==KEYWORD_57) ) {
-                alt93=2;
+            else if ( (LA94_0==KEYWORD_57) ) {
+                alt94=2;
             }
             else {
                 if (state.backtracking>0) {state.failed=true; return current;}
                 NoViableAltException nvae =
-                    new NoViableAltException("", 93, 0, input);
+                    new NoViableAltException("", 94, 0, input);
 
                 throw nvae;
             }
-            switch (alt93) {
+            switch (alt94) {
                 case 1 :
-                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4612:2: kw= KEYWORD_54
+                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4697:2: kw= KEYWORD_54
                     {
-                    kw=(Token)match(input,KEYWORD_54,FOLLOW_KEYWORD_54_in_ruleBooleanValue9966); if (state.failed) return current;
+                    kw=(Token)match(input,KEYWORD_54,FOLLOW_KEYWORD_54_in_ruleBooleanValue10145); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                               current.merge(kw);
@@ -13455,9 +13676,9 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 2 :
-                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4619:2: kw= KEYWORD_57
+                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4704:2: kw= KEYWORD_57
                     {
-                    kw=(Token)match(input,KEYWORD_57,FOLLOW_KEYWORD_57_in_ruleBooleanValue9985); if (state.failed) return current;
+                    kw=(Token)match(input,KEYWORD_57,FOLLOW_KEYWORD_57_in_ruleBooleanValue10164); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                               current.merge(kw);
@@ -13491,7 +13712,7 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleLiteralBoolean"
-    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4632:1: entryRuleLiteralBoolean returns [EObject current=null] : iv_ruleLiteralBoolean= ruleLiteralBoolean EOF ;
+    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4717:1: entryRuleLiteralBoolean returns [EObject current=null] : iv_ruleLiteralBoolean= ruleLiteralBoolean EOF ;
     public final EObject entryRuleLiteralBoolean() throws RecognitionException {
         EObject current = null;
 
@@ -13499,13 +13720,13 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4633:2: (iv_ruleLiteralBoolean= ruleLiteralBoolean EOF )
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4634:2: iv_ruleLiteralBoolean= ruleLiteralBoolean EOF
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4718:2: (iv_ruleLiteralBoolean= ruleLiteralBoolean EOF )
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4719:2: iv_ruleLiteralBoolean= ruleLiteralBoolean EOF
             {
             if ( state.backtracking==0 ) {
                newCompositeNode(grammarAccess.getLiteralBooleanRule()); 
             }
-            pushFollow(FOLLOW_ruleLiteralBoolean_in_entryRuleLiteralBoolean10024);
+            pushFollow(FOLLOW_ruleLiteralBoolean_in_entryRuleLiteralBoolean10203);
             iv_ruleLiteralBoolean=ruleLiteralBoolean();
 
             state._fsp--;
@@ -13513,7 +13734,7 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
             if ( state.backtracking==0 ) {
                current =iv_ruleLiteralBoolean; 
             }
-            match(input,EOF,FOLLOW_EOF_in_entryRuleLiteralBoolean10034); if (state.failed) return current;
+            match(input,EOF,FOLLOW_EOF_in_entryRuleLiteralBoolean10213); if (state.failed) return current;
 
             }
 
@@ -13531,7 +13752,7 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleLiteralBoolean"
-    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4641:1: ruleLiteralBoolean returns [EObject current=null] : ( (lv_value_0_0= ruleBooleanValue ) ) ;
+    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4726:1: ruleLiteralBoolean returns [EObject current=null] : ( (lv_value_0_0= ruleBooleanValue ) ) ;
     public final EObject ruleLiteralBoolean() throws RecognitionException {
         EObject current = null;
 
@@ -13541,21 +13762,21 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4644:28: ( ( (lv_value_0_0= ruleBooleanValue ) ) )
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4645:1: ( (lv_value_0_0= ruleBooleanValue ) )
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4729:28: ( ( (lv_value_0_0= ruleBooleanValue ) ) )
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4730:1: ( (lv_value_0_0= ruleBooleanValue ) )
             {
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4645:1: ( (lv_value_0_0= ruleBooleanValue ) )
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4646:1: (lv_value_0_0= ruleBooleanValue )
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4730:1: ( (lv_value_0_0= ruleBooleanValue ) )
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4731:1: (lv_value_0_0= ruleBooleanValue )
             {
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4646:1: (lv_value_0_0= ruleBooleanValue )
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4647:3: lv_value_0_0= ruleBooleanValue
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4731:1: (lv_value_0_0= ruleBooleanValue )
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4732:3: lv_value_0_0= ruleBooleanValue
             {
             if ( state.backtracking==0 ) {
                
               	        newCompositeNode(grammarAccess.getLiteralBooleanAccess().getValueBooleanValueParserRuleCall_0()); 
               	    
             }
-            pushFollow(FOLLOW_ruleBooleanValue_in_ruleLiteralBoolean10079);
+            pushFollow(FOLLOW_ruleBooleanValue_in_ruleLiteralBoolean10258);
             lv_value_0_0=ruleBooleanValue();
 
             state._fsp--;
@@ -13599,7 +13820,7 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleLiteralDefault"
-    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4671:1: entryRuleLiteralDefault returns [EObject current=null] : iv_ruleLiteralDefault= ruleLiteralDefault EOF ;
+    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4756:1: entryRuleLiteralDefault returns [EObject current=null] : iv_ruleLiteralDefault= ruleLiteralDefault EOF ;
     public final EObject entryRuleLiteralDefault() throws RecognitionException {
         EObject current = null;
 
@@ -13607,13 +13828,13 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4672:2: (iv_ruleLiteralDefault= ruleLiteralDefault EOF )
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4673:2: iv_ruleLiteralDefault= ruleLiteralDefault EOF
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4757:2: (iv_ruleLiteralDefault= ruleLiteralDefault EOF )
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4758:2: iv_ruleLiteralDefault= ruleLiteralDefault EOF
             {
             if ( state.backtracking==0 ) {
                newCompositeNode(grammarAccess.getLiteralDefaultRule()); 
             }
-            pushFollow(FOLLOW_ruleLiteralDefault_in_entryRuleLiteralDefault10113);
+            pushFollow(FOLLOW_ruleLiteralDefault_in_entryRuleLiteralDefault10292);
             iv_ruleLiteralDefault=ruleLiteralDefault();
 
             state._fsp--;
@@ -13621,7 +13842,7 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
             if ( state.backtracking==0 ) {
                current =iv_ruleLiteralDefault; 
             }
-            match(input,EOF,FOLLOW_EOF_in_entryRuleLiteralDefault10123); if (state.failed) return current;
+            match(input,EOF,FOLLOW_EOF_in_entryRuleLiteralDefault10302); if (state.failed) return current;
 
             }
 
@@ -13639,7 +13860,7 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleLiteralDefault"
-    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4680:1: ruleLiteralDefault returns [EObject current=null] : ( () otherlv_1= KEYWORD_61 ) ;
+    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4765:1: ruleLiteralDefault returns [EObject current=null] : ( () otherlv_1= KEYWORD_62 ) ;
     public final EObject ruleLiteralDefault() throws RecognitionException {
         EObject current = null;
 
@@ -13648,14 +13869,14 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4683:28: ( ( () otherlv_1= KEYWORD_61 ) )
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4684:1: ( () otherlv_1= KEYWORD_61 )
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4768:28: ( ( () otherlv_1= KEYWORD_62 ) )
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4769:1: ( () otherlv_1= KEYWORD_62 )
             {
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4684:1: ( () otherlv_1= KEYWORD_61 )
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4684:2: () otherlv_1= KEYWORD_61
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4769:1: ( () otherlv_1= KEYWORD_62 )
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4769:2: () otherlv_1= KEYWORD_62
             {
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4684:2: ()
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4685:2: 
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4769:2: ()
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4770:2: 
             {
             if ( state.backtracking==0 ) {
                
@@ -13672,7 +13893,7 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
 
             }
 
-            otherlv_1=(Token)match(input,KEYWORD_61,FOLLOW_KEYWORD_61_in_ruleLiteralDefault10173); if (state.failed) return current;
+            otherlv_1=(Token)match(input,KEYWORD_62,FOLLOW_KEYWORD_62_in_ruleLiteralDefault10352); if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
                   	newLeafNode(otherlv_1, grammarAccess.getLiteralDefaultAccess().getDefaultKeyword_1());
@@ -13701,7 +13922,7 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleLiteralUndef"
-    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4706:1: entryRuleLiteralUndef returns [EObject current=null] : iv_ruleLiteralUndef= ruleLiteralUndef EOF ;
+    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4791:1: entryRuleLiteralUndef returns [EObject current=null] : iv_ruleLiteralUndef= ruleLiteralUndef EOF ;
     public final EObject entryRuleLiteralUndef() throws RecognitionException {
         EObject current = null;
 
@@ -13709,13 +13930,13 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4707:2: (iv_ruleLiteralUndef= ruleLiteralUndef EOF )
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4708:2: iv_ruleLiteralUndef= ruleLiteralUndef EOF
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4792:2: (iv_ruleLiteralUndef= ruleLiteralUndef EOF )
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4793:2: iv_ruleLiteralUndef= ruleLiteralUndef EOF
             {
             if ( state.backtracking==0 ) {
                newCompositeNode(grammarAccess.getLiteralUndefRule()); 
             }
-            pushFollow(FOLLOW_ruleLiteralUndef_in_entryRuleLiteralUndef10207);
+            pushFollow(FOLLOW_ruleLiteralUndef_in_entryRuleLiteralUndef10386);
             iv_ruleLiteralUndef=ruleLiteralUndef();
 
             state._fsp--;
@@ -13723,7 +13944,7 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
             if ( state.backtracking==0 ) {
                current =iv_ruleLiteralUndef; 
             }
-            match(input,EOF,FOLLOW_EOF_in_entryRuleLiteralUndef10217); if (state.failed) return current;
+            match(input,EOF,FOLLOW_EOF_in_entryRuleLiteralUndef10396); if (state.failed) return current;
 
             }
 
@@ -13741,7 +13962,7 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleLiteralUndef"
-    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4715:1: ruleLiteralUndef returns [EObject current=null] : ( () otherlv_1= KEYWORD_58 ) ;
+    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4800:1: ruleLiteralUndef returns [EObject current=null] : ( () otherlv_1= KEYWORD_58 ) ;
     public final EObject ruleLiteralUndef() throws RecognitionException {
         EObject current = null;
 
@@ -13750,14 +13971,14 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4718:28: ( ( () otherlv_1= KEYWORD_58 ) )
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4719:1: ( () otherlv_1= KEYWORD_58 )
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4803:28: ( ( () otherlv_1= KEYWORD_58 ) )
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4804:1: ( () otherlv_1= KEYWORD_58 )
             {
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4719:1: ( () otherlv_1= KEYWORD_58 )
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4719:2: () otherlv_1= KEYWORD_58
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4804:1: ( () otherlv_1= KEYWORD_58 )
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4804:2: () otherlv_1= KEYWORD_58
             {
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4719:2: ()
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4720:2: 
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4804:2: ()
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4805:2: 
             {
             if ( state.backtracking==0 ) {
                
@@ -13774,7 +13995,7 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
 
             }
 
-            otherlv_1=(Token)match(input,KEYWORD_58,FOLLOW_KEYWORD_58_in_ruleLiteralUndef10267); if (state.failed) return current;
+            otherlv_1=(Token)match(input,KEYWORD_58,FOLLOW_KEYWORD_58_in_ruleLiteralUndef10446); if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
                   	newLeafNode(otherlv_1, grammarAccess.getLiteralUndefAccess().getUndefKeyword_1());
@@ -13803,7 +14024,7 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleLiteralClass"
-    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4741:1: entryRuleLiteralClass returns [EObject current=null] : iv_ruleLiteralClass= ruleLiteralClass EOF ;
+    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4826:1: entryRuleLiteralClass returns [EObject current=null] : iv_ruleLiteralClass= ruleLiteralClass EOF ;
     public final EObject entryRuleLiteralClass() throws RecognitionException {
         EObject current = null;
 
@@ -13811,13 +14032,13 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4742:2: (iv_ruleLiteralClass= ruleLiteralClass EOF )
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4743:2: iv_ruleLiteralClass= ruleLiteralClass EOF
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4827:2: (iv_ruleLiteralClass= ruleLiteralClass EOF )
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4828:2: iv_ruleLiteralClass= ruleLiteralClass EOF
             {
             if ( state.backtracking==0 ) {
                newCompositeNode(grammarAccess.getLiteralClassRule()); 
             }
-            pushFollow(FOLLOW_ruleLiteralClass_in_entryRuleLiteralClass10301);
+            pushFollow(FOLLOW_ruleLiteralClass_in_entryRuleLiteralClass10480);
             iv_ruleLiteralClass=ruleLiteralClass();
 
             state._fsp--;
@@ -13825,7 +14046,7 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
             if ( state.backtracking==0 ) {
                current =iv_ruleLiteralClass; 
             }
-            match(input,EOF,FOLLOW_EOF_in_entryRuleLiteralClass10311); if (state.failed) return current;
+            match(input,EOF,FOLLOW_EOF_in_entryRuleLiteralClass10490); if (state.failed) return current;
 
             }
 
@@ -13843,7 +14064,7 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleLiteralClass"
-    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4750:1: ruleLiteralClass returns [EObject current=null] : ( () otherlv_1= KEYWORD_55 ) ;
+    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4835:1: ruleLiteralClass returns [EObject current=null] : ( () otherlv_1= KEYWORD_55 ) ;
     public final EObject ruleLiteralClass() throws RecognitionException {
         EObject current = null;
 
@@ -13852,14 +14073,14 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4753:28: ( ( () otherlv_1= KEYWORD_55 ) )
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4754:1: ( () otherlv_1= KEYWORD_55 )
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4838:28: ( ( () otherlv_1= KEYWORD_55 ) )
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4839:1: ( () otherlv_1= KEYWORD_55 )
             {
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4754:1: ( () otherlv_1= KEYWORD_55 )
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4754:2: () otherlv_1= KEYWORD_55
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4839:1: ( () otherlv_1= KEYWORD_55 )
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4839:2: () otherlv_1= KEYWORD_55
             {
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4754:2: ()
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4755:2: 
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4839:2: ()
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4840:2: 
             {
             if ( state.backtracking==0 ) {
                
@@ -13876,7 +14097,7 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
 
             }
 
-            otherlv_1=(Token)match(input,KEYWORD_55,FOLLOW_KEYWORD_55_in_ruleLiteralClass10361); if (state.failed) return current;
+            otherlv_1=(Token)match(input,KEYWORD_55,FOLLOW_KEYWORD_55_in_ruleLiteralClass10540); if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
                   	newLeafNode(otherlv_1, grammarAccess.getLiteralClassAccess().getClassKeyword_1());
@@ -13905,7 +14126,7 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleStringExpression"
-    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4776:1: entryRuleStringExpression returns [EObject current=null] : iv_ruleStringExpression= ruleStringExpression EOF ;
+    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4861:1: entryRuleStringExpression returns [EObject current=null] : iv_ruleStringExpression= ruleStringExpression EOF ;
     public final EObject entryRuleStringExpression() throws RecognitionException {
         EObject current = null;
 
@@ -13916,13 +14137,13 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
         		HiddenTokens myHiddenTokenState = ((XtextTokenStream)input).setHiddenTokens("RULE_WS", "RULE_SL_COMMENT", "RULE_ML_COMMENT");
         	
         try {
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4780:2: (iv_ruleStringExpression= ruleStringExpression EOF )
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4781:2: iv_ruleStringExpression= ruleStringExpression EOF
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4865:2: (iv_ruleStringExpression= ruleStringExpression EOF )
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4866:2: iv_ruleStringExpression= ruleStringExpression EOF
             {
             if ( state.backtracking==0 ) {
                newCompositeNode(grammarAccess.getStringExpressionRule()); 
             }
-            pushFollow(FOLLOW_ruleStringExpression_in_entryRuleStringExpression10401);
+            pushFollow(FOLLOW_ruleStringExpression_in_entryRuleStringExpression10580);
             iv_ruleStringExpression=ruleStringExpression();
 
             state._fsp--;
@@ -13930,7 +14151,7 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
             if ( state.backtracking==0 ) {
                current =iv_ruleStringExpression; 
             }
-            match(input,EOF,FOLLOW_EOF_in_entryRuleStringExpression10411); if (state.failed) return current;
+            match(input,EOF,FOLLOW_EOF_in_entryRuleStringExpression10590); if (state.failed) return current;
 
             }
 
@@ -13951,7 +14172,7 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleStringExpression"
-    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4791:1: ruleStringExpression returns [EObject current=null] : (this_SingleQuotedString_0= ruleSingleQuotedString | this_UnquotedString_1= ruleUnquotedString | this_DoubleQuotedString_2= ruleDoubleQuotedString ) ;
+    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4876:1: ruleStringExpression returns [EObject current=null] : (this_SingleQuotedString_0= ruleSingleQuotedString | this_UnquotedString_1= ruleUnquotedString | this_DoubleQuotedString_2= ruleDoubleQuotedString ) ;
     public final EObject ruleStringExpression() throws RecognitionException {
         EObject current = null;
 
@@ -13966,38 +14187,38 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
         		HiddenTokens myHiddenTokenState = ((XtextTokenStream)input).setHiddenTokens("RULE_WS", "RULE_SL_COMMENT", "RULE_ML_COMMENT");
             
         try {
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4795:28: ( (this_SingleQuotedString_0= ruleSingleQuotedString | this_UnquotedString_1= ruleUnquotedString | this_DoubleQuotedString_2= ruleDoubleQuotedString ) )
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4796:1: (this_SingleQuotedString_0= ruleSingleQuotedString | this_UnquotedString_1= ruleUnquotedString | this_DoubleQuotedString_2= ruleDoubleQuotedString )
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4880:28: ( (this_SingleQuotedString_0= ruleSingleQuotedString | this_UnquotedString_1= ruleUnquotedString | this_DoubleQuotedString_2= ruleDoubleQuotedString ) )
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4881:1: (this_SingleQuotedString_0= ruleSingleQuotedString | this_UnquotedString_1= ruleUnquotedString | this_DoubleQuotedString_2= ruleDoubleQuotedString )
             {
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4796:1: (this_SingleQuotedString_0= ruleSingleQuotedString | this_UnquotedString_1= ruleUnquotedString | this_DoubleQuotedString_2= ruleDoubleQuotedString )
-            int alt94=3;
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4881:1: (this_SingleQuotedString_0= ruleSingleQuotedString | this_UnquotedString_1= ruleUnquotedString | this_DoubleQuotedString_2= ruleDoubleQuotedString )
+            int alt95=3;
             switch ( input.LA(1) ) {
             case KEYWORD_3:
                 {
-                alt94=1;
+                alt95=1;
                 }
                 break;
             case KEYWORD_24:
                 {
-                alt94=2;
+                alt95=2;
                 }
                 break;
             case KEYWORD_2:
                 {
-                alt94=3;
+                alt95=3;
                 }
                 break;
             default:
                 if (state.backtracking>0) {state.failed=true; return current;}
                 NoViableAltException nvae =
-                    new NoViableAltException("", 94, 0, input);
+                    new NoViableAltException("", 95, 0, input);
 
                 throw nvae;
             }
 
-            switch (alt94) {
+            switch (alt95) {
                 case 1 :
-                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4797:2: this_SingleQuotedString_0= ruleSingleQuotedString
+                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4882:2: this_SingleQuotedString_0= ruleSingleQuotedString
                     {
                     if ( state.backtracking==0 ) {
                        
@@ -14009,7 +14230,7 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
                               newCompositeNode(grammarAccess.getStringExpressionAccess().getSingleQuotedStringParserRuleCall_0()); 
                           
                     }
-                    pushFollow(FOLLOW_ruleSingleQuotedString_in_ruleStringExpression10465);
+                    pushFollow(FOLLOW_ruleSingleQuotedString_in_ruleStringExpression10644);
                     this_SingleQuotedString_0=ruleSingleQuotedString();
 
                     state._fsp--;
@@ -14024,7 +14245,7 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 2 :
-                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4810:2: this_UnquotedString_1= ruleUnquotedString
+                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4895:2: this_UnquotedString_1= ruleUnquotedString
                     {
                     if ( state.backtracking==0 ) {
                        
@@ -14036,7 +14257,7 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
                               newCompositeNode(grammarAccess.getStringExpressionAccess().getUnquotedStringParserRuleCall_1()); 
                           
                     }
-                    pushFollow(FOLLOW_ruleUnquotedString_in_ruleStringExpression10495);
+                    pushFollow(FOLLOW_ruleUnquotedString_in_ruleStringExpression10674);
                     this_UnquotedString_1=ruleUnquotedString();
 
                     state._fsp--;
@@ -14051,7 +14272,7 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 3 :
-                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4823:2: this_DoubleQuotedString_2= ruleDoubleQuotedString
+                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4908:2: this_DoubleQuotedString_2= ruleDoubleQuotedString
                     {
                     if ( state.backtracking==0 ) {
                        
@@ -14063,7 +14284,7 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
                               newCompositeNode(grammarAccess.getStringExpressionAccess().getDoubleQuotedStringParserRuleCall_2()); 
                           
                     }
-                    pushFollow(FOLLOW_ruleDoubleQuotedString_in_ruleStringExpression10525);
+                    pushFollow(FOLLOW_ruleDoubleQuotedString_in_ruleStringExpression10704);
                     this_DoubleQuotedString_2=ruleDoubleQuotedString();
 
                     state._fsp--;
@@ -14103,7 +14324,7 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleQuotedString"
-    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4845:1: entryRuleQuotedString returns [EObject current=null] : iv_ruleQuotedString= ruleQuotedString EOF ;
+    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4930:1: entryRuleQuotedString returns [EObject current=null] : iv_ruleQuotedString= ruleQuotedString EOF ;
     public final EObject entryRuleQuotedString() throws RecognitionException {
         EObject current = null;
 
@@ -14114,13 +14335,13 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
         		HiddenTokens myHiddenTokenState = ((XtextTokenStream)input).setHiddenTokens("RULE_WS", "RULE_SL_COMMENT", "RULE_ML_COMMENT");
         	
         try {
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4849:2: (iv_ruleQuotedString= ruleQuotedString EOF )
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4850:2: iv_ruleQuotedString= ruleQuotedString EOF
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4934:2: (iv_ruleQuotedString= ruleQuotedString EOF )
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4935:2: iv_ruleQuotedString= ruleQuotedString EOF
             {
             if ( state.backtracking==0 ) {
                newCompositeNode(grammarAccess.getQuotedStringRule()); 
             }
-            pushFollow(FOLLOW_ruleQuotedString_in_entryRuleQuotedString10569);
+            pushFollow(FOLLOW_ruleQuotedString_in_entryRuleQuotedString10748);
             iv_ruleQuotedString=ruleQuotedString();
 
             state._fsp--;
@@ -14128,7 +14349,7 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
             if ( state.backtracking==0 ) {
                current =iv_ruleQuotedString; 
             }
-            match(input,EOF,FOLLOW_EOF_in_entryRuleQuotedString10579); if (state.failed) return current;
+            match(input,EOF,FOLLOW_EOF_in_entryRuleQuotedString10758); if (state.failed) return current;
 
             }
 
@@ -14149,7 +14370,7 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleQuotedString"
-    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4860:1: ruleQuotedString returns [EObject current=null] : (this_DoubleQuotedString_0= ruleDoubleQuotedString | this_SingleQuotedString_1= ruleSingleQuotedString ) ;
+    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4945:1: ruleQuotedString returns [EObject current=null] : (this_DoubleQuotedString_0= ruleDoubleQuotedString | this_SingleQuotedString_1= ruleSingleQuotedString ) ;
     public final EObject ruleQuotedString() throws RecognitionException {
         EObject current = null;
 
@@ -14162,29 +14383,29 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
         		HiddenTokens myHiddenTokenState = ((XtextTokenStream)input).setHiddenTokens("RULE_WS", "RULE_SL_COMMENT", "RULE_ML_COMMENT");
             
         try {
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4864:28: ( (this_DoubleQuotedString_0= ruleDoubleQuotedString | this_SingleQuotedString_1= ruleSingleQuotedString ) )
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4865:1: (this_DoubleQuotedString_0= ruleDoubleQuotedString | this_SingleQuotedString_1= ruleSingleQuotedString )
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4949:28: ( (this_DoubleQuotedString_0= ruleDoubleQuotedString | this_SingleQuotedString_1= ruleSingleQuotedString ) )
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4950:1: (this_DoubleQuotedString_0= ruleDoubleQuotedString | this_SingleQuotedString_1= ruleSingleQuotedString )
             {
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4865:1: (this_DoubleQuotedString_0= ruleDoubleQuotedString | this_SingleQuotedString_1= ruleSingleQuotedString )
-            int alt95=2;
-            int LA95_0 = input.LA(1);
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4950:1: (this_DoubleQuotedString_0= ruleDoubleQuotedString | this_SingleQuotedString_1= ruleSingleQuotedString )
+            int alt96=2;
+            int LA96_0 = input.LA(1);
 
-            if ( (LA95_0==KEYWORD_2) ) {
-                alt95=1;
+            if ( (LA96_0==KEYWORD_2) ) {
+                alt96=1;
             }
-            else if ( (LA95_0==KEYWORD_3) ) {
-                alt95=2;
+            else if ( (LA96_0==KEYWORD_3) ) {
+                alt96=2;
             }
             else {
                 if (state.backtracking>0) {state.failed=true; return current;}
                 NoViableAltException nvae =
-                    new NoViableAltException("", 95, 0, input);
+                    new NoViableAltException("", 96, 0, input);
 
                 throw nvae;
             }
-            switch (alt95) {
+            switch (alt96) {
                 case 1 :
-                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4866:2: this_DoubleQuotedString_0= ruleDoubleQuotedString
+                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4951:2: this_DoubleQuotedString_0= ruleDoubleQuotedString
                     {
                     if ( state.backtracking==0 ) {
                        
@@ -14196,7 +14417,7 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
                               newCompositeNode(grammarAccess.getQuotedStringAccess().getDoubleQuotedStringParserRuleCall_0()); 
                           
                     }
-                    pushFollow(FOLLOW_ruleDoubleQuotedString_in_ruleQuotedString10633);
+                    pushFollow(FOLLOW_ruleDoubleQuotedString_in_ruleQuotedString10812);
                     this_DoubleQuotedString_0=ruleDoubleQuotedString();
 
                     state._fsp--;
@@ -14211,7 +14432,7 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 2 :
-                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4879:2: this_SingleQuotedString_1= ruleSingleQuotedString
+                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4964:2: this_SingleQuotedString_1= ruleSingleQuotedString
                     {
                     if ( state.backtracking==0 ) {
                        
@@ -14223,7 +14444,7 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
                               newCompositeNode(grammarAccess.getQuotedStringAccess().getSingleQuotedStringParserRuleCall_1()); 
                           
                     }
-                    pushFollow(FOLLOW_ruleSingleQuotedString_in_ruleQuotedString10663);
+                    pushFollow(FOLLOW_ruleSingleQuotedString_in_ruleQuotedString10842);
                     this_SingleQuotedString_1=ruleSingleQuotedString();
 
                     state._fsp--;
@@ -14263,7 +14484,7 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleSingleQuotedString"
-    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4901:1: entryRuleSingleQuotedString returns [EObject current=null] : iv_ruleSingleQuotedString= ruleSingleQuotedString EOF ;
+    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4986:1: entryRuleSingleQuotedString returns [EObject current=null] : iv_ruleSingleQuotedString= ruleSingleQuotedString EOF ;
     public final EObject entryRuleSingleQuotedString() throws RecognitionException {
         EObject current = null;
 
@@ -14271,13 +14492,13 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4902:2: (iv_ruleSingleQuotedString= ruleSingleQuotedString EOF )
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4903:2: iv_ruleSingleQuotedString= ruleSingleQuotedString EOF
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4987:2: (iv_ruleSingleQuotedString= ruleSingleQuotedString EOF )
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4988:2: iv_ruleSingleQuotedString= ruleSingleQuotedString EOF
             {
             if ( state.backtracking==0 ) {
                newCompositeNode(grammarAccess.getSingleQuotedStringRule()); 
             }
-            pushFollow(FOLLOW_ruleSingleQuotedString_in_entryRuleSingleQuotedString10701);
+            pushFollow(FOLLOW_ruleSingleQuotedString_in_entryRuleSingleQuotedString10880);
             iv_ruleSingleQuotedString=ruleSingleQuotedString();
 
             state._fsp--;
@@ -14285,7 +14506,7 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
             if ( state.backtracking==0 ) {
                current =iv_ruleSingleQuotedString; 
             }
-            match(input,EOF,FOLLOW_EOF_in_entryRuleSingleQuotedString10711); if (state.failed) return current;
+            match(input,EOF,FOLLOW_EOF_in_entryRuleSingleQuotedString10890); if (state.failed) return current;
 
             }
 
@@ -14303,7 +14524,7 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleSingleQuotedString"
-    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4910:1: ruleSingleQuotedString returns [EObject current=null] : ( () ( ( KEYWORD_3 )=> (lv_text_1_0= rulesqText ) ) ) ;
+    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4995:1: ruleSingleQuotedString returns [EObject current=null] : ( () ( ( KEYWORD_3 )=> (lv_text_1_0= rulesqText ) ) ) ;
     public final EObject ruleSingleQuotedString() throws RecognitionException {
         EObject current = null;
 
@@ -14313,14 +14534,14 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4913:28: ( ( () ( ( KEYWORD_3 )=> (lv_text_1_0= rulesqText ) ) ) )
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4914:1: ( () ( ( KEYWORD_3 )=> (lv_text_1_0= rulesqText ) ) )
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4998:28: ( ( () ( ( KEYWORD_3 )=> (lv_text_1_0= rulesqText ) ) ) )
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4999:1: ( () ( ( KEYWORD_3 )=> (lv_text_1_0= rulesqText ) ) )
             {
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4914:1: ( () ( ( KEYWORD_3 )=> (lv_text_1_0= rulesqText ) ) )
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4914:2: () ( ( KEYWORD_3 )=> (lv_text_1_0= rulesqText ) )
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4999:1: ( () ( ( KEYWORD_3 )=> (lv_text_1_0= rulesqText ) ) )
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4999:2: () ( ( KEYWORD_3 )=> (lv_text_1_0= rulesqText ) )
             {
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4914:2: ()
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4915:2: 
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4999:2: ()
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5000:2: 
             {
             if ( state.backtracking==0 ) {
                
@@ -14337,18 +14558,18 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
 
             }
 
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4923:2: ( ( KEYWORD_3 )=> (lv_text_1_0= rulesqText ) )
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4923:3: ( KEYWORD_3 )=> (lv_text_1_0= rulesqText )
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5008:2: ( ( KEYWORD_3 )=> (lv_text_1_0= rulesqText ) )
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5008:3: ( KEYWORD_3 )=> (lv_text_1_0= rulesqText )
             {
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4926:1: (lv_text_1_0= rulesqText )
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4927:3: lv_text_1_0= rulesqText
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5011:1: (lv_text_1_0= rulesqText )
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5012:3: lv_text_1_0= rulesqText
             {
             if ( state.backtracking==0 ) {
                
               	        newCompositeNode(grammarAccess.getSingleQuotedStringAccess().getTextSqTextParserRuleCall_1_0()); 
               	    
             }
-            pushFollow(FOLLOW_rulesqText_in_ruleSingleQuotedString10775);
+            pushFollow(FOLLOW_rulesqText_in_ruleSingleQuotedString10954);
             lv_text_1_0=rulesqText();
 
             state._fsp--;
@@ -14395,7 +14616,7 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleDoubleQuotedString"
-    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4951:1: entryRuleDoubleQuotedString returns [EObject current=null] : iv_ruleDoubleQuotedString= ruleDoubleQuotedString EOF ;
+    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5036:1: entryRuleDoubleQuotedString returns [EObject current=null] : iv_ruleDoubleQuotedString= ruleDoubleQuotedString EOF ;
     public final EObject entryRuleDoubleQuotedString() throws RecognitionException {
         EObject current = null;
 
@@ -14406,13 +14627,13 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
         		HiddenTokens myHiddenTokenState = ((XtextTokenStream)input).setHiddenTokens();
         	
         try {
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4955:2: (iv_ruleDoubleQuotedString= ruleDoubleQuotedString EOF )
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4956:2: iv_ruleDoubleQuotedString= ruleDoubleQuotedString EOF
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5040:2: (iv_ruleDoubleQuotedString= ruleDoubleQuotedString EOF )
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5041:2: iv_ruleDoubleQuotedString= ruleDoubleQuotedString EOF
             {
             if ( state.backtracking==0 ) {
                newCompositeNode(grammarAccess.getDoubleQuotedStringRule()); 
             }
-            pushFollow(FOLLOW_ruleDoubleQuotedString_in_entryRuleDoubleQuotedString10816);
+            pushFollow(FOLLOW_ruleDoubleQuotedString_in_entryRuleDoubleQuotedString10995);
             iv_ruleDoubleQuotedString=ruleDoubleQuotedString();
 
             state._fsp--;
@@ -14420,7 +14641,7 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
             if ( state.backtracking==0 ) {
                current =iv_ruleDoubleQuotedString; 
             }
-            match(input,EOF,FOLLOW_EOF_in_entryRuleDoubleQuotedString10826); if (state.failed) return current;
+            match(input,EOF,FOLLOW_EOF_in_entryRuleDoubleQuotedString11005); if (state.failed) return current;
 
             }
 
@@ -14441,7 +14662,7 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleDoubleQuotedString"
-    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4966:1: ruleDoubleQuotedString returns [EObject current=null] : (otherlv_0= KEYWORD_2 () ( (lv_stringPart_2_0= ruleTextExpression ) )* otherlv_3= KEYWORD_2 ) ;
+    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5051:1: ruleDoubleQuotedString returns [EObject current=null] : (otherlv_0= KEYWORD_2 () ( (lv_stringPart_2_0= ruleTextExpression ) )* otherlv_3= KEYWORD_2 ) ;
     public final EObject ruleDoubleQuotedString() throws RecognitionException {
         EObject current = null;
 
@@ -14454,20 +14675,20 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
         		HiddenTokens myHiddenTokenState = ((XtextTokenStream)input).setHiddenTokens();
             
         try {
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4970:28: ( (otherlv_0= KEYWORD_2 () ( (lv_stringPart_2_0= ruleTextExpression ) )* otherlv_3= KEYWORD_2 ) )
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4971:1: (otherlv_0= KEYWORD_2 () ( (lv_stringPart_2_0= ruleTextExpression ) )* otherlv_3= KEYWORD_2 )
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5055:28: ( (otherlv_0= KEYWORD_2 () ( (lv_stringPart_2_0= ruleTextExpression ) )* otherlv_3= KEYWORD_2 ) )
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5056:1: (otherlv_0= KEYWORD_2 () ( (lv_stringPart_2_0= ruleTextExpression ) )* otherlv_3= KEYWORD_2 )
             {
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4971:1: (otherlv_0= KEYWORD_2 () ( (lv_stringPart_2_0= ruleTextExpression ) )* otherlv_3= KEYWORD_2 )
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4972:2: otherlv_0= KEYWORD_2 () ( (lv_stringPart_2_0= ruleTextExpression ) )* otherlv_3= KEYWORD_2
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5056:1: (otherlv_0= KEYWORD_2 () ( (lv_stringPart_2_0= ruleTextExpression ) )* otherlv_3= KEYWORD_2 )
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5057:2: otherlv_0= KEYWORD_2 () ( (lv_stringPart_2_0= ruleTextExpression ) )* otherlv_3= KEYWORD_2
             {
-            otherlv_0=(Token)match(input,KEYWORD_2,FOLLOW_KEYWORD_2_in_ruleDoubleQuotedString10868); if (state.failed) return current;
+            otherlv_0=(Token)match(input,KEYWORD_2,FOLLOW_KEYWORD_2_in_ruleDoubleQuotedString11047); if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
                   	newLeafNode(otherlv_0, grammarAccess.getDoubleQuotedStringAccess().getQuotationMarkKeyword_0());
                   
             }
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4976:1: ()
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4977:2: 
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5061:1: ()
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5062:2: 
             {
             if ( state.backtracking==0 ) {
                
@@ -14484,30 +14705,30 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
 
             }
 
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4985:2: ( (lv_stringPart_2_0= ruleTextExpression ) )*
-            loop96:
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5070:2: ( (lv_stringPart_2_0= ruleTextExpression ) )*
+            loop97:
             do {
-                int alt96=2;
-                int LA96_0 = input.LA(1);
+                int alt97=2;
+                int LA97_0 = input.LA(1);
 
-                if ( (LA96_0==KEYWORD_48||LA96_0==KEYWORD_24||(LA96_0>=KEYWORD_38 && LA96_0<=KEYWORD_41)||(LA96_0>=RULE_WS && LA96_0<=RULE_WORD_CHARS)||LA96_0==RULE_ANY_OTHER) ) {
-                    alt96=1;
+                if ( (LA97_0==KEYWORD_48||LA97_0==KEYWORD_24||(LA97_0>=KEYWORD_38 && LA97_0<=KEYWORD_41)||(LA97_0>=RULE_WS && LA97_0<=RULE_WORD_CHARS)||LA97_0==RULE_ANY_OTHER) ) {
+                    alt97=1;
                 }
 
 
-                switch (alt96) {
+                switch (alt97) {
             	case 1 :
-            	    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4986:1: (lv_stringPart_2_0= ruleTextExpression )
+            	    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5071:1: (lv_stringPart_2_0= ruleTextExpression )
             	    {
-            	    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4986:1: (lv_stringPart_2_0= ruleTextExpression )
-            	    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4987:3: lv_stringPart_2_0= ruleTextExpression
+            	    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5071:1: (lv_stringPart_2_0= ruleTextExpression )
+            	    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5072:3: lv_stringPart_2_0= ruleTextExpression
             	    {
             	    if ( state.backtracking==0 ) {
             	       
             	      	        newCompositeNode(grammarAccess.getDoubleQuotedStringAccess().getStringPartTextExpressionParserRuleCall_2_0()); 
             	      	    
             	    }
-            	    pushFollow(FOLLOW_ruleTextExpression_in_ruleDoubleQuotedString10900);
+            	    pushFollow(FOLLOW_ruleTextExpression_in_ruleDoubleQuotedString11079);
             	    lv_stringPart_2_0=ruleTextExpression();
 
             	    state._fsp--;
@@ -14533,11 +14754,11 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
             	    break;
 
             	default :
-            	    break loop96;
+            	    break loop97;
                 }
             } while (true);
 
-            otherlv_3=(Token)match(input,KEYWORD_2,FOLLOW_KEYWORD_2_in_ruleDoubleQuotedString10914); if (state.failed) return current;
+            otherlv_3=(Token)match(input,KEYWORD_2,FOLLOW_KEYWORD_2_in_ruleDoubleQuotedString11093); if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
                   	newLeafNode(otherlv_3, grammarAccess.getDoubleQuotedStringAccess().getQuotationMarkKeyword_3());
@@ -14569,7 +14790,7 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleTextExpression"
-    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5019:1: entryRuleTextExpression returns [EObject current=null] : iv_ruleTextExpression= ruleTextExpression EOF ;
+    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5104:1: entryRuleTextExpression returns [EObject current=null] : iv_ruleTextExpression= ruleTextExpression EOF ;
     public final EObject entryRuleTextExpression() throws RecognitionException {
         EObject current = null;
 
@@ -14580,13 +14801,13 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
         		HiddenTokens myHiddenTokenState = ((XtextTokenStream)input).setHiddenTokens();
         	
         try {
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5023:2: (iv_ruleTextExpression= ruleTextExpression EOF )
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5024:2: iv_ruleTextExpression= ruleTextExpression EOF
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5108:2: (iv_ruleTextExpression= ruleTextExpression EOF )
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5109:2: iv_ruleTextExpression= ruleTextExpression EOF
             {
             if ( state.backtracking==0 ) {
                newCompositeNode(grammarAccess.getTextExpressionRule()); 
             }
-            pushFollow(FOLLOW_ruleTextExpression_in_entryRuleTextExpression10958);
+            pushFollow(FOLLOW_ruleTextExpression_in_entryRuleTextExpression11137);
             iv_ruleTextExpression=ruleTextExpression();
 
             state._fsp--;
@@ -14594,7 +14815,7 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
             if ( state.backtracking==0 ) {
                current =iv_ruleTextExpression; 
             }
-            match(input,EOF,FOLLOW_EOF_in_entryRuleTextExpression10968); if (state.failed) return current;
+            match(input,EOF,FOLLOW_EOF_in_entryRuleTextExpression11147); if (state.failed) return current;
 
             }
 
@@ -14615,7 +14836,7 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleTextExpression"
-    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5034:1: ruleTextExpression returns [EObject current=null] : ( ( () ( (lv_text_1_0= ruledoubleStringCharacters ) ) ) | ( () otherlv_3= KEYWORD_24 ( (lv_expression_4_0= ruleExpressionWithHidden ) ) otherlv_5= KEYWORD_21 ) | ( () ( (lv_varName_7_0= ruledollarVariable ) ) ) ) ;
+    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5119:1: ruleTextExpression returns [EObject current=null] : ( ( () ( (lv_text_1_0= ruledoubleStringCharacters ) ) ) | ( () otherlv_3= KEYWORD_24 ( (lv_expression_4_0= ruleExpressionWithHidden ) ) otherlv_5= KEYWORD_21 ) | ( () ( (lv_varName_7_0= ruledollarVariable ) ) ) ) ;
     public final EObject ruleTextExpression() throws RecognitionException {
         EObject current = null;
 
@@ -14632,11 +14853,11 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
         		HiddenTokens myHiddenTokenState = ((XtextTokenStream)input).setHiddenTokens();
             
         try {
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5038:28: ( ( ( () ( (lv_text_1_0= ruledoubleStringCharacters ) ) ) | ( () otherlv_3= KEYWORD_24 ( (lv_expression_4_0= ruleExpressionWithHidden ) ) otherlv_5= KEYWORD_21 ) | ( () ( (lv_varName_7_0= ruledollarVariable ) ) ) ) )
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5039:1: ( ( () ( (lv_text_1_0= ruledoubleStringCharacters ) ) ) | ( () otherlv_3= KEYWORD_24 ( (lv_expression_4_0= ruleExpressionWithHidden ) ) otherlv_5= KEYWORD_21 ) | ( () ( (lv_varName_7_0= ruledollarVariable ) ) ) )
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5123:28: ( ( ( () ( (lv_text_1_0= ruledoubleStringCharacters ) ) ) | ( () otherlv_3= KEYWORD_24 ( (lv_expression_4_0= ruleExpressionWithHidden ) ) otherlv_5= KEYWORD_21 ) | ( () ( (lv_varName_7_0= ruledollarVariable ) ) ) ) )
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5124:1: ( ( () ( (lv_text_1_0= ruledoubleStringCharacters ) ) ) | ( () otherlv_3= KEYWORD_24 ( (lv_expression_4_0= ruleExpressionWithHidden ) ) otherlv_5= KEYWORD_21 ) | ( () ( (lv_varName_7_0= ruledollarVariable ) ) ) )
             {
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5039:1: ( ( () ( (lv_text_1_0= ruledoubleStringCharacters ) ) ) | ( () otherlv_3= KEYWORD_24 ( (lv_expression_4_0= ruleExpressionWithHidden ) ) otherlv_5= KEYWORD_21 ) | ( () ( (lv_varName_7_0= ruledollarVariable ) ) ) )
-            int alt97=3;
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5124:1: ( ( () ( (lv_text_1_0= ruledoubleStringCharacters ) ) ) | ( () otherlv_3= KEYWORD_24 ( (lv_expression_4_0= ruleExpressionWithHidden ) ) otherlv_5= KEYWORD_21 ) | ( () ( (lv_varName_7_0= ruledollarVariable ) ) ) )
+            int alt98=3;
             switch ( input.LA(1) ) {
             case KEYWORD_48:
             case KEYWORD_38:
@@ -14647,36 +14868,36 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
             case RULE_WORD_CHARS:
             case RULE_ANY_OTHER:
                 {
-                alt97=1;
+                alt98=1;
                 }
                 break;
             case KEYWORD_24:
                 {
-                alt97=2;
+                alt98=2;
                 }
                 break;
             case RULE_DOLLAR_VAR:
                 {
-                alt97=3;
+                alt98=3;
                 }
                 break;
             default:
                 if (state.backtracking>0) {state.failed=true; return current;}
                 NoViableAltException nvae =
-                    new NoViableAltException("", 97, 0, input);
+                    new NoViableAltException("", 98, 0, input);
 
                 throw nvae;
             }
 
-            switch (alt97) {
+            switch (alt98) {
                 case 1 :
-                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5039:2: ( () ( (lv_text_1_0= ruledoubleStringCharacters ) ) )
+                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5124:2: ( () ( (lv_text_1_0= ruledoubleStringCharacters ) ) )
                     {
-                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5039:2: ( () ( (lv_text_1_0= ruledoubleStringCharacters ) ) )
-                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5039:3: () ( (lv_text_1_0= ruledoubleStringCharacters ) )
+                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5124:2: ( () ( (lv_text_1_0= ruledoubleStringCharacters ) ) )
+                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5124:3: () ( (lv_text_1_0= ruledoubleStringCharacters ) )
                     {
-                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5039:3: ()
-                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5040:2: 
+                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5124:3: ()
+                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5125:2: 
                     {
                     if ( state.backtracking==0 ) {
                        
@@ -14693,18 +14914,18 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
 
                     }
 
-                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5048:2: ( (lv_text_1_0= ruledoubleStringCharacters ) )
-                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5049:1: (lv_text_1_0= ruledoubleStringCharacters )
+                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5133:2: ( (lv_text_1_0= ruledoubleStringCharacters ) )
+                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5134:1: (lv_text_1_0= ruledoubleStringCharacters )
                     {
-                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5049:1: (lv_text_1_0= ruledoubleStringCharacters )
-                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5050:3: lv_text_1_0= ruledoubleStringCharacters
+                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5134:1: (lv_text_1_0= ruledoubleStringCharacters )
+                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5135:3: lv_text_1_0= ruledoubleStringCharacters
                     {
                     if ( state.backtracking==0 ) {
                        
                       	        newCompositeNode(grammarAccess.getTextExpressionAccess().getTextDoubleStringCharactersParserRuleCall_0_1_0()); 
                       	    
                     }
-                    pushFollow(FOLLOW_ruledoubleStringCharacters_in_ruleTextExpression11031);
+                    pushFollow(FOLLOW_ruledoubleStringCharacters_in_ruleTextExpression11210);
                     lv_text_1_0=ruledoubleStringCharacters();
 
                     state._fsp--;
@@ -14735,13 +14956,13 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 2 :
-                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5067:6: ( () otherlv_3= KEYWORD_24 ( (lv_expression_4_0= ruleExpressionWithHidden ) ) otherlv_5= KEYWORD_21 )
+                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5152:6: ( () otherlv_3= KEYWORD_24 ( (lv_expression_4_0= ruleExpressionWithHidden ) ) otherlv_5= KEYWORD_21 )
                     {
-                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5067:6: ( () otherlv_3= KEYWORD_24 ( (lv_expression_4_0= ruleExpressionWithHidden ) ) otherlv_5= KEYWORD_21 )
-                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5067:7: () otherlv_3= KEYWORD_24 ( (lv_expression_4_0= ruleExpressionWithHidden ) ) otherlv_5= KEYWORD_21
+                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5152:6: ( () otherlv_3= KEYWORD_24 ( (lv_expression_4_0= ruleExpressionWithHidden ) ) otherlv_5= KEYWORD_21 )
+                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5152:7: () otherlv_3= KEYWORD_24 ( (lv_expression_4_0= ruleExpressionWithHidden ) ) otherlv_5= KEYWORD_21
                     {
-                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5067:7: ()
-                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5068:2: 
+                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5152:7: ()
+                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5153:2: 
                     {
                     if ( state.backtracking==0 ) {
                        
@@ -14758,24 +14979,24 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
 
                     }
 
-                    otherlv_3=(Token)match(input,KEYWORD_24,FOLLOW_KEYWORD_24_in_ruleTextExpression11064); if (state.failed) return current;
+                    otherlv_3=(Token)match(input,KEYWORD_24,FOLLOW_KEYWORD_24_in_ruleTextExpression11243); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                           	newLeafNode(otherlv_3, grammarAccess.getTextExpressionAccess().getDollarSignLeftCurlyBracketKeyword_1_1());
                           
                     }
-                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5081:1: ( (lv_expression_4_0= ruleExpressionWithHidden ) )
-                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5082:1: (lv_expression_4_0= ruleExpressionWithHidden )
+                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5166:1: ( (lv_expression_4_0= ruleExpressionWithHidden ) )
+                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5167:1: (lv_expression_4_0= ruleExpressionWithHidden )
                     {
-                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5082:1: (lv_expression_4_0= ruleExpressionWithHidden )
-                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5083:3: lv_expression_4_0= ruleExpressionWithHidden
+                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5167:1: (lv_expression_4_0= ruleExpressionWithHidden )
+                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5168:3: lv_expression_4_0= ruleExpressionWithHidden
                     {
                     if ( state.backtracking==0 ) {
                        
                       	        newCompositeNode(grammarAccess.getTextExpressionAccess().getExpressionExpressionWithHiddenParserRuleCall_1_2_0()); 
                       	    
                     }
-                    pushFollow(FOLLOW_ruleExpressionWithHidden_in_ruleTextExpression11084);
+                    pushFollow(FOLLOW_ruleExpressionWithHidden_in_ruleTextExpression11263);
                     lv_expression_4_0=ruleExpressionWithHidden();
 
                     state._fsp--;
@@ -14799,7 +15020,7 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
 
                     }
 
-                    otherlv_5=(Token)match(input,KEYWORD_21,FOLLOW_KEYWORD_21_in_ruleTextExpression11097); if (state.failed) return current;
+                    otherlv_5=(Token)match(input,KEYWORD_21,FOLLOW_KEYWORD_21_in_ruleTextExpression11276); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                           	newLeafNode(otherlv_5, grammarAccess.getTextExpressionAccess().getRightCurlyBracketKeyword_1_3());
@@ -14812,13 +15033,13 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 3 :
-                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5105:6: ( () ( (lv_varName_7_0= ruledollarVariable ) ) )
+                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5190:6: ( () ( (lv_varName_7_0= ruledollarVariable ) ) )
                     {
-                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5105:6: ( () ( (lv_varName_7_0= ruledollarVariable ) ) )
-                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5105:7: () ( (lv_varName_7_0= ruledollarVariable ) )
+                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5190:6: ( () ( (lv_varName_7_0= ruledollarVariable ) ) )
+                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5190:7: () ( (lv_varName_7_0= ruledollarVariable ) )
                     {
-                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5105:7: ()
-                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5106:2: 
+                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5190:7: ()
+                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5191:2: 
                     {
                     if ( state.backtracking==0 ) {
                        
@@ -14835,18 +15056,18 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
 
                     }
 
-                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5114:2: ( (lv_varName_7_0= ruledollarVariable ) )
-                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5115:1: (lv_varName_7_0= ruledollarVariable )
+                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5199:2: ( (lv_varName_7_0= ruledollarVariable ) )
+                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5200:1: (lv_varName_7_0= ruledollarVariable )
                     {
-                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5115:1: (lv_varName_7_0= ruledollarVariable )
-                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5116:3: lv_varName_7_0= ruledollarVariable
+                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5200:1: (lv_varName_7_0= ruledollarVariable )
+                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5201:3: lv_varName_7_0= ruledollarVariable
                     {
                     if ( state.backtracking==0 ) {
                        
                       	        newCompositeNode(grammarAccess.getTextExpressionAccess().getVarNameDollarVariableParserRuleCall_2_1_0()); 
                       	    
                     }
-                    pushFollow(FOLLOW_ruledollarVariable_in_ruleTextExpression11137);
+                    pushFollow(FOLLOW_ruledollarVariable_in_ruleTextExpression11316);
                     lv_varName_7_0=ruledollarVariable();
 
                     state._fsp--;
@@ -14902,7 +15123,7 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleExpressionWithHidden"
-    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5143:1: entryRuleExpressionWithHidden returns [EObject current=null] : iv_ruleExpressionWithHidden= ruleExpressionWithHidden EOF ;
+    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5228:1: entryRuleExpressionWithHidden returns [EObject current=null] : iv_ruleExpressionWithHidden= ruleExpressionWithHidden EOF ;
     public final EObject entryRuleExpressionWithHidden() throws RecognitionException {
         EObject current = null;
 
@@ -14913,13 +15134,13 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
         		HiddenTokens myHiddenTokenState = ((XtextTokenStream)input).setHiddenTokens("RULE_WS", "RULE_SL_COMMENT", "RULE_ML_COMMENT");
         	
         try {
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5147:2: (iv_ruleExpressionWithHidden= ruleExpressionWithHidden EOF )
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5148:2: iv_ruleExpressionWithHidden= ruleExpressionWithHidden EOF
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5232:2: (iv_ruleExpressionWithHidden= ruleExpressionWithHidden EOF )
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5233:2: iv_ruleExpressionWithHidden= ruleExpressionWithHidden EOF
             {
             if ( state.backtracking==0 ) {
                newCompositeNode(grammarAccess.getExpressionWithHiddenRule()); 
             }
-            pushFollow(FOLLOW_ruleExpressionWithHidden_in_entryRuleExpressionWithHidden11183);
+            pushFollow(FOLLOW_ruleExpressionWithHidden_in_entryRuleExpressionWithHidden11362);
             iv_ruleExpressionWithHidden=ruleExpressionWithHidden();
 
             state._fsp--;
@@ -14927,7 +15148,7 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
             if ( state.backtracking==0 ) {
                current =iv_ruleExpressionWithHidden; 
             }
-            match(input,EOF,FOLLOW_EOF_in_entryRuleExpressionWithHidden11193); if (state.failed) return current;
+            match(input,EOF,FOLLOW_EOF_in_entryRuleExpressionWithHidden11372); if (state.failed) return current;
 
             }
 
@@ -14948,7 +15169,7 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleExpressionWithHidden"
-    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5158:1: ruleExpressionWithHidden returns [EObject current=null] : ( () ( (lv_expr_1_0= ruleAssignmentExpression ) )? ) ;
+    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5243:1: ruleExpressionWithHidden returns [EObject current=null] : ( () ( (lv_expr_1_0= ruleAssignmentExpression ) )? ) ;
     public final EObject ruleExpressionWithHidden() throws RecognitionException {
         EObject current = null;
 
@@ -14959,14 +15180,14 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
         		HiddenTokens myHiddenTokenState = ((XtextTokenStream)input).setHiddenTokens("RULE_WS", "RULE_SL_COMMENT", "RULE_ML_COMMENT");
             
         try {
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5162:28: ( ( () ( (lv_expr_1_0= ruleAssignmentExpression ) )? ) )
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5163:1: ( () ( (lv_expr_1_0= ruleAssignmentExpression ) )? )
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5247:28: ( ( () ( (lv_expr_1_0= ruleAssignmentExpression ) )? ) )
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5248:1: ( () ( (lv_expr_1_0= ruleAssignmentExpression ) )? )
             {
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5163:1: ( () ( (lv_expr_1_0= ruleAssignmentExpression ) )? )
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5163:2: () ( (lv_expr_1_0= ruleAssignmentExpression ) )?
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5248:1: ( () ( (lv_expr_1_0= ruleAssignmentExpression ) )? )
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5248:2: () ( (lv_expr_1_0= ruleAssignmentExpression ) )?
             {
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5163:2: ()
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5164:2: 
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5248:2: ()
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5249:2: 
             {
             if ( state.backtracking==0 ) {
                
@@ -14983,26 +15204,26 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
 
             }
 
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5172:2: ( (lv_expr_1_0= ruleAssignmentExpression ) )?
-            int alt98=2;
-            int LA98_0 = input.LA(1);
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5257:2: ( (lv_expr_1_0= ruleAssignmentExpression ) )?
+            int alt99=2;
+            int LA99_0 = input.LA(1);
 
-            if ( ((LA98_0>=KEYWORD_61 && LA98_0<=KEYWORD_55)||(LA98_0>=KEYWORD_57 && LA98_0<=KEYWORD_51)||(LA98_0>=KEYWORD_53 && LA98_0<=KEYWORD_54)||LA98_0==KEYWORD_24||LA98_0==KEYWORD_42||(LA98_0>=KEYWORD_1 && LA98_0<=KEYWORD_4)||LA98_0==KEYWORD_9||(LA98_0>=KEYWORD_17 && LA98_0<=KEYWORD_18)||LA98_0==KEYWORD_20||(LA98_0>=RULE_DOLLAR_VAR && LA98_0<=RULE_WORD_CHARS)||LA98_0==RULE_REGULAR_EXPRESSION) ) {
-                alt98=1;
+            if ( ((LA99_0>=KEYWORD_62 && LA99_0<=KEYWORD_55)||(LA99_0>=KEYWORD_57 && LA99_0<=KEYWORD_51)||(LA99_0>=KEYWORD_53 && LA99_0<=KEYWORD_54)||LA99_0==KEYWORD_24||LA99_0==KEYWORD_42||(LA99_0>=KEYWORD_1 && LA99_0<=KEYWORD_4)||LA99_0==KEYWORD_9||(LA99_0>=KEYWORD_17 && LA99_0<=KEYWORD_18)||LA99_0==KEYWORD_20||(LA99_0>=RULE_DOLLAR_VAR && LA99_0<=RULE_WORD_CHARS)||LA99_0==RULE_REGULAR_EXPRESSION) ) {
+                alt99=1;
             }
-            switch (alt98) {
+            switch (alt99) {
                 case 1 :
-                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5173:1: (lv_expr_1_0= ruleAssignmentExpression )
+                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5258:1: (lv_expr_1_0= ruleAssignmentExpression )
                     {
-                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5173:1: (lv_expr_1_0= ruleAssignmentExpression )
-                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5174:3: lv_expr_1_0= ruleAssignmentExpression
+                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5258:1: (lv_expr_1_0= ruleAssignmentExpression )
+                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5259:3: lv_expr_1_0= ruleAssignmentExpression
                     {
                     if ( state.backtracking==0 ) {
                        
                       	        newCompositeNode(grammarAccess.getExpressionWithHiddenAccess().getExprAssignmentExpressionParserRuleCall_1_0()); 
                       	    
                     }
-                    pushFollow(FOLLOW_ruleAssignmentExpression_in_ruleExpressionWithHidden11255);
+                    pushFollow(FOLLOW_ruleAssignmentExpression_in_ruleExpressionWithHidden11434);
                     lv_expr_1_0=ruleAssignmentExpression();
 
                     state._fsp--;
@@ -15055,7 +15276,7 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleUnquotedString"
-    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5203:1: entryRuleUnquotedString returns [EObject current=null] : iv_ruleUnquotedString= ruleUnquotedString EOF ;
+    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5288:1: entryRuleUnquotedString returns [EObject current=null] : iv_ruleUnquotedString= ruleUnquotedString EOF ;
     public final EObject entryRuleUnquotedString() throws RecognitionException {
         EObject current = null;
 
@@ -15063,13 +15284,13 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5204:2: (iv_ruleUnquotedString= ruleUnquotedString EOF )
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5205:2: iv_ruleUnquotedString= ruleUnquotedString EOF
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5289:2: (iv_ruleUnquotedString= ruleUnquotedString EOF )
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5290:2: iv_ruleUnquotedString= ruleUnquotedString EOF
             {
             if ( state.backtracking==0 ) {
                newCompositeNode(grammarAccess.getUnquotedStringRule()); 
             }
-            pushFollow(FOLLOW_ruleUnquotedString_in_entryRuleUnquotedString11297);
+            pushFollow(FOLLOW_ruleUnquotedString_in_entryRuleUnquotedString11476);
             iv_ruleUnquotedString=ruleUnquotedString();
 
             state._fsp--;
@@ -15077,7 +15298,7 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
             if ( state.backtracking==0 ) {
                current =iv_ruleUnquotedString; 
             }
-            match(input,EOF,FOLLOW_EOF_in_entryRuleUnquotedString11307); if (state.failed) return current;
+            match(input,EOF,FOLLOW_EOF_in_entryRuleUnquotedString11486); if (state.failed) return current;
 
             }
 
@@ -15095,7 +15316,7 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleUnquotedString"
-    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5212:1: ruleUnquotedString returns [EObject current=null] : ( () otherlv_1= KEYWORD_24 ( (lv_expression_2_0= ruleAssignmentExpression ) )? otherlv_3= KEYWORD_21 ) ;
+    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5297:1: ruleUnquotedString returns [EObject current=null] : ( () otherlv_1= KEYWORD_24 ( (lv_expression_2_0= ruleAssignmentExpression ) )? otherlv_3= KEYWORD_21 ) ;
     public final EObject ruleUnquotedString() throws RecognitionException {
         EObject current = null;
 
@@ -15107,14 +15328,14 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5215:28: ( ( () otherlv_1= KEYWORD_24 ( (lv_expression_2_0= ruleAssignmentExpression ) )? otherlv_3= KEYWORD_21 ) )
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5216:1: ( () otherlv_1= KEYWORD_24 ( (lv_expression_2_0= ruleAssignmentExpression ) )? otherlv_3= KEYWORD_21 )
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5300:28: ( ( () otherlv_1= KEYWORD_24 ( (lv_expression_2_0= ruleAssignmentExpression ) )? otherlv_3= KEYWORD_21 ) )
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5301:1: ( () otherlv_1= KEYWORD_24 ( (lv_expression_2_0= ruleAssignmentExpression ) )? otherlv_3= KEYWORD_21 )
             {
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5216:1: ( () otherlv_1= KEYWORD_24 ( (lv_expression_2_0= ruleAssignmentExpression ) )? otherlv_3= KEYWORD_21 )
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5216:2: () otherlv_1= KEYWORD_24 ( (lv_expression_2_0= ruleAssignmentExpression ) )? otherlv_3= KEYWORD_21
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5301:1: ( () otherlv_1= KEYWORD_24 ( (lv_expression_2_0= ruleAssignmentExpression ) )? otherlv_3= KEYWORD_21 )
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5301:2: () otherlv_1= KEYWORD_24 ( (lv_expression_2_0= ruleAssignmentExpression ) )? otherlv_3= KEYWORD_21
             {
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5216:2: ()
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5217:2: 
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5301:2: ()
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5302:2: 
             {
             if ( state.backtracking==0 ) {
                
@@ -15131,32 +15352,32 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
 
             }
 
-            otherlv_1=(Token)match(input,KEYWORD_24,FOLLOW_KEYWORD_24_in_ruleUnquotedString11357); if (state.failed) return current;
+            otherlv_1=(Token)match(input,KEYWORD_24,FOLLOW_KEYWORD_24_in_ruleUnquotedString11536); if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
                   	newLeafNode(otherlv_1, grammarAccess.getUnquotedStringAccess().getDollarSignLeftCurlyBracketKeyword_1());
                   
             }
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5230:1: ( (lv_expression_2_0= ruleAssignmentExpression ) )?
-            int alt99=2;
-            int LA99_0 = input.LA(1);
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5315:1: ( (lv_expression_2_0= ruleAssignmentExpression ) )?
+            int alt100=2;
+            int LA100_0 = input.LA(1);
 
-            if ( ((LA99_0>=KEYWORD_61 && LA99_0<=KEYWORD_55)||(LA99_0>=KEYWORD_57 && LA99_0<=KEYWORD_51)||(LA99_0>=KEYWORD_53 && LA99_0<=KEYWORD_54)||LA99_0==KEYWORD_24||LA99_0==KEYWORD_42||(LA99_0>=KEYWORD_1 && LA99_0<=KEYWORD_4)||LA99_0==KEYWORD_9||(LA99_0>=KEYWORD_17 && LA99_0<=KEYWORD_18)||LA99_0==KEYWORD_20||(LA99_0>=RULE_DOLLAR_VAR && LA99_0<=RULE_WORD_CHARS)||LA99_0==RULE_REGULAR_EXPRESSION) ) {
-                alt99=1;
+            if ( ((LA100_0>=KEYWORD_62 && LA100_0<=KEYWORD_55)||(LA100_0>=KEYWORD_57 && LA100_0<=KEYWORD_51)||(LA100_0>=KEYWORD_53 && LA100_0<=KEYWORD_54)||LA100_0==KEYWORD_24||LA100_0==KEYWORD_42||(LA100_0>=KEYWORD_1 && LA100_0<=KEYWORD_4)||LA100_0==KEYWORD_9||(LA100_0>=KEYWORD_17 && LA100_0<=KEYWORD_18)||LA100_0==KEYWORD_20||(LA100_0>=RULE_DOLLAR_VAR && LA100_0<=RULE_WORD_CHARS)||LA100_0==RULE_REGULAR_EXPRESSION) ) {
+                alt100=1;
             }
-            switch (alt99) {
+            switch (alt100) {
                 case 1 :
-                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5231:1: (lv_expression_2_0= ruleAssignmentExpression )
+                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5316:1: (lv_expression_2_0= ruleAssignmentExpression )
                     {
-                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5231:1: (lv_expression_2_0= ruleAssignmentExpression )
-                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5232:3: lv_expression_2_0= ruleAssignmentExpression
+                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5316:1: (lv_expression_2_0= ruleAssignmentExpression )
+                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5317:3: lv_expression_2_0= ruleAssignmentExpression
                     {
                     if ( state.backtracking==0 ) {
                        
                       	        newCompositeNode(grammarAccess.getUnquotedStringAccess().getExpressionAssignmentExpressionParserRuleCall_2_0()); 
                       	    
                     }
-                    pushFollow(FOLLOW_ruleAssignmentExpression_in_ruleUnquotedString11377);
+                    pushFollow(FOLLOW_ruleAssignmentExpression_in_ruleUnquotedString11556);
                     lv_expression_2_0=ruleAssignmentExpression();
 
                     state._fsp--;
@@ -15183,7 +15404,7 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
 
             }
 
-            otherlv_3=(Token)match(input,KEYWORD_21,FOLLOW_KEYWORD_21_in_ruleUnquotedString11391); if (state.failed) return current;
+            otherlv_3=(Token)match(input,KEYWORD_21,FOLLOW_KEYWORD_21_in_ruleUnquotedString11570); if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
                   	newLeafNode(otherlv_3, grammarAccess.getUnquotedStringAccess().getRightCurlyBracketKeyword_3());
@@ -15212,7 +15433,7 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRulesqText"
-    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5261:1: entryRulesqText returns [String current=null] : iv_rulesqText= rulesqText EOF ;
+    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5346:1: entryRulesqText returns [String current=null] : iv_rulesqText= rulesqText EOF ;
     public final String entryRulesqText() throws RecognitionException {
         String current = null;
 
@@ -15223,13 +15444,13 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
         		HiddenTokens myHiddenTokenState = ((XtextTokenStream)input).setHiddenTokens();
         	
         try {
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5265:1: (iv_rulesqText= rulesqText EOF )
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5266:2: iv_rulesqText= rulesqText EOF
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5350:1: (iv_rulesqText= rulesqText EOF )
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5351:2: iv_rulesqText= rulesqText EOF
             {
             if ( state.backtracking==0 ) {
                newCompositeNode(grammarAccess.getSqTextRule()); 
             }
-            pushFollow(FOLLOW_rulesqText_in_entryRulesqText11432);
+            pushFollow(FOLLOW_rulesqText_in_entryRulesqText11611);
             iv_rulesqText=rulesqText();
 
             state._fsp--;
@@ -15237,7 +15458,7 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
             if ( state.backtracking==0 ) {
                current =iv_rulesqText.getText(); 
             }
-            match(input,EOF,FOLLOW_EOF_in_entryRulesqText11443); if (state.failed) return current;
+            match(input,EOF,FOLLOW_EOF_in_entryRulesqText11622); if (state.failed) return current;
 
             }
 
@@ -15258,7 +15479,7 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "rulesqText"
-    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5276:1: rulesqText returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : ( ( ( KEYWORD_3 )=>kw= KEYWORD_3 ) (this_singleStringCharacters_1= rulesingleStringCharacters )? kw= KEYWORD_3 ) ;
+    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5361:1: rulesqText returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : ( ( ( KEYWORD_3 )=>kw= KEYWORD_3 ) (this_singleStringCharacters_1= rulesingleStringCharacters )? kw= KEYWORD_3 ) ;
     public final AntlrDatatypeRuleToken rulesqText() throws RecognitionException {
         AntlrDatatypeRuleToken current = new AntlrDatatypeRuleToken();
 
@@ -15270,16 +15491,16 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
         		HiddenTokens myHiddenTokenState = ((XtextTokenStream)input).setHiddenTokens();
             
         try {
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5281:6: ( ( ( ( KEYWORD_3 )=>kw= KEYWORD_3 ) (this_singleStringCharacters_1= rulesingleStringCharacters )? kw= KEYWORD_3 ) )
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5282:1: ( ( ( KEYWORD_3 )=>kw= KEYWORD_3 ) (this_singleStringCharacters_1= rulesingleStringCharacters )? kw= KEYWORD_3 )
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5366:6: ( ( ( ( KEYWORD_3 )=>kw= KEYWORD_3 ) (this_singleStringCharacters_1= rulesingleStringCharacters )? kw= KEYWORD_3 ) )
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5367:1: ( ( ( KEYWORD_3 )=>kw= KEYWORD_3 ) (this_singleStringCharacters_1= rulesingleStringCharacters )? kw= KEYWORD_3 )
             {
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5282:1: ( ( ( KEYWORD_3 )=>kw= KEYWORD_3 ) (this_singleStringCharacters_1= rulesingleStringCharacters )? kw= KEYWORD_3 )
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5282:2: ( ( KEYWORD_3 )=>kw= KEYWORD_3 ) (this_singleStringCharacters_1= rulesingleStringCharacters )? kw= KEYWORD_3
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5367:1: ( ( ( KEYWORD_3 )=>kw= KEYWORD_3 ) (this_singleStringCharacters_1= rulesingleStringCharacters )? kw= KEYWORD_3 )
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5367:2: ( ( KEYWORD_3 )=>kw= KEYWORD_3 ) (this_singleStringCharacters_1= rulesingleStringCharacters )? kw= KEYWORD_3
             {
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5282:2: ( ( KEYWORD_3 )=>kw= KEYWORD_3 )
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5282:3: ( KEYWORD_3 )=>kw= KEYWORD_3
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5367:2: ( ( KEYWORD_3 )=>kw= KEYWORD_3 )
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5367:3: ( KEYWORD_3 )=>kw= KEYWORD_3
             {
-            kw=(Token)match(input,KEYWORD_3,FOLLOW_KEYWORD_3_in_rulesqText11494); if (state.failed) return current;
+            kw=(Token)match(input,KEYWORD_3,FOLLOW_KEYWORD_3_in_rulesqText11673); if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
                       current.merge(kw);
@@ -15289,23 +15510,23 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
 
             }
 
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5290:2: (this_singleStringCharacters_1= rulesingleStringCharacters )?
-            int alt100=2;
-            int LA100_0 = input.LA(1);
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5375:2: (this_singleStringCharacters_1= rulesingleStringCharacters )?
+            int alt101=2;
+            int LA101_0 = input.LA(1);
 
-            if ( (LA100_0==KEYWORD_48||LA100_0==KEYWORD_24||(LA100_0>=KEYWORD_38 && LA100_0<=KEYWORD_41)||(LA100_0>=RULE_WS && LA100_0<=RULE_WORD_CHARS)||LA100_0==RULE_ANY_OTHER) ) {
-                alt100=1;
+            if ( (LA101_0==KEYWORD_48||LA101_0==KEYWORD_24||(LA101_0>=KEYWORD_38 && LA101_0<=KEYWORD_41)||(LA101_0>=RULE_WS && LA101_0<=RULE_WORD_CHARS)||LA101_0==RULE_ANY_OTHER) ) {
+                alt101=1;
             }
-            switch (alt100) {
+            switch (alt101) {
                 case 1 :
-                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5291:5: this_singleStringCharacters_1= rulesingleStringCharacters
+                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5376:5: this_singleStringCharacters_1= rulesingleStringCharacters
                     {
                     if ( state.backtracking==0 ) {
                        
                               newCompositeNode(grammarAccess.getSqTextAccess().getSingleStringCharactersParserRuleCall_1()); 
                           
                     }
-                    pushFollow(FOLLOW_rulesingleStringCharacters_in_rulesqText11518);
+                    pushFollow(FOLLOW_rulesingleStringCharacters_in_rulesqText11697);
                     this_singleStringCharacters_1=rulesingleStringCharacters();
 
                     state._fsp--;
@@ -15326,7 +15547,7 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
 
             }
 
-            kw=(Token)match(input,KEYWORD_3,FOLLOW_KEYWORD_3_in_rulesqText11538); if (state.failed) return current;
+            kw=(Token)match(input,KEYWORD_3,FOLLOW_KEYWORD_3_in_rulesqText11717); if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
                       current.merge(kw);
@@ -15360,7 +15581,7 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleLiteralRegex"
-    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5318:1: entryRuleLiteralRegex returns [EObject current=null] : iv_ruleLiteralRegex= ruleLiteralRegex EOF ;
+    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5403:1: entryRuleLiteralRegex returns [EObject current=null] : iv_ruleLiteralRegex= ruleLiteralRegex EOF ;
     public final EObject entryRuleLiteralRegex() throws RecognitionException {
         EObject current = null;
 
@@ -15368,13 +15589,13 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5319:2: (iv_ruleLiteralRegex= ruleLiteralRegex EOF )
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5320:2: iv_ruleLiteralRegex= ruleLiteralRegex EOF
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5404:2: (iv_ruleLiteralRegex= ruleLiteralRegex EOF )
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5405:2: iv_ruleLiteralRegex= ruleLiteralRegex EOF
             {
             if ( state.backtracking==0 ) {
                newCompositeNode(grammarAccess.getLiteralRegexRule()); 
             }
-            pushFollow(FOLLOW_ruleLiteralRegex_in_entryRuleLiteralRegex11581);
+            pushFollow(FOLLOW_ruleLiteralRegex_in_entryRuleLiteralRegex11760);
             iv_ruleLiteralRegex=ruleLiteralRegex();
 
             state._fsp--;
@@ -15382,7 +15603,7 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
             if ( state.backtracking==0 ) {
                current =iv_ruleLiteralRegex; 
             }
-            match(input,EOF,FOLLOW_EOF_in_entryRuleLiteralRegex11591); if (state.failed) return current;
+            match(input,EOF,FOLLOW_EOF_in_entryRuleLiteralRegex11770); if (state.failed) return current;
 
             }
 
@@ -15400,7 +15621,7 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleLiteralRegex"
-    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5327:1: ruleLiteralRegex returns [EObject current=null] : ( (lv_value_0_0= RULE_REGULAR_EXPRESSION ) ) ;
+    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5412:1: ruleLiteralRegex returns [EObject current=null] : ( (lv_value_0_0= RULE_REGULAR_EXPRESSION ) ) ;
     public final EObject ruleLiteralRegex() throws RecognitionException {
         EObject current = null;
 
@@ -15409,16 +15630,16 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5330:28: ( ( (lv_value_0_0= RULE_REGULAR_EXPRESSION ) ) )
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5331:1: ( (lv_value_0_0= RULE_REGULAR_EXPRESSION ) )
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5415:28: ( ( (lv_value_0_0= RULE_REGULAR_EXPRESSION ) ) )
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5416:1: ( (lv_value_0_0= RULE_REGULAR_EXPRESSION ) )
             {
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5331:1: ( (lv_value_0_0= RULE_REGULAR_EXPRESSION ) )
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5332:1: (lv_value_0_0= RULE_REGULAR_EXPRESSION )
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5416:1: ( (lv_value_0_0= RULE_REGULAR_EXPRESSION ) )
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5417:1: (lv_value_0_0= RULE_REGULAR_EXPRESSION )
             {
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5332:1: (lv_value_0_0= RULE_REGULAR_EXPRESSION )
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5333:3: lv_value_0_0= RULE_REGULAR_EXPRESSION
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5417:1: (lv_value_0_0= RULE_REGULAR_EXPRESSION )
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5418:3: lv_value_0_0= RULE_REGULAR_EXPRESSION
             {
-            lv_value_0_0=(Token)match(input,RULE_REGULAR_EXPRESSION,FOLLOW_RULE_REGULAR_EXPRESSION_in_ruleLiteralRegex11632); if (state.failed) return current;
+            lv_value_0_0=(Token)match(input,RULE_REGULAR_EXPRESSION,FOLLOW_RULE_REGULAR_EXPRESSION_in_ruleLiteralRegex11811); if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
               			newLeafNode(lv_value_0_0, grammarAccess.getLiteralRegexAccess().getValueREGULAR_EXPRESSIONTerminalRuleCall_0()); 
@@ -15462,7 +15683,7 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleLiteralName"
-    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5357:1: entryRuleLiteralName returns [EObject current=null] : iv_ruleLiteralName= ruleLiteralName EOF ;
+    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5442:1: entryRuleLiteralName returns [EObject current=null] : iv_ruleLiteralName= ruleLiteralName EOF ;
     public final EObject entryRuleLiteralName() throws RecognitionException {
         EObject current = null;
 
@@ -15470,13 +15691,13 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5358:2: (iv_ruleLiteralName= ruleLiteralName EOF )
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5359:2: iv_ruleLiteralName= ruleLiteralName EOF
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5443:2: (iv_ruleLiteralName= ruleLiteralName EOF )
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5444:2: iv_ruleLiteralName= ruleLiteralName EOF
             {
             if ( state.backtracking==0 ) {
                newCompositeNode(grammarAccess.getLiteralNameRule()); 
             }
-            pushFollow(FOLLOW_ruleLiteralName_in_entryRuleLiteralName11671);
+            pushFollow(FOLLOW_ruleLiteralName_in_entryRuleLiteralName11850);
             iv_ruleLiteralName=ruleLiteralName();
 
             state._fsp--;
@@ -15484,7 +15705,7 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
             if ( state.backtracking==0 ) {
                current =iv_ruleLiteralName; 
             }
-            match(input,EOF,FOLLOW_EOF_in_entryRuleLiteralName11681); if (state.failed) return current;
+            match(input,EOF,FOLLOW_EOF_in_entryRuleLiteralName11860); if (state.failed) return current;
 
             }
 
@@ -15502,7 +15723,7 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleLiteralName"
-    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5366:1: ruleLiteralName returns [EObject current=null] : ( (lv_value_0_0= rulename ) ) ;
+    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5451:1: ruleLiteralName returns [EObject current=null] : ( (lv_value_0_0= rulename ) ) ;
     public final EObject ruleLiteralName() throws RecognitionException {
         EObject current = null;
 
@@ -15512,21 +15733,21 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5369:28: ( ( (lv_value_0_0= rulename ) ) )
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5370:1: ( (lv_value_0_0= rulename ) )
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5454:28: ( ( (lv_value_0_0= rulename ) ) )
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5455:1: ( (lv_value_0_0= rulename ) )
             {
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5370:1: ( (lv_value_0_0= rulename ) )
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5371:1: (lv_value_0_0= rulename )
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5455:1: ( (lv_value_0_0= rulename ) )
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5456:1: (lv_value_0_0= rulename )
             {
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5371:1: (lv_value_0_0= rulename )
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5372:3: lv_value_0_0= rulename
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5456:1: (lv_value_0_0= rulename )
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5457:3: lv_value_0_0= rulename
             {
             if ( state.backtracking==0 ) {
                
               	        newCompositeNode(grammarAccess.getLiteralNameAccess().getValueNameParserRuleCall_0()); 
               	    
             }
-            pushFollow(FOLLOW_rulename_in_ruleLiteralName11726);
+            pushFollow(FOLLOW_rulename_in_ruleLiteralName11905);
             lv_value_0_0=rulename();
 
             state._fsp--;
@@ -15570,7 +15791,7 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleVariableExpression"
-    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5396:1: entryRuleVariableExpression returns [EObject current=null] : iv_ruleVariableExpression= ruleVariableExpression EOF ;
+    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5481:1: entryRuleVariableExpression returns [EObject current=null] : iv_ruleVariableExpression= ruleVariableExpression EOF ;
     public final EObject entryRuleVariableExpression() throws RecognitionException {
         EObject current = null;
 
@@ -15578,13 +15799,13 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5397:2: (iv_ruleVariableExpression= ruleVariableExpression EOF )
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5398:2: iv_ruleVariableExpression= ruleVariableExpression EOF
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5482:2: (iv_ruleVariableExpression= ruleVariableExpression EOF )
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5483:2: iv_ruleVariableExpression= ruleVariableExpression EOF
             {
             if ( state.backtracking==0 ) {
                newCompositeNode(grammarAccess.getVariableExpressionRule()); 
             }
-            pushFollow(FOLLOW_ruleVariableExpression_in_entryRuleVariableExpression11760);
+            pushFollow(FOLLOW_ruleVariableExpression_in_entryRuleVariableExpression11939);
             iv_ruleVariableExpression=ruleVariableExpression();
 
             state._fsp--;
@@ -15592,7 +15813,7 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
             if ( state.backtracking==0 ) {
                current =iv_ruleVariableExpression; 
             }
-            match(input,EOF,FOLLOW_EOF_in_entryRuleVariableExpression11770); if (state.failed) return current;
+            match(input,EOF,FOLLOW_EOF_in_entryRuleVariableExpression11949); if (state.failed) return current;
 
             }
 
@@ -15610,7 +15831,7 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleVariableExpression"
-    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5405:1: ruleVariableExpression returns [EObject current=null] : ( (lv_varName_0_0= ruledollarVariable ) ) ;
+    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5490:1: ruleVariableExpression returns [EObject current=null] : ( (lv_varName_0_0= ruledollarVariable ) ) ;
     public final EObject ruleVariableExpression() throws RecognitionException {
         EObject current = null;
 
@@ -15620,21 +15841,21 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5408:28: ( ( (lv_varName_0_0= ruledollarVariable ) ) )
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5409:1: ( (lv_varName_0_0= ruledollarVariable ) )
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5493:28: ( ( (lv_varName_0_0= ruledollarVariable ) ) )
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5494:1: ( (lv_varName_0_0= ruledollarVariable ) )
             {
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5409:1: ( (lv_varName_0_0= ruledollarVariable ) )
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5410:1: (lv_varName_0_0= ruledollarVariable )
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5494:1: ( (lv_varName_0_0= ruledollarVariable ) )
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5495:1: (lv_varName_0_0= ruledollarVariable )
             {
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5410:1: (lv_varName_0_0= ruledollarVariable )
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5411:3: lv_varName_0_0= ruledollarVariable
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5495:1: (lv_varName_0_0= ruledollarVariable )
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5496:3: lv_varName_0_0= ruledollarVariable
             {
             if ( state.backtracking==0 ) {
                
               	        newCompositeNode(grammarAccess.getVariableExpressionAccess().getVarNameDollarVariableParserRuleCall_0()); 
               	    
             }
-            pushFollow(FOLLOW_ruledollarVariable_in_ruleVariableExpression11815);
+            pushFollow(FOLLOW_ruledollarVariable_in_ruleVariableExpression11994);
             lv_varName_0_0=ruledollarVariable();
 
             state._fsp--;
@@ -15678,7 +15899,7 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuledollarVariable"
-    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5435:1: entryRuledollarVariable returns [String current=null] : iv_ruledollarVariable= ruledollarVariable EOF ;
+    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5520:1: entryRuledollarVariable returns [String current=null] : iv_ruledollarVariable= ruledollarVariable EOF ;
     public final String entryRuledollarVariable() throws RecognitionException {
         String current = null;
 
@@ -15689,13 +15910,13 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
         		HiddenTokens myHiddenTokenState = ((XtextTokenStream)input).setHiddenTokens();
         	
         try {
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5439:1: (iv_ruledollarVariable= ruledollarVariable EOF )
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5440:2: iv_ruledollarVariable= ruledollarVariable EOF
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5524:1: (iv_ruledollarVariable= ruledollarVariable EOF )
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5525:2: iv_ruledollarVariable= ruledollarVariable EOF
             {
             if ( state.backtracking==0 ) {
                newCompositeNode(grammarAccess.getDollarVariableRule()); 
             }
-            pushFollow(FOLLOW_ruledollarVariable_in_entryRuledollarVariable11856);
+            pushFollow(FOLLOW_ruledollarVariable_in_entryRuledollarVariable12035);
             iv_ruledollarVariable=ruledollarVariable();
 
             state._fsp--;
@@ -15703,7 +15924,7 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
             if ( state.backtracking==0 ) {
                current =iv_ruledollarVariable.getText(); 
             }
-            match(input,EOF,FOLLOW_EOF_in_entryRuledollarVariable11867); if (state.failed) return current;
+            match(input,EOF,FOLLOW_EOF_in_entryRuledollarVariable12046); if (state.failed) return current;
 
             }
 
@@ -15724,7 +15945,7 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruledollarVariable"
-    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5450:1: ruledollarVariable returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : this_DOLLAR_VAR_0= RULE_DOLLAR_VAR ;
+    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5535:1: ruledollarVariable returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : this_DOLLAR_VAR_0= RULE_DOLLAR_VAR ;
     public final AntlrDatatypeRuleToken ruledollarVariable() throws RecognitionException {
         AntlrDatatypeRuleToken current = new AntlrDatatypeRuleToken();
 
@@ -15734,10 +15955,10 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
         		HiddenTokens myHiddenTokenState = ((XtextTokenStream)input).setHiddenTokens();
             
         try {
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5455:6: (this_DOLLAR_VAR_0= RULE_DOLLAR_VAR )
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5456:5: this_DOLLAR_VAR_0= RULE_DOLLAR_VAR
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5540:6: (this_DOLLAR_VAR_0= RULE_DOLLAR_VAR )
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5541:5: this_DOLLAR_VAR_0= RULE_DOLLAR_VAR
             {
-            this_DOLLAR_VAR_0=(Token)match(input,RULE_DOLLAR_VAR,FOLLOW_RULE_DOLLAR_VAR_in_ruledollarVariable11910); if (state.failed) return current;
+            this_DOLLAR_VAR_0=(Token)match(input,RULE_DOLLAR_VAR,FOLLOW_RULE_DOLLAR_VAR_in_ruledollarVariable12089); if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
               		current.merge(this_DOLLAR_VAR_0);
@@ -15772,7 +15993,7 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRulename"
-    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5476:1: entryRulename returns [String current=null] : iv_rulename= rulename EOF ;
+    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5561:1: entryRulename returns [String current=null] : iv_rulename= rulename EOF ;
     public final String entryRulename() throws RecognitionException {
         String current = null;
 
@@ -15780,13 +16001,13 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5477:1: (iv_rulename= rulename EOF )
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5478:2: iv_rulename= rulename EOF
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5562:1: (iv_rulename= rulename EOF )
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5563:2: iv_rulename= rulename EOF
             {
             if ( state.backtracking==0 ) {
                newCompositeNode(grammarAccess.getNameRule()); 
             }
-            pushFollow(FOLLOW_rulename_in_entryRulename11960);
+            pushFollow(FOLLOW_rulename_in_entryRulename12139);
             iv_rulename=rulename();
 
             state._fsp--;
@@ -15794,7 +16015,7 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
             if ( state.backtracking==0 ) {
                current =iv_rulename.getText(); 
             }
-            match(input,EOF,FOLLOW_EOF_in_entryRulename11971); if (state.failed) return current;
+            match(input,EOF,FOLLOW_EOF_in_entryRulename12150); if (state.failed) return current;
 
             }
 
@@ -15812,7 +16033,7 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "rulename"
-    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5485:1: rulename returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : this_WORD_CHARS_0= RULE_WORD_CHARS ;
+    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5570:1: rulename returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : this_WORD_CHARS_0= RULE_WORD_CHARS ;
     public final AntlrDatatypeRuleToken rulename() throws RecognitionException {
         AntlrDatatypeRuleToken current = new AntlrDatatypeRuleToken();
 
@@ -15821,10 +16042,10 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5489:6: (this_WORD_CHARS_0= RULE_WORD_CHARS )
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5490:5: this_WORD_CHARS_0= RULE_WORD_CHARS
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5574:6: (this_WORD_CHARS_0= RULE_WORD_CHARS )
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5575:5: this_WORD_CHARS_0= RULE_WORD_CHARS
             {
-            this_WORD_CHARS_0=(Token)match(input,RULE_WORD_CHARS,FOLLOW_RULE_WORD_CHARS_in_rulename12010); if (state.failed) return current;
+            this_WORD_CHARS_0=(Token)match(input,RULE_WORD_CHARS,FOLLOW_RULE_WORD_CHARS_in_rulename12189); if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
               		current.merge(this_WORD_CHARS_0);
@@ -15856,7 +16077,7 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleclassname"
-    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5505:1: entryRuleclassname returns [String current=null] : iv_ruleclassname= ruleclassname EOF ;
+    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5590:1: entryRuleclassname returns [String current=null] : iv_ruleclassname= ruleclassname EOF ;
     public final String entryRuleclassname() throws RecognitionException {
         String current = null;
 
@@ -15864,13 +16085,13 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5506:1: (iv_ruleclassname= ruleclassname EOF )
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5507:2: iv_ruleclassname= ruleclassname EOF
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5591:1: (iv_ruleclassname= ruleclassname EOF )
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5592:2: iv_ruleclassname= ruleclassname EOF
             {
             if ( state.backtracking==0 ) {
                newCompositeNode(grammarAccess.getClassnameRule()); 
             }
-            pushFollow(FOLLOW_ruleclassname_in_entryRuleclassname12054);
+            pushFollow(FOLLOW_ruleclassname_in_entryRuleclassname12233);
             iv_ruleclassname=ruleclassname();
 
             state._fsp--;
@@ -15878,7 +16099,7 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
             if ( state.backtracking==0 ) {
                current =iv_ruleclassname.getText(); 
             }
-            match(input,EOF,FOLLOW_EOF_in_entryRuleclassname12065); if (state.failed) return current;
+            match(input,EOF,FOLLOW_EOF_in_entryRuleclassname12244); if (state.failed) return current;
 
             }
 
@@ -15896,7 +16117,7 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleclassname"
-    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5514:1: ruleclassname returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : (this_name_0= rulename | kw= KEYWORD_55 ) ;
+    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5599:1: ruleclassname returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : (this_name_0= rulename | kw= KEYWORD_55 ) ;
     public final AntlrDatatypeRuleToken ruleclassname() throws RecognitionException {
         AntlrDatatypeRuleToken current = new AntlrDatatypeRuleToken();
 
@@ -15907,36 +16128,36 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5518:6: ( (this_name_0= rulename | kw= KEYWORD_55 ) )
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5519:1: (this_name_0= rulename | kw= KEYWORD_55 )
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5603:6: ( (this_name_0= rulename | kw= KEYWORD_55 ) )
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5604:1: (this_name_0= rulename | kw= KEYWORD_55 )
             {
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5519:1: (this_name_0= rulename | kw= KEYWORD_55 )
-            int alt101=2;
-            int LA101_0 = input.LA(1);
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5604:1: (this_name_0= rulename | kw= KEYWORD_55 )
+            int alt102=2;
+            int LA102_0 = input.LA(1);
 
-            if ( (LA101_0==RULE_WORD_CHARS) ) {
-                alt101=1;
+            if ( (LA102_0==RULE_WORD_CHARS) ) {
+                alt102=1;
             }
-            else if ( (LA101_0==KEYWORD_55) ) {
-                alt101=2;
+            else if ( (LA102_0==KEYWORD_55) ) {
+                alt102=2;
             }
             else {
                 if (state.backtracking>0) {state.failed=true; return current;}
                 NoViableAltException nvae =
-                    new NoViableAltException("", 101, 0, input);
+                    new NoViableAltException("", 102, 0, input);
 
                 throw nvae;
             }
-            switch (alt101) {
+            switch (alt102) {
                 case 1 :
-                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5520:5: this_name_0= rulename
+                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5605:5: this_name_0= rulename
                     {
                     if ( state.backtracking==0 ) {
                        
                               newCompositeNode(grammarAccess.getClassnameAccess().getNameParserRuleCall_0()); 
                           
                     }
-                    pushFollow(FOLLOW_rulename_in_ruleclassname12112);
+                    pushFollow(FOLLOW_rulename_in_ruleclassname12291);
                     this_name_0=rulename();
 
                     state._fsp--;
@@ -15955,9 +16176,9 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 2 :
-                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5532:2: kw= KEYWORD_55
+                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5617:2: kw= KEYWORD_55
                     {
-                    kw=(Token)match(input,KEYWORD_55,FOLLOW_KEYWORD_55_in_ruleclassname12136); if (state.failed) return current;
+                    kw=(Token)match(input,KEYWORD_55,FOLLOW_KEYWORD_55_in_ruleclassname12315); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                               current.merge(kw);
@@ -15991,7 +16212,7 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleunionNameOrReference"
-    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5545:1: entryRuleunionNameOrReference returns [String current=null] : iv_ruleunionNameOrReference= ruleunionNameOrReference EOF ;
+    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5630:1: entryRuleunionNameOrReference returns [String current=null] : iv_ruleunionNameOrReference= ruleunionNameOrReference EOF ;
     public final String entryRuleunionNameOrReference() throws RecognitionException {
         String current = null;
 
@@ -15999,13 +16220,13 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5546:1: (iv_ruleunionNameOrReference= ruleunionNameOrReference EOF )
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5547:2: iv_ruleunionNameOrReference= ruleunionNameOrReference EOF
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5631:1: (iv_ruleunionNameOrReference= ruleunionNameOrReference EOF )
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5632:2: iv_ruleunionNameOrReference= ruleunionNameOrReference EOF
             {
             if ( state.backtracking==0 ) {
                newCompositeNode(grammarAccess.getUnionNameOrReferenceRule()); 
             }
-            pushFollow(FOLLOW_ruleunionNameOrReference_in_entryRuleunionNameOrReference12176);
+            pushFollow(FOLLOW_ruleunionNameOrReference_in_entryRuleunionNameOrReference12355);
             iv_ruleunionNameOrReference=ruleunionNameOrReference();
 
             state._fsp--;
@@ -16013,7 +16234,7 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
             if ( state.backtracking==0 ) {
                current =iv_ruleunionNameOrReference.getText(); 
             }
-            match(input,EOF,FOLLOW_EOF_in_entryRuleunionNameOrReference12187); if (state.failed) return current;
+            match(input,EOF,FOLLOW_EOF_in_entryRuleunionNameOrReference12366); if (state.failed) return current;
 
             }
 
@@ -16031,7 +16252,7 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleunionNameOrReference"
-    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5554:1: ruleunionNameOrReference returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : (this_WORD_CHARS_0= RULE_WORD_CHARS | kw= KEYWORD_55 | kw= KEYWORD_61 ) ;
+    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5639:1: ruleunionNameOrReference returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : (this_WORD_CHARS_0= RULE_WORD_CHARS | kw= KEYWORD_55 | kw= KEYWORD_62 ) ;
     public final AntlrDatatypeRuleToken ruleunionNameOrReference() throws RecognitionException {
         AntlrDatatypeRuleToken current = new AntlrDatatypeRuleToken();
 
@@ -16041,40 +16262,40 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5558:6: ( (this_WORD_CHARS_0= RULE_WORD_CHARS | kw= KEYWORD_55 | kw= KEYWORD_61 ) )
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5559:1: (this_WORD_CHARS_0= RULE_WORD_CHARS | kw= KEYWORD_55 | kw= KEYWORD_61 )
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5643:6: ( (this_WORD_CHARS_0= RULE_WORD_CHARS | kw= KEYWORD_55 | kw= KEYWORD_62 ) )
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5644:1: (this_WORD_CHARS_0= RULE_WORD_CHARS | kw= KEYWORD_55 | kw= KEYWORD_62 )
             {
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5559:1: (this_WORD_CHARS_0= RULE_WORD_CHARS | kw= KEYWORD_55 | kw= KEYWORD_61 )
-            int alt102=3;
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5644:1: (this_WORD_CHARS_0= RULE_WORD_CHARS | kw= KEYWORD_55 | kw= KEYWORD_62 )
+            int alt103=3;
             switch ( input.LA(1) ) {
             case RULE_WORD_CHARS:
                 {
-                alt102=1;
+                alt103=1;
                 }
                 break;
             case KEYWORD_55:
                 {
-                alt102=2;
+                alt103=2;
                 }
                 break;
-            case KEYWORD_61:
+            case KEYWORD_62:
                 {
-                alt102=3;
+                alt103=3;
                 }
                 break;
             default:
                 if (state.backtracking>0) {state.failed=true; return current;}
                 NoViableAltException nvae =
-                    new NoViableAltException("", 102, 0, input);
+                    new NoViableAltException("", 103, 0, input);
 
                 throw nvae;
             }
 
-            switch (alt102) {
+            switch (alt103) {
                 case 1 :
-                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5559:6: this_WORD_CHARS_0= RULE_WORD_CHARS
+                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5644:6: this_WORD_CHARS_0= RULE_WORD_CHARS
                     {
-                    this_WORD_CHARS_0=(Token)match(input,RULE_WORD_CHARS,FOLLOW_RULE_WORD_CHARS_in_ruleunionNameOrReference12227); if (state.failed) return current;
+                    this_WORD_CHARS_0=(Token)match(input,RULE_WORD_CHARS,FOLLOW_RULE_WORD_CHARS_in_ruleunionNameOrReference12406); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                       		current.merge(this_WORD_CHARS_0);
@@ -16089,9 +16310,9 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 2 :
-                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5568:2: kw= KEYWORD_55
+                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5653:2: kw= KEYWORD_55
                     {
-                    kw=(Token)match(input,KEYWORD_55,FOLLOW_KEYWORD_55_in_ruleunionNameOrReference12251); if (state.failed) return current;
+                    kw=(Token)match(input,KEYWORD_55,FOLLOW_KEYWORD_55_in_ruleunionNameOrReference12430); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                               current.merge(kw);
@@ -16102,9 +16323,9 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 3 :
-                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5575:2: kw= KEYWORD_61
+                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5660:2: kw= KEYWORD_62
                     {
-                    kw=(Token)match(input,KEYWORD_61,FOLLOW_KEYWORD_61_in_ruleunionNameOrReference12270); if (state.failed) return current;
+                    kw=(Token)match(input,KEYWORD_62,FOLLOW_KEYWORD_62_in_ruleunionNameOrReference12449); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                               current.merge(kw);
@@ -16138,7 +16359,7 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuledoubleStringCharacters"
-    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5588:1: entryRuledoubleStringCharacters returns [String current=null] : iv_ruledoubleStringCharacters= ruledoubleStringCharacters EOF ;
+    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5673:1: entryRuledoubleStringCharacters returns [String current=null] : iv_ruledoubleStringCharacters= ruledoubleStringCharacters EOF ;
     public final String entryRuledoubleStringCharacters() throws RecognitionException {
         String current = null;
 
@@ -16149,13 +16370,13 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
         		HiddenTokens myHiddenTokenState = ((XtextTokenStream)input).setHiddenTokens();
         	
         try {
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5592:1: (iv_ruledoubleStringCharacters= ruledoubleStringCharacters EOF )
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5593:2: iv_ruledoubleStringCharacters= ruledoubleStringCharacters EOF
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5677:1: (iv_ruledoubleStringCharacters= ruledoubleStringCharacters EOF )
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5678:2: iv_ruledoubleStringCharacters= ruledoubleStringCharacters EOF
             {
             if ( state.backtracking==0 ) {
                newCompositeNode(grammarAccess.getDoubleStringCharactersRule()); 
             }
-            pushFollow(FOLLOW_ruledoubleStringCharacters_in_entryRuledoubleStringCharacters12316);
+            pushFollow(FOLLOW_ruledoubleStringCharacters_in_entryRuledoubleStringCharacters12495);
             iv_ruledoubleStringCharacters=ruledoubleStringCharacters();
 
             state._fsp--;
@@ -16163,7 +16384,7 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
             if ( state.backtracking==0 ) {
                current =iv_ruledoubleStringCharacters.getText(); 
             }
-            match(input,EOF,FOLLOW_EOF_in_entryRuledoubleStringCharacters12327); if (state.failed) return current;
+            match(input,EOF,FOLLOW_EOF_in_entryRuledoubleStringCharacters12506); if (state.failed) return current;
 
             }
 
@@ -16184,7 +16405,7 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruledoubleStringCharacters"
-    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5603:1: ruledoubleStringCharacters returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : (this_WORD_CHARS_0= RULE_WORD_CHARS | this_ANY_OTHER_1= RULE_ANY_OTHER | this_WS_2= RULE_WS | kw= KEYWORD_38 | kw= KEYWORD_40 | kw= KEYWORD_39 | kw= KEYWORD_48 | kw= KEYWORD_41 )+ ;
+    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5688:1: ruledoubleStringCharacters returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : (this_WORD_CHARS_0= RULE_WORD_CHARS | this_ANY_OTHER_1= RULE_ANY_OTHER | this_WS_2= RULE_WS | kw= KEYWORD_38 | kw= KEYWORD_40 | kw= KEYWORD_39 | kw= KEYWORD_48 | kw= KEYWORD_41 )+ ;
     public final AntlrDatatypeRuleToken ruledoubleStringCharacters() throws RecognitionException {
         AntlrDatatypeRuleToken current = new AntlrDatatypeRuleToken();
 
@@ -16197,20 +16418,20 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
         		HiddenTokens myHiddenTokenState = ((XtextTokenStream)input).setHiddenTokens();
             
         try {
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5608:6: ( (this_WORD_CHARS_0= RULE_WORD_CHARS | this_ANY_OTHER_1= RULE_ANY_OTHER | this_WS_2= RULE_WS | kw= KEYWORD_38 | kw= KEYWORD_40 | kw= KEYWORD_39 | kw= KEYWORD_48 | kw= KEYWORD_41 )+ )
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5609:1: (this_WORD_CHARS_0= RULE_WORD_CHARS | this_ANY_OTHER_1= RULE_ANY_OTHER | this_WS_2= RULE_WS | kw= KEYWORD_38 | kw= KEYWORD_40 | kw= KEYWORD_39 | kw= KEYWORD_48 | kw= KEYWORD_41 )+
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5693:6: ( (this_WORD_CHARS_0= RULE_WORD_CHARS | this_ANY_OTHER_1= RULE_ANY_OTHER | this_WS_2= RULE_WS | kw= KEYWORD_38 | kw= KEYWORD_40 | kw= KEYWORD_39 | kw= KEYWORD_48 | kw= KEYWORD_41 )+ )
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5694:1: (this_WORD_CHARS_0= RULE_WORD_CHARS | this_ANY_OTHER_1= RULE_ANY_OTHER | this_WS_2= RULE_WS | kw= KEYWORD_38 | kw= KEYWORD_40 | kw= KEYWORD_39 | kw= KEYWORD_48 | kw= KEYWORD_41 )+
             {
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5609:1: (this_WORD_CHARS_0= RULE_WORD_CHARS | this_ANY_OTHER_1= RULE_ANY_OTHER | this_WS_2= RULE_WS | kw= KEYWORD_38 | kw= KEYWORD_40 | kw= KEYWORD_39 | kw= KEYWORD_48 | kw= KEYWORD_41 )+
-            int cnt103=0;
-            loop103:
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5694:1: (this_WORD_CHARS_0= RULE_WORD_CHARS | this_ANY_OTHER_1= RULE_ANY_OTHER | this_WS_2= RULE_WS | kw= KEYWORD_38 | kw= KEYWORD_40 | kw= KEYWORD_39 | kw= KEYWORD_48 | kw= KEYWORD_41 )+
+            int cnt104=0;
+            loop104:
             do {
-                int alt103=9;
-                alt103 = dfa103.predict(input);
-                switch (alt103) {
+                int alt104=9;
+                alt104 = dfa104.predict(input);
+                switch (alt104) {
             	case 1 :
-            	    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5609:6: this_WORD_CHARS_0= RULE_WORD_CHARS
+            	    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5694:6: this_WORD_CHARS_0= RULE_WORD_CHARS
             	    {
-            	    this_WORD_CHARS_0=(Token)match(input,RULE_WORD_CHARS,FOLLOW_RULE_WORD_CHARS_in_ruledoubleStringCharacters12371); if (state.failed) return current;
+            	    this_WORD_CHARS_0=(Token)match(input,RULE_WORD_CHARS,FOLLOW_RULE_WORD_CHARS_in_ruledoubleStringCharacters12550); if (state.failed) return current;
             	    if ( state.backtracking==0 ) {
 
             	      		current.merge(this_WORD_CHARS_0);
@@ -16225,9 +16446,9 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
             	    }
             	    break;
             	case 2 :
-            	    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5617:10: this_ANY_OTHER_1= RULE_ANY_OTHER
+            	    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5702:10: this_ANY_OTHER_1= RULE_ANY_OTHER
             	    {
-            	    this_ANY_OTHER_1=(Token)match(input,RULE_ANY_OTHER,FOLLOW_RULE_ANY_OTHER_in_ruledoubleStringCharacters12397); if (state.failed) return current;
+            	    this_ANY_OTHER_1=(Token)match(input,RULE_ANY_OTHER,FOLLOW_RULE_ANY_OTHER_in_ruledoubleStringCharacters12576); if (state.failed) return current;
             	    if ( state.backtracking==0 ) {
 
             	      		current.merge(this_ANY_OTHER_1);
@@ -16242,9 +16463,9 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
             	    }
             	    break;
             	case 3 :
-            	    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5625:10: this_WS_2= RULE_WS
+            	    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5710:10: this_WS_2= RULE_WS
             	    {
-            	    this_WS_2=(Token)match(input,RULE_WS,FOLLOW_RULE_WS_in_ruledoubleStringCharacters12423); if (state.failed) return current;
+            	    this_WS_2=(Token)match(input,RULE_WS,FOLLOW_RULE_WS_in_ruledoubleStringCharacters12602); if (state.failed) return current;
             	    if ( state.backtracking==0 ) {
 
             	      		current.merge(this_WS_2);
@@ -16259,9 +16480,9 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
             	    }
             	    break;
             	case 4 :
-            	    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5634:2: kw= KEYWORD_38
+            	    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5719:2: kw= KEYWORD_38
             	    {
-            	    kw=(Token)match(input,KEYWORD_38,FOLLOW_KEYWORD_38_in_ruledoubleStringCharacters12447); if (state.failed) return current;
+            	    kw=(Token)match(input,KEYWORD_38,FOLLOW_KEYWORD_38_in_ruledoubleStringCharacters12626); if (state.failed) return current;
             	    if ( state.backtracking==0 ) {
 
             	              current.merge(kw);
@@ -16272,9 +16493,9 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
             	    }
             	    break;
             	case 5 :
-            	    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5641:2: kw= KEYWORD_40
+            	    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5726:2: kw= KEYWORD_40
             	    {
-            	    kw=(Token)match(input,KEYWORD_40,FOLLOW_KEYWORD_40_in_ruledoubleStringCharacters12466); if (state.failed) return current;
+            	    kw=(Token)match(input,KEYWORD_40,FOLLOW_KEYWORD_40_in_ruledoubleStringCharacters12645); if (state.failed) return current;
             	    if ( state.backtracking==0 ) {
 
             	              current.merge(kw);
@@ -16285,9 +16506,9 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
             	    }
             	    break;
             	case 6 :
-            	    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5648:2: kw= KEYWORD_39
+            	    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5733:2: kw= KEYWORD_39
             	    {
-            	    kw=(Token)match(input,KEYWORD_39,FOLLOW_KEYWORD_39_in_ruledoubleStringCharacters12485); if (state.failed) return current;
+            	    kw=(Token)match(input,KEYWORD_39,FOLLOW_KEYWORD_39_in_ruledoubleStringCharacters12664); if (state.failed) return current;
             	    if ( state.backtracking==0 ) {
 
             	              current.merge(kw);
@@ -16298,9 +16519,9 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
             	    }
             	    break;
             	case 7 :
-            	    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5655:2: kw= KEYWORD_48
+            	    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5740:2: kw= KEYWORD_48
             	    {
-            	    kw=(Token)match(input,KEYWORD_48,FOLLOW_KEYWORD_48_in_ruledoubleStringCharacters12504); if (state.failed) return current;
+            	    kw=(Token)match(input,KEYWORD_48,FOLLOW_KEYWORD_48_in_ruledoubleStringCharacters12683); if (state.failed) return current;
             	    if ( state.backtracking==0 ) {
 
             	              current.merge(kw);
@@ -16311,9 +16532,9 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
             	    }
             	    break;
             	case 8 :
-            	    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5662:2: kw= KEYWORD_41
+            	    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5747:2: kw= KEYWORD_41
             	    {
-            	    kw=(Token)match(input,KEYWORD_41,FOLLOW_KEYWORD_41_in_ruledoubleStringCharacters12523); if (state.failed) return current;
+            	    kw=(Token)match(input,KEYWORD_41,FOLLOW_KEYWORD_41_in_ruledoubleStringCharacters12702); if (state.failed) return current;
             	    if ( state.backtracking==0 ) {
 
             	              current.merge(kw);
@@ -16325,13 +16546,13 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
             	    break;
 
             	default :
-            	    if ( cnt103 >= 1 ) break loop103;
+            	    if ( cnt104 >= 1 ) break loop104;
             	    if (state.backtracking>0) {state.failed=true; return current;}
                         EarlyExitException eee =
-                            new EarlyExitException(103, input);
+                            new EarlyExitException(104, input);
                         throw eee;
                 }
-                cnt103++;
+                cnt104++;
             } while (true);
 
 
@@ -16358,7 +16579,7 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRulesingleStringCharacters"
-    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5678:1: entryRulesingleStringCharacters returns [String current=null] : iv_rulesingleStringCharacters= rulesingleStringCharacters EOF ;
+    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5763:1: entryRulesingleStringCharacters returns [String current=null] : iv_rulesingleStringCharacters= rulesingleStringCharacters EOF ;
     public final String entryRulesingleStringCharacters() throws RecognitionException {
         String current = null;
 
@@ -16369,13 +16590,13 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
         		HiddenTokens myHiddenTokenState = ((XtextTokenStream)input).setHiddenTokens();
         	
         try {
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5682:1: (iv_rulesingleStringCharacters= rulesingleStringCharacters EOF )
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5683:2: iv_rulesingleStringCharacters= rulesingleStringCharacters EOF
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5767:1: (iv_rulesingleStringCharacters= rulesingleStringCharacters EOF )
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5768:2: iv_rulesingleStringCharacters= rulesingleStringCharacters EOF
             {
             if ( state.backtracking==0 ) {
                newCompositeNode(grammarAccess.getSingleStringCharactersRule()); 
             }
-            pushFollow(FOLLOW_rulesingleStringCharacters_in_entryRulesingleStringCharacters12574);
+            pushFollow(FOLLOW_rulesingleStringCharacters_in_entryRulesingleStringCharacters12753);
             iv_rulesingleStringCharacters=rulesingleStringCharacters();
 
             state._fsp--;
@@ -16383,7 +16604,7 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
             if ( state.backtracking==0 ) {
                current =iv_rulesingleStringCharacters.getText(); 
             }
-            match(input,EOF,FOLLOW_EOF_in_entryRulesingleStringCharacters12585); if (state.failed) return current;
+            match(input,EOF,FOLLOW_EOF_in_entryRulesingleStringCharacters12764); if (state.failed) return current;
 
             }
 
@@ -16404,7 +16625,7 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "rulesingleStringCharacters"
-    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5693:1: rulesingleStringCharacters returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : (this_WORD_CHARS_0= RULE_WORD_CHARS | this_ANY_OTHER_1= RULE_ANY_OTHER | this_WS_2= RULE_WS | this_DOLLAR_VAR_3= RULE_DOLLAR_VAR | kw= KEYWORD_24 | kw= KEYWORD_38 | kw= KEYWORD_40 | kw= KEYWORD_39 | kw= KEYWORD_48 | kw= KEYWORD_41 )+ ;
+    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5778:1: rulesingleStringCharacters returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : (this_WORD_CHARS_0= RULE_WORD_CHARS | this_ANY_OTHER_1= RULE_ANY_OTHER | this_WS_2= RULE_WS | this_DOLLAR_VAR_3= RULE_DOLLAR_VAR | kw= KEYWORD_24 | kw= KEYWORD_38 | kw= KEYWORD_40 | kw= KEYWORD_39 | kw= KEYWORD_48 | kw= KEYWORD_41 )+ ;
     public final AntlrDatatypeRuleToken rulesingleStringCharacters() throws RecognitionException {
         AntlrDatatypeRuleToken current = new AntlrDatatypeRuleToken();
 
@@ -16418,73 +16639,73 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
         		HiddenTokens myHiddenTokenState = ((XtextTokenStream)input).setHiddenTokens();
             
         try {
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5698:6: ( (this_WORD_CHARS_0= RULE_WORD_CHARS | this_ANY_OTHER_1= RULE_ANY_OTHER | this_WS_2= RULE_WS | this_DOLLAR_VAR_3= RULE_DOLLAR_VAR | kw= KEYWORD_24 | kw= KEYWORD_38 | kw= KEYWORD_40 | kw= KEYWORD_39 | kw= KEYWORD_48 | kw= KEYWORD_41 )+ )
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5699:1: (this_WORD_CHARS_0= RULE_WORD_CHARS | this_ANY_OTHER_1= RULE_ANY_OTHER | this_WS_2= RULE_WS | this_DOLLAR_VAR_3= RULE_DOLLAR_VAR | kw= KEYWORD_24 | kw= KEYWORD_38 | kw= KEYWORD_40 | kw= KEYWORD_39 | kw= KEYWORD_48 | kw= KEYWORD_41 )+
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5783:6: ( (this_WORD_CHARS_0= RULE_WORD_CHARS | this_ANY_OTHER_1= RULE_ANY_OTHER | this_WS_2= RULE_WS | this_DOLLAR_VAR_3= RULE_DOLLAR_VAR | kw= KEYWORD_24 | kw= KEYWORD_38 | kw= KEYWORD_40 | kw= KEYWORD_39 | kw= KEYWORD_48 | kw= KEYWORD_41 )+ )
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5784:1: (this_WORD_CHARS_0= RULE_WORD_CHARS | this_ANY_OTHER_1= RULE_ANY_OTHER | this_WS_2= RULE_WS | this_DOLLAR_VAR_3= RULE_DOLLAR_VAR | kw= KEYWORD_24 | kw= KEYWORD_38 | kw= KEYWORD_40 | kw= KEYWORD_39 | kw= KEYWORD_48 | kw= KEYWORD_41 )+
             {
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5699:1: (this_WORD_CHARS_0= RULE_WORD_CHARS | this_ANY_OTHER_1= RULE_ANY_OTHER | this_WS_2= RULE_WS | this_DOLLAR_VAR_3= RULE_DOLLAR_VAR | kw= KEYWORD_24 | kw= KEYWORD_38 | kw= KEYWORD_40 | kw= KEYWORD_39 | kw= KEYWORD_48 | kw= KEYWORD_41 )+
-            int cnt104=0;
-            loop104:
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5784:1: (this_WORD_CHARS_0= RULE_WORD_CHARS | this_ANY_OTHER_1= RULE_ANY_OTHER | this_WS_2= RULE_WS | this_DOLLAR_VAR_3= RULE_DOLLAR_VAR | kw= KEYWORD_24 | kw= KEYWORD_38 | kw= KEYWORD_40 | kw= KEYWORD_39 | kw= KEYWORD_48 | kw= KEYWORD_41 )+
+            int cnt105=0;
+            loop105:
             do {
-                int alt104=11;
+                int alt105=11;
                 switch ( input.LA(1) ) {
                 case RULE_WORD_CHARS:
                     {
-                    alt104=1;
+                    alt105=1;
                     }
                     break;
                 case RULE_ANY_OTHER:
                     {
-                    alt104=2;
+                    alt105=2;
                     }
                     break;
                 case RULE_WS:
                     {
-                    alt104=3;
+                    alt105=3;
                     }
                     break;
                 case RULE_DOLLAR_VAR:
                     {
-                    alt104=4;
+                    alt105=4;
                     }
                     break;
                 case KEYWORD_24:
                     {
-                    alt104=5;
+                    alt105=5;
                     }
                     break;
                 case KEYWORD_38:
                     {
-                    alt104=6;
+                    alt105=6;
                     }
                     break;
                 case KEYWORD_40:
                     {
-                    alt104=7;
+                    alt105=7;
                     }
                     break;
                 case KEYWORD_39:
                     {
-                    alt104=8;
+                    alt105=8;
                     }
                     break;
                 case KEYWORD_48:
                     {
-                    alt104=9;
+                    alt105=9;
                     }
                     break;
                 case KEYWORD_41:
                     {
-                    alt104=10;
+                    alt105=10;
                     }
                     break;
 
                 }
 
-                switch (alt104) {
+                switch (alt105) {
             	case 1 :
-            	    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5699:6: this_WORD_CHARS_0= RULE_WORD_CHARS
+            	    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5784:6: this_WORD_CHARS_0= RULE_WORD_CHARS
             	    {
-            	    this_WORD_CHARS_0=(Token)match(input,RULE_WORD_CHARS,FOLLOW_RULE_WORD_CHARS_in_rulesingleStringCharacters12629); if (state.failed) return current;
+            	    this_WORD_CHARS_0=(Token)match(input,RULE_WORD_CHARS,FOLLOW_RULE_WORD_CHARS_in_rulesingleStringCharacters12808); if (state.failed) return current;
             	    if ( state.backtracking==0 ) {
 
             	      		current.merge(this_WORD_CHARS_0);
@@ -16499,9 +16720,9 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
             	    }
             	    break;
             	case 2 :
-            	    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5707:10: this_ANY_OTHER_1= RULE_ANY_OTHER
+            	    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5792:10: this_ANY_OTHER_1= RULE_ANY_OTHER
             	    {
-            	    this_ANY_OTHER_1=(Token)match(input,RULE_ANY_OTHER,FOLLOW_RULE_ANY_OTHER_in_rulesingleStringCharacters12655); if (state.failed) return current;
+            	    this_ANY_OTHER_1=(Token)match(input,RULE_ANY_OTHER,FOLLOW_RULE_ANY_OTHER_in_rulesingleStringCharacters12834); if (state.failed) return current;
             	    if ( state.backtracking==0 ) {
 
             	      		current.merge(this_ANY_OTHER_1);
@@ -16516,9 +16737,9 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
             	    }
             	    break;
             	case 3 :
-            	    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5715:10: this_WS_2= RULE_WS
+            	    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5800:10: this_WS_2= RULE_WS
             	    {
-            	    this_WS_2=(Token)match(input,RULE_WS,FOLLOW_RULE_WS_in_rulesingleStringCharacters12681); if (state.failed) return current;
+            	    this_WS_2=(Token)match(input,RULE_WS,FOLLOW_RULE_WS_in_rulesingleStringCharacters12860); if (state.failed) return current;
             	    if ( state.backtracking==0 ) {
 
             	      		current.merge(this_WS_2);
@@ -16533,9 +16754,9 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
             	    }
             	    break;
             	case 4 :
-            	    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5723:10: this_DOLLAR_VAR_3= RULE_DOLLAR_VAR
+            	    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5808:10: this_DOLLAR_VAR_3= RULE_DOLLAR_VAR
             	    {
-            	    this_DOLLAR_VAR_3=(Token)match(input,RULE_DOLLAR_VAR,FOLLOW_RULE_DOLLAR_VAR_in_rulesingleStringCharacters12707); if (state.failed) return current;
+            	    this_DOLLAR_VAR_3=(Token)match(input,RULE_DOLLAR_VAR,FOLLOW_RULE_DOLLAR_VAR_in_rulesingleStringCharacters12886); if (state.failed) return current;
             	    if ( state.backtracking==0 ) {
 
             	      		current.merge(this_DOLLAR_VAR_3);
@@ -16550,9 +16771,9 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
             	    }
             	    break;
             	case 5 :
-            	    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5732:2: kw= KEYWORD_24
+            	    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5817:2: kw= KEYWORD_24
             	    {
-            	    kw=(Token)match(input,KEYWORD_24,FOLLOW_KEYWORD_24_in_rulesingleStringCharacters12731); if (state.failed) return current;
+            	    kw=(Token)match(input,KEYWORD_24,FOLLOW_KEYWORD_24_in_rulesingleStringCharacters12910); if (state.failed) return current;
             	    if ( state.backtracking==0 ) {
 
             	              current.merge(kw);
@@ -16563,9 +16784,9 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
             	    }
             	    break;
             	case 6 :
-            	    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5739:2: kw= KEYWORD_38
+            	    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5824:2: kw= KEYWORD_38
             	    {
-            	    kw=(Token)match(input,KEYWORD_38,FOLLOW_KEYWORD_38_in_rulesingleStringCharacters12750); if (state.failed) return current;
+            	    kw=(Token)match(input,KEYWORD_38,FOLLOW_KEYWORD_38_in_rulesingleStringCharacters12929); if (state.failed) return current;
             	    if ( state.backtracking==0 ) {
 
             	              current.merge(kw);
@@ -16576,9 +16797,9 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
             	    }
             	    break;
             	case 7 :
-            	    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5746:2: kw= KEYWORD_40
+            	    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5831:2: kw= KEYWORD_40
             	    {
-            	    kw=(Token)match(input,KEYWORD_40,FOLLOW_KEYWORD_40_in_rulesingleStringCharacters12769); if (state.failed) return current;
+            	    kw=(Token)match(input,KEYWORD_40,FOLLOW_KEYWORD_40_in_rulesingleStringCharacters12948); if (state.failed) return current;
             	    if ( state.backtracking==0 ) {
 
             	              current.merge(kw);
@@ -16589,9 +16810,9 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
             	    }
             	    break;
             	case 8 :
-            	    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5753:2: kw= KEYWORD_39
+            	    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5838:2: kw= KEYWORD_39
             	    {
-            	    kw=(Token)match(input,KEYWORD_39,FOLLOW_KEYWORD_39_in_rulesingleStringCharacters12788); if (state.failed) return current;
+            	    kw=(Token)match(input,KEYWORD_39,FOLLOW_KEYWORD_39_in_rulesingleStringCharacters12967); if (state.failed) return current;
             	    if ( state.backtracking==0 ) {
 
             	              current.merge(kw);
@@ -16602,9 +16823,9 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
             	    }
             	    break;
             	case 9 :
-            	    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5760:2: kw= KEYWORD_48
+            	    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5845:2: kw= KEYWORD_48
             	    {
-            	    kw=(Token)match(input,KEYWORD_48,FOLLOW_KEYWORD_48_in_rulesingleStringCharacters12807); if (state.failed) return current;
+            	    kw=(Token)match(input,KEYWORD_48,FOLLOW_KEYWORD_48_in_rulesingleStringCharacters12986); if (state.failed) return current;
             	    if ( state.backtracking==0 ) {
 
             	              current.merge(kw);
@@ -16615,9 +16836,9 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
             	    }
             	    break;
             	case 10 :
-            	    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5767:2: kw= KEYWORD_41
+            	    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5852:2: kw= KEYWORD_41
             	    {
-            	    kw=(Token)match(input,KEYWORD_41,FOLLOW_KEYWORD_41_in_rulesingleStringCharacters12826); if (state.failed) return current;
+            	    kw=(Token)match(input,KEYWORD_41,FOLLOW_KEYWORD_41_in_rulesingleStringCharacters13005); if (state.failed) return current;
             	    if ( state.backtracking==0 ) {
 
             	              current.merge(kw);
@@ -16629,13 +16850,13 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
             	    break;
 
             	default :
-            	    if ( cnt104 >= 1 ) break loop104;
+            	    if ( cnt105 >= 1 ) break loop105;
             	    if (state.backtracking>0) {state.failed=true; return current;}
                         EarlyExitException eee =
-                            new EarlyExitException(104, input);
+                            new EarlyExitException(105, input);
                         throw eee;
                 }
-                cnt104++;
+                cnt105++;
             } while (true);
 
 
@@ -16757,13 +16978,13 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
 
         otherlv_2=(Token)match(input,KEYWORD_20,FOLLOW_KEYWORD_20_in_synpred11_InternalPPParser830); if (state.failed) return ;
         // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:402:1: ( ( (lv_resourceData_3_0= ruleResourceBody ) ) (otherlv_4= KEYWORD_12 ( (lv_resourceData_5_0= ruleResourceBody ) ) )* (otherlv_6= KEYWORD_12 )? )?
-        int alt110=2;
-        int LA110_0 = input.LA(1);
+        int alt111=2;
+        int LA111_0 = input.LA(1);
 
-        if ( ((LA110_0>=KEYWORD_61 && LA110_0<=KEYWORD_55)||(LA110_0>=KEYWORD_57 && LA110_0<=KEYWORD_51)||(LA110_0>=KEYWORD_53 && LA110_0<=KEYWORD_54)||LA110_0==KEYWORD_24||LA110_0==KEYWORD_42||(LA110_0>=KEYWORD_1 && LA110_0<=KEYWORD_4)||LA110_0==KEYWORD_9||(LA110_0>=KEYWORD_17 && LA110_0<=KEYWORD_18)||LA110_0==KEYWORD_20||(LA110_0>=RULE_DOLLAR_VAR && LA110_0<=RULE_WORD_CHARS)||LA110_0==RULE_REGULAR_EXPRESSION) ) {
-            alt110=1;
+        if ( ((LA111_0>=KEYWORD_62 && LA111_0<=KEYWORD_55)||(LA111_0>=KEYWORD_57 && LA111_0<=KEYWORD_51)||(LA111_0>=KEYWORD_53 && LA111_0<=KEYWORD_54)||LA111_0==KEYWORD_24||LA111_0==KEYWORD_42||(LA111_0>=KEYWORD_1 && LA111_0<=KEYWORD_4)||LA111_0==KEYWORD_9||(LA111_0>=KEYWORD_17 && LA111_0<=KEYWORD_18)||LA111_0==KEYWORD_20||(LA111_0>=RULE_DOLLAR_VAR && LA111_0<=RULE_WORD_CHARS)||LA111_0==RULE_REGULAR_EXPRESSION) ) {
+            alt111=1;
         }
-        switch (alt110) {
+        switch (alt111) {
             case 1 :
                 // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:402:2: ( (lv_resourceData_3_0= ruleResourceBody ) ) (otherlv_4= KEYWORD_12 ( (lv_resourceData_5_0= ruleResourceBody ) ) )* (otherlv_6= KEYWORD_12 )?
                 {
@@ -16790,23 +17011,23 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
                 }
 
                 // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:420:2: (otherlv_4= KEYWORD_12 ( (lv_resourceData_5_0= ruleResourceBody ) ) )*
-                loop108:
+                loop109:
                 do {
-                    int alt108=2;
-                    int LA108_0 = input.LA(1);
+                    int alt109=2;
+                    int LA109_0 = input.LA(1);
 
-                    if ( (LA108_0==KEYWORD_12) ) {
-                        int LA108_1 = input.LA(2);
+                    if ( (LA109_0==KEYWORD_12) ) {
+                        int LA109_1 = input.LA(2);
 
-                        if ( ((LA108_1>=KEYWORD_61 && LA108_1<=KEYWORD_55)||(LA108_1>=KEYWORD_57 && LA108_1<=KEYWORD_51)||(LA108_1>=KEYWORD_53 && LA108_1<=KEYWORD_54)||LA108_1==KEYWORD_24||LA108_1==KEYWORD_42||(LA108_1>=KEYWORD_1 && LA108_1<=KEYWORD_4)||LA108_1==KEYWORD_9||(LA108_1>=KEYWORD_17 && LA108_1<=KEYWORD_18)||LA108_1==KEYWORD_20||(LA108_1>=RULE_DOLLAR_VAR && LA108_1<=RULE_WORD_CHARS)||LA108_1==RULE_REGULAR_EXPRESSION) ) {
-                            alt108=1;
+                        if ( ((LA109_1>=KEYWORD_62 && LA109_1<=KEYWORD_55)||(LA109_1>=KEYWORD_57 && LA109_1<=KEYWORD_51)||(LA109_1>=KEYWORD_53 && LA109_1<=KEYWORD_54)||LA109_1==KEYWORD_24||LA109_1==KEYWORD_42||(LA109_1>=KEYWORD_1 && LA109_1<=KEYWORD_4)||LA109_1==KEYWORD_9||(LA109_1>=KEYWORD_17 && LA109_1<=KEYWORD_18)||LA109_1==KEYWORD_20||(LA109_1>=RULE_DOLLAR_VAR && LA109_1<=RULE_WORD_CHARS)||LA109_1==RULE_REGULAR_EXPRESSION) ) {
+                            alt109=1;
                         }
 
 
                     }
 
 
-                    switch (alt108) {
+                    switch (alt109) {
                 	case 1 :
                 	    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:421:2: otherlv_4= KEYWORD_12 ( (lv_resourceData_5_0= ruleResourceBody ) )
                 	    {
@@ -16838,18 +17059,18 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
                 	    break;
 
                 	default :
-                	    break loop108;
+                	    break loop109;
                     }
                 } while (true);
 
                 // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:443:4: (otherlv_6= KEYWORD_12 )?
-                int alt109=2;
-                int LA109_0 = input.LA(1);
+                int alt110=2;
+                int LA110_0 = input.LA(1);
 
-                if ( (LA109_0==KEYWORD_12) ) {
-                    alt109=1;
+                if ( (LA110_0==KEYWORD_12) ) {
+                    alt110=1;
                 }
-                switch (alt109) {
+                switch (alt110) {
                     case 1 :
                         // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:444:2: otherlv_6= KEYWORD_12
                         {
@@ -17556,13 +17777,13 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
         {
         otherlv_3=(Token)match(input,KEYWORD_20,FOLLOW_KEYWORD_20_in_synpred45_InternalPPParser4396); if (state.failed) return ;
         // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:2042:1: ( (lv_attributes_4_0= ruleAttributeOperations ) )?
-        int alt119=2;
-        int LA119_0 = input.LA(1);
+        int alt120=2;
+        int LA120_0 = input.LA(1);
 
-        if ( (LA119_0==RULE_WORD_CHARS) ) {
-            alt119=1;
+        if ( (LA120_0==RULE_WORD_CHARS) ) {
+            alt120=1;
         }
-        switch (alt119) {
+        switch (alt120) {
             case 1 :
                 // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:2043:1: (lv_attributes_4_0= ruleAttributeOperations )
                 {
@@ -17640,25 +17861,25 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
         }
 
         // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:2037:2: (otherlv_3= KEYWORD_20 ( (lv_attributes_4_0= ruleAttributeOperations ) )? otherlv_5= KEYWORD_21 )?
-        int alt121=2;
-        int LA121_0 = input.LA(1);
+        int alt122=2;
+        int LA122_0 = input.LA(1);
 
-        if ( (LA121_0==KEYWORD_20) ) {
-            alt121=1;
+        if ( (LA122_0==KEYWORD_20) ) {
+            alt122=1;
         }
-        switch (alt121) {
+        switch (alt122) {
             case 1 :
                 // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:2038:2: otherlv_3= KEYWORD_20 ( (lv_attributes_4_0= ruleAttributeOperations ) )? otherlv_5= KEYWORD_21
                 {
                 otherlv_3=(Token)match(input,KEYWORD_20,FOLLOW_KEYWORD_20_in_synpred46_InternalPPParser4396); if (state.failed) return ;
                 // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:2042:1: ( (lv_attributes_4_0= ruleAttributeOperations ) )?
-                int alt120=2;
-                int LA120_0 = input.LA(1);
+                int alt121=2;
+                int LA121_0 = input.LA(1);
 
-                if ( (LA120_0==RULE_WORD_CHARS) ) {
-                    alt120=1;
+                if ( (LA121_0==RULE_WORD_CHARS) ) {
+                    alt121=1;
                 }
-                switch (alt120) {
+                switch (alt121) {
                     case 1 :
                         // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:2043:1: (lv_attributes_4_0= ruleAttributeOperations )
                         {
@@ -17739,26 +17960,26 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
         }
 
         // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:2297:2: ( (otherlv_5= KEYWORD_8 ( (lv_parameters_6_0= ruleSelectorEntry ) ) ) | ( (lv_parameters_7_0= ruleSelectorEntry ) ) )*
-        loop122:
+        loop123:
         do {
-            int alt122=3;
-            int LA122_0 = input.LA(1);
+            int alt123=3;
+            int LA123_0 = input.LA(1);
 
-            if ( (LA122_0==KEYWORD_8) ) {
-                int LA122_1 = input.LA(2);
+            if ( (LA123_0==KEYWORD_8) ) {
+                int LA123_1 = input.LA(2);
 
-                if ( ((LA122_1>=KEYWORD_61 && LA122_1<=KEYWORD_55)||(LA122_1>=KEYWORD_57 && LA122_1<=KEYWORD_51)||(LA122_1>=KEYWORD_53 && LA122_1<=KEYWORD_54)||LA122_1==KEYWORD_24||LA122_1==KEYWORD_42||(LA122_1>=KEYWORD_1 && LA122_1<=KEYWORD_4)||LA122_1==KEYWORD_9||(LA122_1>=KEYWORD_17 && LA122_1<=KEYWORD_18)||LA122_1==KEYWORD_20||(LA122_1>=RULE_DOLLAR_VAR && LA122_1<=RULE_WORD_CHARS)||LA122_1==RULE_REGULAR_EXPRESSION) ) {
-                    alt122=1;
+                if ( ((LA123_1>=KEYWORD_62 && LA123_1<=KEYWORD_55)||(LA123_1>=KEYWORD_57 && LA123_1<=KEYWORD_51)||(LA123_1>=KEYWORD_53 && LA123_1<=KEYWORD_54)||LA123_1==KEYWORD_24||LA123_1==KEYWORD_42||(LA123_1>=KEYWORD_1 && LA123_1<=KEYWORD_4)||LA123_1==KEYWORD_9||(LA123_1>=KEYWORD_17 && LA123_1<=KEYWORD_18)||LA123_1==KEYWORD_20||(LA123_1>=RULE_DOLLAR_VAR && LA123_1<=RULE_WORD_CHARS)||LA123_1==RULE_REGULAR_EXPRESSION) ) {
+                    alt123=1;
                 }
 
 
             }
-            else if ( ((LA122_0>=KEYWORD_61 && LA122_0<=KEYWORD_55)||(LA122_0>=KEYWORD_57 && LA122_0<=KEYWORD_51)||(LA122_0>=KEYWORD_53 && LA122_0<=KEYWORD_54)||LA122_0==KEYWORD_24||LA122_0==KEYWORD_42||(LA122_0>=KEYWORD_1 && LA122_0<=KEYWORD_4)||LA122_0==KEYWORD_9||(LA122_0>=KEYWORD_17 && LA122_0<=KEYWORD_18)||LA122_0==KEYWORD_20||(LA122_0>=RULE_DOLLAR_VAR && LA122_0<=RULE_WORD_CHARS)||LA122_0==RULE_REGULAR_EXPRESSION) ) {
-                alt122=2;
+            else if ( ((LA123_0>=KEYWORD_62 && LA123_0<=KEYWORD_55)||(LA123_0>=KEYWORD_57 && LA123_0<=KEYWORD_51)||(LA123_0>=KEYWORD_53 && LA123_0<=KEYWORD_54)||LA123_0==KEYWORD_24||LA123_0==KEYWORD_42||(LA123_0>=KEYWORD_1 && LA123_0<=KEYWORD_4)||LA123_0==KEYWORD_9||(LA123_0>=KEYWORD_17 && LA123_0<=KEYWORD_18)||LA123_0==KEYWORD_20||(LA123_0>=RULE_DOLLAR_VAR && LA123_0<=RULE_WORD_CHARS)||LA123_0==RULE_REGULAR_EXPRESSION) ) {
+                alt123=2;
             }
 
 
-            switch (alt122) {
+            switch (alt123) {
         	case 1 :
         	    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:2297:3: (otherlv_5= KEYWORD_8 ( (lv_parameters_6_0= ruleSelectorEntry ) ) )
         	    {
@@ -17824,18 +18045,18 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
         	    break;
 
         	default :
-        	    break loop122;
+        	    break loop123;
             }
         } while (true);
 
         // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:2339:4: (otherlv_8= KEYWORD_8 )?
-        int alt123=2;
-        int LA123_0 = input.LA(1);
+        int alt124=2;
+        int LA124_0 = input.LA(1);
 
-        if ( (LA123_0==KEYWORD_8) ) {
-            alt123=1;
+        if ( (LA124_0==KEYWORD_8) ) {
+            alt124=1;
         }
-        switch (alt123) {
+        switch (alt124) {
             case 1 :
                 // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:2340:2: otherlv_8= KEYWORD_8
                 {
@@ -17929,13 +18150,13 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
 
         otherlv_2=(Token)match(input,KEYWORD_18,FOLLOW_KEYWORD_18_in_synpred58_InternalPPParser5352); if (state.failed) return ;
         // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:2480:1: ( ( (lv_parameters_3_0= ruleExpression ) ) (otherlv_4= KEYWORD_8 ( (lv_parameters_5_0= ruleExpression ) ) )* )?
-        int alt129=2;
-        int LA129_0 = input.LA(1);
+        int alt130=2;
+        int LA130_0 = input.LA(1);
 
-        if ( ((LA129_0>=KEYWORD_61 && LA129_0<=KEYWORD_55)||(LA129_0>=KEYWORD_57 && LA129_0<=KEYWORD_51)||(LA129_0>=KEYWORD_53 && LA129_0<=KEYWORD_54)||LA129_0==KEYWORD_24||LA129_0==KEYWORD_42||(LA129_0>=KEYWORD_1 && LA129_0<=KEYWORD_4)||LA129_0==KEYWORD_9||(LA129_0>=KEYWORD_17 && LA129_0<=KEYWORD_18)||LA129_0==KEYWORD_20||(LA129_0>=RULE_DOLLAR_VAR && LA129_0<=RULE_WORD_CHARS)||LA129_0==RULE_REGULAR_EXPRESSION) ) {
-            alt129=1;
+        if ( ((LA130_0>=KEYWORD_62 && LA130_0<=KEYWORD_55)||(LA130_0>=KEYWORD_57 && LA130_0<=KEYWORD_51)||(LA130_0>=KEYWORD_53 && LA130_0<=KEYWORD_54)||LA130_0==KEYWORD_24||LA130_0==KEYWORD_42||(LA130_0>=KEYWORD_1 && LA130_0<=KEYWORD_4)||LA130_0==KEYWORD_9||(LA130_0>=KEYWORD_17 && LA130_0<=KEYWORD_18)||LA130_0==KEYWORD_20||(LA130_0>=RULE_DOLLAR_VAR && LA130_0<=RULE_WORD_CHARS)||LA130_0==RULE_REGULAR_EXPRESSION) ) {
+            alt130=1;
         }
-        switch (alt129) {
+        switch (alt130) {
             case 1 :
                 // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:2480:2: ( (lv_parameters_3_0= ruleExpression ) ) (otherlv_4= KEYWORD_8 ( (lv_parameters_5_0= ruleExpression ) ) )*
                 {
@@ -17962,17 +18183,17 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
                 }
 
                 // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:2498:2: (otherlv_4= KEYWORD_8 ( (lv_parameters_5_0= ruleExpression ) ) )*
-                loop128:
+                loop129:
                 do {
-                    int alt128=2;
-                    int LA128_0 = input.LA(1);
+                    int alt129=2;
+                    int LA129_0 = input.LA(1);
 
-                    if ( (LA128_0==KEYWORD_8) ) {
-                        alt128=1;
+                    if ( (LA129_0==KEYWORD_8) ) {
+                        alt129=1;
                     }
 
 
-                    switch (alt128) {
+                    switch (alt129) {
                 	case 1 :
                 	    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:2499:2: otherlv_4= KEYWORD_8 ( (lv_parameters_5_0= ruleExpression ) )
                 	    {
@@ -18004,7 +18225,7 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
                 	    break;
 
                 	default :
-                	    break loop128;
+                	    break loop129;
                     }
                 } while (true);
 
@@ -18047,13 +18268,13 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
 
         otherlv_2=(Token)match(input,KEYWORD_4,FOLLOW_KEYWORD_4_in_synpred62_InternalPPParser5545); if (state.failed) return ;
         // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:2573:1: ( ( (lv_parameters_3_0= ruleExpression ) ) (otherlv_4= KEYWORD_8 ( (lv_parameters_5_0= ruleExpression ) ) )* (otherlv_6= KEYWORD_8 )? )?
-        int alt134=2;
-        int LA134_0 = input.LA(1);
+        int alt135=2;
+        int LA135_0 = input.LA(1);
 
-        if ( ((LA134_0>=KEYWORD_61 && LA134_0<=KEYWORD_55)||(LA134_0>=KEYWORD_57 && LA134_0<=KEYWORD_51)||(LA134_0>=KEYWORD_53 && LA134_0<=KEYWORD_54)||LA134_0==KEYWORD_24||LA134_0==KEYWORD_42||(LA134_0>=KEYWORD_1 && LA134_0<=KEYWORD_4)||LA134_0==KEYWORD_9||(LA134_0>=KEYWORD_17 && LA134_0<=KEYWORD_18)||LA134_0==KEYWORD_20||(LA134_0>=RULE_DOLLAR_VAR && LA134_0<=RULE_WORD_CHARS)||LA134_0==RULE_REGULAR_EXPRESSION) ) {
-            alt134=1;
+        if ( ((LA135_0>=KEYWORD_62 && LA135_0<=KEYWORD_55)||(LA135_0>=KEYWORD_57 && LA135_0<=KEYWORD_51)||(LA135_0>=KEYWORD_53 && LA135_0<=KEYWORD_54)||LA135_0==KEYWORD_24||LA135_0==KEYWORD_42||(LA135_0>=KEYWORD_1 && LA135_0<=KEYWORD_4)||LA135_0==KEYWORD_9||(LA135_0>=KEYWORD_17 && LA135_0<=KEYWORD_18)||LA135_0==KEYWORD_20||(LA135_0>=RULE_DOLLAR_VAR && LA135_0<=RULE_WORD_CHARS)||LA135_0==RULE_REGULAR_EXPRESSION) ) {
+            alt135=1;
         }
-        switch (alt134) {
+        switch (alt135) {
             case 1 :
                 // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:2573:2: ( (lv_parameters_3_0= ruleExpression ) ) (otherlv_4= KEYWORD_8 ( (lv_parameters_5_0= ruleExpression ) ) )* (otherlv_6= KEYWORD_8 )?
                 {
@@ -18080,23 +18301,23 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
                 }
 
                 // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:2591:2: (otherlv_4= KEYWORD_8 ( (lv_parameters_5_0= ruleExpression ) ) )*
-                loop132:
+                loop133:
                 do {
-                    int alt132=2;
-                    int LA132_0 = input.LA(1);
+                    int alt133=2;
+                    int LA133_0 = input.LA(1);
 
-                    if ( (LA132_0==KEYWORD_8) ) {
-                        int LA132_1 = input.LA(2);
+                    if ( (LA133_0==KEYWORD_8) ) {
+                        int LA133_1 = input.LA(2);
 
-                        if ( ((LA132_1>=KEYWORD_61 && LA132_1<=KEYWORD_55)||(LA132_1>=KEYWORD_57 && LA132_1<=KEYWORD_51)||(LA132_1>=KEYWORD_53 && LA132_1<=KEYWORD_54)||LA132_1==KEYWORD_24||LA132_1==KEYWORD_42||(LA132_1>=KEYWORD_1 && LA132_1<=KEYWORD_4)||LA132_1==KEYWORD_9||(LA132_1>=KEYWORD_17 && LA132_1<=KEYWORD_18)||LA132_1==KEYWORD_20||(LA132_1>=RULE_DOLLAR_VAR && LA132_1<=RULE_WORD_CHARS)||LA132_1==RULE_REGULAR_EXPRESSION) ) {
-                            alt132=1;
+                        if ( ((LA133_1>=KEYWORD_62 && LA133_1<=KEYWORD_55)||(LA133_1>=KEYWORD_57 && LA133_1<=KEYWORD_51)||(LA133_1>=KEYWORD_53 && LA133_1<=KEYWORD_54)||LA133_1==KEYWORD_24||LA133_1==KEYWORD_42||(LA133_1>=KEYWORD_1 && LA133_1<=KEYWORD_4)||LA133_1==KEYWORD_9||(LA133_1>=KEYWORD_17 && LA133_1<=KEYWORD_18)||LA133_1==KEYWORD_20||(LA133_1>=RULE_DOLLAR_VAR && LA133_1<=RULE_WORD_CHARS)||LA133_1==RULE_REGULAR_EXPRESSION) ) {
+                            alt133=1;
                         }
 
 
                     }
 
 
-                    switch (alt132) {
+                    switch (alt133) {
                 	case 1 :
                 	    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:2592:2: otherlv_4= KEYWORD_8 ( (lv_parameters_5_0= ruleExpression ) )
                 	    {
@@ -18128,18 +18349,18 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
                 	    break;
 
                 	default :
-                	    break loop132;
+                	    break loop133;
                     }
                 } while (true);
 
                 // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:2614:4: (otherlv_6= KEYWORD_8 )?
-                int alt133=2;
-                int LA133_0 = input.LA(1);
+                int alt134=2;
+                int LA134_0 = input.LA(1);
 
-                if ( (LA133_0==KEYWORD_8) ) {
-                    alt133=1;
+                if ( (LA134_0==KEYWORD_8) ) {
+                    alt134=1;
                 }
-                switch (alt133) {
+                switch (alt134) {
                     case 1 :
                         // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:2615:2: otherlv_6= KEYWORD_8
                         {
@@ -18162,28 +18383,28 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
     }
     // $ANTLR end synpred62_InternalPPParser
 
-    // $ANTLR start synpred114_InternalPPParser
-    public final void synpred114_InternalPPParser_fragment() throws RecognitionException {   
+    // $ANTLR start synpred116_InternalPPParser
+    public final void synpred116_InternalPPParser_fragment() throws RecognitionException {   
         Token otherlv_3=null;
         EObject lv_values_4_0 = null;
 
 
-        // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4287:2: (otherlv_3= KEYWORD_8 ( (lv_values_4_0= ruleQuotedString ) ) )
-        // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4287:2: otherlv_3= KEYWORD_8 ( (lv_values_4_0= ruleQuotedString ) )
+        // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4372:2: (otherlv_3= KEYWORD_8 ( (lv_values_4_0= ruleQuotedString ) ) )
+        // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4372:2: otherlv_3= KEYWORD_8 ( (lv_values_4_0= ruleQuotedString ) )
         {
-        otherlv_3=(Token)match(input,KEYWORD_8,FOLLOW_KEYWORD_8_in_synpred114_InternalPPParser9247); if (state.failed) return ;
-        // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4291:1: ( (lv_values_4_0= ruleQuotedString ) )
-        // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4292:1: (lv_values_4_0= ruleQuotedString )
+        otherlv_3=(Token)match(input,KEYWORD_8,FOLLOW_KEYWORD_8_in_synpred116_InternalPPParser9426); if (state.failed) return ;
+        // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4376:1: ( (lv_values_4_0= ruleQuotedString ) )
+        // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4377:1: (lv_values_4_0= ruleQuotedString )
         {
-        // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4292:1: (lv_values_4_0= ruleQuotedString )
-        // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4293:3: lv_values_4_0= ruleQuotedString
+        // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4377:1: (lv_values_4_0= ruleQuotedString )
+        // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4378:3: lv_values_4_0= ruleQuotedString
         {
         if ( state.backtracking==0 ) {
            
           	        newCompositeNode(grammarAccess.getImportExpressionAccess().getValuesQuotedStringParserRuleCall_2_1_1_0()); 
           	    
         }
-        pushFollow(FOLLOW_ruleQuotedString_in_synpred114_InternalPPParser9267);
+        pushFollow(FOLLOW_ruleQuotedString_in_synpred116_InternalPPParser9446);
         lv_values_4_0=ruleQuotedString();
 
         state._fsp--;
@@ -18197,31 +18418,31 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
 
         }
     }
-    // $ANTLR end synpred114_InternalPPParser
+    // $ANTLR end synpred116_InternalPPParser
 
-    // $ANTLR start synpred115_InternalPPParser
-    public final void synpred115_InternalPPParser_fragment() throws RecognitionException {   
+    // $ANTLR start synpred117_InternalPPParser
+    public final void synpred117_InternalPPParser_fragment() throws RecognitionException {   
         Token otherlv_3=null;
         EObject lv_values_2_0 = null;
 
         EObject lv_values_4_0 = null;
 
 
-        // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4268:2: ( ( (lv_values_2_0= ruleQuotedString ) ) (otherlv_3= KEYWORD_8 ( (lv_values_4_0= ruleQuotedString ) ) )* )
-        // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4268:2: ( (lv_values_2_0= ruleQuotedString ) ) (otherlv_3= KEYWORD_8 ( (lv_values_4_0= ruleQuotedString ) ) )*
+        // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4353:2: ( ( (lv_values_2_0= ruleQuotedString ) ) (otherlv_3= KEYWORD_8 ( (lv_values_4_0= ruleQuotedString ) ) )* )
+        // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4353:2: ( (lv_values_2_0= ruleQuotedString ) ) (otherlv_3= KEYWORD_8 ( (lv_values_4_0= ruleQuotedString ) ) )*
         {
-        // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4268:2: ( (lv_values_2_0= ruleQuotedString ) )
-        // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4269:1: (lv_values_2_0= ruleQuotedString )
+        // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4353:2: ( (lv_values_2_0= ruleQuotedString ) )
+        // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4354:1: (lv_values_2_0= ruleQuotedString )
         {
-        // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4269:1: (lv_values_2_0= ruleQuotedString )
-        // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4270:3: lv_values_2_0= ruleQuotedString
+        // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4354:1: (lv_values_2_0= ruleQuotedString )
+        // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4355:3: lv_values_2_0= ruleQuotedString
         {
         if ( state.backtracking==0 ) {
            
           	        newCompositeNode(grammarAccess.getImportExpressionAccess().getValuesQuotedStringParserRuleCall_2_0_0()); 
           	    
         }
-        pushFollow(FOLLOW_ruleQuotedString_in_synpred115_InternalPPParser9233);
+        pushFollow(FOLLOW_ruleQuotedString_in_synpred117_InternalPPParser9412);
         lv_values_2_0=ruleQuotedString();
 
         state._fsp--;
@@ -18232,34 +18453,34 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
 
         }
 
-        // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4286:2: (otherlv_3= KEYWORD_8 ( (lv_values_4_0= ruleQuotedString ) ) )*
-        loop137:
+        // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4371:2: (otherlv_3= KEYWORD_8 ( (lv_values_4_0= ruleQuotedString ) ) )*
+        loop138:
         do {
-            int alt137=2;
-            int LA137_0 = input.LA(1);
+            int alt138=2;
+            int LA138_0 = input.LA(1);
 
-            if ( (LA137_0==KEYWORD_8) ) {
-                alt137=1;
+            if ( (LA138_0==KEYWORD_8) ) {
+                alt138=1;
             }
 
 
-            switch (alt137) {
+            switch (alt138) {
         	case 1 :
-        	    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4287:2: otherlv_3= KEYWORD_8 ( (lv_values_4_0= ruleQuotedString ) )
+        	    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4372:2: otherlv_3= KEYWORD_8 ( (lv_values_4_0= ruleQuotedString ) )
         	    {
-        	    otherlv_3=(Token)match(input,KEYWORD_8,FOLLOW_KEYWORD_8_in_synpred115_InternalPPParser9247); if (state.failed) return ;
-        	    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4291:1: ( (lv_values_4_0= ruleQuotedString ) )
-        	    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4292:1: (lv_values_4_0= ruleQuotedString )
+        	    otherlv_3=(Token)match(input,KEYWORD_8,FOLLOW_KEYWORD_8_in_synpred117_InternalPPParser9426); if (state.failed) return ;
+        	    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4376:1: ( (lv_values_4_0= ruleQuotedString ) )
+        	    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4377:1: (lv_values_4_0= ruleQuotedString )
         	    {
-        	    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4292:1: (lv_values_4_0= ruleQuotedString )
-        	    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4293:3: lv_values_4_0= ruleQuotedString
+        	    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4377:1: (lv_values_4_0= ruleQuotedString )
+        	    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:4378:3: lv_values_4_0= ruleQuotedString
         	    {
         	    if ( state.backtracking==0 ) {
         	       
         	      	        newCompositeNode(grammarAccess.getImportExpressionAccess().getValuesQuotedStringParserRuleCall_2_1_1_0()); 
         	      	    
         	    }
-        	    pushFollow(FOLLOW_ruleQuotedString_in_synpred115_InternalPPParser9267);
+        	    pushFollow(FOLLOW_ruleQuotedString_in_synpred117_InternalPPParser9446);
         	    lv_values_4_0=ruleQuotedString();
 
         	    state._fsp--;
@@ -18275,49 +18496,23 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
         	    break;
 
         	default :
-        	    break loop137;
+        	    break loop138;
             }
         } while (true);
 
 
         }
     }
-    // $ANTLR end synpred115_InternalPPParser
-
-    // $ANTLR start synpred138_InternalPPParser
-    public final void synpred138_InternalPPParser_fragment() throws RecognitionException {   
-        Token this_WORD_CHARS_0=null;
-
-        // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5609:6: (this_WORD_CHARS_0= RULE_WORD_CHARS )
-        // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5609:6: this_WORD_CHARS_0= RULE_WORD_CHARS
-        {
-        this_WORD_CHARS_0=(Token)match(input,RULE_WORD_CHARS,FOLLOW_RULE_WORD_CHARS_in_synpred138_InternalPPParser12371); if (state.failed) return ;
-
-        }
-    }
-    // $ANTLR end synpred138_InternalPPParser
-
-    // $ANTLR start synpred139_InternalPPParser
-    public final void synpred139_InternalPPParser_fragment() throws RecognitionException {   
-        Token this_ANY_OTHER_1=null;
-
-        // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5617:10: (this_ANY_OTHER_1= RULE_ANY_OTHER )
-        // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5617:10: this_ANY_OTHER_1= RULE_ANY_OTHER
-        {
-        this_ANY_OTHER_1=(Token)match(input,RULE_ANY_OTHER,FOLLOW_RULE_ANY_OTHER_in_synpred139_InternalPPParser12397); if (state.failed) return ;
-
-        }
-    }
-    // $ANTLR end synpred139_InternalPPParser
+    // $ANTLR end synpred117_InternalPPParser
 
     // $ANTLR start synpred140_InternalPPParser
     public final void synpred140_InternalPPParser_fragment() throws RecognitionException {   
-        Token this_WS_2=null;
+        Token this_WORD_CHARS_0=null;
 
-        // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5625:10: (this_WS_2= RULE_WS )
-        // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5625:10: this_WS_2= RULE_WS
+        // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5694:6: (this_WORD_CHARS_0= RULE_WORD_CHARS )
+        // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5694:6: this_WORD_CHARS_0= RULE_WORD_CHARS
         {
-        this_WS_2=(Token)match(input,RULE_WS,FOLLOW_RULE_WS_in_synpred140_InternalPPParser12423); if (state.failed) return ;
+        this_WORD_CHARS_0=(Token)match(input,RULE_WORD_CHARS,FOLLOW_RULE_WORD_CHARS_in_synpred140_InternalPPParser12550); if (state.failed) return ;
 
         }
     }
@@ -18325,12 +18520,12 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
 
     // $ANTLR start synpred141_InternalPPParser
     public final void synpred141_InternalPPParser_fragment() throws RecognitionException {   
-        Token kw=null;
+        Token this_ANY_OTHER_1=null;
 
-        // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5634:2: (kw= KEYWORD_38 )
-        // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5634:2: kw= KEYWORD_38
+        // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5702:10: (this_ANY_OTHER_1= RULE_ANY_OTHER )
+        // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5702:10: this_ANY_OTHER_1= RULE_ANY_OTHER
         {
-        kw=(Token)match(input,KEYWORD_38,FOLLOW_KEYWORD_38_in_synpred141_InternalPPParser12447); if (state.failed) return ;
+        this_ANY_OTHER_1=(Token)match(input,RULE_ANY_OTHER,FOLLOW_RULE_ANY_OTHER_in_synpred141_InternalPPParser12576); if (state.failed) return ;
 
         }
     }
@@ -18338,12 +18533,12 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
 
     // $ANTLR start synpred142_InternalPPParser
     public final void synpred142_InternalPPParser_fragment() throws RecognitionException {   
-        Token kw=null;
+        Token this_WS_2=null;
 
-        // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5641:2: (kw= KEYWORD_40 )
-        // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5641:2: kw= KEYWORD_40
+        // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5710:10: (this_WS_2= RULE_WS )
+        // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5710:10: this_WS_2= RULE_WS
         {
-        kw=(Token)match(input,KEYWORD_40,FOLLOW_KEYWORD_40_in_synpred142_InternalPPParser12466); if (state.failed) return ;
+        this_WS_2=(Token)match(input,RULE_WS,FOLLOW_RULE_WS_in_synpred142_InternalPPParser12602); if (state.failed) return ;
 
         }
     }
@@ -18353,10 +18548,10 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
     public final void synpred143_InternalPPParser_fragment() throws RecognitionException {   
         Token kw=null;
 
-        // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5648:2: (kw= KEYWORD_39 )
-        // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5648:2: kw= KEYWORD_39
+        // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5719:2: (kw= KEYWORD_38 )
+        // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5719:2: kw= KEYWORD_38
         {
-        kw=(Token)match(input,KEYWORD_39,FOLLOW_KEYWORD_39_in_synpred143_InternalPPParser12485); if (state.failed) return ;
+        kw=(Token)match(input,KEYWORD_38,FOLLOW_KEYWORD_38_in_synpred143_InternalPPParser12626); if (state.failed) return ;
 
         }
     }
@@ -18366,10 +18561,10 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
     public final void synpred144_InternalPPParser_fragment() throws RecognitionException {   
         Token kw=null;
 
-        // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5655:2: (kw= KEYWORD_48 )
-        // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5655:2: kw= KEYWORD_48
+        // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5726:2: (kw= KEYWORD_40 )
+        // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5726:2: kw= KEYWORD_40
         {
-        kw=(Token)match(input,KEYWORD_48,FOLLOW_KEYWORD_48_in_synpred144_InternalPPParser12504); if (state.failed) return ;
+        kw=(Token)match(input,KEYWORD_40,FOLLOW_KEYWORD_40_in_synpred144_InternalPPParser12645); if (state.failed) return ;
 
         }
     }
@@ -18379,14 +18574,40 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
     public final void synpred145_InternalPPParser_fragment() throws RecognitionException {   
         Token kw=null;
 
-        // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5662:2: (kw= KEYWORD_41 )
-        // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5662:2: kw= KEYWORD_41
+        // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5733:2: (kw= KEYWORD_39 )
+        // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5733:2: kw= KEYWORD_39
         {
-        kw=(Token)match(input,KEYWORD_41,FOLLOW_KEYWORD_41_in_synpred145_InternalPPParser12523); if (state.failed) return ;
+        kw=(Token)match(input,KEYWORD_39,FOLLOW_KEYWORD_39_in_synpred145_InternalPPParser12664); if (state.failed) return ;
 
         }
     }
     // $ANTLR end synpred145_InternalPPParser
+
+    // $ANTLR start synpred146_InternalPPParser
+    public final void synpred146_InternalPPParser_fragment() throws RecognitionException {   
+        Token kw=null;
+
+        // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5740:2: (kw= KEYWORD_48 )
+        // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5740:2: kw= KEYWORD_48
+        {
+        kw=(Token)match(input,KEYWORD_48,FOLLOW_KEYWORD_48_in_synpred146_InternalPPParser12683); if (state.failed) return ;
+
+        }
+    }
+    // $ANTLR end synpred146_InternalPPParser
+
+    // $ANTLR start synpred147_InternalPPParser
+    public final void synpred147_InternalPPParser_fragment() throws RecognitionException {   
+        Token kw=null;
+
+        // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5747:2: (kw= KEYWORD_41 )
+        // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.g:5747:2: kw= KEYWORD_41
+        {
+        kw=(Token)match(input,KEYWORD_41,FOLLOW_KEYWORD_41_in_synpred147_InternalPPParser12702); if (state.failed) return ;
+
+        }
+    }
+    // $ANTLR end synpred147_InternalPPParser
 
     // Delegated rules
 
@@ -18418,11 +18639,11 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
         state.failed=false;
         return success;
     }
-    public final boolean synpred115_InternalPPParser() {
+    public final boolean synpred45_InternalPPParser() {
         state.backtracking++;
         int start = input.mark();
         try {
-            synpred115_InternalPPParser_fragment(); // can never throw exception
+            synpred45_InternalPPParser_fragment(); // can never throw exception
         } catch (RecognitionException re) {
             System.err.println("impossible: "+re);
         }
@@ -18432,11 +18653,11 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
         state.failed=false;
         return success;
     }
-    public final boolean synpred45_InternalPPParser() {
+    public final boolean synpred146_InternalPPParser() {
         state.backtracking++;
         int start = input.mark();
         try {
-            synpred45_InternalPPParser_fragment(); // can never throw exception
+            synpred146_InternalPPParser_fragment(); // can never throw exception
         } catch (RecognitionException re) {
             System.err.println("impossible: "+re);
         }
@@ -18488,11 +18709,11 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
         state.failed=false;
         return success;
     }
-    public final boolean synpred62_InternalPPParser() {
+    public final boolean synpred147_InternalPPParser() {
         state.backtracking++;
         int start = input.mark();
         try {
-            synpred62_InternalPPParser_fragment(); // can never throw exception
+            synpred147_InternalPPParser_fragment(); // can never throw exception
         } catch (RecognitionException re) {
             System.err.println("impossible: "+re);
         }
@@ -18502,11 +18723,11 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
         state.failed=false;
         return success;
     }
-    public final boolean synpred139_InternalPPParser() {
+    public final boolean synpred62_InternalPPParser() {
         state.backtracking++;
         int start = input.mark();
         try {
-            synpred139_InternalPPParser_fragment(); // can never throw exception
+            synpred62_InternalPPParser_fragment(); // can never throw exception
         } catch (RecognitionException re) {
             System.err.println("impossible: "+re);
         }
@@ -18577,20 +18798,6 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
         int start = input.mark();
         try {
             synpred36_InternalPPParser_fragment(); // can never throw exception
-        } catch (RecognitionException re) {
-            System.err.println("impossible: "+re);
-        }
-        boolean success = !state.failed;
-        input.rewind(start);
-        state.backtracking--;
-        state.failed=false;
-        return success;
-    }
-    public final boolean synpred114_InternalPPParser() {
-        state.backtracking++;
-        int start = input.mark();
-        try {
-            synpred114_InternalPPParser_fragment(); // can never throw exception
         } catch (RecognitionException re) {
             System.err.println("impossible: "+re);
         }
@@ -18684,6 +18891,20 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
         state.failed=false;
         return success;
     }
+    public final boolean synpred116_InternalPPParser() {
+        state.backtracking++;
+        int start = input.mark();
+        try {
+            synpred116_InternalPPParser_fragment(); // can never throw exception
+        } catch (RecognitionException re) {
+            System.err.println("impossible: "+re);
+        }
+        boolean success = !state.failed;
+        input.rewind(start);
+        state.backtracking--;
+        state.failed=false;
+        return success;
+    }
     public final boolean synpred140_InternalPPParser() {
         state.backtracking++;
         int start = input.mark();
@@ -18712,11 +18933,11 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
         state.failed=false;
         return success;
     }
-    public final boolean synpred138_InternalPPParser() {
+    public final boolean synpred117_InternalPPParser() {
         state.backtracking++;
         int start = input.mark();
         try {
-            synpred138_InternalPPParser_fragment(); // can never throw exception
+            synpred117_InternalPPParser_fragment(); // can never throw exception
         } catch (RecognitionException re) {
             System.err.println("impossible: "+re);
         }
@@ -18803,25 +19024,26 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
     protected DFA51 dfa51 = new DFA51(this);
     protected DFA55 dfa55 = new DFA55(this);
     protected DFA56 dfa56 = new DFA56(this);
+    protected DFA86 dfa86 = new DFA86(this);
     protected DFA85 dfa85 = new DFA85(this);
-    protected DFA84 dfa84 = new DFA84(this);
-    protected DFA103 dfa103 = new DFA103(this);
+    protected DFA104 dfa104 = new DFA104(this);
     static final String DFA39_eotS =
-        "\72\uffff";
+        "\73\uffff";
     static final String DFA39_eofS =
-        "\1\2\71\uffff";
+        "\1\2\72\uffff";
     static final String DFA39_minS =
-        "\1\5\1\0\70\uffff";
+        "\1\5\1\0\71\uffff";
     static final String DFA39_maxS =
-        "\1\111\1\0\70\uffff";
+        "\1\112\1\0\71\uffff";
     static final String DFA39_acceptS =
-        "\2\uffff\1\2\66\uffff\1\1";
+        "\2\uffff\1\2\67\uffff\1\1";
     static final String DFA39_specialS =
-        "\1\uffff\1\0\70\uffff}>";
+        "\1\uffff\1\0\71\uffff}>";
     static final String[] DFA39_transitionS = {
-            "\4\2\1\uffff\3\2\1\uffff\3\2\1\uffff\6\2\1\uffff\13\2\4\uffff"+
+            "\5\2\1\uffff\3\2\1\uffff\3\2\1\uffff\6\2\1\uffff\13\2\4\uffff"+
             "\24\2\1\uffff\3\2\1\1\1\2\3\uffff\2\2\2\uffff\1\2",
             "\1\uffff",
+            "",
             "",
             "",
             "",
@@ -18923,7 +19145,7 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
                         int index39_1 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( (synpred45_InternalPPParser()) ) {s = 57;}
+                        if ( (synpred45_InternalPPParser()) ) {s = 58;}
 
                         else if ( (true) ) {s = 2;}
 
@@ -18940,22 +19162,23 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
         }
     }
     static final String DFA46_eotS =
-        "\30\uffff";
+        "\31\uffff";
     static final String DFA46_eofS =
-        "\30\uffff";
+        "\31\uffff";
     static final String DFA46_minS =
-        "\1\5\1\0\26\uffff";
+        "\1\5\1\0\27\uffff";
     static final String DFA46_maxS =
-        "\1\111\1\0\26\uffff";
+        "\1\112\1\0\27\uffff";
     static final String DFA46_acceptS =
-        "\2\uffff\1\2\24\uffff\1\1";
+        "\2\uffff\1\2\25\uffff\1\1";
     static final String DFA46_specialS =
-        "\1\uffff\1\0\26\uffff}>";
+        "\1\uffff\1\0\27\uffff}>";
     static final String[] DFA46_transitionS = {
-            "\4\2\1\uffff\3\2\1\uffff\2\2\6\uffff\1\2\21\uffff\1\2\4\uffff"+
+            "\5\2\1\uffff\3\2\1\uffff\2\2\6\uffff\1\2\21\uffff\1\2\4\uffff"+
             "\4\2\4\uffff\1\2\7\uffff\2\2\1\uffff\1\1\4\uffff\2\2\2\uffff"+
             "\1\2",
             "\1\uffff",
+            "",
             "",
             "",
             "",
@@ -19023,7 +19246,7 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
                         int index46_1 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( (synpred53_InternalPPParser()) ) {s = 23;}
+                        if ( (synpred53_InternalPPParser()) ) {s = 24;}
 
                         else if ( (true) ) {s = 2;}
 
@@ -19040,20 +19263,21 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
         }
     }
     static final String DFA51_eotS =
-        "\73\uffff";
+        "\74\uffff";
     static final String DFA51_eofS =
-        "\1\1\72\uffff";
+        "\1\1\73\uffff";
     static final String DFA51_minS =
-        "\1\5\60\uffff\1\0\11\uffff";
+        "\1\5\61\uffff\1\0\11\uffff";
     static final String DFA51_maxS =
-        "\1\111\60\uffff\1\0\11\uffff";
+        "\1\112\61\uffff\1\0\11\uffff";
     static final String DFA51_acceptS =
-        "\1\uffff\1\2\70\uffff\1\1";
+        "\1\uffff\1\2\71\uffff\1\1";
     static final String DFA51_specialS =
-        "\61\uffff\1\0\11\uffff}>";
+        "\62\uffff\1\0\11\uffff}>";
     static final String[] DFA51_transitionS = {
-            "\4\1\1\uffff\3\1\1\uffff\3\1\1\uffff\6\1\1\uffff\13\1\4\uffff"+
-            "\26\1\1\61\3\1\3\uffff\2\1\2\uffff\1\1",
+            "\5\1\1\uffff\3\1\1\uffff\3\1\1\uffff\6\1\1\uffff\13\1\4\uffff"+
+            "\26\1\1\62\3\1\3\uffff\2\1\2\uffff\1\1",
+            "",
             "",
             "",
             "",
@@ -19151,18 +19375,18 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
         	int _s = s;
             switch ( s ) {
                     case 0 : 
-                        int LA51_49 = input.LA(1);
+                        int LA51_50 = input.LA(1);
 
                          
-                        int index51_49 = input.index();
+                        int index51_50 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( (synpred58_InternalPPParser()) ) {s = 58;}
+                        if ( (synpred58_InternalPPParser()) ) {s = 59;}
 
                         else if ( (true) ) {s = 1;}
 
                          
-                        input.seek(index51_49);
+                        input.seek(index51_50);
                         if ( s>=0 ) return s;
                         break;
             }
@@ -19174,21 +19398,22 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
         }
     }
     static final String DFA55_eotS =
-        "\73\uffff";
+        "\74\uffff";
     static final String DFA55_eofS =
-        "\1\2\72\uffff";
+        "\1\2\73\uffff";
     static final String DFA55_minS =
-        "\1\5\1\0\71\uffff";
+        "\1\5\1\0\72\uffff";
     static final String DFA55_maxS =
-        "\1\111\1\0\71\uffff";
+        "\1\112\1\0\72\uffff";
     static final String DFA55_acceptS =
-        "\2\uffff\1\2\67\uffff\1\1";
+        "\2\uffff\1\2\70\uffff\1\1";
     static final String DFA55_specialS =
-        "\1\uffff\1\0\71\uffff}>";
+        "\1\uffff\1\0\72\uffff}>";
     static final String[] DFA55_transitionS = {
-            "\4\2\1\uffff\3\2\1\uffff\3\2\1\uffff\6\2\1\uffff\13\2\4\uffff"+
+            "\5\2\1\uffff\3\2\1\uffff\3\2\1\uffff\6\2\1\uffff\13\2\4\uffff"+
             "\10\2\1\1\21\2\3\uffff\2\2\2\uffff\1\2",
             "\1\uffff",
+            "",
             "",
             "",
             "",
@@ -19291,7 +19516,7 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
                         int index55_1 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( (synpred62_InternalPPParser()) ) {s = 58;}
+                        if ( (synpred62_InternalPPParser()) ) {s = 59;}
 
                         else if ( (true) ) {s = 2;}
 
@@ -19308,21 +19533,22 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
         }
     }
     static final String DFA56_eotS =
-        "\13\uffff";
+        "\14\uffff";
     static final String DFA56_eofS =
-        "\13\uffff";
+        "\14\uffff";
     static final String DFA56_minS =
-        "\1\5\12\uffff";
+        "\1\5\13\uffff";
     static final String DFA56_maxS =
-        "\1\111\12\uffff";
+        "\1\112\13\uffff";
     static final String DFA56_acceptS =
-        "\1\uffff\1\1\1\2\1\3\1\4\1\5\1\6\1\7\1\10\1\11\1\12";
+        "\1\uffff\1\1\1\2\1\3\1\4\1\5\1\6\1\7\1\10\1\11\1\12\1\13";
     static final String DFA56_specialS =
-        "\13\uffff}>";
+        "\14\uffff}>";
     static final String[] DFA56_transitionS = {
-            "\1\10\1\4\1\3\1\5\1\uffff\2\10\1\2\1\uffff\1\6\1\10\6\uffff"+
-            "\1\10\21\uffff\1\1\5\uffff\2\10\1\12\14\uffff\1\7\1\10\1\uffff"+
-            "\1\10\4\uffff\1\11\1\10\2\uffff\1\10",
+            "\1\11\1\5\1\4\1\2\1\6\1\uffff\2\11\1\3\1\uffff\1\7\1\11\6\uffff"+
+            "\1\11\21\uffff\1\1\5\uffff\2\11\1\13\14\uffff\1\10\1\11\1\uffff"+
+            "\1\11\4\uffff\1\12\1\11\2\uffff\1\11",
+            "",
             "",
             "",
             "",
@@ -19365,23 +19591,23 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
             this.transition = DFA56_transition;
         }
         public String getDescription() {
-            return "2645:1: (this_IfExpression_0= ruleIfExpression | this_CaseExpression_1= ruleCaseExpression | this_ImportExpression_2= ruleImportExpression | this_Definition_3= ruleDefinition | this_HostClassDefinition_4= ruleHostClassDefinition | this_NodeDefinition_5= ruleNodeDefinition | this_VirtualNameOrReference_6= ruleVirtualNameOrReference | this_LiteralExpression_7= ruleLiteralExpression | this_VariableExpression_8= ruleVariableExpression | this_ParenthisedExpression_9= ruleParenthisedExpression )";
+            return "2645:1: (this_IfExpression_0= ruleIfExpression | this_UnlessExpression_1= ruleUnlessExpression | this_CaseExpression_2= ruleCaseExpression | this_ImportExpression_3= ruleImportExpression | this_Definition_4= ruleDefinition | this_HostClassDefinition_5= ruleHostClassDefinition | this_NodeDefinition_6= ruleNodeDefinition | this_VirtualNameOrReference_7= ruleVirtualNameOrReference | this_LiteralExpression_8= ruleLiteralExpression | this_VariableExpression_9= ruleVariableExpression | this_ParenthisedExpression_10= ruleParenthisedExpression )";
         }
     }
-    static final String DFA85_eotS =
-        "\73\uffff";
-    static final String DFA85_eofS =
-        "\1\3\72\uffff";
-    static final String DFA85_minS =
-        "\1\5\2\0\70\uffff";
-    static final String DFA85_maxS =
-        "\1\111\2\0\70\uffff";
-    static final String DFA85_acceptS =
-        "\3\uffff\1\2\66\uffff\1\1";
-    static final String DFA85_specialS =
-        "\1\uffff\1\0\1\1\70\uffff}>";
-    static final String[] DFA85_transitionS = {
-            "\4\3\1\uffff\3\3\1\uffff\3\3\1\uffff\6\3\1\uffff\13\3\4\uffff"+
+    static final String DFA86_eotS =
+        "\74\uffff";
+    static final String DFA86_eofS =
+        "\1\3\73\uffff";
+    static final String DFA86_minS =
+        "\1\5\2\0\71\uffff";
+    static final String DFA86_maxS =
+        "\1\112\2\0\71\uffff";
+    static final String DFA86_acceptS =
+        "\3\uffff\1\2\67\uffff\1\1";
+    static final String DFA86_specialS =
+        "\1\uffff\1\0\1\1\71\uffff}>";
+    static final String[] DFA86_transitionS = {
+            "\5\3\1\uffff\3\3\1\uffff\3\3\1\uffff\6\3\1\uffff\13\3\4\uffff"+
             "\6\3\1\1\1\2\22\3\3\uffff\2\3\2\uffff\1\3",
             "\1\uffff",
             "\1\uffff",
@@ -19414,6 +19640,157 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
             "",
             "",
             "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+    };
+
+    static final short[] DFA86_eot = DFA.unpackEncodedString(DFA86_eotS);
+    static final short[] DFA86_eof = DFA.unpackEncodedString(DFA86_eofS);
+    static final char[] DFA86_min = DFA.unpackEncodedStringToUnsignedChars(DFA86_minS);
+    static final char[] DFA86_max = DFA.unpackEncodedStringToUnsignedChars(DFA86_maxS);
+    static final short[] DFA86_accept = DFA.unpackEncodedString(DFA86_acceptS);
+    static final short[] DFA86_special = DFA.unpackEncodedString(DFA86_specialS);
+    static final short[][] DFA86_transition;
+
+    static {
+        int numStates = DFA86_transitionS.length;
+        DFA86_transition = new short[numStates][];
+        for (int i=0; i<numStates; i++) {
+            DFA86_transition[i] = DFA.unpackEncodedString(DFA86_transitionS[i]);
+        }
+    }
+
+    class DFA86 extends DFA {
+
+        public DFA86(BaseRecognizer recognizer) {
+            this.recognizer = recognizer;
+            this.decisionNumber = 86;
+            this.eot = DFA86_eot;
+            this.eof = DFA86_eof;
+            this.min = DFA86_min;
+            this.max = DFA86_max;
+            this.accept = DFA86_accept;
+            this.special = DFA86_special;
+            this.transition = DFA86_transition;
+        }
+        public String getDescription() {
+            return "4353:1: ( ( (lv_values_2_0= ruleQuotedString ) ) (otherlv_3= KEYWORD_8 ( (lv_values_4_0= ruleQuotedString ) ) )* )?";
+        }
+        public int specialStateTransition(int s, IntStream _input) throws NoViableAltException {
+            TokenStream input = (TokenStream)_input;
+        	int _s = s;
+            switch ( s ) {
+                    case 0 : 
+                        int LA86_1 = input.LA(1);
+
+                         
+                        int index86_1 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred117_InternalPPParser()) ) {s = 59;}
+
+                        else if ( (true) ) {s = 3;}
+
+                         
+                        input.seek(index86_1);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 1 : 
+                        int LA86_2 = input.LA(1);
+
+                         
+                        int index86_2 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred117_InternalPPParser()) ) {s = 59;}
+
+                        else if ( (true) ) {s = 3;}
+
+                         
+                        input.seek(index86_2);
+                        if ( s>=0 ) return s;
+                        break;
+            }
+            if (state.backtracking>0) {state.failed=true; return -1;}
+            NoViableAltException nvae =
+                new NoViableAltException(getDescription(), 86, _s, input);
+            error(nvae);
+            throw nvae;
+        }
+    }
+    static final String DFA85_eotS =
+        "\74\uffff";
+    static final String DFA85_eofS =
+        "\1\1\73\uffff";
+    static final String DFA85_minS =
+        "\1\5\37\uffff\1\0\33\uffff";
+    static final String DFA85_maxS =
+        "\1\112\37\uffff\1\0\33\uffff";
+    static final String DFA85_acceptS =
+        "\1\uffff\1\2\71\uffff\1\1";
+    static final String DFA85_specialS =
+        "\40\uffff\1\0\33\uffff}>";
+    static final String[] DFA85_transitionS = {
+            "\5\1\1\uffff\3\1\1\uffff\3\1\1\uffff\6\1\1\uffff\13\1\4\uffff"+
+            "\14\1\1\40\15\1\3\uffff\2\1\2\uffff\1\1",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "\1\uffff",
             "",
             "",
             "",
@@ -19473,40 +19850,25 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
             this.transition = DFA85_transition;
         }
         public String getDescription() {
-            return "4268:1: ( ( (lv_values_2_0= ruleQuotedString ) ) (otherlv_3= KEYWORD_8 ( (lv_values_4_0= ruleQuotedString ) ) )* )?";
+            return "()* loopback of 4371:2: (otherlv_3= KEYWORD_8 ( (lv_values_4_0= ruleQuotedString ) ) )*";
         }
         public int specialStateTransition(int s, IntStream _input) throws NoViableAltException {
             TokenStream input = (TokenStream)_input;
         	int _s = s;
             switch ( s ) {
                     case 0 : 
-                        int LA85_1 = input.LA(1);
+                        int LA85_32 = input.LA(1);
 
                          
-                        int index85_1 = input.index();
+                        int index85_32 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( (synpred115_InternalPPParser()) ) {s = 58;}
+                        if ( (synpred116_InternalPPParser()) ) {s = 59;}
 
-                        else if ( (true) ) {s = 3;}
-
-                         
-                        input.seek(index85_1);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 1 : 
-                        int LA85_2 = input.LA(1);
+                        else if ( (true) ) {s = 1;}
 
                          
-                        int index85_2 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred115_InternalPPParser()) ) {s = 58;}
-
-                        else if ( (true) ) {s = 3;}
-
-                         
-                        input.seek(index85_2);
+                        input.seek(index85_32);
                         if ( s>=0 ) return s;
                         break;
             }
@@ -19517,153 +19879,19 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
             throw nvae;
         }
     }
-    static final String DFA84_eotS =
-        "\73\uffff";
-    static final String DFA84_eofS =
-        "\1\1\72\uffff";
-    static final String DFA84_minS =
-        "\1\5\37\uffff\1\0\32\uffff";
-    static final String DFA84_maxS =
-        "\1\111\37\uffff\1\0\32\uffff";
-    static final String DFA84_acceptS =
-        "\1\uffff\1\2\70\uffff\1\1";
-    static final String DFA84_specialS =
-        "\40\uffff\1\0\32\uffff}>";
-    static final String[] DFA84_transitionS = {
-            "\4\1\1\uffff\3\1\1\uffff\3\1\1\uffff\6\1\1\uffff\13\1\4\uffff"+
-            "\14\1\1\40\15\1\3\uffff\2\1\2\uffff\1\1",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "\1\uffff",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            ""
-    };
-
-    static final short[] DFA84_eot = DFA.unpackEncodedString(DFA84_eotS);
-    static final short[] DFA84_eof = DFA.unpackEncodedString(DFA84_eofS);
-    static final char[] DFA84_min = DFA.unpackEncodedStringToUnsignedChars(DFA84_minS);
-    static final char[] DFA84_max = DFA.unpackEncodedStringToUnsignedChars(DFA84_maxS);
-    static final short[] DFA84_accept = DFA.unpackEncodedString(DFA84_acceptS);
-    static final short[] DFA84_special = DFA.unpackEncodedString(DFA84_specialS);
-    static final short[][] DFA84_transition;
-
-    static {
-        int numStates = DFA84_transitionS.length;
-        DFA84_transition = new short[numStates][];
-        for (int i=0; i<numStates; i++) {
-            DFA84_transition[i] = DFA.unpackEncodedString(DFA84_transitionS[i]);
-        }
-    }
-
-    class DFA84 extends DFA {
-
-        public DFA84(BaseRecognizer recognizer) {
-            this.recognizer = recognizer;
-            this.decisionNumber = 84;
-            this.eot = DFA84_eot;
-            this.eof = DFA84_eof;
-            this.min = DFA84_min;
-            this.max = DFA84_max;
-            this.accept = DFA84_accept;
-            this.special = DFA84_special;
-            this.transition = DFA84_transition;
-        }
-        public String getDescription() {
-            return "()* loopback of 4286:2: (otherlv_3= KEYWORD_8 ( (lv_values_4_0= ruleQuotedString ) ) )*";
-        }
-        public int specialStateTransition(int s, IntStream _input) throws NoViableAltException {
-            TokenStream input = (TokenStream)_input;
-        	int _s = s;
-            switch ( s ) {
-                    case 0 : 
-                        int LA84_32 = input.LA(1);
-
-                         
-                        int index84_32 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred114_InternalPPParser()) ) {s = 58;}
-
-                        else if ( (true) ) {s = 1;}
-
-                         
-                        input.seek(index84_32);
-                        if ( s>=0 ) return s;
-                        break;
-            }
-            if (state.backtracking>0) {state.failed=true; return -1;}
-            NoViableAltException nvae =
-                new NoViableAltException(getDescription(), 84, _s, input);
-            error(nvae);
-            throw nvae;
-        }
-    }
-    static final String DFA103_eotS =
+    static final String DFA104_eotS =
         "\22\uffff";
-    static final String DFA103_eofS =
+    static final String DFA104_eofS =
         "\1\1\21\uffff";
-    static final String DFA103_minS =
-        "\1\21\1\uffff\10\0\10\uffff";
-    static final String DFA103_maxS =
-        "\1\115\1\uffff\10\0\10\uffff";
-    static final String DFA103_acceptS =
+    static final String DFA104_minS =
+        "\1\22\1\uffff\10\0\10\uffff";
+    static final String DFA104_maxS =
+        "\1\116\1\uffff\10\0\10\uffff";
+    static final String DFA104_acceptS =
         "\1\uffff\1\11\10\uffff\1\1\1\2\1\3\1\4\1\5\1\6\1\7\1\10";
-    static final String DFA103_specialS =
-        "\2\uffff\1\5\1\7\1\4\1\1\1\2\1\0\1\6\1\3\10\uffff}>";
-    static final String[] DFA103_transitionS = {
+    static final String DFA104_specialS =
+        "\2\uffff\1\7\1\5\1\6\1\2\1\1\1\0\1\4\1\3\10\uffff}>";
+    static final String[] DFA104_transitionS = {
             "\1\10\4\uffff\1\1\15\uffff\1\5\1\7\1\6\1\11\6\uffff\1\1\25\uffff"+
             "\1\4\1\1\1\2\6\uffff\1\3",
             "",
@@ -19685,166 +19913,166 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
             ""
     };
 
-    static final short[] DFA103_eot = DFA.unpackEncodedString(DFA103_eotS);
-    static final short[] DFA103_eof = DFA.unpackEncodedString(DFA103_eofS);
-    static final char[] DFA103_min = DFA.unpackEncodedStringToUnsignedChars(DFA103_minS);
-    static final char[] DFA103_max = DFA.unpackEncodedStringToUnsignedChars(DFA103_maxS);
-    static final short[] DFA103_accept = DFA.unpackEncodedString(DFA103_acceptS);
-    static final short[] DFA103_special = DFA.unpackEncodedString(DFA103_specialS);
-    static final short[][] DFA103_transition;
+    static final short[] DFA104_eot = DFA.unpackEncodedString(DFA104_eotS);
+    static final short[] DFA104_eof = DFA.unpackEncodedString(DFA104_eofS);
+    static final char[] DFA104_min = DFA.unpackEncodedStringToUnsignedChars(DFA104_minS);
+    static final char[] DFA104_max = DFA.unpackEncodedStringToUnsignedChars(DFA104_maxS);
+    static final short[] DFA104_accept = DFA.unpackEncodedString(DFA104_acceptS);
+    static final short[] DFA104_special = DFA.unpackEncodedString(DFA104_specialS);
+    static final short[][] DFA104_transition;
 
     static {
-        int numStates = DFA103_transitionS.length;
-        DFA103_transition = new short[numStates][];
+        int numStates = DFA104_transitionS.length;
+        DFA104_transition = new short[numStates][];
         for (int i=0; i<numStates; i++) {
-            DFA103_transition[i] = DFA.unpackEncodedString(DFA103_transitionS[i]);
+            DFA104_transition[i] = DFA.unpackEncodedString(DFA104_transitionS[i]);
         }
     }
 
-    class DFA103 extends DFA {
+    class DFA104 extends DFA {
 
-        public DFA103(BaseRecognizer recognizer) {
+        public DFA104(BaseRecognizer recognizer) {
             this.recognizer = recognizer;
-            this.decisionNumber = 103;
-            this.eot = DFA103_eot;
-            this.eof = DFA103_eof;
-            this.min = DFA103_min;
-            this.max = DFA103_max;
-            this.accept = DFA103_accept;
-            this.special = DFA103_special;
-            this.transition = DFA103_transition;
+            this.decisionNumber = 104;
+            this.eot = DFA104_eot;
+            this.eof = DFA104_eof;
+            this.min = DFA104_min;
+            this.max = DFA104_max;
+            this.accept = DFA104_accept;
+            this.special = DFA104_special;
+            this.transition = DFA104_transition;
         }
         public String getDescription() {
-            return "()+ loopback of 5609:1: (this_WORD_CHARS_0= RULE_WORD_CHARS | this_ANY_OTHER_1= RULE_ANY_OTHER | this_WS_2= RULE_WS | kw= KEYWORD_38 | kw= KEYWORD_40 | kw= KEYWORD_39 | kw= KEYWORD_48 | kw= KEYWORD_41 )+";
+            return "()+ loopback of 5694:1: (this_WORD_CHARS_0= RULE_WORD_CHARS | this_ANY_OTHER_1= RULE_ANY_OTHER | this_WS_2= RULE_WS | kw= KEYWORD_38 | kw= KEYWORD_40 | kw= KEYWORD_39 | kw= KEYWORD_48 | kw= KEYWORD_41 )+";
         }
         public int specialStateTransition(int s, IntStream _input) throws NoViableAltException {
             TokenStream input = (TokenStream)_input;
         	int _s = s;
             switch ( s ) {
                     case 0 : 
-                        int LA103_7 = input.LA(1);
+                        int LA104_7 = input.LA(1);
 
                          
-                        int index103_7 = input.index();
+                        int index104_7 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( (synpred143_InternalPPParser()) ) {s = 15;}
+                        if ( (synpred145_InternalPPParser()) ) {s = 15;}
 
                         else if ( (true) ) {s = 1;}
 
                          
-                        input.seek(index103_7);
+                        input.seek(index104_7);
                         if ( s>=0 ) return s;
                         break;
                     case 1 : 
-                        int LA103_5 = input.LA(1);
+                        int LA104_6 = input.LA(1);
 
                          
-                        int index103_5 = input.index();
+                        int index104_6 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( (synpred141_InternalPPParser()) ) {s = 13;}
+                        if ( (synpred144_InternalPPParser()) ) {s = 14;}
 
                         else if ( (true) ) {s = 1;}
 
                          
-                        input.seek(index103_5);
+                        input.seek(index104_6);
                         if ( s>=0 ) return s;
                         break;
                     case 2 : 
-                        int LA103_6 = input.LA(1);
+                        int LA104_5 = input.LA(1);
 
                          
-                        int index103_6 = input.index();
+                        int index104_5 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( (synpred142_InternalPPParser()) ) {s = 14;}
+                        if ( (synpred143_InternalPPParser()) ) {s = 13;}
 
                         else if ( (true) ) {s = 1;}
 
                          
-                        input.seek(index103_6);
+                        input.seek(index104_5);
                         if ( s>=0 ) return s;
                         break;
                     case 3 : 
-                        int LA103_9 = input.LA(1);
+                        int LA104_9 = input.LA(1);
 
                          
-                        int index103_9 = input.index();
+                        int index104_9 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( (synpred145_InternalPPParser()) ) {s = 17;}
+                        if ( (synpred147_InternalPPParser()) ) {s = 17;}
 
                         else if ( (true) ) {s = 1;}
 
                          
-                        input.seek(index103_9);
+                        input.seek(index104_9);
                         if ( s>=0 ) return s;
                         break;
                     case 4 : 
-                        int LA103_4 = input.LA(1);
+                        int LA104_8 = input.LA(1);
 
                          
-                        int index103_4 = input.index();
+                        int index104_8 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( (synpred140_InternalPPParser()) ) {s = 12;}
+                        if ( (synpred146_InternalPPParser()) ) {s = 16;}
 
                         else if ( (true) ) {s = 1;}
 
                          
-                        input.seek(index103_4);
+                        input.seek(index104_8);
                         if ( s>=0 ) return s;
                         break;
                     case 5 : 
-                        int LA103_2 = input.LA(1);
+                        int LA104_3 = input.LA(1);
 
                          
-                        int index103_2 = input.index();
+                        int index104_3 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( (synpred138_InternalPPParser()) ) {s = 10;}
+                        if ( (synpred141_InternalPPParser()) ) {s = 11;}
 
                         else if ( (true) ) {s = 1;}
 
                          
-                        input.seek(index103_2);
+                        input.seek(index104_3);
                         if ( s>=0 ) return s;
                         break;
                     case 6 : 
-                        int LA103_8 = input.LA(1);
+                        int LA104_4 = input.LA(1);
 
                          
-                        int index103_8 = input.index();
+                        int index104_4 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( (synpred144_InternalPPParser()) ) {s = 16;}
+                        if ( (synpred142_InternalPPParser()) ) {s = 12;}
 
                         else if ( (true) ) {s = 1;}
 
                          
-                        input.seek(index103_8);
+                        input.seek(index104_4);
                         if ( s>=0 ) return s;
                         break;
                     case 7 : 
-                        int LA103_3 = input.LA(1);
+                        int LA104_2 = input.LA(1);
 
                          
-                        int index103_3 = input.index();
+                        int index104_2 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( (synpred139_InternalPPParser()) ) {s = 11;}
+                        if ( (synpred140_InternalPPParser()) ) {s = 10;}
 
                         else if ( (true) ) {s = 1;}
 
                          
-                        input.seek(index103_3);
+                        input.seek(index104_2);
                         if ( s>=0 ) return s;
                         break;
             }
             if (state.backtracking>0) {state.failed=true; return -1;}
             NoViableAltException nvae =
-                new NoViableAltException(getDescription(), 103, _s, input);
+                new NoViableAltException(getDescription(), 104, _s, input);
             error(nvae);
             throw nvae;
         }
@@ -19853,17 +20081,17 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
 
     public static final BitSet FOLLOW_rulePuppetManifest_in_entryRulePuppetManifest73 = new BitSet(new long[]{0x0000000000000000L});
     public static final BitSet FOLLOW_EOF_in_entryRulePuppetManifest83 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleExpressionList_in_rulePuppetManifest141 = new BitSet(new long[]{0x6021E1000040DDE2L,0x0000000000000261L});
+    public static final BitSet FOLLOW_ruleExpressionList_in_rulePuppetManifest141 = new BitSet(new long[]{0xC043C2000081BBE2L,0x00000000000004C2L});
     public static final BitSet FOLLOW_ruleExpression_in_entryRuleExpression177 = new BitSet(new long[]{0x0000000000000000L});
     public static final BitSet FOLLOW_EOF_in_entryRuleExpression187 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_ruleRelationshipExpression_in_ruleExpression236 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_ruleExpressionList_in_entryRuleExpressionList269 = new BitSet(new long[]{0x0000000000000000L});
     public static final BitSet FOLLOW_EOF_in_entryRuleExpressionList279 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleRelationshipExpression_in_ruleExpressionList329 = new BitSet(new long[]{0x0010000000000002L});
-    public static final BitSet FOLLOW_KEYWORD_8_in_ruleExpressionList354 = new BitSet(new long[]{0x6031E1000040DDE0L,0x0000000000000261L});
-    public static final BitSet FOLLOW_ruleRelationshipExpression_in_ruleExpressionList374 = new BitSet(new long[]{0x0010000000000002L});
-    public static final BitSet FOLLOW_KEYWORD_8_in_ruleExpressionList388 = new BitSet(new long[]{0x6031E1000040DDE0L,0x0000000000000261L});
-    public static final BitSet FOLLOW_ruleRelationshipExpression_in_ruleExpressionList408 = new BitSet(new long[]{0x0010000000000002L});
+    public static final BitSet FOLLOW_ruleRelationshipExpression_in_ruleExpressionList329 = new BitSet(new long[]{0x0020000000000002L});
+    public static final BitSet FOLLOW_KEYWORD_8_in_ruleExpressionList354 = new BitSet(new long[]{0xC063C2000081BBE0L,0x00000000000004C2L});
+    public static final BitSet FOLLOW_ruleRelationshipExpression_in_ruleExpressionList374 = new BitSet(new long[]{0x0020000000000002L});
+    public static final BitSet FOLLOW_KEYWORD_8_in_ruleExpressionList388 = new BitSet(new long[]{0xC063C2000081BBE0L,0x00000000000004C2L});
+    public static final BitSet FOLLOW_ruleRelationshipExpression_in_ruleExpressionList408 = new BitSet(new long[]{0x0020000000000002L});
     public static final BitSet FOLLOW_ruleEdgeOperator_in_entryRuleEdgeOperator448 = new BitSet(new long[]{0x0000000000000000L});
     public static final BitSet FOLLOW_EOF_in_entryRuleEdgeOperator459 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_KEYWORD_27_in_ruleEdgeOperator497 = new BitSet(new long[]{0x0000000000000002L});
@@ -19872,64 +20100,64 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
     public static final BitSet FOLLOW_KEYWORD_32_in_ruleEdgeOperator554 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_ruleRelationshipExpression_in_entryRuleRelationshipExpression593 = new BitSet(new long[]{0x0000000000000000L});
     public static final BitSet FOLLOW_EOF_in_entryRuleRelationshipExpression603 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleResourceExpression_in_ruleRelationshipExpression653 = new BitSet(new long[]{0x0000100046000002L});
-    public static final BitSet FOLLOW_ruleEdgeOperator_in_ruleRelationshipExpression686 = new BitSet(new long[]{0x6021F1004640DDE0L,0x0000000000000261L});
-    public static final BitSet FOLLOW_ruleResourceExpression_in_ruleRelationshipExpression707 = new BitSet(new long[]{0x0000100046000002L});
+    public static final BitSet FOLLOW_ruleResourceExpression_in_ruleRelationshipExpression653 = new BitSet(new long[]{0x000020008C000002L});
+    public static final BitSet FOLLOW_ruleEdgeOperator_in_ruleRelationshipExpression686 = new BitSet(new long[]{0xC043E2008C81BBE0L,0x00000000000004C2L});
+    public static final BitSet FOLLOW_ruleResourceExpression_in_ruleRelationshipExpression707 = new BitSet(new long[]{0x000020008C000002L});
     public static final BitSet FOLLOW_ruleResourceExpression_in_entryRuleResourceExpression744 = new BitSet(new long[]{0x0000000000000000L});
     public static final BitSet FOLLOW_EOF_in_entryRuleResourceExpression754 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleAssignmentExpression_in_ruleResourceExpression805 = new BitSet(new long[]{0x0000000000000002L,0x0000000000000001L});
-    public static final BitSet FOLLOW_KEYWORD_20_in_ruleResourceExpression830 = new BitSet(new long[]{0x6021E1000040DDE0L,0x0000000000000263L});
-    public static final BitSet FOLLOW_ruleResourceBody_in_ruleResourceExpression851 = new BitSet(new long[]{0x0100000000000000L,0x0000000000000002L});
-    public static final BitSet FOLLOW_KEYWORD_12_in_ruleResourceExpression865 = new BitSet(new long[]{0x6021E1000040DDE0L,0x0000000000000261L});
-    public static final BitSet FOLLOW_ruleResourceBody_in_ruleResourceExpression885 = new BitSet(new long[]{0x0100000000000000L,0x0000000000000002L});
-    public static final BitSet FOLLOW_KEYWORD_12_in_ruleResourceExpression901 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleAssignmentExpression_in_ruleResourceExpression805 = new BitSet(new long[]{0x0000000000000002L,0x0000000000000002L});
+    public static final BitSet FOLLOW_KEYWORD_20_in_ruleResourceExpression830 = new BitSet(new long[]{0xC043C2000081BBE0L,0x00000000000004C6L});
+    public static final BitSet FOLLOW_ruleResourceBody_in_ruleResourceExpression851 = new BitSet(new long[]{0x0200000000000000L,0x0000000000000004L});
+    public static final BitSet FOLLOW_KEYWORD_12_in_ruleResourceExpression865 = new BitSet(new long[]{0xC043C2000081BBE0L,0x00000000000004C2L});
+    public static final BitSet FOLLOW_ruleResourceBody_in_ruleResourceExpression885 = new BitSet(new long[]{0x0200000000000000L,0x0000000000000004L});
+    public static final BitSet FOLLOW_KEYWORD_12_in_ruleResourceExpression901 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000004L});
     public static final BitSet FOLLOW_KEYWORD_21_in_ruleResourceExpression917 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleLiteralClass_in_ruleResourceExpression959 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000001L});
-    public static final BitSet FOLLOW_KEYWORD_20_in_ruleResourceExpression972 = new BitSet(new long[]{0x6021E1000040DDE0L,0x0000000000000263L});
-    public static final BitSet FOLLOW_ruleResourceBody_in_ruleResourceExpression993 = new BitSet(new long[]{0x0100000000000000L,0x0000000000000002L});
-    public static final BitSet FOLLOW_KEYWORD_12_in_ruleResourceExpression1007 = new BitSet(new long[]{0x6021E1000040DDE0L,0x0000000000000261L});
-    public static final BitSet FOLLOW_ruleResourceBody_in_ruleResourceExpression1027 = new BitSet(new long[]{0x0100000000000000L,0x0000000000000002L});
-    public static final BitSet FOLLOW_KEYWORD_12_in_ruleResourceExpression1043 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleLiteralClass_in_ruleResourceExpression959 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000002L});
+    public static final BitSet FOLLOW_KEYWORD_20_in_ruleResourceExpression972 = new BitSet(new long[]{0xC043C2000081BBE0L,0x00000000000004C6L});
+    public static final BitSet FOLLOW_ruleResourceBody_in_ruleResourceExpression993 = new BitSet(new long[]{0x0200000000000000L,0x0000000000000004L});
+    public static final BitSet FOLLOW_KEYWORD_12_in_ruleResourceExpression1007 = new BitSet(new long[]{0xC043C2000081BBE0L,0x00000000000004C2L});
+    public static final BitSet FOLLOW_ruleResourceBody_in_ruleResourceExpression1027 = new BitSet(new long[]{0x0200000000000000L,0x0000000000000004L});
+    public static final BitSet FOLLOW_KEYWORD_12_in_ruleResourceExpression1043 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000004L});
     public static final BitSet FOLLOW_KEYWORD_21_in_ruleResourceExpression1059 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_ruleResourceBody_in_entryRuleResourceBody1094 = new BitSet(new long[]{0x0000000000000000L});
     public static final BitSet FOLLOW_EOF_in_entryRuleResourceBody1104 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleExpression_in_ruleResourceBody1151 = new BitSet(new long[]{0x0080000000000000L});
-    public static final BitSet FOLLOW_KEYWORD_11_in_ruleResourceBody1164 = new BitSet(new long[]{0x6021E1000040DDE2L,0x0000000000000261L});
+    public static final BitSet FOLLOW_ruleExpression_in_ruleResourceBody1151 = new BitSet(new long[]{0x0100000000000000L});
+    public static final BitSet FOLLOW_KEYWORD_11_in_ruleResourceBody1164 = new BitSet(new long[]{0xC043C2000081BBE2L,0x00000000000004C2L});
     public static final BitSet FOLLOW_ruleAttributeOperations_in_ruleResourceBody1184 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_ruleAttributeOperations_in_ruleResourceBody1213 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_ruleAttributeOperation_in_entryRuleAttributeOperation1248 = new BitSet(new long[]{0x0000000000000000L});
     public static final BitSet FOLLOW_EOF_in_entryRuleAttributeOperation1258 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rulename_in_ruleAttributeOperation1316 = new BitSet(new long[]{0x0000000101000002L});
-    public static final BitSet FOLLOW_KEYWORD_34_in_ruleAttributeOperation1338 = new BitSet(new long[]{0x6021E1000040DDE0L,0x0000000000000261L});
-    public static final BitSet FOLLOW_KEYWORD_26_in_ruleAttributeOperation1366 = new BitSet(new long[]{0x6021E1000040DDE0L,0x0000000000000261L});
+    public static final BitSet FOLLOW_rulename_in_ruleAttributeOperation1316 = new BitSet(new long[]{0x0000000202000002L});
+    public static final BitSet FOLLOW_KEYWORD_34_in_ruleAttributeOperation1338 = new BitSet(new long[]{0xC043C2000081BBE0L,0x00000000000004C2L});
+    public static final BitSet FOLLOW_KEYWORD_26_in_ruleAttributeOperation1366 = new BitSet(new long[]{0xC043C2000081BBE0L,0x00000000000004C2L});
     public static final BitSet FOLLOW_ruleExpression_in_ruleAttributeOperation1401 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_ruleAttributeOperations_in_entryRuleAttributeOperations1438 = new BitSet(new long[]{0x0000000000000000L});
     public static final BitSet FOLLOW_EOF_in_entryRuleAttributeOperations1448 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleAttributeOperation_in_ruleAttributeOperations1494 = new BitSet(new long[]{0x6031E1000040DDE2L,0x0000000000000261L});
-    public static final BitSet FOLLOW_KEYWORD_8_in_ruleAttributeOperations1509 = new BitSet(new long[]{0x6021E1000040DDE0L,0x0000000000000261L});
-    public static final BitSet FOLLOW_ruleAttributeOperation_in_ruleAttributeOperations1529 = new BitSet(new long[]{0x6031E1000040DDE2L,0x0000000000000261L});
-    public static final BitSet FOLLOW_ruleAttributeOperation_in_ruleAttributeOperations1557 = new BitSet(new long[]{0x6031E1000040DDE2L,0x0000000000000261L});
+    public static final BitSet FOLLOW_ruleAttributeOperation_in_ruleAttributeOperations1494 = new BitSet(new long[]{0xC063C2000081BBE2L,0x00000000000004C2L});
+    public static final BitSet FOLLOW_KEYWORD_8_in_ruleAttributeOperations1509 = new BitSet(new long[]{0xC043C2000081BBE0L,0x00000000000004C2L});
+    public static final BitSet FOLLOW_ruleAttributeOperation_in_ruleAttributeOperations1529 = new BitSet(new long[]{0xC063C2000081BBE2L,0x00000000000004C2L});
+    public static final BitSet FOLLOW_ruleAttributeOperation_in_ruleAttributeOperations1557 = new BitSet(new long[]{0xC063C2000081BBE2L,0x00000000000004C2L});
     public static final BitSet FOLLOW_KEYWORD_8_in_ruleAttributeOperations1573 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_ruleAssignmentExpression_in_entryRuleAssignmentExpression1609 = new BitSet(new long[]{0x0000000000000000L});
     public static final BitSet FOLLOW_EOF_in_entryRuleAssignmentExpression1619 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleAppendExpression_in_ruleAssignmentExpression1669 = new BitSet(new long[]{0x0400000000000002L});
-    public static final BitSet FOLLOW_KEYWORD_14_in_ruleAssignmentExpression1694 = new BitSet(new long[]{0x6021E1000040DDE0L,0x0000000000000261L});
+    public static final BitSet FOLLOW_ruleAppendExpression_in_ruleAssignmentExpression1669 = new BitSet(new long[]{0x0800000000000002L});
+    public static final BitSet FOLLOW_KEYWORD_14_in_ruleAssignmentExpression1694 = new BitSet(new long[]{0xC043C2000081BBE0L,0x00000000000004C2L});
     public static final BitSet FOLLOW_ruleAppendExpression_in_ruleAssignmentExpression1714 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_ruleAppendExpression_in_entryRuleAppendExpression1751 = new BitSet(new long[]{0x0000000000000000L});
     public static final BitSet FOLLOW_EOF_in_entryRuleAppendExpression1761 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleOrExpression_in_ruleAppendExpression1811 = new BitSet(new long[]{0x0000000000800002L});
-    public static final BitSet FOLLOW_KEYWORD_25_in_ruleAppendExpression1836 = new BitSet(new long[]{0x6021E1000040DDE0L,0x0000000000000261L});
+    public static final BitSet FOLLOW_ruleOrExpression_in_ruleAppendExpression1811 = new BitSet(new long[]{0x0000000001000002L});
+    public static final BitSet FOLLOW_KEYWORD_25_in_ruleAppendExpression1836 = new BitSet(new long[]{0xC043C2000081BBE0L,0x00000000000004C2L});
     public static final BitSet FOLLOW_ruleOrExpression_in_ruleAppendExpression1856 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_ruleOrExpression_in_entryRuleOrExpression1893 = new BitSet(new long[]{0x0000000000000000L});
     public static final BitSet FOLLOW_EOF_in_entryRuleOrExpression1903 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleAndExpression_in_ruleOrExpression1953 = new BitSet(new long[]{0x0000040000000002L});
-    public static final BitSet FOLLOW_KEYWORD_44_in_ruleOrExpression1978 = new BitSet(new long[]{0x6021E1000040DDE0L,0x0000000000000261L});
-    public static final BitSet FOLLOW_ruleAndExpression_in_ruleOrExpression1998 = new BitSet(new long[]{0x0000040000000002L});
+    public static final BitSet FOLLOW_ruleAndExpression_in_ruleOrExpression1953 = new BitSet(new long[]{0x0000080000000002L});
+    public static final BitSet FOLLOW_KEYWORD_44_in_ruleOrExpression1978 = new BitSet(new long[]{0xC043C2000081BBE0L,0x00000000000004C2L});
+    public static final BitSet FOLLOW_ruleAndExpression_in_ruleOrExpression1998 = new BitSet(new long[]{0x0000080000000002L});
     public static final BitSet FOLLOW_ruleAndExpression_in_entryRuleAndExpression2035 = new BitSet(new long[]{0x0000000000000000L});
     public static final BitSet FOLLOW_EOF_in_entryRuleAndExpression2045 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleRelationalExpression_in_ruleAndExpression2095 = new BitSet(new long[]{0x0000000000040002L});
-    public static final BitSet FOLLOW_KEYWORD_49_in_ruleAndExpression2120 = new BitSet(new long[]{0x6021E1000040DDE0L,0x0000000000000261L});
-    public static final BitSet FOLLOW_ruleRelationalExpression_in_ruleAndExpression2140 = new BitSet(new long[]{0x0000000000040002L});
+    public static final BitSet FOLLOW_ruleRelationalExpression_in_ruleAndExpression2095 = new BitSet(new long[]{0x0000000000080002L});
+    public static final BitSet FOLLOW_KEYWORD_49_in_ruleAndExpression2120 = new BitSet(new long[]{0xC043C2000081BBE0L,0x00000000000004C2L});
+    public static final BitSet FOLLOW_ruleRelationalExpression_in_ruleAndExpression2140 = new BitSet(new long[]{0x0000000000080002L});
     public static final BitSet FOLLOW_ruleRelationalOperator_in_entryRuleRelationalOperator2178 = new BitSet(new long[]{0x0000000000000000L});
     public static final BitSet FOLLOW_EOF_in_entryRuleRelationalOperator2189 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_KEYWORD_36_in_ruleRelationalOperator2227 = new BitSet(new long[]{0x0000000000000002L});
@@ -19938,59 +20166,59 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
     public static final BitSet FOLLOW_KEYWORD_13_in_ruleRelationalOperator2284 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_ruleRelationalExpression_in_entryRuleRelationalExpression2323 = new BitSet(new long[]{0x0000000000000000L});
     public static final BitSet FOLLOW_EOF_in_entryRuleRelationalExpression2333 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleEqualityExpression_in_ruleRelationalExpression2383 = new BitSet(new long[]{0x0A00000410000002L});
-    public static final BitSet FOLLOW_ruleRelationalOperator_in_ruleRelationalExpression2416 = new BitSet(new long[]{0x6021E1000040DDE0L,0x0000000000000261L});
-    public static final BitSet FOLLOW_ruleEqualityExpression_in_ruleRelationalExpression2437 = new BitSet(new long[]{0x0A00000410000002L});
+    public static final BitSet FOLLOW_ruleEqualityExpression_in_ruleRelationalExpression2383 = new BitSet(new long[]{0x1400000820000002L});
+    public static final BitSet FOLLOW_ruleRelationalOperator_in_ruleRelationalExpression2416 = new BitSet(new long[]{0xC043C2000081BBE0L,0x00000000000004C2L});
+    public static final BitSet FOLLOW_ruleEqualityExpression_in_ruleRelationalExpression2437 = new BitSet(new long[]{0x1400000820000002L});
     public static final BitSet FOLLOW_ruleEqualityOperator_in_entryRuleEqualityOperator2475 = new BitSet(new long[]{0x0000000000000000L});
     public static final BitSet FOLLOW_EOF_in_entryRuleEqualityOperator2486 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_KEYWORD_33_in_ruleEqualityOperator2524 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_KEYWORD_22_in_ruleEqualityOperator2543 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_ruleEqualityExpression_in_entryRuleEqualityExpression2582 = new BitSet(new long[]{0x0000000000000000L});
     public static final BitSet FOLLOW_EOF_in_entryRuleEqualityExpression2592 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleShiftExpression_in_ruleEqualityExpression2642 = new BitSet(new long[]{0x0000000080100002L});
-    public static final BitSet FOLLOW_ruleEqualityOperator_in_ruleEqualityExpression2675 = new BitSet(new long[]{0x6021E1000040DDE0L,0x0000000000000261L});
-    public static final BitSet FOLLOW_ruleShiftExpression_in_ruleEqualityExpression2696 = new BitSet(new long[]{0x0000000080100002L});
+    public static final BitSet FOLLOW_ruleShiftExpression_in_ruleEqualityExpression2642 = new BitSet(new long[]{0x0000000100200002L});
+    public static final BitSet FOLLOW_ruleEqualityOperator_in_ruleEqualityExpression2675 = new BitSet(new long[]{0xC043C2000081BBE0L,0x00000000000004C2L});
+    public static final BitSet FOLLOW_ruleShiftExpression_in_ruleEqualityExpression2696 = new BitSet(new long[]{0x0000000100200002L});
     public static final BitSet FOLLOW_ruleShiftOperator_in_entryRuleShiftOperator2734 = new BitSet(new long[]{0x0000000000000000L});
     public static final BitSet FOLLOW_EOF_in_entryRuleShiftOperator2745 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_KEYWORD_29_in_ruleShiftOperator2783 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_KEYWORD_37_in_ruleShiftOperator2802 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_ruleShiftExpression_in_entryRuleShiftExpression2841 = new BitSet(new long[]{0x0000000000000000L});
     public static final BitSet FOLLOW_EOF_in_entryRuleShiftExpression2851 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleAdditiveExpression_in_ruleShiftExpression2901 = new BitSet(new long[]{0x0000000808000002L});
-    public static final BitSet FOLLOW_ruleShiftOperator_in_ruleShiftExpression2934 = new BitSet(new long[]{0x6021E1000040DDE0L,0x0000000000000261L});
-    public static final BitSet FOLLOW_ruleAdditiveExpression_in_ruleShiftExpression2955 = new BitSet(new long[]{0x0000000808000002L});
+    public static final BitSet FOLLOW_ruleAdditiveExpression_in_ruleShiftExpression2901 = new BitSet(new long[]{0x0000001010000002L});
+    public static final BitSet FOLLOW_ruleShiftOperator_in_ruleShiftExpression2934 = new BitSet(new long[]{0xC043C2000081BBE0L,0x00000000000004C2L});
+    public static final BitSet FOLLOW_ruleAdditiveExpression_in_ruleShiftExpression2955 = new BitSet(new long[]{0x0000001010000002L});
     public static final BitSet FOLLOW_ruleAdditiveOperator_in_entryRuleAdditiveOperator2993 = new BitSet(new long[]{0x0000000000000000L});
     public static final BitSet FOLLOW_EOF_in_entryRuleAdditiveOperator3004 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_KEYWORD_7_in_ruleAdditiveOperator3042 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_KEYWORD_9_in_ruleAdditiveOperator3061 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_ruleAdditiveExpression_in_entryRuleAdditiveExpression3100 = new BitSet(new long[]{0x0000000000000000L});
     public static final BitSet FOLLOW_EOF_in_entryRuleAdditiveExpression3110 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleMultiplicativeExpression_in_ruleAdditiveExpression3160 = new BitSet(new long[]{0x0028000000000002L});
-    public static final BitSet FOLLOW_ruleAdditiveOperator_in_ruleAdditiveExpression3193 = new BitSet(new long[]{0x6021E1000040DDE0L,0x0000000000000261L});
-    public static final BitSet FOLLOW_ruleMultiplicativeExpression_in_ruleAdditiveExpression3214 = new BitSet(new long[]{0x0028000000000002L});
+    public static final BitSet FOLLOW_ruleMultiplicativeExpression_in_ruleAdditiveExpression3160 = new BitSet(new long[]{0x0050000000000002L});
+    public static final BitSet FOLLOW_ruleAdditiveOperator_in_ruleAdditiveExpression3193 = new BitSet(new long[]{0xC043C2000081BBE0L,0x00000000000004C2L});
+    public static final BitSet FOLLOW_ruleMultiplicativeExpression_in_ruleAdditiveExpression3214 = new BitSet(new long[]{0x0050000000000002L});
     public static final BitSet FOLLOW_ruleMultiplicativeOperator_in_entryRuleMultiplicativeOperator3252 = new BitSet(new long[]{0x0000000000000000L});
     public static final BitSet FOLLOW_EOF_in_entryRuleMultiplicativeOperator3263 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_KEYWORD_6_in_ruleMultiplicativeOperator3301 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_KEYWORD_10_in_ruleMultiplicativeOperator3320 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_ruleMultiplicativeExpression_in_entryRuleMultiplicativeExpression3359 = new BitSet(new long[]{0x0000000000000000L});
     public static final BitSet FOLLOW_EOF_in_entryRuleMultiplicativeExpression3369 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleMatchingExpression_in_ruleMultiplicativeExpression3419 = new BitSet(new long[]{0x0044000000000002L});
-    public static final BitSet FOLLOW_ruleMultiplicativeOperator_in_ruleMultiplicativeExpression3452 = new BitSet(new long[]{0x6021E1000040DDE0L,0x0000000000000261L});
-    public static final BitSet FOLLOW_ruleMatchingExpression_in_ruleMultiplicativeExpression3473 = new BitSet(new long[]{0x0044000000000002L});
+    public static final BitSet FOLLOW_ruleMatchingExpression_in_ruleMultiplicativeExpression3419 = new BitSet(new long[]{0x0088000000000002L});
+    public static final BitSet FOLLOW_ruleMultiplicativeOperator_in_ruleMultiplicativeExpression3452 = new BitSet(new long[]{0xC043C2000081BBE0L,0x00000000000004C2L});
+    public static final BitSet FOLLOW_ruleMatchingExpression_in_ruleMultiplicativeExpression3473 = new BitSet(new long[]{0x0088000000000002L});
     public static final BitSet FOLLOW_ruleMatchingOperator_in_entryRuleMatchingOperator3511 = new BitSet(new long[]{0x0000000000000000L});
     public static final BitSet FOLLOW_EOF_in_entryRuleMatchingOperator3522 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_KEYWORD_35_in_ruleMatchingOperator3560 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_KEYWORD_23_in_ruleMatchingOperator3579 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_ruleMatchingExpression_in_entryRuleMatchingExpression3618 = new BitSet(new long[]{0x0000000000000000L});
     public static final BitSet FOLLOW_EOF_in_entryRuleMatchingExpression3628 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleInExpression_in_ruleMatchingExpression3678 = new BitSet(new long[]{0x0000000200200002L});
-    public static final BitSet FOLLOW_ruleMatchingOperator_in_ruleMatchingExpression3711 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000200L});
-    public static final BitSet FOLLOW_ruleLiteralRegex_in_ruleMatchingExpression3732 = new BitSet(new long[]{0x0000000200200002L});
+    public static final BitSet FOLLOW_ruleInExpression_in_ruleMatchingExpression3678 = new BitSet(new long[]{0x0000000400400002L});
+    public static final BitSet FOLLOW_ruleMatchingOperator_in_ruleMatchingExpression3711 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000400L});
+    public static final BitSet FOLLOW_ruleLiteralRegex_in_ruleMatchingExpression3732 = new BitSet(new long[]{0x0000000400400002L});
     public static final BitSet FOLLOW_ruleInExpression_in_entryRuleInExpression3769 = new BitSet(new long[]{0x0000000000000000L});
     public static final BitSet FOLLOW_EOF_in_entryRuleInExpression3779 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleUnaryOrHigherExpression_in_ruleInExpression3829 = new BitSet(new long[]{0x0000020000000002L});
-    public static final BitSet FOLLOW_KEYWORD_43_in_ruleInExpression3860 = new BitSet(new long[]{0x6021E1000040DDE0L,0x0000000000000261L});
-    public static final BitSet FOLLOW_ruleUnaryOrHigherExpression_in_ruleInExpression3892 = new BitSet(new long[]{0x0000020000000002L});
+    public static final BitSet FOLLOW_ruleUnaryOrHigherExpression_in_ruleInExpression3829 = new BitSet(new long[]{0x0000040000000002L});
+    public static final BitSet FOLLOW_KEYWORD_43_in_ruleInExpression3860 = new BitSet(new long[]{0xC043C2000081BBE0L,0x00000000000004C2L});
+    public static final BitSet FOLLOW_ruleUnaryOrHigherExpression_in_ruleInExpression3892 = new BitSet(new long[]{0x0000040000000002L});
     public static final BitSet FOLLOW_ruleUnaryOrHigherExpression_in_entryRuleUnaryOrHigherExpression3929 = new BitSet(new long[]{0x0000000000000000L});
     public static final BitSet FOLLOW_EOF_in_entryRuleUnaryOrHigherExpression3939 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_ruleUnaryMinusExpression_in_ruleUnaryOrHigherExpression3989 = new BitSet(new long[]{0x0000000000000002L});
@@ -19998,18 +20226,18 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
     public static final BitSet FOLLOW_ruleCollectExpression_in_ruleUnaryOrHigherExpression4049 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_ruleUnaryMinusExpression_in_entryRuleUnaryMinusExpression4083 = new BitSet(new long[]{0x0000000000000000L});
     public static final BitSet FOLLOW_EOF_in_entryRuleUnaryMinusExpression4093 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_KEYWORD_9_in_ruleUnaryMinusExpression4131 = new BitSet(new long[]{0x6021E1000040DDE0L,0x0000000000000261L});
+    public static final BitSet FOLLOW_KEYWORD_9_in_ruleUnaryMinusExpression4131 = new BitSet(new long[]{0xC043C2000081BBE0L,0x00000000000004C2L});
     public static final BitSet FOLLOW_ruleCollectExpression_in_ruleUnaryMinusExpression4151 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_ruleNotExpression_in_entryRuleNotExpression4186 = new BitSet(new long[]{0x0000000000000000L});
     public static final BitSet FOLLOW_EOF_in_entryRuleNotExpression4196 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_KEYWORD_1_in_ruleNotExpression4234 = new BitSet(new long[]{0x6021E1000040DDE0L,0x0000000000000261L});
+    public static final BitSet FOLLOW_KEYWORD_1_in_ruleNotExpression4234 = new BitSet(new long[]{0xC043C2000081BBE0L,0x00000000000004C2L});
     public static final BitSet FOLLOW_ruleCollectExpression_in_ruleNotExpression4254 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_ruleCollectExpression_in_entryRuleCollectExpression4289 = new BitSet(new long[]{0x0000000000000000L});
     public static final BitSet FOLLOW_EOF_in_entryRuleCollectExpression4299 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleSelectorExpression_in_ruleCollectExpression4349 = new BitSet(new long[]{0x0000000020010002L});
-    public static final BitSet FOLLOW_ruleCollectQuery_in_ruleCollectExpression4382 = new BitSet(new long[]{0x0000000000000002L,0x0000000000000001L});
-    public static final BitSet FOLLOW_KEYWORD_20_in_ruleCollectExpression4396 = new BitSet(new long[]{0x6021E1000040DDE0L,0x0000000000000263L});
-    public static final BitSet FOLLOW_ruleAttributeOperations_in_ruleCollectExpression4416 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleSelectorExpression_in_ruleCollectExpression4349 = new BitSet(new long[]{0x0000000040020002L});
+    public static final BitSet FOLLOW_ruleCollectQuery_in_ruleCollectExpression4382 = new BitSet(new long[]{0x0000000000000002L,0x0000000000000002L});
+    public static final BitSet FOLLOW_KEYWORD_20_in_ruleCollectExpression4396 = new BitSet(new long[]{0xC043C2000081BBE0L,0x00000000000004C6L});
+    public static final BitSet FOLLOW_ruleAttributeOperations_in_ruleCollectExpression4416 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000004L});
     public static final BitSet FOLLOW_KEYWORD_21_in_ruleCollectExpression4430 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_ruleCollectQuery_in_entryRuleCollectQuery4468 = new BitSet(new long[]{0x0000000000000000L});
     public static final BitSet FOLLOW_EOF_in_entryRuleCollectQuery4478 = new BitSet(new long[]{0x0000000000000002L});
@@ -20017,385 +20245,393 @@ public class InternalPPParser extends AbstractInternalAntlrParser {
     public static final BitSet FOLLOW_ruleExportedCollectQuery_in_ruleCollectQuery4558 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_ruleVirtualCollectQuery_in_entryRuleVirtualCollectQuery4592 = new BitSet(new long[]{0x0000000000000000L});
     public static final BitSet FOLLOW_EOF_in_entryRuleVirtualCollectQuery4602 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_KEYWORD_31_in_ruleVirtualCollectQuery4652 = new BitSet(new long[]{0x6021E9000040DDE0L,0x0000000000000261L});
-    public static final BitSet FOLLOW_ruleExpression_in_ruleVirtualCollectQuery4672 = new BitSet(new long[]{0x0000080000000000L});
+    public static final BitSet FOLLOW_KEYWORD_31_in_ruleVirtualCollectQuery4652 = new BitSet(new long[]{0xC043D2000081BBE0L,0x00000000000004C2L});
+    public static final BitSet FOLLOW_ruleExpression_in_ruleVirtualCollectQuery4672 = new BitSet(new long[]{0x0000100000000000L});
     public static final BitSet FOLLOW_KEYWORD_45_in_ruleVirtualCollectQuery4686 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_ruleExportedCollectQuery_in_entryRuleExportedCollectQuery4720 = new BitSet(new long[]{0x0000000000000000L});
     public static final BitSet FOLLOW_EOF_in_entryRuleExportedCollectQuery4730 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_KEYWORD_47_in_ruleExportedCollectQuery4780 = new BitSet(new long[]{0x6021E1000048DDE0L,0x0000000000000261L});
-    public static final BitSet FOLLOW_ruleExpression_in_ruleExportedCollectQuery4800 = new BitSet(new long[]{0x0000000000080000L});
+    public static final BitSet FOLLOW_KEYWORD_47_in_ruleExportedCollectQuery4780 = new BitSet(new long[]{0xC043C2000091BBE0L,0x00000000000004C2L});
+    public static final BitSet FOLLOW_ruleExpression_in_ruleExportedCollectQuery4800 = new BitSet(new long[]{0x0000000000100000L});
     public static final BitSet FOLLOW_KEYWORD_50_in_ruleExportedCollectQuery4814 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_ruleSelectorExpression_in_entryRuleSelectorExpression4848 = new BitSet(new long[]{0x0000000000000000L});
     public static final BitSet FOLLOW_EOF_in_entryRuleSelectorExpression4858 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleAtExpression_in_ruleSelectorExpression4908 = new BitSet(new long[]{0x1000000000000002L});
-    public static final BitSet FOLLOW_KEYWORD_16_in_ruleSelectorExpression4933 = new BitSet(new long[]{0x6021E1000040DDE0L,0x0000000000000261L});
-    public static final BitSet FOLLOW_KEYWORD_20_in_ruleSelectorExpression4947 = new BitSet(new long[]{0x6021E1000040DDE0L,0x0000000000000261L});
-    public static final BitSet FOLLOW_ruleSelectorEntry_in_ruleSelectorExpression4967 = new BitSet(new long[]{0x6031E1000040DDE0L,0x0000000000000263L});
-    public static final BitSet FOLLOW_KEYWORD_8_in_ruleSelectorExpression4982 = new BitSet(new long[]{0x6021E1000040DDE0L,0x0000000000000261L});
-    public static final BitSet FOLLOW_ruleSelectorEntry_in_ruleSelectorExpression5002 = new BitSet(new long[]{0x6031E1000040DDE0L,0x0000000000000263L});
-    public static final BitSet FOLLOW_ruleSelectorEntry_in_ruleSelectorExpression5030 = new BitSet(new long[]{0x6031E1000040DDE0L,0x0000000000000263L});
-    public static final BitSet FOLLOW_KEYWORD_8_in_ruleSelectorExpression5046 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleAtExpression_in_ruleSelectorExpression4908 = new BitSet(new long[]{0x2000000000000002L});
+    public static final BitSet FOLLOW_KEYWORD_16_in_ruleSelectorExpression4933 = new BitSet(new long[]{0xC043C2000081BBE0L,0x00000000000004C2L});
+    public static final BitSet FOLLOW_KEYWORD_20_in_ruleSelectorExpression4947 = new BitSet(new long[]{0xC043C2000081BBE0L,0x00000000000004C2L});
+    public static final BitSet FOLLOW_ruleSelectorEntry_in_ruleSelectorExpression4967 = new BitSet(new long[]{0xC063C2000081BBE0L,0x00000000000004C6L});
+    public static final BitSet FOLLOW_KEYWORD_8_in_ruleSelectorExpression4982 = new BitSet(new long[]{0xC043C2000081BBE0L,0x00000000000004C2L});
+    public static final BitSet FOLLOW_ruleSelectorEntry_in_ruleSelectorExpression5002 = new BitSet(new long[]{0xC063C2000081BBE0L,0x00000000000004C6L});
+    public static final BitSet FOLLOW_ruleSelectorEntry_in_ruleSelectorExpression5030 = new BitSet(new long[]{0xC063C2000081BBE0L,0x00000000000004C6L});
+    public static final BitSet FOLLOW_KEYWORD_8_in_ruleSelectorExpression5046 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000004L});
     public static final BitSet FOLLOW_KEYWORD_21_in_ruleSelectorExpression5060 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_ruleSelectorEntry_in_ruleSelectorExpression5087 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_ruleSelectorEntry_in_entryRuleSelectorEntry5125 = new BitSet(new long[]{0x0000000000000000L});
     public static final BitSet FOLLOW_EOF_in_entryRuleSelectorEntry5135 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleExpression_in_ruleSelectorEntry5185 = new BitSet(new long[]{0x0000000100000002L});
-    public static final BitSet FOLLOW_KEYWORD_34_in_ruleSelectorEntry5210 = new BitSet(new long[]{0x6021E1000040DDE0L,0x0000000000000261L});
+    public static final BitSet FOLLOW_ruleExpression_in_ruleSelectorEntry5185 = new BitSet(new long[]{0x0000000200000002L});
+    public static final BitSet FOLLOW_KEYWORD_34_in_ruleSelectorEntry5210 = new BitSet(new long[]{0xC043C2000081BBE0L,0x00000000000004C2L});
     public static final BitSet FOLLOW_ruleExpression_in_ruleSelectorEntry5230 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_ruleAtExpression_in_entryRuleAtExpression5267 = new BitSet(new long[]{0x0000000000000000L});
     public static final BitSet FOLLOW_EOF_in_entryRuleAtExpression5277 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleFunctionCall_in_ruleAtExpression5327 = new BitSet(new long[]{0x4000000000000002L});
-    public static final BitSet FOLLOW_KEYWORD_18_in_ruleAtExpression5352 = new BitSet(new long[]{0xE021E1000040DDE0L,0x0000000000000261L});
-    public static final BitSet FOLLOW_ruleExpression_in_ruleAtExpression5373 = new BitSet(new long[]{0x8010000000000000L});
-    public static final BitSet FOLLOW_KEYWORD_8_in_ruleAtExpression5387 = new BitSet(new long[]{0x6021E1000040DDE0L,0x0000000000000261L});
-    public static final BitSet FOLLOW_ruleExpression_in_ruleAtExpression5407 = new BitSet(new long[]{0x8010000000000000L});
-    public static final BitSet FOLLOW_KEYWORD_19_in_ruleAtExpression5424 = new BitSet(new long[]{0x4000000000000002L});
+    public static final BitSet FOLLOW_ruleFunctionCall_in_ruleAtExpression5327 = new BitSet(new long[]{0x8000000000000002L});
+    public static final BitSet FOLLOW_KEYWORD_18_in_ruleAtExpression5352 = new BitSet(new long[]{0xC043C2000081BBE0L,0x00000000000004C3L});
+    public static final BitSet FOLLOW_ruleExpression_in_ruleAtExpression5373 = new BitSet(new long[]{0x0020000000000000L,0x0000000000000001L});
+    public static final BitSet FOLLOW_KEYWORD_8_in_ruleAtExpression5387 = new BitSet(new long[]{0xC043C2000081BBE0L,0x00000000000004C2L});
+    public static final BitSet FOLLOW_ruleExpression_in_ruleAtExpression5407 = new BitSet(new long[]{0x0020000000000000L,0x0000000000000001L});
+    public static final BitSet FOLLOW_KEYWORD_19_in_ruleAtExpression5424 = new BitSet(new long[]{0x8000000000000002L});
     public static final BitSet FOLLOW_ruleFunctionCall_in_entryRuleFunctionCall5460 = new BitSet(new long[]{0x0000000000000000L});
     public static final BitSet FOLLOW_EOF_in_entryRuleFunctionCall5470 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rulePrimaryExpression_in_ruleFunctionCall5520 = new BitSet(new long[]{0x0001000000000002L});
-    public static final BitSet FOLLOW_KEYWORD_4_in_ruleFunctionCall5545 = new BitSet(new long[]{0x6023E1000040DDE0L,0x0000000000000261L});
-    public static final BitSet FOLLOW_ruleExpression_in_ruleFunctionCall5566 = new BitSet(new long[]{0x0012000000000000L});
-    public static final BitSet FOLLOW_KEYWORD_8_in_ruleFunctionCall5580 = new BitSet(new long[]{0x6021E1000040DDE0L,0x0000000000000261L});
-    public static final BitSet FOLLOW_ruleExpression_in_ruleFunctionCall5600 = new BitSet(new long[]{0x0012000000000000L});
-    public static final BitSet FOLLOW_KEYWORD_8_in_ruleFunctionCall5616 = new BitSet(new long[]{0x0002000000000000L});
+    public static final BitSet FOLLOW_rulePrimaryExpression_in_ruleFunctionCall5520 = new BitSet(new long[]{0x0002000000000002L});
+    public static final BitSet FOLLOW_KEYWORD_4_in_ruleFunctionCall5545 = new BitSet(new long[]{0xC047C2000081BBE0L,0x00000000000004C2L});
+    public static final BitSet FOLLOW_ruleExpression_in_ruleFunctionCall5566 = new BitSet(new long[]{0x0024000000000000L});
+    public static final BitSet FOLLOW_KEYWORD_8_in_ruleFunctionCall5580 = new BitSet(new long[]{0xC043C2000081BBE0L,0x00000000000004C2L});
+    public static final BitSet FOLLOW_ruleExpression_in_ruleFunctionCall5600 = new BitSet(new long[]{0x0024000000000000L});
+    public static final BitSet FOLLOW_KEYWORD_8_in_ruleFunctionCall5616 = new BitSet(new long[]{0x0004000000000000L});
     public static final BitSet FOLLOW_KEYWORD_5_in_ruleFunctionCall5632 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rulePrimaryExpression_in_entryRulePrimaryExpression5668 = new BitSet(new long[]{0x0000000000000000L});
     public static final BitSet FOLLOW_EOF_in_entryRulePrimaryExpression5678 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_ruleIfExpression_in_rulePrimaryExpression5728 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleCaseExpression_in_rulePrimaryExpression5758 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleImportExpression_in_rulePrimaryExpression5788 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleDefinition_in_rulePrimaryExpression5818 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleHostClassDefinition_in_rulePrimaryExpression5848 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleNodeDefinition_in_rulePrimaryExpression5878 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleVirtualNameOrReference_in_rulePrimaryExpression5908 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleLiteralExpression_in_rulePrimaryExpression5938 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleVariableExpression_in_rulePrimaryExpression5968 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleParenthisedExpression_in_rulePrimaryExpression5998 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleNodeDefinition_in_entryRuleNodeDefinition6032 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleNodeDefinition6042 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_KEYWORD_53_in_ruleNodeDefinition6080 = new BitSet(new long[]{0x4000C00000408C20L,0x0000000000000241L});
-    public static final BitSet FOLLOW_ruleHostReference_in_ruleNodeDefinition6100 = new BitSet(new long[]{0x0010000000000010L,0x0000000000000001L});
-    public static final BitSet FOLLOW_KEYWORD_8_in_ruleNodeDefinition6114 = new BitSet(new long[]{0x4000C00000408C20L,0x0000000000000241L});
-    public static final BitSet FOLLOW_ruleHostReference_in_ruleNodeDefinition6134 = new BitSet(new long[]{0x0010000000000010L,0x0000000000000001L});
-    public static final BitSet FOLLOW_KEYWORD_62_in_ruleNodeDefinition6150 = new BitSet(new long[]{0x4000C00000408C20L,0x0000000000000241L});
-    public static final BitSet FOLLOW_ruleHostReference_in_ruleNodeDefinition6170 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000001L});
-    public static final BitSet FOLLOW_KEYWORD_20_in_ruleNodeDefinition6185 = new BitSet(new long[]{0x6021E1000040DDE0L,0x0000000000000263L});
-    public static final BitSet FOLLOW_ruleExpressionList_in_ruleNodeDefinition6205 = new BitSet(new long[]{0x6021E1000040DDE0L,0x0000000000000263L});
-    public static final BitSet FOLLOW_KEYWORD_21_in_ruleNodeDefinition6219 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleHostReference_in_entryRuleHostReference6253 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleHostReference6263 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleStringExpression_in_ruleHostReference6313 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleLiteralRegex_in_ruleHostReference6343 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleLiteralDefault_in_ruleHostReference6373 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleLiteralNameOrReference_in_ruleHostReference6403 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleHostClassDefinition_in_entryRuleHostClassDefinition6437 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleHostClassDefinition6447 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_KEYWORD_55_in_ruleHostClassDefinition6485 = new BitSet(new long[]{0x4000C00000408D20L,0x0000000000000241L});
-    public static final BitSet FOLLOW_ruleclassname_in_ruleHostClassDefinition6505 = new BitSet(new long[]{0x0001000000000010L,0x0000000000000001L});
-    public static final BitSet FOLLOW_ruleDefinitionArgumentList_in_ruleHostClassDefinition6526 = new BitSet(new long[]{0x0000000000000010L,0x0000000000000001L});
-    public static final BitSet FOLLOW_KEYWORD_62_in_ruleHostClassDefinition6541 = new BitSet(new long[]{0x6021E1000040DDE0L,0x0000000000000261L});
-    public static final BitSet FOLLOW_ruleParentName_in_ruleHostClassDefinition6561 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000001L});
-    public static final BitSet FOLLOW_KEYWORD_20_in_ruleHostClassDefinition6576 = new BitSet(new long[]{0x6021E1000040DDE0L,0x0000000000000263L});
-    public static final BitSet FOLLOW_ruleExpressionList_in_ruleHostClassDefinition6596 = new BitSet(new long[]{0x6021E1000040DDE0L,0x0000000000000263L});
-    public static final BitSet FOLLOW_KEYWORD_21_in_ruleHostClassDefinition6610 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleParentName_in_entryRuleParentName6644 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleParentName6654 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleLiteralDefault_in_ruleParentName6704 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleLiteralClass_in_ruleParentName6734 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleLiteralNameOrReference_in_ruleParentName6764 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleDefinition_in_entryRuleDefinition6798 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleDefinition6808 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_KEYWORD_59_in_ruleDefinition6846 = new BitSet(new long[]{0x4000C00000408D20L,0x0000000000000241L});
-    public static final BitSet FOLLOW_ruleclassname_in_ruleDefinition6866 = new BitSet(new long[]{0x0001000000000000L,0x0000000000000001L});
-    public static final BitSet FOLLOW_ruleDefinitionArgumentList_in_ruleDefinition6887 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000001L});
-    public static final BitSet FOLLOW_KEYWORD_20_in_ruleDefinition6901 = new BitSet(new long[]{0x6021E1000040DDE0L,0x0000000000000263L});
-    public static final BitSet FOLLOW_ruleExpressionList_in_ruleDefinition6921 = new BitSet(new long[]{0x6021E1000040DDE0L,0x0000000000000263L});
-    public static final BitSet FOLLOW_KEYWORD_21_in_ruleDefinition6935 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleDefinitionArgumentList_in_entryRuleDefinitionArgumentList6969 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleDefinitionArgumentList6979 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_KEYWORD_4_in_ruleDefinitionArgumentList7029 = new BitSet(new long[]{0x4012C00000408C20L,0x0000000000000261L});
-    public static final BitSet FOLLOW_ruleDefinitionArgument_in_ruleDefinitionArgumentList7050 = new BitSet(new long[]{0x0012000000000000L});
-    public static final BitSet FOLLOW_KEYWORD_8_in_ruleDefinitionArgumentList7064 = new BitSet(new long[]{0x4000C00000408C20L,0x0000000000000261L});
-    public static final BitSet FOLLOW_ruleDefinitionArgument_in_ruleDefinitionArgumentList7084 = new BitSet(new long[]{0x0012000000000000L});
-    public static final BitSet FOLLOW_KEYWORD_8_in_ruleDefinitionArgumentList7102 = new BitSet(new long[]{0x0002000000000000L});
-    public static final BitSet FOLLOW_KEYWORD_5_in_ruleDefinitionArgumentList7116 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleDefinitionArgument_in_entryRuleDefinitionArgument7150 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleDefinitionArgument7160 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleUNION_VARIABLE_OR_NAME_in_ruleDefinitionArgument7206 = new BitSet(new long[]{0x0400000100000002L});
-    public static final BitSet FOLLOW_KEYWORD_14_in_ruleDefinitionArgument7227 = new BitSet(new long[]{0x6021E1000040DDE0L,0x0000000000000261L});
-    public static final BitSet FOLLOW_KEYWORD_34_in_ruleDefinitionArgument7263 = new BitSet(new long[]{0x6021E1000040DDE0L,0x0000000000000261L});
-    public static final BitSet FOLLOW_ruleAssignmentExpression_in_ruleDefinitionArgument7296 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleCaseExpression_in_entryRuleCaseExpression7333 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleCaseExpression7343 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_KEYWORD_51_in_ruleCaseExpression7381 = new BitSet(new long[]{0x6021E1000040DDE0L,0x0000000000000261L});
-    public static final BitSet FOLLOW_ruleAssignmentExpression_in_ruleCaseExpression7401 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000001L});
-    public static final BitSet FOLLOW_KEYWORD_20_in_ruleCaseExpression7414 = new BitSet(new long[]{0x6021E1000040DDE0L,0x0000000000000263L});
-    public static final BitSet FOLLOW_ruleCase_in_ruleCaseExpression7434 = new BitSet(new long[]{0x6021E1000040DDE0L,0x0000000000000263L});
-    public static final BitSet FOLLOW_KEYWORD_21_in_ruleCaseExpression7448 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleCase_in_entryRuleCase7482 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleCase7492 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleAssignmentExpression_in_ruleCase7538 = new BitSet(new long[]{0x0090000000000000L});
-    public static final BitSet FOLLOW_KEYWORD_8_in_ruleCase7552 = new BitSet(new long[]{0x6021E1000040DDE0L,0x0000000000000261L});
-    public static final BitSet FOLLOW_ruleAssignmentExpression_in_ruleCase7572 = new BitSet(new long[]{0x0090000000000000L});
-    public static final BitSet FOLLOW_KEYWORD_11_in_ruleCase7587 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000001L});
-    public static final BitSet FOLLOW_KEYWORD_20_in_ruleCase7599 = new BitSet(new long[]{0x6021E1000040DDE0L,0x0000000000000263L});
-    public static final BitSet FOLLOW_ruleExpressionList_in_ruleCase7619 = new BitSet(new long[]{0x6021E1000040DDE0L,0x0000000000000263L});
-    public static final BitSet FOLLOW_KEYWORD_21_in_ruleCase7633 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleIfExpression_in_entryRuleIfExpression7667 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleIfExpression7677 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_KEYWORD_42_in_ruleIfExpression7715 = new BitSet(new long[]{0x6021E1000040DDE0L,0x0000000000000261L});
-    public static final BitSet FOLLOW_ruleAssignmentExpression_in_ruleIfExpression7735 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000001L});
-    public static final BitSet FOLLOW_KEYWORD_20_in_ruleIfExpression7748 = new BitSet(new long[]{0x6021E1000040DDE0L,0x0000000000000263L});
-    public static final BitSet FOLLOW_ruleExpressionList_in_ruleIfExpression7768 = new BitSet(new long[]{0x6021E1000040DDE0L,0x0000000000000263L});
-    public static final BitSet FOLLOW_KEYWORD_21_in_ruleIfExpression7782 = new BitSet(new long[]{0x0000000000002202L});
-    public static final BitSet FOLLOW_KEYWORD_56_in_ruleIfExpression7803 = new BitSet(new long[]{0x6021E1000040DDE0L,0x0000000000000261L});
-    public static final BitSet FOLLOW_ruleElseIfExpression_in_ruleIfExpression7824 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_KEYWORD_52_in_ruleIfExpression7852 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000001L});
-    public static final BitSet FOLLOW_ruleElseExpression_in_ruleIfExpression7873 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleElseExpression_in_entryRuleElseExpression7911 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleElseExpression7921 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_KEYWORD_20_in_ruleElseExpression7971 = new BitSet(new long[]{0x6021E1000040DDE0L,0x0000000000000263L});
-    public static final BitSet FOLLOW_ruleExpressionList_in_ruleElseExpression7991 = new BitSet(new long[]{0x6021E1000040DDE0L,0x0000000000000263L});
-    public static final BitSet FOLLOW_KEYWORD_21_in_ruleElseExpression8005 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleElseIfExpression_in_entryRuleElseIfExpression8039 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleElseIfExpression8049 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleAssignmentExpression_in_ruleElseIfExpression8107 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000001L});
-    public static final BitSet FOLLOW_KEYWORD_20_in_ruleElseIfExpression8120 = new BitSet(new long[]{0x6021E1000040DDE0L,0x0000000000000263L});
-    public static final BitSet FOLLOW_ruleExpressionList_in_ruleElseIfExpression8140 = new BitSet(new long[]{0x6021E1000040DDE0L,0x0000000000000263L});
-    public static final BitSet FOLLOW_KEYWORD_21_in_ruleElseIfExpression8154 = new BitSet(new long[]{0x0000000000002202L});
-    public static final BitSet FOLLOW_KEYWORD_56_in_ruleElseIfExpression8175 = new BitSet(new long[]{0x6021E1000040DDE0L,0x0000000000000261L});
-    public static final BitSet FOLLOW_ruleElseIfExpression_in_ruleElseIfExpression8196 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_KEYWORD_52_in_ruleElseIfExpression8224 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000001L});
-    public static final BitSet FOLLOW_ruleElseExpression_in_ruleElseIfExpression8245 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleLiteralExpression_in_entryRuleLiteralExpression8283 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleLiteralExpression8293 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleLiteralBoolean_in_ruleLiteralExpression8343 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleLiteralUndef_in_ruleLiteralExpression8373 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleLiteralDefault_in_ruleLiteralExpression8403 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleLiteralList_in_ruleLiteralExpression8433 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleLiteralHash_in_ruleLiteralExpression8463 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleLiteralRegex_in_ruleLiteralExpression8493 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleStringExpression_in_ruleLiteralExpression8523 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleLiteralNameOrReference_in_ruleLiteralExpression8553 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleLiteralNameOrReference_in_entryRuleLiteralNameOrReference8587 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleLiteralNameOrReference8597 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rulename_in_ruleLiteralNameOrReference8642 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleUNION_VARIABLE_OR_NAME_in_entryRuleUNION_VARIABLE_OR_NAME8677 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleUNION_VARIABLE_OR_NAME8688 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruledollarVariable_in_ruleUNION_VARIABLE_OR_NAME8735 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rulename_in_ruleUNION_VARIABLE_OR_NAME8768 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleParenthisedExpression_in_entryRuleParenthisedExpression8812 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleParenthisedExpression8822 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_KEYWORD_4_in_ruleParenthisedExpression8860 = new BitSet(new long[]{0x6023E1000040DDE0L,0x0000000000000261L});
-    public static final BitSet FOLLOW_ruleAssignmentExpression_in_ruleParenthisedExpression8892 = new BitSet(new long[]{0x0002000000000000L});
-    public static final BitSet FOLLOW_KEYWORD_5_in_ruleParenthisedExpression8906 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleVirtualNameOrReference_in_entryRuleVirtualNameOrReference8940 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleVirtualNameOrReference8950 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_KEYWORD_17_in_ruleVirtualNameOrReference8988 = new BitSet(new long[]{0x2000000000000120L,0x0000000000000040L});
-    public static final BitSet FOLLOW_ruleATBoolean_in_ruleVirtualNameOrReference9008 = new BitSet(new long[]{0x2000000000000120L,0x0000000000000040L});
-    public static final BitSet FOLLOW_ruleunionNameOrReference_in_ruleVirtualNameOrReference9030 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleATBoolean_in_entryRuleATBoolean9066 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleATBoolean9077 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_KEYWORD_17_in_ruleATBoolean9114 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleImportExpression_in_entryRuleImportExpression9152 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleImportExpression9162 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_KEYWORD_60_in_ruleImportExpression9212 = new BitSet(new long[]{0x0000C00000400002L});
-    public static final BitSet FOLLOW_ruleQuotedString_in_ruleImportExpression9233 = new BitSet(new long[]{0x0010000000000002L});
-    public static final BitSet FOLLOW_KEYWORD_8_in_ruleImportExpression9247 = new BitSet(new long[]{0x0000C00000400000L});
-    public static final BitSet FOLLOW_ruleQuotedString_in_ruleImportExpression9267 = new BitSet(new long[]{0x0010000000000002L});
-    public static final BitSet FOLLOW_ruleLiteralList_in_entryRuleLiteralList9306 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleLiteralList9316 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_KEYWORD_18_in_ruleLiteralList9366 = new BitSet(new long[]{0xE021E1000040DDE0L,0x0000000000000261L});
-    public static final BitSet FOLLOW_ruleAssignmentExpression_in_ruleLiteralList9387 = new BitSet(new long[]{0x8010000000000000L});
-    public static final BitSet FOLLOW_KEYWORD_8_in_ruleLiteralList9401 = new BitSet(new long[]{0x6021E1000040DDE0L,0x0000000000000261L});
-    public static final BitSet FOLLOW_ruleAssignmentExpression_in_ruleLiteralList9421 = new BitSet(new long[]{0x8010000000000000L});
-    public static final BitSet FOLLOW_KEYWORD_8_in_ruleLiteralList9437 = new BitSet(new long[]{0x8000000000000000L});
-    public static final BitSet FOLLOW_KEYWORD_19_in_ruleLiteralList9453 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleLiteralHash_in_entryRuleLiteralHash9487 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleLiteralHash9497 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_KEYWORD_20_in_ruleLiteralHash9547 = new BitSet(new long[]{0x4010C00000408C20L,0x0000000000000243L});
-    public static final BitSet FOLLOW_ruleHashEntry_in_ruleLiteralHash9568 = new BitSet(new long[]{0x0010000000000000L,0x0000000000000002L});
-    public static final BitSet FOLLOW_KEYWORD_8_in_ruleLiteralHash9582 = new BitSet(new long[]{0x4000C00000408C20L,0x0000000000000241L});
-    public static final BitSet FOLLOW_ruleHashEntry_in_ruleLiteralHash9602 = new BitSet(new long[]{0x0010000000000000L,0x0000000000000002L});
-    public static final BitSet FOLLOW_KEYWORD_8_in_ruleLiteralHash9620 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000002L});
-    public static final BitSet FOLLOW_KEYWORD_21_in_ruleLiteralHash9634 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleHashEntry_in_entryRuleHashEntry9668 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleHashEntry9678 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleLiteralNameOrString_in_ruleHashEntry9724 = new BitSet(new long[]{0x0000000100000000L});
-    public static final BitSet FOLLOW_KEYWORD_34_in_ruleHashEntry9737 = new BitSet(new long[]{0x6021E1000040DDE0L,0x0000000000000261L});
-    public static final BitSet FOLLOW_ruleAssignmentExpression_in_ruleHashEntry9757 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleLiteralNameOrString_in_entryRuleLiteralNameOrString9792 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleLiteralNameOrString9802 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleStringExpression_in_ruleLiteralNameOrString9852 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleLiteralName_in_ruleLiteralNameOrString9882 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleBooleanValue_in_entryRuleBooleanValue9917 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleBooleanValue9928 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_KEYWORD_54_in_ruleBooleanValue9966 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_KEYWORD_57_in_ruleBooleanValue9985 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleLiteralBoolean_in_entryRuleLiteralBoolean10024 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleLiteralBoolean10034 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleBooleanValue_in_ruleLiteralBoolean10079 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleLiteralDefault_in_entryRuleLiteralDefault10113 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleLiteralDefault10123 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_KEYWORD_61_in_ruleLiteralDefault10173 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleLiteralUndef_in_entryRuleLiteralUndef10207 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleLiteralUndef10217 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_KEYWORD_58_in_ruleLiteralUndef10267 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleLiteralClass_in_entryRuleLiteralClass10301 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleLiteralClass10311 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_KEYWORD_55_in_ruleLiteralClass10361 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleStringExpression_in_entryRuleStringExpression10401 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleStringExpression10411 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleSingleQuotedString_in_ruleStringExpression10465 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleUnquotedString_in_ruleStringExpression10495 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleDoubleQuotedString_in_ruleStringExpression10525 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleQuotedString_in_entryRuleQuotedString10569 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleQuotedString10579 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleDoubleQuotedString_in_ruleQuotedString10633 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleSingleQuotedString_in_ruleQuotedString10663 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleSingleQuotedString_in_entryRuleSingleQuotedString10701 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleSingleQuotedString10711 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rulesqText_in_ruleSingleQuotedString10775 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleDoubleQuotedString_in_entryRuleDoubleQuotedString10816 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleDoubleQuotedString10826 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_KEYWORD_2_in_ruleDoubleQuotedString10868 = new BitSet(new long[]{0x000040F000420000L,0x0000000000002070L});
-    public static final BitSet FOLLOW_ruleTextExpression_in_ruleDoubleQuotedString10900 = new BitSet(new long[]{0x000040F000420000L,0x0000000000002070L});
-    public static final BitSet FOLLOW_KEYWORD_2_in_ruleDoubleQuotedString10914 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleTextExpression_in_entryRuleTextExpression10958 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleTextExpression10968 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruledoubleStringCharacters_in_ruleTextExpression11031 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_KEYWORD_24_in_ruleTextExpression11064 = new BitSet(new long[]{0x6021E1000040DDE0L,0x0000000000000263L});
-    public static final BitSet FOLLOW_ruleExpressionWithHidden_in_ruleTextExpression11084 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000002L});
-    public static final BitSet FOLLOW_KEYWORD_21_in_ruleTextExpression11097 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruledollarVariable_in_ruleTextExpression11137 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleExpressionWithHidden_in_entryRuleExpressionWithHidden11183 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleExpressionWithHidden11193 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleAssignmentExpression_in_ruleExpressionWithHidden11255 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleUnquotedString_in_entryRuleUnquotedString11297 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleUnquotedString11307 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_KEYWORD_24_in_ruleUnquotedString11357 = new BitSet(new long[]{0x6021E1000040DDE0L,0x0000000000000263L});
-    public static final BitSet FOLLOW_ruleAssignmentExpression_in_ruleUnquotedString11377 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000002L});
-    public static final BitSet FOLLOW_KEYWORD_21_in_ruleUnquotedString11391 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rulesqText_in_entryRulesqText11432 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRulesqText11443 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_KEYWORD_3_in_rulesqText11494 = new BitSet(new long[]{0x000080F000420000L,0x0000000000002070L});
-    public static final BitSet FOLLOW_rulesingleStringCharacters_in_rulesqText11518 = new BitSet(new long[]{0x0000800000000000L});
-    public static final BitSet FOLLOW_KEYWORD_3_in_rulesqText11538 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleLiteralRegex_in_entryRuleLiteralRegex11581 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleLiteralRegex11591 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_REGULAR_EXPRESSION_in_ruleLiteralRegex11632 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleLiteralName_in_entryRuleLiteralName11671 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleLiteralName11681 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rulename_in_ruleLiteralName11726 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleVariableExpression_in_entryRuleVariableExpression11760 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleVariableExpression11770 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruledollarVariable_in_ruleVariableExpression11815 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruledollarVariable_in_entryRuledollarVariable11856 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuledollarVariable11867 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_DOLLAR_VAR_in_ruledollarVariable11910 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rulename_in_entryRulename11960 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRulename11971 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_WORD_CHARS_in_rulename12010 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleclassname_in_entryRuleclassname12054 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleclassname12065 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rulename_in_ruleclassname12112 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_KEYWORD_55_in_ruleclassname12136 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleunionNameOrReference_in_entryRuleunionNameOrReference12176 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleunionNameOrReference12187 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_WORD_CHARS_in_ruleunionNameOrReference12227 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_KEYWORD_55_in_ruleunionNameOrReference12251 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_KEYWORD_61_in_ruleunionNameOrReference12270 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruledoubleStringCharacters_in_entryRuledoubleStringCharacters12316 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuledoubleStringCharacters12327 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_WORD_CHARS_in_ruledoubleStringCharacters12371 = new BitSet(new long[]{0x000000F000020002L,0x0000000000002050L});
-    public static final BitSet FOLLOW_RULE_ANY_OTHER_in_ruledoubleStringCharacters12397 = new BitSet(new long[]{0x000000F000020002L,0x0000000000002050L});
-    public static final BitSet FOLLOW_RULE_WS_in_ruledoubleStringCharacters12423 = new BitSet(new long[]{0x000000F000020002L,0x0000000000002050L});
-    public static final BitSet FOLLOW_KEYWORD_38_in_ruledoubleStringCharacters12447 = new BitSet(new long[]{0x000000F000020002L,0x0000000000002050L});
-    public static final BitSet FOLLOW_KEYWORD_40_in_ruledoubleStringCharacters12466 = new BitSet(new long[]{0x000000F000020002L,0x0000000000002050L});
-    public static final BitSet FOLLOW_KEYWORD_39_in_ruledoubleStringCharacters12485 = new BitSet(new long[]{0x000000F000020002L,0x0000000000002050L});
-    public static final BitSet FOLLOW_KEYWORD_48_in_ruledoubleStringCharacters12504 = new BitSet(new long[]{0x000000F000020002L,0x0000000000002050L});
-    public static final BitSet FOLLOW_KEYWORD_41_in_ruledoubleStringCharacters12523 = new BitSet(new long[]{0x000000F000020002L,0x0000000000002050L});
-    public static final BitSet FOLLOW_rulesingleStringCharacters_in_entryRulesingleStringCharacters12574 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRulesingleStringCharacters12585 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_WORD_CHARS_in_rulesingleStringCharacters12629 = new BitSet(new long[]{0x000000F000420002L,0x0000000000002070L});
-    public static final BitSet FOLLOW_RULE_ANY_OTHER_in_rulesingleStringCharacters12655 = new BitSet(new long[]{0x000000F000420002L,0x0000000000002070L});
-    public static final BitSet FOLLOW_RULE_WS_in_rulesingleStringCharacters12681 = new BitSet(new long[]{0x000000F000420002L,0x0000000000002070L});
-    public static final BitSet FOLLOW_RULE_DOLLAR_VAR_in_rulesingleStringCharacters12707 = new BitSet(new long[]{0x000000F000420002L,0x0000000000002070L});
-    public static final BitSet FOLLOW_KEYWORD_24_in_rulesingleStringCharacters12731 = new BitSet(new long[]{0x000000F000420002L,0x0000000000002070L});
-    public static final BitSet FOLLOW_KEYWORD_38_in_rulesingleStringCharacters12750 = new BitSet(new long[]{0x000000F000420002L,0x0000000000002070L});
-    public static final BitSet FOLLOW_KEYWORD_40_in_rulesingleStringCharacters12769 = new BitSet(new long[]{0x000000F000420002L,0x0000000000002070L});
-    public static final BitSet FOLLOW_KEYWORD_39_in_rulesingleStringCharacters12788 = new BitSet(new long[]{0x000000F000420002L,0x0000000000002070L});
-    public static final BitSet FOLLOW_KEYWORD_48_in_rulesingleStringCharacters12807 = new BitSet(new long[]{0x000000F000420002L,0x0000000000002070L});
-    public static final BitSet FOLLOW_KEYWORD_41_in_rulesingleStringCharacters12826 = new BitSet(new long[]{0x000000F000420002L,0x0000000000002070L});
-    public static final BitSet FOLLOW_ruleEdgeOperator_in_synpred7_InternalPPParser686 = new BitSet(new long[]{0x6021E1000040DDE0L,0x0000000000000261L});
+    public static final BitSet FOLLOW_ruleUnlessExpression_in_rulePrimaryExpression5758 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleCaseExpression_in_rulePrimaryExpression5788 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleImportExpression_in_rulePrimaryExpression5818 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleDefinition_in_rulePrimaryExpression5848 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleHostClassDefinition_in_rulePrimaryExpression5878 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleNodeDefinition_in_rulePrimaryExpression5908 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleVirtualNameOrReference_in_rulePrimaryExpression5938 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleLiteralExpression_in_rulePrimaryExpression5968 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleVariableExpression_in_rulePrimaryExpression5998 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleParenthisedExpression_in_rulePrimaryExpression6028 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleNodeDefinition_in_entryRuleNodeDefinition6062 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRuleNodeDefinition6072 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_KEYWORD_53_in_ruleNodeDefinition6110 = new BitSet(new long[]{0x8001800000811820L,0x0000000000000482L});
+    public static final BitSet FOLLOW_ruleHostReference_in_ruleNodeDefinition6130 = new BitSet(new long[]{0x0020000000000010L,0x0000000000000002L});
+    public static final BitSet FOLLOW_KEYWORD_8_in_ruleNodeDefinition6144 = new BitSet(new long[]{0x8001800000811820L,0x0000000000000482L});
+    public static final BitSet FOLLOW_ruleHostReference_in_ruleNodeDefinition6164 = new BitSet(new long[]{0x0020000000000010L,0x0000000000000002L});
+    public static final BitSet FOLLOW_KEYWORD_63_in_ruleNodeDefinition6180 = new BitSet(new long[]{0x8001800000811820L,0x0000000000000482L});
+    public static final BitSet FOLLOW_ruleHostReference_in_ruleNodeDefinition6200 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000002L});
+    public static final BitSet FOLLOW_KEYWORD_20_in_ruleNodeDefinition6215 = new BitSet(new long[]{0xC043C2000081BBE0L,0x00000000000004C6L});
+    public static final BitSet FOLLOW_ruleExpressionList_in_ruleNodeDefinition6235 = new BitSet(new long[]{0xC043C2000081BBE0L,0x00000000000004C6L});
+    public static final BitSet FOLLOW_KEYWORD_21_in_ruleNodeDefinition6249 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleHostReference_in_entryRuleHostReference6283 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRuleHostReference6293 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleStringExpression_in_ruleHostReference6343 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleLiteralRegex_in_ruleHostReference6373 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleLiteralDefault_in_ruleHostReference6403 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleLiteralNameOrReference_in_ruleHostReference6433 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleHostClassDefinition_in_entryRuleHostClassDefinition6467 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRuleHostClassDefinition6477 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_KEYWORD_55_in_ruleHostClassDefinition6515 = new BitSet(new long[]{0x8001800000811A20L,0x0000000000000482L});
+    public static final BitSet FOLLOW_ruleclassname_in_ruleHostClassDefinition6535 = new BitSet(new long[]{0x0002000000000010L,0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleDefinitionArgumentList_in_ruleHostClassDefinition6556 = new BitSet(new long[]{0x0000000000000010L,0x0000000000000002L});
+    public static final BitSet FOLLOW_KEYWORD_63_in_ruleHostClassDefinition6571 = new BitSet(new long[]{0xC043C2000081BBE0L,0x00000000000004C2L});
+    public static final BitSet FOLLOW_ruleParentName_in_ruleHostClassDefinition6591 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000002L});
+    public static final BitSet FOLLOW_KEYWORD_20_in_ruleHostClassDefinition6606 = new BitSet(new long[]{0xC043C2000081BBE0L,0x00000000000004C6L});
+    public static final BitSet FOLLOW_ruleExpressionList_in_ruleHostClassDefinition6626 = new BitSet(new long[]{0xC043C2000081BBE0L,0x00000000000004C6L});
+    public static final BitSet FOLLOW_KEYWORD_21_in_ruleHostClassDefinition6640 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleParentName_in_entryRuleParentName6674 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRuleParentName6684 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleLiteralDefault_in_ruleParentName6734 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleLiteralClass_in_ruleParentName6764 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleLiteralNameOrReference_in_ruleParentName6794 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleDefinition_in_entryRuleDefinition6828 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRuleDefinition6838 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_KEYWORD_59_in_ruleDefinition6876 = new BitSet(new long[]{0x8001800000811A20L,0x0000000000000482L});
+    public static final BitSet FOLLOW_ruleclassname_in_ruleDefinition6896 = new BitSet(new long[]{0x0002000000000000L,0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleDefinitionArgumentList_in_ruleDefinition6917 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000002L});
+    public static final BitSet FOLLOW_KEYWORD_20_in_ruleDefinition6931 = new BitSet(new long[]{0xC043C2000081BBE0L,0x00000000000004C6L});
+    public static final BitSet FOLLOW_ruleExpressionList_in_ruleDefinition6951 = new BitSet(new long[]{0xC043C2000081BBE0L,0x00000000000004C6L});
+    public static final BitSet FOLLOW_KEYWORD_21_in_ruleDefinition6965 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleDefinitionArgumentList_in_entryRuleDefinitionArgumentList6999 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRuleDefinitionArgumentList7009 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_KEYWORD_4_in_ruleDefinitionArgumentList7059 = new BitSet(new long[]{0x8025800000811820L,0x00000000000004C2L});
+    public static final BitSet FOLLOW_ruleDefinitionArgument_in_ruleDefinitionArgumentList7080 = new BitSet(new long[]{0x0024000000000000L});
+    public static final BitSet FOLLOW_KEYWORD_8_in_ruleDefinitionArgumentList7094 = new BitSet(new long[]{0x8001800000811820L,0x00000000000004C2L});
+    public static final BitSet FOLLOW_ruleDefinitionArgument_in_ruleDefinitionArgumentList7114 = new BitSet(new long[]{0x0024000000000000L});
+    public static final BitSet FOLLOW_KEYWORD_8_in_ruleDefinitionArgumentList7132 = new BitSet(new long[]{0x0004000000000000L});
+    public static final BitSet FOLLOW_KEYWORD_5_in_ruleDefinitionArgumentList7146 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleDefinitionArgument_in_entryRuleDefinitionArgument7180 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRuleDefinitionArgument7190 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleUNION_VARIABLE_OR_NAME_in_ruleDefinitionArgument7236 = new BitSet(new long[]{0x0800000200000002L});
+    public static final BitSet FOLLOW_KEYWORD_14_in_ruleDefinitionArgument7257 = new BitSet(new long[]{0xC043C2000081BBE0L,0x00000000000004C2L});
+    public static final BitSet FOLLOW_KEYWORD_34_in_ruleDefinitionArgument7293 = new BitSet(new long[]{0xC043C2000081BBE0L,0x00000000000004C2L});
+    public static final BitSet FOLLOW_ruleAssignmentExpression_in_ruleDefinitionArgument7326 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleCaseExpression_in_entryRuleCaseExpression7363 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRuleCaseExpression7373 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_KEYWORD_51_in_ruleCaseExpression7411 = new BitSet(new long[]{0xC043C2000081BBE0L,0x00000000000004C2L});
+    public static final BitSet FOLLOW_ruleAssignmentExpression_in_ruleCaseExpression7431 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000002L});
+    public static final BitSet FOLLOW_KEYWORD_20_in_ruleCaseExpression7444 = new BitSet(new long[]{0xC043C2000081BBE0L,0x00000000000004C6L});
+    public static final BitSet FOLLOW_ruleCase_in_ruleCaseExpression7464 = new BitSet(new long[]{0xC043C2000081BBE0L,0x00000000000004C6L});
+    public static final BitSet FOLLOW_KEYWORD_21_in_ruleCaseExpression7478 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleCase_in_entryRuleCase7512 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRuleCase7522 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleAssignmentExpression_in_ruleCase7568 = new BitSet(new long[]{0x0120000000000000L});
+    public static final BitSet FOLLOW_KEYWORD_8_in_ruleCase7582 = new BitSet(new long[]{0xC043C2000081BBE0L,0x00000000000004C2L});
+    public static final BitSet FOLLOW_ruleAssignmentExpression_in_ruleCase7602 = new BitSet(new long[]{0x0120000000000000L});
+    public static final BitSet FOLLOW_KEYWORD_11_in_ruleCase7617 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000002L});
+    public static final BitSet FOLLOW_KEYWORD_20_in_ruleCase7629 = new BitSet(new long[]{0xC043C2000081BBE0L,0x00000000000004C6L});
+    public static final BitSet FOLLOW_ruleExpressionList_in_ruleCase7649 = new BitSet(new long[]{0xC043C2000081BBE0L,0x00000000000004C6L});
+    public static final BitSet FOLLOW_KEYWORD_21_in_ruleCase7663 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleUnlessExpression_in_entryRuleUnlessExpression7697 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRuleUnlessExpression7707 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_KEYWORD_61_in_ruleUnlessExpression7745 = new BitSet(new long[]{0xC043C2000081BBE0L,0x00000000000004C2L});
+    public static final BitSet FOLLOW_ruleAssignmentExpression_in_ruleUnlessExpression7765 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000002L});
+    public static final BitSet FOLLOW_KEYWORD_20_in_ruleUnlessExpression7778 = new BitSet(new long[]{0xC043C2000081BBE0L,0x00000000000004C6L});
+    public static final BitSet FOLLOW_ruleExpressionList_in_ruleUnlessExpression7798 = new BitSet(new long[]{0xC043C2000081BBE0L,0x00000000000004C6L});
+    public static final BitSet FOLLOW_KEYWORD_21_in_ruleUnlessExpression7812 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleIfExpression_in_entryRuleIfExpression7846 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRuleIfExpression7856 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_KEYWORD_42_in_ruleIfExpression7894 = new BitSet(new long[]{0xC043C2000081BBE0L,0x00000000000004C2L});
+    public static final BitSet FOLLOW_ruleAssignmentExpression_in_ruleIfExpression7914 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000002L});
+    public static final BitSet FOLLOW_KEYWORD_20_in_ruleIfExpression7927 = new BitSet(new long[]{0xC043C2000081BBE0L,0x00000000000004C6L});
+    public static final BitSet FOLLOW_ruleExpressionList_in_ruleIfExpression7947 = new BitSet(new long[]{0xC043C2000081BBE0L,0x00000000000004C6L});
+    public static final BitSet FOLLOW_KEYWORD_21_in_ruleIfExpression7961 = new BitSet(new long[]{0x0000000000004402L});
+    public static final BitSet FOLLOW_KEYWORD_56_in_ruleIfExpression7982 = new BitSet(new long[]{0xC043C2000081BBE0L,0x00000000000004C2L});
+    public static final BitSet FOLLOW_ruleElseIfExpression_in_ruleIfExpression8003 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_KEYWORD_52_in_ruleIfExpression8031 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleElseExpression_in_ruleIfExpression8052 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleElseExpression_in_entryRuleElseExpression8090 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRuleElseExpression8100 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_KEYWORD_20_in_ruleElseExpression8150 = new BitSet(new long[]{0xC043C2000081BBE0L,0x00000000000004C6L});
+    public static final BitSet FOLLOW_ruleExpressionList_in_ruleElseExpression8170 = new BitSet(new long[]{0xC043C2000081BBE0L,0x00000000000004C6L});
+    public static final BitSet FOLLOW_KEYWORD_21_in_ruleElseExpression8184 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleElseIfExpression_in_entryRuleElseIfExpression8218 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRuleElseIfExpression8228 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleAssignmentExpression_in_ruleElseIfExpression8286 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000002L});
+    public static final BitSet FOLLOW_KEYWORD_20_in_ruleElseIfExpression8299 = new BitSet(new long[]{0xC043C2000081BBE0L,0x00000000000004C6L});
+    public static final BitSet FOLLOW_ruleExpressionList_in_ruleElseIfExpression8319 = new BitSet(new long[]{0xC043C2000081BBE0L,0x00000000000004C6L});
+    public static final BitSet FOLLOW_KEYWORD_21_in_ruleElseIfExpression8333 = new BitSet(new long[]{0x0000000000004402L});
+    public static final BitSet FOLLOW_KEYWORD_56_in_ruleElseIfExpression8354 = new BitSet(new long[]{0xC043C2000081BBE0L,0x00000000000004C2L});
+    public static final BitSet FOLLOW_ruleElseIfExpression_in_ruleElseIfExpression8375 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_KEYWORD_52_in_ruleElseIfExpression8403 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleElseExpression_in_ruleElseIfExpression8424 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleLiteralExpression_in_entryRuleLiteralExpression8462 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRuleLiteralExpression8472 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleLiteralBoolean_in_ruleLiteralExpression8522 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleLiteralUndef_in_ruleLiteralExpression8552 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleLiteralDefault_in_ruleLiteralExpression8582 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleLiteralList_in_ruleLiteralExpression8612 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleLiteralHash_in_ruleLiteralExpression8642 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleLiteralRegex_in_ruleLiteralExpression8672 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleStringExpression_in_ruleLiteralExpression8702 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleLiteralNameOrReference_in_ruleLiteralExpression8732 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleLiteralNameOrReference_in_entryRuleLiteralNameOrReference8766 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRuleLiteralNameOrReference8776 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rulename_in_ruleLiteralNameOrReference8821 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleUNION_VARIABLE_OR_NAME_in_entryRuleUNION_VARIABLE_OR_NAME8856 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRuleUNION_VARIABLE_OR_NAME8867 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruledollarVariable_in_ruleUNION_VARIABLE_OR_NAME8914 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rulename_in_ruleUNION_VARIABLE_OR_NAME8947 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleParenthisedExpression_in_entryRuleParenthisedExpression8991 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRuleParenthisedExpression9001 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_KEYWORD_4_in_ruleParenthisedExpression9039 = new BitSet(new long[]{0xC047C2000081BBE0L,0x00000000000004C2L});
+    public static final BitSet FOLLOW_ruleAssignmentExpression_in_ruleParenthisedExpression9071 = new BitSet(new long[]{0x0004000000000000L});
+    public static final BitSet FOLLOW_KEYWORD_5_in_ruleParenthisedExpression9085 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleVirtualNameOrReference_in_entryRuleVirtualNameOrReference9119 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRuleVirtualNameOrReference9129 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_KEYWORD_17_in_ruleVirtualNameOrReference9167 = new BitSet(new long[]{0x4000000000000220L,0x0000000000000080L});
+    public static final BitSet FOLLOW_ruleATBoolean_in_ruleVirtualNameOrReference9187 = new BitSet(new long[]{0x4000000000000220L,0x0000000000000080L});
+    public static final BitSet FOLLOW_ruleunionNameOrReference_in_ruleVirtualNameOrReference9209 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleATBoolean_in_entryRuleATBoolean9245 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRuleATBoolean9256 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_KEYWORD_17_in_ruleATBoolean9293 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleImportExpression_in_entryRuleImportExpression9331 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRuleImportExpression9341 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_KEYWORD_60_in_ruleImportExpression9391 = new BitSet(new long[]{0x0001800000800002L});
+    public static final BitSet FOLLOW_ruleQuotedString_in_ruleImportExpression9412 = new BitSet(new long[]{0x0020000000000002L});
+    public static final BitSet FOLLOW_KEYWORD_8_in_ruleImportExpression9426 = new BitSet(new long[]{0x0001800000800000L});
+    public static final BitSet FOLLOW_ruleQuotedString_in_ruleImportExpression9446 = new BitSet(new long[]{0x0020000000000002L});
+    public static final BitSet FOLLOW_ruleLiteralList_in_entryRuleLiteralList9485 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRuleLiteralList9495 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_KEYWORD_18_in_ruleLiteralList9545 = new BitSet(new long[]{0xC043C2000081BBE0L,0x00000000000004C3L});
+    public static final BitSet FOLLOW_ruleAssignmentExpression_in_ruleLiteralList9566 = new BitSet(new long[]{0x0020000000000000L,0x0000000000000001L});
+    public static final BitSet FOLLOW_KEYWORD_8_in_ruleLiteralList9580 = new BitSet(new long[]{0xC043C2000081BBE0L,0x00000000000004C2L});
+    public static final BitSet FOLLOW_ruleAssignmentExpression_in_ruleLiteralList9600 = new BitSet(new long[]{0x0020000000000000L,0x0000000000000001L});
+    public static final BitSet FOLLOW_KEYWORD_8_in_ruleLiteralList9616 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000001L});
+    public static final BitSet FOLLOW_KEYWORD_19_in_ruleLiteralList9632 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleLiteralHash_in_entryRuleLiteralHash9666 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRuleLiteralHash9676 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_KEYWORD_20_in_ruleLiteralHash9726 = new BitSet(new long[]{0x8021800000811820L,0x0000000000000486L});
+    public static final BitSet FOLLOW_ruleHashEntry_in_ruleLiteralHash9747 = new BitSet(new long[]{0x0020000000000000L,0x0000000000000004L});
+    public static final BitSet FOLLOW_KEYWORD_8_in_ruleLiteralHash9761 = new BitSet(new long[]{0x8001800000811820L,0x0000000000000482L});
+    public static final BitSet FOLLOW_ruleHashEntry_in_ruleLiteralHash9781 = new BitSet(new long[]{0x0020000000000000L,0x0000000000000004L});
+    public static final BitSet FOLLOW_KEYWORD_8_in_ruleLiteralHash9799 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000004L});
+    public static final BitSet FOLLOW_KEYWORD_21_in_ruleLiteralHash9813 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleHashEntry_in_entryRuleHashEntry9847 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRuleHashEntry9857 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleLiteralNameOrString_in_ruleHashEntry9903 = new BitSet(new long[]{0x0000000200000000L});
+    public static final BitSet FOLLOW_KEYWORD_34_in_ruleHashEntry9916 = new BitSet(new long[]{0xC043C2000081BBE0L,0x00000000000004C2L});
+    public static final BitSet FOLLOW_ruleAssignmentExpression_in_ruleHashEntry9936 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleLiteralNameOrString_in_entryRuleLiteralNameOrString9971 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRuleLiteralNameOrString9981 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleStringExpression_in_ruleLiteralNameOrString10031 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleLiteralName_in_ruleLiteralNameOrString10061 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleBooleanValue_in_entryRuleBooleanValue10096 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRuleBooleanValue10107 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_KEYWORD_54_in_ruleBooleanValue10145 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_KEYWORD_57_in_ruleBooleanValue10164 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleLiteralBoolean_in_entryRuleLiteralBoolean10203 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRuleLiteralBoolean10213 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleBooleanValue_in_ruleLiteralBoolean10258 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleLiteralDefault_in_entryRuleLiteralDefault10292 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRuleLiteralDefault10302 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_KEYWORD_62_in_ruleLiteralDefault10352 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleLiteralUndef_in_entryRuleLiteralUndef10386 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRuleLiteralUndef10396 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_KEYWORD_58_in_ruleLiteralUndef10446 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleLiteralClass_in_entryRuleLiteralClass10480 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRuleLiteralClass10490 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_KEYWORD_55_in_ruleLiteralClass10540 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleStringExpression_in_entryRuleStringExpression10580 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRuleStringExpression10590 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleSingleQuotedString_in_ruleStringExpression10644 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleUnquotedString_in_ruleStringExpression10674 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleDoubleQuotedString_in_ruleStringExpression10704 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleQuotedString_in_entryRuleQuotedString10748 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRuleQuotedString10758 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleDoubleQuotedString_in_ruleQuotedString10812 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleSingleQuotedString_in_ruleQuotedString10842 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleSingleQuotedString_in_entryRuleSingleQuotedString10880 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRuleSingleQuotedString10890 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rulesqText_in_ruleSingleQuotedString10954 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleDoubleQuotedString_in_entryRuleDoubleQuotedString10995 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRuleDoubleQuotedString11005 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_KEYWORD_2_in_ruleDoubleQuotedString11047 = new BitSet(new long[]{0x000081E000840000L,0x00000000000040E0L});
+    public static final BitSet FOLLOW_ruleTextExpression_in_ruleDoubleQuotedString11079 = new BitSet(new long[]{0x000081E000840000L,0x00000000000040E0L});
+    public static final BitSet FOLLOW_KEYWORD_2_in_ruleDoubleQuotedString11093 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleTextExpression_in_entryRuleTextExpression11137 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRuleTextExpression11147 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruledoubleStringCharacters_in_ruleTextExpression11210 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_KEYWORD_24_in_ruleTextExpression11243 = new BitSet(new long[]{0xC043C2000081BBE0L,0x00000000000004C6L});
+    public static final BitSet FOLLOW_ruleExpressionWithHidden_in_ruleTextExpression11263 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000004L});
+    public static final BitSet FOLLOW_KEYWORD_21_in_ruleTextExpression11276 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruledollarVariable_in_ruleTextExpression11316 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleExpressionWithHidden_in_entryRuleExpressionWithHidden11362 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRuleExpressionWithHidden11372 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleAssignmentExpression_in_ruleExpressionWithHidden11434 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleUnquotedString_in_entryRuleUnquotedString11476 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRuleUnquotedString11486 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_KEYWORD_24_in_ruleUnquotedString11536 = new BitSet(new long[]{0xC043C2000081BBE0L,0x00000000000004C6L});
+    public static final BitSet FOLLOW_ruleAssignmentExpression_in_ruleUnquotedString11556 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000004L});
+    public static final BitSet FOLLOW_KEYWORD_21_in_ruleUnquotedString11570 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rulesqText_in_entryRulesqText11611 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRulesqText11622 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_KEYWORD_3_in_rulesqText11673 = new BitSet(new long[]{0x000101E000840000L,0x00000000000040E0L});
+    public static final BitSet FOLLOW_rulesingleStringCharacters_in_rulesqText11697 = new BitSet(new long[]{0x0001000000000000L});
+    public static final BitSet FOLLOW_KEYWORD_3_in_rulesqText11717 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleLiteralRegex_in_entryRuleLiteralRegex11760 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRuleLiteralRegex11770 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_REGULAR_EXPRESSION_in_ruleLiteralRegex11811 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleLiteralName_in_entryRuleLiteralName11850 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRuleLiteralName11860 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rulename_in_ruleLiteralName11905 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleVariableExpression_in_entryRuleVariableExpression11939 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRuleVariableExpression11949 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruledollarVariable_in_ruleVariableExpression11994 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruledollarVariable_in_entryRuledollarVariable12035 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRuledollarVariable12046 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_DOLLAR_VAR_in_ruledollarVariable12089 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rulename_in_entryRulename12139 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRulename12150 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_WORD_CHARS_in_rulename12189 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleclassname_in_entryRuleclassname12233 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRuleclassname12244 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rulename_in_ruleclassname12291 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_KEYWORD_55_in_ruleclassname12315 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleunionNameOrReference_in_entryRuleunionNameOrReference12355 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRuleunionNameOrReference12366 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_WORD_CHARS_in_ruleunionNameOrReference12406 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_KEYWORD_55_in_ruleunionNameOrReference12430 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_KEYWORD_62_in_ruleunionNameOrReference12449 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruledoubleStringCharacters_in_entryRuledoubleStringCharacters12495 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRuledoubleStringCharacters12506 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_WORD_CHARS_in_ruledoubleStringCharacters12550 = new BitSet(new long[]{0x000001E000040002L,0x00000000000040A0L});
+    public static final BitSet FOLLOW_RULE_ANY_OTHER_in_ruledoubleStringCharacters12576 = new BitSet(new long[]{0x000001E000040002L,0x00000000000040A0L});
+    public static final BitSet FOLLOW_RULE_WS_in_ruledoubleStringCharacters12602 = new BitSet(new long[]{0x000001E000040002L,0x00000000000040A0L});
+    public static final BitSet FOLLOW_KEYWORD_38_in_ruledoubleStringCharacters12626 = new BitSet(new long[]{0x000001E000040002L,0x00000000000040A0L});
+    public static final BitSet FOLLOW_KEYWORD_40_in_ruledoubleStringCharacters12645 = new BitSet(new long[]{0x000001E000040002L,0x00000000000040A0L});
+    public static final BitSet FOLLOW_KEYWORD_39_in_ruledoubleStringCharacters12664 = new BitSet(new long[]{0x000001E000040002L,0x00000000000040A0L});
+    public static final BitSet FOLLOW_KEYWORD_48_in_ruledoubleStringCharacters12683 = new BitSet(new long[]{0x000001E000040002L,0x00000000000040A0L});
+    public static final BitSet FOLLOW_KEYWORD_41_in_ruledoubleStringCharacters12702 = new BitSet(new long[]{0x000001E000040002L,0x00000000000040A0L});
+    public static final BitSet FOLLOW_rulesingleStringCharacters_in_entryRulesingleStringCharacters12753 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRulesingleStringCharacters12764 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_WORD_CHARS_in_rulesingleStringCharacters12808 = new BitSet(new long[]{0x000001E000840002L,0x00000000000040E0L});
+    public static final BitSet FOLLOW_RULE_ANY_OTHER_in_rulesingleStringCharacters12834 = new BitSet(new long[]{0x000001E000840002L,0x00000000000040E0L});
+    public static final BitSet FOLLOW_RULE_WS_in_rulesingleStringCharacters12860 = new BitSet(new long[]{0x000001E000840002L,0x00000000000040E0L});
+    public static final BitSet FOLLOW_RULE_DOLLAR_VAR_in_rulesingleStringCharacters12886 = new BitSet(new long[]{0x000001E000840002L,0x00000000000040E0L});
+    public static final BitSet FOLLOW_KEYWORD_24_in_rulesingleStringCharacters12910 = new BitSet(new long[]{0x000001E000840002L,0x00000000000040E0L});
+    public static final BitSet FOLLOW_KEYWORD_38_in_rulesingleStringCharacters12929 = new BitSet(new long[]{0x000001E000840002L,0x00000000000040E0L});
+    public static final BitSet FOLLOW_KEYWORD_40_in_rulesingleStringCharacters12948 = new BitSet(new long[]{0x000001E000840002L,0x00000000000040E0L});
+    public static final BitSet FOLLOW_KEYWORD_39_in_rulesingleStringCharacters12967 = new BitSet(new long[]{0x000001E000840002L,0x00000000000040E0L});
+    public static final BitSet FOLLOW_KEYWORD_48_in_rulesingleStringCharacters12986 = new BitSet(new long[]{0x000001E000840002L,0x00000000000040E0L});
+    public static final BitSet FOLLOW_KEYWORD_41_in_rulesingleStringCharacters13005 = new BitSet(new long[]{0x000001E000840002L,0x00000000000040E0L});
+    public static final BitSet FOLLOW_ruleEdgeOperator_in_synpred7_InternalPPParser686 = new BitSet(new long[]{0xC043C2000081BBE0L,0x00000000000004C2L});
     public static final BitSet FOLLOW_ruleResourceExpression_in_synpred7_InternalPPParser707 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_KEYWORD_20_in_synpred11_InternalPPParser830 = new BitSet(new long[]{0x6021E1000040DDE0L,0x0000000000000263L});
-    public static final BitSet FOLLOW_ruleResourceBody_in_synpred11_InternalPPParser851 = new BitSet(new long[]{0x0100000000000000L,0x0000000000000002L});
-    public static final BitSet FOLLOW_KEYWORD_12_in_synpred11_InternalPPParser865 = new BitSet(new long[]{0x6021E1000040DDE0L,0x0000000000000261L});
-    public static final BitSet FOLLOW_ruleResourceBody_in_synpred11_InternalPPParser885 = new BitSet(new long[]{0x0100000000000000L,0x0000000000000002L});
-    public static final BitSet FOLLOW_KEYWORD_12_in_synpred11_InternalPPParser901 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000002L});
+    public static final BitSet FOLLOW_KEYWORD_20_in_synpred11_InternalPPParser830 = new BitSet(new long[]{0xC043C2000081BBE0L,0x00000000000004C6L});
+    public static final BitSet FOLLOW_ruleResourceBody_in_synpred11_InternalPPParser851 = new BitSet(new long[]{0x0200000000000000L,0x0000000000000004L});
+    public static final BitSet FOLLOW_KEYWORD_12_in_synpred11_InternalPPParser865 = new BitSet(new long[]{0xC043C2000081BBE0L,0x00000000000004C2L});
+    public static final BitSet FOLLOW_ruleResourceBody_in_synpred11_InternalPPParser885 = new BitSet(new long[]{0x0200000000000000L,0x0000000000000004L});
+    public static final BitSet FOLLOW_KEYWORD_12_in_synpred11_InternalPPParser901 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000004L});
     public static final BitSet FOLLOW_KEYWORD_21_in_synpred11_InternalPPParser917 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_KEYWORD_14_in_synpred23_InternalPPParser1694 = new BitSet(new long[]{0x6021E1000040DDE0L,0x0000000000000261L});
+    public static final BitSet FOLLOW_KEYWORD_14_in_synpred23_InternalPPParser1694 = new BitSet(new long[]{0xC043C2000081BBE0L,0x00000000000004C2L});
     public static final BitSet FOLLOW_ruleAppendExpression_in_synpred23_InternalPPParser1714 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_KEYWORD_25_in_synpred24_InternalPPParser1836 = new BitSet(new long[]{0x6021E1000040DDE0L,0x0000000000000261L});
+    public static final BitSet FOLLOW_KEYWORD_25_in_synpred24_InternalPPParser1836 = new BitSet(new long[]{0xC043C2000081BBE0L,0x00000000000004C2L});
     public static final BitSet FOLLOW_ruleOrExpression_in_synpred24_InternalPPParser1856 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_KEYWORD_44_in_synpred25_InternalPPParser1978 = new BitSet(new long[]{0x6021E1000040DDE0L,0x0000000000000261L});
+    public static final BitSet FOLLOW_KEYWORD_44_in_synpred25_InternalPPParser1978 = new BitSet(new long[]{0xC043C2000081BBE0L,0x00000000000004C2L});
     public static final BitSet FOLLOW_ruleAndExpression_in_synpred25_InternalPPParser1998 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_KEYWORD_49_in_synpred26_InternalPPParser2120 = new BitSet(new long[]{0x6021E1000040DDE0L,0x0000000000000261L});
+    public static final BitSet FOLLOW_KEYWORD_49_in_synpred26_InternalPPParser2120 = new BitSet(new long[]{0xC043C2000081BBE0L,0x00000000000004C2L});
     public static final BitSet FOLLOW_ruleRelationalExpression_in_synpred26_InternalPPParser2140 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleRelationalOperator_in_synpred30_InternalPPParser2416 = new BitSet(new long[]{0x6021E1000040DDE0L,0x0000000000000261L});
+    public static final BitSet FOLLOW_ruleRelationalOperator_in_synpred30_InternalPPParser2416 = new BitSet(new long[]{0xC043C2000081BBE0L,0x00000000000004C2L});
     public static final BitSet FOLLOW_ruleEqualityExpression_in_synpred30_InternalPPParser2437 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleEqualityOperator_in_synpred32_InternalPPParser2675 = new BitSet(new long[]{0x6021E1000040DDE0L,0x0000000000000261L});
+    public static final BitSet FOLLOW_ruleEqualityOperator_in_synpred32_InternalPPParser2675 = new BitSet(new long[]{0xC043C2000081BBE0L,0x00000000000004C2L});
     public static final BitSet FOLLOW_ruleShiftExpression_in_synpred32_InternalPPParser2696 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleShiftOperator_in_synpred34_InternalPPParser2934 = new BitSet(new long[]{0x6021E1000040DDE0L,0x0000000000000261L});
+    public static final BitSet FOLLOW_ruleShiftOperator_in_synpred34_InternalPPParser2934 = new BitSet(new long[]{0xC043C2000081BBE0L,0x00000000000004C2L});
     public static final BitSet FOLLOW_ruleAdditiveExpression_in_synpred34_InternalPPParser2955 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleAdditiveOperator_in_synpred36_InternalPPParser3193 = new BitSet(new long[]{0x6021E1000040DDE0L,0x0000000000000261L});
+    public static final BitSet FOLLOW_ruleAdditiveOperator_in_synpred36_InternalPPParser3193 = new BitSet(new long[]{0xC043C2000081BBE0L,0x00000000000004C2L});
     public static final BitSet FOLLOW_ruleMultiplicativeExpression_in_synpred36_InternalPPParser3214 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleMultiplicativeOperator_in_synpred38_InternalPPParser3452 = new BitSet(new long[]{0x6021E1000040DDE0L,0x0000000000000261L});
+    public static final BitSet FOLLOW_ruleMultiplicativeOperator_in_synpred38_InternalPPParser3452 = new BitSet(new long[]{0xC043C2000081BBE0L,0x00000000000004C2L});
     public static final BitSet FOLLOW_ruleMatchingExpression_in_synpred38_InternalPPParser3473 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleMatchingOperator_in_synpred40_InternalPPParser3711 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000200L});
+    public static final BitSet FOLLOW_ruleMatchingOperator_in_synpred40_InternalPPParser3711 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000400L});
     public static final BitSet FOLLOW_ruleLiteralRegex_in_synpred40_InternalPPParser3732 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_KEYWORD_43_in_synpred41_InternalPPParser3860 = new BitSet(new long[]{0x6021E1000040DDE0L,0x0000000000000261L});
+    public static final BitSet FOLLOW_KEYWORD_43_in_synpred41_InternalPPParser3860 = new BitSet(new long[]{0xC043C2000081BBE0L,0x00000000000004C2L});
     public static final BitSet FOLLOW_ruleUnaryOrHigherExpression_in_synpred41_InternalPPParser3892 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_KEYWORD_20_in_synpred45_InternalPPParser4396 = new BitSet(new long[]{0x6021E1000040DDE0L,0x0000000000000263L});
-    public static final BitSet FOLLOW_ruleAttributeOperations_in_synpred45_InternalPPParser4416 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000002L});
+    public static final BitSet FOLLOW_KEYWORD_20_in_synpred45_InternalPPParser4396 = new BitSet(new long[]{0xC043C2000081BBE0L,0x00000000000004C6L});
+    public static final BitSet FOLLOW_ruleAttributeOperations_in_synpred45_InternalPPParser4416 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000004L});
     public static final BitSet FOLLOW_KEYWORD_21_in_synpred45_InternalPPParser4430 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleCollectQuery_in_synpred46_InternalPPParser4382 = new BitSet(new long[]{0x0000000000000002L,0x0000000000000001L});
-    public static final BitSet FOLLOW_KEYWORD_20_in_synpred46_InternalPPParser4396 = new BitSet(new long[]{0x6021E1000040DDE0L,0x0000000000000263L});
-    public static final BitSet FOLLOW_ruleAttributeOperations_in_synpred46_InternalPPParser4416 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleCollectQuery_in_synpred46_InternalPPParser4382 = new BitSet(new long[]{0x0000000000000002L,0x0000000000000002L});
+    public static final BitSet FOLLOW_KEYWORD_20_in_synpred46_InternalPPParser4396 = new BitSet(new long[]{0xC043C2000081BBE0L,0x00000000000004C6L});
+    public static final BitSet FOLLOW_ruleAttributeOperations_in_synpred46_InternalPPParser4416 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000004L});
     public static final BitSet FOLLOW_KEYWORD_21_in_synpred46_InternalPPParser4430 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_KEYWORD_20_in_synpred53_InternalPPParser4947 = new BitSet(new long[]{0x6021E1000040DDE0L,0x0000000000000261L});
-    public static final BitSet FOLLOW_ruleSelectorEntry_in_synpred53_InternalPPParser4967 = new BitSet(new long[]{0x6031E1000040DDE0L,0x0000000000000263L});
-    public static final BitSet FOLLOW_KEYWORD_8_in_synpred53_InternalPPParser4982 = new BitSet(new long[]{0x6021E1000040DDE0L,0x0000000000000261L});
-    public static final BitSet FOLLOW_ruleSelectorEntry_in_synpred53_InternalPPParser5002 = new BitSet(new long[]{0x6031E1000040DDE0L,0x0000000000000263L});
-    public static final BitSet FOLLOW_ruleSelectorEntry_in_synpred53_InternalPPParser5030 = new BitSet(new long[]{0x6031E1000040DDE0L,0x0000000000000263L});
-    public static final BitSet FOLLOW_KEYWORD_8_in_synpred53_InternalPPParser5046 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000002L});
+    public static final BitSet FOLLOW_KEYWORD_20_in_synpred53_InternalPPParser4947 = new BitSet(new long[]{0xC043C2000081BBE0L,0x00000000000004C2L});
+    public static final BitSet FOLLOW_ruleSelectorEntry_in_synpred53_InternalPPParser4967 = new BitSet(new long[]{0xC063C2000081BBE0L,0x00000000000004C6L});
+    public static final BitSet FOLLOW_KEYWORD_8_in_synpred53_InternalPPParser4982 = new BitSet(new long[]{0xC043C2000081BBE0L,0x00000000000004C2L});
+    public static final BitSet FOLLOW_ruleSelectorEntry_in_synpred53_InternalPPParser5002 = new BitSet(new long[]{0xC063C2000081BBE0L,0x00000000000004C6L});
+    public static final BitSet FOLLOW_ruleSelectorEntry_in_synpred53_InternalPPParser5030 = new BitSet(new long[]{0xC063C2000081BBE0L,0x00000000000004C6L});
+    public static final BitSet FOLLOW_KEYWORD_8_in_synpred53_InternalPPParser5046 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000004L});
     public static final BitSet FOLLOW_KEYWORD_21_in_synpred53_InternalPPParser5060 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_KEYWORD_34_in_synpred55_InternalPPParser5210 = new BitSet(new long[]{0x6021E1000040DDE0L,0x0000000000000261L});
+    public static final BitSet FOLLOW_KEYWORD_34_in_synpred55_InternalPPParser5210 = new BitSet(new long[]{0xC043C2000081BBE0L,0x00000000000004C2L});
     public static final BitSet FOLLOW_ruleExpression_in_synpred55_InternalPPParser5230 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_KEYWORD_18_in_synpred58_InternalPPParser5352 = new BitSet(new long[]{0xE021E1000040DDE0L,0x0000000000000261L});
-    public static final BitSet FOLLOW_ruleExpression_in_synpred58_InternalPPParser5373 = new BitSet(new long[]{0x8010000000000000L});
-    public static final BitSet FOLLOW_KEYWORD_8_in_synpred58_InternalPPParser5387 = new BitSet(new long[]{0x6021E1000040DDE0L,0x0000000000000261L});
-    public static final BitSet FOLLOW_ruleExpression_in_synpred58_InternalPPParser5407 = new BitSet(new long[]{0x8010000000000000L});
+    public static final BitSet FOLLOW_KEYWORD_18_in_synpred58_InternalPPParser5352 = new BitSet(new long[]{0xC043C2000081BBE0L,0x00000000000004C3L});
+    public static final BitSet FOLLOW_ruleExpression_in_synpred58_InternalPPParser5373 = new BitSet(new long[]{0x0020000000000000L,0x0000000000000001L});
+    public static final BitSet FOLLOW_KEYWORD_8_in_synpred58_InternalPPParser5387 = new BitSet(new long[]{0xC043C2000081BBE0L,0x00000000000004C2L});
+    public static final BitSet FOLLOW_ruleExpression_in_synpred58_InternalPPParser5407 = new BitSet(new long[]{0x0020000000000000L,0x0000000000000001L});
     public static final BitSet FOLLOW_KEYWORD_19_in_synpred58_InternalPPParser5424 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_KEYWORD_4_in_synpred62_InternalPPParser5545 = new BitSet(new long[]{0x6023E1000040DDE0L,0x0000000000000261L});
-    public static final BitSet FOLLOW_ruleExpression_in_synpred62_InternalPPParser5566 = new BitSet(new long[]{0x0012000000000000L});
-    public static final BitSet FOLLOW_KEYWORD_8_in_synpred62_InternalPPParser5580 = new BitSet(new long[]{0x6021E1000040DDE0L,0x0000000000000261L});
-    public static final BitSet FOLLOW_ruleExpression_in_synpred62_InternalPPParser5600 = new BitSet(new long[]{0x0012000000000000L});
-    public static final BitSet FOLLOW_KEYWORD_8_in_synpred62_InternalPPParser5616 = new BitSet(new long[]{0x0002000000000000L});
+    public static final BitSet FOLLOW_KEYWORD_4_in_synpred62_InternalPPParser5545 = new BitSet(new long[]{0xC047C2000081BBE0L,0x00000000000004C2L});
+    public static final BitSet FOLLOW_ruleExpression_in_synpred62_InternalPPParser5566 = new BitSet(new long[]{0x0024000000000000L});
+    public static final BitSet FOLLOW_KEYWORD_8_in_synpred62_InternalPPParser5580 = new BitSet(new long[]{0xC043C2000081BBE0L,0x00000000000004C2L});
+    public static final BitSet FOLLOW_ruleExpression_in_synpred62_InternalPPParser5600 = new BitSet(new long[]{0x0024000000000000L});
+    public static final BitSet FOLLOW_KEYWORD_8_in_synpred62_InternalPPParser5616 = new BitSet(new long[]{0x0004000000000000L});
     public static final BitSet FOLLOW_KEYWORD_5_in_synpred62_InternalPPParser5632 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_KEYWORD_8_in_synpred114_InternalPPParser9247 = new BitSet(new long[]{0x0000C00000400000L});
-    public static final BitSet FOLLOW_ruleQuotedString_in_synpred114_InternalPPParser9267 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleQuotedString_in_synpred115_InternalPPParser9233 = new BitSet(new long[]{0x0010000000000002L});
-    public static final BitSet FOLLOW_KEYWORD_8_in_synpred115_InternalPPParser9247 = new BitSet(new long[]{0x0000C00000400000L});
-    public static final BitSet FOLLOW_ruleQuotedString_in_synpred115_InternalPPParser9267 = new BitSet(new long[]{0x0010000000000002L});
-    public static final BitSet FOLLOW_RULE_WORD_CHARS_in_synpred138_InternalPPParser12371 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_ANY_OTHER_in_synpred139_InternalPPParser12397 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_WS_in_synpred140_InternalPPParser12423 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_KEYWORD_38_in_synpred141_InternalPPParser12447 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_KEYWORD_40_in_synpred142_InternalPPParser12466 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_KEYWORD_39_in_synpred143_InternalPPParser12485 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_KEYWORD_48_in_synpred144_InternalPPParser12504 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_KEYWORD_41_in_synpred145_InternalPPParser12523 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_KEYWORD_8_in_synpred116_InternalPPParser9426 = new BitSet(new long[]{0x0001800000800000L});
+    public static final BitSet FOLLOW_ruleQuotedString_in_synpred116_InternalPPParser9446 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleQuotedString_in_synpred117_InternalPPParser9412 = new BitSet(new long[]{0x0020000000000002L});
+    public static final BitSet FOLLOW_KEYWORD_8_in_synpred117_InternalPPParser9426 = new BitSet(new long[]{0x0001800000800000L});
+    public static final BitSet FOLLOW_ruleQuotedString_in_synpred117_InternalPPParser9446 = new BitSet(new long[]{0x0020000000000002L});
+    public static final BitSet FOLLOW_RULE_WORD_CHARS_in_synpred140_InternalPPParser12550 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_ANY_OTHER_in_synpred141_InternalPPParser12576 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_WS_in_synpred142_InternalPPParser12602 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_KEYWORD_38_in_synpred143_InternalPPParser12626 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_KEYWORD_40_in_synpred144_InternalPPParser12645 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_KEYWORD_39_in_synpred145_InternalPPParser12664 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_KEYWORD_48_in_synpred146_InternalPPParser12683 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_KEYWORD_41_in_synpred147_InternalPPParser12702 = new BitSet(new long[]{0x0000000000000002L});
 
 }

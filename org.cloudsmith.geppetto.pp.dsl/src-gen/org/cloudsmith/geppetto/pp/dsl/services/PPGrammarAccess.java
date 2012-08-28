@@ -1563,54 +1563,58 @@ public class PPGrammarAccess extends AbstractGrammarElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "PrimaryExpression");
 		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
 		private final RuleCall cIfExpressionParserRuleCall_0 = (RuleCall)cAlternatives.eContents().get(0);
-		private final RuleCall cCaseExpressionParserRuleCall_1 = (RuleCall)cAlternatives.eContents().get(1);
-		private final RuleCall cImportExpressionParserRuleCall_2 = (RuleCall)cAlternatives.eContents().get(2);
-		private final RuleCall cDefinitionParserRuleCall_3 = (RuleCall)cAlternatives.eContents().get(3);
-		private final RuleCall cHostClassDefinitionParserRuleCall_4 = (RuleCall)cAlternatives.eContents().get(4);
-		private final RuleCall cNodeDefinitionParserRuleCall_5 = (RuleCall)cAlternatives.eContents().get(5);
-		private final RuleCall cVirtualNameOrReferenceParserRuleCall_6 = (RuleCall)cAlternatives.eContents().get(6);
-		private final RuleCall cLiteralExpressionParserRuleCall_7 = (RuleCall)cAlternatives.eContents().get(7);
-		private final RuleCall cVariableExpressionParserRuleCall_8 = (RuleCall)cAlternatives.eContents().get(8);
-		private final RuleCall cParenthisedExpressionParserRuleCall_9 = (RuleCall)cAlternatives.eContents().get(9);
+		private final RuleCall cUnlessExpressionParserRuleCall_1 = (RuleCall)cAlternatives.eContents().get(1);
+		private final RuleCall cCaseExpressionParserRuleCall_2 = (RuleCall)cAlternatives.eContents().get(2);
+		private final RuleCall cImportExpressionParserRuleCall_3 = (RuleCall)cAlternatives.eContents().get(3);
+		private final RuleCall cDefinitionParserRuleCall_4 = (RuleCall)cAlternatives.eContents().get(4);
+		private final RuleCall cHostClassDefinitionParserRuleCall_5 = (RuleCall)cAlternatives.eContents().get(5);
+		private final RuleCall cNodeDefinitionParserRuleCall_6 = (RuleCall)cAlternatives.eContents().get(6);
+		private final RuleCall cVirtualNameOrReferenceParserRuleCall_7 = (RuleCall)cAlternatives.eContents().get(7);
+		private final RuleCall cLiteralExpressionParserRuleCall_8 = (RuleCall)cAlternatives.eContents().get(8);
+		private final RuleCall cVariableExpressionParserRuleCall_9 = (RuleCall)cAlternatives.eContents().get(9);
+		private final RuleCall cParenthisedExpressionParserRuleCall_10 = (RuleCall)cAlternatives.eContents().get(10);
 		
 		//PrimaryExpression returns pp::Expression:
-		//	IfExpression | CaseExpression | ImportExpression | Definition | HostClassDefinition | NodeDefinition |
-		//	VirtualNameOrReference | LiteralExpression | VariableExpression | ParenthisedExpression;
+		//	IfExpression | UnlessExpression | CaseExpression | ImportExpression | Definition | HostClassDefinition |
+		//	NodeDefinition | VirtualNameOrReference | LiteralExpression | VariableExpression | ParenthisedExpression;
 		public ParserRule getRule() { return rule; }
 
-		//IfExpression | CaseExpression | ImportExpression | Definition | HostClassDefinition | NodeDefinition |
-		//VirtualNameOrReference | LiteralExpression | VariableExpression | ParenthisedExpression
+		//IfExpression | UnlessExpression | CaseExpression | ImportExpression | Definition | HostClassDefinition | NodeDefinition
+		//| VirtualNameOrReference | LiteralExpression | VariableExpression | ParenthisedExpression
 		public Alternatives getAlternatives() { return cAlternatives; }
 
 		//IfExpression
 		public RuleCall getIfExpressionParserRuleCall_0() { return cIfExpressionParserRuleCall_0; }
 
+		//UnlessExpression
+		public RuleCall getUnlessExpressionParserRuleCall_1() { return cUnlessExpressionParserRuleCall_1; }
+
 		//CaseExpression
-		public RuleCall getCaseExpressionParserRuleCall_1() { return cCaseExpressionParserRuleCall_1; }
+		public RuleCall getCaseExpressionParserRuleCall_2() { return cCaseExpressionParserRuleCall_2; }
 
 		//ImportExpression
-		public RuleCall getImportExpressionParserRuleCall_2() { return cImportExpressionParserRuleCall_2; }
+		public RuleCall getImportExpressionParserRuleCall_3() { return cImportExpressionParserRuleCall_3; }
 
 		//Definition
-		public RuleCall getDefinitionParserRuleCall_3() { return cDefinitionParserRuleCall_3; }
+		public RuleCall getDefinitionParserRuleCall_4() { return cDefinitionParserRuleCall_4; }
 
 		//HostClassDefinition
-		public RuleCall getHostClassDefinitionParserRuleCall_4() { return cHostClassDefinitionParserRuleCall_4; }
+		public RuleCall getHostClassDefinitionParserRuleCall_5() { return cHostClassDefinitionParserRuleCall_5; }
 
 		//NodeDefinition
-		public RuleCall getNodeDefinitionParserRuleCall_5() { return cNodeDefinitionParserRuleCall_5; }
+		public RuleCall getNodeDefinitionParserRuleCall_6() { return cNodeDefinitionParserRuleCall_6; }
 
 		//VirtualNameOrReference
-		public RuleCall getVirtualNameOrReferenceParserRuleCall_6() { return cVirtualNameOrReferenceParserRuleCall_6; }
+		public RuleCall getVirtualNameOrReferenceParserRuleCall_7() { return cVirtualNameOrReferenceParserRuleCall_7; }
 
 		//LiteralExpression
-		public RuleCall getLiteralExpressionParserRuleCall_7() { return cLiteralExpressionParserRuleCall_7; }
+		public RuleCall getLiteralExpressionParserRuleCall_8() { return cLiteralExpressionParserRuleCall_8; }
 
 		//VariableExpression
-		public RuleCall getVariableExpressionParserRuleCall_8() { return cVariableExpressionParserRuleCall_8; }
+		public RuleCall getVariableExpressionParserRuleCall_9() { return cVariableExpressionParserRuleCall_9; }
 
 		//ParenthisedExpression
-		public RuleCall getParenthisedExpressionParserRuleCall_9() { return cParenthisedExpressionParserRuleCall_9; }
+		public RuleCall getParenthisedExpressionParserRuleCall_10() { return cParenthisedExpressionParserRuleCall_10; }
 	}
 
 	public class NodeDefinitionElements extends AbstractParserRuleElementFinder {
@@ -2063,6 +2067,47 @@ public class PPGrammarAccess extends AbstractGrammarElementFinder {
 
 		//"}"
 		public Keyword getRightCurlyBracketKeyword_5() { return cRightCurlyBracketKeyword_5; }
+	}
+
+	public class UnlessExpressionElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "UnlessExpression");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Keyword cUnlessKeyword_0 = (Keyword)cGroup.eContents().get(0);
+		private final Assignment cCondExprAssignment_1 = (Assignment)cGroup.eContents().get(1);
+		private final RuleCall cCondExprAssignmentExpressionParserRuleCall_1_0 = (RuleCall)cCondExprAssignment_1.eContents().get(0);
+		private final Keyword cLeftCurlyBracketKeyword_2 = (Keyword)cGroup.eContents().get(2);
+		private final Assignment cThenStatementsAssignment_3 = (Assignment)cGroup.eContents().get(3);
+		private final RuleCall cThenStatementsExpressionListParserRuleCall_3_0 = (RuleCall)cThenStatementsAssignment_3.eContents().get(0);
+		private final Keyword cRightCurlyBracketKeyword_4 = (Keyword)cGroup.eContents().get(4);
+		
+		////-- UNLESS (is the same as if !(e) {}, but without support for "else"
+		//UnlessExpression returns pp::UnlessExpression:
+		//	"unless" condExpr=AssignmentExpression "{" thenStatements+=ExpressionList* "}";
+		public ParserRule getRule() { return rule; }
+
+		//"unless" condExpr=AssignmentExpression "{" thenStatements+=ExpressionList* "}"
+		public Group getGroup() { return cGroup; }
+
+		//"unless"
+		public Keyword getUnlessKeyword_0() { return cUnlessKeyword_0; }
+
+		//condExpr=AssignmentExpression
+		public Assignment getCondExprAssignment_1() { return cCondExprAssignment_1; }
+
+		//AssignmentExpression
+		public RuleCall getCondExprAssignmentExpressionParserRuleCall_1_0() { return cCondExprAssignmentExpressionParserRuleCall_1_0; }
+
+		//"{"
+		public Keyword getLeftCurlyBracketKeyword_2() { return cLeftCurlyBracketKeyword_2; }
+
+		//thenStatements+=ExpressionList*
+		public Assignment getThenStatementsAssignment_3() { return cThenStatementsAssignment_3; }
+
+		//ExpressionList
+		public RuleCall getThenStatementsExpressionListParserRuleCall_3_0() { return cThenStatementsExpressionListParserRuleCall_3_0; }
+
+		//"}"
+		public Keyword getRightCurlyBracketKeyword_4() { return cRightCurlyBracketKeyword_4; }
 	}
 
 	public class IfExpressionElements extends AbstractParserRuleElementFinder {
@@ -3372,6 +3417,7 @@ public class PPGrammarAccess extends AbstractGrammarElementFinder {
 	private DefinitionArgumentElements pDefinitionArgument;
 	private CaseExpressionElements pCaseExpression;
 	private CaseElements pCase;
+	private UnlessExpressionElements pUnlessExpression;
 	private IfExpressionElements pIfExpression;
 	private ElseExpressionElements pElseExpression;
 	private ElseIfExpressionElements pElseIfExpression;
@@ -3906,8 +3952,8 @@ public class PPGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//PrimaryExpression returns pp::Expression:
-	//	IfExpression | CaseExpression | ImportExpression | Definition | HostClassDefinition | NodeDefinition |
-	//	VirtualNameOrReference | LiteralExpression | VariableExpression | ParenthisedExpression;
+	//	IfExpression | UnlessExpression | CaseExpression | ImportExpression | Definition | HostClassDefinition |
+	//	NodeDefinition | VirtualNameOrReference | LiteralExpression | VariableExpression | ParenthisedExpression;
 	public PrimaryExpressionElements getPrimaryExpressionAccess() {
 		return (pPrimaryExpression != null) ? pPrimaryExpression : (pPrimaryExpression = new PrimaryExpressionElements());
 	}
@@ -4013,6 +4059,17 @@ public class PPGrammarAccess extends AbstractGrammarElementFinder {
 	
 	public ParserRule getCaseRule() {
 		return getCaseAccess().getRule();
+	}
+
+	////-- UNLESS (is the same as if !(e) {}, but without support for "else"
+	//UnlessExpression returns pp::UnlessExpression:
+	//	"unless" condExpr=AssignmentExpression "{" thenStatements+=ExpressionList* "}";
+	public UnlessExpressionElements getUnlessExpressionAccess() {
+		return (pUnlessExpression != null) ? pUnlessExpression : (pUnlessExpression = new UnlessExpressionElements());
+	}
+	
+	public ParserRule getUnlessExpressionRule() {
+		return getUnlessExpressionAccess().getRule();
 	}
 
 	////-- IF 

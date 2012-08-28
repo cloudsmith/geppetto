@@ -34,6 +34,13 @@ public interface IValidationAdvisor extends IPotentialProblemsAdvisor {
 	public boolean allowMoreThan2AtInSequence();
 
 	/**
+	 * The "unless" statement was added in Puppet 3.0.
+	 * 
+	 * @return
+	 */
+	public boolean allowUnless();
+
+	/**
 	 * Prior to 2.7 it was not possible to use unquoted qualified resource names.
 	 * 
 	 * @return

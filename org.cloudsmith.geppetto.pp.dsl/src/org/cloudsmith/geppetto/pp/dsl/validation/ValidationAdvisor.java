@@ -90,7 +90,6 @@ public class ValidationAdvisor {
 	 * 
 	 */
 	public static class ValidationAdvisor_2_6 extends BaseValidationAdvisor implements IValidationAdvisor {
-
 		/**
 		 * @param problemsAdvisor
 		 */
@@ -112,6 +111,11 @@ public class ValidationAdvisor {
 		@Override
 		public boolean allowMoreThan2AtInSequence() {
 			return true;
+		}
+
+		@Override
+		public boolean allowUnless() {
+			return false;
 		}
 
 		@Override
@@ -201,12 +205,16 @@ public class ValidationAdvisor {
 	 * 
 	 */
 	public static class ValidationAdvisor_3_0 extends ValidationAdvisor_2_7 implements IValidationAdvisor {
-
 		/**
 		 * @param problemsAdvisor
 		 */
 		protected ValidationAdvisor_3_0(IPotentialProblemsAdvisor problemsAdvisor) {
 			super(problemsAdvisor);
+		}
+
+		@Override
+		public boolean allowUnless() {
+			return true;
 		}
 
 		/**

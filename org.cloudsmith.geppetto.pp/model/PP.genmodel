@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<genmodel:GenModel xmi:version="2.0"
-    xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
-    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" copyrightText="Copyright (c) 2011 Cloudsmith Inc. and other contributors, as listed below.&#xA;All rights reserved. This program and the accompanying materials&#xA;are made available under the terms of the Eclipse Public License v1.0&#xA;which accompanies this distribution, and is available at&#xA;http://www.eclipse.org/legal/epl-v10.html&#xA;&#xA;Contributors:&#xA;  Cloudsmith&#xA;"
+<genmodel:GenModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
+    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" copyrightText="Copyright (c) 2011, 2012 Cloudsmith Inc. and other contributors, as listed below.&#xA;All rights reserved. This program and the accompanying materials&#xA;are made available under the terms of the Eclipse Public License v1.0&#xA;which accompanies this distribution, and is available at&#xA;http://www.eclipse.org/legal/epl-v10.html&#xA;&#xA;Contributors:&#xA;  Cloudsmith&#xA;"
     modelDirectory="/org.cloudsmith.geppetto.pp/src" editDirectory="" editorDirectory=""
     modelPluginID="org.cloudsmith.geppetto.pp" templateDirectory="" modelName="PP"
     modelPluginClass="" editPluginClass="org.cloudsmith.geppetto.pp.provider.PuppetEditPlugin"
@@ -11,19 +10,16 @@
     editorPluginID="org.cloudsmith.geppetto.pp.edit" language="" classNamePattern="">
   <genPackages prefix="PP" basePackage="org.cloudsmith.geppetto" disposableProviderFactory="true"
       ecorePackage="PP.ecore#/">
-    <genClasses ecoreClass="PP.ecore#//PuppetManifest">
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference PP.ecore#//PuppetManifest/leadingSpaceAndComments"/>
-    </genClasses>
+    <genClasses ecoreClass="PP.ecore#//PuppetManifest"/>
     <genClasses ecoreClass="PP.ecore#//Expression"/>
     <genClasses ecoreClass="PP.ecore#//ResourceBody">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference PP.ecore#//ResourceBody/attributes"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference PP.ecore#//ResourceBody/nameExpr"/>
     </genClasses>
-    <genClasses ecoreClass="PP.ecore#//AttributeDefinition"/>
-    <genClasses ecoreClass="PP.ecore#//AttributeAddition"/>
     <genClasses image="false" ecoreClass="PP.ecore#//AttributeOperation">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference PP.ecore#//AttributeOperation/value"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute PP.ecore#//AttributeOperation/key"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute PP.ecore#//AttributeOperation/op"/>
     </genClasses>
     <genClasses ecoreClass="PP.ecore#//AttributeOperations">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference PP.ecore#//AttributeOperations/attributes"/>
@@ -45,6 +41,7 @@
     <genClasses ecoreClass="PP.ecore#//DefinitionArgument">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute PP.ecore#//DefinitionArgument/argName"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference PP.ecore#//DefinitionArgument/value"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute PP.ecore#//DefinitionArgument/op"/>
     </genClasses>
     <genClasses ecoreClass="PP.ecore#//CaseExpression">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference PP.ecore#//CaseExpression/switchExpr"/>
@@ -148,14 +145,11 @@
     <genClasses ecoreClass="PP.ecore#//ParenthesisedExpression">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference PP.ecore#//ParenthesisedExpression/expr"/>
     </genClasses>
-    <genClasses ecoreClass="PP.ecore#//OWS">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute PP.ecore#//OWS/values"/>
-    </genClasses>
     <genClasses ecoreClass="PP.ecore#//ExprList">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference PP.ecore#//ExprList/expressions"/>
     </genClasses>
     <genClasses ecoreClass="PP.ecore#//DoubleQuotedString">
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference PP.ecore#//DoubleQuotedString/textExpression"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference PP.ecore#//DoubleQuotedString/stringPart"/>
     </genClasses>
     <genClasses ecoreClass="PP.ecore#//SingleQuotedString">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute PP.ecore#//SingleQuotedString/text"/>
@@ -168,10 +162,7 @@
     <genClasses ecoreClass="PP.ecore#//InterpolatedVariable">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute PP.ecore#//InterpolatedVariable/varName"/>
     </genClasses>
-    <genClasses image="false" ecoreClass="PP.ecore#//TextExpression">
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference PP.ecore#//TextExpression/trailing"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference PP.ecore#//TextExpression/leading"/>
-    </genClasses>
+    <genClasses image="false" ecoreClass="PP.ecore#//TextExpression"/>
     <genClasses ecoreClass="PP.ecore#//VerbatimTE">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute PP.ecore#//VerbatimTE/text"/>
     </genClasses>
@@ -180,6 +171,11 @@
     </genClasses>
     <genClasses ecoreClass="PP.ecore#//VariableTE">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute PP.ecore#//VariableTE/varName"/>
+    </genClasses>
+    <genClasses ecoreClass="PP.ecore#//LiteralClass"/>
+    <genClasses ecoreClass="PP.ecore#//UnlessExpression">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference PP.ecore#//UnlessExpression/condExpr"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference PP.ecore#//UnlessExpression/thenStatements"/>
     </genClasses>
   </genPackages>
 </genmodel:GenModel>

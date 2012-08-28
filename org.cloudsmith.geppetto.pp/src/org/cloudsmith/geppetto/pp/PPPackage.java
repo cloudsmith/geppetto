@@ -1326,6 +1326,35 @@ public interface PPPackage extends EPackage {
 		 */
 		EClass LITERAL_CLASS = eINSTANCE.getLiteralClass();
 
+		/**
+		 * The meta object literal for the '{@link org.cloudsmith.geppetto.pp.impl.UnlessExpressionImpl <em>Unless Expression</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * 
+		 * @see org.cloudsmith.geppetto.pp.impl.UnlessExpressionImpl
+		 * @see org.cloudsmith.geppetto.pp.impl.PPPackageImpl#getUnlessExpression()
+		 * @generated
+		 */
+		EClass UNLESS_EXPRESSION = eINSTANCE.getUnlessExpression();
+
+		/**
+		 * The meta object literal for the '<em><b>Cond Expr</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * 
+		 * @generated
+		 */
+		EReference UNLESS_EXPRESSION__COND_EXPR = eINSTANCE.getUnlessExpression_CondExpr();
+
+		/**
+		 * The meta object literal for the '<em><b>Then Statements</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * 
+		 * @generated
+		 */
+		EReference UNLESS_EXPRESSION__THEN_STATEMENTS = eINSTANCE.getUnlessExpression_ThenStatements();
+
 	}
 
 	/**
@@ -3924,6 +3953,47 @@ public interface PPPackage extends EPackage {
 	int LITERAL_CLASS_FEATURE_COUNT = LITERAL_EXPRESSION_FEATURE_COUNT + 0;
 
 	/**
+	 * The meta object id for the '{@link org.cloudsmith.geppetto.pp.impl.UnlessExpressionImpl <em>Unless Expression</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @see org.cloudsmith.geppetto.pp.impl.UnlessExpressionImpl
+	 * @see org.cloudsmith.geppetto.pp.impl.PPPackageImpl#getUnlessExpression()
+	 * @generated
+	 */
+	int UNLESS_EXPRESSION = 69;
+
+	/**
+	 * The feature id for the '<em><b>Cond Expr</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 * @ordered
+	 */
+	int UNLESS_EXPRESSION__COND_EXPR = EXPRESSION_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Then Statements</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 * @ordered
+	 */
+	int UNLESS_EXPRESSION__THEN_STATEMENTS = EXPRESSION_FEATURE_COUNT + 1;
+
+	/**
+	 * The number of structural features of the '<em>Unless Expression</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 * @ordered
+	 */
+	int UNLESS_EXPRESSION_FEATURE_COUNT = EXPRESSION_FEATURE_COUNT + 2;
+
+	/**
 	 * Returns the meta object for class '{@link org.cloudsmith.geppetto.pp.AdditiveExpression <em>Additive Expression</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -5250,6 +5320,42 @@ public interface PPPackage extends EPackage {
 	 * @generated
 	 */
 	EClass getUnaryNotExpression();
+
+	/**
+	 * Returns the meta object for class '{@link org.cloudsmith.geppetto.pp.UnlessExpression <em>Unless Expression</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @return the meta object for class '<em>Unless Expression</em>'.
+	 * @see org.cloudsmith.geppetto.pp.UnlessExpression
+	 * @generated
+	 */
+	EClass getUnlessExpression();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link org.cloudsmith.geppetto.pp.UnlessExpression#getCondExpr <em>Cond Expr</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @return the meta object for the containment reference '<em>Cond Expr</em>'.
+	 * @see org.cloudsmith.geppetto.pp.UnlessExpression#getCondExpr()
+	 * @see #getUnlessExpression()
+	 * @generated
+	 */
+	EReference getUnlessExpression_CondExpr();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link org.cloudsmith.geppetto.pp.UnlessExpression#getThenStatements
+	 * <em>Then Statements</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @return the meta object for the containment reference list '<em>Then Statements</em>'.
+	 * @see org.cloudsmith.geppetto.pp.UnlessExpression#getThenStatements()
+	 * @see #getUnlessExpression()
+	 * @generated
+	 */
+	EReference getUnlessExpression_ThenStatements();
 
 	/**
 	 * Returns the meta object for class '{@link org.cloudsmith.geppetto.pp.UnquotedString <em>Unquoted String</em>}'.

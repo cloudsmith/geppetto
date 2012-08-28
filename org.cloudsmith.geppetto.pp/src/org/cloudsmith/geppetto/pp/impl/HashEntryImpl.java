@@ -28,11 +28,11 @@ import org.eclipse.emf.ecore.impl.EObjectImpl;
  * <p>
  * The following features are implemented:
  * <ul>
- * <li>{@link org.cloudsmith.geppetto.pp.impl.HashEntryImpl#getKey <em>Key</em>}</li>
- * <li>{@link org.cloudsmith.geppetto.pp.impl.HashEntryImpl#getValue <em>Value</em>}</li>
+ *   <li>{@link org.cloudsmith.geppetto.pp.impl.HashEntryImpl#getKey <em>Key</em>}</li>
+ *   <li>{@link org.cloudsmith.geppetto.pp.impl.HashEntryImpl#getValue <em>Value</em>}</li>
  * </ul>
  * </p>
- * 
+ *
  * @generated
  */
 public class HashEntryImpl extends EObjectImpl implements HashEntry {
@@ -40,7 +40,6 @@ public class HashEntryImpl extends EObjectImpl implements HashEntry {
 	 * The cached value of the '{@link #getKey() <em>Key</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @see #getKey()
 	 * @generated
 	 * @ordered
@@ -51,7 +50,6 @@ public class HashEntryImpl extends EObjectImpl implements HashEntry {
 	 * The cached value of the '{@link #getValue() <em>Value</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @see #getValue()
 	 * @generated
 	 * @ordered
@@ -61,7 +59,6 @@ public class HashEntryImpl extends EObjectImpl implements HashEntry {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	protected HashEntryImpl() {
@@ -71,7 +68,6 @@ public class HashEntryImpl extends EObjectImpl implements HashEntry {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public NotificationChain basicSetKey(Expression newKey, NotificationChain msgs) {
@@ -91,7 +87,6 @@ public class HashEntryImpl extends EObjectImpl implements HashEntry {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public NotificationChain basicSetValue(Expression newValue, NotificationChain msgs) {
@@ -111,7 +106,6 @@ public class HashEntryImpl extends EObjectImpl implements HashEntry {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	@Override
@@ -128,7 +122,6 @@ public class HashEntryImpl extends EObjectImpl implements HashEntry {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	@Override
@@ -145,7 +138,6 @@ public class HashEntryImpl extends EObjectImpl implements HashEntry {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	@Override
@@ -162,7 +154,6 @@ public class HashEntryImpl extends EObjectImpl implements HashEntry {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	@Override
@@ -181,7 +172,6 @@ public class HashEntryImpl extends EObjectImpl implements HashEntry {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	@Override
@@ -192,7 +182,6 @@ public class HashEntryImpl extends EObjectImpl implements HashEntry {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	@Override
@@ -211,7 +200,6 @@ public class HashEntryImpl extends EObjectImpl implements HashEntry {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public Expression getKey() {
@@ -221,7 +209,6 @@ public class HashEntryImpl extends EObjectImpl implements HashEntry {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public Expression getValue() {
@@ -231,7 +218,6 @@ public class HashEntryImpl extends EObjectImpl implements HashEntry {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public void setKey(Expression newKey) {
@@ -254,7 +240,6 @@ public class HashEntryImpl extends EObjectImpl implements HashEntry {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public void setValue(Expression newValue) {

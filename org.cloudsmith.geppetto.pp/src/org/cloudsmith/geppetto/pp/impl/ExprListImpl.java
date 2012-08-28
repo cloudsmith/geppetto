@@ -30,10 +30,10 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <p>
  * The following features are implemented:
  * <ul>
- * <li>{@link org.cloudsmith.geppetto.pp.impl.ExprListImpl#getExpressions <em>Expressions</em>}</li>
+ *   <li>{@link org.cloudsmith.geppetto.pp.impl.ExprListImpl#getExpressions <em>Expressions</em>}</li>
  * </ul>
  * </p>
- * 
+ *
  * @generated
  */
 public class ExprListImpl extends ExpressionImpl implements ExprList {
@@ -41,7 +41,6 @@ public class ExprListImpl extends ExpressionImpl implements ExprList {
 	 * The cached value of the '{@link #getExpressions() <em>Expressions</em>}' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @see #getExpressions()
 	 * @generated
 	 * @ordered
@@ -51,7 +50,6 @@ public class ExprListImpl extends ExpressionImpl implements ExprList {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	protected ExprListImpl() {
@@ -61,7 +59,6 @@ public class ExprListImpl extends ExpressionImpl implements ExprList {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	@Override
@@ -76,7 +73,6 @@ public class ExprListImpl extends ExpressionImpl implements ExprList {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	@Override
@@ -91,7 +87,6 @@ public class ExprListImpl extends ExpressionImpl implements ExprList {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	@Override
@@ -106,7 +101,6 @@ public class ExprListImpl extends ExpressionImpl implements ExprList {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	@SuppressWarnings("unchecked")
@@ -124,7 +118,6 @@ public class ExprListImpl extends ExpressionImpl implements ExprList {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	@Override
@@ -135,7 +128,6 @@ public class ExprListImpl extends ExpressionImpl implements ExprList {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	@Override
@@ -151,7 +143,6 @@ public class ExprListImpl extends ExpressionImpl implements ExprList {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public EList<Expression> getExpressions() {

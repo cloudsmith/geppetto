@@ -21,14 +21,13 @@ import org.eclipse.emf.ecore.EClass;
  * <!-- end-user-doc -->
  * <p>
  * </p>
- * 
+ *
  * @generated
  */
 public class ExportedCollectQueryImpl extends UnaryExpressionImpl implements ExportedCollectQuery {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	protected ExportedCollectQueryImpl() {
@@ -38,7 +37,6 @@ public class ExportedCollectQueryImpl extends UnaryExpressionImpl implements Exp
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	@Override

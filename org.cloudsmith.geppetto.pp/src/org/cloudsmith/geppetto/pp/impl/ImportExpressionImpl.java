@@ -30,10 +30,10 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <p>
  * The following features are implemented:
  * <ul>
- * <li>{@link org.cloudsmith.geppetto.pp.impl.ImportExpressionImpl#getValues <em>Values</em>}</li>
+ *   <li>{@link org.cloudsmith.geppetto.pp.impl.ImportExpressionImpl#getValues <em>Values</em>}</li>
  * </ul>
  * </p>
- * 
+ *
  * @generated
  */
 public class ImportExpressionImpl extends ExpressionImpl implements ImportExpression {
@@ -41,7 +41,6 @@ public class ImportExpressionImpl extends ExpressionImpl implements ImportExpres
 	 * The cached value of the '{@link #getValues() <em>Values</em>}' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @see #getValues()
 	 * @generated
 	 * @ordered
@@ -51,7 +50,6 @@ public class ImportExpressionImpl extends ExpressionImpl implements ImportExpres
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	protected ImportExpressionImpl() {
@@ -61,7 +59,6 @@ public class ImportExpressionImpl extends ExpressionImpl implements ImportExpres
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	@Override
@@ -76,7 +73,6 @@ public class ImportExpressionImpl extends ExpressionImpl implements ImportExpres
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	@Override
@@ -91,7 +87,6 @@ public class ImportExpressionImpl extends ExpressionImpl implements ImportExpres
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	@Override
@@ -106,7 +101,6 @@ public class ImportExpressionImpl extends ExpressionImpl implements ImportExpres
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	@SuppressWarnings("unchecked")
@@ -124,7 +118,6 @@ public class ImportExpressionImpl extends ExpressionImpl implements ImportExpres
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	@Override
@@ -135,7 +128,6 @@ public class ImportExpressionImpl extends ExpressionImpl implements ImportExpres
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	@Override
@@ -151,7 +143,6 @@ public class ImportExpressionImpl extends ExpressionImpl implements ImportExpres
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public EList<IQuotedString> getValues() {

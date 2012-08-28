@@ -563,6 +563,16 @@ public interface PPFactory extends EFactory {
 	UnaryNotExpression createUnaryNotExpression();
 
 	/**
+	 * Returns a new object of class '<em>Unless Expression</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @return a new object of class '<em>Unless Expression</em>'.
+	 * @generated
+	 */
+	UnlessExpression createUnlessExpression();
+
+	/**
 	 * Returns a new object of class '<em>Unquoted String</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

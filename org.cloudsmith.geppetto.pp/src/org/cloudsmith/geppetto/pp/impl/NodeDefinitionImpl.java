@@ -32,12 +32,12 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <p>
  * The following features are implemented:
  * <ul>
- * <li>{@link org.cloudsmith.geppetto.pp.impl.NodeDefinitionImpl#getHostNames <em>Host Names</em>}</li>
- * <li>{@link org.cloudsmith.geppetto.pp.impl.NodeDefinitionImpl#getParentName <em>Parent Name</em>}</li>
- * <li>{@link org.cloudsmith.geppetto.pp.impl.NodeDefinitionImpl#getStatements <em>Statements</em>}</li>
+ *   <li>{@link org.cloudsmith.geppetto.pp.impl.NodeDefinitionImpl#getHostNames <em>Host Names</em>}</li>
+ *   <li>{@link org.cloudsmith.geppetto.pp.impl.NodeDefinitionImpl#getParentName <em>Parent Name</em>}</li>
+ *   <li>{@link org.cloudsmith.geppetto.pp.impl.NodeDefinitionImpl#getStatements <em>Statements</em>}</li>
  * </ul>
  * </p>
- * 
+ *
  * @generated
  */
 public class NodeDefinitionImpl extends ExpressionImpl implements NodeDefinition {
@@ -45,7 +45,6 @@ public class NodeDefinitionImpl extends ExpressionImpl implements NodeDefinition
 	 * The cached value of the '{@link #getHostNames() <em>Host Names</em>}' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @see #getHostNames()
 	 * @generated
 	 * @ordered
@@ -56,7 +55,6 @@ public class NodeDefinitionImpl extends ExpressionImpl implements NodeDefinition
 	 * The cached value of the '{@link #getParentName() <em>Parent Name</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @see #getParentName()
 	 * @generated
 	 * @ordered
@@ -67,7 +65,6 @@ public class NodeDefinitionImpl extends ExpressionImpl implements NodeDefinition
 	 * The cached value of the '{@link #getStatements() <em>Statements</em>}' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @see #getStatements()
 	 * @generated
 	 * @ordered
@@ -77,7 +74,6 @@ public class NodeDefinitionImpl extends ExpressionImpl implements NodeDefinition
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	protected NodeDefinitionImpl() {
@@ -87,7 +83,6 @@ public class NodeDefinitionImpl extends ExpressionImpl implements NodeDefinition
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public NotificationChain basicSetParentName(Expression newParentName, NotificationChain msgs) {
@@ -107,7 +102,6 @@ public class NodeDefinitionImpl extends ExpressionImpl implements NodeDefinition
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	@Override
@@ -126,7 +120,6 @@ public class NodeDefinitionImpl extends ExpressionImpl implements NodeDefinition
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	@Override
@@ -145,7 +138,6 @@ public class NodeDefinitionImpl extends ExpressionImpl implements NodeDefinition
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	@Override
@@ -164,7 +156,6 @@ public class NodeDefinitionImpl extends ExpressionImpl implements NodeDefinition
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	@SuppressWarnings("unchecked")
@@ -189,7 +180,6 @@ public class NodeDefinitionImpl extends ExpressionImpl implements NodeDefinition
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	@Override
@@ -200,7 +190,6 @@ public class NodeDefinitionImpl extends ExpressionImpl implements NodeDefinition
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	@Override
@@ -222,7 +211,6 @@ public class NodeDefinitionImpl extends ExpressionImpl implements NodeDefinition
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public EList<Expression> getHostNames() {
@@ -236,7 +224,6 @@ public class NodeDefinitionImpl extends ExpressionImpl implements NodeDefinition
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public Expression getParentName() {
@@ -246,7 +233,6 @@ public class NodeDefinitionImpl extends ExpressionImpl implements NodeDefinition
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public EList<Expression> getStatements() {
@@ -260,7 +246,6 @@ public class NodeDefinitionImpl extends ExpressionImpl implements NodeDefinition
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public void setParentName(Expression newParentName) {

@@ -24,10 +24,10 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  * <p>
  * The following features are implemented:
  * <ul>
- * <li>{@link org.cloudsmith.geppetto.pp.impl.InterpolatedVariableImpl#getVarName <em>Var Name</em>}</li>
+ *   <li>{@link org.cloudsmith.geppetto.pp.impl.InterpolatedVariableImpl#getVarName <em>Var Name</em>}</li>
  * </ul>
  * </p>
- * 
+ *
  * @generated
  */
 public class InterpolatedVariableImpl extends ExpressionImpl implements InterpolatedVariable {
@@ -35,7 +35,6 @@ public class InterpolatedVariableImpl extends ExpressionImpl implements Interpol
 	 * The default value of the '{@link #getVarName() <em>Var Name</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @see #getVarName()
 	 * @generated
 	 * @ordered
@@ -46,7 +45,6 @@ public class InterpolatedVariableImpl extends ExpressionImpl implements Interpol
 	 * The cached value of the '{@link #getVarName() <em>Var Name</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @see #getVarName()
 	 * @generated
 	 * @ordered
@@ -56,7 +54,6 @@ public class InterpolatedVariableImpl extends ExpressionImpl implements Interpol
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	protected InterpolatedVariableImpl() {
@@ -66,7 +63,6 @@ public class InterpolatedVariableImpl extends ExpressionImpl implements Interpol
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	@Override
@@ -81,7 +77,6 @@ public class InterpolatedVariableImpl extends ExpressionImpl implements Interpol
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	@Override
@@ -98,7 +93,6 @@ public class InterpolatedVariableImpl extends ExpressionImpl implements Interpol
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	@Override
@@ -114,7 +108,6 @@ public class InterpolatedVariableImpl extends ExpressionImpl implements Interpol
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	@Override
@@ -125,7 +118,6 @@ public class InterpolatedVariableImpl extends ExpressionImpl implements Interpol
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	@Override
@@ -141,7 +133,6 @@ public class InterpolatedVariableImpl extends ExpressionImpl implements Interpol
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public String getVarName() {
@@ -151,7 +142,6 @@ public class InterpolatedVariableImpl extends ExpressionImpl implements Interpol
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public void setVarName(String newVarName) {
@@ -165,7 +155,6 @@ public class InterpolatedVariableImpl extends ExpressionImpl implements Interpol
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	@Override

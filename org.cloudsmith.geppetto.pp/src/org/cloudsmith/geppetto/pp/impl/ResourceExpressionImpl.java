@@ -33,11 +33,11 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <p>
  * The following features are implemented:
  * <ul>
- * <li>{@link org.cloudsmith.geppetto.pp.impl.ResourceExpressionImpl#getResourceExpr <em>Resource Expr</em>}</li>
- * <li>{@link org.cloudsmith.geppetto.pp.impl.ResourceExpressionImpl#getResourceData <em>Resource Data</em>}</li>
+ *   <li>{@link org.cloudsmith.geppetto.pp.impl.ResourceExpressionImpl#getResourceExpr <em>Resource Expr</em>}</li>
+ *   <li>{@link org.cloudsmith.geppetto.pp.impl.ResourceExpressionImpl#getResourceData <em>Resource Data</em>}</li>
  * </ul>
  * </p>
- * 
+ *
  * @generated
  */
 public class ResourceExpressionImpl extends ExpressionImpl implements ResourceExpression {
@@ -45,7 +45,6 @@ public class ResourceExpressionImpl extends ExpressionImpl implements ResourceEx
 	 * The cached value of the '{@link #getResourceExpr() <em>Resource Expr</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @see #getResourceExpr()
 	 * @generated
 	 * @ordered
@@ -56,7 +55,6 @@ public class ResourceExpressionImpl extends ExpressionImpl implements ResourceEx
 	 * The cached value of the '{@link #getResourceData() <em>Resource Data</em>}' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @see #getResourceData()
 	 * @generated
 	 * @ordered
@@ -66,7 +64,6 @@ public class ResourceExpressionImpl extends ExpressionImpl implements ResourceEx
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	protected ResourceExpressionImpl() {
@@ -76,7 +73,6 @@ public class ResourceExpressionImpl extends ExpressionImpl implements ResourceEx
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public NotificationChain basicSetResourceExpr(Expression newResourceExpr, NotificationChain msgs) {
@@ -96,7 +92,6 @@ public class ResourceExpressionImpl extends ExpressionImpl implements ResourceEx
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	@Override
@@ -113,7 +108,6 @@ public class ResourceExpressionImpl extends ExpressionImpl implements ResourceEx
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	@Override
@@ -130,7 +124,6 @@ public class ResourceExpressionImpl extends ExpressionImpl implements ResourceEx
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	@Override
@@ -147,7 +140,6 @@ public class ResourceExpressionImpl extends ExpressionImpl implements ResourceEx
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	@SuppressWarnings("unchecked")
@@ -168,7 +160,6 @@ public class ResourceExpressionImpl extends ExpressionImpl implements ResourceEx
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	@Override
@@ -179,7 +170,6 @@ public class ResourceExpressionImpl extends ExpressionImpl implements ResourceEx
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	@Override
@@ -198,7 +188,6 @@ public class ResourceExpressionImpl extends ExpressionImpl implements ResourceEx
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public EList<ResourceBody> getResourceData() {
@@ -212,7 +201,6 @@ public class ResourceExpressionImpl extends ExpressionImpl implements ResourceEx
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public Expression getResourceExpr() {
@@ -222,7 +210,6 @@ public class ResourceExpressionImpl extends ExpressionImpl implements ResourceEx
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public void setResourceExpr(Expression newResourceExpr) {

@@ -28,12 +28,12 @@ import org.eclipse.emf.ecore.impl.EObjectImpl;
  * <p>
  * The following features are implemented:
  * <ul>
- * <li>{@link org.cloudsmith.geppetto.pp.impl.AttributeOperationImpl#getValue <em>Value</em>}</li>
- * <li>{@link org.cloudsmith.geppetto.pp.impl.AttributeOperationImpl#getKey <em>Key</em>}</li>
- * <li>{@link org.cloudsmith.geppetto.pp.impl.AttributeOperationImpl#getOp <em>Op</em>}</li>
+ *   <li>{@link org.cloudsmith.geppetto.pp.impl.AttributeOperationImpl#getValue <em>Value</em>}</li>
+ *   <li>{@link org.cloudsmith.geppetto.pp.impl.AttributeOperationImpl#getKey <em>Key</em>}</li>
+ *   <li>{@link org.cloudsmith.geppetto.pp.impl.AttributeOperationImpl#getOp <em>Op</em>}</li>
  * </ul>
  * </p>
- * 
+ *
  * @generated
  */
 public class AttributeOperationImpl extends EObjectImpl implements AttributeOperation {
@@ -41,7 +41,6 @@ public class AttributeOperationImpl extends EObjectImpl implements AttributeOper
 	 * The cached value of the '{@link #getValue() <em>Value</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @see #getValue()
 	 * @generated
 	 * @ordered
@@ -52,7 +51,6 @@ public class AttributeOperationImpl extends EObjectImpl implements AttributeOper
 	 * The default value of the '{@link #getKey() <em>Key</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @see #getKey()
 	 * @generated
 	 * @ordered
@@ -63,7 +61,6 @@ public class AttributeOperationImpl extends EObjectImpl implements AttributeOper
 	 * The cached value of the '{@link #getKey() <em>Key</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @see #getKey()
 	 * @generated
 	 * @ordered
@@ -74,7 +71,6 @@ public class AttributeOperationImpl extends EObjectImpl implements AttributeOper
 	 * The default value of the '{@link #getOp() <em>Op</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @see #getOp()
 	 * @generated
 	 * @ordered
@@ -85,7 +81,6 @@ public class AttributeOperationImpl extends EObjectImpl implements AttributeOper
 	 * The cached value of the '{@link #getOp() <em>Op</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @see #getOp()
 	 * @generated
 	 * @ordered
@@ -95,7 +90,6 @@ public class AttributeOperationImpl extends EObjectImpl implements AttributeOper
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	protected AttributeOperationImpl() {
@@ -105,7 +99,6 @@ public class AttributeOperationImpl extends EObjectImpl implements AttributeOper
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public NotificationChain basicSetValue(Expression newValue, NotificationChain msgs) {
@@ -125,7 +118,6 @@ public class AttributeOperationImpl extends EObjectImpl implements AttributeOper
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	@Override
@@ -144,7 +136,6 @@ public class AttributeOperationImpl extends EObjectImpl implements AttributeOper
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	@Override
@@ -159,7 +150,6 @@ public class AttributeOperationImpl extends EObjectImpl implements AttributeOper
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	@Override
@@ -182,7 +172,6 @@ public class AttributeOperationImpl extends EObjectImpl implements AttributeOper
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	@Override
@@ -204,7 +193,6 @@ public class AttributeOperationImpl extends EObjectImpl implements AttributeOper
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	@Override
@@ -215,7 +203,6 @@ public class AttributeOperationImpl extends EObjectImpl implements AttributeOper
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	@Override
@@ -237,7 +224,6 @@ public class AttributeOperationImpl extends EObjectImpl implements AttributeOper
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public String getKey() {
@@ -247,7 +233,6 @@ public class AttributeOperationImpl extends EObjectImpl implements AttributeOper
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public String getOp() {
@@ -257,7 +242,6 @@ public class AttributeOperationImpl extends EObjectImpl implements AttributeOper
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public Expression getValue() {
@@ -267,7 +251,6 @@ public class AttributeOperationImpl extends EObjectImpl implements AttributeOper
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public void setKey(String newKey) {
@@ -280,7 +263,6 @@ public class AttributeOperationImpl extends EObjectImpl implements AttributeOper
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public void setOp(String newOp) {
@@ -293,7 +275,6 @@ public class AttributeOperationImpl extends EObjectImpl implements AttributeOper
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public void setValue(Expression newValue) {
@@ -317,7 +298,6 @@ public class AttributeOperationImpl extends EObjectImpl implements AttributeOper
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	@Override

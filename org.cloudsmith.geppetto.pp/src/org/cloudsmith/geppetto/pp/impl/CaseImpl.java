@@ -31,11 +31,11 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <p>
  * The following features are implemented:
  * <ul>
- * <li>{@link org.cloudsmith.geppetto.pp.impl.CaseImpl#getStatements <em>Statements</em>}</li>
- * <li>{@link org.cloudsmith.geppetto.pp.impl.CaseImpl#getValues <em>Values</em>}</li>
+ *   <li>{@link org.cloudsmith.geppetto.pp.impl.CaseImpl#getStatements <em>Statements</em>}</li>
+ *   <li>{@link org.cloudsmith.geppetto.pp.impl.CaseImpl#getValues <em>Values</em>}</li>
  * </ul>
  * </p>
- * 
+ *
  * @generated
  */
 public class CaseImpl extends EObjectImpl implements Case {
@@ -43,7 +43,6 @@ public class CaseImpl extends EObjectImpl implements Case {
 	 * The cached value of the '{@link #getStatements() <em>Statements</em>}' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @see #getStatements()
 	 * @generated
 	 * @ordered
@@ -54,7 +53,6 @@ public class CaseImpl extends EObjectImpl implements Case {
 	 * The cached value of the '{@link #getValues() <em>Values</em>}' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @see #getValues()
 	 * @generated
 	 * @ordered
@@ -64,7 +62,6 @@ public class CaseImpl extends EObjectImpl implements Case {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	protected CaseImpl() {
@@ -74,7 +71,6 @@ public class CaseImpl extends EObjectImpl implements Case {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	@Override
@@ -91,7 +87,6 @@ public class CaseImpl extends EObjectImpl implements Case {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	@Override
@@ -108,7 +103,6 @@ public class CaseImpl extends EObjectImpl implements Case {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	@Override
@@ -125,7 +119,6 @@ public class CaseImpl extends EObjectImpl implements Case {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	@SuppressWarnings("unchecked")
@@ -147,7 +140,6 @@ public class CaseImpl extends EObjectImpl implements Case {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	@Override
@@ -158,7 +150,6 @@ public class CaseImpl extends EObjectImpl implements Case {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	@Override
@@ -177,7 +168,6 @@ public class CaseImpl extends EObjectImpl implements Case {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public EList<Expression> getStatements() {
@@ -190,7 +180,6 @@ public class CaseImpl extends EObjectImpl implements Case {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public EList<Expression> getValues() {

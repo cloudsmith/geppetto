@@ -29,11 +29,11 @@ import org.eclipse.emf.ecore.impl.EObjectImpl;
  * <p>
  * The following features are implemented:
  * <ul>
- * <li>{@link org.cloudsmith.geppetto.pp.impl.ResourceBodyImpl#getAttributes <em>Attributes</em>}</li>
- * <li>{@link org.cloudsmith.geppetto.pp.impl.ResourceBodyImpl#getNameExpr <em>Name Expr</em>}</li>
+ *   <li>{@link org.cloudsmith.geppetto.pp.impl.ResourceBodyImpl#getAttributes <em>Attributes</em>}</li>
+ *   <li>{@link org.cloudsmith.geppetto.pp.impl.ResourceBodyImpl#getNameExpr <em>Name Expr</em>}</li>
  * </ul>
  * </p>
- * 
+ *
  * @generated
  */
 public class ResourceBodyImpl extends EObjectImpl implements ResourceBody {
@@ -41,7 +41,6 @@ public class ResourceBodyImpl extends EObjectImpl implements ResourceBody {
 	 * The cached value of the '{@link #getAttributes() <em>Attributes</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @see #getAttributes()
 	 * @generated
 	 * @ordered
@@ -52,7 +51,6 @@ public class ResourceBodyImpl extends EObjectImpl implements ResourceBody {
 	 * The cached value of the '{@link #getNameExpr() <em>Name Expr</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @see #getNameExpr()
 	 * @generated
 	 * @ordered
@@ -62,7 +60,6 @@ public class ResourceBodyImpl extends EObjectImpl implements ResourceBody {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	protected ResourceBodyImpl() {
@@ -72,7 +69,6 @@ public class ResourceBodyImpl extends EObjectImpl implements ResourceBody {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public NotificationChain basicSetAttributes(AttributeOperations newAttributes, NotificationChain msgs) {
@@ -92,7 +88,6 @@ public class ResourceBodyImpl extends EObjectImpl implements ResourceBody {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public NotificationChain basicSetNameExpr(Expression newNameExpr, NotificationChain msgs) {
@@ -112,7 +107,6 @@ public class ResourceBodyImpl extends EObjectImpl implements ResourceBody {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	@Override
@@ -129,7 +123,6 @@ public class ResourceBodyImpl extends EObjectImpl implements ResourceBody {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	@Override
@@ -146,7 +139,6 @@ public class ResourceBodyImpl extends EObjectImpl implements ResourceBody {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	@Override
@@ -163,7 +155,6 @@ public class ResourceBodyImpl extends EObjectImpl implements ResourceBody {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	@Override
@@ -182,7 +173,6 @@ public class ResourceBodyImpl extends EObjectImpl implements ResourceBody {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	@Override
@@ -193,7 +183,6 @@ public class ResourceBodyImpl extends EObjectImpl implements ResourceBody {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	@Override
@@ -212,7 +201,6 @@ public class ResourceBodyImpl extends EObjectImpl implements ResourceBody {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public AttributeOperations getAttributes() {
@@ -222,7 +210,6 @@ public class ResourceBodyImpl extends EObjectImpl implements ResourceBody {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public Expression getNameExpr() {
@@ -232,7 +219,6 @@ public class ResourceBodyImpl extends EObjectImpl implements ResourceBody {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public void setAttributes(AttributeOperations newAttributes) {
@@ -256,7 +242,6 @@ public class ResourceBodyImpl extends EObjectImpl implements ResourceBody {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public void setNameExpr(Expression newNameExpr) {

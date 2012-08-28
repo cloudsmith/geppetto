@@ -190,4 +190,6 @@ public interface IPPDiagnostics {
 
 	public static final String ISSUE_UNWANTED_ML_COMMENT = ISSUE_PREFIX + "UnwantedMLComment";
 
+	public static final String ISSUE_RIGHT_TO_LEFT_RELATIONSHIP = ISSUE_PREFIX + "RightToLeftRelatinship";
+
 }

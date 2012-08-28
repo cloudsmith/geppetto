@@ -64,6 +64,11 @@ public class ValidationAdvisor {
 		}
 
 		@Override
+		public ValidationPreference rightToLeftRelationships() {
+			return problemsAdvisor.rightToLeftRelationships();
+		}
+
+		@Override
 		public ValidationPreference selectorDefaultShouldAppearLast() {
 			return problemsAdvisor.selectorDefaultShouldAppearLast();
 		}

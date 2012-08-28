@@ -1102,8 +1102,35 @@ public class PPJavaValidator extends AbstractPPJavaValidator implements IPPDiagn
 						: opName, o, PPPackage.Literals.BINARY_OP_EXPRESSION__OP_NAME, INSIGNIFICANT_INDEX,
 				IPPDiagnostics.ISSUE__ILLEGAL_OP);
 
-		internalCheckRelationshipOperand(o, o.getLeftExpr(), PPPackage.Literals.BINARY_EXPRESSION__LEFT_EXPR);
-		internalCheckRelationshipOperand(o, o.getRightExpr(), PPPackage.Literals.BINARY_EXPRESSION__RIGHT_EXPR);
+		boolean okL = internalCheckRelationshipOperand(
+			o, o.getLeftExpr(), PPPackage.Literals.BINARY_EXPRESSION__LEFT_EXPR);
+		boolean okR = internalCheckRelationshipOperand(
+			o, o.getRightExpr(), PPPackage.Literals.BINARY_EXPRESSION__RIGHT_EXPR);
+
+		// optionally flag RtoL relationships
+		if(opName.startsWith("<")) {
+			// what does the advice say
+			IValidationAdvisor advisor = advisor();
+			ValidationPreference rightToLeft = advisor.rightToLeftRelationships();
+			if(rightToLeft.isWarningOrError()) {
+				List<INode> x = NodeModelUtils.findNodesForFeature(o, PPPackage.Literals.BINARY_OP_EXPRESSION__OP_NAME);
+				// in case there is embedded whitespace or crazy stuff... (locate the node)
+				INode theNode = null;
+				for(INode n : x) {
+					if(n.getGrammarElement() == grammarAccess.getRelationshipExpressionAccess().getOpNameEdgeOperatorParserRuleCall_1_1_0())
+						theNode = n;
+				}
+				// a node should have been found, but just to be safe, report the error on the entire expression if there was none.
+				if(theNode != null)
+					warningOrError(
+						acceptor, rightToLeft, "Right to Left relationship (stylistic problem)", theNode,
+						IPPDiagnostics.ISSUE_RIGHT_TO_LEFT_RELATIONSHIP, opName, Boolean.toString(okL && okR));
+				else
+					warningOrError(
+						acceptor, rightToLeft, "Right to Left relationship (stylistic problem)", o,
+						IPPDiagnostics.ISSUE_RIGHT_TO_LEFT_RELATIONSHIP, opName, Boolean.toString(okL && okR));
+			}
+		}
 	}
 
 	@Check
@@ -1613,40 +1640,47 @@ public class PPJavaValidator extends AbstractPPJavaValidator implements IPPDiagn
 
 	}
 
-	private void internalCheckRelationshipOperand(RelationshipExpression r, Expression o, EReference feature) {
+	private boolean internalCheckRelationshipOperand(RelationshipExpression r, Expression o, EReference feature) {
+		boolean result = true;
 
 		// -- chained relationsips A -> B -> C
 		if(o instanceof RelationshipExpression)
-			return; // ok, they are chained
+			return result; // ok, they are chained
 
 		if(o instanceof ResourceExpression) {
 			// may not be a resource override
 			ResourceExpression re = (ResourceExpression) o;
-			if(re.getResourceExpr() instanceof AtExpression)
+			if(re.getResourceExpr() instanceof AtExpression) {
 				acceptor.acceptError(
 					"Dependency can not be defined for a resource override.", r, feature, INSIGNIFICANT_INDEX,
 					IPPDiagnostics.ISSUE__UNSUPPORTED_EXPRESSION);
+				result = false;
+			}
 		}
 		else if(o instanceof AtExpression) {
 			// the AtExpression is validated as standard or resource reference, so only need
 			// to check correct form
-			if(isStandardAtExpression((AtExpression) o))
+			if(isStandardAtExpression((AtExpression) o)) {
 				acceptor.acceptError(
 					"Dependency can not be formed for an array/hash access", r, feature, INSIGNIFICANT_INDEX,
 					IPPDiagnostics.ISSUE__UNSUPPORTED_EXPRESSION);
+				result = false;
+			}
 
 		}
 		else if(o instanceof VirtualNameOrReference) {
 			acceptor.acceptError(
 				"Dependency can not be formed for virtual resource", r, feature, INSIGNIFICANT_INDEX,
 				IPPDiagnostics.ISSUE__UNSUPPORTED_EXPRESSION);
+			result = false;
 		}
 		else if(!(o instanceof CollectExpression)) {
 			acceptor.acceptError(
 				"Dependency can not be formed for this type of expression", r, feature, INSIGNIFICANT_INDEX,
 				IPPDiagnostics.ISSUE__UNSUPPORTED_EXPRESSION);
-
+			result = false;
 		}
+		return result;
 	}
 
 	protected void internalCheckRvalueExpression(EList<Expression> statements) {

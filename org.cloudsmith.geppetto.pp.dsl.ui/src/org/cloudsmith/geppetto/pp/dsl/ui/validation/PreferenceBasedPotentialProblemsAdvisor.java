@@ -73,6 +73,11 @@ public class PreferenceBasedPotentialProblemsAdvisor implements IPotentialProble
 	}
 
 	@Override
+	public ValidationPreference rightToLeftRelationships() {
+		return preferences.getRightToLeftRelationships();
+	}
+
+	@Override
 	public ValidationPreference selectorDefaultShouldAppearLast() {
 		return preferences.getSelectorDefaultShouldAppearLast();
 	}

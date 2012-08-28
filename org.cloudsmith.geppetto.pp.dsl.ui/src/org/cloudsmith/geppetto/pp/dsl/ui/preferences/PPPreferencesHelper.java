@@ -146,7 +146,8 @@ public class PPPreferencesHelper implements IPreferenceStoreInitializer, IProper
 		PPPreferenceConstants.PROBLEM_DQ_STRING_NOT_REQUIRED, //
 		PPPreferenceConstants.PROBLEM_DQ_STRING_NOT_REQUIRED_VAR, //
 		PPPreferenceConstants.PROBLEM_UNBRACED_INTERPOLATION, //
-		PPPreferenceConstants.PROBLEM_ML_COMMENTS //
+		PPPreferenceConstants.PROBLEM_ML_COMMENTS, //
+		PPPreferenceConstants.PROBLEM_RTOL_RELATIONSHIP //
 
 	);
 
@@ -241,6 +242,10 @@ public class PPPreferencesHelper implements IPreferenceStoreInitializer, IProper
 
 	}
 
+	public ValidationPreference getRightToLeftRelationships() {
+		return ValidationPreference.fromString(store.getString(PPPreferenceConstants.PROBLEM_RTOL_RELATIONSHIP));
+	}
+
 	public boolean getSaveActionEnsureEndsWithNewLine() {
 		return store.getBoolean(PPPreferenceConstants.SAVE_ACTION_ENSURE_ENDS_WITH_NL);
 	}
@@ -274,23 +279,14 @@ public class PPPreferencesHelper implements IPreferenceStoreInitializer, IProper
 				: getSaveActionTrimLines();
 	}
 
-	/**
-	 * @return
-	 */
 	public ValidationPreference getSelectorDefaultShouldAppearLast() {
 		return ValidationPreference.fromString(store.getString(PPPreferenceConstants.PROBLEM_SELECTOR_DEFAULT_LAST));
 	}
 
-	/**
-	 * @return
-	 */
 	public ValidationPreference getUnbracedInterpolation() {
 		return ValidationPreference.fromString(store.getString(PPPreferenceConstants.PROBLEM_UNBRACED_INTERPOLATION));
 	}
 
-	/**
-	 * @return
-	 */
 	public ValidationPreference getUnquotedResourceTitles() {
 		return ValidationPreference.fromString(store.getString(PPPreferenceConstants.PROBLEM_UNQUOTED_RESOURCE_TITLE));
 	}
@@ -300,18 +296,12 @@ public class PPPreferencesHelper implements IPreferenceStoreInitializer, IProper
 		if("2.6".equals(result))
 			return IValidationAdvisor.ComplianceLevel.PUPPET_2_6;
 		if("3.0".equals(result) || "2.8".equals(result))
-			return IValidationAdvisor.ComplianceLevel.PUPPET_3_0; // TODO: Rename Compliance 2.8 to Compliance 3.0
+			return IValidationAdvisor.ComplianceLevel.PUPPET_3_0;
 
 		// for 2.7 and default
 		return IValidationAdvisor.ComplianceLevel.PUPPET_2_7;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.eclipse.xtext.ui.editor.preferences.IPreferenceStoreInitializer#initialize(org.eclipse.xtext.ui.editor.preferences.IPreferenceStoreAccess)
-	 */
 	@Override
 	synchronized public void initialize(IPreferenceStoreAccess access) {
 		// if already initialized
@@ -340,6 +330,7 @@ public class PPPreferencesHelper implements IPreferenceStoreInitializer, IProper
 			PPPreferenceConstants.PROBLEM_DQ_STRING_NOT_REQUIRED_VAR, ValidationPreference.IGNORE.toString());
 		store.setDefault(PPPreferenceConstants.PROBLEM_UNBRACED_INTERPOLATION, ValidationPreference.IGNORE.toString());
 		store.setDefault(PPPreferenceConstants.PROBLEM_ML_COMMENTS, ValidationPreference.IGNORE.toString());
+		store.setDefault(PPPreferenceConstants.PROBLEM_RTOL_RELATIONSHIP, ValidationPreference.IGNORE.toString());
 
 		// save actions
 		store.setDefault(PPPreferenceConstants.SAVE_ACTION_ENSURE_ENDS_WITH_NL, false);
@@ -381,11 +372,6 @@ public class PPPreferencesHelper implements IPreferenceStoreInitializer, IProper
 		return (autoInsertOverrides & AUTO_INSERT_SQ) == 0;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.jface.util.IPropertyChangeListener#propertyChange(org.eclipse.jface.util.PropertyChangeEvent)
-	 */
 	@Override
 	public void propertyChange(PropertyChangeEvent event) {
 		// System.err.println("Preference changed value: " + event.getProperty());

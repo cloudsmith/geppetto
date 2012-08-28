@@ -68,4 +68,6 @@ public class PPPreferenceConstants {
 
 	public static final String PROBLEM_ML_COMMENTS = "mlComments";
 
+	public static final String PROBLEM_RTOL_RELATIONSHIP = "rightToLeftRelationships";
+
 }

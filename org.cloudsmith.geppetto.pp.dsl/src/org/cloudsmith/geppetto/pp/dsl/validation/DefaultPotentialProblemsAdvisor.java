@@ -58,6 +58,11 @@ public class DefaultPotentialProblemsAdvisor implements IPotentialProblemsAdviso
 	}
 
 	@Override
+	public ValidationPreference rightToLeftRelationships() {
+		return ValidationPreference.IGNORE;
+	}
+
+	@Override
 	public ValidationPreference selectorDefaultShouldAppearLast() {
 		return ValidationPreference.IGNORE;
 	}

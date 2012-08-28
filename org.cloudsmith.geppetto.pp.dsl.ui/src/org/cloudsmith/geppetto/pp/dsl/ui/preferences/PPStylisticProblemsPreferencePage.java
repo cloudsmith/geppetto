@@ -49,6 +49,10 @@ public class PPStylisticProblemsPreferencePage extends AbstractPreferencePage {
 		this.addField(new ValidationPreferenceFieldEditor(
 			PPPreferenceConstants.PROBLEM_ML_COMMENTS, "Comments using /* */", getFieldEditorParent()));
 
+		this.addField(new ValidationPreferenceFieldEditor(
+			PPPreferenceConstants.PROBLEM_RTOL_RELATIONSHIP, "Right to left relationships using <- or <~",
+			getFieldEditorParent()));
+
 	}
 
 }

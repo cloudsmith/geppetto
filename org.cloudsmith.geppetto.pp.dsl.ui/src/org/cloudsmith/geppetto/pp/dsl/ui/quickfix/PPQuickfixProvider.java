@@ -39,14 +39,12 @@ import org.cloudsmith.xtext.textflow.CharSequences;
 import org.cloudsmith.xtext.textflow.TextFlow;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.jface.text.BadLocationException;
 import org.eclipse.xtext.naming.IQualifiedNameConverter;
 import org.eclipse.xtext.naming.IQualifiedNameProvider;
 import org.eclipse.xtext.naming.QualifiedName;
 import org.eclipse.xtext.resource.IEObjectDescription;
 import org.eclipse.xtext.resource.XtextResource;
 import org.eclipse.xtext.ui.editor.model.IXtextDocument;
-import org.eclipse.xtext.ui.editor.model.edit.IModification;
 import org.eclipse.xtext.ui.editor.model.edit.IModificationContext;
 import org.eclipse.xtext.ui.editor.quickfix.DefaultQuickfixProvider;
 import org.eclipse.xtext.ui.editor.quickfix.Fix;
@@ -58,85 +56,6 @@ import com.google.inject.Inject;
 import com.google.inject.Provider;
 
 public class PPQuickfixProvider extends DefaultQuickfixProvider {
-	private static class ReplacingModification implements IModification {
-
-		final protected int length;
-
-		final protected int offset;
-
-		final protected String text;
-
-		final protected boolean handleQuotes;
-
-		ReplacingModification(int offset, int length, String text) {
-			this(offset, length, text, false);
-		}
-
-		ReplacingModification(int offset, int length, String text, boolean handleQuotes) {
-			this.length = length;
-			this.offset = offset;
-			this.text = text;
-			this.handleQuotes = handleQuotes;
-		}
-
-		@Override
-		public void apply(IModificationContext context) throws BadLocationException {
-			IXtextDocument xtextDocument = context.getXtextDocument();
-			int o = offset;
-			int l = length;
-			if(handleQuotes) {
-				String s = xtextDocument.get(offset, length);
-				char c = s.charAt(0);
-				if(s.charAt(s.length() - 1) == c && (c == '\'' || c == '"')) {
-					o++;
-					l -= 2;
-				}
-			}
-			xtextDocument.replace(o, l, text);
-		}
-
-	}
-
-	private static class SurroundWithTextModification extends ReplacingModification {
-		private final String suffix;
-
-		/**
-		 * @param offset
-		 * @param length
-		 * @param text
-		 *            text used before and after the replaced text
-		 */
-		SurroundWithTextModification(int offset, int length, String text) {
-			super(offset, length, text);
-			suffix = text;
-		}
-
-		/**
-		 * Surrounds text with prefix, suffix
-		 * 
-		 * @param offset
-		 *            start of section to surround
-		 * @param length
-		 *            length of section to surround
-		 * @param prefix
-		 *            text before the section
-		 * @param suffix
-		 *            text after the section
-		 */
-		SurroundWithTextModification(int offset, int length, String prefix, String suffix) {
-			super(offset, length, prefix);
-			this.suffix = suffix;
-		}
-
-		@Override
-		public void apply(IModificationContext context) throws BadLocationException {
-			IXtextDocument xtextDocument = context.getXtextDocument();
-			String tmp = text + xtextDocument.get(offset, length) + suffix;
-			xtextDocument.replace(offset, length, tmp);
-		}
-
-	}
-
 	@Inject
 	protected PPDescriptionLabelProvider descriptionLabelProvider;
 
@@ -192,6 +111,9 @@ public class PPQuickfixProvider extends DefaultQuickfixProvider {
 
 	@Inject
 	private ResourceAccessScope resourceScope;
+
+	@Inject
+	private Provider<RelationshipExpressionFixer> relationshipExpressionFixer;
 
 	@Fix(IPPDiagnostics.ISSUE_UNWANTED_ML_COMMENT)
 	public void changeMLCommentToSLComment(final Issue issue, final IssueResolutionAcceptor acceptor) {
@@ -387,6 +309,16 @@ public class PPQuickfixProvider extends DefaultQuickfixProvider {
 	@Fix(IPPDiagnostics.ISSUE__RESOURCE_UNKNOWN_PROPERTY_PROP)
 	public void findClosestParameters(final Issue issue, IssueResolutionAcceptor acceptor) {
 		proposeDataAsChangeTo(issue, acceptor);
+	}
+
+	@Fix(IPPDiagnostics.ISSUE_RIGHT_TO_LEFT_RELATIONSHIP)
+	public void fixRightToLeftRelationsip(final Issue issue, final IssueResolutionAcceptor acceptor) {
+		if(issue.getLength() > 2 || issue.getData() == null || issue.getData().length != 2 ||
+				"false".equals(issue.getData()[1]))
+			return; // can't fix it
+
+		relationshipExpressionFixer.get().fixRightToLeftRelationsip(issue, acceptor);
+
 	}
 
 	@Fix(IPPDiagnostics.ISSUE__HYPHEN_IN_NAME)
@@ -694,5 +626,4 @@ public class PPQuickfixProvider extends DefaultQuickfixProvider {
 			}
 		});
 	}
-
 }

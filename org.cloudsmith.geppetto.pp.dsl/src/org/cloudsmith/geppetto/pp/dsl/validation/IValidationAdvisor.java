@@ -62,9 +62,12 @@ public interface IValidationAdvisor extends IPotentialProblemsAdvisor {
 	public ValidationPreference periodInCase();
 
 	/**
+	 * How should relationships goign right to left be reported.
+	 */
+	public ValidationPreference rightToLeftRelationships();
+
+	/**
 	 * How should unqualified variable references be reported (ignore, warning, error).
-	 * 
-	 * @return
 	 */
 	public ValidationPreference unqualifiedVariables();
 

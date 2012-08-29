@@ -231,6 +231,11 @@ public class PPStylesheetProvider extends DefaultStylesheetProvider {
 				styles.dedent()) // may contain a complex expression
 			.withRuleName("WsBeforeInterpolationEnd"), //
 
+			Select.whitespaceAfter(interpolationEnd) //
+			.withStyles(//
+				styles.noLineBreak()) //
+			.withRuleName("WsAfterInterpolationEnd"), //
+
 			// --Statements
 			// ws before subsequent statements in a block
 			Select.whitespaceBefore(Select.and(//

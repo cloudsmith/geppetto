@@ -15,6 +15,7 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintStream;
 
+import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.xtext.resource.XtextResource;
 
@@ -94,11 +95,18 @@ public class TestIssues extends AbstractPuppetTests {
 				"$ref = $x\n" + //
 				"}\n" + //
 				"}\n"; //
-		;
 		Resource r = loadAndLinkSingleResource(code);
 		tester.validate(r.getContents().get(0)).assertOK();
 		resourceWarningDiagnostics(r).assertOK();
 		resourceErrorDiagnostics(r).assertOK();
 	}
 
+	public void test_Issue399() throws Exception {
+		String code = "exec { 'something': unless => false }";
+		URI targetURI = URI.createPlatformPluginURI("/org.cloudsmith.geppetto.pp.dsl/targets/puppet-3.0.0.pptp", true);
+		Resource r = loadAndLinkSingleResource(code, targetURI);
+		tester.validate(r.getContents().get(0)).assertOK();
+		resourceWarningDiagnostics(r).assertOK();
+		resourceErrorDiagnostics(r).assertOK();
+	}
 }

@@ -86,7 +86,7 @@ public class PPStylesheetProvider extends DefaultStylesheetProvider {
 
 		final StyleSet noSpaceUnlessWrappedNoLine = StyleSet.withImmutableStyles(
 			styles.noSpaceUnlessWrapped(), styles.noLineBreak());
-		final StyleSet noSpaceNoLine = StyleSet.withImmutableStyles(styles.noSpace(), styles.noLineBreak());
+		// final StyleSet noSpaceNoLine = StyleSet.withImmutableStyles(styles.noSpace(), styles.noLineBreak());
 		final StyleSet noSpaceOneLine = StyleSet.withImmutableStyles(
 			styles.noSpaceUnlessWrapped(), styles.oneLineBreak());
 		final StyleSet noSpaceOneLineOptionallyTwo = StyleSet.withImmutableStyles(

@@ -15,10 +15,12 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
+import org.cloudsmith.geppetto.pp.AttributeOperation;
 import org.cloudsmith.geppetto.pp.Expression;
 import org.cloudsmith.geppetto.pp.ExpressionTE;
 import org.cloudsmith.geppetto.pp.LiteralList;
 import org.cloudsmith.geppetto.pp.LiteralNameOrReference;
+import org.cloudsmith.geppetto.pp.PPPackage;
 import org.cloudsmith.geppetto.pp.ParenthesisedExpression;
 import org.cloudsmith.geppetto.pp.PuppetManifest;
 import org.cloudsmith.geppetto.pp.ResourceBody;
@@ -122,6 +124,18 @@ public class PPSemanticHighlightingCalculator implements ISemanticHighlightingCa
 
 	protected void handleError(Object[] params, Throwable e) {
 		Exceptions.throwUncheckedException(e);
+	}
+
+	public void highlight(AttributeOperation expr, IHighlightedPositionAcceptor acceptor) {
+		List<INode> nodes = NodeModelUtils.findNodesForFeature(expr, PPPackage.Literals.ATTRIBUTE_OPERATION__KEY);
+		for(INode n : nodes) {
+			if(n instanceof ICompositeNode) {
+				for(INode n2 : ((ICompositeNode) n).getLeafNodes()) {
+					if(n2.getGrammarElement() instanceof Keyword)
+						acceptor.addPosition(n2.getOffset(), n2.getLength(), PPHighlightConfiguration.DEFAULT_ID);
+				}
+			}
+		}
 	}
 
 	/**

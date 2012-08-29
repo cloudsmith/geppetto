@@ -158,7 +158,7 @@ public class TestVariables extends AbstractPuppetTests implements AbstractPuppet
 
 		// selector
 		code = "$a = 'abc' ? {\n" + //
-				"'abc' =>" + "${1}\n" + //
+				"'abc' =>" + "\"${1}\"\n" + //
 				"}\n"; //
 		r = getResourceFromString(code);
 		AssertableDiagnostics asserter = tester.validate(r.getContents().get(0));
@@ -188,7 +188,7 @@ public class TestVariables extends AbstractPuppetTests implements AbstractPuppet
 
 		// selector
 		code = "$a = 'abc' ? {\n" + //
-				"/a(b)c/ =>" + "${1}\n" + //
+				"/a(b)c/ =>" + "\"${1}\"\n" + //
 				"}\n"; //
 		r = getResourceFromString(code);
 		AssertableDiagnostics asserter = tester.validate(r.getContents().get(0));

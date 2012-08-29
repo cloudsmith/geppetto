@@ -194,4 +194,6 @@ public interface IPPDiagnostics {
 
 	public static final String ISSUE__UNSUPPORTED_UNLESS = ISSUE_PREFIX + "UnsupportedUnless";
 
+	public static final String ISSUE__UNQUOTED_INTERPOLATION = ISSUE_PREFIX + "UnquotedInterpolation";
+
 }

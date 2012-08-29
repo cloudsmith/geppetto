@@ -78,6 +78,7 @@ import org.cloudsmith.geppetto.pp.UnaryExpression;
 import org.cloudsmith.geppetto.pp.UnaryMinusExpression;
 import org.cloudsmith.geppetto.pp.UnaryNotExpression;
 import org.cloudsmith.geppetto.pp.UnlessExpression;
+import org.cloudsmith.geppetto.pp.UnquotedString;
 import org.cloudsmith.geppetto.pp.VariableExpression;
 import org.cloudsmith.geppetto.pp.VariableTE;
 import org.cloudsmith.geppetto.pp.VerbatimTE;
@@ -1569,6 +1570,12 @@ public class PPJavaValidator extends AbstractPPJavaValidator implements IPPDiagn
 				"The 'unless' statment is only available in Puppet version >= 3.0. (Change target preference?)", o,
 				IPPDiagnostics.ISSUE__UNSUPPORTED_UNLESS);
 		}
+	}
+
+	@Check
+	public void checkUnquotedString(UnquotedString o) {
+		// Turns out these are not supported at all !
+		acceptor.acceptError("Unquoted interpolation is not supported", o, IPPDiagnostics.ISSUE__UNQUOTED_INTERPOLATION);
 	}
 
 	@Check

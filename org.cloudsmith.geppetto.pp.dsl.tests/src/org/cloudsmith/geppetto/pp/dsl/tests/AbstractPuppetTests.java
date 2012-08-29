@@ -317,6 +317,21 @@ public class AbstractPuppetTests extends AbstractXtextTests {
 		return r;
 	}
 
+	public final Resource loadAndLinkSingleResource(String sourceString, URI targetURI) throws Exception {
+		URI uri = makeManifestURI(1);
+		initializeResourceSet(Lists.newArrayList(uri, targetURI));
+		Factory factory = Resource.Factory.Registry.INSTANCE.getFactory(targetURI);
+		Resource r2 = factory.createResource(targetURI);
+		Map<String, String> options = Maps.newHashMap();
+		options.put(XtextResource.OPTION_ENCODING, "UTF8");
+
+		resourceSet.getResources().add(r2);
+		r2.load(options);
+		Resource r = loadResource(sourceString, uri);
+		resolveCrossReferences(r);
+		return r;
+	}
+
 	/**
 	 * Loads a .pp, .pptp or .rb resource using the resource factory configured for the extension.
 	 * Returns null for a .rb resource that is not expected to contribute anything to the pptp.

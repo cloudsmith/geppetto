@@ -1818,7 +1818,7 @@ public abstract class AbstractPPSemanticSequencer extends AbstractDelegatingSema
 	
 	/**
 	 * Constraint:
-	 *     (key=name ((op='=>' | op='+>') value=Expression)?)
+	 *     (key=attributeName ((op='=>' | op='+>') value=Expression)?)
 	 */
 	protected void sequence_AttributeOperation(EObject context, AttributeOperation semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);

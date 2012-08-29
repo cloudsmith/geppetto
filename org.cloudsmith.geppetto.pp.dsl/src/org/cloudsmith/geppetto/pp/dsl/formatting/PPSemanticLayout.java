@@ -140,7 +140,7 @@ public class PPSemanticLayout extends DeclarativeSemanticFlowLayout {
 	protected boolean _format(AttributeOperations aos, StyleSet styleSet, IDomNode node, ITextFlow flow,
 			ILayoutContext context) {
 		LayoutUtils.unifyWidthAndAlign(
-			node, grammarAccess.getAttributeOperationAccess().getKeyNameParserRuleCall_1_0(), Alignment.left,
+			node, grammarAccess.getAttributeOperationAccess().getKeyAttributeNameParserRuleCall_1_0(), Alignment.left,
 			ATTRIBUTE_OPERATIONS_CLUSTER_SIZE);
 		return false;
 	}

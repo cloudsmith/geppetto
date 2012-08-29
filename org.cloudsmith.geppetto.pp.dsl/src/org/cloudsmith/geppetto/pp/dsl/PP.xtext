@@ -118,7 +118,7 @@ ResourceBody returns pp::ResourceBody
 // VALIDATION: key is a NAME, op is supported and Expression is not null
 // CONTENT ASSIST: must have op and value as optional, or state is nearly always wrong for CA.
 AttributeOperation returns pp::AttributeOperation
-	: {pp::AttributeOperation} key = name (op = ('=>' | '+>') value = Expression)?
+	: {pp::AttributeOperation} key = attributeName (op = ('=>' | '+>') value = Expression)?
 	;	
 
 // VALIDATION: checks that there are ',' between operations
@@ -584,8 +584,10 @@ dollarVariable hidden()
 	;
 	
 keyword : ('and' | 'case' | 'class' | 'default' | 'define' | 'else' | 'elsif' | 'in' |'inherits' 
-		| 'import' | 'node' | 'or' | 'undef' | 'true' | 'false' | 'if')
+		| 'import' | 'node' | 'or' | 'undef' | 'true' | 'false' | 'if' | 'unless')
 	;
+
+attributeName : name | keyword;
 
 name
 	// a puppet grammar glitch allows '::' any number of times (\w*::)*\w+. Validation checks correctness.

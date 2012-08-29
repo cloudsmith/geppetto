@@ -648,9 +648,9 @@ ruleAttributeOperation returns [EObject current=null]
 )(
 (
 		{ 
-	        newCompositeNode(grammarAccess.getAttributeOperationAccess().getKeyNameParserRuleCall_1_0()); 
+	        newCompositeNode(grammarAccess.getAttributeOperationAccess().getKeyAttributeNameParserRuleCall_1_0()); 
 	    }
-		lv_key_1_0=rulename		{
+		lv_key_1_0=ruleattributeName		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getAttributeOperationRule());
 	        }
@@ -658,7 +658,7 @@ ruleAttributeOperation returns [EObject current=null]
        			$current, 
        			"key",
         		lv_key_1_0, 
-        		"name");
+        		"attributeName");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -5552,6 +5552,189 @@ finally {
 }
 
 
+
+
+
+// Entry rule entryRulekeyword
+entryRulekeyword returns [String current=null] 
+:
+	{ newCompositeNode(grammarAccess.getKeywordRule()); } 
+	 iv_rulekeyword=rulekeyword 
+	 { $current=$iv_rulekeyword.current.getText(); }  
+	 EOF 
+;
+
+// Rule keyword
+rulekeyword returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] 
+    @init { enterRule(); 
+    }
+    @after { leaveRule();
+    }:
+(
+	kw=KEYWORD_49 
+    {
+        $current.merge(kw);
+        newLeafNode(kw, grammarAccess.getKeywordAccess().getAndKeyword_0()); 
+    }
+
+    |
+	kw=KEYWORD_51 
+    {
+        $current.merge(kw);
+        newLeafNode(kw, grammarAccess.getKeywordAccess().getCaseKeyword_1()); 
+    }
+
+    |
+	kw=KEYWORD_55 
+    {
+        $current.merge(kw);
+        newLeafNode(kw, grammarAccess.getKeywordAccess().getClassKeyword_2()); 
+    }
+
+    |
+	kw=KEYWORD_62 
+    {
+        $current.merge(kw);
+        newLeafNode(kw, grammarAccess.getKeywordAccess().getDefaultKeyword_3()); 
+    }
+
+    |
+	kw=KEYWORD_59 
+    {
+        $current.merge(kw);
+        newLeafNode(kw, grammarAccess.getKeywordAccess().getDefineKeyword_4()); 
+    }
+
+    |
+	kw=KEYWORD_52 
+    {
+        $current.merge(kw);
+        newLeafNode(kw, grammarAccess.getKeywordAccess().getElseKeyword_5()); 
+    }
+
+    |
+	kw=KEYWORD_56 
+    {
+        $current.merge(kw);
+        newLeafNode(kw, grammarAccess.getKeywordAccess().getElsifKeyword_6()); 
+    }
+
+    |
+	kw=KEYWORD_43 
+    {
+        $current.merge(kw);
+        newLeafNode(kw, grammarAccess.getKeywordAccess().getInKeyword_7()); 
+    }
+
+    |
+	kw=KEYWORD_63 
+    {
+        $current.merge(kw);
+        newLeafNode(kw, grammarAccess.getKeywordAccess().getInheritsKeyword_8()); 
+    }
+
+    |
+	kw=KEYWORD_60 
+    {
+        $current.merge(kw);
+        newLeafNode(kw, grammarAccess.getKeywordAccess().getImportKeyword_9()); 
+    }
+
+    |
+	kw=KEYWORD_53 
+    {
+        $current.merge(kw);
+        newLeafNode(kw, grammarAccess.getKeywordAccess().getNodeKeyword_10()); 
+    }
+
+    |
+	kw=KEYWORD_44 
+    {
+        $current.merge(kw);
+        newLeafNode(kw, grammarAccess.getKeywordAccess().getOrKeyword_11()); 
+    }
+
+    |
+	kw=KEYWORD_58 
+    {
+        $current.merge(kw);
+        newLeafNode(kw, grammarAccess.getKeywordAccess().getUndefKeyword_12()); 
+    }
+
+    |
+	kw=KEYWORD_54 
+    {
+        $current.merge(kw);
+        newLeafNode(kw, grammarAccess.getKeywordAccess().getTrueKeyword_13()); 
+    }
+
+    |
+	kw=KEYWORD_57 
+    {
+        $current.merge(kw);
+        newLeafNode(kw, grammarAccess.getKeywordAccess().getFalseKeyword_14()); 
+    }
+
+    |
+	kw=KEYWORD_42 
+    {
+        $current.merge(kw);
+        newLeafNode(kw, grammarAccess.getKeywordAccess().getIfKeyword_15()); 
+    }
+
+    |
+	kw=KEYWORD_61 
+    {
+        $current.merge(kw);
+        newLeafNode(kw, grammarAccess.getKeywordAccess().getUnlessKeyword_16()); 
+    }
+)
+    ;
+
+
+
+
+
+// Entry rule entryRuleattributeName
+entryRuleattributeName returns [String current=null] 
+:
+	{ newCompositeNode(grammarAccess.getAttributeNameRule()); } 
+	 iv_ruleattributeName=ruleattributeName 
+	 { $current=$iv_ruleattributeName.current.getText(); }  
+	 EOF 
+;
+
+// Rule attributeName
+ruleattributeName returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] 
+    @init { enterRule(); 
+    }
+    @after { leaveRule();
+    }:
+(
+    { 
+        newCompositeNode(grammarAccess.getAttributeNameAccess().getNameParserRuleCall_0()); 
+    }
+    this_name_0=rulename    {
+		$current.merge(this_name_0);
+    }
+
+    { 
+        afterParserOrEnumRuleCall();
+    }
+
+    |
+    { 
+        newCompositeNode(grammarAccess.getAttributeNameAccess().getKeywordParserRuleCall_1()); 
+    }
+    this_keyword_1=rulekeyword    {
+		$current.merge(this_keyword_1);
+    }
+
+    { 
+        afterParserOrEnumRuleCall();
+    }
+)
+    ;
 
 
 

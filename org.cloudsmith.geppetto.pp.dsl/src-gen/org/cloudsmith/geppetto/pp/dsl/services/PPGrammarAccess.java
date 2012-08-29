@@ -402,7 +402,7 @@ public class PPGrammarAccess extends AbstractGrammarElementFinder {
 		private final Group cGroup = (Group)rule.eContents().get(1);
 		private final Action cAttributeOperationAction_0 = (Action)cGroup.eContents().get(0);
 		private final Assignment cKeyAssignment_1 = (Assignment)cGroup.eContents().get(1);
-		private final RuleCall cKeyNameParserRuleCall_1_0 = (RuleCall)cKeyAssignment_1.eContents().get(0);
+		private final RuleCall cKeyAttributeNameParserRuleCall_1_0 = (RuleCall)cKeyAssignment_1.eContents().get(0);
 		private final Group cGroup_2 = (Group)cGroup.eContents().get(2);
 		private final Assignment cOpAssignment_2_0 = (Assignment)cGroup_2.eContents().get(0);
 		private final Alternatives cOpAlternatives_2_0_0 = (Alternatives)cOpAssignment_2_0.eContents().get(0);
@@ -414,20 +414,20 @@ public class PPGrammarAccess extends AbstractGrammarElementFinder {
 		//// VALIDATION: key is a NAME, op is supported and Expression is not null
 		//// CONTENT ASSIST: must have op and value as optional, or state is nearly always wrong for CA.
 		//AttributeOperation returns pp::AttributeOperation:
-		//	{pp::AttributeOperation} key=name (op=("=>" | "+>") value=Expression)?;
+		//	{pp::AttributeOperation} key=attributeName (op=("=>" | "+>") value=Expression)?;
 		public ParserRule getRule() { return rule; }
 
-		//{pp::AttributeOperation} key=name (op=("=>" | "+>") value=Expression)?
+		//{pp::AttributeOperation} key=attributeName (op=("=>" | "+>") value=Expression)?
 		public Group getGroup() { return cGroup; }
 
 		//{pp::AttributeOperation}
 		public Action getAttributeOperationAction_0() { return cAttributeOperationAction_0; }
 
-		//key=name
+		//key=attributeName
 		public Assignment getKeyAssignment_1() { return cKeyAssignment_1; }
 
-		//name
-		public RuleCall getKeyNameParserRuleCall_1_0() { return cKeyNameParserRuleCall_1_0; }
+		//attributeName
+		public RuleCall getKeyAttributeNameParserRuleCall_1_0() { return cKeyAttributeNameParserRuleCall_1_0; }
 
 		//(op=("=>" | "+>") value=Expression)?
 		public Group getGroup_2() { return cGroup_2; }
@@ -3148,14 +3148,15 @@ public class PPGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cTrueKeyword_13 = (Keyword)cAlternatives.eContents().get(13);
 		private final Keyword cFalseKeyword_14 = (Keyword)cAlternatives.eContents().get(14);
 		private final Keyword cIfKeyword_15 = (Keyword)cAlternatives.eContents().get(15);
+		private final Keyword cUnlessKeyword_16 = (Keyword)cAlternatives.eContents().get(16);
 		
 		//keyword:
 		//	"and" | "case" | "class" | "default" | "define" | "else" | "elsif" | "in" | "inherits" | "import" | "node" | "or" |
-		//	"undef" | "true" | "false" | "if";
+		//	"undef" | "true" | "false" | "if" | "unless";
 		public ParserRule getRule() { return rule; }
 
 		//"and" | "case" | "class" | "default" | "define" | "else" | "elsif" | "in" | "inherits" | "import" | "node" | "or" |
-		//"undef" | "true" | "false" | "if"
+		//"undef" | "true" | "false" | "if" | "unless"
 		public Alternatives getAlternatives() { return cAlternatives; }
 
 		//"and"
@@ -3205,6 +3206,29 @@ public class PPGrammarAccess extends AbstractGrammarElementFinder {
 
 		//"if"
 		public Keyword getIfKeyword_15() { return cIfKeyword_15; }
+
+		//"unless"
+		public Keyword getUnlessKeyword_16() { return cUnlessKeyword_16; }
+	}
+
+	public class AttributeNameElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "attributeName");
+		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
+		private final RuleCall cNameParserRuleCall_0 = (RuleCall)cAlternatives.eContents().get(0);
+		private final RuleCall cKeywordParserRuleCall_1 = (RuleCall)cAlternatives.eContents().get(1);
+		
+		//attributeName:
+		//	name | keyword;
+		public ParserRule getRule() { return rule; }
+
+		//name | keyword
+		public Alternatives getAlternatives() { return cAlternatives; }
+
+		//name
+		public RuleCall getNameParserRuleCall_0() { return cNameParserRuleCall_0; }
+
+		//keyword
+		public RuleCall getKeywordParserRuleCall_1() { return cKeywordParserRuleCall_1; }
 	}
 
 	public class NameElements extends AbstractParserRuleElementFinder {
@@ -3451,6 +3475,7 @@ public class PPGrammarAccess extends AbstractGrammarElementFinder {
 	private VariableExpressionElements pVariableExpression;
 	private DollarVariableElements pDollarVariable;
 	private KeywordElements pKeyword;
+	private AttributeNameElements pAttributeName;
 	private NameElements pName;
 	private ClassnameElements pClassname;
 	private UnionNameOrReferenceElements pUnionNameOrReference;
@@ -3620,7 +3645,7 @@ public class PPGrammarAccess extends AbstractGrammarElementFinder {
 	//// VALIDATION: key is a NAME, op is supported and Expression is not null
 	//// CONTENT ASSIST: must have op and value as optional, or state is nearly always wrong for CA.
 	//AttributeOperation returns pp::AttributeOperation:
-	//	{pp::AttributeOperation} key=name (op=("=>" | "+>") value=Expression)?;
+	//	{pp::AttributeOperation} key=attributeName (op=("=>" | "+>") value=Expression)?;
 	public AttributeOperationElements getAttributeOperationAccess() {
 		return (pAttributeOperation != null) ? pAttributeOperation : (pAttributeOperation = new AttributeOperationElements());
 	}
@@ -4425,13 +4450,23 @@ public class PPGrammarAccess extends AbstractGrammarElementFinder {
 
 	//keyword:
 	//	"and" | "case" | "class" | "default" | "define" | "else" | "elsif" | "in" | "inherits" | "import" | "node" | "or" |
-	//	"undef" | "true" | "false" | "if";
+	//	"undef" | "true" | "false" | "if" | "unless";
 	public KeywordElements getKeywordAccess() {
 		return (pKeyword != null) ? pKeyword : (pKeyword = new KeywordElements());
 	}
 	
 	public ParserRule getKeywordRule() {
 		return getKeywordAccess().getRule();
+	}
+
+	//attributeName:
+	//	name | keyword;
+	public AttributeNameElements getAttributeNameAccess() {
+		return (pAttributeName != null) ? pAttributeName : (pAttributeName = new AttributeNameElements());
+	}
+	
+	public ParserRule getAttributeNameRule() {
+		return getAttributeNameAccess().getRule();
 	}
 
 	//// a puppet grammar glitch allows '::' any number of times (\w*::)*\w+. Validation checks correctness.

@@ -66,6 +66,7 @@ public class PPParser extends AbstractContentAssistParser {
 					put(grammarAccess.getQuotedStringAccess().getAlternatives(), "rule__QuotedString__Alternatives");
 					put(grammarAccess.getTextExpressionAccess().getAlternatives(), "rule__TextExpression__Alternatives");
 					put(grammarAccess.getKeywordAccess().getAlternatives(), "rule__Keyword__Alternatives");
+					put(grammarAccess.getAttributeNameAccess().getAlternatives(), "rule__AttributeName__Alternatives");
 					put(grammarAccess.getClassnameAccess().getAlternatives(), "rule__Classname__Alternatives");
 					put(grammarAccess.getUnionNameOrReferenceAccess().getAlternatives(), "rule__UnionNameOrReference__Alternatives");
 					put(grammarAccess.getDoubleStringCharactersAccess().getAlternatives(), "rule__DoubleStringCharacters__Alternatives");

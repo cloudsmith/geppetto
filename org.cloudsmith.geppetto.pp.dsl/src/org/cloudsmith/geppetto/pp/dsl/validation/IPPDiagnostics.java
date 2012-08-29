@@ -196,4 +196,6 @@ public interface IPPDiagnostics {
 
 	public static final String ISSUE__UNQUOTED_INTERPOLATION = ISSUE_PREFIX + "UnquotedInterpolation";
 
+	public static final String ISSUE__CIRCULAR_MODULE_DEPENDENCY = ISSUE_PREFIX + "CircularModuleDependency";
+
 }

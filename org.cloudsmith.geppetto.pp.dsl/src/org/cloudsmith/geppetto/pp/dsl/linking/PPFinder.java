@@ -171,8 +171,9 @@ public class PPFinder {
 				map.put(d.getQualifiedName().getLastSegment(), d);
 		// add all from global index, except those for current resource
 		for(IEObjectDescription d : getExportedObjects(descr, descriptionIndex))
-			if(!d.getEObjectURI().path().equals(pathToCurrent) && d.getQualifiedName().getSegmentCount() >= 1)
+			if(!d.getEObjectURI().path().equals(pathToCurrent) && d.getQualifiedName().getSegmentCount() >= 1) {
 				map.put(d.getQualifiedName().getLastSegment(), d);
+			}
 		exportedPerLastSegment = map;
 	}
 

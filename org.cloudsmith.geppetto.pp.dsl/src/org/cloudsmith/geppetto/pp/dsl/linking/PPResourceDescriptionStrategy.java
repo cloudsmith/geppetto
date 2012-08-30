@@ -25,6 +25,7 @@ import org.cloudsmith.geppetto.pp.dsl.PPDSLConstants;
 import org.cloudsmith.geppetto.pp.dsl.adapters.CrossReferenceAdapterFactory;
 import org.cloudsmith.geppetto.pp.pptp.PPTPPackage;
 import org.cloudsmith.geppetto.pp.pptp.Parameter;
+import org.cloudsmith.geppetto.pp.pptp.TPVariable;
 import org.cloudsmith.geppetto.pp.pptp.TargetElement;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
@@ -196,6 +197,14 @@ public class PPResourceDescriptionStrategy extends DefaultResourceDescriptionStr
 				Parameter p = (Parameter) eObject;
 				if(p.isNamevar())
 					data.put(PPDSLConstants.PARAMETER_NAMEVAR, "true");
+				return data;
+			}
+			if(eObject.eClass() == PPTPPackage.Literals.TP_VARIABLE) {
+				TPVariable tpvar = (TPVariable) eObject;
+				String pattern = tpvar.getPattern();
+				if(pattern != null && pattern.length() > 0) {
+					data.put(PPDSLConstants.VARIABLE_PATTERN, pattern);
+				}
 				return data;
 			}
 		}

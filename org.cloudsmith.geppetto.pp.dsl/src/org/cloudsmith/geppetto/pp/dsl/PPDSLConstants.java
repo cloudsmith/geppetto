@@ -66,4 +66,10 @@ public interface PPDSLConstants {
 	 */
 	public static final String DEFAULT_EXPRESSION_DATA = "org.cloudsmith.geppetto.pp.dsl.default";
 
+	/**
+	 * If present in an {@link IEObjectDescription} for a PPTP 'TPVariable' data the name is a prefix, and the rest of
+	 * the name must match the given regular expression pattern mapped to this key.
+	 */
+	public static final String VARIABLE_PATTERN = "org.cloudsmith.geppetto.pptp.variable.pattern";
+
 }

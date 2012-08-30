@@ -16,7 +16,6 @@ import java.io.OutputStream;
 import java.io.PrintStream;
 
 import org.cloudsmith.geppetto.pp.dsl.validation.IPPDiagnostics;
-import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.xtext.resource.XtextResource;
 
@@ -74,7 +73,8 @@ public class TestIssues extends AbstractPuppetTests {
 	 * @throws Exception
 	 */
 	public void test_Issue_4() throws Exception {
-		String code = "realize (\n" + //
+		String code = "$confdir = 'x' \n" + //
+				"realize (\n" + //
 				"File[\"$confdir/ping/amazon.cfg\"],\n" + //
 				"File[\"$confdir/ping/amazon.cfg\"],\n" + //
 				"File[\"$confdir/ping/amazon.cfg\"],\n" + //
@@ -104,11 +104,17 @@ public class TestIssues extends AbstractPuppetTests {
 
 	public void test_Issue399() throws Exception {
 		String code = "exec { 'something': unless => false }";
-		URI targetURI = URI.createPlatformPluginURI("/org.cloudsmith.geppetto.pp.dsl/targets/puppet-3.0.0.pptp", true);
-		Resource r = loadAndLinkSingleResource(code, targetURI);
+		// URI targetURI = URI.createPlatformPluginURI("/org.cloudsmith.geppetto.pp.dsl/targets/puppet-3.0.0.pptp", true);
+		Resource r = loadAndLinkSingleResource(code, true);
 		tester.validate(r.getContents().get(0)).assertOK();
 		resourceWarningDiagnostics(r).assertOK();
 		resourceErrorDiagnostics(r).assertOK();
+	}
+
+	public void test_Issue403() throws Exception {
+		String code = "class foo(a) { }";
+		Resource r = loadAndLinkSingleResource(code);
+		tester.validate(r.getContents().get(0)).assertWarning(IPPDiagnostics.ISSUE__NOT_VARNAME);
 	}
 
 	public void test_Issue405() throws Exception {

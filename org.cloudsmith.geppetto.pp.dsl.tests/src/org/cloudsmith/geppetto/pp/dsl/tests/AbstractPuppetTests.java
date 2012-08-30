@@ -35,6 +35,7 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.Resource.Factory;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.eclipse.xtext.ISetup;
 import org.eclipse.xtext.junit.AbstractXtextTests;
 import org.eclipse.xtext.junit.validation.ValidatorTester;
 import org.eclipse.xtext.linking.ILinker;
@@ -264,6 +265,10 @@ public class AbstractPuppetTests extends AbstractXtextTests {
 		return createResourceExpression(true, false, type, title, keyValPairs);
 	}
 
+	protected Class<? extends ISetup> getSetupClass() {
+		return PPTestSetup.class;
+	}
+
 	/**
 	 * Configures the resoureset used by the various load methods. Must be called before loading.
 	 * 
@@ -281,6 +286,10 @@ public class AbstractPuppetTests extends AbstractXtextTests {
 		String container = getClass().getName();
 		for(URI containedURI : urisInTestContainer)
 			containerToURIMap.put(container, containedURI);
+
+		// Add pre-populated content
+		for(Resource r : resourceSet.getResources())
+			containerToURIMap.put(container, r.getURI());
 
 		IAllContainersState containersState = factory.getContainersState(
 			Lists.newArrayList(container), containerToURIMap);
@@ -317,16 +326,21 @@ public class AbstractPuppetTests extends AbstractXtextTests {
 		return r;
 	}
 
-	public final Resource loadAndLinkSingleResource(String sourceString, URI targetURI) throws Exception {
+	public final Resource loadAndLinkSingleResource(String sourceString, boolean loadTarget) throws Exception {
 		URI uri = makeManifestURI(1);
-		initializeResourceSet(Lists.newArrayList(uri, targetURI));
-		Factory factory = Resource.Factory.Registry.INSTANCE.getFactory(targetURI);
-		Resource r2 = factory.createResource(targetURI);
+		initializeResourceSet(Lists.newArrayList(uri));
+		// Factory factory = Resource.Factory.Registry.INSTANCE.getFactory(targetURI);
+		// Resource r2 = factory.createResource(targetURI);
 		Map<String, String> options = Maps.newHashMap();
 		options.put(XtextResource.OPTION_ENCODING, "UTF8");
-
-		resourceSet.getResources().add(r2);
-		r2.load(options);
+		// resourceSet.getResources().add(r2);
+		if(loadTarget) {
+			for(Resource pptp : resourceSet.getResources()) {
+				if("pptp".equals(pptp.getURI().fileExtension()))
+					pptp.load(options);
+			}
+		}
+		// r2.load(options);
 		Resource r = loadResource(sourceString, uri);
 		resolveCrossReferences(r);
 		return r;
@@ -446,7 +460,7 @@ public class AbstractPuppetTests extends AbstractXtextTests {
 	public void setUp() throws Exception {
 		super.setUp();
 		// with(PPStandaloneSetup.class);
-		with(PPTestSetup.class);
+		with(getSetupClass());
 		PPJavaValidator validator = get(PPJavaValidator.class);
 		EValidatorRegistrar registrar = get(EValidatorRegistrar.class);
 		tester = new ValidatorTester<PPJavaValidator>(validator, registrar, "org.cloudsmith.geppetto.pp.dsl.PP");

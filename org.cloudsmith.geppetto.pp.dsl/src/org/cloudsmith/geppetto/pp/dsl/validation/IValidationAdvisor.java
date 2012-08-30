@@ -55,6 +55,12 @@ public interface IValidationAdvisor extends IPotentialProblemsAdvisor {
 	public ValidationPreference definitionArgumentListEndComma();
 
 	/**
+	 * Prior to 3.0, a missing $ in a definition parameter name declaration was deprecated.
+	 * In 3.0 it is an error.
+	 */
+	public ValidationPreference definitionParamterMissingDollar();
+
+	/**
 	 * Hyphens in names are deprecated
 	 * Puppet issue #10146
 	 * And will be errors in later releases.

@@ -131,6 +131,11 @@ public class ValidationAdvisor {
 			return ValidationPreference.ERROR;
 		}
 
+		@Override
+		public ValidationPreference definitionParamterMissingDollar() {
+			return ValidationPreference.WARNING;
+		}
+
 		/**
 		 * @returns ValidationPreference.WARNING
 		 */
@@ -225,6 +230,11 @@ public class ValidationAdvisor {
 			return ValidationPreference.IGNORE;
 		}
 
+		@Override
+		public ValidationPreference definitionParamterMissingDollar() {
+			return ValidationPreference.ERROR;
+		}
+
 		/**
 		 * @returns ValidationPreference.ERROR
 		 */
@@ -240,6 +250,7 @@ public class ValidationAdvisor {
 		public ValidationPreference unqualifiedVariables() {
 			return ValidationPreference.ERROR;
 		}
+
 	}
 
 	public static IValidationAdvisor create(ComplianceLevel level, IPotentialProblemsAdvisor problemsAdvisor) {

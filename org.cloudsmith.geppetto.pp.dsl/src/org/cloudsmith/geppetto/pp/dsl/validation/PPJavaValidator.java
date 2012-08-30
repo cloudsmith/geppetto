@@ -94,6 +94,7 @@ import org.cloudsmith.geppetto.pp.dsl.linking.ValidationBasedMessageAcceptor;
 import org.cloudsmith.geppetto.pp.dsl.services.PPGrammarAccess;
 import org.cloudsmith.geppetto.pp.util.TextExpressionHelper;
 import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
@@ -685,17 +686,20 @@ public class PPJavaValidator extends AbstractPPJavaValidator implements IPPDiagn
 	public void checkDefinitionArgument(DefinitionArgument o) {
 		// -- LHS should be a variable, use of name is deprecated
 		String argName = o.getArgName();
+		ValidationPreference missingDollar;
 		if(argName == null || argName.length() < 1)
 			acceptor.acceptError(
 				"Empty or null argument", o, PPPackage.Literals.DEFINITION_ARGUMENT__ARG_NAME, INSIGNIFICANT_INDEX,
 				IPPDiagnostics.ISSUE__NOT_VARNAME);
 
-		else if(!argName.startsWith("$"))
-			acceptor.acceptWarning(
-				"Deprecation: Definition argument should now start with $", o,
-				PPPackage.Literals.DEFINITION_ARGUMENT__ARG_NAME, INSIGNIFICANT_INDEX,
-				IPPDiagnostics.ISSUE__NOT_VARNAME);
-
+		else if(!argName.startsWith("$")) {
+			missingDollar = advisor().definitionParamterMissingDollar();
+			warningOrError(
+				acceptor, missingDollar, (missingDollar.isWarning()
+						? "Deprecation: "
+						: "") + "Definition argument should start with $", o,
+				PPPackage.Literals.DEFINITION_ARGUMENT__ARG_NAME, IPPDiagnostics.ISSUE__NOT_VARNAME);
+		}
 		else if(!isVARIABLE(argName))
 			acceptor.acceptError(
 				"Not a valid variable name", o, PPPackage.Literals.DEFINITION_ARGUMENT__ARG_NAME, INSIGNIFICANT_INDEX,
@@ -1855,6 +1859,16 @@ public class PPJavaValidator extends AbstractPPJavaValidator implements IPPDiagn
 		return pref.isError()
 				? Severity.ERROR
 				: Severity.WARNING;
+	}
+
+	private void warningOrError(IMessageAcceptor acceptor, ValidationPreference validationPreference, String message,
+			DefinitionArgument o, EAttribute feature, String issue) {
+		if(validationPreference.isWarning())
+			acceptor.acceptWarning(message, o, feature, issue);
+		else if(validationPreference.isError())
+			acceptor.acceptError(message, o, feature, issue);
+
+		// remaining case is "ignore"... which we ignore ;)
 	}
 
 	private void warningOrError(IMessageAcceptor acceptor, ValidationPreference validationPreference, String message,

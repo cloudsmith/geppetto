@@ -27,11 +27,11 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  * <p>
  * The following features are implemented:
  * <ul>
- * <li>{@link org.cloudsmith.geppetto.pp.pptp.impl.TypeArgumentImpl#isRequired <em>Required</em>}</li>
- * <li>{@link org.cloudsmith.geppetto.pp.pptp.impl.TypeArgumentImpl#isNamevar <em>Namevar</em>}</li>
+ *   <li>{@link org.cloudsmith.geppetto.pp.pptp.impl.TypeArgumentImpl#isRequired <em>Required</em>}</li>
+ *   <li>{@link org.cloudsmith.geppetto.pp.pptp.impl.TypeArgumentImpl#isNamevar <em>Namevar</em>}</li>
  * </ul>
  * </p>
- * 
+ *
  * @generated
  */
 public abstract class TypeArgumentImpl extends TargetElementImpl implements TypeArgument {
@@ -39,7 +39,6 @@ public abstract class TypeArgumentImpl extends TargetElementImpl implements Type
 	 * The default value of the '{@link #isRequired() <em>Required</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @see #isRequired()
 	 * @generated
 	 * @ordered
@@ -50,7 +49,6 @@ public abstract class TypeArgumentImpl extends TargetElementImpl implements Type
 	 * The cached value of the '{@link #isRequired() <em>Required</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @see #isRequired()
 	 * @generated
 	 * @ordered
@@ -61,7 +59,6 @@ public abstract class TypeArgumentImpl extends TargetElementImpl implements Type
 	 * The default value of the '{@link #isNamevar() <em>Namevar</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @see #isNamevar()
 	 * @generated
 	 * @ordered
@@ -72,7 +69,6 @@ public abstract class TypeArgumentImpl extends TargetElementImpl implements Type
 	 * The cached value of the '{@link #isNamevar() <em>Namevar</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @see #isNamevar()
 	 * @generated
 	 * @ordered
@@ -82,7 +78,6 @@ public abstract class TypeArgumentImpl extends TargetElementImpl implements Type
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	protected TypeArgumentImpl() {
@@ -92,7 +87,6 @@ public abstract class TypeArgumentImpl extends TargetElementImpl implements Type
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	@Override
@@ -109,7 +103,6 @@ public abstract class TypeArgumentImpl extends TargetElementImpl implements Type
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	@Override
@@ -126,7 +119,6 @@ public abstract class TypeArgumentImpl extends TargetElementImpl implements Type
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	@Override
@@ -145,7 +137,6 @@ public abstract class TypeArgumentImpl extends TargetElementImpl implements Type
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	@Override
@@ -156,7 +147,6 @@ public abstract class TypeArgumentImpl extends TargetElementImpl implements Type
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	@Override
@@ -175,7 +165,6 @@ public abstract class TypeArgumentImpl extends TargetElementImpl implements Type
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public boolean isNamevar() {
@@ -185,7 +174,6 @@ public abstract class TypeArgumentImpl extends TargetElementImpl implements Type
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public boolean isRequired() {
@@ -195,7 +183,6 @@ public abstract class TypeArgumentImpl extends TargetElementImpl implements Type
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public void setNamevar(boolean newNamevar) {
@@ -209,7 +196,6 @@ public abstract class TypeArgumentImpl extends TargetElementImpl implements Type
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public void setRequired(boolean newRequired) {
@@ -223,7 +209,6 @@ public abstract class TypeArgumentImpl extends TargetElementImpl implements Type
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	@Override

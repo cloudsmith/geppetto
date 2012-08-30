@@ -20,6 +20,7 @@ package org.cloudsmith.geppetto.pp.pptp;
  * The following features are supported:
  * <ul>
  * <li>{@link org.cloudsmith.geppetto.pp.pptp.TPVariable#isAssignable <em>Assignable</em>}</li>
+ * <li>{@link org.cloudsmith.geppetto.pp.pptp.TPVariable#getPattern <em>Pattern</em>}</li>
  * </ul>
  * </p>
  * 
@@ -28,6 +29,22 @@ package org.cloudsmith.geppetto.pp.pptp;
  * @generated
  */
 public interface TPVariable extends TargetElement {
+	/**
+	 * Returns the value of the '<em><b>Pattern</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * If not null, this a java regexp pattern for what may follow after the name, the name can be seen as the prefix.
+	 * <!-- end-model-doc -->
+	 * 
+	 * @return the value of the '<em>Pattern</em>' attribute.
+	 * @see #setPattern(String)
+	 * @see org.cloudsmith.geppetto.pp.pptp.PPTPPackage#getTPVariable_Pattern()
+	 * @model
+	 * @generated
+	 */
+	String getPattern();
+
 	/**
 	 * Returns the value of the '<em><b>Assignable</b></em>' attribute.
 	 * <!-- begin-user-doc -->
@@ -55,5 +72,17 @@ public interface TPVariable extends TargetElement {
 	 * @generated
 	 */
 	void setAssignable(boolean value);
+
+	/**
+	 * Sets the value of the '{@link org.cloudsmith.geppetto.pp.pptp.TPVariable#getPattern <em>Pattern</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @param value
+	 *            the new value of the '<em>Pattern</em>' attribute.
+	 * @see #getPattern()
+	 * @generated
+	 */
+	void setPattern(String value);
 
 } // TPVariable

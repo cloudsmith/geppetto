@@ -25,10 +25,10 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  * <p>
  * The following features are implemented:
  * <ul>
- * <li>{@link org.cloudsmith.geppetto.pp.pptp.impl.TypeImpl#getSuperType <em>Super Type</em>}</li>
+ *   <li>{@link org.cloudsmith.geppetto.pp.pptp.impl.TypeImpl#getSuperType <em>Super Type</em>}</li>
  * </ul>
  * </p>
- * 
+ *
  * @generated
  */
 public class TypeImpl extends AbstractTypeImpl implements Type {
@@ -36,7 +36,6 @@ public class TypeImpl extends AbstractTypeImpl implements Type {
 	 * The default value of the '{@link #getSuperType() <em>Super Type</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @see #getSuperType()
 	 * @generated
 	 * @ordered
@@ -47,7 +46,6 @@ public class TypeImpl extends AbstractTypeImpl implements Type {
 	 * The cached value of the '{@link #getSuperType() <em>Super Type</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @see #getSuperType()
 	 * @generated
 	 * @ordered
@@ -57,7 +55,6 @@ public class TypeImpl extends AbstractTypeImpl implements Type {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	protected TypeImpl() {
@@ -67,7 +64,6 @@ public class TypeImpl extends AbstractTypeImpl implements Type {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	@Override
@@ -82,7 +78,6 @@ public class TypeImpl extends AbstractTypeImpl implements Type {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	@Override
@@ -99,7 +94,6 @@ public class TypeImpl extends AbstractTypeImpl implements Type {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	@Override
@@ -115,7 +109,6 @@ public class TypeImpl extends AbstractTypeImpl implements Type {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	@Override
@@ -126,7 +119,6 @@ public class TypeImpl extends AbstractTypeImpl implements Type {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	@Override
@@ -142,7 +134,6 @@ public class TypeImpl extends AbstractTypeImpl implements Type {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public String getSuperType() {
@@ -152,7 +143,6 @@ public class TypeImpl extends AbstractTypeImpl implements Type {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public void setSuperType(String newSuperType) {
@@ -165,7 +155,6 @@ public class TypeImpl extends AbstractTypeImpl implements Type {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	@Override

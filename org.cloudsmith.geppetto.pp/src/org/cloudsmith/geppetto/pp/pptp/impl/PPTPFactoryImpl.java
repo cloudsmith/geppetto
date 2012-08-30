@@ -28,14 +28,12 @@ import org.eclipse.emf.ecore.plugin.EcorePlugin;
  * <!-- begin-user-doc -->
  * An implementation of the model <b>Factory</b>.
  * <!-- end-user-doc -->
- * 
  * @generated
  */
 public class PPTPFactoryImpl extends EFactoryImpl implements PPTPFactory {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @deprecated
 	 * @generated
 	 */
@@ -48,7 +46,6 @@ public class PPTPFactoryImpl extends EFactoryImpl implements PPTPFactory {
 	 * Creates the default factory implementation.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public static PPTPFactory init() {
@@ -68,7 +65,6 @@ public class PPTPFactoryImpl extends EFactoryImpl implements PPTPFactory {
 	 * Creates an instance of the factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public PPTPFactoryImpl() {
@@ -78,7 +74,6 @@ public class PPTPFactoryImpl extends EFactoryImpl implements PPTPFactory {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public String convertFileToString(EDataType eDataType, Object instanceValue) {
@@ -88,7 +83,6 @@ public class PPTPFactoryImpl extends EFactoryImpl implements PPTPFactory {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	@Override
@@ -105,7 +99,6 @@ public class PPTPFactoryImpl extends EFactoryImpl implements PPTPFactory {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	@Override
@@ -139,7 +132,6 @@ public class PPTPFactoryImpl extends EFactoryImpl implements PPTPFactory {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public File createFileFromString(EDataType eDataType, String initialValue) {
@@ -149,7 +141,6 @@ public class PPTPFactoryImpl extends EFactoryImpl implements PPTPFactory {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	@Override
@@ -166,7 +157,6 @@ public class PPTPFactoryImpl extends EFactoryImpl implements PPTPFactory {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public Function createFunction() {
@@ -177,7 +167,6 @@ public class PPTPFactoryImpl extends EFactoryImpl implements PPTPFactory {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public MetaType createMetaType() {
@@ -188,7 +177,6 @@ public class PPTPFactoryImpl extends EFactoryImpl implements PPTPFactory {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public MetaVariable createMetaVariable() {
@@ -199,7 +187,6 @@ public class PPTPFactoryImpl extends EFactoryImpl implements PPTPFactory {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public NameSpace createNameSpace() {
@@ -210,7 +197,6 @@ public class PPTPFactoryImpl extends EFactoryImpl implements PPTPFactory {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public Parameter createParameter() {
@@ -221,7 +207,6 @@ public class PPTPFactoryImpl extends EFactoryImpl implements PPTPFactory {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public Property createProperty() {
@@ -232,7 +217,6 @@ public class PPTPFactoryImpl extends EFactoryImpl implements PPTPFactory {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public PuppetDistribution createPuppetDistribution() {
@@ -243,7 +227,6 @@ public class PPTPFactoryImpl extends EFactoryImpl implements PPTPFactory {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public TPVariable createTPVariable() {
@@ -254,7 +237,6 @@ public class PPTPFactoryImpl extends EFactoryImpl implements PPTPFactory {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public Type createType() {
@@ -265,7 +247,6 @@ public class PPTPFactoryImpl extends EFactoryImpl implements PPTPFactory {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public TypeFragment createTypeFragment() {
@@ -276,7 +257,6 @@ public class PPTPFactoryImpl extends EFactoryImpl implements PPTPFactory {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public PPTPPackage getPPTPPackage() {

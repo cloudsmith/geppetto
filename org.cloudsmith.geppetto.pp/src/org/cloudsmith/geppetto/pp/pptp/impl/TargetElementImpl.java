@@ -29,12 +29,12 @@ import org.eclipse.emf.ecore.impl.EObjectImpl;
  * <p>
  * The following features are implemented:
  * <ul>
- * <li>{@link org.cloudsmith.geppetto.pp.pptp.impl.TargetElementImpl#getName <em>Name</em>}</li>
- * <li>{@link org.cloudsmith.geppetto.pp.pptp.impl.TargetElementImpl#getDocumentation <em>Documentation</em>}</li>
- * <li>{@link org.cloudsmith.geppetto.pp.pptp.impl.TargetElementImpl#isDeprecated <em>Deprecated</em>}</li>
+ *   <li>{@link org.cloudsmith.geppetto.pp.pptp.impl.TargetElementImpl#getName <em>Name</em>}</li>
+ *   <li>{@link org.cloudsmith.geppetto.pp.pptp.impl.TargetElementImpl#getDocumentation <em>Documentation</em>}</li>
+ *   <li>{@link org.cloudsmith.geppetto.pp.pptp.impl.TargetElementImpl#isDeprecated <em>Deprecated</em>}</li>
  * </ul>
  * </p>
- * 
+ *
  * @generated
  */
 public abstract class TargetElementImpl extends EObjectImpl implements TargetElement {
@@ -42,7 +42,6 @@ public abstract class TargetElementImpl extends EObjectImpl implements TargetEle
 	 * The default value of the '{@link #getName() <em>Name</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @see #getName()
 	 * @generated
 	 * @ordered
@@ -53,7 +52,6 @@ public abstract class TargetElementImpl extends EObjectImpl implements TargetEle
 	 * The cached value of the '{@link #getName() <em>Name</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @see #getName()
 	 * @generated
 	 * @ordered
@@ -64,7 +62,6 @@ public abstract class TargetElementImpl extends EObjectImpl implements TargetEle
 	 * The default value of the '{@link #getDocumentation() <em>Documentation</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @see #getDocumentation()
 	 * @generated
 	 * @ordered
@@ -75,7 +72,6 @@ public abstract class TargetElementImpl extends EObjectImpl implements TargetEle
 	 * The cached value of the '{@link #getDocumentation() <em>Documentation</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @see #getDocumentation()
 	 * @generated
 	 * @ordered
@@ -86,7 +82,6 @@ public abstract class TargetElementImpl extends EObjectImpl implements TargetEle
 	 * The default value of the '{@link #isDeprecated() <em>Deprecated</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @see #isDeprecated()
 	 * @generated
 	 * @ordered
@@ -97,7 +92,6 @@ public abstract class TargetElementImpl extends EObjectImpl implements TargetEle
 	 * The cached value of the '{@link #isDeprecated() <em>Deprecated</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @see #isDeprecated()
 	 * @generated
 	 * @ordered
@@ -107,7 +101,6 @@ public abstract class TargetElementImpl extends EObjectImpl implements TargetEle
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	protected TargetElementImpl() {
@@ -117,7 +110,6 @@ public abstract class TargetElementImpl extends EObjectImpl implements TargetEle
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	@Override
@@ -136,7 +128,6 @@ public abstract class TargetElementImpl extends EObjectImpl implements TargetEle
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	@Override
@@ -155,7 +146,6 @@ public abstract class TargetElementImpl extends EObjectImpl implements TargetEle
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	@Override
@@ -174,7 +164,6 @@ public abstract class TargetElementImpl extends EObjectImpl implements TargetEle
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	@Override
@@ -197,7 +186,6 @@ public abstract class TargetElementImpl extends EObjectImpl implements TargetEle
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	@Override
@@ -219,7 +207,6 @@ public abstract class TargetElementImpl extends EObjectImpl implements TargetEle
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	@Override
@@ -230,7 +217,6 @@ public abstract class TargetElementImpl extends EObjectImpl implements TargetEle
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	@Override
@@ -252,7 +238,6 @@ public abstract class TargetElementImpl extends EObjectImpl implements TargetEle
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public String getDocumentation() {
@@ -262,7 +247,6 @@ public abstract class TargetElementImpl extends EObjectImpl implements TargetEle
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public String getName() {
@@ -272,7 +256,6 @@ public abstract class TargetElementImpl extends EObjectImpl implements TargetEle
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public boolean isDeprecated() {
@@ -282,7 +265,6 @@ public abstract class TargetElementImpl extends EObjectImpl implements TargetEle
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public void setDeprecated(boolean newDeprecated) {
@@ -296,7 +278,6 @@ public abstract class TargetElementImpl extends EObjectImpl implements TargetEle
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public void setDocumentation(String newDocumentation) {
@@ -310,7 +291,6 @@ public abstract class TargetElementImpl extends EObjectImpl implements TargetEle
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public void setName(String newName) {
@@ -323,7 +303,6 @@ public abstract class TargetElementImpl extends EObjectImpl implements TargetEle
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	@Override

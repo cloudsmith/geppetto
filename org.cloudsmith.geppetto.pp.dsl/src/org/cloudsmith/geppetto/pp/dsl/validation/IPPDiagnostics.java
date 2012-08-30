@@ -198,4 +198,6 @@ public interface IPPDiagnostics {
 
 	public static final String ISSUE__CIRCULAR_MODULE_DEPENDENCY = ISSUE_PREFIX + "CircularModuleDependency";
 
+	public static final String ISSUE__RESERVED_NAME = ISSUE_PREFIX + "ReservedName";
+
 }

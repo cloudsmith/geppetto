@@ -116,4 +116,22 @@ public class TestIssues extends AbstractPuppetTests {
 		Resource r = loadAndLinkSingleResource(code);
 		tester.validate(r.getContents().get(0)).assertError(IPPDiagnostics.ISSUE__UNQUOTED_INTERPOLATION);
 	}
+
+	public void test_Issue407_falsePositive() throws Exception {
+		String code = "class foo { }";
+		Resource r = loadAndLinkSingleResource(code);
+		tester.validate(r.getContents().get(0)).assertOK();
+	}
+
+	public void test_Issue407_main() throws Exception {
+		String code = "class main { }";
+		Resource r = loadAndLinkSingleResource(code);
+		tester.validate(r.getContents().get(0)).assertError(IPPDiagnostics.ISSUE__RESERVED_NAME);
+	}
+
+	public void test_Issue407_settings() throws Exception {
+		String code = "class settings { }";
+		Resource r = loadAndLinkSingleResource(code);
+		tester.validate(r.getContents().get(0)).assertError(IPPDiagnostics.ISSUE__RESERVED_NAME);
+	}
 }

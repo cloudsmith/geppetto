@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2011 Cloudsmith Inc. and other contributors, as listed below.
+ * Copyright (c) 2011, 2012 Cloudsmith Inc. and other contributors, as listed below.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -653,11 +653,13 @@ public class PPJavaValidator extends AbstractPPJavaValidator implements IPPDiagn
 				o.eContainingFeature(), INSIGNIFICANT_INDEX, IPPDiagnostics.ISSUE__NOT_AT_TOPLEVEL_OR_CLASS);
 
 		if(!isCLASSNAME(o.getClassName())) {
+			// invalid name
 			acceptor.acceptError(
 				"Must be a valid name (each segment must start with lower case letter)", o,
 				PPPackage.Literals.DEFINITION__CLASS_NAME, IPPDiagnostics.ISSUE__NOT_CLASSNAME);
 		}
 		else {
+			// hyphen in name =
 			ValidationPreference hyphens = advisor().hyphensInNames();
 			if(hyphens.isWarningOrError()) {
 				int hyphenIdx = o.getClassName().indexOf("-");
@@ -670,6 +672,11 @@ public class PPJavaValidator extends AbstractPPJavaValidator implements IPPDiagn
 						acceptor.acceptError(
 							message, o, PPPackage.Literals.DEFINITION__CLASS_NAME, IPPDiagnostics.ISSUE__HYPHEN_IN_NAME);
 				}
+			}
+			// reserved ?
+			if(PPReservedNameHelper.isReservedClassName(o.getClassName())) {
+				acceptor.acceptError(
+					"Reserved name", o, PPPackage.Literals.DEFINITION__CLASS_NAME, IPPDiagnostics.ISSUE__RESERVED_NAME);
 			}
 		}
 	}

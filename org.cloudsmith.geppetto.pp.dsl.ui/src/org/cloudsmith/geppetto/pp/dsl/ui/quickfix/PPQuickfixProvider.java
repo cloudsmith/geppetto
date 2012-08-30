@@ -45,6 +45,7 @@ import org.eclipse.xtext.naming.QualifiedName;
 import org.eclipse.xtext.resource.IEObjectDescription;
 import org.eclipse.xtext.resource.XtextResource;
 import org.eclipse.xtext.ui.editor.model.IXtextDocument;
+import org.eclipse.xtext.ui.editor.model.edit.IModification;
 import org.eclipse.xtext.ui.editor.model.edit.IModificationContext;
 import org.eclipse.xtext.ui.editor.quickfix.DefaultQuickfixProvider;
 import org.eclipse.xtext.ui.editor.quickfix.Fix;
@@ -625,5 +626,46 @@ public class PPQuickfixProvider extends DefaultQuickfixProvider {
 				}
 			}
 		});
+	}
+
+	@Fix(IPPDiagnostics.ISSUE__UNQUOTED_INTERPOLATION)
+	public void unquotedInterpolation(final Issue issue, final IssueResolutionAcceptor acceptor) {
+
+		// "${x}
+		acceptor.accept(
+			issue, "Surround with double quotes", "Places the unquoted interpolation in a string", null,
+			new SurroundWithTextModification(issue.getOffset(), issue.getLength(), "\"", "\""));
+
+		// $x
+		acceptor.accept(
+			issue, "Change to regular variable reference", "Removes the '{' and '}'", null, new IModification() {
+
+				@Override
+				public void apply(IModificationContext context) throws Exception {
+					IXtextDocument doc = context.getXtextDocument();
+					doc.replace(
+						issue.getOffset(), issue.getLength(),
+						"$" + doc.get(issue.getOffset() + 2, issue.getLength() - 3));
+				}
+			});
+
+		// $x ? { undef => '', default => $x }
+		acceptor.accept(
+			issue, "Change to selector that makes undef empty string", "$x ? {undef => '', default => $x }", null,
+			new IModification() {
+
+				@Override
+				public void apply(IModificationContext context) throws Exception {
+					IXtextDocument doc = context.getXtextDocument();
+					String varName = "$" + doc.get(issue.getOffset() + 2, issue.getLength() - 3);
+					StringBuilder builder = new StringBuilder();
+					builder.append(varName);
+					builder.append(" ? {");
+					builder.append(" undef => '', default => ");
+					builder.append(varName);
+					builder.append("}");
+					doc.replace(issue.getOffset(), issue.getLength(), builder.toString());
+				}
+			});
 	}
 }

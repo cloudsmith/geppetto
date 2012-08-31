@@ -64,6 +64,8 @@ public class PptpTargetProjectHandler {
 
 	private final String PUPPET_TARGET_3_0 = "targets/puppet-3.0.0.pptp";
 
+	private final String FACTER_TARGET_1_6 = "targets/facter-1.6.pptp";
+
 	private final static Logger log = Logger.getLogger(PptpTargetProjectHandler.class);
 
 	/**
@@ -154,45 +156,16 @@ public class PptpTargetProjectHandler {
 		catch(CoreException e) {
 			log.error("Failed to configure target project", e);
 		}
+		String path = PUPPET_TARGET_3_0;
+		String pptpVersion = preferenceHelper.getPptpVersion();
+		if("2.6".equals(pptpVersion))
+			path = PUPPET_TARGET_2_6;
+		else if("2.7".equals(pptpVersion))
+			path = PUPPET_TARGET_2_7;
 
-		// get a handle to the wanted target platform (.pptp) file from preferences
-		//
-		try {
-			// Set highest as default (that way a reference to "2.8" will get "3.0")
-			//
-			String path = PUPPET_TARGET_3_0;
-			String pptpVersion = preferenceHelper.getPptpVersion();
-			if("2.6".equals(pptpVersion))
-				path = PUPPET_TARGET_2_6;
-			else if("2.7".equals(pptpVersion))
-				path = PUPPET_TARGET_2_7;
+		sync(targetProject, path, "puppet-", monitor);
+		sync(targetProject, FACTER_TARGET_1_6, "facter-", monitor);
 
-			IPath defaultTPPath = new Path(path);
-			File pptpFile = BundledFilesUtils.getFileFromClassBundle(PptpRuntimeModule.class, defaultTPPath);
-			IFile targetFile = targetProject.getFile(defaultTPPath.lastSegment());
-			if(targetFile.exists()) {
-				if(pptpFile.lastModified() > targetFile.getLocalTimeStamp()) {
-					targetFile.delete(true, false, monitor);
-					targetFile.create(new FileInputStream(pptpFile), true, monitor);
-				}
-			}
-			else {
-				// delete all puppet-* resources already there (either none, or some other/older .pptp)
-				// this makes it possible to keep several that are not managed
-				for(IResource r : targetProject.members()) {
-					if(r.getName().startsWith("puppet-"))
-						r.delete(true, monitor);
-				}
-				InputStream inputStream = new FileInputStream(pptpFile);
-				targetFile.create(inputStream, true, monitor);
-			}
-		}
-		catch(IOException e) {
-			log.error("Could not get .pptp default for copying.", e);
-		}
-		catch(CoreException e) {
-			log.error("Could not create target .pptp file.", e);
-		}
 	}
 
 	public void initializePuppetWorkspace() {
@@ -210,5 +183,39 @@ public class PptpTargetProjectHandler {
 		job.setSystem(false);
 		job.setPriority(Job.INTERACTIVE);
 		job.schedule();
+	}
+
+	private void sync(IProject targetProject, String path, String prefix, IProgressMonitor monitor) {
+		// get a handle to the wanted target platform (.pptp) file from preferences
+		//
+		try {
+
+			IPath defaultTPPath = new Path(path);
+			File pptpFile = BundledFilesUtils.getFileFromClassBundle(PptpRuntimeModule.class, defaultTPPath);
+			IFile targetFile = targetProject.getFile(defaultTPPath.lastSegment());
+			if(targetFile.exists()) {
+				if(pptpFile.lastModified() > targetFile.getLocalTimeStamp()) {
+					targetFile.delete(true, false, monitor);
+					targetFile.create(new FileInputStream(pptpFile), true, monitor);
+				}
+			}
+			else {
+				// delete all prefix-* resources already there (either none, or some other/older .pptp)
+				// this makes it possible to keep several that are not managed
+				for(IResource r : targetProject.members()) {
+					if(r.getName().startsWith(prefix))
+						r.delete(true, monitor);
+				}
+				InputStream inputStream = new FileInputStream(pptpFile);
+				targetFile.create(inputStream, true, monitor);
+			}
+		}
+		catch(IOException e) {
+			log.error("Could not get .pptp default for copying.", e);
+		}
+		catch(CoreException e) {
+			log.error("Could not create target .pptp file.", e);
+		}
+
 	}
 }

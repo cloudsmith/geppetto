@@ -9,7 +9,7 @@
  *   Cloudsmith
  * 
  */
-package org.cloudsmith.geppetto.pp.dsl.facter;
+package org.cloudsmith.geppetto.pp.facter;
 
 import java.util.Iterator;
 import java.util.List;
@@ -26,10 +26,9 @@ import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.ImmutableMap.Builder;
 import com.google.common.collect.ImmutableSet;
-import com.google.inject.Singleton;
 
 /**
- * @author henrik
+ * An interface for Facter.
  * 
  */
 public interface Facter {
@@ -39,15 +38,6 @@ public interface Facter {
 		private ImmutableMap<String, String> factmap;
 
 		private ImmutableMap<String, String> factmapArgumented;
-
-		public AbstractFacter() {
-			Builder<String, String> mapbuilder = ImmutableMap.builder();
-			Iterator<String> itor = getRegularFacts().iterator();
-			while(itor.hasNext()) {
-				mapbuilder.put(itor.next(), itor.next());
-			}
-			factmap = mapbuilder.build();
-		}
 
 		@Override
 		public TargetEntry asPPTP() {
@@ -64,6 +54,16 @@ public interface Facter {
 				var.setAssignable(true);
 				var.setDeprecated(false);
 				var.setDocumentation(entry.getValue());
+				facter.getContents().add(var);
+			}
+			for(Entry<String, String> entry : getArgumentedFactMap().entrySet()) {
+				TPVariable var = PPTPFactory.eINSTANCE.createTPVariable();
+				var.setName(entry.getKey());
+				var.setAssignable(true);
+				var.setDeprecated(false);
+				var.setDocumentation(entry.getValue());
+				var.setPattern(patternForVariable(entry.getKey()));
+				facter.getContents().add(var);
 			}
 			return facter;
 		}
@@ -75,6 +75,8 @@ public interface Facter {
 		 */
 		@Override
 		public Map<String, String> getArgumentedFactMap() {
+			if(factmapArgumented == null)
+				lazyBuildFactmap();
 			return factmapArgumented;
 		}
 
@@ -87,10 +89,12 @@ public interface Facter {
 		 */
 		@Override
 		public Map<String, String> getRegularFactMap() {
+			if(factmap == null)
+				lazyBuildFactmap();
 			return factmap;
 		}
 
-		protected abstract Set<String> getRegularFacts();
+		protected abstract List<String> getRegularFacts();
 
 		@Override
 		public boolean isFactName(String name) {
@@ -113,10 +117,31 @@ public interface Facter {
 			return false;
 		}
 
+		private void lazyBuildFactmap() {
+			Builder<String, String> mapbuilder = ImmutableMap.builder();
+			Iterator<String> itor = getRegularFacts().iterator();
+			while(itor.hasNext()) {
+				mapbuilder.put(itor.next(), itor.next());
+			}
+			factmap = mapbuilder.build();
+
+			mapbuilder = ImmutableMap.builder();
+			itor = getArgumentedFacts().iterator();
+			while(itor.hasNext()) {
+				mapbuilder.put(itor.next(), itor.next());
+			}
+			factmapArgumented = mapbuilder.build();
+		}
+
+		protected abstract String patternForVariable(String varName);
+
 	}
 
-	@Singleton
 	public static class Facter1_6 extends AbstractFacter {
+		String networkInterfacePattern = "\\w+"; // sequence of word characters
+
+		String processorPattern = "[0-9a-fA-F]+"; // octal, dec or hex number (unchecked for validity).
+
 		List<String> argumentedFacts = ImmutableList.<String> of(//
 			"arp_", "", // {NETWORK INTERFACE}
 			"ipaddress_", "The IP4 address for a specific network interface (from the list in the $interfaces fact).", // {NETWORK INTERFACE}
@@ -135,7 +160,7 @@ public interface Facter {
 
 		Set<String> deprecatedFacts = ImmutableSet.<String> of("selinux_mode", "memorytotal");
 
-		Set<String> regularFacts = ImmutableSet.<String> of(
+		List<String> regularFacts = ImmutableList.<String> of(
 			//
 			"architecture",
 			"The CPU hardware architecture. On OpenBSD, Linux and Debian's kfreebsd, use the hardwaremodel fact. Gentoo and Debian call 'x86_86' 'amd64'. Gentoo also calls 'i386' 'x86'.",
@@ -150,7 +175,6 @@ public interface Facter {
 
 			// EC2 stuff
 			"ec2_ami_id", EC2DOC, //
-			"ec2_ami_launch_index", EC2DOC, //
 			"ec2_ami_launch_index", EC2DOC, //
 			"ec2_ami_manifest_path", EC2DOC, //
 			"ec2_block_device_mapping_ami", EC2DOC, //
@@ -283,13 +307,23 @@ public interface Facter {
 		}
 
 		@Override
-		public Set<String> getRegularFacts() {
+		public List<String> getRegularFacts() {
 			return regularFacts;
 		}
 
 		@Override
 		public String getVersionString() {
 			return "1.6";
+		}
+
+		@Override
+		protected String patternForVariable(String name) {
+			if(!argumentedFacts.contains(name))
+				return null;
+			if("processor".equals(name))
+				return processorPattern;
+
+			return networkInterfacePattern;
 		}
 	}
 
@@ -316,7 +350,7 @@ public interface Facter {
 	 * 
 	 * @return
 	 */
-	public abstract String getVersionString();
+	public String getVersionString();
 
 	/**
 	 * Check if the given name is a fact.

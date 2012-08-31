@@ -15,6 +15,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Pattern;
 
 import org.cloudsmith.geppetto.common.tracer.ITracer;
 import org.cloudsmith.geppetto.pp.PPPackage;
@@ -155,6 +156,8 @@ public class PPFinder {
 
 	private Map<String, IEObjectDescription> metaVarCache;
 
+	private List<IEObjectDescription> exportedPatternVariables;
+
 	private void buildExportedObjectsIndex(IResourceDescription descr, IResourceDescriptions descriptionIndex) {
 		// The current (possibly dirty) exported resources
 		IResourceDescription dirty = resourceServiceProvider.getResourceDescriptionManager().getResourceDescription(
@@ -162,6 +165,7 @@ public class PPFinder {
 		String pathToCurrent = resource.getURI().path();
 
 		Multimap<String, IEObjectDescription> map = ArrayListMultimap.create();
+		List<IEObjectDescription> patternedVariables = Lists.newArrayList();
 		// add all (possibly dirty in global index)
 		// check for empty qualified names which may be present in case of syntax errors / while editing etc.
 		// empty names are simply skipped (they can not be found anyway).
@@ -172,9 +176,16 @@ public class PPFinder {
 		// add all from global index, except those for current resource
 		for(IEObjectDescription d : getExportedObjects(descr, descriptionIndex))
 			if(!d.getEObjectURI().path().equals(pathToCurrent) && d.getQualifiedName().getSegmentCount() >= 1) {
-				map.put(d.getQualifiedName().getLastSegment(), d);
+				// patterned based names are exceptional
+				if(d.getUserData(PPDSLConstants.VARIABLE_PATTERN) != null) {
+					patternedVariables.add(d);
+				}
+				else {
+					map.put(d.getQualifiedName().getLastSegment(), d);
+				}
 			}
 		exportedPerLastSegment = map;
+		exportedPatternVariables = patternedVariables;
 	}
 
 	private void cacheMetaParameters(EObject scopeDetermeningObject) {
@@ -359,6 +370,18 @@ public class PPFinder {
 				fqn, nameOfScope, eClasses))
 				targets.add(objDesc);
 
+			if(targets.size() == 0) {
+				// check the pattern variables
+				for(IEObjectDescription objDesc : exportedPatternVariables) {
+					String n = fqn.getLastSegment();
+					String on = objDesc.getName().getLastSegment();
+					if(n.startsWith(on) &&
+							Pattern.matches(
+								objDesc.getUserData(PPDSLConstants.VARIABLE_PATTERN), n.substring(on.length())))
+						targets.add(objDesc);
+
+				}
+			}
 		}
 		if(tracer.isTracing()) {
 			for(IEObjectDescription d : targets)
@@ -566,6 +589,10 @@ public class PPFinder {
 				}
 
 			}));
+	}
+
+	public Collection<IEObjectDescription> getExportedPatternVariableDescriptions() {
+		return Collections.unmodifiableCollection(exportedPatternVariables);
 	}
 
 	/**

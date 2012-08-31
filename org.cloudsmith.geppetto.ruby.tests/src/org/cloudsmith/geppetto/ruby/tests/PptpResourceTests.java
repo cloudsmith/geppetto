@@ -3,6 +3,8 @@ package org.cloudsmith.geppetto.ruby.tests;
 import java.io.File;
 import java.io.IOException;
 
+import junit.framework.TestCase;
+
 import org.cloudsmith.geppetto.pp.pptp.AbstractType;
 import org.cloudsmith.geppetto.pp.pptp.Function;
 import org.cloudsmith.geppetto.pp.pptp.Parameter;
@@ -16,8 +18,6 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
-
-import junit.framework.TestCase;
 
 public class PptpResourceTests extends TestCase {
 	private void doFunctionResource(String path, String functionName) throws IOException {
@@ -126,13 +126,13 @@ public class PptpResourceTests extends TestCase {
 
 	public void testTypeFragment() throws IOException {
 		TypeFragment tf = doTypeFragmentResource(
-			"testData/mock-puppet-distro/puppet/2.6.2_0/puppet/type/mocktype/extra1.rb", "mocktype");
+			"testData/mock-puppet-distro/puppet-2.6.2_0/lib/puppet/type/mocktype/extra1.rb", "mocktype");
 		assertEquals("Should have found one property", 1, tf.getProperties().size());
 		Property extra1 = findProperty(tf, "extra1");
 		assertNotNull("Should have found extra1", extra1);
 
 		tf = doTypeFragmentResource(
-			"testData/mock-puppet-distro/puppet/2.6.2_0/puppet/type/mocktype/extra2.rb", "mocktype");
+			"testData/mock-puppet-distro/puppet-2.6.2_0/lib/puppet/type/mocktype/extra2.rb", "mocktype");
 		assertEquals("Should have found one property", 1, tf.getProperties().size());
 		Property extra2 = findProperty(tf, "extra2");
 		assertNotNull("Should have found extra2", extra2);

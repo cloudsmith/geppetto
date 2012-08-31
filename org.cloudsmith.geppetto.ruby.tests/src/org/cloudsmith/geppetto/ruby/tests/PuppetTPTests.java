@@ -16,6 +16,7 @@ import java.util.List;
 
 import junit.framework.TestCase;
 
+import org.cloudsmith.geppetto.pp.facter.Facter.Facter1_6;
 import org.cloudsmith.geppetto.pp.pptp.AbstractType;
 import org.cloudsmith.geppetto.pp.pptp.Function;
 import org.cloudsmith.geppetto.pp.pptp.Parameter;
@@ -100,6 +101,28 @@ public class PuppetTPTests extends TestCase {
 	// null, //
 	// new File("puppet_enterprise-2.0.0.pptp"));
 	// }
+
+	/**
+	 * This is a really odd place to do this, but since the other generators of pptp modesl
+	 * are here...
+	 * 
+	 * @throws Exception
+	 */
+	public void testLoad_Facter1_6() throws Exception {
+		File pptpFile = new File("facter-1.6.pptp");
+		Facter1_6 facter = new Facter1_6();
+
+		// Save the TargetEntry as a loadable resource
+		ResourceSet resourceSet = new ResourceSetImpl();
+		URI fileURI = URI.createFileURI(pptpFile.getAbsolutePath());
+		Resource targetResource = resourceSet.createResource(fileURI);
+
+		// Add all (optional) plugins
+		targetResource.getContents().add(facter.asPPTP());
+		targetResource.save(null);
+		System.err.println("Target saved to: " + fileURI.toString());
+
+	}
 
 	public void testLoad2_6_9() throws Exception {
 		final File puppetDistros = new File("/Users/henrik/PuppetDistributions/");

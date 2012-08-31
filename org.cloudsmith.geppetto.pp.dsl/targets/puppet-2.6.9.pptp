@@ -914,6 +914,7 @@
     <metaVariables name="name" documentation=""/>
     <metaVariables name="title" documentation=""/>
     <metaVariables name="module_name" documentation="The name of the containing module"/>
+    <metaVariables name="caller_module_name" documentation="The name of the calling module"/>
   </pptp:PuppetDistribution>
   <pptp:PuppetDistribution description="Puppet Plugin" version="1.0.0rc1" label="puppetlabs-hiera-puppet">
     <functions documentation="" name="hiera" rValue="true"/>

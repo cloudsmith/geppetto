@@ -380,7 +380,7 @@ public class PPPreferencesHelper implements IPreferenceStoreInitializer, IProper
 
 		// If pptp changes, recheck the workspace
 		if(PPPreferenceConstants.PUPPET_TARGET_VERSION.equals(event.getProperty())) {
-			pptpHandler.initializePuppetWorkspace();
+			pptpHandler.initializePuppetTargetProject();
 			// problemChanges.offer(event.getProperty());
 		}
 		if(requiresRebuild.contains(event.getProperty()))

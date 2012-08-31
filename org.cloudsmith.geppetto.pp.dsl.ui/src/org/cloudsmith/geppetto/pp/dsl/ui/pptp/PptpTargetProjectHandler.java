@@ -168,8 +168,24 @@ public class PptpTargetProjectHandler {
 
 	}
 
-	public void initializePuppetWorkspace() {
+	public void initializePuppetTargetProject() {
 		Job job = new Job("Checking Puppet Projects") {
+			@Override
+			protected IStatus run(IProgressMonitor monitor) {
+				monitor.beginTask("Checking Puppet Projects ...", 100);
+				ensureStateOfPuppetProjects(monitor);
+				monitor.done();
+				return Status.OK_STATUS;
+			}
+		};
+		job.setSystem(false);
+		job.setPriority(Job.INTERACTIVE);
+		job.schedule();
+
+	}
+
+	public void initializePuppetWorkspace() {
+		Job job = new Job("Initializing Puppet Workspace") {
 			@Override
 			protected IStatus run(IProgressMonitor monitor) {
 				monitor.beginTask("Checking Puppet Projects ...", 100);

@@ -28,6 +28,8 @@ import org.cloudsmith.geppetto.pp.dsl.ui.editor.actions.SaveActions;
 import org.cloudsmith.geppetto.pp.dsl.ui.editor.autoedit.PPEditStrategyProvider;
 import org.cloudsmith.geppetto.pp.dsl.ui.editor.autoedit.PPTokenTypeToPartionMapper;
 import org.cloudsmith.geppetto.pp.dsl.ui.editor.folding.PPFoldingRegionProvider;
+import org.cloudsmith.geppetto.pp.dsl.ui.editor.hover.PPDocumentationProvider;
+import org.cloudsmith.geppetto.pp.dsl.ui.editor.hover.PPHoverProvider;
 import org.cloudsmith.geppetto.pp.dsl.ui.editor.hyperlinking.PPHyperlinkHelper;
 import org.cloudsmith.geppetto.pp.dsl.ui.editor.toggleComments.PPSingleLineCommentHelper;
 import org.cloudsmith.geppetto.pp.dsl.ui.formatting.ResourceIBreakAndAlignAdviceProvider;
@@ -56,6 +58,7 @@ import org.cloudsmith.xtext.formatting.IPreferredMaxWidthInformation;
 import org.cloudsmith.xtext.ui.editor.formatting.ContentFormatterFactory;
 import org.cloudsmith.xtext.ui.editor.formatting.ResourceILineSeparatorProvider;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
+import org.eclipse.xtext.documentation.IEObjectDocumentationProvider;
 import org.eclipse.xtext.formatting.IIndentationInformation;
 import org.eclipse.xtext.formatting.ILineSeparatorInformation;
 import org.eclipse.xtext.linking.lazy.LazyLinker;
@@ -66,6 +69,7 @@ import org.eclipse.xtext.ui.editor.XtextEditor;
 import org.eclipse.xtext.ui.editor.autoedit.AbstractEditStrategyProvider;
 import org.eclipse.xtext.ui.editor.folding.IFoldingRegionProvider;
 import org.eclipse.xtext.ui.editor.formatting.IContentFormatterFactory;
+import org.eclipse.xtext.ui.editor.hover.IEObjectHoverProvider;
 import org.eclipse.xtext.ui.editor.hyperlinking.IHyperlinkHelper;
 import org.eclipse.xtext.ui.editor.model.IResourceForEditorInputFactory;
 import org.eclipse.xtext.ui.editor.model.ITokenTypeToPartitionTypeMapper;
@@ -101,6 +105,14 @@ public class PPUiModule extends org.cloudsmith.geppetto.pp.dsl.ui.AbstractPPUiMo
 	@Override
 	public Class<? extends IContentFormatterFactory> bindIContentFormatterFactory() {
 		return ContentFormatterFactory.class;
+	}
+
+	public Class<? extends IEObjectDocumentationProvider> bindIEObjectDocumentationProvider() {
+		return PPDocumentationProvider.class;
+	}
+
+	public Class<? extends IEObjectHoverProvider> bindIEObjectHoverProvider() {
+		return PPHoverProvider.class;
 	}
 
 	/**
@@ -336,4 +348,5 @@ public class PPUiModule extends org.cloudsmith.geppetto.pp.dsl.ui.AbstractPPUiMo
 	public com.google.inject.Provider<IValidationAdvisor> provideValidationAdvisor() {
 		return PreferenceBasedValidationAdvisorProvider.create();
 	}
+
 }

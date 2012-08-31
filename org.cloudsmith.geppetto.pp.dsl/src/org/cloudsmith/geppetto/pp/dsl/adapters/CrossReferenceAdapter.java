@@ -32,6 +32,10 @@ public class CrossReferenceAdapter extends AdapterImpl {
 		CrossReferenceAdapterFactory.eINSTANCE.adapt(o).clear();
 	}
 
+	public static List<IEObjectDescription> get(EObject o) {
+		return CrossReferenceAdapterFactory.eINSTANCE.get(o);
+	}
+
 	/**
 	 * Convenience method to adapt and set the value in the adapter.
 	 * 

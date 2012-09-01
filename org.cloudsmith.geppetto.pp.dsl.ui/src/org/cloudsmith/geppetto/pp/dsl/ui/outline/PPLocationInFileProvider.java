@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2011 Cloudsmith Inc. and other contributors, as listed below.
+ * Copyright (c) 2011, 2012 Cloudsmith Inc. and other contributors, as listed below.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -20,6 +20,9 @@ import org.eclipse.xtext.resource.DefaultLocationInFileProvider;
 /**
  * Used to define the significant "short" locations for outline relevant elements.
  * (The defaults do not understand which nodes are "names").
+ * 
+ * Also used to determine if a hover should appear or not; a significant region must be returned
+ * for a hover to be considered.
  * 
  */
 public class PPLocationInFileProvider extends DefaultLocationInFileProvider {
@@ -42,6 +45,8 @@ public class PPLocationInFileProvider extends DefaultLocationInFileProvider {
 			return PPPackage.Literals.RESOURCE_BODY__NAME_EXPR;
 		if(ec.equals(PPPackage.Literals.DEFINITION_ARGUMENT))
 			return PPPackage.Literals.DEFINITION_ARGUMENT__ARG_NAME;
+		if(ec.equals(PPPackage.Literals.ATTRIBUTE_OPERATION))
+			return PPPackage.Literals.ATTRIBUTE_OPERATION__KEY;
 
 		return super.getIdentifierFeature(obj);
 	}

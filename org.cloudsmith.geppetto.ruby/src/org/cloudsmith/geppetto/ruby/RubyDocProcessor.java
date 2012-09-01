@@ -24,18 +24,25 @@ public class RubyDocProcessor {
 		start, para, pre;
 	};
 
+	/**
+	 * Substitutes '*text*' with '&lt;b>text&lt;/b>', and '`text`' with '&lt;tt>text&lt;/tt>', and
+	 * appends the text and a new line.
+	 * 
+	 * @param s
+	 * @param builder
+	 */
+	static private void appendNonVerbatimLine(String s, StringBuilder builder) {
+		s = s.replaceAll("\\*\\*([^\\*]+)\\*\\*", "<strong>$1</strong>");
+		s = s.replaceAll("\\*([^\\*]+)\\*", "<b>$1</b>");
+		s = s.replaceAll("`([^`]+)`", "<tt>$1</tt>");
+
+		builder.append(s).append("\n");
+	}
+
 	static public String asHTML(String s) {
 		if(s == null || s.length() < 1)
 			return s;
-		// if(marginSize < 0) {
-		// // indentation of first line is unknown, and it is impossible to figure out if the next line is
-		// // indented to "verbatim position" or not. give up:
-		// StringBuilder builder = new StringBuilder();
-		// builder.append("<pre>");
-		// builder.append(s);
-		// builder.append("</pre>");
-		// return builder.toString();
-		// }
+
 		int minPos = Integer.MAX_VALUE;
 		String[] lines = s.split("\\n");
 		for(int i = 1; i < lines.length; i++) {
@@ -68,12 +75,13 @@ public class RubyDocProcessor {
 				if(verbatimLine) {
 					flowState = State.pre;
 					builder.append("<pre>");
+					builder.append(line).append("\n");
 				}
 				else {
 					flowState = State.para;
 					builder.append("<p>");
+					appendNonVerbatimLine(line, builder);
 				}
-				builder.append(line).append("\n");
 			}
 			else if(flowState == State.para) {
 				if(verbatimLine) {
@@ -86,7 +94,7 @@ public class RubyDocProcessor {
 					builder.append("</p>\n<p>");
 				}
 				else {
-					builder.append(line).append("\n");
+					appendNonVerbatimLine(line, builder);
 				}
 			}
 			else if(flowState == State.pre) {
@@ -100,7 +108,7 @@ public class RubyDocProcessor {
 					// break pre
 					flowState = State.para;
 					builder.append("</pre>\n<p>");
-					builder.append(line).append("\n");
+					appendNonVerbatimLine(line, builder);
 				}
 			}
 		}

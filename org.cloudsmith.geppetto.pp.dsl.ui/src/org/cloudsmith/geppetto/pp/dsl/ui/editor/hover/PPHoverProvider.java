@@ -11,15 +11,19 @@
  */
 package org.cloudsmith.geppetto.pp.dsl.ui.editor.hover;
 
+import java.io.IOException;
+import java.net.URL;
 import java.util.Collections;
 
 import org.cloudsmith.geppetto.pp.AttributeOperation;
 import org.cloudsmith.geppetto.pp.LiteralNameOrReference;
 import org.cloudsmith.geppetto.pp.PPPackage;
 import org.cloudsmith.geppetto.pp.VariableExpression;
+import org.cloudsmith.geppetto.pp.dsl.ui.internal.PPDSLActivator;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.xtext.ui.editor.hover.html.DefaultEObjectHoverProvider;
+import org.eclipse.xtext.util.Files;
 import org.eclipse.xtext.util.PolymorphicDispatcher;
 
 /**
@@ -35,6 +39,8 @@ public class PPHoverProvider extends DefaultEObjectHoverProvider {
 			return false;
 		}
 	};
+
+	private static final String styleSheetFileName = "/css/PPHoverStyleSheet.css";
 
 	protected Boolean _hover(AttributeOperation o) {
 		return true;
@@ -52,20 +58,27 @@ public class PPHoverProvider extends DefaultEObjectHoverProvider {
 		return true;
 	}
 
-	/**
-	 * @see org.eclipse.xtext.ui.editor.hover.html.DefaultEObjectHoverProvider#getFirstLine(org.eclipse.emf.ecore.EObject)
-	 */
 	@Override
 	protected String getFirstLine(EObject o) {
 		return "PP:" + super.getFirstLine(o);
 	}
 
-	/**
-	 * @see org.eclipse.xtext.ui.editor.hover.html.DefaultEObjectHoverProvider#hasHover(org.eclipse.emf.ecore.EObject)
-	 */
 	@Override
 	protected boolean hasHover(EObject o) {
 		// System.out.println("Hover query for: " + o.getClass()); // For debugging, finding what to react to
 		return hoverDispatcher.invoke(o) || super.hasHover(o);
+	}
+
+	@Override
+	protected String loadStyleSheet() {
+		URL styleSheetURL = PPDSLActivator.getInstance().getBundle().getEntry(styleSheetFileName);
+		if(styleSheetURL != null)
+			try {
+				return Files.readStreamIntoString(styleSheetURL.openStream());
+			}
+			catch(IOException e) {
+				// ignore
+			}
+		return super.loadStyleSheet();
 	}
 }

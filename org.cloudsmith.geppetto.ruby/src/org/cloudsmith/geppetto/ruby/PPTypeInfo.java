@@ -21,11 +21,13 @@ public class PPTypeInfo {
 
 	public static class Entry {
 		public final String documentation;
+
 		private boolean required;
+
 		private boolean namevar;
 
 		public Entry(String documentation, boolean required, boolean namevar) {
-			this.documentation = documentation;
+			this.documentation = RubyDocProcessor.asHTML(documentation);
 			this.required = required;
 			this.namevar = namevar;
 		}
@@ -44,18 +46,20 @@ public class PPTypeInfo {
 	}
 
 	public final String typeName;
+
 	public final String documentation;
+
 	public final Map<String, Entry> properties;
 
 	public final Map<String, Entry> parameters;
 
-	public PPTypeInfo(String typeName, String documentation,
-			Map<String, Entry> properties, Map<String, Entry> parameters) {
+	public PPTypeInfo(String typeName, String documentation, Map<String, Entry> properties,
+			Map<String, Entry> parameters) {
 		this.typeName = typeName;
-		this.documentation = documentation;
-		if (properties == null)
+		this.documentation = RubyDocProcessor.asHTML(documentation);
+		if(properties == null)
 			properties = Collections.emptyMap();
-		if (parameters == null)
+		if(parameters == null)
 			parameters = Collections.emptyMap();
 		this.properties = Collections.unmodifiableMap(properties);
 		this.parameters = Collections.unmodifiableMap(parameters);

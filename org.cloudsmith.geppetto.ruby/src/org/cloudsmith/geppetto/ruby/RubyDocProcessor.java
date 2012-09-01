@@ -14,7 +14,8 @@ package org.cloudsmith.geppetto.ruby;
 import org.cloudsmith.geppetto.common.CharSequences;
 
 /**
- * @author henrik
+ * Processes documentation text found in ruby code. The main problem is determining the "natural margin" as it is ambiguous.
+ * 
  * 
  */
 public class RubyDocProcessor {
@@ -23,31 +24,35 @@ public class RubyDocProcessor {
 		start, para, pre;
 	};
 
-	static public String asHTML(String s, int marginSize) {
+	static public String asHTML(String s) {
 		if(s == null || s.length() < 1)
 			return s;
-		if(marginSize < 0) {
-			// indentation of first line is unknown, and it is impossible to figure out if the next line is
-			// indented to "verbatim position" or not. give up:
-			StringBuilder builder = new StringBuilder();
-			builder.append("<pre>");
-			builder.append(s);
-			builder.append("</pre>");
-			return builder.toString();
-		}
-		// the natural indent is 2 chars right of the given position:
-		// @doc = "Starts here and
-		// continues here
-		// and here."
-		//
-		final int naturalMargin = marginSize;
+		// if(marginSize < 0) {
+		// // indentation of first line is unknown, and it is impossible to figure out if the next line is
+		// // indented to "verbatim position" or not. give up:
+		// StringBuilder builder = new StringBuilder();
+		// builder.append("<pre>");
+		// builder.append(s);
+		// builder.append("</pre>");
+		// return builder.toString();
+		// }
+		int minPos = Integer.MAX_VALUE;
 		String[] lines = s.split("\\n");
+		for(int i = 1; i < lines.length; i++) {
+			int idx = CharSequences.indexOfNonWhitespace(lines[i], 0);
+			if(idx >= 0)
+				minPos = Math.min(minPos, idx);
+		}
 
 		// trim left margin
 		// first line is problematic, since initial whitespace is inconsistently used in the source
 		// If it starts with whitespace, assume it is at the natural margin.
 
-		for(int i = 0; i < lines.length; i++)
+		final int naturalMargin = minPos;
+		// always trim the first line - hope it is never a verbatim (how can it be detected? - indented from what?)
+		if(lines.length > 0)
+			lines[0] = CharSequences.trim(lines[0]).toString();
+		for(int i = 1; i < lines.length; i++)
 			lines[i] = CharSequences.trim(lines[i], naturalMargin, lines[i].length()).toString();
 
 		State flowState = State.start;

@@ -14,11 +14,8 @@ package org.cloudsmith.geppetto.pp.pptp.impl;
 import org.cloudsmith.geppetto.pp.pptp.IDocumented;
 import org.cloudsmith.geppetto.pp.pptp.PPTPPackage;
 import org.cloudsmith.geppetto.pp.pptp.TargetElement;
-
 import org.eclipse.emf.common.notify.Notification;
-
 import org.eclipse.emf.ecore.EClass;
-
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
 
@@ -29,12 +26,12 @@ import org.eclipse.emf.ecore.impl.EObjectImpl;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.cloudsmith.geppetto.pp.pptp.impl.TargetElementImpl#getName <em>Name</em>}</li>
- *   <li>{@link org.cloudsmith.geppetto.pp.pptp.impl.TargetElementImpl#getDocumentation <em>Documentation</em>}</li>
- *   <li>{@link org.cloudsmith.geppetto.pp.pptp.impl.TargetElementImpl#isDeprecated <em>Deprecated</em>}</li>
+ * <li>{@link org.cloudsmith.geppetto.pp.pptp.impl.TargetElementImpl#getName <em>Name</em>}</li>
+ * <li>{@link org.cloudsmith.geppetto.pp.pptp.impl.TargetElementImpl#getDocumentation <em>Documentation</em>}</li>
+ * <li>{@link org.cloudsmith.geppetto.pp.pptp.impl.TargetElementImpl#isDeprecated <em>Deprecated</em>}</li>
  * </ul>
  * </p>
- *
+ * 
  * @generated
  */
 public abstract class TargetElementImpl extends EObjectImpl implements TargetElement {
@@ -42,6 +39,7 @@ public abstract class TargetElementImpl extends EObjectImpl implements TargetEle
 	 * The default value of the '{@link #getName() <em>Name</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @see #getName()
 	 * @generated
 	 * @ordered
@@ -52,6 +50,7 @@ public abstract class TargetElementImpl extends EObjectImpl implements TargetEle
 	 * The cached value of the '{@link #getName() <em>Name</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @see #getName()
 	 * @generated
 	 * @ordered
@@ -62,6 +61,7 @@ public abstract class TargetElementImpl extends EObjectImpl implements TargetEle
 	 * The default value of the '{@link #getDocumentation() <em>Documentation</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @see #getDocumentation()
 	 * @generated
 	 * @ordered
@@ -72,6 +72,7 @@ public abstract class TargetElementImpl extends EObjectImpl implements TargetEle
 	 * The cached value of the '{@link #getDocumentation() <em>Documentation</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @see #getDocumentation()
 	 * @generated
 	 * @ordered
@@ -82,6 +83,7 @@ public abstract class TargetElementImpl extends EObjectImpl implements TargetEle
 	 * The default value of the '{@link #isDeprecated() <em>Deprecated</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @see #isDeprecated()
 	 * @generated
 	 * @ordered
@@ -92,6 +94,7 @@ public abstract class TargetElementImpl extends EObjectImpl implements TargetEle
 	 * The cached value of the '{@link #isDeprecated() <em>Deprecated</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @see #isDeprecated()
 	 * @generated
 	 * @ordered
@@ -101,6 +104,7 @@ public abstract class TargetElementImpl extends EObjectImpl implements TargetEle
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	protected TargetElementImpl() {
@@ -110,6 +114,7 @@ public abstract class TargetElementImpl extends EObjectImpl implements TargetEle
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@Override
@@ -128,6 +133,7 @@ public abstract class TargetElementImpl extends EObjectImpl implements TargetEle
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@Override
@@ -146,6 +152,7 @@ public abstract class TargetElementImpl extends EObjectImpl implements TargetEle
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@Override
@@ -164,6 +171,7 @@ public abstract class TargetElementImpl extends EObjectImpl implements TargetEle
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@Override
@@ -186,6 +194,7 @@ public abstract class TargetElementImpl extends EObjectImpl implements TargetEle
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@Override
@@ -207,6 +216,7 @@ public abstract class TargetElementImpl extends EObjectImpl implements TargetEle
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@Override
@@ -217,6 +227,7 @@ public abstract class TargetElementImpl extends EObjectImpl implements TargetEle
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@Override
@@ -235,9 +246,19 @@ public abstract class TargetElementImpl extends EObjectImpl implements TargetEle
 		super.eUnset(featureID);
 	}
 
+	private String fixUnformattedDoc(String unformatted) {
+		if(unformatted == null || unformatted.length() < 1)
+			return unformatted;
+		if(unformatted.startsWith("<"))
+			return unformatted; // assume it is formatted already
+		String[] lines = unformatted.split("\\n");
+		return unformatted;
+	}
+
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	public String getDocumentation() {
@@ -247,6 +268,7 @@ public abstract class TargetElementImpl extends EObjectImpl implements TargetEle
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	public String getName() {
@@ -256,6 +278,7 @@ public abstract class TargetElementImpl extends EObjectImpl implements TargetEle
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	public boolean isDeprecated() {
@@ -265,6 +288,7 @@ public abstract class TargetElementImpl extends EObjectImpl implements TargetEle
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	public void setDeprecated(boolean newDeprecated) {
@@ -278,11 +302,12 @@ public abstract class TargetElementImpl extends EObjectImpl implements TargetEle
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	public void setDocumentation(String newDocumentation) {
 		String oldDocumentation = documentation;
-		documentation = newDocumentation;
+		documentation = fixUnformattedDoc(newDocumentation);
 		if(eNotificationRequired())
 			eNotify(new ENotificationImpl(
 				this, Notification.SET, PPTPPackage.TARGET_ELEMENT__DOCUMENTATION, oldDocumentation, documentation));
@@ -291,6 +316,7 @@ public abstract class TargetElementImpl extends EObjectImpl implements TargetEle
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	public void setName(String newName) {
@@ -303,6 +329,7 @@ public abstract class TargetElementImpl extends EObjectImpl implements TargetEle
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@Override

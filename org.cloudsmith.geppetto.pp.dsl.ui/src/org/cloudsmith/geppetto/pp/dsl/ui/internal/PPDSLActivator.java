@@ -17,6 +17,7 @@ import java.util.Map;
 import org.apache.log4j.Logger;
 import org.cloudsmith.geppetto.pp.dsl.PPDSLConstants;
 import org.cloudsmith.geppetto.pp.dsl.pptp.PptpRubyRuntimeModule;
+import org.cloudsmith.geppetto.pp.dsl.ui.jdt_ersatz.ImagesOnFileSystemRegistry;
 import org.cloudsmith.geppetto.pp.dsl.ui.preferences.PPPreferencesHelper;
 import org.osgi.framework.BundleContext;
 
@@ -32,6 +33,10 @@ public class PPDSLActivator extends PPActivator {
 	public static final String PP_LANGUAGE_NAME = "org.cloudsmith.geppetto.pp.dsl.PP";
 
 	private static BundleContext slaActivatorContext;
+
+	public static PPDSLActivator getDefault() {
+		return (PPDSLActivator) getInstance();
+	}
 
 	/**
 	 * org.eclipse.jdt.core is added as an optional dependency in o.c.g.pp.dsl.ui and if JDT is present in
@@ -52,6 +57,12 @@ public class PPDSLActivator extends PPActivator {
 	}
 
 	private Map<String, Injector> injectors = Collections.synchronizedMap(Maps.<String, Injector> newHashMapWithExpectedSize(1));
+
+	private ImagesOnFileSystemRegistry imagesOnFileSystemRegistry;
+
+	public ImagesOnFileSystemRegistry getImagesOnFSRegistry() {
+		return imagesOnFileSystemRegistry;
+	}
 
 	@Override
 	public Injector getInjector(String language) {
@@ -117,6 +128,7 @@ public class PPDSLActivator extends PPActivator {
 			Logger.getLogger(getClass()).error(e.getMessage(), e);
 			throw e;
 		}
+		imagesOnFileSystemRegistry = new ImagesOnFileSystemRegistry();
 	}
 
 	@Override
@@ -124,6 +136,7 @@ public class PPDSLActivator extends PPActivator {
 		PPPreferencesHelper preferenceHelper = getInjector(PP_LANGUAGE_NAME).getInstance(PPPreferencesHelper.class);
 		preferenceHelper.stop();
 		slaActivatorContext = null;
+		imagesOnFileSystemRegistry.dispose();
 		super.stop(context);
 	}
 }

@@ -22,9 +22,13 @@ import org.cloudsmith.geppetto.pp.VariableExpression;
 import org.cloudsmith.geppetto.pp.dsl.ui.internal.PPDSLActivator;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EStructuralFeature;
+import org.eclipse.jface.resource.ImageDescriptor;
+import org.eclipse.swt.graphics.Image;
 import org.eclipse.xtext.ui.editor.hover.html.DefaultEObjectHoverProvider;
 import org.eclipse.xtext.util.Files;
 import org.eclipse.xtext.util.PolymorphicDispatcher;
+
+import com.google.inject.Inject;
 
 /**
  * @author henrik
@@ -41,6 +45,9 @@ public class PPHoverProvider extends DefaultEObjectHoverProvider {
 	};
 
 	private static final String styleSheetFileName = "/css/PPHoverStyleSheet.css";
+
+	@Inject
+	private PPDocumentationProvider documentationProvider;
 
 	protected Boolean _hover(AttributeOperation o) {
 		return true;
@@ -60,7 +67,18 @@ public class PPHoverProvider extends DefaultEObjectHoverProvider {
 
 	@Override
 	protected String getFirstLine(EObject o) {
-		return "PP:" + super.getFirstLine(o);
+		StringBuilder builder = new StringBuilder();
+		Image image = documentationProvider.getImage(o);
+		if(image != null) {
+			URL imageURL = PPDSLActivator.getDefault().getImagesOnFSRegistry().getImageURL(
+				ImageDescriptor.createFromImage(image));
+			builder.append("<IMG src=\"").append(imageURL.toExternalForm()).append("\"/>");
+		}
+		builder.append("<b>").append(getLabel(o)).append("</b>");
+		String label = documentationProvider.getText(o);
+		if(label != null)
+			builder.append(" <span class='target'>- ").append(documentationProvider.getText(o)).append("</span>");
+		return builder.toString();
 	}
 
 	@Override

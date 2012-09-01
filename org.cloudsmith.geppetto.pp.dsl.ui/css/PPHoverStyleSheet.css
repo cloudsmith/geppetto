@@ -49,3 +49,11 @@ pre {
 	border-style:solid;
 	padding: 5px 0 3px 0;
 }
+img {
+	/* designed for 16px icon - centers with text */
+	vertical-align:-4px;
+	margin-right: 5px;
+}
+.target {
+	color: #957d47;
+}

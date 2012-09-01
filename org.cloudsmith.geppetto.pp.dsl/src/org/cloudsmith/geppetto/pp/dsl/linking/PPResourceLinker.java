@@ -384,8 +384,11 @@ public class PPResourceLinker implements IPPDiagnostics {
 						// NOTE/TODO: If there are other problems (multiple definitions with same name etc,
 						// the property could be ok in one, but not in another instance.
 						// finding that A'::x exists but not A''::x requires a lot more work
-						if(ppFinder.findAttributes(o, fqn, importedNames).getAdjusted().size() > 0)
+						if(ppFinder.findAttributes(o, fqn, importedNames).getAdjusted().size() > 0) {
+							importedNames.addResolved(descs);
+							CrossReferenceAdapter.set(ao, descs);
 							continue; // found one such parameter == ok
+						}
 
 						String[] proposals = proposer.computeAttributeProposals(
 							fqn, ppFinder.getExportedDescriptions(), searchPath);
@@ -419,6 +422,9 @@ public class PPResourceLinker implements IPPDiagnostics {
 						List<IEObjectDescription> foundAttributes = ppFinder.findAttributes(o, fqn, importedNames).getAdjusted();
 						// if the ao is a namevar reference, remember it so uniqueness can be validated
 						if(foundAttributes.size() > 0) {
+							importedNames.addResolved(foundAttributes);
+							CrossReferenceAdapter.set(ao, foundAttributes);
+
 							if(containsNameVar(foundAttributes))
 								nameVariables.add(ao);
 							continue; // found one such parameter == ok

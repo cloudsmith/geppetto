@@ -14,6 +14,7 @@ package org.cloudsmith.geppetto.pp.dsl.ui.editor.hover;
 import java.util.Collections;
 import java.util.List;
 
+import org.cloudsmith.geppetto.pp.AttributeOperation;
 import org.cloudsmith.geppetto.pp.LiteralNameOrReference;
 import org.cloudsmith.geppetto.pp.PPPackage;
 import org.cloudsmith.geppetto.pp.VariableExpression;
@@ -40,6 +41,10 @@ public class PPDocumentationProvider implements IEObjectDocumentationProvider {
 		}
 	};
 
+	protected String _document(AttributeOperation o) {
+		return getCrossReferenceDocumentation(o);
+	}
+
 	protected String _document(EStructuralFeature feature, LiteralNameOrReference o) {
 
 		switch(feature.getFeatureID()) {
@@ -58,11 +63,13 @@ public class PPDocumentationProvider implements IEObjectDocumentationProvider {
 	}
 
 	protected String _document(String o) {
+		if(o.startsWith("<"))
+			return o;
 		// turn puppet internal doc format (from Ruby) into HTML
 		StringBuilder builder = new StringBuilder();
-		builder.append("<pre>");
+		builder.append("<p>");
 		builder.append(o);
-		builder.append("</pre>");
+		builder.append("</p>");
 		return builder.toString();
 	}
 
@@ -82,6 +89,8 @@ public class PPDocumentationProvider implements IEObjectDocumentationProvider {
 
 	private String getCrossReferenceDocumentation(EObject o) {
 		List<IEObjectDescription> xrefs = CrossReferenceAdapter.get(o);
+		if(xrefs == null)
+			return null;
 		if(xrefs.size() > 1) {
 			return "Ambiguous reference";
 		}

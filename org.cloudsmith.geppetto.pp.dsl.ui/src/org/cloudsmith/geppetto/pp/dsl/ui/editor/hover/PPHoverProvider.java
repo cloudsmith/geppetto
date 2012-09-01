@@ -13,6 +13,7 @@ package org.cloudsmith.geppetto.pp.dsl.ui.editor.hover;
 
 import java.util.Collections;
 
+import org.cloudsmith.geppetto.pp.AttributeOperation;
 import org.cloudsmith.geppetto.pp.LiteralNameOrReference;
 import org.cloudsmith.geppetto.pp.PPPackage;
 import org.cloudsmith.geppetto.pp.VariableExpression;
@@ -31,9 +32,13 @@ public class PPHoverProvider extends DefaultEObjectHoverProvider {
 		"_hover", 1, 1, Collections.singletonList(this), PolymorphicDispatcher.NullErrorHandler.<Boolean> get()) {
 		@Override
 		protected Boolean handleNoSuchMethod(Object... params) {
-			return null;
+			return false;
 		}
 	};
+
+	protected Boolean _hover(AttributeOperation o) {
+		return true;
+	}
 
 	protected Boolean _hover(LiteralNameOrReference o) {
 		EStructuralFeature feature = o.eContainingFeature();

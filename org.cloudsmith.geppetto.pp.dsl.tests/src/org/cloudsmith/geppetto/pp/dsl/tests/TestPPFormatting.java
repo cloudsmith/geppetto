@@ -159,8 +159,8 @@ public class TestPPFormatting extends AbstractPuppetTests {
 		for(int i = 0; i < 133; i++)
 			builder.append("f");
 		String _133f = builder.toString();
-		String code = "# ok askdj faöskdjf öalskdjf aalksjf alskdjf kdj " + _133f + " ffffffffffff\n";
-		String expected = "# ok askdj faöskdjf öalskdjf aalksjf alskdjf kdj\n# " + _133f + "\n# ffffffffffff\n";
+		String code = "# ok askdj faoskdjf oalskdjf aalksjf alskdjf kdj " + _133f + " ffffffffffff\n";
+		String expected = "# ok askdj faoskdjf oalskdjf aalksjf alskdjf kdj\n# " + _133f + "\n# ffffffffffff\n";
 		XtextResource r = getResourceFromString(code);
 		String s = serializeFormatted(r.getContents().get(0));
 		assertEquals("formatting should produce wanted result", expected, s);

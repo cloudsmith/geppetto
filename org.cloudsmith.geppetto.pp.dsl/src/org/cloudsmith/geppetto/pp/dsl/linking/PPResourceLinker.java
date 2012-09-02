@@ -582,6 +582,8 @@ public class PPResourceLinker implements IPPDiagnostics {
 	 * @return
 	 */
 	private boolean canBeAClassReference(Expression e) {
+		if(e == null)
+			return false; // can happen while editing
 		switch(e.eClass().getClassifierID()) {
 			case PPPackage.HOST_CLASS_DEFINITION:
 			case PPPackage.ASSIGNMENT_EXPRESSION:

@@ -14,15 +14,11 @@ package org.cloudsmith.geppetto.pp.dsl.ui.editor.hover;
 import java.util.Collections;
 import java.util.List;
 
-import org.cloudsmith.geppetto.pp.AttributeOperation;
-import org.cloudsmith.geppetto.pp.LiteralNameOrReference;
-import org.cloudsmith.geppetto.pp.PPPackage;
-import org.cloudsmith.geppetto.pp.VariableExpression;
+import org.cloudsmith.geppetto.pp.VerbatimTE;
 import org.cloudsmith.geppetto.pp.dsl.adapters.CrossReferenceAdapter;
 import org.cloudsmith.geppetto.pp.dsl.ui.labeling.PPDescriptionLabelProvider;
 import org.cloudsmith.geppetto.pp.pptp.IDocumented;
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.xtext.documentation.IEObjectDocumentationProvider;
@@ -64,18 +60,28 @@ public class PPDocumentationProvider implements IEObjectDocumentationProvider {
 	@Inject
 	protected PPDescriptionLabelProvider descriptionLabelProvider;
 
-	protected String _document(AttributeOperation o) {
+	// protected String _document(AttributeOperation o) {
+	// return getCrossReferenceDocumentation(o);
+	// }
+
+	/**
+	 * Get cross reference for all types of Expressions
+	 * 
+	 * @param o
+	 * @return
+	 */
+	protected String _document(EObject o) {
 		return getCrossReferenceDocumentation(o);
 	}
 
-	protected String _document(EStructuralFeature feature, LiteralNameOrReference o) {
-
-		if(feature == PPPackage.Literals.RESOURCE_EXPRESSION__RESOURCE_EXPR)
-			return getCrossReferenceDocumentation(o);
-		return null;
-	}
-
+	/**
+	 * All PPTP things with documentation are instances of IDocumented
+	 * 
+	 * @param o
+	 * @return
+	 */
 	protected String _document(IDocumented o) {
+		// produces a string, get it as HTML documentation if not already in HTML
 		return document(o.getDocumentation());
 	}
 
@@ -94,37 +100,27 @@ public class PPDocumentationProvider implements IEObjectDocumentationProvider {
 		return builder.toString();
 	}
 
-	protected String _document(VariableExpression o) {
-		return getCrossReferenceDocumentation(o);
+	protected String _document(VerbatimTE o) {
+		// is only possible when it is in a string (eContainer()) that is a reference.
+		return getCrossReferenceDocumentation(o.eContainer());
 	}
 
-	protected Image _image(AttributeOperation o) {
+	protected Image _image(EObject o) {
 		return getCrossReferenceImage(o);
 	}
 
-	protected Image _image(EStructuralFeature feature, LiteralNameOrReference o) {
-		if(feature == PPPackage.Literals.RESOURCE_EXPRESSION__RESOURCE_EXPR)
-			return getCrossReferenceImage(o);
-		return null;
+	protected Image _image(VerbatimTE o) {
+		// is only possible when it is in a string (eContainer()) that is a reference.
+		return getCrossReferenceImage(o.eContainer());
 	}
 
-	protected Image _image(VariableExpression o) {
-		return getCrossReferenceImage(o);
-	}
-
-	protected String _label(AttributeOperation o) {
+	protected String _label(EObject o) {
 		return getCrossReferenceLabel(o);
 	}
 
-	protected String _label(EStructuralFeature feature, LiteralNameOrReference o) {
-		if(feature == PPPackage.Literals.RESOURCE_EXPRESSION__RESOURCE_EXPR)
-			return getCrossReferenceLabel(o);
-
-		return null;
-	}
-
-	protected String _label(VariableExpression o) {
-		return getCrossReferenceLabel(o);
+	protected String _label(VerbatimTE o) {
+		// is only possible when it is in a string (eContainer()) that is a reference.
+		return getCrossReferenceLabel(o.eContainer());
 	}
 
 	public String document(Object o) {

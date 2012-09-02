@@ -15,6 +15,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.Collections;
 
+import org.cloudsmith.geppetto.pp.AssignmentExpression;
 import org.cloudsmith.geppetto.pp.AttributeOperation;
 import org.cloudsmith.geppetto.pp.LiteralNameOrReference;
 import org.cloudsmith.geppetto.pp.PPPackage;
@@ -62,6 +63,9 @@ public class PPHoverProvider extends DefaultEObjectHoverProvider {
 	}
 
 	protected Boolean _hover(VariableExpression o) {
+		if(o.eContainer() instanceof AssignmentExpression &&
+				o.eContainingFeature() == PPPackage.Literals.BINARY_EXPRESSION__LEFT_EXPR)
+			return false;
 		return true;
 	}
 
@@ -83,8 +87,9 @@ public class PPHoverProvider extends DefaultEObjectHoverProvider {
 
 	@Override
 	protected boolean hasHover(EObject o) {
-		// System.out.println("Hover query for: " + o.getClass()); // For debugging, finding what to react to
-		return hoverDispatcher.invoke(o) || super.hasHover(o);
+		Boolean result = hoverDispatcher.invoke(o);
+		// System.out.println("Hover query (" + result + ") for: " + o.getClass()); // For debugging, finding what to react to
+		return result;
 	}
 
 	@Override

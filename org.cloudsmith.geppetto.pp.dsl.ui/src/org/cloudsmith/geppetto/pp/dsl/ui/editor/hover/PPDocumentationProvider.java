@@ -70,10 +70,8 @@ public class PPDocumentationProvider implements IEObjectDocumentationProvider {
 
 	protected String _document(EStructuralFeature feature, LiteralNameOrReference o) {
 
-		switch(feature.getFeatureID()) {
-			case PPPackage.RESOURCE_EXPRESSION__RESOURCE_EXPR:
-				return getCrossReferenceDocumentation(o);
-		}
+		if(feature == PPPackage.Literals.RESOURCE_EXPRESSION__RESOURCE_EXPR)
+			return getCrossReferenceDocumentation(o);
 		return null;
 	}
 
@@ -105,11 +103,8 @@ public class PPDocumentationProvider implements IEObjectDocumentationProvider {
 	}
 
 	protected Image _image(EStructuralFeature feature, LiteralNameOrReference o) {
-
-		switch(feature.getFeatureID()) {
-			case PPPackage.RESOURCE_EXPRESSION__RESOURCE_EXPR:
-				return getCrossReferenceImage(o);
-		}
+		if(feature == PPPackage.Literals.RESOURCE_EXPRESSION__RESOURCE_EXPR)
+			return getCrossReferenceImage(o);
 		return null;
 	}
 
@@ -122,11 +117,9 @@ public class PPDocumentationProvider implements IEObjectDocumentationProvider {
 	}
 
 	protected String _label(EStructuralFeature feature, LiteralNameOrReference o) {
+		if(feature == PPPackage.Literals.RESOURCE_EXPRESSION__RESOURCE_EXPR)
+			return getCrossReferenceLabel(o);
 
-		switch(feature.getFeatureID()) {
-			case PPPackage.RESOURCE_EXPRESSION__RESOURCE_EXPR:
-				return getCrossReferenceLabel(o);
-		}
 		return null;
 	}
 

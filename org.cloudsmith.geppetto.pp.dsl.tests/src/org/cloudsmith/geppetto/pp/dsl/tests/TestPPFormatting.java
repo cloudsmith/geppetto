@@ -240,6 +240,10 @@ public class TestPPFormatting extends AbstractPuppetTests {
 		assertEquals("formatting should produce wanted result", fmt, s);
 	}
 
+	public void test_HeyJenkins_EncodeThis() {
+		assertEquals("åäö", "åäö");
+	}
+
 	public void test_IndentsBracketsOk() throws Exception {
 		String code = "file { \"x\":\n  notify => Service[\"y\"],\n}\n";
 		XtextResource r = getResourceFromString(code);

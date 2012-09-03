@@ -16,6 +16,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.cloudsmith.geppetto.pp.AttributeOperation;
+import org.cloudsmith.geppetto.pp.CollectExpression;
 import org.cloudsmith.geppetto.pp.Expression;
 import org.cloudsmith.geppetto.pp.ExpressionTE;
 import org.cloudsmith.geppetto.pp.LiteralList;
@@ -135,6 +136,13 @@ public class PPSemanticHighlightingCalculator implements ISemanticHighlightingCa
 						acceptor.addPosition(n2.getOffset(), n2.getLength(), PPHighlightConfiguration.DEFAULT_ID);
 				}
 			}
+		}
+	}
+
+	public void highlight(CollectExpression expr, IHighlightedPositionAcceptor acceptor) {
+		Expression classReference = expr.getClassReference();
+		if(classReference != null) {
+			highlightObject(classReference, PPHighlightConfiguration.RESOURCE_REF_ID, acceptor);
 		}
 	}
 

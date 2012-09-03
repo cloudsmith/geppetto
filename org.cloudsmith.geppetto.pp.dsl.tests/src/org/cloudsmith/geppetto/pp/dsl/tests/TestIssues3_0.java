@@ -15,6 +15,9 @@ import org.cloudsmith.geppetto.pp.dsl.validation.IPPDiagnostics;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.xtext.ISetup;
 
+import com.google.common.base.Joiner;
+import com.google.common.collect.ImmutableList;
+
 /**
  * Tests specific to reported issues using Puppet 3.0 and 3.0 validation.
  * Inherits from TestIssues to also test all validations for 2.7.
@@ -29,10 +32,28 @@ public class TestIssues3_0 extends TestIssues {
 	}
 
 	@Override
+	public void test_Issue400() throws Exception {
+		ImmutableList<String> source = ImmutableList.of("notify { [a, b, c]:", //
+			"}", //
+			"$var = Notify[a]", //
+			"$var -> case 'x' {", "  'x' : {", //
+			"    notify { d:", //
+			"    }", //
+			"  }", //
+			"} ~> 'x' ? {", //
+			"  'y'     => Notify[b],", //
+			"  default => Notify[c]", //
+			"}\n");
+		String code = Joiner.on("\n").join(source).toString();
+		Resource r = loadAndLinkSingleResource(code);
+		tester.validate(r.getContents().get(0)).assertOK();
+
+	}
+
+	@Override
 	public void test_Issue403() throws Exception {
 		String code = "class foo(a) { }";
 		Resource r = loadAndLinkSingleResource(code);
 		tester.validate(r.getContents().get(0)).assertError(IPPDiagnostics.ISSUE__NOT_VARNAME);
 	}
-
 }

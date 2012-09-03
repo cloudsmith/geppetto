@@ -17,7 +17,11 @@ import java.io.PrintStream;
 
 import org.cloudsmith.geppetto.pp.dsl.validation.IPPDiagnostics;
 import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.xtext.junit.validation.AssertableDiagnostics;
 import org.eclipse.xtext.resource.XtextResource;
+
+import com.google.common.base.Joiner;
+import com.google.common.collect.ImmutableList;
 
 /**
  * Tests specific to reported issues.
@@ -111,6 +115,25 @@ public class TestIssues extends AbstractPuppetTests {
 		resourceErrorDiagnostics(r).assertOK();
 	}
 
+	public void test_Issue400() throws Exception {
+		ImmutableList<String> source = ImmutableList.of("notify { [a, b, c]:", //
+			"}", //
+			"$var = Notify[a]", //
+			"$var -> case 'x' {", "  'x' : {", //
+			"    notify { d:", //
+			"    }", //
+			"  }", //
+			"} ~> 'x' ? {", //
+			"  'y'     => Notify[b],", //
+			"  default => Notify[c]", //
+			"}\n");
+		String code = Joiner.on("\n").join(source).toString();
+		Resource r = loadAndLinkSingleResource(code);
+		AssertableDiagnostics asserter = tester.validate(r.getContents().get(0));
+		asserter.assertAny(AssertableDiagnostics.errorCode(IPPDiagnostics.ISSUE__UNSUPPORTED_EXPRESSION));
+
+	}
+
 	public void test_Issue403() throws Exception {
 		String code = "class foo(a) { }";
 		Resource r = loadAndLinkSingleResource(code);
@@ -140,4 +163,5 @@ public class TestIssues extends AbstractPuppetTests {
 		Resource r = loadAndLinkSingleResource(code);
 		tester.validate(r.getContents().get(0)).assertError(IPPDiagnostics.ISSUE__RESERVED_NAME);
 	}
+
 }

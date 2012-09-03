@@ -82,9 +82,7 @@ import org.eclipse.xtext.resource.IEObjectDescription;
 import org.eclipse.xtext.resource.IResourceDescription;
 import org.eclipse.xtext.resource.IResourceDescriptions;
 
-import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.Lists;
-import com.google.common.collect.Multimap;
 import com.google.common.collect.Sets;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
@@ -556,7 +554,7 @@ public class PPResourceLinker implements IPPDiagnostics {
 	private void internalLinkAttributeOperations(AttributeOperations aos, IEObjectDescription desc,
 			PPImportedNamesAdapter importedNames, IMessageAcceptor acceptor) {
 		List<AttributeOperation> nameVariables = Lists.newArrayList();
-		Multimap<String, AttributeOperation> seen = ArrayListMultimap.create();
+		// Multimap<String, AttributeOperation> seen = ArrayListMultimap.create();
 
 		if(aos != null)
 			for(AttributeOperation ao : aos.getAttributes()) {
@@ -570,7 +568,7 @@ public class PPResourceLinker implements IPPDiagnostics {
 				if(foundAttributes.size() > 0) {
 					importedNames.addResolved(foundAttributes);
 					CrossReferenceAdapter.set(ao, foundAttributes);
-					seen.put(ao.getKey(), ao);
+					// seen.put(ao.getKey(), ao);
 
 					if(containsNameVar(foundAttributes))
 						nameVariables.add(ao);
@@ -598,16 +596,8 @@ public class PPResourceLinker implements IPPDiagnostics {
 				acceptor.acceptError(
 					"Duplicate resource name attribute", ao, PPPackage.Literals.ATTRIBUTE_OPERATION__KEY,
 					IPPDiagnostics.ISSUE__RESOURCE_DUPLICATE_NAME_PARAMETER);
-				// do not also flag as a general duplicate name
-				seen.removeAll(ao.getKey());
-			}
-		}
-
-		for(String key : seen.keySet()) {
-			if(seen.get(key).size() > 1) {
-				for(AttributeOperation ao : seen.get(key))
-					acceptor.acceptError("Duplicate attribute.", ao, PPPackage.Literals.ATTRIBUTE_OPERATION__KEY, //
-						IPPDiagnostics.ISSUE__RESOURCE_DUPLICATE_ATTRIBUTE);
+				// // do not also flag as a general duplicate name
+				// seen.removeAll(ao.getKey());
 			}
 		}
 	}

@@ -505,6 +505,25 @@ public class PPJavaValidator extends AbstractPPJavaValidator implements IPPDiagn
 					expectOffset - 1, 2, IPPDiagnostics.ISSUE__MISSING_COMMA);
 			}
 		}
+		// check for duplicate use of attribute/parameter
+		Set<String> duplicates = Sets.newHashSet();
+		Set<String> processed = Sets.newHashSet();
+		AttributeOperations aos = o;
+
+		// find duplicates
+		for(AttributeOperation ao : aos.getAttributes()) {
+			final String key = ao.getKey();
+			if(processed.contains(key))
+				duplicates.add(key);
+			processed.add(key);
+		}
+		// mark all instances of duplicate name
+		if(duplicates.size() > 0)
+			for(AttributeOperation ao : aos.getAttributes())
+				if(duplicates.contains(ao.getKey()))
+					acceptor.acceptError(
+						"Duplicate attribute: '" + ao.getKey() + "'", ao, PPPackage.Literals.ATTRIBUTE_OPERATION__KEY,
+						IPPDiagnostics.ISSUE__RESOURCE_DUPLICATE_PARAMETER);
 	}
 
 	@Check
@@ -1183,28 +1202,6 @@ public class PPJavaValidator extends AbstractPPJavaValidator implements IPPDiagn
 			}
 
 		}
-		// check for duplicate use of parameter
-		Set<String> duplicates = Sets.newHashSet();
-		Set<String> processed = Sets.newHashSet();
-		AttributeOperations aos = o.getAttributes();
-
-		if(aos != null) {
-			// find duplicates
-			for(AttributeOperation ao : aos.getAttributes()) {
-				final String key = ao.getKey();
-				if(processed.contains(key))
-					duplicates.add(key);
-				processed.add(key);
-			}
-			// mark all instances of duplicate name
-			if(duplicates.size() > 0)
-				for(AttributeOperation ao : aos.getAttributes())
-					if(duplicates.contains(ao.getKey()))
-						acceptor.acceptError(
-							"Parameter redefinition", ao, PPPackage.Literals.ATTRIBUTE_OPERATION__KEY,
-							IPPDiagnostics.ISSUE__RESOURCE_DUPLICATE_PARAMETER);
-
-		}
 	}
 
 	/**
@@ -1215,44 +1212,7 @@ public class PPJavaValidator extends AbstractPPJavaValidator implements IPPDiagn
 	@Check
 	public void checkResourceExpression(ResourceExpression o) {
 		classifier.classify(o);
-		// // A regular resource must have a classname
-		// // Use of class reference is deprecated
-		// // classname : NAME | "class" | CLASSNAME
-		// int resourceType = RESOURCE_IS_BAD; // unknown at this point
-		// final Expression resourceExpr = o.getResourceExpr();
-		// String resourceTypeName = null;
-		// if(resourceExpr instanceof LiteralNameOrReference || resourceExpr instanceof VirtualNameOrReference ||
-		// resourceExpr instanceof LiteralClass) {
-		//
-		// if(resourceExpr instanceof LiteralNameOrReference) {
-		// LiteralNameOrReference resourceTypeExpr = (LiteralNameOrReference) resourceExpr;
-		// resourceTypeName = resourceTypeExpr.getValue();
-		// }
-		// else if(resourceExpr instanceof LiteralClass)
-		// resourceTypeName = "class";
-		// else {
-		// VirtualNameOrReference vn = (VirtualNameOrReference) resourceExpr;
-		// resourceTypeName = vn.getValue();
-		// }
-		// if("class".equals(resourceTypeName))
-		// resourceType = RESOURCE_IS_CLASSPARAMS;
-		// else if(isCLASSREF(resourceTypeName))
-		// resourceType = RESOURCE_IS_DEFAULT;
-		// else if(isNAME(resourceTypeName) || isCLASSNAME(resourceTypeName))
-		// resourceType = RESOURCE_IS_REGULAR;
-		// // else the resource is BAD
-		// }
-		// if(resourceExpr instanceof AtExpression) {
-		// resourceType = RESOURCE_IS_OVERRIDE;
-		// }
-		// /*
-		// * IMPORTANT: set the validated classifier to enable others to more quickly determine the type of
-		// * resource, and its typeName (what it is a reference to).
-		// */
 		ClassifierAdapter adapter = ClassifierAdapterFactory.eINSTANCE.adapt(o);
-		// adapter.setClassifier(resourceType);
-		// adapter.setResourceType(null);
-		// adapter.setResourceTypeName(resourceTypeName);
 		int resourceType = adapter.getClassifier();
 
 		if(resourceType == RESOURCE_IS_BAD) {
@@ -1599,20 +1559,7 @@ public class PPJavaValidator extends AbstractPPJavaValidator implements IPPDiagn
 
 	@Check
 	void checkVariableTextExpression(VariableTE o) {
-		// ValidationPreference hyphens = advisor().interpolatedNonBraceEnclosedHyphens();
-		// if(hyphens.isWarningOrError()) {
-		// int hyphenIdx = o.getVarName().indexOf("-");
-		// if(hyphenIdx >= 0) {
-		// String message = "Interpolation continues past '-' in some puppet 2.7 versions";
-		// ICompositeNode node = NodeModelUtils.getNode(o);
-		// int offset = node.getOffset() + hyphenIdx;
-		// int length = node.getLength() - hyphenIdx;
-		// if(hyphens == ValidationPreference.WARNING)
-		// acceptor.acceptWarning(message, o, offset, length, IPPDiagnostics.ISSUE__INTERPOLATED_HYPHEN);
-		// else
-		// acceptor.acceptError(message, o, offset, length, IPPDiagnostics.ISSUE__INTERPOLATED_HYPHEN);
-		// }
-		// }
+		// TODO: There is not much that can go wrong here, but should protect against manual model problems (like not a valid variable name.
 	}
 
 	@Check

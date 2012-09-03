@@ -209,18 +209,21 @@ public class PptpTargetProjectHandler {
 			IPath defaultTPPath = new Path(path);
 			File pptpFile = BundledFilesUtils.getFileFromClassBundle(PptpRuntimeModule.class, defaultTPPath);
 			IFile targetFile = targetProject.getFile(defaultTPPath.lastSegment());
+			targetFile.refreshLocal(IFile.DEPTH_ZERO, monitor);
 			if(targetFile.exists()) {
 				if(pptpFile.lastModified() > targetFile.getLocalTimeStamp()) {
-					targetFile.delete(true, false, monitor);
+					targetFile.delete(IFile.FORCE | IFile.ALWAYS_DELETE_PROJECT_CONTENT, monitor);
+					targetFile.refreshLocal(IFile.DEPTH_ZERO, monitor);
 					targetFile.create(new FileInputStream(pptpFile), true, monitor);
 				}
 			}
 			else {
 				// delete all prefix-* resources already there (either none, or some other/older .pptp)
 				// this makes it possible to keep several that are not managed
+				targetProject.refreshLocal(IFile.DEPTH_INFINITE, monitor);
 				for(IResource r : targetProject.members()) {
 					if(r.getName().startsWith(prefix))
-						r.delete(true, monitor);
+						r.delete(IFile.FORCE | IFile.ALWAYS_DELETE_PROJECT_CONTENT, monitor);
 				}
 				InputStream inputStream = new FileInputStream(pptpFile);
 				targetFile.create(inputStream, true, monitor);
@@ -230,7 +233,7 @@ public class PptpTargetProjectHandler {
 			log.error("Could not get .pptp default for copying.", e);
 		}
 		catch(CoreException e) {
-			log.error("Could not create target .pptp file.", e);
+			log.error("Could not perform operation on target .pptp file.", e);
 		}
 
 	}

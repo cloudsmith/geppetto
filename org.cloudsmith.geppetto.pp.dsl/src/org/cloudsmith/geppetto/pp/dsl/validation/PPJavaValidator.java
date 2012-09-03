@@ -95,6 +95,7 @@ import org.cloudsmith.geppetto.pp.dsl.services.PPGrammarAccess;
 import org.cloudsmith.geppetto.pp.util.TextExpressionHelper;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EAttribute;
+import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
@@ -110,6 +111,7 @@ import org.eclipse.xtext.util.PolymorphicDispatcher;
 import org.eclipse.xtext.util.PolymorphicDispatcher.ErrorHandler;
 import org.eclipse.xtext.validation.Check;
 
+import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 import com.google.inject.Inject;
@@ -283,6 +285,18 @@ public class PPJavaValidator extends AbstractPPJavaValidator implements IPPDiagn
 
 	@Inject
 	private PPGrammarAccess grammarAccess;
+
+	private final ImmutableSet<EClass> extendedRelationshipClasses = ImmutableSet.of(
+		PPPackage.Literals.VARIABLE_EXPRESSION, //
+		PPPackage.Literals.DOUBLE_QUOTED_STRING, //
+		PPPackage.Literals.SINGLE_QUOTED_STRING, //
+		PPPackage.Literals.LITERAL_HASH, //
+		PPPackage.Literals.LITERAL_LIST, //
+		PPPackage.Literals.SELECTOR_EXPRESSION, //
+		PPPackage.Literals.CASE_EXPRESSION, //
+		PPPackage.Literals.COLLECT_EXPRESSION
+	// ,
+	);
 
 	@Inject
 	public PPJavaValidator(IGrammarAccess ga, Provider<IValidationAdvisor> validationAdvisorProvider) {
@@ -1619,11 +1633,15 @@ public class PPJavaValidator extends AbstractPPJavaValidator implements IPPDiagn
 
 	private boolean internalCheckRelationshipOperand(RelationshipExpression r, Expression o, EReference feature) {
 		boolean result = true;
+		// if extended is true, allow these puppet grammar elements:
+		// (resource | resourceref | collection | variable | quoted text | selector | case statement | hasharrayaccesses)
+		final boolean extended = advisor().allowExtendedDependencyTypes();
 
 		// -- chained relationsips A -> B -> C
 		if(o instanceof RelationshipExpression)
 			return result; // ok, they are chained
 
+		// first check classes where validity depends on semantics
 		if(o instanceof ResourceExpression) {
 			// may not be a resource override
 			ResourceExpression re = (ResourceExpression) o;
@@ -1635,15 +1653,17 @@ public class PPJavaValidator extends AbstractPPJavaValidator implements IPPDiagn
 			}
 		}
 		else if(o instanceof AtExpression) {
-			// the AtExpression is validated as standard or resource reference, so only need
-			// to check correct form
-			if(isStandardAtExpression((AtExpression) o)) {
-				acceptor.acceptError(
-					"Dependency can not be formed for an array/hash access", r, feature, INSIGNIFICANT_INDEX,
-					IPPDiagnostics.ISSUE__UNSUPPORTED_EXPRESSION);
-				result = false;
+			// extended allows hasharray access, so any form of AtExpression is legal
+			if(!extended) {
+				// the AtExpression is validated as standard or resource reference, so only need
+				// to check correct form
+				if(isStandardAtExpression((AtExpression) o)) {
+					acceptor.acceptError(
+						"Dependency can not be formed for an array/hash access", r, feature, INSIGNIFICANT_INDEX,
+						IPPDiagnostics.ISSUE__UNSUPPORTED_EXPRESSION);
+					result = false;
+				}
 			}
-
 		}
 		else if(o instanceof VirtualNameOrReference) {
 			acceptor.acceptError(
@@ -1651,7 +1671,8 @@ public class PPJavaValidator extends AbstractPPJavaValidator implements IPPDiagn
 				IPPDiagnostics.ISSUE__UNSUPPORTED_EXPRESSION);
 			result = false;
 		}
-		else if(!(o instanceof CollectExpression)) {
+		// then check classes where further semantic checks are not required
+		else if(!((extended && extendedRelationshipClasses.contains(o.eClass())) || o instanceof CollectExpression)) {
 			acceptor.acceptError(
 				"Dependency can not be formed for this type of expression", r, feature, INSIGNIFICANT_INDEX,
 				IPPDiagnostics.ISSUE__UNSUPPORTED_EXPRESSION);

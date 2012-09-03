@@ -22,6 +22,13 @@ public interface IValidationAdvisor extends IPotentialProblemsAdvisor {
 	}
 
 	/**
+	 * If 3.0 extended dependency types should be allowed
+	 * (resource | resourceref | collection | variable | quoted text | selector | case statement | hasharrayaccesses)
+	 * See geppetto Issue #400.
+	 */
+	public boolean allowExtendedDependencyTypes();
+
+	/**
 	 * Should Hash be allowed in a selector.
 	 * Puppet issue #5516
 	 */

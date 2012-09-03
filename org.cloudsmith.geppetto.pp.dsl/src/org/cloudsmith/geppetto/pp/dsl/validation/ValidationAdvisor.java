@@ -98,6 +98,14 @@ public class ValidationAdvisor {
 		}
 
 		/**
+		 * @returns false
+		 */
+		@Override
+		public boolean allowExtendedDependencyTypes() {
+			return false;
+		}
+
+		/**
 		 * @returns true
 		 */
 		@Override
@@ -215,6 +223,14 @@ public class ValidationAdvisor {
 		 */
 		protected ValidationAdvisor_3_0(IPotentialProblemsAdvisor problemsAdvisor) {
 			super(problemsAdvisor);
+		}
+
+		/**
+		 * @returns true
+		 */
+		@Override
+		public boolean allowExtendedDependencyTypes() {
+			return true;
 		}
 
 		@Override

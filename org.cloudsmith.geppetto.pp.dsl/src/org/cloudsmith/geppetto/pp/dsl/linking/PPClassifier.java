@@ -11,6 +11,7 @@
  */
 package org.cloudsmith.geppetto.pp.dsl.linking;
 
+import static org.cloudsmith.geppetto.pp.adapters.ClassifierAdapter.COLLECTOR_IS_REGULAR;
 import static org.cloudsmith.geppetto.pp.adapters.ClassifierAdapter.RESOURCE_IS_BAD;
 import static org.cloudsmith.geppetto.pp.adapters.ClassifierAdapter.RESOURCE_IS_CLASSPARAMS;
 import static org.cloudsmith.geppetto.pp.adapters.ClassifierAdapter.RESOURCE_IS_DEFAULT;
@@ -18,6 +19,7 @@ import static org.cloudsmith.geppetto.pp.adapters.ClassifierAdapter.RESOURCE_IS_
 import static org.cloudsmith.geppetto.pp.adapters.ClassifierAdapter.RESOURCE_IS_REGULAR;
 
 import org.cloudsmith.geppetto.pp.AtExpression;
+import org.cloudsmith.geppetto.pp.CollectExpression;
 import org.cloudsmith.geppetto.pp.Expression;
 import org.cloudsmith.geppetto.pp.LiteralClass;
 import org.cloudsmith.geppetto.pp.LiteralNameOrReference;
@@ -37,6 +39,20 @@ import com.google.inject.Inject;
 public class PPClassifier {
 	@Inject
 	private PPPatternHelper patternHelper;
+
+	private void _classify(CollectExpression o) {
+		int resourceType = RESOURCE_IS_BAD; // unknown at this point
+		final Expression resourceExpr = o.getClassReference();
+		String resourceTypeName = null;
+		if(resourceExpr instanceof LiteralNameOrReference) {
+			resourceType = COLLECTOR_IS_REGULAR;
+			resourceTypeName = ((LiteralNameOrReference) resourceExpr).getValue();
+		}
+		ClassifierAdapter adapter = ClassifierAdapterFactory.eINSTANCE.adapt(o);
+		adapter.setClassifier(resourceType);
+		adapter.setResourceType(null); // unresolved
+		adapter.setResourceTypeName(resourceTypeName);
+	}
 
 	/**
 	 * Classifies the resource and sets the basic (non linking) parameters.
@@ -74,6 +90,17 @@ public class PPClassifier {
 		}
 		else if(resourceExpr instanceof AtExpression) {
 			resourceType = RESOURCE_IS_OVERRIDE;
+			AtExpression at = (AtExpression) resourceExpr;
+			Expression left = at.getLeftExpr();
+			if(left instanceof LiteralNameOrReference)
+				resourceTypeName = ((LiteralNameOrReference) left).getValue();
+		}
+		else if(resourceExpr instanceof CollectExpression) {
+			resourceType = RESOURCE_IS_OVERRIDE;
+			CollectExpression collect = (CollectExpression) resourceExpr;
+			Expression classReference = collect.getClassReference();
+			if(classReference instanceof LiteralNameOrReference)
+				resourceTypeName = ((LiteralNameOrReference) classReference).getValue();
 		}
 
 		/*
@@ -92,6 +119,8 @@ public class PPClassifier {
 		// follow the style
 		if(o instanceof ResourceExpression)
 			_classify((ResourceExpression) o);
+		else if(o instanceof CollectExpression)
+			_classify((CollectExpression) o);
 	}
 
 }

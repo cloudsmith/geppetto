@@ -109,6 +109,10 @@ public class PPProposalsGenerator {
 		return result;
 	}
 
+	public String[] computeDistinctProposals(String currentName, List<IEObjectDescription> descs) {
+		return computeDistinctProposals(currentName, descs, false);
+	}
+
 	/**
 	 * Attempts to produce a list of more distinct names than the given name by making
 	 * name absolute.
@@ -119,7 +123,8 @@ public class PPProposalsGenerator {
 	 *            index of descriptors
 	 */
 
-	public String[] computeDistinctProposals(String currentName, List<IEObjectDescription> descs) {
+	public String[] computeDistinctProposals(String currentName, List<IEObjectDescription> descs,
+			boolean upperCaseProposals) {
 		List<String> proposals = Lists.newArrayList();
 		if(currentName.startsWith("::"))
 			return new String[0]; // can not make a global name more specific than what it already is
@@ -136,7 +141,9 @@ public class PPProposalsGenerator {
 		}
 		String[] props = proposals.toArray(new String[proposals.size()]);
 		Arrays.sort(props);
-		return props;
+		return upperCaseProposals
+				? toUpperCaseProposals(props)
+				: props;
 	}
 
 	/**
@@ -158,7 +165,7 @@ public class PPProposalsGenerator {
 	 *         array of proposals, possibly empty, but never null.
 	 */
 	public String[] computeProposals(final String currentName, Collection<IEObjectDescription> descs,
-			PPSearchPath searchPath, EClass... types) {
+			boolean upperCaseProposals, PPSearchPath searchPath, EClass... types) {
 		if(currentName == null || currentName.length() < 1)
 			return new String[0];
 
@@ -210,7 +217,14 @@ public class PPProposalsGenerator {
 		// for(int i = 0; i < proposals.length; i++)
 		// System.err.printf("%s, ", proposals[i]);
 		// System.err.println();
-		return proposals;
+		return upperCaseProposals
+				? toUpperCaseProposals(proposals)
+				: proposals;
+	}
+
+	public String[] computeProposals(final String currentName, Collection<IEObjectDescription> descs,
+			PPSearchPath searchPath, EClass... types) {
+		return computeProposals(currentName, descs, false, searchPath, types);
 	}
 
 	public Collection<String> generateAttributeCandidates(final QualifiedName currentName,
@@ -255,6 +269,30 @@ public class PPProposalsGenerator {
 			}
 		}
 		return proposed;
+	}
+
+	private String toInitialUpperCase(String s) {
+		if(s == null || s.length() < 1)
+			return s;
+		char c = s.charAt(0);
+		if(Character.isUpperCase(c))
+			return s;
+		return Character.toString(c).toUpperCase() + s.substring(1);
+	}
+
+	private String toUpperCaseProposal(String original) {
+		QualifiedName fqn = converter.toQualifiedName(original);
+		String[] segments = new String[fqn.getSegmentCount()];
+		for(int i = 0; i < fqn.getSegmentCount(); i++)
+			segments[i] = toInitialUpperCase(fqn.getSegment(i));
+		return converter.toString(QualifiedName.create(segments));
+	}
+
+	private String[] toUpperCaseProposals(String[] original) {
+		for(int i = 0; i < original.length; i++) {
+			original[i] = toUpperCaseProposal(original[i]);
+		}
+		return original;
 	};
 
 }

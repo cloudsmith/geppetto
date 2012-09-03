@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2011 Cloudsmith Inc. and other contributors, as listed below.
+ * Copyright (c) 2011, 2012 Cloudsmith Inc. and other contributors, as listed below.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -17,6 +17,7 @@ import org.eclipse.emf.common.notify.impl.AdapterImpl;
 /**
  * The resolution info adapter associates an instance of ResolutionInfo with a (weak) key.
  * The intended use is that a resolver associates information about its resolution progress.
+ * TODO: generalize naming - this class is really a TypeReference
  */
 public class ClassifierAdapter extends AdapterImpl {
 
@@ -31,6 +32,8 @@ public class ClassifierAdapter extends AdapterImpl {
 	public static final int RESOURCE_IS_OVERRIDE = 3;
 
 	public static final int RESOURCE_IS_CLASSPARAMS = 4;
+
+	public static final int COLLECTOR_IS_REGULAR = 5;
 
 	// Default size seems to be 10 slots - which is overkill
 	private int classifier = UNKNOWN;
@@ -69,6 +72,10 @@ public class ClassifierAdapter extends AdapterImpl {
 
 	public Object getTargetObjectDescription() {
 		return targetObjectDescription;
+	}
+
+	public <T> T getTargetObjectDescription(Class<T> clazz) {
+		return clazz.cast(targetObjectDescription);
 	}
 
 	// Probably not needed, and if so, must be different for different types of adapters...

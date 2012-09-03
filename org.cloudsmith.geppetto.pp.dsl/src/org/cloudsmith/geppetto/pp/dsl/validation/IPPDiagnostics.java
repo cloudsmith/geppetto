@@ -200,4 +200,6 @@ public interface IPPDiagnostics {
 
 	public static final String ISSUE__RESERVED_NAME = ISSUE_PREFIX + "ReservedName";
 
+	public static final String ISSUE__RESOURCE_DUPLICATE_ATTRIBUTE = ISSUE_PREFIX + "DuplicateAttribute";
+
 }

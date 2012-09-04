@@ -38,14 +38,13 @@ public class PuppetTypeTests extends TestCase {
 			PPTypeInfo.Entry nameEntry = info.getParameters().get("name");
 			assertNotNull("Should have found a parameter called 'name'", nameEntry);
 			assertEquals(
-				"Should have found a description of 'name'", "<p>Description of name\n</p>",
-				nameEntry.getDocumentation());
+				"Should have found a description of 'name'", "<p>Description of name</p>", nameEntry.getDocumentation());
 
 			// TODO: check "ensure"
 			PPTypeInfo.Entry weightEntry = info.getProperties().get("weight");
 			assertNotNull("Should have found a property called 'weight'", weightEntry);
 			assertEquals(
-				"Should have found a description of 'weight'", "<p>Description of weight\n</p>",
+				"Should have found a description of 'weight'", "<p>Description of weight</p>",
 				weightEntry.getDocumentation());
 
 			PPTypeInfo.Entry emptyEntry = info.getProperties().get("empty");

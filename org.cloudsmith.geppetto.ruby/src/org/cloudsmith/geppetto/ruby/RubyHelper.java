@@ -741,7 +741,7 @@ public class RubyHelper {
 		//
 		SettingsData settingsData = new SettingsData();
 		for(SettingsData.Setting s : settingsData.settings) {
-			addTPVariable(settings, s.name, RubyDocProcessor.asHTML(s.documentation), s.deprecated);
+			addTPVariable(settings, s.name, new RubyDocProcessor().asHTML(s.documentation), s.deprecated);
 		}
 	}
 

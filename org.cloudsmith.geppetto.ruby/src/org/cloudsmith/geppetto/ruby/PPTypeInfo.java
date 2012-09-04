@@ -27,7 +27,7 @@ public class PPTypeInfo {
 		private boolean namevar;
 
 		public Entry(String documentation, boolean required, boolean namevar) {
-			this.documentation = RubyDocProcessor.asHTML(documentation);
+			this.documentation = new RubyDocProcessor().asHTML(documentation);
 			this.required = required;
 			this.namevar = namevar;
 		}
@@ -56,7 +56,7 @@ public class PPTypeInfo {
 	public PPTypeInfo(String typeName, String documentation, Map<String, Entry> properties,
 			Map<String, Entry> parameters) {
 		this.typeName = typeName;
-		this.documentation = RubyDocProcessor.asHTML(documentation);
+		this.documentation = new RubyDocProcessor().asHTML(documentation);
 		if(properties == null)
 			properties = Collections.emptyMap();
 		if(parameters == null)

@@ -25,7 +25,7 @@ public class PPFunctionInfo {
 	public PPFunctionInfo(String name, boolean rvalue, String documentation) {
 		this.functionName = name;
 		this.rValue = rvalue;
-		this.documentation = RubyDocProcessor.asHTML(documentation);
+		this.documentation = new RubyDocProcessor().asHTML(documentation);
 
 	}
 

@@ -191,20 +191,19 @@ public class PuppetTPTests extends TestCase {
 			assertEquals("Should have found one type", 1, target.getTypes().size());
 			Type type = target.getTypes().get(0);
 			assertEquals("Should have found 'mocktype'", "mocktype", type.getName());
-			assertEquals("Should have found documentation", "<p>This is a mock type\n</p>", type.getDocumentation());
+			assertEquals("Should have found documentation", "<p>This is a mock type</p>", type.getDocumentation());
 
 			assertEquals("Should have one property", 1, type.getProperties().size());
 			{
 				Property prop = getProperty("prop1", type);
 				assertNotNull("Should have a property 'prop1", prop);
-				assertEquals("Should have defined documentation", "<p>This is property1\n</p>", prop.getDocumentation());
+				assertEquals("Should have defined documentation", "<p>This is property1</p>", prop.getDocumentation());
 			}
 			{
 				assertEquals("Should have one parameter", 1, type.getParameters().size());
 				Parameter param = getParameter("param1", type);
 				assertNotNull("Should have a parameter 'param1", param);
-				assertEquals(
-					"Should have defined documentation", "<p>This is parameter1\n</p>", param.getDocumentation());
+				assertEquals("Should have defined documentation", "<p>This is parameter1</p>", param.getDocumentation());
 			}
 
 			// There should be two type fragments, with a contribution each
@@ -220,7 +219,7 @@ public class PuppetTPTests extends TestCase {
 						: fragment2);
 				assertNotNull("Should have a property 'extra1", prop);
 				assertEquals(
-					"Should have defined documentation", "<p>An extra property called extra1\n</p>",
+					"Should have defined documentation", "<p>An extra property called extra1</p>",
 					prop.getDocumentation());
 			}
 			{
@@ -229,7 +228,7 @@ public class PuppetTPTests extends TestCase {
 						: fragment1);
 				assertNotNull("Should have a property 'extra2", prop);
 				assertEquals(
-					"Should have defined documentation", "<p>An extra property called extra2\n</p>",
+					"Should have defined documentation", "<p>An extra property called extra2</p>",
 					prop.getDocumentation());
 			}
 

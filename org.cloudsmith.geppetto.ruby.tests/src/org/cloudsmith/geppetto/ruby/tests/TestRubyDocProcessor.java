@@ -15,7 +15,7 @@ import java.util.List;
 
 import junit.framework.TestCase;
 
-import org.cloudsmith.geppetto.ruby.RubyDocProcessor;
+import org.cloudsmith.geppetto.ruby.RubyDocProcessorSimple;
 
 import com.google.common.base.Joiner;
 import com.google.common.collect.ImmutableList;
@@ -43,7 +43,7 @@ public class TestRubyDocProcessor extends TestCase {
 
 	public void testRubyDocprocessor() {
 
-		String result = RubyDocProcessor.asHTML(Joiner.on("").join(content1));
+		String result = RubyDocProcessorSimple.asHTML(Joiner.on("").join(content1));
 		assertEquals(Joiner.on("").join(content1Expected), result);
 
 	}

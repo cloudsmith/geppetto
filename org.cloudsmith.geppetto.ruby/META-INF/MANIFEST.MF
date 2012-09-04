@@ -16,3 +16,4 @@ Bundle-ActivationPolicy: lazy
 Export-Package: org.cloudsmith.geppetto.ruby,
  org.cloudsmith.geppetto.ruby.resource,
  org.cloudsmith.geppetto.ruby.spi
+Import-Package: org.apache.log4j

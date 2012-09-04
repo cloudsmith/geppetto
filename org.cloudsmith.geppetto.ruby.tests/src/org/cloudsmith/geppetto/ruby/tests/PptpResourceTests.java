@@ -110,7 +110,7 @@ public class PptpResourceTests extends TestCase {
 		Parameter nameEntry = findParameter(type, "name");
 		assertNotNull("Should have found a parameter called 'name'", nameEntry);
 		assertEquals(
-			"Should have found a description of 'name'", "<p>Description of name\n</p>", nameEntry.getDocumentation());
+			"Should have found a description of 'name'", "<p>Description of name</p>", nameEntry.getDocumentation());
 
 		Parameter ensure = findParameter(type, "ensure");
 		assertNotNull("Should have found a parameter called 'ensure'", ensure);
@@ -118,7 +118,7 @@ public class PptpResourceTests extends TestCase {
 		Property weightEntry = findProperty(type, "weight");
 		assertNotNull("Should have found a property called 'weight'", weightEntry);
 		assertEquals(
-			"Should have found a description of 'weight'", "<p>Description of weight\n</p>",
+			"Should have found a description of 'weight'", "<p>Description of weight</p>",
 			weightEntry.getDocumentation());
 
 		Property emptyEntry = findProperty(type, "empty");

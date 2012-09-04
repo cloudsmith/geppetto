@@ -291,7 +291,7 @@ public class PPResourceLinker implements IPPDiagnostics {
 			// record resolution at resource level, so recompile knows about the dependencies
 			importedNames.addResolved(raw);
 			acceptor.acceptWarning(
-				"Found outside currect search path: '" + parentString + "'", o,
+				"Found outside current search path: '" + parentString + "'", o,
 				PPPackage.Literals.HOST_CLASS_DEFINITION__PARENT, IPPDiagnostics.ISSUE__NOT_ON_PATH);
 
 		}
@@ -353,7 +353,7 @@ public class PPResourceLinker implements IPPDiagnostics {
 					importedNames.addResolved(searchResult.getRaw());
 					CrossReferenceAdapter.set(o.getNameExpr(), searchResult.getRaw());
 					acceptor.acceptWarning(
-						"Found outside currect search path (parameters not validated): '" + className + "'", o,
+						"Found outside current search path (parameters not validated): '" + className + "'", o,
 						PPPackage.Literals.RESOURCE_BODY__NAME_EXPR, IPPDiagnostics.ISSUE__NOT_ON_PATH);
 					return; // skip validating parameters
 

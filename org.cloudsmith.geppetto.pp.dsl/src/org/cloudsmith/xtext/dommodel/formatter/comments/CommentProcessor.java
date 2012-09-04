@@ -177,7 +177,7 @@ public class CommentProcessor {
 			this.trailingContainerText = trailingContainerText;
 		}
 
-		List<CharSequence> getLines() {
+		public List<CharSequence> getLines() {
 			return lines;
 		}
 	}

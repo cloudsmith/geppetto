@@ -62,6 +62,7 @@ public class CharSequences {
 		public String toString() {
 			return a.toString() + b.toString();
 		}
+
 	}
 
 	/**
@@ -101,6 +102,7 @@ public class CharSequences {
 				builder.append(c);
 			return builder.toString();
 		}
+
 	}
 
 	/**
@@ -267,7 +269,17 @@ public class CharSequences {
 		int szEnd = end.length();
 		if(value.length() < end.length())
 			return false;
-		return value.subSequence(sz - szEnd - 1, sz).equals(end);
+		return CharSequences.equals(value.subSequence(sz - szEnd - 1, sz), end);
+	}
+
+	public static boolean equals(CharSequence o1, CharSequence o2) {
+		if(o1.length() != o2.length())
+			return false;
+		int limit = o1.length();
+		for(int i = 0; i < limit; i++)
+			if(o1.charAt(i) != o2.charAt(i))
+				return false;
+		return true;
 	}
 
 	public static int indexOf(CharSequence value, String delimiter, int from) {
@@ -372,6 +384,16 @@ public class CharSequences {
 		return result;
 	}
 
+	public static boolean startsWith(CharSequence value, String start) {
+		if(value instanceof String)
+			return ((String) value).startsWith(start);
+		int sz = value.length();
+		int szEnd = start.length();
+		if(value.length() < start.length())
+			return false;
+		return CharSequences.equals(value.subSequence(0, szEnd), start);
+	}
+
 	public static CharSequence trim(CharSequence s) {
 		int len = s.length();
 		return trim(s, len, len);
@@ -405,4 +427,5 @@ public class CharSequences {
 	public static CharSequence trimRight(CharSequence s) {
 		return s.subSequence(0, lastIndexOfNonWhitepace(s, s.length() - 1));
 	}
+
 }

@@ -136,20 +136,17 @@ public class PuppetTPTests extends TestCase {
 		// new File("puppet-2.6.9.pptp"));
 	}
 
-	public void testLoad2_7_1() throws Exception {
+	public void testLoad2_7_19() throws Exception {
 		final File puppetDistros = new File("/Users/henrik/PuppetDistributions/");
-		performLoad(new File(puppetDistros, "puppet-2.7.1/lib/puppet"), //
+		performLoad(new File(puppetDistros, "puppet-2.7.19/lib/puppet"), //
 			new File(puppetDistros, "plugins-3.0.0"), //
-			new File("puppet-2.7.1.pptp"));
+			new File("puppet-2.7.19.pptp"));
 
-		// performLoad(new File("/Users/henrik/PuppetDistributions/puppet-2.7.1/lib/puppet"), //
-		// null, //
-		// new File("puppet-2.7.1.pptp"));
 	}
 
 	public void testLoad3_0_0() throws Exception {
 		final File puppetDistros = new File("/Users/henrik/PuppetDistributions/");
-		performLoad(new File(puppetDistros, "puppet-3.0.0rc3/lib/puppet"), //
+		performLoad(new File(puppetDistros, "puppet-3.0.0rc5/lib/puppet"), //
 			new File(puppetDistros, "plugins-3.0.0"), //
 			new File("puppet-3.0.0.pptp"));
 	}

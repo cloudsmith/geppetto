@@ -58,7 +58,7 @@ public class PptpTargetProjectHandler {
 	/**
 	 * The default puppet target
 	 */
-	private final String PUPPET_TARGET_2_7 = "targets/puppet-2.7.1.pptp";
+	private final String PUPPET_TARGET_2_7 = "targets/puppet-2.7.19.pptp";
 
 	private final String PUPPET_TARGET_2_6 = "targets/puppet-2.6.9.pptp";
 

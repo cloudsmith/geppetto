@@ -18,8 +18,10 @@ import java.util.List;
 
 import org.cloudsmith.geppetto.pp.AssignmentExpression;
 import org.cloudsmith.geppetto.pp.AttributeOperation;
+import org.cloudsmith.geppetto.pp.Definition;
 import org.cloudsmith.geppetto.pp.ExpressionTE;
 import org.cloudsmith.geppetto.pp.LiteralNameOrReference;
+import org.cloudsmith.geppetto.pp.NodeDefinition;
 import org.cloudsmith.geppetto.pp.PPPackage;
 import org.cloudsmith.geppetto.pp.VariableExpression;
 import org.cloudsmith.geppetto.pp.VariableTE;
@@ -61,6 +63,10 @@ public class PPHoverProvider extends DefaultEObjectHoverProvider {
 		return true;
 	}
 
+	protected Boolean _hover(Definition o) {
+		return true;
+	}
+
 	protected Boolean _hover(EObject o) {
 		List<IEObjectDescription> xrefs = CrossReferenceAdapter.get(o);
 		if(xrefs != null && xrefs.size() > 0)
@@ -80,6 +86,10 @@ public class PPHoverProvider extends DefaultEObjectHoverProvider {
 		if(xrefs != null && xrefs.size() > 0)
 			return true;
 		return false;
+	}
+
+	protected Boolean _hover(NodeDefinition o) {
+		return true;
 	}
 
 	protected Boolean _hover(VariableExpression o) {

@@ -14,14 +14,29 @@ package org.cloudsmith.geppetto.pp.dsl.ui.editor.hover;
 import java.util.Collections;
 import java.util.List;
 
+import org.cloudsmith.geppetto.pp.Definition;
+import org.cloudsmith.geppetto.pp.HostClassDefinition;
+import org.cloudsmith.geppetto.pp.NodeDefinition;
 import org.cloudsmith.geppetto.pp.VerbatimTE;
 import org.cloudsmith.geppetto.pp.dsl.adapters.CrossReferenceAdapter;
+import org.cloudsmith.geppetto.pp.dsl.adapters.ResourceDocumentationAdapter;
+import org.cloudsmith.geppetto.pp.dsl.adapters.ResourceDocumentationAdapterFactory;
+import org.cloudsmith.geppetto.pp.dsl.formatting.PPCommentConfiguration;
+import org.cloudsmith.geppetto.pp.dsl.services.PPGrammarAccess;
 import org.cloudsmith.geppetto.pp.dsl.ui.labeling.PPDescriptionLabelProvider;
+import org.cloudsmith.geppetto.pp.dsl.ui.labeling.PPLabelProvider;
 import org.cloudsmith.geppetto.pp.pptp.IDocumented;
+import org.cloudsmith.geppetto.ruby.RubyDocProcessor;
+import org.cloudsmith.xtext.dommodel.formatter.comments.CommentProcessor;
+import org.cloudsmith.xtext.dommodel.formatter.comments.CommentProcessor.CommentText;
+import org.cloudsmith.xtext.dommodel.formatter.comments.ICommentConfiguration.CommentType;
+import org.cloudsmith.xtext.dommodel.formatter.comments.ICommentContainerInformation;
+import org.cloudsmith.xtext.textflow.CharSequences;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.xtext.documentation.IEObjectDocumentationProvider;
+import org.eclipse.xtext.nodemodel.INode;
 import org.eclipse.xtext.resource.IEObjectDescription;
 import org.eclipse.xtext.util.PolymorphicDispatcher;
 
@@ -60,9 +75,22 @@ public class PPDocumentationProvider implements IEObjectDocumentationProvider {
 	@Inject
 	protected PPDescriptionLabelProvider descriptionLabelProvider;
 
+	@Inject
+	protected PPLabelProvider labelProvider;
+
 	// protected String _document(AttributeOperation o) {
 	// return getCrossReferenceDocumentation(o);
 	// }
+
+	@Inject
+	PPCommentConfiguration commentConfiguration;
+
+	@Inject
+	PPGrammarAccess ga;
+
+	protected String _document(Definition o) {
+		return getPPDocumentation(o);
+	}
 
 	/**
 	 * Get cross reference for all types of Expressions
@@ -74,6 +102,10 @@ public class PPDocumentationProvider implements IEObjectDocumentationProvider {
 		return getCrossReferenceDocumentation(o);
 	}
 
+	protected String _document(HostClassDefinition o) {
+		return getPPDocumentation(o);
+	}
+
 	/**
 	 * All PPTP things with documentation are instances of IDocumented
 	 * 
@@ -83,6 +115,10 @@ public class PPDocumentationProvider implements IEObjectDocumentationProvider {
 	protected String _document(IDocumented o) {
 		// produces a string, get it as HTML documentation if not already in HTML
 		return document(o.getDocumentation());
+	}
+
+	protected String _document(NodeDefinition o) {
+		return getPPDocumentation(o);
 	}
 
 	protected String _document(Object o) {
@@ -106,7 +142,11 @@ public class PPDocumentationProvider implements IEObjectDocumentationProvider {
 	}
 
 	protected Image _image(EObject o) {
-		return getCrossReferenceImage(o);
+		Image result = getCrossReferenceImage(o);
+		if(result == null)
+			result = getPPImage(o);
+		return result;
+
 	}
 
 	protected Image _image(VerbatimTE o) {
@@ -203,6 +243,35 @@ public class PPDocumentationProvider implements IEObjectDocumentationProvider {
 				? imageDispatcher.invoke(((EObject) o).eContainingFeature(), o)
 				: result;
 
+	}
+
+	/**
+	 * @param o
+	 * @return
+	 */
+	private String getPPDocumentation(EObject o) {
+		ResourceDocumentationAdapter adapter = ResourceDocumentationAdapterFactory.eINSTANCE.adapt(o.eResource());
+		List<INode> nodes = adapter.get(o);
+		if(nodes != null && nodes.size() > 0) {
+			// rip text from the nodes
+			CharSequence result = CharSequences.empty();
+			for(INode n : nodes)
+				result = CharSequences.concatenate(result, n.getText());
+
+			ICommentContainerInformation in = (nodes.size() == 1 && nodes.get(0).getGrammarElement() == ga.getML_COMMENTRule())
+					? commentConfiguration.getContainerInformation(CommentType.Multiline)
+					: (commentConfiguration.getContainerInformation(CommentType.SingleLine));
+
+			CommentProcessor cpr = new CommentProcessor();
+			CommentText comment = cpr.separateCommentFromContainer(result, in, "\n"); // TODO: cheating on line separator
+			return new RubyDocProcessor().asHTML(comment.getLines());
+
+		}
+		return null;
+	}
+
+	private Image getPPImage(EObject o) {
+		return labelProvider.getImage(o);
 	}
 
 	/**

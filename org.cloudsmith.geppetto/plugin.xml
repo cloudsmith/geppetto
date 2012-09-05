@@ -49,10 +49,6 @@
                name="applicationCSSResources"
                value="platform:/plugin/org.cloudsmith.geppetto/images">
          </property>
-         <property
-               name="cssTheme"
-               value="org.cloudsmith.geppetto.themes.classic">
-         </property>
       </product>
    </extension>
    <!--

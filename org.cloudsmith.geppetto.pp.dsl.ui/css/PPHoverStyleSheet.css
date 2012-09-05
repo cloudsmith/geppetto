@@ -6,10 +6,12 @@ pre          { font-family: monospace; }
 /* Margins */
 body	     { overflow: auto; margin-top: 0px; margin-bottom: 0.5em; margin-left: 0.3em; margin-right: 0px; }
 h1           { margin-top: 0.3em; margin-bottom: 0.04em; font-size:1.2em;}	
-h2           { margin-top: 2em; margin-bottom: 0.25em; font-size:1.1em;}
-h3           { margin-top: 1.7em; margin-bottom: 0.25em; }
-h4           { margin-top: 2em; margin-bottom: 0.3em; }
+h2           { margin-top: 1.0em; margin-bottom: 0.04em; font-size:1.1em;}
+h3           { margin-top: 1.0em; margin-bottom: 0.04em; }
+h4           { margin-top: 1.0em; margin-bottom: 0.04em; }
 h5           { margin-top: 0px; margin-bottom: 0px; }
+/* Reduce space between headers and content */
+h1 + p, h2 + p, h3 + p, h4 + p, h5 + p { margin-top: 0.3em; }
 p            { margin-top: 1em; margin-bottom: 1em; }
 pre          { margin-left: 0.6em; }
 ul	         { margin-top: 0px; margin-bottom: 1em; margin-left: 1em; padding-left: 1em;}

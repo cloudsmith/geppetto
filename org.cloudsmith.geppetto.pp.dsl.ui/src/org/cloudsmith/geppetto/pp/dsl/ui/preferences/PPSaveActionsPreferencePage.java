@@ -22,6 +22,8 @@ public class PPSaveActionsPreferencePage extends AbstractPreferencePage {
 
 	@Override
 	protected void createFieldEditors() {
+		this.addField(new BooleanFieldEditor(PPPreferenceConstants.SAVE_ACTION_FORMAT, //
+			"Format", getFieldEditorParent()));
 		this.addField(new BooleanFieldEditor(PPPreferenceConstants.SAVE_ACTION_TRIM_LINES, //
 			"Trim lines from trailing whitespace", getFieldEditorParent()));
 		this.addField(new BooleanFieldEditor(PPPreferenceConstants.SAVE_ACTION_REPLACE_FUNKY_SPACES, //

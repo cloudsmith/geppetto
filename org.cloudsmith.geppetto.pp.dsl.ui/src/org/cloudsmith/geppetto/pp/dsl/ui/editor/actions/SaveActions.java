@@ -16,13 +16,22 @@ import java.util.regex.Pattern;
 
 import org.cloudsmith.geppetto.pp.dsl.ui.linked.ISaveActions;
 import org.cloudsmith.geppetto.pp.dsl.ui.preferences.PPPreferencesHelper;
+import org.cloudsmith.xtext.dommodel.IDomNode;
+import org.cloudsmith.xtext.dommodel.formatter.IDomModelFormatter;
+import org.cloudsmith.xtext.dommodel.formatter.context.IFormattingContextFactory;
+import org.cloudsmith.xtext.dommodel.formatter.context.IFormattingContextFactory.FormattingOption;
+import org.cloudsmith.xtext.resource.ResourceAccessScope;
+import org.cloudsmith.xtext.serializer.DomBasedSerializer;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.jface.text.BadLocationException;
 import org.eclipse.xtext.resource.XtextResource;
+import org.eclipse.xtext.serializer.diagnostic.ISerializationDiagnostic;
 import org.eclipse.xtext.ui.editor.model.IXtextDocument;
+import org.eclipse.xtext.util.TextRegion;
 import org.eclipse.xtext.util.concurrent.IUnitOfWork;
 
 import com.google.inject.Inject;
+import com.google.inject.Provider;
 
 /**
  * Implementation of save actions
@@ -56,6 +65,37 @@ public class SaveActions implements ISaveActions {
 	@Inject
 	private PPPreferencesHelper preferenceHelper;
 
+	@Inject
+	private ResourceAccessScope resourceScope;
+
+	@Inject
+	private Provider<IDomModelFormatter> formatterProvider;
+
+	@Inject
+	private Provider<DomBasedSerializer> serializerProvider;
+
+	@Inject
+	private Provider<IFormattingContextFactory> formattingContextProvider;
+
+	protected IDomModelFormatter getFormatter() {
+		// get via injector, as formatter is resource dependent
+		// return injector.getInstance(IDomModelFormatter.class);
+		return formatterProvider.get();
+	}
+
+	protected IFormattingContextFactory getFormattingContextFactory() {
+		// get via injector, as formatting context may be resource dependent
+		// return injector.getInstance(IFormattingContextFactory.class);
+		return formattingContextProvider.get();
+	}
+
+	protected DomBasedSerializer getSerializer() {
+		// get via injector, as formatting context as serialization uses the formatter
+		// which is resource dependent
+		// return injector.getInstance(DomBasedSerializer.class);
+		return serializerProvider.get();
+	}
+
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -67,8 +107,9 @@ public class SaveActions implements ISaveActions {
 		final boolean ensureNl = preferenceHelper.getSaveActionEnsureEndsWithNewLine(r);
 		final boolean replaceFunkySpace = preferenceHelper.getSaveActionReplaceFunkySpaces(r);
 		final boolean trimLines = preferenceHelper.getSaveActionTrimLines(r);
+		final boolean fullFormat = preferenceHelper.getSaveActionFormat(r);
 
-		if(ensureNl || replaceFunkySpace || trimLines) {
+		if(ensureNl || replaceFunkySpace || trimLines || fullFormat) {
 			document.modify(new IUnitOfWork.Void<XtextResource>() {
 
 				@Override
@@ -122,6 +163,26 @@ public class SaveActions implements ISaveActions {
 								// ignore
 							}
 						}
+					}
+					if(fullFormat) {
+						// Most of this, and the required methods is a copy of ContentFormatterFactory - which
+						// runs this in a separate UnitOfWork. TODO: Can be combined.
+						//
+						content = document.get();
+						ISerializationDiagnostic.Acceptor errors = ISerializationDiagnostic.EXCEPTION_THROWING_ACCEPTOR;
+						try {
+							resourceScope.enter(state);
+							// EObject context = getContext(state.getContents().get(0));
+							IDomNode root = getSerializer().serializeToDom(state.getContents().get(0), false);
+							org.eclipse.xtext.util.ReplaceRegion r = getFormatter().format(
+								root, new TextRegion(0, document.getLength()), //
+								getFormattingContextFactory().create(state, FormattingOption.Format), errors);
+							document.replace(0, document.getLength(), r.getText());
+						}
+						finally {
+							resourceScope.exit();
+						}
+
 					}
 				}
 			});

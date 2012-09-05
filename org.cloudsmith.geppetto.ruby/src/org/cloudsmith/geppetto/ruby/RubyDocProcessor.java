@@ -32,11 +32,11 @@ public class RubyDocProcessor {
 			int level;
 
 			HeadingToken(int lineIdx) {
-				String s = lines[lineIdx];
+				CharSequence s = lines[lineIdx];
 
 				for(int i = 0; i < s.length(); i++)
 					if(s.charAt(i) != '=') {
-						text = s.substring(i);
+						text = s.subSequence(i, s.length()); // .subSequence(i);
 						level = i;
 						break;
 					}
@@ -77,22 +77,22 @@ public class RubyDocProcessor {
 					throw new IllegalArgumentException("empty span");
 				List<String> section = Lists.newArrayListWithExpectedSize(lastLine - startLine);
 				for(int i = startLine; i < lastLine; i++)
-					section.add(lines[i].substring(naturalMargin));
-				text = Joiner.on(" ").join(section).toString();
-				text = text.replaceAll("\\*\\*([^\\*]+)\\*\\*", "<strong>$1</strong>");
-				text = text.replaceAll("\\*([^\\*]+)\\*", "<b>$1</b>");
-				text = text.replaceAll("_([^_]+)_", "<i>$1</i>");
-				text = text.replaceAll("`([^`]+)`", "<tt>$1</tt>");
-				text = text.replaceAll("\\+([^\\+]+)\\+", "<tt>$1</tt>");
-
+					section.add(lines[i].toString().substring(naturalMargin));
+				String s = Joiner.on(" ").join(section).toString();
+				s = s.replaceAll("\\*\\*([^\\*]+)\\*\\*", "<strong>$1</strong>");
+				s = s.replaceAll("\\*([^\\*]+)\\*", "<b>$1</b>");
+				s = s.replaceAll("_([^_]+)_", "<i>$1</i>");
+				s = s.replaceAll("`([^`]+)`", "<tt>$1</tt>");
+				s = s.replaceAll("\\+([^\\+]+)\\+", "<tt>$1</tt>");
+				text = s;
 			}
 
 		}
 
 		public abstract class Token {
-			protected String text = "";
+			protected CharSequence text = "";
 
-			String getText() {
+			CharSequence getText() {
 				return text;
 			}
 
@@ -123,7 +123,7 @@ public class RubyDocProcessor {
 			}
 		}
 
-		private String[] lines;
+		private CharSequence[] lines;
 
 		List<Integer> marginStack = Lists.newLinkedList();
 
@@ -131,7 +131,7 @@ public class RubyDocProcessor {
 
 		int naturalMargin = 0;
 
-		RubyDocLexer(String[] lines) {
+		RubyDocLexer(CharSequence[] lines) {
 			this.lines = lines;
 			marginStack.add(0, naturalMargin); // start at 0
 			tokenize();
@@ -271,15 +271,15 @@ public class RubyDocProcessor {
 		}
 
 		private boolean isCommentEnd(int i) {
-			return lines[i].startsWith("++");
+			return CharSequences.startsWith(lines[i], "++");
 		}
 
 		private boolean isCommentStart(int i) {
-			return lines[i].startsWith("--");
+			return CharSequences.startsWith(lines[i], "--");
 		}
 
 		private boolean isHeading(int i) {
-			return lines[i].startsWith("=");
+			return CharSequences.startsWith(lines[i], "=");
 		}
 
 		private boolean isLeftOfMargin(int i) {
@@ -338,6 +338,8 @@ public class RubyDocProcessor {
 					i = eatComment(i); // skip comment
 				else if(isVerbatim(i))
 					i = emitVerbatim(i);
+				else if(isHeading(i))
+					i = emitHeading(i);
 				else
 					i = emitParaOrList(i);
 			}
@@ -398,7 +400,7 @@ public class RubyDocProcessor {
 
 	protected String _html(RubyDocLexer.SpanToken o) {
 		// this is really PCDATA - span is a container since spans can be nested
-		return o.getText();
+		return o.getText().toString();
 	}
 
 	/**
@@ -418,6 +420,24 @@ public class RubyDocProcessor {
 		builder.append(o.getText());
 		builder.append("</pre>");
 		return builder.toString();
+	}
+
+	public String asHTML(CharSequence[] lines) {
+		RubyDocLexer lexer = new RubyDocLexer(lines);
+		StringBuilder builder = new StringBuilder();
+
+		Object prevToken = ""; // represents start of input
+		for(Token t : lexer.getTokens()) {
+			builder.append(htmlDispatcher.invoke(prevToken, t)); // join on
+			builder.append(htmlDispatcher.invoke(t));
+			prevToken = t;
+		}
+		return builder.toString();
+	}
+
+	public String asHTML(List<CharSequence> lines) {
+		return asHTML(lines.toArray(new CharSequence[lines.size()]));
+
 	}
 
 	public String asHTML(String s) {
@@ -445,18 +465,5 @@ public class RubyDocProcessor {
 
 		// lines where pos 0 is the natural margin
 		return asHTML(lines);
-	}
-
-	public String asHTML(String[] lines) {
-		RubyDocLexer lexer = new RubyDocLexer(lines);
-		StringBuilder builder = new StringBuilder();
-
-		Object prevToken = ""; // represents start of input
-		for(Token t : lexer.getTokens()) {
-			builder.append(htmlDispatcher.invoke(prevToken, t)); // join on
-			builder.append(htmlDispatcher.invoke(t));
-			prevToken = t;
-		}
-		return builder.toString();
 	}
 }

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="ASCII"?>
 <xmi:XMI xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:pptp="http://www.cloudsmith.org/geppetto/1.0.0/PPTP">
-  <pptp:PuppetDistribution description="Puppet Distribution" version="3.0.0rc5" label="puppet">
+  <pptp:PuppetDistribution description="Puppet Distribution" version="2.7.19" label="puppet">
     <contents xsi:type="pptp:NameSpace" name="settings" reserved="true">
       <contents xsi:type="pptp:TPVariable" name="*"/>
       <contents xsi:type="pptp:TPVariable" name="allow_duplicate_certs" documentation="&lt;p>Whether to allow a new certificate request to overwrite an existing certificate.&lt;/p>"/>
@@ -210,9 +210,9 @@
     <contents xsi:type="pptp:TPVariable" name="servername" documentation="The puppet master&#x2019;s fully-qualified domain name. (Note that this information is gathered from the puppet master by Facter, rather than read from the config files; even if the master&#x2019;s certname is set to something other than its fully-qualified domain name, this variable will still contain the server&#x2019;s fqdn.)"/>
     <contents xsi:type="pptp:TPVariable" name="serverip" documentation="The puppet master's IP address"/>
     <contents xsi:type="pptp:TPVariable" name="serverversion" documentation="The current version of puppet on the puppet master."/>
-    <functions documentation="&lt;p>Converts a hash into a set of resources and adds them to the catalog.&lt;/p>&lt;p>This function takes two mandatory arguments: a resource type, and a hash describing a set of resources. The hash should be in the form &lt;tt>{title => {parameters} }&lt;/tt>:&lt;/p>&lt;pre>  # A hash of user resources:&#xA;  $myusers = {&#xA;    'nick' => { uid    => '1330',&#xA;                group  => allstaff,&#xA;                groups => ['developers', 'operations', 'release'], }&#xA;    'dan'  => { uid    => '1308',&#xA;                group  => allstaff,&#xA;                groups => ['developers', 'prosvc', 'release'], }&#xA;  }&#xA;&#xA;  create_resources(user, $myusers)&#xA;&#xA;&lt;/pre>&lt;p>A third, optional parameter may be given, also as a hash:&lt;/p>&lt;pre>  $defaults = {&#xA;    'ensure'   => present,&#xA;    'provider' => 'ldap',&#xA;  }&#xA;&#xA;  create_resources(user, $myusers, $defaults)&#xA;&#xA;&lt;/pre>&lt;p>The values given on the third argument are added to the parameters of each resource present in the set given on the second argument. If a parameter is present on both the second and third arguments, the one on the second argument takes precedence.&lt;/p>&lt;p>This function can be used to create defined resources and classes, as well as native resources.&lt;/p>" name="create_resources"/>
+    <functions documentation="&lt;p>Converts a hash into a set of resources and adds them to the catalog.&lt;/p>&lt;p>This function takes two mandatory arguments: a resource type, and a hash describing a set of resources. The hash should be in the form &lt;tt>{title => {parameters} }&lt;/tt>:&lt;/p>&lt;pre>  # A hash of user resources:&#xA;  $myusers = {&#xA;    'nick' => { uid    => '1330',&#xA;                group  => allstaff,&#xA;                groups => ['developers', 'operations', 'release'], }&#xA;    'dan'  => { uid    => '1308',&#xA;                group  => allstaff,&#xA;                groups => ['developers', 'prosvc', 'release'], }&#xA;  }&#xA;&#xA;  create_resources(user, $myusers)&#xA;&#xA;&lt;/pre>&lt;p>A third, optional parameter may be given, also as a hash:&lt;/p>&lt;pre>  $defaults => {&#xA;    'ensure'   => present,&#xA;    'provider' => 'ldap',&#xA;  }&#xA;&#xA;  create_resources(user, $myusers, $defaults)&#xA;&#xA;&lt;/pre>&lt;p>The values given on the third argument are added to the parameters of each resource present in the set given on the second argument. If a parameter is present on both the second and third arguments, the one on the second argument takes precedence.&lt;/p>&lt;p>This function can be used to create defined resources and classes, as well as native resources.&lt;/p>" name="create_resources"/>
     <functions documentation="&lt;p>Determine whether a given class or resource type is defined. This function can also determine whether a specific resource has been declared. Returns true or false. Accepts class names, type names, and resource references.&lt;/p>&lt;p>The &lt;tt>defined&lt;/tt> function checks both native and defined types, including types provided as plugins via modules. Types and classes are both checked using their names:&lt;/p>&lt;pre>  defined(&quot;file&quot;)&#xA;  defined(&quot;customtype&quot;)&#xA;  defined(&quot;foo&quot;)&#xA;  defined(&quot;foo::bar&quot;)&#xA;&#xA;&lt;/pre>&lt;p>Resource declarations are checked using resource references, e.g. &lt;tt>defined( File['/tmp/myfile'] )&lt;/tt>. Checking whether a given resource has been declared is, unfortunately, dependent on the parse order of the configuration, and the following code will not work:&lt;/p>&lt;pre>  if defined(File['/tmp/foo']) {&#xA;      notify(&quot;This configuration includes the /tmp/foo file.&quot;)&#xA;  }&#xA;  file {&quot;/tmp/foo&quot;:&#xA;      ensure => present,&#xA;  }&#xA;&#xA;&lt;/pre>&lt;p>However, this order requirement refers to parse order only, and ordering of resources in the configuration graph (e.g. with &lt;tt>before&lt;/tt> or &lt;tt>require&lt;/tt>) does not affect the behavior of &lt;tt>defined&lt;/tt>.&lt;/p>" name="defined" rValue="true"/>
-    <functions documentation="&lt;p>This is a parser function to read data from external files, this version uses CSV files but the concept can easily be adjust for databases, yaml or any other queryable data source.&lt;/p>&lt;p>The object of this is to make it obvious when it's being used, rather than magically loading data in when an module is loaded I prefer to look at the code and see statements like:&lt;/p>&lt;pre>  $snmp_contact = extlookup(&quot;snmp_contact&quot;)&#xA;&#xA;&lt;/pre>&lt;p>The above snippet will load the snmp_contact value from CSV files, this in its own is useful but a common construct in puppet manifests is something like this:&lt;/p>&lt;pre>  case $domain {&#xA;    &quot;myclient.com&quot;: { $snmp_contact = &quot;John Doe &lt;john@myclient.com>&quot; }&#xA;    default:        { $snmp_contact = &quot;My Support &lt;support@my.com>&quot; }&#xA;  }&#xA;&#xA;&lt;/pre>&lt;p>Over time there will be a lot of this kind of thing spread all over your manifests and adding an additional client involves grepping through manifests to find all the places where you have constructs like this.&lt;/p>&lt;p>This is a data problem and shouldn't be handled in code, a using this function you can do just that.&lt;/p>&lt;p>First you configure it in site.pp:&lt;/p>&lt;pre>  $extlookup_datadir = &quot;/etc/puppet/manifests/extdata&quot;&#xA;  $extlookup_precedence = [&quot;%{fqdn}&quot;, &quot;domain_%{domain}&quot;, &quot;common&quot;]&#xA;&#xA;&lt;/pre>&lt;p>The array tells the code how to resolve values, first it will try to find it in web1.myclient.com.csv then in domain_myclient.com.csv and finally in common.csv&lt;/p>&lt;p>Now create the following data files in /etc/puppet/manifests/extdata:&lt;/p>&lt;pre>  domain_myclient.com.csv:&#xA;    snmp_contact,John Doe &lt;john@myclient.com>&#xA;    root_contact,support@%{domain}&#xA;    client_trusted_ips,192.168.1.130,192.168.10.0/24&#xA;&#xA;  common.csv:&#xA;    snmp_contact,My Support &lt;support@my.com>&#xA;    root_contact,support@my.com&#xA;&#xA;&lt;/pre>&lt;p>Now you can replace the case statement with the simple single line to achieve the exact same outcome:&lt;/p>&lt;pre>  $snmp_contact = extlookup(&quot;snmp_contact&quot;)&#xA;&#xA;&lt;/pre>&lt;p>The above code shows some other features, you can use any fact or variable that is in scope by simply using %{varname} in your data files, you can return arrays by just having multiple values in the csv after the initial variable name.&lt;/p>&lt;p>In the event that a variable is nowhere to be found a critical error will be raised that will prevent your manifest from compiling, this is to avoid accidentally putting in empty values etc.  You can however specify a default value:&lt;/p>&lt;pre>  $ntp_servers = extlookup(&quot;ntp_servers&quot;, &quot;1.${country}.pool.ntp.org&quot;)&#xA;&#xA;&lt;/pre>&lt;p>In this case it will default to &quot;1.${country}.pool.ntp.org&quot; if nothing is defined in any data file.&lt;/p>&lt;p>You can also specify an additional data file to search first before any others at use time, for example:&lt;/p>&lt;pre>  $version = extlookup(&quot;rsyslog_version&quot;, &quot;present&quot;, &quot;packages&quot;)&#xA;  package{&quot;rsyslog&quot;: ensure => $version }&#xA;&#xA;&lt;/pre>&lt;p>This will look for a version configured in packages.csv and then in the rest as configured by $extlookup_precedence if it's not found anywhere it will default to &lt;tt>present&lt;/tt>, this kind of use case makes puppet a lot nicer for managing large amounts of packages since you do not need to edit a load of manifests to do simple things like adjust a desired version number.&lt;/p>&lt;p>Precedence values can have variables embedded in them in the form %{fqdn}, you could for example do:&lt;/p>&lt;pre>  $extlookup_precedence = [&quot;hosts/%{fqdn}&quot;, &quot;common&quot;]&#xA;&#xA;&lt;/pre>&lt;p>This will result in /path/to/extdata/hosts/your.box.com.csv being searched.&lt;/p>&lt;p>This is for back compatibility to interpolate variables with %. % interpolation is a workaround for a problem that has been fixed: Puppet variable interpolation at top scope used to only happen on each run.&lt;/p>" name="extlookup" rValue="true"/>
+    <functions documentation="&lt;p>This is a parser function to read data from external files, this version uses CSV files but the concept can easily be adjust for databases, yaml or any other queryable data source.&lt;/p>&lt;p>The object of this is to make it obvious when it's being used, rather than magically loading data in when an module is loaded I prefer to look at the code and see statements like:&lt;/p>&lt;pre>  $snmp_contact = extlookup(&quot;snmp_contact&quot;)&#xA;&#xA;&lt;/pre>&lt;p>The above snippet will load the snmp_contact value from CSV files, this in its own is useful but a common construct in puppet manifests is something like this:&lt;/p>&lt;pre>  case $domain {&#xA;    &quot;myclient.com&quot;: { $snmp_contact = &quot;John Doe &lt;john@myclient.com>&quot; }&#xA;    default:        { $snmp_contact = &quot;My Support &lt;support@my.com>&quot; }&#xA;  }&#xA;&#xA;&lt;/pre>&lt;p>Over time there will be a lot of this kind of thing spread all over your manifests and adding an additional client involves grepping through manifests to find all the places where you have constructs like this.&lt;/p>&lt;p>This is a data problem and shouldn't be handled in code, a using this function you can do just that.&lt;/p>&lt;p>First you configure it in site.pp:&lt;/p>&lt;pre>  $extlookup_datadir = &quot;/etc/puppet/manifests/extdata&quot;&#xA;  $extlookup_precedence = [&quot;%{fqdn}&quot;, &quot;domain_%{domain}&quot;, &quot;common&quot;]&#xA;&#xA;&lt;/pre>&lt;p>The array tells the code how to resolve values, first it will try to find it in web1.myclient.com.csv then in domain_myclient.com.csv and finally in common.csv&lt;/p>&lt;p>Now create the following data files in /etc/puppet/manifests/extdata:&lt;/p>&lt;pre>  domain_myclient.com.csv:&#xA;    snmp_contact,John Doe &lt;john@myclient.com>&#xA;    root_contact,support@%{domain}&#xA;    client_trusted_ips,192.168.1.130,192.168.10.0/24&#xA;&#xA;  common.csv:&#xA;    snmp_contact,My Support &lt;support@my.com>&#xA;    root_contact,support@my.com&#xA;&#xA;&lt;/pre>&lt;p>Now you can replace the case statement with the simple single line to achieve the exact same outcome:&lt;/p>&lt;pre> $snmp_contact = extlookup(&quot;snmp_contact&quot;)&#xA;&#xA;&lt;/pre>&lt;p>The above code shows some other features, you can use any fact or variable that is in scope by simply using %{varname} in your data files, you can return arrays by just having multiple values in the csv after the initial variable name.&lt;/p>&lt;p>In the event that a variable is nowhere to be found a critical error will be raised that will prevent your manifest from compiling, this is to avoid accidentally putting in empty values etc.  You can however specify a default value:&lt;/p>&lt;pre> $ntp_servers = extlookup(&quot;ntp_servers&quot;, &quot;1.${country}.pool.ntp.org&quot;)&#xA;&#xA;&lt;/pre>&lt;p>In this case it will default to &quot;1.${country}.pool.ntp.org&quot; if nothing is defined in any data file.&lt;/p>&lt;p>You can also specify an additional data file to search first before any others at use time, for example:&lt;/p>&lt;pre>  $version = extlookup(&quot;rsyslog_version&quot;, &quot;present&quot;, &quot;packages&quot;)&#xA;  package{&quot;rsyslog&quot;: ensure => $version }&#xA;&#xA;&lt;/pre>&lt;p>This will look for a version configured in packages.csv and then in the rest as configured by $extlookup_precedence if it's not found anywhere it will default to &lt;tt>present&lt;/tt>, this kind of use case makes puppet a lot nicer for managing large amounts of packages since you do not need to edit a load of manifests to do simple things like adjust a desired version number.&lt;/p>&lt;p>Precedence values can have variables embedded in them in the form %{fqdn}, you could for example do:&lt;/p>&lt;pre>  $extlookup_precedence = [&quot;hosts/%{fqdn}&quot;, &quot;common&quot;]&#xA;&#xA;&lt;/pre>&lt;p>This will result in /path/to/extdata/hosts/your.box.com.csv being searched.&lt;/p>&lt;p>This is for back compatibility to interpolate variables with %. % interpolation is a workaround for a problem that has been fixed: Puppet variable interpolation at top scope used to only happen on each run.&lt;/p>" name="extlookup" rValue="true"/>
     <functions documentation="&lt;p>Fail with a parse error.&lt;/p>" name="fail"/>
     <functions documentation="&lt;p>Return the contents of a file.  Multiple files can be passed, and the first file that exists will be read in.&lt;/p>" name="file" rValue="true"/>
     <functions documentation="&lt;p>Generates random numbers based on the node's fqdn. Generated random values will be a range from 0 up to and excluding n, where n is the first parameter. The second argument specifies a number to add to the seed and is optional, for example:&lt;/p>&lt;pre>  $random_number = fqdn_rand(30)&#xA;  $random_number_seed = fqdn_rand(30,30)&#xA;&lt;/pre>" name="fqdn_rand" rValue="true"/>
@@ -293,7 +293,7 @@
       <parameters name="group" documentation="&lt;p>The group to run the command as.  This seems to work quite haphazardly on different platforms -- it is a platform issue not a Ruby or Puppet one, since the same variety exists when running commands as different users in the shell.&lt;/p>"/>
       <parameters name="user" documentation="&lt;p>The user to run the command as.  Note that if you use this then any error output is not currently captured.  This is because of a bug within Ruby.  If you are using Puppet to create this user, the exec will automatically require the user, as long as it is specified by name.&lt;/p>"/>
       <parameters name="refresh" documentation="&lt;p>How to refresh this command.  By default, the exec is just called again when it receives an event from another resource, but this parameter allows you to define a different command for refreshing.&lt;/p>"/>
-      <parameters name="timeout" documentation="&lt;p>The maximum time the command should take.  If the command takes longer than the timeout, the command is considered to have failed and will be stopped. The timeout is specified in seconds. The default timeout is 300 seconds and you can set it to 0 to disable the timeout.&lt;/p>"/>
+      <parameters name="timeout" documentation="&lt;p>The maximum time the command should take.  If the command takes longer than the timeout, the command is considered to have failed and will be stopped.  Use 0 to disable the timeout. The time is specified in seconds.&lt;/p>"/>
     </types>
     <types name="file" documentation="&lt;p>Manages files, including their content, ownership, and permissions.&lt;/p>&lt;p>The &lt;tt>file&lt;/tt> type can manage normal files, directories, and symlinks; the type should be specified in the &lt;tt>ensure&lt;/tt> attribute. Note that symlinks cannot be managed on Windows systems.&lt;/p>&lt;p>File contents can be managed directly with the &lt;tt>content&lt;/tt> attribute, or downloaded from a remote source using the &lt;tt>source&lt;/tt> attribute; the latter can also be used to recursively serve directories (when the &lt;tt>recurse&lt;/tt> attribute is set to &lt;tt>true&lt;/tt> or &lt;tt>local&lt;/tt>). On Windows, note that file contents are managed in binary mode; Puppet never automatically translates line endings.&lt;/p>&lt;p>&lt;strong>Autorequires:&lt;/strong> If Puppet is managing the user or group that owns a file, the file resource will autorequire them. If Puppet is managing any parent directories of a file, the file resource will autorequire them.&lt;/p>">
       <parameters name="sourceselect" documentation="&lt;p>Whether to copy all valid sources, or just the first one.  This parameter only affects recursive directory copies; by default, the first valid source is the only one used, but if this parameter is set to &lt;tt>all&lt;/tt>, then all valid sources will have all of their contents copied to the local system. If a given file exists in more than one source, the version from the earliest source in the list will be used.&lt;/p>"/>
@@ -302,7 +302,7 @@
       <parameters name="links" documentation="&lt;p>How to handle links during file actions.  During file copying, &lt;tt>follow&lt;/tt> will copy the target file instead of the link, &lt;tt>manage&lt;/tt> will copy the link itself, and &lt;tt>ignore&lt;/tt> will just pass it by. When not copying, &lt;tt>manage&lt;/tt> and &lt;tt>ignore&lt;/tt> behave equivalently (because you cannot really ignore links entirely during local recursion), and &lt;tt>follow&lt;/tt> will manage the file to which the link points.&lt;/p>"/>
       <parameters name="recurselimit" documentation="&lt;p>How deeply to do recursive management.&lt;/p>"/>
       <parameters name="force" documentation="&lt;p>Perform the file operation even if it will destroy one or more directories. You must use &lt;tt>force&lt;/tt> in order to:&lt;/p>&lt;ul>&lt;li>&lt;p>&lt;tt>purge&lt;/tt> subdirectories&lt;/p>&lt;/li>&lt;li>&lt;p>Replace directories with files or links&lt;/p>&lt;/li>&lt;li>&lt;p>Remove a directory when &lt;tt>ensure => absent&lt;/tt>&lt;/p>&lt;/li>&lt;/ul>"/>
-      <parameters name="recurse" documentation="&lt;p>Whether and how deeply to do recursive management. Options are:&lt;/p>&lt;ul>&lt;li>&lt;p>&lt;tt>inf,true&lt;/tt> --- Regular style recursion on both remote and local directory structure.&lt;/p>&lt;/li>&lt;li>&lt;p>&lt;tt>remote&lt;/tt> --- Descends recursively into the remote directory but not the local directory. Allows copying of a few files into a directory containing many unmanaged files without scanning all the local files.&lt;/p>&lt;/li>&lt;li>&lt;p>&lt;tt>false&lt;/tt> --- Default of no recursion.&lt;/p>&lt;/li>&lt;/ul>"/>
+      <parameters name="recurse" documentation="&lt;p>Whether and how deeply to do recursive management. Options are:&lt;/p>&lt;ul>&lt;li>&lt;p>&lt;tt>inf,true&lt;/tt> --- Regular style recursion on both remote and local directory structure.&lt;/p>&lt;/li>&lt;li>&lt;p>&lt;tt>remote&lt;/tt> --- Descends recursively into the remote directory but not the local directory. Allows copying of a few files into a directory containing many unmanaged files without scanning all the local files.&lt;/p>&lt;/li>&lt;li>&lt;p>&lt;tt>false&lt;/tt> --- Default of no recursion.&lt;/p>&lt;/li>&lt;li>&lt;p>&lt;tt>[0-9]+&lt;/tt> --- Same as true, but limit recursion. Warning: this syntax has been deprecated in favor of the &lt;tt>recurselimit&lt;/tt> attribute.&lt;/p>&lt;/li>&lt;/ul>"/>
       <parameters name="purge" documentation="&lt;p>Whether unmanaged files should be purged. This option only makes sense when managing directories with &lt;tt>recurse => true&lt;/tt>.&lt;/p>&lt;ul>&lt;li>&lt;p>When recursively duplicating an entire directory with the &lt;tt>source&lt;/tt> attribute, &lt;tt>purge => true&lt;/tt> will automatically purge any files that are not in the source directory.&lt;/p>&lt;/li>&lt;li>&lt;p>When managing files in a directory as individual resources, setting &lt;tt>purge => true&lt;/tt> will purge any files that aren't being specifically managed.&lt;/p>&lt;/li>&lt;/ul>&lt;p>If you have a filebucket configured, the purged files will be uploaded, but if you do not, this will destroy data.&lt;/p>"/>
       <parameters name="ignore" documentation="&lt;p>A parameter which omits action on files matching specified patterns during recursion.  Uses Ruby's builtin globbing engine, so shell metacharacters are fully supported, e.g. &lt;tt>[a-z]&lt;b>&lt;/tt>. Matches that would descend into the directory structure are ignored, e.g., &lt;tt>&lt;/b>/*&lt;/tt>.&lt;/p>"/>
       <parameters name="backup" documentation="&lt;p>Whether files should be backed up before being replaced.  The preferred method of backing files up is via a &lt;tt>filebucket&lt;/tt>, which stores files by their MD5 sums and allows easy retrieval without littering directories with backups.  You can specify a local filebucket or a network-accessible server-based filebucket by setting &lt;tt>backup => bucket-name&lt;/tt>. Alternatively, if you specify any value that begins with a &lt;tt>.&lt;/tt> (e.g., &lt;tt>.puppet-bak&lt;/tt>), then Puppet will use copy the file in the same directory with that value as the extension of the backup. Setting &lt;tt>backup => false&lt;/tt> disables all backups of the file in question.&lt;/p>&lt;p>Puppet automatically creates a local filebucket named &lt;tt>puppet&lt;/tt> and defaults to backing up there.  To use a server-based filebucket, you must specify one in your configuration.&lt;/p>&lt;pre>    filebucket { main:&#xA;      server => puppet,&#xA;      path   => false,&#xA;      # The path => false line works around a known issue with the filebucket type.&#xA;    }&#xA;&#xA;&lt;/pre>&lt;p>The &lt;tt>puppet master&lt;/tt> daemon creates a filebucket by default, so you can usually back up to your main server with this configuration.  Once you've described the bucket in your configuration, you can use it in any file's backup attribute:&lt;/p>&lt;pre>    file { &quot;/my/file&quot;:&#xA;      source => &quot;/path/in/nfs/or/something&quot;,&#xA;      backup => main&#xA;    }&#xA;&#xA;&lt;/pre>&lt;p>This will back the file up to the central server.&lt;/p>&lt;p>At this point, the benefits of using a central filebucket are that you do not have backup files lying around on each of your machines, a given version of a file is only backed up once, you can restore any given file manually (no matter how old), and you can use Puppet Dashboard to view file contents.  Eventually, transactional support will be able to automatically restore filebucketed files.&lt;/p>"/>
@@ -403,6 +403,7 @@
       <properties name="options" documentation="&lt;p>Mount options for the mounts, as they would appear in the fstab.&lt;/p>"/>
       <properties name="ensure" documentation="&lt;p>Control what to do with this mount. Set this attribute to &lt;tt>umounted&lt;/tt> to make sure the filesystem is in the filesystem table but not mounted (if the filesystem is currently mounted, it will be unmounted).  Set it to &lt;tt>absent&lt;/tt> to unmount (if necessary) and remove the filesystem from the fstab.  Set to &lt;tt>mounted&lt;/tt> to add it to the fstab and mount it. Set to &lt;tt>present&lt;/tt> to add to fstab but not change mount/unmount status.&lt;/p>"/>
       <parameters name="name" documentation="&lt;p>The mount path for the mount.&lt;/p>" namevar="true"/>
+      <parameters name="path" documentation="&lt;p>The deprecated name for the mount point.  Please use &lt;tt>name&lt;/tt> now.&lt;/p>"/>
       <parameters name="remounts" documentation="&lt;p>Whether the mount can be remounted  &lt;tt>mount -o remount&lt;/tt>.  If this is false, then the filesystem will be unmounted and remounted manually, which is prone to failure.&lt;/p>"/>
     </types>
     <types name="notify" documentation="&lt;p>Sends an arbitrary message to the agent run-time log.&lt;/p>">
@@ -417,9 +418,9 @@
       <parameters name="vendor" documentation="&lt;p>A read-only parameter set by the package.&lt;/p>"/>
       <parameters name="flavor" documentation="&lt;p>Newer versions of OpenBSD support 'flavors', which are further specifications for which type of package you want.&lt;/p>"/>
       <parameters name="allowcdrom" documentation="&lt;p>Tells apt to allow cdrom sources in the sources.list file. Normally apt will bail if you try this.&lt;/p>"/>
+      <parameters name="type" documentation="&lt;p>Deprecated form of &lt;tt>provider&lt;/tt>.&lt;/p>"/>
       <parameters name="configfiles" documentation="&lt;p>Whether configfiles should be kept or replaced.  Most packages types do not support this parameter. Defaults to &lt;tt>keep&lt;/tt>.&lt;/p>"/>
-      <parameters name="uninstall_options" documentation="&lt;p>An array of additional options to pass when uninstalling a package. These options are package-specific, and should be documented by the software vendor.  For example:&lt;/p>&lt;pre>  package { 'VMware Tools':&#xA;    ensure            => absent,&#xA;    uninstall_options => [ { 'REMOVE' => 'Sync,VSS' } ],&#xA;  }&#xA;&#xA;&lt;/pre>&lt;p>Each option in the array can either be a string or a hash, where each key and value pair are interpreted in a provider specific way.  Each option will automatically be quoted when passed to the uninstall command.&lt;/p>&lt;p>On Windows, this is the &lt;strong>only&lt;/strong> place in Puppet where backslash separators should be used.  Note that backslashes in double-quoted strings &lt;i>must&lt;/i> be double-escaped and backslashes in single-quoted strings &lt;i>may&lt;/i> be double-escaped.&lt;/p>"/>
-      <parameters name="install_options" documentation="&lt;p>An array of additional options to pass when installing a package. These options are package-specific, and should be documented by the software vendor.  One commonly implemented option is &lt;tt>INSTALLDIR&lt;/tt>:&lt;/p>&lt;pre>  package { 'mysql':&#xA;    ensure          => installed,&#xA;    source          => 'N:/packages/mysql-5.5.16-winx64.msi',&#xA;    install_options => [ '/S', { 'INSTALLDIR' => 'C:\mysql-5.5' } ],&#xA;  }&#xA;&#xA;&lt;/pre>&lt;p>Each option in the array can either be a string or a hash, where each key and value pair are interpreted in a provider specific way.  Each option will automatically be quoted when passed to the install command.&lt;/p>&lt;p>On Windows, this is the &lt;strong>only&lt;/strong> place in Puppet where backslash separators should be used.  Note that backslashes in double-quoted strings &lt;i>must&lt;/i> be double-escaped and backslashes in single-quoted strings &lt;i>may&lt;/i> be double-escaped.&lt;/p>"/>
+      <parameters name="install_options" documentation="&lt;p>A hash of additional options to pass when installing a package. These options are package-specific, and should be documented by the software vendor. The most commonly implemented option is &lt;tt>INSTALLDIR&lt;/tt>:&lt;/p>&lt;pre>  package { 'mysql':&#xA;    ensure          => installed,&#xA;    provider        => 'msi',&#xA;    source          => 'N:/packages/mysql-5.5.16-winx64.msi',&#xA;    install_options => { 'INSTALLDIR' => 'C:\mysql-5.5' },&#xA;  }&#xA;&#xA;&lt;/pre>&lt;p>Since these options are passed verbatim to &lt;tt>msiexec&lt;/tt>, any file paths specified in &lt;tt>install&lt;i>options&lt;/tt> should use a backslash as the separator character rather than a forward slash. This is the &lt;strong>only&lt;/strong> place in Puppet where backslash separators should be used. Note that backslashes in double-quoted strings &lt;/i>must&lt;i> be double-escaped and backslashes in single-quoted strings &lt;/i>may_ be double-escaped.&lt;/p>"/>
       <parameters name="category" documentation="&lt;p>A read-only parameter set by the package.&lt;/p>"/>
       <parameters name="source" documentation="&lt;p>Where to find the actual package.  This must be a local file (or on a network file system) or a URL that your specific packaging type understands; Puppet will not retrieve files for you, although you can manage packages as &lt;tt>file&lt;/tt> resources.&lt;/p>"/>
       <parameters name="responsefile" documentation="&lt;p>A file containing any necessary answers to questions asked by the package.  This is currently used on Solaris and Debian.  The value will be validated according to system rules, but it should generally be a fully qualified path.&lt;/p>"/>
@@ -438,8 +439,7 @@
       <parameters name="url" documentation="&lt;p>An SSH or telnet URL at which to access the router, in the form &lt;tt>ssh://user:pass:enable@host/&lt;/tt> or &lt;tt>telnet://user:pass:enable@host/&lt;/tt>.&lt;/p>" namevar="true"/>
     </types>
     <types name="schedule" documentation="&lt;p>Define schedules for Puppet. Resources can be limited to a schedule by using the [&lt;tt>schedule&lt;/tt>](http://docs.puppetlabs.com/references/latest/metaparameter.html#schedule) metaparameter.&lt;/p>&lt;p>Currently, &lt;strong>schedules can only be used to stop a resource from being applied;&lt;/strong> they cannot cause a resource to be applied when it otherwise wouldn't be, and they cannot accurately specify a time when a resource should run.&lt;/p>&lt;p>Every time Puppet applies its configuration, it will apply the set of resources whose schedule does not eliminate them from running right then, but there is currently no system in place to guarantee that a given resource runs at a given time.  If you specify a very  restrictive schedule and Puppet happens to run at a time within that schedule, then the resources will get applied; otherwise, that work may never get done.&lt;/p>&lt;p>Thus, it is advisable to use wider scheduling (e.g., over a couple of hours) combined with periods and repetitions.  For instance, if you wanted to restrict certain resources to only running once, between the hours of two and 4 AM, then you would use this schedule:&lt;/p>&lt;pre>  schedule { 'maint':&#xA;    range  => &quot;2 - 4&quot;,&#xA;    period => daily,&#xA;    repeat => 1,&#xA;  }&#xA;&#xA;&lt;/pre>&lt;p>With this schedule, the first time that Puppet runs between 2 and 4 AM, all resources with this schedule will get applied, but they won't get applied again between 2 and 4 because they will have already run once that day, and they won't get applied outside that schedule because they will be outside the scheduled range.&lt;/p>&lt;p>Puppet automatically creates a schedule for each of the valid periods with the same name as that period (e.g., hourly and daily). Additionally, a schedule named &lt;tt>puppet&lt;/tt> is created and used as the default, with the following attributes:&lt;/p>&lt;pre>  schedule { 'puppet':&#xA;    period => hourly,&#xA;    repeat => 2,&#xA;  }&#xA;&#xA;&lt;/pre>&lt;p>This will cause resources to be applied every 30 minutes by default.&lt;/p>">
-      <parameters name="weekday" documentation="&lt;p>The days of the week in which the schedule should be valid. You may specify the full day name (Tuesday), the three character abbreviation (Tue), or a number corresponding to the day of the week where 0 is Sunday, 1 is Monday, etc. You may pass an array to specify multiple days. If not specified, the day of the week will not be considered in the schedule.&lt;/p>&lt;p>If you are also using a range match that spans across midnight then this parameter will match the day that it was at the start of the range, not necessarily the day that it is when it matches. For example, consider this schedule:&lt;/p>&lt;pre>schedule { 'maintenance_window':&#xA;  range   => '22:00 - 04:00',&#xA;  weekday => 'Saturday',&#xA;}&#xA;&#xA;&lt;/pre>&lt;p>This will match at 11 PM on Saturday and 2 AM on Sunday, but not at 2 AM on Saturday.&lt;/p>"/>
-      <parameters name="range" documentation="&lt;p>The earliest and latest that a resource can be applied.  This is always a hyphen-separated range within a 24 hour period, and hours must be specified in numbers between 0 and 23, inclusive.  Minutes and seconds can optionally be provided, using the normal colon as a separator. For instance:&lt;/p>&lt;pre>  schedule { 'maintenance':&#xA;    range => &quot;1:30 - 4:30&quot;,&#xA;  }&#xA;&#xA;&lt;/pre>&lt;p>This is mostly useful for restricting certain resources to being applied in maintenance windows or during off-peak hours. Multiple ranges can be applied in array context. As a convenience when specifying ranges, you may cross midnight (e.g.: range => &quot;22:00 - 04:00&quot;).&lt;/p>"/>
+      <parameters name="range" documentation="&lt;p>The earliest and latest that a resource can be applied.  This is always a hyphen-separated range within a 24 hour period, and hours must be specified in numbers between 0 and 23, inclusive.  Minutes and seconds can optionally be provided, using the normal colon as a separator. For instance:&lt;/p>&lt;pre>  schedule { 'maintenance':&#xA;    range => &quot;1:30 - 4:30&quot;,&#xA;  }&#xA;&#xA;&lt;/pre>&lt;p>This is mostly useful for restricting certain resources to being applied in maintenance windows or during off-peak hours. Multiple ranges can be applied in array context.&lt;/p>"/>
       <parameters name="name" documentation="&lt;p>The name of the schedule.  This name is used to retrieve the schedule when assigning it to an object:&lt;/p>&lt;pre>  schedule { 'daily':&#xA;    period => daily,&#xA;    range  => &quot;2 - 4&quot;,&#xA;  }&#xA;&#xA;  exec { &quot;/usr/bin/apt-get update&quot;:&#xA;    schedule => 'daily',&#xA;  }&#xA;&lt;/pre>" namevar="true"/>
       <parameters name="repeat" documentation="&lt;p>How often a given resource may be applied in this schedule's &lt;tt>period&lt;/tt>. Defaults to 1; must be an integer.&lt;/p>"/>
       <parameters name="period" documentation="&lt;p>The period of repetition for a resource. The default is for a resource to get applied every time Puppet runs.&lt;/p>&lt;p>Note that the period defines how often a given resource will get applied but not when; if you would like to restrict the hours that a given resource can be applied (e.g., only at night during a maintenance window), then use the &lt;tt>range&lt;/tt> attribute.&lt;/p>&lt;p>If the provided periods are not sufficient, you can provide a value to the &lt;b>repeat&lt;/b> attribute, which will cause Puppet to schedule the affected resources evenly in the period the specified number of times.  Take this schedule:&lt;/p>&lt;pre>  schedule { 'veryoften':&#xA;    period => hourly,&#xA;    repeat => 6,&#xA;  }&#xA;&#xA;&lt;/pre>&lt;p>This can cause Puppet to apply that resource up to every 10 minutes.&lt;/p>&lt;p>At the moment, Puppet cannot guarantee that level of repetition; that is, it can run up to every 10 minutes, but internal factors might prevent it from actually running that often (e.g., long-running Puppet runs will squash conflictingly scheduled runs).&lt;/p>&lt;p>See the &lt;tt>periodmatch&lt;/tt> attribute for tuning whether to match times by their distance apart or by their specific value.&lt;/p>"/>
@@ -554,29 +554,25 @@
       <parameters name="name" documentation="&lt;p>The name of the whit, because it must have one.&lt;/p>"/>
     </types>
     <types name="yumrepo" documentation="&lt;p>The client-side description of a yum repository. Repository configurations are found by parsing &lt;tt>/etc/yum.conf&lt;/tt> and the files indicated by the &lt;tt>reposdir&lt;/tt> option in that file (see &lt;tt>yum.conf(5)&lt;/tt> for details).&lt;/p>&lt;p>Most parameters are identical to the ones documented in the &lt;tt>yum.conf(5)&lt;/tt> man page.&lt;/p>&lt;p>Continuation lines that yum supports (for the &lt;tt>baseurl&lt;/tt>, for example) are not supported. This type does not attempt to read or verify the exinstence of files listed in the &lt;tt>include&lt;/tt> attribute.&lt;/p>">
+      <properties name="proxy_password" documentation=""/>
+      <properties name="enabled" documentation=""/>
       <properties name="metadata_expire" documentation=""/>
+      <properties name="exclude" documentation=""/>
       <properties name="protect" documentation=""/>
+      <properties name="http_caching" documentation=""/>
+      <properties name="cost" documentation=""/>
       <properties name="includepkgs" documentation=""/>
+      <properties name="include" documentation=""/>
       <properties name="proxy_username" documentation=""/>
       <properties name="gpgcheck" documentation=""/>
       <properties name="gpgkey" documentation=""/>
       <properties name="priority" documentation=""/>
       <properties name="proxy" documentation=""/>
-      <properties name="sslverify" documentation=""/>
       <properties name="mirrorlist" documentation=""/>
-      <properties name="keepalive" documentation=""/>
-      <properties name="enabled" documentation=""/>
-      <properties name="proxy_password" documentation=""/>
-      <properties name="sslclientkey" documentation=""/>
-      <properties name="exclude" documentation=""/>
-      <properties name="http_caching" documentation=""/>
-      <properties name="cost" documentation=""/>
-      <properties name="include" documentation=""/>
-      <properties name="sslcacert" documentation=""/>
-      <properties name="failovermethod" documentation=""/>
       <properties name="baseurl" documentation=""/>
+      <properties name="failovermethod" documentation=""/>
+      <properties name="keepalive" documentation=""/>
       <properties name="descr" documentation=""/>
-      <properties name="sslclientcert" documentation=""/>
       <properties name="enablegroups" documentation=""/>
       <properties name="timeout" documentation=""/>
       <parameters name="name" documentation="&lt;p>The name of the repository.  This corresponds to the &lt;tt>repositoryid&lt;/tt> parameter in &lt;tt>yum.conf(5)&lt;/tt>.&lt;/p>" namevar="true"/>
@@ -600,7 +596,6 @@
       <properties name="sharesmb" documentation="&lt;p>The sharesmb property. Valid values are &lt;tt>on&lt;/tt>, &lt;tt>off&lt;/tt>, sharemgr(1M) options&lt;/p>"/>
       <properties name="compression" documentation="&lt;p>The compression property. Valid values are &lt;tt>on&lt;/tt>, &lt;tt>off&lt;/tt>, &lt;tt>lzjb&lt;/tt>, &lt;tt>gzip&lt;/tt>, &lt;tt>gzip-[1-9]&lt;/tt>, &lt;tt>zle&lt;/tt>.&lt;/p>"/>
       <properties name="primarycache" documentation="&lt;p>The primarycache property. Valid values are &lt;tt>all&lt;/tt>, &lt;tt>none&lt;/tt>, &lt;tt>metadata&lt;/tt>.&lt;/p>"/>
-      <properties name="dedup" documentation="&lt;p>The dedup property. Valid values are &lt;tt>on&lt;/tt>, &lt;tt>off&lt;/tt>.&lt;/p>"/>
       <properties name="nbmand" documentation="&lt;p>The nbmand property. Valid values are &lt;tt>on&lt;/tt>, &lt;tt>off&lt;/tt>.&lt;/p>"/>
       <properties name="snapdir" documentation="&lt;p>The snapdir property. Valid values are &lt;tt>hidden&lt;/tt>, &lt;tt>visible&lt;/tt>.&lt;/p>"/>
       <properties name="copies" documentation="&lt;p>The copies property. Valid values are &lt;tt>1&lt;/tt>, &lt;tt>2&lt;/tt>, &lt;tt>3&lt;/tt>.&lt;/p>"/>
@@ -621,7 +616,6 @@
       <properties name="dataset" documentation="&lt;p>The list of datasets delegated to the non-global zone from the global zone.  All datasets must be zfs filesystem names which are different from the mountpoint.&lt;/p>"/>
       <properties name="pool" documentation="&lt;p>The resource pool for this zone.&lt;/p>"/>
       <properties name="autoboot" documentation="&lt;p>Whether the zone should automatically boot.&lt;/p>"/>
-      <properties name="path" documentation="&lt;p>The root of the zone's filesystem.  Must be a fully qualified file name.  If you include &lt;tt>%s&lt;/tt> in the path, then it will be replaced with the zone's name.  Currently, you cannot use Puppet to move a zone. Consequently this is a readonly property.&lt;/p>"/>
       <properties name="inherit" documentation="&lt;p>The list of directories that the zone inherits from the global zone.  All directories must be fully qualified.&lt;/p>"/>
       <properties name="iptype" documentation="&lt;p>The IP stack type of the zone.&lt;/p>"/>
       <properties name="ip" documentation="&lt;p>The IP address of the zone.  IP addresses must be specified with the interface, separated by a colon, e.g.: bge0:192.168.0.1. For multiple interfaces, specify them in an array.&lt;/p>"/>
@@ -631,6 +625,7 @@
       <parameters name="install_args" documentation="&lt;p>Arguments to the &lt;tt>zoneadm&lt;/tt> install command.  This can be used to create branded zones.&lt;/p>"/>
       <parameters name="sysidcfg" documentation="&lt;p>The text to go into the &lt;tt>sysidcfg&lt;/tt> file when the zone is first booted.  The best way is to use a template:&lt;/p>&lt;pre>  # $confdir/modules/site/templates/sysidcfg.erb&#xA;  system_locale=en_US&#xA;  timezone=GMT&#xA;  terminal=xterms&#xA;  security_policy=NONE&#xA;  root_password=&lt;%= password %>&#xA;  timeserver=localhost&#xA;  name_service=DNS {domain_name=&lt;%= domain %> name_server=&lt;%= nameserver %>}&#xA;  network_interface=primary {hostname=&lt;%= realhostname %>&#xA;    ip_address=&lt;%= ip %>&#xA;    netmask=&lt;%= netmask %>&#xA;    protocol_ipv6=no&#xA;    default_route=&lt;%= defaultroute %>}&#xA;  nfs4_domain=dynamic&#xA;&#xA;&lt;/pre>&lt;p>And then call that:&lt;/p>&lt;pre>  zone { myzone:&#xA;    ip           => &quot;bge0:192.168.0.23&quot;,&#xA;    sysidcfg     => template(&quot;site/sysidcfg.erb&quot;),&#xA;    path         => &quot;/opt/zones/myzone&quot;,&#xA;    realhostname => &quot;fully.qualified.domain.name&quot;&#xA;  }&#xA;&#xA;&lt;/pre>&lt;p>The &lt;tt>sysidcfg&lt;/tt> only matters on the first booting of the zone, so Puppet only checks for it at that time.&lt;/p>"/>
       <parameters name="name" documentation="&lt;p>The name of the zone.&lt;/p>" namevar="true"/>
+      <parameters name="path" documentation="&lt;p>The root of the zone's filesystem.  Must be a fully qualified file name.  If you include &lt;tt>%s&lt;/tt> in the path, then it will be replaced with the zone's name.  Currently, you cannot use Puppet to move a zone.&lt;/p>"/>
       <parameters name="realhostname" documentation="&lt;p>The actual hostname of the zone.&lt;/p>"/>
       <parameters name="ensure" documentation="&lt;p>The running state of the zone.  The valid states directly reflect the states that &lt;tt>zoneadm&lt;/tt> provides.  The states are linear, in that a zone must be &lt;tt>configured&lt;/tt>, then &lt;tt>installed&lt;/tt>, and only then can be &lt;tt>running&lt;/tt>.  Note also that &lt;tt>halt&lt;/tt> is currently used to stop zones.&lt;/p>"/>
     </types>
@@ -646,61 +641,57 @@
     </types>
     <types name="nagios_host" documentation="">
       <parameters name="notification_period" documentation=""/>
+      <parameters name="process_perf_data" documentation=""/>
+      <parameters name="parents" documentation=""/>
       <parameters name="icon_image" documentation=""/>
       <parameters name="check_interval" documentation=""/>
-      <parameters name="max_check_attempts" documentation=""/>
-      <parameters name="contacts" documentation=""/>
-      <parameters name="passive_checks_enabled" documentation=""/>
-      <parameters name="realm" documentation=""/>
-      <parameters name="check_freshness" documentation=""/>
-      <parameters name="action_url" documentation=""/>
-      <parameters name="event_handler_enabled" documentation=""/>
-      <parameters name="stalking_options" documentation=""/>
-      <parameters name="3d_coords" documentation=""/>
-      <parameters name="retry_interval" documentation=""/>
-      <parameters name="first_notification_delay" documentation=""/>
-      <parameters name="display_name" documentation=""/>
-      <parameters name="initial_state" documentation=""/>
-      <parameters name="retain_nonstatus_information" documentation=""/>
-      <parameters name="check_command" documentation=""/>
-      <parameters name="parents" documentation=""/>
-      <parameters name="process_perf_data" documentation=""/>
       <parameters name="vrml_image" documentation=""/>
       <parameters name="use" documentation=""/>
       <parameters name="obsess_over_host" documentation=""/>
-      <parameters name="poller_tag" documentation=""/>
       <parameters name="freshness_threshold" documentation=""/>
       <parameters name="failure_prediction_enabled" documentation=""/>
+      <parameters name="max_check_attempts" documentation=""/>
+      <parameters name="contacts" documentation=""/>
       <parameters name="notes_url" documentation=""/>
-      <parameters name="high_flap_threshold" documentation=""/>
       <parameters name="active_checks_enabled" documentation=""/>
+      <parameters name="high_flap_threshold" documentation=""/>
       <parameters name="notifications_enabled" documentation=""/>
+      <parameters name="passive_checks_enabled" documentation=""/>
       <parameters name="hostgroups" documentation=""/>
+      <parameters name="check_freshness" documentation=""/>
       <parameters name="flap_detection_enabled" documentation=""/>
       <parameters name="2d_coords" documentation=""/>
       <parameters name="icon_image_alt" documentation=""/>
       <parameters name="notification_options" documentation=""/>
+      <parameters name="action_url" documentation=""/>
       <parameters name="notification_interval" documentation=""/>
       <parameters name="ensure" documentation=""/>
       <parameters name="statusmap_image" documentation=""/>
       <parameters name="low_flap_threshold" documentation=""/>
-      <parameters name="business_impact" documentation=""/>
+      <parameters name="stalking_options" documentation=""/>
       <parameters name="alias" documentation=""/>
+      <parameters name="event_handler_enabled" documentation=""/>
+      <parameters name="3d_coords" documentation=""/>
       <parameters name="flap_detection_options" documentation=""/>
-      <parameters name="check_period" documentation=""/>
       <parameters name="host_name" documentation=""/>
+      <parameters name="check_period" documentation=""/>
+      <parameters name="retry_interval" documentation=""/>
+      <parameters name="first_notification_delay" documentation=""/>
       <parameters name="register" documentation=""/>
+      <parameters name="display_name" documentation=""/>
+      <parameters name="initial_state" documentation=""/>
       <parameters name="address" documentation=""/>
       <parameters name="event_handler" documentation=""/>
       <parameters name="target" documentation=""/>
-      <parameters name="retain_status_information" documentation=""/>
+      <parameters name="retain_nonstatus_information" documentation=""/>
       <parameters name="notes" documentation=""/>
+      <parameters name="retain_status_information" documentation=""/>
+      <parameters name="check_command" documentation=""/>
       <parameters name="contact_groups" documentation=""/>
     </types>
     <types name="nagios_hostgroup" documentation="">
       <parameters name="register" documentation=""/>
       <parameters name="notes_url" documentation=""/>
-      <parameters name="realm" documentation=""/>
       <parameters name="alias" documentation=""/>
       <parameters name="target" documentation=""/>
       <parameters name="use" documentation=""/>
@@ -713,53 +704,51 @@
     </types>
     <types name="nagios_service" documentation="">
       <parameters name="notification_period" documentation=""/>
-      <parameters name="servicegroups" documentation=""/>
-      <parameters name="icon_image" documentation=""/>
-      <parameters name="check_interval" documentation=""/>
-      <parameters name="max_check_attempts" documentation=""/>
-      <parameters name="contacts" documentation=""/>
-      <parameters name="passive_checks_enabled" documentation=""/>
-      <parameters name="check_freshness" documentation=""/>
-      <parameters name="action_url" documentation=""/>
-      <parameters name="event_handler_enabled" documentation=""/>
-      <parameters name="stalking_options" documentation=""/>
-      <parameters name="_naginator_name" documentation=""/>
-      <parameters name="retry_interval" documentation=""/>
-      <parameters name="first_notification_delay" documentation=""/>
-      <parameters name="display_name" documentation=""/>
-      <parameters name="initial_state" documentation=""/>
-      <parameters name="retain_nonstatus_information" documentation=""/>
-      <parameters name="check_command" documentation=""/>
       <parameters name="process_perf_data" documentation=""/>
+      <parameters name="icon_image" documentation=""/>
+      <parameters name="servicegroups" documentation=""/>
+      <parameters name="check_interval" documentation=""/>
       <parameters name="use" documentation=""/>
       <parameters name="freshness_threshold" documentation=""/>
-      <parameters name="poller_tag" documentation=""/>
       <parameters name="failure_prediction_enabled" documentation=""/>
+      <parameters name="max_check_attempts" documentation=""/>
+      <parameters name="contacts" documentation=""/>
       <parameters name="hostgroup_name" documentation=""/>
       <parameters name="notes_url" documentation=""/>
-      <parameters name="active_checks_enabled" documentation=""/>
-      <parameters name="normal_check_interval" documentation=""/>
-      <parameters name="is_volatile" documentation=""/>
       <parameters name="high_flap_threshold" documentation=""/>
+      <parameters name="is_volatile" documentation=""/>
+      <parameters name="normal_check_interval" documentation=""/>
+      <parameters name="active_checks_enabled" documentation=""/>
       <parameters name="notifications_enabled" documentation=""/>
+      <parameters name="passive_checks_enabled" documentation=""/>
       <parameters name="obsess_over_service" documentation=""/>
+      <parameters name="check_freshness" documentation=""/>
       <parameters name="flap_detection_enabled" documentation=""/>
       <parameters name="icon_image_alt" documentation=""/>
       <parameters name="notification_options" documentation=""/>
+      <parameters name="action_url" documentation=""/>
       <parameters name="notification_interval" documentation=""/>
       <parameters name="ensure" documentation=""/>
       <parameters name="low_flap_threshold" documentation=""/>
-      <parameters name="business_impact" documentation=""/>
+      <parameters name="_naginator_name" documentation=""/>
+      <parameters name="stalking_options" documentation=""/>
+      <parameters name="event_handler_enabled" documentation=""/>
       <parameters name="retry_check_interval" documentation=""/>
       <parameters name="flap_detection_options" documentation=""/>
-      <parameters name="check_period" documentation=""/>
       <parameters name="host_name" documentation=""/>
+      <parameters name="check_period" documentation=""/>
+      <parameters name="retry_interval" documentation=""/>
       <parameters name="parallelize_check" documentation=""/>
+      <parameters name="first_notification_delay" documentation=""/>
       <parameters name="register" documentation=""/>
+      <parameters name="display_name" documentation=""/>
+      <parameters name="initial_state" documentation=""/>
       <parameters name="event_handler" documentation=""/>
       <parameters name="target" documentation=""/>
-      <parameters name="retain_status_information" documentation=""/>
+      <parameters name="retain_nonstatus_information" documentation=""/>
       <parameters name="notes" documentation=""/>
+      <parameters name="retain_status_information" documentation=""/>
+      <parameters name="check_command" documentation=""/>
       <parameters name="service_description" documentation=""/>
       <parameters name="contact_groups" documentation=""/>
     </types>
@@ -833,7 +822,6 @@
     <types name="nagios_command" documentation="">
       <parameters name="command_name" documentation=""/>
       <parameters name="target" documentation=""/>
-      <parameters name="poller_tag" documentation=""/>
       <parameters name="command_line" documentation=""/>
       <parameters name="ensure" documentation=""/>
     </types>
@@ -984,6 +972,7 @@
       <parameters name="loglevel" documentation="&lt;p>Sets the level that information will be logged. The log levels have the biggest impact when logs are sent to syslog (which is currently the default).&lt;/p>"/>
       <parameters name="schedule" documentation="&lt;p>On what schedule the object should be managed.  You must create a schedule object, and then reference the name of that object to use that for your schedule:&lt;/p>&lt;pre>  schedule { 'daily':&#xA;    period => daily,&#xA;    range  => &quot;2-4&quot;&#xA;  }&#xA;&#xA;  exec { &quot;/usr/bin/apt-get update&quot;:&#xA;    schedule => 'daily'&#xA;  }&#xA;&#xA;&lt;/pre>&lt;p>The creation of the schedule object does not need to appear in the configuration before objects that use it.&lt;/p>"/>
       <parameters name="subscribe" documentation="&lt;p>References to one or more objects that this object depends on. This metaparameter creates a dependency relationship like &lt;strong>require,&lt;/strong> and also causes the dependent object to be refreshed when the subscribed object is changed. For instance:&lt;/p>&lt;pre>  class nagios {&#xA;    file { 'nagconf':&#xA;      path   => &quot;/etc/nagios/nagios.conf&quot;&#xA;      source => &quot;puppet://server/module/nagios.conf&quot;,&#xA;    }&#xA;    service { 'nagios':&#xA;      ensure    => running,&#xA;      subscribe => File['nagconf']&#xA;    }&#xA;  }&#xA;&#xA;&lt;/pre>&lt;p>Currently the &lt;tt>exec&lt;/tt>, &lt;tt>mount&lt;/tt> and &lt;tt>service&lt;/tt> types support refreshing.&lt;/p>"/>
+      <parameters name="check" documentation="&lt;p>Audit specified attributes of resources over time, and report if any have changed. This parameter has been deprecated in favor of 'audit'.&lt;/p>"/>
       <parameters name="alias" documentation="&lt;p>Creates an alias for the object.  Puppet uses this internally when you provide a symbolic title:&lt;/p>&lt;pre>  file { 'sshdconfig':&#xA;    path => $operatingsystem ? {&#xA;      solaris => &quot;/usr/local/etc/ssh/sshd_config&quot;,&#xA;      default => &quot;/etc/ssh/sshd_config&quot;&#xA;    },&#xA;    source => &quot;...&quot;&#xA;  }&#xA;&#xA;  service { 'sshd':&#xA;    subscribe => File['sshdconfig']&#xA;  }&#xA;&#xA;&lt;/pre>&lt;p>When you use this feature, the parser sets &lt;tt>sshdconfig&lt;/tt> as the title, and the library sets that as an alias for the file so the dependency lookup in &lt;tt>Service['sshd']&lt;/tt> works.  You can use this metaparameter yourself, but note that only the library can use these aliases; for instance, the following code will not work:&lt;/p>&lt;pre>  file { &quot;/etc/ssh/sshd_config&quot;:&#xA;    owner => root,&#xA;    group => root,&#xA;    alias => 'sshdconfig'&#xA;  }&#xA;&#xA;  file { 'sshdconfig':&#xA;    mode => 644&#xA;  }&#xA;&#xA;&lt;/pre>&lt;p>There's no way here for the Puppet parser to know that these two stanzas should be affecting the same file.&lt;/p>&lt;p>See the [Language Guide](http://docs.puppetlabs.com/guides/language_guide.html) for more information.&lt;/p>"/>
       <parameters name="before" documentation="&lt;p>References to one or more objects that depend on this object. This parameter is the opposite of &lt;strong>require&lt;/strong> --- it guarantees that the specified object is applied later than the specifying object:&lt;/p>&lt;pre>  file { &quot;/var/nagios/configuration&quot;:&#xA;    source  => &quot;...&quot;,&#xA;    recurse => true,&#xA;    before  => Exec[&quot;nagios-rebuid&quot;]&#xA;  }&#xA;&#xA;  exec { &quot;nagios-rebuild&quot;:&#xA;    command => &quot;/usr/bin/make&quot;,&#xA;    cwd     => &quot;/var/nagios/configuration&quot;&#xA;  }&#xA;&#xA;&lt;/pre>&lt;p>This will make sure all of the files are up to date before the make command is run.&lt;/p>"/>
       <parameters name="tag" documentation="&lt;p>Add the specified tags to the associated resource.  While all resources are automatically tagged with as much information as possible (e.g., each class and definition containing the resource), it can be useful to add your own tags to a given resource.&lt;/p>&lt;p>Multiple tags can be specified as an array:&lt;/p>&lt;pre>  file {'/etc/hosts':&#xA;    ensure => file,&#xA;    source => 'puppet:///modules/site/hosts',&#xA;    mode   => 0644,&#xA;    tag    => ['bootstrap', 'minimumrun', 'mediumrun'],&#xA;  }&#xA;&#xA;&lt;/pre>&lt;p>Tags are useful for things like applying a subset of a host's configuration with [the &lt;tt>tags&lt;/tt> setting](/references/latest/configuration.html#tags):&lt;/p>&lt;pre>  puppet agent --test --tags bootstrap&#xA;&#xA;&lt;/pre>&lt;p>This way, you can easily isolate the portion of the configuration you're trying to test.&lt;/p>"/>

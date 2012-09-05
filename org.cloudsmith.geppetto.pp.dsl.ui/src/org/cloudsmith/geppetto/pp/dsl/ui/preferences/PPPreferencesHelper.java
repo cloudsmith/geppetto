@@ -257,6 +257,17 @@ public class PPPreferencesHelper implements IPreferenceStoreInitializer, IProper
 				: getSaveActionEnsureEndsWithNewLine();
 	}
 
+	public boolean getSaveActionFormat() {
+		return store.getBoolean(PPPreferenceConstants.SAVE_ACTION_FORMAT);
+	}
+
+	public boolean getSaveActionFormat(IResource r) {
+		boolean projectSpecific = getResourceSpecificBoolean(r, PPPreferenceConstants.SAVE_ACTIONS_USE_PROJECT_SETTINGS);
+		return projectSpecific
+				? getResourceSpecificBoolean(r, PPPreferenceConstants.SAVE_ACTION_FORMAT)
+				: getSaveActionFormat();
+	}
+
 	public boolean getSaveActionReplaceFunkySpaces() {
 		return store.getBoolean(PPPreferenceConstants.SAVE_ACTION_REPLACE_FUNKY_SPACES);
 	}
@@ -336,6 +347,7 @@ public class PPPreferencesHelper implements IPreferenceStoreInitializer, IProper
 		store.setDefault(PPPreferenceConstants.SAVE_ACTION_ENSURE_ENDS_WITH_NL, false);
 		store.setDefault(PPPreferenceConstants.SAVE_ACTION_TRIM_LINES, false);
 		store.setDefault(PPPreferenceConstants.SAVE_ACTION_REPLACE_FUNKY_SPACES, false);
+		store.setDefault(PPPreferenceConstants.SAVE_ACTION_FORMAT, false);
 
 		autoInsertOverrides = (int) store.getLong(PPPreferenceConstants.AUTO_EDIT_STRATEGY);
 

@@ -72,6 +72,15 @@ public class PPDocumentationProvider implements IEObjectDocumentationProvider {
 		}
 	};
 
+	private PolymorphicDispatcher<IEObjectDescription> xrefDispatcher = new PolymorphicDispatcher<IEObjectDescription>(
+		"_xref", 1, 1, Collections.singletonList(this),
+		PolymorphicDispatcher.NullErrorHandler.<IEObjectDescription> get()) {
+		@Override
+		protected IEObjectDescription handleNoSuchMethod(Object... params) {
+			return null;
+		}
+	};
+
 	@Inject
 	protected PPDescriptionLabelProvider descriptionLabelProvider;
 
@@ -163,6 +172,14 @@ public class PPDocumentationProvider implements IEObjectDocumentationProvider {
 		return getCrossReferenceLabel(o.eContainer());
 	}
 
+	protected IEObjectDescription _xref(EObject o) {
+		return getCrossReference(o);
+	}
+
+	protected IEObjectDescription _xref(VerbatimTE o) {
+		return getCrossReference(o.eContainer());
+	}
+
 	public String document(Object o) {
 		if(o == null)
 			return null;
@@ -170,7 +187,15 @@ public class PPDocumentationProvider implements IEObjectDocumentationProvider {
 		return result == null && o instanceof EObject
 				? documentationDispatcher.invoke(((EObject) o).eContainingFeature(), o)
 				: result;
+	}
 
+	private IEObjectDescription getCrossReference(EObject o) {
+		List<IEObjectDescription> xrefs = CrossReferenceAdapter.get(o);
+		if(xrefs == null)
+			return null;
+		if(xrefs.size() == 1)
+			return xrefs.get(0);
+		return null;
 	}
 
 	private String getCrossReferenceDocumentation(EObject o) {
@@ -288,6 +313,12 @@ public class PPDocumentationProvider implements IEObjectDocumentationProvider {
 				? labelDispatcher.invoke(((EObject) o).eContainingFeature(), o)
 				: result;
 
+	}
+
+	public IEObjectDescription xref(Object o) {
+		if(o == null)
+			return null;
+		return xrefDispatcher.invoke(o);
 	}
 
 }

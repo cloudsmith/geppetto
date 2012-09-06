@@ -31,6 +31,7 @@ import org.cloudsmith.geppetto.pp.dsl.ui.editor.folding.PPFoldingRegionProvider;
 import org.cloudsmith.geppetto.pp.dsl.ui.editor.hover.PPDocumentationProvider;
 import org.cloudsmith.geppetto.pp.dsl.ui.editor.hover.PPHoverProvider;
 import org.cloudsmith.geppetto.pp.dsl.ui.editor.hyperlinking.PPHyperlinkHelper;
+import org.cloudsmith.geppetto.pp.dsl.ui.editor.model.PPPartitionTokenScanner;
 import org.cloudsmith.geppetto.pp.dsl.ui.editor.toggleComments.PPSingleLineCommentHelper;
 import org.cloudsmith.geppetto.pp.dsl.ui.formatting.ResourceIBreakAndAlignAdviceProvider;
 import org.cloudsmith.geppetto.pp.dsl.ui.formatting.ResourceICommentFormatterAdviceProviders;
@@ -57,6 +58,7 @@ import org.cloudsmith.xtext.dommodel.formatter.comments.ICommentFormatterAdvice;
 import org.cloudsmith.xtext.formatting.IPreferredMaxWidthInformation;
 import org.cloudsmith.xtext.ui.editor.formatting.ContentFormatterFactory;
 import org.cloudsmith.xtext.ui.editor.formatting.ResourceILineSeparatorProvider;
+import org.eclipse.jface.text.rules.IPartitionTokenScanner;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.eclipse.xtext.documentation.IEObjectDocumentationProvider;
 import org.eclipse.xtext.formatting.IIndentationInformation;
@@ -165,6 +167,11 @@ public class PPUiModule extends org.cloudsmith.geppetto.pp.dsl.ui.AbstractPPUiMo
 	 */
 	public Class<? extends ILocationInFileProvider> bindILocationInFileProvider() {
 		return PPLocationInFileProvider.class;
+	}
+
+	@Override
+	public Class<? extends IPartitionTokenScanner> bindIPartitionTokenScanner() {
+		return PPPartitionTokenScanner.class;
 	}
 
 	public Class<? extends IPotentialProblemsAdvisor> bindIPotentialProblemsAdvisor() {

@@ -24,6 +24,7 @@ import org.cloudsmith.geppetto.pp.dsl.ui.coloring.PPSemanticHighlightingCalculat
 import org.cloudsmith.geppetto.pp.dsl.ui.coloring.PPTokenToAttributeIdMapper;
 import org.cloudsmith.geppetto.pp.dsl.ui.container.PPWorkspaceProjectsStateProvider;
 import org.cloudsmith.geppetto.pp.dsl.ui.contentassist.PPContentAssistLexer;
+import org.cloudsmith.geppetto.pp.dsl.ui.editor.PPSourceViewerConfiguration;
 import org.cloudsmith.geppetto.pp.dsl.ui.editor.actions.SaveActions;
 import org.cloudsmith.geppetto.pp.dsl.ui.editor.autoedit.PPEditStrategyProvider;
 import org.cloudsmith.geppetto.pp.dsl.ui.editor.autoedit.PPTokenTypeToPartionMapper;
@@ -68,6 +69,7 @@ import org.eclipse.xtext.resource.ILocationInFileProvider;
 import org.eclipse.xtext.resource.IResourceFactory;
 import org.eclipse.xtext.resource.XtextResource;
 import org.eclipse.xtext.ui.editor.XtextEditor;
+import org.eclipse.xtext.ui.editor.XtextSourceViewerConfiguration;
 import org.eclipse.xtext.ui.editor.autoedit.AbstractEditStrategyProvider;
 import org.eclipse.xtext.ui.editor.folding.IFoldingRegionProvider;
 import org.eclipse.xtext.ui.editor.formatting.IContentFormatterFactory;
@@ -295,6 +297,7 @@ public class PPUiModule extends org.cloudsmith.geppetto.pp.dsl.ui.AbstractPPUiMo
 
 	public void configureEditor(Binder binder) {
 		binder.bind(XtextEditor.class).to(ExtLinkedXtextEditor.class);
+		binder.bind(XtextSourceViewerConfiguration.class).to(PPSourceViewerConfiguration.class);
 	}
 
 	/**

@@ -281,7 +281,11 @@ RULE_ML_COMMENT : {isNotInString()}?=> (('/*' ( options {greedy=false;} : . )*'*
 
 RULE_SL_COMMENT : {isNotInString()}?=> '#' ~(('\r'|'\n'))* ('\r'? '\n')?;
 
-RULE_WS : (' '|'\u00A0'|'\t'|'\r'|'\n')+;
+RULE_WS : (' '|'\u00A0'|'\t'|'\r'|'\n')+ {
+	if(doubleQuotedString || singleQuotedString) {
+		_type = RULE_ANY_OTHER;
+	}
+};
 
 // Do not check if matched text is a keyword (it is allowed after a '$'
 RULE_DOLLAR_VAR : '$' 

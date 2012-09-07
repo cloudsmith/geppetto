@@ -79,6 +79,7 @@ public class PPTokenTypeToPartionMapper extends TokenTypeToStringMapper implemen
 		if("RULE_REGULAR_EXPRESSION".equals(tokenName))
 			return REGEX_LITERAL_PARTITION;
 
+		System.out.println("Default content:  " + tokenName);
 		return IDocument.DEFAULT_CONTENT_TYPE;
 	}
 

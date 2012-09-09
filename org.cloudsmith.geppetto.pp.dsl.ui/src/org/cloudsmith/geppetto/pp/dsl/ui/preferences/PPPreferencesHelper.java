@@ -321,6 +321,7 @@ public class PPPreferencesHelper implements IPreferenceStoreInitializer, IProper
 		preferenceStoreAccess = access;
 		store = preferenceStoreAccess.getWritablePreferenceStore();
 		store.setDefault(PPPreferenceConstants.AUTO_EDIT_STRATEGY, 0);
+		store.setDefault(PPPreferenceConstants.AUTO_EDIT_COMPLETE_COMPOUND_BLOCKS, true);
 		store.setDefault(PPPreferenceConstants.PUPPET_TARGET_VERSION, "3.0");
 		store.setDefault(PPPreferenceConstants.PUPPET_PROJECT_PATH, defaultProjectPath);
 		store.setDefault(PPPreferenceConstants.PUPPET_ENVIRONMENT, defaultPuppetEnvironment);
@@ -366,6 +367,10 @@ public class PPPreferencesHelper implements IPreferenceStoreInitializer, IProper
 
 	public boolean isAutoBracketInsertWanted() {
 		return (autoInsertOverrides & AUTO_INSERT_BRACKETS) == 0;
+	}
+
+	public boolean isAutoCompleteBlockWanted() {
+		return store.getBoolean(PPPreferenceConstants.AUTO_EDIT_COMPLETE_COMPOUND_BLOCKS);
 	}
 
 	public boolean isAutoDqStringInsertWanted() {

@@ -19,6 +19,8 @@ public class PPPreferenceConstants {
 
 	public static final String AUTO_EDIT_STRATEGY = "autoEditStrategy";
 
+	public static final String AUTO_EDIT_COMPLETE_COMPOUND_BLOCKS = "autoEditCompleteCompundBlocks";
+
 	public static final String PUPPET_TARGET_VERSION = "pptpVersion";
 
 	public static final String PUPPET_PROJECT_PATH = "puppetPath";

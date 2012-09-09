@@ -72,4 +72,9 @@ public interface PPDSLConstants {
 	 */
 	public static final String VARIABLE_PATTERN = "org.cloudsmith.geppetto.pptp.variable.pattern";
 
+	/**
+	 * Published as data in the build index for a HostClassDefinition
+	 */
+	public static final String CLASS_ARG_COUNT = "org.cloudsmith.geppetto.pp.dsl.class.argcount";
+
 }

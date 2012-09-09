@@ -32,6 +32,14 @@ public class TestIssues3_0 extends TestIssues {
 		return PPTestSetup3_0.class;
 	}
 
+	public void test_inheritFromParameterizedClass_issue381() throws Exception {
+		String code = "class base($basevar) {} class derived inherits base {}";
+		Resource r = loadAndLinkSingleResource(code);
+
+		tester.validate(r.getContents().get(0)).assertOK(); // assertWarning(IPPDiagnostics.ISSUE__ASSIGNMENT_TO_VAR_NAMED_STRING);
+		resourceErrorDiagnostics(r).assertOK();
+	}
+
 	@Override
 	public void test_Issue400() throws Exception {
 		ImmutableList<String> source = ImmutableList.of("notify { [a, b, c]:", //

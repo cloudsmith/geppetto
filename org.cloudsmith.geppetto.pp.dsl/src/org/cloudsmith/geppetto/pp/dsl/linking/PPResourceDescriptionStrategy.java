@@ -172,12 +172,17 @@ public class PPResourceDescriptionStrategy extends DefaultResourceDescriptionStr
 		// pp: class x inherits y {}
 		if(eObject.eClass() == PPPackage.Literals.HOST_CLASS_DEFINITION) {
 			HostClassDefinition d = (HostClassDefinition) eObject;
+			Map<String, String> data = Maps.newHashMapWithExpectedSize(2);
 			if(d.getParent() != null && d.getParent().eClass() == PPPackage.Literals.LITERAL_NAME_OR_REFERENCE) {
 				String parentName = ((LiteralNameOrReference) d.getParent()).getValue();
-				Map<String, String> data = Maps.newHashMapWithExpectedSize(1);
 				data.put(PPDSLConstants.PARENT_NAME_DATA, parentName);
-				return data;
 			}
+			int argCount = d.getArguments() == null
+					? 0
+					: d.getArguments().getArguments().size();
+			if(argCount > 0)
+				data.put(PPDSLConstants.CLASS_ARG_COUNT, Integer.toString(argCount));
+			return data;
 		}
 		else if(eObject.eClass() == PPPackage.Literals.DEFINITION_ARGUMENT) {
 			DefinitionArgument arg = (DefinitionArgument) eObject;

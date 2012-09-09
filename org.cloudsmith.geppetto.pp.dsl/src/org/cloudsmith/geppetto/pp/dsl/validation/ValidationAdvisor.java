@@ -119,6 +119,14 @@ public class ValidationAdvisor {
 		}
 
 		/**
+		 * @returns false
+		 */
+		@Override
+		public boolean allowInheritanceFromParameterizedClass() {
+			return false;
+		}
+
+		/**
 		 * @returns true
 		 */
 		@Override
@@ -235,6 +243,14 @@ public class ValidationAdvisor {
 		 */
 		@Override
 		public boolean allowExtendedDependencyTypes() {
+			return true;
+		}
+
+		/**
+		 * @returns true, but unsure if really supported
+		 */
+		@Override
+		public boolean allowInheritanceFromParameterizedClass() {
 			return true;
 		}
 

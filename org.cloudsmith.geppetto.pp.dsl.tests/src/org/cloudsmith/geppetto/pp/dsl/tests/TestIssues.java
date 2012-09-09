@@ -56,6 +56,15 @@ public class TestIssues extends AbstractPuppetTests {
 		System.setOut(savedOut);
 	}
 
+	public void test_inheritFromParameterizedClass_issue381() throws Exception {
+		String code = "class base($basevar) {} class derived inherits base {}";
+		Resource r = loadAndLinkSingleResource(code);
+
+		tester.validate(r.getContents().get(0)).assertOK();
+		resourceErrorDiagnostics(r).assertDiagnostic(IPPDiagnostics.ISSUE__INHERITANCE_WITH_PARAMETERS);
+		resourceWarningDiagnostics(r).assertOK();
+	}
+
 	/**
 	 * [11] Geppetto does not yet know about parameterized classes
 	 * https://github.com/cloudsmith/geppetto/issues#issue/11

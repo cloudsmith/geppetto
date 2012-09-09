@@ -35,6 +35,11 @@ public interface IValidationAdvisor extends IPotentialProblemsAdvisor {
 	public boolean allowHashInSelector();
 
 	/**
+	 * Before 3.0 and hiera support, a class can not inherit from a parameterized class.
+	 */
+	public boolean allowInheritanceFromParameterizedClass();
+
+	/**
 	 * Should more than 2 at (i.e. []) operators be allowed in sequence e.g. $a[x][y][z]
 	 * Puppet issue #6269
 	 */

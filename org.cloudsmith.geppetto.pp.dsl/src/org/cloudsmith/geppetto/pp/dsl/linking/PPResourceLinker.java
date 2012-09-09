@@ -311,6 +311,20 @@ public class PPResourceLinker implements IPPDiagnostics {
 				proposalIssue(IPPDiagnostics.ISSUE__RESOURCE_UNKNOWN_TYPE, proposals), //
 				proposals);
 		}
+
+		if(!advisor().allowInheritanceFromParameterizedClass()) {
+			List<IEObjectDescription> targets = descs.size() > 0
+					? descs
+					: searchResult.getRaw();
+			if(targets.size() > 0) {
+				IEObjectDescription target = descs.get(0);
+				if(target.getUserData(PPDSLConstants.CLASS_ARG_COUNT) != null)
+					acceptor.acceptError(
+						"Can not inherit from a parameterized class in Puppet versions < 3.0.", o, //
+						PPPackage.Literals.HOST_CLASS_DEFINITION__PARENT,
+						IPPDiagnostics.ISSUE__INHERITANCE_WITH_PARAMETERS);
+			}
+		}
 	}
 
 	/**

@@ -397,7 +397,7 @@ public class PPPreferencesHelper implements IPreferenceStoreInitializer, IProper
 		}
 		if(requiresRebuild.contains(event.getProperty()))
 			problemChanges.offer(event.getProperty());
-
+		// System.out.println("PPHelper gets event:" + event.getProperty());
 	}
 
 	/**

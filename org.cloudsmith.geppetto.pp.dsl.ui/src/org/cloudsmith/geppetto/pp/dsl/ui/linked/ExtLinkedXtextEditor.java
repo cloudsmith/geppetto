@@ -28,6 +28,9 @@ import org.eclipse.emf.common.util.WrappedException;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.jface.dialogs.MessageDialog;
+import org.eclipse.jface.preference.IPreferenceStore;
+import org.eclipse.jface.text.source.ISourceViewer;
+import org.eclipse.jface.util.PropertyChangeEvent;
 import org.eclipse.jface.window.Window;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.FileDialog;
@@ -215,6 +218,37 @@ public class ExtLinkedXtextEditor extends XtextEditor {
 		if(files != null && files.length == 1)
 			return files[0];
 		return null;
+	}
+
+	@Override
+	protected void handlePreferenceStoreChanged(PropertyChangeEvent event) {
+		// deal with indent property changing
+		// deal with events that should NOT reach the parent
+		ISourceViewer sourceViewer = getSourceViewer();
+		if(sourceViewer == null)
+			return;
+		String property = event.getProperty();
+		// System.out.println("Property Event: " + property);
+		if(FormatterGeneralPreferences.FORMATTER_INDENTSIZE.equals(property)) {
+			IPreferenceStore store = getPreferenceStore();
+			if(store != null)
+				sourceViewer.getTextWidget().setTabs(store.getInt(FormatterGeneralPreferences.FORMATTER_INDENTSIZE));
+			uninstallTabsToSpacesConverter();
+			installTabsToSpacesConverter();
+			return;
+		}
+		if(AbstractDecoratedTextEditorPreferenceConstants.EDITOR_TAB_WIDTH.equals(property)) {
+			// INHIBIT THIS - Puppet editor is always "spaces for tabs" and does NOT follow the
+			// Editor tab width setting, it is always the same as the indent size for formatting.
+			return;
+		}
+
+		if(AbstractDecoratedTextEditorPreferenceConstants.EDITOR_SPACES_FOR_TABS.equals(property)) {
+			// INHIBIT THIS CHANGE - Puppet editor is always "spaces for tabs"
+			return;
+		}
+
+		super.handlePreferenceStoreChanged(event);
 	}
 
 	/**

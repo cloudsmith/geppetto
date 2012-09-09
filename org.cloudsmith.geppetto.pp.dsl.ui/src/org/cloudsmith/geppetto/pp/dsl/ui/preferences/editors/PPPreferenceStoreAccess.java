@@ -11,6 +11,7 @@
  */
 package org.cloudsmith.geppetto.pp.dsl.ui.preferences.editors;
 
+import org.cloudsmith.geppetto.pp.dsl.ui.internal.PPDSLActivator;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.ProjectScope;
 import org.eclipse.core.runtime.preferences.ConfigurationScope;
@@ -18,48 +19,39 @@ import org.eclipse.core.runtime.preferences.IScopeContext;
 import org.eclipse.core.runtime.preferences.InstanceScope;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.ui.IFileEditorInput;
-import org.eclipse.xtext.ui.editor.preferences.FixedScopedPreferenceStore;
+import org.eclipse.ui.editors.text.EditorsUI;
+import org.eclipse.ui.texteditor.ChainedPreferenceStore;
 import org.eclipse.xtext.ui.editor.preferences.PreferenceStoreAccessImpl;
+
+import com.google.inject.Singleton;
 
 /**
  * This specialization of the PreferenceStoreAccessImpl makes use of a ProjectAwareScopedPreferenceStore
- * to deal with writing project scope preferences.
+ * to deal with writing project scope preferences and to deliver events from instance and project scopes
+ * at all times since project scope does not have to have any values set.
  * 
  */
+@Singleton
 public class PPPreferenceStoreAccess extends PreferenceStoreAccessImpl {
-
-	/**
-	 * Used as an ugly crutch as the super version inckudes a store obtained via
-	 * the Activator of a plugin that does not expose it. The super version calls back
-	 * to get the WriteablePreference store for a context - BUT THIS IS WRONG! IT NEEDS TO GET
-	 * ONE THAT IS SUITABLE FOR READING.
-	 */
-	private boolean superRead = false;
+	private IScopeContext[] instanceAndConfigurationScopes = new IScopeContext[] {
+			InstanceScope.INSTANCE, ConfigurationScope.INSTANCE };
 
 	@Override
 	public IPreferenceStore getContextPreferenceStore(Object context) {
-		IPreferenceStore superStore = null;
-		try {
-			superRead = true;
-			superStore = super.getContextPreferenceStore(context);
-		}
-		finally {
-			superRead = false;
-		}
-		return superStore;
+		lazyInitialize();
+		return new ChainedPreferenceStore(new IPreferenceStore[] { //
+			getReadableAndWritablePreferenceStore(context), //
+					PPDSLActivator.getDefault().getPreferenceStore(), //
+					EditorsUI.getPreferenceStore() });
 	}
 
 	@Override
 	public IPreferenceStore getPreferenceStore() {
-		IPreferenceStore superStore = null;
-		try {
-			superRead = true;
-			superStore = super.getPreferenceStore();
-		}
-		finally {
-			superRead = false;
-		}
-		return superStore;
+		lazyInitialize();
+		return new ChainedPreferenceStore(new IPreferenceStore[] { //
+			getWritablePreferenceStore(), //
+					PPDSLActivator.getDefault().getPreferenceStore(), //
+					EditorsUI.getPreferenceStore() });
 	}
 
 	/**
@@ -69,37 +61,7 @@ public class PPPreferenceStoreAccess extends PreferenceStoreAccessImpl {
 	 * @param context
 	 * @return
 	 */
-	@SuppressWarnings("deprecation")
 	protected IPreferenceStore getReadableAndWritablePreferenceStore(Object context) {
-		lazyInitialize();
-		if(context instanceof IFileEditorInput) {
-			context = ((IFileEditorInput) context).getFile().getProject();
-		}
-		if(context instanceof IProject) {
-			ProjectScope projectScope = new ProjectScope((IProject) context);
-			FixedScopedPreferenceStore result = new FixedScopedPreferenceStore(projectScope, getQualifier());
-			result.setSearchContexts(new IScopeContext[] { projectScope, new InstanceScope(), new ConfigurationScope() });
-			return result;
-		}
-		return getWritablePreferenceStore();
-	}
-
-	@Override
-	@SuppressWarnings("deprecation")
-	public IPreferenceStore getWritablePreferenceStore() {
-		lazyInitialize();
-		ProjectAwareScopedPreferenceStore result = new ProjectAwareScopedPreferenceStore(
-			new InstanceScope(), getQualifier());
-		result.setSearchContexts(new IScopeContext[] { new InstanceScope(), new ConfigurationScope() });
-		return result;
-	}
-
-	@Override
-	@SuppressWarnings("deprecation")
-	public IPreferenceStore getWritablePreferenceStore(Object context) {
-		if(superRead)
-			return getReadableAndWritablePreferenceStore(context);
-
 		lazyInitialize();
 		if(context instanceof IFileEditorInput) {
 			context = ((IFileEditorInput) context).getFile().getProject();
@@ -108,7 +70,34 @@ public class PPPreferenceStoreAccess extends PreferenceStoreAccessImpl {
 			ProjectScope projectScope = new ProjectScope((IProject) context);
 			ProjectAwareScopedPreferenceStore result = new ProjectAwareScopedPreferenceStore(
 				projectScope, getQualifier());
-			result.setSearchContexts(new IScopeContext[] { projectScope, new InstanceScope(), new ConfigurationScope() });
+			result.setSearchContexts(new IScopeContext[] {
+					projectScope, InstanceScope.INSTANCE, ConfigurationScope.INSTANCE });
+			return result;
+		}
+		return getWritablePreferenceStore();
+	}
+
+	@Override
+	public IPreferenceStore getWritablePreferenceStore() {
+		lazyInitialize();
+		ProjectAwareScopedPreferenceStore result = new ProjectAwareScopedPreferenceStore(
+			InstanceScope.INSTANCE, getQualifier());
+		result.setSearchContexts(instanceAndConfigurationScopes);
+		return result;
+	}
+
+	@Override
+	public IPreferenceStore getWritablePreferenceStore(Object context) {
+		lazyInitialize();
+		if(context instanceof IFileEditorInput) {
+			context = ((IFileEditorInput) context).getFile().getProject();
+		}
+		if(context instanceof IProject) {
+			ProjectScope projectScope = new ProjectScope((IProject) context);
+			ProjectAwareScopedPreferenceStore result = new ProjectAwareScopedPreferenceStore(
+				projectScope, getQualifier());
+			result.setSearchContexts(new IScopeContext[] {
+					projectScope, InstanceScope.INSTANCE, ConfigurationScope.INSTANCE });
 			return result;
 		}
 		return getWritablePreferenceStore();

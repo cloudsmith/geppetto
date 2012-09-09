@@ -147,7 +147,8 @@ public class PPPreferencesHelper implements IPreferenceStoreInitializer, IProper
 		PPPreferenceConstants.PROBLEM_DQ_STRING_NOT_REQUIRED_VAR, //
 		PPPreferenceConstants.PROBLEM_UNBRACED_INTERPOLATION, //
 		PPPreferenceConstants.PROBLEM_ML_COMMENTS, //
-		PPPreferenceConstants.PROBLEM_RTOL_RELATIONSHIP //
+		PPPreferenceConstants.PROBLEM_RTOL_RELATIONSHIP, //
+		PPPreferenceConstants.PROBLEM_ASSIGNMENT_TO_VAR_NAMED_STRING //
 
 	);
 
@@ -168,37 +169,26 @@ public class PPPreferencesHelper implements IPreferenceStoreInitializer, IProper
 		}
 	}
 
-	/**
-	 * @return
-	 */
+	public ValidationPreference getAssignmentToVariableNamedString() {
+		return ValidationPreference.fromString(store.getString(PPPreferenceConstants.PROBLEM_ASSIGNMENT_TO_VAR_NAMED_STRING));
+	}
+
 	public ValidationPreference getBooleansInStringForm() {
 		return ValidationPreference.fromString(store.getString(PPPreferenceConstants.PROBLEM_BOOLEAN_STRING));
 	}
 
-	/**
-	 * @return
-	 */
 	public ValidationPreference getCaseDefaultShouldAppearLast() {
 		return ValidationPreference.fromString(store.getString(PPPreferenceConstants.PROBLEM_CASE_DEFAULT_LAST));
 	}
 
-	/**
-	 * @return
-	 */
 	public ValidationPreference getcircularDependencyPreference() {
 		return ValidationPreference.fromString(store.getString(PPPreferenceConstants.PROBLEM_CIRCULAR_DEPENDENCY));
 	}
 
-	/**
-	 * @return
-	 */
 	public ValidationPreference getDqStringNotRequired() {
 		return ValidationPreference.fromString(store.getString(PPPreferenceConstants.PROBLEM_DQ_STRING_NOT_REQUIRED));
 	}
 
-	/**
-	 * @return
-	 */
 	public ValidationPreference getDqStringNotRequiredVar() {
 		return ValidationPreference.fromString(store.getString(PPPreferenceConstants.PROBLEM_DQ_STRING_NOT_REQUIRED_VAR));
 	}
@@ -211,16 +201,10 @@ public class PPPreferencesHelper implements IPreferenceStoreInitializer, IProper
 		return ValidationPreference.fromString(store.getString(PPPreferenceConstants.PROBLEM_INTERPOLATED_HYPHEN));
 	}
 
-	/**
-	 * @return
-	 */
 	public ValidationPreference getMissingDefaultInSwitch() {
 		return ValidationPreference.fromString(store.getString(PPPreferenceConstants.PROBLEM_MISSING_DEFAULT));
 	}
 
-	/**
-	 * @return
-	 */
 	public ValidationPreference getMLCommentsValidationPreference() {
 		return ValidationPreference.fromString(store.getString(PPPreferenceConstants.PROBLEM_ML_COMMENTS));
 	}
@@ -331,6 +315,8 @@ public class PPPreferencesHelper implements IPreferenceStoreInitializer, IProper
 		store.setDefault(PPPreferenceConstants.PROBLEM_CIRCULAR_DEPENDENCY, ValidationPreference.WARNING.toString());
 		store.setDefault(PPPreferenceConstants.PROBLEM_BOOLEAN_STRING, ValidationPreference.WARNING.toString());
 		store.setDefault(PPPreferenceConstants.PROBLEM_MISSING_DEFAULT, ValidationPreference.WARNING.toString());
+		store.setDefault(
+			PPPreferenceConstants.PROBLEM_ASSIGNMENT_TO_VAR_NAMED_STRING, ValidationPreference.WARNING.toString());
 
 		// stylistic
 		store.setDefault(PPPreferenceConstants.PROBLEM_CASE_DEFAULT_LAST, ValidationPreference.IGNORE.toString());

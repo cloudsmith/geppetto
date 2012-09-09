@@ -347,6 +347,17 @@ public class PPJavaValidator extends AbstractPPJavaValidator implements IPPDiagn
 			acceptor.acceptError("Cannot assign to regular expression result variable", o, //
 				PPPackage.Literals.BINARY_EXPRESSION__LEFT_EXPR, INSIGNIFICANT_INDEX, //
 				IPPDiagnostics.ISSUE__ASSIGNMENT_DECIMAL_VAR);
+
+		// The name "$string" causes inline templates to produce the wrong content.
+		// http://projects.puppetlabs.com/issues/14093
+		ValidationPreference preference = advisor().assignmentToVarNamedString();
+		if(preference.isWarningOrError() &&
+				("string".equals(varExpr.getVarName()) || "$string".equals(varExpr.getVarName()))) {
+			warningOrError(
+				acceptor, preference, "Use of $string causes inline templates to fail (puppet bug 14093).", varExpr,
+				IPPDiagnostics.ISSUE__ASSIGNMENT_TO_VAR_NAMED_STRING);
+		}
+
 	}
 
 	@Check

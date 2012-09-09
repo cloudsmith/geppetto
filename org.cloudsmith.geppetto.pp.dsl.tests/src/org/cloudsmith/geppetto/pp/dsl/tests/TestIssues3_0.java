@@ -14,6 +14,7 @@ package org.cloudsmith.geppetto.pp.dsl.tests;
 import org.cloudsmith.geppetto.pp.dsl.validation.IPPDiagnostics;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.xtext.ISetup;
+import org.eclipse.xtext.resource.XtextResource;
 
 import com.google.common.base.Joiner;
 import com.google.common.collect.ImmutableList;
@@ -56,4 +57,14 @@ public class TestIssues3_0 extends TestIssues {
 		Resource r = loadAndLinkSingleResource(code);
 		tester.validate(r.getContents().get(0)).assertError(IPPDiagnostics.ISSUE__NOT_VARNAME);
 	}
+
+	public void test_variableNamedString_issue408() throws Exception {
+		String code = "$string = 'gotcha'";
+		XtextResource r = getResourceFromString(code);
+
+		tester.validate(r.getContents().get(0)).assertWarning(IPPDiagnostics.ISSUE__ASSIGNMENT_TO_VAR_NAMED_STRING);
+		resourceErrorDiagnostics(r).assertOK();
+
+	}
+
 }

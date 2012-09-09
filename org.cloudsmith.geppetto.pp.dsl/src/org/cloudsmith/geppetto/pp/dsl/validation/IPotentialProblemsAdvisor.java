@@ -18,6 +18,11 @@ package org.cloudsmith.geppetto.pp.dsl.validation;
 public interface IPotentialProblemsAdvisor extends IStylisticProblemsAdvisor {
 
 	/**
+	 * How should assignment to variable $string be treated. Puppet bug http://projects.puppetlabs.com/issues/14093.
+	 */
+	public ValidationPreference assignmentToVarNamedString();
+
+	/**
 	 * Puppet interprets the strings "false" and "true" as boolean true when they are used in a boolean context.
 	 * This validation preference flags them as "not a boolean value"
 	 * 
@@ -50,28 +55,22 @@ public interface IPotentialProblemsAdvisor extends IStylisticProblemsAdvisor {
 	 * How to validate hyphens in non brace enclosed interpolations. In < 2.7 interpolation stops at a hyphen, but
 	 * not in 2.7. Thus when using 2.6 code in 2.7 or vice versa, the result is different.
 	 * 
-	 * @return
 	 */
 	public ValidationPreference interpolatedNonBraceEnclosedHyphens();
 
 	/**
 	 * How to validate a missing 'default' in switch type expressions i.e. 'case' and 'selector'
-	 * 
-	 * @return
 	 */
 	public ValidationPreference missingDefaultInSelector();
 
 	/**
 	 * How to validate unbraced interpolation.
-	 * 
-	 * @return
 	 */
 	public ValidationPreference unbracedInterpolation();
 
 	/**
 	 * How to validate a literal resource title. Style guide says they should be single quoted.
 	 * 
-	 * @return
 	 */
 	public ValidationPreference unquotedResourceTitles();
 

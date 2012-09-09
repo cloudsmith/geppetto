@@ -74,4 +74,6 @@ public class PPPreferenceConstants {
 
 	public static final String PROBLEM_RTOL_RELATIONSHIP = "rightToLeftRelationships";
 
+	public static final String PROBLEM_ASSIGNMENT_TO_VAR_NAMED_STRING = "assignmentToVarNamedSrring";
+
 }

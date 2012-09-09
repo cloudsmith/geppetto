@@ -24,6 +24,11 @@ public class ValidationAdvisor {
 		}
 
 		@Override
+		public ValidationPreference assignmentToVarNamedString() {
+			return problemsAdvisor.assignmentToVarNamedString();
+		}
+
+		@Override
 		public ValidationPreference booleansInStringForm() {
 			return problemsAdvisor.booleansInStringForm();
 		}

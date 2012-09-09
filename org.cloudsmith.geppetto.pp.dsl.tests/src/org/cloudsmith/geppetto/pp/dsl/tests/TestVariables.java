@@ -406,4 +406,5 @@ public class TestVariables extends AbstractPuppetTests implements AbstractPuppet
 		resourceErrorDiagnostics(r).assertOK();
 
 	}
+
 }

@@ -18,6 +18,11 @@ package org.cloudsmith.geppetto.pp.dsl.validation;
 public class DefaultPotentialProblemsAdvisor implements IPotentialProblemsAdvisor, IStylisticProblemsAdvisor {
 
 	@Override
+	public ValidationPreference assignmentToVarNamedString() {
+		return ValidationPreference.IGNORE;
+	}
+
+	@Override
 	public ValidationPreference booleansInStringForm() {
 		return ValidationPreference.WARNING;
 	}

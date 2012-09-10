@@ -169,6 +169,14 @@ public interface IStyleFactory {
 	public SpacingStyle spacing(Function<IDomNode, Spacing> f);
 
 	/**
+	 * @param min
+	 * @param normal
+	 * @param max
+	 * @return
+	 */
+	SpacingStyle spacing(int min, int normal, int max);
+
+	/**
 	 * @return style with dynamically determined "style name" (for open ended use).
 	 */
 	public StyleNameStyle styleName(Function<IDomNode, String> f);

@@ -94,6 +94,8 @@ public class PPStylesheetProvider extends DefaultStylesheetProvider {
 		final StyleSet noSpaceTwoLines = StyleSet.withImmutableStyles(
 			styles.noSpaceUnlessWrapped(), styles.lineBreaks(2, 2, 2));
 		final StyleSet oneSpaceNoLine = StyleSet.withImmutableStyles(styles.oneSpace(), styles.noLineBreak());
+		final StyleSet oneOptionalSpaceNoLine = StyleSet.withImmutableStyles(//
+			styles.oneSpace(), styles.noLineBreak());
 
 		DomCSS css = super.get();
 
@@ -213,6 +215,11 @@ public class PPStylesheetProvider extends DefaultStylesheetProvider {
 				Select.grammar(grammarAccess.getSelectorExpressionAccess().getCommaKeyword_1_2_0_2_0_0()))//
 			.withStyle(noSpaceOneLine)//
 			.withRuleName("WsAfterSelectorExpressionComma"), //
+
+			Select.whitespaceAfter(//
+				Select.grammar(grammarAccess.getSelectorExpressionAccess().getRightCurlyBracketKeyword_1_2_0_4())) //
+			.withStyle(oneOptionalSpaceNoLine) //
+			.withRuleName("WsAfterSelectorRightBrace"), //
 
 			// --Interpolation
 			interpolationStart.withStyle(styles.indent())//

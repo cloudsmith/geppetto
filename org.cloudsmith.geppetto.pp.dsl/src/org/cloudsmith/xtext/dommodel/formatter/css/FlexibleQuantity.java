@@ -37,7 +37,7 @@ public class FlexibleQuantity implements IFlexibleQuantity {
 
 	@Override
 	public int apply(int length) {
-		if(length == 0)
+		if(length < 0)
 			return normal;
 		if(length < min)
 			return min;

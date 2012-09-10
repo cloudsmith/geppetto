@@ -69,12 +69,16 @@ public class DefaultStylesheetProvider implements Provider<DomCSS> {
 			.withRuleName("DefaultCSS.MinOneTrailingLinebreakOptionallyTwo"),
 
 			// No space before ',', and one space after
-			Select.before(Select.whitespace(), Select.keyword(","))//
+			Select.before(Select.whitespace(), Select.important(Select.keyword(",")))//
 			.withStyles(styles.noSpace())//
 			.withRuleName("DefaultCSS.NoSpaceBeforeComma"), //
 			Select.after(Select.whitespace(), Select.keyword(","))//
 			.withStyles(styles.oneSpace())//
 			.withRuleName("DefaultCSS.OneSpaceAfterComma"), //
+
+			// Select.between(Select.whitespace(), Select.keyword("}"), Select.keyword(",")) //
+			// .withStyles(styles.noSpace(), styles.noLineBreak()) //
+			// .withRuleName("DefaultCSS.NoSpaceOrBreakBetweenRightCurlyBraceAndComma"),
 
 			// Indent content between []
 			Select.keyword("[").withStyle(styles.indent()) //

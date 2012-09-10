@@ -408,6 +408,11 @@ public class StyleFactory implements IStyleFactory {
 	}
 
 	@Override
+	public SpacingStyle spacing(int min, int normal, int max) {
+		return new SpacingStyle(new Spacing(min, normal, max));
+	}
+
+	@Override
 	public StyleNameStyle styleName(Function<IDomNode, String> f) {
 		return new StyleNameStyle(f);
 	}

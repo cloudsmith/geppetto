@@ -108,6 +108,9 @@ public class PPSemanticLayout extends DeclarativeSemanticFlowLayout {
 	private CaseLayout caseLayout;
 
 	@Inject
+	private SelectorLayout selectorLayout;
+
+	@Inject
 	private LiteralHashLayout literaHashLayout;
 
 	/**
@@ -121,7 +124,7 @@ public class PPSemanticLayout extends DeclarativeSemanticFlowLayout {
 
 	private static final int ATTRIBUTE_OPERATIONS_CLUSTER_SIZE = 20;
 
-	private static final int SELECTOR_EXPRESSION_CLUSTER_SIZE = 20;
+	// private static final int SELECTOR_EXPRESSION_CLUSTER_SIZE = 20;
 
 	protected void _after(AttributeOperations aos, StyleSet styleSet, IDomNode node, ITextFlow flow,
 			ILayoutContext context) {
@@ -246,10 +249,12 @@ public class PPSemanticLayout extends DeclarativeSemanticFlowLayout {
 
 	protected boolean _format(SelectorExpression se, StyleSet styleSet, IDomNode node, ITextFlow flow,
 			ILayoutContext context) {
-		LayoutUtils.unifyWidthAndAlign(
-			node, grammarAccess.getSelectorEntryAccess().getSelectorEntryLeftExprAction_1_0(), Alignment.left,
-			SELECTOR_EXPRESSION_CLUSTER_SIZE);
-		return false;
+		return selectorLayout._format(se, styleSet, node, flow, context);
+
+		// LayoutUtils.unifyWidthAndAlign(
+		// node, grammarAccess.getSelectorEntryAccess().getSelectorEntryLeftExprAction_1_0(), Alignment.left,
+		// SELECTOR_EXPRESSION_CLUSTER_SIZE);
+		// return false;
 
 	}
 

@@ -173,4 +173,21 @@ public class TestIssues extends AbstractPuppetTests {
 		tester.validate(r.getContents().get(0)).assertError(IPPDiagnostics.ISSUE__RESERVED_NAME);
 	}
 
+	public void test_Issue435_paddingDqString() throws Exception {
+		String code = "$a = true ? {\n" + //
+				"\"something\" => 'dba',\n" + //
+				"default => ''\n" + //
+				"}\n";
+		ImmutableList<String> formatted = ImmutableList.of("$a = true ? {", //
+			"  \"something\" => 'dba',",//
+			"  default     => ''", //
+			"}\n");
+
+		String fmt = Joiner.on("\n").join(formatted).toString();
+
+		Resource r = loadAndLinkSingleResource(code);
+		String s = serializeFormatted(r.getContents().get(0));
+		assertEquals(fmt, s);
+
+	}
 }

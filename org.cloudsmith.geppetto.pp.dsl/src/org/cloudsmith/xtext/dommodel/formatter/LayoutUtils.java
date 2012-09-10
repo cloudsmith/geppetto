@@ -15,7 +15,6 @@ import java.util.Iterator;
 import java.util.List;
 
 import org.cloudsmith.geppetto.common.stats.IntegerCluster;
-import org.cloudsmith.xtext.dommodel.DomModelUtils;
 import org.cloudsmith.xtext.dommodel.IDomNode;
 import org.cloudsmith.xtext.dommodel.formatter.ILayoutManager.ILayoutContext;
 import org.cloudsmith.xtext.dommodel.formatter.css.Alignment;
@@ -58,7 +57,7 @@ public class LayoutUtils {
 		while(iterator.hasNext()) {
 			IDomNode node = iterator.next();
 			if(node.getGrammarElement() == grammarElement) {
-				node = DomModelUtils.firstTokenWithText(node);
+				// node = DomModelUtils.firstTokenWithText(node);
 				if(node.getText() == null)
 					continue;
 				int length = node.getText().length();

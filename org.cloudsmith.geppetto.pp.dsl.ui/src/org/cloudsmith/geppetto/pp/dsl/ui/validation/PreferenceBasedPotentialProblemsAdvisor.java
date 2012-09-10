@@ -62,6 +62,14 @@ public class PreferenceBasedPotentialProblemsAdvisor implements IPotentialProble
 		return preferences.getDqStringNotRequiredVar();
 	}
 
+	/**
+	 * @see org.cloudsmith.geppetto.pp.dsl.validation.IStylisticProblemsAdvisor#ensureShouldAppearFirstInResource()
+	 */
+	@Override
+	public ValidationPreference ensureShouldAppearFirstInResource() {
+		return preferences.getEnsureShouldAppearFirst();
+	}
+
 	@Override
 	public ValidationPreference interpolatedNonBraceEnclosedHyphens() {
 		return preferences.getInterpolatedNonBraceEnclosedHypens();

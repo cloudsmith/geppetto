@@ -54,6 +54,11 @@ public class ValidationAdvisor {
 		}
 
 		@Override
+		public ValidationPreference ensureShouldAppearFirstInResource() {
+			return problemsAdvisor.ensureShouldAppearFirstInResource();
+		}
+
+		@Override
 		public ValidationPreference interpolatedNonBraceEnclosedHyphens() {
 			return problemsAdvisor.interpolatedNonBraceEnclosedHyphens();
 		}

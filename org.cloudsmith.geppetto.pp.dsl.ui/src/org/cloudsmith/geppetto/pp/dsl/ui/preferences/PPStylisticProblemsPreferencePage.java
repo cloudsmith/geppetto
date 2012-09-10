@@ -53,6 +53,10 @@ public class PPStylisticProblemsPreferencePage extends AbstractPreferencePage {
 			PPPreferenceConstants.PROBLEM_RTOL_RELATIONSHIP, "Right to left relationships using <- or <~",
 			getFieldEditorParent()));
 
+		this.addField(new ValidationPreferenceFieldEditor(
+			PPPreferenceConstants.PROBLEM_ENSURE_NOT_FIRST, "Resource property ensure is not stated first",
+			getFieldEditorParent()));
+
 	}
 
 }

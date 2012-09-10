@@ -148,7 +148,8 @@ public class PPPreferencesHelper implements IPreferenceStoreInitializer, IProper
 		PPPreferenceConstants.PROBLEM_UNBRACED_INTERPOLATION, //
 		PPPreferenceConstants.PROBLEM_ML_COMMENTS, //
 		PPPreferenceConstants.PROBLEM_RTOL_RELATIONSHIP, //
-		PPPreferenceConstants.PROBLEM_ASSIGNMENT_TO_VAR_NAMED_STRING //
+		PPPreferenceConstants.PROBLEM_ASSIGNMENT_TO_VAR_NAMED_STRING, //
+		PPPreferenceConstants.PROBLEM_ENSURE_NOT_FIRST //
 
 	);
 
@@ -191,6 +192,10 @@ public class PPPreferencesHelper implements IPreferenceStoreInitializer, IProper
 
 	public ValidationPreference getDqStringNotRequiredVar() {
 		return ValidationPreference.fromString(store.getString(PPPreferenceConstants.PROBLEM_DQ_STRING_NOT_REQUIRED_VAR));
+	}
+
+	public ValidationPreference getEnsureShouldAppearFirst() {
+		return ValidationPreference.fromString(store.getString(PPPreferenceConstants.PROBLEM_ENSURE_NOT_FIRST));
 	}
 
 	public String getForgeURI() {
@@ -329,6 +334,7 @@ public class PPPreferencesHelper implements IPreferenceStoreInitializer, IProper
 		store.setDefault(PPPreferenceConstants.PROBLEM_UNBRACED_INTERPOLATION, ValidationPreference.IGNORE.toString());
 		store.setDefault(PPPreferenceConstants.PROBLEM_ML_COMMENTS, ValidationPreference.IGNORE.toString());
 		store.setDefault(PPPreferenceConstants.PROBLEM_RTOL_RELATIONSHIP, ValidationPreference.IGNORE.toString());
+		store.setDefault(PPPreferenceConstants.PROBLEM_ENSURE_NOT_FIRST, ValidationPreference.IGNORE.toString());
 
 		// save actions
 		store.setDefault(PPPreferenceConstants.SAVE_ACTION_ENSURE_ENDS_WITH_NL, false);

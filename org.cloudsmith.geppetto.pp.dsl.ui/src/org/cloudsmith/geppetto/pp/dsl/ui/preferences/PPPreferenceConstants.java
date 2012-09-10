@@ -76,4 +76,6 @@ public class PPPreferenceConstants {
 
 	public static final String PROBLEM_ASSIGNMENT_TO_VAR_NAMED_STRING = "assignmentToVarNamedSrring";
 
+	public static final String PROBLEM_ENSURE_NOT_FIRST = "ensureNotFirst";
+
 }

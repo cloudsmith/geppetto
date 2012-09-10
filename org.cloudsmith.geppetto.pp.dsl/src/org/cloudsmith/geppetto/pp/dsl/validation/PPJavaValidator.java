@@ -1225,6 +1225,18 @@ public class PPJavaValidator extends AbstractPPJavaValidator implements IPPDiagn
 					acceptor, unquotedResourceTitles, "Unquoted resource title", nameExpr,
 					IPPDiagnostics.ISSUE__UNQUOTED_QUALIFIED_NAME);
 			}
+		}
+		ValidationPreference ensureFirstAdvise = advisor().ensureShouldAppearFirstInResource();
+		if(ensureFirstAdvise.isWarningOrError() && o.getAttributes() != null) {
+			int ix = 0;
+			for(AttributeOperation ao : o.getAttributes().getAttributes()) {
+				// is first ensure, if not, find it and mark it
+				if("ensure".equals(ao.getKey()) && ix != 0)
+					warningOrError(
+						acceptor, ensureFirstAdvise, "Ensure should be placed first.", ao,
+						PPPackage.Literals.ATTRIBUTE_OPERATION__KEY, IPPDiagnostics.ISSUE__ENSURE_NOT_FIRST);
+				ix++;
+			}
 
 		}
 	}
@@ -1841,7 +1853,7 @@ public class PPJavaValidator extends AbstractPPJavaValidator implements IPPDiagn
 	}
 
 	private void warningOrError(IMessageAcceptor acceptor, ValidationPreference validationPreference, String message,
-			DefinitionArgument o, EAttribute feature, String issue) {
+			EObject o, EAttribute feature, String issue) {
 		if(validationPreference.isWarning())
 			acceptor.acceptWarning(message, o, feature, issue);
 		else if(validationPreference.isError())

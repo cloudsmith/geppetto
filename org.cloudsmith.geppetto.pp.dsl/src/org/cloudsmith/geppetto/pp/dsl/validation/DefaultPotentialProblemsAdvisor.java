@@ -48,6 +48,11 @@ public class DefaultPotentialProblemsAdvisor implements IPotentialProblemsAdviso
 	}
 
 	@Override
+	public ValidationPreference ensureShouldAppearFirstInResource() {
+		return ValidationPreference.IGNORE;
+	}
+
+	@Override
 	public ValidationPreference interpolatedNonBraceEnclosedHyphens() {
 		return ValidationPreference.WARNING;
 	}

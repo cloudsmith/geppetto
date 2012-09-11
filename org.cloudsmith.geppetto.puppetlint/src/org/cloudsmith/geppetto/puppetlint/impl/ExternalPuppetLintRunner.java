@@ -22,7 +22,6 @@ import java.util.regex.Pattern;
 import org.cloudsmith.geppetto.common.os.OsUtil;
 import org.cloudsmith.geppetto.common.os.StreamUtil.OpenBAStream;
 import org.cloudsmith.geppetto.puppetlint.PuppetLintRunner;
-import org.cloudsmith.geppetto.puppetlint.impl.PuppetLintIssue.Severity;
 
 /**
  * A PuppetLintRunner implementation that uses an external command. This runner will require that Ruby is installed

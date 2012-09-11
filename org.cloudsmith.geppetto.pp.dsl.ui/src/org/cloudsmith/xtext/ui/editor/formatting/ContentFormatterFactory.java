@@ -46,25 +46,7 @@ public class ContentFormatterFactory implements IContentFormatterFactory {
 	public class ContentFormatter implements IContentFormatter {
 		public void format(IDocument document, IRegion region) {
 			IXtextDocument doc = (IXtextDocument) document;
-			ReplaceRegion r = doc.readOnly(new FormattingUnitOfWork(region));
-			try {
-				if(r != null) {
-
-					String current = null;
-					try {
-						current = doc.get(r.getOffset(), r.getLength());
-					}
-					catch(BadLocationException e) {
-						// ignore, current is null
-					}
-					// Optimize - if replacement is equal to current
-					if(current == null || !current.equals(r.getText()))
-						doc.replace(r.getOffset(), r.getLength(), r.getText());
-				}
-			}
-			catch(BadLocationException e) {
-				throw new RuntimeException(e);
-			}
+			doc.modify(new FormattingUnitOfWork(doc, region));
 		}
 
 		public IFormattingStrategy getFormattingStrategy(String contentType) {
@@ -76,14 +58,19 @@ public class ContentFormatterFactory implements IContentFormatterFactory {
 
 		protected final IRegion region;
 
-		public FormattingUnitOfWork(IRegion region) {
+		protected final IXtextDocument doc;
+
+		public FormattingUnitOfWork(IXtextDocument doc, IRegion region) {
 			super();
 			this.region = region;
+			this.doc = doc;
 		}
 
 		public ReplaceRegion exec(XtextResource state) throws Exception {
 
-			// TODO: viewer related parameters passed to formatting context?
+			// TODO: Q: viewer related parameters passed to formatting context?
+			// TODO: A: the document is aware of the current Preference store - this could be used instead of the
+			// roundabout way with the resoureScope.
 			// TODO: get the dom root
 			ISerializationDiagnostic.Acceptor errors = ISerializationDiagnostic.EXCEPTION_THROWING_ACCEPTOR;
 			try {
@@ -93,7 +80,27 @@ public class ContentFormatterFactory implements IContentFormatterFactory {
 				org.eclipse.xtext.util.ReplaceRegion r = getFormatter().format(
 					root, new TextRegion(region.getOffset(), region.getLength()), //
 					getFormattingContextFactory().create(state, FormattingOption.Format), errors);
-				return new ReplaceRegion(r.getOffset(), r.getLength(), r.getText());
+				ReplaceRegion replaceRegion = new ReplaceRegion(r.getOffset(), r.getLength(), r.getText());
+				try {
+					if(replaceRegion != null) {
+
+						String current = null;
+						try {
+							current = doc.get(replaceRegion.getOffset(), replaceRegion.getLength());
+						}
+						catch(BadLocationException e) {
+							// ignore, current is null
+						}
+						// Optimize - if replacement is equal to current
+						if(current == null || !current.equals(replaceRegion.getText()))
+							doc.replace(replaceRegion.getOffset(), replaceRegion.getLength(), r.getText());
+					}
+				}
+				catch(BadLocationException e) {
+					throw new RuntimeException(e);
+				}
+				return replaceRegion;
+
 			}
 			finally {
 				resourceScope.exit();

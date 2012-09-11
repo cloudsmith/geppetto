@@ -143,4 +143,14 @@ public class CatalogJsonSerializer {
 			StreamUtil.close(reader);
 		}
 	}
+
+	/**
+	 * Loads a Catalog model from a catalog JSON string.
+	 * 
+	 */
+	public static Catalog load(String jsonString) throws IOException {
+		Gson gson = getGSon();
+		CatalogImpl md = gson.fromJson(jsonString, CatalogImpl.class);
+		return md;
+	}
 }

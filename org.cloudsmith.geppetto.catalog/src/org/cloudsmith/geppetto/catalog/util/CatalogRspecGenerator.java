@@ -110,6 +110,11 @@ public class CatalogRspecGenerator {
 		out.append(indent).append("# Classes (in alphabetical order)\n");
 		for(CatalogResource r : classes) {
 			String className = classNameOfResource(r);
+
+			if("main".equals(className))
+				// skip main (it does not exist in reality)
+				continue;
+
 			out.append(indent(1)).append("it ");
 			GeneratorUtil.emitRubyStringLiteral(out, "class " + className);
 			out.append(" do\n");
@@ -208,6 +213,13 @@ public class CatalogRspecGenerator {
 	private String initialLowerCase(String s) {
 		StringBuilder builder = new StringBuilder(s);
 		builder.setCharAt(0, Character.toLowerCase(builder.charAt(0)));
+		int offset = 0;
+		int pos;
+
+		while((pos = s.indexOf("::", offset)) != -1 && s.length() >= pos + 2) {
+			builder.setCharAt(pos + 2, Character.toLowerCase(builder.charAt(pos + 2)));
+			offset = pos + 3;
+		}
 		return builder.toString();
 	}
 

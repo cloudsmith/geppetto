@@ -1874,8 +1874,10 @@ public class PPJavaValidator extends AbstractPPJavaValidator implements IPPDiagn
 
 	private void warningOrError(IMessageAcceptor acceptor, ValidationPreference validationPreference, String message,
 			INode n, String issueCode, String... data) {
-		if(validationPreference.isWarning())
-			acceptor.acceptWarning(message, n, issueCode, data);
+		if(validationPreference.isWarning()) {
+			acceptor.acceptWarning(message, n.getSemanticElement(), n.getOffset(), n.getLength(), issueCode, data);
+			// acceptor.acceptWarning(message, n, issueCode, data);
+		}
 		else if(validationPreference.isError())
 			acceptor.acceptError(message, n.getSemanticElement(), n.getOffset(), n.getLength(), issueCode, data);
 

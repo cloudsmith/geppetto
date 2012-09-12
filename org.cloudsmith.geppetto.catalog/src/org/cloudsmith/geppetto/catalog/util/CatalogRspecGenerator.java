@@ -109,11 +109,14 @@ public class CatalogRspecGenerator {
 		CharSequence indent = indent(2);
 		out.append(indent).append("# Classes (in alphabetical order)\n");
 		for(CatalogResource r : classes) {
-			out.append(indent(1)).append("it {\n");
+			String className = classNameOfResource(r);
+			out.append(indent(1)).append("it ");
+			GeneratorUtil.emitRubyStringLiteral(out, "class " + className);
+			out.append(" do\n");
 			out.append(indent).append("should include_class(");
-			GeneratorUtil.emitRubyStringLiteral(out, classNameOfResource(r));
+			GeneratorUtil.emitRubyStringLiteral(out, className);
 			out.append(")\n");
-			out.append(indent(1)).append("}\n");
+			out.append(indent(1)).append("end\n");
 		}
 		out.append("\n");
 	}
@@ -131,9 +134,12 @@ public class CatalogRspecGenerator {
 				out.append("\n");
 				first = false;
 			}
-			String matcher = "contain_" + typeToMatcherName(type);
+			String matcherName = typeToMatcherName(type);
+			String matcher = "contain_" + matcherName;
 			for(CatalogResource r : sorted.get(type)) {
-				out.append(indent(1)).append("it {\n");
+				out.append(indent(1)).append("it ");
+				GeneratorUtil.emitRubyStringLiteral(out, "resource " + matcherName + " " + r.getTitle());
+				out.append(" do\n");
 				out.append(indent(2)).append("should ").append(matcher).append("(");
 				GeneratorUtil.emitRubyStringLiteral(out, r.getTitle());
 				out.append(")");
@@ -180,7 +186,7 @@ public class CatalogRspecGenerator {
 					}
 
 					out.append('\n').append(indent(2)).append(")\n");
-					out.append(indent(1)).append("}\n");
+					out.append(indent(1)).append("end\n");
 				}
 			}
 		}

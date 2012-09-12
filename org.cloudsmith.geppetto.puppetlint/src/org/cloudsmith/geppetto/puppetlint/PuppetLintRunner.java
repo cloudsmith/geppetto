@@ -15,13 +15,10 @@ import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
-import org.cloudsmith.geppetto.puppetlint.impl.PuppetLintIssue.Severity;
-
 /**
  * An interface to the <a href="http://puppet-lint.com">puppet-lint</a> program.
  */
 public interface PuppetLintRunner {
-
 	/**
 	 * An issue produced by puppet-lint
 	 */
@@ -164,6 +161,10 @@ public interface PuppetLintRunner {
 		public String toString() {
 			return cmdLineOption;
 		}
+	}
+
+	enum Severity {
+		WARNING, ERROR
 	}
 
 	/**

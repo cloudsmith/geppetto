@@ -15,4 +15,5 @@ Export-Package: org.cloudsmith.geppetto.common,
  org.cloudsmith.geppetto.common.eclipse,
  org.cloudsmith.geppetto.common.os,
  org.cloudsmith.geppetto.common.score,
- org.cloudsmith.geppetto.common.stats
+ org.cloudsmith.geppetto.common.stats,
+ org.cloudsmith.geppetto.common.util

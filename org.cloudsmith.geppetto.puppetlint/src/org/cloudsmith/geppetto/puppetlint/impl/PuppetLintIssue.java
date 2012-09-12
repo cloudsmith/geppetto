@@ -13,16 +13,13 @@ package org.cloudsmith.geppetto.puppetlint.impl;
 
 import static java.lang.String.format;
 
-import org.cloudsmith.geppetto.puppetlint.PuppetLintRunner;
+import org.cloudsmith.geppetto.puppetlint.PuppetLintRunner.Issue;
+import org.cloudsmith.geppetto.puppetlint.PuppetLintRunner.Severity;
 
 /**
  * An issue produced by puppet-lint
  */
-public class PuppetLintIssue implements PuppetLintRunner.Issue {
-	public enum Severity {
-		WARNING, ERROR
-	}
-
+public class PuppetLintIssue implements Issue {
 	private final String path;
 
 	private final Severity severity;

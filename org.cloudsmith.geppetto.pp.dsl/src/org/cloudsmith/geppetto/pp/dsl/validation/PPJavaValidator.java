@@ -354,7 +354,7 @@ public class PPJavaValidator extends AbstractPPJavaValidator implements IPPDiagn
 		if(preference.isWarningOrError() &&
 				("string".equals(varExpr.getVarName()) || "$string".equals(varExpr.getVarName()))) {
 			warningOrError(
-				acceptor, preference, "Use of $string causes inline templates to fail (puppet bug 14093).", varExpr,
+				acceptor, preference, "Assignment to $string will cause inline templates to fail", varExpr,
 				IPPDiagnostics.ISSUE__ASSIGNMENT_TO_VAR_NAMED_STRING);
 		}
 
@@ -1181,11 +1181,11 @@ public class PPJavaValidator extends AbstractPPJavaValidator implements IPPDiagn
 				// a node should have been found, but just to be safe, report the error on the entire expression if there was none.
 				if(theNode != null)
 					warningOrError(
-						acceptor, rightToLeft, "Right to Left relationship (stylistic problem)", theNode,
+						acceptor, rightToLeft, "Resource dependencies using <- or <~ are discouraged", theNode,
 						IPPDiagnostics.ISSUE_RIGHT_TO_LEFT_RELATIONSHIP, opName, Boolean.toString(okL && okR));
 				else
 					warningOrError(
-						acceptor, rightToLeft, "Right to Left relationship (stylistic problem)", o,
+						acceptor, rightToLeft, "Resource dependencies using <- or <~ are discouraged", o,
 						IPPDiagnostics.ISSUE_RIGHT_TO_LEFT_RELATIONSHIP, opName, Boolean.toString(okL && okR));
 			}
 		}
@@ -1233,7 +1233,7 @@ public class PPJavaValidator extends AbstractPPJavaValidator implements IPPDiagn
 				// is first ensure, if not, find it and mark it
 				if("ensure".equals(ao.getKey()) && ix != 0)
 					warningOrError(
-						acceptor, ensureFirstAdvise, "Ensure should be placed first.", ao,
+						acceptor, ensureFirstAdvise, "Resource property 'ensure' not stated first", ao,
 						PPPackage.Literals.ATTRIBUTE_OPERATION__KEY, IPPDiagnostics.ISSUE__ENSURE_NOT_FIRST);
 				ix++;
 			}
@@ -1647,8 +1647,8 @@ public class PPJavaValidator extends AbstractPPJavaValidator implements IPPDiagn
 			for(INode n : root.getAsTreeIterable()) {
 				if(n.getGrammarElement() == grammarAccess.getML_COMMENTRule())
 					warningOrError(
-						acceptor, mlComments, "Unwanted /* */ comment", n, IPPDiagnostics.ISSUE_UNWANTED_ML_COMMENT,
-						Boolean.toString(n.getText().endsWith("\n")));
+						acceptor, mlComments, "Comments using /* */ are discouraged", n,
+						IPPDiagnostics.ISSUE_UNWANTED_ML_COMMENT, Boolean.toString(n.getText().endsWith("\n")));
 			}
 		}
 

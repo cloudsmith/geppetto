@@ -25,6 +25,7 @@ import org.cloudsmith.geppetto.catalog.CatalogResource;
 import org.cloudsmith.geppetto.catalog.CatalogResourceParameter;
 import org.cloudsmith.geppetto.common.CharSequences;
 import org.cloudsmith.geppetto.common.stats.IntegerCluster;
+import org.cloudsmith.geppetto.common.util.GeneratorUtil;
 
 import com.google.common.base.Function;
 import com.google.common.base.Joiner;
@@ -59,11 +60,7 @@ public class CatalogRspecGenerator {
 
 	private static Function<String, String> fJavaStrToRubyStr = new Function<String, String>() {
 		public String apply(String s) {
-			StringBuilder builder = new StringBuilder(s.length() + 2);
-			builder.append("'");
-			builder.append(s);
-			builder.append("'");
-			return builder.toString();
+			return GeneratorUtil.getRubyStringLiteral(s);
 		}
 	};
 
@@ -80,16 +77,17 @@ public class CatalogRspecGenerator {
 		// Describe a host - that is what the entire catalog is related to, the "it" in Rspec tests
 		// refers to a catalog compiled for this instance (don't want to do it over and over again)
 		//
-		out.append("describe '").append(catalog.getName()).append("', :type => :host do\n");
+		out.append("describe ");
+		GeneratorUtil.emitRubyStringLiteral(out, catalog.getName());
+		out.append(", :type => :host do\n");
+
 		// set empty facts and expect them to be injected - must be set to something to get them injected
 		// TODO: this looks really stupid, how about having a magic "inject" fact ?
 		//
 		out.append(indent(1)).append("# Set facts to empty hash, and expect them to be injected\n");
-		out.append(indent(1)).append("let(:facts) { { } }\n");
+		out.append(indent(1)).append("let(:facts) { { } }\n");
 		out.append("\n");
-		out.append(indent(1)).append("it {\n");
 		generateAll(catalog, out);
-		out.append(indent(1)).append("}\n");
 		out.append("end\n");
 	}
 
@@ -111,7 +109,11 @@ public class CatalogRspecGenerator {
 		CharSequence indent = indent(2);
 		out.append(indent).append("# Classes (in alphabetical order)\n");
 		for(CatalogResource r : classes) {
-			out.append(indent).append("should include_class('").append(classNameOfResource(r)).append("')\n");
+			out.append(indent(1)).append("it {\n");
+			out.append(indent).append("should include_class(");
+			GeneratorUtil.emitRubyStringLiteral(out, classNameOfResource(r));
+			out.append(")\n");
+			out.append(indent(1)).append("}\n");
 		}
 		out.append("\n");
 	}
@@ -131,7 +133,10 @@ public class CatalogRspecGenerator {
 			}
 			String matcher = "contain_" + typeToMatcherName(type);
 			for(CatalogResource r : sorted.get(type)) {
-				out.append(indent(2)).append("should ").append(matcher).append("('").append(r.getTitle()).append("')");
+				out.append(indent(1)).append("it {\n");
+				out.append(indent(2)).append("should ").append(matcher).append("(");
+				GeneratorUtil.emitRubyStringLiteral(out, r.getTitle());
+				out.append(")");
 
 				if(r.getParameters().size() < 1) {
 					// TODO: There is no way to check that there are no additional parameters set
@@ -147,24 +152,35 @@ public class CatalogRspecGenerator {
 						sortedParameters.put(p.getName(), p.getValue());
 					}
 					out.append(".with(\n");
+					boolean firstItem = true;
 
 					for(Entry<String, List<String>> entry : sortedParameters.entrySet()) {
+
+						if(firstItem)
+							firstItem = false;
+						else
+							out.append(",\n");
+
 						String name = entry.getKey();
-						out.append(indent(3)).append("'").append(name).append("'");
+						out.append(indent(3));
+						GeneratorUtil.emitRubyStringLiteral(out, name);
 						out.append(padding(name, cluster)).append("=> ");
 						List<String> values = entry.getValue();
 						if(values.size() == 1) {
-							out.append(fJavaStrToRubyStr.apply(values.get(0))).append(",\n");
+							out.append(fJavaStrToRubyStr.apply(values.get(0))).append("");
 						}
 						else {
 							// values is an array
 							// TODO: It can also be a hash - need to see how that is encoded
 							out.append("[");
 							Joiner.on(',').appendTo(out, Iterables.transform(values, fJavaStrToRubyStr));
-							out.append("],\n");
+							out.append("]");
 						}
+
 					}
-					out.append(indent(2)).append(")\n");
+
+					out.append('\n').append(indent(2)).append(")\n");
+					out.append(indent(1)).append("}\n");
 				}
 			}
 		}

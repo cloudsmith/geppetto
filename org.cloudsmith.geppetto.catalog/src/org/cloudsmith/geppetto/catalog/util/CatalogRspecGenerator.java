@@ -190,8 +190,9 @@ public class CatalogRspecGenerator {
 					}
 
 					out.append('\n').append(indent(2)).append(")\n");
-					out.append(indent(1)).append("end\n");
 				}
+
+				out.append(indent(1)).append("end\n");
 			}
 		}
 	}

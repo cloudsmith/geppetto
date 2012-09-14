@@ -106,8 +106,7 @@ public class CatalogRspecGenerator {
 	}
 
 	private void generateClasses(SortedSet<CatalogResource> classes, Appendable out) throws IOException {
-		CharSequence indent = indent(2);
-		out.append(indent).append("# Classes (in alphabetical order)\n");
+		out.append(indent(1)).append("# Classes (in alphabetical order)\n");
 		for(CatalogResource r : classes) {
 			String className = classNameOfResource(r);
 
@@ -118,7 +117,7 @@ public class CatalogRspecGenerator {
 			out.append(indent(1)).append("it ");
 			GeneratorUtil.emitRubyStringLiteral(out, "class " + className);
 			out.append(" do\n");
-			out.append(indent).append("should include_class(");
+			out.append(indent(2)).append("should include_class(");
 			GeneratorUtil.emitRubyStringLiteral(out, className);
 			out.append(")\n");
 			out.append(indent(1)).append("end\n");
@@ -131,7 +130,7 @@ public class CatalogRspecGenerator {
 	 * @param out
 	 */
 	private void generateResources(TreeMultimap<String, CatalogResource> sorted, Appendable out) throws IOException {
-		out.append(indent(2)).append("# Resources per type and title (alphabetically)\n");
+		out.append(indent(1)).append("# Resources per type and title (alphabetically)\n");
 
 		boolean first = true;
 		for(String type : sorted.keySet()) {
@@ -191,8 +190,9 @@ public class CatalogRspecGenerator {
 					}
 
 					out.append('\n').append(indent(2)).append(")\n");
-					out.append(indent(1)).append("end\n");
 				}
+
+				out.append(indent(1)).append("end\n");
 			}
 		}
 	}

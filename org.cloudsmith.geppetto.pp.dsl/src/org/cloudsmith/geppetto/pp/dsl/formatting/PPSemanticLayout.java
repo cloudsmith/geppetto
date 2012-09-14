@@ -124,8 +124,6 @@ public class PPSemanticLayout extends DeclarativeSemanticFlowLayout {
 
 	private static final int ATTRIBUTE_OPERATIONS_CLUSTER_SIZE = 20;
 
-	// private static final int SELECTOR_EXPRESSION_CLUSTER_SIZE = 20;
-
 	protected void _after(AttributeOperations aos, StyleSet styleSet, IDomNode node, ITextFlow flow,
 			ILayoutContext context) {
 		if(aos.eContainer() instanceof ResourceBody) {
@@ -154,7 +152,6 @@ public class PPSemanticLayout extends DeclarativeSemanticFlowLayout {
 		boolean canBeCompacted = counts.getFirst() <= 1 && counts.getSecond() < 1;
 		if(canBeCompacted && counts.getFirst() == 1) {
 			// if the formatted statement list fits on one line, make this case eligible for same line output
-
 			canBeCompacted = true;
 		}
 		if(canBeCompacted)
@@ -250,12 +247,6 @@ public class PPSemanticLayout extends DeclarativeSemanticFlowLayout {
 	protected boolean _format(SelectorExpression se, StyleSet styleSet, IDomNode node, ITextFlow flow,
 			ILayoutContext context) {
 		return selectorLayout._format(se, styleSet, node, flow, context);
-
-		// LayoutUtils.unifyWidthAndAlign(
-		// node, grammarAccess.getSelectorEntryAccess().getSelectorEntryLeftExprAction_1_0(), Alignment.left,
-		// SELECTOR_EXPRESSION_CLUSTER_SIZE);
-		// return false;
-
 	}
 
 	protected boolean _format(UnlessExpression o, StyleSet styleSet, IDomNode node, ITextFlow flow,

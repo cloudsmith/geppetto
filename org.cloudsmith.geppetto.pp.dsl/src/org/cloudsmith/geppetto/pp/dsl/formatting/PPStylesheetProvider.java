@@ -53,6 +53,9 @@ public class PPStylesheetProvider extends DefaultStylesheetProvider {
 
 		final Selector resourceSingleBodyTitle = Select.node(ResourceStyle.SINGLEBODY_TITLE);
 		final Selector resourceSingleBodyNoTitle = Select.node(ResourceStyle.SINGLEBODY_NO_TITLE);
+		final Selector resourceCompactable = Select.node(ResourceStyle.COMPACTABLE);
+
+		final Selector inCompactableResource = Select.containment(resourceCompactable);
 		final Selector inASingleBodiesResourceWithTitle = Select.containment(resourceSingleBodyTitle);
 		final Selector inASingleBodiesResourceWithoutTitle = Select.containment(resourceSingleBodyNoTitle);
 
@@ -118,6 +121,10 @@ public class PPStylesheetProvider extends DefaultStylesheetProvider {
 				styles.indent(0)) //
 			.withRuleName("WsAfterLeftCurlyBracket.InASingleBodiedResourceWithoutTitle"),
 
+			Select.and(Select.important(inCompactableResource), Select.whitespaceBefore(resourceRightCurlyBracket)) //
+			.withStyles(styles.noLineBreak(), styles.oneSpace()) //
+			.withRuleName("WsBeforeRightCurlyBracket-Compactable"), //
+
 			Select.and(inASingleBodiesResourceWithTitle, Select.whitespaceBefore(resourceRightCurlyBracket)) //
 			.withStyle(resourceRightCurlyStyleNoDedent)//
 			.withRuleName("WsBeforeRightCurlyBracket.InASingleBodiesResourceWithTitle."),
@@ -150,16 +157,24 @@ public class PPStylesheetProvider extends DefaultStylesheetProvider {
 			.withRuleName("WsBeforeResourceBodyTitleColon"),
 
 			// A resource body has its attribute operations indented after the title ':'
-			//
+			// If compact, stay on the same line
+			Select.and(inCompactableResource, Select.whitespaceAfter(resourceBodyTitleColon)) //
+			.withStyle(oneSpaceNoLine) //
+			.withRuleName("WsAfterResourceBodyTitleColon-Compactable"), //
+
 			Select.whitespaceAfter(resourceBodyTitleColon)//
 			.withStyles( //
-				// styles.indent(), //
 				styles.oneLineBreak())//
 			.withRuleName("WsAfterResourceBodyTitleColon"), //
 
 			// ATTRIBUTE OPERATIONS have each operation on a separate line
 			// a => b, c => d
 			// -------^
+			// If compact, stay on the same line
+			Select.and(inCompactableResource, Select.whitespaceAfter(attributeOperationsComma)) //
+			.withStyle(oneSpaceNoLine) //
+			.withRuleName("WsAfterAttributeOperationsComma-Compactable"), //
+
 			Select.whitespaceAfter(attributeOperationsComma)//
 			.withStyles(styles.oneLineBreak())//
 			.withRuleName("WsAfterAttributeOperationsComma"),

@@ -35,6 +35,14 @@ public interface IBreakAndAlignAdvice {
 			return true;
 		}
 
+		/*
+		 * @return false
+		 */
+		@Override
+		public boolean compactResourceWhenPossible() {
+			return false;
+		}
+
 		/**
 		 * @return OnOverflow
 		 */
@@ -85,6 +93,11 @@ public interface IBreakAndAlignAdvice {
 	 * Should cases be compacted if possible?
 	 */
 	public boolean compactCasesWhenPossible();
+
+	/**
+	 * Should Resources be compacted if possible?
+	 */
+	public boolean compactResourceWhenPossible();
 
 	/**
 	 * When to break align definition argument lists (i.e. class and definition parameters)

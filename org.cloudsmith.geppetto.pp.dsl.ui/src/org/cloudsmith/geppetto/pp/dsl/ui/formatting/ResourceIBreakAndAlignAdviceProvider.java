@@ -35,8 +35,9 @@ public class ResourceIBreakAndAlignAdviceProvider extends PlatformResourceSpecif
 		final WhenToApplyForDefinition definitionParameters = formatterPreferences.getDefinitionParametersAdvice(resource);
 		final WhenToApply hashes = formatterPreferences.getHashesAdvice(resource);
 		final WhenToApply lists = formatterPreferences.getListsAdvice(resource);
-		final boolean compact = formatterPreferences.isCompactCases();
-		final boolean alignCases = formatterPreferences.isAlignCases();
+		final boolean compact = formatterPreferences.isCompactCases(resource);
+		final boolean alignCases = formatterPreferences.isAlignCases(resource);
+		final boolean compactResource = formatterPreferences.isCompactResources(resource);
 
 		return new IBreakAndAlignAdvice() {
 
@@ -48,6 +49,11 @@ public class ResourceIBreakAndAlignAdviceProvider extends PlatformResourceSpecif
 			@Override
 			public boolean compactCasesWhenPossible() {
 				return compact;
+			}
+
+			@Override
+			public boolean compactResourceWhenPossible() {
+				return compactResource;
 			}
 
 			@Override

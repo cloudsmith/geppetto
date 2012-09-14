@@ -38,16 +38,21 @@ import org.cloudsmith.geppetto.pp.dsl.services.PPGrammarAccess;
 import org.cloudsmith.xtext.dommodel.DomModelUtils;
 import org.cloudsmith.xtext.dommodel.IDomNode;
 import org.cloudsmith.xtext.dommodel.formatter.DeclarativeSemanticFlowLayout;
+import org.cloudsmith.xtext.dommodel.formatter.DelegatingLayoutContext;
+import org.cloudsmith.xtext.dommodel.formatter.DomNodeLayoutFeeder;
 import org.cloudsmith.xtext.dommodel.formatter.LayoutUtils;
 import org.cloudsmith.xtext.dommodel.formatter.css.Alignment;
 import org.cloudsmith.xtext.dommodel.formatter.css.StyleSet;
 import org.cloudsmith.xtext.textflow.ITextFlow;
+import org.cloudsmith.xtext.textflow.MeasuredTextFlow;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.xtext.nodemodel.INode;
 import org.eclipse.xtext.util.Pair;
 import org.eclipse.xtext.util.Tuples;
 
+import com.google.common.collect.Lists;
 import com.google.inject.Inject;
+import com.google.inject.Provider;
 import com.google.inject.Singleton;
 
 /**
@@ -57,7 +62,7 @@ import com.google.inject.Singleton;
 @Singleton
 public class PPSemanticLayout extends DeclarativeSemanticFlowLayout {
 	public enum ResourceStyle {
-		EMPTY, SINGLEBODY_TITLE, SINGLEBODY_NO_TITLE, MULTIPLE_BODIES;
+		EMPTY, SINGLEBODY_TITLE, SINGLEBODY_NO_TITLE, MULTIPLE_BODIES, COMPACTABLE;
 	}
 
 	public enum StatementStyle {
@@ -113,6 +118,9 @@ public class PPSemanticLayout extends DeclarativeSemanticFlowLayout {
 	@Inject
 	private LiteralHashLayout literaHashLayout;
 
+	@Inject
+	private Provider<IBreakAndAlignAdvice> adviceProvider;
+
 	/**
 	 * array of classifiers that represent {@code org.cloudsmith.geppetto.pp.dsl.formatting.PPSemanticLayout.StatementStyle.BLOCK} - used for fast
 	 * lookup (faster
@@ -123,6 +131,9 @@ public class PPSemanticLayout extends DeclarativeSemanticFlowLayout {
 			PPPackage.NODE_DEFINITION, PPPackage.RESOURCE_EXPRESSION, PPPackage.SELECTOR_EXPRESSION };
 
 	private static final int ATTRIBUTE_OPERATIONS_CLUSTER_SIZE = 20;
+
+	@Inject
+	private DomNodeLayoutFeeder feeder;
 
 	protected void _after(AttributeOperations aos, StyleSet styleSet, IDomNode node, ITextFlow flow,
 			ILayoutContext context) {
@@ -225,22 +236,41 @@ public class PPSemanticLayout extends DeclarativeSemanticFlowLayout {
 
 	protected boolean _format(ResourceExpression o, StyleSet styleSet, IDomNode node, ITextFlow flow,
 			ILayoutContext context) {
-		ResourceStyle rstyle = null;
+		List<Object> styles = Lists.newArrayList();
+		boolean compactResource = adviceProvider.get().compactResourceWhenPossible();
 		switch(o.getResourceData().size()) {
 			case 0:
-				rstyle = ResourceStyle.EMPTY;
+				styles.add(ResourceStyle.EMPTY);
+				if(compactResource)
+					styles.add(ResourceStyle.COMPACTABLE);
 				break;
 			case 1:
-				rstyle = o.getResourceData().get(0).getNameExpr() != null
+				styles.add(o.getResourceData().get(0).getNameExpr() != null
 						? ResourceStyle.SINGLEBODY_TITLE
-						: ResourceStyle.SINGLEBODY_NO_TITLE;
+						: ResourceStyle.SINGLEBODY_NO_TITLE);
+				// if there is more than 1 attribute operation, the resource can't be compacted
+				AttributeOperations attributes = o.getResourceData().get(0).getAttributes();
+				if(compactResource && (attributes == null || attributes.getAttributes().size() < 2))
+					styles.add(ResourceStyle.COMPACTABLE);
 				break;
 			default:
-				rstyle = ResourceStyle.MULTIPLE_BODIES;
+				styles.add(ResourceStyle.MULTIPLE_BODIES);
 				break;
 		}
-		// the style is set on the container and is used in containment checks for resource bodies.
-		node.getStyleClassifiers().add(rstyle);
+		if(compactResource && styles.contains(ResourceStyle.COMPACTABLE)) {
+			// must check if rendering would overflow
+			node.getStyleClassifiers().addAll(styles);
+			DelegatingLayoutContext dlc = new DelegatingLayoutContext(context);
+			MeasuredTextFlow continuedFlow = new MeasuredTextFlow((MeasuredTextFlow) flow);
+			feeder.sequence(node.getChildren(), continuedFlow, dlc);
+			if(continuedFlow.getHeight() > 2) {
+				node.getStyleClassifiers().remove(ResourceStyle.COMPACTABLE);
+			}
+		}
+		else {
+			// the style is set on the container and is used in containment checks for resource bodies.
+			node.getStyleClassifiers().addAll(styles);
+		}
 		return false;
 	}
 

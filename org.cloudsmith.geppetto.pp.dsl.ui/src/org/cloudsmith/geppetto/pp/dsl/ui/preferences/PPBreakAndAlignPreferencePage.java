@@ -69,6 +69,12 @@ public class PPBreakAndAlignPreferencePage extends AbstractPreferencePage {
 			parent);
 		addField(compactCase);
 
+		BooleanFieldEditor compactResource = new BooleanFieldEditor(
+			BreakAndAlignPreferences.FORMATTER_COMPACT_RESOURCES, //
+			"Compact Resources when possible", //
+			getFieldEditorParent());
+		addField(compactResource);
+
 		IntegerFieldEditor clusterMax = new IntegerFieldEditor(BreakAndAlignPreferences.FORMATTER_ALIGN_CLUSTERWIDTH, //
 			"Max Alignment Padding", getFieldEditorParent(), //
 			3, 4);

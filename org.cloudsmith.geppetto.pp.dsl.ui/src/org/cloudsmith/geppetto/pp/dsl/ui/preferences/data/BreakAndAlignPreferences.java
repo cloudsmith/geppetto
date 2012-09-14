@@ -35,6 +35,8 @@ public class BreakAndAlignPreferences extends AbstractPreferenceData {
 
 	public static final String FORMATTER_COMPACT_CASES = "formatCompactCases";
 
+	public static final String FORMATTER_COMPACT_RESOURCES = "formatCompactResources";
+
 	public static final String FORMATTER_ALIGN_CASES = "formatAlignCases";
 
 	public static final String FORMATTER_ALIGN_CLUSTERWIDTH = "formatClusterWidth";
@@ -46,6 +48,7 @@ public class BreakAndAlignPreferences extends AbstractPreferenceData {
 		store.setDefault(FORMATTER_ALIGN_LISTS, WhenToApply.OnOverflow.toString());
 		store.setDefault(FORMATTER_ALIGN_HASHES, WhenToApply.OnOverflow.toString());
 		store.setDefault(FORMATTER_COMPACT_CASES, true);
+		store.setDefault(FORMATTER_COMPACT_RESOURCES, true);
 		store.setDefault(FORMATTER_ALIGN_CASES, true);
 	}
 
@@ -158,6 +161,24 @@ public class BreakAndAlignPreferences extends AbstractPreferenceData {
 	 */
 	public boolean isCompactCases(IResource r) {
 		return getContextualBoolean(r, FORMATTER_COMPACT_CASES);
+	}
+
+	/**
+	 * Returns if compactable cases should be rendered in compact form
+	 * 
+	 * @return true if compactable cases should be rendered in compact form
+	 */
+	public boolean isCompactResources() {
+		return getBoolean(FORMATTER_COMPACT_RESOURCES);
+	}
+
+	/**
+	 * Returns if compactable resources should be rendered in compact form
+	 * 
+	 * @return true if compactable resources should be rendered in compact form
+	 */
+	public boolean isCompactResources(IResource r) {
+		return getContextualBoolean(r, FORMATTER_COMPACT_RESOURCES);
 	}
 
 }

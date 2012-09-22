@@ -21,6 +21,7 @@ import org.cloudsmith.xtext.textflow.ITextFlow;
 import org.cloudsmith.xtext.textflow.TextFlow;
 import org.eclipse.xtext.formatting.IIndentationInformation;
 import org.eclipse.xtext.formatting.ILineSeparatorInformation;
+import org.eclipse.xtext.serializer.diagnostic.ISerializationDiagnostic;
 import org.eclipse.xtext.serializer.diagnostic.ISerializationDiagnostic.Acceptor;
 import org.eclipse.xtext.util.ITextRegion;
 import org.eclipse.xtext.util.ReplaceRegion;
@@ -52,6 +53,11 @@ public class CSSDomFormatter implements IDomModelFormatter {
 	public CSSDomFormatter(Provider<DomCSS> domProvider, DomNodeLayoutFeeder layoutFeeder) {
 		cssProvider = domProvider;
 		this.layoutFeeder = layoutFeeder;
+	}
+
+	@Override
+	public ReplaceRegion format(IDomNode dom, ITextRegion regionToFormat, IFormattingContext formattingContext) {
+		return format(dom, regionToFormat, formattingContext, ISerializationDiagnostic.EXCEPTION_THROWING_ACCEPTOR);
 	}
 
 	@Override

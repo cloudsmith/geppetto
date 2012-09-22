@@ -30,6 +30,18 @@ import org.eclipse.xtext.util.ReplaceRegion;
 public interface IDomModelFormatter {
 
 	/**
+	 * Same as {@link #format(IDomNode, ITextRegion, IFormattingContext, org.eclipse.xtext.serializer.diagnostic.ISerializationDiagnostic.Acceptor)}
+	 * but uses an exception throwing error acceptor.
+	 * 
+	 * @param dom
+	 * @param regionToFormat
+	 * @param formattingContext
+	 * @return
+	 */
+	public ReplaceRegion format(IDomNode dom, /* @Nullable */ITextRegion regionToFormat,
+			IFormattingContext formattingContext);
+
+	/**
 	 * Formats the given dom node (and its children) and produces a ReplaceRegion with the formatted text.
 	 * The returned region has the offset and length given by the regionToFormat, or if this region is null,
 	 * offset 0, and the length of the produced formatted text.
@@ -46,5 +58,4 @@ public interface IDomModelFormatter {
 	 */
 	public ReplaceRegion format(IDomNode dom, /* @Nullable */ITextRegion regionToFormat,
 			IFormattingContext formattingContext, ISerializationDiagnostic.Acceptor errors);
-
 }

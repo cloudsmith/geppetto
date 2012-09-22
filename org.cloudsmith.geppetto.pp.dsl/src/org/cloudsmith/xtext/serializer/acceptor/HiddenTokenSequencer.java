@@ -14,9 +14,11 @@ package org.cloudsmith.xtext.serializer.acceptor;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.ListIterator;
 import java.util.Set;
 
 import org.cloudsmith.xtext.dommodel.IDomNode;
+import org.cloudsmith.xtext.serializer.ICommentReconcilement;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.xtext.AbstractRule;
 import org.eclipse.xtext.Action;
@@ -37,7 +39,6 @@ import org.eclipse.xtext.parsetree.reconstr.impl.TokenUtil;
 import org.eclipse.xtext.serializer.acceptor.ISequenceAcceptor;
 import org.eclipse.xtext.serializer.acceptor.ISyntacticSequenceAcceptor;
 import org.eclipse.xtext.serializer.diagnostic.ISerializationDiagnostic.Acceptor;
-import org.eclipse.xtext.serializer.sequencer.IHiddenTokenSequencer;
 import org.eclipse.xtext.serializer.sequencer.ISyntacticSequencer;
 
 import com.google.common.collect.Lists;
@@ -49,7 +50,7 @@ import com.google.inject.Inject;
  * Implicit WS is emitted also when an INode model is not present.
  * 
  */
-public class HiddenTokenSequencer implements IHiddenTokenSequencer, ISyntacticSequenceAcceptor {
+public class HiddenTokenSequencer implements IHiddenTokenSequencer2, ISyntacticSequenceAcceptor {
 
 	@Inject
 	protected IHiddenTokenHelper hiddenTokenHelper;
@@ -60,6 +61,8 @@ public class HiddenTokenSequencer implements IHiddenTokenSequencer, ISyntacticSe
 	protected ISequenceAcceptor delegate;
 
 	protected INode lastNode;
+
+	protected INode lastNodes[] = new INode[2];
 
 	protected INode rootNode;
 
@@ -82,6 +85,8 @@ public class HiddenTokenSequencer implements IHiddenTokenSequencer, ISyntacticSe
 	 * the state of 'hidden' when 'from' was sequenced, and {@link #currentHidden} when 'to' is sequenced.
 	 */
 	protected List<AbstractRule> hiddenInLastNode;
+
+	private ICommentReconcilement commentReconciliator;
 
 	@Override
 	public void acceptAssignedCrossRefDatatype(RuleCall rc, String tkn, EObject val, int index, ICompositeNode node) {
@@ -230,7 +235,8 @@ public class HiddenTokenSequencer implements IHiddenTokenSequencer, ISyntacticSe
 			List<INode> hidden = getRemainingHiddenNodesInContainer(lastNode, rootNode);
 			if(!hidden.isEmpty()) {
 				emitHiddenTokens(hidden);
-				lastNode = rootNode;
+				lastNodes[1] = lastNodes[0];
+				lastNode = lastNodes[0] = rootNode;
 			}
 		}
 		delegate.finish();
@@ -255,6 +261,7 @@ public class HiddenTokenSequencer implements IHiddenTokenSequencer, ISyntacticSe
 
 	protected List<INode> getHiddenNodesBetween(INode from, INode to) {
 		List<INode> result = getHiddenNodesBetween2(from, to);
+		result = reconcileComments(result, lastNodes[1], from, to);
 		if(result == null) {
 			AbstractRule ws = hiddenTokenHelper.getWhitespaceRuleFor(null, "");
 			// only emit hidden whitespace, or visible whitespace where this is overridden using
@@ -300,7 +307,7 @@ public class HiddenTokenSequencer implements IHiddenTokenSequencer, ISyntacticSe
 					return out;
 			}
 			else if(tokenUtil.isToken(next))
-				return null;
+				return out; // null;
 		}
 		return out;
 	}
@@ -330,10 +337,18 @@ public class HiddenTokenSequencer implements IHiddenTokenSequencer, ISyntacticSe
 	}
 
 	public void init(EObject context, EObject semanticObject, ISequenceAcceptor sequenceAcceptor, Acceptor errorAcceptor) {
+		init(context, semanticObject, sequenceAcceptor, errorAcceptor, null);
+	}
+
+	@Override
+	public void init(EObject context, EObject semanticObject, ISequenceAcceptor sequenceAcceptor,
+			Acceptor errorAcceptor, ICommentReconcilement commentReconciliator) {
 		this.delegate = sequenceAcceptor;
 		this.lastNode = NodeModelUtils.findActualNodeFor(semanticObject);
 		this.rootNode = lastNode;
+		lastNodes[0] = lastNodes[1] = this.lastNode;
 		initCurrentHidden(context);
+		this.commentReconciliator = commentReconciliator;
 	}
 
 	protected void initCurrentHidden(EObject context) {
@@ -409,6 +424,42 @@ public class HiddenTokenSequencer implements IHiddenTokenSequencer, ISyntacticSe
 		}
 	}
 
+	protected List<INode> reconcileComments(List<INode> currentResult, INode preceding, INode from, INode to) {
+		if(preceding == null || from == null || to == null || commentReconciliator == null)
+			return currentResult;
+		List<INode> result = commentReconciliator.commentNodesFor(preceding, from, to);
+
+		// If the normal comment hunt includes a comment - remove it if it is reconciled.
+		// It should perhaps not appear in that position
+		//
+		if(currentResult != null) {
+			{
+				ListIterator<INode> litor = currentResult.listIterator();
+				while(litor.hasNext()) {
+					INode n = litor.next();
+					if(tokenUtil.isCommentNode(n) && commentReconciliator.isReconciledCommentNode(n))
+						litor.remove();
+				}
+			}
+			// Add the comment nodes the reconciler has for this position
+			// (possibly something just removed - that is expected)
+
+			// Also, remove whitespace from current result, if there is any reconciled comments
+			if(result.size() > 0) {
+				ListIterator<INode> litor = currentResult.listIterator();
+				while(litor.hasNext()) {
+					INode n = litor.next();
+					if(tokenUtil.isWhitespaceNode(n))
+						litor.remove();
+				}
+			}
+			for(INode n : result)
+				currentResult.add(n);
+			result = currentResult;
+		}
+		return result;
+	}
+
 	/**
 	 * Remembers the last leaf of given node unless it is null.
 	 * 
@@ -417,7 +468,9 @@ public class HiddenTokenSequencer implements IHiddenTokenSequencer, ISyntacticSe
 	private void rememberLastLeaf(INode node) {
 		if(node == null)
 			return;
-		lastNode = getLastLeaf(node);
+
+		lastNodes[1] = lastNodes[0];
+		lastNode = lastNodes[0] = getLastLeaf(node);
 		hiddenInLastNode = currentHidden;
 	}
 
@@ -429,7 +482,8 @@ public class HiddenTokenSequencer implements IHiddenTokenSequencer, ISyntacticSe
 	private void rememberNode(INode nodeToRemember) {
 		if(nodeToRemember == null)
 			return;
-		lastNode = nodeToRemember;
+		lastNodes[1] = lastNodes[0];
+		lastNode = lastNodes[0] = nodeToRemember;
 		hiddenInLastNode = currentHidden;
 	}
 }

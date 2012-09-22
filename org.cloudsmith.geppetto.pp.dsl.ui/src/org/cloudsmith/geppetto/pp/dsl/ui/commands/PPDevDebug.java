@@ -32,6 +32,7 @@ import org.cloudsmith.xtext.dommodel.formatter.context.IFormattingContext;
 import org.cloudsmith.xtext.dommodel.formatter.context.IFormattingContextFactory;
 import org.cloudsmith.xtext.dommodel.formatter.context.IFormattingContextFactory.FormattingOption;
 import org.cloudsmith.xtext.dommodel.formatter.css.DomCSS;
+import org.cloudsmith.xtext.resource.ResourceAccessScope;
 import org.cloudsmith.xtext.serializer.DomBasedSerializer;
 import org.cloudsmith.xtext.textflow.ITextFlow.WithText;
 import org.cloudsmith.xtext.textflow.TextFlowWithDebugRecording;
@@ -161,6 +162,9 @@ public class PPDevDebug extends AbstractHandler {
 	private TextFlowWithDebugRecording recordedDebugFormatResult;
 
 	@Inject
+	private ResourceAccessScope resourceScope;
+
+	@Inject
 	public PPDevDebug() {
 
 	}
@@ -254,7 +258,13 @@ public class PPDevDebug extends AbstractHandler {
 		IStatus result = xtextDocument.readOnly(new IUnitOfWork<IStatus, XtextResource>() {
 			@Override
 			public IStatus exec(XtextResource state) throws Exception {
-				return doDebug(state);
+				try {
+					resourceScope.enter(state);
+					return doDebug(state);
+				}
+				finally {
+					resourceScope.exit();
+				}
 			}
 		});
 		System.out.println("DEVDEBUG DONE STATUS : " + result.toString() + "\n)");

@@ -235,6 +235,17 @@ public class DomModelUtils {
 
 	}
 
+	public static IDomNode findNodeForSemanticObject(IDomNode domModel, EObject o) {
+
+		Iterator<IDomNode> itor = domModel.treeIterator();
+		while(itor.hasNext()) {
+			IDomNode n = itor.next();
+			if(n.getSemanticObject() == o)
+				return n;
+		}
+		return null;
+	}
+
 	public static IDomNode firstLeaf(IDomNode node) {
 		if(node == null || node.isLeaf())
 			return node;

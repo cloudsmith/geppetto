@@ -161,7 +161,9 @@ public class ExtLinkedXtextEditor extends XtextEditor {
 				return;
 			}
 		}
+		rememberSelection();
 		saveActions.perform(getResource(), getDocument());
+		restoreSelection();
 		super.doSave(progressMonitor);
 	}
 

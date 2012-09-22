@@ -27,6 +27,7 @@ import org.eclipse.jface.text.BadLocationException;
 import org.eclipse.xtext.resource.XtextResource;
 import org.eclipse.xtext.serializer.diagnostic.ISerializationDiagnostic;
 import org.eclipse.xtext.ui.editor.model.IXtextDocument;
+import org.eclipse.xtext.ui.editor.reconciler.ReplaceRegion;
 import org.eclipse.xtext.util.TextRegion;
 import org.eclipse.xtext.util.concurrent.IUnitOfWork;
 
@@ -110,12 +111,18 @@ public class SaveActions implements ISaveActions {
 		final boolean fullFormat = preferenceHelper.getSaveActionFormat(r);
 
 		if(ensureNl || replaceFunkySpace || trimLines || fullFormat) {
-			document.modify(new IUnitOfWork.Void<XtextResource>() {
+			document.modify(new IUnitOfWork<ReplaceRegion, XtextResource>() {
 
 				@Override
-				public void process(XtextResource state) throws Exception {
-					// Do any semantic changes here
+				public ReplaceRegion exec(XtextResource state) throws Exception {
+					if(process(state))
+						return new ReplaceRegion(0, document.getLength(), document.get());
+					return new ReplaceRegion(0, 0, ""); // nothing changed
+				}
 
+				public boolean process(XtextResource state) throws Exception {
+					// Do any semantic changes here
+					boolean changed = false;
 					String content = document.get();
 					if(ensureNl)
 						if(!content.endsWith("\n")) {
@@ -123,6 +130,7 @@ public class SaveActions implements ISaveActions {
 							try {
 								document.replace(content.length() - 1, 0, "\n");
 								content = document.get();
+								changed = true;
 							}
 							catch(BadLocationException e) {
 								// ignore
@@ -131,7 +139,7 @@ public class SaveActions implements ISaveActions {
 					if(trimLines) {
 						Matcher matcher = trimPattern.matcher(content);
 						boolean mustRefetch = false;
-						;
+
 						int lengthAdjustment = 0;
 						while(matcher.find()) {
 							int offset = matcher.start();
@@ -141,6 +149,7 @@ public class SaveActions implements ISaveActions {
 								document.replace(offset - lengthAdjustment, length, replacement);
 								lengthAdjustment += (length - replacement.length());
 								mustRefetch = true;
+								changed = true;
 							}
 							catch(BadLocationException e) {
 								// ignore
@@ -158,6 +167,7 @@ public class SaveActions implements ISaveActions {
 							try {
 								document.replace(offset - lengthAdjustment, length, " ");
 								lengthAdjustment += length - 1;
+								changed = true;
 							}
 							catch(BadLocationException e) {
 								// ignore
@@ -177,16 +187,19 @@ public class SaveActions implements ISaveActions {
 							org.eclipse.xtext.util.ReplaceRegion r = getFormatter().format(
 								root, new TextRegion(0, document.getLength()), //
 								getFormattingContextFactory().create(state, FormattingOption.Format), errors);
-							document.replace(0, document.getLength(), r.getText());
+							if(!content.equals(r.getText())) {
+								document.replace(0, document.getLength(), r.getText());
+								changed = true;
+							}
 						}
 						finally {
 							resourceScope.exit();
 						}
 
 					}
+					return changed; // no change
 				}
 			});
-
 		}
 
 	}

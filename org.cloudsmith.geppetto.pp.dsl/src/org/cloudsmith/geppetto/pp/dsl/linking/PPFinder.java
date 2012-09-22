@@ -422,8 +422,11 @@ public class PPFinder {
 		stack.add(containerName);
 
 		// find using the given name
-		final List<IEObjectDescription> result = findExternal(
-			scopeDetermeningObject, fqn, importedNames, matchingStrategy, classes).getAdjusted();
+		SearchResult searchResult = findExternal(scopeDetermeningObject, fqn, importedNames, matchingStrategy, classes);
+		final List<IEObjectDescription> result = searchResult.getAdjusted();
+		// Collect raw results to enable better error reporting on path errors
+		List<IEObjectDescription> rawResult = Lists.newArrayList();
+		rawResult.addAll(searchResult.getRaw());
 
 		// Search up the inheritance chain if no match (on exact match), or if a prefix search
 		if(result.isEmpty() || !matchingStrategy.isExists()) {
@@ -440,14 +443,15 @@ public class PPFinder {
 
 						QualifiedName attributeFqn = converter.toQualifiedName(parentName);
 						attributeFqn = attributeFqn.append(fqn.getLastSegment());
-						result.addAll(findInherited(
-							scopeDetermeningObject, attributeFqn, importedNames, stack, matchingStrategy, classes).getAdjusted());
-
+						SearchResult inheritedSearchResult = findInherited(
+							scopeDetermeningObject, attributeFqn, importedNames, stack, matchingStrategy, classes);
+						result.addAll(inheritedSearchResult.getAdjusted());
+						rawResult.addAll(inheritedSearchResult.getRaw());
 					}
 				}
 			}
 		}
-		return new SearchResult(result);
+		return new SearchResult(result, rawResult);
 	}
 
 	/**

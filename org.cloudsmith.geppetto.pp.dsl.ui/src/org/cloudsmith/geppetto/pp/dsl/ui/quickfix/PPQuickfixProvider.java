@@ -13,6 +13,8 @@ package org.cloudsmith.geppetto.pp.dsl.ui.quickfix;
 
 import java.util.List;
 
+import org.cloudsmith.geppetto.pp.AttributeOperation;
+import org.cloudsmith.geppetto.pp.AttributeOperations;
 import org.cloudsmith.geppetto.pp.DoubleQuotedString;
 import org.cloudsmith.geppetto.pp.LiteralNameOrReference;
 import org.cloudsmith.geppetto.pp.PPPackage;
@@ -47,6 +49,7 @@ import org.eclipse.xtext.resource.XtextResource;
 import org.eclipse.xtext.ui.editor.model.IXtextDocument;
 import org.eclipse.xtext.ui.editor.model.edit.IModification;
 import org.eclipse.xtext.ui.editor.model.edit.IModificationContext;
+import org.eclipse.xtext.ui.editor.model.edit.ISemanticModification;
 import org.eclipse.xtext.ui.editor.quickfix.DefaultQuickfixProvider;
 import org.eclipse.xtext.ui.editor.quickfix.Fix;
 import org.eclipse.xtext.ui.editor.quickfix.IssueResolutionAcceptor;
@@ -274,6 +277,21 @@ public class PPQuickfixProvider extends DefaultQuickfixProvider {
 					new ReplacingModification(issue.getOffset(), issueString.length(), issue.getData()[0]));
 			}
 		});
+	}
+
+	@Fix(IPPDiagnostics.ISSUE__ENSURE_NOT_FIRST)
+	public void ensureNotFirst(final Issue issue, final IssueResolutionAcceptor acceptor) {
+
+		acceptor.accept(
+			issue, "Move ensure first.", "Moves the ensure first among the set attributes", null,
+			new ISemanticModification() {
+
+				@Override
+				public void apply(EObject element, IModificationContext context) throws Exception {
+					AttributeOperations aos = (AttributeOperations) element.eContainer();
+					aos.getAttributes().move(0, (AttributeOperation) element);
+				}
+			});
 	}
 
 	private String escapeChar(String s, char x) {

@@ -146,7 +146,7 @@ public class PuppetTPTests extends TestCase {
 
 	public void testLoad3_0_0() throws Exception {
 		final File puppetDistros = new File("/Users/henrik/PuppetDistributions/");
-		performLoad(new File(puppetDistros, "puppet-3.0.0rc5/lib/puppet"), //
+		performLoad(new File(puppetDistros, "puppet-3.0.0-rc7/lib/puppet"), //
 			new File(puppetDistros, "plugins-3.0.0"), //
 			new File("puppet-3.0.0.pptp"));
 	}

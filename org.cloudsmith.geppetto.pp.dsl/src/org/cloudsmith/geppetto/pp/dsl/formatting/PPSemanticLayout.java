@@ -14,6 +14,8 @@ package org.cloudsmith.geppetto.pp.dsl.formatting;
 import java.util.Iterator;
 import java.util.List;
 
+import org.cloudsmith.geppetto.pp.AppendExpression;
+import org.cloudsmith.geppetto.pp.AssignmentExpression;
 import org.cloudsmith.geppetto.pp.AttributeOperations;
 import org.cloudsmith.geppetto.pp.Case;
 import org.cloudsmith.geppetto.pp.CaseExpression;
@@ -107,6 +109,9 @@ public class PPSemanticLayout extends DeclarativeSemanticFlowLayout {
 	private DefinitionArgumentListLayout definitionListArgumentLayout;
 
 	@Inject
+	private AssignmentLayout assignmentLayout;
+
+	@Inject
 	private LiteralListLayout literaListLayout;
 
 	@Inject
@@ -147,6 +152,16 @@ public class PPSemanticLayout extends DeclarativeSemanticFlowLayout {
 		if(aos.eContainer() instanceof ResourceBody) {
 			flow.changeIndentation(1);
 		}
+	}
+
+	protected boolean _format(AppendExpression ae, StyleSet styleSet, IDomNode node, ITextFlow flow,
+			ILayoutContext context) {
+		return assignmentLayout._format(ae, styleSet, node, flow, context);
+	}
+
+	protected boolean _format(AssignmentExpression ae, StyleSet styleSet, IDomNode node, ITextFlow flow,
+			ILayoutContext context) {
+		return assignmentLayout._format(ae, styleSet, node, flow, context);
 	}
 
 	protected boolean _format(AttributeOperations aos, StyleSet styleSet, IDomNode node, ITextFlow flow,

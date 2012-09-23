@@ -60,6 +60,14 @@ public interface IBreakAndAlignAdvice {
 		}
 
 		/**
+		 * @return false
+		 */
+		@Override
+		public boolean isAlignAssignments() {
+			return false;
+		}
+
+		/**
 		 * @return true
 		 */
 		@Override
@@ -108,6 +116,11 @@ public interface IBreakAndAlignAdvice {
 	 * When to break/align hashes
 	 */
 	public WhenToApply hashesAdvice();
+
+	/**
+	 * Should assignment expressions be aligned.
+	 */
+	public boolean isAlignAssignments();
 
 	/**
 	 * If cases should be aligned on ':'

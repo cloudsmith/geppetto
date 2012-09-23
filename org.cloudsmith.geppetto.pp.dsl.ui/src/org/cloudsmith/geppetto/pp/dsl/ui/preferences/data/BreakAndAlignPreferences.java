@@ -37,6 +37,8 @@ public class BreakAndAlignPreferences extends AbstractPreferenceData {
 
 	public static final String FORMATTER_COMPACT_RESOURCES = "formatCompactResources";
 
+	public static final String FORMATTER_ALIGN_ASSIGNMENTS = "formatAlignAssigments";
+
 	public static final String FORMATTER_ALIGN_CASES = "formatAlignCases";
 
 	public static final String FORMATTER_ALIGN_CLUSTERWIDTH = "formatClusterWidth";
@@ -50,6 +52,7 @@ public class BreakAndAlignPreferences extends AbstractPreferenceData {
 		store.setDefault(FORMATTER_COMPACT_CASES, true);
 		store.setDefault(FORMATTER_COMPACT_RESOURCES, true);
 		store.setDefault(FORMATTER_ALIGN_CASES, true);
+		store.setDefault(FORMATTER_ALIGN_ASSIGNMENTS, false);
 	}
 
 	/**
@@ -137,6 +140,18 @@ public class BreakAndAlignPreferences extends AbstractPreferenceData {
 		return FORMATTER_ALIGN_USE_PROJECT_SETTINGS;
 	}
 
+	public boolean isAlignAssignments() {
+		return getBoolean(FORMATTER_ALIGN_ASSIGNMENTS);
+	}
+
+	/**
+	 * @param resource
+	 * @return
+	 */
+	public boolean isAlignAssignments(IResource r) {
+		return getContextualBoolean(r, FORMATTER_ALIGN_ASSIGNMENTS);
+	}
+
 	public boolean isAlignCases() {
 		return getBoolean(FORMATTER_ALIGN_CASES);
 	}
@@ -180,5 +195,4 @@ public class BreakAndAlignPreferences extends AbstractPreferenceData {
 	public boolean isCompactResources(IResource r) {
 		return getContextualBoolean(r, FORMATTER_COMPACT_RESOURCES);
 	}
-
 }

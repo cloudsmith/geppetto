@@ -38,6 +38,7 @@ public class ResourceIBreakAndAlignAdviceProvider extends PlatformResourceSpecif
 		final boolean compact = formatterPreferences.isCompactCases(resource);
 		final boolean alignCases = formatterPreferences.isAlignCases(resource);
 		final boolean compactResource = formatterPreferences.isCompactResources(resource);
+		final boolean alignAssignments = formatterPreferences.isAlignAssignments(resource);
 
 		return new IBreakAndAlignAdvice() {
 
@@ -64,6 +65,11 @@ public class ResourceIBreakAndAlignAdviceProvider extends PlatformResourceSpecif
 			@Override
 			public WhenToApply hashesAdvice() {
 				return hashes;
+			}
+
+			@Override
+			public boolean isAlignAssignments() {
+				return alignAssignments;
 			}
 
 			@Override

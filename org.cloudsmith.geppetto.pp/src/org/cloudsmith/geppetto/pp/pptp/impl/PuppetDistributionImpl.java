@@ -22,14 +22,13 @@ import org.eclipse.emf.ecore.EClass;
  * <!-- end-user-doc -->
  * <p>
  * </p>
- * 
+ *
  * @generated
  */
 public class PuppetDistributionImpl extends TargetEntryImpl implements PuppetDistribution {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	protected PuppetDistributionImpl() {
@@ -39,7 +38,6 @@ public class PuppetDistributionImpl extends TargetEntryImpl implements PuppetDis
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	@Override

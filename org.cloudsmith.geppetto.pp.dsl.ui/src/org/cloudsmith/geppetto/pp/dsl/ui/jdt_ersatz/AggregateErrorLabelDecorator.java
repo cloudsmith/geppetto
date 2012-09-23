@@ -21,6 +21,7 @@ import org.eclipse.core.resources.IWorkspace;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.jface.resource.ImageDescriptor;
+import org.eclipse.jface.resource.JFaceResources;
 import org.eclipse.jface.viewers.IDecoration;
 import org.eclipse.jface.viewers.ILabelProviderListener;
 import org.eclipse.jface.viewers.ILightweightLabelDecorator;
@@ -109,10 +110,9 @@ public class AggregateErrorLabelDecorator implements ILightweightLabelDecorator 
 
 		ImageDescriptor overlay = null;
 		if(severity == IMarker.SEVERITY_ERROR)
-			overlay = PlatformUI.getWorkbench().getSharedImages().getImageDescriptor(ISharedImages.IMG_DEC_FIELD_ERROR);
+			overlay = getErrorImageDescriptor();
 		else
-			overlay = PlatformUI.getWorkbench().getSharedImages().getImageDescriptor(
-				ISharedImages.IMG_DEC_FIELD_WARNING);
+			overlay = getWarningImageDescriptor();
 
 		decoration.addOverlay(overlay, IDecoration.BOTTOM_LEFT);
 	}
@@ -127,6 +127,24 @@ public class AggregateErrorLabelDecorator implements ILightweightLabelDecorator 
 		if(listener != null)
 			ResourcesPlugin.getWorkspace().removeResourceChangeListener(listener);
 
+	}
+
+	private ImageDescriptor getErrorImageDescriptor() {
+		ImageDescriptor result = PlatformUI.getWorkbench().getSharedImages().getImageDescriptor(
+			ISharedImages.IMG_DEC_FIELD_ERROR);
+		// TODO: remove workaround see https://bugs.eclipse.org/bugs/show_bug.cgi?id=304397
+		return result != null
+				? result
+				: JFaceResources.getImageRegistry().getDescriptor("org.eclipse.jface.fieldassist.IMG_DEC_FIELD_ERROR");
+	}
+
+	private ImageDescriptor getWarningImageDescriptor() {
+		ImageDescriptor result = PlatformUI.getWorkbench().getSharedImages().getImageDescriptor(
+			ISharedImages.IMG_DEC_FIELD_WARNING);
+		// TODO: remove workaround see https://bugs.eclipse.org/bugs/show_bug.cgi?id=304397
+		return result != null
+				? result
+				: JFaceResources.getImageRegistry().getDescriptor("org.eclipse.jface.fieldassist.IMG_DEC_FIELD_WARNING");
 	}
 
 	/*

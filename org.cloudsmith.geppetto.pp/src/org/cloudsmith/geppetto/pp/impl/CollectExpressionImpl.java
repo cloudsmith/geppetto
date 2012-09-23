@@ -29,12 +29,12 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  * <p>
  * The following features are implemented:
  * <ul>
- * <li>{@link org.cloudsmith.geppetto.pp.impl.CollectExpressionImpl#getClassReference <em>Class Reference</em>}</li>
- * <li>{@link org.cloudsmith.geppetto.pp.impl.CollectExpressionImpl#getQuery <em>Query</em>}</li>
- * <li>{@link org.cloudsmith.geppetto.pp.impl.CollectExpressionImpl#getAttributes <em>Attributes</em>}</li>
+ *   <li>{@link org.cloudsmith.geppetto.pp.impl.CollectExpressionImpl#getClassReference <em>Class Reference</em>}</li>
+ *   <li>{@link org.cloudsmith.geppetto.pp.impl.CollectExpressionImpl#getQuery <em>Query</em>}</li>
+ *   <li>{@link org.cloudsmith.geppetto.pp.impl.CollectExpressionImpl#getAttributes <em>Attributes</em>}</li>
  * </ul>
  * </p>
- * 
+ *
  * @generated
  */
 public class CollectExpressionImpl extends ExpressionImpl implements CollectExpression {
@@ -42,7 +42,6 @@ public class CollectExpressionImpl extends ExpressionImpl implements CollectExpr
 	 * The cached value of the '{@link #getClassReference() <em>Class Reference</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @see #getClassReference()
 	 * @generated
 	 * @ordered
@@ -53,7 +52,6 @@ public class CollectExpressionImpl extends ExpressionImpl implements CollectExpr
 	 * The cached value of the '{@link #getQuery() <em>Query</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @see #getQuery()
 	 * @generated
 	 * @ordered
@@ -64,7 +62,6 @@ public class CollectExpressionImpl extends ExpressionImpl implements CollectExpr
 	 * The cached value of the '{@link #getAttributes() <em>Attributes</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @see #getAttributes()
 	 * @generated
 	 * @ordered
@@ -74,7 +71,6 @@ public class CollectExpressionImpl extends ExpressionImpl implements CollectExpr
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	protected CollectExpressionImpl() {
@@ -84,7 +80,6 @@ public class CollectExpressionImpl extends ExpressionImpl implements CollectExpr
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public NotificationChain basicSetAttributes(AttributeOperations newAttributes, NotificationChain msgs) {
@@ -104,7 +99,6 @@ public class CollectExpressionImpl extends ExpressionImpl implements CollectExpr
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public NotificationChain basicSetClassReference(Expression newClassReference, NotificationChain msgs) {
@@ -125,7 +119,6 @@ public class CollectExpressionImpl extends ExpressionImpl implements CollectExpr
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public NotificationChain basicSetQuery(ICollectQuery newQuery, NotificationChain msgs) {
@@ -145,7 +138,6 @@ public class CollectExpressionImpl extends ExpressionImpl implements CollectExpr
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	@Override
@@ -164,7 +156,6 @@ public class CollectExpressionImpl extends ExpressionImpl implements CollectExpr
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	@Override
@@ -183,7 +174,6 @@ public class CollectExpressionImpl extends ExpressionImpl implements CollectExpr
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	@Override
@@ -202,7 +192,6 @@ public class CollectExpressionImpl extends ExpressionImpl implements CollectExpr
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	@Override
@@ -224,7 +213,6 @@ public class CollectExpressionImpl extends ExpressionImpl implements CollectExpr
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	@Override
@@ -235,7 +223,6 @@ public class CollectExpressionImpl extends ExpressionImpl implements CollectExpr
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	@Override
@@ -257,7 +244,6 @@ public class CollectExpressionImpl extends ExpressionImpl implements CollectExpr
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public AttributeOperations getAttributes() {
@@ -267,7 +253,6 @@ public class CollectExpressionImpl extends ExpressionImpl implements CollectExpr
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public Expression getClassReference() {
@@ -277,7 +262,6 @@ public class CollectExpressionImpl extends ExpressionImpl implements CollectExpr
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public ICollectQuery getQuery() {
@@ -287,7 +271,6 @@ public class CollectExpressionImpl extends ExpressionImpl implements CollectExpr
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public void setAttributes(AttributeOperations newAttributes) {
@@ -311,7 +294,6 @@ public class CollectExpressionImpl extends ExpressionImpl implements CollectExpr
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public void setClassReference(Expression newClassReference) {
@@ -336,7 +318,6 @@ public class CollectExpressionImpl extends ExpressionImpl implements CollectExpr
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public void setQuery(ICollectQuery newQuery) {

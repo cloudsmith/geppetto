@@ -11,6 +11,7 @@
  */
 package org.cloudsmith.geppetto.pp.dsl.linking;
 
+import static org.cloudsmith.geppetto.pp.adapters.ClassifierAdapter.COLLECTOR_IS_REGULAR;
 import static org.cloudsmith.geppetto.pp.adapters.ClassifierAdapter.RESOURCE_IS_CLASSPARAMS;
 import static org.cloudsmith.geppetto.pp.adapters.ClassifierAdapter.RESOURCE_IS_OVERRIDE;
 
@@ -19,10 +20,12 @@ import java.util.List;
 import java.util.ListIterator;
 
 import org.cloudsmith.geppetto.common.tracer.ITracer;
+import org.cloudsmith.geppetto.pp.AtExpression;
 import org.cloudsmith.geppetto.pp.AttributeOperation;
 import org.cloudsmith.geppetto.pp.AttributeOperations;
 import org.cloudsmith.geppetto.pp.Case;
 import org.cloudsmith.geppetto.pp.CaseExpression;
+import org.cloudsmith.geppetto.pp.CollectExpression;
 import org.cloudsmith.geppetto.pp.Definition;
 import org.cloudsmith.geppetto.pp.ElseExpression;
 import org.cloudsmith.geppetto.pp.ElseIfExpression;
@@ -41,6 +44,7 @@ import org.cloudsmith.geppetto.pp.PuppetManifest;
 import org.cloudsmith.geppetto.pp.ResourceBody;
 import org.cloudsmith.geppetto.pp.ResourceExpression;
 import org.cloudsmith.geppetto.pp.SelectorEntry;
+import org.cloudsmith.geppetto.pp.UnlessExpression;
 import org.cloudsmith.geppetto.pp.UnquotedString;
 import org.cloudsmith.geppetto.pp.VariableExpression;
 import org.cloudsmith.geppetto.pp.VariableTE;
@@ -154,6 +158,21 @@ public class PPResourceLinker implements IPPDiagnostics {
 
 	@Inject
 	private Provider<IValidationAdvisor> validationAdvisorProvider;
+
+	private void _link(CollectExpression o, PPImportedNamesAdapter importedNames, IMessageAcceptor acceptor) {
+		classifier.classify(o);
+		ClassifierAdapter adapter = ClassifierAdapterFactory.eINSTANCE.adapt(o);
+		int resourceType = adapter.getClassifier();
+		String resourceTypeName = adapter.getResourceTypeName();
+
+		// Should not really happen, but if a workspace state is maintained with old things...
+		if(resourceTypeName == null || resourceType != COLLECTOR_IS_REGULAR)
+			return;
+
+		internalLinkTypeExpression(o, o.getClassReference(), true, importedNames, acceptor);
+		internalLinkAttributeOperations(
+			o.getAttributes(), adapter.getTargetObjectDescription(IEObjectDescription.class), importedNames, acceptor);
+	}
 
 	/**
 	 * Links an arbitrary interpolation expression. Handles the special case of a literal name expression e.g. "${literalName}" as
@@ -272,7 +291,7 @@ public class PPResourceLinker implements IPPDiagnostics {
 			// record resolution at resource level, so recompile knows about the dependencies
 			importedNames.addResolved(raw);
 			acceptor.acceptWarning(
-				"Found outside currect search path: '" + parentString + "'", o,
+				"Found outside current search path: '" + parentString + "'", o,
 				PPPackage.Literals.HOST_CLASS_DEFINITION__PARENT, IPPDiagnostics.ISSUE__NOT_ON_PATH);
 
 		}
@@ -291,6 +310,20 @@ public class PPResourceLinker implements IPPDiagnostics {
 				PPPackage.Literals.HOST_CLASS_DEFINITION__PARENT,
 				proposalIssue(IPPDiagnostics.ISSUE__RESOURCE_UNKNOWN_TYPE, proposals), //
 				proposals);
+		}
+
+		if(!advisor().allowInheritanceFromParameterizedClass()) {
+			List<IEObjectDescription> targets = descs.size() > 0
+					? descs
+					: searchResult.getRaw();
+			if(targets.size() > 0) {
+				IEObjectDescription target = descs.get(0);
+				if(target.getUserData(PPDSLConstants.CLASS_ARG_COUNT) != null)
+					acceptor.acceptError(
+						"Can not inherit from a parameterized class in Puppet versions < 3.0.", o, //
+						PPPackage.Literals.HOST_CLASS_DEFINITION__PARENT,
+						IPPDiagnostics.ISSUE__INHERITANCE_WITH_PARAMETERS);
+			}
 		}
 	}
 
@@ -334,7 +367,7 @@ public class PPResourceLinker implements IPPDiagnostics {
 					importedNames.addResolved(searchResult.getRaw());
 					CrossReferenceAdapter.set(o.getNameExpr(), searchResult.getRaw());
 					acceptor.acceptWarning(
-						"Found outside currect search path (parameters not validated): '" + className + "'", o,
+						"Found outside current search path (parameters not validated): '" + className + "'", o,
 						PPPackage.Literals.RESOURCE_BODY__NAME_EXPR, IPPDiagnostics.ISSUE__NOT_ON_PATH);
 					return; // skip validating parameters
 
@@ -373,78 +406,17 @@ public class PPResourceLinker implements IPPDiagnostics {
 						IPPDiagnostics.ISSUE__RESOURCE_AMBIGUOUS_REFERENCE,
 						proposer.computeDistinctProposals(className, descs));
 				}
-				// use the first description found to find parameters
-				IEObjectDescription desc = descs.get(0);
-				AttributeOperations aos = o.getAttributes();
-				if(aos != null)
-					for(AttributeOperation ao : aos.getAttributes()) {
-						QualifiedName fqn = desc.getQualifiedName().append(ao.getKey());
-						// Accept name if there is at least one type/definition that lists the key
-						// NOTE/TODO: If there are other problems (multiple definitions with same name etc,
-						// the property could be ok in one, but not in another instance.
-						// finding that A'::x exists but not A''::x requires a lot more work
-						if(ppFinder.findAttributes(o, fqn, importedNames).getAdjusted().size() > 0)
-							continue; // found one such parameter == ok
-
-						String[] proposals = proposer.computeAttributeProposals(
-							fqn, ppFinder.getExportedDescriptions(), searchPath);
-						acceptor.acceptError(
-							"Unknown parameter: '" + ao.getKey() + "' in definition: '" + desc.getName() + "'", ao,
-							PPPackage.Literals.ATTRIBUTE_OPERATION__KEY,
-							proposalIssue(IPPDiagnostics.ISSUE__RESOURCE_UNKNOWN_PROPERTY, proposals), proposals);
-					}
-
+				// use the first description found to find attributes
+				internalLinkAttributeOperations(o.getAttributes(), descs.get(0), importedNames, acceptor);
 			}
 
 		}
-		else if(adapter.getClassifier() == RESOURCE_IS_OVERRIDE) {
-			// do nothing
-		}
-		else {
-			// normal resource
+		else if(adapter.getClassifier() != RESOURCE_IS_OVERRIDE || resource.getResourceExpr() instanceof AtExpression) {
+			// normal resource or override file{} or File[x] { }
 			IEObjectDescription desc = (IEObjectDescription) adapter.getTargetObjectDescription();
 			// do not flag undefined parameters as errors if type is unknown
 			if(desc != null) {
-				AttributeOperations aos = o.getAttributes();
-				List<AttributeOperation> nameVariables = Lists.newArrayList();
-
-				if(aos != null)
-					for(AttributeOperation ao : aos.getAttributes()) {
-						QualifiedName fqn = desc.getQualifiedName().append(ao.getKey());
-						// Accept name if there is at least one type/definition that lists the key
-						// NOTE/TODO: If there are other problems (multiple definitions with same name etc,
-						// the property could be ok in one, but not in another instance.
-						// finding that A'::x exists but not A''::x requires a lot more work
-						List<IEObjectDescription> foundAttributes = ppFinder.findAttributes(o, fqn, importedNames).getAdjusted();
-						// if the ao is a namevar reference, remember it so uniqueness can be validated
-						if(foundAttributes.size() > 0) {
-							if(containsNameVar(foundAttributes))
-								nameVariables.add(ao);
-							continue; // found one such parameter == ok
-						}
-						// if the reference is to "name" (and it was not found), then this is a deprecated
-						// reference to the namevar
-						if("name".equals(ao.getKey())) {
-							nameVariables.add(ao);
-							acceptor.acceptWarning(
-								"Deprecated use of the alias 'name' for resource name parameter. Use the type's real name variable.",
-								ao, PPPackage.Literals.ATTRIBUTE_OPERATION__KEY,
-								IPPDiagnostics.ISSUE__RESOURCE_DEPRECATED_NAME_ALIAS);
-							continue;
-						}
-						String[] proposals = proposer.computeAttributeProposals(
-							fqn, ppFinder.getExportedDescriptions(), searchPath);
-						acceptor.acceptError(
-							"Unknown parameter: '" + ao.getKey() + "' in definition: '" + desc.getName() + "'", ao,
-							PPPackage.Literals.ATTRIBUTE_OPERATION__KEY,
-							proposalIssue(IPPDiagnostics.ISSUE__RESOURCE_UNKNOWN_PROPERTY, proposals), proposals);
-					}
-				if(nameVariables.size() > 1) {
-					for(AttributeOperation ao : nameVariables)
-						acceptor.acceptError(
-							"Duplicate resource name specification", ao, PPPackage.Literals.ATTRIBUTE_OPERATION__KEY,
-							IPPDiagnostics.ISSUE__RESOURCE_DUPLICATE_NAME_PARAMETER);
-				}
+				internalLinkAttributeOperations(o.getAttributes(), desc, importedNames, acceptor);
 			}
 		}
 	}
@@ -472,70 +444,13 @@ public class PPResourceLinker implements IPPDiagnostics {
 		else if(resourceType == RESOURCE_IS_OVERRIDE) {
 			// TODO: possibly check a resource override if the expression is constant (or it is impossible to lookup
 			// do nothing
+			if(o.getResourceExpr() instanceof AtExpression) {
+				internalLinkTypeExpression(
+					o, ((AtExpression) o.getResourceExpr()).getLeftExpr(), true, importedNames, acceptor);
+			}
 		}
 		else {
-			// normal resource
-			SearchResult searchResult = ppFinder.findDefinitions(o, resourceTypeName, importedNames);
-			List<IEObjectDescription> descs = searchResult.getAdjusted(); // findDefinitions(o, resourceTypeName, importedNames);
-			if(descs.size() > 0) {
-				// make list only contain unique references
-				descs = Lists.newArrayList(Sets.newHashSet(descs));
-				removeDisqualifiedContainers(descs, o);
-				// if any remain, pick the first type (or the first if there are no types)
-				IEObjectDescription usedResolution = null;
-				if(descs.size() > 0) {
-					usedResolution = getFirstTypeDescription(descs);
-					adapter.setTargetObject(usedResolution);
-					CrossReferenceAdapter.set(o.getResourceExpr(), descs);
-				}
-
-				if(descs.size() > 1) {
-					// this is an ambiguous link - multiple targets available and order depends on the
-					// order at runtime (may not be the same).
-					importedNames.addAmbiguous(descs);
-					acceptor.acceptWarning(
-						"Ambiguous reference to: '" + resourceTypeName + "' found in: " +
-								visibleResourceList(o.eResource(), descs), o,
-						PPPackage.Literals.RESOURCE_EXPRESSION__RESOURCE_EXPR,
-						IPPDiagnostics.ISSUE__RESOURCE_AMBIGUOUS_REFERENCE,
-						proposer.computeDistinctProposals(resourceTypeName, descs));
-				}
-				// Add resolved information at resource level
-				if(usedResolution != null)
-					importedNames.addResolved(usedResolution);
-				else
-					importedNames.addResolved(descs);
-			}
-			else if(searchResult.getRaw().size() > 0) {
-				// sort of ok
-				importedNames.addResolved(searchResult.getRaw());
-				CrossReferenceAdapter.set(o.getResourceExpr(), searchResult.getRaw());
-
-				// do not record the type
-
-				acceptor.acceptWarning(
-					"Found outside search path: '" + resourceTypeName + "'", o,
-					PPPackage.Literals.RESOURCE_EXPRESSION__RESOURCE_EXPR, IPPDiagnostics.ISSUE__NOT_ON_PATH);
-
-			}
-			// only report unresolved if no raw (since if not found adjusted, error is reported as warning)
-			if(searchResult.getRaw().size() < 1) {
-				CrossReferenceAdapter.clear(o.getResourceExpr());
-				// ... and finally, if there was neither a type nor a definition reference
-				if(adapter.getResourceType() == null && adapter.getTargetObjectDescription() == null) {
-					// Add unresolved info at resource level
-					addUnresolved(
-						importedNames, resourceTypeName, NodeModelUtils.findActualNodeFor(o.getResourceExpr()));
-					// importedNames.addUnresolved(converter.toQualifiedName(resourceTypeName));
-					String[] proposals = proposer.computeProposals(
-						resourceTypeName, ppFinder.getExportedDescriptions(), searchPath, DEF_AND_TYPE);
-					acceptor.acceptError(
-						"Unknown resource type: '" + resourceTypeName + "'", o,
-						PPPackage.Literals.RESOURCE_EXPRESSION__RESOURCE_EXPR, //
-						proposalIssue(IPPDiagnostics.ISSUE__RESOURCE_UNKNOWN_TYPE, proposals), //
-						proposals);
-				}
-			}
+			internalLinkTypeExpression(o, o.getResourceExpr(), false, importedNames, acceptor);
 		}
 	}
 
@@ -575,6 +490,8 @@ public class PPResourceLinker implements IPPDiagnostics {
 	 * @return
 	 */
 	private boolean canBeAClassReference(Expression e) {
+		if(e == null)
+			return false; // can happen while editing
 		switch(e.eClass().getClassifierID()) {
 			case PPPackage.HOST_CLASS_DEFINITION:
 			case PPPackage.ASSIGNMENT_EXPRESSION:
@@ -646,6 +563,57 @@ public class PPResourceLinker implements IPPDiagnostics {
 				return e;
 		}
 		return descriptions.get(0);
+	}
+
+	private void internalLinkAttributeOperations(AttributeOperations aos, IEObjectDescription desc,
+			PPImportedNamesAdapter importedNames, IMessageAcceptor acceptor) {
+		List<AttributeOperation> nameVariables = Lists.newArrayList();
+		// Multimap<String, AttributeOperation> seen = ArrayListMultimap.create();
+
+		if(aos != null)
+			for(AttributeOperation ao : aos.getAttributes()) {
+				QualifiedName fqn = desc.getQualifiedName().append(ao.getKey());
+				// Accept name if there is at least one type/definition that lists the key
+				// NOTE/TODO: If there are other problems (multiple definitions with same name etc,
+				// the property could be ok in one, but not in another instance.
+				// finding that A'::x exists but not A''::x requires a lot more work
+				List<IEObjectDescription> foundAttributes = ppFinder.findAttributes(aos, fqn, importedNames).getAdjusted();
+				// if the ao is a namevar reference, remember it so uniqueness can be validated
+				if(foundAttributes.size() > 0) {
+					importedNames.addResolved(foundAttributes);
+					CrossReferenceAdapter.set(ao, foundAttributes);
+					// seen.put(ao.getKey(), ao);
+
+					if(containsNameVar(foundAttributes))
+						nameVariables.add(ao);
+					continue; // found one such parameter == ok
+				}
+				// if the reference is to "name" (and it was not found), then this is a deprecated
+				// reference to the namevar
+				if("name".equals(ao.getKey())) {
+					nameVariables.add(ao);
+					acceptor.acceptWarning(
+						"Deprecated use of the alias 'name'. Use the type's real name attribute.", ao,
+						PPPackage.Literals.ATTRIBUTE_OPERATION__KEY,
+						IPPDiagnostics.ISSUE__RESOURCE_DEPRECATED_NAME_ALIAS);
+					continue;
+				}
+				String[] proposals = proposer.computeAttributeProposals(
+					fqn, ppFinder.getExportedDescriptions(), searchPath);
+				acceptor.acceptError(
+					"Unknown attribute: '" + ao.getKey() + "' in definition: '" + desc.getName() + "'", ao,
+					PPPackage.Literals.ATTRIBUTE_OPERATION__KEY,
+					proposalIssue(IPPDiagnostics.ISSUE__RESOURCE_UNKNOWN_PROPERTY, proposals), proposals);
+			}
+		if(nameVariables.size() > 1) {
+			for(AttributeOperation ao : nameVariables) {
+				acceptor.acceptError(
+					"Duplicate resource name attribute", ao, PPPackage.Literals.ATTRIBUTE_OPERATION__KEY,
+					IPPDiagnostics.ISSUE__RESOURCE_DUPLICATE_NAME_PARAMETER);
+				// // do not also flag as a general duplicate name
+				// seen.removeAll(ao.getKey());
+			}
+		}
 	}
 
 	/**
@@ -870,7 +838,7 @@ public class PPResourceLinker implements IPPDiagnostics {
 	/**
 	 * Produces an error if the given EObject o is not contained (nested) in an expression that injects
 	 * the result of a regular expression evaluation (i.e. $0 - $n).
-	 * The injecting expressions are if, elseif, case (entry), case expression, and selector entry.
+	 * The injecting expressions are unless, if, elseif, case (entry), case expression, and selector entry.
 	 * 
 	 * TODO: Check if there are (less obvious) expressions
 	 * 
@@ -883,6 +851,12 @@ public class PPResourceLinker implements IPPDiagnostics {
 		// upp the containment chain
 		for(EObject p = o.eContainer() /* , contained = o */; p != null; /* contained = p, */p = p.eContainer()) {
 			switch(p.eClass().getClassifierID()) {
+				case PPPackage.UNLESS_EXPRESSION:
+					// o is either in cond, or then part
+					// TODO: pedantic, check position in cond, must have regexp to the left.
+					if(containsRegularExpression(((UnlessExpression) p).getCondExpr()))
+						return;
+					break;
 				case PPPackage.IF_EXPRESSION:
 					// o is either in cond, then or else part
 					// TODO: pedantic, check position in cond, must have regexp to the left.
@@ -924,6 +898,75 @@ public class PPResourceLinker implements IPPDiagnostics {
 					"' can only be undefined at this point: '" + varName + "'", o, attr,
 			IPPDiagnostics.ISSUE__UNKNOWN_REGEXP);
 
+	}
+
+	private void internalLinkTypeExpression(EObject o, EObject reference, boolean upperCaseProposals,
+			PPImportedNamesAdapter importedNames, IMessageAcceptor acceptor) {
+		ClassifierAdapter adapter = ClassifierAdapterFactory.eINSTANCE.adapt(o);
+		// int resourceType = adapter.getClassifier();
+		String resourceTypeName = adapter.getResourceTypeName();
+
+		// Should not really happen, but if a workspace state is maintained with old things...
+		if(resourceTypeName == null)
+			return;
+
+		// normal resource
+		SearchResult searchResult = ppFinder.findDefinitions(o, resourceTypeName, importedNames);
+		List<IEObjectDescription> descs = searchResult.getAdjusted(); // findDefinitions(o, resourceTypeName, importedNames);
+		if(descs.size() > 0) {
+			// make list only contain unique references
+			descs = Lists.newArrayList(Sets.newHashSet(descs));
+			removeDisqualifiedContainers(descs, o);
+			// if any remain, pick the first type (or the first if there are no types)
+			IEObjectDescription usedResolution = null;
+			if(descs.size() > 0) {
+				usedResolution = getFirstTypeDescription(descs);
+				adapter.setTargetObject(usedResolution); // Resource expression's resolution of type
+				CrossReferenceAdapter.set(reference, descs); // the actual reference
+			}
+
+			if(descs.size() > 1) {
+				// this is an ambiguous link - multiple targets available and order depends on the
+				// order at runtime (may not be the same).
+				importedNames.addAmbiguous(descs);
+				acceptor.acceptWarning(
+					"Ambiguous reference to: '" + resourceTypeName + "' found in: " +
+							visibleResourceList(o.eResource(), descs), reference,
+					IPPDiagnostics.ISSUE__RESOURCE_AMBIGUOUS_REFERENCE,
+					proposer.computeDistinctProposals(resourceTypeName, descs, upperCaseProposals));
+			}
+			// Add resolved information at resource level
+			if(usedResolution != null)
+				importedNames.addResolved(usedResolution);
+			else
+				importedNames.addResolved(descs);
+		}
+		else if(searchResult.getRaw().size() > 0) {
+			// sort of ok
+			importedNames.addResolved(searchResult.getRaw());
+			CrossReferenceAdapter.set(reference, searchResult.getRaw());
+
+			// do not record the type
+
+			acceptor.acceptWarning(
+				"Found outside search path: '" + resourceTypeName + "'", reference, IPPDiagnostics.ISSUE__NOT_ON_PATH);
+
+		}
+		// only report unresolved if no raw (since if not found adjusted, error is reported as warning)
+		if(searchResult.getRaw().size() < 1) {
+			CrossReferenceAdapter.clear(reference);
+			// ... and finally, if there was neither a type nor a definition reference
+			if(adapter.getResourceType() == null && adapter.getTargetObjectDescription() == null) {
+				// Add unresolved info at resource level
+				addUnresolved(importedNames, resourceTypeName, NodeModelUtils.findActualNodeFor(reference));
+				String[] proposals = proposer.computeProposals(
+					resourceTypeName, ppFinder.getExportedDescriptions(), upperCaseProposals, searchPath, DEF_AND_TYPE);
+				acceptor.acceptError("Unknown resource type: '" + resourceTypeName + "'", reference,
+				// PPPackage.Literals.RESOURCE_EXPRESSION__RESOURCE_EXPR, //
+				proposalIssue(IPPDiagnostics.ISSUE__RESOURCE_UNKNOWN_TYPE, proposals), //
+					proposals);
+			}
+		}
 	}
 
 	/**
@@ -1159,6 +1202,10 @@ public class PPResourceLinker implements IPPDiagnostics {
 					internalLinkUnparenthesisedCall(((IfExpression) o).getThenStatements(), importedNames, acceptor);
 					break;
 
+				case PPPackage.UNLESS_EXPRESSION:
+					internalLinkUnparenthesisedCall(((UnlessExpression) o).getThenStatements(), importedNames, acceptor);
+					break;
+
 				case PPPackage.ELSE_EXPRESSION:
 					internalLinkUnparenthesisedCall(((ElseExpression) o).getStatements(), importedNames, acceptor);
 					break;
@@ -1183,6 +1230,11 @@ public class PPResourceLinker implements IPPDiagnostics {
 					_link((HostClassDefinition) o, importedNames, acceptor);
 					internalLinkUnparenthesisedCall(((HostClassDefinition) o).getStatements(), importedNames, acceptor);
 					break;
+
+				case PPPackage.COLLECT_EXPRESSION:
+					_link((CollectExpression) o, importedNames, acceptor);
+					break;
+
 				case PPPackage.UNQUOTED_STRING:
 					Expression expr = ((UnquotedString) o).getExpression();
 					if(expr != null && expr instanceof LiteralNameOrReference) {

@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<ecore:EPackage xmi:version="2.0"
-    xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="pptp"
-    nsURI="http://www.cloudsmith.org/geppetto/1.0.0/PPTP" nsPrefix="pptp">
+<ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="pptp" nsURI="http://www.cloudsmith.org/geppetto/1.0.0/PPTP"
+    nsPrefix="pptp">
   <eClassifiers xsi:type="ecore:EClass" name="TargetEntry" abstract="true" eSuperTypes="#//ITargetElementContainer">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="description" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="functions" upperBound="-1"
@@ -59,6 +58,11 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="TPVariable" eSuperTypes="#//TargetElement">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="assignable" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="pattern" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="If not null, this a java regexp pattern for what may follow after the name, the name can be seen as the prefix."/>
+      </eAnnotations>
+    </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ITargetElementContainer" abstract="true"
       interface="true">

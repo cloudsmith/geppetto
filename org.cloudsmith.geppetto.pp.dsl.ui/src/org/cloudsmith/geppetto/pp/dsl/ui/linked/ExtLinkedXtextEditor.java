@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2010, Cloudsmith Inc.
+ * Copyright (c) 2010, 2012 Cloudsmith Inc.
  * The code, documentation and other materials contained herein have been
  * licensed under the Eclipse Public License - v 1.0 by the copyright holder
  * listed above, as the Initial Contributor under such license. The text of
@@ -10,6 +10,7 @@ package org.cloudsmith.geppetto.pp.dsl.ui.linked;
 
 import java.io.File;
 
+import org.cloudsmith.geppetto.pp.dsl.ui.preferences.data.FormatterGeneralPreferences;
 import org.eclipse.core.filesystem.EFS;
 import org.eclipse.core.filesystem.IFileStore;
 import org.eclipse.core.filesystem.URIUtil;
@@ -27,6 +28,9 @@ import org.eclipse.emf.common.util.WrappedException;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.jface.dialogs.MessageDialog;
+import org.eclipse.jface.preference.IPreferenceStore;
+import org.eclipse.jface.text.source.ISourceViewer;
+import org.eclipse.jface.util.PropertyChangeEvent;
 import org.eclipse.jface.window.Window;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.FileDialog;
@@ -39,10 +43,13 @@ import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.ide.FileStoreEditorInput;
 import org.eclipse.ui.internal.editors.text.EditorsPlugin;
 import org.eclipse.ui.part.FileEditorInput;
+import org.eclipse.ui.texteditor.AbstractDecoratedTextEditorPreferenceConstants;
 import org.eclipse.ui.texteditor.IDocumentProvider;
+import org.eclipse.ui.texteditor.SourceViewerDecorationSupport;
 import org.eclipse.ui.views.contentoutline.IContentOutlinePage;
 import org.eclipse.xtext.ui.editor.XtextEditor;
 import org.eclipse.xtext.ui.editor.outline.impl.OutlinePage;
+import org.eclipse.xtext.ui.editor.preferences.IPreferenceStoreAccess;
 
 import com.google.inject.Inject;
 
@@ -77,10 +84,38 @@ public class ExtLinkedXtextEditor extends XtextEditor {
 	ISaveActions saveActions;
 
 	/**
-	 * Does nothing except server as a place to set a breakpoint :)
+	 * Preference key for showing print margin ruler.
 	 */
+	private final static String PRINT_MARGIN = AbstractDecoratedTextEditorPreferenceConstants.EDITOR_PRINT_MARGIN;
+
+	/**
+	 * Preference key for print margin ruler color.
+	 */
+	private final static String PRINT_MARGIN_COLOR = AbstractDecoratedTextEditorPreferenceConstants.EDITOR_PRINT_MARGIN_COLOR;
+
+	// This is the preference for the default print margin, PP uses the margin set in the formatter preferences
+	// /**
+	// * Preference key for print margin ruler column.
+	// */
+	// private final static String PRINT_MARGIN_COLUMN = AbstractDecoratedTextEditorPreferenceConstants.EDITOR_PRINT_MARGIN_COLUMN;
+	//
+	@Inject
+	private IPreferenceStoreAccess preferenceAccess;
+
+	@Inject
 	public ExtLinkedXtextEditor() {
 		super();
+	}
+
+	@Override
+	protected void configureSourceViewerDecorationSupport(SourceViewerDecorationSupport support) {
+		super.configureSourceViewerDecorationSupport(support);
+		support.setMarginPainterPreferenceKeys(
+			PRINT_MARGIN, PRINT_MARGIN_COLOR, FormatterGeneralPreferences.FORMATTER_MAXWIDTH);
+
+		// support.setCharacterPairMatcher(characterPairMatcher);
+		// support.setMatchingCharacterPainterPreferenceKeys(BracketMatchingPreferencesInitializer.IS_ACTIVE_KEY,
+		// BracketMatchingPreferencesInitializer.COLOR_KEY);
 	}
 
 	/**
@@ -126,7 +161,9 @@ public class ExtLinkedXtextEditor extends XtextEditor {
 				return;
 			}
 		}
+		rememberSelection();
 		saveActions.perform(getResource(), getDocument());
+		restoreSelection();
 		super.doSave(progressMonitor);
 	}
 
@@ -144,6 +181,26 @@ public class ExtLinkedXtextEditor extends XtextEditor {
 		if(outlinePage instanceof OutlinePage)
 			((OutlinePage) outlinePage).scheduleRefresh();
 	}
+
+	/**
+	 * Allows customization of the editor title.
+	 * 
+	 * 
+	 * @see org.eclipse.xtext.ui.editor.XtextEditor#doSetInput(org.eclipse.ui.IEditorInput)
+	 */
+	@Override
+	protected void doSetInput(IEditorInput input) throws CoreException {
+		super.doSetInput(input);
+		String customTitle = editorCustomizer.customEditorTitle(input);
+		if(customTitle != null)
+			this.setPartName(customTitle);
+	}
+
+	// @Override
+	// protected void initializeEditor() {
+	// setPreferenceStore(preferenceAccess.getPreferenceStore());
+	// // setPreferenceStore(EditorsPlugin.getDefault().getPreferenceStore());
+	// }
 
 	/**
 	 * Overridden to allow customization of editor context menu via injected handler
@@ -165,6 +222,37 @@ public class ExtLinkedXtextEditor extends XtextEditor {
 		return null;
 	}
 
+	@Override
+	protected void handlePreferenceStoreChanged(PropertyChangeEvent event) {
+		// deal with indent property changing
+		// deal with events that should NOT reach the parent
+		ISourceViewer sourceViewer = getSourceViewer();
+		if(sourceViewer == null)
+			return;
+		String property = event.getProperty();
+		// System.out.println("Property Event: " + property);
+		if(FormatterGeneralPreferences.FORMATTER_INDENTSIZE.equals(property)) {
+			IPreferenceStore store = getPreferenceStore();
+			if(store != null)
+				sourceViewer.getTextWidget().setTabs(store.getInt(FormatterGeneralPreferences.FORMATTER_INDENTSIZE));
+			uninstallTabsToSpacesConverter();
+			installTabsToSpacesConverter();
+			return;
+		}
+		if(AbstractDecoratedTextEditorPreferenceConstants.EDITOR_TAB_WIDTH.equals(property)) {
+			// INHIBIT THIS - Puppet editor is always "spaces for tabs" and does NOT follow the
+			// Editor tab width setting, it is always the same as the indent size for formatting.
+			return;
+		}
+
+		if(AbstractDecoratedTextEditorPreferenceConstants.EDITOR_SPACES_FOR_TABS.equals(property)) {
+			// INHIBIT THIS CHANGE - Puppet editor is always "spaces for tabs"
+			return;
+		}
+
+		super.handlePreferenceStoreChanged(event);
+	}
+
 	/**
 	 * Translates an incoming IEditorInput being an FilestoreEditorInput, or IURIEditorInput
 	 * that is not also a IFileEditorInput.
@@ -174,6 +262,14 @@ public class ExtLinkedXtextEditor extends XtextEditor {
 	 */
 	@Override
 	public void init(IEditorSite site, IEditorInput input) throws PartInitException {
+		// Can't do this until this time due to stupid callbacks from constructor before
+		// injections have taken place.
+
+		// ISourceViewer sourceViewer = getSourceViewer();
+		// SourceViewerDecorationSupport decorationSupport = getSourceViewerDecorationSupport(sourceViewer);
+		// decorationSupport.setMarginPainterPreferenceKeys(
+		// PRINT_MARGIN, PRINT_MARGIN_COLOR, PPPreferenceConstants.FORMATTER_MAXWIDTH);
+
 		// THE ISSUE HERE:
 		// In the IDE, the File Open Dialog (and elsewhere) uses a FilestoreEditorInput class
 		// which is an IDE specific implementation.
@@ -216,6 +312,19 @@ public class ExtLinkedXtextEditor extends XtextEditor {
 			return;
 		}
 		super.init(site, input);
+
+	}
+
+	/*
+	 * @see org.eclipse.ui.texteditor.AbstractTextEditor#isTabConversionEnabled()
+	 * 
+	 * @since 3.3
+	 */
+	@Override
+	protected boolean isTabsToSpacesConversionEnabled() {
+		return true; // Always true for Puppet
+		// return getPreferenceStore() != null &&
+		// getPreferenceStore().getBoolean(AbstractDecoratedTextEditorPreferenceConstants.EDITOR_SPACES_FOR_TABS);
 	}
 
 	// SaveAs support for linked files - saves them on local disc, not to workspace if file is in special

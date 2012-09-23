@@ -24,10 +24,10 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  * <p>
  * The following features are implemented:
  * <ul>
- * <li>{@link org.cloudsmith.geppetto.pp.impl.LiteralRegexImpl#getValue <em>Value</em>}</li>
+ *   <li>{@link org.cloudsmith.geppetto.pp.impl.LiteralRegexImpl#getValue <em>Value</em>}</li>
  * </ul>
  * </p>
- * 
+ *
  * @generated
  */
 public class LiteralRegexImpl extends LiteralExpressionImpl implements LiteralRegex {
@@ -35,7 +35,6 @@ public class LiteralRegexImpl extends LiteralExpressionImpl implements LiteralRe
 	 * The default value of the '{@link #getValue() <em>Value</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @see #getValue()
 	 * @generated
 	 * @ordered
@@ -46,7 +45,6 @@ public class LiteralRegexImpl extends LiteralExpressionImpl implements LiteralRe
 	 * The cached value of the '{@link #getValue() <em>Value</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @see #getValue()
 	 * @generated
 	 * @ordered
@@ -56,7 +54,6 @@ public class LiteralRegexImpl extends LiteralExpressionImpl implements LiteralRe
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	protected LiteralRegexImpl() {
@@ -66,7 +63,6 @@ public class LiteralRegexImpl extends LiteralExpressionImpl implements LiteralRe
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	@Override
@@ -81,7 +77,6 @@ public class LiteralRegexImpl extends LiteralExpressionImpl implements LiteralRe
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	@Override
@@ -98,7 +93,6 @@ public class LiteralRegexImpl extends LiteralExpressionImpl implements LiteralRe
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	@Override
@@ -114,7 +108,6 @@ public class LiteralRegexImpl extends LiteralExpressionImpl implements LiteralRe
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	@Override
@@ -125,7 +118,6 @@ public class LiteralRegexImpl extends LiteralExpressionImpl implements LiteralRe
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	@Override
@@ -141,7 +133,6 @@ public class LiteralRegexImpl extends LiteralExpressionImpl implements LiteralRe
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public String getValue() {
@@ -151,7 +142,6 @@ public class LiteralRegexImpl extends LiteralExpressionImpl implements LiteralRe
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public void setValue(String newValue) {
@@ -164,7 +154,6 @@ public class LiteralRegexImpl extends LiteralExpressionImpl implements LiteralRe
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	@Override

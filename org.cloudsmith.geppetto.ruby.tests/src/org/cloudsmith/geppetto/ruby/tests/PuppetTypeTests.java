@@ -14,12 +14,11 @@ package org.cloudsmith.geppetto.ruby.tests;
 import java.io.File;
 import java.util.List;
 
+import junit.framework.TestCase;
+
 import org.cloudsmith.geppetto.ruby.PPTypeInfo;
 import org.cloudsmith.geppetto.ruby.RubyHelper;
-
 import org.eclipse.core.runtime.Path;
-
-import junit.framework.TestCase;
 
 public class PuppetTypeTests extends TestCase {
 
@@ -39,13 +38,14 @@ public class PuppetTypeTests extends TestCase {
 			PPTypeInfo.Entry nameEntry = info.getParameters().get("name");
 			assertNotNull("Should have found a parameter called 'name'", nameEntry);
 			assertEquals(
-				"Should have found a description of 'name'", "Description of name", nameEntry.getDocumentation());
+				"Should have found a description of 'name'", "<p>Description of name</p>", nameEntry.getDocumentation());
 
 			// TODO: check "ensure"
 			PPTypeInfo.Entry weightEntry = info.getProperties().get("weight");
 			assertNotNull("Should have found a property called 'weight'", weightEntry);
 			assertEquals(
-				"Should have found a description of 'weight'", "Description of weight", weightEntry.getDocumentation());
+				"Should have found a description of 'weight'", "<p>Description of weight</p>",
+				weightEntry.getDocumentation());
 
 			PPTypeInfo.Entry emptyEntry = info.getProperties().get("empty");
 			assertNotNull("Should have found a property called 'weight'", emptyEntry);

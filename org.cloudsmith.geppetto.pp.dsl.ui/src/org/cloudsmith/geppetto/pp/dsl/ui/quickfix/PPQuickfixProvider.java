@@ -13,6 +13,8 @@ package org.cloudsmith.geppetto.pp.dsl.ui.quickfix;
 
 import java.util.List;
 
+import org.cloudsmith.geppetto.pp.AttributeOperation;
+import org.cloudsmith.geppetto.pp.AttributeOperations;
 import org.cloudsmith.geppetto.pp.DoubleQuotedString;
 import org.cloudsmith.geppetto.pp.LiteralNameOrReference;
 import org.cloudsmith.geppetto.pp.PPPackage;
@@ -24,9 +26,21 @@ import org.cloudsmith.geppetto.pp.dsl.linking.PPFinder;
 import org.cloudsmith.geppetto.pp.dsl.linking.PPSearchPath.ISearchPathProvider;
 import org.cloudsmith.geppetto.pp.dsl.ui.labeling.PPDescriptionLabelProvider;
 import org.cloudsmith.geppetto.pp.dsl.validation.IPPDiagnostics;
+import org.cloudsmith.xtext.dommodel.formatter.comments.CommentProcessor;
+import org.cloudsmith.xtext.dommodel.formatter.comments.CommentProcessor.CommentFormattingOptions;
+import org.cloudsmith.xtext.dommodel.formatter.comments.CommentProcessor.CommentText;
+import org.cloudsmith.xtext.dommodel.formatter.comments.ICommentConfiguration;
+import org.cloudsmith.xtext.dommodel.formatter.comments.ICommentConfiguration.CommentType;
+import org.cloudsmith.xtext.dommodel.formatter.comments.ICommentContainerInformation;
+import org.cloudsmith.xtext.dommodel.formatter.comments.ICommentContainerInformation.HashSLCommentContainer;
+import org.cloudsmith.xtext.dommodel.formatter.comments.ICommentContainerInformation.JavaLikeMLCommentContainer;
+import org.cloudsmith.xtext.dommodel.formatter.context.IFormattingContextFactory;
+import org.cloudsmith.xtext.dommodel.formatter.context.IFormattingContextFactory.FormattingOption;
+import org.cloudsmith.xtext.resource.ResourceAccessScope;
+import org.cloudsmith.xtext.textflow.CharSequences;
+import org.cloudsmith.xtext.textflow.TextFlow;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.jface.text.BadLocationException;
 import org.eclipse.xtext.naming.IQualifiedNameConverter;
 import org.eclipse.xtext.naming.IQualifiedNameProvider;
 import org.eclipse.xtext.naming.QualifiedName;
@@ -35,6 +49,7 @@ import org.eclipse.xtext.resource.XtextResource;
 import org.eclipse.xtext.ui.editor.model.IXtextDocument;
 import org.eclipse.xtext.ui.editor.model.edit.IModification;
 import org.eclipse.xtext.ui.editor.model.edit.IModificationContext;
+import org.eclipse.xtext.ui.editor.model.edit.ISemanticModification;
 import org.eclipse.xtext.ui.editor.quickfix.DefaultQuickfixProvider;
 import org.eclipse.xtext.ui.editor.quickfix.Fix;
 import org.eclipse.xtext.ui.editor.quickfix.IssueResolutionAcceptor;
@@ -42,87 +57,9 @@ import org.eclipse.xtext.util.concurrent.IUnitOfWork;
 import org.eclipse.xtext.validation.Issue;
 
 import com.google.inject.Inject;
+import com.google.inject.Provider;
 
 public class PPQuickfixProvider extends DefaultQuickfixProvider {
-	private static class ReplacingModification implements IModification {
-
-		final protected int length;
-
-		final protected int offset;
-
-		final protected String text;
-
-		final protected boolean handleQuotes;
-
-		ReplacingModification(int offset, int length, String text) {
-			this(offset, length, text, false);
-		}
-
-		ReplacingModification(int offset, int length, String text, boolean handleQuotes) {
-			this.length = length;
-			this.offset = offset;
-			this.text = text;
-			this.handleQuotes = handleQuotes;
-		}
-
-		@Override
-		public void apply(IModificationContext context) throws BadLocationException {
-			IXtextDocument xtextDocument = context.getXtextDocument();
-			int o = offset;
-			int l = length;
-			if(handleQuotes) {
-				String s = xtextDocument.get(offset, length);
-				char c = s.charAt(0);
-				if(s.charAt(s.length() - 1) == c && (c == '\'' || c == '"')) {
-					o++;
-					l -= 2;
-				}
-			}
-			xtextDocument.replace(o, l, text);
-		}
-
-	}
-
-	private static class SurroundWithTextModification extends ReplacingModification {
-		private final String suffix;
-
-		/**
-		 * @param offset
-		 * @param length
-		 * @param text
-		 *            text used before and after the replaced text
-		 */
-		SurroundWithTextModification(int offset, int length, String text) {
-			super(offset, length, text);
-			suffix = text;
-		}
-
-		/**
-		 * Surrounds text with prefix, suffix
-		 * 
-		 * @param offset
-		 *            start of section to surround
-		 * @param length
-		 *            length of section to surround
-		 * @param prefix
-		 *            text before the section
-		 * @param suffix
-		 *            text after the section
-		 */
-		SurroundWithTextModification(int offset, int length, String prefix, String suffix) {
-			super(offset, length, prefix);
-			this.suffix = suffix;
-		}
-
-		@Override
-		public void apply(IModificationContext context) throws BadLocationException {
-			IXtextDocument xtextDocument = context.getXtextDocument();
-			String tmp = text + xtextDocument.get(offset, length) + suffix;
-			xtextDocument.replace(offset, length, tmp);
-		}
-
-	}
-
 	@Inject
 	protected PPDescriptionLabelProvider descriptionLabelProvider;
 
@@ -170,6 +107,64 @@ public class PPQuickfixProvider extends DefaultQuickfixProvider {
 	@Inject
 	private PPFinder ppFinder;
 
+	@Inject
+	IFormattingContextFactory formattingContextFactory;
+
+	@Inject
+	protected Provider<ICommentConfiguration<CommentType>> commentConfigurationProvider;
+
+	@Inject
+	private ResourceAccessScope resourceScope;
+
+	@Inject
+	private Provider<RelationshipExpressionFixer> relationshipExpressionFixer;
+
+	@Fix(IPPDiagnostics.ISSUE_UNWANTED_ML_COMMENT)
+	public void changeMLCommentToSLComment(final Issue issue, final IssueResolutionAcceptor acceptor) {
+		final IModificationContext modificationContext = getModificationContextFactory().createModificationContext(
+			issue);
+		final IXtextDocument xtextDocument = modificationContext.getXtextDocument();
+		xtextDocument.readOnly(new IUnitOfWork.Void<XtextResource>() {
+			@Override
+			public void process(XtextResource state) throws Exception {
+				resourceScope.enter(state);
+				try {
+
+					String issueString = xtextDocument.get(issue.getOffset(), issue.getLength());
+					final boolean endsWithBreak = issue.getData() != null && issue.getData().length == 1 &&
+							"true".equals(issue.getData()[0]);
+					CommentProcessor commentProcessor = new CommentProcessor();
+					JavaLikeMLCommentContainer mlContainer = new ICommentContainerInformation.JavaLikeMLCommentContainer();
+					HashSLCommentContainer hashContainer = new ICommentContainerInformation.HashSLCommentContainer();
+					int offsetOfNode = issue.getOffset();
+
+					int posOnLine = offsetOfNode -
+							Math.max(0, 1 + CharSequences.lastIndexOf(
+								xtextDocument.get(0, xtextDocument.getLength()), "\n", offsetOfNode - 1));
+
+					CommentText commentText = commentProcessor.separateCommentFromContainer(
+						issueString, mlContainer.create(posOnLine), "\n");
+					TextFlow result = commentProcessor.formatComment(
+						commentText, hashContainer.create(posOnLine), new CommentFormattingOptions(
+							commentConfigurationProvider.get().getFormatterAdvice(CommentType.SingleLine),
+							Integer.MAX_VALUE, 0, 1), formattingContextFactory.create(state, FormattingOption.Format));
+
+					if(!endsWithBreak)
+						result.appendBreak();
+					String replacement = CharSequences.trimLeft(result.getText()).toString();
+
+					acceptor.accept(
+						issue, "Change to # style comment",
+						"Changes comment to # style (any trailing logic on last line is moved to separate line", null,
+						new ReplacingModification(issue.getOffset(), issue.getLength(), replacement));
+				}
+				finally {
+					resourceScope.exit();
+				}
+			}
+		});
+	}
+
 	@Fix(IPPDiagnostics.ISSUE__UNBRACED_INTERPOLATION)
 	public void changeToBracedInterpolation(final Issue issue, final IssueResolutionAcceptor acceptor) {
 		final IModificationContext modificationContext = getModificationContextFactory().createModificationContext(
@@ -184,6 +179,64 @@ public class PPQuickfixProvider extends DefaultQuickfixProvider {
 				acceptor.accept(issue, "Surround interpolated variable with ${ }", //
 					"Changes '" + issueString + "' to '${" + issueString.substring(1) + "}'", null, //
 					new SurroundWithTextModification(issue.getOffset() + 1, issueString.length() - 1, "{", "}"));
+			}
+		});
+	}
+
+	@Fix(IPPDiagnostics.ISSUE__NOT_INITIAL_LOWERCASE)
+	public void changeToInitialLowerCase(final Issue issue, final IssueResolutionAcceptor acceptor) {
+		final IModificationContext modificationContext = getModificationContextFactory().createModificationContext(
+			issue);
+		final IXtextDocument xtextDocument = modificationContext.getXtextDocument();
+		xtextDocument.readOnly(new IUnitOfWork.Void<XtextResource>() {
+			@Override
+			public void process(XtextResource state) throws Exception {
+				String issueString = xtextDocument.get(issue.getOffset(), issue.getLength());
+				int pos = issueString.startsWith("$")
+						? 1
+						: 0;
+				if(issueString.length() > pos) {
+					char c = issueString.charAt(pos);
+					if(Character.isLetter(c)) {
+						StringBuilder builder = new StringBuilder();
+						builder.append("Change '").append(c).append("' to '").append(Character.toLowerCase(c)).append(
+							"'.");
+						if(Character.isLetter(issueString.charAt(pos)))
+							acceptor.accept(
+								issue,
+								"Change first character to lower case",
+								builder.toString(),
+								null,
+								new ReplacingModification(
+									issue.getOffset() + pos, 1, Character.toString(Character.toLowerCase(c))));
+					}
+					else {
+						if(c == '_') {
+							int count = 0;
+							for(int i = pos; i < issueString.length() && issueString.charAt(i) == '_'; i++)
+								count++;
+
+							acceptor.accept(
+								issue, "Remove the leading underscore", "Removes all leading underscores.", null,
+								new ReplacingModification(issue.getOffset() + pos, count, ""));
+						}
+						else if(Character.isDigit(c)) {
+							int count = 0;
+							for(int i = pos; i < issueString.length() && Character.isDigit(issueString.charAt(i)); i++)
+								count++;
+							acceptor.accept(
+								issue, "Remove the leading digits", "Removes all leading digits", null,
+								new ReplacingModification(issue.getOffset() + pos, count, ""));
+
+						}
+						// ? insert 'a' ? (stupid, but perhaps better than nothing)
+						acceptor.accept(
+							issue, "Insert an 'a' before first character.",
+							"Inserts the lower case letter 'a' before the first character", null,
+							new ReplacingModification(issue.getOffset() + pos, 0, "a"));
+
+					}
+				}
 			}
 		});
 	}
@@ -226,6 +279,21 @@ public class PPQuickfixProvider extends DefaultQuickfixProvider {
 		});
 	}
 
+	@Fix(IPPDiagnostics.ISSUE__ENSURE_NOT_FIRST)
+	public void ensureNotFirst(final Issue issue, final IssueResolutionAcceptor acceptor) {
+
+		acceptor.accept(
+			issue, "Move ensure first.", "Moves the ensure first among the set attributes", null,
+			new ISemanticModification() {
+
+				@Override
+				public void apply(EObject element, IModificationContext context) throws Exception {
+					AttributeOperations aos = (AttributeOperations) element.eContainer();
+					aos.getAttributes().move(0, (AttributeOperation) element);
+				}
+			});
+	}
+
 	private String escapeChar(String s, char x) {
 		StringBuilder result = new StringBuilder();
 		boolean nextIsEscaped = false;
@@ -260,6 +328,16 @@ public class PPQuickfixProvider extends DefaultQuickfixProvider {
 	@Fix(IPPDiagnostics.ISSUE__RESOURCE_UNKNOWN_PROPERTY_PROP)
 	public void findClosestParameters(final Issue issue, IssueResolutionAcceptor acceptor) {
 		proposeDataAsChangeTo(issue, acceptor);
+	}
+
+	@Fix(IPPDiagnostics.ISSUE_RIGHT_TO_LEFT_RELATIONSHIP)
+	public void fixRightToLeftRelationsip(final Issue issue, final IssueResolutionAcceptor acceptor) {
+		if(issue.getLength() > 2 || issue.getData() == null || issue.getData().length != 2 ||
+				"false".equals(issue.getData()[1]))
+			return; // can't fix it
+
+		relationshipExpressionFixer.get().fixRightToLeftRelationsip(issue, acceptor);
+
 	}
 
 	@Fix(IPPDiagnostics.ISSUE__HYPHEN_IN_NAME)
@@ -568,4 +646,44 @@ public class PPQuickfixProvider extends DefaultQuickfixProvider {
 		});
 	}
 
+	@Fix(IPPDiagnostics.ISSUE__UNQUOTED_INTERPOLATION)
+	public void unquotedInterpolation(final Issue issue, final IssueResolutionAcceptor acceptor) {
+
+		// "${x}
+		acceptor.accept(
+			issue, "Surround with double quotes", "Places the unquoted interpolation in a string", null,
+			new SurroundWithTextModification(issue.getOffset(), issue.getLength(), "\"", "\""));
+
+		// $x
+		acceptor.accept(
+			issue, "Change to regular variable reference", "Removes the '{' and '}'", null, new IModification() {
+
+				@Override
+				public void apply(IModificationContext context) throws Exception {
+					IXtextDocument doc = context.getXtextDocument();
+					doc.replace(
+						issue.getOffset(), issue.getLength(),
+						"$" + doc.get(issue.getOffset() + 2, issue.getLength() - 3));
+				}
+			});
+
+		// $x ? { undef => '', default => $x }
+		acceptor.accept(
+			issue, "Change to selector that makes undef empty string", "$x ? {undef => '', default => $x }", null,
+			new IModification() {
+
+				@Override
+				public void apply(IModificationContext context) throws Exception {
+					IXtextDocument doc = context.getXtextDocument();
+					String varName = "$" + doc.get(issue.getOffset() + 2, issue.getLength() - 3);
+					StringBuilder builder = new StringBuilder();
+					builder.append(varName);
+					builder.append(" ? {");
+					builder.append(" undef => '', default => ");
+					builder.append(varName);
+					builder.append("}");
+					doc.replace(issue.getOffset(), issue.getLength(), builder.toString());
+				}
+			});
+	}
 }

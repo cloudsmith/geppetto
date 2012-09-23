@@ -12,6 +12,7 @@
 package org.cloudsmith.geppetto.pp.dsl.ui.preferences;
 
 import org.cloudsmith.geppetto.pp.dsl.ui.preferences.editors.AbstractPreferencePage;
+import org.eclipse.jface.preference.BooleanFieldEditor;
 import org.eclipse.xtext.ui.editor.preferences.fields.CheckBoxGroupFieldEditor;
 
 /**
@@ -84,6 +85,12 @@ public class AutoEditPreferencePage extends AbstractPreferencePage {
 				return false;
 			}
 		});
+
+		BooleanFieldEditor completeBlocks = new BooleanFieldEditor(
+			PPPreferenceConstants.AUTO_EDIT_COMPLETE_COMPOUND_BLOCKS, //
+			"Automatically complete opened (), {}, [] blocks.", //
+			getFieldEditorParent());
+		addField(completeBlocks);
 
 	}
 

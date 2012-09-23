@@ -77,6 +77,19 @@ public class PPEditStrategyProvider extends DefaultAutoEditStrategyProvider {
 	@Inject
 	private PPPreferencesHelper prefsHelper;
 
+	/**
+	 * @see org.eclipse.xtext.ui.editor.autoedit.DefaultAutoEditStrategyProvider#configureCompoundBracesBlocks(org.eclipse.xtext.ui.editor.autoedit.AbstractEditStrategyProvider.IEditStrategyAcceptor)
+	 */
+	@Override
+	protected void configureCompoundBracesBlocks(IEditStrategyAcceptor acceptor) {
+		super.configureCompoundBracesBlocks(new WrappingAcceptor(acceptor, new Supplier<Boolean>() {
+			@Override
+			public Boolean get() {
+				return prefsHelper.isAutoCompleteBlockWanted();
+			}
+		}));
+	}
+
 	@Override
 	protected void configureCurlyBracesBlock(IEditStrategyAcceptor acceptor) {
 		super.configureCurlyBracesBlock(new WrappingAcceptor(acceptor, new Supplier<Boolean>() {

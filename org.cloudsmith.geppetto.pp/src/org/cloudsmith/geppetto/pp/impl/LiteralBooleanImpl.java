@@ -24,10 +24,10 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  * <p>
  * The following features are implemented:
  * <ul>
- * <li>{@link org.cloudsmith.geppetto.pp.impl.LiteralBooleanImpl#isValue <em>Value</em>}</li>
+ *   <li>{@link org.cloudsmith.geppetto.pp.impl.LiteralBooleanImpl#isValue <em>Value</em>}</li>
  * </ul>
  * </p>
- * 
+ *
  * @generated
  */
 public class LiteralBooleanImpl extends LiteralExpressionImpl implements LiteralBoolean {
@@ -35,7 +35,6 @@ public class LiteralBooleanImpl extends LiteralExpressionImpl implements Literal
 	 * The default value of the '{@link #isValue() <em>Value</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @see #isValue()
 	 * @generated
 	 * @ordered
@@ -46,7 +45,6 @@ public class LiteralBooleanImpl extends LiteralExpressionImpl implements Literal
 	 * The cached value of the '{@link #isValue() <em>Value</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @see #isValue()
 	 * @generated
 	 * @ordered
@@ -56,7 +54,6 @@ public class LiteralBooleanImpl extends LiteralExpressionImpl implements Literal
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	protected LiteralBooleanImpl() {
@@ -66,7 +63,6 @@ public class LiteralBooleanImpl extends LiteralExpressionImpl implements Literal
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	@Override
@@ -81,7 +77,6 @@ public class LiteralBooleanImpl extends LiteralExpressionImpl implements Literal
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	@Override
@@ -96,7 +91,6 @@ public class LiteralBooleanImpl extends LiteralExpressionImpl implements Literal
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	@Override
@@ -112,7 +106,6 @@ public class LiteralBooleanImpl extends LiteralExpressionImpl implements Literal
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	@Override
@@ -123,7 +116,6 @@ public class LiteralBooleanImpl extends LiteralExpressionImpl implements Literal
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	@Override
@@ -139,7 +131,6 @@ public class LiteralBooleanImpl extends LiteralExpressionImpl implements Literal
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public boolean isValue() {
@@ -149,7 +140,6 @@ public class LiteralBooleanImpl extends LiteralExpressionImpl implements Literal
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public void setValue(boolean newValue) {
@@ -162,7 +152,6 @@ public class LiteralBooleanImpl extends LiteralExpressionImpl implements Literal
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	@Override

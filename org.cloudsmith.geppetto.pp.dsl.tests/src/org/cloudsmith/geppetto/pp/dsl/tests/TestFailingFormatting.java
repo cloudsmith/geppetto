@@ -11,36 +11,11 @@
  */
 package org.cloudsmith.geppetto.pp.dsl.tests;
 
-import org.eclipse.xtext.resource.XtextResource;
-
 /**
  * Tests for problematic formatting.
  * 
  */
 public class TestFailingFormatting extends AbstractPuppetTests {
 
-	/**
-	 * Formatter seems to not switch back to non hidden state interpolation.
-	 * 
-	 */
-	public void test_Serialize_DqStringInterpolation() throws Exception {
-		String code = "$a = \"a${1}b\"\nclass a {\n}";
-		XtextResource r = getResourceFromString(code);
-		String s = serializeFormatted(r.getContents().get(0));
-		// System.out.println(NodeModelUtils.compactDump(r.getParseResult().getRootNode(), false));
-		assertEquals("serialization should produce specified result", code, s);
-	}
-
-	/**
-	 * Without interpolation formatting does the right thing.
-	 */
-	public void test_Serialize_DqStringNoInterpolation() throws Exception {
-		String code = "$a = \"ab\"\nclass a {\n}";
-		XtextResource r = getResourceFromString(code);
-		String s = serializeFormatted(r.getContents().get(0));
-		// System.out.println(NodeModelUtils.compactDump(r.getParseResult().getRootNode(), false));
-
-		assertEquals("serialization should produce specified result", code, s);
-	}
-
+	// Currently there are no failing tests in this category
 }

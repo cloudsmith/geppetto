@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2011 Cloudsmith Inc. and other contributors, as listed below.
+ * Copyright (c) 2011, 2012 Cloudsmith Inc. and other contributors, as listed below.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -16,11 +16,23 @@ import java.util.regex.Pattern;
 
 import org.cloudsmith.geppetto.pp.dsl.ui.linked.ISaveActions;
 import org.cloudsmith.geppetto.pp.dsl.ui.preferences.PPPreferencesHelper;
+import org.cloudsmith.xtext.dommodel.IDomNode;
+import org.cloudsmith.xtext.dommodel.formatter.IDomModelFormatter;
+import org.cloudsmith.xtext.dommodel.formatter.context.IFormattingContextFactory;
+import org.cloudsmith.xtext.dommodel.formatter.context.IFormattingContextFactory.FormattingOption;
+import org.cloudsmith.xtext.resource.ResourceAccessScope;
+import org.cloudsmith.xtext.serializer.DomBasedSerializer;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.jface.text.BadLocationException;
+import org.eclipse.xtext.resource.XtextResource;
+import org.eclipse.xtext.serializer.diagnostic.ISerializationDiagnostic;
 import org.eclipse.xtext.ui.editor.model.IXtextDocument;
+import org.eclipse.xtext.ui.editor.reconciler.ReplaceRegion;
+import org.eclipse.xtext.util.TextRegion;
+import org.eclipse.xtext.util.concurrent.IUnitOfWork;
 
 import com.google.inject.Inject;
+import com.google.inject.Provider;
 
 /**
  * Implementation of save actions
@@ -54,6 +66,37 @@ public class SaveActions implements ISaveActions {
 	@Inject
 	private PPPreferencesHelper preferenceHelper;
 
+	@Inject
+	private ResourceAccessScope resourceScope;
+
+	@Inject
+	private Provider<IDomModelFormatter> formatterProvider;
+
+	@Inject
+	private Provider<DomBasedSerializer> serializerProvider;
+
+	@Inject
+	private Provider<IFormattingContextFactory> formattingContextProvider;
+
+	protected IDomModelFormatter getFormatter() {
+		// get via injector, as formatter is resource dependent
+		// return injector.getInstance(IDomModelFormatter.class);
+		return formatterProvider.get();
+	}
+
+	protected IFormattingContextFactory getFormattingContextFactory() {
+		// get via injector, as formatting context may be resource dependent
+		// return injector.getInstance(IFormattingContextFactory.class);
+		return formattingContextProvider.get();
+	}
+
+	protected DomBasedSerializer getSerializer() {
+		// get via injector, as formatting context as serialization uses the formatter
+		// which is resource dependent
+		// return injector.getInstance(DomBasedSerializer.class);
+		return serializerProvider.get();
+	}
+
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -61,69 +104,103 @@ public class SaveActions implements ISaveActions {
 	 * org.eclipse.xtext.ui.editor.model.IXtextDocument)
 	 */
 	@Override
-	public void perform(IResource r, IXtextDocument document) {
-		boolean ensureNl = preferenceHelper.getSaveActionEnsureEndsWithNewLine(r);
-		boolean replaceFunkySpace = preferenceHelper.getSaveActionReplaceFunkySpaces(r);
-		boolean trimLines = preferenceHelper.getSaveActionTrimLines(r);
+	public void perform(IResource r, final IXtextDocument document) {
+		final boolean ensureNl = preferenceHelper.getSaveActionEnsureEndsWithNewLine(r);
+		final boolean replaceFunkySpace = preferenceHelper.getSaveActionReplaceFunkySpaces(r);
+		final boolean trimLines = preferenceHelper.getSaveActionTrimLines(r);
+		final boolean fullFormat = preferenceHelper.getSaveActionFormat(r);
 
-		if(ensureNl || replaceFunkySpace || trimLines) {
-			String content = document.get();
-			if(ensureNl)
-				if(!content.endsWith("\n")) {
-					content = content + "\n";
-					try {
-						document.replace(content.length() - 1, 0, "\n");
+		if(ensureNl || replaceFunkySpace || trimLines || fullFormat) {
+			document.modify(new IUnitOfWork<ReplaceRegion, XtextResource>() {
+
+				@Override
+				public ReplaceRegion exec(XtextResource state) throws Exception {
+					if(process(state))
+						return new ReplaceRegion(0, document.getLength(), document.get());
+					return new ReplaceRegion(0, 0, ""); // nothing changed
+				}
+
+				public boolean process(XtextResource state) throws Exception {
+					// Do any semantic changes here
+					boolean changed = false;
+					String content = document.get();
+					if(ensureNl)
+						if(!content.endsWith("\n")) {
+							content = content + "\n";
+							try {
+								document.replace(content.length() - 1, 0, "\n");
+								content = document.get();
+								changed = true;
+							}
+							catch(BadLocationException e) {
+								// ignore
+							}
+						}
+					if(trimLines) {
+						Matcher matcher = trimPattern.matcher(content);
+						boolean mustRefetch = false;
+
+						int lengthAdjustment = 0;
+						while(matcher.find()) {
+							int offset = matcher.start();
+							int length = matcher.end() - offset;
+							try {
+								String replacement = matcher.group(1);
+								document.replace(offset - lengthAdjustment, length, replacement);
+								lengthAdjustment += (length - replacement.length());
+								mustRefetch = true;
+								changed = true;
+							}
+							catch(BadLocationException e) {
+								// ignore
+							}
+						}
+						if(mustRefetch)
+							content = document.get();
+					}
+					if(replaceFunkySpace) {
+						Matcher matcher = funkySpacePattern.matcher(content);
+						int lengthAdjustment = 0;
+						while(matcher.find()) {
+							int offset = matcher.start();
+							int length = matcher.end() - offset;
+							try {
+								document.replace(offset - lengthAdjustment, length, " ");
+								lengthAdjustment += length - 1;
+								changed = true;
+							}
+							catch(BadLocationException e) {
+								// ignore
+							}
+						}
+					}
+					if(fullFormat) {
+						// Most of this, and the required methods is a copy of ContentFormatterFactory - which
+						// runs this in a separate UnitOfWork. TODO: Can be combined.
+						//
 						content = document.get();
+						ISerializationDiagnostic.Acceptor errors = ISerializationDiagnostic.EXCEPTION_THROWING_ACCEPTOR;
+						try {
+							resourceScope.enter(state);
+							// EObject context = getContext(state.getContents().get(0));
+							IDomNode root = getSerializer().serializeToDom(state.getContents().get(0), false);
+							org.eclipse.xtext.util.ReplaceRegion r = getFormatter().format(
+								root, new TextRegion(0, document.getLength()), //
+								getFormattingContextFactory().create(state, FormattingOption.Format), errors);
+							if(!content.equals(r.getText())) {
+								document.replace(0, document.getLength(), r.getText());
+								changed = true;
+							}
+						}
+						finally {
+							resourceScope.exit();
+						}
+
 					}
-					catch(BadLocationException e) {
-						// ignore
-					}
+					return changed; // no change
 				}
-			if(trimLines) {
-				Matcher matcher = trimPattern.matcher(content);
-				boolean mustRefetch = false;
-				;
-				int lengthAdjustment = 0;
-				while(matcher.find()) {
-					int offset = matcher.start();
-					int length = matcher.end() - offset;
-					try {
-						String replacement = matcher.group(1);
-						document.replace(offset - lengthAdjustment, length, replacement);
-						lengthAdjustment += (length - replacement.length());
-						mustRefetch = true;
-					}
-					catch(BadLocationException e) {
-						// ignore
-					}
-				}
-				if(mustRefetch)
-					content = document.get();
-			}
-			if(replaceFunkySpace) {
-				Matcher matcher = funkySpacePattern.matcher(content);
-				int lengthAdjustment = 0;
-				while(matcher.find()) {
-					int offset = matcher.start();
-					int length = matcher.end() - offset;
-					try {
-						document.replace(offset - lengthAdjustment, length, " ");
-						lengthAdjustment += length - 1;
-					}
-					catch(BadLocationException e) {
-						// ignore
-					}
-				}
-			}
+			});
 		}
-		// // USE THIS IF SEMANTIC CHANGES ARE NEEDED LATER
-		// document.modify(new IUnitOfWork.Void<XtextResource>() {
-		//
-		// @Override
-		// public void process(XtextResource state) throws Exception {
-		// // Do any semantic changes here
-		// }
-		// });
 
 	}
 }

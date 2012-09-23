@@ -49,6 +49,7 @@ public class TestVariables extends AbstractPuppetTests implements AbstractPuppet
 
 	@Override
 	public boolean shouldTestSerializer(XtextResource resource) {
+		// The serializer validator screws up when optional content is always inserted by serializer
 		return false;
 	}
 
@@ -157,7 +158,7 @@ public class TestVariables extends AbstractPuppetTests implements AbstractPuppet
 
 		// selector
 		code = "$a = 'abc' ? {\n" + //
-				"'abc' =>" + "${1}\n" + //
+				"'abc' =>" + "\"${1}\"\n" + //
 				"}\n"; //
 		r = getResourceFromString(code);
 		AssertableDiagnostics asserter = tester.validate(r.getContents().get(0));
@@ -187,7 +188,7 @@ public class TestVariables extends AbstractPuppetTests implements AbstractPuppet
 
 		// selector
 		code = "$a = 'abc' ? {\n" + //
-				"/a(b)c/ =>" + "${1}\n" + //
+				"/a(b)c/ =>" + "\"${1}\"\n" + //
 				"}\n"; //
 		r = getResourceFromString(code);
 		AssertableDiagnostics asserter = tester.validate(r.getContents().get(0));
@@ -303,10 +304,10 @@ public class TestVariables extends AbstractPuppetTests implements AbstractPuppet
 				"}\n" + //
 				"}\n"; //
 		;
-		XtextResource r = getResourceFromString(code);
+		Resource r = loadAndLinkSingleResource(code);
 		tester.validate(r.getContents().get(0)).assertOK();
 		resourceWarningDiagnostics(r).assertOK();
-		resourceErrorDiagnostics(r).assertOK();
+		resourceErrorDiagnostics(r).assertDiagnostic(IPPDiagnostics.ISSUE__INHERITANCE_WITH_PARAMETERS);
 	}
 
 	/**
@@ -342,11 +343,11 @@ public class TestVariables extends AbstractPuppetTests implements AbstractPuppet
 				"}\n" + //
 				"}\n"; //
 		;
-		XtextResource r = getResourceFromString(code);
+		Resource r = loadAndLinkSingleResource(code);
 
 		tester.validate(r.getContents().get(0)).assertOK();
 		resourceWarningDiagnostics(r).assertOK();
-		resourceErrorDiagnostics(r).assertOK();
+		resourceErrorDiagnostics(r).assertDiagnostic(IPPDiagnostics.ISSUE__INHERITANCE_WITH_PARAMETERS);
 	}
 
 	/**
@@ -405,4 +406,5 @@ public class TestVariables extends AbstractPuppetTests implements AbstractPuppet
 		resourceErrorDiagnostics(r).assertOK();
 
 	}
+
 }

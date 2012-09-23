@@ -42,7 +42,7 @@
 			<iu id="${product.id}" />
 		    <iu id="org.eclipse.team.svn.feature.group"/>
 		    <iu id="org.polarion.eclipse.team.svn.connector.feature.group"/>
-		    <iu id="org.polarion.eclipse.team.svn.connector.svnkit16.feature.group"/>
+		    <iu id="org.polarion.eclipse.team.svn.connector.svnkit17.feature.group"/>
 		    <iu id="org.eclipse.egit.feature.group"/>
 		    <iu id="org.eclipse.jgit.feature.group"/>
 		</p2.director>

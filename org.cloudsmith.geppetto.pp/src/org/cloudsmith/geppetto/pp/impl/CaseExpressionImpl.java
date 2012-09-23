@@ -33,11 +33,11 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <p>
  * The following features are implemented:
  * <ul>
- * <li>{@link org.cloudsmith.geppetto.pp.impl.CaseExpressionImpl#getSwitchExpr <em>Switch Expr</em>}</li>
- * <li>{@link org.cloudsmith.geppetto.pp.impl.CaseExpressionImpl#getCases <em>Cases</em>}</li>
+ *   <li>{@link org.cloudsmith.geppetto.pp.impl.CaseExpressionImpl#getSwitchExpr <em>Switch Expr</em>}</li>
+ *   <li>{@link org.cloudsmith.geppetto.pp.impl.CaseExpressionImpl#getCases <em>Cases</em>}</li>
  * </ul>
  * </p>
- * 
+ *
  * @generated
  */
 public class CaseExpressionImpl extends ExpressionImpl implements CaseExpression {
@@ -45,7 +45,6 @@ public class CaseExpressionImpl extends ExpressionImpl implements CaseExpression
 	 * The cached value of the '{@link #getSwitchExpr() <em>Switch Expr</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @see #getSwitchExpr()
 	 * @generated
 	 * @ordered
@@ -56,7 +55,6 @@ public class CaseExpressionImpl extends ExpressionImpl implements CaseExpression
 	 * The cached value of the '{@link #getCases() <em>Cases</em>}' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @see #getCases()
 	 * @generated
 	 * @ordered
@@ -66,7 +64,6 @@ public class CaseExpressionImpl extends ExpressionImpl implements CaseExpression
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	protected CaseExpressionImpl() {
@@ -76,7 +73,6 @@ public class CaseExpressionImpl extends ExpressionImpl implements CaseExpression
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public NotificationChain basicSetSwitchExpr(Expression newSwitchExpr, NotificationChain msgs) {
@@ -96,7 +92,6 @@ public class CaseExpressionImpl extends ExpressionImpl implements CaseExpression
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	@Override
@@ -113,7 +108,6 @@ public class CaseExpressionImpl extends ExpressionImpl implements CaseExpression
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	@Override
@@ -130,7 +124,6 @@ public class CaseExpressionImpl extends ExpressionImpl implements CaseExpression
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	@Override
@@ -147,7 +140,6 @@ public class CaseExpressionImpl extends ExpressionImpl implements CaseExpression
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	@SuppressWarnings("unchecked")
@@ -168,7 +160,6 @@ public class CaseExpressionImpl extends ExpressionImpl implements CaseExpression
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	@Override
@@ -179,7 +170,6 @@ public class CaseExpressionImpl extends ExpressionImpl implements CaseExpression
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	@Override
@@ -198,7 +188,6 @@ public class CaseExpressionImpl extends ExpressionImpl implements CaseExpression
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public EList<Case> getCases() {
@@ -211,7 +200,6 @@ public class CaseExpressionImpl extends ExpressionImpl implements CaseExpression
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public Expression getSwitchExpr() {
@@ -221,7 +209,6 @@ public class CaseExpressionImpl extends ExpressionImpl implements CaseExpression
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public void setSwitchExpr(Expression newSwitchExpr) {

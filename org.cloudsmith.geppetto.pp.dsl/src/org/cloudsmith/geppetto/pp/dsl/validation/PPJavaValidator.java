@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2011 Cloudsmith Inc. and other contributors, as listed below.
+ * Copyright (c) 2011, 2012 Cloudsmith Inc. and other contributors, as listed below.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -77,6 +77,8 @@ import org.cloudsmith.geppetto.pp.TextExpression;
 import org.cloudsmith.geppetto.pp.UnaryExpression;
 import org.cloudsmith.geppetto.pp.UnaryMinusExpression;
 import org.cloudsmith.geppetto.pp.UnaryNotExpression;
+import org.cloudsmith.geppetto.pp.UnlessExpression;
+import org.cloudsmith.geppetto.pp.UnquotedString;
 import org.cloudsmith.geppetto.pp.VariableExpression;
 import org.cloudsmith.geppetto.pp.VariableTE;
 import org.cloudsmith.geppetto.pp.VerbatimTE;
@@ -89,8 +91,11 @@ import org.cloudsmith.geppetto.pp.dsl.eval.PPTypeEvaluator;
 import org.cloudsmith.geppetto.pp.dsl.linking.IMessageAcceptor;
 import org.cloudsmith.geppetto.pp.dsl.linking.PPClassifier;
 import org.cloudsmith.geppetto.pp.dsl.linking.ValidationBasedMessageAcceptor;
+import org.cloudsmith.geppetto.pp.dsl.services.PPGrammarAccess;
 import org.cloudsmith.geppetto.pp.util.TextExpressionHelper;
 import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.ecore.EAttribute;
+import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
@@ -106,6 +111,7 @@ import org.eclipse.xtext.util.PolymorphicDispatcher;
 import org.eclipse.xtext.util.PolymorphicDispatcher.ErrorHandler;
 import org.eclipse.xtext.validation.Check;
 
+import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 import com.google.inject.Inject;
@@ -243,6 +249,7 @@ public class PPJavaValidator extends AbstractPPJavaValidator implements IPPDiagn
 			CollectExpression.class, //
 			AssignmentExpression.class, //
 			IfExpression.class, //
+			UnlessExpression.class, //
 			CaseExpression.class, //
 			ImportExpression.class, //
 			FunctionCall.class, //
@@ -275,6 +282,21 @@ public class PPJavaValidator extends AbstractPPJavaValidator implements IPPDiagn
 
 	@Inject
 	protected PPTypeEvaluator typeEvaluator;
+
+	@Inject
+	private PPGrammarAccess grammarAccess;
+
+	private final ImmutableSet<EClass> extendedRelationshipClasses = ImmutableSet.of(
+		PPPackage.Literals.VARIABLE_EXPRESSION, //
+		PPPackage.Literals.DOUBLE_QUOTED_STRING, //
+		PPPackage.Literals.SINGLE_QUOTED_STRING, //
+		PPPackage.Literals.LITERAL_HASH, //
+		PPPackage.Literals.LITERAL_LIST, //
+		PPPackage.Literals.SELECTOR_EXPRESSION, //
+		PPPackage.Literals.CASE_EXPRESSION, //
+		PPPackage.Literals.COLLECT_EXPRESSION
+	// ,
+	);
 
 	@Inject
 	public PPJavaValidator(IGrammarAccess ga, Provider<IValidationAdvisor> validationAdvisorProvider) {
@@ -325,6 +347,17 @@ public class PPJavaValidator extends AbstractPPJavaValidator implements IPPDiagn
 			acceptor.acceptError("Cannot assign to regular expression result variable", o, //
 				PPPackage.Literals.BINARY_EXPRESSION__LEFT_EXPR, INSIGNIFICANT_INDEX, //
 				IPPDiagnostics.ISSUE__ASSIGNMENT_DECIMAL_VAR);
+
+		// The name "$string" causes inline templates to produce the wrong content.
+		// http://projects.puppetlabs.com/issues/14093
+		ValidationPreference preference = advisor().assignmentToVarNamedString();
+		if(preference.isWarningOrError() &&
+				("string".equals(varExpr.getVarName()) || "$string".equals(varExpr.getVarName()))) {
+			warningOrError(
+				acceptor, preference, "Assignment to $string will cause inline templates to fail", varExpr,
+				IPPDiagnostics.ISSUE__ASSIGNMENT_TO_VAR_NAMED_STRING);
+		}
+
 	}
 
 	@Check
@@ -497,6 +530,25 @@ public class PPJavaValidator extends AbstractPPJavaValidator implements IPPDiagn
 					expectOffset - 1, 2, IPPDiagnostics.ISSUE__MISSING_COMMA);
 			}
 		}
+		// check for duplicate use of attribute/parameter
+		Set<String> duplicates = Sets.newHashSet();
+		Set<String> processed = Sets.newHashSet();
+		AttributeOperations aos = o;
+
+		// find duplicates
+		for(AttributeOperation ao : aos.getAttributes()) {
+			final String key = ao.getKey();
+			if(processed.contains(key))
+				duplicates.add(key);
+			processed.add(key);
+		}
+		// mark all instances of duplicate name
+		if(duplicates.size() > 0)
+			for(AttributeOperation ao : aos.getAttributes())
+				if(duplicates.contains(ao.getKey()))
+					acceptor.acceptError(
+						"Duplicate attribute: '" + ao.getKey() + "'", ao, PPPackage.Literals.ATTRIBUTE_OPERATION__KEY,
+						IPPDiagnostics.ISSUE__RESOURCE_DUPLICATE_PARAMETER);
 	}
 
 	@Check
@@ -646,11 +698,13 @@ public class PPJavaValidator extends AbstractPPJavaValidator implements IPPDiagn
 				o.eContainingFeature(), INSIGNIFICANT_INDEX, IPPDiagnostics.ISSUE__NOT_AT_TOPLEVEL_OR_CLASS);
 
 		if(!isCLASSNAME(o.getClassName())) {
+			// invalid name
 			acceptor.acceptError(
 				"Must be a valid name (each segment must start with lower case letter)", o,
 				PPPackage.Literals.DEFINITION__CLASS_NAME, IPPDiagnostics.ISSUE__NOT_CLASSNAME);
 		}
 		else {
+			// hyphen in name =
 			ValidationPreference hyphens = advisor().hyphensInNames();
 			if(hyphens.isWarningOrError()) {
 				int hyphenIdx = o.getClassName().indexOf("-");
@@ -664,6 +718,11 @@ public class PPJavaValidator extends AbstractPPJavaValidator implements IPPDiagn
 							message, o, PPPackage.Literals.DEFINITION__CLASS_NAME, IPPDiagnostics.ISSUE__HYPHEN_IN_NAME);
 				}
 			}
+			// reserved ?
+			if(PPReservedNameHelper.isReservedClassName(o.getClassName())) {
+				acceptor.acceptError(
+					"Reserved name", o, PPPackage.Literals.DEFINITION__CLASS_NAME, IPPDiagnostics.ISSUE__RESERVED_NAME);
+			}
 		}
 	}
 
@@ -671,21 +730,29 @@ public class PPJavaValidator extends AbstractPPJavaValidator implements IPPDiagn
 	public void checkDefinitionArgument(DefinitionArgument o) {
 		// -- LHS should be a variable, use of name is deprecated
 		String argName = o.getArgName();
+		ValidationPreference missingDollar;
 		if(argName == null || argName.length() < 1)
 			acceptor.acceptError(
 				"Empty or null argument", o, PPPackage.Literals.DEFINITION_ARGUMENT__ARG_NAME, INSIGNIFICANT_INDEX,
 				IPPDiagnostics.ISSUE__NOT_VARNAME);
 
-		else if(!argName.startsWith("$"))
-			acceptor.acceptWarning(
-				"Deprecation: Definition argument should now start with $", o,
-				PPPackage.Literals.DEFINITION_ARGUMENT__ARG_NAME, INSIGNIFICANT_INDEX,
-				IPPDiagnostics.ISSUE__NOT_VARNAME);
-
+		else if(!argName.startsWith("$")) {
+			missingDollar = advisor().definitionParamterMissingDollar();
+			warningOrError(
+				acceptor, missingDollar, (missingDollar.isWarning()
+						? "Deprecation: "
+						: "") + "Definition argument should start with $", o,
+				PPPackage.Literals.DEFINITION_ARGUMENT__ARG_NAME, IPPDiagnostics.ISSUE__NOT_VARNAME);
+		}
 		else if(!isVARIABLE(argName))
 			acceptor.acceptError(
 				"Not a valid variable name", o, PPPackage.Literals.DEFINITION_ARGUMENT__ARG_NAME, INSIGNIFICANT_INDEX,
 				IPPDiagnostics.ISSUE__NOT_VARNAME);
+
+		else if(!isFirstNonDollarLowerCase(argName))
+			acceptor.acceptError(
+				"A parameter must start with a lower case letter", o, PPPackage.Literals.DEFINITION_ARGUMENT__ARG_NAME,
+				INSIGNIFICANT_INDEX, IPPDiagnostics.ISSUE__NOT_INITIAL_LOWERCASE);
 
 		if(o.getOp() != null && !"=".equals(o.getOp()))
 			acceptor.acceptError(
@@ -697,6 +764,18 @@ public class PPJavaValidator extends AbstractPPJavaValidator implements IPPDiagn
 
 	@Check
 	public void checkDefinitionArgumentList(DefinitionArgumentList o) {
+		Set<String> seen = Sets.newHashSet();
+		for(DefinitionArgument arg : o.getArguments()) {
+			String s = arg.getArgName();
+			if(s.startsWith("$"))
+				s = s.substring(1);
+			if(seen.contains(s)) {
+				acceptor.acceptError(
+					"Duplicate definition of parameter", arg, IPPDiagnostics.ISSUE__DUPLICATE_PARAMETER);
+			}
+			else
+				seen.add(s);
+		}
 		IValidationAdvisor advisor = advisor();
 		ValidationPreference endComma = advisor.definitionArgumentListEndComma();
 		if(endComma.isWarningOrError()) {
@@ -1043,6 +1122,7 @@ public class PPJavaValidator extends AbstractPPJavaValidator implements IPPDiagn
 	@Check
 	public void checkPuppetManifest(PuppetManifest o) {
 		internalCheckTopLevelExpressions(o.getStatements());
+		internalCheckComments(o);
 	}
 
 	@Check
@@ -1080,8 +1160,35 @@ public class PPJavaValidator extends AbstractPPJavaValidator implements IPPDiagn
 						: opName, o, PPPackage.Literals.BINARY_OP_EXPRESSION__OP_NAME, INSIGNIFICANT_INDEX,
 				IPPDiagnostics.ISSUE__ILLEGAL_OP);
 
-		internalCheckRelationshipOperand(o, o.getLeftExpr(), PPPackage.Literals.BINARY_EXPRESSION__LEFT_EXPR);
-		internalCheckRelationshipOperand(o, o.getRightExpr(), PPPackage.Literals.BINARY_EXPRESSION__RIGHT_EXPR);
+		boolean okL = internalCheckRelationshipOperand(
+			o, o.getLeftExpr(), PPPackage.Literals.BINARY_EXPRESSION__LEFT_EXPR);
+		boolean okR = internalCheckRelationshipOperand(
+			o, o.getRightExpr(), PPPackage.Literals.BINARY_EXPRESSION__RIGHT_EXPR);
+
+		// optionally flag RtoL relationships
+		if(opName.startsWith("<")) {
+			// what does the advice say
+			IValidationAdvisor advisor = advisor();
+			ValidationPreference rightToLeft = advisor.rightToLeftRelationships();
+			if(rightToLeft.isWarningOrError()) {
+				List<INode> x = NodeModelUtils.findNodesForFeature(o, PPPackage.Literals.BINARY_OP_EXPRESSION__OP_NAME);
+				// in case there is embedded whitespace or crazy stuff... (locate the node)
+				INode theNode = null;
+				for(INode n : x) {
+					if(n.getGrammarElement() == grammarAccess.getRelationshipExpressionAccess().getOpNameEdgeOperatorParserRuleCall_1_1_0())
+						theNode = n;
+				}
+				// a node should have been found, but just to be safe, report the error on the entire expression if there was none.
+				if(theNode != null)
+					warningOrError(
+						acceptor, rightToLeft, "Resource dependencies using <- or <~ are discouraged", theNode,
+						IPPDiagnostics.ISSUE_RIGHT_TO_LEFT_RELATIONSHIP, opName, Boolean.toString(okL && okR));
+				else
+					warningOrError(
+						acceptor, rightToLeft, "Resource dependencies using <- or <~ are discouraged", o,
+						IPPDiagnostics.ISSUE_RIGHT_TO_LEFT_RELATIONSHIP, opName, Boolean.toString(okL && okR));
+			}
+		}
 	}
 
 	@Check
@@ -1118,28 +1225,18 @@ public class PPJavaValidator extends AbstractPPJavaValidator implements IPPDiagn
 					acceptor, unquotedResourceTitles, "Unquoted resource title", nameExpr,
 					IPPDiagnostics.ISSUE__UNQUOTED_QUALIFIED_NAME);
 			}
-
 		}
-		// check for duplicate use of parameter
-		Set<String> duplicates = Sets.newHashSet();
-		Set<String> processed = Sets.newHashSet();
-		AttributeOperations aos = o.getAttributes();
-
-		if(aos != null) {
-			// find duplicates
-			for(AttributeOperation ao : aos.getAttributes()) {
-				final String key = ao.getKey();
-				if(processed.contains(key))
-					duplicates.add(key);
-				processed.add(key);
+		ValidationPreference ensureFirstAdvise = advisor().ensureShouldAppearFirstInResource();
+		if(ensureFirstAdvise.isWarningOrError() && o.getAttributes() != null) {
+			int ix = 0;
+			for(AttributeOperation ao : o.getAttributes().getAttributes()) {
+				// is first ensure, if not, find it and mark it
+				if("ensure".equals(ao.getKey()) && ix != 0)
+					warningOrError(
+						acceptor, ensureFirstAdvise, "Resource property 'ensure' not stated first", ao,
+						PPPackage.Literals.ATTRIBUTE_OPERATION__KEY, IPPDiagnostics.ISSUE__ENSURE_NOT_FIRST);
+				ix++;
 			}
-			// mark all instances of duplicate name
-			if(duplicates.size() > 0)
-				for(AttributeOperation ao : aos.getAttributes())
-					if(duplicates.contains(ao.getKey()))
-						acceptor.acceptError(
-							"Parameter redefinition", ao, PPPackage.Literals.ATTRIBUTE_OPERATION__KEY,
-							IPPDiagnostics.ISSUE__RESOURCE_DUPLICATE_PARAMETER);
 
 		}
 	}
@@ -1152,44 +1249,7 @@ public class PPJavaValidator extends AbstractPPJavaValidator implements IPPDiagn
 	@Check
 	public void checkResourceExpression(ResourceExpression o) {
 		classifier.classify(o);
-		// // A regular resource must have a classname
-		// // Use of class reference is deprecated
-		// // classname : NAME | "class" | CLASSNAME
-		// int resourceType = RESOURCE_IS_BAD; // unknown at this point
-		// final Expression resourceExpr = o.getResourceExpr();
-		// String resourceTypeName = null;
-		// if(resourceExpr instanceof LiteralNameOrReference || resourceExpr instanceof VirtualNameOrReference ||
-		// resourceExpr instanceof LiteralClass) {
-		//
-		// if(resourceExpr instanceof LiteralNameOrReference) {
-		// LiteralNameOrReference resourceTypeExpr = (LiteralNameOrReference) resourceExpr;
-		// resourceTypeName = resourceTypeExpr.getValue();
-		// }
-		// else if(resourceExpr instanceof LiteralClass)
-		// resourceTypeName = "class";
-		// else {
-		// VirtualNameOrReference vn = (VirtualNameOrReference) resourceExpr;
-		// resourceTypeName = vn.getValue();
-		// }
-		// if("class".equals(resourceTypeName))
-		// resourceType = RESOURCE_IS_CLASSPARAMS;
-		// else if(isCLASSREF(resourceTypeName))
-		// resourceType = RESOURCE_IS_DEFAULT;
-		// else if(isNAME(resourceTypeName) || isCLASSNAME(resourceTypeName))
-		// resourceType = RESOURCE_IS_REGULAR;
-		// // else the resource is BAD
-		// }
-		// if(resourceExpr instanceof AtExpression) {
-		// resourceType = RESOURCE_IS_OVERRIDE;
-		// }
-		// /*
-		// * IMPORTANT: set the validated classifier to enable others to more quickly determine the type of
-		// * resource, and its typeName (what it is a reference to).
-		// */
 		ClassifierAdapter adapter = ClassifierAdapterFactory.eINSTANCE.adapt(o);
-		// adapter.setClassifier(resourceType);
-		// adapter.setResourceType(null);
-		// adapter.setResourceTypeName(resourceTypeName);
 		int resourceType = adapter.getClassifier();
 
 		if(resourceType == RESOURCE_IS_BAD) {
@@ -1511,6 +1571,22 @@ public class PPJavaValidator extends AbstractPPJavaValidator implements IPPDiagn
 	}
 
 	@Check
+	void checkUnlessExpression(UnlessExpression o) {
+		internalCheckTopLevelExpressions(o.getThenStatements());
+		if(!advisor().allowUnless()) {
+			acceptor.acceptError(
+				"The 'unless' statment is only available in Puppet version >= 3.0. (Change target preference?)", o,
+				IPPDiagnostics.ISSUE__UNSUPPORTED_UNLESS);
+		}
+	}
+
+	@Check
+	public void checkUnquotedString(UnquotedString o) {
+		// Turns out these are not supported at all !
+		acceptor.acceptError("Unquoted interpolation is not supported", o, IPPDiagnostics.ISSUE__UNQUOTED_INTERPOLATION);
+	}
+
+	@Check
 	public void checkVariableExpression(VariableExpression o) {
 		if(!isVARIABLE(o.getVarName()))
 			acceptor.acceptError(
@@ -1520,20 +1596,7 @@ public class PPJavaValidator extends AbstractPPJavaValidator implements IPPDiagn
 
 	@Check
 	void checkVariableTextExpression(VariableTE o) {
-		// ValidationPreference hyphens = advisor().interpolatedNonBraceEnclosedHyphens();
-		// if(hyphens.isWarningOrError()) {
-		// int hyphenIdx = o.getVarName().indexOf("-");
-		// if(hyphenIdx >= 0) {
-		// String message = "Interpolation continues past '-' in some puppet 2.7 versions";
-		// ICompositeNode node = NodeModelUtils.getNode(o);
-		// int offset = node.getOffset() + hyphenIdx;
-		// int length = node.getLength() - hyphenIdx;
-		// if(hyphens == ValidationPreference.WARNING)
-		// acceptor.acceptWarning(message, o, offset, length, IPPDiagnostics.ISSUE__INTERPOLATED_HYPHEN);
-		// else
-		// acceptor.acceptError(message, o, offset, length, IPPDiagnostics.ISSUE__INTERPOLATED_HYPHEN);
-		// }
-		// }
+		// TODO: There is not much that can go wrong here, but should protect against manual model problems (like not a valid variable name.
 	}
 
 	@Check
@@ -1574,40 +1637,71 @@ public class PPJavaValidator extends AbstractPPJavaValidator implements IPPDiagn
 		return TextExpressionHelper.hasInterpolation((DoubleQuotedString) s);
 	}
 
-	private void internalCheckRelationshipOperand(RelationshipExpression r, Expression o, EReference feature) {
+	public void internalCheckComments(PuppetManifest o) {
+		ValidationPreference mlComments = validationAdvisorProvider.get().mlComments();
+		if(mlComments.isWarningOrError()) {
+			INode root = NodeModelUtils.getNode(o);
+			if(root != null) {
+				root = root.getRootNode();
+			}
+			for(INode n : root.getAsTreeIterable()) {
+				if(n.getGrammarElement() == grammarAccess.getML_COMMENTRule())
+					warningOrError(
+						acceptor, mlComments, "Comments using /* */ are discouraged", n,
+						IPPDiagnostics.ISSUE_UNWANTED_ML_COMMENT, Boolean.toString(n.getText().endsWith("\n")));
+			}
+		}
+
+	}
+
+	private boolean internalCheckRelationshipOperand(RelationshipExpression r, Expression o, EReference feature) {
+		boolean result = true;
+		// if extended is true, allow these puppet grammar elements:
+		// (resource | resourceref | collection | variable | quoted text | selector | case statement | hasharrayaccesses)
+		final boolean extended = advisor().allowExtendedDependencyTypes();
 
 		// -- chained relationsips A -> B -> C
 		if(o instanceof RelationshipExpression)
-			return; // ok, they are chained
+			return result; // ok, they are chained
 
+		// first check classes where validity depends on semantics
 		if(o instanceof ResourceExpression) {
 			// may not be a resource override
 			ResourceExpression re = (ResourceExpression) o;
-			if(re.getResourceExpr() instanceof AtExpression)
+			if(re.getResourceExpr() instanceof AtExpression) {
 				acceptor.acceptError(
 					"Dependency can not be defined for a resource override.", r, feature, INSIGNIFICANT_INDEX,
 					IPPDiagnostics.ISSUE__UNSUPPORTED_EXPRESSION);
+				result = false;
+			}
 		}
 		else if(o instanceof AtExpression) {
-			// the AtExpression is validated as standard or resource reference, so only need
-			// to check correct form
-			if(isStandardAtExpression((AtExpression) o))
-				acceptor.acceptError(
-					"Dependency can not be formed for an array/hash access", r, feature, INSIGNIFICANT_INDEX,
-					IPPDiagnostics.ISSUE__UNSUPPORTED_EXPRESSION);
-
+			// extended allows hasharray access, so any form of AtExpression is legal
+			if(!extended) {
+				// the AtExpression is validated as standard or resource reference, so only need
+				// to check correct form
+				if(isStandardAtExpression((AtExpression) o)) {
+					acceptor.acceptError(
+						"Dependency can not be formed for an array/hash access", r, feature, INSIGNIFICANT_INDEX,
+						IPPDiagnostics.ISSUE__UNSUPPORTED_EXPRESSION);
+					result = false;
+				}
+			}
 		}
 		else if(o instanceof VirtualNameOrReference) {
 			acceptor.acceptError(
 				"Dependency can not be formed for virtual resource", r, feature, INSIGNIFICANT_INDEX,
 				IPPDiagnostics.ISSUE__UNSUPPORTED_EXPRESSION);
+			result = false;
 		}
-		else if(!(o instanceof CollectExpression)) {
+		// then check classes where further semantic checks are not required
+		else if(!((extended && extendedRelationshipClasses.contains(o.eClass())) || o instanceof CollectExpression)) {
 			acceptor.acceptError(
 				"Dependency can not be formed for this type of expression", r, feature, INSIGNIFICANT_INDEX,
 				IPPDiagnostics.ISSUE__UNSUPPORTED_EXPRESSION);
-
+			result = false;
 		}
+		return result;
 	}
 
 	protected void internalCheckRvalueExpression(EList<Expression> statements) {
@@ -1673,6 +1767,15 @@ public class PPJavaValidator extends AbstractPPJavaValidator implements IPPDiagn
 
 	private boolean isCLASSREF(String s) {
 		return patternHelper.isCLASSREF(s);
+	}
+
+	private boolean isFirstNonDollarLowerCase(String s) {
+		int pos = s.startsWith("$")
+				? 1
+				: 0;
+		if(s.length() <= pos)
+			return false;
+		return Character.isLowerCase(s.charAt(pos));
 	}
 
 	// NOT considered to be keywords:
@@ -1750,11 +1853,33 @@ public class PPJavaValidator extends AbstractPPJavaValidator implements IPPDiagn
 	}
 
 	private void warningOrError(IMessageAcceptor acceptor, ValidationPreference validationPreference, String message,
+			EObject o, EAttribute feature, String issue) {
+		if(validationPreference.isWarning())
+			acceptor.acceptWarning(message, o, feature, issue);
+		else if(validationPreference.isError())
+			acceptor.acceptError(message, o, feature, issue);
+
+		// remaining case is "ignore"... which we ignore ;)
+	}
+
+	private void warningOrError(IMessageAcceptor acceptor, ValidationPreference validationPreference, String message,
 			EObject o, String issueCode, String... data) {
 		if(validationPreference.isWarning())
 			acceptor.acceptWarning(message, o, issueCode, data);
 		else if(validationPreference.isError())
 			acceptor.acceptError(message, o, issueCode, data);
+
+		// remaining case is "ignore"...
+	}
+
+	private void warningOrError(IMessageAcceptor acceptor, ValidationPreference validationPreference, String message,
+			INode n, String issueCode, String... data) {
+		if(validationPreference.isWarning()) {
+			acceptor.acceptWarning(message, n.getSemanticElement(), n.getOffset(), n.getLength(), issueCode, data);
+			// acceptor.acceptWarning(message, n, issueCode, data);
+		}
+		else if(validationPreference.isError())
+			acceptor.acceptError(message, n.getSemanticElement(), n.getOffset(), n.getLength(), issueCode, data);
 
 		// remaining case is "ignore"...
 	}

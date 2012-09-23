@@ -29,7 +29,12 @@ import com.google.common.collect.Lists;
 public class CrossReferenceAdapter extends AdapterImpl {
 
 	public static void clear(EObject o) {
-		CrossReferenceAdapterFactory.eINSTANCE.adapt(o).clear();
+		if(o != null) // can't be more cleared than that...
+			CrossReferenceAdapterFactory.eINSTANCE.adapt(o).clear();
+	}
+
+	public static List<IEObjectDescription> get(EObject o) {
+		return CrossReferenceAdapterFactory.eINSTANCE.get(o);
 	}
 
 	/**

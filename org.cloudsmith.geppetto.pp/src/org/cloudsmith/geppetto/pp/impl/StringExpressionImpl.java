@@ -21,14 +21,13 @@ import org.eclipse.emf.ecore.EClass;
  * <!-- end-user-doc -->
  * <p>
  * </p>
- * 
+ *
  * @generated
  */
 public abstract class StringExpressionImpl extends ExpressionImpl implements StringExpression {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	protected StringExpressionImpl() {
@@ -38,7 +37,6 @@ public abstract class StringExpressionImpl extends ExpressionImpl implements Str
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	@Override

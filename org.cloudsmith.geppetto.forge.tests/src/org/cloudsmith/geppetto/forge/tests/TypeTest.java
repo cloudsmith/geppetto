@@ -125,6 +125,17 @@ public class TypeTest extends DocumentedTest {
 		}
 	}
 
+	public void testLoadTypeFile__DescWithPlus() {
+		try {
+			getFixture().loadTypeFile(Activator.getTestData("puppetlabs-stdlib/lib/puppet/type/file_line.rb"));
+			assertEquals("Unexpected type name", "file_line", getFixture().getName());
+			assertEquals("Expected 4 parameters", 4, getFixture().getParameters().size());
+		}
+		catch(IOException e) {
+			fail(e.getMessage());
+		}
+	}
+
 	/**
 	 * Tests the ' {@link org.cloudsmith.geppetto.forge.Type#loadTypeFile(java.io.File)
 	 * <em>Load Type File</em>}' operation. <!-- begin-user-doc --> <!--

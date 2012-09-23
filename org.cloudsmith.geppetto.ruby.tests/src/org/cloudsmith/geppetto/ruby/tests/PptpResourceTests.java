@@ -3,6 +3,8 @@ package org.cloudsmith.geppetto.ruby.tests;
 import java.io.File;
 import java.io.IOException;
 
+import junit.framework.TestCase;
+
 import org.cloudsmith.geppetto.pp.pptp.AbstractType;
 import org.cloudsmith.geppetto.pp.pptp.Function;
 import org.cloudsmith.geppetto.pp.pptp.Parameter;
@@ -16,8 +18,6 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
-
-import junit.framework.TestCase;
 
 public class PptpResourceTests extends TestCase {
 	private void doFunctionResource(String path, String functionName) throws IOException {
@@ -109,7 +109,8 @@ public class PptpResourceTests extends TestCase {
 
 		Parameter nameEntry = findParameter(type, "name");
 		assertNotNull("Should have found a parameter called 'name'", nameEntry);
-		assertEquals("Should have found a description of 'name'", "Description of name", nameEntry.getDocumentation());
+		assertEquals(
+			"Should have found a description of 'name'", "<p>Description of name</p>", nameEntry.getDocumentation());
 
 		Parameter ensure = findParameter(type, "ensure");
 		assertNotNull("Should have found a parameter called 'ensure'", ensure);
@@ -117,7 +118,8 @@ public class PptpResourceTests extends TestCase {
 		Property weightEntry = findProperty(type, "weight");
 		assertNotNull("Should have found a property called 'weight'", weightEntry);
 		assertEquals(
-			"Should have found a description of 'weight'", "Description of weight", weightEntry.getDocumentation());
+			"Should have found a description of 'weight'", "<p>Description of weight</p>",
+			weightEntry.getDocumentation());
 
 		Property emptyEntry = findProperty(type, "empty");
 		assertNotNull("Should have found a property called 'weight'", emptyEntry);
@@ -126,13 +128,13 @@ public class PptpResourceTests extends TestCase {
 
 	public void testTypeFragment() throws IOException {
 		TypeFragment tf = doTypeFragmentResource(
-			"testData/mock-puppet-distro/puppet/2.6.2_0/puppet/type/mocktype/extra1.rb", "mocktype");
+			"testData/mock-puppet-distro/puppet-2.6.2_0/lib/puppet/type/mocktype/extra1.rb", "mocktype");
 		assertEquals("Should have found one property", 1, tf.getProperties().size());
 		Property extra1 = findProperty(tf, "extra1");
 		assertNotNull("Should have found extra1", extra1);
 
 		tf = doTypeFragmentResource(
-			"testData/mock-puppet-distro/puppet/2.6.2_0/puppet/type/mocktype/extra2.rb", "mocktype");
+			"testData/mock-puppet-distro/puppet-2.6.2_0/lib/puppet/type/mocktype/extra2.rb", "mocktype");
 		assertEquals("Should have found one property", 1, tf.getProperties().size());
 		Property extra2 = findProperty(tf, "extra2");
 		assertNotNull("Should have found extra2", extra2);

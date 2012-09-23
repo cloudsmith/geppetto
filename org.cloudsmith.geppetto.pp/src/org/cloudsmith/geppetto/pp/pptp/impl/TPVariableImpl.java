@@ -27,10 +27,11 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  * <p>
  * The following features are implemented:
  * <ul>
- * <li>{@link org.cloudsmith.geppetto.pp.pptp.impl.TPVariableImpl#isAssignable <em>Assignable</em>}</li>
+ *   <li>{@link org.cloudsmith.geppetto.pp.pptp.impl.TPVariableImpl#isAssignable <em>Assignable</em>}</li>
+ *   <li>{@link org.cloudsmith.geppetto.pp.pptp.impl.TPVariableImpl#getPattern <em>Pattern</em>}</li>
  * </ul>
  * </p>
- * 
+ *
  * @generated
  */
 public class TPVariableImpl extends TargetElementImpl implements TPVariable {
@@ -38,7 +39,6 @@ public class TPVariableImpl extends TargetElementImpl implements TPVariable {
 	 * The default value of the '{@link #isAssignable() <em>Assignable</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @see #isAssignable()
 	 * @generated
 	 * @ordered
@@ -49,7 +49,6 @@ public class TPVariableImpl extends TargetElementImpl implements TPVariable {
 	 * The cached value of the '{@link #isAssignable() <em>Assignable</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @see #isAssignable()
 	 * @generated
 	 * @ordered
@@ -57,9 +56,28 @@ public class TPVariableImpl extends TargetElementImpl implements TPVariable {
 	protected boolean assignable = ASSIGNABLE_EDEFAULT;
 
 	/**
+	 * The default value of the '{@link #getPattern() <em>Pattern</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
+	 * @see #getPattern()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String PATTERN_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getPattern() <em>Pattern</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getPattern()
+	 * @generated
+	 * @ordered
+	 */
+	protected String pattern = PATTERN_EDEFAULT;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	protected TPVariableImpl() {
@@ -69,7 +87,6 @@ public class TPVariableImpl extends TargetElementImpl implements TPVariable {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	@Override
@@ -77,6 +94,8 @@ public class TPVariableImpl extends TargetElementImpl implements TPVariable {
 		switch(featureID) {
 			case PPTPPackage.TP_VARIABLE__ASSIGNABLE:
 				return isAssignable();
+			case PPTPPackage.TP_VARIABLE__PATTERN:
+				return getPattern();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -84,7 +103,6 @@ public class TPVariableImpl extends TargetElementImpl implements TPVariable {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	@Override
@@ -92,6 +110,10 @@ public class TPVariableImpl extends TargetElementImpl implements TPVariable {
 		switch(featureID) {
 			case PPTPPackage.TP_VARIABLE__ASSIGNABLE:
 				return assignable != ASSIGNABLE_EDEFAULT;
+			case PPTPPackage.TP_VARIABLE__PATTERN:
+				return PATTERN_EDEFAULT == null
+						? pattern != null
+						: !PATTERN_EDEFAULT.equals(pattern);
 		}
 		return super.eIsSet(featureID);
 	}
@@ -99,7 +121,6 @@ public class TPVariableImpl extends TargetElementImpl implements TPVariable {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	@Override
@@ -108,6 +129,9 @@ public class TPVariableImpl extends TargetElementImpl implements TPVariable {
 			case PPTPPackage.TP_VARIABLE__ASSIGNABLE:
 				setAssignable((Boolean) newValue);
 				return;
+			case PPTPPackage.TP_VARIABLE__PATTERN:
+				setPattern((String) newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -115,7 +139,6 @@ public class TPVariableImpl extends TargetElementImpl implements TPVariable {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	@Override
@@ -126,7 +149,6 @@ public class TPVariableImpl extends TargetElementImpl implements TPVariable {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	@Override
@@ -135,6 +157,9 @@ public class TPVariableImpl extends TargetElementImpl implements TPVariable {
 			case PPTPPackage.TP_VARIABLE__ASSIGNABLE:
 				setAssignable(ASSIGNABLE_EDEFAULT);
 				return;
+			case PPTPPackage.TP_VARIABLE__PATTERN:
+				setPattern(PATTERN_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -142,7 +167,6 @@ public class TPVariableImpl extends TargetElementImpl implements TPVariable {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public boolean isAssignable() {
@@ -152,7 +176,6 @@ public class TPVariableImpl extends TargetElementImpl implements TPVariable {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public void setAssignable(boolean newAssignable) {
@@ -166,7 +189,27 @@ public class TPVariableImpl extends TargetElementImpl implements TPVariable {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
+	 * @generated
+	 */
+	public String getPattern() {
+		return pattern;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setPattern(String newPattern) {
+		String oldPattern = pattern;
+		pattern = newPattern;
+		if(eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, PPTPPackage.TP_VARIABLE__PATTERN, oldPattern, pattern));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
@@ -177,6 +220,8 @@ public class TPVariableImpl extends TargetElementImpl implements TPVariable {
 		StringBuffer result = new StringBuffer(super.toString());
 		result.append(" (assignable: ");
 		result.append(assignable);
+		result.append(", pattern: ");
+		result.append(pattern);
 		result.append(')');
 		return result.toString();
 	}

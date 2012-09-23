@@ -16,13 +16,15 @@ import org.eclipse.xtext.ui.editor.contentassist.antlr.internal.Lexer;
 
 
 
-KEYWORD_62 : 'inherits';
+KEYWORD_63 : 'inherits';
 
-KEYWORD_61 : 'default';
+KEYWORD_62 : 'default';
 
 KEYWORD_59 : 'define';
 
 KEYWORD_60 : 'import';
+
+KEYWORD_61 : 'unless';
 
 KEYWORD_55 : 'class';
 

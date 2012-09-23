@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2011 Cloudsmith Inc. and other contributors, as listed below.
+ * Copyright (c) 2011, 2012 Cloudsmith Inc. and other contributors, as listed below.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -47,7 +47,9 @@ public class PPTypeFinder {
 		public static final Object DO_NOT_VISIT_CHILDREN = new Object();
 
 		private String name = null;
+
 		private String[] fqn = null;
+
 		private ConstEvaluator constEvaluator = new ConstEvaluator();
 
 		/**
@@ -59,23 +61,22 @@ public class PPTypeFinder {
 		 */
 		private Object findOpCall(Node root) {
 			Object r = null;
-			if (root.getNodeType() == NodeType.CALLNODE)
+			if(root.getNodeType() == NodeType.CALLNODE)
 				r = root.accept(this);
-			if (r != DO_NOT_VISIT_CHILDREN) {
-				if (r != null) {
+			if(r != DO_NOT_VISIT_CHILDREN) {
+				if(r != null) {
 					return r;
 				}
-				for (Node n : root.childNodes()) {
+				for(Node n : root.childNodes()) {
 					r = findOpCall(n);
-					if (r != null)
+					if(r != null)
 						return r;
 				}
 			}
 			return null;
 		}
 
-		public CallNode findOpCall(Node root, String name,
-				String... receiverFQN) {
+		public CallNode findOpCall(Node root, String name, String... receiverFQN) {
 			this.name = name;
 			this.fqn = receiverFQN;
 			return (CallNode) findOpCall(root);
@@ -86,16 +87,16 @@ public class PPTypeFinder {
 		 */
 		@Override
 		public Object visitCallNode(CallNode iVisited) {
-			if (!name.equals(iVisited.getName()))
+			if(!name.equals(iVisited.getName()))
 				return null;
 			Object x = constEvaluator.eval(iVisited.getReceiverNode());
-			if (!(x instanceof List<?>))
+			if(!(x instanceof List<?>))
 				return null;
 			List<?> receiver = (List<?>) x;
-			if (receiver.size() != fqn.length)
+			if(receiver.size() != fqn.length)
 				return null;
-			for (int i = 0; i < fqn.length; i++)
-				if (!fqn[i].equals(receiver.get(i)))
+			for(int i = 0; i < fqn.length; i++)
+				if(!fqn[i].equals(receiver.get(i)))
 					return null;
 
 			return iVisited;
@@ -103,27 +104,29 @@ public class PPTypeFinder {
 	}
 
 	private final static String NEWPARAM = "newparam";
+
 	private final static String NEWPROPERTY = "newproperty";
+
 	private final static String NEWTYPE = "newtype";
+
 	private final static String ENSURABLE = "ensurable";
 
 	private final static String NEWCHECK = "newcheck";
 
-	private final static String[] PUPPET_NEWTYPE_FQN = new String[] { "Puppet",
-			"Type", "newtype" };
+	private final static String[] PUPPET_NEWTYPE_FQN = new String[] { "Puppet", "Type", "newtype" };
 
-	private final static String[] PUPPET_NAGIOS_NEWTYPE_FQN = new String[] {
-			"Nagios", "Base", "newtype" };
+	private final static String[] PUPPET_NAGIOS_NEWTYPE_FQN = new String[] { "Nagios", "Base", "newtype" };
 
 	private ConstEvaluator constEvaluator = new ConstEvaluator();
 
 	private PPTypeInfo createNagiosTypeInfo(Node root, String typeName) {
 
-		if (root == null)
+		if(root == null)
 			return null;
 		Map<String, PPTypeInfo.Entry> propertyMap = Maps.newHashMap();
 		Map<String, PPTypeInfo.Entry> parameterMap = Maps.newHashMap();
 		String typeDocumentation = "";
+		int docPos = -1;
 
 		// All nagios types have these nagios meta types
 		// (added in nagios_maker.rb - seems lots of work to parse that file to
@@ -133,81 +136,78 @@ public class PPTypeFinder {
 		parameterMap.put("ensure", new PPTypeInfo.Entry("", false, false));
 		parameterMap.put("target", new PPTypeInfo.Entry("", false, false));
 
-		for (Node n : root.childNodes()) {
-			if (n.getNodeType() == NodeType.NEWLINENODE)
+		for(Node n : root.childNodes()) {
+			if(n.getNodeType() == NodeType.NEWLINENODE)
 				n = ((NewlineNode) n).getNextNode();
 
-			switch (n.getNodeType()) {
-			case FCALLNODE:
-				FCallNode callNode = (FCallNode) n;
-				if ("setparameters".equals(callNode.getName()))
-					for (String name : getArgs(callNode))
-						parameterMap.put(name, getEntry(callNode));
-				break;
-			case VCALLNODE:
-				VCallNode vcallNode = (VCallNode) n;
-				// A call to 'ensurable' adds 'ensure' parameter
-				if (ENSURABLE.equals(vcallNode.getName()))
-					parameterMap.put("ensure", new PPTypeInfo.Entry("", false,
-							false));
-				break;
-			case INSTASGNNODE:
-				InstAsgnNode docNode = (InstAsgnNode) n;
-				if ("@doc".equals(docNode.getName()))
-					typeDocumentation = getStringArgDefault(
-							docNode.getValueNode(), "");
-				break;
-			default:
-				break;
+			switch(n.getNodeType()) {
+				case FCALLNODE:
+					FCallNode callNode = (FCallNode) n;
+					if("setparameters".equals(callNode.getName()))
+						for(String name : getArgs(callNode))
+							parameterMap.put(name, getEntry(callNode));
+					break;
+				case VCALLNODE:
+					VCallNode vcallNode = (VCallNode) n;
+					// A call to 'ensurable' adds 'ensure' parameter
+					if(ENSURABLE.equals(vcallNode.getName()))
+						parameterMap.put("ensure", new PPTypeInfo.Entry("", false, false));
+					break;
+				case INSTASGNNODE:
+					InstAsgnNode docNode = (InstAsgnNode) n;
+					if("@doc".equals(docNode.getName())) {
+						typeDocumentation = getStringArgDefault(docNode.getValueNode(), "");
+					}
+					break;
+				default:
+					break;
 			}
 		}
-		PPTypeInfo typeInfo = new PPTypeInfo(typeName, typeDocumentation,
-				propertyMap, parameterMap);
+		PPTypeInfo typeInfo = new PPTypeInfo(typeName, typeDocumentation, propertyMap, parameterMap);
 		return typeInfo;
 	}
 
 	private PPTypeInfo createTypeInfo(Node root, String typeName) {
-		if (root == null)
+		if(root == null)
 			return null;
 		Map<String, PPTypeInfo.Entry> propertyMap = Maps.newHashMap();
 		Map<String, PPTypeInfo.Entry> parameterMap = Maps.newHashMap();
 		String typeDocumentation = "";
+		int docPos = -1;
 
-		for (Node n : root.childNodes()) {
-			if (n.getNodeType() == NodeType.NEWLINENODE)
+		for(Node n : root.childNodes()) {
+			if(n.getNodeType() == NodeType.NEWLINENODE)
 				n = ((NewlineNode) n).getNextNode();
 
-			switch (n.getNodeType()) {
-			case FCALLNODE:
-				FCallNode callNode = (FCallNode) n;
-				if (NEWPARAM.equals(callNode.getName()))
-					parameterMap.put(getFirstArg(callNode), getEntry(callNode));
-				else if (NEWCHECK.equals(callNode.getName()))
-					parameterMap.put(getFirstArg(callNode), getEntry(callNode));
-				else if (NEWPROPERTY.equals(callNode.getName()))
-					propertyMap.put(getFirstArg(callNode), getEntry(callNode));
-				else if (ENSURABLE.equals(callNode.getName()))
-					parameterMap.put("ensure", getEntry(callNode));
-				break;
-			case VCALLNODE:
-				VCallNode vcallNode = (VCallNode) n;
-				// A call to 'ensurable' adds 'ensure' parameter
-				if (ENSURABLE.equals(vcallNode.getName()))
-					parameterMap.put("ensure", new PPTypeInfo.Entry("", false,
-							false));
-				break;
-			case INSTASGNNODE:
-				InstAsgnNode docNode = (InstAsgnNode) n;
-				if ("@doc".equals(docNode.getName()))
-					typeDocumentation = getStringArgDefault(
-							docNode.getValueNode(), "");
-				break;
-			default:
-				break;
+			switch(n.getNodeType()) {
+				case FCALLNODE:
+					FCallNode callNode = (FCallNode) n;
+					if(NEWPARAM.equals(callNode.getName()))
+						parameterMap.put(getFirstArg(callNode), getEntry(callNode));
+					else if(NEWCHECK.equals(callNode.getName()))
+						parameterMap.put(getFirstArg(callNode), getEntry(callNode));
+					else if(NEWPROPERTY.equals(callNode.getName()))
+						propertyMap.put(getFirstArg(callNode), getEntry(callNode));
+					else if(ENSURABLE.equals(callNode.getName()))
+						parameterMap.put("ensure", getEntry(callNode));
+					break;
+				case VCALLNODE:
+					VCallNode vcallNode = (VCallNode) n;
+					// A call to 'ensurable' adds 'ensure' parameter
+					if(ENSURABLE.equals(vcallNode.getName()))
+						parameterMap.put("ensure", new PPTypeInfo.Entry("", false, false));
+					break;
+				case INSTASGNNODE:
+					InstAsgnNode docNode = (InstAsgnNode) n;
+					if("@doc".equals(docNode.getName())) {
+						typeDocumentation = getStringArgDefault(docNode.getValueNode(), "");
+					}
+					break;
+				default:
+					break;
 			}
 		}
-		PPTypeInfo typeInfo = new PPTypeInfo(typeName, typeDocumentation,
-				propertyMap, parameterMap);
+		PPTypeInfo typeInfo = new PPTypeInfo(typeName, typeDocumentation, propertyMap, parameterMap);
 		return typeInfo;
 	}
 
@@ -221,23 +221,22 @@ public class PPTypeFinder {
 		Map<String, PPTypeInfo.Entry> parameterMap = Maps.newHashMap();
 		RubyModuleFinder moduleFinder = new RubyModuleFinder();
 		Node module = moduleFinder.findModule(root, new String[] { "Puppet" });
-		for (Node n : module.childNodes()) {
-			if (n.getNodeType() == NodeType.NEWLINENODE)
+		for(Node n : module.childNodes()) {
+			if(n.getNodeType() == NodeType.NEWLINENODE)
 				n = ((NewlineNode) n).getNextNode();
-			if (n.getNodeType() == NodeType.CLASSNODE) {
+			if(n.getNodeType() == NodeType.CLASSNODE) {
 				ClassNode classNode = (ClassNode) n;
 				// could check if this is the class 'Type' but somewhat
 				// meaningless
 				// as this code is only called for the Type.rb file anyway.
 				// classNode.getCPath();
-				for (Node bn : classNode.getBodyNode().childNodes()) {
-					if (bn.getNodeType() == NodeType.NEWLINENODE)
+				for(Node bn : classNode.getBodyNode().childNodes()) {
+					if(bn.getNodeType() == NodeType.NEWLINENODE)
 						bn = ((NewlineNode) bn).getNextNode();
-					if (bn.getNodeType() == NodeType.FCALLNODE) {
+					if(bn.getNodeType() == NodeType.FCALLNODE) {
 						FCallNode callNode = (FCallNode) bn;
-						if ("newmetaparam".equals(callNode.getName())) {
-							parameterMap.put(getFirstArg(callNode),
-									getEntry(callNode));
+						if("newmetaparam".equals(callNode.getName())) {
+							parameterMap.put(getFirstArg(callNode), getEntry(callNode));
 
 						}
 					}
@@ -253,22 +252,19 @@ public class PPTypeFinder {
 
 		RubyCallFinder callFinder = new RubyCallFinder();
 		// style 1
-		List<GenericCallNode> newTypeCalls = callFinder.findCalls(root,
-				PUPPET_NAGIOS_NEWTYPE_FQN);
+		List<GenericCallNode> newTypeCalls = callFinder.findCalls(root, PUPPET_NAGIOS_NEWTYPE_FQN);
 
 		List<PPTypeInfo> result = Lists.newArrayList();
-		if (newTypeCalls != null) {
-			for (GenericCallNode newTypeCall : newTypeCalls) {
-				if (newTypeCall.isValid()) {
+		if(newTypeCalls != null) {
+			for(GenericCallNode newTypeCall : newTypeCalls) {
+				if(newTypeCall.isValid()) {
 					// should have at least one argument, the (raw) name of the
 					// type
 					String typeName = getFirstArg(newTypeCall);
-					if (typeName != null) { // just in case there is something
+					if(typeName != null) { // just in case there is something
 											// really wrong in parsing
-						PPTypeInfo typeInfo = createNagiosTypeInfo(
-								safeGetBodyNode(newTypeCall), "nagios_"
-										+ typeName);
-						if (typeInfo != null)
+						PPTypeInfo typeInfo = createNagiosTypeInfo(safeGetBodyNode(newTypeCall), "nagios_" + typeName);
+						if(typeInfo != null)
 							result.add(typeInfo);
 					}
 				}
@@ -298,18 +294,17 @@ public class PPTypeFinder {
 
 		RubyCallFinder callFinder = new RubyCallFinder();
 		// style 1
-		GenericCallNode newTypeCall = callFinder.findCall(root,
-				PUPPET_NEWTYPE_FQN);
-		if (newTypeCall == null || !newTypeCall.isValid()) {
+		GenericCallNode newTypeCall = callFinder.findCall(root, PUPPET_NEWTYPE_FQN);
+		if(newTypeCall == null || !newTypeCall.isValid()) {
 			// style 2
 			newTypeCall = callFinder.findCall(root, "Puppet", NEWTYPE);
-			if (newTypeCall == null || !newTypeCall.isValid())
+			if(newTypeCall == null || !newTypeCall.isValid())
 				return null;
 		}
 
 		// should have at least one argument, the name of the type
 		String typeName = getFirstArg(newTypeCall);
-		if (typeName == null)
+		if(typeName == null)
 			return null;
 
 		return createTypeInfo(safeGetBodyNode(newTypeCall), typeName);
@@ -334,89 +329,75 @@ public class PPTypeFinder {
 		Node module = moduleFinder.findModule(root, new String[] { "Puppet" });
 
 		// Some property additions are in "Puppet" modules, some are not
-		if (module == null)
-			module = root.getNodeType() == NodeType.ROOTNODE ? ((RootNode) root)
-					.getBodyNode() : root;
+		if(module == null)
+			module = root.getNodeType() == NodeType.ROOTNODE
+					? ((RootNode) root).getBodyNode()
+					: root;
 		OpCallVisitor opCallVisitor = new OpCallVisitor();
-		for (Node n1 : module.childNodes()) {
-			if (n1.getNodeType() == NodeType.NEWLINENODE)
+		for(Node n1 : module.childNodes()) {
+			if(n1.getNodeType() == NodeType.NEWLINENODE)
 				n1 = ((NewlineNode) n1).getNextNode();
 			Iterable<Node> nodeIterable = null;
-			if (n1.getNodeType() == NodeType.BLOCKNODE)
+			if(n1.getNodeType() == NodeType.BLOCKNODE)
 				nodeIterable = ((BlockNode) n1).childNodes();
 			else
 				nodeIterable = Lists.newArrayList(n1);
-			for (Node n : nodeIterable) {
-				if (n.getNodeType() == NodeType.NEWLINENODE)
+			for(Node n : nodeIterable) {
+				if(n.getNodeType() == NodeType.NEWLINENODE)
 					n = ((NewlineNode) n).getNextNode();
 
-				if (n.getNodeType() == NodeType.CALLNODE) {
+				if(n.getNodeType() == NodeType.CALLNODE) {
 					CallNode callNode = (CallNode) n;
-					if (NEWPROPERTY.equals(callNode.getName())) {
+					if(NEWPROPERTY.equals(callNode.getName())) {
 						CallNode typeCall = opCallVisitor.findOpCall(
-								callNode.getReceiverNode(), "type", "Puppet",
-								"Type");
-						if (typeCall == null)
+							callNode.getReceiverNode(), "type", "Puppet", "Type");
+						if(typeCall == null)
 							continue;
 						String typeName = getFirstArg(typeCall);
-						if (typeName == null)
+						if(typeName == null)
 							continue;
-						Map<String, PPTypeInfo.Entry> propertyMap = Maps
-								.newHashMap();
-						propertyMap.put(getFirstArg(callNode),
-								getEntry(callNode));
-						result.add(new PPTypeInfo(typeName, "", propertyMap,
-								null));
+						Map<String, PPTypeInfo.Entry> propertyMap = Maps.newHashMap();
+						propertyMap.put(getFirstArg(callNode), getEntry(callNode));
+						result.add(new PPTypeInfo(typeName, "", propertyMap, null));
 						continue;
 					}
-					if (NEWPARAM.equals(callNode.getName())) {
+					if(NEWPARAM.equals(callNode.getName())) {
 						CallNode typeCall = opCallVisitor.findOpCall(
-								callNode.getReceiverNode(), "type", "Puppet",
-								"Type");
-						if (typeCall == null)
+							callNode.getReceiverNode(), "type", "Puppet", "Type");
+						if(typeCall == null)
 							continue;
 						String typeName = getFirstArg(typeCall);
-						if (typeName == null)
+						if(typeName == null)
 							continue;
-						Map<String, PPTypeInfo.Entry> parameterMap = Maps
-								.newHashMap();
-						parameterMap.put(getFirstArg(callNode),
-								getEntry(callNode));
-						result.add(new PPTypeInfo(typeName, "", null,
-								parameterMap));
+						Map<String, PPTypeInfo.Entry> parameterMap = Maps.newHashMap();
+						parameterMap.put(getFirstArg(callNode), getEntry(callNode));
+						result.add(new PPTypeInfo(typeName, "", null, parameterMap));
 						continue;
 					}
-					if (NEWCHECK.equals(callNode.getName())) {
+					if(NEWCHECK.equals(callNode.getName())) {
 						CallNode typeCall = opCallVisitor.findOpCall(
-								callNode.getReceiverNode(), "type", "Puppet",
-								"Type");
-						if (typeCall == null)
+							callNode.getReceiverNode(), "type", "Puppet", "Type");
+						if(typeCall == null)
 							continue;
 						String typeName = getFirstArg(typeCall);
-						if (typeName == null)
+						if(typeName == null)
 							continue;
-						Map<String, PPTypeInfo.Entry> parameterMap = Maps
-								.newHashMap();
-						parameterMap.put(getFirstArg(callNode),
-								getEntry(callNode));
-						result.add(new PPTypeInfo(typeName, "", null,
-								parameterMap));
+						Map<String, PPTypeInfo.Entry> parameterMap = Maps.newHashMap();
+						parameterMap.put(getFirstArg(callNode), getEntry(callNode));
+						result.add(new PPTypeInfo(typeName, "", null, parameterMap));
 					}
 					// NOTE: this does probably never occur
-					if (ENSURABLE.equals(callNode.getName())) {
+					if(ENSURABLE.equals(callNode.getName())) {
 						CallNode typeCall = opCallVisitor.findOpCall(
-								callNode.getReceiverNode(), "type", "Puppet",
-								"Type");
-						if (typeCall == null)
+							callNode.getReceiverNode(), "type", "Puppet", "Type");
+						if(typeCall == null)
 							continue;
 						String typeName = getFirstArg(typeCall);
-						if (typeName == null)
+						if(typeName == null)
 							continue;
-						Map<String, PPTypeInfo.Entry> parameterMap = Maps
-								.newHashMap();
+						Map<String, PPTypeInfo.Entry> parameterMap = Maps.newHashMap();
 						parameterMap.put("ensure", getEntry(callNode));
-						result.add(new PPTypeInfo(typeName, "", parameterMap,
-								null));
+						result.add(new PPTypeInfo(typeName, "", parameterMap, null));
 
 					}
 				}
@@ -436,13 +417,13 @@ public class PPTypeFinder {
 	private List<String> getArgs(IArgumentNode callNode) {
 		List<String> stringResult = Lists.newArrayList();
 		Object result = constEvaluator.eval(callNode.getArgsNode());
-		if (!(result instanceof List<?>))
+		if(!(result instanceof List<?>))
 			return stringResult;
 		List<?> argList = (List<?>) result;
-		if (argList.size() < 1)
+		if(argList.size() < 1)
 			return stringResult;
-		for (Object o : argList)
-			if (o != null)
+		for(Object o : argList)
+			if(o != null)
 				stringResult.add(o.toString());
 
 		return stringResult;
@@ -452,19 +433,20 @@ public class PPTypeFinder {
 		String desc = "";
 		boolean namevar = false;
 		Node bodyNode = safeGetBodyNode(callNode);
-		if (bodyNode != null)
-			for (Node n : bodyNode.childNodes()) {
-				if (n.getNodeType() == NodeType.NEWLINENODE)
+		if(bodyNode != null)
+			for(Node n : bodyNode.childNodes()) {
+				if(n.getNodeType() == NodeType.NEWLINENODE)
 					n = ((NewlineNode) n).getNextNode();
-				if (n.getNodeType() == NodeType.FCALLNODE) {
+				if(n.getNodeType() == NodeType.FCALLNODE) {
 					FCallNode cn = (FCallNode) n;
-					if ("desc".equals(cn.getName()))
+					if("desc".equals(cn.getName()))
 						desc = getFirstArgDefault(cn, "");
 					// return new PPTypeInfo.Entry(getFirstArgDefault(cn, ""),
 					// false);
-				} else if (n.getNodeType() == NodeType.VCALLNODE) {
+				}
+				else if(n.getNodeType() == NodeType.VCALLNODE) {
 					VCallNode vn = (VCallNode) n;
-					if ("isnamevar".equals(vn.getName()))
+					if("isnamevar".equals(vn.getName()))
 						namevar = true;
 				}
 
@@ -482,45 +464,48 @@ public class PPTypeFinder {
 	 */
 	private String getFirstArg(IArgumentNode callNode) {
 		Object result = constEvaluator.eval(callNode.getArgsNode());
-		if (!(result instanceof List<?>))
+		if(!(result instanceof List<?>))
 			return null;
 		List<?> argList = (List<?>) result;
-		if (argList.size() < 1)
+		if(argList.size() < 1)
 			return null;
 		// If a constant expression contained dynamic parts it may result in a
 		// null entry
-		if (argList.get(0) == null)
+		if(argList.get(0) == null)
 			return null;
 		return argList.get(0).toString();
 	}
 
-	private String getFirstArgDefault(IArgumentNode callNode,
-			String defaultValue) {
+	private String getFirstArgDefault(IArgumentNode callNode, String defaultValue) {
 		String x = getFirstArg(callNode);
-		return x == null ? defaultValue : x;
+		return x == null
+				? defaultValue
+				: x;
 	}
 
 	private String getStringArg(Node n) {
 		Object x = constEvaluator.eval(n);
-		if (!(x instanceof String))
+		if(!(x instanceof String))
 			return null;
 		return (String) x;
 	}
 
 	private String getStringArgDefault(Node n, String defaultValue) {
 		String x = getStringArg(n);
-		return x == null ? defaultValue : x;
+		return x == null
+				? defaultValue
+				: x;
 	}
 
 	private Node safeGetBodyNode(BlockAcceptingNode node) {
 		Node n = node.getIterNode();
-		if (n == null)
+		if(n == null)
 			return null;
-		switch (n.getNodeType()) {
-		case ITERNODE:
-			return ((IterNode) n).getBodyNode();
-		case BLOCKPASSNODE:
-			return ((BlockPassNode) n).getBodyNode();
+		switch(n.getNodeType()) {
+			case ITERNODE:
+				return ((IterNode) n).getBodyNode();
+			case BLOCKPASSNODE:
+				return ((BlockPassNode) n).getBodyNode();
 		}
 		return null;
 	}

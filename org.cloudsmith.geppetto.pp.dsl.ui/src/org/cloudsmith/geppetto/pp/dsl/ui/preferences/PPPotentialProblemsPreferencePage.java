@@ -33,6 +33,9 @@ public class PPPotentialProblemsPreferencePage extends AbstractPreferencePage {
 			getFieldEditorParent()));
 		this.addField(new ValidationPreferenceFieldEditor(
 			PPPreferenceConstants.PROBLEM_MISSING_DEFAULT, "Missing 'default' in selector", getFieldEditorParent()));
+		this.addField(new ValidationPreferenceFieldEditor(
+			PPPreferenceConstants.PROBLEM_ASSIGNMENT_TO_VAR_NAMED_STRING, "Assignment to $string",
+			getFieldEditorParent()));
 	}
 
 }

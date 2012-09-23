@@ -15,8 +15,13 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintStream;
 
+import org.cloudsmith.geppetto.pp.dsl.validation.IPPDiagnostics;
 import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.xtext.junit.validation.AssertableDiagnostics;
 import org.eclipse.xtext.resource.XtextResource;
+
+import com.google.common.base.Joiner;
+import com.google.common.collect.ImmutableList;
 
 /**
  * Tests specific to reported issues.
@@ -51,6 +56,15 @@ public class TestIssues extends AbstractPuppetTests {
 		System.setOut(savedOut);
 	}
 
+	public void test_inheritFromParameterizedClass_issue381() throws Exception {
+		String code = "class base($basevar) {} class derived inherits base {}";
+		Resource r = loadAndLinkSingleResource(code);
+
+		tester.validate(r.getContents().get(0)).assertOK();
+		resourceErrorDiagnostics(r).assertDiagnostic(IPPDiagnostics.ISSUE__INHERITANCE_WITH_PARAMETERS);
+		resourceWarningDiagnostics(r).assertOK();
+	}
+
 	/**
 	 * [11] Geppetto does not yet know about parameterized classes
 	 * https://github.com/cloudsmith/geppetto/issues#issue/11
@@ -72,7 +86,8 @@ public class TestIssues extends AbstractPuppetTests {
 	 * @throws Exception
 	 */
 	public void test_Issue_4() throws Exception {
-		String code = "realize (\n" + //
+		String code = "$confdir = 'x' \n" + //
+				"realize (\n" + //
 				"File[\"$confdir/ping/amazon.cfg\"],\n" + //
 				"File[\"$confdir/ping/amazon.cfg\"],\n" + //
 				"File[\"$confdir/ping/amazon.cfg\"],\n" + //
@@ -94,11 +109,85 @@ public class TestIssues extends AbstractPuppetTests {
 				"$ref = $x\n" + //
 				"}\n" + //
 				"}\n"; //
-		;
 		Resource r = loadAndLinkSingleResource(code);
 		tester.validate(r.getContents().get(0)).assertOK();
 		resourceWarningDiagnostics(r).assertOK();
 		resourceErrorDiagnostics(r).assertOK();
 	}
 
+	public void test_Issue399() throws Exception {
+		String code = "exec { 'something': unless => false }";
+		// URI targetURI = URI.createPlatformPluginURI("/org.cloudsmith.geppetto.pp.dsl/targets/puppet-3.0.0.pptp", true);
+		Resource r = loadAndLinkSingleResource(code, true);
+		tester.validate(r.getContents().get(0)).assertOK();
+		resourceWarningDiagnostics(r).assertOK();
+		resourceErrorDiagnostics(r).assertOK();
+	}
+
+	public void test_Issue400() throws Exception {
+		ImmutableList<String> source = ImmutableList.of("notify { [a, b, c]:", //
+			"}", //
+			"$var = Notify[a]", //
+			"$var -> case 'x' {", "  'x' : {", //
+			"    notify { d:", //
+			"    }", //
+			"  }", //
+			"} ~> 'x' ? {", //
+			"  'y'     => Notify[b],", //
+			"  default => Notify[c]", //
+			"}\n");
+		String code = Joiner.on("\n").join(source).toString();
+		Resource r = loadAndLinkSingleResource(code);
+		AssertableDiagnostics asserter = tester.validate(r.getContents().get(0));
+		asserter.assertAny(AssertableDiagnostics.errorCode(IPPDiagnostics.ISSUE__UNSUPPORTED_EXPRESSION));
+
+	}
+
+	public void test_Issue403() throws Exception {
+		String code = "class foo(a) { }";
+		Resource r = loadAndLinkSingleResource(code);
+		tester.validate(r.getContents().get(0)).assertWarning(IPPDiagnostics.ISSUE__NOT_VARNAME);
+	}
+
+	public void test_Issue405() throws Exception {
+		String code = "$x = '' $y = ${x}";
+		Resource r = loadAndLinkSingleResource(code);
+		tester.validate(r.getContents().get(0)).assertError(IPPDiagnostics.ISSUE__UNQUOTED_INTERPOLATION);
+	}
+
+	public void test_Issue407_falsePositive() throws Exception {
+		String code = "class foo { }";
+		Resource r = loadAndLinkSingleResource(code);
+		tester.validate(r.getContents().get(0)).assertOK();
+	}
+
+	public void test_Issue407_main() throws Exception {
+		String code = "class main { }";
+		Resource r = loadAndLinkSingleResource(code);
+		tester.validate(r.getContents().get(0)).assertError(IPPDiagnostics.ISSUE__RESERVED_NAME);
+	}
+
+	public void test_Issue407_settings() throws Exception {
+		String code = "class settings { }";
+		Resource r = loadAndLinkSingleResource(code);
+		tester.validate(r.getContents().get(0)).assertError(IPPDiagnostics.ISSUE__RESERVED_NAME);
+	}
+
+	public void test_Issue435_paddingDqString() throws Exception {
+		String code = "$a = true ? {\n" + //
+				"\"something\" => 'dba',\n" + //
+				"default => ''\n" + //
+				"}\n";
+		ImmutableList<String> formatted = ImmutableList.of("$a = true ? {", //
+			"  \"something\" => 'dba',",//
+			"  default     => ''", //
+			"}\n");
+
+		String fmt = Joiner.on("\n").join(formatted).toString();
+
+		Resource r = loadAndLinkSingleResource(code);
+		String s = serializeFormatted(r.getContents().get(0));
+		assertEquals(fmt, s);
+
+	}
 }

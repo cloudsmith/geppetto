@@ -16,6 +16,7 @@ import java.util.List;
 
 import junit.framework.TestCase;
 
+import org.cloudsmith.geppetto.pp.facter.Facter.Facter1_6;
 import org.cloudsmith.geppetto.pp.pptp.AbstractType;
 import org.cloudsmith.geppetto.pp.pptp.Function;
 import org.cloudsmith.geppetto.pp.pptp.Parameter;
@@ -66,6 +67,7 @@ public class PuppetTPTests extends TestCase {
 
 			// Load the default meta variables (available as local in every scope).
 			helper.loadMetaVariables(target);
+			helper.loadPuppetVariables(target);
 
 			for(Type t : target.getTypes())
 				System.err.println("Found t: " + t.getName());
@@ -101,6 +103,28 @@ public class PuppetTPTests extends TestCase {
 	// new File("puppet_enterprise-2.0.0.pptp"));
 	// }
 
+	/**
+	 * This is a really odd place to do this, but since the other generators of pptp modesl
+	 * are here...
+	 * 
+	 * @throws Exception
+	 */
+	public void testLoad_Facter1_6() throws Exception {
+		File pptpFile = new File("facter-1.6.pptp");
+		Facter1_6 facter = new Facter1_6();
+
+		// Save the TargetEntry as a loadable resource
+		ResourceSet resourceSet = new ResourceSetImpl();
+		URI fileURI = URI.createFileURI(pptpFile.getAbsolutePath());
+		Resource targetResource = resourceSet.createResource(fileURI);
+
+		// Add all (optional) plugins
+		targetResource.getContents().add(facter.asPPTP());
+		targetResource.save(null);
+		System.err.println("Target saved to: " + fileURI.toString());
+
+	}
+
 	public void testLoad2_6_9() throws Exception {
 		final File puppetDistros = new File("/Users/henrik/PuppetDistributions/");
 		performLoad(new File(puppetDistros, "puppet-2.6.9/lib/puppet"), //
@@ -112,20 +136,17 @@ public class PuppetTPTests extends TestCase {
 		// new File("puppet-2.6.9.pptp"));
 	}
 
-	public void testLoad2_7_1() throws Exception {
+	public void testLoad2_7_19() throws Exception {
 		final File puppetDistros = new File("/Users/henrik/PuppetDistributions/");
-		performLoad(new File(puppetDistros, "puppet-2.7.1/lib/puppet"), //
+		performLoad(new File(puppetDistros, "puppet-2.7.19/lib/puppet"), //
 			new File(puppetDistros, "plugins-3.0.0"), //
-			new File("puppet-2.7.1.pptp"));
+			new File("puppet-2.7.19.pptp"));
 
-		// performLoad(new File("/Users/henrik/PuppetDistributions/puppet-2.7.1/lib/puppet"), //
-		// null, //
-		// new File("puppet-2.7.1.pptp"));
 	}
 
 	public void testLoad3_0_0() throws Exception {
 		final File puppetDistros = new File("/Users/henrik/PuppetDistributions/");
-		performLoad(new File(puppetDistros, "puppet-3.0.0rc3/lib/puppet"), //
+		performLoad(new File(puppetDistros, "puppet-3.0.0-rc7/lib/puppet"), //
 			new File(puppetDistros, "plugins-3.0.0"), //
 			new File("puppet-3.0.0.pptp"));
 	}
@@ -167,19 +188,19 @@ public class PuppetTPTests extends TestCase {
 			assertEquals("Should have found one type", 1, target.getTypes().size());
 			Type type = target.getTypes().get(0);
 			assertEquals("Should have found 'mocktype'", "mocktype", type.getName());
-			assertEquals("Should have found documentation", "This is a mock type", type.getDocumentation());
+			assertEquals("Should have found documentation", "<p>This is a mock type</p>", type.getDocumentation());
 
 			assertEquals("Should have one property", 1, type.getProperties().size());
 			{
 				Property prop = getProperty("prop1", type);
 				assertNotNull("Should have a property 'prop1", prop);
-				assertEquals("Should have defined documentation", "This is property1", prop.getDocumentation());
+				assertEquals("Should have defined documentation", "<p>This is property1</p>", prop.getDocumentation());
 			}
 			{
 				assertEquals("Should have one parameter", 1, type.getParameters().size());
 				Parameter param = getParameter("param1", type);
 				assertNotNull("Should have a parameter 'param1", param);
-				assertEquals("Should have defined documentation", "This is parameter1", param.getDocumentation());
+				assertEquals("Should have defined documentation", "<p>This is parameter1</p>", param.getDocumentation());
 			}
 
 			// There should be two type fragments, with a contribution each
@@ -195,7 +216,8 @@ public class PuppetTPTests extends TestCase {
 						: fragment2);
 				assertNotNull("Should have a property 'extra1", prop);
 				assertEquals(
-					"Should have defined documentation", "An extra property called extra1", prop.getDocumentation());
+					"Should have defined documentation", "<p>An extra property called extra1</p>",
+					prop.getDocumentation());
 			}
 			{
 				Property prop = getProperty("extra2", fragment1HasExtra1
@@ -203,7 +225,8 @@ public class PuppetTPTests extends TestCase {
 						: fragment1);
 				assertNotNull("Should have a property 'extra2", prop);
 				assertEquals(
-					"Should have defined documentation", "An extra property called extra2", prop.getDocumentation());
+					"Should have defined documentation", "<p>An extra property called extra2</p>",
+					prop.getDocumentation());
 			}
 
 			// should have found two functions "echotest" and "echotest2"

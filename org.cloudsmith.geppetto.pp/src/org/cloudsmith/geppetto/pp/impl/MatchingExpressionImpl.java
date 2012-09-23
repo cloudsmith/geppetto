@@ -21,14 +21,13 @@ import org.eclipse.emf.ecore.EClass;
  * <!-- end-user-doc -->
  * <p>
  * </p>
- * 
+ *
  * @generated
  */
 public class MatchingExpressionImpl extends BinaryOpExpressionImpl implements MatchingExpression {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	protected MatchingExpressionImpl() {
@@ -38,7 +37,6 @@ public class MatchingExpressionImpl extends BinaryOpExpressionImpl implements Ma
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	@Override

@@ -105,72 +105,72 @@ public class PPHighlightConfiguration extends DefaultHighlightingConfiguration {
 
 	public TextStyle documentationBoldStyle() {
 		TextStyle textStyle = documentationPlainStyle().copy();
-		// textStyle.getFontData()[0].setHeight(12);
-		// Font f = new Font(Display.getCurrent(), "Arial", 12, SWT.BOLD);
-		// textStyle.setFontData(f.getFontData());
-		// changeHeight(textStyle, 12);
-		// modifyFontData(textStyle, 12, SWT.BOLD);
-		textStyle.setStyle(SWT.BOLD);
+		// // textStyle.getFontData()[0].setHeight(12);
+		// // Font f = new Font(Display.getCurrent(), "Arial", 12, SWT.BOLD);
+		// // textStyle.setFontData(f.getFontData());
+		// // changeHeight(textStyle, 12);
+		// // modifyFontData(textStyle, 12, SWT.BOLD);
+		// textStyle.setStyle(SWT.BOLD);
 		return textStyle;
 	}
 
 	public TextStyle documentationFixedStyle() {
 		TextStyle textStyle = documentationStyle().copy();
-		Font f = new Font(Display.getCurrent(), "Courier", 11, SWT.NONE);
-		textStyle.setFontData(f.getFontData());
-		f.dispose();
+		// Font f = new Font(Display.getCurrent(), "Courier", 11, SWT.NONE);
+		// textStyle.setFontData(f.getFontData());
+		// f.dispose();
 		return textStyle;
 	}
 
 	public TextStyle documentationH1Style() {
 		TextStyle textStyle = documentationPlainStyle().copy();
-		Font f = new Font(Display.getCurrent(), "Arial", 22, SWT.BOLD);
-		textStyle.setFontData(f.getFontData());
-		f.dispose();
-		textStyle.setColor(new RGB(63, 95, 191));
 		// Font f = new Font(Display.getCurrent(), "Arial", 22, SWT.BOLD);
 		// textStyle.setFontData(f.getFontData());
+		// f.dispose();
+		// textStyle.setColor(new RGB(63, 95, 191));
+		// // Font f = new Font(Display.getCurrent(), "Arial", 22, SWT.BOLD);
+		// // textStyle.setFontData(f.getFontData());
 		return textStyle;
 	}
 
 	public TextStyle documentationH2Style() {
 		TextStyle textStyle = documentationH1Style().copy();
-		// Font f = new Font(Display.getCurrent(), "Arial", 20, SWT.BOLD);
-		// textStyle.setFontData(f.getFontData());
-		modifyFontData(textStyle, 20, SWT.BOLD);
+		// // Font f = new Font(Display.getCurrent(), "Arial", 20, SWT.BOLD);
+		// // textStyle.setFontData(f.getFontData());
+		// modifyFontData(textStyle, 20, SWT.BOLD);
 		return textStyle;
 	}
 
 	public TextStyle documentationH3Style() {
 		TextStyle textStyle = documentationH1Style().copy();
-		// Font f = new Font(Display.getCurrent(), "Arial", 18, SWT.BOLD);
-		// textStyle.setFontData(f.getFontData());
-		modifyFontData(textStyle, 18, SWT.BOLD);
+		// // Font f = new Font(Display.getCurrent(), "Arial", 18, SWT.BOLD);
+		// // textStyle.setFontData(f.getFontData());
+		// modifyFontData(textStyle, 18, SWT.BOLD);
 		return textStyle;
 	}
 
 	public TextStyle documentationH4Style() {
 		TextStyle textStyle = documentationH1Style().copy();
-		// Font f = new Font(Display.getCurrent(), "Arial", 16, SWT.BOLD);
-		// textStyle.setFontData(f.getFontData());
-		modifyFontData(textStyle, 16, SWT.BOLD);
+		// // Font f = new Font(Display.getCurrent(), "Arial", 16, SWT.BOLD);
+		// // textStyle.setFontData(f.getFontData());
+		// modifyFontData(textStyle, 16, SWT.BOLD);
 		return textStyle;
 	}
 
 	public TextStyle documentationH5Style() {
 		TextStyle textStyle = documentationH1Style().copy();
-		// Font f = new Font(Display.getCurrent(), "Arial", 14, SWT.BOLD);
-		// textStyle.setFontData(f.getFontData());
-		modifyFontData(textStyle, 14, SWT.BOLD);
+		// // Font f = new Font(Display.getCurrent(), "Arial", 14, SWT.BOLD);
+		// // textStyle.setFontData(f.getFontData());
+		// modifyFontData(textStyle, 14, SWT.BOLD);
 		return textStyle;
 	}
 
 	public TextStyle documentationItalicStyle() {
 		TextStyle textStyle = documentationPlainStyle().copy();
-		// Font f = new Font(Display.getCurrent(), "Arial", 12, SWT.ITALIC);
-		// textStyle.setFontData(f.getFontData());
-		// modifyFontData(textStyle, 12, SWT.ITALIC);
-		textStyle.setStyle(SWT.ITALIC);
+		// // Font f = new Font(Display.getCurrent(), "Arial", 12, SWT.ITALIC);
+		// // textStyle.setFontData(f.getFontData());
+		// // modifyFontData(textStyle, 12, SWT.ITALIC);
+		// textStyle.setStyle(SWT.ITALIC);
 		return textStyle;
 	}
 
@@ -197,7 +197,7 @@ public class PPHighlightConfiguration extends DefaultHighlightingConfiguration {
 		return textStyle;
 	}
 
-	private void modifyFontData(TextStyle textStyle, int height, int style) {
+	protected void modifyFontData(TextStyle textStyle, int height, int style) {
 		FontData fd = textStyle.getFontData()[0];
 		fd.setHeight(height);
 		fd.setStyle(style);

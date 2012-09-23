@@ -21,14 +21,13 @@ import org.eclipse.emf.ecore.EClass;
  * <!-- end-user-doc -->
  * <p>
  * </p>
- * 
+ *
  * @generated
  */
 public class LiteralDefaultImpl extends LiteralExpressionImpl implements LiteralDefault {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	protected LiteralDefaultImpl() {
@@ -38,7 +37,6 @@ public class LiteralDefaultImpl extends LiteralExpressionImpl implements Literal
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	@Override

@@ -21,14 +21,13 @@ import org.eclipse.emf.ecore.EClass;
  * <!-- end-user-doc -->
  * <p>
  * </p>
- * 
+ *
  * @generated
  */
 public class AssignmentExpressionImpl extends BinaryExpressionImpl implements AssignmentExpression {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	protected AssignmentExpressionImpl() {
@@ -38,7 +37,6 @@ public class AssignmentExpressionImpl extends BinaryExpressionImpl implements As
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	@Override

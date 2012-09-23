@@ -21,14 +21,13 @@ import org.eclipse.emf.ecore.EClass;
  * <!-- end-user-doc -->
  * <p>
  * </p>
- * 
+ *
  * @generated
  */
 public class ElseExpressionImpl extends ExpressionBlockImpl implements ElseExpression {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	protected ElseExpressionImpl() {
@@ -38,7 +37,6 @@ public class ElseExpressionImpl extends ExpressionBlockImpl implements ElseExpre
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	@Override

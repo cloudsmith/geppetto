@@ -32,7 +32,13 @@ public class AllTests extends TestSuite {
 		suite.addTestSuite(TestSelectorExpression.class);
 		suite.addTestSuite(TestDoubleQuotedString.class);
 		suite.addTestSuite(TestIssues.class);
+		suite.addTestSuite(TestIssues3_0.class);
 		suite.addTestSuite(TestLinking.class);
+		suite.addTestSuite(TestSemanticOneSpaceFormatter.class);
+		suite.addTestSuite(TestSemanticCssFormatter.class);
+		suite.addTestSuite(TestPPFormatting.class);
+		suite.addTestSuite(TestPPFormattingFailing.class);
+		suite.addTestSuite(TestFormatterUtils.class);
 
 		// $JUnit-END$
 		return suite;

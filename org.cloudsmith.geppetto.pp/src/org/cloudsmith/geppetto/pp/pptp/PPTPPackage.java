@@ -301,6 +301,15 @@ public interface PPTPPackage extends EPackage {
 		EAttribute TP_VARIABLE__ASSIGNABLE = eINSTANCE.getTPVariable_Assignable();
 
 		/**
+		 * The meta object literal for the '<em><b>Pattern</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * 
+		 * @generated
+		 */
+		EAttribute TP_VARIABLE__PATTERN = eINSTANCE.getTPVariable_Pattern();
+
+		/**
 		 * The meta object literal for the '{@link org.cloudsmith.geppetto.pp.pptp.ITargetElementContainer <em>ITarget Element Container</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -1570,6 +1579,16 @@ public interface PPTPPackage extends EPackage {
 	int TP_VARIABLE__ASSIGNABLE = TARGET_ELEMENT_FEATURE_COUNT + 0;
 
 	/**
+	 * The feature id for the '<em><b>Pattern</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 * @ordered
+	 */
+	int TP_VARIABLE__PATTERN = TARGET_ELEMENT_FEATURE_COUNT + 1;
+
+	/**
 	 * The number of structural features of the '<em>TP Variable</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1577,7 +1596,7 @@ public interface PPTPPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int TP_VARIABLE_FEATURE_COUNT = TARGET_ELEMENT_FEATURE_COUNT + 1;
+	int TP_VARIABLE_FEATURE_COUNT = TARGET_ELEMENT_FEATURE_COUNT + 2;
 
 	/**
 	 * The meta object id for the '{@link org.cloudsmith.geppetto.pp.pptp.impl.MetaVariableImpl <em>Meta Variable</em>}' class.
@@ -2038,6 +2057,18 @@ public interface PPTPPackage extends EPackage {
 	 * @generated
 	 */
 	EAttribute getTPVariable_Assignable();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.cloudsmith.geppetto.pp.pptp.TPVariable#getPattern <em>Pattern</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @return the meta object for the attribute '<em>Pattern</em>'.
+	 * @see org.cloudsmith.geppetto.pp.pptp.TPVariable#getPattern()
+	 * @see #getTPVariable()
+	 * @generated
+	 */
+	EAttribute getTPVariable_Pattern();
 
 	/**
 	 * Returns the meta object for class '{@link org.cloudsmith.geppetto.pp.pptp.Type <em>Type</em>}'.

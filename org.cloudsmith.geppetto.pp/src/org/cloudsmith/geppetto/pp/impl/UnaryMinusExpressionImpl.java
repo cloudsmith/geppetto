@@ -21,14 +21,13 @@ import org.eclipse.emf.ecore.EClass;
  * <!-- end-user-doc -->
  * <p>
  * </p>
- * 
+ *
  * @generated
  */
 public class UnaryMinusExpressionImpl extends UnaryExpressionImpl implements UnaryMinusExpression {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	protected UnaryMinusExpressionImpl() {
@@ -38,7 +37,6 @@ public class UnaryMinusExpressionImpl extends UnaryExpressionImpl implements Una
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	@Override

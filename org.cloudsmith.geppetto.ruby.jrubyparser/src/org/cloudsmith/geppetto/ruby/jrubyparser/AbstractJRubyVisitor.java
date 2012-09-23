@@ -12,7 +12,7 @@ public class AbstractJRubyVisitor implements NodeVisitor {
 	 */
 	public void all(Node root) {
 		root.accept(this);
-		for (Node n : root.childNodes())
+		for(Node n : root.childNodes())
 			all(n);
 	}
 
@@ -25,11 +25,11 @@ public class AbstractJRubyVisitor implements NodeVisitor {
 	 */
 	public Object untilNotNull(Node root) {
 		Object r = root.accept(this);
-		if (r != null)
+		if(r != null)
 			return r;
-		for (Node n : root.childNodes()) {
+		for(Node n : root.childNodes()) {
 			r = untilNotNull(n);
-			if (r != null)
+			if(r != null)
 				return r;
 		}
 		return null;
@@ -622,5 +622,4 @@ public class AbstractJRubyVisitor implements NodeVisitor {
 		// DOES NOTHING
 		return null;
 	}
-
 }

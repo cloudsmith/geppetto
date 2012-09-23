@@ -64,7 +64,7 @@ public class Activator implements BundleActivator {
 		ids.add("org.cloudsmith.geppetto.ide2");
 		ids.add("org.eclipse.team.svn.feature.group");
 		ids.add("org.polarion.eclipse.team.svn.connector.feature.group");
-		ids.add("org.polarion.eclipse.team.svn.connector.svnkit16.feature.group");
+		ids.add("org.polarion.eclipse.team.svn.connector.svnkit17.feature.group");
 		ids.add("org.eclipse.egit.feature.group");
 		ids.add("org.eclipse.jgit.feature.group");
 

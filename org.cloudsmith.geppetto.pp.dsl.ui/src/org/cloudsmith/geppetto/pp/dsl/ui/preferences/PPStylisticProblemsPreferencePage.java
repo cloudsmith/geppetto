@@ -46,6 +46,17 @@ public class PPStylisticProblemsPreferencePage extends AbstractPreferencePage {
 		this.addField(new ValidationPreferenceFieldEditor(
 			PPPreferenceConstants.PROBLEM_UNQUOTED_RESOURCE_TITLE, "Unquoted resource titles", getFieldEditorParent()));
 
+		this.addField(new ValidationPreferenceFieldEditor(
+			PPPreferenceConstants.PROBLEM_ML_COMMENTS, "Comments using /* */", getFieldEditorParent()));
+
+		this.addField(new ValidationPreferenceFieldEditor(
+			PPPreferenceConstants.PROBLEM_RTOL_RELATIONSHIP, "Right to left relationships using <- or <~",
+			getFieldEditorParent()));
+
+		this.addField(new ValidationPreferenceFieldEditor(
+			PPPreferenceConstants.PROBLEM_ENSURE_NOT_FIRST, "Resource property ensure is not stated first",
+			getFieldEditorParent()));
+
 	}
 
 }

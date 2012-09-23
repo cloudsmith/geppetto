@@ -21,14 +21,13 @@ import org.eclipse.emf.ecore.EClass;
  * <!-- end-user-doc -->
  * <p>
  * </p>
- * 
+ *
  * @generated
  */
 public class VirtualCollectQueryImpl extends UnaryExpressionImpl implements VirtualCollectQuery {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	protected VirtualCollectQueryImpl() {
@@ -38,7 +37,6 @@ public class VirtualCollectQueryImpl extends UnaryExpressionImpl implements Virt
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	@Override

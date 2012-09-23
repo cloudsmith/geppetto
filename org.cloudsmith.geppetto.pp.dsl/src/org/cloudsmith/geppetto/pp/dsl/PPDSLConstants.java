@@ -12,6 +12,7 @@
 package org.cloudsmith.geppetto.pp.dsl;
 
 import org.cloudsmith.geppetto.pp.DefinitionArgument;
+import org.cloudsmith.geppetto.pp.dsl.linking.PPTask;
 import org.eclipse.xtext.resource.IEObjectDescription;
 
 /**
@@ -43,7 +44,7 @@ public interface PPDSLConstants {
 	public static final String RESOURCE_PROPERTY__ROOT_URI = "org.cloudsmith.geppetto.pp.dsl.resource.rootUri";
 
 	/**
-	 * Property key for Resource Properties. This key should refer to a Collection of
+	 * Property key for Resource Properties. This key should refer to a Collection of {@link PPTask}.
 	 */
 	public static final String RESOURCE_PROPERTY__TASK_LIST = "org.cloudsmith.geppetto.pp.dsl.resource.taskList";
 
@@ -64,5 +65,16 @@ public interface PPDSLConstants {
 	 * contains the source text for the default value expression.
 	 */
 	public static final String DEFAULT_EXPRESSION_DATA = "org.cloudsmith.geppetto.pp.dsl.default";
+
+	/**
+	 * If present in an {@link IEObjectDescription} for a PPTP 'TPVariable' data the name is a prefix, and the rest of
+	 * the name must match the given regular expression pattern mapped to this key.
+	 */
+	public static final String VARIABLE_PATTERN = "org.cloudsmith.geppetto.pptp.variable.pattern";
+
+	/**
+	 * Published as data in the build index for a HostClassDefinition
+	 */
+	public static final String CLASS_ARG_COUNT = "org.cloudsmith.geppetto.pp.dsl.class.argcount";
 
 }

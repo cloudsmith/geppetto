@@ -3,17 +3,17 @@ Bundle-ManifestVersion: 2
 Bundle-Name: %pluginName
 Bundle-Vendor: %providerName
 Bundle-Localization: plugin
-Bundle-Version: 2.2.1.qualifier
+Bundle-Version: 3.0.0.qualifier
 Bundle-SymbolicName: org.cloudsmith.geppetto.pp.dsl.ui;singleton:=true
 Bundle-ActivationPolicy: lazy
 Require-Bundle: org.cloudsmith.geppetto.pp.dsl;visibility:=reexport,
  org.cloudsmith.geppetto.pp,
- org.eclipse.xtext.ui;bundle-version="2.0.0",
+ org.eclipse.xtext.ui;bundle-version="2.3.0.v201206120633",
  org.eclipse.ui.editors;bundle-version="3.6.1",
  org.eclipse.ui.ide;bundle-version="3.6.2",
- org.eclipse.xtext.ui.shared;bundle-version="2.0.0",
+ org.eclipse.xtext.ui.shared;bundle-version="2.3.0.v201206120633",
  org.eclipse.ui;bundle-version="3.6.2",
- org.eclipse.xtext.builder;bundle-version="2.0.0",
+ org.eclipse.xtext.builder;bundle-version="2.3.0.v201206120633",
  org.antlr.runtime;bundle-version="3.2.0",
  org.cloudsmith.geppetto.ruby,
  org.eclipse.core.expressions;bundle-version="3.4.200",
@@ -34,4 +34,5 @@ Export-Package: org.cloudsmith.geppetto.pp.dsl.ui,
  org.cloudsmith.geppetto.pp.dsl.ui.commands,
  org.cloudsmith.geppetto.pp.dsl.ui.internal;x-friends:="org.cloudsmith.geppetto.ui",
  org.cloudsmith.geppetto.pp.dsl.ui.jdt_ersatz,
- org.cloudsmith.geppetto.pp.dsl.ui.preferences
+ org.cloudsmith.geppetto.pp.dsl.ui.preferences,
+ org.cloudsmith.geppetto.pp.dsl.ui.contentassist

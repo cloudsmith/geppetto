@@ -27,11 +27,11 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  * <p>
  * The following features are implemented:
  * <ul>
- * <li>{@link org.cloudsmith.geppetto.pp.impl.BinaryExpressionImpl#getLeftExpr <em>Left Expr</em>}</li>
- * <li>{@link org.cloudsmith.geppetto.pp.impl.BinaryExpressionImpl#getRightExpr <em>Right Expr</em>}</li>
+ *   <li>{@link org.cloudsmith.geppetto.pp.impl.BinaryExpressionImpl#getLeftExpr <em>Left Expr</em>}</li>
+ *   <li>{@link org.cloudsmith.geppetto.pp.impl.BinaryExpressionImpl#getRightExpr <em>Right Expr</em>}</li>
  * </ul>
  * </p>
- * 
+ *
  * @generated
  */
 public abstract class BinaryExpressionImpl extends ExpressionImpl implements BinaryExpression {
@@ -39,7 +39,6 @@ public abstract class BinaryExpressionImpl extends ExpressionImpl implements Bin
 	 * The cached value of the '{@link #getLeftExpr() <em>Left Expr</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @see #getLeftExpr()
 	 * @generated
 	 * @ordered
@@ -50,7 +49,6 @@ public abstract class BinaryExpressionImpl extends ExpressionImpl implements Bin
 	 * The cached value of the '{@link #getRightExpr() <em>Right Expr</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @see #getRightExpr()
 	 * @generated
 	 * @ordered
@@ -60,7 +58,6 @@ public abstract class BinaryExpressionImpl extends ExpressionImpl implements Bin
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	protected BinaryExpressionImpl() {
@@ -70,7 +67,6 @@ public abstract class BinaryExpressionImpl extends ExpressionImpl implements Bin
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public NotificationChain basicSetLeftExpr(Expression newLeftExpr, NotificationChain msgs) {
@@ -90,7 +86,6 @@ public abstract class BinaryExpressionImpl extends ExpressionImpl implements Bin
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public NotificationChain basicSetRightExpr(Expression newRightExpr, NotificationChain msgs) {
@@ -110,7 +105,6 @@ public abstract class BinaryExpressionImpl extends ExpressionImpl implements Bin
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	@Override
@@ -127,7 +121,6 @@ public abstract class BinaryExpressionImpl extends ExpressionImpl implements Bin
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	@Override
@@ -144,7 +137,6 @@ public abstract class BinaryExpressionImpl extends ExpressionImpl implements Bin
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	@Override
@@ -161,7 +153,6 @@ public abstract class BinaryExpressionImpl extends ExpressionImpl implements Bin
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	@Override
@@ -180,7 +171,6 @@ public abstract class BinaryExpressionImpl extends ExpressionImpl implements Bin
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	@Override
@@ -191,7 +181,6 @@ public abstract class BinaryExpressionImpl extends ExpressionImpl implements Bin
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	@Override
@@ -210,7 +199,6 @@ public abstract class BinaryExpressionImpl extends ExpressionImpl implements Bin
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public Expression getLeftExpr() {
@@ -220,7 +208,6 @@ public abstract class BinaryExpressionImpl extends ExpressionImpl implements Bin
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public Expression getRightExpr() {
@@ -230,7 +217,6 @@ public abstract class BinaryExpressionImpl extends ExpressionImpl implements Bin
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public void setLeftExpr(Expression newLeftExpr) {
@@ -254,7 +240,6 @@ public abstract class BinaryExpressionImpl extends ExpressionImpl implements Bin
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public void setRightExpr(Expression newRightExpr) {

@@ -7,6 +7,8 @@ package org.cloudsmith.geppetto.pp.dsl.services;
 import com.google.inject.Singleton;
 import com.google.inject.Inject;
 
+import java.util.List;
+
 import org.eclipse.xtext.*;
 import org.eclipse.xtext.service.GrammarProvider;
 import org.eclipse.xtext.service.AbstractElementFinder.*;
@@ -400,7 +402,7 @@ public class PPGrammarAccess extends AbstractGrammarElementFinder {
 		private final Group cGroup = (Group)rule.eContents().get(1);
 		private final Action cAttributeOperationAction_0 = (Action)cGroup.eContents().get(0);
 		private final Assignment cKeyAssignment_1 = (Assignment)cGroup.eContents().get(1);
-		private final RuleCall cKeyNameParserRuleCall_1_0 = (RuleCall)cKeyAssignment_1.eContents().get(0);
+		private final RuleCall cKeyAttributeNameParserRuleCall_1_0 = (RuleCall)cKeyAssignment_1.eContents().get(0);
 		private final Group cGroup_2 = (Group)cGroup.eContents().get(2);
 		private final Assignment cOpAssignment_2_0 = (Assignment)cGroup_2.eContents().get(0);
 		private final Alternatives cOpAlternatives_2_0_0 = (Alternatives)cOpAssignment_2_0.eContents().get(0);
@@ -412,20 +414,20 @@ public class PPGrammarAccess extends AbstractGrammarElementFinder {
 		//// VALIDATION: key is a NAME, op is supported and Expression is not null
 		//// CONTENT ASSIST: must have op and value as optional, or state is nearly always wrong for CA.
 		//AttributeOperation returns pp::AttributeOperation:
-		//	{pp::AttributeOperation} key=name (op=("=>" | "+>") value=Expression)?;
+		//	{pp::AttributeOperation} key=attributeName (op=("=>" | "+>") value=Expression)?;
 		public ParserRule getRule() { return rule; }
 
-		//{pp::AttributeOperation} key=name (op=("=>" | "+>") value=Expression)?
+		//{pp::AttributeOperation} key=attributeName (op=("=>" | "+>") value=Expression)?
 		public Group getGroup() { return cGroup; }
 
 		//{pp::AttributeOperation}
 		public Action getAttributeOperationAction_0() { return cAttributeOperationAction_0; }
 
-		//key=name
+		//key=attributeName
 		public Assignment getKeyAssignment_1() { return cKeyAssignment_1; }
 
-		//name
-		public RuleCall getKeyNameParserRuleCall_1_0() { return cKeyNameParserRuleCall_1_0; }
+		//attributeName
+		public RuleCall getKeyAttributeNameParserRuleCall_1_0() { return cKeyAttributeNameParserRuleCall_1_0; }
 
 		//(op=("=>" | "+>") value=Expression)?
 		public Group getGroup_2() { return cGroup_2; }
@@ -504,21 +506,6 @@ public class PPGrammarAccess extends AbstractGrammarElementFinder {
 		public Keyword getCommaKeyword_2() { return cCommaKeyword_2; }
 	}
 
-	public class EndCommaElements extends AbstractParserRuleElementFinder {
-		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "endComma");
-		private final Keyword cCommaKeyword = (Keyword)rule.eContents().get(1);
-		
-		//// NOTE: This construct is required due to an Xtext bug, it would be preferred to state (',' )? directly
-		//// in rules using endComma as this makes formatting work ok. The construct below will hide the  and
-		//// formatting needs to be aware of the  in an endComma.
-		//endComma:
-		//	",";
-		public ParserRule getRule() { return rule; }
-
-		//","
-		public Keyword getCommaKeyword() { return cCommaKeyword; }
-	}
-
 	public class AssignmentExpressionElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "AssignmentExpression");
 		private final Group cGroup = (Group)rule.eContents().get(1);
@@ -529,7 +516,12 @@ public class PPGrammarAccess extends AbstractGrammarElementFinder {
 		private final Assignment cRightExprAssignment_1_2 = (Assignment)cGroup_1.eContents().get(2);
 		private final RuleCall cRightExprAppendExpressionParserRuleCall_1_2_0 = (RuleCall)cRightExprAssignment_1_2.eContents().get(0);
 		
-		//// VALIDATION checks leftExpr must be '@' or Variable
+		/// * // NOTE: This construct is required due to an Xtext bug, it would be preferred to state (',' )? directly
+		//// in rules using endComma as this makes formatting work ok. The construct below will hide the  and
+		//// formatting needs to be aware of the  in an endComma.
+		//endComma : ',' ;
+		// * 
+		// * / // VALIDATION checks leftExpr must be '@' or Variable
 		//AssignmentExpression returns pp::Expression:
 		//	AppendExpression ({pp::AssignmentExpression.leftExpr=current} "=" rightExpr=AppendExpression)?;
 		public ParserRule getRule() { return rule; }
@@ -1312,19 +1304,19 @@ public class PPGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cParametersSelectorEntryParserRuleCall_1_2_0_2_0_1_0 = (RuleCall)cParametersAssignment_1_2_0_2_0_1.eContents().get(0);
 		private final Assignment cParametersAssignment_1_2_0_2_1 = (Assignment)cAlternatives_1_2_0_2.eContents().get(1);
 		private final RuleCall cParametersSelectorEntryParserRuleCall_1_2_0_2_1_0 = (RuleCall)cParametersAssignment_1_2_0_2_1.eContents().get(0);
-		private final RuleCall cEndCommaParserRuleCall_1_2_0_3 = (RuleCall)cGroup_1_2_0.eContents().get(3);
+		private final Keyword cCommaKeyword_1_2_0_3 = (Keyword)cGroup_1_2_0.eContents().get(3);
 		private final Keyword cRightCurlyBracketKeyword_1_2_0_4 = (Keyword)cGroup_1_2_0.eContents().get(4);
 		private final Assignment cParametersAssignment_1_2_1 = (Assignment)cAlternatives_1_2.eContents().get(1);
 		private final RuleCall cParametersSelectorEntryParserRuleCall_1_2_1_0 = (RuleCall)cParametersAssignment_1_2_1.eContents().get(0);
 		
 		//SelectorExpression returns pp::Expression: // WAS: FunctionCall 
 		//	AtExpression ({pp::SelectorExpression.leftExpr=current} "?" ("{" parameters+=SelectorEntry (","
-		//	parameters+=SelectorEntry | parameters+=SelectorEntry)* endComma? "}" | parameters+=SelectorEntry))?;
+		//	parameters+=SelectorEntry | parameters+=SelectorEntry)* ","? / * endcomma? * / "}" | parameters+=SelectorEntry))?;
 		public ParserRule getRule() { return rule; }
 
 		//// WAS: FunctionCall 
 		//AtExpression ({pp::SelectorExpression.leftExpr=current} "?" ("{" parameters+=SelectorEntry (","
-		//parameters+=SelectorEntry | parameters+=SelectorEntry)* endComma? "}" | parameters+=SelectorEntry))?
+		//parameters+=SelectorEntry | parameters+=SelectorEntry)* ","? / * endcomma? * / "}" | parameters+=SelectorEntry))?
 		public Group getGroup() { return cGroup; }
 
 		//// WAS: FunctionCall 
@@ -1332,7 +1324,7 @@ public class PPGrammarAccess extends AbstractGrammarElementFinder {
 		public RuleCall getAtExpressionParserRuleCall_0() { return cAtExpressionParserRuleCall_0; }
 
 		//({pp::SelectorExpression.leftExpr=current} "?" ("{" parameters+=SelectorEntry ("," parameters+=SelectorEntry |
-		//parameters+=SelectorEntry)* endComma? "}" | parameters+=SelectorEntry))?
+		//parameters+=SelectorEntry)* ","? / * endcomma? * / "}" | parameters+=SelectorEntry))?
 		public Group getGroup_1() { return cGroup_1; }
 
 		//{pp::SelectorExpression.leftExpr=current}
@@ -1341,11 +1333,11 @@ public class PPGrammarAccess extends AbstractGrammarElementFinder {
 		//"?"
 		public Keyword getQuestionMarkKeyword_1_1() { return cQuestionMarkKeyword_1_1; }
 
-		//"{" parameters+=SelectorEntry ("," parameters+=SelectorEntry | parameters+=SelectorEntry)* endComma? "}" |
+		//"{" parameters+=SelectorEntry ("," parameters+=SelectorEntry | parameters+=SelectorEntry)* ","? / * endcomma? * / "}" |
 		//parameters+=SelectorEntry
 		public Alternatives getAlternatives_1_2() { return cAlternatives_1_2; }
 
-		//"{" parameters+=SelectorEntry ("," parameters+=SelectorEntry | parameters+=SelectorEntry)* endComma? "}"
+		//"{" parameters+=SelectorEntry ("," parameters+=SelectorEntry | parameters+=SelectorEntry)* ","? / * endcomma? * / "}"
 		public Group getGroup_1_2_0() { return cGroup_1_2_0; }
 
 		//"{"
@@ -1378,8 +1370,8 @@ public class PPGrammarAccess extends AbstractGrammarElementFinder {
 		//SelectorEntry
 		public RuleCall getParametersSelectorEntryParserRuleCall_1_2_0_2_1_0() { return cParametersSelectorEntryParserRuleCall_1_2_0_2_1_0; }
 
-		//endComma?
-		public RuleCall getEndCommaParserRuleCall_1_2_0_3() { return cEndCommaParserRuleCall_1_2_0_3; }
+		//","?
+		public Keyword getCommaKeyword_1_2_0_3() { return cCommaKeyword_1_2_0_3; }
 
 		//"}"
 		public Keyword getRightCurlyBracketKeyword_1_2_0_4() { return cRightCurlyBracketKeyword_1_2_0_4; }
@@ -1507,7 +1499,7 @@ public class PPGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cCommaKeyword_1_2_1_0 = (Keyword)cGroup_1_2_1.eContents().get(0);
 		private final Assignment cParametersAssignment_1_2_1_1 = (Assignment)cGroup_1_2_1.eContents().get(1);
 		private final RuleCall cParametersExpressionParserRuleCall_1_2_1_1_0 = (RuleCall)cParametersAssignment_1_2_1_1.eContents().get(0);
-		private final RuleCall cEndCommaParserRuleCall_1_2_2 = (RuleCall)cGroup_1_2.eContents().get(2);
+		private final Keyword cCommaKeyword_1_2_2 = (Keyword)cGroup_1_2.eContents().get(2);
 		private final Keyword cRightParenthesisKeyword_1_3 = (Keyword)cGroup_1.eContents().get(3);
 		
 		//// FunctionCall has different syntax restrictions depending on context
@@ -1519,17 +1511,18 @@ public class PPGrammarAccess extends AbstractGrammarElementFinder {
 		//// VALIDATION : functionExpr is a valid function name	
 		//FunctionCall returns pp::Expression:
 		//	PrimaryExpression ({pp::FunctionCall.leftExpr=current} "(" (parameters+=Expression ("," parameters+=Expression)*
-		//	endComma?)? ")")?;
+		//	","?)? / *endComma? * / ")")?;
 		public ParserRule getRule() { return rule; }
 
-		//PrimaryExpression ({pp::FunctionCall.leftExpr=current} "(" (parameters+=Expression ("," parameters+=Expression)*
-		//endComma?)? ")")?
+		//PrimaryExpression ({pp::FunctionCall.leftExpr=current} "(" (parameters+=Expression ("," parameters+=Expression)* ","?)?
+		/// *endComma? * / ")")?
 		public Group getGroup() { return cGroup; }
 
 		//PrimaryExpression
 		public RuleCall getPrimaryExpressionParserRuleCall_0() { return cPrimaryExpressionParserRuleCall_0; }
 
-		//({pp::FunctionCall.leftExpr=current} "(" (parameters+=Expression ("," parameters+=Expression)* endComma?)? ")")?
+		//({pp::FunctionCall.leftExpr=current} "(" (parameters+=Expression ("," parameters+=Expression)* ","?)? / *endComma? * /
+		//")")?
 		public Group getGroup_1() { return cGroup_1; }
 
 		//{pp::FunctionCall.leftExpr=current}
@@ -1538,7 +1531,7 @@ public class PPGrammarAccess extends AbstractGrammarElementFinder {
 		//"("
 		public Keyword getLeftParenthesisKeyword_1_1() { return cLeftParenthesisKeyword_1_1; }
 
-		//(parameters+=Expression ("," parameters+=Expression)* endComma?)?
+		//(parameters+=Expression ("," parameters+=Expression)* ","?)?
 		public Group getGroup_1_2() { return cGroup_1_2; }
 
 		//parameters+=Expression
@@ -1559,8 +1552,8 @@ public class PPGrammarAccess extends AbstractGrammarElementFinder {
 		//Expression
 		public RuleCall getParametersExpressionParserRuleCall_1_2_1_1_0() { return cParametersExpressionParserRuleCall_1_2_1_1_0; }
 
-		//endComma?
-		public RuleCall getEndCommaParserRuleCall_1_2_2() { return cEndCommaParserRuleCall_1_2_2; }
+		//","?
+		public Keyword getCommaKeyword_1_2_2() { return cCommaKeyword_1_2_2; }
 
 		//")"
 		public Keyword getRightParenthesisKeyword_1_3() { return cRightParenthesisKeyword_1_3; }
@@ -1570,54 +1563,58 @@ public class PPGrammarAccess extends AbstractGrammarElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "PrimaryExpression");
 		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
 		private final RuleCall cIfExpressionParserRuleCall_0 = (RuleCall)cAlternatives.eContents().get(0);
-		private final RuleCall cCaseExpressionParserRuleCall_1 = (RuleCall)cAlternatives.eContents().get(1);
-		private final RuleCall cImportExpressionParserRuleCall_2 = (RuleCall)cAlternatives.eContents().get(2);
-		private final RuleCall cDefinitionParserRuleCall_3 = (RuleCall)cAlternatives.eContents().get(3);
-		private final RuleCall cHostClassDefinitionParserRuleCall_4 = (RuleCall)cAlternatives.eContents().get(4);
-		private final RuleCall cNodeDefinitionParserRuleCall_5 = (RuleCall)cAlternatives.eContents().get(5);
-		private final RuleCall cVirtualNameOrReferenceParserRuleCall_6 = (RuleCall)cAlternatives.eContents().get(6);
-		private final RuleCall cLiteralExpressionParserRuleCall_7 = (RuleCall)cAlternatives.eContents().get(7);
-		private final RuleCall cVariableExpressionParserRuleCall_8 = (RuleCall)cAlternatives.eContents().get(8);
-		private final RuleCall cParenthisedExpressionParserRuleCall_9 = (RuleCall)cAlternatives.eContents().get(9);
+		private final RuleCall cUnlessExpressionParserRuleCall_1 = (RuleCall)cAlternatives.eContents().get(1);
+		private final RuleCall cCaseExpressionParserRuleCall_2 = (RuleCall)cAlternatives.eContents().get(2);
+		private final RuleCall cImportExpressionParserRuleCall_3 = (RuleCall)cAlternatives.eContents().get(3);
+		private final RuleCall cDefinitionParserRuleCall_4 = (RuleCall)cAlternatives.eContents().get(4);
+		private final RuleCall cHostClassDefinitionParserRuleCall_5 = (RuleCall)cAlternatives.eContents().get(5);
+		private final RuleCall cNodeDefinitionParserRuleCall_6 = (RuleCall)cAlternatives.eContents().get(6);
+		private final RuleCall cVirtualNameOrReferenceParserRuleCall_7 = (RuleCall)cAlternatives.eContents().get(7);
+		private final RuleCall cLiteralExpressionParserRuleCall_8 = (RuleCall)cAlternatives.eContents().get(8);
+		private final RuleCall cVariableExpressionParserRuleCall_9 = (RuleCall)cAlternatives.eContents().get(9);
+		private final RuleCall cParenthisedExpressionParserRuleCall_10 = (RuleCall)cAlternatives.eContents().get(10);
 		
 		//PrimaryExpression returns pp::Expression:
-		//	IfExpression | CaseExpression | ImportExpression | Definition | HostClassDefinition | NodeDefinition |
-		//	VirtualNameOrReference | LiteralExpression | VariableExpression | ParenthisedExpression;
+		//	IfExpression | UnlessExpression | CaseExpression | ImportExpression | Definition | HostClassDefinition |
+		//	NodeDefinition | VirtualNameOrReference | LiteralExpression | VariableExpression | ParenthisedExpression;
 		public ParserRule getRule() { return rule; }
 
-		//IfExpression | CaseExpression | ImportExpression | Definition | HostClassDefinition | NodeDefinition |
-		//VirtualNameOrReference | LiteralExpression | VariableExpression | ParenthisedExpression
+		//IfExpression | UnlessExpression | CaseExpression | ImportExpression | Definition | HostClassDefinition | NodeDefinition
+		//| VirtualNameOrReference | LiteralExpression | VariableExpression | ParenthisedExpression
 		public Alternatives getAlternatives() { return cAlternatives; }
 
 		//IfExpression
 		public RuleCall getIfExpressionParserRuleCall_0() { return cIfExpressionParserRuleCall_0; }
 
+		//UnlessExpression
+		public RuleCall getUnlessExpressionParserRuleCall_1() { return cUnlessExpressionParserRuleCall_1; }
+
 		//CaseExpression
-		public RuleCall getCaseExpressionParserRuleCall_1() { return cCaseExpressionParserRuleCall_1; }
+		public RuleCall getCaseExpressionParserRuleCall_2() { return cCaseExpressionParserRuleCall_2; }
 
 		//ImportExpression
-		public RuleCall getImportExpressionParserRuleCall_2() { return cImportExpressionParserRuleCall_2; }
+		public RuleCall getImportExpressionParserRuleCall_3() { return cImportExpressionParserRuleCall_3; }
 
 		//Definition
-		public RuleCall getDefinitionParserRuleCall_3() { return cDefinitionParserRuleCall_3; }
+		public RuleCall getDefinitionParserRuleCall_4() { return cDefinitionParserRuleCall_4; }
 
 		//HostClassDefinition
-		public RuleCall getHostClassDefinitionParserRuleCall_4() { return cHostClassDefinitionParserRuleCall_4; }
+		public RuleCall getHostClassDefinitionParserRuleCall_5() { return cHostClassDefinitionParserRuleCall_5; }
 
 		//NodeDefinition
-		public RuleCall getNodeDefinitionParserRuleCall_5() { return cNodeDefinitionParserRuleCall_5; }
+		public RuleCall getNodeDefinitionParserRuleCall_6() { return cNodeDefinitionParserRuleCall_6; }
 
 		//VirtualNameOrReference
-		public RuleCall getVirtualNameOrReferenceParserRuleCall_6() { return cVirtualNameOrReferenceParserRuleCall_6; }
+		public RuleCall getVirtualNameOrReferenceParserRuleCall_7() { return cVirtualNameOrReferenceParserRuleCall_7; }
 
 		//LiteralExpression
-		public RuleCall getLiteralExpressionParserRuleCall_7() { return cLiteralExpressionParserRuleCall_7; }
+		public RuleCall getLiteralExpressionParserRuleCall_8() { return cLiteralExpressionParserRuleCall_8; }
 
 		//VariableExpression
-		public RuleCall getVariableExpressionParserRuleCall_8() { return cVariableExpressionParserRuleCall_8; }
+		public RuleCall getVariableExpressionParserRuleCall_9() { return cVariableExpressionParserRuleCall_9; }
 
 		//ParenthisedExpression
-		public RuleCall getParenthisedExpressionParserRuleCall_9() { return cParenthisedExpressionParserRuleCall_9; }
+		public RuleCall getParenthisedExpressionParserRuleCall_10() { return cParenthisedExpressionParserRuleCall_10; }
 	}
 
 	public class NodeDefinitionElements extends AbstractParserRuleElementFinder {
@@ -1872,14 +1869,16 @@ public class PPGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cCommaKeyword_2_1_0 = (Keyword)cGroup_2_1.eContents().get(0);
 		private final Assignment cArgumentsAssignment_2_1_1 = (Assignment)cGroup_2_1.eContents().get(1);
 		private final RuleCall cArgumentsDefinitionArgumentParserRuleCall_2_1_1_0 = (RuleCall)cArgumentsAssignment_2_1_1.eContents().get(0);
-		private final RuleCall cEndCommaParserRuleCall_3 = (RuleCall)cGroup.eContents().get(3);
+		private final Keyword cCommaKeyword_3 = (Keyword)cGroup.eContents().get(3);
 		private final Keyword cRightParenthesisKeyword_4 = (Keyword)cGroup.eContents().get(4);
 		
 		//DefinitionArgumentList returns pp::DefinitionArgumentList:
-		//	{pp::DefinitionArgumentList} "(" (arguments+=DefinitionArgument ("," arguments+=DefinitionArgument)*)? endComma? ")";
+		//	{pp::DefinitionArgumentList} "(" (arguments+=DefinitionArgument ("," arguments+=DefinitionArgument)*)? ","?
+		//	/ * endComma? * / ")";
 		public ParserRule getRule() { return rule; }
 
-		//{pp::DefinitionArgumentList} "(" (arguments+=DefinitionArgument ("," arguments+=DefinitionArgument)*)? endComma? ")"
+		//{pp::DefinitionArgumentList} "(" (arguments+=DefinitionArgument ("," arguments+=DefinitionArgument)*)? ","?
+		/// * endComma? * / ")"
 		public Group getGroup() { return cGroup; }
 
 		//{pp::DefinitionArgumentList}
@@ -1909,8 +1908,8 @@ public class PPGrammarAccess extends AbstractGrammarElementFinder {
 		//DefinitionArgument
 		public RuleCall getArgumentsDefinitionArgumentParserRuleCall_2_1_1_0() { return cArgumentsDefinitionArgumentParserRuleCall_2_1_1_0; }
 
-		//endComma?
-		public RuleCall getEndCommaParserRuleCall_3() { return cEndCommaParserRuleCall_3; }
+		//","?
+		public Keyword getCommaKeyword_3() { return cCommaKeyword_3; }
 
 		//")"
 		public Keyword getRightParenthesisKeyword_4() { return cRightParenthesisKeyword_4; }
@@ -2068,6 +2067,47 @@ public class PPGrammarAccess extends AbstractGrammarElementFinder {
 
 		//"}"
 		public Keyword getRightCurlyBracketKeyword_5() { return cRightCurlyBracketKeyword_5; }
+	}
+
+	public class UnlessExpressionElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "UnlessExpression");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Keyword cUnlessKeyword_0 = (Keyword)cGroup.eContents().get(0);
+		private final Assignment cCondExprAssignment_1 = (Assignment)cGroup.eContents().get(1);
+		private final RuleCall cCondExprAssignmentExpressionParserRuleCall_1_0 = (RuleCall)cCondExprAssignment_1.eContents().get(0);
+		private final Keyword cLeftCurlyBracketKeyword_2 = (Keyword)cGroup.eContents().get(2);
+		private final Assignment cThenStatementsAssignment_3 = (Assignment)cGroup.eContents().get(3);
+		private final RuleCall cThenStatementsExpressionListParserRuleCall_3_0 = (RuleCall)cThenStatementsAssignment_3.eContents().get(0);
+		private final Keyword cRightCurlyBracketKeyword_4 = (Keyword)cGroup.eContents().get(4);
+		
+		////-- UNLESS (is the same as if !(e) {}, but without support for "else"
+		//UnlessExpression returns pp::UnlessExpression:
+		//	"unless" condExpr=AssignmentExpression "{" thenStatements+=ExpressionList* "}";
+		public ParserRule getRule() { return rule; }
+
+		//"unless" condExpr=AssignmentExpression "{" thenStatements+=ExpressionList* "}"
+		public Group getGroup() { return cGroup; }
+
+		//"unless"
+		public Keyword getUnlessKeyword_0() { return cUnlessKeyword_0; }
+
+		//condExpr=AssignmentExpression
+		public Assignment getCondExprAssignment_1() { return cCondExprAssignment_1; }
+
+		//AssignmentExpression
+		public RuleCall getCondExprAssignmentExpressionParserRuleCall_1_0() { return cCondExprAssignmentExpressionParserRuleCall_1_0; }
+
+		//"{"
+		public Keyword getLeftCurlyBracketKeyword_2() { return cLeftCurlyBracketKeyword_2; }
+
+		//thenStatements+=ExpressionList*
+		public Assignment getThenStatementsAssignment_3() { return cThenStatementsAssignment_3; }
+
+		//ExpressionList
+		public RuleCall getThenStatementsExpressionListParserRuleCall_3_0() { return cThenStatementsExpressionListParserRuleCall_3_0; }
+
+		//"}"
+		public Keyword getRightCurlyBracketKeyword_4() { return cRightCurlyBracketKeyword_4; }
 	}
 
 	public class IfExpressionElements extends AbstractParserRuleElementFinder {
@@ -2485,14 +2525,14 @@ public class PPGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cCommaKeyword_2_1_0 = (Keyword)cGroup_2_1.eContents().get(0);
 		private final Assignment cElementsAssignment_2_1_1 = (Assignment)cGroup_2_1.eContents().get(1);
 		private final RuleCall cElementsAssignmentExpressionParserRuleCall_2_1_1_0 = (RuleCall)cElementsAssignment_2_1_1.eContents().get(0);
-		private final RuleCall cEndCommaParserRuleCall_3 = (RuleCall)cGroup.eContents().get(3);
-		private final Keyword cRightSquareBracketKeyword_4 = (Keyword)cGroup.eContents().get(4);
+		private final Keyword cCommaKeyword_2_2 = (Keyword)cGroup_2.eContents().get(2);
+		private final Keyword cRightSquareBracketKeyword_3 = (Keyword)cGroup.eContents().get(3);
 		
 		//LiteralList returns pp::LiteralList:
-		//	{pp::LiteralList} "[" (elements+=AssignmentExpression ("," elements+=AssignmentExpression)*)? endComma? "]";
+		//	{pp::LiteralList} "[" (elements+=AssignmentExpression ("," elements+=AssignmentExpression)* ","?)? "]";
 		public ParserRule getRule() { return rule; }
 
-		//{pp::LiteralList} "[" (elements+=AssignmentExpression ("," elements+=AssignmentExpression)*)? endComma? "]"
+		//{pp::LiteralList} "[" (elements+=AssignmentExpression ("," elements+=AssignmentExpression)* ","?)? "]"
 		public Group getGroup() { return cGroup; }
 
 		//{pp::LiteralList}
@@ -2501,7 +2541,7 @@ public class PPGrammarAccess extends AbstractGrammarElementFinder {
 		//"["
 		public Keyword getLeftSquareBracketKeyword_1() { return cLeftSquareBracketKeyword_1; }
 
-		//(elements+=AssignmentExpression ("," elements+=AssignmentExpression)*)?
+		//(elements+=AssignmentExpression ("," elements+=AssignmentExpression)* ","?)?
 		public Group getGroup_2() { return cGroup_2; }
 
 		//elements+=AssignmentExpression
@@ -2522,11 +2562,11 @@ public class PPGrammarAccess extends AbstractGrammarElementFinder {
 		//AssignmentExpression
 		public RuleCall getElementsAssignmentExpressionParserRuleCall_2_1_1_0() { return cElementsAssignmentExpressionParserRuleCall_2_1_1_0; }
 
-		//endComma?
-		public RuleCall getEndCommaParserRuleCall_3() { return cEndCommaParserRuleCall_3; }
+		//","?
+		public Keyword getCommaKeyword_2_2() { return cCommaKeyword_2_2; }
 
 		//"]"
-		public Keyword getRightSquareBracketKeyword_4() { return cRightSquareBracketKeyword_4; }
+		public Keyword getRightSquareBracketKeyword_3() { return cRightSquareBracketKeyword_3; }
 	}
 
 	public class LiteralHashElements extends AbstractParserRuleElementFinder {
@@ -2541,14 +2581,14 @@ public class PPGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cCommaKeyword_2_1_0 = (Keyword)cGroup_2_1.eContents().get(0);
 		private final Assignment cElementsAssignment_2_1_1 = (Assignment)cGroup_2_1.eContents().get(1);
 		private final RuleCall cElementsHashEntryParserRuleCall_2_1_1_0 = (RuleCall)cElementsAssignment_2_1_1.eContents().get(0);
-		private final RuleCall cEndCommaParserRuleCall_3 = (RuleCall)cGroup.eContents().get(3);
+		private final Keyword cCommaKeyword_3 = (Keyword)cGroup.eContents().get(3);
 		private final Keyword cRightCurlyBracketKeyword_4 = (Keyword)cGroup.eContents().get(4);
 		
 		//LiteralHash returns pp::LiteralHash:
-		//	{pp::LiteralHash} "{" (elements+=HashEntry ("," elements+=HashEntry)*)? endComma? "}";
+		//	{pp::LiteralHash} "{" (elements+=HashEntry ("," elements+=HashEntry)*)? ","? / * endComma? * / "}";
 		public ParserRule getRule() { return rule; }
 
-		//{pp::LiteralHash} "{" (elements+=HashEntry ("," elements+=HashEntry)*)? endComma? "}"
+		//{pp::LiteralHash} "{" (elements+=HashEntry ("," elements+=HashEntry)*)? ","? / * endComma? * / "}"
 		public Group getGroup() { return cGroup; }
 
 		//{pp::LiteralHash}
@@ -2578,8 +2618,8 @@ public class PPGrammarAccess extends AbstractGrammarElementFinder {
 		//HashEntry
 		public RuleCall getElementsHashEntryParserRuleCall_2_1_1_0() { return cElementsHashEntryParserRuleCall_2_1_1_0; }
 
-		//endComma?
-		public RuleCall getEndCommaParserRuleCall_3() { return cEndCommaParserRuleCall_3; }
+		//","?
+		public Keyword getCommaKeyword_3() { return cCommaKeyword_3; }
 
 		//"}"
 		public Keyword getRightCurlyBracketKeyword_4() { return cRightCurlyBracketKeyword_4; }
@@ -3108,14 +3148,15 @@ public class PPGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cTrueKeyword_13 = (Keyword)cAlternatives.eContents().get(13);
 		private final Keyword cFalseKeyword_14 = (Keyword)cAlternatives.eContents().get(14);
 		private final Keyword cIfKeyword_15 = (Keyword)cAlternatives.eContents().get(15);
+		private final Keyword cUnlessKeyword_16 = (Keyword)cAlternatives.eContents().get(16);
 		
 		//keyword:
 		//	"and" | "case" | "class" | "default" | "define" | "else" | "elsif" | "in" | "inherits" | "import" | "node" | "or" |
-		//	"undef" | "true" | "false" | "if";
+		//	"undef" | "true" | "false" | "if" | "unless";
 		public ParserRule getRule() { return rule; }
 
 		//"and" | "case" | "class" | "default" | "define" | "else" | "elsif" | "in" | "inherits" | "import" | "node" | "or" |
-		//"undef" | "true" | "false" | "if"
+		//"undef" | "true" | "false" | "if" | "unless"
 		public Alternatives getAlternatives() { return cAlternatives; }
 
 		//"and"
@@ -3165,6 +3206,29 @@ public class PPGrammarAccess extends AbstractGrammarElementFinder {
 
 		//"if"
 		public Keyword getIfKeyword_15() { return cIfKeyword_15; }
+
+		//"unless"
+		public Keyword getUnlessKeyword_16() { return cUnlessKeyword_16; }
+	}
+
+	public class AttributeNameElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "attributeName");
+		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
+		private final RuleCall cNameParserRuleCall_0 = (RuleCall)cAlternatives.eContents().get(0);
+		private final RuleCall cKeywordParserRuleCall_1 = (RuleCall)cAlternatives.eContents().get(1);
+		
+		//attributeName:
+		//	name | keyword;
+		public ParserRule getRule() { return rule; }
+
+		//name | keyword
+		public Alternatives getAlternatives() { return cAlternatives; }
+
+		//name
+		public RuleCall getNameParserRuleCall_0() { return cNameParserRuleCall_0; }
+
+		//keyword
+		public RuleCall getKeywordParserRuleCall_1() { return cKeywordParserRuleCall_1; }
 	}
 
 	public class NameElements extends AbstractParserRuleElementFinder {
@@ -3339,7 +3403,6 @@ public class PPGrammarAccess extends AbstractGrammarElementFinder {
 	private ResourceBodyElements pResourceBody;
 	private AttributeOperationElements pAttributeOperation;
 	private AttributeOperationsElements pAttributeOperations;
-	private EndCommaElements pEndComma;
 	private AssignmentExpressionElements pAssignmentExpression;
 	private AppendExpressionElements pAppendExpression;
 	private OrExpressionElements pOrExpression;
@@ -3378,6 +3441,7 @@ public class PPGrammarAccess extends AbstractGrammarElementFinder {
 	private DefinitionArgumentElements pDefinitionArgument;
 	private CaseExpressionElements pCaseExpression;
 	private CaseElements pCase;
+	private UnlessExpressionElements pUnlessExpression;
 	private IfExpressionElements pIfExpression;
 	private ElseExpressionElements pElseExpression;
 	private ElseIfExpressionElements pElseIfExpression;
@@ -3411,6 +3475,7 @@ public class PPGrammarAccess extends AbstractGrammarElementFinder {
 	private VariableExpressionElements pVariableExpression;
 	private DollarVariableElements pDollarVariable;
 	private KeywordElements pKeyword;
+	private AttributeNameElements pAttributeName;
 	private NameElements pName;
 	private ClassnameElements pClassname;
 	private UnionNameOrReferenceElements pUnionNameOrReference;
@@ -3429,15 +3494,32 @@ public class PPGrammarAccess extends AbstractGrammarElementFinder {
 	private TerminalRule tRE_FLAGS;
 	private TerminalRule tANY_OTHER;
 	
-	private final GrammarProvider grammarProvider;
+	private final Grammar grammar;
 
 	@Inject
 	public PPGrammarAccess(GrammarProvider grammarProvider) {
-		this.grammarProvider = grammarProvider;
+		this.grammar = internalFindGrammar(grammarProvider);
 	}
 	
-	public Grammar getGrammar() {	
-		return grammarProvider.getGrammar(this);
+	protected Grammar internalFindGrammar(GrammarProvider grammarProvider) {
+		Grammar grammar = grammarProvider.getGrammar(this);
+		while (grammar != null) {
+			if ("org.cloudsmith.geppetto.pp.dsl.PP".equals(grammar.getName())) {
+				return grammar;
+			}
+			List<Grammar> grammars = grammar.getUsedGrammars();
+			if (!grammars.isEmpty()) {
+				grammar = grammars.iterator().next();
+			} else {
+				return null;
+			}
+		}
+		return grammar;
+	}
+	
+	
+	public Grammar getGrammar() {
+		return grammar;
 	}
 	
 
@@ -3563,7 +3645,7 @@ public class PPGrammarAccess extends AbstractGrammarElementFinder {
 	//// VALIDATION: key is a NAME, op is supported and Expression is not null
 	//// CONTENT ASSIST: must have op and value as optional, or state is nearly always wrong for CA.
 	//AttributeOperation returns pp::AttributeOperation:
-	//	{pp::AttributeOperation} key=name (op=("=>" | "+>") value=Expression)?;
+	//	{pp::AttributeOperation} key=attributeName (op=("=>" | "+>") value=Expression)?;
 	public AttributeOperationElements getAttributeOperationAccess() {
 		return (pAttributeOperation != null) ? pAttributeOperation : (pAttributeOperation = new AttributeOperationElements());
 	}
@@ -3585,20 +3667,12 @@ public class PPGrammarAccess extends AbstractGrammarElementFinder {
 		return getAttributeOperationsAccess().getRule();
 	}
 
-	//// NOTE: This construct is required due to an Xtext bug, it would be preferred to state (',' )? directly
+	/// * // NOTE: This construct is required due to an Xtext bug, it would be preferred to state (',' )? directly
 	//// in rules using endComma as this makes formatting work ok. The construct below will hide the  and
 	//// formatting needs to be aware of the  in an endComma.
-	//endComma:
-	//	",";
-	public EndCommaElements getEndCommaAccess() {
-		return (pEndComma != null) ? pEndComma : (pEndComma = new EndCommaElements());
-	}
-	
-	public ParserRule getEndCommaRule() {
-		return getEndCommaAccess().getRule();
-	}
-
-	//// VALIDATION checks leftExpr must be '@' or Variable
+	//endComma : ',' ;
+	// * 
+	// * / // VALIDATION checks leftExpr must be '@' or Variable
 	//AssignmentExpression returns pp::Expression:
 	//	AppendExpression ({pp::AssignmentExpression.leftExpr=current} "=" rightExpr=AppendExpression)?;
 	public AssignmentExpressionElements getAssignmentExpressionAccess() {
@@ -3851,7 +3925,7 @@ public class PPGrammarAccess extends AbstractGrammarElementFinder {
 
 	//SelectorExpression returns pp::Expression: // WAS: FunctionCall 
 	//	AtExpression ({pp::SelectorExpression.leftExpr=current} "?" ("{" parameters+=SelectorEntry (","
-	//	parameters+=SelectorEntry | parameters+=SelectorEntry)* endComma? "}" | parameters+=SelectorEntry))?;
+	//	parameters+=SelectorEntry | parameters+=SelectorEntry)* ","? / * endcomma? * / "}" | parameters+=SelectorEntry))?;
 	public SelectorExpressionElements getSelectorExpressionAccess() {
 		return (pSelectorExpression != null) ? pSelectorExpression : (pSelectorExpression = new SelectorExpressionElements());
 	}
@@ -3893,7 +3967,7 @@ public class PPGrammarAccess extends AbstractGrammarElementFinder {
 	//// VALIDATION : functionExpr is a valid function name	
 	//FunctionCall returns pp::Expression:
 	//	PrimaryExpression ({pp::FunctionCall.leftExpr=current} "(" (parameters+=Expression ("," parameters+=Expression)*
-	//	endComma?)? ")")?;
+	//	","?)? / *endComma? * / ")")?;
 	public FunctionCallElements getFunctionCallAccess() {
 		return (pFunctionCall != null) ? pFunctionCall : (pFunctionCall = new FunctionCallElements());
 	}
@@ -3903,8 +3977,8 @@ public class PPGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//PrimaryExpression returns pp::Expression:
-	//	IfExpression | CaseExpression | ImportExpression | Definition | HostClassDefinition | NodeDefinition |
-	//	VirtualNameOrReference | LiteralExpression | VariableExpression | ParenthisedExpression;
+	//	IfExpression | UnlessExpression | CaseExpression | ImportExpression | Definition | HostClassDefinition |
+	//	NodeDefinition | VirtualNameOrReference | LiteralExpression | VariableExpression | ParenthisedExpression;
 	public PrimaryExpressionElements getPrimaryExpressionAccess() {
 		return (pPrimaryExpression != null) ? pPrimaryExpression : (pPrimaryExpression = new PrimaryExpressionElements());
 	}
@@ -3966,7 +4040,8 @@ public class PPGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//DefinitionArgumentList returns pp::DefinitionArgumentList:
-	//	{pp::DefinitionArgumentList} "(" (arguments+=DefinitionArgument ("," arguments+=DefinitionArgument)*)? endComma? ")";
+	//	{pp::DefinitionArgumentList} "(" (arguments+=DefinitionArgument ("," arguments+=DefinitionArgument)*)? ","?
+	//	/ * endComma? * / ")";
 	public DefinitionArgumentListElements getDefinitionArgumentListAccess() {
 		return (pDefinitionArgumentList != null) ? pDefinitionArgumentList : (pDefinitionArgumentList = new DefinitionArgumentListElements());
 	}
@@ -4009,6 +4084,17 @@ public class PPGrammarAccess extends AbstractGrammarElementFinder {
 	
 	public ParserRule getCaseRule() {
 		return getCaseAccess().getRule();
+	}
+
+	////-- UNLESS (is the same as if !(e) {}, but without support for "else"
+	//UnlessExpression returns pp::UnlessExpression:
+	//	"unless" condExpr=AssignmentExpression "{" thenStatements+=ExpressionList* "}";
+	public UnlessExpressionElements getUnlessExpressionAccess() {
+		return (pUnlessExpression != null) ? pUnlessExpression : (pUnlessExpression = new UnlessExpressionElements());
+	}
+	
+	public ParserRule getUnlessExpressionRule() {
+		return getUnlessExpressionAccess().getRule();
 	}
 
 	////-- IF 
@@ -4124,7 +4210,7 @@ public class PPGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//LiteralList returns pp::LiteralList:
-	//	{pp::LiteralList} "[" (elements+=AssignmentExpression ("," elements+=AssignmentExpression)*)? endComma? "]";
+	//	{pp::LiteralList} "[" (elements+=AssignmentExpression ("," elements+=AssignmentExpression)* ","?)? "]";
 	public LiteralListElements getLiteralListAccess() {
 		return (pLiteralList != null) ? pLiteralList : (pLiteralList = new LiteralListElements());
 	}
@@ -4134,7 +4220,7 @@ public class PPGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//LiteralHash returns pp::LiteralHash:
-	//	{pp::LiteralHash} "{" (elements+=HashEntry ("," elements+=HashEntry)*)? endComma? "}";
+	//	{pp::LiteralHash} "{" (elements+=HashEntry ("," elements+=HashEntry)*)? ","? / * endComma? * / "}";
 	public LiteralHashElements getLiteralHashAccess() {
 		return (pLiteralHash != null) ? pLiteralHash : (pLiteralHash = new LiteralHashElements());
 	}
@@ -4364,13 +4450,23 @@ public class PPGrammarAccess extends AbstractGrammarElementFinder {
 
 	//keyword:
 	//	"and" | "case" | "class" | "default" | "define" | "else" | "elsif" | "in" | "inherits" | "import" | "node" | "or" |
-	//	"undef" | "true" | "false" | "if";
+	//	"undef" | "true" | "false" | "if" | "unless";
 	public KeywordElements getKeywordAccess() {
 		return (pKeyword != null) ? pKeyword : (pKeyword = new KeywordElements());
 	}
 	
 	public ParserRule getKeywordRule() {
 		return getKeywordAccess().getRule();
+	}
+
+	//attributeName:
+	//	name | keyword;
+	public AttributeNameElements getAttributeNameAccess() {
+		return (pAttributeName != null) ? pAttributeName : (pAttributeName = new AttributeNameElements());
+	}
+	
+	public ParserRule getAttributeNameRule() {
+		return getAttributeNameAccess().getRule();
 	}
 
 	//// a puppet grammar glitch allows '::' any number of times (\w*::)*\w+. Validation checks correctness.

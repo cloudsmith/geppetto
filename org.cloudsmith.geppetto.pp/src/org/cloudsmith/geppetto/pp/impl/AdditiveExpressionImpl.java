@@ -21,14 +21,13 @@ import org.eclipse.emf.ecore.EClass;
  * <!-- end-user-doc -->
  * <p>
  * </p>
- * 
+ *
  * @generated
  */
 public class AdditiveExpressionImpl extends BinaryOpExpressionImpl implements AdditiveExpression {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	protected AdditiveExpressionImpl() {
@@ -38,7 +37,6 @@ public class AdditiveExpressionImpl extends BinaryOpExpressionImpl implements Ad
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	@Override

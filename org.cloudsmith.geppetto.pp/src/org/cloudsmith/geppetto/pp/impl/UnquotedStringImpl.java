@@ -27,10 +27,10 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  * <p>
  * The following features are implemented:
  * <ul>
- * <li>{@link org.cloudsmith.geppetto.pp.impl.UnquotedStringImpl#getExpression <em>Expression</em>}</li>
+ *   <li>{@link org.cloudsmith.geppetto.pp.impl.UnquotedStringImpl#getExpression <em>Expression</em>}</li>
  * </ul>
  * </p>
- * 
+ *
  * @generated
  */
 public class UnquotedStringImpl extends StringExpressionImpl implements UnquotedString {
@@ -38,7 +38,6 @@ public class UnquotedStringImpl extends StringExpressionImpl implements Unquoted
 	 * The cached value of the '{@link #getExpression() <em>Expression</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @see #getExpression()
 	 * @generated
 	 * @ordered
@@ -48,7 +47,6 @@ public class UnquotedStringImpl extends StringExpressionImpl implements Unquoted
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	protected UnquotedStringImpl() {
@@ -58,7 +56,6 @@ public class UnquotedStringImpl extends StringExpressionImpl implements Unquoted
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public NotificationChain basicSetExpression(Expression newExpression, NotificationChain msgs) {
@@ -78,7 +75,6 @@ public class UnquotedStringImpl extends StringExpressionImpl implements Unquoted
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	@Override
@@ -93,7 +89,6 @@ public class UnquotedStringImpl extends StringExpressionImpl implements Unquoted
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	@Override
@@ -108,7 +103,6 @@ public class UnquotedStringImpl extends StringExpressionImpl implements Unquoted
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	@Override
@@ -123,7 +117,6 @@ public class UnquotedStringImpl extends StringExpressionImpl implements Unquoted
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	@Override
@@ -139,7 +132,6 @@ public class UnquotedStringImpl extends StringExpressionImpl implements Unquoted
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	@Override
@@ -150,7 +142,6 @@ public class UnquotedStringImpl extends StringExpressionImpl implements Unquoted
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	@Override
@@ -166,7 +157,6 @@ public class UnquotedStringImpl extends StringExpressionImpl implements Unquoted
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public Expression getExpression() {
@@ -176,7 +166,6 @@ public class UnquotedStringImpl extends StringExpressionImpl implements Unquoted
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public void setExpression(Expression newExpression) {

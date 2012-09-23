@@ -118,7 +118,7 @@ ResourceBody returns pp::ResourceBody
 // VALIDATION: key is a NAME, op is supported and Expression is not null
 // CONTENT ASSIST: must have op and value as optional, or state is nearly always wrong for CA.
 AttributeOperation returns pp::AttributeOperation
-	: {pp::AttributeOperation} key = name (op = ('=>' | '+>') value = Expression)?
+	: {pp::AttributeOperation} key = attributeName (op = ('=>' | '+>') value = Expression)?
 	;	
 
 // VALIDATION: checks that there are ',' between operations
@@ -130,10 +130,12 @@ AttributeOperations returns pp::AttributeOperations
 		','?
 	;
 
-// NOTE: This construct is required due to an Xtext bug, it would be preferred to state (',' )? directly
+/*// NOTE: This construct is required due to an Xtext bug, it would be preferred to state (',' )? directly
 // in rules using endComma as this makes formatting work ok. The construct below will hide the  and
 // formatting needs to be aware of the  in an endComma.
 endComma : ',' ;
+* 
+*/
 
 // VALIDATION checks leftExpr must be '@' or Variable
 AssignmentExpression returns pp::Expression
@@ -268,7 +270,7 @@ SelectorExpression returns pp::Expression
 		 '?' 
 			( ('{' 
 				parameters += SelectorEntry 
-				((','  parameters += SelectorEntry) | (parameters += SelectorEntry))* endComma? 
+				((','  parameters += SelectorEntry) | (parameters += SelectorEntry))* ','? /* endcomma? */ 
 			   '}' )
 			   | parameters += SelectorEntry
 			)
@@ -302,12 +304,13 @@ AtExpression  returns pp::Expression:
 FunctionCall returns pp::Expression 
 	: PrimaryExpression ({pp::FunctionCall.leftExpr = current}
 		'('  
-			(parameters+=Expression (',' parameters += Expression)* endComma?)?
+			(parameters+=Expression (',' parameters += Expression)* ','? /*endComma? */)?
 		')' )?
 	;
 
 PrimaryExpression returns pp::Expression
 	: IfExpression
+	| UnlessExpression
 	| CaseExpression
 	| ImportExpression
 	| Definition
@@ -363,7 +366,7 @@ Definition returns pp::Definition
 DefinitionArgumentList returns pp::DefinitionArgumentList
 	: {pp::DefinitionArgumentList}
 		'(' 
-			(arguments += DefinitionArgument (',' arguments += DefinitionArgument)*)? endComma?
+			(arguments += DefinitionArgument (',' arguments += DefinitionArgument)*)? ','? /* endComma? */
 	  	')' 
 	;
 	
@@ -390,6 +393,11 @@ Case returns pp::Case
 		'}'  
 	;
 
+//-- UNLESS (is the same as if !(e) {}, but without support for "else"
+UnlessExpression returns pp::UnlessExpression
+	: 'unless' condExpr = AssignmentExpression '{' (thenStatements += ExpressionList)* '}'
+    ;
+	 
 //-- IF 
 //
 // VALIDATION: checks that the elseStatement is an Else of Elsif, and validate that Else or Elsif
@@ -461,14 +469,14 @@ ImportExpression returns pp::ImportExpression
 LiteralList returns pp::LiteralList
 	: {pp::LiteralList}
 		'['  
-			(elements += AssignmentExpression (',' elements += AssignmentExpression)*)? endComma?
+			(elements += AssignmentExpression (',' elements += AssignmentExpression)* ','?)?
 		']' 
 	;
 
 LiteralHash returns pp::LiteralHash
 	: {pp::LiteralHash}
 		'{'  
-			(elements += HashEntry (',' elements += HashEntry)* )? endComma?
+			(elements += HashEntry (',' elements += HashEntry)* )? ','? /* endComma? */
 		'}' 
 	;
 
@@ -576,8 +584,10 @@ dollarVariable hidden()
 	;
 	
 keyword : ('and' | 'case' | 'class' | 'default' | 'define' | 'else' | 'elsif' | 'in' |'inherits' 
-		| 'import' | 'node' | 'or' | 'undef' | 'true' | 'false' | 'if')
+		| 'import' | 'node' | 'or' | 'undef' | 'true' | 'false' | 'if' | 'unless')
 	;
+
+attributeName : name | keyword;
 
 name
 	// a puppet grammar glitch allows '::' any number of times (\w*::)*\w+. Validation checks correctness.

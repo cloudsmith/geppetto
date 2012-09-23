@@ -47,6 +47,8 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 
+import com.google.common.base.Joiner;
+import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 
@@ -390,6 +392,8 @@ public class RubyHelper {
 		// Load the default meta variables
 		loadMetaVariables(target);
 
+		loadPuppetVariables(target);
+
 		// Save the TargetEntry as a loadable resource
 		ResourceSet resourceSet = new ResourceSetImpl();
 		URI fileURI = URI.createFileURI(outputFile.getAbsolutePath());
@@ -580,9 +584,15 @@ public class RubyHelper {
 
 		MetaVariable metaModuleName = PPTPFactory.eINSTANCE.createMetaVariable();
 		metaModuleName.setName("module_name");
-		metaModuleName.setDocumentation("The name of the containing module");
+		metaModuleName.setDocumentation("<p>The name of the containing module</p>");
 		metaModuleName.setDeprecated(false);
 		metaVars.add(metaModuleName);
+
+		MetaVariable callerMetaModuleName = PPTPFactory.eINSTANCE.createMetaVariable();
+		callerMetaModuleName.setName("caller_module_name");
+		callerMetaModuleName.setDocumentation("<p>The name of the calling module</p>");
+		callerMetaModuleName.setDeprecated(false);
+		metaVars.add(callerMetaModuleName);
 	}
 
 	private void loadNagiosTypes(TargetEntry target, File rbFile) throws IOException, RubySyntaxException {
@@ -640,6 +650,50 @@ public class RubyHelper {
 		return result;
 	}
 
+	public void loadPuppetVariables(TargetEntry target) {
+		TPVariable var = PPTPFactory.eINSTANCE.createTPVariable();
+		var.setName("environment");
+		var.setDocumentation("The node's current environment. Available when compiling a catalog for a node.");
+		var.setDeprecated(false);
+		target.getContents().add(var);
+
+		var = PPTPFactory.eINSTANCE.createTPVariable();
+		var.setName("clientcert");
+		var.setDocumentation("The node's certname setting. Available when compiling a catalog for a node.");
+		var.setDeprecated(false);
+		target.getContents().add(var);
+
+		var = PPTPFactory.eINSTANCE.createTPVariable();
+		var.setName("clientversion");
+		var.setDocumentation("The current version of the puppet agent. Available when compiling a catalog for a node.");
+		var.setDeprecated(false);
+		target.getContents().add(var);
+
+		var = PPTPFactory.eINSTANCE.createTPVariable();
+		var.setName("servername");
+		var.setDocumentation(Joiner.on("").join(
+			ImmutableList.of(
+				"The puppet master’s fully-qualified domain name. (Note that this information ",
+				"is gathered from the puppet master by Facter, rather than read from the config files; even if the ",
+				"master’s certname is set to something other than its fully-qualified domain name, this variable ",
+				"will still contain the server’s fqdn.)")));
+		var.setDeprecated(false);
+		target.getContents().add(var);
+
+		var = PPTPFactory.eINSTANCE.createTPVariable();
+		var.setName("serverip");
+		var.setDocumentation("The puppet master's IP address");
+		var.setDeprecated(false);
+		target.getContents().add(var);
+
+		var = PPTPFactory.eINSTANCE.createTPVariable();
+		var.setName("serverversion");
+		var.setDocumentation("The current version of puppet on the puppet master.");
+		var.setDeprecated(false);
+		target.getContents().add(var);
+
+	}
+
 	/**
 	 * Loads a service extension, or creates a mock implementation.
 	 */
@@ -687,7 +741,7 @@ public class RubyHelper {
 		//
 		SettingsData settingsData = new SettingsData();
 		for(SettingsData.Setting s : settingsData.settings) {
-			addTPVariable(settings, s.name, s.documentation, s.deprecated);
+			addTPVariable(settings, s.name, new RubyDocProcessor().asHTML(s.documentation), s.deprecated);
 		}
 	}
 

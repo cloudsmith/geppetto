@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2011 Cloudsmith Inc. and other contributors, as listed below.
+ * Copyright (c) 2011, 2012 Cloudsmith Inc. and other contributors, as listed below.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -10,6 +10,7 @@
  * 
  */
 package org.cloudsmith.geppetto.pp.dsl.validation;
+
 
 /**
  * Interface declaring diagnostic codess.
@@ -183,5 +184,29 @@ public interface IPPDiagnostics {
 	public static final String ISSUE__UNBRACED_INTERPOLATION = ISSUE_PREFIX + "UnbracedInterpolation";
 
 	public static final String ISSUE__UNQUOTED_RESOURCE_TITLE = ISSUE_PREFIX + "UnquotedResourceTitle";
+
+	public static final String ISSUE__NOT_INITIAL_LOWERCASE = ISSUE_PREFIX + "NotInitialLowerCase";
+
+	public static final String ISSUE__DUPLICATE_PARAMETER = ISSUE_PREFIX + "DuplicateParameter";
+
+	public static final String ISSUE_UNWANTED_ML_COMMENT = ISSUE_PREFIX + "UnwantedMLComment";
+
+	public static final String ISSUE_RIGHT_TO_LEFT_RELATIONSHIP = ISSUE_PREFIX + "RightToLeftRelatinship";
+
+	public static final String ISSUE__UNSUPPORTED_UNLESS = ISSUE_PREFIX + "UnsupportedUnless";
+
+	public static final String ISSUE__UNQUOTED_INTERPOLATION = ISSUE_PREFIX + "UnquotedInterpolation";
+
+	public static final String ISSUE__CIRCULAR_MODULE_DEPENDENCY = ISSUE_PREFIX + "CircularModuleDependency";
+
+	public static final String ISSUE__RESERVED_NAME = ISSUE_PREFIX + "ReservedName";
+
+	public static final String ISSUE__RESOURCE_DUPLICATE_ATTRIBUTE = ISSUE_PREFIX + "DuplicateAttribute";
+
+	public static final String ISSUE__ASSIGNMENT_TO_VAR_NAMED_STRING = ISSUE_PREFIX + "AssignmentToVarNamedString";
+
+	public static final String ISSUE__INHERITANCE_WITH_PARAMETERS = ISSUE_PREFIX + "InheritenceOfParameterizedClass";
+
+	public static final String ISSUE__ENSURE_NOT_FIRST = ISSUE_PREFIX + "EnsureNotFirst";
 
 }

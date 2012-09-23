@@ -24,6 +24,8 @@ public class AllTests {
 	public static Test suite() {
 		TestSuite suite = new TestSuite(AllTests.class.getName());
 		// $JUnit-BEGIN$
+		suite.addTestSuite(TestRubyDocProcessor.class);
+		suite.addTestSuite(TestRubyDocProcessor2.class);
 		suite.addTestSuite(PptpResourceTests.class);
 		suite.addTestSuite(SmokeTest.class);
 		suite.addTestSuite(PuppetFunctionTests.class);
@@ -32,5 +34,4 @@ public class AllTests {
 		// $JUnit-END$
 		return suite;
 	}
-
 }

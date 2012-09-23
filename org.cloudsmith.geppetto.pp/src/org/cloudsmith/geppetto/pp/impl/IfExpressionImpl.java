@@ -32,12 +32,12 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <p>
  * The following features are implemented:
  * <ul>
- * <li>{@link org.cloudsmith.geppetto.pp.impl.IfExpressionImpl#getCondExpr <em>Cond Expr</em>}</li>
- * <li>{@link org.cloudsmith.geppetto.pp.impl.IfExpressionImpl#getThenStatements <em>Then Statements</em>}</li>
- * <li>{@link org.cloudsmith.geppetto.pp.impl.IfExpressionImpl#getElseStatement <em>Else Statement</em>}</li>
+ *   <li>{@link org.cloudsmith.geppetto.pp.impl.IfExpressionImpl#getCondExpr <em>Cond Expr</em>}</li>
+ *   <li>{@link org.cloudsmith.geppetto.pp.impl.IfExpressionImpl#getThenStatements <em>Then Statements</em>}</li>
+ *   <li>{@link org.cloudsmith.geppetto.pp.impl.IfExpressionImpl#getElseStatement <em>Else Statement</em>}</li>
  * </ul>
  * </p>
- * 
+ *
  * @generated
  */
 public class IfExpressionImpl extends ExpressionImpl implements IfExpression {
@@ -45,7 +45,6 @@ public class IfExpressionImpl extends ExpressionImpl implements IfExpression {
 	 * The cached value of the '{@link #getCondExpr() <em>Cond Expr</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @see #getCondExpr()
 	 * @generated
 	 * @ordered
@@ -56,7 +55,6 @@ public class IfExpressionImpl extends ExpressionImpl implements IfExpression {
 	 * The cached value of the '{@link #getThenStatements() <em>Then Statements</em>}' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @see #getThenStatements()
 	 * @generated
 	 * @ordered
@@ -67,7 +65,6 @@ public class IfExpressionImpl extends ExpressionImpl implements IfExpression {
 	 * The cached value of the '{@link #getElseStatement() <em>Else Statement</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @see #getElseStatement()
 	 * @generated
 	 * @ordered
@@ -77,7 +74,6 @@ public class IfExpressionImpl extends ExpressionImpl implements IfExpression {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	protected IfExpressionImpl() {
@@ -87,7 +83,6 @@ public class IfExpressionImpl extends ExpressionImpl implements IfExpression {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public NotificationChain basicSetCondExpr(Expression newCondExpr, NotificationChain msgs) {
@@ -107,7 +102,6 @@ public class IfExpressionImpl extends ExpressionImpl implements IfExpression {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public NotificationChain basicSetElseStatement(Expression newElseStatement, NotificationChain msgs) {
@@ -127,7 +121,6 @@ public class IfExpressionImpl extends ExpressionImpl implements IfExpression {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	@Override
@@ -146,7 +139,6 @@ public class IfExpressionImpl extends ExpressionImpl implements IfExpression {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	@Override
@@ -165,7 +157,6 @@ public class IfExpressionImpl extends ExpressionImpl implements IfExpression {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	@Override
@@ -184,7 +175,6 @@ public class IfExpressionImpl extends ExpressionImpl implements IfExpression {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	@SuppressWarnings("unchecked")
@@ -208,7 +198,6 @@ public class IfExpressionImpl extends ExpressionImpl implements IfExpression {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	@Override
@@ -219,7 +208,6 @@ public class IfExpressionImpl extends ExpressionImpl implements IfExpression {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	@Override
@@ -241,7 +229,6 @@ public class IfExpressionImpl extends ExpressionImpl implements IfExpression {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public Expression getCondExpr() {
@@ -251,7 +238,6 @@ public class IfExpressionImpl extends ExpressionImpl implements IfExpression {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public Expression getElseStatement() {
@@ -261,7 +247,6 @@ public class IfExpressionImpl extends ExpressionImpl implements IfExpression {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public EList<Expression> getThenStatements() {
@@ -275,7 +260,6 @@ public class IfExpressionImpl extends ExpressionImpl implements IfExpression {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public void setCondExpr(Expression newCondExpr) {
@@ -299,7 +283,6 @@ public class IfExpressionImpl extends ExpressionImpl implements IfExpression {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public void setElseStatement(Expression newElseStatement) {

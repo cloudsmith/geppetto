@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: %pluginName
 Bundle-SymbolicName: org.cloudsmith.geppetto.ui;singleton:=true
-Bundle-Version: 2.2.1.qualifier
+Bundle-Version: 3.0.0.qualifier
 Bundle-ClassPath: .
 Bundle-Vendor: %providerName
 Bundle-Localization: plugin
@@ -15,7 +15,7 @@ Require-Bundle: org.eclipse.core.runtime;bundle-version="3.6.0",
  org.eclipse.emf.common.ui;bundle-version="2.6.0",
  org.eclipse.emf.edit.ui;bundle-version="2.6.0",
  org.eclipse.emf.ecore;bundle-version="2.6.0",
- org.eclipse.xtext.ui;bundle-version="2.0.0",
+ org.eclipse.xtext.ui;bundle-version="2.3.0.v201206120633",
  org.cloudsmith.geppetto.forge,
  org.cloudsmith.geppetto.pp.dsl.ui,
  org.eclipse.ui;bundle-version="3.6.2"

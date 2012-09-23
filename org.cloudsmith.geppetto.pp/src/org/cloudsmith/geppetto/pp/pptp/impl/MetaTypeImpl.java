@@ -22,14 +22,13 @@ import org.eclipse.emf.ecore.EClass;
  * <!-- end-user-doc -->
  * <p>
  * </p>
- * 
+ *
  * @generated
  */
 public class MetaTypeImpl extends AbstractTypeImpl implements MetaType {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	protected MetaTypeImpl() {
@@ -39,7 +38,6 @@ public class MetaTypeImpl extends AbstractTypeImpl implements MetaType {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	@Override

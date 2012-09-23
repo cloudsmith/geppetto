@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<ecore:EPackage xmi:version="2.0"
-    xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="pp"
-    nsURI="http://www.cloudsmith.org/geppetto/1.0.0/PP" nsPrefix="pp">
+<ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="pp" nsURI="http://www.cloudsmith.org/geppetto/1.0.0/PP" nsPrefix="pp">
   <eClassifiers xsi:type="ecore:EClass" name="PuppetManifest" eSuperTypes="#//ExpressionBlock"/>
   <eClassifiers xsi:type="ecore:EClass" name="Expression"/>
   <eClassifiers xsi:type="ecore:EClass" name="ResourceBody">
@@ -208,4 +206,10 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="varName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="LiteralClass" eSuperTypes="#//LiteralExpression"/>
+  <eClassifiers xsi:type="ecore:EClass" name="UnlessExpression" eSuperTypes="#//Expression">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="condExpr" eType="#//Expression"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="thenStatements" upperBound="-1"
+        eType="#//Expression" containment="true"/>
+  </eClassifiers>
 </ecore:EPackage>

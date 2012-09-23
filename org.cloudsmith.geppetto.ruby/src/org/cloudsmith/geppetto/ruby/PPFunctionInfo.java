@@ -19,12 +19,14 @@ public class PPFunctionInfo {
 	private String functionName;
 
 	private boolean rValue;
+
 	private String documentation;
 
 	public PPFunctionInfo(String name, boolean rvalue, String documentation) {
 		this.functionName = name;
 		this.rValue = rvalue;
-		this.documentation = documentation;
+		this.documentation = new RubyDocProcessor().asHTML(documentation);
+
 	}
 
 	public String getDocumentation() {

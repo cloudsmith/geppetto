@@ -190,7 +190,92 @@ public class MetadataImpl extends EObjectImpl implements Metadata {
 	protected static final String NAME_EDEFAULT = null;
 
 	// Directory names that should not be checksummed or copied.
-	static final Pattern ARTIFACTS = Pattern.compile("^(?:[\\.~#].*|pkg|coverage)$");
+	public static final Pattern DEFAULT_EXCLUDES_PATTERN;
+
+	// @fmtOff
+	private static final String[] defaultExcludes = {
+		"*~",
+		"#*#",
+		".#*",
+		"%*%",
+		"._*",
+		"CVS",
+		".cvsignore",
+		"SCCS",
+		"vssver.scc",
+		".svn",
+		".DS_Store",
+		".git",
+		".gitattributes",
+		".gitignore",
+		".gitmodules",
+		".hg",
+		".hgignore",
+		".hgsub",
+		".hgsubstate",
+		".hgtags",
+		".bzr",
+		".bzrignore",
+		"pkg",
+		"coverage"
+	};
+	// @fmtOn
+
+	static {
+		StringBuilder bld = new StringBuilder();
+		bld.append("^(?:");
+		appendExcludePattern(defaultExcludes[0], bld);
+		for(int idx = 1; idx < defaultExcludes.length; ++idx) {
+			bld.append('|');
+			appendExcludePattern(defaultExcludes[idx], bld);
+		}
+		bld.append(")$");
+		DEFAULT_EXCLUDES_PATTERN = Pattern.compile(bld.toString());
+	}
+
+	/**
+	 * The default value of the '{@link #getUser() <em>User</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @see #getUser()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String USER_EDEFAULT = null;
+
+	/**
+	 * The default value of the '{@link #getFullName() <em>Full Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @see #getFullName()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String FULL_NAME_EDEFAULT = null;
+
+	/**
+	 * The default value of the '{@link #getVersion() <em>Version</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @see #getVersion()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String VERSION_EDEFAULT = null;
+
+	/**
+	 * The default value of the '{@link #getLocation() <em>Location</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @see #getLocation()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final File LOCATION_EDEFAULT = null;
 
 	private static void addKeyValueNode(PrintWriter out, String key, String... strs) throws IOException {
 		if(strs.length == 0)
@@ -212,6 +297,28 @@ public class MetadataImpl extends EObjectImpl implements Metadata {
 				}
 		}
 		out.println();
+	}
+
+	private static void appendExcludePattern(String string, StringBuilder bld) {
+		int top = string.length();
+		for(int idx = 0; idx < top; ++idx) {
+			char c = string.charAt(idx);
+			switch(c) {
+				case '.':
+					bld.append('\\');
+					bld.append(c);
+					break;
+				case '*':
+					bld.append('.');
+					bld.append('*');
+					break;
+				case '?':
+					bld.append('.');
+					break;
+				default:
+					bld.append(c);
+			}
+		}
 	}
 
 	public static byte[] computeChecksum(File file, MessageDigest md) throws IOException {
@@ -262,7 +369,8 @@ public class MetadataImpl extends EObjectImpl implements Metadata {
 		if(EFS.getLocalFileSystem().fromLocalFile(file).fetchInfo().getAttribute(EFS.ATTRIBUTE_SYMLINK))
 			return false;
 		String filename = file.getName();
-		return !("metadata.json".equals(filename) || "REVISION".equals(filename) || ARTIFACTS.matcher(filename).matches());
+		return !("metadata.json".equals(filename) || "REVISION".equals(filename) || DEFAULT_EXCLUDES_PATTERN.matcher(
+			filename).matches());
 	}
 
 	private static IllegalArgumentException noResponse(String key) {
@@ -303,17 +411,6 @@ public class MetadataImpl extends EObjectImpl implements Metadata {
 	protected String name = NAME_EDEFAULT;
 
 	/**
-	 * The default value of the '{@link #getUser() <em>User</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * 
-	 * @see #getUser()
-	 * @generated
-	 * @ordered
-	 */
-	protected static final String USER_EDEFAULT = null;
-
-	/**
 	 * The cached value of the '{@link #getUser() <em>User</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -323,28 +420,6 @@ public class MetadataImpl extends EObjectImpl implements Metadata {
 	 * @ordered
 	 */
 	protected String user = USER_EDEFAULT;
-
-	/**
-	 * The default value of the '{@link #getFullName() <em>Full Name</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * 
-	 * @see #getFullName()
-	 * @generated
-	 * @ordered
-	 */
-	protected static final String FULL_NAME_EDEFAULT = null;
-
-	/**
-	 * The default value of the '{@link #getVersion() <em>Version</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * 
-	 * @see #getVersion()
-	 * @generated
-	 * @ordered
-	 */
-	protected static final String VERSION_EDEFAULT = null;
 
 	/**
 	 * The cached value of the '{@link #getVersion() <em>Version</em>}' attribute.
@@ -357,17 +432,6 @@ public class MetadataImpl extends EObjectImpl implements Metadata {
 	 */
 	@Expose
 	protected String version = VERSION_EDEFAULT;
-
-	/**
-	 * The default value of the '{@link #getLocation() <em>Location</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * 
-	 * @see #getLocation()
-	 * @generated
-	 * @ordered
-	 */
-	protected static final File LOCATION_EDEFAULT = null;
 
 	/**
 	 * The cached value of the '{@link #getLocation() <em>Location</em>}' attribute.

@@ -18,15 +18,15 @@ package org.cloudsmith.geppetto.pp.dsl.validation;
 public class DefaultPotentialProblemsAdvisor implements IPotentialProblemsAdvisor, IStylisticProblemsAdvisor {
 
 	@Override
+	public ValidationPreference assignmentToVarNamedString() {
+		return ValidationPreference.IGNORE;
+	}
+
+	@Override
 	public ValidationPreference booleansInStringForm() {
 		return ValidationPreference.WARNING;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.cloudsmith.geppetto.pp.dsl.validation.IPotentialProblemsAdvisor#caseDefaultShouldAppearLast()
-	 */
 	@Override
 	public ValidationPreference caseDefaultShouldAppearLast() {
 		return ValidationPreference.IGNORE;
@@ -37,23 +37,18 @@ public class DefaultPotentialProblemsAdvisor implements IPotentialProblemsAdviso
 		return ValidationPreference.WARNING;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.cloudsmith.geppetto.pp.dsl.validation.IPotentialProblemsAdvisor#dqStringNotRequired()
-	 */
 	@Override
 	public ValidationPreference dqStringNotRequired() {
 		return ValidationPreference.IGNORE;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.cloudsmith.geppetto.pp.dsl.validation.IPotentialProblemsAdvisor#dqStringNotRequiredVariable()
-	 */
 	@Override
 	public ValidationPreference dqStringNotRequiredVariable() {
+		return ValidationPreference.IGNORE;
+	}
+
+	@Override
+	public ValidationPreference ensureShouldAppearFirstInResource() {
 		return ValidationPreference.IGNORE;
 	}
 
@@ -67,31 +62,26 @@ public class DefaultPotentialProblemsAdvisor implements IPotentialProblemsAdviso
 		return ValidationPreference.WARNING;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.cloudsmith.geppetto.pp.dsl.validation.IStylisticProblemsAdvisor#selectorDefaultShouldAppearLast()
-	 */
+	@Override
+	public ValidationPreference mlComments() {
+		return ValidationPreference.IGNORE;
+	}
+
+	@Override
+	public ValidationPreference rightToLeftRelationships() {
+		return ValidationPreference.IGNORE;
+	}
+
 	@Override
 	public ValidationPreference selectorDefaultShouldAppearLast() {
 		return ValidationPreference.IGNORE;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.cloudsmith.geppetto.pp.dsl.validation.IPotentialProblemsAdvisor#unbracedInterpolation()
-	 */
 	@Override
 	public ValidationPreference unbracedInterpolation() {
 		return ValidationPreference.IGNORE;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.cloudsmith.geppetto.pp.dsl.validation.IPotentialProblemsAdvisor#unquotedResourceTitles()
-	 */
 	@Override
 	public ValidationPreference unquotedResourceTitles() {
 		return ValidationPreference.IGNORE;

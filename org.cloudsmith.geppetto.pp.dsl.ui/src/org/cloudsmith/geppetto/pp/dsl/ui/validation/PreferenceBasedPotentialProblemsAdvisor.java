@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2011 Cloudsmith Inc. and other contributors, as listed below.
+ * Copyright (c) 2011, 2012 Cloudsmith Inc. and other contributors, as listed below.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -33,15 +33,15 @@ public class PreferenceBasedPotentialProblemsAdvisor implements IPotentialProble
 	}
 
 	@Override
+	public ValidationPreference assignmentToVarNamedString() {
+		return preferences.getAssignmentToVariableNamedString();
+	}
+
+	@Override
 	public ValidationPreference booleansInStringForm() {
 		return preferences.getBooleansInStringForm();
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.cloudsmith.geppetto.pp.dsl.validation.IPotentialProblemsAdvisor#caseDefaultShouldAppearLast()
-	 */
 	@Override
 	public ValidationPreference caseDefaultShouldAppearLast() {
 		return preferences.getCaseDefaultShouldAppearLast();
@@ -52,24 +52,22 @@ public class PreferenceBasedPotentialProblemsAdvisor implements IPotentialProble
 		return preferences.getcircularDependencyPreference();
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.cloudsmith.geppetto.pp.dsl.validation.IPotentialProblemsAdvisor#dqStringNotRequired()
-	 */
 	@Override
 	public ValidationPreference dqStringNotRequired() {
 		return preferences.getDqStringNotRequired();
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.cloudsmith.geppetto.pp.dsl.validation.IPotentialProblemsAdvisor#dqStringNotRequiredVariable()
-	 */
 	@Override
 	public ValidationPreference dqStringNotRequiredVariable() {
 		return preferences.getDqStringNotRequiredVar();
+	}
+
+	/**
+	 * @see org.cloudsmith.geppetto.pp.dsl.validation.IStylisticProblemsAdvisor#ensureShouldAppearFirstInResource()
+	 */
+	@Override
+	public ValidationPreference ensureShouldAppearFirstInResource() {
+		return preferences.getEnsureShouldAppearFirst();
 	}
 
 	@Override
@@ -82,31 +80,26 @@ public class PreferenceBasedPotentialProblemsAdvisor implements IPotentialProble
 		return preferences.getMissingDefaultInSwitch();
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.cloudsmith.geppetto.pp.dsl.validation.IStylisticProblemsAdvisor#selectorDefaultShouldAppearLast()
-	 */
+	@Override
+	public ValidationPreference mlComments() {
+		return preferences.getMLCommentsValidationPreference();
+	}
+
+	@Override
+	public ValidationPreference rightToLeftRelationships() {
+		return preferences.getRightToLeftRelationships();
+	}
+
 	@Override
 	public ValidationPreference selectorDefaultShouldAppearLast() {
 		return preferences.getSelectorDefaultShouldAppearLast();
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.cloudsmith.geppetto.pp.dsl.validation.IPotentialProblemsAdvisor#unbracedInterpolation()
-	 */
 	@Override
 	public ValidationPreference unbracedInterpolation() {
 		return preferences.getUnbracedInterpolation();
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.cloudsmith.geppetto.pp.dsl.validation.IPotentialProblemsAdvisor#unquotedResourceTitles()
-	 */
 	@Override
 	public ValidationPreference unquotedResourceTitles() {
 		return preferences.getUnquotedResourceTitles();

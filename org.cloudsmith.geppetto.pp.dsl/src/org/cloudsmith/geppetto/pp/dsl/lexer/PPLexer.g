@@ -19,8 +19,9 @@ import java.util.HashMap;
 
   private static Map<String, Integer> getLiteralsMap() {
  	Map<String, Integer> result = new HashMap<String, Integer>();  
-  	result.put("inherits", KEYWORD_62 );
-	result.put("default", KEYWORD_61 );
+  	result.put("inherits", KEYWORD_63 );
+	result.put("default", KEYWORD_62 );
+	result.put("unless", KEYWORD_61 );
 	result.put("import", KEYWORD_60 );
 	result.put("define", KEYWORD_59 );
 	result.put("undef", KEYWORD_58 );
@@ -49,7 +50,7 @@ import java.util.HashMap;
   		case KEYWORD_21 : // '}'
   		case KEYWORD_35 : // '=~'
   		case KEYWORD_23 : // '!~'
-  		case KEYWORD_62 : // 'inherits'
+  		case KEYWORD_63 : // 'inherits'
   		case 0 : // nothing seen before, used when serializing
   			return true;
   		default:
@@ -124,13 +125,15 @@ import java.util.HashMap;
 		return t;
 	}
 }
-KEYWORD_62 : {isNotInString()}?=>'inherits';
+KEYWORD_63 : {isNotInString()}?=>'inherits';
 
-KEYWORD_61 : {isNotInString()}?=> 'default';
+KEYWORD_62 : {isNotInString()}?=> 'default';
 
 KEYWORD_59 : {isNotInString()}?=>'define';
 
 KEYWORD_60 : {isNotInString()}?=>'import';
+
+KEYWORD_61 : {isNotInString()}?=> 'unless';
 
 KEYWORD_55 : {isNotInString()}?=>'class';
 
@@ -278,7 +281,11 @@ RULE_ML_COMMENT : {isNotInString()}?=> (('/*' ( options {greedy=false;} : . )*'*
 
 RULE_SL_COMMENT : {isNotInString()}?=> '#' ~(('\r'|'\n'))* ('\r'? '\n')?;
 
-RULE_WS : (' '|'\u00A0'|'\t'|'\r'|'\n')+;
+RULE_WS : (' '|'\u00A0'|'\t'|'\r'|'\n')+ {
+	if(doubleQuotedString || singleQuotedString) {
+		_type = RULE_ANY_OTHER;
+	}
+};
 
 // Do not check if matched text is a keyword (it is allowed after a '$'
 RULE_DOLLAR_VAR : '$' 
@@ -306,4 +313,3 @@ fragment RULE_RE_BACKSLASH_SEQUENCE : ('\\' ~('\n'));
 fragment RULE_RE_FLAGS : ('a'..'z')+;
 
 RULE_ANY_OTHER : .;
-

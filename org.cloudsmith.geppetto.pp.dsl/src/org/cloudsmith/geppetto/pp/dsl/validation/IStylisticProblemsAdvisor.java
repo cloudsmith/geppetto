@@ -25,9 +25,25 @@ public interface IStylisticProblemsAdvisor {
 	public ValidationPreference caseDefaultShouldAppearLast();
 
 	/**
+	 * How the 'ensure' property should be validated if not placed first among a resource's properties.
+	 */
+	public ValidationPreference ensureShouldAppearFirstInResource();
+
+	/**
+	 * How to 'validate' the presence of ML comments.
+	 */
+	public ValidationPreference mlComments();
+
+	/**
+	 * How to validate right to left relationships ( e.g. a <- b and a <~ b)
+	 */
+	ValidationPreference rightToLeftRelationships();
+
+	/**
 	 * How an (almost required) default that is not placed last should be validated for a selector expression.
 	 * 
 	 * @return
 	 */
 	public ValidationPreference selectorDefaultShouldAppearLast();
+
 }

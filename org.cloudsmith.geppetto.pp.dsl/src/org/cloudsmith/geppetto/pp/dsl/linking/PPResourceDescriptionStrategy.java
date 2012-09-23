@@ -25,6 +25,7 @@ import org.cloudsmith.geppetto.pp.dsl.PPDSLConstants;
 import org.cloudsmith.geppetto.pp.dsl.adapters.CrossReferenceAdapterFactory;
 import org.cloudsmith.geppetto.pp.pptp.PPTPPackage;
 import org.cloudsmith.geppetto.pp.pptp.Parameter;
+import org.cloudsmith.geppetto.pp.pptp.TPVariable;
 import org.cloudsmith.geppetto.pp.pptp.TargetElement;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
@@ -171,12 +172,17 @@ public class PPResourceDescriptionStrategy extends DefaultResourceDescriptionStr
 		// pp: class x inherits y {}
 		if(eObject.eClass() == PPPackage.Literals.HOST_CLASS_DEFINITION) {
 			HostClassDefinition d = (HostClassDefinition) eObject;
+			Map<String, String> data = Maps.newHashMapWithExpectedSize(2);
 			if(d.getParent() != null && d.getParent().eClass() == PPPackage.Literals.LITERAL_NAME_OR_REFERENCE) {
 				String parentName = ((LiteralNameOrReference) d.getParent()).getValue();
-				Map<String, String> data = Maps.newHashMapWithExpectedSize(1);
 				data.put(PPDSLConstants.PARENT_NAME_DATA, parentName);
-				return data;
 			}
+			int argCount = d.getArguments() == null
+					? 0
+					: d.getArguments().getArguments().size();
+			if(argCount > 0)
+				data.put(PPDSLConstants.CLASS_ARG_COUNT, Integer.toString(argCount));
+			return data;
 		}
 		else if(eObject.eClass() == PPPackage.Literals.DEFINITION_ARGUMENT) {
 			DefinitionArgument arg = (DefinitionArgument) eObject;
@@ -196,6 +202,14 @@ public class PPResourceDescriptionStrategy extends DefaultResourceDescriptionStr
 				Parameter p = (Parameter) eObject;
 				if(p.isNamevar())
 					data.put(PPDSLConstants.PARAMETER_NAMEVAR, "true");
+				return data;
+			}
+			if(eObject.eClass() == PPTPPackage.Literals.TP_VARIABLE) {
+				TPVariable tpvar = (TPVariable) eObject;
+				String pattern = tpvar.getPattern();
+				if(pattern != null && pattern.length() > 0) {
+					data.put(PPDSLConstants.VARIABLE_PATTERN, pattern);
+				}
 				return data;
 			}
 		}

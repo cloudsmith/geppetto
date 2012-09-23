@@ -1,0 +1,61 @@
+/* Font definitions */
+html         { font-family: sans-serif; font-size: 9pt; font-style: normal; font-weight: normal; }
+body, h1, h2, h3, h4, h5, h6, p, table, td, caption, th, ul, ol, dl, li, dd, dt { font-size: 1em; }
+pre          { font-family: monospace; }
+
+/* Margins */
+body	     { overflow: auto; margin-top: 0px; margin-bottom: 0.5em; margin-left: 0.3em; margin-right: 0px; }
+h1           { margin-top: 0.3em; margin-bottom: 0.04em; font-size:1.2em;}	
+h2           { margin-top: 1.0em; margin-bottom: 0.04em; font-size:1.1em;}
+h3           { margin-top: 1.0em; margin-bottom: 0.04em; }
+h4           { margin-top: 1.0em; margin-bottom: 0.04em; }
+h5           { margin-top: 0px; margin-bottom: 0px; }
+/* Reduce space between headers and content */
+h1 + p, h2 + p, h3 + p, h4 + p, h5 + p { margin-top: 0.3em; }
+p            { margin-top: 1em; margin-bottom: 1em; }
+pre          { margin-left: 0.6em; }
+ul	         { margin-top: 0px; margin-bottom: 1em; margin-left: 1em; padding-left: 1em;}
+li	         { margin-top: 0px; margin-bottom: 0px; } 
+li p	     { margin-top: 0px; margin-bottom: 0px; } 
+ol	         { margin-top: 0px; margin-bottom: 1em; margin-left: 1em; padding-left: 1em; }
+dl	         { margin-top: 0px; margin-bottom: 1em; }
+dt	         { margin-top: 0px; margin-bottom: 0px; font-weight: bold; }
+dd	         { margin-top: 0px; margin-bottom: 0px; }
+
+/* Styles and colors */
+a:link	     { color: #0000FF; }
+a:hover	     { color: #000080; }
+a:visited    { text-decoration: underline; }
+a.header:link    { text-decoration: none; color: InfoText }
+a.header:visited { text-decoration: none; color: InfoText }
+a.header:hover   { text-decoration: underline; color: #000080; }
+h4           { font-style: italic; }
+strong	     { font-weight: bold; font-style: italic;}
+em	         { font-style: italic; }
+var	         { font-style: italic; }
+th	         { font-weight: bold; }
+/* inline code, brighter background */
+tt { 
+	background-color:rgba(0,0,0,0.05); 
+	border-color:#DDDDDD; 
+	border-radius:2px; 
+	border-width:1px; 
+	border-style:solid;
+	padding: 0 2px 0 2px;
+}
+pre { 
+	background-color:rgba(0,0,0,0.05);
+	border-color:#DDDDDD; 
+	border-radius:5px; 
+	border-width:1px; 
+	border-style:solid;
+	padding: 5px 0 3px 0;
+}
+img {
+	/* designed for 16px icon - centers with text */
+	vertical-align:-4px;
+	margin-right: 5px;
+}
+.target {
+	color: #957d47;
+}

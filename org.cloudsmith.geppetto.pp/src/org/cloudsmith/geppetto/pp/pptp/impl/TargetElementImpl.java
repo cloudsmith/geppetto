@@ -14,11 +14,8 @@ package org.cloudsmith.geppetto.pp.pptp.impl;
 import org.cloudsmith.geppetto.pp.pptp.IDocumented;
 import org.cloudsmith.geppetto.pp.pptp.PPTPPackage;
 import org.cloudsmith.geppetto.pp.pptp.TargetElement;
-
 import org.eclipse.emf.common.notify.Notification;
-
 import org.eclipse.emf.ecore.EClass;
-
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
 
@@ -249,6 +246,15 @@ public abstract class TargetElementImpl extends EObjectImpl implements TargetEle
 		super.eUnset(featureID);
 	}
 
+	private String fixUnformattedDoc(String unformatted) {
+		if(unformatted == null || unformatted.length() < 1)
+			return unformatted;
+		if(unformatted.startsWith("<"))
+			return unformatted; // assume it is formatted already
+		String[] lines = unformatted.split("\\n");
+		return unformatted;
+	}
+
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -301,7 +307,7 @@ public abstract class TargetElementImpl extends EObjectImpl implements TargetEle
 	 */
 	public void setDocumentation(String newDocumentation) {
 		String oldDocumentation = documentation;
-		documentation = newDocumentation;
+		documentation = fixUnformattedDoc(newDocumentation);
 		if(eNotificationRequired())
 			eNotify(new ENotificationImpl(
 				this, Notification.SET, PPTPPackage.TARGET_ELEMENT__DOCUMENTATION, oldDocumentation, documentation));

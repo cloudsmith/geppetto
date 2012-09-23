@@ -32,6 +32,7 @@ import org.cloudsmith.geppetto.forge.IncompleteException;
 import org.cloudsmith.geppetto.forge.Metadata;
 import org.cloudsmith.geppetto.forge.ModuleInfo;
 import org.cloudsmith.geppetto.forge.ReleaseInfo;
+import org.cloudsmith.geppetto.forge.impl.MetadataImpl;
 import org.cloudsmith.geppetto.forge.util.TarUtils;
 
 /**
@@ -51,6 +52,18 @@ import org.cloudsmith.geppetto.forge.util.TarUtils;
  * @generated
  */
 public class ForgeTest extends TestCase {
+
+	private static void assertExcludesMatch(String name) {
+		assertTrue(
+			"The name '" + name + "' does not match default excludes pattern",
+			MetadataImpl.DEFAULT_EXCLUDES_PATTERN.matcher(name).matches());
+	}
+
+	private static void assertNotExcludesMatch(String name) {
+		assertFalse(
+			"The name '" + name + "' matches default excludes pattern",
+			MetadataImpl.DEFAULT_EXCLUDES_PATTERN.matcher(name).matches());
+	}
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -187,6 +200,42 @@ public class ForgeTest extends TestCase {
 		catch(IncompleteException e) {
 			fail(e.getMessage());
 		}
+	}
+
+	public void testExcludesPattern() {
+		assertExcludesMatch("~");
+		assertExcludesMatch("backup~");
+		assertExcludesMatch("~backup~");
+		assertExcludesMatch("._");
+		assertExcludesMatch("%%");
+		assertExcludesMatch("%percent%");
+		assertExcludesMatch("._foo");
+		assertExcludesMatch("CVS");
+		assertExcludesMatch(".cvsignore");
+		assertExcludesMatch("SCCS");
+		assertExcludesMatch(".git");
+		assertExcludesMatch(".gitignore");
+		assertExcludesMatch(".gitmodules");
+		assertExcludesMatch(".gitattributes");
+		assertExcludesMatch(".hg");
+		assertExcludesMatch(".hgignore");
+		assertExcludesMatch(".hgsubstate");
+		assertExcludesMatch(".hgtags");
+		assertExcludesMatch(".bzr");
+		assertExcludesMatch(".bzrignore");
+		assertExcludesMatch("pkg");
+		assertExcludesMatch("coverage");
+
+		assertNotExcludesMatch(".");
+		assertNotExcludesMatch("..");
+		assertNotExcludesMatch(".profile");
+		assertNotExcludesMatch("repo.git");
+		assertNotExcludesMatch(".gitignore.save");
+		assertNotExcludesMatch("~tilde");
+		assertNotExcludesMatch("%percent");
+		assertNotExcludesMatch("percent%");
+		assertNotExcludesMatch("%%double");
+		assertNotExcludesMatch("double%%");
 	}
 
 	/**

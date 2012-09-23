@@ -21,14 +21,13 @@ import org.eclipse.emf.ecore.EClass;
  * <!-- end-user-doc -->
  * <p>
  * </p>
- * 
+ *
  * @generated
  */
 public class MultiplicativeExpressionImpl extends BinaryOpExpressionImpl implements MultiplicativeExpression {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	protected MultiplicativeExpressionImpl() {
@@ -38,7 +37,6 @@ public class MultiplicativeExpressionImpl extends BinaryOpExpressionImpl impleme
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	@Override

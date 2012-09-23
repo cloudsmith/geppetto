@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2011 Cloudsmith Inc. and other contributors, as listed below.
+ * Copyright (c) 2011, 2012 Cloudsmith Inc. and other contributors, as listed below.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -18,6 +18,8 @@ package org.cloudsmith.geppetto.pp.dsl.ui.preferences;
 public class PPPreferenceConstants {
 
 	public static final String AUTO_EDIT_STRATEGY = "autoEditStrategy";
+
+	public static final String AUTO_EDIT_COMPLETE_COMPOUND_BLOCKS = "autoEditCompleteCompundBlocks";
 
 	public static final String PUPPET_TARGET_VERSION = "pptpVersion";
 
@@ -54,6 +56,8 @@ public class PPPreferenceConstants {
 
 	public static final String SAVE_ACTION_TRIM_LINES = "trimLines";
 
+	public static final String SAVE_ACTION_FORMAT = "formatOnSave";
+
 	public static final String SAVE_ACTION_ENSURE_ENDS_WITH_NL = "ensureEndsWithNewLine";
 
 	public static final String SAVE_ACTION_REPLACE_FUNKY_SPACES = "replaceFunkySpaces";
@@ -65,4 +69,13 @@ public class PPPreferenceConstants {
 	public static final String PROBLEM_UNQUOTED_RESOURCE_TITLE = "unquotedResourceTitle";
 
 	public static final String PROBLEM_DQ_STRING_NOT_REQUIRED_VAR = "dqStringNotRequiredVar";
+
+	public static final String PROBLEM_ML_COMMENTS = "mlComments";
+
+	public static final String PROBLEM_RTOL_RELATIONSHIP = "rightToLeftRelationships";
+
+	public static final String PROBLEM_ASSIGNMENT_TO_VAR_NAMED_STRING = "assignmentToVarNamedSrring";
+
+	public static final String PROBLEM_ENSURE_NOT_FIRST = "ensureNotFirst";
+
 }

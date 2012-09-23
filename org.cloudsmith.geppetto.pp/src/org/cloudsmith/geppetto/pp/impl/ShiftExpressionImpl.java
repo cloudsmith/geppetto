@@ -21,14 +21,13 @@ import org.eclipse.emf.ecore.EClass;
  * <!-- end-user-doc -->
  * <p>
  * </p>
- * 
+ *
  * @generated
  */
 public class ShiftExpressionImpl extends BinaryOpExpressionImpl implements ShiftExpression {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	protected ShiftExpressionImpl() {
@@ -38,7 +37,6 @@ public class ShiftExpressionImpl extends BinaryOpExpressionImpl implements Shift
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	@Override

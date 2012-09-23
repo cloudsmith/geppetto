@@ -26,7 +26,6 @@ import org.eclipse.emf.ecore.util.Switch;
  * until a non-null result is returned,
  * which is the result of the switch.
  * <!-- end-user-doc -->
- * 
  * @see org.cloudsmith.geppetto.pp.pptp.PPTPPackage
  * @generated
  */
@@ -35,7 +34,6 @@ public class PPTPSwitch<T> extends Switch<T> {
 	 * The cached model package
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	protected static PPTPPackage modelPackage;
@@ -44,7 +42,6 @@ public class PPTPSwitch<T> extends Switch<T> {
 	 * Creates an instance of the switch.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public PPTPSwitch() {
@@ -59,9 +56,7 @@ public class PPTPSwitch<T> extends Switch<T> {
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
-	 * 
-	 * @param object
-	 *            the target of the switch.
+	 * @param object the target of the switch.
 	 * @return the result of interpreting the object as an instance of '<em>Abstract Type</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
@@ -76,9 +71,7 @@ public class PPTPSwitch<T> extends Switch<T> {
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
-	 * 
-	 * @param object
-	 *            the target of the switch.
+	 * @param object the target of the switch.
 	 * @return the result of interpreting the object as an instance of '<em>Function</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
@@ -93,9 +86,7 @@ public class PPTPSwitch<T> extends Switch<T> {
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
-	 * 
-	 * @param object
-	 *            the target of the switch.
+	 * @param object the target of the switch.
 	 * @return the result of interpreting the object as an instance of '<em>IDocumented</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
@@ -110,9 +101,7 @@ public class PPTPSwitch<T> extends Switch<T> {
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
-	 * 
-	 * @param object
-	 *            the target of the switch.
+	 * @param object the target of the switch.
 	 * @return the result of interpreting the object as an instance of '<em>INamed</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
@@ -127,9 +116,7 @@ public class PPTPSwitch<T> extends Switch<T> {
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
-	 * 
-	 * @param object
-	 *            the target of the switch.
+	 * @param object the target of the switch.
 	 * @return the result of interpreting the object as an instance of '<em>ITarget Element Container</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
@@ -144,9 +131,7 @@ public class PPTPSwitch<T> extends Switch<T> {
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
-	 * 
-	 * @param object
-	 *            the target of the switch.
+	 * @param object the target of the switch.
 	 * @return the result of interpreting the object as an instance of '<em>Meta Type</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
@@ -161,9 +146,7 @@ public class PPTPSwitch<T> extends Switch<T> {
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
-	 * 
-	 * @param object
-	 *            the target of the switch.
+	 * @param object the target of the switch.
 	 * @return the result of interpreting the object as an instance of '<em>Meta Variable</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
@@ -178,9 +161,7 @@ public class PPTPSwitch<T> extends Switch<T> {
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
-	 * 
-	 * @param object
-	 *            the target of the switch.
+	 * @param object the target of the switch.
 	 * @return the result of interpreting the object as an instance of '<em>Name Space</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
@@ -195,9 +176,7 @@ public class PPTPSwitch<T> extends Switch<T> {
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
-	 * 
-	 * @param object
-	 *            the target of the switch.
+	 * @param object the target of the switch.
 	 * @return the result of interpreting the object as an instance of '<em>Parameter</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
@@ -212,9 +191,7 @@ public class PPTPSwitch<T> extends Switch<T> {
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
-	 * 
-	 * @param object
-	 *            the target of the switch.
+	 * @param object the target of the switch.
 	 * @return the result of interpreting the object as an instance of '<em>Property</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
@@ -229,9 +206,7 @@ public class PPTPSwitch<T> extends Switch<T> {
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
-	 * 
-	 * @param object
-	 *            the target of the switch.
+	 * @param object the target of the switch.
 	 * @return the result of interpreting the object as an instance of '<em>Puppet Distribution</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
@@ -246,9 +221,7 @@ public class PPTPSwitch<T> extends Switch<T> {
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
-	 * 
-	 * @param object
-	 *            the target of the switch.
+	 * @param object the target of the switch.
 	 * @return the result of interpreting the object as an instance of '<em>Target Element</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
@@ -263,9 +236,7 @@ public class PPTPSwitch<T> extends Switch<T> {
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
-	 * 
-	 * @param object
-	 *            the target of the switch.
+	 * @param object the target of the switch.
 	 * @return the result of interpreting the object as an instance of '<em>Target Entry</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
@@ -280,9 +251,7 @@ public class PPTPSwitch<T> extends Switch<T> {
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
-	 * 
-	 * @param object
-	 *            the target of the switch.
+	 * @param object the target of the switch.
 	 * @return the result of interpreting the object as an instance of '<em>TP Variable</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
@@ -297,9 +266,7 @@ public class PPTPSwitch<T> extends Switch<T> {
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
-	 * 
-	 * @param object
-	 *            the target of the switch.
+	 * @param object the target of the switch.
 	 * @return the result of interpreting the object as an instance of '<em>Type</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
@@ -314,9 +281,7 @@ public class PPTPSwitch<T> extends Switch<T> {
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
-	 * 
-	 * @param object
-	 *            the target of the switch.
+	 * @param object the target of the switch.
 	 * @return the result of interpreting the object as an instance of '<em>Type Argument</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
@@ -331,9 +296,7 @@ public class PPTPSwitch<T> extends Switch<T> {
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
-	 * 
-	 * @param object
-	 *            the target of the switch.
+	 * @param object the target of the switch.
 	 * @return the result of interpreting the object as an instance of '<em>Type Fragment</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
@@ -348,9 +311,7 @@ public class PPTPSwitch<T> extends Switch<T> {
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch, but this is the last case anyway.
 	 * <!-- end-user-doc -->
-	 * 
-	 * @param object
-	 *            the target of the switch.
+	 * @param object the target of the switch.
 	 * @return the result of interpreting the object as an instance of '<em>EObject</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject)
 	 * @generated
@@ -364,7 +325,6 @@ public class PPTPSwitch<T> extends Switch<T> {
 	 * Calls <code>caseXXX</code> for each class of the model until one returns a non null result; it yields that result.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @return the first non-null result returned by a <code>caseXXX</code> call.
 	 * @generated
 	 */
@@ -587,7 +547,6 @@ public class PPTPSwitch<T> extends Switch<T> {
 	 * Checks whether this is a switch for the given package.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @parameter ePackage the package in question.
 	 * @return whether this is a switch for the given package.
 	 * @generated

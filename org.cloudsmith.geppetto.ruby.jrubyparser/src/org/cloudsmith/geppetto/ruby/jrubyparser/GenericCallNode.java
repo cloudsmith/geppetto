@@ -11,6 +11,7 @@
  */
 package org.cloudsmith.geppetto.ruby.jrubyparser;
 
+import org.jrubyparser.SourcePosition;
 import org.jrubyparser.ast.BlockAcceptingNode;
 import org.jrubyparser.ast.CallNode;
 import org.jrubyparser.ast.FCallNode;
@@ -21,9 +22,9 @@ import org.jrubyparser.ast.Node;
 /**
  * Unifies the two types of calls (FCallNode and CallNode) into one class.
  */
-public class GenericCallNode implements INameNode, IArgumentNode,
-		BlockAcceptingNode {
+public class GenericCallNode implements INameNode, IArgumentNode, BlockAcceptingNode {
 	private final FCallNode fcallNode;
+
 	private final CallNode callNode;
 
 	public GenericCallNode(CallNode node) {
@@ -38,17 +39,35 @@ public class GenericCallNode implements INameNode, IArgumentNode,
 
 	@Override
 	public Node getArgsNode() {
-		return (callNode == null ? fcallNode : callNode).getArgsNode();
+		return (callNode == null
+				? fcallNode
+				: callNode).getArgsNode();
 	}
 
 	@Override
 	public Node getIterNode() {
-		return (callNode == null ? fcallNode : callNode).getIterNode();
+		return (callNode == null
+				? fcallNode
+				: callNode).getIterNode();
 	}
 
 	@Override
 	public String getName() {
-		return (callNode == null ? fcallNode : callNode).getName();
+		return (callNode == null
+				? fcallNode
+				: callNode).getName();
+	}
+
+	public Node getNode() {
+		return callNode == null
+				? fcallNode
+				: callNode;
+	}
+
+	public SourcePosition getPosition() {
+		return (callNode == null
+				? fcallNode
+				: callNode).getPosition();
 	}
 
 	public boolean isValid() {
@@ -57,12 +76,16 @@ public class GenericCallNode implements INameNode, IArgumentNode,
 
 	@Override
 	public Node setArgsNode(Node argsNode) {
-		return (callNode == null ? fcallNode : callNode).setArgsNode(argsNode);
+		return (callNode == null
+				? fcallNode
+				: callNode).setArgsNode(argsNode);
 	}
 
 	@Override
 	public Node setIterNode(Node iterNode) {
-		return (callNode == null ? fcallNode : callNode).setIterNode(iterNode);
+		return (callNode == null
+				? fcallNode
+				: callNode).setIterNode(iterNode);
 	}
 
 }

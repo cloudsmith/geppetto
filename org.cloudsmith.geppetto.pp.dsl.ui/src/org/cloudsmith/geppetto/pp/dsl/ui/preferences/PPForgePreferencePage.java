@@ -15,8 +15,7 @@ import org.cloudsmith.geppetto.pp.dsl.ui.preferences.editors.AbstractPreferenceP
 import org.eclipse.jface.preference.StringFieldEditor;
 
 /**
- * A simple preference page for selection of puppet target.
- * This is also the puppet root preference pane.
+ * A simple preference page for reference to the puppet forge.
  * 
  */
 public class PPForgePreferencePage extends AbstractPreferencePage {

@@ -151,6 +151,28 @@
     </extension>
 
 
+    <!-- marker definitions for org.cloudsmith.geppetto.pp.dsl.PP -->
+    <extension
+            id="pp.check.fast"
+            name="PP Problem"
+            point="org.eclipse.core.resources.markers">
+        <super type="org.eclipse.xtext.ui.check.fast"/>
+        <persistent value="true"/>
+    </extension>
+    <extension
+            id="pp.check.normal"
+            name="PP Problem"
+            point="org.eclipse.core.resources.markers">
+        <super type="org.eclipse.xtext.ui.check.normal"/>
+        <persistent value="true"/>
+    </extension>
+    <extension
+            id="pp.check.expensive"
+            name="PP Problem"
+            point="org.eclipse.core.resources.markers">
+        <super type="org.eclipse.xtext.ui.check.expensive"/>
+        <persistent value="true"/>
+    </extension>
 
 	<!-- Quick Outline -->
 	<extension
@@ -185,12 +207,33 @@
 			</command>
 		</menuContribution>
 	</extension>
-   <!-- quickfix marker resolution generator -->
-   <extension
-         point="org.eclipse.ui.ide.markerResolution">
-      <markerResolutionGenerator
-            class="org.cloudsmith.geppetto.pp.dsl.ui.PPExecutableExtensionFactory:org.eclipse.xtext.ui.editor.quickfix.MarkerResolutionGenerator">
-      </markerResolutionGenerator>
-   </extension>
+    <!-- quickfix marker resolution generator for org.cloudsmith.geppetto.pp.dsl.PP -->
+    <extension
+            point="org.eclipse.ui.ide.markerResolution">
+        <markerResolutionGenerator
+            class="org.cloudsmith.geppetto.pp.dsl.ui.PPExecutableExtensionFactory:org.eclipse.xtext.ui.editor.quickfix.MarkerResolutionGenerator"
+            markerType="org.cloudsmith.geppetto.pp.dsl.ui.pp.check.fast">
+            <attribute
+                name="FIXABLE_KEY"
+                value="true">
+            </attribute>
+        </markerResolutionGenerator>
+        <markerResolutionGenerator
+            class="org.cloudsmith.geppetto.pp.dsl.ui.PPExecutableExtensionFactory:org.eclipse.xtext.ui.editor.quickfix.MarkerResolutionGenerator"
+            markerType="org.cloudsmith.geppetto.pp.dsl.ui.pp.check.normal">
+            <attribute
+                name="FIXABLE_KEY"
+                value="true">
+            </attribute>
+        </markerResolutionGenerator>
+        <markerResolutionGenerator
+            class="org.cloudsmith.geppetto.pp.dsl.ui.PPExecutableExtensionFactory:org.eclipse.xtext.ui.editor.quickfix.MarkerResolutionGenerator"
+            markerType="org.cloudsmith.geppetto.pp.dsl.ui.pp.check.expensive">
+            <attribute
+                name="FIXABLE_KEY"
+                value="true">
+            </attribute>
+        </markerResolutionGenerator>
+    </extension>
 
 </plugin>

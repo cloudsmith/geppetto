@@ -27,6 +27,7 @@ import org.cloudsmith.geppetto.pp.SingleQuotedString;
 import org.cloudsmith.geppetto.pp.VariableExpression;
 import org.cloudsmith.geppetto.pp.VirtualNameOrReference;
 import org.cloudsmith.geppetto.pp.dsl.validation.PPJavaValidator;
+import org.cloudsmith.xtext.serializer.DomBasedSerializer;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
@@ -34,6 +35,7 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.Resource.Factory;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.eclipse.xtext.ISetup;
 import org.eclipse.xtext.junit.AbstractXtextTests;
 import org.eclipse.xtext.junit.validation.ValidatorTester;
 import org.eclipse.xtext.linking.ILinker;
@@ -44,10 +46,13 @@ import org.eclipse.xtext.resource.XtextResource;
 import org.eclipse.xtext.resource.XtextResourceSet;
 import org.eclipse.xtext.resource.containers.DelegatingIAllContainerAdapter;
 import org.eclipse.xtext.resource.containers.IAllContainersState;
+import org.eclipse.xtext.serializer.ISerializer;
 import org.eclipse.xtext.util.CancelIndicator;
+import org.eclipse.xtext.util.ITextRegion;
 import org.eclipse.xtext.util.StringInputStream;
 import org.eclipse.xtext.validation.EValidatorRegistrar;
 
+import com.google.common.base.Preconditions;
 import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
@@ -260,6 +265,10 @@ public class AbstractPuppetTests extends AbstractXtextTests {
 		return createResourceExpression(true, false, type, title, keyValPairs);
 	}
 
+	protected Class<? extends ISetup> getSetupClass() {
+		return PPTestSetup.class;
+	}
+
 	/**
 	 * Configures the resoureset used by the various load methods. Must be called before loading.
 	 * 
@@ -277,6 +286,10 @@ public class AbstractPuppetTests extends AbstractXtextTests {
 		String container = getClass().getName();
 		for(URI containedURI : urisInTestContainer)
 			containerToURIMap.put(container, containedURI);
+
+		// Add pre-populated content
+		for(Resource r : resourceSet.getResources())
+			containerToURIMap.put(container, r.getURI());
 
 		IAllContainersState containersState = factory.getContainersState(
 			Lists.newArrayList(container), containerToURIMap);
@@ -308,6 +321,26 @@ public class AbstractPuppetTests extends AbstractXtextTests {
 	public final Resource loadAndLinkSingleResource(String sourceString) throws Exception {
 		URI uri = makeManifestURI(1);
 		initializeResourceSet(Lists.newArrayList(uri));
+		Resource r = loadResource(sourceString, uri);
+		resolveCrossReferences(r);
+		return r;
+	}
+
+	public final Resource loadAndLinkSingleResource(String sourceString, boolean loadTarget) throws Exception {
+		URI uri = makeManifestURI(1);
+		initializeResourceSet(Lists.newArrayList(uri));
+		// Factory factory = Resource.Factory.Registry.INSTANCE.getFactory(targetURI);
+		// Resource r2 = factory.createResource(targetURI);
+		Map<String, String> options = Maps.newHashMap();
+		options.put(XtextResource.OPTION_ENCODING, "UTF8");
+		// resourceSet.getResources().add(r2);
+		if(loadTarget) {
+			for(Resource pptp : resourceSet.getResources()) {
+				if("pptp".equals(pptp.getURI().fileExtension()))
+					pptp.load(options);
+			}
+		}
+		// r2.load(options);
 		Resource r = loadResource(sourceString, uri);
 		resolveCrossReferences(r);
 		return r;
@@ -417,11 +450,17 @@ public class AbstractPuppetTests extends AbstractXtextTests {
 		return getSerializer().serialize(obj, SaveOptions.newBuilder().format().getOptions());
 	}
 
+	public String serializeFormatted(EObject obj, ITextRegion regionToFormat) {
+		ISerializer s = getSerializer();
+		Preconditions.checkState(s instanceof DomBasedSerializer);
+		return ((DomBasedSerializer) s).serialize(obj, SaveOptions.newBuilder().format().getOptions(), regionToFormat);
+	}
+
 	@Override
 	public void setUp() throws Exception {
 		super.setUp();
 		// with(PPStandaloneSetup.class);
-		with(PPTestSetup.class);
+		with(getSetupClass());
 		PPJavaValidator validator = get(PPJavaValidator.class);
 		EValidatorRegistrar registrar = get(EValidatorRegistrar.class);
 		tester = new ValidatorTester<PPJavaValidator>(validator, registrar, "org.cloudsmith.geppetto.pp.dsl.PP");

@@ -22,16 +22,35 @@ public interface IValidationAdvisor extends IPotentialProblemsAdvisor {
 	}
 
 	/**
+	 * If 3.0 extended dependency types should be allowed
+	 * (resource | resourceref | collection | variable | quoted text | selector | case statement | hasharrayaccesses)
+	 * See geppetto Issue #400.
+	 */
+	public boolean allowExtendedDependencyTypes();
+
+	/**
 	 * Should Hash be allowed in a selector.
 	 * Puppet issue #5516
 	 */
 	public boolean allowHashInSelector();
 
 	/**
+	 * Before 3.0 and hiera support, a class can not inherit from a parameterized class.
+	 */
+	public boolean allowInheritanceFromParameterizedClass();
+
+	/**
 	 * Should more than 2 at (i.e. []) operators be allowed in sequence e.g. $a[x][y][z]
 	 * Puppet issue #6269
 	 */
 	public boolean allowMoreThan2AtInSequence();
+
+	/**
+	 * The "unless" statement was added in Puppet 3.0.
+	 * 
+	 * @return
+	 */
+	public boolean allowUnless();
 
 	/**
 	 * Prior to 2.7 it was not possible to use unquoted qualified resource names.
@@ -48,6 +67,12 @@ public interface IValidationAdvisor extends IPotentialProblemsAdvisor {
 	public ValidationPreference definitionArgumentListEndComma();
 
 	/**
+	 * Prior to 3.0, a missing $ in a definition parameter name declaration was deprecated.
+	 * In 3.0 it is an error.
+	 */
+	public ValidationPreference definitionParamterMissingDollar();
+
+	/**
 	 * Hyphens in names are deprecated
 	 * Puppet issue #10146
 	 * And will be errors in later releases.
@@ -62,9 +87,12 @@ public interface IValidationAdvisor extends IPotentialProblemsAdvisor {
 	public ValidationPreference periodInCase();
 
 	/**
+	 * How should relationships goign right to left be reported.
+	 */
+	public ValidationPreference rightToLeftRelationships();
+
+	/**
 	 * How should unqualified variable references be reported (ignore, warning, error).
-	 * 
-	 * @return
 	 */
 	public ValidationPreference unqualifiedVariables();
 

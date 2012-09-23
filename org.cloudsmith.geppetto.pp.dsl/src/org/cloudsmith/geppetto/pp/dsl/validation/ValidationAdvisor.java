@@ -24,15 +24,15 @@ public class ValidationAdvisor {
 		}
 
 		@Override
+		public ValidationPreference assignmentToVarNamedString() {
+			return problemsAdvisor.assignmentToVarNamedString();
+		}
+
+		@Override
 		public ValidationPreference booleansInStringForm() {
 			return problemsAdvisor.booleansInStringForm();
 		}
 
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see org.cloudsmith.geppetto.pp.dsl.validation.IPotentialProblemsAdvisor#caseDefaultShouldAppearLast()
-		 */
 		@Override
 		public ValidationPreference caseDefaultShouldAppearLast() {
 			return problemsAdvisor.caseDefaultShouldAppearLast();
@@ -43,24 +43,19 @@ public class ValidationAdvisor {
 			return problemsAdvisor.circularDependencyPreference();
 		}
 
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see org.cloudsmith.geppetto.pp.dsl.validation.IPotentialProblemsAdvisor#dqStringNotRequired()
-		 */
 		@Override
 		public ValidationPreference dqStringNotRequired() {
 			return problemsAdvisor.dqStringNotRequired();
 		}
 
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see org.cloudsmith.geppetto.pp.dsl.validation.IPotentialProblemsAdvisor#dqStringNotRequiredVariable()
-		 */
 		@Override
 		public ValidationPreference dqStringNotRequiredVariable() {
 			return problemsAdvisor.dqStringNotRequiredVariable();
+		}
+
+		@Override
+		public ValidationPreference ensureShouldAppearFirstInResource() {
+			return problemsAdvisor.ensureShouldAppearFirstInResource();
 		}
 
 		@Override
@@ -73,31 +68,26 @@ public class ValidationAdvisor {
 			return problemsAdvisor.missingDefaultInSelector();
 		}
 
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see org.cloudsmith.geppetto.pp.dsl.validation.IStylisticProblemsAdvisor#selectorDefaultShouldAppearLast()
-		 */
+		@Override
+		public ValidationPreference mlComments() {
+			return problemsAdvisor.mlComments();
+		}
+
+		@Override
+		public ValidationPreference rightToLeftRelationships() {
+			return problemsAdvisor.rightToLeftRelationships();
+		}
+
 		@Override
 		public ValidationPreference selectorDefaultShouldAppearLast() {
 			return problemsAdvisor.selectorDefaultShouldAppearLast();
 		}
 
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see org.cloudsmith.geppetto.pp.dsl.validation.IPotentialProblemsAdvisor#unbracedInterpolation()
-		 */
 		@Override
 		public ValidationPreference unbracedInterpolation() {
 			return problemsAdvisor.unbracedInterpolation();
 		}
 
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see org.cloudsmith.geppetto.pp.dsl.validation.IPotentialProblemsAdvisor#unquotedResourceTitles()
-		 */
 		@Override
 		public ValidationPreference unquotedResourceTitles() {
 			return problemsAdvisor.unquotedResourceTitles();
@@ -110,12 +100,19 @@ public class ValidationAdvisor {
 	 * 
 	 */
 	public static class ValidationAdvisor_2_6 extends BaseValidationAdvisor implements IValidationAdvisor {
-
 		/**
 		 * @param problemsAdvisor
 		 */
 		protected ValidationAdvisor_2_6(IPotentialProblemsAdvisor problemsAdvisor) {
 			super(problemsAdvisor);
+		}
+
+		/**
+		 * @returns false
+		 */
+		@Override
+		public boolean allowExtendedDependencyTypes() {
+			return false;
 		}
 
 		/**
@@ -127,11 +124,24 @@ public class ValidationAdvisor {
 		}
 
 		/**
+		 * @returns false
+		 */
+		@Override
+		public boolean allowInheritanceFromParameterizedClass() {
+			return false;
+		}
+
+		/**
 		 * @returns true
 		 */
 		@Override
 		public boolean allowMoreThan2AtInSequence() {
 			return true;
+		}
+
+		@Override
+		public boolean allowUnless() {
+			return false;
 		}
 
 		@Override
@@ -145,6 +155,11 @@ public class ValidationAdvisor {
 		@Override
 		public ValidationPreference definitionArgumentListEndComma() {
 			return ValidationPreference.ERROR;
+		}
+
+		@Override
+		public ValidationPreference definitionParamterMissingDollar() {
+			return ValidationPreference.WARNING;
 		}
 
 		/**
@@ -221,7 +236,6 @@ public class ValidationAdvisor {
 	 * 
 	 */
 	public static class ValidationAdvisor_3_0 extends ValidationAdvisor_2_7 implements IValidationAdvisor {
-
 		/**
 		 * @param problemsAdvisor
 		 */
@@ -230,11 +244,37 @@ public class ValidationAdvisor {
 		}
 
 		/**
+		 * @returns true
+		 */
+		@Override
+		public boolean allowExtendedDependencyTypes() {
+			return true;
+		}
+
+		/**
+		 * @returns true, but unsure if really supported
+		 */
+		@Override
+		public boolean allowInheritanceFromParameterizedClass() {
+			return true;
+		}
+
+		@Override
+		public boolean allowUnless() {
+			return true;
+		}
+
+		/**
 		 * @returns ValidationPreference.IGNORE
 		 */
 		@Override
 		public ValidationPreference definitionArgumentListEndComma() {
 			return ValidationPreference.IGNORE;
+		}
+
+		@Override
+		public ValidationPreference definitionParamterMissingDollar() {
+			return ValidationPreference.ERROR;
 		}
 
 		/**
@@ -252,6 +292,7 @@ public class ValidationAdvisor {
 		public ValidationPreference unqualifiedVariables() {
 			return ValidationPreference.ERROR;
 		}
+
 	}
 
 	public static IValidationAdvisor create(ComplianceLevel level, IPotentialProblemsAdvisor problemsAdvisor) {

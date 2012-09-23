@@ -13,6 +13,8 @@ package org.cloudsmith.geppetto.pp.dsl.ui;
 
 import org.cloudsmith.geppetto.common.tracer.DefaultTracer;
 import org.cloudsmith.geppetto.common.tracer.ITracer;
+import org.cloudsmith.geppetto.pp.dsl.formatting.IBreakAndAlignAdvice;
+import org.cloudsmith.geppetto.pp.dsl.formatting.PPCommentConfiguration;
 import org.cloudsmith.geppetto.pp.dsl.lexer.PPOverridingLexer;
 import org.cloudsmith.geppetto.pp.dsl.linking.PPSearchPath.ISearchPathProvider;
 import org.cloudsmith.geppetto.pp.dsl.ui.builder.NatureAddingEditorCallback;
@@ -22,17 +24,30 @@ import org.cloudsmith.geppetto.pp.dsl.ui.coloring.PPSemanticHighlightingCalculat
 import org.cloudsmith.geppetto.pp.dsl.ui.coloring.PPTokenToAttributeIdMapper;
 import org.cloudsmith.geppetto.pp.dsl.ui.container.PPWorkspaceProjectsStateProvider;
 import org.cloudsmith.geppetto.pp.dsl.ui.contentassist.PPContentAssistLexer;
+import org.cloudsmith.geppetto.pp.dsl.ui.editor.PPSourceViewerConfiguration;
 import org.cloudsmith.geppetto.pp.dsl.ui.editor.actions.SaveActions;
 import org.cloudsmith.geppetto.pp.dsl.ui.editor.autoedit.PPEditStrategyProvider;
 import org.cloudsmith.geppetto.pp.dsl.ui.editor.autoedit.PPTokenTypeToPartionMapper;
 import org.cloudsmith.geppetto.pp.dsl.ui.editor.folding.PPFoldingRegionProvider;
+import org.cloudsmith.geppetto.pp.dsl.ui.editor.hover.PPDocumentationProvider;
+import org.cloudsmith.geppetto.pp.dsl.ui.editor.hover.PPHoverProvider;
 import org.cloudsmith.geppetto.pp.dsl.ui.editor.hyperlinking.PPHyperlinkHelper;
+import org.cloudsmith.geppetto.pp.dsl.ui.editor.model.PPPartitionTokenScanner;
 import org.cloudsmith.geppetto.pp.dsl.ui.editor.toggleComments.PPSingleLineCommentHelper;
+import org.cloudsmith.geppetto.pp.dsl.ui.formatting.ResourceIBreakAndAlignAdviceProvider;
+import org.cloudsmith.geppetto.pp.dsl.ui.formatting.ResourceICommentFormatterAdviceProviders;
+import org.cloudsmith.geppetto.pp.dsl.ui.formatting.ResourceIIndentationInformationProvider;
+import org.cloudsmith.geppetto.pp.dsl.ui.formatting.ResourceIPreferredWidthInformationProvider;
 import org.cloudsmith.geppetto.pp.dsl.ui.linked.ExtLinkedXtextEditor;
+import org.cloudsmith.geppetto.pp.dsl.ui.linked.IExtXtextEditorCustomizer;
 import org.cloudsmith.geppetto.pp.dsl.ui.linked.ISaveActions;
+import org.cloudsmith.geppetto.pp.dsl.ui.linked.PPEditorCustomizer;
 import org.cloudsmith.geppetto.pp.dsl.ui.linking.PPUISearchPathProvider;
 import org.cloudsmith.geppetto.pp.dsl.ui.outline.PPLocationInFileProvider;
 import org.cloudsmith.geppetto.pp.dsl.ui.preferences.PPPreferencesHelper;
+import org.cloudsmith.geppetto.pp.dsl.ui.preferences.data.BreakAndAlignPreferences;
+import org.cloudsmith.geppetto.pp.dsl.ui.preferences.data.CommentPreferences;
+import org.cloudsmith.geppetto.pp.dsl.ui.preferences.data.FormatterGeneralPreferences;
 import org.cloudsmith.geppetto.pp.dsl.ui.preferences.editors.PPPreferenceStoreAccess;
 import org.cloudsmith.geppetto.pp.dsl.ui.resource.PPResource;
 import org.cloudsmith.geppetto.pp.dsl.ui.resource.PPResourceFactory;
@@ -40,14 +55,25 @@ import org.cloudsmith.geppetto.pp.dsl.ui.validation.PreferenceBasedPotentialProb
 import org.cloudsmith.geppetto.pp.dsl.ui.validation.PreferenceBasedValidationAdvisorProvider;
 import org.cloudsmith.geppetto.pp.dsl.validation.IPotentialProblemsAdvisor;
 import org.cloudsmith.geppetto.pp.dsl.validation.IValidationAdvisor;
+import org.cloudsmith.xtext.dommodel.formatter.comments.ICommentFormatterAdvice;
+import org.cloudsmith.xtext.formatting.IPreferredMaxWidthInformation;
+import org.cloudsmith.xtext.ui.editor.formatting.ContentFormatterFactory;
+import org.cloudsmith.xtext.ui.editor.formatting.ResourceILineSeparatorProvider;
+import org.eclipse.jface.text.rules.IPartitionTokenScanner;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
+import org.eclipse.xtext.documentation.IEObjectDocumentationProvider;
+import org.eclipse.xtext.formatting.IIndentationInformation;
+import org.eclipse.xtext.formatting.ILineSeparatorInformation;
 import org.eclipse.xtext.linking.lazy.LazyLinker;
 import org.eclipse.xtext.resource.ILocationInFileProvider;
 import org.eclipse.xtext.resource.IResourceFactory;
 import org.eclipse.xtext.resource.XtextResource;
 import org.eclipse.xtext.ui.editor.XtextEditor;
+import org.eclipse.xtext.ui.editor.XtextSourceViewerConfiguration;
 import org.eclipse.xtext.ui.editor.autoedit.AbstractEditStrategyProvider;
 import org.eclipse.xtext.ui.editor.folding.IFoldingRegionProvider;
+import org.eclipse.xtext.ui.editor.formatting.IContentFormatterFactory;
+import org.eclipse.xtext.ui.editor.hover.IEObjectHoverProvider;
 import org.eclipse.xtext.ui.editor.hyperlinking.IHyperlinkHelper;
 import org.eclipse.xtext.ui.editor.model.IResourceForEditorInputFactory;
 import org.eclipse.xtext.ui.editor.model.ITokenTypeToPartitionTypeMapper;
@@ -80,6 +106,26 @@ public class PPUiModule extends org.cloudsmith.geppetto.pp.dsl.ui.AbstractPPUiMo
 		return PPEditStrategyProvider.class;
 	}
 
+	@Override
+	public Class<? extends IContentFormatterFactory> bindIContentFormatterFactory() {
+		return ContentFormatterFactory.class;
+	}
+
+	public Class<? extends IEObjectDocumentationProvider> bindIEObjectDocumentationProvider() {
+		return PPDocumentationProvider.class;
+	}
+
+	public Class<? extends IEObjectHoverProvider> bindIEObjectHoverProvider() {
+		return PPHoverProvider.class;
+	}
+
+	/**
+	 * Binds an editor customizer with PP specific features.
+	 */
+	public Class<? extends IExtXtextEditorCustomizer> bindIExtXtextEditorCustomizer() {
+		return PPEditorCustomizer.class;
+	}
+
 	/**
 	 * This binding makes SL comments fold as expected.
 	 */
@@ -92,6 +138,11 @@ public class PPUiModule extends org.cloudsmith.geppetto.pp.dsl.ui.AbstractPPUiMo
 	 */
 	public Class<? extends IHyperlinkHelper> bindIHyperlinkHelper() {
 		return PPHyperlinkHelper.class;
+	}
+
+	@Override
+	public Class<? extends IIndentationInformation> bindIIndentationInformation() {
+		return null; // block the super version
 	}
 
 	public Class<? extends IHighlightingConfiguration> bindILexicalHighlightingConfiguration() {
@@ -118,6 +169,11 @@ public class PPUiModule extends org.cloudsmith.geppetto.pp.dsl.ui.AbstractPPUiMo
 	 */
 	public Class<? extends ILocationInFileProvider> bindILocationInFileProvider() {
 		return PPLocationInFileProvider.class;
+	}
+
+	@Override
+	public Class<? extends IPartitionTokenScanner> bindIPartitionTokenScanner() {
+		return PPPartitionTokenScanner.class;
 	}
 
 	public Class<? extends IPotentialProblemsAdvisor> bindIPotentialProblemsAdvisor() {
@@ -231,10 +287,37 @@ public class PPUiModule extends org.cloudsmith.geppetto.pp.dsl.ui.AbstractPPUiMo
 	public void configureDefaultPreferences(Binder binder) {
 		binder.bind(IPreferenceStoreInitializer.class).annotatedWith(Names.named("PPPreferencesHelper")) //$NON-NLS-1$
 		.to(PPPreferencesHelper.class);
+		binder.bind(IPreferenceStoreInitializer.class).annotatedWith(Names.named("FormatterGeneralPreferences")) //$NON-NLS-1$
+		.to(FormatterGeneralPreferences.class);
+		binder.bind(IPreferenceStoreInitializer.class).annotatedWith(Names.named("CommentPreferences")) //$NON-NLS-1$
+		.to(CommentPreferences.class);
+		binder.bind(IPreferenceStoreInitializer.class).annotatedWith(Names.named("BreakAndAlignPreferences")) //$NON-NLS-1$
+		.to(BreakAndAlignPreferences.class);
 	}
 
 	public void configureEditor(Binder binder) {
 		binder.bind(XtextEditor.class).to(ExtLinkedXtextEditor.class);
+		binder.bind(XtextSourceViewerConfiguration.class).to(PPSourceViewerConfiguration.class);
+	}
+
+	/**
+	 * @see #configureResourceSpecificProviders(Binder)
+	 */
+	public void configureFormatting(com.google.inject.Binder binder) {
+
+		// Binds resource specific comment advice provider for SL comments
+		binder.bind(ICommentFormatterAdvice.class) //
+		.annotatedWith(com.google.inject.name.Names.named(PPCommentConfiguration.SL_FORMATTER_ADVICE_NAME))//
+		.toProvider(ResourceICommentFormatterAdviceProviders.SLCommentAdviceProvider.class);
+
+		// Binds resource specific comment advice provider for ML comments
+		binder.bind(ICommentFormatterAdvice.class) //
+		.annotatedWith(com.google.inject.name.Names.named(PPCommentConfiguration.ML_FORMATTER_ADVICE_NAME))//
+		.toProvider(ResourceICommentFormatterAdviceProviders.MLCommentAdviceProvider.class);
+
+		binder.bind(IBreakAndAlignAdvice.class) //
+		.toProvider(ResourceIBreakAndAlignAdviceProvider.class);
+
 	}
 
 	// contributed by org.eclipse.xtext.generator.parser.antlr.ex.rt.AntlrGeneratorFragment
@@ -243,6 +326,21 @@ public class PPUiModule extends org.cloudsmith.geppetto.pp.dsl.ui.AbstractPPUiMo
 		binder.bind(org.eclipse.xtext.parser.antlr.Lexer.class).annotatedWith(
 			com.google.inject.name.Names.named(org.eclipse.xtext.ui.LexerUIBindings.HIGHLIGHTING)).to(
 			PPOverridingLexer.class);
+	}
+
+	public void configureIIndentationInformationProvider(Binder binder) {
+		binder.bind(IIndentationInformation.class).toProvider(ResourceIIndentationInformationProvider.class);
+	}
+
+	/**
+	 * Binds providers of resource specific information (e.g. resource metadata, scoped preferences,
+	 * workspace etc.)
+	 */
+	public void configureResourceSpecificProviders(com.google.inject.Binder binder) {
+		binder.bind(ILineSeparatorInformation.class).toProvider(ResourceILineSeparatorProvider.class);
+		// binder.bind(IIndentationInformation.class).toProvider(ResourceIIndentationInformationProvider.class);
+		binder.bind(IPreferredMaxWidthInformation.class).toProvider(ResourceIPreferredWidthInformationProvider.class);
+
 	}
 
 	/**

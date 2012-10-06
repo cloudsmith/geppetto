@@ -18,6 +18,7 @@ import org.apache.log4j.Logger;
 import org.cloudsmith.geppetto.pp.dsl.ui.PPUiConstants;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IProjectDescription;
+import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.jface.action.IAction;
@@ -136,6 +137,7 @@ public class ToggleNatureAction implements IObjectActionDelegate {
 	@SuppressWarnings("rawtypes")
 	public void run(IAction action) {
 		if(selection instanceof IStructuredSelection) {
+			int toggleCount = 0;
 			for(Iterator it = ((IStructuredSelection) selection).iterator(); it.hasNext();) {
 				Object element = it.next();
 				IProject project = null;
@@ -147,7 +149,13 @@ public class ToggleNatureAction implements IObjectActionDelegate {
 				}
 				if(project != null) {
 					toggleNature(project);
+					toggleCount++;
 				}
+			}
+			// schedule a clean build for all project if there was a toggle change
+			if(toggleCount > 0) {
+				// need to trigger a build clean both when turning nature on or off
+				new PPBuildJob(ResourcesPlugin.getWorkspace()).schedule();
 			}
 		}
 	}

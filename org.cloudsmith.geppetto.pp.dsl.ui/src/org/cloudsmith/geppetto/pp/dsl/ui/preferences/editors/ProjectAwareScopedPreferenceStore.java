@@ -182,7 +182,13 @@ public class ProjectAwareScopedPreferenceStore extends EventManager implements I
 	private void disposeNodeChangeListener() {
 		if(nodeChangeListener != null) {
 			for(IEclipsePreferences p : monitoredNodes)
-				p.removeNodeChangeListener(nodeChangeListener);
+				try {
+					if(p.nodeExists(""))
+						p.removeNodeChangeListener(nodeChangeListener);
+				}
+				catch(BackingStoreException e) {
+					throw new RuntimeException(e);
+				}
 			monitoredNodes.clear();
 			nodeChangeListener = null;
 		}
@@ -206,7 +212,13 @@ public class ProjectAwareScopedPreferenceStore extends EventManager implements I
 		}
 		if(preferencesListener != null) {
 			for(IEclipsePreferences p : monitoredPreferences)
-				p.removePreferenceChangeListener(preferencesListener);
+				try {
+					if(p.nodeExists(""))
+						p.removePreferenceChangeListener(preferencesListener);
+				}
+				catch(BackingStoreException e) {
+					throw new RuntimeException(e);
+				}
 
 			preferencesListener = null;
 		}

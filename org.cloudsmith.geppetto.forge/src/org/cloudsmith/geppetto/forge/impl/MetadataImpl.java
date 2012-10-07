@@ -216,6 +216,10 @@ public class MetadataImpl extends EObjectImpl implements Metadata {
 		".hgtags",
 		".bzr",
 		".bzrignore",
+		".project",
+		".settings",
+		".classpath",
+		".bzrignore",
 		"pkg",
 		"coverage"
 	};

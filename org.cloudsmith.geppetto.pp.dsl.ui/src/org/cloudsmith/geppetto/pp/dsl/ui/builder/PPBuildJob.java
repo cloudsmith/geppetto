@@ -18,6 +18,7 @@ import org.cloudsmith.geppetto.pp.dsl.ui.PPUiConstants;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IWorkspace;
 import org.eclipse.core.resources.IncrementalProjectBuilder;
+import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
@@ -36,17 +37,20 @@ public class PPBuildJob extends Job {
 
 	final private IProject[] projects;
 
+	final private IWorkspace workspace;
+
 	private static final Logger log = Logger.getLogger(AbstractPreferencePage.class);
 
 	public PPBuildJob(IProject... projects) {
 		super("Building Puppet Projects");
 		this.projects = projects;
 		setPriority(Job.BUILD);
-
+		this.workspace = ResourcesPlugin.getWorkspace();
 	}
 
 	public PPBuildJob(IWorkspace workspace) {
 		super("Building Puppet Projects");
+		this.workspace = workspace;
 		List<IProject> puppetProjects = Lists.newArrayList();
 		for(IProject p : workspace.getRoot().getProjects())
 			try {
@@ -62,14 +66,12 @@ public class PPBuildJob extends Job {
 		setPriority(Job.BUILD);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.core.runtime.jobs.Job#run(org.eclipse.core.runtime.IProgressMonitor)
-	 */
 	@Override
 	protected IStatus run(IProgressMonitor monitor) {
-		final SubMonitor ticker = SubMonitor.convert(monitor, projects.length * 100);
+		final SubMonitor ticker = SubMonitor.convert(monitor, projects.length * 100 * 2);
+
+		// Clean projects individually (if there are other kinds of projects than puppet, they do not need to be
+		// cleaned.
 		for(IProject p : projects) {
 			try {
 				ticker.setTaskName("Cleaning project " + p.getName());
@@ -79,15 +81,15 @@ public class PPBuildJob extends Job {
 				return e.getStatus();
 			}
 		}
-		for(IProject p : projects) {
-			try {
-				ticker.setTaskName("Building project " + p.getName());
-				p.build(IncrementalProjectBuilder.FULL_BUILD, ticker.newChild(100));
-			}
-			catch(CoreException e) {
-				return e.getStatus();
-			}
+		// then do a full build
+		try {
+			ticker.setTaskName("Building projects");
+			workspace.build(IncrementalProjectBuilder.FULL_BUILD, ticker.newChild(projects.length * 100));
 		}
+		catch(CoreException e) {
+			return e.getStatus();
+		}
+
 		return Status.OK_STATUS;
 	}
 }

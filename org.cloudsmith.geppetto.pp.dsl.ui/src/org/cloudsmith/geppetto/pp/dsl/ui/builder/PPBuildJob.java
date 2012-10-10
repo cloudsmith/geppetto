@@ -70,17 +70,26 @@ public class PPBuildJob extends Job {
 	protected IStatus run(IProgressMonitor monitor) {
 		final SubMonitor ticker = SubMonitor.convert(monitor, projects.length * 100 * 2);
 
-		// Clean projects individually (if there are other kinds of projects than puppet, they do not need to be
-		// cleaned.
-		for(IProject p : projects) {
-			try {
-				ticker.setTaskName("Cleaning project " + p.getName());
-				p.build(IncrementalProjectBuilder.CLEAN_BUILD, ticker.newChild(100));
-			}
-			catch(CoreException e) {
-				return e.getStatus();
-			}
+		// Clean all projects
+		try {
+			ticker.setTaskName("Building projects");
+			workspace.build(IncrementalProjectBuilder.CLEAN_BUILD, ticker.newChild(projects.length * 100));
 		}
+		catch(CoreException e) {
+			return e.getStatus();
+		}
+		//
+		// // Clean projects individually (if there are other kinds of projects than puppet, they do not need to be
+		// // cleaned.
+		// for(IProject p : projects) {
+		// try {
+		// ticker.setTaskName("Cleaning project " + p.getName());
+		// p.build(IncrementalProjectBuilder.CLEAN_BUILD, ticker.newChild(100));
+		// }
+		// catch(CoreException e) {
+		// return e.getStatus();
+		// }
+		// }
 		// then do a full build
 		try {
 			ticker.setTaskName("Building projects");

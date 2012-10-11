@@ -64,6 +64,8 @@ public class ContentFormatterFactory implements IContentFormatterFactory {
 			super();
 			this.region = region;
 			this.doc = doc;
+			// Xtext issue, a dummy read only is needed before all modify operations.
+			doc.readOnly(DummyReadOnly.Instance);
 		}
 
 		public ReplaceRegion exec(XtextResource state) throws Exception {

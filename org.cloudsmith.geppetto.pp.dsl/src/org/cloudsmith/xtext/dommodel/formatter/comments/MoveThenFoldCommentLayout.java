@@ -70,14 +70,20 @@ public class MoveThenFoldCommentLayout extends AbstractLayout {
 			allIsWell = false;
 			next = next.getNextSibling();
 			if(next != null && DomModelUtils.isWhitespace(next) && intersect(next, context).isContained()) {
-				if(Math.abs(next.getText().length() - linePos) < indentSize) {
-					IDomNode next2 = next.getNextSibling();
-					if(next2 != null && isCompatibleComment(next2, commentConfiguration)) {
-						result.add(next);
-						result.add(next2);
-						next = next2;
-						allIsWell = true;
-						linePos = DomModelUtils.posOnLine(next, lineSeparator);
+				String t = next.getText();
+				if(t.contains("\n")) {
+					allIsWell = false;
+				}
+				else {
+					if(Math.abs(t.length() - linePos) < indentSize) {
+						IDomNode next2 = next.getNextSibling();
+						if(next2 != null && isCompatibleComment(next2, commentConfiguration)) {
+							result.add(next);
+							result.add(next2);
+							next = next2;
+							allIsWell = true;
+							linePos = DomModelUtils.posOnLine(next, lineSeparator);
+						}
 					}
 				}
 			}

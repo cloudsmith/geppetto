@@ -106,6 +106,25 @@
                 <cs:path path="product.zips/"/>
             </cs:products>
         </cs:public>
+        <cs:public name="product.zip-win32.win32.x86_64" actor="ant">
+            <cs:actorProperties>
+                <cs:property key="buildFile" value="product.ant"/>
+                <cs:property key="targets" value="create.product.zip"/>
+            </cs:actorProperties>
+            <cs:properties>
+                <cs:property key="product.arch" value="x86_64"/>
+                <cs:property key="product.os" value="win32"/>
+                <cs:property key="product.ws" value="win32"/>
+            </cs:properties>
+            <cs:prerequisites>
+                <cs:attribute name="site.p2" alias="product.repository" component="org.cloudsmith.geppetto.site"/>
+                <cs:attribute name="product.configuration.exports" alias="products" component="org.cloudsmith.geppetto.product"/>
+                <cs:attribute name="manifest" alias="manifest" component="org.cloudsmith.geppetto.product"/>
+            </cs:prerequisites>
+            <cs:products alias="output" base="${buckminster.output}/">
+                <cs:path path="product.zips/"/>
+            </cs:products>
+        </cs:public>
     </cs:actions>
     <cs:groups>
         <cs:public name="all.product.zips">
@@ -114,6 +133,7 @@
             <cs:attribute name="product.zip-gtk.linux.x86"/>
             <cs:attribute name="product.zip-gtk.linux.x86_64"/>
             <cs:attribute name="product.zip-win32.win32.x86"/>
+            <cs:attribute name="product.zip-win32.win32.x86_64"/>
         </cs:public>
     </cs:groups>
 </cs:cspec>

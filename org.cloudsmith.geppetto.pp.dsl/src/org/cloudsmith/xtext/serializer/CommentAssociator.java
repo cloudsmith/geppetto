@@ -14,7 +14,7 @@ package org.cloudsmith.xtext.serializer;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Set;
+import java.util.Map;
 
 import org.cloudsmith.xtext.dommodel.formatter.comments.ICommentConfiguration;
 import org.cloudsmith.xtext.dommodel.formatter.comments.ICommentConfiguration.CommentType;
@@ -35,7 +35,7 @@ import org.eclipse.xtext.util.Tuples;
 import com.google.common.base.Predicate;
 import com.google.common.collect.Iterators;
 import com.google.common.collect.Lists;
-import com.google.common.collect.Sets;
+import com.google.common.collect.Maps;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
 
@@ -99,6 +99,8 @@ public class CommentAssociator {
 
 		boolean rightAssociation;
 
+		boolean firstOnLine;
+
 		int skipCount;
 
 		public Comments(List<INode> commentNodes) {
@@ -124,6 +126,10 @@ public class CommentAssociator {
 			return commentNodes.size() == 0;
 		}
 
+		public boolean isFirstOnLine() {
+			return firstOnLine;
+		}
+
 		public boolean isLeft() {
 			return !rightAssociation;
 		}
@@ -140,6 +146,11 @@ public class CommentAssociator {
 			rightAssociation = true;
 		}
 
+		public Comments setFirstOnLine(boolean first) {
+			firstOnLine = first;
+			return this;
+		}
+
 		public void setSkipCount(int skipCount) {
 			this.skipCount = skipCount;
 		}
@@ -154,8 +165,20 @@ public class CommentAssociator {
 
 		public void addComments(List<INode> comments) {
 			// empty comment sequences are simply ignored to reduce work later
-			if(comments.size() > 0)
-				sequence.add(new Comments(comments));
+			if(comments.size() < 1)
+				return;
+
+			// a sequence that has a subsequent comment to the left of the preceding comment is broken
+			// into two sequences
+			int prevLinePos = posOnLine(comments.get(0));
+			for(int i = 1; i < comments.size(); i++) {
+				if(posOnLine(comments.get(i)) < prevLinePos) {
+					sequence.add(new Comments(comments.subList(0, i)));
+					sequence.add(new Comments(comments.subList(i, comments.size())).setFirstOnLine(true));
+					return;
+				}
+			}
+			sequence.add(new Comments(comments));
 		}
 
 		public void addSemantic(EObject semantic, INode first, INode last) {
@@ -247,9 +270,13 @@ public class CommentAssociator {
 		StringBuilder builder = new StringBuilder();
 		for(CommentAssociationEntry e : sequence) {
 			if(e.isComments()) {
-				builder.append("Comments(").append(((Comments) e).isRight()
+				Comments c = (Comments) e;
+				builder.append("Comments(").append(c.isRight()
 						? "->"
-						: "<-").append(" ").append(((Comments) e).getSkipCount()).append("): ");
+						: "<-").append(" ").append(c.getSkipCount());
+				if(c.isFirstOnLine())
+					builder.append(" <fol>");
+				builder.append("): ");
 				for(INode n : ((Comments) e).getComments())
 					builder.append(n.getText().replace("\n", "\\n")).append(",");
 				builder.append("\n");
@@ -275,6 +302,15 @@ public class CommentAssociator {
 		int offsetOfNode = n.getTotalOffset();
 		int offsetOfLastNL = Math.max(0, 1 + CharSequences.lastIndexOf(s, "\n", offsetOfNode - 1));
 		return CharSequences.indexOfNonWhitespace(s, offsetOfLastNL) == offsetOfNode;
+	}
+
+	protected static int posOnLine(INode n) {
+		if(n == null)
+			throw new IllegalArgumentException("given node is null");
+		String s = n.getRootNode().getText();
+		int offsetOfNode = n.getTotalOffset();
+		int offsetOfLastNL = Math.max(0, 1 + CharSequences.lastIndexOf(s, "\n", offsetOfNode - 1));
+		return offsetOfNode - offsetOfLastNL;
 	}
 
 	protected TokenUtil tokenUtil;
@@ -316,24 +352,35 @@ public class CommentAssociator {
 
 		// encode as ICommentReconcilement
 		final List<Pair<Predicate<Triple<INode, INode, INode>>, List<INode>>> predicates = toPredicates(sequence);
-		final Set<INode> commentNodes = Sets.newIdentityHashSet();
+		final Map<INode, Comments> commentNodes = Maps.newHashMap();
 		for(CommentAssociationEntry e : sequence.getEntryList())
 			if(e.isComments())
-				commentNodes.addAll(((Comments) e).getComments());
+				for(INode n : ((Comments) e).getComments())
+					commentNodes.put(n, (Comments) e);
+		// commentNodes.addAll(((Comments) e).getComments());
 		return new ICommentReconcilement() {
 
 			@Override
 			public List<INode> commentNodesFor(INode preceding, INode last, INode current) {
 				Triple<INode, INode, INode> input = Tuples.create(preceding, last, current);
+				List<INode> result = Lists.newArrayList();
 				for(Pair<Predicate<Triple<INode, INode, INode>>, List<INode>> pair : predicates)
 					if(pair.getFirst().apply(input))
-						return pair.getSecond();
-				return Collections.emptyList();
+						result.addAll(pair.getSecond());
+				return result;
+			}
+
+			@Override
+			public String getWhitespaceBetween(INode prevCommentNode, INode node) {
+				Comments c = commentNodes.get(node);
+				if(prevCommentNode == null && c != null && c.isFirstOnLine())
+					return "\n";
+				return "";
 			}
 
 			@Override
 			public boolean isReconciledCommentNode(INode node) {
-				return commentNodes.contains(node);
+				return commentNodes.containsKey(node);
 			}
 		};
 	}

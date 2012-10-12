@@ -31,6 +31,16 @@ public interface ICommentReconcilement {
 	List<INode> commentNodesFor(INode preceding, INode last, INode current);
 
 	/**
+	 * Return a string with the whitespace content that should appear between the two given nodes. The prevCommentNode is null
+	 * for the first node of a sequence.
+	 * 
+	 * @param prevCommentNode
+	 * @param node
+	 * @return
+	 */
+	String getWhitespaceBetween(INode prevCommentNode, INode node);
+
+	/**
 	 * Return true, if the given (comment) node is a node that will be reconciled (and thus not included in its
 	 * "non reconciled" position unless this reconcilement says so by returning it in {@link #commentNodesFor(INode, INode, INode)}).
 	 * 

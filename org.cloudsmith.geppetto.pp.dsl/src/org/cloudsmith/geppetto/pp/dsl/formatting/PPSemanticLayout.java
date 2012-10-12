@@ -52,6 +52,8 @@ import org.eclipse.xtext.nodemodel.INode;
 import org.eclipse.xtext.util.Pair;
 import org.eclipse.xtext.util.Tuples;
 
+import com.google.common.base.Predicate;
+import com.google.common.base.Predicates;
 import com.google.common.collect.Lists;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
@@ -63,6 +65,17 @@ import com.google.inject.Singleton;
  */
 @Singleton
 public class PPSemanticLayout extends DeclarativeSemanticFlowLayout {
+	private static class FirstLeafWithTextAndTheRest implements Predicate<IDomNode> {
+		private boolean firstLeafSeen = false;
+
+		@Override
+		public boolean apply(IDomNode input) {
+			if(!DomModelUtils.isHidden(input))
+				firstLeafSeen = true;
+			return firstLeafSeen;
+		}
+	}
+
 	public enum ResourceStyle {
 		EMPTY, SINGLEBODY_TITLE, SINGLEBODY_NO_TITLE, MULTIPLE_BODIES, COMPACTABLE;
 	}
@@ -139,6 +152,8 @@ public class PPSemanticLayout extends DeclarativeSemanticFlowLayout {
 
 	@Inject
 	private DomNodeLayoutFeeder feeder;
+
+	private static Predicate<IDomNode> untilTheEnd = Predicates.alwaysFalse();
 
 	protected void _after(AttributeOperations aos, StyleSet styleSet, IDomNode node, ITextFlow flow,
 			ILayoutContext context) {
@@ -277,8 +292,9 @@ public class PPSemanticLayout extends DeclarativeSemanticFlowLayout {
 			node.getStyleClassifiers().addAll(styles);
 			DelegatingLayoutContext dlc = new DelegatingLayoutContext(context);
 			MeasuredTextFlow continuedFlow = new MeasuredTextFlow((MeasuredTextFlow) flow);
-			feeder.sequence(node.getChildren(), continuedFlow, dlc);
-			if(continuedFlow.getHeight() > 2) {
+			int heightBefore = continuedFlow.getHeight();
+			feeder.sequence(node.getChildren(), continuedFlow, dlc, new FirstLeafWithTextAndTheRest(), untilTheEnd);
+			if(continuedFlow.getHeight() - heightBefore > 2) {
 				node.getStyleClassifiers().remove(ResourceStyle.COMPACTABLE);
 			}
 		}

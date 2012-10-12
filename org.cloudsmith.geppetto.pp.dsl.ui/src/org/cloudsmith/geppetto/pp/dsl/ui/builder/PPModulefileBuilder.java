@@ -367,7 +367,8 @@ public class PPModulefileBuilder extends IncrementalProjectBuilder implements PP
 	private void removeErrorMarkers() {
 		IFile m = getProject().getFile(MODULEFILE_PATH);
 		try {
-			m.deleteMarkers(PUPPET_MODULE_PROBLEM_MARKER_TYPE, true, IResource.DEPTH_ZERO);
+			if(m.exists())
+				m.deleteMarkers(PUPPET_MODULE_PROBLEM_MARKER_TYPE, true, IResource.DEPTH_ZERO);
 			getProject().deleteMarkers(PUPPET_MODULE_PROBLEM_MARKER_TYPE, true, IResource.DEPTH_ZERO);
 		}
 		catch(CoreException e) {

@@ -86,7 +86,7 @@ public class HiddenTokenSequencer implements IHiddenTokenSequencer2, ISyntacticS
 	 */
 	protected List<AbstractRule> hiddenInLastNode;
 
-	private ICommentReconcilement commentReconciliator;
+	private ICommentReconcilement commentReconcilement;
 
 	@Override
 	public void acceptAssignedCrossRefDatatype(RuleCall rc, String tkn, EObject val, int index, ICompositeNode node) {
@@ -182,13 +182,18 @@ public class HiddenTokenSequencer implements IHiddenTokenSequencer2, ISyntacticS
 			return;
 		boolean lastNonWhitespace = true;
 		AbstractRule ws = hiddenTokenHelper.getWhitespaceRuleFor(null, "");
+		INode prevCommentNode = null;
 		for(INode node : hiddens)
 			if(tokenUtil.isCommentNode(node)) {
-				if(lastNonWhitespace)
-					delegate.acceptWhitespace(hiddenTokenHelper.getWhitespaceRuleFor(null, ""), "", null);
-				lastNonWhitespace = true;
-				// comments.remove(node);
+				if(lastNonWhitespace) {
+					String wsString = commentReconcilement != null
+							? commentReconcilement.getWhitespaceBetween(prevCommentNode, node)
+							: "";
+					delegate.acceptWhitespace(hiddenTokenHelper.getWhitespaceRuleFor(null, wsString), wsString, null);
+				}
 				delegate.acceptComment((AbstractRule) node.getGrammarElement(), node.getText(), (ILeafNode) node);
+				lastNonWhitespace = true;
+				prevCommentNode = node;
 			}
 			else {
 				delegate.acceptWhitespace((AbstractRule) node.getGrammarElement(), node.getText(), (ILeafNode) node);
@@ -348,7 +353,7 @@ public class HiddenTokenSequencer implements IHiddenTokenSequencer2, ISyntacticS
 		this.rootNode = lastNode;
 		lastNodes[0] = lastNodes[1] = this.lastNode;
 		initCurrentHidden(context);
-		this.commentReconciliator = commentReconciliator;
+		this.commentReconcilement = commentReconciliator;
 	}
 
 	protected void initCurrentHidden(EObject context) {
@@ -425,9 +430,9 @@ public class HiddenTokenSequencer implements IHiddenTokenSequencer2, ISyntacticS
 	}
 
 	protected List<INode> reconcileComments(List<INode> currentResult, INode preceding, INode from, INode to) {
-		if(preceding == null || from == null || to == null || commentReconciliator == null)
+		if(preceding == null || from == null || to == null || commentReconcilement == null)
 			return currentResult;
-		List<INode> result = commentReconciliator.commentNodesFor(preceding, from, to);
+		List<INode> result = commentReconcilement.commentNodesFor(preceding, from, to);
 
 		// If the normal comment hunt includes a comment - remove it if it is reconciled.
 		// It should perhaps not appear in that position
@@ -437,7 +442,7 @@ public class HiddenTokenSequencer implements IHiddenTokenSequencer2, ISyntacticS
 				ListIterator<INode> litor = currentResult.listIterator();
 				while(litor.hasNext()) {
 					INode n = litor.next();
-					if(tokenUtil.isCommentNode(n) && commentReconciliator.isReconciledCommentNode(n))
+					if(tokenUtil.isCommentNode(n) && commentReconcilement.isReconciledCommentNode(n))
 						litor.remove();
 				}
 			}

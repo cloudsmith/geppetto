@@ -1,0 +1,5 @@
+---
+layout: post
+title: Windows 64 bit versions are now available
+---
+Starting with version 3.0.1, Geppetto is now also available in a Windows 64 bit version.

@@ -231,12 +231,14 @@ public class ExtLinkedXtextEditor extends XtextEditor {
 			return;
 		String property = event.getProperty();
 		// System.out.println("Property Event: " + property);
-		if(FormatterGeneralPreferences.FORMATTER_INDENTSIZE.equals(property)) {
+		if(FormatterGeneralPreferences.FORMATTER_INDENTSIZE.equals(property) ||
+				FormatterGeneralPreferences.FORMATTER_SPACES_FOR_TABS.equals(property)) {
 			IPreferenceStore store = getPreferenceStore();
 			if(store != null)
 				sourceViewer.getTextWidget().setTabs(store.getInt(FormatterGeneralPreferences.FORMATTER_INDENTSIZE));
 			uninstallTabsToSpacesConverter();
-			installTabsToSpacesConverter();
+			if(store.getBoolean(FormatterGeneralPreferences.FORMATTER_SPACES_FOR_TABS))
+				installTabsToSpacesConverter();
 			return;
 		}
 		if(AbstractDecoratedTextEditorPreferenceConstants.EDITOR_TAB_WIDTH.equals(property)) {

@@ -324,9 +324,8 @@ public class ExtLinkedXtextEditor extends XtextEditor {
 	 */
 	@Override
 	protected boolean isTabsToSpacesConversionEnabled() {
-		return true; // Always true for Puppet
-		// return getPreferenceStore() != null &&
-		// getPreferenceStore().getBoolean(AbstractDecoratedTextEditorPreferenceConstants.EDITOR_SPACES_FOR_TABS);
+		IPreferenceStore store = getPreferenceStore();
+		return store == null || store.getBoolean(FormatterGeneralPreferences.FORMATTER_SPACES_FOR_TABS);
 	}
 
 	// SaveAs support for linked files - saves them on local disc, not to workspace if file is in special

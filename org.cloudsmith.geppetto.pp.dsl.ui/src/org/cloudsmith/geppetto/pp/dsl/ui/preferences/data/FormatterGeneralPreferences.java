@@ -36,19 +36,14 @@ public class FormatterGeneralPreferences extends AbstractPreferenceData {
 	public static final String FORMATTER_GENERAL_USE_PROJECT_SETTINGS = FORMATTER_GENERAL_ID + "." +
 			PPPreferenceConstants.USE_PROJECT_SETTINGS;
 
+	public static final String FORMATTER_SPACES_FOR_TABS = "formatterSpacesForTabs";
+
 	@Override
 	protected void doInitialize(IPreferenceStore store) {
 		// formatting
 		store.setDefault(FormatterGeneralPreferences.FORMATTER_INDENTSIZE, "2");
 		store.setDefault(FormatterGeneralPreferences.FORMATTER_MAXWIDTH, "132");
-		// store.addPropertyChangeListener(new IPropertyChangeListener() {
-		//
-		// @Override
-		// public void propertyChange(PropertyChangeEvent event) {
-		// System.out.println("Property changed: " + event.getProperty() + "old: " + event.getOldValue() +
-		// " new value:" + event.getNewValue());
-		// }
-		// });
+		store.setDefault(FormatterGeneralPreferences.FORMATTER_SPACES_FOR_TABS, true);
 	}
 
 	/**
@@ -85,6 +80,24 @@ public class FormatterGeneralPreferences extends AbstractPreferenceData {
 	 */
 	public int getPreferredMaxWidth(IResource r) {
 		return getInt(r, FormatterGeneralPreferences.FORMATTER_MAXWIDTH);
+	}
+
+	/**
+	 * Get the global (or the default) for "replace tab input with spaces" preference.
+	 * 
+	 * @return boolean true if tabs should be expanded to spaces
+	 */
+	public boolean getSpacesForTabs() {
+		return getBoolean(FormatterGeneralPreferences.FORMATTER_SPACES_FOR_TABS);
+	}
+
+	/**
+	 * Get the effective preference (or the default) for "replace tab input with spaces" preference.
+	 * 
+	 * @return boolean true if tabs should be expanded to spaces
+	 */
+	public boolean getSpacesForTabs(IResource r) {
+		return getContextualBoolean(r, FormatterGeneralPreferences.FORMATTER_SPACES_FOR_TABS);
 	}
 
 	@Override

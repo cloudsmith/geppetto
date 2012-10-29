@@ -22,6 +22,7 @@ import org.cloudsmith.xtext.dommodel.formatter.context.IFormattingContextFactory
 import org.cloudsmith.xtext.dommodel.formatter.context.IFormattingContextFactory.FormattingOption;
 import org.cloudsmith.xtext.resource.ResourceAccessScope;
 import org.cloudsmith.xtext.serializer.DomBasedSerializer;
+import org.cloudsmith.xtext.ui.editor.formatting.DummyReadOnly;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.jface.text.BadLocationException;
 import org.eclipse.xtext.resource.XtextResource;
@@ -111,6 +112,9 @@ public class SaveActions implements ISaveActions {
 		final boolean fullFormat = preferenceHelper.getSaveActionFormat(r);
 
 		if(ensureNl || replaceFunkySpace || trimLines || fullFormat) {
+			// Xtext issue, a dummy read only is needed before all modify operations.
+			document.readOnly(DummyReadOnly.Instance);
+
 			document.modify(new IUnitOfWork<ReplaceRegion, XtextResource>() {
 
 				@Override

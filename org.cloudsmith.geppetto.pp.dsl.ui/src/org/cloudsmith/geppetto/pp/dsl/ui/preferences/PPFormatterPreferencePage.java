@@ -14,6 +14,7 @@ package org.cloudsmith.geppetto.pp.dsl.ui.preferences;
 import org.cloudsmith.geppetto.pp.dsl.ui.preferences.data.FormatterGeneralPreferences;
 import org.cloudsmith.geppetto.pp.dsl.ui.preferences.editors.AbstractPreferencePage;
 import org.cloudsmith.geppetto.pp.dsl.ui.preferences.editors.IntegerFieldEditor;
+import org.eclipse.jface.preference.BooleanFieldEditor;
 
 /**
  * This is the puppet root preference pane for formatting preferences as well as the editor pane for
@@ -38,6 +39,12 @@ public class PPFormatterPreferencePage extends AbstractPreferencePage {
 		indentSizeFieldEditor.setTextLimit(3);
 		maxWidthFieldEditor.setValidRange(40, 255);
 		addField(maxWidthFieldEditor);
+
+		BooleanFieldEditor spacesForTabs = new BooleanFieldEditor(
+			FormatterGeneralPreferences.FORMATTER_SPACES_FOR_TABS, //
+			"Replace tabs with spaces on input", //
+			getFieldEditorParent());
+		addField(spacesForTabs);
 
 	}
 }

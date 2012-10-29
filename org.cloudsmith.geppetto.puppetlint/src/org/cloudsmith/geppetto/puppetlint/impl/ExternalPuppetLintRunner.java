@@ -84,31 +84,9 @@ public class ExternalPuppetLintRunner implements PuppetLintRunner {
 
 		OpenBAStream out = new OpenBAStream();
 		OpenBAStream err = new OpenBAStream();
-		int exitCode = OsUtil.runProcess(fileOrDirectory, out, err, params.toArray(new String[params.size()]));
-		String outStr = out.toString(Charset.defaultCharset());
-		if(exitCode != 0) {
-			StringBuilder bld = new StringBuilder();
-			bld.append("Got exit code ");
-			bld.append(exitCode);
-			bld.append(" when running puppet-lint.");
-			outStr = outStr.trim();
-			if(!outStr.isEmpty()) {
-				bld.append(" Output \"");
-				bld.append(outStr);
-				bld.append('"');
-			}
-
-			String errStr = err.toString(Charset.defaultCharset()).trim();
-			if(!errStr.isEmpty()) {
-				bld.append(" Errors \"");
-				bld.append(errStr);
-				bld.append('"');
-			}
-			throw new IOException(bld.toString());
-		}
-
+		OsUtil.runProcess(fileOrDirectory, out, err, params.toArray(new String[params.size()]));
 		List<Issue> issues = new ArrayList<Issue>();
-		Matcher m = issuePattern.matcher(outStr);
+		Matcher m = issuePattern.matcher(out.toString(Charset.defaultCharset()));
 		while(m.find()) {
 			String path = m.group(3);
 			if(path.startsWith("./") || path.startsWith(".\\"))

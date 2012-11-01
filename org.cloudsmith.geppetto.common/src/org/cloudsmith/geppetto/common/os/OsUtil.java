@@ -253,13 +253,25 @@ public class OsUtil {
 
 	public static int runProcess(File dir, OutputStream out, OutputStream err, String... parameters) throws IOException {
 		Process process = createProcess(dir, parameters);
-		StreamUtil.backgroundCopy(process.getInputStream(), out);
-		StreamUtil.backgroundCopy(process.getErrorStream(), err);
+		Thread outCopier = StreamUtil.backgroundCopy(process.getInputStream(), out);
+		Thread errCopier = StreamUtil.backgroundCopy(process.getErrorStream(), err);
 		try {
 			process.waitFor();
 		}
 		catch(InterruptedException e) {
-			return 1;
+			throw new IOException("Process was interrupted", e);
+		}
+		try {
+			outCopier.join(2000);
+		}
+		catch(InterruptedException e) {
+			// Ignore
+		}
+		try {
+			errCopier.join(2000);
+		}
+		catch(InterruptedException e) {
+			// Ignore
 		}
 		return process.exitValue();
 	}

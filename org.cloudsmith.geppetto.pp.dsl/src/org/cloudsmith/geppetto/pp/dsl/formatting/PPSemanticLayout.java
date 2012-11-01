@@ -35,6 +35,7 @@ import org.cloudsmith.geppetto.pp.ResourceBody;
 import org.cloudsmith.geppetto.pp.ResourceExpression;
 import org.cloudsmith.geppetto.pp.SelectorExpression;
 import org.cloudsmith.geppetto.pp.UnlessExpression;
+import org.cloudsmith.geppetto.pp.VerbatimTE;
 import org.cloudsmith.geppetto.pp.dsl.ppdoc.DocumentationAssociator;
 import org.cloudsmith.geppetto.pp.dsl.services.PPGrammarAccess;
 import org.cloudsmith.xtext.dommodel.DomModelUtils;
@@ -315,6 +316,11 @@ public class PPSemanticLayout extends DeclarativeSemanticFlowLayout {
 		internalFormatStatementList(
 			node, grammarAccess.getUnlessExpressionAccess().getThenStatementsExpressionListParserRuleCall_3_0());
 		return false;
+	}
+
+	protected boolean _format(VerbatimTE o, StyleSet styleSet, IDomNode node, ITextFlow flow, ILayoutContext context) {
+		flow.appendText(o.getText(), true);
+		return true;
 	}
 
 	/**

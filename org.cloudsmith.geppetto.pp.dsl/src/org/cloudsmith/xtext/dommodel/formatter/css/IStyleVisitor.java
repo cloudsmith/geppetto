@@ -54,6 +54,12 @@ public interface IStyleVisitor {
 		}
 
 		@Override
+		public void verbatim(Boolean value) {
+			// TODO Auto-generated method stub
+
+		}
+
+		@Override
 		public void width(Integer value) {
 		}
 
@@ -74,6 +80,8 @@ public interface IStyleVisitor {
 	public void styleName(String name);
 
 	public void tokenText(String text);
+
+	public void verbatim(Boolean value);
 
 	public void width(Integer value);
 

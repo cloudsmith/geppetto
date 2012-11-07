@@ -264,6 +264,22 @@ public class StyleFactory implements IStyleFactory {
 
 	}
 
+	public static class VerbatimStyle extends BooleanStyle {
+		public VerbatimStyle(Boolean value) {
+			super(value);
+		}
+
+		public VerbatimStyle(Function<IDomNode, Boolean> f) {
+			super(f);
+		}
+
+		@Override
+		public void visit(IDomNode node, IStyleVisitor visitor) {
+			visitor.verbatim(getValue(node));
+		}
+
+	}
+
 	public static class WidthStyle extends IntegerStyle {
 		public WidthStyle(Function<IDomNode, Integer> f) {
 			super(f);
@@ -430,6 +446,16 @@ public class StyleFactory implements IStyleFactory {
 	@Override
 	public TokenTextStyle tokenText(String s) {
 		return new TokenTextStyle(s);
+	}
+
+	@Override
+	public VerbatimStyle verbatim(boolean b) {
+		return new VerbatimStyle(b);
+	}
+
+	@Override
+	public VerbatimStyle verbatim(Function<IDomNode, Boolean> f) {
+		return new VerbatimStyle(f);
 	}
 
 	@Override

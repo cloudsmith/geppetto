@@ -24,6 +24,7 @@ import org.cloudsmith.xtext.dommodel.formatter.css.StyleFactory.AlignmentStyle;
 import org.cloudsmith.xtext.dommodel.formatter.css.StyleFactory.LineBreakStyle;
 import org.cloudsmith.xtext.dommodel.formatter.css.StyleFactory.SpacingStyle;
 import org.cloudsmith.xtext.dommodel.formatter.css.StyleFactory.TokenTextStyle;
+import org.cloudsmith.xtext.dommodel.formatter.css.StyleFactory.VerbatimStyle;
 import org.cloudsmith.xtext.dommodel.formatter.css.StyleFactory.WidthStyle;
 import org.cloudsmith.xtext.dommodel.formatter.css.StyleSet;
 import org.cloudsmith.xtext.textflow.ITextFlow;
@@ -102,6 +103,7 @@ public class FlowLayout extends AbstractLayoutManager implements ILayoutManager 
 		String text = styleSet.getStyleValue(TokenTextStyle.class, node, functions.textOfNode());
 
 		Alignment alignment = styleSet.getStyleValue(AlignmentStyle.class, node);
+		boolean verbatim = styleSet.getStyleValue(VerbatimStyle.class, node, Boolean.FALSE);
 		final boolean defaultAlignment = alignment == null;
 		if(defaultAlignment)
 			alignment = Alignment.left;
@@ -114,7 +116,7 @@ public class FlowLayout extends AbstractLayoutManager implements ILayoutManager 
 
 		switch(alignment) {
 			case left:
-				output.appendText(text);
+				output.appendText(text, verbatim);
 				// need to output padding separately as a 0 space gives the text flow permission to wrap which is a surprise
 				// just because everything is left aligned by default.
 				//

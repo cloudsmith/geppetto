@@ -108,6 +108,13 @@ public class EffectiveStyleAppender implements IStyleVisitor {
 	}
 
 	@Override
+	public void verbatim(Boolean value) {
+		append("Verbatim(");
+		append(value.toString());
+		append(")");
+	}
+
+	@Override
 	public void width(Integer value) {
 		append("Width(");
 		append(value.toString());

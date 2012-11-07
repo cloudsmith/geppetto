@@ -21,6 +21,7 @@ import org.cloudsmith.xtext.dommodel.formatter.css.StyleFactory.LineBreakStyle;
 import org.cloudsmith.xtext.dommodel.formatter.css.StyleFactory.SpacingStyle;
 import org.cloudsmith.xtext.dommodel.formatter.css.StyleFactory.StyleNameStyle;
 import org.cloudsmith.xtext.dommodel.formatter.css.StyleFactory.TokenTextStyle;
+import org.cloudsmith.xtext.dommodel.formatter.css.StyleFactory.VerbatimStyle;
 import org.cloudsmith.xtext.dommodel.formatter.css.StyleFactory.WidthStyle;
 
 import com.google.common.base.Function;
@@ -199,6 +200,18 @@ public interface IStyleFactory {
 	 * @return a style with literal token text
 	 */
 	public TokenTextStyle tokenText(String s);
+
+	/**
+	 * @param b
+	 * @return
+	 */
+	VerbatimStyle verbatim(boolean b);
+
+	/**
+	 * @param f
+	 * @return
+	 */
+	VerbatimStyle verbatim(Function<IDomNode, Boolean> f);
 
 	/**
 	 * @param f

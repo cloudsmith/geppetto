@@ -34,6 +34,7 @@ import org.cloudsmith.geppetto.pp.PuppetManifest;
 import org.cloudsmith.geppetto.pp.ResourceBody;
 import org.cloudsmith.geppetto.pp.ResourceExpression;
 import org.cloudsmith.geppetto.pp.SelectorExpression;
+import org.cloudsmith.geppetto.pp.SingleQuotedString;
 import org.cloudsmith.geppetto.pp.UnlessExpression;
 import org.cloudsmith.geppetto.pp.VerbatimTE;
 import org.cloudsmith.geppetto.pp.dsl.ppdoc.DocumentationAssociator;
@@ -45,6 +46,7 @@ import org.cloudsmith.xtext.dommodel.formatter.DelegatingLayoutContext;
 import org.cloudsmith.xtext.dommodel.formatter.DomNodeLayoutFeeder;
 import org.cloudsmith.xtext.dommodel.formatter.LayoutUtils;
 import org.cloudsmith.xtext.dommodel.formatter.css.Alignment;
+import org.cloudsmith.xtext.dommodel.formatter.css.IStyleFactory;
 import org.cloudsmith.xtext.dommodel.formatter.css.StyleSet;
 import org.cloudsmith.xtext.textflow.ITextFlow;
 import org.cloudsmith.xtext.textflow.MeasuredTextFlow;
@@ -155,6 +157,9 @@ public class PPSemanticLayout extends DeclarativeSemanticFlowLayout {
 	private DomNodeLayoutFeeder feeder;
 
 	private static Predicate<IDomNode> untilTheEnd = Predicates.alwaysFalse();
+
+	@Inject
+	IStyleFactory styles;
 
 	protected void _after(AttributeOperations aos, StyleSet styleSet, IDomNode node, ITextFlow flow,
 			ILayoutContext context) {
@@ -309,6 +314,17 @@ public class PPSemanticLayout extends DeclarativeSemanticFlowLayout {
 	protected boolean _format(SelectorExpression se, StyleSet styleSet, IDomNode node, ITextFlow flow,
 			ILayoutContext context) {
 		return selectorLayout._format(se, styleSet, node, flow, context);
+	}
+
+	protected boolean _format(SingleQuotedString o, StyleSet styleSet, IDomNode node, ITextFlow flow,
+			ILayoutContext context) {
+		// Unless the actual string part is not marked verbatim, any literal new lines in the string will cause indentation
+		for(IDomNode n : node.getChildren()) {
+			if(n.getGrammarElement() == grammarAccess.getSingleQuotedStringAccess().getTextSqTextParserRuleCall_1_0()) {
+				n.getStyles().put(styles.verbatim(true));
+			}
+		}
+		return false;
 	}
 
 	protected boolean _format(UnlessExpression o, StyleSet styleSet, IDomNode node, ITextFlow flow,

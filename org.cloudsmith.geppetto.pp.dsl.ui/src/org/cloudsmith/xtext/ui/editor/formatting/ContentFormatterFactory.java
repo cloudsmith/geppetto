@@ -13,6 +13,7 @@ package org.cloudsmith.xtext.ui.editor.formatting;
 
 import java.util.Iterator;
 
+import org.cloudsmith.geppetto.pp.dsl.validation.PPValidationUtils;
 import org.cloudsmith.xtext.dommodel.IDomNode;
 import org.cloudsmith.xtext.dommodel.formatter.IDomModelFormatter;
 import org.cloudsmith.xtext.dommodel.formatter.context.IFormattingContextFactory;
@@ -27,6 +28,7 @@ import org.eclipse.jface.text.formatter.IContentFormatter;
 import org.eclipse.jface.text.formatter.IFormattingStrategy;
 import org.eclipse.jface.text.source.ISourceViewer;
 import org.eclipse.jface.text.source.SourceViewerConfiguration;
+import org.eclipse.swt.widgets.Display;
 import org.eclipse.xtext.parsetree.reconstr.IHiddenTokenHelper;
 import org.eclipse.xtext.resource.XtextResource;
 import org.eclipse.xtext.serializer.diagnostic.ISerializationDiagnostic;
@@ -69,6 +71,12 @@ public class ContentFormatterFactory implements IContentFormatterFactory {
 		}
 
 		public ReplaceRegion exec(XtextResource state) throws Exception {
+
+			// Do not format if there are syntax errors
+			if(PPValidationUtils.hasSyntaxErrors(state)) {
+				Display.getCurrent().beep();
+				return null;
+			}
 
 			// TODO: Q: viewer related parameters passed to formatting context?
 			// TODO: A: the document is aware of the current Preference store - this could be used instead of the

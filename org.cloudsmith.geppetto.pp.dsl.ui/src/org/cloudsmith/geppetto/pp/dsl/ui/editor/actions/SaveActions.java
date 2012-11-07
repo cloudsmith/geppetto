@@ -16,6 +16,7 @@ import java.util.regex.Pattern;
 
 import org.cloudsmith.geppetto.pp.dsl.ui.linked.ISaveActions;
 import org.cloudsmith.geppetto.pp.dsl.ui.preferences.PPPreferencesHelper;
+import org.cloudsmith.geppetto.pp.dsl.validation.PPValidationUtils;
 import org.cloudsmith.xtext.dommodel.IDomNode;
 import org.cloudsmith.xtext.dommodel.formatter.IDomModelFormatter;
 import org.cloudsmith.xtext.dommodel.formatter.context.IFormattingContextFactory;
@@ -119,9 +120,11 @@ public class SaveActions implements ISaveActions {
 
 				@Override
 				public ReplaceRegion exec(XtextResource state) throws Exception {
-					if(process(state))
+					// No action if there are hard syntax errors
+					if(!PPValidationUtils.hasSyntaxErrors(state) && process(state))
 						return new ReplaceRegion(0, document.getLength(), document.get());
-					return new ReplaceRegion(0, 0, ""); // nothing changed
+					return null;
+					// return new ReplaceRegion(0, 0, ""); // nothing changed
 				}
 
 				public boolean process(XtextResource state) throws Exception {

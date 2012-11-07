@@ -428,7 +428,7 @@ public class CommentProcessor {
 		StringBuilder builder = new StringBuilder(s.length());
 		for(int i = 0; i < s.length(); i++) {
 			char c = s.charAt(i);
-			if(inProtectedArea)
+			if(inProtectedArea && c != '$')
 				builder.append("x");
 			else {
 				if(c == '$') {

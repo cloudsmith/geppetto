@@ -109,8 +109,8 @@ public class TypeImpl extends DocumentedImpl implements Type {
 				CallNode argCall = (CallNode) node;
 				if("+".equals(argCall.getName())) {
 					StringBuilder bld = new StringBuilder();
-					bld.append(stringValue(argCall.getReceiverNode()));
-					for(Node arg : argCall.getArgsNode().childNodes())
+					bld.append(stringValue(argCall.getReceiver()));
+					for(Node arg : argCall.getArgs().childNodes())
 						bld.append(stringValue(arg));
 					return bld.toString();
 				}
@@ -335,19 +335,19 @@ public class TypeImpl extends DocumentedImpl implements Type {
 				continue;
 
 			for(Node node : RubyParserUtils.findNodes(
-				RubyParserUtils.parseFile(providerFile).getBodyNode(), new NodeType[] { NodeType.CALLNODE })) {
+				RubyParserUtils.parseFile(providerFile).getBody(), new NodeType[] { NodeType.CALLNODE })) {
 				CallNode call = (CallNode) node;
 				if(!"provide".equals(call.getName()))
 					continue;
 
-				Node receiverNode = call.getReceiverNode();
+				Node receiverNode = call.getReceiver();
 				if(!(receiverNode instanceof CallNode))
 					continue;
 
 				CallNode receiver = (CallNode) receiverNode;
 				if(!"type".equals(receiver.getName()))
 					continue;
-				Node recRecNode = receiver.getReceiverNode();
+				Node recRecNode = receiver.getReceiver();
 				if(!(recRecNode instanceof Colon2ConstNode))
 					continue;
 				Colon2ConstNode recRec = (Colon2ConstNode) recRecNode;
@@ -356,12 +356,12 @@ public class TypeImpl extends DocumentedImpl implements Type {
 
 				// Receiver is Puppet::Type.type
 				List<Node> symArgs = RubyParserUtils.findNodes(
-					receiver.getArgsNode(), new NodeType[] { NodeType.SYMBOLNODE });
+					receiver.getArgs(), new NodeType[] { NodeType.SYMBOLNODE });
 				if(!(symArgs.size() == 1 && getName().equals(((SymbolNode) symArgs.get(0)).getName())))
 					// Not this type
 					continue;
 
-				symArgs = RubyParserUtils.findNodes(call.getArgsNode(), new NodeType[] { NodeType.SYMBOLNODE });
+				symArgs = RubyParserUtils.findNodes(call.getArgs(), new NodeType[] { NodeType.SYMBOLNODE });
 				if(symArgs.isEmpty())
 					continue;
 
@@ -369,16 +369,16 @@ public class TypeImpl extends DocumentedImpl implements Type {
 				provider.setName(((SymbolNode) symArgs.get(0)).getName());
 				getProviders().add(provider);
 
-				List<Node> calls = RubyParserUtils.findNodes(call.getIterNode(), new NodeType[] {
+				List<Node> calls = RubyParserUtils.findNodes(call.getIter(), new NodeType[] {
 						NodeType.BLOCKNODE, NodeType.FCALLNODE });
 				if(calls.isEmpty())
-					calls = RubyParserUtils.findNodes(call.getIterNode(), new NodeType[] { NodeType.FCALLNODE });
+					calls = RubyParserUtils.findNodes(call.getIter(), new NodeType[] { NodeType.FCALLNODE });
 				if(!calls.isEmpty()) {
 					for(Node snode : calls) {
 						FCallNode subCall = (FCallNode) snode;
 						if("desc".equals(subCall.getName())) {
 							List<Node> strArgs = RubyParserUtils.findNodes(
-								subCall.getArgsNode(), new NodeType[] { NodeType.STRNODE });
+								subCall.getArgs(), new NodeType[] { NodeType.STRNODE });
 							if(strArgs.size() >= 1)
 								provider.setDoc(((StrNode) strArgs.get(0)).getValue());
 							break;
@@ -398,7 +398,7 @@ public class TypeImpl extends DocumentedImpl implements Type {
 	public void loadTypeFile(File typeFile) throws IOException {
 		String typeFileStr = typeFile.getAbsolutePath();
 		RootNode root = RubyParserUtils.parseFile(typeFile);
-		List<Node> nodes = RubyParserUtils.findNodes(root.getBodyNode(), new NodeType[] { NodeType.MODULENODE });
+		List<Node> nodes = RubyParserUtils.findNodes(root.getBody(), new NodeType[] { NodeType.MODULENODE });
 		ModuleNode puppetModule = null;
 		for(Node node : nodes) {
 			ModuleNode module = (ModuleNode) node;
@@ -411,11 +411,11 @@ public class TypeImpl extends DocumentedImpl implements Type {
 		BlockAcceptingNode newtypeNode = null;
 		if(puppetModule != null) {
 			// Find the newtype call
-			nodes = RubyParserUtils.findNodes(puppetModule.getBodyNode(), new NodeType[] { NodeType.CALLNODE });
+			nodes = RubyParserUtils.findNodes(puppetModule.getBody(), new NodeType[] { NodeType.CALLNODE });
 			for(Node node : nodes) {
 				CallNode call = (CallNode) node;
 				if("newtype".equals(call.getName())) {
-					Node receiver = call.getReceiverNode();
+					Node receiver = call.getReceiver();
 					if(receiver instanceof ConstNode && "Type".equals(((ConstNode) receiver).getName())) {
 						newtypeNode = call;
 						break;
@@ -426,7 +426,7 @@ public class TypeImpl extends DocumentedImpl implements Type {
 				// Try syntax found in iptables.rb. Not sure it's correct
 				// but it seems to be parsed
 				// OK by the puppet-tool
-				nodes = RubyParserUtils.findNodes(puppetModule.getBodyNode(), new NodeType[] { NodeType.FCALLNODE });
+				nodes = RubyParserUtils.findNodes(puppetModule.getBody(), new NodeType[] { NodeType.FCALLNODE });
 				for(Node node : nodes) {
 					FCallNode call = (FCallNode) node;
 					if("newtype".equals(call.getName())) {
@@ -438,11 +438,11 @@ public class TypeImpl extends DocumentedImpl implements Type {
 		}
 		else {
 			// The call might be a CallNode at the top level
-			nodes = RubyParserUtils.findNodes((root).getBodyNode(), new NodeType[] { NodeType.CALLNODE });
+			nodes = RubyParserUtils.findNodes((root).getBody(), new NodeType[] { NodeType.CALLNODE });
 			for(Node node : nodes) {
 				CallNode call = (CallNode) node;
 				if("newtype".equals(call.getName())) {
-					Node receiver = call.getReceiverNode();
+					Node receiver = call.getReceiver();
 					if(receiver instanceof Colon2ConstNode) {
 						Colon2ConstNode c2cNode = (Colon2ConstNode) receiver;
 						if("Type".equals(c2cNode.getName()) && c2cNode.getLeftNode() instanceof ConstNode &&
@@ -463,7 +463,7 @@ public class TypeImpl extends DocumentedImpl implements Type {
 		// single parameter in the form of a Symbol. This Symbol denotes the
 		// name of
 		// the new type.
-		Node argsNode = ((IArgumentNode) newtypeNode).getArgsNode();
+		Node argsNode = ((IArgumentNode) newtypeNode).getArgs();
 		nodes = RubyParserUtils.findNodes(argsNode, new NodeType[] { NodeType.SYMBOLNODE });
 		if(nodes.size() != 1)
 			throw new IOException("The newtype call does not take exactly one symbol parameter in " + typeFileStr);
@@ -472,7 +472,7 @@ public class TypeImpl extends DocumentedImpl implements Type {
 		setName(typeName.getName());
 
 		// Find the assignment of the @doc instance variable
-		Node iterNode = newtypeNode.getIterNode();
+		Node iterNode = newtypeNode.getIter();
 		nodes = RubyParserUtils.findNodes(iterNode, new NodeType[] { NodeType.BLOCKNODE, NodeType.INSTASGNNODE });
 		if(nodes.isEmpty())
 			// No block when there's just one assignment
@@ -483,7 +483,7 @@ public class TypeImpl extends DocumentedImpl implements Type {
 			if(!"@doc".equals(asgnNode.getName()))
 				continue;
 
-			Node valueNode = asgnNode.getValueNode();
+			Node valueNode = asgnNode.getValue();
 			if(valueNode instanceof StrNode)
 				setDoc(((StrNode) valueNode).getValue());
 			break;
@@ -502,8 +502,7 @@ public class TypeImpl extends DocumentedImpl implements Type {
 			if(!isParam && !"newproperty".equals(callNode.getName()))
 				continue;
 
-			List<Node> pnodes = RubyParserUtils.findNodes(
-				callNode.getArgsNode(), new NodeType[] { NodeType.SYMBOLNODE });
+			List<Node> pnodes = RubyParserUtils.findNodes(callNode.getArgs(), new NodeType[] { NodeType.SYMBOLNODE });
 			if(pnodes.size() != 1)
 				throw new IOException("A newparam or newproperty call does not take exactly one symbol parameter in " +
 						typeFileStr);
@@ -520,7 +519,7 @@ public class TypeImpl extends DocumentedImpl implements Type {
 				elem = property;
 			}
 			elem.setName(((SymbolNode) pnodes.get(0)).getName());
-			iterNode = callNode.getIterNode();
+			iterNode = callNode.getIter();
 			pnodes = RubyParserUtils.findNodes(iterNode, new NodeType[] { NodeType.BLOCKNODE, NodeType.FCALLNODE });
 			if(pnodes.isEmpty())
 				// No block when there's just one call
@@ -529,7 +528,7 @@ public class TypeImpl extends DocumentedImpl implements Type {
 			for(Node pnode : pnodes) {
 				FCallNode pcallNode = (FCallNode) pnode;
 				if("desc".equals(pcallNode.getName())) {
-					List<Node> args = pcallNode.getArgsNode().childNodes();
+					List<Node> args = pcallNode.getArgs().childNodes();
 					if(args.size() != 1)
 						throw new IOException(
 							"A newparam or newproperty desc call does not take exactly one parameter in " + typeFileStr);

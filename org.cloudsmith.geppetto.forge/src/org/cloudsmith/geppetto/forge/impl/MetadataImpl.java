@@ -351,7 +351,7 @@ public class MetadataImpl extends EObjectImpl implements Metadata {
 	}
 
 	private static List<String> getStringArguments(IArgumentNode callNode) throws IllegalArgumentException {
-		Node argsNode = callNode.getArgsNode();
+		Node argsNode = callNode.getArgs();
 		if(!(argsNode instanceof ListNode))
 			throw new IllegalArgumentException("IArgumentNode expected");
 		ListNode args = (ListNode) argsNode;
@@ -1133,7 +1133,7 @@ public class MetadataImpl extends EObjectImpl implements Metadata {
 	@Override
 	public void loadModuleFile(File moduleFile) throws IOException {
 		RootNode root = RubyParserUtils.parseFile(moduleFile);
-		for(Node node : RubyParserUtils.findNodes(root.getBodyNode(), new NodeType[] { NodeType.FCALLNODE })) {
+		for(Node node : RubyParserUtils.findNodes(root.getBody(), new NodeType[] { NodeType.FCALLNODE })) {
 			FCallNode call = (FCallNode) node;
 			String key = call.getName();
 			List<String> args = getStringArguments(call);

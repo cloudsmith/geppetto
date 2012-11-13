@@ -78,7 +78,7 @@ public class Module extends TimestampedEntity {
 		if(owner != null && name != null) {
 			String ownerName = owner.getUsername();
 			if(ownerName != null)
-				return new QName(ownerName, '/', name);
+				return new QName(ownerName, name);
 		}
 		return null;
 	}

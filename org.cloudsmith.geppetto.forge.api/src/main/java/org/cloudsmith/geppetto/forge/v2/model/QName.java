@@ -69,6 +69,10 @@ public class QName implements Serializable {
 		this.name = name;
 	}
 
+	public QName(String qualifier, String name) {
+		this(qualifier, '/', name);
+	}
+
 	/**
 	 * Compares the two names for equality. Names can have different separators and still be equal.
 	 * 

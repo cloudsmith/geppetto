@@ -123,39 +123,39 @@ public class PptpRubyResource extends ResourceImpl {
 		List<String> segments = uri.segmentsList();
 		final int lastPuppet = segments.lastIndexOf("puppet");
 		final int segmentCount = segments.size();
-		if (lastPuppet < 0)
+		if(lastPuppet < 0)
 			return LoadType.IGNORED;
 
 		int idx = lastPuppet + 1;
-		if (idx < segmentCount) {
+		if(idx < segmentCount) {
 			String segment = segments.get(idx);
-			if ("parser".equals(segment)) {
+			if("parser".equals(segment)) {
 				idx++;
-				if (idx < segmentCount) {
+				if(idx < segmentCount) {
 					segment = segments.get(idx);
-					if ("functions".equals(segment)) {
+					if("functions".equals(segment)) {
 						idx++;
-						if (idx == segmentCount - 1
-								&& segments.get(idx).endsWith(".rb"))
+						if(idx == segmentCount - 1 && segments.get(idx).endsWith(".rb"))
 							return LoadType.FUNCTION;
 					}
 				}
-			} else if ("type".equals(segment)) {
+			}
+			else if("type".equals(segment)) {
 				idx++;
-				if (idx < segmentCount) {
+				if(idx < segmentCount) {
 					segment = segments.get(idx);
 					// a .rb file under type
-					if (segment.endsWith(".rb") && idx == segmentCount - 1)
+					if(segment.endsWith(".rb") && idx == segmentCount - 1)
 						return LoadType.TYPE;
 
 					// typefragment must be in a subdir of type, e.g.
 					// type/file/X.rb
 					idx++;
-					if (idx == segmentCount - 1
-							&& segments.get(idx).endsWith(".rb"))
+					if(idx == segmentCount - 1 && segments.get(idx).endsWith(".rb"))
 						return LoadType.TYPEFRAGMENT;
 				}
-			} else if ("type.rb".equals(segment) && idx == segmentCount - 1) {
+			}
+			else if("type.rb".equals(segment) && idx == segmentCount - 1) {
 				return LoadType.META;
 			}
 		}
@@ -191,7 +191,7 @@ public class PptpRubyResource extends ResourceImpl {
 	 * @throws IOException
 	 */
 	protected void internalLoadRuby(InputStream inputStream) throws IOException {
-		if (loadType == LoadType.IGNORED) {
+		if(loadType == LoadType.IGNORED) {
 			this.getContents().clear();
 			return;
 		}
@@ -200,125 +200,113 @@ public class PptpRubyResource extends ResourceImpl {
 
 		URI uri = getURI();
 		try {
-			switch (loadType) {
-			case TYPE: {
-				List<PPTypeInfo> typeInfo = helper.getTypeInfo(uri.path(),
-						new InputStreamReader(inputStream));
-				for (PPTypeInfo info : typeInfo) {
-					Type type = PPTPFactory.eINSTANCE.createType();
+			switch(loadType) {
+				case TYPE: {
+					List<PPTypeInfo> typeInfo = helper.getTypeInfo(uri.path(), new InputStreamReader(inputStream));
+					for(PPTypeInfo info : typeInfo) {
+						Type type = PPTPFactory.eINSTANCE.createType();
+						type.setName(info.getTypeName());
+						type.setDocumentation(info.getDocumentation());
+						for(Map.Entry<String, PPTypeInfo.Entry> entry : info.getParameters().entrySet()) {
+							Parameter parameter = PPTPFactory.eINSTANCE.createParameter();
+							parameter.setName(entry.getKey());
+							parameter.setDocumentation(entry.getValue().documentation);
+							parameter.setRequired(entry.getValue().isRequired());
+							type.getParameters().add(parameter);
+						}
+						for(Map.Entry<String, PPTypeInfo.Entry> entry : info.getProperties().entrySet()) {
+							Property property = PPTPFactory.eINSTANCE.createProperty();
+							property.setName(entry.getKey());
+							property.setDocumentation(entry.getValue().documentation);
+							property.setRequired(entry.getValue().isRequired());
+							type.getProperties().add(property);
+						}
+						getContents().add(type);
+					}
+				}
+					break;
+
+				case FUNCTION: {
+					List<PPFunctionInfo> functions = helper.getFunctionInfo(uri.path(), new InputStreamReader(
+						inputStream));
+
+					for(PPFunctionInfo info : functions) {
+						Function pptpFunc = PPTPFactory.eINSTANCE.createFunction();
+						pptpFunc.setName(info.getFunctionName());
+						pptpFunc.setRValue(info.isRValue());
+						pptpFunc.setDocumentation(info.getDocumentation());
+						getContents().add(pptpFunc);
+					}
+				}
+					break;
+
+				case META: {
+					PPTypeInfo info = helper.getMetaTypeInfo(uri.path(), new InputStreamReader(inputStream));
+
+					MetaType type = PPTPFactory.eINSTANCE.createMetaType();
 					type.setName(info.getTypeName());
 					type.setDocumentation(info.getDocumentation());
-					for (Map.Entry<String, PPTypeInfo.Entry> entry : info
-							.getParameters().entrySet()) {
-						Parameter parameter = PPTPFactory.eINSTANCE
-								.createParameter();
+					for(Map.Entry<String, PPTypeInfo.Entry> entry : info.getParameters().entrySet()) {
+						Parameter parameter = PPTPFactory.eINSTANCE.createParameter();
 						parameter.setName(entry.getKey());
-						parameter
-								.setDocumentation(entry.getValue().documentation);
+						parameter.setDocumentation(entry.getValue().documentation);
 						parameter.setRequired(entry.getValue().isRequired());
 						type.getParameters().add(parameter);
 					}
-					for (Map.Entry<String, PPTypeInfo.Entry> entry : info
-							.getProperties().entrySet()) {
-						Property property = PPTPFactory.eINSTANCE
-								.createProperty();
-						property.setName(entry.getKey());
-						property.setDocumentation(entry.getValue().documentation);
-						property.setRequired(entry.getValue().isRequired());
-						type.getProperties().add(property);
-					}
+					// TODO: Scan the puppet source for providers for the type
+					// This is a CHEAT -
+					// https://github.com/cloudsmith/geppetto/issues/37
+					Parameter p = PPTPFactory.eINSTANCE.createParameter();
+					p.setName("provider");
+					p.setDocumentation("");
+					p.setRequired(false);
+					type.getParameters().add(p);
+
 					getContents().add(type);
+					break;
 				}
-			}
-				break;
 
-			case FUNCTION: {
-				List<PPFunctionInfo> functions = helper.getFunctionInfo(
-						uri.path(), new InputStreamReader(inputStream));
+				case TYPEFRAGMENT: {
+					for(PPTypeInfo type : helper.getTypeFragments(uri.path(), new InputStreamReader(inputStream))) {
+						TypeFragment fragment = PPTPFactory.eINSTANCE.createTypeFragment();
+						fragment.setName(type.getTypeName());
 
-				for (PPFunctionInfo info : functions) {
-					Function pptpFunc = PPTPFactory.eINSTANCE.createFunction();
-					pptpFunc.setName(info.getFunctionName());
-					pptpFunc.setRValue(info.isRValue());
-					pptpFunc.setDocumentation(info.getDocumentation());
-					getContents().add(pptpFunc);
-				}
-			}
-				break;
+						// add the properties (will typically load just one).
+						for(Map.Entry<String, PPTypeInfo.Entry> entry : type.getProperties().entrySet()) {
+							Property property = PPTPFactory.eINSTANCE.createProperty();
+							property.setName(entry.getKey());
+							property.setDocumentation(entry.getValue().documentation);
+							property.setRequired(entry.getValue().isRequired());
+							fragment.getProperties().add(property);
+						}
 
-			case META: {
-				PPTypeInfo info = helper.getMetaTypeInfo(uri.path(),
-						new InputStreamReader(inputStream));
-
-				MetaType type = PPTPFactory.eINSTANCE.createMetaType();
-				type.setName(info.getTypeName());
-				type.setDocumentation(info.getDocumentation());
-				for (Map.Entry<String, PPTypeInfo.Entry> entry : info
-						.getParameters().entrySet()) {
-					Parameter parameter = PPTPFactory.eINSTANCE
-							.createParameter();
-					parameter.setName(entry.getKey());
-					parameter.setDocumentation(entry.getValue().documentation);
-					parameter.setRequired(entry.getValue().isRequired());
-					type.getParameters().add(parameter);
-				}
-				// TODO: Scan the puppet source for providers for the type
-				// This is a CHEAT -
-				// https://github.com/cloudsmith/geppetto/issues/37
-				Parameter p = PPTPFactory.eINSTANCE.createParameter();
-				p.setName("provider");
-				p.setDocumentation("");
-				p.setRequired(false);
-				type.getParameters().add(p);
-
-				getContents().add(type);
-				break;
-			}
-
-			case TYPEFRAGMENT: {
-				for (PPTypeInfo type : helper.getTypeFragments(uri.path(),
-						new InputStreamReader(inputStream))) {
-					TypeFragment fragment = PPTPFactory.eINSTANCE
-							.createTypeFragment();
-					fragment.setName(type.getTypeName());
-
-					// add the properties (will typically load just one).
-					for (Map.Entry<String, PPTypeInfo.Entry> entry : type
-							.getProperties().entrySet()) {
-						Property property = PPTPFactory.eINSTANCE
-								.createProperty();
-						property.setName(entry.getKey());
-						property.setDocumentation(entry.getValue().documentation);
-						property.setRequired(entry.getValue().isRequired());
-						fragment.getProperties().add(property);
+						// add the parameters (will typically load just one).
+						for(Map.Entry<String, PPTypeInfo.Entry> entry : type.getParameters().entrySet()) {
+							Parameter parameter = PPTPFactory.eINSTANCE.createParameter();
+							parameter.setName(entry.getKey());
+							parameter.setDocumentation(entry.getValue().documentation);
+							parameter.setRequired(entry.getValue().isRequired());
+							fragment.getParameters().add(parameter);
+						}
+						getContents().add(fragment);
 					}
-
-					// add the parameters (will typically load just one).
-					for (Map.Entry<String, PPTypeInfo.Entry> entry : type
-							.getParameters().entrySet()) {
-						Parameter parameter = PPTPFactory.eINSTANCE
-								.createParameter();
-						parameter.setName(entry.getKey());
-						parameter
-								.setDocumentation(entry.getValue().documentation);
-						parameter.setRequired(entry.getValue().isRequired());
-						fragment.getParameters().add(parameter);
-					}
-					getContents().add(fragment);
+					break;
 				}
-				break;
+				case IGNORED:
+					break;
 			}
-			}
-		} catch (RubySyntaxException syntaxException) {
+		}
+		catch(RubySyntaxException syntaxException) {
 			getErrors().add(new RubySyntaxExceptionDiagnostic(syntaxException));
-		} finally {
+		}
+		finally {
 			helper.tearDown();
 		}
 	}
 
 	@Override
 	public void load(Map<?, ?> options) throws IOException {
-		if (!super.isLoaded) {
+		if(!super.isLoaded) {
 			super.isLoading = true;
 
 			loadType = detectLoadType();
@@ -330,15 +318,14 @@ public class PptpRubyResource extends ResourceImpl {
 	}
 
 	/**
-	 * Translates ruby issues to diagnostics using instances of
-	 * {@link RubyIssueDiagnostic}. All syntax issues are reported as errors,
+	 * Translates ruby issues to diagnostics using instances of {@link RubyIssueDiagnostic}. All syntax issues are reported as errors,
 	 * all others as warnings.
 	 * 
 	 * @param parseResult
 	 */
 	protected void rubyIssuesToDiagnostics(IRubyParseResult parseResult) {
-		for (IRubyIssue issue : parseResult.getIssues()) {
-			if (issue.isSyntaxError())
+		for(IRubyIssue issue : parseResult.getIssues()) {
+			if(issue.isSyntaxError())
 				getErrors().add(new RubyIssueDiagnostic(issue));
 			else
 				getWarnings().add(new RubyIssueDiagnostic(issue));
@@ -347,7 +334,6 @@ public class PptpRubyResource extends ResourceImpl {
 
 	@Override
 	public void save(Map<?, ?> options) throws IOException {
-		throw new UnsupportedOperationException(
-				"Save of PPTP parsed from a ruby file is not possible.");
+		throw new UnsupportedOperationException("Save of PPTP parsed from a ruby file is not possible.");
 	}
 }

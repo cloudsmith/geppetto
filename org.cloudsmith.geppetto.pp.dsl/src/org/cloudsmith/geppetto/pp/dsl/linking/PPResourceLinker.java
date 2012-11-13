@@ -170,8 +170,9 @@ public class PPResourceLinker implements IPPDiagnostics {
 			return;
 
 		internalLinkTypeExpression(o, o.getClassReference(), true, importedNames, acceptor);
-		internalLinkAttributeOperations(
-			o.getAttributes(), adapter.getTargetObjectDescription(IEObjectDescription.class), importedNames, acceptor);
+		IEObjectDescription desc = adapter.getTargetObjectDescription(IEObjectDescription.class);
+		if(desc != null)
+			internalLinkAttributeOperations(o.getAttributes(), desc, importedNames, acceptor);
 	}
 
 	/**
@@ -317,7 +318,7 @@ public class PPResourceLinker implements IPPDiagnostics {
 					? descs
 					: searchResult.getRaw();
 			if(targets.size() > 0) {
-				IEObjectDescription target = descs.get(0);
+				IEObjectDescription target = targets.get(0);
 				if(target.getUserData(PPDSLConstants.CLASS_ARG_COUNT) != null)
 					acceptor.acceptError(
 						"Can not inherit from a parameterized class in Puppet versions < 3.0.", o, //

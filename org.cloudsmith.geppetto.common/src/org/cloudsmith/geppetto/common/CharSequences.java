@@ -387,7 +387,6 @@ public class CharSequences {
 	public static boolean startsWith(CharSequence value, String start) {
 		if(value instanceof String)
 			return ((String) value).startsWith(start);
-		int sz = value.length();
 		int szEnd = start.length();
 		if(value.length() < start.length())
 			return false;

@@ -22,7 +22,6 @@ import org.jrubyparser.ast.NewlineNode;
 import org.jrubyparser.ast.Node;
 import org.jrubyparser.ast.NodeType;
 
-import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
 
 /**
@@ -160,7 +159,7 @@ public class RubyCallFinder {
 		// 2.0 is used
 		// since it has a Lists.reverse method - now this ugly construct is
 		// used.
-		this.qualifiedName = Lists.newArrayList(Iterables.reverse(Lists.newArrayList(qualifiedName)));
+		this.qualifiedName = Lists.reverse(Lists.newArrayList(qualifiedName));
 
 		// TODO: make this return more than one
 		return findCallInternal(root, false);

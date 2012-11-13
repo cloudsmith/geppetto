@@ -26,8 +26,6 @@ import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import org.cloudsmith.geppetto.common.Activator;
-
 public class OsUtil {
 	public static boolean chgrp(File dir, String group, String... filenames) throws IOException {
 		if(isOS("win32", "win64"))
@@ -228,9 +226,20 @@ public class OsUtil {
 	}
 
 	public static boolean isOS(String... oss) {
-		String currentOs = Activator.getContext().getProperty("osgi.os");
-		if(currentOs == null)
-			throw new IllegalStateException("Missing required property: osgi.os");
+		String currentOs = System.getProperty("osgi.os");
+		if(currentOs == null) {
+			currentOs = System.getProperty("os.name");
+			if(currentOs == null)
+				throw new IllegalStateException("Missing required property: osgi.os");
+			currentOs = currentOs.toLowerCase();
+			if("windows".equals(currentOs)) {
+				String arch = System.getProperty("os.arch");
+				if("amd64".equals(arch))
+					currentOs = "win64";
+				else
+					currentOs = "win32";
+			}
+		}
 		for(String os : oss)
 			if(os.equals(currentOs))
 				return true;

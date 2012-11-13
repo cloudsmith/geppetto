@@ -1,0 +1,86 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>org.cloudsmith.geppetto</groupId>
+	<artifactId>parent</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<packaging>pom</packaging>
+
+	<name>Parent POM for the Geppetto project</name>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	</properties>
+
+	<organization>
+		<name>Cloudsmith Inc.</name>
+		<url>http://www.cloudsmith.com</url>
+	</organization>
+
+	<scm>
+		<connection>git://github.com/cloudsmith/geppetto.git</connection>
+		<url>https://github.com/cloudsmith/geppetto</url>
+		<developerConnection>git@github.com:cloudsmith/geppetto.git</developerConnection>
+	</scm>
+
+	<issueManagement>
+		<url>https://github.com/cloudsmith/geppetto/issues</url>
+	</issueManagement>
+
+	<dependencies>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>[4.10,5.0)</version>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
+
+	<modules>
+		<module>../org.cloudsmith.geppetto.catalog</module>
+		<module>../org.cloudsmith.geppetto.common</module>
+		<module>../org.cloudsmith.geppetto.forge</module>
+		<module>../org.cloudsmith.geppetto.forge.api</module>
+		<module>../org.cloudsmith.geppetto.pp</module>
+		<module>../org.cloudsmith.geppetto.pp.dsl</module>
+		<module>../org.cloudsmith.geppetto.eclipse.core</module>
+		<module>../org.cloudsmith.geppetto.common.tracer</module>
+		<module>../org.cloudsmith.geppetto.ruby</module>
+		<module>../org.cloudsmith.geppetto.ruby.jrubyparser</module>
+	</modules>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-javadoc-plugin</artifactId>
+				<version>2.9</version>
+				<executions>
+					<execution>
+						<goals>
+							<goal>jar</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
+				<version>2.4</version>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>2.5.1</version>
+				<configuration>
+					<source>1.6</source>
+					<target>1.6</target>
+					<debug>true</debug>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+
+</project>

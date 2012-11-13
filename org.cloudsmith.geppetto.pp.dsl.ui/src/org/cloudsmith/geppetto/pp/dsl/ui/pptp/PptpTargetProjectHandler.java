@@ -15,10 +15,11 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.URL;
 
 import org.apache.log4j.Logger;
-import org.cloudsmith.geppetto.common.eclipse.BundledFilesUtils;
-import org.cloudsmith.geppetto.pp.dsl.pptp.PptpRuntimeModule;
+import org.cloudsmith.geppetto.common.util.EclipseUtils;
+import org.cloudsmith.geppetto.pp.dsl.target.PptpResourceUtil;
 import org.cloudsmith.geppetto.pp.dsl.ui.PPUiConstants;
 import org.cloudsmith.geppetto.pp.dsl.ui.preferences.PPPreferencesHelper;
 import org.eclipse.core.resources.IFile;
@@ -28,13 +29,12 @@ import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.IWorkspace;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
-import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
-import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.SubMonitor;
 import org.eclipse.core.runtime.jobs.Job;
+import org.eclipse.emf.common.util.URI;
 import org.eclipse.xtext.ui.XtextProjectHelper;
 import org.eclipse.xtext.ui.editor.preferences.IPreferenceStoreAccess;
 
@@ -54,17 +54,6 @@ public class PptpTargetProjectHandler {
 
 	@Inject
 	IPreferenceStoreAccess storeAccess;
-
-	/**
-	 * The default puppet target
-	 */
-	private final String PUPPET_TARGET_2_7 = "targets/puppet-2.7.19.pptp";
-
-	private final String PUPPET_TARGET_2_6 = "targets/puppet-2.6.9.pptp";
-
-	private final String PUPPET_TARGET_3_0 = "targets/puppet-3.0.0.pptp";
-
-	private final String FACTER_TARGET_1_6 = "targets/facter-1.6.pptp";
 
 	private final static Logger log = Logger.getLogger(PptpTargetProjectHandler.class);
 
@@ -156,16 +145,18 @@ public class PptpTargetProjectHandler {
 		catch(CoreException e) {
 			log.error("Failed to configure target project", e);
 		}
-		String path = PUPPET_TARGET_3_0;
+
+		URI uri;
 		String pptpVersion = preferenceHelper.getPptpVersion();
 		if("2.6".equals(pptpVersion))
-			path = PUPPET_TARGET_2_6;
+			uri = PptpResourceUtil.getPuppet_2_6_9();
 		else if("2.7".equals(pptpVersion))
-			path = PUPPET_TARGET_2_7;
+			uri = PptpResourceUtil.getPuppet_2_7_19();
+		else
+			uri = PptpResourceUtil.getPuppet_3_0_0();
 
-		sync(targetProject, path, "puppet-", monitor);
-		sync(targetProject, FACTER_TARGET_1_6, "facter-", monitor);
-
+		sync(targetProject, uri, "puppet-", monitor);
+		sync(targetProject, PptpResourceUtil.getFacter_1_6(), "facter-", monitor);
 	}
 
 	public void initializePuppetTargetProject() {
@@ -201,14 +192,12 @@ public class PptpTargetProjectHandler {
 		job.schedule();
 	}
 
-	private void sync(IProject targetProject, String path, String prefix, IProgressMonitor monitor) {
+	private void sync(IProject targetProject, URI uri, String prefix, IProgressMonitor monitor) {
 		// get a handle to the wanted target platform (.pptp) file from preferences
 		//
 		try {
-
-			IPath defaultTPPath = new Path(path);
-			File pptpFile = BundledFilesUtils.getFileFromClassBundle(PptpRuntimeModule.class, defaultTPPath);
-			IFile targetFile = targetProject.getFile(defaultTPPath.lastSegment());
+			File pptpFile = EclipseUtils.getResourceAsFile(new URL(uri.toString()));
+			IFile targetFile = targetProject.getFile(pptpFile.getName());
 			targetFile.refreshLocal(IFile.DEPTH_ZERO, monitor);
 			if(targetFile.exists()) {
 				if(pptpFile.lastModified() > targetFile.getLocalTimeStamp()) {

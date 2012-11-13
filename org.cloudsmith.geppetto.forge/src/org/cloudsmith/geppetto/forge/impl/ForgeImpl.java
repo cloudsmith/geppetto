@@ -271,7 +271,11 @@ public class ForgeImpl extends EObjectImpl implements Forge {
 		if(!(destination.mkdirs() || destination.exists()))
 			throw new IOException(destination + " could not be created");
 
-		File skeleton = Activator.getBundleData("templates/generator");
+		File templatesDir = FileUtils.getFileFromClassResource(Forge.class, "/templates");
+		if(templatesDir == null || !templatesDir.isDirectory())
+			throw new FileNotFoundException("Unable to find templates directory in resources");
+
+		File skeleton = new File(templatesDir, "generator");
 		int baseLength = skeleton.getAbsolutePath().length() + 1;
 		for(File path : skeleton.listFiles()) {
 			installTemplate(metadata, destination, path, baseLength);

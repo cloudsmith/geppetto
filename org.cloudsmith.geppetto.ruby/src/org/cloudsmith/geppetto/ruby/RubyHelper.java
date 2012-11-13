@@ -37,10 +37,9 @@ import org.cloudsmith.geppetto.pp.pptp.TypeFragment;
 import org.cloudsmith.geppetto.ruby.spi.IRubyIssue;
 import org.cloudsmith.geppetto.ruby.spi.IRubyParseResult;
 import org.cloudsmith.geppetto.ruby.spi.IRubyServices;
-import org.eclipse.core.runtime.IConfigurationElement;
+import org.cloudsmith.geppetto.ruby.spi.IRubyServicesFactory;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
-import org.eclipse.core.runtime.Platform;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
@@ -190,6 +189,12 @@ public class RubyHelper {
 		}
 
 	};
+
+	private static IRubyServicesFactory rubyProviderFactory = null;
+
+	public static void setRubyServicesFactory(IRubyServicesFactory factory) {
+		rubyProviderFactory = factory;
+	}
 
 	private TPVariable addTPVariable(ITargetElementContainer container, String name, String documentation,
 			boolean deprecated) {
@@ -361,9 +366,7 @@ public class RubyHelper {
 	 * Returns true if real ruby services are available.
 	 */
 	public boolean isRubyServicesAvailable() {
-		if(rubyProvider == null)
-			loadRubyServiceExtension();
-		return !rubyProvider.isMockService();
+		return rubyProviderFactory != null;
 	}
 
 	/**
@@ -433,8 +436,8 @@ public class RubyHelper {
 		// part of the "puppet" directory, not the directory puppet-x.x.x/lib/puppet that is given to
 		// this function.
 		//
-		String versionString = "";
-		boolean nextIsVersion = false;
+		// String versionString = "";
+		// boolean nextIsVersion = false;
 		String[] segments = path.segments();
 		int sc = segments.length;
 		if(segments.length < 3 || !"puppet".equals(segments[sc - 1]) || !"lib".equals(segments[sc - 2]))
@@ -695,29 +698,6 @@ public class RubyHelper {
 	}
 
 	/**
-	 * Loads a service extension, or creates a mock implementation.
-	 */
-	private void loadRubyServiceExtension() {
-		IConfigurationElement[] configs = Platform.getExtensionRegistry().getConfigurationElementsFor(
-			Activator.EXTENSION__RUBY_SERVICE);
-		List<IRubyServices> services = Lists.newArrayList();
-		for(IConfigurationElement e : configs) {
-			try {
-				services.add(IRubyServices.class.cast(e.createExecutableExtension(Activator.EXTENSION__RUBY_SERVICE_SERVICECLASS)));
-			}
-			catch(Exception e1) {
-				System.err.println("Loading of RuntimeModule extension failed with exception: " + e1.getMessage());
-			}
-		}
-		if(services.size() < 1) {
-			System.err.println("No RubyServices loaded - some functionality will be limited.");
-			rubyProvider = new MockRubyServices();
-		}
-		else
-			rubyProvider = services.get(0);
-	}
-
-	/**
 	 * Loads predefined variables in the settings:: namespace. These are hard to
 	 * find in the puppet logic.
 	 * 
@@ -876,9 +856,11 @@ public class RubyHelper {
 	 * Should be called to initiate the ruby services. Each call to setUp should
 	 * be paired with a call to tearDown or resources will be wasted.
 	 */
-	public void setUp() {
+	public synchronized void setUp() {
 		if(rubyProvider == null)
-			loadRubyServiceExtension();
+			rubyProvider = rubyProviderFactory == null
+					? new MockRubyServices()
+					: rubyProviderFactory.create();
 		rubyProvider.setUp();
 	}
 
@@ -887,7 +869,6 @@ public class RubyHelper {
 			return; // ignore silently
 
 		rubyProvider.tearDown();
-
 	}
 
 	private List<Type> transform(List<PPTypeInfo> typeInfos) {

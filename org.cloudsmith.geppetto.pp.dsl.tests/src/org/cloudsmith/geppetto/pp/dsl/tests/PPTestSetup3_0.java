@@ -12,11 +12,11 @@
 package org.cloudsmith.geppetto.pp.dsl.tests;
 
 import org.cloudsmith.geppetto.pp.dsl.PPStandaloneSetup;
+import org.cloudsmith.geppetto.pp.dsl.target.PptpResourceUtil;
 import org.cloudsmith.geppetto.pp.dsl.validation.DefaultPotentialProblemsAdvisor;
 import org.cloudsmith.geppetto.pp.dsl.validation.IValidationAdvisor;
 import org.cloudsmith.geppetto.pp.dsl.validation.ValidationAdvisorProvider;
 import org.cloudsmith.geppetto.pp.dsl.validation.ValidationPreference;
-import org.eclipse.emf.common.util.URI;
 import org.eclipse.xtext.resource.SynchronizedXtextResourceSet;
 import org.eclipse.xtext.resource.XtextResourceSet;
 import org.eclipse.xtext.service.AbstractGenericModule;
@@ -53,16 +53,13 @@ public class PPTestSetup3_0 extends PPStandaloneSetup {
 				@Override
 				public XtextResourceSet get() {
 					XtextResourceSet resourceSet = new SynchronizedXtextResourceSet();
-					resourceSet.getResource(
-						URI.createPlatformPluginURI("/org.cloudsmith.geppetto.pp.dsl/targets/puppet-3.0.0.pptp", true),
-						true);
+					resourceSet.getResource(PptpResourceUtil.getPuppet_3_0_0(), true);
 					return resourceSet;
 				}
 
 			};
 
 		}
-
 	}
 
 	@Override

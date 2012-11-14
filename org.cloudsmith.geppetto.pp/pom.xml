@@ -8,7 +8,7 @@
 		<relativePath>../org.cloudsmith.geppetto.parent/pom.xml</relativePath>
 	</parent>
 
-	<artifactId>pp</artifactId>
+	<artifactId>org.cloudsmith.geppetto.pp</artifactId>
 	<packaging>jar</packaging>
 
 	<build>

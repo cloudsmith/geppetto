@@ -5,9 +5,9 @@
 		<groupId>org.cloudsmith.geppetto</groupId>
 		<artifactId>parent</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
-		<relativePath>../geppetto-parent</relativePath>
+		<relativePath>../org.cloudsmith.geppetto.parent/pom.xml</relativePath>
 	</parent>
-	<artifactId>forge.api</artifactId>
+	<artifactId>org.cloudsmith.geppetto.forge.api</artifactId>
 
 	<dependencies>
 		<dependency>
@@ -16,9 +16,9 @@
 			<version>[4.2.2,5.0.0)</version>
 		</dependency>
 		<dependency>
-			<groupId>com.google.inject</groupId>
-			<artifactId>guice</artifactId>
-			<version>[3.0,4.0)</version>
+			<groupId>org.sonatype.sisu</groupId>
+			<artifactId>sisu-guice</artifactId>
+			<version>[3.1,)</version>
 		</dependency>
 		<dependency>
 			<groupId>com.google.code.gson</groupId>

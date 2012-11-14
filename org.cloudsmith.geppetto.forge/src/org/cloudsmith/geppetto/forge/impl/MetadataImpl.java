@@ -189,11 +189,8 @@ public class MetadataImpl extends EObjectImpl implements Metadata {
 	 */
 	protected static final String NAME_EDEFAULT = null;
 
-	// Directory names that should not be checksummed or copied.
-	public static final Pattern DEFAULT_EXCLUDES_PATTERN;
-
 	// @fmtOff
-	private static final String[] defaultExcludes = {
+	public static final String[] DEFAULT_EXCLUDES = {
 		"*~",
 		"#*#",
 		".#*",
@@ -225,17 +222,8 @@ public class MetadataImpl extends EObjectImpl implements Metadata {
 	};
 	// @fmtOn
 
-	static {
-		StringBuilder bld = new StringBuilder();
-		bld.append("^(?:");
-		appendExcludePattern(defaultExcludes[0], bld);
-		for(int idx = 1; idx < defaultExcludes.length; ++idx) {
-			bld.append('|');
-			appendExcludePattern(defaultExcludes[idx], bld);
-		}
-		bld.append(")$");
-		DEFAULT_EXCLUDES_PATTERN = Pattern.compile(bld.toString());
-	}
+	// Directory names that should not be checksummed or copied.
+	public static final Pattern DEFAULT_EXCLUDES_PATTERN = compileExcludePattern(DEFAULT_EXCLUDES);
 
 	/**
 	 * The default value of the '{@link #getUser() <em>User</em>}' attribute.
@@ -323,6 +311,21 @@ public class MetadataImpl extends EObjectImpl implements Metadata {
 					bld.append(c);
 			}
 		}
+	}
+
+	public static Pattern compileExcludePattern(String[] excludes) {
+		if(excludes == null || excludes.length == 0)
+			return Pattern.compile(".*");
+
+		StringBuilder bld = new StringBuilder();
+		bld.append("^(?:");
+		appendExcludePattern(excludes[0], bld);
+		for(int idx = 1; idx < excludes.length; ++idx) {
+			bld.append('|');
+			appendExcludePattern(excludes[idx], bld);
+		}
+		bld.append(")$");
+		return Pattern.compile(bld.toString());
 	}
 
 	public static byte[] computeChecksum(File file, MessageDigest md) throws IOException {

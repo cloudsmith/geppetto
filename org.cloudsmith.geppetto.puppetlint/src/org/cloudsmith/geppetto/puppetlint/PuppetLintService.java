@@ -11,21 +11,36 @@
  */
 package org.cloudsmith.geppetto.puppetlint;
 
-import org.cloudsmith.geppetto.puppetlint.impl.Activator;
+import org.cloudsmith.geppetto.puppetlint.impl.ExternalModule;
+
+import com.google.inject.Guice;
+import com.google.inject.Injector;
 
 /**
  * A service that enables files and folders to be examined by <a href="http://http://puppet-lint.com/">puppet-lint</a>.
  */
-public abstract class PuppetLintService {
+public class PuppetLintService {
+	private static PuppetLintService instance;
+
 	/**
 	 * @return The singleton instance of this service
 	 */
-	public static PuppetLintService getInstance() {
-		return Activator.getInstance();
+	public static synchronized PuppetLintService getInstance() {
+		if(instance == null)
+			instance = new PuppetLintService(Guice.createInjector(new ExternalModule()));
+		return instance;
+	}
+
+	private final Injector injector;
+
+	private PuppetLintService(Injector injector) {
+		this.injector = injector;
 	}
 
 	/**
 	 * @return A new PuppetLintRunner
 	 */
-	public abstract PuppetLintRunner getPuppetLintRunner();
+	public PuppetLintRunner getPuppetLintRunner() {
+		return injector.getInstance(PuppetLintRunner.class);
+	}
 }

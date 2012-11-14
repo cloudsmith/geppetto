@@ -44,6 +44,7 @@
 		<module>../org.cloudsmith.geppetto.forge.api</module>
 		<module>../org.cloudsmith.geppetto.pp</module>
 		<module>../org.cloudsmith.geppetto.pp.dsl</module>
+		<module>../org.cloudsmith.geppetto.puppetlint</module>
 		<module>../org.cloudsmith.geppetto.eclipse.core</module>
 		<module>../org.cloudsmith.geppetto.common.tracer</module>
 		<module>../org.cloudsmith.geppetto.ruby</module>

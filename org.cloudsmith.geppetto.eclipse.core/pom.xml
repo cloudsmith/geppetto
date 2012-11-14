@@ -9,7 +9,7 @@
 		<relativePath>../org.cloudsmith.geppetto.parent/pom.xml</relativePath>
 	</parent>
 
-	<artifactId>eclipse.core</artifactId>
+	<artifactId>org.cloudsmith.geppetto.eclipse.core</artifactId>
 	<packaging>jar</packaging>
 
 	<name>Eclipse IPath/Path and IProgressMonitor</name>

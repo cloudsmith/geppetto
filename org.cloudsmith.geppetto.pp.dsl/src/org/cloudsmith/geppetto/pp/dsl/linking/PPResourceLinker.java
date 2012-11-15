@@ -570,7 +570,7 @@ public class PPResourceLinker implements IPPDiagnostics {
 		List<AttributeOperation> nameVariables = Lists.newArrayList();
 		// Multimap<String, AttributeOperation> seen = ArrayListMultimap.create();
 
-		if(aos != null)
+		if(aos != null && desc != null)
 			for(AttributeOperation ao : aos.getAttributes()) {
 				QualifiedName fqn = desc.getQualifiedName().append(ao.getKey());
 				// Accept name if there is at least one type/definition that lists the key

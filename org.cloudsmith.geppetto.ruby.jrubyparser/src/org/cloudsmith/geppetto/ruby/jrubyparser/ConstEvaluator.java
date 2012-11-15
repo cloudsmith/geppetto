@@ -64,7 +64,7 @@ public class ConstEvaluator extends AbstractJRubyVisitor {
 	@Override
 	public Object visitCallNode(CallNode iVisited) {
 		if("intern".equals(iVisited.getName()))
-			return eval(iVisited.getReceiverNode());
+			return eval(iVisited.getReceiver());
 		return null;
 	}
 

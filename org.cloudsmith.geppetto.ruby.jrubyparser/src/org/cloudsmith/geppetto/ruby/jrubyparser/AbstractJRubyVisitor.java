@@ -96,6 +96,12 @@ public class AbstractJRubyVisitor implements NodeVisitor {
 	}
 
 	@Override
+	public Object visitBlockArg18Node(BlockArg18Node iVisited) {
+		// DOES NOTHING
+		return null;
+	}
+
+	@Override
 	public Object visitBlockArgNode(BlockArgNode iVisited) {
 		// DOES NOTHING
 		return null;

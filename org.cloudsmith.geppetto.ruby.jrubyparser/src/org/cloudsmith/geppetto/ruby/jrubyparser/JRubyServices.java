@@ -130,7 +130,7 @@ public class JRubyServices implements IRubyServices {
 		GenericCallNode found = callFinder.findCall(result.getAST(), newFunctionFQN);
 		if(found == null)
 			return functions;
-		Object arguments = new ConstEvaluator().eval(found.getArgsNode());
+		Object arguments = new ConstEvaluator().eval(found.getArgs());
 		// Result should be a list with a String, and a Map
 		if(!(arguments instanceof List))
 			return functions;
@@ -177,7 +177,7 @@ public class JRubyServices implements IRubyServices {
 		if(logClass == null)
 			return functions;
 
-		for(Node n : logClass.getBodyNode().childNodes()) {
+		for(Node n : logClass.getBody().childNodes()) {
 			if(n.getNodeType() == NodeType.NEWLINENODE)
 				n = ((NewlineNode) n).getNextNode();
 			// if (n.getNodeType() == NodeType.CLASSNODE) {
@@ -193,7 +193,7 @@ public class JRubyServices implements IRubyServices {
 			if(n.getNodeType() == NodeType.INSTASGNNODE) {
 				InstAsgnNode instAsgn = (InstAsgnNode) n;
 				if("@levels".equals(instAsgn.getName())) {
-					Object value = new ConstEvaluator().eval(instAsgn.getValueNode());
+					Object value = new ConstEvaluator().eval(instAsgn.getValue());
 					if(!(value instanceof List<?>))
 						return functions;
 					for(Object o : (List<?>) value) {

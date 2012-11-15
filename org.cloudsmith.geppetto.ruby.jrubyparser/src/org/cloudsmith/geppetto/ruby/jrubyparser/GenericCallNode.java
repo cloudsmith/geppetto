@@ -38,17 +38,17 @@ public class GenericCallNode implements INameNode, IArgumentNode, BlockAccepting
 	}
 
 	@Override
-	public Node getArgsNode() {
+	public Node getArgs() {
 		return (callNode == null
 				? fcallNode
-				: callNode).getArgsNode();
+				: callNode).getArgs();
 	}
 
 	@Override
-	public Node getIterNode() {
+	public Node getIter() {
 		return (callNode == null
 				? fcallNode
-				: callNode).getIterNode();
+				: callNode).getIter();
 	}
 
 	@Override
@@ -70,22 +70,43 @@ public class GenericCallNode implements INameNode, IArgumentNode, BlockAccepting
 				: callNode).getPosition();
 	}
 
+	@Override
+	public boolean hasParens() {
+		return (callNode == null
+				? fcallNode
+				: callNode).hasParens();
+	}
+
 	public boolean isValid() {
 		return fcallNode != null || callNode != null;
 	}
 
 	@Override
-	public Node setArgsNode(Node argsNode) {
-		return (callNode == null
+	public void setArgs(Node argsNode) {
+		(callNode == null
 				? fcallNode
-				: callNode).setArgsNode(argsNode);
+				: callNode).setArgs(argsNode);
 	}
 
 	@Override
-	public Node setIterNode(Node iterNode) {
-		return (callNode == null
+	public void setHasParens(boolean hasParens) {
+		(callNode == null
 				? fcallNode
-				: callNode).setIterNode(iterNode);
+				: callNode).setHasParens(hasParens);
+	}
+
+	@Override
+	public void setIter(Node iterNode) {
+		(callNode == null
+				? fcallNode
+				: callNode).setIter(iterNode);
+	}
+
+	@Override
+	public void setName(String newName) {
+		(callNode == null
+				? fcallNode
+				: callNode).setName(newName);
 	}
 
 }

@@ -20,7 +20,6 @@ import org.jrubyparser.ast.ModuleNode;
 import org.jrubyparser.ast.Node;
 import org.jrubyparser.ast.NodeType;
 
-import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
 
 public class RubyModuleFinder {
@@ -32,7 +31,7 @@ public class RubyModuleFinder {
 		}
 
 		public List<String> eval(Node node) {
-			if (node == null)
+			if(node == null)
 				return Lists.newArrayList();
 			return stringList(node.accept(this));
 		}
@@ -43,12 +42,11 @@ public class RubyModuleFinder {
 
 		@SuppressWarnings("unchecked")
 		private List<String> stringList(Object x) {
-			if (x instanceof List)
+			if(x instanceof List)
 				return (List<String>) x; // have faith
-			if (x instanceof String)
+			if(x instanceof String)
 				return Lists.newArrayList((String) x);
-			throw new IllegalArgumentException(
-					"Not a string or lists of strings");
+			throw new IllegalArgumentException("Not a string or lists of strings");
 		}
 
 		@Override
@@ -69,9 +67,13 @@ public class RubyModuleFinder {
 		 * children.
 		 */
 		public static final Object DO_NOT_VISIT_CHILDREN = new Object();
+
 		private LinkedList<Object> stack = null;
+
 		private LinkedList<Object> nameStack = null;
+
 		private List<String> qualifiedName = null;
+
 		private ConstEvaluator constEvaluator = new ConstEvaluator();
 
 		/**
@@ -85,15 +87,15 @@ public class RubyModuleFinder {
 			push(root);
 			Object r = null;
 			// ArgumentNode does not allow visitors !!! WTF.
-			if (root.getNodeType() != NodeType.ARGUMENTNODE)
+			if(root.getNodeType() != NodeType.ARGUMENTNODE)
 				r = root.accept(this);
-			if (r != DO_NOT_VISIT_CHILDREN) {
-				if (r != null) {
+			if(r != DO_NOT_VISIT_CHILDREN) {
+				if(r != null) {
 					return r;
 				}
-				for (Node n : root.childNodes()) {
+				for(Node n : root.childNodes()) {
 					r = findModule(n);
-					if (r != null)
+					if(r != null)
 						return r;
 				}
 			}
@@ -108,23 +110,22 @@ public class RubyModuleFinder {
 			// google.collect 2.0 is used
 			// since it has a Lists.reverse method - now this ugly construct is
 			// used.
-			this.qualifiedName = Lists.newArrayList(Iterables.reverse(Lists
-					.newArrayList(qualifiedName)));
+			this.qualifiedName = Lists.newArrayList(Lists.reverse(Lists.newArrayList(qualifiedName)));
 			return (ModuleNode) findModule2(root);
 		}
 
 		private Object findModule2(Node root) {
 			push(root);
 			Object r = null;
-			if (root.getNodeType() == NodeType.MODULENODE)
+			if(root.getNodeType() == NodeType.MODULENODE)
 				r = visitModuleNode((ModuleNode) root);
-			if (r != DO_NOT_VISIT_CHILDREN) {
-				if (r != null) {
+			if(r != DO_NOT_VISIT_CHILDREN) {
+				if(r != null) {
 					return r;
 				}
-				for (Node n : root.childNodes()) {
+				for(Node n : root.childNodes()) {
 					r = findModule2(n);
-					if (r != null)
+					if(r != null)
 						return r;
 				}
 			}
@@ -134,9 +135,9 @@ public class RubyModuleFinder {
 		}
 
 		private void pop(Node n) {
-			while (stack.peek() != n) {
+			while(stack.peek() != n) {
 				Object x = stack.pop();
-				if (x instanceof String)
+				if(x instanceof String)
 					popName();
 			}
 			stack.pop();
@@ -156,7 +157,7 @@ public class RubyModuleFinder {
 		}
 
 		private void pushNames(List<String> names) {
-			for (String name : names)
+			for(String name : names)
 				pushName(name);
 		}
 
@@ -168,12 +169,13 @@ public class RubyModuleFinder {
 			// if an inner module of the wanted module is found
 			// i.e. we find module a::b::c::d when we are looking for a::b::c
 			//
-			if (nameStack.size() > qualifiedName.size())
+			if(nameStack.size() > qualifiedName.size())
 				return DO_NOT_VISIT_CHILDREN;
 
 			// if it is the wanted module
-			if (nameStack.size() == qualifiedName.size())
-				return qualifiedName.equals(nameStack) ? iVisited
+			if(nameStack.size() == qualifiedName.size())
+				return qualifiedName.equals(nameStack)
+						? iVisited
 						: DO_NOT_VISIT_CHILDREN;
 
 			// the module's name is shorter than wanted, does it match so far?
@@ -182,9 +184,11 @@ public class RubyModuleFinder {
 			int sizeX = qualifiedName.size();
 			int sizeY = nameStack.size();
 			try {
-				return qualifiedName.subList(sizeX - sizeY, sizeX).equals(
-						nameStack) ? null : DO_NOT_VISIT_CHILDREN;
-			} catch (IndexOutOfBoundsException e) {
+				return qualifiedName.subList(sizeX - sizeY, sizeX).equals(nameStack)
+						? null
+						: DO_NOT_VISIT_CHILDREN;
+			}
+			catch(IndexOutOfBoundsException e) {
 				return DO_NOT_VISIT_CHILDREN;
 			}
 		}

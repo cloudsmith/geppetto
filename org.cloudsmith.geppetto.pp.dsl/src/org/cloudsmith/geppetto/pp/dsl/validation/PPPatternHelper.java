@@ -173,7 +173,21 @@ public class PPPatternHelper {
 	public boolean isSQSTRING(String s) {
 		if(s == null || s.length() == 0)
 			return true; // ok if empty
-		return sqStringPattern.matcher(s).matches();
+		// return sqStringPattern.matcher(s).matches();
+
+		boolean escaped = false;
+		for(int i = 0; i < s.length(); i++) {
+			switch(s.charAt(i)) {
+				case '\\':
+					escaped = !escaped;
+					break;
+				case '\'':
+					if(!escaped)
+						return false;
+					break;
+			}
+		}
+		return true;
 	}
 
 	public boolean isVARIABLE(String s) {

@@ -273,6 +273,18 @@ public class PPJavaValidator extends AbstractPPJavaValidator implements IPPDiagn
 			FunctionCall.class, // i.e. only parenthesized form
 			LiteralUndef.class, };
 
+	private static final Class<?>[] expressionClasses = { InExpression.class, //
+			MatchingExpression.class, //
+			AdditiveExpression.class, //
+			MultiplicativeExpression.class, //
+			ShiftExpression.class, //
+			UnaryMinusExpression.class, //
+			UnaryNotExpression.class, //
+			RelationalExpression.class, //
+			EqualityExpression.class, //
+			OrExpression.class, //
+			AndExpression.class, };
+
 	private static final String[] keywords = {
 			"and", "or", "case", "default", "define", "import", "if", "elsif", "else", "inherits", "node", "in",
 			"undef", "true", "false" };
@@ -1716,6 +1728,14 @@ public class PPJavaValidator extends AbstractPPJavaValidator implements IPPDiagn
 			if(c.isAssignableFrom(expr.getClass()))
 				return;
 		}
+		// Also allow constructs that are "epxressions" in puppet grammar
+		// TODO: This should probably be configurable per Puppet target version.
+		//
+		for(Class<?> c : expressionClasses) {
+			if(c.isAssignableFrom(expr.getClass()))
+				return;
+		}
+
 		acceptor.acceptError(
 			"Not a right hand side value. Was: " + expressionTypeNameProvider.doToString(expr), expr.eContainer(),
 			expr.eContainingFeature(), INSIGNIFICANT_INDEX, IPPDiagnostics.ISSUE__NOT_RVALUE);

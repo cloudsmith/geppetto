@@ -184,7 +184,10 @@ public class PPPatternHelper {
 				case '\'':
 					if(!escaped)
 						return false;
+					escaped = false;
 					break;
+				default:
+					escaped = false;
 			}
 		}
 		return true;

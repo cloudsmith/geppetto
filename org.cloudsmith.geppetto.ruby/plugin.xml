@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?eclipse version="3.4"?>
 <plugin>
-   <extension-point id="org.cloudsmith.geppetto.rubyservice" name="org.cloudsmith.geppetto.rubyservice" schema="schema/org.cloudsmith.geppetto.rubyservice.exsd"/>
    <extension
          point="org.eclipse.emf.ecore.extension_parser">
       <parser

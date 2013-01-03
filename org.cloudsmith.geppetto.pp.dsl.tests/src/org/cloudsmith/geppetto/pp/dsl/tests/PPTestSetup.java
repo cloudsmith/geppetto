@@ -12,7 +12,7 @@
 package org.cloudsmith.geppetto.pp.dsl.tests;
 
 import org.cloudsmith.geppetto.pp.dsl.PPStandaloneSetup;
-import org.eclipse.emf.common.util.URI;
+import org.cloudsmith.geppetto.pp.dsl.target.PptpResourceUtil;
 import org.eclipse.xtext.resource.SynchronizedXtextResourceSet;
 import org.eclipse.xtext.resource.XtextResourceSet;
 import org.eclipse.xtext.service.AbstractGenericModule;
@@ -36,9 +36,7 @@ public class PPTestSetup extends PPStandaloneSetup {
 				@Override
 				public XtextResourceSet get() {
 					XtextResourceSet resourceSet = new SynchronizedXtextResourceSet();
-					resourceSet.getResource(
-						URI.createPlatformPluginURI("/org.cloudsmith.geppetto.pp.dsl/targets/puppet-2.7.19.pptp", true),
-						true);
+					resourceSet.getResource(PptpResourceUtil.getPuppet_2_7_19(), true);
 					return resourceSet;
 				}
 

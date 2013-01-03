@@ -3,17 +3,14 @@ Bundle-ManifestVersion: 2
 Bundle-Name: %pluginName
 Bundle-SymbolicName: org.cloudsmith.geppetto.common
 Bundle-Version: 2.0.0.qualifier
-Bundle-Activator: org.cloudsmith.geppetto.common.Activator
 Bundle-Vendor: %providerName
 Bundle-Localization: plugin
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
-Import-Package: org.osgi.framework
-Bundle-ActivationPolicy: lazy
-Require-Bundle: org.eclipse.equinox.common;bundle-version="3.6.0";visibility:=reexport,
- com.google.guava;bundle-version="10.0.1"
+Import-Package: org.eclipse.core.runtime,
+ org.osgi.framework
 Export-Package: org.cloudsmith.geppetto.common,
- org.cloudsmith.geppetto.common.eclipse,
  org.cloudsmith.geppetto.common.os,
  org.cloudsmith.geppetto.common.score,
  org.cloudsmith.geppetto.common.stats,
  org.cloudsmith.geppetto.common.util
+Require-Bundle: com.google.guava

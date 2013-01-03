@@ -60,9 +60,6 @@ public class CatalogResourceImpl extends TaggableImpl implements CatalogResource
 	public static class JsonAdapter extends CatalogJsonSerializer.ContainerDeserializer<CatalogResource> implements
 			JsonSerializer<CatalogResource> {
 
-		private static java.lang.reflect.Type listOfParametersType = new TypeToken<EList<CatalogResourceParameter>>() {
-		}.getType();
-
 		private static java.lang.reflect.Type listOfTagsType = new TypeToken<EList<String>>() {
 		}.getType();
 

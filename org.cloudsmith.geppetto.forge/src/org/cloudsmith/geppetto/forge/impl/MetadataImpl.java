@@ -30,6 +30,7 @@ import java.util.Map;
 import java.util.TreeMap;
 import java.util.regex.Pattern;
 
+import org.cloudsmith.geppetto.common.os.FileUtils;
 import org.cloudsmith.geppetto.common.os.StreamUtil;
 import org.cloudsmith.geppetto.forge.Dependency;
 import org.cloudsmith.geppetto.forge.ForgeFactory;
@@ -39,7 +40,6 @@ import org.cloudsmith.geppetto.forge.Type;
 import org.cloudsmith.geppetto.forge.VersionRequirement;
 import org.cloudsmith.geppetto.forge.util.JsonUtils;
 import org.cloudsmith.geppetto.forge.util.RubyParserUtils;
-import org.eclipse.core.filesystem.EFS;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.EList;
@@ -189,11 +189,8 @@ public class MetadataImpl extends EObjectImpl implements Metadata {
 	 */
 	protected static final String NAME_EDEFAULT = null;
 
-	// Directory names that should not be checksummed or copied.
-	public static final Pattern DEFAULT_EXCLUDES_PATTERN;
-
 	// @fmtOff
-	private static final String[] defaultExcludes = {
+	public static final String[] DEFAULT_EXCLUDES = {
 		"*~",
 		"#*#",
 		".#*",
@@ -225,17 +222,8 @@ public class MetadataImpl extends EObjectImpl implements Metadata {
 	};
 	// @fmtOn
 
-	static {
-		StringBuilder bld = new StringBuilder();
-		bld.append("^(?:");
-		appendExcludePattern(defaultExcludes[0], bld);
-		for(int idx = 1; idx < defaultExcludes.length; ++idx) {
-			bld.append('|');
-			appendExcludePattern(defaultExcludes[idx], bld);
-		}
-		bld.append(")$");
-		DEFAULT_EXCLUDES_PATTERN = Pattern.compile(bld.toString());
-	}
+	// Directory names that should not be checksummed or copied.
+	public static final Pattern DEFAULT_EXCLUDES_PATTERN = compileExcludePattern(DEFAULT_EXCLUDES);
 
 	/**
 	 * The default value of the '{@link #getUser() <em>User</em>}' attribute.
@@ -325,6 +313,21 @@ public class MetadataImpl extends EObjectImpl implements Metadata {
 		}
 	}
 
+	public static Pattern compileExcludePattern(String[] excludes) {
+		if(excludes == null || excludes.length == 0)
+			return Pattern.compile(".*");
+
+		StringBuilder bld = new StringBuilder();
+		bld.append("^(?:");
+		appendExcludePattern(excludes[0], bld);
+		for(int idx = 1; idx < excludes.length; ++idx) {
+			bld.append('|');
+			appendExcludePattern(excludes[idx], bld);
+		}
+		bld.append(")$");
+		return Pattern.compile(bld.toString());
+	}
+
 	public static byte[] computeChecksum(File file, MessageDigest md) throws IOException {
 		InputStream input = new FileInputStream(file);
 		md.reset();
@@ -369,8 +372,8 @@ public class MetadataImpl extends EObjectImpl implements Metadata {
 		return stringArgs;
 	}
 
-	private static boolean isChecksumCandidate(File file) {
-		if(EFS.getLocalFileSystem().fromLocalFile(file).fetchInfo().getAttribute(EFS.ATTRIBUTE_SYMLINK))
+	private static boolean isChecksumCandidate(File file) throws IOException {
+		if(FileUtils.isSymlink(file))
 			return false;
 		String filename = file.getName();
 		return !("metadata.json".equals(filename) || "REVISION".equals(filename) || DEFAULT_EXCLUDES_PATTERN.matcher(

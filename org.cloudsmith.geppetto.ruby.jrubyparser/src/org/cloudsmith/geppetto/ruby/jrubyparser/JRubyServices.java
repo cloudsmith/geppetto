@@ -27,6 +27,7 @@ import org.cloudsmith.geppetto.ruby.RubySyntaxException;
 import org.cloudsmith.geppetto.ruby.spi.IRubyIssue;
 import org.cloudsmith.geppetto.ruby.spi.IRubyParseResult;
 import org.cloudsmith.geppetto.ruby.spi.IRubyServices;
+import org.cloudsmith.geppetto.ruby.spi.IRubyServicesFactory;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
 import org.jrubyparser.CompatVersion;
@@ -93,6 +94,12 @@ public class JRubyServices implements IRubyServices {
 		}
 
 	}
+
+	public static IRubyServicesFactory FACTORY = new IRubyServicesFactory() {
+		public IRubyServices create() {
+			return new JRubyServices();
+		}
+	};
 
 	/**
 	 * The number of the first line in a source file.

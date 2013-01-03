@@ -17,13 +17,13 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.net.URL;
 import java.util.Calendar;
 import java.util.regex.Pattern;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
-import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.core.runtime.OperationCanceledException;
+import org.cloudsmith.geppetto.common.util.EclipseUtils;
 
 public class FileUtils {
 	public static final Pattern DEFAULT_EXCLUDES = Pattern.compile("^[\\.~#].*$");
@@ -88,39 +88,56 @@ public class FileUtils {
 			cpR(child, destDir, excludeNames, true, includeEmptyFolders);
 	}
 
+	/**
+	 * Returns the File for a class relative resource path
+	 * 
+	 * @param clazz
+	 *            The class used when obtaining the resource
+	 * @param resourcePath
+	 *            The path to the resource
+	 * @return The file that corresponds to the resource or <code>null</code> if the resource was not found or cannot be reached as a file.
+	 * @throws IOException
+	 * @see {@link Class#getResource(String)}
+	 * @see {@link EclipseUtils#getResourceAsFile(URL)}
+	 */
+	public static File getFileFromClassResource(Class<?> clazz, String resourcePath) throws IOException {
+		URL url = clazz.getResource(resourcePath);
+		if(url != null)
+			return EclipseUtils.getResourceAsFile(url);
+		return null;
+	}
+
+	public static boolean isSymlink(File file) {
+		if(file == null)
+			return false;
+
+		try {
+			File canon;
+			if(file.getParent() == null)
+				canon = file;
+			else {
+				File canonDir = file.getParentFile().getCanonicalFile();
+				canon = new File(canonDir, file.getName());
+			}
+			return !canon.getCanonicalFile().equals(canon.getAbsoluteFile());
+		}
+		catch(IOException e) {
+			return false;
+		}
+	}
+
 	public static void rmR(File fileOrDir) {
 		rmR(fileOrDir, null);
 	}
 
 	public static void rmR(File fileOrDir, Pattern excludePattern) {
-		rmR(fileOrDir, excludePattern, null);
-	}
-
-	public static void rmR(File fileOrDir, Pattern excludePattern, IProgressMonitor monitor) {
-		if(monitor != null)
-			monitor.beginTask(null, IProgressMonitor.UNKNOWN);
-		try {
-			rmRwithInitializedMonitor(fileOrDir, excludePattern, monitor);
-		}
-		finally {
-			if(monitor != null)
-				monitor.done();
-		}
-	}
-
-	private static void rmRwithInitializedMonitor(File fileOrDir, Pattern excludePattern, IProgressMonitor monitor) {
 		if(excludePattern != null && excludePattern.matcher(fileOrDir.getName()).matches())
 			return;
 
-		if(monitor != null) {
-			if(monitor.isCanceled())
-				throw new OperationCanceledException();
-			monitor.worked(1);
-		}
 		File[] children = fileOrDir.listFiles();
 		if(children != null)
 			for(File child : children)
-				rmRwithInitializedMonitor(child, excludePattern, monitor);
+				rmR(child, excludePattern);
 		fileOrDir.delete();
 	}
 

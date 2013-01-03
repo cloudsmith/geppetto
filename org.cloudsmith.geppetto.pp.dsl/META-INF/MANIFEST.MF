@@ -13,12 +13,11 @@ Require-Bundle: org.eclipse.xtext;bundle-version="2.3.0.v201206120633",
  org.eclipse.emf.common;bundle-version="2.6.0",
  org.antlr.runtime;bundle-version="3.2.0",
  org.cloudsmith.geppetto.ruby,
- org.eclipse.core.runtime;bundle-version="3.6.0",
  org.cloudsmith.geppetto.common,
- org.cloudsmith.geppetto.common.injectable,
+ org.cloudsmith.geppetto.common.tracer,
  org.apache.commons.lang;bundle-version="2.4.0",
- org.apache.commons.codec;bundle-version="1.3.0"
-Import-Package: org.apache.log4j
+ org.apache.commons.codec;bundle-version="1.3.0",
+ org.cloudsmith.geppetto.ruby.jrubyparser;bundle-version="2.2.1"
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Export-Package: org.cloudsmith.geppetto.pp.dsl,
  org.cloudsmith.geppetto.pp.dsl.adapters,
@@ -37,6 +36,7 @@ Export-Package: org.cloudsmith.geppetto.pp.dsl,
  org.cloudsmith.geppetto.pp.dsl.serialization,
  org.cloudsmith.geppetto.pp.dsl.serializer,
  org.cloudsmith.geppetto.pp.dsl.services,
+ org.cloudsmith.geppetto.pp.dsl.target,
  org.cloudsmith.geppetto.pp.dsl.validation,
  org.cloudsmith.xtext.dommodel,
  org.cloudsmith.xtext.dommodel.formatter,
@@ -48,4 +48,6 @@ Export-Package: org.cloudsmith.geppetto.pp.dsl,
  org.cloudsmith.xtext.serializer,
  org.cloudsmith.xtext.serializer.acceptor,
  org.cloudsmith.xtext.textflow
+Import-Package: org.apache.log4j,
+ org.eclipse.core.runtime
 

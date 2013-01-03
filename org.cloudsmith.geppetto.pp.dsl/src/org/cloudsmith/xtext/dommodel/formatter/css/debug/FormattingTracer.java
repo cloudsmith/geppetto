@@ -15,9 +15,9 @@ import java.util.Map;
 
 import org.cloudsmith.geppetto.common.tracer.IStringProvider;
 import org.cloudsmith.geppetto.common.tracer.ITracer;
+import org.cloudsmith.geppetto.common.util.EclipseUtils;
 import org.cloudsmith.xtext.dommodel.IDomNode;
 import org.cloudsmith.xtext.dommodel.formatter.css.StyleSet;
-import org.eclipse.core.runtime.Platform;
 
 import com.google.common.collect.MapMaker;
 import com.google.inject.Inject;
@@ -61,7 +61,7 @@ public class FormattingTracer implements ITracer {
 	 * @return
 	 */
 	private static boolean getDebugOption(String option) {
-		String value = Platform.getDebugOption(option);
+		String value = EclipseUtils.getDebugOption(option);
 		return (value != null && "true".equals(value))
 				? true
 				: false;
@@ -73,7 +73,7 @@ public class FormattingTracer implements ITracer {
 
 	public FormattingTracer() {
 		tracing = false;
-		if(Platform.inDebugMode())
+		if(EclipseUtils.inDebugMode())
 			tracing = getDebugOption(DEBUG_FORMATTER);
 
 		effectiveStyleMap = new MapMaker().weakKeys().makeMap();

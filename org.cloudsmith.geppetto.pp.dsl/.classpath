@@ -13,7 +13,7 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.pde.core.requiredPlugins"/>
-	<classpathentry excluding="**" kind="src" output="target/classes" path="resources">
+	<classpathentry kind="src" output="target/classes" path="resources">
 		<attributes>
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>

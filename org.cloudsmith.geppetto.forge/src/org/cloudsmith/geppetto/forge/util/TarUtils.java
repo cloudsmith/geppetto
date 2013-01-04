@@ -27,6 +27,7 @@ import org.apache.commons.compress.archivers.ArchiveEntry;
 import org.apache.commons.compress.archivers.tar.TarArchiveEntry;
 import org.apache.commons.compress.archivers.tar.TarArchiveInputStream;
 import org.apache.commons.compress.archivers.tar.TarArchiveOutputStream;
+import org.cloudsmith.geppetto.common.os.FileUtils;
 import org.cloudsmith.geppetto.common.os.OsUtil;
 import org.cloudsmith.geppetto.common.os.StreamUtil;
 
@@ -48,6 +49,17 @@ public class TarUtils {
 			name = name.replace('\\', '/');
 		if(addedTopFolder != null)
 			name = addedTopFolder + '/' + name;
+
+		if(FileUtils.isSymlink(file)) {
+			String linkTarget = FileUtils.readSymbolicLink(file);
+			if(linkTarget != null) {
+				TarArchiveEntry entry = new TarArchiveEntry(name, TarArchiveEntry.LF_SYMLINK);
+				entry.setName(name);
+				entry.setLinkName(linkTarget);
+				tarOut.putArchiveEntry(entry);
+			}
+			return;
+		}
 
 		ArchiveEntry entry = tarOut.createArchiveEntry(file, name);
 		tarOut.putArchiveEntry(entry);
@@ -96,6 +108,7 @@ public class TarUtils {
 	public static void pack(File sourceFolder, OutputStream output, Pattern excludePattern, boolean includeTopFolder,
 			String addedTopFolder) throws IOException {
 		TarArchiveOutputStream tarOut = new TarArchiveOutputStream(output);
+		tarOut.setLongFileMode(TarArchiveOutputStream.LONGFILE_POSIX);
 		String absName = sourceFolder.getAbsolutePath();
 		int baseNameLen = absName.length() + 1;
 		if(includeTopFolder)

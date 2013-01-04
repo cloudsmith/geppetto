@@ -17,6 +17,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.lang.reflect.Method;
 import java.net.URL;
 import java.util.Calendar;
 import java.util.regex.Pattern;
@@ -27,6 +28,30 @@ import org.cloudsmith.geppetto.common.util.EclipseUtils;
 
 public class FileUtils {
 	public static final Pattern DEFAULT_EXCLUDES = Pattern.compile("^[\\.~#].*$");
+
+	private static final Method Files_isSymbolicLink;
+
+	private static final Method Files_readSymbolicLink;
+
+	private static final Method File_toPath;
+
+	static {
+		Method isSymbolicLink = null;
+		Method readSymbolicLink = null;
+		Method toPath = null;
+		try {
+			Class<?> class_Files = Class.forName("java.nio.file.Files");
+			Class<?> class_Path = Class.forName("java.nio.file.Path");
+			isSymbolicLink = class_Files.getMethod("isSymbolicLink", class_Path);
+			readSymbolicLink = class_Files.getMethod("readSymbolicLink", class_Path);
+			toPath = File.class.getMethod("toPath");
+		}
+		catch(Exception e) {
+		}
+		Files_isSymbolicLink = isSymbolicLink;
+		Files_readSymbolicLink = readSymbolicLink;
+		File_toPath = toPath;
+	}
 
 	public static void cp(File source, File destDir, String fileName) throws IOException {
 		InputStream in = new FileInputStream(source);
@@ -107,11 +132,21 @@ public class FileUtils {
 		return null;
 	}
 
+	/**
+	 * @param file
+	 *            The file to examine
+	 * @return <code>true</code> if the <code>file</code> represents a symbolic link
+	 */
 	public static boolean isSymlink(File file) {
 		if(file == null)
 			return false;
 
 		try {
+			// Use Java 7 Files.isSymbolicLink(Path) if it is available
+			//
+			if(Files_isSymbolicLink != null)
+				return ((Boolean) Files_isSymbolicLink.invoke(null, File_toPath.invoke(file))).booleanValue();
+
 			File canon;
 			if(file.getParent() == null)
 				canon = file;
@@ -121,9 +156,31 @@ public class FileUtils {
 			}
 			return !canon.getCanonicalFile().equals(canon.getAbsoluteFile());
 		}
-		catch(IOException e) {
+		catch(Exception e) {
 			return false;
 		}
+	}
+
+	/**
+	 * @param file
+	 *            The file that represents the symbolic link source
+	 * @return The symbolic link target or <code>null</code> if file does not represent a symbolic link
+	 */
+	public static String readSymbolicLink(File file) {
+		if(file == null)
+			return null;
+
+		try {
+			if(Files_readSymbolicLink != null) {
+				Object target = Files_readSymbolicLink.invoke(null, File_toPath.invoke(file));
+				return target == null
+						? null
+						: target.toString();
+			}
+		}
+		catch(Exception e) {
+		}
+		return null;
 	}
 
 	public static void rmR(File fileOrDir) {

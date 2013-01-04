@@ -366,8 +366,6 @@ public class MetadataImpl extends EObjectImpl implements Metadata {
 				stringArgs.add(((StrNode) argNode).getValue());
 			else if(argNode instanceof NilNode)
 				stringArgs.add(null);
-			else
-				throw new IllegalArgumentException("Can't make a string from a " + argNode.getNodeType());
 		}
 		return stringArgs;
 	}

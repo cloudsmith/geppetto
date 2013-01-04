@@ -62,6 +62,8 @@ import com.google.inject.Provider;
 public class PPModulefileBuilder extends IncrementalProjectBuilder implements PPUiConstants {
 	private final static Logger log = Logger.getLogger(PPModulefileBuilder.class);
 
+	private final Provider<IValidationAdvisor> validationAdvisorProvider;
+
 	private ITracer tracer;
 
 	private IValidationAdvisor validationAdvisor;
@@ -71,8 +73,7 @@ public class PPModulefileBuilder extends IncrementalProjectBuilder implements PP
 		// executable extension factory
 		Injector injector = ((PPDSLActivator) PPDSLActivator.getInstance()).getPPInjector();
 		tracer = new DefaultTracer(PPUiConstants.DEBUG_OPTION_MODULEFILE);
-		Provider<IValidationAdvisor> validationAdvisorProvider = injector.getProvider(IValidationAdvisor.class);
-		validationAdvisor = validationAdvisorProvider.get();
+		validationAdvisorProvider = injector.getProvider(IValidationAdvisor.class);
 	}
 
 	/*
@@ -123,7 +124,7 @@ public class PPModulefileBuilder extends IncrementalProjectBuilder implements PP
 			}
 			buf.append("]");
 			int circularSeverity = -1;
-			switch(validationAdvisor.circularDependencyPreference()) {
+			switch(getValidationAdvisor().circularDependencyPreference()) {
 				case ERROR:
 					circularSeverity = IMarker.SEVERITY_ERROR;
 					break;
@@ -275,6 +276,12 @@ public class PPModulefileBuilder extends IncrementalProjectBuilder implements PP
 
 	private IProject getProjectByName(String name) {
 		return getProject().getWorkspace().getRoot().getProject(name);
+	}
+
+	private synchronized IValidationAdvisor getValidationAdvisor() {
+		if(validationAdvisor == null)
+			validationAdvisor = validationAdvisorProvider.get();
+		return validationAdvisor;
 	}
 
 	private IWorkspaceRoot getWorkspaceRoot() {

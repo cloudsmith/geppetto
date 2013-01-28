@@ -52,7 +52,7 @@ public class UserTests extends ForgeAPITestBase {
 	@Test
 	public void testUserDetail() throws IOException {
 		UserService service = getTestUserForge().createUserService();
-		User user = service.get(ForgeTests.TEST_USER);
+		User user = service.get(ForgeIT.TEST_USER);
 		assertNotNull("Null user", user);
 	}
 }

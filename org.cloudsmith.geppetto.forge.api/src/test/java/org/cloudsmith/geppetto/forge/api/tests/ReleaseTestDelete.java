@@ -28,9 +28,9 @@ public class ReleaseTestDelete extends ForgeAPITestBase {
 	@Test
 	public void testDeleteRelease() throws IOException {
 		ReleaseService service = getTestUserForge().createReleaseService();
-		service.delete(ForgeTests.TEST_USER, ForgeTests.TEST_MODULE, ForgeTests.TEST_RELEASE_VERSION);
+		service.delete(ForgeIT.TEST_USER, ForgeIT.TEST_MODULE, ForgeIT.TEST_RELEASE_VERSION);
 		try {
-			service.get(ForgeTests.TEST_USER, ForgeTests.TEST_MODULE, ForgeTests.TEST_RELEASE_VERSION);
+			service.get(ForgeIT.TEST_USER, ForgeIT.TEST_MODULE, ForgeIT.TEST_RELEASE_VERSION);
 			fail("Expected 404");
 		}
 		catch(HttpResponseException e) {

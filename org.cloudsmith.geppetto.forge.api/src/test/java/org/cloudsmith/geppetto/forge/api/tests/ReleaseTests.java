@@ -31,10 +31,10 @@ public class ReleaseTests extends ForgeAPITestBase {
 	public void testDownloadRelease() throws IOException {
 		ReleaseService service = getTestUserForge().createReleaseService();
 		ByteArrayOutputStream content = new ByteArrayOutputStream();
-		service.download(ForgeTests.TEST_USER, ForgeTests.TEST_MODULE, ForgeTests.TEST_RELEASE_VERSION, content);
+		service.download(ForgeIT.TEST_USER, ForgeIT.TEST_MODULE, ForgeIT.TEST_RELEASE_VERSION, content);
 		assertEquals(
 			"Wrong release content size", content.size(),
-			Activator.getTestData(ForgeTests.TEST_GZIPPED_RELEASE).length());
+			Activator.getTestData(ForgeIT.TEST_GZIPPED_RELEASE).length());
 	}
 
 	@Test
@@ -61,7 +61,7 @@ public class ReleaseTests extends ForgeAPITestBase {
 	@Test
 	public void testReleaseDetail() throws IOException {
 		ReleaseService service = getTestUserForge().createReleaseService();
-		Release release = service.get(ForgeTests.TEST_USER, ForgeTests.TEST_MODULE, ForgeTests.TEST_RELEASE_VERSION);
+		Release release = service.get(ForgeIT.TEST_USER, ForgeIT.TEST_MODULE, ForgeIT.TEST_RELEASE_VERSION);
 		assertNotNull("Null release", release);
 	}
 }

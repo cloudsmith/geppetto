@@ -17,12 +17,12 @@ public class ForgeAPITestBase {
 	public static class TestUsersPreferences extends ForgeTestPreferences {
 		@Override
 		public String getLogin() {
-			return ForgeTests.TEST_USER;
+			return ForgeIT.TEST_USER;
 		}
 
 		@Override
 		public String getPassword() {
-			return ForgeTests.TEST_PASSWORD;
+			return ForgeIT.TEST_PASSWORD;
 		}
 	}
 

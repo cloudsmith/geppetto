@@ -30,12 +30,12 @@ public abstract class ForgeTestPreferences implements ForgePreferences {
 
 	@Override
 	public String getOAuthClientId() {
-		return ForgeTests.getPuppetForgeClientIdentity()[0];
+		return ForgeIT.getPuppetForgeClientIdentity()[0];
 	}
 
 	@Override
 	public String getOAuthClientSecret() {
-		return ForgeTests.getPuppetForgeClientIdentity()[1];
+		return ForgeIT.getPuppetForgeClientIdentity()[1];
 	}
 
 	@Override

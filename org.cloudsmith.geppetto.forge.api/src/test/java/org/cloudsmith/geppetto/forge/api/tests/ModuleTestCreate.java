@@ -30,8 +30,8 @@ public class ModuleTestCreate extends ForgeAPITestBase {
 		ModuleService service = getTestUserForge().createModuleService();
 
 		ModuleTemplate template = new ModuleTemplate();
-		template.setOwner(ForgeTests.TEST_USER);
-		template.setName(ForgeTests.TEST_MODULE);
+		template.setOwner(ForgeIT.TEST_USER);
+		template.setName(ForgeIT.TEST_MODULE);
 		template.setDescription("A Dummy Test Module");
 		Module newModule = service.create(template);
 		assertNotNull("Null Module", newModule);

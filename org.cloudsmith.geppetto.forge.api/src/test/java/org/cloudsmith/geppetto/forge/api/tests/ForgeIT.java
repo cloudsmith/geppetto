@@ -37,7 +37,7 @@ import com.almworks.sqlite4java.SQLiteStatement;
 })
 // @fmtOn
 @RunWith(Suite.class)
-public class ForgeTests extends ForgeAPITestBase {
+public class ForgeIT extends ForgeAPITestBase {
 	public static final String TEST_USER = "bob";
 
 	public static final String TEST_PASSWORD = "bobbobbob";

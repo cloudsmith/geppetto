@@ -27,10 +27,10 @@ import org.junit.Test;
 public class ModuleTestCreate extends ForgeAPITestBase {
 	@Test
 	public void testCreate() throws IOException {
-		ModuleService service = getBobUserForge().createModuleService();
+		ModuleService service = getTestUserForge().createModuleService();
 
 		ModuleTemplate template = new ModuleTemplate();
-		template.setOwner(ForgeTests.BOB_USER);
+		template.setOwner(ForgeTests.TEST_USER);
 		template.setName(ForgeTests.TEST_MODULE);
 		template.setDescription("A Dummy Test Module");
 		Module newModule = service.create(template);

@@ -27,10 +27,10 @@ import org.junit.Test;
 public class ModuleTestDelete extends ForgeAPITestBase {
 	@Test
 	public void testDeleteModule() throws IOException {
-		ModuleService service = getBobUserForge().createModuleService();
-		service.delete(ForgeTests.BOB_USER, ForgeTests.TEST_MODULE);
+		ModuleService service = getTestUserForge().createModuleService();
+		service.delete(ForgeTests.TEST_USER, ForgeTests.TEST_MODULE);
 		try {
-			service.get(ForgeTests.BOB_USER, ForgeTests.TEST_MODULE);
+			service.get(ForgeTests.TEST_USER, ForgeTests.TEST_MODULE);
 			fail("Expected 404");
 		}
 		catch(HttpResponseException e) {

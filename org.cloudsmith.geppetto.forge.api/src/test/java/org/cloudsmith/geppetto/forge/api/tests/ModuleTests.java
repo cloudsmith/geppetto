@@ -33,13 +33,19 @@ import org.junit.Test;
 public class ModuleTests extends ForgeAPITestBase {
 	@Test
 	public void testListModules() throws IOException {
-		ModuleService service = getBobUserForge().createModuleService();
+		ModuleService service = getTestUserForge().createModuleService();
 		List<Module> modules = service.search(null, null);
 		assertNotNull("Null module list", modules);
 		assertFalse("Empty module list", modules.isEmpty());
 
 		boolean someReleaseLinkTested = false;
-		for(Module module : modules) {
+		int moduleCount = modules.size();
+		int max = 3;
+		if(max > moduleCount)
+			max = moduleCount;
+
+		for(int idx = 0; idx < max; ++idx) {
+			Module module = modules.get(idx);
 			List<AnnotatedLink> releases = module.getReleases();
 			assertNotNull("Null module releases list", releases);
 			for(AnnotatedLink release : releases) {
@@ -56,7 +62,7 @@ public class ModuleTests extends ForgeAPITestBase {
 
 	@Test
 	public void testListModulesSorted() throws IOException {
-		ModuleService service = getBobUserForge().createModuleService();
+		ModuleService service = getTestUserForge().createModuleService();
 		ListPreferences listPrefs = new ListPreferences();
 		listPrefs.setLimit(4);
 		listPrefs.setOffset(2);

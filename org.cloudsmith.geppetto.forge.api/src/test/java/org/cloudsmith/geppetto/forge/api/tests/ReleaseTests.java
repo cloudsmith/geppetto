@@ -29,9 +29,9 @@ import org.junit.Test;
 public class ReleaseTests extends ForgeAPITestBase {
 	@Test
 	public void testDownloadRelease() throws IOException {
-		ReleaseService service = getBobUserForge().createReleaseService();
+		ReleaseService service = getTestUserForge().createReleaseService();
 		ByteArrayOutputStream content = new ByteArrayOutputStream();
-		service.download(ForgeTests.BOB_USER, ForgeTests.TEST_MODULE, ForgeTests.TEST_RELEASE_VERSION, content);
+		service.download(ForgeTests.TEST_USER, ForgeTests.TEST_MODULE, ForgeTests.TEST_RELEASE_VERSION, content);
 		assertEquals(
 			"Wrong release content size", content.size(),
 			Activator.getTestData(ForgeTests.TEST_GZIPPED_RELEASE).length());
@@ -39,7 +39,7 @@ public class ReleaseTests extends ForgeAPITestBase {
 
 	@Test
 	public void testListReleases() throws IOException {
-		ReleaseService service = getBobUserForge().createReleaseService();
+		ReleaseService service = getTestUserForge().createReleaseService();
 		List<Release> releases = service.list(null);
 		assertNotNull("Null Release list", releases);
 		assertFalse("Empty Release list", releases.isEmpty());
@@ -47,7 +47,7 @@ public class ReleaseTests extends ForgeAPITestBase {
 
 	@Test
 	public void testListReleasesSorted() throws IOException {
-		ReleaseService service = getBobUserForge().createReleaseService();
+		ReleaseService service = getTestUserForge().createReleaseService();
 		ListPreferences listPrefs = new ListPreferences();
 		listPrefs.setLimit(4);
 		listPrefs.setOffset(2);
@@ -60,8 +60,8 @@ public class ReleaseTests extends ForgeAPITestBase {
 
 	@Test
 	public void testReleaseDetail() throws IOException {
-		ReleaseService service = getBobUserForge().createReleaseService();
-		Release release = service.get(ForgeTests.BOB_USER, ForgeTests.TEST_MODULE, ForgeTests.TEST_RELEASE_VERSION);
+		ReleaseService service = getTestUserForge().createReleaseService();
+		Release release = service.get(ForgeTests.TEST_USER, ForgeTests.TEST_MODULE, ForgeTests.TEST_RELEASE_VERSION);
 		assertNotNull("Null release", release);
 	}
 }

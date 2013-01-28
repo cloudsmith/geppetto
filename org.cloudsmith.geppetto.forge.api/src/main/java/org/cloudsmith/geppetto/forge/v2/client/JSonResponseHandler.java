@@ -12,7 +12,6 @@
 package org.cloudsmith.geppetto.forge.v2.client;
 
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -60,9 +59,6 @@ public class JSonResponseHandler<V> implements ResponseHandler<V> {
 	public V handleResponse(HttpResponse response) throws ClientProtocolException, IOException {
 		StatusLine statusLine = response.getStatusLine();
 		int code = statusLine.getStatusCode();
-		if(code == HttpStatus.SC_NOT_FOUND)
-			throw new FileNotFoundException(statusLine.getReasonPhrase());
-
 		if(code >= 300)
 			throw new HttpResponseException(statusLine.getStatusCode(), statusLine.getReasonPhrase());
 

@@ -30,7 +30,7 @@ public class UserTests extends ForgeAPITestBase {
 
 	@Test
 	public void testListUsers() throws IOException {
-		UserService service = getBobUserForge().createUserService();
+		UserService service = getTestUserForge().createUserService();
 		List<User> Users = service.list(null);
 		assertNotNull("Null User list", Users);
 		assertFalse("Empty User list", Users.isEmpty());
@@ -38,10 +38,10 @@ public class UserTests extends ForgeAPITestBase {
 
 	@Test
 	public void testListUsersSorted() throws IOException {
-		UserService service = getBobUserForge().createUserService();
+		UserService service = getTestUserForge().createUserService();
 		ListPreferences listPrefs = new ListPreferences();
 		listPrefs.setLimit(4);
-		listPrefs.setOffset(2);
+		listPrefs.setOffset(1);
 		listPrefs.setSortBy("username");
 		listPrefs.setSortOrder("descending");
 		List<User> Users = service.list(listPrefs);
@@ -51,7 +51,7 @@ public class UserTests extends ForgeAPITestBase {
 
 	@Test
 	public void testUserDetail() throws IOException {
-		UserService service = getBobUserForge().createUserService();
+		UserService service = getTestUserForge().createUserService();
 		User user = service.get(ForgeTests.TEST_USER);
 		assertNotNull("Null user", user);
 	}

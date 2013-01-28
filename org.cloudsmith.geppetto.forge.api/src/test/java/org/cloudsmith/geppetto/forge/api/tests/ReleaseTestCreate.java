@@ -30,12 +30,12 @@ import org.junit.Test;
 public class ReleaseTestCreate extends ForgeAPITestBase {
 	@Test
 	public void testCreate() throws IOException {
-		ReleaseService service = getBobUserForge().createReleaseService();
+		ReleaseService service = getTestUserForge().createReleaseService();
 		File releaseFile = Activator.getTestData(ForgeTests.TEST_GZIPPED_RELEASE);
 		InputStream in = new FileInputStream(releaseFile);
 		try {
 			Release newRelease = service.create(
-				ForgeTests.BOB_USER, ForgeTests.TEST_MODULE, "Some notes about this release", in, releaseFile.length());
+				ForgeTests.TEST_USER, ForgeTests.TEST_MODULE, "Some notes about this release", in, releaseFile.length());
 			assertNotNull("Null Release", newRelease);
 			assertEquals("Incorrect release version", newRelease.getVersion(), ForgeTests.TEST_RELEASE_VERSION);
 		}

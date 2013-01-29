@@ -1,0 +1,20 @@
+#/bin/sh
+PIDFILE=$1
+[ -n $PIDFILE ] || {
+	echo "No server appears to be running" 1>&2
+	exit 1
+}
+SERVER_PID="`cat $PIDFILE`" || {
+	echo "Failed to read pid file '$PIDFILE'" 1>&2
+	exit 2
+}
+kill "$SERVER_PID" > /dev/null 2>&1 || {
+	echo "Failed to kill the server" 1>&2
+	exit 3
+}
+rm -f "$PIDFILE" || {
+    echo "Failed to remove pid file '$PIDFILE'" 1>&2
+    exit 4
+}
+echo "Successful shutdown"
+exit 0

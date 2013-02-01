@@ -19,6 +19,8 @@ import org.cloudsmith.geppetto.pp.dsl.PPDSLConstants;
 import org.cloudsmith.geppetto.pp.dsl.pptp.PptpRubyRuntimeModule;
 import org.cloudsmith.geppetto.pp.dsl.ui.jdt_ersatz.ImagesOnFileSystemRegistry;
 import org.cloudsmith.geppetto.pp.dsl.ui.preferences.PPPreferencesHelper;
+import org.cloudsmith.geppetto.ruby.RubyHelper;
+import org.cloudsmith.geppetto.ruby.jrubyparser.JRubyServices;
 import org.osgi.framework.BundleContext;
 
 import com.google.common.collect.Maps;
@@ -129,6 +131,7 @@ public class PPDSLActivator extends PPActivator {
 			throw e;
 		}
 		imagesOnFileSystemRegistry = new ImagesOnFileSystemRegistry();
+		RubyHelper.setRubyServicesFactory(JRubyServices.FACTORY);
 	}
 
 	@Override

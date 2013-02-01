@@ -15,6 +15,9 @@ package org.cloudsmith.geppetto.ruby.tests;
 import junit.framework.Test;
 import junit.framework.TestSuite;
 
+import org.cloudsmith.geppetto.ruby.RubyHelper;
+import org.cloudsmith.geppetto.ruby.jrubyparser.JRubyServices;
+
 /**
  * All Puppet Tests.
  * 
@@ -22,6 +25,8 @@ import junit.framework.TestSuite;
 public class AllTests {
 
 	public static Test suite() {
+		RubyHelper.setRubyServicesFactory(JRubyServices.FACTORY);
+
 		TestSuite suite = new TestSuite(AllTests.class.getName());
 		// $JUnit-BEGIN$
 		suite.addTestSuite(TestRubyDocProcessor.class);

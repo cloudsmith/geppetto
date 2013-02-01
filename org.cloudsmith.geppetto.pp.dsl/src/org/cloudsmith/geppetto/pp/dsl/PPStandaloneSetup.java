@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2011 Cloudsmith Inc. and other contributors, as listed below.
+ * Copyright (c) 2011, 2013 Cloudsmith Inc. and other contributors, as listed below.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -15,8 +15,6 @@ import java.util.Map;
 
 import org.cloudsmith.geppetto.pp.dsl.pptp.PptpRubyRuntimeModule;
 import org.cloudsmith.geppetto.pp.dsl.pptp.PptpRuntimeModule;
-import org.cloudsmith.geppetto.ruby.RubyHelper;
-import org.cloudsmith.geppetto.ruby.jrubyparser.JRubyServices;
 import org.cloudsmith.geppetto.ruby.resource.PptpRubyResourceFactory;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EPackage.Registry;
@@ -63,9 +61,6 @@ public class PPStandaloneSetup extends PPStandaloneSetupGenerated {
 
 		if(!factoryMap.containsKey("rb"))
 			factoryMap.put("rb", new PptpRubyResourceFactory());
-
-		// TODO: This could be probably be done in a better way (used to be an OSGi service registration)
-		RubyHelper.setRubyServicesFactory(JRubyServices.FACTORY);
 
 		doPptpSetup();
 		return mainInjector;

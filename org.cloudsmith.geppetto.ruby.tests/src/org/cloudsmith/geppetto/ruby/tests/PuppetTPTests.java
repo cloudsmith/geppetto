@@ -11,10 +11,13 @@
  */
 package org.cloudsmith.geppetto.ruby.tests;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+
 import java.io.File;
 import java.util.List;
-
-import junit.framework.TestCase;
 
 import org.cloudsmith.geppetto.pp.facter.Facter.Facter1_6;
 import org.cloudsmith.geppetto.pp.pptp.AbstractType;
@@ -30,8 +33,9 @@ import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
+import org.junit.Test;
 
-public class PuppetTPTests extends TestCase {
+public class PuppetTPTests {
 
 	private Function getFunction(String name, TargetEntry target) {
 		for(Function f : target.getFunctions())
@@ -109,6 +113,7 @@ public class PuppetTPTests extends TestCase {
 	 * 
 	 * @throws Exception
 	 */
+	@Test
 	public void testLoad_Facter1_6() throws Exception {
 		File pptpFile = new File("facter-1.6.pptp");
 		Facter1_6 facter = new Facter1_6();
@@ -125,32 +130,41 @@ public class PuppetTPTests extends TestCase {
 
 	}
 
+	@Test
 	public void testLoad2_6_9() throws Exception {
 		final File puppetDistros = new File("/Users/henrik/PuppetDistributions/");
-		performLoad(new File(puppetDistros, "puppet-2.6.9/lib/puppet"), //
-			new File(puppetDistros, "plugins-3.0.0"), //
-			new File("puppet-2.6.9.pptp"));
+		if(puppetDistros.isDirectory()) {
+			performLoad(new File(puppetDistros, "puppet-2.6.9/lib/puppet"), //
+				new File(puppetDistros, "plugins-3.0.0"), //
+				new File("puppet-2.6.9.pptp"));
 
-		// performLoad(new File("/Users/henrik/PuppetDistributions/puppet-2.6.9/lib/puppet"), //
-		// null, //
-		// new File("puppet-2.6.9.pptp"));
+			// performLoad(new File("/Users/henrik/PuppetDistributions/puppet-2.6.9/lib/puppet"), //
+			// null, //
+			// new File("puppet-2.6.9.pptp"));
+		}
 	}
 
+	@Test
 	public void testLoad2_7_19() throws Exception {
 		final File puppetDistros = new File("/Users/henrik/PuppetDistributions/");
-		performLoad(new File(puppetDistros, "puppet-2.7.19/lib/puppet"), //
-			new File(puppetDistros, "plugins-3.0.0"), //
-			new File("puppet-2.7.19.pptp"));
-
+		if(puppetDistros.isDirectory()) {
+			performLoad(new File(puppetDistros, "puppet-2.7.19/lib/puppet"), //
+				new File(puppetDistros, "plugins-3.0.0"), //
+				new File("puppet-2.7.19.pptp"));
+		}
 	}
 
+	@Test
 	public void testLoad3_0_0() throws Exception {
 		final File puppetDistros = new File("/Users/henrik/PuppetDistributions/");
-		performLoad(new File(puppetDistros, "puppet-3.0.0-rc7/lib/puppet"), //
-			new File(puppetDistros, "plugins-3.0.0"), //
-			new File("puppet-3.0.0.pptp"));
+		if(puppetDistros.isDirectory()) {
+			performLoad(new File(puppetDistros, "puppet-3.0.0-rc7/lib/puppet"), //
+				new File(puppetDistros, "plugins-3.0.0"), //
+				new File("puppet-3.0.0.pptp"));
+		}
 	}
 
+	@Test
 	public void testLoadEMFTP() throws Exception {
 		File pptpFile = TestDataProvider.getTestFile(new Path("testData/pptp/puppet-2.6.4_0.pptp"));
 
@@ -171,6 +185,7 @@ public class PuppetTPTests extends TestCase {
 		assertEquals("Should have found 29 functions", 29, target.getFunctions().size());
 	}
 
+	@Test
 	public void testLoadMockDistro() throws Exception {
 		File distroDir = TestDataProvider.getTestFile(new Path("testData/mock-puppet-distro/puppet-2.6.2_0/lib/puppet"));
 		RubyHelper helper = new RubyHelper();
@@ -250,32 +265,36 @@ public class PuppetTPTests extends TestCase {
 	}
 
 	// NOTE: On mac, macports changed format to a tgz file - can not load this (test has played out its role).
-	// public void testLoadRealTP() throws Exception {
-	// File distroDir = new File(
-	// "/opt/local/var/macports/software/puppet/2.6.4_0/opt/local/lib/ruby/site_ruby/1.8/puppet/");
-	// RubyHelper helper = new RubyHelper();
-	// helper.setUp();
-	// try {
-	// TargetEntry target = helper.loadDistroTarget(distroDir);
-	// for(Type t : target.getTypes())
-	// System.err.println("Found t: " + t.getName());
-	// assertEquals("Should have found 46 types", 46, target.getTypes().size());
-	// for(Function f : target.getFunctions())
-	// System.err.println("Found f: " + f.getName());
-	// assertEquals("Should have found 29 functions", 29, target.getFunctions().size());
-	//
-	// // Save the TargetEntry as a loadable resource
-	// ResourceSet resourceSet = new ResourceSetImpl();
-	// URI fileURI = URI.createFileURI(new File("puppet-2.6.4_0.pptp").getAbsolutePath());
-	// Resource targetResource = resourceSet.createResource(fileURI);
-	// targetResource.getContents().add(target);
-	// targetResource.save(null);
-	// System.err.println("Target saved to: " + fileURI.toString());
-	//
-	// }
-	// finally {
-	// helper.tearDown();
-	// }
-	//
-	// }
+
+	/*
+	 * @Test
+	 * public void testLoadRealTP() throws Exception {
+	 * File distroDir = new File(
+	 * "/opt/local/var/macports/software/puppet/2.6.4_0/opt/local/lib/ruby/site_ruby/1.8/puppet/");
+	 * RubyHelper helper = new RubyHelper();
+	 * helper.setUp();
+	 * try {
+	 * TargetEntry target = helper.loadDistroTarget(distroDir);
+	 * for(Type t : target.getTypes())
+	 * System.err.println("Found t: " + t.getName());
+	 * assertEquals("Should have found 46 types", 46, target.getTypes().size());
+	 * for(Function f : target.getFunctions())
+	 * System.err.println("Found f: " + f.getName());
+	 * assertEquals("Should have found 29 functions", 29, target.getFunctions().size());
+	 * 
+	 * // Save the TargetEntry as a loadable resource
+	 * ResourceSet resourceSet = new ResourceSetImpl();
+	 * URI fileURI = URI.createFileURI(new File("puppet-2.6.4_0.pptp").getAbsolutePath());
+	 * Resource targetResource = resourceSet.createResource(fileURI);
+	 * targetResource.getContents().add(target);
+	 * targetResource.save(null);
+	 * System.err.println("Target saved to: " + fileURI.toString());
+	 * 
+	 * }
+	 * finally {
+	 * helper.tearDown();
+	 * }
+	 * 
+	 * }
+	 */
 }

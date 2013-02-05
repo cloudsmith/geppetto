@@ -43,6 +43,7 @@ import org.eclipse.xtext.util.Pair;
 import org.eclipse.xtext.util.ReplaceRegion;
 import org.eclipse.xtext.util.TextRegion;
 import org.eclipse.xtext.util.Tuples;
+import org.junit.Test;
 
 import com.google.common.collect.Lists;
 import com.google.inject.Binder;
@@ -132,6 +133,7 @@ public class TestPPFormatting extends AbstractPuppetTests {
 		return false;
 	}
 
+	@Test
 	public void test_Comment_acceptedAsBreak() throws Exception {
 		String code = "node x { # comment\n}\n";
 		XtextResource r = getResourceFromString(code);
@@ -139,6 +141,7 @@ public class TestPPFormatting extends AbstractPuppetTests {
 		assertEquals("formatting should produce wanted result", code, s);
 	}
 
+	@Test
 	public void test_Comment_InLineML() throws Exception {
 		// source with space after inline comment
 		String code = "$a = 1 + /* x */ 2\n";
@@ -154,6 +157,7 @@ public class TestPPFormatting extends AbstractPuppetTests {
 
 	}
 
+	@Test
 	public void test_CommentFoldingSL() throws Exception {
 		StringBuilder builder = new StringBuilder();
 		for(int i = 0; i < 133; i++)
@@ -167,6 +171,7 @@ public class TestPPFormatting extends AbstractPuppetTests {
 
 	}
 
+	@Test
 	public void test_CommentShouldBeIndentedOkML() throws Exception {
 		String code = "class foo {\n" + "  /* ok comment\n" + "   * ok comment\n" + "   */\n" + "}\n";
 		XtextResource r = getResourceFromString(code);
@@ -174,6 +179,7 @@ public class TestPPFormatting extends AbstractPuppetTests {
 		assertEquals("formatting should produce wanted result", code, s);
 	}
 
+	@Test
 	public void test_CommentShouldBeIndentedOkSL() throws Exception {
 		String code = "class foo {\n" + "  # ok comment\n" + "  # ok comment\n" + "  #\n" + "}\n";
 		XtextResource r = getResourceFromString(code);
@@ -181,6 +187,7 @@ public class TestPPFormatting extends AbstractPuppetTests {
 		assertEquals("formatting should produce wanted result", code, s);
 	}
 
+	@Test
 	public void test_CommentShouldNotBeMoved1() throws Exception {
 		String code = "$a = 10\n# comment\n$b = 20\n";
 		XtextResource r = getResourceFromString(code);
@@ -188,6 +195,7 @@ public class TestPPFormatting extends AbstractPuppetTests {
 		assertEquals("formatting should produce same result", code, s);
 	}
 
+	@Test
 	public void test_CommentShouldNotBeMoved2() throws Exception {
 		String code = "$a = 10\n\n# comment\n$b = 20\n";
 		XtextResource r = getResourceFromString(code);
@@ -195,6 +203,7 @@ public class TestPPFormatting extends AbstractPuppetTests {
 		assertEquals("formatting should produce same result", code, s);
 	}
 
+	@Test
 	public void test_CommentShouldNotBeMovedToNextLine() throws Exception {
 		// issue caused linebreaks between comment and statement to be removed
 		String code = "$a = 10 # comment\n";
@@ -204,6 +213,7 @@ public class TestPPFormatting extends AbstractPuppetTests {
 
 	}
 
+	@Test
 	public void test_CommentShouldNotBeMovedToPreviousLine() throws Exception {
 		// issue caused linebreaks between comment and statement to be removed
 		String code = "$a = 10\n# comment\n";
@@ -212,6 +222,7 @@ public class TestPPFormatting extends AbstractPuppetTests {
 		assertEquals("formatting should produce same result", code, s);
 	}
 
+	@Test
 	public void test_CommentShouldNotBeTurnedIntoDocumentation() throws Exception {
 		// issue caused linebreaks after comment, before statement to be removed
 		String code = "# wtf\n\nclass foo {\n}\n";
@@ -225,6 +236,7 @@ public class TestPPFormatting extends AbstractPuppetTests {
 		assertEquals("formatting should produce wanted result", code, s);
 	}
 
+	@Test
 	public void test_DocumentationShouldStickToElement() throws Exception {
 		// issue caused documentation comment to be separated from its element
 		String code = "class foo {\n}\n# doc\nclass foo {\n}\n";
@@ -240,10 +252,12 @@ public class TestPPFormatting extends AbstractPuppetTests {
 		assertEquals("formatting should produce wanted result", fmt, s);
 	}
 
+	@Test
 	public void test_HeyJenkins_EncodeThis() {
 		assertEquals("åäö", "åäö");
 	}
 
+	@Test
 	public void test_IndentsBracketsOk() throws Exception {
 		String code = "file { \"x\":\n  notify => Service[\"y\"],\n}\n";
 		XtextResource r = getResourceFromString(code);
@@ -251,6 +265,7 @@ public class TestPPFormatting extends AbstractPuppetTests {
 		assertEquals("formatting should produce wanted result", code, s);
 	}
 
+	@Test
 	public void test_issue142_Interpolation() throws Exception {
 		String code = "$a = 10\n" + //
 				"$b = \"123${a}234\"\n" + //
@@ -262,6 +277,7 @@ public class TestPPFormatting extends AbstractPuppetTests {
 		assertEquals("formatting should produce wanted result", code, s);
 	}
 
+	@Test
 	public void test_List() throws Exception {
 		String code = "$a=[\"10\",'20']";
 		String fmt = "$a = [\"10\", '20']\n";
@@ -273,6 +289,7 @@ public class TestPPFormatting extends AbstractPuppetTests {
 	/**
 	 * Test that model without node-model formats and adds the optional end comma in a list.
 	 */
+	@Test
 	public void test_List_NoNodeModel() throws Exception {
 		PuppetManifest pp = pf.createPuppetManifest();
 		AssignmentExpression assignment = PPFactory.eINSTANCE.createAssignmentExpression();
@@ -287,6 +304,7 @@ public class TestPPFormatting extends AbstractPuppetTests {
 		assertEquals("formatting should produce wanted result", fmt, s);
 	}
 
+	@Test
 	public void test_List_WithComments() throws Exception {
 		String code = "/*1*/$a/*2*/=/*3*/[/*4*/'10'/*5*/,/*6*/'20'/*7*/]/*8*/";
 		String fmt = "/* 1 */ $a /* 2 */ = /* 3 */ [/* 4 */ '10' /* 5 */, /* 6 */ '20' /* 7 */] /* 8 */\n";
@@ -295,6 +313,7 @@ public class TestPPFormatting extends AbstractPuppetTests {
 		assertEquals("formatting should produce wanted result", fmt, s);
 	}
 
+	@Test
 	public void test_NoFunnyLeadingInsert() throws Exception {
 		// one issue caused a space to be inserted when the first element was a comment
 		String code = "# wtf\n$a = 1\n";
@@ -308,6 +327,7 @@ public class TestPPFormatting extends AbstractPuppetTests {
 		assertEquals("formatting should produce wanted result", code, s);
 	}
 
+	@Test
 	public void test_OptionalTrailingBreaks() throws Exception {
 		String code = "file{'afile':owner=>'foo'}\n\n\n\n\n";
 		String fmt = "file { 'afile':\n  owner => 'foo'\n}\n\n";
@@ -317,6 +337,7 @@ public class TestPPFormatting extends AbstractPuppetTests {
 		assertEquals("formatting should produce wanted result", fmt, s);
 	}
 
+	@Test
 	public void test_Resource_MultipleBodies() throws Exception {
 		String code = "file { 'title': owner => 777, ensure => present; 'title2': owner=>777,ensure=>present }";
 		String fmt = //
@@ -335,6 +356,7 @@ public class TestPPFormatting extends AbstractPuppetTests {
 		assertEquals("formatting without node model should produce wanted result", fmt2, s);
 	}
 
+	@Test
 	public void test_Resource_OneBody() throws Exception {
 		String code = "file { 'title': owner => 777, ensure => present }";
 		String fmt = "file { 'title':\n  owner  => 777,\n  ensure => present\n}\n";
@@ -348,6 +370,7 @@ public class TestPPFormatting extends AbstractPuppetTests {
 		assertEquals("formatting without node-model should produce wanted result", fmt2, s);
 	}
 
+	@Test
 	public void test_Resource_OneBody_NoTitle() throws Exception {
 		String code = "File { owner => 777, ensure => present }";
 		String fmt = "File {\n  owner  => 777,\n  ensure => present\n}\n";
@@ -361,6 +384,7 @@ public class TestPPFormatting extends AbstractPuppetTests {
 		assertEquals("formatting without node-model should produce wanted result", fmt2, s);
 	}
 
+	@Test
 	public void test_selectiveFormatting1() throws Exception {
 		String code1 /*
 		      */= "class x {\n";

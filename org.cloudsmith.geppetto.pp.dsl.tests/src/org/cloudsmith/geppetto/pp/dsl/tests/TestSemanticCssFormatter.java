@@ -48,6 +48,7 @@ import org.eclipse.xtext.util.ITextRegion;
 import org.eclipse.xtext.util.ReplaceRegion;
 import org.eclipse.xtext.util.TextRegion;
 import org.eclipse.xtext.util.Triple;
+import org.junit.Test;
 
 import com.google.inject.Binder;
 import com.google.inject.Guice;
@@ -153,6 +154,7 @@ public class TestSemanticCssFormatter extends AbstractPuppetTests {
 		return false;
 	}
 
+	@Test
 	public void test_CharSequences_trim() {
 		assertEquals("Should have trimmed", "abc", CharSequences.trim("   abc   ", 3, 9).toString());
 		assertEquals("Should have trimmed 1 left", "  abc", CharSequences.trim("   abc   ", 1, 9).toString());
@@ -161,6 +163,7 @@ public class TestSemanticCssFormatter extends AbstractPuppetTests {
 		assertEquals("Empty string should trim to single space", " ", CharSequences.trim("   ", 1, 1).toString());
 	}
 
+	@Test
 	public void test_CommentProcessor() {
 		CommentFormattingOptions options = new CommentFormattingOptions(
 			new ICommentFormatterAdvice.DefaultCommentAdvice(), 80);
@@ -173,6 +176,7 @@ public class TestSemanticCssFormatter extends AbstractPuppetTests {
 		assertEquals("Should produce expected result", expected, s.getText().toString());
 	}
 
+	@Test
 	public void test_CommentProcessor_bannerfolding() {
 		CommentFormattingOptions options = new CommentFormattingOptions(
 			new ICommentFormatterAdvice.DefaultCommentAdvice(), 24);
@@ -196,6 +200,7 @@ public class TestSemanticCssFormatter extends AbstractPuppetTests {
 		assertEquals("Should produce expected result", expected, s.getText().toString());
 	}
 
+	@Test
 	public void test_CommentProcessor_folding() {
 		CommentFormattingOptions options = new CommentFormattingOptions(
 			new ICommentFormatterAdvice.DefaultCommentAdvice(), 24);
@@ -218,6 +223,7 @@ public class TestSemanticCssFormatter extends AbstractPuppetTests {
 		assertEquals("Should produce expected result", expected, s.getText().toString());
 	}
 
+	@Test
 	public void test_CommentProcessor_folding_indent() {
 		CommentFormattingOptions options = new CommentFormattingOptions(
 			new ICommentFormatterAdvice.DefaultCommentAdvice(), 26);
@@ -239,6 +245,7 @@ public class TestSemanticCssFormatter extends AbstractPuppetTests {
 		assertEquals("Should produce expected result", expected, s.getText().toString());
 	}
 
+	@Test
 	public void test_CommentProcessor_Indented() {
 		JavaLikeMLCommentContainer in = new ICommentContainerInformation.JavaLikeMLCommentContainer(2);
 		CommentProcessor cp = new CommentProcessor();
@@ -253,36 +260,42 @@ public class TestSemanticCssFormatter extends AbstractPuppetTests {
 		assertEquals("Should produce expected result", expected, "  " + CharSequences.trimLeft(s.getText()).toString());
 	}
 
+	@Test
 	public void test_MeasuringTextStream() {
 		MeasuredTextFlow flow = this.getInjector().getInstance(MeasuredTextFlow.class);
 		appendSampleFlow(flow);
 		assertSampleFlowMetrics(flow);
 	}
 
+	@Test
 	public void test_MeasuringTextStreamEmpty() {
 		MeasuredTextFlow flow = this.getInjector().getInstance(MeasuredTextFlow.class);
 		appendSampleFlow(flow);
 		assertSampleFlowMetrics(flow);
 	}
 
+	@Test
 	public void test_MeasuringTextStreamOneLineNoBreak() {
 		MeasuredTextFlow flow = this.getInjector().getInstance(MeasuredTextFlow.class);
 		flow.appendText("123");
 		assertFlowOneLineNoBreak(flow);
 	}
 
+	@Test
 	public void test_Recording() {
 		MeasuredTextFlow flow = this.getInjector().getInstance(TextFlowRecording.class);
 		appendSampleFlow(flow);
 		assertSampleFlowMetrics(flow);
 	}
 
+	@Test
 	public void test_RecordingOneLineNoBreak() {
 		MeasuredTextFlow flow = this.getInjector().getInstance(TextFlowRecording.class);
 		flow.appendText("123");
 		assertFlowOneLineNoBreak(flow);
 	}
 
+	@Test
 	public void test_TextFlow() {
 		MeasuredTextFlow flow = this.getInjector().getInstance(TextFlow.class);
 		appendSampleFlow(flow);
@@ -290,6 +303,7 @@ public class TestSemanticCssFormatter extends AbstractPuppetTests {
 
 	}
 
+	@Test
 	public void test_TextFlow_pendingIndent() {
 		TextFlow flow = this.getInjector().getInstance(TextFlow.class);
 		flow.changeIndentation(1);
@@ -299,6 +313,7 @@ public class TestSemanticCssFormatter extends AbstractPuppetTests {
 
 	}
 
+	@Test
 	public void test_TextFlow_PendingMeasures() {
 		TextFlow flow = this.getInjector().getInstance(TextFlow.class);
 		flow.appendText("1234");
@@ -314,18 +329,21 @@ public class TestSemanticCssFormatter extends AbstractPuppetTests {
 		assertEquals(5, flow.getWidthOfLastLine());
 	}
 
+	@Test
 	public void test_TextFlowEmpty() {
 		MeasuredTextFlow flow = this.getInjector().getInstance(TextFlow.class);
 		appendSampleFlow(flow);
 		assertSampleFlowMetrics(flow);
 	}
 
+	@Test
 	public void test_TextFlowOneLineNoBreak() {
 		MeasuredTextFlow flow = this.getInjector().getInstance(TextFlow.class);
 		flow.appendText("123");
 		assertFlowOneLineNoBreak(flow);
 	}
 
+	@Test
 	public void test_TextIndentFirst() {
 		TextFlow flow = this.getInjector().getInstance(TextFlow.class);
 		flow.setIndentation(1);
@@ -335,6 +353,7 @@ public class TestSemanticCssFormatter extends AbstractPuppetTests {
 
 	}
 
+	@Test
 	public void test_TextLinewrap() {
 		// default is 132 characters before a wrap and 0 wrap indent
 		MeasuredTextFlow flow = this.getInjector().getInstance(TextFlow.class);
@@ -355,6 +374,7 @@ public class TestSemanticCssFormatter extends AbstractPuppetTests {
 		assertEquals(115, flow.getWidth());
 	}
 
+	@Test
 	public void test_TextRecordingEmpty() {
 		MeasuredTextFlow flow = this.getInjector().getInstance(TextFlowRecording.class);
 		assertFalse("ends with break", flow.endsWithBreak());
@@ -367,6 +387,7 @@ public class TestSemanticCssFormatter extends AbstractPuppetTests {
 
 	}
 
+	@Test
 	public void testBasicEnumSets() {
 		// assert that containsAll of empty set is true
 		Set<NodeType> none = EnumSet.noneOf(NodeType.class);
@@ -374,6 +395,7 @@ public class TestSemanticCssFormatter extends AbstractPuppetTests {
 		assertTrue(ws.containsAll(none));
 	}
 
+	@Test
 	public void testRegionMatcher_after() {
 		RegionMatch match = new RegionMatch("abc", 5, new TextRegion(3, 2));
 		assertEquals("Should be AFTER", RegionMatch.IntersectionType.AFTER, match.getIntersectionType());
@@ -383,6 +405,7 @@ public class TestSemanticCssFormatter extends AbstractPuppetTests {
 		assertEquals("abc", applied.getThird().toString());
 	}
 
+	@Test
 	public void testRegionMatcher_before() {
 		RegionMatch match = new RegionMatch("abc", 0, new TextRegion(3, 2));
 		assertEquals("Should be BEFORE", RegionMatch.IntersectionType.BEFORE, match.getIntersectionType());
@@ -392,6 +415,7 @@ public class TestSemanticCssFormatter extends AbstractPuppetTests {
 		assertEquals("", applied.getThird().toString());
 	}
 
+	@Test
 	public void testRegionMatcher_contained() {
 		// left aligned in region
 		RegionMatch match = new RegionMatch("abc", 0, new TextRegion(0, 5));
@@ -403,7 +427,8 @@ public class TestSemanticCssFormatter extends AbstractPuppetTests {
 
 		// "centered" in region
 		match = new RegionMatch("abc", 2, new TextRegion(0, 6));
-		assertEquals("Should be CONTAINED centered", RegionMatch.IntersectionType.CONTAINED, match.getIntersectionType());
+		assertEquals(
+			"Should be CONTAINED centered", RegionMatch.IntersectionType.CONTAINED, match.getIntersectionType());
 		applied = match.apply();
 		assertEquals("abc", applied.getFirst().toString());
 		assertEquals("", applied.getSecond().toString());
@@ -419,9 +444,11 @@ public class TestSemanticCssFormatter extends AbstractPuppetTests {
 
 	}
 
+	@Test
 	public void testRegionMatcher_firstPartInside() {
 		RegionMatch match = new RegionMatch("abc", 4, new TextRegion(0, 5));
-		assertEquals("Should be FIRSTPART_INSIDE", RegionMatch.IntersectionType.FIRSTPART_INSIDE, match.getIntersectionType());
+		assertEquals(
+			"Should be FIRSTPART_INSIDE", RegionMatch.IntersectionType.FIRSTPART_INSIDE, match.getIntersectionType());
 		Triple<CharSequence, CharSequence, CharSequence> applied = match.apply();
 		assertEquals("a", applied.getFirst().toString());
 		assertEquals("", applied.getSecond().toString());
@@ -429,9 +456,11 @@ public class TestSemanticCssFormatter extends AbstractPuppetTests {
 
 	}
 
+	@Test
 	public void testRegionMatcher_lastPartInside() {
 		RegionMatch match = new RegionMatch("abc", 0, new TextRegion(2, 5));
-		assertEquals("Should be LASTPART_INSIDE", RegionMatch.IntersectionType.LASTPART_INSIDE, match.getIntersectionType());
+		assertEquals(
+			"Should be LASTPART_INSIDE", RegionMatch.IntersectionType.LASTPART_INSIDE, match.getIntersectionType());
 		Triple<CharSequence, CharSequence, CharSequence> applied = match.apply();
 		assertEquals("c", applied.getFirst().toString());
 		assertEquals("ab", applied.getSecond().toString());
@@ -439,9 +468,11 @@ public class TestSemanticCssFormatter extends AbstractPuppetTests {
 
 	}
 
+	@Test
 	public void testRegionMatcher_midPartInside() {
 		RegionMatch match = new RegionMatch("abc", 0, new TextRegion(1, 1));
-		assertEquals("Should be MIDPART_INSIDE", RegionMatch.IntersectionType.MIDPART_INSIDE, match.getIntersectionType());
+		assertEquals(
+			"Should be MIDPART_INSIDE", RegionMatch.IntersectionType.MIDPART_INSIDE, match.getIntersectionType());
 		Triple<CharSequence, CharSequence, CharSequence> applied = match.apply();
 		assertEquals("b", applied.getFirst().toString());
 		assertEquals("a", applied.getSecond().toString());

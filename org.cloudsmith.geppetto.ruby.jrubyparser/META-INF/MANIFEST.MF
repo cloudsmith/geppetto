@@ -6,7 +6,7 @@ Bundle-Localization: plugin
 Bundle-SymbolicName: org.cloudsmith.geppetto.ruby.jrubyparser;singleton:=true
 Bundle-Version: 2.2.1.qualifier
 Require-Bundle: org.cloudsmith.geppetto.ruby,
- org.jrubyparser,
+ org.cloudsmith.jrubyparser,
  org.cloudsmith.geppetto.common,
  com.google.guava;bundle-version="10.0.1"
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6

@@ -11,11 +11,12 @@
  */
 package org.cloudsmith.geppetto.ruby.tests;
 
+import static org.junit.Assert.assertEquals;
+
 import java.util.List;
 
-import junit.framework.TestCase;
-
 import org.cloudsmith.geppetto.ruby.RubyDocProcessorSimple;
+import org.junit.Test;
 
 import com.google.common.base.Joiner;
 import com.google.common.collect.ImmutableList;
@@ -24,7 +25,7 @@ import com.google.common.collect.ImmutableList;
  * @author henrik
  * 
  */
-public class TestRubyDocProcessor extends TestCase {
+public class TestRubyDocProcessor {
 	public static final List<String> content1 = ImmutableList.of( //
 		"This is an example:\n", //
 		"  verbatim\n", //
@@ -41,6 +42,7 @@ public class TestRubyDocProcessor extends TestCase {
 		"<p>Non verbatim\n", //
 		"</p>");
 
+	@Test
 	public void testRubyDocprocessor() {
 
 		String result = RubyDocProcessorSimple.asHTML(Joiner.on("").join(content1));

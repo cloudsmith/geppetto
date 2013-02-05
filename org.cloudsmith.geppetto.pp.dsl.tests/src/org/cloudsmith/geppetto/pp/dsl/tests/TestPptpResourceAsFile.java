@@ -17,8 +17,10 @@ import java.net.URL;
 import org.cloudsmith.geppetto.common.util.EclipseUtils;
 import org.cloudsmith.geppetto.pp.dsl.target.PptpResourceUtil;
 import org.eclipse.emf.common.util.URI;
+import org.junit.Test;
 
 public class TestPptpResourceAsFile extends AbstractPuppetTests {
+	@Test
 	public void test_PptpResourceAsFile() {
 		try {
 			URI uri = PptpResourceUtil.getFacter_1_6();

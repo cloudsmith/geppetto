@@ -11,13 +11,14 @@
  */
 package org.cloudsmith.geppetto.forge.tests;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.Map;
-
-import junit.framework.TestCase;
-import junit.textui.TestRunner;
 
 import org.cloudsmith.geppetto.forge.ForgeFactory;
 import org.cloudsmith.geppetto.forge.MatchRule;
@@ -31,32 +32,12 @@ import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.util.EcoreUtil.EqualityHelper;
 import org.eclipse.emf.ecore.util.FeatureMap;
 import org.eclipse.emf.ecore.util.FeatureMapUtil;
+import org.junit.Before;
+import org.junit.Test;
 
 import com.google.gson.Gson;
 
-/**
- * <!-- begin-user-doc --> A test case for the model object ' <em><b>Metadata</b></em>'. <!-- end-user-doc -->
- * <p>
- * The following features are tested:
- * <ul>
- * <li>{@link org.cloudsmith.geppetto.forge.Metadata#getFullName() <em>Full Name</em>}</li>
- * </ul>
- * </p>
- * <p>
- * The following operations are tested:
- * <ul>
- * <li>{@link org.cloudsmith.geppetto.forge.Metadata#loadModuleFile(java.io.File) <em>Load Module File</em>}</li>
- * <li>{@link org.cloudsmith.geppetto.forge.Metadata#loadTypeFiles(java.io.File) <em>Load Type Files</em>}</li>
- * <li>{@link org.cloudsmith.geppetto.forge.Metadata#loadChecksums(java.io.File) <em>Load Checksums</em>}</li>
- * <li>{@link org.cloudsmith.geppetto.forge.Metadata#saveJSONMetadata(java.io.File) <em>Save JSON Metadata</em>}</li>
- * <li>{@link org.cloudsmith.geppetto.forge.Metadata#saveModulefile(java.io.File) <em>Save Modulefile</em>}</li>
- * <li>{@link org.cloudsmith.geppetto.forge.Metadata#parseVersionRequirement(java.lang.String) <em>Parse Version Requirement</em>}</li>
- * </ul>
- * </p>
- * 
- * @generated
- */
-public class MetadataTest extends TestCase {
+public class MetadataTest {
 
 	private static Object countLines(String str) {
 		if(str == null || str.length() == 0)
@@ -69,44 +50,7 @@ public class MetadataTest extends TestCase {
 		return cnt;
 	}
 
-	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
-	 * @generated
-	 */
-	public static void main(String[] args) {
-		TestRunner.run(MetadataTest.class);
-	}
-
-	/**
-	 * The fixture for this Metadata test case.
-	 * <!-- begin-user-doc --> <!--
-	 * end-user-doc -->
-	 * 
-	 * @generated
-	 */
-	protected Metadata fixture = null;
-
-	/**
-	 * Constructs a new Metadata test case with the given name. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
-	 * @generated
-	 */
-	public MetadataTest(String name) {
-		super(name);
-	}
-
-	/**
-	 * Returns the fixture for this Metadata test case.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * 
-	 * @generated
-	 */
-	protected Metadata getFixture() {
-		return fixture;
-	}
+	private Metadata fixture = null;
 
 	private void performJsonSerialization(String module) {
 		populateFromModule(module);
@@ -191,81 +135,44 @@ public class MetadataTest extends TestCase {
 		}
 	}
 
-	/**
-	 * Sets the fixture for this Metadata test case.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * 
-	 * @generated
-	 */
-	protected void setFixture(Metadata fixture) {
-		this.fixture = fixture;
+	@Before
+	public void setUp() throws Exception {
+		fixture = ForgeFactory.eINSTANCE.createMetadata();
 	}
 
-	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
-	 * @see junit.framework.TestCase#setUp()
-	 * @generated
-	 */
-	@Override
-	protected void setUp() throws Exception {
-		setFixture(ForgeFactory.eINSTANCE.createMetadata());
-	}
-
-	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
-	 * @see junit.framework.TestCase#tearDown()
-	 * @generated
-	 */
-	@Override
-	protected void tearDown() throws Exception {
-		setFixture(null);
-	}
-
-	/**
-	 * Tests the '{@link org.cloudsmith.geppetto.forge.Metadata#getFullName()
-	 * <em>Full Name</em>}' feature getter. <!-- begin-user-doc --> <!--
-	 * end-user-doc -->
-	 * 
-	 * @see org.cloudsmith.geppetto.forge.Metadata#getFullName()
-	 * @generated NOT
-	 */
+	@Test
 	public void testGetFullName() {
 		fixture.setUser("some");
 		fixture.setName("name");
 		assertEquals("Full name not set correctly", "some-name", fixture.getFullName());
 	}
 
+	@Test
 	public void testJSonSerialization() throws Exception {
 		performJsonSerialization("bobsh-iptables");
 	}
 
+	@Test
 	public void testJSonSerialization2() throws Exception {
 		performJsonSerialization("DavidSchmitt-collectd");
 	}
 
+	@Test
 	public void testJSonSerialization3() throws Exception {
 		performJsonSerialization("ghoneycutt-rsync");
 	}
 
+	@Test
 	public void testJSonSerialization4() throws Exception {
 		performJsonSerialization("lab42-common");
 	}
 
+	@Test
 	public void testJSonSerialization5() throws Exception {
 		performJsonSerialization("puppetlabs-apache");
 	}
 
-	/**
-	 * Tests the ' {@link org.cloudsmith.geppetto.forge.Metadata#loadChecksums(java.io.File)
-	 * <em>Load Checksums</em>}' operation. <!-- begin-user-doc --> <!--
-	 * end-user-doc -->
-	 * 
-	 * @see org.cloudsmith.geppetto.forge.Metadata#loadChecksums(java.io.File)
-	 * @generated NOT
-	 */
+	@Test
 	public void testLoadChecksums__File() {
 		try {
 			assertTrue(fixture.getChecksums().isEmpty());
@@ -277,14 +184,7 @@ public class MetadataTest extends TestCase {
 		}
 	}
 
-	/**
-	 * Tests the ' {@link org.cloudsmith.geppetto.forge.Metadata#loadModuleFile(java.io.File)
-	 * <em>Load Module File</em>}' operation. <!-- begin-user-doc --> <!--
-	 * end-user-doc -->
-	 * 
-	 * @see org.cloudsmith.geppetto.forge.Metadata#loadModuleFile(java.io.File)
-	 * @generated NOT
-	 */
+	@Test
 	public void testLoadModuleFile__File() {
 		try {
 			fixture.loadModuleFile(Activator.getTestData("puppetlabs-apache/Modulefile"));
@@ -295,14 +195,7 @@ public class MetadataTest extends TestCase {
 		}
 	}
 
-	/**
-	 * Tests the ' {@link org.cloudsmith.geppetto.forge.Metadata#loadTypeFiles(java.io.File)
-	 * <em>Load Type Files</em>}' operation. <!-- begin-user-doc --> <!--
-	 * end-user-doc -->
-	 * 
-	 * @see org.cloudsmith.geppetto.forge.Metadata#loadTypeFiles(java.io.File)
-	 * @generated NOT
-	 */
+	@Test
 	public void testLoadTypeFiles__File() {
 		try {
 			fixture.loadTypeFiles(Activator.getTestData("puppetlabs-apache/lib/puppet"));
@@ -314,15 +207,7 @@ public class MetadataTest extends TestCase {
 		}
 	}
 
-	/**
-	 * Tests the '{@link org.cloudsmith.geppetto.forge.Metadata#parseVersionRequirement(java.lang.String) <em>Parse Version Requirement</em>}'
-	 * operation.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * 
-	 * @see org.cloudsmith.geppetto.forge.Metadata#parseVersionRequirement(java.lang.String)
-	 * @generated NOT
-	 */
+	@Test
 	public void testParseVersionRequirement__String() {
 		VersionRequirement vq = fixture.parseVersionRequirement(">=1.2.3");
 		assertEquals(MatchRule.GREATER_OR_EQUAL, vq.getMatchRule());
@@ -357,14 +242,7 @@ public class MetadataTest extends TestCase {
 		assertEquals("1.2.3-alpha", vq.getVersion());
 	}
 
-	/**
-	 * Tests the ' {@link org.cloudsmith.geppetto.forge.Metadata#saveJSONMetadata(java.io.File)
-	 * <em>Save JSON Metadata</em>}' operation. <!-- begin-user-doc --> <!--
-	 * end-user-doc -->
-	 * 
-	 * @see org.cloudsmith.geppetto.forge.Metadata#saveJSONMetadata(java.io.File)
-	 * @generated NOT
-	 */
+	@Test
 	public void testSaveJSONMetadata__File() {
 		try {
 			File outputDir = ForgeTests.getTestOutputFolder("json-ouput", true);
@@ -378,14 +256,7 @@ public class MetadataTest extends TestCase {
 		}
 	}
 
-	/**
-	 * Tests the ' {@link org.cloudsmith.geppetto.forge.Metadata#saveModulefile(java.io.File)
-	 * <em>Save Modulefile</em>}' operation. <!-- begin-user-doc --> <!--
-	 * end-user-doc -->
-	 * 
-	 * @see org.cloudsmith.geppetto.forge.Metadata#saveModulefile(java.io.File)
-	 * @generated NOT
-	 */
+	@Test
 	public void testSaveModulefile__File() {
 		try {
 			File outputDir = ForgeTests.getTestOutputFolder("modulefile-ouput", true);
@@ -406,14 +277,7 @@ public class MetadataTest extends TestCase {
 		}
 	}
 
-	/**
-	 * Tests the ' {@link org.cloudsmith.geppetto.forge.Metadata#setFullName(java.lang.String)
-	 * <em>Full Name</em>}' feature setter. <!-- begin-user-doc --> <!--
-	 * end-user-doc -->
-	 * 
-	 * @see org.cloudsmith.geppetto.forge.Metadata#setFullName(java.lang.String)
-	 * @generated NOT
-	 */
+	@Test
 	public void testSetFullName() {
 		try {
 			fixture.setFullName("some/name");
@@ -425,4 +289,4 @@ public class MetadataTest extends TestCase {
 			fail(e.getMessage());
 		}
 	}
-} // MetadataTest
+}

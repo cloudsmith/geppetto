@@ -11,115 +11,27 @@
  */
 package org.cloudsmith.geppetto.forge.tests;
 
-import java.util.Arrays;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
-import junit.framework.TestCase;
-import junit.textui.TestRunner;
+import java.util.Arrays;
 
 import org.cloudsmith.geppetto.forge.ForgeFactory;
 import org.cloudsmith.geppetto.forge.MatchRule;
 import org.cloudsmith.geppetto.forge.VersionRequirement;
+import org.junit.Before;
+import org.junit.Test;
 
-/**
- * <!-- begin-user-doc -->
- * A test case for the model object '<em><b>Version Requirement</b></em>'.
- * <!-- end-user-doc -->
- * <p>
- * The following operations are tested:
- * <ul>
- * <li>{@link org.cloudsmith.geppetto.forge.VersionRequirement#matches(java.lang.String) <em>Matches</em>}</li>
- * <li>{@link org.cloudsmith.geppetto.forge.VersionRequirement#findBestMatch(java.util.Collection) <em>Find Best Match</em>}</li>
- * </ul>
- * </p>
- * 
- * @generated
- */
-public class VersionRequirementTest extends TestCase {
+public class VersionRequirementTest {
+	private VersionRequirement fixture = null;
 
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * 
-	 * @generated
-	 */
-	public static void main(String[] args) {
-		TestRunner.run(VersionRequirementTest.class);
+	@Before
+	public void setUp() throws Exception {
+		fixture = ForgeFactory.eINSTANCE.createVersionRequirement();
 	}
 
-	/**
-	 * The fixture for this Version Requirement test case.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * 
-	 * @generated
-	 */
-	protected VersionRequirement fixture = null;
-
-	/**
-	 * Constructs a new Version Requirement test case with the given name.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * 
-	 * @generated
-	 */
-	public VersionRequirementTest(String name) {
-		super(name);
-	}
-
-	/**
-	 * Returns the fixture for this Version Requirement test case.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * 
-	 * @generated
-	 */
-	protected VersionRequirement getFixture() {
-		return fixture;
-	}
-
-	/**
-	 * Sets the fixture for this Version Requirement test case.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * 
-	 * @generated
-	 */
-	protected void setFixture(VersionRequirement fixture) {
-		this.fixture = fixture;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * 
-	 * @see junit.framework.TestCase#setUp()
-	 * @generated
-	 */
-	@Override
-	protected void setUp() throws Exception {
-		setFixture(ForgeFactory.eINSTANCE.createVersionRequirement());
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * 
-	 * @see junit.framework.TestCase#tearDown()
-	 * @generated
-	 */
-	@Override
-	protected void tearDown() throws Exception {
-		setFixture(null);
-	}
-
-	/**
-	 * Tests the '{@link org.cloudsmith.geppetto.forge.VersionRequirement#findBestMatch(java.util.Collection) <em>Find Best Match</em>}' operation.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * 
-	 * @see org.cloudsmith.geppetto.forge.VersionRequirement#findBestMatch(java.util.Collection)
-	 * @generated NOT
-	 */
+	@Test
 	public void testFindBestMatch__Collection() {
 		fixture.setVersion("1.2.3.foo");
 		fixture.setMatchRule(MatchRule.EQUIVALENT);
@@ -127,14 +39,7 @@ public class VersionRequirementTest extends TestCase {
 		assertEquals("1.2.4", best);
 	}
 
-	/**
-	 * Tests the '{@link org.cloudsmith.geppetto.forge.VersionRequirement#matches(java.lang.String) <em>Matches</em>}' operation.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * 
-	 * @see org.cloudsmith.geppetto.forge.VersionRequirement#matches(java.lang.String)
-	 * @generated NOT
-	 */
+	@Test
 	public void testMatches__String() {
 		fixture.setVersion("1.2.3.foo");
 		fixture.setMatchRule(MatchRule.GREATER);
@@ -209,5 +114,4 @@ public class VersionRequirementTest extends TestCase {
 		assertFalse(fixture.matches("2.2.3"));
 		assertTrue(fixture.matches("0.2.3"));
 	}
-
-} // VersionRequirementTest
+}

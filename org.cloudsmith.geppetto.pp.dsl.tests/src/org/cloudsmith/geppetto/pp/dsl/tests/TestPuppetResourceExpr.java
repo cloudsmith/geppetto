@@ -28,8 +28,9 @@ import org.cloudsmith.geppetto.pp.VariableExpression;
 import org.cloudsmith.geppetto.pp.dsl.validation.IPPDiagnostics;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.xtext.junit.validation.AssertableDiagnostics;
+import org.eclipse.xtext.junit4.validation.AssertableDiagnostics;
 import org.eclipse.xtext.resource.XtextResource;
+import org.junit.Test;
 
 /**
  * Tests Puppet ResourceExpression
@@ -121,6 +122,7 @@ public class TestPuppetResourceExpr extends AbstractPuppetTests {
 
 	}
 
+	@Test
 	public void test_Serialize_1() throws Exception {
 		String code = "file { 'afile': owner => 'foo'}";
 		String fmt = "file { 'afile':\n  owner => 'foo'\n}\n";
@@ -130,6 +132,7 @@ public class TestPuppetResourceExpr extends AbstractPuppetTests {
 
 	}
 
+	@Test
 	public void test_Serialize_assignArray() throws Exception {
 		PuppetManifest pp = pf.createPuppetManifest();
 		EList<Expression> statements = pp.getStatements();
@@ -145,6 +148,7 @@ public class TestPuppetResourceExpr extends AbstractPuppetTests {
 		assertEquals("serialization should produce same result", fmt, s);
 	}
 
+	@Test
 	public void test_Serialize_DefaultResource() throws Exception {
 		PuppetManifest pp = pf.createPuppetManifest();
 		EList<Expression> statements = pp.getStatements();
@@ -154,6 +158,7 @@ public class TestPuppetResourceExpr extends AbstractPuppetTests {
 		assertEquals("serialization should produce specified result", Sample_DefaultResource, s);
 	}
 
+	@Test
 	public void test_Serialize_fromModel() throws Exception {
 		PuppetManifest pp = pf.createPuppetManifest();
 		EList<Expression> statements = pp.getStatements();
@@ -165,6 +170,7 @@ public class TestPuppetResourceExpr extends AbstractPuppetTests {
 		assertEquals("serialization should produce same result", "$a\n", s);
 	}
 
+	@Test
 	public void test_Serialize_MResourcesMAttributes() throws Exception {
 		PuppetManifest pp = pf.createPuppetManifest();
 		EList<Expression> statements = pp.getStatements();
@@ -179,6 +185,7 @@ public class TestPuppetResourceExpr extends AbstractPuppetTests {
 		assertEquals("serialization should produce specified result", Sample_MResourcesMAttributes, s);
 	}
 
+	@Test
 	public void test_Serialize_ResourceMAttributes() throws Exception {
 		PuppetManifest pp = pf.createPuppetManifest();
 		EList<Expression> statements = pp.getStatements();
@@ -196,6 +203,7 @@ public class TestPuppetResourceExpr extends AbstractPuppetTests {
 	 * 
 	 * @throws Exception
 	 */
+	@Test
 	public void test_Serialize_ResourceNoAttributes() throws Exception {
 		// --with attribute definition
 		PuppetManifest pp = pf.createPuppetManifest();
@@ -213,6 +221,7 @@ public class TestPuppetResourceExpr extends AbstractPuppetTests {
 	 * 
 	 * @throws Exception
 	 */
+	@Test
 	public void test_Serialize_ResourceOneAttribute() throws Exception {
 		// --with attribute definition
 		PuppetManifest pp = pf.createPuppetManifest();
@@ -229,6 +238,7 @@ public class TestPuppetResourceExpr extends AbstractPuppetTests {
 		assertEquals("serialization should produce specified result", Sample_ResourceOneAddAttribute, s);
 	}
 
+	@Test
 	public void test_Serialize_ResourceWithRequires() {
 		// --with attribute definition
 		PuppetManifest pp = pf.createPuppetManifest();
@@ -249,6 +259,7 @@ public class TestPuppetResourceExpr extends AbstractPuppetTests {
 
 	}
 
+	@Test
 	public void test_Serialize_TwoResources() throws Exception {
 		// --with attribute definition
 		PuppetManifest pp = pf.createPuppetManifest();
@@ -266,6 +277,7 @@ public class TestPuppetResourceExpr extends AbstractPuppetTests {
 		assertEquals("serialization should produce specified result", Sample_ResourceOneAddAttribute, s);
 	}
 
+	@Test
 	public void test_Serialize_VirtualResource() {
 		// --with attribute definition
 		PuppetManifest pp = pf.createPuppetManifest();
@@ -283,12 +295,14 @@ public class TestPuppetResourceExpr extends AbstractPuppetTests {
 		assertEquals("serialization should produce specified result", Sample_VirtualResourceExported, s);
 	}
 
+	@Test
 	public void test_SmokeTest_Simple() throws Exception {
 		String code = "file { 'afile': owner => 'foo'}";
 		EObject m = getModel(code);
 		assertTrue("Should have been a PuppetManifest", m instanceof PuppetManifest);
 	}
 
+	@Test
 	public void test_Valdate_UnknownProperty() throws Exception {
 		String code = "file { 'afile': donor => 'A donor'}";
 		XtextResource r = getResourceFromStringAndExpect(code, UNKNOWN_EXPECTATION);
@@ -301,6 +315,7 @@ public class TestPuppetResourceExpr extends AbstractPuppetTests {
 	 * - multiple bodies
 	 * - bodies with titles
 	 */
+	@Test
 	public void test_Validate_DefaultResourceNotOk() {
 
 		// -- multiple bodies
@@ -328,6 +343,7 @@ public class TestPuppetResourceExpr extends AbstractPuppetTests {
 			AssertableDiagnostics.errorCode(IPPDiagnostics.ISSUE__RESOURCE_MULTIPLE_BODIES));
 	}
 
+	@Test
 	public void test_Validate_DefaultResourceOk() {
 		PuppetManifest pp = pf.createPuppetManifest();
 		EList<Expression> statements = pp.getStatements();
@@ -347,6 +363,7 @@ public class TestPuppetResourceExpr extends AbstractPuppetTests {
 	 * - at expression with no parameters
 	 * - at expression left is name == warning
 	 */
+	@Test
 	public void test_Validate_Override_NotOk() {
 		// -- states where the at expression is ok
 
@@ -447,6 +464,7 @@ public class TestPuppetResourceExpr extends AbstractPuppetTests {
 	 * - at expression with NameOrReference as left expression
 	 * - at least one parameter in the at expression
 	 */
+	@Test
 	public void test_Validate_Override_ok() {
 		PuppetManifest pp = pf.createPuppetManifest();
 		EList<Expression> statements = pp.getStatements();
@@ -475,6 +493,7 @@ public class TestPuppetResourceExpr extends AbstractPuppetTests {
 	 * - missing title
 	 * - additive attributes
 	 */
+	@Test
 	public void test_Validate_RegularResourceNotOk() {
 
 		// -- missing title
@@ -517,6 +536,7 @@ public class TestPuppetResourceExpr extends AbstractPuppetTests {
 	 * - Resource with multiple bodies
 	 * - Resource with multiple bodies - one being empty
 	 */
+	@Test
 	public void test_Validate_RegularResourceOk() {
 
 		// -- Resource with a couple of attribute definitions
@@ -562,6 +582,7 @@ public class TestPuppetResourceExpr extends AbstractPuppetTests {
 
 	}
 
+	@Test
 	public void test_Validate_ResourceWithRequires() {
 		// --with attribute definition
 		PuppetManifest pp = pf.createPuppetManifest();
@@ -583,6 +604,7 @@ public class TestPuppetResourceExpr extends AbstractPuppetTests {
 
 	}
 
+	@Test
 	public void test_Validate_VirtualResource_NotOk() {
 		// -- Resource with a couple of attribute definitions
 		PuppetManifest pp = pf.createPuppetManifest();
@@ -594,6 +616,7 @@ public class TestPuppetResourceExpr extends AbstractPuppetTests {
 		tester.diagnose().assertError(IPPDiagnostics.ISSUE__RESOURCE_NOT_VIRTUALIZEABLE);
 	}
 
+	@Test
 	public void test_Validate_VirtualResource_Ok() {
 		// -- Resource with a couple of attribute definitions
 		PuppetManifest pp = pf.createPuppetManifest();
@@ -606,6 +629,7 @@ public class TestPuppetResourceExpr extends AbstractPuppetTests {
 		tester.diagnose().assertOK();
 	}
 
+	@Test
 	public void test_ValidateComplexName() {
 		PuppetManifest pp = pf.createPuppetManifest();
 		EList<Expression> statements = pp.getStatements();
@@ -621,6 +645,7 @@ public class TestPuppetResourceExpr extends AbstractPuppetTests {
 
 	}
 
+	@Test
 	public void test_ValidateExpressionTitles_NotOk() {
 		// just testing one
 		{ // -- literal string
@@ -641,6 +666,7 @@ public class TestPuppetResourceExpr extends AbstractPuppetTests {
 		}
 	}
 
+	@Test
 	public void test_ValidateExpressionTitles_Ok() {
 
 		{ // -- literal string

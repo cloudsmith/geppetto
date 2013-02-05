@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="ASCII"?>
+<pptp:PuppetDistribution xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:pptp="http://www.cloudsmith.org/geppetto/1.0.0/PPTP" description="Facter Variables" version="1.6" label="Facter">
+  <contents xsi:type="pptp:TPVariable" name="architecture" documentation="The CPU hardware architecture. On OpenBSD, Linux and Debian's kfreebsd, use the hardwaremodel fact. Gentoo and Debian call 'x86_86' 'amd64'. Gentoo also calls 'i386' 'x86'." assignable="true"/>
+  <contents xsi:type="pptp:TPVariable" name="arp" documentation="" assignable="true"/>
+  <contents xsi:type="pptp:TPVariable" name="augeasversion" documentation="The version of the Auegas library." assignable="true"/>
+  <contents xsi:type="pptp:TPVariable" name="boardmanufacturer" documentation="The manufacturer of the machine's motherboard" assignable="true"/>
+  <contents xsi:type="pptp:TPVariable" name="boardproductname" documentation="The model name of the machine's motherboard." assignable="true"/>
+  <contents xsi:type="pptp:TPVariable" name="boardserialnumber" documentation="The serial number of the machine's motherboard." assignable="true"/>
+  <contents xsi:type="pptp:TPVariable" name="cfkey" documentation="The public key(s) for CFengine." assignable="true"/>
+  <contents xsi:type="pptp:TPVariable" name="domain" documentation="The host's primary DNS name." assignable="true"/>
+  <contents xsi:type="pptp:TPVariable" name="ec2_ami_id" documentation="See EC2 documentation" assignable="true"/>
+  <contents xsi:type="pptp:TPVariable" name="ec2_ami_launch_index" documentation="See EC2 documentation" assignable="true"/>
+  <contents xsi:type="pptp:TPVariable" name="ec2_ami_manifest_path" documentation="See EC2 documentation" assignable="true"/>
+  <contents xsi:type="pptp:TPVariable" name="ec2_block_device_mapping_ami" documentation="See EC2 documentation" assignable="true"/>
+  <contents xsi:type="pptp:TPVariable" name="ec2_block_device_mapping_ephemeral0" documentation="See EC2 documentation" assignable="true"/>
+  <contents xsi:type="pptp:TPVariable" name="ec2_block_device_mapping_root" documentation="See EC2 documentation" assignable="true"/>
+  <contents xsi:type="pptp:TPVariable" name="ec2_hostname" documentation="See EC2 documentation" assignable="true"/>
+  <contents xsi:type="pptp:TPVariable" name="ec2_instance_id" documentation="See EC2 documentation" assignable="true"/>
+  <contents xsi:type="pptp:TPVariable" name="ec2_instance_type" documentation="See EC2 documentation" assignable="true"/>
+  <contents xsi:type="pptp:TPVariable" name="ec2_kernel_id" documentation="See EC2 documentation" assignable="true"/>
+  <contents xsi:type="pptp:TPVariable" name="ec2_local_hostname" documentation="See EC2 documentation" assignable="true"/>
+  <contents xsi:type="pptp:TPVariable" name="ec2_local_ipv4" documentation="See EC2 documentation" assignable="true"/>
+  <contents xsi:type="pptp:TPVariable" name="ec2_placement_availability_zone" documentation="See EC2 documentation" assignable="true"/>
+  <contents xsi:type="pptp:TPVariable" name="ec2_profile" documentation="See EC2 documentation" assignable="true"/>
+  <contents xsi:type="pptp:TPVariable" name="ec2_public_hostname" documentation="See EC2 documentation" assignable="true"/>
+  <contents xsi:type="pptp:TPVariable" name="ec2_public_ipv4" documentation="See EC2 documentation" assignable="true"/>
+  <contents xsi:type="pptp:TPVariable" name="ec2_public_keys_0_openssh_key" documentation="See EC2 documentation" assignable="true"/>
+  <contents xsi:type="pptp:TPVariable" name="ec2_reservation_id" documentation="See EC2 documentation" assignable="true"/>
+  <contents xsi:type="pptp:TPVariable" name="ec2_security_groups" documentation="See EC2 documentation" assignable="true"/>
+  <contents xsi:type="pptp:TPVariable" name="ec2_userdata" documentation="See EC2 documentation" assignable="true"/>
+  <contents xsi:type="pptp:TPVariable" name="facterversion" documentation="The version of the facter module." assignable="true"/>
+  <contents xsi:type="pptp:TPVariable" name="fqdn" documentation="The fully qualified domain name of the host, i.e. (hostname fact + domain name fact)." assignable="true"/>
+  <contents xsi:type="pptp:TPVariable" name="hardwareisa" documentation="Hardware processor type. (Result of 'uname -p' or equivalent)." assignable="true"/>
+  <contents xsi:type="pptp:TPVariable" name="hardwaremodel" documentation="The hardware model of the system. (Result of 'uname -m' or equivalent)." assignable="true"/>
+  <contents xsi:type="pptp:TPVariable" name="hostname" documentation="The system's short hostname." assignable="true"/>
+  <contents xsi:type="pptp:TPVariable" name="id" documentation="The name of the program producing 'username' (e.g. 'whoami'). On Solaris, fact is the username." assignable="true"/>
+  <contents xsi:type="pptp:TPVariable" name="interfaces" documentation="List of network interface names (suffixes to several other facts)." assignable="true"/>
+  <contents xsi:type="pptp:TPVariable" name="ipaddress" documentation="The main IP address for a host." assignable="true"/>
+  <contents xsi:type="pptp:TPVariable" name="ipaddress6" documentation="The &quot;main&quot; IPv6 IP address of a system." assignable="true"/>
+  <contents xsi:type="pptp:TPVariable" name="iphostnumber" documentation="On selected versions of Darwin, returns the host's IP address." assignable="true"/>
+  <contents xsi:type="pptp:TPVariable" name="is_virtual" documentation="Boolean indicating if this is a virtualised machine." assignable="true"/>
+  <contents xsi:type="pptp:TPVariable" name="kernel" documentation="The operation system's name." assignable="true"/>
+  <contents xsi:type="pptp:TPVariable" name="kernelmajversion" documentation="The operation system's release version's major number." assignable="true"/>
+  <contents xsi:type="pptp:TPVariable" name="kernelrelease" documentation="The operating system's release number. (Result of 'uname -r' or equivalent)." assignable="true"/>
+  <contents xsi:type="pptp:TPVariable" name="kernelversion" documentation="The operating system's kernel version. (Result of 'uname -v' or equivalent)." assignable="true"/>
+  <contents xsi:type="pptp:TPVariable" name="lsbdistcodename" documentation="Linux Standard Base information for the host. Only Linux and requires 'lsb_release' program." assignable="true"/>
+  <contents xsi:type="pptp:TPVariable" name="lsbdistdescription" documentation="Linux Standard Base information for the host. Only Linux and requires 'lsb_release' program." assignable="true"/>
+  <contents xsi:type="pptp:TPVariable" name="lsbdistid" documentation="Linux Standard Base information for the host. Only Linux and requires 'lsb_release' program." assignable="true"/>
+  <contents xsi:type="pptp:TPVariable" name="lsbdistrelease" documentation="Linux Standard Base information for the host. Only Linux and requires 'lsb_release' program." assignable="true"/>
+  <contents xsi:type="pptp:TPVariable" name="lsbmajdistrelease" documentation="Linux Standard Base information for the host. Only Linux and requires 'lsb_release' program." assignable="true"/>
+  <contents xsi:type="pptp:TPVariable" name="lsbrelease" documentation="Linux Standard Base information for the host. Only Linux and requires 'lsb_release' program." assignable="true"/>
+  <contents xsi:type="pptp:TPVariable" name="macaddress" documentation="The MAC address of the primary network interface" assignable="true"/>
+  <contents xsi:type="pptp:TPVariable" name="macosx_buildversion" documentation="The system's Mac OS X build version." assignable="true"/>
+  <contents xsi:type="pptp:TPVariable" name="macosx_productname" documentation="The system's Mac OS X product name. Will almost always be &quot;Mac OS X&quot;." assignable="true"/>
+  <contents xsi:type="pptp:TPVariable" name="macosx_productversion" documentation="The system's full Mac OS X version number (e.g. 10.7.4)." assignable="true"/>
+  <contents xsi:type="pptp:TPVariable" name="macosx_productversion_major" documentation="The system's major Mac OS X version number (e.g. 10.7)." assignable="true"/>
+  <contents xsi:type="pptp:TPVariable" name="macosx_productversion_minor" documentation="The system's major Mac OS X version number (e.g. 4)." assignable="true"/>
+  <contents xsi:type="pptp:TPVariable" name="manufacturer" documentation="The hardware manufacturer information about the hardware." assignable="true"/>
+  <contents xsi:type="pptp:TPVariable" name="memoryfree" documentation="The amount of free memory on the system." assignable="true"/>
+  <contents xsi:type="pptp:TPVariable" name="memorysize" documentation="The total amount of memory in the system." assignable="true"/>
+  <contents xsi:type="pptp:TPVariable" name="memorytotal" documentation="Synonym for $::memorysize. Deprecated." assignable="true"/>
+  <contents xsi:type="pptp:TPVariable" name="netmask" documentation="The netmask for the main interfaces." assignable="true"/>
+  <contents xsi:type="pptp:TPVariable" name="operatingsystem" documentation="The name of the operating system." assignable="true"/>
+  <contents xsi:type="pptp:TPVariable" name="operatingsystemrelease" documentation="The release of the operating system." assignable="true"/>
+  <contents xsi:type="pptp:TPVariable" name="osfamily" documentation="The operating system family derived from $operatingsystem." assignable="true"/>
+  <contents xsi:type="pptp:TPVariable" name="path" documentation="The system/shell $PATH variable" assignable="true"/>
+  <contents xsi:type="pptp:TPVariable" name="physicalprocessorcount" documentation="The number of physical processors." assignable="true"/>
+  <contents xsi:type="pptp:TPVariable" name="processor" documentation="Additional Facts about the machine's CPU. Only on BSD." assignable="true"/>
+  <contents xsi:type="pptp:TPVariable" name="processorcount" documentation="The number of processors in the machine." assignable="true"/>
+  <contents xsi:type="pptp:TPVariable" name="productname" documentation="The model identifier of the machine." assignable="true"/>
+  <contents xsi:type="pptp:TPVariable" name="ps" documentation="Name of command to list all processes. Is 'ps -ef' on all except BSD where 'ps auxwww' is used." assignable="true"/>
+  <contents xsi:type="pptp:TPVariable" name="puppetversion" documentation="The version of puppet installed." assignable="true"/>
+  <contents xsi:type="pptp:TPVariable" name="rubysitedir" documentation="Ruby's site library directory" assignable="true"/>
+  <contents xsi:type="pptp:TPVariable" name="rubyversion" documentation="The version of Ruby facter is running under. " assignable="true"/>
+  <contents xsi:type="pptp:TPVariable" name="selinux" documentation="" assignable="true"/>
+  <contents xsi:type="pptp:TPVariable" name="selinux_config_mode" documentation="" assignable="true"/>
+  <contents xsi:type="pptp:TPVariable" name="selinux_config_policy" documentation="" assignable="true"/>
+  <contents xsi:type="pptp:TPVariable" name="selinux_current_mode" documentation="" assignable="true"/>
+  <contents xsi:type="pptp:TPVariable" name="selinux_enforced" documentation="" assignable="true"/>
+  <contents xsi:type="pptp:TPVariable" name="selinux_mode" documentation="Deprecated, use $selinux_config_policy." assignable="true"/>
+  <contents xsi:type="pptp:TPVariable" name="selinux_policyversion" documentation="" assignable="true"/>
+  <contents xsi:type="pptp:TPVariable" name="serialnumber" documentation="The machine's serial number." assignable="true"/>
+  <contents xsi:type="pptp:TPVariable" name="sp_64bit_kernel_and_kexts" documentation="Retrieved from OS X system profiler." assignable="true"/>
+  <contents xsi:type="pptp:TPVariable" name="sp_boot_mode" documentation="Retrieved from OS X system profiler." assignable="true"/>
+  <contents xsi:type="pptp:TPVariable" name="sp_boot_rom_version" documentation="Retrieved from OS X system profiler." assignable="true"/>
+  <contents xsi:type="pptp:TPVariable" name="sp_boot_volume" documentation="Retrieved from OS X system profiler." assignable="true"/>
+  <contents xsi:type="pptp:TPVariable" name="sp_cpu_interconnect_speed" documentation="Retrieved from OS X system profiler." assignable="true"/>
+  <contents xsi:type="pptp:TPVariable" name="sp_cpu_type" documentation="Retrieved from OS X system profiler." assignable="true"/>
+  <contents xsi:type="pptp:TPVariable" name="sp_current_processor_speed" documentation="Retrieved from OS X system profiler." assignable="true"/>
+  <contents xsi:type="pptp:TPVariable" name="sp_kernel_version" documentation="Retrieved from OS X system profiler." assignable="true"/>
+  <contents xsi:type="pptp:TPVariable" name="sp_l2_cache_core" documentation="Retrieved from OS X system profiler." assignable="true"/>
+  <contents xsi:type="pptp:TPVariable" name="sp_l3_cache" documentation="Retrieved from OS X system profiler." assignable="true"/>
+  <contents xsi:type="pptp:TPVariable" name="sp_local_host_name" documentation="Retrieved from OS X system profiler." assignable="true"/>
+  <contents xsi:type="pptp:TPVariable" name="sp_machine_model" documentation="Retrieved from OS X system profiler." assignable="true"/>
+  <contents xsi:type="pptp:TPVariable" name="sp_machine_name" documentation="Retrieved from OS X system profiler." assignable="true"/>
+  <contents xsi:type="pptp:TPVariable" name="sp_mmm_entry" documentation="Retrieved from OS X system profiler." assignable="true"/>
+  <contents xsi:type="pptp:TPVariable" name="sp_number_processors" documentation="Retrieved from OS X system profiler." assignable="true"/>
+  <contents xsi:type="pptp:TPVariable" name="sp_os_version" documentation="Retrieved from OS X system profiler." assignable="true"/>
+  <contents xsi:type="pptp:TPVariable" name="sp_packages" documentation="Retrieved from OS X system profiler." assignable="true"/>
+  <contents xsi:type="pptp:TPVariable" name="sp_physical_memory" documentation="Retrieved from OS X system profiler." assignable="true"/>
+  <contents xsi:type="pptp:TPVariable" name="sp_platform_uuid" documentation="Retrieved from OS X system profiler." assignable="true"/>
+  <contents xsi:type="pptp:TPVariable" name="sp_secure_vm" documentation="Retrieved from OS X system profiler." assignable="true"/>
+  <contents xsi:type="pptp:TPVariable" name="sp_serial_number" documentation="Retrieved from OS X system profiler." assignable="true"/>
+  <contents xsi:type="pptp:TPVariable" name="sp_smc_version_system" documentation="Retrieved from OS X system profiler." assignable="true"/>
+  <contents xsi:type="pptp:TPVariable" name="sp_uptime" documentation="Retrieved from OS X system profiler." assignable="true"/>
+  <contents xsi:type="pptp:TPVariable" name="sp_user_name" documentation="Retrieved from OS X system profiler." assignable="true"/>
+  <contents xsi:type="pptp:TPVariable" name="sshdsakey" documentation="The host's SSH DSA key," assignable="true"/>
+  <contents xsi:type="pptp:TPVariable" name="sshecdsakey" documentation="The host's SSH ECDSA key." assignable="true"/>
+  <contents xsi:type="pptp:TPVariable" name="sshrsakey" documentation="The host's SSH RSA key." assignable="true"/>
+  <contents xsi:type="pptp:TPVariable" name="swapencrypted" documentation="Boolean indicating if the system's swap space is encrypted. Only on Darwin." assignable="true"/>
+  <contents xsi:type="pptp:TPVariable" name="swapfree" documentation="The amount of free swap space." assignable="true"/>
+  <contents xsi:type="pptp:TPVariable" name="swapsize" documentation="The total amount of swap space." assignable="true"/>
+  <contents xsi:type="pptp:TPVariable" name="timezone" documentation="The machine's time zone." assignable="true"/>
+  <contents xsi:type="pptp:TPVariable" name="type" documentation="The machine's chassis type." assignable="true"/>
+  <contents xsi:type="pptp:TPVariable" name="uniqueid" documentation="The output of the 'hostid' command." assignable="true"/>
+  <contents xsi:type="pptp:TPVariable" name="uptime" documentation="System uptime in human readable format." assignable="true"/>
+  <contents xsi:type="pptp:TPVariable" name="uptime_days" documentation="Number of days of uptime (i.e. '$uptime_hours / 24'." assignable="true"/>
+  <contents xsi:type="pptp:TPVariable" name="uptime_hours" documentation="Number of hours of uptime (i.e. '$uptime_seconds / 3600'." assignable="true"/>
+  <contents xsi:type="pptp:TPVariable" name="uptime_seconds" documentation="Number of seconds of uptime." assignable="true"/>
+  <contents xsi:type="pptp:TPVariable" name="virtual" documentation="Boolean indicating of the system's hardware is virtualised." assignable="true"/>
+  <contents xsi:type="pptp:TPVariable" name="vlans" documentation="The list of all the VLANs on the system. Only Linux." assignable="true"/>
+  <contents xsi:type="pptp:TPVariable" name="xendomains" documentation="The list of Xen domains on the Dom()." assignable="true"/>
+  <contents xsi:type="pptp:TPVariable" name="arp_" documentation="" assignable="true" pattern="\w+"/>
+  <contents xsi:type="pptp:TPVariable" name="ipaddress_" documentation="The IP4 address for a specific network interface (from the list in the $interfaces fact)." assignable="true" pattern="\w+"/>
+  <contents xsi:type="pptp:TPVariable" name="ipaddress6_" documentation="The IP6 address for a specific network interface (from the list in the $interfaces fact)." assignable="true" pattern="\w+"/>
+  <contents xsi:type="pptp:TPVariable" name="macaddress_" documentation="The MAC address for a specific network interface (from the list in the $interfaces fact)." assignable="true" pattern="\w+"/>
+  <contents xsi:type="pptp:TPVariable" name="netmask_" documentation="The netmask for a specific network interface (from the list in the $interfaces fact)." assignable="true" pattern="\w+"/>
+  <contents xsi:type="pptp:TPVariable" name="network_" documentation="The network for a specific network interface (from the list in the $interfaces fact)." assignable="true" pattern="\w+"/>
+  <contents xsi:type="pptp:TPVariable" name="processor" documentation="One fact for each processor, with processor info." assignable="true" pattern="[0-9a-fA-F]+"/>
+</pptp:PuppetDistribution>

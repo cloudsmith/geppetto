@@ -15,9 +15,9 @@
 	</build>
 	<dependencies>
 		<dependency>
-			<groupId>org.jruby</groupId>
+			<groupId>org.cloudsmith.jruby</groupId>
 			<artifactId>jrubyparser</artifactId>
-			<version>0.2</version>
+			<version>0.3-SNAPSHOT</version>
 		</dependency>
 		<dependency>
 			<groupId>com.google.guava</groupId>

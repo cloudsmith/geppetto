@@ -12,31 +12,31 @@
 
 package org.cloudsmith.geppetto.ruby.tests;
 
-import junit.framework.Test;
-import junit.framework.TestSuite;
-
 import org.cloudsmith.geppetto.ruby.RubyHelper;
 import org.cloudsmith.geppetto.ruby.jrubyparser.JRubyServices;
+import org.junit.BeforeClass;
+import org.junit.runner.RunWith;
+import org.junit.runners.Suite;
+import org.junit.runners.Suite.SuiteClasses;
 
 /**
  * All Puppet Tests.
- * 
  */
+@SuiteClasses({
+// @fmtOff
+	TestRubyDocProcessor.class,
+	TestRubyDocProcessor2.class,
+	PptpResourceTests.class,
+	SmokeTest.class,
+	PuppetFunctionTests.class,
+	PuppetTypeTests.class,
+	PuppetTPTests.class
+// @fmtOn
+})
+@RunWith(Suite.class)
 public class AllTests {
-
-	public static Test suite() {
+	@BeforeClass
+	public static void initRubyService() {
 		RubyHelper.setRubyServicesFactory(JRubyServices.FACTORY);
-
-		TestSuite suite = new TestSuite(AllTests.class.getName());
-		// $JUnit-BEGIN$
-		suite.addTestSuite(TestRubyDocProcessor.class);
-		suite.addTestSuite(TestRubyDocProcessor2.class);
-		suite.addTestSuite(PptpResourceTests.class);
-		suite.addTestSuite(SmokeTest.class);
-		suite.addTestSuite(PuppetFunctionTests.class);
-		suite.addTestSuite(PuppetTypeTests.class);
-		suite.addTestSuite(PuppetTPTests.class);
-		// $JUnit-END$
-		return suite;
 	}
 }

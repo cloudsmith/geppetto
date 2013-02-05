@@ -11,22 +11,15 @@
  */
 package org.cloudsmith.geppetto.pp.dsl.tests;
 
-import junit.framework.Test;
-import junit.framework.TestSuite;
+import org.junit.runner.RunWith;
+import org.junit.runners.Suite;
+import org.junit.runners.Suite.SuiteClasses;
 
 /**
  * All Known Issues (failing) Puppet Tests.
  * 
  */
+@SuiteClasses({ TestFailingFormatting.class, TestFailingSerialization.class })
+@RunWith(Suite.class)
 public class AllKnownIssuesTests {
-
-	public static Test suite() {
-		TestSuite suite = new TestSuite(AllKnownIssuesTests.class.getName());
-		// $JUnit-BEGIN$
-		suite.addTestSuite(TestFailingFormatting.class);
-		suite.addTestSuite(TestFailingSerialization.class);
-		// $JUnit-END$
-		return suite;
-	}
-
 }

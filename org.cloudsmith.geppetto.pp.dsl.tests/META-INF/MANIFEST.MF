@@ -6,13 +6,13 @@ Bundle-Version: 3.0.0.qualifier
 Bundle-Vendor: %providerName
 Bundle-Localization: plugin
 Require-Bundle: org.eclipse.core.runtime,
- org.eclipse.xtext.junit;bundle-version="2.3.0.v201206120633",
+ org.eclipse.xtext.junit4;bundle-version="2.3.0.v201206120633",
  org.eclipse.xtext;bundle-version="2.3.0.v201206120633",
  org.cloudsmith.geppetto.pp.dsl,
  org.cloudsmith.geppetto.pp,
- org.cloudsmith.geppetto.common;bundle-version="2.0.0"
+ org.cloudsmith.geppetto.common;bundle-version="2.0.0",
+ org.junit;bundle-version="4.10.0"
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-ActivationPolicy: lazy
-Import-Package: junit.framework,
- org.eclipse.emf.common.util
+Import-Package: org.eclipse.emf.common.util
 Export-Package: org.cloudsmith.geppetto.pp.dsl.tests

@@ -19,8 +19,11 @@ import org.cloudsmith.geppetto.pp.dsl.validation.IPPDiagnostics;
 import org.cloudsmith.geppetto.pp.dsl.validation.PPPatternHelper;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
-import org.eclipse.xtext.junit.validation.AssertableDiagnostics;
+import org.eclipse.xtext.junit4.validation.AssertableDiagnostics;
 import org.eclipse.xtext.resource.XtextResource;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
 
 import com.google.common.collect.Lists;
 
@@ -33,6 +36,7 @@ public class TestVariables extends AbstractPuppetTests implements AbstractPuppet
 	private PrintStream savedOut;
 
 	@Override
+	@Before
 	public void setUp() throws Exception {
 		super.setUp();
 		savedOut = System.out;
@@ -59,11 +63,13 @@ public class TestVariables extends AbstractPuppetTests implements AbstractPuppet
 	 * @see org.eclipse.xtext.junit.AbstractXtextTests#tearDown()
 	 */
 	@Override
-	protected void tearDown() throws Exception {
+	@After
+	public void tearDown() throws Exception {
 		super.tearDown();
 		System.setOut(savedOut);
 	}
 
+	@Test
 	public void test_assignmentToDecVarNotAllowed() throws Exception {
 		// not allowed
 		String code = "$0 = 10"; //
@@ -76,6 +82,7 @@ public class TestVariables extends AbstractPuppetTests implements AbstractPuppet
 		tester.validate(r.getContents().get(0)).assertOK();
 	}
 
+	@Test
 	public void test_decimalDollarVariables_notOk() throws Exception {
 		// if
 		String code = "if 'abc' == 'abc' {\n" + //
@@ -107,6 +114,7 @@ public class TestVariables extends AbstractPuppetTests implements AbstractPuppet
 		resourceErrorDiagnostics(r).assertOK();
 	}
 
+	@Test
 	public void test_decimalDollarVariables_ok() throws Exception {
 		// if
 		String code = "if 'abc' =~ /a(b)c/ {\n" + //
@@ -137,6 +145,7 @@ public class TestVariables extends AbstractPuppetTests implements AbstractPuppet
 		resourceErrorDiagnostics(r).assertOK();
 	}
 
+	@Test
 	public void test_decimalVariables_notOk() throws Exception {
 		// if
 		String code = "if 'abc' == 'abc' {\n" + //
@@ -167,6 +176,7 @@ public class TestVariables extends AbstractPuppetTests implements AbstractPuppet
 		resourceErrorDiagnostics(r).assertOK();
 	}
 
+	@Test
 	public void test_decimalVariables_ok() throws Exception {
 		// if
 		String code = "if 'abc' =~ /a(b)c/ {\n" + //
@@ -197,6 +207,7 @@ public class TestVariables extends AbstractPuppetTests implements AbstractPuppet
 		resourceErrorDiagnostics(r).assertOK();
 	}
 
+	@Test
 	public void test_hyphenNotOk() throws Exception {
 		String code = "$a-b = 10";
 		XtextResource r = getResourceFromString(code);
@@ -209,6 +220,7 @@ public class TestVariables extends AbstractPuppetTests implements AbstractPuppet
 		resourceErrorDiagnostics(r).assertOK();
 	}
 
+	@Test
 	public void test_linking2RegexpVar() throws Exception {
 		String code = "if 'abc' =~ /a(b)c/ { notice(\"$1\") } "; //
 		Resource r = loadAndLinkSingleResource(code);
@@ -216,6 +228,7 @@ public class TestVariables extends AbstractPuppetTests implements AbstractPuppet
 		resourceWarningDiagnostics(r).assertOK();
 	}
 
+	@Test
 	public void test_numericVariableDetection() throws Exception {
 		PPPatternHelper patternHelper = new PPPatternHelper();
 		for(int i = 0; i < 21; i++) {
@@ -230,6 +243,7 @@ public class TestVariables extends AbstractPuppetTests implements AbstractPuppet
 	 * 
 	 * @throws Exception
 	 */
+	@Test
 	public void test_variable_CGx_Gy() throws Exception {
 		URI uri = makeManifestURI(1);
 		initializeResourceSet(Lists.newArrayList(uri));
@@ -248,6 +262,7 @@ public class TestVariables extends AbstractPuppetTests implements AbstractPuppet
 	 * 
 	 * @throws Exception
 	 */
+	@Test
 	public void test_variable_class_CGx_Gy() throws Exception {
 		String code = "class a {\n" + //
 				"$ref = $::x\n" + //
@@ -264,6 +279,7 @@ public class TestVariables extends AbstractPuppetTests implements AbstractPuppet
 	 * 
 	 * @throws Exception
 	 */
+	@Test
 	public void test_variable_Gx_Gx() throws Exception {
 		String code = "$x = 10\n" + //
 				"$ref = $x\n" //
@@ -280,6 +296,7 @@ public class TestVariables extends AbstractPuppetTests implements AbstractPuppet
 	 * 
 	 * @throws Exception
 	 */
+	@Test
 	public void test_variable_Gx_Gy() throws Exception {
 		String code = "$y = 10\n" + //
 				"$ref = $x\n" //
@@ -295,6 +312,7 @@ public class TestVariables extends AbstractPuppetTests implements AbstractPuppet
 	 * 
 	 * @throws Exception
 	 */
+	@Test
 	public void test_variable_Lx_IIPx() throws Exception {
 		String code = "class aa($x=10) {\n" + //
 				"class bb inherits aa {\n" + //
@@ -315,6 +333,7 @@ public class TestVariables extends AbstractPuppetTests implements AbstractPuppet
 	 * 
 	 * @throws Exception
 	 */
+	@Test
 	public void test_variable_Lx_IIVx() throws Exception {
 		String code = "class aa {\n" + //
 				"$x = 10\n" + //
@@ -336,6 +355,7 @@ public class TestVariables extends AbstractPuppetTests implements AbstractPuppet
 	 * 
 	 * @throws Exception
 	 */
+	@Test
 	public void test_variable_Lx_IPx() throws Exception {
 		String code = "class aa($x=10) {\n" + //
 				"class bb inherits aa {\n" + //
@@ -355,6 +375,7 @@ public class TestVariables extends AbstractPuppetTests implements AbstractPuppet
 	 * 
 	 * @throws Exception
 	 */
+	@Test
 	public void test_variable_Lx_IVx() throws Exception {
 		String code = "class aa {\n" + //
 				"$x = 10\n" + //
@@ -375,6 +396,7 @@ public class TestVariables extends AbstractPuppetTests implements AbstractPuppet
 	 * 
 	 * @throws Exception
 	 */
+	@Test
 	public void test_variable_Lx_Lx() throws Exception {
 		String code = "class a {\n" + //
 				"$x = 10\n" + //
@@ -393,6 +415,7 @@ public class TestVariables extends AbstractPuppetTests implements AbstractPuppet
 	 * 
 	 * @throws Exception
 	 */
+	@Test
 	public void test_variable_Lx_OVx() throws Exception {
 		String code = "class a {\n" + //
 				"$x = 10\n" + //

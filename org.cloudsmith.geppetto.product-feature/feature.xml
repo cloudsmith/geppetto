@@ -51,7 +51,7 @@ http://www.eclipse.org/legal/epl-v10.html
       <import plugin="org.eclipse.xtext.ui"/>
       <import plugin="org.eclipse.xtext.ui.shared"/>
       <import plugin="org.eclipse.xtext.util"/>
-      <import plugin="org.jrubyparser"/>
+      <import plugin="org.cloudsmith.jrubyparser"/>
       <import plugin="org.eclipse.help"/>
       <import plugin="org.eclipse.help.base"/>
       <import plugin="org.eclipse.help.ui"/>

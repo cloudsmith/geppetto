@@ -17,6 +17,9 @@ import java.io.PrintStream;
 import java.util.List;
 
 import org.eclipse.emf.ecore.resource.Resource;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
 
 /**
  * Test validation/linking of variables.
@@ -27,6 +30,7 @@ public class TestLinking extends AbstractPuppetTests {
 	private PrintStream savedOut;
 
 	@Override
+	@Before
 	public void setUp() throws Exception {
 		super.setUp();
 		savedOut = System.out;
@@ -47,7 +51,8 @@ public class TestLinking extends AbstractPuppetTests {
 	 * @see org.eclipse.xtext.junit.AbstractXtextTests#tearDown()
 	 */
 	@Override
-	protected void tearDown() throws Exception {
+	@After
+	public void tearDown() throws Exception {
 		super.tearDown();
 		System.setOut(savedOut);
 	}
@@ -57,6 +62,7 @@ public class TestLinking extends AbstractPuppetTests {
 	 * 
 	 * @throws Exception
 	 */
+	@Test
 	public void test_appendShouldCreateVariable() throws Exception {
 		String code1 = "$arr2 = ['a']\n" + //
 				"class foo {\n" + //
@@ -83,6 +89,7 @@ public class TestLinking extends AbstractPuppetTests {
 	 * 
 	 * @throws Exception
 	 */
+	@Test
 	public void test_link_A_Inherits_B_andVar() throws Exception {
 		String code1 = "class a {\n" + //
 				"$x = 10\n" + //

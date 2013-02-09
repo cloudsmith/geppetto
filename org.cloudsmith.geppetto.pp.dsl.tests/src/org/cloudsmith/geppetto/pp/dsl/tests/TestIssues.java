@@ -17,8 +17,11 @@ import java.io.PrintStream;
 
 import org.cloudsmith.geppetto.pp.dsl.validation.IPPDiagnostics;
 import org.eclipse.emf.ecore.resource.Resource;
-import org.eclipse.xtext.junit.validation.AssertableDiagnostics;
+import org.eclipse.xtext.junit4.validation.AssertableDiagnostics;
 import org.eclipse.xtext.resource.XtextResource;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
 
 import com.google.common.base.Joiner;
 import com.google.common.collect.ImmutableList;
@@ -36,6 +39,7 @@ public class TestIssues extends AbstractPuppetTests {
 	 * explicitly tested for).
 	 */
 	@Override
+	@Before
 	public void setUp() throws Exception {
 		super.setUp();
 		savedOut = System.out;
@@ -51,11 +55,13 @@ public class TestIssues extends AbstractPuppetTests {
 	}
 
 	@Override
+	@After
 	public void tearDown() throws Exception {
 		super.tearDown();
 		System.setOut(savedOut);
 	}
 
+	@Test
 	public void test_inheritFromParameterizedClass_issue381() throws Exception {
 		String code = "class base($basevar) {} class derived inherits base {}";
 		Resource r = loadAndLinkSingleResource(code);
@@ -71,6 +77,7 @@ public class TestIssues extends AbstractPuppetTests {
 	 * 
 	 * @throws Exception
 	 */
+	@Test
 	public void test_Issue_11() throws Exception {
 		String code = "class { 'file':\n" + //
 				"owner => '666',\n" + //
@@ -85,6 +92,7 @@ public class TestIssues extends AbstractPuppetTests {
 	 * 
 	 * @throws Exception
 	 */
+	@Test
 	public void test_Issue_4() throws Exception {
 		String code = "$confdir = 'x' \n" + //
 				"realize (\n" + //
@@ -102,6 +110,7 @@ public class TestIssues extends AbstractPuppetTests {
 	 * 
 	 * @throws Exception
 	 */
+	@Test
 	public void test_Issue206() throws Exception {
 		String code = "class a {\n" + //
 				"$x = 10\n" + //
@@ -115,6 +124,7 @@ public class TestIssues extends AbstractPuppetTests {
 		resourceErrorDiagnostics(r).assertOK();
 	}
 
+	@Test
 	public void test_Issue399() throws Exception {
 		String code = "exec { 'something': unless => false }";
 		// URI targetURI = URI.createPlatformPluginURI("/org.cloudsmith.geppetto.pp.dsl/targets/puppet-3.0.0.pptp", true);
@@ -124,6 +134,7 @@ public class TestIssues extends AbstractPuppetTests {
 		resourceErrorDiagnostics(r).assertOK();
 	}
 
+	@Test
 	public void test_Issue400() throws Exception {
 		ImmutableList<String> source = ImmutableList.of("notify { [a, b, c]:", //
 			"}", //
@@ -143,36 +154,42 @@ public class TestIssues extends AbstractPuppetTests {
 
 	}
 
+	@Test
 	public void test_Issue403() throws Exception {
 		String code = "class foo(a) { }";
 		Resource r = loadAndLinkSingleResource(code);
 		tester.validate(r.getContents().get(0)).assertWarning(IPPDiagnostics.ISSUE__NOT_VARNAME);
 	}
 
+	@Test
 	public void test_Issue405() throws Exception {
 		String code = "$x = '' $y = ${x}";
 		Resource r = loadAndLinkSingleResource(code);
 		tester.validate(r.getContents().get(0)).assertError(IPPDiagnostics.ISSUE__UNQUOTED_INTERPOLATION);
 	}
 
+	@Test
 	public void test_Issue407_falsePositive() throws Exception {
 		String code = "class foo { }";
 		Resource r = loadAndLinkSingleResource(code);
 		tester.validate(r.getContents().get(0)).assertOK();
 	}
 
+	@Test
 	public void test_Issue407_main() throws Exception {
 		String code = "class main { }";
 		Resource r = loadAndLinkSingleResource(code);
 		tester.validate(r.getContents().get(0)).assertError(IPPDiagnostics.ISSUE__RESERVED_NAME);
 	}
 
+	@Test
 	public void test_Issue407_settings() throws Exception {
 		String code = "class settings { }";
 		Resource r = loadAndLinkSingleResource(code);
 		tester.validate(r.getContents().get(0)).assertError(IPPDiagnostics.ISSUE__RESERVED_NAME);
 	}
 
+	@Test
 	public void test_Issue435_paddingDqString() throws Exception {
 		String code = "$a = true ? {\n" + //
 				"\"something\" => 'dba',\n" + //

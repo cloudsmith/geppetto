@@ -11,18 +11,21 @@
  */
 package org.cloudsmith.geppetto.ruby.tests;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+
 import java.io.File;
 import java.util.List;
 
 import org.cloudsmith.geppetto.ruby.PPFunctionInfo;
 import org.cloudsmith.geppetto.ruby.RubyHelper;
-
 import org.eclipse.core.runtime.Path;
+import org.junit.Test;
 
-import junit.framework.TestCase;
+public class PuppetFunctionTests {
 
-public class PuppetFunctionTests extends TestCase {
-
+	@Test
 	public void testParseFunctionInNestedModules() throws Exception {
 		File aRubyFile = TestDataProvider.getTestFile(new Path(
 			"testData/pp-modules-ruby/module-x/lib/puppet/parser/functions/echotest.rb"));
@@ -40,6 +43,7 @@ public class PuppetFunctionTests extends TestCase {
 		}
 	}
 
+	@Test
 	public void testParseFunctionInQualifiedNamedModule() throws Exception {
 		File aRubyFile = TestDataProvider.getTestFile(new Path(
 			"testData/pp-modules-ruby/module-x/lib/puppet/parser/functions/echotest2.rb"));
@@ -58,6 +62,7 @@ public class PuppetFunctionTests extends TestCase {
 		}
 	}
 
+	@Test
 	public void testParseFunctionWithFullyQualifiedName() throws Exception {
 		File aRubyFile = TestDataProvider.getTestFile(new Path(
 			"testData/pp-modules-ruby/module-x/lib/puppet/parser/functions/echotest3.rb"));
@@ -76,6 +81,7 @@ public class PuppetFunctionTests extends TestCase {
 		}
 	}
 
+	@Test
 	public void testParseFunctionWithoutRtypeOrDoc() throws Exception {
 		File aRubyFile = TestDataProvider.getTestFile(new Path(
 			"testData/pp-modules-ruby/module-x/lib/puppet/parser/functions/nodoc-nortype-function.rb"));

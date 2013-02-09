@@ -27,13 +27,15 @@ import org.cloudsmith.xtext.dommodel.formatter.css.DomCSS;
 import org.cloudsmith.xtext.serializer.DomBasedSerializer;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.xtext.formatting.IIndentationInformation;
-import org.eclipse.xtext.junit.serializer.DebugSequenceAcceptor;
+import org.eclipse.xtext.junit4.serializer.DebugSequenceAcceptor;
 import org.eclipse.xtext.resource.XtextResource;
 import org.eclipse.xtext.serializer.ISerializer;
 import org.eclipse.xtext.serializer.diagnostic.ISerializationDiagnostic.Acceptor;
 import org.eclipse.xtext.serializer.sequencer.IHiddenTokenSequencer;
 import org.eclipse.xtext.util.ITextRegion;
 import org.eclipse.xtext.util.ReplaceRegion;
+import org.junit.Before;
+import org.junit.Test;
 
 import com.google.inject.Binder;
 import com.google.inject.Guice;
@@ -158,6 +160,7 @@ public class TestPPFormattingFailing extends AbstractPuppetTests {
 	}
 
 	@Override
+	@Before
 	public void setUp() throws Exception {
 		super.setUp();
 		// Produces debug output for the hidden sequencer
@@ -184,6 +187,7 @@ public class TestPPFormattingFailing extends AbstractPuppetTests {
 	 * 
 	 * @throws Exception
 	 */
+	@Test
 	public void test_Serialize_DoubleQuotedString_1() throws Exception {
 		// String original = "before${var}/after${1+2}$$${$var}";
 		// String formatted = doubleQuote("before${var}/after${1 + 2}$$${$var}");

@@ -13,5 +13,5 @@ Require-Bundle: org.cloudsmith.geppetto.common,
  org.eclipse.emf.ecore;bundle-version="2.6.0";visibility:=reexport,
  com.google.gson;bundle-version="1.6.0",
  org.apache.commons.compress,
- org.jrubyparser
+ org.cloudsmith.jrubyparser
 Eclipse-BundleShape: dir

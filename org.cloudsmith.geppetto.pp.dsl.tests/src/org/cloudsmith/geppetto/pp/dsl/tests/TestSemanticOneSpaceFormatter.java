@@ -27,6 +27,8 @@ import org.eclipse.xtext.serializer.ISerializer;
 import org.eclipse.xtext.serializer.diagnostic.ISerializationDiagnostic.Acceptor;
 import org.eclipse.xtext.util.ITextRegion;
 import org.eclipse.xtext.util.ReplaceRegion;
+import org.junit.Before;
+import org.junit.Test;
 
 import com.google.inject.Binder;
 import com.google.inject.Guice;
@@ -81,6 +83,7 @@ public class TestSemanticOneSpaceFormatter extends AbstractPuppetTests {
 	}
 
 	@Override
+	@Before
 	public void setUp() throws Exception {
 		super.setUp();
 		// with(PPStandaloneSetup.class);
@@ -92,6 +95,7 @@ public class TestSemanticOneSpaceFormatter extends AbstractPuppetTests {
 		return false;
 	}
 
+	@Test
 	public void test_Serialize_arrayNoSpaces() throws Exception {
 		String code = "$a=['10','20']";
 		String fmt = "$a = [ '10' , '20' ]";
@@ -100,6 +104,7 @@ public class TestSemanticOneSpaceFormatter extends AbstractPuppetTests {
 		assertEquals("serialization should produce expected one-spaced result", fmt, s);
 	}
 
+	@Test
 	public void test_Serialize_arrayWithComments() throws Exception {
 		String code = "/*1*/$a/*2*/=/*3*/[/*4*/'10'/*5*/,/*6*/'20'/*7*/]/*8*/";
 		String fmt = "/*1*/ $a /*2*/ = /*3*/ [ /*4*/ '10' /*5*/ , /*6*/ '20' /*7*/ ] /*8*/";
@@ -108,6 +113,7 @@ public class TestSemanticOneSpaceFormatter extends AbstractPuppetTests {
 		assertEquals("serialization should produce expected on-spaced result", fmt, s);
 	}
 
+	@Test
 	public void test_Serialize_assignArray() throws Exception {
 		PuppetManifest pp = pf.createPuppetManifest();
 		AssignmentExpression assignment = PPFactory.eINSTANCE.createAssignmentExpression();
@@ -123,6 +129,7 @@ public class TestSemanticOneSpaceFormatter extends AbstractPuppetTests {
 
 	}
 
+	@Test
 	public void test_Serialize_shortArrayWithComments() throws Exception {
 		String code = "[a /*1*/]/*2*/";
 		String fmt = "[ a /*1*/ ] /*2*/";

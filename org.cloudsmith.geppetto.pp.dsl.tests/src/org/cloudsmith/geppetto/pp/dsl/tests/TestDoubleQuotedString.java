@@ -28,6 +28,9 @@ import org.cloudsmith.geppetto.pp.VerbatimTE;
 import org.cloudsmith.geppetto.pp.dsl.validation.IPPDiagnostics;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.xtext.resource.XtextResource;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
 
 /**
  * Tests Literals
@@ -58,6 +61,7 @@ public class TestDoubleQuotedString extends AbstractPuppetTests {
 	 * explicitly tested for).
 	 */
 	@Override
+	@Before
 	public void setUp() throws Exception {
 		super.setUp();
 		savedOut = System.out;
@@ -79,11 +83,13 @@ public class TestDoubleQuotedString extends AbstractPuppetTests {
 	}
 
 	@Override
+	@After
 	public void tearDown() throws Exception {
 		super.tearDown();
 		System.setOut(savedOut);
 	}
 
+	@Test
 	public void test_Parse_DoubleQuotedString_Dollar() throws Exception {
 		String original = "before$/after";
 		String code = doubleQuote(original);
@@ -100,6 +106,7 @@ public class TestDoubleQuotedString extends AbstractPuppetTests {
 		assertEquals("First element should be 'before'", "before$/after", ((VerbatimTE) t.get(0)).getText());
 	}
 
+	@Test
 	public void test_Parse_DoubleQuotedString_DollarExprVar() throws Exception {
 		String original = "before${var}/after";
 		String code = doubleQuote(original);
@@ -122,6 +129,7 @@ public class TestDoubleQuotedString extends AbstractPuppetTests {
 
 	}
 
+	@Test
 	public void test_Parse_DoubleQuotedString_DollarVar() throws Exception {
 		String original = "before$var/after";
 		String code = doubleQuote(original);
@@ -140,6 +148,7 @@ public class TestDoubleQuotedString extends AbstractPuppetTests {
 		assertEquals("Third element should be '/after'", "/after", ((VerbatimTE) t.get(2)).getText());
 	}
 
+	@Test
 	public void test_Parse_DoubleQuotedString_Simple() throws Exception {
 		String original = "This is a simple double quoted string";
 		String code = doubleQuote(original);
@@ -164,6 +173,7 @@ public class TestDoubleQuotedString extends AbstractPuppetTests {
 	 * 
 	 * @throws Exception
 	 */
+	@Test
 	public void test_Serialize_DoubleQuotedString_1() throws Exception {
 		String original = "before${var}/after${1+2}$$${$var}";
 		String formatted = doubleQuote("before${var}/after${1 + 2}$$${$var}");
@@ -188,6 +198,7 @@ public class TestDoubleQuotedString extends AbstractPuppetTests {
 	 * 
 	 * @throws Exception
 	 */
+	@Test
 	public void test_Serialize_DoubleQuotedString_2() throws Exception {
 		String original = "before${var}/after${1+2}$$${$var}";
 		String code = "$a = " + doubleQuote(original);
@@ -205,6 +216,7 @@ public class TestDoubleQuotedString extends AbstractPuppetTests {
 	 * Formatter seems to not switch back to non hidden state interpolation.
 	 * 
 	 */
+	@Test
 	public void test_Serialize_DqStringInterpolation() throws Exception {
 		String code = "$a = \"a${1}b\"\nclass a {\n}\n";
 		String fmt = "$a = \"a${1}b\"\n\nclass a {\n}\n";
@@ -217,6 +229,7 @@ public class TestDoubleQuotedString extends AbstractPuppetTests {
 	/**
 	 * Without interpolation formatting does the right thing.
 	 */
+	@Test
 	public void test_Serialize_DqStringNoInterpolation() throws Exception {
 		String code = "$a = \"ab\"\nclass a {\n}\n";
 		String fmt = "$a = \"ab\"\n\nclass a {\n}\n";
@@ -227,6 +240,7 @@ public class TestDoubleQuotedString extends AbstractPuppetTests {
 		assertEquals("serialization should produce specified result", fmt, s);
 	}
 
+	@Test
 	public void test_serializeSimpleDqString() throws Exception {
 		String code = "$x = \"a${var}\"";
 		XtextResource r = getResourceFromString(code);
@@ -237,6 +251,7 @@ public class TestDoubleQuotedString extends AbstractPuppetTests {
 
 	}
 
+	@Test
 	public void test_Validate_DoubleQuotedString_Ok() {
 		DoubleQuotedString ls = pf.createDoubleQuotedString();
 		VerbatimTE te = pf.createVerbatimTE();

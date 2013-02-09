@@ -8,7 +8,7 @@
   <rm:locator pattern="^org\.polarion\.eclipse\.team\.svn\.connector(\..+)?$" searchPathRef="svn.connectors"/>
   <rm:locator pattern="^org\.apache\.commons\.compress(\..+)?$" searchPathRef="commons-compress"/>
   <rm:locator pattern="^org\.apache\.httpcomponents(\..+)?$" searchPathRef="maven.central"/>
-  <rm:locator pattern="^org\.jrubyparser(\..+)?$" searchPathRef="jrubyparser"/>
+  <rm:locator pattern="^org\.cloudsmith\.jrubyparser(\..+)?$" searchPathRef="jrubyparser"/>
   <rm:locator pattern="^org\.jruby(\..+)?$" searchPathRef="maven.central"/>
   <rm:locator searchPathRef="orbit" failOnError="false"/>
   <rm:locator searchPathRef="platform" failOnError="false"/>

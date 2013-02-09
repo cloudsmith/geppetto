@@ -15,19 +15,29 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 
-import junit.framework.Test;
 import junit.framework.TestSuite;
-import junit.textui.TestRunner;
 
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.osgi.service.datalocation.Location;
+import org.junit.runner.RunWith;
+import org.junit.runners.Suite;
+import org.junit.runners.Suite.SuiteClasses;
 
-/**
- * <!-- begin-user-doc --> A test suite for the '<em><b>forge</b></em>' package.
- * <!-- end-user-doc -->
- * 
- * @generated
- */
+@SuiteClasses({
+	// @fmtOff
+	ForgeTest.class,
+	ForgeServiceTest.class,
+	CacheTest.class,
+	RepositoryTest.class,
+	MetadataTest.class,
+	DependencyTest.class,
+	ModuleInfoTest.class,
+	TypeTest.class,
+	VersionRequirementTest.class
+	// @fmtOn
+
+})
+@RunWith(Suite.class)
 public class ForgeTests extends TestSuite {
 
 	public static void delete(File fileOrDir) throws IOException {
@@ -60,41 +70,4 @@ public class ForgeTests extends TestSuite {
 		}
 		return testFolder;
 	}
-
-	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
-	 * @generated
-	 */
-	public static void main(String[] args) {
-		TestRunner.run(suite());
-	}
-
-	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
-	 * @generated
-	 */
-	public static Test suite() {
-		TestSuite suite = new ForgeTests("forge Tests");
-		suite.addTestSuite(ForgeTest.class);
-		suite.addTestSuite(ForgeServiceTest.class);
-		suite.addTestSuite(CacheTest.class);
-		suite.addTestSuite(RepositoryTest.class);
-		suite.addTestSuite(MetadataTest.class);
-		suite.addTestSuite(DependencyTest.class);
-		suite.addTestSuite(TypeTest.class);
-		suite.addTestSuite(VersionRequirementTest.class);
-		return suite;
-	}
-
-	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
-	 * @generated
-	 */
-	public ForgeTests(String name) {
-		super(name);
-	}
-
-} // ForgeTests
+}

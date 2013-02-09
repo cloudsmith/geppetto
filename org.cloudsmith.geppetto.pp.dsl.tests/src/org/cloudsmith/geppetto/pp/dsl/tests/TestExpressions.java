@@ -38,8 +38,11 @@ import org.cloudsmith.geppetto.pp.dsl.validation.IPPDiagnostics;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.xtext.formatting.impl.FormattingConfig;
-import org.eclipse.xtext.junit.validation.AssertableDiagnostics;
+import org.eclipse.xtext.junit4.validation.AssertableDiagnostics;
 import org.eclipse.xtext.resource.XtextResource;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
 
 /**
  * Tests for expressions not covered by separate test classes.
@@ -90,6 +93,7 @@ public class TestExpressions extends AbstractPuppetTests implements AbstractPupp
 	 * explicitly tested for).
 	 */
 	@Override
+	@Before
 	public void setUp() throws Exception {
 		super.setUp();
 		savedOut = System.out;
@@ -110,6 +114,7 @@ public class TestExpressions extends AbstractPuppetTests implements AbstractPupp
 	}
 
 	@Override
+	@After
 	public void tearDown() throws Exception {
 		super.tearDown();
 		System.setOut(savedOut);
@@ -120,6 +125,7 @@ public class TestExpressions extends AbstractPuppetTests implements AbstractPupp
 	 * 
 	 * @see PPFormatter#assignmentExpressionConfiguration(FormattingConfig c)
 	 */
+	@Test
 	public void test_Format_AssignmentExpression() throws Exception {
 		String code = "$a = 1\n$b = 2\n";
 		XtextResource r = getResourceFromString(code);
@@ -127,6 +133,7 @@ public class TestExpressions extends AbstractPuppetTests implements AbstractPupp
 		assertEquals("serialization should produce specified result", code, s);
 	}
 
+	@Test
 	public void test_Parse_MatchingExpression() throws Exception {
 		String code = "$a =~ /[a-z]*/\n";
 		XtextResource r = getResourceFromString(code);
@@ -134,12 +141,14 @@ public class TestExpressions extends AbstractPuppetTests implements AbstractPupp
 		assertEquals("serialization should produce same result", code, s);
 	}
 
+	@Test
 	public void test_ParseCallWithEndComma() throws Exception {
 		String code = "$a = shellquote(1,2,3,)";
 		XtextResource r = getResourceFromString(code);
 		tester.validate(r.getContents().get(0)).assertOK();
 	}
 
+	@Test
 	public void test_Serialize_AppendExpression() {
 		PuppetManifest pp = pf.createPuppetManifest();
 		AppendExpression ae = pf.createAppendExpression();
@@ -165,6 +174,7 @@ public class TestExpressions extends AbstractPuppetTests implements AbstractPupp
 	// assertEquals("serialization should produce same result as input", code, s);
 	// }
 
+	@Test
 	public void test_Serialize_AssignmentExpression() {
 		PuppetManifest pp = pf.createPuppetManifest();
 		AssignmentExpression ae = pf.createAssignmentExpression();
@@ -193,6 +203,7 @@ public class TestExpressions extends AbstractPuppetTests implements AbstractPupp
 	 * 
 	 * @see PPFormatter#functionCallConfiguration(FormattingConfig c)
 	 */
+	@Test
 	public void test_Serialize_CallAndDefine() throws Exception {
 		String code = "class a {\n}\n$a = include('a')\ndefine b {\n}\n";
 		String fmt = "class a {\n}\n$a = include('a')\n\ndefine b {\n}\n";
@@ -201,6 +212,7 @@ public class TestExpressions extends AbstractPuppetTests implements AbstractPupp
 		assertEquals("serialization should produce specified result", fmt, s);
 	}
 
+	@Test
 	public void test_Serialize_CaseExpression() throws Exception {
 		String code = "case $a {present : { $x=1 $y=2 } absent,foo: {$x=2 $y=2}}";
 		String fmt = "case $a {\n  present     : {\n    $x = 1\n    $y = 2\n  }\n  absent, foo : {\n    $x = 2\n    $y = 2\n  }\n}\n";
@@ -209,6 +221,7 @@ public class TestExpressions extends AbstractPuppetTests implements AbstractPupp
 		assertEquals("serialization should produce specified result", fmt, s);
 	}
 
+	@Test
 	public void test_Serialize_Definition() throws Exception {
 		String code = "define a {$a=10 $b=20}";
 		String fmt = "define a {\n  $a = 10\n  $b = 20\n}\n";
@@ -228,6 +241,7 @@ public class TestExpressions extends AbstractPuppetTests implements AbstractPupp
 	 * 
 	 * @throws Exception
 	 */
+	@Test
 	public void test_Serialize_DoubleQuotedString_1() throws Exception {
 		String original = "before${var}/after${1 + 2}$$${$var}";
 		String code = doubleQuote(original) + "\n";
@@ -245,6 +259,7 @@ public class TestExpressions extends AbstractPuppetTests implements AbstractPupp
 	 * If changed to '' string it behaved differently.
 	 * 
 	 */
+	@Test
 	public void test_Serialize_DqStringFollowedByDefine() throws Exception {
 		String code = "import \"foo\"\ndefine b {\n  $a = 1\n}\n";
 		String fmt = "import \"foo\"\n\ndefine b {\n  $a = 1\n}\n";
@@ -257,6 +272,7 @@ public class TestExpressions extends AbstractPuppetTests implements AbstractPupp
 	 * Formatter seems to not switch back to non hidden state interpolation.
 	 * 
 	 */
+	@Test
 	public void test_Serialize_DqStringInterpolation() throws Exception {
 		String code = "$a = \"a${1}b\"\nclass a {\n}\n";
 		String fmt = "$a = \"a${1}b\"\n\nclass a {\n}\n";
@@ -269,6 +285,7 @@ public class TestExpressions extends AbstractPuppetTests implements AbstractPupp
 	/**
 	 * Without interpolation formatting does the right thing.
 	 */
+	@Test
 	public void test_Serialize_DqStringNoInterpolation() throws Exception {
 		String code = "$a = \"ab\"\nclass a {\n}\n";
 		String fmt = "$a = \"ab\"\n\nclass a {\n}\n";
@@ -279,6 +296,7 @@ public class TestExpressions extends AbstractPuppetTests implements AbstractPupp
 		assertEquals("serialization should produce specified result", fmt, s);
 	}
 
+	@Test
 	public void test_Serialize_HostClassDefinition() throws Exception {
 		String code = "class a {$a=1 $b=2}";
 		String fmt = "class a {\n  $a = 1\n  $b = 2\n}\n";
@@ -288,6 +306,7 @@ public class TestExpressions extends AbstractPuppetTests implements AbstractPupp
 
 	}
 
+	@Test
 	public void test_Serialize_HostClassExpression() {
 		PuppetManifest pp = pf.createPuppetManifest();
 		HostClassDefinition cd = pf.createHostClassDefinition();
@@ -299,6 +318,7 @@ public class TestExpressions extends AbstractPuppetTests implements AbstractPupp
 
 	}
 
+	@Test
 	public void test_Serialize_IfExpression2() throws Exception {
 		String code = "if$a==1{true}else{ false }if$a==1{true}elsif$b< -3{false}else{true}";
 		XtextResource r = getResourceFromString(code);
@@ -307,6 +327,7 @@ public class TestExpressions extends AbstractPuppetTests implements AbstractPupp
 
 	}
 
+	@Test
 	public void test_Serialize_IfExpression3() throws Exception {
 		String code = "if$a==1{$x=1 $y=2}elsif $a==2 {$x=3 $y=4}else{ $x=5 $y=6 }";
 		String fmt = "if $a == 1 {\n  $x = 1\n  $y = 2\n} elsif $a == 2 {\n  $x = 3\n  $y = 4\n} else {\n  $x = 5\n  $y = 6\n}\n";
@@ -322,6 +343,7 @@ public class TestExpressions extends AbstractPuppetTests implements AbstractPupp
 	 * @see PPFormatter#importExpressionConfiguration(FormattingConfig c)
 	 * @see #test_Serialize_ImportExpression2() - for different failing result
 	 */
+	@Test
 	public void test_Serialize_ImportExpression1() throws Exception {
 		String code = "import \"a\"\nimport \"b\"\n";
 		XtextResource r = getResourceFromString(code);
@@ -337,6 +359,7 @@ public class TestExpressions extends AbstractPuppetTests implements AbstractPupp
 	 * @see PPFormatter#importExpressionConfiguration(FormattingConfig c)
 	 * @see #test_Serialize_ImportExpression1() - for different failing result
 	 */
+	@Test
 	public void test_Serialize_ImportExpression2() throws Exception {
 		String code = "import 'a'\nimport 'b'\n";
 		XtextResource r = getResourceFromString(code);
@@ -344,6 +367,7 @@ public class TestExpressions extends AbstractPuppetTests implements AbstractPupp
 		assertEquals("serialization should produce specified result", code, s);
 	}
 
+	@Test
 	public void test_Serialize_ImportExpressionDq() throws Exception {
 		String code = "import \"a\"\nimport \"b\"\n";
 		XtextResource r = getResourceFromString(code);
@@ -355,6 +379,7 @@ public class TestExpressions extends AbstractPuppetTests implements AbstractPupp
 		assertEquals("serialization should produce specified result", code, s);
 	}
 
+	@Test
 	public void test_Serialize_ImportExpressionSq() throws Exception {
 		String code = "import 'a'\nimport 'b'\n";
 		XtextResource r = getResourceFromString(code);
@@ -365,6 +390,7 @@ public class TestExpressions extends AbstractPuppetTests implements AbstractPupp
 		assertEquals("serialization should produce specified result", code, s);
 	}
 
+	@Test
 	public void test_Serialize_MatchingExpression() {
 		PuppetManifest pp = pf.createPuppetManifest();
 		MatchingExpression me = pf.createMatchingExpression();
@@ -385,6 +411,7 @@ public class TestExpressions extends AbstractPuppetTests implements AbstractPupp
 		assertEquals("serialization should produce specified result", Sample_Match2, s);
 	}
 
+	@Test
 	public void test_Serialize_NodeDefinition() throws Exception {
 		String code = "node a {$a=1 $b=2}";
 		String fmt = "node a {\n  $a = 1\n  $b = 2\n}\n";
@@ -394,6 +421,7 @@ public class TestExpressions extends AbstractPuppetTests implements AbstractPupp
 
 	}
 
+	@Test
 	public void test_Serialize_RelationshipExpression() {
 		// -- serialize file { 'file1': } -> file{'file2': } -> file{'file3' : }
 		PuppetManifest pp = pf.createPuppetManifest();
@@ -424,6 +452,7 @@ public class TestExpressions extends AbstractPuppetTests implements AbstractPupp
 	 * - $x[a] += expr
 	 * - a += expr
 	 */
+	@Test
 	public void test_Validate_AppendExpression_NotOk() {
 		PuppetManifest pp = pf.createPuppetManifest();
 		AppendExpression ae = pf.createAppendExpression();
@@ -450,6 +479,7 @@ public class TestExpressions extends AbstractPuppetTests implements AbstractPupp
 	 * Tests append Notok states:
 	 * - $0 += expr
 	 */
+	@Test
 	public void test_Validate_AppendExpression_NotOk_Decimal() {
 		PuppetManifest pp = pf.createPuppetManifest();
 		AppendExpression ae = pf.createAppendExpression();
@@ -468,6 +498,7 @@ public class TestExpressions extends AbstractPuppetTests implements AbstractPupp
 	 * Tests append Notok states:
 	 * - $a::b += expr
 	 */
+	@Test
 	public void test_Validate_AppendExpression_NotOk_Scope() {
 		PuppetManifest pp = pf.createPuppetManifest();
 		AppendExpression ae = pf.createAppendExpression();
@@ -486,6 +517,7 @@ public class TestExpressions extends AbstractPuppetTests implements AbstractPupp
 	 * Tests append ok states:
 	 * - $x += expr
 	 */
+	@Test
 	public void test_Validate_AppendExpression_Ok() {
 		PuppetManifest pp = pf.createPuppetManifest();
 		AppendExpression ae = pf.createAppendExpression();
@@ -499,6 +531,7 @@ public class TestExpressions extends AbstractPuppetTests implements AbstractPupp
 		tester.validate(pp).assertOK();
 	}
 
+	@Test
 	public void test_Validate_AssignmentExpression_NotOk() {
 		PuppetManifest pp = pf.createPuppetManifest();
 		AssignmentExpression ae = pf.createAssignmentExpression();
@@ -516,6 +549,7 @@ public class TestExpressions extends AbstractPuppetTests implements AbstractPupp
 	 * Tests assignment not ok states:
 	 * - $0 = expr
 	 */
+	@Test
 	public void test_Validate_AssignmentExpression_NotOk_Decimal() {
 		PuppetManifest pp = pf.createPuppetManifest();
 		AssignmentExpression ae = pf.createAssignmentExpression();
@@ -533,6 +567,7 @@ public class TestExpressions extends AbstractPuppetTests implements AbstractPupp
 	 * Tests assignment not ok states:
 	 * - $a::b = expr
 	 */
+	@Test
 	public void test_Validate_AssignmentExpression_NotOk_Scope() {
 		PuppetManifest pp = pf.createPuppetManifest();
 		AssignmentExpression ae = pf.createAssignmentExpression();
@@ -551,6 +586,7 @@ public class TestExpressions extends AbstractPuppetTests implements AbstractPupp
 	 * - $x = expr
 	 * - $x[expr] = expr
 	 */
+	@Test
 	public void test_Validate_AssignmentExpression_Ok() {
 		PuppetManifest pp = pf.createPuppetManifest();
 		AssignmentExpression ae = pf.createAssignmentExpression();
@@ -570,6 +606,7 @@ public class TestExpressions extends AbstractPuppetTests implements AbstractPupp
 		tester.validate(pp).assertOK();
 	}
 
+	@Test
 	public void test_Validate_ImportExpression_NotOk() {
 		PuppetManifest pp = pf.createPuppetManifest();
 		ImportExpression ip = pf.createImportExpression();
@@ -578,6 +615,7 @@ public class TestExpressions extends AbstractPuppetTests implements AbstractPupp
 		tester.validate(ip).assertError(IPPDiagnostics.ISSUE__REQUIRED_EXPRESSION);
 	}
 
+	@Test
 	public void test_Validate_ImportExpression_Ok() {
 		PuppetManifest pp = pf.createPuppetManifest();
 		ImportExpression ip = pf.createImportExpression();
@@ -589,6 +627,7 @@ public class TestExpressions extends AbstractPuppetTests implements AbstractPupp
 		tester.validate(ip).assertOK();
 	}
 
+	@Test
 	public void test_Validate_Manifest_NotOk() {
 		PuppetManifest pp = pf.createPuppetManifest();
 		VariableExpression v = pf.createVariableExpression();
@@ -597,6 +636,7 @@ public class TestExpressions extends AbstractPuppetTests implements AbstractPupp
 		tester.validate(pp).assertError(IPPDiagnostics.ISSUE__NOT_TOPLEVEL);
 	}
 
+	@Test
 	public void test_Validate_Manifest_Ok() {
 		PuppetManifest pp = pf.createPuppetManifest();
 		AssignmentExpression a = pf.createAssignmentExpression();
@@ -609,6 +649,7 @@ public class TestExpressions extends AbstractPuppetTests implements AbstractPupp
 		tester.validate(pp).assertOK();
 	}
 
+	@Test
 	public void test_Validate_MatchingExpression_NotOk() {
 		PuppetManifest pp = pf.createPuppetManifest();
 		MatchingExpression me = pf.createMatchingExpression();
@@ -630,6 +671,7 @@ public class TestExpressions extends AbstractPuppetTests implements AbstractPupp
 			AssertableDiagnostics.errorCode(IPPDiagnostics.ISSUE__UNSUPPORTED_EXPRESSION));
 	}
 
+	@Test
 	public void test_Validate_MatchingExpression_Ok() {
 		PuppetManifest pp = pf.createPuppetManifest();
 		MatchingExpression me = pf.createMatchingExpression();
@@ -648,6 +690,7 @@ public class TestExpressions extends AbstractPuppetTests implements AbstractPupp
 		tester.validate(me).assertOK();
 	}
 
+	@Test
 	public void test_Validate_RelationshipExpression_NotOk() {
 		PuppetManifest pp = pf.createPuppetManifest();
 		// -- check file { 'file1': } -> file{'file2': } -> file{'file3' : }
@@ -668,6 +711,7 @@ public class TestExpressions extends AbstractPuppetTests implements AbstractPupp
 	 * Test that the four different relationship expressions operands can be used between
 	 * the allowed operands.
 	 */
+	@Test
 	public void test_Validate_RelationshipExpression_Ok() {
 		PuppetManifest pp = pf.createPuppetManifest();
 		// -- check file { 'file1': } -> file{'file2': } -> file{'file3' : }
@@ -733,6 +777,7 @@ public class TestExpressions extends AbstractPuppetTests implements AbstractPupp
 
 	}
 
+	@Test
 	public void test_Validate_VariableExpression_NotOk() {
 		PuppetManifest pp = pf.createPuppetManifest();
 		VariableExpression v = pf.createVariableExpression();
@@ -752,6 +797,7 @@ public class TestExpressions extends AbstractPuppetTests implements AbstractPupp
 		tester.validate(v).assertError(IPPDiagnostics.ISSUE__NOT_VARNAME);
 	}
 
+	@Test
 	public void test_Validate_VariableExpression_Ok() {
 		PuppetManifest pp = pf.createPuppetManifest();
 		VariableExpression v = pf.createVariableExpression();

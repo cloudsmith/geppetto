@@ -11,16 +11,18 @@
  */
 package org.cloudsmith.geppetto.pp.dsl.tests;
 
-import junit.framework.TestCase;
+import static org.junit.Assert.assertEquals;
 
 import org.cloudsmith.geppetto.common.stats.IntegerCluster;
+import org.junit.Test;
 
 /**
  * Tests formatting utility classes.
  * 
  */
-public class TestFormatterUtils extends TestCase {
+public class TestFormatterUtils {
 
+	@Test
 	public void test_Cluster() {
 		IntegerCluster cluster = new IntegerCluster(20);
 		int[] values = new int[] { 13, 18, 13, 95, };
@@ -35,6 +37,7 @@ public class TestFormatterUtils extends TestCase {
 
 	}
 
+	@Test
 	public void test_Cluster0() {
 		IntegerCluster cluster = new IntegerCluster(20);
 		int[] values = new int[] { 1, 2, 3, 4, 5, };
@@ -49,6 +52,7 @@ public class TestFormatterUtils extends TestCase {
 
 	}
 
+	@Test
 	public void test_Cluster2() {
 		IntegerCluster cluster = new IntegerCluster(20);
 		int[] values = new int[] { 1, 2, 3, 4, 5, 15, 27, 28, 50, 51, 52 };
@@ -63,6 +67,7 @@ public class TestFormatterUtils extends TestCase {
 
 	}
 
+	@Test
 	public void test_Cluster3() {
 		IntegerCluster cluster = new IntegerCluster(20);
 		int[] values = new int[] { 1, 2, 3, 4, 5, 14, 27, 28, 50, 51, 52 };

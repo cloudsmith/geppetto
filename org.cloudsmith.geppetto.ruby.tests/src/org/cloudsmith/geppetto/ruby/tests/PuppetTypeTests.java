@@ -11,17 +11,20 @@
  */
 package org.cloudsmith.geppetto.ruby.tests;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+
 import java.io.File;
 import java.util.List;
-
-import junit.framework.TestCase;
 
 import org.cloudsmith.geppetto.ruby.PPTypeInfo;
 import org.cloudsmith.geppetto.ruby.RubyHelper;
 import org.eclipse.core.runtime.Path;
+import org.junit.Test;
 
-public class PuppetTypeTests extends TestCase {
+public class PuppetTypeTests {
 
+	@Test
 	public void testParseFunctionInNestedModules() throws Exception {
 		File aRubyFile = TestDataProvider.getTestFile(new Path(
 			"testData/pp-modules-ruby/module-x/lib/puppet/type/thing.rb"));

@@ -24,6 +24,19 @@
 		<developerConnection>git@github.com:cloudsmith/geppetto.git</developerConnection>
 	</scm>
 
+	<distributionManagement>
+		<repository>
+			<id>cloudsmith</id>
+			<name>Cloudsmith Release Repository</name>
+			<url>https://am0.cloudsmith.com/nexus/content/repositories/releases/</url>
+		</repository>
+		<snapshotRepository>
+			<id>cloudsmith-snapshots</id>
+			<name>Cloudsmith Snapshot Repository</name>
+			<url>https://am0.cloudsmith.com/nexus/content/repositories/snapshots/</url>
+		</snapshotRepository>
+	</distributionManagement>
+
 	<issueManagement>
 		<url>https://github.com/cloudsmith/geppetto/issues</url>
 	</issueManagement>
@@ -33,6 +46,12 @@
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
 			<version>[4.10,5.0)</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.sonatype.aether</groupId>
+			<artifactId>aether-impl</artifactId>
+			<version>1.13.1</version>
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
@@ -82,6 +101,32 @@
 				</configuration>
 			</plugin>
 		</plugins>
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-plugin-plugin</artifactId>
+					<version>3.2</version>
+					<configuration>
+						<skipErrorNoDescriptorsFound>true</skipErrorNoDescriptorsFound>
+					</configuration>
+					<executions>
+						<execution>
+							<id>mojo-descriptor</id>
+							<phase>process-classes</phase>
+							<goals>
+								<goal>descriptor</goal>
+							</goals>
+						</execution>
+					</executions>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-surefire-plugin</artifactId>
+					<version>2.13</version>
+				</plugin>
+			</plugins>
+		</pluginManagement>
 	</build>
 
 </project>

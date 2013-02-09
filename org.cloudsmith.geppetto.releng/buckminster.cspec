@@ -8,7 +8,6 @@
         <cs:dependency name="org.cloudsmith.geppetto.tests" componentType="osgi.bundle"/>
         <cs:dependency name="org.eclipse.equinox.executable" componentType="eclipse.feature"/>
         <cs:dependency name="org.eclipse.xtext.generator" componentType="osgi.bundle" filter="(!(pruned.product.build=true))"/>
-        <cs:dependency name="org.junit" componentType="osgi.bundle" versionDesignator="[3.8.0,4.0.0)"/>
         <cs:dependency name="org.junit" componentType="osgi.bundle" versionDesignator="[4.10.0,5.0.0)"/>
         <cs:dependency name="org.eclipse.emf.mwe2.launch" componentType="osgi.bundle" filter="(!(pruned.product.build=true))"/>
         <cs:dependency name="org.eclipse.emf.mwe2.language" componentType="osgi.bundle" filter="(!(pruned.product.build=true))"/>

@@ -25,7 +25,8 @@ import org.cloudsmith.geppetto.pp.SelectorExpression;
 import org.cloudsmith.geppetto.pp.SingleQuotedString;
 import org.cloudsmith.geppetto.pp.VariableExpression;
 import org.cloudsmith.geppetto.pp.dsl.validation.IPPDiagnostics;
-import org.eclipse.xtext.junit.validation.AssertableDiagnostics;
+import org.eclipse.xtext.junit4.validation.AssertableDiagnostics;
+import org.junit.Test;
 
 /**
  * Tests validation and serialization of SelectorExpression
@@ -40,6 +41,7 @@ public class TestSelectorExpression extends AbstractPuppetTests {
 
 	// @formatter:on
 
+	@Test
 	public void test_Serialize_SelectorExpression() {
 		PuppetManifest pp = pf.createPuppetManifest();
 		SelectorExpression se = pf.createSelectorExpression();
@@ -78,6 +80,7 @@ public class TestSelectorExpression extends AbstractPuppetTests {
 
 	}
 
+	@Test
 	public void test_Validate_SelectorExpression_NotOk() {
 		PuppetManifest pp = pf.createPuppetManifest();
 		SelectorExpression se = pf.createSelectorExpression();
@@ -110,6 +113,7 @@ public class TestSelectorExpression extends AbstractPuppetTests {
 
 	}
 
+	@Test
 	public void test_Validate_SelectorExpression_Ok() {
 		PuppetManifest pp = pf.createPuppetManifest();
 		SelectorExpression se = pf.createSelectorExpression();

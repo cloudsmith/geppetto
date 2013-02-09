@@ -11,23 +11,27 @@
  */
 package org.cloudsmith.geppetto.ruby.tests;
 
-import java.io.File;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
-import junit.framework.TestCase;
+import java.io.File;
 
 import org.cloudsmith.geppetto.ruby.RubyHelper;
 import org.cloudsmith.geppetto.ruby.spi.IRubyIssue;
 import org.cloudsmith.geppetto.ruby.spi.IRubyParseResult;
 import org.eclipse.core.runtime.Path;
+import org.junit.Test;
 
-public class SmokeTest extends TestCase {
+public class SmokeTest {
 
+	@Test
 	public void testConfiguration() {
 		RubyHelper rubyHelper = new RubyHelper();
 		rubyHelper.setUp();
 		assertTrue("Should have a real ruby service configured", rubyHelper.isRubyServicesAvailable());
 	}
 
+	@Test
 	public void testHelloBrokenWorld() throws Exception {
 		File aRubyFile = TestDataProvider.getTestFile(new Path("testData/ruby/helloBrokenWorld.rb"));
 		RubyHelper helper = new RubyHelper();
@@ -47,6 +51,7 @@ public class SmokeTest extends TestCase {
 		}
 	}
 
+	@Test
 	public void testHelloBrokenWorld2() throws Exception {
 		File aRubyFile = TestDataProvider.getTestFile(new Path("testData/ruby/helloBrokenWorld2.rb"));
 		RubyHelper helper = new RubyHelper();
@@ -65,6 +70,7 @@ public class SmokeTest extends TestCase {
 		}
 	}
 
+	@Test
 	public void testHelloWorld() throws Exception {
 		File aRubyFile = TestDataProvider.getTestFile(new Path("testData/ruby/helloWorld.rb"));
 		RubyHelper helper = new RubyHelper();

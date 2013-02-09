@@ -20,6 +20,7 @@ import org.cloudsmith.geppetto.pp.OrExpression;
 import org.cloudsmith.geppetto.pp.ParenthesisedExpression;
 import org.cloudsmith.geppetto.pp.PuppetManifest;
 import org.cloudsmith.geppetto.pp.VirtualCollectQuery;
+import org.junit.Test;
 
 /**
  * Tests the Puppet Collect Expression.
@@ -27,24 +28,25 @@ import org.cloudsmith.geppetto.pp.VirtualCollectQuery;
  */
 public class TestCollectExpression extends AbstractPuppetTests {
 
-	// @formatter:off
-	static final String Sample_Collect = "User <| name == Luke |> {\n" + //
-			"  role  => jedi,\n" + //
-			"  tasks +> rakeleaves,\n" + //
+	// @fmtOff
+	static final String Sample_Collect = "User <| name == Luke |> {\n" +
+			"  role  => jedi,\n" +
+			"  tasks +> rakeleaves,\n" +
 			"}\n";
 
-	static final String Sample_Collect_Exported = "User <<| name == Luke |>> {\n" + //
-			"  role  => jedi,\n" + //
-			"  tasks +> rakeleaves,\n" + //
+	static final String Sample_Collect_Exported = "User <<| name == Luke |>> {\n" +
+			"  role  => jedi,\n" +
+			"  tasks +> rakeleaves,\n" +
 			"}\n";
 
-	static final String Sample_Collect_Complex = "User <<| name != Luke and (name != Darth or name != Vader) |>> {\n" + //
-			"  role  => jedi,\n" + //
-			"  tasks +> rakeleaves,\n" + //
+	static final String Sample_Collect_Complex = "User <<| name != Luke and (name != Darth or name != Vader) |>> {\n" +
+			"  role  => jedi,\n" +
+			"  tasks +> rakeleaves,\n" +
 			"}\n";
 
-	// @formatter:on
+	// @fmtOn
 
+	@Test
 	public void test_Serialize_CollectExpr() {
 		final PuppetManifest pp = pf.createPuppetManifest();
 		final CollectExpression ce = pf.createCollectExpression();
@@ -104,6 +106,7 @@ public class TestCollectExpression extends AbstractPuppetTests {
 
 	}
 
+	@Test
 	public void test_Validate_Collect_Ok() {
 		final PuppetManifest pp = pf.createPuppetManifest();
 		final CollectExpression ce = pf.createCollectExpression();

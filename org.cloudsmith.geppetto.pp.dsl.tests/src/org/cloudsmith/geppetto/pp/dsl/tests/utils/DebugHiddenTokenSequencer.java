@@ -12,7 +12,7 @@
 package org.cloudsmith.geppetto.pp.dsl.tests.utils;
 
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.xtext.junit.serializer.DebugSequenceAcceptor;
+import org.eclipse.xtext.junit4.serializer.DebugSequenceAcceptor;
 import org.eclipse.xtext.serializer.acceptor.ISequenceAcceptor;
 import org.eclipse.xtext.serializer.diagnostic.ISerializationDiagnostic.Acceptor;
 import org.eclipse.xtext.serializer.sequencer.IHiddenTokenSequencer;

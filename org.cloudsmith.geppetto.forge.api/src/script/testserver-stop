@@ -8,13 +8,9 @@ SERVER_PID="`cat $PIDFILE`" || {
 	echo "Failed to read pid file '$PIDFILE'" 1>&2
 	exit 2
 }
-kill "$SERVER_PID" > /dev/null 2>&1 || {
+kill "$SERVER_PID" || {
 	echo "Failed to kill the server" 1>&2
 	exit 3
-}
-rm -f "$PIDFILE" || {
-    echo "Failed to remove pid file '$PIDFILE'" 1>&2
-    exit 4
 }
 echo "Successful shutdown"
 exit 0

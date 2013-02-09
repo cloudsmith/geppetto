@@ -23,6 +23,7 @@ import org.cloudsmith.geppetto.pp.dsl.services.PPGrammarAccess;
 import org.cloudsmith.geppetto.pp.dsl.validation.IPPDiagnostics;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.xtext.parser.IParseResult;
+import org.junit.Test;
 
 /**
  * Tests Literals
@@ -39,6 +40,7 @@ public class TestLiterals extends AbstractPuppetTests {
 	// return '"' + s + '"';
 	// }
 
+	@Test
 	public void test_Parse_LiteralNameOrReference_NotOk() {
 		PPGrammarAccess ga = (PPGrammarAccess) getGrammarAccess();
 		PPParser parser = (PPParser) getParser();
@@ -49,6 +51,7 @@ public class TestLiterals extends AbstractPuppetTests {
 
 	}
 
+	@Test
 	public void test_Parse_LiteralNameOrReference_Ok() {
 		PPGrammarAccess ga = (PPGrammarAccess) getGrammarAccess();
 		PPParser parser = (PPParser) getParser();
@@ -95,6 +98,7 @@ public class TestLiterals extends AbstractPuppetTests {
 
 	}
 
+	@Test
 	public void test_Parse_LiteralsInResource_Smoketest() {
 		PPGrammarAccess ga = (PPGrammarAccess) getGrammarAccess();
 		PPParser parser = (PPParser) getParser();
@@ -117,6 +121,7 @@ public class TestLiterals extends AbstractPuppetTests {
 
 	}
 
+	@Test
 	public void test_Validate_LiteralNameOrReference_NotOk() {
 		final String[] keywords = {
 				"and", "or", "case", "default", "define", "import", "if", "elsif", "else", "inherits", "node", "in",
@@ -134,6 +139,7 @@ public class TestLiterals extends AbstractPuppetTests {
 		}
 	}
 
+	@Test
 	public void test_Validate_LiteralNameOrReference_Ok() {
 		for(String s : validNames) {
 			LiteralNameOrReference n = createNameOrReference(s);
@@ -142,6 +148,7 @@ public class TestLiterals extends AbstractPuppetTests {
 		}
 	}
 
+	@Test
 	public void test_Validate_LiteralRegex_NotOk() {
 		LiteralRegex r = pf.createLiteralRegex();
 		r.setValue("/[a-zA-Z0-9]*");
@@ -161,6 +168,7 @@ public class TestLiterals extends AbstractPuppetTests {
 	 * Test regular expression ok states:
 	 * TODO: add more tests - this is just a smoke-test
 	 */
+	@Test
 	public void test_Validate_LiteralRegex_Ok() {
 		LiteralRegex r = pf.createLiteralRegex();
 		r.setValue("/[a-zA-Z0-9]*/");
@@ -169,6 +177,7 @@ public class TestLiterals extends AbstractPuppetTests {
 
 	}
 
+	@Test
 	public void test_Validate_SingleQuotedString_NotOk() {
 
 		{ // -- unescaped single quote
@@ -186,6 +195,7 @@ public class TestLiterals extends AbstractPuppetTests {
 		// }
 	}
 
+	@Test
 	public void test_Validate_SingleQuotedString_Ok() {
 		SingleQuotedString ls = pf.createSingleQuotedString();
 		ls.setText("I am a single quoted string with a tab \\t char");

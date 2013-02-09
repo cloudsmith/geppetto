@@ -11,38 +11,36 @@
  */
 package org.cloudsmith.geppetto.pp.dsl.tests;
 
-import junit.framework.Test;
 import junit.framework.TestSuite;
+
+import org.junit.runner.RunWith;
+import org.junit.runners.Suite;
+import org.junit.runners.Suite.SuiteClasses;
 
 /**
  * All Puppet Tests.
- * 
  */
+@SuiteClasses({
+// @fmtOff
+	TestVariables.class,
+	TestWsAndComments.class,
+	TestPuppetResourceExpr.class,
+	TestLiterals.class,
+	TestExpressions.class,
+	TestCollectExpression.class,
+	TestSelectorExpression.class,
+	TestDoubleQuotedString.class,
+	TestIssues.class,
+	TestIssues3_0.class,
+	TestLinking.class,
+	TestSemanticOneSpaceFormatter.class,
+	TestSemanticCssFormatter.class,
+	TestPPFormatting.class,
+	TestPPFormattingFailing.class,
+	TestFormatterUtils.class,
+	TestPptpResourceAsFile.class
+// @fmtOn
+})
+@RunWith(Suite.class)
 public class AllTests extends TestSuite {
-
-	public static Test suite() {
-		TestSuite suite = new TestSuite(AllTests.class.getName());
-		// $JUnit-BEGIN$
-		suite.addTestSuite(TestVariables.class);
-		suite.addTestSuite(TestWsAndComments.class);
-		suite.addTestSuite(TestPuppetResourceExpr.class);
-		suite.addTestSuite(TestLiterals.class);
-		suite.addTestSuite(TestExpressions.class);
-		suite.addTestSuite(TestCollectExpression.class);
-		suite.addTestSuite(TestSelectorExpression.class);
-		suite.addTestSuite(TestDoubleQuotedString.class);
-		suite.addTestSuite(TestIssues.class);
-		suite.addTestSuite(TestIssues3_0.class);
-		suite.addTestSuite(TestLinking.class);
-		suite.addTestSuite(TestSemanticOneSpaceFormatter.class);
-		suite.addTestSuite(TestSemanticCssFormatter.class);
-		suite.addTestSuite(TestPPFormatting.class);
-		suite.addTestSuite(TestPPFormattingFailing.class);
-		suite.addTestSuite(TestFormatterUtils.class);
-		suite.addTestSuite(TestPptpResourceAsFile.class);
-
-		// $JUnit-END$
-		return suite;
-	}
-
 }

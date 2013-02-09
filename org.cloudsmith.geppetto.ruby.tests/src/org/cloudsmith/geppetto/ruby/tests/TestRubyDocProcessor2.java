@@ -11,11 +11,12 @@
  */
 package org.cloudsmith.geppetto.ruby.tests;
 
+import static org.junit.Assert.assertEquals;
+
 import java.util.List;
 
-import junit.framework.TestCase;
-
 import org.cloudsmith.geppetto.ruby.RubyDocProcessor;
+import org.junit.Test;
 
 import com.google.common.base.Joiner;
 import com.google.common.collect.ImmutableList;
@@ -24,7 +25,7 @@ import com.google.common.collect.ImmutableList;
  * @author henrik
  * 
  */
-public class TestRubyDocProcessor2 extends TestCase {
+public class TestRubyDocProcessor2 {
 	public static final List<String> content1 = ImmutableList.of( //
 		"This is an example:\n", //
 		"  verbatim\n", //
@@ -177,36 +178,43 @@ public class TestRubyDocProcessor2 extends TestCase {
 		"<h5>Head8</h5>" //
 	);
 
+	@Test
 	public void testRubyDocprocessor_1() {
 		String result = new RubyDocProcessor().asHTML(Joiner.on("").join(content1));
 		assertEquals(Joiner.on("").join(content1Expected), result);
 	}
 
+	@Test
 	public void testRubyDocprocessor_2() {
 		String result = new RubyDocProcessor().asHTML(Joiner.on("").join(content2));
 		assertEquals(Joiner.on("").join(content2Expected), result);
 	}
 
+	@Test
 	public void testRubyDocprocessor_3() {
 		String result = new RubyDocProcessor().asHTML(Joiner.on("").join(content3));
 		assertEquals(Joiner.on("").join(content3Expected), result);
 	}
 
+	@Test
 	public void testRubyDocprocessor_4() {
 		String result = new RubyDocProcessor().asHTML(Joiner.on("").join(content4));
 		assertEquals(Joiner.on("").join(content4Expected), result);
 	}
 
+	@Test
 	public void testRubyDocprocessor_5() {
 		String result = new RubyDocProcessor().asHTML(Joiner.on("").join(content5));
 		assertEquals(Joiner.on("").join(content5Expected), result);
 	}
 
+	@Test
 	public void testRubyDocprocessor_5a() {
 		String result = new RubyDocProcessor().asHTML(Joiner.on("").join(content5a));
 		assertEquals(Joiner.on("").join(content5Expected), result);
 	}
 
+	@Test
 	public void testRubyDocprocessor_6() {
 		String result = new RubyDocProcessor().asHTML(Joiner.on("").join(content6));
 		assertEquals(Joiner.on("").join(content6Expected), result);

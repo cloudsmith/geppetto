@@ -1,7 +1,21 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: Geppetto Validation
-Bundle-SymbolicName: org.cloudsmith.geppetto.validation
+Bundle-Name: %pluginName
+Bundle-SymbolicName: org.cloudsmith.geppetto.validation;singleton:=true
 Bundle-Version: 1.0.0.qualifier
-Bundle-Vendor: Cloudsmith Inc.
-Bundle-RequiredExecutionEnvironment: JavaSE-1.7
+Bundle-ClassPath: .
+Bundle-Vendor: %providerName
+Bundle-Localization: plugin
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Export-Package: org.cloudsmith.geppetto.validation,
+ org.cloudsmith.geppetto.validation.runner
+Require-Bundle: org.eclipse.emf.ecore;visibility:=reexport,
+ org.eclipse.xtext,
+ org.cloudsmith.geppetto.pp,
+ org.cloudsmith.geppetto.pp.dsl,
+ org.cloudsmith.geppetto.ruby,
+ org.cloudsmith.geppetto.forge,
+ org.cloudsmith.geppetto.catalog,
+ org.cloudsmith.geppetto.common
+Bundle-ActivationPolicy: lazy
+Import-Package: org.eclipse.core.runtime

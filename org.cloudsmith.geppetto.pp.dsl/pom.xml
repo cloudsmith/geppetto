@@ -53,25 +53,6 @@
 		</plugins>
 	</build>
 
-	<repositories>
-		<repository>
-			<id>local-xtext</id>
-			<name>Eclipse Xtext Repository</name>
-			<url>file:///home/thhal/tmp/workspace/maven/final</url>
-			<snapshots>
-				<enabled>false</enabled>
-			</snapshots>
-		</repository>
-		<repository>
-			<id>public</id>
-			<name>Eclipse Public Repository</name>
-			<url>http://maven.eclipse.org/nexus/content/groups/public</url>
-			<snapshots>
-				<enabled>false</enabled>
-			</snapshots>
-		</repository>
-	</repositories>
-
 	<dependencies>
 		<dependency>
 			<groupId>org.cloudsmith.geppetto</groupId>

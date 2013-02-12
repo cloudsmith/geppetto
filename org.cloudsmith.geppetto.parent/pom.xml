@@ -37,6 +37,33 @@
 		</snapshotRepository>
 	</distributionManagement>
 
+	<repositories>
+		<repository>
+			<id>cloudsmith-xtext</id>
+			<name>Eclipse Xtext Repository</name>
+			<url>https://am0.cloudsmith.com/nexus/content/repositories/xtext</url>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+		</repository>
+		<repository>
+			<id>cloudsmith-snapshots</id>
+			<name>Cloudsmith Snapshot Repository</name>
+			<url>https://am0.cloudsmith.com/nexus/content/repositories/snapshots</url>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+		</repository>
+		<repository>
+			<id>cloudsmith-releases</id>
+			<name>Cloudsmith Releases</name>
+			<url>https://am0.cloudsmith.com/nexus/content/repositories/releases</url>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+		</repository>
+	</repositories>
+
 	<issueManagement>
 		<url>https://github.com/cloudsmith/geppetto/issues</url>
 	</issueManagement>
@@ -68,6 +95,8 @@
 		<module>../org.cloudsmith.geppetto.common.tracer</module>
 		<module>../org.cloudsmith.geppetto.ruby</module>
 		<module>../org.cloudsmith.geppetto.ruby.jrubyparser</module>
+		<module>../org.cloudsmith.geppetto.validation</module>
+		<module>../../forge-publisher</module>
 	</modules>
 
 	<build>

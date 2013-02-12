@@ -8,32 +8,30 @@
 		<relativePath>../org.cloudsmith.geppetto.parent/pom.xml</relativePath>
 	</parent>
 
-	<artifactId>org.cloudsmith.geppetto.ruby</artifactId>
+	<artifactId>org.cloudsmith.geppetto.validation</artifactId>
+	<packaging>jar</packaging>
+
+	<name>Geppetto Validation</name>
 
 	<build>
 		<sourceDirectory>src</sourceDirectory>
+		<outputDirectory>bin</outputDirectory>
 	</build>
-
 	<dependencies>
 		<dependency>
 			<groupId>org.cloudsmith.geppetto</groupId>
-			<artifactId>org.cloudsmith.geppetto.pp</artifactId>
+			<artifactId>org.cloudsmith.geppetto.pp.dsl</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
 		<dependency>
 			<groupId>org.cloudsmith.geppetto</groupId>
-			<artifactId>org.cloudsmith.geppetto.common</artifactId>
+			<artifactId>org.cloudsmith.geppetto.forge</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
 		<dependency>
 			<groupId>org.cloudsmith.geppetto</groupId>
-			<artifactId>org.cloudsmith.geppetto.eclipse.core</artifactId>
+			<artifactId>org.cloudsmith.geppetto.catalog</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
-		</dependency>
-		<dependency>
-			<groupId>org.eclipse.xtext</groupId>
-			<artifactId>org.eclipse.xtext</artifactId>
-			<version>[2.3.0,2.4.0)</version>
 		</dependency>
 	</dependencies>
 </project>

@@ -3,7 +3,6 @@
     <cs:dependencies>
         <cs:dependency name="org.cloudsmith.geppetto.parent" componentType="buckminster"/>
         <cs:dependency name="org.cloudsmith.geppetto.product" componentType="eclipse.feature"/>
-        <cs:dependency name="org.cloudsmith.geppetto.product" componentType="eclipse.feature"/>
         <cs:dependency name="org.cloudsmith.geppetto.site" componentType="eclipse.feature"/>
         <cs:dependency name="org.cloudsmith.geppetto.tests" componentType="osgi.bundle"/>
         <cs:dependency name="org.eclipse.equinox.executable" componentType="eclipse.feature"/>

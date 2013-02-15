@@ -5,7 +5,6 @@
 		<groupId>org.cloudsmith.geppetto</groupId>
 		<artifactId>parent</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
-		<relativePath>../org.cloudsmith.geppetto.parent/pom.xml</relativePath>
 	</parent>
 
 	<artifactId>org.cloudsmith.geppetto.common</artifactId>

@@ -4,6 +4,7 @@
   <rm:property key="git.clones.root" value="${user.home}/git"/>
   <rm:property key="svn.connectors.repository.url" value="http://community.polarion.com/projects/subversive/download/eclipse/3.0/juno-site/"/>
   <rm:property key="eclipse.download" value="http://download.eclipse.org"/>
+  <rm:locator pattern="^org\.cloudsmith\.geppetto\.parent$" searchPathRef="geppetto-parent"/>
   <rm:locator pattern="^org\.cloudsmith\.geppetto(\..+)?$" searchPathRef="geppetto"/>
   <rm:locator pattern="^org\.polarion\.eclipse\.team\.svn\.connector(\..+)?$" searchPathRef="svn.connectors"/>
   <rm:locator pattern="^org\.apache\.commons\.compress(\..+)?$" searchPathRef="commons-compress"/>
@@ -13,6 +14,14 @@
   <rm:locator searchPathRef="orbit" failOnError="false"/>
   <rm:locator searchPathRef="platform" failOnError="false"/>
   <rm:locator searchPathRef="juno" failOnError="false"/>
+  <rm:searchPath name="geppetto-parent">
+    <rm:provider componentTypes="buckminster" readerType="git">
+      <rm:property key="git.remote.uri" value="${cloudsmith.github.prefix}/geppetto.git"/>
+      <rm:uri format="{0}/geppetto">
+        <bc:propertyRef key="git.clones.root"/>
+      </rm:uri>
+    </rm:provider>
+  </rm:searchPath>
   <rm:searchPath name="geppetto">
     <rm:provider componentTypes="osgi.bundle,buckminster" readerType="git">
       <rm:property key="git.remote.uri" value="${cloudsmith.github.prefix}/geppetto.git"/>
@@ -26,6 +35,12 @@
       <rm:uri format="{0}/geppetto,{1}-feature">
         <bc:propertyRef key="git.clones.root"/>
         <bc:propertyRef key="buckminster.component"/>
+      </rm:uri>
+    </rm:provider>
+    <rm:provider componentTypes="maven" readerType="git">
+      <rm:property key="git.remote.uri" value="${cloudsmith.github.prefix}/geppetto.git"/>
+      <rm:uri format="{0}/geppetto">
+        <bc:propertyRef key="git.clones.root"/>
       </rm:uri>
     </rm:provider>
   </rm:searchPath>

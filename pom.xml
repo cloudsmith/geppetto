@@ -11,6 +11,7 @@
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 	</properties>
 
 	<organization>
@@ -72,7 +73,7 @@
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
-			<version>[4.10,5.0)</version>
+			<version>4.10</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
@@ -84,19 +85,18 @@
 	</dependencies>
 
 	<modules>
-		<module>../org.cloudsmith.geppetto.catalog</module>
-		<module>../org.cloudsmith.geppetto.common</module>
-		<module>../org.cloudsmith.geppetto.forge</module>
-		<module>../org.cloudsmith.geppetto.forge.api</module>
-		<module>../org.cloudsmith.geppetto.pp</module>
-		<module>../org.cloudsmith.geppetto.pp.dsl</module>
-		<module>../org.cloudsmith.geppetto.puppetlint</module>
-		<module>../org.cloudsmith.geppetto.eclipse.core</module>
-		<module>../org.cloudsmith.geppetto.common.tracer</module>
-		<module>../org.cloudsmith.geppetto.ruby</module>
-		<module>../org.cloudsmith.geppetto.ruby.jrubyparser</module>
-		<module>../org.cloudsmith.geppetto.validation</module>
-		<module>../../forge-publisher</module>
+		<module>org.cloudsmith.geppetto.catalog</module>
+		<module>org.cloudsmith.geppetto.common</module>
+		<module>org.cloudsmith.geppetto.forge</module>
+		<module>org.cloudsmith.geppetto.forge.api</module>
+		<module>org.cloudsmith.geppetto.pp</module>
+		<module>org.cloudsmith.geppetto.pp.dsl</module>
+		<module>org.cloudsmith.geppetto.puppetlint</module>
+		<module>org.cloudsmith.geppetto.eclipse.core</module>
+		<module>org.cloudsmith.geppetto.common.tracer</module>
+		<module>org.cloudsmith.geppetto.ruby</module>
+		<module>org.cloudsmith.geppetto.ruby.jrubyparser</module>
+		<module>org.cloudsmith.geppetto.validation</module>
 	</modules>
 
 	<build>

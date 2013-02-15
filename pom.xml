@@ -162,7 +162,7 @@
 			<dependency>
 				<groupId>org.cloudsmith.jruby</groupId>
 				<artifactId>jrubyparser</artifactId>
-				<version>0.3-SNAPSHOT</version>
+				<version>0.3-alpha</version>
 			</dependency>
 			<dependency>
 				<groupId>org.sonatype.aether</groupId>

@@ -12,8 +12,7 @@
 		<scriptDir>${basedir}/src/script</scriptDir>
 		<forgeServerPidFile>${project.build.directory}/forgeserver.pid</forgeServerPidFile>
 		<forgeServerLogFile>${project.build.directory}/forgeserver.log</forgeServerLogFile>
-		<!-- Assumes puppet-forge-api repo adjacent to the geppetto repo. -->
-		<forgeServerDir>${basedir}/../../puppet-forge-api</forgeServerDir>
+		<forgeServerDir>${user.home}/git/puppet-forge-api</forgeServerDir>
 	</properties>
 
 	<build>

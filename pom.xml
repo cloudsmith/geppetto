@@ -20,9 +20,9 @@
 	</organization>
 
 	<scm>
-		<connection>git://github.com/cloudsmith/geppetto.git</connection>
+		<connection>scm:git:git://github.com/cloudsmith/geppetto.git</connection>
 		<url>https://github.com/cloudsmith/geppetto</url>
-		<developerConnection>git@github.com:cloudsmith/geppetto.git</developerConnection>
+		<developerConnection>scm:git:git@github.com:cloudsmith/geppetto.git</developerConnection>
 	</scm>
 
 	<distributionManagement>

@@ -3,7 +3,7 @@
 
 	<groupId>org.cloudsmith.geppetto</groupId>
 	<artifactId>parent</artifactId>
-	<version>3.0.2</version>
+	<version>3.0.3-SNAPSHOT</version>
 	<packaging>pom</packaging>
 
 	<name>Parent POM for the Geppetto project</name>

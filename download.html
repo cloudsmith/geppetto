@@ -24,15 +24,24 @@ title: Download Geppetto
   if (navigator.appVersion.indexOf("Mac")!=-1) os="osx";
   if (navigator.appVersion.indexOf("Linux")!=-1) os="linux";
 
+  // Not possible to detect (browser may be 32 bit), use what most people downloaded to date
+  var selected_arch = '64bit'
+  
   window.onload=function() {
     select_os(os)
+    select_arch(selected_arch)
   }
   function select_os(name) {
-    if(selected_os != 'unknown') highlight_os(selected_os, false);
-    highlight_os(name, true)
+    if(selected_os != 'unknown') highlight(selected_os, false);
+    highlight(name, true)
     selected_os = name
   }
-  function highlight_os(name, flag) {
+  function select_arch(name) {
+    highlight(selected_arch, false)
+    highlight(name, true)
+    selected_arch = name
+  }
+  function highlight(name, flag) {
     var color = flag ? "#f0324a" : "#747575"
     document.getElementById(name).style.color = color
   }
@@ -115,8 +124,20 @@ title: Download Geppetto
   text-align:center">
 <tr>
   <td style="width:150px;font-size:12px;text-align:left">ARCHITECTURE</td>
-  <td style="width=144px"><span style="cursor:pointer">32<span style="font-size:12px"> bit</span></span></td>
-  <td style="width=144px"><span style="cursor:pointer">64<span style="font-size:12px"> bit</span></span></td>
+  <td style="width=144px"><span id="32bit" style="cursor:pointer"
+      onClick="select_arch('32bit')"
+      onmouseover="fisheye(this)"
+      onmouseout="press_out(this)"
+      onmousedown="press_in(this)" 
+      onmouseup="press_out(this)"
+    >32<span style="font-size:12px"> bit</span></span></td>
+  <td style="width=144px"><span id="64bit" style="cursor:pointer"
+      onClick="select_arch('64bit')"
+      onmouseover="fisheye(this)"
+      onmouseout="press_out(this)"
+      onmousedown="press_in(this)" 
+      onmouseup="press_out(this)"
+    >64<span style="font-size:12px"> bit</span></span></td>
 </tr>
 </table>
 <table style="width:600px;padding-top:16px">

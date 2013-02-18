@@ -3,14 +3,19 @@ layout: default
 title: Download Geppetto
 ---
 <h1>Download Latest Geppetto</h1>
-<table>
+<table style="font-size:36px">
 <tr>
   <td>Logo</td>
   <td>Linux</td><td>32</td><td>64</td>
   <td rowspan=3><button
       style="border-width:0; background:none"
       onClick="alert('clicked')"
-    ><img src="images/download_0.png"/></button></td>
+    ><img src="images/download_0.png"
+          onmouseover="this.src='images/download_1.png';this.style.width='100%'; this.style.height='100%'"
+          onmouseout="this.src='images/download_0.png;this.style.width='100%'; this.style.height='100%'"
+          onmousedown="this.style.width='98%'; this.style.height='98%'" 
+          onmouseup="this.style.width='100%'; this.style.height='100%'"
+          /></button></td>
 </tr>
 <tr>
   <td>Logo</td>

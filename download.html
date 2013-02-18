@@ -7,10 +7,10 @@ title: Download Geppetto
     it.style.width = sz
     it.style.height = sz
   }
-  function in(it) {
+  function press_in(it) {
     it.style.transform="scale(0.95);translate(3,3)"
   }
-  function out(it) {
+  function press_out(it) {
     it.style.transform="none"
   }
 </script>
@@ -21,11 +21,11 @@ title: Download Geppetto
   <td><button style="border-width:0; background:none"
       onClick="alert('linux')"
     ><img width="96px" height="96px" src="images/linux.png"
-          onmouseover="out(this)"
-          onmouseout="out(this)"
-          onmousedown="in(this)" 
-          onmouseup="out(this)"
-          ondragstart="out(this); return false"
+          onmouseover="press_out(this)"
+          onmouseout="press_out(this)"
+          onmousedown="press_in(this)" 
+          onmouseup="press_out(this)"
+          ondragstart="press_out(this); return false"
           />
     </button>
   </td>

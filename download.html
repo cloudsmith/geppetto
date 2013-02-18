@@ -18,37 +18,37 @@ title: Download Geppetto
       size: size_mb,
       label: "LINUX 32 bit",
       ver: default_ver
-    }
+    };
   downloads['linux-64bit'] = {
       zip: "geppetto-linux.gtk.x86_64-" + default_ver + ".zip",
       size: size_mb,
       label: "LINUX 64 bit",
       ver: default_ver
-    }
+    };
   downloads['osx-32bit'] = {
       zip: "geppetto-macosx.cocoa.x86-" + default_ver + ".zip",
       size: size_mb,
       label: "MAC OS X 32 bit",
       ver: default_ver
-    }
+    };
   downloads['osx-64bit'] = {
       zip: "geppetto-macosx.cocoa.x86_64-" + default_ver + ".zip",
       size: size_mb,
       label: "MAC OS X 64 bit",
       ver: default_ver
-    }
+    };
   downloads['windows-32bit'] = {
       zip: "geppetto-win32.win32.x86-" + default_ver + ".zip", 
       size: size_mb,
       label: "WINDOWS 32 bit",
       ver: default_ver
-    }
+    };
   downloads['windows-64bit'] = {
-      zip: "geppetto-win32.win32.x86_64-" + win64_ver + ".zip".
+      zip: "geppetto-win32.win32.x86_64-" + win64_ver + ".zip",
       size: size_mb,
       label: "WINDOWS 64 bit",
       ver: win64_ver
-    }
+    };
 
   // detect OS
   var os = "unknown"
@@ -71,7 +71,7 @@ title: Download Geppetto
     update_download()
   }
   function update_download() {
-    dl = downloads[selected_os+"-"+selected_arch]
+    dl = downloads[selected_os + "-" + selected_arch]
     $("span#d-os-arch").update(dl['label'])
     $("span#d-geppetto-ver").update(dl['ver'])    
     $("span#d-size").update(dl['size'])    

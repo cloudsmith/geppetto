@@ -72,9 +72,9 @@ title: Download Geppetto
   }
   function update_download() {
     dl = downloads[selected_os + "-" + selected_arch]
-    $("span#d-os-arch").update(dl['label'])
-    $("span#d-geppetto-ver").update(dl['ver'])    
-    $("span#d-size").update(dl['size'])    
+    $("span#d-os-arch").text(dl['label'])
+    $("span#d-geppetto-ver").text(dl['ver'])    
+    $("span#d-size").text(dl['size'])    
   }
   function select_arch(name) {
     highlight(selected_arch, false)

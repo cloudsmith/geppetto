@@ -7,6 +7,17 @@ title: Download Geppetto
     it.style.width = sz
     it.style.height = sz
   }
+  function in(it) {
+    it.style.position='relative'
+    it.style.left:3px
+    it.style.top:3px
+  }
+function out(it) {
+  alert('OUT!!! damit')
+    it.style.position='relative'
+    it.style.left:0px
+    it.style.top:0px
+  }
 </script>
 <h1>Download Latest Geppetto</h1>
 <table style="width:600px;padding-bottom:16px;border-bottom:1px solid #cccccc;text-align:center">
@@ -15,11 +26,11 @@ title: Download Geppetto
   <td><button style="border-width:0; background:none"
       onClick="alert('linux')"
     ><img width="96px" height="96px" src="images/linux.png"
-          onmouseover="resize(this,'100%')"
-          onmouseout="resize(this,'100%')"
-          onmousedown="resize(this,'95%')" 
-          onmouseup="resize(this,'100%')"
-          ondragstart="resize(this, '100%'); return false"
+          onmouseover="out(this)"
+          onmouseout="out(this)"
+          onmousedown="in(this)" 
+          onmouseup="out(this)"
+          ondragstart="out(this; return false"
           />
     </button>
   </td>

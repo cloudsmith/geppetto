@@ -65,6 +65,8 @@ title: Download Geppetto
     select_arch(selected_arch)
     // update geppetto version under main title
     document.getElementById('main-ver').text=default_ver
+    $("span#main-ver").text(default_ver)    
+
   }
   function download() {
     if(selected_os == 'unknown') {

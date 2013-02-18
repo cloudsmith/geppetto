@@ -64,6 +64,14 @@ title: Download Geppetto
     select_os(os)
     select_arch(selected_arch)
   }
+  function download() {
+    if(selected_os == 'unknown') {
+      alert("Please select os to download")
+      return
+    }
+    location = "https://downloads/puppetlabs.com/geppetto/"+downloads[selected_os+"-"+selected_arch]
+    window.location = location
+  }
   function select_os(name) {
     if(selected_os != 'unknown') highlight(selected_os, false);
     highlight(name, true)
@@ -193,7 +201,7 @@ title: Download Geppetto
   </td>
   <td><button
       style="border-width:0; background:none;cursor:pointer"
-      onClick="alert('clicked')"
+      onClick="download()"
     ><img width="305px" height="68px"src="images/download_0.png"
           onmouseover="this.src='images/download_1.png'; press_out(this)"
           onmouseout="this.src='images/download_0.png';press_out(this)"

@@ -19,12 +19,22 @@ title: Download Geppetto
   
   // detect OS
   var os = "unknown"
+  var selected_os = os
   if (navigator.appVersion.indexOf("Win")!=-1) os="windows";
   if (navigator.appVersion.indexOf("Mac")!=-1) os="osx";
   if (navigator.appVersion.indexOf("Linux")!=-1) os="linux";
 
   window.onload=function() {
-    alert("loaded now with os == "+os)
+    select_os(os)
+  }
+  function select_os(name) {
+    if(selected_os != 'unknown') highlight_os(selected_os, false);
+    highlight_os(name, true)
+    selected_os = name
+  }
+  function highlight_os(name, flag) {
+    var color = flag ? "#f0324a" : "#747575"
+    document.getElementById(name).style.color = color
   }
   function transition(it, duration) {
     it.style.webkitTransition = "-webkit-transform "+duration+"s"
@@ -62,7 +72,7 @@ title: Download Geppetto
 <tr>
   <td style="width:150px;font-size:12px;text-align:left">OS</td>
   <td><button style="border-width:0; background:none; cursor:pointer"
-      onClick="alert('linux')"
+      onClick="select_os('linux')"
     ><img width="96px" height="96px" src="images/linux.png"
           onmouseover="fisheye(this)"
           onmouseout="press_out(this)"
@@ -73,7 +83,7 @@ title: Download Geppetto
     </button>
   </td>
   <td><button style="border-width:0; background:none;cursor:pointer"
-      onClick="alert('mac')"
+      onClick="select_os('osx')"
     ><img width="96px" height="96px" src="images/mac.png"
           onmouseover="fisheye(this)"
           onmouseout="press_out(this)"
@@ -84,7 +94,7 @@ title: Download Geppetto
     </button>
   </td>
   <td><button style="border-width:0; background:none;cursor:pointer"
-      onClick="alert('windows')"
+      onClick="select_os('windows')"
     ><img width="96px" height="96px" src="images/windows.png"
           onmouseover="fisheye(this)"
           onmouseout="press_out(this)"

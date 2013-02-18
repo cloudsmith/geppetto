@@ -1,25 +1,36 @@
-Geppetto is aimed at developing tools to simplify the process of authoring and consuming Puppet
-modules and manifests.
-
-The project's foundation is a model of the Puppet DSL, along with parsers, validators, and formatters that
-translate between a generated module or manifest and its editable representation. 
-Corresponding IDE tooling will generate and validate modules and manifests directly from editors, as well as
-streamline module publication/consumption to/from the Puppet Forge (http://forge.puppetlabs.com/). 
-Tooling will be packaged for both command line interaction, i.e., an enhanced version of the current
-Puppet Module Tool (http://github.com/puppetlabs/puppet-module-tool), and IDE plug-ins.
-Editors will provide syntax highlighting, content assistance, error tracing/debugging and similar
-capabilities, as appropriate.
-
-The project has three near-term objectives: (1) flatten the learning curve associated with using the
-Puppet DSL to create manifests, (2) support Puppet best practices for working with manifests in the form of
-modules, and (3) encourage sharing of modules within the community using the Puppet Forge.
-A longer-term objective will be to make it easier for a wider range of tools to interoperate with
-Puppet by using Geppetto's modeling foundation as a means of interchange; potential synergies with the
-new p(0) project (http://github.com/lak/pzero) will be explored for this purpose.
+Geppetto is aimed at developing tools to simplify the process of authoring and
+consuming Puppet modules and manifests.
 
 The Geppetto IDE tooling can be downloaded as a stand-alone product
 from http://cloudsmith.github.com/geppetto/download.html
 or installed into an existing Eclipse IDE from
 http://download.cloudsmith.com/geppetto/updates.
 
-For FAQ, and more information visit the Geppetto site http://cloudsmith.github.com/geppetto/
+For FAQ, and more information visit the Geppetto site:
+http://cloudsmith.github.com/geppetto/
+
+
+The project's foundation is a model of the Puppet DSL, along with parsers,
+validators, and formatters that translate between a generated module or
+manifest and its editable representation. 
+Corresponding IDE tooling will generate and validate modules and manifests
+directly from editors, as well as streamline module publication/consumption
+to/from the Puppet Forge (http://forge.puppetlabs.com/). 
+Tooling will be packaged for both command line interaction, i.e., an enhanced
+version of the current Puppet Module Tool:
+http://github.com/puppetlabs/puppet-module-tool, and IDE plug-ins.
+Editors will provide syntax highlighting, content assistance, error
+tracing/debugging and similar capabilities, as appropriate.
+
+The project has three near-term objectives: 
+(1) flatten the learning curve associated with using the Puppet DSL to
+    create manifests,
+(2) support Puppet best practices for working with manifests in the form of
+    modules, and
+(3) encourage sharing of modules within the community using the Puppet Forge.
+
+A longer-term objective will be to make it easier for a wider range of tools
+to interoperate with Puppet by using Geppetto's modeling foundation as a means
+of interchange; potential synergies with the
+new p(0) project (http://github.com/lak/pzero) will be explored for this purpose.
+

@@ -8,15 +8,10 @@ title: Download Geppetto
     it.style.height = sz
   }
   function in(it) {
-    it.style.position='relative'
-    it.style.left:3px
-    it.style.top:3px
+    it.style.transform="scale(0.95);translate(3,3)"
   }
-function out(it) {
-  alert('OUT!!! damit')
-    it.style.position='relative'
-    it.style.left:0px
-    it.style.top:0px
+  function out(it) {
+    it.style.transform="none"
   }
 </script>
 <h1>Download Latest Geppetto</h1>
@@ -30,7 +25,7 @@ function out(it) {
           onmouseout="out(this)"
           onmousedown="in(this)" 
           onmouseup="out(this)"
-          ondragstart="out(this; return false"
+          ondragstart="out(this); return false"
           />
     </button>
   </td>

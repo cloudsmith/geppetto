@@ -7,12 +7,24 @@ title: Download Geppetto
     it.style.width = sz
     it.style.height = sz
   }
-  function press_in(it) {
-    transf = "scale(0.90,0.90)"
-    it.style.webkitTransform="scale(0.90,0.90)"
+  function button_scale(it, scale) {
+    transf = "scale("+scale+","+scale+")"
+    it.style.webkitTransform=transf
     it.style.MozTransform=transf
     it.style.msTransform=transf
     it.style.OTransform=transf
+    
+  }
+  function fisheye(it) {
+    button_scale(it, 1.10)
+  }
+  function press_in(it) {
+    button_scale(it, 0.90)
+    #transf = "scale(0.90,0.90)"
+    #it.style.webkitTransform="scale(0.90,0.90)"
+    #it.style.MozTransform=transf
+    #it.style.msTransform=transf
+    #it.style.OTransform=transf
   }
   function press_out(it) {
     it.style.webkitTransform=""
@@ -28,7 +40,7 @@ title: Download Geppetto
   <td><button style="border-width:0; background:none; cursor:pointer"
       onClick="alert('linux')"
     ><img width="96px" height="96px" src="images/linux.png"
-          onmouseover="press_out(this)"
+          onmouseover="fisheye(this)"
           onmouseout="press_out(this)"
           onmousedown="press_in(this)" 
           onmouseup="press_out(this)"

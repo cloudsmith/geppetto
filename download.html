@@ -8,7 +8,7 @@ title: Download Geppetto
     it.style.height = sz
   }
   function press_in(it) {
-    transf = "scale(0.90,0.90);translate(3,3)"
+    transf = "scale(0.90,0.90)"
     it.style.webkitTransform="scale(0.90,0.90)"
     it.style.MozTransform=transf
     it.style.msTransform=transf
@@ -39,22 +39,22 @@ title: Download Geppetto
   <td><button style="border-width:0; background:none"
       onClick="alert('mac')"
     ><img width="96px" height="96px" src="images/mac.png"
-          onmouseover="resize(this,'100%')"
-          onmouseout="resize(this,'100%')"
-          onmousedown="resize(this,'95%')" 
-          onmouseup="resize(this,'100%')"
-          ondragstart="resize(this, '100%'); return false"
+          onmouseover="press_out(this)"
+          onmouseout="press_out(this)"
+          onmousedown="press_in(this)" 
+          onmouseup="press_out(this)"
+          ondragstart="press_out(this); return false"
           />
     </button>
   </td>
   <td><button style="border-width:0; background:none"
       onClick="alert('windows')"
     ><img width="96px" height="96px" src="images/windows.png"
-          onmouseover="resize(this,'100%')"
-          onmouseout="resize(this,'100%')"
-          onmousedown="resize(this,'95%')" 
-          onmouseup="resize(this,'100%')"
-          ondragstart="resize(this, '100%'); return false"
+          onmouseover="press_out(this)"
+          onmouseout="press_out(this)"
+          onmousedown="press_in(this)" 
+          onmouseup="press_out(this)"
+          ondragstart="press_out(this); return false"
           />
     </button>
   </td>
@@ -77,11 +77,11 @@ title: Download Geppetto
       style="border-width:0; background:none"
       onClick="alert('clicked')"
     ><img width="305px" height="68px"src="images/download_0.png"
-          onmouseover="this.src='images/download_1.png'; resize(this,'100%')"
-          onmouseout="this.src='images/download_0.png';resize(this,'100%')"
-          onmousedown="resize(this,'98%')" 
-          onmouseup="resize(this,'100%')"
-          ondragstart="resize(this, '100%'); return false"
+          onmouseover="this.src='images/download_1.png'; press_out(this)"
+          onmouseout="this.src='images/download_0.png';press_out(this)"
+          onmousedown="press_in(this)" 
+          onmouseup="press_out(this)"
+          ondragstart="press_out(this); return false"
           /></button></td>
 </tr>
 </table>

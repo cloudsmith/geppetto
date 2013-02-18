@@ -2,6 +2,12 @@
 layout: default
 title: Download Geppetto
 ---
+<script>
+  function resize(it, sz) {
+    it.style.width = sz
+    it.style.height = sz
+  }
+</script>
 <h1>Download Latest Geppetto</h1>
 <table style="font-size:36px">
 <tr>
@@ -15,7 +21,7 @@ title: Download Geppetto
           onmouseout="this.src='images/download_0.png;this.style.width='100%'; this.style.height='100%'"
           onmousedown="this.style.width='98%'; this.style.height='98%'" 
           onmouseup="this.style.width='100%'; this.style.height='100%'"
-          ondragstart="return false"
+          ondragstart="resize(this, '100%'); return false"
           /></button></td>
 </tr>
 <tr>

@@ -69,9 +69,9 @@ title: Download Geppetto
       alert("Please select os to download")
       return
     }
-    location = "https://downloads/puppetlabs.com/geppetto/"+downloads[selected_os+"-"+selected_arch].zip
-    alert(location)
-    window.location = location
+    var loc = "https://downloads/puppetlabs.com/geppetto/"+downloads[selected_os+"-"+selected_arch].zip
+    alert(loc)
+    window.location = loc
   }
   function select_os(name) {
     if(selected_os != 'unknown') highlight(selected_os, false);

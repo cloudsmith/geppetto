@@ -202,12 +202,12 @@ title: Download Geppetto
   <td><button
       style="border-width:0; background:none;cursor:pointer"
       onClick="download()"
-          onmouseover="$('img#download-img').src='images/download_1.png'; press_out(this)"
-          onmouseout="$('img#download-img').src='images/download_0.png'; press_out(this)"
+          onmouseover="this.getElementById('download-img').src='images/download_1.png'; press_out(this)"
+          onmouseout ="this.getElementById('download-img').src='images/download_0.png'; press_out(this)"
           onmousedown="press_in(this)" 
-          onmouseup="press_out(this)"
+          onmouseup  ="press_out(this)"
           ondragstart="press_out(this); return false"
-    ><img id="download-img" width="305px" height="68px"src="images/download_0.png"/>
+    ><img id="download-img" width="305px" height="68px" src="images/download_0.png"/>
     </button></td>
 </tr>
 </table>

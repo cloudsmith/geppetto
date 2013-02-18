@@ -63,6 +63,8 @@ title: Download Geppetto
   window.onload=function() {
     select_os(os)
     select_arch(selected_arch)
+    // update geppetto version under main title
+    $('p#main-ver').text=default_ver
   }
   function download() {
     if(selected_os == 'unknown') {
@@ -137,7 +139,8 @@ title: Download Geppetto
   })();
 
 </script>
-<h1>Download Latest Geppetto</h1>
+<h1>Download Latest Geppetto 3.0</h1>
+<p id='main-ver'></p>
 <table style="width:600px;padding-bottom:16px;border-bottom:1px solid #cccccc;text-align:center">
 <tr>
   <td style="width:160px;font-size:12px;text-align:left">OS</td>

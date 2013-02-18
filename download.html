@@ -3,30 +3,31 @@ layout: default
 title: Download Geppetto
 ---
 <script>
-  function resize(it, sz) {
-    it.style.width = sz
-    it.style.height = sz
+  function transition(it, duration) {
+    it.style.webkitTransition = "-webkit-transform "+duration+"s"
+    it.style.MozTransition = "-moz-transform "+duration+"s"
+    it.style.msTransition = "-ms-transform "+duration+"s"
+    it.style.OTranistion = "-o-transform "+duration+"s"
   }
   function button_scale(it, scale) {
     transf = "scale("+scale+","+scale+")"
+    it.style.transform=transf
     it.style.webkitTransform=transf
     it.style.MozTransform=transf
     it.style.msTransform=transf
     it.style.OTransform=transf
   }
   function fisheye(it) {
-    button_scale(it, 1.10)
+    transition(it, 0.2)
+    button_scale(it, 1.20)
   }
   function press_in(it) {
+    transition(it, 0.2)
     button_scale(it, 0.90)
-    /* transf = "scale(0.90,0.90)"
-    it.style.webkitTransform="scale(0.90,0.90)"
-    it.style.MozTransform=transf
-    it.style.msTransform=transf
-    it.style.OTransform=transf
-    */
   }
   function press_out(it) {
+    transition(it, 0.2)
+    it.style.transform=""
     it.style.webkitTransform=""
     it.style.MozTransform=transf=""
     it.style.msTransform=transf=""

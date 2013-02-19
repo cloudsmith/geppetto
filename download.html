@@ -53,9 +53,9 @@ title: Download Geppetto
   // detect OS
   var os = "unknown"
   var selected_os = os
-  if (navigator.appVersion.indexOf("Win")!=-1) os="windows";
-  if (navigator.appVersion.indexOf("Mac")!=-1) os="osx";
-  if (navigator.appVersion.indexOf("Linux")!=-1) os="linux";
+  if (navigator.userAgent.indexOf("Win")!=-1) os="windows";
+  if (navigator.userAgent.indexOf("Mac")!=-1) os="osx";
+  if (navigator.userAgent.indexOf("Linux")!=-1) os="linux";
 
   // Not possible to detect (browser may be 32 bit), use what most people downloaded to date
   var selected_arch = '64bit'

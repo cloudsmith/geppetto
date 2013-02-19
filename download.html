@@ -75,7 +75,7 @@ title: Download Geppetto
   }
   function select_os(name) {
     if(selected_os != 'unknown') highlight(selected_os, false);
-    highlight(name, true)
+    if(name != 'uknown') highlight(name, true);
     selected_os = name
     update_download()
   }

@@ -443,7 +443,11 @@ public class PPModulefileBuilder extends IncrementalProjectBuilder implements PP
 				if(version == null || version.length() < 1)
 					version = "0.0.0";
 				String moduleName = metadata.getFullName().toLowerCase();
-				if(moduleName != null && !project.getName().toLowerCase().contains(metadata.getName().toLowerCase()))
+				if(metadata.getName() == null) {
+					createErrorMarker(moduleFile, "Module name is empty", null);
+				}
+				else if(moduleName != null &&
+						!project.getName().toLowerCase().contains(metadata.getName().toLowerCase()))
 					createWarningMarker(moduleFile, "Mismatched name - project does not reflect module: '" +
 							moduleName + "'", null);
 

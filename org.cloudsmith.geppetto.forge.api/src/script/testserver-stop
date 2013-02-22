@@ -10,7 +10,5 @@ SERVER_PID="`cat $PIDFILE`" || {
 }
 kill "$SERVER_PID" || {
 	echo "Failed to kill the server" 1>&2
-	exit 3
 }
-echo "Successful shutdown"
 exit 0

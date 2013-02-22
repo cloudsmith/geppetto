@@ -16,6 +16,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.lang.reflect.Type;
+import java.util.List;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -27,8 +28,62 @@ import org.apache.http.client.ResponseHandler;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
+import com.google.gson.annotations.Expose;
 
 public class JSonResponseHandler<V> implements ResponseHandler<V> {
+	public static class ErrorResponse {
+		@Expose
+		private List<String> errors;
+
+		public List<String> getErrors() {
+			return errors;
+		}
+
+		@Override
+		public String toString() {
+			if(errors == null || errors.isEmpty())
+				return "unknown reason";
+
+			int top = errors.size();
+			if(top == 1)
+				return errors.get(0);
+
+			StringBuilder bld = new StringBuilder();
+			bld.append("Multiple errors [");
+			bld.append(errors.get(0));
+			for(int idx = 1; idx < top; ++idx) {
+				bld.append(", ");
+				bld.append(errors.get(idx));
+			}
+			bld.append(']');
+			return bld.toString();
+		}
+	}
+
+	protected static <T> T parseJson(Gson gson, InputStream stream, Type type) throws IOException {
+		BufferedReader reader = new BufferedReader(new InputStreamReader(stream, ForgeHttpClient.UTF_8), 2048);
+		StringBuilder bld = new StringBuilder();
+		String line;
+		while((line = reader.readLine()) != null) {
+			bld.append(line);
+			bld.append('\n');
+		}
+		try {
+			return gson.fromJson(bld.toString(), type);
+		}
+		catch(JsonSyntaxException jpe) {
+			throw new ForgeException("Parse exception converting JSON to object", jpe); //$NON-NLS-1$
+		}
+		finally {
+			try {
+				reader.close();
+			}
+			catch(IOException ignored) {
+				// Ignored
+			}
+		}
+	}
+
 	private final Gson gson;
 
 	private final Type type;
@@ -59,8 +114,23 @@ public class JSonResponseHandler<V> implements ResponseHandler<V> {
 	public V handleResponse(HttpResponse response) throws ClientProtocolException, IOException {
 		StatusLine statusLine = response.getStatusLine();
 		int code = statusLine.getStatusCode();
-		if(code >= 300)
-			throw new HttpResponseException(statusLine.getStatusCode(), statusLine.getReasonPhrase());
+		if(code >= 300) {
+			String msg;
+			try {
+				ErrorResponse errors = parseJson(
+					gson, ForgeHttpClient.getStream(response.getEntity()), ErrorResponse.class);
+				if(errors == null)
+					msg = statusLine.getReasonPhrase();
+				else {
+					msg = statusLine.getReasonPhrase() + ": " + errors;
+				}
+			}
+			catch(Exception e) {
+				// Just skip
+				msg = statusLine.getReasonPhrase();
+			}
+			throw new HttpResponseException(statusLine.getStatusCode(), msg);
+		}
 
 		HttpEntity entity = response.getEntity();
 		if(isOk(code)) {
@@ -99,26 +169,6 @@ public class JSonResponseHandler<V> implements ResponseHandler<V> {
 	 * @throws IOException
 	 */
 	protected V parseJson(InputStream stream, Type type) throws IOException {
-		BufferedReader reader = new BufferedReader(new InputStreamReader(stream, ForgeHttpClient.UTF_8), 2048);
-		StringBuilder bld = new StringBuilder();
-		String line;
-		while((line = reader.readLine()) != null) {
-			bld.append(line);
-			bld.append('\n');
-		}
-		try {
-			return gson.fromJson(bld.toString(), type);
-		}
-		catch(JsonSyntaxException jpe) {
-			throw new ForgeException("Parse exception converting JSON to object", jpe); //$NON-NLS-1$
-		}
-		finally {
-			try {
-				reader.close();
-			}
-			catch(IOException ignored) {
-				// Ignored
-			}
-		}
+		return parseJson(gson, stream, type);
 	}
 }

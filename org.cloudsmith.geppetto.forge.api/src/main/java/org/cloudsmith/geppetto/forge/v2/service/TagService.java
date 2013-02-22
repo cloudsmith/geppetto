@@ -12,8 +12,11 @@
 package org.cloudsmith.geppetto.forge.v2.service;
 
 import java.io.IOException;
+import java.util.Collections;
 import java.util.List;
 
+import org.apache.http.HttpStatus;
+import org.apache.http.client.HttpResponseException;
 import org.cloudsmith.geppetto.forge.v2.client.Constants;
 import org.cloudsmith.geppetto.forge.v2.model.Module;
 import org.cloudsmith.geppetto.forge.v2.model.Tag;
@@ -70,7 +73,17 @@ public class TagService extends ForgeService {
 	 * @throws IOException
 	 */
 	public List<Tag> getAll(ListPreferences listPreferences) throws IOException {
-		return getClient(false).get(Constants.COMMAND_GROUP_TAGS, toQueryMap(listPreferences), Constants.LIST_TAG);
+		List<Tag> tags = null;
+		try {
+			tags = getClient(false).get(Constants.COMMAND_GROUP_TAGS, toQueryMap(listPreferences), Constants.LIST_TAG);
+		}
+		catch(HttpResponseException e) {
+			if(e.getStatusCode() != HttpStatus.SC_NOT_FOUND)
+				throw e;
+		}
+		if(tags == null)
+			tags = Collections.emptyList();
+		return tags;
 	}
 
 	/**
@@ -81,7 +94,18 @@ public class TagService extends ForgeService {
 	 * @throws IOException
 	 */
 	public List<Module> getModules(String name, ListPreferences listPreferences) throws IOException {
-		return getClient(false).get(getTagPath(name) + "/modules", toQueryMap(listPreferences), Constants.LIST_MODULE);
+		List<Module> modules = null;
+		try {
+			modules = getClient(false).get(
+				getTagPath(name) + "/modules", toQueryMap(listPreferences), Constants.LIST_MODULE);
+		}
+		catch(HttpResponseException e) {
+			if(e.getStatusCode() != HttpStatus.SC_NOT_FOUND)
+				throw e;
+		}
+		if(modules == null)
+			modules = Collections.emptyList();
+		return modules;
 	}
 
 	/**

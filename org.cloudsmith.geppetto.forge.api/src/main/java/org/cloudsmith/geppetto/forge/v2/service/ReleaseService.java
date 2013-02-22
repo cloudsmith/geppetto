@@ -19,6 +19,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.http.HttpStatus;
+import org.apache.http.client.HttpResponseException;
 import org.cloudsmith.geppetto.forge.v2.client.Constants;
 import org.cloudsmith.geppetto.forge.v2.model.Release;
 
@@ -108,7 +110,14 @@ public class ReleaseService extends ForgeService {
 	 * @throws IOException
 	 */
 	public List<Release> list(ListPreferences listPreferences) throws IOException {
-		List<Release> releases = getClient(false).get(Constants.COMMAND_GROUP_RELEASES, null, Constants.LIST_RELEASE);
+		List<Release> releases = null;
+		try {
+			releases = getClient(false).get(Constants.COMMAND_GROUP_RELEASES, null, Constants.LIST_RELEASE);
+		}
+		catch(HttpResponseException e) {
+			if(e.getStatusCode() != HttpStatus.SC_NOT_FOUND)
+				throw e;
+		}
 		if(releases == null)
 			releases = Collections.emptyList();
 		return releases;

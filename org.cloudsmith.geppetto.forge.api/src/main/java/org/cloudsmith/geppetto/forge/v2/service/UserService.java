@@ -17,6 +17,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.http.HttpStatus;
+import org.apache.http.client.HttpResponseException;
 import org.cloudsmith.geppetto.forge.v2.client.Constants;
 import org.cloudsmith.geppetto.forge.v2.model.ConfirmationToken;
 import org.cloudsmith.geppetto.forge.v2.model.Module;
@@ -129,7 +131,18 @@ public class UserService extends ForgeService {
 	 * @throws IOException
 	 */
 	public List<Module> getModules(String name, ListPreferences listPreferences) throws IOException {
-		return getClient(false).get(getUserPath(name) + "/modules", toQueryMap(listPreferences), Constants.LIST_MODULE);
+		List<Module> modules = null;
+		try {
+			modules = getClient(false).get(
+				getUserPath(name) + "/modules", toQueryMap(listPreferences), Constants.LIST_MODULE);
+		}
+		catch(HttpResponseException e) {
+			if(e.getStatusCode() != HttpStatus.SC_NOT_FOUND)
+				throw e;
+		}
+		if(modules == null)
+			modules = Collections.emptyList();
+		return modules;
 	}
 
 	/**
@@ -156,8 +169,18 @@ public class UserService extends ForgeService {
 	 * @throws IOException
 	 */
 	public List<Release> getReleases(String name, ListPreferences listPreferences) throws IOException {
-		return getClient(false).get(
-			getUserPath(name) + "/releases", toQueryMap(listPreferences), Constants.LIST_RELEASE);
+		List<Release> releases = null;
+		try {
+			releases = getClient(false).get(
+				getUserPath(name) + "/releases", toQueryMap(listPreferences), Constants.LIST_RELEASE);
+		}
+		catch(HttpResponseException e) {
+			if(e.getStatusCode() != HttpStatus.SC_NOT_FOUND)
+				throw e;
+		}
+		if(releases == null)
+			releases = Collections.emptyList();
+		return releases;
 	}
 
 	/**
@@ -166,7 +189,18 @@ public class UserService extends ForgeService {
 	 * @throws IOException
 	 */
 	public List<User> list(ListPreferences listPreferences) throws IOException {
-		return getClient(false).get(Constants.COMMAND_GROUP_USERS, toQueryMap(listPreferences), Constants.LIST_USER);
+		List<User> users = null;
+		try {
+			users = getClient(false).get(
+				Constants.COMMAND_GROUP_USERS, toQueryMap(listPreferences), Constants.LIST_USER);
+		}
+		catch(HttpResponseException e) {
+			if(e.getStatusCode() != HttpStatus.SC_NOT_FOUND)
+				throw e;
+		}
+		if(users == null)
+			users = Collections.emptyList();
+		return users;
 	}
 
 	/**

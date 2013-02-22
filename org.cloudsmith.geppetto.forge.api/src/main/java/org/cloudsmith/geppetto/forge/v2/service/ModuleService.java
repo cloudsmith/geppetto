@@ -12,9 +12,12 @@
 package org.cloudsmith.geppetto.forge.v2.service;
 
 import java.io.IOException;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.http.HttpStatus;
+import org.apache.http.client.HttpResponseException;
 import org.cloudsmith.geppetto.forge.v2.client.Constants;
 import org.cloudsmith.geppetto.forge.v2.model.Module;
 import org.cloudsmith.geppetto.forge.v2.model.Release;
@@ -77,8 +80,18 @@ public class ModuleService extends ForgeService {
 	 * @throws IOException
 	 */
 	public List<Release> getReleases(String owner, String name, ListPreferences listPreferences) throws IOException {
-		return getClient(false).get(
-			getModulePath(owner, name) + "/releases", toQueryMap(listPreferences), Constants.LIST_RELEASE);
+		List<Release> releases = null;
+		try {
+			releases = getClient(false).get(
+				getModulePath(owner, name) + "/releases", toQueryMap(listPreferences), Constants.LIST_RELEASE);
+		}
+		catch(HttpResponseException e) {
+			if(e.getStatusCode() != HttpStatus.SC_NOT_FOUND)
+				throw e;
+		}
+		if(releases == null)
+			releases = Collections.emptyList();
+		return releases;
 	}
 
 	/**
@@ -92,8 +105,18 @@ public class ModuleService extends ForgeService {
 	 * @throws IOException
 	 */
 	public List<Tag> getTags(String owner, String name, ListPreferences listPreferences) throws IOException {
-		return getClient(false).get(
-			getModulePath(owner, name) + "/tags", toQueryMap(listPreferences), Constants.LIST_TAG);
+		List<Tag> tags = null;
+		try {
+			tags = getClient(false).get(
+				getModulePath(owner, name) + "/tags", toQueryMap(listPreferences), Constants.LIST_TAG);
+		}
+		catch(HttpResponseException e) {
+			if(e.getStatusCode() != HttpStatus.SC_NOT_FOUND)
+				throw e;
+		}
+		if(tags == null)
+			tags = Collections.emptyList();
+		return tags;
 	}
 
 	/**
@@ -112,7 +135,17 @@ public class ModuleService extends ForgeService {
 		Map<String, String> map = toQueryMap(listPreferences);
 		if(keyword != null)
 			map.put("keyword", keyword);
-		return getClient(false).get(Constants.COMMAND_GROUP_MODULES, map, Constants.LIST_MODULE);
+		List<Module> modules = null;
+		try {
+			modules = getClient(false).get(Constants.COMMAND_GROUP_MODULES, map, Constants.LIST_MODULE);
+		}
+		catch(HttpResponseException e) {
+			if(e.getStatusCode() != HttpStatus.SC_NOT_FOUND)
+				throw e;
+		}
+		if(modules == null)
+			modules = Collections.emptyList();
+		return modules;
 	}
 
 	/**

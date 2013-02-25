@@ -453,9 +453,9 @@ public class ValidationServiceImpl implements ValidationService {
 			addFileError(
 				diagnostics, new File(moduleRoot, "modules"), sourceRoot, "Submodules in a module is not allowed",
 				IValidationConstants.ISSUE__UNEXPECTED_SUBMODULE_DIRECTORY);
-		if(!hasModuleFile(moduleRoot))
+		if(!(hasMetadataFile(moduleRoot) || hasModuleFile(moduleRoot)))
 			addFileError(
-				diagnostics, moduleRoot, sourceRoot, "Missing 'Modulefile'",
+				diagnostics, moduleRoot, sourceRoot, "Missing 'metadata.json or Modulefile'",
 				IValidationConstants.ISSUE__MISSING_MODULEFILE);
 
 	}
@@ -563,8 +563,13 @@ public class ValidationServiceImpl implements ValidationService {
 	}
 
 	private boolean hasModuleFile(File root) {
-		File modulesDir = new File(root, "Modulefile");
-		return modulesDir.isFile();
+		File moduleFile = new File(root, "Modulefile");
+		return moduleFile.isFile();
+	}
+
+	private boolean hasMetadataFile(File root) {
+		File metadataFile = new File(root, "metadata.json");
+		return metadataFile.isFile();
 	}
 
 	private boolean hasModulesSubDirectory(File root) {
@@ -674,7 +679,7 @@ public class ValidationServiceImpl implements ValidationService {
 			else {
 				// A directory that does not have a "Modulefile" is treated as a root
 				// A directory that has a "modules" subdirectory is treated as a root
-				if(hasModulesSubDirectory(source) || !hasModuleFile(source))
+				if(hasModulesSubDirectory(source) || !(hasMetadataFile(source) || hasModuleFile(source)))
 					options.setFileType(FileType.PUPPET_ROOT);
 				else
 					options.setFileType(FileType.MODULE_ROOT);

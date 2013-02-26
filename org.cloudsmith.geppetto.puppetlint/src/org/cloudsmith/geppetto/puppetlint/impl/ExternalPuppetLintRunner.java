@@ -32,13 +32,21 @@ public class ExternalPuppetLintRunner implements PuppetLintRunner {
 
 	private static final Pattern versionPattern = Pattern.compile("^[A-Za-z0-9_.-]+\\s+(\\S+)\\s*$", Pattern.MULTILINE);
 
+	private static String getPuppetLintExecutable() {
+		String puppetLint = System.getenv("PUPPET_LINT_EXECUTABLE");
+		if(puppetLint == null)
+			puppetLint = "puppet-lint";
+		return puppetLint;
+	}
+
 	@Override
 	public String getVersion() throws IOException {
 		// Verify that puppet-lint is installed. If not, then refuse to install this bundle
+
 		OpenBAStream out = new OpenBAStream();
 		OpenBAStream err = new OpenBAStream();
 		File home = new File(System.getProperty("user.home"));
-		int exitCode = OsUtil.runProcess(home, out, err, "puppet-lint", "--version");
+		int exitCode = OsUtil.runProcess(home, out, err, getPuppetLintExecutable(), "--version");
 		String outStr = out.toString(Charset.defaultCharset());
 		if(exitCode != 0) {
 			StringBuilder bld = new StringBuilder();
@@ -75,7 +83,7 @@ public class ExternalPuppetLintRunner implements PuppetLintRunner {
 			fileOrDirectory = fileOrDirectory.getParentFile();
 		}
 		List<String> params = new ArrayList<String>();
-		params.add("puppet-lint");
+		params.add(getPuppetLintExecutable());
 		params.add("--log-format");
 		params.add("%{KIND} %{check} #%{path}#:%{linenumber} %{message}");
 		for(Option option : options)

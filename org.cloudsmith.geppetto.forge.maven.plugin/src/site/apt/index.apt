@@ -1,0 +1,69 @@
+   ------
+   Introduction
+   ------
+   Thomas Hallgren
+   ------
+   2013-02-15
+   ------
+
+~~ Licensed by Cloudsmith Inc. (the "Licensor") under the Apache License,
+~~ Version 2.0 (the "License"); you may not use this software except in
+~~ compliance with the License.  You may obtain a copy of the License at
+~~
+~~  http://www.apache.org/licenses/LICENSE-2.0
+~~ 
+~~ Unless required by applicable law or agreed to in writing, software
+~~ distributed under the License is distributed on an "AS IS" basis, WITHOUT
+~~ WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the
+~~ License for the specific language governing permissions and limitations
+~~ under the License.
+~~ 
+~~ This work includes work (the "EPL Code") originally licensed under the
+~~ Eclipse Public License, Version 1.0 (the "EPL").  Source for the EPL Code is
+~~ available at http://github.com/cloudsmith/geppetto
+~~ 
+~~ With respect to any provisions ("Non-EPL Provisions") of the License that
+~~ differ from the provisions of the EPL, no Contributor (as defined in the
+~~ EPL) other than the Licensor shall be deemed to have offered the Non-EPL
+~~ Provisions in relation to this work by virtue of this License.
+
+Forge Publisher Plugin
+
+* General
+
+  The plug-in logic will scan the directory specified as the modulesRoot for occurances of files named <<<Modulefile>>> or <<<metadata.json>>>. Any
+  directory that contains either of those files is considered a module root. The scan will not recurse into subdirectories of a found module root.
+
+  If no module roots are found, the validation (and hence the build) will fail.
+  
+  If both a <<<Modulefile>>> and a <<<metadata.json>>> file is found, then the latter takes precedence.
+  
+  The <<<Modulefile>>> is expected to be Ruby syntax but it is never evaluated by Ruby. It's compiled using the jruby parser and the resulting abstract
+  syntax tree is then analyzed. Constructs that are not recognized are ignored. This means that although the file may contain complex logic, that logic
+  will never be evaluated. In essence, all such logic is comparable to <<<nil>>>.
+  
+  More details on how the plug-in handles various situations can be found in the {{{./faq.html}FAQ}}.
+
+* Validating
+
+  The validation goal can perform a very elaborate analyzis of the module using the Geppetto platform. It is also capable of running the puppet-lint gem.
+  This goal is highly configurable. See {{{./validate-mojo.html}forge:validate}} for in depth details.
+  
+* Publishing
+
+  The publisher will consult the Forge and query it for the existence of the module that it is about to publish. If the exact same version
+  is found there, then no attempt will be made to publish. This condition is considered normal and will not fail the build.
+  
+* Running the goals
+
+  For examples on how to run the goals, please see the {{{./cli.html}Command Line}} example or the example explaining how to set up a GitHub service
+  hook and Travis-CI to run {{{./github-publish.html}Automated Publishing}}. 
+
+* Goals Overview
+
+   * {{{./validate-mojo.html}forge:validate}} Validate modules
+
+   * {{{./publish-mojo.html}forge:publish}} Publish modules to the Forge
+
+  
+  []

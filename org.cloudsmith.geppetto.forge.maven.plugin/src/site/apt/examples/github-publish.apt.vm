@@ -1,0 +1,107 @@
+   ------
+   Introduction
+   ------
+   Thomas Hallgren
+   ------
+   2013-02-15
+   ------
+
+~~ Licensed by Cloudsmith Inc. (the "Licensor") under the Apache License,
+~~ Version 2.0 (the "License"); you may not use this software except in
+~~ compliance with the License.  You may obtain a copy of the License at
+~~
+~~  http://www.apache.org/licenses/LICENSE-2.0
+~~ 
+~~ Unless required by applicable law or agreed to in writing, software
+~~ distributed under the License is distributed on an "AS IS" basis, WITHOUT
+~~ WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the
+~~ License for the specific language governing permissions and limitations
+~~ under the License.
+~~ 
+~~ This work includes work (the "EPL Code") originally licensed under the
+~~ Eclipse Public License, Version 1.0 (the "EPL").  Source for the EPL Code is
+~~ available at http://github.com/cloudsmith/geppetto
+~~ 
+~~ With respect to any provisions ("Non-EPL Provisions") of the License that
+~~ differ from the provisions of the EPL, no Contributor (as defined in the
+~~ EPL) other than the Licensor shall be deemed to have offered the Non-EPL
+~~ Provisions in relation to this work by virtue of this License.
+
+Automated Publishing
+
+   This example will show you how to accomplish automated publishing using GitHub Service Hooks and Travis-CI.
+
+* Prerequisites
+
+   In order to publish a module release, you must first visit the {{{http://forge.puppetlabs.com}Puppetlabs Forge}} and create the module and
+   in order to do that you'll need to have a Forge account. The process is very simple.
+   
+   Your module (or modules) must reside in a public repository at {{{http://www.github.com}GitHub}}.
+ 
+   You must have ruby installed on your local machine.
+   
+   The Modulefile or metadata.json file must contain a valid module name and module version. The account used
+   at the Forge must be the same as the owner of the module (i.e. the qualifier of the module name).
+
+* Steps  
+
+   [[1]] Log in to {{{http://travis-ci.org}Travis-CI}}. Navigate to your Account settings, select the <Repositories> tab and switch the repository
+   that contains your module(s) to <On>.
+
+   [[2]] Install the travis gem on your local machine.
+
++-----
+$ gem install travis
++-----   
+   
+   [[3]] Issue the following command:
+
++-----
+$ travis encrypt PUBLISHER_PASSWORD=<your forge password>
++-----
+
+   In response, you'll get a long string starting with <<<'secure: "'>>>. This  
+
+   [[4]] Create a local clone of the repository where you add a file name <<<.travis.yml>>> to the root. The file should
+   look like this:
+
++-----
+language: java
+notifications:
+  email:
+    on_success: always
+script:
+- git clone -q git://github.com/cloudsmith/ghpublisher.git .forge-releng
+- .forge-releng/publish
+env:
+  global:
+  - PUBLISHER_LOGIN=<forge user’s login>
+  - <the 'secure' line you got in response to exeucting the travis encrypt command>
++-----
+
+   [[5]] Commit this file and the push. This triggers the first build at travis and if everything is set up correctly, that
+   build will publish your module to the Puppetlabs Forge. You will get an email in your inbox regardless.
+  
+   [[6]] Visit the {{{http://forge.puppetlabs.com}Puppetlabs Forge}} and view your new release.
+
+* The process explained
+
+   This is what happens when you push a new version to GitHub.
+   
+   [[1]] GitHub executes a Service Hook that Travis-CI registered on your repository when you switched it to <On>.
+   
+   [[2]] In response to this, Travis starts a build according to the configuration that you provided in the <<<.travis.yml>>> file.
+   
+   [[3]] The configuration instructs Travis to clone the <ghpublisher.git> repository from Cloudsmith into the folder <.forge-releng>. This repository contains some
+   scripts, a maven settings.xml file and a maven POM.
+   
+   [[4]] Travis decodes the 'secure' string and makes your publisher password available to the build. The password is of course
+   never revealed.
+   
+   [[5]] The script <.forge-releng/publish> is called.
+   
+   [[6]] The script calls Maven to run the plug-in using the provide POM file.
+
+   More details regarding the Maven executing can be found in the {{{./cli.html}Command Line}} example.
+
+   []

@@ -8,6 +8,7 @@
 
 	<artifactId>org.cloudsmith.geppetto.pp</artifactId>
 	<packaging>jar</packaging>
+	<name>Geppetto PP Model</name>
 
 	<build>
 		<sourceDirectory>src</sourceDirectory>

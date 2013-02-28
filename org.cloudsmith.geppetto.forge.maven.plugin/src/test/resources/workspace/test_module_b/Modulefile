@@ -1,0 +1,10 @@
+name 'bob-test_module_b'
+version '1.0.0'
+
+author 'bob'
+license ''
+project_page ''
+source ''
+summary ''
+description ''
+dependency 'thhal/test_module_c', '>=1.0.0'

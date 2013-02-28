@@ -6,9 +6,10 @@
 		<version>3.0.3-SNAPSHOT</version>
 	</parent>
 	<artifactId>org.cloudsmith.geppetto.forge.api</artifactId>
+	<name>Geppetto Forge API</name>
 
 	<properties>
-		<scriptDir>${basedir}/src/script</scriptDir>
+		<testScriptDir>${basedir}/src/test/script</testScriptDir>
 		<forgeServerPidFile>${project.build.directory}/forgeserver.pid</forgeServerPidFile>
 		<forgeServerLogFile>${project.build.directory}/forgeserver.log</forgeServerLogFile>
 		<forgeServerDir>${user.home}/git/puppet-forge-api</forgeServerDir>
@@ -34,13 +35,14 @@
 							<goal>exec</goal>
 						</goals>
 						<configuration>
-							<executable>${scriptDir}/testserver-start</executable>
+							<executable>${testScriptDir}/testserver-start</executable>
 							<!-- Assumes puppet-forge-api repo adjacent to the geppetto repo. -->
 							<workingDirectory>${forgeServerDir}</workingDirectory>
 							<arguments>
 								<argument>${forgeServerPidFile}</argument>
 								<argument>${forgeServerLogFile}</argument>
 							</arguments>
+							<skip>${skipITs}</skip>
 						</configuration>
 					</execution>
 					<execution>
@@ -50,12 +52,13 @@
 							<goal>exec</goal>
 						</goals>
 						<configuration>
-							<executable>${scriptDir}/testserver-stop</executable>
+							<executable>${testScriptDir}/testserver-stop</executable>
 							<!-- Assumes puppet-forge-api repo adjacent to the geppetto repo. -->
 							<workingDirectory>${forgeServerDir}</workingDirectory>
 							<arguments>
 								<argument>${forgeServerPidFile}</argument>
 							</arguments>
+							<skip>${skipITs}</skip>
 						</configuration>
 					</execution>
 				</executions>
@@ -81,6 +84,7 @@
 									<outputDirectory>${project.build.directory}/lib</outputDirectory>
 								</artifactItem>
 							</artifactItems>
+							<skip>${skipITs}</skip>
 						</configuration>
 					</execution>
 				</executions>
@@ -94,6 +98,9 @@
 							<goal>integration-test</goal>
 							<goal>verify</goal>
 						</goals>
+						<configuration>
+							<skipTests>${skipITs}</skipTests>
+						</configuration>
 					</execution>
 				</executions>
 				<configuration>
@@ -118,15 +125,9 @@
 							<pluginExecutions>
 								<pluginExecution>
 									<pluginExecutionFilter>
-										<groupId>
-											org.apache.maven.plugins
-										</groupId>
-										<artifactId>
-											maven-dependency-plugin
-										</artifactId>
-										<versionRange>
-											[2.1,)
-										</versionRange>
+										<groupId>org.apache.maven.plugins</groupId>
+										<artifactId>maven-dependency-plugin</artifactId>
+										<versionRange>[2.1,)</versionRange>
 										<goals>
 											<goal>copy</goal>
 										</goals>
@@ -144,15 +145,6 @@
 	</build>
 
 	<dependencies>
-		<dependency>
-			<groupId>com.almworks.sqlite4java</groupId>
-			<artifactId>sqlite4java</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>com.almworks.sqlite4java</groupId>
-			<artifactId>libsqlite4java-linux-amd64</artifactId>
-			<type>so</type>
-		</dependency>
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>

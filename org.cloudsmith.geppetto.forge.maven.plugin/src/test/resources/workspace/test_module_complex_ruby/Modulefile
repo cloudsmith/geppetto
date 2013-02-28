@@ -1,0 +1,12 @@
+git_version = %x{git describe --dirty --tags}.chomp.sub(/\.([0-9]+)-/) {|v| ".#{v[1..-2].to_i(10) + 1}-" }
+unless $?.success? and git_version =~ /^\d+\.\d+\.\d+/
+  raise "Unable to determine version using git: #{$?} => #{git_version.inspect}"
+end
+version git_version
+name 'test_module_complex_ruby'
+author 'bob'
+license ''
+project_page ''
+source ''
+summary ''
+description ''

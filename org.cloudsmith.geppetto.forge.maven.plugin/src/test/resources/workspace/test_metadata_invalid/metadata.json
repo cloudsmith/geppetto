@@ -1,0 +1,11 @@
+{
+  "name": "bob-test_metadata_invalid",
+  "author": "bob",
+  "description": "Missing comma on this line"
+  "license": "",
+  "project_page": "",
+  "source": "",
+  "summary": "",
+  "version": "1.0.0",
+  "dependencies": []
+}

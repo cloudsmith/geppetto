@@ -7,6 +7,7 @@
 	</parent>
 
 	<artifactId>org.cloudsmith.geppetto.ruby</artifactId>
+	<name>Geppetto Ruby Interface</name>
 
 	<build>
 		<sourceDirectory>src</sourceDirectory>

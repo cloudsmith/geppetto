@@ -1,0 +1,155 @@
+   ------
+   Introduction
+   ------
+   Thomas Hallgren
+   ------
+   2013-02-15
+   ------
+
+~~ Licensed by Cloudsmith Inc. (the "Licensor") under the Apache License,
+~~ Version 2.0 (the "License"); you may not use this software except in
+~~ compliance with the License.  You may obtain a copy of the License at
+~~
+~~  http://www.apache.org/licenses/LICENSE-2.0
+~~ 
+~~ Unless required by applicable law or agreed to in writing, software
+~~ distributed under the License is distributed on an "AS IS" basis, WITHOUT
+~~ WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the
+~~ License for the specific language governing permissions and limitations
+~~ under the License.
+~~ 
+~~ This work includes work (the "EPL Code") originally licensed under the
+~~ Eclipse Public License, Version 1.0 (the "EPL").  Source for the EPL Code is
+~~ available at http://github.com/cloudsmith/geppetto
+~~ 
+~~ With respect to any provisions ("Non-EPL Provisions") of the License that
+~~ differ from the provisions of the EPL, no Contributor (as defined in the
+~~ EPL) other than the Licensor shall be deemed to have offered the Non-EPL
+~~ Provisions in relation to this work by virtue of this License.
+
+Using the plug-in from the command line
+
+  The Forge plug-in can be run directly from the command line and it will
+  use the current directory as the default module root. Parameters to the
+  validation and publish goals can be given in the form of properties.
+  
++-----
+cd <your modules root>
+mvn org.cloudsmith.geppetto:forge-maven-plugin:validate
++-----
+
+* Making Maven aware of the <<<forge>>> short name
+
+  The long form of the plugin name can be entered into the Maven settings file (it's normally found here <<<~/.m2/settings.xml>>>) by
+  adding a plugin group. This will instruct maven to scan this group in addition to its default groups.
+
++-----
+<settings>
+    <pluginGroups>
+        <pluginGroup>org.cloudsmith.geppetto</pluginGroup>
+        ...
+        </pluginGroups>
+    ...
+</settings>
++-----
+
+  With this setting in place, the above command can be shortened into:
+  
++-----
+mvn forge:validate
++-----
+
+  Maven will now scan the org.cloudsmith.geppetto namespace for plug-ins named 'forge' and find the forge-maven-plugin.
+
+* A parameterized example
+
+  Everything can be configured from the command line. Here is an example of how to run a dry-run that will interact
+  with the Puppetlabs forge up to the point where the actual publishing is about to take place:
+
++-----
+cd <your modules root>
+mvn -Dforge.publish.dryrun -Dforge.login=bob -Dforge.password=<your password> forge:validate forge:publish
++-----
+
+* Using a POM to configure your plug-in
+
+  So far, we have executed the goals without using a Maven POM. A POM can however be very useful since it may contain
+  all the settings for the validation and publishing.
+  
+  You can use one single POM file for all your publications and either appoint that file using the <<<-f>>> option
+  like this:
+
++-----
+mvn -f <your pom file> -Dforge.modules.root=<your modules root> forge:validate
++-----
+
+  or first cd into the directory of the pom file, like this:
+
++-----
+cd <dir of your pom file>
+mvn -Dforge.modules.root=<your modules root> forge:validate
++-----
+
+  You must supply the root of your modulesin both cases since the <<<-f>>> flag changes Mavens
+  notion of current directory.
+
+  A third option is of course to maintain a <<<pom.xml>>> file in your module root. That removes the need for all flags.
+
+* A sample pom.xml file
+
+  Here is an example of a configured POM file:
+
++-----
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>org.cloudsmith.geppetto</groupId>
+	<artifactId>org.cloudsmith.geppetto.publisher</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<packaging>pom</packaging>
+	<name>org.cloudsmith.geppetto.publisher</name>
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.cloudsmith.geppetto</groupId>
+				<artifactId>forge-maven-plugin</artifactId>
+				<version>${geppettoVersion}</version>
+				<executions>
+					<execution>
+						<id>validate</id>
+						<phase>compile</phase>
+						<goals>
+							<goal>validate</goal>
+						</goals>
+						<configuration>
+							<enablePuppetLintValidation>true</enablePuppetLintValidation>
+							<puppetLintOptions>
+								<puppetLintOption>NoAutoloaderLayoutCheck</puppetLintOption>
+								<puppetLintOption>NoDoubleQuotedStringsCheck</puppetLintOption>
+								<puppetLintOption>NoHardTabsCheck</puppetLintOption>
+								<puppetLintOption>NoTwoSpaceSoftTabsCheck</puppetLintOption>
+							</puppetLintOptions>
+							<missingDefaultInSelector>IGNORE</missingDefaultInSelector>
+						</configuration>
+					</execution>
+					<execution>
+						<id>publish</id>
+						<phase>install</phase>
+						<goals>
+							<goal>publish</goal>
+						</goals>
+						<configuration>
+							<dryRun>true</dryRun>
+						</configuration>
+					</execution>
+				</executions>
+				<configuration>
+					<login>someUser</login>
+					<password>someSecret</password>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+</project>
++-----
+  

@@ -57,8 +57,8 @@ Forge Publisher Plugin
   
 * Running the Goals
 
-  For examples on how to run the goals, please see the {{{./cli.html}Command Line}} example or the example explaining how to set up a GitHub service
-  hook and Travis-CI to run {{{./github-publish.html}Automated Publishing}}. 
+  For examples on how to run the goals, please see the {{{./examples/cli.html}Command Line}} example or the example explaining how to set up a GitHub service
+  hook and Travis-CI to run {{{./examples/github-publish.html}Automated Publishing}}. 
 
 * Goals Overview
 

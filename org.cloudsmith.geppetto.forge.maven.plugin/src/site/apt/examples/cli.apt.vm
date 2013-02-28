@@ -29,9 +29,9 @@
 
 Using the plug-in from the command line
 
-  The Forge plug-in can be run directly from the command line and it will
-  use the current directory as the default module root. Parameters to the
-  validation and publish goals can be given in the form of properties.
+  The plug-in can be run directly from the command line and it will
+  use the current directory as the default modules root. Parameters to the
+  <<<validate>>> and <<<publish>>> goals can be given in the form of properties.
   
 +-----
 cd <your modules root>
@@ -40,8 +40,8 @@ mvn org.cloudsmith.geppetto:forge-maven-plugin:validate
 
 * Making Maven aware of the <<<forge>>> short name
 
-  The long form of the plugin name can be entered into the Maven settings file (it's normally found here <<<~/.m2/settings.xml>>>) by
-  adding a plugin group. This will instruct maven to scan this group in addition to its default groups.
+  The long form of the plug-in name can be entered into the Maven settings file (it's normally found at <<<~/.m2/settings.xml>>>) by
+  adding a plug-in group. This will instruct Maven to scan this group in addition to its default groups.
 
 +-----
 <settings>
@@ -53,7 +53,7 @@ mvn org.cloudsmith.geppetto:forge-maven-plugin:validate
 </settings>
 +-----
 
-  With this setting in place, the above command can be shortened into:
+  With this setting in place, the above command can be shortened to:
   
 +-----
 mvn forge:validate
@@ -63,18 +63,18 @@ mvn forge:validate
 
 * A parameterized example
 
-  Everything can be configured from the command line. Here is an example of how to run a dry-run that will interact
-  with the Puppetlabs forge up to the point where the actual publishing is about to take place:
+  Everything can be configured from the command line. Here is an example of how to execute a dry-run that will interact
+  with the Puppet Forge up to the point where the actual publishing is about to take place:
 
 +-----
 cd <your modules root>
-mvn -Dforge.publish.dryrun -Dforge.login=bob -Dforge.password=<your password> forge:validate forge:publish
+mvn -Dforge.publish.dryrun -Dforge.login=<your user name> -Dforge.password=<your password> forge:validate forge:publish
 +-----
 
-* Using a POM to configure your plug-in
+* Using a POM to configure the plug-in
 
   So far, we have executed the goals without using a Maven POM. A POM can however be very useful since it may contain
-  all the settings for the validation and publishing.
+  all the settings for validation and publication.
   
   You can use one single POM file for all your publications and either appoint that file using the <<<-f>>> option
   like this:
@@ -83,17 +83,17 @@ mvn -Dforge.publish.dryrun -Dforge.login=bob -Dforge.password=<your password> fo
 mvn -f <your pom file> -Dforge.modules.root=<your modules root> forge:validate
 +-----
 
-  or first cd into the directory of the pom file, like this:
+  or first <<<cd>>> into the directory of the POM file, like this:
 
 +-----
-cd <dir of your pom file>
+cd <directory of your POM file>
 mvn -Dforge.modules.root=<your modules root> forge:validate
 +-----
 
-  You must supply the root of your modulesin both cases since the <<<-f>>> flag changes Mavens
+  You must supply the root of your modules in both cases since the <<<-f>>> flag changes Maven's
   notion of current directory.
 
-  A third option is of course to maintain a <<<pom.xml>>> file in your module root. That removes the need for all flags.
+  A third option is of course to maintain a <<<pom.xml>>> file in your modules root. That removes the need for all flags.
 
 * A sample pom.xml file
 
@@ -144,8 +144,8 @@ mvn -Dforge.modules.root=<your modules root> forge:validate
 					</execution>
 				</executions>
 				<configuration>
-					<login>someUser</login>
-					<password>someSecret</password>
+					<login>someUserName</login>
+					<password>somePassword</password>
 				</configuration>
 			</plugin>
 		</plugins>

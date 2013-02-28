@@ -29,23 +29,23 @@
 
 Automated Publishing
 
-   This example will show you how to accomplish automated publishing using GitHub Service Hooks and Travis-CI.
+   This example will show you how to accomplish automated publishing using GitHub service hooks and Travis-CI.
 
 * Prerequisites
 
-   In order to publish a module release, you must first visit the {{{http://forge.puppetlabs.com}Puppetlabs Forge}} and create the module and
-   in order to do that you'll need to have a Forge account. The process is very simple.
+   In order to publish a module release, you must first visit the {{{http://forge.puppetlabs.com}Puppet Forge}} to create the module and
+   in order to do that you'll need to have an account. The process is very simple.
    
    Your module (or modules) must reside in a public repository at {{{http://www.github.com}GitHub}}.
  
-   You must have ruby installed on your local machine.
+   You must have Ruby installed on your local machine.
    
-   The Modulefile or metadata.json file must contain a valid module name and module version. The account used
-   at the Forge must be the same as the owner of the module (i.e. the qualifier of the module name).
+   The <<<Modulefile>>> or <<<metadata.json>>> file must contain a valid module name and module version. The account used
+   at the Puppet Forge must be the same as the owner of the module (i.e., the qualifier of the module name).
 
 * Steps  
 
-   [[1]] Log in to {{{http://travis-ci.org}Travis-CI}}. Navigate to your Account settings, select the <Repositories> tab and switch the repository
+   [[1]] Log in to {{{http://travis-ci.org}Travis-CI}}. Navigate to your account settings, select the <Repositories> tab, and switch the repository
    that contains your module(s) to <On>.
 
    [[2]] Install the travis gem on your local machine.
@@ -57,12 +57,12 @@ $ gem install travis
    [[3]] Issue the following command:
 
 +-----
-$ travis encrypt PUBLISHER_PASSWORD=<your forge password>
+$ travis encrypt PUBLISHER_PASSWORD=<forge password>
 +-----
 
-   In response, you'll get a long string starting with <<<'secure: "'>>>. This  
+   In response, you'll get a long string starting with <<<'secure: "'>>>.  
 
-   [[4]] Create a local clone of the repository where you add a file name <<<.travis.yml>>> to the root. The file should
+   [[4]] Create a local clone of the repository where you add a file named <<<.travis.yml>>> to the root. The file should
    look like this:
 
 +-----
@@ -75,33 +75,33 @@ script:
 - .forge-releng/publish
 env:
   global:
-  - PUBLISHER_LOGIN=<forge user’s login>
-  - <the 'secure' line you got in response to exeucting the travis encrypt command>
+  - PUBLISHER_LOGIN=<forge user name>
+  - <the 'secure' line you got in response to executing the travis encrypt command>
 +-----
 
-   [[5]] Commit this file and the push. This triggers the first build at travis and if everything is set up correctly, that
-   build will publish your module to the Puppetlabs Forge. You will get an email in your inbox regardless.
+   [[5]] Commit this file and then push. This triggers the first build at Travis-CI and if everything is set up correctly, that
+   build will publish your module to the Puppet Forge. You will get an email in your inbox regardless.
   
-   [[6]] Visit the {{{http://forge.puppetlabs.com}Puppetlabs Forge}} and view your new release.
+   [[6]] Visit the {{{http://forge.puppetlabs.com}Puppet Forge}} and view your new release.
 
 * The process explained
 
-   This is what happens when you push a new version to GitHub.
+   This is what happens when you push a new version to GitHub:
    
-   [[1]] GitHub executes a Service Hook that Travis-CI registered on your repository when you switched it to <On>.
+   [[1]] GitHub executes a service hook that Travis-CI registered on your repository when you switched it to <On>.
    
    [[2]] In response to this, Travis starts a build according to the configuration that you provided in the <<<.travis.yml>>> file.
    
-   [[3]] The configuration instructs Travis to clone the <ghpublisher.git> repository from Cloudsmith into the folder <.forge-releng>. This repository contains some
-   scripts, a maven settings.xml file and a maven POM.
+   [[3]] The configuration instructs Travis to clone the <ghpublisher.git> repository from Cloudsmith into the folder <<<.forge-releng>>>. This repository contains some
+   scripts, a Maven settings.xml file, and a Maven POM.
    
-   [[4]] Travis decodes the 'secure' string and makes your publisher password available to the build. The password is of course
+   [[4]] Travis decodes the 'secure' string and makes your Forge password available to the build. The password is of course
    never revealed.
    
    [[5]] The script <.forge-releng/publish> is called.
    
    [[6]] The script calls Maven to run the plug-in using the provide POM file.
 
-   More details regarding the Maven executing can be found in the {{{./cli.html}Command Line}} example.
+   More details regarding the Maven execution can be found in the {{{./cli.html}Command Line}} example.
 
    []

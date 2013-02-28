@@ -31,14 +31,14 @@ Forge Publisher Plugin
 
 * General
 
-  The plug-in logic will scan the directory specified as the modulesRoot for occurances of files named <<<Modulefile>>> or <<<metadata.json>>>. Any
+  The plug-in logic will scan the directory specified as the modules root for occurrences of files named <<<Modulefile>>> or <<<metadata.json>>>. Any
   directory that contains either of those files is considered a module root. The scan will not recurse into subdirectories of a found module root.
 
   If no module roots are found, the validation (and hence the build) will fail.
   
-  If both a <<<Modulefile>>> and a <<<metadata.json>>> file is found, then the latter takes precedence.
+  If both a <<<Modulefile>>> and a <<<metadata.json>>> file are found, then the latter takes precedence.
   
-  The <<<Modulefile>>> is expected to be Ruby syntax but it is never evaluated by Ruby. It's compiled using the jruby parser and the resulting abstract
+  The <<<Modulefile>>> is expected to be Ruby syntax but it is never evaluated by Ruby. It's compiled using the JRuby parser and the resulting abstract
   syntax tree is then analyzed. Constructs that are not recognized are ignored. This means that although the file may contain complex logic, that logic
   will never be evaluated. In essence, all such logic is comparable to <<<nil>>>.
   
@@ -46,24 +46,25 @@ Forge Publisher Plugin
 
 * Validating
 
-  The validation goal can perform a very elaborate analyzis of the module using the Geppetto platform. It is also capable of running the puppet-lint gem.
-  This goal is highly configurable. See {{{./validate-mojo.html}forge:validate}} for in depth details.
+  The <validate> goal can perform a very elaborate analysis of a module using the Geppetto platform. It is also capable of running the puppet-lint gem.
+  This goal is highly configurable. See {{{./validate-mojo.html}forge:validate}} for details.
   
 * Publishing
 
-  The publisher will consult the Forge and query it for the existence of the module that it is about to publish. If the exact same version
-  is found there, then no attempt will be made to publish. This condition is considered normal and will not fail the build.
+  The <publish> goal will consult the Puppet Forge and query it for the existence of the module that it is about to publish. If the exact same version
+  is found there, then no attempt will be made to publish. This condition is considered normal and will not fail the build. See
+  {{{./publish-mojo.html}forge:publish}} for details.
   
-* Running the goals
+* Running the Goals
 
   For examples on how to run the goals, please see the {{{./cli.html}Command Line}} example or the example explaining how to set up a GitHub service
   hook and Travis-CI to run {{{./github-publish.html}Automated Publishing}}. 
 
 * Goals Overview
 
-   * {{{./validate-mojo.html}forge:validate}} Validate modules
+   * {{{./validate-mojo.html}forge:validate}} Validate Puppet modules
 
-   * {{{./publish-mojo.html}forge:publish}} Publish modules to the Forge
+   * {{{./publish-mojo.html}forge:publish}} Publish modules to the Puppet Forge
 
   
   []

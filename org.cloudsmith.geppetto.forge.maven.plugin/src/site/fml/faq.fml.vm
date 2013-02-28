@@ -5,62 +5,62 @@
   <part id="Behavior">
     <title>What happens if ...</title>
     <faq id="no-metadata-json">
-      <question>there is no Modulefile?</question>
+      <question>there is no <code>Modulefile</code>?</question>
       <answer>
         <p>
-           The validation and publishing can still succeed provided that it finds a metadata.json.
+           The validation and publication can still succeed provided that the plug-in finds a <code>metadata.json</code> file.
         </p>
       </answer>
     </faq>
     <faq id="no-version">
-      <question>there is no metadata.json file?</question>
+      <question>there is no <code>metadata.json</code> file?</question>
       <answer>
         <p>
-           The validation and publishing can still succeed provided that it finds a Modulefile that in turn does not contain complex ruby logic.
+           The validation and publication can still succeed provided that the plug-in finds a <code>Modulefile</code> that in turn does not contain complex Ruby logic.
         </p>
       </answer>
     </faq>
     <faq id="no-version">
-      <question>there is neither a Modulefile nor a metadata.json file?</question>
+      <question>there is neither a <code>Modulefile</code> nor a <code>metadata.json</code> file?</question>
       <answer>
         <p>
-          Since the scanner looks for those files, it will not find the module. If no modules are found, the build will fail.
+          Since the plug-in looks for those files, it will not find the module. If no modules are found, the build will fail.
         </p>
       </answer>
     </faq>
     <faq id="complex-logic">
-      <question>the Modulefile contains complex ruby logic?</question>
+      <question>the <code>Modulefile</code> contains complex Ruby logic?</question>
       <answer>
         <p>
-		  The <code>Modulefile</code> is expected to be Ruby syntax but it is never evaluated by Ruby. It's compiled using the jruby parser and the resulting abstract
+		  The <code>Modulefile</code> is expected to be Ruby syntax but it is never evaluated by Ruby. It's compiled using the JRuby parser and the resulting abstract
 		  syntax tree is then analyzed. Constructs that are not recognized are ignored. This means that although the file may contain complex logic, that logic
 		  will never be evaluated. In essence, all such logic is comparable to <code>nil</code>.
         </p>
       </answer>
     </faq>
     <faq id="no-name">
-      <question>the Modulefile/metadata.json has no name?</question>
+      <question>the <code>Modulefile</code> or <code>metadata.json</code> file has no name?</question>
       <answer>
         <p>
-          The validation will consider lack of a module name to be an error. The build will end
+          The validator will consider lack of a module name to be an error. The build will end
           with an error.
         </p>
       </answer>
     </faq>
     <faq id="no-version">
-      <question>the Modulefile/metadata.json has no version?</question>
+      <question>the <code>Modulefile</code> or <code>metadata.json</code> file has no version?</question>
       <answer>
         <p>
-          The validation will consider lack of a module version to be an error. The build will end
+          The validator will consider lack of a module version to be an error. The build will end
           with an error.
         </p>
       </answer>
     </faq>
     <faq id="bad-json">
-      <question>the metadata.json contains invalid JSON?</question>
+      <question>the <code>metadata.json</code> file contains invalid JSON?</question>
       <answer>
         <p>
-          The validation will consider an unparsable file to be an error. The build will end
+          The validator will consider an unparseable file to be an error. The build will end
           with an error.
         </p>
       </answer>
@@ -74,10 +74,10 @@
       </answer>
     </faq>
     <faq id="module-does-not-exist">
-      <question>the module does not exist at the Forge?</question>
+      <question>the module does not exist at the Puppet Forge?</question>
       <answer>
         <p>
-          The Forge will reject any attempt to publish a version of a non-existent module. The build will end with
+          The Puppet Forge will reject any attempt to publish a version of a non-existent module. The build will end with
           an error explaining that the module was not found.
         </p>
       </answer>
@@ -86,8 +86,8 @@
       <question>the module owner does not match the publisher credentials?</question>
       <answer>
         <p>
-          The Forge will reject any attempt to publish a module that is not owned by the publisher. The build will end
-          en error with a 'Forbidden' message.
+          The Puppet Forge will reject any attempt to publish a module that is not owned by the publisher. The build will end
+          with an error and a 'Forbidden' message.
         </p>
       </answer>
     </faq>
@@ -95,10 +95,11 @@
   <part id="Howto">
     <title>Solution to problems</title>
     <faq id="want-complex-logic">
-      <question>I really want complex logic in the Modulefile. What should I do?</question>
+      <question>I really want to use complex logic in my <code>Modulefile</code>. What should I do?</question>
       <answer>
         <p>
-           Run the Puppet Module Tool on your module and commit the resulting metadata.json file. The plugin will then use that file instead of the Modulefile.
+           Run the Puppet Module Tool on your module and commit the resulting <code>metadata.json</code> file. The plug-in will
+           then use that file instead of the <code>Modulefile</code>.
         </p>
       </answer>
     </faq>

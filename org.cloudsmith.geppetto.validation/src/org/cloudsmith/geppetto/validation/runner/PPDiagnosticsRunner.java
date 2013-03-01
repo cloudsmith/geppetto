@@ -417,6 +417,8 @@ public class PPDiagnosticsRunner {
 		for(IResourceDescription rdesc : descriptionIndex.getAllResourceDescriptions()) {
 			String handle = validationContainerManager.getContainerHandle(rdesc, descriptionIndex);
 
+			if(handle == null)
+				continue;
 			// TODO: This is a leap of faith, handles are all paths, except the special "_pptp" path
 			File moduleDir = new File(handle);
 
@@ -429,12 +431,16 @@ public class PPDiagnosticsRunner {
 		for(Resource r : resourceSet.getResources()) {
 			// get module (i.e. container handle) of importing container
 			File importingModuleDir = getContainerHandle(r.getURI(), descriptionIndex, validationContainerManager);
+			if(importingModuleDir == null)
+				continue;
 
 			// get the imports recorded during linking
 			PPImportedNamesAdapter importedAdapter = PPImportedNamesAdapterFactory.eINSTANCE.adapt(r);
 			for(IEObjectDescription desc : importedAdapter.getResolvedDescriptions()) {
 				// get the container (e.g. a module) of the the desc
 				File moduleDir = getContainerHandle(desc.getEObjectURI(), descriptionIndex, validationContainerManager);
+				if(moduleDir != null)
+					continue;
 				ModuleExport me = exports.get(desc);
 				if(me == null)
 					me = searchMissing(importingModuleDir, moduleDir, exports, desc);
@@ -444,6 +450,8 @@ public class PPDiagnosticsRunner {
 			for(IEObjectDescription desc : importedAdapter.getAmbiguousDescriptions()) {
 				// get the container (e.g. a module) of the the desc
 				File moduleDir = getContainerHandle(desc.getEObjectURI(), descriptionIndex, validationContainerManager);
+				if(moduleDir == null)
+					continue;
 				ModuleExport me = exports.get(desc);
 				if(me == null)
 					me = searchMissing(importingModuleDir, moduleDir, exports, desc);
@@ -470,8 +478,10 @@ public class PPDiagnosticsRunner {
 
 	private File getContainerHandle(URI uri, IResourceDescriptions index, ValidationStateBasedContainerManager manager) {
 		IResourceDescription resourceDescription = index.getResourceDescription(uri.trimFragment());
-		String containerHandel = manager.getContainerHandle(resourceDescription, index);
-		File moduleDir = new File(containerHandel);
+		String containerHandle = manager.getContainerHandle(resourceDescription, index);
+		if(containerHandle == null)
+			return null;
+		File moduleDir = new File(containerHandle);
 		return moduleDir;
 
 	}

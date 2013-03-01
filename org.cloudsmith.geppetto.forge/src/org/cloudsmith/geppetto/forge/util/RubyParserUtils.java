@@ -17,6 +17,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.Reader;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import org.cloudsmith.geppetto.common.os.StreamUtil;
@@ -42,6 +43,9 @@ public abstract class RubyParserUtils {
 	 * @return The list of nodes, possibly empty but never <code>null</null>
 	 */
 	public static List<Node> findNodes(Node root, NodeType[] path) {
+		if(root == null || path == null)
+			return Collections.emptyList();
+
 		ArrayList<Node> result = new ArrayList<Node>();
 		findNodes(root, path, 0, result);
 		return result;

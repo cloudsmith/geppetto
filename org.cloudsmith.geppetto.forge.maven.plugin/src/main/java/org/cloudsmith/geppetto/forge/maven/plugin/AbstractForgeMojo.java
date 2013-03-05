@@ -16,16 +16,21 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.StringWriter;
+import java.net.URI;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 import java.util.regex.Pattern;
 
+import org.apache.maven.execution.MavenSession;
+import org.apache.maven.model.Build;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
+import org.apache.maven.plugins.annotations.Component;
 import org.apache.maven.plugins.annotations.Parameter;
+import org.apache.maven.project.MavenProject;
 import org.cloudsmith.geppetto.common.os.StreamUtil;
 import org.cloudsmith.geppetto.forge.ForgeFactory;
 import org.cloudsmith.geppetto.forge.ForgeService;
@@ -95,7 +100,7 @@ public abstract class AbstractForgeMojo extends AbstractMojo {
 	 * can be a module or it may be the root of a hierarchy where modules can be found.
 	 */
 	@Parameter(property = "forge.modules.root", defaultValue = "${project.basedir}")
-	private File modulesRoot;
+	private String modulesRoot;
 
 	/**
 	 * The ClientID to use when performing retrieval of OAuth token. This
@@ -134,9 +139,16 @@ public abstract class AbstractForgeMojo extends AbstractMojo {
 	@Parameter(property = "forge.serviceURL", defaultValue = "http://forge-staging-web.puppetlabs.com/")
 	private String serviceURL;
 
+	@Component
+	private MavenSession session;
+
 	private ForgePreferencesBean forgePreferences;
 
+	private transient File baseDir;
+
 	private transient File buildDir;
+
+	private transient File modulesDir;
 
 	private transient Forge forge;
 
@@ -157,8 +169,6 @@ public abstract class AbstractForgeMojo extends AbstractMojo {
 	public void execute() throws MojoExecutionException, MojoFailureException {
 		Diagnostic diagnostic = new Diagnostic();
 		try {
-			if(modulesRoot == null)
-				modulesRoot = new File(".");
 			if(serviceURL == null)
 				throw new MojoExecutionException("Missing required configuration parameter: 'serviceURL'");
 			invoke(diagnostic);
@@ -167,8 +177,7 @@ public abstract class AbstractForgeMojo extends AbstractMojo {
 			throw new MojoFailureException(getActionName() + " failed: Invalid Json: " + e.getMessage(), e);
 		}
 		catch(RuntimeException e) {
-			throw new MojoExecutionException("Internal exception while performing " + getActionName() + ": " +
-					e.getMessage(), e);
+			throw e;
 		}
 		catch(Exception e) {
 			throw new MojoFailureException(getActionName() + " failed: " + e.getMessage(), e);
@@ -206,21 +215,51 @@ public abstract class AbstractForgeMojo extends AbstractMojo {
 	protected List<File> findModuleRoots() {
 		// Scan for valid directories containing "Modulefile" files.
 
-		getLog().debug("Scanning " + modulesRoot.getAbsolutePath() + " for Modulefile files");
+		File dir = getModulesDir();
+		getLog().debug("Scanning " + dir.getAbsolutePath() + " for Modulefile files");
 		List<File> moduleRoots = new ArrayList<File>();
-		if(findModuleFiles(modulesRoot.listFiles(), moduleRoots)) {
+		if(findModuleFiles(dir.listFiles(), moduleRoots)) {
 			// The repository is a module in itself
-			getLog().debug("Found module in " + modulesRoot.getAbsolutePath());
-			moduleRoots.add(modulesRoot);
+			getLog().debug("Found module in " + dir.getAbsolutePath());
+			moduleRoots.add(dir);
 		}
 		return moduleRoots;
 	}
 
 	protected abstract String getActionName();
 
+	/**
+	 * Returns the basedir as an absolute path string without any '..' constructs.
+	 * 
+	 * @return The absolute path of basedir
+	 */
+	public File getBasedir() {
+		if(baseDir == null) {
+			MavenProject project = session.getCurrentProject();
+			URI basedirURI;
+			File basedir = project.getBasedir();
+			if(basedir != null)
+				basedirURI = basedir.toURI();
+			else
+				basedirURI = URI.create(session.getExecutionRootDirectory());
+			baseDir = new File(basedirURI.normalize());
+		}
+		return baseDir;
+	}
+
 	protected synchronized File getBuildDir() {
-		if(buildDir == null)
-			buildDir = new File(modulesRoot, BUILD_DIR);
+		if(buildDir == null) {
+			Build build = session.getCurrentProject().getBuild();
+			String buildDirStr = build == null
+					? null
+					: build.getDirectory();
+			if(buildDirStr == null)
+				buildDir = new File(getBasedir(), "target");
+			else {
+				File bd = new File(buildDirStr);
+				buildDir = new File(bd.toURI().normalize());
+			}
+		}
 		return buildDir;
 	}
 
@@ -298,12 +337,22 @@ public abstract class AbstractForgeMojo extends AbstractMojo {
 		return md;
 	}
 
-	protected File getModulesRoot() {
-		return modulesRoot;
+	protected File getModulesDir() {
+		if(modulesDir == null) {
+			if(modulesRoot == null)
+				modulesDir = getBasedir();
+			else {
+				File md = new File(modulesRoot);
+				if(!md.isAbsolute())
+					md = new File(getBasedir(), modulesRoot);
+				modulesDir = new File(md.toURI().normalize());
+			}
+		}
+		return modulesDir;
 	}
 
 	protected String getRelativePath(File file) {
-		IPath rootPath = Path.fromOSString(modulesRoot.getAbsolutePath());
+		IPath rootPath = Path.fromOSString(getModulesDir().getAbsolutePath());
 		IPath path = Path.fromOSString(file.getAbsolutePath());
 		IPath relative = path.makeRelativeTo(rootPath);
 		return relative.toPortableString();

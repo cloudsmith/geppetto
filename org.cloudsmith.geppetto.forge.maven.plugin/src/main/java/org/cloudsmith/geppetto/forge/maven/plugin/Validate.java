@@ -315,6 +315,10 @@ public class Validate extends AbstractForgeMojo {
 		}
 	};
 
+	public Validate() {
+		super();
+	}
+
 	private Diagnostic convertPuppetLintDiagnostic(File moduleRoot, Issue issue) {
 		Diagnostic diagnostic = new Diagnostic();
 		diagnostic.setSeverity(getSeverity(issue));
@@ -406,7 +410,7 @@ public class Validate extends AbstractForgeMojo {
 		new PPDiagnosticsSetup(complianceLevel, options.getProblemsAdvisor()).createInjectorAndDoEMFRegistration();
 
 		ValidationServiceFactory.createValidationService().validate(
-			diagnostics, getModulesRoot(), options,
+			diagnostics, getModulesDir(), options,
 			importedModuleLocations.toArray(new File[importedModuleLocations.size()]), new NullProgressMonitor());
 
 		for(org.eclipse.emf.common.util.Diagnostic diagnostic : diagnostics.getChildren()) {
@@ -440,7 +444,7 @@ public class Validate extends AbstractForgeMojo {
 		options.setCheckModuleSemantics(checkModuleSemantics);
 		options.setCheckReferences(checkReferences);
 
-		if(moduleLocations.size() == 1 && getModulesRoot().equals(moduleLocations.get(0)))
+		if(moduleLocations.size() == 1 && getModulesDir().equals(moduleLocations.get(0)))
 			options.setFileType(FileType.MODULE_ROOT);
 		else
 			options.setFileType(FileType.PUPPET_ROOT);

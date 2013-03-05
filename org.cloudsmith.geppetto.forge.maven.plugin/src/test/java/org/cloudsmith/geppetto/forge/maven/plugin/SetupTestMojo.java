@@ -19,10 +19,7 @@ import org.cloudsmith.geppetto.forge.v2.service.ModuleService;
 import org.cloudsmith.geppetto.forge.v2.service.ModuleTemplate;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.JUnit4;
 
-@RunWith(JUnit4.class)
 public class SetupTestMojo extends AbstractForgeTestMojo {
 	private static ForgePreferencesBean createBasicForgePrefs() throws Exception {
 		ForgePreferencesBean forgePrefs = new ForgePreferencesBean();

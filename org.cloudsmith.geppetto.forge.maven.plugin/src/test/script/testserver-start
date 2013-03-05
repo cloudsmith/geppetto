@@ -1,7 +1,7 @@
 #!/bin/bash
 #
 rvm use 1.9.3
-rvm gemset use forge-api
+rvm gemset use puppet-forge-api
 rvm current
 which rake
 

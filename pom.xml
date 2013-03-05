@@ -408,9 +408,22 @@
 						</reports>
 					</reportSet>
 				</reportSets>
+				<configuration>
+					<!-- Hardcode here to avoid Maven guessing and appending submodule path -->
+					<anonymousConnection>scm:git:git://github.com/cloudsmith/geppetto.git</anonymousConnection>
+					<webAccessUrl>https://github.com/cloudsmith/geppetto</webAccessUrl>
+					<developerConnection>scm:git:git@github.com:cloudsmith/geppetto.git</developerConnection>
+				</configuration>
 			</plugin>
 			<plugin>
 				<artifactId>maven-javadoc-plugin</artifactId>
+				<reportSets>
+					<reportSet>
+						<reports>
+							<report>javadoc</report>
+						</reports>
+					</reportSet>
+				</reportSets>
 			</plugin>
 		</plugins>
 	</reporting>

@@ -2,8 +2,6 @@
 #
 rvm use 1.9.3
 rvm gemset use puppet-forge-api
-rvm current
-which rake
 
 rake db:drop > /dev/null || {
 	echo "Failed to drop database" 1>&2

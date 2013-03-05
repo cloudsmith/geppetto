@@ -1,11 +1,10 @@
 #/bin/sh
-PIDFILE=$1
-[ -n $PIDFILE ] || {
+[ -n $PID_FILE ] || {
 	echo "No server appears to be running" 1>&2
 	exit 1
 }
-SERVER_PID="`cat $PIDFILE`" || {
-	echo "Failed to read pid file '$PIDFILE'" 1>&2
+SERVER_PID="`cat $PID_FILE`" || {
+	echo "Failed to read pid file '$PID_FILE'" 1>&2
 	exit 2
 }
 kill "$SERVER_PID" || {

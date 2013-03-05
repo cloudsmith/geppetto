@@ -1,6 +1,7 @@
 #/bin/sh
-PIDFILE=$1
-LOGFILE=$2
+rvm use 1.9.3
+rvm gemset use puppet-forge-api
+
 rake db:drop > /dev/null || {
 	echo "Failed to drop database" 1>&2
 	exit 1
@@ -21,7 +22,7 @@ rake oauth2:sampleclient > /dev/null || {
 	exit 1
 }
 echo "Sample OAuth2 client added"
-ruby script/server > $LOGFILE 2>&1 &
-echo $! > "$PIDFILE"
+ruby script/server > $LOG_FILE 2>&1 &
+echo $! > "$PID_FILE"
 sleep 3
-echo "Forge Server Started. Logfile=$LOGFILE, Pidfile=$PIDFILE"
+echo "Forge Server Started. Logfile=$LOG_FILE, Pidfile=$PID_FILE"

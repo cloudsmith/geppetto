@@ -14,9 +14,9 @@
 
 	<properties>
 		<testScriptDir>${basedir}/src/test/script</testScriptDir>
-		<forgeServerPidFile>${project.build.directory}/forgeserver.pid</forgeServerPidFile>
-		<forgeServerLogFile>${project.build.directory}/forgeserver.log</forgeServerLogFile>
-		<forgeServerDir>${user.home}/git/puppet-forge-api</forgeServerDir>
+		<testForgeServerPidFile>${project.build.directory}/forgeserver.pid</testForgeServerPidFile>
+		<testForgeServerLogFile>${project.build.directory}/forgeserver.log</testForgeServerLogFile>
+		<testForgeServerDir>${user.home}/git/puppet-forge-api</testForgeServerDir>
 	</properties>
 
 	<build>
@@ -39,13 +39,17 @@
 							<goal>exec</goal>
 						</goals>
 						<configuration>
-							<executable>${testScriptDir}/testserver-start</executable>
+							<workingDirectory>${testForgeServerDir}</workingDirectory>
+							<executable>bash</executable>
 							<!-- Assumes puppet-forge-api repo adjacent to the geppetto repo. -->
-							<workingDirectory>${forgeServerDir}</workingDirectory>
 							<arguments>
-								<argument>${forgeServerPidFile}</argument>
-								<argument>${forgeServerLogFile}</argument>
+								<argument>--login</argument>
+								<argument>${testScriptDir}/testserver-start</argument>
 							</arguments>
+							<environmentVariables>
+								<LOG_FILE>${testForgeServerLogFile}</LOG_FILE>
+								<PID_FILE>${testForgeServerPidFile}</PID_FILE>
+							</environmentVariables>
 							<skip>${skipITs}</skip>
 						</configuration>
 					</execution>
@@ -56,12 +60,15 @@
 							<goal>exec</goal>
 						</goals>
 						<configuration>
-							<executable>${testScriptDir}/testserver-stop</executable>
-							<!-- Assumes puppet-forge-api repo adjacent to the geppetto repo. -->
-							<workingDirectory>${forgeServerDir}</workingDirectory>
+							<executable>bash</executable>
+							<workingDirectory>${testForgeServerDir}</workingDirectory>
 							<arguments>
-								<argument>${forgeServerPidFile}</argument>
+								<arguments>--login</arguments>
+								<argument>${testScriptDir}/testserver-stop</argument>
 							</arguments>
+							<environmentVariables>
+								<PID_FILE>${testForgeServerPidFile}</PID_FILE>
+							</environmentVariables>
 							<skip>${skipITs}</skip>
 						</configuration>
 					</execution>

@@ -12,6 +12,7 @@
 package org.cloudsmith.geppetto.forge.maven.plugin;
 
 import java.io.File;
+import java.io.FileFilter;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -55,13 +56,14 @@ public class Publish extends AbstractForgeMojo {
 	private File buildForge(ForgeService forgeService, File moduleSource, File destination, String[] namesReceiver)
 			throws IOException, IncompleteException {
 
+		FileFilter filter = getFileFilter();
 		File metadataJSON = new File(moduleSource, "metadata.json");
 		org.cloudsmith.geppetto.forge.Metadata md;
 		try {
 			md = forgeService.loadJSONMetadata(metadataJSON);
 		}
 		catch(FileNotFoundException e) {
-			md = forgeService.loadModule(moduleSource);
+			md = forgeService.loadModule(moduleSource, filter);
 			String fullName = md.getFullName();
 			if(fullName == null)
 				throw new IncompleteException("A full name (user-module) must be specified in the Modulefile");
@@ -79,7 +81,7 @@ public class Publish extends AbstractForgeMojo {
 		File moduleArchive = new File(destination, fullNameWithVersion + ".tar.gz");
 		OutputStream out = new GZIPOutputStream(new FileOutputStream(moduleArchive));
 		// Pack closes its output
-		TarUtils.pack(moduleSource, out, DEFAULT_EXCLUDES_PATTERN, false, fullNameWithVersion);
+		TarUtils.pack(moduleSource, out, filter, false, fullNameWithVersion);
 		return moduleArchive;
 	}
 

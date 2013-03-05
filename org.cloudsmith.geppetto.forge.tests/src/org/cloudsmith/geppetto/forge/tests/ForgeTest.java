@@ -69,7 +69,7 @@ public class ForgeTest {
 			File resultFolder = ForgeTests.getTestOutputFolder("apache-build-result", true);
 			FileUtils.cpR(
 				Activator.getTestData("puppetlabs-apache"), installFolder, FileUtils.DEFAULT_EXCLUDES, false, true);
-			Metadata md = fixture.build(installFolder, resultFolder);
+			Metadata md = fixture.build(installFolder, resultFolder, null);
 			String archiveName = md.getFullName() + '-' + md.getVersion();
 			File builtArchive = new File(resultFolder, archiveName + ".tar.gz");
 			assertTrue("Build did not build any archive", builtArchive.canRead());
@@ -99,8 +99,8 @@ public class ForgeTest {
 			File resultFolder = ForgeTests.getTestOutputFolder("test-changes-result", true);
 			FileUtils.cpR(
 				Activator.getTestData("puppetlabs-apache"), installFolder, FileUtils.DEFAULT_EXCLUDES, false, true);
-			fixture.build(installFolder, resultFolder);
-			List<File> changes = fixture.changes(installFolder);
+			fixture.build(installFolder, resultFolder, null);
+			List<File> changes = fixture.changes(installFolder, null);
 			assertTrue("Unexpected changes", changes.isEmpty());
 		}
 		catch(IOException e) {

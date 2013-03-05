@@ -12,16 +12,15 @@
 package org.cloudsmith.geppetto.forge.maven.plugin;
 
 import java.io.File;
+import java.io.FileFilter;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.StringWriter;
 import java.net.URI;
 import java.nio.charset.Charset;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
-import java.util.regex.Pattern;
 
 import org.apache.maven.execution.MavenSession;
 import org.apache.maven.model.Build;
@@ -36,6 +35,7 @@ import org.cloudsmith.geppetto.forge.ForgeFactory;
 import org.cloudsmith.geppetto.forge.ForgeService;
 import org.cloudsmith.geppetto.forge.impl.MetadataImpl;
 import org.cloudsmith.geppetto.forge.util.JsonUtils;
+import org.cloudsmith.geppetto.forge.util.ModuleFinder;
 import org.cloudsmith.geppetto.forge.v2.Forge;
 import org.cloudsmith.geppetto.forge.v2.client.ForgePreferences;
 import org.cloudsmith.geppetto.forge.v2.client.ForgePreferencesBean;
@@ -54,21 +54,9 @@ import com.google.gson.JsonParseException;
  * Goal which performs basic validation.
  */
 public abstract class AbstractForgeMojo extends AbstractMojo {
-	static final String BUILD_DIR = ".geppetto";
-
-	static final Pattern DEFAULT_EXCLUDES_PATTERN;
-
 	static final String IMPORTED_MODULES_ROOT = "importedModules";
 
 	static final Charset UTF_8 = Charset.forName("UTF-8");
-
-	static {
-		int top = MetadataImpl.DEFAULT_EXCLUDES.length;
-		String[] excludes = new String[top + 1];
-		System.arraycopy(MetadataImpl.DEFAULT_EXCLUDES, 0, excludes, 0, top);
-		excludes[top] = BUILD_DIR;
-		DEFAULT_EXCLUDES_PATTERN = MetadataImpl.compileExcludePattern(excludes);
-	}
 
 	private static boolean isNull(String field) {
 		if(field == null)
@@ -79,6 +67,13 @@ public abstract class AbstractForgeMojo extends AbstractMojo {
 			return true;
 
 		return "null".equals(field);
+	}
+
+	public static boolean isParentOrEqual(File dir, File subdir) {
+		if(dir == null || subdir == null)
+			return false;
+
+		return dir.equals(subdir) || isParentOrEqual(dir, subdir.getParentFile());
 	}
 
 	public static Properties readForgeProperties() throws IOException {
@@ -187,43 +182,9 @@ public abstract class AbstractForgeMojo extends AbstractMojo {
 			throw new MojoFailureException(diagnostic.getErrorText());
 	}
 
-	private boolean findModuleFiles(File[] files, List<File> moduleFiles) {
-		if(files != null) {
-			int idx = files.length;
-			while(--idx >= 0) {
-				String name = files[idx].getName();
-				if("Modulefile".equals(name) || "metadata.json".equals(name))
-					return true;
-			}
-
-			idx = files.length;
-			while(--idx >= 0) {
-				File file = files[idx];
-				String name = file.getName();
-				if(DEFAULT_EXCLUDES_PATTERN.matcher(name).matches())
-					continue;
-
-				if(findModuleFiles(file.listFiles(), moduleFiles)) {
-					getLog().debug("Found module in " + file.getAbsolutePath());
-					moduleFiles.add(file);
-				}
-			}
-		}
-		return false;
-	}
-
 	protected List<File> findModuleRoots() {
-		// Scan for valid directories containing "Modulefile" files.
-
-		File dir = getModulesDir();
-		getLog().debug("Scanning " + dir.getAbsolutePath() + " for Modulefile files");
-		List<File> moduleRoots = new ArrayList<File>();
-		if(findModuleFiles(dir.listFiles(), moduleRoots)) {
-			// The repository is a module in itself
-			getLog().debug("Found module in " + dir.getAbsolutePath());
-			moduleRoots.add(dir);
-		}
-		return moduleRoots;
+		ModuleFinder moduleFinder = new ModuleFinder(getModulesDir());
+		return moduleFinder.findModuleRoots(getFileFilter());
 	}
 
 	protected abstract String getActionName();
@@ -261,6 +222,21 @@ public abstract class AbstractForgeMojo extends AbstractMojo {
 			}
 		}
 		return buildDir;
+	}
+
+	/**
+	 * Returns an exclusion filter that rejects everything beneath the build directory plus everything that
+	 * the default exclusion filter would reject.
+	 * 
+	 * @return <tt>true</tt> if the file can be accepted for inclusion
+	 */
+	protected FileFilter getFileFilter() {
+		return new FileFilter() {
+			@Override
+			public boolean accept(File file) {
+				return MetadataImpl.DEFAULT_FILE_FILTER.accept(file) && !isParentOrEqual(getBuildDir(), file);
+			}
+		};
 	}
 
 	protected synchronized Forge getForge() {
@@ -302,7 +278,7 @@ public abstract class AbstractForgeMojo extends AbstractMojo {
 				md = forgeService.loadJSONMetadata(new File(moduleDirectory, "metadata.json"));
 			}
 			catch(FileNotFoundException e) {
-				md = forgeService.loadModule(moduleDirectory);
+				md = forgeService.loadModule(moduleDirectory, getFileFilter());
 			}
 			// TODO: User the v2 Metadata throughout.
 			gson.toJson(md, writer);

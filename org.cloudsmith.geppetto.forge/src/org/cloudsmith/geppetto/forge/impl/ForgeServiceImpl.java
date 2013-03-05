@@ -13,6 +13,7 @@ package org.cloudsmith.geppetto.forge.impl;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileFilter;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.Reader;
@@ -155,9 +156,11 @@ public class ForgeServiceImpl extends EObjectImpl implements ForgeService {
 	 * @generated NOT
 	 */
 	@Override
-	public Metadata loadModule(File moduleDirectory) throws IOException {
+	public Metadata loadModule(File moduleDirectory, FileFilter exclusionFilter) throws IOException {
+		if(exclusionFilter == null)
+			exclusionFilter = MetadataImpl.DEFAULT_FILE_FILTER;
 		MetadataImpl metadata = (MetadataImpl) ForgeFactory.eINSTANCE.createMetadata();
-		metadata.populateFromModuleDir(moduleDirectory);
+		metadata.populateFromModuleDir(moduleDirectory, exclusionFilter);
 		return metadata;
 	}
 } // ForgeServiceImpl

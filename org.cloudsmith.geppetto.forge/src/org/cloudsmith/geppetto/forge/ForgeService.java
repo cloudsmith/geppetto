@@ -12,6 +12,7 @@
 package org.cloudsmith.geppetto.forge;
 
 import java.io.File;
+import java.io.FileFilter;
 import java.io.IOException;
 import java.net.URI;
 
@@ -119,10 +120,15 @@ public interface ForgeService extends EObject {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
 	 * 
+	 * @param exclusionFilter
+	 *            A filter that can be used to exclude files and directories
+	 *            <!-- end-model-doc -->
 	 * @model exceptions="org.cloudsmith.geppetto.forge.IOException" moduleDirectoryDataType="org.cloudsmith.geppetto.forge.File"
+	 *        exclusionFilterDataType="org.cloudsmith.geppetto.forge.FileFilter"
 	 * @generated
 	 */
-	Metadata loadModule(File moduleDirectory) throws IOException;
+	Metadata loadModule(File moduleDirectory, FileFilter exclusionFilter) throws IOException;
 
 } // ForgeService

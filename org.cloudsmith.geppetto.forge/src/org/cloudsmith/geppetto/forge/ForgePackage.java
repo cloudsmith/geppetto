@@ -579,6 +579,17 @@ public interface ForgePackage extends EPackage {
 		EDataType FILE = eINSTANCE.getFile();
 
 		/**
+		 * The meta object literal for the '<em>File Filter</em>' data type.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * 
+		 * @see java.io.FileFilter
+		 * @see org.cloudsmith.geppetto.forge.impl.ForgePackageImpl#getFileFilter()
+		 * @generated
+		 */
+		EDataType FILE_FILTER = eINSTANCE.getFileFilter();
+
+		/**
 		 * The meta object literal for the '<em>URI</em>' data type.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -1512,6 +1523,17 @@ public interface ForgePackage extends EPackage {
 	int FILE = 17;
 
 	/**
+	 * The meta object id for the '<em>File Filter</em>' data type.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @see java.io.FileFilter
+	 * @see org.cloudsmith.geppetto.forge.impl.ForgePackageImpl#getFileFilter()
+	 * @generated
+	 */
+	int FILE_FILTER = 18;
+
+	/**
 	 * The meta object id for the '<em>URI</em>' data type.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1520,7 +1542,7 @@ public interface ForgePackage extends EPackage {
 	 * @see org.cloudsmith.geppetto.forge.impl.ForgePackageImpl#getURI()
 	 * @generated
 	 */
-	int URI = 25;
+	int URI = 26;
 
 	/**
 	 * The meta object id for the '<em>Iterable</em>' data type.
@@ -1531,7 +1553,7 @@ public interface ForgePackage extends EPackage {
 	 * @see org.cloudsmith.geppetto.forge.impl.ForgePackageImpl#getIterable()
 	 * @generated
 	 */
-	int ITERABLE = 26;
+	int ITERABLE = 27;
 
 	/**
 	 * The meta object id for the '<em>IO Exception</em>' data type.
@@ -1542,7 +1564,7 @@ public interface ForgePackage extends EPackage {
 	 * @see org.cloudsmith.geppetto.forge.impl.ForgePackageImpl#getIOException()
 	 * @generated
 	 */
-	int IO_EXCEPTION = 21;
+	int IO_EXCEPTION = 22;
 
 	/**
 	 * The meta object id for the '<em>List</em>' data type.
@@ -1553,7 +1575,7 @@ public interface ForgePackage extends EPackage {
 	 * @see org.cloudsmith.geppetto.forge.impl.ForgePackageImpl#getList()
 	 * @generated
 	 */
-	int LIST = 22;
+	int LIST = 23;
 
 	/**
 	 * The meta object id for the '<em>Http URL Connection</em>' data type.
@@ -1564,7 +1586,7 @@ public interface ForgePackage extends EPackage {
 	 * @see org.cloudsmith.geppetto.forge.impl.ForgePackageImpl#getHttpURLConnection()
 	 * @generated
 	 */
-	int HTTP_URL_CONNECTION = 18;
+	int HTTP_URL_CONNECTION = 19;
 
 	/**
 	 * The meta object id for the '<em>byte Array</em>' data type.
@@ -1585,7 +1607,7 @@ public interface ForgePackage extends EPackage {
 	 * @see org.cloudsmith.geppetto.forge.impl.ForgePackageImpl#getMap()
 	 * @generated
 	 */
-	int MAP = 23;
+	int MAP = 24;
 
 	/**
 	 * The meta object id for the '<em>String Array</em>' data type.
@@ -1595,7 +1617,7 @@ public interface ForgePackage extends EPackage {
 	 * @see org.cloudsmith.geppetto.forge.impl.ForgePackageImpl#getStringArray()
 	 * @generated
 	 */
-	int STRING_ARRAY = 24;
+	int STRING_ARRAY = 25;
 
 	/**
 	 * The meta object id for the '<em>Illegal Argument Exception</em>' data type.
@@ -1606,7 +1628,7 @@ public interface ForgePackage extends EPackage {
 	 * @see org.cloudsmith.geppetto.forge.impl.ForgePackageImpl#getIllegalArgumentException()
 	 * @generated
 	 */
-	int ILLEGAL_ARGUMENT_EXCEPTION = 19;
+	int ILLEGAL_ARGUMENT_EXCEPTION = 20;
 
 	/**
 	 * The meta object id for the '<em>Incomplete Exception</em>' data type.
@@ -1617,7 +1639,7 @@ public interface ForgePackage extends EPackage {
 	 * @see org.cloudsmith.geppetto.forge.impl.ForgePackageImpl#getIncompleteException()
 	 * @generated
 	 */
-	int INCOMPLETE_EXCEPTION = 20;
+	int INCOMPLETE_EXCEPTION = 21;
 
 	/**
 	 * Returns the meta object for data type '<em>byte Array</em>'.
@@ -1759,6 +1781,18 @@ public interface ForgePackage extends EPackage {
 	 * @generated
 	 */
 	EDataType getFile();
+
+	/**
+	 * Returns the meta object for data type '{@link java.io.FileFilter <em>File Filter</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @return the meta object for data type '<em>File Filter</em>'.
+	 * @see java.io.FileFilter
+	 * @model instanceClass="java.io.FileFilter"
+	 * @generated
+	 */
+	EDataType getFileFilter();
 
 	/**
 	 * Returns the meta object for class '{@link org.cloudsmith.geppetto.forge.Forge <em>Forge</em>}'.

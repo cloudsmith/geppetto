@@ -60,7 +60,7 @@ public class ExportModulesActionDelegate extends ActionDelegate implements IObje
 
 					for(IProject project : projects) {
 						try {
-							forge.build(project.getLocation().toFile(), new Path(directoryPath).toFile());
+							forge.build(project.getLocation().toFile(), new Path(directoryPath).toFile(), null);
 						}
 						catch(Exception exception) {
 							UIPlugin.INSTANCE.log(exception);

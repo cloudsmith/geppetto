@@ -11,9 +11,8 @@
  */
 package org.cloudsmith.geppetto.forge.util;
 
-import static org.cloudsmith.geppetto.forge.impl.MetadataImpl.DEFAULT_EXCLUDES_PATTERN;
-
 import java.io.File;
+import java.io.FileFilter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,7 +28,7 @@ public class ModuleFinder {
 		this.modulesRoot = modulesRoot;
 	}
 
-	private boolean findModuleFiles(File[] files, List<File> moduleFiles) {
+	private boolean findModuleFiles(FileFilter filter, File[] files, List<File> moduleFiles) {
 		if(files != null) {
 			int idx = files.length;
 			while(--idx >= 0) {
@@ -41,11 +40,7 @@ public class ModuleFinder {
 			idx = files.length;
 			while(--idx >= 0) {
 				File file = files[idx];
-				String name = file.getName();
-				if(DEFAULT_EXCLUDES_PATTERN.matcher(name).matches())
-					continue;
-
-				if(findModuleFiles(file.listFiles(), moduleFiles))
+				if(findModuleFiles(filter, file.listFiles(filter), moduleFiles))
 					moduleFiles.add(file);
 			}
 		}
@@ -58,9 +53,9 @@ public class ModuleFinder {
 	 * 
 	 * @return A list of directories where such files were found
 	 */
-	protected List<File> findModuleRoots() {
+	public List<File> findModuleRoots(FileFilter filter) {
 		List<File> moduleRoots = new ArrayList<File>();
-		if(findModuleFiles(modulesRoot.listFiles(), moduleRoots))
+		if(findModuleFiles(filter, modulesRoot.listFiles(filter), moduleRoots))
 			// The repository is a module in itself
 			moduleRoots.add(modulesRoot);
 		return moduleRoots;

@@ -128,7 +128,7 @@ public class MetadataTest {
 
 	private void populateFromModule(String module) {
 		try {
-			((MetadataImpl) fixture).populateFromModuleDir(Activator.getTestData(module));
+			((MetadataImpl) fixture).populateFromModuleDir(Activator.getTestData(module), null);
 		}
 		catch(IOException e) {
 			fail(e.getMessage());
@@ -176,7 +176,7 @@ public class MetadataTest {
 	public void testLoadChecksums__File() {
 		try {
 			assertTrue(fixture.getChecksums().isEmpty());
-			fixture.loadChecksums(Activator.getTestData("puppetlabs-apache"));
+			fixture.loadChecksums(Activator.getTestData("puppetlabs-apache"), null);
 			assertEquals("Incorrect number of checksums", fixture.getChecksums().size(), 18);
 		}
 		catch(IOException e) {
@@ -198,7 +198,7 @@ public class MetadataTest {
 	@Test
 	public void testLoadTypeFiles__File() {
 		try {
-			fixture.loadTypeFiles(Activator.getTestData("puppetlabs-apache/lib/puppet"));
+			fixture.loadTypeFiles(Activator.getTestData("puppetlabs-apache/lib/puppet"), null);
 			assertEquals("Expected 1 type", 1, fixture.getTypes().size());
 			assertEquals("Unexpected type name", "a2mod", fixture.getTypes().get(0).getName());
 		}

@@ -13,6 +13,7 @@ package org.cloudsmith.geppetto.forge.impl;
 
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileFilter;
 import java.io.FileInputStream;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -225,49 +226,12 @@ public class MetadataImpl extends EObjectImpl implements Metadata {
 	// Directory names that should not be checksummed or copied.
 	public static final Pattern DEFAULT_EXCLUDES_PATTERN = compileExcludePattern(DEFAULT_EXCLUDES);
 
-	/**
-	 * The default value of the '{@link #getUser() <em>User</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * 
-	 * @see #getUser()
-	 * @generated
-	 * @ordered
-	 */
-	protected static final String USER_EDEFAULT = null;
-
-	/**
-	 * The default value of the '{@link #getFullName() <em>Full Name</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * 
-	 * @see #getFullName()
-	 * @generated
-	 * @ordered
-	 */
-	protected static final String FULL_NAME_EDEFAULT = null;
-
-	/**
-	 * The default value of the '{@link #getVersion() <em>Version</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * 
-	 * @see #getVersion()
-	 * @generated
-	 * @ordered
-	 */
-	protected static final String VERSION_EDEFAULT = null;
-
-	/**
-	 * The default value of the '{@link #getLocation() <em>Location</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * 
-	 * @see #getLocation()
-	 * @generated
-	 * @ordered
-	 */
-	protected static final File LOCATION_EDEFAULT = null;
+	public static final FileFilter DEFAULT_FILE_FILTER = new FileFilter() {
+		@Override
+		public boolean accept(File file) {
+			return !MetadataImpl.DEFAULT_EXCLUDES_PATTERN.matcher(file.getName()).matches();
+		}
+	};
 
 	private static void addKeyValueNode(PrintWriter out, String key, String... strs) throws IOException {
 		if(strs.length == 0)
@@ -370,12 +334,12 @@ public class MetadataImpl extends EObjectImpl implements Metadata {
 		return stringArgs;
 	}
 
-	private static boolean isChecksumCandidate(File file) throws IOException {
-		if(FileUtils.isSymlink(file))
-			return false;
+	private static boolean isChecksumCandidate(File file, FileFilter filter) throws IOException {
 		String filename = file.getName();
-		return !("metadata.json".equals(filename) || "REVISION".equals(filename) || DEFAULT_EXCLUDES_PATTERN.matcher(
-			filename).matches());
+		if("metadata.json".equals(filename) || "REVISION".equals(filename))
+			return false;
+
+		return filter.accept(file) && !FileUtils.isSymlink(file);
 	}
 
 	private static IllegalArgumentException noResponse(String key) {
@@ -416,6 +380,17 @@ public class MetadataImpl extends EObjectImpl implements Metadata {
 	protected String name = NAME_EDEFAULT;
 
 	/**
+	 * The default value of the '{@link #getUser() <em>User</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @see #getUser()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String USER_EDEFAULT = null;
+
+	/**
 	 * The cached value of the '{@link #getUser() <em>User</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -425,6 +400,28 @@ public class MetadataImpl extends EObjectImpl implements Metadata {
 	 * @ordered
 	 */
 	protected String user = USER_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getFullName() <em>Full Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @see #getFullName()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String FULL_NAME_EDEFAULT = null;
+
+	/**
+	 * The default value of the '{@link #getVersion() <em>Version</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @see #getVersion()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String VERSION_EDEFAULT = null;
 
 	/**
 	 * The cached value of the '{@link #getVersion() <em>Version</em>}' attribute.
@@ -437,6 +434,17 @@ public class MetadataImpl extends EObjectImpl implements Metadata {
 	 */
 	@Expose
 	protected String version = VERSION_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getLocation() <em>Location</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @see #getLocation()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final File LOCATION_EDEFAULT = null;
 
 	/**
 	 * The cached value of the '{@link #getLocation() <em>Location</em>}' attribute.
@@ -634,18 +642,19 @@ public class MetadataImpl extends EObjectImpl implements Metadata {
 		super();
 	}
 
-	void appendChangedFiles(File file, List<File> result) throws IOException {
-		appendChangedFiles(file, getMessageDigest(), file.getAbsolutePath().length() + 1, result);
+	void appendChangedFiles(File file, List<File> result, FileFilter exclusionFilter) throws IOException {
+		appendChangedFiles(file, getMessageDigest(), file.getAbsolutePath().length() + 1, result, exclusionFilter);
 	}
 
-	private void appendChangedFiles(File file, MessageDigest md, int baseDirLen, List<File> result) throws IOException {
-		if(!isChecksumCandidate(file))
+	private void appendChangedFiles(File file, MessageDigest md, int baseDirLen, List<File> result,
+			FileFilter exclusionFilter) throws IOException {
+		if(!isChecksumCandidate(file, exclusionFilter))
 			return;
 
 		File[] children = file.listFiles();
 		if(children != null) {
 			for(File child : children)
-				appendChangedFiles(child, md, baseDirLen, result);
+				appendChangedFiles(child, md, baseDirLen, result, exclusionFilter);
 			return;
 		}
 
@@ -1107,13 +1116,15 @@ public class MetadataImpl extends EObjectImpl implements Metadata {
 	 * 
 	 * @generated NOT
 	 */
-	@Override
-	public void loadChecksums(File moduleDir) throws IOException {
-		loadChecksums(getMessageDigest(), moduleDir, moduleDir.getAbsolutePath().length() + 1);
+	public void loadChecksums(File moduleDir, FileFilter exclusionFilter) throws IOException {
+		if(exclusionFilter == null)
+			exclusionFilter = MetadataImpl.DEFAULT_FILE_FILTER;
+		loadChecksums(getMessageDigest(), moduleDir, moduleDir.getAbsolutePath().length() + 1, exclusionFilter);
 	}
 
-	private void loadChecksums(MessageDigest md, File file, int basedirLen) throws IOException {
-		if(!isChecksumCandidate(file))
+	private void loadChecksums(MessageDigest md, File file, int basedirLen, FileFilter exclusionFilter)
+			throws IOException {
+		if(!isChecksumCandidate(file, exclusionFilter))
 			return;
 
 		File[] children = file.listFiles();
@@ -1121,7 +1132,7 @@ public class MetadataImpl extends EObjectImpl implements Metadata {
 			getChecksums().put(file.getAbsolutePath().substring(basedirLen), computeChecksum(file, md));
 		else {
 			for(File child : children)
-				loadChecksums(md, child, basedirLen);
+				loadChecksums(md, child, basedirLen, exclusionFilter);
 		}
 	}
 
@@ -1154,8 +1165,10 @@ public class MetadataImpl extends EObjectImpl implements Metadata {
 	 * @generated NOT
 	 */
 	@Override
-	public void loadTypeFiles(File puppetDir) throws IOException {
-		File[] typeFiles = new File(puppetDir, "type").listFiles();
+	public void loadTypeFiles(File puppetDir, FileFilter exclusionFilter) throws IOException {
+		if(exclusionFilter == null)
+			exclusionFilter = MetadataImpl.DEFAULT_FILE_FILTER;
+		File[] typeFiles = new File(puppetDir, "type").listFiles(exclusionFilter);
 		if(typeFiles == null || typeFiles.length == 0)
 			return;
 
@@ -1186,10 +1199,12 @@ public class MetadataImpl extends EObjectImpl implements Metadata {
 		return VersionRequirementImpl.parseVersionRequirement(versionRequirement);
 	}
 
-	public void populateFromModuleDir(File moduleDirectory) throws IOException {
+	public void populateFromModuleDir(File moduleDirectory, FileFilter exclusionFilter) throws IOException {
+		if(exclusionFilter == null)
+			exclusionFilter = MetadataImpl.DEFAULT_FILE_FILTER;
 		loadModuleFile(new File(moduleDirectory, "Modulefile"));
-		loadTypeFiles(new File(moduleDirectory, "lib/puppet"));
-		loadChecksums(moduleDirectory);
+		loadTypeFiles(new File(moduleDirectory, "lib/puppet"), exclusionFilter);
+		loadChecksums(moduleDirectory, exclusionFilter);
 		location = moduleDirectory;
 	}
 

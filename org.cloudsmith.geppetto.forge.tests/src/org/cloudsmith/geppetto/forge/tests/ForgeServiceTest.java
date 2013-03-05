@@ -101,7 +101,7 @@ public class ForgeServiceTest {
 	@Test
 	public void testLoadModule__File() {
 		try {
-			Metadata md = fixture.loadModule(Activator.getTestData("puppetlabs-apache"));
+			Metadata md = fixture.loadModule(Activator.getTestData("puppetlabs-apache"), null);
 			assertEquals("Unexpected module name", "puppetlabs-apache", md.getFullName());
 		}
 		catch(IOException e) {
@@ -112,7 +112,7 @@ public class ForgeServiceTest {
 	@Test
 	public void testLoadModule__File2() {
 		try {
-			Metadata md = fixture.loadModule(Activator.getTestData("DavidSchmitt-collectd"));
+			Metadata md = fixture.loadModule(Activator.getTestData("DavidSchmitt-collectd"), null);
 			assertEquals("Unexpected module name", "DavidSchmitt-collectd", md.getFullName());
 		}
 		catch(IOException e) {
@@ -123,7 +123,7 @@ public class ForgeServiceTest {
 	@Test
 	public void testLoadModule__File3() {
 		try {
-			Metadata md = fixture.loadModule(Activator.getTestData("bobsh-iptables"));
+			Metadata md = fixture.loadModule(Activator.getTestData("bobsh-iptables"), null);
 			assertEquals("Unexpected module name", "bobsh-iptables", md.getFullName());
 		}
 		catch(IOException e) {
@@ -134,7 +134,7 @@ public class ForgeServiceTest {
 	@Test
 	public void testLoadModule__File4() {
 		try {
-			Metadata md = fixture.loadModule(Activator.getTestData("ghoneycutt-rsync"));
+			Metadata md = fixture.loadModule(Activator.getTestData("ghoneycutt-rsync"), null);
 			assertEquals("Unexpected module name", "ghoneycutt-rsync", md.getFullName());
 		}
 		catch(IOException e) {
@@ -145,7 +145,7 @@ public class ForgeServiceTest {
 	@Test
 	public void testLoadModule__File5() {
 		try {
-			Metadata md = fixture.loadModule(Activator.getTestData("lab42-common"));
+			Metadata md = fixture.loadModule(Activator.getTestData("lab42-common"), null);
 			assertEquals("Unexpected module name", "lab42-common", md.getFullName());
 		}
 		catch(IOException e) {

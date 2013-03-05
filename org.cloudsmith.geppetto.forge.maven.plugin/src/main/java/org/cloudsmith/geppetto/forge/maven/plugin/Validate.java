@@ -336,10 +336,11 @@ public class Validate extends AbstractForgeMojo {
 		String locationLabel = null;
 		if(dataObj instanceof DetailedDiagnosticData) {
 			DetailedDiagnosticData details = (DetailedDiagnosticData) dataObj;
-			resourcePath = details.getFile().getPath();
-			if(resourcePath != null && resourcePath.startsWith(BUILD_DIR))
+			File detailsFile = details.getFile();
+			if(detailsFile != null && isParentOrEqual(getBuildDir(), detailsFile))
 				// We don't care about warnings/errors from imported modules
 				return null;
+
 			locationLabel = locationLabel(details);
 		}
 

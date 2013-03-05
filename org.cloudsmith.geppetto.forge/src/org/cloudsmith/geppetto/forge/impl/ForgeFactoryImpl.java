@@ -12,6 +12,7 @@
 package org.cloudsmith.geppetto.forge.impl;
 
 import java.io.File;
+import java.io.FileFilter;
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URI;
@@ -101,6 +102,16 @@ public class ForgeFactoryImpl extends EFactoryImpl implements ForgeFactory {
 	 */
 	public String convertbyteArrayToString(EDataType eDataType, Object instanceValue) {
 		return super.convertToString(instanceValue);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
+	public String convertFileFilterToString(EDataType eDataType, Object instanceValue) {
+		return super.convertToString(eDataType, instanceValue);
 	}
 
 	/**
@@ -234,6 +245,8 @@ public class ForgeFactoryImpl extends EFactoryImpl implements ForgeFactory {
 				return convertbyteArrayToString(eDataType, instanceValue);
 			case ForgePackage.FILE:
 				return convertFileToString(eDataType, instanceValue);
+			case ForgePackage.FILE_FILTER:
+				return convertFileFilterToString(eDataType, instanceValue);
 			case ForgePackage.HTTP_URL_CONNECTION:
 				return convertHttpURLConnectionToString(eDataType, instanceValue);
 			case ForgePackage.ILLEGAL_ARGUMENT_EXCEPTION:
@@ -348,6 +361,16 @@ public class ForgeFactoryImpl extends EFactoryImpl implements ForgeFactory {
 	 * 
 	 * @generated
 	 */
+	public FileFilter createFileFilterFromString(EDataType eDataType, String initialValue) {
+		return (FileFilter) super.createFromString(eDataType, initialValue);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
 	public File createFileFromString(EDataType eDataType, String initialValue) {
 		return (File) super.createFromString(eDataType, initialValue);
 	}
@@ -393,6 +416,8 @@ public class ForgeFactoryImpl extends EFactoryImpl implements ForgeFactory {
 				return createbyteArrayFromString(eDataType, initialValue);
 			case ForgePackage.FILE:
 				return createFileFromString(eDataType, initialValue);
+			case ForgePackage.FILE_FILTER:
+				return createFileFilterFromString(eDataType, initialValue);
 			case ForgePackage.HTTP_URL_CONNECTION:
 				return createHttpURLConnectionFromString(eDataType, initialValue);
 			case ForgePackage.ILLEGAL_ARGUMENT_EXCEPTION:

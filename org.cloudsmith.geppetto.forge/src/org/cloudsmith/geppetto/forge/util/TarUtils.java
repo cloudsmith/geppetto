@@ -12,6 +12,7 @@
 package org.cloudsmith.geppetto.forge.util;
 
 import java.io.File;
+import java.io.FileFilter;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -21,12 +22,12 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.regex.Pattern;
 
 import org.apache.commons.compress.archivers.ArchiveEntry;
 import org.apache.commons.compress.archivers.tar.TarArchiveEntry;
 import org.apache.commons.compress.archivers.tar.TarArchiveInputStream;
 import org.apache.commons.compress.archivers.tar.TarArchiveOutputStream;
+import org.apache.commons.compress.archivers.tar.TarConstants;
 import org.cloudsmith.geppetto.common.os.FileUtils;
 import org.cloudsmith.geppetto.common.os.OsUtil;
 import org.cloudsmith.geppetto.common.os.StreamUtil;
@@ -34,10 +35,10 @@ import org.cloudsmith.geppetto.common.os.StreamUtil;
 public class TarUtils {
 	private static final int MAX_FILES_PER_COMMAND = 20;
 
-	private static void append(File file, Pattern excludePattern, int baseNameLen, String addedTopFolder,
+	private static void append(File file, FileFilter filter, int baseNameLen, String addedTopFolder,
 			TarArchiveOutputStream tarOut) throws IOException {
 
-		if(excludePattern != null && excludePattern.matcher(file.getName()).matches())
+		if(filter != null && !filter.accept(file))
 			return;
 
 		String name = file.getAbsolutePath();
@@ -53,7 +54,7 @@ public class TarUtils {
 		if(FileUtils.isSymlink(file)) {
 			String linkTarget = FileUtils.readSymbolicLink(file);
 			if(linkTarget != null) {
-				TarArchiveEntry entry = new TarArchiveEntry(name, TarArchiveEntry.LF_SYMLINK);
+				TarArchiveEntry entry = new TarArchiveEntry(name, TarConstants.LF_SYMLINK);
 				entry.setName(name);
 				entry.setLinkName(linkTarget);
 				tarOut.putArchiveEntry(entry);
@@ -68,7 +69,7 @@ public class TarUtils {
 			tarOut.closeArchiveEntry();
 			// This is a directory. Append its children
 			for(File child : children)
-				append(child, excludePattern, baseNameLen, addedTopFolder, tarOut);
+				append(child, filter, baseNameLen, addedTopFolder, tarOut);
 			return;
 		}
 
@@ -105,7 +106,7 @@ public class TarUtils {
 		pack(sourceFolder, output, null, includeTopFolder, null);
 	}
 
-	public static void pack(File sourceFolder, OutputStream output, Pattern excludePattern, boolean includeTopFolder,
+	public static void pack(File sourceFolder, OutputStream output, FileFilter filter, boolean includeTopFolder,
 			String addedTopFolder) throws IOException {
 		TarArchiveOutputStream tarOut = new TarArchiveOutputStream(output);
 		tarOut.setLongFileMode(TarArchiveOutputStream.LONGFILE_POSIX);
@@ -115,7 +116,7 @@ public class TarUtils {
 			baseNameLen -= (sourceFolder.getName().length() + 1);
 
 		try {
-			append(sourceFolder, excludePattern, baseNameLen, addedTopFolder, tarOut);
+			append(sourceFolder, filter, baseNameLen, addedTopFolder, tarOut);
 		}
 		finally {
 			StreamUtil.close(tarOut);

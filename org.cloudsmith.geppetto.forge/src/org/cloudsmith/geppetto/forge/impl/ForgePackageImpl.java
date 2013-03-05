@@ -12,6 +12,7 @@
 package org.cloudsmith.geppetto.forge.impl;
 
 import java.io.File;
+import java.io.FileFilter;
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.util.List;
@@ -189,6 +190,14 @@ public class ForgePackageImpl extends EPackageImpl implements ForgePackage {
 	 * @generated
 	 */
 	private EDataType fileEDataType = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
+	private EDataType fileFilterEDataType = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -435,6 +444,7 @@ public class ForgePackageImpl extends EPackageImpl implements ForgePackage {
 		// Create data types
 		byteArrayEDataType = createEDataType(BYTE_ARRAY);
 		fileEDataType = createEDataType(FILE);
+		fileFilterEDataType = createEDataType(FILE_FILTER);
 		httpURLConnectionEDataType = createEDataType(HTTP_URL_CONNECTION);
 		illegalArgumentExceptionEDataType = createEDataType(ILLEGAL_ARGUMENT_EXCEPTION);
 		incompleteExceptionEDataType = createEDataType(INCOMPLETE_EXCEPTION);
@@ -576,6 +586,16 @@ public class ForgePackageImpl extends EPackageImpl implements ForgePackage {
 	@Override
 	public EDataType getFile() {
 		return fileEDataType;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
+	public EDataType getFileFilter() {
+		return fileFilterEDataType;
 	}
 
 	/**
@@ -1219,11 +1239,13 @@ public class ForgePackageImpl extends EPackageImpl implements ForgePackage {
 		EOperation op = addEOperation(forgeEClass, this.getMetadata(), "build", 0, 1, IS_UNIQUE, IS_ORDERED);
 		addEParameter(op, this.getFile(), "moduleSource", 0, 1, IS_UNIQUE, IS_ORDERED);
 		addEParameter(op, this.getFile(), "destination", 0, 1, IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, this.getFileFilter(), "exclusionFilter", 0, 1, IS_UNIQUE, IS_ORDERED);
 		addEException(op, this.getIOException());
 		addEException(op, this.getIncompleteException());
 
 		op = addEOperation(forgeEClass, null, "changes", 0, 1, IS_UNIQUE, IS_ORDERED);
 		addEParameter(op, this.getFile(), "path", 0, 1, IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, this.getFileFilter(), "exclusionFilter", 0, 1, IS_UNIQUE, IS_ORDERED);
 		addEException(op, this.getIOException());
 		EGenericType g1 = createEGenericType(this.getList());
 		EGenericType g2 = createEGenericType(this.getFile());
@@ -1285,6 +1307,7 @@ public class ForgePackageImpl extends EPackageImpl implements ForgePackage {
 
 		op = addEOperation(forgeServiceEClass, this.getMetadata(), "loadModule", 0, 1, IS_UNIQUE, IS_ORDERED);
 		addEParameter(op, this.getFile(), "moduleDirectory", 0, 1, IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, this.getFileFilter(), "exclusionFilter", 0, 1, IS_UNIQUE, IS_ORDERED);
 		addEException(op, this.getIOException());
 
 		initEClass(
@@ -1399,10 +1422,12 @@ public class ForgePackageImpl extends EPackageImpl implements ForgePackage {
 
 		op = addEOperation(metadataEClass, null, "loadTypeFiles", 0, 1, IS_UNIQUE, IS_ORDERED);
 		addEParameter(op, this.getFile(), "puppetDir", 0, 1, IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, this.getFileFilter(), "exclusionFilter", 0, 1, IS_UNIQUE, IS_ORDERED);
 		addEException(op, this.getIOException());
 
 		op = addEOperation(metadataEClass, null, "loadChecksums", 0, 1, IS_UNIQUE, IS_ORDERED);
 		addEParameter(op, this.getFile(), "moduleDir", 0, 1, IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, this.getFileFilter(), "exclusionFilter", 0, 1, IS_UNIQUE, IS_ORDERED);
 		addEException(op, this.getIOException());
 
 		op = addEOperation(metadataEClass, null, "saveJSONMetadata", 0, 1, IS_UNIQUE, IS_ORDERED);
@@ -1513,6 +1538,8 @@ public class ForgePackageImpl extends EPackageImpl implements ForgePackage {
 		// Initialize data types
 		initEDataType(byteArrayEDataType, byte[].class, "byteArray", IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS);
 		initEDataType(fileEDataType, File.class, "File", IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS);
+		initEDataType(
+			fileFilterEDataType, FileFilter.class, "FileFilter", IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS);
 		initEDataType(
 			httpURLConnectionEDataType, HttpURLConnection.class, "HttpURLConnection", IS_SERIALIZABLE,
 			!IS_GENERATED_INSTANCE_CLASS);

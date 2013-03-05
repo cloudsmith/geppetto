@@ -12,6 +12,7 @@
 package org.cloudsmith.geppetto.forge;
 
 import java.io.File;
+import java.io.FileFilter;
 import java.io.IOException;
 import java.net.URI;
 import java.util.Map;
@@ -274,11 +275,16 @@ public interface Metadata extends EObject {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
 	 * 
+	 * @param exclusionFilter
+	 *            A filter that can be used to exclude files and directories
+	 *            <!-- end-model-doc -->
 	 * @model exceptions="org.cloudsmith.geppetto.forge.IOException" moduleDirDataType="org.cloudsmith.geppetto.forge.File"
+	 *        exclusionFilterDataType="org.cloudsmith.geppetto.forge.FileFilter"
 	 * @generated
 	 */
-	void loadChecksums(File moduleDir) throws IOException;
+	void loadChecksums(File moduleDir, FileFilter exclusionFilter) throws IOException;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -292,11 +298,16 @@ public interface Metadata extends EObject {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
 	 * 
+	 * @param exclusionFilter
+	 *            A filter that can be used to exclude files and directories
+	 *            <!-- end-model-doc -->
 	 * @model exceptions="org.cloudsmith.geppetto.forge.IOException" puppetDirDataType="org.cloudsmith.geppetto.forge.File"
+	 *        exclusionFilterDataType="org.cloudsmith.geppetto.forge.FileFilter"
 	 * @generated
 	 */
-	void loadTypeFiles(File puppetDir) throws IOException;
+	void loadTypeFiles(File puppetDir, FileFilter exclusionFilter) throws IOException;
 
 	/**
 	 * <!-- begin-user-doc -->

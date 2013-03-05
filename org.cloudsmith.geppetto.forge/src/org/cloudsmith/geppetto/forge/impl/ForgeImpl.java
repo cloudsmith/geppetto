@@ -13,6 +13,7 @@ package org.cloudsmith.geppetto.forge.impl;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileFilter;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -75,11 +76,10 @@ public class ForgeImpl extends EObjectImpl implements Forge {
 	 */
 	protected static final String VERSION_EDEFAULT = null;
 
-	private static void installTemplate(Metadata metadata, File destinationBase, File template, int templateBaseLength)
-			throws IOException {
+	private static void installTemplate(Metadata metadata, File destinationBase, File template, int templateBaseLength,
+			FileFilter exclusionFilter) throws IOException {
 
-		if(MetadataImpl.DEFAULT_EXCLUDES_PATTERN.matcher(template.getName()).matches())
-			// We do not want SCM files etc. to be included here
+		if(!exclusionFilter.accept(template))
 			return;
 
 		String tempRelative = template.getAbsolutePath().substring(templateBaseLength);
@@ -88,7 +88,7 @@ public class ForgeImpl extends EObjectImpl implements Forge {
 			if(!destination.mkdir())
 				throw new IOException(destination + " could not be created");
 			for(File path : template.listFiles())
-				installTemplate(metadata, destinationBase, path, templateBaseLength);
+				installTemplate(metadata, destinationBase, path, templateBaseLength, exclusionFilter);
 			return;
 		}
 		if(tempRelative.endsWith(".erb")) {
@@ -167,8 +167,12 @@ public class ForgeImpl extends EObjectImpl implements Forge {
 	 * @generated NOT
 	 */
 	@Override
-	public Metadata build(File moduleSource, File destination) throws IOException, IncompleteException {
-		Metadata md = getService().loadModule(moduleSource);
+	public Metadata build(File moduleSource, File destination, FileFilter exclusionFilter) throws IOException,
+			IncompleteException {
+		if(exclusionFilter == null)
+			exclusionFilter = MetadataImpl.DEFAULT_FILE_FILTER;
+
+		Metadata md = getService().loadModule(moduleSource, exclusionFilter);
 		String fullName = md.getFullName();
 		if(fullName == null)
 			throw new IncompleteException("A full name (user-module) must be specified in the Modulefile");
@@ -187,7 +191,7 @@ public class ForgeImpl extends EObjectImpl implements Forge {
 		File moduleArchive = new File(destination, fullNameWithVersion + ".tar.gz");
 		OutputStream out = new GZIPOutputStream(new FileOutputStream(moduleArchive));
 		// Pack closes its output
-		TarUtils.pack(moduleSource, out, MetadataImpl.DEFAULT_EXCLUDES_PATTERN, false, fullNameWithVersion);
+		TarUtils.pack(moduleSource, out, exclusionFilter, false, fullNameWithVersion);
 		return md;
 	}
 
@@ -198,10 +202,13 @@ public class ForgeImpl extends EObjectImpl implements Forge {
 	 * @generated NOT
 	 */
 	@Override
-	public List<File> changes(File path) throws IOException {
+	public List<File> changes(File path, FileFilter exclusionFilter) throws IOException {
+		if(exclusionFilter == null)
+			exclusionFilter = MetadataImpl.DEFAULT_FILE_FILTER;
+
 		MetadataImpl md = (MetadataImpl) getService().loadJSONMetadata(new File(path, "metadata.json"));
 		List<File> result = new ArrayList<File>();
-		md.appendChangedFiles(path, result);
+		md.appendChangedFiles(path, result, exclusionFilter);
 		return result;
 	}
 
@@ -278,7 +285,7 @@ public class ForgeImpl extends EObjectImpl implements Forge {
 		File skeleton = new File(templatesDir, "generator");
 		int baseLength = skeleton.getAbsolutePath().length() + 1;
 		for(File path : skeleton.listFiles()) {
-			installTemplate(metadata, destination, path, baseLength);
+			installTemplate(metadata, destination, path, baseLength, MetadataImpl.DEFAULT_FILE_FILTER);
 		}
 	}
 

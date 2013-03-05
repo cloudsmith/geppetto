@@ -479,8 +479,8 @@ public class PPModulefileBuilder extends IncrementalProjectBuilder implements PP
 
 					// if there are types
 					if(tf.exists())
-						metadata.loadTypeFiles(tf);
-					metadata.loadChecksums(pf);
+						metadata.loadTypeFiles(tf, null);
+					metadata.loadChecksums(pf, null);
 					metadata.saveJSONMetadata(mf);
 					// must refresh the file as it was written outside the resource framework
 					IFile metadataResource = getProject().getFile("metadata.json");

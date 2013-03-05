@@ -12,6 +12,7 @@
 package org.cloudsmith.geppetto.forge;
 
 import java.io.File;
+import java.io.FileFilter;
 import java.io.IOException;
 import java.util.List;
 
@@ -44,24 +45,34 @@ public interface Forge extends EObject {
 	 *            The module directory
 	 * @param destination
 	 *            The directory where the created archive will end up. Created if necessary.
+	 * @param exclusionFilter
+	 *            A filter that can be used to exclude files and directories
 	 *            <!-- end-model-doc -->
 	 * @model exceptions="org.cloudsmith.geppetto.forge.IOException org.cloudsmith.geppetto.forge.IncompleteException"
 	 *        moduleSourceDataType="org.cloudsmith.geppetto.forge.File" destinationDataType="org.cloudsmith.geppetto.forge.File"
+	 *        exclusionFilterDataType="org.cloudsmith.geppetto.forge.FileFilter"
 	 * @generated
 	 */
-	Metadata build(File moduleSource, File destination) throws IOException, IncompleteException;
+	Metadata build(File moduleSource, File destination, FileFilter exclusionFilter) throws IOException,
+			IncompleteException;
 
 	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
 	 * List modified files in an installed module
 	 * 
 	 * @param path
 	 *            The module directory
+	 * @param exclusionFilter
+	 *            A filter that can be used to exclude files and directories
 	 *            <!-- end-model-doc -->
-	 * @model dataType="org.cloudsmith.geppetto.forge.File" pathDataType="org.cloudsmith.geppetto.forge.File"
+	 * @model dataType="org.cloudsmith.geppetto.forge.List<org.cloudsmith.geppetto.forge.File>" many="false"
+	 *        exceptions="org.cloudsmith.geppetto.forge.IOException" pathDataType="org.cloudsmith.geppetto.forge.File"
+	 *        exclusionFilterDataType="org.cloudsmith.geppetto.forge.FileFilter"
 	 * @generated
 	 */
-	List<File> changes(File path) throws IOException;
+	List<File> changes(File path, FileFilter exclusionFilter) throws IOException;
 
 	/**
 	 * <!-- begin-user-doc -->

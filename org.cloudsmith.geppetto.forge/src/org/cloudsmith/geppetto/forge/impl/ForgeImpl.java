@@ -386,7 +386,7 @@ public class ForgeImpl extends EObjectImpl implements Forge {
 
 		// Unpack closes its input.
 		File moduleFile = getCache().retrieve(release.getFile());
-		TarUtils.unpack(new GZIPInputStream(new FileInputStream(moduleFile)), path, true);
+		TarUtils.unpack(new GZIPInputStream(new FileInputStream(moduleFile)), path, true, null);
 		return service.loadJSONMetadata(new File(path, "metadata.json"));
 	}
 

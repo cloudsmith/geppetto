@@ -156,7 +156,8 @@ public class TarUtils {
 	 *            in order for this to work.
 	 * @throws IOException
 	 */
-	public static void unpack(InputStream source, File targetFolder, boolean skipTopFolder) throws IOException {
+	public static void unpack(InputStream source, File targetFolder, boolean skipTopFolder, FileFilter fileFilter)
+			throws IOException {
 		String topFolderName = null;
 		Map<File, Map<Integer, List<String>>> chmodMap = new HashMap<File, Map<Integer, List<String>>>();
 		TarArchiveInputStream in = new TarArchiveInputStream(source);
@@ -191,12 +192,15 @@ public class TarUtils {
 						linkName = null;
 				}
 
+				File outFile = new File(targetFolder, name);
+				if(fileFilter != null && !fileFilter.accept(outFile))
+					continue;
+
 				if(linkName != null) {
 					if(!OsUtil.link(targetFolder, name, te.getLinkName()))
 						throw new IOException("Archive contains links but they are not supported on this platform");
 				}
 				else {
-					File outFile = new File(targetFolder, name);
 					if(te.isDirectory()) {
 						outFile.mkdirs();
 					}

@@ -8,9 +8,10 @@ import org.apache.maven.plugin.MojoFailureException;
 import org.junit.Test;
 
 public class PublishTestMojo extends AbstractForgeTestMojo {
+
 	@Test
 	public void publishOK() throws Exception {
-		setTestForgeModulesRoot("test_module_c");
+		packageModule("test_module_c");
 		Publish publish = (Publish) lookupConfiguredMojo(createMavenSession(), newMojoExecution("publish"));
 		assertNotNull(publish);
 
@@ -24,7 +25,7 @@ public class PublishTestMojo extends AbstractForgeTestMojo {
 
 	@Test
 	public void publishWithNoModuleAtForge() throws Exception {
-		setTestForgeModulesRoot("test_module_d");
+		packageModule("test_module_d");
 		Publish publish = (Publish) lookupConfiguredMojo(createMavenSession(), newMojoExecution("publish"));
 		assertNotNull(publish);
 
@@ -39,7 +40,7 @@ public class PublishTestMojo extends AbstractForgeTestMojo {
 
 	@Test
 	public void publishWrongOwner() throws Exception {
-		setTestForgeModulesRoot("test_module_wrong_owner");
+		packageModule("test_module_wrong_owner");
 		Publish publish = (Publish) lookupConfiguredMojo(createMavenSession(), newMojoExecution("publish"));
 		assertNotNull(publish);
 

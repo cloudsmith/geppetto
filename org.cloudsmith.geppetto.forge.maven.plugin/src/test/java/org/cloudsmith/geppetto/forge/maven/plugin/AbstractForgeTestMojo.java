@@ -35,6 +35,7 @@ import org.apache.maven.model.PluginExecution;
 import org.apache.maven.plugin.MavenPluginManager;
 import org.apache.maven.plugin.Mojo;
 import org.apache.maven.plugin.MojoExecution;
+import org.apache.maven.plugin.MojoFailureException;
 import org.apache.maven.plugin.descriptor.MojoDescriptor;
 import org.apache.maven.plugin.descriptor.Parameter;
 import org.apache.maven.plugin.descriptor.PluginDescriptor;
@@ -44,6 +45,7 @@ import org.apache.maven.project.ProjectBuilder;
 import org.apache.maven.project.ProjectBuildingRequest;
 import org.apache.maven.repository.RepositorySystem;
 import org.apache.maven.repository.internal.MavenRepositorySystemSession;
+import org.cloudsmith.geppetto.common.os.FileUtils;
 import org.codehaus.plexus.ContainerConfiguration;
 import org.codehaus.plexus.DefaultContainerConfiguration;
 import org.codehaus.plexus.DefaultPlexusContainer;
@@ -229,7 +231,10 @@ public class AbstractForgeTestMojo {
 	protected Mojo lookupConfiguredMojo(MavenSession session, MojoExecution execution) throws Exception,
 			ComponentConfigurationException {
 
-		return getPluginManager().getConfiguredMojo(Mojo.class, session, execution);
+		Mojo mojo = getPluginManager().getConfiguredMojo(Mojo.class, session, execution);
+		if(mojo instanceof AbstractForgeMojo)
+			((AbstractForgeMojo) mojo).setLogger(new NOPLogger());
+		return mojo;
 	}
 
 	protected MavenSession newMavenSession(MavenProject project) {
@@ -254,6 +259,19 @@ public class AbstractForgeTestMojo {
 		return execution;
 	}
 
+	protected void packageModule(String moduleName) throws Exception {
+		setTestForgeModulesRoot(moduleName);
+		Package pkg = (Package) lookupConfiguredMojo(createMavenSession(), newMojoExecution("package"));
+		assertNotNull(pkg);
+
+		try {
+			pkg.execute();
+		}
+		catch(MojoFailureException e) {
+			fail("Packaging of " + moduleName + " failed: " + e.getMessage());
+		}
+	}
+
 	protected void setTestForgeModulesRoot(String project) {
 		File projectFile = getTestFile("src/test/resources/workspace/" + project);
 		String absPath = projectFile.getAbsolutePath();
@@ -272,6 +290,7 @@ public class AbstractForgeTestMojo {
 		buildingRequest = request.getProjectBuildingRequest();
 		userProps = new Properties();
 		userProps.put("testForgeServiceURL", System.getProperty("forge.base.url"));
+		FileUtils.rmR(new File(pom.getParent(), "target"));
 	}
 
 	protected ContainerConfiguration setupContainerConfiguration() {

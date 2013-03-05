@@ -12,7 +12,7 @@ public class RepublishTestMojo extends AbstractForgeTestMojo {
 	@SuppressWarnings("serial")
 	@Test
 	public void republish() throws Exception {
-		setTestForgeModulesRoot("test_module_c");
+		packageModule("test_module_c");
 		Publish publish = (Publish) lookupConfiguredMojo(createMavenSession(), newMojoExecution("publish"));
 		assertNotNull(publish);
 

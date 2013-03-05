@@ -59,7 +59,7 @@ import org.eclipse.emf.common.util.URI;
  * The <tt>validate</tt> goal can perform a very elaborate analyzis of the module using the Geppetto platform. It is also capable of running the
  * <tt>puppet-lint</tt> gem.
  */
-@Mojo(name = "validate", requiresProject = false, defaultPhase = LifecyclePhase.VALIDATE)
+@Mojo(name = "validate", requiresProject = false, defaultPhase = LifecyclePhase.COMPILE)
 public class Validate extends AbstractForgeMojo {
 	private static int getSeverity(Issue issue) {
 		switch(issue.getSeverity()) {
@@ -359,7 +359,7 @@ public class Validate extends AbstractForgeMojo {
 		Module module = release.getModule();
 		releaseService.download(module.getOwner().getUsername(), module.getName(), release.getVersion(), content);
 		File moduleDir = new File(modulesRoot, module.getName());
-		TarUtils.unpack(new GZIPInputStream(content.getInputStream()), moduleDir, false);
+		TarUtils.unpack(new GZIPInputStream(content.getInputStream()), moduleDir, false, null);
 		return moduleDir;
 	}
 

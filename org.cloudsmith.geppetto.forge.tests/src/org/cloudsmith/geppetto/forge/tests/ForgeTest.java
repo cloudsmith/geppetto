@@ -76,7 +76,7 @@ public class ForgeTest {
 			File unpackFolder = ForgeTests.getTestOutputFolder("apache-unpack-result", true);
 			InputStream input = new GZIPInputStream(new FileInputStream(builtArchive));
 			try {
-				TarUtils.unpack(input, unpackFolder, false);
+				TarUtils.unpack(input, unpackFolder, false, null);
 			}
 			finally {
 				StreamUtil.close(input);

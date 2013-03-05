@@ -15,7 +15,7 @@
 				<executions>
 					<execution>
 						<id>validate</id>
-						<phase>compile</phase>
+						<phase>validate</phase>
 						<goals>
 							<goal>validate</goal>
 						</goals>
@@ -31,8 +31,15 @@
 						</configuration>
 					</execution>
 					<execution>
+						<id>package</id>
+						<phase>package</phase>
+						<goals>
+							<goal>package</goal>
+						</goals>
+					</execution>
+					<execution>
 						<id>publish</id>
-						<phase>install</phase>
+						<phase>deploy</phase>
 						<goals>
 							<goal>publish</goal>
 						</goals>

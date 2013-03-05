@@ -1,0 +1,46 @@
+<component-set>
+	<components>
+		<component>
+			<role>org.apache.maven.lifecycle.mapping.LifecycleMapping</role>
+			<role-hint>forge-module</role-hint>
+			<implementation>
+				org.apache.maven.lifecycle.mapping.DefaultLifecycleMapping
+			</implementation>
+			<configuration>
+				<lifecycles>
+					<lifecycle>
+						<id>default</id>
+						<phases>
+							<compile>
+								org.cloudsmith.geppetto:forge-maven-plugin:validate
+							</compile>
+							<package>
+								org.cloudsmith.geppetto:forge-maven-plugin:package
+							</package>
+							<deploy>
+								org.cloudsmith.geppetto:forge-maven-plugin:publish
+							</deploy>
+						</phases>
+					</lifecycle>
+				</lifecycles>
+			</configuration>
+		</component>
+		<component>
+			<role>org.apache.maven.artifact.handler.ArtifactHandler</role>
+			<role-hint>forge-module</role-hint>
+			<implementation>
+				org.apache.maven.artifact.handler.DefaultArtifactHandler
+			</implementation>
+			<configuration>
+				<!--the extension used by Maven in the repository -->
+				<extension>tar.gz</extension>
+				<!--the type used when specifying dependencies etc. -->
+				<type>forge-module</type>
+				<!--the packaging used when declaring an implementation of the packaging -->
+				<packaging>forge-module</packaging>
+				<!--This is not a java related artifact-->
+				<addedToClasspath>false</addedToClasspath>
+			</configuration>
+		</component>
+	</components>
+</component-set>

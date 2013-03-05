@@ -8,6 +8,10 @@
 	<artifactId>org.cloudsmith.geppetto.forge.api</artifactId>
 	<name>Geppetto Forge API</name>
 
+	<description>
+		A Java client for the Puppetlabs Forge RESTful API.
+	</description>
+
 	<properties>
 		<testScriptDir>${basedir}/src/test/script</testScriptDir>
 		<forgeServerPidFile>${project.build.directory}/forgeserver.pid</forgeServerPidFile>

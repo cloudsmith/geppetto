@@ -26,7 +26,13 @@ import com.google.gson.JsonSerializationContext;
 import com.google.gson.JsonSerializer;
 import com.google.gson.annotations.Expose;
 
+/**
+ * A version requirement described as match rule and a version.
+ */
 public class VersionRequirement {
+	/**
+	 * A json adapter capable of serializing/deserializing a version requirement as a string.
+	 */
 	public static class JsonAdapter implements JsonSerializer<VersionRequirement>, JsonDeserializer<VersionRequirement> {
 		@Override
 		public VersionRequirement deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context)
@@ -281,7 +287,7 @@ public class VersionRequirement {
 
 	private transient List<Object> minSegments;
 
-	public int compareSegments(List<Object> asegs, List<Object> bsegs) {
+	private int compareSegments(List<Object> asegs, List<Object> bsegs) {
 		int adx = 0;
 		int aTop = asegs.size();
 		int bdx = 0;
@@ -356,18 +362,25 @@ public class VersionRequirement {
 	}
 
 	/**
-	 * Returns true if the the range represented by this version requirement
-	 * has no intersection with the range represented by <code>vr</code>
+	 * Checks if the the range represented by this version requirement
+	 * intersects with the range represented by <code>vr</code>. The
+	 * requirements are considered to be conflicting unless they
+	 * intersect.
 	 * 
 	 * @param vr
 	 *            The version requirement to compare with
-	 * @return
+	 * @return <tt>true</tt> unless the requirements intersect.
 	 */
 	public boolean conflictsWith(VersionRequirement vr) {
 		return compareSegments(getMaxSegments(), vr.getMinSegments()) < 0 ||
 				compareSegments(getMinSegments(), vr.getMaxSegments()) > 0;
 	}
 
+	/**
+	 * Checks if the match rule and version are exactly the same.
+	 * 
+	 * @return <tt>true</tt> if the objects are equal
+	 */
 	@Override
 	public boolean equals(Object other) {
 		if(this == other)
@@ -534,7 +547,8 @@ public class VersionRequirement {
 	 * smaller and completely within the range appointed by the other version.
 	 * 
 	 * @param vr
-	 * @return
+	 *            The requirement to compare with
+	 * @return <tt>true</tt> if this requirement is as restrictive as the argument
 	 */
 	public boolean isAsRestrictiveAs(VersionRequirement vr) {
 		return compareSegments(getMinSegments(), vr.getMinSegments()) >= 0 &&
@@ -545,7 +559,8 @@ public class VersionRequirement {
 	 * Checks if the given version is a match for this version requirement.
 	 * 
 	 * @param version
-	 * @return
+	 *            The version to match
+	 * @return <tt>true</tt> if the version is a match for this requirement.
 	 */
 	public boolean matches(String version) {
 		MatchRule rule = getMatchRule();

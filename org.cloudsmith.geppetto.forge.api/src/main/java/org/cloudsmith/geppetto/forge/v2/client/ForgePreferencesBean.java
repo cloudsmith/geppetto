@@ -13,6 +13,9 @@ package org.cloudsmith.geppetto.forge.v2.client;
 
 import java.io.Serializable;
 
+/**
+ * A standard bean implementation that contains all preferences and has setters for them.
+ */
 public class ForgePreferencesBean implements ForgePreferences, Serializable {
 	private static final long serialVersionUID = -4834246942497662777L;
 

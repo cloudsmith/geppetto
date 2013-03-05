@@ -18,8 +18,8 @@ import java.lang.reflect.Type;
 import java.util.Map;
 
 /**
- * @author thhal
- * 
+ * The generic communication client. Typically implemented using HTTP. Other clients can be added for
+ * specific purposes (like unit tests).
  */
 public interface ForgeClient {
 

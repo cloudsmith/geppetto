@@ -17,6 +17,9 @@ import org.cloudsmith.geppetto.forge.v2.repository.MetadataRepositoryImpl;
 import com.google.gson.Gson;
 import com.google.inject.AbstractModule;
 
+/**
+ * This is the default HTTP Guice module
+ */
 public abstract class ForgeHttpModule extends AbstractModule {
 
 	@Override

@@ -19,7 +19,8 @@ import com.google.gson.GsonBuilder;
 import com.google.inject.Provider;
 
 /**
- * A provider of {@link Gson} instances
+ * A provider of {@link Gson} instances. Configured to handle the Forge timestamp
+ * notation and string representation of {@link QName} and {@link VersionRequirement}.
  */
 public class GsonProvider implements Provider<Gson> {
 	private static final GsonBuilder gsonBuilder;

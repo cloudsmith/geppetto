@@ -13,6 +13,9 @@ package org.cloudsmith.geppetto.forge.v2.model;
 
 import com.google.gson.annotations.Expose;
 
+/**
+ * Describes a dependency from one module to another.
+ */
 public class Dependency extends Entity {
 	private static boolean safeEquals(Object a, Object b) {
 		if(a == b)

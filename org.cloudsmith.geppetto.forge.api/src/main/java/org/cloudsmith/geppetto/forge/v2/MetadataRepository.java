@@ -20,6 +20,7 @@ import org.cloudsmith.geppetto.forge.v2.model.QName;
 import org.cloudsmith.geppetto.forge.v2.model.Release;
 
 /**
+ * This class provides the methods needed to perform dependency resolution.
  */
 public interface MetadataRepository {
 	/**

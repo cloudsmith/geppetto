@@ -55,6 +55,8 @@ public class Metadata extends Entity {
 	private String license;
 
 	/**
+	 * The verbose name of the author of this module.
+	 * 
 	 * @return the author
 	 */
 	public String getAuthor() {
@@ -62,7 +64,9 @@ public class Metadata extends Entity {
 	}
 
 	/**
-	 * @return the checksums
+	 * A map with filename &lt;-&gt; checksum entries for each file in the module
+	 * 
+	 * @return the checksums or an empty map if no checksums has been assigned
 	 */
 	public Map<String, String> getChecksums() {
 		return checksums == null
@@ -71,7 +75,9 @@ public class Metadata extends Entity {
 	}
 
 	/**
-	 * @return the dependencies
+	 * The list of module dependencies.
+	 * 
+	 * @return the dependencies or an empty list.
 	 */
 	public List<Dependency> getDependencies() {
 		return dependencies == null
@@ -80,6 +86,8 @@ public class Metadata extends Entity {
 	}
 
 	/**
+	 * A description of the module.
+	 * 
 	 * @return the description
 	 */
 	public String getDescription() {
@@ -87,6 +95,8 @@ public class Metadata extends Entity {
 	}
 
 	/**
+	 * The license pertaining to this module.
+	 * 
 	 * @return the license
 	 */
 	public String getLicense() {
@@ -94,13 +104,17 @@ public class Metadata extends Entity {
 	}
 
 	/**
-	 * @return the name
+	 * The qualified name of the module.
+	 * 
+	 * @return the qualified name
 	 */
 	public QName getName() {
 		return name;
 	}
 
 	/**
+	 * A URL that points to the project page for this module.
+	 * 
 	 * @return the project_page
 	 */
 	public String getProject_page() {
@@ -108,6 +122,8 @@ public class Metadata extends Entity {
 	}
 
 	/**
+	 * A URL that points to the source for this module.
+	 * 
 	 * @return the source
 	 */
 	public String getSource() {
@@ -115,6 +131,8 @@ public class Metadata extends Entity {
 	}
 
 	/**
+	 * A brief summary
+	 * 
 	 * @return the summary
 	 */
 	public String getSummary() {
@@ -122,13 +140,19 @@ public class Metadata extends Entity {
 	}
 
 	/**
-	 * @return the types
+	 * The list of Types that this module includes.
+	 * 
+	 * @return the types or an emtpy list.
 	 */
 	public List<Type> getTypes() {
-		return types;
+		return types == null
+				? Collections.<Type> emptyList()
+				: types;
 	}
 
 	/**
+	 * The version of the module.
+	 * 
 	 * @return the version
 	 */
 	public String getVersion() {

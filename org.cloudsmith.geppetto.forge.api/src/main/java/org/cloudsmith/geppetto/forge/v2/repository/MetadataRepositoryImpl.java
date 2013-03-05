@@ -273,7 +273,7 @@ public class MetadataRepositoryImpl implements MetadataRepository {
 		return resolve(dep);
 	}
 
-	public Resolution resolveAll(Dependency dependency) throws IOException {
+	private Resolution resolveAll(Dependency dependency) throws IOException {
 		VersionRequirement vReq = dependency.getVersionRequirement();
 		Release[] candidates = releasesPerModule.get(dependency.getName());
 		if(candidates == null)

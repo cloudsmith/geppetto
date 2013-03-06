@@ -20,6 +20,7 @@ import java.io.File;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
+import org.org.cloudsmith.geppetto.semver.Version;
 
 import com.almworks.sqlite4java.SQLiteConnection;
 import com.almworks.sqlite4java.SQLiteException;
@@ -46,7 +47,7 @@ public class ForgeIT extends ForgeAPITestBase {
 
 	public static final String TEST_GZIPPED_RELEASE = "puppetlabs-java-0.1.6.tar.gz";
 
-	public static final String TEST_RELEASE_VERSION = "0.1.6";
+	public static final Version TEST_RELEASE_VERSION = Version.create("0.1.6");
 
 	private static String PUPPET_FORGE_CLIENT_ID;
 

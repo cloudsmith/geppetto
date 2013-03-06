@@ -11,6 +11,8 @@
  */
 package org.cloudsmith.geppetto.forge.v2.model;
 
+import org.org.cloudsmith.geppetto.semver.Version;
+
 import com.google.gson.annotations.Expose;
 
 /**
@@ -18,7 +20,7 @@ import com.google.gson.annotations.Expose;
  */
 public class FlatRelease extends TimestampedEntity {
 	@Expose
-	private String version;
+	private Version version;
 
 	@Expose
 	private String notes;
@@ -83,7 +85,7 @@ public class FlatRelease extends TimestampedEntity {
 	/**
 	 * @return Version
 	 */
-	public String getVersion() {
+	public Version getVersion() {
 		return version;
 	}
 }

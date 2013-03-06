@@ -288,10 +288,9 @@ public abstract class AbstractForgeMojo extends AbstractMojo {
 		}
 		Gson gson = getForge().createGson();
 		Metadata md = gson.fromJson(writer.toString(), Metadata.class);
-		if(isNull(md.getVersion())) {
-			md.setVersion(null);
+		if(md.getVersion() == null)
 			diag.addChild(new Diagnostic(Diagnostic.ERROR, DiagnosticType.GEPPETTO, "Module Version must not be null"));
-		}
+
 		QName qname = md.getName();
 		if(qname != null) {
 			String qual = qname.getQualifier();

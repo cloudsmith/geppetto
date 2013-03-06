@@ -11,6 +11,8 @@
  */
 package org.cloudsmith.geppetto.forge.v2.model;
 
+import org.org.cloudsmith.geppetto.semver.VersionRange;
+
 import com.google.gson.annotations.Expose;
 
 /**
@@ -32,7 +34,7 @@ public class Dependency extends Entity {
 	private String repository;
 
 	@Expose
-	private VersionRequirement version_requirement;
+	private VersionRange version_requirement;
 
 	@Override
 	public boolean equals(Object other) {
@@ -61,7 +63,7 @@ public class Dependency extends Entity {
 	/**
 	 * @return the version requirement
 	 */
-	public VersionRequirement getVersionRequirement() {
+	public VersionRange getVersionRequirement() {
 		return version_requirement;
 	}
 
@@ -83,7 +85,7 @@ public class Dependency extends Entity {
 	 */
 	public boolean matches(Metadata metadata) {
 		return safeEquals(name, metadata.getName()) &&
-				(version_requirement == null || version_requirement.matches(metadata.getVersion()));
+				(version_requirement == null || version_requirement.isIncluded(metadata.getVersion()));
 	}
 
 	/**
@@ -95,7 +97,7 @@ public class Dependency extends Entity {
 	 */
 	public boolean matches(Release release) {
 		return safeEquals(name, release.getFullName()) &&
-				(version_requirement == null || version_requirement.matches(release.getVersion()));
+				(version_requirement == null || version_requirement.isIncluded(release.getVersion()));
 	}
 
 	/**
@@ -118,7 +120,7 @@ public class Dependency extends Entity {
 	 * @param version_requirement
 	 *            the version requirement to set
 	 */
-	public void setVersionRequirement(VersionRequirement version_requirement) {
+	public void setVersionRequirement(VersionRange version_requirement) {
 		this.version_requirement = version_requirement;
 	}
 }

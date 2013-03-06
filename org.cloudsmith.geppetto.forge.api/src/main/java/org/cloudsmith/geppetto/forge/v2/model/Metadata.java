@@ -15,6 +15,8 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
+import org.org.cloudsmith.geppetto.semver.Version;
+
 import com.google.gson.annotations.Expose;
 
 /**
@@ -25,7 +27,7 @@ public class Metadata extends Entity {
 	private QName name;
 
 	@Expose
-	private String version;
+	private Version version;
 
 	@Expose
 	private String summary;
@@ -155,7 +157,7 @@ public class Metadata extends Entity {
 	 * 
 	 * @return the version
 	 */
-	public String getVersion() {
+	public Version getVersion() {
 		return version;
 	}
 
@@ -243,7 +245,7 @@ public class Metadata extends Entity {
 	 * @param version
 	 *            the version to set
 	 */
-	public void setVersion(String version) {
+	public void setVersion(Version version) {
 		this.version = version;
 	}
 }

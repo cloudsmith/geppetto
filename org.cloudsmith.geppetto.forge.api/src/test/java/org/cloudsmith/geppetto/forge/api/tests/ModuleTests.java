@@ -53,7 +53,7 @@ public class ModuleTests extends ForgeAPITestBase {
 				assertNotNull("Null module release link", release.getLink());
 				Release resolved = service.resolveLink(release.getLink(), Release.class);
 				assertNotNull("Null resolved release", resolved);
-				assertEquals("Resolved release version mismatch", resolved.getVersion(), release.getKey());
+				assertEquals("Resolved release version mismatch", resolved.getVersion().toString(), release.getKey());
 				someReleaseLinkTested = true;
 			}
 		}

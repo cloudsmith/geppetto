@@ -273,6 +273,10 @@ public class CharSequences {
 	}
 
 	public static boolean equals(CharSequence o1, CharSequence o2) {
+		if(o1 == o2)
+			return true;
+		if(o1 == null || o2 == null)
+			return false;
 		if(o1.length() != o2.length())
 			return false;
 		int limit = o1.length();

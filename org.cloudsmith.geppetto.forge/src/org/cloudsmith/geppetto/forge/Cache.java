@@ -14,72 +14,37 @@ package org.cloudsmith.geppetto.forge;
 import java.io.File;
 import java.io.IOException;
 
-import org.eclipse.emf.ecore.EObject;
+import org.cloudsmith.geppetto.forge.v2.model.ModuleName;
+import org.cloudsmith.geppetto.semver.Version;
 
 /**
- * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>Cache</b></em>'.
- * <!-- end-user-doc -->
- * 
- * <p>
- * The following features are supported:
- * <ul>
- * <li>{@link org.cloudsmith.geppetto.forge.Cache#getLocation <em>Location</em>}</li>
- * <li>{@link org.cloudsmith.geppetto.forge.Cache#getRepository <em>Repository</em>}</li>
- * </ul>
- * </p>
- * 
- * @see org.cloudsmith.geppetto.forge.ForgePackage#getCache()
- * @model
- * @generated
+ * A local cache that sits in front of the Forge to avoid multiple downloads
+ * of the same version of a module.
  */
-public interface Cache extends EObject {
+public interface Cache {
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * Delete all cached files.
 	 * 
-	 * @model exceptions="org.cloudsmith.geppetto.forge.IOException"
-	 * @generated
+	 * @throws IOException
 	 */
 	void clean() throws IOException;
 
 	/**
-	 * Returns the value of the '<em><b>Location</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Location</em>' attribute isn't clear, there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
+	 * Returns the location of this cache.
 	 * 
-	 * @return the value of the '<em>Location</em>' attribute.
-	 * @see org.cloudsmith.geppetto.forge.ForgePackage#getCache_Location()
-	 * @model dataType="org.cloudsmith.geppetto.forge.File" changeable="false"
-	 * @generated
+	 * @return The directory where all files are cached.
 	 */
 	File getLocation();
 
 	/**
-	 * Returns the value of the '<em><b>Repository</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Repository</em>' reference isn't clear, there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
+	 * Retrieve the file for the given version of a module. If the file
+	 * is found locally then that file is return. Otherwise an attempt
+	 * is made to download the file from the remote Forge service.
 	 * 
-	 * @return the value of the '<em>Repository</em>' reference.
-	 * @see org.cloudsmith.geppetto.forge.ForgePackage#getCache_Repository()
-	 * @model resolveProxies="false" required="true" transient="true" changeable="false"
-	 * @generated
+	 * @param qname
+	 * @param version
+	 * @return
+	 * @throws IOException
 	 */
-	Repository getRepository();
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * 
-	 * @model dataType="org.cloudsmith.geppetto.forge.File" required="true" exceptions="org.cloudsmith.geppetto.forge.IOException"
-	 * @generated
-	 */
-	File retrieve(String fileName) throws IOException;
-
-} // Cache
+	File retrieve(ModuleName qname, Version version) throws IOException;
+}

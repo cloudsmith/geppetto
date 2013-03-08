@@ -11,11 +11,12 @@
  */
 package org.cloudsmith.geppetto.forge.v2.model;
 
-import java.util.Collections;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.org.cloudsmith.geppetto.semver.Version;
+import org.cloudsmith.geppetto.semver.Version;
 
 import com.google.gson.annotations.Expose;
 
@@ -24,7 +25,7 @@ import com.google.gson.annotations.Expose;
  */
 public class Metadata extends Entity {
 	@Expose
-	private QName name;
+	private ModuleName name;
 
 	@Expose
 	private Version version;
@@ -45,7 +46,7 @@ public class Metadata extends Entity {
 	private List<Type> types;
 
 	@Expose
-	private Map<String, String> checksums;
+	private Map<String, byte[]> checksums;
 
 	@Expose
 	private String source;
@@ -70,10 +71,10 @@ public class Metadata extends Entity {
 	 * 
 	 * @return the checksums or an empty map if no checksums has been assigned
 	 */
-	public Map<String, String> getChecksums() {
-		return checksums == null
-				? Collections.<String, String> emptyMap()
-				: checksums;
+	public Map<String, byte[]> getChecksums() {
+		if(checksums == null)
+			checksums = new HashMap<String, byte[]>();
+		return checksums;
 	}
 
 	/**
@@ -82,9 +83,9 @@ public class Metadata extends Entity {
 	 * @return the dependencies or an empty list.
 	 */
 	public List<Dependency> getDependencies() {
-		return dependencies == null
-				? Collections.<Dependency> emptyList()
-				: dependencies;
+		if(dependencies == null)
+			dependencies = new ArrayList<Dependency>();
+		return dependencies;
 	}
 
 	/**
@@ -110,7 +111,7 @@ public class Metadata extends Entity {
 	 * 
 	 * @return the qualified name
 	 */
-	public QName getName() {
+	public ModuleName getName() {
 		return name;
 	}
 
@@ -119,7 +120,7 @@ public class Metadata extends Entity {
 	 * 
 	 * @return the project_page
 	 */
-	public String getProject_page() {
+	public String getProjectPage() {
 		return project_page;
 	}
 
@@ -147,9 +148,9 @@ public class Metadata extends Entity {
 	 * @return the types or an emtpy list.
 	 */
 	public List<Type> getTypes() {
-		return types == null
-				? Collections.<Type> emptyList()
-				: types;
+		if(types == null)
+			types = new ArrayList<Type>();
+		return types;
 	}
 
 	/**
@@ -173,7 +174,7 @@ public class Metadata extends Entity {
 	 * @param checksums
 	 *            the checksums to set
 	 */
-	public void setChecksums(Map<String, String> checksums) {
+	public void setChecksums(Map<String, byte[]> checksums) {
 		this.checksums = checksums;
 	}
 
@@ -205,15 +206,17 @@ public class Metadata extends Entity {
 	 * @param name
 	 *            the name to set
 	 */
-	public void setName(QName name) {
-		this.name = name;
+	public void setName(ModuleName name) {
+		this.name = name == null
+				? null
+				: name.withSeparator('-');
 	}
 
 	/**
 	 * @param project_page
 	 *            the project_page to set
 	 */
-	public void setProject_page(String project_page) {
+	public void setProjectPage(String project_page) {
 		this.project_page = project_page;
 	}
 

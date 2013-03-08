@@ -33,6 +33,34 @@ import org.cloudsmith.geppetto.common.os.OsUtil;
 import org.cloudsmith.geppetto.common.os.StreamUtil;
 
 public class TarUtils {
+	/**
+	 * An interface that can be used when individual files are to be extracted from an archive, possibly
+	 * without storing them to disk.
+	 */
+	public interface FileCatcher {
+		/**
+		 * Implementors should return <tt>true</tt> or <tt>false</tt> to indicate if this
+		 * file is of interest or not.
+		 * 
+		 * @param fileName
+		 *            The name of the file as it occurs in the archive.
+		 * @return a flag indicating if the file is accepted
+		 */
+		boolean accept(String fileName);
+
+		/**
+		 * This method will be called for files that accepted
+		 * 
+		 * @param fileName
+		 *            The name of the accepted file
+		 * @param fileData
+		 *            A stream from which the file data can be read.
+		 * @return <tt>false</tt> to indicate that processing should continue or <tt>true</tt> to indicate that further processing is of no interest
+		 *         (i.e. the read terminates here).
+		 */
+		boolean catchData(String fileName, InputStream fileData);
+	}
+
 	private static final int MAX_FILES_PER_COMMAND = 20;
 
 	private static void append(File file, FileFilter filter, int baseNameLen, String addedTopFolder,
@@ -149,14 +177,16 @@ public class TarUtils {
 	 * @param source
 	 *            The input source. Must be in <i>TAR</i> format.
 	 * @param targetFolder
-	 *            The destination folder for the unpack.
+	 *            The destination folder for the unpack. Not used when a <tt>fileCatcher</tt> is provided
 	 * @param skipTopFolder
 	 *            Set to <code>true</code> to unpack beneath the top folder
 	 *            of the archive. The archive must consist of one single folder and nothing else
 	 *            in order for this to work.
+	 * @param fileCatcher
+	 *            Used when specific files should be picked from the archive without writing them to disk. Can be <tt>null</tt>.
 	 * @throws IOException
 	 */
-	public static void unpack(InputStream source, File targetFolder, boolean skipTopFolder, FileFilter fileFilter)
+	public static void unpack(InputStream source, File targetFolder, boolean skipTopFolder, FileCatcher fileCatcher)
 			throws IOException {
 		String topFolderName = null;
 		Map<File, Map<Integer, List<String>>> chmodMap = new HashMap<File, Map<Integer, List<String>>>();
@@ -192,10 +222,16 @@ public class TarUtils {
 						linkName = null;
 				}
 
-				File outFile = new File(targetFolder, name);
-				if(fileFilter != null && !fileFilter.accept(outFile))
+				if(fileCatcher != null) {
+					if(linkName == null && !te.isDirectory() && fileCatcher.accept(name)) {
+						if(fileCatcher.catchData(name, in))
+							// We're done here
+							return;
+					}
 					continue;
+				}
 
+				File outFile = new File(targetFolder, name);
 				if(linkName != null) {
 					if(!OsUtil.link(targetFolder, name, te.getLinkName()))
 						throw new IOException("Archive contains links but they are not supported on this platform");

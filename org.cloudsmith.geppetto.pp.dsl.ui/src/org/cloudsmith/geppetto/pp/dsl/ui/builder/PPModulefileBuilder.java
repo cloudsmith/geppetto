@@ -20,13 +20,17 @@ import java.util.Map;
 import org.apache.log4j.Logger;
 import org.cloudsmith.geppetto.common.tracer.DefaultTracer;
 import org.cloudsmith.geppetto.common.tracer.ITracer;
-import org.cloudsmith.geppetto.forge.Dependency;
-import org.cloudsmith.geppetto.forge.ForgeFactory;
-import org.cloudsmith.geppetto.forge.Metadata;
-import org.cloudsmith.geppetto.forge.VersionRequirement;
+import org.cloudsmith.geppetto.forge.Forge;
+import org.cloudsmith.geppetto.forge.util.Checksums;
+import org.cloudsmith.geppetto.forge.util.Types;
+import org.cloudsmith.geppetto.forge.v2.model.Dependency;
+import org.cloudsmith.geppetto.forge.v2.model.Metadata;
+import org.cloudsmith.geppetto.forge.v2.model.ModuleName;
 import org.cloudsmith.geppetto.pp.dsl.ui.PPUiConstants;
 import org.cloudsmith.geppetto.pp.dsl.ui.internal.PPDSLActivator;
 import org.cloudsmith.geppetto.pp.dsl.validation.IValidationAdvisor;
+import org.cloudsmith.geppetto.semver.Version;
+import org.cloudsmith.geppetto.semver.VersionRange;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IMarker;
 import org.eclipse.core.resources.IProject;
@@ -64,6 +68,8 @@ public class PPModulefileBuilder extends IncrementalProjectBuilder implements PP
 
 	private final Provider<IValidationAdvisor> validationAdvisorProvider;
 
+	private Forge forge;
+
 	private ITracer tracer;
 
 	private IValidationAdvisor validationAdvisor;
@@ -74,6 +80,7 @@ public class PPModulefileBuilder extends IncrementalProjectBuilder implements PP
 		Injector injector = ((PPDSLActivator) PPDSLActivator.getInstance()).getPPInjector();
 		tracer = new DefaultTracer(PPUiConstants.DEBUG_OPTION_MODULEFILE);
 		validationAdvisorProvider = injector.getProvider(IValidationAdvisor.class);
+		forge = injector.getInstance(Forge.class);
 	}
 
 	/*
@@ -164,7 +171,7 @@ public class PPModulefileBuilder extends IncrementalProjectBuilder implements PP
 			m.setAttribute(IMarker.PRIORITY, IMarker.PRIORITY_HIGH);
 			m.setAttribute(IMarker.SEVERITY, severity);
 			if(d != null) {
-				VersionRequirement vr = d.getVersionRequirement();
+				VersionRange vr = d.getVersionRequirement();
 				m.setAttribute(IMarker.LOCATION, d.getName() + (vr == null
 						? ""
 						: vr.toString()));
@@ -197,15 +204,17 @@ public class PPModulefileBuilder extends IncrementalProjectBuilder implements PP
 	 */
 	private IProject getBestMatchingProject(Dependency d, IProgressMonitor monitor) {
 		// Names with "/" are not allowed
-		final String requiredName = d.getName().replace("/", "-").toLowerCase();
-		if(requiredName == null || requiredName.isEmpty()) {
+		ModuleName requiredName = d.getName();
+		if(requiredName == null) {
 			if(tracer.isTracing())
 				tracer.trace("Dependency with mising name found");
 			return null;
 		}
+
+		requiredName = requiredName.withSeparator('-');
 		if(tracer.isTracing())
 			tracer.trace("Resolving required name: ", requiredName);
-		BiMap<IProject, String> candidates = HashBiMap.create();
+		BiMap<IProject, Version> candidates = HashBiMap.create();
 
 		if(tracer.isTracing())
 			tracer.trace("Checking against all projects...");
@@ -217,10 +226,13 @@ public class PPModulefileBuilder extends IncrementalProjectBuilder implements PP
 				continue;
 			}
 
-			String version = null;
-			String moduleName = null;
+			Version version = null;
+			ModuleName moduleName = null;
 			try {
-				moduleName = p.getPersistentProperty(PROJECT_PROPERTY_MODULENAME);
+				String mn = p.getPersistentProperty(PROJECT_PROPERTY_MODULENAME);
+				moduleName = mn == null
+						? null
+						: new ModuleName(mn);
 			}
 			catch(CoreException e) {
 				log.error("Could not read project Modulename property", e);
@@ -238,13 +250,13 @@ public class PPModulefileBuilder extends IncrementalProjectBuilder implements PP
 			// get the version from the persisted property
 			if(matched) {
 				try {
-					version = p.getPersistentProperty(PROJECT_PROPERTY_MODULEVERSION);
+					version = Version.create(p.getPersistentProperty(PROJECT_PROPERTY_MODULEVERSION));
 				}
-				catch(CoreException e) {
+				catch(Exception e) {
 					log.error("Error while getting version from project", e);
 				}
 				if(version == null)
-					version = "0";
+					version = Version.MIN;
 				if(tracer.isTracing())
 					tracer.trace("Candidate with version; ", version.toString(), " added as candidate");
 				candidates.put(p, version);
@@ -259,11 +271,11 @@ public class PPModulefileBuilder extends IncrementalProjectBuilder implements PP
 			tracer.trace("Getting best version");
 		}
 		// find best version and do a lookup of project
-		VersionRequirement vr = d.getVersionRequirement();
+		VersionRange vr = d.getVersionRequirement();
 		if(vr == null)
-			vr = VersionRequirement.EMPTY_REQUIREMENT;
-		String best = vr.findBestMatch(candidates.values());
-		if(best == null || best.length() == 0) {
+			vr = VersionRange.ALL_INCLUSIVE;
+		Version best = vr.findBestMatch(candidates.values());
+		if(best == null) {
 			if(tracer.isTracing())
 				tracer.trace("No best match found");
 			return null;
@@ -356,9 +368,7 @@ public class PPModulefileBuilder extends IncrementalProjectBuilder implements PP
 	private Metadata loadMetadata(IFile moduleFile, IProgressMonitor monitor) {
 		// parse the "Modulefile" and get full name and version, use this as name of target entry
 		try {
-			Metadata metadata = ForgeFactory.eINSTANCE.createMetadata();
-			metadata.loadModuleFile(moduleFile.getLocation().toFile());
-			return metadata;
+			return forge.parseModuleFile(moduleFile.getLocation().toFile());
 		}
 		catch(Exception e) {
 			createErrorMarker(moduleFile, "Can not parse modulefile: " + e.getMessage(), null);
@@ -402,7 +412,7 @@ public class PPModulefileBuilder extends IncrementalProjectBuilder implements PP
 				if(best != null)
 					result.add(best);
 				else {
-					VersionRequirement vr = d.getVersionRequirement();
+					VersionRange vr = d.getVersionRequirement();
 					createErrorMarker(moduleFile, "Unresolved dependency :'" + d.getName() + (vr == null
 							? ""
 							: ("' version: " + vr)), d);
@@ -437,17 +447,19 @@ public class PPModulefileBuilder extends IncrementalProjectBuilder implements PP
 					return; // give up - errors have been logged.
 
 				// sync version and name project data
-				String version = metadata == null
-						? "0"
+				Version version = metadata == null
+						? null
 						: metadata.getVersion();
-				if(version == null || version.length() < 1)
-					version = "0.0.0";
-				String moduleName = metadata.getFullName().toLowerCase();
-				if(metadata.getName() == null) {
+				if(version == null)
+					version = Version.create("0.0.0");
+				ModuleName moduleName = metadata.getName();
+				if(moduleName == null) {
 					createErrorMarker(moduleFile, "Module name is empty", null);
 				}
-				else if(moduleName != null &&
-						!project.getName().toLowerCase().contains(metadata.getName().toLowerCase()))
+				else
+					moduleName = moduleName.withSeparator('-');
+
+				if(moduleName != null && !project.getName().toLowerCase().contains(moduleName.getName().toString().toLowerCase()))
 					createWarningMarker(moduleFile, "Mismatched name - project does not reflect module: '" +
 							moduleName + "'", null);
 
@@ -455,11 +467,11 @@ public class PPModulefileBuilder extends IncrementalProjectBuilder implements PP
 					IProject p = getProject();
 					String storedVersion = p.getPersistentProperty(PROJECT_PROPERTY_MODULEVERSION);
 					if(!version.equals(storedVersion))
-						p.setPersistentProperty(PROJECT_PROPERTY_MODULEVERSION, version);
+						p.setPersistentProperty(PROJECT_PROPERTY_MODULEVERSION, version.toString());
 
 					String storedName = p.getPersistentProperty(PROJECT_PROPERTY_MODULENAME);
 					if(!moduleName.equals(storedName))
-						p.setPersistentProperty(PROJECT_PROPERTY_MODULENAME, moduleName);
+						p.setPersistentProperty(PROJECT_PROPERTY_MODULENAME, moduleName.toString());
 				}
 				catch(CoreException e1) {
 					log.error("Could not set version or symbolic module name of project", e1);
@@ -479,9 +491,9 @@ public class PPModulefileBuilder extends IncrementalProjectBuilder implements PP
 
 					// if there are types
 					if(tf.exists())
-						metadata.loadTypeFiles(tf, null);
-					metadata.loadChecksums(pf, null);
-					metadata.saveJSONMetadata(mf);
+						metadata.setTypes(Types.loadTypes(tf, null));
+					metadata.setChecksums(Checksums.loadChecksums(pf, null));
+					forge.saveJSONMetadata(metadata, mf);
 					// must refresh the file as it was written outside the resource framework
 					IFile metadataResource = getProject().getFile("metadata.json");
 					try {

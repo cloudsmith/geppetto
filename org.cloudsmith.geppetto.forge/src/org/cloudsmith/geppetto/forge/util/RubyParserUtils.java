@@ -22,10 +22,13 @@ import java.util.List;
 import org.cloudsmith.geppetto.common.os.StreamUtil;
 import org.jrubyparser.CompatVersion;
 import org.jrubyparser.Parser;
+import org.jrubyparser.ast.CallNode;
 import org.jrubyparser.ast.NewlineNode;
 import org.jrubyparser.ast.Node;
 import org.jrubyparser.ast.NodeType;
 import org.jrubyparser.ast.RootNode;
+import org.jrubyparser.ast.StrNode;
+import org.jrubyparser.ast.SymbolNode;
 import org.jrubyparser.lexer.SyntaxException;
 import org.jrubyparser.parser.ParserConfiguration;
 
@@ -83,6 +86,37 @@ public abstract class RubyParserUtils {
 		}
 		finally {
 			StreamUtil.close(reader);
+		}
+	}
+
+	public static String stringValue(Node node) throws IOException {
+		switch(node.getNodeType()) {
+			case NEWLINENODE:
+				return "\n";
+			case COMMENTNODE:
+				return "";
+			case SYMBOLNODE:
+				return ((SymbolNode) node).getName();
+			case STRNODE:
+				return ((StrNode) node).getValue();
+			case FALSENODE:
+				return "false";
+			case TRUENODE:
+				return "true";
+			case CALLNODE: {
+				// We can handle simple string concatenation
+				CallNode argCall = (CallNode) node;
+				if("+".equals(argCall.getName())) {
+					StringBuilder bld = new StringBuilder();
+					bld.append(stringValue(argCall.getReceiver()));
+					for(Node arg : argCall.getArgs().childNodes())
+						bld.append(stringValue(arg));
+					return bld.toString();
+				}
+				throw new IOException("Unable to evaluate call node " + argCall.getName() + " into a string");
+			}
+			default:
+				throw new IOException("Unable to evaluate node of type " + node.getNodeType() + " into a string");
 		}
 	}
 }

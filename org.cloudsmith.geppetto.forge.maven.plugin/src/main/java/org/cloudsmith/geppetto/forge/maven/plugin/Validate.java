@@ -18,23 +18,15 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashSet;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Set;
-import java.util.zip.GZIPInputStream;
 
 import org.apache.maven.plugins.annotations.LifecyclePhase;
 import org.apache.maven.plugins.annotations.Mojo;
 import org.apache.maven.plugins.annotations.Parameter;
-import org.cloudsmith.geppetto.common.os.StreamUtil.OpenBAStream;
-import org.cloudsmith.geppetto.forge.util.TarUtils;
-import org.cloudsmith.geppetto.forge.v2.MetadataRepository;
-import org.cloudsmith.geppetto.forge.v2.model.Dependency;
+import org.cloudsmith.geppetto.common.diagnostic.Diagnostic;
+import org.cloudsmith.geppetto.common.diagnostic.DiagnosticType;
+import org.cloudsmith.geppetto.common.diagnostic.FileDiagnostic;
 import org.cloudsmith.geppetto.forge.v2.model.Metadata;
-import org.cloudsmith.geppetto.forge.v2.model.Module;
-import org.cloudsmith.geppetto.forge.v2.model.Release;
-import org.cloudsmith.geppetto.forge.v2.service.ReleaseService;
 import org.cloudsmith.geppetto.pp.dsl.target.PptpResourceUtil;
 import org.cloudsmith.geppetto.pp.dsl.validation.IPotentialProblemsAdvisor;
 import org.cloudsmith.geppetto.pp.dsl.validation.IValidationAdvisor.ComplianceLevel;
@@ -44,15 +36,12 @@ import org.cloudsmith.geppetto.puppetlint.PuppetLintRunner.Issue;
 import org.cloudsmith.geppetto.puppetlint.PuppetLintService;
 import org.cloudsmith.geppetto.ruby.RubyHelper;
 import org.cloudsmith.geppetto.ruby.jrubyparser.JRubyServices;
-import org.cloudsmith.geppetto.validation.DetailedDiagnosticData;
-import org.cloudsmith.geppetto.validation.DiagnosticType;
 import org.cloudsmith.geppetto.validation.FileType;
 import org.cloudsmith.geppetto.validation.ValidationOptions;
 import org.cloudsmith.geppetto.validation.ValidationServiceFactory;
 import org.cloudsmith.geppetto.validation.runner.IEncodingProvider;
 import org.cloudsmith.geppetto.validation.runner.PPDiagnosticsSetup;
 import org.eclipse.core.runtime.NullProgressMonitor;
-import org.eclipse.emf.common.util.BasicDiagnostic;
 import org.eclipse.emf.common.util.URI;
 
 /**
@@ -68,46 +57,6 @@ public class Validate extends AbstractForgeMojo {
 			default:
 				return Diagnostic.WARNING;
 		}
-	}
-
-	private static int getSeverity(org.eclipse.emf.common.util.Diagnostic validationDiagnostic) {
-		int severity;
-		switch(validationDiagnostic.getSeverity()) {
-			case org.eclipse.emf.common.util.Diagnostic.ERROR:
-				severity = Diagnostic.ERROR;
-				break;
-			case org.eclipse.emf.common.util.Diagnostic.WARNING:
-				severity = Diagnostic.WARNING;
-				break;
-			case org.eclipse.emf.common.util.Diagnostic.INFO:
-				severity = Diagnostic.INFO;
-				break;
-			default:
-				severity = Diagnostic.OK;
-		}
-		return severity;
-	}
-
-	private static String locationLabel(DetailedDiagnosticData detail) {
-		int lineNumber = detail.getLineNumber();
-		int offset = detail.getOffset();
-		int length = detail.getLength();
-		StringBuilder builder = new StringBuilder();
-		if(lineNumber > 0)
-			builder.append(lineNumber);
-		else
-			builder.append("-");
-
-		if(offset >= 0) {
-			builder.append("(");
-			builder.append(offset);
-			if(length >= 0) {
-				builder.append(",");
-				builder.append(length);
-			}
-			builder.append(")");
-		}
-		return builder.toString();
 	}
 
 	/**
@@ -320,52 +269,16 @@ public class Validate extends AbstractForgeMojo {
 	}
 
 	private Diagnostic convertPuppetLintDiagnostic(File moduleRoot, Issue issue) {
-		Diagnostic diagnostic = new Diagnostic();
+		FileDiagnostic diagnostic = new FileDiagnostic();
 		diagnostic.setSeverity(getSeverity(issue));
 		diagnostic.setMessage(issue.getMessage());
 		diagnostic.setType(DiagnosticType.PUPPET_LINT);
-		diagnostic.setResourcePath(getRelativePath(new File(moduleRoot, issue.getPath())));
-		diagnostic.setLocationLabel(Integer.toString(issue.getLineNumber()));
+		diagnostic.setFile(new File(getRelativePath(new File(moduleRoot, issue.getPath()))));
+		diagnostic.setLineNumber(issue.getLineNumber());
 		return diagnostic;
-	}
-
-	private Diagnostic convertValidationDiagnostic(org.eclipse.emf.common.util.Diagnostic validationDiagnostic) {
-
-		Object dataObj = validationDiagnostic.getData().get(0);
-		String resourcePath = null;
-		String locationLabel = null;
-		if(dataObj instanceof DetailedDiagnosticData) {
-			DetailedDiagnosticData details = (DetailedDiagnosticData) dataObj;
-			File detailsFile = details.getFile();
-			if(detailsFile != null && isParentOrEqual(getBuildDir(), detailsFile))
-				// We don't care about warnings/errors from imported modules
-				return null;
-
-			locationLabel = locationLabel(details);
-		}
-
-		Diagnostic diagnostic = new Diagnostic();
-		diagnostic.setSeverity(getSeverity(validationDiagnostic));
-		diagnostic.setType(DiagnosticType.getByCode(validationDiagnostic.getCode()));
-		diagnostic.setMessage(validationDiagnostic.getMessage());
-		diagnostic.setResourcePath(resourcePath);
-		diagnostic.setLocationLabel(locationLabel);
-		return diagnostic;
-	}
-
-	private File downloadAndInstall(ReleaseService releaseService, File modulesRoot, Release release,
-			Diagnostic diagnostic) throws IOException {
-		OpenBAStream content = new OpenBAStream();
-		Module module = release.getModule();
-		releaseService.download(module.getOwner().getUsername(), module.getName(), release.getVersion(), content);
-		File moduleDir = new File(modulesRoot, module.getName());
-		TarUtils.unpack(new GZIPInputStream(content.getInputStream()), moduleDir, false, null);
-		return moduleDir;
 	}
 
 	private void geppettoValidation(List<File> moduleLocations, Diagnostic result) throws IOException {
-
-		MetadataRepository metadataRepo = getForge().createMetadataRepository();
 
 		List<File> importedModuleLocations = null;
 		List<Metadata> metadatas = new ArrayList<Metadata>();
@@ -376,49 +289,19 @@ public class Validate extends AbstractForgeMojo {
 			return;
 
 		if(checkReferences) {
-			Set<Dependency> unresolvedCollector = new HashSet<Dependency>();
-			Set<Release> releasesToDownload = resolveDependencies(metadataRepo, metadatas, unresolvedCollector);
-			for(Dependency unresolved : unresolvedCollector)
-				result.addChild(new Diagnostic(Diagnostic.WARNING, DiagnosticType.GEPPETTO, String.format(
-					"Unable to resolve dependency: %s:%s", unresolved.getName(),
-					unresolved.getVersionRequirement().toString())));
-
-			if(!releasesToDownload.isEmpty()) {
-				File importedModulesDir = new File(getBuildDir(), IMPORTED_MODULES_ROOT);
-				importedModulesDir.mkdirs();
-				importedModuleLocations = new ArrayList<File>();
-
-				ReleaseService releaseService = getForge().createReleaseService();
-				for(Release release : releasesToDownload) {
-					result.addChild(new Diagnostic(
-						Diagnostic.INFO, DiagnosticType.GEPPETTO, "Installing dependent module " +
-								release.getFullName() + ':' + release.getVersion()));
-					importedModuleLocations.add(downloadAndInstall(releaseService, importedModulesDir, release, result));
-				}
-			}
-			else {
-				if(unresolvedCollector.isEmpty())
-					result.addChild(new Diagnostic(
-						Diagnostic.INFO, DiagnosticType.GEPPETTO, "No additional dependencies were detected"));
-			}
+			File importedModulesDir = new File(getBuildDir(), IMPORTED_MODULES_ROOT);
+			importedModuleLocations = getForge().downloadDependencies(metadatas, importedModulesDir, result);
 		}
 		if(importedModuleLocations == null)
 			importedModuleLocations = Collections.emptyList();
-		BasicDiagnostic diagnostics = new BasicDiagnostic();
 
 		RubyHelper.setRubyServicesFactory(JRubyServices.FACTORY);
 		ValidationOptions options = getValidationOptions(moduleLocations, importedModuleLocations);
 		new PPDiagnosticsSetup(complianceLevel, options.getProblemsAdvisor()).createInjectorAndDoEMFRegistration();
 
 		ValidationServiceFactory.createValidationService().validate(
-			diagnostics, getModulesDir(), options,
+			result, getModulesDir(), options,
 			importedModuleLocations.toArray(new File[importedModuleLocations.size()]), new NullProgressMonitor());
-
-		for(org.eclipse.emf.common.util.Diagnostic diagnostic : diagnostics.getChildren()) {
-			Diagnostic diag = convertValidationDiagnostic(diagnostic);
-			if(diag != null)
-				result.addChild(diag);
-		}
 	}
 
 	@Override
@@ -499,31 +382,5 @@ public class Validate extends AbstractForgeMojo {
 					result.addChild(diag);
 			}
 		}
-	}
-
-	private Set<Release> resolveDependencies(MetadataRepository metadataRepo, List<Metadata> metadatas,
-			Set<Dependency> unresolvedCollector) throws IOException {
-		// Resolve missing dependencies
-		Set<Dependency> deps = new HashSet<Dependency>();
-		for(Metadata metadata : metadatas)
-			deps.addAll(metadata.getDependencies());
-
-		// Remove the dependencies that appoints modules that we have in the
-		// workspace
-		Iterator<Dependency> depsItor = deps.iterator();
-		nextDep: while(depsItor.hasNext()) {
-			Dependency dep = depsItor.next();
-			for(Metadata metadata : metadatas)
-				if(dep.matches(metadata)) {
-					depsItor.remove();
-					continue nextDep;
-				}
-		}
-
-		// Resolve remaining dependencies
-		Set<Release> releasesToDownload = new HashSet<Release>();
-		for(Dependency dep : deps)
-			releasesToDownload.addAll(metadataRepo.deepResolve(dep, unresolvedCollector));
-		return releasesToDownload;
 	}
 }

@@ -24,12 +24,12 @@ import java.util.Set;
 
 import org.cloudsmith.geppetto.forge.v2.MetadataRepository;
 import org.cloudsmith.geppetto.forge.v2.model.Dependency;
-import org.cloudsmith.geppetto.forge.v2.model.QName;
+import org.cloudsmith.geppetto.forge.v2.model.ModuleName;
 import org.cloudsmith.geppetto.forge.v2.model.Release;
 import org.cloudsmith.geppetto.forge.v2.service.ModuleService;
 import org.cloudsmith.geppetto.forge.v2.service.ReleaseService;
-import org.org.cloudsmith.geppetto.semver.Version;
-import org.org.cloudsmith.geppetto.semver.VersionRange;
+import org.cloudsmith.geppetto.semver.Version;
+import org.cloudsmith.geppetto.semver.VersionRange;
 
 import com.google.inject.Inject;
 
@@ -137,7 +137,7 @@ public class MetadataRepositoryImpl implements MetadataRepository {
 
 	// TODO: Keeping everything in memory is of course not ideal. Should use a local
 	// file cache or similar
-	private final Map<QName, Release[]> releasesPerModule = new HashMap<QName, Release[]>();
+	private final Map<ModuleName, Release[]> releasesPerModule = new HashMap<ModuleName, Release[]>();
 
 	@Inject
 	private ReleaseService releaseService;
@@ -149,7 +149,7 @@ public class MetadataRepositoryImpl implements MetadataRepository {
 
 	public Collection<Release> deepResolve(Dependency dependency, Set<Dependency> unresolvedCollector)
 			throws IOException {
-		Map<QName, Resolution> resolutionCollector = new HashMap<QName, Resolution>();
+		Map<ModuleName, Resolution> resolutionCollector = new HashMap<ModuleName, Resolution>();
 
 		Set<Dependency> seen = new HashSet<Dependency>();
 		resolve(dependency, seen, resolutionCollector, unresolvedCollector);
@@ -192,8 +192,8 @@ public class MetadataRepositoryImpl implements MetadataRepository {
 		}
 	}
 
-	public Release[] refreshCache(QName fullName) throws IOException {
-		String owner = fullName.getQualifier();
+	public Release[] refreshCache(ModuleName fullName) throws IOException {
+		String owner = fullName.getOwner();
 		String name = fullName.getName();
 		Release[] releaseArray;
 		try {
@@ -222,7 +222,7 @@ public class MetadataRepositoryImpl implements MetadataRepository {
 		return null;
 	}
 
-	private void resolve(Dependency dependency, Set<Dependency> seen, Map<QName, Resolution> resolutionCollector,
+	private void resolve(Dependency dependency, Set<Dependency> seen, Map<ModuleName, Resolution> resolutionCollector,
 			Set<Dependency> unresolvedCollector) throws IOException {
 
 		if(!seen.add(dependency))
@@ -262,7 +262,7 @@ public class MetadataRepositoryImpl implements MetadataRepository {
 	}
 
 	@Override
-	public Release resolve(QName name, Version version) throws IOException {
+	public Release resolve(ModuleName name, Version version) throws IOException {
 		VersionRange vr = VersionRange.exact(version);
 		Dependency dep = new Dependency();
 		dep.setName(name);

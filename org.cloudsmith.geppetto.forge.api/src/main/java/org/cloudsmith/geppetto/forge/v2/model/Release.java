@@ -23,7 +23,7 @@ public class Release extends FlatRelease {
 	/**
 	 * @return The full name as &quot;&lt;owner&gt;/&lt;module&gt;&quot;
 	 */
-	public QName getFullName() {
+	public ModuleName getFullName() {
 		return module == null
 				? null
 				: module.getFullName();

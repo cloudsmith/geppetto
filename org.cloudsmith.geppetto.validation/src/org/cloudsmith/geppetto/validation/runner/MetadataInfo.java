@@ -16,8 +16,8 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
-import org.cloudsmith.geppetto.forge.Dependency;
-import org.cloudsmith.geppetto.forge.Metadata;
+import org.cloudsmith.geppetto.forge.v2.model.Dependency;
+import org.cloudsmith.geppetto.forge.v2.model.Metadata;
 
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;

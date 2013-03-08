@@ -15,27 +15,23 @@ import java.io.File;
 import java.io.FileFilter;
 import java.io.IOException;
 import java.util.List;
+import java.util.Set;
 
-import org.eclipse.emf.ecore.EObject;
+import org.cloudsmith.geppetto.common.diagnostic.Diagnostic;
+import org.cloudsmith.geppetto.forge.util.ModuleUtils;
+import org.cloudsmith.geppetto.forge.v2.client.ForgeException;
+import org.cloudsmith.geppetto.forge.v2.model.Dependency;
+import org.cloudsmith.geppetto.forge.v2.model.Metadata;
+import org.cloudsmith.geppetto.forge.v2.model.Module;
+import org.cloudsmith.geppetto.forge.v2.model.ModuleName;
+import org.cloudsmith.geppetto.forge.v2.model.Release;
+import org.cloudsmith.geppetto.semver.VersionRange;
 
 /**
- * <p>
- * The following features are supported:
- * <ul>
- * <li>{@link org.cloudsmith.geppetto.forge.Forge#getRepository <em>Repository</em>}</li>
- * <li>{@link org.cloudsmith.geppetto.forge.Forge#getVersion <em>Version</em>}</li>
- * </ul>
- * </p>
- * 
- * @see org.cloudsmith.geppetto.forge.ForgePackage#getForge()
- * @model
- * @generated
+ * This class basically mimics the PMT (Puppet Module Tool)
  */
-public interface Forge extends EObject {
+public interface Forge {
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * <!-- begin-model-doc -->
 	 * Build a module for release. The end result is a gzipped tar file (.tar.gz) archive that
 	 * contains the module source and a freshly generated metadata.json. This method
 	 * will replace the metadata.json that resides at the root of the module source
@@ -46,118 +42,78 @@ public interface Forge extends EObject {
 	 * @param destination
 	 *            The directory where the created archive will end up. Created if necessary.
 	 * @param exclusionFilter
-	 *            A filter that can be used to exclude files and directories
-	 *            <!-- end-model-doc -->
-	 * @model exceptions="org.cloudsmith.geppetto.forge.IOException org.cloudsmith.geppetto.forge.IncompleteException"
-	 *        moduleSourceDataType="org.cloudsmith.geppetto.forge.File" destinationDataType="org.cloudsmith.geppetto.forge.File"
-	 *        exclusionFilterDataType="org.cloudsmith.geppetto.forge.FileFilter"
-	 * @generated
+	 *            A filter used for excluding files. Can be <tt>null</tt> to use the default {@link ModuleUtils#DEFAULT_FILE_FILTER}.
+	 * @param resultingMetadata
+	 *            A one element array that will receive the resulting metadata. Can be <tt>null</tt>.
+	 * @return The resulting gzipped tar file.
 	 */
-	Metadata build(File moduleSource, File destination, FileFilter exclusionFilter) throws IOException,
-			IncompleteException;
+	File build(File moduleSource, File destination, FileFilter exclusionFilter, Metadata[] resultingMetadata)
+			throws IOException, IncompleteException;
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * <!-- begin-model-doc -->
 	 * List modified files in an installed module
 	 * 
 	 * @param path
 	 *            The module directory
 	 * @param exclusionFilter
-	 *            A filter that can be used to exclude files and directories
-	 *            <!-- end-model-doc -->
-	 * @model dataType="org.cloudsmith.geppetto.forge.List<org.cloudsmith.geppetto.forge.File>" many="false"
-	 *        exceptions="org.cloudsmith.geppetto.forge.IOException" pathDataType="org.cloudsmith.geppetto.forge.File"
-	 *        exclusionFilterDataType="org.cloudsmith.geppetto.forge.FileFilter"
-	 * @generated
+	 *            A filter used for excluding files. Can be <tt>null</tt> to use the default {@link ModuleUtils#DEFAULT_FILE_FILTER}.
 	 */
 	List<File> changes(File path, FileFilter exclusionFilter) throws IOException;
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * <!-- begin-model-doc -->
+	 * Create a Metadata instance from a module structure. If a file named &quot;metadata.json&quot; exists
+	 * in the <tt>moduleDirectory</tt> then that file will be the sole source of input. Otherwise, this method
+	 * looks for a file named &quot;Modulefile&quot;, reads that, and then reads puppet types from the directory
+	 * &quot;lib/puppet&quot;. The method then ends by calculating checksums.
+	 * 
+	 * @param moduleDirectory
+	 *            The directory containing the module
+	 * @param fromExistingMetadata
+	 *            A one element boolean array that will receive a flag indicating whether or
+	 *            not the returned metadata was from an existing &quot;metadata.json&quot;. Can be <tt>null</tt> when that piece of information
+	 *            is of no interest
+	 * @param exclusionFilter
+	 *            A filter used for excluding files. Can be <tt>null</tt> to use the default {@link ModuleUtils#DEFAULT_FILE_FILTER}.
+	 * @return The created metadata
+	 * @throws IOException
+	 */
+	Metadata createFromModuleDir(File moduleDirectory, boolean[] fromExistingMetadata, FileFilter exclusionFilter)
+			throws IOException;
+
+	/**
+	 * Downloads and installs all dependencies extending from the modules described by <tt>metadatas</tt>.
+	 * 
+	 * @param metadatas
+	 *            The dependencies to resolve
+	 * @param importedModulesDir
+	 *            The directory where the dependent modules will be installed
+	 * @return A list files appointing the installed modules.
+	 * @throws IOException
+	 */
+	List<File> downloadDependencies(Iterable<Metadata> metadatas, File importedModulesDir, Diagnostic result)
+			throws IOException;
+
+	/**
 	 * Generate boilerplate for a new module
 	 * 
 	 * @param destination
 	 *            The module directory
 	 * @param metadata
 	 *            The name of the module
-	 *            <!-- end-model-doc -->
-	 * @model exceptions="org.cloudsmith.geppetto.forge.IOException" destinationDataType="org.cloudsmith.geppetto.forge.File"
-	 * @generated
 	 */
 	void generate(File destination, Metadata metadata) throws IOException;
 
 	/**
-	 * Returns the value of the '<em><b>Cache</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Cache</em>' containment reference isn't clear, there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
+	 * Extract metadata from a packaged module
 	 * 
-	 * @return the value of the '<em>Cache</em>' reference.
-	 * @see org.cloudsmith.geppetto.forge.ForgePackage#getForge_Cache()
-	 * @model resolveProxies="false" required="true" transient="true" changeable="false"
-	 * @generated
+	 * @param builtModule
+	 *            The packaged module file in gzipped tar format
+	 * @return The metadata or null if no metadata was present in the file
 	 */
-	Cache getCache();
+	Metadata getModuleMetadataFromPackage(File builtModule) throws IOException;
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * 
-	 * @model exceptions="org.cloudsmith.geppetto.forge.IOException"
-	 * @generated
-	 */
-	ReleaseInfo getRelease(String fullName) throws IOException;
-
-	/**
-	 * Returns the value of the '<em><b>Repository</b></em>' attribute.
-	 * <!-- begin-model-doc -->
-	 * The repository location
-	 * <!-- end-model-doc -->
-	 * 
-	 * @return the value of the '<em>Repository</em>' attribute.
-	 * @see org.cloudsmith.geppetto.forge.ForgePackage#getForge_Repository()
-	 * @model dataType="org.cloudsmith.geppetto.forge.URI" required="true" changeable="false"
-	 * @generated
-	 */
-	Repository getRepository();
-
-	/**
-	 * Returns the value of the '<em><b>Service</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Service</em>' reference isn't clear, there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * 
-	 * @return the value of the '<em>Service</em>' reference.
-	 * @see org.cloudsmith.geppetto.forge.ForgePackage#getForge_Service()
-	 * @model resolveProxies="false" required="true" transient="true" changeable="false"
-	 * @generated
-	 */
-	ForgeService getService();
-
-	/**
-	 * Returns the value of the '<em><b>Version</b></em>' attribute.
-	 * <!-- begin-model-doc -->
-	 * The version of the repository service
-	 * <!-- end-model-doc -->
-	 * 
-	 * @return the value of the '<em>Version</em>' attribute.
-	 * @see org.cloudsmith.geppetto.forge.ForgePackage#getForge_Version()
-	 * @model required="true" changeable="false"
-	 * @generated
-	 */
-	String getVersion();
-
-	/**
-	 * <!-- begin-model-doc -->
-	 * Install a module (eg, 'user-modname') from a repository or file. A
+	 * Install a module (eg, 'user-modname') from the Forge repository. A
 	 * module is an archive that contains one single folder. In some cases,
 	 * like when installing into a pre-existing workspace project, it's
 	 * desirable to skip this folder and instead expand everything beneath
@@ -166,6 +122,9 @@ public interface Forge extends EObject {
 	 * 
 	 * @param fullName
 	 *            The name of the module
+	 * @param range
+	 *            version constraint to apply when selecting the module release. Can be <code>null</code> in which case the release with the highest
+	 *            version wins
 	 * @param destination
 	 *            The destination for the install.
 	 * @param destinationIncludesTopFolder
@@ -175,23 +134,112 @@ public interface Forge extends EObject {
 	 *            the <code>destination</code>.
 	 * @param force
 	 *            Set to <code>true</code> to overwrite an existing module.
-	 *            <!-- end-model-doc -->
-	 * @model exceptions="org.cloudsmith.geppetto.forge.IOException" destinationDataType="org.cloudsmith.geppetto.forge.File"
-	 * @generated
 	 */
-	Metadata install(String fullName, File destination, boolean destinationIncludesTopFolder, boolean force)
+	Metadata install(ModuleName fullName, VersionRange range, File destination, boolean destinationIncludesTopFolder,
+			boolean force) throws IOException;
+
+	/**
+	 * Install a specific release of a module from the Forge repository. A
+	 * module is an archive that contains one single folder. In some cases,
+	 * like when installing into a pre-existing workspace project, it's
+	 * desirable to skip this folder and instead expand everything beneath
+	 * it into the given <code>destination</code>. This behavior can be
+	 * enforced by setting the <code>destinationIncludesTopFolder</code> to <code>true</code>.
+	 * 
+	 * @param release
+	 *            The module release
+	 * @param destination
+	 *            The destination for the install.
+	 * @param destinationIncludesTopFolder
+	 *            When <code>true</code>, assume that all content beneath the
+	 *            top folder in the archive should be installed directly beneath the
+	 *            given <code>destination</code>. When this flag is <code>false</code> the top folder of the archive will be expanded as-is beneath
+	 *            the <code>destination</code>.
+	 * @param force
+	 *            Set to <code>true</code> to overwrite an existing module.
+	 */
+	Metadata install(Release release, File destination, boolean destinationIncludesTopFolder, boolean force)
 			throws IOException;
 
 	/**
-	 * <!-- begin-model-doc -->
+	 * Load metadata from a JSON file
+	 * 
+	 * @param jsonFile
+	 *            The file containing the JSON representation
+	 * @return The resulting metadata
+	 * @throws IOException
+	 */
+	Metadata loadJSONMetadata(File jsonFile) throws IOException;
+
+	/**
+	 * Parse a Modulefile into a {@link Metadata} instance.
+	 * 
+	 * @param modulefile
+	 *            The file to parse
+	 * @return The resulting metadata
+	 * @throws IOException
+	 */
+	Metadata parseModuleFile(File modulefile) throws IOException;
+
+	/**
+	 * Publish a gzipped module tarball to the Forge. The provided diagnostic is used for informational messages
+	 * only. Any errors will yield an exception.
+	 * 
+	 * @param moduleTarball
+	 *            The gzipped tarball
+	 *            Set to <tt>true</tt> if all but the final step of sending to the Forge should be made
+	 * @param result
+	 *            The collector diagnostic.
+	 * @throws AlreadyPublishedException
+	 *             if the module is found on the forge at its current version prior to publishing
+	 * @throws ForgeException
+	 *             on communication errors with the forge
+	 * @throws IOException
+	 */
+	void publish(File moduleTarball, boolean dryRun, Diagnostic diagnostic) throws ForgeException, IOException;
+
+	/**
+	 * Publish all gzipped module tarballs found under <tt>builtModulesDir</tt>. Report progress on the
+	 * provided <tt>result</tt> diagnostic. The caller must check the severity of the <tt>result</tt> after this call has completed.
+	 * 
+	 * @param builtModulesDir
+	 *            The directory where the modules to be published reside
+	 * @param dryRun
+	 *            Set to <tt>true</tt> if all but the final step of sending to the Forge should be made
+	 * @param result
+	 *            The collector diagnostic.
+	 */
+	void publishAll(File builtModulesDir, boolean dryRun, Diagnostic result);
+
+	/**
+	 * Resolves all dependencies extending from the modules described by <tt>metadatas</tt>.
+	 * 
+	 * @param metadatas
+	 *            The dependencies to resolve
+	 * @param unresolvedCollector
+	 *            A collector where unresolved dependencies, if any, will be added.
+	 * @return A set of releases that constitutes the successful part of the resolution
+	 * @throws IOException
+	 */
+	Set<Release> resolveDependencies(Iterable<Metadata> metadatas, Set<Dependency> unresolvedCollector)
+			throws IOException;
+
+	/**
+	 * Store the given metadata as JSON
+	 * 
+	 * @param md
+	 *            The metadata to store
+	 * @param jsonFile
+	 *            The file to create
+	 * @throws IOException
+	 */
+	void saveJSONMetadata(Metadata md, File jsonFile) throws IOException;
+
+	/**
 	 * Search the module repository for a module matching <code>term</code>
 	 * 
 	 * @param term
 	 *            Search term
-	 *            <!-- end-model-doc -->
-	 * @model
-	 * @generated
 	 */
-	List<ModuleInfo> search(String term) throws IOException;
-
-} // Forge
+	List<Module> search(String term) throws IOException;
+}

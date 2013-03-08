@@ -17,7 +17,7 @@ import java.io.PrintStream;
 import org.eclipse.emf.common.util.BasicDiagnostic;
 import org.eclipse.emf.common.util.Diagnostic;
 
-import org.cloudsmith.geppetto.validation.DetailedDiagnosticData;
+import org.cloudsmith.geppetto.common.diagnostic.DetailedFileDiagnostic;
 import org.cloudsmith.geppetto.validation.runner.BuildResult;
 
 /**
@@ -51,7 +51,7 @@ public class TextualValidationResultFormatter implements IValidationResultFormat
 	 * @param detail
 	 * @param p
 	 */
-	private void formatDetail(Diagnostic d, DetailedDiagnosticData detail, PrintStream p) {
+	private void formatDetail(Diagnostic d, DetailedFileDiagnostic detail, PrintStream p) {
 		String source = d.getSource();
 		String message = d.getMessage();
 		String severity = severityLabel(d);
@@ -68,7 +68,7 @@ public class TextualValidationResultFormatter implements IValidationResultFormat
 	 */
 	private void formatDignostics(BasicDiagnostic diagnostics, PrintStream p) {
 		for(Diagnostic d : diagnostics.getChildren()) {
-			DetailedDiagnosticData detail = getDetail(d);
+			DetailedFileDiagnostic detail = getDetail(d);
 			if(detail == null)
 				formatExceptionDiagnostic(d, p);
 			else
@@ -97,12 +97,12 @@ public class TextualValidationResultFormatter implements IValidationResultFormat
 		p.print("---\n");
 	}
 
-	private DetailedDiagnosticData getDetail(Diagnostic d) {
+	private DetailedFileDiagnostic getDetail(Diagnostic d) {
 		if(d.getData().size() < 1)
 			return null;
 		Object x = d.getData().get(0);
-		if(x instanceof DetailedDiagnosticData)
-			return (DetailedDiagnosticData) x;
+		if(x instanceof DetailedFileDiagnostic)
+			return (DetailedFileDiagnostic) x;
 		return null;
 	}
 
@@ -114,7 +114,7 @@ public class TextualValidationResultFormatter implements IValidationResultFormat
 	 * @param detail
 	 * @return
 	 */
-	private String locationLabel(DetailedDiagnosticData detail) {
+	private String locationLabel(DetailedFileDiagnostic detail) {
 		int lineNumber = detail.getLineNumber();
 		int offset = detail.getOffset();
 		int length = detail.getLength();

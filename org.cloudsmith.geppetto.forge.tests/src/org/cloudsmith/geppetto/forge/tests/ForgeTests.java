@@ -24,18 +24,14 @@ import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
 
 @SuiteClasses({
-	// @fmtOff
+// @fmtOff
+	ModuleNameTest.class,
 	ForgeTest.class,
 	ForgeServiceTest.class,
-	CacheTest.class,
-	RepositoryTest.class,
 	MetadataTest.class,
-	DependencyTest.class,
-	ModuleInfoTest.class,
+	ModuleUtilsTest.class,
 	TypeTest.class,
-	VersionRequirementTest.class
 	// @fmtOn
-
 })
 @RunWith(Suite.class)
 public class ForgeTests extends TestSuite {

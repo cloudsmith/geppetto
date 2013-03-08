@@ -11,7 +11,8 @@
  */
 package org.cloudsmith.geppetto.forge.v2.model;
 
-import org.org.cloudsmith.geppetto.semver.VersionRange;
+import org.cloudsmith.geppetto.semver.Version;
+import org.cloudsmith.geppetto.semver.VersionRange;
 
 import com.google.gson.annotations.Expose;
 
@@ -19,16 +20,8 @@ import com.google.gson.annotations.Expose;
  * Describes a dependency from one module to another.
  */
 public class Dependency extends Entity {
-	private static boolean safeEquals(Object a, Object b) {
-		if(a == b)
-			return true;
-		if(a == null || b == null)
-			return false;
-		return a.equals(b);
-	}
-
 	@Expose
-	private QName name;
+	private ModuleName name;
 
 	@Expose
 	private String repository;
@@ -49,7 +42,7 @@ public class Dependency extends Entity {
 	/**
 	 * @return the name
 	 */
-	public QName getName() {
+	public ModuleName getName() {
 		return name;
 	}
 
@@ -69,14 +62,9 @@ public class Dependency extends Entity {
 
 	@Override
 	public int hashCode() {
-		int code = 1;
-		if(name != null)
-			code = name.hashCode();
-		else
-			code = 773;
-		if(version_requirement != null)
-			code = code * 31 + version_requirement.hashCode();
-		return code;
+		int hash = safeHash(name);
+		hash = hash * 31 + safeHash(version_requirement);
+		return hash;
 	}
 
 	/**
@@ -86,6 +74,19 @@ public class Dependency extends Entity {
 	public boolean matches(Metadata metadata) {
 		return safeEquals(name, metadata.getName()) &&
 				(version_requirement == null || version_requirement.isIncluded(metadata.getVersion()));
+	}
+
+	/**
+	 * Checks if this dependency is matched by the name and version
+	 * 
+	 * @param name
+	 *            The name to match
+	 * @param version
+	 *            The version to match
+	 * @return The result of the match
+	 */
+	public boolean matches(ModuleName qname, Version version) {
+		return safeEquals(name, qname) && (version_requirement == null || version_requirement.isIncluded(version));
 	}
 
 	/**
@@ -104,8 +105,10 @@ public class Dependency extends Entity {
 	 * @param name
 	 *            the name to set
 	 */
-	public void setName(QName name) {
-		this.name = name;
+	public void setName(ModuleName name) {
+		this.name = name == null
+				? null
+				: name.withSeparator('/');
 	}
 
 	/**

@@ -16,8 +16,9 @@ import java.util.Collections;
 import java.util.Locale;
 
 import org.cloudsmith.geppetto.forge.Forge;
-import org.cloudsmith.geppetto.forge.ForgeFactory;
-import org.cloudsmith.geppetto.forge.Metadata;
+import org.cloudsmith.geppetto.forge.util.ModuleUtils;
+import org.cloudsmith.geppetto.forge.v2.model.Metadata;
+import org.cloudsmith.geppetto.forge.v2.model.ModuleName;
 import org.cloudsmith.geppetto.pp.dsl.ui.preferences.PPPreferencesHelper;
 import org.cloudsmith.geppetto.ui.UIPlugin;
 import org.cloudsmith.geppetto.ui.util.ResourceUtil;
@@ -76,13 +77,14 @@ public class NewPuppetModuleProjectWizard extends Wizard implements INewWizard {
 	@Inject
 	private PPPreferencesHelper preferenceHelper;
 
+	@Inject
+	private Forge forge;
+
 	protected IPath projectLocation;
 
 	protected IPath projectContainer;
 
 	protected IProject project;
-
-	protected Forge forge;
 
 	@Override
 	public void addPages() {
@@ -95,13 +97,6 @@ public class NewPuppetModuleProjectWizard extends Wizard implements INewWizard {
 	}
 
 	protected Forge getForge() {
-
-		if(forge == null) {
-			forge = ForgeFactory.eINSTANCE.createForgeService().createForge(
-				java.net.URI.create(preferenceHelper.getForgeURI()));
-			//				java.net.URI.create("http://forge.puppetlabs.com")); //$NON-NLS-1$
-		}
-
 		return forge;
 	}
 
@@ -129,14 +124,14 @@ public class NewPuppetModuleProjectWizard extends Wizard implements INewWizard {
 
 	protected void initializeProjectContents() throws Exception {
 		Forge forge = getForge();
-		Metadata metadata = forge.getService().createMetadata(
-			getUserName() + '/' + toInitialLowerCase(project.getName())); //$NON-NLS-1$
+		Metadata metadata = new Metadata();
+		metadata.setName(new ModuleName(getUserName(), '/', toInitialLowerCase(project.getName())));
 
 		if(ResourceUtil.getFile(project.getFullPath().append("manifests/init.pp")).exists()) { //$NON-NLS-1$
 			File modulefile = project.getLocation().append("Modulefile").toFile(); //$NON-NLS-1$
 
 			if(!modulefile.exists()) {
-				metadata.saveModulefile(modulefile);
+				ModuleUtils.saveAsModulefile(metadata, modulefile);
 			}
 		}
 		else {

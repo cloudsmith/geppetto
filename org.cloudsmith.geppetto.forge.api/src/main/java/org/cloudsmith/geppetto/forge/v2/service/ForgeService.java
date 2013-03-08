@@ -24,7 +24,7 @@ import com.google.gson.JsonElement;
 import com.google.inject.Inject;
 
 /**
- * Abstract base class for all services provided by the Forge API
+ * Abstract base class for all services provided by the ForgeAPI API
  */
 public abstract class ForgeService {
 	@Inject

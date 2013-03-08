@@ -12,54 +12,46 @@
 package org.cloudsmith.geppetto.forge.tests;
 
 import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.URI;
 import java.util.List;
 import java.util.zip.GZIPInputStream;
 
 import org.cloudsmith.geppetto.common.os.FileUtils;
 import org.cloudsmith.geppetto.common.os.StreamUtil;
 import org.cloudsmith.geppetto.forge.Forge;
-import org.cloudsmith.geppetto.forge.ForgeFactory;
-import org.cloudsmith.geppetto.forge.ForgeService;
-import org.cloudsmith.geppetto.forge.IncompleteException;
-import org.cloudsmith.geppetto.forge.Metadata;
-import org.cloudsmith.geppetto.forge.ModuleInfo;
-import org.cloudsmith.geppetto.forge.ReleaseInfo;
-import org.cloudsmith.geppetto.forge.impl.MetadataImpl;
+import org.cloudsmith.geppetto.forge.util.ModuleUtils;
 import org.cloudsmith.geppetto.forge.util.TarUtils;
+import org.cloudsmith.geppetto.forge.v2.model.Metadata;
+import org.cloudsmith.geppetto.forge.v2.model.Module;
+import org.cloudsmith.geppetto.forge.v2.model.ModuleName;
 import org.junit.Before;
 import org.junit.Test;
 
-public class ForgeTest {
+public class ForgeTest extends AbstractForgeTest {
 
 	private static void assertExcludesMatch(String name) {
 		assertTrue(
 			"The name '" + name + "' does not match default excludes pattern",
-			MetadataImpl.DEFAULT_EXCLUDES_PATTERN.matcher(name).matches());
+			ModuleUtils.DEFAULT_EXCLUDES_PATTERN.matcher(name).matches());
 	}
 
 	private static void assertNotExcludesMatch(String name) {
 		assertFalse(
 			"The name '" + name + "' matches default excludes pattern",
-			MetadataImpl.DEFAULT_EXCLUDES_PATTERN.matcher(name).matches());
+			ModuleUtils.DEFAULT_EXCLUDES_PATTERN.matcher(name).matches());
 	}
 
 	private Forge fixture = null;
 
 	@Before
 	public void setUp() throws Exception {
-		ForgeService forgeService = ForgeFactory.eINSTANCE.createForgeService();
-		fixture = forgeService.createForge(
-			URI.create("http://forge.puppetlabs.com"), ForgeTests.getTestOutputFolder("cache", false));
+		fixture = getForge();
 	}
 
 	@Test
@@ -69,8 +61,10 @@ public class ForgeTest {
 			File resultFolder = ForgeTests.getTestOutputFolder("apache-build-result", true);
 			FileUtils.cpR(
 				Activator.getTestData("puppetlabs-apache"), installFolder, FileUtils.DEFAULT_EXCLUDES, false, true);
-			Metadata md = fixture.build(installFolder, resultFolder, null);
-			String archiveName = md.getFullName() + '-' + md.getVersion();
+			Metadata[] mdHandle = new Metadata[1];
+			fixture.build(installFolder, resultFolder, null, mdHandle);
+			Metadata md = mdHandle[0];
+			String archiveName = md.getName().toString() + '-' + md.getVersion();
 			File builtArchive = new File(resultFolder, archiveName + ".tar.gz");
 			assertTrue("Build did not build any archive", builtArchive.canRead());
 			File unpackFolder = ForgeTests.getTestOutputFolder("apache-unpack-result", true);
@@ -87,9 +81,6 @@ public class ForgeTest {
 		catch(IOException e) {
 			fail(e.getMessage());
 		}
-		catch(IncompleteException e) {
-			fail(e.getMessage());
-		}
 	}
 
 	@Test
@@ -99,14 +90,11 @@ public class ForgeTest {
 			File resultFolder = ForgeTests.getTestOutputFolder("test-changes-result", true);
 			FileUtils.cpR(
 				Activator.getTestData("puppetlabs-apache"), installFolder, FileUtils.DEFAULT_EXCLUDES, false, true);
-			fixture.build(installFolder, resultFolder, null);
+			fixture.build(installFolder, resultFolder, null, null);
 			List<File> changes = fixture.changes(installFolder, null);
 			assertTrue("Unexpected changes", changes.isEmpty());
 		}
 		catch(IOException e) {
-			fail(e.getMessage());
-		}
-		catch(IncompleteException e) {
 			fail(e.getMessage());
 		}
 	}
@@ -151,8 +139,8 @@ public class ForgeTest {
 	@Test
 	public void testGenerate__File_Metadata() {
 		try {
-			ForgeService service = ForgeFactory.eINSTANCE.createForgeService();
-			Metadata metadata = service.createMetadata("cloudsmith/testmodule");
+			Metadata metadata = new Metadata();
+			metadata.setName(new ModuleName("cloudsmith/testmodule"));
 			File installFolder = ForgeTests.getTestOutputFolder("testmodule-install", true);
 			installFolder.delete();
 			fixture.generate(installFolder, metadata);
@@ -163,25 +151,10 @@ public class ForgeTest {
 	}
 
 	@Test
-	public void testGetRelease__String() {
-		try {
-			ReleaseInfo info = fixture.getRelease("puppetlabs-apache");
-			assertTrue("Unexpeced file", info.getFile().startsWith("/system/releases/p/puppetlabs/puppetlabs-apache-"));
-			assertNotNull(info.getVersion());
-		}
-		catch(FileNotFoundException e) {
-			fail("No release found matching 'puppetlabs-apache'");
-		}
-		catch(IOException e) {
-			fail(e.getMessage());
-		}
-	}
-
-	@Test
 	public void testInstall__String_File_boolean_boolean() {
 		try {
 			File installFolder = ForgeTests.getTestOutputFolder("stdlib-install", true);
-			fixture.install("puppetlabs/stdlib", installFolder, false, true);
+			fixture.install(new ModuleName("puppetlabs/stdlib"), null, installFolder, false, true);
 			File found = new File(installFolder, "stdlib");
 			assertTrue("Installation did not produce the expected result", found.isDirectory());
 		}
@@ -194,10 +167,10 @@ public class ForgeTest {
 	@Test
 	public void testSearch__String() {
 		try {
-			List<ModuleInfo> hits = fixture.search("rsync");
+			List<Module> hits = fixture.search("rsync");
 			assertFalse("No modules found matching 'rsync'", hits.isEmpty());
-			for(ModuleInfo mi : hits)
-				System.out.println(mi);
+			for(Module mi : hits)
+				System.out.println(mi.getFullName());
 		}
 		catch(IOException e) {
 			fail(e.getMessage());

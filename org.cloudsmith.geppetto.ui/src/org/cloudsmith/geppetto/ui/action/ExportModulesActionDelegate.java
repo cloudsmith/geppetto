@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.cloudsmith.geppetto.forge.Forge;
-import org.cloudsmith.geppetto.forge.ForgeFactory;
+import org.cloudsmith.geppetto.forge.ForgeService;
 import org.cloudsmith.geppetto.ui.UIPlugin;
 import org.cloudsmith.geppetto.ui.util.ResourceUtil;
 import org.eclipse.core.resources.IProject;
@@ -55,18 +55,16 @@ public class ExportModulesActionDelegate extends ActionDelegate implements IObje
 
 				@Override
 				protected void execute(IProgressMonitor progressMonitor) {
-					Forge forge = ForgeFactory.eINSTANCE.createForgeService().createForge(
-						java.net.URI.create("http://forge.puppetlabs.com")); //$NON-NLS-1$
+					Forge forge = ForgeService.getDefault().getForgeInjector().getInstance(Forge.class);
 
 					for(IProject project : projects) {
 						try {
-							forge.build(project.getLocation().toFile(), new Path(directoryPath).toFile(), null);
+							forge.build(project.getLocation().toFile(), new Path(directoryPath).toFile(), null, null);
 						}
 						catch(Exception exception) {
 							UIPlugin.INSTANCE.log(exception);
 						}
 					}
-
 					progressMonitor.done();
 				}
 			};

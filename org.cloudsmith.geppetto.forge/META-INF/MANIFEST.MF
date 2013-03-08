@@ -10,8 +10,12 @@ Export-Package: org.cloudsmith.geppetto.forge,
  org.cloudsmith.geppetto.forge.impl;x-friends:="org.cloudsmith.geppetto.forge.tests",
  org.cloudsmith.geppetto.forge.util
 Require-Bundle: org.cloudsmith.geppetto.common,
+ org.cloudsmith.geppetto.forge.api,
+ org.cloudsmith.geppetto.semver,
  org.eclipse.emf.ecore;bundle-version="2.6.0";visibility:=reexport,
  com.google.gson;bundle-version="1.6.0",
+ com.google.inject,
  org.apache.commons.compress,
- org.cloudsmith.jrubyparser
+ org.cloudsmith.jrubyparser,
+ org.apache.httpcomponents.httpclient
 Eclipse-BundleShape: dir

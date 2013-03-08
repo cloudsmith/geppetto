@@ -14,9 +14,9 @@ package org.cloudsmith.geppetto.ui.action;
 import java.util.Collections;
 
 import org.cloudsmith.geppetto.forge.Forge;
-import org.cloudsmith.geppetto.forge.ForgeFactory;
 import org.cloudsmith.geppetto.forge.ForgeService;
-import org.cloudsmith.geppetto.forge.ModuleInfo;
+import org.cloudsmith.geppetto.forge.v2.model.Module;
+import org.cloudsmith.geppetto.forge.v2.model.ModuleName;
 import org.cloudsmith.geppetto.ui.UIPlugin;
 import org.cloudsmith.geppetto.ui.util.ResourceUtil;
 import org.eclipse.core.resources.IProject;
@@ -45,14 +45,13 @@ public class ImportModulesFromForgeActionDelegate extends ActionDelegate impleme
 			@Override
 			protected void execute(IProgressMonitor progressMonitor) {
 				try {
-					ForgeService forgeService = ForgeFactory.eINSTANCE.createForgeService();
-					Forge forge = forgeService.createForge(java.net.URI.create("http://forge.puppetlabs.com")); //$NON-NLS-1$
+					Forge forge = ForgeService.getDefault().getForgeInjector().getInstance(Forge.class);
 
-					for(ModuleInfo module : forge.search(null)) {
-						String fullName = module.getFullName().replace('/', '-');
-						String[] names = fullName.split("-");
-
-						String projectName = names[0];
+					// Uh, this seems to import ALL MODULES from the Forge!!! Who calls this?
+					// THH 2013-03-07
+					for(Module module : forge.search(null)) {
+						ModuleName fullName = module.getFullName();
+						String projectName = fullName.getOwner();
 
 						progressMonitor.subTask(UIPlugin.INSTANCE.getString(
 							"_UI_CreatingPuppetProject_message", new Object[] { projectName })); //$NON-NLS-1$
@@ -62,7 +61,8 @@ public class ImportModulesFromForgeActionDelegate extends ActionDelegate impleme
 								new Path(projectName), null, Collections.<IProject> emptyList(), progressMonitor);
 
 							forge.install(
-								module.getFullName(), project.getLocation().append(names[1]).toFile(), true, true);
+								module.getFullName(), null, project.getLocation().append(fullName.getName()).toFile(),
+								true, true);
 
 							project.refreshLocal(IResource.DEPTH_INFINITE, new SubProgressMonitor(progressMonitor, 1));
 						}

@@ -1,0 +1,30 @@
+/**
+ * Copyright (c) 2011 Cloudsmith Inc. and other contributors, as listed below.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ * 
+ * Contributors:
+ *   Cloudsmith
+ * 
+ */
+package org.cloudsmith.geppetto.forge.impl;
+
+import org.cloudsmith.geppetto.forge.ForgePreferences;
+import org.cloudsmith.geppetto.forge.v2.client.ForgeAPIPreferencesBean;
+
+public class ForgePreferencesBean extends ForgeAPIPreferencesBean implements ForgePreferences {
+	private static final long serialVersionUID = 1L;
+
+	private String cacheLocation;
+
+	@Override
+	public String getCacheLocation() {
+		return cacheLocation;
+	}
+
+	public void setCacheLocation(String cacheLocation) {
+		this.cacheLocation = cacheLocation;
+	}
+}

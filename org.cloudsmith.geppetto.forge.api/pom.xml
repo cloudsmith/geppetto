@@ -13,7 +13,7 @@
 	</description>
 
 	<properties>
-		<testScriptDir>${basedir}/src/test/script</testScriptDir>
+		<testScriptDir>${basedir}/src/it/script</testScriptDir>
 		<testForgeServerPidFile>${project.build.directory}/forgeserver.pid</testForgeServerPidFile>
 		<testForgeServerLogFile>${project.build.directory}/forgeserver.log</testForgeServerLogFile>
 		<testForgeServerDir>${user.home}/git/puppet-forge-api</testForgeServerDir>
@@ -21,13 +21,6 @@
 
 	<build>
 		<plugins>
-			<plugin>
-				<artifactId>maven-compiler-plugin</artifactId>
-				<configuration>
-					<source>1.7</source>
-					<target>1.7</target>
-				</configuration>
-			</plugin>
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>exec-maven-plugin</artifactId>
@@ -101,7 +94,6 @@
 				</executions>
 			</plugin>
 			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-failsafe-plugin</artifactId>
 				<executions>
 					<execution>
@@ -110,6 +102,8 @@
 							<goal>verify</goal>
 						</goals>
 						<configuration>
+							<testSourceDirectory>src/it/java</testSourceDirectory>
+							<testClassesDirectory>target/it-classes</testClassesDirectory>
 							<skipTests>${skipITs}</skipTests>
 						</configuration>
 					</execution>
@@ -122,6 +116,16 @@
 						</property>
 					</systemProperties>
 				</configuration>
+			</plugin>
+			<plugin>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<executions>
+					<execution>
+						<goals>
+							<goal>test</goal>
+						</goals>
+					</execution>
+				</executions>
 			</plugin>
 		</plugins>
 		<pluginManagement>

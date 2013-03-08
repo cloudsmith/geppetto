@@ -23,7 +23,7 @@ import org.eclipse.xtext.parser.IParseResult;
  */
 public class PPSyntaxErrorException extends Exception {
 
-	private static final long serialVersionUID = 5291479164795826991L;
+	private static final long serialVersionUID = 1L;
 
 	private IParseResult parseResult;
 

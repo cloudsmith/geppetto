@@ -1,5 +1,5 @@
 version "1.0.0-#{%x[git rev-parse HEAD].chomp}"
-name 'test_module_interpolated_complex_ruby'
+name 'bob-test_module_interpolated_complex_ruby'
 author 'bob'
 license ''
 project_page ''

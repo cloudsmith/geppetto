@@ -36,7 +36,7 @@ public class UserService extends ForgeService {
 
 	/**
 	 * Confirms the user using the given <code>confirmationToken</code>. This method will fail
-	 * unless the OAuth token is associated with the Forge Web application and the logged in
+	 * unless the OAuth token is associated with the ForgeAPI Web application and the logged in
 	 * user is the owner of the given email
 	 * 
 	 * @param confirmationToken
@@ -49,7 +49,7 @@ public class UserService extends ForgeService {
 
 	/**
 	 * Resets the password of the user using the given <code>passwordToken</code>. This method will fail
-	 * unless the OAuth token is associated with the Forge Web application and the logged in
+	 * unless the OAuth token is associated with the ForgeAPI Web application and the logged in
 	 * user is the owner of the <code>passwordToken</code>
 	 * 
 	 * @param passwordToken
@@ -108,7 +108,7 @@ public class UserService extends ForgeService {
 
 	/**
 	 * Retrieves confirmation token for a user, using an email address. This method will fail
-	 * unless the OAuth token is associated with the Forge Web application and the logged in
+	 * unless the OAuth token is associated with the ForgeAPI Web application and the logged in
 	 * user is the owner of the given email
 	 * 
 	 * @param email
@@ -147,7 +147,7 @@ public class UserService extends ForgeService {
 
 	/**
 	 * Retrieves password reset token for a user, using an email address. This method will fail
-	 * unless the OAuth token is associated with the Forge Web application and the logged in
+	 * unless the OAuth token is associated with the ForgeAPI Web application and the logged in
 	 * user is the owner of the given email
 	 * 
 	 * @param email

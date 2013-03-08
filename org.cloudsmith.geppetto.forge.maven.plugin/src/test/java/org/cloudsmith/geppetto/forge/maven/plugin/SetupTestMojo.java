@@ -13,16 +13,19 @@ package org.cloudsmith.geppetto.forge.maven.plugin;
 
 import java.util.Properties;
 
-import org.cloudsmith.geppetto.forge.v2.Forge;
-import org.cloudsmith.geppetto.forge.v2.client.ForgePreferencesBean;
+import org.cloudsmith.geppetto.forge.v2.ForgeAPI;
+import org.cloudsmith.geppetto.forge.v2.client.ForgeHttpModule;
+import org.cloudsmith.geppetto.forge.v2.client.ForgeAPIPreferencesBean;
 import org.cloudsmith.geppetto.forge.v2.service.ModuleService;
 import org.cloudsmith.geppetto.forge.v2.service.ModuleTemplate;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.google.inject.Guice;
+
 public class SetupTestMojo extends AbstractForgeTestMojo {
-	private static ForgePreferencesBean createBasicForgePrefs() throws Exception {
-		ForgePreferencesBean forgePrefs = new ForgePreferencesBean();
+	private static ForgeAPIPreferencesBean createBasicForgePrefs() throws Exception {
+		ForgeAPIPreferencesBean forgePrefs = new ForgeAPIPreferencesBean();
 
 		Properties props = AbstractForgeMojo.readForgeProperties();
 		forgePrefs.setOAuthClientId(props.getProperty("forge.oauth.clientID"));
@@ -36,10 +39,10 @@ public class SetupTestMojo extends AbstractForgeTestMojo {
 	@Test
 	public void createInitialModules() throws Exception {
 		// Login using the primary login (bob)
-		ForgePreferencesBean forgePrefs = createBasicForgePrefs();
+		ForgeAPIPreferencesBean forgePrefs = createBasicForgePrefs();
 		forgePrefs.setLogin(System.getProperty("forge.login"));
 		forgePrefs.setPassword(System.getProperty("forge.password"));
-		Forge forge = new Forge(forgePrefs);
+		ForgeAPI forge = new ForgeAPI(Guice.createInjector(new ForgeHttpModule(forgePrefs)));
 
 		// Create the modules used in publishing tests
 		ModuleService moduleService = forge.createModuleService();
@@ -60,8 +63,7 @@ public class SetupTestMojo extends AbstractForgeTestMojo {
 		forgePrefs = createBasicForgePrefs();
 		forgePrefs.setLogin(System.getProperty("forge.login.second"));
 		forgePrefs.setPassword(System.getProperty("forge.password.second"));
-		forge = new Forge(forgePrefs);
-		Forge secondForge = new Forge(forgePrefs);
+		ForgeAPI secondForge = new ForgeAPI(Guice.createInjector(new ForgeHttpModule(forgePrefs)));
 		moduleService = secondForge.createModuleService();
 
 		// Create the module used for the wrong owner publishing test

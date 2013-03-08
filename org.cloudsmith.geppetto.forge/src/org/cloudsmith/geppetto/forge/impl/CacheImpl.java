@@ -12,40 +12,33 @@
 package org.cloudsmith.geppetto.forge.impl;
 
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
+import java.io.OutputStream;
+import java.io.UnsupportedEncodingException;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 
-import org.cloudsmith.geppetto.common.os.FileUtils;
 import org.cloudsmith.geppetto.common.os.StreamUtil;
 import org.cloudsmith.geppetto.forge.Cache;
-import org.cloudsmith.geppetto.forge.ForgePackage;
-import org.cloudsmith.geppetto.forge.HttpMethod;
-import org.cloudsmith.geppetto.forge.Repository;
-import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.impl.EObjectImpl;
+import org.cloudsmith.geppetto.forge.ForgePreferences;
+import org.cloudsmith.geppetto.forge.util.ModuleUtils;
+import org.cloudsmith.geppetto.forge.v2.model.ModuleName;
+import org.cloudsmith.geppetto.forge.v2.service.ReleaseService;
+import org.cloudsmith.geppetto.semver.Version;
 
-/**
- * <!-- begin-user-doc --> An implementation of the model object ' <em><b>Cache</b></em>'. <!-- end-user-doc -->
- * <p>
- * The following features are implemented:
- * <ul>
- * <li>{@link org.cloudsmith.geppetto.forge.impl.CacheImpl#getLocation <em>Location</em>}</li>
- * <li>{@link org.cloudsmith.geppetto.forge.impl.CacheImpl#getRepository <em>Repository</em>}</li>
- * </ul>
- * </p>
- * 
- * @generated
- */
-public class CacheImpl extends EObjectImpl implements Cache {
-	/**
-	 * The default value of the '{@link #getLocation() <em>Location</em>}' attribute.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
-	 * @see #getLocation()
-	 * @generated
-	 * @ordered
-	 */
-	protected static final File LOCATION_EDEFAULT = null;
+import com.google.inject.Inject;
+import com.google.inject.Singleton;
+
+@Singleton
+class CacheImpl implements Cache {
+	private static final char[] hexChars = {
+			'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f' };
+
+	private static void appendHex(StringBuilder bld, byte b) {
+		bld.append(hexChars[(b & 0xf0) >> 4]);
+		bld.append(hexChars[b & 0x0f]);
+	}
 
 	private static void delete(File fileOrDir) throws IOException {
 		File[] children = fileOrDir.listFiles();
@@ -56,159 +49,83 @@ public class CacheImpl extends EObjectImpl implements Cache {
 			throw new IOException("Unable to delete " + fileOrDir);
 	}
 
-	/**
-	 * The cached value of the '{@link #getLocation() <em>Location</em>}' attribute.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
-	 * @see #getLocation()
-	 * @generated
-	 * @ordered
-	 */
-	protected File location = LOCATION_EDEFAULT;
+	@Inject
+	private ForgePreferences forgePreferences;
 
-	/**
-	 * The cached value of the '{@link #getRepository() <em>Repository</em>}' reference.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
-	 * @see #getRepository()
-	 * @generated
-	 * @ordered
-	 */
-	protected Repository repository;
+	@Inject
+	private ReleaseService releaseService;
 
-	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
-	 * @generated
-	 */
-	protected CacheImpl() {
-		super();
-	}
+	private transient String cacheKey;
 
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * 
-	 * @generated NOT
-	 */
+	private transient File location;
+
 	@Override
 	public void clean() throws IOException {
 		delete(getLocation());
 	}
 
-	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
-	 * @generated
-	 */
-	@Override
-	public Object eGet(int featureID, boolean resolve, boolean coreType) {
-		switch(featureID) {
-			case ForgePackage.CACHE__LOCATION:
-				return getLocation();
-			case ForgePackage.CACHE__REPOSITORY:
-				return getRepository();
+	private synchronized String getCacheKey() {
+		if(cacheKey == null) {
+			try {
+				MessageDigest md = MessageDigest.getInstance("SHA1");
+				String uriStr = forgePreferences.getBaseURL();
+				StringBuilder bld = new StringBuilder(uriStr.replaceAll("[^\\p{Alnum}]+", "_"));
+				int last = bld.length() - 1;
+				if(bld.charAt(last) == '_')
+					bld.setLength(last);
+				bld.append('-');
+				byte[] digest = md.digest(uriStr.getBytes("UTF-8"));
+				for(int idx = 0; idx < digest.length; ++idx)
+					appendHex(bld, digest[idx]);
+				cacheKey = bld.toString();
+			}
+			catch(UnsupportedEncodingException e) {
+				throw new RuntimeException(e);
+			}
+			catch(NoSuchAlgorithmException e) {
+				throw new RuntimeException(e);
+			}
 		}
-		return super.eGet(featureID, resolve, coreType);
+		return cacheKey;
 	}
 
-	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
-	 * @generated
-	 */
-	@Override
-	public boolean eIsSet(int featureID) {
-		switch(featureID) {
-			case ForgePackage.CACHE__LOCATION:
-				return LOCATION_EDEFAULT == null
-						? location != null
-						: !LOCATION_EDEFAULT.equals(location);
-			case ForgePackage.CACHE__REPOSITORY:
-				return repository != null;
-		}
-		return super.eIsSet(featureID);
-	}
-
-	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
-	 * @generated
-	 */
-	@Override
-	protected EClass eStaticClass() {
-		return ForgePackage.Literals.CACHE;
-	}
-
-	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
-	 * @generated NOT
-	 */
 	@Override
 	public synchronized File getLocation() {
 		if(location == null) {
-			String userHome = System.getProperty("user.home");
-			if(userHome == null)
-				throw new RuntimeException("Unable to obtain users home directory");
-			File dir = new File(userHome);
-			if(!dir.isDirectory())
-				throw new RuntimeException(userHome + " is not a directory");
-			location = new File(new File(dir, ".puppet/var/puppet-module/cache"), repository.getCacheKey());
+			String cacheLocation = forgePreferences.getCacheLocation();
+			if(cacheLocation == null) {
+				String userHome = System.getProperty("user.home");
+				if(userHome == null)
+					throw new RuntimeException("Unable to obtain users home directory");
+				File dir = new File(userHome);
+				if(!dir.isDirectory())
+					throw new RuntimeException(userHome + " is not a directory");
+				location = new File(new File(dir, ".puppet/var/puppet-module/cache"), getCacheKey());
+			}
+			else
+				location = new File(cacheLocation);
 		}
 		return location;
 	}
 
-	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
-	 * @generated
-	 */
 	@Override
-	public Repository getRepository() {
-		return repository;
-	}
-
-	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
-	 * @generated NOT
-	 */
-	@Override
-	public File retrieve(String fileName) throws IOException {
+	public File retrieve(ModuleName qname, Version version) throws IOException {
 		// This cache assumes that all leaf names are unique so we don't want
 		// to preserve the folder structure
-		String leaf = new File(fileName).getName();
-		File cachedFile = new File(getLocation(), leaf);
+		StringBuilder bld = new StringBuilder();
+		ModuleUtils.buildFileNameWithExtension(qname, version, bld);
+		File cachedFile = new File(getLocation(), bld.toString());
 		if(!cachedFile.exists()) {
 			File dir = cachedFile.getParentFile();
 			dir.mkdirs();
-			InputStream in = repository.connect(HttpMethod.GET, fileName).getInputStream();
+			OutputStream output = new FileOutputStream(cachedFile);
 			try {
-				FileUtils.cp(in, dir, leaf);
+				releaseService.download(qname.getOwner(), qname.getName(), version, output);
 			}
 			finally {
-				StreamUtil.close(in);
+				StreamUtil.close(output);
 			}
 		}
 		return cachedFile;
 	}
-
-	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
-	 * @generated
-	 */
-	@Override
-	public String toString() {
-		if(eIsProxy())
-			return super.toString();
-
-		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (location: ");
-		result.append(location);
-		result.append(')');
-		return result.toString();
-	}
-
-} // CacheImpl
+}

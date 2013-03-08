@@ -16,7 +16,6 @@ import java.io.FileFilter;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.StringWriter;
 import java.net.URI;
 import java.nio.charset.Charset;
 import java.util.List;
@@ -30,25 +29,24 @@ import org.apache.maven.plugin.MojoFailureException;
 import org.apache.maven.plugins.annotations.Component;
 import org.apache.maven.plugins.annotations.Parameter;
 import org.apache.maven.project.MavenProject;
-import org.cloudsmith.geppetto.common.os.StreamUtil;
-import org.cloudsmith.geppetto.forge.ForgeFactory;
-import org.cloudsmith.geppetto.forge.ForgeService;
-import org.cloudsmith.geppetto.forge.impl.MetadataImpl;
-import org.cloudsmith.geppetto.forge.util.JsonUtils;
-import org.cloudsmith.geppetto.forge.util.ModuleFinder;
-import org.cloudsmith.geppetto.forge.v2.Forge;
-import org.cloudsmith.geppetto.forge.v2.client.ForgePreferences;
-import org.cloudsmith.geppetto.forge.v2.client.ForgePreferencesBean;
+import org.cloudsmith.geppetto.common.diagnostic.Diagnostic;
+import org.cloudsmith.geppetto.common.diagnostic.DiagnosticType;
+import org.cloudsmith.geppetto.forge.Forge;
+import org.cloudsmith.geppetto.forge.impl.ForgeModule;
+import org.cloudsmith.geppetto.forge.impl.ForgePreferencesBean;
+import org.cloudsmith.geppetto.forge.util.ModuleUtils;
+import org.cloudsmith.geppetto.forge.v2.MetadataRepository;
 import org.cloudsmith.geppetto.forge.v2.model.Metadata;
-import org.cloudsmith.geppetto.forge.v2.model.QName;
-import org.cloudsmith.geppetto.validation.DiagnosticType;
+import org.cloudsmith.geppetto.forge.v2.model.ModuleName;
+import org.cloudsmith.geppetto.forge.v2.service.ReleaseService;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.google.gson.Gson;
 import com.google.gson.JsonParseException;
+import com.google.inject.Guice;
+import com.google.inject.Injector;
 
 /**
  * Goal which performs basic validation.
@@ -58,7 +56,7 @@ public abstract class AbstractForgeMojo extends AbstractMojo {
 
 	static final Charset UTF_8 = Charset.forName("UTF-8");
 
-	private static boolean isNull(String field) {
+	public static boolean isNull(String field) {
 		if(field == null)
 			return true;
 
@@ -129,7 +127,13 @@ public abstract class AbstractForgeMojo extends AbstractMojo {
 	private String password;
 
 	/**
-	 * The service URL of the Puppet Forge server
+	 * Location of the forge cache
+	 */
+	@Parameter(property = "forge.cache.location", defaultValue = "${user.home}/.puppet/var/puppet-module/cache/<MD5 hash of service URL>")
+	private String cacheLocation;
+
+	/**
+	 * The service URL of the Puppet ForgeAPI server
 	 */
 	@Parameter(property = "forge.serviceURL", defaultValue = "http://forge-staging-web.puppetlabs.com/")
 	private String serviceURL;
@@ -137,15 +141,13 @@ public abstract class AbstractForgeMojo extends AbstractMojo {
 	@Component
 	private MavenSession session;
 
-	private ForgePreferencesBean forgePreferences;
-
 	private transient File baseDir;
 
 	private transient File buildDir;
 
 	private transient File modulesDir;
 
-	private transient Forge forge;
+	private transient Injector forgeInjector;
 
 	private transient Logger log;
 
@@ -166,6 +168,22 @@ public abstract class AbstractForgeMojo extends AbstractMojo {
 		try {
 			if(serviceURL == null)
 				throw new MojoExecutionException("Missing required configuration parameter: 'serviceURL'");
+
+			ForgePreferencesBean forgePreferences = new ForgePreferencesBean();
+			if(!serviceURL.endsWith("/"))
+				serviceURL += "/";
+			forgePreferences.setBaseURL(serviceURL + "v2/");
+			forgePreferences.setOAuthURL(serviceURL + "oauth/token");
+			forgePreferences.setOAuthAccessToken(oauthToken);
+			forgePreferences.setOAuthClientId(clientID);
+			forgePreferences.setOAuthClientSecret(clientSecret);
+			forgePreferences.setLogin(login);
+			forgePreferences.setPassword(password);
+			forgePreferences.setOAuthScopes("");
+			forgePreferences.setCacheLocation(cacheLocation);
+
+			forgeInjector = Guice.createInjector(new ForgeModule(forgePreferences));
+
 			invoke(diagnostic);
 		}
 		catch(JsonParseException e) {
@@ -183,8 +201,7 @@ public abstract class AbstractForgeMojo extends AbstractMojo {
 	}
 
 	protected List<File> findModuleRoots() {
-		ModuleFinder moduleFinder = new ModuleFinder(getModulesDir());
-		return moduleFinder.findModuleRoots(getFileFilter());
+		return ModuleUtils.findModuleRoots(getModulesDir(), getFileFilter());
 	}
 
 	protected abstract String getActionName();
@@ -234,32 +251,13 @@ public abstract class AbstractForgeMojo extends AbstractMojo {
 		return new FileFilter() {
 			@Override
 			public boolean accept(File file) {
-				return MetadataImpl.DEFAULT_FILE_FILTER.accept(file) && !isParentOrEqual(getBuildDir(), file);
+				return ModuleUtils.DEFAULT_FILE_FILTER.accept(file) && !isParentOrEqual(getBuildDir(), file);
 			}
 		};
 	}
 
-	protected synchronized Forge getForge() {
-		if(forge == null)
-			forge = new Forge(getForgePreferences());
-		return forge;
-	}
-
-	protected synchronized ForgePreferences getForgePreferences() {
-		if(forgePreferences == null) {
-			forgePreferences = new ForgePreferencesBean();
-			if(!serviceURL.endsWith("/"))
-				serviceURL += "/";
-			forgePreferences.setBaseURL(serviceURL + "v2/");
-			forgePreferences.setOAuthURL(serviceURL + "oauth/token");
-			forgePreferences.setOAuthAccessToken(oauthToken);
-			forgePreferences.setOAuthClientId(clientID);
-			forgePreferences.setOAuthClientSecret(clientSecret);
-			forgePreferences.setLogin(login);
-			forgePreferences.setPassword(password);
-			forgePreferences.setOAuthScopes("");
-		}
-		return forgePreferences;
+	protected Forge getForge() {
+		return forgeInjector.getInstance(Forge.class);
 	}
 
 	protected Logger getLogger() {
@@ -268,32 +266,20 @@ public abstract class AbstractForgeMojo extends AbstractMojo {
 		return log;
 	}
 
+	protected MetadataRepository getMetadataRepository() {
+		return forgeInjector.getInstance(MetadataRepository.class);
+	}
+
 	protected Metadata getModuleMetadata(File moduleDirectory, Diagnostic diag) throws IOException {
-		StringWriter writer = new StringWriter();
-		try {
-			ForgeService forgeService = ForgeFactory.eINSTANCE.createForgeService();
-			org.cloudsmith.geppetto.forge.Metadata md;
-			Gson gson = JsonUtils.getGSon();
-			try {
-				md = forgeService.loadJSONMetadata(new File(moduleDirectory, "metadata.json"));
-			}
-			catch(FileNotFoundException e) {
-				md = forgeService.loadModule(moduleDirectory, getFileFilter());
-			}
-			// TODO: User the v2 Metadata throughout.
-			gson.toJson(md, writer);
-		}
-		finally {
-			StreamUtil.close(writer);
-		}
-		Gson gson = getForge().createGson();
-		Metadata md = gson.fromJson(writer.toString(), Metadata.class);
+		Metadata md = getForge().createFromModuleDir(moduleDirectory, null, getFileFilter());
 		if(md.getVersion() == null)
 			diag.addChild(new Diagnostic(Diagnostic.ERROR, DiagnosticType.GEPPETTO, "Module Version must not be null"));
 
-		QName qname = md.getName();
-		if(qname != null) {
-			String qual = qname.getQualifier();
+		ModuleName qname = md.getName();
+		if(qname == null)
+			diag.addChild(new Diagnostic(Diagnostic.ERROR, DiagnosticType.GEPPETTO, "Module name must not be null"));
+		else {
+			String qual = qname.getOwner();
 			String name = qname.getName();
 			if(isNull(qual)) {
 				qual = null;
@@ -305,7 +291,7 @@ public abstract class AbstractForgeMojo extends AbstractMojo {
 				diag.addChild(new Diagnostic(Diagnostic.ERROR, DiagnosticType.GEPPETTO, "Module Name must not be null"));
 			}
 			if(qual == null || name == null) {
-				qname = new QName(qual, name);
+				qname = new ModuleName(qual, name);
 				md.setName(qname);
 			}
 		}
@@ -331,6 +317,10 @@ public abstract class AbstractForgeMojo extends AbstractMojo {
 		IPath path = Path.fromOSString(file.getAbsolutePath());
 		IPath relative = path.makeRelativeTo(rootPath);
 		return relative.toPortableString();
+	}
+
+	protected ReleaseService getReleaseService() {
+		return forgeInjector.getInstance(ReleaseService.class);
 	}
 
 	protected abstract void invoke(Diagnostic result) throws Exception;

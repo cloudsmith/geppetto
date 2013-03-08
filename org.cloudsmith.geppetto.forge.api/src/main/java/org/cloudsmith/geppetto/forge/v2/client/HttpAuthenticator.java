@@ -42,10 +42,10 @@ public class HttpAuthenticator implements Authenticator {
 
 	private final Gson gson;
 
-	private final ForgePreferences forgePreferences;
+	private final ForgeAPIPreferences forgePreferences;
 
 	@Inject
-	public HttpAuthenticator(Gson gson, ForgePreferences forgePreferences) {
+	public HttpAuthenticator(Gson gson, ForgeAPIPreferences forgePreferences) {
 		this.gson = gson;
 		this.forgePreferences = forgePreferences;
 	}

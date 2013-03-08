@@ -24,7 +24,7 @@ public class PPForgePreferencePage extends AbstractPreferencePage {
 	protected void createFieldEditors() {
 
 		addField(new StringFieldEditor(PPPreferenceConstants.FORGE_LOCATION, //
-			"Module Forge URL", //
+			"Module ForgeAPI URL", //
 			getFieldEditorParent()));
 	}
 }

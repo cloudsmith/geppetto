@@ -11,8 +11,13 @@
  */
 package org.cloudsmith.geppetto.forge;
 
-public class IncompleteException extends Exception {
-	private static final long serialVersionUID = -7722806755572977399L;
+import org.cloudsmith.geppetto.forge.v2.client.ForgeException;
+
+/**
+ * Exception thrown on attempts to package a module with incomplete metadata
+ */
+public class IncompleteException extends ForgeException {
+	private static final long serialVersionUID = -1L;
 
 	public IncompleteException(String msg) {
 		super(msg);

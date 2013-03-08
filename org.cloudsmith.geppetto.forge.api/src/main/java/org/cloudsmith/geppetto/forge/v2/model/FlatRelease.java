@@ -11,7 +11,7 @@
  */
 package org.cloudsmith.geppetto.forge.v2.model;
 
-import org.org.cloudsmith.geppetto.semver.Version;
+import org.cloudsmith.geppetto.semver.Version;
 
 import com.google.gson.annotations.Expose;
 

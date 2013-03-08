@@ -8,7 +8,7 @@
 
 	<artifactId>org.cloudsmith.geppetto.forge</artifactId>
 	<packaging>jar</packaging>
-	<name>Geppetto Forge Client</name>
+	<name>Geppetto Forge Service</name>
 
 	<build>
 		<sourceDirectory>src</sourceDirectory>
@@ -22,6 +22,11 @@
 			<groupId>org.cloudsmith.geppetto</groupId>
 			<artifactId>org.cloudsmith.geppetto.common</artifactId>
 			<version>3.0.3-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>org.cloudsmith.geppetto</groupId>
+			<artifactId>org.cloudsmith.geppetto.forge.api</artifactId>
+			<version>${geppettoVersion}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.eclipse.emf</groupId>

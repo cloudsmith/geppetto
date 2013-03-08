@@ -17,17 +17,23 @@ import java.io.FileInputStream;
 import java.io.FilenameFilter;
 import java.io.IOException;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
+import org.cloudsmith.geppetto.common.diagnostic.DetailedFileDiagnostic;
+import org.cloudsmith.geppetto.common.diagnostic.Diagnostic;
+import org.cloudsmith.geppetto.common.diagnostic.DiagnosticData;
+import org.cloudsmith.geppetto.common.diagnostic.DiagnosticType;
+import org.cloudsmith.geppetto.common.diagnostic.ExceptionDiagnostic;
+import org.cloudsmith.geppetto.common.diagnostic.FileDiagnostic;
 import org.cloudsmith.geppetto.common.os.FileUtils;
-import org.cloudsmith.geppetto.forge.Dependency;
-import org.cloudsmith.geppetto.forge.ForgeFactory;
-import org.cloudsmith.geppetto.forge.MatchRule;
-import org.cloudsmith.geppetto.forge.Metadata;
-import org.cloudsmith.geppetto.forge.VersionRequirement;
+import org.cloudsmith.geppetto.forge.util.ModuleUtils;
+import org.cloudsmith.geppetto.forge.v2.model.Dependency;
+import org.cloudsmith.geppetto.forge.v2.model.Metadata;
+import org.cloudsmith.geppetto.forge.v2.model.ModuleName;
 import org.cloudsmith.geppetto.pp.dsl.PPDSLConstants;
 import org.cloudsmith.geppetto.pp.dsl.adapters.ResourcePropertiesAdapter;
 import org.cloudsmith.geppetto.pp.dsl.adapters.ResourcePropertiesAdapterFactory;
@@ -41,13 +47,12 @@ import org.cloudsmith.geppetto.ruby.RubyHelper;
 import org.cloudsmith.geppetto.ruby.RubySyntaxException;
 import org.cloudsmith.geppetto.ruby.spi.IRubyIssue;
 import org.cloudsmith.geppetto.ruby.spi.IRubyParseResult;
-import org.cloudsmith.geppetto.validation.DetailedDiagnosticData;
-import org.cloudsmith.geppetto.validation.DiagnosticData;
+import org.cloudsmith.geppetto.semver.Version;
+import org.cloudsmith.geppetto.semver.VersionRange;
 import org.cloudsmith.geppetto.validation.FileType;
 import org.cloudsmith.geppetto.validation.IValidationConstants;
 import org.cloudsmith.geppetto.validation.ValidationOptions;
 import org.cloudsmith.geppetto.validation.ValidationService;
-import org.cloudsmith.geppetto.validation.DiagnosticType;
 import org.cloudsmith.geppetto.validation.runner.AllModuleReferences;
 import org.cloudsmith.geppetto.validation.runner.BuildResult;
 import org.cloudsmith.geppetto.validation.runner.MetadataInfo;
@@ -63,9 +68,6 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.OperationCanceledException;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.SubMonitor;
-import org.eclipse.emf.common.util.BasicDiagnostic;
-import org.eclipse.emf.common.util.Diagnostic;
-import org.eclipse.emf.common.util.DiagnosticChain;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.xtext.diagnostics.Severity;
@@ -75,7 +77,6 @@ import org.eclipse.xtext.validation.IResourceValidator;
 import org.eclipse.xtext.validation.Issue;
 
 import com.google.common.base.Function;
-import com.google.common.base.Joiner;
 import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
@@ -179,11 +180,10 @@ public class ValidationServiceImpl implements ValidationService {
 	 * @param message
 	 * @param e
 	 */
-	private static void addExceptionDiagnostic(DiagnosticChain diagnostics, String message, Exception e) {
-		BasicDiagnostic bd = new BasicDiagnostic(
-			Diagnostic.ERROR, validationSource, DiagnosticType.INTERNAL_ERROR.getCode(), message,
-			new Object[] { e });
-		diagnostics.add(bd);
+	private static void addExceptionDiagnostic(Diagnostic diagnostics, String message, Exception e) {
+		ExceptionDiagnostic bd = new ExceptionDiagnostic(
+			Diagnostic.ERROR, validationSource, DiagnosticType.INTERNAL_ERROR, message,e);
+		diagnostics.addChild(bd);
 	}
 
 	/**
@@ -197,29 +197,31 @@ public class ValidationServiceImpl implements ValidationService {
 	 * @param message
 	 * @param issueId
 	 */
-	private static void addFileDiagnostic(DiagnosticChain diagnostics, int severity, File file, File rootDirectory,
+	private static void addFileDiagnostic(Diagnostic diagnostics, int severity, File file, File rootDirectory,
 			String message, String issueId) {
 
-		int code = DiagnosticType.UNKNOWN.getCode(); // TODO: need "structure", rename "layout" flag
-		DetailedDiagnosticData dataEntry = new DetailedDiagnosticData();
+		DetailedFileDiagnostic dft = new DetailedFileDiagnostic();
 		File sourceFile = pathToFile(file.getAbsolutePath(), rootDirectory);
-		dataEntry.setFile(sourceFile);
-		dataEntry.setLineNumber(-1);
-		dataEntry.setLength(-1);
-		dataEntry.setOffset(-1);
-		dataEntry.setIssue(issueId);
-		dataEntry.setIssueData(new String[] {});
-		dataEntry.setNode("");
-		BasicDiagnostic bd = new BasicDiagnostic(severity, validationSource, code, message, new Object[] { dataEntry });
-		diagnostics.add(bd);
+		dft.setFile(sourceFile);
+		dft.setLineNumber(-1);
+		dft.setLength(-1);
+		dft.setOffset(-1);
+		dft.setIssue(issueId);
+		dft.setIssueData(new String[] {});
+		dft.setNode("");
+		dft.setSource(validationSource);
+		dft.setSeverity(severity);
+		dft.setType(DiagnosticType.UNKNOWN);
+		dft.setMessage(message);
+		diagnostics.addChild(dft);
 	}
 
-	private static void addFileError(DiagnosticChain diagnostics, File file, File rootDirectory, String message,
+	private static void addFileError(Diagnostic diagnostics, File file, File rootDirectory, String message,
 			String issueId) {
 		addFileDiagnostic(diagnostics, Diagnostic.ERROR, file, rootDirectory, message, issueId);
 	}
 
-	private static void addFileWarning(DiagnosticChain diagnostics, File file, File rootDirectory, String message,
+	private static void addFileWarning(Diagnostic diagnostics, File file, File rootDirectory, String message,
 			String issueId) {
 		addFileDiagnostic(diagnostics, Diagnostic.WARNING, file, rootDirectory, message, issueId);
 	}
@@ -232,25 +234,25 @@ public class ValidationServiceImpl implements ValidationService {
 	 * @param rootDirectory
 	 * @param rootDirectory
 	 */
-	private static void addIssueDiagnostic(DiagnosticChain diagnostics, Issue issue, File processedFile,
+	private static void addIssueDiagnostic(Diagnostic diagnostics, Issue issue, File processedFile,
 			File rootDirectory) {
-		int code = issue.isSyntaxError()
-				? DiagnosticType.GEPPETTO_SYNTAX.getCode()
-				: DiagnosticType.GEPPETTO.getCode();
-		DetailedDiagnosticData dataEntry = new DetailedDiagnosticData();
+		DiagnosticType type = issue.isSyntaxError()
+				? DiagnosticType.GEPPETTO_SYNTAX
+				: DiagnosticType.GEPPETTO;
+		DetailedFileDiagnostic dft = new DetailedFileDiagnostic();
 		File sourceFile = uriToFile(issue.getUriToProblem(), rootDirectory);
-		dataEntry.setFile(sourceFile);
-		dataEntry.setLineNumber(issue.getLineNumber());
-		dataEntry.setLength(issue.getLength());
-		dataEntry.setOffset(issue.getOffset());
-		dataEntry.setIssue(issue.getCode());
-		dataEntry.setIssueData(issue.getData());
-		dataEntry.setNode("");
-
-		BasicDiagnostic bd = new BasicDiagnostic(
-			translateIssueSeverity(issue.getSeverity()), validationSource, code, issue.getMessage(),
-			new Object[] { dataEntry });
-		diagnostics.add(bd);
+		dft.setFile(sourceFile);
+		dft.setLineNumber(issue.getLineNumber());
+		dft.setLength(issue.getLength());
+		dft.setOffset(issue.getOffset());
+		dft.setIssue(issue.getCode());
+		dft.setIssueData(issue.getData());
+		dft.setNode("");
+		dft.setSource(validationSource);
+		dft.setSeverity(translateIssueSeverity(issue.getSeverity()));
+		dft.setType(type);
+		dft.setMessage(issue.getMessage());
+		diagnostics.addChild(dft);
 	}
 
 	/**
@@ -261,25 +263,27 @@ public class ValidationServiceImpl implements ValidationService {
 	 * @param rootDirectory
 	 * @param rootDirectory
 	 */
-	private static void addRubyIssueDiagnostic(DiagnosticChain diagnostics, IRubyIssue issue, File processedFile,
+	private static void addRubyIssueDiagnostic(Diagnostic diagnostics, IRubyIssue issue, File processedFile,
 			File rootDirectory) {
-		int code = issue.isSyntaxError()
-				? DiagnosticType.RUBY_SYNTAX.getCode()
-				: DiagnosticType.RUBY.getCode();
-		DetailedDiagnosticData dataEntry = new DetailedDiagnosticData();
-		File sourceFile = pathToFile(issue.getFileName(), rootDirectory);
-		dataEntry.setFile(sourceFile);
-		dataEntry.setLineNumber(issue.getLine());
-		dataEntry.setLength(issue.getLength());
-		dataEntry.setOffset(issue.getStartOffset());
-		dataEntry.setIssue(issue.getIdString());
-		dataEntry.setIssueData(new String[] {}); // TODO: the Ruby issue passes Object[]
-		dataEntry.setNode("");
 
-		BasicDiagnostic bd = new BasicDiagnostic(issue.isSyntaxError()
+		DetailedFileDiagnostic dft = new DetailedFileDiagnostic();
+		File sourceFile = pathToFile(issue.getFileName(), rootDirectory);
+		dft.setFile(sourceFile);
+		dft.setLineNumber(issue.getLine());
+		dft.setLength(issue.getLength());
+		dft.setOffset(issue.getStartOffset());
+		dft.setIssue(issue.getIdString());
+		dft.setIssueData(new String[] {}); // TODO: the Ruby issue passes Object[]
+		dft.setNode("");
+		dft.setSeverity(issue.isSyntaxError()
 				? Diagnostic.ERROR
-				: Diagnostic.WARNING, validationSource, code, issue.getMessage(), new Object[] { dataEntry });
-		diagnostics.add(bd);
+				: Diagnostic.WARNING);
+		dft.setType(issue.isSyntaxError()
+				? DiagnosticType.RUBY_SYNTAX
+				: DiagnosticType.RUBY);
+		dft.setSource(validationSource);
+		dft.setMessage(issue.getMessage());
+		diagnostics.addChild(dft);
 	}
 
 	/**
@@ -346,47 +350,43 @@ public class ValidationServiceImpl implements ValidationService {
 	 * @param diagnostics
 	 * @param d
 	 */
-	private void addCatalogDiagnostics(DiagnosticChain diagnostics, CatalogDiagnostic d) {
+	private void addCatalogDiagnostics(Diagnostic diagnostics, CatalogDiagnostic d) {
 		if(diagnostics == null)
 			throw new IllegalArgumentException("DiagnosticChain can not be null");
 		if(d == null)
 			throw new IllegalArgumentException("Can not add null CatalogDiagnostic");
 
 		// translate the code into codes defined for the ValidationService
-		int code = d.getCode() == CatalogDiagnostic.CODE_PARSE_ERROR
-				? DiagnosticType.CATALOG_PARSER.getCode()
-				: DiagnosticType.CATALOG.getCode();
+		DiagnosticType type = d.getCode() == CatalogDiagnostic.CODE_PARSE_ERROR
+				? DiagnosticType.CATALOG_PARSER
+				: DiagnosticType.CATALOG;
 
 		// translate the data
-		DiagnosticData dataEntry = new DiagnosticData();
+		FileDiagnostic fd = new FileDiagnostic();
 		String s = d.getFileName();
 		boolean hasDetails = false;
 		if(s != null && s.length() > 0) {
 			hasDetails = true;
-			dataEntry.setFile(new File(s));
+			fd.setFile(new File(s));
 		}
 		s = d.getNodeName();
 		if(s != null && s.length() > 0) {
 			hasDetails = true;
-			dataEntry.setNode(s);
+			fd.setNode(s);
 		}
 		if(d.getLine() != -1) {
 			hasDetails = true;
+			fd.setLineNumber(d.getLine());
 		}
-
-		// it is -1 or some other value
-		dataEntry.setLineNumber(d.getLine());
-
-		// set data if there were details
-		Object[] data = new Object[hasDetails
-				? 0
-				: 1];
-		if(hasDetails)
-			data[0] = dataEntry;
-
-		// report as a BasicDiagnostic
-		BasicDiagnostic bd = new BasicDiagnostic(d.getSeverity(), validationSource, code, d.getMessage(), data);
-		diagnostics.add(bd);
+		if(hasDetails) {
+			fd.setSeverity(d.getSeverity());
+			fd.setType(type);
+			fd.setSource(validationSource);
+			fd.setMessage(d.getMessage());
+			diagnostics.addChild(fd);
+		}
+		else
+			diagnostics.addChild(new Diagnostic(d.getSeverity(), validationSource, type, d.getMessage()));
 	}
 
 	/**
@@ -413,7 +413,7 @@ public class ValidationServiceImpl implements ValidationService {
 	 * @param root - root file for relativization
 	 * @param diagnostics - where to report issues
 	 */
-	private void checkCircularDependencies(Multimap<String, MetadataInfo> moduleData, DiagnosticChain diagnostics,
+	private void checkCircularDependencies(Multimap<ModuleName, MetadataInfo> moduleData, Diagnostic diagnostics,
 			File root) {
 		// problems: multiple versions of the same, etc.Use an identity set
 		for(MetadataInfo mi : moduleData.values()) {
@@ -448,7 +448,7 @@ public class ValidationServiceImpl implements ValidationService {
 		circle.remove(0);
 	}
 
-	private void checkModuleLayout(DiagnosticChain diagnostics, File moduleRoot, File sourceRoot) {
+	private void checkModuleLayout(Diagnostic diagnostics, File moduleRoot, File sourceRoot) {
 		if(hasModulesSubDirectory(moduleRoot))
 			addFileError(
 				diagnostics, new File(moduleRoot, "modules"), sourceRoot, "Submodules in a module is not allowed",
@@ -460,7 +460,7 @@ public class ValidationServiceImpl implements ValidationService {
 
 	}
 
-	private void checkPuppetRootLayout(DiagnosticChain diagnostics, File moduleRoot, File sourceRoot) {
+	private void checkPuppetRootLayout(Diagnostic diagnostics, File moduleRoot, File sourceRoot) {
 		// TODO: check each module under modules
 		// TODO: additional checks (files that are required etc.)
 	}
@@ -470,13 +470,12 @@ public class ValidationServiceImpl implements ValidationService {
 	 * @return
 	 */
 	private Object circularitylabel(List<MetadataInfo> circularity) {
-		StringBuilder result = new StringBuilder();
-		Joiner.on("->").appendTo(result, Iterables.transform(circularity, new Function<MetadataInfo, String>() {
-			public String apply(MetadataInfo mi) {
-				return mi.getMetadata().getName();
-			}
-		}));
-		result.append("->").append(circularity.get(0).getMetadata().getName());
+		final StringBuilder result = new StringBuilder();
+		for(MetadataInfo mi : circularity) {
+			mi.getMetadata().getName().toString(result);
+			result.append("->");
+		}
+		circularity.get(0).getMetadata().getName().toString(result);
 		return result.toString();
 	}
 
@@ -617,13 +616,11 @@ public class ValidationServiceImpl implements ValidationService {
 	 * @param monitor
 	 * @return null if the Modulefile could not be loaded
 	 */
-	private Metadata loadModulefileMetadata(DiagnosticChain diagnostics, File moduleFile, File parentFile,
+	private Metadata loadModulefileMetadata(Diagnostic diagnostics, File moduleFile, File parentFile,
 			IProgressMonitor monitor) {
 		// parse the "Modulefile" and get full name and version, use this as name of target entry
 		try {
-			Metadata metadata = ForgeFactory.eINSTANCE.createMetadata();
-			metadata.loadModuleFile(moduleFile);
-			return metadata;
+			return ModuleUtils.parseModulefile(moduleFile);
 		}
 		catch(Exception e) {
 			addFileError(
@@ -647,7 +644,7 @@ public class ValidationServiceImpl implements ValidationService {
 	 * @param monitor
 	 *        - client should call done unless using a SubMonitor
 	 */
-	public BuildResult validate(DiagnosticChain diagnostics, File source, ValidationOptions options,
+	public BuildResult validate(Diagnostic diagnostics, File source, ValidationOptions options,
 			File[] examinedFiles, IProgressMonitor monitor) {
 		if(diagnostics == null)
 			throw new IllegalArgumentException("diagnostics can not be null");
@@ -743,7 +740,7 @@ public class ValidationServiceImpl implements ValidationService {
 	/**
 	 * TODO: Is currently limited to .pp content.
 	 */
-	public Resource validate(DiagnosticChain diagnostics, String code, IProgressMonitor monitor) {
+	public Resource validate(Diagnostic diagnostics, String code, IProgressMonitor monitor) {
 		if(diagnostics == null)
 			throw new IllegalArgumentException("DiagnosticChain can not be null");
 		if(code == null)
@@ -789,7 +786,7 @@ public class ValidationServiceImpl implements ValidationService {
 	 * @param monitor
 	 * @return
 	 */
-	private BuildResult validateDirectory(DiagnosticChain diagnostics, File root, ValidationOptions options,
+	private BuildResult validateDirectory(Diagnostic diagnostics, File root, ValidationOptions options,
 			File[] examinedFiles, IProgressMonitor monitor) {
 
 		if(!(options.getFileType() == FileType.PUPPET_ROOT || options.getFileType() == FileType.MODULE_ROOT))
@@ -846,14 +843,14 @@ public class ValidationServiceImpl implements ValidationService {
 		final IPath nodeRootPath = rootPath.append(NAME_OF_DIR_WITH_RESTRICTED_SCOPE);
 
 		// collect info in a structure
-		Multimap<String, MetadataInfo> moduleData = ArrayListMultimap.create();
+		Multimap<ModuleName, MetadataInfo> moduleData = ArrayListMultimap.create();
 		for(File f : mdFiles) {
 			// load and remember all that loaded ok
 			Metadata m = loadModulefileMetadata(diagnostics, f, root, ticker.newChild(1));
 			if(m == null)
 				worked(ticker, 1);
 			else {
-				String moduleName = m.getFullName().toLowerCase();
+				ModuleName moduleName = m.getName();
 				if(options.isCheckModuleSemantics() && isOnPath(pathToFile(f.getAbsolutePath(), root), searchPath)) {
 					// remember the metadata and where it came from
 					// and if it represents a NODE as opposed to a regular MODULE
@@ -869,7 +866,7 @@ public class ValidationServiceImpl implements ValidationService {
 		}
 
 		if(options.isCheckModuleSemantics()) {
-			for(String key : moduleData.keySet()) {
+			for(ModuleName key : moduleData.keySet()) {
 				// check there is only one version of each module
 				Collection<MetadataInfo> versions = moduleData.get(key);
 				boolean redeclared = versions.size() > 1;
@@ -895,21 +892,11 @@ public class ValidationServiceImpl implements ValidationService {
 					for(Dependency d : info.getMetadata().getDependencies()) {
 
 						// check dependency name and version requirement
-						final String requiredName = d.getName().replace("/", "-").toLowerCase();
-						final VersionRequirement versionRequirement = d.getVersionRequirement();
-						if(requiredName == null || requiredName.isEmpty()) {
+						final ModuleName requiredName = d.getName();
+						if(requiredName == null) {
 							if(shouldDiagnosticBeReported)
 								addFileError(
 									diagnostics, info.getFile(), root, "Dependency without name",
-									IValidationConstants.ISSUE__MODULEFILE_DEPENDENCY_ERROR);
-							continue; // not meaningful to resolve this dependency
-						}
-						if(versionRequirement != null &&
-								(versionRequirement.getMatchRule() == null || versionRequirement.getVersion() == null)) {
-							if(shouldDiagnosticBeReported)
-								addFileError(
-									diagnostics, info.getFile(), root,
-									"Dependency version requirement error in dependency to: " + d.getName(),
 									IValidationConstants.ISSUE__MODULEFILE_DEPENDENCY_ERROR);
 							continue; // not meaningful to resolve this dependency
 						}
@@ -920,12 +907,12 @@ public class ValidationServiceImpl implements ValidationService {
 						// a dependency that does not have a version requirement.
 						//
 						Collection<MetadataInfo> candidates = moduleData.get(requiredName);
-						List<String> candidateVersions = Lists.newArrayList();
+						List<Version> candidateVersions = Lists.newArrayList();
 						List<MetadataInfo> unversioned = Lists.newArrayList();
-						if(candidates != null)
+						if(candidates != null) 
 							for(MetadataInfo mi : candidates) {
-								String cv = mi.getMetadata().getVersion();
-								if(cv == null || cv.length() < 1) {
+								Version cv = mi.getMetadata().getVersion();
+								if(cv == null) {
 									unversioned.add(mi);
 									continue; // the (possibly) broken version is reported elsewhere
 								}
@@ -933,20 +920,14 @@ public class ValidationServiceImpl implements ValidationService {
 							}
 
 						// if the dependency has no version requirement use ">=0"
+						final VersionRange versionRequirement = d.getVersionRequirement();
 						if(versionRequirement == null) {
 							// find best match for >= 0 if there are candidates with versions
 							// the best will always win over unversioned.
-							String best = null;
 							if(candidateVersions.size() > 0) {
-								VersionRequirement vr = ForgeFactory.eINSTANCE.createVersionRequirement();
-								vr.setMatchRule(MatchRule.GREATER_OR_EQUAL);
-								vr.setVersion("0");
-								best = vr.findBestMatch(candidateVersions);
+								Collections.sort(candidateVersions);
+								Version best = candidateVersions.get(candidateVersions.size() - 1);
 
-								if(best == null) {
-									// this is an internal error, one should have been found
-									throw new IllegalStateException("Should have found a best version >= 0");
-								}
 								// get the matched MetaDataInfo as the resolution of the dependency
 								// and remember it
 								for(MetadataInfo mi : candidates) {
@@ -971,10 +952,8 @@ public class ValidationServiceImpl implements ValidationService {
 						}
 						else {
 							// there was a version requirement, it must match something with a version.
-							String best = candidateVersions.size() < 1
-									? null
-									: d.getVersionRequirement().findBestMatch(candidateVersions);
-							if(best == null || best.length() < 1) {
+							Version best = d.getVersionRequirement().findBestMatch(candidateVersions);
+							if(best == null) {
 								info.addUnresolvedDependency(d);
 								if(shouldDiagnosticBeReported)
 									addFileDiagnostic(
@@ -997,7 +976,6 @@ public class ValidationServiceImpl implements ValidationService {
 								}
 							}
 						}
-
 					}
 				}
 			}
@@ -1196,7 +1174,7 @@ public class ValidationServiceImpl implements ValidationService {
 		return buildResult;
 	}
 
-	public void validateManifest(DiagnosticChain diagnostics, File sourceFile, IProgressMonitor monitor) {
+	public void validateManifest(Diagnostic diagnostics, File sourceFile, IProgressMonitor monitor) {
 		ValidationOptions options = new ValidationOptions();
 		options.setCheckLayout(false);
 		options.setCheckModuleSemantics(false);
@@ -1210,11 +1188,11 @@ public class ValidationServiceImpl implements ValidationService {
 	 * @deprecated use {@link #validate(DiagnosticChain, String)} instead.
 	 */
 	@Deprecated
-	public Resource validateManifest(DiagnosticChain diagnostics, String code, IProgressMonitor monitor) {
+	public Resource validateManifest(Diagnostic diagnostics, String code, IProgressMonitor monitor) {
 		return validate(diagnostics, code, monitor);
 	}
 
-	public BuildResult validateModule(DiagnosticChain diagnostics, File moduleRoot, IProgressMonitor monitor) {
+	public BuildResult validateModule(Diagnostic diagnostics, File moduleRoot, IProgressMonitor monitor) {
 		ValidationOptions options = new ValidationOptions();
 		options.setCheckLayout(true);
 		options.setCheckModuleSemantics(false);
@@ -1231,7 +1209,7 @@ public class ValidationServiceImpl implements ValidationService {
 	 * @param source
 	 * @param parentFile
 	 */
-	private void validateModulefile(DiagnosticChain diagnostics, File moduleFile, File parentFile,
+	private void validateModulefile(Diagnostic diagnostics, File moduleFile, File parentFile,
 			ValidationOptions options, IProgressMonitor monitor) {
 		SubMonitor ticker = SubMonitor.convert(monitor, 11);
 		Metadata metadata = loadModulefileMetadata(diagnostics, moduleFile, parentFile, ticker.newChild(1));
@@ -1253,22 +1231,22 @@ public class ValidationServiceImpl implements ValidationService {
 	 * @param options
 	 * @param monitor
 	 */
-	private void validateModuleMetadata(Metadata metadata, DiagnosticChain diagnostics, File moduleFile,
+	private void validateModuleMetadata(Metadata metadata, Diagnostic diagnostics, File moduleFile,
 			File parentFile, ValidationOptions options, IProgressMonitor monitor) {
 
 		SubMonitor ticker = SubMonitor.convert(monitor, 1);
 		if(options.isCheckModuleSemantics()) {
 
 			// must have name
-			String moduleName = metadata.getFullName().toLowerCase();
-			if(moduleName == null || moduleName.length() < 1)
+			ModuleName moduleName = metadata.getName();
+			if(moduleName == null)
 				addFileError(
 					diagnostics, moduleFile, parentFile, "A name must be specified.",
 					IValidationConstants.ISSUE__MODULEFILE_NO_NAME);
 
 			// must have version
-			String version = metadata.getVersion();
-			if(version == null || version.length() < 1)
+			Version version = metadata.getVersion();
+			if(version == null)
 				addFileWarning(
 					diagnostics, moduleFile, parentFile, "A version should be specified.",
 					IValidationConstants.ISSUE__MODULEFILE_NO_VERSION);
@@ -1277,7 +1255,7 @@ public class ValidationServiceImpl implements ValidationService {
 
 	}
 
-	private void validatePPFile(PPDiagnosticsRunner dr, DiagnosticChain diagnostics, File f, File root,
+	private void validatePPFile(PPDiagnosticsRunner dr, Diagnostic diagnostics, File f, File root,
 			IProgressMonitor monitor) {
 		final SubMonitor ticker = SubMonitor.convert(monitor, 2);
 		worked(ticker, 1);
@@ -1302,7 +1280,7 @@ public class ValidationServiceImpl implements ValidationService {
 		}
 	}
 
-	public void validateRepository(DiagnosticChain diagnostics, File catalogRoot, File factorData, File siteFile,
+	public void validateRepository(Diagnostic diagnostics, File catalogRoot, File factorData, File siteFile,
 			String nodeName, IProgressMonitor monitor) {
 		if(diagnostics == null)
 			throw new IllegalArgumentException("diagnostics can not be null");
@@ -1326,7 +1304,7 @@ public class ValidationServiceImpl implements ValidationService {
 		// check for early exit due to cancel or errors
 		if(diagnostics instanceof Diagnostic) {
 			int severity = ((Diagnostic) diagnostics).getSeverity();
-			if(severity == Diagnostic.CANCEL || severity > Diagnostic.WARNING)
+			if(ticker.isCanceled() || severity > Diagnostic.WARNING)
 				return;
 		}
 
@@ -1337,7 +1315,7 @@ public class ValidationServiceImpl implements ValidationService {
 			addCatalogDiagnostics(diagnostics, d);
 	}
 
-	public BuildResult validateRepository(DiagnosticChain diagnostics, File catalogRoot, IProgressMonitor monitor) {
+	public BuildResult validateRepository(Diagnostic diagnostics, File catalogRoot, IProgressMonitor monitor) {
 		ValidationOptions options = new ValidationOptions();
 		options.setCheckLayout(true);
 		options.setCheckModuleSemantics(true);
@@ -1347,7 +1325,7 @@ public class ValidationServiceImpl implements ValidationService {
 		return validate(diagnostics, catalogRoot, options, null, monitor);
 	}
 
-	private void validateRubyFile(RubyHelper rubyHelper, DiagnosticChain diagnostics, File f, File root,
+	private void validateRubyFile(RubyHelper rubyHelper, Diagnostic diagnostics, File f, File root,
 			IProgressMonitor monitor) {
 		SubMonitor ticker = SubMonitor.convert(monitor, 1);
 		try {

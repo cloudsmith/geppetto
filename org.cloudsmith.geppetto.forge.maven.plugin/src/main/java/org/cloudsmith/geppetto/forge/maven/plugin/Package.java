@@ -12,62 +12,28 @@
 package org.cloudsmith.geppetto.forge.maven.plugin;
 
 import java.io.File;
-import java.io.FileFilter;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.OutputStream;
 import java.util.List;
-import java.util.zip.GZIPOutputStream;
 
 import org.apache.maven.plugins.annotations.LifecyclePhase;
 import org.apache.maven.plugins.annotations.Mojo;
-import org.cloudsmith.geppetto.forge.ForgeFactory;
-import org.cloudsmith.geppetto.forge.ForgeService;
-import org.cloudsmith.geppetto.forge.util.TarUtils;
-import org.cloudsmith.geppetto.validation.DiagnosticType;
+import org.cloudsmith.geppetto.common.diagnostic.Diagnostic;
+import org.cloudsmith.geppetto.common.diagnostic.DiagnosticType;
+import org.cloudsmith.geppetto.forge.IncompleteException;
 
 /**
  * Goal which performs basic validation.
  */
 @Mojo(name = "package", requiresProject = false, defaultPhase = LifecyclePhase.PACKAGE)
 public class Package extends AbstractForgeMojo {
-	private File buildForge(ForgeService forgeService, File moduleSource, File destination, String[] namesReceiver,
-			Diagnostic result) throws IOException {
-
-		FileFilter filter = getFileFilter();
-		File metadataJSON = new File(moduleSource, "metadata.json");
-		org.cloudsmith.geppetto.forge.Metadata md;
+	private File buildForge(File moduleSource, File destination, Diagnostic result) throws IOException {
 		try {
-			md = forgeService.loadJSONMetadata(metadataJSON);
+			return getForge().build(moduleSource, destination, getFileFilter(), null);
 		}
-		catch(FileNotFoundException e) {
-			md = forgeService.loadModule(moduleSource, filter);
-			String fullName = md.getFullName();
-			if(fullName == null) {
-				result.addChild(new Diagnostic(
-					Diagnostic.ERROR, DiagnosticType.PACKAGE,
-					"A full name (user-module) must be specified in the Modulefile"));
-				return null;
-			}
-
-			String ver = md.getVersion();
-			if(ver == null) {
-				result.addChild(new Diagnostic(
-					Diagnostic.ERROR, DiagnosticType.PACKAGE, "A version must be specified in the Modulefile"));
-				return null;
-			}
-			md.saveJSONMetadata(metadataJSON);
+		catch(IncompleteException e) {
+			result.addChild(new Diagnostic(Diagnostic.ERROR, DiagnosticType.PACKAGE, e.getMessage()));
+			return null;
 		}
-
-		namesReceiver[0] = md.getUser();
-		namesReceiver[1] = md.getName();
-		String fullNameWithVersion = md.getFullName() + '-' + md.getVersion();
-		File moduleArchive = new File(destination, fullNameWithVersion + ".tar.gz");
-		OutputStream out = new GZIPOutputStream(new FileOutputStream(moduleArchive));
-		// Pack closes its output
-		TarUtils.pack(moduleSource, out, filter, false, fullNameWithVersion);
-		return moduleArchive;
 	}
 
 	@Override
@@ -83,8 +49,6 @@ public class Package extends AbstractForgeMojo {
 			return;
 		}
 
-		ForgeService forgeService = ForgeFactory.eINSTANCE.createForgeService();
-		String[] namesReceiver = new String[2];
 		File builtModules = new File(getBuildDir(), "builtModules");
 		if(!(builtModules.mkdirs() || builtModules.isDirectory())) {
 			result.addChild(new Diagnostic(Diagnostic.ERROR, DiagnosticType.PACKAGE, "Unable to create directory" +
@@ -93,6 +57,6 @@ public class Package extends AbstractForgeMojo {
 		}
 
 		for(File moduleRoot : moduleRoots)
-			buildForge(forgeService, moduleRoot, builtModules, namesReceiver, result);
+			buildForge(moduleRoot, builtModules, result);
 	}
 }

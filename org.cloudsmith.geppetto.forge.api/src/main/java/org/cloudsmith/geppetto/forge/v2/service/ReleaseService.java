@@ -23,7 +23,7 @@ import org.apache.http.HttpStatus;
 import org.apache.http.client.HttpResponseException;
 import org.cloudsmith.geppetto.forge.v2.client.Constants;
 import org.cloudsmith.geppetto.forge.v2.model.Release;
-import org.org.cloudsmith.geppetto.semver.Version;
+import org.cloudsmith.geppetto.semver.Version;
 
 /**
  * A CRUD service for {@link Release} objects

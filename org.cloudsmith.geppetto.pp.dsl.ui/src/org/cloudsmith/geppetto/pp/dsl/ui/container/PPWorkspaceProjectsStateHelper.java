@@ -15,10 +15,12 @@ import java.util.Collections;
 import java.util.List;
 
 import org.apache.log4j.Logger;
-import org.cloudsmith.geppetto.forge.Dependency;
-import org.cloudsmith.geppetto.forge.ForgeFactory;
-import org.cloudsmith.geppetto.forge.Metadata;
-import org.cloudsmith.geppetto.forge.VersionRequirement;
+import org.cloudsmith.geppetto.forge.Forge;
+import org.cloudsmith.geppetto.forge.v2.model.Dependency;
+import org.cloudsmith.geppetto.forge.v2.model.Metadata;
+import org.cloudsmith.geppetto.forge.v2.model.ModuleName;
+import org.cloudsmith.geppetto.semver.Version;
+import org.cloudsmith.geppetto.semver.VersionRange;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IWorkspace;
@@ -42,6 +44,9 @@ public class PPWorkspaceProjectsStateHelper extends AbstractStorage2UriMapperCli
 	@Inject
 	private IWorkspace workspace;
 
+	@Inject
+	private Forge forge;
+
 	/**
 	 * Returns the best matching project (or null if there is no match) among the projects in the
 	 * workspace.
@@ -51,27 +56,33 @@ public class PPWorkspaceProjectsStateHelper extends AbstractStorage2UriMapperCli
 	 * @return
 	 */
 	protected IProject getBestMatchingProject(Dependency d) {
-		String name = d.getName();
-		// Names with "/" are not allowed
-		name = name.replace("/", "-");
-		if(name == null || name.isEmpty())
+		ModuleName name = d.getName();
+		if(name == null)
 			return null;
+		// Names with "/" are not allowed
+		name = name.withSeparator('-');
 		String namepart = name + "-";
-		BiMap<IProject, String> candidates = HashBiMap.create();
+		BiMap<IProject, Version> candidates = HashBiMap.create();
 		int len = namepart.length();
 
 		for(IProject p : getWorkspaceRoot().getProjects()) {
 			String n = p.getName();
-			if(n.startsWith(name + "-") && n.length() > len && isAccessibleXtextProject(p))
-				candidates.put(p, p.getName().substring(len));
+			if(n.startsWith(namepart) && n.length() > len && isAccessibleXtextProject(p)) {
+				try {
+					candidates.put(p, Version.create(p.getName().substring(len)));
+				}
+				catch(IllegalArgumentException e) {
+					// Project name does not end with a valid version. Just skip it
+				}
+			}
 		}
 		if(candidates.isEmpty())
 			return null;
 
-		VersionRequirement vr = d.getVersionRequirement();
+		VersionRange vr = d.getVersionRequirement();
 		if(vr == null)
-			vr = VersionRequirement.EMPTY_REQUIREMENT;
-		String best = vr.findBestMatch(candidates.values());
+			vr = VersionRange.ALL_INCLUSIVE;
+		Version best = vr.findBestMatch(candidates.values());
 		return candidates.inverse().get(best);
 	}
 
@@ -83,8 +94,7 @@ public class PPWorkspaceProjectsStateHelper extends AbstractStorage2UriMapperCli
 
 				// parse the "Modulefile" and get full name and version, use this as name of target entry
 				try {
-					Metadata metadata = ForgeFactory.eINSTANCE.createMetadata();
-					metadata.loadModuleFile(moduleFile.getLocation().toFile());
+					Metadata metadata = forge.parseModuleFile(moduleFile.getLocation().toFile());
 
 					for(Dependency d : metadata.getDependencies()) {
 						IProject best = getBestMatchingProject(d);

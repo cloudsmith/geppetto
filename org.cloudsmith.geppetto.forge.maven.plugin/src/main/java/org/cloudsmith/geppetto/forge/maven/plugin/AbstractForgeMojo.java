@@ -127,9 +127,9 @@ public abstract class AbstractForgeMojo extends AbstractMojo {
 	private String password;
 
 	/**
-	 * Location of the forge cache
+	 * Location of the forge cache. Defaults to ${user.home}/.puppet/var/puppet-module/cache/&lt;MD5 hash of service URL&gt;
 	 */
-	@Parameter(property = "forge.cache.location", defaultValue = "${user.home}/.puppet/var/puppet-module/cache/<MD5 hash of service URL>")
+	@Parameter(property = "forge.cache.location")
 	private String cacheLocation;
 
 	/**

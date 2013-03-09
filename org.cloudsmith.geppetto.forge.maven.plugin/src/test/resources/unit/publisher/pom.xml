@@ -53,6 +53,7 @@
 					<password>bobbobbob</password>
 					<serviceURL>${testForgeServiceURL}</serviceURL>
 					<modulesRoot>${testForgeModulesRoot}</modulesRoot>
+					<cacheLocation>${project.build.directory}/forgeCache</cacheLocation>
 				</configuration>
 			</plugin>
 		</plugins>

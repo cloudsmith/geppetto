@@ -4,6 +4,7 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
+import org.apache.http.client.HttpResponseException;
 import org.apache.maven.plugin.MojoFailureException;
 import org.junit.Test;
 
@@ -34,7 +35,9 @@ public class PublishTestMojo extends AbstractForgeTestMojo {
 			fail("Publishing succeeded although there was no module");
 		}
 		catch(MojoFailureException e) {
-			assertTrue("Missing module not detected correctly", e.getMessage().contains("Module not found"));
+			Throwable t = e.getCause();
+			assertTrue("Exception cause is not the right class", t instanceof HttpResponseException);
+			assertTrue("Missing module not detected correctly", t.getMessage().contains("Module not found"));
 		}
 	}
 
@@ -49,7 +52,9 @@ public class PublishTestMojo extends AbstractForgeTestMojo {
 			fail("Publishing succeeded with wrong owner");
 		}
 		catch(MojoFailureException e) {
-			assertTrue("Wrong owner not detected correctly", e.getMessage().contains("Forbidden"));
+			Throwable t = e.getCause();
+			assertTrue("Exception cause is not the right class", t instanceof HttpResponseException);
+			assertTrue("Wrong owner not detected correctly", t.getMessage().contains("Forbidden"));
 		}
 	}
 }

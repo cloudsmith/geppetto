@@ -195,8 +195,12 @@ public abstract class AbstractForgeMojo extends AbstractMojo {
 		catch(Exception e) {
 			throw new MojoFailureException(getActionName() + " failed: " + e.getMessage(), e);
 		}
-		if(diagnostic.getSeverity() == Diagnostic.ERROR)
-			throw new MojoFailureException(diagnostic.getErrorText());
+		if(diagnostic.getSeverity() == Diagnostic.ERROR) {
+			Exception e = diagnostic.getException();
+			if(e == null)
+				throw new MojoFailureException(diagnostic.getErrorText());
+			throw new MojoFailureException(diagnostic.getErrorText(), e);
+		}
 	}
 
 	protected List<File> findModuleRoots() {

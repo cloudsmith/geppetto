@@ -23,6 +23,7 @@ public class ExceptionDiagnostic extends Diagnostic {
 		this.exception = exception;
 	}
 
+	@Override
 	public Exception getException() {
 		return exception;
 	}

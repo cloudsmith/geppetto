@@ -41,6 +41,7 @@ import org.apache.http.HttpStatus;
 import org.apache.http.client.HttpResponseException;
 import org.cloudsmith.geppetto.common.diagnostic.Diagnostic;
 import org.cloudsmith.geppetto.common.diagnostic.DiagnosticType;
+import org.cloudsmith.geppetto.common.diagnostic.ExceptionDiagnostic;
 import org.cloudsmith.geppetto.common.os.FileUtils;
 import org.cloudsmith.geppetto.common.os.StreamUtil;
 import org.cloudsmith.geppetto.forge.AlreadyPublishedException;
@@ -382,8 +383,9 @@ class ForgeImpl implements Forge {
 				result.addChild(new Diagnostic(Diagnostic.ERROR, DiagnosticType.PUBLISHER, e.getMessage()));
 			}
 			catch(Exception e) {
-				result.addChild(new Diagnostic(Diagnostic.ERROR, DiagnosticType.PUBLISHER, "Unable to publish module " +
-						builtModule.getName() + ":" + e.getMessage()));
+				result.addChild(new ExceptionDiagnostic(
+					Diagnostic.ERROR, null, DiagnosticType.PUBLISHER, "Unable to publish module " +
+							builtModule.getName(), e));
 			}
 			return;
 		}

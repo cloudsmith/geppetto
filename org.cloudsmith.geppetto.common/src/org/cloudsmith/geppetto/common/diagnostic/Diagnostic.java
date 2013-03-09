@@ -135,6 +135,22 @@ public class Diagnostic implements Serializable {
 	}
 
 	/**
+	 * Scans the children, depth first, until an ExceptionDiagnostic is found. The
+	 * exception held by that diagnostic is return.
+	 * 
+	 * @return The first exception found or <code>null</code> if no exception exists.
+	 */
+	public Exception getException() {
+		if(children != null)
+			for(Diagnostic child : children) {
+				Exception found = child.getException();
+				if(found != null)
+					return found;
+			}
+		return null;
+	}
+
+	/**
 	 * Returns <tt>null</tt> unless subclassed
 	 * 
 	 * @return <tt>null</tt>

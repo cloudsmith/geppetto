@@ -18,7 +18,6 @@
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<my.property>This is my property</my.property>
 
 		<forgeClientId>de68f7e5b974f32540fe7a3b3a4294bdb36ab210098ef43ef34c8c6175b918a8</forgeClientId>
 		<forgeClientSecret>3b0378a852f7b270d992eaf31f9b2d5f68db07f4f2e2ffded97d2964ca34f25d</forgeClientSecret>
@@ -108,14 +107,17 @@
 				<directory>src/main/resources</directory>
 				<filtering>true</filtering>
 			</resource>
+			<resource>
+				<directory>.</directory>
+				<includes>
+					<include>about.html</include>
+				</includes>
+			</resource>
 		</resources>
 		<plugins>
 			<plugin>
-				<artifactId>maven-compiler-plugin</artifactId>
-				<configuration>
-					<source>1.7</source>
-					<target>1.7</target>
-				</configuration>
+				<artifactId>maven-jar-plugin</artifactId>
+				<configuration combine.self="override"/>
 			</plugin>
 			<plugin>
 				<artifactId>maven-plugin-plugin</artifactId>

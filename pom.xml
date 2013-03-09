@@ -16,6 +16,15 @@
 		<mavenVersion>3.0.4</mavenVersion>
 		<geppettoVersion>3.0.3-SNAPSHOT</geppettoVersion>
 		<parentSiteURL>https://am0.cloudsmith.com/nexus/content/sites/geppetto-site/</parentSiteURL>
+
+		<!-- We use property injection. But instead of '${' and '}' we use '.qual' or '-qua'
+		     as the start delimiter and 'r' as end delimiter. Hence when the filter mechanism
+		     encounters '.qualifier' it will inject the property 'ifie' and when it encounters
+		     '-qualifier' it will inject the property 'lifie'. We need the '.' or '-' to be
+		     part of the replacement to avoid the keyword qualifier to be replaced in other
+		     places -->
+		<ifie>.v${git.commit.time}</ifie>
+		<lifie>-v${git.commit.time}</lifie>
 	</properties>
 
 	<organization>
@@ -271,7 +280,36 @@
 				<version>2.2</version>
 			</extension>
 		</extensions>
+		<resources>
+			<resource>
+				<directory>.</directory>
+				<includes>
+					<include>about.html</include>
+					<include>plugin.properties</include>
+					<include>META-INF/MANIFEST.MF</include>
+				</includes>
+				<filtering>true</filtering>
+			</resource>
+		</resources>
 		<plugins>
+			<plugin>
+				<artifactId>maven-resources-plugin</artifactId>
+				<version>2.6</version>
+				<configuration>
+					<delimiters>
+						<delimiter>.qual*r</delimiter>
+						<delimiter>-qua*r</delimiter>
+					</delimiters>
+				</configuration>
+			</plugin>
+			<plugin>
+				<artifactId>maven-jar-plugin</artifactId>
+				<configuration>
+					<archive>
+						<manifestFile>${project.build.outputDirectory}/META-INF/MANIFEST.MF</manifestFile>
+					</archive>
+				</configuration>
+			</plugin>
 			<plugin>
 				<artifactId>maven-source-plugin</artifactId>
 			</plugin>
@@ -283,6 +321,21 @@
 				<configuration>
 					<autoVersionSubmodules>true</autoVersionSubmodules>
 				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>pl.project13.maven</groupId>
+				<artifactId>git-commit-id-plugin</artifactId>
+				<version>2.1.4</version>
+				<executions>
+					<execution>
+						<goals>
+							<goal>revision</goal>
+						</goals>
+						<configuration>
+							<dateFormat>yyyyMMdd-HHmm</dateFormat>
+						</configuration>
+					</execution>
+				</executions>
 			</plugin>
 		</plugins>
 		<pluginManagement>

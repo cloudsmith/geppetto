@@ -25,7 +25,6 @@ import java.util.Set;
 
 import org.cloudsmith.geppetto.common.diagnostic.DetailedFileDiagnostic;
 import org.cloudsmith.geppetto.common.diagnostic.Diagnostic;
-import org.cloudsmith.geppetto.common.diagnostic.DiagnosticData;
 import org.cloudsmith.geppetto.common.diagnostic.DiagnosticType;
 import org.cloudsmith.geppetto.common.diagnostic.ExceptionDiagnostic;
 import org.cloudsmith.geppetto.common.diagnostic.FileDiagnostic;

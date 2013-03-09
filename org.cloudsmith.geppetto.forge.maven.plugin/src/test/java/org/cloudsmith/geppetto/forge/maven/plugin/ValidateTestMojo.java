@@ -99,7 +99,7 @@ public class ValidateTestMojo extends AbstractForgeTestMojo {
 		catch(MojoFailureException e) {
 			assertTrue(
 				"Missing module name in metadata.json was not detected",
-				e.getMessage().contains("Name must not be null"));
+				e.getMessage().contains("name must not be null"));
 		}
 	}
 
@@ -131,7 +131,7 @@ public class ValidateTestMojo extends AbstractForgeTestMojo {
 			fail("Missing module name was not detected");
 		}
 		catch(MojoFailureException e) {
-			assertTrue("Missing module name was not detected", e.getMessage().contains("Name must not be null"));
+			assertTrue("Missing module name was not detected", e.getMessage().contains("name must not be null"));
 		}
 	}
 

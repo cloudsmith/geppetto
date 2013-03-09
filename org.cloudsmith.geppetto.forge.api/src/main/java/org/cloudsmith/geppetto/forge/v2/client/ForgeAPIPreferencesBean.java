@@ -17,7 +17,7 @@ import java.io.Serializable;
  * A standard bean implementation that contains all preferences and has setters for them.
  */
 public class ForgeAPIPreferencesBean implements ForgeAPIPreferences, Serializable {
-	private static final long serialVersionUID = -4834246942497662777L;
+	private static final long serialVersionUID = 1L;
 
 	private String baseURL;
 

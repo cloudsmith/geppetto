@@ -23,7 +23,7 @@ import java.util.Collections;
 import java.util.List;
 
 public class Diagnostic implements Serializable {
-	private static final long serialVersionUID = -9020030363003763000L;
+	private static final long serialVersionUID = 1L;
 
 	public static final int FATAL = 5;
 
@@ -104,11 +104,22 @@ public class Diagnostic implements Serializable {
 		if(children == null)
 			children = new ArrayList<Diagnostic>();
 		children.add(child);
+		childAdded(child);
 	}
 
 	public void addChildren(Collection<Diagnostic> children) {
 		for(Diagnostic child : children)
 			addChild(child);
+	}
+
+	/**
+	 * Implementors may want to override this method for direct logging purposes
+	 * 
+	 * @param child
+	 *            The child that was added to this instance
+	 */
+	protected void childAdded(Diagnostic child) {
+		// Default is to do nothing.
 	}
 
 	public List<Diagnostic> getChildren() {

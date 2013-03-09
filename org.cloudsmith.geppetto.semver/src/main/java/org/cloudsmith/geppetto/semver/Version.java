@@ -8,7 +8,7 @@ import java.util.regex.Pattern;
  * A class that implements a <a href="http://semver.org/spec/v1.0.0.html">Semantic Versioning 1.0.0</a>.
  */
 public class Version implements Comparable<Version>, Serializable {
-	private static final long serialVersionUID = -5516074311659973225L;
+	private static final long serialVersionUID = 1L;
 
 	public static final String SNAPSHOT_SUFFIX = "-SNAPSHOT";
 

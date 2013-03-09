@@ -11,6 +11,10 @@
  */
 package org.cloudsmith.geppetto.forge.maven.plugin;
 
+import java.io.File;
+
+import org.cloudsmith.geppetto.common.os.FileUtils;
+import org.junit.BeforeClass;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
@@ -20,9 +24,17 @@ import org.junit.runners.Suite.SuiteClasses;
 	SetupTestMojo.class,
 	ValidateTestMojo.class,
 	PublishTestMojo.class,
-	RepublishTestMojo.class
+	RepublishTestMojo.class,
+	ValidateTest2Mojo.class,
 })
 // @fmtOn
 @RunWith(Suite.class)
 public class ForgeIT {
+	static final File TEST_POM_DIR = new File(
+		new File(System.getProperty("basedir", ".")), "src/test/resources/unit/publisher");
+
+	@BeforeClass
+	public static void init() {
+		FileUtils.rmR(new File(TEST_POM_DIR, "target"));
+	}
 }

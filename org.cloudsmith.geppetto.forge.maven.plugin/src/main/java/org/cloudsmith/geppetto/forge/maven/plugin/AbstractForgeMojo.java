@@ -164,7 +164,7 @@ public abstract class AbstractForgeMojo extends AbstractMojo {
 	}
 
 	public void execute() throws MojoExecutionException, MojoFailureException {
-		Diagnostic diagnostic = new Diagnostic();
+		Diagnostic diagnostic = new LoggingDiagnostic(getLogger());
 		try {
 			if(serviceURL == null)
 				throw new MojoExecutionException("Missing required configuration parameter: 'serviceURL'");
@@ -195,7 +195,6 @@ public abstract class AbstractForgeMojo extends AbstractMojo {
 		catch(Exception e) {
 			throw new MojoFailureException(getActionName() + " failed: " + e.getMessage(), e);
 		}
-		logDiagnostic(null, diagnostic);
 		if(diagnostic.getSeverity() == Diagnostic.ERROR)
 			throw new MojoFailureException(diagnostic.getErrorText());
 	}
@@ -324,40 +323,6 @@ public abstract class AbstractForgeMojo extends AbstractMojo {
 	}
 
 	protected abstract void invoke(Diagnostic result) throws Exception;
-
-	private void logDiagnostic(String indent, Diagnostic diag) {
-		if(diag == null)
-			return;
-
-		String msg = diag.getMessage();
-		if(indent != null)
-			msg = indent + msg;
-
-		if(msg != null) {
-			msg = diag.getType().name() + ": " + msg;
-			switch(diag.getSeverity()) {
-				case Diagnostic.DEBUG:
-					getLogger().debug(msg);
-					break;
-				case Diagnostic.WARNING:
-					getLogger().warn(msg);
-					break;
-				case Diagnostic.FATAL:
-				case Diagnostic.ERROR:
-					getLogger().error(msg);
-					break;
-				default:
-					getLogger().info(msg);
-			}
-			if(indent == null)
-				indent = "  ";
-			else
-				indent = indent + "  ";
-		}
-
-		for(Diagnostic child : diag.getChildren())
-			logDiagnostic(indent, child);
-	}
 
 	public void setLogger(Logger log) {
 		this.log = log;

@@ -12,6 +12,8 @@
 package org.cloudsmith.geppetto.common.diagnostic;
 
 public class DetailedFileDiagnostic extends FileDiagnostic {
+	private static final long serialVersionUID = 1L;
+
 	private Integer offset;
 
 	private Integer length;

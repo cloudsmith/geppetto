@@ -281,7 +281,7 @@ public class AbstractForgeTestMojo {
 
 	@Before
 	public void setUp() throws Exception {
-		pom = getTestFile("src/test/resources/unit/publisher/pom.xml");
+		pom = new File(ForgeIT.TEST_POM_DIR, "pom.xml");
 		Assert.assertNotNull(pom);
 		Assert.assertTrue(pom.exists());
 		MavenExecutionRequest request = new DefaultMavenExecutionRequest();

@@ -18,7 +18,7 @@ import org.cloudsmith.geppetto.forge.v2.client.ForgeException;
  * been published at its current version
  */
 public class AlreadyPublishedException extends ForgeException {
-	private static final long serialVersionUID = -6088377056227071886L;
+	private static final long serialVersionUID = 1L;
 
 	public AlreadyPublishedException(String msg) {
 		super(msg);

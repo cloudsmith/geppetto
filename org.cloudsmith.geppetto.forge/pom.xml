@@ -10,13 +10,6 @@
 	<packaging>jar</packaging>
 	<name>Geppetto Forge Service</name>
 
-	<build>
-		<sourceDirectory>src</sourceDirectory>
-		<resources>
-			<resource><directory>resources</directory></resource>
-		</resources>
-	</build>
-
 	<dependencies>
 		<dependency>
 			<groupId>org.cloudsmith.geppetto</groupId>

@@ -20,12 +20,14 @@ import java.util.regex.Pattern;
 public class VersionRange implements Serializable {
 
 	private static enum CompareType {
-		LESS, LESS_EQUAL, GREATER, GREATER_EQUAL, EQUAL
+		LESS, LESS_EQUAL, GREATER, GREATER_EQUAL, EQUAL, EQUAL_WITHOUT_OP, DASH, TILDE, MATCH_ALL
 	}
 
 	private static final long serialVersionUID = 1L;
 
-	private static final Pattern SEM_X_PATTERN = Pattern.compile("^(\\d+)(?:\\.(\\d+))?\\.x$");
+	private static final Pattern TILDE_PATTERN = Pattern.compile("^(\\d+)(?:(?:\\.(\\d+))(?:\\.(\\d+))?)?$");
+
+	private static final Pattern X_PATTERN = Pattern.compile("^(\\d+)(?:(?:\\.(x|\\d+))(?:\\.x)?)?$");
 
 	public static final VersionRange ALL_INCLUSIVE = new VersionRange(
 		">=" + Version.MIN, Version.MIN, true, Version.MAX, true);
@@ -40,8 +42,20 @@ public class VersionRange implements Serializable {
 	 * <li>&gt;=1.2.3 — Greater than or equal to a specific version.</li>
 	 * <li>&lt;=1.2.3 — Less than or equal to a specific version.</li>
 	 * <li>&gt;=1.0.0 &lt;2.0.0 — Range of versions; both conditions must be satisfied. (This example would match 1.0.1 but not 2.0.1)</li>
-	 * <li>1.x — A semantic major version. (This example would match 1.0.1 but not 2.0.1, and is shorthand for &gt;=1.0.0 &lt;2.0.0.)</li>
-	 * <li>1.2.x — A semantic major & minor version. (This example would match 1.2.3 but not 1.3.0, and is shorthand for &gt;=1.2.0 &lt;1.3.0.)</li>
+	 * <li>1.x — A semantic major version. (This example would match 1.0.1 but not 2.0.1, and is shorthand for &gt;=1.0.0 &lt;2.0.0-)</li>
+	 * <li>1.2.x — A semantic major & minor version. (This example would match 1.2.3 but not 1.3.0, and is shorthand for &gt;=1.2.0 &lt;1.3.0-)</li>
+	 * <li>* — Matches any version</li>
+	 * </ul>
+	 * A range specifier starting with a tilde ~ character is matched against a version in the following fashion:
+	 * <ul>
+	 * <li>The version must be at least as high as the range.</li>
+	 * <li>The version must be less than the next minor revision above the range.
+	 * </ul>
+	 * For example, the following are equivalent:
+	 * <ul>
+	 * <li>~1.2.3 = &gt;=1.2.3 &lt;1.3.0-)</li>
+	 * <li>~1.2 = &gt;=1.2.0 &lt;1.3.0-)</li>
+	 * <li>~1 = &gt;=1.0.0 &lt;1.1.0-)</li>
 	 * </ul>
 	 * 
 	 * @param versionRequirement
@@ -49,50 +63,94 @@ public class VersionRange implements Serializable {
 	 * @return The created range
 	 */
 	public static VersionRange create(String versionRequirement) {
-		if(versionRequirement == null || versionRequirement.length() == 0)
+		if(versionRequirement == null)
 			return null;
 
 		int[] posHandle = new int[] { 0 };
 		CompareType compareType = nextCompareType(versionRequirement, posHandle);
 		if(compareType == null)
 			// Empty string or just whitespace.
-			return null;
+			return ALL_INCLUSIVE;
 
-		boolean minInclude, maxInclude;
+		if(compareType == CompareType.MATCH_ALL) {
+			if(hasMore(versionRequirement, posHandle))
+				throw vomit("Unexpected characters after '*'", versionRequirement);
+			return ALL_INCLUSIVE;
+		}
+
+		boolean minInclude = true;
+		boolean maxInclude;
 		Version min, max;
 
+		boolean moreAllowed = false;
 		String version = nextVersion(versionRequirement, posHandle);
 		switch(compareType) {
-			case EQUAL: {
-				// This may be a semantic version in the form 1.x or 1.2.x
-				minInclude = true;
-				Matcher m = SEM_X_PATTERN.matcher(version);
-				if(m.matches()) {
-					maxInclude = false;
-					int major = Integer.parseInt(m.group(1));
-					String minorStr = m.group(2);
-					if(minorStr == null) {
-						min = Version.create(major, 0, 0);
-						max = Version.create(major + 1, 0, 0, Version.MIN_PRE_RELEASE);
-					}
-					else {
-						int minor = Integer.parseInt(minorStr);
+			case DASH:
+				throw vomit("Cannot start with a dash", versionRequirement);
+			case EQUAL:
+				// Version with pre-release
+				maxInclude = true;
+				min = max = Version.create(version);
+				break;
+
+			case TILDE: {
+				Matcher m = TILDE_PATTERN.matcher(version);
+				if(!m.matches())
+					throw vomit("Not a valid tilde version", versionRequirement);
+
+				maxInclude = false;
+				int major = Integer.parseInt(m.group(1));
+				String minorStr = m.group(2);
+				String patchStr = m.group(3);
+				if(minorStr == null) {
+					min = Version.create(major, 0, 0);
+					max = Version.create(major, 1, 0, Version.MIN_PRE_RELEASE);
+				}
+				else {
+					int minor = Integer.parseInt(minorStr);
+					if(patchStr == null) {
 						min = Version.create(major, minor, 0);
 						max = Version.create(major, minor + 1, 0, Version.MIN_PRE_RELEASE);
 					}
-				}
-				else {
-					maxInclude = true;
-					min = max = Version.create(version);
+					else {
+						int patch = Integer.parseInt(patchStr);
+						min = Version.create(major, minor, patch);
+						max = Version.create(major, minor + 1, 0, Version.MIN_PRE_RELEASE);
+					}
 				}
 				break;
 			}
+
+			case EQUAL_WITHOUT_OP: {
+				Matcher m = X_PATTERN.matcher(version);
+				if(!m.matches()) {
+					maxInclude = true;
+					min = max = Version.create(version);
+					moreAllowed = true; // xxx - yyy range still possible
+					break;
+				}
+
+				maxInclude = false;
+				int major = Integer.parseInt(m.group(1));
+				String minorStr = m.group(2);
+				if(minorStr == null || "x".equals(minorStr)) {
+					min = Version.create(major, 0, 0);
+					max = Version.create(major + 1, 0, 0, Version.MIN_PRE_RELEASE);
+				}
+				else {
+					int minor = Integer.parseInt(minorStr);
+					min = Version.create(major, minor, 0);
+					max = Version.create(major, minor + 1, 0, Version.MIN_PRE_RELEASE);
+				}
+				break;
+			}
+
 			case LESS:
 			case LESS_EQUAL:
-				minInclude = true;
 				maxInclude = compareType == CompareType.LESS_EQUAL;
 				min = Version.MIN;
 				max = Version.create(version);
+				moreAllowed = true;
 				break;
 
 			default: // GREATER or GREATER_EQUAL
@@ -100,18 +158,29 @@ public class VersionRange implements Serializable {
 				maxInclude = true;
 				min = Version.create(version);
 				max = Version.MAX;
+				moreAllowed = true;
 				break;
 		}
 
 		CompareType compareType2 = nextCompareType(versionRequirement, posHandle);
 		if(compareType2 != null) {
-			if(compareType == CompareType.EQUAL)
+			if(!moreAllowed)
+				throw new IllegalArgumentException("Unexpected characters after version range");
+
+			if(compareType == CompareType.EQUAL_WITHOUT_OP && compareType2 != CompareType.DASH)
+				// The only token we accept here is the DASH for the 1.0.0 - 2.0.0 form
 				throw new IllegalArgumentException("Can't create a range where one condition is of type 'equal'");
 
 			version = nextVersion(versionRequirement, posHandle);
 			switch(compareType2) {
-				case EQUAL:
-					throw new IllegalArgumentException("Can't create a range where one condition is of type 'equal'");
+				case DASH:
+					if(compareType != CompareType.EQUAL_WITHOUT_OP)
+						throw new IllegalArgumentException(
+							"Can't create a dash range unless both sides are without operator");
+					max = Version.create(version);
+					maxInclude = true;
+					break;
+
 				case LESS:
 				case LESS_EQUAL:
 					if(compareType == CompareType.LESS || compareType == CompareType.LESS_EQUAL)
@@ -120,13 +189,16 @@ public class VersionRange implements Serializable {
 					maxInclude = compareType2 == CompareType.LESS_EQUAL;
 					break;
 
-				default: // GREATER or GREATER_EQUAL
+				case GREATER:
+				case GREATER_EQUAL:
 					if(compareType == CompareType.GREATER || compareType == CompareType.GREATER_EQUAL)
 						throw new IllegalArgumentException("Can't combine two 'greater' conditions into a range");
 					min = Version.create(version);
 					minInclude = compareType2 == CompareType.GREATER_EQUAL;
 					break;
 
+				default:
+					throw new IllegalArgumentException("Illegal second operator in range");
 			}
 		}
 		int cmp = min.compareTo(max);
@@ -173,6 +245,10 @@ public class VersionRange implements Serializable {
 		return version == null
 				? null
 				: new VersionRange(null, version, true, Version.MAX, true);
+	}
+
+	private static boolean hasMore(String s, int[] posHandle) {
+		return s.length() >= skipWhite(s, posHandle[0]);
 	}
 
 	/**
@@ -227,8 +303,24 @@ public class VersionRange implements Serializable {
 			else
 				compareType = CompareType.LESS;
 		}
-		else if(c >= '0' && c <= '9')
+		else if(c == '=') {
+			++pos;
 			compareType = CompareType.EQUAL;
+		}
+		else if(c == '-') {
+			++pos;
+			compareType = CompareType.DASH;
+		}
+		else if(c == '~') {
+			++pos;
+			compareType = CompareType.TILDE;
+		}
+		else if(c == '*') {
+			++pos;
+			compareType = CompareType.MATCH_ALL;
+		}
+		else if(c >= '0' && c <= '9')
+			compareType = CompareType.EQUAL_WITHOUT_OP;
 		else
 			throw new IllegalArgumentException("Expected one of '<', '>' or digit at position " + pos + " in range '" +
 					s + '\'');
@@ -259,6 +351,10 @@ public class VersionRange implements Serializable {
 		while(pos < top && Character.isWhitespace(s.charAt(pos)))
 			++pos;
 		return pos;
+	}
+
+	private static IllegalArgumentException vomit(String reason, String range) {
+		return new IllegalArgumentException(reason + " in range '" + range + '\'');
 	}
 
 	private final Version minVersion;

@@ -12,13 +12,13 @@ public class Version implements Comparable<Version>, Serializable {
 
 	public static final String SNAPSHOT_SUFFIX = "-SNAPSHOT";
 
-	public static final Pattern VERSION_PATTERN = Pattern.compile("^(\\d+)\\.(\\d+)\\.(\\d+)(?:-([0-9a-zA-Z-]+))?$");
+	public static final Pattern VERSION_PATTERN = Pattern.compile("^(\\d+)\\.(\\d+)\\.(\\d+)(?:-([0-9a-zA-Z-]*))?$");
 
-	public static final Pattern PRE_RELEASE_PATTERN = Pattern.compile("^[0-9a-zA-Z-]+$");
+	public static final Pattern PRE_RELEASE_PATTERN = Pattern.compile("^[0-9a-zA-Z-]*$");
 
 	public static final Version MAX = new Version(Integer.MAX_VALUE, Integer.MAX_VALUE, Integer.MAX_VALUE, null);
 
-	public static final String MIN_PRE_RELEASE = "-";
+	public static final String MIN_PRE_RELEASE = "";
 
 	public static final Version MIN = new Version(0, 0, 0, MIN_PRE_RELEASE);
 
@@ -43,12 +43,8 @@ public class Version implements Comparable<Version>, Serializable {
 		if(major < 0 || minor < 0 || patch < 0)
 			throw new IllegalArgumentException("Negative numbers not accepted in version");
 
-		if(preRelease != null) {
-			if(preRelease.length() == 0)
-				preRelease = null;
-			else if(!PRE_RELEASE_PATTERN.matcher(preRelease).matches())
-				throw new IllegalArgumentException("Illegal characters in pre-release");
-		}
+		if(preRelease != null && preRelease.length() >= 0 && !PRE_RELEASE_PATTERN.matcher(preRelease).matches())
+			throw new IllegalArgumentException("Illegal characters in pre-release");
 		return new Version(major, minor, patch, preRelease);
 	}
 

@@ -17,8 +17,6 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
-import org.cloudsmith.geppetto.semver.Version;
-import org.cloudsmith.geppetto.semver.VersionRange;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -26,6 +24,27 @@ import org.junit.Test;
  * Unit tests for VersionRange.
  */
 public class VersionRangeTest {
+
+	@Test
+	public void dashRange() {
+		VersionRange range = VersionRange.create("1.2.0 - 1.3.0");
+		assertTrue(range.isIncluded(Version.create(1, 2, 0)));
+		assertTrue(range.isIncluded(Version.create(1, 3, 0, "alpha")));
+		assertTrue(range.isIncluded(Version.create(1, 3, 0)));
+		assertFalse(range.isIncluded(Version.create(1, 2, 0, "alpha")));
+		assertFalse(range.isIncluded(Version.create(1, 3, 1)));
+
+		range = VersionRange.create("1.2.0 - 1.3.0-");
+		assertTrue(range.isIncluded(Version.create(1, 2, 0)));
+		assertFalse(range.isIncluded(Version.create(1, 3, 0, "alpha")));
+		assertFalse(range.isIncluded(Version.create(1, 3, 0)));
+
+		range = VersionRange.create("1.2.0- - 1.3.0");
+		assertTrue(range.isIncluded(Version.create(1, 2, 0)));
+		assertTrue(range.isIncluded(Version.create(1, 3, 0, "alpha")));
+		assertTrue(range.isIncluded(Version.create(1, 3, 0)));
+		assertTrue(range.isIncluded(Version.create(1, 2, 0, "alpha")));
+	}
 
 	@Test
 	public void greater() {
@@ -74,6 +93,13 @@ public class VersionRangeTest {
 		testImpossibleRange(">=1.2.3 1.3.0");
 		testImpossibleRange(">=1.2.3 >1.3.0");
 		testImpossibleRange("1.2.3 1.3.0");
+		testImpossibleRange("=1.2.3 - 1.3.0");
+		testImpossibleRange("=1.2.x");
+		testImpossibleRange("=1.2");
+		testImpossibleRange("~1.2.x");
+		testImpossibleRange("~1.2.3-alpha");
+		testImpossibleRange("~1.2.x-alpha");
+		testImpossibleRange("~1.2-alpha");
 	}
 
 	@Test
@@ -210,6 +236,38 @@ public class VersionRangeTest {
 			fail("should not create impossible range '" + range + '\'');
 		}
 		catch(IllegalArgumentException e) {
+		}
+	}
+
+	@Test
+	public void tildeVersions() {
+		try {
+			VersionRange range = VersionRange.create("~1.2.3");
+			assertFalse(range.isIncluded(Version.create(1, 2, 3, "alhpa")));
+			assertTrue(range.isIncluded(Version.create(1, 2, 3)));
+			assertTrue(range.isIncluded(Version.create(1, 2, 10)));
+
+			assertFalse(range.isIncluded(Version.create(1, 3, 0, "alpha")));
+			assertFalse(range.isIncluded(Version.create(1, 3, 0)));
+
+			range = VersionRange.create("~1.2");
+			assertFalse(range.isIncluded(Version.create(1, 2, 0, "alhpa")));
+			assertTrue(range.isIncluded(Version.create(1, 2, 0)));
+			assertTrue(range.isIncluded(Version.create(1, 2, 10)));
+
+			assertFalse(range.isIncluded(Version.create(1, 3, 0, "alpha")));
+			assertFalse(range.isIncluded(Version.create(1, 3, 0)));
+
+			range = VersionRange.create("~1");
+			assertFalse(range.isIncluded(Version.create(1, 0, 0, "alhpa")));
+			assertTrue(range.isIncluded(Version.create(1, 0, 0)));
+			assertTrue(range.isIncluded(Version.create(1, 0, 10)));
+
+			assertFalse(range.isIncluded(Version.create(1, 1, 0, "alpha")));
+			assertFalse(range.isIncluded(Version.create(1, 1, 0)));
+		}
+		catch(IllegalArgumentException e) {
+			Assert.fail(e.getMessage());
 		}
 	}
 }

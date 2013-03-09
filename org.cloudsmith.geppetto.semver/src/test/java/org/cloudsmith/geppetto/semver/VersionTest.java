@@ -4,7 +4,6 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
-import org.cloudsmith.geppetto.semver.Version;
 import org.junit.Test;
 
 /**
@@ -38,6 +37,26 @@ public class VersionTest {
 			fail("should not create version illegal characters in pre-release");
 		}
 		catch(IllegalArgumentException e) {
+		}
+	}
+
+	@Test
+	public void emptyPreReleaseLessThanNoPreRelease() {
+		try {
+			assertTrue(Version.create("1.0.0").compareTo(Version.create("1.0.0-")) > 0);
+		}
+		catch(IllegalArgumentException e) {
+			fail(e.getMessage());
+		}
+	}
+
+	@Test
+	public void emptyPreReleaseLessThanOtherPreRelease() {
+		try {
+			assertTrue(Version.create("1.0.0-alpha").compareTo(Version.create("1.0.0-")) > 0);
+		}
+		catch(IllegalArgumentException e) {
+			fail(e.getMessage());
 		}
 	}
 

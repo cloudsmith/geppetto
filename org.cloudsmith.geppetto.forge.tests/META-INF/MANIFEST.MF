@@ -17,6 +17,4 @@ Require-Bundle: org.eclipse.core.runtime,
  com.google.gson,
  com.google.inject,
  org.junit
-Bundle-ActivationPolicy: lazy
-Bundle-Activator: org.cloudsmith.geppetto.forge.tests.Activator
 

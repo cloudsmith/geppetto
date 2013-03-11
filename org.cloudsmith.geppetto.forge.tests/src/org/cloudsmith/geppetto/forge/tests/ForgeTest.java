@@ -57,17 +57,17 @@ public class ForgeTest extends AbstractForgeTest {
 	@Test
 	public void testBuild__File_File() {
 		try {
-			File installFolder = ForgeTests.getTestOutputFolder("apache-install-here", true);
-			File resultFolder = ForgeTests.getTestOutputFolder("apache-build-result", true);
+			File installFolder = getTestOutputFolder("apache-install-here", true);
+			File resultFolder = getTestOutputFolder("apache-build-result", true);
 			FileUtils.cpR(
-				Activator.getTestData("puppetlabs-apache"), installFolder, FileUtils.DEFAULT_EXCLUDES, false, true);
+				getTestData("puppetlabs-apache"), installFolder, FileUtils.DEFAULT_EXCLUDES, false, true);
 			Metadata[] mdHandle = new Metadata[1];
-			fixture.build(installFolder, resultFolder, null, mdHandle);
+			fixture.build(installFolder, resultFolder, mdHandle);
 			Metadata md = mdHandle[0];
 			String archiveName = md.getName().toString() + '-' + md.getVersion();
 			File builtArchive = new File(resultFolder, archiveName + ".tar.gz");
 			assertTrue("Build did not build any archive", builtArchive.canRead());
-			File unpackFolder = ForgeTests.getTestOutputFolder("apache-unpack-result", true);
+			File unpackFolder = getTestOutputFolder("apache-unpack-result", true);
 			InputStream input = new GZIPInputStream(new FileInputStream(builtArchive));
 			try {
 				TarUtils.unpack(input, unpackFolder, false, null);
@@ -86,12 +86,12 @@ public class ForgeTest extends AbstractForgeTest {
 	@Test
 	public void testChanges__File() {
 		try {
-			File installFolder = ForgeTests.getTestOutputFolder("test-changes", true);
-			File resultFolder = ForgeTests.getTestOutputFolder("test-changes-result", true);
+			File installFolder = getTestOutputFolder("test-changes", true);
+			File resultFolder = getTestOutputFolder("test-changes-result", true);
 			FileUtils.cpR(
-				Activator.getTestData("puppetlabs-apache"), installFolder, FileUtils.DEFAULT_EXCLUDES, false, true);
-			fixture.build(installFolder, resultFolder, null, null);
-			List<File> changes = fixture.changes(installFolder, null);
+				getTestData("puppetlabs-apache"), installFolder, FileUtils.DEFAULT_EXCLUDES, false, true);
+			fixture.build(installFolder, resultFolder, null);
+			List<File> changes = fixture.changes(installFolder);
 			assertTrue("Unexpected changes", changes.isEmpty());
 		}
 		catch(IOException e) {
@@ -141,7 +141,7 @@ public class ForgeTest extends AbstractForgeTest {
 		try {
 			Metadata metadata = new Metadata();
 			metadata.setName(new ModuleName("cloudsmith/testmodule"));
-			File installFolder = ForgeTests.getTestOutputFolder("testmodule-install", true);
+			File installFolder = getTestOutputFolder("testmodule-install", true);
 			installFolder.delete();
 			fixture.generate(installFolder, metadata);
 		}
@@ -153,7 +153,7 @@ public class ForgeTest extends AbstractForgeTest {
 	@Test
 	public void testInstall__String_File_boolean_boolean() {
 		try {
-			File installFolder = ForgeTests.getTestOutputFolder("stdlib-install", true);
+			File installFolder = getTestOutputFolder("stdlib-install", true);
 			fixture.install(new ModuleName("puppetlabs/stdlib"), null, installFolder, false, true);
 			File found = new File(installFolder, "stdlib");
 			assertTrue("Installation did not produce the expected result", found.isDirectory());

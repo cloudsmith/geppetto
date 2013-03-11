@@ -265,6 +265,7 @@
 		<module>org.cloudsmith.geppetto.catalog</module>
 		<module>org.cloudsmith.geppetto.common</module>
 		<module>org.cloudsmith.geppetto.forge</module>
+		<module>org.cloudsmith.geppetto.forge.tests</module>
 		<module>org.cloudsmith.geppetto.forge.api</module>
 		<module>org.cloudsmith.geppetto.pp</module>
 		<module>org.cloudsmith.geppetto.pp.dsl</module>

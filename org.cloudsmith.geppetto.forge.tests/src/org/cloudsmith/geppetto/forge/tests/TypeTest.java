@@ -21,7 +21,7 @@ import org.cloudsmith.geppetto.forge.v2.model.Type;
 import org.junit.Before;
 import org.junit.Test;
 
-public class TypeTest {
+public class TypeTest extends AbstractForgeTest {
 	private Type fixture = null;
 
 	@Before
@@ -32,8 +32,8 @@ public class TypeTest {
 	@Test
 	public void testLoadProvider__File() {
 		try {
-			Types.loadTypeFile(fixture, Activator.getTestData("DavidSchmitt-collectd/lib/puppet/type/collectd_conf.rb"));
-			Types.loadProvider(fixture, Activator.getTestData("DavidSchmitt-collectd/lib/puppet/provider"));
+			Types.loadTypeFile(fixture, getTestData("DavidSchmitt-collectd/lib/puppet/type/collectd_conf.rb"));
+			Types.loadProvider(fixture, getTestData("DavidSchmitt-collectd/lib/puppet/provider"));
 			assertEquals("Expected 1 parameters", 1, fixture.getParameters().size());
 			assertEquals("Expected 2 properties", 2, fixture.getProperties().size());
 			assertEquals("Expected 1 providers", 1, fixture.getProviders().size());
@@ -47,8 +47,8 @@ public class TypeTest {
 	@Test
 	public void testLoadProvider__File2() {
 		try {
-			Types.loadTypeFile(fixture, Activator.getTestData("puppetlabs-apache/lib/puppet/type/a2mod.rb"));
-			Types.loadProvider(fixture, Activator.getTestData("puppetlabs-apache/lib/puppet/provider"));
+			Types.loadTypeFile(fixture, getTestData("puppetlabs-apache/lib/puppet/type/a2mod.rb"));
+			Types.loadProvider(fixture, getTestData("puppetlabs-apache/lib/puppet/provider"));
 			assertEquals("Expected 1 parameters", 1, fixture.getParameters().size());
 			assertEquals("Expected 2 properties", 0, fixture.getProperties().size());
 			assertEquals("Expected 1 providers", 1, fixture.getProviders().size());
@@ -65,7 +65,7 @@ public class TypeTest {
 	@Test
 	public void testLoadTypeFile__DescWithPlus() {
 		try {
-			Types.loadTypeFile(fixture, Activator.getTestData("puppetlabs-stdlib/lib/puppet/type/file_line.rb"));
+			Types.loadTypeFile(fixture, getTestData("puppetlabs-stdlib/lib/puppet/type/file_line.rb"));
 			assertEquals("Unexpected type name", "file_line", fixture.getName());
 			assertEquals("Expected 4 parameters", 4, fixture.getParameters().size());
 		}
@@ -77,7 +77,7 @@ public class TypeTest {
 	@Test
 	public void testLoadTypeFile__File() {
 		try {
-			Types.loadTypeFile(fixture, Activator.getTestData("bobsh-iptables/lib/puppet/type/iptables.rb"));
+			Types.loadTypeFile(fixture, getTestData("bobsh-iptables/lib/puppet/type/iptables.rb"));
 			assertEquals("Unexpected type name", "iptables", fixture.getName());
 			assertEquals("Expected 22 parameters", 22, fixture.getParameters().size());
 			assertEquals("Expected 0 properties", 0, fixture.getProperties().size());
@@ -90,7 +90,7 @@ public class TypeTest {
 	@Test
 	public void testLoadTypeFile__File2() {
 		try {
-			Types.loadTypeFile(fixture, Activator.getTestData("lab42-common/lib/puppet/type/setparam.rb"));
+			Types.loadTypeFile(fixture, getTestData("lab42-common/lib/puppet/type/setparam.rb"));
 			assertEquals("Unexpected type name", "setparam", fixture.getName());
 			assertEquals("Expected 2 parameters", 2, fixture.getParameters().size());
 			assertEquals("Expected 2 properties", 2, fixture.getProperties().size());
@@ -104,7 +104,7 @@ public class TypeTest {
 	@Test
 	public void testLoadTypeFile__File3() {
 		try {
-			Types.loadTypeFile(fixture, Activator.getTestData("DavidSchmitt-collectd/lib/puppet/type/collectd_conf.rb"));
+			Types.loadTypeFile(fixture, getTestData("DavidSchmitt-collectd/lib/puppet/type/collectd_conf.rb"));
 			assertEquals("Unexpected type name", "collectd_conf", fixture.getName());
 			assertEquals("Expected 1 parameter", 1, fixture.getParameters().size());
 			assertEquals("Expected 2 properties", 2, fixture.getProperties().size());

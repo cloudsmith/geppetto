@@ -87,7 +87,7 @@ public class MetadataTest extends AbstractForgeTest {
 
 	private void populateFromModule(String module) {
 		try {
-			fixture = getForge().createFromModuleDir(Activator.getTestData(module), null, null);
+			fixture = getForge().createFromModuleDirectory(getTestData(module), true, null);
 		}
 		catch(IOException e) {
 			fail(e.getMessage());
@@ -122,7 +122,7 @@ public class MetadataTest extends AbstractForgeTest {
 	@Test
 	public void testLoadChecksums__File() {
 		try {
-			Map<String, byte[]> checksums = Checksums.loadChecksums(Activator.getTestData("puppetlabs-apache"), null);
+			Map<String, byte[]> checksums = Checksums.loadChecksums(getTestData("puppetlabs-apache"), null);
 			assertEquals("Incorrect number of checksums", checksums.size(), 18);
 		}
 		catch(IOException e) {
@@ -133,7 +133,7 @@ public class MetadataTest extends AbstractForgeTest {
 	@Test
 	public void testLoadTypeFiles__File() {
 		try {
-			List<Type> types = Types.loadTypes(Activator.getTestData("puppetlabs-apache/lib/puppet"), null);
+			List<Type> types = Types.loadTypes(getTestData("puppetlabs-apache/lib/puppet"), null);
 			assertEquals("Expected 1 type", 1, types.size());
 			assertEquals("Unexpected type name", "a2mod", types.get(0).getName());
 		}
@@ -145,7 +145,7 @@ public class MetadataTest extends AbstractForgeTest {
 	@Test
 	public void testSaveJSONMetadata__File() {
 		try {
-			File outputDir = ForgeTests.getTestOutputFolder("json-ouput", true);
+			File outputDir = getTestOutputFolder("json-ouput", true);
 			populateFromModule("puppetlabs-apache");
 			File jsonFile = new File(outputDir, "metadata.json");
 			getForge().saveJSONMetadata(fixture, jsonFile);
@@ -159,7 +159,7 @@ public class MetadataTest extends AbstractForgeTest {
 	@Test
 	public void testSaveModulefile__File() {
 		try {
-			File outputDir = ForgeTests.getTestOutputFolder("modulefile-ouput", true);
+			File outputDir = getTestOutputFolder("modulefile-ouput", true);
 			populateFromModule("ghoneycutt-rsync");
 			File moduleFile = new File(outputDir, "Modulefile");
 			ModuleUtils.saveAsModulefile(fixture, moduleFile);

@@ -17,12 +17,12 @@
 		<geppettoVersion>3.0.3-SNAPSHOT</geppettoVersion>
 		<parentSiteURL>https://am0.cloudsmith.com/nexus/content/sites/geppetto-site/</parentSiteURL>
 
-		<!-- We use property injection. But instead of '${' and '}' we use '.qual' or '-qua'
-		     as the start delimiter and 'r' as end delimiter. Hence when the filter mechanism
-		     encounters '.qualifier' it will inject the property 'ifie' and when it encounters
-		     '-qualifier' it will inject the property 'lifie'. We need the '.' or '-' to be
-		     part of the replacement to avoid the keyword qualifier to be replaced in other
-		     places -->
+		<!-- We use property injection. But instead of '${' and '}' we use '.qual' 
+			or '-qua' as the start delimiter and 'r' as end delimiter. Hence when the 
+			filter mechanism encounters '.qualifier' it will inject the property 'ifie' 
+			and when it encounters '-qualifier' it will inject the property 'lifie'. 
+			We need the '.' or '-' to be part of the replacement to avoid the keyword 
+			qualifier to be replaced in other places -->
 		<ifie>.v${git.commit.time}</ifie>
 		<lifie>-v${git.commit.time}</lifie>
 	</properties>
@@ -143,6 +143,11 @@
 				<version>2.2.2</version>
 			</dependency>
 			<dependency>
+				<groupId>com.google.inject</groupId>
+				<artifactId>guice</artifactId>
+				<version>3.0</version>
+			</dependency>
+			<dependency>
 				<groupId>com.google.guava</groupId>
 				<artifactId>guava</artifactId>
 				<version>13.0.1</version>
@@ -237,6 +242,12 @@
 				<version>[2.3.0,2.4.0)</version>
 			</dependency>
 			<dependency>
+				<groupId>org.eclipse.xtext</groupId>
+				<artifactId>org.eclipse.xtext.junit4</artifactId>
+				<version>[2.3.0,2.4.0)</version>
+				<scope>test</scope>
+			</dependency>
+			<dependency>
 				<groupId>org.cloudsmith.jruby</groupId>
 				<artifactId>jrubyparser</artifactId>
 				<version>0.3-alpha</version>
@@ -246,11 +257,6 @@
 				<artifactId>aether-impl</artifactId>
 				<version>1.13.1</version>
 				<scope>test</scope>
-			</dependency>
-			<dependency>
-				<groupId>org.sonatype.sisu</groupId>
-				<artifactId>sisu-guice</artifactId>
-				<version>3.1.3</version>
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
@@ -262,6 +268,7 @@
 		<module>org.cloudsmith.geppetto.forge.api</module>
 		<module>org.cloudsmith.geppetto.pp</module>
 		<module>org.cloudsmith.geppetto.pp.dsl</module>
+		<module>org.cloudsmith.geppetto.pp.dsl.tests</module>
 		<module>org.cloudsmith.geppetto.puppetlint</module>
 		<module>org.cloudsmith.geppetto.eclipse.core</module>
 		<module>org.cloudsmith.geppetto.common.tracer</module>
@@ -343,6 +350,9 @@
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-surefire-plugin</artifactId>
+					<configuration>
+						<forkMode>never</forkMode>
+					</configuration>
 					<version>2.13</version>
 				</plugin>
 				<plugin>

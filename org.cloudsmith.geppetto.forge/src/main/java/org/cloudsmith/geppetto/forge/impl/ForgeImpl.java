@@ -36,6 +36,8 @@ import java.util.List;
 import java.util.Set;
 import java.util.zip.GZIPInputStream;
 import java.util.zip.GZIPOutputStream;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipInputStream;
 
 import org.apache.http.HttpStatus;
 import org.apache.http.client.HttpResponseException;
@@ -209,14 +211,16 @@ class ForgeImpl implements Forge {
 		if(!(destination.mkdirs() || destination.exists()))
 			throw new IOException(destination + " could not be created");
 
-		File templatesDir = FileUtils.getFileFromClassResource(Forge.class, "/templates");
-		if(templatesDir == null || !templatesDir.isDirectory())
-			throw new FileNotFoundException("Unable to find templates directory in resources");
+		InputStream input = Forge.class.getResourceAsStream("/templates/generator.zip");
+		if(input == null)
+			throw new FileNotFoundException("Unable to find zipped template for generate");
 
-		File skeleton = new File(templatesDir, "generator");
-		int baseLength = skeleton.getAbsolutePath().length() + 1;
-		for(File path : skeleton.listFiles()) {
-			installTemplate(metadata, destination, path, baseLength, ModuleUtils.DEFAULT_FILE_FILTER);
+		ZipInputStream template = new ZipInputStream(input);
+		try {
+			installTemplate(metadata, destination, template);
+		}
+		finally {
+			template.close();
 		}
 	}
 
@@ -303,28 +307,31 @@ class ForgeImpl implements Forge {
 			force);
 	}
 
-	private void installTemplate(Metadata metadata, File destinationBase, File template, int templateBaseLength,
-			FileFilter exclusionFilter) throws IOException {
+	private void installTemplate(Metadata metadata, File destinationBase, ZipInputStream template) throws IOException {
 
-		if(!exclusionFilter.accept(template))
-			return;
+		ZipEntry zipEntry;
+		while((zipEntry = template.getNextEntry()) != null) {
+			String name = zipEntry.getName();
+			File destination = new File(destinationBase, name);
+			if(zipEntry.isDirectory()) {
+				if(!destination.mkdirs())
+					throw new IOException(destination + " could not be created");
+				continue;
+			}
 
-		String tempRelative = template.getAbsolutePath().substring(templateBaseLength);
-		if(template.isDirectory()) {
-			File destination = new File(destinationBase, tempRelative);
-			if(!destination.mkdir())
-				throw new IOException(destination + " could not be created");
-			for(File path : template.listFiles())
-				installTemplate(metadata, destinationBase, path, templateBaseLength, exclusionFilter);
-			return;
+			if(name.endsWith(".erb")) {
+				BufferedReader reader = new BufferedReader(new InputStreamReader(template));
+				BufferedWriter writer = new BufferedWriter(new FileWriter(destination));
+				try {
+					erb.generate(metadata, reader, writer);
+				}
+				finally {
+					StreamUtil.close(writer);
+				}
+				continue;
+			}
+			FileUtils.cp(template, destination.getParentFile(), destination.getName());
 		}
-		if(tempRelative.endsWith(".erb")) {
-			tempRelative = tempRelative.substring(0, tempRelative.length() - 4);
-			erb.generate(metadata, template, new File(destinationBase, tempRelative));
-			return;
-		}
-		File destFile = new File(destinationBase, tempRelative);
-		FileUtils.cp(template, destFile.getParentFile(), destFile.getName());
 	}
 
 	@Override

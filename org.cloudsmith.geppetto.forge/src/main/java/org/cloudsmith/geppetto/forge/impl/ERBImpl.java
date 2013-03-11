@@ -64,7 +64,13 @@ class ERBImpl implements ERB {
 	public void generate(Metadata metadata, File template, File dest) throws IOException {
 		BufferedWriter output = new BufferedWriter(new FileWriter(dest));
 		try {
-			generate(metadata, template, output);
+			BufferedReader input = new BufferedReader(new FileReader(template), 0x1000);
+			try {
+				generate(metadata, input, output);
+			}
+			finally {
+				StreamUtil.close(input);
+			}
 		}
 		finally {
 			StreamUtil.close(output);
@@ -72,53 +78,47 @@ class ERBImpl implements ERB {
 	}
 
 	@Override
-	public void generate(Metadata metadata, File template, Writer dest) throws IOException {
-		BufferedReader input = new BufferedReader(new FileReader(template), 0x1000);
-		try {
-			int n1;
-			while((n1 = input.read()) >= 0) {
-				if(n1 == '<') {
-					int n2 = input.read();
-					if(n2 == '%') {
-						int n3 = input.read();
-						if(n3 == '#')
-							consumeComment(input);
-						else if(n3 == '=')
-							handleExpression(metadata, input, dest);
-						else if(n3 == '%')
-							dest.write("<%");
-						else
-							handleCode(input, dest);
-					}
-					else {
-						dest.write(n1);
-						dest.write(n2);
-					}
+	public void generate(Metadata metadata, Reader input, Writer dest) throws IOException {
+		int n1;
+		while((n1 = input.read()) >= 0) {
+			if(n1 == '<') {
+				int n2 = input.read();
+				if(n2 == '%') {
+					int n3 = input.read();
+					if(n3 == '#')
+						consumeComment(input);
+					else if(n3 == '=')
+						handleExpression(metadata, input, dest);
+					else if(n3 == '%')
+						dest.write("<%");
+					else
+						handleCode(input, dest);
 				}
-				else if(n1 == '%') {
-					int n2 = input.read();
-					if(n2 == '%') {
-						int n3 = input.read();
-						if(n3 == '>') {
-							dest.write("%>");
-						}
-						else {
-							dest.write(n1);
-							dest.write(n2);
-							dest.write(n3);
-						}
-					}
-					else {
-						dest.write(n1);
-						dest.write(n2);
-					}
-				}
-				else
+				else {
 					dest.write(n1);
+					dest.write(n2);
+				}
 			}
-		}
-		finally {
-			StreamUtil.close(input);
+			else if(n1 == '%') {
+				int n2 = input.read();
+				if(n2 == '%') {
+					int n3 = input.read();
+					if(n3 == '>') {
+						dest.write("%>");
+					}
+					else {
+						dest.write(n1);
+						dest.write(n2);
+						dest.write(n3);
+					}
+				}
+				else {
+					dest.write(n1);
+					dest.write(n2);
+				}
+			}
+			else
+				dest.write(n1);
 		}
 	}
 

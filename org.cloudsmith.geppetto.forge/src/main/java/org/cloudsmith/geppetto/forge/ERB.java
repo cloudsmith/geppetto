@@ -13,6 +13,7 @@ package org.cloudsmith.geppetto.forge;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.Reader;
 import java.io.Writer;
 
 import org.cloudsmith.geppetto.forge.v2.model.Metadata;
@@ -56,5 +57,5 @@ public interface ERB {
 	 * @throws UnsupportedOperationException
 	 *             on constructs that are not handled
 	 */
-	void generate(Metadata context, File template, Writer result) throws IOException;
+	void generate(Metadata context, Reader template, Writer result) throws IOException;
 }

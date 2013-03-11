@@ -305,7 +305,7 @@ public class PPDiagnosticsRunner {
 
 		for(MetadataInfo mi : moduleInfo) {
 			File f = mi.getFile();
-			// get path to directory (the moduleinfo file is for the "Modulefile" itself
+			// get path to directory (the moduleinfo file is for the metadata file itself
 			IPath p = new Path(f.getAbsolutePath()).removeLastSegments(1);
 			modulePaths.add(p);
 			allContainers.add(p.toString());

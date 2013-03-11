@@ -4,6 +4,7 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
+import org.apache.maven.execution.MavenSession;
 import org.apache.maven.plugin.MojoFailureException;
 import org.eclipse.xtext.util.Wrapper;
 import org.junit.Test;
@@ -11,8 +12,8 @@ import org.junit.Test;
 public class RepublishTestMojo extends AbstractForgeTestMojo {
 	@Test
 	public void republish() throws Exception {
-		packageModule("test_module_c");
-		Publish publish = (Publish) lookupConfiguredMojo(createMavenSession(), newMojoExecution("publish"));
+		MavenSession session = packageModule("test_module_c");
+		Publish publish = (Publish) lookupConfiguredMojo(session, newMojoExecution("publish"));
 		assertNotNull(publish);
 
 		try {

@@ -11,17 +11,19 @@
  */
 package org.cloudsmith.geppetto.pp.dsl.ui.container;
 
+import java.io.File;
 import java.util.Collections;
 import java.util.List;
+import java.util.Set;
 
 import org.apache.log4j.Logger;
 import org.cloudsmith.geppetto.forge.Forge;
+import org.cloudsmith.geppetto.forge.MetadataExtractor;
 import org.cloudsmith.geppetto.forge.v2.model.Dependency;
 import org.cloudsmith.geppetto.forge.v2.model.Metadata;
 import org.cloudsmith.geppetto.forge.v2.model.ModuleName;
 import org.cloudsmith.geppetto.semver.Version;
 import org.cloudsmith.geppetto.semver.VersionRange;
-import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IWorkspace;
 import org.eclipse.core.resources.IWorkspaceRoot;
@@ -40,6 +42,9 @@ import com.google.inject.Inject;
 public class PPWorkspaceProjectsStateHelper extends AbstractStorage2UriMapperClient {
 
 	private final static Logger log = Logger.getLogger(PPWorkspaceProjectsStateHelper.class);
+
+	@Inject
+	private Set<MetadataExtractor> metadataExtractors;
 
 	@Inject
 	private IWorkspace workspace;
@@ -88,30 +93,28 @@ public class PPWorkspaceProjectsStateHelper extends AbstractStorage2UriMapperCli
 
 	public List<String> getVisibleProjectNames(IProject project) {
 		if(isAccessibleXtextProject(project)) {
-			IFile moduleFile = project.getFile("Modulefile");
-			if(moduleFile.exists()) {
-				List<String> result = Lists.newArrayList();
+			File moduleDir = project.getLocation().toFile();
+			List<String> result = Lists.newArrayList();
 
-				// parse the "Modulefile" and get full name and version, use this as name of target entry
-				try {
-					Metadata metadata = forge.parseModuleFile(moduleFile.getLocation().toFile());
+			// parse the "Modulefile" and get full name and version, use this as name of target entry
+			try {
+				Metadata metadata = forge.createFromModuleDirectory(moduleDir, false, null);
 
-					for(Dependency d : metadata.getDependencies()) {
-						IProject best = getBestMatchingProject(d);
-						if(best != null)
-							result.add(best.getName());
-						else {
-							// TODO: need to inform the user about this somehow, but can't create markers here
-						}
+				for(Dependency d : metadata.getDependencies()) {
+					IProject best = getBestMatchingProject(d);
+					if(best != null)
+						result.add(best.getName());
+					else {
+						// TODO: need to inform the user about this somehow, but can't create markers here
 					}
+				}
 
-				}
-				catch(Exception e) {
-					if(log.isDebugEnabled())
-						log.debug("Could not parse Modulefile dependencies: '" + moduleFile + "'", e);
-				}
-				return result;
 			}
+			catch(Exception e) {
+				if(log.isDebugEnabled())
+					log.debug("Could not parse any metadata from project: '" + project.getName() + "'", e);
+			}
+			return result;
 		}
 		return Collections.emptyList();
 	}

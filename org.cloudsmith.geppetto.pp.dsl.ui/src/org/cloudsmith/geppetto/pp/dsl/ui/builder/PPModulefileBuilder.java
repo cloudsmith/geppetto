@@ -40,9 +40,11 @@ import org.eclipse.core.resources.IResourceDelta;
 import org.eclipse.core.resources.IResourceDeltaVisitor;
 import org.eclipse.core.resources.IWorkspaceRoot;
 import org.eclipse.core.resources.IncrementalProjectBuilder;
+import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.OperationCanceledException;
+import org.eclipse.core.runtime.Path;
 import org.eclipse.xtext.ui.XtextProjectHelper;
 import org.eclipse.xtext.util.Wrapper;
 
@@ -365,19 +367,6 @@ public class PPModulefileBuilder extends IncrementalProjectBuilder implements PP
 		return ((delta.getResource() instanceof IFile) && MODULEFILE_PATH.equals(delta.getProjectRelativePath()));
 	}
 
-	private Metadata loadMetadata(IFile moduleFile, IProgressMonitor monitor) {
-		// parse the "Modulefile" and get full name and version, use this as name of target entry
-		try {
-			return forge.parseModuleFile(moduleFile.getLocation().toFile());
-		}
-		catch(Exception e) {
-			createErrorMarker(moduleFile, "Can not parse modulefile: " + e.getMessage(), null);
-			if(log.isDebugEnabled())
-				log.debug("Could not parse Modulefile dependencies: '" + moduleFile + "'", e);
-		}
-		return null;
-	}
-
 	/**
 	 * Deletes all problem markers set by this builder.
 	 */
@@ -438,13 +427,25 @@ public class PPModulefileBuilder extends IncrementalProjectBuilder implements PP
 		checkCancel(monitor);
 		IProject project = getProject();
 		if(isAccessiblePuppetProject(project)) {
-			IFile moduleFile = project.getFile("Modulefile");
-			if(moduleFile.exists()) {
+			File projectDir = project.getLocation().toFile();
+			if(forge.hasModuleMetadata(projectDir)) {
 
 				// get metadata
-				Metadata metadata = loadMetadata(moduleFile, monitor);
-				if(metadata == null)
+				Metadata metadata;
+				File[] extractionSource = new File[1];
+				try {
+					metadata = forge.createFromModuleDirectory(projectDir, false, extractionSource);
+				}
+				catch(Exception e) {
+					createErrorMarker(
+						project, "Can not parse modulefile or other metadata source: " + e.getMessage(), null);
+					if(log.isDebugEnabled())
+						log.debug("Could not parse Modulefile dependencies: '" + project.getName() + "'", e);
 					return; // give up - errors have been logged.
+				}
+
+				IFile moduleFile = ResourcesPlugin.getWorkspace().getRoot().getFileForLocation(
+					Path.fromOSString(extractionSource[0].getAbsolutePath()));
 
 				// sync version and name project data
 				Version version = metadata == null
@@ -459,7 +460,8 @@ public class PPModulefileBuilder extends IncrementalProjectBuilder implements PP
 				else
 					moduleName = moduleName.withSeparator('-');
 
-				if(moduleName != null && !project.getName().toLowerCase().contains(moduleName.getName().toString().toLowerCase()))
+				if(moduleName != null &&
+						!project.getName().toLowerCase().contains(moduleName.getName().toString().toLowerCase()))
 					createWarningMarker(moduleFile, "Mismatched name - project does not reflect module: '" +
 							moduleName + "'", null);
 

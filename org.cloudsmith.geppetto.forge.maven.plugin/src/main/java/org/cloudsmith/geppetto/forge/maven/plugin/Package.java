@@ -13,7 +13,7 @@ package org.cloudsmith.geppetto.forge.maven.plugin;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.List;
+import java.util.Collection;
 
 import org.apache.maven.plugins.annotations.LifecyclePhase;
 import org.apache.maven.plugins.annotations.Mojo;
@@ -28,7 +28,7 @@ import org.cloudsmith.geppetto.forge.IncompleteException;
 public class Package extends AbstractForgeMojo {
 	private File buildForge(File moduleSource, File destination, Diagnostic result) throws IOException {
 		try {
-			return getForge().build(moduleSource, destination, getFileFilter(), null);
+			return getForge().build(moduleSource, destination, null);
 		}
 		catch(IncompleteException e) {
 			result.addChild(new Diagnostic(Diagnostic.ERROR, DiagnosticType.PACKAGE, e.getMessage()));
@@ -43,20 +43,25 @@ public class Package extends AbstractForgeMojo {
 
 	@Override
 	protected void invoke(Diagnostic result) throws Exception {
-		List<File> moduleRoots = findModuleRoots();
+		Collection<File> moduleRoots = findModuleRoots();
 		if(moduleRoots.isEmpty()) {
 			result.addChild(new Diagnostic(Diagnostic.ERROR, DiagnosticType.PACKAGE, "No modules found in repository"));
 			return;
 		}
 
-		File builtModules = new File(getBuildDir(), "builtModules");
-		if(!(builtModules.mkdirs() || builtModules.isDirectory())) {
-			result.addChild(new Diagnostic(Diagnostic.ERROR, DiagnosticType.PACKAGE, "Unable to create directory" +
-					builtModules.getPath()));
-			return;
+		File buildDir = getBuildDir();
+		buildDir.mkdirs();
+		if(moduleRoots.size() == 1)
+			getProject().getArtifact().setFile(buildForge(moduleRoots.iterator().next(), buildDir, result));
+		else {
+			File builtModules = new File(buildDir, "builtModules");
+			if(!(builtModules.mkdir() || builtModules.isDirectory())) {
+				result.addChild(new Diagnostic(Diagnostic.ERROR, DiagnosticType.PACKAGE, "Unable to create directory" +
+						builtModules.getPath()));
+				return;
+			}
+			for(File moduleRoot : moduleRoots)
+				buildForge(moduleRoot, builtModules, result);
 		}
-
-		for(File moduleRoot : moduleRoots)
-			buildForge(moduleRoot, builtModules, result);
 	}
 }

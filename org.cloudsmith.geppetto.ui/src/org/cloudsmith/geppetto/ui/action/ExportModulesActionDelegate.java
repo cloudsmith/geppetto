@@ -11,13 +11,13 @@
  */
 package org.cloudsmith.geppetto.ui.action;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.cloudsmith.geppetto.forge.Forge;
 import org.cloudsmith.geppetto.forge.ForgeService;
 import org.cloudsmith.geppetto.ui.UIPlugin;
-import org.cloudsmith.geppetto.ui.util.ResourceUtil;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.Path;
@@ -42,6 +42,10 @@ public class ExportModulesActionDelegate extends ActionDelegate implements IObje
 		super.dispose();
 	}
 
+	private Forge getForge() {
+		return ForgeService.getDefault().getForgeInjector().getInstance(Forge.class);
+	}
+
 	@Override
 	public void run(IAction action) {
 		DirectoryDialog dialog = new DirectoryDialog(
@@ -55,11 +59,11 @@ public class ExportModulesActionDelegate extends ActionDelegate implements IObje
 
 				@Override
 				protected void execute(IProgressMonitor progressMonitor) {
-					Forge forge = ForgeService.getDefault().getForgeInjector().getInstance(Forge.class);
+					Forge forge = getForge();
 
 					for(IProject project : projects) {
 						try {
-							forge.build(project.getLocation().toFile(), new Path(directoryPath).toFile(), null, null);
+							forge.build(project.getLocation().toFile(), new Path(directoryPath).toFile(), null);
 						}
 						catch(Exception exception) {
 							UIPlugin.INSTANCE.log(exception);
@@ -83,15 +87,15 @@ public class ExportModulesActionDelegate extends ActionDelegate implements IObje
 		projects.clear();
 
 		if(selection instanceof IStructuredSelection) {
+			Forge forge = getForge();
 
 			for(Object element : ((IStructuredSelection) selection).toList()) {
 
 				if(element instanceof IProject) {
 					IProject project = (IProject) element;
-
-					if(ResourceUtil.getFile(project.getFullPath().append("Modulefile")).exists()) {
+					File projectDir = project.getLocation().toFile();
+					if(forge.hasModuleMetadata(projectDir))
 						projects.add(project);
-					}
 				}
 			}
 		}

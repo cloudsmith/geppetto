@@ -15,6 +15,7 @@ import java.util.Collection;
 import java.util.List;
 
 import org.apache.log4j.Logger;
+import org.cloudsmith.geppetto.forge.Forge;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResourceChangeEvent;
@@ -22,8 +23,6 @@ import org.eclipse.core.resources.IResourceDelta;
 import org.eclipse.core.resources.IResourceDeltaVisitor;
 import org.eclipse.core.resources.IStorage;
 import org.eclipse.core.runtime.CoreException;
-import org.eclipse.core.runtime.IPath;
-import org.eclipse.core.runtime.Path;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.xtext.ui.XtextProjectHelper;
 import org.eclipse.xtext.ui.containers.AbstractAllContainersState;
@@ -51,11 +50,12 @@ public class PPWorkspaceProjectsState extends AbstractAllContainersState {
 	@Inject
 	private PPWorkspaceProjectsStateHelper manifestHelper;
 
-	private static final IPath MODULEFILE_PATH = new Path("Modulefile");
+	@Inject
+	private Forge forge;
 
 	protected boolean doesThisDeltaRequireClear(IResourceDelta delta) {
-		return ((delta.getResource() instanceof IFile) && MODULEFILE_PATH.equals(delta.getProjectRelativePath()));
-
+		return delta.getResource() instanceof IFile &&
+				forge.isMetadataFile(delta.getProjectRelativePath().toPortableString());
 	}
 
 	@Override

@@ -17,6 +17,7 @@ import static org.cloudsmith.geppetto.pp.dsl.validation.ValidationPreference.WAR
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
@@ -38,7 +39,6 @@ import org.cloudsmith.geppetto.ruby.RubyHelper;
 import org.cloudsmith.geppetto.ruby.jrubyparser.JRubyServices;
 import org.cloudsmith.geppetto.validation.FileType;
 import org.cloudsmith.geppetto.validation.ValidationOptions;
-import org.cloudsmith.geppetto.validation.ValidationServiceFactory;
 import org.cloudsmith.geppetto.validation.runner.IEncodingProvider;
 import org.cloudsmith.geppetto.validation.runner.PPDiagnosticsSetup;
 import org.eclipse.core.runtime.NullProgressMonitor;
@@ -278,9 +278,9 @@ public class Validate extends AbstractForgeMojo {
 		return diagnostic;
 	}
 
-	private void geppettoValidation(List<File> moduleLocations, Diagnostic result) throws IOException {
+	private void geppettoValidation(Collection<File> moduleLocations, Diagnostic result) throws IOException {
 
-		List<File> importedModuleLocations = null;
+		Collection<File> importedModuleLocations = null;
 		List<Metadata> metadatas = new ArrayList<Metadata>();
 		for(File moduleRoot : moduleLocations)
 			metadatas.add(getModuleMetadata(moduleRoot, result));
@@ -299,7 +299,7 @@ public class Validate extends AbstractForgeMojo {
 		ValidationOptions options = getValidationOptions(moduleLocations, importedModuleLocations);
 		new PPDiagnosticsSetup(complianceLevel, options.getProblemsAdvisor()).createInjectorAndDoEMFRegistration();
 
-		ValidationServiceFactory.createValidationService().validate(
+		getValidationService().validate(
 			result, getModulesDir(), options,
 			importedModuleLocations.toArray(new File[importedModuleLocations.size()]), new NullProgressMonitor());
 	}
@@ -309,7 +309,7 @@ public class Validate extends AbstractForgeMojo {
 		return "Validation";
 	}
 
-	private String getSearchPath(List<File> moduleLocations, List<File> importedModuleLocations) {
+	private String getSearchPath(Collection<File> moduleLocations, Collection<File> importedModuleLocations) {
 		StringBuilder searchPath = new StringBuilder();
 
 		searchPath.append("lib/*:environments/$environment/*");
@@ -322,13 +322,14 @@ public class Validate extends AbstractForgeMojo {
 		return searchPath.toString();
 	}
 
-	private ValidationOptions getValidationOptions(List<File> moduleLocations, List<File> importedModuleLocations) {
+	private ValidationOptions getValidationOptions(Collection<File> moduleLocations,
+			Collection<File> importedModuleLocations) {
 		ValidationOptions options = new ValidationOptions();
 		options.setCheckLayout(checkLayout);
 		options.setCheckModuleSemantics(checkModuleSemantics);
 		options.setCheckReferences(checkReferences);
 
-		if(moduleLocations.size() == 1 && getModulesDir().equals(moduleLocations.get(0)))
+		if(moduleLocations.size() == 1 && getModulesDir().equals(moduleLocations.iterator().next()))
 			options.setFileType(FileType.MODULE_ROOT);
 		else
 			options.setFileType(FileType.PUPPET_ROOT);
@@ -357,7 +358,7 @@ public class Validate extends AbstractForgeMojo {
 
 	@Override
 	protected void invoke(Diagnostic result) throws IOException {
-		List<File> moduleRoots = findModuleRoots();
+		Collection<File> moduleRoots = findModuleRoots();
 		if(moduleRoots.isEmpty()) {
 			result.addChild(new Diagnostic(Diagnostic.ERROR, DiagnosticType.GEPPETTO, "No modules found in repository"));
 			return;
@@ -370,7 +371,7 @@ public class Validate extends AbstractForgeMojo {
 			lintValidation(moduleRoots, result);
 	}
 
-	private void lintValidation(List<File> moduleLocations, Diagnostic result) throws IOException {
+	private void lintValidation(Collection<File> moduleLocations, Diagnostic result) throws IOException {
 		PuppetLintRunner runner = PuppetLintService.getInstance().getPuppetLintRunner();
 		getLog().debug("Performing puppet lint validation on all modules");
 		if(puppetLintOptions == null)

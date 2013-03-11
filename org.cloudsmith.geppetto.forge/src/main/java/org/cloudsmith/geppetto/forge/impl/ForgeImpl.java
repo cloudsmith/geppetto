@@ -11,8 +11,6 @@
  */
 package org.cloudsmith.geppetto.forge.impl;
 
-import static org.cloudsmith.geppetto.forge.util.ModuleUtils.DEFAULT_FILE_FILTER;
-
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -29,7 +27,9 @@ import java.io.OutputStream;
 import java.io.Reader;
 import java.io.Writer;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
@@ -49,11 +49,11 @@ import org.cloudsmith.geppetto.forge.Cache;
 import org.cloudsmith.geppetto.forge.ERB;
 import org.cloudsmith.geppetto.forge.Forge;
 import org.cloudsmith.geppetto.forge.IncompleteException;
+import org.cloudsmith.geppetto.forge.MetadataExtractor;
 import org.cloudsmith.geppetto.forge.util.Checksums;
 import org.cloudsmith.geppetto.forge.util.ModuleUtils;
 import org.cloudsmith.geppetto.forge.util.TarUtils;
 import org.cloudsmith.geppetto.forge.util.TarUtils.FileCatcher;
-import org.cloudsmith.geppetto.forge.util.Types;
 import org.cloudsmith.geppetto.forge.v2.MetadataRepository;
 import org.cloudsmith.geppetto.forge.v2.client.ForgeException;
 import org.cloudsmith.geppetto.forge.v2.model.Dependency;
@@ -69,6 +69,7 @@ import org.cloudsmith.geppetto.semver.VersionRange;
 import com.google.gson.Gson;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
+import com.google.inject.name.Named;
 
 @Singleton
 class ForgeImpl implements Forge {
@@ -90,14 +91,25 @@ class ForgeImpl implements Forge {
 	@Inject
 	private MetadataRepository metadataRepo;
 
-	@Override
-	public File build(File moduleSource, File destination, FileFilter exclusionFilter, Metadata[] resultingMetadata)
-			throws IOException, IncompleteException {
-		if(exclusionFilter == null)
-			exclusionFilter = DEFAULT_FILE_FILTER;
+	@Inject
+	@Named(ForgeModule.MODULE_FILE_FILTER)
+	private FileFilter fileFilter;
 
-		boolean[] fromExistingMetadata = new boolean[] { false };
-		Metadata md = createFromModuleDir(moduleSource, fromExistingMetadata, exclusionFilter);
+	@Inject
+	Set<MetadataExtractor> metadataExtractors;
+
+	private static Comparator<MetadataExtractor> extractorComparator = new Comparator<MetadataExtractor>() {
+		@Override
+		public int compare(MetadataExtractor a, MetadataExtractor b) {
+			return a.getCardinal() - b.getCardinal();
+		}
+	};
+
+	@Override
+	public File build(File moduleSource, File destination, Metadata[] resultingMetadata) throws IOException,
+			IncompleteException {
+		File[] extractedFrom = new File[1];
+		Metadata md = createFromModuleDirectory(moduleSource, true, extractedFrom);
 		ModuleName fullName = md.getName();
 		if(fullName == null || fullName.getOwner() == null || fullName.getName() == null)
 			throw new IncompleteException("A full name (user-module) must be specified in the Modulefile");
@@ -107,7 +119,7 @@ class ForgeImpl implements Forge {
 			throw new IncompleteException("version must be specified in the Modulefile");
 
 		for(File tst = destination; tst != null; tst = tst.getParentFile()) {
-			if(exclusionFilter != null && !exclusionFilter.accept(tst))
+			if(fileFilter.accept(tst))
 				// Destination folder might reside inside of the module when it
 				// has been excluded.
 				break;
@@ -120,14 +132,15 @@ class ForgeImpl implements Forge {
 		ModuleUtils.buildFileName(fullName, ver, bld);
 		String fullNameWithVersion = bld.toString();
 
-		if(!fromExistingMetadata[0])
-			saveJSONMetadata(md, new File(moduleSource, "metadata.json"));
+		File metadataJSON = new File(moduleSource, "metadata.json");
+		if(!metadataJSON.equals(extractedFrom[0]))
+			saveJSONMetadata(md, metadataJSON);
 
 		bld.append(".tar.gz");
 		File moduleArchive = new File(destination, bld.toString());
 		OutputStream out = new GZIPOutputStream(new FileOutputStream(moduleArchive));
 		// Pack closes its output
-		TarUtils.pack(moduleSource, out, exclusionFilter, false, fullNameWithVersion);
+		TarUtils.pack(moduleSource, out, fileFilter, false, fullNameWithVersion);
 
 		if(resultingMetadata != null)
 			resultingMetadata[0] = md;
@@ -135,40 +148,27 @@ class ForgeImpl implements Forge {
 	}
 
 	@Override
-	public List<File> changes(File path, FileFilter exclusionFilter) throws IOException {
-		if(exclusionFilter == null)
-			exclusionFilter = DEFAULT_FILE_FILTER;
-
+	public List<File> changes(File path) throws IOException {
 		Metadata md = loadJSONMetadata(new File(path, "metadata.json"));
 		List<File> result = new ArrayList<File>();
-		Checksums.appendChangedFiles(md.getChecksums(), path, result, exclusionFilter);
+		Checksums.appendChangedFiles(md.getChecksums(), path, result, fileFilter);
 		return result;
 	}
 
 	@Override
-	public Metadata createFromModuleDir(File moduleDirectory, boolean[] fromExistingMetadata, FileFilter exclusionFilter)
-			throws IOException {
-		if(exclusionFilter == null)
-			exclusionFilter = DEFAULT_FILE_FILTER;
-		File metadataJSON = new File(moduleDirectory, "metadata.json");
+	public Metadata createFromModuleDirectory(File moduleDirectory, boolean includeTypesAndChecksums,
+			File[] extractedFrom) throws IOException {
 
-		Metadata result;
-		boolean metadataExists = metadataJSON.exists();
-		if(metadataExists)
-			result = loadJSONMetadata(metadataJSON);
-		else {
-			result = ModuleUtils.parseModulefile(new File(moduleDirectory, "Modulefile"));
-			result.setTypes(Types.loadTypes(new File(moduleDirectory, "lib/puppet"), exclusionFilter));
-			result.setChecksums(Checksums.loadChecksums(moduleDirectory, exclusionFilter));
-		}
-		if(fromExistingMetadata != null)
-			fromExistingMetadata[0] = metadataExists;
-		return result;
+		for(MetadataExtractor extractor : getMetadataExtractors())
+			if(extractor.canExtractFrom(moduleDirectory))
+				return extractor.parseMetadata(moduleDirectory, includeTypesAndChecksums, extractedFrom);
+
+		return null;
 	}
 
 	@Override
-	public List<File> downloadDependencies(Iterable<Metadata> metadatas, File importedModulesDir, Diagnostic result)
-			throws IOException {
+	public Collection<File> downloadDependencies(Iterable<Metadata> metadatas, File importedModulesDir,
+			Diagnostic result) throws IOException {
 		Set<Dependency> unresolvedCollector = new HashSet<Dependency>();
 		Set<Release> releasesToDownload = resolveDependencies(metadatas, unresolvedCollector);
 		for(Dependency unresolved : unresolvedCollector)
@@ -200,6 +200,11 @@ class ForgeImpl implements Forge {
 	}
 
 	@Override
+	public Collection<File> findModuleRoots(File modulesRoot) {
+		return ModuleUtils.findModuleRoots(modulesRoot, fileFilter, getMetadataExtractors());
+	}
+
+	@Override
 	public void generate(File destination, Metadata metadata) throws IOException {
 		if(!(destination.mkdirs() || destination.exists()))
 			throw new IOException(destination + " could not be created");
@@ -215,8 +220,14 @@ class ForgeImpl implements Forge {
 		}
 	}
 
+	public List<MetadataExtractor> getMetadataExtractors() {
+		ArrayList<MetadataExtractor> extractors = new ArrayList<MetadataExtractor>(metadataExtractors);
+		Collections.sort(extractors, extractorComparator);
+		return extractors;
+	}
+
 	@Override
-	public Metadata getModuleMetadataFromPackage(File builtModule) throws IOException {
+	public Metadata getMetadataFromPackage(File builtModule) throws IOException {
 		InputStream input = new FileInputStream(builtModule);
 		try {
 			final Metadata[] mdReceiver = new Metadata[1];
@@ -238,6 +249,14 @@ class ForgeImpl implements Forge {
 		finally {
 			input.close();
 		}
+	}
+
+	@Override
+	public boolean hasModuleMetadata(File moduleDirectory) {
+		for(MetadataExtractor extractor : metadataExtractors)
+			if(extractor.canExtractFrom(moduleDirectory))
+				return true;
+		return false;
 	}
 
 	@Override
@@ -308,6 +327,16 @@ class ForgeImpl implements Forge {
 		FileUtils.cp(template, destFile.getParentFile(), destFile.getName());
 	}
 
+	@Override
+	public boolean isMetadataFile(String source) {
+		if(source != null) {
+			for(MetadataExtractor extractor : metadataExtractors)
+				if(source.equals(extractor.getPrimarySource()))
+					return true;
+		}
+		return false;
+	}
+
 	public Metadata loadJSONMetadata(File jsonFile) throws IOException {
 		Reader reader = new BufferedReader(new FileReader(jsonFile));
 		try {
@@ -319,13 +348,9 @@ class ForgeImpl implements Forge {
 		}
 	}
 
-	public Metadata parseModuleFile(File modulefile) throws IOException {
-		return ModuleUtils.parseModulefile(modulefile);
-	}
-
 	@Override
 	public void publish(File moduleArchive, boolean dryRun, Diagnostic result) throws IOException {
-		Metadata metadata = getModuleMetadataFromPackage(moduleArchive);
+		Metadata metadata = getMetadataFromPackage(moduleArchive);
 		if(metadata == null)
 			throw new ForgeException("No \"metadata.json\" found in archive: " + moduleArchive.getAbsolutePath());
 
@@ -359,15 +384,7 @@ class ForgeImpl implements Forge {
 		}
 	}
 
-	public void publishAll(File builtModulesDir, boolean dryRun, Diagnostic result) {
-		File[] builtModules = builtModulesDir.listFiles();
-		if(builtModules == null || builtModules.length == 0) {
-			result.addChild(new Diagnostic(
-				Diagnostic.ERROR, DiagnosticType.PUBLISHER, "Unable find any packaged modules in " +
-						builtModulesDir.getAbsolutePath()));
-			return;
-		}
-
+	public void publishAll(File[] builtModules, boolean dryRun, Diagnostic result) {
 		boolean noPublishingMade = true;
 		for(File builtModule : builtModules) {
 			try {

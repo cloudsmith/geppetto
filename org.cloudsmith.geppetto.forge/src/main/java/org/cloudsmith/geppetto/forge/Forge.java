@@ -12,13 +12,12 @@
 package org.cloudsmith.geppetto.forge;
 
 import java.io.File;
-import java.io.FileFilter;
 import java.io.IOException;
+import java.util.Collection;
 import java.util.List;
 import java.util.Set;
 
 import org.cloudsmith.geppetto.common.diagnostic.Diagnostic;
-import org.cloudsmith.geppetto.forge.util.ModuleUtils;
 import org.cloudsmith.geppetto.forge.v2.client.ForgeException;
 import org.cloudsmith.geppetto.forge.v2.model.Dependency;
 import org.cloudsmith.geppetto.forge.v2.model.Metadata;
@@ -41,43 +40,39 @@ public interface Forge {
 	 *            The module directory
 	 * @param destination
 	 *            The directory where the created archive will end up. Created if necessary.
-	 * @param exclusionFilter
-	 *            A filter used for excluding files. Can be <tt>null</tt> to use the default {@link ModuleUtils#DEFAULT_FILE_FILTER}.
 	 * @param resultingMetadata
 	 *            A one element array that will receive the resulting metadata. Can be <tt>null</tt>.
 	 * @return The resulting gzipped tar file.
 	 */
-	File build(File moduleSource, File destination, FileFilter exclusionFilter, Metadata[] resultingMetadata)
-			throws IOException, IncompleteException;
+	File build(File moduleSource, File destination, Metadata[] resultingMetadata) throws IOException,
+			IncompleteException;
 
 	/**
 	 * List modified files in an installed module
 	 * 
 	 * @param path
 	 *            The module directory
-	 * @param exclusionFilter
-	 *            A filter used for excluding files. Can be <tt>null</tt> to use the default {@link ModuleUtils#DEFAULT_FILE_FILTER}.
 	 */
-	List<File> changes(File path, FileFilter exclusionFilter) throws IOException;
+	List<File> changes(File path) throws IOException;
 
 	/**
 	 * Create a Metadata instance from a module structure. If a file named &quot;metadata.json&quot; exists
 	 * in the <tt>moduleDirectory</tt> then that file will be the sole source of input. Otherwise, this method
-	 * looks for a file named &quot;Modulefile&quot;, reads that, and then reads puppet types from the directory
-	 * &quot;lib/puppet&quot;. The method then ends by calculating checksums.
+	 * will consult injected {@link MetadataExtractor metadata extractors} to load the initial metadata,
+	 * and then, unless <tt>includeTypesAndChecksums</tt> is <tt>false</tt> reads puppet types from the directory
+	 * &quot;lib/puppet&quot; and generates checksums for all files.
 	 * 
 	 * @param moduleDirectory
 	 *            The directory containing the module
-	 * @param fromExistingMetadata
-	 *            A one element boolean array that will receive a flag indicating whether or
-	 *            not the returned metadata was from an existing &quot;metadata.json&quot;. Can be <tt>null</tt> when that piece of information
-	 *            is of no interest
-	 * @param exclusionFilter
-	 *            A filter used for excluding files. Can be <tt>null</tt> to use the default {@link ModuleUtils#DEFAULT_FILE_FILTER}.
+	 * @param includeTypesAndChecksums
+	 *            If set, analyze all types in and generated checksums
+	 * @param extractedFrom
+	 *            A one element File array that will receive the file that the metadata was extracted from.
+	 *            Can be <tt>null</tt> when that piece of information is of no interest
 	 * @return The created metadata
 	 * @throws IOException
 	 */
-	Metadata createFromModuleDir(File moduleDirectory, boolean[] fromExistingMetadata, FileFilter exclusionFilter)
+	Metadata createFromModuleDirectory(File moduleDirectory, boolean includeTypesAndChecksums, File[] extractedFrom)
 			throws IOException;
 
 	/**
@@ -90,8 +85,17 @@ public interface Forge {
 	 * @return A list files appointing the installed modules.
 	 * @throws IOException
 	 */
-	List<File> downloadDependencies(Iterable<Metadata> metadatas, File importedModulesDir, Diagnostic result)
+	Collection<File> downloadDependencies(Iterable<Metadata> metadatas, File importedModulesDir, Diagnostic result)
 			throws IOException;
+
+	/**
+	 * Scan for valid directories containing a "metadata.json" or other
+	 * files recognized by injected {@link MetadataExtractor metadata extractors}.
+	 * A directory that contains such a file will not be scanned in turn.
+	 * 
+	 * @return A list of directories that seems to be module roots.
+	 */
+	Collection<File> findModuleRoots(File modulesRoot);
 
 	/**
 	 * Generate boilerplate for a new module
@@ -106,11 +110,20 @@ public interface Forge {
 	/**
 	 * Extract metadata from a packaged module
 	 * 
-	 * @param builtModule
+	 * @param gzippedTarball
 	 *            The packaged module file in gzipped tar format
 	 * @return The metadata or null if no metadata was present in the file
 	 */
-	Metadata getModuleMetadataFromPackage(File builtModule) throws IOException;
+	Metadata getMetadataFromPackage(File gzippedTarball) throws IOException;
+
+	/**
+	 * Consults injected {@link MetadataExtractor metadata extractors} to check if metadata can
+	 * be extracted from the given location.
+	 * 
+	 * @param moduleDirectory
+	 * @return <tt>true</tt> if a least one metadata extractor can extract metadata from the given location
+	 */
+	boolean hasModuleMetadata(File moduleDirectory);
 
 	/**
 	 * Install a module (eg, 'user-modname') from the Forge repository. A
@@ -162,6 +175,15 @@ public interface Forge {
 			throws IOException;
 
 	/**
+	 * Checks if the file <tt>source</tt> is a file that one of the injected {@link MetadataExtractor metadata extractors} would consider.
+	 * 
+	 * @param source
+	 *            The path to check. Should be relative to the expected module root
+	 * @return <tt>true</tt> if the file would be used for metadata extraction
+	 */
+	boolean isMetadataFile(String source);
+
+	/**
 	 * Load metadata from a JSON file
 	 * 
 	 * @param jsonFile
@@ -170,16 +192,6 @@ public interface Forge {
 	 * @throws IOException
 	 */
 	Metadata loadJSONMetadata(File jsonFile) throws IOException;
-
-	/**
-	 * Parse a Modulefile into a {@link Metadata} instance.
-	 * 
-	 * @param modulefile
-	 *            The file to parse
-	 * @return The resulting metadata
-	 * @throws IOException
-	 */
-	Metadata parseModuleFile(File modulefile) throws IOException;
 
 	/**
 	 * Publish a gzipped module tarball to the Forge. The provided diagnostic is used for informational messages
@@ -202,14 +214,14 @@ public interface Forge {
 	 * Publish all gzipped module tarballs found under <tt>builtModulesDir</tt>. Report progress on the
 	 * provided <tt>result</tt> diagnostic. The caller must check the severity of the <tt>result</tt> after this call has completed.
 	 * 
-	 * @param builtModulesDir
-	 *            The directory where the modules to be published reside
+	 * @param moduleTarballs
+	 *            Module tarballs to be published.
 	 * @param dryRun
 	 *            Set to <tt>true</tt> if all but the final step of sending to the Forge should be made
 	 * @param result
 	 *            The collector diagnostic.
 	 */
-	void publishAll(File builtModulesDir, boolean dryRun, Diagnostic result);
+	void publishAll(File[] moduleTarballs, boolean dryRun, Diagnostic result);
 
 	/**
 	 * Resolves all dependencies extending from the modules described by <tt>metadatas</tt>.

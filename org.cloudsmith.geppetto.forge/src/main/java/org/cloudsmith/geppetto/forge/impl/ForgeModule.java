@@ -11,15 +11,29 @@
  */
 package org.cloudsmith.geppetto.forge.impl;
 
+import java.io.FileFilter;
+
 import org.cloudsmith.geppetto.forge.Cache;
 import org.cloudsmith.geppetto.forge.ERB;
 import org.cloudsmith.geppetto.forge.Forge;
 import org.cloudsmith.geppetto.forge.ForgePreferences;
+import org.cloudsmith.geppetto.forge.MetadataExtractor;
+import org.cloudsmith.geppetto.forge.util.ModuleUtils;
 import org.cloudsmith.geppetto.forge.v2.client.ForgeHttpModule;
 
+import com.google.inject.multibindings.Multibinder;
+import com.google.inject.name.Names;
+
 public class ForgeModule extends ForgeHttpModule {
+	public static final String MODULE_FILE_FILTER = "module.file.filter";
+
 	public ForgeModule(ForgePreferences forgePreferences) {
 		super(forgePreferences);
+	}
+
+	protected void addMetadataExtractors(Multibinder<MetadataExtractor> mdeBinder) {
+		mdeBinder.addBinding().to(MetadataJSONExtractor.class);
+		mdeBinder.addBinding().to(ModulefileExtractor.class);
 	}
 
 	@Override
@@ -28,6 +42,13 @@ public class ForgeModule extends ForgeHttpModule {
 		bind(Forge.class).to(ForgeImpl.class);
 		bind(Cache.class).to(CacheImpl.class);
 		bind(ERB.class).to(ERBImpl.class);
+		bind(FileFilter.class).annotatedWith(Names.named(MODULE_FILE_FILTER)).toInstance(getFileFilter());
 		bind(ForgePreferences.class).toInstance((ForgePreferences) getPreferences());
+		Multibinder<MetadataExtractor> mdeBinder = Multibinder.newSetBinder(binder(), MetadataExtractor.class);
+		addMetadataExtractors(mdeBinder);
+	}
+
+	protected FileFilter getFileFilter() {
+		return ModuleUtils.DEFAULT_FILE_FILTER;
 	}
 }

@@ -17,10 +17,12 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.Writer;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.regex.Pattern;
 
 import org.cloudsmith.geppetto.common.os.StreamUtil;
+import org.cloudsmith.geppetto.forge.MetadataExtractor;
 import org.cloudsmith.geppetto.forge.v2.model.Dependency;
 import org.cloudsmith.geppetto.forge.v2.model.Metadata;
 import org.cloudsmith.geppetto.forge.v2.model.ModuleName;
@@ -195,33 +197,44 @@ public class ModuleUtils {
 	}
 
 	/**
-	 * Scan for valid directories containing "Modulefile" or "metadata.json" files.
+	 * Scan for valid directories containing "metadata.json" files or other types of build time artifacts
+	 * that provides metadata and is recognized by the provided <tt>metadataExtractors</tt>.
 	 * A directory that contains such a file will not be scanned in turn.
 	 * 
 	 * @return A list of directories where such files were found
 	 */
-	public static List<File> findModuleRoots(File modulesRoot, FileFilter filter) {
-		List<File> moduleRoots = new ArrayList<File>();
-		if(ModuleUtils.findModuleRoots(filter, modulesRoot.listFiles(filter), moduleRoots))
+	public static Collection<File> findModuleRoots(File modulesRoot, FileFilter filter,
+			Iterable<MetadataExtractor> metadataExtractors) {
+		Collection<File> moduleRoots = new ArrayList<File>();
+		if(ModuleUtils.findModuleRoots(filter, modulesRoot, moduleRoots, metadataExtractors))
 			// The repository is a module in itself
 			moduleRoots.add(modulesRoot);
 		return moduleRoots;
 	}
 
-	private static boolean findModuleRoots(FileFilter filter, File[] files, List<File> moduleFiles) {
+	private static boolean findModuleRoots(FileFilter filter, File modulesRoot, Collection<File> moduleFiles,
+			Iterable<MetadataExtractor> metadataExtractors) {
+		File[] files = modulesRoot.listFiles(filter);
 		if(files != null) {
+			// This is a directory
 			int idx = files.length;
-			while(--idx >= 0) {
-				String name = files[idx].getName();
-				if("Modulefile".equals(name) || "metadata.json".equals(name))
-					return true;
-			}
+			if(idx > 0) {
+				// And it's not empty
+				while(--idx >= 0)
+					if("metadata.json".equals(files[idx].getName()))
+						return true;
 
-			idx = files.length;
-			while(--idx >= 0) {
-				File file = files[idx];
-				if(findModuleRoots(filter, file.listFiles(filter), moduleFiles))
-					moduleFiles.add(file);
+				for(MetadataExtractor extractor : metadataExtractors)
+					if(extractor.canExtractFrom(modulesRoot))
+						return true;
+
+				// Check subdirectories
+				idx = files.length;
+				while(--idx >= 0) {
+					File file = files[idx];
+					if(findModuleRoots(filter, file, moduleFiles, metadataExtractors))
+						moduleFiles.add(file);
+				}
 			}
 		}
 		return false;

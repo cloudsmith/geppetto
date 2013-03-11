@@ -8,6 +8,7 @@ Bundle-Localization: plugin
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Export-Package: org.cloudsmith.geppetto.forge,
  org.cloudsmith.geppetto.forge.impl;x-friends:="org.cloudsmith.geppetto.forge.tests",
+ org.cloudsmith.geppetto.forge.tests,
  org.cloudsmith.geppetto.forge.util
 Require-Bundle: org.cloudsmith.geppetto.common,
  org.cloudsmith.geppetto.forge.api,

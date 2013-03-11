@@ -29,7 +29,7 @@ import org.cloudsmith.geppetto.common.diagnostic.DiagnosticType;
 import org.cloudsmith.geppetto.common.diagnostic.ExceptionDiagnostic;
 import org.cloudsmith.geppetto.common.diagnostic.FileDiagnostic;
 import org.cloudsmith.geppetto.common.os.FileUtils;
-import org.cloudsmith.geppetto.forge.util.ModuleUtils;
+import org.cloudsmith.geppetto.forge.Forge;
 import org.cloudsmith.geppetto.forge.v2.model.Dependency;
 import org.cloudsmith.geppetto.forge.v2.model.Metadata;
 import org.cloudsmith.geppetto.forge.v2.model.ModuleName;
@@ -82,6 +82,7 @@ import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Multimap;
 import com.google.common.collect.Sets;
+import com.google.inject.Inject;
 
 /**
  * Note that all use of monitor assumes SubMonitor semantics (the receiver does *not* call done on monitors,
@@ -116,15 +117,6 @@ public class ValidationServiceImpl implements ValidationService {
 		@Override
 		public boolean accept(File dir, String name) {
 			return name.endsWith(".rb") && new File(dir, name).isFile();
-		}
-
-	};
-
-	private static final FilenameFilter ModulefileFileFilter = new FilenameFilter() {
-
-		@Override
-		public boolean accept(File dir, String name) {
-			return name.equals("Modulefile") && new File(dir, name).isFile();
 		}
 
 	};
@@ -340,8 +332,8 @@ public class ValidationServiceImpl implements ValidationService {
 		return relativePath.toFile();
 	}
 
-	public ValidationServiceImpl() {
-	}
+	@Inject
+	private Forge forge;
 
 	/**
 	 * Add a BasicDiagnostic to the diagnostic chain as a translation of a catalog diagnostic.
@@ -452,7 +444,7 @@ public class ValidationServiceImpl implements ValidationService {
 			addFileError(
 				diagnostics, new File(moduleRoot, "modules"), sourceRoot, "Submodules in a module is not allowed",
 				IValidationConstants.ISSUE__UNEXPECTED_SUBMODULE_DIRECTORY);
-		if(!(hasMetadataFile(moduleRoot) || hasModuleFile(moduleRoot)))
+		if(!forge.hasModuleMetadata(moduleRoot))
 			addFileError(
 				diagnostics, moduleRoot, sourceRoot, "Missing 'metadata.json or Modulefile'",
 				IValidationConstants.ISSUE__MISSING_MODULEFILE);
@@ -499,10 +491,6 @@ public class ValidationServiceImpl implements ValidationService {
 		collectFiles(root, filter, result);
 		return result;
 
-	}
-
-	private List<File> findModulefileFiles(File root) {
-		return findFiles(root, ModulefileFileFilter);
 	}
 
 	private List<File> findPPFiles(File root) {
@@ -560,16 +548,6 @@ public class ValidationServiceImpl implements ValidationService {
 		}
 	}
 
-	private boolean hasModuleFile(File root) {
-		File moduleFile = new File(root, "Modulefile");
-		return moduleFile.isFile();
-	}
-
-	private boolean hasMetadataFile(File root) {
-		File metadataFile = new File(root, "metadata.json");
-		return metadataFile.isFile();
-	}
-
 	private boolean hasModulesSubDirectory(File root) {
 		File modulesDir = new File(root, "modules");
 		return modulesDir.isDirectory();
@@ -615,15 +593,15 @@ public class ValidationServiceImpl implements ValidationService {
 	 * @param monitor
 	 * @return null if the Modulefile could not be loaded
 	 */
-	private Metadata loadModulefileMetadata(Diagnostic diagnostics, File moduleFile, File parentFile,
+	private Metadata loadModulefileMetadata(Diagnostic diagnostics, File parentFile, File[] mdProvider,
 			IProgressMonitor monitor) {
-		// parse the "Modulefile" and get full name and version, use this as name of target entry
+		// parse the metadata file and get full name and version, use this as name of target entry
 		try {
-			return ModuleUtils.parseModulefile(moduleFile);
+			return forge.createFromModuleDirectory(parentFile, false, mdProvider);
 		}
 		catch(Exception e) {
 			addFileError(
-				diagnostics, moduleFile, parentFile, "Can not parse file: " + e.getMessage(),
+				diagnostics, new File("Modulefile"), parentFile, "Can not parse file: " + e.getMessage(),
 				IValidationConstants.ISSUE__MODULEFILE_PARSE_ERROR);
 		}
 		return null;
@@ -664,7 +642,7 @@ public class ValidationServiceImpl implements ValidationService {
 		boolean isDirectory = source.isDirectory();
 		boolean isPP = !isDirectory && sourceName.endsWith(".pp");
 		boolean isRB = !isDirectory && sourceName.endsWith(".rb");
-		boolean isModulefile = !isDirectory && sourceName.equals("Modulefile");
+		boolean isModulefile = !isDirectory && forge.isMetadataFile(source.getName());
 
 		if(!isDirectory && examinedFiles != null && examinedFiles.length != 0)
 			throw new IllegalArgumentException("examinedFiles must be empty when source is a regular file");
@@ -673,9 +651,9 @@ public class ValidationServiceImpl implements ValidationService {
 			if(!isDirectory)
 				options.setFileType(FileType.SINGLE_SOURCE_FILE);
 			else {
-				// A directory that does not have a "Modulefile" is treated as a root
+				// A directory that does not have a "Modulefile" or other recognized module metadata is treated as a root
 				// A directory that has a "modules" subdirectory is treated as a root
-				if(hasModulesSubDirectory(source) || !(hasMetadataFile(source) || hasModuleFile(source)))
+				if(hasModulesSubDirectory(source) || !forge.hasModuleMetadata(source))
 					options.setFileType(FileType.PUPPET_ROOT);
 				else
 					options.setFileType(FileType.MODULE_ROOT);
@@ -724,7 +702,7 @@ public class ValidationServiceImpl implements ValidationService {
 
 			}
 			else if(isModulefile)
-				validateModulefile(diagnostics, source, source.getParentFile(), options, monitor);
+				validateModulefile(diagnostics, source.getParentFile(), options, monitor);
 			else
 				throw new IllegalArgumentException("unsupported source type");
 			return new BuildResult(rubyServicesPresent);
@@ -801,10 +779,10 @@ public class ValidationServiceImpl implements ValidationService {
 
 		List<File> ppFiles = findPPFiles(root);
 		List<File> rbFiles = findRubyFiles(root);
-		List<File> mdFiles = findModulefileFiles(root);
+		Collection<File> mdRoots = forge.findModuleRoots(root);
 		List<File> rakeFiles = findRakefiles(root);
 
-		final int workload = ppFiles.size() + mdFiles.size() * 3 + rbFiles.size() * 2 //
+		final int workload = ppFiles.size() + mdRoots.size() * 3 + rbFiles.size() * 2 //
 				+ rakeFiles.size() * 2 //
 				+ 1 // load pptp
 				+ 1 // "for the pot" (to make sure there is a final tick to report)
@@ -843,12 +821,14 @@ public class ValidationServiceImpl implements ValidationService {
 
 		// collect info in a structure
 		Multimap<ModuleName, MetadataInfo> moduleData = ArrayListMultimap.create();
-		for(File f : mdFiles) {
+		for(File mdRoot : mdRoots) {
 			// load and remember all that loaded ok
-			Metadata m = loadModulefileMetadata(diagnostics, f, root, ticker.newChild(1));
+			File[] mdProvider = new File[1];
+			Metadata m = loadModulefileMetadata(diagnostics, mdRoot, mdProvider, ticker.newChild(1));
 			if(m == null)
 				worked(ticker, 1);
 			else {
+				File f = mdProvider[0];
 				ModuleName moduleName = m.getName();
 				if(options.isCheckModuleSemantics() && isOnPath(pathToFile(f.getAbsolutePath(), root), searchPath)) {
 					// remember the metadata and where it came from
@@ -1208,14 +1188,15 @@ public class ValidationServiceImpl implements ValidationService {
 	 * @param source
 	 * @param parentFile
 	 */
-	private void validateModulefile(Diagnostic diagnostics, File moduleFile, File parentFile,
+	private void validateModulefile(Diagnostic diagnostics, File parentFile,
 			ValidationOptions options, IProgressMonitor monitor) {
 		SubMonitor ticker = SubMonitor.convert(monitor, 11);
-		Metadata metadata = loadModulefileMetadata(diagnostics, moduleFile, parentFile, ticker.newChild(1));
+		File[] mdProvider = new File[1];
+		Metadata metadata = loadModulefileMetadata(diagnostics, parentFile, mdProvider, ticker.newChild(1));
 		if(metadata == null)
 			return; // failed in some way and should have reported this
 
-		validateModuleMetadata(metadata, diagnostics, moduleFile, parentFile, options, ticker.newChild(10));
+		validateModuleMetadata(metadata, diagnostics, mdProvider[0], parentFile, options, ticker.newChild(10));
 	}
 
 	/**

@@ -17,6 +17,7 @@ import org.apache.maven.plugins.annotations.LifecyclePhase;
 import org.apache.maven.plugins.annotations.Mojo;
 import org.apache.maven.plugins.annotations.Parameter;
 import org.cloudsmith.geppetto.common.diagnostic.Diagnostic;
+import org.cloudsmith.geppetto.common.diagnostic.DiagnosticType;
 
 /**
  * Goal which performs basic validation.
@@ -36,6 +37,21 @@ public class Publish extends AbstractForgeMojo {
 
 	@Override
 	protected void invoke(Diagnostic result) throws Exception {
-		getForge().publishAll(new File(getBuildDir(), "builtModules"), dryRun, result);
+		File[] builtModules;
+		File targetFile = getProject().getArtifact().getFile();
+		if(targetFile == null) {
+			File builtModulesDir = new File(getBuildDir(), "builtModules");
+			builtModules = builtModulesDir.listFiles();
+			if(builtModules == null || builtModules.length == 0) {
+				result.addChild(new Diagnostic(
+					Diagnostic.ERROR, DiagnosticType.PUBLISHER, "Unable find any packaged modules in " +
+							builtModulesDir.getAbsolutePath()));
+				return;
+			}
+		}
+		else
+			builtModules = new File[] { targetFile };
+
+		getForge().publishAll(builtModules, dryRun, result);
 	}
 }

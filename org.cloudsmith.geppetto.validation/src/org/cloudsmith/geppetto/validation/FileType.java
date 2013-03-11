@@ -37,7 +37,7 @@ public enum FileType {
 	MODULE_ROOT,
 	
 	/**
-	 * The file should be a single source file or type ".pp", ".rb" or "Modulefile".
+	 * The file should be a single source file or type ".pp", ".rb" or a module metadata file.
 	 */
 	SINGLE_SOURCE_FILE;
 }

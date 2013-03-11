@@ -2,7 +2,7 @@
 	<components>
 		<component>
 			<role>org.apache.maven.lifecycle.mapping.LifecycleMapping</role>
-			<role-hint>forge-module</role-hint>
+			<role-hint>puppet-module</role-hint>
 			<implementation>
 				org.apache.maven.lifecycle.mapping.DefaultLifecycleMapping
 			</implementation>
@@ -27,7 +27,7 @@
 		</component>
 		<component>
 			<role>org.apache.maven.artifact.handler.ArtifactHandler</role>
-			<role-hint>forge-module</role-hint>
+			<role-hint>puppet-module</role-hint>
 			<implementation>
 				org.apache.maven.artifact.handler.DefaultArtifactHandler
 			</implementation>
@@ -35,9 +35,9 @@
 				<!--the extension used by Maven in the repository -->
 				<extension>tar.gz</extension>
 				<!--the type used when specifying dependencies etc. -->
-				<type>forge-module</type>
+				<type>puppet-module</type>
 				<!--the packaging used when declaring an implementation of the packaging -->
-				<packaging>forge-module</packaging>
+				<packaging>puppet-module</packaging>
 				<!--This is not a java related artifact-->
 				<addedToClasspath>false</addedToClasspath>
 			</configuration>

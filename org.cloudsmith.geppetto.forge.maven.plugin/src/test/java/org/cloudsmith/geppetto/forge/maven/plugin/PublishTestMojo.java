@@ -5,6 +5,7 @@ import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import org.apache.http.client.HttpResponseException;
+import org.apache.maven.execution.MavenSession;
 import org.apache.maven.plugin.MojoFailureException;
 import org.junit.Test;
 
@@ -12,8 +13,8 @@ public class PublishTestMojo extends AbstractForgeTestMojo {
 
 	@Test
 	public void publishOK() throws Exception {
-		packageModule("test_module_c");
-		Publish publish = (Publish) lookupConfiguredMojo(createMavenSession(), newMojoExecution("publish"));
+		MavenSession session = packageModule("test_module_c");
+		Publish publish = (Publish) lookupConfiguredMojo(session, newMojoExecution("publish"));
 		assertNotNull(publish);
 
 		try {
@@ -26,8 +27,8 @@ public class PublishTestMojo extends AbstractForgeTestMojo {
 
 	@Test
 	public void publishWithNoModuleAtForge() throws Exception {
-		packageModule("test_module_d");
-		Publish publish = (Publish) lookupConfiguredMojo(createMavenSession(), newMojoExecution("publish"));
+		MavenSession session = packageModule("test_module_d");
+		Publish publish = (Publish) lookupConfiguredMojo(session, newMojoExecution("publish"));
 		assertNotNull(publish);
 
 		try {
@@ -43,8 +44,8 @@ public class PublishTestMojo extends AbstractForgeTestMojo {
 
 	@Test
 	public void publishWrongOwner() throws Exception {
-		packageModule("test_module_wrong_owner");
-		Publish publish = (Publish) lookupConfiguredMojo(createMavenSession(), newMojoExecution("publish"));
+		MavenSession session = packageModule("test_module_wrong_owner");
+		Publish publish = (Publish) lookupConfiguredMojo(session, newMojoExecution("publish"));
 		assertNotNull(publish);
 
 		try {

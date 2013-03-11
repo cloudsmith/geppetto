@@ -259,9 +259,10 @@ public class AbstractForgeTestMojo {
 		return execution;
 	}
 
-	protected void packageModule(String moduleName) throws Exception {
+	protected MavenSession packageModule(String moduleName) throws Exception {
 		setTestForgeModulesRoot(moduleName);
-		Package pkg = (Package) lookupConfiguredMojo(createMavenSession(), newMojoExecution("package"));
+		MavenSession session = createMavenSession();
+		Package pkg = (Package) lookupConfiguredMojo(session, newMojoExecution("package"));
 		assertNotNull(pkg);
 
 		try {
@@ -270,6 +271,7 @@ public class AbstractForgeTestMojo {
 		catch(MojoFailureException e) {
 			fail("Packaging of " + moduleName + " failed: " + e.getMessage());
 		}
+		return session;
 	}
 
 	protected void setTestForgeModulesRoot(String project) {

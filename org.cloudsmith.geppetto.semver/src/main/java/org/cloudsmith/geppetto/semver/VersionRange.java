@@ -209,6 +209,20 @@ public class VersionRange implements Serializable {
 	}
 
 	/**
+	 * Creates a new VersionRange according to detailed specification.
+	 * 
+	 * @param lower
+	 * @param lowerBoundInclusive
+	 * @param upper
+	 * @param upperBoundInclusive
+	 * @return
+	 */
+	public static VersionRange create(Version lower, boolean lowerBoundInclusive, Version upper,
+			boolean upperBoundInclusive) {
+		return new VersionRange(null, lower, lowerBoundInclusive, upper, upperBoundInclusive);
+	}
+
+	/**
 	 * Returns a range that will be an exact match for the given version.
 	 * 
 	 * @param version

@@ -18,7 +18,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.nio.charset.Charset;
-import java.util.List;
+import java.util.Collection;
 import java.util.Properties;
 
 import org.apache.maven.execution.MavenSession;
@@ -32,13 +32,14 @@ import org.apache.maven.project.MavenProject;
 import org.cloudsmith.geppetto.common.diagnostic.Diagnostic;
 import org.cloudsmith.geppetto.common.diagnostic.DiagnosticType;
 import org.cloudsmith.geppetto.forge.Forge;
-import org.cloudsmith.geppetto.forge.impl.ForgeModule;
 import org.cloudsmith.geppetto.forge.impl.ForgePreferencesBean;
 import org.cloudsmith.geppetto.forge.util.ModuleUtils;
 import org.cloudsmith.geppetto.forge.v2.MetadataRepository;
 import org.cloudsmith.geppetto.forge.v2.model.Metadata;
 import org.cloudsmith.geppetto.forge.v2.model.ModuleName;
 import org.cloudsmith.geppetto.forge.v2.service.ReleaseService;
+import org.cloudsmith.geppetto.validation.ValidationService;
+import org.cloudsmith.geppetto.validation.impl.ValidationModule;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
 import org.slf4j.Logger;
@@ -182,7 +183,9 @@ public abstract class AbstractForgeMojo extends AbstractMojo {
 			forgePreferences.setOAuthScopes("");
 			forgePreferences.setCacheLocation(cacheLocation);
 
-			forgeInjector = Guice.createInjector(new ForgeModule(forgePreferences));
+			forgeInjector = Guice.createInjector(
+				new ForgeMavenModule(forgePreferences, getFileFilter(), session.getCurrentProject()),
+				new ValidationModule());
 
 			invoke(diagnostic);
 		}
@@ -203,8 +206,8 @@ public abstract class AbstractForgeMojo extends AbstractMojo {
 		}
 	}
 
-	protected List<File> findModuleRoots() {
-		return ModuleUtils.findModuleRoots(getModulesDir(), getFileFilter());
+	protected Collection<File> findModuleRoots() {
+		return getForge().findModuleRoots(getModulesDir());
 	}
 
 	protected abstract String getActionName();
@@ -274,7 +277,14 @@ public abstract class AbstractForgeMojo extends AbstractMojo {
 	}
 
 	protected Metadata getModuleMetadata(File moduleDirectory, Diagnostic diag) throws IOException {
-		Metadata md = getForge().createFromModuleDir(moduleDirectory, null, getFileFilter());
+		Metadata md = getForge().createFromModuleDirectory(moduleDirectory, true, null);
+		if(md == null) {
+			diag.addChild(new Diagnostic(
+				Diagnostic.ERROR, DiagnosticType.GEPPETTO, "No Module Metadata found in directory " +
+						moduleDirectory.getAbsolutePath()));
+			return null;
+		}
+
 		if(md.getVersion() == null)
 			diag.addChild(new Diagnostic(Diagnostic.ERROR, DiagnosticType.GEPPETTO, "Module Version must not be null"));
 
@@ -315,6 +325,10 @@ public abstract class AbstractForgeMojo extends AbstractMojo {
 		return modulesDir;
 	}
 
+	protected MavenProject getProject() {
+		return session.getCurrentProject();
+	}
+
 	protected String getRelativePath(File file) {
 		IPath rootPath = Path.fromOSString(getModulesDir().getAbsolutePath());
 		IPath path = Path.fromOSString(file.getAbsolutePath());
@@ -324,6 +338,10 @@ public abstract class AbstractForgeMojo extends AbstractMojo {
 
 	protected ReleaseService getReleaseService() {
 		return forgeInjector.getInstance(ReleaseService.class);
+	}
+
+	protected ValidationService getValidationService() {
+		return forgeInjector.getInstance(ValidationService.class);
 	}
 
 	protected abstract void invoke(Diagnostic result) throws Exception;

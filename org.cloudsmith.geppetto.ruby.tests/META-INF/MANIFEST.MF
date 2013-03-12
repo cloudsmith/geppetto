@@ -5,12 +5,13 @@ Bundle-Vendor: %providerName
 Bundle-Localization: plugin
 Bundle-SymbolicName: org.cloudsmith.geppetto.ruby.tests;singleton:=true
 Bundle-Version: 2.0.0.qualifier
-Require-Bundle: org.eclipse.core.runtime,
- org.junit,
- org.cloudsmith.geppetto.ruby,
+Require-Bundle: org.cloudsmith.geppetto.ruby,
  org.cloudsmith.geppetto.pp,
  org.cloudsmith.geppetto.common,
- com.google.guava;bundle-version="10.0.1"
+ org.eclipse.emf.ecore.xmi,
+ org.eclipse.core.runtime,
+ com.google.guava,
+ org.junit
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-ActivationPolicy: lazy
 Import-Package: org.cloudsmith.geppetto.ruby.jruby;resolution:=optional,

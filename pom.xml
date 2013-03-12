@@ -267,6 +267,7 @@
 		<module>org.cloudsmith.geppetto.forge</module>
 		<module>org.cloudsmith.geppetto.forge.tests</module>
 		<module>org.cloudsmith.geppetto.forge.api</module>
+		<module>org.cloudsmith.geppetto.forge.api.tests</module>
 		<module>org.cloudsmith.geppetto.pp</module>
 		<module>org.cloudsmith.geppetto.pp.dsl</module>
 		<module>org.cloudsmith.geppetto.pp.dsl.tests</module>
@@ -279,6 +280,7 @@
 		<module>org.cloudsmith.geppetto.validation</module>
 		<module>org.cloudsmith.geppetto.forge.maven.plugin</module>
 		<module>org.cloudsmith.geppetto.semver</module>
+		<module>org.cloudsmith.geppetto.semver.tests</module>
 	</modules>
 
 	<build>

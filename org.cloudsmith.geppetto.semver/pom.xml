@@ -10,12 +10,4 @@
 	</parent>
 	<artifactId>org.cloudsmith.geppetto.semver</artifactId>
 	<name>Geppetto Semantic Versioning</name>
-
-	<dependencies>
-		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-			<scope>test</scope>
-		</dependency>
-	</dependencies>
 </project>

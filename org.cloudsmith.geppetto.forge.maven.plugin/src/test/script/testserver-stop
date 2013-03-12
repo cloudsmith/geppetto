@@ -4,7 +4,7 @@
 	echo "No server appears to be running" 1>&2
 	exit 1
 }
-SERVER_PID="`cat "$PID_FILE"`" || {
+SERVER_PID=`cat "$PID_FILE"` || {
 	echo "Failed to read pid file '$PID_FILE'" 1>&2
 	exit 2
 }

@@ -22,7 +22,7 @@ rake oauth2:sampleclient > /dev/null || {
 	exit 1
 }
 echo "Sample OAuth2 client added"
-ruby script/server > $LOG_FILE 2>&1 &
+ruby script/server > "$LOG_FILE" 2>&1 &
 echo $! > "$PID_FILE"
 sleep 3
-echo "Forge Server Started. Logfile=$LOG_FILE, Pidfile=$PID_FILE"
+echo "Forge Server Started. Logfile=\"$LOG_FILE\", Pidfile=\"$PID_FILE\""

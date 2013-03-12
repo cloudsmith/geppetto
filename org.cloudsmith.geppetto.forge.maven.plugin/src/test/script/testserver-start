@@ -27,4 +27,4 @@ echo "OAuth2 client added"
 script/server > "$LOG_FILE" 2>&1 &
 echo $! > "$PID_FILE"
 sleep 3
-echo "Forge Server Started. Logfile=$LOG_FILE, Pidfile=$PID_FILE"
+echo "Forge Server Started. Logfile=\"$LOG_FILE\", Pidfile=\"$PID_FILE\""

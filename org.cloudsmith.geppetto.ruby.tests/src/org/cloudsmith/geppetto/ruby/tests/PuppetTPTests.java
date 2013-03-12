@@ -115,7 +115,7 @@ public class PuppetTPTests {
 	 */
 	@Test
 	public void testLoad_Facter1_6() throws Exception {
-		File pptpFile = new File("facter-1.6.pptp");
+		File pptpFile = new File(TestDataProvider.getTestOutputDir(), "facter-1.6.pptp");
 		Facter1_6 facter = new Facter1_6();
 
 		// Save the TargetEntry as a loadable resource
@@ -136,7 +136,7 @@ public class PuppetTPTests {
 		if(puppetDistros.isDirectory()) {
 			performLoad(new File(puppetDistros, "puppet-2.6.9/lib/puppet"), //
 				new File(puppetDistros, "plugins-3.0.0"), //
-				new File("puppet-2.6.9.pptp"));
+				new File(TestDataProvider.getTestOutputDir(), "puppet-2.6.9.pptp"));
 
 			// performLoad(new File("/Users/henrik/PuppetDistributions/puppet-2.6.9/lib/puppet"), //
 			// null, //
@@ -150,7 +150,7 @@ public class PuppetTPTests {
 		if(puppetDistros.isDirectory()) {
 			performLoad(new File(puppetDistros, "puppet-2.7.19/lib/puppet"), //
 				new File(puppetDistros, "plugins-3.0.0"), //
-				new File("puppet-2.7.19.pptp"));
+				new File(TestDataProvider.getTestOutputDir(), "puppet-2.7.19.pptp"));
 		}
 	}
 
@@ -160,7 +160,7 @@ public class PuppetTPTests {
 		if(puppetDistros.isDirectory()) {
 			performLoad(new File(puppetDistros, "puppet-3.0.0-rc7/lib/puppet"), //
 				new File(puppetDistros, "plugins-3.0.0"), //
-				new File("puppet-3.0.0.pptp"));
+				new File(TestDataProvider.getTestOutputDir(), "puppet-3.0.0.pptp"));
 		}
 	}
 

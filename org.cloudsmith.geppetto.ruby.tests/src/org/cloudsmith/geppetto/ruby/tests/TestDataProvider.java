@@ -11,63 +11,51 @@
  */
 package org.cloudsmith.geppetto.ruby.tests;
 
+import static org.junit.Assert.fail;
+
 import java.io.File;
 import java.io.IOException;
-import java.net.URISyntaxException;
-import java.net.URL;
 
-import org.eclipse.core.runtime.FileLocator;
+import org.cloudsmith.geppetto.common.util.EclipseUtils;
 import org.eclipse.core.runtime.IPath;
-import org.eclipse.core.runtime.URIUtil;
-import org.osgi.framework.Bundle;
-import org.osgi.framework.BundleReference;
 
 public class TestDataProvider {
 
-	/**
-	 * Get a {@link Bundle} containing the specified class.
-	 * 
-	 * @param clazz
-	 *            a class for which the containing bundle is to be determined
-	 * @return the bundle containing the class
-	 */
-	private static Bundle getBundleForClass(Class<?> clazz) {
-		try {
-			return ((BundleReference) clazz.getClassLoader()).getBundle();
-		}
-		catch(ClassCastException e) {
-			throw new IllegalStateException("Failed to get reference to the containing bundle", e);
-		}
-	}
+	private static File basedir;
 
 	/**
-	 * Get a resource found in the specified bundle as a File. Extracting it
-	 * into the filesystem if necessary.
+	 * Return the project root so that we can get testData in a way that works for both
+	 * PDE and Maven test launchers
 	 * 
-	 * @param bundle
-	 *            the bundle containing the resource
-	 * @param bundleRelativeResourcePath
-	 *            bundle relative path of the resource
-	 * @return a {@link File} incarnation of the resource
-	 * @throws IOException
+	 * @return absolute path of the project.
 	 */
-	private static File getBundleResourceAsFile(Bundle bundle, IPath bundleRelativeResourcePath) throws IOException {
-		URL resourceURL = FileLocator.find(bundle, bundleRelativeResourcePath, null);
-		if(resourceURL == null)
-			return null;
-
-		resourceURL = FileLocator.toFileURL(resourceURL);
-
-		try {
-			return new File(URIUtil.toURI(resourceURL));
+	private static File getBasedir() {
+		if(basedir == null) {
+			String basedirProp = System.getProperty("basedir");
+			if(basedirProp == null) {
+				try {
+					File testData = EclipseUtils.getFileFromClassBundle(TestDataProvider.class, "testData");
+					if(testData == null || !testData.isDirectory())
+						fail("Unable to determine basedir");
+					basedir = testData.getParentFile();
+				}
+				catch(IOException e) {
+					fail(e.getMessage());
+				}
+			}
+			else
+				basedir = new File(basedirProp);
 		}
-		catch(URISyntaxException e) {
-			throw new IllegalStateException("Failed to convert resource URL to URI", e);
-		}
+		return basedir;
 	}
 
-	public static File getTestFile(IPath testBundleRelativePath) throws IOException {
-		return getBundleResourceAsFile(getBundleForClass(TestDataProvider.class), testBundleRelativePath);
+	public static File getTestFile(IPath testBundleRelativePath) {
+		return new File(getBasedir(), testBundleRelativePath.toOSString());
 	}
 
+	public static File getTestOutputDir() {
+		File testOutputDir = new File(getBasedir(), "target/testOutput");
+		testOutputDir.mkdirs();
+		return testOutputDir;
+	}
 }

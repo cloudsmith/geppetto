@@ -8,6 +8,7 @@ Bundle-Version: 2.0.0.qualifier
 Require-Bundle: org.cloudsmith.geppetto.ruby,
  org.cloudsmith.geppetto.pp,
  org.cloudsmith.geppetto.common,
+ org.eclipse.xtext,
  org.eclipse.emf.ecore.xmi,
  org.eclipse.core.runtime,
  com.google.guava,

@@ -13,6 +13,16 @@
 	<build>
 		<testSourceDirectory>src</testSourceDirectory>
 		<testOutputDirectory>bin</testOutputDirectory>
+		<plugins>
+			<plugin>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<configuration>
+					<includes>
+						<include>**/AllTests.java</include>
+					</includes>
+				</configuration>
+			</plugin>
+		</plugins>
 	</build>
 
 	<dependencies>

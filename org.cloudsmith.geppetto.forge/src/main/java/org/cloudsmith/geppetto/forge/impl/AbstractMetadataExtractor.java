@@ -16,6 +16,7 @@ import java.io.FileFilter;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
+import org.cloudsmith.geppetto.forge.Forge;
 import org.cloudsmith.geppetto.forge.MetadataExtractor;
 import org.cloudsmith.geppetto.forge.util.Checksums;
 import org.cloudsmith.geppetto.forge.util.Types;
@@ -26,7 +27,7 @@ import com.google.inject.name.Named;
 
 public abstract class AbstractMetadataExtractor implements MetadataExtractor {
 	@Inject
-	@Named(ForgeModule.MODULE_FILE_FILTER)
+	@Named(Forge.MODULE_FILE_FILTER)
 	private FileFilter fileFilter;
 
 	@Override

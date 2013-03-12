@@ -112,6 +112,10 @@ public class Diagnostic implements Serializable {
 			addChild(child);
 	}
 
+	public boolean appendLocationLabel(StringBuilder builder, boolean withOffsets) {
+		return false;
+	}
+
 	/**
 	 * Implementors may want to override this method for direct logging purposes
 	 * 
@@ -171,13 +175,20 @@ public class Diagnostic implements Serializable {
 	}
 
 	/**
-	 * Returns <tt>null</tt> unless subclassed
+	 * Returns the result of calling {{@link #appendLocationLabel(StringBuilder, boolean)} on a StringBuilder or <tt>null</tt> if no location label is
+	 * present.
 	 * 
-	 * @return <tt>null</tt>
+	 * @param withOffsets
+	 *            Flag that indicates if offsets from the beginning of file are
+	 *            of interest (can be used for highlighting in editors).
+	 * @return The location label or <tt>null</tt>
 	 * @see FileDiagnostic
 	 */
-	public String getLocationLabel() {
-		return null;
+	public String getLocationLabel(boolean withOffsets) {
+		StringBuilder bld = new StringBuilder();
+		return appendLocationLabel(bld, withOffsets)
+				? bld.toString()
+				: null;
 	}
 
 	/**
@@ -272,8 +283,8 @@ public class Diagnostic implements Serializable {
 		String resourcePath = getFile() == null
 				? null
 				: getFile().getPath();
-		String locationLabel = getLocationLabel();
-		if(getMessage() == null && resourcePath == null && locationLabel == null) {
+
+		if(getMessage() == null && resourcePath == null) {
 			if(children == null) {
 				bld.append(getSeverityString());
 				return;
@@ -287,10 +298,9 @@ public class Diagnostic implements Serializable {
 				bld.append(resourcePath);
 				bld.append(':');
 			}
-			if(locationLabel != null) {
-				bld.append(locationLabel);
+			if(appendLocationLabel(bld, true))
 				bld.append(':');
-			}
+
 			if(getMessage() != null) {
 				bld.append(getMessage());
 				bld.append(':');

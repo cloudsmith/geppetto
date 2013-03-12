@@ -66,6 +66,7 @@ public class ModuleUtils {
 		".bzr",
 		".bzrignore",
 		".project",
+		".forge-releng",
 		".settings",
 		".classpath",
 		".bzrignore",

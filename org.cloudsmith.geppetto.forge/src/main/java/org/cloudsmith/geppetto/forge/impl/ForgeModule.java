@@ -25,8 +25,6 @@ import com.google.inject.multibindings.Multibinder;
 import com.google.inject.name.Names;
 
 public class ForgeModule extends ForgeHttpModule {
-	public static final String MODULE_FILE_FILTER = "module.file.filter";
-
 	public ForgeModule(ForgePreferences forgePreferences) {
 		super(forgePreferences);
 	}
@@ -42,7 +40,7 @@ public class ForgeModule extends ForgeHttpModule {
 		bind(Forge.class).to(ForgeImpl.class);
 		bind(Cache.class).to(CacheImpl.class);
 		bind(ERB.class).to(ERBImpl.class);
-		bind(FileFilter.class).annotatedWith(Names.named(MODULE_FILE_FILTER)).toInstance(getFileFilter());
+		bind(FileFilter.class).annotatedWith(Names.named(Forge.MODULE_FILE_FILTER)).toInstance(getFileFilter());
 		bind(ForgePreferences.class).toInstance((ForgePreferences) getPreferences());
 		Multibinder<MetadataExtractor> mdeBinder = Multibinder.newSetBinder(binder(), MetadataExtractor.class);
 		addMetadataExtractors(mdeBinder);

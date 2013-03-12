@@ -66,9 +66,6 @@ public class TarUtils {
 	private static void append(File file, FileFilter filter, int baseNameLen, String addedTopFolder,
 			TarArchiveOutputStream tarOut) throws IOException {
 
-		if(filter != null && !filter.accept(file))
-			return;
-
 		String name = file.getAbsolutePath();
 		if(name.length() <= baseNameLen)
 			name = "";
@@ -92,7 +89,7 @@ public class TarUtils {
 
 		ArchiveEntry entry = tarOut.createArchiveEntry(file, name);
 		tarOut.putArchiveEntry(entry);
-		File[] children = file.listFiles();
+		File[] children = file.listFiles(filter);
 		if(children != null) {
 			tarOut.closeArchiveEntry();
 			// This is a directory. Append its children

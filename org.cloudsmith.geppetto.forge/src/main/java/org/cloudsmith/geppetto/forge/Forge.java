@@ -31,15 +31,19 @@ import org.cloudsmith.geppetto.semver.VersionRange;
  */
 public interface Forge {
 	/**
+	 * Name of injected file filter
+	 */
+	String MODULE_FILE_FILTER = "module.file.filter";
+
+	/**
 	 * Build a module for release. The end result is a gzipped tar file (.tar.gz) archive that
-	 * contains the module source and a freshly generated metadata.json. This method
-	 * will replace the metadata.json that resides at the root of the module source
-	 * if it is already present.
+	 * contains the module source and a freshly generated metadata.json.
 	 * 
 	 * @param moduleSource
 	 *            The module directory
 	 * @param destination
-	 *            The directory where the created archive will end up. Created if necessary.
+	 *            The directory where the build will be performed and also where the created archive will end up
+	 *            adjacent to the built module. Created if necessary.
 	 * @param resultingMetadata
 	 *            A one element array that will receive the resulting metadata. Can be <tt>null</tt>.
 	 * @return The resulting gzipped tar file.

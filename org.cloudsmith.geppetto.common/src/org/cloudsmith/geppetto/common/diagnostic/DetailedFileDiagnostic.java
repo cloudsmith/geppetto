@@ -22,6 +22,27 @@ public class DetailedFileDiagnostic extends FileDiagnostic {
 
 	private String[] issueData;
 
+	@Override
+	public boolean appendLocationLabel(StringBuilder builder, boolean withOffsets) {
+		int offset = getOffset();
+		int length = getLength();
+		boolean lineAppended = super.appendLocationLabel(builder, withOffsets);
+
+		if(withOffsets && offset >= 0) {
+			if(!lineAppended)
+				builder.append('-'); // Indicates unknown line
+			builder.append("(");
+			builder.append(offset);
+			if(length >= 0) {
+				builder.append(",");
+				builder.append(length);
+			}
+			builder.append(")");
+			return true;
+		}
+		return lineAppended;
+	}
+
 	/**
 	 * The issue is a String naming a particular issue that makes it possible to
 	 * have a more detailed understanding of an error and what could be done to
@@ -56,29 +77,6 @@ public class DetailedFileDiagnostic extends FileDiagnostic {
 	 */
 	public Integer getLength() {
 		return length;
-	}
-
-	@Override
-	public String getLocationLabel() {
-		int lineNumber = getLineNumber();
-		int offset = getOffset();
-		int length = getLength();
-		StringBuilder builder = new StringBuilder();
-		if(lineNumber > 0)
-			builder.append(lineNumber);
-		else
-			builder.append("-");
-
-		if(offset >= 0) {
-			builder.append("(");
-			builder.append(offset);
-			if(length >= 0) {
-				builder.append(",");
-				builder.append(length);
-			}
-			builder.append(")");
-		}
-		return builder.toString();
 	}
 
 	/**

@@ -59,8 +59,7 @@ public class ForgeTest extends AbstractForgeTest {
 		try {
 			File installFolder = getTestOutputFolder("apache-install-here", true);
 			File resultFolder = getTestOutputFolder("apache-build-result", true);
-			FileUtils.cpR(
-				getTestData("puppetlabs-apache"), installFolder, FileUtils.DEFAULT_EXCLUDES, false, true);
+			FileUtils.cpR(getTestData("puppetlabs-apache"), installFolder, ModuleUtils.DEFAULT_FILE_FILTER, false, true);
 			Metadata[] mdHandle = new Metadata[1];
 			fixture.build(installFolder, resultFolder, mdHandle);
 			Metadata md = mdHandle[0];
@@ -88,8 +87,7 @@ public class ForgeTest extends AbstractForgeTest {
 		try {
 			File installFolder = getTestOutputFolder("test-changes", true);
 			File resultFolder = getTestOutputFolder("test-changes-result", true);
-			FileUtils.cpR(
-				getTestData("puppetlabs-apache"), installFolder, FileUtils.DEFAULT_EXCLUDES, false, true);
+			FileUtils.cpR(getTestData("puppetlabs-apache"), installFolder, ModuleUtils.DEFAULT_FILE_FILTER, false, true);
 			fixture.build(installFolder, resultFolder, null);
 			List<File> changes = fixture.changes(installFolder);
 			assertTrue("Unexpected changes", changes.isEmpty());

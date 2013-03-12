@@ -11,6 +11,8 @@
  */
 package org.cloudsmith.geppetto.forge.maven.plugin;
 
+import java.io.File;
+
 import org.cloudsmith.geppetto.common.diagnostic.Diagnostic;
 import org.slf4j.Logger;
 
@@ -27,19 +29,36 @@ public class LoggingDiagnostic extends Diagnostic {
 
 	@Override
 	protected void childAdded(Diagnostic diagnostic) {
-		logDiagnostic("", diagnostic);
+		logDiagnostic(0, diagnostic);
 	}
 
-	private void logDiagnostic(String indent, Diagnostic diag) {
+	private void logDiagnostic(int indent, Diagnostic diag) {
 		if(diag == null)
 			return;
 
+		StringBuilder bld = new StringBuilder();
+		for(int idx = 0; idx < indent; ++idx)
+			bld.append(' ');
+
 		String msg = diag.getMessage();
-		if(indent != null)
-			msg = indent + msg;
 
 		if(msg != null) {
-			msg = diag.getType().name() + ": " + msg;
+			bld.append(diag.getType().name());
+			bld.append(':');
+
+			File file = diag.getFile();
+			if(file != null) {
+				bld.append(' ');
+				bld.append(file.getPath());
+				bld.append(':');
+			}
+
+			if(diag.appendLocationLabel(bld, false))
+				bld.append(':');
+
+			bld.append(' ');
+			bld.append(msg);
+			msg = bld.toString();
 			switch(diag.getSeverity()) {
 				case Diagnostic.DEBUG:
 					logger.debug(msg);
@@ -54,10 +73,7 @@ public class LoggingDiagnostic extends Diagnostic {
 				default:
 					logger.info(msg);
 			}
-			if(indent == null)
-				indent = "  ";
-			else
-				indent = indent + "  ";
+			indent += 4;
 		}
 
 		for(Diagnostic child : diag.getChildren())

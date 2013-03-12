@@ -22,6 +22,16 @@ public class FileDiagnostic extends Diagnostic {
 
 	private String node;
 
+	@Override
+	public boolean appendLocationLabel(StringBuilder builder, boolean withOffsets) {
+		int lineNumber = getLineNumber();
+		if(lineNumber > 0) {
+			builder.append(lineNumber);
+			return true;
+		}
+		return false;
+	}
+
 	/**
 	 * File is a reference to a relative or absolute file, or is empty/null if
 	 * the diagnostic is not file related.
@@ -52,17 +62,6 @@ public class FileDiagnostic extends Diagnostic {
 	 */
 	public int getLineNumber() {
 		return lineNumber;
-	}
-
-	@Override
-	public String getLocationLabel() {
-		int lineNumber = getLineNumber();
-		StringBuilder builder = new StringBuilder();
-		if(lineNumber > 0)
-			builder.append(lineNumber);
-		else
-			builder.append("-");
-		return builder.toString();
 	}
 
 	/**

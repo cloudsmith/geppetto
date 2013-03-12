@@ -12,6 +12,7 @@
 package org.cloudsmith.geppetto.common.os;
 
 import java.io.File;
+import java.io.FileFilter;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -82,13 +83,10 @@ public class FileUtils {
 		}
 	}
 
-	public static void cpR(File source, File destDir, Pattern excludeNames, boolean createTop,
+	public static void cpR(File source, File destDir, FileFilter fileFilter, boolean createTop,
 			boolean includeEmptyFolders) throws IOException {
 		String name = source.getName();
-		if(excludeNames != null && excludeNames.matcher(name).matches())
-			return;
-
-		File[] children = source.listFiles();
+		File[] children = source.listFiles(fileFilter);
 		if(children == null) {
 			File destFile = new File(destDir, name);
 			if(destFile.exists())
@@ -110,7 +108,7 @@ public class FileUtils {
 			throw new IOException("Unable to create directory " + destDir.getAbsolutePath());
 
 		for(File child : children)
-			cpR(child, destDir, excludeNames, true, includeEmptyFolders);
+			cpR(child, destDir, fileFilter, true, includeEmptyFolders);
 	}
 
 	/**

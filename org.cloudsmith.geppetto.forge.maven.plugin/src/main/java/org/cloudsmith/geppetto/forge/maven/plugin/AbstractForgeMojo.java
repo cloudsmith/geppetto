@@ -136,7 +136,7 @@ public abstract class AbstractForgeMojo extends AbstractMojo {
 	/**
 	 * The service URL of the Puppet ForgeAPI server
 	 */
-	@Parameter(property = "forge.serviceURL", defaultValue = "http://forge-staging-web.puppetlabs.com/")
+	@Parameter(property = "forge.serviceURL", defaultValue = "http://forge-staging-api.puppetlabs.com/")
 	private String serviceURL;
 
 	@Component
@@ -267,8 +267,9 @@ public abstract class AbstractForgeMojo extends AbstractMojo {
 	}
 
 	protected Logger getLogger() {
-		if(log == null)
+		if(log == null) {
 			log = LoggerFactory.getLogger(getClass());
+		}
 		return log;
 	}
 

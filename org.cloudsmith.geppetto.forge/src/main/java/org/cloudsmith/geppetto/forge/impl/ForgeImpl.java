@@ -94,7 +94,7 @@ class ForgeImpl implements Forge {
 	private MetadataRepository metadataRepo;
 
 	@Inject
-	@Named(ForgeModule.MODULE_FILE_FILTER)
+	@Named(Forge.MODULE_FILE_FILTER)
 	private FileFilter fileFilter;
 
 	@Inject
@@ -111,6 +111,7 @@ class ForgeImpl implements Forge {
 	public File build(File moduleSource, File destination, Metadata[] resultingMetadata) throws IOException,
 			IncompleteException {
 		File[] extractedFrom = new File[1];
+
 		Metadata md = createFromModuleDirectory(moduleSource, true, extractedFrom);
 		ModuleName fullName = md.getName();
 		if(fullName == null || fullName.getOwner() == null || fullName.getName() == null)
@@ -130,19 +131,31 @@ class ForgeImpl implements Forge {
 				throw new IllegalArgumentException("Destination cannot reside within the module itself");
 		}
 
+		/**
+		 * Copy the module to the location where it's being built. Ensure that it's
+		 * an empty location prior to that.
+		 */
 		StringBuilder bld = new StringBuilder();
 		ModuleUtils.buildFileName(fullName, ver, bld);
 		String fullNameWithVersion = bld.toString();
+		bld.append(".tar.gz");
+		String zipArchiveName = bld.toString();
 
-		File metadataJSON = new File(moduleSource, "metadata.json");
-		if(!metadataJSON.equals(extractedFrom[0]))
+		File destModuleDir = new File(destination, fullNameWithVersion);
+		if(!destination.mkdirs())
+			FileUtils.rmR(destModuleDir);
+
+		FileUtils.cpR(moduleSource, destModuleDir, fileFilter, false, true);
+
+		File metadataJSON = new File(destModuleDir, "metadata.json");
+		if(!metadataJSON.exists())
 			saveJSONMetadata(md, metadataJSON);
 
-		bld.append(".tar.gz");
-		File moduleArchive = new File(destination, bld.toString());
+		final File moduleArchive = new File(destination, zipArchiveName);
 		OutputStream out = new GZIPOutputStream(new FileOutputStream(moduleArchive));
+
 		// Pack closes its output
-		TarUtils.pack(moduleSource, out, fileFilter, false, fullNameWithVersion);
+		TarUtils.pack(destModuleDir, out, null, true, null);
 
 		if(resultingMetadata != null)
 			resultingMetadata[0] = md;
@@ -394,6 +407,10 @@ class ForgeImpl implements Forge {
 	public void publishAll(File[] builtModules, boolean dryRun, Diagnostic result) {
 		boolean noPublishingMade = true;
 		for(File builtModule : builtModules) {
+			String name = builtModule.getName();
+			if(!(name.endsWith(".tar.gz") || name.endsWith(".tgz")))
+				continue;
+
 			try {
 				publish(builtModule, dryRun, result);
 				noPublishingMade = false;

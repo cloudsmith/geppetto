@@ -96,49 +96,6 @@ public abstract class AbstractForgeMojo extends AbstractMojo {
 	@Parameter(property = "forge.modules.root", defaultValue = "${project.basedir}")
 	private String modulesRoot;
 
-	/**
-	 * The ClientID to use when performing retrieval of OAuth token. This
-	 * parameter is only used when the OAuth token is not provided.
-	 */
-	private String clientID;
-
-	/**
-	 * The ClientSecret to use when performing retrieval of OAuth token. This
-	 * parameter is only used when the OAuth token is not provided.
-	 */
-	private String clientSecret;
-
-	/**
-	 * The login name. Not required when the OAuth token is provided.
-	 */
-	@Parameter(property = "forge.login")
-	private String login;
-
-	/**
-	 * The OAuth token to use for authentication. If it is provided, then the
-	 * login and password does not have to be provided.
-	 */
-	@Parameter(property = "forge.auth.token")
-	private String oauthToken;
-
-	/**
-	 * The password. Not required when the OAuth token is provided.
-	 */
-	@Parameter(property = "forge.password")
-	private String password;
-
-	/**
-	 * Location of the forge cache. Defaults to ${user.home}/.puppet/var/puppet-module/cache/&lt;MD5 hash of service URL&gt;
-	 */
-	@Parameter(property = "forge.cache.location")
-	private String cacheLocation;
-
-	/**
-	 * The service URL of the Puppet ForgeAPI server
-	 */
-	@Parameter(property = "forge.serviceURL", defaultValue = "http://forge-staging-api.puppetlabs.com/")
-	private String serviceURL;
-
 	@Component
 	private MavenSession session;
 
@@ -152,36 +109,14 @@ public abstract class AbstractForgeMojo extends AbstractMojo {
 
 	private transient Logger log;
 
-	public AbstractForgeMojo() {
-		try {
-			Properties props = readForgeProperties();
-			clientID = props.getProperty("forge.oauth.clientID");
-			clientSecret = props.getProperty("forge.oauth.clientSecret");
-		}
-		catch(IOException e) {
-			// Not able to read properties
-			throw new RuntimeException(e);
-		}
+	protected void addForgePreferences(ForgePreferencesBean forgePreferences) {
 	}
 
 	public void execute() throws MojoExecutionException, MojoFailureException {
 		Diagnostic diagnostic = new LoggingDiagnostic(getLogger());
 		try {
-			if(serviceURL == null)
-				throw new MojoExecutionException("Missing required configuration parameter: 'serviceURL'");
-
 			ForgePreferencesBean forgePreferences = new ForgePreferencesBean();
-			if(!serviceURL.endsWith("/"))
-				serviceURL += "/";
-			forgePreferences.setBaseURL(serviceURL + "v2/");
-			forgePreferences.setOAuthURL(serviceURL + "oauth/token");
-			forgePreferences.setOAuthAccessToken(oauthToken);
-			forgePreferences.setOAuthClientId(clientID);
-			forgePreferences.setOAuthClientSecret(clientSecret);
-			forgePreferences.setLogin(login);
-			forgePreferences.setPassword(password);
-			forgePreferences.setOAuthScopes("");
-			forgePreferences.setCacheLocation(cacheLocation);
+			addForgePreferences(forgePreferences);
 
 			forgeInjector = Guice.createInjector(
 				new ForgeMavenModule(forgePreferences, getFileFilter(), session.getCurrentProject()),

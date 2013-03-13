@@ -50,8 +50,9 @@ Forge Publisher Plugin
   This goal is highly configurable. See {{{./validate-mojo.html}forge:validate}} for details.
 
 * Packaging
+
   The <package> goal will build the forge module gzipped tarball. It will also generate the metadata.json file if its not already present. See
-  {{{./publish-mojo.html}forge:package}} for details.
+  {{{./package-mojo.html}forge:package}} for details.
 
 * Publishing
 

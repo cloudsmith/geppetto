@@ -78,19 +78,19 @@ class ForgeImpl implements Forge {
 	@Inject
 	private ERB erb;
 
-	@Inject
+	@Inject(optional = true)
 	private Cache cache;
 
 	@Inject
 	private Gson gson;
 
-	@Inject
+	@Inject(optional = true)
 	private ModuleService moduleService;
 
-	@Inject
+	@Inject(optional = true)
 	private ReleaseService releaseService;
 
-	@Inject
+	@Inject(optional = true)
 	private MetadataRepository metadataRepo;
 
 	@Inject
@@ -279,6 +279,10 @@ class ForgeImpl implements Forge {
 	@Override
 	public Metadata install(ModuleName moduleName, VersionRange range, File destination,
 			boolean destinationIncludesTopFolder, boolean force) throws IOException {
+		if(moduleService == null || cache == null)
+			throw new UnsupportedOperationException(
+				"Unable to install since no module service is configured. Was a serviceURL provided in the preferences?");
+
 		List<Release> releases = moduleService.getReleases(moduleName.getOwner(), moduleName.getName(), null);
 		if(releases.isEmpty())
 			throw new FileNotFoundException("No releases found for module '" + moduleName + '\'');
@@ -370,6 +374,10 @@ class ForgeImpl implements Forge {
 
 	@Override
 	public void publish(File moduleArchive, boolean dryRun, Diagnostic result) throws IOException {
+		if(releaseService == null)
+			throw new UnsupportedOperationException(
+				"Unable to publish since no release service is configured. Was a serviceURL provided in the preferences?");
+
 		Metadata metadata = getMetadataFromPackage(moduleArchive);
 		if(metadata == null)
 			throw new ForgeException("No \"metadata.json\" found in archive: " + moduleArchive.getAbsolutePath());
@@ -460,8 +468,14 @@ class ForgeImpl implements Forge {
 
 		// Resolve remaining dependencies
 		Set<Release> releasesToDownload = new HashSet<Release>();
-		for(Dependency dep : deps)
-			releasesToDownload.addAll(metadataRepo.deepResolve(dep, unresolvedCollector));
+		if(!deps.isEmpty()) {
+			if(metadataRepo == null)
+				throw new UnsupportedOperationException(
+					"Unable to resolve dependencies since no forge service is configured. Was a serviceURL provided in the preferences?");
+
+			for(Dependency dep : deps)
+				releasesToDownload.addAll(metadataRepo.deepResolve(dep, unresolvedCollector));
+		}
 		return releasesToDownload;
 	}
 

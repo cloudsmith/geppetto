@@ -38,7 +38,9 @@ public class ForgeModule extends ForgeHttpModule {
 	protected void configure() {
 		super.configure();
 		bind(Forge.class).to(ForgeImpl.class);
-		bind(Cache.class).to(CacheImpl.class);
+		if(getPreferences().getBaseURL() != null)
+			bind(Cache.class).to(CacheImpl.class);
+
 		bind(ERB.class).to(ERBImpl.class);
 		bind(FileFilter.class).annotatedWith(Names.named(Forge.MODULE_FILE_FILTER)).toInstance(getFileFilter());
 		bind(ForgePreferences.class).toInstance((ForgePreferences) getPreferences());

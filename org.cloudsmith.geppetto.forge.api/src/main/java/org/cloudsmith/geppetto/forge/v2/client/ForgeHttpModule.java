@@ -28,10 +28,12 @@ public class ForgeHttpModule extends GsonModule {
 	@Override
 	protected void configure() {
 		super.configure();
-		bind(ForgeClient.class).to(ForgeHttpClient.class);
-		bind(ForgeAPIPreferences.class).toInstance(preferences);
-		bind(MetadataRepository.class).to(MetadataRepositoryImpl.class);
-		bind(Authenticator.class).to(HttpAuthenticator.class);
+		if(preferences.getBaseURL() != null) {
+			bind(ForgeClient.class).to(ForgeHttpClient.class);
+			bind(ForgeAPIPreferences.class).toInstance(preferences);
+			bind(MetadataRepository.class).to(MetadataRepositoryImpl.class);
+			bind(Authenticator.class).to(HttpAuthenticator.class);
+		}
 	}
 
 	protected ForgeAPIPreferences getPreferences() {

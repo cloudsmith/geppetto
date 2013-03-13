@@ -11,7 +11,7 @@
 			<plugin>
 				<groupId>org.cloudsmith.geppetto</groupId>
 				<artifactId>forge-maven-plugin</artifactId>
-				<version>3.0.3-SNAPSHOT</version>
+				<version>3.0.3-beta-SNAPSHOT</version>
 				<executions>
 					<execution>
 						<id>validate</id>
@@ -28,6 +28,8 @@
 								<puppetLintOption>NoTwoSpaceSoftTabsCheck</puppetLintOption>
 							</puppetLintOptions>
 							<missingDefaultInSelector>IGNORE</missingDefaultInSelector>
+							<serviceURL>${testForgeServiceURL}</serviceURL>
+							<cacheLocation>${project.build.directory}/forgeCache</cacheLocation>
 						</configuration>
 					</execution>
 					<execution>
@@ -45,15 +47,14 @@
 						</goals>
 						<configuration>
 							<dryRun>false</dryRun>
+							<login>bob</login>
+							<password>bobbobbob</password>
+							<serviceURL>${testForgeServiceURL}</serviceURL>
 						</configuration>
 					</execution>
 				</executions>
 				<configuration>
-					<login>bob</login>
-					<password>bobbobbob</password>
-					<serviceURL>${testForgeServiceURL}</serviceURL>
 					<modulesRoot>${testForgeModulesRoot}</modulesRoot>
-					<cacheLocation>${project.build.directory}/forgeCache</cacheLocation>
 				</configuration>
 			</plugin>
 		</plugins>

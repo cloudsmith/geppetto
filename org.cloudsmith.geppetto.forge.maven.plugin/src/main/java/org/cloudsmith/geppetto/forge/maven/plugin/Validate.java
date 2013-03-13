@@ -27,6 +27,7 @@ import org.apache.maven.plugins.annotations.Parameter;
 import org.cloudsmith.geppetto.common.diagnostic.Diagnostic;
 import org.cloudsmith.geppetto.common.diagnostic.DiagnosticType;
 import org.cloudsmith.geppetto.common.diagnostic.FileDiagnostic;
+import org.cloudsmith.geppetto.forge.impl.ForgePreferencesBean;
 import org.cloudsmith.geppetto.forge.v2.model.Metadata;
 import org.cloudsmith.geppetto.pp.dsl.target.PptpResourceUtil;
 import org.cloudsmith.geppetto.pp.dsl.validation.IPotentialProblemsAdvisor;
@@ -49,7 +50,7 @@ import org.eclipse.emf.common.util.URI;
  * <tt>puppet-lint</tt> gem.
  */
 @Mojo(name = "validate", requiresProject = false, defaultPhase = LifecyclePhase.COMPILE)
-public class Validate extends AbstractForgeMojo {
+public class Validate extends AbstractForgeServiceMojo {
 	private static int getSeverity(Issue issue) {
 		switch(issue.getSeverity()) {
 			case ERROR:
@@ -58,6 +59,12 @@ public class Validate extends AbstractForgeMojo {
 				return Diagnostic.WARNING;
 		}
 	}
+
+	/**
+	 * Location of the forge cache. Defaults to ${user.home}/.puppet/var/puppet-module/cache/&lt;MD5 hash of service URL&gt;
+	 */
+	@Parameter(property = "forge.cache.location")
+	private String cacheLocation;
 
 	/**
 	 * Set to <tt>true</tt> to enable validation using puppet-lint
@@ -266,6 +273,12 @@ public class Validate extends AbstractForgeMojo {
 
 	public Validate() {
 		super();
+	}
+
+	@Override
+	protected void addForgePreferences(ForgePreferencesBean forgePreferences) {
+		super.addForgePreferences(forgePreferences);
+		forgePreferences.setCacheLocation(cacheLocation);
 	}
 
 	private Diagnostic convertPuppetLintDiagnostic(File moduleRoot, Issue issue) {

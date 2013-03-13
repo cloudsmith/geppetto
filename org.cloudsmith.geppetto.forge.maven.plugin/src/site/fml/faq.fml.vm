@@ -5,6 +5,15 @@
   <part id="Behavior">
     <title>What happens if ...</title>
     <faq id="no-metadata-json">
+      <question>there is no <code>metadata.json</code> file?</question>
+      <answer>
+        <p>
+           The validation and publication can still succeed provided that the plug-in finds either a <code>Modulefile</code> that in turn does not contain complex Ruby logic
+           or a Maven <code>pom.xml</code> file with <i>&lt;packaging&gt;puppet-module&lt;/packaging&gt;</i>.
+        </p>
+      </answer>
+    </faq>
+    <faq id="no-modulefile">
       <question>there is no <code>Modulefile</code>?</question>
       <answer>
         <p>
@@ -15,16 +24,7 @@
         </p>
       </answer>
     </faq>
-    <faq id="no-version">
-      <question>there is no <code>metadata.json</code> file?</question>
-      <answer>
-        <p>
-           The validation and publication can still succeed provided that the plug-in finds either a <code>Modulefile</code> that in turn does not contain complex Ruby logic
-           or a Maven <code>pom.xml</code> file.
-        </p>
-      </answer>
-    </faq>
-    <faq id="no-version">
+    <faq id="no-metadata-at-all">
       <question>there is neither a <code>Modulefile</code>, a <code>pom.xml</code>, nor a <code>metadata.json</code> file?</question>
       <answer>
         <p>

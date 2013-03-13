@@ -22,7 +22,7 @@ import org.cloudsmith.geppetto.common.diagnostic.DiagnosticType;
 import org.cloudsmith.geppetto.forge.IncompleteException;
 
 /**
- * Goal which performs basic validation.
+ * Goal that builds the module gzipped tarball and optionally generates the <tt>metadata.json</tt> file.
  */
 @Mojo(name = "package", requiresProject = false, defaultPhase = LifecyclePhase.PACKAGE)
 public class Package extends AbstractForgeMojo {

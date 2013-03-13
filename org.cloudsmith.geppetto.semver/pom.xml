@@ -10,4 +10,8 @@
 	</parent>
 	<artifactId>org.cloudsmith.geppetto.semver</artifactId>
 	<name>Geppetto Semantic Versioning</name>
+	<description>
+	   Java implementation of the Semantic Versioning 1.0.0 spec.
+	   The spec. can be found here: http://semver.org/spec/v1.0.0.html
+	</description>
 </project>

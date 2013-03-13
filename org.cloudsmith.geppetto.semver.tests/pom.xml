@@ -1,12 +1,10 @@
 <?xml version="1.0"?>
-<project
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
-	xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<groupId>org.cloudsmith.geppetto</groupId>
 		<artifactId>parent</artifactId>
-		<version>3.0.3-SNAPSHOT</version>
+		<version>3.0.3-alpha</version>
 	</parent>
 	<artifactId>org.cloudsmith.geppetto.semver.tests</artifactId>
 	<name>Geppetto Semantic Versioning Tests</name>
@@ -33,7 +31,7 @@
 		<dependency>
 			<groupId>org.cloudsmith.geppetto</groupId>
 			<artifactId>org.cloudsmith.geppetto.semver</artifactId>
-			<version>3.0.3-SNAPSHOT</version>
+			<version>3.0.3-alpha</version>
 			<scope>test</scope>
 		</dependency>
 	</dependencies>

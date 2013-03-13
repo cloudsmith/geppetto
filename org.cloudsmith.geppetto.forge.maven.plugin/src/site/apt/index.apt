@@ -48,7 +48,11 @@ Forge Publisher Plugin
 
   The <validate> goal can perform a very elaborate analysis of a module using the Geppetto platform. It is also capable of running the puppet-lint gem.
   This goal is highly configurable. See {{{./validate-mojo.html}forge:validate}} for details.
-  
+
+* Packaging
+  The <package> goal will build the forge module gzipped tarball. It will also generate the metadata.json file if its not already present. See
+  {{{./publish-mojo.html}forge:package}} for details.
+
 * Publishing
 
   The <publish> goal will consult the Puppet Forge and query it for the existence of the module that it is about to publish. If the exact same version
@@ -63,6 +67,8 @@ Forge Publisher Plugin
 * Goals Overview
 
    * {{{./validate-mojo.html}forge:validate}} Validate Puppet modules
+
+   * {{{./validate-mojo.html}forge:package}} Build Puppet module tarballs
 
    * {{{./publish-mojo.html}forge:publish}} Publish modules to the Puppet Forge
 

@@ -8,7 +8,10 @@
       <question>there is no <code>Modulefile</code>?</question>
       <answer>
         <p>
-           The validation and publication can still succeed provided that the plug-in finds a <code>metadata.json</code> file.
+           The validation and publication can still succeed under two conditions:<ul>
+             <li>A <code>metadata.json</code> file is found. This file always takes precedence over a <code>Modulefile</code> or <code>pom.xml</code> file.
+             <li>A <code>pom.xml</code> file is found. This will be used just as a <code>Modulefile</code> would.</li>
+           </ul>
         </p>
       </answer>
     </faq>
@@ -16,12 +19,13 @@
       <question>there is no <code>metadata.json</code> file?</question>
       <answer>
         <p>
-           The validation and publication can still succeed provided that the plug-in finds a <code>Modulefile</code> that in turn does not contain complex Ruby logic.
+           The validation and publication can still succeed provided that the plug-in finds either a <code>Modulefile</code> that in turn does not contain complex Ruby logic
+           or a Maven <code>pom.xml</code> file.
         </p>
       </answer>
     </faq>
     <faq id="no-version">
-      <question>there is neither a <code>Modulefile</code> nor a <code>metadata.json</code> file?</question>
+      <question>there is neither a <code>Modulefile</code>, a <code>pom.xml</code>, nor a <code>metadata.json</code> file?</question>
       <answer>
         <p>
           Since the plug-in looks for those files, it will not find the module. If no modules are found, the build will fail.
@@ -39,7 +43,7 @@
       </answer>
     </faq>
     <faq id="no-name">
-      <question>the <code>Modulefile</code> or <code>metadata.json</code> file has no name?</question>
+      <question>the <code>Modulefile</code>, <code>pom.xml</code>, or <code>metadata.json</code> file has no name?</question>
       <answer>
         <p>
           The validator will consider lack of a module name to be an error. The build will end
@@ -48,7 +52,7 @@
       </answer>
     </faq>
     <faq id="no-version">
-      <question>the <code>Modulefile</code> or <code>metadata.json</code> file has no version?</question>
+      <question>the <code>Modulefile</code>, <code>pom.xml</code>, or <code>metadata.json</code> file has no version?</question>
       <answer>
         <p>
           The validator will consider lack of a module version to be an error. The build will end

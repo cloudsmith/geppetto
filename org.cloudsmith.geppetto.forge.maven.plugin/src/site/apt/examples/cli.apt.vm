@@ -103,47 +103,27 @@ mvn -Dforge.modules.root=<your modules root> forge:validate
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>org.cloudsmith.geppetto</groupId>
-	<artifactId>org.cloudsmith.geppetto.publisher</artifactId>
+	<groupId>bob</groupId>
+	<artifactId>some_module</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<packaging>pom</packaging>
-	<name>org.cloudsmith.geppetto.publisher</name>
+	<packaging>puppet-module</packaging>
+	<name>Bob's sample module</name>
 	<build>
 		<plugins>
 			<plugin>
 				<groupId>org.cloudsmith.geppetto</groupId>
 				<artifactId>forge-maven-plugin</artifactId>
 				<version>${geppettoVersion}</version>
-				<executions>
-					<execution>
-						<id>validate</id>
-						<phase>compile</phase>
-						<goals>
-							<goal>validate</goal>
-						</goals>
-						<configuration>
-							<enablePuppetLintValidation>true</enablePuppetLintValidation>
-							<puppetLintOptions>
-								<puppetLintOption>NoAutoloaderLayoutCheck</puppetLintOption>
-								<puppetLintOption>NoDoubleQuotedStringsCheck</puppetLintOption>
-								<puppetLintOption>NoHardTabsCheck</puppetLintOption>
-								<puppetLintOption>NoTwoSpaceSoftTabsCheck</puppetLintOption>
-							</puppetLintOptions>
-							<missingDefaultInSelector>IGNORE</missingDefaultInSelector>
-						</configuration>
-					</execution>
-					<execution>
-						<id>publish</id>
-						<phase>install</phase>
-						<goals>
-							<goal>publish</goal>
-						</goals>
-						<configuration>
-							<dryRun>true</dryRun>
-						</configuration>
-					</execution>
-				</executions>
+				<extensions>true</extensions>
 				<configuration>
+					<enablePuppetLintValidation>true</enablePuppetLintValidation>
+					<puppetLintOptions>
+						<puppetLintOption>NoAutoloaderLayoutCheck</puppetLintOption>
+						<puppetLintOption>NoDoubleQuotedStringsCheck</puppetLintOption>
+						<puppetLintOption>NoHardTabsCheck</puppetLintOption>
+						<puppetLintOption>NoTwoSpaceSoftTabsCheck</puppetLintOption>
+					</puppetLintOptions>
+					<missingDefaultInSelector>IGNORE</missingDefaultInSelector>
 					<login>someUserName</login>
 					<password>somePassword</password>
 				</configuration>

@@ -9,7 +9,7 @@
       <answer>
         <p>
            The validation and publication can still succeed under two conditions:<ul>
-             <li>A <code>metadata.json</code> file is found. This file always takes precedence over a <code>Modulefile</code> or <code>pom.xml</code> file.
+             <li>A <code>metadata.json</code> file is found. This file always takes precedence over a <code>Modulefile</code> or <code>pom.xml</code> file.</li>
              <li>A <code>pom.xml</code> file is found. This will be used just as a <code>Modulefile</code> would.</li>
            </ul>
         </p>

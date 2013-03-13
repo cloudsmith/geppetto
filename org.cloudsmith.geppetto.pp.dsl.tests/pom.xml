@@ -29,7 +29,7 @@
 		<dependency>
 			<groupId>org.cloudsmith.geppetto</groupId>
 			<artifactId>org.cloudsmith.geppetto.pp.dsl</artifactId>
-			<version>${geppettoVersion}</version>
+			<version>3.0.3-SNAPSHOT</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>

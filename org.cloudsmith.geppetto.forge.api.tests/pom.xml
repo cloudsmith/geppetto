@@ -198,7 +198,7 @@
 		<dependency>
 			<groupId>org.cloudsmith.geppetto</groupId>
 			<artifactId>org.cloudsmith.geppetto.forge.api</artifactId>
-			<version>${geppettoVersion}</version>
+			<version>3.0.3-SNAPSHOT</version>
 		</dependency>
 	</dependencies>
 </project>

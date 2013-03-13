@@ -65,27 +65,27 @@
 		<dependency>
 			<groupId>org.cloudsmith.geppetto</groupId>
 			<artifactId>org.cloudsmith.geppetto.pp</artifactId>
-			<version>${geppettoVersion}</version>
+			<version>3.0.3-SNAPSHOT</version>
 		</dependency>
 		<dependency>
 			<groupId>org.cloudsmith.geppetto</groupId>
 			<artifactId>org.cloudsmith.geppetto.common</artifactId>
-			<version>${geppettoVersion}</version>
+			<version>3.0.3-SNAPSHOT</version>
 		</dependency>
 		<dependency>
 			<groupId>org.cloudsmith.geppetto</groupId>
 			<artifactId>org.cloudsmith.geppetto.common.tracer</artifactId>
-			<version>${geppettoVersion}</version>
+			<version>3.0.3-SNAPSHOT</version>
 		</dependency>
 		<dependency>
 			<groupId>org.cloudsmith.geppetto</groupId>
 			<artifactId>org.cloudsmith.geppetto.eclipse.core</artifactId>
-			<version>${geppettoVersion}</version>
+			<version>3.0.3-SNAPSHOT</version>
 		</dependency>
 		<dependency>
 			<groupId>org.cloudsmith.geppetto</groupId>
 			<artifactId>org.cloudsmith.geppetto.ruby</artifactId>
-			<version>${geppettoVersion}</version>
+			<version>3.0.3-SNAPSHOT</version>
 		</dependency>
 		<dependency>
 			<groupId>org.eclipse.xtext</groupId>

@@ -325,6 +325,7 @@
 				<artifactId>maven-release-plugin</artifactId>
 				<configuration>
 					<autoVersionSubmodules>true</autoVersionSubmodules>
+					<goals>deploy</goals>
 				</configuration>
 			</plugin>
 			<plugin>

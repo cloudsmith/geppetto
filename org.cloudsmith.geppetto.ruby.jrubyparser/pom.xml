@@ -16,12 +16,12 @@
 		<dependency>
 			<groupId>org.cloudsmith.geppetto</groupId>
 			<artifactId>org.cloudsmith.geppetto.common</artifactId>
-			<version>${geppettoVersion}</version>
+			<version>3.0.3-SNAPSHOT</version>
 		</dependency>
 		<dependency>
 			<groupId>org.cloudsmith.geppetto</groupId>
 			<artifactId>org.cloudsmith.geppetto.ruby</artifactId>
-			<version>${geppettoVersion}</version>
+			<version>3.0.3-SNAPSHOT</version>
 		</dependency>
 		<dependency>
 			<groupId>org.cloudsmith.jruby</groupId>

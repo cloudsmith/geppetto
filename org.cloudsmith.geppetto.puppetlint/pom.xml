@@ -1,16 +1,19 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<groupId>org.cloudsmith.geppetto</groupId>
 		<artifactId>parent</artifactId>
 		<version>3.0.3-SNAPSHOT</version>
 	</parent>
 
-  <artifactId>org.cloudsmith.geppetto.puppetlint</artifactId>
-  <name>Geppetto Puppet Lint</name>
-	<build>
-		<sourceDirectory>src</sourceDirectory>
-	</build>
+	<artifactId>org.cloudsmith.geppetto.puppetlint</artifactId>
+	<name>Geppetto Puppet Lint</name>
+	<description>
+	   Java bridge to the puppet-lint Ruby gem. Requires that Puppet
+	   lint is installed. See http://puppet-lint.com for details
+	</description>
+
 	<dependencies>
 		<dependency>
 			<groupId>org.cloudsmith.geppetto</groupId>

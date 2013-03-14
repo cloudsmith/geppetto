@@ -275,7 +275,7 @@ public class AbstractForgeTestMojo {
 	}
 
 	protected void setTestForgeModulesRoot(String project) {
-		File projectFile = getTestFile("src/test/resources/workspace/" + project);
+		File projectFile = getTestFile("src/test/workspace/" + project);
 		String absPath = projectFile.getAbsolutePath();
 		assertTrue("Project file " + absPath + " is not a directory", projectFile.isDirectory());
 		userProps.put("testForgeModulesRoot", absPath);

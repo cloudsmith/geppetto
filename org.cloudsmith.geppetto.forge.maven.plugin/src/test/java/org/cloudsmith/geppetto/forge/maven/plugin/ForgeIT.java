@@ -31,7 +31,7 @@ import org.junit.runners.Suite.SuiteClasses;
 @RunWith(Suite.class)
 public class ForgeIT {
 	static final File TEST_POM_DIR = new File(
-		new File(System.getProperty("basedir", ".")), "src/test/resources/unit/publisher");
+		new File(System.getProperty("basedir", ".")), "target/test-classes/unit/publisher");
 
 	@BeforeClass
 	public static void init() {

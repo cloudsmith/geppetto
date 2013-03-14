@@ -305,4 +305,25 @@ public class OsUtil {
 		}
 		return cmd.toString();
 	}
+
+	/**
+	 * Copy a file or directory to a target directory. All attributes are
+	 * preserved and no links are dereferenced.
+	 * 
+	 * @param source
+	 *            The source of the copy.
+	 * @param targetDirectory
+	 * @return
+	 * @throws IOException
+	 */
+	public static boolean unixCopy(File source, File targetDirectory) throws IOException {
+		if(isOS("win32", "win64"))
+			return false;
+
+		File sourceDir = source.getParentFile();
+		if(sourceDir == null)
+			return false;
+
+		return runProcess(sourceDir, "cp", "-a", source.getName(), targetDirectory.getAbsolutePath()) == 0;
+	}
 }

@@ -15,13 +15,11 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
-import java.io.UnsupportedEncodingException;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 
 import org.cloudsmith.geppetto.common.os.StreamUtil;
 import org.cloudsmith.geppetto.forge.Cache;
 import org.cloudsmith.geppetto.forge.ForgePreferences;
+import org.cloudsmith.geppetto.forge.util.Checksums;
 import org.cloudsmith.geppetto.forge.util.ModuleUtils;
 import org.cloudsmith.geppetto.forge.v2.model.ModuleName;
 import org.cloudsmith.geppetto.forge.v2.service.ReleaseService;
@@ -32,14 +30,6 @@ import com.google.inject.Singleton;
 
 @Singleton
 class CacheImpl implements Cache {
-	private static final char[] hexChars = {
-			'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f' };
-
-	private static void appendHex(StringBuilder bld, byte b) {
-		bld.append(hexChars[(b & 0xf0) >> 4]);
-		bld.append(hexChars[b & 0x0f]);
-	}
-
 	private static void delete(File fileOrDir) throws IOException {
 		File[] children = fileOrDir.listFiles();
 		if(children != null)
@@ -66,25 +56,14 @@ class CacheImpl implements Cache {
 
 	private synchronized String getCacheKey() {
 		if(cacheKey == null) {
-			try {
-				MessageDigest md = MessageDigest.getInstance("SHA1");
-				String uriStr = forgePreferences.getBaseURL();
-				StringBuilder bld = new StringBuilder(uriStr.replaceAll("[^\\p{Alnum}]+", "_"));
-				int last = bld.length() - 1;
-				if(bld.charAt(last) == '_')
-					bld.setLength(last);
-				bld.append('-');
-				byte[] digest = md.digest(uriStr.getBytes("UTF-8"));
-				for(int idx = 0; idx < digest.length; ++idx)
-					appendHex(bld, digest[idx]);
-				cacheKey = bld.toString();
-			}
-			catch(UnsupportedEncodingException e) {
-				throw new RuntimeException(e);
-			}
-			catch(NoSuchAlgorithmException e) {
-				throw new RuntimeException(e);
-			}
+			String uriStr = forgePreferences.getBaseURL();
+			StringBuilder bld = new StringBuilder(uriStr.replaceAll("[^\\p{Alnum}]+", "_"));
+			int last = bld.length() - 1;
+			if(bld.charAt(last) == '_')
+				bld.setLength(last);
+			bld.append('-');
+			Checksums.appendSHA1(bld, uriStr);
+			cacheKey = bld.toString();
 		}
 		return cacheKey;
 	}

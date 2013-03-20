@@ -19,6 +19,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Collection;
 import java.util.List;
 import java.util.zip.GZIPInputStream;
 
@@ -61,7 +62,7 @@ public class ForgeTest extends AbstractForgeTest {
 			File resultFolder = getTestOutputFolder("apache-build-result", true);
 			FileUtils.cpR(getTestData("puppetlabs-apache"), installFolder, ModuleUtils.DEFAULT_FILE_FILTER, false, true);
 			Metadata[] mdHandle = new Metadata[1];
-			fixture.build(installFolder, resultFolder, mdHandle);
+			fixture.build(installFolder, resultFolder, null, mdHandle);
 			Metadata md = mdHandle[0];
 			String archiveName = md.getName().toString() + '-' + md.getVersion();
 			File builtArchive = new File(resultFolder, archiveName + ".tar.gz");
@@ -88,8 +89,8 @@ public class ForgeTest extends AbstractForgeTest {
 			File installFolder = getTestOutputFolder("test-changes", true);
 			File resultFolder = getTestOutputFolder("test-changes-result", true);
 			FileUtils.cpR(getTestData("puppetlabs-apache"), installFolder, ModuleUtils.DEFAULT_FILE_FILTER, false, true);
-			fixture.build(installFolder, resultFolder, null);
-			List<File> changes = fixture.changes(installFolder);
+			fixture.build(installFolder, resultFolder, null, null);
+			Collection<File> changes = fixture.changes(installFolder, null);
 			assertTrue("Unexpected changes", changes.isEmpty());
 		}
 		catch(IOException e) {

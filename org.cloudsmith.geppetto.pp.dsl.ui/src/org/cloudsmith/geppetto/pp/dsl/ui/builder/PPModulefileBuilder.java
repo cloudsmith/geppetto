@@ -21,8 +21,6 @@ import org.apache.log4j.Logger;
 import org.cloudsmith.geppetto.common.tracer.DefaultTracer;
 import org.cloudsmith.geppetto.common.tracer.ITracer;
 import org.cloudsmith.geppetto.forge.Forge;
-import org.cloudsmith.geppetto.forge.util.Checksums;
-import org.cloudsmith.geppetto.forge.util.Types;
 import org.cloudsmith.geppetto.forge.v2.model.Dependency;
 import org.cloudsmith.geppetto.forge.v2.model.Metadata;
 import org.cloudsmith.geppetto.forge.v2.model.ModuleName;
@@ -42,9 +40,11 @@ import org.eclipse.core.resources.IWorkspaceRoot;
 import org.eclipse.core.resources.IncrementalProjectBuilder;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.OperationCanceledException;
 import org.eclipse.core.runtime.Path;
+import org.eclipse.core.runtime.SubMonitor;
 import org.eclipse.xtext.ui.XtextProjectHelper;
 import org.eclipse.xtext.util.Wrapper;
 
@@ -421,107 +421,127 @@ public class PPModulefileBuilder extends IncrementalProjectBuilder implements PP
 	}
 
 	private void syncModulefileAndReferences(final IProgressMonitor monitor) {
+		IProject project = getProject();
+		if(!isAccessiblePuppetProject(project))
+			return;
+
 		if(tracer.isTracing())
 			tracer.trace("Syncing modulefile with project");
 
+		File projectDir = project.getLocation().toFile();
+		if(!forge.hasModuleMetadata(projectDir)) {
+			// puppet project without modulefile should reference the target project
+			syncProjectReferences(Lists.newArrayList(getProjectByName(PPUiConstants.PPTP_TARGET_PROJECT_NAME)), monitor);
+			return;
+		}
+
 		checkCancel(monitor);
-		IProject project = getProject();
-		if(isAccessiblePuppetProject(project)) {
-			File projectDir = project.getLocation().toFile();
-			if(forge.hasModuleMetadata(projectDir)) {
+		SubMonitor subMon = SubMonitor.convert(monitor, 4);
 
-				// get metadata
-				Metadata metadata;
-				File[] extractionSource = new File[1];
-				try {
-					metadata = forge.createFromModuleDirectory(projectDir, false, extractionSource);
-				}
-				catch(Exception e) {
-					createErrorMarker(
-						project, "Can not parse modulefile or other metadata source: " + e.getMessage(), null);
-					if(log.isDebugEnabled())
-						log.debug("Could not parse Modulefile dependencies: '" + project.getName() + "'", e);
-					return; // give up - errors have been logged.
-				}
+		// get metadata
+		Metadata metadata;
+		File[] extractionSource = new File[1];
+		IFile metadataResource = getProject().getFile("metadata.json");
+		boolean metadataDerived = metadataResource.isDerived();
 
-				IFile moduleFile = ResourcesPlugin.getWorkspace().getRoot().getFileForLocation(
-					Path.fromOSString(extractionSource[0].getAbsolutePath()));
-
-				// sync version and name project data
-				Version version = metadata == null
-						? null
-						: metadata.getVersion();
-				if(version == null)
-					version = Version.create("0.0.0");
-				ModuleName moduleName = metadata.getName();
-				if(moduleName == null) {
-					createErrorMarker(moduleFile, "Module name is empty", null);
-				}
-				else
-					moduleName = moduleName.withSeparator('-');
-
-				if(moduleName != null &&
-						!project.getName().toLowerCase().contains(moduleName.getName().toString().toLowerCase()))
-					createWarningMarker(moduleFile, "Mismatched name - project does not reflect module: '" +
-							moduleName + "'", null);
-
-				try {
-					IProject p = getProject();
-					String storedVersion = p.getPersistentProperty(PROJECT_PROPERTY_MODULEVERSION);
-					if(!version.equals(storedVersion))
-						p.setPersistentProperty(PROJECT_PROPERTY_MODULEVERSION, version.toString());
-
-					String storedName = p.getPersistentProperty(PROJECT_PROPERTY_MODULENAME);
-					if(!moduleName.equals(storedName))
-						p.setPersistentProperty(PROJECT_PROPERTY_MODULENAME, moduleName.toString());
-				}
-				catch(CoreException e1) {
-					log.error("Could not set version or symbolic module name of project", e1);
-				}
-
-				List<IProject> resolutions = resolveDependencies(metadata, moduleFile, monitor);
-				// add the TP project
-				resolutions.add(getProjectByName(PPUiConstants.PPTP_TARGET_PROJECT_NAME));
-
-				syncProjectReferences(resolutions, monitor);
-
-				// Sync the built .json version
-				try {
-					File pf = project.getLocation().toFile();
-					File mf = new File(pf, "metadata.json");
-					File tf = new File(pf, "lib/puppet");
-
-					// if there are types
-					if(tf.exists())
-						metadata.setTypes(Types.loadTypes(tf, null));
-					metadata.setChecksums(Checksums.loadChecksums(pf, null));
-					forge.saveJSONMetadata(metadata, mf);
-					// must refresh the file as it was written outside the resource framework
-					IFile metadataResource = getProject().getFile("metadata.json");
-					try {
-						metadataResource.setDerived(true, monitor);
-					}
-					catch(CoreException e) {
-						log.error("Could not make 'metadata.json' derived", e);
-					}
-					try {
-						metadataResource.refreshLocal(IResource.DEPTH_ZERO, monitor);
-					}
-					catch(CoreException e) {
-						log.error("Could not refresh 'metadata.json'", e);
-					}
-				}
-				catch(IOException e) {
-					createErrorMarker(moduleFile, "Error while writing 'metadata.json': " + e.getMessage(), null);
-					log.error("Could not build 'metadata.json' for: '" + moduleFile + "'", e);
-				}
+		if(metadataDerived) {
+			try {
+				// Delete this file. It will be recreated from other
+				// sources.
+				metadataResource.delete(false, subMon.newChild(1));
 			}
-			else {
-				// puppet project without modulefile should reference the target project
-				syncProjectReferences(
-					Lists.newArrayList(getProjectByName(PPUiConstants.PPTP_TARGET_PROJECT_NAME)), monitor);
+			catch(CoreException e) {
+				log.error("Unable to delete metadata.json", e);
 			}
 		}
+		else {
+			// The one that will be created should be considered to
+			// be derived
+			metadataDerived = !metadataResource.exists();
+		}
+
+		try {
+			// Load metadata, types, checksums etc.
+			metadata = forge.createFromModuleDirectory(projectDir, true, extractionSource);
+		}
+		catch(Exception e) {
+			createErrorMarker(project, "Can not parse modulefile or other metadata source: " + e.getMessage(), null);
+			if(log.isDebugEnabled())
+				log.debug("Could not parse module description: '" + project.getName() + "'", e);
+			return; // give up - errors have been logged.
+		}
+
+		File extractionSourceFile = extractionSource[0];
+		IPath extractionSourcePath = Path.fromOSString(extractionSourceFile.getAbsolutePath());
+		IFile moduleFile = ResourcesPlugin.getWorkspace().getRoot().getFileForLocation(extractionSourcePath);
+
+		// sync version and name project data
+		Version version = metadata == null
+				? null
+				: metadata.getVersion();
+		if(version == null)
+			version = Version.create("0.0.0");
+		ModuleName moduleName = metadata.getName();
+		if(moduleName == null) {
+			createErrorMarker(moduleFile, "Module name is empty", null);
+		}
+		else
+			moduleName = moduleName.withSeparator('-');
+
+		if(moduleName != null &&
+				!project.getName().toLowerCase().contains(moduleName.getName().toString().toLowerCase()))
+			createWarningMarker(
+				moduleFile, "Mismatched name - project does not reflect module: '" + moduleName + "'", null);
+
+		try {
+			IProject p = getProject();
+			String storedVersion = p.getPersistentProperty(PROJECT_PROPERTY_MODULEVERSION);
+			if(!version.equals(storedVersion))
+				p.setPersistentProperty(PROJECT_PROPERTY_MODULEVERSION, version.toString());
+
+			String storedName = p.getPersistentProperty(PROJECT_PROPERTY_MODULENAME);
+			if(!moduleName.equals(storedName))
+				p.setPersistentProperty(PROJECT_PROPERTY_MODULENAME, moduleName.toString());
+		}
+		catch(CoreException e1) {
+			log.error("Could not set version or symbolic module name of project", e1);
+		}
+
+		List<IProject> resolutions = resolveDependencies(metadata, moduleFile, subMon.newChild(1));
+		// add the TP project
+		resolutions.add(getProjectByName(PPUiConstants.PPTP_TARGET_PROJECT_NAME));
+
+		syncProjectReferences(resolutions, subMon.newChild(1));
+
+		// Sync the built .json version
+		if(metadataDerived) {
+			try {
+				// Recreate the metadata.json file
+				File mf = new File(project.getLocation().toFile(), "metadata.json");
+				forge.saveJSONMetadata(metadata, mf);
+				// must refresh the file as it was written outside the resource framework
+				try {
+					metadataResource.refreshLocal(IResource.DEPTH_ZERO, subMon.newChild(1));
+				}
+				catch(CoreException e) {
+					log.error("Could not refresh 'metadata.json'", e);
+				}
+
+				try {
+					metadataResource.setDerived(true, monitor);
+				}
+				catch(CoreException e) {
+					log.error("Could not make 'metadata.json' derived", e);
+				}
+
+			}
+			catch(IOException e) {
+				createErrorMarker(moduleFile, "Error while writing 'metadata.json': " + e.getMessage(), null);
+				log.error("Could not build 'metadata.json' for: '" + moduleFile + "'", e);
+			}
+		}
+		if(monitor != null)
+			monitor.done();
 	}
 
 	private void syncProjectReferences(List<IProject> wanted, IProgressMonitor monitor) {

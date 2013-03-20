@@ -95,7 +95,7 @@ class ForgeImpl implements Forge {
 
 	@Inject
 	@Named(Forge.MODULE_FILE_FILTER)
-	private FileFilter fileFilter;
+	private FileFilter moduleFileFilter;
 
 	@Inject
 	Set<MetadataExtractor> metadataExtractors;
@@ -108,8 +108,11 @@ class ForgeImpl implements Forge {
 	};
 
 	@Override
-	public File build(File moduleSource, File destination, Metadata[] resultingMetadata) throws IOException,
-			IncompleteException {
+	public File build(File moduleSource, File destination, FileFilter fileFilter, Metadata[] resultingMetadata)
+			throws IOException, IncompleteException {
+		if(fileFilter == null)
+			fileFilter = moduleFileFilter;
+
 		File[] extractedFrom = new File[1];
 
 		Metadata md = createFromModuleDirectory(moduleSource, true, extractedFrom);
@@ -163,7 +166,9 @@ class ForgeImpl implements Forge {
 	}
 
 	@Override
-	public List<File> changes(File path) throws IOException {
+	public List<File> changes(File path, FileFilter fileFilter) throws IOException {
+		if(fileFilter == null)
+			fileFilter = moduleFileFilter;
 		Metadata md = loadJSONMetadata(new File(path, "metadata.json"));
 		List<File> result = new ArrayList<File>();
 		Checksums.appendChangedFiles(md.getChecksums(), path, result, fileFilter);
@@ -215,7 +220,9 @@ class ForgeImpl implements Forge {
 	}
 
 	@Override
-	public Collection<File> findModuleRoots(File modulesRoot) {
+	public Collection<File> findModuleRoots(File modulesRoot, FileFilter fileFilter) {
+		if(fileFilter == null)
+			fileFilter = moduleFileFilter;
 		return ModuleUtils.findModuleRoots(modulesRoot, fileFilter, getMetadataExtractors());
 	}
 

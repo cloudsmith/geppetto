@@ -12,6 +12,7 @@
 package org.cloudsmith.geppetto.forge;
 
 import java.io.File;
+import java.io.FileFilter;
 import java.io.IOException;
 import java.util.Collection;
 import java.util.List;
@@ -25,6 +26,8 @@ import org.cloudsmith.geppetto.forge.v2.model.Module;
 import org.cloudsmith.geppetto.forge.v2.model.ModuleName;
 import org.cloudsmith.geppetto.forge.v2.model.Release;
 import org.cloudsmith.geppetto.semver.VersionRange;
+
+import com.google.inject.name.Named;
 
 /**
  * This class basically mimics the PMT (Puppet Module Tool)
@@ -44,20 +47,27 @@ public interface Forge {
 	 * @param destination
 	 *            The directory where the build will be performed and also where the created archive will end up
 	 *            adjacent to the built module. Created if necessary.
+	 * @param filter
+	 *            The filter that is used for selecting the files. Can be null in which case the injected
+	 *            filter annotated by {@link Named @Named}({@link #MODULE_FILE_FILTER}) will be used.
 	 * @param resultingMetadata
 	 *            A one element array that will receive the resulting metadata. Can be <tt>null</tt>.
 	 * @return The resulting gzipped tar file.
 	 */
-	File build(File moduleSource, File destination, Metadata[] resultingMetadata) throws IOException,
-			IncompleteException;
+	File build(File moduleSource, File destination, FileFilter filter, Metadata[] resultingMetadata)
+			throws IOException, IncompleteException;
 
 	/**
 	 * List modified files in an installed module
 	 * 
 	 * @param path
 	 *            The module directory
+	 * @param filter
+	 *            The filter that is used by the scan. Can be null in which case the injected
+	 *            filter annotated by {@link Named @Named}({@link #MODULE_FILE_FILTER}) will be used.
+	 * @return A collection of modified files.
 	 */
-	List<File> changes(File path) throws IOException;
+	Collection<File> changes(File path, FileFilter filter) throws IOException;
 
 	/**
 	 * Create a Metadata instance from a module structure. If a file named &quot;metadata.json&quot; exists
@@ -93,13 +103,17 @@ public interface Forge {
 			throws IOException;
 
 	/**
-	 * Scan for valid directories containing a "metadata.json" or other
-	 * files recognized by injected {@link MetadataExtractor metadata extractors}.
-	 * A directory that contains such a file will not be scanned in turn.
+	 * Scan for valid directories containing a "metadata.json" or other files recognized by injected {@link MetadataExtractor metadata extractors}
+	 * using the provided <tt>filter</tt> to discriminate unwanted files. A directory that contains such a file will not be scanned in turn.
 	 * 
+	 * @param modulesRoot
+	 *            The directory where the scan starts. Can be a module in itself.
+	 * @param filter
+	 *            The filter that is used for selecting the files. Can be null in which case the injected
+	 *            filter annotated by {@link Named @Named}({@link #MODULE_FILE_FILTER}) will be used.
 	 * @return A list of directories that seems to be module roots.
 	 */
-	Collection<File> findModuleRoots(File modulesRoot);
+	Collection<File> findModuleRoots(File modulesRoot, FileFilter filter);
 
 	/**
 	 * Generate boilerplate for a new module

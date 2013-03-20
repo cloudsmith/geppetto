@@ -824,7 +824,7 @@ public class ValidationServiceImpl implements ValidationService {
 
 		List<File> ppFiles = findPPFiles(root);
 		List<File> rbFiles = findRubyFiles(root);
-		Collection<File> mdRoots = forge.findModuleRoots(root);
+		Collection<File> mdRoots = forge.findModuleRoots(root, null);
 		List<File> rakeFiles = findRakefiles(root);
 
 		final int workload = ppFiles.size() + mdRoots.size() * 3

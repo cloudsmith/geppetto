@@ -66,18 +66,8 @@
          </description>
       </wizard>
    </extension>
+   <!--
    <extension point="org.eclipse.ui.popupMenus">
-      <objectContribution
-            id="org.cloudsmith.geppetto.ui.exportModuleObjectContribution"
-            objectClass="org.eclipse.core.resources.IProject">
-         <action
-               id="org.cloudsmith.geppetto.ui.exportModuleActionDelegate"
-               label="%_UI_ExportModules_label"
-               menubarPath="group.port"
-               class="org.cloudsmith.geppetto.ui.action.ExportModulesActionDelegate"
-               enablesFor="1"/>
-      </objectContribution>
-      <!--
       <viewerContribution
             id="org.cloudsmith.geppetto.ui.importModulesFromForgeViewerContribution"
             targetID="org.eclipse.ui.navigator.ProjectExplorer#PopupMenu">
@@ -87,8 +77,8 @@
                menubarPath="group.port"
                class="org.cloudsmith.geppetto.ui.action.ImportModulesFromForgeActionDelegate"/>
       </viewerContribution>
-      -->
    </extension>
+   -->
    <extension point="org.eclipse.ui.editors">
       <editor
             class="org.cloudsmith.geppetto.ui.editor.ModuleMetadataEditor"
@@ -97,5 +87,26 @@
             icon="icons/obj16/puppet-16.png"
             id="org.cloudsmith.geppetto.ui.moduleMetadataEditor"
             name="%_UI_ModuleMetadataEditor_title"/>
+   </extension>
+   <extension
+         point="org.eclipse.ui.exportWizards">
+      <category
+            id="org.cloudsmith.geppetto.ui.exportWizardCategory"
+            name="%_UI_Wizard_Category">
+      </category>
+      <wizard
+            category="org.cloudsmith.geppetto.ui.exportWizardCategory"
+            class="org.cloudsmith.geppetto.ui.GeppettoExecutableExtensionFactory:org.cloudsmith.geppetto.ui.wizard.ModuleExportToForgeWizard"
+            icon="icons/obj16/puppet-16.png"
+            id="org.cloudsmith.geppetto.ui.ModuleExportToForgeWizard"
+            name="%_UI_ExportModulesToForge">
+      </wizard>
+      <wizard
+            category="org.cloudsmith.geppetto.ui.exportWizardCategory"
+            class="org.cloudsmith.geppetto.ui.GeppettoExecutableExtensionFactory:org.cloudsmith.geppetto.ui.wizard.ModuleExportToFileWizard"
+            icon="icons/obj16/puppet-16.png"
+            id="org.cloudsmith.geppetto.ui.ModuleExportToFileWizard"
+            name="%_UI_ExportModulesToFileSystem">
+      </wizard>
    </extension>
 </plugin>

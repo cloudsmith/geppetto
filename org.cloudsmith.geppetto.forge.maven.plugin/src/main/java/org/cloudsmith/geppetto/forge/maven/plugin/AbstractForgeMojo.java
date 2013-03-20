@@ -142,7 +142,7 @@ public abstract class AbstractForgeMojo extends AbstractMojo {
 	}
 
 	protected Collection<File> findModuleRoots() {
-		return getForge().findModuleRoots(getModulesDir());
+		return getForge().findModuleRoots(getModulesDir(), null);
 	}
 
 	protected abstract String getActionName();

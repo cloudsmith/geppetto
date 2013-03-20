@@ -262,6 +262,21 @@ public class CharSequences {
 		return "";
 	}
 
+	/**
+	 * Return the argument if is null or if its length > 0, else return <code>null</code>.
+	 * 
+	 * @param s
+	 *            The sequence to trim or <code>null</code>
+	 * @return The trimmed sequence or <code>null</code>
+	 */
+	public static CharSequence emptyToNull(CharSequence s) {
+		if(s != null) {
+			if(s.length() == 0)
+				s = null;
+		}
+		return s;
+	}
+
 	public static boolean endsWith(CharSequence value, String end) {
 		if(value instanceof String)
 			return ((String) value).endsWith(end);
@@ -431,4 +446,25 @@ public class CharSequences {
 		return s.subSequence(0, lastIndexOfNonWhitepace(s, s.length() - 1));
 	}
 
+	/**
+	 * Trim both left and right whitespace. Return the result if the resulting
+	 * length > 0, else return <code>null</code>.
+	 * 
+	 * @param s
+	 *            The sequence to trim or <code>null</code>
+	 * @return The trimmed sequence or <code>null</code>
+	 */
+	public static CharSequence trimToNull(CharSequence s) {
+		if(s != null) {
+			int len = s.length();
+			if(len == 0)
+				s = null;
+			else {
+				s = trim(s, len, len);
+				if(s.length() == 0)
+					s = null;
+			}
+		}
+		return s;
+	}
 }

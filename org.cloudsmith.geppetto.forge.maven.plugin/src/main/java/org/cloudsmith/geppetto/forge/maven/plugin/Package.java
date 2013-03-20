@@ -28,7 +28,7 @@ import org.cloudsmith.geppetto.forge.IncompleteException;
 public class Package extends AbstractForgeMojo {
 	private File buildForge(File moduleSource, File destination, Diagnostic result) throws IOException {
 		try {
-			return getForge().build(moduleSource, destination, null);
+			return getForge().build(moduleSource, destination, null, null);
 		}
 		catch(IncompleteException e) {
 			result.addChild(new Diagnostic(Diagnostic.ERROR, DiagnosticType.PACKAGE, e.getMessage()));

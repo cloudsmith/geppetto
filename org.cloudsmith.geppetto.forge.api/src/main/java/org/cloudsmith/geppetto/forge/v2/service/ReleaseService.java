@@ -23,13 +23,22 @@ import org.apache.http.HttpStatus;
 import org.apache.http.client.HttpResponseException;
 import org.cloudsmith.geppetto.forge.v2.client.Constants;
 import org.cloudsmith.geppetto.forge.v2.model.Release;
+import org.cloudsmith.geppetto.semver.Version;
 
 /**
  * A CRUD service for {@link Release} objects
  */
 public class ReleaseService extends ForgeService {
-	private static String getReleasePath(String owner, String name, String version) {
-		return Constants.COMMAND_GROUP_RELEASES + '/' + owner + '/' + name + '/' + version;
+	private static String getReleasePath(String owner, String name, Version version) {
+		StringBuilder bld = new StringBuilder();
+		bld.append(Constants.COMMAND_GROUP_RELEASES);
+		bld.append('/');
+		bld.append(owner);
+		bld.append('/');
+		bld.append(name);
+		bld.append('/');
+		version.toString(bld);
+		return bld.toString();
 	}
 
 	/**
@@ -66,7 +75,7 @@ public class ReleaseService extends ForgeService {
 	 *            The version of the module Release
 	 * @throws IOException
 	 */
-	public void delete(String owner, String name, String version) throws IOException {
+	public void delete(String owner, String name, Version version) throws IOException {
 		getClient(true).delete(getReleasePath(owner, name, version));
 	}
 
@@ -82,7 +91,7 @@ public class ReleaseService extends ForgeService {
 	 * @return The content of a particular release
 	 * @throws IOException
 	 */
-	public void download(String owner, String name, String version, OutputStream output) throws IOException {
+	public void download(String owner, String name, Version version, OutputStream output) throws IOException {
 		String path = Constants.COMMAND_GROUP_FILES + '/' + owner + '-' + name + '-' + version + ".tar.gz";
 		getClient(false).download(path, null, output);
 	}
@@ -97,7 +106,7 @@ public class ReleaseService extends ForgeService {
 	 * @return Details about a particular release
 	 * @throws IOException
 	 */
-	public Release get(String owner, String name, String version) throws IOException {
+	public Release get(String owner, String name, Version version) throws IOException {
 		return getClient(false).get(getReleasePath(owner, name, version), null, Release.class);
 	}
 
@@ -138,7 +147,7 @@ public class ReleaseService extends ForgeService {
 	 * @return The updated Release
 	 * @throws IOException
 	 */
-	public Release update(String owner, String name, String version, Release release) throws IOException {
+	public Release update(String owner, String name, Version version, Release release) throws IOException {
 		return getClient(true).patch(getReleasePath(owner, name, version), release, Release.class);
 	}
 }

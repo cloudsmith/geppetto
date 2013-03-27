@@ -3,10 +3,11 @@
 	<parent>
 		<groupId>org.cloudsmith.geppetto</groupId>
 		<artifactId>parent</artifactId>
-		<version>3.0.3-SNAPSHOT</version>
+		<version>3.0.3-beta-SNAPSHOT</version>
 	</parent>
 
 	<artifactId>org.cloudsmith.geppetto.ruby</artifactId>
+	<name>Geppetto Ruby Interface</name>
 
 	<build>
 		<sourceDirectory>src</sourceDirectory>
@@ -16,17 +17,17 @@
 		<dependency>
 			<groupId>org.cloudsmith.geppetto</groupId>
 			<artifactId>org.cloudsmith.geppetto.pp</artifactId>
-			<version>3.0.3-SNAPSHOT</version>
+			<version>3.0.3-beta-SNAPSHOT</version>
 		</dependency>
 		<dependency>
 			<groupId>org.cloudsmith.geppetto</groupId>
 			<artifactId>org.cloudsmith.geppetto.common</artifactId>
-			<version>3.0.3-SNAPSHOT</version>
+			<version>3.0.3-beta-SNAPSHOT</version>
 		</dependency>
 		<dependency>
 			<groupId>org.cloudsmith.geppetto</groupId>
 			<artifactId>org.cloudsmith.geppetto.eclipse.core</artifactId>
-			<version>3.0.3-SNAPSHOT</version>
+			<version>3.0.3-beta-SNAPSHOT</version>
 		</dependency>
 		<dependency>
 			<groupId>org.eclipse.xtext</groupId>

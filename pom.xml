@@ -1,22 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>org.cloudsmith.geppetto</groupId>
 	<artifactId>parent</artifactId>
-	<version>3.0.3-SNAPSHOT</version>
+	<version>3.0.3-beta-SNAPSHOT</version>
 	<packaging>pom</packaging>
 
-	<name>Parent POM for the Geppetto project</name>
+	<name>Geppetto Site Project</name>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+		<mavenVersion>3.0.5</mavenVersion>
+		<geppettoVersion>3.0.3-SNAPSHOT</geppettoVersion>
+		<parentSiteURL>https://am0.cloudsmith.com/nexus/content/sites/geppetto-site</parentSiteURL>
+
+		<!-- We use property injection. But instead of '${' and '}' we use '.qual' 
+			or '-qua' as the start delimiter and 'r' as end delimiter. Hence when the 
+			filter mechanism encounters '.qualifier' it will inject the property 'ifie' 
+			and when it encounters '-qualifier' it will inject the property 'lifie'. 
+			We need the '.' or '-' to be part of the replacement to avoid the keyword 
+			qualifier to be replaced in other places -->
+		<ifie>.v${git.commit.time}</ifie>
+		<lifie>-v${git.commit.time}</lifie>
 	</properties>
 
 	<organization>
 		<name>Cloudsmith Inc.</name>
 		<url>http://www.cloudsmith.com</url>
 	</organization>
+
+	<url>${parentSiteURL}</url>
 
 	<scm>
 		<connection>scm:git:git://github.com/cloudsmith/geppetto.git</connection>
@@ -35,6 +50,11 @@
 			<name>Cloudsmith Snapshot Repository</name>
 			<url>https://am0.cloudsmith.com/nexus/content/repositories/snapshots/</url>
 		</snapshotRepository>
+		<site>
+			<id>geppetto-site</id>
+			<name>JRuby Maven site</name>
+			<url>dav:${parentSiteURL}</url>
+		</site>
 	</distributionManagement>
 
 	<repositories>
@@ -64,12 +84,45 @@
 		</repository>
 	</repositories>
 
+	<pluginRepositories>
+		<pluginRepository>
+			<id>cloudsmith-xtext</id>
+			<name>Eclipse Xtext Repository</name>
+			<url>https://am0.cloudsmith.com/nexus/content/repositories/xtext</url>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+		</pluginRepository>
+		<pluginRepository>
+			<id>cloudsmith-snapshots</id>
+			<name>Cloudsmith Snapshot Repository</name>
+			<url>https://am0.cloudsmith.com/nexus/content/repositories/snapshots</url>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+		</pluginRepository>
+	</pluginRepositories>
+
 	<issueManagement>
+		<system>GitHub</system>
 		<url>https://github.com/cloudsmith/geppetto/issues</url>
 	</issueManagement>
 
+	<licenses>
+		<license>
+			<name>Apache License, Version 2.0</name>
+			<url>http://www.apache.org/licenses/LICENSE-2.0</url>
+			<distribution>repo</distribution>
+		</license>
+	</licenses>
+
 	<dependencyManagement>
 		<dependencies>
+			<dependency>
+				<groupId>args4j</groupId>
+				<artifactId>args4j</artifactId>
+				<version>2.0.21</version>
+			</dependency>
 			<dependency>
 				<groupId>com.almworks.sqlite4java</groupId>
 				<artifactId>sqlite4java</artifactId>
@@ -89,9 +142,19 @@
 				<version>2.2.2</version>
 			</dependency>
 			<dependency>
+				<groupId>com.google.inject</groupId>
+				<artifactId>guice</artifactId>
+				<version>3.0</version>
+			</dependency>
+			<dependency>
 				<groupId>com.google.guava</groupId>
 				<artifactId>guava</artifactId>
 				<version>13.0.1</version>
+			</dependency>
+			<dependency>
+				<groupId>ch.qos.logback</groupId>
+				<artifactId>logback-classic</artifactId>
+				<version>1.0.9</version>
 			</dependency>
 			<dependency>
 				<groupId>commons-codec</groupId>
@@ -106,13 +169,13 @@
 			<dependency>
 				<groupId>junit</groupId>
 				<artifactId>junit</artifactId>
-				<version>4.10</version>
+				<version>4.11</version>
 				<scope>test</scope>
 			</dependency>
 			<dependency>
 				<groupId>log4j</groupId>
 				<artifactId>log4j</artifactId>
-				<version>1.2.15</version>
+				<version>1.2.17</version>
 				<exclusions>
 					<exclusion>
 						<groupId>com.sun.jdmk</groupId>
@@ -131,7 +194,7 @@
 			<dependency>
 				<groupId>org.apache.httpcomponents</groupId>
 				<artifactId>httpmime</artifactId>
-				<version>4.2.2</version>
+				<version>4.2.3</version>
 			</dependency>
 			<dependency>
 				<groupId>org.apache.commons</groupId>
@@ -141,7 +204,20 @@
 			<dependency>
 				<groupId>org.apache.httpcomponents</groupId>
 				<artifactId>httpclient</artifactId>
-				<version>4.2.2</version>
+				<version>4.2.3</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.maven.plugin-tools</groupId>
+				<artifactId>maven-plugin-annotations</artifactId>
+				<version>3.2</version>
+				<!-- annotations are not needed for plugin execution so you can remove 
+					this dependency for execution with using provided scope -->
+				<scope>provided</scope>
+			</dependency>
+			<dependency>
+				<groupId>org.codehaus.plexus</groupId>
+				<artifactId>plexus-utils</artifactId>
+				<version>3.0.8</version>
 			</dependency>
 			<dependency>
 				<groupId>org.eclipse.emf</groupId>
@@ -156,7 +232,13 @@
 			<dependency>
 				<groupId>org.eclipse.xtext</groupId>
 				<artifactId>org.eclipse.xtext</artifactId>
-				<version>[2.3.0,2.4.0)</version>
+				<version>[2.4.0,2.5.0)</version>
+			</dependency>
+			<dependency>
+				<groupId>org.eclipse.xtext</groupId>
+				<artifactId>org.eclipse.xtext.junit4</artifactId>
+				<version>[2.4.0,2.5.0)</version>
+				<scope>test</scope>
 			</dependency>
 			<dependency>
 				<groupId>org.cloudsmith.jruby</groupId>
@@ -169,11 +251,6 @@
 				<version>1.13.1</version>
 				<scope>test</scope>
 			</dependency>
-			<dependency>
-				<groupId>org.sonatype.sisu</groupId>
-				<artifactId>sisu-guice</artifactId>
-				<version>3.1.3</version>
-			</dependency>
 		</dependencies>
 	</dependencyManagement>
 
@@ -181,61 +258,169 @@
 		<module>org.cloudsmith.geppetto.catalog</module>
 		<module>org.cloudsmith.geppetto.common</module>
 		<module>org.cloudsmith.geppetto.forge</module>
+		<module>org.cloudsmith.geppetto.forge.tests</module>
 		<module>org.cloudsmith.geppetto.forge.api</module>
+		<module>org.cloudsmith.geppetto.forge.api.tests</module>
 		<module>org.cloudsmith.geppetto.pp</module>
 		<module>org.cloudsmith.geppetto.pp.dsl</module>
+		<module>org.cloudsmith.geppetto.pp.dsl.tests</module>
 		<module>org.cloudsmith.geppetto.puppetlint</module>
 		<module>org.cloudsmith.geppetto.eclipse.core</module>
 		<module>org.cloudsmith.geppetto.common.tracer</module>
 		<module>org.cloudsmith.geppetto.ruby</module>
 		<module>org.cloudsmith.geppetto.ruby.jrubyparser</module>
+		<module>org.cloudsmith.geppetto.ruby.tests</module>
 		<module>org.cloudsmith.geppetto.validation</module>
+		<module>org.cloudsmith.geppetto.forge.maven.plugin</module>
+		<module>org.cloudsmith.geppetto.semver</module>
+		<module>org.cloudsmith.geppetto.semver.tests</module>
 	</modules>
 
 	<build>
+		<extensions>
+			<extension>
+				<groupId>org.apache.maven.wagon</groupId>
+				<artifactId>wagon-webdav-jackrabbit</artifactId>
+				<version>2.2</version>
+			</extension>
+		</extensions>
+		<resources>
+			<resource>
+				<directory>.</directory>
+				<includes>
+					<include>about.html</include>
+					<include>plugin.properties</include>
+					<include>META-INF/MANIFEST.MF</include>
+				</includes>
+				<filtering>true</filtering>
+			</resource>
+		</resources>
 		<plugins>
 			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-javadoc-plugin</artifactId>
-				<version>2.9</version>
-				<executions>
-					<execution>
-						<goals>
-							<goal>jar</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
-
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-jar-plugin</artifactId>
-				<version>2.4</version>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-compiler-plugin</artifactId>
-				<version>2.5.1</version>
+				<artifactId>maven-resources-plugin</artifactId>
+				<version>2.6</version>
 				<configuration>
-					<source>1.6</source>
-					<target>1.6</target>
-					<debug>true</debug>
+					<delimiters>
+						<delimiter>.qual*r</delimiter>
+						<delimiter>-qua*r</delimiter>
+					</delimiters>
 				</configuration>
+			</plugin>
+			<plugin>
+				<artifactId>maven-jar-plugin</artifactId>
+				<configuration>
+					<archive>
+						<manifestFile>${project.build.outputDirectory}/META-INF/MANIFEST.MF</manifestFile>
+					</archive>
+				</configuration>
+			</plugin>
+			<plugin>
+				<artifactId>maven-source-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<artifactId>maven-javadoc-plugin</artifactId>
 			</plugin>
 			<plugin>
 				<artifactId>maven-release-plugin</artifactId>
 				<configuration>
 					<autoVersionSubmodules>true</autoVersionSubmodules>
+					<goals>deploy</goals>
 				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>pl.project13.maven</groupId>
+				<artifactId>git-commit-id-plugin</artifactId>
+				<version>2.1.4</version>
+				<executions>
+					<execution>
+						<goals>
+							<goal>revision</goal>
+						</goals>
+						<configuration>
+							<dateFormat>yyyyMMdd-HHmm</dateFormat>
+						</configuration>
+					</execution>
+				</executions>
 			</plugin>
 		</plugins>
 		<pluginManagement>
 			<plugins>
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-surefire-plugin</artifactId>
+					<configuration>
+						<forkMode>never</forkMode>
+					</configuration>
+					<version>2.13</version>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-project-info-reports-plugin</artifactId>
+					<version>2.6</version>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-project-site-plugin</artifactId>
+					<version>3.2</version>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-antrun-plugin</artifactId>
+					<version>1.7</version>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-release-plugin</artifactId>
+					<version>2.2.2</version>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-compiler-plugin</artifactId>
+					<version>2.5.1</version>
+					<configuration>
+						<source>1.6</source>
+						<target>1.6</target>
+						<debug>true</debug>
+					</configuration>
+				</plugin>
+				<plugin>
+					<artifactId>maven-jar-plugin</artifactId>
+					<version>2.3.2</version>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-source-plugin</artifactId>
+					<version>2.2.1</version>
+					<executions>
+						<execution>
+							<id>attach-sources</id>
+							<phase>verify</phase>
+							<goals>
+								<goal>jar-no-fork</goal>
+							</goals>
+						</execution>
+					</executions>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-javadoc-plugin</artifactId>
+					<version>2.9</version>
+					<executions>
+						<execution>
+							<id>attach-javadoc</id>
+							<phase>verify</phase>
+							<goals>
+								<goal>jar</goal>
+							</goals>
+						</execution>
+					</executions>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-plugin-plugin</artifactId>
 					<version>3.2</version>
 					<configuration>
+						<!-- see http://jira.codehaus.org/browse/MNG-5346 -->
 						<skipErrorNoDescriptorsFound>true</skipErrorNoDescriptorsFound>
 					</configuration>
 					<executions>
@@ -246,15 +431,62 @@
 								<goal>descriptor</goal>
 							</goals>
 						</execution>
+						<!-- if you want to generate help goal -->
+						<execution>
+							<id>help-goal</id>
+							<goals>
+								<goal>helpmojo</goal>
+							</goals>
+						</execution>
 					</executions>
 				</plugin>
 				<plugin>
+					<groupId>org.codehaus.mojo</groupId>
+					<artifactId>exec-maven-plugin</artifactId>
+					<version>1.2.1</version>
+				</plugin>
+				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-surefire-plugin</artifactId>
+					<artifactId>maven-failsafe-plugin</artifactId>
 					<version>2.13</version>
 				</plugin>
 			</plugins>
 		</pluginManagement>
 	</build>
 
+	<reporting>
+		<plugins>
+			<plugin>
+				<artifactId>maven-project-info-reports-plugin</artifactId>
+				<reportSets>
+					<reportSet>
+						<reports>
+							<report>index</report>
+							<report>issue-tracking</report>
+							<report>license</report>
+							<report>modules</report>
+							<report>summary</report>
+							<report>scm</report>
+						</reports>
+					</reportSet>
+				</reportSets>
+				<configuration>
+					<!-- Hardcode here to avoid Maven guessing and appending submodule path -->
+					<anonymousConnection>scm:git:git://github.com/cloudsmith/geppetto.git</anonymousConnection>
+					<webAccessUrl>https://github.com/cloudsmith/geppetto</webAccessUrl>
+					<developerConnection>scm:git:git@github.com:cloudsmith/geppetto.git</developerConnection>
+				</configuration>
+			</plugin>
+			<plugin>
+				<artifactId>maven-javadoc-plugin</artifactId>
+				<reportSets>
+					<reportSet>
+						<reports>
+							<report>javadoc</report>
+						</reports>
+					</reportSet>
+				</reportSets>
+			</plugin>
+		</plugins>
+	</reporting>
 </project>

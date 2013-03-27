@@ -192,7 +192,7 @@ public class AllModuleReferences implements Serializable {
 	}
 
 	private static class ImportedNameImpl implements ImportedName {
-		private static final long serialVersionUID = -1987276727317344784L;
+		private static final long serialVersionUID = 1L;
 
 		private File file;
 

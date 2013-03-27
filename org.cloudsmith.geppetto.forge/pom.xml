@@ -3,17 +3,27 @@
 	<parent>
 		<groupId>org.cloudsmith.geppetto</groupId>
 		<artifactId>parent</artifactId>
-		<version>3.0.3-SNAPSHOT</version>
+		<version>3.0.3-beta-SNAPSHOT</version>
 	</parent>
 
 	<artifactId>org.cloudsmith.geppetto.forge</artifactId>
 	<packaging>jar</packaging>
-	<name>Geppetto Forge Client</name>
+	<name>Geppetto Forge Service</name>
 
 	<build>
-		<sourceDirectory>src</sourceDirectory>
 		<resources>
-			<resource><directory>resources</directory></resource>
+			<resource>
+				<directory>src/main/resources</directory>
+			</resource>
+			<resource>
+				<directory>.</directory>
+				<includes>
+					<include>about.html</include>
+					<include>plugin.properties</include>
+					<include>META-INF/MANIFEST.MF</include>
+				</includes>
+				<filtering>true</filtering>
+			</resource>
 		</resources>
 	</build>
 
@@ -21,7 +31,12 @@
 		<dependency>
 			<groupId>org.cloudsmith.geppetto</groupId>
 			<artifactId>org.cloudsmith.geppetto.common</artifactId>
-			<version>3.0.3-SNAPSHOT</version>
+			<version>3.0.3-beta-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>org.cloudsmith.geppetto</groupId>
+			<artifactId>org.cloudsmith.geppetto.forge.api</artifactId>
+			<version>3.0.3-beta-SNAPSHOT</version>
 		</dependency>
 		<dependency>
 			<groupId>org.eclipse.emf</groupId>
@@ -42,6 +57,15 @@
 		<dependency>
 			<groupId>org.cloudsmith.jruby</groupId>
 			<artifactId>jrubyparser</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.google.inject.extensions</groupId>
+			<artifactId>guice-multibindings</artifactId>
+			<version>3.0</version>
+		</dependency>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
 		</dependency>
 	</dependencies>
 

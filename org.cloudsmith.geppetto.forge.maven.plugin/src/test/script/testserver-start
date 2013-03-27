@@ -1,0 +1,30 @@
+#!/bin/bash
+#
+rvm use 1.9.3
+rvm gemset use puppet-forge-api
+
+rake db:drop > /dev/null || {
+	echo "Failed to drop database" 1>&2
+	exit 1
+}
+echo "Database dropped!"
+rake db:migrate > /dev/null || {
+	echo "Failed to migrate database" 1>&2
+	exit 1
+}
+echo "Database created"
+rake db:populate:sample > /dev/null || {
+	echo "Failed to populate database" 1>&2
+	exit 1
+}
+echo "Database populated with samples"
+rake "oauth2:client:create_with_id[GitHub Forge Publisher,http://forge.puppetlabs.com/,http://forge.puppetlabs.com/test/callback,,$FORGE_CLIENT_ID,$FORGE_CLIENT_SECRET]"
+ > /dev/null || {
+	echo "Failed to create OAuth2 client" 1>&2
+	exit 1
+}
+echo "OAuth2 client added"
+script/server > "$LOG_FILE" 2>&1 &
+echo $! > "$PID_FILE"
+sleep 3
+echo "Forge Server Started. Logfile=\"$LOG_FILE\", Pidfile=\"$PID_FILE\""

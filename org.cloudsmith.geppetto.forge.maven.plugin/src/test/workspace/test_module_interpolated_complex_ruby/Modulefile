@@ -1,0 +1,8 @@
+version "1.0.0-#{%x[git rev-parse HEAD].chomp}"
+name 'bob-test_module_interpolated_complex_ruby'
+author 'bob'
+license ''
+project_page ''
+source ''
+summary ''
+description ''

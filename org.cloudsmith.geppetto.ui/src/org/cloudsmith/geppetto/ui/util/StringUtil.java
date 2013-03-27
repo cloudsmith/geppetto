@@ -11,20 +11,27 @@
  */
 package org.cloudsmith.geppetto.ui.util;
 
-import org.cloudsmith.geppetto.forge.ModuleInfo;
+import org.cloudsmith.geppetto.forge.v2.model.ModuleName;
+import org.cloudsmith.geppetto.ui.editor.ModuleInfo;
 
 public class StringUtil {
 
 	public static String getModuleText(ModuleInfo module) {
-		return module.getFullName() + ' ' + module.getVersion();
+		StringBuilder bld = new StringBuilder();
+		if(module.getName() != null) {
+			module.getName().toString(bld);
+			bld.append(' ');
+		}
+		if(module.getVersion() != null)
+			module.getVersion().toString(bld);
+		return bld.toString();
 	}
 
 	public static String getUser(ModuleInfo module) {
-		String fullName = module.getFullName();
-		int index = fullName.indexOf('/');
-		return index == -1
+		ModuleName fullName = module.getName();
+		return fullName == null
 				? null
-				: fullName.substring(0, index);
+				: fullName.getOwner();
 	}
 
 }

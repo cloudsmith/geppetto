@@ -344,7 +344,8 @@ public class TestVariables extends AbstractPuppetTests implements AbstractPuppet
 				"}\n" + //
 				"}\n"; //
 		;
-		XtextResource r = getResourceFromString(code);
+		// XtextResource r = getResourceFromString(code);
+		Resource r = loadAndLinkSingleResource(code);
 		tester.validate(r.getContents().get(0)).assertOK();
 		resourceWarningDiagnostics(r).assertOK();
 		resourceErrorDiagnostics(r).assertOK();

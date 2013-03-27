@@ -17,7 +17,7 @@ import java.io.IOException;
  * Exception thrown by the API methods
  */
 public class ForgeException extends IOException {
-	private static final long serialVersionUID = -6079338480159830175L;
+	private static final long serialVersionUID = 1L;
 
 	public ForgeException(String message) {
 		super(message);

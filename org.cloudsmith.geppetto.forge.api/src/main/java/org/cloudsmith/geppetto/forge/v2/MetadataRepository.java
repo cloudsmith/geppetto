@@ -16,10 +16,12 @@ import java.util.Collection;
 import java.util.Set;
 
 import org.cloudsmith.geppetto.forge.v2.model.Dependency;
-import org.cloudsmith.geppetto.forge.v2.model.QName;
+import org.cloudsmith.geppetto.forge.v2.model.ModuleName;
 import org.cloudsmith.geppetto.forge.v2.model.Release;
+import org.cloudsmith.geppetto.semver.Version;
 
 /**
+ * This class provides the methods needed to perform dependency resolution.
  */
 public interface MetadataRepository {
 	/**
@@ -51,5 +53,5 @@ public interface MetadataRepository {
 	 *            The desired version
 	 * @return The release that corresponds to the given module and version or <code>null</code> when no such release exists.
 	 */
-	Release resolve(QName name, String version) throws IOException;
+	Release resolve(ModuleName name, Version version) throws IOException;
 }

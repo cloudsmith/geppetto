@@ -23,6 +23,9 @@ import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.inject.Inject;
 
+/**
+ * Abstract base class for all services provided by the ForgeAPI API
+ */
 public abstract class ForgeService {
 	@Inject
 	private Gson gson;
@@ -36,6 +39,17 @@ public abstract class ForgeService {
 		return forgeClient;
 	}
 
+	/**
+	 * Resolves a HAL link into a proper instance.
+	 * 
+	 * @param link
+	 *            The link to resolve
+	 * @param type
+	 *            The type of the instance
+	 * @return The resolved instance.
+	 * @throws IOException
+	 *             If the link could not be resolved.
+	 */
 	public <T> T resolveLink(HalLink link, Class<T> type) throws IOException {
 		if(link == null)
 			return null;
@@ -50,6 +64,13 @@ public abstract class ForgeService {
 		return getClient(false).get(href.substring(4), null, type);
 	}
 
+	/**
+	 * Converts a java bean into a hash map using the beans json representation.
+	 * 
+	 * @param bean
+	 *            The bean to convert
+	 * @return The resulting map
+	 */
 	protected Map<String, String> toQueryMap(Object bean) {
 		Map<String, String> result = new HashMap<String, String>();
 		if(bean != null) {

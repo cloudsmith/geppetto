@@ -13,9 +13,9 @@ package org.cloudsmith.geppetto.ui.editor;
 
 import java.util.List;
 
-import org.cloudsmith.geppetto.forge.Dependency;
 import org.cloudsmith.geppetto.forge.Forge;
-import org.cloudsmith.geppetto.forge.Metadata;
+import org.cloudsmith.geppetto.forge.v2.model.Dependency;
+import org.cloudsmith.geppetto.forge.v2.model.Metadata;
 import org.cloudsmith.geppetto.ui.UIPlugin;
 import org.eclipse.emf.common.util.UniqueEList;
 import org.eclipse.jface.layout.GridDataFactory;

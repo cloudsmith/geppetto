@@ -14,19 +14,29 @@ package org.cloudsmith.geppetto.forge.v2.client;
 import org.cloudsmith.geppetto.forge.v2.MetadataRepository;
 import org.cloudsmith.geppetto.forge.v2.repository.MetadataRepositoryImpl;
 
-import com.google.gson.Gson;
-import com.google.inject.AbstractModule;
+/**
+ * This is the default HTTP Guice module
+ */
+public class ForgeHttpModule extends GsonModule {
 
-public abstract class ForgeHttpModule extends AbstractModule {
+	private final ForgeAPIPreferences preferences;
+
+	public ForgeHttpModule(ForgeAPIPreferences preferences) {
+		this.preferences = preferences;
+	}
 
 	@Override
 	protected void configure() {
-		bind(ForgeClient.class).to(ForgeHttpClient.class);
-		bind(ForgePreferences.class).toInstance(getForgePreferences());
-		bind(Gson.class).toProvider(GsonProvider.class);
-		bind(MetadataRepository.class).to(MetadataRepositoryImpl.class);
-		bind(Authenticator.class).to(HttpAuthenticator.class);
+		super.configure();
+		if(preferences.getBaseURL() != null) {
+			bind(ForgeClient.class).to(ForgeHttpClient.class);
+			bind(ForgeAPIPreferences.class).toInstance(preferences);
+			bind(MetadataRepository.class).to(MetadataRepositoryImpl.class);
+			bind(Authenticator.class).to(HttpAuthenticator.class);
+		}
 	}
 
-	protected abstract ForgePreferences getForgePreferences();
+	protected ForgeAPIPreferences getPreferences() {
+		return preferences;
+	}
 }

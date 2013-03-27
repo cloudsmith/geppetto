@@ -13,9 +13,9 @@ package org.cloudsmith.geppetto.validation;
 
 import java.io.File;
 
+import org.cloudsmith.geppetto.common.diagnostic.Diagnostic;
 import org.cloudsmith.geppetto.validation.runner.BuildResult;
 import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.emf.common.util.DiagnosticChain;
 import org.eclipse.emf.ecore.resource.Resource;
 
 /**
@@ -37,7 +37,7 @@ public interface ValidationService {
 	 * @param diagnostics DiagnosticChain will receive calls to add Diagnostic instances for discovered problems/information.
 	 * @param source A String containing PP code to be validated. Errors are reported for a fictious file "unnamed.pp".
 	 */
-	BuildResult validate(DiagnosticChain diagnostics, File source, ValidationOptions options, File[] examinedFiles,
+	BuildResult validate(Diagnostic diagnostics, File source, ValidationOptions options, File[] examinedFiles,
 			IProgressMonitor monitor);
 
 	/**
@@ -46,7 +46,7 @@ public interface ValidationService {
 	 * @param diagnostics DiagnosticChain will receive calls to add Diagnostic instances for discovered problems/information.
 	 * @param code A String containing PP code to be validated. Errors are reported for a fictious file "unnamed.pp".
 	 */
-	Resource validate(DiagnosticChain diagnostics, String code, IProgressMonitor monitor);
+	Resource validate(Diagnostic diagnostics, String code, IProgressMonitor monitor);
 
 	/**
 	 * Validates validity of a file (typically a .pp file). It may or may not include diagnostics that related to linking
@@ -56,7 +56,7 @@ public interface ValidationService {
 	 * @param diagnostics DiagnosticChain will receive calls to add Diagnostic instances for discovered problems/information.
 	 * @param sourceFile A File containing .pp code (must end with .pp).
 	 */
-	void validateManifest(DiagnosticChain diagnostics, File sourceFile, IProgressMonitor monitor);
+	void validateManifest(Diagnostic diagnostics, File sourceFile, IProgressMonitor monitor);
 
 	/**
 	 * Validates PP syntax for code given in code parameter.
@@ -64,7 +64,7 @@ public interface ValidationService {
 	 * @param diagnostics DiagnosticChain will receive calls to add Diagnostic instances for discovered problems/information.
 	 * @param code A String containing PP code to be validated. Errors are reported for a fictious file "unnamed.pp".
 	 */
-	Resource validateManifest(DiagnosticChain diagnostics, String code, IProgressMonitor monitor);
+	Resource validateManifest(Diagnostic diagnostics, String code, IProgressMonitor monitor);
 
 	/**
 	 * Statically validates all files contained in a Puppet module. The File parameter is a reference to the top level folder
@@ -73,7 +73,7 @@ public interface ValidationService {
 	 * @param diagnostics DiagnosticChain will receive calls to add Diagnostic instances for discovered problems/information.
 	 * @param moduleDirectory A File referencing a directory containing a Puppet Module.
 	 */
-	BuildResult validateModule(DiagnosticChain diagnostics, File moduleDirectory, IProgressMonitor monitor);
+	BuildResult validateModule(Diagnostic diagnostics, File moduleDirectory, IProgressMonitor monitor);
 
 	/**
 	 * Performs static org.cloudsmith.geppetto.validation and catalog production for a given node, it's factor data, a site.pp file, and a directory of
@@ -85,7 +85,7 @@ public interface ValidationService {
 	 * @param siteFile A File referencing a site.pp (typical name) that maps hosts to puppet nodes.
 	 * @param nodeName The name of the node (does not have to be the same as the hostname).
 	 */
-	void validateRepository(DiagnosticChain diagnostics, File catalogRoot, File factorData, File siteFile,
+	void validateRepository(Diagnostic diagnostics, File catalogRoot, File factorData, File siteFile,
 			String nodeName, IProgressMonitor monitor);
 
 	/**
@@ -96,6 +96,6 @@ public interface ValidationService {
 	 * @param catalogRoot A File referencing a directory containing Puppet Module directories.
 	 *        <!-- end-model-doc -->
 	 */
-	BuildResult validateRepository(DiagnosticChain diagnostics, File catalogRoot, IProgressMonitor monitor);
+	BuildResult validateRepository(Diagnostic diagnostics, File catalogRoot, IProgressMonitor monitor);
 
 }

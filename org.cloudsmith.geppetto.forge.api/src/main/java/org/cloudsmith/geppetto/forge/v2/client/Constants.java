@@ -25,7 +25,7 @@ import org.cloudsmith.geppetto.forge.v2.model.User;
 import com.google.gson.reflect.TypeToken;
 
 /**
- * Constants pertaining to the Forge v2 API
+ * Constants pertaining to the ForgeAPI v2 API
  */
 public interface Constants {
 	/**

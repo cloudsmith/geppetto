@@ -18,6 +18,7 @@ import org.cloudsmith.geppetto.forge.v2.model.Module;
 import com.google.gson.annotations.Expose;
 
 /**
+ * An Module template to use when creating new modules.
  */
 public class ModuleTemplate {
 	@Expose

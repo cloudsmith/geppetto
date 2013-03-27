@@ -17,17 +17,15 @@ import static org.junit.Assert.fail;
 
 import java.io.File;
 import java.io.IOException;
-import java.net.URI;
 
 import org.cloudsmith.geppetto.forge.Cache;
-import org.cloudsmith.geppetto.forge.ForgeFactory;
-import org.cloudsmith.geppetto.forge.ForgeService;
-import org.cloudsmith.geppetto.forge.Repository;
+import org.cloudsmith.geppetto.forge.v2.model.ModuleName;
+import org.cloudsmith.geppetto.semver.Version;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-public class CacheTest {
+public class CacheTest extends AbstractForgeTest {
 
 	static final String FILE_TO_TEST = "/system/releases/p/puppetlabs/puppetlabs-stdlib-2.3.1.tar.gz";
 
@@ -35,15 +33,7 @@ public class CacheTest {
 
 	@Before
 	public void setUp() throws Exception {
-		try {
-			ForgeService service = ForgeFactory.eINSTANCE.createForgeService();
-			Repository repository = service.createRepository(URI.create("http://forge.puppetlabs.com"));
-			File cacheFolder = ForgeTests.getTestOutputFolder("cachefolder", true);
-			fixture = service.createCache(cacheFolder, repository);
-		}
-		catch(IOException e) {
-			fail(e.getMessage());
-		}
+		fixture = getCache();
 	}
 
 	@After
@@ -54,7 +44,7 @@ public class CacheTest {
 	@Test
 	public void testClean() {
 		try {
-			File file = fixture.retrieve(FILE_TO_TEST);
+			File file = fixture.retrieve(new ModuleName("puppetlabs-stdlib"), Version.create("2.3.1"));
 			assertTrue("Retrieved file is not a file", file.isFile());
 			fixture.clean();
 			assertFalse("Clean did not remove the cached files", file.isFile());
@@ -67,12 +57,11 @@ public class CacheTest {
 	@Test
 	public void testRetrieve__String() {
 		try {
-			File file = fixture.retrieve(FILE_TO_TEST);
+			File file = fixture.retrieve(new ModuleName("puppetlabs-stdlib"), Version.create("2.3.1"));
 			assertTrue("Retrieved file is not a file", file.isFile());
 		}
 		catch(IOException e) {
 			fail(e.getMessage());
 		}
 	}
-
 }

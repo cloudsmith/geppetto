@@ -213,7 +213,7 @@ public abstract class AbstractForgeMojo extends AbstractMojo {
 	}
 
 	protected Metadata getModuleMetadata(File moduleDirectory, Diagnostic diag) throws IOException {
-		Metadata md = getForge().createFromModuleDirectory(moduleDirectory, true, null);
+		Metadata md = getForge().createFromModuleDirectory(moduleDirectory, true, null, null);
 		if(md == null) {
 			diag.addChild(new Diagnostic(
 				Diagnostic.ERROR, DiagnosticType.GEPPETTO, "No Module Metadata found in directory " +

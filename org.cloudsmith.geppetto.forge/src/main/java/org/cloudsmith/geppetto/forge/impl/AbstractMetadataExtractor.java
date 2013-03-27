@@ -16,36 +16,29 @@ import java.io.FileFilter;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
-import org.cloudsmith.geppetto.forge.Forge;
 import org.cloudsmith.geppetto.forge.MetadataExtractor;
 import org.cloudsmith.geppetto.forge.util.Checksums;
 import org.cloudsmith.geppetto.forge.util.Types;
 import org.cloudsmith.geppetto.forge.v2.model.Metadata;
 
-import com.google.inject.Inject;
-import com.google.inject.name.Named;
-
 public abstract class AbstractMetadataExtractor implements MetadataExtractor {
-	@Inject
-	@Named(Forge.MODULE_FILE_FILTER)
-	private FileFilter fileFilter;
-
 	@Override
-	public boolean canExtractFrom(File moduleDirectory) {
-		return new File(moduleDirectory, getPrimarySource()).exists();
+	public boolean canExtractFrom(File moduleDirectory, FileFilter filter) {
+		File mdSource = new File(moduleDirectory, getPrimarySource());
+		return filter.accept(mdSource) && mdSource.exists();
 	}
 
 	@Override
-	public Metadata parseMetadata(File moduleDirectory, boolean includeTypesAndChecksums, File[] extractedFrom)
-			throws IOException {
+	public Metadata parseMetadata(File moduleDirectory, boolean includeTypesAndChecksums, FileFilter filter,
+			File[] extractedFrom) throws IOException {
 		File metadataFile = new File(moduleDirectory, getPrimarySource());
-		if(!metadataFile.exists())
+		if(!canExtractFrom(moduleDirectory, filter))
 			throw new FileNotFoundException(metadataFile.getAbsolutePath());
 
 		Metadata md = performMetadataExtraction(metadataFile);
 		if(getCardinal() > 0 && includeTypesAndChecksums) {
-			md.setTypes(Types.loadTypes(new File(moduleDirectory, "lib/puppet"), fileFilter));
-			md.setChecksums(Checksums.loadChecksums(moduleDirectory, fileFilter));
+			md.setTypes(Types.loadTypes(new File(moduleDirectory, "lib/puppet"), filter));
+			md.setChecksums(Checksums.loadChecksums(moduleDirectory, filter));
 		}
 		if(extractedFrom != null)
 			extractedFrom[0] = metadataFile;

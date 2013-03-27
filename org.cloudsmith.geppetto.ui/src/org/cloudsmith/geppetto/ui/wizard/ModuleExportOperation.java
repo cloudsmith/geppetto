@@ -21,14 +21,11 @@ import java.util.List;
 import org.cloudsmith.geppetto.forge.Forge;
 import org.cloudsmith.geppetto.ui.UIPlugin;
 import org.eclipse.core.resources.IResource;
-import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.MultiStatus;
 import org.eclipse.core.runtime.OperationCanceledException;
-import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Status;
-import org.eclipse.core.runtime.SubMonitor;
 import org.eclipse.jface.operation.IRunnableWithProgress;
 import org.eclipse.osgi.util.NLS;
 import org.eclipse.ui.dialogs.IOverwriteQuery;
@@ -76,15 +73,23 @@ public class ModuleExportOperation implements IRunnableWithProgress {
 
 	private final List<ExportSpec> exportSpecs;
 
-	private final IPath path;
+	private final File destination;
 
 	private final List<IStatus> errorTable = new ArrayList<IStatus>();
 
-	public ModuleExportOperation(Forge forge, List<ExportSpec> exportSpecs, String destinationPath,
+	public ModuleExportOperation(Forge forge, List<ExportSpec> exportSpecs, File destination,
 			IOverwriteQuery overwriteImplementor) {
 		this.exportSpecs = exportSpecs;
-		this.path = new Path(destinationPath);
+		this.destination = destination;
 		this.forge = forge;
+	}
+
+	protected File getDestination() {
+		return destination;
+	}
+
+	protected Forge getForge() {
+		return forge;
 	}
 
 	public IStatus getStatus() {
@@ -99,16 +104,14 @@ public class ModuleExportOperation implements IRunnableWithProgress {
 	}
 
 	public void run(IProgressMonitor monitor) throws InterruptedException {
-		int ticks = 1000;
-		SubMonitor subMon = SubMonitor.convert(monitor, ticks + 10);
-		File destination = path.toFile();
+		monitor.beginTask(null, 100 * exportSpecs.size());
 		try {
-			subMon.worked(10);
-			int ticksPerSpec = ticks / exportSpecs.size();
 			for(ExportSpec spec : exportSpecs) {
-				if(subMon.isCanceled())
+				if(monitor.isCanceled())
 					throw new OperationCanceledException();
 				try {
+					monitor.subTask("Building module " + spec.getModuleRoot().getPath());
+					monitor.worked(1);
 					forge.build(spec.getModuleRoot(), destination, spec.getFileFilter(), null);
 				}
 				catch(IOException e) {
@@ -117,12 +120,11 @@ public class ModuleExportOperation implements IRunnableWithProgress {
 							DataTransferMessages.DataTransfer_errorExporting, spec.getModuleRoot().getAbsoluteFile(),
 							e.getMessage()), e));
 				}
-				subMon.worked(ticksPerSpec);
+				monitor.worked(99);
 			}
 		}
 		finally {
-			if(monitor != null)
-				monitor.done();
+			monitor.done();
 		}
 	}
 }

@@ -12,6 +12,7 @@
 package org.cloudsmith.geppetto.forge;
 
 import java.io.File;
+import java.io.FileFilter;
 import java.io.IOException;
 
 import org.cloudsmith.geppetto.forge.v2.model.Metadata;
@@ -24,9 +25,11 @@ public interface MetadataExtractor {
 	 * Checks if the files needed to extract metadata are present.
 	 * 
 	 * @param moduleDirectory
+	 * @param filter
+	 *            The filter that is used by the scan.
 	 * @return <tt>true</tt> to indicate that this extractor will be able to extract metadata
 	 */
-	boolean canExtractFrom(File moduleDirectory);
+	boolean canExtractFrom(File moduleDirectory, FileFilter filter);
 
 	/**
 	 * Determines the order in which extractors will be consulted. The "metadata.json" extractor
@@ -52,6 +55,8 @@ public interface MetadataExtractor {
 	 *            The module directory
 	 * @param includeTypesAndChecksums
 	 *            If set, analyze all types in and generated checksums
+	 * @param filter
+	 *            The filter that is used by the scan.
 	 * @param extractedFrom
 	 *            A one element File array that will receive the file that the metadata was extracted from.
 	 *            Can be <tt>null</tt> when that piece of information is of no interest
@@ -59,5 +64,6 @@ public interface MetadataExtractor {
 	 * @throws IOException
 	 *             if extraction failed
 	 */
-	Metadata parseMetadata(File moduleDir, boolean includeTypesAndChecksums, File[] extractedFrom) throws IOException;
+	Metadata parseMetadata(File moduleDir, boolean includeTypesAndChecksums, FileFilter filter, File[] extractedFrom)
+			throws IOException;
 }

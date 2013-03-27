@@ -12,6 +12,7 @@
 package org.cloudsmith.geppetto.forge.maven.plugin;
 
 import java.io.File;
+import java.io.FileFilter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -35,12 +36,14 @@ public class PomMetadataExtractor extends AbstractMetadataExtractor {
 	private MavenProject mavenProject;
 
 	@Override
-	public boolean canExtractFrom(File moduleDirectory) {
+	public boolean canExtractFrom(File moduleDirectory, FileFilter filter) {
 		// @fmtOff
 		return mavenProject != null
 			&& mavenProject.getFile() != null
+			&& filter.accept(mavenProject.getFile())
 			&& "puppet-module".equals(mavenProject.getPackaging())
 			&& moduleDirectory != null
+			&& filter.accept(moduleDirectory)
 			&& moduleDirectory.equals(mavenProject.getFile().getParentFile());
 		// @fmtOn
 	}

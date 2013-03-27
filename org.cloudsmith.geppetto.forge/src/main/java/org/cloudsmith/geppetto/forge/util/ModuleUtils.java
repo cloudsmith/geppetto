@@ -226,7 +226,7 @@ public class ModuleUtils {
 						return true;
 
 				for(MetadataExtractor extractor : metadataExtractors)
-					if(extractor.canExtractFrom(modulesRoot))
+					if(extractor.canExtractFrom(modulesRoot, filter))
 						return true;
 
 				// Check subdirectories

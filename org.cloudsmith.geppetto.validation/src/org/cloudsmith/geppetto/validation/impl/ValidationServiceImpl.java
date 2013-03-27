@@ -461,7 +461,7 @@ public class ValidationServiceImpl implements ValidationService {
 			addFileError(diagnostics, new File(moduleRoot, "modules"),
 					sourceRoot, "Submodules in a module is not allowed",
 					IValidationConstants.ISSUE__UNEXPECTED_SUBMODULE_DIRECTORY);
-		if (!forge.hasModuleMetadata(moduleRoot))
+		if (!forge.hasModuleMetadata(moduleRoot, null))
 			addFileError(diagnostics, moduleRoot, sourceRoot,
 					"Missing 'metadata.json or Modulefile'",
 					IValidationConstants.ISSUE__MISSING_MODULEFILE);
@@ -622,7 +622,7 @@ public class ValidationServiceImpl implements ValidationService {
 		// parse the metadata file and get full name and version, use this as
 		// name of target entry
 		try {
-			return forge.createFromModuleDirectory(parentFile, false,
+			return forge.createFromModuleDirectory(parentFile, false, null,
 					mdProvider);
 		} catch (Exception e) {
 			addFileError(diagnostics, new File("Modulefile"), parentFile,
@@ -685,7 +685,7 @@ public class ValidationServiceImpl implements ValidationService {
 				// A directory that has a "modules" subdirectory is treated as a
 				// root
 				if (hasModulesSubDirectory(source)
-						|| !forge.hasModuleMetadata(source))
+						|| !forge.hasModuleMetadata(source, null))
 					options.setFileType(FileType.PUPPET_ROOT);
 				else
 					options.setFileType(FileType.MODULE_ROOT);

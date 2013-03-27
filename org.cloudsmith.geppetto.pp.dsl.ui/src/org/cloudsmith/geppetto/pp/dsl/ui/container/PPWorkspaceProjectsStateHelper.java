@@ -14,11 +14,9 @@ package org.cloudsmith.geppetto.pp.dsl.ui.container;
 import java.io.File;
 import java.util.Collections;
 import java.util.List;
-import java.util.Set;
 
 import org.apache.log4j.Logger;
 import org.cloudsmith.geppetto.forge.Forge;
-import org.cloudsmith.geppetto.forge.MetadataExtractor;
 import org.cloudsmith.geppetto.forge.v2.model.Dependency;
 import org.cloudsmith.geppetto.forge.v2.model.Metadata;
 import org.cloudsmith.geppetto.forge.v2.model.ModuleName;
@@ -42,9 +40,6 @@ import com.google.inject.Inject;
 public class PPWorkspaceProjectsStateHelper extends AbstractStorage2UriMapperClient {
 
 	private final static Logger log = Logger.getLogger(PPWorkspaceProjectsStateHelper.class);
-
-	@Inject
-	private Set<MetadataExtractor> metadataExtractors;
 
 	@Inject
 	private IWorkspace workspace;
@@ -98,7 +93,7 @@ public class PPWorkspaceProjectsStateHelper extends AbstractStorage2UriMapperCli
 
 			// parse the "Modulefile" and get full name and version, use this as name of target entry
 			try {
-				Metadata metadata = forge.createFromModuleDirectory(moduleDir, false, null);
+				Metadata metadata = forge.createFromModuleDirectory(moduleDir, false, null, null);
 
 				for(Dependency d : metadata.getDependencies()) {
 					IProject best = getBestMatchingProject(d);

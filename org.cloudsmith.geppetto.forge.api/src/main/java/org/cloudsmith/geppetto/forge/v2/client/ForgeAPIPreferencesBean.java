@@ -35,6 +35,20 @@ public class ForgeAPIPreferencesBean implements ForgeAPIPreferences, Serializabl
 
 	private String password;
 
+	public ForgeAPIPreferencesBean() {
+	}
+
+	public ForgeAPIPreferencesBean(ForgeAPIPreferences copy) {
+		baseURL = copy.getBaseURL();
+		login = copy.getLogin();
+		oauthAccessToken = copy.getOAuthAccessToken();
+		oauthClientId = copy.getOAuthClientId();
+		oauthClientSecret = copy.getOAuthClientSecret();
+		oauthURL = copy.getOAuthURL();
+		oauthScopes = copy.getOAuthScopes();
+		password = copy.getPassword();
+	}
+
 	public String getBaseURL() {
 		return baseURL;
 	}

@@ -87,7 +87,7 @@ public class MetadataTest extends AbstractForgeTest {
 
 	private void populateFromModule(String module) {
 		try {
-			fixture = getForge().createFromModuleDirectory(getTestData(module), true, null);
+			fixture = getForge().createFromModuleDirectory(getTestData(module), true, null, null);
 		}
 		catch(IOException e) {
 			fail(e.getMessage());

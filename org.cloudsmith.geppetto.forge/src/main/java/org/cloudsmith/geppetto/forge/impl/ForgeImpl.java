@@ -115,7 +115,7 @@ class ForgeImpl implements Forge {
 
 		File[] extractedFrom = new File[1];
 
-		Metadata md = createFromModuleDirectory(moduleSource, true, extractedFrom);
+		Metadata md = createFromModuleDirectory(moduleSource, true, fileFilter, extractedFrom);
 		ModuleName fullName = md.getName();
 		if(fullName == null || fullName.getOwner() == null || fullName.getName() == null)
 			throw new IncompleteException("A full name (user-module) must be specified in the Modulefile");
@@ -177,11 +177,13 @@ class ForgeImpl implements Forge {
 
 	@Override
 	public Metadata createFromModuleDirectory(File moduleDirectory, boolean includeTypesAndChecksums,
-			File[] extractedFrom) throws IOException {
+			FileFilter filter, File[] extractedFrom) throws IOException {
 
+		if(filter == null)
+			filter = moduleFileFilter;
 		for(MetadataExtractor extractor : getMetadataExtractors())
-			if(extractor.canExtractFrom(moduleDirectory))
-				return extractor.parseMetadata(moduleDirectory, includeTypesAndChecksums, extractedFrom);
+			if(extractor.canExtractFrom(moduleDirectory, filter))
+				return extractor.parseMetadata(moduleDirectory, includeTypesAndChecksums, filter, extractedFrom);
 
 		return null;
 	}
@@ -276,9 +278,11 @@ class ForgeImpl implements Forge {
 	}
 
 	@Override
-	public boolean hasModuleMetadata(File moduleDirectory) {
+	public boolean hasModuleMetadata(File moduleDirectory, FileFilter filter) {
+		if(filter == null)
+			filter = moduleFileFilter;
 		for(MetadataExtractor extractor : metadataExtractors)
-			if(extractor.canExtractFrom(moduleDirectory))
+			if(extractor.canExtractFrom(moduleDirectory, filter))
 				return true;
 		return false;
 	}

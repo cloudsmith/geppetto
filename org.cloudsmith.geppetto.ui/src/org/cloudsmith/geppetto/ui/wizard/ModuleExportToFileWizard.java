@@ -13,11 +13,14 @@ package org.cloudsmith.geppetto.ui.wizard;
 
 import java.io.File;
 import java.io.FileFilter;
+import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.cloudsmith.geppetto.common.Strings;
 import org.cloudsmith.geppetto.forge.Forge;
+import org.cloudsmith.geppetto.forge.v2.model.Metadata;
 import org.cloudsmith.geppetto.ui.UIPlugin;
 import org.cloudsmith.geppetto.ui.wizard.ModuleExportOperation.ExportSpec;
 import org.cloudsmith.geppetto.ui.wizard.ModuleExportOperation.ResourceFileFilter;
@@ -27,10 +30,12 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.jface.dialogs.ErrorDialog;
 import org.eclipse.jface.dialogs.IDialogSettings;
+import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.jface.wizard.IWizardPage;
 import org.eclipse.jface.wizard.Wizard;
+import org.eclipse.osgi.util.NLS;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Font;
 import org.eclipse.swt.widgets.Button;
@@ -42,6 +47,7 @@ import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.ide.IDE;
 import org.eclipse.ui.internal.WorkbenchPlugin;
+import org.eclipse.ui.internal.ide.IDEWorkbenchMessages;
 import org.eclipse.ui.internal.ide.IDEWorkbenchPlugin;
 import org.eclipse.ui.internal.wizards.datatransfer.DataTransferMessages;
 import org.eclipse.ui.internal.wizards.datatransfer.WizardFileSystemResourceExportPage1;
@@ -65,7 +71,8 @@ public class ModuleExportToFileWizard extends Wizard implements IExportWizard {
 		}
 
 		public boolean canFinish() {
-			return ensureTargetIsValid(new File(getDestinationValue()));
+			File dest = getDestination();
+			return dest != null && ensureTargetIsValid(dest);
 		}
 
 		@Override
@@ -80,28 +87,6 @@ public class ModuleExportToFileWizard extends Wizard implements IExportWizard {
 			createSelectionOnlyButton = new Button(nonVisible, SWT.CHECK);
 		}
 
-		boolean executeExportOperation(ModuleExportOperation op) {
-			try {
-				getContainer().run(true, true, op);
-			}
-			catch(InterruptedException e) {
-				return false;
-			}
-			catch(InvocationTargetException e) {
-				displayErrorDialog(e.getTargetException());
-				return false;
-			}
-
-			IStatus status = op.getStatus();
-			if(!status.isOK()) {
-				ErrorDialog.openError(
-					getContainer().getShell(), DataTransferMessages.DataTransfer_exportProblems, null, // no special message
-					status);
-				return false;
-			}
-			return true;
-		}
-
 		@Override
 		public boolean finish() {
 			// about to invoke the operation so save our state
@@ -112,8 +97,10 @@ public class ModuleExportToFileWizard extends Wizard implements IExportWizard {
 				return false;
 
 			try {
-				return executeExportOperation(new ModuleExportOperation(
-					forge, getExportSpecs(), getDestinationValue(), this));
+				@SuppressWarnings("unchecked")
+				List<IResource> whiteCheckedResources = getWhiteCheckedResources();
+				return executeExport(new ModuleExportOperation(
+					forge, getExportSpecs(whiteCheckedResources), getDestination(), this));
 			}
 			catch(CoreException e) {
 				ErrorDialog.openError(
@@ -123,38 +110,11 @@ public class ModuleExportToFileWizard extends Wizard implements IExportWizard {
 			}
 		}
 
-		protected List<ExportSpec> getExportSpecs() throws CoreException {
-			@SuppressWarnings("unchecked")
-			List<IResource> resourcesToExport = getWhiteCheckedResources();
-
-			List<ExportSpec> exportSpecs = new ArrayList<ExportSpec>();
-			Multimap<IProject, IResource> resourcesPerProject = ArrayListMultimap.create();
-
-			// Collect a list of export specs where each spec represents a module root
-			// directory and a FileFilter. IProject resources are considered to be
-			// unfiltered module roots. Everything else represents subsets of files
-			// and folders beneath the project that they reside in. We represent such
-			// projects with a filter that only accepts the listed subsets.
-			for(IResource currentResource : resourcesToExport) {
-				if(!currentResource.isAccessible())
-					continue;
-
-				if(currentResource instanceof IProject) {
-					// A project to be exported as a whole
-					for(File moduleRoot : forge.findModuleRoots(currentResource.getLocation().toFile(), defaultFilter))
-						exportSpecs.add(new ExportSpec(moduleRoot, defaultFilter));
-					continue;
-				}
-				resourcesPerProject.put(currentResource.getProject(), currentResource);
-			}
-
-			for(IProject project : resourcesPerProject.keySet()) {
-				FileFilter filter = new ResourceFileFilter(resourcesPerProject.get(project), defaultFilter);
-				for(File moduleRoot : forge.findModuleRoots(project.getLocation().toFile(), filter))
-					exportSpecs.add(new ExportSpec(moduleRoot, filter));
-				continue;
-			}
-			return exportSpecs;
+		public File getDestination() {
+			String dest = Strings.trimToNull(getDestinationValue());
+			return dest == null
+					? null
+					: new File(dest);
 		}
 	}
 
@@ -203,6 +163,72 @@ public class ModuleExportToFileWizard extends Wizard implements IExportWizard {
 		return new ModuleExportToFileWizardPage(selection);
 	}
 
+	boolean executeExport(ModuleExportOperation op) {
+		try {
+			getContainer().run(true, true, op);
+		}
+		catch(InterruptedException e) {
+			return false;
+		}
+		catch(InvocationTargetException e) {
+			Throwable exception = e.getTargetException();
+			String message = exception.getMessage();
+			// Some system exceptions have no message
+			if(message == null)
+				message = NLS.bind(IDEWorkbenchMessages.WizardDataTransfer_exceptionMessage, exception);
+			MessageDialog.open(
+				MessageDialog.ERROR, getShell(), IDEWorkbenchMessages.WizardExportPage_internalErrorTitle, message,
+				SWT.SHEET);
+			return false;
+		}
+
+		IStatus status = op.getStatus();
+		if(!status.isOK()) {
+			ErrorDialog.openError(getShell(), DataTransferMessages.DataTransfer_exportProblems, null, // no special message
+				status);
+			return false;
+		}
+		return true;
+	}
+
+	protected List<ExportSpec> getExportSpecs(List<IResource> resourcesToExport) throws CoreException {
+		List<ExportSpec> exportSpecs = new ArrayList<ExportSpec>();
+		Multimap<IProject, IResource> resourcesPerProject = ArrayListMultimap.create();
+
+		// Collect a list of export specs where each spec represents a module root
+		// directory and a FileFilter. IProject resources are considered to be
+		// unfiltered module roots. Everything else represents subsets of files
+		// and folders beneath the project that they reside in. We represent such
+		// projects with a filter that only accepts the listed subsets.
+		for(IResource currentResource : resourcesToExport) {
+			if(!currentResource.isAccessible())
+				continue;
+
+			if(currentResource instanceof IProject) {
+				// A project to be exported as a whole
+				for(File moduleRoot : forge.findModuleRoots(currentResource.getLocation().toFile(), defaultFilter)) {
+					if(isValidModule(moduleRoot, defaultFilter))
+						exportSpecs.add(new ExportSpec(moduleRoot, defaultFilter));
+				}
+				continue;
+			}
+			resourcesPerProject.put(currentResource.getProject(), currentResource);
+		}
+
+		for(IProject project : resourcesPerProject.keySet()) {
+			FileFilter filter = new ResourceFileFilter(resourcesPerProject.get(project), defaultFilter);
+			for(File moduleRoot : forge.findModuleRoots(project.getLocation().toFile(), filter))
+				if(isValidModule(moduleRoot, filter))
+					exportSpecs.add(new ExportSpec(moduleRoot, filter));
+			continue;
+		}
+		return exportSpecs;
+	}
+
+	protected Forge getForge() {
+		return forge;
+	}
+
 	public void init(IWorkbench workbench, IStructuredSelection currentSelection) {
 		this.selection = currentSelection;
 		List<?> selectedResources = IDE.computeSelectedResources(currentSelection);
@@ -227,6 +253,18 @@ public class ModuleExportToFileWizard extends Wizard implements IExportWizard {
 		setWindowTitle(DataTransferMessages.DataTransfer_export);
 		setDefaultPageImageDescriptor(IDEWorkbenchPlugin.getIDEImageDescriptor("wizban/exportdir_wiz.png"));//$NON-NLS-1$
 		setNeedsProgressMonitor(true);
+	}
+
+	protected boolean isValidModule(File moduleDirectory, FileFilter filter) {
+		Metadata md;
+		try {
+			md = forge.createFromModuleDirectory(moduleDirectory, false, filter, null);
+			return md.getName() != null && md.getName().getOwner() != null && md.getName().getName() != null &&
+					md.getVersion() != null;
+		}
+		catch(IOException e) {
+		}
+		return false;
 	}
 
 	@Override

@@ -19,6 +19,14 @@ public class ForgePreferencesBean extends ForgeAPIPreferencesBean implements For
 
 	private String cacheLocation;
 
+	public ForgePreferencesBean() {
+	}
+
+	public ForgePreferencesBean(ForgePreferences copy) {
+		super(copy);
+		this.cacheLocation = copy.getCacheLocation();
+	}
+
 	@Override
 	public String getCacheLocation() {
 		return cacheLocation;

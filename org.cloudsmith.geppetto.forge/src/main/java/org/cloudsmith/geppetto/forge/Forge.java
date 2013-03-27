@@ -80,14 +80,17 @@ public interface Forge {
 	 *            The directory containing the module
 	 * @param includeTypesAndChecksums
 	 *            If set, analyze all types in and generated checksums
+	 * @param filter
+	 *            The filter that is used by the scan. Can be null in which case the injected
+	 *            filter annotated by {@link Named @Named}({@link #MODULE_FILE_FILTER}) will be used.
 	 * @param extractedFrom
 	 *            A one element File array that will receive the file that the metadata was extracted from.
 	 *            Can be <tt>null</tt> when that piece of information is of no interest
 	 * @return The created metadata
 	 * @throws IOException
 	 */
-	Metadata createFromModuleDirectory(File moduleDirectory, boolean includeTypesAndChecksums, File[] extractedFrom)
-			throws IOException;
+	Metadata createFromModuleDirectory(File moduleDirectory, boolean includeTypesAndChecksums, FileFilter filter,
+			File[] extractedFrom) throws IOException;
 
 	/**
 	 * Downloads and installs all dependencies extending from the modules described by <tt>metadatas</tt>.
@@ -139,9 +142,12 @@ public interface Forge {
 	 * be extracted from the given location.
 	 * 
 	 * @param moduleDirectory
+	 * @param filter
+	 *            The filter that is used for selecting the files. Can be null in which case the injected
+	 *            filter annotated by {@link Named @Named}({@link #MODULE_FILE_FILTER}) will be used.
 	 * @return <tt>true</tt> if a least one metadata extractor can extract metadata from the given location
 	 */
-	boolean hasModuleMetadata(File moduleDirectory);
+	boolean hasModuleMetadata(File moduleDirectory, FileFilter filter);
 
 	/**
 	 * Install a module (eg, 'user-modname') from the Forge repository. A

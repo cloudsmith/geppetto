@@ -429,7 +429,7 @@ public class PPModulefileBuilder extends IncrementalProjectBuilder implements PP
 			tracer.trace("Syncing modulefile with project");
 
 		File projectDir = project.getLocation().toFile();
-		if(!forge.hasModuleMetadata(projectDir)) {
+		if(!forge.hasModuleMetadata(projectDir, null)) {
 			// puppet project without modulefile should reference the target project
 			syncProjectReferences(Lists.newArrayList(getProjectByName(PPUiConstants.PPTP_TARGET_PROJECT_NAME)), monitor);
 			return;
@@ -462,7 +462,7 @@ public class PPModulefileBuilder extends IncrementalProjectBuilder implements PP
 
 		try {
 			// Load metadata, types, checksums etc.
-			metadata = forge.createFromModuleDirectory(projectDir, true, extractionSource);
+			metadata = forge.createFromModuleDirectory(projectDir, true, null, extractionSource);
 		}
 		catch(Exception e) {
 			createErrorMarker(project, "Can not parse modulefile or other metadata source: " + e.getMessage(), null);

@@ -19,7 +19,6 @@ import org.cloudsmith.geppetto.forge.Forge;
 import org.cloudsmith.geppetto.forge.util.ModuleUtils;
 import org.cloudsmith.geppetto.forge.v2.model.Metadata;
 import org.cloudsmith.geppetto.forge.v2.model.ModuleName;
-import org.cloudsmith.geppetto.pp.dsl.ui.preferences.PPPreferencesHelper;
 import org.cloudsmith.geppetto.ui.UIPlugin;
 import org.cloudsmith.geppetto.ui.util.ResourceUtil;
 import org.eclipse.core.resources.IFile;
@@ -73,9 +72,6 @@ public class NewPuppetModuleProjectWizard extends Wizard implements INewWizard {
 		}
 
 	}
-
-	@Inject
-	private PPPreferencesHelper preferenceHelper;
 
 	@Inject
 	private Forge forge;

@@ -194,7 +194,6 @@ public class GsonProvider implements Provider<Gson> {
 		gsonBuilder.registerTypeAdapter(ChecksumMapAdapter.TYPE, new ChecksumMapAdapter());
 		gsonBuilder.registerTypeAdapter(Date.class, new DateJsonAdapter());
 
-		gsonBuilder.setDateFormat("yyyy-MM-dd'T'HH:mm:ssZ");
 		gson = gsonBuilder.create();
 	}
 

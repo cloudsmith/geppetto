@@ -20,7 +20,7 @@ public abstract class AbstractForgeServiceMojo extends AbstractForgeMojo {
 	/**
 	 * The service URL of the Puppet ForgeAPI server
 	 */
-	@Parameter(property = "forge.serviceURL", defaultValue = "http://forge-staging-api.puppetlabs.com/")
+	@Parameter(property = "forge.serviceURL", defaultValue = "http://forgeapi.puppetlabs.com/")
 	private String serviceURL;
 
 	@Override

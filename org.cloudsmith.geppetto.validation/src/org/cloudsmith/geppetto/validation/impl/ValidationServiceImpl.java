@@ -623,7 +623,7 @@ public class ValidationServiceImpl implements ValidationService {
 		// name of target entry
 		try {
 			return forge.createFromModuleDirectory(parentFile, false, null,
-					mdProvider);
+					mdProvider, diagnostics);
 		} catch (Exception e) {
 			addFileError(diagnostics, new File("Modulefile"), parentFile,
 					"Can not parse file: " + e.getMessage(),

@@ -31,6 +31,7 @@ import org.apache.maven.plugins.annotations.Parameter;
 import org.apache.maven.project.MavenProject;
 import org.cloudsmith.geppetto.common.diagnostic.Diagnostic;
 import org.cloudsmith.geppetto.common.diagnostic.DiagnosticType;
+import org.cloudsmith.geppetto.common.diagnostic.FileDiagnostic;
 import org.cloudsmith.geppetto.forge.Forge;
 import org.cloudsmith.geppetto.forge.impl.ForgePreferencesBean;
 import org.cloudsmith.geppetto.forge.util.ModuleUtils;
@@ -38,6 +39,7 @@ import org.cloudsmith.geppetto.forge.v2.MetadataRepository;
 import org.cloudsmith.geppetto.forge.v2.model.Metadata;
 import org.cloudsmith.geppetto.forge.v2.model.ModuleName;
 import org.cloudsmith.geppetto.forge.v2.service.ReleaseService;
+import org.cloudsmith.geppetto.semver.Version;
 import org.cloudsmith.geppetto.validation.ValidationService;
 import org.cloudsmith.geppetto.validation.impl.ValidationModule;
 import org.eclipse.core.runtime.IPath;
@@ -213,36 +215,31 @@ public abstract class AbstractForgeMojo extends AbstractMojo {
 	}
 
 	protected Metadata getModuleMetadata(File moduleDirectory, Diagnostic diag) throws IOException {
-		Metadata md = getForge().createFromModuleDirectory(moduleDirectory, true, null, null);
-		if(md == null) {
-			diag.addChild(new Diagnostic(
-				Diagnostic.ERROR, DiagnosticType.GEPPETTO, "No Module Metadata found in directory " +
-						moduleDirectory.getAbsolutePath()));
+		File[] extractedFrom = new File[1];
+		Metadata md = getForge().createFromModuleDirectory(moduleDirectory, true, null, extractedFrom, diag);
+		if(md == null)
+			return null;
+
+		ModuleName fullName = md.getName();
+		if(fullName == null || fullName.getOwner() == null || fullName.getName() == null) {
+			FileDiagnostic fd = new FileDiagnostic();
+			fd.setFile(extractedFrom[0]);
+			fd.setMessage("A full name (user-module) must be specified in the Modulefile");
+			fd.setSeverity(Diagnostic.ERROR);
+			fd.setType(DiagnosticType.FORGE);
+			diag.addChild(fd);
 			return null;
 		}
 
-		if(md.getVersion() == null)
-			diag.addChild(new Diagnostic(Diagnostic.ERROR, DiagnosticType.GEPPETTO, "Module Version must not be null"));
-
-		ModuleName qname = md.getName();
-		if(qname == null)
-			diag.addChild(new Diagnostic(Diagnostic.ERROR, DiagnosticType.GEPPETTO, "Module name must not be null"));
-		else {
-			String qual = qname.getOwner();
-			String name = qname.getName();
-			if(isNull(qual)) {
-				qual = null;
-				diag.addChild(new Diagnostic(
-					Diagnostic.ERROR, DiagnosticType.GEPPETTO, "Module Qualifier must not be null"));
-			}
-			if(isNull(name)) {
-				name = null;
-				diag.addChild(new Diagnostic(Diagnostic.ERROR, DiagnosticType.GEPPETTO, "Module Name must not be null"));
-			}
-			if(qual == null || name == null) {
-				qname = new ModuleName(qual, name);
-				md.setName(qname);
-			}
+		Version ver = md.getVersion();
+		if(ver == null) {
+			FileDiagnostic fd = new FileDiagnostic();
+			fd.setFile(extractedFrom[0]);
+			fd.setMessage("A version must be specified in the Modulefile");
+			fd.setSeverity(Diagnostic.ERROR);
+			fd.setType(DiagnosticType.FORGE);
+			diag.addChild(fd);
+			return null;
 		}
 		return md;
 	}

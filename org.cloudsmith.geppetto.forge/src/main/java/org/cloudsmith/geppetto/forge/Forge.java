@@ -52,10 +52,13 @@ public interface Forge {
 	 *            filter annotated by {@link Named @Named}({@link #MODULE_FILE_FILTER}) will be used.
 	 * @param resultingMetadata
 	 *            A one element array that will receive the resulting metadata. Can be <tt>null</tt>.
-	 * @return The resulting gzipped tar file.
+	 * @param result
+	 *            diagnostics generated during extraction
+	 * @return The resulting gzipped tar file or <code>null</code> if extraction could not be performed. When that happens, the result will contain
+	 *         the reason.
 	 */
-	File build(File moduleSource, File destination, FileFilter filter, Metadata[] resultingMetadata)
-			throws IOException, IncompleteException;
+	File build(File moduleSource, File destination, FileFilter filter, Metadata[] resultingMetadata, Diagnostic result)
+			throws IOException;
 
 	/**
 	 * List modified files in an installed module
@@ -86,11 +89,15 @@ public interface Forge {
 	 * @param extractedFrom
 	 *            A one element File array that will receive the file that the metadata was extracted from.
 	 *            Can be <tt>null</tt> when that piece of information is of no interest
-	 * @return The created metadata
+	 *            Can be <tt>null</tt> when that piece of information is of no interest
+	 * @param result
+	 *            diagnostics generated during extraction
+	 * @return The extracted metadata or <code>null</code> if extraction could not be performed. When that happens, the result will contain the
+	 *         reason.
 	 * @throws IOException
 	 */
 	Metadata createFromModuleDirectory(File moduleDirectory, boolean includeTypesAndChecksums, FileFilter filter,
-			File[] extractedFrom) throws IOException;
+			File[] extractedFrom, Diagnostic result) throws IOException;
 
 	/**
 	 * Downloads and installs all dependencies extending from the modules described by <tt>metadatas</tt>.

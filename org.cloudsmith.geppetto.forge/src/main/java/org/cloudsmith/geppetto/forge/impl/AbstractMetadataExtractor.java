@@ -16,6 +16,7 @@ import java.io.FileFilter;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
+import org.cloudsmith.geppetto.common.diagnostic.Diagnostic;
 import org.cloudsmith.geppetto.forge.MetadataExtractor;
 import org.cloudsmith.geppetto.forge.util.Checksums;
 import org.cloudsmith.geppetto.forge.util.Types;
@@ -30,13 +31,13 @@ public abstract class AbstractMetadataExtractor implements MetadataExtractor {
 
 	@Override
 	public Metadata parseMetadata(File moduleDirectory, boolean includeTypesAndChecksums, FileFilter filter,
-			File[] extractedFrom) throws IOException {
+			File[] extractedFrom, Diagnostic result) throws IOException {
 		File metadataFile = new File(moduleDirectory, getPrimarySource());
 		if(!canExtractFrom(moduleDirectory, filter))
 			throw new FileNotFoundException(metadataFile.getAbsolutePath());
 
-		Metadata md = performMetadataExtraction(metadataFile);
-		if(getCardinal() > 0 && includeTypesAndChecksums) {
+		Metadata md = performMetadataExtraction(metadataFile, result);
+		if(md != null && getCardinal() > 0 && includeTypesAndChecksums) {
 			md.setTypes(Types.loadTypes(new File(moduleDirectory, "lib/puppet"), filter));
 			md.setChecksums(Checksums.loadChecksums(moduleDirectory, filter));
 		}
@@ -45,5 +46,5 @@ public abstract class AbstractMetadataExtractor implements MetadataExtractor {
 		return md;
 	}
 
-	protected abstract Metadata performMetadataExtraction(File existingFile) throws IOException;
+	protected abstract Metadata performMetadataExtraction(File existingFile, Diagnostic result) throws IOException;
 }

@@ -295,8 +295,11 @@ public class Validate extends AbstractForgeServiceMojo {
 
 		Collection<File> importedModuleLocations = null;
 		List<Metadata> metadatas = new ArrayList<Metadata>();
-		for(File moduleRoot : moduleLocations)
-			metadatas.add(getModuleMetadata(moduleRoot, result));
+		for(File moduleRoot : moduleLocations) {
+			Metadata md = getModuleMetadata(moduleRoot, result);
+			if(md != null)
+				metadatas.add(md);
+		}
 
 		if(result.getSeverity() == Diagnostic.ERROR)
 			return;

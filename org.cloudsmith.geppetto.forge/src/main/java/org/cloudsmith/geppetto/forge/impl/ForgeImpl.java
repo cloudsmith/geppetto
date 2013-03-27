@@ -44,13 +44,13 @@ import org.apache.http.client.HttpResponseException;
 import org.cloudsmith.geppetto.common.diagnostic.Diagnostic;
 import org.cloudsmith.geppetto.common.diagnostic.DiagnosticType;
 import org.cloudsmith.geppetto.common.diagnostic.ExceptionDiagnostic;
+import org.cloudsmith.geppetto.common.diagnostic.FileDiagnostic;
 import org.cloudsmith.geppetto.common.os.FileUtils;
 import org.cloudsmith.geppetto.common.os.StreamUtil;
 import org.cloudsmith.geppetto.forge.AlreadyPublishedException;
 import org.cloudsmith.geppetto.forge.Cache;
 import org.cloudsmith.geppetto.forge.ERB;
 import org.cloudsmith.geppetto.forge.Forge;
-import org.cloudsmith.geppetto.forge.IncompleteException;
 import org.cloudsmith.geppetto.forge.MetadataExtractor;
 import org.cloudsmith.geppetto.forge.util.Checksums;
 import org.cloudsmith.geppetto.forge.util.ModuleUtils;
@@ -108,21 +108,39 @@ class ForgeImpl implements Forge {
 	};
 
 	@Override
-	public File build(File moduleSource, File destination, FileFilter fileFilter, Metadata[] resultingMetadata)
-			throws IOException, IncompleteException {
+	public File build(File moduleSource, File destination, FileFilter fileFilter, Metadata[] resultingMetadata,
+			Diagnostic result) throws IOException {
 		if(fileFilter == null)
 			fileFilter = moduleFileFilter;
 
 		File[] extractedFrom = new File[1];
 
-		Metadata md = createFromModuleDirectory(moduleSource, true, fileFilter, extractedFrom);
+		Metadata md = createFromModuleDirectory(moduleSource, true, fileFilter, extractedFrom, result);
+		if(md == null)
+			// Metadata could not be read. Errors are in result
+			return null;
+
 		ModuleName fullName = md.getName();
-		if(fullName == null || fullName.getOwner() == null || fullName.getName() == null)
-			throw new IncompleteException("A full name (user-module) must be specified in the Modulefile");
+		if(fullName == null || fullName.getOwner() == null || fullName.getName() == null) {
+			FileDiagnostic fd = new FileDiagnostic();
+			fd.setFile(extractedFrom[0]);
+			fd.setMessage("A full name (user-module) must be specified in the Modulefile");
+			fd.setSeverity(Diagnostic.ERROR);
+			fd.setType(DiagnosticType.FORGE);
+			result.addChild(fd);
+			return null;
+		}
 
 		Version ver = md.getVersion();
-		if(ver == null)
-			throw new IncompleteException("version must be specified in the Modulefile");
+		if(ver == null) {
+			FileDiagnostic fd = new FileDiagnostic();
+			fd.setFile(extractedFrom[0]);
+			fd.setMessage("A version must be specified in the Modulefile");
+			fd.setSeverity(Diagnostic.ERROR);
+			fd.setType(DiagnosticType.FORGE);
+			result.addChild(fd);
+			return null;
+		}
 
 		for(File tst = destination; tst != null; tst = tst.getParentFile()) {
 			if(fileFilter.accept(tst))
@@ -177,14 +195,17 @@ class ForgeImpl implements Forge {
 
 	@Override
 	public Metadata createFromModuleDirectory(File moduleDirectory, boolean includeTypesAndChecksums,
-			FileFilter filter, File[] extractedFrom) throws IOException {
+			FileFilter filter, File[] extractedFrom, Diagnostic result) throws IOException {
 
 		if(filter == null)
 			filter = moduleFileFilter;
 		for(MetadataExtractor extractor : getMetadataExtractors())
 			if(extractor.canExtractFrom(moduleDirectory, filter))
-				return extractor.parseMetadata(moduleDirectory, includeTypesAndChecksums, filter, extractedFrom);
+				return extractor.parseMetadata(moduleDirectory, includeTypesAndChecksums, filter, extractedFrom, result);
 
+		result.addChild(new Diagnostic(
+			Diagnostic.ERROR, DiagnosticType.FORGE, "No Module Metadata found in directory " +
+					moduleDirectory.getAbsolutePath()));
 		return null;
 	}
 

@@ -22,6 +22,7 @@ import org.cloudsmith.geppetto.forge.ForgePreferences;
 import org.cloudsmith.geppetto.forge.ForgeService;
 import org.cloudsmith.geppetto.forge.impl.ForgePreferencesBean;
 import org.cloudsmith.geppetto.forge.util.Checksums;
+import org.cloudsmith.geppetto.forge.v2.model.Metadata;
 import org.cloudsmith.geppetto.forge.v2.model.ModuleName;
 import org.cloudsmith.geppetto.pp.dsl.ui.preferences.PPPreferencesHelper;
 import org.cloudsmith.geppetto.ui.UIPlugin;
@@ -86,15 +87,19 @@ public class ModuleExportToForgeWizard extends ModuleExportToFileWizard {
 				List<IResource> whiteCheckedResources = getWhiteCheckedResources();
 				UIPlugin plugin = UIPlugin.INSTANCE;
 				String owner = null;
+				Diagnostic diag = new Diagnostic();
 				for(ExportSpec spec : getExportSpecs(whiteCheckedResources)) {
 					try {
-						ModuleName name = getForge().createFromModuleDirectory(
-							spec.getModuleRoot(), false, spec.getFileFilter(), null).getName();
-						if(owner == null)
-							owner = name.getOwner();
-						else if(!owner.equals(name.getOwner())) {
-							setErrorMessage(plugin.getString("_UI_MultipleModuleOwners"));
-							return false;
+						Metadata md = getForge().createFromModuleDirectory(
+							spec.getModuleRoot(), false, spec.getFileFilter(), null, diag);
+						if(md != null) {
+							ModuleName name = md.getName();
+							if(owner == null)
+								owner = name.getOwner();
+							else if(!owner.equals(name.getOwner())) {
+								setErrorMessage(plugin.getString("_UI_MultipleModuleOwners"));
+								return false;
+							}
 						}
 					}
 					catch(IOException e) {

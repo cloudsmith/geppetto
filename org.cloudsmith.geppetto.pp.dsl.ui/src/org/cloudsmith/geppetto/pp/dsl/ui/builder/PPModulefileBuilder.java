@@ -18,6 +18,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.log4j.Logger;
+import org.cloudsmith.geppetto.common.diagnostic.Diagnostic;
 import org.cloudsmith.geppetto.common.tracer.DefaultTracer;
 import org.cloudsmith.geppetto.common.tracer.ITracer;
 import org.cloudsmith.geppetto.forge.Forge;
@@ -460,9 +461,10 @@ public class PPModulefileBuilder extends IncrementalProjectBuilder implements PP
 			metadataDerived = !metadataResource.exists();
 		}
 
+		Diagnostic diagnostic = new Diagnostic();
 		try {
 			// Load metadata, types, checksums etc.
-			metadata = forge.createFromModuleDirectory(projectDir, true, null, extractionSource);
+			metadata = forge.createFromModuleDirectory(projectDir, true, null, extractionSource, diagnostic);
 		}
 		catch(Exception e) {
 			createErrorMarker(project, "Can not parse modulefile or other metadata source: " + e.getMessage(), null);

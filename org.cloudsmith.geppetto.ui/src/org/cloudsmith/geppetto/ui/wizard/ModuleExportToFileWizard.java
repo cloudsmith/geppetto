@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.cloudsmith.geppetto.common.Strings;
+import org.cloudsmith.geppetto.common.diagnostic.Diagnostic;
 import org.cloudsmith.geppetto.forge.Forge;
 import org.cloudsmith.geppetto.forge.v2.model.Metadata;
 import org.cloudsmith.geppetto.ui.UIPlugin;
@@ -258,9 +259,9 @@ public class ModuleExportToFileWizard extends Wizard implements IExportWizard {
 	protected boolean isValidModule(File moduleDirectory, FileFilter filter) {
 		Metadata md;
 		try {
-			md = forge.createFromModuleDirectory(moduleDirectory, false, filter, null);
-			return md.getName() != null && md.getName().getOwner() != null && md.getName().getName() != null &&
-					md.getVersion() != null;
+			md = forge.createFromModuleDirectory(moduleDirectory, false, filter, null, new Diagnostic());
+			return md != null && md.getName() != null && md.getName().getOwner() != null &&
+					md.getName().getName() != null && md.getVersion() != null;
 		}
 		catch(IOException e) {
 		}

@@ -16,6 +16,7 @@ import java.util.Collections;
 import java.util.List;
 
 import org.apache.log4j.Logger;
+import org.cloudsmith.geppetto.common.diagnostic.Diagnostic;
 import org.cloudsmith.geppetto.forge.Forge;
 import org.cloudsmith.geppetto.forge.v2.model.Dependency;
 import org.cloudsmith.geppetto.forge.v2.model.Metadata;
@@ -92,18 +93,20 @@ public class PPWorkspaceProjectsStateHelper extends AbstractStorage2UriMapperCli
 			List<String> result = Lists.newArrayList();
 
 			// parse the "Modulefile" and get full name and version, use this as name of target entry
+			// TODO: Improve this to report diagnostics
 			try {
-				Metadata metadata = forge.createFromModuleDirectory(moduleDir, false, null, null);
-
-				for(Dependency d : metadata.getDependencies()) {
-					IProject best = getBestMatchingProject(d);
-					if(best != null)
-						result.add(best.getName());
-					else {
-						// TODO: need to inform the user about this somehow, but can't create markers here
+				Diagnostic diag = new Diagnostic();
+				Metadata metadata = forge.createFromModuleDirectory(moduleDir, false, null, null, diag);
+				if(metadata != null) {
+					for(Dependency d : metadata.getDependencies()) {
+						IProject best = getBestMatchingProject(d);
+						if(best != null)
+							result.add(best.getName());
+						else {
+							// TODO: need to inform the user about this somehow, but can't create markers here
+						}
 					}
 				}
-
 			}
 			catch(Exception e) {
 				if(log.isDebugEnabled())

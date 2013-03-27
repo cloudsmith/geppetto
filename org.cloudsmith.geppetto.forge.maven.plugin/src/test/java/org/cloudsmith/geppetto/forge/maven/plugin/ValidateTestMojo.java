@@ -20,7 +20,7 @@ public class ValidateTestMojo extends AbstractForgeTestMojo {
 			fail("Complex ruby was not detected");
 		}
 		catch(MojoFailureException e) {
-			assertTrue("Complex ruby was not detected", e.getMessage().contains("Version must not be null"));
+			assertTrue("Complex ruby was not detected", e.getMessage().contains("version must be specified"));
 		}
 	}
 
@@ -36,7 +36,7 @@ public class ValidateTestMojo extends AbstractForgeTestMojo {
 		}
 		catch(MojoFailureException e) {
 			assertTrue(
-				"Interpolated complex ruby was not detected", e.getMessage().contains("Version must not be null"));
+				"Interpolated complex ruby was not detected", e.getMessage().contains("version must be specified"));
 		}
 	}
 
@@ -51,7 +51,7 @@ public class ValidateTestMojo extends AbstractForgeTestMojo {
 			fail("Invalid metadata was not detected");
 		}
 		catch(MojoFailureException e) {
-			assertTrue("Invalid metadata was not detected", e.getMessage().contains("Invalid Json"));
+			assertTrue("Invalid metadata was not detected", e.getMessage().contains("MalformedJsonException"));
 		}
 	}
 
@@ -99,7 +99,7 @@ public class ValidateTestMojo extends AbstractForgeTestMojo {
 		catch(MojoFailureException e) {
 			assertTrue(
 				"Missing module name in metadata.json was not detected",
-				e.getMessage().contains("name must not be null"));
+				e.getMessage().contains("name (user-module) must be specified"));
 		}
 	}
 
@@ -116,7 +116,7 @@ public class ValidateTestMojo extends AbstractForgeTestMojo {
 		catch(MojoFailureException e) {
 			assertTrue(
 				"Missing module version in metadata.json was not detected",
-				e.getMessage().contains("Version must not be null"));
+				e.getMessage().contains("version must be specified"));
 		}
 	}
 
@@ -131,7 +131,8 @@ public class ValidateTestMojo extends AbstractForgeTestMojo {
 			fail("Missing module name was not detected");
 		}
 		catch(MojoFailureException e) {
-			assertTrue("Missing module name was not detected", e.getMessage().contains("name must not be null"));
+			assertTrue(
+				"Missing module name was not detected", e.getMessage().contains("name (user-module) must be specified"));
 		}
 	}
 
@@ -146,7 +147,7 @@ public class ValidateTestMojo extends AbstractForgeTestMojo {
 			fail("Missing module version was not detected");
 		}
 		catch(MojoFailureException e) {
-			assertTrue("Missing module version was not detected", e.getMessage().contains("Version must not be null"));
+			assertTrue("Missing module version was not detected", e.getMessage().contains("version must be specified"));
 		}
 	}
 

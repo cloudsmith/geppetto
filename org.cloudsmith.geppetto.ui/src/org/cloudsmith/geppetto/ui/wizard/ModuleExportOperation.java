@@ -104,15 +104,19 @@ public class ModuleExportOperation implements IRunnableWithProgress {
 	}
 
 	public void run(IProgressMonitor monitor) throws InterruptedException {
-		monitor.beginTask(null, 100 * exportSpecs.size());
+		monitor.beginTask(null, 100);
 		try {
+			List<String> subtaskNames = new ArrayList<String>(exportSpecs.size());
+			for(ExportSpec spec : exportSpecs)
+				subtaskNames.add("Building module " + spec.getModuleRoot().getPath());
+
+			DiagnosticWithProgress diagWithProgress = new DiagnosticWithProgress(monitor, 100, subtaskNames, 200);
 			for(ExportSpec spec : exportSpecs) {
 				if(monitor.isCanceled())
 					throw new OperationCanceledException();
 				try {
-					monitor.subTask("Building module " + spec.getModuleRoot().getPath());
-					monitor.worked(1);
-					forge.build(spec.getModuleRoot(), destination, spec.getFileFilter(), null);
+					forge.build(spec.getModuleRoot(), destination, spec.getFileFilter(), null, diagWithProgress);
+					diagWithProgress.taskDone();
 				}
 				catch(IOException e) {
 					errorTable.add(new Status(
@@ -120,8 +124,8 @@ public class ModuleExportOperation implements IRunnableWithProgress {
 							DataTransferMessages.DataTransfer_errorExporting, spec.getModuleRoot().getAbsoluteFile(),
 							e.getMessage()), e));
 				}
-				monitor.worked(99);
 			}
+			diagWithProgress.done();
 		}
 		finally {
 			monitor.done();

@@ -17,10 +17,14 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.Reader;
 
+import org.cloudsmith.geppetto.common.diagnostic.Diagnostic;
+import org.cloudsmith.geppetto.common.diagnostic.DiagnosticType;
+import org.cloudsmith.geppetto.common.diagnostic.FileDiagnostic;
 import org.cloudsmith.geppetto.common.os.StreamUtil;
 import org.cloudsmith.geppetto.forge.v2.model.Metadata;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonSyntaxException;
 import com.google.inject.Inject;
 
 public class MetadataJSONExtractor extends AbstractMetadataExtractor {
@@ -37,11 +41,20 @@ public class MetadataJSONExtractor extends AbstractMetadataExtractor {
 	}
 
 	@Override
-	protected Metadata performMetadataExtraction(File existingFile) throws IOException {
+	protected Metadata performMetadataExtraction(File existingFile, Diagnostic result) throws IOException {
 		Reader reader = new BufferedReader(new FileReader(existingFile));
 		try {
-			Metadata md = gson.fromJson(reader, Metadata.class);
-			return md;
+			return gson.fromJson(reader, Metadata.class);
+		}
+		catch(JsonSyntaxException e) {
+			FileDiagnostic fd = new FileDiagnostic();
+			fd.setFile(existingFile);
+			fd.setLineNumber(1); // We don't know really
+			fd.setMessage(e.getMessage());
+			fd.setSeverity(Diagnostic.ERROR);
+			fd.setType(DiagnosticType.FORGE);
+			result.addChild(fd);
+			return null;
 		}
 		finally {
 			StreamUtil.close(reader);

@@ -14,6 +14,7 @@ package org.cloudsmith.geppetto.forge.impl;
 import java.io.File;
 import java.io.IOException;
 
+import org.cloudsmith.geppetto.common.diagnostic.Diagnostic;
 import org.cloudsmith.geppetto.forge.util.ModuleUtils;
 import org.cloudsmith.geppetto.forge.v2.model.Metadata;
 
@@ -28,7 +29,7 @@ public class ModulefileExtractor extends AbstractMetadataExtractor {
 	}
 
 	@Override
-	protected Metadata performMetadataExtraction(File existingFile) throws IOException {
-		return ModuleUtils.parseModulefile(existingFile);
+	protected Metadata performMetadataExtraction(File existingFile, Diagnostic result) throws IOException {
+		return ModuleUtils.parseModulefile(existingFile, result);
 	}
 }

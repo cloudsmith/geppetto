@@ -22,6 +22,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
+import org.cloudsmith.geppetto.common.diagnostic.Diagnostic;
 import org.cloudsmith.geppetto.forge.util.Checksums;
 import org.cloudsmith.geppetto.forge.util.ModuleUtils;
 import org.cloudsmith.geppetto.forge.util.Types;
@@ -87,7 +88,7 @@ public class MetadataTest extends AbstractForgeTest {
 
 	private void populateFromModule(String module) {
 		try {
-			fixture = getForge().createFromModuleDirectory(getTestData(module), true, null, null);
+			fixture = getForge().createFromModuleDirectory(getTestData(module), true, null, null, new Diagnostic());
 		}
 		catch(IOException e) {
 			fail(e.getMessage());
@@ -165,7 +166,7 @@ public class MetadataTest extends AbstractForgeTest {
 			ModuleUtils.saveAsModulefile(fixture, moduleFile);
 			assertTrue("No readable Modulefile file was generated", moduleFile.canRead());
 
-			Metadata tst = ModuleUtils.parseModulefile(moduleFile);
+			Metadata tst = ModuleUtils.parseModulefile(moduleFile, new Diagnostic());
 			assertEquals("Expected 2 dependencies", 2, tst.getDependencies().size());
 			assertEquals("Expected 3 lines of text", 3, countLines(tst.getDescription()));
 			assertEquals("Expected 4 lines of text", 4, countLines(tst.getSummary()));

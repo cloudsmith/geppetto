@@ -19,7 +19,6 @@ import org.apache.maven.plugins.annotations.LifecyclePhase;
 import org.apache.maven.plugins.annotations.Mojo;
 import org.cloudsmith.geppetto.common.diagnostic.Diagnostic;
 import org.cloudsmith.geppetto.common.diagnostic.DiagnosticType;
-import org.cloudsmith.geppetto.forge.IncompleteException;
 
 /**
  * Goal that builds the module gzipped tarball and optionally generates the <tt>metadata.json</tt> file.
@@ -27,13 +26,7 @@ import org.cloudsmith.geppetto.forge.IncompleteException;
 @Mojo(name = "package", requiresProject = false, defaultPhase = LifecyclePhase.PACKAGE)
 public class Package extends AbstractForgeMojo {
 	private File buildForge(File moduleSource, File destination, Diagnostic result) throws IOException {
-		try {
-			return getForge().build(moduleSource, destination, null, null);
-		}
-		catch(IncompleteException e) {
-			result.addChild(new Diagnostic(Diagnostic.ERROR, DiagnosticType.PACKAGE, e.getMessage()));
-			return null;
-		}
+		return getForge().build(moduleSource, destination, null, null, result);
 	}
 
 	@Override

@@ -134,7 +134,7 @@ public class Diagnostic implements Serializable {
 
 	public String getErrorText() {
 		StringBuilder bld = new StringBuilder();
-		toString(ERROR, bld, 0);
+		toString(ERROR, bld, false, 0);
 		return bld.toString();
 	}
 
@@ -272,7 +272,7 @@ public class Diagnostic implements Serializable {
 		return bld.toString();
 	}
 
-	private void toString(int severity, StringBuilder bld, int indent) {
+	private void toString(int severity, StringBuilder bld, boolean includeTopSeverity, int indent) {
 		if(getSeverity() < severity)
 			// Severity is transitive, so nothing to add here
 			return;
@@ -291,8 +291,10 @@ public class Diagnostic implements Serializable {
 			}
 		}
 		else {
-			bld.append(getSeverityString());
-			bld.append(':');
+			if(includeTopSeverity || indent > 0) {
+				bld.append(getSeverityString());
+				bld.append(':');
+			}
 
 			if(resourcePath != null) {
 				bld.append(resourcePath);
@@ -317,7 +319,7 @@ public class Diagnostic implements Serializable {
 			int top = children.size();
 			int idx = 0;
 			for(;;) {
-				children.get(idx).toString(severity, bld, indent);
+				children.get(idx).toString(severity, bld, includeTopSeverity, indent);
 				if(++idx >= top)
 					break;
 				bld.append('\n');
@@ -326,6 +328,6 @@ public class Diagnostic implements Serializable {
 	}
 
 	public void toString(StringBuilder bld, int indent) {
-		toString(INFO, bld, indent);
+		toString(INFO, bld, true, indent);
 	}
 }

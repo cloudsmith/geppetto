@@ -98,7 +98,7 @@ public class VersionRange implements Serializable {
 			case EQUAL:
 				// Version with pre-release
 				maxInclude = true;
-				min = max = Version.create(version);
+				min = max = createVersion(version, versionRequirement);
 				break;
 
 			case TILDE: {
@@ -133,7 +133,7 @@ public class VersionRange implements Serializable {
 				Matcher m = X_PATTERN.matcher(version);
 				if(!m.matches()) {
 					maxInclude = true;
-					min = max = Version.create(version);
+					min = max = createVersion(version, versionRequirement);
 					moreAllowed = true; // xxx - yyy range still possible
 					break;
 				}
@@ -157,14 +157,14 @@ public class VersionRange implements Serializable {
 			case LESS_EQUAL:
 				maxInclude = compareType == CompareType.LESS_EQUAL;
 				min = Version.MIN;
-				max = Version.create(version);
+				max = createVersion(version, versionRequirement);
 				moreAllowed = true;
 				break;
 
 			default: // GREATER or GREATER_EQUAL
 				minInclude = compareType == CompareType.GREATER_EQUAL;
 				maxInclude = true;
-				min = Version.create(version);
+				min = createVersion(version, versionRequirement);
 				max = Version.MAX;
 				moreAllowed = true;
 				break;
@@ -185,7 +185,7 @@ public class VersionRange implements Serializable {
 					if(compareType != CompareType.EQUAL_WITHOUT_OP)
 						throw new IllegalArgumentException(
 							"Can't create a dash range unless both sides are without operator");
-					max = Version.create(version);
+					max = createVersion(version, versionRequirement);
 					maxInclude = true;
 					break;
 
@@ -193,7 +193,7 @@ public class VersionRange implements Serializable {
 				case LESS_EQUAL:
 					if(compareType == CompareType.LESS || compareType == CompareType.LESS_EQUAL)
 						throw new IllegalArgumentException("Can't combine two 'less' conditions into a range");
-					max = Version.create(version);
+					max = createVersion(version, versionRequirement);
 					maxInclude = compareType2 == CompareType.LESS_EQUAL;
 					break;
 
@@ -201,7 +201,7 @@ public class VersionRange implements Serializable {
 				case GREATER_EQUAL:
 					if(compareType == CompareType.GREATER || compareType == CompareType.GREATER_EQUAL)
 						throw new IllegalArgumentException("Can't combine two 'greater' conditions into a range");
-					min = Version.create(version);
+					min = createVersion(version, versionRequirement);
 					minInclude = compareType2 == CompareType.GREATER_EQUAL;
 					break;
 
@@ -228,6 +228,15 @@ public class VersionRange implements Serializable {
 	public static VersionRange create(Version lower, boolean lowerBoundInclusive, Version upper,
 			boolean upperBoundInclusive) {
 		return new VersionRange(null, lower, lowerBoundInclusive, upper, upperBoundInclusive);
+	}
+
+	private static Version createVersion(String version, String range) {
+		try {
+			return Version.create(version);
+		}
+		catch(IllegalArgumentException e) {
+			throw vomit(e.getMessage(), range);
+		}
 	}
 
 	/**

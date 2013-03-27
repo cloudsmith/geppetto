@@ -13,6 +13,7 @@ package org.cloudsmith.geppetto.ui.editor;
 
 import java.io.IOException;
 
+import org.cloudsmith.geppetto.common.diagnostic.Diagnostic;
 import org.cloudsmith.geppetto.forge.util.ModuleUtils;
 import org.cloudsmith.geppetto.forge.v2.model.Metadata;
 import org.cloudsmith.geppetto.ui.UIPlugin;
@@ -88,9 +89,9 @@ public class ModuleMetadataEditor extends FormEditor {
 
 		if(input instanceof FileEditorInput) {
 			try {
-				metadata = ModuleUtils.parseModulefile(((FileEditorInput) input).getPath().toFile());
-
-				setPartName(metadata.getName().toString());
+				metadata = ModuleUtils.parseModulefile(((FileEditorInput) input).getPath().toFile(), new Diagnostic());
+				if(metadata != null)
+					setPartName(metadata.getName().toString());
 			}
 			catch(IOException ioe) {
 				UIPlugin.INSTANCE.log(ioe);

@@ -15,6 +15,7 @@ import java.io.File;
 import java.io.FileFilter;
 import java.io.IOException;
 
+import org.cloudsmith.geppetto.common.diagnostic.Diagnostic;
 import org.cloudsmith.geppetto.forge.v2.model.Metadata;
 
 /**
@@ -60,10 +61,13 @@ public interface MetadataExtractor {
 	 * @param extractedFrom
 	 *            A one element File array that will receive the file that the metadata was extracted from.
 	 *            Can be <tt>null</tt> when that piece of information is of no interest
-	 * @return The extracted metadata
+	 * @param result
+	 *            diagnostics generated during extraction
+	 * @return The extracted metadata or <code>null</code> if extraction could not be performed. When that happens, the result will contain the
+	 *         reason.
 	 * @throws IOException
 	 *             if extraction failed
 	 */
-	Metadata parseMetadata(File moduleDir, boolean includeTypesAndChecksums, FileFilter filter, File[] extractedFrom)
-			throws IOException;
+	Metadata parseMetadata(File moduleDir, boolean includeTypesAndChecksums, FileFilter filter, File[] extractedFrom,
+			Diagnostic result) throws IOException;
 }

@@ -21,6 +21,9 @@ import java.util.Collection;
 import java.util.List;
 import java.util.regex.Pattern;
 
+import org.cloudsmith.geppetto.common.diagnostic.Diagnostic;
+import org.cloudsmith.geppetto.common.diagnostic.DiagnosticType;
+import org.cloudsmith.geppetto.common.diagnostic.FileDiagnostic;
 import org.cloudsmith.geppetto.common.os.StreamUtil;
 import org.cloudsmith.geppetto.forge.MetadataExtractor;
 import org.cloudsmith.geppetto.forge.v2.model.Dependency;
@@ -28,6 +31,7 @@ import org.cloudsmith.geppetto.forge.v2.model.Metadata;
 import org.cloudsmith.geppetto.forge.v2.model.ModuleName;
 import org.cloudsmith.geppetto.semver.Version;
 import org.cloudsmith.geppetto.semver.VersionRange;
+import org.jrubyparser.SourcePosition;
 import org.jrubyparser.ast.FCallNode;
 import org.jrubyparser.ast.IArgumentNode;
 import org.jrubyparser.ast.ListNode;
@@ -272,21 +276,37 @@ public class ModuleUtils {
 	 * @throws IOException
 	 *             when it is not possible to read the <tt>modulefile</tt>.
 	 */
-	public static Metadata parseModulefile(File modulefile) throws IOException {
+	public static Metadata parseModulefile(File modulefile, Diagnostic result) throws IOException {
+		boolean hasErrors = false;
 		Metadata receiver = new Metadata();
 		RootNode root = RubyParserUtils.parseFile(modulefile);
 		for(Node node : RubyParserUtils.findNodes(root.getBody(), new NodeType[] { NodeType.FCALLNODE })) {
 			FCallNode call = (FCallNode) node;
 			String key = call.getName();
 			List<String> args = getStringArguments(call);
-			if(args.size() == 1)
-				call(receiver, key, args.get(0));
-			else if(args.size() == 2)
-				call(receiver, key, args.get(0), args.get(1));
-			else if(args.size() == 3)
-				call(receiver, key, args.get(0), args.get(1), args.get(2));
+			try {
+				if(args.size() == 1)
+					call(receiver, key, args.get(0));
+				else if(args.size() == 2)
+					call(receiver, key, args.get(0), args.get(1));
+				else if(args.size() == 3)
+					call(receiver, key, args.get(0), args.get(1), args.get(2));
+			}
+			catch(IllegalArgumentException e) {
+				SourcePosition pos = call.getPosition();
+				FileDiagnostic diag = new FileDiagnostic();
+				diag.setFile(new File(pos.getFile()));
+				diag.setLineNumber(pos.getEndLine());
+				diag.setMessage(e.getMessage());
+				diag.setSeverity(Diagnostic.ERROR);
+				diag.setType(DiagnosticType.FORGE);
+				result.addChild(diag);
+				hasErrors = true;
+			}
 		}
-		return receiver;
+		return hasErrors
+				? null
+				: receiver;
 	}
 
 	private static void printRubyString(Writer out, String str) throws IOException {

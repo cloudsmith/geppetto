@@ -71,7 +71,7 @@ notifications:
   email:
     on_success: always
 script:
-- git clone -q git://github.com/cloudsmith/ghpublisher.git .forge-releng
+- git clone -q git://github.com/puppetlabs/ghpublisher.git .forge-releng
 - .forge-releng/publish
 env:
   global:
@@ -92,7 +92,7 @@ env:
    
    [[2]] In response to this, Travis starts a build according to the configuration that you provided in the <<<.travis.yml>>> file.
    
-   [[3]] The configuration instructs Travis to clone the <ghpublisher.git> repository from Cloudsmith into the folder <<<.forge-releng>>>. This repository contains some
+   [[3]] The configuration instructs Travis to clone the <ghpublisher.git> repository from Puppetlabs into the folder <<<.forge-releng>>>. This repository contains some
    scripts, a Maven settings.xml file, and a Maven POM.
    
    [[4]] Travis decodes the 'secure' string and makes your Forge password available to the build. The password is of course

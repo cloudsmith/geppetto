@@ -11,7 +11,7 @@
 			<plugin>
 				<groupId>org.cloudsmith.geppetto</groupId>
 				<artifactId>forge-maven-plugin</artifactId>
-				<version>3.0.3-beta-SNAPSHOT</version>
+				<version>3.0.3-rc-SNAPSHOT</version>
 				<executions>
 					<execution>
 						<id>validate</id>

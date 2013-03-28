@@ -3,7 +3,7 @@
 	<parent>
 		<groupId>org.cloudsmith.geppetto</groupId>
 		<artifactId>parent</artifactId>
-		<version>3.0.3-beta</version>
+		<version>3.0.3-rc-SNAPSHOT</version>
 	</parent>
 	<artifactId>org.cloudsmith.geppetto.forge.api</artifactId>
 	<name>Geppetto Forge API</name>
@@ -32,7 +32,7 @@
 		<dependency>
 			<groupId>org.cloudsmith.geppetto</groupId>
 			<artifactId>org.cloudsmith.geppetto.semver</artifactId>
-			<version>3.0.3-beta</version>
+			<version>3.0.3-rc-SNAPSHOT</version>
 		</dependency>
 	</dependencies>
 </project>

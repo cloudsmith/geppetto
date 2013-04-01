@@ -407,7 +407,7 @@ public class PPJavaValidator extends AbstractPPJavaValidator implements IPPDiagn
 			acceptor.acceptError(
 				"Expression left of [] is required", o, PPPackage.Literals.PARAMETERIZED_EXPRESSION__LEFT_EXPR,
 				INSIGNIFICANT_INDEX, IPPDiagnostics.ISSUE__REQUIRED_EXPRESSION);
-		else if(!(leftExpr instanceof VariableExpression || (o.eContainer() instanceof ExpressionTE && leftExpr instanceof LiteralNameOrReference))) {
+		else if(!(leftExpr instanceof VariableExpression || (leftExpr instanceof LiteralNameOrReference && isFirstNameInTE((LiteralNameOrReference) leftExpr)))) {
 			// then, the leftExpression *must* be an AtExpression with a leftExpr being a variable
 			if(leftExpr instanceof AtExpression) {
 				// older versions limited access to two levels.
@@ -415,7 +415,7 @@ public class PPJavaValidator extends AbstractPPJavaValidator implements IPPDiagn
 					final Expression nestedLeftExpr = ((AtExpression) leftExpr).getLeftExpr();
 					// if nestedLeftExpr is null, it is validated for the nested instance
 					if(nestedLeftExpr != null &&
-							!(nestedLeftExpr instanceof VariableExpression || (o.eContainer() instanceof ExpressionTE && nestedLeftExpr instanceof LiteralNameOrReference)))
+							!(nestedLeftExpr instanceof VariableExpression || (nestedLeftExpr instanceof LiteralNameOrReference && isFirstNameInTE((LiteralNameOrReference) nestedLeftExpr))))
 						acceptor.acceptError(
 							"Expression left of [] must be a variable.", nestedLeftExpr,
 							PPPackage.Literals.PARAMETERIZED_EXPRESSION__LEFT_EXPR, INSIGNIFICANT_INDEX,
@@ -1789,6 +1789,26 @@ public class PPJavaValidator extends AbstractPPJavaValidator implements IPPDiagn
 		return patternHelper.isCLASSREF(s);
 	}
 
+	private boolean isFirstNameInTE(LiteralNameOrReference aName) {
+		// If parented by At expression, or Paranethesized Expression
+		// and this parent is parented by an ExpressionTE
+		// and the total offset of the ExpressionTE + 2 == the offset of the name
+		INode nameNode = NodeModelUtils.getNode(aName);
+		if(nameNode == null)
+			return false; // No node model, should not create LiteralNameOrReference when created from a model, use Variable
+		int offset = nameNode.getTotalOffset();
+		// find the first parent that is an ExpressionTE
+		for(EObject container = aName.eContainer(); container != null; container = container.eContainer()) {
+			if(container instanceof ExpressionTE) {
+				INode containerNode = NodeModelUtils.getNode(container);
+				if((containerNode.getTotalOffset() + 2) == offset)
+					return true;
+				return false;
+			}
+		}
+		return false;
+	}
+
 	private boolean isFirstNonDollarLowerCase(String s) {
 		int pos = s.startsWith("$")
 				? 1
@@ -1854,7 +1874,7 @@ public class PPJavaValidator extends AbstractPPJavaValidator implements IPPDiagn
 	private boolean isStandardAtExpression(AtExpression o) {
 		// an At expression is standard if the lhs is a variable or an AtExpression
 		Expression lhs = o.getLeftExpr();
-		return (lhs instanceof VariableExpression || lhs instanceof AtExpression || (o.eContainer() instanceof ExpressionTE && lhs instanceof LiteralNameOrReference));
+		return (lhs instanceof VariableExpression || lhs instanceof AtExpression || (lhs instanceof LiteralNameOrReference && isFirstNameInTE((LiteralNameOrReference) lhs)));
 
 	}
 

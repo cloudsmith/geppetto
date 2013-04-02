@@ -62,6 +62,10 @@ public class Diagnostic implements Serializable {
 
 	private int type;
 
+	private String issue;
+
+	private String[] issueData;
+
 	public Diagnostic() {
 	}
 
@@ -165,6 +169,31 @@ public class Diagnostic implements Serializable {
 	}
 
 	/**
+	 * The issue is a String naming a particular issue that makes it possible to
+	 * have a more detailed understanding of an error and what could be done to
+	 * repair it. (As opposed to parsing the error message to gain an
+	 * understanding). Error messages may
+	 * 
+	 * @return the value of the '<em>issue</em>' attribute.
+	 */
+	public String getIssue() {
+		return issue;
+	}
+
+	/**
+	 * The issue data is optional data associated with a particular issue - it
+	 * is typically used to pass values calculated during
+	 * org.cloudsmith.geppetto.validation and that may be meaningful to code
+	 * that tries to repair or analyze a particular problem and where it may be
+	 * expensive to recompute these values.
+	 * 
+	 * @return the value of the '<em>issueData</em>' attribute.
+	 */
+	public String[] getIssueData() {
+		return issueData;
+	}
+
+	/**
 	 * Returns <tt>-1</tt> unless subclassed
 	 * 
 	 * @return <tt>-1</tt>
@@ -235,6 +264,14 @@ public class Diagnostic implements Serializable {
 	public void setChildren(List<Diagnostic> children) {
 		this.children = null;
 		addChildren(children);
+	}
+
+	public void setIssue(String newIssue) {
+		issue = newIssue;
+	}
+
+	public void setIssueData(String[] newIssueData) {
+		issueData = newIssueData;
 	}
 
 	/**

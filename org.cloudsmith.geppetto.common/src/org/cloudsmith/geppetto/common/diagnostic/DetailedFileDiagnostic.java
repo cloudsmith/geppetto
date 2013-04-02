@@ -18,10 +18,6 @@ public class DetailedFileDiagnostic extends FileDiagnostic {
 
 	private Integer length;
 
-	private String issue;
-
-	private String[] issueData;
-
 	@Override
 	public boolean appendLocationLabel(StringBuilder builder, boolean withOffsets) {
 		int offset = getOffset();
@@ -44,31 +40,6 @@ public class DetailedFileDiagnostic extends FileDiagnostic {
 	}
 
 	/**
-	 * The issue is a String naming a particular issue that makes it possible to
-	 * have a more detailed understanding of an error and what could be done to
-	 * repair it. (As opposed to parsing the error message to gain an
-	 * understanding). Error messages may
-	 * 
-	 * @return the value of the '<em>issue</em>' attribute.
-	 */
-	public String getIssue() {
-		return issue;
-	}
-
-	/**
-	 * The issue data is optional data associated with a particular issue - it
-	 * is typically used to pass values calculated during
-	 * org.cloudsmith.geppetto.validation and that may be meaningful to code
-	 * that tries to repair or analyze a particular problem and where it may be
-	 * expensive to recompute these values.
-	 * 
-	 * @return the value of the '<em>issueData</em>' attribute.
-	 */
-	public String[] getIssueData() {
-		return issueData;
-	}
-
-	/**
 	 * Length is the length (from offset) that is the textual representation
 	 * that the diagnostic apply to , or 0 if there where no visible textual
 	 * representation. A length of -1 indicates that length is irrelevant.
@@ -87,14 +58,6 @@ public class DetailedFileDiagnostic extends FileDiagnostic {
 	 */
 	public Integer getOffset() {
 		return offset;
-	}
-
-	public void setIssue(String newIssue) {
-		issue = newIssue;
-	}
-
-	public void setIssueData(String[] newIssueData) {
-		issueData = newIssueData;
 	}
 
 	public void setLength(Integer newLength) {

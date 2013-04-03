@@ -11,6 +11,23 @@
 
 	<name>Geppetto Validation</name>
 
+	<build>
+		<resources>
+			<resource>
+				<directory>src/main/resources</directory>
+			</resource>
+			<resource>
+				<directory>.</directory>
+				<includes>
+					<include>about.html</include>
+					<include>plugin.properties</include>
+					<include>META-INF/MANIFEST.MF</include>
+				</includes>
+				<filtering>true</filtering>
+			</resource>
+		</resources>
+	</build>
+
 	<dependencies>
 		<dependency>
 			<groupId>org.cloudsmith.geppetto</groupId>

@@ -1,0 +1,41 @@
+#!/usr/bin/ruby
+
+require 'puppet'
+
+# set the Node implementation to :plain as it can create empty nodes
+Puppet::Node.terminus_class = :plain
+
+# set the Facts implementation to :memory to ensure that
+# puppet code does not pick up facts from elsewhere
+Puppet::Node::Facts.terminus_class = :memory
+
+# set the Catalog implementation to :compiler to be sure that
+# the catalog is really produced by compiling the manifest
+Puppet::Resource::Catalog.terminus_class = :compiler
+
+
+# set the name of the manifest file to be compiled (e.g. manifest.pp)
+Puppet[:manifest] = ARGV[0]
+
+# override the standard module path to point to a directory containing
+# only the required modules (e.g. /tmp/modules)
+Puppet[:modulepath] = ARGV[1]
+
+# create an empty Node object (e.g. test.example.com)
+node = Puppet::Node.find(ARGV[2])
+# load node's facts (test.example.com.yaml)
+node.merge(YAML.load_file(ARGV[3]))
+
+begin
+  # compile the manifest into catalog
+  unless catalog = Puppet::Resource::Catalog.find(node.name, :use_node => node)
+    raise "Could not compile catalog for #{node.name}"
+  end
+
+  raise ArgumentError, "Cannot render compiled catalogs without pson support" unless Puppet.features.pson?
+
+  jj catalog.to_resource
+rescue => detail
+  $stderr.puts detail
+  exit(30)
+end

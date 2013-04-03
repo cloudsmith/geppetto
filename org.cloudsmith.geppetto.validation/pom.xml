@@ -11,10 +11,6 @@
 
 	<name>Geppetto Validation</name>
 
-	<build>
-		<sourceDirectory>src</sourceDirectory>
-		<outputDirectory>bin</outputDirectory>
-	</build>
 	<dependencies>
 		<dependency>
 			<groupId>org.cloudsmith.geppetto</groupId>

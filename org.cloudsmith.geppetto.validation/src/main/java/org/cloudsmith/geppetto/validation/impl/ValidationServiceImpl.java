@@ -365,13 +365,13 @@ public class ValidationServiceImpl implements ValidationService {
 
 		// translate the data
 		FileDiagnostic fd = new FileDiagnostic();
-		String s = d.getFileName();
+		String s = d.getFile().getName();
 		boolean hasDetails = false;
 		if (s != null && s.length() > 0) {
 			hasDetails = true;
 			fd.setFile(new File(s));
 		}
-		s = d.getNodeName();
+		s = d.getNode();
 		if (s != null && s.length() > 0) {
 			hasDetails = true;
 			fd.setNode(s);
@@ -1001,6 +1001,7 @@ public class ValidationServiceImpl implements ValidationService {
 							}
 							// or there must be unversioned candidates
 							else if (unversioned.size() == 0)
+								if (shouldDiagnosticBeReported)
 								addFileDiagnostic(
 										diagnostics,
 										(candidates.size() > 0 ? Diagnostic.WARNING

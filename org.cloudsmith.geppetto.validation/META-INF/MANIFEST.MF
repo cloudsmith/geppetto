@@ -8,13 +8,16 @@ Bundle-Vendor: %providerName
 Bundle-Localization: plugin
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Export-Package: org.cloudsmith.geppetto.validation,
- org.cloudsmith.geppetto.validation.runner
+ org.cloudsmith.geppetto.validation.runner,
+ org.cloudsmith.geppetto.validation.impl
 Require-Bundle: org.eclipse.xtext,
  org.cloudsmith.geppetto.pp,
  org.cloudsmith.geppetto.pp.dsl,
  org.cloudsmith.geppetto.ruby,
  org.cloudsmith.geppetto.forge,
+ org.cloudsmith.geppetto.forge.api,
  org.cloudsmith.geppetto.catalog,
- org.cloudsmith.geppetto.common
+ org.cloudsmith.geppetto.common,
+ org.cloudsmith.geppetto.semver
 Bundle-ActivationPolicy: lazy
 Import-Package: org.eclipse.core.runtime

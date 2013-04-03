@@ -1,0 +1,64 @@
+// This file is being maintained by Puppet.
+// DO NOT EDIT
+
+//
+// Caching NS
+//
+
+//
+// server options
+//
+options {
+
+    directory       "/var/named";
+    dump-file       "/var/named/data/cache_dump.db";
+    statistics-file "/var/named/data/named_stats.txt";
+    memstatistics-file "/var/named/data/named_mem_stats.txt";
+
+    // Do not share version information
+    version none;
+
+    // The interfaces and ports that the server will answer queries from
+    listen-on port 53 { <%= named_listen_ips.uniq.join("; ") %>; };
+
+    // Only allow internal address spaces to talk to us
+    allow-query {
+        10/8;
+    };
+
+    // recursion is our job
+    recursion yes;
+
+};
+
+// Logging options
+
+logging {
+    channel default_debug {
+        file "/var/named/data/named.run";
+        severity dynamic;
+
+        print-severity yes;
+        print-time yes;
+        print-category yes;
+    };
+};
+
+//   The 'named.root' root cache hints zone for the bind DNS 'named' nameserver.
+
+zone "." IN {
+    type hint;
+    file "named.root";
+};
+
+// Forward DNS
+
+zone "pop.yourdomain.tld" in {
+    type forward;
+    forwarders { <% auth_nameservers.each do |auth_nameserver| -%><%= auth_nameserver %>; <% end -%> };
+};
+
+zone "10.in-addr.arpa" in {
+    type forward;
+    forwarders { <% auth_nameservers.each do |auth_nameserver| -%><%= auth_nameserver %>; <% end -%> };
+};

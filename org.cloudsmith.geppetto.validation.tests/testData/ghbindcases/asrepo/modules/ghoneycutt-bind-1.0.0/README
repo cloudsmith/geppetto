@@ -1,0 +1,8 @@
+bind
+
+Released 20100629 - Garrett Honeycutt - GPLv2
+
+class bind         - base class for all bind server types
+class bind::repo   - svn repo for zone files
+class bind::cache  - caching only ns
+class bind::master - authoritative ns

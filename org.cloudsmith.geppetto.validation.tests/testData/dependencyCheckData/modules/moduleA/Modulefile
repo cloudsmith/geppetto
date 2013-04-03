@@ -1,0 +1,5 @@
+name    'test-moduleA'
+version '0.1.1'
+
+dependency 'test/moduleB', '>= 0.0.1'
+dependency 'test/moduleC', '>= 0.0.1'

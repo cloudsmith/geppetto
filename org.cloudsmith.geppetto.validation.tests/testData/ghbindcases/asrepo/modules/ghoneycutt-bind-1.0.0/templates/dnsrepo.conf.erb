@@ -1,0 +1,18 @@
+# This file is being maintained by Puppet.
+# DO NOT EDIT
+
+# SVN
+DocumentRoot /var/www/html
+
+<Directory /opt/$lsbProvider/svn>
+    Options Indexes FollowSymLinks MultiViews
+    AllowOverride None
+    Order allow,deny
+    allow from all
+</Directory>
+
+<Location /dns>
+    DAV svn
+    SVNPath /opt/$lsbProvider/svn/dns
+    SVNListParentPath on
+</Location>

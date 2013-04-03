@@ -271,6 +271,7 @@
 		<module>org.cloudsmith.geppetto.ruby.jrubyparser</module>
 		<module>org.cloudsmith.geppetto.ruby.tests</module>
 		<module>org.cloudsmith.geppetto.validation</module>
+		<module>org.cloudsmith.geppetto.validation.tests</module>
 		<module>org.cloudsmith.geppetto.forge.maven.plugin</module>
 		<module>org.cloudsmith.geppetto.semver</module>
 		<module>org.cloudsmith.geppetto.semver.tests</module>

@@ -1,0 +1,5 @@
+name    'stackhammer-nodex'
+version '1.0.0'
+
+## Add dependencies, if any:
+dependency 'stackhammer/A', '>= 1.0.0'

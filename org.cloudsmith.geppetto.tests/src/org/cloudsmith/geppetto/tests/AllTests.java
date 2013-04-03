@@ -13,7 +13,8 @@ import org.junit.runners.Suite.SuiteClasses;
 	org.cloudsmith.geppetto.forge.api.tests.AllTests.class,
 	org.cloudsmith.geppetto.forge.tests.ForgeTests.class,
 	org.cloudsmith.geppetto.ruby.tests.AllTests.class,
-	org.cloudsmith.geppetto.pp.dsl.tests.AllTests.class
+	org.cloudsmith.geppetto.pp.dsl.tests.AllTests.class,
+	org.cloudsmith.geppetto.validation.tests.AllTests.class
 	// @fmtOn
 })
 @RunWith(Suite.class)

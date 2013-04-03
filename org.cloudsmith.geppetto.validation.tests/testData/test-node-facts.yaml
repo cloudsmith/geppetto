@@ -1,0 +1,61 @@
+--- 
+  is_virtual: true
+  processorcount: "2"
+  selinux_mode: "targeted\n"
+  kernel: Linux
+  serialnumber: VMware-56 4d 31 8d 3f 57 38 07-5f 9f 3c 1e 50 5b cb d7
+  virtual: vmware
+  lsbrelease: ":core-3.1-ia32:core-3.1-noarch:graphics-3.1-ia32:graphics-3.1-noarch"
+  uniqueid: a8c07e9d
+  rubysitedir: /usr/lib/ruby/site_ruby/1.8
+  hardwaremodel: i686
+  network_eth0: 192.168.157.0
+  uptime_seconds: 292583
+  operatingsystemrelease: "5.5"
+  netmask_eth0: 255.255.255.0
+  selinux_policyversion: "21"
+  netmask: 255.255.255.0
+  swapfree: 1023.99 MB
+  ipaddress: 192.168.157.126
+  memorysize: 756.80 MB
+  physicalprocessorcount: "0"
+  ps: ps -ef
+  fqdn: testcentos.pilsen.cloudsmith.com
+  kernelrelease: 2.6.18-194.32.1.el5
+  timezone: CET
+  domain: pilsen.cloudsmith.com
+  hardwareisa: i686
+  type: Other
+  kernelversion: 2.6.18
+  java_version: 1.6.0_17
+  id: root
+  lsbdistdescription: CentOS release 5.5 (Final)
+  lsbdistrelease: "5.5"
+  manufacturer: "VMware, Inc."
+  uptime_hours: 81
+  macaddress_eth0: 00:0C:29:5B:CB:D7
+  selinux: "true"
+  memoryfree: 646.09 MB
+  uptime_days: 3
+  lsbdistcodename: Final
+  sshrsakey: AAAAB3NzaC1yc2EAAAABIwAAAQEA5f9ygsk8s41anLL+K/KEvdiyngtBZRDBzJC6XVoyfcIAbNcbIGR0K/wrDgsFDc8cl3ITSzWEtXPPLWDpd4JfBMqNRbLAN3UVS+TKjkaM52j2s8aMtqlUVIz3Wrtavmqu43XDbt5OVGMnlRf1sDtasQ92cnzm7cde//GEFW9lkbwhtmyWftTtbAlYDd+UCkkoTYCnZp+dJJcgA9Kr/8gsoIz4QBp40AyiBLX3gIAaqtLHAW8A6qji/QdHGKDm57rAjwXWk1lXSKoiNyFrfi+5jYX5EPGGBoY+riF6YOPUBBuF7aunhRCpdG6bFVYc7I90cgo4ra+uAoaxYT5LoxkfUQ==
+  rubyversion: 1.8.5
+  architecture: i386
+  puppetversion: 2.6.4
+  productname: VMware Virtual Platform
+  hostname: testcentos
+  processor0: Intel(R) Core(TM)2 Duo CPU     E4500  @ 2.20GHz
+  uptime: 3 days
+  interfaces: "eth0,sit0"
+  selinux_enforced: "true"
+  macaddress: 00:0C:29:5B:CB:D7
+  path: /usr/kerberos/sbin:/usr/kerberos/bin:/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin:/root/bin
+  swapsize: 1023.99 MB
+  ipaddress_eth0: 192.168.157.126
+  operatingsystem: CentOS
+  processor1: Intel(R) Core(TM)2 Duo CPU     E4500  @ 2.20GHz
+  kernelmajversion: "2.6"
+  facterversion: 1.5.8
+  sshdsakey: AAAAB3NzaC1kc3MAAACBANQRR0goigA0g024usGA7HJGIRzkeTK2ZYjTVnBkiOG/wYC1+Tpiy++j5qlXQSF/xirKm1xYhhNQE+MUJHShLvHr9GPmUMyHygsFHL4WfcAEEVvN9iaSZxO7oRmRR+bV3e3jCshoD+xDbemx3i/q614+Vtg1HC5AsA21pcysZpidAAAAFQCt6ks1jKVBcHe6YVoW89qF3+hvHwAAAIEAikD/0G/M/rUN0uGAu+Ov1UsGD2wuT9NDHF6m92UlpG50KjmSXBZHbvUsWC8vPiasjaxI5/6q+x0TT+HXWhNHX/2+SLdYnJN48FSF+iUUvQdrCyc5KFP4MKvZcv8zwGctNAmcYS9GWX0xKMLfVyZwbeBsMQydZJ/6mi9Hovto08UAAACAPXR8q/63YoG5S20u4jNTQdfaLTqAQZg7y2CKk2M5E4ku91RFb69SnXYZTGjzHX1CsVll5oUJ9QufRbBf6Xx/aOICS2AsD2kQCzRt5M6jjdZ/c5vzb12QGLZKzelzE256Tc9is/ncFvlxjHgBEfQsQStsI5nNVjcC6/gprj+2exs=
+  lsbdistid: CentOS
+  lsbmajdistrelease: "5"

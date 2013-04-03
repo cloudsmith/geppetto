@@ -1,0 +1,11 @@
+#!/bin/bash
+# This file is being maintained by Puppet.
+# DO NOT EDIT
+
+# this should probably be a template at some point that takes a list of systems
+
+dnsmasters="ns1.pop1.yourdomain.tld ns1.pop2.yourdomain.tld"
+
+for dnsmaster in ${dnsmasters}; do
+    /usr/bin/ssh -q -i /home/dnsreposvn/.ssh/id_rsa -oConnectTimeout=5 dnsreposvn@${dnsmaster};
+done

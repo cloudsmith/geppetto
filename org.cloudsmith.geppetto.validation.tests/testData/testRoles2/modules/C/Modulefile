@@ -1,0 +1,3 @@
+name    'stackhammer-C'
+version '1.0.0'
+dependency 'stackhammer/A', '>= 1.0.0'

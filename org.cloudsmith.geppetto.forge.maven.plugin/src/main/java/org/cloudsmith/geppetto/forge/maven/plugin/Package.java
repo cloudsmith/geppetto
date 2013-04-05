@@ -18,7 +18,7 @@ import java.util.Collection;
 import org.apache.maven.plugins.annotations.LifecyclePhase;
 import org.apache.maven.plugins.annotations.Mojo;
 import org.cloudsmith.geppetto.common.diagnostic.Diagnostic;
-import org.cloudsmith.geppetto.common.diagnostic.DiagnosticType;
+import org.cloudsmith.geppetto.forge.Forge;
 
 /**
  * Goal that builds the module gzipped tarball and optionally generates the <tt>metadata.json</tt> file.
@@ -38,7 +38,7 @@ public class Package extends AbstractForgeMojo {
 	protected void invoke(Diagnostic result) throws Exception {
 		Collection<File> moduleRoots = findModuleRoots();
 		if(moduleRoots.isEmpty()) {
-			result.addChild(new Diagnostic(Diagnostic.ERROR, DiagnosticType.PACKAGE, "No modules found in repository"));
+			result.addChild(new Diagnostic(Diagnostic.ERROR, Forge.PACKAGE, "No modules found in repository"));
 			return;
 		}
 
@@ -49,7 +49,7 @@ public class Package extends AbstractForgeMojo {
 		else {
 			File builtModules = new File(buildDir, "builtModules");
 			if(!(builtModules.mkdir() || builtModules.isDirectory())) {
-				result.addChild(new Diagnostic(Diagnostic.ERROR, DiagnosticType.PACKAGE, "Unable to create directory" +
+				result.addChild(new Diagnostic(Diagnostic.ERROR, Forge.PACKAGE, "Unable to create directory" +
 						builtModules.getPath()));
 				return;
 			}

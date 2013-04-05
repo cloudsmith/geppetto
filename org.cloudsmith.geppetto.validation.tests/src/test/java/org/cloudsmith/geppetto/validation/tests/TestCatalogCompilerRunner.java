@@ -7,6 +7,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
+import org.cloudsmith.geppetto.validation.ValidationService;
 import org.cloudsmith.geppetto.validation.runner.PuppetCatalogCompilerRunner;
 import org.cloudsmith.geppetto.validation.runner.PuppetCatalogCompilerRunner.CatalogDiagnostic;
 import org.eclipse.core.runtime.SubMonitor;
@@ -38,15 +39,11 @@ public class TestCatalogCompilerRunner {
 					: 0));
 			assertEquals("Should have 10*diag# as line", 10 * i, d.getLineNumber());
 			if(d.getMessage().startsWith("Could not parse")) {
-				assertEquals(
-					"Should have parse diagnostic code",
-					PuppetCatalogCompilerRunner.CatalogDiagnostic.CODE_PARSE_ERROR, d.getCode());
+				assertEquals("Should have parse diagnostic code", ValidationService.CATALOG_PARSER, d.getType());
 				parseErrorSeen = true;
 			}
 			else
-				assertEquals(
-					"Should have unknown diagnostic code",
-					PuppetCatalogCompilerRunner.CatalogDiagnostic.CODE_UNSPECIFIC, d.getCode());
+				assertEquals("Should have unknown diagnostic code", ValidationService.CATALOG, d.getType());
 			i++;
 		}
 		assertTrue("should have seen parse error", parseErrorSeen);

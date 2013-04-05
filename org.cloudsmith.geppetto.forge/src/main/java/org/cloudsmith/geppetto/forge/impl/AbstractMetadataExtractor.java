@@ -33,6 +33,9 @@ public abstract class AbstractMetadataExtractor implements MetadataExtractor {
 	public Metadata parseMetadata(File moduleDirectory, boolean includeTypesAndChecksums, FileFilter filter,
 			File[] extractedFrom, Diagnostic result) throws IOException {
 		File metadataFile = new File(moduleDirectory, getPrimarySource());
+		if(extractedFrom != null)
+			extractedFrom[0] = metadataFile;
+
 		if(!canExtractFrom(moduleDirectory, filter))
 			throw new FileNotFoundException(metadataFile.getAbsolutePath());
 
@@ -41,8 +44,6 @@ public abstract class AbstractMetadataExtractor implements MetadataExtractor {
 			md.setTypes(Types.loadTypes(new File(moduleDirectory, "lib/puppet"), filter));
 			md.setChecksums(Checksums.loadChecksums(moduleDirectory, filter));
 		}
-		if(extractedFrom != null)
-			extractedFrom[0] = metadataFile;
 		return md;
 	}
 

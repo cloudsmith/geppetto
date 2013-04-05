@@ -640,6 +640,14 @@ public class AllModuleReferences implements Serializable {
 	}
 
 	/**
+	 * Returns the root to use for relative lookups
+	 * @return
+	 */
+	public File getRoot() {
+		return root;
+	}
+
+	/**
 	 * Sets the root file to allow relative lookup later.
 	 */
 	public void setRoot(File root) {

@@ -30,7 +30,6 @@
 			<groupId>org.cloudsmith.geppetto</groupId>
 			<artifactId>org.cloudsmith.geppetto.pp.dsl</artifactId>
 			<version>3.0.3-rc-SNAPSHOT</version>
-			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.eclipse.xtext</groupId>

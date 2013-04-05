@@ -22,7 +22,6 @@ import org.apache.maven.artifact.versioning.Restriction;
 import org.apache.maven.model.Scm;
 import org.apache.maven.project.MavenProject;
 import org.cloudsmith.geppetto.common.diagnostic.Diagnostic;
-import org.cloudsmith.geppetto.common.diagnostic.DiagnosticType;
 import org.cloudsmith.geppetto.common.diagnostic.FileDiagnostic;
 import org.cloudsmith.geppetto.forge.impl.AbstractMetadataExtractor;
 import org.cloudsmith.geppetto.forge.v2.model.Dependency;
@@ -30,6 +29,7 @@ import org.cloudsmith.geppetto.forge.v2.model.Metadata;
 import org.cloudsmith.geppetto.forge.v2.model.ModuleName;
 import org.cloudsmith.geppetto.semver.Version;
 import org.cloudsmith.geppetto.semver.VersionRange;
+import org.cloudsmith.geppetto.validation.ValidationService;
 
 import com.google.inject.Inject;
 
@@ -102,12 +102,8 @@ public class PomMetadataExtractor extends AbstractMetadataExtractor {
 				}
 			}
 			catch(InvalidVersionSpecificationException e) {
-				FileDiagnostic fd = new FileDiagnostic();
-				fd.setFile(mavenProject.getFile());
-				fd.setMessage(e.getMessage());
-				fd.setSeverity(Diagnostic.WARNING);
-				fd.setType(DiagnosticType.GEPPETTO);
-				result.addChild(fd);
+				result.addChild(new FileDiagnostic(
+					Diagnostic.WARNING, ValidationService.GEPPETTO, e.getMessage(), mavenProject.getFile()));
 			}
 		}
 		metadata.setDependencies(forgeDeps);

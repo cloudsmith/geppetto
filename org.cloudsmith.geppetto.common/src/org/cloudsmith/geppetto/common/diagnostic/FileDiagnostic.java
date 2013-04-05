@@ -22,6 +22,11 @@ public class FileDiagnostic extends Diagnostic {
 
 	private String node;
 
+	public FileDiagnostic(int severity, DiagnosticType type, String message, File file) {
+		super(severity, type, message);
+		this.file = file;
+	}
+
 	@Override
 	public boolean appendLocationLabel(StringBuilder builder, boolean withOffsets) {
 		int lineNumber = getLineNumber();

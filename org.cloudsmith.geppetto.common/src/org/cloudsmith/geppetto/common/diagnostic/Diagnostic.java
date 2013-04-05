@@ -23,6 +23,8 @@ import java.util.Collections;
 import java.util.List;
 
 public class Diagnostic implements Serializable {
+	public static final DiagnosticType CHAIN = new DiagnosticType("CHAIN", Diagnostic.class.getName());
+
 	private static final long serialVersionUID = 1L;
 
 	public static final int FATAL = 5;
@@ -52,21 +54,23 @@ public class Diagnostic implements Serializable {
 				: format("UNKNOWN(%d)", severity);
 	}
 
+	private long timestamp;
+
 	private int severity;
 
 	private String message;
 
-	private String source;
-
 	private List<Diagnostic> children;
 
-	private int type;
+	private DiagnosticType type;
 
 	private String issue;
 
 	private String[] issueData;
 
 	public Diagnostic() {
+		setType(CHAIN);
+		setSeverity(OK);
 	}
 
 	/**
@@ -83,23 +87,7 @@ public class Diagnostic implements Serializable {
 		setSeverity(severity);
 		setMessage(message);
 		setType(type);
-	}
-
-	/**
-	 * Creates a new Diagnostic instance
-	 * 
-	 * @param severity
-	 *            Severity (see constants in {@link MessageWithSeverity})
-	 * @param type
-	 *            The type of message
-	 * @param message
-	 *            The textual content of the message
-	 */
-	public Diagnostic(int severity, String source, DiagnosticType type, String message) {
-		setSource(source);
-		setSeverity(severity);
-		setMessage(message);
-		setType(type);
+		setTimestamp(System.currentTimeMillis());
 	}
 
 	public void addChild(Diagnostic child) {
@@ -111,7 +99,7 @@ public class Diagnostic implements Serializable {
 		childAdded(child);
 	}
 
-	public void addChildren(Collection<Diagnostic> children) {
+	public void addChildren(Collection<? extends Diagnostic> children) {
 		for(Diagnostic child : children)
 			addChild(child);
 	}
@@ -242,14 +230,18 @@ public class Diagnostic implements Serializable {
 	 * @return the source
 	 */
 	public String getSource() {
-		return source;
+		return type.getSource();
+	}
+
+	public long getTimestamp() {
+		return timestamp;
 	}
 
 	/**
 	 * @return The type of diagnostic
 	 */
 	public DiagnosticType getType() {
-		return DiagnosticType.values()[type];
+		return type;
 	}
 
 	/**
@@ -275,6 +267,21 @@ public class Diagnostic implements Serializable {
 	}
 
 	/**
+	 * Ensures that the severity of the diagnostic and all its children is
+	 * equal to or below the given <code>max</code>.
+	 * 
+	 * @param max
+	 *            The max severity
+	 */
+	public void setMaxSeverity(int max) {
+		if(severity > max)
+			severity = max;
+		if(children != null)
+			for(Diagnostic child : children)
+				child.setMaxSeverity(severity);
+	}
+
+	/**
 	 * @param message
 	 *            the message to set
 	 */
@@ -287,19 +294,20 @@ public class Diagnostic implements Serializable {
 	 *            the severity to set
 	 */
 	public void setSeverity(int severity) {
-		this.severity = severity;
+		if(severity < this.severity)
+			// Ensures children severity is not above this one
+			setMaxSeverity(severity);
+		else
+			// Severity increase. Does not affect children
+			this.severity = severity;
 	}
 
-	/**
-	 * @param source
-	 *            the source to set
-	 */
-	public void setSource(String source) {
-		this.source = source;
+	public void setTimestamp(long timestamp) {
+		this.timestamp = timestamp;
 	}
 
 	public void setType(DiagnosticType type) {
-		this.type = type.ordinal();
+		this.type = type;
 	}
 
 	@Override

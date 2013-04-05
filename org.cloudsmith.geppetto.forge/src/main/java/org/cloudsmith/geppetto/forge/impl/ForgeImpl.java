@@ -42,7 +42,6 @@ import java.util.zip.ZipInputStream;
 import org.apache.http.HttpStatus;
 import org.apache.http.client.HttpResponseException;
 import org.cloudsmith.geppetto.common.diagnostic.Diagnostic;
-import org.cloudsmith.geppetto.common.diagnostic.DiagnosticType;
 import org.cloudsmith.geppetto.common.diagnostic.ExceptionDiagnostic;
 import org.cloudsmith.geppetto.common.diagnostic.FileDiagnostic;
 import org.cloudsmith.geppetto.common.os.FileUtils;
@@ -116,29 +115,25 @@ class ForgeImpl implements Forge {
 		File[] extractedFrom = new File[1];
 
 		Metadata md = createFromModuleDirectory(moduleSource, true, fileFilter, extractedFrom, result);
+		if(resultingMetadata != null)
+			resultingMetadata[0] = md;
+
 		if(md == null)
 			// Metadata could not be read. Errors are in result
 			return null;
 
 		ModuleName fullName = md.getName();
 		if(fullName == null || fullName.getOwner() == null || fullName.getName() == null) {
-			FileDiagnostic fd = new FileDiagnostic();
-			fd.setFile(extractedFrom[0]);
-			fd.setMessage("A full name (user-module) must be specified in the Modulefile");
-			fd.setSeverity(Diagnostic.ERROR);
-			fd.setType(DiagnosticType.FORGE);
-			result.addChild(fd);
+			result.addChild(new FileDiagnostic(
+				Diagnostic.ERROR, Forge.PACKAGE, "A full name (user-module) must be specified in the Modulefile",
+				extractedFrom[0]));
 			return null;
 		}
 
 		Version ver = md.getVersion();
 		if(ver == null) {
-			FileDiagnostic fd = new FileDiagnostic();
-			fd.setFile(extractedFrom[0]);
-			fd.setMessage("A version must be specified in the Modulefile");
-			fd.setSeverity(Diagnostic.ERROR);
-			fd.setType(DiagnosticType.FORGE);
-			result.addChild(fd);
+			result.addChild(new FileDiagnostic(
+				Diagnostic.ERROR, Forge.PACKAGE, "A version must be specified in the Modulefile", extractedFrom[0]));
 			return null;
 		}
 
@@ -178,8 +173,6 @@ class ForgeImpl implements Forge {
 		// Pack closes its output
 		TarUtils.pack(destModuleDir, out, null, true, null);
 
-		if(resultingMetadata != null)
-			resultingMetadata[0] = md;
 		return moduleArchive;
 	}
 
@@ -203,8 +196,8 @@ class ForgeImpl implements Forge {
 			if(extractor.canExtractFrom(moduleDirectory, filter))
 				return extractor.parseMetadata(moduleDirectory, includeTypesAndChecksums, filter, extractedFrom, result);
 
-		result.addChild(new Diagnostic(
-			Diagnostic.ERROR, DiagnosticType.FORGE, "No Module Metadata found in directory " +
+		if(result != null)
+			result.addChild(new Diagnostic(Diagnostic.ERROR, Forge.FORGE, "No Module Metadata found in directory " +
 					moduleDirectory.getAbsolutePath()));
 		return null;
 	}
@@ -215,7 +208,7 @@ class ForgeImpl implements Forge {
 		Set<Dependency> unresolvedCollector = new HashSet<Dependency>();
 		Set<Release> releasesToDownload = resolveDependencies(metadatas, unresolvedCollector);
 		for(Dependency unresolved : unresolvedCollector)
-			result.addChild(new Diagnostic(Diagnostic.WARNING, DiagnosticType.GEPPETTO, String.format(
+			result.addChild(new Diagnostic(Diagnostic.WARNING, Forge.FORGE, String.format(
 				"Unable to resolve dependency: %s:%s", unresolved.getName(),
 				unresolved.getVersionRequirement().toString())));
 
@@ -224,9 +217,8 @@ class ForgeImpl implements Forge {
 			List<File> importedModuleLocations = new ArrayList<File>();
 
 			for(Release release : releasesToDownload) {
-				result.addChild(new Diagnostic(
-					Diagnostic.INFO, DiagnosticType.GEPPETTO, "Installing dependent module " + release.getFullName() +
-							':' + release.getVersion()));
+				result.addChild(new Diagnostic(Diagnostic.INFO, Forge.FORGE, "Installing dependent module " +
+						release.getFullName() + ':' + release.getVersion()));
 				StringBuilder bld = new StringBuilder();
 				ModuleUtils.buildFileName(release.getFullName(), release.getVersion(), bld);
 				File moduleDir = new File(importedModulesDir, bld.toString());
@@ -237,8 +229,7 @@ class ForgeImpl implements Forge {
 		}
 
 		if(unresolvedCollector.isEmpty())
-			result.addChild(new Diagnostic(
-				Diagnostic.INFO, DiagnosticType.GEPPETTO, "No additional dependencies were detected"));
+			result.addChild(new Diagnostic(Diagnostic.INFO, Forge.FORGE, "No additional dependencies were detected"));
 		return Collections.emptyList();
 	}
 
@@ -405,6 +396,11 @@ class ForgeImpl implements Forge {
 	}
 
 	@Override
+	public Metadata loadModulefile(File moduleFile) throws IOException {
+		return ModuleUtils.parseModulefile(moduleFile, null);
+	}
+
+	@Override
 	public void publish(File moduleArchive, boolean dryRun, Diagnostic result) throws IOException {
 		if(releaseService == null)
 			throw new UnsupportedOperationException(
@@ -426,8 +422,8 @@ class ForgeImpl implements Forge {
 		}
 
 		if(dryRun) {
-			result.addChild(new Diagnostic(Diagnostic.INFO, DiagnosticType.PUBLISHER, "Module file " +
-					moduleArchive.getName() + " would have been uploaded (but wasn't since this is a dry run)"));
+			result.addChild(new Diagnostic(Diagnostic.INFO, Forge.PUBLISHER, "Module file " + moduleArchive.getName() +
+					" would have been uploaded (but wasn't since this is a dry run)"));
 			return;
 		}
 
@@ -436,8 +432,8 @@ class ForgeImpl implements Forge {
 			ModuleName name = metadata.getName();
 			releaseService.create(
 				name.getOwner(), name.getName(), "Published using GitHub trigger", gzInput, moduleArchive.length());
-			result.addChild(new Diagnostic(Diagnostic.INFO, DiagnosticType.PUBLISHER, "Module file " +
-					moduleArchive.getName() + " has been uploaded"));
+			result.addChild(new Diagnostic(Diagnostic.INFO, Forge.PUBLISHER, "Module file " + moduleArchive.getName() +
+					" has been uploaded"));
 		}
 		finally {
 			StreamUtil.close(gzInput);
@@ -457,24 +453,22 @@ class ForgeImpl implements Forge {
 				continue;
 			}
 			catch(AlreadyPublishedException e) {
-				result.addChild(new Diagnostic(Diagnostic.WARNING, DiagnosticType.PUBLISHER, e.getMessage()));
+				result.addChild(new Diagnostic(Diagnostic.WARNING, Forge.PUBLISHER, e.getMessage()));
 				continue;
 			}
 			catch(ForgeException e) {
-				result.addChild(new Diagnostic(Diagnostic.ERROR, DiagnosticType.PUBLISHER, e.getMessage()));
+				result.addChild(new Diagnostic(Diagnostic.ERROR, Forge.PUBLISHER, e.getMessage()));
 			}
 			catch(Exception e) {
-				result.addChild(new ExceptionDiagnostic(
-					Diagnostic.ERROR, null, DiagnosticType.PUBLISHER, "Unable to publish module " +
-							builtModule.getName(), e));
+				result.addChild(new ExceptionDiagnostic(Diagnostic.ERROR, Forge.PUBLISHER, "Unable to publish module " +
+						builtModule.getName(), e));
 			}
 			return;
 		}
 
 		if(noPublishingMade) {
 			result.addChild(new Diagnostic(
-				Diagnostic.INFO, DiagnosticType.PUBLISHER,
-				"All modules have already been published at their current version"));
+				Diagnostic.INFO, Forge.PUBLISHER, "All modules have already been published at their current version"));
 		}
 	}
 
@@ -519,6 +513,11 @@ class ForgeImpl implements Forge {
 		finally {
 			StreamUtil.close(writer);
 		}
+	}
+
+	@Override
+	public void saveModulefile(Metadata md, File moduleFile) throws IOException {
+		ModuleUtils.saveAsModulefile(md, moduleFile);
 	}
 
 	@Override

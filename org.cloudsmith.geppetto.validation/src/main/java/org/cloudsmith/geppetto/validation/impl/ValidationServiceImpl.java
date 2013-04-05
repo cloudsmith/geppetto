@@ -27,7 +27,6 @@ import org.cloudsmith.geppetto.common.diagnostic.DetailedFileDiagnostic;
 import org.cloudsmith.geppetto.common.diagnostic.Diagnostic;
 import org.cloudsmith.geppetto.common.diagnostic.DiagnosticType;
 import org.cloudsmith.geppetto.common.diagnostic.ExceptionDiagnostic;
-import org.cloudsmith.geppetto.common.diagnostic.FileDiagnostic;
 import org.cloudsmith.geppetto.common.os.FileUtils;
 import org.cloudsmith.geppetto.forge.Forge;
 import org.cloudsmith.geppetto.forge.v2.model.Dependency;
@@ -58,7 +57,6 @@ import org.cloudsmith.geppetto.validation.runner.MetadataInfo;
 import org.cloudsmith.geppetto.validation.runner.MetadataInfo.Resolution;
 import org.cloudsmith.geppetto.validation.runner.PPDiagnosticsRunner;
 import org.cloudsmith.geppetto.validation.runner.PuppetCatalogCompilerRunner;
-import org.cloudsmith.geppetto.validation.runner.PuppetCatalogCompilerRunner.CatalogDiagnostic;
 import org.cloudsmith.geppetto.validation.runner.RakefileInfo;
 import org.cloudsmith.geppetto.validation.runner.RakefileInfo.Rakefile;
 import org.cloudsmith.geppetto.validation.runner.RakefileInfo.Raketask;
@@ -67,6 +65,7 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.OperationCanceledException;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.SubMonitor;
+import org.eclipse.emf.common.util.DiagnosticChain;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.xtext.diagnostics.Severity;
@@ -163,9 +162,6 @@ public class ValidationServiceImpl implements ValidationService {
 
 	};
 
-	private final static String validationSource = ValidationService.class
-			.getName();
-
 	/**
 	 * Add an exception diagnostic (not associated with any particular file).
 	 * 
@@ -176,7 +172,7 @@ public class ValidationServiceImpl implements ValidationService {
 	private static void addExceptionDiagnostic(Diagnostic diagnostics,
 			String message, Exception e) {
 		ExceptionDiagnostic bd = new ExceptionDiagnostic(Diagnostic.ERROR,
-				validationSource, DiagnosticType.INTERNAL_ERROR, message, e);
+				INTERNAL_ERROR, message, e);
 		diagnostics.addChild(bd);
 	}
 
@@ -194,19 +190,15 @@ public class ValidationServiceImpl implements ValidationService {
 	private static void addFileDiagnostic(Diagnostic diagnostics, int severity,
 			File file, File rootDirectory, String message, String issueId) {
 
-		DetailedFileDiagnostic dft = new DetailedFileDiagnostic();
-		File sourceFile = pathToFile(file.getAbsolutePath(), rootDirectory);
-		dft.setFile(sourceFile);
+		DetailedFileDiagnostic dft = new DetailedFileDiagnostic(severity,
+				UNKNOWN, message, pathToFile(file.getAbsolutePath(),
+						rootDirectory));
 		dft.setLineNumber(-1);
 		dft.setLength(-1);
 		dft.setOffset(-1);
 		dft.setIssue(issueId);
 		dft.setIssueData(new String[] {});
 		dft.setNode("");
-		dft.setSource(validationSource);
-		dft.setSeverity(severity);
-		dft.setType(DiagnosticType.UNKNOWN);
-		dft.setMessage(message);
 		diagnostics.addChild(dft);
 	}
 
@@ -232,21 +224,18 @@ public class ValidationServiceImpl implements ValidationService {
 	 */
 	private static void addIssueDiagnostic(Diagnostic diagnostics, Issue issue,
 			File processedFile, File rootDirectory) {
-		DiagnosticType type = issue.isSyntaxError() ? DiagnosticType.GEPPETTO_SYNTAX
-				: DiagnosticType.GEPPETTO;
-		DetailedFileDiagnostic dft = new DetailedFileDiagnostic();
-		File sourceFile = uriToFile(issue.getUriToProblem(), rootDirectory);
-		dft.setFile(sourceFile);
+		DiagnosticType type = issue.isSyntaxError() ? GEPPETTO_SYNTAX
+				: GEPPETTO;
+		DetailedFileDiagnostic dft = new DetailedFileDiagnostic(
+				translateIssueSeverity(issue.getSeverity()), type,
+				issue.getMessage(), uriToFile(issue.getUriToProblem(),
+						rootDirectory));
 		dft.setLineNumber(issue.getLineNumber());
 		dft.setLength(issue.getLength());
 		dft.setOffset(issue.getOffset());
 		dft.setIssue(issue.getCode());
 		dft.setIssueData(issue.getData());
 		dft.setNode("");
-		dft.setSource(validationSource);
-		dft.setSeverity(translateIssueSeverity(issue.getSeverity()));
-		dft.setType(type);
-		dft.setMessage(issue.getMessage());
 		diagnostics.addChild(dft);
 	}
 
@@ -261,9 +250,13 @@ public class ValidationServiceImpl implements ValidationService {
 	private static void addRubyIssueDiagnostic(Diagnostic diagnostics,
 			IRubyIssue issue, File processedFile, File rootDirectory) {
 
-		DetailedFileDiagnostic dft = new DetailedFileDiagnostic();
-		File sourceFile = pathToFile(issue.getFileName(), rootDirectory);
-		dft.setFile(sourceFile);
+		int severity = issue.isSyntaxError() ? Diagnostic.ERROR
+				: Diagnostic.WARNING;
+		DiagnosticType type = issue.isSyntaxError() ? RUBY_SYNTAX : RUBY;
+
+		DetailedFileDiagnostic dft = new DetailedFileDiagnostic(severity, type,
+				issue.getMessage(), pathToFile(issue.getFileName(),
+						rootDirectory));
 		dft.setLineNumber(issue.getLine());
 		dft.setLength(issue.getLength());
 		dft.setOffset(issue.getStartOffset());
@@ -271,12 +264,6 @@ public class ValidationServiceImpl implements ValidationService {
 		dft.setIssueData(new String[] {}); // TODO: the Ruby issue passes
 											// Object[]
 		dft.setNode("");
-		dft.setSeverity(issue.isSyntaxError() ? Diagnostic.ERROR
-				: Diagnostic.WARNING);
-		dft.setType(issue.isSyntaxError() ? DiagnosticType.RUBY_SYNTAX
-				: DiagnosticType.RUBY);
-		dft.setSource(validationSource);
-		dft.setMessage(issue.getMessage());
 		diagnostics.addChild(dft);
 	}
 
@@ -342,54 +329,6 @@ public class ValidationServiceImpl implements ValidationService {
 	@Inject
 	@Named(Forge.MODULE_FILE_FILTER)
 	private FileFilter moduleFileFilter;
-
-	/**
-	 * Add a BasicDiagnostic to the diagnostic chain as a translation of a
-	 * catalog diagnostic.
-	 * 
-	 * @param diagnostics
-	 * @param d
-	 */
-	private void addCatalogDiagnostics(Diagnostic diagnostics,
-			CatalogDiagnostic d) {
-		if (diagnostics == null)
-			throw new IllegalArgumentException(
-					"DiagnosticChain can not be null");
-		if (d == null)
-			throw new IllegalArgumentException(
-					"Can not add null CatalogDiagnostic");
-
-		// translate the code into codes defined for the ValidationService
-		DiagnosticType type = d.getCode() == CatalogDiagnostic.CODE_PARSE_ERROR ? DiagnosticType.CATALOG_PARSER
-				: DiagnosticType.CATALOG;
-
-		// translate the data
-		FileDiagnostic fd = new FileDiagnostic();
-		String s = d.getFile().getName();
-		boolean hasDetails = false;
-		if (s != null && s.length() > 0) {
-			hasDetails = true;
-			fd.setFile(new File(s));
-		}
-		s = d.getNode();
-		if (s != null && s.length() > 0) {
-			hasDetails = true;
-			fd.setNode(s);
-		}
-		if (d.getLine() != -1) {
-			hasDetails = true;
-			fd.setLineNumber(d.getLine());
-		}
-		if (hasDetails) {
-			fd.setSeverity(d.getSeverity());
-			fd.setType(type);
-			fd.setSource(validationSource);
-			fd.setMessage(d.getMessage());
-			diagnostics.addChild(fd);
-		} else
-			diagnostics.addChild(new Diagnostic(d.getSeverity(),
-					validationSource, type, d.getMessage()));
-	}
 
 	/**
 	 * Asserts a file/directory's existence and that it can be read.
@@ -880,8 +819,16 @@ public class ValidationServiceImpl implements ValidationService {
 		for (File mdRoot : mdRoots) {
 			// load and remember all that loaded ok
 			File[] mdProvider = new File[1];
-			Metadata m = loadModulefileMetadata(diagnostics, mdRoot,
-					mdProvider, ticker.newChild(1));
+			Metadata m;
+			try {
+				m = forge.createFromModuleDirectory(mdRoot, true, null,
+						mdProvider, diagnostics);
+			} catch (IOException e) {
+				addFileError(diagnostics, mdProvider[0], mdRoot,
+						"Can not parse file: " + e.getMessage(),
+						IValidationConstants.ISSUE__MODULEFILE_PARSE_ERROR);
+				m = null;
+			}
 			if (m == null)
 				worked(ticker, 1);
 			else {
@@ -1002,22 +949,22 @@ public class ValidationServiceImpl implements ValidationService {
 							// or there must be unversioned candidates
 							else if (unversioned.size() == 0)
 								if (shouldDiagnosticBeReported)
-								addFileDiagnostic(
-										diagnostics,
-										(candidates.size() > 0 ? Diagnostic.WARNING
-												: Diagnostic.ERROR),
-										info.getFile(),
-										root,
-										"Unresolved Dependency to: "
-												+ d.getName()
-												+ " (unversioned).",
-										IValidationConstants.ISSUE__MODULEFILE_UNSATISFIED_DEPENDENCY);
-							else {
-								// pick the first as resolution
-								// worry about ambiguity elsewhere
-								info.addResolvedDependency(d,
-										unversioned.get(0));
-							}
+									addFileDiagnostic(
+											diagnostics,
+											(candidates.size() > 0 ? Diagnostic.WARNING
+													: Diagnostic.ERROR),
+											info.getFile(),
+											root,
+											"Unresolved Dependency to: "
+													+ d.getName()
+													+ " (unversioned).",
+											IValidationConstants.ISSUE__MODULEFILE_UNSATISFIED_DEPENDENCY);
+								else {
+									// pick the first as resolution
+									// worry about ambiguity elsewhere
+									info.addResolvedDependency(d,
+											unversioned.get(0));
+								}
 						} else {
 							// there was a version requirement, it must match
 							// something with a version.
@@ -1275,6 +1222,7 @@ public class ValidationServiceImpl implements ValidationService {
 		BuildResult buildResult = new BuildResult(rubyServicesAvailable);
 		// buildResult.setExportsForNodes(result);
 		buildResult.setAllModuleReferences(all);
+		buildResult.setModuleData(moduleData);
 		buildResult.setRakefileInfo(rakefileInfo);
 		return buildResult;
 	}
@@ -1429,8 +1377,7 @@ public class ValidationServiceImpl implements ValidationService {
 		PuppetCatalogCompilerRunner runner = new PuppetCatalogCompilerRunner();
 		runner.compileCatalog(siteFile, catalogRoot, nodeName, factorData,
 				ticker.newChild(1000));
-		for (CatalogDiagnostic d : runner.getDiagnostics())
-			addCatalogDiagnostics(diagnostics, d);
+		diagnostics.addChildren(runner.getDiagnostics());
 	}
 
 	public BuildResult validateRepository(Diagnostic diagnostics,

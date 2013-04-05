@@ -19,6 +19,7 @@ import java.util.List;
 import java.util.Set;
 
 import org.cloudsmith.geppetto.common.diagnostic.Diagnostic;
+import org.cloudsmith.geppetto.common.diagnostic.DiagnosticType;
 import org.cloudsmith.geppetto.forge.v2.client.ForgeException;
 import org.cloudsmith.geppetto.forge.v2.model.Dependency;
 import org.cloudsmith.geppetto.forge.v2.model.Metadata;
@@ -33,6 +34,12 @@ import com.google.inject.name.Named;
  * This class basically mimics the PMT (Puppet Module Tool)
  */
 public interface Forge {
+	DiagnosticType FORGE = new DiagnosticType("FORGE", Forge.class.getName());
+
+	DiagnosticType PACKAGE = new DiagnosticType("PACKAGE", Forge.class.getName());
+
+	DiagnosticType PUBLISHER = new DiagnosticType("PUBLISHER", Forge.class.getName());
+
 	/**
 	 * Name of injected file filter
 	 */
@@ -225,6 +232,16 @@ public interface Forge {
 	Metadata loadJSONMetadata(File jsonFile) throws IOException;
 
 	/**
+	 * Load metadata from a Modulefile
+	 * 
+	 * @param jsonFile
+	 *            The file containing the Ruby Modulefile representation
+	 * @return The resulting metadata
+	 * @throws IOException
+	 */
+	Metadata loadModulefile(File moduleFile) throws IOException;
+
+	/**
 	 * Publish a gzipped module tarball to the Forge. The provided diagnostic is used for informational messages
 	 * only. Any errors will yield an exception.
 	 * 
@@ -277,6 +294,17 @@ public interface Forge {
 	 * @throws IOException
 	 */
 	void saveJSONMetadata(Metadata md, File jsonFile) throws IOException;
+
+	/**
+	 * Store the given metadata as a Modulefile (ruby format)
+	 * 
+	 * @param md
+	 *            The metadata to store
+	 * @param jsonFile
+	 *            The file to create
+	 * @throws IOException
+	 */
+	void saveModulefile(Metadata md, File moduleFile) throws IOException;
 
 	/**
 	 * Search the module repository for a module matching <code>term</code>

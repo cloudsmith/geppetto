@@ -43,7 +43,7 @@ public class LoggingDiagnostic extends Diagnostic {
 		String msg = diag.getMessage();
 
 		if(msg != null) {
-			bld.append(diag.getType().name());
+			bld.append(diag.getType().getName());
 			bld.append(':');
 
 			File file = diag.getFile();

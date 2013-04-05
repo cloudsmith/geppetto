@@ -22,9 +22,9 @@ import java.util.List;
 import java.util.regex.Pattern;
 
 import org.cloudsmith.geppetto.common.diagnostic.Diagnostic;
-import org.cloudsmith.geppetto.common.diagnostic.DiagnosticType;
 import org.cloudsmith.geppetto.common.diagnostic.FileDiagnostic;
 import org.cloudsmith.geppetto.common.os.StreamUtil;
+import org.cloudsmith.geppetto.forge.Forge;
 import org.cloudsmith.geppetto.forge.MetadataExtractor;
 import org.cloudsmith.geppetto.forge.v2.model.Dependency;
 import org.cloudsmith.geppetto.forge.v2.model.Metadata;
@@ -272,6 +272,8 @@ public class ModuleUtils {
 	 * 
 	 * @param moduleFile
 	 *            The file to parse
+	 * @param result
+	 *            Diagnostics collecting errors
 	 * @return The resulting metadata
 	 * @throws IOException
 	 *             when it is not possible to read the <tt>modulefile</tt>.
@@ -293,14 +295,13 @@ public class ModuleUtils {
 					call(receiver, key, args.get(0), args.get(1), args.get(2));
 			}
 			catch(IllegalArgumentException e) {
-				SourcePosition pos = call.getPosition();
-				FileDiagnostic diag = new FileDiagnostic();
-				diag.setFile(new File(pos.getFile()));
-				diag.setLineNumber(pos.getEndLine());
-				diag.setMessage(e.getMessage());
-				diag.setSeverity(Diagnostic.ERROR);
-				diag.setType(DiagnosticType.FORGE);
-				result.addChild(diag);
+				if(result != null) {
+					SourcePosition pos = call.getPosition();
+					FileDiagnostic diag = new FileDiagnostic(Diagnostic.ERROR, Forge.FORGE, e.getMessage(), new File(
+						pos.getFile()));
+					diag.setLineNumber(pos.getEndLine());
+					result.addChild(diag);
+				}
 				hasErrors = true;
 			}
 		}

@@ -16,7 +16,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.cloudsmith.geppetto.common.diagnostic.Diagnostic;
-import org.cloudsmith.geppetto.common.diagnostic.DiagnosticType;
 import org.cloudsmith.geppetto.common.diagnostic.ExceptionDiagnostic;
 import org.cloudsmith.geppetto.forge.AlreadyPublishedException;
 import org.cloudsmith.geppetto.forge.Forge;
@@ -72,24 +71,23 @@ public class ModuleExportToForgeOperation extends ModuleExportOperation {
 						continue;
 					}
 					catch(AlreadyPublishedException e) {
-						result.addChild(new Diagnostic(Diagnostic.WARNING, DiagnosticType.PUBLISHER, e.getMessage()));
+						result.addChild(new Diagnostic(Diagnostic.WARNING, Forge.PUBLISHER, e.getMessage()));
 						result.taskDone();
 						continue;
 					}
 					catch(ForgeException e) {
-						result.addChild(new Diagnostic(Diagnostic.ERROR, DiagnosticType.PUBLISHER, e.getMessage()));
+						result.addChild(new Diagnostic(Diagnostic.ERROR, Forge.PUBLISHER, e.getMessage()));
 					}
 					catch(Exception e) {
 						result.addChild(new ExceptionDiagnostic(
-							Diagnostic.ERROR, null, DiagnosticType.PUBLISHER, "Unable to publish module " +
-									builtModule.getName(), e));
+							Diagnostic.ERROR, Forge.PUBLISHER, "Unable to publish module " + builtModule.getName(), e));
 					}
 					return;
 				}
 
 				if(noPublishingMade) {
 					result.addChild(new Diagnostic(
-						Diagnostic.INFO, DiagnosticType.PUBLISHER,
+						Diagnostic.INFO, Forge.PUBLISHER,
 						"All modules have already been published at their current version"));
 				}
 			}

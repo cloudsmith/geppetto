@@ -11,12 +11,18 @@
  */
 package org.cloudsmith.geppetto.common.diagnostic;
 
+import java.io.File;
+
 public class DetailedFileDiagnostic extends FileDiagnostic {
 	private static final long serialVersionUID = 1L;
 
 	private Integer offset;
 
 	private Integer length;
+
+	public DetailedFileDiagnostic(int severity, DiagnosticType type, String message, File file) {
+		super(severity, type, message, file);
+	}
 
 	@Override
 	public boolean appendLocationLabel(StringBuilder builder, boolean withOffsets) {

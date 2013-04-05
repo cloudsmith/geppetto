@@ -11,6 +11,7 @@
  */
 package org.cloudsmith.geppetto.puppetlint;
 
+import org.cloudsmith.geppetto.common.diagnostic.DiagnosticType;
 import org.cloudsmith.geppetto.puppetlint.impl.ExternalModule;
 
 import com.google.inject.Guice;
@@ -20,6 +21,9 @@ import com.google.inject.Injector;
  * A service that enables files and folders to be examined by <a href="http://http://puppet-lint.com/">puppet-lint</a>.
  */
 public class PuppetLintService {
+	public static final DiagnosticType PUPPET_LINT = new DiagnosticType(
+		"PUPPET_LINT", PuppetLintService.class.getName());
+
 	private static PuppetLintService instance;
 
 	/**

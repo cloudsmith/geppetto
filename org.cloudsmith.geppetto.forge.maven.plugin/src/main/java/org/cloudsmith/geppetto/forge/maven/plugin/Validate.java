@@ -25,7 +25,6 @@ import org.apache.maven.plugins.annotations.LifecyclePhase;
 import org.apache.maven.plugins.annotations.Mojo;
 import org.apache.maven.plugins.annotations.Parameter;
 import org.cloudsmith.geppetto.common.diagnostic.Diagnostic;
-import org.cloudsmith.geppetto.common.diagnostic.DiagnosticType;
 import org.cloudsmith.geppetto.common.diagnostic.FileDiagnostic;
 import org.cloudsmith.geppetto.forge.impl.ForgePreferencesBean;
 import org.cloudsmith.geppetto.forge.v2.model.Metadata;
@@ -40,6 +39,7 @@ import org.cloudsmith.geppetto.ruby.RubyHelper;
 import org.cloudsmith.geppetto.ruby.jrubyparser.JRubyServices;
 import org.cloudsmith.geppetto.validation.FileType;
 import org.cloudsmith.geppetto.validation.ValidationOptions;
+import org.cloudsmith.geppetto.validation.ValidationService;
 import org.cloudsmith.geppetto.validation.runner.IEncodingProvider;
 import org.cloudsmith.geppetto.validation.runner.PPDiagnosticsSetup;
 import org.eclipse.core.runtime.NullProgressMonitor;
@@ -282,11 +282,9 @@ public class Validate extends AbstractForgeServiceMojo {
 	}
 
 	private Diagnostic convertPuppetLintDiagnostic(File moduleRoot, Issue issue) {
-		FileDiagnostic diagnostic = new FileDiagnostic();
-		diagnostic.setSeverity(getSeverity(issue));
-		diagnostic.setMessage(issue.getMessage());
-		diagnostic.setType(DiagnosticType.PUPPET_LINT);
-		diagnostic.setFile(new File(getRelativePath(new File(moduleRoot, issue.getPath()))));
+		FileDiagnostic diagnostic = new FileDiagnostic(
+			getSeverity(issue), PuppetLintService.PUPPET_LINT, issue.getMessage(), new File(getRelativePath(new File(
+				moduleRoot, issue.getPath()))));
 		diagnostic.setLineNumber(issue.getLineNumber());
 		return diagnostic;
 	}
@@ -376,7 +374,8 @@ public class Validate extends AbstractForgeServiceMojo {
 	protected void invoke(Diagnostic result) throws IOException {
 		Collection<File> moduleRoots = findModuleRoots();
 		if(moduleRoots.isEmpty()) {
-			result.addChild(new Diagnostic(Diagnostic.ERROR, DiagnosticType.GEPPETTO, "No modules found in repository"));
+			result.addChild(new Diagnostic(
+				Diagnostic.ERROR, ValidationService.GEPPETTO, "No modules found in repository"));
 			return;
 		}
 

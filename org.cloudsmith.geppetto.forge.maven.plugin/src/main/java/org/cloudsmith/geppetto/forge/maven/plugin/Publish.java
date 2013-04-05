@@ -19,7 +19,7 @@ import org.apache.maven.plugins.annotations.LifecyclePhase;
 import org.apache.maven.plugins.annotations.Mojo;
 import org.apache.maven.plugins.annotations.Parameter;
 import org.cloudsmith.geppetto.common.diagnostic.Diagnostic;
-import org.cloudsmith.geppetto.common.diagnostic.DiagnosticType;
+import org.cloudsmith.geppetto.forge.Forge;
 import org.cloudsmith.geppetto.forge.impl.ForgePreferencesBean;
 
 /**
@@ -101,7 +101,7 @@ public class Publish extends AbstractForgeServiceMojo {
 			builtModules = builtModulesDir.listFiles();
 			if(builtModules == null || builtModules.length == 0) {
 				result.addChild(new Diagnostic(
-					Diagnostic.ERROR, DiagnosticType.PUBLISHER, "Unable find any packaged modules in " +
+					Diagnostic.ERROR, Forge.PUBLISHER, "Unable find any packaged modules in " +
 							builtModulesDir.getAbsolutePath()));
 				return;
 			}

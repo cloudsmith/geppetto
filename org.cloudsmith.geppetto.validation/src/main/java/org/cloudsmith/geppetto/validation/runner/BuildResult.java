@@ -11,6 +11,11 @@
  */
 package org.cloudsmith.geppetto.validation.runner;
 
+import org.cloudsmith.geppetto.forge.v2.model.ModuleName;
+
+import com.google.common.collect.Multimap;
+import com.google.common.collect.Multimaps;
+
 /**
  * Provides access to any build result produced by "org.cloudsmith.geppetto.validation" (which should really be renamed to "build").
  * 
@@ -22,6 +27,8 @@ public class BuildResult {
 	private RakefileInfo rakefileInfo;
 
 	private boolean rubyServicesAvailable;
+
+	private Multimap<ModuleName, MetadataInfo> moduleData;
 
 	public BuildResult(boolean rubyAvailable) {
 		this.rubyServicesAvailable = rubyAvailable;
@@ -45,6 +52,10 @@ public class BuildResult {
 		return rubyServicesAvailable;
 	}
 
+	public Multimap<ModuleName, MetadataInfo> getModuleData() {
+		return moduleData;
+	}
+
 	public void setAllModuleReferences(AllModuleReferences allReferences) {
 		this.allModuleReferences = allReferences;
 	}
@@ -57,4 +68,7 @@ public class BuildResult {
 		rubyServicesAvailable = flag;
 	}
 
+	public void setModuleData(Multimap<ModuleName, MetadataInfo> moduleData) {
+		this.moduleData = moduleData;
+	}
 }

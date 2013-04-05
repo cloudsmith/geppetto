@@ -18,9 +18,9 @@ import java.io.IOException;
 import java.io.Reader;
 
 import org.cloudsmith.geppetto.common.diagnostic.Diagnostic;
-import org.cloudsmith.geppetto.common.diagnostic.DiagnosticType;
 import org.cloudsmith.geppetto.common.diagnostic.FileDiagnostic;
 import org.cloudsmith.geppetto.common.os.StreamUtil;
+import org.cloudsmith.geppetto.forge.Forge;
 import org.cloudsmith.geppetto.forge.v2.model.Metadata;
 
 import com.google.gson.Gson;
@@ -47,13 +47,7 @@ public class MetadataJSONExtractor extends AbstractMetadataExtractor {
 			return gson.fromJson(reader, Metadata.class);
 		}
 		catch(JsonSyntaxException e) {
-			FileDiagnostic fd = new FileDiagnostic();
-			fd.setFile(existingFile);
-			fd.setLineNumber(1); // We don't know really
-			fd.setMessage(e.getMessage());
-			fd.setSeverity(Diagnostic.ERROR);
-			fd.setType(DiagnosticType.FORGE);
-			result.addChild(fd);
+			result.addChild(new FileDiagnostic(Diagnostic.ERROR, Forge.FORGE, e.getMessage(), existingFile));
 			return null;
 		}
 		finally {

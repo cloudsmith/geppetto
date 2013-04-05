@@ -13,18 +13,24 @@ package org.cloudsmith.geppetto.common.diagnostic;
 
 /**
  */
-public class ExceptionDiagnostic extends Diagnostic {
+public class ExecutionDiagnostic extends Diagnostic {
 	private static final long serialVersionUID = 1L;
 
-	private Exception exception;
+	private final int exitStatus;
 
-	public ExceptionDiagnostic(int severity, DiagnosticType type, String message, Exception exception) {
-		super(severity, type, message);
-		this.exception = exception;
+	private final String errorMessage;
+
+	public ExecutionDiagnostic(int severity, DiagnosticType type, int exitStatus, String out, String errorMessage) {
+		super(severity, type, out);
+		this.exitStatus = exitStatus;
+		this.errorMessage = errorMessage;
 	}
 
-	@Override
-	public Exception getException() {
-		return exception;
+	public String getErrorMessage() {
+		return errorMessage;
+	}
+
+	public int getExitStatus() {
+		return exitStatus;
 	}
 }

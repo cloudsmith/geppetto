@@ -14,6 +14,7 @@ package org.cloudsmith.geppetto.validation;
 import java.io.File;
 
 import org.cloudsmith.geppetto.common.diagnostic.Diagnostic;
+import org.cloudsmith.geppetto.common.diagnostic.DiagnosticType;
 import org.cloudsmith.geppetto.validation.runner.BuildResult;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.emf.ecore.resource.Resource;
@@ -21,6 +22,22 @@ import org.eclipse.emf.ecore.resource.Resource;
 /**
  */
 public interface ValidationService {
+	DiagnosticType GEPPETTO = new DiagnosticType("GEPPETTO", ValidationService.class.getName());
+
+	DiagnosticType GEPPETTO_SYNTAX = new DiagnosticType("GEPPETTO_SYNTAX", ValidationService.class.getName());
+
+	DiagnosticType INTERNAL_ERROR = new DiagnosticType("INTERNAL_ERROR", ValidationService.class.getName());
+
+	DiagnosticType UNKNOWN = new DiagnosticType("UNKNOWN", ValidationService.class.getName());
+
+	DiagnosticType RUBY_SYNTAX = new DiagnosticType("RUBY_SYNTAX", ValidationService.class.getName());
+
+	DiagnosticType RUBY = new DiagnosticType("RUBY", ValidationService.class.getName());
+
+	DiagnosticType CATALOG_PARSER = new DiagnosticType("CATALOG_PARSER", ValidationService.class.getName());
+
+	DiagnosticType CATALOG = new DiagnosticType("CATALOG", ValidationService.class.getName());
+
 	/**
 	 * Performs org.cloudsmith.geppetto.validation and reports diagnostics for all files given by source under the control of options. If a set of
 	 * examinedFiles is given the diagnostics reported is limited to this set. An empty set is the same as reporting diagnostics

@@ -16,10 +16,12 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.cloudsmith.geppetto.common.diagnostic.Diagnostic;
+import org.cloudsmith.geppetto.common.diagnostic.DiagnosticType;
 import org.cloudsmith.geppetto.common.diagnostic.FileDiagnostic;
 import org.cloudsmith.geppetto.common.os.OsUtil;
 import org.cloudsmith.geppetto.common.os.StreamUtil;
 import org.cloudsmith.geppetto.common.util.EclipseUtils;
+import org.cloudsmith.geppetto.validation.ValidationService;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.SubMonitor;
@@ -33,12 +35,11 @@ public class PuppetCatalogCompilerRunner {
 	public static class CatalogDiagnostic extends FileDiagnostic {
 		private static final long serialVersionUID = 1L;
 
-		public static final int CODE_UNSPECIFIC = 0;
+		public CatalogDiagnostic(int severity, DiagnosticType type, String message, File file) {
+			super(severity, type, message, file);
+		}
 
-		public static final int CODE_PARSE_ERROR = 1;
-
-		public CatalogDiagnostic(String message, String fileName, String line,
-				String nodeName) {
+		public static CatalogDiagnostic create(String message, String fileName, String line, String nodeName) {
 			int severity = Diagnostic.ERROR;
 			if (message.startsWith("err:")) {
 				message = message.substring(4);
@@ -52,36 +53,15 @@ public class PuppetCatalogCompilerRunner {
 				severity = Diagnostic.INFO;
 				message = message.substring(7);
 			}
-			setMessage(message);
-			setSeverity(severity);
-			setFile(new File(fileName));
+			DiagnosticType type = message.startsWith("Could not parse") ? ValidationService.CATALOG_PARSER : ValidationService.CATALOG;
+			CatalogDiagnostic diag = new CatalogDiagnostic(severity, type, message, new File(fileName));
 			try {
-				setLineNumber(Integer.parseInt(line));
+				diag.setLineNumber(Integer.parseInt(line));
 			} catch (NumberFormatException e) {
-				setLineNumber(-1);
+				diag.setLineNumber(-1);
 			}
-			setNode(nodeName);
-		}
-
-		/**
-		 * Always returns null.
-		 * 
-		 * @return
-		 */
-		public List<Diagnostic> getChildren() {
-			return null;
-		}
-
-		/**
-		 * Returns CODE_PARSE_ERROR if the message starts with "Could not parse"
-		 * otherwise CODE_UNKNOWN
-		 * 
-		 * @return
-		 */
-		public int getCode() {
-			if (getMessage().startsWith("Could not parse"))
-				return CODE_PARSE_ERROR;
-			return CODE_UNSPECIFIC;
+			diag.setNode(nodeName);
+			return diag;
 		}
 	}
 
@@ -200,7 +180,7 @@ public class PuppetCatalogCompilerRunner {
 	 * @param buf
 	 */
 	private void outputBuffer(StringBuffer buf) {
-		diagnostics.add(new CatalogDiagnostic(buf.toString(), "", "", ""));
+		diagnostics.add(CatalogDiagnostic.create(buf.toString(), "", "", ""));
 		clear(buf);
 	}
 
@@ -230,7 +210,7 @@ public class PuppetCatalogCompilerRunner {
 				// diagnostic is produced
 				Matcher matcher = errorPattern.matcher(buf);
 				if (matcher.matches()) {
-					diagnostics.add(new CatalogDiagnostic(matcher
+					diagnostics.add(CatalogDiagnostic.create(matcher
 							.group(MESSAGE_GROUP), matcher.group(FILE_GROUP),
 							matcher.group(LINE_GROUP), matcher
 									.group(NODE_GROUP)));

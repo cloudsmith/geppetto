@@ -3,7 +3,7 @@
 	<parent>
 		<groupId>org.cloudsmith.geppetto</groupId>
 		<artifactId>parent</artifactId>
-		<version>3.0.3-rc-SNAPSHOT</version>
+		<version>3.0.3-rc1-SNAPSHOT</version>
 	</parent>
 
 	<artifactId>org.cloudsmith.geppetto.ruby.tests</artifactId>
@@ -39,13 +39,13 @@
 		<dependency>
 			<groupId>org.cloudsmith.geppetto</groupId>
 			<artifactId>org.cloudsmith.geppetto.ruby</artifactId>
-			<version>3.0.3-rc-SNAPSHOT</version>
+			<version>3.0.3-rc1-SNAPSHOT</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.cloudsmith.geppetto</groupId>
 			<artifactId>org.cloudsmith.geppetto.ruby.jrubyparser</artifactId>
-			<version>3.0.3-rc-SNAPSHOT</version>
+			<version>3.0.3-rc1-SNAPSHOT</version>
 			<scope>test</scope>
 		</dependency>
 	</dependencies>

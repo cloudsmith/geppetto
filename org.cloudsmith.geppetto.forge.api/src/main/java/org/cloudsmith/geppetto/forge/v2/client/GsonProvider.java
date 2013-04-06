@@ -163,7 +163,12 @@ public class GsonProvider implements Provider<Gson> {
 		@Override
 		public VersionRange deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context)
 				throws JsonParseException {
-			return VersionRange.create(json.getAsString());
+			try {
+				return VersionRange.create(json.getAsString());
+			}
+			catch(IllegalArgumentException e) {
+				return null;
+			}
 		}
 
 		@Override

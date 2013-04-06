@@ -77,13 +77,24 @@ public class Publish extends AbstractForgeServiceMojo {
 	}
 
 	@Override
-	protected void addForgePreferences(ForgePreferencesBean forgePreferences) {
-		super.addForgePreferences(forgePreferences);
-		forgePreferences.setOAuthAccessToken(oauthToken);
+	protected void addForgePreferences(ForgePreferencesBean forgePreferences, Diagnostic diagnostic) {
+		super.addForgePreferences(forgePreferences, diagnostic);
+		if(oauthToken == null || oauthToken.length() == 0) {
+			if(login == null || login.length() == 0)
+				diagnostic.addChild(new Diagnostic(Diagnostic.ERROR, Forge.FORGE, "login must be specified"));
+			else
+				forgePreferences.setLogin(login);
+
+			if(password == null || password.length() == 0)
+				diagnostic.addChild(new Diagnostic(Diagnostic.ERROR, Forge.FORGE, "password must be specified"));
+			else
+				forgePreferences.setPassword(password);
+		}
+		else
+			forgePreferences.setOAuthAccessToken(oauthToken);
+
 		forgePreferences.setOAuthClientId(clientID);
 		forgePreferences.setOAuthClientSecret(clientSecret);
-		forgePreferences.setLogin(login);
-		forgePreferences.setPassword(password);
 		forgePreferences.setOAuthScopes("");
 	}
 

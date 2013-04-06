@@ -276,8 +276,8 @@ public class Validate extends AbstractForgeServiceMojo {
 	}
 
 	@Override
-	protected void addForgePreferences(ForgePreferencesBean forgePreferences) {
-		super.addForgePreferences(forgePreferences);
+	protected void addForgePreferences(ForgePreferencesBean forgePreferences, Diagnostic diagnostic) {
+		super.addForgePreferences(forgePreferences, diagnostic);
 		forgePreferences.setCacheLocation(cacheLocation);
 	}
 

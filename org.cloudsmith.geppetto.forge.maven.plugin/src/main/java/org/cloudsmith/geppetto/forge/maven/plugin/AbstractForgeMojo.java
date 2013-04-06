@@ -110,20 +110,22 @@ public abstract class AbstractForgeMojo extends AbstractMojo {
 
 	private transient Logger log;
 
-	protected void addForgePreferences(ForgePreferencesBean forgePreferences) {
+	protected void addForgePreferences(ForgePreferencesBean forgePreferences, Diagnostic diagnostic) {
 	}
 
 	public void execute() throws MojoExecutionException, MojoFailureException {
 		Diagnostic diagnostic = new LoggingDiagnostic(getLogger());
 		try {
 			ForgePreferencesBean forgePreferences = new ForgePreferencesBean();
-			addForgePreferences(forgePreferences);
+			addForgePreferences(forgePreferences, diagnostic);
+			if(diagnostic.getSeverity() <= Diagnostic.WARNING) {
 
-			forgeInjector = Guice.createInjector(
-				new ForgeMavenModule(forgePreferences, getFileFilter(), session.getCurrentProject()),
-				new ValidationModule());
+				forgeInjector = Guice.createInjector(
+					new ForgeMavenModule(forgePreferences, getFileFilter(), session.getCurrentProject()),
+					new ValidationModule());
 
-			invoke(diagnostic);
+				invoke(diagnostic);
+			}
 		}
 		catch(JsonParseException e) {
 			throw new MojoFailureException(getActionName() + " failed: Invalid Json: " + e.getMessage(), e);

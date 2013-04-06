@@ -4,7 +4,7 @@
 
 	<groupId>org.cloudsmith.geppetto</groupId>
 	<artifactId>parent</artifactId>
-	<version>3.0.3-rc1</version>
+	<version>3.0.3-rc2-SNAPSHOT</version>
 	<packaging>pom</packaging>
 
 	<name>Geppetto Site Project</name>

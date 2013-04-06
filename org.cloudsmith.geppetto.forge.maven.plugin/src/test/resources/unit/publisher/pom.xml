@@ -21,6 +21,8 @@
 						</goals>
 						<configuration>
 							<enablePuppetLintValidation>true</enablePuppetLintValidation>
+							<checkModuleSemantics>true</checkModuleSemantics>
+							<checkReferences>true</checkReferences>
 							<puppetLintOptions>
 								<puppetLintOption>NoAutoloaderLayoutCheck</puppetLintOption>
 								<puppetLintOption>NoDoubleQuotedStringsCheck</puppetLintOption>

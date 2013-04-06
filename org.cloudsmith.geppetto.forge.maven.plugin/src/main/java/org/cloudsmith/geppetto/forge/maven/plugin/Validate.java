@@ -92,17 +92,17 @@ public class Validate extends AbstractForgeServiceMojo {
 	private boolean checkLayout = true;
 
 	/**
-	 * Checking module semantics means that the module's dependencies are satisfied.
-	 */
-	@Parameter(property = "forge.validation.checkModuleSemantics", defaultValue = "true")
-	private boolean checkModuleSemantics = true;
-
-	/**
 	 * If this is set to <tt>true</tt> then the validator will make an attempt to resolve and install all dependencies for the modules that are
 	 * validated. Dependencies are resolved transitively and unresolved dependencies are considered to be validation errors.
 	 */
-	@Parameter(property = "forge.validation.checkReferences", defaultValue = "true")
-	private boolean checkReferences = true;
+	@Parameter(property = "forge.validation.checkModuleSemantics", defaultValue = "false")
+	private boolean checkModuleSemantics = false;
+
+	/**
+	 * If this is set to <tt>true</tt> then the validator will check puppet cross references.
+	 */
+	@Parameter(property = "forge.validation.checkReferences", defaultValue = "false")
+	private boolean checkReferences = false;
 
 	/**
 	 * How should assignment to variable $string be treated. Puppet bug http://projects.puppetlabs.com/issues/14093.
@@ -302,7 +302,7 @@ public class Validate extends AbstractForgeServiceMojo {
 		if(result.getSeverity() == Diagnostic.ERROR)
 			return;
 
-		if(checkReferences) {
+		if(checkModuleSemantics) {
 			File importedModulesDir = new File(getBuildDir(), IMPORTED_MODULES_ROOT);
 			importedModuleLocations = getForge().downloadDependencies(metadatas, importedModulesDir, result);
 		}

@@ -1,0 +1,3 @@
+name    'stackhammer-D'
+version '1.0.0'
+dependency 'stackhammer/D', '>= 1.0.0'

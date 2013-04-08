@@ -24,12 +24,12 @@ import java.util.Set;
 
 import org.cloudsmith.geppetto.forge.v2.MetadataRepository;
 import org.cloudsmith.geppetto.forge.v2.model.Dependency;
-import org.cloudsmith.geppetto.forge.v2.model.MatchRule;
-import org.cloudsmith.geppetto.forge.v2.model.QName;
+import org.cloudsmith.geppetto.forge.v2.model.ModuleName;
 import org.cloudsmith.geppetto.forge.v2.model.Release;
-import org.cloudsmith.geppetto.forge.v2.model.VersionRequirement;
 import org.cloudsmith.geppetto.forge.v2.service.ModuleService;
 import org.cloudsmith.geppetto.forge.v2.service.ReleaseService;
+import org.cloudsmith.geppetto.semver.Version;
+import org.cloudsmith.geppetto.semver.VersionRange;
 
 import com.google.inject.Inject;
 
@@ -42,28 +42,28 @@ public class MetadataRepositoryImpl implements MetadataRepository {
 		/**
 		 * Version requirements that this solution must fulfill
 		 */
-		private final Set<VersionRequirement> versionRequirements;
+		private final Set<VersionRange> versionRequirements;
 
 		/**
 		 * Resolutions that matches all requirements
 		 */
 		private final Collection<Release> releases;
 
-		Resolution(Set<VersionRequirement> versionRequirements, Collection<Release> releases) {
+		Resolution(Set<VersionRange> versionRequirements, Collection<Release> releases) {
 			this.versionRequirements = versionRequirements;
 			this.releases = releases;
 		}
 
-		Resolution(VersionRequirement vReq, Collection<Release> releases) {
+		Resolution(VersionRange vReq, Collection<Release> releases) {
 			this(Collections.singleton(vReq), releases);
 		}
 
-		void addIfAllMatch(Set<VersionRequirement> allRequirements, Map<String, Release> relMap,
+		void addIfAllMatch(Set<VersionRange> allRequirements, Map<Version, Release> relMap,
 				Collection<Dependency> addedDependenciesCollector) {
 			nextRelease: for(Release r : releases) {
-				String v = r.getVersion();
-				for(VersionRequirement vr : allRequirements)
-					if(!vr.matches(v))
+				Version v = r.getVersion();
+				for(VersionRange vr : allRequirements)
+					if(!vr.isIncluded(v))
 						continue nextRelease;
 
 				if(addedDependenciesCollector != null) {
@@ -92,9 +92,9 @@ public class MetadataRepositoryImpl implements MetadataRepository {
 			return deps;
 		}
 
-		boolean conflictsWith(VersionRequirement vr) {
-			for(VersionRequirement vrn : versionRequirements)
-				if(vrn.conflictsWith(vr))
+		boolean conflictsWith(VersionRange vr) {
+			for(VersionRange vrn : versionRequirements)
+				if(vrn.intersect(vr) == null)
 					return true;
 			return false;
 		}
@@ -102,8 +102,7 @@ public class MetadataRepositoryImpl implements MetadataRepository {
 		Release getBestMatch() {
 			Release bestMatch = null;
 			for(Release release : releases)
-				if(bestMatch == null ||
-						VersionRequirement.VERSION_COMPARATOR.compare(release.getVersion(), bestMatch.getVersion()) > 0)
+				if(bestMatch == null || release.getVersion().compareTo(bestMatch.getVersion()) > 0)
 					bestMatch = release;
 			return bestMatch;
 		}
@@ -114,19 +113,19 @@ public class MetadataRepositoryImpl implements MetadataRepository {
 			return dependencies;
 		}
 
-		boolean isAsRestrictiveAs(VersionRequirement vr) {
-			for(VersionRequirement vrn : versionRequirements)
+		boolean isAsRestrictiveAs(VersionRange vr) {
+			for(VersionRange vrn : versionRequirements)
 				if(vrn.isAsRestrictiveAs(vr))
 					return true;
 			return false;
 		}
 
 		Resolution merge(Resolution other, Collection<Dependency> addedDependenciesCollector) {
-			Set<VersionRequirement> allRequirements = new HashSet<VersionRequirement>();
+			Set<VersionRange> allRequirements = new HashSet<VersionRange>();
 			allRequirements.addAll(versionRequirements);
 			allRequirements.addAll(other.versionRequirements);
 
-			Map<String, Release> relMap = new HashMap<String, Release>();
+			Map<Version, Release> relMap = new HashMap<Version, Release>();
 			addIfAllMatch(allRequirements, relMap, null);
 			other.addIfAllMatch(allRequirements, relMap, addedDependenciesCollector);
 			Collection<Release> releases = relMap.values();
@@ -138,7 +137,7 @@ public class MetadataRepositoryImpl implements MetadataRepository {
 
 	// TODO: Keeping everything in memory is of course not ideal. Should use a local
 	// file cache or similar
-	private final Map<QName, Release[]> releasesPerModule = new HashMap<QName, Release[]>();
+	private final Map<ModuleName, Release[]> releasesPerModule = new HashMap<ModuleName, Release[]>();
 
 	@Inject
 	private ReleaseService releaseService;
@@ -150,7 +149,7 @@ public class MetadataRepositoryImpl implements MetadataRepository {
 
 	public Collection<Release> deepResolve(Dependency dependency, Set<Dependency> unresolvedCollector)
 			throws IOException {
-		Map<QName, Resolution> resolutionCollector = new HashMap<QName, Resolution>();
+		Map<ModuleName, Resolution> resolutionCollector = new HashMap<ModuleName, Resolution>();
 
 		Set<Dependency> seen = new HashSet<Dependency>();
 		resolve(dependency, seen, resolutionCollector, unresolvedCollector);
@@ -193,8 +192,8 @@ public class MetadataRepositoryImpl implements MetadataRepository {
 		}
 	}
 
-	public Release[] refreshCache(QName fullName) throws IOException {
-		String owner = fullName.getQualifier();
+	public Release[] refreshCache(ModuleName fullName) throws IOException {
+		String owner = fullName.getOwner();
 		String name = fullName.getName();
 		Release[] releaseArray;
 		try {
@@ -209,7 +208,7 @@ public class MetadataRepositoryImpl implements MetadataRepository {
 	}
 
 	public Release resolve(Dependency dependency) throws IOException {
-		VersionRequirement vReq = dependency.getVersionRequirement();
+		VersionRange vReq = dependency.getVersionRequirement();
 		Release[] candidates = releasesPerModule.get(dependency.getName());
 		if(candidates == null)
 			candidates = refreshCache(dependency.getName());
@@ -217,13 +216,13 @@ public class MetadataRepositoryImpl implements MetadataRepository {
 		int idx = candidates.length;
 		while(--idx >= 0) {
 			Release release = candidates[idx];
-			if(vReq == null || vReq.matches(release.getVersion()))
+			if(vReq == null || vReq.isIncluded(release.getVersion()))
 				return release;
 		}
 		return null;
 	}
 
-	private void resolve(Dependency dependency, Set<Dependency> seen, Map<QName, Resolution> resolutionCollector,
+	private void resolve(Dependency dependency, Set<Dependency> seen, Map<ModuleName, Resolution> resolutionCollector,
 			Set<Dependency> unresolvedCollector) throws IOException {
 
 		if(!seen.add(dependency))
@@ -263,18 +262,16 @@ public class MetadataRepositoryImpl implements MetadataRepository {
 	}
 
 	@Override
-	public Release resolve(QName name, String version) throws IOException {
-		VersionRequirement vr = new VersionRequirement();
-		vr.setMatchRule(MatchRule.PERFECT);
-		vr.setVersion(version);
+	public Release resolve(ModuleName name, Version version) throws IOException {
+		VersionRange vr = VersionRange.exact(version);
 		Dependency dep = new Dependency();
 		dep.setName(name);
 		dep.setVersionRequirement(vr);
 		return resolve(dep);
 	}
 
-	public Resolution resolveAll(Dependency dependency) throws IOException {
-		VersionRequirement vReq = dependency.getVersionRequirement();
+	private Resolution resolveAll(Dependency dependency) throws IOException {
+		VersionRange vReq = dependency.getVersionRequirement();
 		Release[] candidates = releasesPerModule.get(dependency.getName());
 		if(candidates == null)
 			candidates = refreshCache(dependency.getName());
@@ -282,7 +279,7 @@ public class MetadataRepositoryImpl implements MetadataRepository {
 		ArrayList<Release> matchingReleases = null;
 		while(--idx >= 0) {
 			Release release = candidates[idx];
-			if(vReq == null || vReq.matches(release.getVersion())) {
+			if(vReq == null || vReq.isIncluded(release.getVersion())) {
 				if(matchingReleases == null)
 					matchingReleases = new ArrayList<Release>();
 				matchingReleases.add(release);

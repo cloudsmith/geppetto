@@ -12,11 +12,14 @@
 package org.cloudsmith.geppetto.common.os;
 
 import java.io.File;
+import java.io.FileFilter;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.lang.reflect.Array;
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.net.URL;
 import java.util.Calendar;
@@ -29,31 +32,98 @@ import org.cloudsmith.geppetto.common.util.EclipseUtils;
 public class FileUtils {
 	public static final Pattern DEFAULT_EXCLUDES = Pattern.compile("^[\\.~#].*$");
 
+	private static final Method Files_copy;
+
 	private static final Method Files_isSymbolicLink;
 
 	private static final Method Files_readSymbolicLink;
 
 	private static final Method File_toPath;
 
+	private static Object[] defaultCopyOptions;
+
 	static {
 		Method isSymbolicLink = null;
 		Method readSymbolicLink = null;
 		Method toPath = null;
+		Method copy = null;
+		Enum<?> option_COPY_ATTRIBUTES = null;
+		Enum<?> option_NOFOLLOW_LINKS = null;
+		Object[] dfltCopyOptions = null;
 		try {
 			Class<?> class_Files = Class.forName("java.nio.file.Files");
 			Class<?> class_Path = Class.forName("java.nio.file.Path");
+			Class<?> class_CopyOption = Class.forName("java.nio.file.CopyOption");
+			Class<?> class_LinkOption = Class.forName("java.nio.file.LinkOption");
+			Class<?> class_StandardCopyOption = Class.forName("java.nio.file.StandardCopyOption");
 			isSymbolicLink = class_Files.getMethod("isSymbolicLink", class_Path);
 			readSymbolicLink = class_Files.getMethod("readSymbolicLink", class_Path);
 			toPath = File.class.getMethod("toPath");
+
+			for(Object e : class_LinkOption.getEnumConstants()) {
+				Enum<?> en = (Enum<?>) e;
+				if("NOFOLLOW_LINKS".equals(en.name()))
+					option_NOFOLLOW_LINKS = en;
+
+			}
+
+			for(Object e : class_StandardCopyOption.getEnumConstants()) {
+				Enum<?> en = (Enum<?>) e;
+				if("COPY_ATTRIBUTES".equals(en.name()))
+					option_COPY_ATTRIBUTES = en;
+			}
+			dfltCopyOptions = (Object[]) Array.newInstance(class_CopyOption, 2);
+			dfltCopyOptions[0] = option_COPY_ATTRIBUTES;
+			dfltCopyOptions[1] = option_NOFOLLOW_LINKS;
+			copy = class_Files.getMethod("copy", class_Path, class_Path, Class.forName("[Ljava.nio.file.CopyOption;"));
 		}
 		catch(Exception e) {
 		}
 		Files_isSymbolicLink = isSymbolicLink;
 		Files_readSymbolicLink = readSymbolicLink;
 		File_toPath = toPath;
+		Files_copy = copy;
+		defaultCopyOptions = dfltCopyOptions;
 	}
 
 	public static void cp(File source, File destDir, String fileName) throws IOException {
+		cp(source, destDir, fileName, isSymlink(source));
+	}
+
+	private static void cp(File source, File destDir, String fileName, boolean isSymlink) throws IOException {
+		if(Files_copy != null) {
+			File destFile = new File(destDir, fileName);
+			try {
+				// Use Files.copy() to preserve attributes and links.
+				Files_copy.invoke(null, File_toPath.invoke(source), File_toPath.invoke(destFile), defaultCopyOptions);
+				return;
+			}
+			catch(InvocationTargetException e) {
+				Throwable t = e.getTargetException();
+				if(t instanceof IOException)
+					throw (IOException) t;
+				if(t instanceof RuntimeException)
+					throw (RuntimeException) t;
+				throw new RuntimeException(t);
+			}
+			catch(IllegalAccessException e) {
+				throw new RuntimeException(e);
+			}
+		}
+
+		if(isSymlink) {
+			// Ouch! We're asked to copy a symlink but we don't
+			// have access to Java 1.7. We'll have to try and copy
+			// this using a remote execution of 'cp' (unless it's
+			// windows in which case we're lost).
+			//
+			if(OsUtil.unixCopy(source, destDir))
+				return;
+
+			throw new UnsupportedOperationException(
+				"Sorry. Not possible to copy symlinks on Windows. This is the link: '" + source.getAbsolutePath() +
+						'\'');
+		}
 		InputStream in = new FileInputStream(source);
 		try {
 			cp(in, destDir, fileName);
@@ -82,18 +152,21 @@ public class FileUtils {
 		}
 	}
 
-	public static void cpR(File source, File destDir, Pattern excludeNames, boolean createTop,
+	public static void cpR(File source, File destDir, FileFilter fileFilter, boolean createTop,
 			boolean includeEmptyFolders) throws IOException {
 		String name = source.getName();
-		if(excludeNames != null && excludeNames.matcher(name).matches())
-			return;
+		boolean isSymlink = isSymlink(source);
 
-		File[] children = source.listFiles();
+		File[] children = isSymlink
+				? null
+				: source.listFiles(fileFilter);
+
 		if(children == null) {
+			// File or symlink.
 			File destFile = new File(destDir, name);
 			if(destFile.exists())
 				throw new IOException(destFile.getAbsolutePath() + " already exists");
-			cp(source, destDir, name);
+			cp(source, destDir, name, isSymlink);
 			return;
 		}
 
@@ -110,7 +183,7 @@ public class FileUtils {
 			throw new IOException("Unable to create directory " + destDir.getAbsolutePath());
 
 		for(File child : children)
-			cpR(child, destDir, excludeNames, true, includeEmptyFolders);
+			cpR(child, destDir, fileFilter, true, includeEmptyFolders);
 	}
 
 	/**

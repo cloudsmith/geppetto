@@ -10,10 +10,11 @@ Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Export-Package: org.cloudsmith.geppetto.forge.tests
 Require-Bundle: org.eclipse.core.runtime,
  org.cloudsmith.geppetto.forge;visibility:=reexport,
+ org.cloudsmith.geppetto.forge.api,
  org.cloudsmith.geppetto.common,
+ org.cloudsmith.geppetto.semver,
  org.eclipse.emf.ecore.xmi;visibility:=reexport,
  com.google.gson,
+ com.google.inject,
  org.junit
-Bundle-ActivationPolicy: lazy
-Bundle-Activator: org.cloudsmith.geppetto.forge.tests.Activator
 

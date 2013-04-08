@@ -30,6 +30,11 @@ import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
 import com.google.gson.annotations.Expose;
 
+/**
+ * A response handler that expects JSON content.
+ * 
+ * @param <V>
+ */
 public class JSonResponseHandler<V> implements ResponseHandler<V> {
 	public static class ErrorResponse {
 		@Expose

@@ -9,9 +9,12 @@ import org.junit.runners.Suite.SuiteClasses;
  */
 @SuiteClasses({
 	// @fmtOff
+	org.cloudsmith.geppetto.semver.tests.AllTests.class,
+	org.cloudsmith.geppetto.forge.api.tests.AllTests.class,
 	org.cloudsmith.geppetto.forge.tests.ForgeTests.class,
 	org.cloudsmith.geppetto.ruby.tests.AllTests.class,
-	org.cloudsmith.geppetto.pp.dsl.tests.AllTests.class
+	org.cloudsmith.geppetto.pp.dsl.tests.AllTests.class,
+	org.cloudsmith.geppetto.validation.tests.AllTests.class
 	// @fmtOn
 })
 @RunWith(Suite.class)

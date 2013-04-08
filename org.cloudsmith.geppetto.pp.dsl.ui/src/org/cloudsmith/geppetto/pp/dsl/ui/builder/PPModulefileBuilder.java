@@ -18,15 +18,18 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.log4j.Logger;
+import org.cloudsmith.geppetto.common.diagnostic.Diagnostic;
 import org.cloudsmith.geppetto.common.tracer.DefaultTracer;
 import org.cloudsmith.geppetto.common.tracer.ITracer;
-import org.cloudsmith.geppetto.forge.Dependency;
-import org.cloudsmith.geppetto.forge.ForgeFactory;
-import org.cloudsmith.geppetto.forge.Metadata;
-import org.cloudsmith.geppetto.forge.VersionRequirement;
+import org.cloudsmith.geppetto.forge.Forge;
+import org.cloudsmith.geppetto.forge.v2.model.Dependency;
+import org.cloudsmith.geppetto.forge.v2.model.Metadata;
+import org.cloudsmith.geppetto.forge.v2.model.ModuleName;
 import org.cloudsmith.geppetto.pp.dsl.ui.PPUiConstants;
 import org.cloudsmith.geppetto.pp.dsl.ui.internal.PPDSLActivator;
 import org.cloudsmith.geppetto.pp.dsl.validation.IValidationAdvisor;
+import org.cloudsmith.geppetto.semver.Version;
+import org.cloudsmith.geppetto.semver.VersionRange;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IMarker;
 import org.eclipse.core.resources.IProject;
@@ -36,9 +39,13 @@ import org.eclipse.core.resources.IResourceDelta;
 import org.eclipse.core.resources.IResourceDeltaVisitor;
 import org.eclipse.core.resources.IWorkspaceRoot;
 import org.eclipse.core.resources.IncrementalProjectBuilder;
+import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.OperationCanceledException;
+import org.eclipse.core.runtime.Path;
+import org.eclipse.core.runtime.SubMonitor;
 import org.eclipse.xtext.ui.XtextProjectHelper;
 import org.eclipse.xtext.util.Wrapper;
 
@@ -64,6 +71,8 @@ public class PPModulefileBuilder extends IncrementalProjectBuilder implements PP
 
 	private final Provider<IValidationAdvisor> validationAdvisorProvider;
 
+	private Forge forge;
+
 	private ITracer tracer;
 
 	private IValidationAdvisor validationAdvisor;
@@ -74,6 +83,7 @@ public class PPModulefileBuilder extends IncrementalProjectBuilder implements PP
 		Injector injector = ((PPDSLActivator) PPDSLActivator.getInstance()).getPPInjector();
 		tracer = new DefaultTracer(PPUiConstants.DEBUG_OPTION_MODULEFILE);
 		validationAdvisorProvider = injector.getProvider(IValidationAdvisor.class);
+		forge = injector.getInstance(Forge.class);
 	}
 
 	/*
@@ -164,7 +174,7 @@ public class PPModulefileBuilder extends IncrementalProjectBuilder implements PP
 			m.setAttribute(IMarker.PRIORITY, IMarker.PRIORITY_HIGH);
 			m.setAttribute(IMarker.SEVERITY, severity);
 			if(d != null) {
-				VersionRequirement vr = d.getVersionRequirement();
+				VersionRange vr = d.getVersionRequirement();
 				m.setAttribute(IMarker.LOCATION, d.getName() + (vr == null
 						? ""
 						: vr.toString()));
@@ -197,15 +207,17 @@ public class PPModulefileBuilder extends IncrementalProjectBuilder implements PP
 	 */
 	private IProject getBestMatchingProject(Dependency d, IProgressMonitor monitor) {
 		// Names with "/" are not allowed
-		final String requiredName = d.getName().replace("/", "-").toLowerCase();
-		if(requiredName == null || requiredName.isEmpty()) {
+		ModuleName requiredName = d.getName();
+		if(requiredName == null) {
 			if(tracer.isTracing())
 				tracer.trace("Dependency with mising name found");
 			return null;
 		}
+
+		requiredName = requiredName.withSeparator('-');
 		if(tracer.isTracing())
 			tracer.trace("Resolving required name: ", requiredName);
-		BiMap<IProject, String> candidates = HashBiMap.create();
+		BiMap<IProject, Version> candidates = HashBiMap.create();
 
 		if(tracer.isTracing())
 			tracer.trace("Checking against all projects...");
@@ -217,10 +229,13 @@ public class PPModulefileBuilder extends IncrementalProjectBuilder implements PP
 				continue;
 			}
 
-			String version = null;
-			String moduleName = null;
+			Version version = null;
+			ModuleName moduleName = null;
 			try {
-				moduleName = p.getPersistentProperty(PROJECT_PROPERTY_MODULENAME);
+				String mn = p.getPersistentProperty(PROJECT_PROPERTY_MODULENAME);
+				moduleName = mn == null
+						? null
+						: new ModuleName(mn);
 			}
 			catch(CoreException e) {
 				log.error("Could not read project Modulename property", e);
@@ -238,13 +253,13 @@ public class PPModulefileBuilder extends IncrementalProjectBuilder implements PP
 			// get the version from the persisted property
 			if(matched) {
 				try {
-					version = p.getPersistentProperty(PROJECT_PROPERTY_MODULEVERSION);
+					version = Version.create(p.getPersistentProperty(PROJECT_PROPERTY_MODULEVERSION));
 				}
-				catch(CoreException e) {
+				catch(Exception e) {
 					log.error("Error while getting version from project", e);
 				}
 				if(version == null)
-					version = "0";
+					version = Version.MIN;
 				if(tracer.isTracing())
 					tracer.trace("Candidate with version; ", version.toString(), " added as candidate");
 				candidates.put(p, version);
@@ -259,11 +274,11 @@ public class PPModulefileBuilder extends IncrementalProjectBuilder implements PP
 			tracer.trace("Getting best version");
 		}
 		// find best version and do a lookup of project
-		VersionRequirement vr = d.getVersionRequirement();
+		VersionRange vr = d.getVersionRequirement();
 		if(vr == null)
-			vr = VersionRequirement.EMPTY_REQUIREMENT;
-		String best = vr.findBestMatch(candidates.values());
-		if(best == null || best.length() == 0) {
+			vr = VersionRange.ALL_INCLUSIVE;
+		Version best = vr.findBestMatch(candidates.values());
+		if(best == null) {
 			if(tracer.isTracing())
 				tracer.trace("No best match found");
 			return null;
@@ -353,21 +368,6 @@ public class PPModulefileBuilder extends IncrementalProjectBuilder implements PP
 		return ((delta.getResource() instanceof IFile) && MODULEFILE_PATH.equals(delta.getProjectRelativePath()));
 	}
 
-	private Metadata loadMetadata(IFile moduleFile, IProgressMonitor monitor) {
-		// parse the "Modulefile" and get full name and version, use this as name of target entry
-		try {
-			Metadata metadata = ForgeFactory.eINSTANCE.createMetadata();
-			metadata.loadModuleFile(moduleFile.getLocation().toFile());
-			return metadata;
-		}
-		catch(Exception e) {
-			createErrorMarker(moduleFile, "Can not parse modulefile: " + e.getMessage(), null);
-			if(log.isDebugEnabled())
-				log.debug("Could not parse Modulefile dependencies: '" + moduleFile + "'", e);
-		}
-		return null;
-	}
-
 	/**
 	 * Deletes all problem markers set by this builder.
 	 */
@@ -402,7 +402,7 @@ public class PPModulefileBuilder extends IncrementalProjectBuilder implements PP
 				if(best != null)
 					result.add(best);
 				else {
-					VersionRequirement vr = d.getVersionRequirement();
+					VersionRange vr = d.getVersionRequirement();
 					createErrorMarker(moduleFile, "Unresolved dependency :'" + d.getName() + (vr == null
 							? ""
 							: ("' version: " + vr)), d);
@@ -422,92 +422,128 @@ public class PPModulefileBuilder extends IncrementalProjectBuilder implements PP
 	}
 
 	private void syncModulefileAndReferences(final IProgressMonitor monitor) {
+		IProject project = getProject();
+		if(!isAccessiblePuppetProject(project))
+			return;
+
 		if(tracer.isTracing())
 			tracer.trace("Syncing modulefile with project");
 
+		File projectDir = project.getLocation().toFile();
+		if(!forge.hasModuleMetadata(projectDir, null)) {
+			// puppet project without modulefile should reference the target project
+			syncProjectReferences(Lists.newArrayList(getProjectByName(PPUiConstants.PPTP_TARGET_PROJECT_NAME)), monitor);
+			return;
+		}
+
 		checkCancel(monitor);
-		IProject project = getProject();
-		if(isAccessiblePuppetProject(project)) {
-			IFile moduleFile = project.getFile("Modulefile");
-			if(moduleFile.exists()) {
+		SubMonitor subMon = SubMonitor.convert(monitor, 4);
 
-				// get metadata
-				Metadata metadata = loadMetadata(moduleFile, monitor);
-				if(metadata == null)
-					return; // give up - errors have been logged.
+		// get metadata
+		Metadata metadata;
+		File[] extractionSource = new File[1];
+		IFile metadataResource = getProject().getFile("metadata.json");
+		boolean metadataDerived = metadataResource.isDerived();
 
-				// sync version and name project data
-				String version = metadata == null
-						? "0"
-						: metadata.getVersion();
-				if(version == null || version.length() < 1)
-					version = "0.0.0";
-				String moduleName = metadata.getFullName().toLowerCase();
-				if(metadata.getName() == null) {
-					createErrorMarker(moduleFile, "Module name is empty", null);
-				}
-				else if(moduleName != null &&
-						!project.getName().toLowerCase().contains(metadata.getName().toLowerCase()))
-					createWarningMarker(moduleFile, "Mismatched name - project does not reflect module: '" +
-							moduleName + "'", null);
-
-				try {
-					IProject p = getProject();
-					String storedVersion = p.getPersistentProperty(PROJECT_PROPERTY_MODULEVERSION);
-					if(!version.equals(storedVersion))
-						p.setPersistentProperty(PROJECT_PROPERTY_MODULEVERSION, version);
-
-					String storedName = p.getPersistentProperty(PROJECT_PROPERTY_MODULENAME);
-					if(!moduleName.equals(storedName))
-						p.setPersistentProperty(PROJECT_PROPERTY_MODULENAME, moduleName);
-				}
-				catch(CoreException e1) {
-					log.error("Could not set version or symbolic module name of project", e1);
-				}
-
-				List<IProject> resolutions = resolveDependencies(metadata, moduleFile, monitor);
-				// add the TP project
-				resolutions.add(getProjectByName(PPUiConstants.PPTP_TARGET_PROJECT_NAME));
-
-				syncProjectReferences(resolutions, monitor);
-
-				// Sync the built .json version
-				try {
-					File pf = project.getLocation().toFile();
-					File mf = new File(pf, "metadata.json");
-					File tf = new File(pf, "lib/puppet");
-
-					// if there are types
-					if(tf.exists())
-						metadata.loadTypeFiles(tf);
-					metadata.loadChecksums(pf);
-					metadata.saveJSONMetadata(mf);
-					// must refresh the file as it was written outside the resource framework
-					IFile metadataResource = getProject().getFile("metadata.json");
-					try {
-						metadataResource.setDerived(true, monitor);
-					}
-					catch(CoreException e) {
-						log.error("Could not make 'metadata.json' derived", e);
-					}
-					try {
-						metadataResource.refreshLocal(IResource.DEPTH_ZERO, monitor);
-					}
-					catch(CoreException e) {
-						log.error("Could not refresh 'metadata.json'", e);
-					}
-				}
-				catch(IOException e) {
-					createErrorMarker(moduleFile, "Error while writing 'metadata.json': " + e.getMessage(), null);
-					log.error("Could not build 'metadata.json' for: '" + moduleFile + "'", e);
-				}
+		if(metadataDerived) {
+			try {
+				// Delete this file. It will be recreated from other
+				// sources.
+				metadataResource.delete(false, subMon.newChild(1));
 			}
-			else {
-				// puppet project without modulefile should reference the target project
-				syncProjectReferences(
-					Lists.newArrayList(getProjectByName(PPUiConstants.PPTP_TARGET_PROJECT_NAME)), monitor);
+			catch(CoreException e) {
+				log.error("Unable to delete metadata.json", e);
 			}
 		}
+		else {
+			// The one that will be created should be considered to
+			// be derived
+			metadataDerived = !metadataResource.exists();
+		}
+
+		Diagnostic diagnostic = new Diagnostic();
+		try {
+			// Load metadata, types, checksums etc.
+			metadata = forge.createFromModuleDirectory(projectDir, true, null, extractionSource, diagnostic);
+		}
+		catch(Exception e) {
+			createErrorMarker(project, "Can not parse modulefile or other metadata source: " + e.getMessage(), null);
+			if(log.isDebugEnabled())
+				log.debug("Could not parse module description: '" + project.getName() + "'", e);
+			return; // give up - errors have been logged.
+		}
+
+		File extractionSourceFile = extractionSource[0];
+		IPath extractionSourcePath = Path.fromOSString(extractionSourceFile.getAbsolutePath());
+		IFile moduleFile = ResourcesPlugin.getWorkspace().getRoot().getFileForLocation(extractionSourcePath);
+
+		// sync version and name project data
+		Version version = metadata == null
+				? null
+				: metadata.getVersion();
+		if(version == null)
+			version = Version.create("0.0.0");
+		ModuleName moduleName = metadata.getName();
+		if(moduleName == null) {
+			createErrorMarker(moduleFile, "Module name is empty", null);
+		}
+		else
+			moduleName = moduleName.withSeparator('-');
+
+		if(moduleName != null &&
+				!project.getName().toLowerCase().contains(moduleName.getName().toString().toLowerCase()))
+			createWarningMarker(
+				moduleFile, "Mismatched name - project does not reflect module: '" + moduleName + "'", null);
+
+		try {
+			IProject p = getProject();
+			String storedVersion = p.getPersistentProperty(PROJECT_PROPERTY_MODULEVERSION);
+			if(!version.equals(storedVersion))
+				p.setPersistentProperty(PROJECT_PROPERTY_MODULEVERSION, version.toString());
+
+			String storedName = p.getPersistentProperty(PROJECT_PROPERTY_MODULENAME);
+			if(!moduleName.equals(storedName))
+				p.setPersistentProperty(PROJECT_PROPERTY_MODULENAME, moduleName.toString());
+		}
+		catch(CoreException e1) {
+			log.error("Could not set version or symbolic module name of project", e1);
+		}
+
+		List<IProject> resolutions = resolveDependencies(metadata, moduleFile, subMon.newChild(1));
+		// add the TP project
+		resolutions.add(getProjectByName(PPUiConstants.PPTP_TARGET_PROJECT_NAME));
+
+		syncProjectReferences(resolutions, subMon.newChild(1));
+
+		// Sync the built .json version
+		if(metadataDerived) {
+			try {
+				// Recreate the metadata.json file
+				File mf = new File(project.getLocation().toFile(), "metadata.json");
+				forge.saveJSONMetadata(metadata, mf);
+				// must refresh the file as it was written outside the resource framework
+				try {
+					metadataResource.refreshLocal(IResource.DEPTH_ZERO, subMon.newChild(1));
+				}
+				catch(CoreException e) {
+					log.error("Could not refresh 'metadata.json'", e);
+				}
+
+				try {
+					metadataResource.setDerived(true, monitor);
+				}
+				catch(CoreException e) {
+					log.error("Could not make 'metadata.json' derived", e);
+				}
+
+			}
+			catch(IOException e) {
+				createErrorMarker(moduleFile, "Error while writing 'metadata.json': " + e.getMessage(), null);
+				log.error("Could not build 'metadata.json' for: '" + moduleFile + "'", e);
+			}
+		}
+		if(monitor != null)
+			monitor.done();
 	}
 
 	private void syncProjectReferences(List<IProject> wanted, IProgressMonitor monitor) {

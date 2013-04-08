@@ -13,8 +13,9 @@ package org.cloudsmith.geppetto.ui.editor;
 
 import java.io.IOException;
 
-import org.cloudsmith.geppetto.forge.ForgeFactory;
-import org.cloudsmith.geppetto.forge.Metadata;
+import org.cloudsmith.geppetto.common.diagnostic.Diagnostic;
+import org.cloudsmith.geppetto.forge.util.ModuleUtils;
+import org.cloudsmith.geppetto.forge.v2.model.Metadata;
 import org.cloudsmith.geppetto.ui.UIPlugin;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.runtime.IProgressMonitor;
@@ -51,7 +52,7 @@ public class ModuleMetadataEditor extends FormEditor {
 			protected void execute(IProgressMonitor progressMonitor) {
 				try {
 					IFile file = ((FileEditorInput) getEditorInput()).getFile();
-					metadata.saveModulefile(file.getLocation().toFile());
+					ModuleUtils.saveAsModulefile(metadata, file.getLocation().toFile());
 					file.refreshLocal(0, progressMonitor);
 				}
 				catch(Exception exception) {
@@ -86,18 +87,18 @@ public class ModuleMetadataEditor extends FormEditor {
 	public void init(IEditorSite site, IEditorInput input) throws PartInitException {
 		super.init(site, input);
 
-		metadata = ForgeFactory.eINSTANCE.createMetadata();
-
 		if(input instanceof FileEditorInput) {
 			try {
-				metadata.loadModuleFile(((FileEditorInput) input).getPath().toFile());
-
-				setPartName(metadata.getFullName());
+				metadata = ModuleUtils.parseModulefile(((FileEditorInput) input).getPath().toFile(), new Diagnostic());
+				if(metadata != null)
+					setPartName(metadata.getName().toString());
 			}
 			catch(IOException ioe) {
 				UIPlugin.INSTANCE.log(ioe);
 			}
 		}
+		if(metadata == null)
+			metadata = new Metadata();
 	}
 
 	@Override

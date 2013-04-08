@@ -42,16 +42,19 @@ public class HttpAuthenticator implements Authenticator {
 
 	private final Gson gson;
 
-	private final ForgePreferences forgePreferences;
+	private final ForgeAPIPreferences forgePreferences;
 
 	@Inject
-	public HttpAuthenticator(Gson gson, ForgePreferences forgePreferences) {
+	public HttpAuthenticator(Gson gson, ForgeAPIPreferences forgePreferences) {
 		this.gson = gson;
 		this.forgePreferences = forgePreferences;
 	}
 
 	@Override
 	public AuthResponse authenticate(String user, String password) throws IOException {
+		String oauthURL = forgePreferences.getOAuthURL();
+		if(oauthURL == null)
+			throw new IOException("Unable to authenticate. Preferences is missing OAuth URL");
 		HttpPost request = new HttpPost(forgePreferences.getOAuthURL());
 
 		MultipartEntity entity = new MultipartEntity();

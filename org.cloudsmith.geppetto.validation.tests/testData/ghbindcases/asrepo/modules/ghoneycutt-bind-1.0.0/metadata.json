@@ -1,0 +1,48 @@
+{
+  "name": "ghoneycutt-bind",
+  "author": "",
+  "description": "x",
+  "license": "",
+  "project_page": "",
+  "source": "",
+  "summary": "",
+  "version": "1.0.0",
+  "checksums": {
+    "Modulefile": "8ffbff7cb355092bbf9a25dabf0b8137",
+    "README": "a2c4b9662c7244397578148dc6a07de3",
+    "files/dns-svn-push": "87e308cd8239240d4bb15bae7d7f3f98",
+    "files/named.root": "9c70789a34626c60d9240f6da93b0686",
+    "manifests/cache.pp": "4a5f9e18834c5e9b67bbec4068b9f76c",
+    "manifests/init.pp": "678975aaf5185f0ea4a388c8b2d998c7",
+    "manifests/master.pp": "83bc48a7b5ca621d79dacf04878a368d",
+    "manifests/repo.pp": "bd2ef6e5aa94b8da76c6f4e6e88fe371",
+    "spec/spec.opts": "a600ded995d948e393fbe2320ba8e51c",
+    "spec/spec_helper.rb": "ca19ec4f451ebc7fdb035b52eae6e909",
+    "templates/dnsrepo.conf.erb": "843e3d84150aa9a2b15d008a53789a71",
+    "templates/named.authoritative-only-master.erb": "9969ad4174072e51efac08b83b8b6b7f",
+    "templates/named.caching-nameserver.erb": "bdb321fbe9cb95b7da0e13ec699c00c8",
+    "tests/init.pp": "35325ea3d13bde4e92ca9e983c68215c"
+  },
+  "dependencies": [
+    {
+      "name": "ghoneycutt/apache",
+      "version_requirement": "\u003e\u003d1.0.0"
+    },
+    {
+      "name": "ghoneycutt/generic",
+      "version_requirement": "\u003e\u003d1.0.0"
+    },
+    {
+      "name": "ghoneycutt/pam",
+      "version_requirement": "\u003e\u003d1.0.0"
+    },
+    {
+      "name": "ghoneycutt/ssh",
+      "version_requirement": "\u003e\u003d1.0.0"
+    },
+    {
+      "name": "ghoneycutt/svn",
+      "version_requirement": "\u003e\u003d1.0.0"
+    }
+  ]
+}

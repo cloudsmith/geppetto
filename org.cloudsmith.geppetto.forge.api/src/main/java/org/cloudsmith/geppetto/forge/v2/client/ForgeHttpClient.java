@@ -93,17 +93,17 @@ public class ForgeHttpClient implements Constants, ForgeClient {
 
 	private final Authenticator authenticator;
 
-	private final ForgePreferences preferences;
+	private final ForgeAPIPreferences preferences;
 
 	private String credentials;
 
 	private String userAgent;
 
 	@Inject
-	public ForgeHttpClient(Gson gson, ForgePreferences preferences, Authenticator authenticator) {
+	public ForgeHttpClient(Gson gson, ForgeAPIPreferences preferences, Authenticator authenticator) {
 		String baseUri = preferences.getBaseURL();
 		if(baseUri == null)
-			throw new IllegalArgumentException("Forge preference for base URL has not been set");
+			throw new IllegalArgumentException("ForgeAPI preference for base URL has not been set");
 		if(!baseUri.endsWith("/"))
 			baseUri += "/";
 

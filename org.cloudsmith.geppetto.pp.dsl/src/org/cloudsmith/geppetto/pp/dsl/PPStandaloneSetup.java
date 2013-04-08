@@ -40,8 +40,6 @@ public class PPStandaloneSetup extends PPStandaloneSetupGenerated {
 
 	@Override
 	public Injector createInjectorAndDoEMFRegistration() {
-		Injector mainInjector = super.createInjectorAndDoEMFRegistration();
-
 		// These must be registered when running in a non-OSGi environment
 		Registry registry = EPackage.Registry.INSTANCE;
 		if(!registry.containsKey(org.eclipse.xtext.XtextPackage.eNS_URI))
@@ -61,6 +59,8 @@ public class PPStandaloneSetup extends PPStandaloneSetupGenerated {
 
 		if(!factoryMap.containsKey("rb"))
 			factoryMap.put("rb", new PptpRubyResourceFactory());
+
+		Injector mainInjector = super.createInjectorAndDoEMFRegistration();
 
 		doPptpSetup();
 		return mainInjector;

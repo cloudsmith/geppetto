@@ -1,0 +1,4 @@
+name    'stackhammer-B'
+version '1.0.0'
+dependency 'stackhammer/A', '>= 1.0.0'
+dependency 'stackhammer/C', '>= 1.0.0'

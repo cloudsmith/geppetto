@@ -2,10 +2,10 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: %pluginName
 Bundle-SymbolicName: org.cloudsmith.geppetto.forge.api;singleton:=true
-Bundle-Version: 2.0.0.qualifier
+Bundle-Version: 3.0.3.qualifier
 Bundle-Vendor: %providerName
 Bundle-Localization: plugin
-Bundle-RequiredExecutionEnvironment: JavaSE-1.7
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-ActivationPolicy: lazy
 Export-Package: org.cloudsmith.geppetto.forge.v2,
  org.cloudsmith.geppetto.forge.v2.client,
@@ -31,4 +31,5 @@ Import-Package: com.google.gson;version="2.1.0",
  org.apache.http.impl.client;version="4.2.0",
  org.apache.http.message;version="4.2.0",
  org.apache.http.params;version="4.2.0",
- org.apache.http.protocol;version="4.2.2"
+ org.apache.http.protocol;version="4.2.2",
+ org.cloudsmith.geppetto.semver

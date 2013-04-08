@@ -3,11 +3,12 @@
 	<parent>
 		<groupId>org.cloudsmith.geppetto</groupId>
 		<artifactId>parent</artifactId>
-		<version>3.0.3-SNAPSHOT</version>
+		<version>3.0.3-rc2-SNAPSHOT</version>
 	</parent>
 
 	<artifactId>org.cloudsmith.geppetto.pp</artifactId>
 	<packaging>jar</packaging>
+	<name>Geppetto PP Model</name>
 
 	<build>
 		<sourceDirectory>src</sourceDirectory>

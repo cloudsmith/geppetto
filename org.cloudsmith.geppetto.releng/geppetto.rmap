@@ -11,6 +11,7 @@
   <rm:locator pattern="^org\.apache\.httpcomponents(\..+)?$" searchPathRef="maven.central"/>
   <rm:locator pattern="^org\.cloudsmith\.jrubyparser(\..+)?$" searchPathRef="jrubyparser"/>
   <rm:locator pattern="^org\.jruby(\..+)?$" searchPathRef="maven.central"/>
+  <rm:locator searchPathRef="egit" failOnError="false"/>
   <rm:locator searchPathRef="orbit" failOnError="false"/>
   <rm:locator searchPathRef="platform" failOnError="false"/>
   <rm:locator searchPathRef="juno" failOnError="false"/>
@@ -86,7 +87,7 @@
     <rm:provider componentTypes="osgi.bundle,eclipse.feature" readerType="p2" source="false" mutable="false">
       <rm:property key="buckminster.source" value="false"/>
       <rm:property key="buckminster.mutable" value="false"/>
-      <rm:uri format="{0}/eclipse/updates/3.8/R-3.8-201206081200">
+      <rm:uri format="{0}/eclipse/updates/3.8/R-3.8.2-201301310800">
         <bc:propertyRef key="eclipse.download"/>
       </rm:uri>
     </rm:provider>
@@ -95,7 +96,7 @@
     <rm:provider componentTypes="osgi.bundle,eclipse.feature" readerType="p2" source="false" mutable="false">
       <rm:property key="buckminster.source" value="false"/>
       <rm:property key="buckminster.mutable" value="false"/>
-      <rm:uri format="{0}/releases/juno">
+      <rm:uri format="{0}/releases/juno/201303010900">
         <bc:propertyRef key="eclipse.download"/>
       </rm:uri>
     </rm:provider>
@@ -104,7 +105,16 @@
     <rm:provider componentTypes="osgi.bundle,eclipse.feature" readerType="p2" source="false" mutable="false">
       <rm:property key="buckminster.source" value="false"/>
       <rm:property key="buckminster.mutable" value="false"/>
-      <rm:uri format="{0}/tools/orbit/downloads/drops/R20120526062928/repository">
+      <rm:uri format="{0}/tools/orbit/downloads/drops/R20130118183705/repository">
+        <bc:propertyRef key="eclipse.download"/>
+      </rm:uri>
+    </rm:provider>
+  </rm:searchPath>
+  <rm:searchPath name="egit">
+    <rm:provider componentTypes="osgi.bundle,eclipse.feature" readerType="p2" source="false" mutable="false">
+      <rm:property key="buckminster.source" value="false"/>
+      <rm:property key="buckminster.mutable" value="false"/>
+      <rm:uri format="{0}/egit/updates">
         <bc:propertyRef key="eclipse.download"/>
       </rm:uri>
     </rm:provider>

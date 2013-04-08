@@ -23,6 +23,16 @@ public class NamedTypeItem extends Entity {
 	@Expose
 	private String doc;
 
+	@Override
+	public boolean equals(Object o) {
+		if(this == o)
+			return true;
+		if(!(o instanceof NamedTypeItem))
+			return false;
+		NamedTypeItem no = (NamedTypeItem) o;
+		return safeEquals(name, no.name) && safeEquals(doc, no.doc);
+	}
+
 	/**
 	 * @return Documentation for the property
 	 */
@@ -35,6 +45,11 @@ public class NamedTypeItem extends Entity {
 	 */
 	public String getName() {
 		return name;
+	}
+
+	@Override
+	public int hashCode() {
+		return safeHash(name) * 31 + safeHash(doc);
 	}
 
 	/**

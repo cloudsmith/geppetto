@@ -72,13 +72,13 @@ public class Module extends TimestampedEntity {
 	}
 
 	/**
-	 * @return The full name as &quot;&lt;owner&gt;/&lt;module&gt;&quot;
+	 * @return The full name as &quot;&lt;owner&gt;-&lt;module&gt;&quot;
 	 */
-	public QName getFullName() {
+	public ModuleName getFullName() {
 		if(owner != null && name != null) {
 			String ownerName = owner.getUsername();
 			if(ownerName != null)
-				return new QName(ownerName, name);
+				return new ModuleName(ownerName, '-', name);
 		}
 		return null;
 	}

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="ASCII"?>
+<aggregator:Aggregation xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:aggregator="http://www.eclipse.org/b3/2011/aggregator/1.1.0" label="Xtext to Maven" buildRoot="target/xtext-maven-repo" packedStrategy="UNPACK_AS_SIBLING" mavenResult="true">
+  <validationSets label="main">
+    <contributions label="Xpand">
+      <repositories location="http://download.eclipse.org/modeling/m2t/xpand/updates/milestones/S201302050805">
+        <features name="org.eclipse.xpand.sdk.feature.group"/>
+      </repositories>
+      <mavenMappings namePattern="^([^.]+(?:\.[^.]+(?:\.[^.]+)?)?)(?:\.[^.]+)*$" groupId="org.eclipse.xpand" artifactId="$0"/>
+    </contributions>
+    <contributions label="Xtext MWE">
+      <repositories location="http://download.eclipse.org/modeling/emft/mwe/updates/milestones/S201302050800/mwe">
+        <features name="org.eclipse.emf.mwe.sdk.feature.group"/>
+      </repositories>
+      <repositories location="http://download.eclipse.org/modeling/emft/mwe/updates/milestones/S201302051053/mwe2lang">
+        <features name="org.eclipse.emf.mwe2.language.sdk.feature.group"/>
+      </repositories>
+      <repositories location="http://download.eclipse.org/modeling/tmf/xtext/updates/milestones/head/S201302051002">
+        <features name="org.eclipse.xtext.sdk.feature.group"/>
+      </repositories>
+    </contributions>
+    <validationRepositories location="http://download.eclipse.org/releases/juno/201303010900"/>
+  </validationSets>
+  <configurations operatingSystem="macosx" windowSystem="cocoa"/>
+</aggregator:Aggregation>

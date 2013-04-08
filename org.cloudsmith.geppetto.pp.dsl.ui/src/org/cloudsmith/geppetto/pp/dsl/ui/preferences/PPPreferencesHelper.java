@@ -198,6 +198,10 @@ public class PPPreferencesHelper implements IPreferenceStoreInitializer, IProper
 		return ValidationPreference.fromString(store.getString(PPPreferenceConstants.PROBLEM_ENSURE_NOT_FIRST));
 	}
 
+	public String getForgeLogin() {
+		return store.getString(PPPreferenceConstants.FORGE_LOGIN);
+	}
+
 	public String getForgeURI() {
 		return store.getString(PPPreferenceConstants.FORGE_LOCATION);
 	}
@@ -315,6 +319,7 @@ public class PPPreferencesHelper implements IPreferenceStoreInitializer, IProper
 		store.setDefault(PPPreferenceConstants.PUPPET_PROJECT_PATH, defaultProjectPath);
 		store.setDefault(PPPreferenceConstants.PUPPET_ENVIRONMENT, defaultPuppetEnvironment);
 		store.setDefault(PPPreferenceConstants.FORGE_LOCATION, defaultForgeURI);
+		store.setDefault(PPPreferenceConstants.FORGE_LOGIN, System.getProperty("user.name"));
 
 		store.setDefault(PPPreferenceConstants.PROBLEM_INTERPOLATED_HYPHEN, ValidationPreference.WARNING.toString());
 		store.setDefault(PPPreferenceConstants.PROBLEM_CIRCULAR_DEPENDENCY, ValidationPreference.WARNING.toString());

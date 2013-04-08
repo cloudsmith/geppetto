@@ -1,0 +1,9 @@
+name 'ben-test_module_wrong_owner'
+version '1.0.0'
+
+author 'ben'
+license ''
+project_page ''
+source ''
+summary ''
+description 'Description of test_module_wrong_owner'

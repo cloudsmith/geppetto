@@ -3,7 +3,7 @@
 	<parent>
 		<groupId>org.cloudsmith.geppetto</groupId>
 		<artifactId>parent</artifactId>
-		<version>3.0.3-SNAPSHOT</version>
+		<version>3.0.3-rc2-SNAPSHOT</version>
 	</parent>
 
 	<artifactId>org.cloudsmith.geppetto.validation</artifactId>
@@ -12,24 +12,37 @@
 	<name>Geppetto Validation</name>
 
 	<build>
-		<sourceDirectory>src</sourceDirectory>
-		<outputDirectory>bin</outputDirectory>
+		<resources>
+			<resource>
+				<directory>src/main/resources</directory>
+			</resource>
+			<resource>
+				<directory>.</directory>
+				<includes>
+					<include>about.html</include>
+					<include>plugin.properties</include>
+					<include>META-INF/MANIFEST.MF</include>
+				</includes>
+				<filtering>true</filtering>
+			</resource>
+		</resources>
 	</build>
+
 	<dependencies>
 		<dependency>
 			<groupId>org.cloudsmith.geppetto</groupId>
 			<artifactId>org.cloudsmith.geppetto.pp.dsl</artifactId>
-			<version>3.0.3-SNAPSHOT</version>
+			<version>3.0.3-rc2-SNAPSHOT</version>
 		</dependency>
 		<dependency>
 			<groupId>org.cloudsmith.geppetto</groupId>
 			<artifactId>org.cloudsmith.geppetto.forge</artifactId>
-			<version>3.0.3-SNAPSHOT</version>
+			<version>3.0.3-rc2-SNAPSHOT</version>
 		</dependency>
 		<dependency>
 			<groupId>org.cloudsmith.geppetto</groupId>
 			<artifactId>org.cloudsmith.geppetto.catalog</artifactId>
-			<version>3.0.3-SNAPSHOT</version>
+			<version>3.0.3-rc2-SNAPSHOT</version>
 		</dependency>
 	</dependencies>
 </project>

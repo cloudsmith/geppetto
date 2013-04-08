@@ -12,13 +12,19 @@
 package org.cloudsmith.geppetto.ui.wizard;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 
 import org.apache.log4j.Logger;
-import org.cloudsmith.geppetto.forge.Metadata;
-import org.cloudsmith.geppetto.forge.ModuleInfo;
+import org.cloudsmith.geppetto.forge.util.ModuleUtils;
+import org.cloudsmith.geppetto.forge.v2.model.Metadata;
+import org.cloudsmith.geppetto.forge.v2.model.Module;
+import org.cloudsmith.geppetto.forge.v2.model.ModuleName;
+import org.cloudsmith.geppetto.semver.VersionRange;
 import org.cloudsmith.geppetto.ui.UIPlugin;
 import org.cloudsmith.geppetto.ui.dialog.ModuleListSelectionDialog;
+import org.cloudsmith.geppetto.ui.editor.ModuleInfo;
 import org.cloudsmith.geppetto.ui.util.ResourceUtil;
 import org.cloudsmith.geppetto.ui.util.StringUtil;
 import org.eclipse.core.resources.IFile;
@@ -115,7 +121,11 @@ public class NewPuppetProjectFromForgeWizard extends NewPuppetModuleProjectWizar
 
 				try {
 					// TODO: Show error dialog
-					choices.addAll(getForge().search(null));
+					List<Module> modules = getForge().search("puppetlabs");
+					List<ModuleInfo> moduleInfos = new ArrayList<ModuleInfo>(modules.size());
+					for(Module module : modules)
+						moduleInfos.add(new ModuleInfo(module.getFullName(), null));
+					choices.addAll(moduleInfos);
 				}
 				catch(IOException ioe) {
 					StringBuilder builder = new StringBuilder();
@@ -123,9 +133,9 @@ public class NewPuppetProjectFromForgeWizard extends NewPuppetModuleProjectWizar
 					builder.append("\n");
 					builder.append(ioe.getMessage());
 					builder.append("\n\n(See the log view for technical details).");
-					MessageDialog.openError(getShell(), "Error while communicating with the Forge.", //
-					builder.toString()); //
-					log.error("Error while communicating with the Forge", ioe);
+					MessageDialog.openError(getShell(), "Error while communicating with the ForgeAPI.", //
+						builder.toString()); //
+					log.error("Error while communicating with the ForgeAPI", ioe);
 				}
 
 				moduleChoices = choices.toArray();
@@ -176,7 +186,7 @@ public class NewPuppetProjectFromForgeWizard extends NewPuppetModuleProjectWizar
 			}
 
 			if(super.validatePage()) {
-				String preferredProjectName = module.getName();
+				String preferredProjectName = module.getName().withSeparator('-').toString();
 
 				if(!preferredProjectName.equals(getProjectName())) {
 					setErrorMessage(null);
@@ -216,21 +226,18 @@ public class NewPuppetProjectFromForgeWizard extends NewPuppetModuleProjectWizar
 	protected void initializeProjectContents() throws Exception {
 
 		if(module != null) {
-			Metadata metadata = getForge().install(module.getFullName(), project.getLocation().toFile(), true, true);
+			VersionRange vr = module.getVersion() == null
+					? null
+					: VersionRange.exact(module.getVersion());
+			Metadata metadata = getForge().install(module.getName(), vr, project.getLocation().toFile(), true, true);
 
 			IFile moduleFile = ResourceUtil.getFile(project.getFullPath().append("Modulefile")); //$NON-NLS-1$
 
 			if(!moduleFile.exists()) {
-
-				if(metadata.getName() == null) {
+				ModuleName mdName = metadata.getName();
+				if(mdName == null)
 					metadata.setName(module.getName());
-				}
-
-				if(metadata.getUser() == null) {
-					metadata.setUser(StringUtil.getUser(module));
-				}
-
-				metadata.saveModulefile(moduleFile.getLocation().toFile());
+				ModuleUtils.saveAsModulefile(metadata, moduleFile.getLocation().toFile());
 			}
 		}
 	}

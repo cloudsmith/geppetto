@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<faqs xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/FML/1.0"
+  xsi:schemaLocation="http://maven.apache.org/FML/1.0 http://maven.apache.org/xsd/fml-1.0.xsd"
+  id="FAQ" title="Frequently Asked Questions">
+  <part id="Behavior">
+    <title>What happens if ...</title>
+    <faq id="no-metadata-json">
+      <question>there is no <code>metadata.json</code> file?</question>
+      <answer>
+        <p>
+           The validation and publication can still succeed provided that the plug-in finds either a <code>Modulefile</code> that in turn does not contain complex Ruby logic
+           or a Maven <code>pom.xml</code> file with <i>&lt;packaging&gt;puppet-module&lt;/packaging&gt;</i>.
+        </p>
+      </answer>
+    </faq>
+    <faq id="no-modulefile">
+      <question>there is no <code>Modulefile</code>?</question>
+      <answer>
+        <p>
+           The validation and publication can still succeed under two conditions:<ul>
+             <li>A <code>metadata.json</code> file is found. This file always takes precedence over a <code>Modulefile</code> or <code>pom.xml</code> file.</li>
+             <li>A <code>pom.xml</code> file is found. This will be used just as a <code>Modulefile</code> would.</li>
+           </ul>
+        </p>
+      </answer>
+    </faq>
+    <faq id="no-metadata-at-all">
+      <question>there is neither a <code>Modulefile</code>, a <code>pom.xml</code>, nor a <code>metadata.json</code> file?</question>
+      <answer>
+        <p>
+          Since the plug-in looks for those files, it will not find the module. If no modules are found, the build will fail.
+        </p>
+      </answer>
+    </faq>
+    <faq id="complex-logic">
+      <question>the <code>Modulefile</code> contains complex Ruby logic?</question>
+      <answer>
+        <p>
+		  The <code>Modulefile</code> is expected to be Ruby syntax but it is never evaluated by Ruby. It's compiled using the JRuby parser and the resulting abstract
+		  syntax tree is then analyzed. Constructs that are not recognized are ignored. This means that although the file may contain complex logic, that logic
+		  will never be evaluated. In essence, all such logic is comparable to <code>nil</code>.
+        </p>
+      </answer>
+    </faq>
+    <faq id="no-name">
+      <question>the <code>Modulefile</code>, <code>pom.xml</code>, or <code>metadata.json</code> file has no name?</question>
+      <answer>
+        <p>
+          The validator will consider lack of a module name to be an error. The build will end
+          with an error.
+        </p>
+      </answer>
+    </faq>
+    <faq id="no-version">
+      <question>the <code>Modulefile</code>, <code>pom.xml</code>, or <code>metadata.json</code> file has no version?</question>
+      <answer>
+        <p>
+          The validator will consider lack of a module version to be an error. The build will end
+          with an error.
+        </p>
+      </answer>
+    </faq>
+    <faq id="bad-json">
+      <question>the <code>metadata.json</code> file contains invalid JSON?</question>
+      <answer>
+        <p>
+          The validator will consider an unparseable file to be an error. The build will end
+          with an error.
+        </p>
+      </answer>
+    </faq>
+    <faq id="version-already-published">
+      <question>a version of a module has already been published?</question>
+      <answer>
+        <p>
+          The publisher will detect this and refrain from publishing. This is considered a normal condition.
+        </p>
+      </answer>
+    </faq>
+    <faq id="module-does-not-exist">
+      <question>the module does not exist at the Puppet Forge?</question>
+      <answer>
+        <p>
+          The Puppet Forge will reject any attempt to publish a version of a non-existent module. The build will end with
+          an error explaining that the module was not found.
+        </p>
+      </answer>
+    </faq>
+    <faq id="module-wrong-owner">
+      <question>the module owner does not match the publisher credentials?</question>
+      <answer>
+        <p>
+          The Puppet Forge will reject any attempt to publish a module that is not owned by the publisher. The build will end
+          with an error and a 'Forbidden' message.
+        </p>
+      </answer>
+    </faq>
+  </part>
+  <part id="Howto">
+    <title>Solution to problems</title>
+    <faq id="want-complex-logic">
+      <question>I really want to use complex logic in my <code>Modulefile</code>. What should I do?</question>
+      <answer>
+        <p>
+           Run the Puppet Module Tool on your module and commit the resulting <code>metadata.json</code> file. The plug-in will
+           then use that file instead of the <code>Modulefile</code>.
+        </p>
+      </answer>
+    </faq>
+  </part>
+</faqs>

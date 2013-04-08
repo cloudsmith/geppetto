@@ -1,0 +1,41 @@
+{
+  "dependencies": [
+
+  ],
+  "name": "lab42-activemq",
+  "author": "",
+  "license": "",
+  "version": "0.1.2",
+  "types": [
+
+  ],
+  "checksums": {
+    "tests/disable.pp": "3dde8b477cfebeb7f695c9c03be53b71",
+    "tests/absent.pp": "05139788c0ad4e3443c2a0ed76531e7e",
+    "manifests/params.pp": "f60656337f94d6e12ba3f3fe92006283",
+    "manifests/absent.pp": "d50888eaee443b22e374fa5500cd7609",
+    "manifests/backup.pp": "0965d926410cdfab0dd1692b3befdc01",
+    "tests/firewall.pp": "7d3f1039d7a1078d52cd5a8e57832bb2",
+    "tests/monitor.pp": "0d63bb6678aa65254ebfeb8d3ac9bd18",
+    "tests/debug.pp": "cc837180cff4e4aef3d73923f4c0bbfc",
+    "manifests/monitor.pp": "2c234ab32bb439b018b17ac82ef42f99",
+    "manifests/disableboot.pp": "7b94010e16bb23765994ed05b9e396cd",
+    "manifests/firewall.pp": "8981feaadb4e6f2afebaf61e82719052",
+    "README": "27a563b520352d88292d6f0127804330",
+    "tests/disableboot.pp": "c4a4bbdbcf121799f17787ac3247fc37",
+    "templates/activemq.xml.erb": "5be34261020a887b05c6f9d64cce3dd3",
+    "manifests/redhat.pp": "cae6552729586e258830a60572c3865d",
+    "tests/init.pp": "7845e38ce090643401a6ee6756b49f3f",
+    "manifests/example42.pp": "1fed7c51ff128b3e9c073cfcf2491700",
+    "templates/variables_activemq.erb": "8a75b010c2db4f8432291767f80f7c6f",
+    "manifests/disable.pp": "038462c49864ec5cc2e720e76ac38266",
+    "manifests/monitor/example42.pp": "88a20994aa1b450162ece04290f3b9ca",
+    "manifests/debug.pp": "07e7b8ec902a64750f101cb9c068d3bb",
+    "manifests/conf.pp": "320acaf58d4aa4a41e097849a52a56f7",
+    "tests/backup.pp": "c5ac311a3e185c6ef82ed0960b581c49",
+    "Modulefile": "a89602c68184348a486b001eaa6d0444",
+    "manifests/backup/example42.pp": "0310e082463f2efe2664ede020b102aa",
+    "manifests/init.pp": "f449774006ab68d24218585337931b77"
+  },
+  "source": ""
+}

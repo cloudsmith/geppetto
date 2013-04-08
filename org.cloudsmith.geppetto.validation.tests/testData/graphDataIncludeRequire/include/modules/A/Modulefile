@@ -1,0 +1,7 @@
+name    'stackhammer-A'
+version '1.0.0'
+
+author ''
+license ''
+dependency 'stackhammer/B', '>= 1.0.0'
+

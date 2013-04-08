@@ -3,11 +3,12 @@
 	<parent>
 		<groupId>org.cloudsmith.geppetto</groupId>
 		<artifactId>parent</artifactId>
-		<version>3.0.3-SNAPSHOT</version>
+		<version>3.0.3-rc2-SNAPSHOT</version>
 	</parent>
 
 	<artifactId>org.cloudsmith.geppetto.pp.dsl</artifactId>
 	<packaging>jar</packaging>
+	<name>Geppetto PP DSL</name>
 
 	<build>
 		<resources>
@@ -25,6 +26,15 @@
 			</resource>
 			<resource>
 				<directory>resources</directory>
+			</resource>
+			<resource>
+				<directory>.</directory>
+				<includes>
+					<include>about.html</include>
+					<include>plugin.properties</include>
+					<include>META-INF/MANIFEST.MF</include>
+				</includes>
+				<filtering>true</filtering>
 			</resource>
 		</resources>
 		<plugins>
@@ -55,43 +65,39 @@
 		<dependency>
 			<groupId>org.cloudsmith.geppetto</groupId>
 			<artifactId>org.cloudsmith.geppetto.pp</artifactId>
-			<version>3.0.3-SNAPSHOT</version>
+			<version>3.0.3-rc2-SNAPSHOT</version>
 		</dependency>
 		<dependency>
 			<groupId>org.cloudsmith.geppetto</groupId>
 			<artifactId>org.cloudsmith.geppetto.common</artifactId>
-			<version>3.0.3-SNAPSHOT</version>
+			<version>3.0.3-rc2-SNAPSHOT</version>
 		</dependency>
 		<dependency>
 			<groupId>org.cloudsmith.geppetto</groupId>
 			<artifactId>org.cloudsmith.geppetto.common.tracer</artifactId>
-			<version>3.0.3-SNAPSHOT</version>
+			<version>3.0.3-rc2-SNAPSHOT</version>
 		</dependency>
 		<dependency>
 			<groupId>org.cloudsmith.geppetto</groupId>
 			<artifactId>org.cloudsmith.geppetto.eclipse.core</artifactId>
-			<version>3.0.3-SNAPSHOT</version>
+			<version>3.0.3-rc2-SNAPSHOT</version>
 		</dependency>
 		<dependency>
 			<groupId>org.cloudsmith.geppetto</groupId>
 			<artifactId>org.cloudsmith.geppetto.ruby</artifactId>
-			<version>3.0.3-SNAPSHOT</version>
+			<version>3.0.3-rc2-SNAPSHOT</version>
 		</dependency>
 		<dependency>
 			<groupId>org.eclipse.xtext</groupId>
 			<artifactId>org.eclipse.xtext</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>org.sonatype.sisu</groupId>
-			<artifactId>sisu-guice</artifactId>
+			<groupId>com.google.inject</groupId>
+			<artifactId>guice</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>com.google.guava</groupId>
 			<artifactId>guava</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.eclipse.xtext</groupId>
-			<artifactId>org.eclipse.xtext</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>log4j</groupId>

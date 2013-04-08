@@ -11,20 +11,19 @@
  */
 package org.cloudsmith.geppetto.ui.editor;
 
-import java.net.URI;
-import java.net.URISyntaxException;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import org.cloudsmith.geppetto.forge.Dependency;
+import org.cloudsmith.geppetto.common.diagnostic.Diagnostic;
 import org.cloudsmith.geppetto.forge.Forge;
-import org.cloudsmith.geppetto.forge.ForgeFactory;
-import org.cloudsmith.geppetto.forge.MatchRule;
-import org.cloudsmith.geppetto.forge.Metadata;
-import org.cloudsmith.geppetto.forge.ModuleInfo;
-import org.cloudsmith.geppetto.forge.VersionRequirement;
+import org.cloudsmith.geppetto.forge.util.ModuleUtils;
+import org.cloudsmith.geppetto.forge.v2.model.Dependency;
+import org.cloudsmith.geppetto.forge.v2.model.Metadata;
+import org.cloudsmith.geppetto.forge.v2.model.ModuleName;
+import org.cloudsmith.geppetto.semver.Version;
+import org.cloudsmith.geppetto.semver.VersionRange;
 import org.cloudsmith.geppetto.ui.UIPlugin;
 import org.cloudsmith.geppetto.ui.dialog.ModuleListSelectionDialog;
 import org.cloudsmith.geppetto.ui.util.ResourceUtil;
@@ -52,7 +51,6 @@ import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.jface.window.Window;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.custom.CCombo;
 import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.events.SelectionAdapter;
@@ -78,7 +76,6 @@ import org.eclipse.ui.forms.widgets.Section;
 import org.eclipse.xtext.ui.XtextProjectHelper;
 
 import com.google.common.collect.BiMap;
-import com.google.common.collect.HashBiMap;
 
 class ModuleMetadataOverviewPage extends FormPage {
 
@@ -86,17 +83,11 @@ class ModuleMetadataOverviewPage extends FormPage {
 
 		protected class EditDependencyDialog extends ModuleListSelectionDialog {
 
-			protected CCombo criterionField = null;
+			protected Text versionRangeField = null;
 
-			protected String initialCriterion = null;
+			protected String initialVersionRange = null;
 
-			protected String criterion = null;
-
-			protected Text versionField = null;
-
-			protected String initialVersion = null;
-
-			protected String version = null;
+			protected String versionRange = null;
 
 			protected BiMap<String, String> criterionMap = null;
 
@@ -113,7 +104,7 @@ class ModuleMetadataOverviewPage extends FormPage {
 
 				Composite composite = new Composite(parent, SWT.NONE);
 
-				GridLayout gridLayout = new GridLayout(2, false);
+				GridLayout gridLayout = new GridLayout(1, false);
 				gridLayout.marginHeight = 0;
 				gridLayout.marginWidth = 0;
 
@@ -121,61 +112,24 @@ class ModuleMetadataOverviewPage extends FormPage {
 
 				GridDataFactory.fillDefaults().align(SWT.FILL, SWT.CENTER).grab(true, false).applyTo(composite);
 
-				Label criterionLabel = new Label(composite, SWT.NONE);
-				criterionLabel.setText(UIPlugin.INSTANCE.getString("_UI_Criterion_label"));
+				Label versionRangeLabel = new Label(composite, SWT.NONE);
+				versionRangeLabel.setText(UIPlugin.INSTANCE.getString("_UI_VersionRange_label"));
 
-				criterionField = new CCombo(composite, SWT.BORDER | SWT.READ_ONLY);
+				versionRangeField = new Text(composite, SWT.BORDER);
 
-				// populate bi directional map value <-> label in commonality order descending
-				criterionMap = HashBiMap.create();
-				criterionMap.put("==", "== Exactly equal");
-				criterionField.add(criterionMap.get("=="));
-				criterionMap.put("=", "=  Equal major and minor number");
-				criterionField.add(criterionMap.get("="));
-				criterionMap.put("~", "~  Equal major number");
-				criterionField.add(criterionMap.get("~"));
-				criterionMap.put(">=", ">= Greater or Equal");
-				criterionField.add(criterionMap.get(">="));
-				criterionMap.put(">", ">  Greater");
-				criterionField.add(criterionMap.get(">"));
-				criterionMap.put("<=", "<= Less or Equal");
-				criterionField.add(criterionMap.get("<="));
-				criterionMap.put("<", "<  Less");
-				criterionField.add(criterionMap.get("<"));
-
-				criterionField.addModifyListener(new ModifyListener() {
+				versionRangeField.addModifyListener(new ModifyListener() {
 
 					@Override
 					public void modifyText(ModifyEvent me) {
-						criterion = criterionMap.inverse().get(criterionField.getText());
-						// criterion = criterionField.getText();
+						versionRange = versionRangeField.getText();
 					}
 				});
 
-				criterionField.setText(criterionMap.get(initialCriterion == null
-						? MatchRule.PERFECT.getLiteral()
-						: initialCriterion));
-
-				GridDataFactory.fillDefaults().align(SWT.FILL, SWT.CENTER).grab(true, false).applyTo(criterionField);
-
-				Label versionLabel = new Label(composite, SWT.NONE);
-				versionLabel.setText(UIPlugin.INSTANCE.getString("_UI_Version_label"));
-
-				versionField = new Text(composite, SWT.BORDER);
-
-				versionField.addModifyListener(new ModifyListener() {
-
-					@Override
-					public void modifyText(ModifyEvent me) {
-						version = versionField.getText();
-					}
-				});
-
-				versionField.setText(initialVersion == null
+				versionRangeField.setText(initialVersionRange == null
 						? ""
-						: initialVersion);
+						: initialVersionRange);
 
-				GridDataFactory.fillDefaults().align(SWT.FILL, SWT.CENTER).grab(true, false).applyTo(versionField);
+				GridDataFactory.fillDefaults().align(SWT.FILL, SWT.CENTER).grab(true, false).applyTo(versionRangeField);
 
 				// filteredList.addSelectionListener(new SelectionAdapter() {
 				// @Override
@@ -183,7 +137,7 @@ class ModuleMetadataOverviewPage extends FormPage {
 				// Object[] selectedElements = getSelectedElements();
 				//
 				// if(selectedElements.length == 1) {
-				// versionField.setText(((ModuleInfo) selectedElements[0]).getVersion());
+				// versionRangeField.setText(((ModuleInfo) selectedElements[0]).getVersion());
 				// }
 				// }
 				// });
@@ -191,22 +145,12 @@ class ModuleMetadataOverviewPage extends FormPage {
 				return filteredList;
 			}
 
-			protected String getCriterion() {
-				return criterion == null
-						? MatchRule.PERFECT.getLiteral()
-						: criterion;
+			protected String getVersionRange() {
+				return versionRange;
 			}
 
-			protected String getVersion() {
-				return version;
-			}
-
-			protected void setInitialCriterion(String criterion) {
-				initialCriterion = criterion;
-			}
-
-			protected void setInitialVersion(String version) {
-				initialVersion = version;
+			protected void setInitialVersionRange(String versioRange) {
+				initialVersionRange = versioRange;
 			}
 		}
 
@@ -229,13 +173,12 @@ class ModuleMetadataOverviewPage extends FormPage {
 			GridDataFactory.swtDefaults().align(SWT.FILL, SWT.FILL).grab(true, false).applyTo(section);
 
 			Composite client = toolkit.createComposite(section);
-			client.setLayout(new GridLayout(3, false));
+			client.setLayout(new GridLayout(2, false));
 
 			Table dependenciesTable = toolkit.createTable(client, SWT.BORDER | SWT.FULL_SELECTION | SWT.MULTI);
 
 			TableLayout tableLayout = new TableLayout();
 			tableLayout.addColumnData(new ColumnWeightData(3));
-			tableLayout.addColumnData(new ColumnWeightData(1));
 			tableLayout.addColumnData(new ColumnWeightData(2));
 
 			dependenciesTable.setLayout(tableLayout);
@@ -247,9 +190,6 @@ class ModuleMetadataOverviewPage extends FormPage {
 
 			TableColumn nameColumn = new TableColumn(dependenciesTable, SWT.NONE);
 			nameColumn.setText(UIPlugin.INSTANCE.getString("_UI_Name_label")); //$NON-NLS-1$
-
-			TableColumn criterionColumn = new TableColumn(dependenciesTable, SWT.NONE);
-			criterionColumn.setText(UIPlugin.INSTANCE.getString("_UI_Criterion_label")); //$NON-NLS-1$
 
 			TableColumn versionColumn = new TableColumn(dependenciesTable, SWT.NONE);
 			versionColumn.setText(UIPlugin.INSTANCE.getString("_UI_Version_label")); //$NON-NLS-1$
@@ -286,16 +226,14 @@ class ModuleMetadataOverviewPage extends FormPage {
 					Dependency dependency = (Dependency) element;
 
 					if(columnIndex == 0) {
-						return dependency.getName();
+						return dependency.getName().toString();
 					}
 
-					VersionRequirement versionRequirement = dependency.getVersionRequirement();
+					VersionRange versionRequirement = dependency.getVersionRequirement();
 
 					return versionRequirement == null
 							? ""
-							: (columnIndex == 1
-									? versionRequirement.getMatchRule().getLiteral()
-									: versionRequirement.getVersion());
+							: versionRequirement.toString();
 				}
 
 				public boolean isLabelProperty(Object element, String property) {
@@ -331,11 +269,9 @@ class ModuleMetadataOverviewPage extends FormPage {
 						for(Object result : dialog.getResult()) {
 							ModuleInfo module = (ModuleInfo) result;
 
-							Dependency dependency = ForgeFactory.eINSTANCE.createDependency();
-							dependency.setName(module.getFullName());
-							VersionRequirement vr = ForgeFactory.eINSTANCE.createVersionRequirement();
-							vr.setMatchRule(MatchRule.PERFECT);
-							vr.setVersion(module.getVersion());
+							Dependency dependency = new Dependency();
+							dependency.setName(module.getName());
+							VersionRange vr = VersionRange.exact(module.getVersion());
 							dependency.setVersionRequirement(vr);
 							dependencies.add(dependency);
 						}
@@ -359,31 +295,21 @@ class ModuleMetadataOverviewPage extends FormPage {
 
 					EditDependencyDialog dialog = new EditDependencyDialog(getEditor().getSite().getShell());
 
-					VersionRequirement versionRequirement = dependency.getVersionRequirement();
+					VersionRange versionRequirement = dependency.getVersionRequirement();
 
-					if(versionRequirement != null) {
-						dialog.setInitialCriterion(versionRequirement.getMatchRule().getLiteral());
-						dialog.setInitialVersion(versionRequirement.getVersion());
-
-					}
+					if(versionRequirement != null)
+						dialog.setInitialVersionRange(versionRequirement.toString());
 
 					dialog.setElements(getModuleChoices());
-					dialog.setFilter(dependency.getName());
+					dialog.setFilter(dependency.getName().toString());
 
 					if(dialog.open() == Window.OK) {
-						dependency.setName(((ModuleInfo) dialog.getFirstResult()).getFullName());
+						dependency.setName(((ModuleInfo) dialog.getFirstResult()).getName());
 
-						String version = dialog.getVersion();
+						String versionRange = dialog.getVersionRange();
 
-						if(version != null && version.length() > 0) {
-
-							if(versionRequirement == null) {
-								dependency.setVersionRequirement(versionRequirement = ForgeFactory.eINSTANCE.createVersionRequirement());
-							}
-
-							versionRequirement.setMatchRule(MatchRule.get(dialog.getCriterion()));
-							versionRequirement.setVersion(version);
-						}
+						if(versionRange != null && versionRange.length() > 0)
+							dependency.setVersionRequirement(VersionRange.create(versionRange));
 						else {
 							dependency.setVersionRequirement(null);
 						}
@@ -452,16 +378,6 @@ class ModuleMetadataOverviewPage extends FormPage {
 			super.commit(onSave);
 		}
 
-		protected Forge getForge() {
-
-			if(forge == null) {
-				forge = ForgeFactory.eINSTANCE.createForgeService().createForge(
-					java.net.URI.create("http://forge.puppetlabs.com")); //$NON-NLS-1$
-			}
-
-			return forge;
-		}
-
 		protected Object[] getModuleChoices() {
 
 			if(moduleChoices == null) {
@@ -490,14 +406,12 @@ class ModuleMetadataOverviewPage extends FormPage {
 								continue; // not meaningful to include dependency on itself
 
 							if(moduleFile.exists()) {
-								Metadata metadata = ForgeFactory.eINSTANCE.createMetadata();
-								metadata.loadModuleFile(moduleFile.getLocation().toFile());
-
-								ModuleInfo module = ForgeFactory.eINSTANCE.createModuleInfo();
-								module.setFullName(metadata.getUser() + '/' + metadata.getName());
-								module.setVersion(metadata.getVersion());
-
-								modules.put(StringUtil.getModuleText(module), module);
+								Metadata metadata = ModuleUtils.parseModulefile(
+									moduleFile.getLocation().toFile(), new Diagnostic());
+								if(metadata != null) {
+									ModuleInfo module = new ModuleInfo(metadata.getName(), metadata.getVersion());
+									modules.put(StringUtil.getModuleText(module), module);
+								}
 							}
 							else if(current != null && project.getName().equals(current.getName())) {
 								// Also add all embedded modules from current project
@@ -516,15 +430,13 @@ class ModuleMetadataOverviewPage extends FormPage {
 													if(moduleFile.equals(currentModuleFile))
 														return false; // not meaningful to include dependency on itself
 													if(moduleFile.exists()) {
-														Metadata metadata = ForgeFactory.eINSTANCE.createMetadata();
-														metadata.loadModuleFile(moduleFile.getLocation().toFile());
-
-														ModuleInfo module = ForgeFactory.eINSTANCE.createModuleInfo();
-														module.setFullName(metadata.getUser() + '/' +
-																metadata.getName());
-														module.setVersion(metadata.getVersion());
-
-														modules.put(StringUtil.getModuleText(module), module);
+														Metadata metadata = ModuleUtils.parseModulefile(
+															moduleFile.getLocation().toFile(), new Diagnostic());
+														if(metadata != null) {
+															ModuleInfo module = new ModuleInfo(
+																metadata.getName(), metadata.getVersion());
+															modules.put(StringUtil.getModuleText(module), module);
+														}
 													}
 												}
 											}
@@ -589,12 +501,12 @@ class ModuleMetadataOverviewPage extends FormPage {
 
 			toolkit.createLabel(client, UIPlugin.INSTANCE.getString("_UI_ProjectPage_label")); //$NON-NLS-1$
 
-			URI projectPage = metadata != null
+			String projectPage = metadata != null
 					? metadata.getProjectPage()
 					: null;
 
 			projectPageText = toolkit.createText(client, projectPage != null
-					? projectPage.toString()
+					? projectPage
 					: null);
 			projectPageText.addModifyListener(this);
 
@@ -627,14 +539,7 @@ class ModuleMetadataOverviewPage extends FormPage {
 
 			if(metadata != null) {
 				metadata.setSource(sourceText.getText());
-
-				try {
-					metadata.setProjectPage(new URI(projectPageText.getText()));
-				}
-				catch(URISyntaxException urise) {
-					UIPlugin.INSTANCE.log(urise);
-				}
-
+				metadata.setProjectPage(projectPageText.getText());
 				metadata.setSummary(summaryText.getText());
 				metadata.setDescription(descriptionText.getText());
 			}
@@ -677,8 +582,12 @@ class ModuleMetadataOverviewPage extends FormPage {
 
 			toolkit.createLabel(client, UIPlugin.INSTANCE.getString("_UI_Name_label")); //$NON-NLS-1$
 
-			userText = toolkit.createText(client, metadata != null
-					? metadata.getUser()
+			ModuleName qname = metadata != null
+					? metadata.getName()
+					: null;
+
+			userText = toolkit.createText(client, qname != null
+					? qname.getOwner()
 					: null);
 			userText.addModifyListener(this);
 			userText.addVerifyListener(new VerifyListener() {
@@ -696,8 +605,8 @@ class ModuleMetadataOverviewPage extends FormPage {
 
 			toolkit.createLabel(client, "-"); //$NON-NLS-1$
 
-			nameText = toolkit.createText(client, metadata != null
-					? metadata.getName()
+			nameText = toolkit.createText(client, qname != null
+					? qname.getName()
 					: null);
 			nameText.addModifyListener(this);
 
@@ -705,8 +614,12 @@ class ModuleMetadataOverviewPage extends FormPage {
 
 			toolkit.createLabel(client, UIPlugin.INSTANCE.getString("_UI_Version_label")); //$NON-NLS-1$
 
-			versionText = toolkit.createText(client, metadata != null
+			Version version = metadata != null
 					? metadata.getVersion()
+					: null;
+
+			versionText = toolkit.createText(client, version != null
+					? version.toString()
 					: null);
 			versionText.addModifyListener(this);
 
@@ -738,9 +651,8 @@ class ModuleMetadataOverviewPage extends FormPage {
 			Metadata metadata = getMetadata();
 
 			if(metadata != null) {
-				metadata.setUser(userText.getText());
-				metadata.setName(nameText.getText());
-				metadata.setVersion(versionText.getText());
+				metadata.setName(new ModuleName(userText.getText(), nameText.getText()));
+				metadata.setVersion(Version.create(versionText.getText()));
 				metadata.setAuthor(authorText.getText());
 				metadata.setLicense(licenseText.getText());
 			}

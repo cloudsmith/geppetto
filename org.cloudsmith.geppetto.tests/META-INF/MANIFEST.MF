@@ -7,5 +7,8 @@ Bundle-Vendor: Cloudsmith Inc.
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Require-Bundle: org.junit,
  org.cloudsmith.geppetto.forge.tests,
+ org.cloudsmith.geppetto.forge.api.tests,
  org.cloudsmith.geppetto.pp.dsl.tests,
- org.cloudsmith.geppetto.ruby.tests
+ org.cloudsmith.geppetto.ruby.tests,
+ org.cloudsmith.geppetto.semver.tests,
+ org.cloudsmith.geppetto.validation.tests

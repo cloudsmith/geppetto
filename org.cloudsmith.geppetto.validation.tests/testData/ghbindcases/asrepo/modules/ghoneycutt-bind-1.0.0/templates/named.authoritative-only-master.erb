@@ -1,0 +1,73 @@
+// This file is being maintained by Puppet.
+// DO NOT EDIT
+
+//
+// Authoritative NS - Master
+//
+
+//
+// server options
+//
+options {
+
+    directory       "/var/named";
+    dump-file       "/var/named/data/cache_dump.db";
+    statistics-file "/var/named/data/named_stats.txt";
+    memstatistics-file "/var/named/data/named_mem_stats.txt";
+
+    // Do not share version information
+    version none;
+
+    // The interfaces and ports that the server will answer queries from
+    listen-on port 53 { <%= named_listen_ips.uniq.join("; ") %>; };
+
+    // If we move to an architecture that uses slave, use the code below
+    //
+    //allow-transfer { <%= named_slave_ips.uniq.join("; ") %>; };
+    //also-notify { <%= named_slave_ips.uniq.join("; ") %>; };
+
+    // we are auth for these domains, so we should allow anyone to ask about them
+    allow-query { any; };
+
+    // actually disables the use of the cache not only for additional
+    // data lookups but also when looking up the answer. This is usually
+    // the desired behavior in an authoritative-only server where the
+    // correctness of the cached data is an issue.
+    additional-from-cache no;
+
+    // authoritative should only answer queries about its own zones
+    recursion no;
+
+};
+
+//
+// Logging options
+//
+logging {
+    channel default_debug {
+        file "/var/named/data/named.run";
+        severity dynamic;
+
+        print-severity yes;
+        print-time yes;
+        print-category yes;
+    };
+};
+
+//
+// Default view - where we talk about zones
+//
+
+// Forward DNS
+
+//zone "pop.yourdomain.tld" in{
+//    type master;
+//    file "zones/pop.yourdomain.tld.zone";
+//};
+
+// Reverse DNS
+
+//zone "1.1.10.in-addr.arpa" in{
+//    type master;
+//    file "zones/rev/10.1.1.zone";
+//};

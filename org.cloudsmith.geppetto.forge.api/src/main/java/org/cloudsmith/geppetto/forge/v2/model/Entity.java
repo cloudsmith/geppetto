@@ -13,9 +13,24 @@ package org.cloudsmith.geppetto.forge.v2.model;
 
 import org.cloudsmith.geppetto.forge.v2.client.GsonProvider;
 
+/**
+ * Super class of all model entitites. Provides basic JSON capability.
+ */
 public class Entity {
+	static boolean safeEquals(Object a, Object b) {
+		return a == b || a != null && b != null && a.equals(b);
+	}
+
+	static int safeHash(Object a) {
+		return a == null
+				? 773
+				: a.hashCode();
+	}
+
 	/**
-	 * @return The JSON representation of the Entity
+	 * Produces a JSON representation of the Entity
+	 * 
+	 * @return The JSON string
 	 */
 	@Override
 	public final String toString() {

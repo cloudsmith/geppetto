@@ -11,9 +11,12 @@
  */
 package org.cloudsmith.geppetto.forge.v2.model;
 
-import java.util.Collections;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import org.cloudsmith.geppetto.semver.Version;
 
 import com.google.gson.annotations.Expose;
 
@@ -22,10 +25,10 @@ import com.google.gson.annotations.Expose;
  */
 public class Metadata extends Entity {
 	@Expose
-	private QName name;
+	private ModuleName name;
 
 	@Expose
-	private String version;
+	private Version version;
 
 	@Expose
 	private String summary;
@@ -43,7 +46,7 @@ public class Metadata extends Entity {
 	private List<Type> types;
 
 	@Expose
-	private Map<String, String> checksums;
+	private Map<String, byte[]> checksums;
 
 	@Expose
 	private String source;
@@ -55,6 +58,8 @@ public class Metadata extends Entity {
 	private String license;
 
 	/**
+	 * The verbose name of the author of this module.
+	 * 
 	 * @return the author
 	 */
 	public String getAuthor() {
@@ -62,24 +67,30 @@ public class Metadata extends Entity {
 	}
 
 	/**
-	 * @return the checksums
+	 * A map with filename &lt;-&gt; checksum entries for each file in the module
+	 * 
+	 * @return the checksums or an empty map if no checksums has been assigned
 	 */
-	public Map<String, String> getChecksums() {
-		return checksums == null
-				? Collections.<String, String> emptyMap()
-				: checksums;
+	public Map<String, byte[]> getChecksums() {
+		if(checksums == null)
+			checksums = new HashMap<String, byte[]>();
+		return checksums;
 	}
 
 	/**
-	 * @return the dependencies
+	 * The list of module dependencies.
+	 * 
+	 * @return the dependencies or an empty list.
 	 */
 	public List<Dependency> getDependencies() {
-		return dependencies == null
-				? Collections.<Dependency> emptyList()
-				: dependencies;
+		if(dependencies == null)
+			dependencies = new ArrayList<Dependency>();
+		return dependencies;
 	}
 
 	/**
+	 * A description of the module.
+	 * 
 	 * @return the description
 	 */
 	public String getDescription() {
@@ -87,6 +98,8 @@ public class Metadata extends Entity {
 	}
 
 	/**
+	 * The license pertaining to this module.
+	 * 
 	 * @return the license
 	 */
 	public String getLicense() {
@@ -94,20 +107,26 @@ public class Metadata extends Entity {
 	}
 
 	/**
-	 * @return the name
+	 * The qualified name of the module.
+	 * 
+	 * @return the qualified name
 	 */
-	public QName getName() {
+	public ModuleName getName() {
 		return name;
 	}
 
 	/**
+	 * A URL that points to the project page for this module.
+	 * 
 	 * @return the project_page
 	 */
-	public String getProject_page() {
+	public String getProjectPage() {
 		return project_page;
 	}
 
 	/**
+	 * A URL that points to the source for this module.
+	 * 
 	 * @return the source
 	 */
 	public String getSource() {
@@ -115,6 +134,8 @@ public class Metadata extends Entity {
 	}
 
 	/**
+	 * A brief summary
+	 * 
 	 * @return the summary
 	 */
 	public String getSummary() {
@@ -122,16 +143,22 @@ public class Metadata extends Entity {
 	}
 
 	/**
-	 * @return the types
+	 * The list of Types that this module includes.
+	 * 
+	 * @return the types or an emtpy list.
 	 */
 	public List<Type> getTypes() {
+		if(types == null)
+			types = new ArrayList<Type>();
 		return types;
 	}
 
 	/**
+	 * The version of the module.
+	 * 
 	 * @return the version
 	 */
-	public String getVersion() {
+	public Version getVersion() {
 		return version;
 	}
 
@@ -147,7 +174,7 @@ public class Metadata extends Entity {
 	 * @param checksums
 	 *            the checksums to set
 	 */
-	public void setChecksums(Map<String, String> checksums) {
+	public void setChecksums(Map<String, byte[]> checksums) {
 		this.checksums = checksums;
 	}
 
@@ -179,15 +206,17 @@ public class Metadata extends Entity {
 	 * @param name
 	 *            the name to set
 	 */
-	public void setName(QName name) {
-		this.name = name;
+	public void setName(ModuleName name) {
+		this.name = name == null
+				? null
+				: name.withSeparator('-');
 	}
 
 	/**
 	 * @param project_page
 	 *            the project_page to set
 	 */
-	public void setProject_page(String project_page) {
+	public void setProjectPage(String project_page) {
 		this.project_page = project_page;
 	}
 
@@ -219,7 +248,7 @@ public class Metadata extends Entity {
 	 * @param version
 	 *            the version to set
 	 */
-	public void setVersion(String version) {
+	public void setVersion(Version version) {
 		this.version = version;
 	}
 }

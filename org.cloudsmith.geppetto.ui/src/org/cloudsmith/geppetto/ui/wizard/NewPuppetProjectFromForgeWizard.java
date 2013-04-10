@@ -121,7 +121,7 @@ public class NewPuppetProjectFromForgeWizard extends NewPuppetModuleProjectWizar
 
 				try {
 					// TODO: Show error dialog
-					List<Module> modules = getForge().search("puppetlabs");
+					List<Module> modules = getForge().search(null);
 					List<ModuleInfo> moduleInfos = new ArrayList<ModuleInfo>(modules.size());
 					for(Module module : modules)
 						moduleInfos.add(new ModuleInfo(module.getFullName(), null));

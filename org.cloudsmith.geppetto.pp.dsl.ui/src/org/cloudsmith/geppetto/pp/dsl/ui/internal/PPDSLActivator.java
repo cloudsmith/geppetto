@@ -15,15 +15,18 @@ import java.util.Collections;
 import java.util.Map;
 
 import org.apache.log4j.Logger;
+import org.cloudsmith.geppetto.forge.ForgeService;
 import org.cloudsmith.geppetto.pp.dsl.PPDSLConstants;
 import org.cloudsmith.geppetto.pp.dsl.pptp.PptpRubyRuntimeModule;
 import org.cloudsmith.geppetto.pp.dsl.ui.jdt_ersatz.ImagesOnFileSystemRegistry;
 import org.cloudsmith.geppetto.pp.dsl.ui.preferences.PPPreferencesHelper;
 import org.cloudsmith.geppetto.ruby.RubyHelper;
 import org.cloudsmith.geppetto.ruby.jrubyparser.JRubyServices;
+import org.eclipse.xtext.util.Modules2;
 import org.osgi.framework.BundleContext;
 
 import com.google.common.collect.Maps;
+import com.google.inject.Guice;
 import com.google.inject.Injector;
 import com.google.inject.Module;
 
@@ -35,6 +38,8 @@ public class PPDSLActivator extends PPActivator {
 	public static final String PP_LANGUAGE_NAME = "org.cloudsmith.geppetto.pp.dsl.PP";
 
 	private static BundleContext slaActivatorContext;
+
+	private static final Logger logger = Logger.getLogger(PPDSLActivator.class);
 
 	public static PPDSLActivator getDefault() {
 		return (PPDSLActivator) getInstance();
@@ -65,6 +70,27 @@ public class PPDSLActivator extends PPActivator {
 	public ImagesOnFileSystemRegistry getImagesOnFSRegistry() {
 		return imagesOnFileSystemRegistry;
 	}
+
+	protected Injector createInjector(String language) {
+		try {
+			Module runtimeModule = getRuntimeModule(language);
+			Module sharedStateModule = getSharedStateModule();
+			Module uiModule = getUiModule(language);
+			Module forgeModule = getForgeModule();
+			Module mergedModule = Modules2.mixin(runtimeModule, sharedStateModule, uiModule, forgeModule);
+			return Guice.createInjector(mergedModule);
+		}
+		catch(Exception e) {
+			logger.error("Failed to create injector for " + language);
+			logger.error(e.getMessage(), e);
+			throw new RuntimeException("Failed to create injector for " + language, e);
+		}
+	}
+
+	protected Module getForgeModule() {
+		return ForgeService.getDefault().getForgeModule();
+	}
+
 
 	@Override
 	public Injector getInjector(String language) {

@@ -51,10 +51,10 @@ public class PPOverridingLexer extends PPLexer {
 	@Override
 	public Token nextToken() {
 		Token t = super.nextToken();
-		// This translates all KW_ to the KEYWORD range, i.e. KW_INHERTIS (82) KEYWORD_66 (inherits) = 4
+		// This translates all KW_ to the KEYWORD range, i.e. KW_INHERTIS (84) KEYWORD_66 (inherits) = 4
 		int origType = t.getType();
-		if(origType > 81)
-			t.setType(origType - 78);
+		if(origType > 83)
+			t.setType(origType - 80);
 
 		// System.err.println("Token: " + t.toString());
 		switch(origType) {

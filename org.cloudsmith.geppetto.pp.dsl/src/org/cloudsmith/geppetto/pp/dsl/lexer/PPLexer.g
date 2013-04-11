@@ -246,7 +246,11 @@ KW_MINUS     : '-' {
 		_type = RULE_ANY_OTHER;
 };
 
-KW_DOT       : {isNotInString()}? => '.';
+KW_DOT       : '.' {
+	if(singleQuotedString || doubleQuotedString)
+		_type = RULE_ANY_OTHER;
+}; 
+// {isNotInString()}? => '.';
 
 KW_SLASH     : {isNotInString()}?=>'/' {
 	if(isReAcceptable()) {
@@ -257,7 +261,7 @@ KW_SLASH     : {isNotInString()}?=>'/' {
 
 KW_COLON     : {isNotInString()}?=>':';
 
-KW_SEMI        : {isNotInString()}?=>';';
+KW_SEMI      : {isNotInString()}?=>';';
 
 KW_LT        : {isNotInString()}?=>'<';
 
@@ -298,12 +302,22 @@ RULE_DOLLAR_VAR : '$'
 	((':' ':')=>RULE_NS ('0'..'9'|'a'..'z'|'A'..'Z'|'_')+)* ;
 
 // Covers numbers and names
-RULE_WORD_CHARS : ('0'..'9'|'a'..'z'|'A'..'Z'|'_'|'.'|(':' ':')=>RULE_NS) ('0'..'9'|'a'..'z'|'A'..'Z'|'_'|'.'|'-'|(':' ':')=>RULE_NS)*
+RULE_WORD_CHARS : ('0'..'9'|'a'..'z'|'A'..'Z'|'_'|(':' ':')=>RULE_NS) ('0'..'9'|'a'..'z'|'A'..'Z'|'_'|'-'|(':' ':')=>RULE_NS)*
 {	// check if what was matched is a keyword - emit that instead
 	_type = replaceLiteral(_type, getText());
 };
 
+// If lookahead is NUMERIC, lex as number but produce WORD_CHARS
+RULE_NUMBER : (NUMERIC)=>NUMERIC {
+	_type = RULE_WORD_CHARS;
+};
+
 RULE_REGULAR_EXPRESSION : {isReAcceptable()}?=>'/' RULE_RE_BODY '/' RULE_RE_FLAGS?;
+
+fragment NUMERIC
+ 	: ('0' ('x'|'X'))=>('0' ('x'|'X') ('0'..'9'|'a'..'f'|'A'..'F')+)
+	| ('0'..'9')+ ('.' ('0'..'9')+)? (('e'|'E') '-'? ('0'..'9')+)?
+    ;
 
 fragment RULE_NS : '::' ;
 

@@ -3577,6 +3577,8 @@ public class PPGrammarAccess extends AbstractGrammarElementFinder {
 	private TerminalRule tWS;
 	private TerminalRule tDOLLAR_VAR;
 	private TerminalRule tWORD_CHARS;
+	private TerminalRule tNUMBER;
+	private TerminalRule tNUMERIC;
 	private TerminalRule tREGULAR_EXPRESSION;
 	private TerminalRule tRE_BODY;
 	private TerminalRule tRE_FIRST_CHAR;
@@ -4679,9 +4681,21 @@ public class PPGrammarAccess extends AbstractGrammarElementFinder {
 	} 
 
 	//terminal WORD_CHARS:
-	//	"::"? ("0".."9" | "a".."z" | "A".."Z" | "_" | "." | "-")+ ("::" ("0".."9" | "a".."z" | "A".."Z" | "_" | "." | "-")+)*;
+	//	"::"? ("0".."9" | "a".."z" | "A".."Z" | "_" | "-")+ ("::" ("0".."9" | "a".."z" | "A".."Z" | "_" | "-")+)*;
 	public TerminalRule getWORD_CHARSRule() {
 		return (tWORD_CHARS != null) ? tWORD_CHARS : (tWORD_CHARS = (TerminalRule) GrammarUtil.findRuleForName(getGrammar(), "WORD_CHARS"));
+	} 
+
+	//terminal NUMBER:
+	//	NUMERIC;
+	public TerminalRule getNUMBERRule() {
+		return (tNUMBER != null) ? tNUMBER : (tNUMBER = (TerminalRule) GrammarUtil.findRuleForName(getGrammar(), "NUMBER"));
+	} 
+
+	//terminal fragment NUMERIC:
+	//	"0" ("x" | "X") ("0".."9" | "a".."f" | "A".."F")+ | "0".."9"+ ("." "0".."9"+)? (("e" | "E") "-"? "0".."9"+)?;
+	public TerminalRule getNUMERICRule() {
+		return (tNUMERIC != null) ? tNUMERIC : (tNUMERIC = (TerminalRule) GrammarUtil.findRuleForName(getGrammar(), "NUMERIC"));
 	} 
 
 	//// Special rules in the lexer must prevent the RE from being recognized

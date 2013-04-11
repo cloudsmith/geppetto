@@ -12,15 +12,15 @@ import java.util.ArrayList;
 
 @SuppressWarnings("all")
 public class InternalPPLexer extends Lexer {
-    public static final int RULE_REGULAR_EXPRESSION=77;
-    public static final int RULE_ANY_OTHER=81;
-    public static final int RULE_RE_FLAGS=76;
+    public static final int RULE_REGULAR_EXPRESSION=79;
+    public static final int RULE_ANY_OTHER=83;
+    public static final int RULE_RE_FLAGS=78;
     public static final int KEYWORD_19=64;
     public static final int KEYWORD_56=15;
     public static final int KEYWORD_55=14;
     public static final int KEYWORD_17=62;
     public static final int KEYWORD_54=13;
-    public static final int RULE_RE_FOLLOW_CHAR=79;
+    public static final int RULE_RE_FOLLOW_CHAR=81;
     public static final int KEYWORD_18=63;
     public static final int KEYWORD_53=20;
     public static final int KEYWORD_15=60;
@@ -37,6 +37,7 @@ public class InternalPPLexer extends Lexer {
     public static final int KEYWORD_59=10;
     public static final int KEYWORD_58=9;
     public static final int KEYWORD_57=16;
+    public static final int RULE_NUMBER=76;
     public static final int KEYWORD_6=51;
     public static final int KEYWORD_7=52;
     public static final int KEYWORD_8=53;
@@ -52,14 +53,14 @@ public class InternalPPLexer extends Lexer {
     public static final int KEYWORD_25=21;
     public static final int KEYWORD_63=7;
     public static final int KEYWORD_26=22;
-    public static final int RULE_RE_FIRST_CHAR=78;
+    public static final int RULE_RE_FIRST_CHAR=80;
     public static final int KEYWORD_62=6;
     public static final int KEYWORD_27=23;
     public static final int KEYWORD_20=65;
     public static final int KEYWORD_21=66;
     public static final int KEYWORD_22=67;
     public static final int KEYWORD_23=68;
-    public static final int RULE_RE_BACKSLASH_SEQUENCE=80;
+    public static final int RULE_RE_BACKSLASH_SEQUENCE=82;
     public static final int KEYWORD_1=46;
     public static final int KEYWORD_30=26;
     public static final int KEYWORD_5=50;
@@ -72,13 +73,14 @@ public class InternalPPLexer extends Lexer {
     public static final int KEYWORD_2=47;
     public static final int KEYWORD_31=27;
     public static final int KEYWORD_38=34;
-    public static final int RULE_RE_BODY=75;
+    public static final int RULE_RE_BODY=77;
     public static final int RULE_SL_COMMENT=71;
     public static final int KEYWORD_37=33;
     public static final int KEYWORD_36=32;
     public static final int KEYWORD_35=31;
     public static final int RULE_ML_COMMENT=70;
     public static final int KEYWORD_39=35;
+    public static final int RULE_NUMERIC=75;
     public static final int KEYWORD_41=37;
     public static final int KEYWORD_40=36;
     public static final int KEYWORD_43=39;
@@ -1888,8 +1890,8 @@ public class InternalPPLexer extends Lexer {
         try {
             int _type = RULE_WORD_CHARS;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/lexer/InternalPPLexer.g:161:17: ( ( '::' )? ( '0' .. '9' | 'a' .. 'z' | 'A' .. 'Z' | '_' | '.' | '-' )+ ( '::' ( '0' .. '9' | 'a' .. 'z' | 'A' .. 'Z' | '_' | '.' | '-' )+ )* )
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/lexer/InternalPPLexer.g:161:19: ( '::' )? ( '0' .. '9' | 'a' .. 'z' | 'A' .. 'Z' | '_' | '.' | '-' )+ ( '::' ( '0' .. '9' | 'a' .. 'z' | 'A' .. 'Z' | '_' | '.' | '-' )+ )*
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/lexer/InternalPPLexer.g:161:17: ( ( '::' )? ( '0' .. '9' | 'a' .. 'z' | 'A' .. 'Z' | '_' | '-' )+ ( '::' ( '0' .. '9' | 'a' .. 'z' | 'A' .. 'Z' | '_' | '-' )+ )* )
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/lexer/InternalPPLexer.g:161:19: ( '::' )? ( '0' .. '9' | 'a' .. 'z' | 'A' .. 'Z' | '_' | '-' )+ ( '::' ( '0' .. '9' | 'a' .. 'z' | 'A' .. 'Z' | '_' | '-' )+ )*
             {
             // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/lexer/InternalPPLexer.g:161:19: ( '::' )?
             int alt13=2;
@@ -1910,14 +1912,14 @@ public class InternalPPLexer extends Lexer {
 
             }
 
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/lexer/InternalPPLexer.g:161:25: ( '0' .. '9' | 'a' .. 'z' | 'A' .. 'Z' | '_' | '.' | '-' )+
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/lexer/InternalPPLexer.g:161:25: ( '0' .. '9' | 'a' .. 'z' | 'A' .. 'Z' | '_' | '-' )+
             int cnt14=0;
             loop14:
             do {
                 int alt14=2;
                 int LA14_0 = input.LA(1);
 
-                if ( ((LA14_0>='-' && LA14_0<='.')||(LA14_0>='0' && LA14_0<='9')||(LA14_0>='A' && LA14_0<='Z')||LA14_0=='_'||(LA14_0>='a' && LA14_0<='z')) ) {
+                if ( (LA14_0=='-'||(LA14_0>='0' && LA14_0<='9')||(LA14_0>='A' && LA14_0<='Z')||LA14_0=='_'||(LA14_0>='a' && LA14_0<='z')) ) {
                     alt14=1;
                 }
 
@@ -1926,7 +1928,7 @@ public class InternalPPLexer extends Lexer {
             	case 1 :
             	    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/lexer/InternalPPLexer.g:
             	    {
-            	    if ( (input.LA(1)>='-' && input.LA(1)<='.')||(input.LA(1)>='0' && input.LA(1)<='9')||(input.LA(1)>='A' && input.LA(1)<='Z')||input.LA(1)=='_'||(input.LA(1)>='a' && input.LA(1)<='z') ) {
+            	    if ( input.LA(1)=='-'||(input.LA(1)>='0' && input.LA(1)<='9')||(input.LA(1)>='A' && input.LA(1)<='Z')||input.LA(1)=='_'||(input.LA(1)>='a' && input.LA(1)<='z') ) {
             	        input.consume();
 
             	    }
@@ -1948,7 +1950,7 @@ public class InternalPPLexer extends Lexer {
                 cnt14++;
             } while (true);
 
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/lexer/InternalPPLexer.g:161:67: ( '::' ( '0' .. '9' | 'a' .. 'z' | 'A' .. 'Z' | '_' | '.' | '-' )+ )*
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/lexer/InternalPPLexer.g:161:63: ( '::' ( '0' .. '9' | 'a' .. 'z' | 'A' .. 'Z' | '_' | '-' )+ )*
             loop16:
             do {
                 int alt16=2;
@@ -1961,18 +1963,18 @@ public class InternalPPLexer extends Lexer {
 
                 switch (alt16) {
             	case 1 :
-            	    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/lexer/InternalPPLexer.g:161:68: '::' ( '0' .. '9' | 'a' .. 'z' | 'A' .. 'Z' | '_' | '.' | '-' )+
+            	    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/lexer/InternalPPLexer.g:161:64: '::' ( '0' .. '9' | 'a' .. 'z' | 'A' .. 'Z' | '_' | '-' )+
             	    {
             	    match("::"); 
 
-            	    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/lexer/InternalPPLexer.g:161:73: ( '0' .. '9' | 'a' .. 'z' | 'A' .. 'Z' | '_' | '.' | '-' )+
+            	    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/lexer/InternalPPLexer.g:161:69: ( '0' .. '9' | 'a' .. 'z' | 'A' .. 'Z' | '_' | '-' )+
             	    int cnt15=0;
             	    loop15:
             	    do {
             	        int alt15=2;
             	        int LA15_0 = input.LA(1);
 
-            	        if ( ((LA15_0>='-' && LA15_0<='.')||(LA15_0>='0' && LA15_0<='9')||(LA15_0>='A' && LA15_0<='Z')||LA15_0=='_'||(LA15_0>='a' && LA15_0<='z')) ) {
+            	        if ( (LA15_0=='-'||(LA15_0>='0' && LA15_0<='9')||(LA15_0>='A' && LA15_0<='Z')||LA15_0=='_'||(LA15_0>='a' && LA15_0<='z')) ) {
             	            alt15=1;
             	        }
 
@@ -1981,7 +1983,7 @@ public class InternalPPLexer extends Lexer {
             	    	case 1 :
             	    	    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/lexer/InternalPPLexer.g:
             	    	    {
-            	    	    if ( (input.LA(1)>='-' && input.LA(1)<='.')||(input.LA(1)>='0' && input.LA(1)<='9')||(input.LA(1)>='A' && input.LA(1)<='Z')||input.LA(1)=='_'||(input.LA(1)>='a' && input.LA(1)<='z') ) {
+            	    	    if ( input.LA(1)=='-'||(input.LA(1)>='0' && input.LA(1)<='9')||(input.LA(1)>='A' && input.LA(1)<='Z')||input.LA(1)=='_'||(input.LA(1)>='a' && input.LA(1)<='z') ) {
             	    	        input.consume();
 
             	    	    }
@@ -2023,27 +2025,300 @@ public class InternalPPLexer extends Lexer {
     }
     // $ANTLR end "RULE_WORD_CHARS"
 
+    // $ANTLR start "RULE_NUMBER"
+    public final void mRULE_NUMBER() throws RecognitionException {
+        try {
+            int _type = RULE_NUMBER;
+            int _channel = DEFAULT_TOKEN_CHANNEL;
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/lexer/InternalPPLexer.g:163:13: ( RULE_NUMERIC )
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/lexer/InternalPPLexer.g:163:15: RULE_NUMERIC
+            {
+            mRULE_NUMERIC(); 
+
+            }
+
+            state.type = _type;
+            state.channel = _channel;
+        }
+        finally {
+        }
+    }
+    // $ANTLR end "RULE_NUMBER"
+
+    // $ANTLR start "RULE_NUMERIC"
+    public final void mRULE_NUMERIC() throws RecognitionException {
+        try {
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/lexer/InternalPPLexer.g:165:23: ( ( '0' ( 'x' | 'X' ) ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' )+ | ( '0' .. '9' )+ ( '.' ( '0' .. '9' )+ )? ( ( 'e' | 'E' ) ( '-' )? ( '0' .. '9' )+ )? ) )
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/lexer/InternalPPLexer.g:165:25: ( '0' ( 'x' | 'X' ) ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' )+ | ( '0' .. '9' )+ ( '.' ( '0' .. '9' )+ )? ( ( 'e' | 'E' ) ( '-' )? ( '0' .. '9' )+ )? )
+            {
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/lexer/InternalPPLexer.g:165:25: ( '0' ( 'x' | 'X' ) ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' )+ | ( '0' .. '9' )+ ( '.' ( '0' .. '9' )+ )? ( ( 'e' | 'E' ) ( '-' )? ( '0' .. '9' )+ )? )
+            int alt24=2;
+            int LA24_0 = input.LA(1);
+
+            if ( (LA24_0=='0') ) {
+                int LA24_1 = input.LA(2);
+
+                if ( (LA24_1=='X'||LA24_1=='x') ) {
+                    alt24=1;
+                }
+                else {
+                    alt24=2;}
+            }
+            else if ( ((LA24_0>='1' && LA24_0<='9')) ) {
+                alt24=2;
+            }
+            else {
+                NoViableAltException nvae =
+                    new NoViableAltException("", 24, 0, input);
+
+                throw nvae;
+            }
+            switch (alt24) {
+                case 1 :
+                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/lexer/InternalPPLexer.g:165:26: '0' ( 'x' | 'X' ) ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' )+
+                    {
+                    match('0'); 
+                    if ( input.LA(1)=='X'||input.LA(1)=='x' ) {
+                        input.consume();
+
+                    }
+                    else {
+                        MismatchedSetException mse = new MismatchedSetException(null,input);
+                        recover(mse);
+                        throw mse;}
+
+                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/lexer/InternalPPLexer.g:165:40: ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' )+
+                    int cnt17=0;
+                    loop17:
+                    do {
+                        int alt17=2;
+                        int LA17_0 = input.LA(1);
+
+                        if ( ((LA17_0>='0' && LA17_0<='9')||(LA17_0>='A' && LA17_0<='F')||(LA17_0>='a' && LA17_0<='f')) ) {
+                            alt17=1;
+                        }
+
+
+                        switch (alt17) {
+                    	case 1 :
+                    	    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/lexer/InternalPPLexer.g:
+                    	    {
+                    	    if ( (input.LA(1)>='0' && input.LA(1)<='9')||(input.LA(1)>='A' && input.LA(1)<='F')||(input.LA(1)>='a' && input.LA(1)<='f') ) {
+                    	        input.consume();
+
+                    	    }
+                    	    else {
+                    	        MismatchedSetException mse = new MismatchedSetException(null,input);
+                    	        recover(mse);
+                    	        throw mse;}
+
+
+                    	    }
+                    	    break;
+
+                    	default :
+                    	    if ( cnt17 >= 1 ) break loop17;
+                                EarlyExitException eee =
+                                    new EarlyExitException(17, input);
+                                throw eee;
+                        }
+                        cnt17++;
+                    } while (true);
+
+
+                    }
+                    break;
+                case 2 :
+                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/lexer/InternalPPLexer.g:165:70: ( '0' .. '9' )+ ( '.' ( '0' .. '9' )+ )? ( ( 'e' | 'E' ) ( '-' )? ( '0' .. '9' )+ )?
+                    {
+                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/lexer/InternalPPLexer.g:165:70: ( '0' .. '9' )+
+                    int cnt18=0;
+                    loop18:
+                    do {
+                        int alt18=2;
+                        int LA18_0 = input.LA(1);
+
+                        if ( ((LA18_0>='0' && LA18_0<='9')) ) {
+                            alt18=1;
+                        }
+
+
+                        switch (alt18) {
+                    	case 1 :
+                    	    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/lexer/InternalPPLexer.g:165:71: '0' .. '9'
+                    	    {
+                    	    matchRange('0','9'); 
+
+                    	    }
+                    	    break;
+
+                    	default :
+                    	    if ( cnt18 >= 1 ) break loop18;
+                                EarlyExitException eee =
+                                    new EarlyExitException(18, input);
+                                throw eee;
+                        }
+                        cnt18++;
+                    } while (true);
+
+                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/lexer/InternalPPLexer.g:165:82: ( '.' ( '0' .. '9' )+ )?
+                    int alt20=2;
+                    int LA20_0 = input.LA(1);
+
+                    if ( (LA20_0=='.') ) {
+                        alt20=1;
+                    }
+                    switch (alt20) {
+                        case 1 :
+                            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/lexer/InternalPPLexer.g:165:83: '.' ( '0' .. '9' )+
+                            {
+                            match('.'); 
+                            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/lexer/InternalPPLexer.g:165:87: ( '0' .. '9' )+
+                            int cnt19=0;
+                            loop19:
+                            do {
+                                int alt19=2;
+                                int LA19_0 = input.LA(1);
+
+                                if ( ((LA19_0>='0' && LA19_0<='9')) ) {
+                                    alt19=1;
+                                }
+
+
+                                switch (alt19) {
+                            	case 1 :
+                            	    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/lexer/InternalPPLexer.g:165:88: '0' .. '9'
+                            	    {
+                            	    matchRange('0','9'); 
+
+                            	    }
+                            	    break;
+
+                            	default :
+                            	    if ( cnt19 >= 1 ) break loop19;
+                                        EarlyExitException eee =
+                                            new EarlyExitException(19, input);
+                                        throw eee;
+                                }
+                                cnt19++;
+                            } while (true);
+
+
+                            }
+                            break;
+
+                    }
+
+                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/lexer/InternalPPLexer.g:165:101: ( ( 'e' | 'E' ) ( '-' )? ( '0' .. '9' )+ )?
+                    int alt23=2;
+                    int LA23_0 = input.LA(1);
+
+                    if ( (LA23_0=='E'||LA23_0=='e') ) {
+                        alt23=1;
+                    }
+                    switch (alt23) {
+                        case 1 :
+                            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/lexer/InternalPPLexer.g:165:102: ( 'e' | 'E' ) ( '-' )? ( '0' .. '9' )+
+                            {
+                            if ( input.LA(1)=='E'||input.LA(1)=='e' ) {
+                                input.consume();
+
+                            }
+                            else {
+                                MismatchedSetException mse = new MismatchedSetException(null,input);
+                                recover(mse);
+                                throw mse;}
+
+                            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/lexer/InternalPPLexer.g:165:112: ( '-' )?
+                            int alt21=2;
+                            int LA21_0 = input.LA(1);
+
+                            if ( (LA21_0=='-') ) {
+                                alt21=1;
+                            }
+                            switch (alt21) {
+                                case 1 :
+                                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/lexer/InternalPPLexer.g:165:112: '-'
+                                    {
+                                    match('-'); 
+
+                                    }
+                                    break;
+
+                            }
+
+                            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/lexer/InternalPPLexer.g:165:117: ( '0' .. '9' )+
+                            int cnt22=0;
+                            loop22:
+                            do {
+                                int alt22=2;
+                                int LA22_0 = input.LA(1);
+
+                                if ( ((LA22_0>='0' && LA22_0<='9')) ) {
+                                    alt22=1;
+                                }
+
+
+                                switch (alt22) {
+                            	case 1 :
+                            	    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/lexer/InternalPPLexer.g:165:118: '0' .. '9'
+                            	    {
+                            	    matchRange('0','9'); 
+
+                            	    }
+                            	    break;
+
+                            	default :
+                            	    if ( cnt22 >= 1 ) break loop22;
+                                        EarlyExitException eee =
+                                            new EarlyExitException(22, input);
+                                        throw eee;
+                                }
+                                cnt22++;
+                            } while (true);
+
+
+                            }
+                            break;
+
+                    }
+
+
+                    }
+                    break;
+
+            }
+
+
+            }
+
+        }
+        finally {
+        }
+    }
+    // $ANTLR end "RULE_NUMERIC"
+
     // $ANTLR start "RULE_REGULAR_EXPRESSION"
     public final void mRULE_REGULAR_EXPRESSION() throws RecognitionException {
         try {
             int _type = RULE_REGULAR_EXPRESSION;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/lexer/InternalPPLexer.g:163:25: ( '/' RULE_RE_BODY '/' ( RULE_RE_FLAGS )? )
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/lexer/InternalPPLexer.g:163:27: '/' RULE_RE_BODY '/' ( RULE_RE_FLAGS )?
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/lexer/InternalPPLexer.g:167:25: ( '/' RULE_RE_BODY '/' ( RULE_RE_FLAGS )? )
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/lexer/InternalPPLexer.g:167:27: '/' RULE_RE_BODY '/' ( RULE_RE_FLAGS )?
             {
             match('/'); 
             mRULE_RE_BODY(); 
             match('/'); 
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/lexer/InternalPPLexer.g:163:48: ( RULE_RE_FLAGS )?
-            int alt17=2;
-            int LA17_0 = input.LA(1);
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/lexer/InternalPPLexer.g:167:48: ( RULE_RE_FLAGS )?
+            int alt25=2;
+            int LA25_0 = input.LA(1);
 
-            if ( ((LA17_0>='a' && LA17_0<='z')) ) {
-                alt17=1;
+            if ( ((LA25_0>='a' && LA25_0<='z')) ) {
+                alt25=1;
             }
-            switch (alt17) {
+            switch (alt25) {
                 case 1 :
-                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/lexer/InternalPPLexer.g:163:48: RULE_RE_FLAGS
+                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/lexer/InternalPPLexer.g:167:48: RULE_RE_FLAGS
                     {
                     mRULE_RE_FLAGS(); 
 
@@ -2066,24 +2341,24 @@ public class InternalPPLexer extends Lexer {
     // $ANTLR start "RULE_RE_BODY"
     public final void mRULE_RE_BODY() throws RecognitionException {
         try {
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/lexer/InternalPPLexer.g:165:23: ( RULE_RE_FIRST_CHAR ( RULE_RE_FOLLOW_CHAR )* )
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/lexer/InternalPPLexer.g:165:25: RULE_RE_FIRST_CHAR ( RULE_RE_FOLLOW_CHAR )*
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/lexer/InternalPPLexer.g:169:23: ( RULE_RE_FIRST_CHAR ( RULE_RE_FOLLOW_CHAR )* )
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/lexer/InternalPPLexer.g:169:25: RULE_RE_FIRST_CHAR ( RULE_RE_FOLLOW_CHAR )*
             {
             mRULE_RE_FIRST_CHAR(); 
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/lexer/InternalPPLexer.g:165:44: ( RULE_RE_FOLLOW_CHAR )*
-            loop18:
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/lexer/InternalPPLexer.g:169:44: ( RULE_RE_FOLLOW_CHAR )*
+            loop26:
             do {
-                int alt18=2;
-                int LA18_0 = input.LA(1);
+                int alt26=2;
+                int LA26_0 = input.LA(1);
 
-                if ( ((LA18_0>='\u0000' && LA18_0<='\t')||(LA18_0>='\u000B' && LA18_0<='.')||(LA18_0>='0' && LA18_0<='\uFFFF')) ) {
-                    alt18=1;
+                if ( ((LA26_0>='\u0000' && LA26_0<='\t')||(LA26_0>='\u000B' && LA26_0<='.')||(LA26_0>='0' && LA26_0<='\uFFFF')) ) {
+                    alt26=1;
                 }
 
 
-                switch (alt18) {
+                switch (alt26) {
             	case 1 :
-            	    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/lexer/InternalPPLexer.g:165:44: RULE_RE_FOLLOW_CHAR
+            	    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/lexer/InternalPPLexer.g:169:44: RULE_RE_FOLLOW_CHAR
             	    {
             	    mRULE_RE_FOLLOW_CHAR(); 
 
@@ -2091,7 +2366,7 @@ public class InternalPPLexer extends Lexer {
             	    break;
 
             	default :
-            	    break loop18;
+            	    break loop26;
                 }
             } while (true);
 
@@ -2107,28 +2382,28 @@ public class InternalPPLexer extends Lexer {
     // $ANTLR start "RULE_RE_FIRST_CHAR"
     public final void mRULE_RE_FIRST_CHAR() throws RecognitionException {
         try {
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/lexer/InternalPPLexer.g:167:29: ( (~ ( ( '\\n' | '*' | '/' | '\\\\' ) ) | RULE_RE_BACKSLASH_SEQUENCE ) )
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/lexer/InternalPPLexer.g:167:31: (~ ( ( '\\n' | '*' | '/' | '\\\\' ) ) | RULE_RE_BACKSLASH_SEQUENCE )
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/lexer/InternalPPLexer.g:171:29: ( (~ ( ( '\\n' | '*' | '/' | '\\\\' ) ) | RULE_RE_BACKSLASH_SEQUENCE ) )
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/lexer/InternalPPLexer.g:171:31: (~ ( ( '\\n' | '*' | '/' | '\\\\' ) ) | RULE_RE_BACKSLASH_SEQUENCE )
             {
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/lexer/InternalPPLexer.g:167:31: (~ ( ( '\\n' | '*' | '/' | '\\\\' ) ) | RULE_RE_BACKSLASH_SEQUENCE )
-            int alt19=2;
-            int LA19_0 = input.LA(1);
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/lexer/InternalPPLexer.g:171:31: (~ ( ( '\\n' | '*' | '/' | '\\\\' ) ) | RULE_RE_BACKSLASH_SEQUENCE )
+            int alt27=2;
+            int LA27_0 = input.LA(1);
 
-            if ( ((LA19_0>='\u0000' && LA19_0<='\t')||(LA19_0>='\u000B' && LA19_0<=')')||(LA19_0>='+' && LA19_0<='.')||(LA19_0>='0' && LA19_0<='[')||(LA19_0>=']' && LA19_0<='\uFFFF')) ) {
-                alt19=1;
+            if ( ((LA27_0>='\u0000' && LA27_0<='\t')||(LA27_0>='\u000B' && LA27_0<=')')||(LA27_0>='+' && LA27_0<='.')||(LA27_0>='0' && LA27_0<='[')||(LA27_0>=']' && LA27_0<='\uFFFF')) ) {
+                alt27=1;
             }
-            else if ( (LA19_0=='\\') ) {
-                alt19=2;
+            else if ( (LA27_0=='\\') ) {
+                alt27=2;
             }
             else {
                 NoViableAltException nvae =
-                    new NoViableAltException("", 19, 0, input);
+                    new NoViableAltException("", 27, 0, input);
 
                 throw nvae;
             }
-            switch (alt19) {
+            switch (alt27) {
                 case 1 :
-                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/lexer/InternalPPLexer.g:167:32: ~ ( ( '\\n' | '*' | '/' | '\\\\' ) )
+                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/lexer/InternalPPLexer.g:171:32: ~ ( ( '\\n' | '*' | '/' | '\\\\' ) )
                     {
                     if ( (input.LA(1)>='\u0000' && input.LA(1)<='\t')||(input.LA(1)>='\u000B' && input.LA(1)<=')')||(input.LA(1)>='+' && input.LA(1)<='.')||(input.LA(1)>='0' && input.LA(1)<='[')||(input.LA(1)>=']' && input.LA(1)<='\uFFFF') ) {
                         input.consume();
@@ -2143,7 +2418,7 @@ public class InternalPPLexer extends Lexer {
                     }
                     break;
                 case 2 :
-                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/lexer/InternalPPLexer.g:167:55: RULE_RE_BACKSLASH_SEQUENCE
+                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/lexer/InternalPPLexer.g:171:55: RULE_RE_BACKSLASH_SEQUENCE
                     {
                     mRULE_RE_BACKSLASH_SEQUENCE(); 
 
@@ -2164,35 +2439,35 @@ public class InternalPPLexer extends Lexer {
     // $ANTLR start "RULE_RE_FOLLOW_CHAR"
     public final void mRULE_RE_FOLLOW_CHAR() throws RecognitionException {
         try {
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/lexer/InternalPPLexer.g:169:30: ( ( RULE_RE_FIRST_CHAR | '*' ) )
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/lexer/InternalPPLexer.g:169:32: ( RULE_RE_FIRST_CHAR | '*' )
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/lexer/InternalPPLexer.g:173:30: ( ( RULE_RE_FIRST_CHAR | '*' ) )
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/lexer/InternalPPLexer.g:173:32: ( RULE_RE_FIRST_CHAR | '*' )
             {
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/lexer/InternalPPLexer.g:169:32: ( RULE_RE_FIRST_CHAR | '*' )
-            int alt20=2;
-            int LA20_0 = input.LA(1);
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/lexer/InternalPPLexer.g:173:32: ( RULE_RE_FIRST_CHAR | '*' )
+            int alt28=2;
+            int LA28_0 = input.LA(1);
 
-            if ( ((LA20_0>='\u0000' && LA20_0<='\t')||(LA20_0>='\u000B' && LA20_0<=')')||(LA20_0>='+' && LA20_0<='.')||(LA20_0>='0' && LA20_0<='\uFFFF')) ) {
-                alt20=1;
+            if ( ((LA28_0>='\u0000' && LA28_0<='\t')||(LA28_0>='\u000B' && LA28_0<=')')||(LA28_0>='+' && LA28_0<='.')||(LA28_0>='0' && LA28_0<='\uFFFF')) ) {
+                alt28=1;
             }
-            else if ( (LA20_0=='*') ) {
-                alt20=2;
+            else if ( (LA28_0=='*') ) {
+                alt28=2;
             }
             else {
                 NoViableAltException nvae =
-                    new NoViableAltException("", 20, 0, input);
+                    new NoViableAltException("", 28, 0, input);
 
                 throw nvae;
             }
-            switch (alt20) {
+            switch (alt28) {
                 case 1 :
-                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/lexer/InternalPPLexer.g:169:33: RULE_RE_FIRST_CHAR
+                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/lexer/InternalPPLexer.g:173:33: RULE_RE_FIRST_CHAR
                     {
                     mRULE_RE_FIRST_CHAR(); 
 
                     }
                     break;
                 case 2 :
-                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/lexer/InternalPPLexer.g:169:52: '*'
+                    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/lexer/InternalPPLexer.g:173:52: '*'
                     {
                     match('*'); 
 
@@ -2213,8 +2488,8 @@ public class InternalPPLexer extends Lexer {
     // $ANTLR start "RULE_RE_BACKSLASH_SEQUENCE"
     public final void mRULE_RE_BACKSLASH_SEQUENCE() throws RecognitionException {
         try {
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/lexer/InternalPPLexer.g:171:37: ( '\\\\' ~ ( '\\n' ) )
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/lexer/InternalPPLexer.g:171:39: '\\\\' ~ ( '\\n' )
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/lexer/InternalPPLexer.g:175:37: ( '\\\\' ~ ( '\\n' ) )
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/lexer/InternalPPLexer.g:175:39: '\\\\' ~ ( '\\n' )
             {
             match('\\'); 
             if ( (input.LA(1)>='\u0000' && input.LA(1)<='\t')||(input.LA(1)>='\u000B' && input.LA(1)<='\uFFFF') ) {
@@ -2238,24 +2513,24 @@ public class InternalPPLexer extends Lexer {
     // $ANTLR start "RULE_RE_FLAGS"
     public final void mRULE_RE_FLAGS() throws RecognitionException {
         try {
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/lexer/InternalPPLexer.g:173:24: ( ( 'a' .. 'z' )+ )
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/lexer/InternalPPLexer.g:173:26: ( 'a' .. 'z' )+
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/lexer/InternalPPLexer.g:177:24: ( ( 'a' .. 'z' )+ )
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/lexer/InternalPPLexer.g:177:26: ( 'a' .. 'z' )+
             {
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/lexer/InternalPPLexer.g:173:26: ( 'a' .. 'z' )+
-            int cnt21=0;
-            loop21:
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/lexer/InternalPPLexer.g:177:26: ( 'a' .. 'z' )+
+            int cnt29=0;
+            loop29:
             do {
-                int alt21=2;
-                int LA21_0 = input.LA(1);
+                int alt29=2;
+                int LA29_0 = input.LA(1);
 
-                if ( ((LA21_0>='a' && LA21_0<='z')) ) {
-                    alt21=1;
+                if ( ((LA29_0>='a' && LA29_0<='z')) ) {
+                    alt29=1;
                 }
 
 
-                switch (alt21) {
+                switch (alt29) {
             	case 1 :
-            	    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/lexer/InternalPPLexer.g:173:27: 'a' .. 'z'
+            	    // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/lexer/InternalPPLexer.g:177:27: 'a' .. 'z'
             	    {
             	    matchRange('a','z'); 
 
@@ -2263,12 +2538,12 @@ public class InternalPPLexer extends Lexer {
             	    break;
 
             	default :
-            	    if ( cnt21 >= 1 ) break loop21;
+            	    if ( cnt29 >= 1 ) break loop29;
                         EarlyExitException eee =
-                            new EarlyExitException(21, input);
+                            new EarlyExitException(29, input);
                         throw eee;
                 }
-                cnt21++;
+                cnt29++;
             } while (true);
 
 
@@ -2285,8 +2560,8 @@ public class InternalPPLexer extends Lexer {
         try {
             int _type = RULE_ANY_OTHER;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/lexer/InternalPPLexer.g:175:16: ( . )
-            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/lexer/InternalPPLexer.g:175:18: .
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/lexer/InternalPPLexer.g:179:16: ( . )
+            // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/lexer/InternalPPLexer.g:179:18: .
             {
             matchAny(); 
 
@@ -2301,10 +2576,10 @@ public class InternalPPLexer extends Lexer {
     // $ANTLR end "RULE_ANY_OTHER"
 
     public void mTokens() throws RecognitionException {
-        // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/lexer/InternalPPLexer.g:1:8: ( KEYWORD_66 | KEYWORD_65 | KEYWORD_62 | KEYWORD_63 | KEYWORD_64 | KEYWORD_58 | KEYWORD_59 | KEYWORD_60 | KEYWORD_61 | KEYWORD_54 | KEYWORD_55 | KEYWORD_56 | KEYWORD_57 | KEYWORD_50 | KEYWORD_51 | KEYWORD_52 | KEYWORD_53 | KEYWORD_25 | KEYWORD_26 | KEYWORD_27 | KEYWORD_28 | KEYWORD_29 | KEYWORD_30 | KEYWORD_31 | KEYWORD_32 | KEYWORD_33 | KEYWORD_34 | KEYWORD_35 | KEYWORD_36 | KEYWORD_37 | KEYWORD_38 | KEYWORD_39 | KEYWORD_40 | KEYWORD_41 | KEYWORD_42 | KEYWORD_43 | KEYWORD_44 | KEYWORD_45 | KEYWORD_46 | KEYWORD_47 | KEYWORD_48 | KEYWORD_49 | KEYWORD_1 | KEYWORD_2 | KEYWORD_3 | KEYWORD_4 | KEYWORD_5 | KEYWORD_6 | KEYWORD_7 | KEYWORD_8 | KEYWORD_9 | KEYWORD_10 | KEYWORD_11 | KEYWORD_12 | KEYWORD_13 | KEYWORD_14 | KEYWORD_15 | KEYWORD_16 | KEYWORD_17 | KEYWORD_18 | KEYWORD_19 | KEYWORD_20 | KEYWORD_21 | KEYWORD_22 | KEYWORD_23 | KEYWORD_24 | RULE_ML_COMMENT | RULE_SL_COMMENT | RULE_WS | RULE_DOLLAR_VAR | RULE_WORD_CHARS | RULE_REGULAR_EXPRESSION | RULE_ANY_OTHER )
-        int alt22=73;
-        alt22 = dfa22.predict(input);
-        switch (alt22) {
+        // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/lexer/InternalPPLexer.g:1:8: ( KEYWORD_66 | KEYWORD_65 | KEYWORD_62 | KEYWORD_63 | KEYWORD_64 | KEYWORD_58 | KEYWORD_59 | KEYWORD_60 | KEYWORD_61 | KEYWORD_54 | KEYWORD_55 | KEYWORD_56 | KEYWORD_57 | KEYWORD_50 | KEYWORD_51 | KEYWORD_52 | KEYWORD_53 | KEYWORD_25 | KEYWORD_26 | KEYWORD_27 | KEYWORD_28 | KEYWORD_29 | KEYWORD_30 | KEYWORD_31 | KEYWORD_32 | KEYWORD_33 | KEYWORD_34 | KEYWORD_35 | KEYWORD_36 | KEYWORD_37 | KEYWORD_38 | KEYWORD_39 | KEYWORD_40 | KEYWORD_41 | KEYWORD_42 | KEYWORD_43 | KEYWORD_44 | KEYWORD_45 | KEYWORD_46 | KEYWORD_47 | KEYWORD_48 | KEYWORD_49 | KEYWORD_1 | KEYWORD_2 | KEYWORD_3 | KEYWORD_4 | KEYWORD_5 | KEYWORD_6 | KEYWORD_7 | KEYWORD_8 | KEYWORD_9 | KEYWORD_10 | KEYWORD_11 | KEYWORD_12 | KEYWORD_13 | KEYWORD_14 | KEYWORD_15 | KEYWORD_16 | KEYWORD_17 | KEYWORD_18 | KEYWORD_19 | KEYWORD_20 | KEYWORD_21 | KEYWORD_22 | KEYWORD_23 | KEYWORD_24 | RULE_ML_COMMENT | RULE_SL_COMMENT | RULE_WS | RULE_DOLLAR_VAR | RULE_WORD_CHARS | RULE_NUMBER | RULE_REGULAR_EXPRESSION | RULE_ANY_OTHER )
+        int alt30=74;
+        alt30 = dfa30.predict(input);
+        switch (alt30) {
             case 1 :
                 // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/lexer/InternalPPLexer.g:1:10: KEYWORD_66
                 {
@@ -2803,14 +3078,21 @@ public class InternalPPLexer extends Lexer {
                 }
                 break;
             case 72 :
-                // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/lexer/InternalPPLexer.g:1:799: RULE_REGULAR_EXPRESSION
+                // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/lexer/InternalPPLexer.g:1:799: RULE_NUMBER
+                {
+                mRULE_NUMBER(); 
+
+                }
+                break;
+            case 73 :
+                // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/lexer/InternalPPLexer.g:1:811: RULE_REGULAR_EXPRESSION
                 {
                 mRULE_REGULAR_EXPRESSION(); 
 
                 }
                 break;
-            case 73 :
-                // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/lexer/InternalPPLexer.g:1:823: RULE_ANY_OTHER
+            case 74 :
+                // ../org.cloudsmith.geppetto.pp.dsl/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/lexer/InternalPPLexer.g:1:835: RULE_ANY_OTHER
                 {
                 mRULE_ANY_OTHER(); 
 
@@ -2822,89 +3104,80 @@ public class InternalPPLexer extends Lexer {
     }
 
 
-    protected DFA22 dfa22 = new DFA22(this);
-    static final String DFA22_eotS =
-        "\1\uffff\10\55\1\73\1\51\1\55\1\102\1\105\1\51\1\112\1\114\1\120"+
-        "\1\123\1\55\1\51\7\uffff\1\135\1\140\1\141\13\uffff\1\154\1\55\1"+
-        "\156\1\uffff\10\55\1\171\5\uffff\1\173\3\uffff\1\55\1\176\22\uffff"+
-        "\1\177\26\uffff\1\55\1\uffff\1\55\1\uffff\11\55\4\uffff\1\u008d"+
-        "\3\uffff\7\55\1\u0095\1\55\1\u0097\1\55\1\u0099\1\u009a\1\uffff"+
-        "\5\55\1\u00a0\1\u00a1\1\uffff\1\u00a2\1\uffff\1\u00a3\2\uffff\1"+
-        "\55\1\u00a5\1\55\1\u00a7\1\u00a8\4\uffff\1\55\1\uffff\1\u00aa\2"+
-        "\uffff\1\u00ab\2\uffff";
-    static final String DFA22_eofS =
-        "\u00ac\uffff";
-    static final String DFA22_minS =
+    protected DFA30 dfa30 = new DFA30(this);
+    static final String DFA30_eotS =
+        "\1\uffff\10\57\1\75\1\53\1\57\1\104\1\107\1\53\1\114\1\116\1\122"+
+        "\1\125\1\57\1\53\10\uffff\1\141\1\143\11\uffff\2\57\2\uffff\1\162"+
+        "\1\57\1\164\1\uffff\10\57\1\177\5\uffff\1\u0081\3\uffff\1\57\1\u0084"+
+        "\22\uffff\1\u0085\26\uffff\1\57\1\uffff\3\57\1\uffff\1\57\1\uffff"+
+        "\11\57\4\uffff\1\u0096\3\uffff\12\57\1\u009e\1\57\1\u00a0\1\57\1"+
+        "\u00a2\1\u00a3\1\uffff\5\57\1\u00a9\1\u00aa\1\uffff\1\u00ab\1\uffff"+
+        "\1\u00ac\2\uffff\1\57\1\u00ae\1\57\1\u00b0\1\u00b1\4\uffff\1\57"+
+        "\1\uffff\1\u00b3\2\uffff\1\u00b4\2\uffff";
+    static final String DFA30_eofS =
+        "\u00b5\uffff";
+    static final String DFA30_minS =
         "\1\0\1\146\1\145\1\156\1\141\1\154\1\141\1\157\1\162\1\55\1\42\1"+
-        "\156\1\76\1\75\1\60\1\75\1\55\2\75\1\162\1\76\7\uffff\1\55\1\0\1"+
-        "\72\13\uffff\1\55\1\160\1\55\1\uffff\1\146\1\144\1\141\2\163\1\154"+
-        "\1\144\1\165\1\174\5\uffff\1\173\3\uffff\1\144\1\76\22\uffff\1\55"+
-        "\26\uffff\1\145\1\uffff\1\157\1\uffff\1\141\2\145\1\163\2\145\1"+
-        "\163\2\145\4\uffff\1\55\3\uffff\2\162\1\165\1\156\1\163\1\146\1"+
-        "\163\1\55\1\146\1\55\1\145\2\55\1\uffff\1\151\1\164\1\154\1\145"+
-        "\1\163\2\55\1\uffff\1\55\1\uffff\1\55\2\uffff\1\164\1\55\1\164\2"+
-        "\55\4\uffff\1\163\1\uffff\1\55\2\uffff\1\55\2\uffff";
-    static final String DFA22_maxS =
+        "\156\1\76\1\75\1\60\1\75\1\55\2\75\1\162\1\76\10\uffff\1\0\1\72"+
+        "\11\uffff\2\56\2\uffff\1\55\1\160\1\55\1\uffff\1\146\1\144\1\141"+
+        "\2\163\1\154\1\144\1\165\1\174\5\uffff\1\173\3\uffff\1\144\1\76"+
+        "\22\uffff\1\55\26\uffff\1\60\1\uffff\1\55\1\56\1\145\1\uffff\1\157"+
+        "\1\uffff\1\141\2\145\1\163\2\145\1\163\2\145\4\uffff\1\55\3\uffff"+
+        "\3\60\2\162\1\165\1\156\1\163\1\146\1\163\1\55\1\146\1\55\1\145"+
+        "\2\55\1\uffff\1\151\1\164\1\154\1\145\1\163\2\55\1\uffff\1\55\1"+
+        "\uffff\1\55\2\uffff\1\164\1\55\1\164\2\55\4\uffff\1\163\1\uffff"+
+        "\1\55\2\uffff\1\55\2\uffff";
+    static final String DFA30_maxS =
         "\1\uffff\1\156\1\145\1\156\2\154\1\141\1\157\1\162\1\176\1\134\1"+
-        "\156\1\76\1\176\1\173\1\76\1\172\1\176\1\76\1\162\1\76\7\uffff\1"+
-        "\172\1\uffff\1\72\13\uffff\1\172\1\160\1\172\1\uffff\1\146\1\154"+
-        "\1\141\2\163\1\154\1\144\1\165\1\174\5\uffff\1\173\3\uffff\1\144"+
-        "\1\76\22\uffff\1\172\26\uffff\1\145\1\uffff\1\157\1\uffff\1\151"+
-        "\2\145\1\163\1\145\1\151\1\163\2\145\4\uffff\1\172\3\uffff\2\162"+
-        "\1\165\1\156\1\163\1\146\1\163\1\172\1\146\1\172\1\145\2\172\1\uffff"+
-        "\1\151\1\164\1\154\1\145\1\163\2\172\1\uffff\1\172\1\uffff\1\172"+
-        "\2\uffff\1\164\1\172\1\164\2\172\4\uffff\1\163\1\uffff\1\172\2\uffff"+
-        "\1\172\2\uffff";
-    static final String DFA22_acceptS =
-        "\25\uffff\1\54\1\55\1\56\1\57\1\60\1\61\1\63\3\uffff\1\70\1\74\1"+
-        "\75\1\76\1\77\1\100\1\102\1\104\1\105\1\107\1\111\3\uffff\1\107"+
-        "\11\uffff\1\30\1\32\1\33\1\34\1\71\1\uffff\1\42\1\44\1\45\2\uffff"+
-        "\1\101\1\22\1\23\1\53\1\24\1\106\1\25\1\26\1\62\1\27\1\64\1\35\1"+
-        "\36\1\37\1\72\1\40\1\41\1\73\1\uffff\1\52\1\54\1\55\1\56\1\57\1"+
-        "\60\1\61\1\63\1\65\1\103\1\110\1\66\1\67\1\70\1\74\1\75\1\76\1\77"+
-        "\1\100\1\102\1\104\1\105\1\uffff\1\47\1\uffff\1\46\11\uffff\1\16"+
-        "\1\31\1\17\1\43\1\uffff\1\21\1\51\1\50\15\uffff\1\20\7\uffff\1\12"+
-        "\1\uffff\1\13\1\uffff\1\14\1\15\5\uffff\1\11\1\6\1\7\1\10\1\uffff"+
-        "\1\4\1\uffff\1\3\1\5\1\uffff\1\2\1\1";
-    static final String DFA22_specialS =
-        "\1\0\34\uffff\1\1\u008e\uffff}>";
-    static final String[] DFA22_transitionS = {
-            "\11\51\2\47\2\51\1\47\22\51\1\47\1\15\1\25\1\46\1\16\1\26\1"+
-            "\51\1\27\1\30\1\31\1\32\1\17\1\33\1\20\1\34\1\35\12\50\1\36"+
-            "\1\37\1\11\1\21\1\22\1\40\1\41\32\50\1\42\1\12\1\43\1\51\1\50"+
-            "\1\51\1\13\1\50\1\4\1\2\1\5\1\6\2\50\1\1\4\50\1\7\1\23\4\50"+
-            "\1\10\1\3\5\50\1\44\1\14\1\45\1\24\41\51\1\47\uff5f\51",
-            "\1\54\6\uffff\1\53\1\52",
-            "\1\56",
-            "\1\57",
-            "\1\61\12\uffff\1\60",
-            "\1\62",
-            "\1\63",
+        "\156\1\76\1\176\1\173\1\76\1\172\1\176\1\76\1\162\1\76\10\uffff"+
+        "\1\uffff\1\72\11\uffff\1\170\1\145\2\uffff\1\172\1\160\1\172\1\uffff"+
+        "\1\146\1\154\1\141\2\163\1\154\1\144\1\165\1\174\5\uffff\1\173\3"+
+        "\uffff\1\144\1\76\22\uffff\1\172\26\uffff\1\146\1\uffff\1\71\2\145"+
+        "\1\uffff\1\157\1\uffff\1\151\2\145\1\163\1\145\1\151\1\163\2\145"+
+        "\4\uffff\1\172\3\uffff\1\146\2\71\2\162\1\165\1\156\1\163\1\146"+
+        "\1\163\1\172\1\146\1\172\1\145\2\172\1\uffff\1\151\1\164\1\154\1"+
+        "\145\1\163\2\172\1\uffff\1\172\1\uffff\1\172\2\uffff\1\164\1\172"+
+        "\1\164\2\172\4\uffff\1\163\1\uffff\1\172\2\uffff\1\172\2\uffff";
+    static final String DFA30_acceptS =
+        "\25\uffff\1\54\1\55\1\56\1\57\1\60\1\61\1\63\1\65\2\uffff\1\70\1"+
+        "\74\1\75\1\76\1\77\1\100\1\102\1\104\1\105\2\uffff\1\107\1\112\3"+
+        "\uffff\1\107\11\uffff\1\30\1\32\1\33\1\34\1\71\1\uffff\1\42\1\44"+
+        "\1\45\2\uffff\1\101\1\22\1\23\1\53\1\24\1\106\1\25\1\26\1\62\1\27"+
+        "\1\64\1\35\1\36\1\37\1\72\1\40\1\41\1\73\1\uffff\1\52\1\54\1\55"+
+        "\1\56\1\57\1\60\1\61\1\63\1\65\1\103\1\66\1\111\1\67\1\70\1\74\1"+
+        "\75\1\76\1\77\1\100\1\102\1\104\1\105\1\uffff\1\110\3\uffff\1\47"+
+        "\1\uffff\1\46\11\uffff\1\16\1\31\1\17\1\43\1\uffff\1\21\1\51\1\50"+
+        "\20\uffff\1\20\7\uffff\1\12\1\uffff\1\13\1\uffff\1\14\1\15\5\uffff"+
+        "\1\11\1\6\1\7\1\10\1\uffff\1\4\1\uffff\1\3\1\5\1\uffff\1\2\1\1";
+    static final String DFA30_specialS =
+        "\1\0\34\uffff\1\1\u0097\uffff}>";
+    static final String[] DFA30_transitionS = {
+            "\11\53\2\47\2\53\1\47\22\53\1\47\1\15\1\25\1\46\1\16\1\26\1"+
+            "\53\1\27\1\30\1\31\1\32\1\17\1\33\1\20\1\34\1\35\1\50\11\51"+
+            "\1\36\1\37\1\11\1\21\1\22\1\40\1\41\32\52\1\42\1\12\1\43\1\53"+
+            "\1\52\1\53\1\13\1\52\1\4\1\2\1\5\1\6\2\52\1\1\4\52\1\7\1\23"+
+            "\4\52\1\10\1\3\5\52\1\44\1\14\1\45\1\24\41\53\1\47\uff5f\53",
+            "\1\56\6\uffff\1\55\1\54",
+            "\1\60",
+            "\1\61",
+            "\1\63\12\uffff\1\62",
             "\1\64",
             "\1\65",
-            "\1\67\16\uffff\1\66\1\70\76\uffff\1\71\1\uffff\1\72",
-            "\1\75\1\uffff\1\74\2\uffff\1\76\64\uffff\1\77",
-            "\1\100",
-            "\1\101",
-            "\1\103\100\uffff\1\104",
-            "\13\107\6\uffff\32\107\4\uffff\1\107\1\uffff\32\107\1\106",
-            "\1\110\1\111",
-            "\2\55\1\uffff\13\55\3\uffff\1\113\2\uffff\32\55\4\uffff\1\55"+
-            "\1\uffff\32\55",
-            "\1\115\1\116\77\uffff\1\117",
-            "\1\121\1\122",
-            "\1\124",
-            "\1\125",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "\2\55\1\uffff\13\55\6\uffff\32\55\4\uffff\1\55\1\uffff\32\55",
-            "\12\137\1\uffff\37\137\1\136\4\137\1\uffff\uffd0\137",
-            "\1\55",
+            "\1\66",
+            "\1\67",
+            "\1\71\16\uffff\1\70\1\72\76\uffff\1\73\1\uffff\1\74",
+            "\1\77\1\uffff\1\76\2\uffff\1\100\64\uffff\1\101",
+            "\1\102",
+            "\1\103",
+            "\1\105\100\uffff\1\106",
+            "\13\111\6\uffff\32\111\4\uffff\1\111\1\uffff\32\111\1\110",
+            "\1\112\1\113",
+            "\1\57\2\uffff\13\57\3\uffff\1\115\2\uffff\32\57\4\uffff\1\57"+
+            "\1\uffff\32\57",
+            "\1\117\1\120\77\uffff\1\121",
+            "\1\123\1\124",
+            "\1\126",
+            "\1\127",
             "",
             "",
             "",
@@ -2913,70 +3186,36 @@ public class InternalPPLexer extends Lexer {
             "",
             "",
             "",
+            "\12\142\1\uffff\37\142\1\140\4\142\1\uffff\uffd0\142",
+            "\1\57",
             "",
             "",
             "",
-            "\2\55\1\uffff\13\55\6\uffff\32\55\4\uffff\1\55\1\uffff\7\55"+
-            "\1\153\22\55",
-            "\1\155",
-            "\2\55\1\uffff\13\55\6\uffff\32\55\4\uffff\1\55\1\uffff\32\55",
             "",
-            "\1\157",
-            "\1\161\7\uffff\1\160",
-            "\1\162",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "\1\156\1\uffff\12\160\13\uffff\1\157\22\uffff\1\155\14\uffff"+
+            "\1\157\22\uffff\1\155",
+            "\1\156\1\uffff\12\160\13\uffff\1\157\37\uffff\1\157",
+            "",
+            "",
+            "\1\57\2\uffff\13\57\6\uffff\32\57\4\uffff\1\57\1\uffff\7\57"+
+            "\1\161\22\57",
             "\1\163",
-            "\1\164",
+            "\1\57\2\uffff\13\57\6\uffff\32\57\4\uffff\1\57\1\uffff\32\57",
+            "",
             "\1\165",
-            "\1\166",
-            "\1\167",
+            "\1\167\7\uffff\1\166",
             "\1\170",
-            "",
-            "",
-            "",
-            "",
-            "",
+            "\1\171",
             "\1\172",
-            "",
-            "",
-            "",
+            "\1\173",
             "\1\174",
             "\1\175",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "\2\55\1\uffff\13\55\6\uffff\32\55\4\uffff\1\55\1\uffff\32\55",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
+            "\1\176",
             "",
             "",
             "",
@@ -2984,210 +3223,268 @@ public class InternalPPLexer extends Lexer {
             "",
             "\1\u0080",
             "",
-            "\1\u0081",
             "",
-            "\1\u0082\7\uffff\1\u0083",
-            "\1\u0084",
-            "\1\u0085",
-            "\1\u0086",
-            "\1\u0087",
-            "\1\u0089\3\uffff\1\u0088",
+            "",
+            "\1\u0082",
+            "\1\u0083",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "\1\57\2\uffff\13\57\6\uffff\32\57\4\uffff\1\57\1\uffff\32\57",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "\12\u0086\7\uffff\6\u0086\32\uffff\6\u0086",
+            "",
+            "\1\u0087\2\uffff\12\u0088",
+            "\1\156\1\uffff\12\160\13\uffff\1\157\37\uffff\1\157",
+            "\1\u0089",
+            "",
             "\1\u008a",
-            "\1\u008b",
-            "\1\u008c",
             "",
-            "",
-            "",
-            "",
-            "\2\55\1\uffff\13\55\6\uffff\32\55\4\uffff\1\55\1\uffff\32\55",
-            "",
-            "",
-            "",
+            "\1\u008b\7\uffff\1\u008c",
+            "\1\u008d",
             "\1\u008e",
             "\1\u008f",
             "\1\u0090",
-            "\1\u0091",
-            "\1\u0092",
+            "\1\u0092\3\uffff\1\u0091",
             "\1\u0093",
             "\1\u0094",
-            "\2\55\1\uffff\13\55\6\uffff\32\55\4\uffff\1\55\1\uffff\32\55",
-            "\1\u0096",
-            "\2\55\1\uffff\13\55\6\uffff\32\55\4\uffff\1\55\1\uffff\32\55",
-            "\1\u0098",
-            "\2\55\1\uffff\13\55\6\uffff\32\55\4\uffff\1\55\1\uffff\32\55",
-            "\2\55\1\uffff\13\55\6\uffff\32\55\4\uffff\1\55\1\uffff\32\55",
+            "\1\u0095",
             "",
+            "",
+            "",
+            "",
+            "\1\57\2\uffff\13\57\6\uffff\32\57\4\uffff\1\57\1\uffff\32\57",
+            "",
+            "",
+            "",
+            "\12\u0086\7\uffff\6\u0086\32\uffff\6\u0086",
+            "\12\u0088",
+            "\12\u0088",
+            "\1\u0097",
+            "\1\u0098",
+            "\1\u0099",
+            "\1\u009a",
             "\1\u009b",
             "\1\u009c",
             "\1\u009d",
-            "\1\u009e",
+            "\1\57\2\uffff\13\57\6\uffff\32\57\4\uffff\1\57\1\uffff\32\57",
             "\1\u009f",
-            "\2\55\1\uffff\13\55\6\uffff\32\55\4\uffff\1\55\1\uffff\32\55",
-            "\2\55\1\uffff\13\55\6\uffff\32\55\4\uffff\1\55\1\uffff\32\55",
-            "",
-            "\2\55\1\uffff\13\55\6\uffff\32\55\4\uffff\1\55\1\uffff\32\55",
-            "",
-            "\2\55\1\uffff\13\55\6\uffff\32\55\4\uffff\1\55\1\uffff\32\55",
-            "",
+            "\1\57\2\uffff\13\57\6\uffff\32\57\4\uffff\1\57\1\uffff\32\57",
+            "\1\u00a1",
+            "\1\57\2\uffff\13\57\6\uffff\32\57\4\uffff\1\57\1\uffff\32\57",
+            "\1\57\2\uffff\13\57\6\uffff\32\57\4\uffff\1\57\1\uffff\32\57",
             "",
             "\1\u00a4",
-            "\2\55\1\uffff\13\55\6\uffff\32\55\4\uffff\1\55\1\uffff\32\55",
+            "\1\u00a5",
             "\1\u00a6",
-            "\2\55\1\uffff\13\55\6\uffff\32\55\4\uffff\1\55\1\uffff\32\55",
-            "\2\55\1\uffff\13\55\6\uffff\32\55\4\uffff\1\55\1\uffff\32\55",
+            "\1\u00a7",
+            "\1\u00a8",
+            "\1\57\2\uffff\13\57\6\uffff\32\57\4\uffff\1\57\1\uffff\32\57",
+            "\1\57\2\uffff\13\57\6\uffff\32\57\4\uffff\1\57\1\uffff\32\57",
+            "",
+            "\1\57\2\uffff\13\57\6\uffff\32\57\4\uffff\1\57\1\uffff\32\57",
+            "",
+            "\1\57\2\uffff\13\57\6\uffff\32\57\4\uffff\1\57\1\uffff\32\57",
+            "",
+            "",
+            "\1\u00ad",
+            "\1\57\2\uffff\13\57\6\uffff\32\57\4\uffff\1\57\1\uffff\32\57",
+            "\1\u00af",
+            "\1\57\2\uffff\13\57\6\uffff\32\57\4\uffff\1\57\1\uffff\32\57",
+            "\1\57\2\uffff\13\57\6\uffff\32\57\4\uffff\1\57\1\uffff\32\57",
             "",
             "",
             "",
             "",
-            "\1\u00a9",
+            "\1\u00b2",
             "",
-            "\2\55\1\uffff\13\55\6\uffff\32\55\4\uffff\1\55\1\uffff\32\55",
+            "\1\57\2\uffff\13\57\6\uffff\32\57\4\uffff\1\57\1\uffff\32\57",
             "",
             "",
-            "\2\55\1\uffff\13\55\6\uffff\32\55\4\uffff\1\55\1\uffff\32\55",
+            "\1\57\2\uffff\13\57\6\uffff\32\57\4\uffff\1\57\1\uffff\32\57",
             "",
             ""
     };
 
-    static final short[] DFA22_eot = DFA.unpackEncodedString(DFA22_eotS);
-    static final short[] DFA22_eof = DFA.unpackEncodedString(DFA22_eofS);
-    static final char[] DFA22_min = DFA.unpackEncodedStringToUnsignedChars(DFA22_minS);
-    static final char[] DFA22_max = DFA.unpackEncodedStringToUnsignedChars(DFA22_maxS);
-    static final short[] DFA22_accept = DFA.unpackEncodedString(DFA22_acceptS);
-    static final short[] DFA22_special = DFA.unpackEncodedString(DFA22_specialS);
-    static final short[][] DFA22_transition;
+    static final short[] DFA30_eot = DFA.unpackEncodedString(DFA30_eotS);
+    static final short[] DFA30_eof = DFA.unpackEncodedString(DFA30_eofS);
+    static final char[] DFA30_min = DFA.unpackEncodedStringToUnsignedChars(DFA30_minS);
+    static final char[] DFA30_max = DFA.unpackEncodedStringToUnsignedChars(DFA30_maxS);
+    static final short[] DFA30_accept = DFA.unpackEncodedString(DFA30_acceptS);
+    static final short[] DFA30_special = DFA.unpackEncodedString(DFA30_specialS);
+    static final short[][] DFA30_transition;
 
     static {
-        int numStates = DFA22_transitionS.length;
-        DFA22_transition = new short[numStates][];
+        int numStates = DFA30_transitionS.length;
+        DFA30_transition = new short[numStates][];
         for (int i=0; i<numStates; i++) {
-            DFA22_transition[i] = DFA.unpackEncodedString(DFA22_transitionS[i]);
+            DFA30_transition[i] = DFA.unpackEncodedString(DFA30_transitionS[i]);
         }
     }
 
-    class DFA22 extends DFA {
+    class DFA30 extends DFA {
 
-        public DFA22(BaseRecognizer recognizer) {
+        public DFA30(BaseRecognizer recognizer) {
             this.recognizer = recognizer;
-            this.decisionNumber = 22;
-            this.eot = DFA22_eot;
-            this.eof = DFA22_eof;
-            this.min = DFA22_min;
-            this.max = DFA22_max;
-            this.accept = DFA22_accept;
-            this.special = DFA22_special;
-            this.transition = DFA22_transition;
+            this.decisionNumber = 30;
+            this.eot = DFA30_eot;
+            this.eof = DFA30_eof;
+            this.min = DFA30_min;
+            this.max = DFA30_max;
+            this.accept = DFA30_accept;
+            this.special = DFA30_special;
+            this.transition = DFA30_transition;
         }
         public String getDescription() {
-            return "1:1: Tokens : ( KEYWORD_66 | KEYWORD_65 | KEYWORD_62 | KEYWORD_63 | KEYWORD_64 | KEYWORD_58 | KEYWORD_59 | KEYWORD_60 | KEYWORD_61 | KEYWORD_54 | KEYWORD_55 | KEYWORD_56 | KEYWORD_57 | KEYWORD_50 | KEYWORD_51 | KEYWORD_52 | KEYWORD_53 | KEYWORD_25 | KEYWORD_26 | KEYWORD_27 | KEYWORD_28 | KEYWORD_29 | KEYWORD_30 | KEYWORD_31 | KEYWORD_32 | KEYWORD_33 | KEYWORD_34 | KEYWORD_35 | KEYWORD_36 | KEYWORD_37 | KEYWORD_38 | KEYWORD_39 | KEYWORD_40 | KEYWORD_41 | KEYWORD_42 | KEYWORD_43 | KEYWORD_44 | KEYWORD_45 | KEYWORD_46 | KEYWORD_47 | KEYWORD_48 | KEYWORD_49 | KEYWORD_1 | KEYWORD_2 | KEYWORD_3 | KEYWORD_4 | KEYWORD_5 | KEYWORD_6 | KEYWORD_7 | KEYWORD_8 | KEYWORD_9 | KEYWORD_10 | KEYWORD_11 | KEYWORD_12 | KEYWORD_13 | KEYWORD_14 | KEYWORD_15 | KEYWORD_16 | KEYWORD_17 | KEYWORD_18 | KEYWORD_19 | KEYWORD_20 | KEYWORD_21 | KEYWORD_22 | KEYWORD_23 | KEYWORD_24 | RULE_ML_COMMENT | RULE_SL_COMMENT | RULE_WS | RULE_DOLLAR_VAR | RULE_WORD_CHARS | RULE_REGULAR_EXPRESSION | RULE_ANY_OTHER );";
+            return "1:1: Tokens : ( KEYWORD_66 | KEYWORD_65 | KEYWORD_62 | KEYWORD_63 | KEYWORD_64 | KEYWORD_58 | KEYWORD_59 | KEYWORD_60 | KEYWORD_61 | KEYWORD_54 | KEYWORD_55 | KEYWORD_56 | KEYWORD_57 | KEYWORD_50 | KEYWORD_51 | KEYWORD_52 | KEYWORD_53 | KEYWORD_25 | KEYWORD_26 | KEYWORD_27 | KEYWORD_28 | KEYWORD_29 | KEYWORD_30 | KEYWORD_31 | KEYWORD_32 | KEYWORD_33 | KEYWORD_34 | KEYWORD_35 | KEYWORD_36 | KEYWORD_37 | KEYWORD_38 | KEYWORD_39 | KEYWORD_40 | KEYWORD_41 | KEYWORD_42 | KEYWORD_43 | KEYWORD_44 | KEYWORD_45 | KEYWORD_46 | KEYWORD_47 | KEYWORD_48 | KEYWORD_49 | KEYWORD_1 | KEYWORD_2 | KEYWORD_3 | KEYWORD_4 | KEYWORD_5 | KEYWORD_6 | KEYWORD_7 | KEYWORD_8 | KEYWORD_9 | KEYWORD_10 | KEYWORD_11 | KEYWORD_12 | KEYWORD_13 | KEYWORD_14 | KEYWORD_15 | KEYWORD_16 | KEYWORD_17 | KEYWORD_18 | KEYWORD_19 | KEYWORD_20 | KEYWORD_21 | KEYWORD_22 | KEYWORD_23 | KEYWORD_24 | RULE_ML_COMMENT | RULE_SL_COMMENT | RULE_WS | RULE_DOLLAR_VAR | RULE_WORD_CHARS | RULE_NUMBER | RULE_REGULAR_EXPRESSION | RULE_ANY_OTHER );";
         }
         public int specialStateTransition(int s, IntStream _input) throws NoViableAltException {
             IntStream input = _input;
         	int _s = s;
             switch ( s ) {
                     case 0 : 
-                        int LA22_0 = input.LA(1);
+                        int LA30_0 = input.LA(1);
 
                         s = -1;
-                        if ( (LA22_0=='i') ) {s = 1;}
+                        if ( (LA30_0=='i') ) {s = 1;}
 
-                        else if ( (LA22_0=='d') ) {s = 2;}
+                        else if ( (LA30_0=='d') ) {s = 2;}
 
-                        else if ( (LA22_0=='u') ) {s = 3;}
+                        else if ( (LA30_0=='u') ) {s = 3;}
 
-                        else if ( (LA22_0=='c') ) {s = 4;}
+                        else if ( (LA30_0=='c') ) {s = 4;}
 
-                        else if ( (LA22_0=='e') ) {s = 5;}
+                        else if ( (LA30_0=='e') ) {s = 5;}
 
-                        else if ( (LA22_0=='f') ) {s = 6;}
+                        else if ( (LA30_0=='f') ) {s = 6;}
 
-                        else if ( (LA22_0=='n') ) {s = 7;}
+                        else if ( (LA30_0=='n') ) {s = 7;}
 
-                        else if ( (LA22_0=='t') ) {s = 8;}
+                        else if ( (LA30_0=='t') ) {s = 8;}
 
-                        else if ( (LA22_0=='<') ) {s = 9;}
+                        else if ( (LA30_0=='<') ) {s = 9;}
 
-                        else if ( (LA22_0=='\\') ) {s = 10;}
+                        else if ( (LA30_0=='\\') ) {s = 10;}
 
-                        else if ( (LA22_0=='a') ) {s = 11;}
+                        else if ( (LA30_0=='a') ) {s = 11;}
 
-                        else if ( (LA22_0=='|') ) {s = 12;}
+                        else if ( (LA30_0=='|') ) {s = 12;}
 
-                        else if ( (LA22_0=='!') ) {s = 13;}
+                        else if ( (LA30_0=='!') ) {s = 13;}
 
-                        else if ( (LA22_0=='$') ) {s = 14;}
+                        else if ( (LA30_0=='$') ) {s = 14;}
 
-                        else if ( (LA22_0=='+') ) {s = 15;}
+                        else if ( (LA30_0=='+') ) {s = 15;}
 
-                        else if ( (LA22_0=='-') ) {s = 16;}
+                        else if ( (LA30_0=='-') ) {s = 16;}
 
-                        else if ( (LA22_0=='=') ) {s = 17;}
+                        else if ( (LA30_0=='=') ) {s = 17;}
 
-                        else if ( (LA22_0=='>') ) {s = 18;}
+                        else if ( (LA30_0=='>') ) {s = 18;}
 
-                        else if ( (LA22_0=='o') ) {s = 19;}
+                        else if ( (LA30_0=='o') ) {s = 19;}
 
-                        else if ( (LA22_0=='~') ) {s = 20;}
+                        else if ( (LA30_0=='~') ) {s = 20;}
 
-                        else if ( (LA22_0=='\"') ) {s = 21;}
+                        else if ( (LA30_0=='\"') ) {s = 21;}
 
-                        else if ( (LA22_0=='%') ) {s = 22;}
+                        else if ( (LA30_0=='%') ) {s = 22;}
 
-                        else if ( (LA22_0=='\'') ) {s = 23;}
+                        else if ( (LA30_0=='\'') ) {s = 23;}
 
-                        else if ( (LA22_0=='(') ) {s = 24;}
+                        else if ( (LA30_0=='(') ) {s = 24;}
 
-                        else if ( (LA22_0==')') ) {s = 25;}
+                        else if ( (LA30_0==')') ) {s = 25;}
 
-                        else if ( (LA22_0=='*') ) {s = 26;}
+                        else if ( (LA30_0=='*') ) {s = 26;}
 
-                        else if ( (LA22_0==',') ) {s = 27;}
+                        else if ( (LA30_0==',') ) {s = 27;}
 
-                        else if ( (LA22_0=='.') ) {s = 28;}
+                        else if ( (LA30_0=='.') ) {s = 28;}
 
-                        else if ( (LA22_0=='/') ) {s = 29;}
+                        else if ( (LA30_0=='/') ) {s = 29;}
 
-                        else if ( (LA22_0==':') ) {s = 30;}
+                        else if ( (LA30_0==':') ) {s = 30;}
 
-                        else if ( (LA22_0==';') ) {s = 31;}
+                        else if ( (LA30_0==';') ) {s = 31;}
 
-                        else if ( (LA22_0=='?') ) {s = 32;}
+                        else if ( (LA30_0=='?') ) {s = 32;}
 
-                        else if ( (LA22_0=='@') ) {s = 33;}
+                        else if ( (LA30_0=='@') ) {s = 33;}
 
-                        else if ( (LA22_0=='[') ) {s = 34;}
+                        else if ( (LA30_0=='[') ) {s = 34;}
 
-                        else if ( (LA22_0==']') ) {s = 35;}
+                        else if ( (LA30_0==']') ) {s = 35;}
 
-                        else if ( (LA22_0=='{') ) {s = 36;}
+                        else if ( (LA30_0=='{') ) {s = 36;}
 
-                        else if ( (LA22_0=='}') ) {s = 37;}
+                        else if ( (LA30_0=='}') ) {s = 37;}
 
-                        else if ( (LA22_0=='#') ) {s = 38;}
+                        else if ( (LA30_0=='#') ) {s = 38;}
 
-                        else if ( ((LA22_0>='\t' && LA22_0<='\n')||LA22_0=='\r'||LA22_0==' '||LA22_0=='\u00A0') ) {s = 39;}
+                        else if ( ((LA30_0>='\t' && LA30_0<='\n')||LA30_0=='\r'||LA30_0==' '||LA30_0=='\u00A0') ) {s = 39;}
 
-                        else if ( ((LA22_0>='0' && LA22_0<='9')||(LA22_0>='A' && LA22_0<='Z')||LA22_0=='_'||LA22_0=='b'||(LA22_0>='g' && LA22_0<='h')||(LA22_0>='j' && LA22_0<='m')||(LA22_0>='p' && LA22_0<='s')||(LA22_0>='v' && LA22_0<='z')) ) {s = 40;}
+                        else if ( (LA30_0=='0') ) {s = 40;}
 
-                        else if ( ((LA22_0>='\u0000' && LA22_0<='\b')||(LA22_0>='\u000B' && LA22_0<='\f')||(LA22_0>='\u000E' && LA22_0<='\u001F')||LA22_0=='&'||LA22_0=='^'||LA22_0=='`'||(LA22_0>='\u007F' && LA22_0<='\u009F')||(LA22_0>='\u00A1' && LA22_0<='\uFFFF')) ) {s = 41;}
+                        else if ( ((LA30_0>='1' && LA30_0<='9')) ) {s = 41;}
+
+                        else if ( ((LA30_0>='A' && LA30_0<='Z')||LA30_0=='_'||LA30_0=='b'||(LA30_0>='g' && LA30_0<='h')||(LA30_0>='j' && LA30_0<='m')||(LA30_0>='p' && LA30_0<='s')||(LA30_0>='v' && LA30_0<='z')) ) {s = 42;}
+
+                        else if ( ((LA30_0>='\u0000' && LA30_0<='\b')||(LA30_0>='\u000B' && LA30_0<='\f')||(LA30_0>='\u000E' && LA30_0<='\u001F')||LA30_0=='&'||LA30_0=='^'||LA30_0=='`'||(LA30_0>='\u007F' && LA30_0<='\u009F')||(LA30_0>='\u00A1' && LA30_0<='\uFFFF')) ) {s = 43;}
 
                         if ( s>=0 ) return s;
                         break;
                     case 1 : 
-                        int LA22_29 = input.LA(1);
+                        int LA30_29 = input.LA(1);
 
                         s = -1;
-                        if ( (LA22_29=='*') ) {s = 94;}
+                        if ( (LA30_29=='*') ) {s = 96;}
 
-                        else if ( ((LA22_29>='\u0000' && LA22_29<='\t')||(LA22_29>='\u000B' && LA22_29<=')')||(LA22_29>='+' && LA22_29<='.')||(LA22_29>='0' && LA22_29<='\uFFFF')) ) {s = 95;}
+                        else if ( ((LA30_29>='\u0000' && LA30_29<='\t')||(LA30_29>='\u000B' && LA30_29<=')')||(LA30_29>='+' && LA30_29<='.')||(LA30_29>='0' && LA30_29<='\uFFFF')) ) {s = 98;}
 
-                        else s = 96;
+                        else s = 97;
 
                         if ( s>=0 ) return s;
                         break;
             }
             NoViableAltException nvae =
-                new NoViableAltException(getDescription(), 22, _s, input);
+                new NoViableAltException(getDescription(), 30, _s, input);
             error(nvae);
             throw nvae;
         }

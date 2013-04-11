@@ -52,17 +52,18 @@ public class PPOverridingLexer extends PPLexer {
 	public Token nextToken() {
 		Token t = super.nextToken();
 		// This translates all KW_ to the KEYWORD range, i.e. KW_INHERTIS (82) KEYWORD_66 (inherits) = 4
-		if(t.getType() > 81)
-			t.setType(t.getType() - 78);
+		int origType = t.getType();
+		if(origType > 81)
+			t.setType(origType - 78);
 
 		// System.err.println("Token: " + t.toString());
-		switch(t.getType()) {
+		switch(origType) {
 			case RULE_SL_COMMENT:
 			case RULE_ML_COMMENT:
 			case RULE_WS:
 				break; // uninteresting tokens
 			default:
-				this.lastSignificantToken = t.getType();
+				this.lastSignificantToken = origType;
 		}
 		return t;
 	}

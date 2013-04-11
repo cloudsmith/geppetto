@@ -913,12 +913,13 @@ public class PPGrammarAccess extends AbstractGrammarElementFinder {
 		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
 		private final Keyword cAsteriskKeyword_0 = (Keyword)cAlternatives.eContents().get(0);
 		private final Keyword cSolidusKeyword_1 = (Keyword)cAlternatives.eContents().get(1);
+		private final Keyword cPercentSignKeyword_2 = (Keyword)cAlternatives.eContents().get(2);
 		
 		//MultiplicativeOperator:
-		//	"*" | "/";
+		//	"*" | "/" | "%";
 		public ParserRule getRule() { return rule; }
 
-		//"*" | "/"
+		//"*" | "/" | "%"
 		public Alternatives getAlternatives() { return cAlternatives; }
 
 		//"*"
@@ -926,6 +927,9 @@ public class PPGrammarAccess extends AbstractGrammarElementFinder {
 
 		//"/"
 		public Keyword getSolidusKeyword_1() { return cSolidusKeyword_1; }
+
+		//"%"
+		public Keyword getPercentSignKeyword_2() { return cPercentSignKeyword_2; }
 	}
 
 	public class MultiplicativeExpressionElements extends AbstractParserRuleElementFinder {
@@ -1557,6 +1561,90 @@ public class PPGrammarAccess extends AbstractGrammarElementFinder {
 
 		//")"
 		public Keyword getRightParenthesisKeyword_1_3() { return cRightParenthesisKeyword_1_3; }
+	}
+
+	public class LambdaExpressionElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "LambdaExpression");
+		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
+		private final RuleCall cJava8LambdaParserRuleCall_0 = (RuleCall)cAlternatives.eContents().get(0);
+		private final RuleCall cRubyLambdaParserRuleCall_1 = (RuleCall)cAlternatives.eContents().get(1);
+		
+		//LambdaExpression:
+		//	Java8Lambda | RubyLambda;
+		public ParserRule getRule() { return rule; }
+
+		//Java8Lambda | RubyLambda
+		public Alternatives getAlternatives() { return cAlternatives; }
+
+		//Java8Lambda
+		public RuleCall getJava8LambdaParserRuleCall_0() { return cJava8LambdaParserRuleCall_0; }
+
+		//RubyLambda
+		public RuleCall getRubyLambdaParserRuleCall_1() { return cRubyLambdaParserRuleCall_1; }
+	}
+
+	public class Java8LambdaElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "Java8Lambda");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Keyword cVerticalLineKeyword_0 = (Keyword)cGroup.eContents().get(0);
+		private final Keyword cVerticalLineKeyword_1 = (Keyword)cGroup.eContents().get(1);
+		private final Keyword cEqualsSignGreaterThanSignKeyword_2 = (Keyword)cGroup.eContents().get(2);
+		private final Keyword cLeftCurlyBracketKeyword_3 = (Keyword)cGroup.eContents().get(3);
+		private final Keyword cFullStopKeyword_4 = (Keyword)cGroup.eContents().get(4);
+		private final Keyword cRightCurlyBracketKeyword_5 = (Keyword)cGroup.eContents().get(5);
+		
+		//Java8Lambda:
+		//	"|" "|" "=>"? "{" "." "}";
+		public ParserRule getRule() { return rule; }
+
+		//"|" "|" "=>"? "{" "." "}"
+		public Group getGroup() { return cGroup; }
+
+		//"|"
+		public Keyword getVerticalLineKeyword_0() { return cVerticalLineKeyword_0; }
+
+		//"|"
+		public Keyword getVerticalLineKeyword_1() { return cVerticalLineKeyword_1; }
+
+		//"=>"?
+		public Keyword getEqualsSignGreaterThanSignKeyword_2() { return cEqualsSignGreaterThanSignKeyword_2; }
+
+		//"{"
+		public Keyword getLeftCurlyBracketKeyword_3() { return cLeftCurlyBracketKeyword_3; }
+
+		//"."
+		public Keyword getFullStopKeyword_4() { return cFullStopKeyword_4; }
+
+		//"}"
+		public Keyword getRightCurlyBracketKeyword_5() { return cRightCurlyBracketKeyword_5; }
+	}
+
+	public class RubyLambdaElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "RubyLambda");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Keyword cLeftCurlyBracketKeyword_0 = (Keyword)cGroup.eContents().get(0);
+		private final Keyword cVerticalLineKeyword_1 = (Keyword)cGroup.eContents().get(1);
+		private final Keyword cVerticalLineKeyword_2 = (Keyword)cGroup.eContents().get(2);
+		private final Keyword cRightCurlyBracketKeyword_3 = (Keyword)cGroup.eContents().get(3);
+		
+		//RubyLambda:
+		//	"{" "|" "|" "}";
+		public ParserRule getRule() { return rule; }
+
+		//"{" "|" "|" "}"
+		public Group getGroup() { return cGroup; }
+
+		//"{"
+		public Keyword getLeftCurlyBracketKeyword_0() { return cLeftCurlyBracketKeyword_0; }
+
+		//"|"
+		public Keyword getVerticalLineKeyword_1() { return cVerticalLineKeyword_1; }
+
+		//"|"
+		public Keyword getVerticalLineKeyword_2() { return cVerticalLineKeyword_2; }
+
+		//"}"
+		public Keyword getRightCurlyBracketKeyword_3() { return cRightCurlyBracketKeyword_3; }
 	}
 
 	public class PrimaryExpressionElements extends AbstractParserRuleElementFinder {
@@ -3431,6 +3519,9 @@ public class PPGrammarAccess extends AbstractGrammarElementFinder {
 	private SelectorEntryElements pSelectorEntry;
 	private AtExpressionElements pAtExpression;
 	private FunctionCallElements pFunctionCall;
+	private LambdaExpressionElements pLambdaExpression;
+	private Java8LambdaElements pJava8Lambda;
+	private RubyLambdaElements pRubyLambda;
 	private PrimaryExpressionElements pPrimaryExpression;
 	private NodeDefinitionElements pNodeDefinition;
 	private HostReferenceElements pHostReference;
@@ -3797,7 +3888,7 @@ public class PPGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//MultiplicativeOperator:
-	//	"*" | "/";
+	//	"*" | "/" | "%";
 	public MultiplicativeOperatorElements getMultiplicativeOperatorAccess() {
 		return (pMultiplicativeOperator != null) ? pMultiplicativeOperator : (pMultiplicativeOperator = new MultiplicativeOperatorElements());
 	}
@@ -3974,6 +4065,36 @@ public class PPGrammarAccess extends AbstractGrammarElementFinder {
 	
 	public ParserRule getFunctionCallRule() {
 		return getFunctionCallAccess().getRule();
+	}
+
+	//LambdaExpression:
+	//	Java8Lambda | RubyLambda;
+	public LambdaExpressionElements getLambdaExpressionAccess() {
+		return (pLambdaExpression != null) ? pLambdaExpression : (pLambdaExpression = new LambdaExpressionElements());
+	}
+	
+	public ParserRule getLambdaExpressionRule() {
+		return getLambdaExpressionAccess().getRule();
+	}
+
+	//Java8Lambda:
+	//	"|" "|" "=>"? "{" "." "}";
+	public Java8LambdaElements getJava8LambdaAccess() {
+		return (pJava8Lambda != null) ? pJava8Lambda : (pJava8Lambda = new Java8LambdaElements());
+	}
+	
+	public ParserRule getJava8LambdaRule() {
+		return getJava8LambdaAccess().getRule();
+	}
+
+	//RubyLambda:
+	//	"{" "|" "|" "}";
+	public RubyLambdaElements getRubyLambdaAccess() {
+		return (pRubyLambda != null) ? pRubyLambda : (pRubyLambda = new RubyLambdaElements());
+	}
+	
+	public ParserRule getRubyLambdaRule() {
+		return getRubyLambdaAccess().getRule();
 	}
 
 	//PrimaryExpression returns pp::Expression:

@@ -52,6 +52,7 @@ public class PPParser extends AbstractContentAssistParser {
 					put(grammarAccess.getCollectQueryAccess().getAlternatives(), "rule__CollectQuery__Alternatives");
 					put(grammarAccess.getSelectorExpressionAccess().getAlternatives_1_2(), "rule__SelectorExpression__Alternatives_1_2");
 					put(grammarAccess.getSelectorExpressionAccess().getAlternatives_1_2_0_2(), "rule__SelectorExpression__Alternatives_1_2_0_2");
+					put(grammarAccess.getLambdaExpressionAccess().getAlternatives(), "rule__LambdaExpression__Alternatives");
 					put(grammarAccess.getPrimaryExpressionAccess().getAlternatives(), "rule__PrimaryExpression__Alternatives");
 					put(grammarAccess.getHostReferenceAccess().getAlternatives(), "rule__HostReference__Alternatives");
 					put(grammarAccess.getParentNameAccess().getAlternatives(), "rule__ParentName__Alternatives");
@@ -132,6 +133,8 @@ public class PPParser extends AbstractContentAssistParser {
 					put(grammarAccess.getFunctionCallAccess().getGroup_1(), "rule__FunctionCall__Group_1__0");
 					put(grammarAccess.getFunctionCallAccess().getGroup_1_2(), "rule__FunctionCall__Group_1_2__0");
 					put(grammarAccess.getFunctionCallAccess().getGroup_1_2_1(), "rule__FunctionCall__Group_1_2_1__0");
+					put(grammarAccess.getJava8LambdaAccess().getGroup(), "rule__Java8Lambda__Group__0");
+					put(grammarAccess.getRubyLambdaAccess().getGroup(), "rule__RubyLambda__Group__0");
 					put(grammarAccess.getNodeDefinitionAccess().getGroup(), "rule__NodeDefinition__Group__0");
 					put(grammarAccess.getNodeDefinitionAccess().getGroup_2(), "rule__NodeDefinition__Group_2__0");
 					put(grammarAccess.getNodeDefinitionAccess().getGroup_3(), "rule__NodeDefinition__Group_3__0");

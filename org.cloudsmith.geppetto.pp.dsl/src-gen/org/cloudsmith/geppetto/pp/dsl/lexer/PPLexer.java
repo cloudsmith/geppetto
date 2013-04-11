@@ -15,105 +15,174 @@ import java.util.Map;
 import java.util.HashMap;
 @SuppressWarnings("all")
 public class PPLexer extends Lexer {
-    public static final int RULE_REGULAR_EXPRESSION=74;
-    public static final int RULE_ANY_OTHER=78;
-    public static final int RULE_RE_FLAGS=73;
-    public static final int KEYWORD_56=10;
+    public static final int KW_NOT_EQ=99;
+    public static final int KW_COLON=136;
+    public static final int KW_EQUALS=110;
+    public static final int KW_PLUS=131;
+    public static final int RULE_ANY_OTHER=81;
+    public static final int RULE_RE_FLAGS=76;
+    public static final int KEYWORD_56=15;
+    public static final int KW_DEFAULT=83;
+    public static final int KEYWORD_55=14;
+    public static final int KEYWORD_54=13;
+    public static final int KW_DEFINE=84;
+    public static final int RULE_RE_FOLLOW_CHAR=79;
+    public static final int KEYWORD_53=20;
+    public static final int KEYWORD_52=19;
+    public static final int KEYWORD_51=18;
+    public static final int KEYWORD_50=17;
+    public static final int KW_ELSIF=88;
+    public static final int KW_IN_EDGE_SUB=109;
+    public static final int EOF=-1;
+    public static final int KW_ESC_DLR=116;
+    public static final int KEYWORD_59=10;
+    public static final int KEYWORD_58=9;
+    public static final int KEYWORD_57=16;
+    public static final int KW_DQ=125;
+    public static final int KW_RPAR=129;
+    public static final int KW_IN_EDGE=105;
+    public static final int KEYWORD_65=5;
+    public static final int KEYWORD_64=8;
+    public static final int KEYWORD_66=4;
+    public static final int KEYWORD_61=12;
+    public static final int KEYWORD_60=11;
+    public static final int KEYWORD_63=7;
+    public static final int RULE_RE_FIRST_CHAR=78;
+    public static final int KEYWORD_62=6;
+    public static final int KW_EQ=139;
+    public static final int KW_RARR=104;
+    public static final int KW_SLASH=135;
+    public static final int KW_ESC_DLR_BRACE=96;
+    public static final int KW_PIPE=146;
+    public static final int KW_RSHIFT=114;
+    public static final int KW_LT=138;
+    public static final int KEYWORD_30=26;
+    public static final int KW_SQ=127;
+    public static final int KEYWORD_34=30;
+    public static final int KEYWORD_33=29;
+    public static final int KEYWORD_32=28;
+    public static final int KW_IMPORT=85;
+    public static final int KW_RBRACK=144;
+    public static final int KEYWORD_31=27;
+    public static final int KEYWORD_38=34;
+    public static final int KW_RBRACE=147;
+    public static final int KW_ESC_ESC=118;
+    public static final int KEYWORD_37=33;
+    public static final int KEYWORD_36=32;
+    public static final int KEYWORD_35=31;
+    public static final int KW_PLUS_EQ=102;
+    public static final int RULE_ML_COMMENT=70;
+    public static final int KEYWORD_39=35;
+    public static final int KW_APPEND=103;
+    public static final int KW_MODULO=126;
+    public static final int KW_LCOLLECT=108;
+    public static final int KEYWORD_41=37;
+    public static final int KEYWORD_40=36;
+    public static final int KEYWORD_43=39;
+    public static final int KEYWORD_42=38;
+    public static final int KW_LBRACE=145;
+    public static final int KEYWORD_45=41;
+    public static final int KEYWORD_44=40;
+    public static final int KEYWORD_47=43;
+    public static final int KW_SEMI=137;
+    public static final int KEYWORD_46=42;
+    public static final int KEYWORD_49=45;
+    public static final int KEYWORD_48=44;
+    public static final int KW_NOT=124;
+    public static final int RULE_DOLLAR_VAR=73;
+    public static final int KW_ELSE=92;
+    public static final int KW_MUL=130;
+    public static final int RULE_REGULAR_EXPRESSION=77;
+    public static final int KW_LBRACK=143;
+    public static final int KW_AND=97;
     public static final int KEYWORD_19=64;
-    public static final int KEYWORD_55=9;
-    public static final int KEYWORD_54=16;
+    public static final int KW_UNLESS=86;
+    public static final int KW_DOT=134;
     public static final int KEYWORD_17=62;
-    public static final int KEYWORD_53=15;
+    public static final int KW_LSHIFT=106;
     public static final int KEYWORD_18=63;
-    public static final int RULE_RE_FOLLOW_CHAR=76;
-    public static final int KEYWORD_52=14;
     public static final int KEYWORD_15=60;
-    public static final int KEYWORD_51=13;
     public static final int KEYWORD_16=61;
+    public static final int KW_TRUE=94;
     public static final int KEYWORD_13=58;
-    public static final int KEYWORD_50=20;
     public static final int KEYWORD_14=59;
     public static final int KEYWORD_11=56;
-    public static final int EOF=-1;
     public static final int KEYWORD_12=57;
     public static final int KEYWORD_10=55;
-    public static final int KEYWORD_59=6;
-    public static final int KEYWORD_58=12;
-    public static final int KEYWORD_57=11;
+    public static final int KW_MINUS=133;
+    public static final int KW_NODE=93;
+    public static final int KW_GT_EQ=113;
+    public static final int KW_LT_EQ=107;
+    public static final int KW_ESC_SQ=117;
     public static final int KEYWORD_6=51;
     public static final int KEYWORD_7=52;
     public static final int KEYWORD_8=53;
     public static final int KEYWORD_9=54;
-    public static final int KEYWORD_28=27;
-    public static final int KEYWORD_29=28;
-    public static final int KEYWORD_61=8;
-    public static final int KEYWORD_24=23;
-    public static final int KEYWORD_60=7;
-    public static final int KEYWORD_25=24;
-    public static final int KEYWORD_63=4;
-    public static final int KEYWORD_26=25;
-    public static final int RULE_RE_FIRST_CHAR=75;
-    public static final int KEYWORD_62=5;
-    public static final int KEYWORD_27=26;
+    public static final int KEYWORD_28=24;
+    public static final int KW_INHERITS=82;
+    public static final int KW_IN=120;
+    public static final int KEYWORD_29=25;
+    public static final int KEYWORD_24=69;
+    public static final int KEYWORD_25=21;
+    public static final int KEYWORD_26=22;
+    public static final int KEYWORD_27=23;
     public static final int KEYWORD_20=65;
+    public static final int KW_IF=119;
     public static final int KEYWORD_21=66;
-    public static final int KEYWORD_22=21;
-    public static final int KEYWORD_23=22;
-    public static final int RULE_RE_BACKSLASH_SEQUENCE=77;
-    public static final int KEYWORD_30=29;
+    public static final int KW_RCOLLECT=122;
+    public static final int KEYWORD_22=67;
+    public static final int KEYWORD_23=68;
+    public static final int KW_QMARK=141;
+    public static final int KW_MATCHES=112;
+    public static final int KW_LLCOLLECT=95;
+    public static final int RULE_RE_BACKSLASH_SEQUENCE=80;
+    public static final int KW_FALSE=89;
+    public static final int KW_COMMA=132;
+    public static final int KW_GT=140;
+    public static final int KW_NOT_MATCHES=100;
     public static final int KEYWORD_1=46;
-    public static final int KEYWORD_34=33;
     public static final int KEYWORD_5=50;
-    public static final int KEYWORD_33=32;
+    public static final int RULE_WORD_CHARS=74;
     public static final int KEYWORD_4=49;
-    public static final int RULE_WORD_CHARS=71;
-    public static final int KEYWORD_32=31;
     public static final int KEYWORD_3=48;
-    public static final int KEYWORD_31=30;
     public static final int KEYWORD_2=47;
-    public static final int RULE_NS=79;
-    public static final int KEYWORD_38=37;
-    public static final int KEYWORD_37=36;
-    public static final int RULE_SL_COMMENT=68;
-    public static final int RULE_RE_BODY=72;
-    public static final int KEYWORD_36=35;
-    public static final int KEYWORD_35=34;
-    public static final int RULE_ML_COMMENT=67;
-    public static final int KEYWORD_39=38;
-    public static final int KEYWORD_41=40;
-    public static final int KEYWORD_40=39;
-    public static final int KEYWORD_43=42;
-    public static final int KEYWORD_42=41;
-    public static final int KEYWORD_45=44;
-    public static final int KEYWORD_44=43;
-    public static final int KEYWORD_47=17;
-    public static final int RULE_WS=69;
-    public static final int KEYWORD_46=45;
-    public static final int KEYWORD_49=19;
-    public static final int KEYWORD_48=18;
-    public static final int RULE_DOLLAR_VAR=70;
+    public static final int RULE_NS=148;
+    public static final int RULE_RE_BODY=75;
+    public static final int RULE_SL_COMMENT=71;
+    public static final int KW_CASE=91;
+    public static final int KW_DLR_BRACE=101;
+    public static final int KW_OUT_EDGE_SUB=123;
+    public static final int KW_ESC_DQ=115;
+    public static final int KW_LPAR=128;
+    public static final int KW_OR=121;
+    public static final int KW_CLASS=87;
+    public static final int KW_UNDEF=90;
+    public static final int KW_FARROW=111;
+    public static final int KW_AT=142;
+    public static final int KW_RRCOLLECT=98;
+    public static final int RULE_WS=72;
 
       private Map<String, Integer> literals = getLiteralsMap();
 
       private static Map<String, Integer> getLiteralsMap() {
      	Map<String, Integer> result = new HashMap<String, Integer>();  
-      	result.put("inherits", KEYWORD_63 );
-    	result.put("default", KEYWORD_62 );
-    	result.put("unless", KEYWORD_61 );
-    	result.put("import", KEYWORD_60 );
-    	result.put("define", KEYWORD_59 );
-    	result.put("undef", KEYWORD_58 );
-    	result.put("false", KEYWORD_57 );
-    	result.put("elsif", KEYWORD_56 );
-    	result.put("class", KEYWORD_55 );
-    	result.put("true", KEYWORD_54 );
-    	result.put("node", KEYWORD_53 );
-    	result.put("else", KEYWORD_52 );
-    	result.put("case", KEYWORD_51 );
-    	result.put("and", KEYWORD_49 );
-    	result.put("if", KEYWORD_42 );
-    	result.put("in", KEYWORD_43 );
-    	result.put("or", KEYWORD_44 );
+      	result.put("inherits", KW_INHERITS );
+    	result.put("default", KW_DEFAULT );
+    	result.put("unless", KW_UNLESS );
+    	result.put("import", KW_IMPORT );
+    	result.put("define", KW_DEFINE );
+    	result.put("undef", KW_UNDEF );
+    	result.put("false", KW_FALSE );
+    	result.put("elsif", KW_ELSIF );
+    	result.put("class", KW_CLASS );
+    	result.put("true", KW_TRUE );
+    	result.put("node", KW_NODE );
+    	result.put("else", KW_ELSE );
+    	result.put("case", KW_CASE );
+    	result.put("and", KW_AND );
+    	result.put("if", KW_IF );
+    	result.put("in", KW_IN );
+    	result.put("or", KW_OR );
     	return result;
       }
       private boolean isReAcceptable() {
@@ -122,13 +191,13 @@ public class PPLexer extends Lexer {
       	// accept after ',' 'node', '{','}, '=~', '!~'
       	switch(lastSignificantToken) {
       		// NOTE: Must manually make sure these refer to the correct KEYWORD numbers
-      		case KEYWORD_8 : // ','
-      		case KEYWORD_53 : // 'node'
-      		case KEYWORD_20 : // '{'
-      		case KEYWORD_21 : // '}'
-      		case KEYWORD_35 : // '=~'
-      		case KEYWORD_23 : // '!~'
-      		case KEYWORD_63 : // 'inherits'
+      		case KW_COMMA       : // ','
+      		case KW_NODE        : // 'node'
+      		case KW_LBRACE      : // '{'
+      		case KW_RBRACE      : // '}'
+      		case KW_MATCHES     : // '=~'
+      		case KW_NOT_MATCHES : // '!~'
+      		case KW_INHERITS    : // 'inherits'
       		case 0 : // nothing seen before, used when serializing
       			return true;
       		default:
@@ -217,17 +286,17 @@ public class PPLexer extends Lexer {
     }
     public String getGrammarFileName() { return "../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g"; }
 
-    // $ANTLR start "KEYWORD_63"
-    public final void mKEYWORD_63() throws RecognitionException {
+    // $ANTLR start "KW_INHERITS"
+    public final void mKW_INHERITS() throws RecognitionException {
         try {
-            int _type = KEYWORD_63;
+            int _type = KW_INHERITS;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:128:12: ({...}? => 'inherits' )
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:128:14: {...}? => 'inherits'
+            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:128:13: ({...}? => 'inherits' )
+            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:128:15: {...}? => 'inherits'
             {
             if ( !((isNotInString())) ) {
                 if (state.backtracking>0) {state.failed=true; return ;}
-                throw new FailedPredicateException(input, "KEYWORD_63", "isNotInString()");
+                throw new FailedPredicateException(input, "KW_INHERITS", "isNotInString()");
             }
             match("inherits"); if (state.failed) return ;
 
@@ -240,19 +309,19 @@ public class PPLexer extends Lexer {
         finally {
         }
     }
-    // $ANTLR end "KEYWORD_63"
+    // $ANTLR end "KW_INHERITS"
 
-    // $ANTLR start "KEYWORD_62"
-    public final void mKEYWORD_62() throws RecognitionException {
+    // $ANTLR start "KW_DEFAULT"
+    public final void mKW_DEFAULT() throws RecognitionException {
         try {
-            int _type = KEYWORD_62;
+            int _type = KW_DEFAULT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:130:12: ({...}? => 'default' )
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:130:14: {...}? => 'default'
+            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:130:13: ({...}? => 'default' )
+            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:130:15: {...}? => 'default'
             {
             if ( !((isNotInString())) ) {
                 if (state.backtracking>0) {state.failed=true; return ;}
-                throw new FailedPredicateException(input, "KEYWORD_62", "isNotInString()");
+                throw new FailedPredicateException(input, "KW_DEFAULT", "isNotInString()");
             }
             match("default"); if (state.failed) return ;
 
@@ -265,19 +334,19 @@ public class PPLexer extends Lexer {
         finally {
         }
     }
-    // $ANTLR end "KEYWORD_62"
+    // $ANTLR end "KW_DEFAULT"
 
-    // $ANTLR start "KEYWORD_59"
-    public final void mKEYWORD_59() throws RecognitionException {
+    // $ANTLR start "KW_DEFINE"
+    public final void mKW_DEFINE() throws RecognitionException {
         try {
-            int _type = KEYWORD_59;
+            int _type = KW_DEFINE;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:132:12: ({...}? => 'define' )
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:132:14: {...}? => 'define'
+            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:132:13: ({...}? => 'define' )
+            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:132:15: {...}? => 'define'
             {
             if ( !((isNotInString())) ) {
                 if (state.backtracking>0) {state.failed=true; return ;}
-                throw new FailedPredicateException(input, "KEYWORD_59", "isNotInString()");
+                throw new FailedPredicateException(input, "KW_DEFINE", "isNotInString()");
             }
             match("define"); if (state.failed) return ;
 
@@ -290,19 +359,19 @@ public class PPLexer extends Lexer {
         finally {
         }
     }
-    // $ANTLR end "KEYWORD_59"
+    // $ANTLR end "KW_DEFINE"
 
-    // $ANTLR start "KEYWORD_60"
-    public final void mKEYWORD_60() throws RecognitionException {
+    // $ANTLR start "KW_IMPORT"
+    public final void mKW_IMPORT() throws RecognitionException {
         try {
-            int _type = KEYWORD_60;
+            int _type = KW_IMPORT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:134:12: ({...}? => 'import' )
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:134:14: {...}? => 'import'
+            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:134:13: ({...}? => 'import' )
+            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:134:15: {...}? => 'import'
             {
             if ( !((isNotInString())) ) {
                 if (state.backtracking>0) {state.failed=true; return ;}
-                throw new FailedPredicateException(input, "KEYWORD_60", "isNotInString()");
+                throw new FailedPredicateException(input, "KW_IMPORT", "isNotInString()");
             }
             match("import"); if (state.failed) return ;
 
@@ -315,19 +384,19 @@ public class PPLexer extends Lexer {
         finally {
         }
     }
-    // $ANTLR end "KEYWORD_60"
+    // $ANTLR end "KW_IMPORT"
 
-    // $ANTLR start "KEYWORD_61"
-    public final void mKEYWORD_61() throws RecognitionException {
+    // $ANTLR start "KW_UNLESS"
+    public final void mKW_UNLESS() throws RecognitionException {
         try {
-            int _type = KEYWORD_61;
+            int _type = KW_UNLESS;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:136:12: ({...}? => 'unless' )
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:136:14: {...}? => 'unless'
+            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:136:13: ({...}? => 'unless' )
+            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:136:15: {...}? => 'unless'
             {
             if ( !((isNotInString())) ) {
                 if (state.backtracking>0) {state.failed=true; return ;}
-                throw new FailedPredicateException(input, "KEYWORD_61", "isNotInString()");
+                throw new FailedPredicateException(input, "KW_UNLESS", "isNotInString()");
             }
             match("unless"); if (state.failed) return ;
 
@@ -340,19 +409,19 @@ public class PPLexer extends Lexer {
         finally {
         }
     }
-    // $ANTLR end "KEYWORD_61"
+    // $ANTLR end "KW_UNLESS"
 
-    // $ANTLR start "KEYWORD_55"
-    public final void mKEYWORD_55() throws RecognitionException {
+    // $ANTLR start "KW_CLASS"
+    public final void mKW_CLASS() throws RecognitionException {
         try {
-            int _type = KEYWORD_55;
+            int _type = KW_CLASS;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:138:12: ({...}? => 'class' )
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:138:14: {...}? => 'class'
+            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:138:13: ({...}? => 'class' )
+            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:138:15: {...}? => 'class'
             {
             if ( !((isNotInString())) ) {
                 if (state.backtracking>0) {state.failed=true; return ;}
-                throw new FailedPredicateException(input, "KEYWORD_55", "isNotInString()");
+                throw new FailedPredicateException(input, "KW_CLASS", "isNotInString()");
             }
             match("class"); if (state.failed) return ;
 
@@ -365,19 +434,19 @@ public class PPLexer extends Lexer {
         finally {
         }
     }
-    // $ANTLR end "KEYWORD_55"
+    // $ANTLR end "KW_CLASS"
 
-    // $ANTLR start "KEYWORD_56"
-    public final void mKEYWORD_56() throws RecognitionException {
+    // $ANTLR start "KW_ELSIF"
+    public final void mKW_ELSIF() throws RecognitionException {
         try {
-            int _type = KEYWORD_56;
+            int _type = KW_ELSIF;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:140:12: ({...}? => 'elsif' )
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:140:14: {...}? => 'elsif'
+            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:140:13: ({...}? => 'elsif' )
+            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:140:15: {...}? => 'elsif'
             {
             if ( !((isNotInString())) ) {
                 if (state.backtracking>0) {state.failed=true; return ;}
-                throw new FailedPredicateException(input, "KEYWORD_56", "isNotInString()");
+                throw new FailedPredicateException(input, "KW_ELSIF", "isNotInString()");
             }
             match("elsif"); if (state.failed) return ;
 
@@ -390,19 +459,19 @@ public class PPLexer extends Lexer {
         finally {
         }
     }
-    // $ANTLR end "KEYWORD_56"
+    // $ANTLR end "KW_ELSIF"
 
-    // $ANTLR start "KEYWORD_57"
-    public final void mKEYWORD_57() throws RecognitionException {
+    // $ANTLR start "KW_FALSE"
+    public final void mKW_FALSE() throws RecognitionException {
         try {
-            int _type = KEYWORD_57;
+            int _type = KW_FALSE;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:142:12: ({...}? => 'false' )
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:142:14: {...}? => 'false'
+            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:142:13: ({...}? => 'false' )
+            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:142:15: {...}? => 'false'
             {
             if ( !((isNotInString())) ) {
                 if (state.backtracking>0) {state.failed=true; return ;}
-                throw new FailedPredicateException(input, "KEYWORD_57", "isNotInString()");
+                throw new FailedPredicateException(input, "KW_FALSE", "isNotInString()");
             }
             match("false"); if (state.failed) return ;
 
@@ -415,19 +484,19 @@ public class PPLexer extends Lexer {
         finally {
         }
     }
-    // $ANTLR end "KEYWORD_57"
+    // $ANTLR end "KW_FALSE"
 
-    // $ANTLR start "KEYWORD_58"
-    public final void mKEYWORD_58() throws RecognitionException {
+    // $ANTLR start "KW_UNDEF"
+    public final void mKW_UNDEF() throws RecognitionException {
         try {
-            int _type = KEYWORD_58;
+            int _type = KW_UNDEF;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:144:12: ({...}? => 'undef' )
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:144:14: {...}? => 'undef'
+            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:144:13: ({...}? => 'undef' )
+            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:144:15: {...}? => 'undef'
             {
             if ( !((isNotInString())) ) {
                 if (state.backtracking>0) {state.failed=true; return ;}
-                throw new FailedPredicateException(input, "KEYWORD_58", "isNotInString()");
+                throw new FailedPredicateException(input, "KW_UNDEF", "isNotInString()");
             }
             match("undef"); if (state.failed) return ;
 
@@ -440,19 +509,19 @@ public class PPLexer extends Lexer {
         finally {
         }
     }
-    // $ANTLR end "KEYWORD_58"
+    // $ANTLR end "KW_UNDEF"
 
-    // $ANTLR start "KEYWORD_51"
-    public final void mKEYWORD_51() throws RecognitionException {
+    // $ANTLR start "KW_CASE"
+    public final void mKW_CASE() throws RecognitionException {
         try {
-            int _type = KEYWORD_51;
+            int _type = KW_CASE;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:146:12: ({...}? => 'case' )
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:146:14: {...}? => 'case'
+            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:146:16: ({...}? => 'case' )
+            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:146:18: {...}? => 'case'
             {
             if ( !((isNotInString())) ) {
                 if (state.backtracking>0) {state.failed=true; return ;}
-                throw new FailedPredicateException(input, "KEYWORD_51", "isNotInString()");
+                throw new FailedPredicateException(input, "KW_CASE", "isNotInString()");
             }
             match("case"); if (state.failed) return ;
 
@@ -465,19 +534,19 @@ public class PPLexer extends Lexer {
         finally {
         }
     }
-    // $ANTLR end "KEYWORD_51"
+    // $ANTLR end "KW_CASE"
 
-    // $ANTLR start "KEYWORD_52"
-    public final void mKEYWORD_52() throws RecognitionException {
+    // $ANTLR start "KW_ELSE"
+    public final void mKW_ELSE() throws RecognitionException {
         try {
-            int _type = KEYWORD_52;
+            int _type = KW_ELSE;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:148:12: ({...}? => 'else' )
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:148:14: {...}? => 'else'
+            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:148:16: ({...}? => 'else' )
+            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:148:18: {...}? => 'else'
             {
             if ( !((isNotInString())) ) {
                 if (state.backtracking>0) {state.failed=true; return ;}
-                throw new FailedPredicateException(input, "KEYWORD_52", "isNotInString()");
+                throw new FailedPredicateException(input, "KW_ELSE", "isNotInString()");
             }
             match("else"); if (state.failed) return ;
 
@@ -490,19 +559,19 @@ public class PPLexer extends Lexer {
         finally {
         }
     }
-    // $ANTLR end "KEYWORD_52"
+    // $ANTLR end "KW_ELSE"
 
-    // $ANTLR start "KEYWORD_53"
-    public final void mKEYWORD_53() throws RecognitionException {
+    // $ANTLR start "KW_NODE"
+    public final void mKW_NODE() throws RecognitionException {
         try {
-            int _type = KEYWORD_53;
+            int _type = KW_NODE;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:150:12: ({...}? => 'node' )
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:150:14: {...}? => 'node'
+            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:150:16: ({...}? => 'node' )
+            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:150:18: {...}? => 'node'
             {
             if ( !((isNotInString())) ) {
                 if (state.backtracking>0) {state.failed=true; return ;}
-                throw new FailedPredicateException(input, "KEYWORD_53", "isNotInString()");
+                throw new FailedPredicateException(input, "KW_NODE", "isNotInString()");
             }
             match("node"); if (state.failed) return ;
 
@@ -515,19 +584,19 @@ public class PPLexer extends Lexer {
         finally {
         }
     }
-    // $ANTLR end "KEYWORD_53"
+    // $ANTLR end "KW_NODE"
 
-    // $ANTLR start "KEYWORD_54"
-    public final void mKEYWORD_54() throws RecognitionException {
+    // $ANTLR start "KW_TRUE"
+    public final void mKW_TRUE() throws RecognitionException {
         try {
-            int _type = KEYWORD_54;
+            int _type = KW_TRUE;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:152:12: ({...}? => 'true' )
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:152:14: {...}? => 'true'
+            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:152:16: ({...}? => 'true' )
+            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:152:18: {...}? => 'true'
             {
             if ( !((isNotInString())) ) {
                 if (state.backtracking>0) {state.failed=true; return ;}
-                throw new FailedPredicateException(input, "KEYWORD_54", "isNotInString()");
+                throw new FailedPredicateException(input, "KW_TRUE", "isNotInString()");
             }
             match("true"); if (state.failed) return ;
 
@@ -540,19 +609,19 @@ public class PPLexer extends Lexer {
         finally {
         }
     }
-    // $ANTLR end "KEYWORD_54"
+    // $ANTLR end "KW_TRUE"
 
-    // $ANTLR start "KEYWORD_47"
-    public final void mKEYWORD_47() throws RecognitionException {
+    // $ANTLR start "KW_LLCOLLECT"
+    public final void mKW_LLCOLLECT() throws RecognitionException {
         try {
-            int _type = KEYWORD_47;
+            int _type = KW_LLCOLLECT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:154:12: ({...}? => '<<|' )
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:154:14: {...}? => '<<|'
+            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:154:16: ({...}? => '<<|' )
+            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:154:18: {...}? => '<<|'
             {
             if ( !((isNotInString())) ) {
                 if (state.backtracking>0) {state.failed=true; return ;}
-                throw new FailedPredicateException(input, "KEYWORD_47", "isNotInString()");
+                throw new FailedPredicateException(input, "KW_LLCOLLECT", "isNotInString()");
             }
             match("<<|"); if (state.failed) return ;
 
@@ -565,15 +634,15 @@ public class PPLexer extends Lexer {
         finally {
         }
     }
-    // $ANTLR end "KEYWORD_47"
+    // $ANTLR end "KW_LLCOLLECT"
 
-    // $ANTLR start "KEYWORD_48"
-    public final void mKEYWORD_48() throws RecognitionException {
+    // $ANTLR start "KW_ESC_DLR_BRACE"
+    public final void mKW_ESC_DLR_BRACE() throws RecognitionException {
         try {
-            int _type = KEYWORD_48;
+            int _type = KW_ESC_DLR_BRACE;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:156:12: ( '\\\\${' )
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:156:14: '\\\\${'
+            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:156:18: ( '\\\\${' )
+            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:156:20: '\\\\${'
             {
             match("\\${"); if (state.failed) return ;
 
@@ -586,19 +655,19 @@ public class PPLexer extends Lexer {
         finally {
         }
     }
-    // $ANTLR end "KEYWORD_48"
+    // $ANTLR end "KW_ESC_DLR_BRACE"
 
-    // $ANTLR start "KEYWORD_49"
-    public final void mKEYWORD_49() throws RecognitionException {
+    // $ANTLR start "KW_AND"
+    public final void mKW_AND() throws RecognitionException {
         try {
-            int _type = KEYWORD_49;
+            int _type = KW_AND;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:158:12: ({...}? => 'and' )
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:158:14: {...}? => 'and'
+            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:158:16: ({...}? => 'and' )
+            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:158:18: {...}? => 'and'
             {
             if ( !((isNotInString())) ) {
                 if (state.backtracking>0) {state.failed=true; return ;}
-                throw new FailedPredicateException(input, "KEYWORD_49", "isNotInString()");
+                throw new FailedPredicateException(input, "KW_AND", "isNotInString()");
             }
             match("and"); if (state.failed) return ;
 
@@ -611,19 +680,19 @@ public class PPLexer extends Lexer {
         finally {
         }
     }
-    // $ANTLR end "KEYWORD_49"
+    // $ANTLR end "KW_AND"
 
-    // $ANTLR start "KEYWORD_50"
-    public final void mKEYWORD_50() throws RecognitionException {
+    // $ANTLR start "KW_RRCOLLECT"
+    public final void mKW_RRCOLLECT() throws RecognitionException {
         try {
-            int _type = KEYWORD_50;
+            int _type = KW_RRCOLLECT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:160:12: ({...}? => '|>>' )
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:160:14: {...}? => '|>>'
+            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:160:16: ({...}? => '|>>' )
+            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:160:18: {...}? => '|>>'
             {
             if ( !((isNotInString())) ) {
                 if (state.backtracking>0) {state.failed=true; return ;}
-                throw new FailedPredicateException(input, "KEYWORD_50", "isNotInString()");
+                throw new FailedPredicateException(input, "KW_RRCOLLECT", "isNotInString()");
             }
             match("|>>"); if (state.failed) return ;
 
@@ -636,19 +705,19 @@ public class PPLexer extends Lexer {
         finally {
         }
     }
-    // $ANTLR end "KEYWORD_50"
+    // $ANTLR end "KW_RRCOLLECT"
 
-    // $ANTLR start "KEYWORD_22"
-    public final void mKEYWORD_22() throws RecognitionException {
+    // $ANTLR start "KW_NOT_EQ"
+    public final void mKW_NOT_EQ() throws RecognitionException {
         try {
-            int _type = KEYWORD_22;
+            int _type = KW_NOT_EQ;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:162:12: ({...}? => '!=' )
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:162:14: {...}? => '!='
+            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:162:16: ({...}? => '!=' )
+            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:162:18: {...}? => '!='
             {
             if ( !((isNotInString())) ) {
                 if (state.backtracking>0) {state.failed=true; return ;}
-                throw new FailedPredicateException(input, "KEYWORD_22", "isNotInString()");
+                throw new FailedPredicateException(input, "KW_NOT_EQ", "isNotInString()");
             }
             match("!="); if (state.failed) return ;
 
@@ -661,19 +730,19 @@ public class PPLexer extends Lexer {
         finally {
         }
     }
-    // $ANTLR end "KEYWORD_22"
+    // $ANTLR end "KW_NOT_EQ"
 
-    // $ANTLR start "KEYWORD_23"
-    public final void mKEYWORD_23() throws RecognitionException {
+    // $ANTLR start "KW_NOT_MATCHES"
+    public final void mKW_NOT_MATCHES() throws RecognitionException {
         try {
-            int _type = KEYWORD_23;
+            int _type = KW_NOT_MATCHES;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:164:12: ({...}? => '!~' )
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:164:14: {...}? => '!~'
+            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:164:16: ({...}? => '!~' )
+            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:164:18: {...}? => '!~'
             {
             if ( !((isNotInString())) ) {
                 if (state.backtracking>0) {state.failed=true; return ;}
-                throw new FailedPredicateException(input, "KEYWORD_23", "isNotInString()");
+                throw new FailedPredicateException(input, "KW_NOT_MATCHES", "isNotInString()");
             }
             match("!~"); if (state.failed) return ;
 
@@ -686,15 +755,15 @@ public class PPLexer extends Lexer {
         finally {
         }
     }
-    // $ANTLR end "KEYWORD_23"
+    // $ANTLR end "KW_NOT_MATCHES"
 
-    // $ANTLR start "KEYWORD_24"
-    public final void mKEYWORD_24() throws RecognitionException {
+    // $ANTLR start "KW_DLR_BRACE"
+    public final void mKW_DLR_BRACE() throws RecognitionException {
         try {
-            int _type = KEYWORD_24;
+            int _type = KW_DLR_BRACE;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:166:12: ( '${' )
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:166:14: '${'
+            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:166:14: ( '${' )
+            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:166:16: '${'
             {
             match("${"); if (state.failed) return ;
 
@@ -718,19 +787,19 @@ public class PPLexer extends Lexer {
         finally {
         }
     }
-    // $ANTLR end "KEYWORD_24"
+    // $ANTLR end "KW_DLR_BRACE"
 
-    // $ANTLR start "KEYWORD_25"
-    public final void mKEYWORD_25() throws RecognitionException {
+    // $ANTLR start "KW_PLUS_EQ"
+    public final void mKW_PLUS_EQ() throws RecognitionException {
         try {
-            int _type = KEYWORD_25;
+            int _type = KW_PLUS_EQ;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:176:12: ({...}? => '+=' )
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:176:14: {...}? => '+='
+            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:176:14: ({...}? => '+=' )
+            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:176:16: {...}? => '+='
             {
             if ( !((isNotInString())) ) {
                 if (state.backtracking>0) {state.failed=true; return ;}
-                throw new FailedPredicateException(input, "KEYWORD_25", "isNotInString()");
+                throw new FailedPredicateException(input, "KW_PLUS_EQ", "isNotInString()");
             }
             match("+="); if (state.failed) return ;
 
@@ -743,19 +812,19 @@ public class PPLexer extends Lexer {
         finally {
         }
     }
-    // $ANTLR end "KEYWORD_25"
+    // $ANTLR end "KW_PLUS_EQ"
 
-    // $ANTLR start "KEYWORD_26"
-    public final void mKEYWORD_26() throws RecognitionException {
+    // $ANTLR start "KW_APPEND"
+    public final void mKW_APPEND() throws RecognitionException {
         try {
-            int _type = KEYWORD_26;
+            int _type = KW_APPEND;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:178:12: ({...}? => '+>' )
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:178:14: {...}? => '+>'
+            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:178:14: ({...}? => '+>' )
+            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:178:16: {...}? => '+>'
             {
             if ( !((isNotInString())) ) {
                 if (state.backtracking>0) {state.failed=true; return ;}
-                throw new FailedPredicateException(input, "KEYWORD_26", "isNotInString()");
+                throw new FailedPredicateException(input, "KW_APPEND", "isNotInString()");
             }
             match("+>"); if (state.failed) return ;
 
@@ -768,19 +837,19 @@ public class PPLexer extends Lexer {
         finally {
         }
     }
-    // $ANTLR end "KEYWORD_26"
+    // $ANTLR end "KW_APPEND"
 
-    // $ANTLR start "KEYWORD_27"
-    public final void mKEYWORD_27() throws RecognitionException {
+    // $ANTLR start "KW_RARR"
+    public final void mKW_RARR() throws RecognitionException {
         try {
-            int _type = KEYWORD_27;
+            int _type = KW_RARR;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:180:12: ({...}? => '->' )
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:180:14: {...}? => '->'
+            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:180:14: ({...}? => '->' )
+            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:180:16: {...}? => '->'
             {
             if ( !((isNotInString())) ) {
                 if (state.backtracking>0) {state.failed=true; return ;}
-                throw new FailedPredicateException(input, "KEYWORD_27", "isNotInString()");
+                throw new FailedPredicateException(input, "KW_RARR", "isNotInString()");
             }
             match("->"); if (state.failed) return ;
 
@@ -793,19 +862,19 @@ public class PPLexer extends Lexer {
         finally {
         }
     }
-    // $ANTLR end "KEYWORD_27"
+    // $ANTLR end "KW_RARR"
 
-    // $ANTLR start "KEYWORD_28"
-    public final void mKEYWORD_28() throws RecognitionException {
+    // $ANTLR start "KW_IN_EDGE"
+    public final void mKW_IN_EDGE() throws RecognitionException {
         try {
-            int _type = KEYWORD_28;
+            int _type = KW_IN_EDGE;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:182:12: ({...}? => '<-' )
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:182:14: {...}? => '<-'
+            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:182:14: ({...}? => '<-' )
+            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:182:16: {...}? => '<-'
             {
             if ( !((isNotInString())) ) {
                 if (state.backtracking>0) {state.failed=true; return ;}
-                throw new FailedPredicateException(input, "KEYWORD_28", "isNotInString()");
+                throw new FailedPredicateException(input, "KW_IN_EDGE", "isNotInString()");
             }
             match("<-"); if (state.failed) return ;
 
@@ -818,19 +887,19 @@ public class PPLexer extends Lexer {
         finally {
         }
     }
-    // $ANTLR end "KEYWORD_28"
+    // $ANTLR end "KW_IN_EDGE"
 
-    // $ANTLR start "KEYWORD_29"
-    public final void mKEYWORD_29() throws RecognitionException {
+    // $ANTLR start "KW_LSHIFT"
+    public final void mKW_LSHIFT() throws RecognitionException {
         try {
-            int _type = KEYWORD_29;
+            int _type = KW_LSHIFT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:184:12: ({...}? => '<<' )
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:184:14: {...}? => '<<'
+            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:184:14: ({...}? => '<<' )
+            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:184:16: {...}? => '<<'
             {
             if ( !((isNotInString())) ) {
                 if (state.backtracking>0) {state.failed=true; return ;}
-                throw new FailedPredicateException(input, "KEYWORD_29", "isNotInString()");
+                throw new FailedPredicateException(input, "KW_LSHIFT", "isNotInString()");
             }
             match("<<"); if (state.failed) return ;
 
@@ -843,19 +912,19 @@ public class PPLexer extends Lexer {
         finally {
         }
     }
-    // $ANTLR end "KEYWORD_29"
+    // $ANTLR end "KW_LSHIFT"
 
-    // $ANTLR start "KEYWORD_30"
-    public final void mKEYWORD_30() throws RecognitionException {
+    // $ANTLR start "KW_LT_EQ"
+    public final void mKW_LT_EQ() throws RecognitionException {
         try {
-            int _type = KEYWORD_30;
+            int _type = KW_LT_EQ;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:186:12: ({...}? => '<=' )
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:186:14: {...}? => '<='
+            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:186:15: ({...}? => '<=' )
+            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:186:17: {...}? => '<='
             {
             if ( !((isNotInString())) ) {
                 if (state.backtracking>0) {state.failed=true; return ;}
-                throw new FailedPredicateException(input, "KEYWORD_30", "isNotInString()");
+                throw new FailedPredicateException(input, "KW_LT_EQ", "isNotInString()");
             }
             match("<="); if (state.failed) return ;
 
@@ -868,19 +937,19 @@ public class PPLexer extends Lexer {
         finally {
         }
     }
-    // $ANTLR end "KEYWORD_30"
+    // $ANTLR end "KW_LT_EQ"
 
-    // $ANTLR start "KEYWORD_31"
-    public final void mKEYWORD_31() throws RecognitionException {
+    // $ANTLR start "KW_LCOLLECT"
+    public final void mKW_LCOLLECT() throws RecognitionException {
         try {
-            int _type = KEYWORD_31;
+            int _type = KW_LCOLLECT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:188:12: ({...}? => '<|' )
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:188:14: {...}? => '<|'
+            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:188:14: ({...}? => '<|' )
+            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:188:16: {...}? => '<|'
             {
             if ( !((isNotInString())) ) {
                 if (state.backtracking>0) {state.failed=true; return ;}
-                throw new FailedPredicateException(input, "KEYWORD_31", "isNotInString()");
+                throw new FailedPredicateException(input, "KW_LCOLLECT", "isNotInString()");
             }
             match("<|"); if (state.failed) return ;
 
@@ -893,19 +962,19 @@ public class PPLexer extends Lexer {
         finally {
         }
     }
-    // $ANTLR end "KEYWORD_31"
+    // $ANTLR end "KW_LCOLLECT"
 
-    // $ANTLR start "KEYWORD_32"
-    public final void mKEYWORD_32() throws RecognitionException {
+    // $ANTLR start "KW_IN_EDGE_SUB"
+    public final void mKW_IN_EDGE_SUB() throws RecognitionException {
         try {
-            int _type = KEYWORD_32;
+            int _type = KW_IN_EDGE_SUB;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:190:12: ({...}? => '<~' )
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:190:14: {...}? => '<~'
+            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:190:16: ({...}? => '<~' )
+            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:190:18: {...}? => '<~'
             {
             if ( !((isNotInString())) ) {
                 if (state.backtracking>0) {state.failed=true; return ;}
-                throw new FailedPredicateException(input, "KEYWORD_32", "isNotInString()");
+                throw new FailedPredicateException(input, "KW_IN_EDGE_SUB", "isNotInString()");
             }
             match("<~"); if (state.failed) return ;
 
@@ -918,19 +987,19 @@ public class PPLexer extends Lexer {
         finally {
         }
     }
-    // $ANTLR end "KEYWORD_32"
+    // $ANTLR end "KW_IN_EDGE_SUB"
 
-    // $ANTLR start "KEYWORD_33"
-    public final void mKEYWORD_33() throws RecognitionException {
+    // $ANTLR start "KW_EQUALS"
+    public final void mKW_EQUALS() throws RecognitionException {
         try {
-            int _type = KEYWORD_33;
+            int _type = KW_EQUALS;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:192:12: ({...}? => '==' )
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:192:14: {...}? => '=='
+            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:192:14: ({...}? => '==' )
+            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:192:16: {...}? => '=='
             {
             if ( !((isNotInString())) ) {
                 if (state.backtracking>0) {state.failed=true; return ;}
-                throw new FailedPredicateException(input, "KEYWORD_33", "isNotInString()");
+                throw new FailedPredicateException(input, "KW_EQUALS", "isNotInString()");
             }
             match("=="); if (state.failed) return ;
 
@@ -943,19 +1012,19 @@ public class PPLexer extends Lexer {
         finally {
         }
     }
-    // $ANTLR end "KEYWORD_33"
+    // $ANTLR end "KW_EQUALS"
 
-    // $ANTLR start "KEYWORD_34"
-    public final void mKEYWORD_34() throws RecognitionException {
+    // $ANTLR start "KW_FARROW"
+    public final void mKW_FARROW() throws RecognitionException {
         try {
-            int _type = KEYWORD_34;
+            int _type = KW_FARROW;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:194:12: ({...}? => '=>' )
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:194:14: {...}? => '=>'
+            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:194:14: ({...}? => '=>' )
+            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:194:16: {...}? => '=>'
             {
             if ( !((isNotInString())) ) {
                 if (state.backtracking>0) {state.failed=true; return ;}
-                throw new FailedPredicateException(input, "KEYWORD_34", "isNotInString()");
+                throw new FailedPredicateException(input, "KW_FARROW", "isNotInString()");
             }
             match("=>"); if (state.failed) return ;
 
@@ -968,19 +1037,19 @@ public class PPLexer extends Lexer {
         finally {
         }
     }
-    // $ANTLR end "KEYWORD_34"
+    // $ANTLR end "KW_FARROW"
 
-    // $ANTLR start "KEYWORD_35"
-    public final void mKEYWORD_35() throws RecognitionException {
+    // $ANTLR start "KW_MATCHES"
+    public final void mKW_MATCHES() throws RecognitionException {
         try {
-            int _type = KEYWORD_35;
+            int _type = KW_MATCHES;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:196:12: ({...}? => '=~' )
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:196:14: {...}? => '=~'
+            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:196:14: ({...}? => '=~' )
+            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:196:16: {...}? => '=~'
             {
             if ( !((isNotInString())) ) {
                 if (state.backtracking>0) {state.failed=true; return ;}
-                throw new FailedPredicateException(input, "KEYWORD_35", "isNotInString()");
+                throw new FailedPredicateException(input, "KW_MATCHES", "isNotInString()");
             }
             match("=~"); if (state.failed) return ;
 
@@ -993,19 +1062,19 @@ public class PPLexer extends Lexer {
         finally {
         }
     }
-    // $ANTLR end "KEYWORD_35"
+    // $ANTLR end "KW_MATCHES"
 
-    // $ANTLR start "KEYWORD_36"
-    public final void mKEYWORD_36() throws RecognitionException {
+    // $ANTLR start "KW_GT_EQ"
+    public final void mKW_GT_EQ() throws RecognitionException {
         try {
-            int _type = KEYWORD_36;
+            int _type = KW_GT_EQ;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:198:12: ({...}? => '>=' )
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:198:14: {...}? => '>='
+            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:198:15: ({...}? => '>=' )
+            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:198:17: {...}? => '>='
             {
             if ( !((isNotInString())) ) {
                 if (state.backtracking>0) {state.failed=true; return ;}
-                throw new FailedPredicateException(input, "KEYWORD_36", "isNotInString()");
+                throw new FailedPredicateException(input, "KW_GT_EQ", "isNotInString()");
             }
             match(">="); if (state.failed) return ;
 
@@ -1018,19 +1087,19 @@ public class PPLexer extends Lexer {
         finally {
         }
     }
-    // $ANTLR end "KEYWORD_36"
+    // $ANTLR end "KW_GT_EQ"
 
-    // $ANTLR start "KEYWORD_37"
-    public final void mKEYWORD_37() throws RecognitionException {
+    // $ANTLR start "KW_RSHIFT"
+    public final void mKW_RSHIFT() throws RecognitionException {
         try {
-            int _type = KEYWORD_37;
+            int _type = KW_RSHIFT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:200:12: ({...}? => '>>' )
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:200:14: {...}? => '>>'
+            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:200:14: ({...}? => '>>' )
+            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:200:16: {...}? => '>>'
             {
             if ( !((isNotInString())) ) {
                 if (state.backtracking>0) {state.failed=true; return ;}
-                throw new FailedPredicateException(input, "KEYWORD_37", "isNotInString()");
+                throw new FailedPredicateException(input, "KW_RSHIFT", "isNotInString()");
             }
             match(">>"); if (state.failed) return ;
 
@@ -1043,15 +1112,15 @@ public class PPLexer extends Lexer {
         finally {
         }
     }
-    // $ANTLR end "KEYWORD_37"
+    // $ANTLR end "KW_RSHIFT"
 
-    // $ANTLR start "KEYWORD_38"
-    public final void mKEYWORD_38() throws RecognitionException {
+    // $ANTLR start "KW_ESC_DQ"
+    public final void mKW_ESC_DQ() throws RecognitionException {
         try {
-            int _type = KEYWORD_38;
+            int _type = KW_ESC_DQ;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:202:12: ( '\\\\\"' )
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:202:14: '\\\\\"'
+            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:202:14: ( '\\\\\"' )
+            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:202:16: '\\\\\"'
             {
             match("\\\""); if (state.failed) return ;
 
@@ -1064,15 +1133,15 @@ public class PPLexer extends Lexer {
         finally {
         }
     }
-    // $ANTLR end "KEYWORD_38"
+    // $ANTLR end "KW_ESC_DQ"
 
-    // $ANTLR start "KEYWORD_39"
-    public final void mKEYWORD_39() throws RecognitionException {
+    // $ANTLR start "KW_ESC_DLR"
+    public final void mKW_ESC_DLR() throws RecognitionException {
         try {
-            int _type = KEYWORD_39;
+            int _type = KW_ESC_DLR;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:204:12: ( '\\\\$' )
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:204:14: '\\\\$'
+            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:204:14: ( '\\\\$' )
+            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:204:16: '\\\\$'
             {
             match("\\$"); if (state.failed) return ;
 
@@ -1085,15 +1154,15 @@ public class PPLexer extends Lexer {
         finally {
         }
     }
-    // $ANTLR end "KEYWORD_39"
+    // $ANTLR end "KW_ESC_DLR"
 
-    // $ANTLR start "KEYWORD_40"
-    public final void mKEYWORD_40() throws RecognitionException {
+    // $ANTLR start "KW_ESC_SQ"
+    public final void mKW_ESC_SQ() throws RecognitionException {
         try {
-            int _type = KEYWORD_40;
+            int _type = KW_ESC_SQ;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:206:12: ( '\\\\\\'' )
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:206:14: '\\\\\\''
+            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:206:14: ( '\\\\\\'' )
+            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:206:16: '\\\\\\''
             {
             match("\\'"); if (state.failed) return ;
 
@@ -1106,15 +1175,15 @@ public class PPLexer extends Lexer {
         finally {
         }
     }
-    // $ANTLR end "KEYWORD_40"
+    // $ANTLR end "KW_ESC_SQ"
 
-    // $ANTLR start "KEYWORD_41"
-    public final void mKEYWORD_41() throws RecognitionException {
+    // $ANTLR start "KW_ESC_ESC"
+    public final void mKW_ESC_ESC() throws RecognitionException {
         try {
-            int _type = KEYWORD_41;
+            int _type = KW_ESC_ESC;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:208:12: ( '\\\\\\\\' )
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:208:14: '\\\\\\\\'
+            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:208:14: ( '\\\\\\\\' )
+            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:208:16: '\\\\\\\\'
             {
             match("\\\\"); if (state.failed) return ;
 
@@ -1127,19 +1196,19 @@ public class PPLexer extends Lexer {
         finally {
         }
     }
-    // $ANTLR end "KEYWORD_41"
+    // $ANTLR end "KW_ESC_ESC"
 
-    // $ANTLR start "KEYWORD_42"
-    public final void mKEYWORD_42() throws RecognitionException {
+    // $ANTLR start "KW_IF"
+    public final void mKW_IF() throws RecognitionException {
         try {
-            int _type = KEYWORD_42;
+            int _type = KW_IF;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:210:12: ({...}? => 'if' )
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:210:14: {...}? => 'if'
+            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:210:14: ({...}? => 'if' )
+            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:210:16: {...}? => 'if'
             {
             if ( !((isNotInString())) ) {
                 if (state.backtracking>0) {state.failed=true; return ;}
-                throw new FailedPredicateException(input, "KEYWORD_42", "isNotInString()");
+                throw new FailedPredicateException(input, "KW_IF", "isNotInString()");
             }
             match("if"); if (state.failed) return ;
 
@@ -1152,19 +1221,19 @@ public class PPLexer extends Lexer {
         finally {
         }
     }
-    // $ANTLR end "KEYWORD_42"
+    // $ANTLR end "KW_IF"
 
-    // $ANTLR start "KEYWORD_43"
-    public final void mKEYWORD_43() throws RecognitionException {
+    // $ANTLR start "KW_IN"
+    public final void mKW_IN() throws RecognitionException {
         try {
-            int _type = KEYWORD_43;
+            int _type = KW_IN;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:212:12: ({...}? => 'in' )
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:212:14: {...}? => 'in'
+            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:212:14: ({...}? => 'in' )
+            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:212:16: {...}? => 'in'
             {
             if ( !((isNotInString())) ) {
                 if (state.backtracking>0) {state.failed=true; return ;}
-                throw new FailedPredicateException(input, "KEYWORD_43", "isNotInString()");
+                throw new FailedPredicateException(input, "KW_IN", "isNotInString()");
             }
             match("in"); if (state.failed) return ;
 
@@ -1177,19 +1246,19 @@ public class PPLexer extends Lexer {
         finally {
         }
     }
-    // $ANTLR end "KEYWORD_43"
+    // $ANTLR end "KW_IN"
 
-    // $ANTLR start "KEYWORD_44"
-    public final void mKEYWORD_44() throws RecognitionException {
+    // $ANTLR start "KW_OR"
+    public final void mKW_OR() throws RecognitionException {
         try {
-            int _type = KEYWORD_44;
+            int _type = KW_OR;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:214:12: ({...}? => 'or' )
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:214:14: {...}? => 'or'
+            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:214:14: ({...}? => 'or' )
+            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:214:16: {...}? => 'or'
             {
             if ( !((isNotInString())) ) {
                 if (state.backtracking>0) {state.failed=true; return ;}
-                throw new FailedPredicateException(input, "KEYWORD_44", "isNotInString()");
+                throw new FailedPredicateException(input, "KW_OR", "isNotInString()");
             }
             match("or"); if (state.failed) return ;
 
@@ -1202,19 +1271,19 @@ public class PPLexer extends Lexer {
         finally {
         }
     }
-    // $ANTLR end "KEYWORD_44"
+    // $ANTLR end "KW_OR"
 
-    // $ANTLR start "KEYWORD_45"
-    public final void mKEYWORD_45() throws RecognitionException {
+    // $ANTLR start "KW_RCOLLECT"
+    public final void mKW_RCOLLECT() throws RecognitionException {
         try {
-            int _type = KEYWORD_45;
+            int _type = KW_RCOLLECT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:216:12: ({...}? => '|>' )
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:216:14: {...}? => '|>'
+            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:216:14: ({...}? => '|>' )
+            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:216:16: {...}? => '|>'
             {
             if ( !((isNotInString())) ) {
                 if (state.backtracking>0) {state.failed=true; return ;}
-                throw new FailedPredicateException(input, "KEYWORD_45", "isNotInString()");
+                throw new FailedPredicateException(input, "KW_RCOLLECT", "isNotInString()");
             }
             match("|>"); if (state.failed) return ;
 
@@ -1227,19 +1296,19 @@ public class PPLexer extends Lexer {
         finally {
         }
     }
-    // $ANTLR end "KEYWORD_45"
+    // $ANTLR end "KW_RCOLLECT"
 
-    // $ANTLR start "KEYWORD_46"
-    public final void mKEYWORD_46() throws RecognitionException {
+    // $ANTLR start "KW_OUT_EDGE_SUB"
+    public final void mKW_OUT_EDGE_SUB() throws RecognitionException {
         try {
-            int _type = KEYWORD_46;
+            int _type = KW_OUT_EDGE_SUB;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:218:12: ({...}? => '~>' )
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:218:14: {...}? => '~>'
+            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:218:17: ({...}? => '~>' )
+            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:218:19: {...}? => '~>'
             {
             if ( !((isNotInString())) ) {
                 if (state.backtracking>0) {state.failed=true; return ;}
-                throw new FailedPredicateException(input, "KEYWORD_46", "isNotInString()");
+                throw new FailedPredicateException(input, "KW_OUT_EDGE_SUB", "isNotInString()");
             }
             match("~>"); if (state.failed) return ;
 
@@ -1252,19 +1321,19 @@ public class PPLexer extends Lexer {
         finally {
         }
     }
-    // $ANTLR end "KEYWORD_46"
+    // $ANTLR end "KW_OUT_EDGE_SUB"
 
-    // $ANTLR start "KEYWORD_1"
-    public final void mKEYWORD_1() throws RecognitionException {
+    // $ANTLR start "KW_NOT"
+    public final void mKW_NOT() throws RecognitionException {
         try {
-            int _type = KEYWORD_1;
+            int _type = KW_NOT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:220:11: ({...}? => '!' )
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:220:13: {...}? => '!'
+            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:220:14: ({...}? => '!' )
+            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:220:16: {...}? => '!'
             {
             if ( !((isNotInString())) ) {
                 if (state.backtracking>0) {state.failed=true; return ;}
-                throw new FailedPredicateException(input, "KEYWORD_1", "isNotInString()");
+                throw new FailedPredicateException(input, "KW_NOT", "isNotInString()");
             }
             match('!'); if (state.failed) return ;
 
@@ -1276,19 +1345,19 @@ public class PPLexer extends Lexer {
         finally {
         }
     }
-    // $ANTLR end "KEYWORD_1"
+    // $ANTLR end "KW_NOT"
 
-    // $ANTLR start "KEYWORD_2"
-    public final void mKEYWORD_2() throws RecognitionException {
+    // $ANTLR start "KW_DQ"
+    public final void mKW_DQ() throws RecognitionException {
         try {
-            int _type = KEYWORD_2;
+            int _type = KW_DQ;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:222:11: ({...}? => '\"' )
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:222:13: {...}? => '\"'
+            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:222:14: ({...}? => '\"' )
+            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:222:16: {...}? => '\"'
             {
             if ( !((!singleQuotedString)) ) {
                 if (state.backtracking>0) {state.failed=true; return ;}
-                throw new FailedPredicateException(input, "KEYWORD_2", "!singleQuotedString");
+                throw new FailedPredicateException(input, "KW_DQ", "!singleQuotedString");
             }
             match('\"'); if (state.failed) return ;
             if ( state.backtracking==0 ) {
@@ -1305,19 +1374,43 @@ public class PPLexer extends Lexer {
         finally {
         }
     }
-    // $ANTLR end "KEYWORD_2"
+    // $ANTLR end "KW_DQ"
 
-    // $ANTLR start "KEYWORD_3"
-    public final void mKEYWORD_3() throws RecognitionException {
+    // $ANTLR start "KW_MODULO"
+    public final void mKW_MODULO() throws RecognitionException {
         try {
-            int _type = KEYWORD_3;
+            int _type = KW_MODULO;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:228:11: ({...}? => '\\'' )
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:228:13: {...}? => '\\''
+            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:227:14: ({...}? => '%' )
+            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:227:16: {...}? => '%'
+            {
+            if ( !((!isNotInString())) ) {
+                if (state.backtracking>0) {state.failed=true; return ;}
+                throw new FailedPredicateException(input, "KW_MODULO", "!isNotInString()");
+            }
+            match('%'); if (state.failed) return ;
+
+            }
+
+            state.type = _type;
+            state.channel = _channel;
+        }
+        finally {
+        }
+    }
+    // $ANTLR end "KW_MODULO"
+
+    // $ANTLR start "KW_SQ"
+    public final void mKW_SQ() throws RecognitionException {
+        try {
+            int _type = KW_SQ;
+            int _channel = DEFAULT_TOKEN_CHANNEL;
+            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:229:14: ({...}? => '\\'' )
+            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:229:16: {...}? => '\\''
             {
             if ( !((!doubleQuotedString)) ) {
                 if (state.backtracking>0) {state.failed=true; return ;}
-                throw new FailedPredicateException(input, "KEYWORD_3", "!doubleQuotedString");
+                throw new FailedPredicateException(input, "KW_SQ", "!doubleQuotedString");
             }
             match('\''); if (state.failed) return ;
             if ( state.backtracking==0 ) {
@@ -1334,19 +1427,19 @@ public class PPLexer extends Lexer {
         finally {
         }
     }
-    // $ANTLR end "KEYWORD_3"
+    // $ANTLR end "KW_SQ"
 
-    // $ANTLR start "KEYWORD_4"
-    public final void mKEYWORD_4() throws RecognitionException {
+    // $ANTLR start "KW_LPAR"
+    public final void mKW_LPAR() throws RecognitionException {
         try {
-            int _type = KEYWORD_4;
+            int _type = KW_LPAR;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:233:11: ({...}? => '(' )
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:233:13: {...}? => '('
+            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:234:14: ({...}? => '(' )
+            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:234:16: {...}? => '('
             {
             if ( !((isNotInString())) ) {
                 if (state.backtracking>0) {state.failed=true; return ;}
-                throw new FailedPredicateException(input, "KEYWORD_4", "isNotInString()");
+                throw new FailedPredicateException(input, "KW_LPAR", "isNotInString()");
             }
             match('('); if (state.failed) return ;
 
@@ -1358,19 +1451,19 @@ public class PPLexer extends Lexer {
         finally {
         }
     }
-    // $ANTLR end "KEYWORD_4"
+    // $ANTLR end "KW_LPAR"
 
-    // $ANTLR start "KEYWORD_5"
-    public final void mKEYWORD_5() throws RecognitionException {
+    // $ANTLR start "KW_RPAR"
+    public final void mKW_RPAR() throws RecognitionException {
         try {
-            int _type = KEYWORD_5;
+            int _type = KW_RPAR;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:235:11: ({...}? => ')' )
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:235:13: {...}? => ')'
+            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:236:14: ({...}? => ')' )
+            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:236:16: {...}? => ')'
             {
             if ( !((isNotInString())) ) {
                 if (state.backtracking>0) {state.failed=true; return ;}
-                throw new FailedPredicateException(input, "KEYWORD_5", "isNotInString()");
+                throw new FailedPredicateException(input, "KW_RPAR", "isNotInString()");
             }
             match(')'); if (state.failed) return ;
 
@@ -1382,19 +1475,19 @@ public class PPLexer extends Lexer {
         finally {
         }
     }
-    // $ANTLR end "KEYWORD_5"
+    // $ANTLR end "KW_RPAR"
 
-    // $ANTLR start "KEYWORD_6"
-    public final void mKEYWORD_6() throws RecognitionException {
+    // $ANTLR start "KW_MUL"
+    public final void mKW_MUL() throws RecognitionException {
         try {
-            int _type = KEYWORD_6;
+            int _type = KW_MUL;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:237:11: ({...}? => '*' )
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:237:13: {...}? => '*'
+            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:238:14: ({...}? => '*' )
+            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:238:16: {...}? => '*'
             {
             if ( !((isNotInString())) ) {
                 if (state.backtracking>0) {state.failed=true; return ;}
-                throw new FailedPredicateException(input, "KEYWORD_6", "isNotInString()");
+                throw new FailedPredicateException(input, "KW_MUL", "isNotInString()");
             }
             match('*'); if (state.failed) return ;
 
@@ -1406,19 +1499,19 @@ public class PPLexer extends Lexer {
         finally {
         }
     }
-    // $ANTLR end "KEYWORD_6"
+    // $ANTLR end "KW_MUL"
 
-    // $ANTLR start "KEYWORD_7"
-    public final void mKEYWORD_7() throws RecognitionException {
+    // $ANTLR start "KW_PLUS"
+    public final void mKW_PLUS() throws RecognitionException {
         try {
-            int _type = KEYWORD_7;
+            int _type = KW_PLUS;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:239:11: ({...}? => '+' )
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:239:13: {...}? => '+'
+            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:240:14: ({...}? => '+' )
+            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:240:16: {...}? => '+'
             {
             if ( !((isNotInString())) ) {
                 if (state.backtracking>0) {state.failed=true; return ;}
-                throw new FailedPredicateException(input, "KEYWORD_7", "isNotInString()");
+                throw new FailedPredicateException(input, "KW_PLUS", "isNotInString()");
             }
             match('+'); if (state.failed) return ;
 
@@ -1430,19 +1523,19 @@ public class PPLexer extends Lexer {
         finally {
         }
     }
-    // $ANTLR end "KEYWORD_7"
+    // $ANTLR end "KW_PLUS"
 
-    // $ANTLR start "KEYWORD_8"
-    public final void mKEYWORD_8() throws RecognitionException {
+    // $ANTLR start "KW_COMMA"
+    public final void mKW_COMMA() throws RecognitionException {
         try {
-            int _type = KEYWORD_8;
+            int _type = KW_COMMA;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:241:11: ({...}? => ',' )
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:241:13: {...}? => ','
+            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:242:14: ({...}? => ',' )
+            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:242:16: {...}? => ','
             {
             if ( !((isNotInString())) ) {
                 if (state.backtracking>0) {state.failed=true; return ;}
-                throw new FailedPredicateException(input, "KEYWORD_8", "isNotInString()");
+                throw new FailedPredicateException(input, "KW_COMMA", "isNotInString()");
             }
             match(','); if (state.failed) return ;
 
@@ -1454,15 +1547,15 @@ public class PPLexer extends Lexer {
         finally {
         }
     }
-    // $ANTLR end "KEYWORD_8"
+    // $ANTLR end "KW_COMMA"
 
-    // $ANTLR start "KEYWORD_9"
-    public final void mKEYWORD_9() throws RecognitionException {
+    // $ANTLR start "KW_MINUS"
+    public final void mKW_MINUS() throws RecognitionException {
         try {
-            int _type = KEYWORD_9;
+            int _type = KW_MINUS;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:243:11: ( '-' )
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:243:13: '-'
+            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:244:14: ( '-' )
+            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:244:16: '-'
             {
             match('-'); if (state.failed) return ;
             if ( state.backtracking==0 ) {
@@ -1480,19 +1573,43 @@ public class PPLexer extends Lexer {
         finally {
         }
     }
-    // $ANTLR end "KEYWORD_9"
+    // $ANTLR end "KW_MINUS"
 
-    // $ANTLR start "KEYWORD_10"
-    public final void mKEYWORD_10() throws RecognitionException {
+    // $ANTLR start "KW_DOT"
+    public final void mKW_DOT() throws RecognitionException {
         try {
-            int _type = KEYWORD_10;
+            int _type = KW_DOT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:248:12: ({...}? => '/' )
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:248:14: {...}? => '/'
+            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:249:14: ({...}? => '.' )
+            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:249:16: {...}? => '.'
             {
             if ( !((isNotInString())) ) {
                 if (state.backtracking>0) {state.failed=true; return ;}
-                throw new FailedPredicateException(input, "KEYWORD_10", "isNotInString()");
+                throw new FailedPredicateException(input, "KW_DOT", "isNotInString()");
+            }
+            match('.'); if (state.failed) return ;
+
+            }
+
+            state.type = _type;
+            state.channel = _channel;
+        }
+        finally {
+        }
+    }
+    // $ANTLR end "KW_DOT"
+
+    // $ANTLR start "KW_SLASH"
+    public final void mKW_SLASH() throws RecognitionException {
+        try {
+            int _type = KW_SLASH;
+            int _channel = DEFAULT_TOKEN_CHANNEL;
+            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:251:14: ({...}? => '/' )
+            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:251:16: {...}? => '/'
+            {
+            if ( !((isNotInString())) ) {
+                if (state.backtracking>0) {state.failed=true; return ;}
+                throw new FailedPredicateException(input, "KW_SLASH", "isNotInString()");
             }
             match('/'); if (state.failed) return ;
             if ( state.backtracking==0 ) {
@@ -1512,19 +1629,19 @@ public class PPLexer extends Lexer {
         finally {
         }
     }
-    // $ANTLR end "KEYWORD_10"
+    // $ANTLR end "KW_SLASH"
 
-    // $ANTLR start "KEYWORD_11"
-    public final void mKEYWORD_11() throws RecognitionException {
+    // $ANTLR start "KW_COLON"
+    public final void mKW_COLON() throws RecognitionException {
         try {
-            int _type = KEYWORD_11;
+            int _type = KW_COLON;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:255:12: ({...}? => ':' )
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:255:14: {...}? => ':'
+            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:258:14: ({...}? => ':' )
+            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:258:16: {...}? => ':'
             {
             if ( !((isNotInString())) ) {
                 if (state.backtracking>0) {state.failed=true; return ;}
-                throw new FailedPredicateException(input, "KEYWORD_11", "isNotInString()");
+                throw new FailedPredicateException(input, "KW_COLON", "isNotInString()");
             }
             match(':'); if (state.failed) return ;
 
@@ -1536,19 +1653,19 @@ public class PPLexer extends Lexer {
         finally {
         }
     }
-    // $ANTLR end "KEYWORD_11"
+    // $ANTLR end "KW_COLON"
 
-    // $ANTLR start "KEYWORD_12"
-    public final void mKEYWORD_12() throws RecognitionException {
+    // $ANTLR start "KW_SEMI"
+    public final void mKW_SEMI() throws RecognitionException {
         try {
-            int _type = KEYWORD_12;
+            int _type = KW_SEMI;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:257:12: ({...}? => ';' )
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:257:14: {...}? => ';'
+            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:260:16: ({...}? => ';' )
+            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:260:18: {...}? => ';'
             {
             if ( !((isNotInString())) ) {
                 if (state.backtracking>0) {state.failed=true; return ;}
-                throw new FailedPredicateException(input, "KEYWORD_12", "isNotInString()");
+                throw new FailedPredicateException(input, "KW_SEMI", "isNotInString()");
             }
             match(';'); if (state.failed) return ;
 
@@ -1560,19 +1677,19 @@ public class PPLexer extends Lexer {
         finally {
         }
     }
-    // $ANTLR end "KEYWORD_12"
+    // $ANTLR end "KW_SEMI"
 
-    // $ANTLR start "KEYWORD_13"
-    public final void mKEYWORD_13() throws RecognitionException {
+    // $ANTLR start "KW_LT"
+    public final void mKW_LT() throws RecognitionException {
         try {
-            int _type = KEYWORD_13;
+            int _type = KW_LT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:259:12: ({...}? => '<' )
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:259:14: {...}? => '<'
+            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:262:14: ({...}? => '<' )
+            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:262:16: {...}? => '<'
             {
             if ( !((isNotInString())) ) {
                 if (state.backtracking>0) {state.failed=true; return ;}
-                throw new FailedPredicateException(input, "KEYWORD_13", "isNotInString()");
+                throw new FailedPredicateException(input, "KW_LT", "isNotInString()");
             }
             match('<'); if (state.failed) return ;
 
@@ -1584,19 +1701,19 @@ public class PPLexer extends Lexer {
         finally {
         }
     }
-    // $ANTLR end "KEYWORD_13"
+    // $ANTLR end "KW_LT"
 
-    // $ANTLR start "KEYWORD_14"
-    public final void mKEYWORD_14() throws RecognitionException {
+    // $ANTLR start "KW_EQ"
+    public final void mKW_EQ() throws RecognitionException {
         try {
-            int _type = KEYWORD_14;
+            int _type = KW_EQ;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:261:12: ({...}? => '=' )
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:261:14: {...}? => '='
+            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:264:14: ({...}? => '=' )
+            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:264:16: {...}? => '='
             {
             if ( !((isNotInString())) ) {
                 if (state.backtracking>0) {state.failed=true; return ;}
-                throw new FailedPredicateException(input, "KEYWORD_14", "isNotInString()");
+                throw new FailedPredicateException(input, "KW_EQ", "isNotInString()");
             }
             match('='); if (state.failed) return ;
 
@@ -1608,19 +1725,19 @@ public class PPLexer extends Lexer {
         finally {
         }
     }
-    // $ANTLR end "KEYWORD_14"
+    // $ANTLR end "KW_EQ"
 
-    // $ANTLR start "KEYWORD_15"
-    public final void mKEYWORD_15() throws RecognitionException {
+    // $ANTLR start "KW_GT"
+    public final void mKW_GT() throws RecognitionException {
         try {
-            int _type = KEYWORD_15;
+            int _type = KW_GT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:263:12: ({...}? => '>' )
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:263:14: {...}? => '>'
+            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:266:14: ({...}? => '>' )
+            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:266:16: {...}? => '>'
             {
             if ( !((isNotInString())) ) {
                 if (state.backtracking>0) {state.failed=true; return ;}
-                throw new FailedPredicateException(input, "KEYWORD_15", "isNotInString()");
+                throw new FailedPredicateException(input, "KW_GT", "isNotInString()");
             }
             match('>'); if (state.failed) return ;
 
@@ -1632,19 +1749,19 @@ public class PPLexer extends Lexer {
         finally {
         }
     }
-    // $ANTLR end "KEYWORD_15"
+    // $ANTLR end "KW_GT"
 
-    // $ANTLR start "KEYWORD_16"
-    public final void mKEYWORD_16() throws RecognitionException {
+    // $ANTLR start "KW_QMARK"
+    public final void mKW_QMARK() throws RecognitionException {
         try {
-            int _type = KEYWORD_16;
+            int _type = KW_QMARK;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:265:12: ({...}? => '?' )
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:265:14: {...}? => '?'
+            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:268:14: ({...}? => '?' )
+            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:268:16: {...}? => '?'
             {
             if ( !((isNotInString())) ) {
                 if (state.backtracking>0) {state.failed=true; return ;}
-                throw new FailedPredicateException(input, "KEYWORD_16", "isNotInString()");
+                throw new FailedPredicateException(input, "KW_QMARK", "isNotInString()");
             }
             match('?'); if (state.failed) return ;
 
@@ -1656,19 +1773,19 @@ public class PPLexer extends Lexer {
         finally {
         }
     }
-    // $ANTLR end "KEYWORD_16"
+    // $ANTLR end "KW_QMARK"
 
-    // $ANTLR start "KEYWORD_17"
-    public final void mKEYWORD_17() throws RecognitionException {
+    // $ANTLR start "KW_AT"
+    public final void mKW_AT() throws RecognitionException {
         try {
-            int _type = KEYWORD_17;
+            int _type = KW_AT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:267:12: ({...}? => '@' )
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:267:14: {...}? => '@'
+            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:270:14: ({...}? => '@' )
+            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:270:16: {...}? => '@'
             {
             if ( !((isNotInString())) ) {
                 if (state.backtracking>0) {state.failed=true; return ;}
-                throw new FailedPredicateException(input, "KEYWORD_17", "isNotInString()");
+                throw new FailedPredicateException(input, "KW_AT", "isNotInString()");
             }
             match('@'); if (state.failed) return ;
 
@@ -1680,19 +1797,19 @@ public class PPLexer extends Lexer {
         finally {
         }
     }
-    // $ANTLR end "KEYWORD_17"
+    // $ANTLR end "KW_AT"
 
-    // $ANTLR start "KEYWORD_18"
-    public final void mKEYWORD_18() throws RecognitionException {
+    // $ANTLR start "KW_LBRACK"
+    public final void mKW_LBRACK() throws RecognitionException {
         try {
-            int _type = KEYWORD_18;
+            int _type = KW_LBRACK;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:269:12: ({...}? => '[' )
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:269:14: {...}? => '['
+            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:272:14: ({...}? => '[' )
+            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:272:16: {...}? => '['
             {
             if ( !((isNotInString())) ) {
                 if (state.backtracking>0) {state.failed=true; return ;}
-                throw new FailedPredicateException(input, "KEYWORD_18", "isNotInString()");
+                throw new FailedPredicateException(input, "KW_LBRACK", "isNotInString()");
             }
             match('['); if (state.failed) return ;
 
@@ -1704,19 +1821,19 @@ public class PPLexer extends Lexer {
         finally {
         }
     }
-    // $ANTLR end "KEYWORD_18"
+    // $ANTLR end "KW_LBRACK"
 
-    // $ANTLR start "KEYWORD_19"
-    public final void mKEYWORD_19() throws RecognitionException {
+    // $ANTLR start "KW_RBRACK"
+    public final void mKW_RBRACK() throws RecognitionException {
         try {
-            int _type = KEYWORD_19;
+            int _type = KW_RBRACK;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:271:12: ({...}? => ']' )
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:271:14: {...}? => ']'
+            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:274:14: ({...}? => ']' )
+            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:274:16: {...}? => ']'
             {
             if ( !((isNotInString())) ) {
                 if (state.backtracking>0) {state.failed=true; return ;}
-                throw new FailedPredicateException(input, "KEYWORD_19", "isNotInString()");
+                throw new FailedPredicateException(input, "KW_RBRACK", "isNotInString()");
             }
             match(']'); if (state.failed) return ;
 
@@ -1728,19 +1845,19 @@ public class PPLexer extends Lexer {
         finally {
         }
     }
-    // $ANTLR end "KEYWORD_19"
+    // $ANTLR end "KW_RBRACK"
 
-    // $ANTLR start "KEYWORD_20"
-    public final void mKEYWORD_20() throws RecognitionException {
+    // $ANTLR start "KW_LBRACE"
+    public final void mKW_LBRACE() throws RecognitionException {
         try {
-            int _type = KEYWORD_20;
+            int _type = KW_LBRACE;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:273:12: ({...}? => '{' )
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:273:14: {...}? => '{'
+            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:276:14: ({...}? => '{' )
+            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:276:16: {...}? => '{'
             {
             if ( !((isNotInString())) ) {
                 if (state.backtracking>0) {state.failed=true; return ;}
-                throw new FailedPredicateException(input, "KEYWORD_20", "isNotInString()");
+                throw new FailedPredicateException(input, "KW_LBRACE", "isNotInString()");
             }
             match('{'); if (state.failed) return ;
             if ( state.backtracking==0 ) {
@@ -1755,19 +1872,43 @@ public class PPLexer extends Lexer {
         finally {
         }
     }
-    // $ANTLR end "KEYWORD_20"
+    // $ANTLR end "KW_LBRACE"
 
-    // $ANTLR start "KEYWORD_21"
-    public final void mKEYWORD_21() throws RecognitionException {
+    // $ANTLR start "KW_PIPE"
+    public final void mKW_PIPE() throws RecognitionException {
         try {
-            int _type = KEYWORD_21;
+            int _type = KW_PIPE;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:275:12: ({...}? => '}' )
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:275:14: {...}? => '}'
+            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:278:14: ({...}? => '|' )
+            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:278:16: {...}? => '|'
             {
             if ( !((isNotInString())) ) {
                 if (state.backtracking>0) {state.failed=true; return ;}
-                throw new FailedPredicateException(input, "KEYWORD_21", "isNotInString()");
+                throw new FailedPredicateException(input, "KW_PIPE", "isNotInString()");
+            }
+            match('|'); if (state.failed) return ;
+
+            }
+
+            state.type = _type;
+            state.channel = _channel;
+        }
+        finally {
+        }
+    }
+    // $ANTLR end "KW_PIPE"
+
+    // $ANTLR start "KW_RBRACE"
+    public final void mKW_RBRACE() throws RecognitionException {
+        try {
+            int _type = KW_RBRACE;
+            int _channel = DEFAULT_TOKEN_CHANNEL;
+            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:280:14: ({...}? => '}' )
+            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:280:16: {...}? => '}'
+            {
+            if ( !((isNotInString())) ) {
+                if (state.backtracking>0) {state.failed=true; return ;}
+                throw new FailedPredicateException(input, "KW_RBRACE", "isNotInString()");
             }
             match('}'); if (state.failed) return ;
             if ( state.backtracking==0 ) {
@@ -1782,29 +1923,29 @@ public class PPLexer extends Lexer {
         finally {
         }
     }
-    // $ANTLR end "KEYWORD_21"
+    // $ANTLR end "KW_RBRACE"
 
     // $ANTLR start "RULE_ML_COMMENT"
     public final void mRULE_ML_COMMENT() throws RecognitionException {
         try {
             int _type = RULE_ML_COMMENT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:278:17: ({...}? => ( ( '/*' ( options {greedy=false; } : . )* '*/' ) ( ' ' | '\\u00A0' | '\\t' )* ( ( '\\r' )? '\\n' )? ) )
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:278:19: {...}? => ( ( '/*' ( options {greedy=false; } : . )* '*/' ) ( ' ' | '\\u00A0' | '\\t' )* ( ( '\\r' )? '\\n' )? )
+            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:283:17: ({...}? => ( ( '/*' ( options {greedy=false; } : . )* '*/' ) ( ' ' | '\\u00A0' | '\\t' )* ( ( '\\r' )? '\\n' )? ) )
+            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:283:19: {...}? => ( ( '/*' ( options {greedy=false; } : . )* '*/' ) ( ' ' | '\\u00A0' | '\\t' )* ( ( '\\r' )? '\\n' )? )
             {
             if ( !((isNotInString())) ) {
                 if (state.backtracking>0) {state.failed=true; return ;}
                 throw new FailedPredicateException(input, "RULE_ML_COMMENT", "isNotInString()");
             }
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:278:40: ( ( '/*' ( options {greedy=false; } : . )* '*/' ) ( ' ' | '\\u00A0' | '\\t' )* ( ( '\\r' )? '\\n' )? )
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:278:41: ( '/*' ( options {greedy=false; } : . )* '*/' ) ( ' ' | '\\u00A0' | '\\t' )* ( ( '\\r' )? '\\n' )?
+            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:283:40: ( ( '/*' ( options {greedy=false; } : . )* '*/' ) ( ' ' | '\\u00A0' | '\\t' )* ( ( '\\r' )? '\\n' )? )
+            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:283:41: ( '/*' ( options {greedy=false; } : . )* '*/' ) ( ' ' | '\\u00A0' | '\\t' )* ( ( '\\r' )? '\\n' )?
             {
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:278:41: ( '/*' ( options {greedy=false; } : . )* '*/' )
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:278:42: '/*' ( options {greedy=false; } : . )* '*/'
+            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:283:41: ( '/*' ( options {greedy=false; } : . )* '*/' )
+            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:283:42: '/*' ( options {greedy=false; } : . )* '*/'
             {
             match("/*"); if (state.failed) return ;
 
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:278:47: ( options {greedy=false; } : . )*
+            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:283:47: ( options {greedy=false; } : . )*
             loop1:
             do {
                 int alt1=2;
@@ -1829,7 +1970,7 @@ public class PPLexer extends Lexer {
 
                 switch (alt1) {
             	case 1 :
-            	    // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:278:75: .
+            	    // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:283:75: .
             	    {
             	    matchAny(); if (state.failed) return ;
 
@@ -1846,7 +1987,7 @@ public class PPLexer extends Lexer {
 
             }
 
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:278:85: ( ' ' | '\\u00A0' | '\\t' )*
+            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:283:85: ( ' ' | '\\u00A0' | '\\t' )*
             loop2:
             do {
                 int alt2=2;
@@ -1880,7 +2021,7 @@ public class PPLexer extends Lexer {
                 }
             } while (true);
 
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:278:106: ( ( '\\r' )? '\\n' )?
+            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:283:106: ( ( '\\r' )? '\\n' )?
             int alt4=2;
             int LA4_0 = input.LA(1);
 
@@ -1889,9 +2030,9 @@ public class PPLexer extends Lexer {
             }
             switch (alt4) {
                 case 1 :
-                    // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:278:107: ( '\\r' )? '\\n'
+                    // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:283:107: ( '\\r' )? '\\n'
                     {
-                    // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:278:107: ( '\\r' )?
+                    // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:283:107: ( '\\r' )?
                     int alt3=2;
                     int LA3_0 = input.LA(1);
 
@@ -1900,7 +2041,7 @@ public class PPLexer extends Lexer {
                     }
                     switch (alt3) {
                         case 1 :
-                            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:278:107: '\\r'
+                            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:283:107: '\\r'
                             {
                             match('\r'); if (state.failed) return ;
 
@@ -1935,15 +2076,15 @@ public class PPLexer extends Lexer {
         try {
             int _type = RULE_SL_COMMENT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:282:17: ({...}? => '#' (~ ( ( '\\r' | '\\n' ) ) )* ( ( '\\r' )? '\\n' )? )
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:282:19: {...}? => '#' (~ ( ( '\\r' | '\\n' ) ) )* ( ( '\\r' )? '\\n' )?
+            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:287:17: ({...}? => '#' (~ ( ( '\\r' | '\\n' ) ) )* ( ( '\\r' )? '\\n' )? )
+            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:287:19: {...}? => '#' (~ ( ( '\\r' | '\\n' ) ) )* ( ( '\\r' )? '\\n' )?
             {
             if ( !((isNotInString())) ) {
                 if (state.backtracking>0) {state.failed=true; return ;}
                 throw new FailedPredicateException(input, "RULE_SL_COMMENT", "isNotInString()");
             }
             match('#'); if (state.failed) return ;
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:282:44: (~ ( ( '\\r' | '\\n' ) ) )*
+            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:287:44: (~ ( ( '\\r' | '\\n' ) ) )*
             loop5:
             do {
                 int alt5=2;
@@ -1956,7 +2097,7 @@ public class PPLexer extends Lexer {
 
                 switch (alt5) {
             	case 1 :
-            	    // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:282:44: ~ ( ( '\\r' | '\\n' ) )
+            	    // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:287:44: ~ ( ( '\\r' | '\\n' ) )
             	    {
             	    if ( (input.LA(1)>='\u0000' && input.LA(1)<='\t')||(input.LA(1)>='\u000B' && input.LA(1)<='\f')||(input.LA(1)>='\u000E' && input.LA(1)<='\uFFFF') ) {
             	        input.consume();
@@ -1977,7 +2118,7 @@ public class PPLexer extends Lexer {
                 }
             } while (true);
 
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:282:60: ( ( '\\r' )? '\\n' )?
+            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:287:60: ( ( '\\r' )? '\\n' )?
             int alt7=2;
             int LA7_0 = input.LA(1);
 
@@ -1986,9 +2127,9 @@ public class PPLexer extends Lexer {
             }
             switch (alt7) {
                 case 1 :
-                    // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:282:61: ( '\\r' )? '\\n'
+                    // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:287:61: ( '\\r' )? '\\n'
                     {
-                    // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:282:61: ( '\\r' )?
+                    // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:287:61: ( '\\r' )?
                     int alt6=2;
                     int LA6_0 = input.LA(1);
 
@@ -1997,7 +2138,7 @@ public class PPLexer extends Lexer {
                     }
                     switch (alt6) {
                         case 1 :
-                            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:282:61: '\\r'
+                            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:287:61: '\\r'
                             {
                             match('\r'); if (state.failed) return ;
 
@@ -2029,10 +2170,10 @@ public class PPLexer extends Lexer {
         try {
             int _type = RULE_WS;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:284:9: ( ( ' ' | '\\u00A0' | '\\t' | '\\r' | '\\n' )+ )
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:284:11: ( ' ' | '\\u00A0' | '\\t' | '\\r' | '\\n' )+
+            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:289:9: ( ( ' ' | '\\u00A0' | '\\t' | '\\r' | '\\n' )+ )
+            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:289:11: ( ' ' | '\\u00A0' | '\\t' | '\\r' | '\\n' )+
             {
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:284:11: ( ' ' | '\\u00A0' | '\\t' | '\\r' | '\\n' )+
+            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:289:11: ( ' ' | '\\u00A0' | '\\t' | '\\r' | '\\n' )+
             int cnt8=0;
             loop8:
             do {
@@ -2095,11 +2236,11 @@ public class PPLexer extends Lexer {
         try {
             int _type = RULE_DOLLAR_VAR;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:291:17: ( '$' ( ( ':' ':' )=> RULE_NS )? ( '0' .. '9' | 'a' .. 'z' | 'A' .. 'Z' | '_' )+ ( ( ':' ':' )=> RULE_NS ( '0' .. '9' | 'a' .. 'z' | 'A' .. 'Z' | '_' )+ )* )
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:291:19: '$' ( ( ':' ':' )=> RULE_NS )? ( '0' .. '9' | 'a' .. 'z' | 'A' .. 'Z' | '_' )+ ( ( ':' ':' )=> RULE_NS ( '0' .. '9' | 'a' .. 'z' | 'A' .. 'Z' | '_' )+ )*
+            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:296:17: ( '$' ( ( ':' ':' )=> RULE_NS )? ( '0' .. '9' | 'a' .. 'z' | 'A' .. 'Z' | '_' )+ ( ( ':' ':' )=> RULE_NS ( '0' .. '9' | 'a' .. 'z' | 'A' .. 'Z' | '_' )+ )* )
+            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:296:19: '$' ( ( ':' ':' )=> RULE_NS )? ( '0' .. '9' | 'a' .. 'z' | 'A' .. 'Z' | '_' )+ ( ( ':' ':' )=> RULE_NS ( '0' .. '9' | 'a' .. 'z' | 'A' .. 'Z' | '_' )+ )*
             {
             match('$'); if (state.failed) return ;
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:292:2: ( ( ':' ':' )=> RULE_NS )?
+            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:297:2: ( ( ':' ':' )=> RULE_NS )?
             int alt9=2;
             int LA9_0 = input.LA(1);
 
@@ -2108,7 +2249,7 @@ public class PPLexer extends Lexer {
             }
             switch (alt9) {
                 case 1 :
-                    // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:292:3: ( ':' ':' )=> RULE_NS
+                    // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:297:3: ( ':' ':' )=> RULE_NS
                     {
                     mRULE_NS(); if (state.failed) return ;
 
@@ -2117,7 +2258,7 @@ public class PPLexer extends Lexer {
 
             }
 
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:292:24: ( '0' .. '9' | 'a' .. 'z' | 'A' .. 'Z' | '_' )+
+            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:297:24: ( '0' .. '9' | 'a' .. 'z' | 'A' .. 'Z' | '_' )+
             int cnt10=0;
             loop10:
             do {
@@ -2157,7 +2298,7 @@ public class PPLexer extends Lexer {
                 cnt10++;
             } while (true);
 
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:293:2: ( ( ':' ':' )=> RULE_NS ( '0' .. '9' | 'a' .. 'z' | 'A' .. 'Z' | '_' )+ )*
+            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:298:2: ( ( ':' ':' )=> RULE_NS ( '0' .. '9' | 'a' .. 'z' | 'A' .. 'Z' | '_' )+ )*
             loop12:
             do {
                 int alt12=2;
@@ -2170,10 +2311,10 @@ public class PPLexer extends Lexer {
 
                 switch (alt12) {
             	case 1 :
-            	    // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:293:3: ( ':' ':' )=> RULE_NS ( '0' .. '9' | 'a' .. 'z' | 'A' .. 'Z' | '_' )+
+            	    // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:298:3: ( ':' ':' )=> RULE_NS ( '0' .. '9' | 'a' .. 'z' | 'A' .. 'Z' | '_' )+
             	    {
             	    mRULE_NS(); if (state.failed) return ;
-            	    // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:293:22: ( '0' .. '9' | 'a' .. 'z' | 'A' .. 'Z' | '_' )+
+            	    // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:298:22: ( '0' .. '9' | 'a' .. 'z' | 'A' .. 'Z' | '_' )+
             	    int cnt11=0;
             	    loop11:
             	    do {
@@ -2238,10 +2379,10 @@ public class PPLexer extends Lexer {
         try {
             int _type = RULE_WORD_CHARS;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:296:17: ( ( '0' .. '9' | 'a' .. 'z' | 'A' .. 'Z' | '_' | '.' | ( ':' ':' )=> RULE_NS ) ( '0' .. '9' | 'a' .. 'z' | 'A' .. 'Z' | '_' | '.' | '-' | ( ':' ':' )=> RULE_NS )* )
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:296:19: ( '0' .. '9' | 'a' .. 'z' | 'A' .. 'Z' | '_' | '.' | ( ':' ':' )=> RULE_NS ) ( '0' .. '9' | 'a' .. 'z' | 'A' .. 'Z' | '_' | '.' | '-' | ( ':' ':' )=> RULE_NS )*
+            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:301:17: ( ( '0' .. '9' | 'a' .. 'z' | 'A' .. 'Z' | '_' | '.' | ( ':' ':' )=> RULE_NS ) ( '0' .. '9' | 'a' .. 'z' | 'A' .. 'Z' | '_' | '.' | '-' | ( ':' ':' )=> RULE_NS )* )
+            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:301:19: ( '0' .. '9' | 'a' .. 'z' | 'A' .. 'Z' | '_' | '.' | ( ':' ':' )=> RULE_NS ) ( '0' .. '9' | 'a' .. 'z' | 'A' .. 'Z' | '_' | '.' | '-' | ( ':' ':' )=> RULE_NS )*
             {
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:296:19: ( '0' .. '9' | 'a' .. 'z' | 'A' .. 'Z' | '_' | '.' | ( ':' ':' )=> RULE_NS )
+            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:301:19: ( '0' .. '9' | 'a' .. 'z' | 'A' .. 'Z' | '_' | '.' | ( ':' ':' )=> RULE_NS )
             int alt13=6;
             int LA13_0 = input.LA(1);
 
@@ -2272,42 +2413,42 @@ public class PPLexer extends Lexer {
             }
             switch (alt13) {
                 case 1 :
-                    // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:296:20: '0' .. '9'
+                    // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:301:20: '0' .. '9'
                     {
                     matchRange('0','9'); if (state.failed) return ;
 
                     }
                     break;
                 case 2 :
-                    // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:296:29: 'a' .. 'z'
+                    // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:301:29: 'a' .. 'z'
                     {
                     matchRange('a','z'); if (state.failed) return ;
 
                     }
                     break;
                 case 3 :
-                    // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:296:38: 'A' .. 'Z'
+                    // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:301:38: 'A' .. 'Z'
                     {
                     matchRange('A','Z'); if (state.failed) return ;
 
                     }
                     break;
                 case 4 :
-                    // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:296:47: '_'
+                    // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:301:47: '_'
                     {
                     match('_'); if (state.failed) return ;
 
                     }
                     break;
                 case 5 :
-                    // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:296:51: '.'
+                    // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:301:51: '.'
                     {
                     match('.'); if (state.failed) return ;
 
                     }
                     break;
                 case 6 :
-                    // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:296:55: ( ':' ':' )=> RULE_NS
+                    // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:301:55: ( ':' ':' )=> RULE_NS
                     {
                     mRULE_NS(); if (state.failed) return ;
 
@@ -2316,7 +2457,7 @@ public class PPLexer extends Lexer {
 
             }
 
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:296:75: ( '0' .. '9' | 'a' .. 'z' | 'A' .. 'Z' | '_' | '.' | '-' | ( ':' ':' )=> RULE_NS )*
+            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:301:75: ( '0' .. '9' | 'a' .. 'z' | 'A' .. 'Z' | '_' | '.' | '-' | ( ':' ':' )=> RULE_NS )*
             loop14:
             do {
                 int alt14=8;
@@ -2347,49 +2488,49 @@ public class PPLexer extends Lexer {
 
                 switch (alt14) {
             	case 1 :
-            	    // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:296:76: '0' .. '9'
+            	    // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:301:76: '0' .. '9'
             	    {
             	    matchRange('0','9'); if (state.failed) return ;
 
             	    }
             	    break;
             	case 2 :
-            	    // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:296:85: 'a' .. 'z'
+            	    // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:301:85: 'a' .. 'z'
             	    {
             	    matchRange('a','z'); if (state.failed) return ;
 
             	    }
             	    break;
             	case 3 :
-            	    // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:296:94: 'A' .. 'Z'
+            	    // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:301:94: 'A' .. 'Z'
             	    {
             	    matchRange('A','Z'); if (state.failed) return ;
 
             	    }
             	    break;
             	case 4 :
-            	    // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:296:103: '_'
+            	    // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:301:103: '_'
             	    {
             	    match('_'); if (state.failed) return ;
 
             	    }
             	    break;
             	case 5 :
-            	    // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:296:107: '.'
+            	    // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:301:107: '.'
             	    {
             	    match('.'); if (state.failed) return ;
 
             	    }
             	    break;
             	case 6 :
-            	    // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:296:111: '-'
+            	    // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:301:111: '-'
             	    {
             	    match('-'); if (state.failed) return ;
 
             	    }
             	    break;
             	case 7 :
-            	    // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:296:115: ( ':' ':' )=> RULE_NS
+            	    // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:301:115: ( ':' ':' )=> RULE_NS
             	    {
             	    mRULE_NS(); if (state.failed) return ;
 
@@ -2422,8 +2563,8 @@ public class PPLexer extends Lexer {
         try {
             int _type = RULE_REGULAR_EXPRESSION;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:301:25: ({...}? => '/' RULE_RE_BODY '/' ( RULE_RE_FLAGS )? )
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:301:27: {...}? => '/' RULE_RE_BODY '/' ( RULE_RE_FLAGS )?
+            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:306:25: ({...}? => '/' RULE_RE_BODY '/' ( RULE_RE_FLAGS )? )
+            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:306:27: {...}? => '/' RULE_RE_BODY '/' ( RULE_RE_FLAGS )?
             {
             if ( !((isReAcceptable())) ) {
                 if (state.backtracking>0) {state.failed=true; return ;}
@@ -2432,7 +2573,7 @@ public class PPLexer extends Lexer {
             match('/'); if (state.failed) return ;
             mRULE_RE_BODY(); if (state.failed) return ;
             match('/'); if (state.failed) return ;
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:301:69: ( RULE_RE_FLAGS )?
+            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:306:69: ( RULE_RE_FLAGS )?
             int alt15=2;
             int LA15_0 = input.LA(1);
 
@@ -2441,7 +2582,7 @@ public class PPLexer extends Lexer {
             }
             switch (alt15) {
                 case 1 :
-                    // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:301:69: RULE_RE_FLAGS
+                    // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:306:69: RULE_RE_FLAGS
                     {
                     mRULE_RE_FLAGS(); if (state.failed) return ;
 
@@ -2464,8 +2605,8 @@ public class PPLexer extends Lexer {
     // $ANTLR start "RULE_NS"
     public final void mRULE_NS() throws RecognitionException {
         try {
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:303:18: ( '::' )
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:303:20: '::'
+            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:308:18: ( '::' )
+            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:308:20: '::'
             {
             match("::"); if (state.failed) return ;
 
@@ -2481,14 +2622,14 @@ public class PPLexer extends Lexer {
     // $ANTLR start "RULE_RE_BODY"
     public final void mRULE_RE_BODY() throws RecognitionException {
         try {
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:305:23: ( ( RULE_RE_FIRST_CHAR ( RULE_RE_FOLLOW_CHAR )* ) )
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:305:25: ( RULE_RE_FIRST_CHAR ( RULE_RE_FOLLOW_CHAR )* )
+            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:310:23: ( ( RULE_RE_FIRST_CHAR ( RULE_RE_FOLLOW_CHAR )* ) )
+            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:310:25: ( RULE_RE_FIRST_CHAR ( RULE_RE_FOLLOW_CHAR )* )
             {
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:305:25: ( RULE_RE_FIRST_CHAR ( RULE_RE_FOLLOW_CHAR )* )
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:305:26: RULE_RE_FIRST_CHAR ( RULE_RE_FOLLOW_CHAR )*
+            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:310:25: ( RULE_RE_FIRST_CHAR ( RULE_RE_FOLLOW_CHAR )* )
+            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:310:26: RULE_RE_FIRST_CHAR ( RULE_RE_FOLLOW_CHAR )*
             {
             mRULE_RE_FIRST_CHAR(); if (state.failed) return ;
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:305:45: ( RULE_RE_FOLLOW_CHAR )*
+            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:310:45: ( RULE_RE_FOLLOW_CHAR )*
             loop16:
             do {
                 int alt16=2;
@@ -2501,7 +2642,7 @@ public class PPLexer extends Lexer {
 
                 switch (alt16) {
             	case 1 :
-            	    // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:305:45: RULE_RE_FOLLOW_CHAR
+            	    // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:310:45: RULE_RE_FOLLOW_CHAR
             	    {
             	    mRULE_RE_FOLLOW_CHAR(); if (state.failed) return ;
 
@@ -2528,10 +2669,10 @@ public class PPLexer extends Lexer {
     // $ANTLR start "RULE_RE_FIRST_CHAR"
     public final void mRULE_RE_FIRST_CHAR() throws RecognitionException {
         try {
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:307:29: ( (~ ( ( '\\n' | '*' | '/' | '\\\\' ) ) | RULE_RE_BACKSLASH_SEQUENCE ) )
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:307:31: (~ ( ( '\\n' | '*' | '/' | '\\\\' ) ) | RULE_RE_BACKSLASH_SEQUENCE )
+            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:312:29: ( (~ ( ( '\\n' | '*' | '/' | '\\\\' ) ) | RULE_RE_BACKSLASH_SEQUENCE ) )
+            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:312:31: (~ ( ( '\\n' | '*' | '/' | '\\\\' ) ) | RULE_RE_BACKSLASH_SEQUENCE )
             {
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:307:31: (~ ( ( '\\n' | '*' | '/' | '\\\\' ) ) | RULE_RE_BACKSLASH_SEQUENCE )
+            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:312:31: (~ ( ( '\\n' | '*' | '/' | '\\\\' ) ) | RULE_RE_BACKSLASH_SEQUENCE )
             int alt17=2;
             int LA17_0 = input.LA(1);
 
@@ -2550,7 +2691,7 @@ public class PPLexer extends Lexer {
             }
             switch (alt17) {
                 case 1 :
-                    // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:307:32: ~ ( ( '\\n' | '*' | '/' | '\\\\' ) )
+                    // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:312:32: ~ ( ( '\\n' | '*' | '/' | '\\\\' ) )
                     {
                     if ( (input.LA(1)>='\u0000' && input.LA(1)<='\t')||(input.LA(1)>='\u000B' && input.LA(1)<=')')||(input.LA(1)>='+' && input.LA(1)<='.')||(input.LA(1)>='0' && input.LA(1)<='[')||(input.LA(1)>=']' && input.LA(1)<='\uFFFF') ) {
                         input.consume();
@@ -2566,7 +2707,7 @@ public class PPLexer extends Lexer {
                     }
                     break;
                 case 2 :
-                    // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:307:55: RULE_RE_BACKSLASH_SEQUENCE
+                    // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:312:55: RULE_RE_BACKSLASH_SEQUENCE
                     {
                     mRULE_RE_BACKSLASH_SEQUENCE(); if (state.failed) return ;
 
@@ -2587,10 +2728,10 @@ public class PPLexer extends Lexer {
     // $ANTLR start "RULE_RE_FOLLOW_CHAR"
     public final void mRULE_RE_FOLLOW_CHAR() throws RecognitionException {
         try {
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:309:30: ( ( RULE_RE_FIRST_CHAR | '*' ) )
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:309:32: ( RULE_RE_FIRST_CHAR | '*' )
+            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:314:30: ( ( RULE_RE_FIRST_CHAR | '*' ) )
+            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:314:32: ( RULE_RE_FIRST_CHAR | '*' )
             {
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:309:32: ( RULE_RE_FIRST_CHAR | '*' )
+            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:314:32: ( RULE_RE_FIRST_CHAR | '*' )
             int alt18=2;
             int LA18_0 = input.LA(1);
 
@@ -2609,14 +2750,14 @@ public class PPLexer extends Lexer {
             }
             switch (alt18) {
                 case 1 :
-                    // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:309:33: RULE_RE_FIRST_CHAR
+                    // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:314:33: RULE_RE_FIRST_CHAR
                     {
                     mRULE_RE_FIRST_CHAR(); if (state.failed) return ;
 
                     }
                     break;
                 case 2 :
-                    // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:309:52: '*'
+                    // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:314:52: '*'
                     {
                     match('*'); if (state.failed) return ;
 
@@ -2637,11 +2778,11 @@ public class PPLexer extends Lexer {
     // $ANTLR start "RULE_RE_BACKSLASH_SEQUENCE"
     public final void mRULE_RE_BACKSLASH_SEQUENCE() throws RecognitionException {
         try {
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:311:37: ( ( '\\\\' ~ ( '\\n' ) ) )
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:311:39: ( '\\\\' ~ ( '\\n' ) )
+            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:316:37: ( ( '\\\\' ~ ( '\\n' ) ) )
+            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:316:39: ( '\\\\' ~ ( '\\n' ) )
             {
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:311:39: ( '\\\\' ~ ( '\\n' ) )
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:311:40: '\\\\' ~ ( '\\n' )
+            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:316:39: ( '\\\\' ~ ( '\\n' ) )
+            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:316:40: '\\\\' ~ ( '\\n' )
             {
             match('\\'); if (state.failed) return ;
             if ( (input.LA(1)>='\u0000' && input.LA(1)<='\t')||(input.LA(1)>='\u000B' && input.LA(1)<='\uFFFF') ) {
@@ -2669,10 +2810,10 @@ public class PPLexer extends Lexer {
     // $ANTLR start "RULE_RE_FLAGS"
     public final void mRULE_RE_FLAGS() throws RecognitionException {
         try {
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:313:24: ( ( 'a' .. 'z' )+ )
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:313:26: ( 'a' .. 'z' )+
+            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:318:24: ( ( 'a' .. 'z' )+ )
+            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:318:26: ( 'a' .. 'z' )+
             {
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:313:26: ( 'a' .. 'z' )+
+            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:318:26: ( 'a' .. 'z' )+
             int cnt19=0;
             loop19:
             do {
@@ -2686,7 +2827,7 @@ public class PPLexer extends Lexer {
 
                 switch (alt19) {
             	case 1 :
-            	    // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:313:27: 'a' .. 'z'
+            	    // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:318:27: 'a' .. 'z'
             	    {
             	    matchRange('a','z'); if (state.failed) return ;
 
@@ -2717,8 +2858,8 @@ public class PPLexer extends Lexer {
         try {
             int _type = RULE_ANY_OTHER;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:315:16: ( . )
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:315:18: .
+            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:320:16: ( . )
+            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:320:18: .
             {
             matchAny(); if (state.failed) return ;
 
@@ -2733,495 +2874,516 @@ public class PPLexer extends Lexer {
     // $ANTLR end "RULE_ANY_OTHER"
 
     public void mTokens() throws RecognitionException {
-        // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:1:8: ( KEYWORD_63 | KEYWORD_62 | KEYWORD_59 | KEYWORD_60 | KEYWORD_61 | KEYWORD_55 | KEYWORD_56 | KEYWORD_57 | KEYWORD_58 | KEYWORD_51 | KEYWORD_52 | KEYWORD_53 | KEYWORD_54 | KEYWORD_47 | KEYWORD_48 | KEYWORD_49 | KEYWORD_50 | KEYWORD_22 | KEYWORD_23 | KEYWORD_24 | KEYWORD_25 | KEYWORD_26 | KEYWORD_27 | KEYWORD_28 | KEYWORD_29 | KEYWORD_30 | KEYWORD_31 | KEYWORD_32 | KEYWORD_33 | KEYWORD_34 | KEYWORD_35 | KEYWORD_36 | KEYWORD_37 | KEYWORD_38 | KEYWORD_39 | KEYWORD_40 | KEYWORD_41 | KEYWORD_42 | KEYWORD_43 | KEYWORD_44 | KEYWORD_45 | KEYWORD_46 | KEYWORD_1 | KEYWORD_2 | KEYWORD_3 | KEYWORD_4 | KEYWORD_5 | KEYWORD_6 | KEYWORD_7 | KEYWORD_8 | KEYWORD_9 | KEYWORD_10 | KEYWORD_11 | KEYWORD_12 | KEYWORD_13 | KEYWORD_14 | KEYWORD_15 | KEYWORD_16 | KEYWORD_17 | KEYWORD_18 | KEYWORD_19 | KEYWORD_20 | KEYWORD_21 | RULE_ML_COMMENT | RULE_SL_COMMENT | RULE_WS | RULE_DOLLAR_VAR | RULE_WORD_CHARS | RULE_REGULAR_EXPRESSION | RULE_ANY_OTHER )
-        int alt20=70;
+        // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:1:8: ( KW_INHERITS | KW_DEFAULT | KW_DEFINE | KW_IMPORT | KW_UNLESS | KW_CLASS | KW_ELSIF | KW_FALSE | KW_UNDEF | KW_CASE | KW_ELSE | KW_NODE | KW_TRUE | KW_LLCOLLECT | KW_ESC_DLR_BRACE | KW_AND | KW_RRCOLLECT | KW_NOT_EQ | KW_NOT_MATCHES | KW_DLR_BRACE | KW_PLUS_EQ | KW_APPEND | KW_RARR | KW_IN_EDGE | KW_LSHIFT | KW_LT_EQ | KW_LCOLLECT | KW_IN_EDGE_SUB | KW_EQUALS | KW_FARROW | KW_MATCHES | KW_GT_EQ | KW_RSHIFT | KW_ESC_DQ | KW_ESC_DLR | KW_ESC_SQ | KW_ESC_ESC | KW_IF | KW_IN | KW_OR | KW_RCOLLECT | KW_OUT_EDGE_SUB | KW_NOT | KW_DQ | KW_MODULO | KW_SQ | KW_LPAR | KW_RPAR | KW_MUL | KW_PLUS | KW_COMMA | KW_MINUS | KW_DOT | KW_SLASH | KW_COLON | KW_SEMI | KW_LT | KW_EQ | KW_GT | KW_QMARK | KW_AT | KW_LBRACK | KW_RBRACK | KW_LBRACE | KW_PIPE | KW_RBRACE | RULE_ML_COMMENT | RULE_SL_COMMENT | RULE_WS | RULE_DOLLAR_VAR | RULE_WORD_CHARS | RULE_REGULAR_EXPRESSION | RULE_ANY_OTHER )
+        int alt20=73;
         alt20 = dfa20.predict(input);
         switch (alt20) {
             case 1 :
-                // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:1:10: KEYWORD_63
+                // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:1:10: KW_INHERITS
                 {
-                mKEYWORD_63(); if (state.failed) return ;
+                mKW_INHERITS(); if (state.failed) return ;
 
                 }
                 break;
             case 2 :
-                // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:1:21: KEYWORD_62
+                // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:1:22: KW_DEFAULT
                 {
-                mKEYWORD_62(); if (state.failed) return ;
+                mKW_DEFAULT(); if (state.failed) return ;
 
                 }
                 break;
             case 3 :
-                // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:1:32: KEYWORD_59
+                // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:1:33: KW_DEFINE
                 {
-                mKEYWORD_59(); if (state.failed) return ;
+                mKW_DEFINE(); if (state.failed) return ;
 
                 }
                 break;
             case 4 :
-                // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:1:43: KEYWORD_60
+                // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:1:43: KW_IMPORT
                 {
-                mKEYWORD_60(); if (state.failed) return ;
+                mKW_IMPORT(); if (state.failed) return ;
 
                 }
                 break;
             case 5 :
-                // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:1:54: KEYWORD_61
+                // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:1:53: KW_UNLESS
                 {
-                mKEYWORD_61(); if (state.failed) return ;
+                mKW_UNLESS(); if (state.failed) return ;
 
                 }
                 break;
             case 6 :
-                // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:1:65: KEYWORD_55
+                // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:1:63: KW_CLASS
                 {
-                mKEYWORD_55(); if (state.failed) return ;
+                mKW_CLASS(); if (state.failed) return ;
 
                 }
                 break;
             case 7 :
-                // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:1:76: KEYWORD_56
+                // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:1:72: KW_ELSIF
                 {
-                mKEYWORD_56(); if (state.failed) return ;
+                mKW_ELSIF(); if (state.failed) return ;
 
                 }
                 break;
             case 8 :
-                // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:1:87: KEYWORD_57
+                // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:1:81: KW_FALSE
                 {
-                mKEYWORD_57(); if (state.failed) return ;
+                mKW_FALSE(); if (state.failed) return ;
 
                 }
                 break;
             case 9 :
-                // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:1:98: KEYWORD_58
+                // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:1:90: KW_UNDEF
                 {
-                mKEYWORD_58(); if (state.failed) return ;
+                mKW_UNDEF(); if (state.failed) return ;
 
                 }
                 break;
             case 10 :
-                // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:1:109: KEYWORD_51
+                // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:1:99: KW_CASE
                 {
-                mKEYWORD_51(); if (state.failed) return ;
+                mKW_CASE(); if (state.failed) return ;
 
                 }
                 break;
             case 11 :
-                // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:1:120: KEYWORD_52
+                // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:1:107: KW_ELSE
                 {
-                mKEYWORD_52(); if (state.failed) return ;
+                mKW_ELSE(); if (state.failed) return ;
 
                 }
                 break;
             case 12 :
-                // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:1:131: KEYWORD_53
+                // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:1:115: KW_NODE
                 {
-                mKEYWORD_53(); if (state.failed) return ;
+                mKW_NODE(); if (state.failed) return ;
 
                 }
                 break;
             case 13 :
-                // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:1:142: KEYWORD_54
+                // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:1:123: KW_TRUE
                 {
-                mKEYWORD_54(); if (state.failed) return ;
+                mKW_TRUE(); if (state.failed) return ;
 
                 }
                 break;
             case 14 :
-                // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:1:153: KEYWORD_47
+                // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:1:131: KW_LLCOLLECT
                 {
-                mKEYWORD_47(); if (state.failed) return ;
+                mKW_LLCOLLECT(); if (state.failed) return ;
 
                 }
                 break;
             case 15 :
-                // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:1:164: KEYWORD_48
+                // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:1:144: KW_ESC_DLR_BRACE
                 {
-                mKEYWORD_48(); if (state.failed) return ;
+                mKW_ESC_DLR_BRACE(); if (state.failed) return ;
 
                 }
                 break;
             case 16 :
-                // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:1:175: KEYWORD_49
+                // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:1:161: KW_AND
                 {
-                mKEYWORD_49(); if (state.failed) return ;
+                mKW_AND(); if (state.failed) return ;
 
                 }
                 break;
             case 17 :
-                // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:1:186: KEYWORD_50
+                // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:1:168: KW_RRCOLLECT
                 {
-                mKEYWORD_50(); if (state.failed) return ;
+                mKW_RRCOLLECT(); if (state.failed) return ;
 
                 }
                 break;
             case 18 :
-                // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:1:197: KEYWORD_22
+                // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:1:181: KW_NOT_EQ
                 {
-                mKEYWORD_22(); if (state.failed) return ;
+                mKW_NOT_EQ(); if (state.failed) return ;
 
                 }
                 break;
             case 19 :
-                // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:1:208: KEYWORD_23
+                // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:1:191: KW_NOT_MATCHES
                 {
-                mKEYWORD_23(); if (state.failed) return ;
+                mKW_NOT_MATCHES(); if (state.failed) return ;
 
                 }
                 break;
             case 20 :
-                // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:1:219: KEYWORD_24
+                // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:1:206: KW_DLR_BRACE
                 {
-                mKEYWORD_24(); if (state.failed) return ;
+                mKW_DLR_BRACE(); if (state.failed) return ;
 
                 }
                 break;
             case 21 :
-                // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:1:230: KEYWORD_25
+                // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:1:219: KW_PLUS_EQ
                 {
-                mKEYWORD_25(); if (state.failed) return ;
+                mKW_PLUS_EQ(); if (state.failed) return ;
 
                 }
                 break;
             case 22 :
-                // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:1:241: KEYWORD_26
+                // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:1:230: KW_APPEND
                 {
-                mKEYWORD_26(); if (state.failed) return ;
+                mKW_APPEND(); if (state.failed) return ;
 
                 }
                 break;
             case 23 :
-                // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:1:252: KEYWORD_27
+                // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:1:240: KW_RARR
                 {
-                mKEYWORD_27(); if (state.failed) return ;
+                mKW_RARR(); if (state.failed) return ;
 
                 }
                 break;
             case 24 :
-                // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:1:263: KEYWORD_28
+                // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:1:248: KW_IN_EDGE
                 {
-                mKEYWORD_28(); if (state.failed) return ;
+                mKW_IN_EDGE(); if (state.failed) return ;
 
                 }
                 break;
             case 25 :
-                // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:1:274: KEYWORD_29
+                // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:1:259: KW_LSHIFT
                 {
-                mKEYWORD_29(); if (state.failed) return ;
+                mKW_LSHIFT(); if (state.failed) return ;
 
                 }
                 break;
             case 26 :
-                // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:1:285: KEYWORD_30
+                // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:1:269: KW_LT_EQ
                 {
-                mKEYWORD_30(); if (state.failed) return ;
+                mKW_LT_EQ(); if (state.failed) return ;
 
                 }
                 break;
             case 27 :
-                // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:1:296: KEYWORD_31
+                // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:1:278: KW_LCOLLECT
                 {
-                mKEYWORD_31(); if (state.failed) return ;
+                mKW_LCOLLECT(); if (state.failed) return ;
 
                 }
                 break;
             case 28 :
-                // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:1:307: KEYWORD_32
+                // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:1:290: KW_IN_EDGE_SUB
                 {
-                mKEYWORD_32(); if (state.failed) return ;
+                mKW_IN_EDGE_SUB(); if (state.failed) return ;
 
                 }
                 break;
             case 29 :
-                // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:1:318: KEYWORD_33
+                // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:1:305: KW_EQUALS
                 {
-                mKEYWORD_33(); if (state.failed) return ;
+                mKW_EQUALS(); if (state.failed) return ;
 
                 }
                 break;
             case 30 :
-                // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:1:329: KEYWORD_34
+                // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:1:315: KW_FARROW
                 {
-                mKEYWORD_34(); if (state.failed) return ;
+                mKW_FARROW(); if (state.failed) return ;
 
                 }
                 break;
             case 31 :
-                // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:1:340: KEYWORD_35
+                // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:1:325: KW_MATCHES
                 {
-                mKEYWORD_35(); if (state.failed) return ;
+                mKW_MATCHES(); if (state.failed) return ;
 
                 }
                 break;
             case 32 :
-                // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:1:351: KEYWORD_36
+                // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:1:336: KW_GT_EQ
                 {
-                mKEYWORD_36(); if (state.failed) return ;
+                mKW_GT_EQ(); if (state.failed) return ;
 
                 }
                 break;
             case 33 :
-                // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:1:362: KEYWORD_37
+                // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:1:345: KW_RSHIFT
                 {
-                mKEYWORD_37(); if (state.failed) return ;
+                mKW_RSHIFT(); if (state.failed) return ;
 
                 }
                 break;
             case 34 :
-                // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:1:373: KEYWORD_38
+                // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:1:355: KW_ESC_DQ
                 {
-                mKEYWORD_38(); if (state.failed) return ;
+                mKW_ESC_DQ(); if (state.failed) return ;
 
                 }
                 break;
             case 35 :
-                // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:1:384: KEYWORD_39
+                // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:1:365: KW_ESC_DLR
                 {
-                mKEYWORD_39(); if (state.failed) return ;
+                mKW_ESC_DLR(); if (state.failed) return ;
 
                 }
                 break;
             case 36 :
-                // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:1:395: KEYWORD_40
+                // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:1:376: KW_ESC_SQ
                 {
-                mKEYWORD_40(); if (state.failed) return ;
+                mKW_ESC_SQ(); if (state.failed) return ;
 
                 }
                 break;
             case 37 :
-                // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:1:406: KEYWORD_41
+                // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:1:386: KW_ESC_ESC
                 {
-                mKEYWORD_41(); if (state.failed) return ;
+                mKW_ESC_ESC(); if (state.failed) return ;
 
                 }
                 break;
             case 38 :
-                // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:1:417: KEYWORD_42
+                // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:1:397: KW_IF
                 {
-                mKEYWORD_42(); if (state.failed) return ;
+                mKW_IF(); if (state.failed) return ;
 
                 }
                 break;
             case 39 :
-                // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:1:428: KEYWORD_43
+                // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:1:403: KW_IN
                 {
-                mKEYWORD_43(); if (state.failed) return ;
+                mKW_IN(); if (state.failed) return ;
 
                 }
                 break;
             case 40 :
-                // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:1:439: KEYWORD_44
+                // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:1:409: KW_OR
                 {
-                mKEYWORD_44(); if (state.failed) return ;
+                mKW_OR(); if (state.failed) return ;
 
                 }
                 break;
             case 41 :
-                // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:1:450: KEYWORD_45
+                // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:1:415: KW_RCOLLECT
                 {
-                mKEYWORD_45(); if (state.failed) return ;
+                mKW_RCOLLECT(); if (state.failed) return ;
 
                 }
                 break;
             case 42 :
-                // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:1:461: KEYWORD_46
+                // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:1:427: KW_OUT_EDGE_SUB
                 {
-                mKEYWORD_46(); if (state.failed) return ;
+                mKW_OUT_EDGE_SUB(); if (state.failed) return ;
 
                 }
                 break;
             case 43 :
-                // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:1:472: KEYWORD_1
+                // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:1:443: KW_NOT
                 {
-                mKEYWORD_1(); if (state.failed) return ;
+                mKW_NOT(); if (state.failed) return ;
 
                 }
                 break;
             case 44 :
-                // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:1:482: KEYWORD_2
+                // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:1:450: KW_DQ
                 {
-                mKEYWORD_2(); if (state.failed) return ;
+                mKW_DQ(); if (state.failed) return ;
 
                 }
                 break;
             case 45 :
-                // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:1:492: KEYWORD_3
+                // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:1:456: KW_MODULO
                 {
-                mKEYWORD_3(); if (state.failed) return ;
+                mKW_MODULO(); if (state.failed) return ;
 
                 }
                 break;
             case 46 :
-                // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:1:502: KEYWORD_4
+                // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:1:466: KW_SQ
                 {
-                mKEYWORD_4(); if (state.failed) return ;
+                mKW_SQ(); if (state.failed) return ;
 
                 }
                 break;
             case 47 :
-                // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:1:512: KEYWORD_5
+                // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:1:472: KW_LPAR
                 {
-                mKEYWORD_5(); if (state.failed) return ;
+                mKW_LPAR(); if (state.failed) return ;
 
                 }
                 break;
             case 48 :
-                // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:1:522: KEYWORD_6
+                // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:1:480: KW_RPAR
                 {
-                mKEYWORD_6(); if (state.failed) return ;
+                mKW_RPAR(); if (state.failed) return ;
 
                 }
                 break;
             case 49 :
-                // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:1:532: KEYWORD_7
+                // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:1:488: KW_MUL
                 {
-                mKEYWORD_7(); if (state.failed) return ;
+                mKW_MUL(); if (state.failed) return ;
 
                 }
                 break;
             case 50 :
-                // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:1:542: KEYWORD_8
+                // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:1:495: KW_PLUS
                 {
-                mKEYWORD_8(); if (state.failed) return ;
+                mKW_PLUS(); if (state.failed) return ;
 
                 }
                 break;
             case 51 :
-                // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:1:552: KEYWORD_9
+                // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:1:503: KW_COMMA
                 {
-                mKEYWORD_9(); if (state.failed) return ;
+                mKW_COMMA(); if (state.failed) return ;
 
                 }
                 break;
             case 52 :
-                // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:1:562: KEYWORD_10
+                // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:1:512: KW_MINUS
                 {
-                mKEYWORD_10(); if (state.failed) return ;
+                mKW_MINUS(); if (state.failed) return ;
 
                 }
                 break;
             case 53 :
-                // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:1:573: KEYWORD_11
+                // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:1:521: KW_DOT
                 {
-                mKEYWORD_11(); if (state.failed) return ;
+                mKW_DOT(); if (state.failed) return ;
 
                 }
                 break;
             case 54 :
-                // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:1:584: KEYWORD_12
+                // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:1:528: KW_SLASH
                 {
-                mKEYWORD_12(); if (state.failed) return ;
+                mKW_SLASH(); if (state.failed) return ;
 
                 }
                 break;
             case 55 :
-                // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:1:595: KEYWORD_13
+                // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:1:537: KW_COLON
                 {
-                mKEYWORD_13(); if (state.failed) return ;
+                mKW_COLON(); if (state.failed) return ;
 
                 }
                 break;
             case 56 :
-                // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:1:606: KEYWORD_14
+                // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:1:546: KW_SEMI
                 {
-                mKEYWORD_14(); if (state.failed) return ;
+                mKW_SEMI(); if (state.failed) return ;
 
                 }
                 break;
             case 57 :
-                // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:1:617: KEYWORD_15
+                // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:1:554: KW_LT
                 {
-                mKEYWORD_15(); if (state.failed) return ;
+                mKW_LT(); if (state.failed) return ;
 
                 }
                 break;
             case 58 :
-                // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:1:628: KEYWORD_16
+                // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:1:560: KW_EQ
                 {
-                mKEYWORD_16(); if (state.failed) return ;
+                mKW_EQ(); if (state.failed) return ;
 
                 }
                 break;
             case 59 :
-                // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:1:639: KEYWORD_17
+                // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:1:566: KW_GT
                 {
-                mKEYWORD_17(); if (state.failed) return ;
+                mKW_GT(); if (state.failed) return ;
 
                 }
                 break;
             case 60 :
-                // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:1:650: KEYWORD_18
+                // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:1:572: KW_QMARK
                 {
-                mKEYWORD_18(); if (state.failed) return ;
+                mKW_QMARK(); if (state.failed) return ;
 
                 }
                 break;
             case 61 :
-                // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:1:661: KEYWORD_19
+                // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:1:581: KW_AT
                 {
-                mKEYWORD_19(); if (state.failed) return ;
+                mKW_AT(); if (state.failed) return ;
 
                 }
                 break;
             case 62 :
-                // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:1:672: KEYWORD_20
+                // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:1:587: KW_LBRACK
                 {
-                mKEYWORD_20(); if (state.failed) return ;
+                mKW_LBRACK(); if (state.failed) return ;
 
                 }
                 break;
             case 63 :
-                // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:1:683: KEYWORD_21
+                // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:1:597: KW_RBRACK
                 {
-                mKEYWORD_21(); if (state.failed) return ;
+                mKW_RBRACK(); if (state.failed) return ;
 
                 }
                 break;
             case 64 :
-                // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:1:694: RULE_ML_COMMENT
+                // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:1:607: KW_LBRACE
+                {
+                mKW_LBRACE(); if (state.failed) return ;
+
+                }
+                break;
+            case 65 :
+                // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:1:617: KW_PIPE
+                {
+                mKW_PIPE(); if (state.failed) return ;
+
+                }
+                break;
+            case 66 :
+                // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:1:625: KW_RBRACE
+                {
+                mKW_RBRACE(); if (state.failed) return ;
+
+                }
+                break;
+            case 67 :
+                // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:1:635: RULE_ML_COMMENT
                 {
                 mRULE_ML_COMMENT(); if (state.failed) return ;
 
                 }
                 break;
-            case 65 :
-                // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:1:710: RULE_SL_COMMENT
+            case 68 :
+                // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:1:651: RULE_SL_COMMENT
                 {
                 mRULE_SL_COMMENT(); if (state.failed) return ;
 
                 }
                 break;
-            case 66 :
-                // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:1:726: RULE_WS
+            case 69 :
+                // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:1:667: RULE_WS
                 {
                 mRULE_WS(); if (state.failed) return ;
 
                 }
                 break;
-            case 67 :
-                // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:1:734: RULE_DOLLAR_VAR
+            case 70 :
+                // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:1:675: RULE_DOLLAR_VAR
                 {
                 mRULE_DOLLAR_VAR(); if (state.failed) return ;
 
                 }
                 break;
-            case 68 :
-                // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:1:750: RULE_WORD_CHARS
+            case 71 :
+                // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:1:691: RULE_WORD_CHARS
                 {
                 mRULE_WORD_CHARS(); if (state.failed) return ;
 
                 }
                 break;
-            case 69 :
-                // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:1:766: RULE_REGULAR_EXPRESSION
+            case 72 :
+                // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:1:707: RULE_REGULAR_EXPRESSION
                 {
                 mRULE_REGULAR_EXPRESSION(); if (state.failed) return ;
 
                 }
                 break;
-            case 70 :
-                // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:1:790: RULE_ANY_OTHER
+            case 73 :
+                // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:1:731: RULE_ANY_OTHER
                 {
                 mRULE_ANY_OTHER(); if (state.failed) return ;
 
@@ -3234,8 +3396,8 @@ public class PPLexer extends Lexer {
 
     // $ANTLR start synpred1_PPLexer
     public final void synpred1_PPLexer_fragment() throws RecognitionException {   
-        // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:292:3: ( ':' ':' )
-        // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:292:4: ':' ':'
+        // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:297:3: ( ':' ':' )
+        // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:297:4: ':' ':'
         {
         match(':'); if (state.failed) return ;
         match(':'); if (state.failed) return ;
@@ -3246,8 +3408,8 @@ public class PPLexer extends Lexer {
 
     // $ANTLR start synpred2_PPLexer
     public final void synpred2_PPLexer_fragment() throws RecognitionException {   
-        // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:293:3: ( ':' ':' )
-        // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:293:4: ':' ':'
+        // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:298:3: ( ':' ':' )
+        // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:298:4: ':' ':'
         {
         match(':'); if (state.failed) return ;
         match(':'); if (state.failed) return ;
@@ -3258,8 +3420,8 @@ public class PPLexer extends Lexer {
 
     // $ANTLR start synpred3_PPLexer
     public final void synpred3_PPLexer_fragment() throws RecognitionException {   
-        // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:296:55: ( ':' ':' )
-        // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:296:56: ':' ':'
+        // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:301:55: ( ':' ':' )
+        // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:301:56: ':' ':'
         {
         match(':'); if (state.failed) return ;
         match(':'); if (state.failed) return ;
@@ -3270,8 +3432,8 @@ public class PPLexer extends Lexer {
 
     // $ANTLR start synpred4_PPLexer
     public final void synpred4_PPLexer_fragment() throws RecognitionException {   
-        // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:296:115: ( ':' ':' )
-        // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:296:116: ':' ':'
+        // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:301:115: ( ':' ':' )
+        // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:301:116: ':' ':'
         {
         match(':'); if (state.failed) return ;
         match(':'); if (state.failed) return ;
@@ -3340,95 +3502,90 @@ public class PPLexer extends Lexer {
 
     protected DFA20 dfa20 = new DFA20(this);
     static final String DFA20_eotS =
-        "\1\uffff\10\57\1\75\1\53\1\57\1\53\1\106\1\53\1\113\1\115\1\121"+
-        "\1\124\1\57\1\53\1\127\1\130\1\131\1\132\1\133\1\134\1\136\1\140"+
-        "\1\141\1\142\1\143\1\144\1\145\1\146\1\147\1\150\7\uffff\1\154\1"+
-        "\57\1\156\1\uffff\10\57\1\171\5\uffff\1\174\3\uffff\1\57\1\177\21"+
-        "\uffff\1\u0084\25\uffff\1\57\1\uffff\1\57\1\uffff\11\57\5\uffff"+
-        "\1\u00a3\26\uffff\1\57\1\uffff\1\57\1\uffff\5\57\1\u00ac\1\57\1"+
-        "\u00ae\1\57\1\u00b0\1\u00b1\2\uffff\5\57\1\u00b8\1\u00b9\1\uffff"+
-        "\1\u00bb\1\uffff\1\u00bd\3\uffff\1\57\1\u00c1\1\57\1\u00c3\1\u00c4"+
-        "\10\uffff\1\57\1\uffff\1\u00cb\6\uffff\1\u00ce\7\uffff";
+        "\1\uffff\10\60\1\76\1\54\1\60\1\105\1\110\1\54\1\115\1\117\1\123"+
+        "\1\126\1\60\1\54\1\131\1\132\1\133\1\134\1\135\1\136\1\137\1\140"+
+        "\1\142\1\144\1\145\1\146\1\147\1\150\1\151\1\152\1\153\1\154\6\uffff"+
+        "\1\160\1\60\1\162\1\uffff\10\60\1\175\5\uffff\1\u0080\3\uffff\1"+
+        "\60\1\u0083\22\uffff\1\u0089\27\uffff\1\60\1\uffff\1\60\1\uffff"+
+        "\11\60\5\uffff\1\u00a9\30\uffff\1\60\1\uffff\1\60\1\uffff\5\60\1"+
+        "\u00b2\1\60\1\u00b4\1\60\1\u00b6\1\u00b7\2\uffff\5\60\1\u00be\1"+
+        "\u00bf\1\uffff\1\u00c1\1\uffff\1\u00c3\3\uffff\1\60\1\u00c7\1\60"+
+        "\1\u00c9\1\u00ca\10\uffff\1\60\1\uffff\1\u00d1\6\uffff\1\u00d4\7"+
+        "\uffff";
     static final String DFA20_eofS =
-        "\u00d1\uffff";
+        "\u00d7\uffff";
     static final String DFA20_minS =
         "\1\0\1\146\1\145\1\156\1\141\1\154\1\141\1\157\1\162\1\55\1\42\1"+
-        "\156\1\76\1\75\1\60\1\75\1\76\2\75\1\162\1\76\7\0\1\72\10\0\7\uffff"+
-        "\1\55\1\160\1\55\1\uffff\1\146\1\144\1\141\2\163\1\154\1\144\1\165"+
-        "\1\174\4\uffff\1\0\1\173\3\uffff\1\144\1\76\2\uffff\1\0\4\uffff"+
-        "\1\0\5\uffff\1\0\2\uffff\1\0\1\55\1\uffff\6\0\1\uffff\1\0\1\uffff"+
-        "\11\0\2\uffff\1\145\1\0\1\157\1\0\1\141\2\145\1\163\2\145\1\163"+
-        "\2\145\5\uffff\1\55\6\uffff\1\0\17\uffff\1\162\1\uffff\1\162\1\uffff"+
-        "\1\165\1\156\1\163\1\146\1\163\1\55\1\146\1\55\1\145\2\55\1\0\1"+
-        "\uffff\1\151\1\164\1\154\1\145\1\163\2\55\1\0\1\55\1\0\1\55\2\0"+
-        "\1\uffff\1\164\1\55\1\164\2\55\2\0\1\uffff\1\0\1\uffff\1\0\2\uffff"+
-        "\1\163\1\0\1\55\2\0\4\uffff\1\55\1\uffff\1\0\2\uffff\1\0\2\uffff";
+        "\156\1\76\1\75\1\60\1\75\1\76\2\75\1\162\1\76\7\0\1\55\1\0\1\72"+
+        "\10\0\6\uffff\1\55\1\160\1\55\1\uffff\1\146\1\144\1\141\2\163\1"+
+        "\154\1\144\1\165\1\174\4\uffff\1\0\1\173\3\uffff\1\144\1\76\1\0"+
+        "\2\uffff\1\0\4\uffff\1\0\5\uffff\1\0\2\uffff\1\0\1\55\1\uffff\7"+
+        "\0\2\uffff\1\0\1\uffff\11\0\2\uffff\1\145\1\0\1\157\1\0\1\141\2"+
+        "\145\1\163\2\145\1\163\2\145\5\uffff\1\55\7\uffff\1\0\20\uffff\1"+
+        "\162\1\uffff\1\162\1\uffff\1\165\1\156\1\163\1\146\1\163\1\55\1"+
+        "\146\1\55\1\145\2\55\1\0\1\uffff\1\151\1\164\1\154\1\145\1\163\2"+
+        "\55\1\0\1\55\1\0\1\55\2\0\1\uffff\1\164\1\55\1\164\2\55\2\0\1\uffff"+
+        "\1\0\1\uffff\1\0\2\uffff\1\163\1\0\1\55\2\0\4\uffff\1\55\1\uffff"+
+        "\1\0\2\uffff\1\0\2\uffff";
     static final String DFA20_maxS =
         "\1\uffff\1\156\1\145\1\156\2\154\1\141\1\157\1\162\1\176\1\134\1"+
-        "\156\1\76\1\176\1\173\2\76\1\176\1\76\1\162\1\76\6\0\1\uffff\1\72"+
-        "\7\0\1\uffff\7\uffff\1\172\1\160\1\172\1\uffff\1\146\1\154\1\141"+
-        "\2\163\1\154\1\144\1\165\1\174\4\uffff\1\0\1\173\3\uffff\1\144\1"+
-        "\76\2\uffff\1\0\4\uffff\1\0\5\uffff\1\0\2\uffff\1\0\1\172\1\uffff"+
-        "\6\0\1\uffff\1\0\1\uffff\11\0\2\uffff\1\145\1\0\1\157\1\0\1\151"+
-        "\2\145\1\163\1\145\1\151\1\163\2\145\5\uffff\1\172\6\uffff\1\0\17"+
-        "\uffff\1\162\1\uffff\1\162\1\uffff\1\165\1\156\1\163\1\146\1\163"+
-        "\1\172\1\146\1\172\1\145\2\172\1\0\1\uffff\1\151\1\164\1\154\1\145"+
-        "\1\163\2\172\1\0\1\172\1\0\1\172\2\0\1\uffff\1\164\1\172\1\164\2"+
-        "\172\2\0\1\uffff\1\0\1\uffff\1\0\2\uffff\1\163\1\0\1\172\2\0\4\uffff"+
-        "\1\172\1\uffff\1\0\2\uffff\1\0\2\uffff";
+        "\156\1\76\1\176\1\173\2\76\1\176\1\76\1\162\1\76\7\0\1\172\1\uffff"+
+        "\1\72\7\0\1\uffff\6\uffff\1\172\1\160\1\172\1\uffff\1\146\1\154"+
+        "\1\141\2\163\1\154\1\144\1\165\1\174\4\uffff\1\0\1\173\3\uffff\1"+
+        "\144\1\76\1\0\2\uffff\1\0\4\uffff\1\0\5\uffff\1\0\2\uffff\1\0\1"+
+        "\172\1\uffff\7\0\2\uffff\1\0\1\uffff\11\0\2\uffff\1\145\1\0\1\157"+
+        "\1\0\1\151\2\145\1\163\1\145\1\151\1\163\2\145\5\uffff\1\172\7\uffff"+
+        "\1\0\20\uffff\1\162\1\uffff\1\162\1\uffff\1\165\1\156\1\163\1\146"+
+        "\1\163\1\172\1\146\1\172\1\145\2\172\1\0\1\uffff\1\151\1\164\1\154"+
+        "\1\145\1\163\2\172\1\0\1\172\1\0\1\172\2\0\1\uffff\1\164\1\172\1"+
+        "\164\2\172\2\0\1\uffff\1\0\1\uffff\1\0\2\uffff\1\163\1\0\1\172\2"+
+        "\0\4\uffff\1\172\1\uffff\1\0\2\uffff\1\0\2\uffff";
     static final String DFA20_acceptS =
-        "\45\uffff\1\102\5\104\1\106\3\uffff\1\104\11\uffff\1\30\1\32\1\33"+
-        "\1\34\2\uffff\1\42\1\44\1\45\2\uffff\1\22\1\23\1\uffff\1\24\1\103"+
-        "\1\25\1\26\1\uffff\1\27\1\63\1\35\1\36\1\37\1\uffff\1\40\1\41\2"+
-        "\uffff\1\52\6\uffff\1\100\1\uffff\1\105\11\uffff\1\101\1\102\15"+
-        "\uffff\1\16\1\31\1\67\1\17\1\43\1\uffff\1\21\1\51\1\53\1\61\1\70"+
-        "\1\71\1\uffff\1\54\1\55\1\56\1\57\1\60\1\62\1\64\1\65\1\66\1\72"+
-        "\1\73\1\74\1\75\1\76\1\77\1\uffff\1\47\1\uffff\1\46\14\uffff\1\50"+
-        "\15\uffff\1\20\7\uffff\1\12\1\uffff\1\13\1\uffff\1\14\1\15\5\uffff"+
-        "\1\11\1\6\1\7\1\10\1\uffff\1\4\1\uffff\1\3\1\5\1\uffff\1\2\1\1";
+        "\47\uffff\1\105\4\107\1\111\3\uffff\1\107\11\uffff\1\30\1\32\1\33"+
+        "\1\34\2\uffff\1\42\1\44\1\45\3\uffff\1\22\1\23\1\uffff\1\24\1\106"+
+        "\1\25\1\26\1\uffff\1\27\1\64\1\35\1\36\1\37\1\uffff\1\40\1\41\2"+
+        "\uffff\1\52\7\uffff\1\65\1\103\1\uffff\1\110\11\uffff\1\104\1\105"+
+        "\15\uffff\1\16\1\31\1\71\1\17\1\43\1\uffff\1\21\1\51\1\101\1\53"+
+        "\1\62\1\72\1\73\1\uffff\1\54\1\55\1\56\1\57\1\60\1\61\1\63\1\66"+
+        "\1\67\1\70\1\74\1\75\1\76\1\77\1\100\1\102\1\uffff\1\47\1\uffff"+
+        "\1\46\14\uffff\1\50\15\uffff\1\20\7\uffff\1\12\1\uffff\1\13\1\uffff"+
+        "\1\14\1\15\5\uffff\1\11\1\6\1\7\1\10\1\uffff\1\4\1\uffff\1\3\1\5"+
+        "\1\uffff\1\2\1\1";
     static final String DFA20_specialS =
-        "\1\60\10\uffff\1\53\2\uffff\1\54\1\45\1\uffff\1\62\1\51\1\56\1\52"+
-        "\1\uffff\1\16\6\uffff\1\57\10\uffff\1\61\23\uffff\1\0\4\uffff\1"+
-        "\32\5\uffff\1\55\2\uffff\1\44\4\uffff\1\36\5\uffff\1\27\2\uffff"+
-        "\1\30\2\uffff\1\43\1\42\1\41\1\40\1\37\1\35\1\uffff\1\33\1\uffff"+
-        "\1\34\1\31\1\25\1\26\1\23\1\24\1\21\1\22\1\20\3\uffff\1\47\1\uffff"+
-        "\1\50\25\uffff\1\46\36\uffff\1\4\10\uffff\1\12\1\uffff\1\11\1\uffff"+
-        "\1\6\1\5\6\uffff\1\7\1\17\1\uffff\1\15\1\uffff\1\10\3\uffff\1\14"+
-        "\1\uffff\1\2\1\13\6\uffff\1\1\2\uffff\1\3\2\uffff}>";
+        "\1\4\10\uffff\1\62\2\uffff\1\41\1\5\1\uffff\1\3\1\64\1\1\1\61\1"+
+        "\uffff\1\63\10\uffff\1\0\10\uffff\1\16\22\uffff\1\2\4\uffff\1\47"+
+        "\5\uffff\1\6\1\53\2\uffff\1\31\4\uffff\1\37\5\uffff\1\46\2\uffff"+
+        "\1\51\2\uffff\1\32\1\34\1\33\1\36\1\35\1\40\1\42\2\uffff\1\43\1"+
+        "\uffff\1\45\1\44\1\50\1\57\1\60\1\55\1\56\1\54\1\52\3\uffff\1\27"+
+        "\1\uffff\1\26\26\uffff\1\30\37\uffff\1\25\10\uffff\1\17\1\uffff"+
+        "\1\23\1\uffff\1\24\1\22\6\uffff\1\15\1\12\1\uffff\1\20\1\uffff\1"+
+        "\21\3\uffff\1\14\1\uffff\1\13\1\11\6\uffff\1\10\2\uffff\1\7\2\uffff}>";
     static final String[] DFA20_transitionS = {
-            "\11\53\2\45\2\53\1\45\22\53\1\45\1\15\1\25\1\44\1\16\2\53\1"+
-            "\26\1\27\1\30\1\31\1\17\1\32\1\20\1\52\1\33\12\46\1\34\1\35"+
-            "\1\11\1\21\1\22\1\36\1\37\32\50\1\40\1\12\1\41\1\53\1\51\1\53"+
-            "\1\13\1\47\1\4\1\2\1\5\1\6\2\47\1\1\4\47\1\7\1\23\4\47\1\10"+
-            "\1\3\5\47\1\42\1\14\1\43\1\24\41\53\1\45\uff5f\53",
-            "\1\56\6\uffff\1\55\1\54",
-            "\1\60",
+            "\11\54\2\47\2\54\1\47\22\54\1\47\1\15\1\25\1\46\1\16\1\26\1"+
+            "\54\1\27\1\30\1\31\1\32\1\17\1\33\1\20\1\34\1\35\12\50\1\36"+
+            "\1\37\1\11\1\21\1\22\1\40\1\41\32\52\1\42\1\12\1\43\1\54\1\53"+
+            "\1\54\1\13\1\51\1\4\1\2\1\5\1\6\2\51\1\1\4\51\1\7\1\23\4\51"+
+            "\1\10\1\3\5\51\1\44\1\14\1\45\1\24\41\54\1\47\uff5f\54",
+            "\1\57\6\uffff\1\56\1\55",
             "\1\61",
-            "\1\63\12\uffff\1\62",
-            "\1\64",
+            "\1\62",
+            "\1\64\12\uffff\1\63",
             "\1\65",
             "\1\66",
             "\1\67",
-            "\1\71\16\uffff\1\70\1\72\76\uffff\1\73\1\uffff\1\74",
-            "\1\77\1\uffff\1\76\2\uffff\1\100\64\uffff\1\101",
-            "\1\102",
+            "\1\70",
+            "\1\72\16\uffff\1\71\1\73\76\uffff\1\74\1\uffff\1\75",
+            "\1\100\1\uffff\1\77\2\uffff\1\101\64\uffff\1\102",
             "\1\103",
-            "\1\104\100\uffff\1\105",
-            "\13\110\6\uffff\32\110\4\uffff\1\110\1\uffff\32\110\1\107",
-            "\1\111\1\112",
-            "\1\114",
-            "\1\116\1\117\77\uffff\1\120",
-            "\1\122\1\123",
-            "\1\125",
-            "\1\126",
-            "\1\uffff",
-            "\1\uffff",
-            "\1\uffff",
-            "\1\uffff",
-            "\1\uffff",
-            "\1\uffff",
-            "\12\137\1\uffff\37\137\1\135\4\137\1\uffff\uffd0\137",
-            "\1\57",
+            "\1\104",
+            "\1\106\100\uffff\1\107",
+            "\13\112\6\uffff\32\112\4\uffff\1\112\1\uffff\32\112\1\111",
+            "\1\113\1\114",
+            "\1\116",
+            "\1\120\1\121\77\uffff\1\122",
+            "\1\124\1\125",
+            "\1\127",
+            "\1\130",
             "\1\uffff",
             "\1\uffff",
             "\1\uffff",
@@ -3436,39 +3593,54 @@ public class PPLexer extends Lexer {
             "\1\uffff",
             "\1\uffff",
             "\1\uffff",
-            "\0\151",
+            "\2\60\1\uffff\13\60\6\uffff\32\60\4\uffff\1\60\1\uffff\32\60",
+            "\12\143\1\uffff\37\143\1\141\4\143\1\uffff\uffd0\143",
+            "\1\60",
+            "\1\uffff",
+            "\1\uffff",
+            "\1\uffff",
+            "\1\uffff",
+            "\1\uffff",
+            "\1\uffff",
+            "\1\uffff",
+            "\0\155",
             "",
             "",
             "",
             "",
             "",
             "",
+            "\2\60\1\uffff\13\60\6\uffff\32\60\4\uffff\1\60\1\uffff\7\60"+
+            "\1\157\22\60",
+            "\1\161",
+            "\2\60\1\uffff\13\60\6\uffff\32\60\4\uffff\1\60\1\uffff\32\60",
             "",
-            "\2\57\1\uffff\13\57\6\uffff\32\57\4\uffff\1\57\1\uffff\7\57"+
-            "\1\153\22\57",
-            "\1\155",
-            "\2\57\1\uffff\13\57\6\uffff\32\57\4\uffff\1\57\1\uffff\32\57",
-            "",
-            "\1\157",
-            "\1\161\7\uffff\1\160",
-            "\1\162",
             "\1\163",
-            "\1\164",
-            "\1\165",
+            "\1\165\7\uffff\1\164",
             "\1\166",
             "\1\167",
             "\1\170",
-            "",
-            "",
-            "",
-            "",
-            "\1\uffff",
+            "\1\171",
+            "\1\172",
             "\1\173",
+            "\1\174",
             "",
             "",
             "",
-            "\1\175",
-            "\1\176",
+            "",
+            "\1\uffff",
+            "\1\177",
+            "",
+            "",
+            "",
+            "\1\u0081",
+            "\1\u0082",
+            "\1\uffff",
+            "",
+            "",
+            "\1\uffff",
+            "",
+            "",
             "",
             "",
             "\1\uffff",
@@ -3476,29 +3648,13 @@ public class PPLexer extends Lexer {
             "",
             "",
             "",
-            "\1\uffff",
-            "",
-            "",
-            "",
-            "",
             "",
             "\1\uffff",
             "",
             "",
             "\1\uffff",
-            "\2\57\1\uffff\13\57\6\uffff\32\57\4\uffff\1\57\1\uffff\32\57",
+            "\2\60\1\uffff\13\60\6\uffff\32\60\4\uffff\1\60\1\uffff\32\60",
             "",
-            "\1\uffff",
-            "\1\uffff",
-            "\1\uffff",
-            "\1\uffff",
-            "\1\uffff",
-            "\1\uffff",
-            "",
-            "\1\uffff",
-            "",
-            "\1\uffff",
-            "\1\uffff",
             "\1\uffff",
             "\1\uffff",
             "\1\uffff",
@@ -3508,83 +3664,98 @@ public class PPLexer extends Lexer {
             "\1\uffff",
             "",
             "",
-            "\1\u0094",
             "\1\uffff",
-            "\1\u0096",
+            "",
             "\1\uffff",
-            "\1\u0098\7\uffff\1\u0099",
+            "\1\uffff",
+            "\1\uffff",
+            "\1\uffff",
+            "\1\uffff",
+            "\1\uffff",
+            "\1\uffff",
+            "\1\uffff",
+            "\1\uffff",
+            "",
+            "",
             "\1\u009a",
-            "\1\u009b",
+            "\1\uffff",
             "\1\u009c",
-            "\1\u009d",
-            "\1\u009f\3\uffff\1\u009e",
+            "\1\uffff",
+            "\1\u009e\7\uffff\1\u009f",
             "\1\u00a0",
             "\1\u00a1",
             "\1\u00a2",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "\2\57\1\uffff\13\57\6\uffff\32\57\4\uffff\1\57\1\uffff\32\57",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "\1\uffff",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "\1\u00a5",
-            "",
+            "\1\u00a3",
+            "\1\u00a5\3\uffff\1\u00a4",
             "\1\u00a6",
-            "",
             "\1\u00a7",
             "\1\u00a8",
-            "\1\u00a9",
-            "\1\u00aa",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "\2\60\1\uffff\13\60\6\uffff\32\60\4\uffff\1\60\1\uffff\32\60",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "\1\uffff",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
             "\1\u00ab",
-            "\2\57\1\uffff\13\57\6\uffff\32\57\4\uffff\1\57\1\uffff\32\57",
+            "",
+            "\1\u00ac",
+            "",
             "\1\u00ad",
-            "\2\57\1\uffff\13\57\6\uffff\32\57\4\uffff\1\57\1\uffff\32\57",
+            "\1\u00ae",
             "\1\u00af",
-            "\2\57\1\uffff\13\57\6\uffff\32\57\4\uffff\1\57\1\uffff\32\57",
-            "\2\57\1\uffff\13\57\6\uffff\32\57\4\uffff\1\57\1\uffff\32\57",
-            "\1\uffff",
-            "",
+            "\1\u00b0",
+            "\1\u00b1",
+            "\2\60\1\uffff\13\60\6\uffff\32\60\4\uffff\1\60\1\uffff\32\60",
             "\1\u00b3",
-            "\1\u00b4",
+            "\2\60\1\uffff\13\60\6\uffff\32\60\4\uffff\1\60\1\uffff\32\60",
             "\1\u00b5",
-            "\1\u00b6",
-            "\1\u00b7",
-            "\2\57\1\uffff\13\57\6\uffff\32\57\4\uffff\1\57\1\uffff\32\57",
-            "\2\57\1\uffff\13\57\6\uffff\32\57\4\uffff\1\57\1\uffff\32\57",
+            "\2\60\1\uffff\13\60\6\uffff\32\60\4\uffff\1\60\1\uffff\32\60",
+            "\2\60\1\uffff\13\60\6\uffff\32\60\4\uffff\1\60\1\uffff\32\60",
             "\1\uffff",
-            "\2\57\1\uffff\13\57\6\uffff\32\57\4\uffff\1\57\1\uffff\32\57",
+            "",
+            "\1\u00b9",
+            "\1\u00ba",
+            "\1\u00bb",
+            "\1\u00bc",
+            "\1\u00bd",
+            "\2\60\1\uffff\13\60\6\uffff\32\60\4\uffff\1\60\1\uffff\32\60",
+            "\2\60\1\uffff\13\60\6\uffff\32\60\4\uffff\1\60\1\uffff\32\60",
             "\1\uffff",
-            "\2\57\1\uffff\13\57\6\uffff\32\57\4\uffff\1\57\1\uffff\32\57",
+            "\2\60\1\uffff\13\60\6\uffff\32\60\4\uffff\1\60\1\uffff\32\60",
+            "\1\uffff",
+            "\2\60\1\uffff\13\60\6\uffff\32\60\4\uffff\1\60\1\uffff\32\60",
             "\1\uffff",
             "\1\uffff",
             "",
-            "\1\u00c0",
-            "\2\57\1\uffff\13\57\6\uffff\32\57\4\uffff\1\57\1\uffff\32\57",
-            "\1\u00c2",
-            "\2\57\1\uffff\13\57\6\uffff\32\57\4\uffff\1\57\1\uffff\32\57",
-            "\2\57\1\uffff\13\57\6\uffff\32\57\4\uffff\1\57\1\uffff\32\57",
+            "\1\u00c6",
+            "\2\60\1\uffff\13\60\6\uffff\32\60\4\uffff\1\60\1\uffff\32\60",
+            "\1\u00c8",
+            "\2\60\1\uffff\13\60\6\uffff\32\60\4\uffff\1\60\1\uffff\32\60",
+            "\2\60\1\uffff\13\60\6\uffff\32\60\4\uffff\1\60\1\uffff\32\60",
             "\1\uffff",
             "\1\uffff",
             "",
@@ -3593,16 +3764,16 @@ public class PPLexer extends Lexer {
             "\1\uffff",
             "",
             "",
-            "\1\u00c9",
+            "\1\u00cf",
             "\1\uffff",
-            "\2\57\1\uffff\13\57\6\uffff\32\57\4\uffff\1\57\1\uffff\32\57",
+            "\2\60\1\uffff\13\60\6\uffff\32\60\4\uffff\1\60\1\uffff\32\60",
             "\1\uffff",
             "\1\uffff",
             "",
             "",
             "",
             "",
-            "\2\57\1\uffff\13\57\6\uffff\32\57\4\uffff\1\57\1\uffff\32\57",
+            "\2\60\1\uffff\13\60\6\uffff\32\60\4\uffff\1\60\1\uffff\32\60",
             "",
             "\1\uffff",
             "",
@@ -3642,751 +3813,81 @@ public class PPLexer extends Lexer {
             this.transition = DFA20_transition;
         }
         public String getDescription() {
-            return "1:1: Tokens : ( KEYWORD_63 | KEYWORD_62 | KEYWORD_59 | KEYWORD_60 | KEYWORD_61 | KEYWORD_55 | KEYWORD_56 | KEYWORD_57 | KEYWORD_58 | KEYWORD_51 | KEYWORD_52 | KEYWORD_53 | KEYWORD_54 | KEYWORD_47 | KEYWORD_48 | KEYWORD_49 | KEYWORD_50 | KEYWORD_22 | KEYWORD_23 | KEYWORD_24 | KEYWORD_25 | KEYWORD_26 | KEYWORD_27 | KEYWORD_28 | KEYWORD_29 | KEYWORD_30 | KEYWORD_31 | KEYWORD_32 | KEYWORD_33 | KEYWORD_34 | KEYWORD_35 | KEYWORD_36 | KEYWORD_37 | KEYWORD_38 | KEYWORD_39 | KEYWORD_40 | KEYWORD_41 | KEYWORD_42 | KEYWORD_43 | KEYWORD_44 | KEYWORD_45 | KEYWORD_46 | KEYWORD_1 | KEYWORD_2 | KEYWORD_3 | KEYWORD_4 | KEYWORD_5 | KEYWORD_6 | KEYWORD_7 | KEYWORD_8 | KEYWORD_9 | KEYWORD_10 | KEYWORD_11 | KEYWORD_12 | KEYWORD_13 | KEYWORD_14 | KEYWORD_15 | KEYWORD_16 | KEYWORD_17 | KEYWORD_18 | KEYWORD_19 | KEYWORD_20 | KEYWORD_21 | RULE_ML_COMMENT | RULE_SL_COMMENT | RULE_WS | RULE_DOLLAR_VAR | RULE_WORD_CHARS | RULE_REGULAR_EXPRESSION | RULE_ANY_OTHER );";
+            return "1:1: Tokens : ( KW_INHERITS | KW_DEFAULT | KW_DEFINE | KW_IMPORT | KW_UNLESS | KW_CLASS | KW_ELSIF | KW_FALSE | KW_UNDEF | KW_CASE | KW_ELSE | KW_NODE | KW_TRUE | KW_LLCOLLECT | KW_ESC_DLR_BRACE | KW_AND | KW_RRCOLLECT | KW_NOT_EQ | KW_NOT_MATCHES | KW_DLR_BRACE | KW_PLUS_EQ | KW_APPEND | KW_RARR | KW_IN_EDGE | KW_LSHIFT | KW_LT_EQ | KW_LCOLLECT | KW_IN_EDGE_SUB | KW_EQUALS | KW_FARROW | KW_MATCHES | KW_GT_EQ | KW_RSHIFT | KW_ESC_DQ | KW_ESC_DLR | KW_ESC_SQ | KW_ESC_ESC | KW_IF | KW_IN | KW_OR | KW_RCOLLECT | KW_OUT_EDGE_SUB | KW_NOT | KW_DQ | KW_MODULO | KW_SQ | KW_LPAR | KW_RPAR | KW_MUL | KW_PLUS | KW_COMMA | KW_MINUS | KW_DOT | KW_SLASH | KW_COLON | KW_SEMI | KW_LT | KW_EQ | KW_GT | KW_QMARK | KW_AT | KW_LBRACK | KW_RBRACK | KW_LBRACE | KW_PIPE | KW_RBRACE | RULE_ML_COMMENT | RULE_SL_COMMENT | RULE_WS | RULE_DOLLAR_VAR | RULE_WORD_CHARS | RULE_REGULAR_EXPRESSION | RULE_ANY_OTHER );";
         }
         public int specialStateTransition(int s, IntStream _input) throws NoViableAltException {
             IntStream input = _input;
         	int _s = s;
             switch ( s ) {
                     case 0 : 
-                        int LA20_56 = input.LA(1);
+                        int LA20_29 = input.LA(1);
 
                          
-                        int index20_56 = input.index();
+                        int index20_29 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( (LA20_56=='|') && ((isNotInString()))) {s = 120;}
+                        if ( (LA20_29=='*') && ((isNotInString()))) {s = 97;}
 
-                        else s = 121;
+                        else if ( ((LA20_29>='\u0000' && LA20_29<='\t')||(LA20_29>='\u000B' && LA20_29<=')')||(LA20_29>='+' && LA20_29<='.')||(LA20_29>='0' && LA20_29<='\uFFFF')) && ((isReAcceptable()))) {s = 99;}
+
+                        else s = 98;
 
                          
-                        input.seek(index20_56);
+                        input.seek(index20_29);
                         if ( s>=0 ) return s;
                         break;
                     case 1 : 
-                        int LA20_203 = input.LA(1);
-
-                         
-                        int index20_203 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( ((isNotInString())) ) {s = 207;}
-
-                        else if ( (true) ) {s = 47;}
-
-                         
-                        input.seek(index20_203);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 2 : 
-                        int LA20_195 = input.LA(1);
-
-                         
-                        int index20_195 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( ((isNotInString())) ) {s = 204;}
-
-                        else if ( (true) ) {s = 47;}
-
-                         
-                        input.seek(index20_195);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 3 : 
-                        int LA20_206 = input.LA(1);
-
-                         
-                        int index20_206 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( ((isNotInString())) ) {s = 208;}
-
-                        else if ( (true) ) {s = 47;}
-
-                         
-                        input.seek(index20_206);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 4 : 
-                        int LA20_163 = input.LA(1);
-
-                         
-                        int index20_163 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( ((isNotInString())) ) {s = 178;}
-
-                        else if ( (true) ) {s = 47;}
-
-                         
-                        input.seek(index20_163);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 5 : 
-                        int LA20_177 = input.LA(1);
-
-                         
-                        int index20_177 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( ((isNotInString())) ) {s = 191;}
-
-                        else if ( (true) ) {s = 47;}
-
-                         
-                        input.seek(index20_177);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 6 : 
-                        int LA20_176 = input.LA(1);
-
-                         
-                        int index20_176 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( ((isNotInString())) ) {s = 190;}
-
-                        else if ( (true) ) {s = 47;}
-
-                         
-                        input.seek(index20_176);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 7 : 
-                        int LA20_184 = input.LA(1);
-
-                         
-                        int index20_184 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( ((isNotInString())) ) {s = 197;}
-
-                        else if ( (true) ) {s = 47;}
-
-                         
-                        input.seek(index20_184);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 8 : 
-                        int LA20_189 = input.LA(1);
-
-                         
-                        int index20_189 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( ((isNotInString())) ) {s = 200;}
-
-                        else if ( (true) ) {s = 47;}
-
-                         
-                        input.seek(index20_189);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 9 : 
-                        int LA20_174 = input.LA(1);
-
-                         
-                        int index20_174 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( ((isNotInString())) ) {s = 188;}
-
-                        else if ( (true) ) {s = 47;}
-
-                         
-                        input.seek(index20_174);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 10 : 
-                        int LA20_172 = input.LA(1);
-
-                         
-                        int index20_172 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( ((isNotInString())) ) {s = 186;}
-
-                        else if ( (true) ) {s = 47;}
-
-                         
-                        input.seek(index20_172);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 11 : 
-                        int LA20_196 = input.LA(1);
-
-                         
-                        int index20_196 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( ((isNotInString())) ) {s = 205;}
-
-                        else if ( (true) ) {s = 47;}
-
-                         
-                        input.seek(index20_196);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 12 : 
-                        int LA20_193 = input.LA(1);
-
-                         
-                        int index20_193 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( ((isNotInString())) ) {s = 202;}
-
-                        else if ( (true) ) {s = 47;}
-
-                         
-                        input.seek(index20_193);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 13 : 
-                        int LA20_187 = input.LA(1);
-
-                         
-                        int index20_187 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( ((isNotInString())) ) {s = 199;}
-
-                        else if ( (true) ) {s = 47;}
-
-                         
-                        input.seek(index20_187);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 14 : 
-                        int LA20_20 = input.LA(1);
-
-                         
-                        int index20_20 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (LA20_20=='>') && ((isNotInString()))) {s = 86;}
-
-                        else s = 43;
-
-                         
-                        input.seek(index20_20);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 15 : 
-                        int LA20_185 = input.LA(1);
-
-                         
-                        int index20_185 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( ((isNotInString())) ) {s = 198;}
-
-                        else if ( (true) ) {s = 47;}
-
-                         
-                        input.seek(index20_185);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 16 : 
-                        int LA20_104 = input.LA(1);
-
-                         
-                        int index20_104 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( ((isNotInString())) ) {s = 105;}
-
-                        else if ( (true) ) {s = 43;}
-
-                         
-                        input.seek(index20_104);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 17 : 
-                        int LA20_102 = input.LA(1);
-
-                         
-                        int index20_102 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( ((isNotInString())) ) {s = 146;}
-
-                        else if ( (true) ) {s = 43;}
-
-                         
-                        input.seek(index20_102);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 18 : 
-                        int LA20_103 = input.LA(1);
-
-                         
-                        int index20_103 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( ((isNotInString())) ) {s = 147;}
-
-                        else if ( (true) ) {s = 43;}
-
-                         
-                        input.seek(index20_103);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 19 : 
-                        int LA20_100 = input.LA(1);
-
-                         
-                        int index20_100 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( ((isNotInString())) ) {s = 144;}
-
-                        else if ( (true) ) {s = 43;}
-
-                         
-                        input.seek(index20_100);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 20 : 
-                        int LA20_101 = input.LA(1);
-
-                         
-                        int index20_101 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( ((isNotInString())) ) {s = 145;}
-
-                        else if ( (true) ) {s = 43;}
-
-                         
-                        input.seek(index20_101);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 21 : 
-                        int LA20_98 = input.LA(1);
-
-                         
-                        int index20_98 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( ((isNotInString())) ) {s = 142;}
-
-                        else if ( (true) ) {s = 43;}
-
-                         
-                        input.seek(index20_98);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 22 : 
-                        int LA20_99 = input.LA(1);
-
-                         
-                        int index20_99 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( ((isNotInString())) ) {s = 143;}
-
-                        else if ( (true) ) {s = 43;}
-
-                         
-                        input.seek(index20_99);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 23 : 
-                        int LA20_81 = input.LA(1);
-
-                         
-                        int index20_81 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( ((isNotInString())) ) {s = 130;}
-
-                        else if ( (true) ) {s = 43;}
-
-                         
-                        input.seek(index20_81);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 24 : 
-                        int LA20_84 = input.LA(1);
-
-                         
-                        int index20_84 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( ((isNotInString())) ) {s = 131;}
-
-                        else if ( (true) ) {s = 43;}
-
-                         
-                        input.seek(index20_84);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 25 : 
-                        int LA20_97 = input.LA(1);
-
-                         
-                        int index20_97 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( ((isNotInString())) ) {s = 141;}
-
-                        else if ( (true) ) {s = 43;}
-
-                         
-                        input.seek(index20_97);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 26 : 
-                        int LA20_61 = input.LA(1);
-
-                         
-                        int index20_61 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( ((isNotInString())) ) {s = 122;}
-
-                        else if ( (true) ) {s = 43;}
-
-                         
-                        input.seek(index20_61);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 27 : 
-                        int LA20_94 = input.LA(1);
-
-                         
-                        int index20_94 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( ((isNotInString())) ) {s = 139;}
-
-                        else if ( (true) ) {s = 43;}
-
-                         
-                        input.seek(index20_94);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 28 : 
-                        int LA20_96 = input.LA(1);
-
-                         
-                        int index20_96 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( ((isNotInString())) ) {s = 140;}
-
-                        else if ( (true) ) {s = 43;}
-
-                         
-                        input.seek(index20_96);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 29 : 
-                        int LA20_92 = input.LA(1);
-
-                         
-                        int index20_92 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( ((isNotInString())) ) {s = 138;}
-
-                        else if ( (true) ) {s = 43;}
-
-                         
-                        input.seek(index20_92);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 30 : 
-                        int LA20_75 = input.LA(1);
-
-                         
-                        int index20_75 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( ((isNotInString())) ) {s = 129;}
-
-                        else if ( (true) ) {s = 43;}
-
-                         
-                        input.seek(index20_75);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 31 : 
-                        int LA20_91 = input.LA(1);
-
-                         
-                        int index20_91 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( ((isNotInString())) ) {s = 137;}
-
-                        else if ( (true) ) {s = 43;}
-
-                         
-                        input.seek(index20_91);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 32 : 
-                        int LA20_90 = input.LA(1);
-
-                         
-                        int index20_90 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( ((isNotInString())) ) {s = 136;}
-
-                        else if ( (true) ) {s = 43;}
-
-                         
-                        input.seek(index20_90);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 33 : 
-                        int LA20_89 = input.LA(1);
-
-                         
-                        int index20_89 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( ((isNotInString())) ) {s = 135;}
-
-                        else if ( (true) ) {s = 43;}
-
-                         
-                        input.seek(index20_89);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 34 : 
-                        int LA20_88 = input.LA(1);
-
-                         
-                        int index20_88 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( ((!doubleQuotedString)) ) {s = 134;}
-
-                        else if ( (true) ) {s = 43;}
-
-                         
-                        input.seek(index20_88);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 35 : 
-                        int LA20_87 = input.LA(1);
-
-                         
-                        int index20_87 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( ((!singleQuotedString)) ) {s = 133;}
-
-                        else if ( (true) ) {s = 43;}
-
-                         
-                        input.seek(index20_87);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 36 : 
-                        int LA20_70 = input.LA(1);
-
-                         
-                        int index20_70 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( ((isNotInString())) ) {s = 128;}
-
-                        else if ( (true) ) {s = 43;}
-
-                         
-                        input.seek(index20_70);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 37 : 
-                        int LA20_13 = input.LA(1);
-
-                         
-                        int index20_13 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (LA20_13=='=') && ((isNotInString()))) {s = 68;}
-
-                        else if ( (LA20_13=='~') && ((isNotInString()))) {s = 69;}
-
-                        else s = 70;
-
-                         
-                        input.seek(index20_13);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 38 : 
-                        int LA20_132 = input.LA(1);
-
-                         
-                        int index20_132 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( ((isNotInString())) ) {s = 164;}
-
-                        else if ( (true) ) {s = 47;}
-
-                         
-                        input.seek(index20_132);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 39 : 
-                        int LA20_108 = input.LA(1);
-
-                         
-                        int index20_108 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( ((isNotInString())) ) {s = 149;}
-
-                        else if ( (true) ) {s = 47;}
-
-                         
-                        input.seek(index20_108);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 40 : 
-                        int LA20_110 = input.LA(1);
-
-                         
-                        int index20_110 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( ((isNotInString())) ) {s = 151;}
-
-                        else if ( (true) ) {s = 47;}
-
-                         
-                        input.seek(index20_110);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 41 : 
-                        int LA20_16 = input.LA(1);
-
-                         
-                        int index20_16 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (LA20_16=='>') && ((isNotInString()))) {s = 76;}
-
-                        else s = 77;
-
-                         
-                        input.seek(index20_16);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 42 : 
-                        int LA20_18 = input.LA(1);
-
-                         
-                        int index20_18 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (LA20_18=='=') && ((isNotInString()))) {s = 82;}
-
-                        else if ( (LA20_18=='>') && ((isNotInString()))) {s = 83;}
-
-                        else s = 84;
-
-                         
-                        input.seek(index20_18);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 43 : 
-                        int LA20_9 = input.LA(1);
-
-                         
-                        int index20_9 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (LA20_9=='<') && ((isNotInString()))) {s = 56;}
-
-                        else if ( (LA20_9=='-') && ((isNotInString()))) {s = 57;}
-
-                        else if ( (LA20_9=='=') && ((isNotInString()))) {s = 58;}
-
-                        else if ( (LA20_9=='|') && ((isNotInString()))) {s = 59;}
-
-                        else if ( (LA20_9=='~') && ((isNotInString()))) {s = 60;}
-
-                        else s = 61;
-
-                         
-                        input.seek(index20_9);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 44 : 
-                        int LA20_12 = input.LA(1);
-
-                         
-                        int index20_12 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (LA20_12=='>') && ((isNotInString()))) {s = 67;}
-
-                        else s = 43;
-
-                         
-                        input.seek(index20_12);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 45 : 
-                        int LA20_67 = input.LA(1);
-
-                         
-                        int index20_67 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (LA20_67=='>') && ((isNotInString()))) {s = 126;}
-
-                        else s = 127;
-
-                         
-                        input.seek(index20_67);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 46 : 
                         int LA20_17 = input.LA(1);
 
                          
                         int index20_17 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( (LA20_17=='=') && ((isNotInString()))) {s = 78;}
+                        if ( (LA20_17=='=') && ((isNotInString()))) {s = 80;}
 
-                        else if ( (LA20_17=='>') && ((isNotInString()))) {s = 79;}
+                        else if ( (LA20_17=='>') && ((isNotInString()))) {s = 81;}
 
-                        else if ( (LA20_17=='~') && ((isNotInString()))) {s = 80;}
+                        else if ( (LA20_17=='~') && ((isNotInString()))) {s = 82;}
 
-                        else s = 81;
+                        else s = 83;
 
                          
                         input.seek(index20_17);
                         if ( s>=0 ) return s;
                         break;
-                    case 47 : 
-                        int LA20_27 = input.LA(1);
+                    case 2 : 
+                        int LA20_57 = input.LA(1);
 
                          
-                        int index20_27 = input.index();
+                        int index20_57 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( (LA20_27=='*') && ((isNotInString()))) {s = 93;}
+                        if ( (LA20_57=='|') && ((isNotInString()))) {s = 124;}
 
-                        else if ( ((LA20_27>='\u0000' && LA20_27<='\t')||(LA20_27>='\u000B' && LA20_27<=')')||(LA20_27>='+' && LA20_27<='.')||(LA20_27>='0' && LA20_27<='\uFFFF')) && ((isReAcceptable()))) {s = 95;}
-
-                        else s = 94;
+                        else s = 125;
 
                          
-                        input.seek(index20_27);
+                        input.seek(index20_57);
                         if ( s>=0 ) return s;
                         break;
-                    case 48 : 
+                    case 3 : 
+                        int LA20_15 = input.LA(1);
+
+                         
+                        int index20_15 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (LA20_15=='=') && ((isNotInString()))) {s = 75;}
+
+                        else if ( (LA20_15=='>') && ((isNotInString()))) {s = 76;}
+
+                        else s = 77;
+
+                         
+                        input.seek(index20_15);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 4 : 
                         int LA20_0 = input.LA(1);
 
                         s = -1;
@@ -4432,82 +3933,784 @@ public class PPLexer extends Lexer {
 
                         else if ( (LA20_0=='\"') ) {s = 21;}
 
-                        else if ( (LA20_0=='\'') ) {s = 22;}
+                        else if ( (LA20_0=='%') ) {s = 22;}
 
-                        else if ( (LA20_0=='(') ) {s = 23;}
+                        else if ( (LA20_0=='\'') ) {s = 23;}
 
-                        else if ( (LA20_0==')') ) {s = 24;}
+                        else if ( (LA20_0=='(') ) {s = 24;}
 
-                        else if ( (LA20_0=='*') ) {s = 25;}
+                        else if ( (LA20_0==')') ) {s = 25;}
 
-                        else if ( (LA20_0==',') ) {s = 26;}
+                        else if ( (LA20_0=='*') ) {s = 26;}
 
-                        else if ( (LA20_0=='/') ) {s = 27;}
+                        else if ( (LA20_0==',') ) {s = 27;}
 
-                        else if ( (LA20_0==':') ) {s = 28;}
+                        else if ( (LA20_0=='.') ) {s = 28;}
 
-                        else if ( (LA20_0==';') ) {s = 29;}
+                        else if ( (LA20_0=='/') ) {s = 29;}
 
-                        else if ( (LA20_0=='?') ) {s = 30;}
+                        else if ( (LA20_0==':') ) {s = 30;}
 
-                        else if ( (LA20_0=='@') ) {s = 31;}
+                        else if ( (LA20_0==';') ) {s = 31;}
 
-                        else if ( (LA20_0=='[') ) {s = 32;}
+                        else if ( (LA20_0=='?') ) {s = 32;}
 
-                        else if ( (LA20_0==']') ) {s = 33;}
+                        else if ( (LA20_0=='@') ) {s = 33;}
 
-                        else if ( (LA20_0=='{') ) {s = 34;}
+                        else if ( (LA20_0=='[') ) {s = 34;}
 
-                        else if ( (LA20_0=='}') ) {s = 35;}
+                        else if ( (LA20_0==']') ) {s = 35;}
 
-                        else if ( (LA20_0=='#') ) {s = 36;}
+                        else if ( (LA20_0=='{') ) {s = 36;}
 
-                        else if ( ((LA20_0>='\t' && LA20_0<='\n')||LA20_0=='\r'||LA20_0==' '||LA20_0=='\u00A0') ) {s = 37;}
+                        else if ( (LA20_0=='}') ) {s = 37;}
 
-                        else if ( ((LA20_0>='0' && LA20_0<='9')) ) {s = 38;}
+                        else if ( (LA20_0=='#') ) {s = 38;}
 
-                        else if ( (LA20_0=='b'||(LA20_0>='g' && LA20_0<='h')||(LA20_0>='j' && LA20_0<='m')||(LA20_0>='p' && LA20_0<='s')||(LA20_0>='v' && LA20_0<='z')) ) {s = 39;}
+                        else if ( ((LA20_0>='\t' && LA20_0<='\n')||LA20_0=='\r'||LA20_0==' '||LA20_0=='\u00A0') ) {s = 39;}
 
-                        else if ( ((LA20_0>='A' && LA20_0<='Z')) ) {s = 40;}
+                        else if ( ((LA20_0>='0' && LA20_0<='9')) ) {s = 40;}
 
-                        else if ( (LA20_0=='_') ) {s = 41;}
+                        else if ( (LA20_0=='b'||(LA20_0>='g' && LA20_0<='h')||(LA20_0>='j' && LA20_0<='m')||(LA20_0>='p' && LA20_0<='s')||(LA20_0>='v' && LA20_0<='z')) ) {s = 41;}
 
-                        else if ( (LA20_0=='.') ) {s = 42;}
+                        else if ( ((LA20_0>='A' && LA20_0<='Z')) ) {s = 42;}
 
-                        else if ( ((LA20_0>='\u0000' && LA20_0<='\b')||(LA20_0>='\u000B' && LA20_0<='\f')||(LA20_0>='\u000E' && LA20_0<='\u001F')||(LA20_0>='%' && LA20_0<='&')||LA20_0=='^'||LA20_0=='`'||(LA20_0>='\u007F' && LA20_0<='\u009F')||(LA20_0>='\u00A1' && LA20_0<='\uFFFF')) ) {s = 43;}
+                        else if ( (LA20_0=='_') ) {s = 43;}
 
+                        else if ( ((LA20_0>='\u0000' && LA20_0<='\b')||(LA20_0>='\u000B' && LA20_0<='\f')||(LA20_0>='\u000E' && LA20_0<='\u001F')||LA20_0=='&'||LA20_0=='^'||LA20_0=='`'||(LA20_0>='\u007F' && LA20_0<='\u009F')||(LA20_0>='\u00A1' && LA20_0<='\uFFFF')) ) {s = 44;}
+
+                        if ( s>=0 ) return s;
+                        break;
+                    case 5 : 
+                        int LA20_13 = input.LA(1);
+
+                         
+                        int index20_13 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (LA20_13=='=') && ((isNotInString()))) {s = 70;}
+
+                        else if ( (LA20_13=='~') && ((isNotInString()))) {s = 71;}
+
+                        else s = 72;
+
+                         
+                        input.seek(index20_13);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 6 : 
+                        int LA20_68 = input.LA(1);
+
+                         
+                        int index20_68 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (LA20_68=='>') && ((isNotInString()))) {s = 130;}
+
+                        else s = 131;
+
+                         
+                        input.seek(index20_68);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 7 : 
+                        int LA20_212 = input.LA(1);
+
+                         
+                        int index20_212 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( ((isNotInString())) ) {s = 214;}
+
+                        else if ( (true) ) {s = 48;}
+
+                         
+                        input.seek(index20_212);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 8 : 
+                        int LA20_209 = input.LA(1);
+
+                         
+                        int index20_209 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( ((isNotInString())) ) {s = 213;}
+
+                        else if ( (true) ) {s = 48;}
+
+                         
+                        input.seek(index20_209);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 9 : 
+                        int LA20_202 = input.LA(1);
+
+                         
+                        int index20_202 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( ((isNotInString())) ) {s = 211;}
+
+                        else if ( (true) ) {s = 48;}
+
+                         
+                        input.seek(index20_202);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 10 : 
+                        int LA20_191 = input.LA(1);
+
+                         
+                        int index20_191 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( ((isNotInString())) ) {s = 204;}
+
+                        else if ( (true) ) {s = 48;}
+
+                         
+                        input.seek(index20_191);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 11 : 
+                        int LA20_201 = input.LA(1);
+
+                         
+                        int index20_201 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( ((isNotInString())) ) {s = 210;}
+
+                        else if ( (true) ) {s = 48;}
+
+                         
+                        input.seek(index20_201);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 12 : 
+                        int LA20_199 = input.LA(1);
+
+                         
+                        int index20_199 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( ((isNotInString())) ) {s = 208;}
+
+                        else if ( (true) ) {s = 48;}
+
+                         
+                        input.seek(index20_199);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 13 : 
+                        int LA20_190 = input.LA(1);
+
+                         
+                        int index20_190 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( ((isNotInString())) ) {s = 203;}
+
+                        else if ( (true) ) {s = 48;}
+
+                         
+                        input.seek(index20_190);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 14 : 
+                        int LA20_38 = input.LA(1);
+
+                         
+                        int index20_38 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( ((LA20_38>='\u0000' && LA20_38<='\uFFFF')) && ((isNotInString()))) {s = 109;}
+
+                        else s = 108;
+
+                         
+                        input.seek(index20_38);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 15 : 
+                        int LA20_178 = input.LA(1);
+
+                         
+                        int index20_178 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( ((isNotInString())) ) {s = 192;}
+
+                        else if ( (true) ) {s = 48;}
+
+                         
+                        input.seek(index20_178);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 16 : 
+                        int LA20_193 = input.LA(1);
+
+                         
+                        int index20_193 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( ((isNotInString())) ) {s = 205;}
+
+                        else if ( (true) ) {s = 48;}
+
+                         
+                        input.seek(index20_193);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 17 : 
+                        int LA20_195 = input.LA(1);
+
+                         
+                        int index20_195 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( ((isNotInString())) ) {s = 206;}
+
+                        else if ( (true) ) {s = 48;}
+
+                         
+                        input.seek(index20_195);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 18 : 
+                        int LA20_183 = input.LA(1);
+
+                         
+                        int index20_183 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( ((isNotInString())) ) {s = 197;}
+
+                        else if ( (true) ) {s = 48;}
+
+                         
+                        input.seek(index20_183);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 19 : 
+                        int LA20_180 = input.LA(1);
+
+                         
+                        int index20_180 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( ((isNotInString())) ) {s = 194;}
+
+                        else if ( (true) ) {s = 48;}
+
+                         
+                        input.seek(index20_180);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 20 : 
+                        int LA20_182 = input.LA(1);
+
+                         
+                        int index20_182 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( ((isNotInString())) ) {s = 196;}
+
+                        else if ( (true) ) {s = 48;}
+
+                         
+                        input.seek(index20_182);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 21 : 
+                        int LA20_169 = input.LA(1);
+
+                         
+                        int index20_169 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( ((isNotInString())) ) {s = 184;}
+
+                        else if ( (true) ) {s = 48;}
+
+                         
+                        input.seek(index20_169);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 22 : 
+                        int LA20_114 = input.LA(1);
+
+                         
+                        int index20_114 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( ((isNotInString())) ) {s = 157;}
+
+                        else if ( (true) ) {s = 48;}
+
+                         
+                        input.seek(index20_114);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 23 : 
+                        int LA20_112 = input.LA(1);
+
+                         
+                        int index20_112 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( ((isNotInString())) ) {s = 155;}
+
+                        else if ( (true) ) {s = 48;}
+
+                         
+                        input.seek(index20_112);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 24 : 
+                        int LA20_137 = input.LA(1);
+
+                         
+                        int index20_137 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( ((isNotInString())) ) {s = 170;}
+
+                        else if ( (true) ) {s = 48;}
+
+                         
+                        input.seek(index20_137);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 25 : 
+                        int LA20_72 = input.LA(1);
+
+                         
+                        int index20_72 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( ((isNotInString())) ) {s = 133;}
+
+                        else if ( (true) ) {s = 44;}
+
+                         
+                        input.seek(index20_72);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 26 : 
+                        int LA20_89 = input.LA(1);
+
+                         
+                        int index20_89 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( ((!singleQuotedString)) ) {s = 138;}
+
+                        else if ( (true) ) {s = 44;}
+
+                         
+                        input.seek(index20_89);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 27 : 
+                        int LA20_91 = input.LA(1);
+
+                         
+                        int index20_91 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( ((!doubleQuotedString)) ) {s = 140;}
+
+                        else if ( (true) ) {s = 44;}
+
+                         
+                        input.seek(index20_91);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 28 : 
+                        int LA20_90 = input.LA(1);
+
+                         
+                        int index20_90 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( ((!isNotInString())) ) {s = 139;}
+
+                        else if ( (true) ) {s = 44;}
+
+                         
+                        input.seek(index20_90);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 29 : 
+                        int LA20_93 = input.LA(1);
+
+                         
+                        int index20_93 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( ((isNotInString())) ) {s = 142;}
+
+                        else if ( (true) ) {s = 44;}
+
+                         
+                        input.seek(index20_93);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 30 : 
+                        int LA20_92 = input.LA(1);
+
+                         
+                        int index20_92 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( ((isNotInString())) ) {s = 141;}
+
+                        else if ( (true) ) {s = 44;}
+
+                         
+                        input.seek(index20_92);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 31 : 
+                        int LA20_77 = input.LA(1);
+
+                         
+                        int index20_77 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( ((isNotInString())) ) {s = 134;}
+
+                        else if ( (true) ) {s = 44;}
+
+                         
+                        input.seek(index20_77);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 32 : 
+                        int LA20_94 = input.LA(1);
+
+                         
+                        int index20_94 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( ((isNotInString())) ) {s = 143;}
+
+                        else if ( (true) ) {s = 44;}
+
+                         
+                        input.seek(index20_94);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 33 : 
+                        int LA20_12 = input.LA(1);
+
+                         
+                        int index20_12 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (LA20_12=='>') && ((isNotInString()))) {s = 68;}
+
+                        else s = 69;
+
+                         
+                        input.seek(index20_12);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 34 : 
+                        int LA20_95 = input.LA(1);
+
+                         
+                        int index20_95 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( ((isNotInString())) ) {s = 144;}
+
+                        else if ( (true) ) {s = 44;}
+
+                         
+                        input.seek(index20_95);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 35 : 
+                        int LA20_98 = input.LA(1);
+
+                         
+                        int index20_98 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( ((isNotInString())) ) {s = 145;}
+
+                        else if ( (true) ) {s = 44;}
+
+                         
+                        input.seek(index20_98);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 36 : 
+                        int LA20_101 = input.LA(1);
+
+                         
+                        int index20_101 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( ((isNotInString())) ) {s = 147;}
+
+                        else if ( (true) ) {s = 44;}
+
+                         
+                        input.seek(index20_101);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 37 : 
+                        int LA20_100 = input.LA(1);
+
+                         
+                        int index20_100 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( ((isNotInString())) ) {s = 146;}
+
+                        else if ( (true) ) {s = 44;}
+
+                         
+                        input.seek(index20_100);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 38 : 
+                        int LA20_83 = input.LA(1);
+
+                         
+                        int index20_83 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( ((isNotInString())) ) {s = 135;}
+
+                        else if ( (true) ) {s = 44;}
+
+                         
+                        input.seek(index20_83);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 39 : 
+                        int LA20_62 = input.LA(1);
+
+                         
+                        int index20_62 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( ((isNotInString())) ) {s = 126;}
+
+                        else if ( (true) ) {s = 44;}
+
+                         
+                        input.seek(index20_62);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 40 : 
+                        int LA20_102 = input.LA(1);
+
+                         
+                        int index20_102 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( ((isNotInString())) ) {s = 148;}
+
+                        else if ( (true) ) {s = 44;}
+
+                         
+                        input.seek(index20_102);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 41 : 
+                        int LA20_86 = input.LA(1);
+
+                         
+                        int index20_86 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( ((isNotInString())) ) {s = 136;}
+
+                        else if ( (true) ) {s = 44;}
+
+                         
+                        input.seek(index20_86);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 42 : 
+                        int LA20_108 = input.LA(1);
+
+                         
+                        int index20_108 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( ((isNotInString())) ) {s = 109;}
+
+                        else if ( (true) ) {s = 44;}
+
+                         
+                        input.seek(index20_108);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 43 : 
+                        int LA20_69 = input.LA(1);
+
+                         
+                        int index20_69 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( ((isNotInString())) ) {s = 132;}
+
+                        else if ( (true) ) {s = 44;}
+
+                         
+                        input.seek(index20_69);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 44 : 
+                        int LA20_107 = input.LA(1);
+
+                         
+                        int index20_107 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( ((isNotInString())) ) {s = 153;}
+
+                        else if ( (true) ) {s = 44;}
+
+                         
+                        input.seek(index20_107);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 45 : 
+                        int LA20_105 = input.LA(1);
+
+                         
+                        int index20_105 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( ((isNotInString())) ) {s = 151;}
+
+                        else if ( (true) ) {s = 44;}
+
+                         
+                        input.seek(index20_105);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 46 : 
+                        int LA20_106 = input.LA(1);
+
+                         
+                        int index20_106 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( ((isNotInString())) ) {s = 152;}
+
+                        else if ( (true) ) {s = 44;}
+
+                         
+                        input.seek(index20_106);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 47 : 
+                        int LA20_103 = input.LA(1);
+
+                         
+                        int index20_103 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( ((isNotInString())) ) {s = 149;}
+
+                        else if ( (true) ) {s = 44;}
+
+                         
+                        input.seek(index20_103);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 48 : 
+                        int LA20_104 = input.LA(1);
+
+                         
+                        int index20_104 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( ((isNotInString())) ) {s = 150;}
+
+                        else if ( (true) ) {s = 44;}
+
+                         
+                        input.seek(index20_104);
                         if ( s>=0 ) return s;
                         break;
                     case 49 : 
-                        int LA20_36 = input.LA(1);
+                        int LA20_18 = input.LA(1);
 
                          
-                        int index20_36 = input.index();
+                        int index20_18 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( ((LA20_36>='\u0000' && LA20_36<='\uFFFF')) && ((isNotInString()))) {s = 105;}
+                        if ( (LA20_18=='=') && ((isNotInString()))) {s = 84;}
 
-                        else s = 104;
+                        else if ( (LA20_18=='>') && ((isNotInString()))) {s = 85;}
+
+                        else s = 86;
 
                          
-                        input.seek(index20_36);
+                        input.seek(index20_18);
                         if ( s>=0 ) return s;
                         break;
                     case 50 : 
-                        int LA20_15 = input.LA(1);
+                        int LA20_9 = input.LA(1);
 
                          
-                        int index20_15 = input.index();
+                        int index20_9 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( (LA20_15=='=') && ((isNotInString()))) {s = 73;}
+                        if ( (LA20_9=='<') && ((isNotInString()))) {s = 57;}
 
-                        else if ( (LA20_15=='>') && ((isNotInString()))) {s = 74;}
+                        else if ( (LA20_9=='-') && ((isNotInString()))) {s = 58;}
 
-                        else s = 75;
+                        else if ( (LA20_9=='=') && ((isNotInString()))) {s = 59;}
+
+                        else if ( (LA20_9=='|') && ((isNotInString()))) {s = 60;}
+
+                        else if ( (LA20_9=='~') && ((isNotInString()))) {s = 61;}
+
+                        else s = 62;
 
                          
-                        input.seek(index20_15);
+                        input.seek(index20_9);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 51 : 
+                        int LA20_20 = input.LA(1);
+
+                         
+                        int index20_20 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (LA20_20=='>') && ((isNotInString()))) {s = 88;}
+
+                        else s = 44;
+
+                         
+                        input.seek(index20_20);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 52 : 
+                        int LA20_16 = input.LA(1);
+
+                         
+                        int index20_16 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (LA20_16=='>') && ((isNotInString()))) {s = 78;}
+
+                        else s = 79;
+
+                         
+                        input.seek(index20_16);
                         if ( s>=0 ) return s;
                         break;
             }

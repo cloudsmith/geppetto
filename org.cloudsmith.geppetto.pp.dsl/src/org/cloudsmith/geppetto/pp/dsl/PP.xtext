@@ -200,7 +200,7 @@ AdditiveExpression returns pp::Expression:
 	)*
 	;
 
-MultiplicativeOperator : '*' | '/' ;
+MultiplicativeOperator : '*' | '/' | '%' ;
 MultiplicativeExpression returns pp::Expression:
 	MatchingExpression ({pp::MultiplicativeExpression.leftExpr=current} 
 		opName = MultiplicativeOperator 
@@ -308,6 +308,18 @@ FunctionCall returns pp::Expression
 		')' )?
 	;
 
+LambdaExpression 
+    : Java8Lambda
+    | RubyLambda
+    ;
+
+Java8Lambda
+	: '|' '|' '=>'? '{' '.' '}'
+	;
+RubyLambda
+    : '{' '|' '|' '}'
+    ;
+    
 PrimaryExpression returns pp::Expression
 	: IfExpression
 	| UnlessExpression

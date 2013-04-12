@@ -31,10 +31,10 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.cloudsmith.geppetto.pp.impl.DefinitionArgumentListImpl#getArguments <em>Arguments</em>}</li>
+ * <li>{@link org.cloudsmith.geppetto.pp.impl.DefinitionArgumentListImpl#getArguments <em>Arguments</em>}</li>
  * </ul>
  * </p>
- *
+ * 
  * @generated
  */
 public class DefinitionArgumentListImpl extends EObjectImpl implements DefinitionArgumentList {
@@ -42,6 +42,7 @@ public class DefinitionArgumentListImpl extends EObjectImpl implements Definitio
 	 * The cached value of the '{@link #getArguments() <em>Arguments</em>}' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @see #getArguments()
 	 * @generated
 	 * @ordered
@@ -51,6 +52,7 @@ public class DefinitionArgumentListImpl extends EObjectImpl implements Definitio
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	protected DefinitionArgumentListImpl() {
@@ -60,6 +62,7 @@ public class DefinitionArgumentListImpl extends EObjectImpl implements Definitio
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@Override
@@ -74,6 +77,7 @@ public class DefinitionArgumentListImpl extends EObjectImpl implements Definitio
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@Override
@@ -88,6 +92,7 @@ public class DefinitionArgumentListImpl extends EObjectImpl implements Definitio
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@Override
@@ -102,6 +107,7 @@ public class DefinitionArgumentListImpl extends EObjectImpl implements Definitio
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@SuppressWarnings("unchecked")
@@ -119,6 +125,7 @@ public class DefinitionArgumentListImpl extends EObjectImpl implements Definitio
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@Override
@@ -129,6 +136,7 @@ public class DefinitionArgumentListImpl extends EObjectImpl implements Definitio
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@Override
@@ -144,6 +152,7 @@ public class DefinitionArgumentListImpl extends EObjectImpl implements Definitio
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	public EList<DefinitionArgument> getArguments() {

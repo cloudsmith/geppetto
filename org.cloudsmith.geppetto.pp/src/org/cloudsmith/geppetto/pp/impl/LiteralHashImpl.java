@@ -30,10 +30,10 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.cloudsmith.geppetto.pp.impl.LiteralHashImpl#getElements <em>Elements</em>}</li>
+ * <li>{@link org.cloudsmith.geppetto.pp.impl.LiteralHashImpl#getElements <em>Elements</em>}</li>
  * </ul>
  * </p>
- *
+ * 
  * @generated
  */
 public class LiteralHashImpl extends LiteralExpressionImpl implements LiteralHash {
@@ -41,6 +41,7 @@ public class LiteralHashImpl extends LiteralExpressionImpl implements LiteralHas
 	 * The cached value of the '{@link #getElements() <em>Elements</em>}' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @see #getElements()
 	 * @generated
 	 * @ordered
@@ -50,6 +51,7 @@ public class LiteralHashImpl extends LiteralExpressionImpl implements LiteralHas
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	protected LiteralHashImpl() {
@@ -59,6 +61,7 @@ public class LiteralHashImpl extends LiteralExpressionImpl implements LiteralHas
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@Override
@@ -73,6 +76,7 @@ public class LiteralHashImpl extends LiteralExpressionImpl implements LiteralHas
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@Override
@@ -87,6 +91,7 @@ public class LiteralHashImpl extends LiteralExpressionImpl implements LiteralHas
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@Override
@@ -101,6 +106,7 @@ public class LiteralHashImpl extends LiteralExpressionImpl implements LiteralHas
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@SuppressWarnings("unchecked")
@@ -118,6 +124,7 @@ public class LiteralHashImpl extends LiteralExpressionImpl implements LiteralHas
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@Override
@@ -128,6 +135,7 @@ public class LiteralHashImpl extends LiteralExpressionImpl implements LiteralHas
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@Override
@@ -143,6 +151,7 @@ public class LiteralHashImpl extends LiteralExpressionImpl implements LiteralHas
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	public EList<HashEntry> getElements() {

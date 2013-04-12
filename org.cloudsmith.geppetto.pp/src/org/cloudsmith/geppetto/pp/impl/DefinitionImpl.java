@@ -33,12 +33,12 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.cloudsmith.geppetto.pp.impl.DefinitionImpl#getClassName <em>Class Name</em>}</li>
- *   <li>{@link org.cloudsmith.geppetto.pp.impl.DefinitionImpl#getArguments <em>Arguments</em>}</li>
- *   <li>{@link org.cloudsmith.geppetto.pp.impl.DefinitionImpl#getStatements <em>Statements</em>}</li>
+ * <li>{@link org.cloudsmith.geppetto.pp.impl.DefinitionImpl#getClassName <em>Class Name</em>}</li>
+ * <li>{@link org.cloudsmith.geppetto.pp.impl.DefinitionImpl#getArguments <em>Arguments</em>}</li>
+ * <li>{@link org.cloudsmith.geppetto.pp.impl.DefinitionImpl#getStatements <em>Statements</em>}</li>
  * </ul>
  * </p>
- *
+ * 
  * @generated
  */
 public class DefinitionImpl extends ExpressionImpl implements Definition {
@@ -46,6 +46,7 @@ public class DefinitionImpl extends ExpressionImpl implements Definition {
 	 * The default value of the '{@link #getClassName() <em>Class Name</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @see #getClassName()
 	 * @generated
 	 * @ordered
@@ -56,6 +57,7 @@ public class DefinitionImpl extends ExpressionImpl implements Definition {
 	 * The cached value of the '{@link #getClassName() <em>Class Name</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @see #getClassName()
 	 * @generated
 	 * @ordered
@@ -66,6 +68,7 @@ public class DefinitionImpl extends ExpressionImpl implements Definition {
 	 * The cached value of the '{@link #getArguments() <em>Arguments</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @see #getArguments()
 	 * @generated
 	 * @ordered
@@ -76,6 +79,7 @@ public class DefinitionImpl extends ExpressionImpl implements Definition {
 	 * The cached value of the '{@link #getStatements() <em>Statements</em>}' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @see #getStatements()
 	 * @generated
 	 * @ordered
@@ -85,6 +89,7 @@ public class DefinitionImpl extends ExpressionImpl implements Definition {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	protected DefinitionImpl() {
@@ -94,6 +99,7 @@ public class DefinitionImpl extends ExpressionImpl implements Definition {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	public NotificationChain basicSetArguments(DefinitionArgumentList newArguments, NotificationChain msgs) {
@@ -113,6 +119,7 @@ public class DefinitionImpl extends ExpressionImpl implements Definition {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@Override
@@ -131,6 +138,7 @@ public class DefinitionImpl extends ExpressionImpl implements Definition {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@Override
@@ -147,6 +155,7 @@ public class DefinitionImpl extends ExpressionImpl implements Definition {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@Override
@@ -167,6 +176,7 @@ public class DefinitionImpl extends ExpressionImpl implements Definition {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@SuppressWarnings("unchecked")
@@ -190,6 +200,7 @@ public class DefinitionImpl extends ExpressionImpl implements Definition {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@Override
@@ -200,6 +211,7 @@ public class DefinitionImpl extends ExpressionImpl implements Definition {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@Override
@@ -221,6 +233,7 @@ public class DefinitionImpl extends ExpressionImpl implements Definition {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	public DefinitionArgumentList getArguments() {
@@ -230,6 +243,7 @@ public class DefinitionImpl extends ExpressionImpl implements Definition {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	public String getClassName() {
@@ -239,6 +253,7 @@ public class DefinitionImpl extends ExpressionImpl implements Definition {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	public EList<Expression> getStatements() {
@@ -252,6 +267,7 @@ public class DefinitionImpl extends ExpressionImpl implements Definition {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	public void setArguments(DefinitionArgumentList newArguments) {
@@ -275,6 +291,7 @@ public class DefinitionImpl extends ExpressionImpl implements Definition {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	public void setClassName(String newClassName) {
@@ -288,6 +305,7 @@ public class DefinitionImpl extends ExpressionImpl implements Definition {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@Override

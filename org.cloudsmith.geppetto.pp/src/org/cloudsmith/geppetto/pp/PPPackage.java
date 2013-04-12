@@ -1355,6 +1355,37 @@ public interface PPPackage extends EPackage {
 		 */
 		EReference UNLESS_EXPRESSION__THEN_STATEMENTS = eINSTANCE.getUnlessExpression_ThenStatements();
 
+		/**
+		 * The meta object literal for the '{@link org.cloudsmith.geppetto.pp.impl.LambdaImpl <em>Lambda</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * 
+		 * @see org.cloudsmith.geppetto.pp.impl.LambdaImpl
+		 * @see org.cloudsmith.geppetto.pp.impl.PPPackageImpl#getLambda()
+		 * @generated
+		 */
+		EClass LAMBDA = eINSTANCE.getLambda();
+
+		/**
+		 * The meta object literal for the '<em><b>Arguments</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * 
+		 * @generated
+		 */
+		EReference LAMBDA__ARGUMENTS = eINSTANCE.getLambda_Arguments();
+
+		/**
+		 * The meta object literal for the '{@link org.cloudsmith.geppetto.pp.impl.NamedAccessExpressionImpl <em>Named Access Expression</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * 
+		 * @see org.cloudsmith.geppetto.pp.impl.NamedAccessExpressionImpl
+		 * @see org.cloudsmith.geppetto.pp.impl.PPPackageImpl#getNamedAccessExpression()
+		 * @generated
+		 */
+		EClass NAMED_ACCESS_EXPRESSION = eINSTANCE.getNamedAccessExpression();
+
 	}
 
 	/**
@@ -3994,6 +4025,88 @@ public interface PPPackage extends EPackage {
 	int UNLESS_EXPRESSION_FEATURE_COUNT = EXPRESSION_FEATURE_COUNT + 2;
 
 	/**
+	 * The meta object id for the '{@link org.cloudsmith.geppetto.pp.impl.LambdaImpl <em>Lambda</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @see org.cloudsmith.geppetto.pp.impl.LambdaImpl
+	 * @see org.cloudsmith.geppetto.pp.impl.PPPackageImpl#getLambda()
+	 * @generated
+	 */
+	int LAMBDA = 70;
+
+	/**
+	 * The feature id for the '<em><b>Statements</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 * @ordered
+	 */
+	int LAMBDA__STATEMENTS = EXPRESSION_BLOCK__STATEMENTS;
+
+	/**
+	 * The feature id for the '<em><b>Arguments</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 * @ordered
+	 */
+	int LAMBDA__ARGUMENTS = EXPRESSION_BLOCK_FEATURE_COUNT + 0;
+
+	/**
+	 * The number of structural features of the '<em>Lambda</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 * @ordered
+	 */
+	int LAMBDA_FEATURE_COUNT = EXPRESSION_BLOCK_FEATURE_COUNT + 1;
+
+	/**
+	 * The meta object id for the '{@link org.cloudsmith.geppetto.pp.impl.NamedAccessExpressionImpl <em>Named Access Expression</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @see org.cloudsmith.geppetto.pp.impl.NamedAccessExpressionImpl
+	 * @see org.cloudsmith.geppetto.pp.impl.PPPackageImpl#getNamedAccessExpression()
+	 * @generated
+	 */
+	int NAMED_ACCESS_EXPRESSION = 71;
+
+	/**
+	 * The feature id for the '<em><b>Left Expr</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 * @ordered
+	 */
+	int NAMED_ACCESS_EXPRESSION__LEFT_EXPR = BINARY_EXPRESSION__LEFT_EXPR;
+
+	/**
+	 * The feature id for the '<em><b>Right Expr</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 * @ordered
+	 */
+	int NAMED_ACCESS_EXPRESSION__RIGHT_EXPR = BINARY_EXPRESSION__RIGHT_EXPR;
+
+	/**
+	 * The number of structural features of the '<em>Named Access Expression</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 * @ordered
+	 */
+	int NAMED_ACCESS_EXPRESSION_FEATURE_COUNT = BINARY_EXPRESSION_FEATURE_COUNT + 0;
+
+	/**
 	 * Returns the meta object for class '{@link org.cloudsmith.geppetto.pp.AdditiveExpression <em>Additive Expression</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -4760,6 +4873,29 @@ public interface PPPackage extends EPackage {
 	EClass getIQuotedString();
 
 	/**
+	 * Returns the meta object for class '{@link org.cloudsmith.geppetto.pp.Lambda <em>Lambda</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @return the meta object for class '<em>Lambda</em>'.
+	 * @see org.cloudsmith.geppetto.pp.Lambda
+	 * @generated
+	 */
+	EClass getLambda();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link org.cloudsmith.geppetto.pp.Lambda#getArguments <em>Arguments</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @return the meta object for the containment reference '<em>Arguments</em>'.
+	 * @see org.cloudsmith.geppetto.pp.Lambda#getArguments()
+	 * @see #getLambda()
+	 * @generated
+	 */
+	EReference getLambda_Arguments();
+
+	/**
 	 * Returns the meta object for class '{@link org.cloudsmith.geppetto.pp.LiteralBoolean <em>Literal Boolean</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -4962,6 +5098,17 @@ public interface PPPackage extends EPackage {
 	 * @generated
 	 */
 	EClass getMultiplicativeExpression();
+
+	/**
+	 * Returns the meta object for class '{@link org.cloudsmith.geppetto.pp.NamedAccessExpression <em>Named Access Expression</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @return the meta object for class '<em>Named Access Expression</em>'.
+	 * @see org.cloudsmith.geppetto.pp.NamedAccessExpression
+	 * @generated
+	 */
+	EClass getNamedAccessExpression();
 
 	/**
 	 * Returns the meta object for class '{@link org.cloudsmith.geppetto.pp.NodeDefinition <em>Node Definition</em>}'.

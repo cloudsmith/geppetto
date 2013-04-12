@@ -37,11 +37,11 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.cloudsmith.geppetto.pp.impl.UnlessExpressionImpl#getCondExpr <em>Cond Expr</em>}</li>
- *   <li>{@link org.cloudsmith.geppetto.pp.impl.UnlessExpressionImpl#getThenStatements <em>Then Statements</em>}</li>
+ * <li>{@link org.cloudsmith.geppetto.pp.impl.UnlessExpressionImpl#getCondExpr <em>Cond Expr</em>}</li>
+ * <li>{@link org.cloudsmith.geppetto.pp.impl.UnlessExpressionImpl#getThenStatements <em>Then Statements</em>}</li>
  * </ul>
  * </p>
- *
+ * 
  * @generated
  */
 public class UnlessExpressionImpl extends ExpressionImpl implements UnlessExpression {
@@ -49,6 +49,7 @@ public class UnlessExpressionImpl extends ExpressionImpl implements UnlessExpres
 	 * The cached value of the '{@link #getCondExpr() <em>Cond Expr</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @see #getCondExpr()
 	 * @generated
 	 * @ordered
@@ -59,6 +60,7 @@ public class UnlessExpressionImpl extends ExpressionImpl implements UnlessExpres
 	 * The cached value of the '{@link #getThenStatements() <em>Then Statements</em>}' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @see #getThenStatements()
 	 * @generated
 	 * @ordered
@@ -68,6 +70,7 @@ public class UnlessExpressionImpl extends ExpressionImpl implements UnlessExpres
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	protected UnlessExpressionImpl() {
@@ -77,25 +80,7 @@ public class UnlessExpressionImpl extends ExpressionImpl implements UnlessExpres
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	protected EClass eStaticClass() {
-		return PPPackage.Literals.UNLESS_EXPRESSION;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public Expression getCondExpr() {
-		return condExpr;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	public NotificationChain basicSetCondExpr(Expression newCondExpr, NotificationChain msgs) {
@@ -115,58 +100,7 @@ public class UnlessExpressionImpl extends ExpressionImpl implements UnlessExpres
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setCondExpr(Expression newCondExpr) {
-		if(newCondExpr != condExpr) {
-			NotificationChain msgs = null;
-			if(condExpr != null)
-				msgs = ((InternalEObject) condExpr).eInverseRemove(this, EOPPOSITE_FEATURE_BASE -
-						PPPackage.UNLESS_EXPRESSION__COND_EXPR, null, msgs);
-			if(newCondExpr != null)
-				msgs = ((InternalEObject) newCondExpr).eInverseAdd(this, EOPPOSITE_FEATURE_BASE -
-						PPPackage.UNLESS_EXPRESSION__COND_EXPR, null, msgs);
-			msgs = basicSetCondExpr(newCondExpr, msgs);
-			if(msgs != null)
-				msgs.dispatch();
-		}
-		else if(eNotificationRequired())
-			eNotify(new ENotificationImpl(
-				this, Notification.SET, PPPackage.UNLESS_EXPRESSION__COND_EXPR, newCondExpr, newCondExpr));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EList<Expression> getThenStatements() {
-		if(thenStatements == null) {
-			thenStatements = new EObjectContainmentEList<Expression>(
-				Expression.class, this, PPPackage.UNLESS_EXPRESSION__THEN_STATEMENTS);
-		}
-		return thenStatements;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
-		switch(featureID) {
-			case PPPackage.UNLESS_EXPRESSION__COND_EXPR:
-				return basicSetCondExpr(null, msgs);
-			case PPPackage.UNLESS_EXPRESSION__THEN_STATEMENTS:
-				return ((InternalEList<?>) getThenStatements()).basicRemove(otherEnd, msgs);
-		}
-		return super.eInverseRemove(otherEnd, featureID, msgs);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@Override
@@ -183,6 +117,41 @@ public class UnlessExpressionImpl extends ExpressionImpl implements UnlessExpres
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
+	@Override
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch(featureID) {
+			case PPPackage.UNLESS_EXPRESSION__COND_EXPR:
+				return basicSetCondExpr(null, msgs);
+			case PPPackage.UNLESS_EXPRESSION__THEN_STATEMENTS:
+				return ((InternalEList<?>) getThenStatements()).basicRemove(otherEnd, msgs);
+		}
+		return super.eInverseRemove(otherEnd, featureID, msgs);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
+	@Override
+	public boolean eIsSet(int featureID) {
+		switch(featureID) {
+			case PPPackage.UNLESS_EXPRESSION__COND_EXPR:
+				return condExpr != null;
+			case PPPackage.UNLESS_EXPRESSION__THEN_STATEMENTS:
+				return thenStatements != null && !thenStatements.isEmpty();
+		}
+		return super.eIsSet(featureID);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@SuppressWarnings("unchecked")
@@ -203,6 +172,18 @@ public class UnlessExpressionImpl extends ExpressionImpl implements UnlessExpres
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
+	@Override
+	protected EClass eStaticClass() {
+		return PPPackage.Literals.UNLESS_EXPRESSION;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@Override
@@ -221,17 +202,49 @@ public class UnlessExpressionImpl extends ExpressionImpl implements UnlessExpres
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
-	@Override
-	public boolean eIsSet(int featureID) {
-		switch(featureID) {
-			case PPPackage.UNLESS_EXPRESSION__COND_EXPR:
-				return condExpr != null;
-			case PPPackage.UNLESS_EXPRESSION__THEN_STATEMENTS:
-				return thenStatements != null && !thenStatements.isEmpty();
-		}
-		return super.eIsSet(featureID);
+	public Expression getCondExpr() {
+		return condExpr;
 	}
 
-} //UnlessExpressionImpl
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
+	public EList<Expression> getThenStatements() {
+		if(thenStatements == null) {
+			thenStatements = new EObjectContainmentEList<Expression>(
+				Expression.class, this, PPPackage.UNLESS_EXPRESSION__THEN_STATEMENTS);
+		}
+		return thenStatements;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
+	public void setCondExpr(Expression newCondExpr) {
+		if(newCondExpr != condExpr) {
+			NotificationChain msgs = null;
+			if(condExpr != null)
+				msgs = ((InternalEObject) condExpr).eInverseRemove(this, EOPPOSITE_FEATURE_BASE -
+						PPPackage.UNLESS_EXPRESSION__COND_EXPR, null, msgs);
+			if(newCondExpr != null)
+				msgs = ((InternalEObject) newCondExpr).eInverseAdd(this, EOPPOSITE_FEATURE_BASE -
+						PPPackage.UNLESS_EXPRESSION__COND_EXPR, null, msgs);
+			msgs = basicSetCondExpr(newCondExpr, msgs);
+			if(msgs != null)
+				msgs.dispatch();
+		}
+		else if(eNotificationRequired())
+			eNotify(new ENotificationImpl(
+				this, Notification.SET, PPPackage.UNLESS_EXPRESSION__COND_EXPR, newCondExpr, newCondExpr));
+	}
+
+} // UnlessExpressionImpl

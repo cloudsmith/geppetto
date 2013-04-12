@@ -313,6 +313,16 @@ public interface PPFactory extends EFactory {
 	InterpolatedVariable createInterpolatedVariable();
 
 	/**
+	 * Returns a new object of class '<em>Lambda</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @return a new object of class '<em>Lambda</em>'.
+	 * @generated
+	 */
+	Lambda createLambda();
+
+	/**
 	 * Returns a new object of class '<em>Literal Boolean</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -421,6 +431,16 @@ public interface PPFactory extends EFactory {
 	 * @generated
 	 */
 	MultiplicativeExpression createMultiplicativeExpression();
+
+	/**
+	 * Returns a new object of class '<em>Named Access Expression</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @return a new object of class '<em>Named Access Expression</em>'.
+	 * @generated
+	 */
+	NamedAccessExpression createNamedAccessExpression();
 
 	/**
 	 * Returns a new object of class '<em>Node Definition</em>'.

@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2011 Cloudsmith Inc. and other contributors, as listed below.
+ * Copyright (c) 2011, 2012 Cloudsmith Inc. and other contributors, as listed below.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -11,28 +11,28 @@
  */
 package org.cloudsmith.geppetto.pp.impl;
 
-import org.cloudsmith.geppetto.pp.Expression;
+import org.cloudsmith.geppetto.pp.NamedAccessExpression;
 import org.cloudsmith.geppetto.pp.PPPackage;
+
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.impl.EObjectImpl;
 
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Expression</b></em>'.
+ * An implementation of the model object '<em><b>Named Access Expression</b></em>'.
  * <!-- end-user-doc -->
  * <p>
  * </p>
  * 
  * @generated
  */
-public class ExpressionImpl extends EObjectImpl implements Expression {
+public class NamedAccessExpressionImpl extends BinaryExpressionImpl implements NamedAccessExpression {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
 	 * @generated
 	 */
-	protected ExpressionImpl() {
+	protected NamedAccessExpressionImpl() {
 		super();
 	}
 
@@ -44,7 +44,7 @@ public class ExpressionImpl extends EObjectImpl implements Expression {
 	 */
 	@Override
 	protected EClass eStaticClass() {
-		return PPPackage.Literals.EXPRESSION;
+		return PPPackage.Literals.NAMED_ACCESS_EXPRESSION;
 	}
 
-} // ExpressionImpl
+} // NamedAccessExpressionImpl

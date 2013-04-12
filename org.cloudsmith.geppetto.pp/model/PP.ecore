@@ -212,4 +212,9 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="thenStatements" upperBound="-1"
         eType="#//Expression" containment="true"/>
   </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Lambda" eSuperTypes="#//ExpressionBlock">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="arguments" eType="#//DefinitionArgumentList"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="NamedAccessExpression" eSuperTypes="#//BinaryExpression"/>
 </ecore:EPackage>

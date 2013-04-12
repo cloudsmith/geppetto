@@ -24,11 +24,11 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.cloudsmith.geppetto.pp.impl.VirtualNameOrReferenceImpl#getValue <em>Value</em>}</li>
- *   <li>{@link org.cloudsmith.geppetto.pp.impl.VirtualNameOrReferenceImpl#isExported <em>Exported</em>}</li>
+ * <li>{@link org.cloudsmith.geppetto.pp.impl.VirtualNameOrReferenceImpl#getValue <em>Value</em>}</li>
+ * <li>{@link org.cloudsmith.geppetto.pp.impl.VirtualNameOrReferenceImpl#isExported <em>Exported</em>}</li>
  * </ul>
  * </p>
- *
+ * 
  * @generated
  */
 public class VirtualNameOrReferenceImpl extends LiteralExpressionImpl implements VirtualNameOrReference {
@@ -36,6 +36,7 @@ public class VirtualNameOrReferenceImpl extends LiteralExpressionImpl implements
 	 * The default value of the '{@link #getValue() <em>Value</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @see #getValue()
 	 * @generated
 	 * @ordered
@@ -46,6 +47,7 @@ public class VirtualNameOrReferenceImpl extends LiteralExpressionImpl implements
 	 * The cached value of the '{@link #getValue() <em>Value</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @see #getValue()
 	 * @generated
 	 * @ordered
@@ -56,6 +58,7 @@ public class VirtualNameOrReferenceImpl extends LiteralExpressionImpl implements
 	 * The default value of the '{@link #isExported() <em>Exported</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @see #isExported()
 	 * @generated
 	 * @ordered
@@ -66,6 +69,7 @@ public class VirtualNameOrReferenceImpl extends LiteralExpressionImpl implements
 	 * The cached value of the '{@link #isExported() <em>Exported</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @see #isExported()
 	 * @generated
 	 * @ordered
@@ -75,6 +79,7 @@ public class VirtualNameOrReferenceImpl extends LiteralExpressionImpl implements
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	protected VirtualNameOrReferenceImpl() {
@@ -84,6 +89,7 @@ public class VirtualNameOrReferenceImpl extends LiteralExpressionImpl implements
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@Override
@@ -100,6 +106,7 @@ public class VirtualNameOrReferenceImpl extends LiteralExpressionImpl implements
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@Override
@@ -118,6 +125,7 @@ public class VirtualNameOrReferenceImpl extends LiteralExpressionImpl implements
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@Override
@@ -136,6 +144,7 @@ public class VirtualNameOrReferenceImpl extends LiteralExpressionImpl implements
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@Override
@@ -146,6 +155,7 @@ public class VirtualNameOrReferenceImpl extends LiteralExpressionImpl implements
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@Override
@@ -164,6 +174,7 @@ public class VirtualNameOrReferenceImpl extends LiteralExpressionImpl implements
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	public String getValue() {
@@ -173,6 +184,7 @@ public class VirtualNameOrReferenceImpl extends LiteralExpressionImpl implements
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	public boolean isExported() {
@@ -182,6 +194,7 @@ public class VirtualNameOrReferenceImpl extends LiteralExpressionImpl implements
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	public void setExported(boolean newExported) {
@@ -195,6 +208,7 @@ public class VirtualNameOrReferenceImpl extends LiteralExpressionImpl implements
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	public void setValue(String newValue) {
@@ -208,6 +222,7 @@ public class VirtualNameOrReferenceImpl extends LiteralExpressionImpl implements
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@Override

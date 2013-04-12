@@ -40,18 +40,18 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.cloudsmith.geppetto.pp.pptp.impl.TargetEntryImpl#getContents <em>Contents</em>}</li>
- *   <li>{@link org.cloudsmith.geppetto.pp.pptp.impl.TargetEntryImpl#getDescription <em>Description</em>}</li>
- *   <li>{@link org.cloudsmith.geppetto.pp.pptp.impl.TargetEntryImpl#getFunctions <em>Functions</em>}</li>
- *   <li>{@link org.cloudsmith.geppetto.pp.pptp.impl.TargetEntryImpl#getTypes <em>Types</em>}</li>
- *   <li>{@link org.cloudsmith.geppetto.pp.pptp.impl.TargetEntryImpl#getVersion <em>Version</em>}</li>
- *   <li>{@link org.cloudsmith.geppetto.pp.pptp.impl.TargetEntryImpl#getTypeFragments <em>Type Fragments</em>}</li>
- *   <li>{@link org.cloudsmith.geppetto.pp.pptp.impl.TargetEntryImpl#getMetaType <em>Meta Type</em>}</li>
- *   <li>{@link org.cloudsmith.geppetto.pp.pptp.impl.TargetEntryImpl#getLabel <em>Label</em>}</li>
- *   <li>{@link org.cloudsmith.geppetto.pp.pptp.impl.TargetEntryImpl#getMetaVariables <em>Meta Variables</em>}</li>
+ * <li>{@link org.cloudsmith.geppetto.pp.pptp.impl.TargetEntryImpl#getContents <em>Contents</em>}</li>
+ * <li>{@link org.cloudsmith.geppetto.pp.pptp.impl.TargetEntryImpl#getDescription <em>Description</em>}</li>
+ * <li>{@link org.cloudsmith.geppetto.pp.pptp.impl.TargetEntryImpl#getFunctions <em>Functions</em>}</li>
+ * <li>{@link org.cloudsmith.geppetto.pp.pptp.impl.TargetEntryImpl#getTypes <em>Types</em>}</li>
+ * <li>{@link org.cloudsmith.geppetto.pp.pptp.impl.TargetEntryImpl#getVersion <em>Version</em>}</li>
+ * <li>{@link org.cloudsmith.geppetto.pp.pptp.impl.TargetEntryImpl#getTypeFragments <em>Type Fragments</em>}</li>
+ * <li>{@link org.cloudsmith.geppetto.pp.pptp.impl.TargetEntryImpl#getMetaType <em>Meta Type</em>}</li>
+ * <li>{@link org.cloudsmith.geppetto.pp.pptp.impl.TargetEntryImpl#getLabel <em>Label</em>}</li>
+ * <li>{@link org.cloudsmith.geppetto.pp.pptp.impl.TargetEntryImpl#getMetaVariables <em>Meta Variables</em>}</li>
  * </ul>
  * </p>
- *
+ * 
  * @generated
  */
 public abstract class TargetEntryImpl extends EObjectImpl implements TargetEntry {
@@ -59,6 +59,7 @@ public abstract class TargetEntryImpl extends EObjectImpl implements TargetEntry
 	 * The cached value of the '{@link #getContents() <em>Contents</em>}' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @see #getContents()
 	 * @generated
 	 * @ordered
@@ -69,6 +70,7 @@ public abstract class TargetEntryImpl extends EObjectImpl implements TargetEntry
 	 * The default value of the '{@link #getDescription() <em>Description</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @see #getDescription()
 	 * @generated
 	 * @ordered
@@ -79,6 +81,7 @@ public abstract class TargetEntryImpl extends EObjectImpl implements TargetEntry
 	 * The cached value of the '{@link #getDescription() <em>Description</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @see #getDescription()
 	 * @generated
 	 * @ordered
@@ -89,6 +92,7 @@ public abstract class TargetEntryImpl extends EObjectImpl implements TargetEntry
 	 * The cached value of the '{@link #getFunctions() <em>Functions</em>}' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @see #getFunctions()
 	 * @generated
 	 * @ordered
@@ -99,6 +103,7 @@ public abstract class TargetEntryImpl extends EObjectImpl implements TargetEntry
 	 * The cached value of the '{@link #getTypes() <em>Types</em>}' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @see #getTypes()
 	 * @generated
 	 * @ordered
@@ -109,6 +114,7 @@ public abstract class TargetEntryImpl extends EObjectImpl implements TargetEntry
 	 * The default value of the '{@link #getVersion() <em>Version</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @see #getVersion()
 	 * @generated
 	 * @ordered
@@ -119,6 +125,7 @@ public abstract class TargetEntryImpl extends EObjectImpl implements TargetEntry
 	 * The cached value of the '{@link #getVersion() <em>Version</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @see #getVersion()
 	 * @generated
 	 * @ordered
@@ -129,6 +136,7 @@ public abstract class TargetEntryImpl extends EObjectImpl implements TargetEntry
 	 * The cached value of the '{@link #getTypeFragments() <em>Type Fragments</em>}' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @see #getTypeFragments()
 	 * @generated
 	 * @ordered
@@ -139,6 +147,7 @@ public abstract class TargetEntryImpl extends EObjectImpl implements TargetEntry
 	 * The cached value of the '{@link #getMetaType() <em>Meta Type</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @see #getMetaType()
 	 * @generated
 	 * @ordered
@@ -149,6 +158,7 @@ public abstract class TargetEntryImpl extends EObjectImpl implements TargetEntry
 	 * The default value of the '{@link #getLabel() <em>Label</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @see #getLabel()
 	 * @generated
 	 * @ordered
@@ -159,6 +169,7 @@ public abstract class TargetEntryImpl extends EObjectImpl implements TargetEntry
 	 * The cached value of the '{@link #getLabel() <em>Label</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @see #getLabel()
 	 * @generated
 	 * @ordered
@@ -169,6 +180,7 @@ public abstract class TargetEntryImpl extends EObjectImpl implements TargetEntry
 	 * The cached value of the '{@link #getMetaVariables() <em>Meta Variables</em>}' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @see #getMetaVariables()
 	 * @generated
 	 * @ordered
@@ -178,6 +190,7 @@ public abstract class TargetEntryImpl extends EObjectImpl implements TargetEntry
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	protected TargetEntryImpl() {
@@ -187,6 +200,7 @@ public abstract class TargetEntryImpl extends EObjectImpl implements TargetEntry
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	public NotificationChain basicSetMetaType(MetaType newMetaType, NotificationChain msgs) {
@@ -206,6 +220,7 @@ public abstract class TargetEntryImpl extends EObjectImpl implements TargetEntry
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@Override
@@ -236,6 +251,7 @@ public abstract class TargetEntryImpl extends EObjectImpl implements TargetEntry
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@Override
@@ -260,6 +276,7 @@ public abstract class TargetEntryImpl extends EObjectImpl implements TargetEntry
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@Override
@@ -296,6 +313,7 @@ public abstract class TargetEntryImpl extends EObjectImpl implements TargetEntry
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@SuppressWarnings("unchecked")
@@ -341,6 +359,7 @@ public abstract class TargetEntryImpl extends EObjectImpl implements TargetEntry
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@Override
@@ -351,6 +370,7 @@ public abstract class TargetEntryImpl extends EObjectImpl implements TargetEntry
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@Override
@@ -390,6 +410,7 @@ public abstract class TargetEntryImpl extends EObjectImpl implements TargetEntry
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	public EList<TargetElement> getContents() {
@@ -403,6 +424,7 @@ public abstract class TargetEntryImpl extends EObjectImpl implements TargetEntry
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	public String getDescription() {
@@ -412,6 +434,7 @@ public abstract class TargetEntryImpl extends EObjectImpl implements TargetEntry
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	public EList<Function> getFunctions() {
@@ -424,6 +447,7 @@ public abstract class TargetEntryImpl extends EObjectImpl implements TargetEntry
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	public String getLabel() {
@@ -433,6 +457,7 @@ public abstract class TargetEntryImpl extends EObjectImpl implements TargetEntry
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	public MetaType getMetaType() {
@@ -442,6 +467,7 @@ public abstract class TargetEntryImpl extends EObjectImpl implements TargetEntry
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	public EList<MetaVariable> getMetaVariables() {
@@ -455,6 +481,7 @@ public abstract class TargetEntryImpl extends EObjectImpl implements TargetEntry
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	public EList<TypeFragment> getTypeFragments() {
@@ -468,6 +495,7 @@ public abstract class TargetEntryImpl extends EObjectImpl implements TargetEntry
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	public EList<Type> getTypes() {
@@ -480,6 +508,7 @@ public abstract class TargetEntryImpl extends EObjectImpl implements TargetEntry
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	public String getVersion() {
@@ -489,6 +518,7 @@ public abstract class TargetEntryImpl extends EObjectImpl implements TargetEntry
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	public void setDescription(String newDescription) {
@@ -502,6 +532,7 @@ public abstract class TargetEntryImpl extends EObjectImpl implements TargetEntry
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	public void setLabel(String newLabel) {
@@ -514,6 +545,7 @@ public abstract class TargetEntryImpl extends EObjectImpl implements TargetEntry
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	public void setMetaType(MetaType newMetaType) {
@@ -537,6 +569,7 @@ public abstract class TargetEntryImpl extends EObjectImpl implements TargetEntry
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	public void setVersion(String newVersion) {
@@ -550,6 +583,7 @@ public abstract class TargetEntryImpl extends EObjectImpl implements TargetEntry
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@Override

@@ -27,10 +27,10 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.cloudsmith.geppetto.pp.impl.ParenthesisedExpressionImpl#getExpr <em>Expr</em>}</li>
+ * <li>{@link org.cloudsmith.geppetto.pp.impl.ParenthesisedExpressionImpl#getExpr <em>Expr</em>}</li>
  * </ul>
  * </p>
- *
+ * 
  * @generated
  */
 public class ParenthesisedExpressionImpl extends ExpressionImpl implements ParenthesisedExpression {
@@ -38,6 +38,7 @@ public class ParenthesisedExpressionImpl extends ExpressionImpl implements Paren
 	 * The cached value of the '{@link #getExpr() <em>Expr</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @see #getExpr()
 	 * @generated
 	 * @ordered
@@ -47,6 +48,7 @@ public class ParenthesisedExpressionImpl extends ExpressionImpl implements Paren
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	protected ParenthesisedExpressionImpl() {
@@ -56,6 +58,7 @@ public class ParenthesisedExpressionImpl extends ExpressionImpl implements Paren
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	public NotificationChain basicSetExpr(Expression newExpr, NotificationChain msgs) {
@@ -75,6 +78,7 @@ public class ParenthesisedExpressionImpl extends ExpressionImpl implements Paren
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@Override
@@ -89,6 +93,7 @@ public class ParenthesisedExpressionImpl extends ExpressionImpl implements Paren
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@Override
@@ -103,6 +108,7 @@ public class ParenthesisedExpressionImpl extends ExpressionImpl implements Paren
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@Override
@@ -117,6 +123,7 @@ public class ParenthesisedExpressionImpl extends ExpressionImpl implements Paren
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@Override
@@ -132,6 +139,7 @@ public class ParenthesisedExpressionImpl extends ExpressionImpl implements Paren
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@Override
@@ -142,6 +150,7 @@ public class ParenthesisedExpressionImpl extends ExpressionImpl implements Paren
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@Override
@@ -157,6 +166,7 @@ public class ParenthesisedExpressionImpl extends ExpressionImpl implements Paren
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	public Expression getExpr() {
@@ -166,6 +176,7 @@ public class ParenthesisedExpressionImpl extends ExpressionImpl implements Paren
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	public void setExpr(Expression newExpr) {

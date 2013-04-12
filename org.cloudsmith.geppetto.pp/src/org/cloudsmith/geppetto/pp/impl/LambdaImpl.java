@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2011 Cloudsmith Inc. and other contributors, as listed below.
+ * Copyright (c) 2011, 2012 Cloudsmith Inc. and other contributors, as listed below.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -11,39 +11,42 @@
  */
 package org.cloudsmith.geppetto.pp.impl;
 
-import org.cloudsmith.geppetto.pp.Expression;
+import org.cloudsmith.geppetto.pp.DefinitionArgumentList;
+import org.cloudsmith.geppetto.pp.Lambda;
 import org.cloudsmith.geppetto.pp.PPPackage;
-import org.cloudsmith.geppetto.pp.UnaryExpression;
+
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
+
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
+
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Unary Expression</b></em>'.
+ * An implementation of the model object '<em><b>Lambda</b></em>'.
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * <ul>
- * <li>{@link org.cloudsmith.geppetto.pp.impl.UnaryExpressionImpl#getExpr <em>Expr</em>}</li>
+ * <li>{@link org.cloudsmith.geppetto.pp.impl.LambdaImpl#getArguments <em>Arguments</em>}</li>
  * </ul>
  * </p>
  * 
  * @generated
  */
-public abstract class UnaryExpressionImpl extends ExpressionImpl implements UnaryExpression {
+public class LambdaImpl extends ExpressionBlockImpl implements Lambda {
 	/**
-	 * The cached value of the '{@link #getExpr() <em>Expr</em>}' containment reference.
+	 * The cached value of the '{@link #getArguments() <em>Arguments</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
-	 * @see #getExpr()
+	 * @see #getArguments()
 	 * @generated
 	 * @ordered
 	 */
-	protected Expression expr;
+	protected DefinitionArgumentList arguments;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -51,7 +54,7 @@ public abstract class UnaryExpressionImpl extends ExpressionImpl implements Unar
 	 * 
 	 * @generated
 	 */
-	protected UnaryExpressionImpl() {
+	protected LambdaImpl() {
 		super();
 	}
 
@@ -61,12 +64,12 @@ public abstract class UnaryExpressionImpl extends ExpressionImpl implements Unar
 	 * 
 	 * @generated
 	 */
-	public NotificationChain basicSetExpr(Expression newExpr, NotificationChain msgs) {
-		Expression oldExpr = expr;
-		expr = newExpr;
+	public NotificationChain basicSetArguments(DefinitionArgumentList newArguments, NotificationChain msgs) {
+		DefinitionArgumentList oldArguments = arguments;
+		arguments = newArguments;
 		if(eNotificationRequired()) {
 			ENotificationImpl notification = new ENotificationImpl(
-				this, Notification.SET, PPPackage.UNARY_EXPRESSION__EXPR, oldExpr, newExpr);
+				this, Notification.SET, PPPackage.LAMBDA__ARGUMENTS, oldArguments, newArguments);
 			if(msgs == null)
 				msgs = notification;
 			else
@@ -84,8 +87,8 @@ public abstract class UnaryExpressionImpl extends ExpressionImpl implements Unar
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch(featureID) {
-			case PPPackage.UNARY_EXPRESSION__EXPR:
-				return getExpr();
+			case PPPackage.LAMBDA__ARGUMENTS:
+				return getArguments();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -99,8 +102,8 @@ public abstract class UnaryExpressionImpl extends ExpressionImpl implements Unar
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch(featureID) {
-			case PPPackage.UNARY_EXPRESSION__EXPR:
-				return basicSetExpr(null, msgs);
+			case PPPackage.LAMBDA__ARGUMENTS:
+				return basicSetArguments(null, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -114,8 +117,8 @@ public abstract class UnaryExpressionImpl extends ExpressionImpl implements Unar
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch(featureID) {
-			case PPPackage.UNARY_EXPRESSION__EXPR:
-				return expr != null;
+			case PPPackage.LAMBDA__ARGUMENTS:
+				return arguments != null;
 		}
 		return super.eIsSet(featureID);
 	}
@@ -129,8 +132,8 @@ public abstract class UnaryExpressionImpl extends ExpressionImpl implements Unar
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch(featureID) {
-			case PPPackage.UNARY_EXPRESSION__EXPR:
-				setExpr((Expression) newValue);
+			case PPPackage.LAMBDA__ARGUMENTS:
+				setArguments((DefinitionArgumentList) newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -144,7 +147,7 @@ public abstract class UnaryExpressionImpl extends ExpressionImpl implements Unar
 	 */
 	@Override
 	protected EClass eStaticClass() {
-		return PPPackage.Literals.UNARY_EXPRESSION;
+		return PPPackage.Literals.LAMBDA;
 	}
 
 	/**
@@ -156,8 +159,8 @@ public abstract class UnaryExpressionImpl extends ExpressionImpl implements Unar
 	@Override
 	public void eUnset(int featureID) {
 		switch(featureID) {
-			case PPPackage.UNARY_EXPRESSION__EXPR:
-				setExpr((Expression) null);
+			case PPPackage.LAMBDA__ARGUMENTS:
+				setArguments((DefinitionArgumentList) null);
 				return;
 		}
 		super.eUnset(featureID);
@@ -169,8 +172,8 @@ public abstract class UnaryExpressionImpl extends ExpressionImpl implements Unar
 	 * 
 	 * @generated
 	 */
-	public Expression getExpr() {
-		return expr;
+	public DefinitionArgumentList getArguments() {
+		return arguments;
 	}
 
 	/**
@@ -179,21 +182,22 @@ public abstract class UnaryExpressionImpl extends ExpressionImpl implements Unar
 	 * 
 	 * @generated
 	 */
-	public void setExpr(Expression newExpr) {
-		if(newExpr != expr) {
+	public void setArguments(DefinitionArgumentList newArguments) {
+		if(newArguments != arguments) {
 			NotificationChain msgs = null;
-			if(expr != null)
-				msgs = ((InternalEObject) expr).eInverseRemove(this, EOPPOSITE_FEATURE_BASE -
-						PPPackage.UNARY_EXPRESSION__EXPR, null, msgs);
-			if(newExpr != null)
-				msgs = ((InternalEObject) newExpr).eInverseAdd(this, EOPPOSITE_FEATURE_BASE -
-						PPPackage.UNARY_EXPRESSION__EXPR, null, msgs);
-			msgs = basicSetExpr(newExpr, msgs);
+			if(arguments != null)
+				msgs = ((InternalEObject) arguments).eInverseRemove(this, EOPPOSITE_FEATURE_BASE -
+						PPPackage.LAMBDA__ARGUMENTS, null, msgs);
+			if(newArguments != null)
+				msgs = ((InternalEObject) newArguments).eInverseAdd(this, EOPPOSITE_FEATURE_BASE -
+						PPPackage.LAMBDA__ARGUMENTS, null, msgs);
+			msgs = basicSetArguments(newArguments, msgs);
 			if(msgs != null)
 				msgs.dispatch();
 		}
 		else if(eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, PPPackage.UNARY_EXPRESSION__EXPR, newExpr, newExpr));
+			eNotify(new ENotificationImpl(
+				this, Notification.SET, PPPackage.LAMBDA__ARGUMENTS, newArguments, newArguments));
 	}
 
-} // UnaryExpressionImpl
+} // LambdaImpl

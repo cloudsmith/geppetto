@@ -27,10 +27,10 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.cloudsmith.geppetto.pp.impl.HostClassDefinitionImpl#getParent <em>Parent</em>}</li>
+ * <li>{@link org.cloudsmith.geppetto.pp.impl.HostClassDefinitionImpl#getParent <em>Parent</em>}</li>
  * </ul>
  * </p>
- *
+ * 
  * @generated
  */
 public class HostClassDefinitionImpl extends DefinitionImpl implements HostClassDefinition {
@@ -38,6 +38,7 @@ public class HostClassDefinitionImpl extends DefinitionImpl implements HostClass
 	 * The cached value of the '{@link #getParent() <em>Parent</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @see #getParent()
 	 * @generated
 	 * @ordered
@@ -47,6 +48,7 @@ public class HostClassDefinitionImpl extends DefinitionImpl implements HostClass
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	protected HostClassDefinitionImpl() {
@@ -56,6 +58,7 @@ public class HostClassDefinitionImpl extends DefinitionImpl implements HostClass
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	public NotificationChain basicSetParent(LiteralExpression newParent, NotificationChain msgs) {
@@ -75,6 +78,7 @@ public class HostClassDefinitionImpl extends DefinitionImpl implements HostClass
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@Override
@@ -89,6 +93,7 @@ public class HostClassDefinitionImpl extends DefinitionImpl implements HostClass
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@Override
@@ -103,6 +108,7 @@ public class HostClassDefinitionImpl extends DefinitionImpl implements HostClass
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@Override
@@ -117,6 +123,7 @@ public class HostClassDefinitionImpl extends DefinitionImpl implements HostClass
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@SuppressWarnings("unchecked")
@@ -133,6 +140,7 @@ public class HostClassDefinitionImpl extends DefinitionImpl implements HostClass
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@Override
@@ -143,6 +151,7 @@ public class HostClassDefinitionImpl extends DefinitionImpl implements HostClass
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@Override
@@ -158,6 +167,7 @@ public class HostClassDefinitionImpl extends DefinitionImpl implements HostClass
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	public LiteralExpression getParent() {
@@ -167,6 +177,7 @@ public class HostClassDefinitionImpl extends DefinitionImpl implements HostClass
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	public void setParent(LiteralExpression newParent) {

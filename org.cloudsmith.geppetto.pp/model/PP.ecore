@@ -217,4 +217,5 @@
         containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="NamedAccessExpression" eSuperTypes="#//BinaryExpression"/>
+  <eClassifiers xsi:type="ecore:EClass" name="MethodCall" eSuperTypes="#//ParameterizedExpression"/>
 </ecore:EPackage>

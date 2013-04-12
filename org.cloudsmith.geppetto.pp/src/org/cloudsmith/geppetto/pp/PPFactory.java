@@ -423,6 +423,16 @@ public interface PPFactory extends EFactory {
 	MatchingExpression createMatchingExpression();
 
 	/**
+	 * Returns a new object of class '<em>Method Call</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @return a new object of class '<em>Method Call</em>'.
+	 * @generated
+	 */
+	MethodCall createMethodCall();
+
+	/**
 	 * Returns a new object of class '<em>Multiplicative Expression</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

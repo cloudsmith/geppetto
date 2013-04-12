@@ -56,6 +56,7 @@ import org.cloudsmith.geppetto.pp.LiteralNameOrReference;
 import org.cloudsmith.geppetto.pp.LiteralRegex;
 import org.cloudsmith.geppetto.pp.LiteralUndef;
 import org.cloudsmith.geppetto.pp.MatchingExpression;
+import org.cloudsmith.geppetto.pp.MethodCall;
 import org.cloudsmith.geppetto.pp.MultiplicativeExpression;
 import org.cloudsmith.geppetto.pp.NamedAccessExpression;
 import org.cloudsmith.geppetto.pp.NodeDefinition;
@@ -681,6 +682,14 @@ public class PPPackageImpl extends EPackageImpl implements PPPackage {
 	 * 
 	 * @generated
 	 */
+	private EClass methodCallEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
 	private static boolean isInited = false;
 
 	/**
@@ -970,6 +979,8 @@ public class PPPackageImpl extends EPackageImpl implements PPPackage {
 		createEReference(lambdaEClass, LAMBDA__ARGUMENTS);
 
 		namedAccessExpressionEClass = createEClass(NAMED_ACCESS_EXPRESSION);
+
+		methodCallEClass = createEClass(METHOD_CALL);
 	}
 
 	/**
@@ -1828,6 +1839,16 @@ public class PPPackageImpl extends EPackageImpl implements PPPackage {
 	 * 
 	 * @generated
 	 */
+	public EClass getMethodCall() {
+		return methodCallEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
 	public EClass getMultiplicativeExpression() {
 		return multiplicativeExpressionEClass;
 	}
@@ -2390,6 +2411,7 @@ public class PPPackageImpl extends EPackageImpl implements PPPackage {
 		unlessExpressionEClass.getESuperTypes().add(this.getExpression());
 		lambdaEClass.getESuperTypes().add(this.getExpressionBlock());
 		namedAccessExpressionEClass.getESuperTypes().add(this.getBinaryExpression());
+		methodCallEClass.getESuperTypes().add(this.getParameterizedExpression());
 
 		// Initialize classes and features; add operations and parameters
 		initEClass(
@@ -2897,6 +2919,9 @@ public class PPPackageImpl extends EPackageImpl implements PPPackage {
 		initEClass(
 			namedAccessExpressionEClass, NamedAccessExpression.class, "NamedAccessExpression", !IS_ABSTRACT,
 			!IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+		initEClass(
+			methodCallEClass, MethodCall.class, "MethodCall", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
 		// Create resource
 		createResource(eNS_URI);

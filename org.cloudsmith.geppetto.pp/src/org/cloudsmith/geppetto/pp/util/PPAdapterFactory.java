@@ -339,6 +339,11 @@ public class PPAdapterFactory extends AdapterFactoryImpl {
 		}
 
 		@Override
+		public Adapter caseMethodCall(MethodCall object) {
+			return createMethodCallAdapter();
+		}
+
+		@Override
 		public Adapter caseMultiplicativeExpression(MultiplicativeExpression object) {
 			return createMultiplicativeExpressionAdapter();
 		}
@@ -1192,6 +1197,21 @@ public class PPAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createMatchingExpressionAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.cloudsmith.geppetto.pp.MethodCall <em>Method Call</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * 
+	 * @return the new adapter.
+	 * @see org.cloudsmith.geppetto.pp.MethodCall
+	 * @generated
+	 */
+	public Adapter createMethodCallAdapter() {
 		return null;
 	}
 

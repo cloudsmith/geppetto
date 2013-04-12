@@ -261,6 +261,8 @@ public class PPFactoryImpl extends EFactoryImpl implements PPFactory {
 				return createLambda();
 			case PPPackage.NAMED_ACCESS_EXPRESSION:
 				return createNamedAccessExpression();
+			case PPPackage.METHOD_CALL:
+				return createMethodCall();
 			default:
 				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
@@ -693,6 +695,17 @@ public class PPFactoryImpl extends EFactoryImpl implements PPFactory {
 	public MatchingExpression createMatchingExpression() {
 		MatchingExpressionImpl matchingExpression = new MatchingExpressionImpl();
 		return matchingExpression;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
+	public MethodCall createMethodCall() {
+		MethodCallImpl methodCall = new MethodCallImpl();
+		return methodCall;
 	}
 
 	/**

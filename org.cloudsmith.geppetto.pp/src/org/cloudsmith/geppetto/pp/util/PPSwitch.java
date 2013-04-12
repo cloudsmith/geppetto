@@ -887,6 +887,23 @@ public class PPSwitch<T> extends Switch<T> {
 	}
 
 	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Method Call</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * 
+	 * @param object
+	 *            the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Method Call</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseMethodCall(MethodCall object) {
+		return null;
+	}
+
+	/**
 	 * Returns the result of interpreting the object as an instance of '<em>Multiplicative Expression</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
@@ -2100,6 +2117,17 @@ public class PPSwitch<T> extends Switch<T> {
 					result = caseBinaryExpression(namedAccessExpression);
 				if(result == null)
 					result = caseExpression(namedAccessExpression);
+				if(result == null)
+					result = defaultCase(theEObject);
+				return result;
+			}
+			case PPPackage.METHOD_CALL: {
+				MethodCall methodCall = (MethodCall) theEObject;
+				T result = caseMethodCall(methodCall);
+				if(result == null)
+					result = caseParameterizedExpression(methodCall);
+				if(result == null)
+					result = caseExpression(methodCall);
 				if(result == null)
 					result = defaultCase(theEObject);
 				return result;

@@ -1386,6 +1386,17 @@ public interface PPPackage extends EPackage {
 		 */
 		EClass NAMED_ACCESS_EXPRESSION = eINSTANCE.getNamedAccessExpression();
 
+		/**
+		 * The meta object literal for the '{@link org.cloudsmith.geppetto.pp.impl.MethodCallImpl <em>Method Call</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * 
+		 * @see org.cloudsmith.geppetto.pp.impl.MethodCallImpl
+		 * @see org.cloudsmith.geppetto.pp.impl.PPPackageImpl#getMethodCall()
+		 * @generated
+		 */
+		EClass METHOD_CALL = eINSTANCE.getMethodCall();
+
 	}
 
 	/**
@@ -4107,6 +4118,47 @@ public interface PPPackage extends EPackage {
 	int NAMED_ACCESS_EXPRESSION_FEATURE_COUNT = BINARY_EXPRESSION_FEATURE_COUNT + 0;
 
 	/**
+	 * The meta object id for the '{@link org.cloudsmith.geppetto.pp.impl.MethodCallImpl <em>Method Call</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @see org.cloudsmith.geppetto.pp.impl.MethodCallImpl
+	 * @see org.cloudsmith.geppetto.pp.impl.PPPackageImpl#getMethodCall()
+	 * @generated
+	 */
+	int METHOD_CALL = 72;
+
+	/**
+	 * The feature id for the '<em><b>Left Expr</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 * @ordered
+	 */
+	int METHOD_CALL__LEFT_EXPR = PARAMETERIZED_EXPRESSION__LEFT_EXPR;
+
+	/**
+	 * The feature id for the '<em><b>Parameters</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 * @ordered
+	 */
+	int METHOD_CALL__PARAMETERS = PARAMETERIZED_EXPRESSION__PARAMETERS;
+
+	/**
+	 * The number of structural features of the '<em>Method Call</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 * @ordered
+	 */
+	int METHOD_CALL_FEATURE_COUNT = PARAMETERIZED_EXPRESSION_FEATURE_COUNT + 0;
+
+	/**
 	 * Returns the meta object for class '{@link org.cloudsmith.geppetto.pp.AdditiveExpression <em>Additive Expression</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -5087,6 +5139,17 @@ public interface PPPackage extends EPackage {
 	 * @generated
 	 */
 	EClass getMatchingExpression();
+
+	/**
+	 * Returns the meta object for class '{@link org.cloudsmith.geppetto.pp.MethodCall <em>Method Call</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @return the meta object for class '<em>Method Call</em>'.
+	 * @see org.cloudsmith.geppetto.pp.MethodCall
+	 * @generated
+	 */
+	EClass getMethodCall();
 
 	/**
 	 * Returns the meta object for class '{@link org.cloudsmith.geppetto.pp.MultiplicativeExpression <em>Multiplicative Expression</em>}'.

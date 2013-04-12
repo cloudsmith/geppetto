@@ -28,6 +28,6 @@ public class TestForgeModules extends AbstractValidationTest {
 		options.setCheckReferences(true);
 		options.setFileType(FileType.PUPPET_ROOT);
 		vs.validate(chain, root, options, null, SubMonitor.convert(null));
-		assertEquals("There should be 100 errors", 100, chain.getChildren().size());
+		assertEquals("There should be 0 errors", 0, chain.getChildren().size());
 	}
 }

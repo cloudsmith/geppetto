@@ -18,7 +18,7 @@ package org.cloudsmith.geppetto.pp.dsl.validation;
  */
 public interface IValidationAdvisor extends IPotentialProblemsAdvisor {
 	public enum ComplianceLevel {
-		PUPPET_2_6, PUPPET_2_7, PUPPET_3_0
+		PUPPET_2_6, PUPPET_2_7, PUPPET_3_0, PUPPET_3_2
 	}
 
 	/**
@@ -38,6 +38,13 @@ public interface IValidationAdvisor extends IPotentialProblemsAdvisor {
 	 * Before 3.0 and hiera support, a class can not inherit from a parameterized class.
 	 */
 	public boolean allowInheritanceFromParameterizedClass();
+
+	/**
+	 * Before 3.2 modulo operator '%' was not supported.
+	 * 
+	 * @return
+	 */
+	public boolean allowModulo();
 
 	/**
 	 * Should more than 2 at (i.e. []) operators be allowed in sequence e.g. $a[x][y][z]

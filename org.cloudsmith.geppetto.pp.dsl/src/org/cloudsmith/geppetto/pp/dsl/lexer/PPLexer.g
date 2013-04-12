@@ -224,7 +224,7 @@ KW_DQ        : {!singleQuotedString}?=> '"'
 		doubleQuotedString = !doubleQuotedString;
 	};
 
-KW_MODULO    : {!isNotInString()}?=>'%';
+KW_MODULO    : {isNotInString()}?=>'%';
 
 KW_SQ        : {!doubleQuotedString}?=>'\''
 	{ 	// flip if in sq string or not

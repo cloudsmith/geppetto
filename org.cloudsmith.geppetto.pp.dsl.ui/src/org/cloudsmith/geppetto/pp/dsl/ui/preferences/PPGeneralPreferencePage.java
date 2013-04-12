@@ -81,6 +81,7 @@ public class PPGeneralPreferencePage extends AbstractPreferencePage {
 			new String[][] { { "2.6", "2.6" }, //
 					{ "2.7", "2.7" }, //
 					{ "3.0", "3.0" }, // NOTE: 2.8 release does not exist, it got bumped to 3.0
+					{ "3.2", "3.2" }, //
 					{ "PE 2.0", "PE 2.0" }, //
 			}, getFieldEditorParent()));
 

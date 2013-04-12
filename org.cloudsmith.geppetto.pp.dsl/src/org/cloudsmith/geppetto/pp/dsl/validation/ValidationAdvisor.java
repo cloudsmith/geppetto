@@ -132,6 +132,14 @@ public class ValidationAdvisor {
 		}
 
 		/**
+		 * @returns false
+		 */
+		@Override
+		public boolean allowModulo() {
+			return false;
+		}
+
+		/**
 		 * @returns true
 		 */
 		@Override
@@ -295,6 +303,17 @@ public class ValidationAdvisor {
 
 	}
 
+	public static class ValidationAdvisor_3_2 extends ValidationAdvisor_3_0 implements IValidationAdvisor {
+		protected ValidationAdvisor_3_2(IPotentialProblemsAdvisor problemsAdvisor) {
+			super(problemsAdvisor);
+		}
+
+		@Override
+		public boolean allowModulo() {
+			return true;
+		}
+	}
+
 	public static IValidationAdvisor create(ComplianceLevel level, IPotentialProblemsAdvisor problemsAdvisor) {
 		switch(level) {
 			case PUPPET_2_6:
@@ -303,6 +322,8 @@ public class ValidationAdvisor {
 				return new ValidationAdvisor_2_7(problemsAdvisor);
 			case PUPPET_3_0:
 				return new ValidationAdvisor_3_0(problemsAdvisor);
+			case PUPPET_3_2:
+				return new ValidationAdvisor_3_2(problemsAdvisor);
 		}
 		throw new IllegalArgumentException("Unsupported compliance level");
 	}

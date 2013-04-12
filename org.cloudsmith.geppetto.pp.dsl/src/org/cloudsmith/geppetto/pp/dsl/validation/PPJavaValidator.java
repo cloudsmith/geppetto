@@ -1042,7 +1042,10 @@ public class PPJavaValidator extends AbstractPPJavaValidator implements IPPDiagn
 
 	@Check
 	public void checkMultiplicativeExpression(MultiplicativeExpression o) {
-		checkOperator(o, "*", "/");
+		if(advisor().allowModulo())
+			checkOperator(o, "*", "/", "%");
+		else
+			checkOperator(o, "*", "/");
 		checkNumericBinaryExpression(o);
 	}
 
@@ -1097,9 +1100,9 @@ public class PPJavaValidator extends AbstractPPJavaValidator implements IPPDiagn
 			if(s.equals(op))
 				return;
 		acceptor.acceptError(
-			"Illegal operator: " + op == null
+			"Illegal operator: " + (op == null
 					? "null"
-					: op, o, PPPackage.Literals.BINARY_OP_EXPRESSION__OP_NAME, INSIGNIFICANT_INDEX,
+					: op), o, PPPackage.Literals.BINARY_OP_EXPRESSION__OP_NAME, INSIGNIFICANT_INDEX,
 			IPPDiagnostics.ISSUE__ILLEGAL_OP);
 
 	}

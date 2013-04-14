@@ -442,7 +442,7 @@ public class PPModulefileBuilder extends IncrementalProjectBuilder implements PP
 		// get metadata
 		Metadata metadata;
 		File[] extractionSource = new File[1];
-		IFile metadataResource = getProject().getFile("metadata.json");
+		IFile metadataResource = project.getFile("metadata.json");
 		boolean metadataDerived = metadataResource.isDerived();
 
 		if(metadataDerived) {

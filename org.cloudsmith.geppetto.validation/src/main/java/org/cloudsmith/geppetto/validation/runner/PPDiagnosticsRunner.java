@@ -215,6 +215,10 @@ public class PPDiagnosticsRunner {
 		return PptpResourceUtil.getPuppet_2_7_1();
 	}
 
+	public static URI getPuppet_2_7_19() {
+		return PptpResourceUtil.getPuppet_2_7_19();
+	}
+
 	public static URI getPuppet_3_0_0() {
 		return PptpResourceUtil.getPuppet_3_0_0();
 	}

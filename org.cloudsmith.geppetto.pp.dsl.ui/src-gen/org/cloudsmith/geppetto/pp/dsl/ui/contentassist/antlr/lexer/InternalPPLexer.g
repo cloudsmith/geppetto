@@ -162,6 +162,8 @@ RULE_WORD_CHARS : '::'? ('0'..'9'|'a'..'z'|'A'..'Z'|'_'|'-')+ ('::' ('0'..'9'|'a
 
 RULE_NUMBER : RULE_NUMERIC;
 
+RULE_LAMBDA : '{' RULE_WS '|';
+
 fragment RULE_NUMERIC : ('0' ('x'|'X') ('0'..'9'|'a'..'f'|'A'..'F')+|('0'..'9')+ ('.' ('0'..'9')+)? (('e'|'E') '-'? ('0'..'9')+)?);
 
 RULE_REGULAR_EXPRESSION : '/' RULE_RE_BODY '/' RULE_RE_FLAGS?;

@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2011, 2012 Cloudsmith Inc. and other contributors, as listed below.
+ * Copyright (c) 2011, 2013 Cloudsmith Inc. and other contributors, as listed below.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -16,17 +16,12 @@ import java.util.Collection;
 import org.cloudsmith.geppetto.pp.Expression;
 import org.cloudsmith.geppetto.pp.PPPackage;
 import org.cloudsmith.geppetto.pp.UnlessExpression;
-
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
-
 import org.eclipse.emf.common.util.EList;
-
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
-
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
@@ -39,6 +34,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <ul>
  * <li>{@link org.cloudsmith.geppetto.pp.impl.UnlessExpressionImpl#getCondExpr <em>Cond Expr</em>}</li>
  * <li>{@link org.cloudsmith.geppetto.pp.impl.UnlessExpressionImpl#getThenStatements <em>Then Statements</em>}</li>
+ * <li>{@link org.cloudsmith.geppetto.pp.impl.UnlessExpressionImpl#getElseStatement <em>Else Statement</em>}</li>
  * </ul>
  * </p>
  * 
@@ -66,6 +62,17 @@ public class UnlessExpressionImpl extends ExpressionImpl implements UnlessExpres
 	 * @ordered
 	 */
 	protected EList<Expression> thenStatements;
+
+	/**
+	 * The cached value of the '{@link #getElseStatement() <em>Else Statement</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @see #getElseStatement()
+	 * @generated
+	 * @ordered
+	 */
+	protected Expression elseStatement;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -103,6 +110,26 @@ public class UnlessExpressionImpl extends ExpressionImpl implements UnlessExpres
 	 * 
 	 * @generated
 	 */
+	public NotificationChain basicSetElseStatement(Expression newElseStatement, NotificationChain msgs) {
+		Expression oldElseStatement = elseStatement;
+		elseStatement = newElseStatement;
+		if(eNotificationRequired()) {
+			ENotificationImpl notification = new ENotificationImpl(
+				this, Notification.SET, PPPackage.UNLESS_EXPRESSION__ELSE_STATEMENT, oldElseStatement, newElseStatement);
+			if(msgs == null)
+				msgs = notification;
+			else
+				msgs.add(notification);
+		}
+		return msgs;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch(featureID) {
@@ -110,6 +137,8 @@ public class UnlessExpressionImpl extends ExpressionImpl implements UnlessExpres
 				return getCondExpr();
 			case PPPackage.UNLESS_EXPRESSION__THEN_STATEMENTS:
 				return getThenStatements();
+			case PPPackage.UNLESS_EXPRESSION__ELSE_STATEMENT:
+				return getElseStatement();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -127,6 +156,8 @@ public class UnlessExpressionImpl extends ExpressionImpl implements UnlessExpres
 				return basicSetCondExpr(null, msgs);
 			case PPPackage.UNLESS_EXPRESSION__THEN_STATEMENTS:
 				return ((InternalEList<?>) getThenStatements()).basicRemove(otherEnd, msgs);
+			case PPPackage.UNLESS_EXPRESSION__ELSE_STATEMENT:
+				return basicSetElseStatement(null, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -144,6 +175,8 @@ public class UnlessExpressionImpl extends ExpressionImpl implements UnlessExpres
 				return condExpr != null;
 			case PPPackage.UNLESS_EXPRESSION__THEN_STATEMENTS:
 				return thenStatements != null && !thenStatements.isEmpty();
+			case PPPackage.UNLESS_EXPRESSION__ELSE_STATEMENT:
+				return elseStatement != null;
 		}
 		return super.eIsSet(featureID);
 	}
@@ -164,6 +197,9 @@ public class UnlessExpressionImpl extends ExpressionImpl implements UnlessExpres
 			case PPPackage.UNLESS_EXPRESSION__THEN_STATEMENTS:
 				getThenStatements().clear();
 				getThenStatements().addAll((Collection<? extends Expression>) newValue);
+				return;
+			case PPPackage.UNLESS_EXPRESSION__ELSE_STATEMENT:
+				setElseStatement((Expression) newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -195,6 +231,9 @@ public class UnlessExpressionImpl extends ExpressionImpl implements UnlessExpres
 			case PPPackage.UNLESS_EXPRESSION__THEN_STATEMENTS:
 				getThenStatements().clear();
 				return;
+			case PPPackage.UNLESS_EXPRESSION__ELSE_STATEMENT:
+				setElseStatement((Expression) null);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -207,6 +246,16 @@ public class UnlessExpressionImpl extends ExpressionImpl implements UnlessExpres
 	 */
 	public Expression getCondExpr() {
 		return condExpr;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
+	public Expression getElseStatement() {
+		return elseStatement;
 	}
 
 	/**
@@ -245,6 +294,30 @@ public class UnlessExpressionImpl extends ExpressionImpl implements UnlessExpres
 		else if(eNotificationRequired())
 			eNotify(new ENotificationImpl(
 				this, Notification.SET, PPPackage.UNLESS_EXPRESSION__COND_EXPR, newCondExpr, newCondExpr));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
+	public void setElseStatement(Expression newElseStatement) {
+		if(newElseStatement != elseStatement) {
+			NotificationChain msgs = null;
+			if(elseStatement != null)
+				msgs = ((InternalEObject) elseStatement).eInverseRemove(this, EOPPOSITE_FEATURE_BASE -
+						PPPackage.UNLESS_EXPRESSION__ELSE_STATEMENT, null, msgs);
+			if(newElseStatement != null)
+				msgs = ((InternalEObject) newElseStatement).eInverseAdd(this, EOPPOSITE_FEATURE_BASE -
+						PPPackage.UNLESS_EXPRESSION__ELSE_STATEMENT, null, msgs);
+			msgs = basicSetElseStatement(newElseStatement, msgs);
+			if(msgs != null)
+				msgs.dispatch();
+		}
+		else if(eNotificationRequired())
+			eNotify(new ENotificationImpl(
+				this, Notification.SET, PPPackage.UNLESS_EXPRESSION__ELSE_STATEMENT, newElseStatement, newElseStatement));
 	}
 
 } // UnlessExpressionImpl

@@ -11,27 +11,27 @@
  */
 package org.cloudsmith.geppetto.pp.impl;
 
-import org.cloudsmith.geppetto.pp.FunctionCall;
 import org.cloudsmith.geppetto.pp.PPPackage;
+import org.cloudsmith.geppetto.pp.SeparatorExpression;
 import org.eclipse.emf.ecore.EClass;
 
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Function Call</b></em>'.
+ * An implementation of the model object '<em><b>Separator Expression</b></em>'.
  * <!-- end-user-doc -->
  * <p>
  * </p>
  * 
  * @generated
  */
-public class FunctionCallImpl extends WithLambdaExpressionImpl implements FunctionCall {
+public class SeparatorExpressionImpl extends ExpressionImpl implements SeparatorExpression {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
 	 * @generated
 	 */
-	protected FunctionCallImpl() {
+	protected SeparatorExpressionImpl() {
 		super();
 	}
 
@@ -43,7 +43,7 @@ public class FunctionCallImpl extends WithLambdaExpressionImpl implements Functi
 	 */
 	@Override
 	protected EClass eStaticClass() {
-		return PPPackage.Literals.FUNCTION_CALL;
+		return PPPackage.Literals.SEPARATOR_EXPRESSION;
 	}
 
-} // FunctionCallImpl
+} // SeparatorExpressionImpl

@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2011 Cloudsmith Inc. and other contributors, as listed below.
+ * Copyright (c) 2011, 2013 Cloudsmith Inc. and other contributors, as listed below.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -313,14 +313,14 @@ public interface PPFactory extends EFactory {
 	InterpolatedVariable createInterpolatedVariable();
 
 	/**
-	 * Returns a new object of class '<em>Lambda</em>'.
+	 * Returns a new object of class '<em>Java Lambda</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
-	 * @return a new object of class '<em>Lambda</em>'.
+	 * @return a new object of class '<em>Java Lambda</em>'.
 	 * @generated
 	 */
-	Lambda createLambda();
+	JavaLambda createJavaLambda();
 
 	/**
 	 * Returns a new object of class '<em>Literal Boolean</em>'.
@@ -533,6 +533,16 @@ public interface PPFactory extends EFactory {
 	ResourceExpression createResourceExpression();
 
 	/**
+	 * Returns a new object of class '<em>Ruby Lambda</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @return a new object of class '<em>Ruby Lambda</em>'.
+	 * @generated
+	 */
+	RubyLambda createRubyLambda();
+
+	/**
 	 * Returns a new object of class '<em>Selector Entry</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -551,6 +561,16 @@ public interface PPFactory extends EFactory {
 	 * @generated
 	 */
 	SelectorExpression createSelectorExpression();
+
+	/**
+	 * Returns a new object of class '<em>Separator Expression</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @return a new object of class '<em>Separator Expression</em>'.
+	 * @generated
+	 */
+	SeparatorExpression createSeparatorExpression();
 
 	/**
 	 * Returns a new object of class '<em>Shift Expression</em>'.
@@ -661,6 +681,16 @@ public interface PPFactory extends EFactory {
 	 * @generated
 	 */
 	VirtualNameOrReference createVirtualNameOrReference();
+
+	/**
+	 * Returns a new object of class '<em>With Lambda Expression</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @return a new object of class '<em>With Lambda Expression</em>'.
+	 * @generated
+	 */
+	WithLambdaExpression createWithLambdaExpression();
 
 	/**
 	 * Returns the package supported by this factory.

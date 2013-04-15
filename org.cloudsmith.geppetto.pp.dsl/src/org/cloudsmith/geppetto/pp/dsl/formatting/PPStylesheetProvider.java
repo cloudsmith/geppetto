@@ -277,7 +277,8 @@ public class PPStylesheetProvider extends DefaultStylesheetProvider {
 
 			// No space between function name and ()
 			Select.whitespaceBefore(
-				Select.grammar(grammarAccess.getFunctionCallAccess().getLeftParenthesisKeyword_1_1()))//
+				Select.grammar(grammarAccess.getFunctionCallAccess().getLeftParenthesisKeyword_1_0_0_1()))//
+			// Select.grammar(grammarAccess.getFunctionCallAccess().getLeftParenthesisKeyword_1_1()))//
 			.withStyle(noSpaceUnlessWrappedNoLine) //
 			.withRuleName("WsBeforeFunctionCallLeftParenthesis"),
 

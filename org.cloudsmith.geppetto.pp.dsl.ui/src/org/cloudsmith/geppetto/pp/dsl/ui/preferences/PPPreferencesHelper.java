@@ -303,6 +303,8 @@ public class PPPreferencesHelper implements IPreferenceStoreInitializer, IProper
 			return IValidationAdvisor.ComplianceLevel.PUPPET_3_0;
 		if("3.2".equals(result))
 			return IValidationAdvisor.ComplianceLevel.PUPPET_3_2;
+		if("future".equals(result))
+			return IValidationAdvisor.ComplianceLevel.PUPPET_3_2_FUTURE;
 
 		// for 2.7 and default
 		return IValidationAdvisor.ComplianceLevel.PUPPET_2_7;

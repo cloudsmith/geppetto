@@ -683,6 +683,23 @@ public class PPSwitch<T> extends Switch<T> {
 	}
 
 	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Java Lambda</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * 
+	 * @param object
+	 *            the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Java Lambda</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseJavaLambda(JavaLambda object) {
+		return null;
+	}
+
+	/**
 	 * Returns the result of interpreting the object as an instance of '<em>Lambda</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
@@ -1091,6 +1108,23 @@ public class PPSwitch<T> extends Switch<T> {
 	}
 
 	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Ruby Lambda</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * 
+	 * @param object
+	 *            the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Ruby Lambda</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseRubyLambda(RubyLambda object) {
+		return null;
+	}
+
+	/**
 	 * Returns the result of interpreting the object as an instance of '<em>Selector Entry</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
@@ -1121,6 +1155,23 @@ public class PPSwitch<T> extends Switch<T> {
 	 * @generated
 	 */
 	public T caseSelectorExpression(SelectorExpression object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Separator Expression</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * 
+	 * @param object
+	 *            the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Separator Expression</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseSeparatorExpression(SeparatorExpression object) {
 		return null;
 	}
 
@@ -1359,6 +1410,23 @@ public class PPSwitch<T> extends Switch<T> {
 	 * @generated
 	 */
 	public T caseVirtualNameOrReference(VirtualNameOrReference object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>With Lambda Expression</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * 
+	 * @param object
+	 *            the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>With Lambda Expression</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseWithLambdaExpression(WithLambdaExpression object) {
 		return null;
 	}
 
@@ -1847,6 +1915,8 @@ public class PPSwitch<T> extends Switch<T> {
 				FunctionCall functionCall = (FunctionCall) theEObject;
 				T result = caseFunctionCall(functionCall);
 				if(result == null)
+					result = caseWithLambdaExpression(functionCall);
+				if(result == null)
 					result = caseParameterizedExpression(functionCall);
 				if(result == null)
 					result = caseExpression(functionCall);
@@ -2125,9 +2195,57 @@ public class PPSwitch<T> extends Switch<T> {
 				MethodCall methodCall = (MethodCall) theEObject;
 				T result = caseMethodCall(methodCall);
 				if(result == null)
+					result = caseWithLambdaExpression(methodCall);
+				if(result == null)
 					result = caseParameterizedExpression(methodCall);
 				if(result == null)
 					result = caseExpression(methodCall);
+				if(result == null)
+					result = defaultCase(theEObject);
+				return result;
+			}
+			case PPPackage.WITH_LAMBDA_EXPRESSION: {
+				WithLambdaExpression withLambdaExpression = (WithLambdaExpression) theEObject;
+				T result = caseWithLambdaExpression(withLambdaExpression);
+				if(result == null)
+					result = caseParameterizedExpression(withLambdaExpression);
+				if(result == null)
+					result = caseExpression(withLambdaExpression);
+				if(result == null)
+					result = defaultCase(theEObject);
+				return result;
+			}
+			case PPPackage.JAVA_LAMBDA: {
+				JavaLambda javaLambda = (JavaLambda) theEObject;
+				T result = caseJavaLambda(javaLambda);
+				if(result == null)
+					result = caseLambda(javaLambda);
+				if(result == null)
+					result = caseExpressionBlock(javaLambda);
+				if(result == null)
+					result = caseExpression(javaLambda);
+				if(result == null)
+					result = defaultCase(theEObject);
+				return result;
+			}
+			case PPPackage.RUBY_LAMBDA: {
+				RubyLambda rubyLambda = (RubyLambda) theEObject;
+				T result = caseRubyLambda(rubyLambda);
+				if(result == null)
+					result = caseLambda(rubyLambda);
+				if(result == null)
+					result = caseExpressionBlock(rubyLambda);
+				if(result == null)
+					result = caseExpression(rubyLambda);
+				if(result == null)
+					result = defaultCase(theEObject);
+				return result;
+			}
+			case PPPackage.SEPARATOR_EXPRESSION: {
+				SeparatorExpression separatorExpression = (SeparatorExpression) theEObject;
+				T result = caseSeparatorExpression(separatorExpression);
+				if(result == null)
+					result = caseExpression(separatorExpression);
 				if(result == null)
 					result = defaultCase(theEObject);
 				return result;

@@ -35,10 +35,14 @@ import org.cloudsmith.geppetto.pp.ExpressionTE;
 import org.cloudsmith.geppetto.pp.FunctionCall;
 import org.cloudsmith.geppetto.pp.HostClassDefinition;
 import org.cloudsmith.geppetto.pp.IfExpression;
+import org.cloudsmith.geppetto.pp.Lambda;
 import org.cloudsmith.geppetto.pp.LiteralExpression;
+import org.cloudsmith.geppetto.pp.LiteralName;
 import org.cloudsmith.geppetto.pp.LiteralNameOrReference;
+import org.cloudsmith.geppetto.pp.MethodCall;
 import org.cloudsmith.geppetto.pp.NodeDefinition;
 import org.cloudsmith.geppetto.pp.PPPackage;
+import org.cloudsmith.geppetto.pp.ParameterizedExpression;
 import org.cloudsmith.geppetto.pp.ParenthesisedExpression;
 import org.cloudsmith.geppetto.pp.PuppetManifest;
 import org.cloudsmith.geppetto.pp.ResourceBody;
@@ -215,35 +219,7 @@ public class PPResourceLinker implements IPPDiagnostics {
 		if(!(o.getLeftExpr() instanceof LiteralNameOrReference))
 			return;
 		final String name = ((LiteralNameOrReference) o.getLeftExpr()).getValue();
-
-		final SearchResult searchResult = ppFinder.findFunction(o, name, importedNames);
-		final List<IEObjectDescription> found = searchResult.getAdjusted(); // findFunction(o, name, importedNames);
-		if(found.size() > 0) {
-			// record resolution at resource level
-			importedNames.addResolved(found);
-			CrossReferenceAdapter.set(o.getLeftExpr(), found);
-			internalLinkFunctionArguments(name, o, importedNames, acceptor);
-			return; // ok, found
-		}
-		if(searchResult.getRaw().size() > 0) {
-			// Not a hard error, it may be valid with a different path
-			// not found on path, but exists somewhere in what is visible
-			// record resolution at resource level
-			importedNames.addResolved(searchResult.getRaw());
-			CrossReferenceAdapter.set(o.getLeftExpr(), searchResult.getRaw());
-			internalLinkFunctionArguments(name, o, importedNames, acceptor);
-			acceptor.acceptWarning("Found outside current path: '" + name + "'", o.getLeftExpr(), //
-				IPPDiagnostics.ISSUE__NOT_ON_PATH //
-			);
-			return; // sort of ok
-		}
-		String[] proposals = proposer.computeProposals(name, ppFinder.getExportedDescriptions(), searchPath, FUNC);
-		acceptor.acceptError("Unknown function: '" + name + "'", o.getLeftExpr(), //
-			proposalIssue(IPPDiagnostics.ISSUE__UNKNOWN_FUNCTION_REFERENCE, proposals), //
-			proposals);
-		// record failure at resource level
-		addUnresolved(importedNames, name, NodeModelUtils.findActualNodeFor(o.getLeftExpr()));
-		CrossReferenceAdapter.clear(o.getLeftExpr());
+		internalLinkFunctionCall(o, o.getLeftExpr(), name, importedNames, acceptor);
 	}
 
 	private void _link(HostClassDefinition o, PPImportedNamesAdapter importedNames, IMessageAcceptor acceptor) {
@@ -326,6 +302,16 @@ public class PPResourceLinker implements IPPDiagnostics {
 						IPPDiagnostics.ISSUE__INHERITANCE_WITH_PARAMETERS);
 			}
 		}
+	}
+
+	private void _link(MethodCall o, PPImportedNamesAdapter importedNames, IMessageAcceptor acceptor) {
+		// if not a name, then there is nothing to link, and this error is handled
+		// elsewhere
+		Expression methodExpr = o.getMethodExpr();
+		if(!(methodExpr instanceof LiteralName))
+			return;
+		final String name = ((LiteralName) methodExpr).getValue();
+		internalLinkFunctionCall(o, methodExpr, name, importedNames, acceptor);
 	}
 
 	/**
@@ -617,96 +603,6 @@ public class PPResourceLinker implements IPPDiagnostics {
 		}
 	}
 
-	/**
-	 * Link well known functions that must have references to defined things.
-	 * 
-	 * @param o
-	 * @param importedNames
-	 * @param acceptor
-	 */
-	private void internalLinkFunctionArguments(String name, FunctionCall o, PPImportedNamesAdapter importedNames,
-			IMessageAcceptor acceptor) {
-		// have 0:M classes as arguments
-		if("require".equals(name) || "include".equals(name)) {
-			int parameterIndex = -1;
-			for(Expression pe : o.getParameters()) {
-				parameterIndex++;
-				final String className = stringConstantEvaluator.doToString(pe);
-				if(className != null) {
-					SearchResult searchResult = ppFinder.findHostClasses(o, className, importedNames);
-					List<IEObjectDescription> foundClasses = searchResult.getAdjusted(); // findHostClasses(o, className, importedNames);
-					if(foundClasses.size() > 1) {
-						// ambiguous
-						importedNames.addAmbiguous(foundClasses);
-						acceptor.acceptWarning(
-							"Ambiguous reference to: '" + className + "' found in: " +
-									visibleResourceList(o.eResource(), foundClasses), o,
-							PPPackage.Literals.PARAMETERIZED_EXPRESSION__PARAMETERS, parameterIndex,
-							IPPDiagnostics.ISSUE__RESOURCE_AMBIGUOUS_REFERENCE,
-							proposer.computeDistinctProposals(className, foundClasses));
-					}
-					else if(foundClasses.size() < 1) {
-						if(searchResult.getRaw().size() > 0) {
-							// sort of ok
-							importedNames.addResolved(searchResult.getRaw());
-							CrossReferenceAdapter.set(pe, searchResult.getRaw());
-							acceptor.acceptWarning(
-								"Found outside current search path: '" + className + "'", o,
-								PPPackage.Literals.PARAMETERIZED_EXPRESSION__PARAMETERS, parameterIndex,
-								IPPDiagnostics.ISSUE__NOT_ON_PATH);
-						}
-						else {
-							// not found
-							// record unresolved name at resource level
-							addUnresolved(importedNames, className, NodeModelUtils.findActualNodeFor(pe));
-							// importedNames.addUnresolved(converter.toQualifiedName(className));
-							CrossReferenceAdapter.clear(pe);
-
-							String[] p = proposer.computeProposals(
-								className, ppFinder.getExportedDescriptions(), searchPath, CLASS_AND_TYPE);
-							acceptor.acceptError(
-								"Unknown class: '" + className + "'", o, //
-								PPPackage.Literals.PARAMETERIZED_EXPRESSION__PARAMETERS, parameterIndex,
-								proposalIssue(IPPDiagnostics.ISSUE__RESOURCE_UNKNOWN_TYPE, p), //
-								p);
-						}
-					}
-					else {
-						// found
-						importedNames.addResolved(foundClasses);
-						CrossReferenceAdapter.set(pe, foundClasses);
-					}
-				}
-				else {
-					CrossReferenceAdapter.clear(pe);
-					// warning or error depending on if this is a reasonable class reference expr or not
-					if(canBeAClassReference(pe)) {
-						acceptor.acceptWarning(
-							"Can not determine until runtime if this is a valid class reference", //
-							o, //
-							PPPackage.Literals.PARAMETERIZED_EXPRESSION__PARAMETERS, parameterIndex,
-							IPPDiagnostics.ISSUE__RESOURCE_UNKNOWN_TYPE);
-					}
-					else {
-						acceptor.acceptError(
-							"Not an acceptable parameter. Function '" + name + "' requires a class reference.", //
-							o, //
-							PPPackage.Literals.PARAMETERIZED_EXPRESSION__PARAMETERS, parameterIndex,
-							IPPDiagnostics.ISSUE__RESOURCE_UNKNOWN_TYPE);
-					}
-				}
-
-			}
-			// there should have been at least one argument
-			if(parameterIndex < 0) {
-				acceptor.acceptError("Call to '" + name + "' must have at least one argument.", o, //
-					PPPackage.Literals.PARAMETERIZED_EXPRESSION__LEFT_EXPR, //
-					IPPDiagnostics.ISSUE__REQUIRED_EXPRESSION);
-
-			}
-		}
-	}
-
 	private void internalLinkFunctionArguments(String name, LiteralNameOrReference s, EList<Expression> statements,
 			int idx, PPImportedNamesAdapter importedNames, IMessageAcceptor acceptor) {
 		// have 0:M classes as arguments
@@ -834,6 +730,128 @@ public class PPResourceLinker implements IPPDiagnostics {
 				}
 			}
 		}
+	}
+
+	/**
+	 * Link well known functions that must have references to defined things.
+	 * 
+	 * @param o
+	 * @param importedNames
+	 * @param acceptor
+	 */
+	private void internalLinkFunctionArguments(String name, ParameterizedExpression o,
+			PPImportedNamesAdapter importedNames, IMessageAcceptor acceptor) {
+		// have 0:M classes as arguments
+		if("require".equals(name) || "include".equals(name)) {
+			int parameterIndex = -1;
+			for(Expression pe : o.getParameters()) {
+				parameterIndex++;
+				final String className = stringConstantEvaluator.doToString(pe);
+				if(className != null) {
+					SearchResult searchResult = ppFinder.findHostClasses(o, className, importedNames);
+					List<IEObjectDescription> foundClasses = searchResult.getAdjusted(); // findHostClasses(o, className, importedNames);
+					if(foundClasses.size() > 1) {
+						// ambiguous
+						importedNames.addAmbiguous(foundClasses);
+						acceptor.acceptWarning(
+							"Ambiguous reference to: '" + className + "' found in: " +
+									visibleResourceList(o.eResource(), foundClasses), o,
+							PPPackage.Literals.PARAMETERIZED_EXPRESSION__PARAMETERS, parameterIndex,
+							IPPDiagnostics.ISSUE__RESOURCE_AMBIGUOUS_REFERENCE,
+							proposer.computeDistinctProposals(className, foundClasses));
+					}
+					else if(foundClasses.size() < 1) {
+						if(searchResult.getRaw().size() > 0) {
+							// sort of ok
+							importedNames.addResolved(searchResult.getRaw());
+							CrossReferenceAdapter.set(pe, searchResult.getRaw());
+							acceptor.acceptWarning(
+								"Found outside current search path: '" + className + "'", o,
+								PPPackage.Literals.PARAMETERIZED_EXPRESSION__PARAMETERS, parameterIndex,
+								IPPDiagnostics.ISSUE__NOT_ON_PATH);
+						}
+						else {
+							// not found
+							// record unresolved name at resource level
+							addUnresolved(importedNames, className, NodeModelUtils.findActualNodeFor(pe));
+							// importedNames.addUnresolved(converter.toQualifiedName(className));
+							CrossReferenceAdapter.clear(pe);
+
+							String[] p = proposer.computeProposals(
+								className, ppFinder.getExportedDescriptions(), searchPath, CLASS_AND_TYPE);
+							acceptor.acceptError(
+								"Unknown class: '" + className + "'", o, //
+								PPPackage.Literals.PARAMETERIZED_EXPRESSION__PARAMETERS, parameterIndex,
+								proposalIssue(IPPDiagnostics.ISSUE__RESOURCE_UNKNOWN_TYPE, p), //
+								p);
+						}
+					}
+					else {
+						// found
+						importedNames.addResolved(foundClasses);
+						CrossReferenceAdapter.set(pe, foundClasses);
+					}
+				}
+				else {
+					CrossReferenceAdapter.clear(pe);
+					// warning or error depending on if this is a reasonable class reference expr or not
+					if(canBeAClassReference(pe)) {
+						acceptor.acceptWarning(
+							"Can not determine until runtime if this is a valid class reference", //
+							o, //
+							PPPackage.Literals.PARAMETERIZED_EXPRESSION__PARAMETERS, parameterIndex,
+							IPPDiagnostics.ISSUE__RESOURCE_UNKNOWN_TYPE);
+					}
+					else {
+						acceptor.acceptError(
+							"Not an acceptable parameter. Function '" + name + "' requires a class reference.", //
+							o, //
+							PPPackage.Literals.PARAMETERIZED_EXPRESSION__PARAMETERS, parameterIndex,
+							IPPDiagnostics.ISSUE__RESOURCE_UNKNOWN_TYPE);
+					}
+				}
+
+			}
+			// there should have been at least one argument
+			if(parameterIndex < 0) {
+				acceptor.acceptError("Call to '" + name + "' must have at least one argument.", o, //
+					PPPackage.Literals.PARAMETERIZED_EXPRESSION__LEFT_EXPR, //
+					IPPDiagnostics.ISSUE__REQUIRED_EXPRESSION);
+
+			}
+		}
+	}
+
+	private void internalLinkFunctionCall(ParameterizedExpression o, EObject nameExpr, String name,
+			PPImportedNamesAdapter importedNames, IMessageAcceptor acceptor) {
+		final SearchResult searchResult = ppFinder.findFunction(o, name, importedNames);
+		final List<IEObjectDescription> found = searchResult.getAdjusted(); // findFunction(o, name, importedNames);
+		if(found.size() > 0) {
+			// record resolution at resource level
+			importedNames.addResolved(found);
+			CrossReferenceAdapter.set(nameExpr, found);
+			internalLinkFunctionArguments(name, o, importedNames, acceptor);
+			return; // ok, found
+		}
+		if(searchResult.getRaw().size() > 0) {
+			// Not a hard error, it may be valid with a different path
+			// not found on path, but exists somewhere in what is visible
+			// record resolution at resource level
+			importedNames.addResolved(searchResult.getRaw());
+			CrossReferenceAdapter.set(nameExpr, searchResult.getRaw());
+			internalLinkFunctionArguments(name, o, importedNames, acceptor);
+			acceptor.acceptWarning("Found outside current path: '" + name + "'", nameExpr, //
+				IPPDiagnostics.ISSUE__NOT_ON_PATH //
+			);
+			return; // sort of ok
+		}
+		String[] proposals = proposer.computeProposals(name, ppFinder.getExportedDescriptions(), searchPath, FUNC);
+		acceptor.acceptError("Unknown function: '" + name + "'", nameExpr, //
+			proposalIssue(IPPDiagnostics.ISSUE__UNKNOWN_FUNCTION_REFERENCE, proposals), //
+			proposals);
+		// record failure at resource level
+		addUnresolved(importedNames, name, NodeModelUtils.findActualNodeFor(nameExpr));
+		CrossReferenceAdapter.clear(nameExpr);
 	}
 
 	/**
@@ -1234,6 +1252,15 @@ public class PPResourceLinker implements IPPDiagnostics {
 
 				case PPPackage.COLLECT_EXPRESSION:
 					_link((CollectExpression) o, importedNames, acceptor);
+					break;
+
+				case PPPackage.METHOD_CALL:
+					_link((MethodCall) o, importedNames, acceptor);
+					break;
+
+				case PPPackage.JAVA_LAMBDA:
+				case PPPackage.RUBY_LAMBDA:
+					internalLinkUnparenthesisedCall(((Lambda) o).getStatements(), importedNames, acceptor);
 					break;
 
 				case PPPackage.UNQUOTED_STRING:

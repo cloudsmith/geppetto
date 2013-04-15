@@ -250,7 +250,6 @@ KW_DOT       : '.' {
 	if(singleQuotedString || doubleQuotedString)
 		_type = RULE_ANY_OTHER;
 }; 
-// {isNotInString()}? => '.';
 
 KW_SLASH     : {isNotInString()}?=>'/' {
 	if(isReAcceptable()) {
@@ -277,16 +276,33 @@ KW_LBRACK    : {isNotInString()}?=>'[';
 
 KW_RBRACK    : {isNotInString()}?=>']';
 
-KW_LBRACE    : {isNotInString()}?=>'{' {enterBrace();};
+// Look ahead is needed to differentiate between '{' in general, and a '{' that starts a lambda.
+// (Too many ambiguities and surprising backtracking result otherwise). This is solved by looking ahead
+// here. If there is there a '|' following the '{'?, then the pseudo token RULE_LAMBDA is returned 
+// instead of the token '{'. 
+//  
+KW_LBRACE    : {isNotInString()}?=>'{' {
+	enterBrace();
+	// This may be the start of a Ruby style lambda, help the parser by scanning ahead
+	int c = 0;
+    for(int i = 1; ; i++) {
+		c = input.LT(i);
+        if ( c =='\t' || c=='\n' || c=='\r' || c==' '|| c=='\u00A0')
+			continue;
+		if (c == '|') {
+			_type = RULE_LAMBDA;
+		}
+		break;
+	}
+};
 
 KW_PIPE      : {isNotInString()}?=>'|';
 
 KW_RBRACE    : {isNotInString()}?=>'}' {exitBrace();};
 
 // Standard /* */ comment that also eats trailing WS and endof line if that is all that is trailing
+//
 RULE_ML_COMMENT : {isNotInString()}?=> (('/*' ( options {greedy=false;} : . )*'*/') (' '|'\u00A0'|'\t')* ('\r'? '\n')?) ;
-
-//RULE_SL_COMMENT : {isNotInString()}?=> '#' ~(('\r'|'\n'))* ('\r'? '\n')?;
 
 RULE_SL_COMMENT : {isNotInString()}?=> '#' ~(('\r'|'\n'))* ('\r'? '\n')?;
 
@@ -296,18 +312,24 @@ RULE_WS : (' '|'\u00A0'|'\t'|'\r'|'\n')+ {
 	}
 };
 
+// Pseudo rule, this is done with lookahead on a left brace, since all WS after '{' should be delivered as such.
+// Also see KW_LBRACE.
+//
+RULE_LAMBDA : {false}?=> '{' '|' ;
+
 // Do not check if matched text is a keyword (it is allowed after a '$'
 RULE_DOLLAR_VAR : '$' 
 	((':' ':')=>RULE_NS)? ('0'..'9'|'a'..'z'|'A'..'Z'|'_')+ 
 	((':' ':')=>RULE_NS ('0'..'9'|'a'..'z'|'A'..'Z'|'_')+)* ;
 
-// Covers numbers and names
+// Covers non decimal numbers and names
 RULE_WORD_CHARS : ('0'..'9'|'a'..'z'|'A'..'Z'|'_'|(':' ':')=>RULE_NS) ('0'..'9'|'a'..'z'|'A'..'Z'|'_'|'-'|(':' ':')=>RULE_NS)*
 {	// check if what was matched is a keyword - emit that instead
 	_type = replaceLiteral(_type, getText());
 };
 
 // If lookahead is NUMERIC, lex as number but produce WORD_CHARS
+//
 RULE_NUMBER : (NUMERIC)=>NUMERIC {
 	_type = RULE_WORD_CHARS;
 };

@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2011 Cloudsmith Inc. and other contributors, as listed below.
+ * Copyright (c) 2011, 2013 Cloudsmith Inc. and other contributors, as listed below.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -257,12 +257,18 @@ public class PPFactoryImpl extends EFactoryImpl implements PPFactory {
 				return createLiteralClass();
 			case PPPackage.UNLESS_EXPRESSION:
 				return createUnlessExpression();
-			case PPPackage.LAMBDA:
-				return createLambda();
 			case PPPackage.NAMED_ACCESS_EXPRESSION:
 				return createNamedAccessExpression();
 			case PPPackage.METHOD_CALL:
 				return createMethodCall();
+			case PPPackage.WITH_LAMBDA_EXPRESSION:
+				return createWithLambdaExpression();
+			case PPPackage.JAVA_LAMBDA:
+				return createJavaLambda();
+			case PPPackage.RUBY_LAMBDA:
+				return createRubyLambda();
+			case PPPackage.SEPARATOR_EXPRESSION:
+				return createSeparatorExpression();
 			default:
 				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
@@ -582,9 +588,9 @@ public class PPFactoryImpl extends EFactoryImpl implements PPFactory {
 	 * 
 	 * @generated
 	 */
-	public Lambda createLambda() {
-		LambdaImpl lambda = new LambdaImpl();
-		return lambda;
+	public JavaLambda createJavaLambda() {
+		JavaLambdaImpl javaLambda = new JavaLambdaImpl();
+		return javaLambda;
 	}
 
 	/**
@@ -824,6 +830,17 @@ public class PPFactoryImpl extends EFactoryImpl implements PPFactory {
 	 * 
 	 * @generated
 	 */
+	public RubyLambda createRubyLambda() {
+		RubyLambdaImpl rubyLambda = new RubyLambdaImpl();
+		return rubyLambda;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
 	public SelectorEntry createSelectorEntry() {
 		SelectorEntryImpl selectorEntry = new SelectorEntryImpl();
 		return selectorEntry;
@@ -838,6 +855,17 @@ public class PPFactoryImpl extends EFactoryImpl implements PPFactory {
 	public SelectorExpression createSelectorExpression() {
 		SelectorExpressionImpl selectorExpression = new SelectorExpressionImpl();
 		return selectorExpression;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
+	public SeparatorExpression createSeparatorExpression() {
+		SeparatorExpressionImpl separatorExpression = new SeparatorExpressionImpl();
+		return separatorExpression;
 	}
 
 	/**
@@ -959,6 +987,17 @@ public class PPFactoryImpl extends EFactoryImpl implements PPFactory {
 	public VirtualNameOrReference createVirtualNameOrReference() {
 		VirtualNameOrReferenceImpl virtualNameOrReference = new VirtualNameOrReferenceImpl();
 		return virtualNameOrReference;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
+	public WithLambdaExpression createWithLambdaExpression() {
+		WithLambdaExpressionImpl withLambdaExpression = new WithLambdaExpressionImpl();
+		return withLambdaExpression;
 	}
 
 	/**

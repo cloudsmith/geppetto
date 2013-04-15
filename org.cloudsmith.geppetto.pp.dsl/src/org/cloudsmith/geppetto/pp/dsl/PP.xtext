@@ -42,11 +42,12 @@ Expression returns pp::Expression :
 // Should be used by expressions that allow a sequence of expressions (as such
 // a sequence can include non-parenthesized function calls (which are detected after
 // parsing)
-ExpressionList returns pp::Expression : 
-	RelationshipExpression ({pp::ExprList.expressions += current} ',' 
+ExpressionList returns pp::Expression 
+	: RelationshipExpression ({pp::ExprList.expressions += current} ',' 
 		expressions += RelationshipExpression (',' 
 			expressions += RelationshipExpression)*)?
-		;
+	| SeparatorExpression
+	;
 		
 // LOWEST PRECEDENCE
 //  left  relationship
@@ -200,6 +201,7 @@ AdditiveExpression returns pp::Expression:
 	)*
 	;
 
+// '%' added in Puppet 3.2. Validated in older versions
 MultiplicativeOperator : '*' | '/' | '%' ;
 MultiplicativeExpression returns pp::Expression:
 	MatchingExpression ({pp::MultiplicativeExpression.leftExpr=current} 
@@ -265,7 +267,7 @@ ExportedCollectQuery returns pp::ICollectQuery
 	;
 	
 SelectorExpression returns pp::Expression
-	: AtExpression // WAS: FunctionCall 
+	: AtExpression 
 		({pp::SelectorExpression.leftExpr = current}
 		 '?' 
 			( ('{' 
@@ -286,7 +288,7 @@ SelectorEntry returns pp::Expression
 // VALIDATION: checks 2 level nesting constraint on At a[x][y] is ok but not a[x][y][z] if bug compatible mode
 // VALIDATION: checks At dual roles and validates accordingly (only single parameter for normal At) etc.	
 AtExpression  returns pp::Expression:
-	FunctionCall // WAS: CollectExpression 
+	MethodCall 
 	({pp::AtExpression.leftExpr=current}
 		'['  
 			(parameters += Expression (','  parameters += Expression)*)?
@@ -294,31 +296,54 @@ AtExpression  returns pp::Expression:
 	)*
 	;
 	
+
+MethodCall returns pp::Expression
+	: FunctionCall ({pp::MethodCall.leftExpr = current} '.' (methodExpr = LiteralName
+		( parenthesized = LPARBoolean  // remember if an empty list had parentheses or not
+			(parameters+=Expression (',' parameters += Expression)* ','? /*endComma? */)?
+		')' )?)?
+		lambda = LambdaExpression? 
+	  )*
+	;
+
+LPARBoolean returns ecore::EBoolean : '(' ;
+	
+LambdaExpression returns pp::Lambda
+    : Java8Lambda
+    | RubyLambda
+    ;
+
+Java8Lambda returns pp::Lambda
+	: '|' {pp::JavaLambda} arguments = LambdaParameters? '|' (farrow ?= '=>')?
+	  '{'
+    	(statements += ExpressionList)* 
+	  '}'
+	;
+RubyLambda returns pp::Lambda
+    : LAMBDA '|' {pp::RubyLambda} arguments = LambdaParameters? '|'
+    	(statements += ExpressionList)* 
+      '}'
+    ;
+
+LambdaParameters returns pp::DefinitionArgumentList 
+	: (arguments += DefinitionArgument (',' arguments += DefinitionArgument)*) ','? /* endComma? */
+	;
+
 // FunctionCall has different syntax restrictions depending on context
-// - when used where only one expression can occur, parantheses are required around the arguments
+// - when used where only one expression can occur, parentheses are required around the arguments
 // To solve this, the parser does NOT recognize func x as a function call, this is instead treated as
 // a sequence of two expressions, a later step will need to determine if 'func' is a function, if so, how
 // many arguments it is supposed to take, and then validate if the input is correct.
 //
 // VALIDATION : functionExpr is a valid function name	
-FunctionCall returns pp::Expression 
-	: PrimaryExpression ({pp::FunctionCall.leftExpr = current}
-		'('  
+
+FunctionCall returns pp::Expression
+	: PrimaryExpression (=>({pp::FunctionCall.leftExpr = current} '(')
 			(parameters+=Expression (',' parameters += Expression)* ','? /*endComma? */)?
-		')' )?
+		  ')'
+		=>(lambda = LambdaExpression?) 
+	  )*
 	;
-
-LambdaExpression 
-    : Java8Lambda
-    | RubyLambda
-    ;
-
-Java8Lambda
-	: '|' '|' '=>'? '{' '.' '}'
-	;
-RubyLambda
-    : '{' '|' '|' '}'
-    ;
     
 PrimaryExpression returns pp::Expression
 	: IfExpression
@@ -382,7 +407,7 @@ DefinitionArgumentList returns pp::DefinitionArgumentList
 	  	')' 
 	;
 	
-// VALIDATION: Depracted warning if name does not start with $
+// VALIDATION: Deprecated warning if name does not start with $
 // VALIDATION: Not all variations of SimplefiedVariableOrName are valid (with NS)
 // VALIDATION: value expr is RVALUE
 // 	
@@ -408,6 +433,7 @@ Case returns pp::Case
 //-- UNLESS (is the same as if !(e) {}, but without support for "else"
 UnlessExpression returns pp::UnlessExpression
 	: 'unless' condExpr = AssignmentExpression '{' (thenStatements += ExpressionList)* '}'
+		(=>'else' elseStatement = ElseExpression)?
     ;
 	 
 //-- IF 
@@ -462,6 +488,10 @@ UNION_VARIABLE_OR_NAME
 // validate that expr is not empty	
 ParenthisedExpression returns pp::ParenthesisedExpression
 	: '('  {pp::ParenthesisedExpression} expr = AssignmentExpression? ')' 
+	;
+
+SeparatorExpression returns pp::SeparatorExpression
+	: {pp::SeparatorExpression} ';'
 	;
 
 VirtualNameOrReference returns pp::VirtualNameOrReference 
@@ -669,6 +699,9 @@ terminal WORD_CHARS :
 	;
 
 terminal NUMBER : NUMERIC;
+
+// Pseudo rule
+terminal LAMBDA : '{' WS '|';
 
 terminal fragment NUMERIC
  	: ('0' ('x'|'X') ('0'..'9'|'a'..'f'|'A'..'F')+)

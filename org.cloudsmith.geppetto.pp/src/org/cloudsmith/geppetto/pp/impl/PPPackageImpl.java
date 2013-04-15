@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2011 Cloudsmith Inc. and other contributors, as listed below.
+ * Copyright (c) 2011, 2013 Cloudsmith Inc. and other contributors, as listed below.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -44,6 +44,7 @@ import org.cloudsmith.geppetto.pp.IfExpression;
 import org.cloudsmith.geppetto.pp.ImportExpression;
 import org.cloudsmith.geppetto.pp.InExpression;
 import org.cloudsmith.geppetto.pp.InterpolatedVariable;
+import org.cloudsmith.geppetto.pp.JavaLambda;
 import org.cloudsmith.geppetto.pp.Lambda;
 import org.cloudsmith.geppetto.pp.LiteralBoolean;
 import org.cloudsmith.geppetto.pp.LiteralClass;
@@ -70,8 +71,10 @@ import org.cloudsmith.geppetto.pp.RelationalExpression;
 import org.cloudsmith.geppetto.pp.RelationshipExpression;
 import org.cloudsmith.geppetto.pp.ResourceBody;
 import org.cloudsmith.geppetto.pp.ResourceExpression;
+import org.cloudsmith.geppetto.pp.RubyLambda;
 import org.cloudsmith.geppetto.pp.SelectorEntry;
 import org.cloudsmith.geppetto.pp.SelectorExpression;
+import org.cloudsmith.geppetto.pp.SeparatorExpression;
 import org.cloudsmith.geppetto.pp.ShiftExpression;
 import org.cloudsmith.geppetto.pp.SingleQuotedString;
 import org.cloudsmith.geppetto.pp.StringExpression;
@@ -86,6 +89,7 @@ import org.cloudsmith.geppetto.pp.VariableTE;
 import org.cloudsmith.geppetto.pp.VerbatimTE;
 import org.cloudsmith.geppetto.pp.VirtualCollectQuery;
 import org.cloudsmith.geppetto.pp.VirtualNameOrReference;
+import org.cloudsmith.geppetto.pp.WithLambdaExpression;
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EPackage;
@@ -690,6 +694,38 @@ public class PPPackageImpl extends EPackageImpl implements PPPackage {
 	 * 
 	 * @generated
 	 */
+	private EClass withLambdaExpressionEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
+	private EClass javaLambdaEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
+	private EClass rubyLambdaEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
+	private EClass separatorExpressionEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
 	private static boolean isInited = false;
 
 	/**
@@ -974,6 +1010,7 @@ public class PPPackageImpl extends EPackageImpl implements PPPackage {
 		unlessExpressionEClass = createEClass(UNLESS_EXPRESSION);
 		createEReference(unlessExpressionEClass, UNLESS_EXPRESSION__COND_EXPR);
 		createEReference(unlessExpressionEClass, UNLESS_EXPRESSION__THEN_STATEMENTS);
+		createEReference(unlessExpressionEClass, UNLESS_EXPRESSION__ELSE_STATEMENT);
 
 		lambdaEClass = createEClass(LAMBDA);
 		createEReference(lambdaEClass, LAMBDA__ARGUMENTS);
@@ -981,6 +1018,18 @@ public class PPPackageImpl extends EPackageImpl implements PPPackage {
 		namedAccessExpressionEClass = createEClass(NAMED_ACCESS_EXPRESSION);
 
 		methodCallEClass = createEClass(METHOD_CALL);
+		createEAttribute(methodCallEClass, METHOD_CALL__PARENTHESIZED);
+		createEReference(methodCallEClass, METHOD_CALL__METHOD_EXPR);
+
+		withLambdaExpressionEClass = createEClass(WITH_LAMBDA_EXPRESSION);
+		createEReference(withLambdaExpressionEClass, WITH_LAMBDA_EXPRESSION__LAMBDA);
+
+		javaLambdaEClass = createEClass(JAVA_LAMBDA);
+		createEAttribute(javaLambdaEClass, JAVA_LAMBDA__FARROW);
+
+		rubyLambdaEClass = createEClass(RUBY_LAMBDA);
+
+		separatorExpressionEClass = createEClass(SEPARATOR_EXPRESSION);
 	}
 
 	/**
@@ -1649,6 +1698,26 @@ public class PPPackageImpl extends EPackageImpl implements PPPackage {
 	 * 
 	 * @generated
 	 */
+	public EClass getJavaLambda() {
+		return javaLambdaEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
+	public EAttribute getJavaLambda_Farrow() {
+		return (EAttribute) javaLambdaEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
 	public EClass getLambda() {
 		return lambdaEClass;
 	}
@@ -1841,6 +1910,26 @@ public class PPPackageImpl extends EPackageImpl implements PPPackage {
 	 */
 	public EClass getMethodCall() {
 		return methodCallEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
+	public EReference getMethodCall_MethodExpr() {
+		return (EReference) methodCallEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
+	public EAttribute getMethodCall_Parenthesized() {
+		return (EAttribute) methodCallEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -2069,6 +2158,16 @@ public class PPPackageImpl extends EPackageImpl implements PPPackage {
 	 * 
 	 * @generated
 	 */
+	public EClass getRubyLambda() {
+		return rubyLambdaEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
 	public EClass getSelectorEntry() {
 		return selectorEntryEClass;
 	}
@@ -2081,6 +2180,16 @@ public class PPPackageImpl extends EPackageImpl implements PPPackage {
 	 */
 	public EClass getSelectorExpression() {
 		return selectorExpressionEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
+	public EClass getSeparatorExpression() {
+		return separatorExpressionEClass;
 	}
 
 	/**
@@ -2191,6 +2300,16 @@ public class PPPackageImpl extends EPackageImpl implements PPPackage {
 	 */
 	public EReference getUnlessExpression_CondExpr() {
 		return (EReference) unlessExpressionEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
+	public EReference getUnlessExpression_ElseStatement() {
+		return (EReference) unlessExpressionEClass.getEStructuralFeatures().get(2);
 	}
 
 	/**
@@ -2324,6 +2443,26 @@ public class PPPackageImpl extends EPackageImpl implements PPPackage {
 	}
 
 	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
+	public EClass getWithLambdaExpression() {
+		return withLambdaExpressionEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
+	public EReference getWithLambdaExpression_Lambda() {
+		return (EReference) withLambdaExpressionEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
 	 * Complete the initialization of the package and its meta-model. This
 	 * method is guarded to have no affect on any invocation but its first.
 	 * <!-- begin-user-doc -->
@@ -2383,7 +2522,7 @@ public class PPPackageImpl extends EPackageImpl implements PPPackage {
 		collectExpressionEClass.getESuperTypes().add(this.getExpression());
 		selectorExpressionEClass.getESuperTypes().add(this.getParameterizedExpression());
 		selectorEntryEClass.getESuperTypes().add(this.getBinaryExpression());
-		functionCallEClass.getESuperTypes().add(this.getParameterizedExpression());
+		functionCallEClass.getESuperTypes().add(this.getWithLambdaExpression());
 		binaryOpExpressionEClass.getESuperTypes().add(this.getBinaryExpression());
 		binaryExpressionEClass.getESuperTypes().add(this.getExpression());
 		parameterizedExpressionEClass.getESuperTypes().add(this.getExpression());
@@ -2411,7 +2550,11 @@ public class PPPackageImpl extends EPackageImpl implements PPPackage {
 		unlessExpressionEClass.getESuperTypes().add(this.getExpression());
 		lambdaEClass.getESuperTypes().add(this.getExpressionBlock());
 		namedAccessExpressionEClass.getESuperTypes().add(this.getBinaryExpression());
-		methodCallEClass.getESuperTypes().add(this.getParameterizedExpression());
+		methodCallEClass.getESuperTypes().add(this.getWithLambdaExpression());
+		withLambdaExpressionEClass.getESuperTypes().add(this.getParameterizedExpression());
+		javaLambdaEClass.getESuperTypes().add(this.getLambda());
+		rubyLambdaEClass.getESuperTypes().add(this.getLambda());
+		separatorExpressionEClass.getESuperTypes().add(this.getExpression());
 
 		// Initialize classes and features; add operations and parameters
 		initEClass(
@@ -2909,8 +3052,12 @@ public class PPPackageImpl extends EPackageImpl implements PPPackage {
 			getUnlessExpression_ThenStatements(), this.getExpression(), null, "thenStatements", null, 0, -1,
 			UnlessExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES,
 			!IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(
+			getUnlessExpression_ElseStatement(), this.getExpression(), null, "elseStatement", null, 0, 1,
+			UnlessExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES,
+			!IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-		initEClass(lambdaEClass, Lambda.class, "Lambda", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEClass(lambdaEClass, Lambda.class, "Lambda", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(
 			getLambda_Arguments(), this.getDefinitionArgumentList(), null, "arguments", null, 0, 1, Lambda.class,
 			!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE,
@@ -2922,6 +3069,34 @@ public class PPPackageImpl extends EPackageImpl implements PPPackage {
 
 		initEClass(
 			methodCallEClass, MethodCall.class, "MethodCall", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(
+			getMethodCall_Parenthesized(), ecorePackage.getEBoolean(), "parenthesized", null, 0, 1, MethodCall.class,
+			!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(
+			getMethodCall_MethodExpr(), this.getExpression(), null, "methodExpr", null, 1, 1, MethodCall.class,
+			!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE,
+			!IS_DERIVED, IS_ORDERED);
+
+		initEClass(
+			withLambdaExpressionEClass, WithLambdaExpression.class, "WithLambdaExpression", !IS_ABSTRACT,
+			!IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(
+			getWithLambdaExpression_Lambda(), this.getLambda(), null, "lambda", null, 0, 1, WithLambdaExpression.class,
+			!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE,
+			!IS_DERIVED, IS_ORDERED);
+
+		initEClass(
+			javaLambdaEClass, JavaLambda.class, "JavaLambda", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(
+			getJavaLambda_Farrow(), ecorePackage.getEBoolean(), "farrow", null, 0, 1, JavaLambda.class, !IS_TRANSIENT,
+			!IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(
+			rubyLambdaEClass, RubyLambda.class, "RubyLambda", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+		initEClass(
+			separatorExpressionEClass, SeparatorExpression.class, "SeparatorExpression", !IS_ABSTRACT, !IS_INTERFACE,
+			IS_GENERATED_INSTANCE_CLASS);
 
 		// Create resource
 		createResource(eNS_URI);

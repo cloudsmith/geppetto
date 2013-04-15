@@ -128,7 +128,7 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="SelectorExpression" eSuperTypes="#//ParameterizedExpression"/>
   <eClassifiers xsi:type="ecore:EClass" name="SelectorEntry" eSuperTypes="#//BinaryExpression"/>
-  <eClassifiers xsi:type="ecore:EClass" name="FunctionCall" eSuperTypes="#//ParameterizedExpression"/>
+  <eClassifiers xsi:type="ecore:EClass" name="FunctionCall" eSuperTypes="#//WithLambdaExpression"/>
   <eClassifiers xsi:type="ecore:EClass" name="BinaryOpExpression" abstract="true"
       eSuperTypes="#//BinaryExpression">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="opName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
@@ -211,11 +211,26 @@
         containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="thenStatements" upperBound="-1"
         eType="#//Expression" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="elseStatement" eType="#//Expression"
+        containment="true"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="Lambda" eSuperTypes="#//ExpressionBlock">
+  <eClassifiers xsi:type="ecore:EClass" name="Lambda" abstract="true" eSuperTypes="#//ExpressionBlock">
     <eStructuralFeatures xsi:type="ecore:EReference" name="arguments" eType="#//DefinitionArgumentList"
         containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="NamedAccessExpression" eSuperTypes="#//BinaryExpression"/>
-  <eClassifiers xsi:type="ecore:EClass" name="MethodCall" eSuperTypes="#//ParameterizedExpression"/>
+  <eClassifiers xsi:type="ecore:EClass" name="MethodCall" eSuperTypes="#//WithLambdaExpression">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="parenthesized" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="methodExpr" lowerBound="1"
+        eType="#//Expression" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="WithLambdaExpression" eSuperTypes="#//ParameterizedExpression">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="lambda" eType="#//Lambda"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="JavaLambda" eSuperTypes="#//Lambda">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="farrow" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="RubyLambda" eSuperTypes="#//Lambda"/>
+  <eClassifiers xsi:type="ecore:EClass" name="SeparatorExpression" eSuperTypes="#//Expression"/>
 </ecore:EPackage>

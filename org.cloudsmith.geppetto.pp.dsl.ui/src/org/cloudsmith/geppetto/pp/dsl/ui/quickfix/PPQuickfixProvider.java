@@ -508,6 +508,12 @@ public class PPQuickfixProvider extends DefaultQuickfixProvider {
 		}
 	}
 
+	@Fix(IPPDiagnostics.ISSUE__EMPTY_STATEMENT)
+	public void removeEmptyStatement(final Issue issue, final IssueResolutionAcceptor acceptor) {
+		acceptor.accept(issue, "Remove ';'", "The ';' is not needed, it creates an empty statement.", null, //
+			new ReplacingModification(issue.getOffset(), issue.getLength(), ""));
+	}
+
 	@Fix(IPPDiagnostics.ISSUE__UNSUPPORTED_EXPRESSION_STRING_OK)
 	public void surroundExprWithSingleQuote(final Issue issue, IssueResolutionAcceptor acceptor) {
 

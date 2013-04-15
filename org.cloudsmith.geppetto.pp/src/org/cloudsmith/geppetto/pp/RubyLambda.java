@@ -13,13 +13,13 @@ package org.cloudsmith.geppetto.pp;
 
 /**
  * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>Function Call</b></em>'.
+ * A representation of the model object '<em><b>Ruby Lambda</b></em>'.
  * <!-- end-user-doc -->
  * 
  * 
- * @see org.cloudsmith.geppetto.pp.PPPackage#getFunctionCall()
+ * @see org.cloudsmith.geppetto.pp.PPPackage#getRubyLambda()
  * @model
  * @generated
  */
-public interface FunctionCall extends WithLambdaExpression {
-} // FunctionCall
+public interface RubyLambda extends Lambda {
+} // RubyLambda

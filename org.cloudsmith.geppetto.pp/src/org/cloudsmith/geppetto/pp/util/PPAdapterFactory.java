@@ -279,6 +279,11 @@ public class PPAdapterFactory extends AdapterFactoryImpl {
 		}
 
 		@Override
+		public Adapter caseJavaLambda(JavaLambda object) {
+			return createJavaLambdaAdapter();
+		}
+
+		@Override
 		public Adapter caseLambda(Lambda object) {
 			return createLambdaAdapter();
 		}
@@ -399,6 +404,11 @@ public class PPAdapterFactory extends AdapterFactoryImpl {
 		}
 
 		@Override
+		public Adapter caseRubyLambda(RubyLambda object) {
+			return createRubyLambdaAdapter();
+		}
+
+		@Override
 		public Adapter caseSelectorEntry(SelectorEntry object) {
 			return createSelectorEntryAdapter();
 		}
@@ -406,6 +416,11 @@ public class PPAdapterFactory extends AdapterFactoryImpl {
 		@Override
 		public Adapter caseSelectorExpression(SelectorExpression object) {
 			return createSelectorExpressionAdapter();
+		}
+
+		@Override
+		public Adapter caseSeparatorExpression(SeparatorExpression object) {
+			return createSeparatorExpressionAdapter();
 		}
 
 		@Override
@@ -476,6 +491,11 @@ public class PPAdapterFactory extends AdapterFactoryImpl {
 		@Override
 		public Adapter caseVirtualNameOrReference(VirtualNameOrReference object) {
 			return createVirtualNameOrReferenceAdapter();
+		}
+
+		@Override
+		public Adapter caseWithLambdaExpression(WithLambdaExpression object) {
+			return createWithLambdaExpressionAdapter();
 		}
 
 		@Override
@@ -1021,6 +1041,21 @@ public class PPAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
+	 * Creates a new adapter for an object of class '{@link org.cloudsmith.geppetto.pp.JavaLambda <em>Java Lambda</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * 
+	 * @return the new adapter.
+	 * @see org.cloudsmith.geppetto.pp.JavaLambda
+	 * @generated
+	 */
+	public Adapter createJavaLambdaAdapter() {
+		return null;
+	}
+
+	/**
 	 * Creates a new adapter for an object of class '{@link org.cloudsmith.geppetto.pp.Lambda <em>Lambda</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
@@ -1381,6 +1416,21 @@ public class PPAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
+	 * Creates a new adapter for an object of class '{@link org.cloudsmith.geppetto.pp.RubyLambda <em>Ruby Lambda</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * 
+	 * @return the new adapter.
+	 * @see org.cloudsmith.geppetto.pp.RubyLambda
+	 * @generated
+	 */
+	public Adapter createRubyLambdaAdapter() {
+		return null;
+	}
+
+	/**
 	 * Creates a new adapter for an object of class '{@link org.cloudsmith.geppetto.pp.SelectorEntry <em>Selector Entry</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
@@ -1407,6 +1457,21 @@ public class PPAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createSelectorExpressionAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.cloudsmith.geppetto.pp.SeparatorExpression <em>Separator Expression</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * 
+	 * @return the new adapter.
+	 * @see org.cloudsmith.geppetto.pp.SeparatorExpression
+	 * @generated
+	 */
+	public Adapter createSeparatorExpressionAdapter() {
 		return null;
 	}
 
@@ -1617,6 +1682,21 @@ public class PPAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createVirtualNameOrReferenceAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.cloudsmith.geppetto.pp.WithLambdaExpression <em>With Lambda Expression</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * 
+	 * @return the new adapter.
+	 * @see org.cloudsmith.geppetto.pp.WithLambdaExpression
+	 * @generated
+	 */
+	public Adapter createWithLambdaExpressionAdapter() {
 		return null;
 	}
 

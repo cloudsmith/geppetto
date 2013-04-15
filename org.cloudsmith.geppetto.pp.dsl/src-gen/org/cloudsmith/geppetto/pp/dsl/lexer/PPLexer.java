@@ -15,155 +15,156 @@ import java.util.Map;
 import java.util.HashMap;
 @SuppressWarnings("all")
 public class PPLexer extends Lexer {
-    public static final int KW_NOT_EQ=101;
-    public static final int KW_COLON=138;
-    public static final int KW_EQUALS=112;
-    public static final int KW_PLUS=133;
-    public static final int RULE_ANY_OTHER=83;
-    public static final int RULE_RE_FLAGS=78;
+    public static final int KW_NOT_EQ=102;
+    public static final int KW_COLON=139;
+    public static final int KW_EQUALS=113;
+    public static final int KW_PLUS=134;
+    public static final int RULE_ANY_OTHER=84;
+    public static final int RULE_RE_FLAGS=79;
     public static final int KEYWORD_56=15;
-    public static final int KW_DEFAULT=85;
+    public static final int KW_DEFAULT=86;
     public static final int KEYWORD_55=14;
     public static final int KEYWORD_54=13;
-    public static final int KW_DEFINE=86;
-    public static final int RULE_RE_FOLLOW_CHAR=81;
+    public static final int KW_DEFINE=87;
+    public static final int RULE_RE_FOLLOW_CHAR=82;
     public static final int KEYWORD_53=20;
     public static final int KEYWORD_52=19;
     public static final int KEYWORD_51=18;
     public static final int KEYWORD_50=17;
-    public static final int KW_ELSIF=90;
-    public static final int KW_IN_EDGE_SUB=111;
+    public static final int KW_ELSIF=91;
+    public static final int KW_IN_EDGE_SUB=112;
     public static final int EOF=-1;
-    public static final int KW_ESC_DLR=118;
+    public static final int KW_ESC_DLR=119;
     public static final int KEYWORD_59=10;
     public static final int KEYWORD_58=9;
     public static final int KEYWORD_57=16;
-    public static final int KW_DQ=127;
-    public static final int KW_RPAR=131;
-    public static final int KW_IN_EDGE=107;
+    public static final int KW_DQ=128;
+    public static final int KW_RPAR=132;
+    public static final int KW_IN_EDGE=108;
     public static final int KEYWORD_65=5;
     public static final int KEYWORD_64=8;
     public static final int KEYWORD_66=4;
     public static final int KEYWORD_61=12;
     public static final int KEYWORD_60=11;
     public static final int KEYWORD_63=7;
-    public static final int RULE_RE_FIRST_CHAR=80;
+    public static final int RULE_RE_FIRST_CHAR=81;
     public static final int KEYWORD_62=6;
-    public static final int KW_EQ=141;
-    public static final int KW_RARR=106;
-    public static final int KW_SLASH=137;
-    public static final int KW_ESC_DLR_BRACE=98;
-    public static final int KW_PIPE=148;
-    public static final int KW_RSHIFT=116;
-    public static final int KW_LT=140;
+    public static final int KW_EQ=142;
+    public static final int KW_RARR=107;
+    public static final int KW_SLASH=138;
+    public static final int KW_ESC_DLR_BRACE=99;
+    public static final int KW_PIPE=149;
+    public static final int KW_RSHIFT=117;
+    public static final int KW_LT=141;
     public static final int KEYWORD_30=26;
-    public static final int KW_SQ=129;
+    public static final int KW_SQ=130;
     public static final int KEYWORD_34=30;
     public static final int KEYWORD_33=29;
     public static final int KEYWORD_32=28;
-    public static final int KW_IMPORT=87;
-    public static final int NUMERIC=151;
-    public static final int KW_RBRACK=146;
+    public static final int KW_IMPORT=88;
+    public static final int NUMERIC=152;
+    public static final int KW_RBRACK=147;
     public static final int KEYWORD_31=27;
     public static final int KEYWORD_38=34;
-    public static final int KW_RBRACE=149;
-    public static final int KW_ESC_ESC=120;
+    public static final int KW_RBRACE=150;
+    public static final int KW_ESC_ESC=121;
     public static final int KEYWORD_37=33;
     public static final int KEYWORD_36=32;
     public static final int KEYWORD_35=31;
-    public static final int KW_PLUS_EQ=104;
+    public static final int KW_PLUS_EQ=105;
     public static final int RULE_ML_COMMENT=70;
     public static final int KEYWORD_39=35;
-    public static final int KW_APPEND=105;
+    public static final int KW_APPEND=106;
     public static final int RULE_NUMERIC=75;
-    public static final int KW_MODULO=128;
-    public static final int KW_LCOLLECT=110;
+    public static final int KW_MODULO=129;
+    public static final int KW_LCOLLECT=111;
     public static final int KEYWORD_41=37;
     public static final int KEYWORD_40=36;
     public static final int KEYWORD_43=39;
     public static final int KEYWORD_42=38;
-    public static final int KW_LBRACE=147;
+    public static final int KW_LBRACE=148;
     public static final int KEYWORD_45=41;
     public static final int KEYWORD_44=40;
     public static final int KEYWORD_47=43;
-    public static final int KW_SEMI=139;
+    public static final int KW_SEMI=140;
     public static final int KEYWORD_46=42;
     public static final int KEYWORD_49=45;
     public static final int KEYWORD_48=44;
-    public static final int KW_NOT=126;
+    public static final int KW_NOT=127;
     public static final int RULE_DOLLAR_VAR=73;
-    public static final int KW_ELSE=94;
-    public static final int KW_MUL=132;
-    public static final int RULE_REGULAR_EXPRESSION=79;
-    public static final int KW_LBRACK=145;
-    public static final int KW_AND=99;
+    public static final int KW_ELSE=95;
+    public static final int KW_MUL=133;
+    public static final int RULE_REGULAR_EXPRESSION=80;
+    public static final int KW_LBRACK=146;
+    public static final int KW_AND=100;
     public static final int KEYWORD_19=64;
-    public static final int KW_UNLESS=88;
-    public static final int KW_DOT=136;
+    public static final int KW_UNLESS=89;
+    public static final int KW_DOT=137;
     public static final int KEYWORD_17=62;
-    public static final int KW_LSHIFT=108;
+    public static final int KW_LSHIFT=109;
     public static final int KEYWORD_18=63;
     public static final int KEYWORD_15=60;
     public static final int KEYWORD_16=61;
-    public static final int KW_TRUE=96;
+    public static final int KW_TRUE=97;
     public static final int KEYWORD_13=58;
     public static final int KEYWORD_14=59;
     public static final int KEYWORD_11=56;
     public static final int KEYWORD_12=57;
     public static final int KEYWORD_10=55;
-    public static final int KW_MINUS=135;
-    public static final int KW_NODE=95;
-    public static final int KW_GT_EQ=115;
+    public static final int KW_MINUS=136;
+    public static final int KW_NODE=96;
+    public static final int KW_GT_EQ=116;
     public static final int RULE_NUMBER=76;
-    public static final int KW_LT_EQ=109;
-    public static final int KW_ESC_SQ=119;
+    public static final int KW_LT_EQ=110;
+    public static final int KW_ESC_SQ=120;
     public static final int KEYWORD_6=51;
     public static final int KEYWORD_7=52;
     public static final int KEYWORD_8=53;
     public static final int KEYWORD_9=54;
     public static final int KEYWORD_28=24;
-    public static final int KW_INHERITS=84;
-    public static final int KW_IN=122;
+    public static final int KW_INHERITS=85;
+    public static final int KW_IN=123;
     public static final int KEYWORD_29=25;
     public static final int KEYWORD_24=69;
     public static final int KEYWORD_25=21;
     public static final int KEYWORD_26=22;
     public static final int KEYWORD_27=23;
     public static final int KEYWORD_20=65;
-    public static final int KW_IF=121;
+    public static final int KW_IF=122;
     public static final int KEYWORD_21=66;
-    public static final int KW_RCOLLECT=124;
+    public static final int KW_RCOLLECT=125;
     public static final int KEYWORD_22=67;
     public static final int KEYWORD_23=68;
-    public static final int KW_QMARK=143;
-    public static final int KW_MATCHES=114;
-    public static final int KW_LLCOLLECT=97;
-    public static final int RULE_RE_BACKSLASH_SEQUENCE=82;
-    public static final int KW_FALSE=91;
-    public static final int KW_COMMA=134;
-    public static final int KW_GT=142;
-    public static final int KW_NOT_MATCHES=102;
+    public static final int KW_QMARK=144;
+    public static final int KW_MATCHES=115;
+    public static final int KW_LLCOLLECT=98;
+    public static final int RULE_RE_BACKSLASH_SEQUENCE=83;
+    public static final int KW_FALSE=92;
+    public static final int KW_COMMA=135;
+    public static final int KW_GT=143;
+    public static final int KW_NOT_MATCHES=103;
     public static final int KEYWORD_1=46;
     public static final int KEYWORD_5=50;
     public static final int RULE_WORD_CHARS=74;
     public static final int KEYWORD_4=49;
     public static final int KEYWORD_3=48;
     public static final int KEYWORD_2=47;
-    public static final int RULE_NS=150;
-    public static final int RULE_RE_BODY=77;
+    public static final int RULE_NS=151;
+    public static final int RULE_RE_BODY=78;
     public static final int RULE_SL_COMMENT=71;
-    public static final int KW_CASE=93;
-    public static final int KW_DLR_BRACE=103;
-    public static final int KW_OUT_EDGE_SUB=125;
-    public static final int KW_ESC_DQ=117;
-    public static final int KW_LPAR=130;
-    public static final int KW_OR=123;
-    public static final int KW_UNDEF=92;
-    public static final int KW_CLASS=89;
-    public static final int KW_FARROW=113;
-    public static final int KW_AT=144;
-    public static final int KW_RRCOLLECT=100;
+    public static final int KW_CASE=94;
+    public static final int KW_DLR_BRACE=104;
+    public static final int KW_OUT_EDGE_SUB=126;
+    public static final int KW_ESC_DQ=118;
+    public static final int KW_LPAR=131;
+    public static final int KW_OR=124;
+    public static final int KW_UNDEF=93;
+    public static final int KW_CLASS=90;
+    public static final int KW_FARROW=114;
+    public static final int KW_AT=145;
+    public static final int KW_RRCOLLECT=101;
     public static final int RULE_WS=72;
+    public static final int RULE_LAMBDA=77;
 
       private Map<String, Integer> literals = getLiteralsMap();
 
@@ -1609,8 +1610,8 @@ public class PPLexer extends Lexer {
         try {
             int _type = KW_SLASH;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:255:14: ({...}? => '/' )
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:255:16: {...}? => '/'
+            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:254:14: ({...}? => '/' )
+            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:254:16: {...}? => '/'
             {
             if ( !((isNotInString())) ) {
                 if (state.backtracking>0) {state.failed=true; return ;}
@@ -1641,8 +1642,8 @@ public class PPLexer extends Lexer {
         try {
             int _type = KW_COLON;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:262:14: ({...}? => ':' )
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:262:16: {...}? => ':'
+            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:261:14: ({...}? => ':' )
+            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:261:16: {...}? => ':'
             {
             if ( !((isNotInString())) ) {
                 if (state.backtracking>0) {state.failed=true; return ;}
@@ -1665,8 +1666,8 @@ public class PPLexer extends Lexer {
         try {
             int _type = KW_SEMI;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:264:14: ({...}? => ';' )
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:264:16: {...}? => ';'
+            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:263:14: ({...}? => ';' )
+            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:263:16: {...}? => ';'
             {
             if ( !((isNotInString())) ) {
                 if (state.backtracking>0) {state.failed=true; return ;}
@@ -1689,8 +1690,8 @@ public class PPLexer extends Lexer {
         try {
             int _type = KW_LT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:266:14: ({...}? => '<' )
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:266:16: {...}? => '<'
+            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:265:14: ({...}? => '<' )
+            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:265:16: {...}? => '<'
             {
             if ( !((isNotInString())) ) {
                 if (state.backtracking>0) {state.failed=true; return ;}
@@ -1713,8 +1714,8 @@ public class PPLexer extends Lexer {
         try {
             int _type = KW_EQ;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:268:14: ({...}? => '=' )
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:268:16: {...}? => '='
+            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:267:14: ({...}? => '=' )
+            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:267:16: {...}? => '='
             {
             if ( !((isNotInString())) ) {
                 if (state.backtracking>0) {state.failed=true; return ;}
@@ -1737,8 +1738,8 @@ public class PPLexer extends Lexer {
         try {
             int _type = KW_GT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:270:14: ({...}? => '>' )
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:270:16: {...}? => '>'
+            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:269:14: ({...}? => '>' )
+            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:269:16: {...}? => '>'
             {
             if ( !((isNotInString())) ) {
                 if (state.backtracking>0) {state.failed=true; return ;}
@@ -1761,8 +1762,8 @@ public class PPLexer extends Lexer {
         try {
             int _type = KW_QMARK;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:272:14: ({...}? => '?' )
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:272:16: {...}? => '?'
+            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:271:14: ({...}? => '?' )
+            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:271:16: {...}? => '?'
             {
             if ( !((isNotInString())) ) {
                 if (state.backtracking>0) {state.failed=true; return ;}
@@ -1785,8 +1786,8 @@ public class PPLexer extends Lexer {
         try {
             int _type = KW_AT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:274:14: ({...}? => '@' )
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:274:16: {...}? => '@'
+            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:273:14: ({...}? => '@' )
+            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:273:16: {...}? => '@'
             {
             if ( !((isNotInString())) ) {
                 if (state.backtracking>0) {state.failed=true; return ;}
@@ -1809,8 +1810,8 @@ public class PPLexer extends Lexer {
         try {
             int _type = KW_LBRACK;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:276:14: ({...}? => '[' )
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:276:16: {...}? => '['
+            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:275:14: ({...}? => '[' )
+            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:275:16: {...}? => '['
             {
             if ( !((isNotInString())) ) {
                 if (state.backtracking>0) {state.failed=true; return ;}
@@ -1833,8 +1834,8 @@ public class PPLexer extends Lexer {
         try {
             int _type = KW_RBRACK;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:278:14: ({...}? => ']' )
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:278:16: {...}? => ']'
+            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:277:14: ({...}? => ']' )
+            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:277:16: {...}? => ']'
             {
             if ( !((isNotInString())) ) {
                 if (state.backtracking>0) {state.failed=true; return ;}
@@ -1857,8 +1858,8 @@ public class PPLexer extends Lexer {
         try {
             int _type = KW_LBRACE;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:280:14: ({...}? => '{' )
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:280:16: {...}? => '{'
+            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:284:14: ({...}? => '{' )
+            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:284:16: {...}? => '{'
             {
             if ( !((isNotInString())) ) {
                 if (state.backtracking>0) {state.failed=true; return ;}
@@ -1866,7 +1867,20 @@ public class PPLexer extends Lexer {
             }
             match('{'); if (state.failed) return ;
             if ( state.backtracking==0 ) {
-              enterBrace();
+
+              	enterBrace();
+              	// This may be the start of a Ruby style lambda, help the parser by scanning ahead
+              	int c = 0;
+                  for(int i = 1; ; i++) {
+              		c = input.LT(i);
+                      if ( c =='\t' || c=='\n' || c=='\r' || c==' '|| c=='\u00A0')
+              			continue;
+              		if (c == '|') {
+              			_type = RULE_LAMBDA;
+              		}
+              		break;
+              	}
+
             }
 
             }
@@ -1884,8 +1898,8 @@ public class PPLexer extends Lexer {
         try {
             int _type = KW_PIPE;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:282:14: ({...}? => '|' )
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:282:16: {...}? => '|'
+            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:299:14: ({...}? => '|' )
+            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:299:16: {...}? => '|'
             {
             if ( !((isNotInString())) ) {
                 if (state.backtracking>0) {state.failed=true; return ;}
@@ -1908,8 +1922,8 @@ public class PPLexer extends Lexer {
         try {
             int _type = KW_RBRACE;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:284:14: ({...}? => '}' )
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:284:16: {...}? => '}'
+            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:301:14: ({...}? => '}' )
+            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:301:16: {...}? => '}'
             {
             if ( !((isNotInString())) ) {
                 if (state.backtracking>0) {state.failed=true; return ;}
@@ -1935,22 +1949,22 @@ public class PPLexer extends Lexer {
         try {
             int _type = RULE_ML_COMMENT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:287:17: ({...}? => ( ( '/*' ( options {greedy=false; } : . )* '*/' ) ( ' ' | '\\u00A0' | '\\t' )* ( ( '\\r' )? '\\n' )? ) )
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:287:19: {...}? => ( ( '/*' ( options {greedy=false; } : . )* '*/' ) ( ' ' | '\\u00A0' | '\\t' )* ( ( '\\r' )? '\\n' )? )
+            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:305:17: ({...}? => ( ( '/*' ( options {greedy=false; } : . )* '*/' ) ( ' ' | '\\u00A0' | '\\t' )* ( ( '\\r' )? '\\n' )? ) )
+            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:305:19: {...}? => ( ( '/*' ( options {greedy=false; } : . )* '*/' ) ( ' ' | '\\u00A0' | '\\t' )* ( ( '\\r' )? '\\n' )? )
             {
             if ( !((isNotInString())) ) {
                 if (state.backtracking>0) {state.failed=true; return ;}
                 throw new FailedPredicateException(input, "RULE_ML_COMMENT", "isNotInString()");
             }
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:287:40: ( ( '/*' ( options {greedy=false; } : . )* '*/' ) ( ' ' | '\\u00A0' | '\\t' )* ( ( '\\r' )? '\\n' )? )
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:287:41: ( '/*' ( options {greedy=false; } : . )* '*/' ) ( ' ' | '\\u00A0' | '\\t' )* ( ( '\\r' )? '\\n' )?
+            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:305:40: ( ( '/*' ( options {greedy=false; } : . )* '*/' ) ( ' ' | '\\u00A0' | '\\t' )* ( ( '\\r' )? '\\n' )? )
+            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:305:41: ( '/*' ( options {greedy=false; } : . )* '*/' ) ( ' ' | '\\u00A0' | '\\t' )* ( ( '\\r' )? '\\n' )?
             {
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:287:41: ( '/*' ( options {greedy=false; } : . )* '*/' )
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:287:42: '/*' ( options {greedy=false; } : . )* '*/'
+            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:305:41: ( '/*' ( options {greedy=false; } : . )* '*/' )
+            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:305:42: '/*' ( options {greedy=false; } : . )* '*/'
             {
             match("/*"); if (state.failed) return ;
 
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:287:47: ( options {greedy=false; } : . )*
+            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:305:47: ( options {greedy=false; } : . )*
             loop1:
             do {
                 int alt1=2;
@@ -1975,7 +1989,7 @@ public class PPLexer extends Lexer {
 
                 switch (alt1) {
             	case 1 :
-            	    // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:287:75: .
+            	    // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:305:75: .
             	    {
             	    matchAny(); if (state.failed) return ;
 
@@ -1992,7 +2006,7 @@ public class PPLexer extends Lexer {
 
             }
 
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:287:85: ( ' ' | '\\u00A0' | '\\t' )*
+            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:305:85: ( ' ' | '\\u00A0' | '\\t' )*
             loop2:
             do {
                 int alt2=2;
@@ -2026,7 +2040,7 @@ public class PPLexer extends Lexer {
                 }
             } while (true);
 
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:287:106: ( ( '\\r' )? '\\n' )?
+            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:305:106: ( ( '\\r' )? '\\n' )?
             int alt4=2;
             int LA4_0 = input.LA(1);
 
@@ -2035,9 +2049,9 @@ public class PPLexer extends Lexer {
             }
             switch (alt4) {
                 case 1 :
-                    // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:287:107: ( '\\r' )? '\\n'
+                    // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:305:107: ( '\\r' )? '\\n'
                     {
-                    // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:287:107: ( '\\r' )?
+                    // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:305:107: ( '\\r' )?
                     int alt3=2;
                     int LA3_0 = input.LA(1);
 
@@ -2046,7 +2060,7 @@ public class PPLexer extends Lexer {
                     }
                     switch (alt3) {
                         case 1 :
-                            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:287:107: '\\r'
+                            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:305:107: '\\r'
                             {
                             match('\r'); if (state.failed) return ;
 
@@ -2081,15 +2095,15 @@ public class PPLexer extends Lexer {
         try {
             int _type = RULE_SL_COMMENT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:291:17: ({...}? => '#' (~ ( ( '\\r' | '\\n' ) ) )* ( ( '\\r' )? '\\n' )? )
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:291:19: {...}? => '#' (~ ( ( '\\r' | '\\n' ) ) )* ( ( '\\r' )? '\\n' )?
+            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:307:17: ({...}? => '#' (~ ( ( '\\r' | '\\n' ) ) )* ( ( '\\r' )? '\\n' )? )
+            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:307:19: {...}? => '#' (~ ( ( '\\r' | '\\n' ) ) )* ( ( '\\r' )? '\\n' )?
             {
             if ( !((isNotInString())) ) {
                 if (state.backtracking>0) {state.failed=true; return ;}
                 throw new FailedPredicateException(input, "RULE_SL_COMMENT", "isNotInString()");
             }
             match('#'); if (state.failed) return ;
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:291:44: (~ ( ( '\\r' | '\\n' ) ) )*
+            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:307:44: (~ ( ( '\\r' | '\\n' ) ) )*
             loop5:
             do {
                 int alt5=2;
@@ -2102,7 +2116,7 @@ public class PPLexer extends Lexer {
 
                 switch (alt5) {
             	case 1 :
-            	    // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:291:44: ~ ( ( '\\r' | '\\n' ) )
+            	    // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:307:44: ~ ( ( '\\r' | '\\n' ) )
             	    {
             	    if ( (input.LA(1)>='\u0000' && input.LA(1)<='\t')||(input.LA(1)>='\u000B' && input.LA(1)<='\f')||(input.LA(1)>='\u000E' && input.LA(1)<='\uFFFF') ) {
             	        input.consume();
@@ -2123,7 +2137,7 @@ public class PPLexer extends Lexer {
                 }
             } while (true);
 
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:291:60: ( ( '\\r' )? '\\n' )?
+            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:307:60: ( ( '\\r' )? '\\n' )?
             int alt7=2;
             int LA7_0 = input.LA(1);
 
@@ -2132,9 +2146,9 @@ public class PPLexer extends Lexer {
             }
             switch (alt7) {
                 case 1 :
-                    // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:291:61: ( '\\r' )? '\\n'
+                    // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:307:61: ( '\\r' )? '\\n'
                     {
-                    // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:291:61: ( '\\r' )?
+                    // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:307:61: ( '\\r' )?
                     int alt6=2;
                     int LA6_0 = input.LA(1);
 
@@ -2143,7 +2157,7 @@ public class PPLexer extends Lexer {
                     }
                     switch (alt6) {
                         case 1 :
-                            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:291:61: '\\r'
+                            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:307:61: '\\r'
                             {
                             match('\r'); if (state.failed) return ;
 
@@ -2175,10 +2189,10 @@ public class PPLexer extends Lexer {
         try {
             int _type = RULE_WS;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:293:9: ( ( ' ' | '\\u00A0' | '\\t' | '\\r' | '\\n' )+ )
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:293:11: ( ' ' | '\\u00A0' | '\\t' | '\\r' | '\\n' )+
+            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:309:9: ( ( ' ' | '\\u00A0' | '\\t' | '\\r' | '\\n' )+ )
+            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:309:11: ( ' ' | '\\u00A0' | '\\t' | '\\r' | '\\n' )+
             {
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:293:11: ( ' ' | '\\u00A0' | '\\t' | '\\r' | '\\n' )+
+            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:309:11: ( ' ' | '\\u00A0' | '\\t' | '\\r' | '\\n' )+
             int cnt8=0;
             loop8:
             do {
@@ -2236,16 +2250,41 @@ public class PPLexer extends Lexer {
     }
     // $ANTLR end "RULE_WS"
 
+    // $ANTLR start "RULE_LAMBDA"
+    public final void mRULE_LAMBDA() throws RecognitionException {
+        try {
+            int _type = RULE_LAMBDA;
+            int _channel = DEFAULT_TOKEN_CHANNEL;
+            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:318:13: ({...}? => '{' '|' )
+            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:318:15: {...}? => '{' '|'
+            {
+            if ( !((false)) ) {
+                if (state.backtracking>0) {state.failed=true; return ;}
+                throw new FailedPredicateException(input, "RULE_LAMBDA", "false");
+            }
+            match('{'); if (state.failed) return ;
+            match('|'); if (state.failed) return ;
+
+            }
+
+            state.type = _type;
+            state.channel = _channel;
+        }
+        finally {
+        }
+    }
+    // $ANTLR end "RULE_LAMBDA"
+
     // $ANTLR start "RULE_DOLLAR_VAR"
     public final void mRULE_DOLLAR_VAR() throws RecognitionException {
         try {
             int _type = RULE_DOLLAR_VAR;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:300:17: ( '$' ( ( ':' ':' )=> RULE_NS )? ( '0' .. '9' | 'a' .. 'z' | 'A' .. 'Z' | '_' )+ ( ( ':' ':' )=> RULE_NS ( '0' .. '9' | 'a' .. 'z' | 'A' .. 'Z' | '_' )+ )* )
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:300:19: '$' ( ( ':' ':' )=> RULE_NS )? ( '0' .. '9' | 'a' .. 'z' | 'A' .. 'Z' | '_' )+ ( ( ':' ':' )=> RULE_NS ( '0' .. '9' | 'a' .. 'z' | 'A' .. 'Z' | '_' )+ )*
+            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:321:17: ( '$' ( ( ':' ':' )=> RULE_NS )? ( '0' .. '9' | 'a' .. 'z' | 'A' .. 'Z' | '_' )+ ( ( ':' ':' )=> RULE_NS ( '0' .. '9' | 'a' .. 'z' | 'A' .. 'Z' | '_' )+ )* )
+            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:321:19: '$' ( ( ':' ':' )=> RULE_NS )? ( '0' .. '9' | 'a' .. 'z' | 'A' .. 'Z' | '_' )+ ( ( ':' ':' )=> RULE_NS ( '0' .. '9' | 'a' .. 'z' | 'A' .. 'Z' | '_' )+ )*
             {
             match('$'); if (state.failed) return ;
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:301:2: ( ( ':' ':' )=> RULE_NS )?
+            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:322:2: ( ( ':' ':' )=> RULE_NS )?
             int alt9=2;
             int LA9_0 = input.LA(1);
 
@@ -2254,7 +2293,7 @@ public class PPLexer extends Lexer {
             }
             switch (alt9) {
                 case 1 :
-                    // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:301:3: ( ':' ':' )=> RULE_NS
+                    // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:322:3: ( ':' ':' )=> RULE_NS
                     {
                     mRULE_NS(); if (state.failed) return ;
 
@@ -2263,7 +2302,7 @@ public class PPLexer extends Lexer {
 
             }
 
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:301:24: ( '0' .. '9' | 'a' .. 'z' | 'A' .. 'Z' | '_' )+
+            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:322:24: ( '0' .. '9' | 'a' .. 'z' | 'A' .. 'Z' | '_' )+
             int cnt10=0;
             loop10:
             do {
@@ -2303,7 +2342,7 @@ public class PPLexer extends Lexer {
                 cnt10++;
             } while (true);
 
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:302:2: ( ( ':' ':' )=> RULE_NS ( '0' .. '9' | 'a' .. 'z' | 'A' .. 'Z' | '_' )+ )*
+            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:323:2: ( ( ':' ':' )=> RULE_NS ( '0' .. '9' | 'a' .. 'z' | 'A' .. 'Z' | '_' )+ )*
             loop12:
             do {
                 int alt12=2;
@@ -2316,10 +2355,10 @@ public class PPLexer extends Lexer {
 
                 switch (alt12) {
             	case 1 :
-            	    // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:302:3: ( ':' ':' )=> RULE_NS ( '0' .. '9' | 'a' .. 'z' | 'A' .. 'Z' | '_' )+
+            	    // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:323:3: ( ':' ':' )=> RULE_NS ( '0' .. '9' | 'a' .. 'z' | 'A' .. 'Z' | '_' )+
             	    {
             	    mRULE_NS(); if (state.failed) return ;
-            	    // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:302:22: ( '0' .. '9' | 'a' .. 'z' | 'A' .. 'Z' | '_' )+
+            	    // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:323:22: ( '0' .. '9' | 'a' .. 'z' | 'A' .. 'Z' | '_' )+
             	    int cnt11=0;
             	    loop11:
             	    do {
@@ -2384,10 +2423,10 @@ public class PPLexer extends Lexer {
         try {
             int _type = RULE_WORD_CHARS;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:305:17: ( ( '0' .. '9' | 'a' .. 'z' | 'A' .. 'Z' | '_' | ( ':' ':' )=> RULE_NS ) ( '0' .. '9' | 'a' .. 'z' | 'A' .. 'Z' | '_' | '-' | ( ':' ':' )=> RULE_NS )* )
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:305:19: ( '0' .. '9' | 'a' .. 'z' | 'A' .. 'Z' | '_' | ( ':' ':' )=> RULE_NS ) ( '0' .. '9' | 'a' .. 'z' | 'A' .. 'Z' | '_' | '-' | ( ':' ':' )=> RULE_NS )*
+            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:326:17: ( ( '0' .. '9' | 'a' .. 'z' | 'A' .. 'Z' | '_' | ( ':' ':' )=> RULE_NS ) ( '0' .. '9' | 'a' .. 'z' | 'A' .. 'Z' | '_' | '-' | ( ':' ':' )=> RULE_NS )* )
+            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:326:19: ( '0' .. '9' | 'a' .. 'z' | 'A' .. 'Z' | '_' | ( ':' ':' )=> RULE_NS ) ( '0' .. '9' | 'a' .. 'z' | 'A' .. 'Z' | '_' | '-' | ( ':' ':' )=> RULE_NS )*
             {
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:305:19: ( '0' .. '9' | 'a' .. 'z' | 'A' .. 'Z' | '_' | ( ':' ':' )=> RULE_NS )
+            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:326:19: ( '0' .. '9' | 'a' .. 'z' | 'A' .. 'Z' | '_' | ( ':' ':' )=> RULE_NS )
             int alt13=5;
             int LA13_0 = input.LA(1);
 
@@ -2415,35 +2454,35 @@ public class PPLexer extends Lexer {
             }
             switch (alt13) {
                 case 1 :
-                    // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:305:20: '0' .. '9'
+                    // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:326:20: '0' .. '9'
                     {
                     matchRange('0','9'); if (state.failed) return ;
 
                     }
                     break;
                 case 2 :
-                    // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:305:29: 'a' .. 'z'
+                    // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:326:29: 'a' .. 'z'
                     {
                     matchRange('a','z'); if (state.failed) return ;
 
                     }
                     break;
                 case 3 :
-                    // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:305:38: 'A' .. 'Z'
+                    // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:326:38: 'A' .. 'Z'
                     {
                     matchRange('A','Z'); if (state.failed) return ;
 
                     }
                     break;
                 case 4 :
-                    // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:305:47: '_'
+                    // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:326:47: '_'
                     {
                     match('_'); if (state.failed) return ;
 
                     }
                     break;
                 case 5 :
-                    // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:305:51: ( ':' ':' )=> RULE_NS
+                    // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:326:51: ( ':' ':' )=> RULE_NS
                     {
                     mRULE_NS(); if (state.failed) return ;
 
@@ -2452,7 +2491,7 @@ public class PPLexer extends Lexer {
 
             }
 
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:305:71: ( '0' .. '9' | 'a' .. 'z' | 'A' .. 'Z' | '_' | '-' | ( ':' ':' )=> RULE_NS )*
+            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:326:71: ( '0' .. '9' | 'a' .. 'z' | 'A' .. 'Z' | '_' | '-' | ( ':' ':' )=> RULE_NS )*
             loop14:
             do {
                 int alt14=7;
@@ -2480,42 +2519,42 @@ public class PPLexer extends Lexer {
 
                 switch (alt14) {
             	case 1 :
-            	    // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:305:72: '0' .. '9'
+            	    // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:326:72: '0' .. '9'
             	    {
             	    matchRange('0','9'); if (state.failed) return ;
 
             	    }
             	    break;
             	case 2 :
-            	    // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:305:81: 'a' .. 'z'
+            	    // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:326:81: 'a' .. 'z'
             	    {
             	    matchRange('a','z'); if (state.failed) return ;
 
             	    }
             	    break;
             	case 3 :
-            	    // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:305:90: 'A' .. 'Z'
+            	    // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:326:90: 'A' .. 'Z'
             	    {
             	    matchRange('A','Z'); if (state.failed) return ;
 
             	    }
             	    break;
             	case 4 :
-            	    // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:305:99: '_'
+            	    // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:326:99: '_'
             	    {
             	    match('_'); if (state.failed) return ;
 
             	    }
             	    break;
             	case 5 :
-            	    // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:305:103: '-'
+            	    // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:326:103: '-'
             	    {
             	    match('-'); if (state.failed) return ;
 
             	    }
             	    break;
             	case 6 :
-            	    // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:305:107: ( ':' ':' )=> RULE_NS
+            	    // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:326:107: ( ':' ':' )=> RULE_NS
             	    {
             	    mRULE_NS(); if (state.failed) return ;
 
@@ -2548,8 +2587,8 @@ public class PPLexer extends Lexer {
         try {
             int _type = RULE_NUMBER;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:311:13: ( ( NUMERIC )=> NUMERIC )
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:311:15: ( NUMERIC )=> NUMERIC
+            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:333:13: ( ( NUMERIC )=> NUMERIC )
+            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:333:15: ( NUMERIC )=> NUMERIC
             {
             mNUMERIC(); if (state.failed) return ;
             if ( state.backtracking==0 ) {
@@ -2573,8 +2612,8 @@ public class PPLexer extends Lexer {
         try {
             int _type = RULE_REGULAR_EXPRESSION;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:315:25: ({...}? => '/' RULE_RE_BODY '/' ( RULE_RE_FLAGS )? )
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:315:27: {...}? => '/' RULE_RE_BODY '/' ( RULE_RE_FLAGS )?
+            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:337:25: ({...}? => '/' RULE_RE_BODY '/' ( RULE_RE_FLAGS )? )
+            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:337:27: {...}? => '/' RULE_RE_BODY '/' ( RULE_RE_FLAGS )?
             {
             if ( !((isReAcceptable())) ) {
                 if (state.backtracking>0) {state.failed=true; return ;}
@@ -2583,7 +2622,7 @@ public class PPLexer extends Lexer {
             match('/'); if (state.failed) return ;
             mRULE_RE_BODY(); if (state.failed) return ;
             match('/'); if (state.failed) return ;
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:315:69: ( RULE_RE_FLAGS )?
+            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:337:69: ( RULE_RE_FLAGS )?
             int alt15=2;
             int LA15_0 = input.LA(1);
 
@@ -2592,7 +2631,7 @@ public class PPLexer extends Lexer {
             }
             switch (alt15) {
                 case 1 :
-                    // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:315:69: RULE_RE_FLAGS
+                    // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:337:69: RULE_RE_FLAGS
                     {
                     mRULE_RE_FLAGS(); if (state.failed) return ;
 
@@ -2615,7 +2654,7 @@ public class PPLexer extends Lexer {
     // $ANTLR start "NUMERIC"
     public final void mNUMERIC() throws RecognitionException {
         try {
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:318:3: ( ( '0' ( 'x' | 'X' ) )=> ( '0' ( 'x' | 'X' ) ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' )+ ) | ( '0' .. '9' )+ ( '.' ( '0' .. '9' )+ )? ( ( 'e' | 'E' ) ( '-' )? ( '0' .. '9' )+ )? )
+            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:340:3: ( ( '0' ( 'x' | 'X' ) )=> ( '0' ( 'x' | 'X' ) ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' )+ ) | ( '0' .. '9' )+ ( '.' ( '0' .. '9' )+ )? ( ( 'e' | 'E' ) ( '-' )? ( '0' .. '9' )+ )? )
             int alt23=2;
             int LA23_0 = input.LA(1);
 
@@ -2640,10 +2679,10 @@ public class PPLexer extends Lexer {
             }
             switch (alt23) {
                 case 1 :
-                    // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:318:5: ( '0' ( 'x' | 'X' ) )=> ( '0' ( 'x' | 'X' ) ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' )+ )
+                    // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:340:5: ( '0' ( 'x' | 'X' ) )=> ( '0' ( 'x' | 'X' ) ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' )+ )
                     {
-                    // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:318:22: ( '0' ( 'x' | 'X' ) ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' )+ )
-                    // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:318:23: '0' ( 'x' | 'X' ) ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' )+
+                    // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:340:22: ( '0' ( 'x' | 'X' ) ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' )+ )
+                    // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:340:23: '0' ( 'x' | 'X' ) ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' )+
                     {
                     match('0'); if (state.failed) return ;
                     if ( input.LA(1)=='X'||input.LA(1)=='x' ) {
@@ -2656,7 +2695,7 @@ public class PPLexer extends Lexer {
                         recover(mse);
                         throw mse;}
 
-                    // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:318:37: ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' )+
+                    // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:340:37: ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' )+
                     int cnt16=0;
                     loop16:
                     do {
@@ -2703,9 +2742,9 @@ public class PPLexer extends Lexer {
                     }
                     break;
                 case 2 :
-                    // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:319:4: ( '0' .. '9' )+ ( '.' ( '0' .. '9' )+ )? ( ( 'e' | 'E' ) ( '-' )? ( '0' .. '9' )+ )?
+                    // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:341:4: ( '0' .. '9' )+ ( '.' ( '0' .. '9' )+ )? ( ( 'e' | 'E' ) ( '-' )? ( '0' .. '9' )+ )?
                     {
-                    // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:319:4: ( '0' .. '9' )+
+                    // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:341:4: ( '0' .. '9' )+
                     int cnt17=0;
                     loop17:
                     do {
@@ -2719,7 +2758,7 @@ public class PPLexer extends Lexer {
 
                         switch (alt17) {
                     	case 1 :
-                    	    // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:319:5: '0' .. '9'
+                    	    // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:341:5: '0' .. '9'
                     	    {
                     	    matchRange('0','9'); if (state.failed) return ;
 
@@ -2736,7 +2775,7 @@ public class PPLexer extends Lexer {
                         cnt17++;
                     } while (true);
 
-                    // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:319:16: ( '.' ( '0' .. '9' )+ )?
+                    // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:341:16: ( '.' ( '0' .. '9' )+ )?
                     int alt19=2;
                     int LA19_0 = input.LA(1);
 
@@ -2745,10 +2784,10 @@ public class PPLexer extends Lexer {
                     }
                     switch (alt19) {
                         case 1 :
-                            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:319:17: '.' ( '0' .. '9' )+
+                            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:341:17: '.' ( '0' .. '9' )+
                             {
                             match('.'); if (state.failed) return ;
-                            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:319:21: ( '0' .. '9' )+
+                            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:341:21: ( '0' .. '9' )+
                             int cnt18=0;
                             loop18:
                             do {
@@ -2762,7 +2801,7 @@ public class PPLexer extends Lexer {
 
                                 switch (alt18) {
                             	case 1 :
-                            	    // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:319:22: '0' .. '9'
+                            	    // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:341:22: '0' .. '9'
                             	    {
                             	    matchRange('0','9'); if (state.failed) return ;
 
@@ -2785,7 +2824,7 @@ public class PPLexer extends Lexer {
 
                     }
 
-                    // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:319:35: ( ( 'e' | 'E' ) ( '-' )? ( '0' .. '9' )+ )?
+                    // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:341:35: ( ( 'e' | 'E' ) ( '-' )? ( '0' .. '9' )+ )?
                     int alt22=2;
                     int LA22_0 = input.LA(1);
 
@@ -2794,7 +2833,7 @@ public class PPLexer extends Lexer {
                     }
                     switch (alt22) {
                         case 1 :
-                            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:319:36: ( 'e' | 'E' ) ( '-' )? ( '0' .. '9' )+
+                            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:341:36: ( 'e' | 'E' ) ( '-' )? ( '0' .. '9' )+
                             {
                             if ( input.LA(1)=='E'||input.LA(1)=='e' ) {
                                 input.consume();
@@ -2806,7 +2845,7 @@ public class PPLexer extends Lexer {
                                 recover(mse);
                                 throw mse;}
 
-                            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:319:46: ( '-' )?
+                            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:341:46: ( '-' )?
                             int alt20=2;
                             int LA20_0 = input.LA(1);
 
@@ -2815,7 +2854,7 @@ public class PPLexer extends Lexer {
                             }
                             switch (alt20) {
                                 case 1 :
-                                    // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:319:46: '-'
+                                    // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:341:46: '-'
                                     {
                                     match('-'); if (state.failed) return ;
 
@@ -2824,7 +2863,7 @@ public class PPLexer extends Lexer {
 
                             }
 
-                            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:319:51: ( '0' .. '9' )+
+                            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:341:51: ( '0' .. '9' )+
                             int cnt21=0;
                             loop21:
                             do {
@@ -2838,7 +2877,7 @@ public class PPLexer extends Lexer {
 
                                 switch (alt21) {
                             	case 1 :
-                            	    // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:319:52: '0' .. '9'
+                            	    // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:341:52: '0' .. '9'
                             	    {
                             	    matchRange('0','9'); if (state.failed) return ;
 
@@ -2875,8 +2914,8 @@ public class PPLexer extends Lexer {
     // $ANTLR start "RULE_NS"
     public final void mRULE_NS() throws RecognitionException {
         try {
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:322:18: ( '::' )
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:322:20: '::'
+            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:344:18: ( '::' )
+            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:344:20: '::'
             {
             match("::"); if (state.failed) return ;
 
@@ -2892,14 +2931,14 @@ public class PPLexer extends Lexer {
     // $ANTLR start "RULE_RE_BODY"
     public final void mRULE_RE_BODY() throws RecognitionException {
         try {
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:324:23: ( ( RULE_RE_FIRST_CHAR ( RULE_RE_FOLLOW_CHAR )* ) )
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:324:25: ( RULE_RE_FIRST_CHAR ( RULE_RE_FOLLOW_CHAR )* )
+            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:346:23: ( ( RULE_RE_FIRST_CHAR ( RULE_RE_FOLLOW_CHAR )* ) )
+            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:346:25: ( RULE_RE_FIRST_CHAR ( RULE_RE_FOLLOW_CHAR )* )
             {
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:324:25: ( RULE_RE_FIRST_CHAR ( RULE_RE_FOLLOW_CHAR )* )
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:324:26: RULE_RE_FIRST_CHAR ( RULE_RE_FOLLOW_CHAR )*
+            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:346:25: ( RULE_RE_FIRST_CHAR ( RULE_RE_FOLLOW_CHAR )* )
+            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:346:26: RULE_RE_FIRST_CHAR ( RULE_RE_FOLLOW_CHAR )*
             {
             mRULE_RE_FIRST_CHAR(); if (state.failed) return ;
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:324:45: ( RULE_RE_FOLLOW_CHAR )*
+            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:346:45: ( RULE_RE_FOLLOW_CHAR )*
             loop24:
             do {
                 int alt24=2;
@@ -2912,7 +2951,7 @@ public class PPLexer extends Lexer {
 
                 switch (alt24) {
             	case 1 :
-            	    // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:324:45: RULE_RE_FOLLOW_CHAR
+            	    // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:346:45: RULE_RE_FOLLOW_CHAR
             	    {
             	    mRULE_RE_FOLLOW_CHAR(); if (state.failed) return ;
 
@@ -2939,10 +2978,10 @@ public class PPLexer extends Lexer {
     // $ANTLR start "RULE_RE_FIRST_CHAR"
     public final void mRULE_RE_FIRST_CHAR() throws RecognitionException {
         try {
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:326:29: ( (~ ( ( '\\n' | '*' | '/' | '\\\\' ) ) | RULE_RE_BACKSLASH_SEQUENCE ) )
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:326:31: (~ ( ( '\\n' | '*' | '/' | '\\\\' ) ) | RULE_RE_BACKSLASH_SEQUENCE )
+            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:348:29: ( (~ ( ( '\\n' | '*' | '/' | '\\\\' ) ) | RULE_RE_BACKSLASH_SEQUENCE ) )
+            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:348:31: (~ ( ( '\\n' | '*' | '/' | '\\\\' ) ) | RULE_RE_BACKSLASH_SEQUENCE )
             {
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:326:31: (~ ( ( '\\n' | '*' | '/' | '\\\\' ) ) | RULE_RE_BACKSLASH_SEQUENCE )
+            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:348:31: (~ ( ( '\\n' | '*' | '/' | '\\\\' ) ) | RULE_RE_BACKSLASH_SEQUENCE )
             int alt25=2;
             int LA25_0 = input.LA(1);
 
@@ -2961,7 +3000,7 @@ public class PPLexer extends Lexer {
             }
             switch (alt25) {
                 case 1 :
-                    // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:326:32: ~ ( ( '\\n' | '*' | '/' | '\\\\' ) )
+                    // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:348:32: ~ ( ( '\\n' | '*' | '/' | '\\\\' ) )
                     {
                     if ( (input.LA(1)>='\u0000' && input.LA(1)<='\t')||(input.LA(1)>='\u000B' && input.LA(1)<=')')||(input.LA(1)>='+' && input.LA(1)<='.')||(input.LA(1)>='0' && input.LA(1)<='[')||(input.LA(1)>=']' && input.LA(1)<='\uFFFF') ) {
                         input.consume();
@@ -2977,7 +3016,7 @@ public class PPLexer extends Lexer {
                     }
                     break;
                 case 2 :
-                    // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:326:55: RULE_RE_BACKSLASH_SEQUENCE
+                    // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:348:55: RULE_RE_BACKSLASH_SEQUENCE
                     {
                     mRULE_RE_BACKSLASH_SEQUENCE(); if (state.failed) return ;
 
@@ -2998,10 +3037,10 @@ public class PPLexer extends Lexer {
     // $ANTLR start "RULE_RE_FOLLOW_CHAR"
     public final void mRULE_RE_FOLLOW_CHAR() throws RecognitionException {
         try {
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:328:30: ( ( RULE_RE_FIRST_CHAR | '*' ) )
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:328:32: ( RULE_RE_FIRST_CHAR | '*' )
+            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:350:30: ( ( RULE_RE_FIRST_CHAR | '*' ) )
+            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:350:32: ( RULE_RE_FIRST_CHAR | '*' )
             {
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:328:32: ( RULE_RE_FIRST_CHAR | '*' )
+            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:350:32: ( RULE_RE_FIRST_CHAR | '*' )
             int alt26=2;
             int LA26_0 = input.LA(1);
 
@@ -3020,14 +3059,14 @@ public class PPLexer extends Lexer {
             }
             switch (alt26) {
                 case 1 :
-                    // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:328:33: RULE_RE_FIRST_CHAR
+                    // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:350:33: RULE_RE_FIRST_CHAR
                     {
                     mRULE_RE_FIRST_CHAR(); if (state.failed) return ;
 
                     }
                     break;
                 case 2 :
-                    // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:328:52: '*'
+                    // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:350:52: '*'
                     {
                     match('*'); if (state.failed) return ;
 
@@ -3048,11 +3087,11 @@ public class PPLexer extends Lexer {
     // $ANTLR start "RULE_RE_BACKSLASH_SEQUENCE"
     public final void mRULE_RE_BACKSLASH_SEQUENCE() throws RecognitionException {
         try {
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:330:37: ( ( '\\\\' ~ ( '\\n' ) ) )
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:330:39: ( '\\\\' ~ ( '\\n' ) )
+            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:352:37: ( ( '\\\\' ~ ( '\\n' ) ) )
+            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:352:39: ( '\\\\' ~ ( '\\n' ) )
             {
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:330:39: ( '\\\\' ~ ( '\\n' ) )
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:330:40: '\\\\' ~ ( '\\n' )
+            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:352:39: ( '\\\\' ~ ( '\\n' ) )
+            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:352:40: '\\\\' ~ ( '\\n' )
             {
             match('\\'); if (state.failed) return ;
             if ( (input.LA(1)>='\u0000' && input.LA(1)<='\t')||(input.LA(1)>='\u000B' && input.LA(1)<='\uFFFF') ) {
@@ -3080,10 +3119,10 @@ public class PPLexer extends Lexer {
     // $ANTLR start "RULE_RE_FLAGS"
     public final void mRULE_RE_FLAGS() throws RecognitionException {
         try {
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:332:24: ( ( 'a' .. 'z' )+ )
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:332:26: ( 'a' .. 'z' )+
+            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:354:24: ( ( 'a' .. 'z' )+ )
+            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:354:26: ( 'a' .. 'z' )+
             {
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:332:26: ( 'a' .. 'z' )+
+            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:354:26: ( 'a' .. 'z' )+
             int cnt27=0;
             loop27:
             do {
@@ -3097,7 +3136,7 @@ public class PPLexer extends Lexer {
 
                 switch (alt27) {
             	case 1 :
-            	    // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:332:27: 'a' .. 'z'
+            	    // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:354:27: 'a' .. 'z'
             	    {
             	    matchRange('a','z'); if (state.failed) return ;
 
@@ -3128,8 +3167,8 @@ public class PPLexer extends Lexer {
         try {
             int _type = RULE_ANY_OTHER;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:334:16: ( . )
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:334:18: .
+            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:356:16: ( . )
+            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:356:18: .
             {
             matchAny(); if (state.failed) return ;
 
@@ -3144,8 +3183,8 @@ public class PPLexer extends Lexer {
     // $ANTLR end "RULE_ANY_OTHER"
 
     public void mTokens() throws RecognitionException {
-        // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:1:8: ( KW_INHERITS | KW_DEFAULT | KW_DEFINE | KW_IMPORT | KW_UNLESS | KW_CLASS | KW_ELSIF | KW_FALSE | KW_UNDEF | KW_CASE | KW_ELSE | KW_NODE | KW_TRUE | KW_LLCOLLECT | KW_ESC_DLR_BRACE | KW_AND | KW_RRCOLLECT | KW_NOT_EQ | KW_NOT_MATCHES | KW_DLR_BRACE | KW_PLUS_EQ | KW_APPEND | KW_RARR | KW_IN_EDGE | KW_LSHIFT | KW_LT_EQ | KW_LCOLLECT | KW_IN_EDGE_SUB | KW_EQUALS | KW_FARROW | KW_MATCHES | KW_GT_EQ | KW_RSHIFT | KW_ESC_DQ | KW_ESC_DLR | KW_ESC_SQ | KW_ESC_ESC | KW_IF | KW_IN | KW_OR | KW_RCOLLECT | KW_OUT_EDGE_SUB | KW_NOT | KW_DQ | KW_MODULO | KW_SQ | KW_LPAR | KW_RPAR | KW_MUL | KW_PLUS | KW_COMMA | KW_MINUS | KW_DOT | KW_SLASH | KW_COLON | KW_SEMI | KW_LT | KW_EQ | KW_GT | KW_QMARK | KW_AT | KW_LBRACK | KW_RBRACK | KW_LBRACE | KW_PIPE | KW_RBRACE | RULE_ML_COMMENT | RULE_SL_COMMENT | RULE_WS | RULE_DOLLAR_VAR | RULE_WORD_CHARS | RULE_NUMBER | RULE_REGULAR_EXPRESSION | RULE_ANY_OTHER )
-        int alt28=74;
+        // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:1:8: ( KW_INHERITS | KW_DEFAULT | KW_DEFINE | KW_IMPORT | KW_UNLESS | KW_CLASS | KW_ELSIF | KW_FALSE | KW_UNDEF | KW_CASE | KW_ELSE | KW_NODE | KW_TRUE | KW_LLCOLLECT | KW_ESC_DLR_BRACE | KW_AND | KW_RRCOLLECT | KW_NOT_EQ | KW_NOT_MATCHES | KW_DLR_BRACE | KW_PLUS_EQ | KW_APPEND | KW_RARR | KW_IN_EDGE | KW_LSHIFT | KW_LT_EQ | KW_LCOLLECT | KW_IN_EDGE_SUB | KW_EQUALS | KW_FARROW | KW_MATCHES | KW_GT_EQ | KW_RSHIFT | KW_ESC_DQ | KW_ESC_DLR | KW_ESC_SQ | KW_ESC_ESC | KW_IF | KW_IN | KW_OR | KW_RCOLLECT | KW_OUT_EDGE_SUB | KW_NOT | KW_DQ | KW_MODULO | KW_SQ | KW_LPAR | KW_RPAR | KW_MUL | KW_PLUS | KW_COMMA | KW_MINUS | KW_DOT | KW_SLASH | KW_COLON | KW_SEMI | KW_LT | KW_EQ | KW_GT | KW_QMARK | KW_AT | KW_LBRACK | KW_RBRACK | KW_LBRACE | KW_PIPE | KW_RBRACE | RULE_ML_COMMENT | RULE_SL_COMMENT | RULE_WS | RULE_LAMBDA | RULE_DOLLAR_VAR | RULE_WORD_CHARS | RULE_NUMBER | RULE_REGULAR_EXPRESSION | RULE_ANY_OTHER )
+        int alt28=75;
         alt28 = dfa28.predict(input);
         switch (alt28) {
             case 1 :
@@ -3632,35 +3671,42 @@ public class PPLexer extends Lexer {
                 }
                 break;
             case 70 :
-                // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:1:675: RULE_DOLLAR_VAR
+                // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:1:675: RULE_LAMBDA
+                {
+                mRULE_LAMBDA(); if (state.failed) return ;
+
+                }
+                break;
+            case 71 :
+                // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:1:687: RULE_DOLLAR_VAR
                 {
                 mRULE_DOLLAR_VAR(); if (state.failed) return ;
 
                 }
                 break;
-            case 71 :
-                // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:1:691: RULE_WORD_CHARS
+            case 72 :
+                // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:1:703: RULE_WORD_CHARS
                 {
                 mRULE_WORD_CHARS(); if (state.failed) return ;
 
                 }
                 break;
-            case 72 :
-                // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:1:707: RULE_NUMBER
+            case 73 :
+                // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:1:719: RULE_NUMBER
                 {
                 mRULE_NUMBER(); if (state.failed) return ;
 
                 }
                 break;
-            case 73 :
-                // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:1:719: RULE_REGULAR_EXPRESSION
+            case 74 :
+                // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:1:731: RULE_REGULAR_EXPRESSION
                 {
                 mRULE_REGULAR_EXPRESSION(); if (state.failed) return ;
 
                 }
                 break;
-            case 74 :
-                // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:1:743: RULE_ANY_OTHER
+            case 75 :
+                // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:1:755: RULE_ANY_OTHER
                 {
                 mRULE_ANY_OTHER(); if (state.failed) return ;
 
@@ -3673,8 +3719,8 @@ public class PPLexer extends Lexer {
 
     // $ANTLR start synpred1_PPLexer
     public final void synpred1_PPLexer_fragment() throws RecognitionException {   
-        // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:301:3: ( ':' ':' )
-        // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:301:4: ':' ':'
+        // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:322:3: ( ':' ':' )
+        // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:322:4: ':' ':'
         {
         match(':'); if (state.failed) return ;
         match(':'); if (state.failed) return ;
@@ -3685,8 +3731,8 @@ public class PPLexer extends Lexer {
 
     // $ANTLR start synpred2_PPLexer
     public final void synpred2_PPLexer_fragment() throws RecognitionException {   
-        // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:302:3: ( ':' ':' )
-        // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:302:4: ':' ':'
+        // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:323:3: ( ':' ':' )
+        // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:323:4: ':' ':'
         {
         match(':'); if (state.failed) return ;
         match(':'); if (state.failed) return ;
@@ -3697,8 +3743,8 @@ public class PPLexer extends Lexer {
 
     // $ANTLR start synpred3_PPLexer
     public final void synpred3_PPLexer_fragment() throws RecognitionException {   
-        // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:305:51: ( ':' ':' )
-        // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:305:52: ':' ':'
+        // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:326:51: ( ':' ':' )
+        // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:326:52: ':' ':'
         {
         match(':'); if (state.failed) return ;
         match(':'); if (state.failed) return ;
@@ -3709,8 +3755,8 @@ public class PPLexer extends Lexer {
 
     // $ANTLR start synpred4_PPLexer
     public final void synpred4_PPLexer_fragment() throws RecognitionException {   
-        // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:305:107: ( ':' ':' )
-        // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:305:108: ':' ':'
+        // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:326:107: ( ':' ':' )
+        // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:326:108: ':' ':'
         {
         match(':'); if (state.failed) return ;
         match(':'); if (state.failed) return ;
@@ -3721,8 +3767,8 @@ public class PPLexer extends Lexer {
 
     // $ANTLR start synpred6_PPLexer
     public final void synpred6_PPLexer_fragment() throws RecognitionException {   
-        // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:318:5: ( '0' ( 'x' | 'X' ) )
-        // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:318:6: '0' ( 'x' | 'X' )
+        // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:340:5: ( '0' ( 'x' | 'X' ) )
+        // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:340:6: '0' ( 'x' | 'X' )
         {
         match('0'); if (state.failed) return ;
         if ( input.LA(1)=='X'||input.LA(1)=='x' ) {
@@ -3816,65 +3862,67 @@ public class PPLexer extends Lexer {
     static final String DFA28_eotS =
         "\1\uffff\10\61\1\77\1\55\1\61\1\106\1\111\1\55\1\116\1\120\1\124"+
         "\1\127\1\61\1\55\1\132\1\133\1\134\1\135\1\136\1\137\1\140\1\uffff"+
-        "\1\143\1\145\1\146\1\147\1\150\1\151\1\152\1\153\1\154\1\156\1\uffff"+
-        "\1\61\3\uffff\1\61\1\uffff\1\167\1\61\1\171\1\uffff\10\61\1\u0084"+
-        "\5\uffff\1\u0087\3\uffff\1\61\1\u008a\22\uffff\1\u0090\27\uffff"+
-        "\5\61\1\uffff\1\61\1\uffff\1\61\1\uffff\11\61\5\uffff\1\u00b5\30"+
-        "\uffff\6\61\1\uffff\1\61\1\uffff\5\61\1\u00be\1\61\1\u00c0\1\61"+
-        "\1\u00c2\1\u00c3\2\uffff\5\61\1\u00ca\1\u00cb\1\uffff\1\u00cd\1"+
-        "\uffff\1\u00cf\3\uffff\1\61\1\u00d3\1\61\1\u00d5\1\u00d6\10\uffff"+
-        "\1\61\1\uffff\1\u00dd\6\uffff\1\u00e0\7\uffff";
+        "\1\143\1\145\1\146\1\147\1\150\1\151\1\152\1\154\1\155\1\156\1\uffff"+
+        "\1\61\3\uffff\1\61\1\uffff\1\170\1\61\1\172\1\uffff\10\61\1\u0085"+
+        "\5\uffff\1\u0088\3\uffff\1\61\1\u008b\22\uffff\1\u0091\30\uffff"+
+        "\5\61\1\uffff\1\61\1\uffff\1\61\1\uffff\11\61\5\uffff\1\u00b6\30"+
+        "\uffff\6\61\1\uffff\1\61\1\uffff\5\61\1\u00bf\1\61\1\u00c1\1\61"+
+        "\1\u00c3\1\u00c4\2\uffff\5\61\1\u00cb\1\u00cc\1\uffff\1\u00ce\1"+
+        "\uffff\1\u00d0\3\uffff\1\61\1\u00d4\1\61\1\u00d6\1\u00d7\10\uffff"+
+        "\1\61\1\uffff\1\u00de\6\uffff\1\u00e1\7\uffff";
     static final String DFA28_eofS =
-        "\u00e3\uffff";
+        "\u00e4\uffff";
     static final String DFA28_minS =
         "\1\0\1\146\1\145\1\156\1\141\1\154\1\141\1\157\1\162\1\55\1\42\1"+
         "\156\1\76\1\75\1\60\1\75\1\76\2\75\1\162\1\76\7\0\1\uffff\1\0\1"+
-        "\72\10\0\1\uffff\1\56\3\uffff\1\56\1\uffff\1\55\1\160\1\55\1\uffff"+
-        "\1\146\1\144\1\141\2\163\1\154\1\144\1\165\1\174\4\uffff\1\0\1\173"+
-        "\3\uffff\1\144\1\76\1\0\2\uffff\1\0\4\uffff\1\0\5\uffff\1\0\2\uffff"+
-        "\1\0\1\55\1\uffff\7\0\2\uffff\1\0\1\uffff\10\0\1\uffff\1\0\1\uffff"+
-        "\1\60\1\56\1\60\2\55\1\uffff\1\145\1\0\1\157\1\0\1\141\2\145\1\163"+
-        "\2\145\1\163\2\145\5\uffff\1\55\7\uffff\1\0\20\uffff\5\60\1\162"+
-        "\1\uffff\1\162\1\uffff\1\165\1\156\1\163\1\146\1\163\1\55\1\146"+
-        "\1\55\1\145\2\55\1\0\1\uffff\1\151\1\164\1\154\1\145\1\163\2\55"+
-        "\1\0\1\55\1\0\1\55\2\0\1\uffff\1\164\1\55\1\164\2\55\2\0\1\uffff"+
-        "\1\0\1\uffff\1\0\2\uffff\1\163\1\0\1\55\2\0\4\uffff\1\55\1\uffff"+
-        "\1\0\2\uffff\1\0\2\uffff";
+        "\72\5\0\1\174\2\0\1\uffff\1\56\3\uffff\1\56\1\uffff\1\55\1\160\1"+
+        "\55\1\uffff\1\146\1\144\1\141\2\163\1\154\1\144\1\165\1\174\4\uffff"+
+        "\1\0\1\173\3\uffff\1\144\1\76\1\0\2\uffff\1\0\4\uffff\1\0\5\uffff"+
+        "\1\0\2\uffff\1\0\1\55\1\uffff\7\0\2\uffff\1\0\1\uffff\6\0\1\uffff"+
+        "\3\0\2\uffff\1\60\1\56\1\60\2\55\1\uffff\1\145\1\0\1\157\1\0\1\141"+
+        "\2\145\1\163\2\145\1\163\2\145\5\uffff\1\55\7\uffff\1\0\20\uffff"+
+        "\5\60\1\162\1\uffff\1\162\1\uffff\1\165\1\156\1\163\1\146\1\163"+
+        "\1\55\1\146\1\55\1\145\2\55\1\0\1\uffff\1\151\1\164\1\154\1\145"+
+        "\1\163\2\55\1\0\1\55\1\0\1\55\2\0\1\uffff\1\164\1\55\1\164\2\55"+
+        "\2\0\1\uffff\1\0\1\uffff\1\0\2\uffff\1\163\1\0\1\55\2\0\4\uffff"+
+        "\1\55\1\uffff\1\0\2\uffff\1\0\2\uffff";
     static final String DFA28_maxS =
         "\1\uffff\1\156\1\145\1\156\2\154\1\141\1\157\1\162\1\176\1\134\1"+
         "\156\1\76\1\176\1\173\2\76\1\176\1\76\1\162\1\76\7\0\1\uffff\1\uffff"+
-        "\1\72\7\0\1\uffff\1\uffff\1\170\3\uffff\1\145\1\uffff\1\172\1\160"+
-        "\1\172\1\uffff\1\146\1\154\1\141\2\163\1\154\1\144\1\165\1\174\4"+
-        "\uffff\1\0\1\173\3\uffff\1\144\1\76\1\0\2\uffff\1\0\4\uffff\1\0"+
-        "\5\uffff\1\0\2\uffff\1\0\1\172\1\uffff\7\0\2\uffff\1\0\1\uffff\10"+
-        "\0\1\uffff\1\0\1\uffff\1\146\1\145\1\146\2\71\1\uffff\1\145\1\0"+
-        "\1\157\1\0\1\151\2\145\1\163\1\145\1\151\1\163\2\145\5\uffff\1\172"+
-        "\7\uffff\1\0\20\uffff\3\146\2\71\1\162\1\uffff\1\162\1\uffff\1\165"+
-        "\1\156\1\163\1\146\1\163\1\172\1\146\1\172\1\145\2\172\1\0\1\uffff"+
-        "\1\151\1\164\1\154\1\145\1\163\2\172\1\0\1\172\1\0\1\172\2\0\1\uffff"+
-        "\1\164\1\172\1\164\2\172\2\0\1\uffff\1\0\1\uffff\1\0\2\uffff\1\163"+
-        "\1\0\1\172\2\0\4\uffff\1\172\1\uffff\1\0\2\uffff\1\0\2\uffff";
+        "\1\72\5\0\1\174\1\0\1\uffff\1\uffff\1\170\3\uffff\1\145\1\uffff"+
+        "\1\172\1\160\1\172\1\uffff\1\146\1\154\1\141\2\163\1\154\1\144\1"+
+        "\165\1\174\4\uffff\1\0\1\173\3\uffff\1\144\1\76\1\0\2\uffff\1\0"+
+        "\4\uffff\1\0\5\uffff\1\0\2\uffff\1\0\1\172\1\uffff\7\0\2\uffff\1"+
+        "\0\1\uffff\6\0\1\uffff\3\0\2\uffff\1\146\1\145\1\146\2\71\1\uffff"+
+        "\1\145\1\0\1\157\1\0\1\151\2\145\1\163\1\145\1\151\1\163\2\145\5"+
+        "\uffff\1\172\7\uffff\1\0\20\uffff\3\146\2\71\1\162\1\uffff\1\162"+
+        "\1\uffff\1\165\1\156\1\163\1\146\1\163\1\172\1\146\1\172\1\145\2"+
+        "\172\1\0\1\uffff\1\151\1\164\1\154\1\145\1\163\2\172\1\0\1\172\1"+
+        "\0\1\172\2\0\1\uffff\1\164\1\172\1\164\2\172\2\0\1\uffff\1\0\1\uffff"+
+        "\1\0\2\uffff\1\163\1\0\1\172\2\0\4\uffff\1\172\1\uffff\1\0\2\uffff"+
+        "\1\0\2\uffff";
     static final String DFA28_acceptS =
-        "\34\uffff\1\65\12\uffff\1\105\1\uffff\3\107\1\uffff\1\112\3\uffff"+
-        "\1\107\11\uffff\1\30\1\32\1\33\1\34\2\uffff\1\42\1\44\1\45\3\uffff"+
-        "\1\22\1\23\1\uffff\1\24\1\106\1\25\1\26\1\uffff\1\27\1\64\1\35\1"+
+        "\34\uffff\1\65\12\uffff\1\105\1\uffff\3\110\1\uffff\1\113\3\uffff"+
+        "\1\110\11\uffff\1\30\1\32\1\33\1\34\2\uffff\1\42\1\44\1\45\3\uffff"+
+        "\1\22\1\23\1\uffff\1\24\1\107\1\25\1\26\1\uffff\1\27\1\64\1\35\1"+
         "\36\1\37\1\uffff\1\40\1\41\2\uffff\1\52\7\uffff\1\65\1\103\1\uffff"+
-        "\1\111\10\uffff\1\104\1\uffff\1\105\5\uffff\1\110\15\uffff\1\16"+
-        "\1\31\1\71\1\17\1\43\1\uffff\1\21\1\51\1\101\1\53\1\62\1\72\1\73"+
-        "\1\uffff\1\54\1\55\1\56\1\57\1\60\1\61\1\63\1\66\1\67\1\70\1\74"+
-        "\1\75\1\76\1\77\1\100\1\102\6\uffff\1\47\1\uffff\1\46\14\uffff\1"+
-        "\50\15\uffff\1\20\7\uffff\1\12\1\uffff\1\13\1\uffff\1\14\1\15\5"+
-        "\uffff\1\11\1\6\1\7\1\10\1\uffff\1\4\1\uffff\1\3\1\5\1\uffff\1\2"+
-        "\1\1";
+        "\1\112\6\uffff\1\106\3\uffff\1\104\1\105\5\uffff\1\111\15\uffff"+
+        "\1\16\1\31\1\71\1\17\1\43\1\uffff\1\21\1\51\1\101\1\53\1\62\1\72"+
+        "\1\73\1\uffff\1\54\1\55\1\56\1\57\1\60\1\61\1\63\1\66\1\67\1\70"+
+        "\1\74\1\75\1\76\1\77\1\100\1\102\6\uffff\1\47\1\uffff\1\46\14\uffff"+
+        "\1\50\15\uffff\1\20\7\uffff\1\12\1\uffff\1\13\1\uffff\1\14\1\15"+
+        "\5\uffff\1\11\1\6\1\7\1\10\1\uffff\1\4\1\uffff\1\3\1\5\1\uffff\1"+
+        "\2\1\1";
     static final String DFA28_specialS =
-        "\1\4\10\uffff\1\5\2\uffff\1\2\1\1\1\uffff\1\63\1\7\1\40\1\3\1\uffff"+
-        "\1\31\10\uffff\1\60\10\uffff\1\0\23\uffff\1\64\4\uffff\1\56\5\uffff"+
-        "\1\6\1\46\2\uffff\1\41\4\uffff\1\36\5\uffff\1\55\2\uffff\1\54\2"+
-        "\uffff\1\42\1\43\1\32\1\33\1\34\1\35\1\37\2\uffff\1\62\1\uffff\1"+
-        "\61\1\57\1\53\1\52\1\51\1\50\1\47\1\45\1\uffff\1\44\10\uffff\1\30"+
-        "\1\uffff\1\26\26\uffff\1\27\44\uffff\1\24\10\uffff\1\23\1\uffff"+
-        "\1\20\1\uffff\1\21\1\25\6\uffff\1\22\1\16\1\uffff\1\15\1\uffff\1"+
-        "\14\3\uffff\1\10\1\uffff\1\11\1\17\6\uffff\1\12\2\uffff\1\13\2\uffff}>";
+        "\1\7\10\uffff\1\47\2\uffff\1\1\1\64\1\uffff\1\53\1\4\1\6\1\2\1\uffff"+
+        "\1\10\10\uffff\1\5\6\uffff\1\0\1\uffff\1\65\23\uffff\1\22\4\uffff"+
+        "\1\33\5\uffff\1\3\1\57\2\uffff\1\50\4\uffff\1\42\5\uffff\1\34\2"+
+        "\uffff\1\61\2\uffff\1\51\1\45\1\46\1\43\1\44\1\41\1\40\2\uffff\1"+
+        "\37\1\uffff\1\35\1\36\1\60\1\63\1\62\1\55\1\uffff\1\54\1\56\1\52"+
+        "\11\uffff\1\31\1\uffff\1\32\26\uffff\1\30\44\uffff\1\27\10\uffff"+
+        "\1\16\1\uffff\1\15\1\uffff\1\20\1\17\6\uffff\1\13\1\12\1\uffff\1"+
+        "\11\1\uffff\1\14\3\uffff\1\26\1\uffff\1\23\1\25\6\uffff\1\24\2\uffff"+
+        "\1\21\2\uffff}>";
     static final String[] DFA28_transitionS = {
             "\11\55\2\47\2\55\1\47\22\55\1\47\1\15\1\25\1\46\1\16\1\26\1"+
             "\55\1\27\1\30\1\31\1\32\1\17\1\33\1\20\1\34\1\35\1\50\11\54"+
@@ -3916,42 +3964,42 @@ public class PPLexer extends Lexer {
             "\1\uffff",
             "\1\uffff",
             "\1\uffff",
+            "\1\153",
             "\1\uffff",
-            "\1\uffff",
-            "\0\155",
+            "\0\157",
             "",
-            "\1\165\1\uffff\12\161\13\uffff\1\164\22\uffff\1\162\14\uffff"+
-            "\1\163\22\uffff\1\160",
-            "",
+            "\1\166\1\uffff\12\162\13\uffff\1\165\22\uffff\1\163\14\uffff"+
+            "\1\164\22\uffff\1\161",
             "",
             "",
-            "\1\165\1\uffff\12\161\13\uffff\1\164\37\uffff\1\163",
+            "",
+            "\1\166\1\uffff\12\162\13\uffff\1\165\37\uffff\1\164",
             "",
             "\1\61\2\uffff\13\61\6\uffff\32\61\4\uffff\1\61\1\uffff\7\61"+
-            "\1\166\22\61",
-            "\1\170",
+            "\1\167\22\61",
+            "\1\171",
             "\1\61\2\uffff\13\61\6\uffff\32\61\4\uffff\1\61\1\uffff\32\61",
             "",
-            "\1\172",
-            "\1\174\7\uffff\1\173",
-            "\1\175",
+            "\1\173",
+            "\1\175\7\uffff\1\174",
             "\1\176",
             "\1\177",
             "\1\u0080",
             "\1\u0081",
             "\1\u0082",
             "\1\u0083",
+            "\1\u0084",
             "",
             "",
             "",
             "",
             "\1\uffff",
-            "\1\u0086",
+            "\1\u0087",
             "",
             "",
             "",
-            "\1\u0088",
             "\1\u0089",
+            "\1\u008a",
             "\1\uffff",
             "",
             "",
@@ -3989,30 +4037,31 @@ public class PPLexer extends Lexer {
             "\1\uffff",
             "\1\uffff",
             "\1\uffff",
+            "",
+            "\1\uffff",
             "\1\uffff",
             "\1\uffff",
             "",
-            "\1\uffff",
             "",
-            "\12\u00a1\7\uffff\6\u00a3\32\uffff\6\u00a2",
-            "\1\165\1\uffff\12\161\13\uffff\1\164\37\uffff\1\163",
-            "\12\u00a1\7\uffff\6\u00a3\32\uffff\6\u00a2",
-            "\1\u00a5\2\uffff\12\u00a4",
-            "\1\u00a5\2\uffff\12\u00a4",
+            "\12\u00a2\7\uffff\6\u00a4\32\uffff\6\u00a3",
+            "\1\166\1\uffff\12\162\13\uffff\1\165\37\uffff\1\164",
+            "\12\u00a2\7\uffff\6\u00a4\32\uffff\6\u00a3",
+            "\1\u00a6\2\uffff\12\u00a5",
+            "\1\u00a6\2\uffff\12\u00a5",
             "",
-            "\1\u00a6",
+            "\1\u00a7",
             "\1\uffff",
-            "\1\u00a8",
+            "\1\u00a9",
             "\1\uffff",
-            "\1\u00aa\7\uffff\1\u00ab",
-            "\1\u00ac",
+            "\1\u00ab\7\uffff\1\u00ac",
             "\1\u00ad",
             "\1\u00ae",
             "\1\u00af",
-            "\1\u00b1\3\uffff\1\u00b0",
-            "\1\u00b2",
+            "\1\u00b0",
+            "\1\u00b2\3\uffff\1\u00b1",
             "\1\u00b3",
             "\1\u00b4",
+            "\1\u00b5",
             "",
             "",
             "",
@@ -4043,33 +4092,33 @@ public class PPLexer extends Lexer {
             "",
             "",
             "",
-            "\12\u00a1\7\uffff\6\u00a3\32\uffff\6\u00a2",
-            "\12\u00a1\7\uffff\6\u00a3\32\uffff\6\u00a2",
-            "\12\u00a1\7\uffff\6\u00a3\32\uffff\6\u00a2",
-            "\12\u00a4",
-            "\12\u00a4",
-            "\1\u00b7",
-            "",
+            "\12\u00a2\7\uffff\6\u00a4\32\uffff\6\u00a3",
+            "\12\u00a2\7\uffff\6\u00a4\32\uffff\6\u00a3",
+            "\12\u00a2\7\uffff\6\u00a4\32\uffff\6\u00a3",
+            "\12\u00a5",
+            "\12\u00a5",
             "\1\u00b8",
             "",
             "\1\u00b9",
+            "",
             "\1\u00ba",
             "\1\u00bb",
             "\1\u00bc",
             "\1\u00bd",
+            "\1\u00be",
             "\1\61\2\uffff\13\61\6\uffff\32\61\4\uffff\1\61\1\uffff\32\61",
-            "\1\u00bf",
+            "\1\u00c0",
             "\1\61\2\uffff\13\61\6\uffff\32\61\4\uffff\1\61\1\uffff\32\61",
-            "\1\u00c1",
+            "\1\u00c2",
             "\1\61\2\uffff\13\61\6\uffff\32\61\4\uffff\1\61\1\uffff\32\61",
             "\1\61\2\uffff\13\61\6\uffff\32\61\4\uffff\1\61\1\uffff\32\61",
             "\1\uffff",
             "",
-            "\1\u00c5",
             "\1\u00c6",
             "\1\u00c7",
             "\1\u00c8",
             "\1\u00c9",
+            "\1\u00ca",
             "\1\61\2\uffff\13\61\6\uffff\32\61\4\uffff\1\61\1\uffff\32\61",
             "\1\61\2\uffff\13\61\6\uffff\32\61\4\uffff\1\61\1\uffff\32\61",
             "\1\uffff",
@@ -4079,9 +4128,9 @@ public class PPLexer extends Lexer {
             "\1\uffff",
             "\1\uffff",
             "",
-            "\1\u00d2",
+            "\1\u00d3",
             "\1\61\2\uffff\13\61\6\uffff\32\61\4\uffff\1\61\1\uffff\32\61",
-            "\1\u00d4",
+            "\1\u00d5",
             "\1\61\2\uffff\13\61\6\uffff\32\61\4\uffff\1\61\1\uffff\32\61",
             "\1\61\2\uffff\13\61\6\uffff\32\61\4\uffff\1\61\1\uffff\32\61",
             "\1\uffff",
@@ -4092,7 +4141,7 @@ public class PPLexer extends Lexer {
             "\1\uffff",
             "",
             "",
-            "\1\u00db",
+            "\1\u00dc",
             "\1\uffff",
             "\1\61\2\uffff\13\61\6\uffff\32\61\4\uffff\1\61\1\uffff\32\61",
             "\1\uffff",
@@ -4141,45 +4190,28 @@ public class PPLexer extends Lexer {
             this.transition = DFA28_transition;
         }
         public String getDescription() {
-            return "1:1: Tokens : ( KW_INHERITS | KW_DEFAULT | KW_DEFINE | KW_IMPORT | KW_UNLESS | KW_CLASS | KW_ELSIF | KW_FALSE | KW_UNDEF | KW_CASE | KW_ELSE | KW_NODE | KW_TRUE | KW_LLCOLLECT | KW_ESC_DLR_BRACE | KW_AND | KW_RRCOLLECT | KW_NOT_EQ | KW_NOT_MATCHES | KW_DLR_BRACE | KW_PLUS_EQ | KW_APPEND | KW_RARR | KW_IN_EDGE | KW_LSHIFT | KW_LT_EQ | KW_LCOLLECT | KW_IN_EDGE_SUB | KW_EQUALS | KW_FARROW | KW_MATCHES | KW_GT_EQ | KW_RSHIFT | KW_ESC_DQ | KW_ESC_DLR | KW_ESC_SQ | KW_ESC_ESC | KW_IF | KW_IN | KW_OR | KW_RCOLLECT | KW_OUT_EDGE_SUB | KW_NOT | KW_DQ | KW_MODULO | KW_SQ | KW_LPAR | KW_RPAR | KW_MUL | KW_PLUS | KW_COMMA | KW_MINUS | KW_DOT | KW_SLASH | KW_COLON | KW_SEMI | KW_LT | KW_EQ | KW_GT | KW_QMARK | KW_AT | KW_LBRACK | KW_RBRACK | KW_LBRACE | KW_PIPE | KW_RBRACE | RULE_ML_COMMENT | RULE_SL_COMMENT | RULE_WS | RULE_DOLLAR_VAR | RULE_WORD_CHARS | RULE_NUMBER | RULE_REGULAR_EXPRESSION | RULE_ANY_OTHER );";
+            return "1:1: Tokens : ( KW_INHERITS | KW_DEFAULT | KW_DEFINE | KW_IMPORT | KW_UNLESS | KW_CLASS | KW_ELSIF | KW_FALSE | KW_UNDEF | KW_CASE | KW_ELSE | KW_NODE | KW_TRUE | KW_LLCOLLECT | KW_ESC_DLR_BRACE | KW_AND | KW_RRCOLLECT | KW_NOT_EQ | KW_NOT_MATCHES | KW_DLR_BRACE | KW_PLUS_EQ | KW_APPEND | KW_RARR | KW_IN_EDGE | KW_LSHIFT | KW_LT_EQ | KW_LCOLLECT | KW_IN_EDGE_SUB | KW_EQUALS | KW_FARROW | KW_MATCHES | KW_GT_EQ | KW_RSHIFT | KW_ESC_DQ | KW_ESC_DLR | KW_ESC_SQ | KW_ESC_ESC | KW_IF | KW_IN | KW_OR | KW_RCOLLECT | KW_OUT_EDGE_SUB | KW_NOT | KW_DQ | KW_MODULO | KW_SQ | KW_LPAR | KW_RPAR | KW_MUL | KW_PLUS | KW_COMMA | KW_MINUS | KW_DOT | KW_SLASH | KW_COLON | KW_SEMI | KW_LT | KW_EQ | KW_GT | KW_QMARK | KW_AT | KW_LBRACK | KW_RBRACK | KW_LBRACE | KW_PIPE | KW_RBRACE | RULE_ML_COMMENT | RULE_SL_COMMENT | RULE_WS | RULE_LAMBDA | RULE_DOLLAR_VAR | RULE_WORD_CHARS | RULE_NUMBER | RULE_REGULAR_EXPRESSION | RULE_ANY_OTHER );";
         }
         public int specialStateTransition(int s, IntStream _input) throws NoViableAltException {
             IntStream input = _input;
         	int _s = s;
             switch ( s ) {
                     case 0 : 
-                        int LA28_38 = input.LA(1);
+                        int LA28_36 = input.LA(1);
 
                          
-                        int index28_38 = input.index();
+                        int index28_36 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( ((LA28_38>='\u0000' && LA28_38<='\uFFFF')) && ((isNotInString()))) {s = 109;}
+                        if ( (LA28_36=='|') && ((false))) {s = 107;}
 
-                        else s = 110;
+                        else s = 108;
 
                          
-                        input.seek(index28_38);
+                        input.seek(index28_36);
                         if ( s>=0 ) return s;
                         break;
                     case 1 : 
-                        int LA28_13 = input.LA(1);
-
-                         
-                        int index28_13 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (LA28_13=='=') && ((isNotInString()))) {s = 71;}
-
-                        else if ( (LA28_13=='~') && ((isNotInString()))) {s = 72;}
-
-                        else s = 73;
-
-                         
-                        input.seek(index28_13);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 2 : 
                         int LA28_12 = input.LA(1);
 
                          
@@ -4194,7 +4226,7 @@ public class PPLexer extends Lexer {
                         input.seek(index28_12);
                         if ( s>=0 ) return s;
                         break;
-                    case 3 : 
+                    case 2 : 
                         int LA28_18 = input.LA(1);
 
                          
@@ -4211,7 +4243,73 @@ public class PPLexer extends Lexer {
                         input.seek(index28_18);
                         if ( s>=0 ) return s;
                         break;
+                    case 3 : 
+                        int LA28_69 = input.LA(1);
+
+                         
+                        int index28_69 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (LA28_69=='>') && ((isNotInString()))) {s = 138;}
+
+                        else s = 139;
+
+                         
+                        input.seek(index28_69);
+                        if ( s>=0 ) return s;
+                        break;
                     case 4 : 
+                        int LA28_16 = input.LA(1);
+
+                         
+                        int index28_16 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (LA28_16=='>') && ((isNotInString()))) {s = 79;}
+
+                        else s = 80;
+
+                         
+                        input.seek(index28_16);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 5 : 
+                        int LA28_29 = input.LA(1);
+
+                         
+                        int index28_29 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (LA28_29=='*') && ((isNotInString()))) {s = 98;}
+
+                        else if ( ((LA28_29>='\u0000' && LA28_29<='\t')||(LA28_29>='\u000B' && LA28_29<=')')||(LA28_29>='+' && LA28_29<='.')||(LA28_29>='0' && LA28_29<='\uFFFF')) && ((isReAcceptable()))) {s = 100;}
+
+                        else s = 99;
+
+                         
+                        input.seek(index28_29);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 6 : 
+                        int LA28_17 = input.LA(1);
+
+                         
+                        int index28_17 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (LA28_17=='=') && ((isNotInString()))) {s = 81;}
+
+                        else if ( (LA28_17=='>') && ((isNotInString()))) {s = 82;}
+
+                        else if ( (LA28_17=='~') && ((isNotInString()))) {s = 83;}
+
+                        else s = 84;
+
+                         
+                        input.seek(index28_17);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 7 : 
                         int LA28_0 = input.LA(1);
 
                         s = -1;
@@ -4307,7 +4405,472 @@ public class PPLexer extends Lexer {
 
                         if ( s>=0 ) return s;
                         break;
-                    case 5 : 
+                    case 8 : 
+                        int LA28_20 = input.LA(1);
+
+                         
+                        int index28_20 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (LA28_20=='>') && ((isNotInString()))) {s = 89;}
+
+                        else s = 45;
+
+                         
+                        input.seek(index28_20);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 9 : 
+                        int LA28_206 = input.LA(1);
+
+                         
+                        int index28_206 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( ((isNotInString())) ) {s = 218;}
+
+                        else if ( (true) ) {s = 49;}
+
+                         
+                        input.seek(index28_206);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 10 : 
+                        int LA28_204 = input.LA(1);
+
+                         
+                        int index28_204 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( ((isNotInString())) ) {s = 217;}
+
+                        else if ( (true) ) {s = 49;}
+
+                         
+                        input.seek(index28_204);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 11 : 
+                        int LA28_203 = input.LA(1);
+
+                         
+                        int index28_203 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( ((isNotInString())) ) {s = 216;}
+
+                        else if ( (true) ) {s = 49;}
+
+                         
+                        input.seek(index28_203);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 12 : 
+                        int LA28_208 = input.LA(1);
+
+                         
+                        int index28_208 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( ((isNotInString())) ) {s = 219;}
+
+                        else if ( (true) ) {s = 49;}
+
+                         
+                        input.seek(index28_208);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 13 : 
+                        int LA28_193 = input.LA(1);
+
+                         
+                        int index28_193 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( ((isNotInString())) ) {s = 207;}
+
+                        else if ( (true) ) {s = 49;}
+
+                         
+                        input.seek(index28_193);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 14 : 
+                        int LA28_191 = input.LA(1);
+
+                         
+                        int index28_191 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( ((isNotInString())) ) {s = 205;}
+
+                        else if ( (true) ) {s = 49;}
+
+                         
+                        input.seek(index28_191);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 15 : 
+                        int LA28_196 = input.LA(1);
+
+                         
+                        int index28_196 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( ((isNotInString())) ) {s = 210;}
+
+                        else if ( (true) ) {s = 49;}
+
+                         
+                        input.seek(index28_196);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 16 : 
+                        int LA28_195 = input.LA(1);
+
+                         
+                        int index28_195 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( ((isNotInString())) ) {s = 209;}
+
+                        else if ( (true) ) {s = 49;}
+
+                         
+                        input.seek(index28_195);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 17 : 
+                        int LA28_225 = input.LA(1);
+
+                         
+                        int index28_225 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( ((isNotInString())) ) {s = 227;}
+
+                        else if ( (true) ) {s = 49;}
+
+                         
+                        input.seek(index28_225);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 18 : 
+                        int LA28_58 = input.LA(1);
+
+                         
+                        int index28_58 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (LA28_58=='|') && ((isNotInString()))) {s = 132;}
+
+                        else s = 133;
+
+                         
+                        input.seek(index28_58);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 19 : 
+                        int LA28_214 = input.LA(1);
+
+                         
+                        int index28_214 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( ((isNotInString())) ) {s = 223;}
+
+                        else if ( (true) ) {s = 49;}
+
+                         
+                        input.seek(index28_214);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 20 : 
+                        int LA28_222 = input.LA(1);
+
+                         
+                        int index28_222 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( ((isNotInString())) ) {s = 226;}
+
+                        else if ( (true) ) {s = 49;}
+
+                         
+                        input.seek(index28_222);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 21 : 
+                        int LA28_215 = input.LA(1);
+
+                         
+                        int index28_215 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( ((isNotInString())) ) {s = 224;}
+
+                        else if ( (true) ) {s = 49;}
+
+                         
+                        input.seek(index28_215);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 22 : 
+                        int LA28_212 = input.LA(1);
+
+                         
+                        int index28_212 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( ((isNotInString())) ) {s = 221;}
+
+                        else if ( (true) ) {s = 49;}
+
+                         
+                        input.seek(index28_212);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 23 : 
+                        int LA28_182 = input.LA(1);
+
+                         
+                        int index28_182 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( ((isNotInString())) ) {s = 197;}
+
+                        else if ( (true) ) {s = 49;}
+
+                         
+                        input.seek(index28_182);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 24 : 
+                        int LA28_145 = input.LA(1);
+
+                         
+                        int index28_145 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( ((isNotInString())) ) {s = 183;}
+
+                        else if ( (true) ) {s = 49;}
+
+                         
+                        input.seek(index28_145);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 25 : 
+                        int LA28_120 = input.LA(1);
+
+                         
+                        int index28_120 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( ((isNotInString())) ) {s = 168;}
+
+                        else if ( (true) ) {s = 49;}
+
+                         
+                        input.seek(index28_120);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 26 : 
+                        int LA28_122 = input.LA(1);
+
+                         
+                        int index28_122 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( ((isNotInString())) ) {s = 170;}
+
+                        else if ( (true) ) {s = 49;}
+
+                         
+                        input.seek(index28_122);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 27 : 
+                        int LA28_63 = input.LA(1);
+
+                         
+                        int index28_63 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( ((isNotInString())) ) {s = 134;}
+
+                        else if ( (true) ) {s = 45;}
+
+                         
+                        input.seek(index28_63);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 28 : 
+                        int LA28_84 = input.LA(1);
+
+                         
+                        int index28_84 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( ((isNotInString())) ) {s = 143;}
+
+                        else if ( (true) ) {s = 45;}
+
+                         
+                        input.seek(index28_84);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 29 : 
+                        int LA28_101 = input.LA(1);
+
+                         
+                        int index28_101 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( ((isNotInString())) ) {s = 154;}
+
+                        else if ( (true) ) {s = 45;}
+
+                         
+                        input.seek(index28_101);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 30 : 
+                        int LA28_102 = input.LA(1);
+
+                         
+                        int index28_102 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( ((isNotInString())) ) {s = 155;}
+
+                        else if ( (true) ) {s = 45;}
+
+                         
+                        input.seek(index28_102);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 31 : 
+                        int LA28_99 = input.LA(1);
+
+                         
+                        int index28_99 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( ((isNotInString())) ) {s = 153;}
+
+                        else if ( (true) ) {s = 45;}
+
+                         
+                        input.seek(index28_99);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 32 : 
+                        int LA28_96 = input.LA(1);
+
+                         
+                        int index28_96 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( ((isNotInString())) ) {s = 152;}
+
+                        else if ( (true) ) {s = 45;}
+
+                         
+                        input.seek(index28_96);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 33 : 
+                        int LA28_95 = input.LA(1);
+
+                         
+                        int index28_95 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( ((isNotInString())) ) {s = 151;}
+
+                        else if ( (true) ) {s = 45;}
+
+                         
+                        input.seek(index28_95);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 34 : 
+                        int LA28_78 = input.LA(1);
+
+                         
+                        int index28_78 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( ((isNotInString())) ) {s = 142;}
+
+                        else if ( (true) ) {s = 45;}
+
+                         
+                        input.seek(index28_78);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 35 : 
+                        int LA28_93 = input.LA(1);
+
+                         
+                        int index28_93 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( ((isNotInString())) ) {s = 149;}
+
+                        else if ( (true) ) {s = 45;}
+
+                         
+                        input.seek(index28_93);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 36 : 
+                        int LA28_94 = input.LA(1);
+
+                         
+                        int index28_94 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( ((isNotInString())) ) {s = 150;}
+
+                        else if ( (true) ) {s = 45;}
+
+                         
+                        input.seek(index28_94);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 37 : 
+                        int LA28_91 = input.LA(1);
+
+                         
+                        int index28_91 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( ((isNotInString())) ) {s = 147;}
+
+                        else if ( (true) ) {s = 45;}
+
+                         
+                        input.seek(index28_91);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 38 : 
+                        int LA28_92 = input.LA(1);
+
+                         
+                        int index28_92 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( ((!doubleQuotedString)) ) {s = 148;}
+
+                        else if ( (true) ) {s = 45;}
+
+                         
+                        input.seek(index28_92);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 39 : 
                         int LA28_9 = input.LA(1);
 
                          
@@ -4330,371 +4893,11 @@ public class PPLexer extends Lexer {
                         input.seek(index28_9);
                         if ( s>=0 ) return s;
                         break;
-                    case 6 : 
-                        int LA28_69 = input.LA(1);
+                    case 40 : 
+                        int LA28_73 = input.LA(1);
 
                          
-                        int index28_69 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (LA28_69=='>') && ((isNotInString()))) {s = 137;}
-
-                        else s = 138;
-
-                         
-                        input.seek(index28_69);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 7 : 
-                        int LA28_16 = input.LA(1);
-
-                         
-                        int index28_16 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (LA28_16=='>') && ((isNotInString()))) {s = 79;}
-
-                        else s = 80;
-
-                         
-                        input.seek(index28_16);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 8 : 
-                        int LA28_211 = input.LA(1);
-
-                         
-                        int index28_211 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( ((isNotInString())) ) {s = 220;}
-
-                        else if ( (true) ) {s = 49;}
-
-                         
-                        input.seek(index28_211);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 9 : 
-                        int LA28_213 = input.LA(1);
-
-                         
-                        int index28_213 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( ((isNotInString())) ) {s = 222;}
-
-                        else if ( (true) ) {s = 49;}
-
-                         
-                        input.seek(index28_213);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 10 : 
-                        int LA28_221 = input.LA(1);
-
-                         
-                        int index28_221 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( ((isNotInString())) ) {s = 225;}
-
-                        else if ( (true) ) {s = 49;}
-
-                         
-                        input.seek(index28_221);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 11 : 
-                        int LA28_224 = input.LA(1);
-
-                         
-                        int index28_224 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( ((isNotInString())) ) {s = 226;}
-
-                        else if ( (true) ) {s = 49;}
-
-                         
-                        input.seek(index28_224);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 12 : 
-                        int LA28_207 = input.LA(1);
-
-                         
-                        int index28_207 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( ((isNotInString())) ) {s = 218;}
-
-                        else if ( (true) ) {s = 49;}
-
-                         
-                        input.seek(index28_207);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 13 : 
-                        int LA28_205 = input.LA(1);
-
-                         
-                        int index28_205 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( ((isNotInString())) ) {s = 217;}
-
-                        else if ( (true) ) {s = 49;}
-
-                         
-                        input.seek(index28_205);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 14 : 
-                        int LA28_203 = input.LA(1);
-
-                         
-                        int index28_203 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( ((isNotInString())) ) {s = 216;}
-
-                        else if ( (true) ) {s = 49;}
-
-                         
-                        input.seek(index28_203);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 15 : 
-                        int LA28_214 = input.LA(1);
-
-                         
-                        int index28_214 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( ((isNotInString())) ) {s = 223;}
-
-                        else if ( (true) ) {s = 49;}
-
-                         
-                        input.seek(index28_214);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 16 : 
-                        int LA28_192 = input.LA(1);
-
-                         
-                        int index28_192 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( ((isNotInString())) ) {s = 206;}
-
-                        else if ( (true) ) {s = 49;}
-
-                         
-                        input.seek(index28_192);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 17 : 
-                        int LA28_194 = input.LA(1);
-
-                         
-                        int index28_194 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( ((isNotInString())) ) {s = 208;}
-
-                        else if ( (true) ) {s = 49;}
-
-                         
-                        input.seek(index28_194);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 18 : 
-                        int LA28_202 = input.LA(1);
-
-                         
-                        int index28_202 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( ((isNotInString())) ) {s = 215;}
-
-                        else if ( (true) ) {s = 49;}
-
-                         
-                        input.seek(index28_202);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 19 : 
-                        int LA28_190 = input.LA(1);
-
-                         
-                        int index28_190 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( ((isNotInString())) ) {s = 204;}
-
-                        else if ( (true) ) {s = 49;}
-
-                         
-                        input.seek(index28_190);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 20 : 
-                        int LA28_181 = input.LA(1);
-
-                         
-                        int index28_181 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( ((isNotInString())) ) {s = 196;}
-
-                        else if ( (true) ) {s = 49;}
-
-                         
-                        input.seek(index28_181);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 21 : 
-                        int LA28_195 = input.LA(1);
-
-                         
-                        int index28_195 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( ((isNotInString())) ) {s = 209;}
-
-                        else if ( (true) ) {s = 49;}
-
-                         
-                        input.seek(index28_195);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 22 : 
-                        int LA28_121 = input.LA(1);
-
-                         
-                        int index28_121 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( ((isNotInString())) ) {s = 169;}
-
-                        else if ( (true) ) {s = 49;}
-
-                         
-                        input.seek(index28_121);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 23 : 
-                        int LA28_144 = input.LA(1);
-
-                         
-                        int index28_144 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( ((isNotInString())) ) {s = 182;}
-
-                        else if ( (true) ) {s = 49;}
-
-                         
-                        input.seek(index28_144);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 24 : 
-                        int LA28_119 = input.LA(1);
-
-                         
-                        int index28_119 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( ((isNotInString())) ) {s = 167;}
-
-                        else if ( (true) ) {s = 49;}
-
-                         
-                        input.seek(index28_119);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 25 : 
-                        int LA28_20 = input.LA(1);
-
-                         
-                        int index28_20 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (LA28_20=='>') && ((isNotInString()))) {s = 89;}
-
-                        else s = 45;
-
-                         
-                        input.seek(index28_20);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 26 : 
-                        int LA28_92 = input.LA(1);
-
-                         
-                        int index28_92 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( ((!doubleQuotedString)) ) {s = 147;}
-
-                        else if ( (true) ) {s = 45;}
-
-                         
-                        input.seek(index28_92);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 27 : 
-                        int LA28_93 = input.LA(1);
-
-                         
-                        int index28_93 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( ((isNotInString())) ) {s = 148;}
-
-                        else if ( (true) ) {s = 45;}
-
-                         
-                        input.seek(index28_93);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 28 : 
-                        int LA28_94 = input.LA(1);
-
-                         
-                        int index28_94 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( ((isNotInString())) ) {s = 149;}
-
-                        else if ( (true) ) {s = 45;}
-
-                         
-                        input.seek(index28_94);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 29 : 
-                        int LA28_95 = input.LA(1);
-
-                         
-                        int index28_95 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( ((isNotInString())) ) {s = 150;}
-
-                        else if ( (true) ) {s = 45;}
-
-                         
-                        input.seek(index28_95);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 30 : 
-                        int LA28_78 = input.LA(1);
-
-                         
-                        int index28_78 = input.index();
+                        int index28_73 = input.index();
                         input.rewind();
                         s = -1;
                         if ( ((isNotInString())) ) {s = 141;}
@@ -4702,66 +4905,17 @@ public class PPLexer extends Lexer {
                         else if ( (true) ) {s = 45;}
 
                          
-                        input.seek(index28_78);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 31 : 
-                        int LA28_96 = input.LA(1);
-
-                         
-                        int index28_96 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( ((isNotInString())) ) {s = 151;}
-
-                        else if ( (true) ) {s = 45;}
-
-                         
-                        input.seek(index28_96);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 32 : 
-                        int LA28_17 = input.LA(1);
-
-                         
-                        int index28_17 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (LA28_17=='=') && ((isNotInString()))) {s = 81;}
-
-                        else if ( (LA28_17=='>') && ((isNotInString()))) {s = 82;}
-
-                        else if ( (LA28_17=='~') && ((isNotInString()))) {s = 83;}
-
-                        else s = 84;
-
-                         
-                        input.seek(index28_17);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 33 : 
-                        int LA28_73 = input.LA(1);
-
-                         
-                        int index28_73 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( ((isNotInString())) ) {s = 140;}
-
-                        else if ( (true) ) {s = 45;}
-
-                         
                         input.seek(index28_73);
                         if ( s>=0 ) return s;
                         break;
-                    case 34 : 
+                    case 41 : 
                         int LA28_90 = input.LA(1);
 
                          
                         int index28_90 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( ((!singleQuotedString)) ) {s = 145;}
+                        if ( ((!singleQuotedString)) ) {s = 146;}
 
                         else if ( (true) ) {s = 45;}
 
@@ -4769,29 +4923,14 @@ public class PPLexer extends Lexer {
                         input.seek(index28_90);
                         if ( s>=0 ) return s;
                         break;
-                    case 35 : 
-                        int LA28_91 = input.LA(1);
-
-                         
-                        int index28_91 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( ((isNotInString())) ) {s = 146;}
-
-                        else if ( (true) ) {s = 45;}
-
-                         
-                        input.seek(index28_91);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 36 : 
+                    case 42 : 
                         int LA28_110 = input.LA(1);
 
                          
                         int index28_110 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( ((isNotInString())) ) {s = 109;}
+                        if ( ((isNotInString())) ) {s = 111;}
 
                         else if ( (true) ) {s = 45;}
 
@@ -4799,219 +4938,7 @@ public class PPLexer extends Lexer {
                         input.seek(index28_110);
                         if ( s>=0 ) return s;
                         break;
-                    case 37 : 
-                        int LA28_108 = input.LA(1);
-
-                         
-                        int index28_108 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( ((isNotInString())) ) {s = 160;}
-
-                        else if ( (true) ) {s = 45;}
-
-                         
-                        input.seek(index28_108);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 38 : 
-                        int LA28_70 = input.LA(1);
-
-                         
-                        int index28_70 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( ((isNotInString())) ) {s = 139;}
-
-                        else if ( (true) ) {s = 45;}
-
-                         
-                        input.seek(index28_70);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 39 : 
-                        int LA28_107 = input.LA(1);
-
-                         
-                        int index28_107 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( ((isNotInString())) ) {s = 159;}
-
-                        else if ( (true) ) {s = 45;}
-
-                         
-                        input.seek(index28_107);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 40 : 
-                        int LA28_106 = input.LA(1);
-
-                         
-                        int index28_106 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( ((isNotInString())) ) {s = 158;}
-
-                        else if ( (true) ) {s = 45;}
-
-                         
-                        input.seek(index28_106);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 41 : 
-                        int LA28_105 = input.LA(1);
-
-                         
-                        int index28_105 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( ((isNotInString())) ) {s = 157;}
-
-                        else if ( (true) ) {s = 45;}
-
-                         
-                        input.seek(index28_105);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 42 : 
-                        int LA28_104 = input.LA(1);
-
-                         
-                        int index28_104 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( ((isNotInString())) ) {s = 156;}
-
-                        else if ( (true) ) {s = 45;}
-
-                         
-                        input.seek(index28_104);
-                        if ( s>=0 ) return s;
-                        break;
                     case 43 : 
-                        int LA28_103 = input.LA(1);
-
-                         
-                        int index28_103 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( ((isNotInString())) ) {s = 155;}
-
-                        else if ( (true) ) {s = 45;}
-
-                         
-                        input.seek(index28_103);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 44 : 
-                        int LA28_87 = input.LA(1);
-
-                         
-                        int index28_87 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( ((isNotInString())) ) {s = 143;}
-
-                        else if ( (true) ) {s = 45;}
-
-                         
-                        input.seek(index28_87);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 45 : 
-                        int LA28_84 = input.LA(1);
-
-                         
-                        int index28_84 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( ((isNotInString())) ) {s = 142;}
-
-                        else if ( (true) ) {s = 45;}
-
-                         
-                        input.seek(index28_84);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 46 : 
-                        int LA28_63 = input.LA(1);
-
-                         
-                        int index28_63 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( ((isNotInString())) ) {s = 133;}
-
-                        else if ( (true) ) {s = 45;}
-
-                         
-                        input.seek(index28_63);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 47 : 
-                        int LA28_102 = input.LA(1);
-
-                         
-                        int index28_102 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( ((isNotInString())) ) {s = 154;}
-
-                        else if ( (true) ) {s = 45;}
-
-                         
-                        input.seek(index28_102);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 48 : 
-                        int LA28_29 = input.LA(1);
-
-                         
-                        int index28_29 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (LA28_29=='*') && ((isNotInString()))) {s = 98;}
-
-                        else if ( ((LA28_29>='\u0000' && LA28_29<='\t')||(LA28_29>='\u000B' && LA28_29<=')')||(LA28_29>='+' && LA28_29<='.')||(LA28_29>='0' && LA28_29<='\uFFFF')) && ((isReAcceptable()))) {s = 100;}
-
-                        else s = 99;
-
-                         
-                        input.seek(index28_29);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 49 : 
-                        int LA28_101 = input.LA(1);
-
-                         
-                        int index28_101 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( ((isNotInString())) ) {s = 153;}
-
-                        else if ( (true) ) {s = 45;}
-
-                         
-                        input.seek(index28_101);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 50 : 
-                        int LA28_99 = input.LA(1);
-
-                         
-                        int index28_99 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( ((isNotInString())) ) {s = 152;}
-
-                        else if ( (true) ) {s = 45;}
-
-                         
-                        input.seek(index28_99);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 51 : 
                         int LA28_15 = input.LA(1);
 
                          
@@ -5028,19 +4955,156 @@ public class PPLexer extends Lexer {
                         input.seek(index28_15);
                         if ( s>=0 ) return s;
                         break;
-                    case 52 : 
-                        int LA28_58 = input.LA(1);
+                    case 44 : 
+                        int LA28_108 = input.LA(1);
 
                          
-                        int index28_58 = input.index();
+                        int index28_108 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( (LA28_58=='|') && ((isNotInString()))) {s = 131;}
+                        if ( ((isNotInString())) ) {s = 160;}
 
-                        else s = 132;
+                        else if ( (true) ) {s = 45;}
 
                          
-                        input.seek(index28_58);
+                        input.seek(index28_108);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 45 : 
+                        int LA28_106 = input.LA(1);
+
+                         
+                        int index28_106 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( ((isNotInString())) ) {s = 159;}
+
+                        else if ( (true) ) {s = 45;}
+
+                         
+                        input.seek(index28_106);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 46 : 
+                        int LA28_109 = input.LA(1);
+
+                         
+                        int index28_109 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( ((isNotInString())) ) {s = 161;}
+
+                        else if ( (true) ) {s = 45;}
+
+                         
+                        input.seek(index28_109);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 47 : 
+                        int LA28_70 = input.LA(1);
+
+                         
+                        int index28_70 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( ((isNotInString())) ) {s = 140;}
+
+                        else if ( (true) ) {s = 45;}
+
+                         
+                        input.seek(index28_70);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 48 : 
+                        int LA28_103 = input.LA(1);
+
+                         
+                        int index28_103 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( ((isNotInString())) ) {s = 156;}
+
+                        else if ( (true) ) {s = 45;}
+
+                         
+                        input.seek(index28_103);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 49 : 
+                        int LA28_87 = input.LA(1);
+
+                         
+                        int index28_87 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( ((isNotInString())) ) {s = 144;}
+
+                        else if ( (true) ) {s = 45;}
+
+                         
+                        input.seek(index28_87);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 50 : 
+                        int LA28_105 = input.LA(1);
+
+                         
+                        int index28_105 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( ((isNotInString())) ) {s = 158;}
+
+                        else if ( (true) ) {s = 45;}
+
+                         
+                        input.seek(index28_105);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 51 : 
+                        int LA28_104 = input.LA(1);
+
+                         
+                        int index28_104 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( ((isNotInString())) ) {s = 157;}
+
+                        else if ( (true) ) {s = 45;}
+
+                         
+                        input.seek(index28_104);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 52 : 
+                        int LA28_13 = input.LA(1);
+
+                         
+                        int index28_13 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (LA28_13=='=') && ((isNotInString()))) {s = 71;}
+
+                        else if ( (LA28_13=='~') && ((isNotInString()))) {s = 72;}
+
+                        else s = 73;
+
+                         
+                        input.seek(index28_13);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 53 : 
+                        int LA28_38 = input.LA(1);
+
+                         
+                        int index28_38 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( ((LA28_38>='\u0000' && LA28_38<='\uFFFF')) && ((isNotInString()))) {s = 111;}
+
+                        else s = 110;
+
+                         
+                        input.seek(index28_38);
                         if ( s>=0 ) return s;
                         break;
             }

@@ -11,9 +11,9 @@
  */
 package org.cloudsmith.geppetto.pp.impl;
 
-import org.cloudsmith.geppetto.pp.DefinitionArgumentList;
 import org.cloudsmith.geppetto.pp.Lambda;
 import org.cloudsmith.geppetto.pp.PPPackage;
+import org.cloudsmith.geppetto.pp.WithLambdaExpression;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.ecore.EClass;
@@ -22,28 +22,28 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Lambda</b></em>'.
+ * An implementation of the model object '<em><b>With Lambda Expression</b></em>'.
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * <ul>
- * <li>{@link org.cloudsmith.geppetto.pp.impl.LambdaImpl#getArguments <em>Arguments</em>}</li>
+ * <li>{@link org.cloudsmith.geppetto.pp.impl.WithLambdaExpressionImpl#getLambda <em>Lambda</em>}</li>
  * </ul>
  * </p>
  * 
  * @generated
  */
-public abstract class LambdaImpl extends ExpressionBlockImpl implements Lambda {
+public class WithLambdaExpressionImpl extends ParameterizedExpressionImpl implements WithLambdaExpression {
 	/**
-	 * The cached value of the '{@link #getArguments() <em>Arguments</em>}' containment reference.
+	 * The cached value of the '{@link #getLambda() <em>Lambda</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
-	 * @see #getArguments()
+	 * @see #getLambda()
 	 * @generated
 	 * @ordered
 	 */
-	protected DefinitionArgumentList arguments;
+	protected Lambda lambda;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -51,7 +51,7 @@ public abstract class LambdaImpl extends ExpressionBlockImpl implements Lambda {
 	 * 
 	 * @generated
 	 */
-	protected LambdaImpl() {
+	protected WithLambdaExpressionImpl() {
 		super();
 	}
 
@@ -61,12 +61,12 @@ public abstract class LambdaImpl extends ExpressionBlockImpl implements Lambda {
 	 * 
 	 * @generated
 	 */
-	public NotificationChain basicSetArguments(DefinitionArgumentList newArguments, NotificationChain msgs) {
-		DefinitionArgumentList oldArguments = arguments;
-		arguments = newArguments;
+	public NotificationChain basicSetLambda(Lambda newLambda, NotificationChain msgs) {
+		Lambda oldLambda = lambda;
+		lambda = newLambda;
 		if(eNotificationRequired()) {
 			ENotificationImpl notification = new ENotificationImpl(
-				this, Notification.SET, PPPackage.LAMBDA__ARGUMENTS, oldArguments, newArguments);
+				this, Notification.SET, PPPackage.WITH_LAMBDA_EXPRESSION__LAMBDA, oldLambda, newLambda);
 			if(msgs == null)
 				msgs = notification;
 			else
@@ -84,8 +84,8 @@ public abstract class LambdaImpl extends ExpressionBlockImpl implements Lambda {
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch(featureID) {
-			case PPPackage.LAMBDA__ARGUMENTS:
-				return getArguments();
+			case PPPackage.WITH_LAMBDA_EXPRESSION__LAMBDA:
+				return getLambda();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -99,8 +99,8 @@ public abstract class LambdaImpl extends ExpressionBlockImpl implements Lambda {
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch(featureID) {
-			case PPPackage.LAMBDA__ARGUMENTS:
-				return basicSetArguments(null, msgs);
+			case PPPackage.WITH_LAMBDA_EXPRESSION__LAMBDA:
+				return basicSetLambda(null, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -114,8 +114,8 @@ public abstract class LambdaImpl extends ExpressionBlockImpl implements Lambda {
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch(featureID) {
-			case PPPackage.LAMBDA__ARGUMENTS:
-				return arguments != null;
+			case PPPackage.WITH_LAMBDA_EXPRESSION__LAMBDA:
+				return lambda != null;
 		}
 		return super.eIsSet(featureID);
 	}
@@ -129,8 +129,8 @@ public abstract class LambdaImpl extends ExpressionBlockImpl implements Lambda {
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch(featureID) {
-			case PPPackage.LAMBDA__ARGUMENTS:
-				setArguments((DefinitionArgumentList) newValue);
+			case PPPackage.WITH_LAMBDA_EXPRESSION__LAMBDA:
+				setLambda((Lambda) newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -144,7 +144,7 @@ public abstract class LambdaImpl extends ExpressionBlockImpl implements Lambda {
 	 */
 	@Override
 	protected EClass eStaticClass() {
-		return PPPackage.Literals.LAMBDA;
+		return PPPackage.Literals.WITH_LAMBDA_EXPRESSION;
 	}
 
 	/**
@@ -156,8 +156,8 @@ public abstract class LambdaImpl extends ExpressionBlockImpl implements Lambda {
 	@Override
 	public void eUnset(int featureID) {
 		switch(featureID) {
-			case PPPackage.LAMBDA__ARGUMENTS:
-				setArguments((DefinitionArgumentList) null);
+			case PPPackage.WITH_LAMBDA_EXPRESSION__LAMBDA:
+				setLambda((Lambda) null);
 				return;
 		}
 		super.eUnset(featureID);
@@ -169,8 +169,8 @@ public abstract class LambdaImpl extends ExpressionBlockImpl implements Lambda {
 	 * 
 	 * @generated
 	 */
-	public DefinitionArgumentList getArguments() {
-		return arguments;
+	public Lambda getLambda() {
+		return lambda;
 	}
 
 	/**
@@ -179,22 +179,22 @@ public abstract class LambdaImpl extends ExpressionBlockImpl implements Lambda {
 	 * 
 	 * @generated
 	 */
-	public void setArguments(DefinitionArgumentList newArguments) {
-		if(newArguments != arguments) {
+	public void setLambda(Lambda newLambda) {
+		if(newLambda != lambda) {
 			NotificationChain msgs = null;
-			if(arguments != null)
-				msgs = ((InternalEObject) arguments).eInverseRemove(this, EOPPOSITE_FEATURE_BASE -
-						PPPackage.LAMBDA__ARGUMENTS, null, msgs);
-			if(newArguments != null)
-				msgs = ((InternalEObject) newArguments).eInverseAdd(this, EOPPOSITE_FEATURE_BASE -
-						PPPackage.LAMBDA__ARGUMENTS, null, msgs);
-			msgs = basicSetArguments(newArguments, msgs);
+			if(lambda != null)
+				msgs = ((InternalEObject) lambda).eInverseRemove(this, EOPPOSITE_FEATURE_BASE -
+						PPPackage.WITH_LAMBDA_EXPRESSION__LAMBDA, null, msgs);
+			if(newLambda != null)
+				msgs = ((InternalEObject) newLambda).eInverseAdd(this, EOPPOSITE_FEATURE_BASE -
+						PPPackage.WITH_LAMBDA_EXPRESSION__LAMBDA, null, msgs);
+			msgs = basicSetLambda(newLambda, msgs);
 			if(msgs != null)
 				msgs.dispatch();
 		}
 		else if(eNotificationRequired())
 			eNotify(new ENotificationImpl(
-				this, Notification.SET, PPPackage.LAMBDA__ARGUMENTS, newArguments, newArguments));
+				this, Notification.SET, PPPackage.WITH_LAMBDA_EXPRESSION__LAMBDA, newLambda, newLambda));
 	}
 
-} // LambdaImpl
+} // WithLambdaExpressionImpl

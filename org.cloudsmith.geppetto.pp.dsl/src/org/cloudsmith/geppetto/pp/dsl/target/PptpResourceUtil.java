@@ -53,6 +53,10 @@ public class PptpResourceUtil {
 		return getURI("puppet-3.0.0.pptp");
 	}
 
+	public static URI getPuppet_3_2_0() {
+		return getURI("puppet-3.2.0.pptp");
+	}
+
 	public static URI getPuppet_PE_2_0() {
 		// PE 2.0 uses the latest 2.7 - TODO: uodate when there is a specific version available for PE 2.0 extras
 		return getPuppet_2_7_19();

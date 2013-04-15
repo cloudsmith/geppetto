@@ -152,8 +152,12 @@ public class PptpTargetProjectHandler {
 			uri = PptpResourceUtil.getPuppet_2_6_9();
 		else if("2.7".equals(pptpVersion))
 			uri = PptpResourceUtil.getPuppet_2_7_19();
-		else
+		else if("3.0".equals(pptpVersion))
 			uri = PptpResourceUtil.getPuppet_3_0_0();
+		else if("3.2".equals(pptpVersion) || "future".equals(pptpVersion))
+			uri = PptpResourceUtil.getPuppet_3_2_0();
+		else
+			uri = PptpResourceUtil.getPuppet_3_0_0(); // bad, but pick something
 
 		sync(targetProject, uri, "puppet-", monitor);
 		sync(targetProject, PptpResourceUtil.getFacter_1_6(), "facter-", monitor);

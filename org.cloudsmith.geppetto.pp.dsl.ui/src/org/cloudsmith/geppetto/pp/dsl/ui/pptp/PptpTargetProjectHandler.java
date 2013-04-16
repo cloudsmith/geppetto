@@ -20,6 +20,7 @@ import java.net.URL;
 import org.apache.log4j.Logger;
 import org.cloudsmith.geppetto.common.util.EclipseUtils;
 import org.cloudsmith.geppetto.pp.dsl.target.PptpResourceUtil;
+import org.cloudsmith.geppetto.pp.dsl.target.PuppetTarget;
 import org.cloudsmith.geppetto.pp.dsl.ui.PPUiConstants;
 import org.cloudsmith.geppetto.pp.dsl.ui.preferences.PPPreferencesHelper;
 import org.eclipse.core.resources.IFile;
@@ -147,13 +148,13 @@ public class PptpTargetProjectHandler {
 		}
 
 		URI uri;
-		String pptpVersion = preferenceHelper.getPptpVersion();
-		if("2.6".equals(pptpVersion))
-			uri = PptpResourceUtil.getPuppet_2_6_9();
-		else if("2.7".equals(pptpVersion))
-			uri = PptpResourceUtil.getPuppet_2_7_19();
-		else
-			uri = PptpResourceUtil.getPuppet_3_0_0();
+		try {
+			uri = PuppetTarget.forLiteral(preferenceHelper.getPptpVersion()).getPlatformURI();
+		}
+		catch(IllegalArgumentException e) {
+			log.error(e.getMessage());
+			uri = PuppetTarget.getDefault().getPlatformURI();
+		}
 
 		sync(targetProject, uri, "puppet-", monitor);
 		sync(targetProject, PptpResourceUtil.getFacter_1_6(), "facter-", monitor);

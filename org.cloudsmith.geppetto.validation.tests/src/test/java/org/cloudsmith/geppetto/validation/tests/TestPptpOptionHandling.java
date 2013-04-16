@@ -5,10 +5,10 @@ import static org.junit.Assert.assertEquals;
 import java.io.File;
 
 import org.cloudsmith.geppetto.common.diagnostic.Diagnostic;
+import org.cloudsmith.geppetto.pp.dsl.target.PuppetTarget;
 import org.cloudsmith.geppetto.validation.FileType;
 import org.cloudsmith.geppetto.validation.ValidationOptions;
 import org.cloudsmith.geppetto.validation.ValidationService;
-import org.cloudsmith.geppetto.validation.runner.PPDiagnosticsRunner;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.SubMonitor;
 import org.junit.Test;
@@ -29,13 +29,13 @@ public class TestPptpOptionHandling extends AbstractValidationTest {
 		options.setCheckModuleSemantics(true);
 		options.setCheckReferences(true);
 		options.setFileType(FileType.PUPPET_ROOT);
-		options.setPlatformURI(PPDiagnosticsRunner.getPuppet_2_6_4());
+		options.setPlatformURI(PuppetTarget.PUPPET26.getPlatformURI());
 		vs.validate(chain, root, options, null, SubMonitor.convert(null));
 
 		assertEquals("There should be 1 errors", 1, chain.getChildren().size());
 
 		chain = new Diagnostic();
-		options.setPlatformURI(PPDiagnosticsRunner.getPuppet_2_7_1());
+		options.setPlatformURI(PuppetTarget.PUPPET27.getPlatformURI());
 		vs.validate(chain, root, options, null, SubMonitor.convert(null));
 		dumpErrors(chain);
 		assertEquals("There should be 0 errors", 0, chain.getChildren().size());

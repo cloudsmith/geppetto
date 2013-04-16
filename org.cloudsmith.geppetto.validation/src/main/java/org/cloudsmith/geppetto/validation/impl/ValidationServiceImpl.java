@@ -36,6 +36,8 @@ import org.cloudsmith.geppetto.pp.dsl.PPDSLConstants;
 import org.cloudsmith.geppetto.pp.dsl.adapters.ResourcePropertiesAdapter;
 import org.cloudsmith.geppetto.pp.dsl.adapters.ResourcePropertiesAdapterFactory;
 import org.cloudsmith.geppetto.pp.dsl.linking.PPSearchPath;
+import org.cloudsmith.geppetto.pp.dsl.target.PptpResourceUtil;
+import org.cloudsmith.geppetto.pp.dsl.target.PuppetTarget;
 import org.cloudsmith.geppetto.pp.dsl.validation.DefaultPotentialProblemsAdvisor;
 import org.cloudsmith.geppetto.pp.dsl.validation.IPPDiagnostics;
 import org.cloudsmith.geppetto.pp.dsl.validation.IPotentialProblemsAdvisor;
@@ -1037,7 +1039,7 @@ public class ValidationServiceImpl implements ValidationService {
 		URI uri = options.getPlatformURI();
 		if (useContainers) {
 			List<URI> pptpURIs = Lists.newArrayList(uri != null ? uri
-					: PPDiagnosticsRunner.getDefaultPptpResourceURI());
+					: PuppetTarget.getDefault().getPlatformURI());
 			ppRunner.configureContainers(root, moduleData.values(), //
 					Iterables.concat(Iterables.transform(
 							Iterables.concat(ppFiles, rbFiles),
@@ -1053,7 +1055,7 @@ public class ValidationServiceImpl implements ValidationService {
 			try {
 				URI platformURI = options.getPlatformURI();
 				ppRunner.loadResource(platformURI != null ? platformURI
-						: PPDiagnosticsRunner.getDefaultPptpResourceURI());
+						: PuppetTarget.getDefault().getPlatformURI());
 			} catch (IOException e) {
 				addExceptionDiagnostic(diagnostics,
 						"Internal Error: Could not load pptp.", e);

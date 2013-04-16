@@ -20,6 +20,7 @@ import java.net.URLConnection;
 
 import org.cloudsmith.geppetto.common.util.EclipseUtils;
 import org.cloudsmith.geppetto.pp.dsl.target.PptpResourceUtil;
+import org.cloudsmith.geppetto.pp.dsl.target.PuppetTarget;
 import org.eclipse.emf.common.util.URI;
 import org.junit.Test;
 
@@ -49,7 +50,7 @@ public class TestPptpResourceAsFile extends AbstractPuppetTests {
 			else
 				assertNotNull("Facter pptp file is null", EclipseUtils.getResourceAsFile(url));
 
-			uri = PptpResourceUtil.getPuppet_2_7_19();
+			uri = PuppetTarget.PUPPET27.getPlatformURI();
 			assertNotNull("Puppet pptp URI is null", uri);
 			url = new URL(uri.toString());
 			if("jar".equals(uri.scheme()))

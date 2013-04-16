@@ -193,40 +193,6 @@ public class PPDiagnosticsRunner {
 
 	}
 
-	/**
-	 * Returns a URI suitable to load the pptp with a call to {@link #loadResource(URI)}.
-	 * Currently, returns {@link #getPuppet_2_6_4()}.
-	 * 
-	 * @return
-	 */
-	public static URI getDefaultPptpResourceURI() {
-		return PptpResourceUtil.getDefaultPptpResourceURI();
-	}
-
-	public static URI getPuppet_2_6_4() {
-		return PptpResourceUtil.getPuppet_2_6_4();
-	}
-
-	public static URI getPuppet_2_6_9() {
-		return PptpResourceUtil.getPuppet_2_6_9();
-	}
-
-	public static URI getPuppet_2_7_1() {
-		return PptpResourceUtil.getPuppet_2_7_1();
-	}
-
-	public static URI getPuppet_2_7_19() {
-		return PptpResourceUtil.getPuppet_2_7_19();
-	}
-
-	public static URI getPuppet_3_0_0() {
-		return PptpResourceUtil.getPuppet_3_0_0();
-	}
-
-	public static URI getPuppet_PE_2_0() {
-		return PptpResourceUtil.getPuppet_PE_2_0();
-	}
-
 	private Injector injector;
 
 	private XtextResourceSet resourceSet;

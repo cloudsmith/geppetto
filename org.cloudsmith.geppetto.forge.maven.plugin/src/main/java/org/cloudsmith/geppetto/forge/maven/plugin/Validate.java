@@ -28,7 +28,7 @@ import org.cloudsmith.geppetto.common.diagnostic.Diagnostic;
 import org.cloudsmith.geppetto.common.diagnostic.FileDiagnostic;
 import org.cloudsmith.geppetto.forge.impl.ForgePreferencesBean;
 import org.cloudsmith.geppetto.forge.v2.model.Metadata;
-import org.cloudsmith.geppetto.pp.dsl.target.PptpResourceUtil;
+import org.cloudsmith.geppetto.pp.dsl.target.PuppetTarget;
 import org.cloudsmith.geppetto.pp.dsl.validation.IPotentialProblemsAdvisor;
 import org.cloudsmith.geppetto.pp.dsl.validation.IValidationAdvisor.ComplianceLevel;
 import org.cloudsmith.geppetto.pp.dsl.validation.ValidationPreference;
@@ -347,18 +347,7 @@ public class Validate extends AbstractForgeServiceMojo {
 			options.setFileType(FileType.MODULE_ROOT);
 		else
 			options.setFileType(FileType.PUPPET_ROOT);
-
-		switch(complianceLevel) {
-			case PUPPET_2_6:
-				options.setPlatformURI(PptpResourceUtil.getPuppet_2_6_9());
-				break;
-			case PUPPET_2_7:
-				options.setPlatformURI(PptpResourceUtil.getPuppet_2_7_19());
-				break;
-			case PUPPET_3_0:
-				options.setPlatformURI(PptpResourceUtil.getPuppet_3_0_0());
-		}
-
+		options.setPlatformURI(PuppetTarget.forComplianceLevel(complianceLevel, false).getPlatformURI());
 		options.setEncodingProvider(new IEncodingProvider() {
 			public String getEncoding(URI file) {
 				return UTF_8.name();

@@ -28,6 +28,7 @@ import org.cloudsmith.geppetto.pp.HostClassDefinition;
 import org.cloudsmith.geppetto.pp.IfExpression;
 import org.cloudsmith.geppetto.pp.ImportExpression;
 import org.cloudsmith.geppetto.pp.InExpression;
+import org.cloudsmith.geppetto.pp.JavaLambda;
 import org.cloudsmith.geppetto.pp.LiteralBoolean;
 import org.cloudsmith.geppetto.pp.LiteralClass;
 import org.cloudsmith.geppetto.pp.LiteralDefault;
@@ -38,6 +39,7 @@ import org.cloudsmith.geppetto.pp.LiteralNameOrReference;
 import org.cloudsmith.geppetto.pp.LiteralRegex;
 import org.cloudsmith.geppetto.pp.LiteralUndef;
 import org.cloudsmith.geppetto.pp.MatchingExpression;
+import org.cloudsmith.geppetto.pp.MethodCall;
 import org.cloudsmith.geppetto.pp.MultiplicativeExpression;
 import org.cloudsmith.geppetto.pp.NodeDefinition;
 import org.cloudsmith.geppetto.pp.OrExpression;
@@ -48,8 +50,10 @@ import org.cloudsmith.geppetto.pp.RelationalExpression;
 import org.cloudsmith.geppetto.pp.RelationshipExpression;
 import org.cloudsmith.geppetto.pp.ResourceBody;
 import org.cloudsmith.geppetto.pp.ResourceExpression;
+import org.cloudsmith.geppetto.pp.RubyLambda;
 import org.cloudsmith.geppetto.pp.SelectorEntry;
 import org.cloudsmith.geppetto.pp.SelectorExpression;
+import org.cloudsmith.geppetto.pp.SeparatorExpression;
 import org.cloudsmith.geppetto.pp.ShiftExpression;
 import org.cloudsmith.geppetto.pp.SingleQuotedString;
 import org.cloudsmith.geppetto.pp.UnaryMinusExpression;
@@ -95,7 +99,7 @@ public abstract class AbstractPPSemanticSequencer extends AbstractDelegatingSema
 				   context == grammarAccess.getEqualityExpressionAccess().getEqualityExpressionLeftExprAction_1_0() ||
 				   context == grammarAccess.getExpressionRule() ||
 				   context == grammarAccess.getExpressionListRule() ||
-				   context == grammarAccess.getExpressionListAccess().getExprListExpressionsAction_1_0() ||
+				   context == grammarAccess.getExpressionListAccess().getExprListExpressionsAction_0_1_0() ||
 				   context == grammarAccess.getOrExpressionRule() ||
 				   context == grammarAccess.getOrExpressionAccess().getOrExpressionLeftExprAction_1_0() ||
 				   context == grammarAccess.getRelationalExpressionRule() ||
@@ -121,7 +125,7 @@ public abstract class AbstractPPSemanticSequencer extends AbstractDelegatingSema
 				   context == grammarAccess.getAssignmentExpressionAccess().getAssignmentExpressionLeftExprAction_1_0() ||
 				   context == grammarAccess.getExpressionRule() ||
 				   context == grammarAccess.getExpressionListRule() ||
-				   context == grammarAccess.getExpressionListAccess().getExprListExpressionsAction_1_0() ||
+				   context == grammarAccess.getExpressionListAccess().getExprListExpressionsAction_0_1_0() ||
 				   context == grammarAccess.getOrExpressionRule() ||
 				   context == grammarAccess.getOrExpressionAccess().getOrExpressionLeftExprAction_1_0() ||
 				   context == grammarAccess.getRelationshipExpressionRule() ||
@@ -140,7 +144,7 @@ public abstract class AbstractPPSemanticSequencer extends AbstractDelegatingSema
 				   context == grammarAccess.getAssignmentExpressionAccess().getAssignmentExpressionLeftExprAction_1_0() ||
 				   context == grammarAccess.getExpressionRule() ||
 				   context == grammarAccess.getExpressionListRule() ||
-				   context == grammarAccess.getExpressionListAccess().getExprListExpressionsAction_1_0() ||
+				   context == grammarAccess.getExpressionListAccess().getExprListExpressionsAction_0_1_0() ||
 				   context == grammarAccess.getRelationshipExpressionRule() ||
 				   context == grammarAccess.getRelationshipExpressionAccess().getRelationshipExpressionLeftExprAction_1_0() ||
 				   context == grammarAccess.getResourceExpressionRule() ||
@@ -155,7 +159,7 @@ public abstract class AbstractPPSemanticSequencer extends AbstractDelegatingSema
 				if(context == grammarAccess.getAssignmentExpressionRule() ||
 				   context == grammarAccess.getExpressionRule() ||
 				   context == grammarAccess.getExpressionListRule() ||
-				   context == grammarAccess.getExpressionListAccess().getExprListExpressionsAction_1_0() ||
+				   context == grammarAccess.getExpressionListAccess().getExprListExpressionsAction_0_1_0() ||
 				   context == grammarAccess.getRelationshipExpressionRule() ||
 				   context == grammarAccess.getRelationshipExpressionAccess().getRelationshipExpressionLeftExprAction_1_0() ||
 				   context == grammarAccess.getResourceExpressionRule() ||
@@ -183,7 +187,7 @@ public abstract class AbstractPPSemanticSequencer extends AbstractDelegatingSema
 				   context == grammarAccess.getEqualityExpressionAccess().getEqualityExpressionLeftExprAction_1_0() ||
 				   context == grammarAccess.getExpressionRule() ||
 				   context == grammarAccess.getExpressionListRule() ||
-				   context == grammarAccess.getExpressionListAccess().getExprListExpressionsAction_1_0() ||
+				   context == grammarAccess.getExpressionListAccess().getExprListExpressionsAction_0_1_0() ||
 				   context == grammarAccess.getInExpressionRule() ||
 				   context == grammarAccess.getInExpressionAccess().getInExpressionLeftExprAction_1_0() ||
 				   context == grammarAccess.getMatchingExpressionRule() ||
@@ -245,13 +249,15 @@ public abstract class AbstractPPSemanticSequencer extends AbstractDelegatingSema
 				   context == grammarAccess.getEqualityExpressionAccess().getEqualityExpressionLeftExprAction_1_0() ||
 				   context == grammarAccess.getExpressionRule() ||
 				   context == grammarAccess.getExpressionListRule() ||
-				   context == grammarAccess.getExpressionListAccess().getExprListExpressionsAction_1_0() ||
+				   context == grammarAccess.getExpressionListAccess().getExprListExpressionsAction_0_1_0() ||
 				   context == grammarAccess.getFunctionCallRule() ||
-				   context == grammarAccess.getFunctionCallAccess().getFunctionCallLeftExprAction_1_0() ||
+				   context == grammarAccess.getFunctionCallAccess().getFunctionCallLeftExprAction_1_0_0_0() ||
 				   context == grammarAccess.getInExpressionRule() ||
 				   context == grammarAccess.getInExpressionAccess().getInExpressionLeftExprAction_1_0() ||
 				   context == grammarAccess.getMatchingExpressionRule() ||
 				   context == grammarAccess.getMatchingExpressionAccess().getMatchingExpressionLeftExprAction_1_0() ||
+				   context == grammarAccess.getMethodCallRule() ||
+				   context == grammarAccess.getMethodCallAccess().getMethodCallLeftExprAction_1_0() ||
 				   context == grammarAccess.getMultiplicativeExpressionRule() ||
 				   context == grammarAccess.getMultiplicativeExpressionAccess().getMultiplicativeExpressionLeftExprAction_1_0() ||
 				   context == grammarAccess.getOrExpressionRule() ||
@@ -288,7 +294,7 @@ public abstract class AbstractPPSemanticSequencer extends AbstractDelegatingSema
 				   context == grammarAccess.getEqualityExpressionAccess().getEqualityExpressionLeftExprAction_1_0() ||
 				   context == grammarAccess.getExpressionRule() ||
 				   context == grammarAccess.getExpressionListRule() ||
-				   context == grammarAccess.getExpressionListAccess().getExprListExpressionsAction_1_0() ||
+				   context == grammarAccess.getExpressionListAccess().getExprListExpressionsAction_0_1_0() ||
 				   context == grammarAccess.getInExpressionRule() ||
 				   context == grammarAccess.getInExpressionAccess().getInExpressionLeftExprAction_1_0() ||
 				   context == grammarAccess.getMatchingExpressionRule() ||
@@ -330,13 +336,15 @@ public abstract class AbstractPPSemanticSequencer extends AbstractDelegatingSema
 				   context == grammarAccess.getEqualityExpressionAccess().getEqualityExpressionLeftExprAction_1_0() ||
 				   context == grammarAccess.getExpressionRule() ||
 				   context == grammarAccess.getExpressionListRule() ||
-				   context == grammarAccess.getExpressionListAccess().getExprListExpressionsAction_1_0() ||
+				   context == grammarAccess.getExpressionListAccess().getExprListExpressionsAction_0_1_0() ||
 				   context == grammarAccess.getFunctionCallRule() ||
-				   context == grammarAccess.getFunctionCallAccess().getFunctionCallLeftExprAction_1_0() ||
+				   context == grammarAccess.getFunctionCallAccess().getFunctionCallLeftExprAction_1_0_0_0() ||
 				   context == grammarAccess.getInExpressionRule() ||
 				   context == grammarAccess.getInExpressionAccess().getInExpressionLeftExprAction_1_0() ||
 				   context == grammarAccess.getMatchingExpressionRule() ||
 				   context == grammarAccess.getMatchingExpressionAccess().getMatchingExpressionLeftExprAction_1_0() ||
+				   context == grammarAccess.getMethodCallRule() ||
+				   context == grammarAccess.getMethodCallAccess().getMethodCallLeftExprAction_1_0() ||
 				   context == grammarAccess.getMultiplicativeExpressionRule() ||
 				   context == grammarAccess.getMultiplicativeExpressionAccess().getMultiplicativeExpressionLeftExprAction_1_0() ||
 				   context == grammarAccess.getOrExpressionRule() ||
@@ -370,6 +378,10 @@ public abstract class AbstractPPSemanticSequencer extends AbstractDelegatingSema
 					sequence_DefinitionArgumentList(context, (DefinitionArgumentList) semanticObject); 
 					return; 
 				}
+				else if(context == grammarAccess.getLambdaParametersRule()) {
+					sequence_LambdaParameters(context, (DefinitionArgumentList) semanticObject); 
+					return; 
+				}
 				else break;
 			case PPPackage.DOUBLE_QUOTED_STRING:
 				if(context == grammarAccess.getAdditiveExpressionRule() ||
@@ -389,9 +401,9 @@ public abstract class AbstractPPSemanticSequencer extends AbstractDelegatingSema
 				   context == grammarAccess.getEqualityExpressionAccess().getEqualityExpressionLeftExprAction_1_0() ||
 				   context == grammarAccess.getExpressionRule() ||
 				   context == grammarAccess.getExpressionListRule() ||
-				   context == grammarAccess.getExpressionListAccess().getExprListExpressionsAction_1_0() ||
+				   context == grammarAccess.getExpressionListAccess().getExprListExpressionsAction_0_1_0() ||
 				   context == grammarAccess.getFunctionCallRule() ||
-				   context == grammarAccess.getFunctionCallAccess().getFunctionCallLeftExprAction_1_0() ||
+				   context == grammarAccess.getFunctionCallAccess().getFunctionCallLeftExprAction_1_0_0_0() ||
 				   context == grammarAccess.getHostReferenceRule() ||
 				   context == grammarAccess.getInExpressionRule() ||
 				   context == grammarAccess.getInExpressionAccess().getInExpressionLeftExprAction_1_0() ||
@@ -399,6 +411,8 @@ public abstract class AbstractPPSemanticSequencer extends AbstractDelegatingSema
 				   context == grammarAccess.getLiteralNameOrStringRule() ||
 				   context == grammarAccess.getMatchingExpressionRule() ||
 				   context == grammarAccess.getMatchingExpressionAccess().getMatchingExpressionLeftExprAction_1_0() ||
+				   context == grammarAccess.getMethodCallRule() ||
+				   context == grammarAccess.getMethodCallAccess().getMethodCallLeftExprAction_1_0() ||
 				   context == grammarAccess.getMultiplicativeExpressionRule() ||
 				   context == grammarAccess.getMultiplicativeExpressionAccess().getMultiplicativeExpressionLeftExprAction_1_0() ||
 				   context == grammarAccess.getOrExpressionRule() ||
@@ -446,7 +460,7 @@ public abstract class AbstractPPSemanticSequencer extends AbstractDelegatingSema
 				   context == grammarAccess.getEqualityExpressionAccess().getEqualityExpressionLeftExprAction_1_0() ||
 				   context == grammarAccess.getExpressionRule() ||
 				   context == grammarAccess.getExpressionListRule() ||
-				   context == grammarAccess.getExpressionListAccess().getExprListExpressionsAction_1_0() ||
+				   context == grammarAccess.getExpressionListAccess().getExprListExpressionsAction_0_1_0() ||
 				   context == grammarAccess.getOrExpressionRule() ||
 				   context == grammarAccess.getOrExpressionAccess().getOrExpressionLeftExprAction_1_0() ||
 				   context == grammarAccess.getRelationalExpressionRule() ||
@@ -497,12 +511,15 @@ public abstract class AbstractPPSemanticSequencer extends AbstractDelegatingSema
 				   context == grammarAccess.getEqualityExpressionAccess().getEqualityExpressionLeftExprAction_1_0() ||
 				   context == grammarAccess.getExpressionRule() ||
 				   context == grammarAccess.getExpressionListRule() ||
-				   context == grammarAccess.getExpressionListAccess().getExprListExpressionsAction_1_0() ||
+				   context == grammarAccess.getExpressionListAccess().getExprListExpressionsAction_0_1_0() ||
 				   context == grammarAccess.getFunctionCallRule() ||
+				   context == grammarAccess.getFunctionCallAccess().getFunctionCallLeftExprAction_1_0_0_0() ||
 				   context == grammarAccess.getInExpressionRule() ||
 				   context == grammarAccess.getInExpressionAccess().getInExpressionLeftExprAction_1_0() ||
 				   context == grammarAccess.getMatchingExpressionRule() ||
 				   context == grammarAccess.getMatchingExpressionAccess().getMatchingExpressionLeftExprAction_1_0() ||
+				   context == grammarAccess.getMethodCallRule() ||
+				   context == grammarAccess.getMethodCallAccess().getMethodCallLeftExprAction_1_0() ||
 				   context == grammarAccess.getMultiplicativeExpressionRule() ||
 				   context == grammarAccess.getMultiplicativeExpressionAccess().getMultiplicativeExpressionLeftExprAction_1_0() ||
 				   context == grammarAccess.getOrExpressionRule() ||
@@ -547,14 +564,16 @@ public abstract class AbstractPPSemanticSequencer extends AbstractDelegatingSema
 				   context == grammarAccess.getEqualityExpressionAccess().getEqualityExpressionLeftExprAction_1_0() ||
 				   context == grammarAccess.getExpressionRule() ||
 				   context == grammarAccess.getExpressionListRule() ||
-				   context == grammarAccess.getExpressionListAccess().getExprListExpressionsAction_1_0() ||
+				   context == grammarAccess.getExpressionListAccess().getExprListExpressionsAction_0_1_0() ||
 				   context == grammarAccess.getFunctionCallRule() ||
-				   context == grammarAccess.getFunctionCallAccess().getFunctionCallLeftExprAction_1_0() ||
+				   context == grammarAccess.getFunctionCallAccess().getFunctionCallLeftExprAction_1_0_0_0() ||
 				   context == grammarAccess.getHostClassDefinitionRule() ||
 				   context == grammarAccess.getInExpressionRule() ||
 				   context == grammarAccess.getInExpressionAccess().getInExpressionLeftExprAction_1_0() ||
 				   context == grammarAccess.getMatchingExpressionRule() ||
 				   context == grammarAccess.getMatchingExpressionAccess().getMatchingExpressionLeftExprAction_1_0() ||
+				   context == grammarAccess.getMethodCallRule() ||
+				   context == grammarAccess.getMethodCallAccess().getMethodCallLeftExprAction_1_0() ||
 				   context == grammarAccess.getMultiplicativeExpressionRule() ||
 				   context == grammarAccess.getMultiplicativeExpressionAccess().getMultiplicativeExpressionLeftExprAction_1_0() ||
 				   context == grammarAccess.getOrExpressionRule() ||
@@ -594,14 +613,16 @@ public abstract class AbstractPPSemanticSequencer extends AbstractDelegatingSema
 				   context == grammarAccess.getEqualityExpressionAccess().getEqualityExpressionLeftExprAction_1_0() ||
 				   context == grammarAccess.getExpressionRule() ||
 				   context == grammarAccess.getExpressionListRule() ||
-				   context == grammarAccess.getExpressionListAccess().getExprListExpressionsAction_1_0() ||
+				   context == grammarAccess.getExpressionListAccess().getExprListExpressionsAction_0_1_0() ||
 				   context == grammarAccess.getFunctionCallRule() ||
-				   context == grammarAccess.getFunctionCallAccess().getFunctionCallLeftExprAction_1_0() ||
+				   context == grammarAccess.getFunctionCallAccess().getFunctionCallLeftExprAction_1_0_0_0() ||
 				   context == grammarAccess.getIfExpressionRule() ||
 				   context == grammarAccess.getInExpressionRule() ||
 				   context == grammarAccess.getInExpressionAccess().getInExpressionLeftExprAction_1_0() ||
 				   context == grammarAccess.getMatchingExpressionRule() ||
 				   context == grammarAccess.getMatchingExpressionAccess().getMatchingExpressionLeftExprAction_1_0() ||
+				   context == grammarAccess.getMethodCallRule() ||
+				   context == grammarAccess.getMethodCallAccess().getMethodCallLeftExprAction_1_0() ||
 				   context == grammarAccess.getMultiplicativeExpressionRule() ||
 				   context == grammarAccess.getMultiplicativeExpressionAccess().getMultiplicativeExpressionLeftExprAction_1_0() ||
 				   context == grammarAccess.getOrExpressionRule() ||
@@ -641,14 +662,16 @@ public abstract class AbstractPPSemanticSequencer extends AbstractDelegatingSema
 				   context == grammarAccess.getEqualityExpressionAccess().getEqualityExpressionLeftExprAction_1_0() ||
 				   context == grammarAccess.getExpressionRule() ||
 				   context == grammarAccess.getExpressionListRule() ||
-				   context == grammarAccess.getExpressionListAccess().getExprListExpressionsAction_1_0() ||
+				   context == grammarAccess.getExpressionListAccess().getExprListExpressionsAction_0_1_0() ||
 				   context == grammarAccess.getFunctionCallRule() ||
-				   context == grammarAccess.getFunctionCallAccess().getFunctionCallLeftExprAction_1_0() ||
+				   context == grammarAccess.getFunctionCallAccess().getFunctionCallLeftExprAction_1_0_0_0() ||
 				   context == grammarAccess.getImportExpressionRule() ||
 				   context == grammarAccess.getInExpressionRule() ||
 				   context == grammarAccess.getInExpressionAccess().getInExpressionLeftExprAction_1_0() ||
 				   context == grammarAccess.getMatchingExpressionRule() ||
 				   context == grammarAccess.getMatchingExpressionAccess().getMatchingExpressionLeftExprAction_1_0() ||
+				   context == grammarAccess.getMethodCallRule() ||
+				   context == grammarAccess.getMethodCallAccess().getMethodCallLeftExprAction_1_0() ||
 				   context == grammarAccess.getMultiplicativeExpressionRule() ||
 				   context == grammarAccess.getMultiplicativeExpressionAccess().getMultiplicativeExpressionLeftExprAction_1_0() ||
 				   context == grammarAccess.getOrExpressionRule() ||
@@ -684,7 +707,7 @@ public abstract class AbstractPPSemanticSequencer extends AbstractDelegatingSema
 				   context == grammarAccess.getEqualityExpressionAccess().getEqualityExpressionLeftExprAction_1_0() ||
 				   context == grammarAccess.getExpressionRule() ||
 				   context == grammarAccess.getExpressionListRule() ||
-				   context == grammarAccess.getExpressionListAccess().getExprListExpressionsAction_1_0() ||
+				   context == grammarAccess.getExpressionListAccess().getExprListExpressionsAction_0_1_0() ||
 				   context == grammarAccess.getInExpressionRule() ||
 				   context == grammarAccess.getInExpressionAccess().getInExpressionLeftExprAction_1_0() ||
 				   context == grammarAccess.getMatchingExpressionRule() ||
@@ -707,6 +730,13 @@ public abstract class AbstractPPSemanticSequencer extends AbstractDelegatingSema
 					return; 
 				}
 				else break;
+			case PPPackage.JAVA_LAMBDA:
+				if(context == grammarAccess.getJava8LambdaRule() ||
+				   context == grammarAccess.getLambdaExpressionRule()) {
+					sequence_Java8Lambda(context, (JavaLambda) semanticObject); 
+					return; 
+				}
+				else break;
 			case PPPackage.LITERAL_BOOLEAN:
 				if(context == grammarAccess.getAdditiveExpressionRule() ||
 				   context == grammarAccess.getAdditiveExpressionAccess().getAdditiveExpressionLeftExprAction_1_0() ||
@@ -724,15 +754,17 @@ public abstract class AbstractPPSemanticSequencer extends AbstractDelegatingSema
 				   context == grammarAccess.getEqualityExpressionAccess().getEqualityExpressionLeftExprAction_1_0() ||
 				   context == grammarAccess.getExpressionRule() ||
 				   context == grammarAccess.getExpressionListRule() ||
-				   context == grammarAccess.getExpressionListAccess().getExprListExpressionsAction_1_0() ||
+				   context == grammarAccess.getExpressionListAccess().getExprListExpressionsAction_0_1_0() ||
 				   context == grammarAccess.getFunctionCallRule() ||
-				   context == grammarAccess.getFunctionCallAccess().getFunctionCallLeftExprAction_1_0() ||
+				   context == grammarAccess.getFunctionCallAccess().getFunctionCallLeftExprAction_1_0_0_0() ||
 				   context == grammarAccess.getInExpressionRule() ||
 				   context == grammarAccess.getInExpressionAccess().getInExpressionLeftExprAction_1_0() ||
 				   context == grammarAccess.getLiteralBooleanRule() ||
 				   context == grammarAccess.getLiteralExpressionRule() ||
 				   context == grammarAccess.getMatchingExpressionRule() ||
 				   context == grammarAccess.getMatchingExpressionAccess().getMatchingExpressionLeftExprAction_1_0() ||
+				   context == grammarAccess.getMethodCallRule() ||
+				   context == grammarAccess.getMethodCallAccess().getMethodCallLeftExprAction_1_0() ||
 				   context == grammarAccess.getMultiplicativeExpressionRule() ||
 				   context == grammarAccess.getMultiplicativeExpressionAccess().getMultiplicativeExpressionLeftExprAction_1_0() ||
 				   context == grammarAccess.getOrExpressionRule() ||
@@ -779,9 +811,9 @@ public abstract class AbstractPPSemanticSequencer extends AbstractDelegatingSema
 				   context == grammarAccess.getEqualityExpressionAccess().getEqualityExpressionLeftExprAction_1_0() ||
 				   context == grammarAccess.getExpressionRule() ||
 				   context == grammarAccess.getExpressionListRule() ||
-				   context == grammarAccess.getExpressionListAccess().getExprListExpressionsAction_1_0() ||
+				   context == grammarAccess.getExpressionListAccess().getExprListExpressionsAction_0_1_0() ||
 				   context == grammarAccess.getFunctionCallRule() ||
-				   context == grammarAccess.getFunctionCallAccess().getFunctionCallLeftExprAction_1_0() ||
+				   context == grammarAccess.getFunctionCallAccess().getFunctionCallLeftExprAction_1_0_0_0() ||
 				   context == grammarAccess.getHostReferenceRule() ||
 				   context == grammarAccess.getInExpressionRule() ||
 				   context == grammarAccess.getInExpressionAccess().getInExpressionLeftExprAction_1_0() ||
@@ -789,6 +821,8 @@ public abstract class AbstractPPSemanticSequencer extends AbstractDelegatingSema
 				   context == grammarAccess.getLiteralExpressionRule() ||
 				   context == grammarAccess.getMatchingExpressionRule() ||
 				   context == grammarAccess.getMatchingExpressionAccess().getMatchingExpressionLeftExprAction_1_0() ||
+				   context == grammarAccess.getMethodCallRule() ||
+				   context == grammarAccess.getMethodCallAccess().getMethodCallLeftExprAction_1_0() ||
 				   context == grammarAccess.getMultiplicativeExpressionRule() ||
 				   context == grammarAccess.getMultiplicativeExpressionAccess().getMultiplicativeExpressionLeftExprAction_1_0() ||
 				   context == grammarAccess.getOrExpressionRule() ||
@@ -829,15 +863,17 @@ public abstract class AbstractPPSemanticSequencer extends AbstractDelegatingSema
 				   context == grammarAccess.getEqualityExpressionAccess().getEqualityExpressionLeftExprAction_1_0() ||
 				   context == grammarAccess.getExpressionRule() ||
 				   context == grammarAccess.getExpressionListRule() ||
-				   context == grammarAccess.getExpressionListAccess().getExprListExpressionsAction_1_0() ||
+				   context == grammarAccess.getExpressionListAccess().getExprListExpressionsAction_0_1_0() ||
 				   context == grammarAccess.getFunctionCallRule() ||
-				   context == grammarAccess.getFunctionCallAccess().getFunctionCallLeftExprAction_1_0() ||
+				   context == grammarAccess.getFunctionCallAccess().getFunctionCallLeftExprAction_1_0_0_0() ||
 				   context == grammarAccess.getInExpressionRule() ||
 				   context == grammarAccess.getInExpressionAccess().getInExpressionLeftExprAction_1_0() ||
 				   context == grammarAccess.getLiteralExpressionRule() ||
 				   context == grammarAccess.getLiteralHashRule() ||
 				   context == grammarAccess.getMatchingExpressionRule() ||
 				   context == grammarAccess.getMatchingExpressionAccess().getMatchingExpressionLeftExprAction_1_0() ||
+				   context == grammarAccess.getMethodCallRule() ||
+				   context == grammarAccess.getMethodCallAccess().getMethodCallLeftExprAction_1_0() ||
 				   context == grammarAccess.getMultiplicativeExpressionRule() ||
 				   context == grammarAccess.getMultiplicativeExpressionAccess().getMultiplicativeExpressionLeftExprAction_1_0() ||
 				   context == grammarAccess.getOrExpressionRule() ||
@@ -877,15 +913,17 @@ public abstract class AbstractPPSemanticSequencer extends AbstractDelegatingSema
 				   context == grammarAccess.getEqualityExpressionAccess().getEqualityExpressionLeftExprAction_1_0() ||
 				   context == grammarAccess.getExpressionRule() ||
 				   context == grammarAccess.getExpressionListRule() ||
-				   context == grammarAccess.getExpressionListAccess().getExprListExpressionsAction_1_0() ||
+				   context == grammarAccess.getExpressionListAccess().getExprListExpressionsAction_0_1_0() ||
 				   context == grammarAccess.getFunctionCallRule() ||
-				   context == grammarAccess.getFunctionCallAccess().getFunctionCallLeftExprAction_1_0() ||
+				   context == grammarAccess.getFunctionCallAccess().getFunctionCallLeftExprAction_1_0_0_0() ||
 				   context == grammarAccess.getInExpressionRule() ||
 				   context == grammarAccess.getInExpressionAccess().getInExpressionLeftExprAction_1_0() ||
 				   context == grammarAccess.getLiteralExpressionRule() ||
 				   context == grammarAccess.getLiteralListRule() ||
 				   context == grammarAccess.getMatchingExpressionRule() ||
 				   context == grammarAccess.getMatchingExpressionAccess().getMatchingExpressionLeftExprAction_1_0() ||
+				   context == grammarAccess.getMethodCallRule() ||
+				   context == grammarAccess.getMethodCallAccess().getMethodCallLeftExprAction_1_0() ||
 				   context == grammarAccess.getMultiplicativeExpressionRule() ||
 				   context == grammarAccess.getMultiplicativeExpressionAccess().getMultiplicativeExpressionLeftExprAction_1_0() ||
 				   context == grammarAccess.getOrExpressionRule() ||
@@ -932,9 +970,9 @@ public abstract class AbstractPPSemanticSequencer extends AbstractDelegatingSema
 				   context == grammarAccess.getEqualityExpressionAccess().getEqualityExpressionLeftExprAction_1_0() ||
 				   context == grammarAccess.getExpressionRule() ||
 				   context == grammarAccess.getExpressionListRule() ||
-				   context == grammarAccess.getExpressionListAccess().getExprListExpressionsAction_1_0() ||
+				   context == grammarAccess.getExpressionListAccess().getExprListExpressionsAction_0_1_0() ||
 				   context == grammarAccess.getFunctionCallRule() ||
-				   context == grammarAccess.getFunctionCallAccess().getFunctionCallLeftExprAction_1_0() ||
+				   context == grammarAccess.getFunctionCallAccess().getFunctionCallLeftExprAction_1_0_0_0() ||
 				   context == grammarAccess.getHostReferenceRule() ||
 				   context == grammarAccess.getInExpressionRule() ||
 				   context == grammarAccess.getInExpressionAccess().getInExpressionLeftExprAction_1_0() ||
@@ -942,6 +980,8 @@ public abstract class AbstractPPSemanticSequencer extends AbstractDelegatingSema
 				   context == grammarAccess.getLiteralNameOrReferenceRule() ||
 				   context == grammarAccess.getMatchingExpressionRule() ||
 				   context == grammarAccess.getMatchingExpressionAccess().getMatchingExpressionLeftExprAction_1_0() ||
+				   context == grammarAccess.getMethodCallRule() ||
+				   context == grammarAccess.getMethodCallAccess().getMethodCallLeftExprAction_1_0() ||
 				   context == grammarAccess.getMultiplicativeExpressionRule() ||
 				   context == grammarAccess.getMultiplicativeExpressionAccess().getMultiplicativeExpressionLeftExprAction_1_0() ||
 				   context == grammarAccess.getOrExpressionRule() ||
@@ -982,9 +1022,9 @@ public abstract class AbstractPPSemanticSequencer extends AbstractDelegatingSema
 				   context == grammarAccess.getEqualityExpressionAccess().getEqualityExpressionLeftExprAction_1_0() ||
 				   context == grammarAccess.getExpressionRule() ||
 				   context == grammarAccess.getExpressionListRule() ||
-				   context == grammarAccess.getExpressionListAccess().getExprListExpressionsAction_1_0() ||
+				   context == grammarAccess.getExpressionListAccess().getExprListExpressionsAction_0_1_0() ||
 				   context == grammarAccess.getFunctionCallRule() ||
-				   context == grammarAccess.getFunctionCallAccess().getFunctionCallLeftExprAction_1_0() ||
+				   context == grammarAccess.getFunctionCallAccess().getFunctionCallLeftExprAction_1_0_0_0() ||
 				   context == grammarAccess.getHostReferenceRule() ||
 				   context == grammarAccess.getInExpressionRule() ||
 				   context == grammarAccess.getInExpressionAccess().getInExpressionLeftExprAction_1_0() ||
@@ -992,6 +1032,8 @@ public abstract class AbstractPPSemanticSequencer extends AbstractDelegatingSema
 				   context == grammarAccess.getLiteralRegexRule() ||
 				   context == grammarAccess.getMatchingExpressionRule() ||
 				   context == grammarAccess.getMatchingExpressionAccess().getMatchingExpressionLeftExprAction_1_0() ||
+				   context == grammarAccess.getMethodCallRule() ||
+				   context == grammarAccess.getMethodCallAccess().getMethodCallLeftExprAction_1_0() ||
 				   context == grammarAccess.getMultiplicativeExpressionRule() ||
 				   context == grammarAccess.getMultiplicativeExpressionAccess().getMultiplicativeExpressionLeftExprAction_1_0() ||
 				   context == grammarAccess.getOrExpressionRule() ||
@@ -1031,15 +1073,17 @@ public abstract class AbstractPPSemanticSequencer extends AbstractDelegatingSema
 				   context == grammarAccess.getEqualityExpressionAccess().getEqualityExpressionLeftExprAction_1_0() ||
 				   context == grammarAccess.getExpressionRule() ||
 				   context == grammarAccess.getExpressionListRule() ||
-				   context == grammarAccess.getExpressionListAccess().getExprListExpressionsAction_1_0() ||
+				   context == grammarAccess.getExpressionListAccess().getExprListExpressionsAction_0_1_0() ||
 				   context == grammarAccess.getFunctionCallRule() ||
-				   context == grammarAccess.getFunctionCallAccess().getFunctionCallLeftExprAction_1_0() ||
+				   context == grammarAccess.getFunctionCallAccess().getFunctionCallLeftExprAction_1_0_0_0() ||
 				   context == grammarAccess.getInExpressionRule() ||
 				   context == grammarAccess.getInExpressionAccess().getInExpressionLeftExprAction_1_0() ||
 				   context == grammarAccess.getLiteralExpressionRule() ||
 				   context == grammarAccess.getLiteralUndefRule() ||
 				   context == grammarAccess.getMatchingExpressionRule() ||
 				   context == grammarAccess.getMatchingExpressionAccess().getMatchingExpressionLeftExprAction_1_0() ||
+				   context == grammarAccess.getMethodCallRule() ||
+				   context == grammarAccess.getMethodCallAccess().getMethodCallLeftExprAction_1_0() ||
 				   context == grammarAccess.getMultiplicativeExpressionRule() ||
 				   context == grammarAccess.getMultiplicativeExpressionAccess().getMultiplicativeExpressionLeftExprAction_1_0() ||
 				   context == grammarAccess.getOrExpressionRule() ||
@@ -1075,7 +1119,7 @@ public abstract class AbstractPPSemanticSequencer extends AbstractDelegatingSema
 				   context == grammarAccess.getEqualityExpressionAccess().getEqualityExpressionLeftExprAction_1_0() ||
 				   context == grammarAccess.getExpressionRule() ||
 				   context == grammarAccess.getExpressionListRule() ||
-				   context == grammarAccess.getExpressionListAccess().getExprListExpressionsAction_1_0() ||
+				   context == grammarAccess.getExpressionListAccess().getExprListExpressionsAction_0_1_0() ||
 				   context == grammarAccess.getMatchingExpressionRule() ||
 				   context == grammarAccess.getMatchingExpressionAccess().getMatchingExpressionLeftExprAction_1_0() ||
 				   context == grammarAccess.getMultiplicativeExpressionRule() ||
@@ -1096,6 +1140,51 @@ public abstract class AbstractPPSemanticSequencer extends AbstractDelegatingSema
 					return; 
 				}
 				else break;
+			case PPPackage.METHOD_CALL:
+				if(context == grammarAccess.getAdditiveExpressionRule() ||
+				   context == grammarAccess.getAdditiveExpressionAccess().getAdditiveExpressionLeftExprAction_1_0() ||
+				   context == grammarAccess.getAndExpressionRule() ||
+				   context == grammarAccess.getAndExpressionAccess().getAndExpressionLeftExprAction_1_0() ||
+				   context == grammarAccess.getAppendExpressionRule() ||
+				   context == grammarAccess.getAppendExpressionAccess().getAppendExpressionLeftExprAction_1_0() ||
+				   context == grammarAccess.getAssignmentExpressionRule() ||
+				   context == grammarAccess.getAssignmentExpressionAccess().getAssignmentExpressionLeftExprAction_1_0() ||
+				   context == grammarAccess.getAtExpressionRule() ||
+				   context == grammarAccess.getAtExpressionAccess().getAtExpressionLeftExprAction_1_0() ||
+				   context == grammarAccess.getCollectExpressionRule() ||
+				   context == grammarAccess.getCollectExpressionAccess().getCollectExpressionClassReferenceAction_1_0() ||
+				   context == grammarAccess.getEqualityExpressionRule() ||
+				   context == grammarAccess.getEqualityExpressionAccess().getEqualityExpressionLeftExprAction_1_0() ||
+				   context == grammarAccess.getExpressionRule() ||
+				   context == grammarAccess.getExpressionListRule() ||
+				   context == grammarAccess.getExpressionListAccess().getExprListExpressionsAction_0_1_0() ||
+				   context == grammarAccess.getInExpressionRule() ||
+				   context == grammarAccess.getInExpressionAccess().getInExpressionLeftExprAction_1_0() ||
+				   context == grammarAccess.getMatchingExpressionRule() ||
+				   context == grammarAccess.getMatchingExpressionAccess().getMatchingExpressionLeftExprAction_1_0() ||
+				   context == grammarAccess.getMethodCallRule() ||
+				   context == grammarAccess.getMethodCallAccess().getMethodCallLeftExprAction_1_0() ||
+				   context == grammarAccess.getMultiplicativeExpressionRule() ||
+				   context == grammarAccess.getMultiplicativeExpressionAccess().getMultiplicativeExpressionLeftExprAction_1_0() ||
+				   context == grammarAccess.getOrExpressionRule() ||
+				   context == grammarAccess.getOrExpressionAccess().getOrExpressionLeftExprAction_1_0() ||
+				   context == grammarAccess.getRelationalExpressionRule() ||
+				   context == grammarAccess.getRelationalExpressionAccess().getRelationalExpressionLeftExprAction_1_0() ||
+				   context == grammarAccess.getRelationshipExpressionRule() ||
+				   context == grammarAccess.getRelationshipExpressionAccess().getRelationshipExpressionLeftExprAction_1_0() ||
+				   context == grammarAccess.getResourceExpressionRule() ||
+				   context == grammarAccess.getResourceExpressionAccess().getResourceExpressionResourceExprAction_0_1_0() ||
+				   context == grammarAccess.getSelectorEntryRule() ||
+				   context == grammarAccess.getSelectorEntryAccess().getSelectorEntryLeftExprAction_1_0() ||
+				   context == grammarAccess.getSelectorExpressionRule() ||
+				   context == grammarAccess.getSelectorExpressionAccess().getSelectorExpressionLeftExprAction_1_0() ||
+				   context == grammarAccess.getShiftExpressionRule() ||
+				   context == grammarAccess.getShiftExpressionAccess().getShiftExpressionLeftExprAction_1_0() ||
+				   context == grammarAccess.getUnaryOrHigherExpressionRule()) {
+					sequence_MethodCall(context, (MethodCall) semanticObject); 
+					return; 
+				}
+				else break;
 			case PPPackage.MULTIPLICATIVE_EXPRESSION:
 				if(context == grammarAccess.getAdditiveExpressionRule() ||
 				   context == grammarAccess.getAdditiveExpressionAccess().getAdditiveExpressionLeftExprAction_1_0() ||
@@ -1109,7 +1198,7 @@ public abstract class AbstractPPSemanticSequencer extends AbstractDelegatingSema
 				   context == grammarAccess.getEqualityExpressionAccess().getEqualityExpressionLeftExprAction_1_0() ||
 				   context == grammarAccess.getExpressionRule() ||
 				   context == grammarAccess.getExpressionListRule() ||
-				   context == grammarAccess.getExpressionListAccess().getExprListExpressionsAction_1_0() ||
+				   context == grammarAccess.getExpressionListAccess().getExprListExpressionsAction_0_1_0() ||
 				   context == grammarAccess.getMultiplicativeExpressionRule() ||
 				   context == grammarAccess.getMultiplicativeExpressionAccess().getMultiplicativeExpressionLeftExprAction_1_0() ||
 				   context == grammarAccess.getOrExpressionRule() ||
@@ -1145,13 +1234,15 @@ public abstract class AbstractPPSemanticSequencer extends AbstractDelegatingSema
 				   context == grammarAccess.getEqualityExpressionAccess().getEqualityExpressionLeftExprAction_1_0() ||
 				   context == grammarAccess.getExpressionRule() ||
 				   context == grammarAccess.getExpressionListRule() ||
-				   context == grammarAccess.getExpressionListAccess().getExprListExpressionsAction_1_0() ||
+				   context == grammarAccess.getExpressionListAccess().getExprListExpressionsAction_0_1_0() ||
 				   context == grammarAccess.getFunctionCallRule() ||
-				   context == grammarAccess.getFunctionCallAccess().getFunctionCallLeftExprAction_1_0() ||
+				   context == grammarAccess.getFunctionCallAccess().getFunctionCallLeftExprAction_1_0_0_0() ||
 				   context == grammarAccess.getInExpressionRule() ||
 				   context == grammarAccess.getInExpressionAccess().getInExpressionLeftExprAction_1_0() ||
 				   context == grammarAccess.getMatchingExpressionRule() ||
 				   context == grammarAccess.getMatchingExpressionAccess().getMatchingExpressionLeftExprAction_1_0() ||
+				   context == grammarAccess.getMethodCallRule() ||
+				   context == grammarAccess.getMethodCallAccess().getMethodCallLeftExprAction_1_0() ||
 				   context == grammarAccess.getMultiplicativeExpressionRule() ||
 				   context == grammarAccess.getMultiplicativeExpressionAccess().getMultiplicativeExpressionLeftExprAction_1_0() ||
 				   context == grammarAccess.getNodeDefinitionRule() ||
@@ -1182,7 +1273,7 @@ public abstract class AbstractPPSemanticSequencer extends AbstractDelegatingSema
 				   context == grammarAccess.getAssignmentExpressionAccess().getAssignmentExpressionLeftExprAction_1_0() ||
 				   context == grammarAccess.getExpressionRule() ||
 				   context == grammarAccess.getExpressionListRule() ||
-				   context == grammarAccess.getExpressionListAccess().getExprListExpressionsAction_1_0() ||
+				   context == grammarAccess.getExpressionListAccess().getExprListExpressionsAction_0_1_0() ||
 				   context == grammarAccess.getOrExpressionRule() ||
 				   context == grammarAccess.getOrExpressionAccess().getOrExpressionLeftExprAction_1_0() ||
 				   context == grammarAccess.getRelationshipExpressionRule() ||
@@ -1216,13 +1307,15 @@ public abstract class AbstractPPSemanticSequencer extends AbstractDelegatingSema
 				   context == grammarAccess.getEqualityExpressionAccess().getEqualityExpressionLeftExprAction_1_0() ||
 				   context == grammarAccess.getExpressionRule() ||
 				   context == grammarAccess.getExpressionListRule() ||
-				   context == grammarAccess.getExpressionListAccess().getExprListExpressionsAction_1_0() ||
+				   context == grammarAccess.getExpressionListAccess().getExprListExpressionsAction_0_1_0() ||
 				   context == grammarAccess.getFunctionCallRule() ||
-				   context == grammarAccess.getFunctionCallAccess().getFunctionCallLeftExprAction_1_0() ||
+				   context == grammarAccess.getFunctionCallAccess().getFunctionCallLeftExprAction_1_0_0_0() ||
 				   context == grammarAccess.getInExpressionRule() ||
 				   context == grammarAccess.getInExpressionAccess().getInExpressionLeftExprAction_1_0() ||
 				   context == grammarAccess.getMatchingExpressionRule() ||
 				   context == grammarAccess.getMatchingExpressionAccess().getMatchingExpressionLeftExprAction_1_0() ||
+				   context == grammarAccess.getMethodCallRule() ||
+				   context == grammarAccess.getMethodCallAccess().getMethodCallLeftExprAction_1_0() ||
 				   context == grammarAccess.getMultiplicativeExpressionRule() ||
 				   context == grammarAccess.getMultiplicativeExpressionAccess().getMultiplicativeExpressionLeftExprAction_1_0() ||
 				   context == grammarAccess.getOrExpressionRule() ||
@@ -1261,7 +1354,7 @@ public abstract class AbstractPPSemanticSequencer extends AbstractDelegatingSema
 				   context == grammarAccess.getAssignmentExpressionAccess().getAssignmentExpressionLeftExprAction_1_0() ||
 				   context == grammarAccess.getExpressionRule() ||
 				   context == grammarAccess.getExpressionListRule() ||
-				   context == grammarAccess.getExpressionListAccess().getExprListExpressionsAction_1_0() ||
+				   context == grammarAccess.getExpressionListAccess().getExprListExpressionsAction_0_1_0() ||
 				   context == grammarAccess.getOrExpressionRule() ||
 				   context == grammarAccess.getOrExpressionAccess().getOrExpressionLeftExprAction_1_0() ||
 				   context == grammarAccess.getRelationalExpressionRule() ||
@@ -1279,7 +1372,7 @@ public abstract class AbstractPPSemanticSequencer extends AbstractDelegatingSema
 			case PPPackage.RELATIONSHIP_EXPRESSION:
 				if(context == grammarAccess.getExpressionRule() ||
 				   context == grammarAccess.getExpressionListRule() ||
-				   context == grammarAccess.getExpressionListAccess().getExprListExpressionsAction_1_0() ||
+				   context == grammarAccess.getExpressionListAccess().getExprListExpressionsAction_0_1_0() ||
 				   context == grammarAccess.getRelationshipExpressionRule() ||
 				   context == grammarAccess.getRelationshipExpressionAccess().getRelationshipExpressionLeftExprAction_1_0() ||
 				   context == grammarAccess.getSelectorEntryRule() ||
@@ -1297,13 +1390,20 @@ public abstract class AbstractPPSemanticSequencer extends AbstractDelegatingSema
 			case PPPackage.RESOURCE_EXPRESSION:
 				if(context == grammarAccess.getExpressionRule() ||
 				   context == grammarAccess.getExpressionListRule() ||
-				   context == grammarAccess.getExpressionListAccess().getExprListExpressionsAction_1_0() ||
+				   context == grammarAccess.getExpressionListAccess().getExprListExpressionsAction_0_1_0() ||
 				   context == grammarAccess.getRelationshipExpressionRule() ||
 				   context == grammarAccess.getRelationshipExpressionAccess().getRelationshipExpressionLeftExprAction_1_0() ||
 				   context == grammarAccess.getResourceExpressionRule() ||
 				   context == grammarAccess.getSelectorEntryRule() ||
 				   context == grammarAccess.getSelectorEntryAccess().getSelectorEntryLeftExprAction_1_0()) {
 					sequence_ResourceExpression(context, (ResourceExpression) semanticObject); 
+					return; 
+				}
+				else break;
+			case PPPackage.RUBY_LAMBDA:
+				if(context == grammarAccess.getLambdaExpressionRule() ||
+				   context == grammarAccess.getRubyLambdaRule()) {
+					sequence_RubyLambda(context, (RubyLambda) semanticObject); 
 					return; 
 				}
 				else break;
@@ -1328,7 +1428,7 @@ public abstract class AbstractPPSemanticSequencer extends AbstractDelegatingSema
 				   context == grammarAccess.getEqualityExpressionAccess().getEqualityExpressionLeftExprAction_1_0() ||
 				   context == grammarAccess.getExpressionRule() ||
 				   context == grammarAccess.getExpressionListRule() ||
-				   context == grammarAccess.getExpressionListAccess().getExprListExpressionsAction_1_0() ||
+				   context == grammarAccess.getExpressionListAccess().getExprListExpressionsAction_0_1_0() ||
 				   context == grammarAccess.getInExpressionRule() ||
 				   context == grammarAccess.getInExpressionAccess().getInExpressionLeftExprAction_1_0() ||
 				   context == grammarAccess.getMatchingExpressionRule() ||
@@ -1353,6 +1453,13 @@ public abstract class AbstractPPSemanticSequencer extends AbstractDelegatingSema
 					return; 
 				}
 				else break;
+			case PPPackage.SEPARATOR_EXPRESSION:
+				if(context == grammarAccess.getExpressionListRule() ||
+				   context == grammarAccess.getSeparatorExpressionRule()) {
+					sequence_SeparatorExpression(context, (SeparatorExpression) semanticObject); 
+					return; 
+				}
+				else break;
 			case PPPackage.SHIFT_EXPRESSION:
 				if(context == grammarAccess.getAndExpressionRule() ||
 				   context == grammarAccess.getAndExpressionAccess().getAndExpressionLeftExprAction_1_0() ||
@@ -1364,7 +1471,7 @@ public abstract class AbstractPPSemanticSequencer extends AbstractDelegatingSema
 				   context == grammarAccess.getEqualityExpressionAccess().getEqualityExpressionLeftExprAction_1_0() ||
 				   context == grammarAccess.getExpressionRule() ||
 				   context == grammarAccess.getExpressionListRule() ||
-				   context == grammarAccess.getExpressionListAccess().getExprListExpressionsAction_1_0() ||
+				   context == grammarAccess.getExpressionListAccess().getExprListExpressionsAction_0_1_0() ||
 				   context == grammarAccess.getOrExpressionRule() ||
 				   context == grammarAccess.getOrExpressionAccess().getOrExpressionLeftExprAction_1_0() ||
 				   context == grammarAccess.getRelationalExpressionRule() ||
@@ -1398,9 +1505,9 @@ public abstract class AbstractPPSemanticSequencer extends AbstractDelegatingSema
 				   context == grammarAccess.getEqualityExpressionAccess().getEqualityExpressionLeftExprAction_1_0() ||
 				   context == grammarAccess.getExpressionRule() ||
 				   context == grammarAccess.getExpressionListRule() ||
-				   context == grammarAccess.getExpressionListAccess().getExprListExpressionsAction_1_0() ||
+				   context == grammarAccess.getExpressionListAccess().getExprListExpressionsAction_0_1_0() ||
 				   context == grammarAccess.getFunctionCallRule() ||
-				   context == grammarAccess.getFunctionCallAccess().getFunctionCallLeftExprAction_1_0() ||
+				   context == grammarAccess.getFunctionCallAccess().getFunctionCallLeftExprAction_1_0_0_0() ||
 				   context == grammarAccess.getHostReferenceRule() ||
 				   context == grammarAccess.getInExpressionRule() ||
 				   context == grammarAccess.getInExpressionAccess().getInExpressionLeftExprAction_1_0() ||
@@ -1408,6 +1515,8 @@ public abstract class AbstractPPSemanticSequencer extends AbstractDelegatingSema
 				   context == grammarAccess.getLiteralNameOrStringRule() ||
 				   context == grammarAccess.getMatchingExpressionRule() ||
 				   context == grammarAccess.getMatchingExpressionAccess().getMatchingExpressionLeftExprAction_1_0() ||
+				   context == grammarAccess.getMethodCallRule() ||
+				   context == grammarAccess.getMethodCallAccess().getMethodCallLeftExprAction_1_0() ||
 				   context == grammarAccess.getMultiplicativeExpressionRule() ||
 				   context == grammarAccess.getMultiplicativeExpressionAccess().getMultiplicativeExpressionLeftExprAction_1_0() ||
 				   context == grammarAccess.getOrExpressionRule() ||
@@ -1446,7 +1555,7 @@ public abstract class AbstractPPSemanticSequencer extends AbstractDelegatingSema
 				   context == grammarAccess.getEqualityExpressionAccess().getEqualityExpressionLeftExprAction_1_0() ||
 				   context == grammarAccess.getExpressionRule() ||
 				   context == grammarAccess.getExpressionListRule() ||
-				   context == grammarAccess.getExpressionListAccess().getExprListExpressionsAction_1_0() ||
+				   context == grammarAccess.getExpressionListAccess().getExprListExpressionsAction_0_1_0() ||
 				   context == grammarAccess.getInExpressionRule() ||
 				   context == grammarAccess.getInExpressionAccess().getInExpressionLeftExprAction_1_0() ||
 				   context == grammarAccess.getMatchingExpressionRule() ||
@@ -1484,7 +1593,7 @@ public abstract class AbstractPPSemanticSequencer extends AbstractDelegatingSema
 				   context == grammarAccess.getEqualityExpressionAccess().getEqualityExpressionLeftExprAction_1_0() ||
 				   context == grammarAccess.getExpressionRule() ||
 				   context == grammarAccess.getExpressionListRule() ||
-				   context == grammarAccess.getExpressionListAccess().getExprListExpressionsAction_1_0() ||
+				   context == grammarAccess.getExpressionListAccess().getExprListExpressionsAction_0_1_0() ||
 				   context == grammarAccess.getInExpressionRule() ||
 				   context == grammarAccess.getInExpressionAccess().getInExpressionLeftExprAction_1_0() ||
 				   context == grammarAccess.getMatchingExpressionRule() ||
@@ -1526,13 +1635,15 @@ public abstract class AbstractPPSemanticSequencer extends AbstractDelegatingSema
 				   context == grammarAccess.getEqualityExpressionAccess().getEqualityExpressionLeftExprAction_1_0() ||
 				   context == grammarAccess.getExpressionRule() ||
 				   context == grammarAccess.getExpressionListRule() ||
-				   context == grammarAccess.getExpressionListAccess().getExprListExpressionsAction_1_0() ||
+				   context == grammarAccess.getExpressionListAccess().getExprListExpressionsAction_0_1_0() ||
 				   context == grammarAccess.getFunctionCallRule() ||
-				   context == grammarAccess.getFunctionCallAccess().getFunctionCallLeftExprAction_1_0() ||
+				   context == grammarAccess.getFunctionCallAccess().getFunctionCallLeftExprAction_1_0_0_0() ||
 				   context == grammarAccess.getInExpressionRule() ||
 				   context == grammarAccess.getInExpressionAccess().getInExpressionLeftExprAction_1_0() ||
 				   context == grammarAccess.getMatchingExpressionRule() ||
 				   context == grammarAccess.getMatchingExpressionAccess().getMatchingExpressionLeftExprAction_1_0() ||
+				   context == grammarAccess.getMethodCallRule() ||
+				   context == grammarAccess.getMethodCallAccess().getMethodCallLeftExprAction_1_0() ||
 				   context == grammarAccess.getMultiplicativeExpressionRule() ||
 				   context == grammarAccess.getMultiplicativeExpressionAccess().getMultiplicativeExpressionLeftExprAction_1_0() ||
 				   context == grammarAccess.getOrExpressionRule() ||
@@ -1573,9 +1684,9 @@ public abstract class AbstractPPSemanticSequencer extends AbstractDelegatingSema
 				   context == grammarAccess.getEqualityExpressionAccess().getEqualityExpressionLeftExprAction_1_0() ||
 				   context == grammarAccess.getExpressionRule() ||
 				   context == grammarAccess.getExpressionListRule() ||
-				   context == grammarAccess.getExpressionListAccess().getExprListExpressionsAction_1_0() ||
+				   context == grammarAccess.getExpressionListAccess().getExprListExpressionsAction_0_1_0() ||
 				   context == grammarAccess.getFunctionCallRule() ||
-				   context == grammarAccess.getFunctionCallAccess().getFunctionCallLeftExprAction_1_0() ||
+				   context == grammarAccess.getFunctionCallAccess().getFunctionCallLeftExprAction_1_0_0_0() ||
 				   context == grammarAccess.getHostReferenceRule() ||
 				   context == grammarAccess.getInExpressionRule() ||
 				   context == grammarAccess.getInExpressionAccess().getInExpressionLeftExprAction_1_0() ||
@@ -1583,6 +1694,8 @@ public abstract class AbstractPPSemanticSequencer extends AbstractDelegatingSema
 				   context == grammarAccess.getLiteralNameOrStringRule() ||
 				   context == grammarAccess.getMatchingExpressionRule() ||
 				   context == grammarAccess.getMatchingExpressionAccess().getMatchingExpressionLeftExprAction_1_0() ||
+				   context == grammarAccess.getMethodCallRule() ||
+				   context == grammarAccess.getMethodCallAccess().getMethodCallLeftExprAction_1_0() ||
 				   context == grammarAccess.getMultiplicativeExpressionRule() ||
 				   context == grammarAccess.getMultiplicativeExpressionAccess().getMultiplicativeExpressionLeftExprAction_1_0() ||
 				   context == grammarAccess.getOrExpressionRule() ||
@@ -1624,13 +1737,15 @@ public abstract class AbstractPPSemanticSequencer extends AbstractDelegatingSema
 				   context == grammarAccess.getEqualityExpressionAccess().getEqualityExpressionLeftExprAction_1_0() ||
 				   context == grammarAccess.getExpressionRule() ||
 				   context == grammarAccess.getExpressionListRule() ||
-				   context == grammarAccess.getExpressionListAccess().getExprListExpressionsAction_1_0() ||
+				   context == grammarAccess.getExpressionListAccess().getExprListExpressionsAction_0_1_0() ||
 				   context == grammarAccess.getFunctionCallRule() ||
-				   context == grammarAccess.getFunctionCallAccess().getFunctionCallLeftExprAction_1_0() ||
+				   context == grammarAccess.getFunctionCallAccess().getFunctionCallLeftExprAction_1_0_0_0() ||
 				   context == grammarAccess.getInExpressionRule() ||
 				   context == grammarAccess.getInExpressionAccess().getInExpressionLeftExprAction_1_0() ||
 				   context == grammarAccess.getMatchingExpressionRule() ||
 				   context == grammarAccess.getMatchingExpressionAccess().getMatchingExpressionLeftExprAction_1_0() ||
+				   context == grammarAccess.getMethodCallRule() ||
+				   context == grammarAccess.getMethodCallAccess().getMethodCallLeftExprAction_1_0() ||
 				   context == grammarAccess.getMultiplicativeExpressionRule() ||
 				   context == grammarAccess.getMultiplicativeExpressionAccess().getMultiplicativeExpressionLeftExprAction_1_0() ||
 				   context == grammarAccess.getOrExpressionRule() ||
@@ -1694,13 +1809,15 @@ public abstract class AbstractPPSemanticSequencer extends AbstractDelegatingSema
 				   context == grammarAccess.getEqualityExpressionAccess().getEqualityExpressionLeftExprAction_1_0() ||
 				   context == grammarAccess.getExpressionRule() ||
 				   context == grammarAccess.getExpressionListRule() ||
-				   context == grammarAccess.getExpressionListAccess().getExprListExpressionsAction_1_0() ||
+				   context == grammarAccess.getExpressionListAccess().getExprListExpressionsAction_0_1_0() ||
 				   context == grammarAccess.getFunctionCallRule() ||
-				   context == grammarAccess.getFunctionCallAccess().getFunctionCallLeftExprAction_1_0() ||
+				   context == grammarAccess.getFunctionCallAccess().getFunctionCallLeftExprAction_1_0_0_0() ||
 				   context == grammarAccess.getInExpressionRule() ||
 				   context == grammarAccess.getInExpressionAccess().getInExpressionLeftExprAction_1_0() ||
 				   context == grammarAccess.getMatchingExpressionRule() ||
 				   context == grammarAccess.getMatchingExpressionAccess().getMatchingExpressionLeftExprAction_1_0() ||
+				   context == grammarAccess.getMethodCallRule() ||
+				   context == grammarAccess.getMethodCallAccess().getMethodCallLeftExprAction_1_0() ||
 				   context == grammarAccess.getMultiplicativeExpressionRule() ||
 				   context == grammarAccess.getMultiplicativeExpressionAccess().getMultiplicativeExpressionLeftExprAction_1_0() ||
 				   context == grammarAccess.getOrExpressionRule() ||
@@ -1948,7 +2065,7 @@ public abstract class AbstractPPSemanticSequencer extends AbstractDelegatingSema
 	
 	/**
 	 * Constraint:
-	 *     (expressions+=ExpressionList_ExprList_1_0 expressions+=RelationshipExpression expressions+=RelationshipExpression*)
+	 *     (expressions+=ExpressionList_ExprList_0_1_0 expressions+=RelationshipExpression expressions+=RelationshipExpression*)
 	 */
 	protected void sequence_ExpressionList(EObject context, ExprList semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -1966,7 +2083,10 @@ public abstract class AbstractPPSemanticSequencer extends AbstractDelegatingSema
 	
 	/**
 	 * Constraint:
-	 *     ((leftExpr=FunctionCall_FunctionCall_1_0 (parameters+=Expression parameters+=Expression*)?) | leftExpr=FunctionCall_FunctionCall_1_0)
+	 *     (
+	 *         (leftExpr=FunctionCall_FunctionCall_1_0_0_0 (parameters+=Expression parameters+=Expression*)? lambda=LambdaExpression?) | 
+	 *         (leftExpr=FunctionCall_FunctionCall_1_0_0_0 lambda=LambdaExpression?)
+	 *     )
 	 */
 	protected void sequence_FunctionCall(EObject context, FunctionCall semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -2038,6 +2158,24 @@ public abstract class AbstractPPSemanticSequencer extends AbstractDelegatingSema
 		feeder.accept(grammarAccess.getInExpressionAccess().getOpNameInKeyword_1_1_0(), semanticObject.getOpName());
 		feeder.accept(grammarAccess.getInExpressionAccess().getRightExprUnaryOrHigherExpressionParserRuleCall_1_2_0(), semanticObject.getRightExpr());
 		feeder.finish();
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (arguments=LambdaParameters? farrow?='=>'? statements+=ExpressionList*)
+	 */
+	protected void sequence_Java8Lambda(EObject context, JavaLambda semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (arguments+=DefinitionArgument arguments+=DefinitionArgument*)
+	 */
+	protected void sequence_LambdaParameters(EObject context, DefinitionArgumentList semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
 	}
 	
 	
@@ -2169,6 +2307,23 @@ public abstract class AbstractPPSemanticSequencer extends AbstractDelegatingSema
 		feeder.accept(grammarAccess.getMatchingExpressionAccess().getOpNameMatchingOperatorParserRuleCall_1_1_0(), semanticObject.getOpName());
 		feeder.accept(grammarAccess.getMatchingExpressionAccess().getRightExprLiteralRegexParserRuleCall_1_2_0(), semanticObject.getRightExpr());
 		feeder.finish();
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (
+	 *         (
+	 *             leftExpr=MethodCall_MethodCall_1_0 
+	 *             (methodExpr=LiteralName (parenthesized=LPARBoolean (parameters+=Expression parameters+=Expression*)?)?)? 
+	 *             lambda=LambdaExpression?
+	 *         ) | 
+	 *         (leftExpr=MethodCall_MethodCall_1_0 lambda=LambdaExpression?) | 
+	 *         leftExpr=MethodCall_MethodCall_1_0
+	 *     )
+	 */
+	protected void sequence_MethodCall(EObject context, MethodCall semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
 	}
 	
 	
@@ -2324,6 +2479,15 @@ public abstract class AbstractPPSemanticSequencer extends AbstractDelegatingSema
 	
 	/**
 	 * Constraint:
+	 *     (arguments=LambdaParameters? statements+=ExpressionList*)
+	 */
+	protected void sequence_RubyLambda(EObject context, RubyLambda semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
 	 *     (leftExpr=SelectorEntry_SelectorEntry_1_0 rightExpr=Expression)
 	 */
 	protected void sequence_SelectorEntry(EObject context, SelectorEntry semanticObject) {
@@ -2349,6 +2513,15 @@ public abstract class AbstractPPSemanticSequencer extends AbstractDelegatingSema
 	 *     )
 	 */
 	protected void sequence_SelectorExpression(EObject context, SelectorExpression semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     {SeparatorExpression}
+	 */
+	protected void sequence_SeparatorExpression(EObject context, SeparatorExpression semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
@@ -2466,7 +2639,7 @@ public abstract class AbstractPPSemanticSequencer extends AbstractDelegatingSema
 	
 	/**
 	 * Constraint:
-	 *     (condExpr=AssignmentExpression thenStatements+=ExpressionList*)
+	 *     (condExpr=AssignmentExpression thenStatements+=ExpressionList* elseStatement=ElseExpression?)
 	 */
 	protected void sequence_UnlessExpression(EObject context, UnlessExpression semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);

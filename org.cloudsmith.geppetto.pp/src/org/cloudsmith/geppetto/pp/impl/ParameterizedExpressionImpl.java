@@ -32,11 +32,11 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.cloudsmith.geppetto.pp.impl.ParameterizedExpressionImpl#getLeftExpr <em>Left Expr</em>}</li>
- *   <li>{@link org.cloudsmith.geppetto.pp.impl.ParameterizedExpressionImpl#getParameters <em>Parameters</em>}</li>
+ * <li>{@link org.cloudsmith.geppetto.pp.impl.ParameterizedExpressionImpl#getLeftExpr <em>Left Expr</em>}</li>
+ * <li>{@link org.cloudsmith.geppetto.pp.impl.ParameterizedExpressionImpl#getParameters <em>Parameters</em>}</li>
  * </ul>
  * </p>
- *
+ * 
  * @generated
  */
 public abstract class ParameterizedExpressionImpl extends ExpressionImpl implements ParameterizedExpression {
@@ -44,6 +44,7 @@ public abstract class ParameterizedExpressionImpl extends ExpressionImpl impleme
 	 * The cached value of the '{@link #getLeftExpr() <em>Left Expr</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @see #getLeftExpr()
 	 * @generated
 	 * @ordered
@@ -54,6 +55,7 @@ public abstract class ParameterizedExpressionImpl extends ExpressionImpl impleme
 	 * The cached value of the '{@link #getParameters() <em>Parameters</em>}' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @see #getParameters()
 	 * @generated
 	 * @ordered
@@ -63,6 +65,7 @@ public abstract class ParameterizedExpressionImpl extends ExpressionImpl impleme
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	protected ParameterizedExpressionImpl() {
@@ -72,6 +75,7 @@ public abstract class ParameterizedExpressionImpl extends ExpressionImpl impleme
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	public NotificationChain basicSetLeftExpr(Expression newLeftExpr, NotificationChain msgs) {
@@ -91,6 +95,7 @@ public abstract class ParameterizedExpressionImpl extends ExpressionImpl impleme
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@Override
@@ -107,6 +112,7 @@ public abstract class ParameterizedExpressionImpl extends ExpressionImpl impleme
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@Override
@@ -123,6 +129,7 @@ public abstract class ParameterizedExpressionImpl extends ExpressionImpl impleme
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@Override
@@ -139,6 +146,7 @@ public abstract class ParameterizedExpressionImpl extends ExpressionImpl impleme
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@SuppressWarnings("unchecked")
@@ -159,6 +167,7 @@ public abstract class ParameterizedExpressionImpl extends ExpressionImpl impleme
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@Override
@@ -169,6 +178,7 @@ public abstract class ParameterizedExpressionImpl extends ExpressionImpl impleme
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@Override
@@ -187,6 +197,7 @@ public abstract class ParameterizedExpressionImpl extends ExpressionImpl impleme
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	public Expression getLeftExpr() {
@@ -196,6 +207,7 @@ public abstract class ParameterizedExpressionImpl extends ExpressionImpl impleme
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	public EList<Expression> getParameters() {
@@ -209,6 +221,7 @@ public abstract class ParameterizedExpressionImpl extends ExpressionImpl impleme
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	public void setLeftExpr(Expression newLeftExpr) {

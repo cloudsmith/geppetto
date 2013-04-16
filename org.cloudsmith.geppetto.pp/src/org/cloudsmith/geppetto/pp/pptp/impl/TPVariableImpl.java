@@ -27,11 +27,11 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.cloudsmith.geppetto.pp.pptp.impl.TPVariableImpl#isAssignable <em>Assignable</em>}</li>
- *   <li>{@link org.cloudsmith.geppetto.pp.pptp.impl.TPVariableImpl#getPattern <em>Pattern</em>}</li>
+ * <li>{@link org.cloudsmith.geppetto.pp.pptp.impl.TPVariableImpl#isAssignable <em>Assignable</em>}</li>
+ * <li>{@link org.cloudsmith.geppetto.pp.pptp.impl.TPVariableImpl#getPattern <em>Pattern</em>}</li>
  * </ul>
  * </p>
- *
+ * 
  * @generated
  */
 public class TPVariableImpl extends TargetElementImpl implements TPVariable {
@@ -39,6 +39,7 @@ public class TPVariableImpl extends TargetElementImpl implements TPVariable {
 	 * The default value of the '{@link #isAssignable() <em>Assignable</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @see #isAssignable()
 	 * @generated
 	 * @ordered
@@ -49,6 +50,7 @@ public class TPVariableImpl extends TargetElementImpl implements TPVariable {
 	 * The cached value of the '{@link #isAssignable() <em>Assignable</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @see #isAssignable()
 	 * @generated
 	 * @ordered
@@ -59,6 +61,7 @@ public class TPVariableImpl extends TargetElementImpl implements TPVariable {
 	 * The default value of the '{@link #getPattern() <em>Pattern</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @see #getPattern()
 	 * @generated
 	 * @ordered
@@ -69,6 +72,7 @@ public class TPVariableImpl extends TargetElementImpl implements TPVariable {
 	 * The cached value of the '{@link #getPattern() <em>Pattern</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @see #getPattern()
 	 * @generated
 	 * @ordered
@@ -78,6 +82,7 @@ public class TPVariableImpl extends TargetElementImpl implements TPVariable {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	protected TPVariableImpl() {
@@ -87,6 +92,7 @@ public class TPVariableImpl extends TargetElementImpl implements TPVariable {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@Override
@@ -103,6 +109,7 @@ public class TPVariableImpl extends TargetElementImpl implements TPVariable {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@Override
@@ -121,6 +128,7 @@ public class TPVariableImpl extends TargetElementImpl implements TPVariable {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@Override
@@ -139,6 +147,7 @@ public class TPVariableImpl extends TargetElementImpl implements TPVariable {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@Override
@@ -149,6 +158,7 @@ public class TPVariableImpl extends TargetElementImpl implements TPVariable {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@Override
@@ -167,6 +177,17 @@ public class TPVariableImpl extends TargetElementImpl implements TPVariable {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
+	public String getPattern() {
+		return pattern;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	public boolean isAssignable() {
@@ -176,6 +197,7 @@ public class TPVariableImpl extends TargetElementImpl implements TPVariable {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	public void setAssignable(boolean newAssignable) {
@@ -189,15 +211,7 @@ public class TPVariableImpl extends TargetElementImpl implements TPVariable {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public String getPattern() {
-		return pattern;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	public void setPattern(String newPattern) {
@@ -210,6 +224,7 @@ public class TPVariableImpl extends TargetElementImpl implements TPVariable {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@Override

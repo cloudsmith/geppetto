@@ -21,13 +21,14 @@ import org.eclipse.emf.ecore.EClass;
  * <!-- end-user-doc -->
  * <p>
  * </p>
- *
+ * 
  * @generated
  */
 public class AtExpressionImpl extends ParameterizedExpressionImpl implements AtExpression {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	protected AtExpressionImpl() {
@@ -37,6 +38,7 @@ public class AtExpressionImpl extends ParameterizedExpressionImpl implements AtE
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@Override

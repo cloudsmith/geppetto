@@ -19,23 +19,23 @@ import java.util.HashMap;
 
   private static Map<String, Integer> getLiteralsMap() {
  	Map<String, Integer> result = new HashMap<String, Integer>();  
-  	result.put("inherits", KEYWORD_63 );
-	result.put("default", KEYWORD_62 );
-	result.put("unless", KEYWORD_61 );
-	result.put("import", KEYWORD_60 );
-	result.put("define", KEYWORD_59 );
-	result.put("undef", KEYWORD_58 );
-	result.put("false", KEYWORD_57 );
-	result.put("elsif", KEYWORD_56 );
-	result.put("class", KEYWORD_55 );
-	result.put("true", KEYWORD_54 );
-	result.put("node", KEYWORD_53 );
-	result.put("else", KEYWORD_52 );
-	result.put("case", KEYWORD_51 );
-	result.put("and", KEYWORD_49 );
-	result.put("if", KEYWORD_42 );
-	result.put("in", KEYWORD_43 );
-	result.put("or", KEYWORD_44 );
+  	result.put("inherits", KW_INHERITS );
+	result.put("default", KW_DEFAULT );
+	result.put("unless", KW_UNLESS );
+	result.put("import", KW_IMPORT );
+	result.put("define", KW_DEFINE );
+	result.put("undef", KW_UNDEF );
+	result.put("false", KW_FALSE );
+	result.put("elsif", KW_ELSIF );
+	result.put("class", KW_CLASS );
+	result.put("true", KW_TRUE );
+	result.put("node", KW_NODE );
+	result.put("else", KW_ELSE );
+	result.put("case", KW_CASE );
+	result.put("and", KW_AND );
+	result.put("if", KW_IF );
+	result.put("in", KW_IN );
+	result.put("or", KW_OR );
 	return result;
   }
   private boolean isReAcceptable() {
@@ -44,13 +44,13 @@ import java.util.HashMap;
   	// accept after ',' 'node', '{','}, '=~', '!~'
   	switch(lastSignificantToken) {
   		// NOTE: Must manually make sure these refer to the correct KEYWORD numbers
-  		case KEYWORD_8 : // ','
-  		case KEYWORD_53 : // 'node'
-  		case KEYWORD_20 : // '{'
-  		case KEYWORD_21 : // '}'
-  		case KEYWORD_35 : // '=~'
-  		case KEYWORD_23 : // '!~'
-  		case KEYWORD_63 : // 'inherits'
+  		case KW_COMMA       : // ','
+  		case KW_NODE        : // 'node'
+  		case KW_LBRACE      : // '{'
+  		case KW_RBRACE      : // '}'
+  		case KW_MATCHES     : // '=~'
+  		case KW_NOT_MATCHES : // '!~'
+  		case KW_INHERITS    : // 'inherits'
   		case 0 : // nothing seen before, used when serializing
   			return true;
   		default:
@@ -125,45 +125,45 @@ import java.util.HashMap;
 		return t;
 	}
 }
-KEYWORD_63 : {isNotInString()}?=>'inherits';
+KW_INHERITS : {isNotInString()}?=>'inherits';
 
-KEYWORD_62 : {isNotInString()}?=> 'default';
+KW_DEFAULT  : {isNotInString()}?=> 'default';
 
-KEYWORD_59 : {isNotInString()}?=>'define';
+KW_DEFINE   : {isNotInString()}?=>'define';
 
-KEYWORD_60 : {isNotInString()}?=>'import';
+KW_IMPORT   : {isNotInString()}?=>'import';
 
-KEYWORD_61 : {isNotInString()}?=> 'unless';
+KW_UNLESS   : {isNotInString()}?=> 'unless';
 
-KEYWORD_55 : {isNotInString()}?=>'class';
+KW_CLASS    : {isNotInString()}?=>'class';
 
-KEYWORD_56 : {isNotInString()}?=>'elsif';
+KW_ELSIF    : {isNotInString()}?=>'elsif';
 
-KEYWORD_57 : {isNotInString()}?=>'false';
+KW_FALSE    : {isNotInString()}?=>'false';
 
-KEYWORD_58 : {isNotInString()}?=>'undef';
+KW_UNDEF    : {isNotInString()}?=>'undef';
 
-KEYWORD_51 : {isNotInString()}?=>'case';
+KW_CASE        : {isNotInString()}?=>'case';
 
-KEYWORD_52 : {isNotInString()}?=>'else';
+KW_ELSE        : {isNotInString()}?=>'else';
 
-KEYWORD_53 : {isNotInString()}?=>'node';
+KW_NODE        : {isNotInString()}?=>'node';
 
-KEYWORD_54 : {isNotInString()}?=>'true';
+KW_TRUE        : {isNotInString()}?=>'true';
 
-KEYWORD_47 : {isNotInString()}?=>'<<|';
+KW_LLCOLLECT   : {isNotInString()}?=>'<<|';
 
-KEYWORD_48 : '\\${';
+KW_ESC_DLR_BRACE : '\\${';
 
-KEYWORD_49 : {isNotInString()}?=>'and';
+KW_AND         : {isNotInString()}?=>'and';
 
-KEYWORD_50 : {isNotInString()}?=>'|>>';
+KW_RRCOLLECT   : {isNotInString()}?=>'|>>';
 
-KEYWORD_22 : {isNotInString()}?=>'!=';
+KW_NOT_EQ      : {isNotInString()}?=>'!=';
 
-KEYWORD_23 : {isNotInString()}?=>'!~';
+KW_NOT_MATCHES : {isNotInString()}?=>'!~';
 
-KEYWORD_24 : '${' {
+KW_DLR_BRACE : '${' {
 	if(doubleQuotedString) {
 		// in string expression interpolation mode
 		pushDq();
@@ -173,111 +173,136 @@ KEYWORD_24 : '${' {
 	}
 };
 
-KEYWORD_25 : {isNotInString()}?=>'+=';
+KW_PLUS_EQ   : {isNotInString()}?=>'+=';
 
-KEYWORD_26 : {isNotInString()}?=>'+>';
+KW_APPEND    : {isNotInString()}?=>'+>';
 
-KEYWORD_27 : {isNotInString()}?=>'->';
+KW_RARR      : {isNotInString()}?=>'->';
 
-KEYWORD_28 : {isNotInString()}?=>'<-';
+KW_IN_EDGE   : {isNotInString()}?=>'<-';
 
-KEYWORD_29 : {isNotInString()}?=>'<<';
+KW_LSHIFT    : {isNotInString()}?=>'<<';
 
-KEYWORD_30 : {isNotInString()}?=>'<=';
+KW_LT_EQ      : {isNotInString()}?=>'<=';
 
-KEYWORD_31 : {isNotInString()}?=>'<|';
+KW_LCOLLECT  : {isNotInString()}?=>'<|';
 
-KEYWORD_32 : {isNotInString()}?=>'<~';
+KW_IN_EDGE_SUB : {isNotInString()}?=>'<~';
 
-KEYWORD_33 : {isNotInString()}?=>'==';
+KW_EQUALS    : {isNotInString()}?=>'==';
 
-KEYWORD_34 : {isNotInString()}?=>'=>';
+KW_FARROW    : {isNotInString()}?=>'=>';
 
-KEYWORD_35 : {isNotInString()}?=>'=~';
+KW_MATCHES   : {isNotInString()}?=>'=~';
 
-KEYWORD_36 : {isNotInString()}?=>'>=';
+KW_GT_EQ      : {isNotInString()}?=>'>=';
 
-KEYWORD_37 : {isNotInString()}?=>'>>';
+KW_RSHIFT    : {isNotInString()}?=>'>>';
 
-KEYWORD_38 : '\\"';
+KW_ESC_DQ    : '\\"';
 
-KEYWORD_39 : '\\$';
+KW_ESC_DLR   : '\\$';
 
-KEYWORD_40 : '\\\'';
+KW_ESC_SQ    : '\\\'';
 
-KEYWORD_41 : '\\\\';
+KW_ESC_ESC   : '\\\\';
 
-KEYWORD_42 : {isNotInString()}?=>'if';
+KW_IF        : {isNotInString()}?=>'if';
 
-KEYWORD_43 : {isNotInString()}?=>'in';
+KW_IN        : {isNotInString()}?=>'in';
 
-KEYWORD_44 : {isNotInString()}?=>'or';
+KW_OR        : {isNotInString()}?=>'or';
 
-KEYWORD_45 : {isNotInString()}?=>'|>';
+KW_RCOLLECT  : {isNotInString()}?=>'|>';
 
-KEYWORD_46 : {isNotInString()}?=>'~>';
+KW_OUT_EDGE_SUB : {isNotInString()}?=>'~>';
 
-KEYWORD_1 : {isNotInString()}?=>'!';
+KW_NOT       : {isNotInString()}?=>'!';
 
-KEYWORD_2 : {!singleQuotedString}?=> '"' 
+KW_DQ        : {!singleQuotedString}?=> '"' 
 	{ 	// flip if in dq string or not
 		doubleQuotedString = !doubleQuotedString;
 	};
 
+KW_MODULO    : {isNotInString()}?=>'%';
 
-KEYWORD_3 : {!doubleQuotedString}?=>'\''
+KW_SQ        : {!doubleQuotedString}?=>'\''
 	{ 	// flip if in sq string or not
 		singleQuotedString = !singleQuotedString;
 	};
 
-KEYWORD_4 : {isNotInString()}?=>'(';
+KW_LPAR      : {isNotInString()}?=>'(';
 
-KEYWORD_5 : {isNotInString()}?=>')';
+KW_RPAR      : {isNotInString()}?=>')';
 
-KEYWORD_6 : {isNotInString()}?=>'*';
+KW_MUL       : {isNotInString()}?=>'*';
 
-KEYWORD_7 : {isNotInString()}?=>'+';
+KW_PLUS      : {isNotInString()}?=>'+';
 
-KEYWORD_8 : {isNotInString()}?=>',';
+KW_COMMA     : {isNotInString()}?=>',';
 
-KEYWORD_9 : '-' {
+KW_MINUS     : '-' {
 	if(singleQuotedString || doubleQuotedString)
 		_type = RULE_ANY_OTHER;
 };
 
-KEYWORD_10 : {isNotInString()}?=>'/' {
+KW_DOT       : '.' {
+	if(singleQuotedString || doubleQuotedString)
+		_type = RULE_ANY_OTHER;
+}; 
+
+KW_SLASH     : {isNotInString()}?=>'/' {
 	if(isReAcceptable()) {
 		mRULE_REGULAR_EXPRESSION();
 		return;
 	}
 };
 
-KEYWORD_11 : {isNotInString()}?=>':';
+KW_COLON     : {isNotInString()}?=>':';
 
-KEYWORD_12 : {isNotInString()}?=>';';
+KW_SEMI      : {isNotInString()}?=>';';
 
-KEYWORD_13 : {isNotInString()}?=>'<';
+KW_LT        : {isNotInString()}?=>'<';
 
-KEYWORD_14 : {isNotInString()}?=>'=';
+KW_EQ        : {isNotInString()}?=>'=';
 
-KEYWORD_15 : {isNotInString()}?=>'>';
+KW_GT        : {isNotInString()}?=>'>';
 
-KEYWORD_16 : {isNotInString()}?=>'?';
+KW_QMARK     : {isNotInString()}?=>'?';
 
-KEYWORD_17 : {isNotInString()}?=>'@';
+KW_AT        : {isNotInString()}?=>'@';
 
-KEYWORD_18 : {isNotInString()}?=>'[';
+KW_LBRACK    : {isNotInString()}?=>'[';
 
-KEYWORD_19 : {isNotInString()}?=>']';
+KW_RBRACK    : {isNotInString()}?=>']';
 
-KEYWORD_20 : {isNotInString()}?=>'{' {enterBrace();};
+// Look ahead is needed to differentiate between '{' in general, and a '{' that starts a lambda.
+// (Too many ambiguities and surprising backtracking result otherwise). This is solved by looking ahead
+// here. If there is there a '|' following the '{'?, then the pseudo token RULE_LAMBDA is returned 
+// instead of the token '{'. 
+//  
+KW_LBRACE    : {isNotInString()}?=>'{' {
+	enterBrace();
+	// This may be the start of a Ruby style lambda, help the parser by scanning ahead
+	int c = 0;
+    for(int i = 1; ; i++) {
+		c = input.LT(i);
+        if ( c =='\t' || c=='\n' || c=='\r' || c==' '|| c=='\u00A0')
+			continue;
+		if (c == '|') {
+			_type = RULE_LAMBDA;
+		}
+		break;
+	}
+};
 
-KEYWORD_21 : {isNotInString()}?=>'}' {exitBrace();};
+KW_PIPE      : {isNotInString()}?=>'|';
+
+KW_RBRACE    : {isNotInString()}?=>'}' {exitBrace();};
 
 // Standard /* */ comment that also eats trailing WS and endof line if that is all that is trailing
+//
 RULE_ML_COMMENT : {isNotInString()}?=> (('/*' ( options {greedy=false;} : . )*'*/') (' '|'\u00A0'|'\t')* ('\r'? '\n')?) ;
-
-//RULE_SL_COMMENT : {isNotInString()}?=> '#' ~(('\r'|'\n'))* ('\r'? '\n')?;
 
 RULE_SL_COMMENT : {isNotInString()}?=> '#' ~(('\r'|'\n'))* ('\r'? '\n')?;
 
@@ -287,18 +312,34 @@ RULE_WS : (' '|'\u00A0'|'\t'|'\r'|'\n')+ {
 	}
 };
 
+// Pseudo rule, this is done with lookahead on a left brace, since all WS after '{' should be delivered as such.
+// Also see KW_LBRACE.
+//
+RULE_LAMBDA : {false}?=> '{' '|' ;
+
 // Do not check if matched text is a keyword (it is allowed after a '$'
 RULE_DOLLAR_VAR : '$' 
 	((':' ':')=>RULE_NS)? ('0'..'9'|'a'..'z'|'A'..'Z'|'_')+ 
 	((':' ':')=>RULE_NS ('0'..'9'|'a'..'z'|'A'..'Z'|'_')+)* ;
 
-// Covers numbers and names
-RULE_WORD_CHARS : ('0'..'9'|'a'..'z'|'A'..'Z'|'_'|'.'|(':' ':')=>RULE_NS) ('0'..'9'|'a'..'z'|'A'..'Z'|'_'|'.'|'-'|(':' ':')=>RULE_NS)*
+// Covers non decimal numbers and names
+RULE_WORD_CHARS : ('0'..'9'|'a'..'z'|'A'..'Z'|'_'|(':' ':')=>RULE_NS) ('0'..'9'|'a'..'z'|'A'..'Z'|'_'|'-'|(':' ':')=>RULE_NS)*
 {	// check if what was matched is a keyword - emit that instead
 	_type = replaceLiteral(_type, getText());
 };
 
+// If lookahead is NUMERIC, lex as number but produce WORD_CHARS
+//
+RULE_NUMBER : (NUMERIC)=>NUMERIC {
+	_type = RULE_WORD_CHARS;
+};
+
 RULE_REGULAR_EXPRESSION : {isReAcceptable()}?=>'/' RULE_RE_BODY '/' RULE_RE_FLAGS?;
+
+fragment NUMERIC
+ 	: ('0' ('x'|'X'))=>('0' ('x'|'X') ('0'..'9'|'a'..'f'|'A'..'F')+)
+	| ('0'..'9')+ ('.' ('0'..'9')+)? (('e'|'E') '-'? ('0'..'9')+)?
+    ;
 
 fragment RULE_NS : '::' ;
 

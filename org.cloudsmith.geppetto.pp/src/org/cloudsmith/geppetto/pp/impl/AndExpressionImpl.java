@@ -21,13 +21,14 @@ import org.eclipse.emf.ecore.EClass;
  * <!-- end-user-doc -->
  * <p>
  * </p>
- *
+ * 
  * @generated
  */
 public class AndExpressionImpl extends BinaryExpressionImpl implements AndExpression {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	protected AndExpressionImpl() {
@@ -37,6 +38,7 @@ public class AndExpressionImpl extends BinaryExpressionImpl implements AndExpres
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@Override

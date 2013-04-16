@@ -67,6 +67,30 @@ public class PPTerminalConverters extends AbstractDeclarativeValueConverterServi
 		};
 	}
 
+	@ValueConverter(rule = "LPARBoolean")
+	public IValueConverter<Boolean> LPARBoolean() {
+
+		/**
+		 * Converts "(" to true and
+		 */
+		return new IValueConverter<Boolean>() {
+
+			public String toString(Boolean value) {
+				return value.booleanValue()
+						? "("
+						: "";
+			}
+
+			public Boolean toValue(String string, INode node) {
+				if(Strings.isEmpty(string))
+					return false;
+				return true;
+			}
+
+		};
+
+	}
+
 	/**
 	 * Hack to see what happens with formatting.
 	 * 

@@ -30,10 +30,10 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.cloudsmith.geppetto.pp.impl.ExpressionBlockImpl#getStatements <em>Statements</em>}</li>
+ * <li>{@link org.cloudsmith.geppetto.pp.impl.ExpressionBlockImpl#getStatements <em>Statements</em>}</li>
  * </ul>
  * </p>
- *
+ * 
  * @generated
  */
 public abstract class ExpressionBlockImpl extends ExpressionImpl implements ExpressionBlock {
@@ -41,6 +41,7 @@ public abstract class ExpressionBlockImpl extends ExpressionImpl implements Expr
 	 * The cached value of the '{@link #getStatements() <em>Statements</em>}' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @see #getStatements()
 	 * @generated
 	 * @ordered
@@ -50,6 +51,7 @@ public abstract class ExpressionBlockImpl extends ExpressionImpl implements Expr
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	protected ExpressionBlockImpl() {
@@ -59,6 +61,7 @@ public abstract class ExpressionBlockImpl extends ExpressionImpl implements Expr
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@Override
@@ -73,6 +76,7 @@ public abstract class ExpressionBlockImpl extends ExpressionImpl implements Expr
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@Override
@@ -87,6 +91,7 @@ public abstract class ExpressionBlockImpl extends ExpressionImpl implements Expr
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@Override
@@ -101,6 +106,7 @@ public abstract class ExpressionBlockImpl extends ExpressionImpl implements Expr
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@SuppressWarnings("unchecked")
@@ -118,6 +124,7 @@ public abstract class ExpressionBlockImpl extends ExpressionImpl implements Expr
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@Override
@@ -128,6 +135,7 @@ public abstract class ExpressionBlockImpl extends ExpressionImpl implements Expr
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@Override
@@ -143,6 +151,7 @@ public abstract class ExpressionBlockImpl extends ExpressionImpl implements Expr
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	public EList<Expression> getStatements() {

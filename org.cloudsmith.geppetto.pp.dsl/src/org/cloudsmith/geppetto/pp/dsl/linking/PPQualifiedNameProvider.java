@@ -16,6 +16,7 @@ import org.cloudsmith.geppetto.pp.DefinitionArgument;
 import org.cloudsmith.geppetto.pp.HostClassDefinition;
 import org.cloudsmith.geppetto.pp.PPPackage;
 import org.cloudsmith.geppetto.pp.VariableExpression;
+import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.xtext.naming.DefaultDeclarativeQualifiedNameProvider;
@@ -54,11 +55,31 @@ public class PPQualifiedNameProvider extends DefaultDeclarativeQualifiedNameProv
 		return null;
 	}
 
+	private boolean isInLambda(EObject o) {
+		for(EObject container = o; container != null; container = container.eContainer()) {
+			EClass eclass = container.eClass();
+			if(eclass == PPPackage.Literals.JAVA_LAMBDA)
+				return true;
+			if(eclass == PPPackage.Literals.RUBY_LAMBDA)
+				return true;
+			if(eclass == PPPackage.Literals.DEFINITION)
+				return false;
+			if(eclass == PPPackage.Literals.HOST_CLASS_DEFINITION)
+				return false;
+			if(eclass == PPPackage.Literals.NODE_DEFINITION)
+				return false;
+		}
+		return false;
+	}
+
 	QualifiedName qualifiedName(Definition o) {
 		return splice(getParentsFullyQualifiedName(o), converter.toQualifiedName(o.getClassName()));
 	}
 
 	QualifiedName qualifiedName(DefinitionArgument o) {
+		if(isInLambda(o))
+			return null;
+
 		// stripping of $ is done by PPQualifiedNameConverter
 		return splice(getParentsFullyQualifiedName(o), converter.toQualifiedName(o.getArgName()));
 	}
@@ -68,6 +89,9 @@ public class PPQualifiedNameProvider extends DefaultDeclarativeQualifiedNameProv
 	}
 
 	QualifiedName qualifiedName(VariableExpression o) {
+		if(isInLambda(o))
+			return null;
+
 		boolean assignment = o.eContainer().eClass() == PPPackage.Literals.ASSIGNMENT_EXPRESSION;
 		boolean append = o.eContainer().eClass() == PPPackage.Literals.APPEND_EXPRESSION;
 		if(!(assignment || append))

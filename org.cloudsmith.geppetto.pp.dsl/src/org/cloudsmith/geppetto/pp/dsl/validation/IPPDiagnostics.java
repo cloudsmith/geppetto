@@ -11,7 +11,6 @@
  */
 package org.cloudsmith.geppetto.pp.dsl.validation;
 
-
 /**
  * Interface declaring diagnostic codess.
  * These can be used for association of quick fixes with errors and warnings.
@@ -208,5 +207,17 @@ public interface IPPDiagnostics {
 	public static final String ISSUE__INHERITANCE_WITH_PARAMETERS = ISSUE_PREFIX + "InheritenceOfParameterizedClass";
 
 	public static final String ISSUE__ENSURE_NOT_FIRST = ISSUE_PREFIX + "EnsureNotFirst";
+
+	public static final String ISSUE__UNSUPPORTED_SEPARATOR = ISSUE_PREFIX + "UnsupportedSeparator";
+
+	public static final String ISSUE__UNSUPPORTED_LAMBDA = ISSUE_PREFIX + "UnsupportedLambda";
+
+	public static final String ISSUE__EMPTY_STATEMENT = ISSUE_PREFIX + "EmptyStatement";
+
+	public static final String ISSUE__UNSUPPORTED_METHOD_CALL = ISSUE_PREFIX + "UnsupportedMethodCall";
+
+	public static final String ISSUE__MISSING_METHOD_NAME = ISSUE_PREFIX + "MissingMethodName";
+
+	public static final String ISSUE__PARAM_DEFAULT_NOT_LAST = ISSUE_PREFIX + "ParamDefaultNotLast";
 
 }

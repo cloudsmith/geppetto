@@ -111,6 +111,14 @@ public class ValidationAdvisor {
 		 * @returns false
 		 */
 		@Override
+		public boolean allowExpressionLastInBlocks() {
+			return false;
+		}
+
+		/**
+		 * @returns false
+		 */
+		@Override
 		public boolean allowExtendedDependencyTypes() {
 			return false;
 		}
@@ -132,6 +140,22 @@ public class ValidationAdvisor {
 		}
 
 		/**
+		 * @returns false
+		 */
+		@Override
+		public boolean allowLambdas() {
+			return false;
+		}
+
+		/**
+		 * @returns false
+		 */
+		@Override
+		public boolean allowModulo() {
+			return false;
+		}
+
+		/**
 		 * @returns true
 		 */
 		@Override
@@ -139,8 +163,24 @@ public class ValidationAdvisor {
 			return true;
 		}
 
+		/**
+		 * @returns false
+		 */
+		@Override
+		public boolean allowSeparatorExpression() {
+			return false;
+		}
+
 		@Override
 		public boolean allowUnless() {
+			return false;
+		}
+
+		/**
+		 * @returns false
+		 */
+		@Override
+		public boolean allowUnlessElse() {
 			return false;
 		}
 
@@ -295,6 +335,43 @@ public class ValidationAdvisor {
 
 	}
 
+	public static class ValidationAdvisor_3_2 extends ValidationAdvisor_3_0 implements IValidationAdvisor {
+		protected ValidationAdvisor_3_2(IPotentialProblemsAdvisor problemsAdvisor) {
+			super(problemsAdvisor);
+		}
+
+		@Override
+		public boolean allowModulo() {
+			return true;
+		}
+	}
+
+	public static class ValidationAdvisor_3_2_future extends ValidationAdvisor_3_2 implements IValidationAdvisor {
+		protected ValidationAdvisor_3_2_future(IPotentialProblemsAdvisor problemsAdvisor) {
+			super(problemsAdvisor);
+		}
+
+		@Override
+		public boolean allowExpressionLastInBlocks() {
+			return true;
+		}
+
+		@Override
+		public boolean allowLambdas() {
+			return true;
+		}
+
+		@Override
+		public boolean allowSeparatorExpression() {
+			return true;
+		}
+
+		@Override
+		public boolean allowUnlessElse() {
+			return true;
+		}
+	}
+
 	public static IValidationAdvisor create(ComplianceLevel level, IPotentialProblemsAdvisor problemsAdvisor) {
 		switch(level) {
 			case PUPPET_2_6:
@@ -303,6 +380,10 @@ public class ValidationAdvisor {
 				return new ValidationAdvisor_2_7(problemsAdvisor);
 			case PUPPET_3_0:
 				return new ValidationAdvisor_3_0(problemsAdvisor);
+			case PUPPET_3_2:
+				return new ValidationAdvisor_3_2(problemsAdvisor);
+			case PUPPET_3_2_FUTURE:
+				return new ValidationAdvisor_3_2_future(problemsAdvisor);
 		}
 		throw new IllegalArgumentException("Unsupported compliance level");
 	}

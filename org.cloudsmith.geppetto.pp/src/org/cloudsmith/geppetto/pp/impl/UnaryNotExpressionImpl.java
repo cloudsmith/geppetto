@@ -21,13 +21,14 @@ import org.eclipse.emf.ecore.EClass;
  * <!-- end-user-doc -->
  * <p>
  * </p>
- *
+ * 
  * @generated
  */
 public class UnaryNotExpressionImpl extends UnaryExpressionImpl implements UnaryNotExpression {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	protected UnaryNotExpressionImpl() {
@@ -37,6 +38,7 @@ public class UnaryNotExpressionImpl extends UnaryExpressionImpl implements Unary
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@Override

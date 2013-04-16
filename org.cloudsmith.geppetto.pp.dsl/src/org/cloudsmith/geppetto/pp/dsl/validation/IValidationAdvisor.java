@@ -18,8 +18,13 @@ package org.cloudsmith.geppetto.pp.dsl.validation;
  */
 public interface IValidationAdvisor extends IPotentialProblemsAdvisor {
 	public enum ComplianceLevel {
-		PUPPET_2_6, PUPPET_2_7, PUPPET_3_0
+		PUPPET_2_6, PUPPET_2_7, PUPPET_3_0, PUPPET_3_2, PUPPET_3_2_FUTURE
 	}
+
+	/**
+	 * The 3.2 --parser future allows blocks to end with an expression
+	 */
+	public boolean allowExpressionLastInBlocks();
 
 	/**
 	 * If 3.0 extended dependency types should be allowed
@@ -40,10 +45,27 @@ public interface IValidationAdvisor extends IPotentialProblemsAdvisor {
 	public boolean allowInheritanceFromParameterizedClass();
 
 	/**
+	 * If lambdas are allowed or not
+	 */
+	public boolean allowLambdas();
+
+	/**
+	 * Before 3.2 modulo operator '%' was not supported.
+	 * 
+	 * @return
+	 */
+	public boolean allowModulo();
+
+	/**
 	 * Should more than 2 at (i.e. []) operators be allowed in sequence e.g. $a[x][y][z]
 	 * Puppet issue #6269
 	 */
 	public boolean allowMoreThan2AtInSequence();
+
+	/**
+	 * 3.2 --parser future adds an expression separator (';')
+	 */
+	public boolean allowSeparatorExpression();
 
 	/**
 	 * The "unless" statement was added in Puppet 3.0.
@@ -51,6 +73,11 @@ public interface IValidationAdvisor extends IPotentialProblemsAdvisor {
 	 * @return
 	 */
 	public boolean allowUnless();
+
+	/**
+	 * The 3.2 --parser future allows unless to have an else (but not ifelse)
+	 */
+	public boolean allowUnlessElse();
 
 	/**
 	 * Prior to 2.7 it was not possible to use unquoted qualified resource names.

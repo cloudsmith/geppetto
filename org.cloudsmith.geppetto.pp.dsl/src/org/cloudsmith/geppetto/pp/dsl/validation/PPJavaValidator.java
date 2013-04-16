@@ -49,6 +49,7 @@ import org.cloudsmith.geppetto.pp.IQuotedString;
 import org.cloudsmith.geppetto.pp.IfExpression;
 import org.cloudsmith.geppetto.pp.ImportExpression;
 import org.cloudsmith.geppetto.pp.InExpression;
+import org.cloudsmith.geppetto.pp.Lambda;
 import org.cloudsmith.geppetto.pp.LiteralBoolean;
 import org.cloudsmith.geppetto.pp.LiteralDefault;
 import org.cloudsmith.geppetto.pp.LiteralHash;
@@ -58,6 +59,7 @@ import org.cloudsmith.geppetto.pp.LiteralNameOrReference;
 import org.cloudsmith.geppetto.pp.LiteralRegex;
 import org.cloudsmith.geppetto.pp.LiteralUndef;
 import org.cloudsmith.geppetto.pp.MatchingExpression;
+import org.cloudsmith.geppetto.pp.MethodCall;
 import org.cloudsmith.geppetto.pp.MultiplicativeExpression;
 import org.cloudsmith.geppetto.pp.NodeDefinition;
 import org.cloudsmith.geppetto.pp.OrExpression;
@@ -70,6 +72,7 @@ import org.cloudsmith.geppetto.pp.ResourceBody;
 import org.cloudsmith.geppetto.pp.ResourceExpression;
 import org.cloudsmith.geppetto.pp.SelectorEntry;
 import org.cloudsmith.geppetto.pp.SelectorExpression;
+import org.cloudsmith.geppetto.pp.SeparatorExpression;
 import org.cloudsmith.geppetto.pp.ShiftExpression;
 import org.cloudsmith.geppetto.pp.SingleQuotedString;
 import org.cloudsmith.geppetto.pp.StringExpression;
@@ -99,6 +102,7 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
+import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.xtext.IGrammarAccess;
 import org.eclipse.xtext.RuleCall;
 import org.eclipse.xtext.diagnostics.Severity;
@@ -253,9 +257,11 @@ public class PPJavaValidator extends AbstractPPJavaValidator implements IPPDiagn
 			CaseExpression.class, //
 			ImportExpression.class, //
 			FunctionCall.class, //
+			MethodCall.class, //
 			Definition.class, HostClassDefinition.class, //
 			NodeDefinition.class, //
-			AppendExpression.class //
+			AppendExpression.class, //
+			SeparatorExpression.class //
 	};
 
 	/**
@@ -271,7 +277,7 @@ public class PPJavaValidator extends AbstractPPJavaValidator implements IPPDiagn
 			AtExpression.class, // HashArray access or ResourceReference are accepted
 			// resource reference - see AtExpression
 			FunctionCall.class, // i.e. only parenthesized form
-			LiteralUndef.class, };
+			MethodCall.class, LiteralUndef.class, };
 
 	private static final Class<?>[] expressionClasses = { InExpression.class, //
 			MatchingExpression.class, //
@@ -777,7 +783,10 @@ public class PPJavaValidator extends AbstractPPJavaValidator implements IPPDiagn
 	@Check
 	public void checkDefinitionArgumentList(DefinitionArgumentList o) {
 		Set<String> seen = Sets.newHashSet();
-		for(DefinitionArgument arg : o.getArguments()) {
+		int lastWithoutDefault = -1;
+		int counter = 0;
+		EList<DefinitionArgument> arguments = o.getArguments();
+		for(DefinitionArgument arg : arguments) {
 			String s = arg.getArgName();
 			if(s.startsWith("$"))
 				s = s.substring(1);
@@ -787,6 +796,21 @@ public class PPJavaValidator extends AbstractPPJavaValidator implements IPPDiagn
 			}
 			else
 				seen.add(s);
+			if(arg.getValue() == null)
+				lastWithoutDefault = counter;
+			counter++;
+		}
+		if(o.eContainer() instanceof Lambda) {
+			int limit = arguments.size();
+			for(int i = 0; i < limit; i++) {
+				DefinitionArgument arg = arguments.get(i);
+				if(arg.getValue() == null)
+					continue;
+				if(i < lastWithoutDefault)
+					acceptor.acceptError(
+						"A Lambda parameter with default can not appear before a parameter without default", arg,
+						IPPDiagnostics.ISSUE__PARAM_DEFAULT_NOT_LAST);
+			}
 		}
 		IValidationAdvisor advisor = advisor();
 		ValidationPreference endComma = advisor.definitionArgumentListEndComma();
@@ -797,15 +821,9 @@ public class PPJavaValidator extends AbstractPPJavaValidator implements IPPDiagn
 				if(",".equals(i.getText())) {
 					EObject grammarE = i.getGrammarElement();
 					if(grammarE instanceof RuleCall && "endComma".equals(((RuleCall) grammarE).getRule().getName())) {
-						// not allowed in versions < 2.7.8
-						if(endComma.isError())
-							acceptor.acceptError(
-								"End comma not allowed in versions < 2.7.8", o, i.getOffset(), i.getLength(),
-								IPPDiagnostics.ISSUE__ENDCOMMA);
-						else
-							acceptor.acceptWarning(
-								"End comma not allowed in versions < 2.7.8", o, i.getOffset(), i.getLength(),
-								IPPDiagnostics.ISSUE__ENDCOMMA);
+						warningOrError(
+							acceptor, endComma, "End comma not allowed in versions < 2.7.8", o, i.getOffset(),
+							i.getLength(), IPPDiagnostics.ISSUE__ENDCOMMA);
 						return;
 					}
 					return;
@@ -828,15 +846,11 @@ public class PPJavaValidator extends AbstractPPJavaValidator implements IPPDiagn
 				VerbatimTE verbatim = (VerbatimTE) te;
 				if(verbatim.getText().startsWith("-")) {
 					if(hyphens.isWarningOrError()) {
-						String message = "Interpolation continues past '-' in some puppet 2.7 versions";
-						if(hyphens == ValidationPreference.WARNING)
-							acceptor.acceptWarning(
-								message, o, PPPackage.Literals.DOUBLE_QUOTED_STRING__STRING_PART, idx - 1,
-								IPPDiagnostics.ISSUE__INTERPOLATED_HYPHEN);
-						else
-							acceptor.acceptError(
-								message, o, PPPackage.Literals.DOUBLE_QUOTED_STRING__STRING_PART, idx - 1,
-								IPPDiagnostics.ISSUE__INTERPOLATED_HYPHEN);
+						warningOrError(
+							acceptor, hyphens,
+							"Interpolation continues past '-' in some puppet 2.7 versions", //
+							o, PPPackage.Literals.DOUBLE_QUOTED_STRING__STRING_PART, idx - 1,
+							IPPDiagnostics.ISSUE__INTERPOLATED_HYPHEN);
 					}
 				}
 			}
@@ -851,12 +865,10 @@ public class PPJavaValidator extends AbstractPPJavaValidator implements IPPDiagn
 			if(constant == null)
 				break BOOLEAN_STRING;
 			constant = constant.trim();
-			boolean flagIt = "true".equals(constant) || "false".equals(constant);
-			if(flagIt)
-				if(booleansInStringForm == ValidationPreference.WARNING)
-					acceptor.acceptWarning("This is not a boolean", o, IPPDiagnostics.ISSUE__STRING_BOOLEAN, constant);
-				else
-					acceptor.acceptError("This is not a boolean", o, IPPDiagnostics.ISSUE__STRING_BOOLEAN, constant);
+			if("true".equals(constant) || "false".equals(constant))
+				warningOrError(
+					acceptor, booleansInStringForm, "This is not a boolean", o, IPPDiagnostics.ISSUE__STRING_BOOLEAN,
+					constant);
 		}
 
 		// DQ_STRING_NOT_REQUIRED
@@ -916,8 +928,16 @@ public class PPJavaValidator extends AbstractPPJavaValidator implements IPPDiagn
 		if(container instanceof IfExpression || container instanceof ElseExpression ||
 				container instanceof ElseIfExpression)
 			return;
+		if(container instanceof UnlessExpression) {
+			if(advisor().allowUnlessElse())
+				return;
+			acceptor.acceptError(
+				"'else' expression can only be used in an 'unless' in puppet version >= 3.2 --parser future", o,
+				// o.eContainer(), o.eContainingFeature(), INSIGNIFICANT_INDEX,
+				IPPDiagnostics.ISSUE__UNSUPPORTED_EXPRESSION);
+		}
 		acceptor.acceptError(
-			"'else' expression can only be used in an 'if', 'else' or 'elsif'", o, o.eContainingFeature(),
+			"'else' expression can only be used in an 'if', 'else' or 'elsif'", o.eContainer(), o.eContainingFeature(),
 			INSIGNIFICANT_INDEX, IPPDiagnostics.ISSUE__UNSUPPORTED_EXPRESSION);
 	}
 
@@ -989,6 +1009,18 @@ public class PPJavaValidator extends AbstractPPJavaValidator implements IPPDiagn
 	}
 
 	@Check
+	public void checkLambda(Lambda o) {
+		if(!advisor().allowLambdas()) {
+			acceptor.acceptError(
+				"A Lambda expressions is only available in Puppet version >= 3.2 --parser future. (Change target preference?)",
+				o, IPPDiagnostics.ISSUE__UNSUPPORTED_LAMBDA);
+		}
+		else {
+			internalCheckTopLevelExpressions(o.getStatements());
+		}
+	}
+
+	@Check
 	public void checkLiteralName(LiteralName o) {
 		if(!isNAME(o.getValue()))
 			acceptor.acceptError(
@@ -1041,8 +1073,27 @@ public class PPJavaValidator extends AbstractPPJavaValidator implements IPPDiagn
 	}
 
 	@Check
+	public void checkMethodCall(MethodCall o) {
+		if(!advisor().allowLambdas()) { // Note, same check as for lambdas...
+			acceptor.acceptError(
+				"A call on the form 'a.b()' is only available in Puppet version >= 3.2 --parser future. (Change target preference?)",
+				o, IPPDiagnostics.ISSUE__UNSUPPORTED_METHOD_CALL);
+		}
+		else {
+			Expression methodExpr = o.getMethodExpr();
+			if(methodExpr == null)
+				acceptor.acceptError("Missing function name after '.'", o, IPPDiagnostics.ISSUE__MISSING_METHOD_NAME);
+			if(methodExpr instanceof LiteralName == false)
+				acceptor.acceptError("Illegal function name", methodExpr, IPPDiagnostics.ISSUE__UNSUPPORTED_EXPRESSION);
+		}
+	}
+
+	@Check
 	public void checkMultiplicativeExpression(MultiplicativeExpression o) {
-		checkOperator(o, "*", "/");
+		if(advisor().allowModulo())
+			checkOperator(o, "*", "/", "%");
+		else
+			checkOperator(o, "*", "/");
 		checkNumericBinaryExpression(o);
 	}
 
@@ -1097,9 +1148,9 @@ public class PPJavaValidator extends AbstractPPJavaValidator implements IPPDiagn
 			if(s.equals(op))
 				return;
 		acceptor.acceptError(
-			"Illegal operator: " + op == null
+			"Illegal operator: " + (op == null
 					? "null"
-					: op, o, PPPackage.Literals.BINARY_OP_EXPRESSION__OP_NAME, INSIGNIFICANT_INDEX,
+					: op), o, PPPackage.Literals.BINARY_OP_EXPRESSION__OP_NAME, INSIGNIFICANT_INDEX,
 			IPPDiagnostics.ISSUE__ILLEGAL_OP);
 
 	}
@@ -1535,6 +1586,14 @@ public class PPJavaValidator extends AbstractPPJavaValidator implements IPPDiagn
 	}
 
 	@Check
+	public void checkSeparatorExpression(SeparatorExpression o) {
+		if(!advisor().allowSeparatorExpression())
+			acceptor.acceptError(
+				"The ';' expression separator is only available in Puppet version >= 3.2 --parser future. (Change target preference?)",
+				o, IPPDiagnostics.ISSUE__UNSUPPORTED_SEPARATOR);
+	}
+
+	@Check
 	public void checkShiftExpression(ShiftExpression o) {
 		checkOperator(o, "<<", ">>");
 		checkNumericBinaryExpression(o);
@@ -1666,6 +1725,24 @@ public class PPJavaValidator extends AbstractPPJavaValidator implements IPPDiagn
 
 	}
 
+	protected void internalCheckEmptyExpression(EList<Expression> statements) {
+		if(statements == null || statements.size() == 0)
+			return;
+		// check that Separator is not first, and that separator expressions are not adjacent
+		int limit = statements.size();
+		boolean prevSep = false;
+		for(int i = 0; i < limit; i++) {
+			Expression s = statements.get(i);
+			boolean isSep = s instanceof SeparatorExpression;
+			if(isSep && (i == 0 || prevSep)) {
+				// First is separator, or this is separator and previous was too
+				acceptor.acceptError(
+					"Empty statement", s.eContainer(), s.eContainingFeature(), i, IPPDiagnostics.ISSUE__EMPTY_STATEMENT);
+			}
+			prevSep = isSep;
+		}
+	}
+
 	private boolean internalCheckRelationshipOperand(RelationshipExpression r, Expression o, EReference feature) {
 		boolean result = true;
 		// if extended is true, allow these puppet grammar elements:
@@ -1746,30 +1823,49 @@ public class PPJavaValidator extends AbstractPPJavaValidator implements IPPDiagn
 		if(statements == null || statements.size() == 0)
 			return;
 
+		internalCheckEmptyExpression(statements);
+
+		boolean allowExprLast = advisor().allowExpressionLastInBlocks();
+
 		// check that all statements are valid as top level statements
-		each_top: for(int i = 0; i < statements.size(); i++) {
+		int limit = statements.size();
+
+		// Adjust limit to exclude all trailing separators (e.g. a; a;;;;)
+		for(int i = limit - 1; i >= 0; i--)
+			if(statements.get(i) instanceof SeparatorExpression)
+				limit--;
+
+		each_top: for(int i = 0; i < limit; i++) {
 			Expression s = statements.get(i);
 			// -- may be a non parenthesized function call
 			if(s instanceof LiteralNameOrReference) {
-				// there must be one more expression in the list (a single argument, or
-				// an Expression list
-				// TODO: different issue, can be fixed by adding "()" if this is a function call without
-				// parameters.
-				if((i + 1) >= statements.size()) {
+				// There must be one more expression in the list (a single argument, or
+				// an Expression list) unless the expression is last and allowExprLast (i.e. a return value)
+				if((i + 1) >= limit && !allowExprLast) {
 					acceptor.acceptError(
 						"Not a top level expression. (Looks like a function call without arguments, use '()')",
 						s.eContainer(), s.eContainingFeature(), i, IPPDiagnostics.ISSUE__NOT_TOPLEVEL);
 					// continue each_top;
 				}
 				// the next expression is consumed as a single arg, or an expr list
-				// TODO: if there are expressions that can not be used as arguments check them here
 				i++;
+				if(i < limit) {
+					// Check expressions that can not be used as arguments
+					Expression arg = statements.get(i);
+					if(arg instanceof SeparatorExpression)
+						acceptor.acceptError(
+							"A function call without arguments must use '()')", s.eContainer(), s.eContainingFeature(),
+							i - 1, IPPDiagnostics.ISSUE__NOT_TOPLEVEL);
+				}
 				continue each_top;
 			}
 			for(Class<?> c : topLevelExprClasses) {
 				if(c.isAssignableFrom(s.getClass()))
 					continue each_top;
 			}
+			if(i + 1 == limit && allowExprLast)
+				continue each_top;
+
 			acceptor.acceptError(
 				"Not a top level expression. Was: " + expressionTypeNameProvider.doToString(s), s.eContainer(),
 				s.eContainingFeature(), i, IPPDiagnostics.ISSUE__NOT_TOPLEVEL);
@@ -1898,8 +1994,22 @@ public class PPJavaValidator extends AbstractPPJavaValidator implements IPPDiagn
 			acceptor.acceptWarning(message, o, feature, issue);
 		else if(validationPreference.isError())
 			acceptor.acceptError(message, o, feature, issue);
+	}
 
-		// remaining case is "ignore"... which we ignore ;)
+	private void warningOrError(IMessageAcceptor acceptor, ValidationPreference validationPreference, String message,
+			EObject o, EStructuralFeature feature, int index, String issueCode) {
+		if(validationPreference.isWarning())
+			acceptor.acceptWarning(message, o, feature, index, issueCode);
+		else if(validationPreference.isError())
+			acceptor.acceptWarning(message, o, feature, index, issueCode);
+	}
+
+	private void warningOrError(IMessageAcceptor acceptor, ValidationPreference validationPreference, String message,
+			EObject o, int offset, int length, String issue, String... data) {
+		if(validationPreference.isWarning())
+			acceptor.acceptWarning(message, o, offset, length, issue, data);
+		else if(validationPreference.isError())
+			acceptor.acceptError(message, o, offset, length, issue, data);
 	}
 
 	private void warningOrError(IMessageAcceptor acceptor, ValidationPreference validationPreference, String message,
@@ -1908,19 +2018,12 @@ public class PPJavaValidator extends AbstractPPJavaValidator implements IPPDiagn
 			acceptor.acceptWarning(message, o, issueCode, data);
 		else if(validationPreference.isError())
 			acceptor.acceptError(message, o, issueCode, data);
-
-		// remaining case is "ignore"...
 	}
 
 	private void warningOrError(IMessageAcceptor acceptor, ValidationPreference validationPreference, String message,
 			INode n, String issueCode, String... data) {
-		if(validationPreference.isWarning()) {
-			acceptor.acceptWarning(message, n.getSemanticElement(), n.getOffset(), n.getLength(), issueCode, data);
-			// acceptor.acceptWarning(message, n, issueCode, data);
-		}
-		else if(validationPreference.isError())
-			acceptor.acceptError(message, n.getSemanticElement(), n.getOffset(), n.getLength(), issueCode, data);
-
-		// remaining case is "ignore"...
+		warningOrError(
+			acceptor, validationPreference, message, n.getSemanticElement(), n.getOffset(), n.getLength(), issueCode,
+			data);
 	}
 }

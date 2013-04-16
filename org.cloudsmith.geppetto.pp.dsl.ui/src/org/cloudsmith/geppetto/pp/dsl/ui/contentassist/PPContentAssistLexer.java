@@ -14,6 +14,7 @@ package org.cloudsmith.geppetto.pp.dsl.ui.contentassist;
 import org.antlr.runtime.CharStream;
 import org.antlr.runtime.RecognitionException;
 import org.antlr.runtime.RecognizerSharedState;
+import org.antlr.runtime.Token;
 import org.apache.log4j.Logger;
 import org.cloudsmith.geppetto.pp.dsl.lexer.PPOverridingLexer;
 
@@ -66,6 +67,14 @@ public class PPContentAssistLexer extends org.eclipse.xtext.ui.editor.contentass
 	public void mTokens() throws RecognitionException {
 		delegate.mTokens();
 
+	}
+
+	/**
+	 * @see org.antlr.runtime.Lexer#nextToken()
+	 */
+	@Override
+	public Token nextToken() {
+		return delegate.nextToken();
 	}
 
 	/*

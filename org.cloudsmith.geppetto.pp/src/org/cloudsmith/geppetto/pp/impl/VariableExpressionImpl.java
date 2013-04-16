@@ -24,10 +24,10 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.cloudsmith.geppetto.pp.impl.VariableExpressionImpl#getVarName <em>Var Name</em>}</li>
+ * <li>{@link org.cloudsmith.geppetto.pp.impl.VariableExpressionImpl#getVarName <em>Var Name</em>}</li>
  * </ul>
  * </p>
- *
+ * 
  * @generated
  */
 public class VariableExpressionImpl extends ExpressionImpl implements VariableExpression {
@@ -35,6 +35,7 @@ public class VariableExpressionImpl extends ExpressionImpl implements VariableEx
 	 * The default value of the '{@link #getVarName() <em>Var Name</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @see #getVarName()
 	 * @generated
 	 * @ordered
@@ -45,6 +46,7 @@ public class VariableExpressionImpl extends ExpressionImpl implements VariableEx
 	 * The cached value of the '{@link #getVarName() <em>Var Name</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @see #getVarName()
 	 * @generated
 	 * @ordered
@@ -54,6 +56,7 @@ public class VariableExpressionImpl extends ExpressionImpl implements VariableEx
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	protected VariableExpressionImpl() {
@@ -63,6 +66,7 @@ public class VariableExpressionImpl extends ExpressionImpl implements VariableEx
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@Override
@@ -77,6 +81,7 @@ public class VariableExpressionImpl extends ExpressionImpl implements VariableEx
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@Override
@@ -93,6 +98,7 @@ public class VariableExpressionImpl extends ExpressionImpl implements VariableEx
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@Override
@@ -108,6 +114,7 @@ public class VariableExpressionImpl extends ExpressionImpl implements VariableEx
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@Override
@@ -118,6 +125,7 @@ public class VariableExpressionImpl extends ExpressionImpl implements VariableEx
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@Override
@@ -133,6 +141,7 @@ public class VariableExpressionImpl extends ExpressionImpl implements VariableEx
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	public String getVarName() {
@@ -142,6 +151,7 @@ public class VariableExpressionImpl extends ExpressionImpl implements VariableEx
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	public void setVarName(String newVarName) {
@@ -155,6 +165,7 @@ public class VariableExpressionImpl extends ExpressionImpl implements VariableEx
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@Override

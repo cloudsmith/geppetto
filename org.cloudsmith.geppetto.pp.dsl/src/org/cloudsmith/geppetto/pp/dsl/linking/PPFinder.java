@@ -113,8 +113,9 @@ public class PPFinder {
 
 	private static final EClass[] FUNC = { PPTPPackage.Literals.FUNCTION };
 
-	private final static EClass[] CLASS_AND_TYPE = {
-			PPPackage.Literals.HOST_CLASS_DEFINITION, PPTPPackage.Literals.TYPE };
+	private final static EClass[] CLASS_AND_TYPE = { PPPackage.Literals.HOST_CLASS_DEFINITION,
+	// PPTPPackage.Literals.TYPE
+	};
 
 	private Resource resource;
 

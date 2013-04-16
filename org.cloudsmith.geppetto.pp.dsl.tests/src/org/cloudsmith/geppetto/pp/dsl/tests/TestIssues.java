@@ -79,8 +79,8 @@ public class TestIssues extends AbstractPuppetTests {
 	 */
 	@Test
 	public void test_Issue_11() throws Exception {
-		String code = "class { 'file':\n" + //
-				"owner => '666',\n" + //
+		String code = "class xxx($p) {} class { 'xxx':\n" + //
+				"p => '666',\n" + //
 				"}\n";
 		XtextResource r = getResourceFromString(code);
 		tester.validate(r.getContents().get(0)).assertOK();

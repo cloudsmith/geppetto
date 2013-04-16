@@ -295,7 +295,28 @@ public class PPStylesheetProvider extends DefaultStylesheetProvider {
 			.withStyles(//
 				styles.spacing(functions.oneSpaceUnlessPredecessorIsWhitespaceTerminated()),//
 				styles.lineBreaks(0, 0, 2, false, false))//
-			.withRuleName("WsAfterComment")
+			.withRuleName("WsAfterComment"),
+
+			// Method Call
+			Select.whitespaceBefore(Select.grammar(grammarAccess.getMethodCallAccess().getFullStopKeyword_1_1())) //
+			.withStyle(styles.noSpace()).withRuleName("WsBeforeDot"),
+			Select.whitespaceAfter(Select.grammar(grammarAccess.getMethodCallAccess().getFullStopKeyword_1_1())) //
+			.withStyle(styles.noSpace()).withRuleName("WsAfterDot"),
+
+			// Lambdas
+			Select.whitespaceAfter(Select.grammar(grammarAccess.getJava8LambdaAccess().getVerticalLineKeyword_0())) //
+			.withStyle(styles.noSpace()).withRuleName("WsAfterLeftJ8Pipe"),
+			Select.whitespaceBefore(Select.grammar(grammarAccess.getJava8LambdaAccess().getVerticalLineKeyword_3())) //
+			.withStyle(styles.noSpace()).withRuleName("WsBeforeRightJ8Pipe"),
+			Select.whitespaceBefore(Select.grammar(grammarAccess.getRubyLambdaAccess().getVerticalLineKeyword_1())) //
+			.withStyle(styles.noSpace()).withRuleName("WsBeforeLeftRPipe"),
+			Select.whitespaceAfter(Select.grammar(grammarAccess.getRubyLambdaAccess().getVerticalLineKeyword_1())) //
+			.withStyle(styles.noSpace()).withRuleName("WsAfterLeftRPipe"),
+			Select.whitespaceBefore(Select.grammar(grammarAccess.getRubyLambdaAccess().getVerticalLineKeyword_4())) //
+			.withStyle(styles.noSpace()).withRuleName("WsBeforeRightRPipe"),
+			Select.whitespaceAfter(Select.grammar(grammarAccess.getRubyLambdaAccess().getVerticalLineKeyword_4())) //
+			.withStyle(styles.oneSpace()).withRuleName("WsAfterRightRPipe")
+
 		// ,
 
 		// Select.whitespaceBefore(Select.grammar(grammarAccess.getLiteralListAccess().getEndCommaParserRuleCall_3())).withStyle(//

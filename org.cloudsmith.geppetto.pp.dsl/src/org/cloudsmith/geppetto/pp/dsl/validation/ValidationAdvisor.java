@@ -382,7 +382,7 @@ public class ValidationAdvisor {
 				return new ValidationAdvisor_3_0(problemsAdvisor);
 			case PUPPET_3_2:
 				return new ValidationAdvisor_3_2(problemsAdvisor);
-			case PUPPET_3_2_FUTURE:
+			case PUPPET_FUTURE:
 				return new ValidationAdvisor_3_2_future(problemsAdvisor);
 		}
 		throw new IllegalArgumentException("Unsupported compliance level");

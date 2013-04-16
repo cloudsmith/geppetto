@@ -21,6 +21,7 @@ public enum PuppetTarget {
 	PUPPET27("2.7.19", "2.7", "puppet-2.7.19.pptp", false, ComplianceLevel.PUPPET_2_7),
 	PUPPET30("3.0.0", "3.0", "puppet-3.0.0.pptp", false, ComplianceLevel.PUPPET_3_0),
 	PUPPET32("3.2.0", "3.2", "puppet-3.2.0.pptp", false, ComplianceLevel.PUPPET_3_2),
+	PUPPET_FUTURE("3.2.0", "future", "puppet-3.2.0.pptp", false, ComplianceLevel.PUPPET_FUTURE),
 	PUPPET_ENTERPRISE20("2.7.19", "PE 2.0", "puppet-2.7.19.pptp", true, ComplianceLevel.PUPPET_2_7),
 	PUPPET_ENTERPRISE27("2.7.19", "PE 2.7", "puppet-2.7.19.pptp", true, ComplianceLevel.PUPPET_2_7);
 	// @fmtOn
@@ -49,8 +50,6 @@ public enum PuppetTarget {
 	 */
 	public static PuppetTarget forLiteral(String literal) {
 		if(literal != null) {
-			if("future".equals(literal))
-				return PUPPET32;
 			for(PuppetTarget pt : values())
 				if(literal.equals(pt.getLiteral()))
 					return pt;

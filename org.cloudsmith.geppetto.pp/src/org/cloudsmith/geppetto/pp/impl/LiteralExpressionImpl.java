@@ -21,13 +21,14 @@ import org.eclipse.emf.ecore.EClass;
  * <!-- end-user-doc -->
  * <p>
  * </p>
- *
+ * 
  * @generated
  */
 public abstract class LiteralExpressionImpl extends ExpressionImpl implements LiteralExpression {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	protected LiteralExpressionImpl() {
@@ -37,6 +38,7 @@ public abstract class LiteralExpressionImpl extends ExpressionImpl implements Li
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@Override

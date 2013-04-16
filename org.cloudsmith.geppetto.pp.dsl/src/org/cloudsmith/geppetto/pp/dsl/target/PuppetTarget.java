@@ -20,30 +20,10 @@ public enum PuppetTarget {
 	PUPPET26("2.6.9", "2.6", "puppet-2.6.9.pptp", false, ComplianceLevel.PUPPET_2_6),
 	PUPPET27("2.7.19", "2.7", "puppet-2.7.19.pptp", false, ComplianceLevel.PUPPET_2_7),
 	PUPPET30("3.0.0", "3.0", "puppet-3.0.0.pptp", false, ComplianceLevel.PUPPET_3_0),
+	PUPPET32("3.2.0", "3.2", "puppet-3.2.0.pptp", false, ComplianceLevel.PUPPET_3_2),
 	PUPPET_ENTERPRISE20("2.7.19", "PE 2.0", "puppet-2.7.19.pptp", true, ComplianceLevel.PUPPET_2_7),
 	PUPPET_ENTERPRISE27("2.7.19", "PE 2.7", "puppet-2.7.19.pptp", true, ComplianceLevel.PUPPET_2_7);
 	// @fmtOn
-
-	/**
-	 * Returns the PuppetTarget with a literal equal to the argument
-	 * 
-	 * @param literal
-	 *            The argument to match
-	 * @return The matching target
-	 * @throws IllegalArgumentException
-	 *             if no match is found
-	 */
-	public static PuppetTarget forLiteral(String literal) {
-		if(literal != null)
-			for(PuppetTarget pt : values())
-				if(literal.equals(pt.getLiteral()))
-					return pt;
-		throw new IllegalArgumentException("No PuppetTarget matches literal '" + literal + '\'');
-	}
-
-	public static PuppetTarget getDefault() {
-		return PUPPET27;
-	}
 
 	public static PuppetTarget forComplianceLevel(ComplianceLevel level, boolean enterprise) {
 		for(PuppetTarget target : values())
@@ -56,6 +36,30 @@ public enum PuppetTarget {
 		bld.append("target found for compliance level ");
 		bld.append(level);
 		throw new IllegalArgumentException(bld.toString());
+	}
+
+	/**
+	 * Returns the PuppetTarget with a literal equal to the argument
+	 * 
+	 * @param literal
+	 *            The argument to match
+	 * @return The matching target
+	 * @throws IllegalArgumentException
+	 *             if no match is found
+	 */
+	public static PuppetTarget forLiteral(String literal) {
+		if(literal != null) {
+			if("future".equals(literal))
+				return PUPPET32;
+			for(PuppetTarget pt : values())
+				if(literal.equals(pt.getLiteral()))
+					return pt;
+		}
+		throw new IllegalArgumentException("No PuppetTarget matches literal '" + literal + '\'');
+	}
+
+	public static PuppetTarget getDefault() {
+		return PUPPET27;
 	}
 
 	private final Version version;

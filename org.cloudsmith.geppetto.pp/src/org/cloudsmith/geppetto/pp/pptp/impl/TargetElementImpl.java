@@ -251,7 +251,7 @@ public abstract class TargetElementImpl extends EObjectImpl implements TargetEle
 			return unformatted;
 		if(unformatted.startsWith("<"))
 			return unformatted; // assume it is formatted already
-		String[] lines = unformatted.split("\\n");
+		unformatted.split("\\n");
 		return unformatted;
 	}
 

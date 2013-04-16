@@ -59,17 +59,19 @@ public class PPGrammarAccess extends AbstractGrammarElementFinder {
 
 	public class ExpressionListElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "ExpressionList");
-		private final Group cGroup = (Group)rule.eContents().get(1);
-		private final RuleCall cRelationshipExpressionParserRuleCall_0 = (RuleCall)cGroup.eContents().get(0);
-		private final Group cGroup_1 = (Group)cGroup.eContents().get(1);
-		private final Action cExprListExpressionsAction_1_0 = (Action)cGroup_1.eContents().get(0);
-		private final Keyword cCommaKeyword_1_1 = (Keyword)cGroup_1.eContents().get(1);
-		private final Assignment cExpressionsAssignment_1_2 = (Assignment)cGroup_1.eContents().get(2);
-		private final RuleCall cExpressionsRelationshipExpressionParserRuleCall_1_2_0 = (RuleCall)cExpressionsAssignment_1_2.eContents().get(0);
-		private final Group cGroup_1_3 = (Group)cGroup_1.eContents().get(3);
-		private final Keyword cCommaKeyword_1_3_0 = (Keyword)cGroup_1_3.eContents().get(0);
-		private final Assignment cExpressionsAssignment_1_3_1 = (Assignment)cGroup_1_3.eContents().get(1);
-		private final RuleCall cExpressionsRelationshipExpressionParserRuleCall_1_3_1_0 = (RuleCall)cExpressionsAssignment_1_3_1.eContents().get(0);
+		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
+		private final Group cGroup_0 = (Group)cAlternatives.eContents().get(0);
+		private final RuleCall cRelationshipExpressionParserRuleCall_0_0 = (RuleCall)cGroup_0.eContents().get(0);
+		private final Group cGroup_0_1 = (Group)cGroup_0.eContents().get(1);
+		private final Action cExprListExpressionsAction_0_1_0 = (Action)cGroup_0_1.eContents().get(0);
+		private final Keyword cCommaKeyword_0_1_1 = (Keyword)cGroup_0_1.eContents().get(1);
+		private final Assignment cExpressionsAssignment_0_1_2 = (Assignment)cGroup_0_1.eContents().get(2);
+		private final RuleCall cExpressionsRelationshipExpressionParserRuleCall_0_1_2_0 = (RuleCall)cExpressionsAssignment_0_1_2.eContents().get(0);
+		private final Group cGroup_0_1_3 = (Group)cGroup_0_1.eContents().get(3);
+		private final Keyword cCommaKeyword_0_1_3_0 = (Keyword)cGroup_0_1_3.eContents().get(0);
+		private final Assignment cExpressionsAssignment_0_1_3_1 = (Assignment)cGroup_0_1_3.eContents().get(1);
+		private final RuleCall cExpressionsRelationshipExpressionParserRuleCall_0_1_3_1_0 = (RuleCall)cExpressionsAssignment_0_1_3_1.eContents().get(0);
+		private final RuleCall cSeparatorExpressionParserRuleCall_1 = (RuleCall)cAlternatives.eContents().get(1);
 		
 		//// --EXPRESSION LIST
 		//// Should be used by expressions that allow a sequence of expressions (as such
@@ -77,43 +79,50 @@ public class PPGrammarAccess extends AbstractGrammarElementFinder {
 		//// parsing)
 		//ExpressionList returns pp::Expression:
 		//	RelationshipExpression ({pp::ExprList.expressions+=current} "," expressions+=RelationshipExpression (","
-		//	expressions+=RelationshipExpression)*)?;
+		//	expressions+=RelationshipExpression)*)? | SeparatorExpression;
 		public ParserRule getRule() { return rule; }
 
 		//RelationshipExpression ({pp::ExprList.expressions+=current} "," expressions+=RelationshipExpression (","
+		//expressions+=RelationshipExpression)*)? | SeparatorExpression
+		public Alternatives getAlternatives() { return cAlternatives; }
+
+		//RelationshipExpression ({pp::ExprList.expressions+=current} "," expressions+=RelationshipExpression (","
 		//expressions+=RelationshipExpression)*)?
-		public Group getGroup() { return cGroup; }
+		public Group getGroup_0() { return cGroup_0; }
 
 		//RelationshipExpression
-		public RuleCall getRelationshipExpressionParserRuleCall_0() { return cRelationshipExpressionParserRuleCall_0; }
+		public RuleCall getRelationshipExpressionParserRuleCall_0_0() { return cRelationshipExpressionParserRuleCall_0_0; }
 
 		//({pp::ExprList.expressions+=current} "," expressions+=RelationshipExpression (","
 		//expressions+=RelationshipExpression)*)?
-		public Group getGroup_1() { return cGroup_1; }
+		public Group getGroup_0_1() { return cGroup_0_1; }
 
 		//{pp::ExprList.expressions+=current}
-		public Action getExprListExpressionsAction_1_0() { return cExprListExpressionsAction_1_0; }
+		public Action getExprListExpressionsAction_0_1_0() { return cExprListExpressionsAction_0_1_0; }
 
 		//","
-		public Keyword getCommaKeyword_1_1() { return cCommaKeyword_1_1; }
+		public Keyword getCommaKeyword_0_1_1() { return cCommaKeyword_0_1_1; }
 
 		//expressions+=RelationshipExpression
-		public Assignment getExpressionsAssignment_1_2() { return cExpressionsAssignment_1_2; }
+		public Assignment getExpressionsAssignment_0_1_2() { return cExpressionsAssignment_0_1_2; }
 
 		//RelationshipExpression
-		public RuleCall getExpressionsRelationshipExpressionParserRuleCall_1_2_0() { return cExpressionsRelationshipExpressionParserRuleCall_1_2_0; }
+		public RuleCall getExpressionsRelationshipExpressionParserRuleCall_0_1_2_0() { return cExpressionsRelationshipExpressionParserRuleCall_0_1_2_0; }
 
 		//("," expressions+=RelationshipExpression)*
-		public Group getGroup_1_3() { return cGroup_1_3; }
+		public Group getGroup_0_1_3() { return cGroup_0_1_3; }
 
 		//","
-		public Keyword getCommaKeyword_1_3_0() { return cCommaKeyword_1_3_0; }
+		public Keyword getCommaKeyword_0_1_3_0() { return cCommaKeyword_0_1_3_0; }
 
 		//expressions+=RelationshipExpression
-		public Assignment getExpressionsAssignment_1_3_1() { return cExpressionsAssignment_1_3_1; }
+		public Assignment getExpressionsAssignment_0_1_3_1() { return cExpressionsAssignment_0_1_3_1; }
 
 		//RelationshipExpression
-		public RuleCall getExpressionsRelationshipExpressionParserRuleCall_1_3_1_0() { return cExpressionsRelationshipExpressionParserRuleCall_1_3_1_0; }
+		public RuleCall getExpressionsRelationshipExpressionParserRuleCall_0_1_3_1_0() { return cExpressionsRelationshipExpressionParserRuleCall_0_1_3_1_0; }
+
+		//SeparatorExpression
+		public RuleCall getSeparatorExpressionParserRuleCall_1() { return cSeparatorExpressionParserRuleCall_1; }
 	}
 
 	public class EdgeOperatorElements extends AbstractParserRuleElementFinder {
@@ -913,12 +922,14 @@ public class PPGrammarAccess extends AbstractGrammarElementFinder {
 		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
 		private final Keyword cAsteriskKeyword_0 = (Keyword)cAlternatives.eContents().get(0);
 		private final Keyword cSolidusKeyword_1 = (Keyword)cAlternatives.eContents().get(1);
+		private final Keyword cPercentSignKeyword_2 = (Keyword)cAlternatives.eContents().get(2);
 		
+		//// '%' added in Puppet 3.2. Validated in older versions
 		//MultiplicativeOperator:
-		//	"*" | "/";
+		//	"*" | "/" | "%";
 		public ParserRule getRule() { return rule; }
 
-		//"*" | "/"
+		//"*" | "/" | "%"
 		public Alternatives getAlternatives() { return cAlternatives; }
 
 		//"*"
@@ -926,6 +937,9 @@ public class PPGrammarAccess extends AbstractGrammarElementFinder {
 
 		//"/"
 		public Keyword getSolidusKeyword_1() { return cSolidusKeyword_1; }
+
+		//"%"
+		public Keyword getPercentSignKeyword_2() { return cPercentSignKeyword_2; }
 	}
 
 	public class MultiplicativeExpressionElements extends AbstractParserRuleElementFinder {
@@ -1309,17 +1323,15 @@ public class PPGrammarAccess extends AbstractGrammarElementFinder {
 		private final Assignment cParametersAssignment_1_2_1 = (Assignment)cAlternatives_1_2.eContents().get(1);
 		private final RuleCall cParametersSelectorEntryParserRuleCall_1_2_1_0 = (RuleCall)cParametersAssignment_1_2_1.eContents().get(0);
 		
-		//SelectorExpression returns pp::Expression: // WAS: FunctionCall 
+		//SelectorExpression returns pp::Expression:
 		//	AtExpression ({pp::SelectorExpression.leftExpr=current} "?" ("{" parameters+=SelectorEntry (","
 		//	parameters+=SelectorEntry | parameters+=SelectorEntry)* ","? / * endcomma? * / "}" | parameters+=SelectorEntry))?;
 		public ParserRule getRule() { return rule; }
 
-		//// WAS: FunctionCall 
 		//AtExpression ({pp::SelectorExpression.leftExpr=current} "?" ("{" parameters+=SelectorEntry (","
 		//parameters+=SelectorEntry | parameters+=SelectorEntry)* ","? / * endcomma? * / "}" | parameters+=SelectorEntry))?
 		public Group getGroup() { return cGroup; }
 
-		//// WAS: FunctionCall 
 		//AtExpression
 		public RuleCall getAtExpressionParserRuleCall_0() { return cAtExpressionParserRuleCall_0; }
 
@@ -1423,7 +1435,7 @@ public class PPGrammarAccess extends AbstractGrammarElementFinder {
 	public class AtExpressionElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "AtExpression");
 		private final Group cGroup = (Group)rule.eContents().get(1);
-		private final RuleCall cFunctionCallParserRuleCall_0 = (RuleCall)cGroup.eContents().get(0);
+		private final RuleCall cMethodCallParserRuleCall_0 = (RuleCall)cGroup.eContents().get(0);
 		private final Group cGroup_1 = (Group)cGroup.eContents().get(1);
 		private final Action cAtExpressionLeftExprAction_1_0 = (Action)cGroup_1.eContents().get(0);
 		private final Keyword cLeftSquareBracketKeyword_1_1 = (Keyword)cGroup_1.eContents().get(1);
@@ -1439,17 +1451,15 @@ public class PPGrammarAccess extends AbstractGrammarElementFinder {
 		//// Note: AtExpression serves dual purpose: ResourceReference and '#' access
 		//// VALIDATION: checks 2 level nesting constraint on At a[x][y] is ok but not a[x][y][z] if bug compatible mode
 		//// VALIDATION: checks At dual roles and validates accordingly (only single parameter for normal At) etc.	
-		//AtExpression returns pp::Expression: // WAS: CollectExpression 
-		//	FunctionCall ({pp::AtExpression.leftExpr=current} "[" (parameters+=Expression ("," parameters+=Expression)*)? "]")*;
+		//AtExpression returns pp::Expression:
+		//	MethodCall ({pp::AtExpression.leftExpr=current} "[" (parameters+=Expression ("," parameters+=Expression)*)? "]")*;
 		public ParserRule getRule() { return rule; }
 
-		//// WAS: CollectExpression 
-		//FunctionCall ({pp::AtExpression.leftExpr=current} "[" (parameters+=Expression ("," parameters+=Expression)*)? "]")*
+		//MethodCall ({pp::AtExpression.leftExpr=current} "[" (parameters+=Expression ("," parameters+=Expression)*)? "]")*
 		public Group getGroup() { return cGroup; }
 
-		//// WAS: CollectExpression 
-		//FunctionCall
-		public RuleCall getFunctionCallParserRuleCall_0() { return cFunctionCallParserRuleCall_0; }
+		//MethodCall
+		public RuleCall getMethodCallParserRuleCall_0() { return cMethodCallParserRuleCall_0; }
 
 		//({pp::AtExpression.leftExpr=current} "[" (parameters+=Expression ("," parameters+=Expression)*)? "]")*
 		public Group getGroup_1() { return cGroup_1; }
@@ -1485,78 +1495,392 @@ public class PPGrammarAccess extends AbstractGrammarElementFinder {
 		public Keyword getRightSquareBracketKeyword_1_3() { return cRightSquareBracketKeyword_1_3; }
 	}
 
+	public class MethodCallElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "MethodCall");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final RuleCall cFunctionCallParserRuleCall_0 = (RuleCall)cGroup.eContents().get(0);
+		private final Group cGroup_1 = (Group)cGroup.eContents().get(1);
+		private final Action cMethodCallLeftExprAction_1_0 = (Action)cGroup_1.eContents().get(0);
+		private final Keyword cFullStopKeyword_1_1 = (Keyword)cGroup_1.eContents().get(1);
+		private final Group cGroup_1_2 = (Group)cGroup_1.eContents().get(2);
+		private final Assignment cMethodExprAssignment_1_2_0 = (Assignment)cGroup_1_2.eContents().get(0);
+		private final RuleCall cMethodExprLiteralNameParserRuleCall_1_2_0_0 = (RuleCall)cMethodExprAssignment_1_2_0.eContents().get(0);
+		private final Group cGroup_1_2_1 = (Group)cGroup_1_2.eContents().get(1);
+		private final Assignment cParenthesizedAssignment_1_2_1_0 = (Assignment)cGroup_1_2_1.eContents().get(0);
+		private final RuleCall cParenthesizedLPARBooleanParserRuleCall_1_2_1_0_0 = (RuleCall)cParenthesizedAssignment_1_2_1_0.eContents().get(0);
+		private final Group cGroup_1_2_1_1 = (Group)cGroup_1_2_1.eContents().get(1);
+		private final Assignment cParametersAssignment_1_2_1_1_0 = (Assignment)cGroup_1_2_1_1.eContents().get(0);
+		private final RuleCall cParametersExpressionParserRuleCall_1_2_1_1_0_0 = (RuleCall)cParametersAssignment_1_2_1_1_0.eContents().get(0);
+		private final Group cGroup_1_2_1_1_1 = (Group)cGroup_1_2_1_1.eContents().get(1);
+		private final Keyword cCommaKeyword_1_2_1_1_1_0 = (Keyword)cGroup_1_2_1_1_1.eContents().get(0);
+		private final Assignment cParametersAssignment_1_2_1_1_1_1 = (Assignment)cGroup_1_2_1_1_1.eContents().get(1);
+		private final RuleCall cParametersExpressionParserRuleCall_1_2_1_1_1_1_0 = (RuleCall)cParametersAssignment_1_2_1_1_1_1.eContents().get(0);
+		private final Keyword cCommaKeyword_1_2_1_1_2 = (Keyword)cGroup_1_2_1_1.eContents().get(2);
+		private final Keyword cRightParenthesisKeyword_1_2_1_2 = (Keyword)cGroup_1_2_1.eContents().get(2);
+		private final Assignment cLambdaAssignment_1_3 = (Assignment)cGroup_1.eContents().get(3);
+		private final RuleCall cLambdaLambdaExpressionParserRuleCall_1_3_0 = (RuleCall)cLambdaAssignment_1_3.eContents().get(0);
+		
+		//MethodCall returns pp::Expression:
+		//	FunctionCall ({pp::MethodCall.leftExpr=current} "." (methodExpr=LiteralName (parenthesized= // remember if an empty list had parentheses or not
+		//	LPARBoolean (parameters+=Expression ("," parameters+=Expression)* ","?)? / *endComma? * / ")")?)?
+		//	lambda=LambdaExpression?)*;
+		public ParserRule getRule() { return rule; }
+
+		//FunctionCall ({pp::MethodCall.leftExpr=current} "." (methodExpr=LiteralName (parenthesized= // remember if an empty list had parentheses or not
+		//LPARBoolean (parameters+=Expression ("," parameters+=Expression)* ","?)? / *endComma? * / ")")?)?
+		//lambda=LambdaExpression?)*
+		public Group getGroup() { return cGroup; }
+
+		//FunctionCall
+		public RuleCall getFunctionCallParserRuleCall_0() { return cFunctionCallParserRuleCall_0; }
+
+		//({pp::MethodCall.leftExpr=current} "." (methodExpr=LiteralName (parenthesized= // remember if an empty list had parentheses or not
+		//LPARBoolean (parameters+=Expression ("," parameters+=Expression)* ","?)? / *endComma? * / ")")?)?
+		//lambda=LambdaExpression?)*
+		public Group getGroup_1() { return cGroup_1; }
+
+		//{pp::MethodCall.leftExpr=current}
+		public Action getMethodCallLeftExprAction_1_0() { return cMethodCallLeftExprAction_1_0; }
+
+		//"."
+		public Keyword getFullStopKeyword_1_1() { return cFullStopKeyword_1_1; }
+
+		//(methodExpr=LiteralName (parenthesized= // remember if an empty list had parentheses or not
+		//LPARBoolean (parameters+=Expression ("," parameters+=Expression)* ","?)? / *endComma? * / ")")?)?
+		public Group getGroup_1_2() { return cGroup_1_2; }
+
+		//methodExpr=LiteralName
+		public Assignment getMethodExprAssignment_1_2_0() { return cMethodExprAssignment_1_2_0; }
+
+		//LiteralName
+		public RuleCall getMethodExprLiteralNameParserRuleCall_1_2_0_0() { return cMethodExprLiteralNameParserRuleCall_1_2_0_0; }
+
+		//(parenthesized= // remember if an empty list had parentheses or not
+		//LPARBoolean (parameters+=Expression ("," parameters+=Expression)* ","?)? / *endComma? * / ")")?
+		public Group getGroup_1_2_1() { return cGroup_1_2_1; }
+
+		//parenthesized= // remember if an empty list had parentheses or not
+		//LPARBoolean
+		public Assignment getParenthesizedAssignment_1_2_1_0() { return cParenthesizedAssignment_1_2_1_0; }
+
+		//// remember if an empty list had parentheses or not
+		//LPARBoolean
+		public RuleCall getParenthesizedLPARBooleanParserRuleCall_1_2_1_0_0() { return cParenthesizedLPARBooleanParserRuleCall_1_2_1_0_0; }
+
+		//(parameters+=Expression ("," parameters+=Expression)* ","?)?
+		public Group getGroup_1_2_1_1() { return cGroup_1_2_1_1; }
+
+		//parameters+=Expression
+		public Assignment getParametersAssignment_1_2_1_1_0() { return cParametersAssignment_1_2_1_1_0; }
+
+		//Expression
+		public RuleCall getParametersExpressionParserRuleCall_1_2_1_1_0_0() { return cParametersExpressionParserRuleCall_1_2_1_1_0_0; }
+
+		//("," parameters+=Expression)*
+		public Group getGroup_1_2_1_1_1() { return cGroup_1_2_1_1_1; }
+
+		//","
+		public Keyword getCommaKeyword_1_2_1_1_1_0() { return cCommaKeyword_1_2_1_1_1_0; }
+
+		//parameters+=Expression
+		public Assignment getParametersAssignment_1_2_1_1_1_1() { return cParametersAssignment_1_2_1_1_1_1; }
+
+		//Expression
+		public RuleCall getParametersExpressionParserRuleCall_1_2_1_1_1_1_0() { return cParametersExpressionParserRuleCall_1_2_1_1_1_1_0; }
+
+		//","?
+		public Keyword getCommaKeyword_1_2_1_1_2() { return cCommaKeyword_1_2_1_1_2; }
+
+		//")"
+		public Keyword getRightParenthesisKeyword_1_2_1_2() { return cRightParenthesisKeyword_1_2_1_2; }
+
+		//lambda=LambdaExpression?
+		public Assignment getLambdaAssignment_1_3() { return cLambdaAssignment_1_3; }
+
+		//LambdaExpression
+		public RuleCall getLambdaLambdaExpressionParserRuleCall_1_3_0() { return cLambdaLambdaExpressionParserRuleCall_1_3_0; }
+	}
+
+	public class LPARBooleanElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "LPARBoolean");
+		private final Keyword cLeftParenthesisKeyword = (Keyword)rule.eContents().get(1);
+		
+		//LPARBoolean returns ecore::EBoolean:
+		//	"(";
+		public ParserRule getRule() { return rule; }
+
+		//"("
+		public Keyword getLeftParenthesisKeyword() { return cLeftParenthesisKeyword; }
+	}
+
+	public class LambdaExpressionElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "LambdaExpression");
+		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
+		private final RuleCall cJava8LambdaParserRuleCall_0 = (RuleCall)cAlternatives.eContents().get(0);
+		private final RuleCall cRubyLambdaParserRuleCall_1 = (RuleCall)cAlternatives.eContents().get(1);
+		
+		//LambdaExpression returns pp::Lambda:
+		//	Java8Lambda | RubyLambda;
+		public ParserRule getRule() { return rule; }
+
+		//Java8Lambda | RubyLambda
+		public Alternatives getAlternatives() { return cAlternatives; }
+
+		//Java8Lambda
+		public RuleCall getJava8LambdaParserRuleCall_0() { return cJava8LambdaParserRuleCall_0; }
+
+		//RubyLambda
+		public RuleCall getRubyLambdaParserRuleCall_1() { return cRubyLambdaParserRuleCall_1; }
+	}
+
+	public class Java8LambdaElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "Java8Lambda");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Keyword cVerticalLineKeyword_0 = (Keyword)cGroup.eContents().get(0);
+		private final Action cJavaLambdaAction_1 = (Action)cGroup.eContents().get(1);
+		private final Assignment cArgumentsAssignment_2 = (Assignment)cGroup.eContents().get(2);
+		private final RuleCall cArgumentsLambdaParametersParserRuleCall_2_0 = (RuleCall)cArgumentsAssignment_2.eContents().get(0);
+		private final Keyword cVerticalLineKeyword_3 = (Keyword)cGroup.eContents().get(3);
+		private final Assignment cFarrowAssignment_4 = (Assignment)cGroup.eContents().get(4);
+		private final Keyword cFarrowEqualsSignGreaterThanSignKeyword_4_0 = (Keyword)cFarrowAssignment_4.eContents().get(0);
+		private final Keyword cLeftCurlyBracketKeyword_5 = (Keyword)cGroup.eContents().get(5);
+		private final Assignment cStatementsAssignment_6 = (Assignment)cGroup.eContents().get(6);
+		private final RuleCall cStatementsExpressionListParserRuleCall_6_0 = (RuleCall)cStatementsAssignment_6.eContents().get(0);
+		private final Keyword cRightCurlyBracketKeyword_7 = (Keyword)cGroup.eContents().get(7);
+		
+		//Java8Lambda returns pp::Lambda:
+		//	"|" {pp::JavaLambda} arguments=LambdaParameters? "|" farrow?="=>"? "{" statements+=ExpressionList* "}";
+		public ParserRule getRule() { return rule; }
+
+		//"|" {pp::JavaLambda} arguments=LambdaParameters? "|" farrow?="=>"? "{" statements+=ExpressionList* "}"
+		public Group getGroup() { return cGroup; }
+
+		//"|"
+		public Keyword getVerticalLineKeyword_0() { return cVerticalLineKeyword_0; }
+
+		//{pp::JavaLambda}
+		public Action getJavaLambdaAction_1() { return cJavaLambdaAction_1; }
+
+		//arguments=LambdaParameters?
+		public Assignment getArgumentsAssignment_2() { return cArgumentsAssignment_2; }
+
+		//LambdaParameters
+		public RuleCall getArgumentsLambdaParametersParserRuleCall_2_0() { return cArgumentsLambdaParametersParserRuleCall_2_0; }
+
+		//"|"
+		public Keyword getVerticalLineKeyword_3() { return cVerticalLineKeyword_3; }
+
+		//farrow?="=>"?
+		public Assignment getFarrowAssignment_4() { return cFarrowAssignment_4; }
+
+		//"=>"
+		public Keyword getFarrowEqualsSignGreaterThanSignKeyword_4_0() { return cFarrowEqualsSignGreaterThanSignKeyword_4_0; }
+
+		//"{"
+		public Keyword getLeftCurlyBracketKeyword_5() { return cLeftCurlyBracketKeyword_5; }
+
+		//statements+=ExpressionList*
+		public Assignment getStatementsAssignment_6() { return cStatementsAssignment_6; }
+
+		//ExpressionList
+		public RuleCall getStatementsExpressionListParserRuleCall_6_0() { return cStatementsExpressionListParserRuleCall_6_0; }
+
+		//"}"
+		public Keyword getRightCurlyBracketKeyword_7() { return cRightCurlyBracketKeyword_7; }
+	}
+
+	public class RubyLambdaElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "RubyLambda");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final RuleCall cLAMBDATerminalRuleCall_0 = (RuleCall)cGroup.eContents().get(0);
+		private final Keyword cVerticalLineKeyword_1 = (Keyword)cGroup.eContents().get(1);
+		private final Action cRubyLambdaAction_2 = (Action)cGroup.eContents().get(2);
+		private final Assignment cArgumentsAssignment_3 = (Assignment)cGroup.eContents().get(3);
+		private final RuleCall cArgumentsLambdaParametersParserRuleCall_3_0 = (RuleCall)cArgumentsAssignment_3.eContents().get(0);
+		private final Keyword cVerticalLineKeyword_4 = (Keyword)cGroup.eContents().get(4);
+		private final Assignment cStatementsAssignment_5 = (Assignment)cGroup.eContents().get(5);
+		private final RuleCall cStatementsExpressionListParserRuleCall_5_0 = (RuleCall)cStatementsAssignment_5.eContents().get(0);
+		private final Keyword cRightCurlyBracketKeyword_6 = (Keyword)cGroup.eContents().get(6);
+		
+		//RubyLambda returns pp::Lambda:
+		//	LAMBDA "|" {pp::RubyLambda} arguments=LambdaParameters? "|" statements+=ExpressionList* "}";
+		public ParserRule getRule() { return rule; }
+
+		//LAMBDA "|" {pp::RubyLambda} arguments=LambdaParameters? "|" statements+=ExpressionList* "}"
+		public Group getGroup() { return cGroup; }
+
+		//LAMBDA
+		public RuleCall getLAMBDATerminalRuleCall_0() { return cLAMBDATerminalRuleCall_0; }
+
+		//"|"
+		public Keyword getVerticalLineKeyword_1() { return cVerticalLineKeyword_1; }
+
+		//{pp::RubyLambda}
+		public Action getRubyLambdaAction_2() { return cRubyLambdaAction_2; }
+
+		//arguments=LambdaParameters?
+		public Assignment getArgumentsAssignment_3() { return cArgumentsAssignment_3; }
+
+		//LambdaParameters
+		public RuleCall getArgumentsLambdaParametersParserRuleCall_3_0() { return cArgumentsLambdaParametersParserRuleCall_3_0; }
+
+		//"|"
+		public Keyword getVerticalLineKeyword_4() { return cVerticalLineKeyword_4; }
+
+		//statements+=ExpressionList*
+		public Assignment getStatementsAssignment_5() { return cStatementsAssignment_5; }
+
+		//ExpressionList
+		public RuleCall getStatementsExpressionListParserRuleCall_5_0() { return cStatementsExpressionListParserRuleCall_5_0; }
+
+		//"}"
+		public Keyword getRightCurlyBracketKeyword_6() { return cRightCurlyBracketKeyword_6; }
+	}
+
+	public class LambdaParametersElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "LambdaParameters");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Group cGroup_0 = (Group)cGroup.eContents().get(0);
+		private final Assignment cArgumentsAssignment_0_0 = (Assignment)cGroup_0.eContents().get(0);
+		private final RuleCall cArgumentsDefinitionArgumentParserRuleCall_0_0_0 = (RuleCall)cArgumentsAssignment_0_0.eContents().get(0);
+		private final Group cGroup_0_1 = (Group)cGroup_0.eContents().get(1);
+		private final Keyword cCommaKeyword_0_1_0 = (Keyword)cGroup_0_1.eContents().get(0);
+		private final Assignment cArgumentsAssignment_0_1_1 = (Assignment)cGroup_0_1.eContents().get(1);
+		private final RuleCall cArgumentsDefinitionArgumentParserRuleCall_0_1_1_0 = (RuleCall)cArgumentsAssignment_0_1_1.eContents().get(0);
+		private final Keyword cCommaKeyword_1 = (Keyword)cGroup.eContents().get(1);
+		
+		//LambdaParameters returns pp::DefinitionArgumentList:
+		//	(arguments+=DefinitionArgument ("," arguments+=DefinitionArgument)*) ","? / * endComma? * /;
+		public ParserRule getRule() { return rule; }
+
+		//(arguments+=DefinitionArgument ("," arguments+=DefinitionArgument)*) ","? / * endComma? * /
+		public Group getGroup() { return cGroup; }
+
+		//arguments+=DefinitionArgument ("," arguments+=DefinitionArgument)*
+		public Group getGroup_0() { return cGroup_0; }
+
+		//arguments+=DefinitionArgument
+		public Assignment getArgumentsAssignment_0_0() { return cArgumentsAssignment_0_0; }
+
+		//DefinitionArgument
+		public RuleCall getArgumentsDefinitionArgumentParserRuleCall_0_0_0() { return cArgumentsDefinitionArgumentParserRuleCall_0_0_0; }
+
+		//("," arguments+=DefinitionArgument)*
+		public Group getGroup_0_1() { return cGroup_0_1; }
+
+		//","
+		public Keyword getCommaKeyword_0_1_0() { return cCommaKeyword_0_1_0; }
+
+		//arguments+=DefinitionArgument
+		public Assignment getArgumentsAssignment_0_1_1() { return cArgumentsAssignment_0_1_1; }
+
+		//DefinitionArgument
+		public RuleCall getArgumentsDefinitionArgumentParserRuleCall_0_1_1_0() { return cArgumentsDefinitionArgumentParserRuleCall_0_1_1_0; }
+
+		//","?
+		public Keyword getCommaKeyword_1() { return cCommaKeyword_1; }
+	}
+
 	public class FunctionCallElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "FunctionCall");
 		private final Group cGroup = (Group)rule.eContents().get(1);
 		private final RuleCall cPrimaryExpressionParserRuleCall_0 = (RuleCall)cGroup.eContents().get(0);
 		private final Group cGroup_1 = (Group)cGroup.eContents().get(1);
-		private final Action cFunctionCallLeftExprAction_1_0 = (Action)cGroup_1.eContents().get(0);
-		private final Keyword cLeftParenthesisKeyword_1_1 = (Keyword)cGroup_1.eContents().get(1);
-		private final Group cGroup_1_2 = (Group)cGroup_1.eContents().get(2);
-		private final Assignment cParametersAssignment_1_2_0 = (Assignment)cGroup_1_2.eContents().get(0);
-		private final RuleCall cParametersExpressionParserRuleCall_1_2_0_0 = (RuleCall)cParametersAssignment_1_2_0.eContents().get(0);
-		private final Group cGroup_1_2_1 = (Group)cGroup_1_2.eContents().get(1);
-		private final Keyword cCommaKeyword_1_2_1_0 = (Keyword)cGroup_1_2_1.eContents().get(0);
-		private final Assignment cParametersAssignment_1_2_1_1 = (Assignment)cGroup_1_2_1.eContents().get(1);
-		private final RuleCall cParametersExpressionParserRuleCall_1_2_1_1_0 = (RuleCall)cParametersAssignment_1_2_1_1.eContents().get(0);
-		private final Keyword cCommaKeyword_1_2_2 = (Keyword)cGroup_1_2.eContents().get(2);
-		private final Keyword cRightParenthesisKeyword_1_3 = (Keyword)cGroup_1.eContents().get(3);
+		private final Group cGroup_1_0 = (Group)cGroup_1.eContents().get(0);
+		private final Group cGroup_1_0_0 = (Group)cGroup_1_0.eContents().get(0);
+		private final Action cFunctionCallLeftExprAction_1_0_0_0 = (Action)cGroup_1_0_0.eContents().get(0);
+		private final Keyword cLeftParenthesisKeyword_1_0_0_1 = (Keyword)cGroup_1_0_0.eContents().get(1);
+		private final Group cGroup_1_1 = (Group)cGroup_1.eContents().get(1);
+		private final Assignment cParametersAssignment_1_1_0 = (Assignment)cGroup_1_1.eContents().get(0);
+		private final RuleCall cParametersExpressionParserRuleCall_1_1_0_0 = (RuleCall)cParametersAssignment_1_1_0.eContents().get(0);
+		private final Group cGroup_1_1_1 = (Group)cGroup_1_1.eContents().get(1);
+		private final Keyword cCommaKeyword_1_1_1_0 = (Keyword)cGroup_1_1_1.eContents().get(0);
+		private final Assignment cParametersAssignment_1_1_1_1 = (Assignment)cGroup_1_1_1.eContents().get(1);
+		private final RuleCall cParametersExpressionParserRuleCall_1_1_1_1_0 = (RuleCall)cParametersAssignment_1_1_1_1.eContents().get(0);
+		private final Keyword cCommaKeyword_1_1_2 = (Keyword)cGroup_1_1.eContents().get(2);
+		private final Keyword cRightParenthesisKeyword_1_2 = (Keyword)cGroup_1.eContents().get(2);
+		private final Group cGroup_1_3 = (Group)cGroup_1.eContents().get(3);
+		private final Assignment cLambdaAssignment_1_3_0 = (Assignment)cGroup_1_3.eContents().get(0);
+		private final RuleCall cLambdaLambdaExpressionParserRuleCall_1_3_0_0 = (RuleCall)cLambdaAssignment_1_3_0.eContents().get(0);
 		
 		//// FunctionCall has different syntax restrictions depending on context
-		//// - when used where only one expression can occur, parantheses are required around the arguments
+		//// - when used where only one expression can occur, parentheses are required around the arguments
 		//// To solve this, the parser does NOT recognize func x as a function call, this is instead treated as
 		//// a sequence of two expressions, a later step will need to determine if 'func' is a function, if so, how
 		//// many arguments it is supposed to take, and then validate if the input is correct.
 		////
 		//// VALIDATION : functionExpr is a valid function name	
+		////FunctionCall returns pp::Expression
+		////	: PrimaryExpression ({pp::FunctionCall.leftExpr = current} 
+		////		'('
+		////			(parameters+=Expression (',' parameters += Expression)* ','? )?
+		////		')'
+		////		lambda = LambdaExpression? 
+		////	  )*
+		////	;
 		//FunctionCall returns pp::Expression:
-		//	PrimaryExpression ({pp::FunctionCall.leftExpr=current} "(" (parameters+=Expression ("," parameters+=Expression)*
-		//	","?)? / *endComma? * / ")")?;
+		//	PrimaryExpression (=> ({pp::FunctionCall.leftExpr=current} "(") (parameters+=Expression ("," parameters+=Expression)*
+		//	","?)? / *endComma? * / ")" => (lambda=LambdaExpression?))*;
 		public ParserRule getRule() { return rule; }
 
-		//PrimaryExpression ({pp::FunctionCall.leftExpr=current} "(" (parameters+=Expression ("," parameters+=Expression)* ","?)?
-		/// *endComma? * / ")")?
+		//PrimaryExpression (=> ({pp::FunctionCall.leftExpr=current} "(") (parameters+=Expression ("," parameters+=Expression)*
+		//","?)? / *endComma? * / ")" => (lambda=LambdaExpression?))*
 		public Group getGroup() { return cGroup; }
 
 		//PrimaryExpression
 		public RuleCall getPrimaryExpressionParserRuleCall_0() { return cPrimaryExpressionParserRuleCall_0; }
 
-		//({pp::FunctionCall.leftExpr=current} "(" (parameters+=Expression ("," parameters+=Expression)* ","?)? / *endComma? * /
-		//")")?
+		//(=> ({pp::FunctionCall.leftExpr=current} "(") (parameters+=Expression ("," parameters+=Expression)* ","?)?
+		/// *endComma? * / ")" => (lambda=LambdaExpression?))*
 		public Group getGroup_1() { return cGroup_1; }
 
+		//=> ({pp::FunctionCall.leftExpr=current} "(")
+		public Group getGroup_1_0() { return cGroup_1_0; }
+
+		//{pp::FunctionCall.leftExpr=current} "("
+		public Group getGroup_1_0_0() { return cGroup_1_0_0; }
+
 		//{pp::FunctionCall.leftExpr=current}
-		public Action getFunctionCallLeftExprAction_1_0() { return cFunctionCallLeftExprAction_1_0; }
+		public Action getFunctionCallLeftExprAction_1_0_0_0() { return cFunctionCallLeftExprAction_1_0_0_0; }
 
 		//"("
-		public Keyword getLeftParenthesisKeyword_1_1() { return cLeftParenthesisKeyword_1_1; }
+		public Keyword getLeftParenthesisKeyword_1_0_0_1() { return cLeftParenthesisKeyword_1_0_0_1; }
 
 		//(parameters+=Expression ("," parameters+=Expression)* ","?)?
-		public Group getGroup_1_2() { return cGroup_1_2; }
+		public Group getGroup_1_1() { return cGroup_1_1; }
 
 		//parameters+=Expression
-		public Assignment getParametersAssignment_1_2_0() { return cParametersAssignment_1_2_0; }
+		public Assignment getParametersAssignment_1_1_0() { return cParametersAssignment_1_1_0; }
 
 		//Expression
-		public RuleCall getParametersExpressionParserRuleCall_1_2_0_0() { return cParametersExpressionParserRuleCall_1_2_0_0; }
+		public RuleCall getParametersExpressionParserRuleCall_1_1_0_0() { return cParametersExpressionParserRuleCall_1_1_0_0; }
 
 		//("," parameters+=Expression)*
-		public Group getGroup_1_2_1() { return cGroup_1_2_1; }
+		public Group getGroup_1_1_1() { return cGroup_1_1_1; }
 
 		//","
-		public Keyword getCommaKeyword_1_2_1_0() { return cCommaKeyword_1_2_1_0; }
+		public Keyword getCommaKeyword_1_1_1_0() { return cCommaKeyword_1_1_1_0; }
 
 		//parameters+=Expression
-		public Assignment getParametersAssignment_1_2_1_1() { return cParametersAssignment_1_2_1_1; }
+		public Assignment getParametersAssignment_1_1_1_1() { return cParametersAssignment_1_1_1_1; }
 
 		//Expression
-		public RuleCall getParametersExpressionParserRuleCall_1_2_1_1_0() { return cParametersExpressionParserRuleCall_1_2_1_1_0; }
+		public RuleCall getParametersExpressionParserRuleCall_1_1_1_1_0() { return cParametersExpressionParserRuleCall_1_1_1_1_0; }
 
 		//","?
-		public Keyword getCommaKeyword_1_2_2() { return cCommaKeyword_1_2_2; }
+		public Keyword getCommaKeyword_1_1_2() { return cCommaKeyword_1_1_2; }
 
 		//")"
-		public Keyword getRightParenthesisKeyword_1_3() { return cRightParenthesisKeyword_1_3; }
+		public Keyword getRightParenthesisKeyword_1_2() { return cRightParenthesisKeyword_1_2; }
+
+		//=> (lambda=LambdaExpression?)
+		public Group getGroup_1_3() { return cGroup_1_3; }
+
+		//lambda=LambdaExpression?
+		public Assignment getLambdaAssignment_1_3_0() { return cLambdaAssignment_1_3_0; }
+
+		//LambdaExpression
+		public RuleCall getLambdaLambdaExpressionParserRuleCall_1_3_0_0() { return cLambdaLambdaExpressionParserRuleCall_1_3_0_0; }
 	}
 
 	public class PrimaryExpressionElements extends AbstractParserRuleElementFinder {
@@ -1929,7 +2253,7 @@ public class PPGrammarAccess extends AbstractGrammarElementFinder {
 		private final Assignment cValueAssignment_1_1 = (Assignment)cGroup_1.eContents().get(1);
 		private final RuleCall cValueAssignmentExpressionParserRuleCall_1_1_0 = (RuleCall)cValueAssignment_1_1.eContents().get(0);
 		
-		//// VALIDATION: Depracted warning if name does not start with $
+		//// VALIDATION: Deprecated warning if name does not start with $
 		//// VALIDATION: Not all variations of SimplefiedVariableOrName are valid (with NS)
 		//// VALIDATION: value expr is RVALUE
 		//// 	
@@ -2079,13 +2403,17 @@ public class PPGrammarAccess extends AbstractGrammarElementFinder {
 		private final Assignment cThenStatementsAssignment_3 = (Assignment)cGroup.eContents().get(3);
 		private final RuleCall cThenStatementsExpressionListParserRuleCall_3_0 = (RuleCall)cThenStatementsAssignment_3.eContents().get(0);
 		private final Keyword cRightCurlyBracketKeyword_4 = (Keyword)cGroup.eContents().get(4);
+		private final Group cGroup_5 = (Group)cGroup.eContents().get(5);
+		private final Keyword cElseKeyword_5_0 = (Keyword)cGroup_5.eContents().get(0);
+		private final Assignment cElseStatementAssignment_5_1 = (Assignment)cGroup_5.eContents().get(1);
+		private final RuleCall cElseStatementElseExpressionParserRuleCall_5_1_0 = (RuleCall)cElseStatementAssignment_5_1.eContents().get(0);
 		
 		////-- UNLESS (is the same as if !(e) {}, but without support for "else"
 		//UnlessExpression returns pp::UnlessExpression:
-		//	"unless" condExpr=AssignmentExpression "{" thenStatements+=ExpressionList* "}";
+		//	"unless" condExpr=AssignmentExpression "{" thenStatements+=ExpressionList* "}" ("else" elseStatement=ElseExpression)?;
 		public ParserRule getRule() { return rule; }
 
-		//"unless" condExpr=AssignmentExpression "{" thenStatements+=ExpressionList* "}"
+		//"unless" condExpr=AssignmentExpression "{" thenStatements+=ExpressionList* "}" ("else" elseStatement=ElseExpression)?
 		public Group getGroup() { return cGroup; }
 
 		//"unless"
@@ -2108,6 +2436,18 @@ public class PPGrammarAccess extends AbstractGrammarElementFinder {
 
 		//"}"
 		public Keyword getRightCurlyBracketKeyword_4() { return cRightCurlyBracketKeyword_4; }
+
+		//(=> "else" elseStatement=ElseExpression)?
+		public Group getGroup_5() { return cGroup_5; }
+
+		//=> "else"
+		public Keyword getElseKeyword_5_0() { return cElseKeyword_5_0; }
+
+		//elseStatement=ElseExpression
+		public Assignment getElseStatementAssignment_5_1() { return cElseStatementAssignment_5_1; }
+
+		//ElseExpression
+		public RuleCall getElseStatementElseExpressionParserRuleCall_5_1_0() { return cElseStatementElseExpressionParserRuleCall_5_1_0; }
 	}
 
 	public class IfExpressionElements extends AbstractParserRuleElementFinder {
@@ -2415,6 +2755,26 @@ public class PPGrammarAccess extends AbstractGrammarElementFinder {
 
 		//")"
 		public Keyword getRightParenthesisKeyword_3() { return cRightParenthesisKeyword_3; }
+	}
+
+	public class SeparatorExpressionElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "SeparatorExpression");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Action cSeparatorExpressionAction_0 = (Action)cGroup.eContents().get(0);
+		private final Keyword cSemicolonKeyword_1 = (Keyword)cGroup.eContents().get(1);
+		
+		//SeparatorExpression returns pp::SeparatorExpression:
+		//	{pp::SeparatorExpression} ";";
+		public ParserRule getRule() { return rule; }
+
+		//{pp::SeparatorExpression} ";"
+		public Group getGroup() { return cGroup; }
+
+		//{pp::SeparatorExpression}
+		public Action getSeparatorExpressionAction_0() { return cSeparatorExpressionAction_0; }
+
+		//";"
+		public Keyword getSemicolonKeyword_1() { return cSemicolonKeyword_1; }
 	}
 
 	public class VirtualNameOrReferenceElements extends AbstractParserRuleElementFinder {
@@ -3430,6 +3790,12 @@ public class PPGrammarAccess extends AbstractGrammarElementFinder {
 	private SelectorExpressionElements pSelectorExpression;
 	private SelectorEntryElements pSelectorEntry;
 	private AtExpressionElements pAtExpression;
+	private MethodCallElements pMethodCall;
+	private LPARBooleanElements pLPARBoolean;
+	private LambdaExpressionElements pLambdaExpression;
+	private Java8LambdaElements pJava8Lambda;
+	private RubyLambdaElements pRubyLambda;
+	private LambdaParametersElements pLambdaParameters;
 	private FunctionCallElements pFunctionCall;
 	private PrimaryExpressionElements pPrimaryExpression;
 	private NodeDefinitionElements pNodeDefinition;
@@ -3449,6 +3815,7 @@ public class PPGrammarAccess extends AbstractGrammarElementFinder {
 	private LiteralNameOrReferenceElements pLiteralNameOrReference;
 	private UNION_VARIABLE_OR_NAMEElements pUNION_VARIABLE_OR_NAME;
 	private ParenthisedExpressionElements pParenthisedExpression;
+	private SeparatorExpressionElements pSeparatorExpression;
 	private VirtualNameOrReferenceElements pVirtualNameOrReference;
 	private ATBooleanElements pATBoolean;
 	private ImportExpressionElements pImportExpression;
@@ -3486,6 +3853,9 @@ public class PPGrammarAccess extends AbstractGrammarElementFinder {
 	private TerminalRule tWS;
 	private TerminalRule tDOLLAR_VAR;
 	private TerminalRule tWORD_CHARS;
+	private TerminalRule tNUMBER;
+	private TerminalRule tLAMBDA;
+	private TerminalRule tNUMERIC;
 	private TerminalRule tREGULAR_EXPRESSION;
 	private TerminalRule tRE_BODY;
 	private TerminalRule tRE_FIRST_CHAR;
@@ -3553,7 +3923,7 @@ public class PPGrammarAccess extends AbstractGrammarElementFinder {
 	//// parsing)
 	//ExpressionList returns pp::Expression:
 	//	RelationshipExpression ({pp::ExprList.expressions+=current} "," expressions+=RelationshipExpression (","
-	//	expressions+=RelationshipExpression)*)?;
+	//	expressions+=RelationshipExpression)*)? | SeparatorExpression;
 	public ExpressionListElements getExpressionListAccess() {
 		return (pExpressionList != null) ? pExpressionList : (pExpressionList = new ExpressionListElements());
 	}
@@ -3796,8 +4166,9 @@ public class PPGrammarAccess extends AbstractGrammarElementFinder {
 		return getAdditiveExpressionAccess().getRule();
 	}
 
+	//// '%' added in Puppet 3.2. Validated in older versions
 	//MultiplicativeOperator:
-	//	"*" | "/";
+	//	"*" | "/" | "%";
 	public MultiplicativeOperatorElements getMultiplicativeOperatorAccess() {
 		return (pMultiplicativeOperator != null) ? pMultiplicativeOperator : (pMultiplicativeOperator = new MultiplicativeOperatorElements());
 	}
@@ -3923,7 +4294,7 @@ public class PPGrammarAccess extends AbstractGrammarElementFinder {
 		return getExportedCollectQueryAccess().getRule();
 	}
 
-	//SelectorExpression returns pp::Expression: // WAS: FunctionCall 
+	//SelectorExpression returns pp::Expression:
 	//	AtExpression ({pp::SelectorExpression.leftExpr=current} "?" ("{" parameters+=SelectorEntry (","
 	//	parameters+=SelectorEntry | parameters+=SelectorEntry)* ","? / * endcomma? * / "}" | parameters+=SelectorEntry))?;
 	public SelectorExpressionElements getSelectorExpressionAccess() {
@@ -3948,8 +4319,8 @@ public class PPGrammarAccess extends AbstractGrammarElementFinder {
 	//// Note: AtExpression serves dual purpose: ResourceReference and '#' access
 	//// VALIDATION: checks 2 level nesting constraint on At a[x][y] is ok but not a[x][y][z] if bug compatible mode
 	//// VALIDATION: checks At dual roles and validates accordingly (only single parameter for normal At) etc.	
-	//AtExpression returns pp::Expression: // WAS: CollectExpression 
-	//	FunctionCall ({pp::AtExpression.leftExpr=current} "[" (parameters+=Expression ("," parameters+=Expression)*)? "]")*;
+	//AtExpression returns pp::Expression:
+	//	MethodCall ({pp::AtExpression.leftExpr=current} "[" (parameters+=Expression ("," parameters+=Expression)*)? "]")*;
 	public AtExpressionElements getAtExpressionAccess() {
 		return (pAtExpression != null) ? pAtExpression : (pAtExpression = new AtExpressionElements());
 	}
@@ -3958,16 +4329,86 @@ public class PPGrammarAccess extends AbstractGrammarElementFinder {
 		return getAtExpressionAccess().getRule();
 	}
 
+	//MethodCall returns pp::Expression:
+	//	FunctionCall ({pp::MethodCall.leftExpr=current} "." (methodExpr=LiteralName (parenthesized= // remember if an empty list had parentheses or not
+	//	LPARBoolean (parameters+=Expression ("," parameters+=Expression)* ","?)? / *endComma? * / ")")?)?
+	//	lambda=LambdaExpression?)*;
+	public MethodCallElements getMethodCallAccess() {
+		return (pMethodCall != null) ? pMethodCall : (pMethodCall = new MethodCallElements());
+	}
+	
+	public ParserRule getMethodCallRule() {
+		return getMethodCallAccess().getRule();
+	}
+
+	//LPARBoolean returns ecore::EBoolean:
+	//	"(";
+	public LPARBooleanElements getLPARBooleanAccess() {
+		return (pLPARBoolean != null) ? pLPARBoolean : (pLPARBoolean = new LPARBooleanElements());
+	}
+	
+	public ParserRule getLPARBooleanRule() {
+		return getLPARBooleanAccess().getRule();
+	}
+
+	//LambdaExpression returns pp::Lambda:
+	//	Java8Lambda | RubyLambda;
+	public LambdaExpressionElements getLambdaExpressionAccess() {
+		return (pLambdaExpression != null) ? pLambdaExpression : (pLambdaExpression = new LambdaExpressionElements());
+	}
+	
+	public ParserRule getLambdaExpressionRule() {
+		return getLambdaExpressionAccess().getRule();
+	}
+
+	//Java8Lambda returns pp::Lambda:
+	//	"|" {pp::JavaLambda} arguments=LambdaParameters? "|" farrow?="=>"? "{" statements+=ExpressionList* "}";
+	public Java8LambdaElements getJava8LambdaAccess() {
+		return (pJava8Lambda != null) ? pJava8Lambda : (pJava8Lambda = new Java8LambdaElements());
+	}
+	
+	public ParserRule getJava8LambdaRule() {
+		return getJava8LambdaAccess().getRule();
+	}
+
+	//RubyLambda returns pp::Lambda:
+	//	LAMBDA "|" {pp::RubyLambda} arguments=LambdaParameters? "|" statements+=ExpressionList* "}";
+	public RubyLambdaElements getRubyLambdaAccess() {
+		return (pRubyLambda != null) ? pRubyLambda : (pRubyLambda = new RubyLambdaElements());
+	}
+	
+	public ParserRule getRubyLambdaRule() {
+		return getRubyLambdaAccess().getRule();
+	}
+
+	//LambdaParameters returns pp::DefinitionArgumentList:
+	//	(arguments+=DefinitionArgument ("," arguments+=DefinitionArgument)*) ","? / * endComma? * /;
+	public LambdaParametersElements getLambdaParametersAccess() {
+		return (pLambdaParameters != null) ? pLambdaParameters : (pLambdaParameters = new LambdaParametersElements());
+	}
+	
+	public ParserRule getLambdaParametersRule() {
+		return getLambdaParametersAccess().getRule();
+	}
+
 	//// FunctionCall has different syntax restrictions depending on context
-	//// - when used where only one expression can occur, parantheses are required around the arguments
+	//// - when used where only one expression can occur, parentheses are required around the arguments
 	//// To solve this, the parser does NOT recognize func x as a function call, this is instead treated as
 	//// a sequence of two expressions, a later step will need to determine if 'func' is a function, if so, how
 	//// many arguments it is supposed to take, and then validate if the input is correct.
 	////
 	//// VALIDATION : functionExpr is a valid function name	
+	////FunctionCall returns pp::Expression
+	////	: PrimaryExpression ({pp::FunctionCall.leftExpr = current} 
+	////		'('
+	////			(parameters+=Expression (',' parameters += Expression)* ','? )?
+	////		')'
+	////		lambda = LambdaExpression? 
+	////	  )*
+	////	;
 	//FunctionCall returns pp::Expression:
-	//	PrimaryExpression ({pp::FunctionCall.leftExpr=current} "(" (parameters+=Expression ("," parameters+=Expression)*
-	//	","?)? / *endComma? * / ")")?;
+	//	PrimaryExpression (=> ({pp::FunctionCall.leftExpr=current} "(") (parameters+=Expression ("," parameters+=Expression)*
+	//	","?)? / *endComma? * / ")" => (lambda=LambdaExpression?))*;
 	public FunctionCallElements getFunctionCallAccess() {
 		return (pFunctionCall != null) ? pFunctionCall : (pFunctionCall = new FunctionCallElements());
 	}
@@ -4050,7 +4491,7 @@ public class PPGrammarAccess extends AbstractGrammarElementFinder {
 		return getDefinitionArgumentListAccess().getRule();
 	}
 
-	//// VALIDATION: Depracted warning if name does not start with $
+	//// VALIDATION: Deprecated warning if name does not start with $
 	//// VALIDATION: Not all variations of SimplefiedVariableOrName are valid (with NS)
 	//// VALIDATION: value expr is RVALUE
 	//// 	
@@ -4088,7 +4529,7 @@ public class PPGrammarAccess extends AbstractGrammarElementFinder {
 
 	////-- UNLESS (is the same as if !(e) {}, but without support for "else"
 	//UnlessExpression returns pp::UnlessExpression:
-	//	"unless" condExpr=AssignmentExpression "{" thenStatements+=ExpressionList* "}";
+	//	"unless" condExpr=AssignmentExpression "{" thenStatements+=ExpressionList* "}" ("else" elseStatement=ElseExpression)?;
 	public UnlessExpressionElements getUnlessExpressionAccess() {
 		return (pUnlessExpression != null) ? pUnlessExpression : (pUnlessExpression = new UnlessExpressionElements());
 	}
@@ -4173,6 +4614,16 @@ public class PPGrammarAccess extends AbstractGrammarElementFinder {
 	
 	public ParserRule getParenthisedExpressionRule() {
 		return getParenthisedExpressionAccess().getRule();
+	}
+
+	//SeparatorExpression returns pp::SeparatorExpression:
+	//	{pp::SeparatorExpression} ";";
+	public SeparatorExpressionElements getSeparatorExpressionAccess() {
+		return (pSeparatorExpression != null) ? pSeparatorExpression : (pSeparatorExpression = new SeparatorExpressionElements());
+	}
+	
+	public ParserRule getSeparatorExpressionRule() {
+		return getSeparatorExpressionAccess().getRule();
 	}
 
 	//VirtualNameOrReference returns pp::VirtualNameOrReference:
@@ -4558,9 +5009,28 @@ public class PPGrammarAccess extends AbstractGrammarElementFinder {
 	} 
 
 	//terminal WORD_CHARS:
-	//	"::"? ("0".."9" | "a".."z" | "A".."Z" | "_" | "." | "-")+ ("::" ("0".."9" | "a".."z" | "A".."Z" | "_" | "." | "-")+)*;
+	//	"::"? ("0".."9" | "a".."z" | "A".."Z" | "_" | "-")+ ("::" ("0".."9" | "a".."z" | "A".."Z" | "_" | "-")+)*;
 	public TerminalRule getWORD_CHARSRule() {
 		return (tWORD_CHARS != null) ? tWORD_CHARS : (tWORD_CHARS = (TerminalRule) GrammarUtil.findRuleForName(getGrammar(), "WORD_CHARS"));
+	} 
+
+	//terminal NUMBER:
+	//	NUMERIC;
+	public TerminalRule getNUMBERRule() {
+		return (tNUMBER != null) ? tNUMBER : (tNUMBER = (TerminalRule) GrammarUtil.findRuleForName(getGrammar(), "NUMBER"));
+	} 
+
+	//// Pseudo rule
+	//terminal LAMBDA:
+	//	"{" WS "|";
+	public TerminalRule getLAMBDARule() {
+		return (tLAMBDA != null) ? tLAMBDA : (tLAMBDA = (TerminalRule) GrammarUtil.findRuleForName(getGrammar(), "LAMBDA"));
+	} 
+
+	//terminal fragment NUMERIC:
+	//	"0" ("x" | "X") ("0".."9" | "a".."f" | "A".."F")+ | "0".."9"+ ("." "0".."9"+)? (("e" | "E") "-"? "0".."9"+)?;
+	public TerminalRule getNUMERICRule() {
+		return (tNUMERIC != null) ? tNUMERIC : (tNUMERIC = (TerminalRule) GrammarUtil.findRuleForName(getGrammar(), "NUMERIC"));
 	} 
 
 	//// Special rules in the lexer must prevent the RE from being recognized

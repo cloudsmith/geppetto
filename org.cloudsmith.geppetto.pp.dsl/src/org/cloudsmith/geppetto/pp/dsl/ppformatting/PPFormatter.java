@@ -179,10 +179,14 @@ public class PPFormatter extends AbstractDeclarativeFormatter {
 	}
 
 	protected void functionCallConfiguration(FormattingConfig c) {
-		PPGrammarAccess ga = (PPGrammarAccess) getGrammarAccess();
-		c.setNoSpace().before(ga.getFunctionCallAccess().getLeftParenthesisKeyword_1_1());
-		c.setNoSpace().after(ga.getFunctionCallAccess().getLeftParenthesisKeyword_1_1());
-		c.setNoSpace().before(ga.getFunctionCallAccess().getRightParenthesisKeyword_1_3());
+		throw new RuntimeException("Configuring formatting using PPFormatter is deprecated");
+		// PPGrammarAccess ga = (PPGrammarAccess) getGrammarAccess();
+
+		// c.setNoSpace().before(ga.getFunctionCallAccess().getLeftParenthesisKeyword_1_1());
+		// c.setNoSpace().after(ga.getFunctionCallAccess().getLeftParenthesisKeyword_1_1());
+		//
+		// c.setNoSpace().after(ga.getFunctionCallAccess().getLeftParenthesisKeyword_1_1());
+		// c.setNoSpace().before(ga.getFunctionCallAccess().getRightParenthesisKeyword_1_3());
 	}
 
 	protected void ifExpressionConfiguration(FormattingConfig c) {

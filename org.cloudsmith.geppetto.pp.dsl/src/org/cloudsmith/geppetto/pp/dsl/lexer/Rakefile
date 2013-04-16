@@ -1,0 +1,101 @@
+# Debugging Helper utility that transforms the tokens expected by the Xtext generated parser
+# to the corresponding KW_xxx token names used in the external lexer
+# with a map to the token number produced by the Xtext generated lexer.
+# This helps when debugging the generated parser/lexer's KEYWORD_nn=token_int and matching
+# them with the handwritten external lexers KW_xxx.
+# If the external lexer and grammar have the exact same set of tokens/terminals the numbering
+# will be just an offset. If something is wrong, the output produced by this rakefile
+# (parser.ouput) is very valuable as it allows checking against the resulting external
+# lexers tokens.
+# 
+# To use this, simply execute "rake" and the files parser.tokens (original) and parser.output (mapped)
+# files appear. They are only for debugging and can be deleted.
+#
+# Note that if the language is updated with additional punktuation, the map below (operator to name) must
+# be updated.
+# 
+task :default => [:kwfix]
+
+task :kwfix => [:parser_output] do
+  puts "done"
+end
+
+file 'parser.output' => 'parser.tokens' do
+  # read file 
+  text = File.open("parser.tokens",'r') {|file| file.read() }
+  File.open("parser.output",'w') {|file| file.write(convert(text))}
+end
+
+def convert(text)
+  puts "converting"
+  # Map textual tokens to a token name
+  names = {
+'<<|' => 'LLCOLLECT',
+'\\\\${'=> 'ESC_DLR_BRACE',
+'!='  => 'NOT_EQ',
+'|>>' => 'RRCOLLECT',
+'${'  => 'DLR_BRACE',
+'!~'  => 'NOT_MATCHES',
+'+>'  => 'APPEND',
+'+='  => 'PLUS_EQ',
+'<-'  => 'IN_EDGE',
+'->'  => 'OUT_EDGE',
+'<='  => 'LT_EQ',
+'<<'  => 'LSHIFT',
+'<~'  => 'IN_EDGE_SUB',
+'<|'  => 'LCOLLECT',
+'=~'  => 'MATCHES',
+">="  => 'GT_EQ',
+'=='  => 'EQUALS',
+'=>'  => 'FARROW',
+'\\\\$' => 'ESC_DLR',
+'\\\\\\\''=> 'ESC_SQ',
+">>"  => 'RSHIFT',
+'\\\"' => 'ESC_DQ',
+'\\\\\\\\'=> 'ESC_ESC',
+'!'   => 'NOT',
+'"'   => 'DQ',
+'|>'  => 'RCOLLECT',
+'~>'  => 'OUT_EDGE_SUB',
+')'   => 'RPAR',
+'('   => 'LPAR',
+'\\\''  => 'SQ',
+'%'   => 'MODULO',
+'-'   => 'MINUS',
+','   => 'COMMA', 
+'+'   => 'PLUS',
+'*'   => 'MUL',
+';'   => 'SEMI',
+':'   => 'COLON',
+'/'   => 'SLASH',
+'.'   => 'DOT',
+'?'   => 'QMARK',
+'>'   => 'GT',
+'='   => 'EQ',
+'<'   => 'LT',
+'|'   => 'PIPE',
+'}'   => 'RBRACE',
+'@'   => 'AT',
+'['   => 'LBRACK',
+']'   => 'RBRACK',
+'{'   => 'LBRACE'
+  }
+  text.gsub!(/'(.*)'/) {
+    in_t = $1
+    result = names[in_t]
+    if result
+      result = "KW_" + result
+    else
+      result = "KW_" + in_t.upcase
+    end
+    result
+  }
+  text
+end
+
+task :parser_output => 'parser.output'
+
+file 'parser.tokens' => '../../../../../../../src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.tokens' do
+ cp '../../../../../../../src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.tokens', 'parser.tokens'
+end 
+

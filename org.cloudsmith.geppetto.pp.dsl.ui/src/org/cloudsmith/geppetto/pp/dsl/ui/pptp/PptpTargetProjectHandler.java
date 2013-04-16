@@ -155,7 +155,6 @@ public class PptpTargetProjectHandler {
 			log.error(e.getMessage());
 			uri = PuppetTarget.getDefault().getPlatformURI();
 		}
-
 		sync(targetProject, uri, "puppet-", monitor);
 		sync(targetProject, PptpResourceUtil.getFacter_1_6(), "facter-", monitor);
 	}

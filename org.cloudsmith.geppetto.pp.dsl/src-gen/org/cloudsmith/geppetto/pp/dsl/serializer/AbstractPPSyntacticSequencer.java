@@ -21,9 +21,11 @@ public abstract class AbstractPPSyntacticSequencer extends AbstractSyntacticSequ
 	protected AbstractElementAlias match_AttributeOperations_CommaKeyword_2_q;
 	protected AbstractElementAlias match_CollectExpression___LeftCurlyBracketKeyword_1_2_0_RightCurlyBracketKeyword_1_2_2__q;
 	protected AbstractElementAlias match_DefinitionArgumentList_CommaKeyword_3_q;
-	protected AbstractElementAlias match_FunctionCall_CommaKeyword_1_2_2_q;
+	protected AbstractElementAlias match_FunctionCall_CommaKeyword_1_1_2_q;
+	protected AbstractElementAlias match_LambdaParameters_CommaKeyword_1_q;
 	protected AbstractElementAlias match_LiteralHash_CommaKeyword_3_q;
 	protected AbstractElementAlias match_LiteralList_CommaKeyword_2_2_q;
+	protected AbstractElementAlias match_MethodCall_CommaKeyword_1_2_1_1_2_q;
 	protected AbstractElementAlias match_ResourceExpression_SemicolonKeyword_0_1_2_2_q;
 	protected AbstractElementAlias match_ResourceExpression_SemicolonKeyword_1_3_2_q;
 	protected AbstractElementAlias match_SelectorExpression_CommaKeyword_1_2_0_3_q;
@@ -34,9 +36,11 @@ public abstract class AbstractPPSyntacticSequencer extends AbstractSyntacticSequ
 		match_AttributeOperations_CommaKeyword_2_q = new TokenAlias(false, true, grammarAccess.getAttributeOperationsAccess().getCommaKeyword_2());
 		match_CollectExpression___LeftCurlyBracketKeyword_1_2_0_RightCurlyBracketKeyword_1_2_2__q = new GroupAlias(false, true, new TokenAlias(false, false, grammarAccess.getCollectExpressionAccess().getLeftCurlyBracketKeyword_1_2_0()), new TokenAlias(false, false, grammarAccess.getCollectExpressionAccess().getRightCurlyBracketKeyword_1_2_2()));
 		match_DefinitionArgumentList_CommaKeyword_3_q = new TokenAlias(false, true, grammarAccess.getDefinitionArgumentListAccess().getCommaKeyword_3());
-		match_FunctionCall_CommaKeyword_1_2_2_q = new TokenAlias(false, true, grammarAccess.getFunctionCallAccess().getCommaKeyword_1_2_2());
+		match_FunctionCall_CommaKeyword_1_1_2_q = new TokenAlias(false, true, grammarAccess.getFunctionCallAccess().getCommaKeyword_1_1_2());
+		match_LambdaParameters_CommaKeyword_1_q = new TokenAlias(false, true, grammarAccess.getLambdaParametersAccess().getCommaKeyword_1());
 		match_LiteralHash_CommaKeyword_3_q = new TokenAlias(false, true, grammarAccess.getLiteralHashAccess().getCommaKeyword_3());
 		match_LiteralList_CommaKeyword_2_2_q = new TokenAlias(false, true, grammarAccess.getLiteralListAccess().getCommaKeyword_2_2());
+		match_MethodCall_CommaKeyword_1_2_1_1_2_q = new TokenAlias(false, true, grammarAccess.getMethodCallAccess().getCommaKeyword_1_2_1_1_2());
 		match_ResourceExpression_SemicolonKeyword_0_1_2_2_q = new TokenAlias(false, true, grammarAccess.getResourceExpressionAccess().getSemicolonKeyword_0_1_2_2());
 		match_ResourceExpression_SemicolonKeyword_1_3_2_q = new TokenAlias(false, true, grammarAccess.getResourceExpressionAccess().getSemicolonKeyword_1_3_2());
 		match_SelectorExpression_CommaKeyword_1_2_0_3_q = new TokenAlias(false, true, grammarAccess.getSelectorExpressionAccess().getCommaKeyword_1_2_0_3());
@@ -44,9 +48,19 @@ public abstract class AbstractPPSyntacticSequencer extends AbstractSyntacticSequ
 	
 	@Override
 	protected String getUnassignedRuleCallToken(EObject semanticObject, RuleCall ruleCall, INode node) {
+		if(ruleCall.getRule() == grammarAccess.getLAMBDARule())
+			return getLAMBDAToken(semanticObject, ruleCall, node);
 		return "";
 	}
 	
+	/**
+	 * terminal LAMBDA : '{' WS '|';
+	 */
+	protected String getLAMBDAToken(EObject semanticObject, RuleCall ruleCall, INode node) {
+		if (node != null)
+			return getTokenText(node);
+		return "{ |";
+	}
 	
 	@Override
 	protected void emitUnassignedTokens(EObject semanticObject, ISynTransition transition, INode fromNode, INode toNode) {
@@ -60,12 +74,16 @@ public abstract class AbstractPPSyntacticSequencer extends AbstractSyntacticSequ
 				emit_CollectExpression___LeftCurlyBracketKeyword_1_2_0_RightCurlyBracketKeyword_1_2_2__q(semanticObject, getLastNavigableState(), syntaxNodes);
 			else if(match_DefinitionArgumentList_CommaKeyword_3_q.equals(syntax))
 				emit_DefinitionArgumentList_CommaKeyword_3_q(semanticObject, getLastNavigableState(), syntaxNodes);
-			else if(match_FunctionCall_CommaKeyword_1_2_2_q.equals(syntax))
-				emit_FunctionCall_CommaKeyword_1_2_2_q(semanticObject, getLastNavigableState(), syntaxNodes);
+			else if(match_FunctionCall_CommaKeyword_1_1_2_q.equals(syntax))
+				emit_FunctionCall_CommaKeyword_1_1_2_q(semanticObject, getLastNavigableState(), syntaxNodes);
+			else if(match_LambdaParameters_CommaKeyword_1_q.equals(syntax))
+				emit_LambdaParameters_CommaKeyword_1_q(semanticObject, getLastNavigableState(), syntaxNodes);
 			else if(match_LiteralHash_CommaKeyword_3_q.equals(syntax))
 				emit_LiteralHash_CommaKeyword_3_q(semanticObject, getLastNavigableState(), syntaxNodes);
 			else if(match_LiteralList_CommaKeyword_2_2_q.equals(syntax))
 				emit_LiteralList_CommaKeyword_2_2_q(semanticObject, getLastNavigableState(), syntaxNodes);
+			else if(match_MethodCall_CommaKeyword_1_2_1_1_2_q.equals(syntax))
+				emit_MethodCall_CommaKeyword_1_2_1_1_2_q(semanticObject, getLastNavigableState(), syntaxNodes);
 			else if(match_ResourceExpression_SemicolonKeyword_0_1_2_2_q.equals(syntax))
 				emit_ResourceExpression_SemicolonKeyword_0_1_2_2_q(semanticObject, getLastNavigableState(), syntaxNodes);
 			else if(match_ResourceExpression_SemicolonKeyword_1_3_2_q.equals(syntax))
@@ -104,7 +122,15 @@ public abstract class AbstractPPSyntacticSequencer extends AbstractSyntacticSequ
 	 * Syntax:
 	 *     ','?
 	 */
-	protected void emit_FunctionCall_CommaKeyword_1_2_2_q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
+	protected void emit_FunctionCall_CommaKeyword_1_1_2_q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
+		acceptNodes(transition, nodes);
+	}
+	
+	/**
+	 * Syntax:
+	 *     ','?
+	 */
+	protected void emit_LambdaParameters_CommaKeyword_1_q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
 		acceptNodes(transition, nodes);
 	}
 	
@@ -121,6 +147,14 @@ public abstract class AbstractPPSyntacticSequencer extends AbstractSyntacticSequ
 	 *     ','?
 	 */
 	protected void emit_LiteralList_CommaKeyword_2_2_q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
+		acceptNodes(transition, nodes);
+	}
+	
+	/**
+	 * Syntax:
+	 *     ','?
+	 */
+	protected void emit_MethodCall_CommaKeyword_1_2_1_1_2_q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
 		acceptNodes(transition, nodes);
 	}
 	

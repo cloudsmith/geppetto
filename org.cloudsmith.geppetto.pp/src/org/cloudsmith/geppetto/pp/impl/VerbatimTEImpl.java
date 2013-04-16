@@ -24,10 +24,10 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.cloudsmith.geppetto.pp.impl.VerbatimTEImpl#getText <em>Text</em>}</li>
+ * <li>{@link org.cloudsmith.geppetto.pp.impl.VerbatimTEImpl#getText <em>Text</em>}</li>
  * </ul>
  * </p>
- *
+ * 
  * @generated
  */
 public class VerbatimTEImpl extends TextExpressionImpl implements VerbatimTE {
@@ -35,6 +35,7 @@ public class VerbatimTEImpl extends TextExpressionImpl implements VerbatimTE {
 	 * The default value of the '{@link #getText() <em>Text</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @see #getText()
 	 * @generated
 	 * @ordered
@@ -45,6 +46,7 @@ public class VerbatimTEImpl extends TextExpressionImpl implements VerbatimTE {
 	 * The cached value of the '{@link #getText() <em>Text</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @see #getText()
 	 * @generated
 	 * @ordered
@@ -54,6 +56,7 @@ public class VerbatimTEImpl extends TextExpressionImpl implements VerbatimTE {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	protected VerbatimTEImpl() {
@@ -63,6 +66,7 @@ public class VerbatimTEImpl extends TextExpressionImpl implements VerbatimTE {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@Override
@@ -77,6 +81,7 @@ public class VerbatimTEImpl extends TextExpressionImpl implements VerbatimTE {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@Override
@@ -93,6 +98,7 @@ public class VerbatimTEImpl extends TextExpressionImpl implements VerbatimTE {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@Override
@@ -108,6 +114,7 @@ public class VerbatimTEImpl extends TextExpressionImpl implements VerbatimTE {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@Override
@@ -118,6 +125,7 @@ public class VerbatimTEImpl extends TextExpressionImpl implements VerbatimTE {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@Override
@@ -133,6 +141,7 @@ public class VerbatimTEImpl extends TextExpressionImpl implements VerbatimTE {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	public String getText() {
@@ -142,6 +151,7 @@ public class VerbatimTEImpl extends TextExpressionImpl implements VerbatimTE {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	public void setText(String newText) {
@@ -154,6 +164,7 @@ public class VerbatimTEImpl extends TextExpressionImpl implements VerbatimTE {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@Override

@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2011 Cloudsmith Inc. and other contributors, as listed below.
+ * Copyright (c) 2011, 2013 Cloudsmith Inc. and other contributors, as listed below.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -81,12 +81,14 @@ import org.eclipse.emf.ecore.plugin.EcorePlugin;
  * <!-- begin-user-doc -->
  * An implementation of the model <b>Factory</b>.
  * <!-- end-user-doc -->
+ * 
  * @generated
  */
 public class PPFactoryImpl extends EFactoryImpl implements PPFactory {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @deprecated
 	 * @generated
 	 */
@@ -99,6 +101,7 @@ public class PPFactoryImpl extends EFactoryImpl implements PPFactory {
 	 * Creates the default factory implementation.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	public static PPFactory init() {
@@ -118,6 +121,7 @@ public class PPFactoryImpl extends EFactoryImpl implements PPFactory {
 	 * Creates an instance of the factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	public PPFactoryImpl() {
@@ -127,6 +131,7 @@ public class PPFactoryImpl extends EFactoryImpl implements PPFactory {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@Override
@@ -252,6 +257,18 @@ public class PPFactoryImpl extends EFactoryImpl implements PPFactory {
 				return createLiteralClass();
 			case PPPackage.UNLESS_EXPRESSION:
 				return createUnlessExpression();
+			case PPPackage.NAMED_ACCESS_EXPRESSION:
+				return createNamedAccessExpression();
+			case PPPackage.METHOD_CALL:
+				return createMethodCall();
+			case PPPackage.WITH_LAMBDA_EXPRESSION:
+				return createWithLambdaExpression();
+			case PPPackage.JAVA_LAMBDA:
+				return createJavaLambda();
+			case PPPackage.RUBY_LAMBDA:
+				return createRubyLambda();
+			case PPPackage.SEPARATOR_EXPRESSION:
+				return createSeparatorExpression();
 			default:
 				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
@@ -260,6 +277,7 @@ public class PPFactoryImpl extends EFactoryImpl implements PPFactory {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	public AdditiveExpression createAdditiveExpression() {
@@ -270,6 +288,7 @@ public class PPFactoryImpl extends EFactoryImpl implements PPFactory {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	public AndExpression createAndExpression() {
@@ -280,6 +299,7 @@ public class PPFactoryImpl extends EFactoryImpl implements PPFactory {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	public AppendExpression createAppendExpression() {
@@ -290,6 +310,7 @@ public class PPFactoryImpl extends EFactoryImpl implements PPFactory {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	public AssignmentExpression createAssignmentExpression() {
@@ -300,6 +321,7 @@ public class PPFactoryImpl extends EFactoryImpl implements PPFactory {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	public AtExpression createAtExpression() {
@@ -310,6 +332,7 @@ public class PPFactoryImpl extends EFactoryImpl implements PPFactory {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	public AttributeOperation createAttributeOperation() {
@@ -320,6 +343,7 @@ public class PPFactoryImpl extends EFactoryImpl implements PPFactory {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	public AttributeOperations createAttributeOperations() {
@@ -330,6 +354,7 @@ public class PPFactoryImpl extends EFactoryImpl implements PPFactory {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	public Case createCase() {
@@ -340,6 +365,7 @@ public class PPFactoryImpl extends EFactoryImpl implements PPFactory {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	public CaseExpression createCaseExpression() {
@@ -350,6 +376,7 @@ public class PPFactoryImpl extends EFactoryImpl implements PPFactory {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	public CollectExpression createCollectExpression() {
@@ -360,6 +387,7 @@ public class PPFactoryImpl extends EFactoryImpl implements PPFactory {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	public Definition createDefinition() {
@@ -370,6 +398,7 @@ public class PPFactoryImpl extends EFactoryImpl implements PPFactory {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	public DefinitionArgument createDefinitionArgument() {
@@ -380,6 +409,7 @@ public class PPFactoryImpl extends EFactoryImpl implements PPFactory {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	public DefinitionArgumentList createDefinitionArgumentList() {
@@ -390,6 +420,7 @@ public class PPFactoryImpl extends EFactoryImpl implements PPFactory {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	public DoubleQuotedString createDoubleQuotedString() {
@@ -400,6 +431,7 @@ public class PPFactoryImpl extends EFactoryImpl implements PPFactory {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	public ElseExpression createElseExpression() {
@@ -410,6 +442,7 @@ public class PPFactoryImpl extends EFactoryImpl implements PPFactory {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	public ElseIfExpression createElseIfExpression() {
@@ -420,6 +453,7 @@ public class PPFactoryImpl extends EFactoryImpl implements PPFactory {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	public EqualityExpression createEqualityExpression() {
@@ -430,6 +464,7 @@ public class PPFactoryImpl extends EFactoryImpl implements PPFactory {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	public ExportedCollectQuery createExportedCollectQuery() {
@@ -440,6 +475,7 @@ public class PPFactoryImpl extends EFactoryImpl implements PPFactory {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	public Expression createExpression() {
@@ -450,6 +486,7 @@ public class PPFactoryImpl extends EFactoryImpl implements PPFactory {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	public ExpressionTE createExpressionTE() {
@@ -460,6 +497,7 @@ public class PPFactoryImpl extends EFactoryImpl implements PPFactory {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	public ExprList createExprList() {
@@ -470,6 +508,7 @@ public class PPFactoryImpl extends EFactoryImpl implements PPFactory {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	public FunctionCall createFunctionCall() {
@@ -480,6 +519,7 @@ public class PPFactoryImpl extends EFactoryImpl implements PPFactory {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	public HashEntry createHashEntry() {
@@ -490,6 +530,7 @@ public class PPFactoryImpl extends EFactoryImpl implements PPFactory {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	public HostClassDefinition createHostClassDefinition() {
@@ -500,6 +541,7 @@ public class PPFactoryImpl extends EFactoryImpl implements PPFactory {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	public IfExpression createIfExpression() {
@@ -510,6 +552,7 @@ public class PPFactoryImpl extends EFactoryImpl implements PPFactory {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	public ImportExpression createImportExpression() {
@@ -520,6 +563,7 @@ public class PPFactoryImpl extends EFactoryImpl implements PPFactory {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	public InExpression createInExpression() {
@@ -530,6 +574,7 @@ public class PPFactoryImpl extends EFactoryImpl implements PPFactory {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	public InterpolatedVariable createInterpolatedVariable() {
@@ -540,6 +585,18 @@ public class PPFactoryImpl extends EFactoryImpl implements PPFactory {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
+	public JavaLambda createJavaLambda() {
+		JavaLambdaImpl javaLambda = new JavaLambdaImpl();
+		return javaLambda;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	public LiteralBoolean createLiteralBoolean() {
@@ -550,6 +607,7 @@ public class PPFactoryImpl extends EFactoryImpl implements PPFactory {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	public LiteralClass createLiteralClass() {
@@ -560,16 +618,7 @@ public class PPFactoryImpl extends EFactoryImpl implements PPFactory {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public UnlessExpression createUnlessExpression() {
-		UnlessExpressionImpl unlessExpression = new UnlessExpressionImpl();
-		return unlessExpression;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	public LiteralDefault createLiteralDefault() {
@@ -580,6 +629,7 @@ public class PPFactoryImpl extends EFactoryImpl implements PPFactory {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	public LiteralHash createLiteralHash() {
@@ -590,6 +640,7 @@ public class PPFactoryImpl extends EFactoryImpl implements PPFactory {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	public LiteralList createLiteralList() {
@@ -600,6 +651,7 @@ public class PPFactoryImpl extends EFactoryImpl implements PPFactory {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	public LiteralName createLiteralName() {
@@ -610,6 +662,7 @@ public class PPFactoryImpl extends EFactoryImpl implements PPFactory {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	public LiteralNameOrReference createLiteralNameOrReference() {
@@ -620,6 +673,7 @@ public class PPFactoryImpl extends EFactoryImpl implements PPFactory {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	public LiteralRegex createLiteralRegex() {
@@ -630,6 +684,7 @@ public class PPFactoryImpl extends EFactoryImpl implements PPFactory {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	public LiteralUndef createLiteralUndef() {
@@ -640,6 +695,7 @@ public class PPFactoryImpl extends EFactoryImpl implements PPFactory {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	public MatchingExpression createMatchingExpression() {
@@ -650,6 +706,18 @@ public class PPFactoryImpl extends EFactoryImpl implements PPFactory {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
+	public MethodCall createMethodCall() {
+		MethodCallImpl methodCall = new MethodCallImpl();
+		return methodCall;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	public MultiplicativeExpression createMultiplicativeExpression() {
@@ -660,6 +728,18 @@ public class PPFactoryImpl extends EFactoryImpl implements PPFactory {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
+	public NamedAccessExpression createNamedAccessExpression() {
+		NamedAccessExpressionImpl namedAccessExpression = new NamedAccessExpressionImpl();
+		return namedAccessExpression;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	public NodeDefinition createNodeDefinition() {
@@ -670,6 +750,7 @@ public class PPFactoryImpl extends EFactoryImpl implements PPFactory {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	public OrExpression createOrExpression() {
@@ -680,6 +761,7 @@ public class PPFactoryImpl extends EFactoryImpl implements PPFactory {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	public ParenthesisedExpression createParenthesisedExpression() {
@@ -690,6 +772,7 @@ public class PPFactoryImpl extends EFactoryImpl implements PPFactory {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	public PuppetManifest createPuppetManifest() {
@@ -700,6 +783,7 @@ public class PPFactoryImpl extends EFactoryImpl implements PPFactory {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	public RelationalExpression createRelationalExpression() {
@@ -710,6 +794,7 @@ public class PPFactoryImpl extends EFactoryImpl implements PPFactory {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	public RelationshipExpression createRelationshipExpression() {
@@ -720,6 +805,7 @@ public class PPFactoryImpl extends EFactoryImpl implements PPFactory {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	public ResourceBody createResourceBody() {
@@ -730,6 +816,7 @@ public class PPFactoryImpl extends EFactoryImpl implements PPFactory {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	public ResourceExpression createResourceExpression() {
@@ -740,6 +827,18 @@ public class PPFactoryImpl extends EFactoryImpl implements PPFactory {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
+	public RubyLambda createRubyLambda() {
+		RubyLambdaImpl rubyLambda = new RubyLambdaImpl();
+		return rubyLambda;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	public SelectorEntry createSelectorEntry() {
@@ -750,6 +849,7 @@ public class PPFactoryImpl extends EFactoryImpl implements PPFactory {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	public SelectorExpression createSelectorExpression() {
@@ -760,6 +860,18 @@ public class PPFactoryImpl extends EFactoryImpl implements PPFactory {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
+	public SeparatorExpression createSeparatorExpression() {
+		SeparatorExpressionImpl separatorExpression = new SeparatorExpressionImpl();
+		return separatorExpression;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	public ShiftExpression createShiftExpression() {
@@ -770,6 +882,7 @@ public class PPFactoryImpl extends EFactoryImpl implements PPFactory {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	public SingleQuotedString createSingleQuotedString() {
@@ -780,6 +893,7 @@ public class PPFactoryImpl extends EFactoryImpl implements PPFactory {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	public UnaryMinusExpression createUnaryMinusExpression() {
@@ -790,6 +904,7 @@ public class PPFactoryImpl extends EFactoryImpl implements PPFactory {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	public UnaryNotExpression createUnaryNotExpression() {
@@ -800,6 +915,18 @@ public class PPFactoryImpl extends EFactoryImpl implements PPFactory {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
+	public UnlessExpression createUnlessExpression() {
+		UnlessExpressionImpl unlessExpression = new UnlessExpressionImpl();
+		return unlessExpression;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	public UnquotedString createUnquotedString() {
@@ -810,6 +937,7 @@ public class PPFactoryImpl extends EFactoryImpl implements PPFactory {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	public VariableExpression createVariableExpression() {
@@ -820,6 +948,7 @@ public class PPFactoryImpl extends EFactoryImpl implements PPFactory {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	public VariableTE createVariableTE() {
@@ -830,6 +959,7 @@ public class PPFactoryImpl extends EFactoryImpl implements PPFactory {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	public VerbatimTE createVerbatimTE() {
@@ -840,6 +970,7 @@ public class PPFactoryImpl extends EFactoryImpl implements PPFactory {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	public VirtualCollectQuery createVirtualCollectQuery() {
@@ -850,6 +981,7 @@ public class PPFactoryImpl extends EFactoryImpl implements PPFactory {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	public VirtualNameOrReference createVirtualNameOrReference() {
@@ -860,6 +992,18 @@ public class PPFactoryImpl extends EFactoryImpl implements PPFactory {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
+	public WithLambdaExpression createWithLambdaExpression() {
+		WithLambdaExpressionImpl withLambdaExpression = new WithLambdaExpressionImpl();
+		return withLambdaExpression;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	public PPPackage getPPPackage() {

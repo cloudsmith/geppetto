@@ -28,12 +28,12 @@ import org.eclipse.emf.ecore.impl.EObjectImpl;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.cloudsmith.geppetto.pp.impl.DefinitionArgumentImpl#getArgName <em>Arg Name</em>}</li>
- *   <li>{@link org.cloudsmith.geppetto.pp.impl.DefinitionArgumentImpl#getValue <em>Value</em>}</li>
- *   <li>{@link org.cloudsmith.geppetto.pp.impl.DefinitionArgumentImpl#getOp <em>Op</em>}</li>
+ * <li>{@link org.cloudsmith.geppetto.pp.impl.DefinitionArgumentImpl#getArgName <em>Arg Name</em>}</li>
+ * <li>{@link org.cloudsmith.geppetto.pp.impl.DefinitionArgumentImpl#getValue <em>Value</em>}</li>
+ * <li>{@link org.cloudsmith.geppetto.pp.impl.DefinitionArgumentImpl#getOp <em>Op</em>}</li>
  * </ul>
  * </p>
- *
+ * 
  * @generated
  */
 public class DefinitionArgumentImpl extends EObjectImpl implements DefinitionArgument {
@@ -41,6 +41,7 @@ public class DefinitionArgumentImpl extends EObjectImpl implements DefinitionArg
 	 * The default value of the '{@link #getArgName() <em>Arg Name</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @see #getArgName()
 	 * @generated
 	 * @ordered
@@ -51,6 +52,7 @@ public class DefinitionArgumentImpl extends EObjectImpl implements DefinitionArg
 	 * The cached value of the '{@link #getArgName() <em>Arg Name</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @see #getArgName()
 	 * @generated
 	 * @ordered
@@ -61,6 +63,7 @@ public class DefinitionArgumentImpl extends EObjectImpl implements DefinitionArg
 	 * The cached value of the '{@link #getValue() <em>Value</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @see #getValue()
 	 * @generated
 	 * @ordered
@@ -71,6 +74,7 @@ public class DefinitionArgumentImpl extends EObjectImpl implements DefinitionArg
 	 * The default value of the '{@link #getOp() <em>Op</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @see #getOp()
 	 * @generated
 	 * @ordered
@@ -81,6 +85,7 @@ public class DefinitionArgumentImpl extends EObjectImpl implements DefinitionArg
 	 * The cached value of the '{@link #getOp() <em>Op</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @see #getOp()
 	 * @generated
 	 * @ordered
@@ -90,6 +95,7 @@ public class DefinitionArgumentImpl extends EObjectImpl implements DefinitionArg
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	protected DefinitionArgumentImpl() {
@@ -99,6 +105,7 @@ public class DefinitionArgumentImpl extends EObjectImpl implements DefinitionArg
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	public NotificationChain basicSetValue(Expression newValue, NotificationChain msgs) {
@@ -118,6 +125,7 @@ public class DefinitionArgumentImpl extends EObjectImpl implements DefinitionArg
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@Override
@@ -136,6 +144,7 @@ public class DefinitionArgumentImpl extends EObjectImpl implements DefinitionArg
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@Override
@@ -150,6 +159,7 @@ public class DefinitionArgumentImpl extends EObjectImpl implements DefinitionArg
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@Override
@@ -172,6 +182,7 @@ public class DefinitionArgumentImpl extends EObjectImpl implements DefinitionArg
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@Override
@@ -193,6 +204,7 @@ public class DefinitionArgumentImpl extends EObjectImpl implements DefinitionArg
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@Override
@@ -203,6 +215,7 @@ public class DefinitionArgumentImpl extends EObjectImpl implements DefinitionArg
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@Override
@@ -224,6 +237,7 @@ public class DefinitionArgumentImpl extends EObjectImpl implements DefinitionArg
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	public String getArgName() {
@@ -233,6 +247,7 @@ public class DefinitionArgumentImpl extends EObjectImpl implements DefinitionArg
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	public String getOp() {
@@ -242,6 +257,7 @@ public class DefinitionArgumentImpl extends EObjectImpl implements DefinitionArg
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	public Expression getValue() {
@@ -251,6 +267,7 @@ public class DefinitionArgumentImpl extends EObjectImpl implements DefinitionArg
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	public void setArgName(String newArgName) {
@@ -264,6 +281,7 @@ public class DefinitionArgumentImpl extends EObjectImpl implements DefinitionArg
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	public void setOp(String newOp) {
@@ -276,6 +294,7 @@ public class DefinitionArgumentImpl extends EObjectImpl implements DefinitionArg
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	public void setValue(Expression newValue) {
@@ -299,6 +318,7 @@ public class DefinitionArgumentImpl extends EObjectImpl implements DefinitionArg
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@Override

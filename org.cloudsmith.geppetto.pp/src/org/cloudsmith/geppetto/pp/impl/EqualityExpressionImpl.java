@@ -21,13 +21,14 @@ import org.eclipse.emf.ecore.EClass;
  * <!-- end-user-doc -->
  * <p>
  * </p>
- *
+ * 
  * @generated
  */
 public class EqualityExpressionImpl extends BinaryOpExpressionImpl implements EqualityExpression {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	protected EqualityExpressionImpl() {
@@ -37,6 +38,7 @@ public class EqualityExpressionImpl extends BinaryOpExpressionImpl implements Eq
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@Override

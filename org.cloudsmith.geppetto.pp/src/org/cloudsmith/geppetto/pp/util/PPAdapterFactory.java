@@ -91,6 +91,7 @@ import org.eclipse.emf.ecore.EObject;
  * The <b>Adapter Factory</b> for the model.
  * It provides an adapter <code>createXXX</code> method for each class of the model.
  * <!-- end-user-doc -->
+ * 
  * @see org.cloudsmith.geppetto.pp.PPPackage
  * @generated
  */
@@ -99,6 +100,7 @@ public class PPAdapterFactory extends AdapterFactoryImpl {
 	 * The cached model package.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	protected static PPPackage modelPackage;
@@ -107,22 +109,33 @@ public class PPAdapterFactory extends AdapterFactoryImpl {
 	 * The switch that delegates to the <code>createXXX</code> methods.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	protected PPSwitch<Adapter> modelSwitch = new PPSwitch<Adapter>() {
 		@Override
-		public Adapter casePuppetManifest(PuppetManifest object) {
-			return createPuppetManifestAdapter();
+		public Adapter caseAdditiveExpression(AdditiveExpression object) {
+			return createAdditiveExpressionAdapter();
 		}
 
 		@Override
-		public Adapter caseExpression(Expression object) {
-			return createExpressionAdapter();
+		public Adapter caseAndExpression(AndExpression object) {
+			return createAndExpressionAdapter();
 		}
 
 		@Override
-		public Adapter caseResourceBody(ResourceBody object) {
-			return createResourceBodyAdapter();
+		public Adapter caseAppendExpression(AppendExpression object) {
+			return createAppendExpressionAdapter();
+		}
+
+		@Override
+		public Adapter caseAssignmentExpression(AssignmentExpression object) {
+			return createAssignmentExpressionAdapter();
+		}
+
+		@Override
+		public Adapter caseAtExpression(AtExpression object) {
+			return createAtExpressionAdapter();
 		}
 
 		@Override
@@ -136,203 +149,8 @@ public class PPAdapterFactory extends AdapterFactoryImpl {
 		}
 
 		@Override
-		public Adapter caseICollectQuery(ICollectQuery object) {
-			return createICollectQueryAdapter();
-		}
-
-		@Override
-		public Adapter caseVirtualCollectQuery(VirtualCollectQuery object) {
-			return createVirtualCollectQueryAdapter();
-		}
-
-		@Override
-		public Adapter caseExportedCollectQuery(ExportedCollectQuery object) {
-			return createExportedCollectQueryAdapter();
-		}
-
-		@Override
-		public Adapter caseHostClassDefinition(HostClassDefinition object) {
-			return createHostClassDefinitionAdapter();
-		}
-
-		@Override
-		public Adapter caseDefinition(Definition object) {
-			return createDefinitionAdapter();
-		}
-
-		@Override
-		public Adapter caseDefinitionArgumentList(DefinitionArgumentList object) {
-			return createDefinitionArgumentListAdapter();
-		}
-
-		@Override
-		public Adapter caseDefinitionArgument(DefinitionArgument object) {
-			return createDefinitionArgumentAdapter();
-		}
-
-		@Override
-		public Adapter caseCaseExpression(CaseExpression object) {
-			return createCaseExpressionAdapter();
-		}
-
-		@Override
-		public Adapter caseCase(Case object) {
-			return createCaseAdapter();
-		}
-
-		@Override
-		public Adapter caseIfExpression(IfExpression object) {
-			return createIfExpressionAdapter();
-		}
-
-		@Override
-		public Adapter caseLiteralExpression(LiteralExpression object) {
-			return createLiteralExpressionAdapter();
-		}
-
-		@Override
-		public Adapter caseLiteralNameOrReference(LiteralNameOrReference object) {
-			return createLiteralNameOrReferenceAdapter();
-		}
-
-		@Override
-		public Adapter caseResourceExpression(ResourceExpression object) {
-			return createResourceExpressionAdapter();
-		}
-
-		@Override
-		public Adapter caseImportExpression(ImportExpression object) {
-			return createImportExpressionAdapter();
-		}
-
-		@Override
-		public Adapter caseLiteralList(LiteralList object) {
-			return createLiteralListAdapter();
-		}
-
-		@Override
-		public Adapter caseLiteralHash(LiteralHash object) {
-			return createLiteralHashAdapter();
-		}
-
-		@Override
-		public Adapter caseHashEntry(HashEntry object) {
-			return createHashEntryAdapter();
-		}
-
-		@Override
-		public Adapter caseLiteralBoolean(LiteralBoolean object) {
-			return createLiteralBooleanAdapter();
-		}
-
-		@Override
-		public Adapter caseLiteralUndef(LiteralUndef object) {
-			return createLiteralUndefAdapter();
-		}
-
-		@Override
-		public Adapter caseLiteralDefault(LiteralDefault object) {
-			return createLiteralDefaultAdapter();
-		}
-
-		@Override
-		public Adapter caseLiteralRegex(LiteralRegex object) {
-			return createLiteralRegexAdapter();
-		}
-
-		@Override
-		public Adapter caseLiteralName(LiteralName object) {
-			return createLiteralNameAdapter();
-		}
-
-		@Override
-		public Adapter caseVariableExpression(VariableExpression object) {
-			return createVariableExpressionAdapter();
-		}
-
-		@Override
-		public Adapter caseRelationshipExpression(RelationshipExpression object) {
-			return createRelationshipExpressionAdapter();
-		}
-
-		@Override
-		public Adapter caseAssignmentExpression(AssignmentExpression object) {
-			return createAssignmentExpressionAdapter();
-		}
-
-		@Override
-		public Adapter caseAppendExpression(AppendExpression object) {
-			return createAppendExpressionAdapter();
-		}
-
-		@Override
-		public Adapter caseOrExpression(OrExpression object) {
-			return createOrExpressionAdapter();
-		}
-
-		@Override
-		public Adapter caseAndExpression(AndExpression object) {
-			return createAndExpressionAdapter();
-		}
-
-		@Override
-		public Adapter caseRelationalExpression(RelationalExpression object) {
-			return createRelationalExpressionAdapter();
-		}
-
-		@Override
-		public Adapter caseEqualityExpression(EqualityExpression object) {
-			return createEqualityExpressionAdapter();
-		}
-
-		@Override
-		public Adapter caseShiftExpression(ShiftExpression object) {
-			return createShiftExpressionAdapter();
-		}
-
-		@Override
-		public Adapter caseAdditiveExpression(AdditiveExpression object) {
-			return createAdditiveExpressionAdapter();
-		}
-
-		@Override
-		public Adapter caseMultiplicativeExpression(MultiplicativeExpression object) {
-			return createMultiplicativeExpressionAdapter();
-		}
-
-		@Override
-		public Adapter caseMatchingExpression(MatchingExpression object) {
-			return createMatchingExpressionAdapter();
-		}
-
-		@Override
-		public Adapter caseInExpression(InExpression object) {
-			return createInExpressionAdapter();
-		}
-
-		@Override
-		public Adapter caseAtExpression(AtExpression object) {
-			return createAtExpressionAdapter();
-		}
-
-		@Override
-		public Adapter caseCollectExpression(CollectExpression object) {
-			return createCollectExpressionAdapter();
-		}
-
-		@Override
-		public Adapter caseSelectorExpression(SelectorExpression object) {
-			return createSelectorExpressionAdapter();
-		}
-
-		@Override
-		public Adapter caseSelectorEntry(SelectorEntry object) {
-			return createSelectorEntryAdapter();
-		}
-
-		@Override
-		public Adapter caseFunctionCall(FunctionCall object) {
-			return createFunctionCallAdapter();
+		public Adapter caseBinaryExpression(BinaryExpression object) {
+			return createBinaryExpressionAdapter();
 		}
 
 		@Override
@@ -341,8 +159,213 @@ public class PPAdapterFactory extends AdapterFactoryImpl {
 		}
 
 		@Override
-		public Adapter caseBinaryExpression(BinaryExpression object) {
-			return createBinaryExpressionAdapter();
+		public Adapter caseCase(Case object) {
+			return createCaseAdapter();
+		}
+
+		@Override
+		public Adapter caseCaseExpression(CaseExpression object) {
+			return createCaseExpressionAdapter();
+		}
+
+		@Override
+		public Adapter caseCollectExpression(CollectExpression object) {
+			return createCollectExpressionAdapter();
+		}
+
+		@Override
+		public Adapter caseDefinition(Definition object) {
+			return createDefinitionAdapter();
+		}
+
+		@Override
+		public Adapter caseDefinitionArgument(DefinitionArgument object) {
+			return createDefinitionArgumentAdapter();
+		}
+
+		@Override
+		public Adapter caseDefinitionArgumentList(DefinitionArgumentList object) {
+			return createDefinitionArgumentListAdapter();
+		}
+
+		@Override
+		public Adapter caseDoubleQuotedString(DoubleQuotedString object) {
+			return createDoubleQuotedStringAdapter();
+		}
+
+		@Override
+		public Adapter caseElseExpression(ElseExpression object) {
+			return createElseExpressionAdapter();
+		}
+
+		@Override
+		public Adapter caseElseIfExpression(ElseIfExpression object) {
+			return createElseIfExpressionAdapter();
+		}
+
+		@Override
+		public Adapter caseEqualityExpression(EqualityExpression object) {
+			return createEqualityExpressionAdapter();
+		}
+
+		@Override
+		public Adapter caseExportedCollectQuery(ExportedCollectQuery object) {
+			return createExportedCollectQueryAdapter();
+		}
+
+		@Override
+		public Adapter caseExpression(Expression object) {
+			return createExpressionAdapter();
+		}
+
+		@Override
+		public Adapter caseExpressionBlock(ExpressionBlock object) {
+			return createExpressionBlockAdapter();
+		}
+
+		@Override
+		public Adapter caseExpressionTE(ExpressionTE object) {
+			return createExpressionTEAdapter();
+		}
+
+		@Override
+		public Adapter caseExprList(ExprList object) {
+			return createExprListAdapter();
+		}
+
+		@Override
+		public Adapter caseFunctionCall(FunctionCall object) {
+			return createFunctionCallAdapter();
+		}
+
+		@Override
+		public Adapter caseHashEntry(HashEntry object) {
+			return createHashEntryAdapter();
+		}
+
+		@Override
+		public Adapter caseHostClassDefinition(HostClassDefinition object) {
+			return createHostClassDefinitionAdapter();
+		}
+
+		@Override
+		public Adapter caseICollectQuery(ICollectQuery object) {
+			return createICollectQueryAdapter();
+		}
+
+		@Override
+		public Adapter caseIfExpression(IfExpression object) {
+			return createIfExpressionAdapter();
+		}
+
+		@Override
+		public Adapter caseImportExpression(ImportExpression object) {
+			return createImportExpressionAdapter();
+		}
+
+		@Override
+		public Adapter caseInExpression(InExpression object) {
+			return createInExpressionAdapter();
+		}
+
+		@Override
+		public Adapter caseInterpolatedVariable(InterpolatedVariable object) {
+			return createInterpolatedVariableAdapter();
+		}
+
+		@Override
+		public Adapter caseIQuotedString(IQuotedString object) {
+			return createIQuotedStringAdapter();
+		}
+
+		@Override
+		public Adapter caseJavaLambda(JavaLambda object) {
+			return createJavaLambdaAdapter();
+		}
+
+		@Override
+		public Adapter caseLambda(Lambda object) {
+			return createLambdaAdapter();
+		}
+
+		@Override
+		public Adapter caseLiteralBoolean(LiteralBoolean object) {
+			return createLiteralBooleanAdapter();
+		}
+
+		@Override
+		public Adapter caseLiteralClass(LiteralClass object) {
+			return createLiteralClassAdapter();
+		}
+
+		@Override
+		public Adapter caseLiteralDefault(LiteralDefault object) {
+			return createLiteralDefaultAdapter();
+		}
+
+		@Override
+		public Adapter caseLiteralExpression(LiteralExpression object) {
+			return createLiteralExpressionAdapter();
+		}
+
+		@Override
+		public Adapter caseLiteralHash(LiteralHash object) {
+			return createLiteralHashAdapter();
+		}
+
+		@Override
+		public Adapter caseLiteralList(LiteralList object) {
+			return createLiteralListAdapter();
+		}
+
+		@Override
+		public Adapter caseLiteralName(LiteralName object) {
+			return createLiteralNameAdapter();
+		}
+
+		@Override
+		public Adapter caseLiteralNameOrReference(LiteralNameOrReference object) {
+			return createLiteralNameOrReferenceAdapter();
+		}
+
+		@Override
+		public Adapter caseLiteralRegex(LiteralRegex object) {
+			return createLiteralRegexAdapter();
+		}
+
+		@Override
+		public Adapter caseLiteralUndef(LiteralUndef object) {
+			return createLiteralUndefAdapter();
+		}
+
+		@Override
+		public Adapter caseMatchingExpression(MatchingExpression object) {
+			return createMatchingExpressionAdapter();
+		}
+
+		@Override
+		public Adapter caseMethodCall(MethodCall object) {
+			return createMethodCallAdapter();
+		}
+
+		@Override
+		public Adapter caseMultiplicativeExpression(MultiplicativeExpression object) {
+			return createMultiplicativeExpressionAdapter();
+		}
+
+		@Override
+		public Adapter caseNamedAccessExpression(NamedAccessExpression object) {
+			return createNamedAccessExpressionAdapter();
+		}
+
+		@Override
+		public Adapter caseNodeDefinition(NodeDefinition object) {
+			return createNodeDefinitionAdapter();
+		}
+
+		@Override
+		public Adapter caseOrExpression(OrExpression object) {
+			return createOrExpressionAdapter();
 		}
 
 		@Override
@@ -351,8 +374,73 @@ public class PPAdapterFactory extends AdapterFactoryImpl {
 		}
 
 		@Override
-		public Adapter caseNodeDefinition(NodeDefinition object) {
-			return createNodeDefinitionAdapter();
+		public Adapter caseParenthesisedExpression(ParenthesisedExpression object) {
+			return createParenthesisedExpressionAdapter();
+		}
+
+		@Override
+		public Adapter casePuppetManifest(PuppetManifest object) {
+			return createPuppetManifestAdapter();
+		}
+
+		@Override
+		public Adapter caseRelationalExpression(RelationalExpression object) {
+			return createRelationalExpressionAdapter();
+		}
+
+		@Override
+		public Adapter caseRelationshipExpression(RelationshipExpression object) {
+			return createRelationshipExpressionAdapter();
+		}
+
+		@Override
+		public Adapter caseResourceBody(ResourceBody object) {
+			return createResourceBodyAdapter();
+		}
+
+		@Override
+		public Adapter caseResourceExpression(ResourceExpression object) {
+			return createResourceExpressionAdapter();
+		}
+
+		@Override
+		public Adapter caseRubyLambda(RubyLambda object) {
+			return createRubyLambdaAdapter();
+		}
+
+		@Override
+		public Adapter caseSelectorEntry(SelectorEntry object) {
+			return createSelectorEntryAdapter();
+		}
+
+		@Override
+		public Adapter caseSelectorExpression(SelectorExpression object) {
+			return createSelectorExpressionAdapter();
+		}
+
+		@Override
+		public Adapter caseSeparatorExpression(SeparatorExpression object) {
+			return createSeparatorExpressionAdapter();
+		}
+
+		@Override
+		public Adapter caseShiftExpression(ShiftExpression object) {
+			return createShiftExpressionAdapter();
+		}
+
+		@Override
+		public Adapter caseSingleQuotedString(SingleQuotedString object) {
+			return createSingleQuotedStringAdapter();
+		}
+
+		@Override
+		public Adapter caseStringExpression(StringExpression object) {
+			return createStringExpressionAdapter();
+		}
+
+		@Override
+		public Adapter caseTextExpression(TextExpression object) {
+			return createTextExpressionAdapter();
 		}
 
 		@Override
@@ -371,48 +459,8 @@ public class PPAdapterFactory extends AdapterFactoryImpl {
 		}
 
 		@Override
-		public Adapter caseExpressionBlock(ExpressionBlock object) {
-			return createExpressionBlockAdapter();
-		}
-
-		@Override
-		public Adapter caseElseExpression(ElseExpression object) {
-			return createElseExpressionAdapter();
-		}
-
-		@Override
-		public Adapter caseElseIfExpression(ElseIfExpression object) {
-			return createElseIfExpressionAdapter();
-		}
-
-		@Override
-		public Adapter caseVirtualNameOrReference(VirtualNameOrReference object) {
-			return createVirtualNameOrReferenceAdapter();
-		}
-
-		@Override
-		public Adapter caseParenthesisedExpression(ParenthesisedExpression object) {
-			return createParenthesisedExpressionAdapter();
-		}
-
-		@Override
-		public Adapter caseExprList(ExprList object) {
-			return createExprListAdapter();
-		}
-
-		@Override
-		public Adapter caseDoubleQuotedString(DoubleQuotedString object) {
-			return createDoubleQuotedStringAdapter();
-		}
-
-		@Override
-		public Adapter caseSingleQuotedString(SingleQuotedString object) {
-			return createSingleQuotedStringAdapter();
-		}
-
-		@Override
-		public Adapter caseStringExpression(StringExpression object) {
-			return createStringExpressionAdapter();
+		public Adapter caseUnlessExpression(UnlessExpression object) {
+			return createUnlessExpressionAdapter();
 		}
 
 		@Override
@@ -421,28 +469,8 @@ public class PPAdapterFactory extends AdapterFactoryImpl {
 		}
 
 		@Override
-		public Adapter caseIQuotedString(IQuotedString object) {
-			return createIQuotedStringAdapter();
-		}
-
-		@Override
-		public Adapter caseInterpolatedVariable(InterpolatedVariable object) {
-			return createInterpolatedVariableAdapter();
-		}
-
-		@Override
-		public Adapter caseTextExpression(TextExpression object) {
-			return createTextExpressionAdapter();
-		}
-
-		@Override
-		public Adapter caseVerbatimTE(VerbatimTE object) {
-			return createVerbatimTEAdapter();
-		}
-
-		@Override
-		public Adapter caseExpressionTE(ExpressionTE object) {
-			return createExpressionTEAdapter();
+		public Adapter caseVariableExpression(VariableExpression object) {
+			return createVariableExpressionAdapter();
 		}
 
 		@Override
@@ -451,13 +479,23 @@ public class PPAdapterFactory extends AdapterFactoryImpl {
 		}
 
 		@Override
-		public Adapter caseLiteralClass(LiteralClass object) {
-			return createLiteralClassAdapter();
+		public Adapter caseVerbatimTE(VerbatimTE object) {
+			return createVerbatimTEAdapter();
 		}
 
 		@Override
-		public Adapter caseUnlessExpression(UnlessExpression object) {
-			return createUnlessExpressionAdapter();
+		public Adapter caseVirtualCollectQuery(VirtualCollectQuery object) {
+			return createVirtualCollectQueryAdapter();
+		}
+
+		@Override
+		public Adapter caseVirtualNameOrReference(VirtualNameOrReference object) {
+			return createVirtualNameOrReferenceAdapter();
+		}
+
+		@Override
+		public Adapter caseWithLambdaExpression(WithLambdaExpression object) {
+			return createWithLambdaExpressionAdapter();
 		}
 
 		@Override
@@ -470,6 +508,7 @@ public class PPAdapterFactory extends AdapterFactoryImpl {
 	 * Creates an instance of the adapter factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	public PPAdapterFactory() {
@@ -482,7 +521,9 @@ public class PPAdapterFactory extends AdapterFactoryImpl {
 	 * Creates an adapter for the <code>target</code>.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param target the object to adapt.
+	 * 
+	 * @param target
+	 *            the object to adapt.
 	 * @return the adapter for the <code>target</code>.
 	 * @generated
 	 */
@@ -497,6 +538,7 @@ public class PPAdapterFactory extends AdapterFactoryImpl {
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
+	 * 
 	 * @return the new adapter.
 	 * @see org.cloudsmith.geppetto.pp.AdditiveExpression
 	 * @generated
@@ -511,6 +553,7 @@ public class PPAdapterFactory extends AdapterFactoryImpl {
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
+	 * 
 	 * @return the new adapter.
 	 * @see org.cloudsmith.geppetto.pp.AndExpression
 	 * @generated
@@ -525,6 +568,7 @@ public class PPAdapterFactory extends AdapterFactoryImpl {
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
+	 * 
 	 * @return the new adapter.
 	 * @see org.cloudsmith.geppetto.pp.AppendExpression
 	 * @generated
@@ -539,6 +583,7 @@ public class PPAdapterFactory extends AdapterFactoryImpl {
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
+	 * 
 	 * @return the new adapter.
 	 * @see org.cloudsmith.geppetto.pp.AssignmentExpression
 	 * @generated
@@ -553,6 +598,7 @@ public class PPAdapterFactory extends AdapterFactoryImpl {
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
+	 * 
 	 * @return the new adapter.
 	 * @see org.cloudsmith.geppetto.pp.AtExpression
 	 * @generated
@@ -567,6 +613,7 @@ public class PPAdapterFactory extends AdapterFactoryImpl {
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
+	 * 
 	 * @return the new adapter.
 	 * @see org.cloudsmith.geppetto.pp.AttributeOperation
 	 * @generated
@@ -581,6 +628,7 @@ public class PPAdapterFactory extends AdapterFactoryImpl {
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
+	 * 
 	 * @return the new adapter.
 	 * @see org.cloudsmith.geppetto.pp.AttributeOperations
 	 * @generated
@@ -595,6 +643,7 @@ public class PPAdapterFactory extends AdapterFactoryImpl {
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
+	 * 
 	 * @return the new adapter.
 	 * @see org.cloudsmith.geppetto.pp.BinaryExpression
 	 * @generated
@@ -609,6 +658,7 @@ public class PPAdapterFactory extends AdapterFactoryImpl {
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
+	 * 
 	 * @return the new adapter.
 	 * @see org.cloudsmith.geppetto.pp.BinaryOpExpression
 	 * @generated
@@ -623,6 +673,7 @@ public class PPAdapterFactory extends AdapterFactoryImpl {
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
+	 * 
 	 * @return the new adapter.
 	 * @see org.cloudsmith.geppetto.pp.Case
 	 * @generated
@@ -637,6 +688,7 @@ public class PPAdapterFactory extends AdapterFactoryImpl {
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
+	 * 
 	 * @return the new adapter.
 	 * @see org.cloudsmith.geppetto.pp.CaseExpression
 	 * @generated
@@ -651,6 +703,7 @@ public class PPAdapterFactory extends AdapterFactoryImpl {
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
+	 * 
 	 * @return the new adapter.
 	 * @see org.cloudsmith.geppetto.pp.CollectExpression
 	 * @generated
@@ -665,6 +718,7 @@ public class PPAdapterFactory extends AdapterFactoryImpl {
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
+	 * 
 	 * @return the new adapter.
 	 * @see org.cloudsmith.geppetto.pp.Definition
 	 * @generated
@@ -679,6 +733,7 @@ public class PPAdapterFactory extends AdapterFactoryImpl {
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
+	 * 
 	 * @return the new adapter.
 	 * @see org.cloudsmith.geppetto.pp.DefinitionArgument
 	 * @generated
@@ -693,6 +748,7 @@ public class PPAdapterFactory extends AdapterFactoryImpl {
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
+	 * 
 	 * @return the new adapter.
 	 * @see org.cloudsmith.geppetto.pp.DefinitionArgumentList
 	 * @generated
@@ -707,6 +763,7 @@ public class PPAdapterFactory extends AdapterFactoryImpl {
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
+	 * 
 	 * @return the new adapter.
 	 * @see org.cloudsmith.geppetto.pp.DoubleQuotedString
 	 * @generated
@@ -721,6 +778,7 @@ public class PPAdapterFactory extends AdapterFactoryImpl {
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
+	 * 
 	 * @return the new adapter.
 	 * @see org.cloudsmith.geppetto.pp.ElseExpression
 	 * @generated
@@ -735,6 +793,7 @@ public class PPAdapterFactory extends AdapterFactoryImpl {
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
+	 * 
 	 * @return the new adapter.
 	 * @see org.cloudsmith.geppetto.pp.ElseIfExpression
 	 * @generated
@@ -748,6 +807,7 @@ public class PPAdapterFactory extends AdapterFactoryImpl {
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null.
 	 * <!-- end-user-doc -->
+	 * 
 	 * @return the new adapter.
 	 * @generated
 	 */
@@ -761,6 +821,7 @@ public class PPAdapterFactory extends AdapterFactoryImpl {
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
+	 * 
 	 * @return the new adapter.
 	 * @see org.cloudsmith.geppetto.pp.EqualityExpression
 	 * @generated
@@ -775,6 +836,7 @@ public class PPAdapterFactory extends AdapterFactoryImpl {
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
+	 * 
 	 * @return the new adapter.
 	 * @see org.cloudsmith.geppetto.pp.ExportedCollectQuery
 	 * @generated
@@ -789,6 +851,7 @@ public class PPAdapterFactory extends AdapterFactoryImpl {
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
+	 * 
 	 * @return the new adapter.
 	 * @see org.cloudsmith.geppetto.pp.Expression
 	 * @generated
@@ -803,6 +866,7 @@ public class PPAdapterFactory extends AdapterFactoryImpl {
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
+	 * 
 	 * @return the new adapter.
 	 * @see org.cloudsmith.geppetto.pp.ExpressionBlock
 	 * @generated
@@ -817,6 +881,7 @@ public class PPAdapterFactory extends AdapterFactoryImpl {
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
+	 * 
 	 * @return the new adapter.
 	 * @see org.cloudsmith.geppetto.pp.ExpressionTE
 	 * @generated
@@ -831,6 +896,7 @@ public class PPAdapterFactory extends AdapterFactoryImpl {
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
+	 * 
 	 * @return the new adapter.
 	 * @see org.cloudsmith.geppetto.pp.ExprList
 	 * @generated
@@ -845,6 +911,7 @@ public class PPAdapterFactory extends AdapterFactoryImpl {
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
+	 * 
 	 * @return the new adapter.
 	 * @see org.cloudsmith.geppetto.pp.FunctionCall
 	 * @generated
@@ -859,6 +926,7 @@ public class PPAdapterFactory extends AdapterFactoryImpl {
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
+	 * 
 	 * @return the new adapter.
 	 * @see org.cloudsmith.geppetto.pp.HashEntry
 	 * @generated
@@ -873,6 +941,7 @@ public class PPAdapterFactory extends AdapterFactoryImpl {
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
+	 * 
 	 * @return the new adapter.
 	 * @see org.cloudsmith.geppetto.pp.HostClassDefinition
 	 * @generated
@@ -887,6 +956,7 @@ public class PPAdapterFactory extends AdapterFactoryImpl {
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
+	 * 
 	 * @return the new adapter.
 	 * @see org.cloudsmith.geppetto.pp.ICollectQuery
 	 * @generated
@@ -901,6 +971,7 @@ public class PPAdapterFactory extends AdapterFactoryImpl {
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
+	 * 
 	 * @return the new adapter.
 	 * @see org.cloudsmith.geppetto.pp.IfExpression
 	 * @generated
@@ -915,6 +986,7 @@ public class PPAdapterFactory extends AdapterFactoryImpl {
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
+	 * 
 	 * @return the new adapter.
 	 * @see org.cloudsmith.geppetto.pp.ImportExpression
 	 * @generated
@@ -929,6 +1001,7 @@ public class PPAdapterFactory extends AdapterFactoryImpl {
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
+	 * 
 	 * @return the new adapter.
 	 * @see org.cloudsmith.geppetto.pp.InExpression
 	 * @generated
@@ -943,6 +1016,7 @@ public class PPAdapterFactory extends AdapterFactoryImpl {
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
+	 * 
 	 * @return the new adapter.
 	 * @see org.cloudsmith.geppetto.pp.InterpolatedVariable
 	 * @generated
@@ -957,6 +1031,7 @@ public class PPAdapterFactory extends AdapterFactoryImpl {
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
+	 * 
 	 * @return the new adapter.
 	 * @see org.cloudsmith.geppetto.pp.IQuotedString
 	 * @generated
@@ -966,11 +1041,42 @@ public class PPAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
+	 * Creates a new adapter for an object of class '{@link org.cloudsmith.geppetto.pp.JavaLambda <em>Java Lambda</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * 
+	 * @return the new adapter.
+	 * @see org.cloudsmith.geppetto.pp.JavaLambda
+	 * @generated
+	 */
+	public Adapter createJavaLambdaAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.cloudsmith.geppetto.pp.Lambda <em>Lambda</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * 
+	 * @return the new adapter.
+	 * @see org.cloudsmith.geppetto.pp.Lambda
+	 * @generated
+	 */
+	public Adapter createLambdaAdapter() {
+		return null;
+	}
+
+	/**
 	 * Creates a new adapter for an object of class '{@link org.cloudsmith.geppetto.pp.LiteralBoolean <em>Literal Boolean</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
+	 * 
 	 * @return the new adapter.
 	 * @see org.cloudsmith.geppetto.pp.LiteralBoolean
 	 * @generated
@@ -985,6 +1091,7 @@ public class PPAdapterFactory extends AdapterFactoryImpl {
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
+	 * 
 	 * @return the new adapter.
 	 * @see org.cloudsmith.geppetto.pp.LiteralClass
 	 * @generated
@@ -994,25 +1101,12 @@ public class PPAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.cloudsmith.geppetto.pp.UnlessExpression <em>Unless Expression</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see org.cloudsmith.geppetto.pp.UnlessExpression
-	 * @generated
-	 */
-	public Adapter createUnlessExpressionAdapter() {
-		return null;
-	}
-
-	/**
 	 * Creates a new adapter for an object of class '{@link org.cloudsmith.geppetto.pp.LiteralDefault <em>Literal Default</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
+	 * 
 	 * @return the new adapter.
 	 * @see org.cloudsmith.geppetto.pp.LiteralDefault
 	 * @generated
@@ -1027,6 +1121,7 @@ public class PPAdapterFactory extends AdapterFactoryImpl {
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
+	 * 
 	 * @return the new adapter.
 	 * @see org.cloudsmith.geppetto.pp.LiteralExpression
 	 * @generated
@@ -1041,6 +1136,7 @@ public class PPAdapterFactory extends AdapterFactoryImpl {
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
+	 * 
 	 * @return the new adapter.
 	 * @see org.cloudsmith.geppetto.pp.LiteralHash
 	 * @generated
@@ -1055,6 +1151,7 @@ public class PPAdapterFactory extends AdapterFactoryImpl {
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
+	 * 
 	 * @return the new adapter.
 	 * @see org.cloudsmith.geppetto.pp.LiteralList
 	 * @generated
@@ -1069,6 +1166,7 @@ public class PPAdapterFactory extends AdapterFactoryImpl {
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
+	 * 
 	 * @return the new adapter.
 	 * @see org.cloudsmith.geppetto.pp.LiteralName
 	 * @generated
@@ -1083,6 +1181,7 @@ public class PPAdapterFactory extends AdapterFactoryImpl {
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
+	 * 
 	 * @return the new adapter.
 	 * @see org.cloudsmith.geppetto.pp.LiteralNameOrReference
 	 * @generated
@@ -1097,6 +1196,7 @@ public class PPAdapterFactory extends AdapterFactoryImpl {
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
+	 * 
 	 * @return the new adapter.
 	 * @see org.cloudsmith.geppetto.pp.LiteralRegex
 	 * @generated
@@ -1111,6 +1211,7 @@ public class PPAdapterFactory extends AdapterFactoryImpl {
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
+	 * 
 	 * @return the new adapter.
 	 * @see org.cloudsmith.geppetto.pp.LiteralUndef
 	 * @generated
@@ -1125,6 +1226,7 @@ public class PPAdapterFactory extends AdapterFactoryImpl {
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
+	 * 
 	 * @return the new adapter.
 	 * @see org.cloudsmith.geppetto.pp.MatchingExpression
 	 * @generated
@@ -1134,11 +1236,27 @@ public class PPAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
+	 * Creates a new adapter for an object of class '{@link org.cloudsmith.geppetto.pp.MethodCall <em>Method Call</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * 
+	 * @return the new adapter.
+	 * @see org.cloudsmith.geppetto.pp.MethodCall
+	 * @generated
+	 */
+	public Adapter createMethodCallAdapter() {
+		return null;
+	}
+
+	/**
 	 * Creates a new adapter for an object of class '{@link org.cloudsmith.geppetto.pp.MultiplicativeExpression <em>Multiplicative Expression</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
+	 * 
 	 * @return the new adapter.
 	 * @see org.cloudsmith.geppetto.pp.MultiplicativeExpression
 	 * @generated
@@ -1148,11 +1266,27 @@ public class PPAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
+	 * Creates a new adapter for an object of class '{@link org.cloudsmith.geppetto.pp.NamedAccessExpression <em>Named Access Expression</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * 
+	 * @return the new adapter.
+	 * @see org.cloudsmith.geppetto.pp.NamedAccessExpression
+	 * @generated
+	 */
+	public Adapter createNamedAccessExpressionAdapter() {
+		return null;
+	}
+
+	/**
 	 * Creates a new adapter for an object of class '{@link org.cloudsmith.geppetto.pp.NodeDefinition <em>Node Definition</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
+	 * 
 	 * @return the new adapter.
 	 * @see org.cloudsmith.geppetto.pp.NodeDefinition
 	 * @generated
@@ -1167,6 +1301,7 @@ public class PPAdapterFactory extends AdapterFactoryImpl {
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
+	 * 
 	 * @return the new adapter.
 	 * @see org.cloudsmith.geppetto.pp.OrExpression
 	 * @generated
@@ -1181,6 +1316,7 @@ public class PPAdapterFactory extends AdapterFactoryImpl {
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
+	 * 
 	 * @return the new adapter.
 	 * @see org.cloudsmith.geppetto.pp.ParameterizedExpression
 	 * @generated
@@ -1195,6 +1331,7 @@ public class PPAdapterFactory extends AdapterFactoryImpl {
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
+	 * 
 	 * @return the new adapter.
 	 * @see org.cloudsmith.geppetto.pp.ParenthesisedExpression
 	 * @generated
@@ -1209,6 +1346,7 @@ public class PPAdapterFactory extends AdapterFactoryImpl {
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
+	 * 
 	 * @return the new adapter.
 	 * @see org.cloudsmith.geppetto.pp.PuppetManifest
 	 * @generated
@@ -1223,6 +1361,7 @@ public class PPAdapterFactory extends AdapterFactoryImpl {
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
+	 * 
 	 * @return the new adapter.
 	 * @see org.cloudsmith.geppetto.pp.RelationalExpression
 	 * @generated
@@ -1237,6 +1376,7 @@ public class PPAdapterFactory extends AdapterFactoryImpl {
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
+	 * 
 	 * @return the new adapter.
 	 * @see org.cloudsmith.geppetto.pp.RelationshipExpression
 	 * @generated
@@ -1251,6 +1391,7 @@ public class PPAdapterFactory extends AdapterFactoryImpl {
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
+	 * 
 	 * @return the new adapter.
 	 * @see org.cloudsmith.geppetto.pp.ResourceBody
 	 * @generated
@@ -1265,6 +1406,7 @@ public class PPAdapterFactory extends AdapterFactoryImpl {
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
+	 * 
 	 * @return the new adapter.
 	 * @see org.cloudsmith.geppetto.pp.ResourceExpression
 	 * @generated
@@ -1274,11 +1416,27 @@ public class PPAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
+	 * Creates a new adapter for an object of class '{@link org.cloudsmith.geppetto.pp.RubyLambda <em>Ruby Lambda</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * 
+	 * @return the new adapter.
+	 * @see org.cloudsmith.geppetto.pp.RubyLambda
+	 * @generated
+	 */
+	public Adapter createRubyLambdaAdapter() {
+		return null;
+	}
+
+	/**
 	 * Creates a new adapter for an object of class '{@link org.cloudsmith.geppetto.pp.SelectorEntry <em>Selector Entry</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
+	 * 
 	 * @return the new adapter.
 	 * @see org.cloudsmith.geppetto.pp.SelectorEntry
 	 * @generated
@@ -1293,6 +1451,7 @@ public class PPAdapterFactory extends AdapterFactoryImpl {
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
+	 * 
 	 * @return the new adapter.
 	 * @see org.cloudsmith.geppetto.pp.SelectorExpression
 	 * @generated
@@ -1302,11 +1461,27 @@ public class PPAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
+	 * Creates a new adapter for an object of class '{@link org.cloudsmith.geppetto.pp.SeparatorExpression <em>Separator Expression</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * 
+	 * @return the new adapter.
+	 * @see org.cloudsmith.geppetto.pp.SeparatorExpression
+	 * @generated
+	 */
+	public Adapter createSeparatorExpressionAdapter() {
+		return null;
+	}
+
+	/**
 	 * Creates a new adapter for an object of class '{@link org.cloudsmith.geppetto.pp.ShiftExpression <em>Shift Expression</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
+	 * 
 	 * @return the new adapter.
 	 * @see org.cloudsmith.geppetto.pp.ShiftExpression
 	 * @generated
@@ -1321,6 +1496,7 @@ public class PPAdapterFactory extends AdapterFactoryImpl {
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
+	 * 
 	 * @return the new adapter.
 	 * @see org.cloudsmith.geppetto.pp.SingleQuotedString
 	 * @generated
@@ -1335,6 +1511,7 @@ public class PPAdapterFactory extends AdapterFactoryImpl {
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
+	 * 
 	 * @return the new adapter.
 	 * @see org.cloudsmith.geppetto.pp.StringExpression
 	 * @generated
@@ -1349,6 +1526,7 @@ public class PPAdapterFactory extends AdapterFactoryImpl {
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
+	 * 
 	 * @return the new adapter.
 	 * @see org.cloudsmith.geppetto.pp.TextExpression
 	 * @generated
@@ -1363,6 +1541,7 @@ public class PPAdapterFactory extends AdapterFactoryImpl {
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
+	 * 
 	 * @return the new adapter.
 	 * @see org.cloudsmith.geppetto.pp.UnaryExpression
 	 * @generated
@@ -1377,6 +1556,7 @@ public class PPAdapterFactory extends AdapterFactoryImpl {
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
+	 * 
 	 * @return the new adapter.
 	 * @see org.cloudsmith.geppetto.pp.UnaryMinusExpression
 	 * @generated
@@ -1391,6 +1571,7 @@ public class PPAdapterFactory extends AdapterFactoryImpl {
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
+	 * 
 	 * @return the new adapter.
 	 * @see org.cloudsmith.geppetto.pp.UnaryNotExpression
 	 * @generated
@@ -1400,11 +1581,27 @@ public class PPAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
+	 * Creates a new adapter for an object of class '{@link org.cloudsmith.geppetto.pp.UnlessExpression <em>Unless Expression</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * 
+	 * @return the new adapter.
+	 * @see org.cloudsmith.geppetto.pp.UnlessExpression
+	 * @generated
+	 */
+	public Adapter createUnlessExpressionAdapter() {
+		return null;
+	}
+
+	/**
 	 * Creates a new adapter for an object of class '{@link org.cloudsmith.geppetto.pp.UnquotedString <em>Unquoted String</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
+	 * 
 	 * @return the new adapter.
 	 * @see org.cloudsmith.geppetto.pp.UnquotedString
 	 * @generated
@@ -1419,6 +1616,7 @@ public class PPAdapterFactory extends AdapterFactoryImpl {
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
+	 * 
 	 * @return the new adapter.
 	 * @see org.cloudsmith.geppetto.pp.VariableExpression
 	 * @generated
@@ -1433,6 +1631,7 @@ public class PPAdapterFactory extends AdapterFactoryImpl {
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
+	 * 
 	 * @return the new adapter.
 	 * @see org.cloudsmith.geppetto.pp.VariableTE
 	 * @generated
@@ -1447,6 +1646,7 @@ public class PPAdapterFactory extends AdapterFactoryImpl {
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
+	 * 
 	 * @return the new adapter.
 	 * @see org.cloudsmith.geppetto.pp.VerbatimTE
 	 * @generated
@@ -1461,6 +1661,7 @@ public class PPAdapterFactory extends AdapterFactoryImpl {
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
+	 * 
 	 * @return the new adapter.
 	 * @see org.cloudsmith.geppetto.pp.VirtualCollectQuery
 	 * @generated
@@ -1475,6 +1676,7 @@ public class PPAdapterFactory extends AdapterFactoryImpl {
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
+	 * 
 	 * @return the new adapter.
 	 * @see org.cloudsmith.geppetto.pp.VirtualNameOrReference
 	 * @generated
@@ -1484,10 +1686,26 @@ public class PPAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
+	 * Creates a new adapter for an object of class '{@link org.cloudsmith.geppetto.pp.WithLambdaExpression <em>With Lambda Expression</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * 
+	 * @return the new adapter.
+	 * @see org.cloudsmith.geppetto.pp.WithLambdaExpression
+	 * @generated
+	 */
+	public Adapter createWithLambdaExpressionAdapter() {
+		return null;
+	}
+
+	/**
 	 * Returns whether this factory is applicable for the type of the object.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns <code>true</code> if the object is either the model's package or is an instance object of the model.
 	 * <!-- end-user-doc -->
+	 * 
 	 * @return whether this factory is applicable for the type of the object.
 	 * @generated
 	 */

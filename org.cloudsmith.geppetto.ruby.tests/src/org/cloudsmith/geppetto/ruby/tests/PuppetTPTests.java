@@ -165,6 +165,20 @@ public class PuppetTPTests {
 	}
 
 	@Test
+	public void testLoad3_2_0() throws Exception {
+		// Load puppet 3.2.0 from the puppet repo (since 3.2 RC not yet avail, load plugins from
+		// the 3.0 release
+		// TODO: UPDATE WHEN 3.2 is released
+		//
+		final File puppetDistros = new File("/Users/henrik/PuppetDistributions/");
+		if(puppetDistros.isDirectory()) {
+			performLoad(new File(puppetDistros, "puppet-3.2.0-rc0/lib/puppet"), //
+				new File(puppetDistros, "plugins-3.0.0"), //
+				new File(TestDataProvider.getTestOutputDir(), "puppet-3.2.0.pptp"));
+		}
+	}
+
+	@Test
 	public void testLoadEMFTP() throws Exception {
 		File pptpFile = TestDataProvider.getTestFile(new Path("testData/pptp/puppet-2.6.4_0.pptp"));
 

@@ -18,20 +18,32 @@ import java.util.Map;
 import java.util.regex.Pattern;
 
 import org.cloudsmith.geppetto.common.tracer.ITracer;
+import org.cloudsmith.geppetto.pp.AppendExpression;
+import org.cloudsmith.geppetto.pp.AssignmentExpression;
+import org.cloudsmith.geppetto.pp.BinaryExpression;
+import org.cloudsmith.geppetto.pp.Definition;
+import org.cloudsmith.geppetto.pp.DefinitionArgument;
+import org.cloudsmith.geppetto.pp.Expression;
+import org.cloudsmith.geppetto.pp.HostClassDefinition;
+import org.cloudsmith.geppetto.pp.Lambda;
+import org.cloudsmith.geppetto.pp.NodeDefinition;
 import org.cloudsmith.geppetto.pp.PPPackage;
 import org.cloudsmith.geppetto.pp.ResourceBody;
+import org.cloudsmith.geppetto.pp.VariableExpression;
 import org.cloudsmith.geppetto.pp.dsl.PPDSLConstants;
 import org.cloudsmith.geppetto.pp.dsl.adapters.PPImportedNamesAdapter;
 import org.cloudsmith.geppetto.pp.dsl.linking.NameInScopeFilter.Match;
 import org.cloudsmith.geppetto.pp.dsl.linking.NameInScopeFilter.SearchStrategy;
 import org.cloudsmith.geppetto.pp.dsl.linking.PPSearchPath.ISearchPathProvider;
 import org.cloudsmith.geppetto.pp.pptp.PPTPPackage;
+import org.eclipse.emf.common.util.TreeIterator;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.xtext.naming.IQualifiedNameConverter;
 import org.eclipse.xtext.naming.IQualifiedNameProvider;
 import org.eclipse.xtext.naming.QualifiedName;
+import org.eclipse.xtext.resource.EObjectDescription;
 import org.eclipse.xtext.resource.IContainer;
 import org.eclipse.xtext.resource.IEObjectDescription;
 import org.eclipse.xtext.resource.IResourceDescription;
@@ -454,6 +466,62 @@ public class PPFinder {
 		return new SearchResult(result, rawResult);
 	}
 
+	public IEObjectDescription findLocalVariableInLambda(Lambda lambda, String name,
+			PPImportedNamesAdapter importedNames, SearchStrategy matchingStrategy) {
+		TreeIterator<EObject> itor = lambda.eAllContents();
+		while(itor.hasNext()) {
+			EObject o = itor.next();
+			if(o instanceof AssignmentExpression || o instanceof AppendExpression) {
+				Expression lhs = ((BinaryExpression) o).getLeftExpr();
+				if(lhs instanceof VariableExpression) {
+					String vname = ((VariableExpression) lhs).getVarName();
+					if(vname.startsWith("$"))
+						if(vname.length() > 1)
+							vname = name.substring(1);
+						else
+							vname = "";
+					if(name.equals(vname))
+						return EObjectDescription.create(name, lhs);
+				}
+			}
+			else if(o instanceof DefinitionArgument) {
+				DefinitionArgument arg = (DefinitionArgument) o;
+				String argName = arg.getArgName();
+				if(argName.startsWith("$") && name.equals(argName.substring(1)) || name.equals(argName))
+					return EObjectDescription.create(name, o);
+			}
+			else if(o instanceof Lambda) {
+				itor.prune(); // do not visit nested Lambdas
+			}
+		}
+		return null;
+	}
+
+	public IEObjectDescription findLocalVariables(EObject scopeDetermeningObject, QualifiedName fqn,
+			PPImportedNamesAdapter importedNames, SearchStrategy matchingStrategy) {
+		if(fqn.getSegmentCount() != 1)
+			return null;
+		String name = fqn.getFirstSegment();
+		if(name == null || name.length() < 1)
+			return null;
+		// find enclosing lambda
+		for(EObject container = scopeDetermeningObject; container != null; container = container.eContainer()) {
+			if(container instanceof Lambda) {
+				IEObjectDescription desc = findLocalVariableInLambda(
+					(Lambda) container, name, importedNames, matchingStrategy);
+				if(desc != null)
+					return desc;
+			}
+			if(container instanceof HostClassDefinition)
+				break;
+			if(container instanceof Definition)
+				break;
+			if(container instanceof NodeDefinition)
+				break;
+		}
+		return null;
+	}
+
 	/**
 	 * Finds a parameter or variable with the given name. More than one may be returned if the definition
 	 * is ambiguous.
@@ -529,6 +597,10 @@ public class PPFinder {
 				if(metaParam != null)
 					return new SearchResult(Lists.newArrayList(metaParam), Lists.newArrayList(metaParam)); // what a waste...
 			}
+			IEObjectDescription desc = findLocalVariables(scopeDetermeningObject, fqn, importedNames, matchingStrategy);
+			if(desc != null)
+				return new SearchResult(Lists.newArrayList(desc));
+
 		}
 		SearchResult result = findExternal(
 			scopeDetermeningObject, fqn, importedNames, matchingStrategy, CLASSES_FOR_VARIABLES);

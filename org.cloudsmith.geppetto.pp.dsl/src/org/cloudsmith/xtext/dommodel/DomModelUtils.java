@@ -62,7 +62,10 @@ public class DomModelUtils {
 		if(effective instanceof StyleSetWithTracking) {
 			StyleSetWithTracking trackingSet = (StyleSetWithTracking) effective;
 			for(IStyle<?> style : effective.getStyles()) {
-				ruleToStyle.put(trackingSet.getStyleSource(style).getRuleName(), style);
+				String n = trackingSet.getStyleSource(style).getRuleName();
+				if(n == null || n.length() < 1)
+					throw new RuntimeException("Rule without name");
+				ruleToStyle.put(n, style);
 			}
 		}
 		else {

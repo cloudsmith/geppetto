@@ -315,7 +315,14 @@ public class PPStylesheetProvider extends DefaultStylesheetProvider {
 			Select.whitespaceBefore(Select.grammar(grammarAccess.getRubyLambdaAccess().getVerticalLineKeyword_4())) //
 			.withStyle(styles.noSpace()).withRuleName("WsBeforeRightRPipe"),
 			Select.whitespaceAfter(Select.grammar(grammarAccess.getRubyLambdaAccess().getVerticalLineKeyword_4())) //
-			.withStyle(styles.oneSpace()).withRuleName("WsAfterRightRPipe")
+			.withStyle(styles.oneSpace()).withRuleName("WsAfterRightRPipe"),
+
+			// Separator
+			Select.whitespaceBefore(
+				Select.grammar(grammarAccess.getSeparatorExpressionAccess().getSemicolonKeyword_1())) //
+			.withStyles(styles.noSpace(), styles.noLineBreak()).withRuleName("WsBeforeSeparator"),
+			Select.whitespaceAfter(Select.grammar(grammarAccess.getSeparatorExpressionAccess().getSemicolonKeyword_1())) //
+			.withStyles(styles.oneSpace(), styles.lineBreaks(0, 1, 1, true, true)).withRuleName("WsAfterSeparator")
 
 		// ,
 

@@ -34,6 +34,7 @@ import org.cloudsmith.geppetto.pp.PuppetManifest;
 import org.cloudsmith.geppetto.pp.ResourceBody;
 import org.cloudsmith.geppetto.pp.ResourceExpression;
 import org.cloudsmith.geppetto.pp.SelectorExpression;
+import org.cloudsmith.geppetto.pp.SeparatorExpression;
 import org.cloudsmith.geppetto.pp.SingleQuotedString;
 import org.cloudsmith.geppetto.pp.UnlessExpression;
 import org.cloudsmith.geppetto.pp.VerbatimTE;
@@ -394,6 +395,8 @@ public class PPSemanticLayout extends DeclarativeSemanticFlowLayout {
 					firstToken.getStyleClassifiers().add(StatementStyle.FIRST);
 					first = false;
 				}
+				if(semantic instanceof SeparatorExpression)
+					continue; // skip marking this
 				// mark all (except func args) as being a STATEMENT
 				firstToken.getStyleClassifiers().add(StatementStyle.STATEMENT);
 				statementCount++;

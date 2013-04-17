@@ -84,6 +84,36 @@ public class LayoutUtils {
 	 * 
 	 * @param node
 	 *            - the node to measure
+	 * @param untilGrammarElement
+	 *            - the last element to measure (inclusive)
+	 * @param flow
+	 *            - the flow where the node is to be written (at some later point in time)
+	 * @param context
+	 *            - the context used to write to the given flow
+	 * @return true if the formatted node fits on the same line
+	 */
+	public boolean fitsOnSameLine(IDomNode node, AbstractElement untilGrammarElement, ITextFlow flow,
+			ILayoutContext context) {
+		DelegatingLayoutContext dlc = new DelegatingLayoutContext(context);
+		MeasuredTextFlow continuedFlow = new MeasuredTextFlow((MeasuredTextFlow) flow);
+		// if flow is empty the first output char will give it height 1
+		int h0 = Math.max(1, continuedFlow.getHeight());
+		for(IDomNode n : node.getChildren()) {
+			feeder.sequence(n, continuedFlow, dlc);
+			if(untilGrammarElement != null && n.getGrammarElement() == untilGrammarElement)
+				break;
+		}
+		int h1 = continuedFlow.getHeight();
+		// if output causes break (height increases), or at edge (the '{' will not fit).
+		return h1 <= h0 && continuedFlow.getWidthOfLastLine() < continuedFlow.getPreferredMaxWidth();
+	}
+
+	/**
+	 * Returns true if the node, when formatted and written to the given flow will fit on what remains
+	 * on the line. The flow and contexts are not affected by this operation.
+	 * 
+	 * @param node
+	 *            - the node to measure
 	 * @param flow
 	 *            - the flow where the node is to be written (at some later point in time)
 	 * @param context
@@ -91,14 +121,6 @@ public class LayoutUtils {
 	 * @return true if the formatted node fits on the same line
 	 */
 	public boolean fitsOnSameLine(IDomNode node, ITextFlow flow, ILayoutContext context) {
-		DelegatingLayoutContext dlc = new DelegatingLayoutContext(context);
-		MeasuredTextFlow continuedFlow = new MeasuredTextFlow((MeasuredTextFlow) flow);
-		int h0 = continuedFlow.getHeight();
-		for(IDomNode n : node.getChildren()) {
-			feeder.sequence(n, continuedFlow, dlc);
-		}
-		int h1 = continuedFlow.getHeight();
-		// if output causes break (height increases), or at edge (the '{' will not fit).
-		return h1 <= h0 && continuedFlow.getWidthOfLastLine() < continuedFlow.getPreferredMaxWidth();
+		return fitsOnSameLine(node, null, flow, context);
 	}
 }

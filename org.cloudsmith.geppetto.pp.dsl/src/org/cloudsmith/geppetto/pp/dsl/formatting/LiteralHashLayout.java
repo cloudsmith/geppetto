@@ -17,6 +17,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 import org.cloudsmith.geppetto.common.stats.IntegerCluster;
+import org.cloudsmith.geppetto.pp.LiteralHash;
 import org.cloudsmith.geppetto.pp.dsl.services.PPGrammarAccess;
 import org.cloudsmith.geppetto.pp.dsl.services.PPGrammarAccess.HashEntryElements;
 import org.cloudsmith.geppetto.pp.dsl.services.PPGrammarAccess.LiteralHashElements;
@@ -31,6 +32,7 @@ import org.cloudsmith.xtext.dommodel.formatter.css.StyleSet;
 import org.cloudsmith.xtext.textflow.ITextFlow;
 import org.cloudsmith.xtext.textflow.TextFlow;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.xtext.AbstractElement;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
@@ -71,6 +73,16 @@ public class LiteralHashLayout extends AbstractListLayout {
 	@Override
 	protected IBreakAndAlignAdvice getAlignAdvice() {
 		return breakAlignAdviceProvider.get();
+	}
+
+	@Override
+	protected AbstractElement getLastSignificantGrammarElement() {
+		return grammarAccess.getLiteralHashAccess().getRightCurlyBracketKeyword_4();
+	}
+
+	@Override
+	protected boolean hasMoreThanOneElement(EObject semantic) {
+		return ((LiteralHash) semantic).getElements().size() > 1;
 	}
 
 	@Override

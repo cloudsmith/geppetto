@@ -13,6 +13,7 @@ package org.cloudsmith.geppetto.pp.dsl.formatting;
 
 import java.util.Iterator;
 
+import org.cloudsmith.geppetto.pp.LiteralList;
 import org.cloudsmith.geppetto.pp.dsl.services.PPGrammarAccess;
 import org.cloudsmith.geppetto.pp.dsl.services.PPGrammarAccess.LiteralListElements;
 import org.cloudsmith.xtext.dommodel.DomModelUtils;
@@ -22,6 +23,7 @@ import org.cloudsmith.xtext.dommodel.formatter.css.IStyleFactory;
 import org.cloudsmith.xtext.dommodel.formatter.css.StyleSet;
 import org.cloudsmith.xtext.textflow.ITextFlow;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.xtext.AbstractElement;
 
 import com.google.inject.Inject;
 
@@ -45,6 +47,16 @@ public class LiteralListLayout extends AbstractListLayout {
 	private PPGrammarAccess grammarAccess;
 
 	@Override
+	protected AbstractElement getLastSignificantGrammarElement() {
+		return grammarAccess.getLiteralListAccess().getRightSquareBracketKeyword_3();
+	}
+
+	@Override
+	protected boolean hasMoreThanOneElement(EObject semantic) {
+		return ((LiteralList) semantic).getElements().size() > 1;
+	}
+
+	@Override
 	protected void markup(IDomNode node, final boolean breakAndAlign, final int clusterWidth, ITextFlow flow,
 			ILayoutContext context) {
 
@@ -60,6 +72,11 @@ public class LiteralListLayout extends AbstractListLayout {
 					nextLeaf.getStyles().add(StyleSet.withStyles(styles.oneLineBreak()));
 			}
 			else if(breakAndAlign && ge == access.getCommaKeyword_2_1_0()) {
+				IDomNode nextLeaf = DomModelUtils.nextWhitespace(n);
+				if(DomModelUtils.isWhitespace(nextLeaf))
+					nextLeaf.getStyles().add(StyleSet.withStyles(styles.oneLineBreak()));
+			}
+			else if(breakAndAlign && ge == access.getCommaKeyword_2_2()) {
 				IDomNode nextLeaf = DomModelUtils.nextWhitespace(n);
 				if(DomModelUtils.isWhitespace(nextLeaf))
 					nextLeaf.getStyles().add(StyleSet.withStyles(styles.oneLineBreak()));

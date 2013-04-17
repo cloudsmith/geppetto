@@ -147,7 +147,7 @@ public class DomCSS {
 
 		// if element has a style map, add a (matched) rule for it
 		if(node.getStyles() != null)
-			matches.add(new Rule(new Select.Instance(node), node.getStyles()));
+			matches.add(new Rule(new Select.Instance(node), node.getStyles()).withRuleName("StyleInNode"));
 		for(Rule r : cssRules)
 			if(r.matches(node))
 				matches.add(r);

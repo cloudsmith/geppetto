@@ -19,7 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.cloudsmith.geppetto.common.Strings;
-import org.cloudsmith.geppetto.common.diagnostic.Diagnostic;
+import org.cloudsmith.geppetto.diagnostic.Diagnostic;
 import org.cloudsmith.geppetto.forge.Forge;
 import org.cloudsmith.geppetto.forge.v2.model.Metadata;
 import org.cloudsmith.geppetto.ui.UIPlugin;

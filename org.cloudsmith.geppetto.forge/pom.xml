@@ -35,6 +35,11 @@
 		</dependency>
 		<dependency>
 			<groupId>org.cloudsmith.geppetto</groupId>
+			<artifactId>org.cloudsmith.geppetto.diagnostic</artifactId>
+			<version>3.0.3-rc2-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>org.cloudsmith.geppetto</groupId>
 			<artifactId>org.cloudsmith.geppetto.forge.api</artifactId>
 			<version>3.0.3-rc2-SNAPSHOT</version>
 		</dependency>

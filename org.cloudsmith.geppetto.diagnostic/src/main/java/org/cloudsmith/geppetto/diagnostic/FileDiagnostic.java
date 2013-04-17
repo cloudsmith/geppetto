@@ -9,7 +9,7 @@
  *   Cloudsmith
  * 
  */
-package org.cloudsmith.geppetto.common.diagnostic;
+package org.cloudsmith.geppetto.diagnostic;
 
 import java.io.File;
 

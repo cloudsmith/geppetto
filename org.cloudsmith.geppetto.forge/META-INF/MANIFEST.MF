@@ -10,6 +10,7 @@ Export-Package: org.cloudsmith.geppetto.forge,
  org.cloudsmith.geppetto.forge.impl;x-friends:="org.cloudsmith.geppetto.forge.tests",
  org.cloudsmith.geppetto.forge.util
 Require-Bundle: org.cloudsmith.geppetto.common,
+ org.cloudsmith.geppetto.diagnostic,
  org.cloudsmith.geppetto.forge.api,
  org.cloudsmith.geppetto.semver,
  org.eclipse.emf.ecore;bundle-version="2.6.0";visibility:=reexport,

@@ -15,7 +15,7 @@ import java.io.File;
 import java.io.FileFilter;
 import java.io.IOException;
 
-import org.cloudsmith.geppetto.common.diagnostic.Diagnostic;
+import org.cloudsmith.geppetto.diagnostic.Diagnostic;
 import org.cloudsmith.geppetto.forge.v2.model.Metadata;
 
 /**

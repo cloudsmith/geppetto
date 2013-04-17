@@ -9,27 +9,22 @@
  *   Cloudsmith
  * 
  */
-package org.cloudsmith.geppetto.common.diagnostic;
+package org.cloudsmith.geppetto.diagnostic;
 
-import java.io.Serializable;
-
-public final class DiagnosticType implements Serializable {
+/**
+ */
+public class ExceptionDiagnostic extends Diagnostic {
 	private static final long serialVersionUID = 1L;
 
-	private final String name;
+	private Exception exception;
 
-	private final String source;
-
-	public DiagnosticType(String name, String source) {
-		this.name = name;
-		this.source = source;
+	public ExceptionDiagnostic(int severity, DiagnosticType type, String message, Exception exception) {
+		super(severity, type, message);
+		this.exception = exception;
 	}
 
-	public String getName() {
-		return name;
-	}
-
-	public String getSource() {
-		return source;
+	@Override
+	public Exception getException() {
+		return exception;
 	}
 }

@@ -25,6 +25,7 @@ import org.cloudsmith.geppetto.pp.ElseExpression;
 import org.cloudsmith.geppetto.pp.ElseIfExpression;
 import org.cloudsmith.geppetto.pp.HostClassDefinition;
 import org.cloudsmith.geppetto.pp.IfExpression;
+import org.cloudsmith.geppetto.pp.JavaLambda;
 import org.cloudsmith.geppetto.pp.LiteralHash;
 import org.cloudsmith.geppetto.pp.LiteralList;
 import org.cloudsmith.geppetto.pp.LiteralNameOrReference;
@@ -33,6 +34,7 @@ import org.cloudsmith.geppetto.pp.PPPackage;
 import org.cloudsmith.geppetto.pp.PuppetManifest;
 import org.cloudsmith.geppetto.pp.ResourceBody;
 import org.cloudsmith.geppetto.pp.ResourceExpression;
+import org.cloudsmith.geppetto.pp.RubyLambda;
 import org.cloudsmith.geppetto.pp.SelectorExpression;
 import org.cloudsmith.geppetto.pp.SeparatorExpression;
 import org.cloudsmith.geppetto.pp.SingleQuotedString;
@@ -249,6 +251,12 @@ public class PPSemanticLayout extends DeclarativeSemanticFlowLayout {
 		return false;
 	}
 
+	protected boolean _format(JavaLambda o, StyleSet styleSet, IDomNode node, ITextFlow flow, ILayoutContext context) {
+		internalFormatStatementList(
+			node, grammarAccess.getJava8LambdaAccess().getStatementsExpressionListParserRuleCall_6_0());
+		return false;
+	}
+
 	protected boolean _format(LiteralHash o, StyleSet styleSet, IDomNode node, ITextFlow flow, ILayoutContext context) {
 		return literaHashLayout.format(node, flow, context);
 	}
@@ -309,6 +317,12 @@ public class PPSemanticLayout extends DeclarativeSemanticFlowLayout {
 			// the style is set on the container and is used in containment checks for resource bodies.
 			node.getStyleClassifiers().addAll(styles);
 		}
+		return false;
+	}
+
+	protected boolean _format(RubyLambda o, StyleSet styleSet, IDomNode node, ITextFlow flow, ILayoutContext context) {
+		internalFormatStatementList(
+			node, grammarAccess.getRubyLambdaAccess().getStatementsExpressionListParserRuleCall_5_0());
 		return false;
 	}
 

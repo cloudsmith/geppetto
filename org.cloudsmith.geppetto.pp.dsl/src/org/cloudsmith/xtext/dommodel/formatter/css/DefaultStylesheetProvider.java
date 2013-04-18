@@ -98,7 +98,7 @@ public class DefaultStylesheetProvider implements Provider<DomCSS> {
 			// No space after '(' and no space before ')'
 			Select.after(Select.whitespace(), Select.keyword("("))//
 			.withStyles(styles.noSpaceUnlessWrapped())//
-			.withRuleName("DefaultCSS.NoSpaceAfterRightParenthesis"), //
+			.withRuleName("DefaultCSS.NoSpaceAfterLeftParenthesis"), //
 			Select.before(Select.whitespace(), Select.keyword(")"))//
 			.withStyles(styles.noSpaceUnlessWrapped()) //
 			.withRuleName("DefaultCSS.NoSpaceBeforeRightParenthesis"), //

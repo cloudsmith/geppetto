@@ -89,6 +89,9 @@ public class ModuleUtils {
 		}
 	};
 
+	private static final String[] validProperties = new String[] {
+			"name", "author", "description", "license", "project_page", "source", "summary", "version", "dependency" };
+
 	private static void addKeyValueNode(PrintWriter out, String key, String... strs) throws IOException {
 		if(strs.length == 0)
 			return;
@@ -270,14 +273,22 @@ public class ModuleUtils {
 		StringBuilder bld = new StringBuilder();
 		bld.append('\'');
 		bld.append(key);
-		bld.append("' is not a metadata property that takes ");
-		if(nargs > 0)
-			bld.append(nargs);
-		else
-			bld.append("no");
-		bld.append(" argument");
-		if(nargs == 0 || nargs > 1)
-			bld.append('s');
+		bld.append("' is not a metadata property");
+		int idx = validProperties.length;
+		while(--idx >= 0)
+			if(validProperties[idx].equals(key)) {
+				// This is a valid property so the number of arguments
+				// must be wrong.
+				bld.append(" that takes ");
+				if(nargs > 0)
+					bld.append(nargs);
+				else
+					bld.append("no");
+				bld.append(" argument");
+				if(nargs == 0 || nargs > 1)
+					bld.append('s');
+				break;
+			}
 		return new IllegalArgumentException(bld.toString());
 	}
 

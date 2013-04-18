@@ -352,14 +352,15 @@ class ForgeImpl implements Forge {
 		ZipEntry zipEntry;
 		while((zipEntry = template.getNextEntry()) != null) {
 			String name = zipEntry.getName();
-			File destination = new File(destinationBase, name);
 			if(zipEntry.isDirectory()) {
+				File destination = new File(destinationBase, name);
 				if(!destination.mkdirs())
 					throw new IOException(destination + " could not be created");
 				continue;
 			}
 
 			if(name.endsWith(".erb")) {
+				File destination = new File(destinationBase, name.substring(0, name.length() - 4));
 				BufferedReader reader = new BufferedReader(new InputStreamReader(template));
 				BufferedWriter writer = new BufferedWriter(new FileWriter(destination));
 				try {
@@ -368,9 +369,11 @@ class ForgeImpl implements Forge {
 				finally {
 					StreamUtil.close(writer);
 				}
-				continue;
 			}
-			FileUtils.cp(template, destination.getParentFile(), destination.getName());
+			else {
+				File destination = new File(destinationBase, name);
+				FileUtils.cp(template, destination.getParentFile(), destination.getName());
+			}
 		}
 	}
 

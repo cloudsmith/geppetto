@@ -115,6 +115,9 @@ class ForgeImpl implements Forge {
 		File[] extractedFrom = new File[1];
 
 		Metadata md = createFromModuleDirectory(moduleSource, true, fileFilter, extractedFrom, result);
+		if(result.getSeverity() >= Diagnostic.ERROR)
+			return null;
+
 		if(resultingMetadata != null)
 			resultingMetadata[0] = md;
 
@@ -399,8 +402,8 @@ class ForgeImpl implements Forge {
 	}
 
 	@Override
-	public Metadata loadModulefile(File moduleFile) throws IOException {
-		return ModuleUtils.parseModulefile(moduleFile, null);
+	public Metadata loadModulefile(File moduleFile, Diagnostic diagnostic) throws IOException {
+		return ModuleUtils.parseModulefile(moduleFile, diagnostic);
 	}
 
 	@Override

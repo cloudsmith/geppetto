@@ -218,7 +218,7 @@ public abstract class AbstractForgeMojo extends AbstractMojo {
 	protected Metadata getModuleMetadata(File moduleDirectory, Diagnostic diag) throws IOException {
 		File[] extractedFrom = new File[1];
 		Metadata md = getForge().createFromModuleDirectory(moduleDirectory, true, null, extractedFrom, diag);
-		if(md == null)
+		if(md == null || diag.getSeverity() >= Diagnostic.ERROR)
 			return null;
 
 		ModuleName fullName = md.getName();

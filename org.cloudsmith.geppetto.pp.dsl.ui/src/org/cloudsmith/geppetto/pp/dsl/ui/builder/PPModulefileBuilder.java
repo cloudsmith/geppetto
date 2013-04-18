@@ -21,6 +21,7 @@ import org.apache.log4j.Logger;
 import org.cloudsmith.geppetto.common.tracer.DefaultTracer;
 import org.cloudsmith.geppetto.common.tracer.ITracer;
 import org.cloudsmith.geppetto.diagnostic.Diagnostic;
+import org.cloudsmith.geppetto.diagnostic.FileDiagnostic;
 import org.cloudsmith.geppetto.forge.Forge;
 import org.cloudsmith.geppetto.forge.v2.model.Dependency;
 import org.cloudsmith.geppetto.forge.v2.model.Metadata;
@@ -68,6 +69,22 @@ import com.google.inject.Provider;
 
 public class PPModulefileBuilder extends IncrementalProjectBuilder implements PPUiConstants {
 	private final static Logger log = Logger.getLogger(PPModulefileBuilder.class);
+
+	private static int getMarkerSeverity(Diagnostic diagnostic) {
+		int markerSeverity;
+		switch(diagnostic.getSeverity()) {
+			case Diagnostic.FATAL:
+			case Diagnostic.ERROR:
+				markerSeverity = IMarker.SEVERITY_ERROR;
+				break;
+			case Diagnostic.WARNING:
+				markerSeverity = IMarker.SEVERITY_WARNING;
+				break;
+			default:
+				markerSeverity = IMarker.SEVERITY_INFO;
+		}
+		return markerSeverity;
+	}
 
 	private final Provider<IValidationAdvisor> validationAdvisorProvider;
 
@@ -186,6 +203,28 @@ public class PPModulefileBuilder extends IncrementalProjectBuilder implements PP
 			log.error("Could not create error marker or set its attributes for a 'Modulefile'", e);
 		}
 
+	}
+
+	private void createResourceMarkers(IResource r, Diagnostic diagnostic) {
+		for(Diagnostic child : diagnostic.getChildren())
+			createResourceMarkers(r, child);
+
+		String msg = diagnostic.getMessage();
+		if(msg == null)
+			return;
+
+		try {
+			IMarker m = r.createMarker(PUPPET_MODULE_PROBLEM_MARKER_TYPE);
+			m.setAttribute(IMarker.MESSAGE, msg);
+			m.setAttribute(IMarker.PRIORITY, IMarker.PRIORITY_HIGH);
+			m.setAttribute(IMarker.SEVERITY, getMarkerSeverity(diagnostic));
+			m.setAttribute(IMarker.LOCATION, r.getName());
+			if(diagnostic instanceof FileDiagnostic)
+				m.setAttribute(IMarker.LINE_NUMBER, ((FileDiagnostic) diagnostic).getLineNumber());
+		}
+		catch(CoreException e) {
+			log.error("Could not create error marker or set its attributes for a 'Modulefile'", e);
+		}
 	}
 
 	private void createWarningMarker(IResource r, String message, Dependency d) {
@@ -473,20 +512,26 @@ public class PPModulefileBuilder extends IncrementalProjectBuilder implements PP
 			return; // give up - errors have been logged.
 		}
 
+		// Find the resource used for metadata extraction
 		File extractionSourceFile = extractionSource[0];
 		IPath extractionSourcePath = Path.fromOSString(extractionSourceFile.getAbsolutePath());
 		IFile moduleFile = ResourcesPlugin.getWorkspace().getRoot().getFileForLocation(extractionSourcePath);
 
+		createResourceMarkers(moduleFile, diagnostic);
+
 		// sync version and name project data
-		Version version = metadata == null
-				? null
-				: metadata.getVersion();
+		Version version = null;
+		ModuleName moduleName = null;
+		if(metadata != null) {
+			version = metadata.getVersion();
+			moduleName = metadata.getName();
+		}
+
 		if(version == null)
 			version = Version.create("0.0.0");
-		ModuleName moduleName = metadata.getName();
-		if(moduleName == null) {
+
+		if(moduleName == null)
 			createErrorMarker(moduleFile, "Module name is empty", null);
-		}
 		else
 			moduleName = moduleName.withSeparator('-');
 

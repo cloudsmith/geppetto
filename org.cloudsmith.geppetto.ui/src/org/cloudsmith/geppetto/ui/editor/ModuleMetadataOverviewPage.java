@@ -408,10 +408,8 @@ class ModuleMetadataOverviewPage extends FormPage {
 							if(moduleFile.exists()) {
 								Metadata metadata = ModuleUtils.parseModulefile(
 									moduleFile.getLocation().toFile(), new Diagnostic());
-								if(metadata != null) {
-									ModuleInfo module = new ModuleInfo(metadata.getName(), metadata.getVersion());
-									modules.put(StringUtil.getModuleText(module), module);
-								}
+								ModuleInfo module = new ModuleInfo(metadata.getName(), metadata.getVersion());
+								modules.put(StringUtil.getModuleText(module), module);
 							}
 							else if(current != null && project.getName().equals(current.getName())) {
 								// Also add all embedded modules from current project
@@ -432,11 +430,9 @@ class ModuleMetadataOverviewPage extends FormPage {
 													if(moduleFile.exists()) {
 														Metadata metadata = ModuleUtils.parseModulefile(
 															moduleFile.getLocation().toFile(), new Diagnostic());
-														if(metadata != null) {
-															ModuleInfo module = new ModuleInfo(
-																metadata.getName(), metadata.getVersion());
-															modules.put(StringUtil.getModuleText(module), module);
-														}
+														ModuleInfo module = new ModuleInfo(
+															metadata.getName(), metadata.getVersion());
+														modules.put(StringUtil.getModuleText(module), module);
 													}
 												}
 											}

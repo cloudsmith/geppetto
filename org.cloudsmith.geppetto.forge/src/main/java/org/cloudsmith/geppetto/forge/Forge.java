@@ -99,8 +99,7 @@ public interface Forge {
 	 *            Can be <tt>null</tt> when that piece of information is of no interest
 	 * @param result
 	 *            diagnostics generated during extraction
-	 * @return The extracted metadata or <code>null</code> if extraction could not be performed. When that happens, the result will contain the
-	 *         reason.
+	 * @return The extracted metadata
 	 * @throws IOException
 	 */
 	Metadata createFromModuleDirectory(File moduleDirectory, boolean includeTypesAndChecksums, FileFilter filter,
@@ -232,14 +231,21 @@ public interface Forge {
 	Metadata loadJSONMetadata(File jsonFile) throws IOException;
 
 	/**
-	 * Load metadata from a Modulefile
+	 * Parse a Modulefile and create a Metadata instance from the result. The parser <i>will not evaluate</i> actual ruby code. It
+	 * just parses the code and extracts values from the resulting AST.
 	 * 
-	 * @param jsonFile
-	 *            The file containing the Ruby Modulefile representation
+	 * 
+	 * @param moduleFile
+	 *            The file to parse
+	 * @param result
+	 *            Diagnostics collecting errors
 	 * @return The resulting metadata
 	 * @throws IOException
+	 *             when it is not possible to read the <tt>modulefile</tt>.
+	 * @throws IllegalArgumentException
+	 *             if <tt>result</tt> is <tt>null</tt> and errors are detected in the file.
 	 */
-	Metadata loadModulefile(File moduleFile) throws IOException;
+	Metadata loadModulefile(File moduleFile, Diagnostic result) throws IOException;
 
 	/**
 	 * Publish a gzipped module tarball to the Forge. The provided diagnostic is used for informational messages

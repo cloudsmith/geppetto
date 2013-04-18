@@ -502,7 +502,11 @@ public class PPModulefileBuilder extends IncrementalProjectBuilder implements PP
 				p.setPersistentProperty(PROJECT_PROPERTY_MODULEVERSION, version.toString());
 
 			String storedName = p.getPersistentProperty(PROJECT_PROPERTY_MODULENAME);
-			if(!moduleName.equals(storedName))
+			if(moduleName == null) {
+				if(storedName != null)
+					p.setPersistentProperty(PROJECT_PROPERTY_MODULENAME, null);
+			}
+			else if(!moduleName.equals(storedName))
 				p.setPersistentProperty(PROJECT_PROPERTY_MODULENAME, moduleName.toString());
 		}
 		catch(CoreException e1) {

@@ -74,7 +74,7 @@ public class PPStylesheetProvider extends DefaultStylesheetProvider {
 		final Selector relationshipEdgeOperator = Select.grammar(grammarAccess.getRelationshipExpressionAccess().getOpNameEdgeOperatorParserRuleCall_1_1_0());
 		final Selector atExpressionLeftBracket = Select.grammar(grammarAccess.getAtExpressionAccess().getLeftSquareBracketKeyword_1_1());
 
-		// interpoation
+		// interpolation
 		final Selector interpolationStart = Select.grammar(
 			grammarAccess.getTextExpressionAccess().getDollarSignLeftCurlyBracketKeyword_1_1(), //
 			grammarAccess.getUnquotedStringAccess().getDollarSignLeftCurlyBracketKeyword_1());
@@ -299,9 +299,22 @@ public class PPStylesheetProvider extends DefaultStylesheetProvider {
 
 			// Method Call
 			Select.whitespaceBefore(Select.grammar(grammarAccess.getMethodCallAccess().getFullStopKeyword_1_1())) //
-			.withStyle(styles.noSpace()).withRuleName("WsBeforeDot"),
+			.withStyles(styles.noSpace(), styles.noLineBreak()).withRuleName("WsBeforeDot"),
 			Select.whitespaceAfter(Select.grammar(grammarAccess.getMethodCallAccess().getFullStopKeyword_1_1())) //
-			.withStyle(styles.noSpace()).withRuleName("WsAfterDot"),
+			.withStyles(styles.noSpace(), styles.noLineBreak()).withRuleName("WsAfterDot"),
+
+			// The x.y() should not have whitespace before and after the opening '(' - the parenthesis are
+			// optional (the ')' is handled like all parentheses, but the opening is special
+			Select.whitespaceBefore(
+				Select.grammar(grammarAccess.getMethodCallAccess().getParenthesizedLPARBooleanParserRuleCall_1_2_1_0_0()))//
+			.withStyles(styles.noSpace(), styles.noLineBreak()) //
+			.withRuleName("WsBeforeMethodCall_LPAR"),
+
+			// No space after '('
+			Select.whitespaceAfter(
+				Select.grammar(grammarAccess.getMethodCallAccess().getParenthesizedLPARBooleanParserRuleCall_1_2_1_0_0()))//
+			.withStyles(styles.noSpaceUnlessWrapped())//
+			.withRuleName("NoSpaceAfterMethodCallLeftParenthesis"), //
 
 			// Lambdas
 			Select.whitespaceAfter(Select.grammar(grammarAccess.getJava8LambdaAccess().getVerticalLineKeyword_0())) //

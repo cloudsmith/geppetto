@@ -19,9 +19,9 @@ import java.util.Map.Entry;
 
 import junit.framework.ComparisonFailure;
 
-import org.cloudsmith.geppetto.common.diagnostic.DetailedFileDiagnostic;
-import org.cloudsmith.geppetto.common.diagnostic.Diagnostic;
-import org.cloudsmith.geppetto.common.diagnostic.FileDiagnostic;
+import org.cloudsmith.geppetto.diagnostic.DetailedFileDiagnostic;
+import org.cloudsmith.geppetto.diagnostic.Diagnostic;
+import org.cloudsmith.geppetto.diagnostic.FileDiagnostic;
 
 import com.google.common.base.Joiner;
 import com.google.common.base.Predicate;

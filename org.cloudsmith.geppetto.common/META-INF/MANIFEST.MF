@@ -9,7 +9,6 @@ Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Import-Package: org.eclipse.core.runtime,
  org.osgi.framework
 Export-Package: org.cloudsmith.geppetto.common,
- org.cloudsmith.geppetto.common.diagnostic,
  org.cloudsmith.geppetto.common.os,
  org.cloudsmith.geppetto.common.score,
  org.cloudsmith.geppetto.common.stats,

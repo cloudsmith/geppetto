@@ -11,7 +11,7 @@
  * License for the specific language governing permissions and limitations
  * under the License.
  */
-package org.cloudsmith.geppetto.common.diagnostic;
+package org.cloudsmith.geppetto.diagnostic;
 
 import static java.lang.String.format;
 

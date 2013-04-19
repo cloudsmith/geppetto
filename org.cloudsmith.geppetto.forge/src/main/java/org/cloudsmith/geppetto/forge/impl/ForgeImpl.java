@@ -41,11 +41,11 @@ import java.util.zip.ZipInputStream;
 
 import org.apache.http.HttpStatus;
 import org.apache.http.client.HttpResponseException;
-import org.cloudsmith.geppetto.common.diagnostic.Diagnostic;
-import org.cloudsmith.geppetto.common.diagnostic.ExceptionDiagnostic;
-import org.cloudsmith.geppetto.common.diagnostic.FileDiagnostic;
 import org.cloudsmith.geppetto.common.os.FileUtils;
 import org.cloudsmith.geppetto.common.os.StreamUtil;
+import org.cloudsmith.geppetto.diagnostic.Diagnostic;
+import org.cloudsmith.geppetto.diagnostic.ExceptionDiagnostic;
+import org.cloudsmith.geppetto.diagnostic.FileDiagnostic;
 import org.cloudsmith.geppetto.forge.AlreadyPublishedException;
 import org.cloudsmith.geppetto.forge.Cache;
 import org.cloudsmith.geppetto.forge.ERB;
@@ -115,6 +115,9 @@ class ForgeImpl implements Forge {
 		File[] extractedFrom = new File[1];
 
 		Metadata md = createFromModuleDirectory(moduleSource, true, fileFilter, extractedFrom, result);
+		if(result.getSeverity() >= Diagnostic.ERROR)
+			return null;
+
 		if(resultingMetadata != null)
 			resultingMetadata[0] = md;
 
@@ -352,14 +355,15 @@ class ForgeImpl implements Forge {
 		ZipEntry zipEntry;
 		while((zipEntry = template.getNextEntry()) != null) {
 			String name = zipEntry.getName();
-			File destination = new File(destinationBase, name);
 			if(zipEntry.isDirectory()) {
+				File destination = new File(destinationBase, name);
 				if(!destination.mkdirs())
 					throw new IOException(destination + " could not be created");
 				continue;
 			}
 
 			if(name.endsWith(".erb")) {
+				File destination = new File(destinationBase, name.substring(0, name.length() - 4));
 				BufferedReader reader = new BufferedReader(new InputStreamReader(template));
 				BufferedWriter writer = new BufferedWriter(new FileWriter(destination));
 				try {
@@ -368,9 +372,11 @@ class ForgeImpl implements Forge {
 				finally {
 					StreamUtil.close(writer);
 				}
-				continue;
 			}
-			FileUtils.cp(template, destination.getParentFile(), destination.getName());
+			else {
+				File destination = new File(destinationBase, name);
+				FileUtils.cp(template, destination.getParentFile(), destination.getName());
+			}
 		}
 	}
 
@@ -396,8 +402,8 @@ class ForgeImpl implements Forge {
 	}
 
 	@Override
-	public Metadata loadModulefile(File moduleFile) throws IOException {
-		return ModuleUtils.parseModulefile(moduleFile, null);
+	public Metadata loadModulefile(File moduleFile, Diagnostic diagnostic) throws IOException {
+		return ModuleUtils.parseModulefile(moduleFile, diagnostic);
 	}
 
 	@Override

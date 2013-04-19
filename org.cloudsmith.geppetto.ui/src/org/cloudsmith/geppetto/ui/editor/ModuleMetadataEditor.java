@@ -13,7 +13,7 @@ package org.cloudsmith.geppetto.ui.editor;
 
 import java.io.IOException;
 
-import org.cloudsmith.geppetto.common.diagnostic.Diagnostic;
+import org.cloudsmith.geppetto.diagnostic.Diagnostic;
 import org.cloudsmith.geppetto.forge.util.ModuleUtils;
 import org.cloudsmith.geppetto.forge.v2.model.Metadata;
 import org.cloudsmith.geppetto.ui.UIPlugin;

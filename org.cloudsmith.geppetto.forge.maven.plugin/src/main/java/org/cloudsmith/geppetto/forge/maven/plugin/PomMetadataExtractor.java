@@ -21,8 +21,8 @@ import org.apache.maven.artifact.versioning.InvalidVersionSpecificationException
 import org.apache.maven.artifact.versioning.Restriction;
 import org.apache.maven.model.Scm;
 import org.apache.maven.project.MavenProject;
-import org.cloudsmith.geppetto.common.diagnostic.Diagnostic;
-import org.cloudsmith.geppetto.common.diagnostic.FileDiagnostic;
+import org.cloudsmith.geppetto.diagnostic.Diagnostic;
+import org.cloudsmith.geppetto.diagnostic.FileDiagnostic;
 import org.cloudsmith.geppetto.forge.impl.AbstractMetadataExtractor;
 import org.cloudsmith.geppetto.forge.v2.model.Dependency;
 import org.cloudsmith.geppetto.forge.v2.model.Metadata;

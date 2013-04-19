@@ -16,7 +16,7 @@ import static org.junit.Assert.assertTrue;
 import java.io.File;
 import java.util.List;
 
-import org.cloudsmith.geppetto.common.diagnostic.Diagnostic;
+import org.cloudsmith.geppetto.diagnostic.Diagnostic;
 import org.cloudsmith.geppetto.forge.impl.ForgeModule;
 import org.cloudsmith.geppetto.forge.impl.ForgePreferencesBean;
 import org.cloudsmith.geppetto.pp.dsl.target.PuppetTarget;

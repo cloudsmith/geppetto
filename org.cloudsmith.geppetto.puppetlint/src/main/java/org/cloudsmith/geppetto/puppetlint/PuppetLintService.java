@@ -11,7 +11,7 @@
  */
 package org.cloudsmith.geppetto.puppetlint;
 
-import org.cloudsmith.geppetto.common.diagnostic.DiagnosticType;
+import org.cloudsmith.geppetto.diagnostic.DiagnosticType;
 import org.cloudsmith.geppetto.puppetlint.impl.ExternalModule;
 
 import com.google.inject.Guice;

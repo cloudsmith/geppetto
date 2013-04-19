@@ -17,7 +17,7 @@ import java.io.PrintStream;
 import org.eclipse.emf.common.util.BasicDiagnostic;
 import org.eclipse.emf.common.util.Diagnostic;
 
-import org.cloudsmith.geppetto.common.diagnostic.DetailedFileDiagnostic;
+import org.cloudsmith.geppetto.diagnostic.DetailedFileDiagnostic;
 import org.cloudsmith.geppetto.validation.runner.BuildResult;
 
 /**

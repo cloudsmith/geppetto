@@ -23,9 +23,9 @@ import java.util.Collection;
 import java.util.List;
 import java.util.zip.GZIPInputStream;
 
-import org.cloudsmith.geppetto.common.diagnostic.Diagnostic;
 import org.cloudsmith.geppetto.common.os.FileUtils;
 import org.cloudsmith.geppetto.common.os.StreamUtil;
+import org.cloudsmith.geppetto.diagnostic.Diagnostic;
 import org.cloudsmith.geppetto.forge.Forge;
 import org.cloudsmith.geppetto.forge.util.ModuleUtils;
 import org.cloudsmith.geppetto.forge.util.TarUtils;

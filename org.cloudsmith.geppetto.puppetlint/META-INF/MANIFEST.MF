@@ -5,6 +5,7 @@ Bundle-SymbolicName: org.cloudsmith.geppetto.puppetlint;singleton:=true
 Bundle-Version: 3.0.3.qualifier
 Bundle-Vendor: %providerName
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
-Require-Bundle: org.cloudsmith.geppetto.common,
+Require-Bundle: org.cloudsmith.geppetto.diagnostic,
+ org.cloudsmith.geppetto.common,
  com.google.inject
 Export-Package: org.cloudsmith.geppetto.puppetlint

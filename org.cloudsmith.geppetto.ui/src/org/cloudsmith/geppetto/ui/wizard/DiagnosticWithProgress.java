@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import org.cloudsmith.geppetto.common.diagnostic.Diagnostic;
+import org.cloudsmith.geppetto.diagnostic.Diagnostic;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.OperationCanceledException;
 import org.eclipse.core.runtime.SubProgressMonitor;

@@ -17,9 +17,9 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.Reader;
 
-import org.cloudsmith.geppetto.common.diagnostic.Diagnostic;
-import org.cloudsmith.geppetto.common.diagnostic.FileDiagnostic;
 import org.cloudsmith.geppetto.common.os.StreamUtil;
+import org.cloudsmith.geppetto.diagnostic.Diagnostic;
+import org.cloudsmith.geppetto.diagnostic.FileDiagnostic;
 import org.cloudsmith.geppetto.forge.Forge;
 import org.cloudsmith.geppetto.forge.v2.model.Metadata;
 

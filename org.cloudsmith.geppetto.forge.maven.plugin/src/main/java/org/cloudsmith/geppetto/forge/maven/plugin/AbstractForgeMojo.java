@@ -29,8 +29,8 @@ import org.apache.maven.plugin.MojoFailureException;
 import org.apache.maven.plugins.annotations.Component;
 import org.apache.maven.plugins.annotations.Parameter;
 import org.apache.maven.project.MavenProject;
-import org.cloudsmith.geppetto.common.diagnostic.Diagnostic;
-import org.cloudsmith.geppetto.common.diagnostic.FileDiagnostic;
+import org.cloudsmith.geppetto.diagnostic.Diagnostic;
+import org.cloudsmith.geppetto.diagnostic.FileDiagnostic;
 import org.cloudsmith.geppetto.forge.Forge;
 import org.cloudsmith.geppetto.forge.impl.ForgePreferencesBean;
 import org.cloudsmith.geppetto.forge.util.ModuleUtils;
@@ -218,7 +218,7 @@ public abstract class AbstractForgeMojo extends AbstractMojo {
 	protected Metadata getModuleMetadata(File moduleDirectory, Diagnostic diag) throws IOException {
 		File[] extractedFrom = new File[1];
 		Metadata md = getForge().createFromModuleDirectory(moduleDirectory, true, null, extractedFrom, diag);
-		if(md == null)
+		if(md == null || diag.getSeverity() >= Diagnostic.ERROR)
 			return null;
 
 		ModuleName fullName = md.getName();

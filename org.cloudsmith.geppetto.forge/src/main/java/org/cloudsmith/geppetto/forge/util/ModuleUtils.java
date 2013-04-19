@@ -21,9 +21,9 @@ import java.util.Collection;
 import java.util.List;
 import java.util.regex.Pattern;
 
-import org.cloudsmith.geppetto.common.diagnostic.Diagnostic;
-import org.cloudsmith.geppetto.common.diagnostic.FileDiagnostic;
 import org.cloudsmith.geppetto.common.os.StreamUtil;
+import org.cloudsmith.geppetto.diagnostic.Diagnostic;
+import org.cloudsmith.geppetto.diagnostic.FileDiagnostic;
 import org.cloudsmith.geppetto.forge.Forge;
 import org.cloudsmith.geppetto.forge.MetadataExtractor;
 import org.cloudsmith.geppetto.forge.v2.model.Dependency;
@@ -88,6 +88,9 @@ public class ModuleUtils {
 			return !DEFAULT_EXCLUDES_PATTERN.matcher(file.getName()).matches();
 		}
 	};
+
+	private static final String[] validProperties = new String[] {
+			"name", "author", "description", "license", "project_page", "source", "summary", "version", "dependency" };
 
 	private static void addKeyValueNode(PrintWriter out, String key, String... strs) throws IOException {
 		if(strs.length == 0)
@@ -164,14 +167,14 @@ public class ModuleUtils {
 		else if("dependency".equals(key))
 			call(md, key, value, null, null);
 		else
-			throw noResponse(key);
+			throw noResponse(key, 1);
 	}
 
 	private static void call(Metadata md, String key, String value1, String value2) {
 		if("dependency".equals(key))
 			call(md, key, value1, value2, null);
 		else
-			throw noResponse(key);
+			throw noResponse(key, 2);
 	}
 
 	private static void call(Metadata md, String key, String value1, String value2, String value3) {
@@ -183,7 +186,7 @@ public class ModuleUtils {
 			md.getDependencies().add(dep);
 		}
 		else
-			throw noResponse(key);
+			throw noResponse(key, 3);
 	}
 
 	private static Pattern compileExcludePattern(String[] excludes) {
@@ -258,12 +261,35 @@ public class ModuleUtils {
 				stringArgs.add(((StrNode) argNode).getValue());
 			else if(argNode instanceof NilNode)
 				stringArgs.add(null);
+			else
+				throw new IllegalArgumentException("Unexpected ruby code. Node type was: " + (argNode == null
+						? "null"
+						: argNode.getClass().getSimpleName()));
 		}
 		return stringArgs;
 	}
 
-	private static IllegalArgumentException noResponse(String key) {
-		return new IllegalArgumentException("'" + key + "' is not a metadata value");
+	private static IllegalArgumentException noResponse(String key, int nargs) {
+		StringBuilder bld = new StringBuilder();
+		bld.append('\'');
+		bld.append(key);
+		bld.append("' is not a metadata property");
+		int idx = validProperties.length;
+		while(--idx >= 0)
+			if(validProperties[idx].equals(key)) {
+				// This is a valid property so the number of arguments
+				// must be wrong.
+				bld.append(" that takes ");
+				if(nargs > 0)
+					bld.append(nargs);
+				else
+					bld.append("no");
+				bld.append(" argument");
+				if(nargs == 0 || nargs > 1)
+					bld.append('s');
+				break;
+			}
+		return new IllegalArgumentException(bld.toString());
 	}
 
 	/**
@@ -277,9 +303,11 @@ public class ModuleUtils {
 	 * @return The resulting metadata
 	 * @throws IOException
 	 *             when it is not possible to read the <tt>modulefile</tt>.
+	 * @throws IllegalArgumentException
+	 *             if <tt>result</tt> is <tt>null</tt> and errors are detected in the file.
 	 */
-	public static Metadata parseModulefile(File modulefile, Diagnostic result) throws IOException {
-		boolean hasErrors = false;
+	public static Metadata parseModulefile(File modulefile, Diagnostic result) throws IOException,
+			IllegalArgumentException {
 		Metadata receiver = new Metadata();
 		RootNode root = RubyParserUtils.parseFile(modulefile);
 		for(Node node : RubyParserUtils.findNodes(root.getBody(), new NodeType[] { NodeType.FCALLNODE })) {
@@ -293,21 +321,20 @@ public class ModuleUtils {
 					call(receiver, key, args.get(0), args.get(1));
 				else if(args.size() == 3)
 					call(receiver, key, args.get(0), args.get(1), args.get(2));
+				else
+					noResponse(key, args.size());
 			}
 			catch(IllegalArgumentException e) {
-				if(result != null) {
-					SourcePosition pos = call.getPosition();
-					FileDiagnostic diag = new FileDiagnostic(Diagnostic.ERROR, Forge.FORGE, e.getMessage(), new File(
-						pos.getFile()));
-					diag.setLineNumber(pos.getEndLine());
-					result.addChild(diag);
-				}
-				hasErrors = true;
+				if(result == null)
+					throw e;
+				SourcePosition pos = call.getPosition();
+				FileDiagnostic diag = new FileDiagnostic(Diagnostic.ERROR, Forge.FORGE, e.getMessage(), new File(
+					pos.getFile()));
+				diag.setLineNumber(pos.getEndLine() + 1);
+				result.addChild(diag);
 			}
 		}
-		return hasErrors
-				? null
-				: receiver;
+		return receiver;
 	}
 
 	private static void printRubyString(Writer out, String str) throws IOException {

@@ -16,7 +16,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import org.cloudsmith.geppetto.common.diagnostic.Diagnostic;
+import org.cloudsmith.geppetto.diagnostic.Diagnostic;
 import org.cloudsmith.geppetto.forge.Forge;
 import org.cloudsmith.geppetto.forge.util.ModuleUtils;
 import org.cloudsmith.geppetto.forge.v2.model.Dependency;
@@ -408,10 +408,8 @@ class ModuleMetadataOverviewPage extends FormPage {
 							if(moduleFile.exists()) {
 								Metadata metadata = ModuleUtils.parseModulefile(
 									moduleFile.getLocation().toFile(), new Diagnostic());
-								if(metadata != null) {
-									ModuleInfo module = new ModuleInfo(metadata.getName(), metadata.getVersion());
-									modules.put(StringUtil.getModuleText(module), module);
-								}
+								ModuleInfo module = new ModuleInfo(metadata.getName(), metadata.getVersion());
+								modules.put(StringUtil.getModuleText(module), module);
 							}
 							else if(current != null && project.getName().equals(current.getName())) {
 								// Also add all embedded modules from current project
@@ -432,11 +430,9 @@ class ModuleMetadataOverviewPage extends FormPage {
 													if(moduleFile.exists()) {
 														Metadata metadata = ModuleUtils.parseModulefile(
 															moduleFile.getLocation().toFile(), new Diagnostic());
-														if(metadata != null) {
-															ModuleInfo module = new ModuleInfo(
-																metadata.getName(), metadata.getVersion());
-															modules.put(StringUtil.getModuleText(module), module);
-														}
+														ModuleInfo module = new ModuleInfo(
+															metadata.getName(), metadata.getVersion());
+														modules.put(StringUtil.getModuleText(module), module);
 													}
 												}
 											}

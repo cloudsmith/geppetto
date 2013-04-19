@@ -10,8 +10,8 @@ import java.io.File;
 import java.util.List;
 import java.util.Set;
 
-import org.cloudsmith.geppetto.common.diagnostic.Diagnostic;
-import org.cloudsmith.geppetto.common.diagnostic.FileDiagnostic;
+import org.cloudsmith.geppetto.diagnostic.Diagnostic;
+import org.cloudsmith.geppetto.diagnostic.FileDiagnostic;
 import org.cloudsmith.geppetto.pp.dsl.validation.IPPDiagnostics;
 import org.cloudsmith.geppetto.validation.FileType;
 import org.cloudsmith.geppetto.validation.IValidationConstants;

@@ -9,8 +9,8 @@ import static org.junit.Assert.assertTrue;
 import java.io.File;
 import java.util.Set;
 
-import org.cloudsmith.geppetto.common.diagnostic.Diagnostic;
-import org.cloudsmith.geppetto.common.diagnostic.FileDiagnostic;
+import org.cloudsmith.geppetto.diagnostic.Diagnostic;
+import org.cloudsmith.geppetto.diagnostic.FileDiagnostic;
 import org.cloudsmith.geppetto.pp.dsl.validation.DefaultPotentialProblemsAdvisor;
 import org.cloudsmith.geppetto.pp.dsl.validation.IPPDiagnostics;
 import org.cloudsmith.geppetto.validation.FileType;

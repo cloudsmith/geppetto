@@ -15,8 +15,8 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.cloudsmith.geppetto.common.diagnostic.Diagnostic;
-import org.cloudsmith.geppetto.common.diagnostic.ExceptionDiagnostic;
+import org.cloudsmith.geppetto.diagnostic.Diagnostic;
+import org.cloudsmith.geppetto.diagnostic.ExceptionDiagnostic;
 import org.cloudsmith.geppetto.forge.AlreadyPublishedException;
 import org.cloudsmith.geppetto.forge.Forge;
 import org.cloudsmith.geppetto.forge.v2.client.ForgeException;

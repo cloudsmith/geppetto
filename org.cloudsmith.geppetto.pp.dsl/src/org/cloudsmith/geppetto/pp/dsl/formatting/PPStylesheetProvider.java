@@ -54,6 +54,16 @@ public class PPStylesheetProvider extends DefaultStylesheetProvider {
 		final Selector resourceSingleBodyTitle = Select.node(ResourceStyle.SINGLEBODY_TITLE);
 		final Selector resourceSingleBodyNoTitle = Select.node(ResourceStyle.SINGLEBODY_NO_TITLE);
 		final Selector resourceCompactable = Select.node(ResourceStyle.COMPACTABLE);
+		final Selector inline = Select.node(StatementStyle.INLINE);
+		final Selector notInline = Select.not(Select.node(StatementStyle.INLINE));
+
+		final Selector lambdaLeftBrace = Select.grammar(
+			grammarAccess.getJava8LambdaAccess().getLeftCurlyBracketKeyword_5(),
+			grammarAccess.getRubyLambdaAccess().getLAMBDATerminalRuleCall_0());
+
+		final Selector lambdaRightBrace = Select.grammar(
+			grammarAccess.getJava8LambdaAccess().getRightCurlyBracketKeyword_7(),
+			grammarAccess.getRubyLambdaAccess().getRightCurlyBracketKeyword_6());
 
 		final Selector inCompactableResource = Select.containment(resourceCompactable);
 		final Selector inASingleBodiesResourceWithTitle = Select.containment(resourceSingleBodyTitle);
@@ -260,7 +270,9 @@ public class PPStylesheetProvider extends DefaultStylesheetProvider {
 
 			// --Statements
 			// ws before subsequent statements in a block
+			// non inline
 			Select.whitespaceBefore(Select.and(//
+				Select.not(Select.node(StatementStyle.INLINE)), //
 				Select.node(StatementStyle.STATEMENT), //
 				Select.node(StatementStyle.BLOCK), //
 				Select.not(Select.node(StatementStyle.FIRST))))//
@@ -268,9 +280,26 @@ public class PPStylesheetProvider extends DefaultStylesheetProvider {
 			.withRuleName("WsBeforeNonFirstBlockStatement"),
 
 			Select.whitespaceBefore(Select.and(//
+				Select.not(Select.node(StatementStyle.INLINE)), //
 				Select.node(StatementStyle.STATEMENT), //
 				Select.not(Select.node(StatementStyle.FIRST))))//
 			.withStyle(noSpaceOneLineOptionallyTwo)//
+			.withRuleName("WsBeforeNonFirstStatement"), //
+
+			// inline
+			// Although inlined, gets same treatment since it is a block
+			Select.whitespaceBefore(Select.and(//
+				Select.node(StatementStyle.INLINE), //
+				Select.node(StatementStyle.STATEMENT), //
+				Select.node(StatementStyle.BLOCK), //
+				Select.not(Select.node(StatementStyle.FIRST))))//
+			.withStyle(noSpaceTwoLines)//
+			.withRuleName("WsBeforeNonFirstBlockStatement"),
+
+			Select.whitespaceBefore(Select.and(//
+				Select.node(StatementStyle.INLINE), Select.node(StatementStyle.STATEMENT), //
+				Select.not(Select.node(StatementStyle.FIRST))))//
+			.withStyles(styles.oneSpace(), styles.noLineBreak())//
 			.withRuleName("WsBeforeNonFirstStatement"), //
 
 			// styles.noSpace(), styles.lineBreaks(functions.oneLineBreakUnlessPredecessorIsLinebreakingComment())),
@@ -327,15 +356,55 @@ public class PPStylesheetProvider extends DefaultStylesheetProvider {
 			.withStyle(styles.noSpace()).withRuleName("WsAfterLeftRPipe"),
 			Select.whitespaceBefore(Select.grammar(grammarAccess.getRubyLambdaAccess().getVerticalLineKeyword_4())) //
 			.withStyle(styles.noSpace()).withRuleName("WsBeforeRightRPipe"),
+
+			Select.whitespaceAfter(
+				Select.grammar(grammarAccess.getRubyLambdaAccess().getVerticalLineKeyword_4()).and(inline)) //
+			.withStyles(styles.oneSpace(), styles.indent(0), styles.noLineBreak()).withRuleName(
+				"WsAfterInlineRightRPipe"),
 			Select.whitespaceAfter(Select.grammar(grammarAccess.getRubyLambdaAccess().getVerticalLineKeyword_4())) //
-			.withStyle(styles.oneSpace()).withRuleName("WsAfterRightRPipe"),
+			.withStyles(styles.indent(), styles.oneLineBreak()).withRuleName("WsAfterRightRPipe"),
+
+			// Start indent on lambda '{' that is inline (in case there is a break)
+			Select.whitespaceAfter(lambdaLeftBrace.and(inline)).//
+			withStyles( //
+				styles.indent(), //
+				styles.oneSpace(), //
+				styles.noLineBreak())//
+			.withRuleName("WsAfterInlineLambdaLeftBrace"), //
+
+			// Stop indent on '}' and emit one space before
+			Select.whitespaceBefore(lambdaRightBrace.and(inline))//
+			.withStyles( //
+				styles.oneSpace(), //
+				styles.dedent(), //
+				styles.noLineBreak()) //
+			.withRuleName("WsAfterInlineLambdaRightBrace"), //
+
+			// No space and optinal one linebreak after a lambda '}' if inline
+			Select.whitespaceAfter(lambdaRightBrace.and(inline))//
+			.withStyles( //
+				styles.noSpaceUnlessWrapped(), //
+				styles.lineBreaks(0, 1, 2)) //
+			.withRuleName("DefaultCSS.BreakLineAfterRightCurlyBrace"),
 
 			// Separator
 			Select.whitespaceBefore(
 				Select.grammar(grammarAccess.getSeparatorExpressionAccess().getSemicolonKeyword_1())) //
 			.withStyles(styles.noSpace(), styles.noLineBreak()).withRuleName("WsBeforeSeparator"),
-			Select.whitespaceAfter(Select.grammar(grammarAccess.getSeparatorExpressionAccess().getSemicolonKeyword_1())) //
-			.withStyles(styles.oneSpace(), styles.lineBreaks(0, 1, 1, true, true)).withRuleName("WsAfterSeparator")
+
+			// optional linebreak if non inline
+			Select.whitespaceAfter( //
+				Select.and(
+					notInline, Select.grammar(grammarAccess.getSeparatorExpressionAccess().getSemicolonKeyword_1()))) //
+			.withStyles(styles.oneSpace(), styles.lineBreaks(0, 1, 1, true, true)) //
+			.withRuleName("WsAfterSeparator"),
+
+			// no linebreak if inlining
+			Select.whitespaceAfter(Select.and( //
+				Select.grammar(grammarAccess.getSeparatorExpressionAccess().getSemicolonKeyword_1()), //
+				inline))//
+			.withStyles(styles.oneSpace(), styles.noLineBreak()) //
+			.withRuleName("WsAfterSeparator")
 
 		// ,
 

@@ -78,6 +78,31 @@ public class LayoutUtils {
 	@Inject
 	DomNodeLayoutFeeder feeder;
 
+	public boolean fitsOnSameLine(IDomNode node, AbstractElement startGrammarElement,
+			AbstractElement untilGrammarElement, ITextFlow flow, ILayoutContext context) {
+		DelegatingLayoutContext dlc = new DelegatingLayoutContext(context);
+		MeasuredTextFlow continuedFlow = new MeasuredTextFlow((MeasuredTextFlow) flow);
+
+		// advance to first token to measure (there may be pending whitespace to newline output at the start of the node).
+		if(startGrammarElement != null)
+			for(IDomNode n : node.getChildren()) {
+				if(n.getGrammarElement() == startGrammarElement)
+					break;
+				feeder.sequence(n, continuedFlow, dlc);
+			}
+		// take start measure
+		// if flow is empty the first output char will give it height 1
+		int h0 = Math.max(1, continuedFlow.getHeight());
+		for(IDomNode n : node.getChildren()) {
+			feeder.sequence(n, continuedFlow, dlc);
+			if(untilGrammarElement != null && n.getGrammarElement() == untilGrammarElement)
+				break;
+		}
+		int h1 = continuedFlow.getHeight();
+		// if output causes break (height increases), or at edge (the '{' will not fit).
+		return h1 <= h0 && continuedFlow.getWidthOfLastLine() < continuedFlow.getPreferredMaxWidth();
+	}
+
 	/**
 	 * Returns true if the node, when formatted and written to the given flow will fit on what remains
 	 * on the line. The flow and contexts are not affected by this operation.
@@ -94,18 +119,7 @@ public class LayoutUtils {
 	 */
 	public boolean fitsOnSameLine(IDomNode node, AbstractElement untilGrammarElement, ITextFlow flow,
 			ILayoutContext context) {
-		DelegatingLayoutContext dlc = new DelegatingLayoutContext(context);
-		MeasuredTextFlow continuedFlow = new MeasuredTextFlow((MeasuredTextFlow) flow);
-		// if flow is empty the first output char will give it height 1
-		int h0 = Math.max(1, continuedFlow.getHeight());
-		for(IDomNode n : node.getChildren()) {
-			feeder.sequence(n, continuedFlow, dlc);
-			if(untilGrammarElement != null && n.getGrammarElement() == untilGrammarElement)
-				break;
-		}
-		int h1 = continuedFlow.getHeight();
-		// if output causes break (height increases), or at edge (the '{' will not fit).
-		return h1 <= h0 && continuedFlow.getWidthOfLastLine() < continuedFlow.getPreferredMaxWidth();
+		return fitsOnSameLine(node, null, untilGrammarElement, flow, context);
 	}
 
 	/**

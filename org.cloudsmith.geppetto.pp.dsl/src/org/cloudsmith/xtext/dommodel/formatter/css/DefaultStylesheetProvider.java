@@ -109,7 +109,7 @@ public class DefaultStylesheetProvider implements Provider<DomCSS> {
 				styles.indent(), //
 				styles.noSpaceUnlessWrapped(), //
 				styles.oneLineBreak())//
-			.withRuleName("DefaultCSS.StartIndentOnLeftCurlyBracket"), //
+			.withRuleName("DefaultCSS.StartIndentOnLeftCurlyBrace"), //
 
 			// Stop indent on '}' and break line before and after
 			Select.whitespaceBefore(Select.keyword("}"))//

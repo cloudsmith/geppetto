@@ -13,6 +13,7 @@ package org.cloudsmith.geppetto.pp.dsl.formatting;
 
 import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 
 import org.cloudsmith.geppetto.pp.AppendExpression;
 import org.cloudsmith.geppetto.pp.AssignmentExpression;
@@ -44,6 +45,7 @@ import org.cloudsmith.geppetto.pp.dsl.ppdoc.DocumentationAssociator;
 import org.cloudsmith.geppetto.pp.dsl.services.PPGrammarAccess;
 import org.cloudsmith.xtext.dommodel.DomModelUtils;
 import org.cloudsmith.xtext.dommodel.IDomNode;
+import org.cloudsmith.xtext.dommodel.RegionMatch;
 import org.cloudsmith.xtext.dommodel.formatter.DeclarativeSemanticFlowLayout;
 import org.cloudsmith.xtext.dommodel.formatter.DelegatingLayoutContext;
 import org.cloudsmith.xtext.dommodel.formatter.DomNodeLayoutFeeder;
@@ -54,6 +56,7 @@ import org.cloudsmith.xtext.dommodel.formatter.css.StyleSet;
 import org.cloudsmith.xtext.textflow.ITextFlow;
 import org.cloudsmith.xtext.textflow.MeasuredTextFlow;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.xtext.AbstractElement;
 import org.eclipse.xtext.nodemodel.INode;
 import org.eclipse.xtext.util.Pair;
 import org.eclipse.xtext.util.Tuples;
@@ -113,9 +116,14 @@ public class PPSemanticLayout extends DeclarativeSemanticFlowLayout {
 		BLOCK,
 
 		/**
-		 * Can be rendered in compact form
+		 * May be rendered in compact form
 		 */
-		COMPACTABLE;
+		COMPACTABLE,
+
+		/**
+		 * Render inline
+		 */
+		INLINE;
 	}
 
 	@Inject
@@ -145,6 +153,9 @@ public class PPSemanticLayout extends DeclarativeSemanticFlowLayout {
 	@Inject
 	private Provider<IBreakAndAlignAdvice> adviceProvider;
 
+	@Inject
+	LayoutUtils layoutUtils;
+
 	/**
 	 * array of classifiers that represent {@code org.cloudsmith.geppetto.pp.dsl.formatting.PPSemanticLayout.StatementStyle.BLOCK} - used for fast
 	 * lookup (faster
@@ -152,7 +163,8 @@ public class PPSemanticLayout extends DeclarativeSemanticFlowLayout {
 	 */
 	protected final static int[] blockClassIds = new int[] {
 			PPPackage.CASE_EXPRESSION, PPPackage.DEFINITION, PPPackage.HOST_CLASS_DEFINITION, PPPackage.IF_EXPRESSION,
-			PPPackage.NODE_DEFINITION, PPPackage.RESOURCE_EXPRESSION, PPPackage.SELECTOR_EXPRESSION };
+			PPPackage.UNLESS_EXPRESSION, PPPackage.NODE_DEFINITION, PPPackage.RESOURCE_EXPRESSION,
+			PPPackage.SELECTOR_EXPRESSION };
 
 	private static final int ATTRIBUTE_OPERATIONS_CLUSTER_SIZE = 20;
 
@@ -252,9 +264,10 @@ public class PPSemanticLayout extends DeclarativeSemanticFlowLayout {
 	}
 
 	protected boolean _format(JavaLambda o, StyleSet styleSet, IDomNode node, ITextFlow flow, ILayoutContext context) {
-		internalFormatStatementList(
-			node, grammarAccess.getJava8LambdaAccess().getStatementsExpressionListParserRuleCall_6_0());
-		return false;
+		AbstractElement statements = grammarAccess.getJava8LambdaAccess().getStatementsExpressionListParserRuleCall_6_0();
+		AbstractElement fromElement = grammarAccess.getJava8LambdaAccess().getVerticalLineKeyword_0();
+		AbstractElement toElement = grammarAccess.getJava8LambdaAccess().getRightCurlyBracketKeyword_7();
+		return internalFormatLambda(node, flow, context, statements, fromElement, toElement);
 	}
 
 	protected boolean _format(LiteralHash o, StyleSet styleSet, IDomNode node, ITextFlow flow, ILayoutContext context) {
@@ -321,9 +334,10 @@ public class PPSemanticLayout extends DeclarativeSemanticFlowLayout {
 	}
 
 	protected boolean _format(RubyLambda o, StyleSet styleSet, IDomNode node, ITextFlow flow, ILayoutContext context) {
-		internalFormatStatementList(
-			node, grammarAccess.getRubyLambdaAccess().getStatementsExpressionListParserRuleCall_5_0());
-		return false;
+		AbstractElement statements = grammarAccess.getRubyLambdaAccess().getStatementsExpressionListParserRuleCall_5_0();
+		AbstractElement fromElement = grammarAccess.getRubyLambdaAccess().getLAMBDATerminalRuleCall_0();
+		AbstractElement toElement = grammarAccess.getRubyLambdaAccess().getRightCurlyBracketKeyword_6();
+		return internalFormatLambda(node, flow, context, statements, fromElement, toElement);
 	}
 
 	protected boolean _format(SelectorExpression se, StyleSet styleSet, IDomNode node, ITextFlow flow,
@@ -350,8 +364,47 @@ public class PPSemanticLayout extends DeclarativeSemanticFlowLayout {
 	}
 
 	protected boolean _format(VerbatimTE o, StyleSet styleSet, IDomNode node, ITextFlow flow, ILayoutContext context) {
-		flow.appendText(o.getText(), true);
+		RegionMatch match = intersect(node, context);
+		if(match.isInside()) {
+			if(match.isContained() && !context.isWhitespacePreservation())
+				flow.appendText(o.getText(), true);
+			else
+				// output the part of the text that is inside the region as verbatim text
+				flow.appendText(match.apply().getFirst(), true);
+		}
 		return true;
+	}
+
+	protected void changeInlineStyle(IDomNode node, boolean set) {
+		List<IDomNode> nodes = node.getChildren();
+		Iterator<IDomNode> itor = nodes.iterator();
+		while(itor.hasNext()) {
+			IDomNode n = itor.next();
+			IDomNode firstToken = firstSignificantNode(n);
+			if(firstToken == null) {
+				continue;
+			}
+			Set<Object> styleClassifiers = firstToken.getStyleClassifiers();
+			if(set)
+				styleClassifiers.add(StatementStyle.INLINE);
+			else
+				styleClassifiers.remove(StatementStyle.INLINE);
+		}
+	}
+
+	/**
+	 * Returns true if there is source text and this source contains a line break (before formatting) before a closing '}'
+	 * 
+	 * @param node
+	 * @return true if the node contains a line break anywhere it its complete text.
+	 */
+	protected boolean containsEndLineBreak(IDomNode node) {
+		INode n = node.getNode();
+		// ?s: means dotall (. matches \n)
+		// *? means non greedy since we need to check if there is a \n before the }
+		// optional space \s between last newline and }
+		//
+		return n != null && n.getText().matches("(?s:.*?)\\n\\s*\\}$");
 	}
 
 	/**
@@ -383,6 +436,27 @@ public class PPSemanticLayout extends DeclarativeSemanticFlowLayout {
 			}
 		}
 		return firstToken;
+	}
+
+	protected boolean internalFormatLambda(IDomNode node, ITextFlow flow, ILayoutContext context,
+			AbstractElement statements, AbstractElement fromElement, AbstractElement toElement) {
+		boolean hasLineBreak = containsEndLineBreak(node);
+		Pair<Integer, Integer> counts = internalFormatStatementList(node, statements);
+
+		// A lambda is compactable unless it contains a linebreak, and unless it contains block expressions (that always break the line)
+		boolean canBeCompacted = !hasLineBreak && counts.getSecond() < 1;
+		if(canBeCompacted) {
+			node.getStyleClassifiers().add(StatementStyle.COMPACTABLE);
+			// Make all inline and measure if it fits (if not, revoke the inline style
+			changeInlineStyle(node, true);
+			// Measure only the lambda
+			if(!layoutUtils.fitsOnSameLine(node, fromElement, toElement, flow, context))
+				changeInlineStyle(node, false);
+		}
+		else
+			changeInlineStyle(node, false);
+		return false;
+
 	}
 
 	/**

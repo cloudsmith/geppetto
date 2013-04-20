@@ -187,7 +187,7 @@ public class Diagnostic implements Serializable {
 	 * @return <tt>-1</tt>
 	 * @see FileDiagnostic
 	 */
-	public int getLine() {
+	public int getLineNumber() {
 		return -1;
 	}
 

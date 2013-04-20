@@ -65,6 +65,7 @@ public class FileDiagnostic extends Diagnostic {
 	 * 
 	 * @return the value of the '<em>lineNumber</em>' attribute.
 	 */
+	@Override
 	public int getLineNumber() {
 		return lineNumber;
 	}

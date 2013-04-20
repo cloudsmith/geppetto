@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>org.cloudsmith.geppetto</groupId>
@@ -24,6 +25,11 @@
 			qualifier to be replaced in other places -->
 		<ifie>.v${git.commit.time}</ifie>
 		<lifie>-v${git.commit.time}</lifie>
+
+		<!-- we'd like to use stock Guice, but that breaks Maven embedder
+             because it uses a modified Guice called Sisu -->
+		<guice.groupId>org.sonatype.sisu</guice.groupId>
+		<guice.artifactId>sisu-guice</guice.artifactId>
 	</properties>
 
 	<organization>
@@ -251,6 +257,11 @@
 				<version>1.13.1</version>
 				<scope>test</scope>
 			</dependency>
+			<dependency>
+				<groupId>org.sonatype.sisu</groupId>
+				<artifactId>sisu-guice</artifactId>
+				<version>3.1.0</version>
+			</dependency>
 		</dependencies>
 	</dependencyManagement>
 
@@ -262,6 +273,7 @@
 		<module>org.cloudsmith.geppetto.forge.tests</module>
 		<module>org.cloudsmith.geppetto.forge.api</module>
 		<module>org.cloudsmith.geppetto.forge.api.tests</module>
+		<module>org.cloudsmith.geppetto.graph</module>
 		<module>org.cloudsmith.geppetto.pp</module>
 		<module>org.cloudsmith.geppetto.pp.dsl</module>
 		<module>org.cloudsmith.geppetto.pp.dsl.tests</module>

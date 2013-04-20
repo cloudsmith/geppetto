@@ -22,8 +22,8 @@
 			<version>3.0.3-rc2-SNAPSHOT</version>
 		</dependency>
 		<dependency>
-			<groupId>com.google.inject</groupId>
-			<artifactId>guice</artifactId>
+			<groupId>${guice.groupId}</groupId>
+			<artifactId>${guice.artifactId}</artifactId>
 		</dependency>
 	</dependencies>
 </project>

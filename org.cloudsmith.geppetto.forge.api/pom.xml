@@ -14,8 +14,8 @@
 
 	<dependencies>
 		<dependency>
-			<groupId>com.google.inject</groupId>
-			<artifactId>guice</artifactId>
+			<groupId>${guice.groupId}</groupId>
+			<artifactId>${guice.artifactId}</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>com.google.code.gson</groupId>

@@ -109,6 +109,8 @@ public class PPStylesheetProvider extends DefaultStylesheetProvider {
 		final StyleSet oneSpaceNoLine = StyleSet.withImmutableStyles(styles.oneSpace(), styles.noLineBreak());
 		final StyleSet oneOptionalSpaceNoLine = StyleSet.withImmutableStyles(//
 			styles.oneSpace(), styles.noLineBreak());
+		final StyleSet oneSpaceOneOptionalLine = StyleSet.withImmutableStyles(//
+			styles.oneSpace(), styles.lineBreaks(0, 0, 1, true, true));
 
 		DomCSS css = super.get();
 
@@ -227,7 +229,7 @@ public class PPStylesheetProvider extends DefaultStylesheetProvider {
 			.withRuleName("WsBeforeRelationshipEdgeOperator"), //
 
 			Select.whitespaceAfter(relationshipEdgeOperator)//
-			.withStyle(oneSpaceNoLine)//
+			.withStyle(oneSpaceOneOptionalLine)//
 			.withRuleName("WsAfterRelationshipEdgeOperator"), //
 
 			// --Selector Expression

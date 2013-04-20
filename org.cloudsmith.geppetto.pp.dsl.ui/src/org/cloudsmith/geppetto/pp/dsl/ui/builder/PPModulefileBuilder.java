@@ -530,15 +530,12 @@ public class PPModulefileBuilder extends IncrementalProjectBuilder implements PP
 		if(version == null)
 			version = Version.create("0.0.0");
 
-		if(moduleName == null)
-			createErrorMarker(moduleFile, "Module name is empty", null);
-		else
+		if(moduleName != null) {
 			moduleName = moduleName.withSeparator('-');
-
-		if(moduleName != null &&
-				!project.getName().toLowerCase().contains(moduleName.getName().toString().toLowerCase()))
-			createWarningMarker(
-				moduleFile, "Mismatched name - project does not reflect module: '" + moduleName + "'", null);
+			if(!project.getName().toLowerCase().contains(moduleName.getName().toString().toLowerCase()))
+				createWarningMarker(moduleFile, "Mismatched name - project does not reflect module: '" + moduleName +
+						"'", null);
+		}
 
 		try {
 			IProject p = getProject();

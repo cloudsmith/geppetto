@@ -195,14 +195,39 @@ class ForgeImpl implements Forge {
 
 		if(filter == null)
 			filter = moduleFileFilter;
-		for(MetadataExtractor extractor : getMetadataExtractors())
-			if(extractor.canExtractFrom(moduleDirectory, filter))
-				return extractor.parseMetadata(moduleDirectory, includeTypesAndChecksums, filter, extractedFrom, result);
 
-		if(result != null)
+		if(extractedFrom == null)
+			extractedFrom = new File[1];
+
+		Metadata md = null;
+		for(MetadataExtractor extractor : getMetadataExtractors())
+			if(extractor.canExtractFrom(moduleDirectory, filter)) {
+				md = extractor.parseMetadata(moduleDirectory, includeTypesAndChecksums, filter, extractedFrom, result);
+				break;
+			}
+
+		if(result == null)
+			return md;
+
+		if(md == null) {
 			result.addChild(new Diagnostic(Diagnostic.ERROR, Forge.FORGE, "No Module Metadata found in directory " +
 					moduleDirectory.getAbsolutePath()));
-		return null;
+			return null;
+		}
+
+		ModuleName fullName = md.getName();
+		if(fullName == null || fullName.getOwner() == null || fullName.getName() == null) {
+			result.addChild(new FileDiagnostic(
+				Diagnostic.ERROR, Forge.FORGE, "A full name (user-module) must be specified in the Modulefile",
+				extractedFrom[0]));
+		}
+
+		Version ver = md.getVersion();
+		if(ver == null) {
+			result.addChild(new FileDiagnostic(
+				Diagnostic.ERROR, Forge.FORGE, "A version must be specified in the Modulefile", extractedFrom[0]));
+		}
+		return md;
 	}
 
 	@Override

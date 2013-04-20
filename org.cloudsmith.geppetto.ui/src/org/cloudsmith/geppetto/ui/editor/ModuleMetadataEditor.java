@@ -18,6 +18,7 @@ import org.cloudsmith.geppetto.forge.util.ModuleUtils;
 import org.cloudsmith.geppetto.forge.v2.model.Metadata;
 import org.cloudsmith.geppetto.ui.UIPlugin;
 import org.eclipse.core.resources.IFile;
+import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IEditorSite;
@@ -88,8 +89,17 @@ public class ModuleMetadataEditor extends FormEditor {
 		super.init(site, input);
 
 		if(input instanceof FileEditorInput) {
+			IPath path;
 			try {
-				metadata = ModuleUtils.parseModulefile(((FileEditorInput) input).getPath().toFile(), new Diagnostic());
+				path = ((FileEditorInput) input).getPath();
+			}
+			catch(IllegalArgumentException e) {
+				// This happens when an editor references a file that no longer
+				// exists. Just ignore
+				return;
+			}
+			try {
+				metadata = ModuleUtils.parseModulefile(path.toFile(), new Diagnostic());
 				if(metadata != null)
 					setPartName(metadata.getName().toString());
 			}

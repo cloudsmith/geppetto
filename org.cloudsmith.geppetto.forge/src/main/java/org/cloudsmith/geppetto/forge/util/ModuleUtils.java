@@ -313,8 +313,8 @@ public class ModuleUtils {
 		for(Node node : RubyParserUtils.findNodes(root.getBody(), new NodeType[] { NodeType.FCALLNODE })) {
 			FCallNode call = (FCallNode) node;
 			String key = call.getName();
-			List<String> args = getStringArguments(call);
 			try {
+				List<String> args = getStringArguments(call);
 				if(args.size() == 1)
 					call(receiver, key, args.get(0));
 				else if(args.size() == 2)

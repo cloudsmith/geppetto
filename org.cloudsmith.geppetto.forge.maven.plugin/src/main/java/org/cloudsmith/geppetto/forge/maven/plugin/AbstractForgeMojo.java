@@ -30,15 +30,12 @@ import org.apache.maven.plugins.annotations.Component;
 import org.apache.maven.plugins.annotations.Parameter;
 import org.apache.maven.project.MavenProject;
 import org.cloudsmith.geppetto.diagnostic.Diagnostic;
-import org.cloudsmith.geppetto.diagnostic.FileDiagnostic;
 import org.cloudsmith.geppetto.forge.Forge;
 import org.cloudsmith.geppetto.forge.impl.ForgePreferencesBean;
 import org.cloudsmith.geppetto.forge.util.ModuleUtils;
 import org.cloudsmith.geppetto.forge.v2.MetadataRepository;
 import org.cloudsmith.geppetto.forge.v2.model.Metadata;
-import org.cloudsmith.geppetto.forge.v2.model.ModuleName;
 import org.cloudsmith.geppetto.forge.v2.service.ReleaseService;
-import org.cloudsmith.geppetto.semver.Version;
 import org.cloudsmith.geppetto.validation.ValidationService;
 import org.cloudsmith.geppetto.validation.impl.ValidationModule;
 import org.eclipse.core.runtime.IPath;
@@ -216,26 +213,7 @@ public abstract class AbstractForgeMojo extends AbstractMojo {
 	}
 
 	protected Metadata getModuleMetadata(File moduleDirectory, Diagnostic diag) throws IOException {
-		File[] extractedFrom = new File[1];
-		Metadata md = getForge().createFromModuleDirectory(moduleDirectory, true, null, extractedFrom, diag);
-		if(md == null || diag.getSeverity() >= Diagnostic.ERROR)
-			return null;
-
-		ModuleName fullName = md.getName();
-		if(fullName == null || fullName.getOwner() == null || fullName.getName() == null) {
-			diag.addChild(new FileDiagnostic(
-				Diagnostic.ERROR, Forge.FORGE, "A full name (user-module) must be specified in the Modulefile",
-				extractedFrom[0]));
-			return null;
-		}
-
-		Version ver = md.getVersion();
-		if(ver == null) {
-			diag.addChild(new FileDiagnostic(
-				Diagnostic.ERROR, Forge.FORGE, "A version must be specified in the Modulefile", extractedFrom[0]));
-			return null;
-		}
-		return md;
+		return getForge().createFromModuleDirectory(moduleDirectory, true, null, null, diag);
 	}
 
 	protected File getModulesDir() {

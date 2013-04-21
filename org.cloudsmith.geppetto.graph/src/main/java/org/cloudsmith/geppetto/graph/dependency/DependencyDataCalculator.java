@@ -364,9 +364,8 @@ public class DependencyDataCalculator implements DependencyGraphStyles, Dependen
 			Set<ModuleName> processed = Sets.newHashSet();
 			for(Dependency d : mi.getUnresolvedDependencies()) {
 				final ModuleName name = d.getName();
-				if(processed.contains(name))
+				if(!processed.add(name))
 					continue;
-				processed.add(name);
 				Collection<MetadataInfo> existingVersions = moduleData.get(name);
 				ModuleNodeData b = null;
 				if(existingVersions == null || existingVersions.size() < 1) {

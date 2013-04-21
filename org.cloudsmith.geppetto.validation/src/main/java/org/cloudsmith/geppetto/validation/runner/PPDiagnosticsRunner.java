@@ -428,7 +428,7 @@ public class PPDiagnosticsRunner {
 			for(IEObjectDescription desc : importedAdapter.getResolvedDescriptions()) {
 				// get the container (e.g. a module) of the the desc
 				File moduleDir = getContainerHandle(desc.getEObjectURI(), descriptionIndex, validationContainerManager);
-				if(moduleDir != null)
+				if(moduleDir == null)
 					continue;
 				ModuleExport me = exports.get(desc);
 				if(me == null)

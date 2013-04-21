@@ -38,15 +38,15 @@ import com.google.common.collect.Multimaps;
 import com.google.common.collect.Sets;
 
 /**
- * Interface for data describing exports per Module.
- * TODO: BAD NAME - RENAME TO AllModulesState
+ * Interface for data describing exports per Module. TODO: BAD NAME - RENAME TO
+ * AllModulesState
  * 
  */
 public class AllModuleReferences implements Serializable {
 
 	/**
-	 * Describes an exported class. One Export describes the class itself
-	 * and a list of Exports describe the parameters.
+	 * Describes an exported class. One Export describes the class itself and a
+	 * list of Exports describe the parameters.
 	 * 
 	 */
 	public static class ClassDescription {
@@ -69,8 +69,8 @@ public class AllModuleReferences implements Serializable {
 		}
 
 		/**
-		 * Obtains the Parameters exported for the class. To obtain the unqualified name
-		 * of a parameter use the key of the map, or call {@link Export#getLastNameSegment() }
+		 * Obtains the Parameters exported for the class. To obtain the
+		 * unqualified name of a parameter use the key of the map, or call {@link Export#getLastNameSegment() }
 		 * 
 		 * @return
 		 */
@@ -81,20 +81,20 @@ public class AllModuleReferences implements Serializable {
 
 	public interface Export extends Serializable {
 		/**
-		 * The source text (if any) associated with a DefinitionArgument's value expression.
-		 * An implementation should trim the result from leading and trailing whitespace.
-		 * This is essentially the return of the sequence of characters found in the file {@link #getFile()} starting at
-		 * {@link #getStart()} and
-		 * extending for {@link #getLength()} characters
+		 * The source text (if any) associated with a DefinitionArgument's value
+		 * expression. An implementation should trim the result from leading and
+		 * trailing whitespace. This is essentially the return of the sequence
+		 * of characters found in the file {@link #getFile()} starting at {@link #getStart()} and extending for {@link #getLength()} characters
 		 * trimmed of leading and trailing whitespace.
 		 * 
-		 * @return the source text, or null if a DefinitionArgument has no value.
+		 * @return the source text, or null if a DefinitionArgument has no
+		 *         value.
 		 */
 		String getDefaultValueText();
 
 		/**
-		 * The EClass of the exported element (a PPPackage.Literals.xxx class, or a PPTPPackage.Literals.xxx
-		 * class).
+		 * The EClass of the exported element (a PPPackage.Literals.xxx class,
+		 * or a PPTPPackage.Literals.xxx class).
 		 * 
 		 * @return
 		 */
@@ -138,14 +138,16 @@ public class AllModuleReferences implements Serializable {
 
 		/**
 		 * The name of the parent the exported element "inherits from", or null
-		 * if this element does not inherit. The parent name is a qualified name in string form.
+		 * if this element does not inherit. The parent name is a qualified name
+		 * in string form.
 		 * 
 		 * @return
 		 */
 		public String getParentName();
 
 		/**
-		 * The start offset of the definition in source (starting at the beginning of the file), or -1 if not available.
+		 * The start offset of the definition in source (starting at the
+		 * beginning of the file), or -1 if not available.
 		 * 
 		 * @return
 		 */
@@ -388,12 +390,13 @@ public class AllModuleReferences implements Serializable {
 	}
 
 	/**
-	 * Returns an exported class with the given name, or null if no such class can be found.
+	 * Returns an exported class with the given name, or null if no such class
+	 * can be found.
 	 * 
 	 * @param className
-	 *        the fqn of the wanted class
+	 *            the fqn of the wanted class
 	 * @param visibleExports
-	 *        - all exports to consider
+	 *            - all exports to consider
 	 * @return
 	 */
 	public Export findExportedClass(String className, Iterable<Export> visibleExports) {
@@ -417,8 +420,9 @@ public class AllModuleReferences implements Serializable {
 	}
 
 	/**
-	 * Returns an unmodifiable Map of importing module to a {@link Multimap} of ambiguously imported exports per module.
-	 * To get what is ambiguously imported from module B into module A perform result.get(A).get(B).
+	 * Returns an unmodifiable Map of importing module to a {@link Multimap} of
+	 * ambiguously imported exports per module. To get what is ambiguously
+	 * imported from module B into module A perform result.get(A).get(B).
 	 * 
 	 * @return
 	 */
@@ -451,14 +455,13 @@ public class AllModuleReferences implements Serializable {
 	}
 
 	/**
-	 * Returns an Iterable for all Exports of a puppet class. The given iterable exports
-	 * should contain exports of wanted visibility e.g. {@link AllModuleReferences#getVisibleExports(File)} if
-	 * {@link AllModuleReferences#isVisibilityRestricted(File)} returns true and only classes visible to content in
-	 * the container represented by the given File are wanted, or {@link AllModuleReferences#getAllExported() } if visibility is
-	 * not restricted (all
-	 * non
-	 * restricted have the same visibility and it is
-	 * always all exports).
+	 * Returns an Iterable for all Exports of a puppet class. The given iterable
+	 * exports should contain exports of wanted visibility e.g. {@link AllModuleReferences#getVisibleExports(File)} if
+	 * {@link AllModuleReferences#isVisibilityRestricted(File)} returns true and
+	 * only classes visible to content in the container represented by the given
+	 * File are wanted, or {@link AllModuleReferences#getAllExported() } if
+	 * visibility is not restricted (all non restricted have the same visibility
+	 * and it is always all exports).
 	 * 
 	 * @param exports
 	 * @return
@@ -474,8 +477,8 @@ public class AllModuleReferences implements Serializable {
 	}
 
 	/**
-	 * Returns an unmodifiable {@link Multimap} containing exports per File, where a given File is a reference
-	 * to a module directory.
+	 * Returns an unmodifiable {@link Multimap} containing exports per File,
+	 * where a given File is a reference to a module directory.
 	 * 
 	 * @return
 	 */
@@ -486,19 +489,22 @@ public class AllModuleReferences implements Serializable {
 	}
 
 	/**
-	 * Returns an unmodifiable Multimap mapping module directory to a Collection of Export.
-	 * The export collection represents what is exported from the module (if the File is a module directory),
-	 * the root, or the special file "_pptp".
+	 * Returns an unmodifiable Multimap mapping module directory to a Collection
+	 * of Export. The export collection represents what is exported from the
+	 * module (if the File is a module directory), the root, or the special file
+	 * "_pptp".
 	 * 
-	 * @return An unmodifiable multimap from module to what is exported from that module.
+	 * @return An unmodifiable multimap from module to what is exported from
+	 *         that module.
 	 */
 	public Multimap<File, Export> getExportsPerModule() {
 		return getExportMap();
 	}
 
 	/**
-	 * Returns an unmodifiable Map of importing module to a {@link Multimap} of imported exports per module.
-	 * To get what is imported from module B into module A perform result.get(A).get(B).
+	 * Returns an unmodifiable Map of importing module to a {@link Multimap} of
+	 * imported exports per module. To get what is imported from module B into
+	 * module A perform result.get(A).get(B).
 	 * 
 	 * @return
 	 */
@@ -538,10 +544,12 @@ public class AllModuleReferences implements Serializable {
 			for(Export c : classes)
 				if(e.getName().startsWith(c.getName())) {
 					String lastSegment = e.getLastNameSegment();
-					// String lastSegment = lastSegmentOfQualifiedName(e.getName());
+					// String lastSegment =
+					// lastSegmentOfQualifiedName(e.getName());
 					if(parameters.get(lastSegment) == null)
 						parameters.put(e.getLastNameSegment(), e);
-					// parameters.put(lastSegmentOfQualifiedName(e.getName()), e);
+					// parameters.put(lastSegmentOfQualifiedName(e.getName()),
+					// e);
 				}
 
 		}
@@ -550,9 +558,9 @@ public class AllModuleReferences implements Serializable {
 	}
 
 	/**
-	 * Returns an (unmodifiable) multimap describing the restricted visibility of
-	 * modules. If a module's directory is a key in the returned map, its view is restricted to containers
-	 * listed in the value for that key.
+	 * Returns an (unmodifiable) multimap describing the restricted visibility
+	 * of modules. If a module's directory is a key in the returned map, its
+	 * view is restricted to containers listed in the value for that key.
 	 * 
 	 * @return
 	 */
@@ -561,7 +569,17 @@ public class AllModuleReferences implements Serializable {
 	}
 
 	/**
-	 * Returns an unmodifiable {@link Multimap} of the full information Module -> unresolved names/file/locations.
+	 * Returns the root to use for relative lookups
+	 * 
+	 * @return
+	 */
+	public File getRoot() {
+		return root;
+	}
+
+	/**
+	 * Returns an unmodifiable {@link Multimap} of the full information Module
+	 * -> unresolved names/file/locations.
 	 * 
 	 * @return
 	 */
@@ -594,11 +612,12 @@ public class AllModuleReferences implements Serializable {
 	}
 
 	/**
-	 * Returns the exports visible to code in the given module. The moduleDirectory may be relative
-	 * in which case the root must have been set.
-	 * If module directory path is the special "_pptp" the content of the target
-	 * platform is obtained. If the moduleDirectory is the root path, all non modular exports (from
-	 * manifests and target contributions from ruby code) not in any module.
+	 * Returns the exports visible to code in the given module. The
+	 * moduleDirectory may be relative in which case the root must have been
+	 * set. If module directory path is the special "_pptp" the content of the
+	 * target platform is obtained. If the moduleDirectory is the root path, all
+	 * non modular exports (from manifests and target contributions from ruby
+	 * code) not in any module.
 	 * 
 	 * @param moduleDirectory
 	 * @return
@@ -622,8 +641,9 @@ public class AllModuleReferences implements Serializable {
 	}
 
 	/**
-	 * Returns true if the given moduleDirectory has limited visibility into all exports.
-	 * This is useful to know as the set of moduleDirectories with full visibility see the same set of exports.
+	 * Returns true if the given moduleDirectory has limited visibility into all
+	 * exports. This is useful to know as the set of moduleDirectories with full
+	 * visibility see the same set of exports.
 	 * 
 	 * @param moduleDirectory
 	 * @return
@@ -637,14 +657,6 @@ public class AllModuleReferences implements Serializable {
 		if(restricted == null)
 			throw new IllegalArgumentException("null 'restricted'");
 		this.restricted = Multimaps.unmodifiableMultimap(restricted);
-	}
-
-	/**
-	 * Returns the root to use for relative lookups
-	 * @return
-	 */
-	public File getRoot() {
-		return root;
 	}
 
 	/**

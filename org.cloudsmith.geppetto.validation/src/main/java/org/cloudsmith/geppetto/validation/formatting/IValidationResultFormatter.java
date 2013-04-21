@@ -13,12 +13,11 @@ package org.cloudsmith.geppetto.validation.formatting;
 
 import java.io.OutputStream;
 
+import org.cloudsmith.geppetto.validation.runner.BuildResult;
 import org.eclipse.emf.common.util.BasicDiagnostic;
 
-import org.cloudsmith.geppetto.validation.runner.BuildResult;
-
 /**
- * Interface for formatting of org.cloudsmith.geppetto.validation/build result.
+ * Interface for formatting of validation/build result.
  * 
  */
 public interface IValidationResultFormatter {

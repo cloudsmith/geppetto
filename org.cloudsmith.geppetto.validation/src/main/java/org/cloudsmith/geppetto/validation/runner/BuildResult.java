@@ -14,10 +14,9 @@ package org.cloudsmith.geppetto.validation.runner;
 import org.cloudsmith.geppetto.forge.v2.model.ModuleName;
 
 import com.google.common.collect.Multimap;
-import com.google.common.collect.Multimaps;
 
 /**
- * Provides access to any build result produced by "org.cloudsmith.geppetto.validation" (which should really be renamed to "build").
+ * Provides access to any build result produced by "validation" (which should really be renamed to "build").
  * 
  */
 public class BuildResult {
@@ -38,9 +37,13 @@ public class BuildResult {
 		return allModuleReferences;
 	}
 
+	public Multimap<ModuleName, MetadataInfo> getModuleData() {
+		return moduleData;
+	}
+
 	/**
-	 * Get information about all rakefiles and their tasks discovered in the result, or
-	 * null if rakefile information was not requested or possible to compute for a particular request.
+	 * Get information about all rakefiles and their tasks discovered in the result, or null if rakefile information was
+	 * not requested or possible to compute for a particular request.
 	 * 
 	 * @return
 	 */
@@ -52,12 +55,12 @@ public class BuildResult {
 		return rubyServicesAvailable;
 	}
 
-	public Multimap<ModuleName, MetadataInfo> getModuleData() {
-		return moduleData;
-	}
-
 	public void setAllModuleReferences(AllModuleReferences allReferences) {
 		this.allModuleReferences = allReferences;
+	}
+
+	public void setModuleData(Multimap<ModuleName, MetadataInfo> moduleData) {
+		this.moduleData = moduleData;
 	}
 
 	public void setRakefileInfo(RakefileInfo rakefileInfo) {
@@ -66,9 +69,5 @@ public class BuildResult {
 
 	public void setRubyServicesAvailable(boolean flag) {
 		rubyServicesAvailable = flag;
-	}
-
-	public void setModuleData(Multimap<ModuleName, MetadataInfo> moduleData) {
-		this.moduleData = moduleData;
 	}
 }

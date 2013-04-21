@@ -94,7 +94,8 @@ public class MetadataInfo {
 	}
 
 	/**
-	 * Returns true if this Metadatainfo represents a puppet module describing a "role"
+	 * Returns true if this Metadatainfo represents a puppet module describing a
+	 * "role"
 	 * 
 	 * @return true if this instance represents a role.
 	 */

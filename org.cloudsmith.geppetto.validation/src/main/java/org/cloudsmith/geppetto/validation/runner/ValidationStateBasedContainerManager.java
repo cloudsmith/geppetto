@@ -22,8 +22,7 @@ import org.eclipse.xtext.resource.containers.StateBasedContainerManager;
 import com.google.inject.Inject;
 
 /**
- * A container manager that allows visible containers to be obtained from a container
- * handle.
+ * A container manager that allows visible containers to be obtained from a container handle.
  * 
  */
 public class ValidationStateBasedContainerManager extends StateBasedContainerManager {
@@ -31,8 +30,8 @@ public class ValidationStateBasedContainerManager extends StateBasedContainerMan
 	private IAllContainersState.Provider stateProvider;
 
 	/**
-	 * Returns the container handle - (normally an internal handle, but in PP org.cloudsmith.geppetto.validation, this handle
-	 * is known to be the module path).
+	 * Returns the container handle - (normally an internal handle, but in PP validation, this handle is known to be the
+	 * module path).
 	 * 
 	 * @param desc
 	 * @param resourceIndex
@@ -43,10 +42,10 @@ public class ValidationStateBasedContainerManager extends StateBasedContainerMan
 	}
 
 	/**
-	 * This method exists since prior to Xtext 2.3 it was not possible to obtain the stateProvider.
-	 * When hammer has a min requirement on Xtext 2.3, the implementation of this class can be simplified
-	 * by removing this method and instead calling the public getState(IResourceDescription) on the superclass,
-	 * and also removing the extra injected private {@link #stateProvider} in this class.
+	 * This method exists since prior to Xtext 2.3 it was not possible to obtain the stateProvider. When hammer has a
+	 * min requirement on Xtext 2.3, the implementation of this class can be simplified by removing this method and
+	 * instead calling the public getState(IResourceDescription) on the superclass, and also removing the extra injected
+	 * private {@link #stateProvider} in this class.
 	 * 
 	 * TODO: See https://am0.cloudsmith.com/bugzilla/show_bug.cgi?id=2614 and comment above.
 	 * 

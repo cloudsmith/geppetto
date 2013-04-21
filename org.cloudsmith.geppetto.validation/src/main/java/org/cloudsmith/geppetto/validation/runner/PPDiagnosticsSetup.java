@@ -20,7 +20,7 @@ import com.google.inject.Guice;
 import com.google.inject.Injector;
 
 /**
- * Setup of PP runtime with overrides for org.cloudsmith.geppetto.validation service.
+ * Setup of PP runtime with overrides for validation service.
  * 
  */
 public class PPDiagnosticsSetup extends PPStandaloneSetup {

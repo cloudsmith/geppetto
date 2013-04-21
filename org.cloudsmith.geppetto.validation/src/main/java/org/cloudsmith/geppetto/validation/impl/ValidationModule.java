@@ -8,6 +8,6 @@ public class ValidationModule extends AbstractModule {
 
 	@Override
 	protected void configure() {
-		bind(ValidationService.class).to(ValidationServiceImpl.class); 
+		bind(ValidationService.class).to(ValidationServiceImpl.class);
 	}
 }

@@ -7,7 +7,7 @@
  * 
  * Contributors:
  *   Itemis AB (http://www.itemis.eu) - initial API and implementation
- *   Cloudsmith - adpated for org.cloudsmith.geppetto.validation
+ *   Cloudsmith - adpated for validation
  * 
  */
 package org.cloudsmith.geppetto.validation.runner;
@@ -31,7 +31,6 @@ import org.cloudsmith.geppetto.pp.dsl.linking.PPSearchPath;
 import org.cloudsmith.geppetto.pp.dsl.linking.PPSearchPath.IConfigurableProvider;
 import org.cloudsmith.geppetto.pp.dsl.linking.PPSearchPath.ISearchPathProvider;
 import org.cloudsmith.geppetto.pp.dsl.parser.antlr.PPParser;
-import org.cloudsmith.geppetto.pp.dsl.target.PptpResourceUtil;
 import org.cloudsmith.geppetto.pp.dsl.validation.IPotentialProblemsAdvisor;
 import org.cloudsmith.geppetto.pp.dsl.validation.IValidationAdvisor;
 import org.cloudsmith.geppetto.pp.dsl.validation.PPJavaValidator;
@@ -83,7 +82,7 @@ import com.google.inject.Provider;
 import com.google.inject.TypeLiteral;
 
 /**
- * Runner/Helper that can perform diagnostics/org.cloudsmith.geppetto.validation of PP files.
+ * Runner/Helper that can perform diagnostics/validation of PP files.
  * 
  */
 public class PPDiagnosticsRunner {
@@ -125,17 +124,21 @@ public class PPDiagnosticsRunner {
 			return text;
 		}
 
-		/* (non-Javadoc)
+		/*
+		 * (non-Javadoc)
 		 * 
-		 * @see org.cloudsmith.geppetto.validation.runner.IExportsPerModule.Export#getEClass() */
+		 * @see org.cloudsmith.geppetto.validation.runner.IExportsPerModule.Export #getEClass()
+		 */
 		@Override
 		public EClass getEClass() {
 			return desc.getEClass();
 		}
 
-		/* (non-Javadoc)
+		/*
+		 * (non-Javadoc)
 		 * 
-		 * @see org.cloudsmith.geppetto.validation.runner.ExportsPerModule.Export#getFile() */
+		 * @see org.cloudsmith.geppetto.validation.runner.ExportsPerModule.Export #getFile()
+		 */
 		@Override
 		public File getFile() {
 			return file;
@@ -146,25 +149,31 @@ public class PPDiagnosticsRunner {
 			return desc.getName().getLastSegment();
 		}
 
-		/* (non-Javadoc)
+		/*
+		 * (non-Javadoc)
 		 * 
-		 * @see org.cloudsmith.geppetto.validation.runner.ExportsPerModule.Export#getLength() */
+		 * @see org.cloudsmith.geppetto.validation.runner.ExportsPerModule.Export #getLength()
+		 */
 		@Override
 		public int getLength() {
 			return length;
 		}
 
-		/* (non-Javadoc)
+		/*
+		 * (non-Javadoc)
 		 * 
-		 * @see org.cloudsmith.geppetto.validation.runner.ExportsPerModule.Export#getLine() */
+		 * @see org.cloudsmith.geppetto.validation.runner.ExportsPerModule.Export #getLine()
+		 */
 		@Override
 		public int getLine() {
 			return line;
 		}
 
-		/* (non-Javadoc)
+		/*
+		 * (non-Javadoc)
 		 * 
-		 * @see org.cloudsmith.geppetto.validation.runner.IExportsPerModule.Export#getName() */
+		 * @see org.cloudsmith.geppetto.validation.runner.IExportsPerModule.Export #getName()
+		 */
 		@Override
 		public String getName() {
 			return PPDiagnosticsRunner.this.converter.toString(desc.getName());
@@ -175,17 +184,21 @@ public class PPDiagnosticsRunner {
 			return PPDiagnosticsRunner.this.converter.toString(desc.getName().skipLast(1));
 		}
 
-		/* (non-Javadoc)
+		/*
+		 * (non-Javadoc)
 		 * 
-		 * @see org.cloudsmith.geppetto.validation.runner.IExportsPerModule.Export#getParentName() */
+		 * @see org.cloudsmith.geppetto.validation.runner.IExportsPerModule.Export #getParentName()
+		 */
 		@Override
 		public String getParentName() {
 			return desc.getUserData(PPDSLConstants.PARENT_NAME_DATA);
 		}
 
-		/* (non-Javadoc)
+		/*
+		 * (non-Javadoc)
 		 * 
-		 * @see org.cloudsmith.geppetto.validation.runner.ExportsPerModule.Export#getStart() */
+		 * @see org.cloudsmith.geppetto.validation.runner.ExportsPerModule.Export #getStart()
+		 */
 		@Override
 		public int getStart() {
 			return startOffset;
@@ -252,15 +265,15 @@ public class PPDiagnosticsRunner {
 	}
 
 	/**
-	 * Configure containers if something else than "everything is visible to everything" is wanted.
-	 * This method must be called before resources are loaded.
+	 * Configure containers if something else than "everything is visible to everything" is wanted. This method must be
+	 * called before resources are loaded.
 	 * 
 	 * @param root
-	 *        - where non modular content is contained
+	 *            - where non modular content is contained
 	 * @param moduleInfo
-	 *        - information about modules and their dependencies
+	 *            - information about modules and their dependencies
 	 * @param resources
-	 *        - URI's to all resources to be loaded
+	 *            - URI's to all resources to be loaded
 	 */
 	public void configureContainers(File root, Collection<MetadataInfo> moduleInfo, Iterable<URI> resources) {
 		List<String> allContainers = Lists.newArrayList();
@@ -275,12 +288,14 @@ public class PPDiagnosticsRunner {
 
 		for(MetadataInfo mi : moduleInfo) {
 			File f = mi.getFile();
-			// get path to directory (the moduleinfo file is for the metadata file itself
+			// get path to directory (the moduleinfo file is for the metadata
+			// file itself
 			IPath p = new Path(f.getAbsolutePath()).removeLastSegments(1);
 			modulePaths.add(p);
 			allContainers.add(p.toString());
 			if(mi.isRole()) {
-				// This means the dependencies are restricted to the transitive closure of the module's'
+				// This means the dependencies are restricted to the transitive
+				// closure of the module's'
 				// dependencies + the pptp
 				configureTransitiveClosure(p, restricted, mi);
 				restricted.put(p.toString(), PPTPCONTAINER);
@@ -332,7 +347,9 @@ public class PPDiagnosticsRunner {
 	private void configureTransitiveClosure(final IPath rootModule, final Multimap<String, String> restricted,
 			final MetadataInfo mi) {
 		Set<MetadataInfo> processed = Sets.newHashSet();
-		restricted.put(rootModule.toString(), rootModule.toString()); // it can see itself
+		restricted.put(rootModule.toString(), rootModule.toString()); // it can
+																		// see
+																		// itself
 		_configureTransitiveClosure(processed, rootModule, restricted, mi);
 	}
 
@@ -382,14 +399,16 @@ public class PPDiagnosticsRunner {
 		// ResourceDescriptions is an index of all exports
 		IResourceDescriptions descriptionIndex = getResourceDescriptions();
 
-		// translate all exports and create a map from IEObjectDescription to Export
+		// translate all exports and create a map from IEObjectDescription to
+		// Export
 		Map<IEObjectDescription, ModuleExport> exports = Maps.newHashMap();
 		for(IResourceDescription rdesc : descriptionIndex.getAllResourceDescriptions()) {
 			String handle = validationContainerManager.getContainerHandle(rdesc, descriptionIndex);
 
 			if(handle == null)
 				continue;
-			// TODO: This is a leap of faith, handles are all paths, except the special "_pptp" path
+			// TODO: This is a leap of faith, handles are all paths, except the
+			// special "_pptp" path
 			File moduleDir = new File(handle);
 
 			for(IEObjectDescription desc : rdesc.getExportedObjects()) {
@@ -429,15 +448,16 @@ public class PPDiagnosticsRunner {
 			}
 			// TODO: RECORD BOTH NAME FILE, AND LOCATIONS FOR THAT NAME
 			result.addUnresolved(importingModuleDir, r.getURI(), importedAdapter.getUnresolved(), fQualifiedToString);
-			//			result.addAllUnresolvedNames(
-			//				importingModuleDir,
-			//				Iterables.transform(importedAdapter.getUnresolvedNames(), new Function<QualifiedName, String>() {
+			// result.addAllUnresolvedNames(
+			// importingModuleDir,
+			// Iterables.transform(importedAdapter.getUnresolvedNames(), new
+			// Function<QualifiedName, String>() {
 			//
-			//					@Override
-			//					public String apply(QualifiedName from) {
-			//						return converter.toString(from);
-			//					}
-			//				}));
+			// @Override
+			// public String apply(QualifiedName from) {
+			// return converter.toString(from);
+			// }
+			// }));
 
 		}
 
@@ -468,8 +488,10 @@ public class PPDiagnosticsRunner {
 	}
 
 	public PPSearchPath getDefaultSearchPath() {
-		// NOTE: This is a bit ugly, but it is known to return the default search path since the
-		// configuration has a search path provider that only returns the default, and the parameter
+		// NOTE: This is a bit ugly, but it is known to return the default
+		// search path since the
+		// configuration has a search path provider that only returns the
+		// default, and the parameter
 		// EMF Resource is not used.
 		return searchPathProvider.get(null);
 	}
@@ -504,19 +526,18 @@ public class PPDiagnosticsRunner {
 	}
 
 	/**
-	 * Get the (total) description index
-	 * The Xtext API requires a resource, but since everything is in the same resource set, it does
-	 * not matter which resource that is picked (pick first).
-	 * Note - caller must check if the resource set is empty.
+	 * Get the (total) description index The Xtext API requires a resource, but since everything is in the same resource
+	 * set, it does not matter which resource that is picked (pick first). Note - caller must check if the resource set
+	 * is empty.
 	 */
 	private IResourceDescriptions getResourceDescriptions() {
 		return indexProvider.getResourceDescriptions(resourceSet.getResources().get(0));
 	}
 
 	/**
-	 * Access to the global index maintained by Xtext, is made via a special (non guice) provider
-	 * that is aware of the context (builder, dirty editors, etc.). It is used to obtain the
-	 * index for a particular resource. This special provider is obtained here.
+	 * Access to the global index maintained by Xtext, is made via a special (non guice) provider that is aware of the
+	 * context (builder, dirty editors, etc.). It is used to obtain the index for a particular resource. This special
+	 * provider is obtained here.
 	 */
 	private org.eclipse.xtext.resource.impl.ResourceDescriptionsProvider getResourceDescriptionsProvider() {
 		return get(org.eclipse.xtext.resource.impl.ResourceDescriptionsProvider.class);
@@ -538,18 +559,19 @@ public class PPDiagnosticsRunner {
 	}
 
 	/**
-	 * Loads a .pp, .pptp or .rb resource using the resource factory configured for the extension.
-	 * Returns null for a .rb resource that is not expected to contribute anything to the pptp.
-	 * All non null resources are added to the resource set.
+	 * Loads a .pp, .pptp or .rb resource using the resource factory configured for the extension. Returns null for a
+	 * .rb resource that is not expected to contribute anything to the pptp. All non null resources are added to the
+	 * resource set.
 	 */
 	public Resource loadResource(InputStream in, URI uri) throws Exception {
 		// Lookup the factory to use for the resource
 		Factory factory = Resource.Factory.Registry.INSTANCE.getFactory(uri);
-		//		// UGLY AS HELL HACK
-		//		if(factory instanceof XtextResourceFactory)
-		//			factory = injector.getInstance(XtextResourceFactory.class);
+		// // UGLY AS HELL HACK
+		// if(factory instanceof XtextResourceFactory)
+		// factory = injector.getInstance(XtextResourceFactory.class);
 
-		// Avoid loading lots of empty resources for rb files that do not contribute
+		// Avoid loading lots of empty resources for rb files that do not
+		// contribute
 		if(factory instanceof PptpRubyResourceFactory && !pptpRubyResourceServiceProvider.canHandle(uri))
 			return null;
 
@@ -564,9 +586,8 @@ public class PPDiagnosticsRunner {
 	}
 
 	/**
-	 * Load a resource from a String. The URI must be well formed for the language being the
-	 * content of the given sourceString (the uri determined the factory to use and the encoding
-	 * via an IEncodingProvider).
+	 * Load a resource from a String. The URI must be well formed for the language being the content of the given
+	 * sourceString (the uri determined the factory to use and the encoding via an IEncodingProvider).
 	 * 
 	 * @param sourceString
 	 * @param uri
@@ -592,7 +613,7 @@ public class PPDiagnosticsRunner {
 	 * Loads a resource to the resource set. The intended use is to load a .pptp resource.
 	 * 
 	 * @param uri
-	 *        uri to a .pptp resource (typically).
+	 *            uri to a .pptp resource (typically).
 	 * 
 	 * @return the resource
 	 */
@@ -626,10 +647,13 @@ public class PPDiagnosticsRunner {
 			if(profileThis)
 				System.err.printf("LazyLinkingResource.resolveLazyCrossReferences: (%s)\n", afterLazy - before);
 
-			// just in case some other crazy thing is sent here check that it is a pp resource
-			// (pp resource linking is not relevant on anything but .pp resources).
+			// just in case some other crazy thing is sent here check that it is
+			// a pp resource
+			// (pp resource linking is not relevant on anything but .pp
+			// resources).
 			if(ppResourceServiceProvider.canHandle(resource.getURI())) {
-				// The PP resource linking (normally done by PP Linker (but without documentation association)
+				// The PP resource linking (normally done by PP Linker (but
+				// without documentation association)
 				//
 				final ListBasedDiagnosticConsumer consumer = new ListBasedDiagnosticConsumer();
 				IMessageAcceptor acceptor = new DiagnosticConsumerBasedMessageAcceptor(consumer);
@@ -654,10 +678,9 @@ public class PPDiagnosticsRunner {
 	}
 
 	/**
-	 * Perform an equals scan of exports (instead of using identity).
-	 * (Pity that IEObjectDescription does not have an equals method).
-	 * For some reason some descriptions change identify (but are otherwise compatible) - don't know why.
-	 * TODO: Figure out what is going on.
+	 * Perform an equals scan of exports (instead of using identity). (Pity that IEObjectDescription does not have an
+	 * equals method). For some reason some descriptions change identify (but are otherwise compatible) - don't know
+	 * why. TODO: Figure out what is going on.
 	 * 
 	 * @param importingModuleDir
 	 * @param moduleDir
@@ -692,8 +715,7 @@ public class PPDiagnosticsRunner {
 	}
 
 	/**
-	 * Must be called prior to calling any other methods.
-	 * Creates an injector and sets things up.
+	 * Must be called prior to calling any other methods. Creates an injector and sets things up.
 	 * 
 	 * @throws Exception
 	 */
@@ -716,7 +738,8 @@ public class PPDiagnosticsRunner {
 		converter = getIQualifiedNameConverter();
 		searchPathProvider = getSearchPathProvider();
 
-		// Force the PPJavaValidator instance to be created early (in case it was not registered with eager creation.
+		// Force the PPJavaValidator instance to be created early (in case it
+		// was not registered with eager creation.
 		injector.getInstance(PPJavaValidator.class);
 	}
 

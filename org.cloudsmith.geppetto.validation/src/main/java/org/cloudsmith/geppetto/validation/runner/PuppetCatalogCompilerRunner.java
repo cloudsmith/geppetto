@@ -35,33 +35,39 @@ public class PuppetCatalogCompilerRunner {
 	public static class CatalogDiagnostic extends FileDiagnostic {
 		private static final long serialVersionUID = 1L;
 
-		public CatalogDiagnostic(int severity, DiagnosticType type, String message, File file) {
-			super(severity, type, message, file);
-		}
-
 		public static CatalogDiagnostic create(String message, String fileName, String line, String nodeName) {
 			int severity = Diagnostic.ERROR;
-			if (message.startsWith("err:")) {
+			if(message.startsWith("err:")) {
 				message = message.substring(4);
-			} else if (message.startsWith("warning:")) {
+			}
+			else if(message.startsWith("warning:")) {
 				severity = Diagnostic.WARNING;
 				message = message.substring(8);
-			} else if (message.startsWith("info:")) {
+			}
+			else if(message.startsWith("info:")) {
 				severity = Diagnostic.INFO;
 				message = message.substring(5);
-			} else if (message.startsWith("notice:")) {
+			}
+			else if(message.startsWith("notice:")) {
 				severity = Diagnostic.INFO;
 				message = message.substring(7);
 			}
-			DiagnosticType type = message.startsWith("Could not parse") ? ValidationService.CATALOG_PARSER : ValidationService.CATALOG;
+			DiagnosticType type = message.startsWith("Could not parse")
+					? ValidationService.CATALOG_PARSER
+					: ValidationService.CATALOG;
 			CatalogDiagnostic diag = new CatalogDiagnostic(severity, type, message, new File(fileName));
 			try {
 				diag.setLineNumber(Integer.parseInt(line));
-			} catch (NumberFormatException e) {
+			}
+			catch(NumberFormatException e) {
 				diag.setLineNumber(-1);
 			}
 			diag.setNode(nodeName);
 			return diag;
+		}
+
+		public CatalogDiagnostic(int severity, DiagnosticType type, String message, File file) {
+			super(severity, type, message, file);
 		}
 	}
 
@@ -77,9 +83,8 @@ public class PuppetCatalogCompilerRunner {
 
 	static {
 		try {
-			InputStream compileCatalog = PuppetCatalogCompilerRunner.class
-					.getResourceAsStream("/puppet/compile_catalog");
-			if (compileCatalog == null)
+			InputStream compileCatalog = PuppetCatalogCompilerRunner.class.getResourceAsStream("/puppet/compile_catalog");
+			if(compileCatalog == null)
 				throw new IllegalStateException("Compile script not found");
 			try {
 				File tmpScript = File.createTempFile("compile_catalog-", ".rb");
@@ -87,15 +92,17 @@ public class PuppetCatalogCompilerRunner {
 				OutputStream out = new FileOutputStream(tmpScript);
 				try {
 					StreamUtil.copy(compileCatalog, out);
-				} finally {
+				}
+				finally {
 					StreamUtil.close(out);
 				}
-				DEFAULT_ARGUMENTS = new String[] { "ruby",
-						tmpScript.getAbsolutePath() };
-			} finally {
+				DEFAULT_ARGUMENTS = new String[] { "ruby", tmpScript.getAbsolutePath() };
+			}
+			finally {
 				StreamUtil.close(compileCatalog);
 			}
-		} catch (Exception e) {
+		}
+		catch(Exception e) {
 			throw new ExceptionInInitializerError(e);
 		}
 	}
@@ -109,11 +116,9 @@ public class PuppetCatalogCompilerRunner {
 	 * @return a {@link File} incarnation of the resource
 	 * @throws IOException
 	 */
-	public static File getBundleResourceAsFile(IPath bundleRelativeResourcePath)
-			throws IOException {
+	public static File getBundleResourceAsFile(IPath bundleRelativeResourcePath) throws IOException {
 		return EclipseUtils.getFileFromClassBundle(
-				PuppetCatalogCompilerRunner.class,
-				bundleRelativeResourcePath.toPortableString());
+			PuppetCatalogCompilerRunner.class, bundleRelativeResourcePath.toPortableString());
 	}
 
 	final Pattern errorPattern;
@@ -137,17 +142,17 @@ public class PuppetCatalogCompilerRunner {
 		buf.delete(0, buf.length());
 	}
 
-	public int compileCatalog(File manifest, File moduleDirectory,
-			String nodeName, File factorData, IProgressMonitor monitor) {
+	public int compileCatalog(File manifest, File moduleDirectory, String nodeName, File factorData,
+			IProgressMonitor monitor) {
 		SubMonitor ticker = SubMonitor.convert(monitor, 2);
 		int offset = arguments.length;
 		String[] args = Arrays.copyOf(arguments, offset + 4);
 		args[offset++] = manifest.getAbsolutePath();
-		args[offset++] = moduleDirectory == null ? "" : moduleDirectory
-				.getAbsolutePath();
-		if (nodeName == null)
-			throw new IllegalArgumentException(
-					"Node name to compile the catalog for must be specified");
+		args[offset++] = moduleDirectory == null
+				? ""
+				: moduleDirectory.getAbsolutePath();
+		if(nodeName == null)
+			throw new IllegalArgumentException("Node name to compile the catalog for must be specified");
 		args[offset++] = nodeName;
 		args[offset++] = factorData.getAbsolutePath();
 		ticker.worked(1);
@@ -157,7 +162,8 @@ public class PuppetCatalogCompilerRunner {
 			ByteArrayOutputStream err = new ByteArrayOutputStream();
 			result = OsUtil.runProcess(null, out, err, args);
 			readErrorStream(new ByteArrayInputStream(err.toByteArray()));
-		} catch (IOException e) {
+		}
+		catch(IOException e) {
 			result = -1;
 		}
 		ticker.worked(1);
@@ -169,8 +175,7 @@ public class PuppetCatalogCompilerRunner {
 	}
 
 	private boolean isStartOfNew(String line) {
-		return (line.startsWith("err:") || line.startsWith("info:")
-				|| line.startsWith("notice:") || line.startsWith("warning:"));
+		return (line.startsWith("err:") || line.startsWith("info:") || line.startsWith("notice:") || line.startsWith("warning:"));
 
 	}
 
@@ -185,22 +190,21 @@ public class PuppetCatalogCompilerRunner {
 	}
 
 	protected void readErrorStream(InputStream inputStream) {
-		BufferedReader reader = new BufferedReader(new InputStreamReader(
-				inputStream));
+		BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
 		try {
 			String line = null;
 			StringBuffer buf = new StringBuffer();
-			while ((line = reader.readLine()) != null) {
+			while((line = reader.readLine()) != null) {
 				// uncomment for debug echo
 				// System.err.println(line);
 
 				// if buffer has data, and the line is the start of a new
 				// message - output the old
-				if (buf.length() > 0 && isStartOfNew(line))
+				if(buf.length() > 0 && isStartOfNew(line))
 					outputBuffer(buf);
 
 				// else, this may be a continuation of the previous line
-				if (buf.length() > 0)
+				if(buf.length() > 0)
 					buf.append("\\n"); // if joining lines insert a visible new
 										// line
 
@@ -209,11 +213,10 @@ public class PuppetCatalogCompilerRunner {
 				// if we can match as a complete (possibly joined) message - a
 				// diagnostic is produced
 				Matcher matcher = errorPattern.matcher(buf);
-				if (matcher.matches()) {
-					diagnostics.add(CatalogDiagnostic.create(matcher
-							.group(MESSAGE_GROUP), matcher.group(FILE_GROUP),
-							matcher.group(LINE_GROUP), matcher
-									.group(NODE_GROUP)));
+				if(matcher.matches()) {
+					diagnostics.add(CatalogDiagnostic.create(
+						matcher.group(MESSAGE_GROUP), matcher.group(FILE_GROUP), matcher.group(LINE_GROUP),
+						matcher.group(NODE_GROUP)));
 					clear(buf);
 				}
 				// else,
@@ -221,15 +224,18 @@ public class PuppetCatalogCompilerRunner {
 				// in buffer and continue
 			}
 			// if things remain in the buffer, output them
-			if (buf.length() > 0)
+			if(buf.length() > 0)
 				outputBuffer(buf);
 
-		} catch (IOException e) {
+		}
+		catch(IOException e) {
 			// ignore
-		} finally {
+		}
+		finally {
 			try {
 				reader.close();
-			} catch (IOException e) {
+			}
+			catch(IOException e) {
 				// ignore
 			}
 		}

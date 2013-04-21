@@ -42,8 +42,8 @@ public class Diagnostic implements Serializable {
 	private static final String[] severityStrings = new String[] { "OK", "DEBUG", "INFO", "WARNING", "ERROR", "FATAL" };
 
 	/**
-	 * Return the severity as a string. The string &quot;UNKNOWN(&lt;severity&gt;)&quot; will
-	 * be returned if the argument represents an unknown severity.
+	 * Return the severity as a string. The string &quot;UNKNOWN(&lt;severity&gt;)&quot; will be returned if the
+	 * argument represents an unknown severity.
 	 * 
 	 * @param severity
 	 * @return A string representing the severity
@@ -131,8 +131,8 @@ public class Diagnostic implements Serializable {
 	}
 
 	/**
-	 * Scans the children, depth first, until an ExceptionDiagnostic is found. The
-	 * exception held by that diagnostic is return.
+	 * Scans the children, depth first, until an ExceptionDiagnostic is found. The exception held by that diagnostic is
+	 * return.
 	 * 
 	 * @return The first exception found or <code>null</code> if no exception exists.
 	 */
@@ -157,10 +157,9 @@ public class Diagnostic implements Serializable {
 	}
 
 	/**
-	 * The issue is a String naming a particular issue that makes it possible to
-	 * have a more detailed understanding of an error and what could be done to
-	 * repair it. (As opposed to parsing the error message to gain an
-	 * understanding). Error messages may
+	 * The issue is a String naming a particular issue that makes it possible to have a more detailed understanding of
+	 * an error and what could be done to repair it. (As opposed to parsing the error message to gain an understanding).
+	 * Error messages may
 	 * 
 	 * @return the value of the '<em>issue</em>' attribute.
 	 */
@@ -169,11 +168,9 @@ public class Diagnostic implements Serializable {
 	}
 
 	/**
-	 * The issue data is optional data associated with a particular issue - it
-	 * is typically used to pass values calculated during
-	 * org.cloudsmith.geppetto.validation and that may be meaningful to code
-	 * that tries to repair or analyze a particular problem and where it may be
-	 * expensive to recompute these values.
+	 * The issue data is optional data associated with a particular issue - it is typically used to pass values
+	 * calculated during validation and that may be meaningful to code that tries to repair or analyze a particular
+	 * problem and where it may be expensive to recompute these values.
 	 * 
 	 * @return the value of the '<em>issueData</em>' attribute.
 	 */
@@ -192,12 +189,12 @@ public class Diagnostic implements Serializable {
 	}
 
 	/**
-	 * Returns the result of calling {{@link #appendLocationLabel(StringBuilder, boolean)} on a StringBuilder or <tt>null</tt> if no location label is
-	 * present.
+	 * Returns the result of calling {{@link #appendLocationLabel(StringBuilder, boolean)} on a StringBuilder or
+	 * <tt>null</tt> if no location label is present.
 	 * 
 	 * @param withOffsets
-	 *            Flag that indicates if offsets from the beginning of file are
-	 *            of interest (can be used for highlighting in editors).
+	 *            Flag that indicates if offsets from the beginning of file are of interest (can be used for
+	 *            highlighting in editors).
 	 * @return The location label or <tt>null</tt>
 	 * @see FileDiagnostic
 	 */
@@ -245,8 +242,7 @@ public class Diagnostic implements Serializable {
 	}
 
 	/**
-	 * This method is needed by net.sf.json but should not otherwise
-	 * be used.
+	 * This method is needed by net.sf.json but should not otherwise be used.
 	 * 
 	 * @param children
 	 *            The new children to set
@@ -267,8 +263,7 @@ public class Diagnostic implements Serializable {
 	}
 
 	/**
-	 * Ensures that the severity of the diagnostic and all its children is
-	 * equal to or below the given <code>max</code>.
+	 * Ensures that the severity of the diagnostic and all its children is equal to or below the given <code>max</code>.
 	 * 
 	 * @param max
 	 *            The max severity

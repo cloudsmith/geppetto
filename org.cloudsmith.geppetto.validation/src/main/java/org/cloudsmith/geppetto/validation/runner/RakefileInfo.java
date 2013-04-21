@@ -31,7 +31,8 @@ public class RakefileInfo {
 
 		/**
 		 * 
-		 * @param path - relative path from "root"
+		 * @param path
+		 *            - relative path from "root"
 		 */
 		public Rakefile(IPath path) {
 			if(path == null)
@@ -56,8 +57,9 @@ public class RakefileInfo {
 		}
 
 		/**
-		 * A list of tasks discovered in the rakefile. May be empty, and not contain all tasks, if tasks are
-		 * constructed via general purpose ruby logic.
+		 * A list of tasks discovered in the rakefile. May be empty, and not
+		 * contain all tasks, if tasks are constructed via general purpose ruby
+		 * logic.
 		 * 
 		 * @return
 		 */
@@ -92,7 +94,8 @@ public class RakefileInfo {
 		}
 
 		/**
-		 * An optional description of the task (if it was discovered), or an empty string. Is never null.
+		 * An optional description of the task (if it was discovered), or an
+		 * empty string. Is never null.
 		 * 
 		 * @return
 		 */

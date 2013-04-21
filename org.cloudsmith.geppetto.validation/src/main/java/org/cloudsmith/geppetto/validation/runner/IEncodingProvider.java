@@ -20,8 +20,9 @@ import org.eclipse.emf.common.util.URI;
 public interface IEncodingProvider {
 
 	/**
-	 * Produces the wanted encoding of the content of the given file. The returned String must be a valid
-	 * encoding name as used by EMF Resource loading.
+	 * Produces the wanted encoding of the content of the given file. The
+	 * returned String must be a valid encoding name as used by EMF Resource
+	 * loading.
 	 * 
 	 * @param f
 	 * @return an encoding name

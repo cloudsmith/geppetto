@@ -22,15 +22,15 @@ import org.cloudsmith.geppetto.validation.runner.BuildResult;
 
 /**
  * Formats diagnostics information as textual output. The general format is:<br/>
- * <code>SOURCE:SEVERITY:RESOURCEPATH:LOCATION:CODE:MESSAGE</code></br>
- * where <code>LOCATION</code> is one of:
+ * <code>SOURCE:SEVERITY:RESOURCEPATH:LOCATION:CODE:MESSAGE</code></br> where <code>LOCATION</code> is one of:
  * <ul>
  * <li>LINE</li>
  * <li>LINE(OFFSET)</li>
  * <li>LINE(OFFSET,LENGTH)</li>
  * </ul>
- * and LINE is either a line number (starting with 1) or '-' if line number is not available, and where
- * OFFSET (character count from start of file), and LENGTH are included if set.
+ * and LINE is either a line number (starting with 1) or '-' if line number is
+ * not available, and where OFFSET (character count from start of file), and
+ * LENGTH are included if set.
  * 
  */
 public class TextualValidationResultFormatter implements IValidationResultFormatter {
@@ -79,6 +79,7 @@ public class TextualValidationResultFormatter implements IValidationResultFormat
 
 	/**
 	 * Outputs
+	 * 
 	 * <pre>
 	 * SOURCE:SEVERITY:MESSAGE
 	 * STACK TRACE
@@ -107,9 +108,9 @@ public class TextualValidationResultFormatter implements IValidationResultFormat
 	}
 
 	/**
-	 * Formats location as
-	 * LINE(OFFSET,LENGTH), or if LINE is -1 using '-'. If offset is >= 0 the () section is included,
-	 * the ", length" part is only produced if length >= 0.
+	 * Formats location as LINE(OFFSET,LENGTH), or if LINE is -1 using '-'. If
+	 * offset is >= 0 the () section is included, the ", length" part is only
+	 * produced if length >= 0.
 	 * 
 	 * @param detail
 	 * @return

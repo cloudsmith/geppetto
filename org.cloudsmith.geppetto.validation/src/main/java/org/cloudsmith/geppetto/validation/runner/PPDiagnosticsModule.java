@@ -39,9 +39,8 @@ public class PPDiagnosticsModule extends PPRuntimeModule {
 	}
 
 	/**
-	 * Bind an instance of a registry that is unique to this injector.
-	 * Required since each org.cloudsmith.geppetto.validation execution may use a different potential problems validator.
-	 * If the global registry is used, it will screw up for concurrent users.
+	 * Bind an instance of a registry that is unique to this injector. Required since each validation execution may use
+	 * a different potential problems validator. If the global registry is used, it will screw up for concurrent users.
 	 * The registry uses delegation to the global registry.
 	 */
 	@Override
@@ -56,8 +55,8 @@ public class PPDiagnosticsModule extends PPRuntimeModule {
 	}
 
 	/**
-	 * Overrides the PPLinker used by default, to a linker that does not process documentation
-	 * and that performs no resource linking. (To allow this to be performed separately).
+	 * Overrides the PPLinker used by default, to a linker that does not process documentation and that performs no
+	 * resource linking. (To allow this to be performed separately).
 	 */
 	@Override
 	public Class<? extends ILinker> bindILinker() {

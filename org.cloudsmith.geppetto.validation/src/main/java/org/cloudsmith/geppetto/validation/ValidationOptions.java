@@ -18,18 +18,28 @@ import org.eclipse.emf.common.util.URI;
 
 public class ValidationOptions {
 	private ComplianceLevel complianceLevel;
+
 	private IEncodingProvider encodingProvider;
+
 	private String environment;
+
 	private FileType fileType;
+
 	private URI platformURI;
+
 	private IPotentialProblemsAdvisor problemsAdvisor;
+
 	private String searchPath;
+
 	private boolean checkLayout;
+
 	private boolean checkModuleSemantics;
+
 	private boolean checkReferences;
 
 	/**
 	 * Defaults to 2.7 if not specified.
+	 * 
 	 * @return the value of the '<em>complianceLevel</em>' attribute.
 	 */
 	public ComplianceLevel getComplianceLevel() {
@@ -58,8 +68,9 @@ public class ValidationOptions {
 	}
 
 	/**
-	 * A URI to a pptp resource in string form. If null, a default pptp will be used when validating. An unloadable pptp reference
-	 * will result in an internal error.
+	 * A URI to a pptp resource in string form. If null, a default pptp will be
+	 * used when validating. An unloadable pptp reference will result in an
+	 * internal error.
 	 * 
 	 * @return the value of the '<em>platformURI</em>' attribute.
 	 */
@@ -89,7 +100,8 @@ public class ValidationOptions {
 	}
 
 	/**
-	 * Checking module semantics means that the module's dependencies are satisfied.
+	 * Checking module semantics means that the module's dependencies are
+	 * satisfied.
 	 * 
 	 * @return the value of the '<em>checkModuleSemantics</em>' attribute.
 	 */
@@ -98,7 +110,7 @@ public class ValidationOptions {
 	}
 
 	/**
-
+	 * 
 	 * @return the value of the '<em>checkReferences</em>' attribute.
 	 */
 	public boolean isCheckReferences() {
@@ -108,7 +120,8 @@ public class ValidationOptions {
 	/**
 	 * Sets the value of the '<em>checkLayout</em>' attribute.
 	 * 
-	 * @param value the new value of the '<em>checkLayout</em>' attribute.
+	 * @param value
+	 *            the new value of the '<em>checkLayout</em>' attribute.
 	 */
 	public void setCheckLayout(boolean value) {
 		checkLayout = value;
@@ -117,7 +130,9 @@ public class ValidationOptions {
 	/**
 	 * Sets the value of the '<em>checkModuleSemantics</em>' attribute.
 	 * 
-	 * @param value the new value of the '<em>checkModuleSemantics</em>' attribute.
+	 * @param value
+	 *            the new value of the '<em>checkModuleSemantics</em>'
+	 *            attribute.
 	 */
 	public void setCheckModuleSemantics(boolean value) {
 		checkModuleSemantics = value;
@@ -126,7 +141,8 @@ public class ValidationOptions {
 	/**
 	 * Sets the value of the '<em>checkReferences</em>' attribute.
 	 * 
-	 * @param value the new value of the '<em>checkReferences</em>' attribute.
+	 * @param value
+	 *            the new value of the '<em>checkReferences</em>' attribute.
 	 */
 	public void setCheckReferences(boolean value) {
 		checkReferences = value;
@@ -135,7 +151,8 @@ public class ValidationOptions {
 	/**
 	 * Sets the value of the '<em>complianceLevel</em>' attribute.
 	 * 
-	 * @param value the new value of the '<em>complianceLevel</em>' attribute.
+	 * @param value
+	 *            the new value of the '<em>complianceLevel</em>' attribute.
 	 */
 	public void setComplianceLevel(ComplianceLevel value) {
 		complianceLevel = value;
@@ -144,7 +161,8 @@ public class ValidationOptions {
 	/**
 	 * Sets the value of the '<em>encodingProvider</em>' attribute.
 	 * 
-	 * @param value the new value of the '<em>encodingProvider</em>' attribute.
+	 * @param value
+	 *            the new value of the '<em>encodingProvider</em>' attribute.
 	 */
 	public void setEncodingProvider(IEncodingProvider value) {
 		encodingProvider = value;
@@ -153,7 +171,8 @@ public class ValidationOptions {
 	/**
 	 * Sets the value of the '<em>environment</em>' attribute.
 	 * 
-	 * @param value the new value of the '<em>environment</em>' attribute.
+	 * @param value
+	 *            the new value of the '<em>environment</em>' attribute.
 	 */
 	public void setEnvironment(String value) {
 		environment = value;
@@ -162,7 +181,8 @@ public class ValidationOptions {
 	/**
 	 * Sets the value of the '<em>fileType</em>' attribute.
 	 * 
-	 * @param value the new value of the '<em>fileType</em>' attribute.
+	 * @param value
+	 *            the new value of the '<em>fileType</em>' attribute.
 	 */
 	public void setFileType(FileType value) {
 		fileType = value;
@@ -171,7 +191,8 @@ public class ValidationOptions {
 	/**
 	 * Sets the value of the '<em>platformURI</em>' attribute.
 	 * 
-	 * @param value the new value of the '<em>platformURI</em>' attribute.
+	 * @param value
+	 *            the new value of the '<em>platformURI</em>' attribute.
 	 */
 	public void setPlatformURI(URI value) {
 		platformURI = value;
@@ -180,7 +201,8 @@ public class ValidationOptions {
 	/**
 	 * Sets the value of the '<em>problemsAdvisor</em>' attribute.
 	 * 
-	 * @param value the new value of the '<em>problemsAdvisor</em>' attribute.
+	 * @param value
+	 *            the new value of the '<em>problemsAdvisor</em>' attribute.
 	 */
 	public void setProblemsAdvisor(IPotentialProblemsAdvisor value) {
 		problemsAdvisor = value;
@@ -189,7 +211,8 @@ public class ValidationOptions {
 	/**
 	 * Sets the value of the '<em>searchPath</em>' attribute.
 	 * 
-	 * @param value the new value of the '<em>searchPath</em>' attribute.
+	 * @param value
+	 *            the new value of the '<em>searchPath</em>' attribute.
 	 */
 	public void setSearchPath(String value) {
 		searchPath = value;

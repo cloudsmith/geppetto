@@ -30,8 +30,7 @@ public interface IValidationConstants {
 
 	String ISSUE__MODULEFILE_VERSION_ERROR = ISSUE_PREFIX + "ModulefileVersionError";
 
-	String ISSUE__MODULEFILE_UNSATISFIED_DEPENDENCY = ISSUE_PREFIX +
-			"ModulefileUnsatisfiedDependency";
+	String ISSUE__MODULEFILE_UNSATISFIED_DEPENDENCY = ISSUE_PREFIX + "ModulefileUnsatisfiedDependency";
 
 	String ISSUE__MODULEFILE_REDEFINITION = ISSUE_PREFIX + "ModulefileRedefinition";
 

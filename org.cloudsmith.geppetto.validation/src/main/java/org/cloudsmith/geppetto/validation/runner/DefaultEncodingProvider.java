@@ -22,7 +22,9 @@ public class DefaultEncodingProvider implements IEncodingProvider {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.cloudsmith.geppetto.validation.runner.IEncodingProvider#getEncoding(java.io.File)
+	 * @see
+	 * org.cloudsmith.geppetto.validation.runner.IEncodingProvider#getEncoding
+	 * (java.io.File)
 	 */
 	@Override
 	public String getEncoding(URI uri) {

@@ -1,0 +1,8 @@
+name    'stackhammer-Q'
+version '1.0.0'
+# is out of range (C is version 2.0.0)
+dependency 'stackhammer/C', '= 1.0.0'
+# is missing
+dependency 'stackhammer/X', '>= 1.0.0'
+
+

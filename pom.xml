@@ -274,6 +274,7 @@
 		<module>org.cloudsmith.geppetto.forge.api</module>
 		<module>org.cloudsmith.geppetto.forge.api.tests</module>
 		<module>org.cloudsmith.geppetto.graph</module>
+		<module>org.cloudsmith.geppetto.graph.tests</module>
 		<module>org.cloudsmith.geppetto.pp</module>
 		<module>org.cloudsmith.geppetto.pp.dsl</module>
 		<module>org.cloudsmith.geppetto.pp.dsl.tests</module>

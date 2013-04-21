@@ -1,0 +1,86 @@
+{
+  "dependencies": [
+
+  ],
+  "name": "lab42-common",
+  "author": "",
+  "license": "",
+  "version": "0.0.1",
+  "checksums": {
+    "spec/spec_helper.rb": "ca19ec4f451ebc7fdb035b52eae6e909",
+    "lib/puppet/type/README.markdown": "962259712efcf0b409ff3358b51fca3b",
+    "manifests/defines/replacelinepm.pp": "5f4ff3df323c12a274d1bd303afabbf3",
+    "spec/unit/puppet/provider/README.markdown": "e52668944ee6af2fb5d5b9e798342645",
+    "manifests/defines/config.pp": "f202a966d27cb648624c3b1f1bfcf256",
+    "lib/puppet/parser/functions/slash_escape.rb": "a42bbe4d701de6122c44e4e973b968cc",
+    "manifests/defines/line.pp": "de3a8ec881ba32b7f7ffabb67b9dcc14",
+    "lib/puppet/provider/setparam/parsed.rb": "9bb61e55179bae8a01faf112995f796f",
+    "manifests/common/README.markdown": "6f19f0cabe3cea7b9d91abfdee637dfc",
+    "manifests/defines/config_file.pp": "4afe5d0fc5da3ee24d7e35853695c341",
+    "lib/puppet/parser/functions/dirname.rb": "7413189f1013153c03588a967ce59e65",
+    "files/parselocalconfig.rb": "394bfc048914c45decbacbbed88e6d42",
+    "lib/puppet/parser/functions/hostname.rb": "1b52317bd96ec1118ac5c92b127c8106",
+    "manifests/defines/modules_file.pp": "567955f399b3bc3c6c6f6f2d3051e2cb",
+    "lib/puppet/parser/functions/re_escape.rb": "c5e6982548f96f97567118e623fa538d",
+    "manifests/defines/file2augeas.pp": "2ea363dc71f9e0cdd2fbcac06178f45f",
+    "lib/puppet/provider/README.markdown": "fb6bceb025e78327ad41dd2a700e465a",
+    "manifests/classes/README": "c63f5eb4f67a1ef3e7078370b835f9b1",
+    "manifests/defines/modules_dir.pp": "e3711a90d109fe1f0b1504dafa158e8d",
+    "manifests/defines/README": "8e67f741f0c872051ab3cc7197cccd8c",
+    "manifests/defines/netinstall.pp": "d8aa975ba3a504b19e2544970ab7e660",
+    "README": "6d9a6758b9944455d43b0731d7d45188",
+    "templates/augeasconfig.erb": "ba40fc0e08074276aaa4213fc072144b",
+    "lib/puppet/parser/functions/strlength.rb": "f1affeeee280b2e47cad79181f5f8a35",
+    "lib/puppet/type/setparam.rb": "f66eb3d5fb88877183576228888af115",
+    "manifests/defines/replaceline.pp": "aa7e1d530676ef65ab1e103306b16232",
+    "manifests/README.markdown": "bdc4b9fb00d0b79fa5da933a1b730db8",
+    "lib/puppet/parser/functions/regexp_escape.rb": "81558cc28c8d56b654f95488de5dbaba",
+    "files/modules/README": "54000a2c832d3c13c1b6c5e2d4624644",
+    "manifests/defines/link.pp": "7adc5b244ffe6214dbdde2d7bb99f218",
+    "spec/README.markdown": "44f907a7436b9a0ad12bcb34a86c9337",
+    "lib/puppet/parser/functions/basename.rb": "88ecd6e3ff2c36254509b9a3264724f4",
+    "lib/puppet/parser/functions/prefix_with.rb": "059594fe142ebec42bd13ce5b9c60057",
+    "manifests/defines/concatenated_file.pp": "aa7377574292e2b82cfd7468a0da365c",
+    "lib/puppet/parser/functions/substitute.rb": "bd6ade8e9a0a8d4acc16fdb214e49432",
+    "manifests/defines/replace.pp": "39f6019dc68e3104046adc23225d731b",
+    "spec/spec.opts": "a600ded995d948e393fbe2320ba8e51c",
+    "lib/puppet/parser/functions/urlfilename.rb": "fa9a7e89f6ed2f225a743bd076589569",
+    "lib/puppet/parser/functions/gsub.rb": "86336edb61f3b33f9f7bb7367918b031",
+    "Modulefile": "6748f289e1dc1c6c87d3397ca321736f",
+    "manifests/init.pp": "6734eb14858890a5db08ff46401bf557",
+    "spec/unit/puppet/type/README.markdown": "de26a7643813abd6c2e7e28071b1ef94"
+  },
+  "types": [
+    {
+      "name": "setparam",
+      "doc": "Sets paramater/value lines in code or configuration files",
+      "parameters": [
+        {
+          "name": "name",
+          "doc": "File-Parameter couple"
+        },
+        {
+          "name": "value",
+          "doc": "The value to set for parameter"
+        }
+      ],
+      "providers": [
+        {
+          "name": "parsed",
+          "doc": "Supports PHP files modifications    "
+        }
+      ],
+      "properties": [
+        {
+          "name": "target",
+          "doc": "Path of file to modify"
+        },
+        {
+          "name": "parameter",
+          "doc": "The parameter to modify"
+        }
+      ]
+    }
+  ],
+  "source": ""
+}

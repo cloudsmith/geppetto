@@ -125,7 +125,7 @@ public class TestDependencyGraph extends AbstractValidationTest {
 		options.setFileType(FileType.PUPPET_ROOT);
 		ByteArrayOutputStream stream = new ByteArrayOutputStream();
 		File[] modules = new File[] { new File(root, "modules/B/Modulefile") };
-		BuildResult buildResult = vs.validate(chain, root, options, modules, SubMonitor.convert(null));
+		BuildResult buildResult = vs.validate(chain, root, options, null, SubMonitor.convert(null));
 		// dumpExports(buildResult.getExportsForAll());
 		getDependencyGraphProducer().produceGraph(
 			null, "Module dependencies for graphTestData", modules, stream, buildResult);

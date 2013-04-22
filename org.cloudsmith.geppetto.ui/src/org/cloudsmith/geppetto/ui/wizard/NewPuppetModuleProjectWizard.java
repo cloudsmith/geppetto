@@ -19,6 +19,7 @@ import org.cloudsmith.geppetto.forge.Forge;
 import org.cloudsmith.geppetto.forge.util.ModuleUtils;
 import org.cloudsmith.geppetto.forge.v2.model.Metadata;
 import org.cloudsmith.geppetto.forge.v2.model.ModuleName;
+import org.cloudsmith.geppetto.pp.dsl.ui.pptp.PptpTargetProjectHandler;
 import org.cloudsmith.geppetto.ui.UIPlugin;
 import org.cloudsmith.geppetto.ui.util.ResourceUtil;
 import org.eclipse.core.resources.IFile;
@@ -28,7 +29,7 @@ import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Platform;
-import org.eclipse.core.runtime.SubProgressMonitor;
+import org.eclipse.core.runtime.SubMonitor;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.edit.ui.provider.ExtendedImageRegistry;
 import org.eclipse.jface.dialogs.MessageDialog;
@@ -75,6 +76,9 @@ public class NewPuppetModuleProjectWizard extends Wizard implements INewWizard {
 
 	@Inject
 	private Forge forge;
+
+	@Inject
+	private PptpTargetProjectHandler pptpHandler;
 
 	protected IPath projectLocation;
 
@@ -145,16 +149,17 @@ public class NewPuppetModuleProjectWizard extends Wizard implements INewWizard {
 
 			@Override
 			protected void execute(IProgressMonitor progressMonitor) {
+				SubMonitor monitor = SubMonitor.convert(progressMonitor, 3);
 				try {
 					project = ResourceUtil.createProject(
 						new Path(projectContainer.toString()), projectLocation == null
 								? null
 								: URI.createFileURI(projectLocation.toOSString()), Collections.<IProject> emptyList(),
-						progressMonitor);
+						monitor.newChild(1));
 
 					initializeProjectContents();
-
-					project.refreshLocal(IResource.DEPTH_INFINITE, new SubProgressMonitor(progressMonitor, 1));
+					pptpHandler.ensureStateOfPuppetProjects(monitor.newChild(1));
+					project.refreshLocal(IResource.DEPTH_INFINITE, monitor.newChild(1));
 				}
 				catch(Exception exception) {
 					MessageDialog.openError(

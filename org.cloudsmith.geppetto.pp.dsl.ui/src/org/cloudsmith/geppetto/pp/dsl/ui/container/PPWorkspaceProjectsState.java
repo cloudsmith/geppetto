@@ -14,20 +14,14 @@ package org.cloudsmith.geppetto.pp.dsl.ui.container;
 import java.util.Collection;
 import java.util.List;
 
-import org.apache.log4j.Logger;
 import org.cloudsmith.geppetto.forge.Forge;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
-import org.eclipse.core.resources.IResourceChangeEvent;
 import org.eclipse.core.resources.IResourceDelta;
-import org.eclipse.core.resources.IResourceDeltaVisitor;
-import org.eclipse.core.resources.IStorage;
-import org.eclipse.core.runtime.CoreException;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.xtext.ui.XtextProjectHelper;
 import org.eclipse.xtext.ui.containers.AbstractAllContainersState;
 import org.eclipse.xtext.ui.containers.WorkspaceProjectsStateHelper;
-import org.eclipse.xtext.util.Wrapper;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
@@ -35,15 +29,13 @@ import com.google.inject.Inject;
 import com.google.inject.Singleton;
 
 /**
- * A PP Workspace Projects State manager - makes use of the default implementation
- * for the Workspace (Project dependencies), as well as Puppet Manifests (Modulefile) parsing.
+ * A PP Workspace Projects State manager - makes use of the default implementation for the Workspace (Project
+ * dependencies), as well as Puppet Manifests (Modulefile) parsing.
  * 
  */
 
 @Singleton
 public class PPWorkspaceProjectsState extends AbstractAllContainersState {
-	private final static Logger log = Logger.getLogger(PPWorkspaceProjectsState.class);
-
 	@Inject
 	private WorkspaceProjectsStateHelper helper;
 
@@ -88,60 +80,9 @@ public class PPWorkspaceProjectsState extends AbstractAllContainersState {
 		return p != null && XtextProjectHelper.hasNature(p);
 	}
 
-	/**
-	 * This method overrides the implementation in {@link AbstractAllContainersState} in order to
-	 * add a hook method for the "Manifest". Reuse of logic in superclass is not good since it
-	 * would potentially lead to multiple initialization for one and the same delta.
-	 * See https://bugs.eclipse.org/bugs/show_bug.cgi?id=342092 - if this gets fixed, modify this
-	 * implementation.
-	 */
 	@Override
-	public void resourceChanged(IResourceChangeEvent event) {
-		if(event.getType() == IResourceChangeEvent.PRE_CLOSE || event.getType() == IResourceChangeEvent.PRE_DELETE) {
-			initialize();
-			return;
-		}
-		if(event.getDelta() != null) {
-			IResourceDelta delta = event.getDelta();
-			final Wrapper<Boolean> clear = Wrapper.wrap(Boolean.FALSE);
-			try {
-				delta.accept(new IResourceDeltaVisitor() {
-					public boolean visit(IResourceDelta delta) throws CoreException {
-						if(clear.get().booleanValue())
-							return false;
-						if(delta.getResource() != null && delta.getResource().isDerived())
-							return false;
-						if(delta.getKind() == IResourceDelta.ADDED || delta.getKind() == IResourceDelta.REMOVED) {
-							if(delta.getResource() instanceof IStorage) {
-								if(getUri((IStorage) delta.getResource()) != null) {
-									clear.set(Boolean.TRUE);
-									return false;
-								}
-							}
-						}
-						if(delta.getKind() == IResourceDelta.CHANGED && delta.getResource() instanceof IProject) {
-							if((delta.getFlags() & IResourceDelta.DESCRIPTION) != 0) {
-								clear.set(Boolean.TRUE);
-								return false;
-							}
-						}
-						// THIS IS ADDED TO ORIGINAL
-						if(doesThisDeltaRequireClear(delta)) {
-							clear.set(Boolean.TRUE);
-							return false;
-						}
-						// ADDITION END
-						return true;
-					}
-				});
-				if(clear.get().booleanValue())
-					initialize();
-			}
-			catch(CoreException e) {
-				log.error(e.getMessage(), e);
-				initialize();
-			}
-		}
+	protected boolean isAffectingContainerState(IResourceDelta delta) {
+		return super.isAffectingContainerState(delta) || doesThisDeltaRequireClear(delta);
 	}
 
 	public void setHelper(WorkspaceProjectsStateHelper helper) {

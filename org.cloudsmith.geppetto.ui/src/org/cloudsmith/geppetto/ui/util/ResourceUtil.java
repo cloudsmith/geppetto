@@ -87,40 +87,38 @@ public class ResourceUtil {
 				project.open(new SubProgressMonitor(progressMonitor, 1));
 			}
 
-			{
-				if(referencedProjects.size() != 0) {
-					projectDescription.setReferencedProjects(referencedProjects.toArray(new IProject[referencedProjects.size()]));
-				}
-
-				String[] natureIds = projectDescription.getNatureIds();
-
-				if(natureIds == null) {
-					natureIds = new String[] { PPUiConstants.PUPPET_NATURE_ID, XtextProjectHelper.NATURE_ID };
-				}
-				else {
-					final boolean missingXtextNature = !project.hasNature(XtextProjectHelper.NATURE_ID);
-					final boolean missingPuppetNature = !project.hasNature(PPUiConstants.PUPPET_NATURE_ID);
-					final int missingCount = (missingXtextNature
-							? 1
-							: 0) + (missingPuppetNature
-							? 1
-							: 0);
-					if(missingCount > 0) {
-						String[] oldNatureIds = natureIds;
-						natureIds = new String[oldNatureIds.length + missingCount];
-						System.arraycopy(oldNatureIds, 0, natureIds, missingCount, oldNatureIds.length);
-						int addAt = 0;
-						if(missingPuppetNature)
-							natureIds[addAt++] = PPUiConstants.PUPPET_NATURE_ID;
-						if(missingXtextNature)
-							natureIds[addAt++] = XtextProjectHelper.NATURE_ID;
-					}
-				}
-
-				projectDescription.setNatureIds(natureIds);
-
-				project.setDescription(projectDescription, new SubProgressMonitor(progressMonitor, 1));
+			if(referencedProjects.size() != 0) {
+				projectDescription.setReferencedProjects(referencedProjects.toArray(new IProject[referencedProjects.size()]));
 			}
+
+			String[] natureIds = projectDescription.getNatureIds();
+
+			if(natureIds == null) {
+				natureIds = new String[] { PPUiConstants.PUPPET_NATURE_ID, XtextProjectHelper.NATURE_ID };
+			}
+			else {
+				final boolean missingXtextNature = !project.hasNature(XtextProjectHelper.NATURE_ID);
+				final boolean missingPuppetNature = !project.hasNature(PPUiConstants.PUPPET_NATURE_ID);
+				final int missingCount = (missingXtextNature
+						? 1
+						: 0) + (missingPuppetNature
+						? 1
+						: 0);
+				if(missingCount > 0) {
+					String[] oldNatureIds = natureIds;
+					natureIds = new String[oldNatureIds.length + missingCount];
+					System.arraycopy(oldNatureIds, 0, natureIds, missingCount, oldNatureIds.length);
+					int addAt = 0;
+					if(missingPuppetNature)
+						natureIds[addAt++] = PPUiConstants.PUPPET_NATURE_ID;
+					if(missingXtextNature)
+						natureIds[addAt++] = XtextProjectHelper.NATURE_ID;
+				}
+			}
+
+			projectDescription.setNatureIds(natureIds);
+
+			project.setDescription(projectDescription, new SubProgressMonitor(progressMonitor, 1));
 		}
 		catch(Exception exception) {
 			exception.printStackTrace();

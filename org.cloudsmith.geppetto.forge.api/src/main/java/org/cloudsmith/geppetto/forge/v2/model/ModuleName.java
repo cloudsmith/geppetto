@@ -12,6 +12,8 @@
 package org.cloudsmith.geppetto.forge.v2.model;
 
 import java.io.Serializable;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonDeserializer;
@@ -31,7 +33,7 @@ public class ModuleName implements Serializable, Comparable<ModuleName> {
 		@Override
 		public ModuleName deserialize(JsonElement json, java.lang.reflect.Type typeOfT,
 				JsonDeserializationContext context) throws JsonParseException {
-			return new ModuleName(json.getAsString());
+			return new ModuleName(json.getAsString().toLowerCase());
 		}
 
 		@Override
@@ -48,12 +50,21 @@ public class ModuleName implements Serializable, Comparable<ModuleName> {
 
 	private final String name;
 
-	private final String semanticName;
-
 	private static final String NO_VALUE = "";
 
+	private static final Pattern NAME_PATTERN = Pattern.compile("^[a-z][a-z0-9_]*$");
+
+	private static String checkName(String name) {
+		Matcher m = NAME_PATTERN.matcher(name);
+		if(m.matches())
+			return name;
+		throw new IllegalArgumentException(
+			"Module names should only contain lowercase letters, numbers, and underscores, and should begin with a letter");
+	}
+
 	/**
-	 * Creates a name from a string with a separator. The separator can be either '-' (dash) or '/' (slash). If more than
+	 * Creates a name from a string with a separator. The separator can be either '-' (dash) or '/' (slash). If more
+	 * than
 	 * one separator is present, then one placed last wins.
 	 * last in the string will be considered the separator. Thus<br/>
 	 * &quot;foo-bar-baz&quot; yields owner = &quot;foo-bar&quot;, name = &quot;baz&quot;, separator '-'<br/>
@@ -74,14 +85,10 @@ public class ModuleName implements Serializable, Comparable<ModuleName> {
 			separator = '/';
 
 		if(!(idx > 0 && idx < fullName.length() - 1))
-			throw new IllegalArgumentException("Name must be in the form <owner>-<name> or <owner>/<name>");
+			throw new IllegalArgumentException("Name should be in the form <owner>-<name> or <owner>/<name>");
 
-		this.owner = fullName.substring(0, idx);
-		this.name = fullName.substring(idx + 1);
-		String semName = createSemanticName();
-		if(semName.equals(fullName))
-			semName = fullName; // Don't waste string instance here. This will be the common case
-		this.semanticName = semName;
+		this.owner = checkName(fullName.substring(0, idx));
+		this.name = checkName(fullName.substring(idx + 1));
 	}
 
 	/**
@@ -94,12 +101,15 @@ public class ModuleName implements Serializable, Comparable<ModuleName> {
 	public ModuleName(String owner, char separator, String name) {
 		this.owner = owner == null
 				? NO_VALUE
-				: owner;
+				: checkName(owner);
+
+		if(!(separator == '-' || separator == '/'))
+			throw new IllegalArgumentException("Name should be in the form <owner>-<name> or <owner>/<name>");
+
 		this.separator = separator;
 		this.name = name == null
 				? NO_VALUE
-				: name;
-		this.semanticName = createSemanticName();
+				: checkName(name);
 	}
 
 	public ModuleName(String qualifier, String name) {
@@ -108,8 +118,8 @@ public class ModuleName implements Serializable, Comparable<ModuleName> {
 
 	/**
 	 * <p>
-	 * Compare this name to <tt>other</tt> for lexical magnitude using case insensitive comparisons. The separator is considered but only after both
-	 * owner and names are equal.
+	 * Compare this name to <tt>other</tt> for lexical magnitude using case insensitive comparisons. The separator is
+	 * considered but only after both owner and names are equal.
 	 * </p>
 	 * 
 	 * @param other
@@ -118,14 +128,13 @@ public class ModuleName implements Serializable, Comparable<ModuleName> {
 	 */
 	@Override
 	public int compareTo(ModuleName other) {
-		int cmp = semanticName.compareTo(other.semanticName);
-		if(cmp == 0)
-			cmp = separator - other.separator;
+		int cmp = owner.compareTo(other.owner);
+		if(cmp == 0) {
+			cmp = name.compareTo(other.name);
+			if(cmp == 0)
+				cmp = separator - other.separator;
+		}
 		return cmp;
-	}
-
-	private String createSemanticName() {
-		return owner.toLowerCase() + '/' + name.toLowerCase();
 	}
 
 	/**
@@ -140,7 +149,7 @@ public class ModuleName implements Serializable, Comparable<ModuleName> {
 		if(!(o instanceof ModuleName))
 			return false;
 		ModuleName qo = (ModuleName) o;
-		return semanticName.equalsIgnoreCase(qo.semanticName);
+		return owner.equals(qo.owner) && name.equals(qo.name);
 	}
 
 	/**
@@ -171,7 +180,7 @@ public class ModuleName implements Serializable, Comparable<ModuleName> {
 	 */
 	@Override
 	public int hashCode() {
-		return semanticName.hashCode();
+		return owner.hashCode() * 31 + name.hashCode();
 	}
 
 	/**

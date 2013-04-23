@@ -13,7 +13,6 @@ package org.cloudsmith.geppetto.ui.wizard;
 
 import java.io.File;
 import java.util.Collections;
-import java.util.Locale;
 
 import org.cloudsmith.geppetto.forge.Forge;
 import org.cloudsmith.geppetto.forge.util.ModuleUtils;
@@ -114,7 +113,7 @@ public class NewPuppetModuleProjectWizard extends Wizard implements INewWizard {
 	}
 
 	private String getUserName() {
-		return System.getProperty("user.name").replace('.', '_').replace('-', '_').replace('/', '_');
+		return System.getProperty("user.name").replace('.', '_').replace('-', '_').replace('/', '_').toLowerCase();
 	}
 
 	@Override
@@ -126,7 +125,7 @@ public class NewPuppetModuleProjectWizard extends Wizard implements INewWizard {
 	protected void initializeProjectContents() throws Exception {
 		Forge forge = getForge();
 		Metadata metadata = new Metadata();
-		metadata.setName(new ModuleName(getUserName(), '/', toInitialLowerCase(project.getName())));
+		metadata.setName(new ModuleName(getUserName(), '/', project.getName().toLowerCase()));
 		metadata.setVersion(Version.create("0.1.0"));
 
 		if(ResourceUtil.getFile(project.getFullPath().append("manifests/init.pp")).exists()) { //$NON-NLS-1$
@@ -203,16 +202,4 @@ public class NewPuppetModuleProjectWizard extends Wizard implements INewWizard {
 
 		return false;
 	}
-
-	private String toInitialLowerCase(String s) {
-		if(Character.isLowerCase(s.charAt(0)))
-			return s;
-		StringBuilder builder = new StringBuilder(s.length());
-		builder.append(s.substring(0, 1).toLowerCase(Locale.US));
-		if(s.length() > 1)
-			builder.append(s.substring(1));
-		return builder.toString();
-
-	}
-
 }

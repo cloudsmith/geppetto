@@ -20,6 +20,7 @@ import org.cloudsmith.geppetto.forge.util.ModuleUtils;
 import org.cloudsmith.geppetto.forge.v2.model.Metadata;
 import org.cloudsmith.geppetto.forge.v2.model.ModuleName;
 import org.cloudsmith.geppetto.pp.dsl.ui.pptp.PptpTargetProjectHandler;
+import org.cloudsmith.geppetto.semver.Version;
 import org.cloudsmith.geppetto.ui.UIPlugin;
 import org.cloudsmith.geppetto.ui.util.ResourceUtil;
 import org.eclipse.core.resources.IFile;
@@ -126,6 +127,7 @@ public class NewPuppetModuleProjectWizard extends Wizard implements INewWizard {
 		Forge forge = getForge();
 		Metadata metadata = new Metadata();
 		metadata.setName(new ModuleName(getUserName(), '/', toInitialLowerCase(project.getName())));
+		metadata.setVersion(Version.create("0.1.0"));
 
 		if(ResourceUtil.getFile(project.getFullPath().append("manifests/init.pp")).exists()) { //$NON-NLS-1$
 			File modulefile = project.getLocation().append("Modulefile").toFile(); //$NON-NLS-1$

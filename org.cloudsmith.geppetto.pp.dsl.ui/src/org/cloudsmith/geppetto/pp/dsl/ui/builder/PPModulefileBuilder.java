@@ -540,16 +540,20 @@ public class PPModulefileBuilder extends IncrementalProjectBuilder implements PP
 		try {
 			IProject p = getProject();
 			String storedVersion = p.getPersistentProperty(PROJECT_PROPERTY_MODULEVERSION);
-			if(!version.equals(storedVersion))
-				p.setPersistentProperty(PROJECT_PROPERTY_MODULEVERSION, version.toString());
+			String vstr = version.toString();
+			if(!vstr.equals(storedVersion))
+				p.setPersistentProperty(PROJECT_PROPERTY_MODULEVERSION, vstr);
 
 			String storedName = p.getPersistentProperty(PROJECT_PROPERTY_MODULENAME);
 			if(moduleName == null) {
 				if(storedName != null)
 					p.setPersistentProperty(PROJECT_PROPERTY_MODULENAME, null);
 			}
-			else if(!moduleName.equals(storedName))
-				p.setPersistentProperty(PROJECT_PROPERTY_MODULENAME, moduleName.toString());
+			else {
+				String mstr = moduleName.toString();
+				if(!mstr.equals(storedName))
+					p.setPersistentProperty(PROJECT_PROPERTY_MODULENAME, mstr.toString());
+			}
 		}
 		catch(CoreException e1) {
 			log.error("Could not set version or symbolic module name of project", e1);
@@ -603,6 +607,8 @@ public class PPModulefileBuilder extends IncrementalProjectBuilder implements PP
 			IProjectDescription desc = getProject().getDescription();
 			desc.setDynamicReferences(wanted.toArray(new IProject[wanted.size()]));
 			project.setDescription(desc, monitor);
+			// Trigger full rebuild once we're done here
+			new PPBuildJob(getWorkspaceRoot().getWorkspace()).schedule();
 		}
 		catch(CoreException e) {
 			log.error("Can not sync project's dynamic dependencies", e);

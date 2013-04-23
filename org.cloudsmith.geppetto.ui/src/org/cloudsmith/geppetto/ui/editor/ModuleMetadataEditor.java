@@ -54,6 +54,7 @@ public class ModuleMetadataEditor extends FormEditor {
 				try {
 					IFile file = ((FileEditorInput) getEditorInput()).getFile();
 					ModuleUtils.saveAsModulefile(metadata, file.getLocation().toFile());
+					setPartName(metadata.getName().toString());
 					file.refreshLocal(0, progressMonitor);
 				}
 				catch(Exception exception) {

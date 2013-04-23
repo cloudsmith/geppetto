@@ -11,6 +11,7 @@
  */
 package org.cloudsmith.geppetto.ui.editor;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -366,6 +367,19 @@ class ModuleMetadataOverviewPage extends FormPage {
 			section.setClient(client);
 		}
 
+		private void addDependencyIfNotPresent(IFile moduleFile, Map<String, ModuleInfo> moduleInfos)
+				throws IOException {
+			Metadata metadata = ModuleUtils.parseModulefile(moduleFile.getLocation().toFile(), new Diagnostic());
+
+			ModuleName moduleName = metadata.getName();
+			for(Dependency dependency : dependencies)
+				if(dependency.getName().equals(moduleName))
+					return;
+
+			ModuleInfo module = new ModuleInfo(moduleName, metadata.getVersion());
+			moduleInfos.put(StringUtil.getModuleText(module), module);
+		}
+
 		@Override
 		public void commit(boolean onSave) {
 			Metadata metadata = getMetadata();
@@ -380,84 +394,67 @@ class ModuleMetadataOverviewPage extends FormPage {
 
 		protected Object[] getModuleChoices() {
 
-			if(moduleChoices == null) {
-				EList<Object> choices = new UniqueEList.FastCompare<Object>();
+			EList<Object> choices = new UniqueEList.FastCompare<Object>();
 
-				final Map<String, ModuleInfo> modules = new HashMap<String, ModuleInfo>();
+			final Map<String, ModuleInfo> modules = new HashMap<String, ModuleInfo>();
 
-				// try {
-				// for(ModuleInfo module : getForge().search(null)) {
-				// modules.put(StringUtil.getModuleText(module), module);
-				// }
-				//
-				// }
-				// catch(IOException ioe) {
-				// ioe.printStackTrace();
-				// }
-				final IProject current = getCurrentProject();
-				final IFile currentModuleFile = getCurrentFile();
+			final IProject current = getCurrentProject();
+			final IFile currentModuleFile = getCurrentFile();
 
-				for(IProject project : ResourcesPlugin.getWorkspace().getRoot().getProjects()) {
+			for(IProject project : ResourcesPlugin.getWorkspace().getRoot().getProjects()) {
 
-					try {
-						if(project.hasNature(XtextProjectHelper.NATURE_ID)) {
-							IFile moduleFile = ResourceUtil.getFile(project.getFullPath().append("Modulefile")); //$NON-NLS-1$
-							if(moduleFile.equals(currentModuleFile))
-								continue; // not meaningful to include dependency on itself
+				try {
+					if(!project.hasNature(XtextProjectHelper.NATURE_ID))
+						continue;
 
-							if(moduleFile.exists()) {
-								Metadata metadata = ModuleUtils.parseModulefile(
-									moduleFile.getLocation().toFile(), new Diagnostic());
-								ModuleInfo module = new ModuleInfo(metadata.getName(), metadata.getVersion());
-								modules.put(StringUtil.getModuleText(module), module);
-							}
-							else if(current != null && project.getName().equals(current.getName())) {
-								// Also add all embedded modules from current project
-								final IFolder modulesFolder = project.getFolder("modules");
-								if(modulesFolder.exists()) {
-									modulesFolder.accept(new IResourceVisitor() {
+					IFile moduleFile = ResourceUtil.getFile(project.getFullPath().append("Modulefile")); //$NON-NLS-1$
+					if(moduleFile.equals(currentModuleFile))
+						continue; // not meaningful to include dependency on itself
 
-										@Override
-										public boolean visit(IResource resource) throws CoreException {
-											if(resource.equals(modulesFolder))
-												return true;
-											try {
-												if(resource instanceof IFolder) {
-													IFile moduleFile = ResourceUtil.getFile(resource.getFullPath().append(
-														"Modulefile"));
-													if(moduleFile.equals(currentModuleFile))
-														return false; // not meaningful to include dependency on itself
-													if(moduleFile.exists()) {
-														Metadata metadata = ModuleUtils.parseModulefile(
-															moduleFile.getLocation().toFile(), new Diagnostic());
-														ModuleInfo module = new ModuleInfo(
-															metadata.getName(), metadata.getVersion());
-														modules.put(StringUtil.getModuleText(module), module);
-													}
-												}
-											}
-											catch(Exception e) {
-												UIPlugin.INSTANCE.log(e);
-											}
+					if(moduleFile.exists()) {
+						addDependencyIfNotPresent(moduleFile, modules);
+						continue;
+					}
 
-											return false;
-										}
-									}, IResource.DEPTH_ONE, false);
+					if(current == null || !project.getName().equals(current.getName()))
+						continue;
+
+					// Also add all embedded modules from current project
+					final IFolder modulesFolder = project.getFolder("modules");
+					if(!modulesFolder.exists())
+						continue;
+
+					modulesFolder.accept(new IResourceVisitor() {
+
+						@Override
+						public boolean visit(IResource resource) throws CoreException {
+							if(resource.equals(modulesFolder))
+								return true;
+							try {
+								if(resource instanceof IFolder) {
+									IFile moduleFile = ResourceUtil.getFile(resource.getFullPath().append("Modulefile"));
+									if(moduleFile.equals(currentModuleFile))
+										return false; // not meaningful to include dependency on itself
+									if(moduleFile.exists())
+										addDependencyIfNotPresent(moduleFile, modules);
 								}
 							}
+							catch(Exception e) {
+								UIPlugin.INSTANCE.log(e);
+							}
+
+							return false;
 						}
-					}
-					catch(Exception e) {
-						UIPlugin.INSTANCE.log(e);
-					}
+					}, IResource.DEPTH_ONE, false);
 				}
-
-				choices.addAll(modules.values());
-
-				moduleChoices = choices.toArray();
+				catch(Exception e) {
+					UIPlugin.INSTANCE.log(e);
+				}
 			}
 
-			return moduleChoices;
+			choices.addAll(modules.values());
+
+			return choices.toArray();
 		}
 	}
 

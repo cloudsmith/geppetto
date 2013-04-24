@@ -33,7 +33,7 @@ public class ModuleName implements Serializable, Comparable<ModuleName> {
 		@Override
 		public ModuleName deserialize(JsonElement json, java.lang.reflect.Type typeOfT,
 				JsonDeserializationContext context) throws JsonParseException {
-			return new ModuleName(json.getAsString().toLowerCase());
+			return new ModuleName(json.getAsString(), false);
 		}
 
 		@Override
@@ -50,9 +50,13 @@ public class ModuleName implements Serializable, Comparable<ModuleName> {
 
 	private final String name;
 
+	private final String semanticName;
+
 	private static final String NO_VALUE = "";
 
-	private static final Pattern NAME_PATTERN = Pattern.compile("^[a-z][a-z0-9_]*$");
+	private static final Pattern NAME_PATTERN = Pattern.compile("^[a-zA-Z][a-zA-Z0-9_]*$");
+
+	private static final Pattern STRICT_NAME_PATTERN = Pattern.compile("^[a-z][a-z0-9_]*$");
 
 	/**
 	 * Checks that the given name only contains lowercase letters, numbers and underscores and that it begins with a
@@ -60,16 +64,43 @@ public class ModuleName implements Serializable, Comparable<ModuleName> {
 	 * 
 	 * @param name
 	 *            The name to check
+	 * @param strict
+	 *            <code>true</code> means do not allow uppercase letters
 	 * @return The checked name
 	 * @throws IllegalArgumentException
 	 *             if the name is illegal
 	 */
-	public static String checkName(String name) throws IllegalArgumentException {
-		Matcher m = NAME_PATTERN.matcher(name);
+	public static String checkName(String name, boolean strict) throws IllegalArgumentException {
+		Pattern p = strict
+				? STRICT_NAME_PATTERN
+				: NAME_PATTERN;
+		Matcher m = p.matcher(name);
 		if(m.matches())
 			return name;
-		throw new IllegalArgumentException(
-			"Module names should only contain lowercase letters, numbers, and underscores, and should begin with a letter");
+		StringBuilder bld = new StringBuilder();
+		bld.append("Module names should only contain ");
+		if(strict)
+			bld.append("lowercase ");
+		bld.append("letters, numbers, and underscores, and should begin with a letter");
+		throw new IllegalArgumentException(bld.toString());
+	}
+
+	private ModuleName(ModuleName m, char separator) {
+		this.separator = separator;
+		this.owner = m.owner;
+		this.name = m.name;
+		this.semanticName = m.semanticName;
+	}
+
+	/**
+	 * Creates a name from a string with a separator. This is a equivalent to {@link #ModuleName(String, boolean)
+	 * ModuleName(fullName, false)}
+	 * 
+	 * @param fullName
+	 *            The name to set
+	 */
+	public ModuleName(String fullName) {
+		this(fullName, false);
 	}
 
 	/**
@@ -83,8 +114,11 @@ public class ModuleName implements Serializable, Comparable<ModuleName> {
 	 * &quot;foo-bar/baz&quot; yields owner = &quot;foo-bar&quot;, name = &quot;baz&quot;, separator '/'<br/>
 	 * 
 	 * @param fullName
+	 *            The name to set
+	 * @param strict
+	 *            <code>true</code> means do not allow uppercase letters
 	 */
-	public ModuleName(String fullName) {
+	public ModuleName(String fullName, boolean strict) {
 		int dashIdx = fullName.lastIndexOf('-');
 		int idx = fullName.lastIndexOf('/');
 		if(dashIdx > idx) {
@@ -97,8 +131,13 @@ public class ModuleName implements Serializable, Comparable<ModuleName> {
 		if(!(idx > 0 && idx < fullName.length() - 1))
 			throw new IllegalArgumentException("Name should be in the form <owner>-<name> or <owner>/<name>");
 
-		this.owner = checkName(fullName.substring(0, idx));
-		this.name = checkName(fullName.substring(idx + 1));
+		this.owner = checkName(fullName.substring(0, idx), strict);
+		this.name = checkName(fullName.substring(idx + 1), strict);
+
+		String semName = createSemanticName();
+		if(semName.equals(fullName))
+			semName = fullName; // Don't waste string instance here. This will be the common case
+		this.semanticName = semName;
 	}
 
 	/**
@@ -107,11 +146,13 @@ public class ModuleName implements Serializable, Comparable<ModuleName> {
 	 * @param owner
 	 * @param separator
 	 * @param name
+	 * @param strict
+	 *            <code>true</code> means do not allow uppercase letters
 	 */
-	public ModuleName(String owner, char separator, String name) {
+	public ModuleName(String owner, char separator, String name, boolean strict) {
 		this.owner = owner == null
 				? NO_VALUE
-				: checkName(owner);
+				: checkName(owner, true);
 
 		if(!(separator == '-' || separator == '/'))
 			throw new IllegalArgumentException("Name should be in the form <owner>-<name> or <owner>/<name>");
@@ -119,11 +160,12 @@ public class ModuleName implements Serializable, Comparable<ModuleName> {
 		this.separator = separator;
 		this.name = name == null
 				? NO_VALUE
-				: checkName(name);
+				: checkName(name, strict);
+		this.semanticName = createSemanticName();
 	}
 
-	public ModuleName(String qualifier, String name) {
-		this(qualifier, '/', name);
+	public ModuleName(String qualifier, String name, boolean strict) {
+		this(qualifier, '/', name, strict);
 	}
 
 	/**
@@ -138,13 +180,14 @@ public class ModuleName implements Serializable, Comparable<ModuleName> {
 	 */
 	@Override
 	public int compareTo(ModuleName other) {
-		int cmp = owner.compareTo(other.owner);
-		if(cmp == 0) {
-			cmp = name.compareTo(other.name);
-			if(cmp == 0)
-				cmp = separator - other.separator;
-		}
+		int cmp = semanticName.compareTo(other.semanticName);
+		if(cmp == 0)
+			cmp = separator - other.separator;
 		return cmp;
+	}
+
+	private String createSemanticName() {
+		return owner.toLowerCase() + '/' + name.toLowerCase();
 	}
 
 	/**
@@ -159,7 +202,7 @@ public class ModuleName implements Serializable, Comparable<ModuleName> {
 		if(!(o instanceof ModuleName))
 			return false;
 		ModuleName qo = (ModuleName) o;
-		return owner.equals(qo.owner) && name.equals(qo.name);
+		return semanticName.equals(qo.semanticName);
 	}
 
 	/**
@@ -190,7 +233,7 @@ public class ModuleName implements Serializable, Comparable<ModuleName> {
 	 */
 	@Override
 	public int hashCode() {
-		return owner.hashCode() * 31 + name.hashCode();
+		return semanticName.hashCode();
 	}
 
 	/**
@@ -226,6 +269,6 @@ public class ModuleName implements Serializable, Comparable<ModuleName> {
 	public ModuleName withSeparator(char separator) {
 		return this.separator == separator
 				? this
-				: new ModuleName(this.owner, separator, this.name);
+				: new ModuleName(this, separator);
 	}
 }

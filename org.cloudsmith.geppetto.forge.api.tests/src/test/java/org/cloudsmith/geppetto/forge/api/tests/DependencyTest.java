@@ -25,10 +25,10 @@ public class DependencyTest {
 	@Test
 	public void testMatches__String_String() {
 		Dependency dep = new Dependency();
-		dep.setName(new ModuleName("a.module/name"));
+		dep.setName(new ModuleName("a_module/name"));
 		dep.setVersionRequirement(VersionRange.create("2.3.x"));
-		assertTrue(dep.matches(new ModuleName("a.module-name"), Version.create("2.3.2")));
-		assertFalse(dep.matches(new ModuleName("a.module-name"), Version.create("2.2.9")));
-		assertFalse(dep.matches(new ModuleName("another.module/name"), Version.create("2.3.2")));
+		assertTrue(dep.matches(new ModuleName("a_module-name"), Version.create("2.3.2")));
+		assertFalse(dep.matches(new ModuleName("a_module-name"), Version.create("2.2.9")));
+		assertFalse(dep.matches(new ModuleName("another_module/name"), Version.create("2.3.2")));
 	}
 }

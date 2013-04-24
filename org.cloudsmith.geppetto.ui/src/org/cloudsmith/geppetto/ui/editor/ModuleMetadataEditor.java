@@ -92,7 +92,7 @@ public class ModuleMetadataEditor extends FormEditor implements IGotoMarker, ITe
 					catch(CoreException e) {
 					}
 				}
-				if(a instanceof DiagnosticAnnotation)
+				else if(a instanceof DiagnosticAnnotation)
 					model.removeAnnotation((Annotation) a);
 			}
 		}

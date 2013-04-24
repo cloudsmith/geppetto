@@ -19,28 +19,16 @@ import java.io.StringWriter;
 import java.io.Writer;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
 import java.util.regex.Pattern;
 
 import org.cloudsmith.geppetto.common.os.StreamUtil;
 import org.cloudsmith.geppetto.diagnostic.Diagnostic;
-import org.cloudsmith.geppetto.diagnostic.FileDiagnostic;
-import org.cloudsmith.geppetto.forge.Forge;
 import org.cloudsmith.geppetto.forge.MetadataExtractor;
 import org.cloudsmith.geppetto.forge.v2.model.Dependency;
 import org.cloudsmith.geppetto.forge.v2.model.Metadata;
 import org.cloudsmith.geppetto.forge.v2.model.ModuleName;
 import org.cloudsmith.geppetto.semver.Version;
 import org.cloudsmith.geppetto.semver.VersionRange;
-import org.jrubyparser.SourcePosition;
-import org.jrubyparser.ast.FCallNode;
-import org.jrubyparser.ast.IArgumentNode;
-import org.jrubyparser.ast.ListNode;
-import org.jrubyparser.ast.NilNode;
-import org.jrubyparser.ast.Node;
-import org.jrubyparser.ast.NodeType;
-import org.jrubyparser.ast.RootNode;
-import org.jrubyparser.ast.StrNode;
 
 /**
  * Utility class with helper methods for Forge Module related tasks.
@@ -89,9 +77,6 @@ public class ModuleUtils {
 			return !DEFAULT_EXCLUDES_PATTERN.matcher(file.getName()).matches();
 		}
 	};
-
-	private static final String[] validProperties = new String[] {
-			"name", "author", "description", "license", "project_page", "source", "summary", "version", "dependency" };
 
 	private static void addKeyValueNode(PrintWriter out, String key, String... strs) throws IOException {
 		if(strs.length == 0)
@@ -146,48 +131,6 @@ public class ModuleUtils {
 	public static void buildFileNameWithExtension(ModuleName qname, Version version, StringBuilder bld) {
 		buildFileName(qname, version, bld);
 		bld.append(".tar.gz");
-	}
-
-	private static void call(Metadata md, String key, String value) {
-		if("name".equals(key))
-			md.setName(new ModuleName(value));
-		else if("author".equals(key))
-			md.setAuthor(value);
-		else if("description".equals(key))
-			md.setDescription(value);
-		else if("license".equals(key))
-			md.setLicense(value);
-		else if("project_page".equals(key))
-			md.setProjectPage(value);
-		else if("source".equals(key))
-			md.setSource(value);
-		else if("summary".equals(key))
-			md.setSummary(value);
-		else if("version".equals(key))
-			md.setVersion(Version.create(value));
-		else if("dependency".equals(key))
-			call(md, key, value, null, null);
-		else
-			throw noResponse(key, 1);
-	}
-
-	private static void call(Metadata md, String key, String value1, String value2) {
-		if("dependency".equals(key))
-			call(md, key, value1, value2, null);
-		else
-			throw noResponse(key, 2);
-	}
-
-	private static void call(Metadata md, String key, String value1, String value2, String value3) {
-		if("dependency".equals(key)) {
-			Dependency dep = new Dependency();
-			dep.setName(new ModuleName(value1));
-			if(value2 != null)
-				dep.setVersionRequirement(VersionRange.create(value2));
-			md.getDependencies().add(dep);
-		}
-		else
-			throw noResponse(key, 3);
 	}
 
 	private static Pattern compileExcludePattern(String[] excludes) {
@@ -249,50 +192,6 @@ public class ModuleUtils {
 		return false;
 	}
 
-	private static List<String> getStringArguments(IArgumentNode callNode) throws IllegalArgumentException {
-		Node argsNode = callNode.getArgs();
-		if(!(argsNode instanceof ListNode))
-			throw new IllegalArgumentException("IArgumentNode expected");
-		ListNode args = (ListNode) argsNode;
-		int top = args.size();
-		ArrayList<String> stringArgs = new ArrayList<String>(top);
-		for(int idx = 0; idx < top; ++idx) {
-			Node argNode = args.get(idx);
-			if(argNode instanceof StrNode)
-				stringArgs.add(((StrNode) argNode).getValue());
-			else if(argNode instanceof NilNode)
-				stringArgs.add(null);
-			else
-				throw new IllegalArgumentException("Unexpected ruby code. Node type was: " + (argNode == null
-						? "null"
-						: argNode.getClass().getSimpleName()));
-		}
-		return stringArgs;
-	}
-
-	private static IllegalArgumentException noResponse(String key, int nargs) {
-		StringBuilder bld = new StringBuilder();
-		bld.append('\'');
-		bld.append(key);
-		bld.append("' is not a metadata property");
-		int idx = validProperties.length;
-		while(--idx >= 0)
-			if(validProperties[idx].equals(key)) {
-				// This is a valid property so the number of arguments
-				// must be wrong.
-				bld.append(" that takes ");
-				if(nargs > 0)
-					bld.append(nargs);
-				else
-					bld.append("no");
-				bld.append(" argument");
-				if(nargs == 0 || nargs > 1)
-					bld.append('s');
-				break;
-			}
-		return new IllegalArgumentException(bld.toString());
-	}
-
 	/**
 	 * Parse a Modulefile and create a Metadata instance from the result. The parser <i>will not evaluate</i> actual
 	 * ruby code. It
@@ -312,7 +211,8 @@ public class ModuleUtils {
 	 */
 	public static void parseModulefile(File modulefile, Metadata receiver, Diagnostic diagnostics) throws IOException,
 			IllegalArgumentException {
-		parseRubyAST(RubyParserUtils.parseFile(modulefile), receiver, diagnostics);
+		StrictModulefileParser parser = new StrictModulefileParser(receiver);
+		parser.parseRubyAST(RubyParserUtils.parseFile(modulefile), diagnostics);
 	}
 
 	/**
@@ -336,37 +236,8 @@ public class ModuleUtils {
 	 */
 	public static void parseModulefile(String id, String content, Metadata receiver, Diagnostic diagnostics)
 			throws IOException, IllegalArgumentException {
-		parseRubyAST(RubyParserUtils.parseString(id, content), receiver, diagnostics);
-	}
-
-	private static void parseRubyAST(RootNode root, Metadata receiver, Diagnostic diagnostics) {
-		receiver.getDependencies().clear();
-		receiver.getTypes().clear();
-		receiver.getChecksums().clear();
-		for(Node node : RubyParserUtils.findNodes(root.getBody(), new NodeType[] { NodeType.FCALLNODE })) {
-			FCallNode call = (FCallNode) node;
-			String key = call.getName();
-			try {
-				List<String> args = getStringArguments(call);
-				if(args.size() == 1)
-					call(receiver, key, args.get(0));
-				else if(args.size() == 2)
-					call(receiver, key, args.get(0), args.get(1));
-				else if(args.size() == 3)
-					call(receiver, key, args.get(0), args.get(1), args.get(2));
-				else
-					noResponse(key, args.size());
-			}
-			catch(IllegalArgumentException e) {
-				if(diagnostics == null)
-					throw e;
-				SourcePosition pos = call.getPosition();
-				FileDiagnostic diag = new FileDiagnostic(Diagnostic.ERROR, Forge.FORGE, e.getMessage(), new File(
-					pos.getFile()));
-				diag.setLineNumber(pos.getEndLine() + 1);
-				diagnostics.addChild(diag);
-			}
-		}
+		StrictModulefileParser parser = new StrictModulefileParser(receiver);
+		parser.parseRubyAST(RubyParserUtils.parseString(id, content), diagnostics);
 	}
 
 	/**

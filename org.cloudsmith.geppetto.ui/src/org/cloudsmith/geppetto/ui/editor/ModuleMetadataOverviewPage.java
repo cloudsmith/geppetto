@@ -606,7 +606,7 @@ class ModuleMetadataOverviewPage extends FormPage {
 				@Override
 				public void modifyText(ModifyEvent ev) {
 					try {
-						ModuleName.checkName(userText.getText());
+						ModuleName.checkName(userText.getText(), false);
 						userText.setForeground(colorOfText);
 					}
 					catch(IllegalArgumentException e) {
@@ -627,7 +627,7 @@ class ModuleMetadataOverviewPage extends FormPage {
 				@Override
 				public void modifyText(ModifyEvent ev) {
 					try {
-						ModuleName.checkName(nameText.getText());
+						ModuleName.checkName(nameText.getText(), false);
 						nameText.setForeground(colorOfText);
 					}
 					catch(IllegalArgumentException e) {
@@ -686,7 +686,7 @@ class ModuleMetadataOverviewPage extends FormPage {
 				metadata.setName(null);
 			else {
 				try {
-					metadata.setName(new ModuleName(user, name));
+					metadata.setName(new ModuleName(user, name, false));
 				}
 				catch(IllegalArgumentException e) {
 				}

@@ -125,7 +125,7 @@ public class NewPuppetModuleProjectWizard extends Wizard implements INewWizard {
 	protected void initializeProjectContents() throws Exception {
 		Forge forge = getForge();
 		Metadata metadata = new Metadata();
-		metadata.setName(new ModuleName(getUserName(), '/', project.getName().toLowerCase()));
+		metadata.setName(new ModuleName(getUserName(), '/', project.getName().toLowerCase(), true));
 		metadata.setVersion(Version.create("0.1.0"));
 
 		if(ResourceUtil.getFile(project.getFullPath().append("manifests/init.pp")).exists()) { //$NON-NLS-1$

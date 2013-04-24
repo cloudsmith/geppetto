@@ -171,9 +171,9 @@ public class DependencyDataCalculator implements DependencyGraphStyles, Dependen
 			File parent = root.getParentFile();
 			ModuleName moduleName;
 			if(parent != null)
-				moduleName = new ModuleName(parent.getName(), root.getName());
+				moduleName = new ModuleName(parent.getName(), root.getName(), false);
 			else
-				moduleName = new ModuleName("root", root.getName());
+				moduleName = new ModuleName("root", root.getName(), false);
 			return new ModuleNodeData(moduleName, null, ModuleType.ROOT, "");
 		}
 
@@ -353,7 +353,7 @@ public class DependencyDataCalculator implements DependencyGraphStyles, Dependen
 
 		// Create pseudo module for non modular content
 		nonModularNode = ModuleNodeData.root(root);
-		pptpNode = new ModuleNodeData(new ModuleName("root", "puppet"), null, ModuleType.PPTP, ""); // will not be rendered
+		pptpNode = new ModuleNodeData(new ModuleName("root", "puppet", false), null, ModuleType.PPTP, ""); // will not be rendered
 
 		// create module nodes for missing (unsatisfied dependencies)
 		// unless dependency is to represented module name, but version is not matched (in which case
@@ -375,7 +375,7 @@ public class DependencyDataCalculator implements DependencyGraphStyles, Dependen
 						b = ModuleNodeData.unresolved(name);
 						// need to generate one that can not be found if name is null
 						moduleNodeData.put(name == null
-								? new ModuleName("no", "name")
+								? new ModuleName("no", "name", false)
 								: name, b);
 					}
 				}
@@ -693,7 +693,7 @@ public class DependencyDataCalculator implements DependencyGraphStyles, Dependen
 	 * 
 	 * @param root
 	 * @param moduleData
-	 *        Name -> 0* MetadataInfo representing one version of a module with given name
+	 *            Name -> 0* MetadataInfo representing one version of a module with given name
 	 */
 	public void produceGraph(ICancel cancel, String title, File[] roots, OutputStream output, File root,
 			Multimap<ModuleName, MetadataInfo> moduleData, AllModuleReferences exportData) {

@@ -30,6 +30,8 @@ public class ModulefileExtractor extends AbstractMetadataExtractor {
 
 	@Override
 	protected Metadata performMetadataExtraction(File existingFile, Diagnostic result) throws IOException {
-		return ModuleUtils.parseModulefile(existingFile, result);
+		Metadata metadata = new Metadata();
+		ModuleUtils.parseModulefile(existingFile, metadata, result);
+		return metadata;
 	}
 }

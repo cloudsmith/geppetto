@@ -85,7 +85,7 @@ public class DiagnosticWithProgress extends Diagnostic {
 			if(msg != null)
 				monitor.subTask(msg);
 		}
-		for(Diagnostic child : diag.getChildren())
+		for(Diagnostic child : diag)
 			logDiagnostic(child);
 	}
 

@@ -54,7 +54,17 @@ public class ModuleName implements Serializable, Comparable<ModuleName> {
 
 	private static final Pattern NAME_PATTERN = Pattern.compile("^[a-z][a-z0-9_]*$");
 
-	private static String checkName(String name) {
+	/**
+	 * Checks that the given name only contains lowercase letters, numbers and underscores and that it begins with a
+	 * letter
+	 * 
+	 * @param name
+	 *            The name to check
+	 * @return The checked name
+	 * @throws IllegalArgumentException
+	 *             if the name is illegal
+	 */
+	public static String checkName(String name) throws IllegalArgumentException {
 		Matcher m = NAME_PATTERN.matcher(name);
 		if(m.matches())
 			return name;

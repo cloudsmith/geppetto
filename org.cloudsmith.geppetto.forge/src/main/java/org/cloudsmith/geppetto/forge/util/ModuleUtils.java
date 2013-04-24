@@ -15,6 +15,7 @@ import java.io.File;
 import java.io.FileFilter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.io.StringWriter;
 import java.io.Writer;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -293,12 +294,15 @@ public class ModuleUtils {
 	}
 
 	/**
-	 * Parse a Modulefile and create a Metadata instance from the result. The parser <i>will not evaluate</i> actual ruby code. It
+	 * Parse a Modulefile and create a Metadata instance from the result. The parser <i>will not evaluate</i> actual
+	 * ruby code. It
 	 * just parses the code and extracts values from the resulting AST.
 	 * 
 	 * @param moduleFile
 	 *            The file to parse
-	 * @param result
+	 * @param receiver
+	 *            The receiver of the parsed metadata
+	 * @param diagnostics
 	 *            Diagnostics collecting errors
 	 * @return The resulting metadata
 	 * @throws IOException
@@ -306,10 +310,39 @@ public class ModuleUtils {
 	 * @throws IllegalArgumentException
 	 *             if <tt>result</tt> is <tt>null</tt> and errors are detected in the file.
 	 */
-	public static Metadata parseModulefile(File modulefile, Diagnostic result) throws IOException,
+	public static void parseModulefile(File modulefile, Metadata receiver, Diagnostic diagnostics) throws IOException,
 			IllegalArgumentException {
-		Metadata receiver = new Metadata();
-		RootNode root = RubyParserUtils.parseFile(modulefile);
+		parseRubyAST(RubyParserUtils.parseFile(modulefile), receiver, diagnostics);
+	}
+
+	/**
+	 * Parse Modulefile content from a string and create a Metadata instance from the result. The parser <i>will not
+	 * evaluate</i> actual
+	 * ruby code. It
+	 * just parses the code and extracts values from the resulting AST.
+	 * 
+	 * @param id
+	 *            The full path of the file to parse
+	 * @param content
+	 *            The file content
+	 * @param receiver
+	 *            The receiver of the parsed metadata
+	 * @param diagnostics
+	 *            Diagnostics collecting errors
+	 * @throws IOException
+	 *             when it is not possible to read the <tt>content</tt>.
+	 * @throws IllegalArgumentException
+	 *             if <tt>result</tt> is <tt>null</tt> and errors are detected in the file.
+	 */
+	public static void parseModulefile(String id, String content, Metadata receiver, Diagnostic diagnostics)
+			throws IOException, IllegalArgumentException {
+		parseRubyAST(RubyParserUtils.parseString(id, content), receiver, diagnostics);
+	}
+
+	private static void parseRubyAST(RootNode root, Metadata receiver, Diagnostic diagnostics) {
+		receiver.getDependencies().clear();
+		receiver.getTypes().clear();
+		receiver.getChecksums().clear();
 		for(Node node : RubyParserUtils.findNodes(root.getBody(), new NodeType[] { NodeType.FCALLNODE })) {
 			FCallNode call = (FCallNode) node;
 			String key = call.getName();
@@ -325,16 +358,54 @@ public class ModuleUtils {
 					noResponse(key, args.size());
 			}
 			catch(IllegalArgumentException e) {
-				if(result == null)
+				if(diagnostics == null)
 					throw e;
 				SourcePosition pos = call.getPosition();
 				FileDiagnostic diag = new FileDiagnostic(Diagnostic.ERROR, Forge.FORGE, e.getMessage(), new File(
 					pos.getFile()));
 				diag.setLineNumber(pos.getEndLine() + 1);
-				result.addChild(diag);
+				diagnostics.addChild(diag);
 			}
 		}
-		return receiver;
+	}
+
+	/**
+	 * Print a {@link Metadata} instance in the Ruby form used in a &quot;Modulefile&quot; on
+	 * the given stream
+	 * 
+	 * @param md
+	 *            The metadata to use as input.
+	 * @param out
+	 *            The stream that will receive the Modulefile content
+	 * @throws IOException
+	 */
+	public static void printModulefile(Metadata md, PrintWriter out) throws IOException {
+		ModuleName name = md.getName();
+		if(name != null)
+			addKeyValueNode(out, "name", name.toString());
+		if(md.getVersion() != null)
+			addKeyValueNode(out, "version", md.getVersion().toString());
+		out.println();
+		if(md.getAuthor() != null)
+			addKeyValueNode(out, "author", md.getAuthor());
+		if(md.getLicense() != null)
+			addKeyValueNode(out, "license", md.getLicense());
+		if(md.getProjectPage() != null)
+			addKeyValueNode(out, "project_page", md.getProjectPage().toString());
+		if(md.getSource() != null)
+			addKeyValueNode(out, "source", md.getSource());
+		if(md.getSummary() != null)
+			addKeyValueNode(out, "summary", md.getSummary());
+		if(md.getDescription() != null)
+			addKeyValueNode(out, "description", md.getDescription());
+		for(Dependency dep : md.getDependencies()) {
+			ModuleName depName = dep.getName();
+			VersionRange ver = dep.getVersionRequirement();
+			if(ver != null)
+				addKeyValueNode(out, "dependency", depName.toString(), ver.toString());
+			else
+				addKeyValueNode(out, "dependency", depName.toString());
+		}
 	}
 
 	private static void printRubyString(Writer out, String str) throws IOException {
@@ -370,35 +441,31 @@ public class ModuleUtils {
 	public static void saveAsModulefile(Metadata md, File moduleFile) throws IOException {
 		PrintWriter out = new PrintWriter(moduleFile);
 		try {
-			ModuleName name = md.getName();
-			addKeyValueNode(out, "name", name.toString());
-			if(md.getVersion() != null)
-				addKeyValueNode(out, "version", md.getVersion().toString());
-			out.println();
-			if(md.getAuthor() != null)
-				addKeyValueNode(out, "author", md.getAuthor());
-			if(md.getLicense() != null)
-				addKeyValueNode(out, "license", md.getLicense());
-			if(md.getProjectPage() != null)
-				addKeyValueNode(out, "project_page", md.getProjectPage().toString());
-			if(md.getSource() != null)
-				addKeyValueNode(out, "source", md.getSource());
-			if(md.getSummary() != null)
-				addKeyValueNode(out, "summary", md.getSummary());
-			if(md.getDescription() != null)
-				addKeyValueNode(out, "description", md.getDescription());
-			for(Dependency dep : md.getDependencies()) {
-				ModuleName depName = dep.getName();
-				VersionRange ver = dep.getVersionRequirement();
-				if(ver != null)
-					addKeyValueNode(out, "dependency", depName.toString(), ver.toString());
-				else
-					addKeyValueNode(out, "dependency", depName.toString());
-			}
+			printModulefile(md, out);
 		}
 		finally {
 			StreamUtil.close(out);
 		}
+	}
+
+	/**
+	 * Produce Modulefile content in string form
+	 * 
+	 * @param metadata
+	 *            The metadata to use as input
+	 * @return The Modulefile content that represents the metadata
+	 */
+	public static String toModulefileContent(Metadata metadata) {
+		StringWriter bld = new StringWriter();
+		PrintWriter out = new PrintWriter(bld);
+		try {
+			printModulefile(metadata, out);
+			out.flush();
+		}
+		catch(IOException e) {
+
+		}
+		return bld.toString();
 	}
 
 }

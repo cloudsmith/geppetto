@@ -16,6 +16,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.Reader;
+import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -71,6 +72,16 @@ public abstract class RubyParserUtils {
 		}
 	}
 
+	public static RootNode parse(String id, Reader reader) throws IOException {
+		Parser parser = new Parser();
+		try {
+			return (RootNode) parser.parse(id, reader, new ParserConfiguration(0, CompatVersion.RUBY1_9));
+		}
+		catch(SyntaxException e) {
+			throw new IOException("Unable to parse " + id, e);
+		}
+	}
+
 	/**
 	 * Parse a File containing Ruby syntax and return the root node of the AST.
 	 * 
@@ -79,18 +90,18 @@ public abstract class RubyParserUtils {
 	 * @throws IOException
 	 */
 	public static RootNode parseFile(File file) throws IOException {
-		Parser parser = new Parser();
 		String fileStr = file.getAbsolutePath();
 		Reader reader = new BufferedReader(new FileReader(file));
 		try {
-			return (RootNode) parser.parse(fileStr, reader, new ParserConfiguration(0, CompatVersion.RUBY1_9));
-		}
-		catch(SyntaxException e) {
-			throw new IOException("Unable to parse " + fileStr, e);
+			return parse(fileStr, reader);
 		}
 		finally {
 			StreamUtil.close(reader);
 		}
+	}
+
+	public static RootNode parseString(String id, String content) throws IOException {
+		return parse(id, new StringReader(content));
 	}
 
 	public static String stringValue(Node node) throws IOException {

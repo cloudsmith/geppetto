@@ -128,7 +128,7 @@ public class TestValidatorServiceApi2 extends AbstractValidationTest {
 		Diagnostic chain = new Diagnostic();
 		vs.validate(chain, root, null, null, SubMonitor.convert(null));
 		assertNotEquals("There should be errors", 0, chain.getChildren().size());
-		for(Diagnostic d : chain.getChildren())
+		for(Diagnostic d : chain)
 			if(d instanceof FileDiagnostic) {
 				File f = ((FileDiagnostic) d).getFile();
 				assertEquals(
@@ -150,7 +150,7 @@ public class TestValidatorServiceApi2 extends AbstractValidationTest {
 		vs.validate(chain, root, options, null, SubMonitor.convert(null));
 		assertNotEquals("There should be  errors", 0, chain.getChildren().size());
 		Set<String> fileNames = Sets.newHashSet();
-		for(Diagnostic d : chain.getChildren()) {
+		for(Diagnostic d : chain) {
 			if("This is not a boolean".equals(d.getMessage()))
 				continue; // skip this (UGLY)
 			if(d instanceof FileDiagnostic) {
@@ -166,7 +166,7 @@ public class TestValidatorServiceApi2 extends AbstractValidationTest {
 		}
 		assertEquals("Number of files with errors", 7, fileNames.size());
 		List<FileDiagnostic> modulefileDiag = Lists.newArrayList();
-		for(Diagnostic d : chain.getChildren())
+		for(Diagnostic d : chain)
 			if(d instanceof FileDiagnostic && ((FileDiagnostic) d).getFile().getName().equals("Modulefile"))
 				modulefileDiag.add((FileDiagnostic) d);
 
@@ -201,7 +201,7 @@ public class TestValidatorServiceApi2 extends AbstractValidationTest {
 		vs.validate(chain, root, options, null, SubMonitor.convert(null));
 		assertNotEquals("There should be  errors", 0, chain.getChildren().size());
 		Set<String> fileNames = Sets.newHashSet();
-		for(Diagnostic d : chain.getChildren())
+		for(Diagnostic d : chain)
 			if(d instanceof FileDiagnostic)
 				fileNames.add(((FileDiagnostic) d).getFile().getPath());
 
@@ -213,7 +213,7 @@ public class TestValidatorServiceApi2 extends AbstractValidationTest {
 		}
 		assertEquals("Number of files with errors", 1, fileNames.size());
 		List<FileDiagnostic> modulefileDiag = Lists.newArrayList();
-		for(Diagnostic d : chain.getChildren()) {
+		for(Diagnostic d : chain) {
 			if(d instanceof FileDiagnostic && ((FileDiagnostic) d).getFile().getName().equals("Modulefile"))
 				modulefileDiag.add((FileDiagnostic) d);
 		}
@@ -248,7 +248,7 @@ public class TestValidatorServiceApi2 extends AbstractValidationTest {
 		vs.validate(chain, root, null, null, SubMonitor.convert(null));
 
 		int hyphenWarning = 0;
-		for(Diagnostic e : chain.getChildren())
+		for(Diagnostic e : chain)
 			if(IPPDiagnostics.ISSUE__INTERPOLATED_HYPHEN.equals(e.getIssue()) ||
 					IPPDiagnostics.ISSUE__HYPHEN_IN_NAME.equals(e.getIssue()))
 				hyphenWarning++;

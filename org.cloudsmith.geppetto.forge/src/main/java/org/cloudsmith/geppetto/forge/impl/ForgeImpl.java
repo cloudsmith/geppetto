@@ -428,7 +428,9 @@ class ForgeImpl implements Forge {
 
 	@Override
 	public Metadata loadModulefile(File moduleFile, Diagnostic diagnostic) throws IOException {
-		return ModuleUtils.parseModulefile(moduleFile, diagnostic);
+		Metadata metadata = new Metadata();
+		ModuleUtils.parseModulefile(moduleFile, metadata, diagnostic);
+		return metadata;
 	}
 
 	@Override

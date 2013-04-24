@@ -20,9 +20,10 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
 
-public class Diagnostic implements Serializable {
+public class Diagnostic implements Serializable, Iterable<Diagnostic> {
 	public static final DiagnosticType CHAIN = new DiagnosticType("CHAIN", Diagnostic.class.getName());
 
 	private static final long serialVersionUID = 1L;
@@ -239,6 +240,11 @@ public class Diagnostic implements Serializable {
 	 */
 	public DiagnosticType getType() {
 		return type;
+	}
+
+	@Override
+	public Iterator<Diagnostic> iterator() {
+		return getChildren().iterator();
 	}
 
 	/**

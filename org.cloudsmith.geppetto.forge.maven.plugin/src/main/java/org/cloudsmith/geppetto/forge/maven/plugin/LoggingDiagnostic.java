@@ -76,7 +76,7 @@ public class LoggingDiagnostic extends Diagnostic {
 			indent += 4;
 		}
 
-		for(Diagnostic child : diag.getChildren())
+		for(Diagnostic child : diag)
 			logDiagnostic(indent, child);
 	}
 

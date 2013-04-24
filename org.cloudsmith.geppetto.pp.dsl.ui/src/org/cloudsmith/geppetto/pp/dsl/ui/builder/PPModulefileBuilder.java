@@ -206,7 +206,7 @@ public class PPModulefileBuilder extends IncrementalProjectBuilder implements PP
 	}
 
 	private void createResourceMarkers(IResource r, Diagnostic diagnostic) {
-		for(Diagnostic child : diagnostic.getChildren())
+		for(Diagnostic child : diagnostic)
 			createResourceMarkers(r, child);
 
 		String msg = diagnostic.getMessage();
@@ -438,8 +438,10 @@ public class PPModulefileBuilder extends IncrementalProjectBuilder implements PP
 			for(Dependency d : metadata.getDependencies()) {
 				checkCancel(monitor);
 				IProject best = getBestMatchingProject(d, monitor);
-				if(best != null)
-					result.add(best);
+				if(best != null) {
+					if(!result.contains(best))
+						result.add(best);
+				}
 				else {
 					VersionRange vr = d.getVersionRequirement();
 					createErrorMarker(moduleFile, "Unresolved dependency :'" + d.getName() + (vr == null
@@ -488,7 +490,7 @@ public class PPModulefileBuilder extends IncrementalProjectBuilder implements PP
 			try {
 				// Delete this file. It will be recreated from other
 				// sources.
-				metadataResource.delete(false, subMon.newChild(1));
+				metadataResource.delete(true, subMon.newChild(1));
 			}
 			catch(CoreException e) {
 				log.error("Unable to delete metadata.json", e);

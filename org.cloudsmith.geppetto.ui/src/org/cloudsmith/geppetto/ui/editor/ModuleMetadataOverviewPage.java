@@ -11,6 +11,9 @@
  */
 package org.cloudsmith.geppetto.ui.editor;
 
+import static com.google.common.base.Strings.nullToEmpty;
+import static org.cloudsmith.geppetto.common.Strings.emptyToNull;
+
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -18,7 +21,6 @@ import java.util.List;
 import java.util.Map;
 
 import org.cloudsmith.geppetto.diagnostic.Diagnostic;
-import org.cloudsmith.geppetto.forge.Forge;
 import org.cloudsmith.geppetto.forge.util.ModuleUtils;
 import org.cloudsmith.geppetto.forge.v2.model.Dependency;
 import org.cloudsmith.geppetto.forge.v2.model.Metadata;
@@ -36,6 +38,8 @@ import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.IResourceVisitor;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Status;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.UniqueEList;
 import org.eclipse.jface.layout.GridDataFactory;
@@ -58,16 +62,19 @@ import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.VerifyEvent;
 import org.eclipse.swt.events.VerifyListener;
+import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.dialogs.FilteredList;
+import org.eclipse.ui.forms.IFormPart;
 import org.eclipse.ui.forms.IManagedForm;
 import org.eclipse.ui.forms.SectionPart;
 import org.eclipse.ui.forms.editor.FormPage;
@@ -76,27 +83,24 @@ import org.eclipse.ui.forms.widgets.FormToolkit;
 import org.eclipse.ui.forms.widgets.Section;
 import org.eclipse.xtext.ui.XtextProjectHelper;
 
-import com.google.common.collect.BiMap;
-
 class ModuleMetadataOverviewPage extends FormPage {
 
 	protected class DependenciesSectionPart extends SectionPart {
 
 		protected class EditDependencyDialog extends ModuleListSelectionDialog {
 
-			protected Text versionRangeField = null;
+			private Text versionRangeField = null;
 
-			protected String initialVersionRange = null;
+			private VersionRange initialVersionRange = null;
 
-			protected String versionRange = null;
-
-			protected BiMap<String, String> criterionMap = null;
+			private VersionRange versionRange = null;
 
 			public EditDependencyDialog(Shell parent) {
 				super(parent);
 
 				setMultipleSelection(false);
 				setTitle(UIPlugin.INSTANCE.getString("_UI_EditDependency_title")); //$NON-NLS-1$
+				setStatusLineAboveButtons(true);
 			}
 
 			@Override
@@ -117,53 +121,51 @@ class ModuleMetadataOverviewPage extends FormPage {
 				versionRangeLabel.setText(UIPlugin.INSTANCE.getString("_UI_VersionRange_label"));
 
 				versionRangeField = new Text(composite, SWT.BORDER);
-
 				versionRangeField.addModifyListener(new ModifyListener() {
-
 					@Override
-					public void modifyText(ModifyEvent me) {
-						versionRange = versionRangeField.getText();
+					public void modifyText(ModifyEvent ev) {
+						try {
+							versionRange = VersionRange.create(versionRangeField.getText());
+							versionRangeField.setForeground(colorOfText);
+							updateStatus(Status.OK_STATUS);
+						}
+						catch(IllegalArgumentException e) {
+							versionRangeField.setForeground(colorOfBadText);
+							updateStatus(new Status(IStatus.ERROR, UIPlugin.INSTANCE.getSymbolicName(), e.getMessage()));
+						}
 					}
 				});
 
 				versionRangeField.setText(initialVersionRange == null
 						? ""
-						: initialVersionRange);
+						: initialVersionRange.toString());
 
 				GridDataFactory.fillDefaults().align(SWT.FILL, SWT.CENTER).grab(true, false).applyTo(versionRangeField);
-
-				// filteredList.addSelectionListener(new SelectionAdapter() {
-				// @Override
-				// public void widgetSelected(SelectionEvent se) {
-				// Object[] selectedElements = getSelectedElements();
-				//
-				// if(selectedElements.length == 1) {
-				// versionRangeField.setText(((ModuleInfo) selectedElements[0]).getVersion());
-				// }
-				// }
-				// });
-
 				return filteredList;
 			}
 
-			protected String getVersionRange() {
+			protected VersionRange getVersionRange() {
 				return versionRange;
 			}
 
-			protected void setInitialVersionRange(String versioRange) {
+			@Override
+			protected void handleDefaultSelected() {
+				Object[] selection = getSelectedElements();
+				if(selection.length > 0)
+					versionRange = VersionRange.exact(((ModuleInfo) selection[0]).getVersion());
+				super.handleDefaultSelected();
+			}
+
+			protected void setInitialVersionRange(VersionRange versioRange) {
 				initialVersionRange = versioRange;
 			}
 		}
 
-		protected Object[] moduleChoices;
+		private TableViewer tableViewer;
 
-		protected TableViewer tableViewer;
+		private List<Dependency> dependencies = new UniqueEList<Dependency>();
 
-		protected List<Dependency> dependencies = new UniqueEList<Dependency>();
-
-		protected Forge forge;
-
-		protected DependenciesSectionPart(Composite parent, FormToolkit toolkit) {
+		private DependenciesSectionPart(Composite parent, FormToolkit toolkit) {
 			super(parent, toolkit, ExpandableComposite.TITLE_BAR | Section.DESCRIPTION);
 
 			Section section = getSection();
@@ -227,7 +229,7 @@ class ModuleMetadataOverviewPage extends FormPage {
 					Dependency dependency = (Dependency) element;
 
 					if(columnIndex == 0) {
-						return dependency.getName().toString();
+						return dependency.getName().withSeparator('-').toString();
 					}
 
 					VersionRange versionRequirement = dependency.getVersionRequirement();
@@ -263,7 +265,7 @@ class ModuleMetadataOverviewPage extends FormPage {
 					ModuleListSelectionDialog dialog = new ModuleListSelectionDialog(getEditor().getSite().getShell());
 
 					dialog.setMultipleSelection(true);
-					dialog.setElements(getModuleChoices());
+					dialog.setElements(getModuleChoices(null));
 
 					if(dialog.open() == Window.OK) {
 
@@ -299,24 +301,22 @@ class ModuleMetadataOverviewPage extends FormPage {
 					VersionRange versionRequirement = dependency.getVersionRequirement();
 
 					if(versionRequirement != null)
-						dialog.setInitialVersionRange(versionRequirement.toString());
+						dialog.setInitialVersionRange(versionRequirement);
 
-					dialog.setElements(getModuleChoices());
-					dialog.setFilter(dependency.getName().toString());
+					dialog.setElements(getModuleChoices(dependency.getName()));
+					dialog.setFilter(dependency.getName().withSeparator('-').toString());
 
 					if(dialog.open() == Window.OK) {
 						dependency.setName(((ModuleInfo) dialog.getFirstResult()).getName());
+						VersionRange oldRange = dependency.getVersionRequirement();
+						VersionRange newRange = dialog.getVersionRange();
+						if(oldRange == null
+								? newRange == null
+								: oldRange.equals(newRange))
+							return;
 
-						String versionRange = dialog.getVersionRange();
-
-						if(versionRange != null && versionRange.length() > 0)
-							dependency.setVersionRequirement(VersionRange.create(versionRange));
-						else {
-							dependency.setVersionRequirement(null);
-						}
-
+						dependency.setVersionRequirement(newRange);
 						markDirty();
-
 						tableViewer.setInput(dependencies);
 					}
 				}
@@ -355,26 +355,19 @@ class ModuleMetadataOverviewPage extends FormPage {
 			});
 
 			GridDataFactory.fillDefaults().grab(true, true).applyTo(dependenciesTable);
-
-			Metadata metadata = getMetadata();
-
-			if(metadata != null) {
-				dependencies.addAll(metadata.getDependencies());
-			}
-
-			tableViewer.setInput(dependencies);
-
 			section.setClient(client);
 		}
 
-		private void addDependencyIfNotPresent(IFile moduleFile, Map<String, ModuleInfo> moduleInfos)
-				throws IOException {
-			Metadata metadata = ModuleUtils.parseModulefile(moduleFile.getLocation().toFile(), new Diagnostic());
+		private void addDependencyIfNotPresent(IFile moduleFile, Map<String, ModuleInfo> moduleInfos,
+				ModuleName toBeEdited) throws IOException {
+			Metadata metadata = new Metadata();
+			ModuleUtils.parseModulefile(moduleFile.getLocation().toFile(), metadata, new Diagnostic());
 
 			ModuleName moduleName = metadata.getName();
-			for(Dependency dependency : dependencies)
-				if(dependency.getName().equals(moduleName))
-					return;
+			if(toBeEdited == null || !toBeEdited.equals(moduleName))
+				for(Dependency dependency : dependencies)
+					if(dependency.getName().equals(moduleName))
+						return;
 
 			ModuleInfo module = new ModuleInfo(moduleName, metadata.getVersion());
 			moduleInfos.put(StringUtil.getModuleText(module), module);
@@ -383,16 +376,13 @@ class ModuleMetadataOverviewPage extends FormPage {
 		@Override
 		public void commit(boolean onSave) {
 			Metadata metadata = getMetadata();
-
-			if(metadata != null) {
-				metadata.getDependencies().clear();
-				metadata.getDependencies().addAll(dependencies);
-			}
-
+			metadata.getDependencies().clear();
+			metadata.getDependencies().addAll(dependencies);
+			getMetadataEditor().refreshFromOverviewPage();
 			super.commit(onSave);
 		}
 
-		protected Object[] getModuleChoices() {
+		protected Object[] getModuleChoices(final ModuleName toBeEdited) {
 
 			EList<Object> choices = new UniqueEList.FastCompare<Object>();
 
@@ -412,7 +402,7 @@ class ModuleMetadataOverviewPage extends FormPage {
 						continue; // not meaningful to include dependency on itself
 
 					if(moduleFile.exists()) {
-						addDependencyIfNotPresent(moduleFile, modules);
+						addDependencyIfNotPresent(moduleFile, modules, toBeEdited);
 						continue;
 					}
 
@@ -436,7 +426,7 @@ class ModuleMetadataOverviewPage extends FormPage {
 									if(moduleFile.equals(currentModuleFile))
 										return false; // not meaningful to include dependency on itself
 									if(moduleFile.exists())
-										addDependencyIfNotPresent(moduleFile, modules);
+										addDependencyIfNotPresent(moduleFile, modules, toBeEdited);
 								}
 							}
 							catch(Exception e) {
@@ -456,6 +446,21 @@ class ModuleMetadataOverviewPage extends FormPage {
 
 			return choices.toArray();
 		}
+
+		@Override
+		public void markDirty() {
+			ModuleMetadataOverviewPage.this.markDirty();
+			super.markDirty();
+		}
+
+		@Override
+		public void refresh() {
+			Metadata metadata = getMetadata();
+			dependencies.clear();
+			dependencies.addAll(metadata.getDependencies());
+			tableViewer.setInput(dependencies);
+			super.refresh();
+		}
 	}
 
 	protected class DetailsSectionPart extends SectionPart implements ModifyListener {
@@ -467,6 +472,8 @@ class ModuleMetadataOverviewPage extends FormPage {
 		protected Text summaryText;
 
 		protected Text descriptionText;
+
+		private boolean refreshing;
 
 		protected DetailsSectionPart(Composite parent, FormToolkit toolkit) {
 			super(parent, toolkit, ExpandableComposite.TITLE_BAR | Section.DESCRIPTION);
@@ -481,44 +488,30 @@ class ModuleMetadataOverviewPage extends FormPage {
 			Composite client = toolkit.createComposite(section);
 			client.setLayout(new GridLayout(2, false));
 
-			Metadata metadata = getMetadata();
-
 			toolkit.createLabel(client, UIPlugin.INSTANCE.getString("_UI_Source_label")); //$NON-NLS-1$
 
-			sourceText = toolkit.createText(client, metadata != null
-					? metadata.getSource()
-					: null);
+			sourceText = toolkit.createText(client, null);
 			sourceText.addModifyListener(this);
 
 			GridDataFactory.swtDefaults().align(SWT.FILL, SWT.CENTER).grab(true, false).applyTo(sourceText);
 
 			toolkit.createLabel(client, UIPlugin.INSTANCE.getString("_UI_ProjectPage_label")); //$NON-NLS-1$
 
-			String projectPage = metadata != null
-					? metadata.getProjectPage()
-					: null;
-
-			projectPageText = toolkit.createText(client, projectPage != null
-					? projectPage
-					: null);
+			projectPageText = toolkit.createText(client, null);
 			projectPageText.addModifyListener(this);
 
 			GridDataFactory.swtDefaults().align(SWT.FILL, SWT.CENTER).grab(true, false).applyTo(projectPageText);
 
 			toolkit.createLabel(client, UIPlugin.INSTANCE.getString("_UI_Summary_label")); //$NON-NLS-1$
 
-			summaryText = toolkit.createText(client, metadata != null
-					? metadata.getSummary()
-					: null);
+			summaryText = toolkit.createText(client, null);
 			summaryText.addModifyListener(this);
 
 			GridDataFactory.swtDefaults().align(SWT.FILL, SWT.CENTER).grab(true, false).applyTo(summaryText);
 
 			toolkit.createLabel(client, UIPlugin.INSTANCE.getString("_UI_Description_label")); //$NON-NLS-1$
 
-			descriptionText = toolkit.createText(client, metadata != null
-					? metadata.getDescription()
-					: null, SWT.MULTI | SWT.H_SCROLL | SWT.V_SCROLL);
+			descriptionText = toolkit.createText(client, null, SWT.MULTI | SWT.H_SCROLL | SWT.V_SCROLL);
 			descriptionText.addModifyListener(this);
 
 			GridDataFactory.swtDefaults().align(SWT.FILL, SWT.FILL).grab(true, true).applyTo(descriptionText);
@@ -529,34 +522,52 @@ class ModuleMetadataOverviewPage extends FormPage {
 		@Override
 		public void commit(boolean onSave) {
 			Metadata metadata = getMetadata();
-
-			if(metadata != null) {
-				metadata.setSource(sourceText.getText());
-				metadata.setProjectPage(projectPageText.getText());
-				metadata.setSummary(summaryText.getText());
-				metadata.setDescription(descriptionText.getText());
-			}
-
+			metadata.setSource(emptyToNull(sourceText.getText()));
+			metadata.setProjectPage(emptyToNull(projectPageText.getText()));
+			metadata.setSummary(emptyToNull(summaryText.getText()));
+			metadata.setDescription(emptyToNull(descriptionText.getText()));
+			getMetadataEditor().refreshFromOverviewPage();
 			super.commit(onSave);
 		}
 
 		@Override
+		public void markDirty() {
+			ModuleMetadataOverviewPage.this.markDirty();
+			super.markDirty();
+		}
+
+		@Override
 		public void modifyText(ModifyEvent me) {
-			markDirty();
+			if(!refreshing)
+				ModuleMetadataOverviewPage.this.markDirty();
+		}
+
+		@Override
+		public void refresh() {
+			refreshing = true;
+			Metadata metadata = getMetadata();
+			sourceText.setText(nullToEmpty(metadata.getSource()));
+			projectPageText.setText(nullToEmpty(metadata.getProjectPage()));
+			summaryText.setText(nullToEmpty(metadata.getSummary()));
+			descriptionText.setText(nullToEmpty(metadata.getDescription()));
+			super.refresh();
+			refreshing = false;
 		}
 	}
 
 	protected class GeneralInformationSectionPart extends SectionPart implements ModifyListener {
 
-		protected Text userText;
+		private Text userText;
 
-		protected Text nameText;
+		private Text nameText;
 
-		protected Text versionText;
+		private Text versionText;
 
-		protected Text authorText;
+		private Text authorText;
 
-		protected Text licenseText;
+		private Text licenseText;
+
+		private boolean refreshing;
 
 		protected GeneralInformationSectionPart(Composite parent, FormToolkit toolkit) {
 			super(parent, toolkit, ExpandableComposite.TITLE_BAR | Section.DESCRIPTION);
@@ -571,67 +582,77 @@ class ModuleMetadataOverviewPage extends FormPage {
 			Composite client = toolkit.createComposite(section);
 			client.setLayout(new GridLayout(4, false));
 
-			Metadata metadata = getMetadata();
-
 			toolkit.createLabel(client, UIPlugin.INSTANCE.getString("_UI_Name_label")); //$NON-NLS-1$
 
-			ModuleName qname = metadata != null
-					? metadata.getName()
-					: null;
-
-			userText = toolkit.createText(client, qname != null
-					? qname.getOwner()
-					: null);
-			userText.addModifyListener(this);
-			userText.addVerifyListener(new VerifyListener() {
-
+			userText = toolkit.createText(client, null);
+			userText.addModifyListener(new ModifyListener() {
 				@Override
-				public void verifyText(VerifyEvent ve) {
-
-					if(ve.text.indexOf('.') != -1 || ve.text.indexOf('-') != -1 || ve.text.indexOf('/') != -1) {
-						ve.doit = false;
+				public void modifyText(ModifyEvent ev) {
+					try {
+						ModuleName.checkName(userText.getText());
+						userText.setForeground(colorOfText);
 					}
+					catch(IllegalArgumentException e) {
+						userText.setForeground(colorOfBadText);
+					}
+					GeneralInformationSectionPart.this.modifyText(ev);
 				}
 			});
+			userText.addVerifyListener(nameCharsVerifier);
+			colorOfText = userText.getForeground();
 
 			GridDataFactory.swtDefaults().align(SWT.FILL, SWT.CENTER).grab(true, false).applyTo(userText);
 
 			toolkit.createLabel(client, "-"); //$NON-NLS-1$
 
-			nameText = toolkit.createText(client, qname != null
-					? qname.getName()
-					: null);
-			nameText.addModifyListener(this);
+			nameText = toolkit.createText(client, null);
+			nameText.addModifyListener(new ModifyListener() {
+				@Override
+				public void modifyText(ModifyEvent ev) {
+					try {
+						ModuleName.checkName(nameText.getText());
+						nameText.setForeground(colorOfText);
+					}
+					catch(IllegalArgumentException e) {
+						nameText.setForeground(colorOfBadText);
+					}
+					GeneralInformationSectionPart.this.modifyText(ev);
+				}
+			});
+			nameText.addVerifyListener(nameCharsVerifier);
 
 			GridDataFactory.swtDefaults().align(SWT.FILL, SWT.CENTER).grab(true, false).applyTo(nameText);
 
 			toolkit.createLabel(client, UIPlugin.INSTANCE.getString("_UI_Version_label")); //$NON-NLS-1$
 
-			Version version = metadata != null
-					? metadata.getVersion()
-					: null;
-
-			versionText = toolkit.createText(client, version != null
-					? version.toString()
-					: null);
-			versionText.addModifyListener(this);
+			versionText = toolkit.createText(client, null);
+			versionText.addModifyListener(new ModifyListener() {
+				@Override
+				public void modifyText(ModifyEvent ev) {
+					try {
+						Version.create(versionText.getText());
+						versionText.setForeground(colorOfText);
+					}
+					catch(IllegalArgumentException e) {
+						versionText.setForeground(colorOfBadText);
+					}
+					GeneralInformationSectionPart.this.modifyText(ev);
+				}
+			});
+			versionText.addVerifyListener(versionCharsVerifier);
 
 			GridDataFactory.swtDefaults().align(SWT.FILL, SWT.CENTER).grab(true, false).span(3, 1).applyTo(versionText);
 
 			toolkit.createLabel(client, UIPlugin.INSTANCE.getString("_UI_Author_label")); //$NON-NLS-1$
 
-			authorText = toolkit.createText(client, metadata != null
-					? metadata.getAuthor()
-					: null);
+			authorText = toolkit.createText(client, null);
 			authorText.addModifyListener(this);
 
 			GridDataFactory.swtDefaults().align(SWT.FILL, SWT.CENTER).grab(true, false).span(3, 1).applyTo(authorText);
 
 			toolkit.createLabel(client, UIPlugin.INSTANCE.getString("_UI_License_label")); //$NON-NLS-1$
 
-			licenseText = toolkit.createText(client, metadata != null
-					? metadata.getLicense()
-					: null);
+			licenseText = toolkit.createText(client, null);
 			licenseText.addModifyListener(this);
 
 			GridDataFactory.swtDefaults().align(SWT.FILL, SWT.CENTER).grab(true, false).span(3, 1).applyTo(licenseText);
@@ -642,22 +663,104 @@ class ModuleMetadataOverviewPage extends FormPage {
 		@Override
 		public void commit(boolean onSave) {
 			Metadata metadata = getMetadata();
-
-			if(metadata != null) {
-				metadata.setName(new ModuleName(userText.getText(), nameText.getText()));
-				metadata.setVersion(Version.create(versionText.getText()));
-				metadata.setAuthor(authorText.getText());
-				metadata.setLicense(licenseText.getText());
+			String user = emptyToNull(userText.getText());
+			String name = emptyToNull(nameText.getText());
+			if(user == null && name == null)
+				metadata.setName(null);
+			else {
+				try {
+					metadata.setName(new ModuleName(user, name));
+				}
+				catch(IllegalArgumentException e) {
+				}
 			}
 
+			String version = versionText.getText();
+			if(version == null) {
+				metadata.setVersion(null);
+			}
+			else {
+				try {
+					metadata.setVersion(Version.create(versionText.getText()));
+				}
+				catch(IllegalArgumentException e) {
+				}
+			}
+
+			metadata.setAuthor(emptyToNull(authorText.getText()));
+			metadata.setLicense(emptyToNull(licenseText.getText()));
+			getMetadataEditor().refreshFromOverviewPage();
 			super.commit(onSave);
 		}
 
 		@Override
+		public void markDirty() {
+			ModuleMetadataOverviewPage.this.markDirty();
+			super.markDirty();
+		}
+
+		@Override
 		public void modifyText(ModifyEvent me) {
-			markDirty();
+			if(!refreshing)
+				markDirty();
+		}
+
+		@Override
+		public void refresh() {
+			refreshing = true;
+			Metadata metadata = getMetadata();
+			ModuleName qname = metadata.getName();
+			if(qname == null) {
+				userText.setText("");
+				nameText.setText("");
+			}
+			else {
+				userText.setText(nullToEmpty(qname.getOwner()));
+				nameText.setText(nullToEmpty(qname.getName()));
+			}
+			Version version = metadata.getVersion();
+			versionText.setText(version == null
+					? ""
+					: version.toString());
+			authorText.setText(nullToEmpty(metadata.getAuthor()));
+			licenseText.setText(nullToEmpty(metadata.getLicense()));
+			super.refresh();
+			refreshing = false;
 		}
 	}
+
+	private static VerifyListener nameCharsVerifier = new VerifyListener() {
+		@Override
+		public void verifyText(VerifyEvent ev) {
+			// Verify that the typed character is valid in a module name. This does not include the owner/name separator
+			// since owner and name are typed in separate fields
+			char c = ev.character;
+			ev.doit = c < 0x20 || c == '_' || c >= '0' && c <= '9' || c >= 'a' && c <= 'z';
+		}
+	};
+
+	private static VerifyListener versionCharsVerifier = new VerifyListener() {
+		@Override
+		public void verifyText(VerifyEvent ev) {
+			// Verify that the typed character is valid in a module name. This does not include the owner/name separator
+			// since owner and name are typed in separate fields
+			char c = ev.character;
+			// @fmtOff
+			ev.doit =
+				   c < 0x20
+				|| c == '_'
+				|| c == '-'
+				|| c == '.'
+				|| c >= '0' && c <= '9'
+				|| c >= 'a' && c <= 'z'
+				|| c >= 'A' && c <= 'Z';
+			// @fmtOn
+		}
+	};
+
+	private Color colorOfText;
+
+	private Color colorOfBadText;
 
 	public ModuleMetadataOverviewPage(ModuleMetadataEditor editor, String id, String title) {
 		super(editor, id, title);
@@ -666,8 +769,11 @@ class ModuleMetadataOverviewPage extends FormPage {
 	@Override
 	protected void createFormContent(final IManagedForm managedForm) {
 		super.createFormContent(managedForm);
-
 		Composite body = managedForm.getForm().getBody();
+
+		Display display = body.getDisplay();
+		colorOfBadText = display.getSystemColor(SWT.COLOR_RED);
+
 		body.setLayout(new GridLayout(2, true));
 
 		FormToolkit toolkit = managedForm.getToolkit();
@@ -691,6 +797,20 @@ class ModuleMetadataOverviewPage extends FormPage {
 	}
 
 	protected Metadata getMetadata() {
-		return ((ModuleMetadataEditor) getEditor()).getMetadata();
+		return getMetadataEditor().getMetadata();
+	}
+
+	private ModuleMetadataEditor getMetadataEditor() {
+		return (ModuleMetadataEditor) getEditor();
+	}
+
+	void markDirty() {
+		getMetadataEditor().overviewInCharge();
+	}
+
+	void markStale() {
+		for(IFormPart part : getManagedForm().getParts())
+			if(part instanceof SectionPart)
+				((SectionPart) part).markStale();
 	}
 }

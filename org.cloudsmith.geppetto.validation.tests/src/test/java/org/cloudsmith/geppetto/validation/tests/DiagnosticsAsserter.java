@@ -214,7 +214,7 @@ public class DiagnosticsAsserter {
 	}
 
 	public Iterable<Diagnostic> getAllDiagnostics() {
-		return diagnostics.getChildren();
+		return diagnostics;
 	}
 
 	public Iterable<Diagnostic> getErrorDiagnostics() {
@@ -238,7 +238,7 @@ public class DiagnosticsAsserter {
 	}
 
 	private Iterable<Diagnostic> severityIterable(final int severity, Diagnostic diag) {
-		return Iterables.filter(diag.getChildren(), new Predicate<Diagnostic>() {
+		return Iterables.filter(diag, new Predicate<Diagnostic>() {
 
 			@Override
 			public boolean apply(Diagnostic input) {

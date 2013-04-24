@@ -48,7 +48,7 @@ public class AbstractValidationTest {
 
 	protected final void assertContainsErrorCode(Diagnostic chain, String errorCode) {
 		List<String> issues = Lists.newArrayList();
-		for(Diagnostic d : chain.getChildren())
+		for(Diagnostic d : chain)
 			if(d.getIssue() != null)
 				issues.add(d.getIssue());
 		assertTrue("Should contain error: " + errorCode, issues.contains(errorCode));
@@ -79,7 +79,7 @@ public class AbstractValidationTest {
 
 	protected final String errorsToString(Diagnostic chain) {
 		StringBuilder builder = new StringBuilder();
-		for(Diagnostic d : chain.getChildren()) {
+		for(Diagnostic d : chain) {
 			builder.append("Diagnostic: ");
 			// remove the "found in:" part as the order is not stable
 			String msg = d.getMessage();

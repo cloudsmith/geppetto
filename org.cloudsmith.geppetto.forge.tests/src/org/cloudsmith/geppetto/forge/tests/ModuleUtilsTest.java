@@ -87,7 +87,8 @@ public class ModuleUtilsTest extends AbstractForgeTest {
 	@Test
 	public void parseModuleFile__File() {
 		try {
-			Metadata md = ModuleUtils.parseModulefile(getTestData("puppetlabs-apache/Modulefile"), new Diagnostic());
+			Metadata md = new Metadata();
+			ModuleUtils.parseModulefile(getTestData("puppetlabs-apache/Modulefile"), md, new Diagnostic());
 			assertEquals("Unexpected module name", new ModuleName("puppetlabs-apache"), md.getName());
 		}
 		catch(IOException e) {

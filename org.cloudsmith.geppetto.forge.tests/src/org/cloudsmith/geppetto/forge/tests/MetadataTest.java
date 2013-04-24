@@ -166,7 +166,8 @@ public class MetadataTest extends AbstractForgeTest {
 			ModuleUtils.saveAsModulefile(fixture, moduleFile);
 			assertTrue("No readable Modulefile file was generated", moduleFile.canRead());
 
-			Metadata tst = ModuleUtils.parseModulefile(moduleFile, new Diagnostic());
+			Metadata tst = new Metadata();
+			ModuleUtils.parseModulefile(moduleFile, tst, new Diagnostic());
 			assertEquals("Expected 2 dependencies", 2, tst.getDependencies().size());
 			assertEquals("Expected 3 lines of text", 3, countLines(tst.getDescription()));
 			assertEquals("Expected 4 lines of text", 4, countLines(tst.getSummary()));

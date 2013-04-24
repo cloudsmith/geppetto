@@ -19,7 +19,7 @@ public class StringUtil {
 	public static String getModuleText(ModuleInfo module) {
 		StringBuilder bld = new StringBuilder();
 		if(module.getName() != null) {
-			module.getName().toString(bld);
+			module.getName().withSeparator('-').toString(bld);
 			bld.append(' ');
 		}
 		if(module.getVersion() != null)

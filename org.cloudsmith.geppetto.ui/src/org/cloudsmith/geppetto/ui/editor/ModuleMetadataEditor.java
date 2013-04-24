@@ -47,6 +47,7 @@ import org.eclipse.ui.editors.text.TextEditor;
 import org.eclipse.ui.forms.editor.FormEditor;
 import org.eclipse.ui.ide.IGotoMarker;
 import org.eclipse.ui.part.FileEditorInput;
+import org.eclipse.ui.texteditor.IElementStateListener;
 import org.eclipse.ui.texteditor.MarkerAnnotation;
 
 import com.google.inject.Inject;
@@ -112,6 +113,30 @@ public class ModuleMetadataEditor extends FormEditor implements IGotoMarker, ITe
 		}
 	}
 
+	class ElementListener implements IElementStateListener {
+		public void elementContentAboutToBeReplaced(Object element) {
+		}
+
+		public void elementContentReplaced(Object element) {
+			// TODO:
+		}
+
+		public void elementDeleted(Object element) {
+			if(element != null && element.equals(getEditorInput()))
+				close(false);
+		}
+
+		public void elementDirtyStateChanged(Object element, boolean isDirty) {
+			// TODO:
+		}
+
+		public void elementMoved(Object originalElement, Object movedElement) {
+			if(originalElement != null && originalElement.equals(getEditorInput())) {
+				close(true);
+			}
+		}
+	}
+
 	class ModuleTextEditor extends TextEditor {
 		ModuleTextEditor() {
 			setPartName(UIPlugin.INSTANCE.getString("_UI_Source_title")); //$NON-NLS-1
@@ -157,6 +182,7 @@ public class ModuleMetadataEditor extends FormEditor implements IGotoMarker, ITe
 			// addPage(sourcePage);
 			sourcePage = new ModuleTextEditor();
 			setPageText(addPage(sourcePage, getEditorInput()), UIPlugin.INSTANCE.getString("_UI_Source_title"));
+			sourcePage.getDocumentProvider().addElementStateListener(new ElementListener());
 		}
 		catch(Exception e) {
 			UIPlugin.INSTANCE.log(e);

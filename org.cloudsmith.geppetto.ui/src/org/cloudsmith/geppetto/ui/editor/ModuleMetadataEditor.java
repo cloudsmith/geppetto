@@ -15,6 +15,7 @@ import java.io.IOException;
 import java.util.Iterator;
 
 import org.cloudsmith.geppetto.diagnostic.Diagnostic;
+import org.cloudsmith.geppetto.forge.Forge;
 import org.cloudsmith.geppetto.forge.util.ModuleUtils;
 import org.cloudsmith.geppetto.forge.v2.model.Metadata;
 import org.cloudsmith.geppetto.forge.v2.model.ModuleName;
@@ -47,6 +48,8 @@ import org.eclipse.ui.forms.editor.FormEditor;
 import org.eclipse.ui.ide.IGotoMarker;
 import org.eclipse.ui.part.FileEditorInput;
 import org.eclipse.ui.texteditor.MarkerAnnotation;
+
+import com.google.inject.Inject;
 
 public class ModuleMetadataEditor extends FormEditor implements IGotoMarker, ITextListener {
 
@@ -132,6 +135,9 @@ public class ModuleMetadataEditor extends FormEditor implements IGotoMarker, ITe
 		}
 	}
 
+	@Inject
+	private Forge forge;
+
 	private ModuleMetadataOverviewPage overviewPage;
 
 	private ModuleTextEditor sourcePage;
@@ -204,14 +210,21 @@ public class ModuleMetadataEditor extends FormEditor implements IGotoMarker, ITe
 		// do nothing
 	}
 
+	Forge getForge() {
+		return forge;
+	}
+
 	Metadata getMetadata() {
 		return metadata;
 	}
 
 	@Override
 	public void gotoMarker(IMarker marker) {
-		((IGotoMarker) sourcePage.getAdapter(IGotoMarker.class)).gotoMarker(marker);
-		setActiveEditor(sourcePage);
+		int line = marker.getAttribute(IMarker.LINE_NUMBER, 0);
+		if(line > 0) {
+			((IGotoMarker) sourcePage.getAdapter(IGotoMarker.class)).gotoMarker(marker);
+			setActiveEditor(sourcePage);
+		}
 	}
 
 	@Override

@@ -14,6 +14,7 @@ package org.cloudsmith.geppetto.ui.editor;
 import static com.google.common.base.Strings.nullToEmpty;
 import static org.cloudsmith.geppetto.common.Strings.emptyToNull;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -21,7 +22,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.cloudsmith.geppetto.diagnostic.Diagnostic;
-import org.cloudsmith.geppetto.forge.util.ModuleUtils;
+import org.cloudsmith.geppetto.forge.Forge;
 import org.cloudsmith.geppetto.forge.v2.model.Dependency;
 import org.cloudsmith.geppetto.forge.v2.model.Metadata;
 import org.cloudsmith.geppetto.forge.v2.model.ModuleName;
@@ -29,20 +30,16 @@ import org.cloudsmith.geppetto.semver.Version;
 import org.cloudsmith.geppetto.semver.VersionRange;
 import org.cloudsmith.geppetto.ui.UIPlugin;
 import org.cloudsmith.geppetto.ui.dialog.ModuleListSelectionDialog;
-import org.cloudsmith.geppetto.ui.util.ResourceUtil;
 import org.cloudsmith.geppetto.ui.util.StringUtil;
 import org.eclipse.core.resources.IFile;
-import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
-import org.eclipse.core.resources.IResource;
-import org.eclipse.core.resources.IResourceVisitor;
 import org.eclipse.core.resources.ResourcesPlugin;
-import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.UniqueEList;
 import org.eclipse.jface.layout.GridDataFactory;
+import org.eclipse.jface.util.Util;
 import org.eclipse.jface.viewers.ColumnWeightData;
 import org.eclipse.jface.viewers.ILabelProviderListener;
 import org.eclipse.jface.viewers.ISelection;
@@ -89,15 +86,28 @@ class ModuleMetadataOverviewPage extends FormPage {
 
 		protected class EditDependencyDialog extends ModuleListSelectionDialog {
 
+			private final VersionRange initialVersionRange;
+
+			private final ModuleName initialName;
+
+			private Text nameField = null;
+
 			private Text versionRangeField = null;
 
-			private VersionRange initialVersionRange = null;
+			private ModuleName name = null;
 
 			private VersionRange versionRange = null;
 
-			public EditDependencyDialog(Shell parent) {
+			public EditDependencyDialog(Shell parent, Dependency dependency) {
 				super(parent);
-
+				if(dependency == null) {
+					this.initialName = null;
+					this.initialVersionRange = null;
+				}
+				else {
+					this.initialName = dependency.getName();
+					this.initialVersionRange = dependency.getVersionRequirement();
+				}
 				setMultipleSelection(false);
 				setTitle(UIPlugin.INSTANCE.getString("_UI_EditDependency_title")); //$NON-NLS-1$
 				setStatusLineAboveButtons(true);
@@ -109,13 +119,37 @@ class ModuleMetadataOverviewPage extends FormPage {
 
 				Composite composite = new Composite(parent, SWT.NONE);
 
-				GridLayout gridLayout = new GridLayout(1, false);
+				GridLayout gridLayout = new GridLayout(2, false);
 				gridLayout.marginHeight = 0;
 				gridLayout.marginWidth = 0;
 
 				composite.setLayout(gridLayout);
 
 				GridDataFactory.fillDefaults().align(SWT.FILL, SWT.CENTER).grab(true, false).applyTo(composite);
+
+				Label nameLabel = new Label(composite, SWT.NONE);
+				nameLabel.setText(UIPlugin.INSTANCE.getString("_UI_ModuleName_label"));
+
+				nameField = new Text(composite, SWT.BORDER);
+				nameField.addModifyListener(new ModifyListener() {
+					@Override
+					public void modifyText(ModifyEvent ev) {
+						try {
+							name = new ModuleName(nameField.getText());
+							nameField.setForeground(colorOfText);
+							updateStatus(Status.OK_STATUS);
+						}
+						catch(IllegalArgumentException e) {
+							nameField.setForeground(colorOfBadText);
+							updateStatus(new Status(IStatus.ERROR, UIPlugin.INSTANCE.getSymbolicName(), e.getMessage()));
+						}
+					}
+				});
+				nameField.setText(initialName == null
+						? ""
+						: initialName.withSeparator('-').toString());
+
+				GridDataFactory.fillDefaults().align(SWT.FILL, SWT.CENTER).grab(true, false).applyTo(nameField);
 
 				Label versionRangeLabel = new Label(composite, SWT.NONE);
 				versionRangeLabel.setText(UIPlugin.INSTANCE.getString("_UI_VersionRange_label"));
@@ -144,20 +178,43 @@ class ModuleMetadataOverviewPage extends FormPage {
 				return filteredList;
 			}
 
+			protected ModuleName getName() {
+				return name;
+			}
+
 			protected VersionRange getVersionRange() {
 				return versionRange;
 			}
 
 			@Override
 			protected void handleDefaultSelected() {
-				Object[] selection = getSelectedElements();
-				if(selection.length > 0)
-					versionRange = VersionRange.exact(((ModuleInfo) selection[0]).getVersion());
+				setSelectedValuesIfSingle();
 				super.handleDefaultSelected();
 			}
 
-			protected void setInitialVersionRange(VersionRange versioRange) {
-				initialVersionRange = versioRange;
+			@Override
+			protected void handleSelectionChanged() {
+				setSelectedValuesIfSingle();
+				super.handleSelectionChanged();
+			}
+
+			private void setSelectedValuesIfSingle() {
+				Object[] selection = getSelectedElements();
+				if(selection.length == 1) {
+					ModuleInfo mi = (ModuleInfo) selection[0];
+					name = mi.getName();
+					versionRange = VersionRange.exact(mi.getVersion());
+				}
+			}
+
+			@Override
+			protected void updateOkState() {
+				Button okButton = getOkButton();
+				if(okButton != null) {
+					boolean weHaveData = name != null && !name.equals(initialName) &&
+							(versionRange == null || !versionRange.equals(initialVersionRange));
+					okButton.setEnabled(weHaveData || getSelectedElements().length != 0);
+				}
 			}
 		}
 
@@ -262,23 +319,29 @@ class ModuleMetadataOverviewPage extends FormPage {
 
 				@Override
 				public void widgetSelected(SelectionEvent se) {
-					ModuleListSelectionDialog dialog = new ModuleListSelectionDialog(getEditor().getSite().getShell());
+					EditDependencyDialog dialog = new EditDependencyDialog(getEditor().getSite().getShell(), null);
 
 					dialog.setMultipleSelection(true);
 					dialog.setElements(getModuleChoices(null));
 
 					if(dialog.open() == Window.OK) {
-
-						for(Object result : dialog.getResult()) {
-							ModuleInfo module = (ModuleInfo) result;
-
+						Object[] results = dialog.getResult();
+						if(results.length > 1) {
+							for(Object result : results) {
+								ModuleInfo module = (ModuleInfo) result;
+								Dependency dependency = new Dependency();
+								dependency.setName(module.getName());
+								VersionRange vr = VersionRange.exact(module.getVersion());
+								dependency.setVersionRequirement(vr);
+								dependencies.add(dependency);
+							}
+						}
+						else {
 							Dependency dependency = new Dependency();
-							dependency.setName(module.getName());
-							VersionRange vr = VersionRange.exact(module.getVersion());
-							dependency.setVersionRequirement(vr);
+							dependency.setName(dialog.getName());
+							dependency.setVersionRequirement(dialog.getVersionRange());
 							dependencies.add(dependency);
 						}
-
 						markDirty();
 
 						tableViewer.setInput(dependencies);
@@ -295,26 +358,18 @@ class ModuleMetadataOverviewPage extends FormPage {
 				@Override
 				public void widgetSelected(SelectionEvent se) {
 					Dependency dependency = (Dependency) ((IStructuredSelection) tableViewer.getSelection()).getFirstElement();
-
-					EditDependencyDialog dialog = new EditDependencyDialog(getEditor().getSite().getShell());
-
-					VersionRange versionRequirement = dependency.getVersionRequirement();
-
-					if(versionRequirement != null)
-						dialog.setInitialVersionRange(versionRequirement);
-
+					EditDependencyDialog dialog = new EditDependencyDialog(getEditor().getSite().getShell(), dependency);
 					dialog.setElements(getModuleChoices(dependency.getName()));
 					dialog.setFilter(dependency.getName().withSeparator('-').toString());
 
 					if(dialog.open() == Window.OK) {
-						dependency.setName(((ModuleInfo) dialog.getFirstResult()).getName());
-						VersionRange oldRange = dependency.getVersionRequirement();
+						ModuleName newName = dialog.getName();
 						VersionRange newRange = dialog.getVersionRange();
-						if(oldRange == null
-								? newRange == null
-								: oldRange.equals(newRange))
+						if(Util.equals(dependency.getName(), newName) &&
+								Util.equals(dependency.getVersionRequirement(), newRange))
 							return;
 
+						dependency.setName(newName);
 						dependency.setVersionRequirement(newRange);
 						markDirty();
 						tableViewer.setInput(dependencies);
@@ -358,11 +413,8 @@ class ModuleMetadataOverviewPage extends FormPage {
 			section.setClient(client);
 		}
 
-		private void addDependencyIfNotPresent(IFile moduleFile, Map<String, ModuleInfo> moduleInfos,
+		private void addDependencyIfNotPresent(Metadata metadata, Map<String, ModuleInfo> moduleInfos,
 				ModuleName toBeEdited) throws IOException {
-			Metadata metadata = new Metadata();
-			ModuleUtils.parseModulefile(moduleFile.getLocation().toFile(), metadata, new Diagnostic());
-
 			ModuleName moduleName = metadata.getName();
 			if(toBeEdited == null || !toBeEdited.equals(moduleName))
 				for(Dependency dependency : dependencies)
@@ -384,66 +436,31 @@ class ModuleMetadataOverviewPage extends FormPage {
 
 		protected Object[] getModuleChoices(final ModuleName toBeEdited) {
 
-			EList<Object> choices = new UniqueEList.FastCompare<Object>();
+			Forge forge = getMetadataEditor().getForge();
 
-			final Map<String, ModuleInfo> modules = new HashMap<String, ModuleInfo>();
-
-			final IProject current = getCurrentProject();
-			final IFile currentModuleFile = getCurrentFile();
+			Map<String, ModuleInfo> modules = new HashMap<String, ModuleInfo>();
+			IProject current = getCurrentProject();
+			Diagnostic chain = new Diagnostic();
 
 			for(IProject project : ResourcesPlugin.getWorkspace().getRoot().getProjects()) {
 
 				try {
+					if(current == null || project.getName().equals(current.getName()))
+						continue;
+
 					if(!project.hasNature(XtextProjectHelper.NATURE_ID))
 						continue;
 
-					IFile moduleFile = ResourceUtil.getFile(project.getFullPath().append("Modulefile")); //$NON-NLS-1$
-					if(moduleFile.equals(currentModuleFile))
-						continue; // not meaningful to include dependency on itself
-
-					if(moduleFile.exists()) {
-						addDependencyIfNotPresent(moduleFile, modules, toBeEdited);
-						continue;
+					for(File moduleRoot : forge.findModuleRoots(project.getLocation().toFile(), null)) {
+						Metadata metadata = forge.createFromModuleDirectory(moduleRoot, false, null, null, chain);
+						addDependencyIfNotPresent(metadata, modules, toBeEdited);
 					}
-
-					if(current == null || !project.getName().equals(current.getName()))
-						continue;
-
-					// Also add all embedded modules from current project
-					final IFolder modulesFolder = project.getFolder("modules");
-					if(!modulesFolder.exists())
-						continue;
-
-					modulesFolder.accept(new IResourceVisitor() {
-
-						@Override
-						public boolean visit(IResource resource) throws CoreException {
-							if(resource.equals(modulesFolder))
-								return true;
-							try {
-								if(resource instanceof IFolder) {
-									IFile moduleFile = ResourceUtil.getFile(resource.getFullPath().append("Modulefile"));
-									if(moduleFile.equals(currentModuleFile))
-										return false; // not meaningful to include dependency on itself
-									if(moduleFile.exists())
-										addDependencyIfNotPresent(moduleFile, modules, toBeEdited);
-								}
-							}
-							catch(Exception e) {
-								UIPlugin.INSTANCE.log(e);
-							}
-
-							return false;
-						}
-					}, IResource.DEPTH_ONE, false);
 				}
 				catch(Exception e) {
 					UIPlugin.INSTANCE.log(e);
 				}
 			}
-
-			choices.addAll(modules.values());
-
+			EList<Object> choices = new UniqueEList.FastCompare<Object>(modules.values());
 			return choices.toArray();
 		}
 

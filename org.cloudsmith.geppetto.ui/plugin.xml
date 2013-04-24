@@ -81,7 +81,7 @@
    -->
    <extension point="org.eclipse.ui.editors">
       <editor
-            class="org.cloudsmith.geppetto.ui.editor.ModuleMetadataEditor"
+            class="org.cloudsmith.geppetto.ui.GeppettoExecutableExtensionFactory:org.cloudsmith.geppetto.ui.editor.ModuleMetadataEditor"
             default="true"
             filenames="Modulefile"
             icon="icons/obj16/puppet-16.png"

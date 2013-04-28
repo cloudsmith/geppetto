@@ -63,10 +63,13 @@ public class TestValidatorService extends AbstractValidationTest {
 		vs.validate(chain, root, options, null, SubMonitor.convert(null));
 
 		int circularity = 0;
+		int otherErrors = 0;
 
 		for(Diagnostic e : chain)
 			if(IPPDiagnostics.ISSUE__CIRCULAR_MODULE_DEPENDENCY.equals(e.getIssue()))
 				circularity++;
+			else if(e.getSeverity() >= Diagnostic.ERROR)
+				otherErrors++;
 
 		// for(Diagnostic d : chain.getChildren()) {
 		// System.err.println(d.toString());
@@ -79,7 +82,7 @@ public class TestValidatorService extends AbstractValidationTest {
 		// D->D D/Modulefile
 
 		assertEquals("There should be circularities", 6, circularity);
-		assertEquals("There should be no other issues", 0, chain.getChildren().size() - circularity);
+		assertEquals("There should be no other issues", 0, otherErrors);
 	}
 
 	@Test
@@ -88,7 +91,7 @@ public class TestValidatorService extends AbstractValidationTest {
 		ValidationService vs = getValidationService();
 		Diagnostic chain = new Diagnostic();
 		vs.validateManifest(chain, manifest, SubMonitor.convert(null));
-		assertTrue("There should be errors", chain.getChildren().size() != 0);
+		assertTrue("There should be errors", countErrors(chain) > 0);
 	}
 
 	@Test
@@ -97,7 +100,7 @@ public class TestValidatorService extends AbstractValidationTest {
 		ValidationService vs = getValidationService();
 		Diagnostic chain = new Diagnostic();
 		vs.validateManifest(chain, manifest, SubMonitor.convert(null));
-		assertTrue("There should be no errors", chain.getChildren().size() == 0);
+		assertTrue("There should be no errors", countErrors(chain) == 0);
 	}
 
 	@Test

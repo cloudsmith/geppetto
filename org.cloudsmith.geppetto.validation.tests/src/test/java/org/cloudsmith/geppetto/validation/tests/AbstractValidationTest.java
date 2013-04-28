@@ -41,6 +41,14 @@ import com.google.inject.Guice;
 import com.google.inject.Injector;
 
 public class AbstractValidationTest {
+	protected static int countErrors(Diagnostic chain) {
+		int count = 0;
+		for(Diagnostic diag : chain)
+			if(diag.getSeverity() >= Diagnostic.ERROR)
+				++count;
+		return count;
+	}
+
 	private Injector injector;
 
 	protected final void assertContainsErrorCode(Diagnostic chain, String errorCode) {

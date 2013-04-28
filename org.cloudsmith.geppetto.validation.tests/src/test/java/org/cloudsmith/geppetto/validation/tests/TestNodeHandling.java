@@ -49,7 +49,7 @@ public class TestNodeHandling extends AbstractValidationTest {
 		// Without constraint that only things on path are validated - there should be two redefinition errors
 		//
 		List<Diagnostic> children = chain.getChildren();
-		assertEquals("There should be no diagnostics", 0, children.size());
+		assertEquals("There should be no errors", 0, countErrors(chain));
 		AllModuleReferences exports = buildResult.getAllModuleReferences();
 		// dumpExports(exports);
 
@@ -108,9 +108,13 @@ public class TestNodeHandling extends AbstractValidationTest {
 		// Without constraint that only things on path are validated - there should be two redefinition errors
 		//
 		List<Diagnostic> children = chain.getChildren();
-		assertEquals("There should be two diagnostics", 2, children.size());
+		int count = 0;
 		for(Diagnostic d : children)
-			assertEquals(IValidationConstants.ISSUE__MODULEFILE_REDEFINITION, d.getIssue());
+			if(d.getSeverity() >= Diagnostic.ERROR) {
+				assertEquals(IValidationConstants.ISSUE__MODULEFILE_REDEFINITION, d.getIssue());
+				++count;
+			}
+		assertEquals("There should be two errors", 2, count);
 	}
 
 	/**

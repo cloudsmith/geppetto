@@ -56,7 +56,7 @@ public class TestValidatorServiceApi2 extends AbstractValidationTest {
 		ValidationService vs = getValidationService();
 		Diagnostic chain = new Diagnostic();
 		vs.validate(chain, code, SubMonitor.convert(null));
-		assertTrue("There should be errors", chain.getChildren().size() != 0);
+		assertTrue("There should be errors", countErrors(chain) != 0);
 	}
 
 	@Test
@@ -65,7 +65,7 @@ public class TestValidatorServiceApi2 extends AbstractValidationTest {
 		ValidationService vs = getValidationService();
 		Diagnostic chain = new Diagnostic();
 		vs.validate(chain, code, SubMonitor.convert(null));
-		assertTrue("There should be no errors", chain.getChildren().size() == 0);
+		assertTrue("There should be no errors", countErrors(chain) == 0);
 	}
 
 	@Test
@@ -74,7 +74,7 @@ public class TestValidatorServiceApi2 extends AbstractValidationTest {
 		ValidationService vs = getValidationService();
 		Diagnostic chain = new Diagnostic();
 		vs.validate(chain, manifest, null, null, SubMonitor.convert(null));
-		assertTrue("There should be errors", chain.getChildren().size() != 0);
+		assertTrue("There should be errors", countErrors(chain) != 0);
 	}
 
 	@Test
@@ -83,7 +83,7 @@ public class TestValidatorServiceApi2 extends AbstractValidationTest {
 		ValidationService vs = getValidationService();
 		Diagnostic chain = new Diagnostic();
 		vs.validate(chain, manifest, null, null, SubMonitor.convert(null));
-		assertTrue("There should be no errors", chain.getChildren().size() == 0);
+		assertTrue("There should be no errors", countErrors(chain) == 0);
 	}
 
 	@Test
@@ -127,7 +127,7 @@ public class TestValidatorServiceApi2 extends AbstractValidationTest {
 		ValidationService vs = getValidationService();
 		Diagnostic chain = new Diagnostic();
 		vs.validate(chain, root, null, null, SubMonitor.convert(null));
-		assertNotEquals("There should be errors", 0, chain.getChildren().size());
+		assertNotEquals("There should be errors", 0, countErrors(chain));
 		for(Diagnostic d : chain)
 			if(d instanceof FileDiagnostic) {
 				File f = ((FileDiagnostic) d).getFile();
@@ -148,7 +148,7 @@ public class TestValidatorServiceApi2 extends AbstractValidationTest {
 		options.setFileType(FileType.MODULE_ROOT);
 
 		vs.validate(chain, root, options, null, SubMonitor.convert(null));
-		assertNotEquals("There should be  errors", 0, chain.getChildren().size());
+		assertNotEquals("There should be  errors", 0, countErrors(chain));
 		Set<String> fileNames = Sets.newHashSet();
 		for(Diagnostic d : chain) {
 			if("This is not a boolean".equals(d.getMessage()))
@@ -199,10 +199,10 @@ public class TestValidatorServiceApi2 extends AbstractValidationTest {
 		options.setFileType(FileType.PUPPET_ROOT);
 
 		vs.validate(chain, root, options, null, SubMonitor.convert(null));
-		assertNotEquals("There should be  errors", 0, chain.getChildren().size());
+		assertNotEquals("There should be  errors", 0, countErrors(chain));
 		Set<String> fileNames = Sets.newHashSet();
 		for(Diagnostic d : chain)
-			if(d instanceof FileDiagnostic)
+			if(d instanceof FileDiagnostic && d.getSeverity() >= Diagnostic.ERROR)
 				fileNames.add(((FileDiagnostic) d).getFile().getPath());
 
 		for(String s : fileNames) {
@@ -214,7 +214,8 @@ public class TestValidatorServiceApi2 extends AbstractValidationTest {
 		assertEquals("Number of files with errors", 1, fileNames.size());
 		List<FileDiagnostic> modulefileDiag = Lists.newArrayList();
 		for(Diagnostic d : chain) {
-			if(d instanceof FileDiagnostic && ((FileDiagnostic) d).getFile().getName().equals("Modulefile"))
+			if(d instanceof FileDiagnostic && d.getSeverity() >= Diagnostic.ERROR &&
+					((FileDiagnostic) d).getFile().getName().equals("Modulefile"))
 				modulefileDiag.add((FileDiagnostic) d);
 		}
 		assertEquals("There should have been one dependency error", 1, modulefileDiag.size());
@@ -236,7 +237,7 @@ public class TestValidatorServiceApi2 extends AbstractValidationTest {
 		options.setFileType(FileType.PUPPET_ROOT);
 
 		vs.validate(chain, root, options, new File[] { new File(root, "moduleB/") }, SubMonitor.convert(null));
-		assertEquals("There should be no errors", 0, chain.getChildren().size());
+		assertEquals("There should be no errors", 0, countErrors(chain));
 
 	}
 
@@ -248,11 +249,16 @@ public class TestValidatorServiceApi2 extends AbstractValidationTest {
 		vs.validate(chain, root, null, null, SubMonitor.convert(null));
 
 		int hyphenWarning = 0;
+		int otherIssues = 0;
 		for(Diagnostic e : chain)
 			if(IPPDiagnostics.ISSUE__INTERPOLATED_HYPHEN.equals(e.getIssue()) ||
 					IPPDiagnostics.ISSUE__HYPHEN_IN_NAME.equals(e.getIssue()))
 				hyphenWarning++;
-		assertEquals("There should be two errors", 2, chain.getChildren().size() - hyphenWarning);
+			else
+				otherIssues++;
+
+		assertEquals("There should be 12 hyphen warnings", 12, hyphenWarning);
+		assertEquals("There should be 2 other issues", 2, otherIssues);
 	}
 
 	@Test

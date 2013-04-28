@@ -17,8 +17,9 @@ import java.util.regex.Pattern;
 
 /**
  * <p>
- * This class represents a range of semamtic versions. The range can be inclusive or non-inclusive at both ends. Open ended ranges can be created by
- * using an inclusive {@link Version#MIN} as the lower bound or an inclusive {@link Version#MAX} as the upper bound.
+ * This class represents a range of semamtic versions. The range can be inclusive or non-inclusive at both ends. Open
+ * ended ranges can be created by using an inclusive {@link Version#MIN} as the lower bound or an inclusive
+ * {@link Version#MAX} as the upper bound.
  * </p>
  * 
  * <p>
@@ -29,9 +30,12 @@ import java.util.regex.Pattern;
  * <li>&lt;1.2.3 — Less than a specific version.</li>
  * <li>&gt;=1.2.3 — Greater than or equal to a specific version.</li>
  * <li>&lt;=1.2.3 — Less than or equal to a specific version.</li>
- * <li>&gt;=1.0.0 &lt;2.0.0 — Range of versions; both conditions must be satisfied. (This example would match 1.0.1 but not 2.0.1)</li>
- * <li>1.x — A semantic major version. (This example would match 1.0.1 but not 2.0.1, and is shorthand for &gt;=1.0.0 &lt;2.0.0-)</li>
- * <li>1.2.x — A semantic major & minor version. (This example would match 1.2.3 but not 1.3.0, and is shorthand for &gt;=1.2.0 &lt;1.3.0-)</li>
+ * <li>&gt;=1.0.0 &lt;2.0.0 — Range of versions; both conditions must be satisfied. (This example would match 1.0.1 but
+ * not 2.0.1)</li>
+ * <li>1.x — A semantic major version. (This example would match 1.0.1 but not 2.0.1, and is shorthand for &gt;=1.0.0
+ * &lt;2.0.0-)</li>
+ * <li>1.2.x — A semantic major & minor version. (This example would match 1.2.3 but not 1.3.0, and is shorthand for
+ * &gt;=1.2.0 &lt;1.3.0-)</li>
  * <li>* — Matches any version</li>
  * </ul>
  * A range specifier starting with a tilde ~ character is matched against a version in the following fashion:
@@ -78,7 +82,7 @@ public class VersionRange implements Serializable {
 		CompareType compareType = nextCompareType(versionRequirement, posHandle);
 		if(compareType == null)
 			// Empty string or just whitespace.
-			return ALL_INCLUSIVE;
+			return null;
 
 		if(compareType == CompareType.MATCH_ALL) {
 			if(hasMore(versionRequirement, posHandle))

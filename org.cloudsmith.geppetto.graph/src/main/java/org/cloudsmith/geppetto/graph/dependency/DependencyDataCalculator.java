@@ -11,6 +11,8 @@
  */
 package org.cloudsmith.geppetto.graph.dependency;
 
+import static org.cloudsmith.geppetto.forge.v2.model.ModuleName.safeName;
+
 import java.io.File;
 import java.io.OutputStream;
 import java.util.Arrays;
@@ -171,9 +173,9 @@ public class DependencyDataCalculator implements DependencyGraphStyles, Dependen
 			File parent = root.getParentFile();
 			ModuleName moduleName;
 			if(parent != null)
-				moduleName = new ModuleName(parent.getName(), root.getName(), false);
+				moduleName = new ModuleName(safeName(parent.getName()), safeName(root.getName()), false);
 			else
-				moduleName = new ModuleName("root", root.getName(), false);
+				moduleName = new ModuleName("root", ModuleName.safeName(root.getName()), false);
 			return new ModuleNodeData(moduleName, null, ModuleType.ROOT, "");
 		}
 

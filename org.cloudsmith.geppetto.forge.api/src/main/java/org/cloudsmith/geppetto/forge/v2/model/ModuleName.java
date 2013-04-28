@@ -85,6 +85,53 @@ public class ModuleName implements Serializable, Comparable<ModuleName> {
 		throw new IllegalArgumentException(bld.toString());
 	}
 
+	/**
+	 * Creates a &quot;safe&quot; name from the given name. The following
+	 * happens:
+	 * <ul>
+	 * <li>All uppercase characters in the range 'A' - 'Z' are lowercased</li>
+	 * <li>All characters that are not underscore, digit, or in the range 'a' - 'z' is replaced with an underscore</li>
+	 * <li>If an underscore or digit is found at the first position (after replacement), then it is replaced by the
+	 * letter 'z'</li>
+	 * </ul>
+	 * 
+	 * @param name
+	 *            The name to convert. Can be <code>null</code> in which case <code>null</code>it is returned.
+	 * @return The safe name or <code>null</code>.
+	 */
+	public static String safeName(String name) {
+		if(name == null)
+			return name;
+
+		int top = name.length();
+		StringBuilder bld = null;
+		for(int idx = 0; idx < top; ++idx) {
+			char c = name.charAt(idx);
+			char o = c;
+			if(!(c >= 'a' && c <= 'z')) {
+				if(idx == 0 && (c == '_' || c >= '0' && c <= '9'))
+					c = 'z';
+				else if(c >= 'A' && c <= 'Z')
+					c += 0x20;
+				else
+					c = idx == 0
+							? 'z'
+							: '_';
+			}
+			if(bld != null)
+				bld.append(c);
+			else if(o != c) {
+				bld = new StringBuilder(name.length());
+				for(int catchUp = 0; catchUp < idx; catchUp++)
+					bld.append(name.charAt(catchUp));
+				bld.append(c);
+			}
+		}
+		return bld == null
+				? name
+				: bld.toString();
+	}
+
 	private ModuleName(ModuleName m, char separator) {
 		this.separator = separator;
 		this.owner = m.owner;

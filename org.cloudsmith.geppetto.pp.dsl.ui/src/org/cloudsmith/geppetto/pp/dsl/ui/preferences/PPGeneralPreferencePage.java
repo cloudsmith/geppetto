@@ -20,8 +20,8 @@ import org.eclipse.swt.widgets.Composite;
  * This is also the puppet root preference pane.
  * 
  * <p>
- * Note: Previous versions used "2.8" but this version will never be released as 2.7 is the last in the 2.x series. The implementation below corrects
- * this by updating the preferences from "2.8" to "3.0" if the value "2.8" is encountered.
+ * Note: Previous versions used "2.8" but this version will never be released as 2.7 is the last in the 2.x series. The
+ * implementation below corrects this by updating the preferences from "2.8" to "3.0" if the value "2.8" is encountered.
  * </p>
  * 
  */
@@ -84,6 +84,7 @@ public class PPGeneralPreferencePage extends AbstractPreferencePage {
 					{ "3.2", "3.2" }, //
 					{ "future", "future" }, // What ever the future is...
 					{ "PE 2.0", "PE 2.0" }, //
+					{ "PE 2.7", "PE 2.7" } //
 			}, getFieldEditorParent()));
 
 	}

@@ -14,6 +14,7 @@ package org.cloudsmith.geppetto.graph;
 import java.io.File;
 import java.io.OutputStream;
 
+import org.cloudsmith.geppetto.diagnostic.Diagnostic;
 import org.cloudsmith.geppetto.forge.v2.model.ModuleName;
 import org.cloudsmith.geppetto.validation.runner.AllModuleReferences;
 import org.cloudsmith.geppetto.validation.runner.BuildResult;
@@ -26,8 +27,9 @@ import com.google.common.collect.Multimap;
  * Producer of dot graphs
  */
 public interface DependencyGraphProducer {
-	void produceGraph(ICancel cancel, String title, File[] roots, OutputStream output, BuildResult buildResult);
+	void produceGraph(ICancel cancel, String title, File[] roots, OutputStream output, BuildResult buildResult,
+			Diagnostic chain);
 
 	void produceGraph(ICancel cancel, String title, File[] roots, OutputStream output, File root,
-			Multimap<ModuleName, MetadataInfo> moduleData, AllModuleReferences exportData);
+			Multimap<ModuleName, MetadataInfo> moduleData, AllModuleReferences exportData, Diagnostic chain);
 }

@@ -49,7 +49,8 @@ public class TestDependencyGraph extends AbstractValidationTest {
 
 		BuildResult buildResult = vs.validate(chain, root, options, null, SubMonitor.convert(null));
 		assertTrue("Validation had errors", chain.getSeverity() < Diagnostic.ERROR);
-		getDependencyGraphProducer().produceGraph(null, "Demo Modules Dependencies", null, dotStream, buildResult);
+		getDependencyGraphProducer().produceGraph(
+			null, "Demo Modules Dependencies", null, dotStream, buildResult, chain);
 
 		// produce SVG
 		SVGProducer svgProducer = getSVGProducer();
@@ -76,7 +77,8 @@ public class TestDependencyGraph extends AbstractValidationTest {
 
 		ValidationService vs = getValidationService();
 		BuildResult result = vs.validate(chain, root, options, null, SubMonitor.convert(null));
-		getDependencyGraphProducer().produceGraph(null, "Module dependencies for graphTestData", null, stream, result);
+		getDependencyGraphProducer().produceGraph(
+			null, "Module dependencies for graphTestData", null, stream, result, chain);
 
 		assertTrue("Stream contains data", stream.size() > 10);
 		String output = stream.toString();
@@ -100,7 +102,7 @@ public class TestDependencyGraph extends AbstractValidationTest {
 		ByteArrayOutputStream stream = new ByteArrayOutputStream();
 		BuildResult result = vs.validate(chain, root, options, null, SubMonitor.convert(null));
 		getDependencyGraphProducer().produceGraph(
-			null, "Module dependencies for graphDataIncludeRequire/include", null, stream, result);
+			null, "Module dependencies for graphDataIncludeRequire/include", null, stream, result, chain);
 
 		//		dumpImports(result.getAllModuleReferences());
 
@@ -128,7 +130,7 @@ public class TestDependencyGraph extends AbstractValidationTest {
 		BuildResult buildResult = vs.validate(chain, root, options, null, SubMonitor.convert(null));
 		// dumpExports(buildResult.getExportsForAll());
 		getDependencyGraphProducer().produceGraph(
-			null, "Module dependencies for graphTestData", modules, stream, buildResult);
+			null, "Module dependencies for graphTestData", modules, stream, buildResult, chain);
 
 		String output = stream.toString();
 		System.err.println(output);
@@ -152,7 +154,7 @@ public class TestDependencyGraph extends AbstractValidationTest {
 
 		BuildResult buildResult = vs.validate(chain, root, options, null, SubMonitor.convert(null));
 		getDependencyGraphProducer().produceGraph(
-			null, "Module dependencies for graphTestData", null, stream, buildResult);
+			null, "Module dependencies for graphTestData", null, stream, buildResult, chain);
 
 		assertTrue("Stream should contain data", stream.size() > 10);
 
@@ -203,7 +205,8 @@ public class TestDependencyGraph extends AbstractValidationTest {
 		File outputFolder = TestDataProvider.getTestOutputDir();
 		FileOutputStream dotStream = new FileOutputStream(new File(outputFolder, "forgeGraphSVG.dot"));
 		BuildResult buildResult = vs.validate(chain, root, options, null, SubMonitor.convert(null));
-		getDependencyGraphProducer().produceGraph(null, "Forge Modules Dependencies", null, dotStream, buildResult);
+		getDependencyGraphProducer().produceGraph(
+			null, "Forge Modules Dependencies", null, dotStream, buildResult, chain);
 
 		// produce SVG
 		SVGProducer svgProducer = getSVGProducer();
@@ -299,7 +302,8 @@ public class TestDependencyGraph extends AbstractValidationTest {
 		FileOutputStream dotStream = new FileOutputStream(new File(outputFolder, "karelGraphSVG.dot"));
 
 		BuildResult buildResult = vs.validate(chain, root, options, null, SubMonitor.convert(null));
-		getDependencyGraphProducer().produceGraph(null, "Karel Modules Dependencies", null, dotStream, buildResult);
+		getDependencyGraphProducer().produceGraph(
+			null, "Karel Modules Dependencies", null, dotStream, buildResult, chain);
 
 		// produce SVG
 		SVGProducer svgProducer = getSVGProducer();

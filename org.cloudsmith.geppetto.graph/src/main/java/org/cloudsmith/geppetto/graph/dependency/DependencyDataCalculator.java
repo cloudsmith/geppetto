@@ -23,6 +23,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.cloudsmith.geppetto.diagnostic.Diagnostic;
+import org.cloudsmith.geppetto.diagnostic.DiagnosticType;
 import org.cloudsmith.geppetto.forge.v2.model.Dependency;
 import org.cloudsmith.geppetto.forge.v2.model.Metadata;
 import org.cloudsmith.geppetto.forge.v2.model.ModuleName;
@@ -284,6 +286,9 @@ public class DependencyDataCalculator implements DependencyGraphStyles, Dependen
 	private ModuleNodeData pptpNode;
 
 	private File root;
+
+	public static final DiagnosticType DEPENDENCY_DATA_CALCULATOR = new DiagnosticType(
+		"DEPENDENCY_DATA_CALCULATOR", DependencyDataCalculator.class.getName());
 
 	private ModuleNodeData _file2Module(File f, Map<File, ModuleNodeData> index) {
 		if(!f.getPath().endsWith("Modulefile"))
@@ -683,12 +688,13 @@ public class DependencyDataCalculator implements DependencyGraphStyles, Dependen
 		return tooltipBuilder.toString();
 	}
 
-	public void produceGraph(ICancel cancel, String title, File[] roots, OutputStream output, BuildResult buildResult) {
+	public void produceGraph(ICancel cancel, String title, File[] roots, OutputStream output, BuildResult buildResult,
+			Diagnostic chain) {
 		if(title == null)
 			title = "Module Dependencies";
 
 		AllModuleReferences all = buildResult.getAllModuleReferences();
-		produceGraph(cancel, title, roots, output, all.getRoot(), buildResult.getModuleData(), all);
+		produceGraph(cancel, title, roots, output, all.getRoot(), buildResult.getModuleData(), all, chain);
 	}
 
 	/**
@@ -698,7 +704,7 @@ public class DependencyDataCalculator implements DependencyGraphStyles, Dependen
 	 *            Name -> 0* MetadataInfo representing one version of a module with given name
 	 */
 	public void produceGraph(ICancel cancel, String title, File[] roots, OutputStream output, File root,
-			Multimap<ModuleName, MetadataInfo> moduleData, AllModuleReferences exportData) {
+			Multimap<ModuleName, MetadataInfo> moduleData, AllModuleReferences exportData, Diagnostic chain) {
 
 		if(cancel == null)
 			cancel = new NullIndicator();
@@ -721,7 +727,7 @@ public class DependencyDataCalculator implements DependencyGraphStyles, Dependen
 			for(ModuleNodeData x : fileMap.values())
 				x.mark();
 		}
-		RootGraph g = produceRootGraph(cancel, title, moduleData, exportData, renderAll);
+		RootGraph g = produceRootGraph(cancel, title, moduleData, exportData, renderAll, chain);
 
 		instanceRules.addAll(theme.getInstanceRules());
 		dotRenderer.write(cancel, output, g, theme.getDefaultRules(), instanceRules);
@@ -738,7 +744,7 @@ public class DependencyDataCalculator implements DependencyGraphStyles, Dependen
 	 * @return
 	 */
 	private RootGraph produceRootGraph(ICancel cancel, String title, Multimap<ModuleName, MetadataInfo> moduleData,
-			AllModuleReferences exportData, boolean renderAll) {
+			AllModuleReferences exportData, boolean renderAll, Diagnostic chain) {
 
 		if(title == null)
 			title = "";
@@ -922,7 +928,7 @@ public class DependencyDataCalculator implements DependencyGraphStyles, Dependen
 					builder.append(a.name);
 					builder.append(" b=");
 					builder.append(b.name);
-					throw new IllegalStateException(builder.toString());
+					chain.addChild(new Diagnostic(Diagnostic.ERROR, DEPENDENCY_DATA_CALCULATOR, builder.toString()));
 				}
 
 			}

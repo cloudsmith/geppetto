@@ -18,7 +18,7 @@ import org.cloudsmith.geppetto.pp.dsl.formatting.PPCommentConfiguration;
 import org.cloudsmith.geppetto.pp.dsl.lexer.PPOverridingLexer;
 import org.cloudsmith.geppetto.pp.dsl.linking.PPSearchPath.ISearchPathProvider;
 import org.cloudsmith.geppetto.pp.dsl.ui.builder.NatureAddingEditorCallback;
-import org.cloudsmith.geppetto.pp.dsl.ui.builder.PPModulefileBuilder;
+import org.cloudsmith.geppetto.pp.dsl.ui.builder.PPModuleMetadataBuilder;
 import org.cloudsmith.geppetto.pp.dsl.ui.coloring.PPHighlightConfiguration;
 import org.cloudsmith.geppetto.pp.dsl.ui.coloring.PPSemanticHighlightingCalculator;
 import org.cloudsmith.geppetto.pp.dsl.ui.coloring.PPTokenToAttributeIdMapper;
@@ -232,8 +232,8 @@ public class PPUiModule extends org.cloudsmith.geppetto.pp.dsl.ui.AbstractPPUiMo
 		return NatureAddingEditorCallback.class;
 	}
 
-	public Class<? extends PPModulefileBuilder> bindModulefileBuilder() {
-		return PPModulefileBuilder.class;
+	public Class<? extends PPModuleMetadataBuilder> bindModulefileBuilder() {
+		return PPModuleMetadataBuilder.class;
 	}
 
 	public Class<? extends ISearchPathProvider> bindSearchPathProvider() {

@@ -11,26 +11,17 @@
  */
 package org.cloudsmith.geppetto.forge.impl;
 
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
-import java.io.Reader;
+import java.io.StringWriter;
 
 import org.cloudsmith.geppetto.common.os.StreamUtil;
 import org.cloudsmith.geppetto.diagnostic.Diagnostic;
-import org.cloudsmith.geppetto.diagnostic.FileDiagnostic;
-import org.cloudsmith.geppetto.forge.Forge;
+import org.cloudsmith.geppetto.forge.util.StrictMetadataJsonParser;
 import org.cloudsmith.geppetto.forge.v2.model.Metadata;
 
-import com.google.gson.Gson;
-import com.google.gson.JsonSyntaxException;
-import com.google.inject.Inject;
-
 public class MetadataJSONExtractor extends AbstractMetadataExtractor {
-	@Inject
-	private Gson gson;
-
 	public int getCardinal() {
 		return 0;
 	}
@@ -42,13 +33,23 @@ public class MetadataJSONExtractor extends AbstractMetadataExtractor {
 
 	@Override
 	protected Metadata performMetadataExtraction(File existingFile, Diagnostic result) throws IOException {
-		Reader reader = new BufferedReader(new FileReader(existingFile));
+		StringWriter swr = new StringWriter((int) existingFile.length());
+		FileReader reader = new FileReader(existingFile);
 		try {
-			return gson.fromJson(reader, Metadata.class);
+			char[] buf = new char[4096];
+			int cnt;
+			while((cnt = reader.read(buf)) > 0)
+				swr.write(buf, 0, cnt);
 		}
-		catch(JsonSyntaxException e) {
-			result.addChild(new FileDiagnostic(Diagnostic.ERROR, Forge.FORGE, e.getMessage(), existingFile));
-			return null;
+		finally {
+			reader.close();
+		}
+
+		try {
+			Metadata md = new Metadata();
+			StrictMetadataJsonParser mdParser = new StrictMetadataJsonParser(md);
+			mdParser.parse(existingFile, swr.toString(), result);
+			return md;
 		}
 		finally {
 			StreamUtil.close(reader);

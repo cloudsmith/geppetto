@@ -11,6 +11,8 @@
  */
 package org.cloudsmith.geppetto.forge.util;
 
+import java.util.List;
+
 import org.cloudsmith.geppetto.diagnostic.Diagnostic;
 import org.cloudsmith.geppetto.forge.v2.model.Dependency;
 import org.cloudsmith.geppetto.forge.v2.model.Metadata;
@@ -32,62 +34,96 @@ public class StrictModulefileParser extends ModulefileParser {
 		this.md = md;
 	}
 
-	private void addDependency(String value1, String value2) {
+	private void addDependency(SourcePosition pos, String name, String versionRequirement) {
 		Dependency dep = new Dependency();
-		dep.setName(new ModuleName(value1));
-		if(value2 != null)
-			dep.setVersionRequirement(VersionRange.create(value2));
+		dep.setName(createModuleName(name, pos));
+		if(versionRequirement != null)
+			try {
+				dep.setVersionRequirement(VersionRange.create(versionRequirement));
+			}
+			catch(IllegalArgumentException e) {
+				addError(pos, e.getMessage());
+			}
 		md.getDependencies().add(dep);
 
 	}
 
 	@Override
-	protected void call(String key, SourcePosition pos, String value, SourcePosition vp) {
-		if("name".equals(key))
+	protected void call(CallSymbol key, SourcePosition pos, List<Argument> args) {
+		int nargs = args.size();
+		switch(nargs) {
+			case 1:
+				String arg = args.get(0).toStringOrNull();
+				switch(key) {
+					case author:
+						md.setAuthor(arg);
+						break;
+					case dependency:
+						addDependency(pos, arg, null);
+						break;
+					case description:
+						md.setDescription(arg);
+						break;
+					case license:
+						md.setLicense(arg);
+						break;
+					case name:
+						md.setName(createModuleName(arg, pos));
+						break;
+					case project_page:
+						md.setProjectPage(arg);
+						break;
+					case source:
+						md.setSource(arg);
+						break;
+					case summary:
+						md.setSummary(arg);
+						break;
+					case version:
+						try {
+							md.setVersion(Version.create(arg));
+						}
+						catch(IllegalArgumentException e) {
+							addError(pos, e.getMessage());
+						}
+				}
+				break;
+			case 2:
+			case 3:
+				if(key == CallSymbol.dependency) {
+					addDependency(pos, args.get(0).toStringOrNull(), args.get(1).toStringOrNull());
+					if(nargs == 3)
+						addWarning(pos, "Ignoring third argument to dependency");
+					break;
+				}
+				// Fall through
+			default:
+				noResponse(key.name(), pos, 0);
+		}
+	}
+
+	private ModuleName createModuleName(String name, SourcePosition pos) {
+		if(name == null)
+			return null;
+
+		name = name.trim();
+		if(name.length() == 0)
+			return null;
+
+		ModuleName m = null;
+		try {
+			m = new ModuleName(name, true);
+		}
+		catch(IllegalArgumentException e1) {
 			try {
-				md.setName(new ModuleName(value, true));
+				m = new ModuleName(name, false);
+				addWarning(pos, e1.getMessage());
 			}
-			catch(IllegalArgumentException e) {
-				// Try again, this time we allow uppercase letters
-				md.setName(new ModuleName(value, false));
-				addWarning(pos, e.getMessage());
+			catch(IllegalArgumentException e2) {
+				addError(pos, e2.getMessage());
 			}
-		else if("author".equals(key))
-			md.setAuthor(value);
-		else if("description".equals(key))
-			md.setDescription(value);
-		else if("license".equals(key))
-			md.setLicense(value);
-		else if("project_page".equals(key))
-			md.setProjectPage(value);
-		else if("source".equals(key))
-			md.setSource(value);
-		else if("summary".equals(key))
-			md.setSummary(value);
-		else if("version".equals(key))
-			md.setVersion(Version.create(value));
-		else if("dependency".equals(key))
-			addDependency(value, null);
-		else
-			noResponse(key, pos, 1);
-	}
-
-	@Override
-	protected void call(String key, SourcePosition pos, String value1, SourcePosition vp1, String value2,
-			SourcePosition vp2) {
-		if("dependency".equals(key))
-			addDependency(value1, value2);
-		else
-			noResponse(key, pos, 2);
-	}
-
-	@Override
-	protected void call(String key, SourcePosition pos, String value1, SourcePosition vp1, String value2,
-			SourcePosition vp2, String value3, SourcePosition vp3) {
-		if("dependency".equals(key))
-			addDependency(value1, value2);
-		else
-			noResponse(key, pos, 3);
+		}
+		return m;
 	}
 
 	@Override

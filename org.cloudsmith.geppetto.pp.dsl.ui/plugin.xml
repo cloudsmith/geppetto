@@ -298,7 +298,7 @@
        <builder
              hasNature="true">
           <run
-                class="org.cloudsmith.geppetto.pp.dsl.ui.builder.PPModulefileBuilder">
+                class="org.cloudsmith.geppetto.pp.dsl.ui.builder.PPModuleMetadataBuilder">
           </run>
        </builder>
     </extension>

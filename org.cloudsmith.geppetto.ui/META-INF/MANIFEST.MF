@@ -21,7 +21,10 @@ Require-Bundle: org.eclipse.core.runtime;bundle-version="3.6.0",
  org.cloudsmith.geppetto.pp.dsl.ui,
  org.cloudsmith.geppetto.semver,
  org.cloudsmith.jrubyparser,
+ org.codehaus.jackson.core,
+ org.codehaus.jackson.mapper,
  org.eclipse.ui;bundle-version="3.6.2",
+ org.eclipse.ui.editors,
  org.eclipse.equinox.security;bundle-version="1.1.100"
 Bundle-ActivationPolicy: lazy
 Export-Package: org.cloudsmith.geppetto.ui.wizard

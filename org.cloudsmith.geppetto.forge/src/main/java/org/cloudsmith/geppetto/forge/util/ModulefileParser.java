@@ -13,6 +13,7 @@ package org.cloudsmith.geppetto.forge.util;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import org.cloudsmith.geppetto.diagnostic.Diagnostic;
@@ -36,10 +37,24 @@ public abstract class ModulefileParser {
 	private static final String[] validProperties = new String[] {
 			"name", "author", "description", "license", "project_page", "source", "summary", "version", "dependency" };
 
+	private static Argument createArgument(Node n) {
+		SourcePosition p = n.getPosition();
+		String v = getString(n);
+		return new Argument(p.getStartOffset(), p.getEndOffset() - p.getStartOffset(), v);
+	}
+
 	private static String getString(Node node) {
 		return node instanceof NilNode
 				? null
 				: ((StrNode) node).getValue();
+	}
+
+	private static boolean isValidCall(String key) {
+		int idx = validProperties.length;
+		while(--idx >= 0)
+			if(validProperties[idx].equals(key))
+				return true;
+		return false;
 	}
 
 	private Diagnostic diagnostics;
@@ -61,13 +76,7 @@ public abstract class ModulefileParser {
 			addDiagnostic(Diagnostic.WARNING, pos, message);
 	}
 
-	protected abstract void call(String key, SourcePosition pos, String value, SourcePosition vp);
-
-	protected abstract void call(String key, SourcePosition pos, String value1, SourcePosition vp1, String value2,
-			SourcePosition vp2);
-
-	protected abstract void call(String key, SourcePosition pos, String value1, SourcePosition vp1, String value2,
-			SourcePosition vp2, String value3, SourcePosition vp3);
+	protected abstract void call(CallSymbol key, SourcePosition pos, List<Argument> arguments);
 
 	private List<Node> getStringArguments(IArgumentNode callNode) throws IllegalArgumentException {
 		Node argsNode = callNode.getArgs();
@@ -93,25 +102,22 @@ public abstract class ModulefileParser {
 		bld.append('\'');
 		bld.append(key);
 		bld.append("' is not a metadata property");
-		int idx = validProperties.length;
-		while(--idx >= 0)
-			if(validProperties[idx].equals(key)) {
-				// This is a valid property so the number of arguments
-				// must be wrong.
-				bld.append(" that takes ");
-				if(nargs > 0)
-					bld.append(nargs);
-				else
-					bld.append("no");
-				bld.append(" argument");
-				if(nargs == 0 || nargs > 1)
-					bld.append('s');
-				break;
-			}
+		if(isValidCall(key)) {
+			// This is a valid property so the number of arguments
+			// must be wrong.
+			bld.append(" that takes ");
+			if(nargs > 0)
+				bld.append(nargs);
+			else
+				bld.append("no");
+			bld.append(" argument");
+			if(nargs == 0 || nargs > 1)
+				bld.append('s');
+		}
 		addError(pos, bld.toString());
 	}
 
-	protected void parseRubyAST(RootNode root, Diagnostic diagnostics) {
+	public void parseRubyAST(RootNode root, Diagnostic diagnostics) {
 		this.diagnostics = diagnostics;
 		for(Node node : RubyParserUtils.findNodes(root.getBody(), new NodeType[] { NodeType.FCALLNODE })) {
 			FCallNode call = (FCallNode) node;
@@ -119,28 +125,33 @@ public abstract class ModulefileParser {
 			String key = call.getName();
 			List<Node> args = getStringArguments(call);
 			int nargs = args.size();
-			if(nargs > 0 && nargs <= 3) {
-				Node n1 = args.get(0);
-				SourcePosition p1 = n1.getPosition();
-				if(nargs > 1) {
-					Node n2 = args.get(1);
-					SourcePosition p2 = n2.getPosition();
-					if(nargs > 2) {
-						Node n3 = args.get(2);
-						SourcePosition p3 = n3.getPosition();
-						call(key, pos, getString(n1), p1, getString(n2), p2, getString(n3), p3);
-					}
-					else {
-						call(key, pos, getString(n1), p1, getString(n2), p2);
-					}
-				}
-				else {
-					call(key, pos, getString(n1), p1);
-				}
+			if(nargs > 3 || !isValidCall(key)) {
+				noResponse(key, pos, nargs);
+				continue;
 			}
+
+			CallSymbol callSymbol;
+			try {
+				callSymbol = CallSymbol.valueOf(key);
+			}
+			catch(IllegalArgumentException e) {
+				noResponse(key, pos, nargs);
+				continue;
+			}
+
+			List<Argument> arguments;
+			if(nargs == 0)
+				arguments = Collections.emptyList();
 			else {
-				noResponse(key, pos, args.size());
+				if(nargs == 1)
+					arguments = Collections.singletonList(createArgument(args.get(0)));
+				else {
+					arguments = new ArrayList<Argument>(nargs);
+					for(int idx = 0; idx < nargs; ++idx)
+						arguments.add(createArgument(args.get(idx)));
+				}
 			}
+			call(callSymbol, pos, arguments);
 		}
 	}
 }

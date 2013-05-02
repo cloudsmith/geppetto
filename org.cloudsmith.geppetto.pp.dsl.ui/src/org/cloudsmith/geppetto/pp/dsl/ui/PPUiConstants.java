@@ -30,7 +30,11 @@ public interface PPUiConstants {
 
 	String MODULEFIILE_NAME = "Modulefile";
 
-	IPath MODULEFILE_PATH = new Path("Modulefile");
+	String METADATA_JSON_NAME = "metadata.json";
+
+	IPath MODULEFILE_PATH = new Path(MODULEFIILE_NAME);
+
+	IPath METADATA_JSON_PATH = new Path(METADATA_JSON_NAME);
 
 	String PUPPET_MODULE_PROBLEM_MARKER_TYPE = "org.cloudsmith.geppetto.pp.dsl.ui.puppetModuleProblem";
 

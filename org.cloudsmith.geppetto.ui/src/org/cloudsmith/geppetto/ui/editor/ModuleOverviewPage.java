@@ -1,0 +1,337 @@
+/**
+ * Copyright (c) 2011 Cloudsmith Inc. and other contributors, as listed below.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ * 
+ * Contributors:
+ *   Cloudsmith
+ * 
+ */
+package org.cloudsmith.geppetto.ui.editor;
+
+import static org.cloudsmith.geppetto.common.Strings.trimToNull;
+import static org.eclipse.xtext.util.Strings.emptyIfNull;
+
+import org.cloudsmith.geppetto.ui.UIPlugin;
+import org.eclipse.jface.layout.GridDataFactory;
+import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.ModifyEvent;
+import org.eclipse.swt.events.ModifyListener;
+import org.eclipse.swt.events.VerifyEvent;
+import org.eclipse.swt.events.VerifyListener;
+import org.eclipse.swt.layout.GridLayout;
+import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Text;
+import org.eclipse.ui.forms.IManagedForm;
+import org.eclipse.ui.forms.SectionPart;
+import org.eclipse.ui.forms.widgets.ExpandableComposite;
+import org.eclipse.ui.forms.widgets.FormToolkit;
+import org.eclipse.ui.forms.widgets.Section;
+
+class ModuleOverviewPage extends GuardedModulePage {
+
+	protected class DetailsSectionPart extends SectionPart {
+
+		protected Text sourceText;
+
+		protected Text projectPageText;
+
+		protected Text summaryText;
+
+		protected Text descriptionText;
+
+		protected DetailsSectionPart(Composite parent, FormToolkit toolkit) {
+			super(parent, toolkit, ExpandableComposite.TITLE_BAR | Section.DESCRIPTION);
+
+			Section section = getSection();
+
+			section.setText(UIPlugin.INSTANCE.getString("_UI_Details_title")); //$NON-NLS-1$
+			section.setDescription(UIPlugin.INSTANCE.getString("_UI_Details_description")); //$NON-NLS-1$
+
+			GridDataFactory.swtDefaults().align(SWT.FILL, SWT.FILL).grab(true, true).span(2, 1).applyTo(section);
+
+			Composite client = toolkit.createComposite(section);
+			client.setLayout(new GridLayout(2, false));
+
+			toolkit.createLabel(client, UIPlugin.INSTANCE.getString("_UI_Source_label")); //$NON-NLS-1$
+
+			sourceText = toolkit.createText(client, null);
+			sourceText.addVerifyListener(defaultVerifier);
+			sourceText.addModifyListener(new GuardedModifyListener() {
+				@Override
+				public void handleEvent(ModifyEvent e) {
+					getModel().setSource(sourceText.getText());
+				}
+			});
+
+			GridDataFactory.swtDefaults().align(SWT.FILL, SWT.CENTER).grab(true, false).applyTo(sourceText);
+
+			toolkit.createLabel(client, UIPlugin.INSTANCE.getString("_UI_ProjectPage_label")); //$NON-NLS-1$
+
+			projectPageText = toolkit.createText(client, null);
+			projectPageText.addVerifyListener(defaultVerifier);
+			projectPageText.addModifyListener(new GuardedModifyListener() {
+				@Override
+				public void handleEvent(ModifyEvent e) {
+					getModel().setProjectPage(projectPageText.getText());
+				}
+			});
+
+			GridDataFactory.swtDefaults().align(SWT.FILL, SWT.CENTER).grab(true, false).applyTo(projectPageText);
+
+			toolkit.createLabel(client, UIPlugin.INSTANCE.getString("_UI_Summary_label")); //$NON-NLS-1$
+
+			summaryText = toolkit.createText(client, null);
+			summaryText.addVerifyListener(defaultVerifier);
+			summaryText.addModifyListener(new GuardedModifyListener() {
+				@Override
+				public void handleEvent(ModifyEvent e) {
+					getModel().setSummary(summaryText.getText());
+				}
+			});
+
+			GridDataFactory.swtDefaults().align(SWT.FILL, SWT.CENTER).grab(true, false).applyTo(summaryText);
+
+			toolkit.createLabel(client, UIPlugin.INSTANCE.getString("_UI_Description_label")); //$NON-NLS-1$
+
+			descriptionText = toolkit.createText(client, null, SWT.MULTI | SWT.H_SCROLL | SWT.V_SCROLL);
+			descriptionText.addVerifyListener(defaultVerifier);
+			descriptionText.addModifyListener(new GuardedModifyListener() {
+				@Override
+				public void handleEvent(ModifyEvent e) {
+					getModel().setDescription(descriptionText.getText());
+				}
+			});
+
+			GridDataFactory.swtDefaults().align(SWT.FILL, SWT.FILL).grab(true, true).applyTo(descriptionText);
+
+			section.setClient(client);
+		}
+
+		@Override
+		public void refresh() {
+			refresh = true;
+			try {
+				MetadataModel metadata = getModel();
+				sourceText.setText(metadata.getSource());
+				projectPageText.setText(metadata.getProjectPage());
+				summaryText.setText(metadata.getSummary());
+				descriptionText.setText(metadata.getDescription());
+				super.refresh();
+			}
+			finally {
+				refresh = false;
+			}
+		}
+	}
+
+	protected class GeneralInformationSectionPart extends ModuleSectionPart {
+
+		private Text userText;
+
+		private Text nameText;
+
+		private Text versionText;
+
+		private Text authorText;
+
+		private Text licenseText;
+
+		private ModifyListener nameAndUserListener = new GuardedModifyListener() {
+
+			@Override
+			public void handleEvent(ModifyEvent me) {
+				String user = trimToNull(userText.getText());
+				String name = trimToNull(nameText.getText());
+				validateName(user, null, userText, "_UI_Module_owner_missing");
+				validateName(name, null, nameText, "_UI_Module_name_missing");
+
+				MetadataModel metadata = getModel();
+				if(user == null && name == null)
+					metadata.setModuleName("");
+				else {
+					if(user == null)
+						metadata.setModuleName(name);
+					else if(name == null)
+						metadata.setModuleName(user);
+					else
+						metadata.setModuleName(user + '-' + name);
+				}
+			}
+		};
+
+		protected GeneralInformationSectionPart(Composite parent, FormToolkit toolkit) {
+			super(parent, toolkit, ExpandableComposite.TITLE_BAR | Section.DESCRIPTION);
+
+			Section section = getSection();
+
+			section.setText(UIPlugin.INSTANCE.getString("_UI_GeneralInformation_title")); //$NON-NLS-1$
+			section.setDescription(UIPlugin.INSTANCE.getString("_UI_GeneralInformation_description")); //$NON-NLS-1$
+
+			GridDataFactory.swtDefaults().align(SWT.FILL, SWT.FILL).grab(true, false).applyTo(section);
+			GridDataFactory textGDFactory = GridDataFactory.swtDefaults().align(SWT.FILL, SWT.CENTER).grab(true, false).indent(
+				4, 0);
+
+			Composite client = toolkit.createComposite(section);
+			client.setLayout(new GridLayout(4, false));
+
+			toolkit.createLabel(client, UIPlugin.INSTANCE.getString("_UI_Name_label")); //$NON-NLS-1$
+
+			userText = toolkit.createText(client, null);
+			userText.addVerifyListener(nameCharsVerifier);
+			userText.addModifyListener(nameAndUserListener);
+			textGDFactory.applyTo(userText);
+
+			toolkit.createLabel(client, "-"); //$NON-NLS-1$
+
+			nameText = toolkit.createText(client, null);
+			nameText.addVerifyListener(nameCharsVerifier);
+			nameText.addModifyListener(nameAndUserListener);
+
+			textGDFactory.applyTo(nameText);
+
+			toolkit.createLabel(client, UIPlugin.INSTANCE.getString("_UI_Version_label")); //$NON-NLS-1$
+
+			versionText = toolkit.createText(client, null);
+			versionText.addVerifyListener(versionCharsVerifier);
+			versionText.addModifyListener(new GuardedModifyListener() {
+				@Override
+				public void handleEvent(ModifyEvent e) {
+					String version = versionText.getText();
+					validateVersion(version, versionText);
+					getModel().setVersion(version);
+				}
+			});
+
+			// Rest is on a line of their own so they need to span 3 columns
+			textGDFactory = textGDFactory.span(3, 1);
+			textGDFactory.applyTo(versionText);
+
+			toolkit.createLabel(client, UIPlugin.INSTANCE.getString("_UI_Author_label")); //$NON-NLS-1$
+
+			authorText = toolkit.createText(client, null);
+			authorText.addVerifyListener(defaultVerifier);
+			authorText.addModifyListener(new GuardedModifyListener() {
+				@Override
+				public void handleEvent(ModifyEvent e) {
+					getModel().setAuthor(authorText.getText());
+				}
+			});
+			textGDFactory.applyTo(authorText);
+
+			toolkit.createLabel(client, UIPlugin.INSTANCE.getString("_UI_License_label")); //$NON-NLS-1$
+
+			licenseText = toolkit.createText(client, null);
+			licenseText.addVerifyListener(defaultVerifier);
+			licenseText.addModifyListener(new GuardedModifyListener() {
+				@Override
+				public void handleEvent(ModifyEvent e) {
+					getModel().setLicense(licenseText.getText());
+				}
+			});
+			textGDFactory.applyTo(licenseText);
+			section.setClient(client);
+		}
+
+		@Override
+		public void refresh() {
+			refresh = true;
+			try {
+				MetadataModel model = getModel();
+				String qname = emptyIfNull(model.getModuleName());
+				String owner = "";
+				String name = "";
+				int splitIdx = qname.lastIndexOf('-');
+				if(splitIdx < 0)
+					splitIdx = qname.lastIndexOf('/');
+
+				if(splitIdx < 0)
+					name = qname;
+				else {
+					owner = qname.substring(0, splitIdx);
+					name = qname.substring(splitIdx + 1);
+				}
+				userText.setText(owner);
+				validateName(owner, null, userText, "_UI_Module_owner_missing");
+				nameText.setText(name);
+				validateName(name, null, nameText, "_UI_Module_name_missing");
+
+				String version = emptyIfNull(model.getVersion());
+				versionText.setText(version);
+				validateVersion(version, versionText);
+
+				authorText.setText(model.getAuthor());
+				licenseText.setText(model.getLicense());
+				super.refresh();
+			}
+			finally {
+				refresh = false;
+			}
+		}
+	}
+
+	static String nameWithDashSeparator(String name) {
+		if(name == null)
+			return "";
+
+		int sepIdx = name.indexOf('-');
+		if(sepIdx < 0) {
+			sepIdx = name.indexOf('/');
+			if(sepIdx >= 0)
+				return name.substring(0, sepIdx) + '-' + name.substring(sepIdx + 1);
+		}
+		return name;
+	}
+
+	private VerifyListener nameCharsVerifier = new ValidateInputListener() {
+		@Override
+		public void verifyText(VerifyEvent ev) {
+			super.verifyText(ev);
+			if(ev.doit) {
+				// Verify that the typed character is valid in a module name. This does not include the owner/name separator
+				// since owner and name are typed in separate fields
+				char c = ev.character;
+				ev.doit = c < 0x20 || c == '_' || c >= '0' && c <= '9' || c >= 'a' && c <= 'z';
+			}
+		}
+	};
+
+	private VerifyListener versionCharsVerifier = new ValidateInputListener() {
+		@Override
+		public void verifyText(VerifyEvent ev) {
+			super.verifyText(ev);
+			if(ev.doit) {
+				// Verify that the typed character is valid in a module name. This does not include the owner/name separator
+				// since owner and name are typed in separate fields
+				char c = ev.character;
+				// @fmtOff
+			ev.doit =
+				   c < 0x20
+				|| c == '_'
+				|| c == '-'
+				|| c == '.'
+				|| c >= '0' && c <= '9'
+				|| c >= 'a' && c <= 'z'
+				|| c >= 'A' && c <= 'Z';
+			// @fmtOn
+			}
+		}
+	};
+
+	public ModuleOverviewPage(ModuleMetadataEditor editor, String id, String title) {
+		super(editor, id, title);
+	}
+
+	@Override
+	protected void createFormContent(final IManagedForm managedForm) {
+		super.createFormContent(managedForm);
+		managedForm.getForm().setText(UIPlugin.INSTANCE.getString("_UI_Overview_title"));
+		Composite body = managedForm.getForm().getBody();
+		body.setLayout(new GridLayout(1, true));
+		FormToolkit toolkit = managedForm.getToolkit();
+		managedForm.addPart(new GeneralInformationSectionPart(body, toolkit));
+		managedForm.addPart(new DetailsSectionPart(body, toolkit));
+	}
+}

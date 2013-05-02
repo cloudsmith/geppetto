@@ -60,7 +60,7 @@ public class ModuleName implements Serializable, Comparable<ModuleName> {
 
 	/**
 	 * Checks that the given name only contains lowercase letters, numbers and underscores and that it begins with a
-	 * letter
+	 * letter. This is suitable for checking both the <i>owner</i> and the <i>name</i> parts of a module name.
 	 * 
 	 * @param name
 	 *            The name to check
@@ -130,6 +130,45 @@ public class ModuleName implements Serializable, Comparable<ModuleName> {
 		return bld == null
 				? name
 				: bld.toString();
+	}
+
+	/**
+	 * <p>
+	 * Splits the <code>moduleName into two parts. The owner and the name. This method performs no validation
+	 * of the names.
+	 * </p>
+	 * <p>
+	 * The separator may be either '/' or '-' and if more than one separator is present, then one placed last wins. last
+	 * in the string will be considered the separator. Thus<br/>
+	 * &quot;foo-bar-baz&quot; yields owner = &quot;foo-bar&quot;, name = &quot;baz&quot;, separator '-'<br/>
+	 * &quot;foo/bar-baz&quot; yields owner = &quot;foo/bar&quot;, name = &quot;baz&quot;, separator '-'<br/>
+	 * &quot;foo/bar/baz&quot; yields owner = &quot;foo/bar&quot;, name = &quot;baz&quot;, separator '/'<br/>
+	 * &quot;foo-bar/baz&quot; yields owner = &quot;foo-bar&quot;, name = &quot;baz&quot;, separator '/'<br/>
+	 * </p>
+	 * In case no separator is found, owner will be considered missing and the argument is returned as the
+	 * second element.</p>
+	 * 
+	 * @param moduleName
+	 * @param separatorReturn
+	 *            A one element array that will receive the separator. May be <code>null</code>.
+	 * @return A two element array with the owner and name of the module. The first element in this array may be
+	 *         <code>null</code>.
+	 * @see #checkName(String, boolean)
+	 */
+	public static String[] splitName(String moduleName) {
+		String owner = null;
+		String name;
+		int sepIdx = moduleName.lastIndexOf('-');
+		if(sepIdx < 0)
+			sepIdx = moduleName.lastIndexOf('/');
+
+		if(sepIdx >= 0) {
+			owner = moduleName.substring(0, sepIdx);
+			name = moduleName.substring(sepIdx + 1);
+		}
+		else
+			name = moduleName;
+		return new String[] { owner, name };
 	}
 
 	private ModuleName(ModuleName m, char separator) {

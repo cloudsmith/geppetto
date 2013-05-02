@@ -16,7 +16,6 @@ import java.io.FileFilter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringWriter;
-import java.io.Writer;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.regex.Pattern;
@@ -84,17 +83,18 @@ public class ModuleUtils {
 
 		out.print(key);
 		out.print(' ');
+		ValueSerializer rubySerializer = RubyValueSerializer.INSTANCE;
 		switch(strs.length) {
 			case 0:
 				break;
 			case 1:
-				printRubyString(out, strs[0]);
+				rubySerializer.serialize(out, strs[0]);
 				break;
 			default:
-				printRubyString(out, strs[0]);
+				rubySerializer.serialize(out, strs[0]);
 				for(int idx = 1; idx < strs.length; ++idx) {
 					out.append(", ");
-					printRubyString(out, strs[idx]);
+					rubySerializer.serialize(out, strs[idx]);
 				}
 		}
 		out.println();
@@ -277,27 +277,6 @@ public class ModuleUtils {
 			else
 				addKeyValueNode(out, "dependency", depName.toString());
 		}
-	}
-
-	private static void printRubyString(Writer out, String str) throws IOException {
-		if(str == null)
-			return;
-
-		out.append('\'');
-		int top = str.length();
-		for(int idx = 0; idx < top; ++idx) {
-			char c = str.charAt(idx);
-			switch(c) {
-				case '\\':
-				case '\'':
-					out.append('\\');
-					out.append(c);
-					break;
-				default:
-					out.append(c);
-			}
-		}
-		out.append('\'');
 	}
 
 	/**

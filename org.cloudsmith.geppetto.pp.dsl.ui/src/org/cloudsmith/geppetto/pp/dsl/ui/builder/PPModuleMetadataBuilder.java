@@ -67,8 +67,8 @@ import com.google.inject.Provider;
  * 
  */
 
-public class PPModulefileBuilder extends IncrementalProjectBuilder implements PPUiConstants {
-	private final static Logger log = Logger.getLogger(PPModulefileBuilder.class);
+public class PPModuleMetadataBuilder extends IncrementalProjectBuilder implements PPUiConstants {
+	private final static Logger log = Logger.getLogger(PPModuleMetadataBuilder.class);
 
 	private static int getMarkerSeverity(Diagnostic diagnostic) {
 		int markerSeverity;
@@ -94,7 +94,7 @@ public class PPModulefileBuilder extends IncrementalProjectBuilder implements PP
 
 	private IValidationAdvisor validationAdvisor;
 
-	public PPModulefileBuilder() {
+	public PPModuleMetadataBuilder() {
 		// Hm, can not inject this because it was not possible to inject this builder via the
 		// executable extension factory
 		Injector injector = ((PPDSLActivator) PPDSLActivator.getInstance()).getPPInjector();
@@ -358,7 +358,7 @@ public class PPModulefileBuilder extends IncrementalProjectBuilder implements PP
 						return false;
 
 					// irrespective of how the Modulefile was changed, run the build (i.e. sync).
-					if(isModulefileDelta(delta))
+					if(isModuleMetadataDelta(delta))
 						buildFlag.set(true);
 
 					// if any file included in the checksum was changed, added, removed etc.
@@ -398,13 +398,18 @@ public class PPModulefileBuilder extends IncrementalProjectBuilder implements PP
 		IResource resource = delta.getResource();
 		if(!(resource instanceof IFile))
 			return false;
-		if(resource.getProjectRelativePath().toString().equals("metadata.json"))
+		if(resource.getProjectRelativePath().equals(METADATA_JSON_PATH))
 			return false;
 		return true; // all other files are included in the checksum list.
 	}
 
-	private boolean isModulefileDelta(IResourceDelta delta) {
-		return ((delta.getResource() instanceof IFile) && MODULEFILE_PATH.equals(delta.getProjectRelativePath()));
+	private boolean isModuleMetadataDelta(IResourceDelta delta) {
+		IResource resource = delta.getResource();
+		if(resource instanceof IFile && !resource.isDerived()) {
+			IPath relPath = delta.getProjectRelativePath();
+			return MODULEFILE_PATH.equals(relPath) || METADATA_JSON_PATH.equals(relPath);
+		}
+		return false;
 	}
 
 	/**
@@ -415,11 +420,24 @@ public class PPModulefileBuilder extends IncrementalProjectBuilder implements PP
 		try {
 			if(m.exists())
 				m.deleteMarkers(PUPPET_MODULE_PROBLEM_MARKER_TYPE, true, IResource.DEPTH_ZERO);
-			getProject().deleteMarkers(PUPPET_MODULE_PROBLEM_MARKER_TYPE, true, IResource.DEPTH_ZERO);
 		}
 		catch(CoreException e) {
 			// nevermind, the resource may not even be there...
 			// meaningless to have elaborate existence checks etc...
+		}
+
+		m = getProject().getFile(METADATA_JSON_PATH);
+		try {
+			if(!m.isDerived() && m.exists())
+				m.deleteMarkers(PUPPET_MODULE_PROBLEM_MARKER_TYPE, true, IResource.DEPTH_ZERO);
+		}
+		catch(CoreException e) {
+		}
+
+		try {
+			getProject().deleteMarkers(PUPPET_MODULE_PROBLEM_MARKER_TYPE, true, IResource.DEPTH_ZERO);
+		}
+		catch(CoreException e) {
 		}
 	}
 
@@ -433,7 +451,7 @@ public class PPModulefileBuilder extends IncrementalProjectBuilder implements PP
 	private List<IProject> resolveDependencies(Metadata metadata, IFile moduleFile, IProgressMonitor monitor) {
 		List<IProject> result = Lists.newArrayList();
 
-		// parse the "Modulefile" and get full name and version, use this as name of target entry
+		// parse the "Modulefile"/"metadata.json" and get full name and version, use this as name of target entry
 		try {
 			for(Dependency d : metadata.getDependencies()) {
 				checkCancel(monitor);
@@ -508,10 +526,15 @@ public class PPModulefileBuilder extends IncrementalProjectBuilder implements PP
 			metadata = forge.createFromModuleDirectory(projectDir, true, null, extractionSource, diagnostic);
 		}
 		catch(Exception e) {
-			createErrorMarker(project, "Can not parse modulefile or other metadata source: " + e.getMessage(), null);
+			createErrorMarker(project, "Can not parse Modulefile or other metadata source: " + e.getMessage(), null);
 			if(log.isDebugEnabled())
 				log.debug("Could not parse module description: '" + project.getName() + "'", e);
 			return; // give up - errors have been logged.
+		}
+
+		if(metadata == null) {
+			createErrorMarker(project, "Unable to find Modulefile or other metadata source", null);
+			return;
 		}
 
 		// Find the resource used for metadata extraction

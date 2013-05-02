@@ -102,9 +102,11 @@ public class ModuleName implements Serializable, Comparable<ModuleName> {
 	 * Creates a &quot;safe&quot; name from the given name. The following
 	 * happens:
 	 * <ul>
-	 * <li>If <code>strict</code> is <code>true</code>, then all uppercase characters in the range 'A' - 'Z' are lowercased</li>
+	 * <li>If <code>strict</code> is <code>true</code>, then all uppercase characters in the range 'A' - 'Z' are
+	 * lowercased</li>
 	 * <li>All characters that are not underscore, digit, or in the range 'a' - 'z' is replaced with an underscore</li>
-	 * <li>If an underscore or digit is found at the first position (after replacement), then it is replaced by the letter 'z'</li>
+	 * <li>If an underscore or digit is found at the first position (after replacement), then it is replaced by the
+	 * letter 'z'</li>
 	 * </ul>
 	 * 
 	 * @param name
@@ -120,10 +122,12 @@ public class ModuleName implements Serializable, Comparable<ModuleName> {
 		for(int idx = 0; idx < top; ++idx) {
 			char c = name.charAt(idx);
 			char o = c;
-			if(!(c >= 'a' && c <= 'z' || !strict && (c == '-' || c >= 'A' && c <= 'Z'))) {
-				if(idx == 0 && (c == '_' || c >= '0' && c <= '9'))
-					c = 'z';
-				else if(c >= 'A' && c <= 'Z')
+			// @fmtOff
+			if(!(   c >= 'a' && c <= 'z'
+			     || !strict && (c == '-' || c >= 'A' && c <= 'Z')
+			     || idx > 0 && (c == '_' || c >= '0' && c <= '9'))) {
+			// @fmtOn
+				if(c >= 'A' && c <= 'Z')
 					c += 0x20;
 				else
 					c = idx == 0
@@ -150,8 +154,8 @@ public class ModuleName implements Serializable, Comparable<ModuleName> {
 	 * of the names.
 	 * </p>
 	 * <p>
-	 * The separator may be either '/' or '-' and if more than one separator is present, then one placed last wins. last in the
-	 * string will be considered the separator. Thus<br/>
+	 * The separator may be either '/' or '-' and if more than one separator is present, then one placed last wins. last
+	 * in the string will be considered the separator. Thus<br/>
 	 * &quot;foo-bar-baz&quot; yields owner = &quot;foo-bar&quot;, name = &quot;baz&quot;, separator '-'<br/>
 	 * &quot;foo/bar-baz&quot; yields owner = &quot;foo/bar&quot;, name = &quot;baz&quot;, separator '-'<br/>
 	 * &quot;foo/bar/baz&quot; yields owner = &quot;foo/bar&quot;, name = &quot;baz&quot;, separator '/'<br/>
@@ -163,8 +167,8 @@ public class ModuleName implements Serializable, Comparable<ModuleName> {
 	 * @param moduleName
 	 * @param separatorReturn
 	 *            A one element array that will receive the separator. May be <code>null</code>.
-	 * @return A two element array with the owner and name of the module. The first element in this array may be <code>null</code>
-	 *         .
+	 * @return A two element array with the owner and name of the module. The first element in this array may be
+	 *         <code>null</code> .
 	 * @see #checkName(String, boolean)
 	 */
 	public static String[] splitName(String moduleName) {
@@ -267,8 +271,8 @@ public class ModuleName implements Serializable, Comparable<ModuleName> {
 
 	/**
 	 * <p>
-	 * Compare this name to <tt>other</tt> for lexical magnitude using case insensitive comparisons. The separator is considered
-	 * but only after both owner and names are equal.
+	 * Compare this name to <tt>other</tt> for lexical magnitude using case insensitive comparisons. The separator is
+	 * considered but only after both owner and names are equal.
 	 * </p>
 	 * 
 	 * @param other

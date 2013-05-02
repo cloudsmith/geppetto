@@ -915,6 +915,13 @@ public class DependencyDataCalculator implements DependencyGraphStyles, Dependen
 					addStyleClasses(styleClasses, e1);
 					addEdgeHref(a, b, e1);
 				}
+				else if(count == 2 && implied == 2) {
+					// TODO: Figure out what this means. It happens when importing puppetlabs/stdlib into
+					// cloudsmith/wordpress:
+					//
+					// a=thallgren/wordpress
+					// b=root/puppet
+				}
 				else {
 					StringBuilder builder = new StringBuilder();
 					builder.append("Internal Error - illegal combination of recorded edges");

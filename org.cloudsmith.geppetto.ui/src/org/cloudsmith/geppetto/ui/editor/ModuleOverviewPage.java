@@ -14,6 +14,7 @@ package org.cloudsmith.geppetto.ui.editor;
 import static org.cloudsmith.geppetto.common.Strings.trimToNull;
 import static org.eclipse.xtext.util.Strings.emptyIfNull;
 
+import org.cloudsmith.geppetto.forge.v2.model.ModuleName;
 import org.cloudsmith.geppetto.ui.UIPlugin;
 import org.eclipse.jface.layout.GridDataFactory;
 import org.eclipse.swt.SWT;
@@ -240,19 +241,9 @@ class ModuleOverviewPage extends GuardedModulePage {
 			refresh = true;
 			try {
 				MetadataModel model = getModel();
-				String qname = emptyIfNull(model.getModuleName());
-				String owner = "";
-				String name = "";
-				int splitIdx = qname.lastIndexOf('-');
-				if(splitIdx < 0)
-					splitIdx = qname.lastIndexOf('/');
-
-				if(splitIdx < 0)
-					name = qname;
-				else {
-					owner = qname.substring(0, splitIdx);
-					name = qname.substring(splitIdx + 1);
-				}
+				String[] qname = ModuleName.splitName(emptyIfNull(model.getModuleName()));
+				String owner = emptyIfNull(qname[0]);
+				String name = emptyIfNull(qname[1]);
 				userText.setText(owner);
 				validateName(owner, null, userText, "_UI_Module_owner_missing");
 				nameText.setText(name);

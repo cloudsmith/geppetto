@@ -559,13 +559,11 @@ class ModuleDependenciesPage extends GuardedModulePage {
 		if(moduleName == null)
 			return "";
 
-		int sepIdx = moduleName.lastIndexOf('-');
-		if(sepIdx < 0) {
-			sepIdx = moduleName.lastIndexOf('/');
-			if(sepIdx >= 0)
-				return moduleName.substring(0, sepIdx) + '-' + moduleName.substring(sepIdx + 1);
-		}
-		return moduleName;
+		String[] qname = ModuleName.splitName(moduleName);
+		if(qname[0] == null)
+			return qname[1];
+
+		return qname[0] + '-' + qname[1];
 	};
 
 	private Color colorOfText;

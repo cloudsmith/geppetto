@@ -33,7 +33,20 @@ public class ModuleName implements Serializable, Comparable<ModuleName> {
 		@Override
 		public ModuleName deserialize(JsonElement json, java.lang.reflect.Type typeOfT,
 				JsonDeserializationContext context) throws JsonParseException {
-			return new ModuleName(json.getAsString(), false);
+			String name = json.getAsString();
+			String owner = null;
+			int sepIdx = name.indexOf('/');
+			if(sepIdx < 0)
+				sepIdx = name.indexOf('-');
+
+			if(sepIdx >= 0) {
+				owner = ModuleName.safeName(name.substring(0, sepIdx), false);
+				name = ModuleName.safeName(name.substring(sepIdx + 1), false);
+			}
+			else {
+				name = ModuleName.safeName(name, false);
+			}
+			return new ModuleName(owner, name, false);
 		}
 
 		@Override
@@ -54,7 +67,7 @@ public class ModuleName implements Serializable, Comparable<ModuleName> {
 
 	private static final String NO_VALUE = "";
 
-	private static final Pattern NAME_PATTERN = Pattern.compile("^[a-zA-Z][a-zA-Z0-9_]*$");
+	private static final Pattern NAME_PATTERN = Pattern.compile("^[a-zA-Z][a-zA-Z0-9_-]*$");
 
 	private static final Pattern STRICT_NAME_PATTERN = Pattern.compile("^[a-z][a-z0-9_]*$");
 
@@ -89,17 +102,16 @@ public class ModuleName implements Serializable, Comparable<ModuleName> {
 	 * Creates a &quot;safe&quot; name from the given name. The following
 	 * happens:
 	 * <ul>
-	 * <li>All uppercase characters in the range 'A' - 'Z' are lowercased</li>
+	 * <li>If <code>strict</code> is <code>true</code>, then all uppercase characters in the range 'A' - 'Z' are lowercased</li>
 	 * <li>All characters that are not underscore, digit, or in the range 'a' - 'z' is replaced with an underscore</li>
-	 * <li>If an underscore or digit is found at the first position (after replacement), then it is replaced by the
-	 * letter 'z'</li>
+	 * <li>If an underscore or digit is found at the first position (after replacement), then it is replaced by the letter 'z'</li>
 	 * </ul>
 	 * 
 	 * @param name
 	 *            The name to convert. Can be <code>null</code> in which case <code>null</code>it is returned.
 	 * @return The safe name or <code>null</code>.
 	 */
-	public static String safeName(String name) {
+	public static String safeName(String name, boolean strict) {
 		if(name == null)
 			return name;
 
@@ -108,7 +120,7 @@ public class ModuleName implements Serializable, Comparable<ModuleName> {
 		for(int idx = 0; idx < top; ++idx) {
 			char c = name.charAt(idx);
 			char o = c;
-			if(!(c >= 'a' && c <= 'z')) {
+			if(!(c >= 'a' && c <= 'z' || !strict && (c == '-' || c >= 'A' && c <= 'Z'))) {
 				if(idx == 0 && (c == '_' || c >= '0' && c <= '9'))
 					c = 'z';
 				else if(c >= 'A' && c <= 'Z')
@@ -138,8 +150,8 @@ public class ModuleName implements Serializable, Comparable<ModuleName> {
 	 * of the names.
 	 * </p>
 	 * <p>
-	 * The separator may be either '/' or '-' and if more than one separator is present, then one placed last wins. last
-	 * in the string will be considered the separator. Thus<br/>
+	 * The separator may be either '/' or '-' and if more than one separator is present, then one placed last wins. last in the
+	 * string will be considered the separator. Thus<br/>
 	 * &quot;foo-bar-baz&quot; yields owner = &quot;foo-bar&quot;, name = &quot;baz&quot;, separator '-'<br/>
 	 * &quot;foo/bar-baz&quot; yields owner = &quot;foo/bar&quot;, name = &quot;baz&quot;, separator '-'<br/>
 	 * &quot;foo/bar/baz&quot; yields owner = &quot;foo/bar&quot;, name = &quot;baz&quot;, separator '/'<br/>
@@ -151,16 +163,16 @@ public class ModuleName implements Serializable, Comparable<ModuleName> {
 	 * @param moduleName
 	 * @param separatorReturn
 	 *            A one element array that will receive the separator. May be <code>null</code>.
-	 * @return A two element array with the owner and name of the module. The first element in this array may be
-	 *         <code>null</code>.
+	 * @return A two element array with the owner and name of the module. The first element in this array may be <code>null</code>
+	 *         .
 	 * @see #checkName(String, boolean)
 	 */
 	public static String[] splitName(String moduleName) {
 		String owner = null;
 		String name;
-		int sepIdx = moduleName.lastIndexOf('-');
+		int sepIdx = moduleName.indexOf('/');
 		if(sepIdx < 0)
-			sepIdx = moduleName.lastIndexOf('/');
+			sepIdx = moduleName.indexOf('-');
 
 		if(sepIdx >= 0) {
 			owner = moduleName.substring(0, sepIdx);
@@ -205,14 +217,13 @@ public class ModuleName implements Serializable, Comparable<ModuleName> {
 	 *            <code>true</code> means do not allow uppercase letters
 	 */
 	public ModuleName(String fullName, boolean strict) {
-		int dashIdx = fullName.lastIndexOf('-');
-		int idx = fullName.lastIndexOf('/');
-		if(dashIdx > idx) {
-			separator = '-';
-			idx = dashIdx;
-		}
-		else
+		int idx = fullName.indexOf('/');
+		if(idx > 0)
 			separator = '/';
+		else {
+			idx = fullName.indexOf('-');
+			separator = '-';
+		}
 
 		if(!(idx > 0 && idx < fullName.length() - 1))
 			throw new IllegalArgumentException("Name should be in the form <owner>-<name> or <owner>/<name>");
@@ -238,7 +249,7 @@ public class ModuleName implements Serializable, Comparable<ModuleName> {
 	public ModuleName(String owner, char separator, String name, boolean strict) {
 		this.owner = owner == null
 				? NO_VALUE
-				: checkName(owner, true);
+				: checkName(owner, strict);
 
 		if(!(separator == '-' || separator == '/'))
 			throw new IllegalArgumentException("Name should be in the form <owner>-<name> or <owner>/<name>");
@@ -256,8 +267,8 @@ public class ModuleName implements Serializable, Comparable<ModuleName> {
 
 	/**
 	 * <p>
-	 * Compare this name to <tt>other</tt> for lexical magnitude using case insensitive comparisons. The separator is
-	 * considered but only after both owner and names are equal.
+	 * Compare this name to <tt>other</tt> for lexical magnitude using case insensitive comparisons. The separator is considered
+	 * but only after both owner and names are equal.
 	 * </p>
 	 * 
 	 * @param other

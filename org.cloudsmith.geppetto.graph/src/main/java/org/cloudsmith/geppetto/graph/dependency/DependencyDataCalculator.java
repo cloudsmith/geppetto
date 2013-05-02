@@ -173,9 +173,9 @@ public class DependencyDataCalculator implements DependencyGraphStyles, Dependen
 			File parent = root.getParentFile();
 			ModuleName moduleName;
 			if(parent != null)
-				moduleName = new ModuleName(safeName(parent.getName()), safeName(root.getName()), false);
+				moduleName = new ModuleName(safeName(parent.getName(), false), safeName(root.getName(), false), false);
 			else
-				moduleName = new ModuleName("root", ModuleName.safeName(root.getName()), false);
+				moduleName = new ModuleName("root", ModuleName.safeName(root.getName(), false), false);
 			return new ModuleNodeData(moduleName, null, ModuleType.ROOT, "");
 		}
 

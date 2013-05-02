@@ -196,9 +196,9 @@ public class PptpTargetProjectHandler {
 		// get a handle to the wanted target platform (.pptp) file from preferences
 		//
 		try {
+			targetProject.refreshLocal(IFile.DEPTH_INFINITE, monitor);
 			File pptpFile = EclipseUtils.getResourceAsFile(new URL(uri.toString()));
 			IFile targetFile = targetProject.getFile(pptpFile.getName());
-			targetFile.refreshLocal(IFile.DEPTH_ZERO, monitor);
 			if(targetFile.exists()) {
 				if(pptpFile.lastModified() > targetFile.getLocalTimeStamp()) {
 					targetFile.delete(IFile.FORCE | IFile.ALWAYS_DELETE_PROJECT_CONTENT, monitor);
@@ -209,7 +209,6 @@ public class PptpTargetProjectHandler {
 			else {
 				// delete all prefix-* resources already there (either none, or some other/older .pptp)
 				// this makes it possible to keep several that are not managed
-				targetProject.refreshLocal(IFile.DEPTH_INFINITE, monitor);
 				for(IResource r : targetProject.members()) {
 					if(r.getName().startsWith(prefix))
 						r.delete(IFile.FORCE | IFile.ALWAYS_DELETE_PROJECT_CONTENT, monitor);

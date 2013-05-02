@@ -30,6 +30,7 @@ Require-Bundle: org.cloudsmith.geppetto.pp.dsl;visibility:=reexport,
  org.eclipse.search;bundle-version="3.6.0",
  org.cloudsmith.geppetto.ruby.jrubyparser;bundle-version="2.2.1"
 Import-Package: org.apache.log4j,
+ com.google.inject.multibindings,
  org.eclipse.jdt.core;resolution:=optional
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-Activator: org.cloudsmith.geppetto.pp.dsl.ui.internal.PPDSLActivator

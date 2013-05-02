@@ -23,5 +23,6 @@ Require-Bundle: org.eclipse.core.runtime,
  org.cloudsmith.graph,
  org.cloudsmith.geppetto.catalog,
  org.cloudsmith.geppetto.common,
+ org.cloudsmith.geppetto.diagnostic,
  org.eclipse.core.filesystem
 Bundle-ActivationPolicy: lazy

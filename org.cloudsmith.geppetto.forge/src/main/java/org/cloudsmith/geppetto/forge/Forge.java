@@ -15,6 +15,7 @@ import java.io.File;
 import java.io.FileFilter;
 import java.io.IOException;
 import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
@@ -336,4 +337,12 @@ public interface Forge {
 	 *            Search term
 	 */
 	List<ModuleInfo> search_v1(String term) throws IOException;
+
+	/**
+	 * Use the old v1 API to search the Forge for modules that has been added or modified since <code>timestamp</code>
+	 * 
+	 * @param term
+	 *            Search term
+	 */
+	List<ModuleInfo> searchSince_v1(Date timestamp) throws IOException;
 }

@@ -27,7 +27,8 @@ import com.google.inject.Guice;
 import com.google.inject.Injector;
 
 public class AbstractForgeTest {
-	private static String TEST_FORGE_URI = "http://forge-staging-api.puppetlabs.com/";
+	// private static String TEST_FORGE_URI = "http://forge-staging-api.puppetlabs.com/";
+	private static String TEST_FORGE_URI = "http://localhost:4567/";
 
 	private static Injector injector;
 

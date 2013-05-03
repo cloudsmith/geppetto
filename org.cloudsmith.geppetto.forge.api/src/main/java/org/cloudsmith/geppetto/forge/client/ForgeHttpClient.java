@@ -24,15 +24,12 @@ import java.lang.reflect.Type;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.nio.charset.Charset;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpHeaders;
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
-import org.apache.http.NameValuePair;
 import org.apache.http.StatusLine;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
@@ -45,7 +42,7 @@ import org.apache.http.client.methods.HttpPatch;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.methods.HttpPut;
 import org.apache.http.client.methods.HttpRequestBase;
-import org.apache.http.client.utils.URLEncodedUtils;
+import org.apache.http.client.utils.URIBuilder;
 import org.apache.http.conn.scheme.Scheme;
 import org.apache.http.conn.ssl.SSLSocketFactory;
 import org.apache.http.conn.ssl.TrustSelfSignedStrategy;
@@ -54,7 +51,6 @@ import org.apache.http.entity.mime.MultipartEntity;
 import org.apache.http.entity.mime.content.InputStreamBody;
 import org.apache.http.entity.mime.content.StringBody;
 import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.message.BasicNameValuePair;
 import org.cloudsmith.geppetto.forge.client.Authenticator.AuthResponse;
 import org.cloudsmith.geppetto.forge.model.Constants;
 
@@ -142,18 +138,14 @@ public class ForgeHttpClient implements Constants, ForgeClient {
 	private HttpGet createGetRequest(String urlStr, Map<String, String> params, boolean useV1) {
 		URI uri;
 		try {
-			uri = new URI(useV1
+			URIBuilder bld = new URIBuilder(useV1
 					? createV1Uri(urlStr)
 					: createV2Uri(urlStr));
 			if(params != null && !params.isEmpty()) {
-				List<NameValuePair> queryParams = new ArrayList<NameValuePair>(params.size());
 				for(Map.Entry<String, String> param : params.entrySet())
-					queryParams.add(new BasicNameValuePair(param.getKey(), param.getValue()));
-
-				uri = new URI(
-					uri.getScheme(), uri.getUserInfo(), uri.getHost(), uri.getPort(), uri.getPath(),
-					URLEncodedUtils.format(queryParams, UTF_8.name()), uri.getFragment());
+					bld.addParameter(param.getKey(), param.getValue());
 			}
+			uri = bld.build();
 		}
 		catch(URISyntaxException e) {
 			throw new IllegalArgumentException(e);

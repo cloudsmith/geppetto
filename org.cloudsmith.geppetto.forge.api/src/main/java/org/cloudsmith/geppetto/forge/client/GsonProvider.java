@@ -101,6 +101,23 @@ public class GsonProvider implements Provider<Gson> {
 	 * A json adapter capable of serializing/deserializing a version requirement as a string.
 	 */
 	public static class DateJsonAdapter implements JsonSerializer<Date>, JsonDeserializer<Date> {
+		public static String dateToString(Date src) {
+			String target;
+			synchronized(ISO_8601_TZ) {
+				target = ISO_8601_TZ.format(src);
+			}
+			Matcher m = RFC_822_PTRN.matcher(target);
+			if(m.matches()) {
+				String tz = m.group(2);
+				if("+0000".equals(tz))
+					tz = "Z";
+				else
+					tz = tz.substring(0, 3) + ':' + tz.substring(3, 5);
+				target = m.group(1) + tz;
+			}
+			return target;
+		}
+
 		@Override
 		public Date deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context)
 				throws JsonParseException {
@@ -126,20 +143,7 @@ public class GsonProvider implements Provider<Gson> {
 
 		@Override
 		public JsonElement serialize(Date src, Type typeOfSrc, JsonSerializationContext context) {
-			String target;
-			synchronized(ISO_8601_TZ) {
-				target = ISO_8601_TZ.format(src);
-			}
-			Matcher m = RFC_822_PTRN.matcher(target);
-			if(m.matches()) {
-				String tz = m.group(2);
-				if("+0000".equals(tz))
-					tz = "Z";
-				else
-					tz = tz.substring(0, 3) + ':' + tz.substring(3, 5);
-				target = m.group(1) + tz;
-			}
-			return new JsonPrimitive(target);
+			return new JsonPrimitive(dateToString(src));
 		}
 	}
 

@@ -20,6 +20,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 import java.util.zip.GZIPInputStream;
 
@@ -52,13 +53,8 @@ public class ForgeTest extends AbstractForgeTest {
 
 	private Forge fixture = null;
 
-	@Before
-	public void setUp() throws Exception {
-		fixture = getForge();
-	}
-
 	@Test
-	public void testBuild__File_File() {
+	public void build() {
 		try {
 			File installFolder = getTestOutputFolder("apache-install-here", true);
 			File resultFolder = getTestOutputFolder("apache-build-result", true);
@@ -86,7 +82,7 @@ public class ForgeTest extends AbstractForgeTest {
 	}
 
 	@Test
-	public void testChanges__File() {
+	public void changes() {
 		try {
 			File installFolder = getTestOutputFolder("test-changes", true);
 			File resultFolder = getTestOutputFolder("test-changes-result", true);
@@ -101,7 +97,7 @@ public class ForgeTest extends AbstractForgeTest {
 	}
 
 	@Test
-	public void testExcludesPattern() {
+	public void excludesPattern() {
 		assertExcludesMatch("~");
 		assertExcludesMatch("backup~");
 		assertExcludesMatch("~backup~");
@@ -138,7 +134,7 @@ public class ForgeTest extends AbstractForgeTest {
 	}
 
 	@Test
-	public void testGenerate__File_Metadata() {
+	public void generate() {
 		try {
 			Metadata metadata = new Metadata();
 			metadata.setName(new ModuleName("cloudsmith/testmodule"));
@@ -152,7 +148,7 @@ public class ForgeTest extends AbstractForgeTest {
 	}
 
 	@Test
-	public void testInstall__String_File_boolean_boolean() {
+	public void install() {
 		try {
 			File installFolder = getTestOutputFolder("stdlib-install", true);
 			fixture.install(new ModuleName("puppetlabs/stdlib"), null, installFolder, false, true);
@@ -166,7 +162,7 @@ public class ForgeTest extends AbstractForgeTest {
 	}
 
 	@Test
-	public void testSearch__String() {
+	public void searchModules() {
 		try {
 			List<Module> hits = fixture.search("rsync");
 			assertFalse("No modules found matching 'rsync'", hits.isEmpty());
@@ -179,7 +175,7 @@ public class ForgeTest extends AbstractForgeTest {
 	}
 
 	@Test
-	public void testSearch_v1__String() {
+	public void searchModules_v1() {
 		try {
 			List<ModuleInfo> hits = fixture.search_v1("rsync");
 			assertFalse("No modules found matching 'rsync'", hits.isEmpty());
@@ -189,6 +185,34 @@ public class ForgeTest extends AbstractForgeTest {
 		catch(IOException e) {
 			fail(e.getMessage());
 		}
+	}
+
+	@Test
+	public void searchModulesSinceNow_v1() {
+		try {
+			List<ModuleInfo> hits = fixture.searchSince_v1(new Date());
+			assertTrue("Should not find modules modified after current time", hits.isEmpty());
+		}
+		catch(IOException e) {
+			fail(e.getMessage());
+		}
+	}
+
+	@Test
+	public void searchModulesSinceWayBack_v1() {
+		try {
+			List<ModuleInfo> hits = fixture.searchSince_v1(new Date(System.currentTimeMillis() - 1000 * 60 * 60 * 24 *
+					365 * 10));
+			assertFalse("Should find modules modified after ten years", hits.isEmpty());
+		}
+		catch(IOException e) {
+			fail(e.getMessage());
+		}
+	}
+
+	@Before
+	public void setUp() throws Exception {
+		fixture = getForge();
 	}
 
 }

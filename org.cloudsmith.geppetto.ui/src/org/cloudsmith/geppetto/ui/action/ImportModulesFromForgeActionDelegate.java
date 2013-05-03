@@ -15,7 +15,7 @@ import java.util.Collections;
 
 import org.cloudsmith.geppetto.forge.Forge;
 import org.cloudsmith.geppetto.forge.ForgeService;
-import org.cloudsmith.geppetto.forge.v2.model.Module;
+import org.cloudsmith.geppetto.forge.v1.model.ModuleInfo;
 import org.cloudsmith.geppetto.forge.v2.model.ModuleName;
 import org.cloudsmith.geppetto.ui.UIPlugin;
 import org.cloudsmith.geppetto.ui.util.ResourceUtil;
@@ -49,7 +49,7 @@ public class ImportModulesFromForgeActionDelegate extends ActionDelegate impleme
 
 					// Uh, this seems to import ALL MODULES from the Forge!!! Who calls this?
 					// THH 2013-03-07
-					for(Module module : forge.search(null)) {
+					for(ModuleInfo module : forge.search_v1(null)) {
 						ModuleName fullName = module.getFullName();
 						String projectName = fullName.getOwner();
 

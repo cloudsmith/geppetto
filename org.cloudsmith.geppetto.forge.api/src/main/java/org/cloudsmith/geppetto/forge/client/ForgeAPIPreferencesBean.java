@@ -9,7 +9,7 @@
  *   Cloudsmith
  * 
  */
-package org.cloudsmith.geppetto.forge.v2.client;
+package org.cloudsmith.geppetto.forge.client;
 
 import java.io.Serializable;
 
@@ -18,6 +18,18 @@ import java.io.Serializable;
  */
 public class ForgeAPIPreferencesBean implements ForgeAPIPreferences, Serializable {
 	private static final long serialVersionUID = 1L;
+
+	private static String appendURLSegment(String url, String segment) {
+		if(url == null)
+			throw new IllegalArgumentException("ForgeAPI preference for base URL has not been set");
+
+		// We assume that 'segment' always starts with a slash
+		StringBuilder bld = new StringBuilder(url);
+		if(bld.charAt(bld.length() - 1) == '/')
+			bld.setLength(bld.length() - 1);
+		bld.append(segment);
+		return bld.toString();
+	}
 
 	private String baseURL;
 
@@ -28,8 +40,6 @@ public class ForgeAPIPreferencesBean implements ForgeAPIPreferences, Serializabl
 	private String oauthClientId;
 
 	private String oauthClientSecret;
-
-	private String oauthURL;
 
 	private String oauthScopes;
 
@@ -44,7 +54,6 @@ public class ForgeAPIPreferencesBean implements ForgeAPIPreferences, Serializabl
 		oauthAccessToken = copy.getOAuthAccessToken();
 		oauthClientId = copy.getOAuthClientId();
 		oauthClientSecret = copy.getOAuthClientSecret();
-		oauthURL = copy.getOAuthURL();
 		oauthScopes = copy.getOAuthScopes();
 		password = copy.getPassword();
 	}
@@ -79,12 +88,20 @@ public class ForgeAPIPreferencesBean implements ForgeAPIPreferences, Serializabl
 
 	@Override
 	public String getOAuthURL() {
-		return oauthURL;
+		return appendURLSegment(baseURL, "/oauth/token");
 	}
 
 	@Override
 	public String getPassword() {
 		return password;
+	}
+
+	public String getURL_v1() {
+		return appendURLSegment(baseURL, "/v1/");
+	}
+
+	public String getURL_v2() {
+		return appendURLSegment(baseURL, "/v2/");
 	}
 
 	public void setBaseURL(String baseURL) {
@@ -109,10 +126,6 @@ public class ForgeAPIPreferencesBean implements ForgeAPIPreferences, Serializabl
 
 	public void setOAuthScopes(String oauthScopes) {
 		this.oauthScopes = oauthScopes;
-	}
-
-	public void setOAuthURL(String oauthURL) {
-		this.oauthURL = oauthURL;
 	}
 
 	public void setPassword(String password) {

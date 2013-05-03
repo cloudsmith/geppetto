@@ -9,7 +9,7 @@
  *   Cloudsmith
  * 
  */
-package org.cloudsmith.geppetto.forge.v2.client;
+package org.cloudsmith.geppetto.forge.client;
 
 
 import com.google.gson.Gson;

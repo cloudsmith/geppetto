@@ -12,7 +12,7 @@
 package org.cloudsmith.geppetto.forge.impl;
 
 import org.cloudsmith.geppetto.forge.ForgePreferences;
-import org.cloudsmith.geppetto.forge.v2.client.ForgeAPIPreferencesBean;
+import org.cloudsmith.geppetto.forge.client.ForgeAPIPreferencesBean;
 
 public class ForgePreferencesBean extends ForgeAPIPreferencesBean implements ForgePreferences {
 	private static final long serialVersionUID = 1L;

@@ -29,6 +29,7 @@ import org.cloudsmith.geppetto.diagnostic.Diagnostic;
 import org.cloudsmith.geppetto.forge.Forge;
 import org.cloudsmith.geppetto.forge.util.ModuleUtils;
 import org.cloudsmith.geppetto.forge.util.TarUtils;
+import org.cloudsmith.geppetto.forge.v1.model.ModuleInfo;
 import org.cloudsmith.geppetto.forge.v2.model.Metadata;
 import org.cloudsmith.geppetto.forge.v2.model.Module;
 import org.cloudsmith.geppetto.forge.v2.model.ModuleName;
@@ -170,6 +171,19 @@ public class ForgeTest extends AbstractForgeTest {
 			List<Module> hits = fixture.search("rsync");
 			assertFalse("No modules found matching 'rsync'", hits.isEmpty());
 			for(Module mi : hits)
+				System.out.println(mi.getFullName());
+		}
+		catch(IOException e) {
+			fail(e.getMessage());
+		}
+	}
+
+	@Test
+	public void testSearch_v1__String() {
+		try {
+			List<ModuleInfo> hits = fixture.search_v1("rsync");
+			assertFalse("No modules found matching 'rsync'", hits.isEmpty());
+			for(ModuleInfo mi : hits)
 				System.out.println(mi.getFullName());
 		}
 		catch(IOException e) {

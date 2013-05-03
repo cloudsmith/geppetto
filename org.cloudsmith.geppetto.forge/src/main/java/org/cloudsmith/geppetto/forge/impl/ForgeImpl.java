@@ -51,12 +51,13 @@ import org.cloudsmith.geppetto.forge.Cache;
 import org.cloudsmith.geppetto.forge.ERB;
 import org.cloudsmith.geppetto.forge.Forge;
 import org.cloudsmith.geppetto.forge.MetadataExtractor;
+import org.cloudsmith.geppetto.forge.client.ForgeException;
 import org.cloudsmith.geppetto.forge.util.Checksums;
 import org.cloudsmith.geppetto.forge.util.ModuleUtils;
 import org.cloudsmith.geppetto.forge.util.TarUtils;
 import org.cloudsmith.geppetto.forge.util.TarUtils.FileCatcher;
+import org.cloudsmith.geppetto.forge.v1.model.ModuleInfo;
 import org.cloudsmith.geppetto.forge.v2.MetadataRepository;
-import org.cloudsmith.geppetto.forge.v2.client.ForgeException;
 import org.cloudsmith.geppetto.forge.v2.model.Dependency;
 import org.cloudsmith.geppetto.forge.v2.model.Metadata;
 import org.cloudsmith.geppetto.forge.v2.model.Module;
@@ -85,6 +86,9 @@ class ForgeImpl implements Forge {
 
 	@Inject(optional = true)
 	private ModuleService moduleService;
+
+	@Inject(optional = true)
+	private org.cloudsmith.geppetto.forge.v1.service.ModuleService moduleServiceV1;
 
 	@Inject(optional = true)
 	private ReleaseService releaseService;
@@ -556,5 +560,10 @@ class ForgeImpl implements Forge {
 	@Override
 	public List<Module> search(String term) throws IOException {
 		return moduleService.search(term, null);
+	}
+
+	@Override
+	public List<ModuleInfo> search_v1(String term) throws IOException {
+		return moduleServiceV1.search(term);
 	}
 }

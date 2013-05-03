@@ -9,19 +9,19 @@
  *   Cloudsmith
  * 
  */
-package org.cloudsmith.geppetto.forge.v2.model;
+package org.cloudsmith.geppetto.forge.model;
 
-import org.cloudsmith.geppetto.forge.v2.client.GsonProvider;
+import org.cloudsmith.geppetto.forge.client.GsonProvider;
 
 /**
  * Super class of all model entitites. Provides basic JSON capability.
  */
 public class Entity {
-	static boolean safeEquals(Object a, Object b) {
+	protected static boolean safeEquals(Object a, Object b) {
 		return a == b || a != null && b != null && a.equals(b);
 	}
 
-	static int safeHash(Object a) {
+	protected static int safeHash(Object a) {
 		return a == null
 				? 773
 				: a.hashCode();

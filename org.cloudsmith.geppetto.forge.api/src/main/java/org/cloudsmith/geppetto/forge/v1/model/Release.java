@@ -9,23 +9,17 @@
  *   Cloudsmith
  * 
  */
-package org.cloudsmith.geppetto.forge.v2.model;
+package org.cloudsmith.geppetto.forge.v1.model;
 
-import org.cloudsmith.geppetto.forge.model.Entity;
+import org.cloudsmith.geppetto.semver.Version;
 
 import com.google.gson.annotations.Expose;
 
-/**
- * This is a simply entity for self referring URL representation.
- */
-public class SelfLink extends Entity {
+public class Release {
 	@Expose
-	private HalLink self;
+	private Version version;
 
-	/**
-	 * @return Link to self
-	 */
-	public HalLink getSelf() {
-		return self;
+	public Version getVersion() {
+		return version;
 	}
 }

@@ -9,24 +9,26 @@
  *   Cloudsmith
  * 
  */
-package org.cloudsmith.geppetto.forge.v2.client;
+package org.cloudsmith.geppetto.forge.client;
 
 /**
  * Preferences used by the ForgeAPI client
  */
 public interface ForgeAPIPreferences {
 	/**
-	 * @return The base URL for all API calls
+	 * @return The base URL used when creating the v1, v2, and oauth URLs
 	 */
 	String getBaseURL();
 
 	/**
-	 * @return The login to use when obtaining the OAuth access_token. This will only be used when no access_token has been provided.
+	 * @return The login to use when obtaining the OAuth access_token. This will only be used when no access_token has
+	 *         been provided.
 	 */
 	String getLogin();
 
 	/**
-	 * @return The OAuth access_token or <code>null</code> if it's not yet known. Returning <code>null</code> will initiate a login sequence.
+	 * @return The OAuth access_token or <code>null</code> if it's not yet known. Returning <code>null</code> will
+	 *         initiate a login sequence.
 	 */
 	String getOAuthAccessToken();
 
@@ -52,9 +54,20 @@ public interface ForgeAPIPreferences {
 	String getOAuthURL();
 
 	/**
-	 * @return The password to use when obtaining the OAuth access_token. This will only be used when no access_token has been provided.
+	 * @return The password to use when obtaining the OAuth access_token. This will only be used when no access_token
+	 *         has been provided.
 	 */
 	String getPassword();
+
+	/**
+	 * @return The base URL for all v1 API calls
+	 */
+	String getURL_v1();
+
+	/**
+	 * @return The base URL for all v1 API calls
+	 */
+	String getURL_v2();
 
 	/**
 	 * Set the OAuth AccessToken

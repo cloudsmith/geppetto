@@ -9,7 +9,7 @@
  *   Cloudsmith
  * 
  */
-package org.cloudsmith.geppetto.forge.v2.client;
+package org.cloudsmith.geppetto.forge.client;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -61,6 +61,22 @@ public interface ForgeClient {
 	 *             if the request could not be completed
 	 */
 	<V> V get(String urlStr, Map<String, String> params, Type type) throws IOException;
+
+	/**
+	 * Executes a HTTP GET request usign the legacy v1 API. The http response is expected to be a JSON representation of
+	 * an object of the specified <code>type</code>. The object is parsed and returned.
+	 * 
+	 * @param urlStr
+	 *            The URL of the request
+	 * @param params
+	 *            Parameters to include in the URL
+	 * @param type
+	 *            The expected type of the result
+	 * @return An object of the expected type
+	 * @throws IOException
+	 *             if the request could not be completed
+	 */
+	<V> V getV1(String urlStr, Map<String, String> params, Type type) throws IOException;
 
 	/**
 	 * Patch data to URI

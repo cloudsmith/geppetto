@@ -13,9 +13,9 @@ package org.cloudsmith.geppetto.forge.maven.plugin;
 
 import java.util.Properties;
 
+import org.cloudsmith.geppetto.forge.client.ForgeAPIPreferencesBean;
+import org.cloudsmith.geppetto.forge.client.ForgeHttpModule;
 import org.cloudsmith.geppetto.forge.v2.ForgeAPI;
-import org.cloudsmith.geppetto.forge.v2.client.ForgeHttpModule;
-import org.cloudsmith.geppetto.forge.v2.client.ForgeAPIPreferencesBean;
 import org.cloudsmith.geppetto.forge.v2.service.ModuleService;
 import org.cloudsmith.geppetto.forge.v2.service.ModuleTemplate;
 import org.junit.Before;
@@ -30,9 +30,7 @@ public class SetupTestMojo extends AbstractForgeTestMojo {
 		Properties props = AbstractForgeMojo.readForgeProperties();
 		forgePrefs.setOAuthClientId(props.getProperty("forge.oauth.clientID"));
 		forgePrefs.setOAuthClientSecret(props.getProperty("forge.oauth.clientSecret"));
-		String baseURL = System.getProperty("forge.base.url");
-		forgePrefs.setBaseURL(baseURL + "v2/");
-		forgePrefs.setOAuthURL(baseURL + "oauth/token");
+		forgePrefs.setBaseURL(System.getProperty("forge.base.url"));
 		return forgePrefs;
 	}
 

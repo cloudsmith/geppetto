@@ -16,6 +16,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.cloudsmith.geppetto.forge.model.Entity;
 import org.cloudsmith.geppetto.semver.Version;
 
 import com.google.gson.annotations.Expose;

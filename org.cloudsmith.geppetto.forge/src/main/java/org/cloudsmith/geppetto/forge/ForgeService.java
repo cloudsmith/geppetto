@@ -35,8 +35,7 @@ public class ForgeService {
 	private ForgeService() {
 		// TODO: Provide this from command line or prefs store
 		ForgePreferencesBean forgePreferences = new ForgePreferencesBean();
-		forgePreferences.setBaseURL("http://forgeapi.puppetlabs.com/v2/");
-		forgePreferences.setOAuthURL("http://forgeapi.puppetlabs.com/oauth/token");
+		forgePreferences.setBaseURL("http://forgeapi.puppetlabs.com");
 		forgeModule = new ForgeModule(forgePreferences);
 		this.forgeInjector = Guice.createInjector(forgeModule);
 	}

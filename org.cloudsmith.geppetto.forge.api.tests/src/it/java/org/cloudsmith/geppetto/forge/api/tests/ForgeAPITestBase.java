@@ -13,7 +13,7 @@ import java.net.URISyntaxException;
 import java.net.URL;
 
 import org.cloudsmith.geppetto.forge.v2.ForgeAPI;
-import org.cloudsmith.geppetto.forge.v2.client.ForgeHttpModule;
+import org.cloudsmith.geppetto.forge.client.ForgeHttpModule;
 import org.cloudsmith.geppetto.semver.Version;
 
 import com.almworks.sqlite4java.SQLiteConnection;

@@ -20,7 +20,8 @@ import java.util.Set;
 
 import org.cloudsmith.geppetto.diagnostic.Diagnostic;
 import org.cloudsmith.geppetto.diagnostic.DiagnosticType;
-import org.cloudsmith.geppetto.forge.v2.client.ForgeException;
+import org.cloudsmith.geppetto.forge.client.ForgeException;
+import org.cloudsmith.geppetto.forge.v1.model.ModuleInfo;
 import org.cloudsmith.geppetto.forge.v2.model.Dependency;
 import org.cloudsmith.geppetto.forge.v2.model.Metadata;
 import org.cloudsmith.geppetto.forge.v2.model.Module;
@@ -61,7 +62,8 @@ public interface Forge {
 	 *            A one element array that will receive the resulting metadata. Can be <tt>null</tt>.
 	 * @param result
 	 *            diagnostics generated during extraction
-	 * @return The resulting gzipped tar file or <code>null</code> if extraction could not be performed. When that happens, the result will contain
+	 * @return The resulting gzipped tar file or <code>null</code> if extraction could not be performed. When that
+	 *         happens, the result will contain
 	 *         the reason.
 	 */
 	File build(File moduleSource, File destination, FileFilter filter, Metadata[] resultingMetadata, Diagnostic result)
@@ -119,8 +121,9 @@ public interface Forge {
 			throws IOException;
 
 	/**
-	 * Scan for valid directories containing a "metadata.json" or other files recognized by injected {@link MetadataExtractor metadata extractors}
-	 * using the provided <tt>filter</tt> to discriminate unwanted files. A directory that contains such a file will not be scanned in turn.
+	 * Scan for valid directories containing a "metadata.json" or other files recognized by injected
+	 * {@link MetadataExtractor metadata extractors} using the provided <tt>filter</tt> to discriminate unwanted files.
+	 * A directory that contains such a file will not be scanned in turn.
 	 * 
 	 * @param modulesRoot
 	 *            The directory where the scan starts. Can be a module in itself.
@@ -173,14 +176,16 @@ public interface Forge {
 	 * @param fullName
 	 *            The name of the module
 	 * @param range
-	 *            version constraint to apply when selecting the module release. Can be <code>null</code> in which case the release with the highest
+	 *            version constraint to apply when selecting the module release. Can be <code>null</code> in which case
+	 *            the release with the highest
 	 *            version wins
 	 * @param destination
 	 *            The destination for the install.
 	 * @param destinationIncludesTopFolder
 	 *            When <code>true</code>, assume that all content beneath the
 	 *            top folder in the archive should be installed directly beneath the
-	 *            given <code>destination</code>. When this flag is <code>false</code> the top folder of the archive will be expanded as-is beneath
+	 *            given <code>destination</code>. When this flag is <code>false</code> the top folder of the archive
+	 *            will be expanded as-is beneath
 	 *            the <code>destination</code>.
 	 * @param force
 	 *            Set to <code>true</code> to overwrite an existing module.
@@ -203,7 +208,8 @@ public interface Forge {
 	 * @param destinationIncludesTopFolder
 	 *            When <code>true</code>, assume that all content beneath the
 	 *            top folder in the archive should be installed directly beneath the
-	 *            given <code>destination</code>. When this flag is <code>false</code> the top folder of the archive will be expanded as-is beneath
+	 *            given <code>destination</code>. When this flag is <code>false</code> the top folder of the archive
+	 *            will be expanded as-is beneath
 	 *            the <code>destination</code>.
 	 * @param force
 	 *            Set to <code>true</code> to overwrite an existing module.
@@ -212,7 +218,8 @@ public interface Forge {
 			throws IOException;
 
 	/**
-	 * Checks if the file <tt>source</tt> is a file that one of the injected {@link MetadataExtractor metadata extractors} would consider.
+	 * Checks if the file <tt>source</tt> is a file that one of the injected {@link MetadataExtractor metadata
+	 * extractors} would consider.
 	 * 
 	 * @param source
 	 *            The path to check. Should be relative to the expected module root
@@ -231,7 +238,8 @@ public interface Forge {
 	Metadata loadJSONMetadata(File jsonFile) throws IOException;
 
 	/**
-	 * Parse a Modulefile and create a Metadata instance from the result. The parser <i>will not evaluate</i> actual ruby code. It
+	 * Parse a Modulefile and create a Metadata instance from the result. The parser <i>will not evaluate</i> actual
+	 * ruby code. It
 	 * just parses the code and extracts values from the resulting AST.
 	 * 
 	 * 
@@ -266,7 +274,8 @@ public interface Forge {
 
 	/**
 	 * Publish all gzipped module tarballs found under <tt>builtModulesDir</tt>. Report progress on the
-	 * provided <tt>result</tt> diagnostic. The caller must check the severity of the <tt>result</tt> after this call has completed.
+	 * provided <tt>result</tt> diagnostic. The caller must check the severity of the <tt>result</tt> after this call
+	 * has completed.
 	 * 
 	 * @param moduleTarballs
 	 *            Module tarballs to be published.
@@ -313,10 +322,18 @@ public interface Forge {
 	void saveModulefile(Metadata md, File moduleFile) throws IOException;
 
 	/**
-	 * Search the module repository for a module matching <code>term</code>
+	 * Search the module repository for modules matching <code>term</code>
 	 * 
 	 * @param term
 	 *            Search term
 	 */
 	List<Module> search(String term) throws IOException;
+
+	/**
+	 * Use the old v1 API to search the Forge for modules matching <code>term</code>
+	 * 
+	 * @param term
+	 *            Search term
+	 */
+	List<ModuleInfo> search_v1(String term) throws IOException;
 }

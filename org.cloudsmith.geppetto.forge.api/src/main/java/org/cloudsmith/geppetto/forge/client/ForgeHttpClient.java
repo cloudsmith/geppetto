@@ -15,7 +15,7 @@
  *   Kevin Sawicki (GitHub Inc.) - initial API and implementation
  *   Thomas Hallgren (Cloudsmith Inc.) - Stackhammer changes
  */
-package org.cloudsmith.geppetto.forge.v2.client;
+package org.cloudsmith.geppetto.forge.client;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -55,7 +55,8 @@ import org.apache.http.entity.mime.content.InputStreamBody;
 import org.apache.http.entity.mime.content.StringBody;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
-import org.cloudsmith.geppetto.forge.v2.client.Authenticator.AuthResponse;
+import org.cloudsmith.geppetto.forge.client.Authenticator.AuthResponse;
+import org.cloudsmith.geppetto.forge.model.Constants;
 
 import com.google.gson.Gson;
 import com.google.inject.Inject;
@@ -85,7 +86,9 @@ public class ForgeHttpClient implements Constants, ForgeClient {
 		return entity.getContent();
 	}
 
-	private final String baseUri;
+	private final String v1URL;
+
+	private final String v2URL;
 
 	private final Gson gson;
 
@@ -101,13 +104,8 @@ public class ForgeHttpClient implements Constants, ForgeClient {
 
 	@Inject
 	public ForgeHttpClient(Gson gson, ForgeAPIPreferences preferences, Authenticator authenticator) {
-		String baseUri = preferences.getBaseURL();
-		if(baseUri == null)
-			throw new IllegalArgumentException("ForgeAPI preference for base URL has not been set");
-		if(!baseUri.endsWith("/"))
-			baseUri += "/";
-
-		this.baseUri = baseUri;
+		this.v1URL = preferences.getURL_v1();
+		this.v2URL = preferences.getURL_v2();
 		this.gson = gson;
 		this.authenticator = authenticator;
 		this.preferences = preferences;
@@ -141,10 +139,12 @@ public class ForgeHttpClient implements Constants, ForgeClient {
 			request.addHeader(HttpHeaders.USER_AGENT, userAgent);
 	}
 
-	private HttpGet createGetRequest(String urlStr, Map<String, String> params) {
+	private HttpGet createGetRequest(String urlStr, Map<String, String> params, boolean useV1) {
 		URI uri;
 		try {
-			uri = new URI(createUri(urlStr));
+			uri = new URI(useV1
+					? createV1Uri(urlStr)
+					: createV2Uri(urlStr));
 			if(params != null && !params.isEmpty()) {
 				List<NameValuePair> queryParams = new ArrayList<NameValuePair>(params.size());
 				for(Map.Entry<String, String> param : params.entrySet())
@@ -163,25 +163,35 @@ public class ForgeHttpClient implements Constants, ForgeClient {
 	}
 
 	/**
-	 * Create full URI from path
+	 * Create full v1 URI from path
 	 * 
 	 * @param path
 	 * @return uri
 	 */
-	protected String createUri(final String path) {
-		return baseUri + path;
+	protected String createV1Uri(final String path) {
+		return v1URL + path;
+	}
+
+	/**
+	 * Create full v2 URI from path
+	 * 
+	 * @param path
+	 * @return uri
+	 */
+	protected String createV2Uri(final String path) {
+		return v2URL + path;
 	}
 
 	@Override
 	public void delete(final String uri) throws IOException {
-		HttpDelete request = new HttpDelete(createUri(uri));
+		HttpDelete request = new HttpDelete(createV2Uri(uri));
 		configureRequest(request);
 		executeRequest(request, null);
 	}
 
 	@Override
 	public void download(String urlStr, Map<String, String> params, final OutputStream output) throws IOException {
-		HttpGet request = createGetRequest(urlStr, params);
+		HttpGet request = createGetRequest(urlStr, params, false);
 		configureRequest(request);
 		httpClient.execute(request, new ResponseHandler<Void>() {
 			@Override
@@ -204,14 +214,21 @@ public class ForgeHttpClient implements Constants, ForgeClient {
 
 	@Override
 	public <V> V get(String urlStr, Map<String, String> params, Type type) throws IOException {
-		HttpGet request = createGetRequest(urlStr, params);
+		HttpGet request = createGetRequest(urlStr, params, false);
+		configureRequest(request);
+		return executeRequest(request, type);
+	}
+
+	@Override
+	public <V> V getV1(String urlStr, Map<String, String> params, Type type) throws IOException {
+		HttpGet request = createGetRequest(urlStr, params, true);
 		configureRequest(request);
 		return executeRequest(request, type);
 	}
 
 	@Override
 	public <V> V patch(final String uri, final Object params, final Class<V> type) throws IOException {
-		HttpPatch request = new HttpPatch(createUri(uri));
+		HttpPatch request = new HttpPatch(createV2Uri(uri));
 		configureRequest(request);
 		assignJSONContent(request, params);
 		return executeRequest(request, type);
@@ -224,7 +241,7 @@ public class ForgeHttpClient implements Constants, ForgeClient {
 
 	@Override
 	public <V> V postJSON(final String uri, final Object params, final Class<V> type) throws IOException {
-		HttpPost request = new HttpPost(createUri(uri));
+		HttpPost request = new HttpPost(createV2Uri(uri));
 		configureRequest(request);
 		assignJSONContent(request, params);
 		return executeRequest(request, type);
@@ -233,7 +250,7 @@ public class ForgeHttpClient implements Constants, ForgeClient {
 	@Override
 	public <V> V postUpload(String uri, Map<String, String> stringParts, InputStream in, String mimeType,
 			String fileName, final long fileSize, Class<V> type) throws IOException {
-		HttpPost request = new HttpPost(createUri(uri));
+		HttpPost request = new HttpPost(createV2Uri(uri));
 		configureRequest(request);
 
 		MultipartEntity entity = new MultipartEntity();
@@ -257,7 +274,7 @@ public class ForgeHttpClient implements Constants, ForgeClient {
 
 	@Override
 	public <V> V put(final String uri, final Object params, final Class<V> type) throws IOException {
-		HttpPut request = new HttpPut(createUri(uri));
+		HttpPut request = new HttpPut(createV2Uri(uri));
 		configureRequest(request);
 		assignJSONContent(request, params);
 		return executeRequest(request, type);

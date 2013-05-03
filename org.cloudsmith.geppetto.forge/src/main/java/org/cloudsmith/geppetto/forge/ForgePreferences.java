@@ -11,7 +11,7 @@
  */
 package org.cloudsmith.geppetto.forge;
 
-import org.cloudsmith.geppetto.forge.v2.client.ForgeAPIPreferences;
+import org.cloudsmith.geppetto.forge.client.ForgeAPIPreferences;
 
 public interface ForgePreferences extends ForgeAPIPreferences {
 	/**

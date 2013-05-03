@@ -11,7 +11,7 @@
  */
 package org.cloudsmith.geppetto.forge;
 
-import org.cloudsmith.geppetto.forge.v2.client.ForgeException;
+import org.cloudsmith.geppetto.forge.client.ForgeException;
 
 /**
  * Exception thrown when an attempt is made to publish a module that has already

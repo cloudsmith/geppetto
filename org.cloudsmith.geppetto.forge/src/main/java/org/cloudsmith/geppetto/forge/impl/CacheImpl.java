@@ -56,7 +56,7 @@ class CacheImpl implements Cache {
 
 	private synchronized String getCacheKey() {
 		if(cacheKey == null) {
-			String uriStr = forgePreferences.getBaseURL();
+			String uriStr = forgePreferences.getURL_v2();
 			StringBuilder bld = new StringBuilder(uriStr.replaceAll("[^\\p{Alnum}]+", "_"));
 			int last = bld.length() - 1;
 			if(bld.charAt(last) == '_')

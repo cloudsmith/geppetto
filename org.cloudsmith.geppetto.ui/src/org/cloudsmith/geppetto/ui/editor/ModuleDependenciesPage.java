@@ -26,6 +26,7 @@ import java.util.Map;
 
 import org.cloudsmith.geppetto.diagnostic.Diagnostic;
 import org.cloudsmith.geppetto.forge.Forge;
+import org.cloudsmith.geppetto.forge.v1.model.ModuleInfo;
 import org.cloudsmith.geppetto.forge.v2.model.Metadata;
 import org.cloudsmith.geppetto.forge.v2.model.ModuleName;
 import org.cloudsmith.geppetto.semver.Version;
@@ -210,7 +211,7 @@ class ModuleDependenciesPage extends GuardedModulePage {
 				Object[] selection = getSelectedElements();
 				if(selection.length == 1) {
 					ModuleInfo mi = (ModuleInfo) selection[0];
-					moduleNameText.setText(mi.getName().withSeparator('-').toString());
+					moduleNameText.setText(mi.getFullName().withSeparator('-').toString());
 					Version v = mi.getVersion();
 					versionRequirementText.setText(v == null
 							? ""
@@ -396,7 +397,8 @@ class ModuleDependenciesPage extends GuardedModulePage {
 								for(Object result : results) {
 									ModuleInfo module = (ModuleInfo) result;
 									model.addOrUpdateDependency(
-										module.getName().withSeparator('-').toString(), module.getVersion().toString());
+										module.getFullName().withSeparator('-').toString(),
+										module.getVersion().toString());
 								}
 							}
 							else

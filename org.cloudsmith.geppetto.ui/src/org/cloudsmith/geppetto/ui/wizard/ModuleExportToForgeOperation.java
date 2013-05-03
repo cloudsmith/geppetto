@@ -19,7 +19,7 @@ import org.cloudsmith.geppetto.diagnostic.Diagnostic;
 import org.cloudsmith.geppetto.diagnostic.ExceptionDiagnostic;
 import org.cloudsmith.geppetto.forge.AlreadyPublishedException;
 import org.cloudsmith.geppetto.forge.Forge;
-import org.cloudsmith.geppetto.forge.v2.client.ForgeException;
+import org.cloudsmith.geppetto.forge.client.ForgeException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.SubProgressMonitor;
 

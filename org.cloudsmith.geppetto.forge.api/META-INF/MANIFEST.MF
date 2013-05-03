@@ -7,8 +7,12 @@ Bundle-Vendor: %providerName
 Bundle-Localization: plugin
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-ActivationPolicy: lazy
-Export-Package: org.cloudsmith.geppetto.forge.v2,
- org.cloudsmith.geppetto.forge.v2.client,
+Export-Package: org.cloudsmith.geppetto.forge.client,
+ org.cloudsmith.geppetto.forge.model,
+ org.cloudsmith.geppetto.forge.v1,
+ org.cloudsmith.geppetto.forge.v1.model,
+ org.cloudsmith.geppetto.forge.v1.service,
+ org.cloudsmith.geppetto.forge.v2,
  org.cloudsmith.geppetto.forge.v2.model,
  org.cloudsmith.geppetto.forge.v2.service
 Import-Package: com.google.gson;version="2.1.0",

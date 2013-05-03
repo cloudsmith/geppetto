@@ -12,19 +12,16 @@
 package org.cloudsmith.geppetto.ui.wizard;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Collections;
-import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.cloudsmith.geppetto.forge.util.ModuleUtils;
+import org.cloudsmith.geppetto.forge.v1.model.ModuleInfo;
 import org.cloudsmith.geppetto.forge.v2.model.Metadata;
-import org.cloudsmith.geppetto.forge.v2.model.Module;
 import org.cloudsmith.geppetto.forge.v2.model.ModuleName;
 import org.cloudsmith.geppetto.semver.VersionRange;
 import org.cloudsmith.geppetto.ui.UIPlugin;
 import org.cloudsmith.geppetto.ui.dialog.ModuleListSelectionDialog;
-import org.cloudsmith.geppetto.ui.editor.ModuleInfo;
 import org.cloudsmith.geppetto.ui.util.ResourceUtil;
 import org.cloudsmith.geppetto.ui.util.StringUtil;
 import org.eclipse.core.resources.IFile;
@@ -121,11 +118,7 @@ public class NewPuppetProjectFromForgeWizard extends NewPuppetModuleProjectWizar
 
 				try {
 					// TODO: Show error dialog
-					List<Module> modules = getForge().search(null);
-					List<ModuleInfo> moduleInfos = new ArrayList<ModuleInfo>(modules.size());
-					for(Module module : modules)
-						moduleInfos.add(new ModuleInfo(module.getFullName(), null));
-					choices.addAll(moduleInfos);
+					choices.addAll(getForge().search_v1(null));
 				}
 				catch(IOException ioe) {
 					StringBuilder builder = new StringBuilder();
@@ -186,7 +179,7 @@ public class NewPuppetProjectFromForgeWizard extends NewPuppetModuleProjectWizar
 			}
 
 			if(super.validatePage()) {
-				String preferredProjectName = module.getName().withSeparator('-').toString();
+				String preferredProjectName = module.getFullName().withSeparator('-').toString();
 
 				if(!preferredProjectName.equals(getProjectName())) {
 					setErrorMessage(null);
@@ -229,14 +222,14 @@ public class NewPuppetProjectFromForgeWizard extends NewPuppetModuleProjectWizar
 			VersionRange vr = module.getVersion() == null
 					? null
 					: VersionRange.exact(module.getVersion());
-			Metadata metadata = getForge().install(module.getName(), vr, project.getLocation().toFile(), true, true);
+			Metadata metadata = getForge().install(module.getFullName(), vr, project.getLocation().toFile(), true, true);
 
 			IFile moduleFile = ResourceUtil.getFile(project.getFullPath().append("Modulefile")); //$NON-NLS-1$
 
 			if(!moduleFile.exists()) {
 				ModuleName mdName = metadata.getName();
 				if(mdName == null)
-					metadata.setName(module.getName());
+					metadata.setName(module.getFullName());
 				ModuleUtils.saveAsModulefile(metadata, moduleFile.getLocation().toFile());
 			}
 		}

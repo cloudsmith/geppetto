@@ -11,12 +11,13 @@
  * License for the specific language governing permissions and limitations
  * under the License.
  */
-package org.cloudsmith.geppetto.forge.v2.client;
+package org.cloudsmith.geppetto.forge.model;
 
 import java.lang.reflect.Type;
 import java.nio.charset.Charset;
 import java.util.List;
 
+import org.cloudsmith.geppetto.forge.v1.model.ModuleInfo;
 import org.cloudsmith.geppetto.forge.v2.model.Module;
 import org.cloudsmith.geppetto.forge.v2.model.Release;
 import org.cloudsmith.geppetto.forge.v2.model.Tag;
@@ -98,6 +99,11 @@ public interface Constants {
 	 * A type representing a {@link List} of {@link Release} instances
 	 */
 	Type LIST_RELEASE = new TypeToken<List<Release>>() {}.getType();
+
+	/**
+	 * A type representing a {@link List} of {@link Release} instances
+	 */
+	Type LIST_MODULE_INFO = new TypeToken<List<ModuleInfo>>() {}.getType();
 
 	/**
 	 * A type representing a {@link List} of {@link Tag} instances

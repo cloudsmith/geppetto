@@ -18,8 +18,8 @@ import org.cloudsmith.geppetto.forge.ERB;
 import org.cloudsmith.geppetto.forge.Forge;
 import org.cloudsmith.geppetto.forge.ForgePreferences;
 import org.cloudsmith.geppetto.forge.MetadataExtractor;
+import org.cloudsmith.geppetto.forge.client.ForgeHttpModule;
 import org.cloudsmith.geppetto.forge.util.ModuleUtils;
-import org.cloudsmith.geppetto.forge.v2.client.ForgeHttpModule;
 
 import com.google.inject.multibindings.Multibinder;
 import com.google.inject.name.Names;

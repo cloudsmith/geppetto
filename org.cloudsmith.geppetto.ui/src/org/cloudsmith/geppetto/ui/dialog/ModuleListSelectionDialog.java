@@ -11,8 +11,8 @@
  */
 package org.cloudsmith.geppetto.ui.dialog;
 
+import org.cloudsmith.geppetto.forge.v1.model.ModuleInfo;
 import org.cloudsmith.geppetto.ui.UIPlugin;
-import org.cloudsmith.geppetto.ui.editor.ModuleInfo;
 import org.cloudsmith.geppetto.ui.util.StringUtil;
 import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.swt.widgets.Composite;

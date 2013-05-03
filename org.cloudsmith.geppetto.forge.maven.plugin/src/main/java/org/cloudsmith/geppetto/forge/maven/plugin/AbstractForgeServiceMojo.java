@@ -27,8 +27,7 @@ public abstract class AbstractForgeServiceMojo extends AbstractForgeMojo {
 	@Override
 	protected void addForgePreferences(ForgePreferencesBean forgePreferences, Diagnostic diagnostic) {
 		super.addForgePreferences(forgePreferences, diagnostic);
-		forgePreferences.setBaseURL(serviceURL + "v2/");
-		forgePreferences.setOAuthURL(serviceURL + "oauth/token");
+		forgePreferences.setBaseURL(serviceURL);
 	}
 
 	@Override

@@ -18,7 +18,7 @@ import java.util.Map;
 
 import org.apache.http.HttpStatus;
 import org.apache.http.client.HttpResponseException;
-import org.cloudsmith.geppetto.forge.v2.client.Constants;
+import org.cloudsmith.geppetto.forge.model.Constants;
 import org.cloudsmith.geppetto.forge.v2.model.Module;
 import org.cloudsmith.geppetto.forge.v2.model.Release;
 import org.cloudsmith.geppetto.forge.v2.model.Tag;

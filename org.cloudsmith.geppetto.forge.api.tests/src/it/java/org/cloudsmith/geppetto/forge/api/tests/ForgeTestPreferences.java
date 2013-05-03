@@ -11,7 +11,7 @@
  */
 package org.cloudsmith.geppetto.forge.api.tests;
 
-import org.cloudsmith.geppetto.forge.v2.client.ForgeAPIPreferences;
+import org.cloudsmith.geppetto.forge.client.ForgeAPIPreferences;
 
 public abstract class ForgeTestPreferences implements ForgeAPIPreferences {
 	private String accessToken;
@@ -20,7 +20,7 @@ public abstract class ForgeTestPreferences implements ForgeAPIPreferences {
 
 	@Override
 	public String getBaseURL() {
-		return "http://localhost:4567/v2/";
+		return "http://localhost:4567/";
 	}
 
 	@Override
@@ -41,11 +41,6 @@ public abstract class ForgeTestPreferences implements ForgeAPIPreferences {
 	@Override
 	public String getOAuthScopes() {
 		return scopes;
-	}
-
-	@Override
-	public String getOAuthURL() {
-		return "http://localhost:4567/oauth/token";
 	}
 
 	@Override

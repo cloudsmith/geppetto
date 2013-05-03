@@ -11,6 +11,8 @@
  */
 package org.cloudsmith.geppetto.forge.v2.model;
 
+import org.cloudsmith.geppetto.forge.model.Entity;
+
 import com.google.gson.annotations.Expose;
 
 /**

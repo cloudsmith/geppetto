@@ -15,6 +15,7 @@ import static org.cloudsmith.geppetto.forge.v2.model.ModuleName.safeName;
 
 import java.io.File;
 import java.io.OutputStream;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
@@ -801,9 +802,9 @@ public class DependencyDataCalculator implements DependencyGraphStyles, Dependen
 				int unresolved = 0;
 				int implied = 0;
 				int count = 0;
-				ModuleEdge edges[] = new ModuleEdge[3];
+				List<ModuleEdge> edges = new ArrayList<ModuleEdge>();
 				for(ModuleEdge e : a.outgoing.get(b)) {
-					edges[count++] = e;
+					edges.add(e);
 					switch(e.edgeType) {
 						case IMPLIED:
 							implied++;
@@ -825,9 +826,9 @@ public class DependencyDataCalculator implements DependencyGraphStyles, Dependen
 				// A --> [...] --> B
 				// A imports from resolved B
 				if(count == 2 && resolved == 1 && implied == 1) {
-					Edge e1 = new Edge("", STYLE_EDGE__IMPORT, a.getVertex(), edges[1].getVertex());
-					Edge e2 = new Edge(getVersionLabel(edges[0]), STYLE_EDGE__RESOLVED_DEP, //
-					edges[1].getVertex(), b.getVertex());
+					Edge e1 = new Edge("", STYLE_EDGE__IMPORT, a.getVertex(), edges.get(1).getVertex());
+					Edge e2 = new Edge(getVersionLabel(edges.get(0)), STYLE_EDGE__RESOLVED_DEP, //
+					edges.get(1).getVertex(), b.getVertex());
 					g.addEdge(e1, e2);
 					addTooltip(tooltipString, e1, e2);
 					addStyleClasses(styleClasses, e1, e2);
@@ -836,8 +837,8 @@ public class DependencyDataCalculator implements DependencyGraphStyles, Dependen
 				else if(count == 1 && implied == 1) {
 					// CASE 5
 					// A --> [...]
-					if(edges[0].to == null) {
-						Edge e1 = new Edge("unresolved", STYLE_EDGE__UIMPORT, a.getVertex(), edges[0].getVertex());
+					if(edges.get(0).to == null) {
+						Edge e1 = new Edge("unresolved", STYLE_EDGE__UIMPORT, a.getVertex(), edges.get(0).getVertex());
 						g.addEdge(e1);
 						addTooltip(tooltipString, e1);
 						addStyleClasses(styleClasses, e1);
@@ -845,8 +846,8 @@ public class DependencyDataCalculator implements DependencyGraphStyles, Dependen
 					}
 					// CASE 8 (reference to pptp - do not draw imports -> pptp part)
 					// A -->[...]
-					else if(edges[0].to == pptpNode) {
-						Edge e1 = new Edge("puppet", STYLE_EDGE__IMPORT, a.getVertex(), edges[0].getVertex());
+					else if(edges.get(0).to == pptpNode) {
+						Edge e1 = new Edge("puppet", STYLE_EDGE__IMPORT, a.getVertex(), edges.get(0).getVertex());
 						g.addEdge(e1);
 						// default tooltip == label
 						addStyleClasses(styleClasses, e1);
@@ -856,10 +857,11 @@ public class DependencyDataCalculator implements DependencyGraphStyles, Dependen
 					// CASE 2 (and CASE 0 - self reference)
 					// A -->[...] ~~> B
 					else {
-						if(edges[0].from != edges[0].to) { // skip self references
-							Edge e1 = new Edge("", STYLE_EDGE__IMPORT, a.getVertex(), edges[0].getVertex());
+						if(edges.get(0).from != edges.get(0).to) { // skip self references
+							Edge e1 = new Edge("", STYLE_EDGE__IMPORT, a.getVertex(), edges.get(0).getVertex());
 							Edge e2 = new Edge(
-								"implicit", STYLE_EDGE__IMPLIED_DEP, edges[0].getVertex(), edges[0].to.getVertex());
+								"implicit", STYLE_EDGE__IMPLIED_DEP, edges.get(0).getVertex(),
+								edges.get(0).to.getVertex());
 							g.addEdge(e1, e2);
 							addTooltip(tooltipString, e1, e2);
 							addStyleClasses(styleClasses, e1, e2);
@@ -870,10 +872,10 @@ public class DependencyDataCalculator implements DependencyGraphStyles, Dependen
 				// CASE 3
 				// A --> [...] ~~>(not in range) B
 				else if(count == 2 && implied == 1 && unresolved == 1) {
-					Edge e1 = new Edge("", STYLE_EDGE__IMPORT, a.getVertex(), edges[1].getVertex());
-					String label = "implicit\\nunresolved\\n" + getVersionLabel(edges[0]);
+					Edge e1 = new Edge("", STYLE_EDGE__IMPORT, a.getVertex(), edges.get(1).getVertex());
+					String label = "implicit\\nunresolved\\n" + getVersionLabel(edges.get(0));
 					Edge e2 = new Edge(label, STYLE_EDGE__UNRESOLVED_IMPLIED_DEP, //
-					edges[1].getVertex(), edges[1].to.getVertex());
+					edges.get(1).getVertex(), edges.get(1).to.getVertex());
 					g.addEdge(e1, e2);
 					addTooltip(tooltipString, e1, e2);
 					addStyleClasses(styleClasses, e1, e2);
@@ -883,8 +885,8 @@ public class DependencyDataCalculator implements DependencyGraphStyles, Dependen
 				else if(count == 1 && unresolved == 1) {
 					// CASE 7
 					// A ~~> B where B is not in range
-					if(edges[0].to.exists()) {
-						String label = "unresolved\\n" + getVersionLabel(edges[0]);
+					if(edges.get(0).to.exists()) {
+						String label = "unresolved\\n" + getVersionLabel(edges.get(0));
 						Edge e1 = new Edge(label, STYLE_EDGE__UNRESOLVED_IMPLIED_DEP, //
 						a.getVertex(), b.getVertex());
 						g.addEdge(e1);
@@ -895,7 +897,7 @@ public class DependencyDataCalculator implements DependencyGraphStyles, Dependen
 					// CASE 4
 					// A --> B where B does not exist
 					else {
-						String label = "unresolved\\n" + getVersionLabel(edges[0]);
+						String label = "unresolved\\n" + getVersionLabel(edges.get(0));
 						Edge e1 = new Edge(label, STYLE_EDGE__UNRESOLVED_DEP, //
 						a.getVertex(), b.getVertex());
 						g.addEdge(e1);
@@ -908,14 +910,14 @@ public class DependencyDataCalculator implements DependencyGraphStyles, Dependen
 				// A --> B
 				// (nothing is imported from B)
 				else if(count == 1 && resolved == 1) {
-					Edge e1 = new Edge(getVersionLabel(edges[0]), STYLE_EDGE__RESOLVED_DEP, //
+					Edge e1 = new Edge(getVersionLabel(edges.get(0)), STYLE_EDGE__RESOLVED_DEP, //
 					a.getVertex(), b.getVertex());
 					g.addEdge(e1);
 					addTooltip(tooltipString, e1);
 					addStyleClasses(styleClasses, e1);
 					addEdgeHref(a, b, e1);
 				}
-				else if(count == 2 && implied == 2) {
+				else if(count == implied) {
 					// TODO: Figure out what this means. It happens when importing puppetlabs/stdlib into
 					// cloudsmith/wordpress:
 					//
@@ -923,19 +925,21 @@ public class DependencyDataCalculator implements DependencyGraphStyles, Dependen
 					// b=root/puppet
 				}
 				else {
-					StringBuilder builder = new StringBuilder();
-					builder.append("Internal Error - illegal combination of recorded edges");
-					builder.append(" count=");
-					builder.append(count);
-					builder.append(" resolved=");
-					builder.append(resolved);
-					builder.append(" unresolved=");
-					builder.append(unresolved);
-					builder.append(" a =");
-					builder.append(a.name);
-					builder.append(" b=");
-					builder.append(b.name);
-					chain.addChild(new Diagnostic(Diagnostic.ERROR, DEPENDENCY_DATA_CALCULATOR, builder.toString()));
+					//					StringBuilder builder = new StringBuilder();
+					//					builder.append("Internal Error - illegal combination of recorded edges");
+					//					builder.append(" count=");
+					//					builder.append(count);
+					//					builder.append(" resolved=");
+					//					builder.append(resolved);
+					//					builder.append(" unresolved=");
+					//					builder.append(unresolved);
+					//					builder.append(" a =");
+					//					builder.append(a.name);
+					//					builder.append(" b=");
+					//					builder.append(b == null
+					//							? "implied"
+					//							: b.name);
+					//					chain.addChild(new Diagnostic(Diagnostic.ERROR, DEPENDENCY_DATA_CALCULATOR, builder.toString()));
 				}
 
 			}

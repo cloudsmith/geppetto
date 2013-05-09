@@ -4,7 +4,7 @@ Bundle-Name: %pluginName
 Bundle-Vendor: %providerName
 Bundle-Localization: plugin
 Bundle-SymbolicName: org.cloudsmith.geppetto.ruby.jrubyparser;singleton:=true
-Bundle-Version: 3.0.3.qualifier
+Bundle-Version: 3.2.0.qualifier
 Require-Bundle: org.cloudsmith.geppetto.ruby,
  org.cloudsmith.jrubyparser,
  org.cloudsmith.geppetto.common,

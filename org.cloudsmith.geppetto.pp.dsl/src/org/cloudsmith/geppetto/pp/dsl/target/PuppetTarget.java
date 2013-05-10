@@ -94,7 +94,7 @@ public enum PuppetTarget {
 	 * @return The Puppet Enterprise version or <code>null</code> if this target is not PE
 	 */
 	public Version getPEVersion() {
-		return version;
+		return peVersion;
 	}
 
 	public URI getPlatformURI() {

@@ -515,7 +515,9 @@ public class DependencyDataCalculator implements DependencyGraphStyles, Dependen
 	}
 
 	private Vertex createVertexForPPNodeNode(ModuleNodeData mnd) {
-		String label = mnd.name.toString();
+		String label = mnd.name == null
+				? ""
+				: mnd.name.toString();
 		// no version (user is not aware of one).
 		String style = STYLE_CLASS_PPNODE_MODULE;
 		Vertex v = new Vertex(label, style);

@@ -17,18 +17,19 @@ import org.eclipse.emf.common.util.URI;
 
 public enum PuppetTarget {
 	// @fmtOff
-	PUPPET26("2.6.9", "2.6", "puppet-2.6.9.pptp", false, ComplianceLevel.PUPPET_2_6),
-	PUPPET27("2.7.19", "2.7", "puppet-2.7.19.pptp", false, ComplianceLevel.PUPPET_2_7),
-	PUPPET30("3.0.0", "3.0", "puppet-3.0.0.pptp", false, ComplianceLevel.PUPPET_3_0),
-	PUPPET32("3.2.0", "3.2", "puppet-3.2.0.pptp", false, ComplianceLevel.PUPPET_3_2),
-	PUPPET_FUTURE("3.2.0", "future", "puppet-3.2.0.pptp", false, ComplianceLevel.PUPPET_FUTURE),
-	PUPPET_ENTERPRISE20("2.0.2", "PE 2.0", "puppet-2.7.19.pptp", true, ComplianceLevel.PUPPET_2_7),
-	PUPPET_ENTERPRISE27("2.7.2", "PE 2.7", "puppet-2.7.19.pptp", true, ComplianceLevel.PUPPET_2_7);
+	PUPPET26("2.6.9", "2.6", "puppet-2.6.9.pptp", null, ComplianceLevel.PUPPET_2_6),
+	PUPPET27("2.7.19", "2.7", "puppet-2.7.19.pptp", null, ComplianceLevel.PUPPET_2_7),
+	PUPPET30("3.0.0", "3.0", "puppet-3.0.0.pptp", null, ComplianceLevel.PUPPET_3_0),
+	PUPPET32("3.2.0", "3.2", "puppet-3.2.0.pptp", null, ComplianceLevel.PUPPET_3_2),
+	PUPPET_FUTURE("3.2.0", "future", "puppet-3.2.0.pptp", null, ComplianceLevel.PUPPET_FUTURE),
+	PUPPET_ENTERPRISE20("2.7.9", "PE 2.0", "puppet-2.7.19.pptp", "2.0.2", ComplianceLevel.PUPPET_2_7), // TODO: Fix a 2.7.9 pptp
+	PUPPET_ENTERPRISE27("2.7.19", "PE 2.7", "puppet-2.7.19.pptp", "2.7.2", ComplianceLevel.PUPPET_2_7),
+	PUPPET_ENTERPRISE28("2.7.19", "PE 2.8", "puppet-2.7.19.pptp", "2.8.1", ComplianceLevel.PUPPET_2_7); // TODO: Figure out what pptp to use
 	// @fmtOn
 
 	public static PuppetTarget forComplianceLevel(ComplianceLevel level, boolean enterprise) {
 		for(PuppetTarget target : values())
-			if(target.complianceLevel == level && target.enterprise == enterprise)
+			if(target.complianceLevel == level && enterprise == target.isPuppetEnterprise())
 				return target;
 		StringBuilder bld = new StringBuilder();
 		bld.append("No ");
@@ -63,19 +64,19 @@ public enum PuppetTarget {
 
 	private final Version version;
 
-	private final String literal;
+	private final Version peVersion;
 
-	private final boolean enterprise;
+	private final String literal;
 
 	private final ComplianceLevel complianceLevel;
 
 	private final URI targetURI;
 
-	PuppetTarget(String version, String literal, String targetURI, boolean enterprise, ComplianceLevel complianceLevel) {
+	PuppetTarget(String version, String literal, String targetURI, String peVersion, ComplianceLevel complianceLevel) {
 		this.version = Version.create(version);
 		this.literal = literal;
 		this.targetURI = PptpResourceUtil.getURI(targetURI);
-		this.enterprise = enterprise;
+		this.peVersion = Version.create(peVersion);
 		this.complianceLevel = complianceLevel;
 	}
 
@@ -87,6 +88,15 @@ public enum PuppetTarget {
 		return literal;
 	}
 
+	/**
+	 * Returns the Puppet Enterprise version if applicable.
+	 * 
+	 * @return The Puppet Enterprise version or <code>null</code> if this target is not PE
+	 */
+	public Version getPEVersion() {
+		return version;
+	}
+
 	public URI getPlatformURI() {
 		return targetURI;
 	}
@@ -96,6 +106,6 @@ public enum PuppetTarget {
 	}
 
 	public boolean isPuppetEnterprise() {
-		return enterprise;
+		return peVersion != null;
 	}
 }

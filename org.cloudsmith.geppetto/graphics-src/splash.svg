@@ -106,12 +106,14 @@
          y="882.36218">Geppetto</tspan></text>
     <text
        xml:space="preserve"
-       style="font-size:14px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;line-height:100%;writing-mode:lr;text-anchor:middle;fill:#f9c753;fill-opacity:1;stroke:none;font-family:Verdana;-inkscape-font-specification:Verdana"
+       style="font-size:14px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;line-height:100%;writing-mode:lr-tb;text-anchor:middle;fill:#f9c753;fill-opacity:1;stroke:none;font-family:Verdana;-inkscape-font-specification:Verdana"
        x="227"
        y="986.36218"
        id="text3723"
        sodipodi:linespacing="100%"><tspan
          sodipodi:role="line"
-         id="tspan2821">© Cloudsmith Inc., 2012.  All rights reserved.</tspan></text>
+         id="tspan2821"
+         x="227"
+         y="986.36218">© Cloudsmith Inc., 2013.  All rights reserved.</tspan></text>
   </g>
 </svg>

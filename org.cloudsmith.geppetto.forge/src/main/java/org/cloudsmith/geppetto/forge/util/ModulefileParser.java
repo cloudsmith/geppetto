@@ -19,6 +19,10 @@ import java.util.List;
 import org.cloudsmith.geppetto.diagnostic.Diagnostic;
 import org.cloudsmith.geppetto.diagnostic.FileDiagnostic;
 import org.cloudsmith.geppetto.forge.Forge;
+import org.cloudsmith.geppetto.forge.v2.model.Dependency;
+import org.cloudsmith.geppetto.forge.v2.model.ModuleName;
+import org.cloudsmith.geppetto.semver.Version;
+import org.cloudsmith.geppetto.semver.VersionRange;
 import org.jrubyparser.SourcePosition;
 import org.jrubyparser.ast.FCallNode;
 import org.jrubyparser.ast.IArgumentNode;
@@ -77,6 +81,55 @@ public abstract class ModulefileParser {
 	}
 
 	protected abstract void call(CallSymbol key, SourcePosition pos, List<Argument> arguments);
+
+	protected Dependency createDependency(String name, String versionRequirement, SourcePosition pos) {
+		Dependency dep = new DependencyWithPosition(
+			pos.getStartOffset(), pos.getEndOffset() - pos.getStartOffset(), pos.getStartLine(),
+			new File(pos.getFile()));
+		dep.setName(createModuleName(name, pos));
+		if(versionRequirement != null)
+			try {
+				dep.setVersionRequirement(VersionRange.create(versionRequirement));
+			}
+			catch(IllegalArgumentException e) {
+				addError(pos, e.getMessage());
+			}
+		return dep;
+	}
+
+	protected ModuleName createModuleName(String name, SourcePosition pos) {
+		if(name == null)
+			return null;
+
+		name = name.trim();
+		if(name.length() == 0)
+			return null;
+
+		ModuleName m = null;
+		try {
+			m = new ModuleName(name, true);
+		}
+		catch(IllegalArgumentException e1) {
+			try {
+				m = new ModuleName(name, false);
+				addWarning(pos, e1.getMessage());
+			}
+			catch(IllegalArgumentException e2) {
+				addError(pos, e2.getMessage());
+			}
+		}
+		return m;
+	}
+
+	protected Version createVersion(String version, SourcePosition pos) {
+		try {
+			return Version.create(version);
+		}
+		catch(IllegalArgumentException e) {
+			addError(pos, e.getMessage());
+			return null;
+		}
+	}
 
 	private List<Node> getStringArguments(IArgumentNode callNode) throws IllegalArgumentException {
 		Node argsNode = callNode.getArgs();

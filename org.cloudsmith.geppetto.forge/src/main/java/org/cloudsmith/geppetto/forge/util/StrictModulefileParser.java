@@ -11,15 +11,10 @@
  */
 package org.cloudsmith.geppetto.forge.util;
 
-import java.io.File;
 import java.util.List;
 
 import org.cloudsmith.geppetto.diagnostic.Diagnostic;
-import org.cloudsmith.geppetto.forge.v2.model.Dependency;
 import org.cloudsmith.geppetto.forge.v2.model.Metadata;
-import org.cloudsmith.geppetto.forge.v2.model.ModuleName;
-import org.cloudsmith.geppetto.semver.Version;
-import org.cloudsmith.geppetto.semver.VersionRange;
 import org.jrubyparser.SourcePosition;
 import org.jrubyparser.ast.RootNode;
 
@@ -35,20 +30,8 @@ public class StrictModulefileParser extends ModulefileParser {
 		this.md = md;
 	}
 
-	private void addDependency(SourcePosition pos, String name, String versionRequirement) {
-		Dependency dep = new DependencyWithPosition(
-			pos.getStartOffset(), pos.getEndOffset() - pos.getStartOffset(), pos.getStartLine(),
-			new File(pos.getFile()));
-		dep.setName(createModuleName(name, pos));
-		if(versionRequirement != null)
-			try {
-				dep.setVersionRequirement(VersionRange.create(versionRequirement));
-			}
-			catch(IllegalArgumentException e) {
-				addError(pos, e.getMessage());
-			}
-		md.getDependencies().add(dep);
-
+	private void addDependency(String name, String versionRequirement, SourcePosition pos) {
+		md.getDependencies().add(createDependency(name, versionRequirement, pos));
 	}
 
 	@Override
@@ -62,7 +45,7 @@ public class StrictModulefileParser extends ModulefileParser {
 						md.setAuthor(arg);
 						break;
 					case dependency:
-						addDependency(pos, arg, null);
+						addDependency(arg, null, pos);
 						break;
 					case description:
 						md.setDescription(arg);
@@ -83,18 +66,16 @@ public class StrictModulefileParser extends ModulefileParser {
 						md.setSummary(arg);
 						break;
 					case version:
-						try {
-							md.setVersion(Version.create(arg));
-						}
-						catch(IllegalArgumentException e) {
-							addError(pos, e.getMessage());
-						}
+						md.setVersion(createVersion(arg, pos));
+						break;
+					case dependencies:
+						noResponse(key.name(), pos, 1);
 				}
 				break;
 			case 2:
 			case 3:
 				if(key == CallSymbol.dependency) {
-					addDependency(pos, args.get(0).toStringOrNull(), args.get(1).toStringOrNull());
+					addDependency(args.get(0).toStringOrNull(), args.get(1).toStringOrNull(), pos);
 					if(nargs == 3)
 						addWarning(pos, "Ignoring third argument to dependency");
 					break;
@@ -103,30 +84,6 @@ public class StrictModulefileParser extends ModulefileParser {
 			default:
 				noResponse(key.name(), pos, 0);
 		}
-	}
-
-	private ModuleName createModuleName(String name, SourcePosition pos) {
-		if(name == null)
-			return null;
-
-		name = name.trim();
-		if(name.length() == 0)
-			return null;
-
-		ModuleName m = null;
-		try {
-			m = new ModuleName(name, true);
-		}
-		catch(IllegalArgumentException e1) {
-			try {
-				m = new ModuleName(name, false);
-				addWarning(pos, e1.getMessage());
-			}
-			catch(IllegalArgumentException e2) {
-				addError(pos, e2.getMessage());
-			}
-		}
-		return m;
 	}
 
 	@Override

@@ -26,11 +26,51 @@ public class LenientModulefileParser extends ModulefileParser {
 	}
 
 	@Override
-	protected void call(CallSymbol key, SourcePosition pos, List<Argument> arguments) {
-		int nargs = arguments.size();
-		ArgSticker[] args = new ArgSticker[nargs];
+	protected void call(CallSymbol key, SourcePosition pos, List<Argument> args) {
+		int nargs = args.size();
+		switch(nargs) {
+			case 1:
+				switch(key) {
+					case name:
+						createModuleName(args.get(0).toStringOrNull(), pos);
+						break;
+					case version:
+						createVersion(args.get(0).toStringOrNull(), pos);
+						break;
+					case dependency:
+						createDependency(args.get(0).toStringOrNull(), null, pos);
+						break;
+					case author:
+					case description:
+					case license:
+					case project_page:
+					case source:
+					case summary:
+						break;
+					default:
+						noResponse(key.name(), pos, 1);
+						return;
+				}
+				break;
+			case 2:
+			case 3:
+				if(key == CallSymbol.dependency) {
+					createDependency(args.get(0).toStringOrNull(), args.get(1).toStringOrNull(), pos);
+					if(nargs == 3)
+						addWarning(pos, "Ignoring third argument to dependency");
+					break;
+				}
+				// Fall through
+			default:
+				noResponse(key.name(), pos, nargs);
+				return;
+		}
+
+		ArgSticker[] argStickers = new ArgSticker[nargs];
 		for(int idx = 0; idx < nargs; ++idx)
-			args[idx] = new ArgSticker(arguments.get(idx));
-		model.addCall(key, new CallSticker(pos.getStartOffset(), pos.getEndOffset() - pos.getStartOffset(), args));
+			argStickers[idx] = new ArgSticker(args.get(idx));
+
+		model.addCall(
+			key, new CallSticker(pos.getStartOffset(), pos.getEndOffset() - pos.getStartOffset(), argStickers));
 	}
 }

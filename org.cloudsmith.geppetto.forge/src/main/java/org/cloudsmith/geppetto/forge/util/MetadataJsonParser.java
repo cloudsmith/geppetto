@@ -115,8 +115,8 @@ public abstract class MetadataJsonParser extends JsonPositionalParser {
 			}
 			catch(IllegalArgumentException e) {
 				try {
-					new ModuleName(moduleName, false);
 					chain.addChild(createDiagnostic(jsonName, Diagnostic.WARNING, e.getMessage()));
+					new ModuleName(moduleName, false);
 				}
 				catch(IllegalArgumentException e2) {
 					chain.addChild(createDiagnostic(jsonName, Diagnostic.ERROR, e2.getMessage()));

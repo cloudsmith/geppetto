@@ -242,16 +242,16 @@ class ModuleOverviewPage extends GuardedModulePage {
 			try {
 				MetadataModel model = getModel();
 				String[] qname = ModuleName.splitName(emptyIfNull(model.getModuleName()));
-				String owner = emptyIfNull(qname[0]);
-				String name = emptyIfNull(qname[1]);
-				userText.setText(owner);
+				String owner = qname[0];
+				String name = qname[1];
+				userText.setText(emptyIfNull(owner));
 				validateName(owner, null, userText, "_UI_Module_owner_missing");
-				nameText.setText(name);
+				nameText.setText(emptyIfNull(name));
 				validateName(name, null, nameText, "_UI_Module_name_missing");
 
-				String version = emptyIfNull(model.getVersion());
-				versionText.setText(version);
-				validateVersion(version, versionText);
+				String version = model.getVersion();
+				versionText.setText(emptyIfNull(version));
+				validateVersion(trimToNull(version), versionText);
 
 				authorText.setText(model.getAuthor());
 				licenseText.setText(model.getLicense());

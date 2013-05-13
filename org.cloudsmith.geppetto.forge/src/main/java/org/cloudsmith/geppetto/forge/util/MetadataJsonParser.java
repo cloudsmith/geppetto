@@ -19,6 +19,7 @@ import java.util.List;
 import org.cloudsmith.geppetto.diagnostic.Diagnostic;
 import org.cloudsmith.geppetto.diagnostic.DiagnosticType;
 import org.cloudsmith.geppetto.diagnostic.FileDiagnostic;
+import org.cloudsmith.geppetto.forge.Forge;
 import org.cloudsmith.geppetto.forge.v2.model.ModuleName;
 import org.cloudsmith.geppetto.semver.Version;
 import org.cloudsmith.geppetto.semver.VersionRange;
@@ -37,10 +38,62 @@ public abstract class MetadataJsonParser extends JsonPositionalParser {
 		return diag;
 	}
 
+	protected ModuleName createModuleName(JElement jsonName, Diagnostic chain) {
+		String moduleName = validateString(jsonName, CallSymbol.name.name(), chain);
+		if(moduleName == null)
+			return null;
+
+		try {
+			return new ModuleName(moduleName, true);
+		}
+		catch(IllegalArgumentException e) {
+			try {
+				chain.addChild(createDiagnostic(jsonName, Diagnostic.WARNING, e.getMessage()));
+				return new ModuleName(moduleName, false);
+			}
+			catch(IllegalArgumentException e2) {
+				chain.addChild(createDiagnostic(jsonName, Diagnostic.ERROR, e2.getMessage()));
+				return null;
+			}
+		}
+	}
+
+	protected Version createVersion(JElement jsonVersion, Diagnostic chain) {
+		String version = validateString(jsonVersion, CallSymbol.version.name(), chain);
+		if(version == null)
+			return null;
+
+		try {
+			return Version.create(version);
+		}
+		catch(IllegalArgumentException e) {
+			chain.addChild(createDiagnostic(jsonVersion, Diagnostic.ERROR, e.getMessage()));
+			return null;
+
+		}
+	}
+
+	protected VersionRange createVersionRequirement(JElement jsonVersionRequirement, Diagnostic chain) {
+		String versionRequirement = validateString(jsonVersionRequirement, "version_requirement", chain);
+		if(versionRequirement == null)
+			return null;
+		try {
+			return VersionRange.create(versionRequirement);
+		}
+		catch(IllegalArgumentException e) {
+			chain.addChild(createDiagnostic(jsonVersionRequirement, Diagnostic.ERROR, e.getMessage()));
+			return null;
+		}
+	}
+
 	public void parse(File file, String content, Diagnostic chain) throws JsonParseException, IOException {
 		JElement root = parse(file, content);
 		if(!(root instanceof JObject))
 			throw new JsonParseException("Excpected Json Object", JsonLocation.NA);
+
+		ModuleName fullName = null;
+		boolean nameSeen = false;
+		boolean versionSeen = false;
 
 		for(JEntry entry : ((JObject) root).getEntries()) {
 			try {
@@ -50,10 +103,14 @@ public abstract class MetadataJsonParser extends JsonPositionalParser {
 					throw new IllegalArgumentException();
 
 				JElement args = entry.getElement();
-				if(symbol == CallSymbol.name)
-					validateModuleName(args, chain);
-				else if(symbol == CallSymbol.version)
-					validateVersion(args, chain);
+				if(symbol == CallSymbol.name) {
+					fullName = createModuleName(args, chain);
+					nameSeen = true;
+				}
+				else if(symbol == CallSymbol.version) {
+					createVersion(args, chain);
+					versionSeen = true;
+				}
 				else
 					switch(symbol) {
 						case dependencies:
@@ -80,6 +137,15 @@ public abstract class MetadataJsonParser extends JsonPositionalParser {
 				chain.addChild(createDiagnostic(entry, Diagnostic.ERROR, "Unrecognized call: " + entry.getKey()));
 			}
 		}
+
+		if(!nameSeen || fullName != null && (fullName.getOwner() == null || fullName.getName() == null)) {
+			chain.addChild(new FileDiagnostic(
+				Diagnostic.ERROR, Forge.PACKAGE, "A full name (user-module) must be specified", file));
+		}
+
+		if(!versionSeen) {
+			chain.addChild(new FileDiagnostic(Diagnostic.ERROR, Forge.PACKAGE, "A version must be specified", file));
+		}
 	}
 
 	protected List<JElement> validateArray(JElement element, String symbol, Diagnostic chain) {
@@ -98,29 +164,11 @@ public abstract class MetadataJsonParser extends JsonPositionalParser {
 		for(JElement dep : validateArray(args, name, chain)) {
 			for(JEntry entry : validateObject(dep, name, chain)) {
 				if("name".equals(entry.getKey()))
-					validateModuleName(entry.getElement(), chain);
+					createModuleName(entry.getElement(), chain);
 				else if("version_requirement".equals(entry.getKey()) || "versionRequirement".equals(entry.getKey()))
-					validateVersionRequirement(entry.getElement(), chain);
+					createVersionRequirement(entry.getElement(), chain);
 				else
 					chain.addChild(createDiagnostic(entry, Diagnostic.WARNING, "Unrecognized entry: " + entry.getKey()));
-			}
-		}
-	}
-
-	protected void validateModuleName(JElement jsonName, Diagnostic chain) {
-		String moduleName = validateString(jsonName, CallSymbol.name.name(), chain);
-		if(moduleName != null) {
-			try {
-				new ModuleName(moduleName, true);
-			}
-			catch(IllegalArgumentException e) {
-				try {
-					chain.addChild(createDiagnostic(jsonName, Diagnostic.WARNING, e.getMessage()));
-					new ModuleName(moduleName, false);
-				}
-				catch(IllegalArgumentException e2) {
-					chain.addChild(createDiagnostic(jsonName, Diagnostic.ERROR, e2.getMessage()));
-				}
 			}
 		}
 	}
@@ -165,30 +213,6 @@ public abstract class MetadataJsonParser extends JsonPositionalParser {
 						validateNamedDocEntry(param, key, chain);
 				else
 					chain.addChild(createDiagnostic(entry, Diagnostic.WARNING, "Unrecognized entry: " + entry.getKey()));
-			}
-		}
-	}
-
-	protected void validateVersion(JElement jsonVersion, Diagnostic chain) {
-		String version = validateString(jsonVersion, CallSymbol.version.name(), chain);
-		if(version != null) {
-			try {
-				Version.create(version);
-			}
-			catch(IllegalArgumentException e) {
-				chain.addChild(createDiagnostic(jsonVersion, Diagnostic.ERROR, e.getMessage()));
-			}
-		}
-	}
-
-	protected void validateVersionRequirement(JElement jsonVersionRequirement, Diagnostic chain) {
-		String versionRequirement = validateString(jsonVersionRequirement, "version_requirement", chain);
-		if(versionRequirement != null) {
-			try {
-				VersionRange.create(versionRequirement);
-			}
-			catch(IllegalArgumentException e) {
-				chain.addChild(createDiagnostic(jsonVersionRequirement, Diagnostic.ERROR, e.getMessage()));
 			}
 		}
 	}

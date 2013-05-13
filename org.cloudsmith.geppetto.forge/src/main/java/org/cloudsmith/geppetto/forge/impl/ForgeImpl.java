@@ -46,7 +46,6 @@ import org.cloudsmith.geppetto.common.os.FileUtils;
 import org.cloudsmith.geppetto.common.os.StreamUtil;
 import org.cloudsmith.geppetto.diagnostic.Diagnostic;
 import org.cloudsmith.geppetto.diagnostic.ExceptionDiagnostic;
-import org.cloudsmith.geppetto.diagnostic.FileDiagnostic;
 import org.cloudsmith.geppetto.forge.AlreadyPublishedException;
 import org.cloudsmith.geppetto.forge.Cache;
 import org.cloudsmith.geppetto.forge.ERB;
@@ -130,21 +129,6 @@ class ForgeImpl implements Forge {
 			// Metadata could not be read. Errors are in result
 			return null;
 
-		ModuleName fullName = md.getName();
-		if(fullName == null || fullName.getOwner() == null || fullName.getName() == null) {
-			result.addChild(new FileDiagnostic(
-				Diagnostic.ERROR, Forge.PACKAGE, "A full name (user-module) must be specified in the Modulefile",
-				extractedFrom[0]));
-			return null;
-		}
-
-		Version ver = md.getVersion();
-		if(ver == null) {
-			result.addChild(new FileDiagnostic(
-				Diagnostic.ERROR, Forge.PACKAGE, "A version must be specified in the Modulefile", extractedFrom[0]));
-			return null;
-		}
-
 		for(File tst = destination; tst != null; tst = tst.getParentFile()) {
 			if(fileFilter.accept(tst))
 				// Destination folder might reside inside of the module when it
@@ -154,6 +138,12 @@ class ForgeImpl implements Forge {
 			if(tst.equals(moduleSource))
 				throw new IllegalArgumentException("Destination cannot reside within the module itself");
 		}
+
+		ModuleName fullName = md.getName();
+		Version ver = md.getVersion();
+		if(fullName == null || ver == null)
+			// Reason has been added to the Diagnostic result
+			return null;
 
 		/**
 		 * Copy the module to the location where it's being built. Ensure that it's
@@ -218,19 +208,6 @@ class ForgeImpl implements Forge {
 			result.addChild(new Diagnostic(Diagnostic.ERROR, Forge.FORGE, "No Module Metadata found in directory " +
 					moduleDirectory.getAbsolutePath()));
 			return null;
-		}
-
-		ModuleName fullName = md.getName();
-		if(fullName == null || fullName.getOwner() == null || fullName.getName() == null) {
-			result.addChild(new FileDiagnostic(
-				Diagnostic.ERROR, Forge.FORGE, "A full name (user-module) must be specified in the Modulefile",
-				extractedFrom[0]));
-		}
-
-		Version ver = md.getVersion();
-		if(ver == null) {
-			result.addChild(new FileDiagnostic(
-				Diagnostic.ERROR, Forge.FORGE, "A version must be specified in the Modulefile", extractedFrom[0]));
 		}
 		return md;
 	}

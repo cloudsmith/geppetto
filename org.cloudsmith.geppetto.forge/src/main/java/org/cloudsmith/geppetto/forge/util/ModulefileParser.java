@@ -63,6 +63,12 @@ public abstract class ModulefileParser {
 
 	private Diagnostic diagnostics;
 
+	private ModuleName fullName;
+
+	private boolean nameSeen;
+
+	private boolean versionSeen;
+
 	protected void addDiagnostic(int severity, SourcePosition pos, String message) {
 		FileDiagnostic diag = new FileDiagnostic(severity, Forge.FORGE, message, new File(pos.getFile()));
 		diag.setLineNumber(pos.getEndLine() + 1);
@@ -131,6 +137,10 @@ public abstract class ModulefileParser {
 		}
 	}
 
+	public ModuleName getFullName() {
+		return fullName;
+	}
+
 	private List<Node> getStringArguments(IArgumentNode callNode) throws IllegalArgumentException {
 		Node argsNode = callNode.getArgs();
 		if(!(argsNode instanceof ListNode))
@@ -148,6 +158,14 @@ public abstract class ModulefileParser {
 						: argNode.getClass().getSimpleName()));
 		}
 		return stringArgs;
+	}
+
+	public boolean isNameSeen() {
+		return nameSeen;
+	}
+
+	public boolean isVersionSeen() {
+		return versionSeen;
 	}
 
 	protected void noResponse(String key, SourcePosition pos, int nargs) {
@@ -172,9 +190,16 @@ public abstract class ModulefileParser {
 
 	public void parseRubyAST(RootNode root, Diagnostic diagnostics) {
 		this.diagnostics = diagnostics;
+		nameSeen = false;
+		versionSeen = false;
+		fullName = null;
+		File file = null;
 		for(Node node : RubyParserUtils.findNodes(root.getBody(), new NodeType[] { NodeType.FCALLNODE })) {
 			FCallNode call = (FCallNode) node;
 			SourcePosition pos = call.getPosition();
+			if(file == null)
+				file = new File(pos.getFile());
+
 			String key = call.getName();
 			List<Node> args = getStringArguments(call);
 			int nargs = args.size();
@@ -206,5 +231,29 @@ public abstract class ModulefileParser {
 			}
 			call(callSymbol, pos, arguments);
 		}
+
+		if(file != null) {
+			if(!nameSeen || fullName != null && (fullName.getOwner() == null || fullName.getName() == null)) {
+				diagnostics.addChild(new FileDiagnostic(
+					Diagnostic.ERROR, Forge.PACKAGE, "A full name (user-module) must be specified", file));
+			}
+
+			if(!versionSeen) {
+				diagnostics.addChild(new FileDiagnostic(
+					Diagnostic.ERROR, Forge.PACKAGE, "A version must be specified", file));
+			}
+		}
+	}
+
+	public void setFullName(ModuleName fullName) {
+		this.fullName = fullName;
+	}
+
+	public void setNameSeen() {
+		nameSeen = true;
+	}
+
+	public void setVersionSeen() {
+		versionSeen = true;
 	}
 }

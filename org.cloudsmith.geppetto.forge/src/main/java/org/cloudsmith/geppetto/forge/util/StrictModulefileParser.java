@@ -15,6 +15,7 @@ import java.util.List;
 
 import org.cloudsmith.geppetto.diagnostic.Diagnostic;
 import org.cloudsmith.geppetto.forge.v2.model.Metadata;
+import org.cloudsmith.geppetto.forge.v2.model.ModuleName;
 import org.jrubyparser.SourcePosition;
 import org.jrubyparser.ast.RootNode;
 
@@ -53,9 +54,13 @@ public class StrictModulefileParser extends ModulefileParser {
 					case license:
 						md.setLicense(arg);
 						break;
-					case name:
-						md.setName(createModuleName(arg, pos));
+					case name: {
+						ModuleName name = createModuleName(arg, pos);
+						md.setName(name);
+						setNameSeen();
+						setFullName(name);
 						break;
+					}
 					case project_page:
 						md.setProjectPage(arg);
 						break;
@@ -67,6 +72,7 @@ public class StrictModulefileParser extends ModulefileParser {
 						break;
 					case version:
 						md.setVersion(createVersion(arg, pos));
+						setVersionSeen();
 						break;
 					case dependencies:
 						noResponse(key.name(), pos, 1);

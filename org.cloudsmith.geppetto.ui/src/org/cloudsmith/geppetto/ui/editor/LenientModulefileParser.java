@@ -31,12 +31,22 @@ public class LenientModulefileParser extends ModulefileParser {
 		switch(nargs) {
 			case 1:
 				switch(key) {
-					case name:
-						createModuleName(args.get(0).toStringOrNull(), pos);
+					case name: {
+						String name = args.get(0).toStringOrNull();
+						if(name != null) {
+							setFullName(createModuleName(name, pos));
+							setNameSeen();
+						}
 						break;
-					case version:
-						createVersion(args.get(0).toStringOrNull(), pos);
+					}
+					case version: {
+						String ver = args.get(0).toStringOrNull();
+						if(ver != null) {
+							createVersion(ver, pos);
+							setVersionSeen();
+						}
 						break;
+					}
 					case dependency:
 						createDependency(args.get(0).toStringOrNull(), null, pos);
 						break;

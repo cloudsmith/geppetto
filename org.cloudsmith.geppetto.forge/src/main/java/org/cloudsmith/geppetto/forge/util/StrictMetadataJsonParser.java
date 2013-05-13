@@ -159,7 +159,7 @@ public class StrictMetadataJsonParser extends MetadataJsonParser {
 		if(mname == null)
 			return null;
 
-		Dependency dep = new Dependency();
+		Dependency dep = new DependencyWithPosition(jsonDep);
 		dep.setName(mname);
 		try {
 			dep.setVersionRequirement(VersionRange.create(vreq));

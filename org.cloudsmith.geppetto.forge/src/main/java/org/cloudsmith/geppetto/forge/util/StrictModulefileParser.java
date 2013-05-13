@@ -11,6 +11,7 @@
  */
 package org.cloudsmith.geppetto.forge.util;
 
+import java.io.File;
 import java.util.List;
 
 import org.cloudsmith.geppetto.diagnostic.Diagnostic;
@@ -35,7 +36,9 @@ public class StrictModulefileParser extends ModulefileParser {
 	}
 
 	private void addDependency(SourcePosition pos, String name, String versionRequirement) {
-		Dependency dep = new Dependency();
+		Dependency dep = new DependencyWithPosition(
+			pos.getStartOffset(), pos.getEndOffset() - pos.getStartOffset(), pos.getStartLine(),
+			new File(pos.getFile()));
 		dep.setName(createModuleName(name, pos));
 		if(versionRequirement != null)
 			try {

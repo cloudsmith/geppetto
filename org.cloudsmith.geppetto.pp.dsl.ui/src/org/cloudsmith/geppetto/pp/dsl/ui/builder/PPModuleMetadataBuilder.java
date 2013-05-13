@@ -20,8 +20,10 @@ import java.util.Map;
 import org.apache.log4j.Logger;
 import org.cloudsmith.geppetto.common.tracer.DefaultTracer;
 import org.cloudsmith.geppetto.common.tracer.ITracer;
+import org.cloudsmith.geppetto.common.tracer.NullTracer;
 import org.cloudsmith.geppetto.diagnostic.Diagnostic;
 import org.cloudsmith.geppetto.diagnostic.FileDiagnostic;
+import org.cloudsmith.geppetto.forge.FilePosition;
 import org.cloudsmith.geppetto.forge.Forge;
 import org.cloudsmith.geppetto.forge.v2.model.Dependency;
 import org.cloudsmith.geppetto.forge.v2.model.Metadata;
@@ -44,6 +46,7 @@ import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.OperationCanceledException;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.SubMonitor;
@@ -70,6 +73,102 @@ import com.google.inject.Provider;
 public class PPModuleMetadataBuilder extends IncrementalProjectBuilder implements PPUiConstants {
 	private final static Logger log = Logger.getLogger(PPModuleMetadataBuilder.class);
 
+	/**
+	 * Returns the best matching project (or null if there is no match) among the projects in the
+	 * workspace
+	 * 
+	 * @param name
+	 *            The name of the module to match
+	 * @param versionRequirement
+	 *            The version requirement. Can be <code>null</code>.
+	 * @return The matching project or <code>null</code>.
+	 */
+	public static IProject getBestMatchingProject(ModuleName requiredName, VersionRange versionRequirement) {
+		return getBestMatchingProject(requiredName, versionRequirement, NullTracer.INSTANCE, new NullProgressMonitor());
+	}
+
+	private static IProject getBestMatchingProject(ModuleName name, VersionRange vr, ITracer tracer,
+			IProgressMonitor monitor) {
+		// Names with "/" are not allowed
+		if(name == null) {
+			if(tracer.isTracing())
+				tracer.trace("Dependency with missing name found");
+			return null;
+		}
+
+		name = name.withSeparator('-');
+		if(tracer.isTracing())
+			tracer.trace("Resolving required name: ", name);
+		BiMap<IProject, Version> candidates = HashBiMap.create();
+
+		if(tracer.isTracing())
+			tracer.trace("Checking against all projects...");
+		for(IProject p : getWorkspaceRoot().getProjects()) {
+			if(!isAccessiblePuppetProject(p)) {
+				if(tracer.isTracing())
+					tracer.trace("Project not accessible: ", p.getName());
+				continue;
+			}
+
+			Version version = null;
+			ModuleName moduleName = null;
+			try {
+				String mn = p.getPersistentProperty(PROJECT_PROPERTY_MODULENAME);
+				moduleName = mn == null
+						? null
+						: new ModuleName(mn);
+			}
+			catch(CoreException e) {
+				log.error("Could not read project Modulename property", e);
+			}
+			if(tracer.isTracing())
+				tracer.trace("Project: ", p.getName(), " has persisted name: ", moduleName);
+			boolean matched = false;
+			if(name.equals(moduleName))
+				matched = true;
+
+			if(tracer.isTracing()) {
+				if(!matched)
+					tracer.trace("== not matched on name");
+			}
+			// get the version from the persisted property
+			if(matched) {
+				try {
+					version = Version.create(p.getPersistentProperty(PROJECT_PROPERTY_MODULEVERSION));
+				}
+				catch(Exception e) {
+					log.error("Error while getting version from project", e);
+				}
+				if(version == null)
+					version = Version.MIN;
+				if(tracer.isTracing())
+					tracer.trace("Candidate with version; ", version.toString(), " added as candidate");
+				candidates.put(p, version);
+			}
+		}
+		if(candidates.isEmpty()) {
+			if(tracer.isTracing())
+				tracer.trace("No candidates found");
+			return null;
+		}
+		if(tracer.isTracing()) {
+			tracer.trace("Getting best version");
+		}
+		// find best version and do a lookup of project
+		if(vr == null)
+			vr = VersionRange.ALL_INCLUSIVE;
+		Version best = vr.findBestMatch(candidates.values());
+		if(best == null) {
+			if(tracer.isTracing())
+				tracer.trace("No best match found");
+			return null;
+		}
+		if(tracer.isTracing()) {
+			tracer.trace("Found best project: ", candidates.inverse().get(best).getName(), "having version:", best);
+		}
+		return candidates.inverse().get(best);
+	}
+
 	private static int getMarkerSeverity(Diagnostic diagnostic) {
 		int markerSeverity;
 		switch(diagnostic.getSeverity()) {
@@ -84,6 +183,20 @@ public class PPModuleMetadataBuilder extends IncrementalProjectBuilder implement
 				markerSeverity = IMarker.SEVERITY_INFO;
 		}
 		return markerSeverity;
+	}
+
+	private static IWorkspaceRoot getWorkspaceRoot() {
+		return ResourcesPlugin.getWorkspace().getRoot();
+	}
+
+	/**
+	 * TODO: Should check for the Puppet Nature instead of Xtext
+	 * 
+	 * @param p
+	 * @return
+	 */
+	private static boolean isAccessiblePuppetProject(IProject p) {
+		return p != null && XtextProjectHelper.hasNature(p);
 	}
 
 	private final Provider<IValidationAdvisor> validationAdvisorProvider;
@@ -195,6 +308,8 @@ public class PPModuleMetadataBuilder extends IncrementalProjectBuilder implement
 				m.setAttribute(IMarker.LOCATION, d.getName() + (vr == null
 						? ""
 						: vr.toString()));
+				if(d instanceof FilePosition)
+					m.setAttribute(IMarker.LINE_NUMBER, ((FilePosition) d).getLine() + 1);
 			}
 			else
 				m.setAttribute(IMarker.LOCATION, r.getName());
@@ -236,98 +351,6 @@ public class PPModuleMetadataBuilder extends IncrementalProjectBuilder implement
 		syncModulefile(monitor);
 	}
 
-	/**
-	 * Returns the best matching project (or null if there is no match) among the projects in the
-	 * workspace.
-	 * A translation is made from "/" to "-" in the separators in dependencies. (Should be checked elsewhere).
-	 * 
-	 * @param d
-	 * @return
-	 */
-	private IProject getBestMatchingProject(Dependency d, IProgressMonitor monitor) {
-		// Names with "/" are not allowed
-		ModuleName requiredName = d.getName();
-		if(requiredName == null) {
-			if(tracer.isTracing())
-				tracer.trace("Dependency with mising name found");
-			return null;
-		}
-
-		requiredName = requiredName.withSeparator('-');
-		if(tracer.isTracing())
-			tracer.trace("Resolving required name: ", requiredName);
-		BiMap<IProject, Version> candidates = HashBiMap.create();
-
-		if(tracer.isTracing())
-			tracer.trace("Checking against all projects...");
-		for(IProject p : getWorkspaceRoot().getProjects()) {
-			checkCancel(monitor);
-			if(!isAccessiblePuppetProject(p)) {
-				if(tracer.isTracing())
-					tracer.trace("Project not accessible: ", p.getName());
-				continue;
-			}
-
-			Version version = null;
-			ModuleName moduleName = null;
-			try {
-				String mn = p.getPersistentProperty(PROJECT_PROPERTY_MODULENAME);
-				moduleName = mn == null
-						? null
-						: new ModuleName(mn);
-			}
-			catch(CoreException e) {
-				log.error("Could not read project Modulename property", e);
-			}
-			if(tracer.isTracing())
-				tracer.trace("Project: ", p.getName(), " has persisted name: ", moduleName);
-			boolean matched = false;
-			if(requiredName.equals(moduleName))
-				matched = true;
-
-			if(tracer.isTracing()) {
-				if(!matched)
-					tracer.trace("== not matched on name");
-			}
-			// get the version from the persisted property
-			if(matched) {
-				try {
-					version = Version.create(p.getPersistentProperty(PROJECT_PROPERTY_MODULEVERSION));
-				}
-				catch(Exception e) {
-					log.error("Error while getting version from project", e);
-				}
-				if(version == null)
-					version = Version.MIN;
-				if(tracer.isTracing())
-					tracer.trace("Candidate with version; ", version.toString(), " added as candidate");
-				candidates.put(p, version);
-			}
-		}
-		if(candidates.isEmpty()) {
-			if(tracer.isTracing())
-				tracer.trace("No candidates found");
-			return null;
-		}
-		if(tracer.isTracing()) {
-			tracer.trace("Getting best version");
-		}
-		// find best version and do a lookup of project
-		VersionRange vr = d.getVersionRequirement();
-		if(vr == null)
-			vr = VersionRange.ALL_INCLUSIVE;
-		Version best = vr.findBestMatch(candidates.values());
-		if(best == null) {
-			if(tracer.isTracing())
-				tracer.trace("No best match found");
-			return null;
-		}
-		if(tracer.isTracing()) {
-			tracer.trace("Found best project: ", candidates.inverse().get(best).getName(), "having version:", best);
-		}
-		return candidates.inverse().get(best);
-	}
-
 	private IProject getProjectByName(String name) {
 		return getProject().getWorkspace().getRoot().getProject(name);
 	}
@@ -336,10 +359,6 @@ public class PPModuleMetadataBuilder extends IncrementalProjectBuilder implement
 		if(validationAdvisor == null)
 			validationAdvisor = validationAdvisorProvider.get();
 		return validationAdvisor;
-	}
-
-	private IWorkspaceRoot getWorkspaceRoot() {
-		return getProject().getWorkspace().getRoot();
 	}
 
 	private void incrementalBuild(IResourceDelta delta, final IProgressMonitor monitor) {
@@ -376,16 +395,6 @@ public class PPModuleMetadataBuilder extends IncrementalProjectBuilder implement
 			log.error(e.getMessage(), e);
 			syncModulefile(monitor);
 		}
-	}
-
-	/**
-	 * TODO: Should check for the Puppet Nature instead of Xtext
-	 * 
-	 * @param p
-	 * @return
-	 */
-	private boolean isAccessiblePuppetProject(IProject p) {
-		return p != null && XtextProjectHelper.hasNature(p);
 	}
 
 	/**
@@ -455,7 +464,7 @@ public class PPModuleMetadataBuilder extends IncrementalProjectBuilder implement
 		try {
 			for(Dependency d : metadata.getDependencies()) {
 				checkCancel(monitor);
-				IProject best = getBestMatchingProject(d, monitor);
+				IProject best = getBestMatchingProject(d.getName(), d.getVersionRequirement(), tracer, monitor);
 				if(best != null) {
 					if(!result.contains(best))
 						result.add(best);

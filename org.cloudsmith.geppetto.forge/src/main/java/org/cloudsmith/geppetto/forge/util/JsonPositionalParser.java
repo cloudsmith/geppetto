@@ -20,6 +20,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.cloudsmith.geppetto.forge.FilePosition;
 import org.codehaus.jackson.JsonFactory;
 import org.codehaus.jackson.JsonLocation;
 import org.codehaus.jackson.JsonParseException;
@@ -49,7 +50,7 @@ public class JsonPositionalParser {
 		}
 	}
 
-	public static abstract class JElement {
+	public static abstract class JElement implements FilePosition {
 		private final int offset;
 
 		private final int length;

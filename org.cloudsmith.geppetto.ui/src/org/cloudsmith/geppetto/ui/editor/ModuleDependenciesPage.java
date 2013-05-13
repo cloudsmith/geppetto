@@ -42,6 +42,7 @@ import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.UniqueEList;
+import org.eclipse.jface.dialogs.IMessageProvider;
 import org.eclipse.jface.layout.GridDataFactory;
 import org.eclipse.jface.layout.TableColumnLayout;
 import org.eclipse.jface.viewers.ColumnLabelProvider;
@@ -77,6 +78,7 @@ import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.dialogs.FilteredList;
 import org.eclipse.ui.forms.IManagedForm;
 import org.eclipse.ui.forms.IMessage;
+import org.eclipse.ui.forms.IMessageManager;
 import org.eclipse.ui.forms.widgets.FormToolkit;
 import org.eclipse.ui.forms.widgets.Section;
 import org.eclipse.xtext.ui.XtextProjectHelper;
@@ -299,6 +301,14 @@ class ModuleDependenciesPage extends GuardedModulePage {
 						return error;
 					if(os == IMessage.WARNING || is == IMessage.WARNING)
 						return warning;
+
+					MetadataModel.Dependency dep = (MetadataModel.Dependency) element;
+					if(!dep.isResolved()) {
+						IMessageManager msgManager = getManagedForm().getMessageManager();
+						msgManager.addMessage(
+							"d" + row, MetadataModel.getUnresolvedMessage(dep), null, IMessageProvider.ERROR);
+						return error;
+					}
 					return null;
 				}
 
@@ -333,6 +343,9 @@ class ModuleDependenciesPage extends GuardedModulePage {
 					catch(IllegalArgumentException e) {
 						return e.getMessage();
 					}
+					MetadataModel.Dependency dep = (MetadataModel.Dependency) element;
+					if(!dep.isResolved())
+						return MetadataModel.getUnresolvedMessage(dep);
 					return null;
 				}
 			});
@@ -396,13 +409,13 @@ class ModuleDependenciesPage extends GuardedModulePage {
 							if(results.length > 1) {
 								for(Object result : results) {
 									ModuleInfo module = (ModuleInfo) result;
-									model.addOrUpdateDependency(
+									model.addDependency(
 										module.getFullName().withSeparator('-').toString(),
 										module.getVersion().toString());
 								}
 							}
 							else
-								model.addOrUpdateDependency(dialog.getName(), dialog.getVersionRequirement());
+								model.addDependency(dialog.getName(), dialog.getVersionRequirement());
 							refresh();
 						}
 					}
@@ -429,7 +442,7 @@ class ModuleDependenciesPage extends GuardedModulePage {
 						dialog.setFilter(dependency.getModuleName());
 
 						if(dialog.open() == Window.OK) {
-							getModel().addOrUpdateDependency(dialog.getName(), dialog.getVersionRequirement());
+							dependency.setNameAndVersion(dialog.getName(), dialog.getVersionRequirement());
 							refresh();
 						}
 					}
@@ -546,6 +559,7 @@ class ModuleDependenciesPage extends GuardedModulePage {
 		public void refresh() {
 			refresh = true;
 			try {
+				clearMessages();
 				tableViewer.setInput(getModel());
 				super.refresh();
 			}

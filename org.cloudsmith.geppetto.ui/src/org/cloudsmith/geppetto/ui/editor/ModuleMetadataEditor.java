@@ -62,7 +62,7 @@ public class ModuleMetadataEditor extends FormEditor implements IGotoMarker {
 			model.addAnnotation(new DiagnosticAnnotation(diag), position);
 		}
 
-		static void clear(IAnnotationModel model) {
+		public static void clearBuilderAnnotations(IAnnotationModel model) {
 			Iterator<?> iter = model.getAnnotationIterator();
 			while(iter.hasNext()) {
 				Object a = iter.next();
@@ -77,7 +77,14 @@ public class ModuleMetadataEditor extends FormEditor implements IGotoMarker {
 					catch(CoreException e) {
 					}
 				}
-				else if(a instanceof DiagnosticAnnotation)
+			}
+		}
+
+		public static void clearDiagnosticAnnotations(IAnnotationModel model) {
+			Iterator<?> iter = model.getAnnotationIterator();
+			while(iter.hasNext()) {
+				Object a = iter.next();
+				if(a instanceof DiagnosticAnnotation)
 					model.removeAnnotation((Annotation) a);
 			}
 		}
@@ -147,6 +154,7 @@ public class ModuleMetadataEditor extends FormEditor implements IGotoMarker {
 			setPageText(addPage(sourcePage, getEditorInput()), UIPlugin.INSTANCE.getString("_UI_Source_title"));
 			sourcePage.getDocumentProvider().addElementStateListener(new ElementListener());
 			refreshModel();
+			sourcePage.initialize();
 
 			String name = getModuleName();
 			if(name != null)
@@ -168,6 +176,10 @@ public class ModuleMetadataEditor extends FormEditor implements IGotoMarker {
 	@Override
 	public void doSaveAs() {
 		// do nothing
+	}
+
+	ModuleDependenciesPage getDependenciesPage() {
+		return dependenciesPage;
 	}
 
 	IDocument getDocument() {
@@ -236,7 +248,9 @@ public class ModuleMetadataEditor extends FormEditor implements IGotoMarker {
 	}
 
 	private void refreshModel() {
-		model.setDocument(getDocument(), getPath(), new Diagnostic());
+		Diagnostic chain = new Diagnostic();
+		model.setDocument(getDocument(), getPath(), chain);
+		sourcePage.updateDiagnosticAnnotations(chain);
 		stale = false;
 	}
 }

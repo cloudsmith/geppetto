@@ -72,8 +72,9 @@ abstract class GuardedModulePage extends FormPage {
 					Form form = sform.getForm();
 					if(form != null) {
 						Composite head = form.getHead();
-						if(head != null && !head.isDisposed())
-							mform.getMessageManager().removeAllMessages();
+						if(head != null && !head.isDisposed()) {
+							mform.getMessageManager().removeMessages();
+						}
 					}
 				}
 			}

@@ -24,13 +24,15 @@ import java.util.Map;
 import org.cloudsmith.geppetto.diagnostic.Diagnostic;
 import org.cloudsmith.geppetto.diagnostic.DiagnosticType;
 import org.cloudsmith.geppetto.diagnostic.ExceptionDiagnostic;
+import org.cloudsmith.geppetto.diagnostic.FileDiagnostic;
 import org.cloudsmith.geppetto.forge.Forge;
 import org.cloudsmith.geppetto.forge.util.CallSymbol;
-import org.cloudsmith.geppetto.forge.util.ModuleUtils;
 import org.cloudsmith.geppetto.forge.util.RubyValueSerializer;
 import org.cloudsmith.geppetto.forge.util.ValueSerializer;
-import org.cloudsmith.geppetto.forge.v2.model.Metadata;
 import org.cloudsmith.geppetto.forge.v2.model.ModuleName;
+import org.cloudsmith.geppetto.pp.dsl.ui.builder.PPModuleMetadataBuilder;
+import org.cloudsmith.geppetto.semver.VersionRange;
+import org.cloudsmith.geppetto.ui.UIPlugin;
 import org.codehaus.jackson.JsonFactory;
 import org.codehaus.jackson.JsonGenerator;
 import org.codehaus.jackson.map.ObjectMapper;
@@ -49,14 +51,22 @@ public class MetadataModel {
 	public interface Dependency {
 		void delete();
 
+		int getLine();
+
 		String getModuleName();
 
 		String getVersionRequirement();
 
+		boolean isResolved();
+
 		void setNameAndVersion(String moduleName, String versionRequirement);
+
+		void setResolved(boolean flag);
 	}
 
 	class JsonDependency extends JsonObject implements Dependency {
+		private boolean resolved;
+
 		JsonDependency(ArgSticker depObj) {
 			super(depObj);
 		}
@@ -75,6 +85,10 @@ public class MetadataModel {
 			return getString(VERSION_REQUIREMENT);
 		}
 
+		public boolean isResolved() {
+			return resolved;
+		}
+
 		public void setNameAndVersion(String moduleName, String versionRequirement) {
 			Map<String, Object> map = getMap();
 			if(moduleName == null)
@@ -86,6 +100,10 @@ public class MetadataModel {
 			else
 				map.put(VERSION_REQUIREMENT, versionRequirement);
 			updateJson(4);
+		}
+
+		public void setResolved(boolean flag) {
+			resolved = flag;
 		}
 	}
 
@@ -102,6 +120,15 @@ public class MetadataModel {
 			}
 			catch(BadLocationException e) {
 				throw new RuntimeException(e);
+			}
+		}
+
+		public int getLine() {
+			try {
+				return document.getLineOfOffset(object.getOffset()) + 1;
+			}
+			catch(BadLocationException e) {
+				return -1;
 			}
 		}
 
@@ -166,12 +193,23 @@ public class MetadataModel {
 	class RubyDependency implements Dependency {
 		private CallSticker dependencyCall;
 
+		private boolean resolved;
+
 		RubyDependency(CallSticker dependency) {
 			this.dependencyCall = dependency;
 		}
 
 		public void delete() {
 			setArgValue(CallSymbol.dependency, dependencyCall);
+		}
+
+		public int getLine() {
+			try {
+				return document.getLineOfOffset(dependencyCall.getOffset()) + 1;
+			}
+			catch(BadLocationException e) {
+				return -1;
+			}
 		}
 
 		public String getModuleName() {
@@ -182,14 +220,31 @@ public class MetadataModel {
 			return getArgValue(dependencyCall, 1);
 		}
 
+		public boolean isResolved() {
+			return resolved;
+		}
+
 		public void setNameAndVersion(String moduleName, String versionRequirement) {
 			dependencyCall = setArgValue(CallSymbol.dependency, dependencyCall, moduleName, versionRequirement);
+		}
+
+		public void setResolved(boolean flag) {
+			resolved = flag;
 		}
 	}
 
 	private static final String VERSION_REQUIREMENT = "version_requirement";
 
 	private static final String NAME = "name";
+
+	public static String getUnresolvedMessage(Dependency dep) {
+		String vr = dep.getVersionRequirement();
+		return vr == null
+				? UIPlugin.INSTANCE.getString("_UI_Unresolved_dependency_X", new Object[] { dep.getModuleName() })
+				: UIPlugin.INSTANCE.getString(
+					"_UI_Unresolved_dependency_X_Y", new Object[] { dep.getModuleName(), dep.getVersionRequirement() });
+
+	}
 
 	private Parser rubyParser;
 
@@ -261,7 +316,7 @@ public class MetadataModel {
 		addPositions(call);
 	}
 
-	public void addOrUpdateDependency(String moduleName, String versionRequirement) {
+	public void addDependency(String moduleName, String versionRequirement) {
 		ModuleName m;
 		try {
 			m = new ModuleName(moduleName);
@@ -801,6 +856,27 @@ public class MetadataModel {
 					}
 					new LenientMetadataJsonParser(this).parse(path.toFile(), document.get(), chain);
 				}
+				for(Dependency dep : dependencies) {
+					ModuleName name;
+					VersionRange range;
+					try {
+						name = new ModuleName(dep.getModuleName(), false);
+						range = VersionRange.create(dep.getVersionRequirement());
+					}
+					catch(IllegalArgumentException e) {
+						// This error is already in diagnostics
+						continue;
+					}
+
+					boolean resolved = PPModuleMetadataBuilder.getBestMatchingProject(name, range) != null;
+					if(!resolved) {
+						FileDiagnostic diag = new FileDiagnostic(
+							Diagnostic.ERROR, Forge.FORGE, getUnresolvedMessage(dep), path.toFile());
+						diag.setLineNumber(dep.getLine());
+						chain.addChild(diag);
+					}
+					dep.setResolved(resolved);
+				}
 			}
 			catch(Exception e) {
 				chain.addChild(new ExceptionDiagnostic(
@@ -863,19 +939,5 @@ public class MetadataModel {
 		call.setOffset(sticker.getOffset());
 		call.setLength(sticker.getLength());
 		return call;
-	}
-
-	public void validate(IPath path, IDocument document, Diagnostic chain) {
-		String text = document.get();
-		try {
-			if(isRuby())
-				ModuleUtils.parseModulefile(path.toOSString(), text, new Metadata(), chain);
-			else
-				new LenientMetadataJsonParser(null).parse(path.toFile(), text, chain);
-		}
-		catch(Exception ex) {
-			chain.addChild(new ExceptionDiagnostic(Diagnostic.ERROR, Forge.FORGE, "Unable to parse file: " +
-					ex.getMessage(), ex));
-		}
 	}
 }

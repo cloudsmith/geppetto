@@ -29,6 +29,30 @@ import com.google.gson.JsonSerializer;
  * created instance is immutable and suitable for use as key in hash tables and trees.
  */
 public class ModuleName implements Serializable, Comparable<ModuleName> {
+	public static class BadNameCharactersException extends IllegalArgumentException {
+		private static final long serialVersionUID = 1L;
+
+		private static final String STRICT_MSG = "name should only contain lowercase letters, numbers, and underscores, and should begin with a letter";
+
+		private static final String LENIENT_MSG = "name should only contain letters, numbers, and underscores, and should begin with a letter";
+
+		public BadNameCharactersException(boolean strict) {
+			super(strict
+					? STRICT_MSG
+					: LENIENT_MSG);
+		}
+	}
+
+	public static class BadNameSyntaxException extends IllegalArgumentException {
+		private static final long serialVersionUID = 1L;
+
+		private static final String MSG = "name should be in the form <owner>-<name> or <owner>/<name>";
+
+		public BadNameSyntaxException() {
+			super(MSG);
+		}
+	}
+
 	public static class JsonAdapter implements JsonDeserializer<ModuleName>, JsonSerializer<ModuleName> {
 		@Override
 		public ModuleName deserialize(JsonElement json, java.lang.reflect.Type typeOfT,
@@ -57,20 +81,6 @@ public class ModuleName implements Serializable, Comparable<ModuleName> {
 
 	private static final long serialVersionUID = 1L;
 
-	private final char separator;
-
-	private final String owner;
-
-	private final String name;
-
-	private final String semanticName;
-
-	private static final String NO_VALUE = "";
-
-	private static final Pattern NAME_PATTERN = Pattern.compile("^[a-zA-Z][a-zA-Z0-9_-]*$");
-
-	private static final Pattern STRICT_NAME_PATTERN = Pattern.compile("^[a-z][a-z0-9_]*$");
-
 	/**
 	 * Checks that the given name only contains lowercase letters, numbers and underscores and that it begins with a
 	 * letter. This is suitable for checking both the <i>owner</i> and the <i>name</i> parts of a module name.
@@ -80,22 +90,17 @@ public class ModuleName implements Serializable, Comparable<ModuleName> {
 	 * @param strict
 	 *            <code>true</code> means do not allow uppercase letters or dash
 	 * @return The checked name
-	 * @throws IllegalArgumentException
-	 *             if the name is illegal
+	 * @throws BadNameCharactersException
+	 *             if the contains illegal characters
 	 */
-	public static String checkName(String name, boolean strict) throws IllegalArgumentException {
+	public static String checkName(String name, boolean strict) throws BadNameCharactersException {
 		Pattern p = strict
 				? STRICT_NAME_PATTERN
 				: NAME_PATTERN;
 		Matcher m = p.matcher(name);
 		if(m.matches())
 			return name;
-		StringBuilder bld = new StringBuilder();
-		bld.append("Module names should only contain ");
-		if(strict)
-			bld.append("lowercase ");
-		bld.append("letters, numbers, and underscores, and should begin with a letter");
-		throw new IllegalArgumentException(bld.toString());
+		throw new BadNameCharactersException(strict);
 	}
 
 	/**
@@ -187,6 +192,20 @@ public class ModuleName implements Serializable, Comparable<ModuleName> {
 		return new String[] { owner, name };
 	}
 
+	private final char separator;
+
+	private final String owner;
+
+	private final String name;
+
+	private final String semanticName;
+
+	private static final String NO_VALUE = "";
+
+	private static final Pattern NAME_PATTERN = Pattern.compile("^[a-zA-Z][a-zA-Z0-9_-]*$");
+
+	private static final Pattern STRICT_NAME_PATTERN = Pattern.compile("^[a-z][a-z0-9_]*$");
+
 	private ModuleName(ModuleName m, char separator) {
 		this.separator = separator;
 		this.owner = m.owner;
@@ -200,8 +219,10 @@ public class ModuleName implements Serializable, Comparable<ModuleName> {
 	 * 
 	 * @param fullName
 	 *            The name to set
+	 * @throws BadNameCharactersException
+	 * @throws BadNameSyntaxException
 	 */
-	public ModuleName(String fullName) {
+	public ModuleName(String fullName) throws BadNameSyntaxException, BadNameCharactersException {
 		this(fullName, false);
 	}
 
@@ -222,8 +243,10 @@ public class ModuleName implements Serializable, Comparable<ModuleName> {
 	 *            The name to set
 	 * @param strict
 	 *            <code>true</code> means do not allow uppercase letters or multiple separators
+	 * @throws BadNameCharactersException
+	 * @throws BadNameSyntaxException
 	 */
-	public ModuleName(String fullName, boolean strict) {
+	public ModuleName(String fullName, boolean strict) throws BadNameSyntaxException, BadNameCharactersException {
 		int idx = fullName.indexOf('/');
 		if(idx > 0)
 			separator = '/';
@@ -233,7 +256,7 @@ public class ModuleName implements Serializable, Comparable<ModuleName> {
 		}
 
 		if(!(idx > 0 && idx < fullName.length() - 1))
-			throw new IllegalArgumentException("Name should be in the form <owner>-<name> or <owner>/<name>");
+			throw new BadNameSyntaxException();
 
 		this.owner = checkName(fullName.substring(0, idx), strict);
 		this.name = checkName(fullName.substring(idx + 1), strict);
@@ -252,14 +275,17 @@ public class ModuleName implements Serializable, Comparable<ModuleName> {
 	 * @param name
 	 * @param strict
 	 *            <code>true</code> means do not allow uppercase letters or dash in the names
+	 * @throws BadNameCharactersException
+	 * @throws BadNameSyntaxException
 	 */
-	public ModuleName(String owner, char separator, String name, boolean strict) {
+	public ModuleName(String owner, char separator, String name, boolean strict) throws BadNameSyntaxException,
+			BadNameCharactersException {
 		this.owner = owner == null
 				? NO_VALUE
 				: checkName(owner, strict);
 
 		if(!(separator == '-' || separator == '/'))
-			throw new IllegalArgumentException("Name should be in the form <owner>-<name> or <owner>/<name>");
+			throw new BadNameSyntaxException();
 
 		this.separator = separator;
 		this.name = name == null

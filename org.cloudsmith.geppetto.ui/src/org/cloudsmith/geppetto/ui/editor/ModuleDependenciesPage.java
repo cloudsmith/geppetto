@@ -13,8 +13,6 @@ package org.cloudsmith.geppetto.ui.editor;
 
 import static org.cloudsmith.geppetto.common.Strings.trimToNull;
 import static org.cloudsmith.geppetto.forge.Forge.MODULEFILE_NAME;
-import static org.cloudsmith.geppetto.forge.v2.model.ModuleName.checkName;
-import static org.cloudsmith.geppetto.forge.v2.model.ModuleName.splitName;
 import static org.eclipse.xtext.util.Strings.emptyIfNull;
 
 import java.io.File;
@@ -292,24 +290,22 @@ class ModuleDependenciesPage extends GuardedModulePage {
 			nameCol.setLabelProvider(new ColumnLabelProvider() {
 				@Override
 				public Image getImage(Object element) {
-					String[] parts = splitName(emptyIfNull(getText(element)));
-					String owner = parts[0];
-					String name = parts[1];
+					String fullName = getText(element);
 					int row = getRowNumber(element);
-					int os = validateName(owner, "o" + row, null, "_UI_Module_owner_missing"); //$NON-NLS-1$
-					int is = validateName(name, "n" + row, null, "_UI_Module_name_missing"); //$NON-NLS-1$
-					if(os == IMessage.ERROR || is == IMessage.ERROR)
-						return error;
-					if(os == IMessage.WARNING || is == IMessage.WARNING)
-						return warning;
+					int severity = validateDependencyName(fullName, "n" + row); //$NON-NLS-1$
 
 					MetadataModel.Dependency dep = (MetadataModel.Dependency) element;
 					if(!dep.isResolved()) {
 						IMessageManager msgManager = getManagedForm().getMessageManager();
 						msgManager.addMessage(
 							"d" + row, MetadataModel.getUnresolvedMessage(dep), null, IMessageProvider.ERROR);
-						return error;
+						severity = IMessage.ERROR;
 					}
+
+					if(severity == IMessage.ERROR)
+						return error;
+					if(severity == IMessage.WARNING)
+						return warning;
 					return null;
 				}
 
@@ -325,29 +321,25 @@ class ModuleDependenciesPage extends GuardedModulePage {
 
 				@Override
 				public String getToolTipText(Object element) {
-					String[] parts = splitName(emptyIfNull(getText(element)));
-					String owner = parts[0];
-					if(owner == null || owner.length() == 0)
-						return UIPlugin.INSTANCE.getString("_UI_Module_owner_missing");
-					String name = parts[1];
-					if(name.length() == 0)
-						return UIPlugin.INSTANCE.getString("_UI_Module_name_missing");
+					StringBuilder bld = new StringBuilder();
+					String fullName = getText(element);
 					try {
-						checkName(owner, true);
+						new ModuleName(fullName, true);
 					}
 					catch(IllegalArgumentException e) {
-						return e.getMessage();
-					}
-					try {
-						checkName(name, true);
-					}
-					catch(IllegalArgumentException e) {
-						return e.getMessage();
+						bld.append("- ");
+						bld.append(MetadataModel.getBadNameMessage(e, true));
 					}
 					MetadataModel.Dependency dep = (MetadataModel.Dependency) element;
-					if(!dep.isResolved())
-						return MetadataModel.getUnresolvedMessage(dep);
-					return null;
+					if(!dep.isResolved()) {
+						if(bld.length() > 0)
+							bld.append('\n');
+						bld.append("- ");
+						bld.append(MetadataModel.getUnresolvedMessage(dep));
+					}
+					return bld.length() == 0
+							? null
+							: bld.toString();
 				}
 			});
 			tableColumnLayout.setColumnData(nameCol.getColumn(), new ColumnWeightData(5));
@@ -567,6 +559,35 @@ class ModuleDependenciesPage extends GuardedModulePage {
 			finally {
 				refresh = false;
 			}
+		}
+
+		private int validateDependencyName(String name, String key) {
+			IMessageManager msgManager = getManagedForm().getMessageManager();
+			if(name == null) {
+				String msg = UIPlugin.INSTANCE.getString("_UI_Dependency_name_missing");
+				msgManager.addMessage(key, msg, null, IMessageProvider.ERROR);
+				return IMessageProvider.ERROR;
+			}
+
+			int syntaxSeverity = IMessageProvider.NONE;
+			String syntax = null;
+			try {
+				new ModuleName(name, true);
+			}
+			catch(IllegalArgumentException e) {
+				syntaxSeverity = IMessageProvider.WARNING;
+				try {
+					new ModuleName(name, false);
+				}
+				catch(IllegalArgumentException e2) {
+					syntaxSeverity = IMessageProvider.ERROR;
+					e = e2;
+				}
+				syntax = MetadataModel.getBadNameMessage(e, true);
+			}
+			if(syntax != null)
+				msgManager.addMessage(key, syntax, null, syntaxSeverity);
+			return syntaxSeverity;
 		}
 	}
 

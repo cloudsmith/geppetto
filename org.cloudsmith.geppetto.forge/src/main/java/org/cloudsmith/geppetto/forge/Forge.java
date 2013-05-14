@@ -42,6 +42,8 @@ public interface Forge {
 
 	DiagnosticType PUBLISHER = new DiagnosticType("PUBLISHER", Forge.class.getName());
 
+	DiagnosticType PARSE_FAILURE = new DiagnosticType("PARSE_FAILURE", Forge.class.getName());
+
 	String MODULEFILE_NAME = "Modulefile";
 
 	String METADATA_JSON_NAME = "metadata.json";

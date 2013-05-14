@@ -38,7 +38,7 @@ public abstract class MetadataJsonParser extends JsonPositionalParser {
 		return diag;
 	}
 
-	protected ModuleName createModuleName(JElement jsonName, Diagnostic chain) {
+	protected ModuleName createModuleName(JElement jsonName, boolean dependency, Diagnostic chain) {
 		String moduleName = validateString(jsonName, CallSymbol.name.name(), chain);
 		if(moduleName == null)
 			return null;
@@ -48,11 +48,11 @@ public abstract class MetadataJsonParser extends JsonPositionalParser {
 		}
 		catch(IllegalArgumentException e) {
 			try {
-				chain.addChild(createDiagnostic(jsonName, Diagnostic.WARNING, e.getMessage()));
+				chain.addChild(createDiagnostic(jsonName, Diagnostic.WARNING, getBadNameMessage(e, dependency)));
 				return new ModuleName(moduleName, false);
 			}
 			catch(IllegalArgumentException e2) {
-				chain.addChild(createDiagnostic(jsonName, Diagnostic.ERROR, e2.getMessage()));
+				chain.addChild(createDiagnostic(jsonName, Diagnostic.ERROR, getBadNameMessage(e, dependency)));
 				return null;
 			}
 		}
@@ -86,6 +86,13 @@ public abstract class MetadataJsonParser extends JsonPositionalParser {
 		}
 	}
 
+	protected String getBadNameMessage(IllegalArgumentException e, boolean dependency) {
+		String pfx = dependency
+				? "A dependency "
+				: "A module ";
+		return pfx + e.getMessage();
+	}
+
 	public void parse(File file, String content, Diagnostic chain) throws JsonParseException, IOException {
 		JElement root = parse(file, content);
 		if(!(root instanceof JObject))
@@ -104,7 +111,7 @@ public abstract class MetadataJsonParser extends JsonPositionalParser {
 
 				JElement args = entry.getElement();
 				if(symbol == CallSymbol.name) {
-					fullName = createModuleName(args, chain);
+					fullName = createModuleName(args, false, chain);
 					nameSeen = true;
 				}
 				else if(symbol == CallSymbol.version) {
@@ -164,7 +171,7 @@ public abstract class MetadataJsonParser extends JsonPositionalParser {
 		for(JElement dep : validateArray(args, name, chain)) {
 			for(JEntry entry : validateObject(dep, name, chain)) {
 				if("name".equals(entry.getKey()))
-					createModuleName(entry.getElement(), chain);
+					createModuleName(entry.getElement(), true, chain);
 				else if("version_requirement".equals(entry.getKey()) || "versionRequirement".equals(entry.getKey()))
 					createVersionRequirement(entry.getElement(), chain);
 				else

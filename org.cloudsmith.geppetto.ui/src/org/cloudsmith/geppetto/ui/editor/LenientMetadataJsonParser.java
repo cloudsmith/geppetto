@@ -37,4 +37,9 @@ public class LenientMetadataJsonParser extends MetadataJsonParser {
 		}
 		model.addCall(key, new CallSticker(offset, length, args));
 	}
+
+	@Override
+	protected String getBadNameMessage(IllegalArgumentException e, boolean dependency) {
+		return MetadataModel.getBadNameMessage(e, dependency);
+	}
 }

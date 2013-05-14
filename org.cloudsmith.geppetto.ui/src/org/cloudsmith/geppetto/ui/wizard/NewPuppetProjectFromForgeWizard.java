@@ -11,6 +11,7 @@
  */
 package org.cloudsmith.geppetto.ui.wizard;
 
+import static org.cloudsmith.geppetto.forge.Forge.METADATA_JSON_NAME;
 import static org.cloudsmith.geppetto.forge.Forge.MODULEFILE_NAME;
 
 import java.io.IOException;
@@ -226,7 +227,7 @@ public class NewPuppetProjectFromForgeWizard extends NewPuppetModuleProjectWizar
 					: VersionRange.exact(module.getVersion());
 			Metadata metadata = getForge().install(module.getFullName(), vr, project.getLocation().toFile(), true, true);
 
-			IFile moduleFile = ResourceUtil.getFile(project.getFullPath().append(MODULEFILE_NAME)); //$NON-NLS-1$
+			IFile moduleFile = ResourceUtil.getFile(project.getFullPath().append(MODULEFILE_NAME));
 
 			if(!moduleFile.exists()) {
 				ModuleName mdName = metadata.getName();
@@ -234,6 +235,9 @@ public class NewPuppetProjectFromForgeWizard extends NewPuppetModuleProjectWizar
 					metadata.setName(module.getFullName());
 				ModuleUtils.saveAsModulefile(metadata, moduleFile.getLocation().toFile());
 			}
+			IFile mdjsonFile = ResourceUtil.getFile(project.getFullPath().append(METADATA_JSON_NAME));
+			if(mdjsonFile.exists())
+				mdjsonFile.setDerived(true, null);
 		}
 	}
 

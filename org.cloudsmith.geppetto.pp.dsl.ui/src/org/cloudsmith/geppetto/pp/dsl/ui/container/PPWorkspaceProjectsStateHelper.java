@@ -92,7 +92,7 @@ public class PPWorkspaceProjectsStateHelper extends AbstractStorage2UriMapperCli
 			File moduleDir = project.getLocation().toFile();
 			List<String> result = Lists.newArrayList();
 
-			// parse the "Modulefile" and get full name and version, use this as name of target entry
+			// parse the "Modulefile/metadata.json" and get full name and version, use this as name of target entry
 			// TODO: Improve this to report diagnostics
 			try {
 				Diagnostic diag = new Diagnostic();
@@ -122,7 +122,7 @@ public class PPWorkspaceProjectsStateHelper extends AbstractStorage2UriMapperCli
 	}
 
 	/**
-	 * Initializes visible handles from PP 'Modulefile' manifests. In case of errors, a partially
+	 * Initializes visible handles from PP 'Modulefile/metadata.json' manifests. In case of errors, a partially
 	 * parsed result is returned and error is logged.
 	 * 
 	 * @param handle

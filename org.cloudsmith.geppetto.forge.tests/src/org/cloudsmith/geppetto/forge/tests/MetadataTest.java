@@ -11,6 +11,7 @@
  */
 package org.cloudsmith.geppetto.forge.tests;
 
+import static org.cloudsmith.geppetto.forge.Forge.MODULEFILE_NAME;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
@@ -23,6 +24,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.cloudsmith.geppetto.diagnostic.Diagnostic;
+import org.cloudsmith.geppetto.forge.Forge;
 import org.cloudsmith.geppetto.forge.util.Checksums;
 import org.cloudsmith.geppetto.forge.util.ModuleUtils;
 import org.cloudsmith.geppetto.forge.util.Types;
@@ -148,7 +150,7 @@ public class MetadataTest extends AbstractForgeTest {
 		try {
 			File outputDir = getTestOutputFolder("json-ouput", true);
 			populateFromModule("puppetlabs-apache");
-			File jsonFile = new File(outputDir, "metadata.json");
+			File jsonFile = new File(outputDir, Forge.METADATA_JSON_NAME);
 			getForge().saveJSONMetadata(fixture, jsonFile);
 			assertTrue("No readable metadata.json file was generated", jsonFile.canRead());
 		}
@@ -162,7 +164,7 @@ public class MetadataTest extends AbstractForgeTest {
 		try {
 			File outputDir = getTestOutputFolder("modulefile-ouput", true);
 			populateFromModule("ghoneycutt-rsync");
-			File moduleFile = new File(outputDir, "Modulefile");
+			File moduleFile = new File(outputDir, MODULEFILE_NAME);
 			ModuleUtils.saveAsModulefile(fixture, moduleFile);
 			assertTrue("No readable Modulefile file was generated", moduleFile.canRead());
 

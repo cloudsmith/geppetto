@@ -1,5 +1,6 @@
 package org.cloudsmith.geppetto.validation.tests;
 
+import static org.cloudsmith.geppetto.forge.Forge.MODULEFILE_NAME;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.not;
 import static org.junit.Assert.assertEquals;
@@ -162,12 +163,12 @@ public class TestValidatorServiceApi2 extends AbstractValidationTest {
 			File f = new File(s);
 			assertTrue(
 				"Only files with errors (starts with 'x-', or 'Modulefile') should be reported. Was:" + f.getName(),
-				f.getName().startsWith("x-") || f.getName().equals("Modulefile"));
+				f.getName().startsWith("x-") || f.getName().equals(MODULEFILE_NAME));
 		}
 		assertEquals("Number of files with errors", 7, fileNames.size());
 		List<FileDiagnostic> modulefileDiag = Lists.newArrayList();
 		for(Diagnostic d : chain)
-			if(d instanceof FileDiagnostic && ((FileDiagnostic) d).getFile().getName().equals("Modulefile"))
+			if(d instanceof FileDiagnostic && ((FileDiagnostic) d).getFile().getName().equals(MODULEFILE_NAME))
 				modulefileDiag.add((FileDiagnostic) d);
 
 		assertEquals("There should have been two dependency error", 2, modulefileDiag.size());
@@ -209,13 +210,13 @@ public class TestValidatorServiceApi2 extends AbstractValidationTest {
 			File f = new File(s);
 			assertTrue(
 				"Only files with errors (starts with 'x-', or 'Modulefile') should be reported. Was:" + f.getName(),
-				f.getName().startsWith("x-") || f.getName().equals("Modulefile"));
+				f.getName().startsWith("x-") || f.getName().equals(MODULEFILE_NAME));
 		}
 		assertEquals("Number of files with errors", 1, fileNames.size());
 		List<FileDiagnostic> modulefileDiag = Lists.newArrayList();
 		for(Diagnostic d : chain) {
 			if(d instanceof FileDiagnostic && d.getSeverity() >= Diagnostic.ERROR &&
-					((FileDiagnostic) d).getFile().getName().equals("Modulefile"))
+					((FileDiagnostic) d).getFile().getName().equals(MODULEFILE_NAME))
 				modulefileDiag.add((FileDiagnostic) d);
 		}
 		assertEquals("There should have been one dependency error", 1, modulefileDiag.size());

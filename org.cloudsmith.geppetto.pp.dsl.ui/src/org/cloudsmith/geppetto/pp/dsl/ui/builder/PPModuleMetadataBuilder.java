@@ -12,6 +12,8 @@
 
 package org.cloudsmith.geppetto.pp.dsl.ui.builder;
 
+import static org.cloudsmith.geppetto.forge.Forge.METADATA_JSON_NAME;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
@@ -60,12 +62,12 @@ import com.google.inject.Injector;
 import com.google.inject.Provider;
 
 /**
- * Builder of Modulefile.
+ * Builder of Modulefile/metadata.json.
  * This builder performs the following tasks:
  * <ul>
  * <li>sets the dependencies on the project as dynamic project references</li>
  * <li>ensure all puppet projects have a dynamic reference to the target project</li>
- * <li>keeps metadata.json in sync (content and checksums)</li>
+ * <li>keeps derived metadata.json in sync with Modulefile if applicable (content and checksums)</li>
  * </ul>
  * 
  */
@@ -315,7 +317,7 @@ public class PPModuleMetadataBuilder extends IncrementalProjectBuilder implement
 				m.setAttribute(IMarker.LOCATION, r.getName());
 		}
 		catch(CoreException e) {
-			log.error("Could not create error marker or set its attributes for a 'Modulefile'", e);
+			log.error("Could not create error marker or set its attributes", e);
 		}
 
 	}
@@ -338,7 +340,7 @@ public class PPModuleMetadataBuilder extends IncrementalProjectBuilder implement
 				m.setAttribute(IMarker.LINE_NUMBER, ((FileDiagnostic) diagnostic).getLineNumber());
 		}
 		catch(CoreException e) {
-			log.error("Could not create error marker or set its attributes for a 'Modulefile'", e);
+			log.error("Could not create error marker or set its attributes", e);
 		}
 	}
 
@@ -348,7 +350,7 @@ public class PPModuleMetadataBuilder extends IncrementalProjectBuilder implement
 
 	private void fullBuild(IProgressMonitor monitor) {
 		removeErrorMarkers();
-		syncModulefile(monitor);
+		syncModuleMetadata(monitor);
 	}
 
 	private IProject getProjectByName(String name) {
@@ -376,7 +378,7 @@ public class PPModuleMetadataBuilder extends IncrementalProjectBuilder implement
 					if(delta.getResource() != null && delta.getResource().isDerived())
 						return false;
 
-					// irrespective of how the Modulefile was changed, run the build (i.e. sync).
+					// irrespective of how the Modulefile/metadata.json was changed, run the build (i.e. sync).
 					if(isModuleMetadataDelta(delta))
 						buildFlag.set(true);
 
@@ -389,16 +391,16 @@ public class PPModuleMetadataBuilder extends IncrementalProjectBuilder implement
 				}
 			});
 			if(buildFlag.get())
-				syncModulefile(monitor);
+				syncModuleMetadata(monitor);
 		}
 		catch(CoreException e) {
 			log.error(e.getMessage(), e);
-			syncModulefile(monitor);
+			syncModuleMetadata(monitor);
 		}
 	}
 
 	/**
-	 * A change to any file except "metadata.json" is a checksum change.
+	 * A change to any file except &quot;metadata.json&quot; is a checksum change.
 	 * 
 	 * @param delta
 	 * @return
@@ -457,10 +459,10 @@ public class PPModuleMetadataBuilder extends IncrementalProjectBuilder implement
 	 * @param handle
 	 * @return
 	 */
-	private List<IProject> resolveDependencies(Metadata metadata, IFile moduleFile, IProgressMonitor monitor) {
+	private List<IProject> resolveDependencies(Metadata metadata, IFile moduleMetadataFile, IProgressMonitor monitor) {
 		List<IProject> result = Lists.newArrayList();
 
-		// parse the "Modulefile"/"metadata.json" and get full name and version, use this as name of target entry
+		// parse the 'Modulefile' or 'metadata.json' and get full name and version, use this as name of target entry
 		try {
 			for(Dependency d : metadata.getDependencies()) {
 				checkCancel(monitor);
@@ -471,7 +473,7 @@ public class PPModuleMetadataBuilder extends IncrementalProjectBuilder implement
 				}
 				else {
 					VersionRange vr = d.getVersionRequirement();
-					createErrorMarker(moduleFile, "Unresolved dependency :'" + d.getName() + (vr == null
+					createErrorMarker(moduleMetadataFile, "Unresolved dependency :'" + d.getName() + (vr == null
 							? ""
 							: ("' version: " + vr)), d);
 				}
@@ -479,14 +481,9 @@ public class PPModuleMetadataBuilder extends IncrementalProjectBuilder implement
 		}
 		catch(Exception e) {
 			if(log.isDebugEnabled())
-				log.debug("Error while resolving Modulefile dependencies: '" + moduleFile + "'", e);
+				log.debug("Error while resolving dependencies: '" + moduleMetadataFile + "'", e);
 		}
 		return result;
-	}
-
-	private void syncModulefile(final IProgressMonitor monitor) {
-		syncModulefileAndReferences(monitor);
-		checkCircularDependencies(monitor);
 	}
 
 	private void syncModulefileAndReferences(final IProgressMonitor monitor) {
@@ -510,7 +507,7 @@ public class PPModuleMetadataBuilder extends IncrementalProjectBuilder implement
 		// get metadata
 		Metadata metadata;
 		File[] extractionSource = new File[1];
-		IFile metadataResource = project.getFile("metadata.json");
+		IFile metadataResource = project.getFile(METADATA_JSON_NAME);
 		boolean metadataDerived = metadataResource.isDerived();
 
 		if(metadataDerived) {
@@ -603,7 +600,7 @@ public class PPModuleMetadataBuilder extends IncrementalProjectBuilder implement
 		if(metadataDerived) {
 			try {
 				// Recreate the metadata.json file
-				File mf = new File(project.getLocation().toFile(), "metadata.json");
+				File mf = new File(project.getLocation().toFile(), METADATA_JSON_NAME);
 				forge.saveJSONMetadata(metadata, mf);
 				// must refresh the file as it was written outside the resource framework
 				try {
@@ -628,6 +625,11 @@ public class PPModuleMetadataBuilder extends IncrementalProjectBuilder implement
 		}
 		if(monitor != null)
 			monitor.done();
+	}
+
+	private void syncModuleMetadata(final IProgressMonitor monitor) {
+		syncModulefileAndReferences(monitor);
+		checkCircularDependencies(monitor);
 	}
 
 	private void syncProjectReferences(List<IProject> wanted, IProgressMonitor monitor) {

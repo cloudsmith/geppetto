@@ -19,7 +19,8 @@ import org.cloudsmith.geppetto.diagnostic.Diagnostic;
 import org.cloudsmith.geppetto.forge.v2.model.Metadata;
 
 /**
- * The default implementation of this class will extract metadata from a file named <tt>Modulefile</tt> which is expected to be in ruby format.
+ * The default implementation of this class will extract metadata from a file named <tt>Modulefile</tt> which is
+ * expected to be in ruby format.
  */
 public interface MetadataExtractor {
 	/**
@@ -33,7 +34,7 @@ public interface MetadataExtractor {
 	boolean canExtractFrom(File moduleDirectory, FileFilter filter);
 
 	/**
-	 * Determines the order in which extractors will be consulted. The "metadata.json" extractor
+	 * Determines the order in which extractors will be consulted. The &quot;metadata.json&quot; extractor
 	 * will have a cardinal of zero, the Modulefile extractor has a cardinal of 10.
 	 * Please allow for gaps when implementing new extractors.
 	 * 
@@ -63,7 +64,8 @@ public interface MetadataExtractor {
 	 *            Can be <tt>null</tt> when that piece of information is of no interest
 	 * @param result
 	 *            diagnostics generated during extraction
-	 * @return The extracted metadata or <code>null</code> if extraction could not be performed. When that happens, the result will contain the
+	 * @return The extracted metadata or <code>null</code> if extraction could not be performed. When that happens, the
+	 *         result will contain the
 	 *         reason.
 	 * @throws IOException
 	 *             if extraction failed

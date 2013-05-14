@@ -11,6 +11,9 @@
  */
 package org.cloudsmith.geppetto.ui.editor;
 
+import static org.cloudsmith.geppetto.forge.Forge.METADATA_JSON_NAME;
+import static org.cloudsmith.geppetto.forge.Forge.MODULEFILE_NAME;
+
 import java.util.Iterator;
 
 import org.cloudsmith.geppetto.diagnostic.Diagnostic;
@@ -22,6 +25,7 @@ import org.eclipse.core.resources.IMarker;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.Path;
 import org.eclipse.jface.text.BadLocationException;
 import org.eclipse.jface.text.IDocument;
 import org.eclipse.jface.text.IRegion;
@@ -29,15 +33,21 @@ import org.eclipse.jface.text.Position;
 import org.eclipse.jface.text.source.Annotation;
 import org.eclipse.jface.text.source.IAnnotationModel;
 import org.eclipse.ui.IEditorInput;
+import org.eclipse.ui.IEditorSite;
+import org.eclipse.ui.IFileEditorInput;
+import org.eclipse.ui.IShowEditorInput;
+import org.eclipse.ui.PartInitException;
+import org.eclipse.ui.editors.text.TextEditor;
 import org.eclipse.ui.forms.editor.FormEditor;
 import org.eclipse.ui.ide.IGotoMarker;
+import org.eclipse.ui.part.FileEditorInput;
 import org.eclipse.ui.texteditor.IDocumentProvider;
 import org.eclipse.ui.texteditor.IElementStateListener;
 import org.eclipse.ui.texteditor.MarkerAnnotation;
 
 import com.google.inject.Inject;
 
-public class ModuleMetadataEditor extends FormEditor implements IGotoMarker {
+public class ModuleMetadataEditor extends FormEditor implements IGotoMarker, IShowEditorInput {
 
 	static class DiagnosticAnnotation extends Annotation {
 		private static final String INFO_TYPE = "org.eclipse.ui.workbench.texteditor.info"; //$NON-NLS-1$
@@ -136,6 +146,8 @@ public class ModuleMetadataEditor extends FormEditor implements IGotoMarker {
 
 	private ModuleSourcePage sourcePage;
 
+	private TextEditor derivedJSON;
+
 	private boolean stale = false;
 
 	private final MetadataModel model = new MetadataModel();
@@ -151,7 +163,8 @@ public class ModuleMetadataEditor extends FormEditor implements IGotoMarker {
 			addPage(dependenciesPage);
 
 			sourcePage = new ModuleSourcePage(this);
-			setPageText(addPage(sourcePage, getEditorInput()), UIPlugin.INSTANCE.getString("_UI_Source_title"));
+			int sourcePageIdx = addPage(sourcePage, getEditorInput());
+			setPageText(sourcePageIdx, UIPlugin.INSTANCE.getString("_UI_Source_title"));
 			sourcePage.getDocumentProvider().addElementStateListener(new ElementListener());
 			refreshModel();
 			sourcePage.initialize();
@@ -159,6 +172,28 @@ public class ModuleMetadataEditor extends FormEditor implements IGotoMarker {
 			String name = getModuleName();
 			if(name != null)
 				setPartName(name);
+
+			IFile file = getFile();
+			if(file == null) {
+				setPageText(sourcePageIdx, UIPlugin.INSTANCE.getString("_UI_Source_title"));
+			}
+			else if(MODULEFILE_NAME.equals(file.getName())) {
+				setPageText(sourcePageIdx, UIPlugin.INSTANCE.getString("_UI_Source_title"));
+				IFile metadataJSON = file.getParent().getFile(Path.fromPortableString(METADATA_JSON_NAME));
+				if(metadataJSON.exists() && metadataJSON.isDerived()) {
+					FileEditorInput metadataInput = new FileEditorInput(metadataJSON);
+					derivedJSON = new TextEditor() {
+						@Override
+						public boolean isEditable() {
+							return false;
+						}
+					};
+					setPageText(
+						addPage(derivedJSON, metadataInput), UIPlugin.INSTANCE.getString("_UI_JSON_Derived_title"));
+				}
+			}
+			else
+				setPageText(sourcePageIdx, UIPlugin.INSTANCE.getString("_UI_JSON_title"));
 		}
 		catch(Exception e) {
 			UIPlugin.INSTANCE.log(e);
@@ -237,6 +272,21 @@ public class ModuleMetadataEditor extends FormEditor implements IGotoMarker {
 	}
 
 	@Override
+	public void init(IEditorSite site, IEditorInput input) throws PartInitException {
+		if(input instanceof IFileEditorInput) {
+			IFile file = ((IFileEditorInput) input).getFile();
+			if(file.isDerived() && METADATA_JSON_NAME.equals(file.getName())) {
+				// We prefer to open the Modulefile editor here. It will show the
+				// derived JSON content in a read-only tab
+				IFile moduleFile = file.getParent().getFile(Path.fromPortableString(MODULEFILE_NAME));
+				if(moduleFile.exists())
+					input = new FileEditorInput(moduleFile);
+			}
+		}
+		super.init(site, input);
+	}
+
+	@Override
 	public boolean isSaveAsAllowed() {
 		return false;
 	}
@@ -252,5 +302,18 @@ public class ModuleMetadataEditor extends FormEditor implements IGotoMarker {
 		model.setDocument(getDocument(), getPath(), chain);
 		sourcePage.updateDiagnosticAnnotations(chain);
 		stale = false;
+	}
+
+	@Override
+	public void showEditorInput(IEditorInput input) {
+		if(input instanceof IFileEditorInput) {
+			IFile file = ((IFileEditorInput) input).getFile();
+			if(file.isDerived()) {
+				if(derivedJSON != null && METADATA_JSON_NAME.equals(file.getName()))
+					setActiveEditor(derivedJSON);
+			}
+			else if(derivedJSON == getActiveEditor())
+				setActivePage(overviewPage.getIndex());
+		}
 	}
 }

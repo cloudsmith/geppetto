@@ -11,6 +11,8 @@
  */
 package org.cloudsmith.geppetto.forge.impl;
 
+import static org.cloudsmith.geppetto.forge.Forge.MODULEFILE_NAME;
+
 import java.io.File;
 import java.io.IOException;
 
@@ -25,7 +27,7 @@ public class ModulefileExtractor extends AbstractMetadataExtractor {
 
 	@Override
 	public String getPrimarySource() {
-		return "Modulefile";
+		return MODULEFILE_NAME;
 	}
 
 	@Override

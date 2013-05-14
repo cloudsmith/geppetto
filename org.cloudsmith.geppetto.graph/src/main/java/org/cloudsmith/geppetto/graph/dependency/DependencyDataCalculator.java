@@ -11,6 +11,8 @@
  */
 package org.cloudsmith.geppetto.graph.dependency;
 
+import static org.cloudsmith.geppetto.forge.Forge.METADATA_JSON_NAME;
+import static org.cloudsmith.geppetto.forge.Forge.MODULEFILE_NAME;
 import static org.cloudsmith.geppetto.forge.v2.model.ModuleName.safeName;
 
 import java.io.File;
@@ -292,8 +294,9 @@ public class DependencyDataCalculator implements DependencyGraphStyles, Dependen
 		"DEPENDENCY_DATA_CALCULATOR", DependencyDataCalculator.class.getName());
 
 	private ModuleNodeData _file2Module(File f, Map<File, ModuleNodeData> index) {
-		if(!f.getPath().endsWith("Modulefile"))
-			return index.get(new File(f.getPath() + "/Modulefile"));
+		String path = f.getPath();
+		if(!(path.endsWith(MODULEFILE_NAME) || path.endsWith(METADATA_JSON_NAME)))
+			return index.get(new File(path + '/' + MODULEFILE_NAME));
 		return index.get(f);
 	}
 

@@ -161,7 +161,7 @@ class ForgeImpl implements Forge {
 
 		FileUtils.cpR(moduleSource, destModuleDir, fileFilter, false, true);
 
-		File metadataJSON = new File(destModuleDir, "metadata.json");
+		File metadataJSON = new File(destModuleDir, METADATA_JSON_NAME);
 		if(!metadataJSON.exists())
 			saveJSONMetadata(md, metadataJSON);
 
@@ -178,7 +178,7 @@ class ForgeImpl implements Forge {
 	public List<File> changes(File path, FileFilter fileFilter) throws IOException {
 		if(fileFilter == null)
 			fileFilter = moduleFileFilter;
-		Metadata md = loadJSONMetadata(new File(path, "metadata.json"));
+		Metadata md = loadJSONMetadata(new File(path, METADATA_JSON_NAME));
 		List<File> result = new ArrayList<File>();
 		Checksums.appendChangedFiles(md.getChecksums(), path, result, fileFilter);
 		return result;
@@ -282,7 +282,7 @@ class ForgeImpl implements Forge {
 			TarUtils.unpack(new GZIPInputStream(input), null, true, new FileCatcher() {
 				@Override
 				public boolean accept(String fileName) {
-					return "metadata.json".equals(fileName);
+					return METADATA_JSON_NAME.equals(fileName);
 				}
 
 				@Override
@@ -346,7 +346,7 @@ class ForgeImpl implements Forge {
 
 		// Unpack closes its input.
 		TarUtils.unpack(new GZIPInputStream(new FileInputStream(moduleFile)), destination, true, null);
-		return loadJSONMetadata(new File(destination, "metadata.json"));
+		return loadJSONMetadata(new File(destination, METADATA_JSON_NAME));
 	}
 
 	@Override

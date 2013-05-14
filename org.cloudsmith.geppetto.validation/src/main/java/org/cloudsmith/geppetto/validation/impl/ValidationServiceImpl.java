@@ -11,6 +11,8 @@
  */
 package org.cloudsmith.geppetto.validation.impl;
 
+import static org.cloudsmith.geppetto.forge.Forge.MODULEFILE_NAME;
+
 import java.io.File;
 import java.io.FileFilter;
 import java.io.FileInputStream;
@@ -548,7 +550,7 @@ public class ValidationServiceImpl implements ValidationService {
 		}
 		catch(Exception e) {
 			addFileError(
-				diagnostics, new File("Modulefile"), parentFile, "Can not parse file: " + e.getMessage(),
+				diagnostics, new File(MODULEFILE_NAME), parentFile, "Can not parse file: " + e.getMessage(),
 				IValidationConstants.ISSUE__MODULEFILE_PARSE_ERROR);
 		}
 		return null;
@@ -598,7 +600,7 @@ public class ValidationServiceImpl implements ValidationService {
 			if(!isDirectory)
 				options.setFileType(FileType.SINGLE_SOURCE_FILE);
 			else {
-				// A directory that does not have a "Modulefile" or other
+				// A directory that does not have a 'Modulefile' or other
 				// recognized module metadata is treated as a root
 				// A directory that has a "modules" subdirectory is treated as a
 				// root

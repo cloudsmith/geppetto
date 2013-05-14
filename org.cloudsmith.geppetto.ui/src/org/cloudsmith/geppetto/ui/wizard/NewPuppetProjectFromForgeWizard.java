@@ -11,6 +11,8 @@
  */
 package org.cloudsmith.geppetto.ui.wizard;
 
+import static org.cloudsmith.geppetto.forge.Forge.MODULEFILE_NAME;
+
 import java.io.IOException;
 import java.util.Collections;
 
@@ -224,7 +226,7 @@ public class NewPuppetProjectFromForgeWizard extends NewPuppetModuleProjectWizar
 					: VersionRange.exact(module.getVersion());
 			Metadata metadata = getForge().install(module.getFullName(), vr, project.getLocation().toFile(), true, true);
 
-			IFile moduleFile = ResourceUtil.getFile(project.getFullPath().append("Modulefile")); //$NON-NLS-1$
+			IFile moduleFile = ResourceUtil.getFile(project.getFullPath().append(MODULEFILE_NAME)); //$NON-NLS-1$
 
 			if(!moduleFile.exists()) {
 				ModuleName mdName = metadata.getName();

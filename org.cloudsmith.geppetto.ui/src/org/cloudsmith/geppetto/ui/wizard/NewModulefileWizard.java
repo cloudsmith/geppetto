@@ -1,10 +1,23 @@
 package org.cloudsmith.geppetto.ui.wizard;
 
-import java.io.InputStream;
+import static org.cloudsmith.geppetto.forge.Forge.METADATA_JSON_NAME;
+import static org.cloudsmith.geppetto.forge.Forge.MODULEFILE_NAME;
+import static org.cloudsmith.geppetto.forge.model.Constants.UTF_8;
 
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
+import java.io.PrintStream;
+
+import org.cloudsmith.geppetto.common.os.StreamUtil.OpenBAStream;
+import org.cloudsmith.geppetto.forge.v2.model.ModuleName;
 import org.cloudsmith.geppetto.ui.UIPlugin;
 import org.eclipse.core.resources.IFile;
+import org.eclipse.core.resources.IResource;
+import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.NullProgressMonitor;
+import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.viewers.IStructuredSelection;
@@ -19,14 +32,13 @@ import org.eclipse.ui.internal.ide.DialogUtil;
 import org.eclipse.ui.internal.ide.IDEWorkbenchPlugin;
 import org.eclipse.ui.internal.wizards.newresource.ResourceMessages;
 import org.eclipse.ui.wizards.newresource.BasicNewResourceWizard;
-import org.eclipse.xtext.util.StringInputStream;
 
 /**
  * This is a sample new wizard. Its role is to create a new file
  * resource in the provided container. If the container resource
  * (a folder or a project) is selected in the workspace
  * when the wizard is opened, it will accept it as the target
- * container. The wizard creates one file called "Modulefile".
+ * container. The wizard creates one file called &quot;Modulefile&quot;.
  */
 
 public class NewModulefileWizard extends BasicNewResourceWizard implements INewWizard {
@@ -35,7 +47,7 @@ public class NewModulefileWizard extends BasicNewResourceWizard implements INewW
 		public NewModulefileWizardPage(IStructuredSelection selection) {
 			super("newPuppetModulefilePage", selection);
 			setTitle("Puppet Modulefile File");
-			setFileName("Modulefile");
+			setFileName(MODULEFILE_NAME);
 			setFileExtension("");
 			setDescription("This wizard creates a new Modulefile (meta data for a puppet module).");
 		}
@@ -55,7 +67,18 @@ public class NewModulefileWizard extends BasicNewResourceWizard implements INewW
 			// Cheat by creating content manually here - not really worth the trouble of creating a
 			// model to get these empty strings
 			//
-			return new StringInputStream("name ''\nversion ''\n\nauthor ''\nlicense ''\n");
+			IPath path = getContainerFullPath();
+			String folderName = path.lastSegment();
+			String[] split = ModuleName.splitName(folderName);
+			StringBuilder bld = new StringBuilder();
+			bld.append("name '");
+			if(split[0] != null) {
+				bld.append(split[0]);
+				bld.append('-');
+				bld.append(split[1]);
+			}
+			bld.append("'\nversion '0.1.0'\n\nauthor ''\nlicense ''\n");
+			return new ByteArrayInputStream(bld.toString().getBytes(UTF_8));
 		}
 
 		@Override
@@ -66,8 +89,8 @@ public class NewModulefileWizard extends BasicNewResourceWizard implements INewW
 		@Override
 		protected boolean validatePage() {
 			boolean valid = super.validatePage();
-			if(!getFileName().equals("Modulefile")) {
-				setErrorMessage("File name must be 'Modulefile'");
+			if(!getFileName().equals(MODULEFILE_NAME)) {
+				setErrorMessage("File name must be '" + MODULEFILE_NAME + '\'');
 				valid = false;
 			}
 			return valid;
@@ -76,13 +99,28 @@ public class NewModulefileWizard extends BasicNewResourceWizard implements INewW
 
 	// private ISelection selection;
 
+	protected static void ensureMetadataJSONExists(IFile moduleFile) {
+		IFile mdjson = moduleFile.getParent().getFile(Path.fromPortableString(METADATA_JSON_NAME));
+		if(mdjson.exists())
+			return;
+
+		try {
+			OpenBAStream oba = new OpenBAStream();
+			PrintStream ps = new PrintStream(oba);
+			ps.println("{}");
+			ps.close();
+			mdjson.create(oba.getInputStream(), IResource.DERIVED, new NullProgressMonitor());
+		}
+		catch(CoreException e) {
+		}
+	}
+
 	private NewModulefileWizardPage page;
 
 	/**
 	 * Constructor for NewManifestWizard.
 	 */
 	public NewModulefileWizard() {
-		super();
 		setNeedsProgressMonitor(true);
 	}
 
@@ -120,6 +158,8 @@ public class NewModulefileWizard extends BasicNewResourceWizard implements INewW
 			if(dw != null) {
 				IWorkbenchPage page = dw.getActivePage();
 				if(page != null) {
+					// Ensure that the 'metadata.json' file exists prior to opening
+					ensureMetadataJSONExists(file);
 					IDE.openEditor(page, file, true);
 				}
 			}

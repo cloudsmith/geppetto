@@ -11,6 +11,8 @@
  */
 package org.cloudsmith.geppetto.forge.util;
 
+import static org.cloudsmith.geppetto.forge.Forge.METADATA_JSON_NAME;
+
 import java.io.File;
 import java.io.FileFilter;
 import java.io.FileInputStream;
@@ -122,7 +124,7 @@ public class Checksums {
 
 	private static boolean isChecksumCandidate(File file, FileFilter filter) throws IOException {
 		String filename = file.getName();
-		if("metadata.json".equals(filename) || "REVISION".equals(filename))
+		if(METADATA_JSON_NAME.equals(filename) || "REVISION".equals(filename))
 			return false;
 
 		return filter.accept(file) && !FileUtils.isSymlink(file);

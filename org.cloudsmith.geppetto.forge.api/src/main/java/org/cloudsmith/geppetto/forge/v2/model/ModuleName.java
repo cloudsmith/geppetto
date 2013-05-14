@@ -78,7 +78,7 @@ public class ModuleName implements Serializable, Comparable<ModuleName> {
 	 * @param name
 	 *            The name to check
 	 * @param strict
-	 *            <code>true</code> means do not allow uppercase letters
+	 *            <code>true</code> means do not allow uppercase letters or dash
 	 * @return The checked name
 	 * @throws IllegalArgumentException
 	 *             if the name is illegal
@@ -111,6 +111,8 @@ public class ModuleName implements Serializable, Comparable<ModuleName> {
 	 * 
 	 * @param name
 	 *            The name to convert. Can be <code>null</code> in which case <code>null</code>it is returned.
+	 * @param strict
+	 *            <code>true</code> means do not allow uppercase letters or multiple separators
 	 * @return The safe name or <code>null</code>.
 	 */
 	public static String safeName(String name, boolean strict) {
@@ -154,19 +156,17 @@ public class ModuleName implements Serializable, Comparable<ModuleName> {
 	 * of the names.
 	 * </p>
 	 * <p>
-	 * The separator may be either '/' or '-' and if more than one separator is present, then one placed last wins. last
-	 * in the string will be considered the separator. Thus<br/>
-	 * &quot;foo-bar-baz&quot; yields owner = &quot;foo-bar&quot;, name = &quot;baz&quot;, separator '-'<br/>
-	 * &quot;foo/bar-baz&quot; yields owner = &quot;foo/bar&quot;, name = &quot;baz&quot;, separator '-'<br/>
-	 * &quot;foo/bar/baz&quot; yields owner = &quot;foo/bar&quot;, name = &quot;baz&quot;, separator '/'<br/>
-	 * &quot;foo-bar/baz&quot; yields owner = &quot;foo-bar&quot;, name = &quot;baz&quot;, separator '/'<br/>
+	 * The separator may be either '/' or '-' and if more than one separator is present, then one placed first wins.
+	 * Thus<br/>
+	 * &quot;foo-bar-baz&quot; yields owner = &quot;foo&quot;, name = &quot;bar-baz&quot;, separator '-'<br/>
+	 * &quot;foo/bar-baz&quot; yields owner = &quot;foo&quot;, name = &quot;bar-baz&quot;, separator '/'<br/>
+	 * &quot;foo/bar/baz&quot; yields owner = &quot;foo&quot;, name = &quot;bar/baz&quot;, separator '/'<br/>
+	 * &quot;foo-bar/baz&quot; yields owner = &quot;foo&quot;, name = &quot;bar/baz&quot;, separator '-'<br/>
 	 * </p>
 	 * In case no separator is found, owner will be considered missing and the argument is returned as the
 	 * second element.</p>
 	 * 
 	 * @param moduleName
-	 * @param separatorReturn
-	 *            A one element array that will receive the separator. May be <code>null</code>.
 	 * @return A two element array with the owner and name of the module. The first element in this array may be
 	 *         <code>null</code> .
 	 * @see #checkName(String, boolean)
@@ -206,19 +206,22 @@ public class ModuleName implements Serializable, Comparable<ModuleName> {
 	}
 
 	/**
-	 * Creates a name from a string with a separator. The separator can be either '-' (dash) or '/' (slash). If more
-	 * than
-	 * one separator is present, then one placed last wins.
-	 * last in the string will be considered the separator. Thus<br/>
-	 * &quot;foo-bar-baz&quot; yields owner = &quot;foo-bar&quot;, name = &quot;baz&quot;, separator '-'<br/>
-	 * &quot;foo/bar-baz&quot; yields owner = &quot;foo/bar&quot;, name = &quot;baz&quot;, separator '-'<br/>
-	 * &quot;foo/bar/baz&quot; yields owner = &quot;foo/bar&quot;, name = &quot;baz&quot;, separator '/'<br/>
-	 * &quot;foo-bar/baz&quot; yields owner = &quot;foo-bar&quot;, name = &quot;baz&quot;, separator '/'<br/>
+	 * <p>
+	 * Creates a name from a string with a separator.
+	 * </p>
+	 * <p>
+	 * The separator may be either '/' or '-' and if more than one separator is present, then one placed first wins.
+	 * Thus<br/>
+	 * &quot;foo-bar-baz&quot; yields owner = &quot;foo&quot;, name = &quot;bar-baz&quot;, separator '-'<br/>
+	 * &quot;foo/bar-baz&quot; yields owner = &quot;foo&quot;, name = &quot;bar-baz&quot;, separator '/'<br/>
+	 * &quot;foo/bar/baz&quot; yields owner = &quot;foo&quot;, name = &quot;bar/baz&quot;, separator '/'<br/>
+	 * &quot;foo-bar/baz&quot; yields owner = &quot;foo&quot;, name = &quot;bar/baz&quot;, separator '-'<br/>
+	 * </p>
 	 * 
 	 * @param fullName
 	 *            The name to set
 	 * @param strict
-	 *            <code>true</code> means do not allow uppercase letters
+	 *            <code>true</code> means do not allow uppercase letters or multiple separators
 	 */
 	public ModuleName(String fullName, boolean strict) {
 		int idx = fullName.indexOf('/');
@@ -248,7 +251,7 @@ public class ModuleName implements Serializable, Comparable<ModuleName> {
 	 * @param separator
 	 * @param name
 	 * @param strict
-	 *            <code>true</code> means do not allow uppercase letters
+	 *            <code>true</code> means do not allow uppercase letters or dash in the names
 	 */
 	public ModuleName(String owner, char separator, String name, boolean strict) {
 		this.owner = owner == null

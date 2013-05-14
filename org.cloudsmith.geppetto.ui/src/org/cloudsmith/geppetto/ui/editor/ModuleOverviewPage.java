@@ -12,10 +12,12 @@
 package org.cloudsmith.geppetto.ui.editor;
 
 import static org.cloudsmith.geppetto.common.Strings.trimToNull;
+import static org.cloudsmith.geppetto.forge.Forge.MODULEFILE_NAME;
 import static org.eclipse.xtext.util.Strings.emptyIfNull;
 
 import org.cloudsmith.geppetto.forge.v2.model.ModuleName;
 import org.cloudsmith.geppetto.ui.UIPlugin;
+import org.eclipse.core.resources.IFile;
 import org.eclipse.jface.layout.GridDataFactory;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.ModifyEvent;
@@ -298,15 +300,15 @@ class ModuleOverviewPage extends GuardedModulePage {
 				// since owner and name are typed in separate fields
 				char c = ev.character;
 				// @fmtOff
-			ev.doit =
-				   c < 0x20
-				|| c == '_'
-				|| c == '-'
-				|| c == '.'
-				|| c >= '0' && c <= '9'
-				|| c >= 'a' && c <= 'z'
-				|| c >= 'A' && c <= 'Z';
-			// @fmtOn
+				ev.doit =
+					   c < 0x20
+					|| c == '_'
+					|| c == '-'
+					|| c == '.'
+					|| c >= '0' && c <= '9'
+					|| c >= 'a' && c <= 'z'
+					|| c >= 'A' && c <= 'Z';
+				// @fmtOn
 			}
 		}
 	};
@@ -318,7 +320,16 @@ class ModuleOverviewPage extends GuardedModulePage {
 	@Override
 	protected void createFormContent(final IManagedForm managedForm) {
 		super.createFormContent(managedForm);
-		managedForm.getForm().setText(UIPlugin.INSTANCE.getString("_UI_Overview_title"));
+		String formTitle;
+		IFile file = getEditor().getFile();
+		if(MODULEFILE_NAME.equals(file.getName()))
+			formTitle = "_UI_Modulefile_Overview_title";
+		else if(file.isDerived())
+			formTitle = "_UI_Derived_Metadata_Overview_title";
+		else
+			formTitle = "_UI_Metadata_Overview_title";
+
+		managedForm.getForm().setText(UIPlugin.INSTANCE.getString(formTitle));
 		Composite body = managedForm.getForm().getBody();
 		body.setLayout(new GridLayout(1, true));
 		FormToolkit toolkit = managedForm.getToolkit();

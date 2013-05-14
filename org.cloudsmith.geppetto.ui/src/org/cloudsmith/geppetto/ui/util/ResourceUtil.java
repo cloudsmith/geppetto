@@ -11,6 +11,9 @@
  */
 package org.cloudsmith.geppetto.ui.util;
 
+import static org.cloudsmith.geppetto.forge.Forge.METADATA_JSON_NAME;
+import static org.cloudsmith.geppetto.forge.Forge.MODULEFILE_NAME;
+
 import java.io.File;
 import java.util.List;
 
@@ -140,7 +143,8 @@ public class ResourceUtil {
 	}
 
 	protected static boolean isMetadata(IFile file) {
-		return file.getName().equals("Modulefile"); //$NON-NLS-1$
+		String name = file.getName();
+		return MODULEFILE_NAME.equals(name) || METADATA_JSON_NAME.equals(name);
 	}
 
 	public static void openEditor(IFile file) throws PartInitException {

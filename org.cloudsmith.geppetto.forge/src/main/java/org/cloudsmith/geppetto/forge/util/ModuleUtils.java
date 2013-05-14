@@ -11,6 +11,8 @@
  */
 package org.cloudsmith.geppetto.forge.util;
 
+import static org.cloudsmith.geppetto.forge.Forge.METADATA_JSON_NAME;
+
 import java.io.File;
 import java.io.FileFilter;
 import java.io.IOException;
@@ -149,7 +151,7 @@ public class ModuleUtils {
 	}
 
 	/**
-	 * Scan for valid directories containing "metadata.json" files or other types of build time artifacts
+	 * Scan for valid directories containing 'metadata.json' files or other types of build time artifacts
 	 * that provides metadata and is recognized by the provided <tt>metadataExtractors</tt>.
 	 * A directory that contains such a file will not be scanned in turn.
 	 * 
@@ -173,7 +175,7 @@ public class ModuleUtils {
 			if(idx > 0) {
 				// And it's not empty
 				while(--idx >= 0)
-					if("metadata.json".equals(files[idx].getName()))
+					if(METADATA_JSON_NAME.equals(files[idx].getName()))
 						return true;
 
 				for(MetadataExtractor extractor : metadataExtractors)

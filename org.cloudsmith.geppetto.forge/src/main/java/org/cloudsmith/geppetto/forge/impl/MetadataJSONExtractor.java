@@ -11,6 +11,8 @@
  */
 package org.cloudsmith.geppetto.forge.impl;
 
+import static org.cloudsmith.geppetto.forge.Forge.METADATA_JSON_NAME;
+
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
@@ -28,7 +30,7 @@ public class MetadataJSONExtractor extends AbstractMetadataExtractor {
 
 	@Override
 	public String getPrimarySource() {
-		return "metadata.json";
+		return METADATA_JSON_NAME;
 	}
 
 	@Override

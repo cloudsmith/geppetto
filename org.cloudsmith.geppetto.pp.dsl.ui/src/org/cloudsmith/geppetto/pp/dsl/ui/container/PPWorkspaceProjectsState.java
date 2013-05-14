@@ -30,7 +30,7 @@ import com.google.inject.Singleton;
 
 /**
  * A PP Workspace Projects State manager - makes use of the default implementation for the Workspace (Project
- * dependencies), as well as Puppet Manifests (Modulefile) parsing.
+ * dependencies), as well as Puppet Manifests (Modulefile/metadata.json) parsing.
  * 
  */
 

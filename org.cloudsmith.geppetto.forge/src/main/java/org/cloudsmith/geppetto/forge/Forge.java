@@ -42,6 +42,10 @@ public interface Forge {
 
 	DiagnosticType PUBLISHER = new DiagnosticType("PUBLISHER", Forge.class.getName());
 
+	String MODULEFILE_NAME = "Modulefile";
+
+	String METADATA_JSON_NAME = "metadata.json";
+
 	/**
 	 * Name of injected file filter
 	 */
@@ -122,7 +126,7 @@ public interface Forge {
 			throws IOException;
 
 	/**
-	 * Scan for valid directories containing a "metadata.json" or other files recognized by injected
+	 * Scan for valid directories containing a &quot;metadata.json&quot; or other files recognized by injected
 	 * {@link MetadataExtractor metadata extractors} using the provided <tt>filter</tt> to discriminate unwanted files.
 	 * A directory that contains such a file will not be scanned in turn.
 	 * 

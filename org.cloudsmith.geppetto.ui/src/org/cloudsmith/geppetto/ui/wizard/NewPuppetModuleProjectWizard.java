@@ -11,6 +11,8 @@
  */
 package org.cloudsmith.geppetto.ui.wizard;
 
+import static org.cloudsmith.geppetto.forge.Forge.MODULEFILE_NAME;
+
 import java.io.File;
 import java.util.Collections;
 
@@ -49,6 +51,7 @@ public class NewPuppetModuleProjectWizard extends Wizard implements INewWizard {
 
 		protected PuppetProjectCreationPage(String pageName) {
 			super(pageName);
+			setInitialProjectName(getUserName() + '-' + "unnamed");
 		}
 
 		@Override
@@ -60,9 +63,11 @@ public class NewPuppetModuleProjectWizard extends Wizard implements INewWizard {
 						? null
 						: locationPath;
 				projectContainer = getProjectHandle().getFullPath();
-
-				if(Character.isUpperCase(getProjectName().charAt(0))) {
-					setErrorMessage("Project can not start with upper case letter");
+				try {
+					new ModuleName(getProjectName(), true);
+				}
+				catch(IllegalArgumentException e) {
+					setErrorMessage("Project name must be a valid module name: " + e.getMessage());
 					return false;
 				}
 
@@ -125,11 +130,11 @@ public class NewPuppetModuleProjectWizard extends Wizard implements INewWizard {
 	protected void initializeProjectContents() throws Exception {
 		Forge forge = getForge();
 		Metadata metadata = new Metadata();
-		metadata.setName(new ModuleName(getUserName(), '/', project.getName().toLowerCase(), true));
+		metadata.setName(new ModuleName(project.getName().toLowerCase(), true));
 		metadata.setVersion(Version.create("0.1.0"));
 
 		if(ResourceUtil.getFile(project.getFullPath().append("manifests/init.pp")).exists()) { //$NON-NLS-1$
-			File modulefile = project.getLocation().append("Modulefile").toFile(); //$NON-NLS-1$
+			File modulefile = project.getLocation().append(MODULEFILE_NAME).toFile(); //$NON-NLS-1$
 
 			if(!modulefile.exists()) {
 				ModuleUtils.saveAsModulefile(metadata, modulefile);
@@ -182,9 +187,10 @@ public class NewPuppetModuleProjectWizard extends Wizard implements INewWizard {
 		}
 
 		if(project != null) {
-			IFile modulefile = ResourceUtil.getFile(project.getFullPath().append("Modulefile")); //$NON-NLS-1$
+			IFile modulefile = ResourceUtil.getFile(project.getFullPath().append(MODULEFILE_NAME)); //$NON-NLS-1$
 
 			if(modulefile.exists()) {
+				NewModulefileWizard.ensureMetadataJSONExists(modulefile);
 				ResourceUtil.selectFile(modulefile);
 
 				try {

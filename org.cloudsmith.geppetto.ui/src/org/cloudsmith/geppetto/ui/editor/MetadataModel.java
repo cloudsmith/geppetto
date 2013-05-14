@@ -12,6 +12,7 @@
 package org.cloudsmith.geppetto.ui.editor;
 
 import static org.cloudsmith.geppetto.common.Strings.emptyToNull;
+import static org.cloudsmith.geppetto.forge.Forge.MODULEFILE_NAME;
 
 import java.io.IOException;
 import java.io.StringReader;
@@ -831,7 +832,7 @@ public class MetadataModel {
 		this.document = document;
 		if(document != null) {
 			try {
-				if("Modulefile".equals(path.lastSegment())) {
+				if(MODULEFILE_NAME.equals(path.lastSegment())) {
 					if(rubyParser == null) {
 						serializer = RubyValueSerializer.INSTANCE;
 						rubyParser = new Parser();

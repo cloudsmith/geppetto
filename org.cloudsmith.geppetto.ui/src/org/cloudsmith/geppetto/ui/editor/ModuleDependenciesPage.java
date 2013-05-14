@@ -12,6 +12,7 @@
 package org.cloudsmith.geppetto.ui.editor;
 
 import static org.cloudsmith.geppetto.common.Strings.trimToNull;
+import static org.cloudsmith.geppetto.forge.Forge.MODULEFILE_NAME;
 import static org.cloudsmith.geppetto.forge.v2.model.ModuleName.checkName;
 import static org.cloudsmith.geppetto.forge.v2.model.ModuleName.splitName;
 import static org.eclipse.xtext.util.Strings.emptyIfNull;
@@ -597,7 +598,16 @@ class ModuleDependenciesPage extends GuardedModulePage {
 	@Override
 	protected void createFormContent(final IManagedForm managedForm) {
 		super.createFormContent(managedForm);
-		managedForm.getForm().setText(UIPlugin.INSTANCE.getString("_UI_Dependencies_title"));
+		String formTitle;
+		IFile file = getEditor().getFile();
+		if(MODULEFILE_NAME.equals(file.getName()))
+			formTitle = "_UI_Modulefile_Dependencies_title";
+		else if(file.isDerived())
+			formTitle = "_UI_Derived_Metadata_Dependencies_title";
+		else
+			formTitle = "_UI_Metadata_Dependencies_title";
+
+		managedForm.getForm().setText(UIPlugin.INSTANCE.getString(formTitle));
 
 		ISharedImages sharedImages = PlatformUI.getWorkbench().getSharedImages();
 		error = sharedImages.getImage(ISharedImages.IMG_OBJS_ERROR_TSK);

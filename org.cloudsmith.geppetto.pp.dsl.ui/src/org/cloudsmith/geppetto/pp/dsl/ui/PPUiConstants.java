@@ -11,6 +11,7 @@
  */
 package org.cloudsmith.geppetto.pp.dsl.ui;
 
+import org.cloudsmith.geppetto.forge.Forge;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.QualifiedName;
@@ -28,13 +29,9 @@ public interface PPUiConstants {
 
 	QualifiedName PROJECT_PROPERTY_MODULENAME = new QualifiedName(PPUiConstants.PLUGIN_ID, "moduleName");
 
-	String MODULEFIILE_NAME = "Modulefile";
+	IPath MODULEFILE_PATH = new Path(Forge.MODULEFILE_NAME);
 
-	String METADATA_JSON_NAME = "metadata.json";
-
-	IPath MODULEFILE_PATH = new Path(MODULEFIILE_NAME);
-
-	IPath METADATA_JSON_PATH = new Path(METADATA_JSON_NAME);
+	IPath METADATA_JSON_PATH = new Path(Forge.METADATA_JSON_NAME);
 
 	String PUPPET_MODULE_PROBLEM_MARKER_TYPE = "org.cloudsmith.geppetto.pp.dsl.ui.puppetModuleProblem";
 

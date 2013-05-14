@@ -22,7 +22,17 @@ import org.cloudsmith.geppetto.pp.dsl.ui.jdt_ersatz.ImagesOnFileSystemRegistry;
 import org.cloudsmith.geppetto.pp.dsl.ui.preferences.PPPreferencesHelper;
 import org.cloudsmith.geppetto.ruby.RubyHelper;
 import org.cloudsmith.geppetto.ruby.jrubyparser.JRubyServices;
+import org.eclipse.core.resources.IWorkspace;
+import org.eclipse.core.resources.IncrementalProjectBuilder;
+import org.eclipse.core.resources.ResourcesPlugin;
+import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.QualifiedName;
+import org.eclipse.core.runtime.Status;
+import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.xtext.util.Modules2;
+import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
 
 import com.google.common.collect.Maps;
@@ -40,6 +50,9 @@ public class PPDSLActivator extends PPActivator {
 	private static BundleContext slaActivatorContext;
 
 	private static final Logger logger = Logger.getLogger(PPDSLActivator.class);
+
+	private static final QualifiedName LAST_BUILDER_VERSION = new QualifiedName(
+		"org.cloudsmith.geppetto.dsl.ui", "builder.version");
 
 	public static PPDSLActivator getDefault() {
 		return (PPDSLActivator) getInstance();
@@ -67,10 +80,7 @@ public class PPDSLActivator extends PPActivator {
 
 	private ImagesOnFileSystemRegistry imagesOnFileSystemRegistry;
 
-	public ImagesOnFileSystemRegistry getImagesOnFSRegistry() {
-		return imagesOnFileSystemRegistry;
-	}
-
+	@Override
 	protected Injector createInjector(String language) {
 		try {
 			Module runtimeModule = getRuntimeModule(language);
@@ -91,6 +101,9 @@ public class PPDSLActivator extends PPActivator {
 		return ForgeService.getDefault().getForgeModule();
 	}
 
+	public ImagesOnFileSystemRegistry getImagesOnFSRegistry() {
+		return imagesOnFileSystemRegistry;
+	}
 
 	@Override
 	public Injector getInjector(String language) {
@@ -158,6 +171,29 @@ public class PPDSLActivator extends PPActivator {
 		}
 		imagesOnFileSystemRegistry = new ImagesOnFileSystemRegistry();
 		RubyHelper.setRubyServicesFactory(JRubyServices.FACTORY);
+
+		String lastBuilderVersion = ResourcesPlugin.getWorkspace().getRoot().getPersistentProperty(LAST_BUILDER_VERSION);
+		final Bundle bundle = context.getBundle();
+		String currentVersion = bundle.getVersion().toString();
+		if(lastBuilderVersion == null || !lastBuilderVersion.equals(currentVersion)) {
+			// Workspace was built using another version of Geppetto so schedule a
+			// clean rebuild
+			Job buildJob = new Job("Workspace build") {
+				@Override
+				protected IStatus run(IProgressMonitor monitor) {
+					try {
+						IWorkspace ws = ResourcesPlugin.getWorkspace();
+						ws.build(IncrementalProjectBuilder.FULL_BUILD, monitor);
+						ws.getRoot().setPersistentProperty(LAST_BUILDER_VERSION, bundle.getVersion().toString());
+						return Status.OK_STATUS;
+					}
+					catch(CoreException e) {
+						return e.getStatus();
+					}
+				}
+			};
+			buildJob.schedule();
+		}
 	}
 
 	@Override

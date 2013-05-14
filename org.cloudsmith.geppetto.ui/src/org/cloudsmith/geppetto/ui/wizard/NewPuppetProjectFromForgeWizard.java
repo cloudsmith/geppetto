@@ -14,12 +14,15 @@ package org.cloudsmith.geppetto.ui.wizard;
 import static org.cloudsmith.geppetto.forge.Forge.METADATA_JSON_NAME;
 import static org.cloudsmith.geppetto.forge.Forge.MODULEFILE_NAME;
 
-import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
+import java.net.SocketException;
 import java.util.Collections;
+import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.cloudsmith.geppetto.forge.util.ModuleUtils;
 import org.cloudsmith.geppetto.forge.v1.model.ModuleInfo;
+import org.cloudsmith.geppetto.forge.v1.service.ModuleService;
 import org.cloudsmith.geppetto.forge.v2.model.Metadata;
 import org.cloudsmith.geppetto.forge.v2.model.ModuleName;
 import org.cloudsmith.geppetto.semver.VersionRange;
@@ -28,11 +31,15 @@ import org.cloudsmith.geppetto.ui.dialog.ModuleListSelectionDialog;
 import org.cloudsmith.geppetto.ui.util.ResourceUtil;
 import org.cloudsmith.geppetto.ui.util.StringUtil;
 import org.eclipse.core.resources.IFile;
-import org.eclipse.emf.common.util.EList;
-import org.eclipse.emf.common.util.UniqueEList;
+import org.eclipse.core.resources.IResource;
+import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.OperationCanceledException;
+import org.eclipse.core.runtime.Path;
+import org.eclipse.core.runtime.SubMonitor;
 import org.eclipse.emf.edit.ui.provider.ExtendedImageRegistry;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.layout.GridDataFactory;
+import org.eclipse.jface.operation.IRunnableWithProgress;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.window.Window;
 import org.eclipse.swt.SWT;
@@ -43,6 +50,7 @@ import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.IWorkbench;
@@ -51,12 +59,15 @@ import org.eclipse.ui.dialogs.WizardNewProjectCreationPage;
 public class NewPuppetProjectFromForgeWizard extends NewPuppetModuleProjectWizard {
 	protected class PuppetProjectFromForgeCreationPage extends NewPuppetModuleProjectWizard.PuppetProjectCreationPage {
 
-		protected Object[] moduleChoices = null;
+		protected ModuleInfo[] moduleChoices = null;
+
+		protected Text projectNameField;
 
 		protected Text moduleField = null;
 
 		protected PuppetProjectFromForgeCreationPage(String pageName) {
 			super(pageName);
+			setNeedsProgressMonitor(true);
 		}
 
 		@Override
@@ -84,7 +95,16 @@ public class NewPuppetProjectFromForgeWizard extends NewPuppetModuleProjectWizar
 			createModuleGroup(composite);
 
 			super.createControl(parent);
+			for(Control c1 : parent.getChildren())
+				if(c1 instanceof Composite)
+					for(Control c2 : ((Composite) c1).getChildren())
+						if(c2 instanceof Composite)
+							for(Control c3 : ((Composite) c2).getChildren())
+								if(c3 instanceof Text && getProjectName().equals(((Text) c3).getText())) {
+									projectNameField = (Text) c3;
+									break;
 
+								}
 			setControl(parent);
 		}
 
@@ -114,37 +134,90 @@ public class NewPuppetProjectFromForgeWizard extends NewPuppetModuleProjectWizar
 			});
 		}
 
-		protected Object[] getModuleChoices() {
+		protected ModuleInfo[] getModuleChoices() {
 
-			if(moduleChoices == null) {
-				EList<Object> choices = new UniqueEList.FastCompare<Object>();
+			if(moduleChoices != null)
+				return moduleChoices;
 
-				try {
-					// TODO: Show error dialog
-					choices.addAll(getForge().search_v1(null));
-				}
-				catch(IOException ioe) {
-					StringBuilder builder = new StringBuilder();
-					builder.append("IOException: " + ioe.getClass().getName());
-					builder.append("\n");
-					builder.append(ioe.getMessage());
-					builder.append("\n\n(See the log view for technical details).");
-					MessageDialog.openError(getShell(), "Error while communicating with the ForgeAPI.", //
-						builder.toString()); //
-					log.error("Error while communicating with the ForgeAPI", ioe);
-				}
-
-				moduleChoices = choices.toArray();
+			try {
+				getContainer().run(true, true, new IRunnableWithProgress() {
+					@Override
+					public void run(IProgressMonitor monitor) throws InvocationTargetException, InterruptedException {
+						monitor.beginTask("Fetching latest releases from the Forge", 25);
+						try {
+							final Exception[] te = new Exception[1];
+							final ModuleService moduleService = getModuleServiceV1();
+							Thread t = new Thread() {
+								@Override
+								public void run() {
+									try {
+										List<ModuleInfo> choices = moduleService.search((String) null);
+										int top = choices.size();
+										if(top > 0)
+											moduleChoices = choices.toArray(new ModuleInfo[top]);
+									}
+									catch(SocketException e) {
+										// A user abort will cause a "Socket closed" exception We don't
+										// want to report that.
+										if(!"Socket closed".equals(e.getMessage()))
+											te[0] = e;
+									}
+									catch(Exception e) {
+										te[0] = e;
+									}
+								}
+							};
+							t.start();
+							int idx = 0;
+							while(t.isAlive()) {
+								t.join(1000);
+								if(monitor.isCanceled()) {
+									moduleService.abortCurrentRequest();
+									throw new OperationCanceledException();
+								}
+								if(++idx <= 25)
+									monitor.worked(1);
+							}
+							if(te[0] != null)
+								throw new InvocationTargetException(te[0]);
+						}
+						catch(RuntimeException e) {
+							throw e;
+						}
+						catch(Exception e) {
+							throw new InvocationTargetException(e);
+						}
+						finally {
+							monitor.done();
+						}
+					}
+				});
+			}
+			catch(InvocationTargetException e) {
+				Throwable t = e.getTargetException();
+				StringBuilder builder = new StringBuilder();
+				builder.append(t.getClass().getName());
+				builder.append("\n");
+				builder.append(t.getMessage());
+				builder.append("\n\n(See the log view for technical details).");
+				MessageDialog.openError(getShell(), "Error while communicating with the ForgeAPI.", //
+					builder.toString()); //
+				log.error("Error while communicating with the ForgeAPI", t);
+			}
+			catch(InterruptedException e) {
 			}
 
 			return moduleChoices;
 		}
 
 		protected void promptForModuleSelection() {
-			ModuleListSelectionDialog dialog = new ModuleListSelectionDialog(getShell());
+			ModuleInfo[] choices = getModuleChoices();
+			if(choices == null || choices.length == 0)
+				return;
 
+			ModuleListSelectionDialog dialog = new ModuleListSelectionDialog(getShell());
 			dialog.setMultipleSelection(false);
-			dialog.setElements(getModuleChoices());
+			dialog.setElements(choices);
 
 			if(module != null) {
 				dialog.setInitialElementSelections(Collections.singletonList(module));
@@ -159,6 +232,7 @@ public class NewPuppetProjectFromForgeWizard extends NewPuppetModuleProjectWizar
 			module = selectedModule;
 
 			moduleField.setText(StringUtil.getModuleText(module));
+			projectNameField.setText(module.getFullName().withSeparator('-').toString());
 
 			validatePage();
 		}
@@ -219,25 +293,38 @@ public class NewPuppetProjectFromForgeWizard extends NewPuppetModuleProjectWizar
 	}
 
 	@Override
-	protected void initializeProjectContents() throws Exception {
+	protected void initializeProjectContents(IProgressMonitor monitor) throws Exception {
 
-		if(module != null) {
+		if(module == null)
+			return;
+
+		SubMonitor submon = SubMonitor.convert(monitor, "Generating project...", 100);
+		try {
 			VersionRange vr = module.getVersion() == null
 					? null
 					: VersionRange.exact(module.getVersion());
 			Metadata metadata = getForge().install(module.getFullName(), vr, project.getLocation().toFile(), true, true);
+			submon.worked(60);
+			project.refreshLocal(IResource.DEPTH_INFINITE, submon.newChild(30));
+
+			if(submon.isCanceled())
+				throw new OperationCanceledException();
 
 			IFile moduleFile = ResourceUtil.getFile(project.getFullPath().append(MODULEFILE_NAME));
-
 			if(!moduleFile.exists()) {
 				ModuleName mdName = metadata.getName();
 				if(mdName == null)
 					metadata.setName(module.getFullName());
 				ModuleUtils.saveAsModulefile(metadata, moduleFile.getLocation().toFile());
+				moduleFile.refreshLocal(IResource.DEPTH_ZERO, submon.newChild(5));
 			}
-			IFile mdjsonFile = ResourceUtil.getFile(project.getFullPath().append(METADATA_JSON_NAME));
+
+			IFile mdjsonFile = moduleFile.getParent().getFile(Path.fromPortableString(METADATA_JSON_NAME));
 			if(mdjsonFile.exists())
 				mdjsonFile.setDerived(true, null);
+		}
+		finally {
+			monitor.done();
 		}
 	}
 

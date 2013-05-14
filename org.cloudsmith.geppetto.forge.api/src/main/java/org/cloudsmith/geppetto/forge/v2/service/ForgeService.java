@@ -33,6 +33,14 @@ public abstract class ForgeService {
 	@Inject
 	private ForgeClient forgeClient;
 
+	/**
+	 * Cleanly abort the currently executing request. This method does nothing if there is
+	 * no executing request.
+	 */
+	public void abortCurrentRequest() {
+		forgeClient.abortCurrentRequest();
+	}
+
 	ForgeClient getClient(boolean authenticated) throws IOException {
 		if(authenticated)
 			forgeClient.authenticate();

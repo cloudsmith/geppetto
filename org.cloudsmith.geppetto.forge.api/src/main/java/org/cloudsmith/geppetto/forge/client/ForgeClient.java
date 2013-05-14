@@ -22,6 +22,11 @@ import java.util.Map;
  * specific purposes (like unit tests).
  */
 public interface ForgeClient {
+	/**
+	 * Cleanly abort the currently executing request. This method does nothing if there is
+	 * no executing request.
+	 */
+	void abortCurrentRequest();
 
 	/**
 	 * Authenticate, i.e. ask the server for the OAuth credentials unless we already have them

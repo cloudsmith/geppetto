@@ -98,6 +98,8 @@ public class ForgeHttpClient implements Constants, ForgeClient {
 
 	private String userAgent;
 
+	private HttpRequestBase currentRequest;
+
 	@Inject
 	public ForgeHttpClient(Gson gson, ForgeAPIPreferences preferences, Authenticator authenticator) {
 		this.v1URL = preferences.getURL_v1();
@@ -107,6 +109,13 @@ public class ForgeHttpClient implements Constants, ForgeClient {
 		this.preferences = preferences;
 		userAgent = USER_AGENT;
 		httpClient = createHttpClient();
+	}
+
+	public synchronized void abortCurrentRequest() {
+		if(currentRequest != null) {
+			currentRequest.abort();
+			currentRequest = null;
+		}
 	}
 
 	protected void assignJSONContent(HttpEntityEnclosingRequestBase request, Object params) {
@@ -200,8 +209,18 @@ public class ForgeHttpClient implements Constants, ForgeClient {
 		});
 	}
 
+	private synchronized void endRequest() {
+		currentRequest = null;
+	}
+
 	protected <V> V executeRequest(final HttpRequestBase request, final Type type) throws IOException {
-		return httpClient.execute(request, new JSonResponseHandler<V>(gson, type));
+		startRequest(request);
+		try {
+			return httpClient.execute(request, new JSonResponseHandler<V>(gson, type));
+		}
+		finally {
+			endRequest();
+		}
 	}
 
 	@Override
@@ -279,6 +298,12 @@ public class ForgeHttpClient implements Constants, ForgeClient {
 		else
 			userAgent = USER_AGENT;
 		return this;
+	}
+
+	private synchronized void startRequest(HttpRequestBase request) {
+		if(currentRequest != null)
+			currentRequest.abort();
+		currentRequest = request;
 	}
 
 	/**

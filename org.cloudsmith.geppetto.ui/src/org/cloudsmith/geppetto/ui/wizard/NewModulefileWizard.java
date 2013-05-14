@@ -7,6 +7,7 @@ import static org.cloudsmith.geppetto.forge.model.Constants.UTF_8;
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.io.PrintStream;
+import java.lang.reflect.InvocationTargetException;
 
 import org.cloudsmith.geppetto.common.os.StreamUtil.OpenBAStream;
 import org.cloudsmith.geppetto.forge.v2.model.ModuleName;
@@ -15,10 +16,12 @@ import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
+import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
-import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Status;
+import org.eclipse.jface.dialogs.ErrorDialog;
+import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.swt.widgets.Composite;
@@ -26,6 +29,7 @@ import org.eclipse.ui.INewWizard;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PartInitException;
+import org.eclipse.ui.actions.WorkspaceModifyOperation;
 import org.eclipse.ui.dialogs.WizardNewFileCreationPage;
 import org.eclipse.ui.ide.IDE;
 import org.eclipse.ui.internal.ide.DialogUtil;
@@ -99,7 +103,7 @@ public class NewModulefileWizard extends BasicNewResourceWizard implements INewW
 
 	// private ISelection selection;
 
-	protected static void ensureMetadataJSONExists(IFile moduleFile) {
+	protected static void ensureMetadataJSONExists(IFile moduleFile, IProgressMonitor monitor) {
 		IFile mdjson = moduleFile.getParent().getFile(Path.fromPortableString(METADATA_JSON_NAME));
 		if(mdjson.exists())
 			return;
@@ -109,7 +113,7 @@ public class NewModulefileWizard extends BasicNewResourceWizard implements INewW
 			PrintStream ps = new PrintStream(oba);
 			ps.println("{}");
 			ps.close();
-			mdjson.create(oba.getInputStream(), IResource.DERIVED, new NullProgressMonitor());
+			mdjson.create(oba.getInputStream(), IResource.DERIVED, monitor);
 		}
 		catch(CoreException e) {
 		}
@@ -145,30 +149,52 @@ public class NewModulefileWizard extends BasicNewResourceWizard implements INewW
 
 	@Override
 	public boolean performFinish() {
-		IFile file = page.createNewFile();
-		if(file == null) {
-			return false;
-		}
-
-		selectAndReveal(file);
-
 		// Open editor on new file.
-		IWorkbenchWindow dw = getWorkbench().getActiveWorkbenchWindow();
 		try {
-			if(dw != null) {
-				IWorkbenchPage page = dw.getActivePage();
-				if(page != null) {
-					// Ensure that the 'metadata.json' file exists prior to opening
-					ensureMetadataJSONExists(file);
-					IDE.openEditor(page, file, true);
-				}
-			}
-		}
-		catch(PartInitException e) {
-			DialogUtil.openError(dw.getShell(), ResourceMessages.FileResource_errorMessage, e.getMessage(), e);
-		}
+			getContainer().run(false, false, new WorkspaceModifyOperation() {
 
-		return true;
+				@Override
+				protected void execute(IProgressMonitor progressMonitor) throws InvocationTargetException {
+					IFile file = page.createNewFile();
+					if(file == null) {
+						return;
+					}
+
+					selectAndReveal(file);
+
+					IWorkbenchWindow dw = getWorkbench().getActiveWorkbenchWindow();
+					if(dw != null)
+						try {
+							IWorkbenchPage page = dw.getActivePage();
+							if(page != null) {
+								// Ensure that the 'metadata.json' file exists prior to opening
+								ensureMetadataJSONExists(file, progressMonitor);
+								IDE.openEditor(page, file, true);
+							}
+						}
+						catch(Exception e) {
+							throw new InvocationTargetException(e);
+						}
+				}
+			});
+
+			return true;
+		}
+		catch(InvocationTargetException e) {
+			Throwable t = e.getTargetException();
+			if(t instanceof PartInitException)
+				DialogUtil.openError(
+					getShell(), ResourceMessages.FileResource_errorMessage, t.getMessage(), (PartInitException) t);
+			else if(t instanceof CoreException)
+				ErrorDialog.openError(
+					getShell(), ResourceMessages.FileResource_errorMessage, t.getMessage(),
+					((CoreException) t).getStatus());
+			else
+				MessageDialog.openError(getShell(), ResourceMessages.FileResource_errorMessage, t.getMessage());
+		}
+		catch(InterruptedException e) {
+		}
+		return false;
 	}
 
 }

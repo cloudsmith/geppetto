@@ -13,6 +13,7 @@ package org.cloudsmith.geppetto.ui.wizard;
 
 import org.cloudsmith.geppetto.ui.UIPlugin;
 import org.cloudsmith.geppetto.ui.util.ResourceUtil;
+import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.emf.edit.ui.provider.ExtendedImageRegistry;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.ui.IWorkbench;
@@ -41,7 +42,7 @@ public class NewPuppetProjectWizard extends NewPuppetModuleProjectWizard {
 	}
 
 	@Override
-	protected void initializeProjectContents() throws Exception {
+	protected void initializeProjectContents(IProgressMonitor monitor) throws Exception {
 		// no content generated
 	}
 

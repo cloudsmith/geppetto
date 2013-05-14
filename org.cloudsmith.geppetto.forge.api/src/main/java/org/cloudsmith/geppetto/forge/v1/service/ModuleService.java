@@ -34,6 +34,14 @@ public class ModuleService {
 	private ForgeClient forgeClient;
 
 	/**
+	 * Cleanly abort the currently executing request. This method does nothing if there is
+	 * no executing request.
+	 */
+	public void abortCurrentRequest() {
+		forgeClient.abortCurrentRequest();
+	}
+
+	/**
 	 * Return all modules that has been added or modified since the given timestamp. Addition or
 	 * removal of a release is considered a modification of the module.
 	 * 

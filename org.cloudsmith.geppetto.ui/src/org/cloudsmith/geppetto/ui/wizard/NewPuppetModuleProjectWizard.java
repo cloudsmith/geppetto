@@ -14,10 +14,12 @@ package org.cloudsmith.geppetto.ui.wizard;
 import static org.cloudsmith.geppetto.forge.Forge.MODULEFILE_NAME;
 
 import java.io.File;
+import java.lang.reflect.InvocationTargetException;
 import java.util.Collections;
 
 import org.cloudsmith.geppetto.forge.Forge;
 import org.cloudsmith.geppetto.forge.util.ModuleUtils;
+import org.cloudsmith.geppetto.forge.v1.service.ModuleService;
 import org.cloudsmith.geppetto.forge.v2.model.Metadata;
 import org.cloudsmith.geppetto.forge.v2.model.ModuleName;
 import org.cloudsmith.geppetto.pp.dsl.ui.pptp.PptpTargetProjectHandler;
@@ -27,6 +29,7 @@ import org.cloudsmith.geppetto.ui.util.ResourceUtil;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
+import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.Path;
@@ -34,6 +37,7 @@ import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.SubMonitor;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.edit.ui.provider.ExtendedImageRegistry;
+import org.eclipse.jface.dialogs.ErrorDialog;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.wizard.Wizard;
@@ -42,6 +46,7 @@ import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.actions.WorkspaceModifyOperation;
 import org.eclipse.ui.dialogs.WizardNewProjectCreationPage;
+import org.eclipse.ui.internal.ide.DialogUtil;
 
 import com.google.inject.Inject;
 
@@ -82,6 +87,9 @@ public class NewPuppetModuleProjectWizard extends Wizard implements INewWizard {
 	@Inject
 	private Forge forge;
 
+	@Inject(optional = true)
+	private ModuleService moduleServiceV1;
+
 	@Inject
 	private PptpTargetProjectHandler pptpHandler;
 
@@ -103,6 +111,10 @@ public class NewPuppetModuleProjectWizard extends Wizard implements INewWizard {
 
 	protected Forge getForge() {
 		return forge;
+	}
+
+	protected ModuleService getModuleServiceV1() {
+		return moduleServiceV1;
 	}
 
 	protected String getProjectCreationPageDescription() {
@@ -127,7 +139,7 @@ public class NewPuppetModuleProjectWizard extends Wizard implements INewWizard {
 		setWindowTitle(UIPlugin.INSTANCE.getString("_UI_NewPuppetModuleProject_title")); //$NON-NLS-1$
 	}
 
-	protected void initializeProjectContents() throws Exception {
+	protected void initializeProjectContents(IProgressMonitor monitor) throws Exception {
 		Forge forge = getForge();
 		Metadata metadata = new Metadata();
 		metadata.setName(new ModuleName(project.getName().toLowerCase(), true));
@@ -151,61 +163,60 @@ public class NewPuppetModuleProjectWizard extends Wizard implements INewWizard {
 
 	@Override
 	public boolean performFinish() {
-		WorkspaceModifyOperation operation = new WorkspaceModifyOperation() {
-
-			@Override
-			protected void execute(IProgressMonitor progressMonitor) {
-				SubMonitor monitor = SubMonitor.convert(progressMonitor, 3);
-				try {
-					project = ResourceUtil.createProject(
-						new Path(projectContainer.toString()), projectLocation == null
-								? null
-								: URI.createFileURI(projectLocation.toOSString()), Collections.<IProject> emptyList(),
-						monitor.newChild(1));
-
-					initializeProjectContents();
-					pptpHandler.ensureStateOfPuppetProjects(monitor.newChild(1));
-					project.refreshLocal(IResource.DEPTH_INFINITE, monitor.newChild(1));
-				}
-				catch(Exception exception) {
-					MessageDialog.openError(
-						getShell(), UIPlugin.INSTANCE.getString("_UI_CreateProject_title"), exception.getMessage()); //$NON-NLS-1$
-				}
-				finally {
-					progressMonitor.done();
-				}
-			}
-		};
-
 		try {
-			getContainer().run(false, false, operation);
-		}
-		catch(Exception exception) {
-			MessageDialog.openError(
-				getShell(), UIPlugin.INSTANCE.getString("_UI_CreateProject_title"), exception.getMessage()); //$NON-NLS-1$
-			return false;
-		}
+			getContainer().run(false, false, new WorkspaceModifyOperation() {
 
-		if(project != null) {
-			IFile modulefile = ResourceUtil.getFile(project.getFullPath().append(MODULEFILE_NAME)); //$NON-NLS-1$
+				@Override
+				protected void execute(IProgressMonitor progressMonitor) throws InvocationTargetException {
+					SubMonitor monitor = SubMonitor.convert(progressMonitor, 100);
+					try {
+						project = ResourceUtil.createProject(
+							new Path(projectContainer.toString()), projectLocation == null
+									? null
+									: URI.createFileURI(projectLocation.toOSString()),
+							Collections.<IProject> emptyList(), monitor.newChild(1));
 
-			if(modulefile.exists()) {
-				NewModulefileWizard.ensureMetadataJSONExists(modulefile);
-				ResourceUtil.selectFile(modulefile);
+						initializeProjectContents(monitor.newChild(80));
+						pptpHandler.ensureStateOfPuppetProjects(monitor.newChild(10));
+						project.refreshLocal(IResource.DEPTH_INFINITE, monitor.newChild(9));
 
-				try {
-					ResourceUtil.openEditor(modulefile);
+						IFile modulefile = ResourceUtil.getFile(project.getFullPath().append(MODULEFILE_NAME)); //$NON-NLS-1$
+						if(modulefile.exists()) {
+							NewModulefileWizard.ensureMetadataJSONExists(modulefile, monitor.newChild(1));
+							ResourceUtil.selectFile(modulefile);
+
+							try {
+								ResourceUtil.openEditor(modulefile);
+							}
+							catch(PartInitException partInitException) {
+								MessageDialog.openError(
+									getShell(),
+									UIPlugin.INSTANCE.getString("_UI_OpenEditor_title"), partInitException.getMessage()); //$NON-NLS-1$
+							}
+						}
+					}
+					catch(Exception exception) {
+						throw new InvocationTargetException(exception);
+					}
+					finally {
+						progressMonitor.done();
+					}
 				}
-				catch(PartInitException partInitException) {
-					MessageDialog.openError(
-						getShell(), UIPlugin.INSTANCE.getString("_UI_OpenEditor_title"), partInitException.getMessage()); //$NON-NLS-1$
-					return false;
-				}
-			}
-
+			});
 			return true;
 		}
-
+		catch(InvocationTargetException e) {
+			Throwable t = e.getTargetException();
+			String title = UIPlugin.INSTANCE.getString("_UI_CreateProject_title");
+			if(t instanceof PartInitException)
+				DialogUtil.openError(getShell(), title, t.getMessage(), (PartInitException) t);
+			else if(t instanceof CoreException)
+				ErrorDialog.openError(getShell(), title, t.getMessage(), ((CoreException) t).getStatus());
+			else
+				MessageDialog.openError(getShell(), title, t.getMessage());
+		}
+		catch(InterruptedException e) {
+		}
 		return false;
 	}
 }

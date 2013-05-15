@@ -20,7 +20,6 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Collection;
-import java.util.Date;
 import java.util.List;
 import java.util.zip.GZIPInputStream;
 
@@ -181,29 +180,6 @@ public class ForgeTest extends AbstractForgeTest {
 			assertFalse("No modules found matching 'rsync'", hits.isEmpty());
 			for(ModuleInfo mi : hits)
 				System.out.println(mi.getFullName());
-		}
-		catch(IOException e) {
-			fail(e.getMessage());
-		}
-	}
-
-	@Test
-	public void searchModulesSinceNow_v1() {
-		try {
-			List<ModuleInfo> hits = fixture.searchSince_v1(new Date());
-			assertTrue("Should not find modules modified after current time", hits.isEmpty());
-		}
-		catch(IOException e) {
-			fail(e.getMessage());
-		}
-	}
-
-	@Test
-	public void searchModulesSinceWayBack_v1() {
-		try {
-			List<ModuleInfo> hits = fixture.searchSince_v1(new Date(System.currentTimeMillis() - 1000 * 60 * 60 * 24 *
-					365 * 10));
-			assertFalse("Should find modules modified after ten years", hits.isEmpty());
 		}
 		catch(IOException e) {
 			fail(e.getMessage());

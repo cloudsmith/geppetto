@@ -13,13 +13,11 @@ package org.cloudsmith.geppetto.forge.v1.service;
 
 import java.io.IOException;
 import java.util.Collections;
-import java.util.Date;
 import java.util.List;
 
 import org.apache.http.HttpStatus;
 import org.apache.http.client.HttpResponseException;
 import org.cloudsmith.geppetto.forge.client.ForgeClient;
-import org.cloudsmith.geppetto.forge.client.GsonProvider.DateJsonAdapter;
 import org.cloudsmith.geppetto.forge.model.Constants;
 import org.cloudsmith.geppetto.forge.v1.model.ModuleInfo;
 import org.cloudsmith.geppetto.forge.v2.model.Module;
@@ -39,33 +37,6 @@ public class ModuleService {
 	 */
 	public void abortCurrentRequest() {
 		forgeClient.abortCurrentRequest();
-	}
-
-	/**
-	 * Return all modules that has been added or modified since the given timestamp. Addition or
-	 * removal of a release is considered a modification of the module.
-	 * 
-	 * @param changedSince
-	 *            The timestamp. Must not be null.
-	 * @return All Modules that has been added or modified since the given timestamp.
-	 * @throws IOException
-	 */
-	public List<ModuleInfo> search(Date timestamp) throws IOException {
-		List<ModuleInfo> modules = null;
-		try {
-			modules = forgeClient.getV1(
-				Constants.COMMAND_GROUP_MODULES, timestamp == null
-						? null
-						: Collections.singletonMap("changed_since", DateJsonAdapter.dateToString(timestamp)),
-				Constants.LIST_MODULE_INFO);
-		}
-		catch(HttpResponseException e) {
-			if(e.getStatusCode() != HttpStatus.SC_NOT_FOUND)
-				throw e;
-		}
-		if(modules == null)
-			modules = Collections.emptyList();
-		return modules;
 	}
 
 	/**

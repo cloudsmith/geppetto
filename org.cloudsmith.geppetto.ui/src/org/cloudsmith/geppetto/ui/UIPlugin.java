@@ -11,6 +11,8 @@
  */
 package org.cloudsmith.geppetto.ui;
 
+import java.text.MessageFormat;
+
 import org.eclipse.emf.common.EMFPlugin;
 import org.eclipse.emf.common.ui.EclipseUIPlugin;
 import org.eclipse.emf.common.util.ResourceLocator;
@@ -45,6 +47,13 @@ public final class UIPlugin extends EMFPlugin {
 	 * Keep track of the singleton.
 	 */
 	private static Implementation plugin;
+
+	public static String getLocalString(String key, Object... params) {
+		String msg = INSTANCE.getString(key);
+		return params.length == 0
+				? msg
+				: MessageFormat.format(msg, params);
+	}
 
 	/**
 	 * Returns the singleton instance of the Eclipse plugin.

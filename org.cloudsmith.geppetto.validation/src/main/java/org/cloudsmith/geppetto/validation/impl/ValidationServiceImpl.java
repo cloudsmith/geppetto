@@ -527,7 +527,7 @@ public class ValidationServiceImpl implements ValidationService {
 	 * @param monitor
 	 * @return null if the Modulefile could not be loaded
 	 */
-	private Metadata loadModulefileMetadata(Diagnostic diagnostics, File parentFile, File[] mdProvider,
+	private Metadata loadModuleMetadata(Diagnostic diagnostics, File parentFile, File[] mdProvider,
 			IProgressMonitor monitor) {
 		// parse the metadata file and get full name and version, use this as
 		// name of target entry
@@ -1139,7 +1139,7 @@ public class ValidationServiceImpl implements ValidationService {
 			IProgressMonitor monitor) {
 		SubMonitor ticker = SubMonitor.convert(monitor, 11);
 		File[] mdProvider = new File[1];
-		Metadata metadata = loadModulefileMetadata(diagnostics, parentFile, mdProvider, ticker.newChild(1));
+		Metadata metadata = loadModuleMetadata(diagnostics, parentFile, mdProvider, ticker.newChild(1));
 		if(metadata == null)
 			return; // failed in some way and should have reported this
 

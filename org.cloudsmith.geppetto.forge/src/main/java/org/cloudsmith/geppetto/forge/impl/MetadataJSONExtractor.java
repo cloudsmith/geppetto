@@ -25,12 +25,17 @@ import org.cloudsmith.geppetto.forge.v2.model.Metadata;
 
 public class MetadataJSONExtractor extends AbstractMetadataExtractor {
 	public int getCardinal() {
-		return 0;
+		return 20;
 	}
 
 	@Override
 	public String getPrimarySource() {
 		return METADATA_JSON_NAME;
+	}
+
+	@Override
+	public boolean hasTypesAndProviders() {
+		return true;
 	}
 
 	@Override

@@ -161,7 +161,7 @@ class ForgeImpl implements Forge {
 		FileUtils.cpR(moduleSource, destModuleDir, fileFilter, false, true);
 
 		File metadataJSON = new File(destModuleDir, METADATA_JSON_NAME);
-		if(!metadataJSON.exists())
+		if(!extractedFrom[0].getName().equals(METADATA_JSON_NAME))
 			saveJSONMetadata(md, metadataJSON);
 
 		final File moduleArchive = new File(destination, zipArchiveName);
@@ -423,6 +423,14 @@ class ForgeImpl implements Forge {
 		Metadata metadata = getMetadataFromPackage(moduleArchive);
 		if(metadata == null)
 			throw new ForgeException("No \"metadata.json\" found in archive: " + moduleArchive.getAbsolutePath());
+
+		if(metadata.getName() == null)
+			throw new ForgeException("The \"metadata.json\" found in archive: " + moduleArchive.getAbsolutePath() +
+					" has no name");
+
+		if(metadata.getVersion() == null)
+			throw new ForgeException("The \"metadata.json\" found in archive: " + moduleArchive.getAbsolutePath() +
+					" has no version");
 
 		try {
 			if(metadataRepo.resolve(metadata.getName(), metadata.getVersion()) != null)

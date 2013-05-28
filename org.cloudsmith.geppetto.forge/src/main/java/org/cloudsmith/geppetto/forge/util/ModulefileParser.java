@@ -25,9 +25,10 @@ import org.cloudsmith.geppetto.semver.Version;
 import org.cloudsmith.geppetto.semver.VersionRange;
 import org.jrubyparser.SourcePosition;
 import org.jrubyparser.ast.FCallNode;
+import org.jrubyparser.ast.FixnumNode;
+import org.jrubyparser.ast.FloatNode;
 import org.jrubyparser.ast.IArgumentNode;
 import org.jrubyparser.ast.ListNode;
-import org.jrubyparser.ast.NilNode;
 import org.jrubyparser.ast.Node;
 import org.jrubyparser.ast.NodeType;
 import org.jrubyparser.ast.RootNode;
@@ -48,9 +49,16 @@ public abstract class ModulefileParser {
 	}
 
 	private static String getString(Node node) {
-		return node instanceof NilNode
-				? null
-				: ((StrNode) node).getValue();
+		switch(node.getNodeType()) {
+			case STRNODE:
+				return ((StrNode) node).getValue();
+			case FIXNUMNODE:
+				return Long.toString(((FixnumNode) node).getValue());
+			case FLOATNODE:
+				return Double.toString(((FloatNode) node).getValue());
+			default:
+				return null;
+		}
 	}
 
 	private static boolean isValidCall(String key) {
@@ -92,18 +100,18 @@ public abstract class ModulefileParser {
 		Dependency dep = new DependencyWithPosition(
 			pos.getStartOffset(), pos.getEndOffset() - pos.getStartOffset(), pos.getStartLine(),
 			new File(pos.getFile()));
-		dep.setName(createModuleName(name, pos));
+		dep.setName(createModuleName(name, true, pos));
 		if(versionRequirement != null)
 			try {
 				dep.setVersionRequirement(VersionRange.create(versionRequirement));
 			}
 			catch(IllegalArgumentException e) {
-				addError(pos, e.getMessage());
+				addError(pos, getBadVersionRangeMessage(e));
 			}
 		return dep;
 	}
 
-	protected ModuleName createModuleName(String name, SourcePosition pos) {
+	protected ModuleName createModuleName(String name, boolean dependency, SourcePosition pos) {
 		if(name == null)
 			return null;
 
@@ -118,10 +126,10 @@ public abstract class ModulefileParser {
 		catch(IllegalArgumentException e1) {
 			try {
 				m = new ModuleName(name, false);
-				addWarning(pos, e1.getMessage());
+				addWarning(pos, getBadNameMessage(e1, dependency));
 			}
 			catch(IllegalArgumentException e2) {
-				addError(pos, e2.getMessage());
+				addError(pos, getBadNameMessage(e2, dependency));
 			}
 		}
 		return m;
@@ -137,6 +145,17 @@ public abstract class ModulefileParser {
 		}
 	}
 
+	protected String getBadNameMessage(IllegalArgumentException e, boolean dependency) {
+		String pfx = dependency
+				? "A dependency "
+				: "A module ";
+		return pfx + e.getMessage();
+	}
+
+	protected String getBadVersionRangeMessage(IllegalArgumentException e) {
+		return e.getMessage();
+	}
+
 	public ModuleName getFullName() {
 		return fullName;
 	}
@@ -150,12 +169,18 @@ public abstract class ModulefileParser {
 		ArrayList<Node> stringArgs = new ArrayList<Node>(top);
 		for(int idx = 0; idx < top; ++idx) {
 			Node argNode = args.get(idx);
-			if(argNode instanceof StrNode || argNode instanceof NilNode)
-				stringArgs.add(argNode);
-			else
-				addError(argNode.getPosition(), "Unexpected ruby code. Node type was: " + (argNode == null
-						? "null"
-						: argNode.getClass().getSimpleName()));
+			switch(argNode.getNodeType()) {
+				case STRNODE:
+				case FIXNUMNODE:
+				case FLOATNODE:
+				case NILNODE:
+					stringArgs.add(argNode);
+					break;
+				default:
+					addError(argNode.getPosition(), "Unexpected ruby code. Node type was: " + (argNode == null
+							? "null"
+							: argNode.getClass().getSimpleName()));
+			}
 		}
 		return stringArgs;
 	}

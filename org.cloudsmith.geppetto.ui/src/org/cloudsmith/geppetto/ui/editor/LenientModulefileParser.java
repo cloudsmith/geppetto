@@ -34,7 +34,7 @@ public class LenientModulefileParser extends ModulefileParser {
 					case name: {
 						String name = args.get(0).toStringOrNull();
 						if(name != null) {
-							setFullName(createModuleName(name, pos));
+							setFullName(createModuleName(name, false, pos));
 							setNameSeen();
 						}
 						break;
@@ -82,5 +82,10 @@ public class LenientModulefileParser extends ModulefileParser {
 
 		model.addCall(
 			key, new CallSticker(pos.getStartOffset(), pos.getEndOffset() - pos.getStartOffset(), argStickers));
+	}
+
+	@Override
+	protected String getBadNameMessage(IllegalArgumentException e, boolean dependency) {
+		return MetadataModel.getBadNameMessage(e, dependency);
 	}
 }

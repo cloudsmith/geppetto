@@ -405,20 +405,6 @@ public class ValidationServiceImpl implements ValidationService {
 	}
 
 	/**
-	 * @param circularity
-	 * @return
-	 */
-	private Object circularitylabel(List<MetadataInfo> circularity) {
-		final StringBuilder result = new StringBuilder();
-		for(MetadataInfo mi : circularity) {
-			mi.getMetadata().getName().toString(result);
-			result.append("->");
-		}
-		circularity.get(0).getMetadata().getName().toString(result);
-		return result.toString();
-	}
-
-	/**
 	 * Collects file matching filter while skipping all symbolically linked files.
 	 * 
 	 * @param root
@@ -541,7 +527,7 @@ public class ValidationServiceImpl implements ValidationService {
 	 * @param monitor
 	 * @return null if the Modulefile could not be loaded
 	 */
-	private Metadata loadModulefileMetadata(Diagnostic diagnostics, File parentFile, File[] mdProvider,
+	private Metadata loadModuleMetadata(Diagnostic diagnostics, File parentFile, File[] mdProvider,
 			IProgressMonitor monitor) {
 		// parse the metadata file and get full name and version, use this as
 		// name of target entry
@@ -925,16 +911,12 @@ public class ValidationServiceImpl implements ValidationService {
 				checkCircularDependencies(moduleData, diagnostics, root);
 				for(MetadataInfo mi : moduleData.values()) {
 					if(isValidationWanted(examinedFiles, mi.getFile())) {
-						for(List<MetadataInfo> circularity : mi.getCircularities()) {
-							StringBuilder message = new StringBuilder();
-							message.append("Circular dependency: ");
-							message.append(circularitylabel(circularity));
+						for(String circularity : mi.getCircularityMessages())
 							addFileDiagnostic(
 								diagnostics, preference.isError()
 										? Diagnostic.ERROR
-										: Diagnostic.WARNING, mi.getFile(), root, message.toString(),
+										: Diagnostic.WARNING, mi.getFile(), root, circularity,
 								IPPDiagnostics.ISSUE__CIRCULAR_MODULE_DEPENDENCY);
-						}
 					}
 				}
 			}
@@ -1157,7 +1139,7 @@ public class ValidationServiceImpl implements ValidationService {
 			IProgressMonitor monitor) {
 		SubMonitor ticker = SubMonitor.convert(monitor, 11);
 		File[] mdProvider = new File[1];
-		Metadata metadata = loadModulefileMetadata(diagnostics, parentFile, mdProvider, ticker.newChild(1));
+		Metadata metadata = loadModuleMetadata(diagnostics, parentFile, mdProvider, ticker.newChild(1));
 		if(metadata == null)
 			return; // failed in some way and should have reported this
 
@@ -1246,11 +1228,9 @@ public class ValidationServiceImpl implements ValidationService {
 		validateRepository(diagnostics, catalogRoot, ticker.newChild(1000));
 
 		// check for early exit due to cancel or errors
-		if(diagnostics instanceof Diagnostic) {
-			int severity = diagnostics.getSeverity();
-			if(ticker.isCanceled() || severity > Diagnostic.WARNING)
-				return;
-		}
+		int severity = diagnostics.getSeverity();
+		if(ticker.isCanceled() || severity > Diagnostic.WARNING)
+			return;
 
 		// perform a catalog production
 		PuppetCatalogCompilerRunner runner = new PuppetCatalogCompilerRunner();

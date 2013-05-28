@@ -295,9 +295,15 @@ public class DependencyDataCalculator implements DependencyGraphStyles, Dependen
 
 	private ModuleNodeData _file2Module(File f, Map<File, ModuleNodeData> index) {
 		String path = f.getPath();
-		if(!(path.endsWith(MODULEFILE_NAME) || path.endsWith(METADATA_JSON_NAME)))
-			return index.get(new File(path + '/' + MODULEFILE_NAME));
-		return index.get(f);
+		ModuleNodeData md;
+		if(path.endsWith(MODULEFILE_NAME) || path.endsWith(METADATA_JSON_NAME))
+			md = index.get(f);
+		else {
+			md = index.get(new File(path + '/' + MODULEFILE_NAME));
+			if(md == null)
+				md = index.get(new File(path + '/' + METADATA_JSON_NAME));
+		}
+		return md;
 	}
 
 	private void addEdgeHref(ModuleNodeData a, ModuleNodeData b, GraphElement... elements) {
@@ -467,6 +473,10 @@ public class DependencyDataCalculator implements DependencyGraphStyles, Dependen
 	}
 
 	private Vertex createVertexForEdge(ModuleEdge me) {
+		if(me.imported == null && me.unresolved == null)
+			// if neither imported nor unresolved, a vertex is not needed
+			return null;
+
 		StringBuilder stringBuilder = new StringBuilder();
 		stringBuilder.append("References from ");
 		stringBuilder.append(makeTooltip(me.from, me.to));
@@ -478,16 +488,13 @@ public class DependencyDataCalculator implements DependencyGraphStyles, Dependen
 				StyleSet.withStyle(styles.tooltip(tooltipString))));
 			me.setVertex(edgeVertex);
 		}
-		else if(me.unresolved != null) {
+		else {
 			edgeVertex = new Vertex("", STYLE_CLASS_UNRESOLVED_IMPORTS);
 			edgeVertex.setStyles(labelStyleForUnresolved(me).add(StyleSet.withStyle(styles.tooltip(tooltipString))));
 			me.setVertex(edgeVertex);
 		}
-		// Set style classes for FROM and TO if vertex was created
-		if(edgeVertex != null)
-			edgeVertex.addAllStyleClasses(classesOfEdge(me));
-
-		// if neither imported nor unresolved, a vertex is not needed
+		// Set style classes for FROM and TO
+		edgeVertex.addAllStyleClasses(classesOfEdge(me));
 		return edgeVertex;
 	}
 
@@ -808,7 +815,8 @@ public class DependencyDataCalculator implements DependencyGraphStyles, Dependen
 				int implied = 0;
 				int count = 0;
 				List<ModuleEdge> edges = new ArrayList<ModuleEdge>();
-				for(ModuleEdge e : a.outgoing.get(b)) {
+				Collection<ModuleEdge> outgoing = a.outgoing.get(b);
+				for(ModuleEdge e : outgoing) {
 					edges.add(e);
 					switch(e.edgeType) {
 						case IMPLIED:
@@ -823,6 +831,7 @@ public class DependencyDataCalculator implements DependencyGraphStyles, Dependen
 						default:
 							throw new IllegalStateException("Illegal edge type found");
 					}
+					++count;
 				}
 				String tooltipString = makeTooltip(a, b);
 				List<String> styleClasses = classesFor(a, b);

@@ -30,6 +30,11 @@ public abstract class AbstractMetadataExtractor implements MetadataExtractor {
 	}
 
 	@Override
+	public boolean hasTypesAndProviders() {
+		return false;
+	}
+
+	@Override
 	public Metadata parseMetadata(File moduleDirectory, boolean includeTypesAndChecksums, FileFilter filter,
 			File[] extractedFrom, Diagnostic result) throws IOException {
 		File metadataFile = new File(moduleDirectory, getPrimarySource());
@@ -40,7 +45,7 @@ public abstract class AbstractMetadataExtractor implements MetadataExtractor {
 			throw new FileNotFoundException(metadataFile.getAbsolutePath());
 
 		Metadata md = performMetadataExtraction(metadataFile, result);
-		if(md != null && getCardinal() > 0 && includeTypesAndChecksums) {
+		if(md != null && !hasTypesAndProviders() && includeTypesAndChecksums) {
 			md.setTypes(Types.loadTypes(new File(moduleDirectory, "lib/puppet"), filter));
 			md.setChecksums(Checksums.loadChecksums(moduleDirectory, filter));
 		}

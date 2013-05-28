@@ -12,8 +12,11 @@
 package org.cloudsmith.geppetto.ui.editor;
 
 import static org.cloudsmith.geppetto.common.Strings.emptyToNull;
+import static org.cloudsmith.geppetto.common.Strings.trimToNull;
 import static org.cloudsmith.geppetto.forge.Forge.MODULEFILE_NAME;
+import static org.cloudsmith.geppetto.forge.Forge.PARSE_FAILURE;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.StringReader;
 import java.util.ArrayList;
@@ -23,7 +26,6 @@ import java.util.List;
 import java.util.Map;
 
 import org.cloudsmith.geppetto.diagnostic.Diagnostic;
-import org.cloudsmith.geppetto.diagnostic.DiagnosticType;
 import org.cloudsmith.geppetto.diagnostic.ExceptionDiagnostic;
 import org.cloudsmith.geppetto.diagnostic.FileDiagnostic;
 import org.cloudsmith.geppetto.forge.Forge;
@@ -31,6 +33,7 @@ import org.cloudsmith.geppetto.forge.util.CallSymbol;
 import org.cloudsmith.geppetto.forge.util.RubyValueSerializer;
 import org.cloudsmith.geppetto.forge.util.ValueSerializer;
 import org.cloudsmith.geppetto.forge.v2.model.ModuleName;
+import org.cloudsmith.geppetto.forge.v2.model.ModuleName.BadNameCharactersException;
 import org.cloudsmith.geppetto.pp.dsl.ui.builder.PPModuleMetadataBuilder;
 import org.cloudsmith.geppetto.semver.VersionRange;
 import org.cloudsmith.geppetto.ui.UIPlugin;
@@ -43,7 +46,9 @@ import org.eclipse.jface.text.IDocument;
 import org.eclipse.jface.text.Position;
 import org.jrubyparser.CompatVersion;
 import org.jrubyparser.Parser;
+import org.jrubyparser.SourcePosition;
 import org.jrubyparser.ast.RootNode;
+import org.jrubyparser.lexer.SyntaxException;
 import org.jrubyparser.parser.ParserConfiguration;
 
 import com.google.common.io.CharStreams;
@@ -238,8 +243,21 @@ public class MetadataModel {
 
 	private static final String NAME = "name";
 
+	public static String getBadNameMessage(IllegalArgumentException e, boolean dependency) {
+		String key;
+		if(dependency)
+			key = e instanceof BadNameCharactersException
+					? "_UI_Dependency_name_bad_characters"
+					: "_UI_Dependency_name_bad_syntax";
+		else
+			key = e instanceof BadNameCharactersException
+					? "_UI_Module_name_bad_characters"
+					: "_UI_Module_name_bad_syntax";
+		return UIPlugin.INSTANCE.getString(key);
+	}
+
 	public static String getUnresolvedMessage(Dependency dep) {
-		String vr = dep.getVersionRequirement();
+		String vr = trimToNull(dep.getVersionRequirement());
 		return vr == null
 				? UIPlugin.INSTANCE.getString("_UI_Unresolved_dependency_X", new Object[] { dep.getModuleName() })
 				: UIPlugin.INSTANCE.getString(
@@ -276,9 +294,6 @@ public class MetadataModel {
 	private final List<Dependency> dependencies = new ArrayList<Dependency>();
 
 	private JsonFactory jsonFactory;
-
-	public static final DiagnosticType PARSE_FAILURE = new DiagnosticType(
-		"PARSE_FAILURE", MetadataModel.class.getName());
 
 	void addCall(CallSymbol symbol, CallSticker call) {
 		switch(symbol) {
@@ -860,16 +875,16 @@ public class MetadataModel {
 				for(Dependency dep : dependencies) {
 					ModuleName name;
 					VersionRange range;
+					boolean resolved = false;
 					try {
 						name = new ModuleName(dep.getModuleName(), false);
 						range = VersionRange.create(dep.getVersionRequirement());
+						resolved = PPModuleMetadataBuilder.getBestMatchingProject(name, range) != null;
 					}
 					catch(IllegalArgumentException e) {
 						// This error is already in diagnostics
-						continue;
 					}
 
-					boolean resolved = PPModuleMetadataBuilder.getBestMatchingProject(name, range) != null;
 					if(!resolved) {
 						FileDiagnostic diag = new FileDiagnostic(
 							Diagnostic.ERROR, Forge.FORGE, getUnresolvedMessage(dep), path.toFile());
@@ -878,6 +893,13 @@ public class MetadataModel {
 					}
 					dep.setResolved(resolved);
 				}
+			}
+			catch(SyntaxException e) {
+				SourcePosition pos = e.getPosition();
+				FileDiagnostic fd = new FileDiagnostic(Diagnostic.ERROR, PARSE_FAILURE, e.getMessage(), new File(
+					pos.getFile()));
+				fd.setLineNumber(pos.getStartLine() + 1);
+				chain.addChild(fd);
 			}
 			catch(Exception e) {
 				chain.addChild(new ExceptionDiagnostic(

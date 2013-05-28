@@ -35,7 +35,7 @@ public interface MetadataExtractor {
 
 	/**
 	 * Determines the order in which extractors will be consulted. The &quot;metadata.json&quot; extractor
-	 * will have a cardinal of zero, the Modulefile extractor has a cardinal of 10.
+	 * will have a cardinal of 20, the Modulefile extractor has a cardinal of 10.
 	 * Please allow for gaps when implementing new extractors.
 	 * 
 	 * @return The cardinal for this extractor.
@@ -49,6 +49,16 @@ public interface MetadataExtractor {
 	 * @return The abstract file name, relative to the expected module directory.
 	 */
 	String getPrimarySource();
+
+	/**
+	 * The &quot;metadata.json&quot; extractor will responde <code>true</code> to this method. The
+	 * &quot;Modulefile&quot; extractor will respond <code>false</code> since that file doesn't contain
+	 * information about types and providers.
+	 * 
+	 * @return <code>true</code> to denote that the primary source for extraction contains type and provider
+	 *         information.
+	 */
+	boolean hasTypesAndProviders();
 
 	/**
 	 * Extracts metadata from the given module.

@@ -55,7 +55,7 @@ public class StrictModulefileParser extends ModulefileParser {
 						md.setLicense(arg);
 						break;
 					case name: {
-						ModuleName name = createModuleName(arg, pos);
+						ModuleName name = createModuleName(arg, false, pos);
 						md.setName(name);
 						setNameSeen();
 						setFullName(name);

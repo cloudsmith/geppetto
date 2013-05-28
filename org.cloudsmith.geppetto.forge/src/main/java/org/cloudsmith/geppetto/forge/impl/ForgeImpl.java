@@ -30,7 +30,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.Date;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
@@ -162,7 +161,7 @@ class ForgeImpl implements Forge {
 		FileUtils.cpR(moduleSource, destModuleDir, fileFilter, false, true);
 
 		File metadataJSON = new File(destModuleDir, METADATA_JSON_NAME);
-		if(!metadataJSON.exists())
+		if(!extractedFrom[0].getName().equals(METADATA_JSON_NAME))
 			saveJSONMetadata(md, metadataJSON);
 
 		final File moduleArchive = new File(destination, zipArchiveName);
@@ -425,6 +424,14 @@ class ForgeImpl implements Forge {
 		if(metadata == null)
 			throw new ForgeException("No \"metadata.json\" found in archive: " + moduleArchive.getAbsolutePath());
 
+		if(metadata.getName() == null)
+			throw new ForgeException("The \"metadata.json\" found in archive: " + moduleArchive.getAbsolutePath() +
+					" has no name");
+
+		if(metadata.getVersion() == null)
+			throw new ForgeException("The \"metadata.json\" found in archive: " + moduleArchive.getAbsolutePath() +
+					" has no version");
+
 		try {
 			if(metadataRepo.resolve(metadata.getName(), metadata.getVersion()) != null)
 				throw new AlreadyPublishedException("Module " + metadata.getName() + ':' + metadata.getVersion() +
@@ -543,10 +550,5 @@ class ForgeImpl implements Forge {
 	@Override
 	public List<ModuleInfo> search_v1(String term) throws IOException {
 		return moduleServiceV1.search(term);
-	}
-
-	@Override
-	public List<ModuleInfo> searchSince_v1(Date timestamp) throws IOException {
-		return moduleServiceV1.search(timestamp);
 	}
 }

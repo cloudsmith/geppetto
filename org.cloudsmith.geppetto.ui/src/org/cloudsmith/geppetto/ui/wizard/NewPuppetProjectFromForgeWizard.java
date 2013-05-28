@@ -11,13 +11,17 @@
  */
 package org.cloudsmith.geppetto.ui.wizard;
 
+import static org.cloudsmith.geppetto.common.Strings.trimToNull;
 import static org.cloudsmith.geppetto.forge.Forge.METADATA_JSON_NAME;
 import static org.cloudsmith.geppetto.forge.Forge.MODULEFILE_NAME;
+import static org.cloudsmith.geppetto.ui.UIPlugin.getLocalString;
 
 import java.lang.reflect.InvocationTargetException;
 import java.net.SocketException;
 import java.util.Collections;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.apache.log4j.Logger;
 import org.cloudsmith.geppetto.forge.util.ModuleUtils;
@@ -37,6 +41,8 @@ import org.eclipse.core.runtime.OperationCanceledException;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.SubMonitor;
 import org.eclipse.emf.edit.ui.provider.ExtendedImageRegistry;
+import org.eclipse.jface.dialogs.IInputValidator;
+import org.eclipse.jface.dialogs.InputDialog;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.layout.GridDataFactory;
 import org.eclipse.jface.operation.IRunnableWithProgress;
@@ -57,9 +63,8 @@ import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.dialogs.WizardNewProjectCreationPage;
 
 public class NewPuppetProjectFromForgeWizard extends NewPuppetModuleProjectWizard {
-	protected class PuppetProjectFromForgeCreationPage extends NewPuppetModuleProjectWizard.PuppetProjectCreationPage {
 
-		protected ModuleInfo[] moduleChoices = null;
+	protected class PuppetProjectFromForgeCreationPage extends NewPuppetModuleProjectWizard.PuppetProjectCreationPage {
 
 		protected Text projectNameField;
 
@@ -110,7 +115,7 @@ public class NewPuppetProjectFromForgeWizard extends NewPuppetModuleProjectWizar
 
 		protected void createModuleGroup(Composite parent) {
 			Label moduleLabel = new Label(parent, SWT.NONE);
-			moduleLabel.setText(UIPlugin.INSTANCE.getString("_UI_Module_label")); //$NON-NLS-1$
+			moduleLabel.setText(getLocalString("_UI_Module_label")); //$NON-NLS-1$
 
 			moduleField = new Text(parent, SWT.BORDER | SWT.READ_ONLY);
 			moduleField.addMouseListener(new MouseAdapter() {
@@ -124,7 +129,7 @@ public class NewPuppetProjectFromForgeWizard extends NewPuppetModuleProjectWizar
 			GridDataFactory.fillDefaults().align(SWT.FILL, SWT.CENTER).grab(true, false).applyTo(moduleField);
 
 			Button resultTypeButton = new Button(parent, SWT.PUSH);
-			resultTypeButton.setText(UIPlugin.INSTANCE.getString("_UI_Select_label")); //$NON-NLS-1$
+			resultTypeButton.setText(getLocalString("_UI_Select_label")); //$NON-NLS-1$
 			resultTypeButton.addSelectionListener(new SelectionAdapter() {
 
 				@Override
@@ -134,16 +139,15 @@ public class NewPuppetProjectFromForgeWizard extends NewPuppetModuleProjectWizar
 			});
 		}
 
-		protected ModuleInfo[] getModuleChoices() {
-
-			if(moduleChoices != null)
-				return moduleChoices;
-
+		protected ModuleInfo[] getModuleChoices(final String keyword) {
+			ModuleInfo[] zeroModules = new ModuleInfo[0];
 			try {
+				final ModuleInfo[][] choicesResult = new ModuleInfo[1][];
+				choicesResult[0] = zeroModules;
 				getContainer().run(true, true, new IRunnableWithProgress() {
 					@Override
 					public void run(IProgressMonitor monitor) throws InvocationTargetException, InterruptedException {
-						monitor.beginTask("Fetching latest releases from the Forge", 25);
+						monitor.beginTask("Fetching latest releases from the Forge", 55);
 						try {
 							final Exception[] te = new Exception[1];
 							final ModuleService moduleService = getModuleServiceV1();
@@ -151,10 +155,10 @@ public class NewPuppetProjectFromForgeWizard extends NewPuppetModuleProjectWizar
 								@Override
 								public void run() {
 									try {
-										List<ModuleInfo> choices = moduleService.search((String) null);
+										List<ModuleInfo> choices = moduleService.search(keyword);
 										int top = choices.size();
 										if(top > 0)
-											moduleChoices = choices.toArray(new ModuleInfo[top]);
+											choicesResult[0] = choices.toArray(new ModuleInfo[top]);
 									}
 									catch(SocketException e) {
 										// A user abort will cause a "Socket closed" exception We don't
@@ -175,7 +179,7 @@ public class NewPuppetProjectFromForgeWizard extends NewPuppetModuleProjectWizar
 									moduleService.abortCurrentRequest();
 									throw new OperationCanceledException();
 								}
-								if(++idx <= 25)
+								if(++idx <= 5)
 									monitor.worked(1);
 							}
 							if(te[0] != null)
@@ -192,6 +196,12 @@ public class NewPuppetProjectFromForgeWizard extends NewPuppetModuleProjectWizar
 						}
 					}
 				});
+				ModuleInfo[] choices = choicesResult[0];
+				if(choices.length > 0)
+					return choices;
+				MessageDialog.openConfirm(
+					getShell(), getLocalString("_UI_No_modules_found"),
+					getLocalString("_UI_No_module_matching_keyword", keyword));
 			}
 			catch(InvocationTargetException e) {
 				Throwable t = e.getTargetException();
@@ -206,13 +216,35 @@ public class NewPuppetProjectFromForgeWizard extends NewPuppetModuleProjectWizar
 			}
 			catch(InterruptedException e) {
 			}
-
-			return moduleChoices;
+			return zeroModules;
 		}
 
 		protected void promptForModuleSelection() {
-			ModuleInfo[] choices = getModuleChoices();
-			if(choices == null || choices.length == 0)
+			InputDialog askKeywordDialog = new InputDialog(
+				getShell(), getLocalString("_UI_Keyword_Search_title"), getLocalString("_UI_Keyword_Search_message"),
+				null, new IInputValidator() {
+					@Override
+					public String isValid(String newText) {
+						newText = trimToNull(newText);
+						if(newText != null) {
+							if(newText.length() > 30)
+								return getLocalString("_UI_Keyword_Search_max_length_exceeded", 30);
+							Matcher m = OK_KEYWORD_CHARACTERS.matcher(newText);
+							if(!m.matches())
+								return getLocalString("_UI_Keyword_Search_bad_characters");
+							m = KEYWORD_AT_LEAST_ONE_CHARACTER.matcher(newText);
+							if(m.find())
+								return null;
+						}
+						return getLocalString("_UI_Keyword_Search_at_least_one_character");
+					}
+				});
+
+			if(askKeywordDialog.open() != Window.OK)
+				return;
+
+			ModuleInfo[] choices = getModuleChoices(askKeywordDialog.getValue());
+			if(choices.length == 0)
 				return;
 
 			ModuleListSelectionDialog dialog = new ModuleListSelectionDialog(getShell());
@@ -251,7 +283,7 @@ public class NewPuppetProjectFromForgeWizard extends NewPuppetModuleProjectWizar
 
 			if(module == null) {
 				setErrorMessage(null);
-				setMessage(UIPlugin.INSTANCE.getString("_UI_ModuleCannotBeEmpty_message")); //$NON-NLS-1$
+				setMessage(getLocalString("_UI_ModuleCannotBeEmpty_message")); //$NON-NLS-1$
 				return false;
 			}
 
@@ -260,8 +292,8 @@ public class NewPuppetProjectFromForgeWizard extends NewPuppetModuleProjectWizar
 
 				if(!preferredProjectName.equals(getProjectName())) {
 					setErrorMessage(null);
-					setMessage(UIPlugin.INSTANCE.getString(
-						"_UI_ProjectNameShouldMatchModule_message", new Object[] { preferredProjectName }), WARNING); //$NON-NLS-1$
+					setMessage(
+						getLocalString("_UI_ProjectNameShouldMatchModule_message", preferredProjectName), WARNING); //$NON-NLS-1$
 				}
 
 				return true;
@@ -272,24 +304,28 @@ public class NewPuppetProjectFromForgeWizard extends NewPuppetModuleProjectWizar
 
 	}
 
+	private static final Pattern OK_KEYWORD_CHARACTERS = Pattern.compile("^[0-9A-Za-z_-]*$");
+
+	private static final Pattern KEYWORD_AT_LEAST_ONE_CHARACTER = Pattern.compile("[A-Za-z]+");
+
 	private static final Logger log = Logger.getLogger(NewPuppetProjectFromForgeWizard.class);
 
 	protected ModuleInfo module;
 
 	@Override
 	protected String getProjectCreationPageDescription() {
-		return UIPlugin.INSTANCE.getString("_UI_PuppetProjectFromForge_description"); //$NON-NLS-1$
+		return getLocalString("_UI_PuppetProjectFromForge_description"); //$NON-NLS-1$
 	}
 
 	@Override
 	protected String getProjectCreationPageTitle() {
-		return UIPlugin.INSTANCE.getString("_UI_PuppetProjectFromForge_title"); //$NON-NLS-1$
+		return getLocalString("_UI_PuppetProjectFromForge_title"); //$NON-NLS-1$
 	}
 
 	@Override
 	public void init(IWorkbench workbench, IStructuredSelection selection) {
 		setDefaultPageImageDescriptor(ExtendedImageRegistry.INSTANCE.getImageDescriptor(UIPlugin.INSTANCE.getImage("full/wizban/NewPuppetProject.png"))); //$NON-NLS-1$
-		setWindowTitle(UIPlugin.INSTANCE.getString("_UI_NewPuppetProjectFromForge_title")); //$NON-NLS-1$
+		setWindowTitle(getLocalString("_UI_NewPuppetProjectFromForge_title")); //$NON-NLS-1$
 	}
 
 	@Override

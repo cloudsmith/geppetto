@@ -11,7 +11,9 @@
  */
 package org.cloudsmith.geppetto.forge.util;
 
+import static org.cloudsmith.geppetto.diagnostic.Diagnostic.ERROR;
 import static org.cloudsmith.geppetto.forge.Forge.METADATA_JSON_NAME;
+import static org.cloudsmith.geppetto.forge.Forge.PARSE_FAILURE;
 
 import java.io.File;
 import java.io.FileFilter;
@@ -24,12 +26,15 @@ import java.util.regex.Pattern;
 
 import org.cloudsmith.geppetto.common.os.StreamUtil;
 import org.cloudsmith.geppetto.diagnostic.Diagnostic;
+import org.cloudsmith.geppetto.diagnostic.FileDiagnostic;
 import org.cloudsmith.geppetto.forge.MetadataExtractor;
 import org.cloudsmith.geppetto.forge.v2.model.Dependency;
 import org.cloudsmith.geppetto.forge.v2.model.Metadata;
 import org.cloudsmith.geppetto.forge.v2.model.ModuleName;
 import org.cloudsmith.geppetto.semver.Version;
 import org.cloudsmith.geppetto.semver.VersionRange;
+import org.jrubyparser.SourcePosition;
+import org.jrubyparser.lexer.SyntaxException;
 
 /**
  * Utility class with helper methods for Forge Module related tasks.
@@ -203,7 +208,7 @@ public class ModuleUtils {
 	 *            The file to parse
 	 * @param receiver
 	 *            The receiver of the parsed metadata
-	 * @param diagnostics
+	 * @param chain
 	 *            Diagnostics collecting errors
 	 * @return The resulting metadata
 	 * @throws IOException
@@ -211,10 +216,18 @@ public class ModuleUtils {
 	 * @throws IllegalArgumentException
 	 *             if <tt>result</tt> is <tt>null</tt> and errors are detected in the file.
 	 */
-	public static void parseModulefile(File modulefile, Metadata receiver, Diagnostic diagnostics) throws IOException,
+	public static void parseModulefile(File modulefile, Metadata receiver, Diagnostic chain) throws IOException,
 			IllegalArgumentException {
 		StrictModulefileParser parser = new StrictModulefileParser(receiver);
-		parser.parseRubyAST(RubyParserUtils.parseFile(modulefile), diagnostics);
+		try {
+			parser.parseRubyAST(RubyParserUtils.parseFile(modulefile), chain);
+		}
+		catch(SyntaxException e) {
+			SourcePosition pos = e.getPosition();
+			FileDiagnostic fd = new FileDiagnostic(ERROR, PARSE_FAILURE, e.getMessage(), new File(pos.getFile()));
+			fd.setLineNumber(pos.getStartLine() + 1);
+			chain.addChild(fd);
+		}
 	}
 
 	/**
@@ -229,17 +242,25 @@ public class ModuleUtils {
 	 *            The file content
 	 * @param receiver
 	 *            The receiver of the parsed metadata
-	 * @param diagnostics
+	 * @param chain
 	 *            Diagnostics collecting errors
 	 * @throws IOException
 	 *             when it is not possible to read the <tt>content</tt>.
 	 * @throws IllegalArgumentException
 	 *             if <tt>result</tt> is <tt>null</tt> and errors are detected in the file.
 	 */
-	public static void parseModulefile(String id, String content, Metadata receiver, Diagnostic diagnostics)
+	public static void parseModulefile(String id, String content, Metadata receiver, Diagnostic chain)
 			throws IOException, IllegalArgumentException {
 		StrictModulefileParser parser = new StrictModulefileParser(receiver);
-		parser.parseRubyAST(RubyParserUtils.parseString(id, content), diagnostics);
+		try {
+			parser.parseRubyAST(RubyParserUtils.parseString(id, content), chain);
+		}
+		catch(SyntaxException e) {
+			SourcePosition pos = e.getPosition();
+			FileDiagnostic fd = new FileDiagnostic(ERROR, PARSE_FAILURE, e.getMessage(), new File(id));
+			fd.setLineNumber(pos.getStartLine() + 1);
+			chain.addChild(fd);
+		}
 	}
 
 	/**

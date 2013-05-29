@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Devdebug
 Bundle-SymbolicName: org.cloudsmith.geppetto.pp.dsl.ui.devdebug;singleton:=true
-Bundle-Version: 3.0.0.qualifier
+Bundle-Version: 3.2.0.qualifier
 Bundle-Vendor: Cloudsmith
 Fragment-Host: org.cloudsmith.geppetto.pp.dsl.ui;bundle-version="0.1.2"
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6

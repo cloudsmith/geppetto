@@ -5,7 +5,7 @@
 
 	<groupId>org.cloudsmith.geppetto</groupId>
 	<artifactId>parent</artifactId>
-	<version>3.0.3-SNAPSHOT</version>
+	<version>3.2.0-SNAPSHOT</version>
 	<packaging>pom</packaging>
 
 	<name>Geppetto Site Project</name>
@@ -14,7 +14,7 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<mavenVersion>3.0.5</mavenVersion>
-		<geppettoVersion>3.0.3-SNAPSHOT</geppettoVersion>
+		<geppettoVersion>3.2.0-SNAPSHOT</geppettoVersion>
 		<parentSiteURL>https://am0.cloudsmith.com/nexus/content/sites/geppetto-site/</parentSiteURL>
 
 		<!-- We use property injection. But instead of '${' and '}' we use '.qual' 

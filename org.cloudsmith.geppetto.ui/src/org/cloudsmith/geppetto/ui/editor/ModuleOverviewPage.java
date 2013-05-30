@@ -109,7 +109,7 @@ class ModuleOverviewPage extends GuardedModulePage {
 			});
 
 			GridDataFactory.swtDefaults().align(SWT.FILL, SWT.FILL).grab(true, true).applyTo(descriptionText);
-
+			toolkit.paintBordersFor(client);
 			section.setClient(client);
 		}
 
@@ -235,6 +235,7 @@ class ModuleOverviewPage extends GuardedModulePage {
 				}
 			});
 			textGDFactory.applyTo(licenseText);
+			toolkit.paintBordersFor(client);
 			section.setClient(client);
 		}
 

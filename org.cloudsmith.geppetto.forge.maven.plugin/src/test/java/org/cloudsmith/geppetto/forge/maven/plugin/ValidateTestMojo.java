@@ -51,7 +51,7 @@ public class ValidateTestMojo extends AbstractForgeTestMojo {
 			fail("Invalid metadata was not detected");
 		}
 		catch(MojoFailureException e) {
-			assertTrue("Invalid metadata was not detected", e.getMessage().contains("MalformedJsonException"));
+			assertTrue("Invalid metadata was not detected", e.getMessage().contains("Unexpected character"));
 		}
 	}
 

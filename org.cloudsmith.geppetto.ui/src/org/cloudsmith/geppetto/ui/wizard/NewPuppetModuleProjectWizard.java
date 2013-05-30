@@ -56,7 +56,7 @@ public class NewPuppetModuleProjectWizard extends Wizard implements INewWizard {
 
 		protected PuppetProjectCreationPage(String pageName) {
 			super(pageName);
-			setInitialProjectName(getUserName() + '-' + "unnamed");
+			setInitialProjectName("unnamed");
 		}
 
 		@Override
@@ -69,13 +69,12 @@ public class NewPuppetModuleProjectWizard extends Wizard implements INewWizard {
 						: locationPath;
 				projectContainer = getProjectHandle().getFullPath();
 				try {
-					new ModuleName(getProjectName(), true);
+					ModuleName.checkName(getProjectName(), true);
 				}
 				catch(IllegalArgumentException e) {
 					setErrorMessage("Project name must be a valid module name: " + e.getMessage());
 					return false;
 				}
-
 				return true;
 			}
 
@@ -142,7 +141,7 @@ public class NewPuppetModuleProjectWizard extends Wizard implements INewWizard {
 	protected void initializeProjectContents(IProgressMonitor monitor) throws Exception {
 		Forge forge = getForge();
 		Metadata metadata = new Metadata();
-		metadata.setName(new ModuleName(project.getName().toLowerCase(), true));
+		metadata.setName(new ModuleName(getUserName(), project.getName().toLowerCase(), true));
 		metadata.setVersion(Version.create("0.1.0"));
 
 		if(ResourceUtil.getFile(project.getFullPath().append("manifests/init.pp")).exists()) { //$NON-NLS-1$

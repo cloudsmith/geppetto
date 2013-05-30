@@ -264,7 +264,7 @@ public class NewPuppetProjectFromForgeWizard extends NewPuppetModuleProjectWizar
 			module = selectedModule;
 
 			moduleField.setText(StringUtil.getModuleText(module));
-			projectNameField.setText(module.getFullName().withSeparator('-').toString());
+			projectNameField.setText(module.getFullName().getName());
 
 			validatePage();
 		}
@@ -288,7 +288,7 @@ public class NewPuppetProjectFromForgeWizard extends NewPuppetModuleProjectWizar
 			}
 
 			if(super.validatePage()) {
-				String preferredProjectName = module.getFullName().withSeparator('-').toString();
+				String preferredProjectName = module.getFullName().getName();
 
 				if(!preferredProjectName.equals(getProjectName())) {
 					setErrorMessage(null);

@@ -38,6 +38,8 @@ public class ModuleMetadataEditorMatchingStrategy implements IEditorMatchingStra
 
 			IFile file = ((IFileEditorInput) input).getFile();
 			IFile refFile = ((IFileEditorInput) refInput).getFile();
+			if(!file.getParent().equals(refFile.getParent()))
+				return false;
 
 			if(file.isDerived() && METADATA_JSON_NAME.equals(file.getName()))
 				return MODULEFILE_NAME.equals(refFile.getName());

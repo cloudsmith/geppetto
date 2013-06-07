@@ -3,7 +3,7 @@
 	<parent>
 		<groupId>org.cloudsmith.geppetto</groupId>
 		<artifactId>parent</artifactId>
-		<version>3.2.0-SNAPSHOT</version>
+		<version>3.2.0-rc1</version>
 	</parent>
 
 	<artifactId>org.cloudsmith.geppetto.puppetlint</artifactId>
@@ -17,12 +17,12 @@
 		<dependency>
 			<groupId>org.cloudsmith.geppetto</groupId>
 			<artifactId>org.cloudsmith.geppetto.common</artifactId>
-			<version>3.2.0-SNAPSHOT</version>
+			<version>3.2.0-rc1</version>
 		</dependency>
 		<dependency>
 			<groupId>org.cloudsmith.geppetto</groupId>
 			<artifactId>org.cloudsmith.geppetto.diagnostic</artifactId>
-			<version>3.2.0-SNAPSHOT</version>
+			<version>3.2.0-rc1</version>
 		</dependency>
 		<dependency>
 			<groupId>${guice.groupId}</groupId>

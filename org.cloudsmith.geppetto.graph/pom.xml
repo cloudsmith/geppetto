@@ -3,24 +3,24 @@
   <parent>
   	<groupId>org.cloudsmith.geppetto</groupId>
   	<artifactId>parent</artifactId>
-  	<version>3.2.0-SNAPSHOT</version>
+  	<version>3.2.0-rc1</version>
   </parent>
   <artifactId>org.cloudsmith.geppetto.graph</artifactId>
   <dependencies>
   	<dependency>
   		<groupId>org.cloudsmith.geppetto</groupId>
   		<artifactId>org.cloudsmith.geppetto.validation</artifactId>
-  		<version>3.2.0-SNAPSHOT</version>
+  		<version>3.2.0-rc1</version>
   	</dependency>
   	<dependency>
   		<groupId>org.cloudsmith.geppetto</groupId>
   		<artifactId>org.cloudsmith.geppetto.ruby</artifactId>
-  		<version>3.2.0-SNAPSHOT</version>
+  		<version>3.2.0-rc1</version>
   	</dependency>
   	<dependency>
   		<groupId>org.cloudsmith.graph</groupId>
   		<artifactId>org.cloudsmith.graph</artifactId>
-  		<version>0.0.1-SNAPSHOT</version>
+  		<version>1.0.0</version>
   	</dependency>
   </dependencies>
 </project>

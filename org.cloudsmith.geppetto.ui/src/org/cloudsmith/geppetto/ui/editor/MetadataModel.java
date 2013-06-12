@@ -16,7 +16,6 @@ import static org.cloudsmith.geppetto.common.Strings.trimToNull;
 import static org.cloudsmith.geppetto.forge.Forge.MODULEFILE_NAME;
 import static org.cloudsmith.geppetto.forge.Forge.PARSE_FAILURE;
 
-import java.io.File;
 import java.io.IOException;
 import java.io.StringReader;
 import java.util.ArrayList;
@@ -30,6 +29,7 @@ import org.cloudsmith.geppetto.diagnostic.ExceptionDiagnostic;
 import org.cloudsmith.geppetto.diagnostic.FileDiagnostic;
 import org.cloudsmith.geppetto.forge.Forge;
 import org.cloudsmith.geppetto.forge.util.CallSymbol;
+import org.cloudsmith.geppetto.forge.util.ModuleUtils;
 import org.cloudsmith.geppetto.forge.util.RubyValueSerializer;
 import org.cloudsmith.geppetto.forge.util.ValueSerializer;
 import org.cloudsmith.geppetto.forge.v2.model.ModuleName;
@@ -46,7 +46,6 @@ import org.eclipse.jface.text.IDocument;
 import org.eclipse.jface.text.Position;
 import org.jrubyparser.CompatVersion;
 import org.jrubyparser.Parser;
-import org.jrubyparser.SourcePosition;
 import org.jrubyparser.ast.RootNode;
 import org.jrubyparser.lexer.SyntaxException;
 import org.jrubyparser.parser.ParserConfiguration;
@@ -295,7 +294,11 @@ public class MetadataModel {
 
 	private JsonFactory jsonFactory;
 
-	void addCall(CallSymbol symbol, CallSticker call) {
+	private boolean syntaxError;
+
+	private boolean dependencyErrors;
+
+	synchronized void addCall(CallSymbol symbol, CallSticker call) {
 		switch(symbol) {
 			case author:
 				authorCall = call;
@@ -332,7 +335,7 @@ public class MetadataModel {
 		addPositions(call);
 	}
 
-	public void addDependency(String moduleName, String versionRequirement) {
+	public synchronized void addDependency(String moduleName, String versionRequirement) {
 		ModuleName m;
 		try {
 			m = new ModuleName(moduleName);
@@ -548,8 +551,16 @@ public class MetadataModel {
 		return getArgValue(authorCall, 0);
 	}
 
-	public List<Dependency> getDependencies() {
-		return dependencies;
+	public synchronized Dependency[] getDependencies() {
+		return dependencies.toArray(new Dependency[dependencies.size()]);
+	}
+
+	public synchronized int getDependencyIndex(Dependency dependency) {
+		int idx = dependencies.size();
+		while(--idx >= 0)
+			if(dependencies.get(idx) == dependency)
+				break;
+		return idx;
 	}
 
 	public String getDescription() {
@@ -584,8 +595,22 @@ public class MetadataModel {
 		return getArgValue(versionCall, 0);
 	}
 
+	/**
+	 * Returns true if the model has unresolved dependencies
+	 */
+	public boolean hasDependencyErrors() {
+		return dependencyErrors;
+	}
+
 	private boolean isRuby() {
 		return serializer == RubyValueSerializer.INSTANCE;
+	}
+
+	/**
+	 * Returns true if the parser was unable to parse the syntax of its given input
+	 */
+	public boolean isSyntaxError() {
+		return syntaxError;
 	}
 
 	private Replacement prepareJSonInsert(int insertPos, final int indent) {
@@ -682,25 +707,32 @@ public class MetadataModel {
 			return;
 
 		// Find preceding position that isn't whitespace.
-		char c = 0;
-		while(--offset >= 0) {
-			++len;
-			c = content.charAt(offset);
-			if(!Character.isWhitespace(c))
-				break;
+		boolean removesPreceedingComma = false;
+		boolean atZero = offset == 0;
+		if(!atZero) {
+			char c = 0;
+			while(offset > 0) {
+				--offset;
+				++len;
+				c = content.charAt(offset);
+				if(!Character.isWhitespace(c))
+					break;
+			}
+			removesPreceedingComma = c == ',';
 		}
 
-		boolean removesPreceedingComma = c == ',';
 		if(!removesPreceedingComma) {
-			++offset; // Retain this character
-			--len;
+			if(!atZero) {
+				++offset; // Retain this character
+				--len;
+			}
 
 			// Find out if we need to remove a succeeding comma instead
 			int pos = offset + len;
 			int step = 0;
 			while(pos < last) {
 				++step;
-				c = content.charAt(pos);
+				char c = content.charAt(pos);
 				if(c == ',') {
 					len += step;
 					break;
@@ -718,7 +750,7 @@ public class MetadataModel {
 		remove(pos.getOffset(), pos.getLength());
 	}
 
-	public void removeDependency(Dependency dep) {
+	public synchronized void removeDependency(Dependency dep) {
 		if(dependencies.remove(dep))
 			dep.delete();
 	}
@@ -834,7 +866,9 @@ public class MetadataModel {
 		descriptionCall = setArgValue(CallSymbol.description, descriptionCall, description);
 	}
 
-	void setDocument(IDocument document, IPath path, Diagnostic chain) {
+	synchronized void setDocument(IDocument document, IPath path, Diagnostic chain) {
+		syntaxError = false;
+		dependencyErrors = false;
 		authorCall = null;
 		descriptionCall = null;
 		licenseCall = null;
@@ -890,18 +924,18 @@ public class MetadataModel {
 							Diagnostic.ERROR, Forge.FORGE, getUnresolvedMessage(dep), path.toFile());
 						diag.setLineNumber(dep.getLine());
 						chain.addChild(diag);
+						dependencyErrors = true;
 					}
 					dep.setResolved(resolved);
 				}
 			}
 			catch(SyntaxException e) {
-				SourcePosition pos = e.getPosition();
-				FileDiagnostic fd = new FileDiagnostic(Diagnostic.ERROR, PARSE_FAILURE, e.getMessage(), new File(
-					pos.getFile()));
-				fd.setLineNumber(pos.getStartLine() + 1);
-				chain.addChild(fd);
+				syntaxError = true;
+				chain.addChild(ModuleUtils.createSyntaxErrorDiagnostic(e, null));
 			}
 			catch(Exception e) {
+				syntaxError = true;
+				e.printStackTrace();
 				chain.addChild(new ExceptionDiagnostic(
 					Diagnostic.ERROR, PARSE_FAILURE, "Unable to parse file " + path, e));
 			}

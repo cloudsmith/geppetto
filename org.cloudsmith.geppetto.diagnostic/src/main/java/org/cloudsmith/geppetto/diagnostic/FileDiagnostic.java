@@ -23,7 +23,9 @@ public class FileDiagnostic extends Diagnostic {
 	private String node;
 
 	public FileDiagnostic(int severity, DiagnosticType type, String message, File file) {
-		super(severity, type, message);
+		super(severity, type, message == null
+				? null
+				: message.trim());
 		this.file = file;
 	}
 

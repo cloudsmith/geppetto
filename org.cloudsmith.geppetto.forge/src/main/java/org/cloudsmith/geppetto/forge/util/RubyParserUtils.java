@@ -72,14 +72,9 @@ public abstract class RubyParserUtils {
 		}
 	}
 
-	public static RootNode parse(String id, Reader reader) throws IOException {
+	public static RootNode parse(String id, Reader reader) throws SyntaxException {
 		Parser parser = new Parser();
-		try {
-			return (RootNode) parser.parse(id, reader, new ParserConfiguration(0, CompatVersion.RUBY1_9));
-		}
-		catch(SyntaxException e) {
-			throw new IOException("Unable to parse " + id, e);
-		}
+		return (RootNode) parser.parse(id, reader, new ParserConfiguration(0, CompatVersion.RUBY1_9));
 	}
 
 	/**
@@ -89,7 +84,7 @@ public abstract class RubyParserUtils {
 	 * @return
 	 * @throws IOException
 	 */
-	public static RootNode parseFile(File file) throws IOException {
+	public static RootNode parseFile(File file) throws IOException, SyntaxException {
 		String fileStr = file.getAbsolutePath();
 		Reader reader = new BufferedReader(new FileReader(file));
 		try {
@@ -100,7 +95,7 @@ public abstract class RubyParserUtils {
 		}
 	}
 
-	public static RootNode parseString(String id, String content) throws IOException {
+	public static RootNode parseString(String id, String content) throws SyntaxException {
 		return parse(id, new StringReader(content));
 	}
 

@@ -17,10 +17,8 @@ import static org.eclipse.xtext.util.Strings.emptyIfNull;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
-import java.util.List;
 import java.util.Map;
 
 import org.cloudsmith.geppetto.diagnostic.Diagnostic;
@@ -271,12 +269,7 @@ class ModuleDependenciesPage extends GuardedModulePage {
 				}
 
 				public Object[] getElements(Object inputElement) {
-					List<Dependency> deps;
-					if(inputElement instanceof MetadataModel)
-						deps = ((MetadataModel) inputElement).getDependencies();
-					else
-						deps = Collections.emptyList();
-					return deps.toArray(new Dependency[deps.size()]);
+					return ((MetadataModel) inputElement).getDependencies();
 				}
 
 				public void inputChanged(Viewer viewer, Object oldInput, Object newInput) {
@@ -540,12 +533,7 @@ class ModuleDependenciesPage extends GuardedModulePage {
 		}
 
 		int getRowNumber(Object element) {
-			List<Dependency> deps = ((MetadataModel) tableViewer.getInput()).getDependencies();
-			int idx = deps.size();
-			while(--idx >= 0)
-				if(deps.get(idx) == element)
-					break;
-			return idx;
+			return ((MetadataModel) tableViewer.getInput()).getDependencyIndex((Dependency) element);
 		}
 
 		@Override
@@ -553,7 +541,9 @@ class ModuleDependenciesPage extends GuardedModulePage {
 			refresh = true;
 			try {
 				clearMessages();
-				tableViewer.setInput(getModel());
+				MetadataModel model = getModel();
+				tableViewer.setInput(model);
+				showSyntaxError(model.isSyntaxError());
 				super.refresh();
 			}
 			finally {

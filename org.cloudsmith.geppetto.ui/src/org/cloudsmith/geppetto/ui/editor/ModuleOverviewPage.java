@@ -248,13 +248,22 @@ class ModuleOverviewPage extends GuardedModulePage {
 				String owner = qname[0];
 				String name = qname[1];
 				userText.setText(emptyIfNull(owner));
-				validateName(owner, null, userText, "_UI_Module_owner_missing");
 				nameText.setText(emptyIfNull(name));
-				validateName(name, null, nameText, "_UI_Module_name_missing");
-
 				String version = model.getVersion();
 				versionText.setText(emptyIfNull(version));
-				validateVersion(trimToNull(version), versionText);
+				if(model.isSyntaxError()) {
+					clearMessage(userText);
+					clearMessage(nameText);
+					clearMessage(versionText);
+					showSyntaxError(true);
+				}
+				else {
+					showSyntaxError(false);
+					showDependenciesError(model.hasDependencyErrors());
+					validateName(owner, null, userText, "_UI_Module_owner_missing");
+					validateName(name, null, nameText, "_UI_Module_name_missing");
+					validateVersion(trimToNull(version), versionText);
+				}
 
 				authorText.setText(model.getAuthor());
 				licenseText.setText(model.getLicense());

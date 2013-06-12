@@ -62,6 +62,10 @@ abstract class GuardedModulePage extends FormPage {
 			super(parent, toolkit, style);
 		}
 
+		void clearMessage(Control control) {
+			getManagedForm().getMessageManager().removeMessage(DEFAULT_MESSAGE_KEY, control);
+		}
+
 		void clearMessages() {
 			// We get this call possibly during dispose. At the time the call arrives
 			// our form is not disposed but the head of it's contained form is.
@@ -80,6 +84,24 @@ abstract class GuardedModulePage extends FormPage {
 			}
 		}
 
+		void showDependenciesError(boolean show) {
+			showGeneralError(show, "_UI_Unresolved_dependencies");
+		}
+
+		void showGeneralError(boolean show, String msgKey) {
+			IMessageManager msgManager = getManagedForm().getMessageManager();
+			if(show) {
+				String msg = UIPlugin.INSTANCE.getString(msgKey);
+				msgManager.addMessage(GENERAL_ERROR_MESSAGE_KEY, msg, null, IMessageProvider.ERROR);
+			}
+			else
+				msgManager.removeMessage(GENERAL_ERROR_MESSAGE_KEY);
+		}
+
+		void showSyntaxError(boolean show) {
+			showGeneralError(show, "_UI_Syntax_Error");
+		}
+
 		int validateName(String name, String key, Control control, String nameMissingTag) {
 			IMessageManager msgManager = getManagedForm().getMessageManager();
 			if(name == null) {
@@ -87,7 +109,7 @@ abstract class GuardedModulePage extends FormPage {
 				if(control == null)
 					msgManager.addMessage(key, msg, null, IMessageProvider.ERROR);
 				else
-					msgManager.addMessage(F_DEFAULT_MESSAGE_KEY, msg, null, IMessageProvider.ERROR, control);
+					msgManager.addMessage(DEFAULT_MESSAGE_KEY, msg, null, IMessageProvider.ERROR, control);
 				return IMessageProvider.ERROR;
 			}
 
@@ -111,9 +133,9 @@ abstract class GuardedModulePage extends FormPage {
 				if(control == null)
 					msgManager.addMessage(key, syntax, null, syntaxSeverity);
 				else
-					msgManager.addMessage(F_DEFAULT_MESSAGE_KEY, syntax, null, syntaxSeverity, control);
+					msgManager.addMessage(DEFAULT_MESSAGE_KEY, syntax, null, syntaxSeverity, control);
 			else if(control != null)
-				msgManager.removeMessage(F_DEFAULT_MESSAGE_KEY, control);
+				msgManager.removeMessage(DEFAULT_MESSAGE_KEY, control);
 			return syntaxSeverity;
 		}
 
@@ -121,16 +143,16 @@ abstract class GuardedModulePage extends FormPage {
 			IMessageManager msgManager = getManagedForm().getMessageManager();
 			if(version == null) {
 				String msg = UIPlugin.INSTANCE.getString("_UI_Module_version_missing");
-				msgManager.addMessage(F_DEFAULT_MESSAGE_KEY, msg, null, IMessageProvider.ERROR, control);
+				msgManager.addMessage(DEFAULT_MESSAGE_KEY, msg, null, IMessageProvider.ERROR, control);
 				return IMessageProvider.ERROR;
 			}
 			int result = IMessageProvider.NONE;
 			try {
 				Version.create(version);
-				msgManager.removeMessage(F_DEFAULT_MESSAGE_KEY, control);
+				msgManager.removeMessage(DEFAULT_MESSAGE_KEY, control);
 			}
 			catch(IllegalArgumentException e) {
-				msgManager.addMessage(F_DEFAULT_MESSAGE_KEY, e.getMessage(), null, IMessageProvider.ERROR, control);
+				msgManager.addMessage(DEFAULT_MESSAGE_KEY, e.getMessage(), null, IMessageProvider.ERROR, control);
 				result = IMessageProvider.ERROR;
 			}
 			return result;
@@ -162,9 +184,11 @@ abstract class GuardedModulePage extends FormPage {
 		}
 	}
 
+	private static final String GENERAL_ERROR_MESSAGE_KEY = "general";
+
 	VerifyListener defaultVerifier = new ValidateInputListener();
 
-	private static final Object F_DEFAULT_MESSAGE_KEY = "k"; //$NON-NLS-1$
+	private static final String DEFAULT_MESSAGE_KEY = "default"; //$NON-NLS-1$
 
 	private boolean handlingEvent;
 

@@ -156,6 +156,28 @@ public class ModuleUtils {
 	}
 
 	/**
+	 * Creates an error diagnostic based on the information found in the <code>syntaxException</code>.
+	 * 
+	 * @param syntaxException
+	 *            The exception containing the diagnostic error
+	 * @param id
+	 *            An id that will be used as the file name or <code>null</code> if the file name should be extracted
+	 *            from the exception
+	 * @return The created diagnostic
+	 */
+	public static FileDiagnostic createSyntaxErrorDiagnostic(SyntaxException syntaxException, String id) {
+		SourcePosition pos = syntaxException.getPosition();
+		String msg = syntaxException.getMessage();
+		if(msg == null)
+			msg = "syntax error";
+		FileDiagnostic fd = new FileDiagnostic(ERROR, PARSE_FAILURE, msg, new File(id == null
+				? pos.getFile()
+				: id));
+		fd.setLineNumber(pos.getStartLine() + 1);
+		return fd;
+	}
+
+	/**
 	 * Scan for valid directories containing 'metadata.json' files or other types of build time artifacts
 	 * that provides metadata and is recognized by the provided <tt>metadataExtractors</tt>.
 	 * A directory that contains such a file will not be scanned in turn.
@@ -223,10 +245,7 @@ public class ModuleUtils {
 			parser.parseRubyAST(RubyParserUtils.parseFile(modulefile), chain);
 		}
 		catch(SyntaxException e) {
-			SourcePosition pos = e.getPosition();
-			FileDiagnostic fd = new FileDiagnostic(ERROR, PARSE_FAILURE, e.getMessage(), new File(pos.getFile()));
-			fd.setLineNumber(pos.getStartLine() + 1);
-			chain.addChild(fd);
+			chain.addChild(createSyntaxErrorDiagnostic(e, null));
 		}
 	}
 
@@ -256,10 +275,7 @@ public class ModuleUtils {
 			parser.parseRubyAST(RubyParserUtils.parseString(id, content), chain);
 		}
 		catch(SyntaxException e) {
-			SourcePosition pos = e.getPosition();
-			FileDiagnostic fd = new FileDiagnostic(ERROR, PARSE_FAILURE, e.getMessage(), new File(id));
-			fd.setLineNumber(pos.getStartLine() + 1);
-			chain.addChild(fd);
+			chain.addChild(createSyntaxErrorDiagnostic(e, id));
 		}
 	}
 

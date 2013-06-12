@@ -22,6 +22,9 @@ import org.cloudsmith.geppetto.pp.dsl.ui.PPUiConstants;
 import org.cloudsmith.geppetto.ui.UIPlugin;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IMarker;
+import org.eclipse.core.resources.IResourceChangeEvent;
+import org.eclipse.core.resources.IResourceChangeListener;
+import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
@@ -47,7 +50,7 @@ import org.eclipse.ui.texteditor.MarkerAnnotation;
 
 import com.google.inject.Inject;
 
-public class ModuleMetadataEditor extends FormEditor implements IGotoMarker, IShowEditorInput {
+public class ModuleMetadataEditor extends FormEditor implements IGotoMarker, IShowEditorInput, IResourceChangeListener {
 
 	static class DiagnosticAnnotation extends Annotation {
 		private static final String INFO_TYPE = "org.eclipse.ui.workbench.texteditor.info"; //$NON-NLS-1$
@@ -201,6 +204,12 @@ public class ModuleMetadataEditor extends FormEditor implements IGotoMarker, ISh
 	}
 
 	@Override
+	public void dispose() {
+		ResourcesPlugin.getWorkspace().removeResourceChangeListener(this);
+		super.dispose();
+	}
+
+	@Override
 	public void doSave(IProgressMonitor monitor) {
 		sourcePage.doSave(monitor);
 		String name = getModuleName();
@@ -282,6 +291,10 @@ public class ModuleMetadataEditor extends FormEditor implements IGotoMarker, ISh
 				if(moduleFile.exists())
 					input = new FileEditorInput(moduleFile);
 			}
+
+			// We want to listen to build events since they might change our conditions (dependencies
+			// might come and go for instance).
+			file.getWorkspace().addResourceChangeListener(this, IResourceChangeEvent.POST_BUILD);
 		}
 		super.init(site, input);
 	}
@@ -302,6 +315,16 @@ public class ModuleMetadataEditor extends FormEditor implements IGotoMarker, ISh
 		model.setDocument(getDocument(), getPath(), chain);
 		sourcePage.updateDiagnosticAnnotations(chain);
 		stale = false;
+	}
+
+	@Override
+	public void resourceChanged(IResourceChangeEvent event) {
+		if(event.getType() == IResourceChangeEvent.POST_BUILD) {
+			// Ensure that our markers is as aligned as they can possibly be
+			// with the current state of the workspace
+			markStale();
+			refreshModel();
+		}
 	}
 
 	@Override

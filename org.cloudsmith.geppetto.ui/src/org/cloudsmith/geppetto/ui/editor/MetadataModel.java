@@ -771,12 +771,12 @@ public class MetadataModel {
 				if(idx < argPositions.length)
 					oldArg = argPositions[idx].getValue();
 
-				if(arg != null && arg.length() > 0) {
+				if(arg != null) {
 					hasArgs = true;
 					if(!hasChanges)
 						hasChanges = !arg.equals(oldArg);
 				}
-				else if(!(oldArg == null || oldArg instanceof String && ((String) oldArg).length() == 0))
+				else if(oldArg != null)
 					hasChanges = true;
 			}
 

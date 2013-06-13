@@ -16,6 +16,7 @@ import static org.cloudsmith.geppetto.forge.Forge.METADATA_JSON_NAME;
 import static org.cloudsmith.geppetto.forge.Forge.MODULEFILE_NAME;
 import static org.cloudsmith.geppetto.ui.UIPlugin.getLocalString;
 
+import java.io.File;
 import java.lang.reflect.InvocationTargetException;
 import java.net.SocketException;
 import java.util.Collections;
@@ -24,11 +25,11 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.apache.log4j.Logger;
+import org.cloudsmith.geppetto.diagnostic.Diagnostic;
 import org.cloudsmith.geppetto.forge.util.ModuleUtils;
 import org.cloudsmith.geppetto.forge.v1.model.ModuleInfo;
 import org.cloudsmith.geppetto.forge.v1.service.ModuleService;
 import org.cloudsmith.geppetto.forge.v2.model.Metadata;
-import org.cloudsmith.geppetto.forge.v2.model.ModuleName;
 import org.cloudsmith.geppetto.semver.VersionRange;
 import org.cloudsmith.geppetto.ui.UIPlugin;
 import org.cloudsmith.geppetto.ui.dialog.ModuleListSelectionDialog;
@@ -38,7 +39,6 @@ import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.OperationCanceledException;
-import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.SubMonitor;
 import org.eclipse.emf.edit.ui.provider.ExtendedImageRegistry;
 import org.eclipse.jface.dialogs.IInputValidator;
@@ -339,25 +339,50 @@ public class NewPuppetProjectFromForgeWizard extends NewPuppetModuleProjectWizar
 			VersionRange vr = module.getVersion() == null
 					? null
 					: VersionRange.exact(module.getVersion());
-			Metadata metadata = getForge().install(module.getFullName(), vr, project.getLocation().toFile(), true, true);
+
+			File projectDir = project.getLocation().toFile();
+			getForge().install(module.getFullName(), vr, projectDir, true, true);
+
+			File moduleFile = new File(projectDir, MODULEFILE_NAME);
+			boolean moduleFileExists = moduleFile.exists();
+			if(moduleFileExists) {
+				// Check if this file is viable.
+				boolean renameModuleFile = false;
+				Diagnostic chain = new Diagnostic();
+				Metadata receiver = new Metadata();
+				try {
+					ModuleUtils.parseModulefile(moduleFile, receiver, chain);
+					for(Diagnostic problem : chain)
+						if(problem.getSeverity() >= Diagnostic.ERROR) {
+							// Trust the metadata.json as the source and recreate the Modulefile
+							renameModuleFile = true;
+							break;
+						}
+				}
+				catch(Exception e) {
+					renameModuleFile = true;
+				}
+
+				if(renameModuleFile) {
+					File renamedModuleFile = new File(projectDir, MODULEFILE_NAME + ".ignored");
+					renamedModuleFile.delete();
+					if(moduleFile.renameTo(renamedModuleFile))
+						moduleFileExists = false;
+				}
+			}
+
 			submon.worked(60);
-			project.refreshLocal(IResource.DEPTH_INFINITE, submon.newChild(30));
 
 			if(submon.isCanceled())
 				throw new OperationCanceledException();
 
-			IFile moduleFile = ResourceUtil.getFile(project.getFullPath().append(MODULEFILE_NAME));
-			if(!moduleFile.exists()) {
-				ModuleName mdName = metadata.getName();
-				if(mdName == null)
-					metadata.setName(module.getFullName());
-				ModuleUtils.saveAsModulefile(metadata, moduleFile.getLocation().toFile());
-				moduleFile.refreshLocal(IResource.DEPTH_ZERO, submon.newChild(5));
+			// This will cause a build. The build will recreate the metadata.json file
+			project.refreshLocal(IResource.DEPTH_INFINITE, submon.newChild(30));
+			if(moduleFileExists) {
+				IFile mdjsonFile = ResourceUtil.getFile(project.getFullPath().append(METADATA_JSON_NAME));
+				if(mdjsonFile.exists())
+					mdjsonFile.setDerived(true, null);
 			}
-
-			IFile mdjsonFile = moduleFile.getParent().getFile(Path.fromPortableString(METADATA_JSON_NAME));
-			if(mdjsonFile.exists())
-				mdjsonFile.setDerived(true, null);
 		}
 		finally {
 			monitor.done();

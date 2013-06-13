@@ -66,7 +66,7 @@ public class ResourceUtil {
 				}
 
 				location = location.appendSegment(".project"); //$NON-NLS-1$
-				File projectFile = new File(location.toString());
+				File projectFile = new File(location.toFileString());
 
 				if(projectFile.exists()) {
 					projectFile.renameTo(new File(location.toString() + ".old")); //$NON-NLS-1$

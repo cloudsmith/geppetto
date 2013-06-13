@@ -195,6 +195,7 @@ public interface Forge {
 	 *            the <code>destination</code>.
 	 * @param force
 	 *            Set to <code>true</code> to overwrite an existing module.
+	 * @return The metadata extracted from the metadata.json file
 	 */
 	Metadata install(ModuleName fullName, VersionRange range, File destination, boolean destinationIncludesTopFolder,
 			boolean force) throws IOException;
@@ -219,6 +220,7 @@ public interface Forge {
 	 *            the <code>destination</code>.
 	 * @param force
 	 *            Set to <code>true</code> to overwrite an existing module.
+	 * @return The metadata extracted from the metadata.json file
 	 */
 	Metadata install(Release release, File destination, boolean destinationIncludesTopFolder, boolean force)
 			throws IOException;

@@ -32,7 +32,6 @@ import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.SubMonitor;
 import org.eclipse.emf.common.util.URI;
@@ -170,7 +169,7 @@ public class NewPuppetModuleProjectWizard extends Wizard implements INewWizard {
 					SubMonitor monitor = SubMonitor.convert(progressMonitor, 100);
 					try {
 						project = ResourceUtil.createProject(
-							new Path(projectContainer.toString()), projectLocation == null
+							projectContainer, projectLocation == null
 									? null
 									: URI.createFileURI(projectLocation.toOSString()),
 							Collections.<IProject> emptyList(), monitor.newChild(1));

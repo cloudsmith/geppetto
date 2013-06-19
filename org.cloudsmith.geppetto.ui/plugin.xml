@@ -43,7 +43,7 @@
             category="org.cloudsmith.geppetto.ui.newWizardCategory"
             class="org.cloudsmith.geppetto.ui.wizard.NewManifestWizard"
             icon="icons/obj16/new_pp.png"
-            id="org.cloudsmith.geppetto.ui.wizard.NewManifestWizard"
+            id="org.cloudsmith.geppetto.ui.NewManifestWizard"
             name="New Puppet Manifest">
          <selection
                class="org.eclipse.core.resources.IResource">
@@ -56,13 +56,13 @@
             category="org.cloudsmith.geppetto.ui.newWizardCategory"
             class="org.cloudsmith.geppetto.ui.wizard.NewModulefileWizard"
             icon="icons/obj16/puppet-16.png"
-            id="org.cloudsmith.geppetto.ui.wizard.NewModulefileWizard"
+            id="org.cloudsmith.geppetto.ui.NewModulefileWizard"
             name="New Puppet Modulefile">
          <selection
                class="org.eclipse.core.resources.IResource">
          </selection>
          <description>
-            %_UI_NewPuppetManifest_description
+            %_UI_NewPuppetModulefile_description
          </description>
       </wizard>
    </extension>

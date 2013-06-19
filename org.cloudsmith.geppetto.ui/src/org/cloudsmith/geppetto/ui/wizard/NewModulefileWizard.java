@@ -151,17 +151,16 @@ public class NewModulefileWizard extends BasicNewResourceWizard implements INewW
 	public boolean performFinish() {
 		// Open editor on new file.
 		try {
+			final IFile file = page.createNewFile();
+			if(file == null)
+				return false;
+
+			selectAndReveal(file);
+
 			getContainer().run(false, false, new WorkspaceModifyOperation() {
 
 				@Override
 				protected void execute(IProgressMonitor progressMonitor) throws InvocationTargetException {
-					IFile file = page.createNewFile();
-					if(file == null) {
-						return;
-					}
-
-					selectAndReveal(file);
-
 					IWorkbenchWindow dw = getWorkbench().getActiveWorkbenchWindow();
 					if(dw != null)
 						try {

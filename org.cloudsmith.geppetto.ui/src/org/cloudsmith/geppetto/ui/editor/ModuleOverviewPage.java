@@ -115,6 +115,8 @@ class ModuleOverviewPage extends GuardedModulePage {
 
 		@Override
 		public void refresh() {
+			if(sourceText.isDisposed())
+				return;
 			refresh = true;
 			try {
 				MetadataModel metadata = getModel();
@@ -241,6 +243,8 @@ class ModuleOverviewPage extends GuardedModulePage {
 
 		@Override
 		public void refresh() {
+			if(userText.isDisposed())
+				return;
 			refresh = true;
 			try {
 				MetadataModel model = getModel();
@@ -267,11 +271,11 @@ class ModuleOverviewPage extends GuardedModulePage {
 
 				authorText.setText(model.getAuthor());
 				licenseText.setText(model.getLicense());
-				super.refresh();
 			}
 			finally {
 				refresh = false;
 			}
+			super.refresh();
 		}
 	}
 

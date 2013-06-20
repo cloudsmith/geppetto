@@ -22,13 +22,13 @@ import org.cloudsmith.geppetto.forge.util.ModuleUtils;
 import org.cloudsmith.geppetto.forge.v1.service.ModuleService;
 import org.cloudsmith.geppetto.forge.v2.model.Metadata;
 import org.cloudsmith.geppetto.forge.v2.model.ModuleName;
+import org.cloudsmith.geppetto.pp.dsl.ui.builder.PPBuildJob;
 import org.cloudsmith.geppetto.pp.dsl.ui.pptp.PptpTargetProjectHandler;
 import org.cloudsmith.geppetto.semver.Version;
 import org.cloudsmith.geppetto.ui.UIPlugin;
 import org.cloudsmith.geppetto.ui.util.ResourceUtil;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
-import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
@@ -176,7 +176,6 @@ public class NewPuppetModuleProjectWizard extends Wizard implements INewWizard {
 
 						initializeProjectContents(monitor.newChild(80));
 						pptpHandler.ensureStateOfPuppetProjects(monitor.newChild(10));
-						project.refreshLocal(IResource.DEPTH_INFINITE, monitor.newChild(9));
 
 						IFile modulefile = ResourceUtil.getFile(project.getFullPath().append(MODULEFILE_NAME)); //$NON-NLS-1$
 						if(modulefile.exists()) {
@@ -201,6 +200,7 @@ public class NewPuppetModuleProjectWizard extends Wizard implements INewWizard {
 					}
 				}
 			});
+			new PPBuildJob(project.getWorkspace(), true).schedule(1000);
 			return true;
 		}
 		catch(InvocationTargetException e) {

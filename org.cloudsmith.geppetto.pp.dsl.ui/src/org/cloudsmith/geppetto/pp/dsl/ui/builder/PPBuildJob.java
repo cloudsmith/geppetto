@@ -37,7 +37,7 @@ public class PPBuildJob extends Job {
 
 	final private IProject[] projects;
 
-	final private IWorkspace workspace;
+	final private boolean cleanOnly;
 
 	private static final Logger log = Logger.getLogger(AbstractPreferencePage.class);
 
@@ -45,12 +45,16 @@ public class PPBuildJob extends Job {
 		super("Building Puppet Projects");
 		this.projects = projects;
 		setPriority(Job.BUILD);
-		this.workspace = ResourcesPlugin.getWorkspace();
+		this.cleanOnly = false;
 	}
 
 	public PPBuildJob(IWorkspace workspace) {
+		this(workspace, false);
+	}
+
+	public PPBuildJob(IWorkspace workspace, boolean cleanOnly) {
 		super("Building Puppet Projects");
-		this.workspace = workspace;
+		this.cleanOnly = cleanOnly;
 		List<IProject> puppetProjects = Lists.newArrayList();
 		for(IProject p : workspace.getRoot().getProjects())
 			try {
@@ -70,34 +74,27 @@ public class PPBuildJob extends Job {
 	protected IStatus run(IProgressMonitor monitor) {
 		final SubMonitor ticker = SubMonitor.convert(monitor, projects.length * 100 * 2);
 
-		// Clean all projects
-		try {
-			ticker.setTaskName("Building projects");
-			workspace.build(IncrementalProjectBuilder.CLEAN_BUILD, ticker.newChild(projects.length * 100));
+		// Clean projects individually (if there are other kinds of projects than puppet, they do not need to be
+		// cleaned.
+		for(IProject p : projects) {
+			try {
+				ticker.setTaskName("Cleaning project " + p.getName());
+				p.build(IncrementalProjectBuilder.CLEAN_BUILD, ticker.newChild(100));
+			}
+			catch(CoreException e) {
+				return e.getStatus();
+			}
 		}
-		catch(CoreException e) {
-			return e.getStatus();
-		}
-		//
-		// // Clean projects individually (if there are other kinds of projects than puppet, they do not need to be
-		// // cleaned.
-		// for(IProject p : projects) {
-		// try {
-		// ticker.setTaskName("Cleaning project " + p.getName());
-		// p.build(IncrementalProjectBuilder.CLEAN_BUILD, ticker.newChild(100));
-		// }
-		// catch(CoreException e) {
-		// return e.getStatus();
-		// }
-		// }
-		// then do a full build
-		try {
-			ticker.setTaskName("Building projects");
-			workspace.build(IncrementalProjectBuilder.FULL_BUILD, ticker.newChild(projects.length * 100));
-		}
-		catch(CoreException e) {
-			return e.getStatus();
-		}
+		if(!cleanOnly)
+			// do a full build
+			try {
+				ticker.setTaskName("Building projects");
+				ResourcesPlugin.getWorkspace().build(
+					IncrementalProjectBuilder.FULL_BUILD, ticker.newChild(projects.length * 100));
+			}
+			catch(CoreException e) {
+				return e.getStatus();
+			}
 
 		return Status.OK_STATUS;
 	}

@@ -45,7 +45,6 @@ import org.eclipse.ui.forms.editor.FormEditor;
 import org.eclipse.ui.ide.IGotoMarker;
 import org.eclipse.ui.part.FileEditorInput;
 import org.eclipse.ui.texteditor.IDocumentProvider;
-import org.eclipse.ui.texteditor.IElementStateListener;
 import org.eclipse.ui.texteditor.MarkerAnnotation;
 
 import com.google.inject.Inject;
@@ -118,28 +117,6 @@ public class ModuleMetadataEditor extends FormEditor implements IGotoMarker, ISh
 		}
 	}
 
-	class ElementListener implements IElementStateListener {
-		public void elementContentAboutToBeReplaced(Object element) {
-		}
-
-		public void elementContentReplaced(Object element) {
-		}
-
-		public void elementDeleted(Object element) {
-			if(element != null && element.equals(getEditorInput()))
-				close(false);
-		}
-
-		public void elementDirtyStateChanged(Object element, boolean isDirty) {
-		}
-
-		public void elementMoved(Object originalElement, Object movedElement) {
-			if(originalElement != null && originalElement.equals(getEditorInput())) {
-				close(true);
-			}
-		}
-	}
-
 	@Inject
 	private Forge forge;
 
@@ -168,7 +145,6 @@ public class ModuleMetadataEditor extends FormEditor implements IGotoMarker, ISh
 			sourcePage = new ModuleSourcePage(this);
 			int sourcePageIdx = addPage(sourcePage, getEditorInput());
 			setPageText(sourcePageIdx, UIPlugin.INSTANCE.getString("_UI_Source_title"));
-			sourcePage.getDocumentProvider().addElementStateListener(new ElementListener());
 			refreshModel();
 			sourcePage.initialize();
 
@@ -312,7 +288,10 @@ public class ModuleMetadataEditor extends FormEditor implements IGotoMarker, ISh
 
 	private void refreshModel() {
 		Diagnostic chain = new Diagnostic();
-		model.setDocument(getDocument(), getPath(), chain);
+		IPath path = getPath();
+		if(path == null)
+			return;
+		model.setDocument(getDocument(), path, chain);
 		sourcePage.updateDiagnosticAnnotations(chain);
 		stale = false;
 	}
@@ -322,8 +301,11 @@ public class ModuleMetadataEditor extends FormEditor implements IGotoMarker, ISh
 		if(event.getType() == IResourceChangeEvent.POST_BUILD) {
 			// Ensure that our markers is as aligned as they can possibly be
 			// with the current state of the workspace
-			markStale();
-			refreshModel();
+			IFile file = getFile();
+			if(file != null && file.getProject() == event.getSource()) {
+				markStale();
+				refreshModel();
+			}
 		}
 	}
 

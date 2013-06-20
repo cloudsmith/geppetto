@@ -11,6 +11,8 @@
  */
 package org.cloudsmith.geppetto.pp.dsl.ui.internal;
 
+import static org.eclipse.core.resources.IResourceDelta.REMOVED;
+
 import java.util.Collections;
 import java.util.Map;
 
@@ -18,10 +20,16 @@ import org.apache.log4j.Logger;
 import org.cloudsmith.geppetto.forge.ForgeService;
 import org.cloudsmith.geppetto.pp.dsl.PPDSLConstants;
 import org.cloudsmith.geppetto.pp.dsl.pptp.PptpRubyRuntimeModule;
+import org.cloudsmith.geppetto.pp.dsl.ui.builder.PPBuildJob;
 import org.cloudsmith.geppetto.pp.dsl.ui.jdt_ersatz.ImagesOnFileSystemRegistry;
 import org.cloudsmith.geppetto.pp.dsl.ui.preferences.PPPreferencesHelper;
 import org.cloudsmith.geppetto.ruby.RubyHelper;
 import org.cloudsmith.geppetto.ruby.jrubyparser.JRubyServices;
+import org.eclipse.core.resources.IProject;
+import org.eclipse.core.resources.IResourceChangeEvent;
+import org.eclipse.core.resources.IResourceChangeListener;
+import org.eclipse.core.resources.IResourceDelta;
+import org.eclipse.core.resources.IResourceDeltaVisitor;
 import org.eclipse.core.resources.IWorkspace;
 import org.eclipse.core.resources.IncrementalProjectBuilder;
 import org.eclipse.core.resources.ResourcesPlugin;
@@ -79,6 +87,8 @@ public class PPDSLActivator extends PPActivator {
 	private Map<String, Injector> injectors = Collections.synchronizedMap(Maps.<String, Injector> newHashMapWithExpectedSize(1));
 
 	private ImagesOnFileSystemRegistry imagesOnFileSystemRegistry;
+
+	private IResourceChangeListener projectRemovedListener;
 
 	@Override
 	protected Injector createInjector(String language) {
@@ -172,7 +182,8 @@ public class PPDSLActivator extends PPActivator {
 		imagesOnFileSystemRegistry = new ImagesOnFileSystemRegistry();
 		RubyHelper.setRubyServicesFactory(JRubyServices.FACTORY);
 
-		String lastBuilderVersion = ResourcesPlugin.getWorkspace().getRoot().getPersistentProperty(LAST_BUILDER_VERSION);
+		final IWorkspace workspace = ResourcesPlugin.getWorkspace();
+		String lastBuilderVersion = workspace.getRoot().getPersistentProperty(LAST_BUILDER_VERSION);
 		final Bundle bundle = context.getBundle();
 		String currentVersion = bundle.getVersion().toString();
 		if(lastBuilderVersion == null || !lastBuilderVersion.equals(currentVersion)) {
@@ -182,9 +193,8 @@ public class PPDSLActivator extends PPActivator {
 				@Override
 				protected IStatus run(IProgressMonitor monitor) {
 					try {
-						IWorkspace ws = ResourcesPlugin.getWorkspace();
-						ws.build(IncrementalProjectBuilder.FULL_BUILD, monitor);
-						ws.getRoot().setPersistentProperty(LAST_BUILDER_VERSION, bundle.getVersion().toString());
+						workspace.build(IncrementalProjectBuilder.FULL_BUILD, monitor);
+						workspace.getRoot().setPersistentProperty(LAST_BUILDER_VERSION, bundle.getVersion().toString());
 						return Status.OK_STATUS;
 					}
 					catch(CoreException e) {
@@ -194,10 +204,45 @@ public class PPDSLActivator extends PPActivator {
 			};
 			buildJob.schedule();
 		}
+
+		projectRemovedListener = new IResourceChangeListener() {
+
+			@Override
+			public void resourceChanged(IResourceChangeEvent event) {
+				// We are only interested in when new projects are added
+				// or projects are being removed
+				try {
+					IResourceDelta delta = event.getDelta();
+					delta.accept(new IResourceDeltaVisitor() {
+						private boolean done = false;
+
+						@Override
+						public boolean visit(IResourceDelta delta) throws CoreException {
+							if(done)
+								return false;
+
+							if(delta.getResource() instanceof IProject) {
+								switch(delta.getKind()) {
+									case REMOVED:
+										new PPBuildJob(workspace, true).schedule();
+										done = true;
+								}
+								return false;
+							}
+							return true;
+						}
+					});
+				}
+				catch(CoreException e) {
+				}
+			}
+		};
+		workspace.addResourceChangeListener(projectRemovedListener, IResourceChangeEvent.POST_CHANGE);
 	}
 
 	@Override
 	public void stop(BundleContext context) throws Exception {
+		ResourcesPlugin.getWorkspace().removeResourceChangeListener(projectRemovedListener);
 		PPPreferencesHelper preferenceHelper = getInjector(PP_LANGUAGE_NAME).getInstance(PPPreferencesHelper.class);
 		preferenceHelper.stop();
 		slaActivatorContext = null;

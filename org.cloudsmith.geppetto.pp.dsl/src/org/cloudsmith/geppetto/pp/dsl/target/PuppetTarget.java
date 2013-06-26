@@ -21,7 +21,7 @@ public enum PuppetTarget {
 	PUPPET27("2.7.19", "2.7", "puppet-2.7.19.pptp", null, ComplianceLevel.PUPPET_2_7),
 	PUPPET30("3.0.0", "3.0", "puppet-3.0.0.pptp", null, ComplianceLevel.PUPPET_3_0),
 	PUPPET32("3.2.2", "3.2", "puppet-3.2.0.pptp", null, ComplianceLevel.PUPPET_3_2), // TODO: Fix a 3.2.2 pptp
-	PUPPET_FUTURE("3.2.1", "future", "puppet-3.2.0.pptp", null, ComplianceLevel.PUPPET_FUTURE), // TODO: Fix a 3.2.1 pptp
+	PUPPET_FUTURE("3.2.3", "future", "puppet-3.2.0.pptp", null, ComplianceLevel.PUPPET_FUTURE), // TODO: Fix a 3.2.1 pptp
 	PUPPET_ENTERPRISE20("2.7.9", "PE 2.0", "puppet-2.7.19.pptp", "2.0.2", ComplianceLevel.PUPPET_2_7), // TODO: Fix a 2.7.9 pptp
 	PUPPET_ENTERPRISE27("2.7.19", "PE 2.7", "puppet-2.7.19.pptp", "2.7.2", ComplianceLevel.PUPPET_2_7),
 	PUPPET_ENTERPRISE28("2.7.21", "PE 2.8", "puppet-2.7.19.pptp", "2.8.1", ComplianceLevel.PUPPET_2_7), // TODO: Fix a 2.7.21 pptp

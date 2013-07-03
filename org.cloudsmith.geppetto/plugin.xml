@@ -1,139 +1,79 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?eclipse version="3.0"?>
 <plugin>
-   <extension id="ide2" point="org.eclipse.core.runtime.products"> 
-      <product name="Geppetto" application="org.eclipse.ui.ide.workbench" description="%productBlurb"> 
-         <property
-               name="windowImages"
-               value="geppetto.gif,geppetto32.gif,geppetto48.gif"/> 
-         <property
-               name="aboutImage"
-               value="geppetto_lg.gif"/> 
-         <property
-               name="aboutText"
-               value="%productBlurb"/> 
-         <property
-               name="appName"
-               value="Geppetto"/> 
-         <property
-               name="preferenceCustomization"
-               value="plugin_customization.ini"/>
-         <property
-               name="startupForegroundColor"
-               value="9C99B3"/>
-         <property
-               name="startupMessageRect"
-               value="7,254,441,20"/>
-         <property
-               name="startupProgressRect"
-               value="3,277,449,15"/> 
-         <property
-               name="buildIdLocation"
-               value="290,135"/> 
-         <property
-               name="introTitle"
-               value="%productIntroTitle"/>
-         <property
-               name="introBrandingImage"
-               value="product:intro-geppetto.png"/>
-         <property
-               name="introBrandingImageText"
-               value="%productIntroBrandingText"/>
-         <property
-               name="introDescription-overview"
-               value="%introDescription-overview"/>
-         <property
-               name="introDescription-tutorials"
-               value="%introDescription-tutorials"/>
-         <property
-               name="applicationCSSResources"
-               value="platform:/plugin/org.cloudsmith.geppetto/images">
-         </property>
-      </product>
-   </extension>
-   <!--
-   <extension point="org.eclipse.ui.intro">
-      <introProductBinding
-            introId="org.eclipse.ui.intro.universal"
-            productId="org.cloudsmith.geppetto.ide">
-      </introProductBinding>
-   </extension>
-   -->
-   <extension point="org.eclipse.ui.newWizards">
-      <primaryWizard id="org.cloudsmith.geppetto.ui.NewManifestWizard"/>
-      <primaryWizard id="org.cloudsmith.geppetto.ui.NewModulefileWizard"/>
-      <primaryWizard id="org.cloudsmith.geppetto.ui.NewPuppetProjectWizard"/>
-      <primaryWizard id="org.cloudsmith.geppetto.ui.NewPuppetModuleProjectWizard"/>
-      <primaryWizard id="org.cloudsmith.geppetto.ui.NewPuppetProjectFromForgeWizard"/>
-   </extension>
-      <extension
-         point="org.eclipse.e4.ui.css.swt.theme">
-      <theme
-            basestylesheeturi="css/e4_default.css"
-            id="org.eclipse.e4.ui.css.theme.e4_default.noos"
-            label="%theme.default">
-      </theme>
-      <theme
-            basestylesheeturi="css/e4_classic_winxp.css"
-            id="org.eclipse.e4.ui.css.theme.e4_classic"
-            label="%theme.classic">
-      </theme>
-      <theme
-            basestylesheeturi="css/e4_default_gtk.css"
-            id="org.eclipse.e4.ui.css.theme.e4_default"
-            label="%theme.gtk"
-            os="linux">
-      </theme>
-      <theme
-            basestylesheeturi="css/e4_default_mac.css"
-            id="org.eclipse.e4.ui.css.theme.e4_default"
-            label="%theme.mac"
-            os="macosx">
-      </theme>
-      <theme
-            basestylesheeturi="css/e4_default_win7.css"
-            id="org.eclipse.e4.ui.css.theme.e4_default"
-            label="%theme.win7"
-            os="win32"
-            os_version="6.1">
-      </theme>
-            <theme
-                  basestylesheeturi="css/e4_default_winxp_blu.css"
-                  id="org.eclipse.e4.ui.css.theme.e4_default"
-                  label="%theme.winxpBlue"
-                  os="win32">
-      </theme>
-	  <theme
-            basestylesheeturi="css/e4_default_winxp_olv.css"
-            id="org.eclipse.e4.ui.css.theme.e4_default.xpolive"
-            label="%theme.winxpOlive"
-            os="win32">
-      </theme>
-   <theme
-         basestylesheeturi="css/e4_classic_win7.css"
-         id="org.eclipse.e4.ui.css.theme.e4_classic"
-         label="%theme.win7Classic"
-         os="win32"
-         os_version="6.1">
-   </theme>
-   <theme
-         basestylesheeturi="css/e4_default_gtk.css"
-         id="org.eclipse.e4.ui.css.theme.e4_default"
-         label="%theme.solaris"
-         os="solaris">
-   </theme>
-   <theme
-         basestylesheeturi="css/e4_default_gtk.css"
-         id="org.eclipse.e4.ui.css.theme.e4_default"
-         label="%theme.aix"
-         os="aix">
-   </theme>
-   <theme
-         basestylesheeturi="css/e4_classic_winxp.css"
-         id="org.eclipse.e4.ui.css.theme.e4_default"
-         label="%theme.hpux"
-         os="hpux">
-   </theme>
-      </extension>
-   
+	<extension id="ide2" point="org.eclipse.core.runtime.products">
+		<product name="Geppetto" application="org.eclipse.ui.ide.workbench"
+			description="%productBlurb">
+			<property name="windowImages" value="geppetto.gif,geppetto32.gif,geppetto48.gif" />
+			<property name="cssTheme" value="org.cloudsmith.geppetto.themes.classic" />
+			<property name="aboutImage" value="geppetto_lg.gif" />
+			<property name="aboutText" value="%productBlurb" />
+			<property name="appName" value="Geppetto" />
+			<property name="preferenceCustomization" value="plugin_customization.ini" />
+			<property name="startupForegroundColor" value="9C99B3" />
+			<property name="startupMessageRect" value="7,254,441,20" />
+			<property name="startupProgressRect" value="3,277,449,15" />
+			<property name="buildIdLocation" value="290,135" />
+			<property name="introTitle" value="%productIntroTitle" />
+			<property name="introBrandingImage" value="product:intro-geppetto.png" />
+			<property name="introBrandingImageText" value="%productIntroBrandingText" />
+			<property name="introDescription-overview" value="%introDescription-overview" />
+			<property name="introDescription-tutorials" value="%introDescription-tutorials" />
+			<property name="applicationCSSResources"
+				value="platform:/plugin/org.cloudsmith.geppetto/images">
+			</property>
+		</product>
+	</extension>
+	<!-- <extension point="org.eclipse.ui.intro"> <introProductBinding introId="org.eclipse.ui.intro.universal" 
+		productId="org.cloudsmith.geppetto.ide"> </introProductBinding> </extension> -->
+	<extension point="org.eclipse.ui.newWizards">
+		<primaryWizard id="org.cloudsmith.geppetto.ui.NewManifestWizard" />
+		<primaryWizard id="org.cloudsmith.geppetto.ui.NewModulefileWizard" />
+		<primaryWizard id="org.cloudsmith.geppetto.ui.NewPuppetProjectWizard" />
+		<primaryWizard
+			id="org.cloudsmith.geppetto.ui.NewPuppetModuleProjectWizard" />
+		<primaryWizard
+			id="org.cloudsmith.geppetto.ui.NewPuppetProjectFromForgeWizard" />
+	</extension>
+	<extension point="org.eclipse.e4.ui.css.swt.theme">
+		<theme basestylesheeturi="css/e4_default.css"
+			id="org.eclipse.e4.ui.css.theme.e4_default.noos" label="%theme.default">
+		</theme>
+		<theme basestylesheeturi="css/e4_classic_winxp.css"
+			id="org.eclipse.e4.ui.css.theme.e4_classic" label="%theme.classic">
+		</theme>
+		<theme basestylesheeturi="css/e4_default_gtk.css"
+			id="org.eclipse.e4.ui.css.theme.e4_default" label="%theme.gtk" os="linux">
+		</theme>
+		<theme basestylesheeturi="css/e4_default_mac.css"
+			id="org.eclipse.e4.ui.css.theme.e4_default" label="%theme.mac" os="macosx">
+		</theme>
+		<theme basestylesheeturi="css/e4_default_win7.css"
+			id="org.eclipse.e4.ui.css.theme.e4_default" label="%theme.win7" os="win32"
+			os_version="6.1">
+		</theme>
+		<theme basestylesheeturi="css/e4_default_winxp_blu.css"
+			id="org.eclipse.e4.ui.css.theme.e4_default" label="%theme.winxpBlue"
+			os="win32">
+		</theme>
+		<theme basestylesheeturi="css/e4_default_winxp_olv.css"
+			id="org.eclipse.e4.ui.css.theme.e4_default.xpolive" label="%theme.winxpOlive"
+			os="win32">
+		</theme>
+		<theme basestylesheeturi="css/e4_classic_win7.css"
+			id="org.eclipse.e4.ui.css.theme.e4_classic" label="%theme.win7Classic"
+			os="win32" os_version="6.1">
+		</theme>
+		<theme basestylesheeturi="css/e4_default_gtk.css"
+			id="org.eclipse.e4.ui.css.theme.e4_default" label="%theme.solaris"
+			os="solaris">
+		</theme>
+		<theme basestylesheeturi="css/e4_default_gtk.css"
+			id="org.eclipse.e4.ui.css.theme.e4_default" label="%theme.aix" os="aix">
+		</theme>
+		<theme basestylesheeturi="css/e4_classic_winxp.css"
+			id="org.eclipse.e4.ui.css.theme.e4_default" label="%theme.hpux" os="hpux">
+		</theme>
+	</extension>
+
 </plugin>

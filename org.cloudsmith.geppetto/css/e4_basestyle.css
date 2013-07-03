@@ -32,3 +32,33 @@
 	handle-image:  url(./winXPHandle.png);
 	frame-cuts: 5px 1px 5px 16px;
 }
+
+.MToolBar.Draggable {
+	handle-image:  url(./dragHandle.png);
+}
+
+.MToolControl.Draggable {
+	handle-image:  url(./dragHandle.png);
+}
+
+.DragFeedback {
+    background-color: #00FF00; 
+}
+
+.ModifiedDragFeedback {
+    background-color: #A0A000; 
+}
+
+CTabItem {
+	font-style: normal;
+	font-weight: normal;
+}
+
+CTabItem.busy {
+	font-style: italic;
+}
+
+CTabItem.highlighted {
+	font-weight: bold;
+}
+

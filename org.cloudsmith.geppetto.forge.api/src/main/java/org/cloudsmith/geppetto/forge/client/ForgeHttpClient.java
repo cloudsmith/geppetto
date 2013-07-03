@@ -22,8 +22,9 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.lang.reflect.Type;
 import java.net.URI;
-import java.net.URISyntaxException;
 import java.nio.charset.Charset;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.http.HttpEntity;
@@ -38,11 +39,10 @@ import org.apache.http.client.ResponseHandler;
 import org.apache.http.client.methods.HttpDelete;
 import org.apache.http.client.methods.HttpEntityEnclosingRequestBase;
 import org.apache.http.client.methods.HttpGet;
-import org.apache.http.client.methods.HttpPatch;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.methods.HttpPut;
 import org.apache.http.client.methods.HttpRequestBase;
-import org.apache.http.client.utils.URIBuilder;
+import org.apache.http.client.utils.URLEncodedUtils;
 import org.apache.http.conn.scheme.Scheme;
 import org.apache.http.conn.ssl.SSLSocketFactory;
 import org.apache.http.conn.ssl.TrustSelfSignedStrategy;
@@ -51,6 +51,7 @@ import org.apache.http.entity.mime.MultipartEntity;
 import org.apache.http.entity.mime.content.InputStreamBody;
 import org.apache.http.entity.mime.content.StringBody;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.message.BasicNameValuePair;
 import org.cloudsmith.geppetto.forge.client.Authenticator.AuthResponse;
 import org.cloudsmith.geppetto.forge.model.Constants;
 
@@ -145,22 +146,17 @@ public class ForgeHttpClient implements Constants, ForgeClient {
 	}
 
 	private HttpGet createGetRequest(String urlStr, Map<String, String> params, boolean useV1) {
-		URI uri;
-		try {
-			URIBuilder bld = new URIBuilder(useV1
-					? createV1Uri(urlStr)
-					: createV2Uri(urlStr));
-			if(params != null && !params.isEmpty()) {
-				for(Map.Entry<String, String> param : params.entrySet())
-					bld.addParameter(param.getKey(), param.getValue());
-			}
-			uri = bld.build();
+		StringBuilder bld = new StringBuilder(useV1
+				? createV1Uri(urlStr)
+				: createV2Uri(urlStr));
+		if(params != null && !params.isEmpty()) {
+			List<BasicNameValuePair> pairs = new ArrayList<BasicNameValuePair>();
+			for(Map.Entry<String, String> param : params.entrySet())
+				pairs.add(new BasicNameValuePair(param.getKey(), param.getValue()));
+			bld.append('?');
+			bld.append(URLEncodedUtils.format(pairs, UTF_8.name()));
 		}
-		catch(URISyntaxException e) {
-			throw new IllegalArgumentException(e);
-		}
-
-		return new HttpGet(uri);
+		return new HttpGet(URI.create(bld.toString()));
 	}
 
 	/**
@@ -239,7 +235,15 @@ public class ForgeHttpClient implements Constants, ForgeClient {
 
 	@Override
 	public <V> V patch(final String uri, final Object params, final Class<V> type) throws IOException {
-		HttpPatch request = new HttpPatch(createV2Uri(uri));
+		// HttpPatch is introduced in 4.2. We need to be compatible with 4.1 in order to
+		// play nice with other Juno and Kepler features
+		HttpPost request = new HttpPost(createV2Uri(uri)) {
+			@Override
+			public String getMethod() {
+				return "PATCH";
+			}
+		};
+
 		configureRequest(request);
 		assignJSONContent(request, params);
 		return executeRequest(request, type);

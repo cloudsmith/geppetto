@@ -12,8 +12,6 @@
         <cs:dependency name="org.eclipse.emf.mwe2.launch" componentType="osgi.bundle" filter="(!(pruned.product.build=true))"/>
         <cs:dependency name="org.eclipse.emf.mwe2.language" componentType="osgi.bundle" filter="(!(pruned.product.build=true))"/>
         <cs:dependency name="org.apache.commons.logging" componentType="osgi.bundle" versionDesignator="1.1.1"/>
-        <cs:dependency name="org.apache.httpcomponents.httpcore" componentType="osgi.bundle" versionDesignator="[4.2.0,4.3.0)"/>
-        <cs:dependency name="org.apache.httpcomponents.httpclient" componentType="osgi.bundle" versionDesignator="[4.2.0,4.3.0)"/>
 	</cs:dependencies>
     <cs:actions>
         <cs:public name="product.zip-cocoa.macosx.x86" actor="ant">

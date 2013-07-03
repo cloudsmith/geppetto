@@ -5,3 +5,4 @@ Bundle-SymbolicName: org.cloudsmith.geppetto.themes;singleton:=true
 Bundle-Version: 3.0.0.qualifier
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Require-Bundle: org.eclipse.e4.ui.css.swt.theme;bundle-version="0.9.2"
+Eclipse-BundleShape: dir

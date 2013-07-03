@@ -42,3 +42,4 @@ Export-Package: org.cloudsmith.geppetto.pp.dsl.ui,
  org.cloudsmith.geppetto.pp.dsl.ui.jdt_ersatz,
  org.cloudsmith.geppetto.pp.dsl.ui.pptp,
  org.cloudsmith.geppetto.pp.dsl.ui.preferences
+Eclipse-BundleShape: dir

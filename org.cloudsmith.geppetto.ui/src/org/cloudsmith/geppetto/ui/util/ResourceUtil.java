@@ -57,12 +57,13 @@ public class ResourceUtil {
 						: projectName }));
 			IWorkspace workspace = ResourcesPlugin.getWorkspace();
 			project = workspace.getRoot().getProject(projectName);
+			URI defaultLocation = URI.createFileURI(workspace.getRoot().getLocation().append(projectName).toOSString());
 
 			if(!project.exists()) {
 				URI location = projectLocationURI;
 
 				if(location == null) {
-					location = URI.createFileURI(workspace.getRoot().getLocation().append(projectName).toOSString());
+					location = defaultLocation;
 				}
 
 				location = location.appendSegment(".project"); //$NON-NLS-1$
@@ -78,7 +79,7 @@ public class ResourceUtil {
 			if(!project.exists()) {
 				projectDescription = ResourcesPlugin.getWorkspace().newProjectDescription(projectName);
 
-				if(projectLocationURI != null) {
+				if(!(projectLocationURI == null || defaultLocation.equals(projectLocationURI))) {
 					projectDescription.setLocationURI(new java.net.URI(projectLocationURI.toString()));
 				}
 

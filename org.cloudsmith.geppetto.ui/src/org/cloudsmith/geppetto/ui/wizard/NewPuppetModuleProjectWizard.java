@@ -17,6 +17,7 @@ import java.io.File;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Collections;
 
+import org.cloudsmith.geppetto.common.os.FileUtils;
 import org.cloudsmith.geppetto.forge.Forge;
 import org.cloudsmith.geppetto.forge.util.ModuleUtils;
 import org.cloudsmith.geppetto.forge.v1.service.ModuleService;
@@ -29,6 +30,7 @@ import org.cloudsmith.geppetto.ui.UIPlugin;
 import org.cloudsmith.geppetto.ui.util.ResourceUtil;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
+import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
@@ -162,16 +164,29 @@ public class NewPuppetModuleProjectWizard extends Wizard implements INewWizard {
 	@Override
 	public boolean performFinish() {
 		try {
+			project = null;
 			getContainer().run(false, false, new WorkspaceModifyOperation() {
 
 				@Override
 				protected void execute(IProgressMonitor progressMonitor) throws InvocationTargetException {
 					SubMonitor monitor = SubMonitor.convert(progressMonitor, 100);
 					try {
+						String projectName = projectContainer.segment(0);
+						if(projectLocation == null)
+							projectLocation = ResourcesPlugin.getWorkspace().getRoot().getLocation().append(projectName);
+						File projectDir = projectLocation.toFile();
+						if(projectDir.exists()) {
+							if(!MessageDialog.openConfirm(
+								getShell(), UIPlugin.getLocalString("_UI_Confirm_Overwrite"),
+								UIPlugin.getLocalString("_UI_Directory_not_empty", projectDir.getAbsolutePath())))
+								// User don't want us to overwrite
+								return;
+
+							FileUtils.rmR(projectDir);
+						}
+
 						project = ResourceUtil.createProject(
-							projectContainer, projectLocation == null
-									? null
-									: URI.createFileURI(projectLocation.toOSString()),
+							projectContainer, URI.createFileURI(projectDir.getAbsolutePath()),
 							Collections.<IProject> emptyList(), monitor.newChild(1));
 
 						initializeProjectContents(monitor.newChild(80));
@@ -200,6 +215,9 @@ public class NewPuppetModuleProjectWizard extends Wizard implements INewWizard {
 					}
 				}
 			});
+			if(project == null)
+				return false;
+
 			new PPBuildJob(project.getWorkspace(), true).schedule(1000);
 			return true;
 		}

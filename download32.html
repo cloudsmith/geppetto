@@ -1,0 +1,229 @@
+---
+layout: default
+title: Download Geppetto
+---
+<script>
+  // The version to download
+  var default_ver = "3.2.0-R201307041307"
+  // var default_ver = "3.0.0-R201209231713"
+  
+  // Size to download in Mb (aprox)
+  var size_mb = 80
+  
+  // Configure data for 32bit and 64nit downloads per os
+  var downloads = new Object()
+  downloads['linux-32bit'] = {
+      zip:  "geppetto-linux.gtk.x86-"+ default_ver + ".zip",
+      size: size_mb,
+      label: "LINUX 32 bit",
+      ver: default_ver
+    };
+  downloads['linux-64bit'] = {
+      zip: "geppetto-linux.gtk.x86_64-" + default_ver + ".zip",
+      size: size_mb,
+      label: "LINUX 64 bit",
+      ver: default_ver
+    };
+  downloads['osx-32bit'] = {
+      zip: "geppetto-macosx.cocoa.x86-" + default_ver + ".zip",
+      size: size_mb,
+      label: "MAC OS X 32 bit",
+      ver: default_ver
+    };
+  downloads['osx-64bit'] = {
+      zip: "geppetto-macosx.cocoa.x86_64-" + default_ver + ".zip",
+      size: size_mb,
+      label: "MAC OS X 64 bit",
+      ver: default_ver
+    };
+  downloads['windows-32bit'] = {
+      zip: "geppetto-win32.win32.x86-" + default_ver + ".zip", 
+      size: size_mb,
+      label: "WINDOWS 32 bit",
+      ver: default_ver
+    };
+  downloads['windows-64bit'] = {
+      zip: "geppetto-win32.win32.x86_64-" + win64_ver + ".zip",
+      size: size_mb,
+      label: "WINDOWS 64 bit",
+      ver: default_ver
+    };
+
+  // detect OS
+  var os = "unknown"
+  var selected_os = os
+  if (navigator.userAgent.indexOf("Win")!=-1) os="windows";
+  if (navigator.userAgent.indexOf("Mac")!=-1) os="osx";
+  if (navigator.userAgent.indexOf("Linux")!=-1) os="linux";
+
+  // Not possible to detect (browser may be 32 bit), use what most people downloaded to date
+  var selected_arch = '64bit'
+  
+  window.onload=function() {
+    select_os(os)
+    select_arch(selected_arch)
+  }
+  function download() {
+    if(selected_os == 'unknown') {
+      alert("Please select os to download")
+      return
+    }
+    _gaq.push(['_trackEvent', 'Geppetto', 'Downloaded', selected_os+"-"+selected_arch]);
+    var loc = "https://downloads.puppetlabs.com/geppetto/"+downloads[selected_os+"-"+selected_arch].zip
+    window.location = loc
+  }
+  function select_os(name) {
+    if(selected_os != 'unknown') highlight(selected_os, false);
+    if(name != 'unknown') highlight(name, true);
+    selected_os = name
+    update_download()
+  }
+  function update_download() {
+    dl = downloads[selected_os + "-" + selected_arch]
+    $("span#d-os-arch").text(dl['label'])
+    $("span#d-geppetto-ver").text(dl['ver'])    
+    $("span#d-size").text(dl['size'])    
+  }
+  function select_arch(name) {
+    highlight(selected_arch, false)
+    highlight(name, true)
+    selected_arch = name
+    update_download()
+  }
+  function highlight(name, flag) {
+    var color = flag ? "#f0324a" : "#747575"
+    document.getElementById(name).style.color = color
+  }
+  function transition(it, duration) {
+    it.style.webkitTransition = "-webkit-transform "+duration+"s"
+    it.style.MozTransition = "-moz-transform "+duration+"s"
+    it.style.msTransition = "-ms-transform "+duration+"s"
+    it.style.OTranistion = "-o-transform "+duration+"s"
+  }
+  function button_scale(it, scale) {
+    transf = "scale("+scale+","+scale+")"
+    it.style.transform=transf
+    it.style.webkitTransform=transf
+    it.style.MozTransform=transf
+    it.style.msTransform=transf
+    it.style.OTransform=transf
+  }
+  function fisheye(it) {
+    transition(it, 0.2)
+    button_scale(it, 1.20)
+  }
+  function press_in(it) {
+    transition(it, 0.2)
+    button_scale(it, 0.90)
+  }
+  function press_out(it) {
+    transition(it, 0.2)
+    it.style.transform=""
+    it.style.webkitTransform=""
+    it.style.MozTransform=transf=""
+    it.style.msTransform=transf=""
+    it.style.OTransform=transf=""
+  }
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-2609411-3']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+<h1 style="margin-bottom:0px">Download Latest Geppetto 3.0</h1>
+<p style="margin_top:0px;margin-bottom:16px"><span id='main-ver'>version</span></p>
+<script>$("span#main-ver").text(default_ver)</script>
+<table style="width:600px;padding-bottom:16px;border-bottom:1px solid #cccccc;text-align:center">
+<tr>
+  <td style="width:160px;font-size:12px;text-align:left">OS</td>
+  <td><button style="border-width:0; background:none; cursor:pointer"
+      onClick="select_os('linux')"
+      onmouseover="fisheye(this)"
+          onmouseout="press_out(this)"
+          onmousedown="press_in(this)" 
+          onmouseup="press_out(this)"
+          ondragstart="press_out(this); return false"
+    ><img width="96px" height="96px" src="images/linux.png"/>
+    </button>
+  </td>
+  <td><button style="border-width:0; background:none;cursor:pointer"
+      onClick="select_os('osx')"
+          onmouseover="fisheye(this)"
+          onmouseout="press_out(this)"
+          onmousedown="press_in(this)" 
+          onmouseup="press_out(this)"
+          ondragstart="press_out(this); return false"
+    ><img width="96px" height="96px" src="images/mac.png"/>
+    </button>
+  </td>
+  <td><button style="border-width:0; background:none;cursor:pointer"
+      onClick="select_os('windows')"
+          onmouseover="fisheye(this)"
+          onmouseout="press_out(this)"
+          onmousedown="press_in(this)" 
+          onmouseup="press_out(this)"
+          ondragstart="press_out(this); return false"
+    ><img width="96px" height="96px" src="images/windows.png"/>
+    </button>
+  </td>
+</tr>
+<tr style="font-size:12px;text-align:center"><td></td>
+  <td id="linux">LINUX</td>
+  <td id="osx">MAC OS X</td>
+  <td id="windows">WINDOWS</td></tr>
+</table>
+<table style="font-size:36px;align:middle;width:600px;
+  padding-top:16px;padding-bottom:16px;border-bottom:1px solid #cccccc;
+  text-align:center">
+<tr>
+  <td style="width:160px;font-size:12px;text-align:left">ARCHITECTURE<br>INTEL</td>
+  <td style="width=144px">
+    <button style="border-width:0; background:none;cursor:pointer;color:#747575"
+      onClick="select_arch('32bit')"
+      onmouseover="fisheye(this)"
+      onmouseout="press_out(this)"
+      onmousedown="press_in(this)" 
+      onmouseup="press_out(this)">
+        <span id="32bit" style="font-size:36px">32<span style="font-size:12px"> bit</span></span>
+      </button>
+    </td>
+  <td style="width=144px">
+    <button style="border-width:0; background:none;cursor:pointer;color:#747575"
+      onClick="select_arch('64bit')"
+      onmouseover="fisheye(this)"
+      onmouseout="press_out(this)"
+      onmousedown="press_in(this)" 
+      onmouseup="press_out(this)">
+        <span id="64bit" style="font-size:36px">64<span style="font-size:12px"> bit</span></span>
+    </button>
+  </td>
+</tr>
+</table>
+<table style="width:600px;padding-top:16px">
+<tr style="text-align:center">
+  <td style="width:160px;text-align:left;font-size:12px">
+    <span id="d-os-arch">-</span><br/>
+    VER <span id="d-geppetto-ver">-</span><br/>
+    <span id="d-size">size</span> MB
+  </td>
+  <td><button
+      style="border-width:0; background:none;cursor:pointer"
+      onClick="download()"
+          onmouseover="document.getElementById('download-img').src='images/download_1.png'; press_out(this)"
+          onmouseout ="document.getElementById('download-img').src='images/download_0.png'; press_out(this)"
+          onmousedown="press_in(this)" 
+          onmouseup  ="press_out(this)"
+          ondragstart="press_out(this); return false"
+    ><img id="download-img" width="305px" height="68px" src="images/download_0.png"/>
+    </button></td>
+</tr>
+</table>
+
+<p>Did not find what you where looking for? Check out the full <a href="https://downloads.puppetlabs.com/geppetto">archive</a>.</p>
+<p>Downloads provided by <a href="http://www.puppetlabs.com">Puppet Labs</a>.</p>

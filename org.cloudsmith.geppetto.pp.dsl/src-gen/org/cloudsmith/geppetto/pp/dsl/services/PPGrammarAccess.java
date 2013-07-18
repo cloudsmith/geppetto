@@ -1810,14 +1810,6 @@ public class PPGrammarAccess extends AbstractGrammarElementFinder {
 		//// many arguments it is supposed to take, and then validate if the input is correct.
 		////
 		//// VALIDATION : functionExpr is a valid function name	
-		////FunctionCall returns pp::Expression
-		////	: PrimaryExpression ({pp::FunctionCall.leftExpr = current} 
-		////		'('
-		////			(parameters+=Expression (',' parameters += Expression)* ','? )?
-		////		')'
-		////		lambda = LambdaExpression? 
-		////	  )*
-		////	;
 		//FunctionCall returns pp::Expression:
 		//	PrimaryExpression (=> ({pp::FunctionCall.leftExpr=current} "(") (parameters+=Expression ("," parameters+=Expression)*
 		//	","?)? / *endComma? * / ")" => (lambda=LambdaExpression?))*;
@@ -4398,14 +4390,6 @@ public class PPGrammarAccess extends AbstractGrammarElementFinder {
 	//// many arguments it is supposed to take, and then validate if the input is correct.
 	////
 	//// VALIDATION : functionExpr is a valid function name	
-	////FunctionCall returns pp::Expression
-	////	: PrimaryExpression ({pp::FunctionCall.leftExpr = current} 
-	////		'('
-	////			(parameters+=Expression (',' parameters += Expression)* ','? )?
-	////		')'
-	////		lambda = LambdaExpression? 
-	////	  )*
-	////	;
 	//FunctionCall returns pp::Expression:
 	//	PrimaryExpression (=> ({pp::FunctionCall.leftExpr=current} "(") (parameters+=Expression ("," parameters+=Expression)*
 	//	","?)? / *endComma? * / ")" => (lambda=LambdaExpression?))*;

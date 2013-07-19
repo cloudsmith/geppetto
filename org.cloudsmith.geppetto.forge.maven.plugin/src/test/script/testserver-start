@@ -3,22 +3,22 @@
 rvm use 1.9.3
 rvm gemset use puppet-forge-api
 
-rake db:drop > /dev/null || {
+bundle exec rake db:drop > /dev/null || {
 	echo "Failed to drop database" 1>&2
 	exit 1
 }
 echo "Database dropped!"
-rake db:migrate > /dev/null || {
+bundle exec rake db:migrate > /dev/null || {
 	echo "Failed to migrate database" 1>&2
 	exit 1
 }
 echo "Database created"
-rake db:populate:sample > /dev/null || {
+bundle exec rake db:populate:sample > /dev/null || {
 	echo "Failed to populate database" 1>&2
 	exit 1
 }
 echo "Database populated with samples"
-rake "oauth2:client:create_with_id[GitHub Forge Publisher,http://forge.puppetlabs.com/,http://forge.puppetlabs.com/test/callback,,$FORGE_CLIENT_ID,$FORGE_CLIENT_SECRET]"
+bundle exec rake "oauth2:client:create_with_id[GitHub Forge Publisher,http://forge.puppetlabs.com/,http://forge.puppetlabs.com/test/callback,,$FORGE_CLIENT_ID,$FORGE_CLIENT_SECRET]"
  > /dev/null || {
 	echo "Failed to create OAuth2 client" 1>&2
 	exit 1

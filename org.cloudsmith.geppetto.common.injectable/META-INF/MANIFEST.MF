@@ -7,10 +7,10 @@ Bundle-Activator: org.cloudsmith.geppetto.common.injectable.internal.Activator
 Bundle-Vendor: %providerName
 Bundle-Localization: plugin
 Require-Bundle: org.eclipse.core.runtime;bundle-version="3.6.0",
- com.google.inject;bundle-version="2.0.0",
  org.cloudsmith.geppetto.common.tracer
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-ActivationPolicy: lazy
-Import-Package: org.apache.log4j
+Import-Package: com.google.inject,
+ org.apache.log4j
 Export-Package: org.cloudsmith.geppetto.common.extension,
  org.cloudsmith.geppetto.common.tracer

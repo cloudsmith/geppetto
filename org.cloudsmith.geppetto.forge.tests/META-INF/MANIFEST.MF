@@ -16,6 +16,5 @@ Require-Bundle: org.eclipse.core.runtime,
  org.cloudsmith.geppetto.semver,
  org.eclipse.emf.ecore.xmi;visibility:=reexport,
  com.google.gson,
- com.google.inject,
  org.junit
-
+Import-Package: com.google.inject

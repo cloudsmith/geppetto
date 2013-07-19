@@ -16,8 +16,12 @@ Require-Bundle: org.cloudsmith.geppetto.common,
  org.codehaus.jackson.core,
  org.eclipse.emf.ecore;bundle-version="2.6.0";visibility:=reexport,
  com.google.gson;bundle-version="1.6.0",
- com.google.inject,
  org.apache.commons.compress,
  org.cloudsmith.jrubyparser,
  org.apache.httpcomponents.httpclient,
  org.apache.httpcomponents.httpcore
+Import-Package: com.google.inject,
+ com.google.inject.binder,
+ com.google.inject.multibindings,
+ com.google.inject.name,
+ com.google.inject.util

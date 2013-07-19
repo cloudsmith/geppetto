@@ -330,7 +330,7 @@ RULE_WORD_CHARS : ('0'..'9'|'a'..'z'|'A'..'Z'|'_'|(':' ':')=>RULE_NS) ('0'..'9'|
 
 // If lookahead is NUMERIC, lex as number but produce WORD_CHARS
 //
-RULE_NUMBER : (NUMERIC)=>NUMERIC {
+RULE_NUMBER : {isNotInString()}?=> (NUMERIC)=>NUMERIC  {
 	_type = RULE_WORD_CHARS;
 };
 

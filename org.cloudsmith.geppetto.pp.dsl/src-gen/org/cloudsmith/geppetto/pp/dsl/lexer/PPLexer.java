@@ -2587,9 +2587,13 @@ public class PPLexer extends Lexer {
         try {
             int _type = RULE_NUMBER;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:333:13: ( ( NUMERIC )=> NUMERIC )
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:333:15: ( NUMERIC )=> NUMERIC
+            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:333:13: ({...}? => ( NUMERIC )=> NUMERIC )
+            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:333:15: {...}? => ( NUMERIC )=> NUMERIC
             {
+            if ( !((isNotInString())) ) {
+                if (state.backtracking>0) {state.failed=true; return ;}
+                throw new FailedPredicateException(input, "RULE_NUMBER", "isNotInString()");
+            }
             mNUMERIC(); if (state.failed) return ;
             if ( state.backtracking==0 ) {
 
@@ -3862,67 +3866,69 @@ public class PPLexer extends Lexer {
     static final String DFA28_eotS =
         "\1\uffff\10\61\1\77\1\55\1\61\1\106\1\111\1\55\1\116\1\120\1\124"+
         "\1\127\1\61\1\55\1\132\1\133\1\134\1\135\1\136\1\137\1\140\1\uffff"+
-        "\1\143\1\145\1\146\1\147\1\150\1\151\1\152\1\154\1\155\1\156\1\uffff"+
+        "\1\144\1\145\1\146\1\147\1\150\1\151\1\152\1\154\1\155\1\157\1\uffff"+
         "\1\61\3\uffff\1\61\1\uffff\1\170\1\61\1\172\1\uffff\10\61\1\u0085"+
         "\5\uffff\1\u0088\3\uffff\1\61\1\u008b\22\uffff\1\u0091\30\uffff"+
-        "\5\61\1\uffff\1\61\1\uffff\1\61\1\uffff\11\61\5\uffff\1\u00b6\30"+
-        "\uffff\6\61\1\uffff\1\61\1\uffff\5\61\1\u00bf\1\61\1\u00c1\1\61"+
-        "\1\u00c3\1\u00c4\2\uffff\5\61\1\u00cb\1\u00cc\1\uffff\1\u00ce\1"+
-        "\uffff\1\u00d0\3\uffff\1\61\1\u00d4\1\61\1\u00d6\1\u00d7\10\uffff"+
-        "\1\61\1\uffff\1\u00de\6\uffff\1\u00e1\7\uffff";
+        "\1\61\1\u00a5\3\61\1\uffff\1\61\1\uffff\1\61\1\uffff\11\61\5\uffff"+
+        "\1\u00b7\30\uffff\1\u00b9\1\u00ba\1\u00bb\1\uffff\1\61\1\u00bc\1"+
+        "\61\1\uffff\1\61\1\uffff\5\61\1\u00c4\1\61\1\u00c6\1\61\1\u00c8"+
+        "\1\u00c9\6\uffff\5\61\1\u00d0\1\u00d1\1\uffff\1\u00d3\1\uffff\1"+
+        "\u00d5\3\uffff\1\61\1\u00d9\1\61\1\u00db\1\u00dc\10\uffff\1\61\1"+
+        "\uffff\1\u00e3\6\uffff\1\u00e6\7\uffff";
     static final String DFA28_eofS =
-        "\u00e4\uffff";
+        "\u00e9\uffff";
     static final String DFA28_minS =
         "\1\0\1\146\1\145\1\156\1\141\1\154\1\141\1\157\1\162\1\55\1\42\1"+
         "\156\1\76\1\75\1\60\1\75\1\76\2\75\1\162\1\76\7\0\1\uffff\1\0\1"+
         "\72\5\0\1\174\2\0\1\uffff\1\56\3\uffff\1\56\1\uffff\1\55\1\160\1"+
         "\55\1\uffff\1\146\1\144\1\141\2\163\1\154\1\144\1\165\1\174\4\uffff"+
         "\1\0\1\173\3\uffff\1\144\1\76\1\0\2\uffff\1\0\4\uffff\1\0\5\uffff"+
-        "\1\0\2\uffff\1\0\1\55\1\uffff\7\0\2\uffff\1\0\1\uffff\6\0\1\uffff"+
-        "\3\0\2\uffff\1\60\1\56\1\60\2\55\1\uffff\1\145\1\0\1\157\1\0\1\141"+
+        "\1\0\2\uffff\1\0\1\55\1\uffff\7\0\3\uffff\7\0\1\uffff\2\0\1\uffff"+
+        "\1\0\1\uffff\1\60\1\55\1\60\2\55\1\uffff\1\145\1\0\1\157\1\0\1\141"+
         "\2\145\1\163\2\145\1\163\2\145\5\uffff\1\55\7\uffff\1\0\20\uffff"+
-        "\5\60\1\162\1\uffff\1\162\1\uffff\1\165\1\156\1\163\1\146\1\163"+
-        "\1\55\1\146\1\55\1\145\2\55\1\0\1\uffff\1\151\1\164\1\154\1\145"+
-        "\1\163\2\55\1\0\1\55\1\0\1\55\2\0\1\uffff\1\164\1\55\1\164\2\55"+
-        "\2\0\1\uffff\1\0\1\uffff\1\0\2\uffff\1\163\1\0\1\55\2\0\4\uffff"+
-        "\1\55\1\uffff\1\0\2\uffff\1\0\2\uffff";
+        "\3\55\1\0\1\60\1\55\1\162\1\uffff\1\162\1\uffff\1\165\1\156\1\163"+
+        "\1\146\1\163\1\55\1\146\1\55\1\145\2\55\1\0\1\uffff\4\0\1\151\1"+
+        "\164\1\154\1\145\1\163\2\55\1\0\1\55\1\0\1\55\2\0\1\uffff\1\164"+
+        "\1\55\1\164\2\55\2\0\1\uffff\1\0\1\uffff\1\0\2\uffff\1\163\1\0\1"+
+        "\55\2\0\4\uffff\1\55\1\uffff\1\0\2\uffff\1\0\2\uffff";
     static final String DFA28_maxS =
         "\1\uffff\1\156\1\145\1\156\2\154\1\141\1\157\1\162\1\176\1\134\1"+
         "\156\1\76\1\176\1\173\2\76\1\176\1\76\1\162\1\76\7\0\1\uffff\1\uffff"+
         "\1\72\5\0\1\174\1\0\1\uffff\1\uffff\1\170\3\uffff\1\145\1\uffff"+
         "\1\172\1\160\1\172\1\uffff\1\146\1\154\1\141\2\163\1\154\1\144\1"+
         "\165\1\174\4\uffff\1\0\1\173\3\uffff\1\144\1\76\1\0\2\uffff\1\0"+
-        "\4\uffff\1\0\5\uffff\1\0\2\uffff\1\0\1\172\1\uffff\7\0\2\uffff\1"+
-        "\0\1\uffff\6\0\1\uffff\3\0\2\uffff\1\146\1\145\1\146\2\71\1\uffff"+
+        "\4\uffff\1\0\5\uffff\1\0\2\uffff\1\0\1\172\1\uffff\7\0\3\uffff\7"+
+        "\0\1\uffff\2\0\1\uffff\1\0\1\uffff\1\146\1\172\1\146\2\71\1\uffff"+
         "\1\145\1\0\1\157\1\0\1\151\2\145\1\163\1\145\1\151\1\163\2\145\5"+
-        "\uffff\1\172\7\uffff\1\0\20\uffff\3\146\2\71\1\162\1\uffff\1\162"+
-        "\1\uffff\1\165\1\156\1\163\1\146\1\163\1\172\1\146\1\172\1\145\2"+
-        "\172\1\0\1\uffff\1\151\1\164\1\154\1\145\1\163\2\172\1\0\1\172\1"+
-        "\0\1\172\2\0\1\uffff\1\164\1\172\1\164\2\172\2\0\1\uffff\1\0\1\uffff"+
-        "\1\0\2\uffff\1\163\1\0\1\172\2\0\4\uffff\1\172\1\uffff\1\0\2\uffff"+
-        "\1\0\2\uffff";
+        "\uffff\1\172\7\uffff\1\0\20\uffff\3\172\1\0\1\71\1\172\1\162\1\uffff"+
+        "\1\162\1\uffff\1\165\1\156\1\163\1\146\1\163\1\172\1\146\1\172\1"+
+        "\145\2\172\1\0\1\uffff\4\0\1\151\1\164\1\154\1\145\1\163\2\172\1"+
+        "\0\1\172\1\0\1\172\2\0\1\uffff\1\164\1\172\1\164\2\172\2\0\1\uffff"+
+        "\1\0\1\uffff\1\0\2\uffff\1\163\1\0\1\172\2\0\4\uffff\1\172\1\uffff"+
+        "\1\0\2\uffff\1\0\2\uffff";
     static final String DFA28_acceptS =
         "\34\uffff\1\65\12\uffff\1\105\1\uffff\3\110\1\uffff\1\113\3\uffff"+
         "\1\110\11\uffff\1\30\1\32\1\33\1\34\2\uffff\1\42\1\44\1\45\3\uffff"+
         "\1\22\1\23\1\uffff\1\24\1\107\1\25\1\26\1\uffff\1\27\1\64\1\35\1"+
-        "\36\1\37\1\uffff\1\40\1\41\2\uffff\1\52\7\uffff\1\65\1\103\1\uffff"+
-        "\1\112\6\uffff\1\106\3\uffff\1\104\1\105\5\uffff\1\111\15\uffff"+
+        "\36\1\37\1\uffff\1\40\1\41\2\uffff\1\52\7\uffff\1\65\1\103\1\112"+
+        "\7\uffff\1\106\2\uffff\1\104\1\uffff\1\105\5\uffff\1\111\15\uffff"+
         "\1\16\1\31\1\71\1\17\1\43\1\uffff\1\21\1\51\1\101\1\53\1\62\1\72"+
         "\1\73\1\uffff\1\54\1\55\1\56\1\57\1\60\1\61\1\63\1\66\1\67\1\70"+
-        "\1\74\1\75\1\76\1\77\1\100\1\102\6\uffff\1\47\1\uffff\1\46\14\uffff"+
-        "\1\50\15\uffff\1\20\7\uffff\1\12\1\uffff\1\13\1\uffff\1\14\1\15"+
+        "\1\74\1\75\1\76\1\77\1\100\1\102\7\uffff\1\47\1\uffff\1\46\14\uffff"+
+        "\1\50\21\uffff\1\20\7\uffff\1\12\1\uffff\1\13\1\uffff\1\14\1\15"+
         "\5\uffff\1\11\1\6\1\7\1\10\1\uffff\1\4\1\uffff\1\3\1\5\1\uffff\1"+
         "\2\1\1";
     static final String DFA28_specialS =
-        "\1\7\10\uffff\1\47\2\uffff\1\1\1\64\1\uffff\1\53\1\4\1\6\1\2\1\uffff"+
-        "\1\10\10\uffff\1\5\6\uffff\1\0\1\uffff\1\65\23\uffff\1\22\4\uffff"+
-        "\1\33\5\uffff\1\3\1\57\2\uffff\1\50\4\uffff\1\42\5\uffff\1\34\2"+
-        "\uffff\1\61\2\uffff\1\51\1\45\1\46\1\43\1\44\1\41\1\40\2\uffff\1"+
-        "\37\1\uffff\1\35\1\36\1\60\1\63\1\62\1\55\1\uffff\1\54\1\56\1\52"+
-        "\11\uffff\1\31\1\uffff\1\32\26\uffff\1\30\44\uffff\1\27\10\uffff"+
-        "\1\16\1\uffff\1\15\1\uffff\1\20\1\17\6\uffff\1\13\1\12\1\uffff\1"+
-        "\11\1\uffff\1\14\3\uffff\1\26\1\uffff\1\23\1\25\6\uffff\1\24\2\uffff"+
-        "\1\21\2\uffff}>";
+        "\1\3\10\uffff\1\33\2\uffff\1\2\1\73\1\uffff\1\40\1\7\1\11\1\5\1"+
+        "\uffff\1\12\10\uffff\1\0\6\uffff\1\1\1\uffff\1\75\1\uffff\1\10\3"+
+        "\uffff\1\6\15\uffff\1\23\4\uffff\1\72\5\uffff\1\4\1\62\2\uffff\1"+
+        "\47\4\uffff\1\42\5\uffff\1\71\2\uffff\1\64\2\uffff\1\50\1\45\1\46"+
+        "\1\43\1\44\1\41\1\37\3\uffff\1\36\1\70\1\67\1\63\1\66\1\65\1\60"+
+        "\1\uffff\1\57\1\61\1\uffff\1\51\2\uffff\1\74\5\uffff\1\34\1\uffff"+
+        "\1\35\26\uffff\1\32\23\uffff\1\52\21\uffff\1\31\1\uffff\1\53\1\54"+
+        "\1\55\1\56\7\uffff\1\25\1\uffff\1\26\1\uffff\1\27\1\30\6\uffff\1"+
+        "\21\1\20\1\uffff\1\17\1\uffff\1\22\3\uffff\1\16\1\uffff\1\13\1\15"+
+        "\6\uffff\1\14\2\uffff\1\24\2\uffff}>";
     static final String[] DFA28_transitionS = {
             "\11\55\2\47\2\55\1\47\22\55\1\47\1\15\1\25\1\46\1\16\1\26\1"+
             "\55\1\27\1\30\1\31\1\32\1\17\1\33\1\20\1\34\1\35\1\50\11\54"+
@@ -3957,7 +3963,7 @@ public class PPLexer extends Lexer {
             "\1\uffff",
             "\1\uffff",
             "",
-            "\12\144\1\uffff\37\144\1\142\4\144\1\uffff\uffd0\144",
+            "\12\143\1\uffff\37\143\1\142\4\143\1\uffff\uffd0\143",
             "\1\61",
             "\1\uffff",
             "\1\uffff",
@@ -3966,7 +3972,7 @@ public class PPLexer extends Lexer {
             "\1\uffff",
             "\1\153",
             "\1\uffff",
-            "\0\157",
+            "\0\156",
             "",
             "\1\166\1\uffff\12\162\13\uffff\1\165\22\uffff\1\163\14\uffff"+
             "\1\164\22\uffff\1\161",
@@ -4029,7 +4035,6 @@ public class PPLexer extends Lexer {
             "\1\uffff",
             "",
             "",
-            "\1\uffff",
             "",
             "\1\uffff",
             "\1\uffff",
@@ -4037,31 +4042,33 @@ public class PPLexer extends Lexer {
             "\1\uffff",
             "\1\uffff",
             "\1\uffff",
-            "",
-            "\1\uffff",
-            "\1\uffff",
             "\1\uffff",
             "",
+            "\1\uffff",
+            "\1\uffff",
+            "",
+            "\1\uffff",
             "",
             "\12\u00a2\7\uffff\6\u00a4\32\uffff\6\u00a3",
-            "\1\166\1\uffff\12\162\13\uffff\1\165\37\uffff\1\164",
+            "\1\61\1\166\1\uffff\12\162\1\61\6\uffff\4\61\1\165\25\61\4"+
+            "\uffff\1\61\1\uffff\4\61\1\164\25\61",
             "\12\u00a2\7\uffff\6\u00a4\32\uffff\6\u00a3",
-            "\1\u00a6\2\uffff\12\u00a5",
-            "\1\u00a6\2\uffff\12\u00a5",
+            "\1\u00a6\2\uffff\12\u00a7",
+            "\1\u00a6\2\uffff\12\u00a7",
             "",
-            "\1\u00a7",
+            "\1\u00a8",
             "\1\uffff",
-            "\1\u00a9",
+            "\1\u00aa",
             "\1\uffff",
-            "\1\u00ab\7\uffff\1\u00ac",
-            "\1\u00ad",
+            "\1\u00ac\7\uffff\1\u00ad",
             "\1\u00ae",
             "\1\u00af",
             "\1\u00b0",
-            "\1\u00b2\3\uffff\1\u00b1",
-            "\1\u00b3",
+            "\1\u00b1",
+            "\1\u00b3\3\uffff\1\u00b2",
             "\1\u00b4",
             "\1\u00b5",
+            "\1\u00b6",
             "",
             "",
             "",
@@ -4092,33 +4099,42 @@ public class PPLexer extends Lexer {
             "",
             "",
             "",
-            "\12\u00a2\7\uffff\6\u00a4\32\uffff\6\u00a3",
-            "\12\u00a2\7\uffff\6\u00a4\32\uffff\6\u00a3",
-            "\12\u00a2\7\uffff\6\u00a4\32\uffff\6\u00a3",
-            "\12\u00a5",
-            "\12\u00a5",
-            "\1\u00b8",
-            "",
-            "\1\u00b9",
-            "",
-            "\1\u00ba",
-            "\1\u00bb",
-            "\1\u00bc",
+            "\1\61\2\uffff\12\u00a2\1\61\6\uffff\6\u00a4\24\61\4\uffff\1"+
+            "\61\1\uffff\6\u00a3\24\61",
+            "\1\61\2\uffff\12\u00a2\1\61\6\uffff\6\u00a4\24\61\4\uffff\1"+
+            "\61\1\uffff\6\u00a3\24\61",
+            "\1\61\2\uffff\12\u00a2\1\61\6\uffff\6\u00a4\24\61\4\uffff\1"+
+            "\61\1\uffff\6\u00a3\24\61",
+            "\1\uffff",
+            "\12\u00a7",
+            "\1\61\2\uffff\12\u00a7\1\61\6\uffff\32\61\4\uffff\1\61\1\uffff"+
+            "\32\61",
             "\1\u00bd",
+            "",
             "\1\u00be",
-            "\1\61\2\uffff\13\61\6\uffff\32\61\4\uffff\1\61\1\uffff\32\61",
+            "",
+            "\1\u00bf",
             "\1\u00c0",
-            "\1\61\2\uffff\13\61\6\uffff\32\61\4\uffff\1\61\1\uffff\32\61",
+            "\1\u00c1",
             "\1\u00c2",
+            "\1\u00c3",
             "\1\61\2\uffff\13\61\6\uffff\32\61\4\uffff\1\61\1\uffff\32\61",
+            "\1\u00c5",
             "\1\61\2\uffff\13\61\6\uffff\32\61\4\uffff\1\61\1\uffff\32\61",
-            "\1\uffff",
-            "",
-            "\1\u00c6",
             "\1\u00c7",
-            "\1\u00c8",
-            "\1\u00c9",
-            "\1\u00ca",
+            "\1\61\2\uffff\13\61\6\uffff\32\61\4\uffff\1\61\1\uffff\32\61",
+            "\1\61\2\uffff\13\61\6\uffff\32\61\4\uffff\1\61\1\uffff\32\61",
+            "\1\uffff",
+            "",
+            "\1\uffff",
+            "\1\uffff",
+            "\1\uffff",
+            "\1\uffff",
+            "\1\u00cb",
+            "\1\u00cc",
+            "\1\u00cd",
+            "\1\u00ce",
+            "\1\u00cf",
             "\1\61\2\uffff\13\61\6\uffff\32\61\4\uffff\1\61\1\uffff\32\61",
             "\1\61\2\uffff\13\61\6\uffff\32\61\4\uffff\1\61\1\uffff\32\61",
             "\1\uffff",
@@ -4128,9 +4144,9 @@ public class PPLexer extends Lexer {
             "\1\uffff",
             "\1\uffff",
             "",
-            "\1\u00d3",
+            "\1\u00d8",
             "\1\61\2\uffff\13\61\6\uffff\32\61\4\uffff\1\61\1\uffff\32\61",
-            "\1\u00d5",
+            "\1\u00da",
             "\1\61\2\uffff\13\61\6\uffff\32\61\4\uffff\1\61\1\uffff\32\61",
             "\1\61\2\uffff\13\61\6\uffff\32\61\4\uffff\1\61\1\uffff\32\61",
             "\1\uffff",
@@ -4141,7 +4157,7 @@ public class PPLexer extends Lexer {
             "\1\uffff",
             "",
             "",
-            "\1\u00dc",
+            "\1\u00e1",
             "\1\uffff",
             "\1\61\2\uffff\13\61\6\uffff\32\61\4\uffff\1\61\1\uffff\32\61",
             "\1\uffff",
@@ -4197,6 +4213,23 @@ public class PPLexer extends Lexer {
         	int _s = s;
             switch ( s ) {
                     case 0 : 
+                        int LA28_29 = input.LA(1);
+
+                         
+                        int index28_29 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (LA28_29=='*') && ((isNotInString()))) {s = 98;}
+
+                        else if ( ((LA28_29>='\u0000' && LA28_29<='\t')||(LA28_29>='\u000B' && LA28_29<=')')||(LA28_29>='+' && LA28_29<='.')||(LA28_29>='0' && LA28_29<='\uFFFF')) && ((isReAcceptable()))) {s = 99;}
+
+                        else s = 100;
+
+                         
+                        input.seek(index28_29);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 1 : 
                         int LA28_36 = input.LA(1);
 
                          
@@ -4211,7 +4244,7 @@ public class PPLexer extends Lexer {
                         input.seek(index28_36);
                         if ( s>=0 ) return s;
                         break;
-                    case 1 : 
+                    case 2 : 
                         int LA28_12 = input.LA(1);
 
                          
@@ -4226,90 +4259,7 @@ public class PPLexer extends Lexer {
                         input.seek(index28_12);
                         if ( s>=0 ) return s;
                         break;
-                    case 2 : 
-                        int LA28_18 = input.LA(1);
-
-                         
-                        int index28_18 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (LA28_18=='=') && ((isNotInString()))) {s = 85;}
-
-                        else if ( (LA28_18=='>') && ((isNotInString()))) {s = 86;}
-
-                        else s = 87;
-
-                         
-                        input.seek(index28_18);
-                        if ( s>=0 ) return s;
-                        break;
                     case 3 : 
-                        int LA28_69 = input.LA(1);
-
-                         
-                        int index28_69 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (LA28_69=='>') && ((isNotInString()))) {s = 138;}
-
-                        else s = 139;
-
-                         
-                        input.seek(index28_69);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 4 : 
-                        int LA28_16 = input.LA(1);
-
-                         
-                        int index28_16 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (LA28_16=='>') && ((isNotInString()))) {s = 79;}
-
-                        else s = 80;
-
-                         
-                        input.seek(index28_16);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 5 : 
-                        int LA28_29 = input.LA(1);
-
-                         
-                        int index28_29 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (LA28_29=='*') && ((isNotInString()))) {s = 98;}
-
-                        else if ( ((LA28_29>='\u0000' && LA28_29<='\t')||(LA28_29>='\u000B' && LA28_29<=')')||(LA28_29>='+' && LA28_29<='.')||(LA28_29>='0' && LA28_29<='\uFFFF')) && ((isReAcceptable()))) {s = 100;}
-
-                        else s = 99;
-
-                         
-                        input.seek(index28_29);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 6 : 
-                        int LA28_17 = input.LA(1);
-
-                         
-                        int index28_17 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (LA28_17=='=') && ((isNotInString()))) {s = 81;}
-
-                        else if ( (LA28_17=='>') && ((isNotInString()))) {s = 82;}
-
-                        else if ( (LA28_17=='~') && ((isNotInString()))) {s = 83;}
-
-                        else s = 84;
-
-                         
-                        input.seek(index28_17);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 7 : 
                         int LA28_0 = input.LA(1);
 
                         s = -1;
@@ -4405,7 +4355,119 @@ public class PPLexer extends Lexer {
 
                         if ( s>=0 ) return s;
                         break;
+                    case 4 : 
+                        int LA28_69 = input.LA(1);
+
+                         
+                        int index28_69 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (LA28_69=='>') && ((isNotInString()))) {s = 138;}
+
+                        else s = 139;
+
+                         
+                        input.seek(index28_69);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 5 : 
+                        int LA28_18 = input.LA(1);
+
+                         
+                        int index28_18 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (LA28_18=='=') && ((isNotInString()))) {s = 85;}
+
+                        else if ( (LA28_18=='>') && ((isNotInString()))) {s = 86;}
+
+                        else s = 87;
+
+                         
+                        input.seek(index28_18);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 6 : 
+                        int LA28_44 = input.LA(1);
+
+                         
+                        int index28_44 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( ((LA28_44>='0' && LA28_44<='9')) ) {s = 114;}
+
+                        else if ( (LA28_44=='e') ) {s = 116;}
+
+                        else if ( (LA28_44=='E') ) {s = 117;}
+
+                        else if ( (LA28_44=='.') && ((isNotInString()))) {s = 118;}
+
+                        else s = 49;
+
+                         
+                        input.seek(index28_44);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 7 : 
+                        int LA28_16 = input.LA(1);
+
+                         
+                        int index28_16 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (LA28_16=='>') && ((isNotInString()))) {s = 79;}
+
+                        else s = 80;
+
+                         
+                        input.seek(index28_16);
+                        if ( s>=0 ) return s;
+                        break;
                     case 8 : 
+                        int LA28_40 = input.LA(1);
+
+                         
+                        int index28_40 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (LA28_40=='x') ) {s = 113;}
+
+                        else if ( ((LA28_40>='0' && LA28_40<='9')) ) {s = 114;}
+
+                        else if ( (LA28_40=='X') ) {s = 115;}
+
+                        else if ( (LA28_40=='e') ) {s = 116;}
+
+                        else if ( (LA28_40=='E') ) {s = 117;}
+
+                        else if ( (LA28_40=='.') && ((isNotInString()))) {s = 118;}
+
+                        else s = 49;
+
+                         
+                        input.seek(index28_40);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 9 : 
+                        int LA28_17 = input.LA(1);
+
+                         
+                        int index28_17 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (LA28_17=='=') && ((isNotInString()))) {s = 81;}
+
+                        else if ( (LA28_17=='>') && ((isNotInString()))) {s = 82;}
+
+                        else if ( (LA28_17=='~') && ((isNotInString()))) {s = 83;}
+
+                        else s = 84;
+
+                         
+                        input.seek(index28_17);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 10 : 
                         int LA28_20 = input.LA(1);
 
                          
@@ -4420,59 +4482,104 @@ public class PPLexer extends Lexer {
                         input.seek(index28_20);
                         if ( s>=0 ) return s;
                         break;
-                    case 9 : 
-                        int LA28_206 = input.LA(1);
-
-                         
-                        int index28_206 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( ((isNotInString())) ) {s = 218;}
-
-                        else if ( (true) ) {s = 49;}
-
-                         
-                        input.seek(index28_206);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 10 : 
-                        int LA28_204 = input.LA(1);
-
-                         
-                        int index28_204 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( ((isNotInString())) ) {s = 217;}
-
-                        else if ( (true) ) {s = 49;}
-
-                         
-                        input.seek(index28_204);
-                        if ( s>=0 ) return s;
-                        break;
                     case 11 : 
-                        int LA28_203 = input.LA(1);
+                        int LA28_219 = input.LA(1);
 
                          
-                        int index28_203 = input.index();
+                        int index28_219 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( ((isNotInString())) ) {s = 216;}
+                        if ( ((isNotInString())) ) {s = 228;}
 
                         else if ( (true) ) {s = 49;}
 
                          
-                        input.seek(index28_203);
+                        input.seek(index28_219);
                         if ( s>=0 ) return s;
                         break;
                     case 12 : 
+                        int LA28_227 = input.LA(1);
+
+                         
+                        int index28_227 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( ((isNotInString())) ) {s = 231;}
+
+                        else if ( (true) ) {s = 49;}
+
+                         
+                        input.seek(index28_227);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 13 : 
+                        int LA28_220 = input.LA(1);
+
+                         
+                        int index28_220 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( ((isNotInString())) ) {s = 229;}
+
+                        else if ( (true) ) {s = 49;}
+
+                         
+                        input.seek(index28_220);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 14 : 
+                        int LA28_217 = input.LA(1);
+
+                         
+                        int index28_217 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( ((isNotInString())) ) {s = 226;}
+
+                        else if ( (true) ) {s = 49;}
+
+                         
+                        input.seek(index28_217);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 15 : 
+                        int LA28_211 = input.LA(1);
+
+                         
+                        int index28_211 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( ((isNotInString())) ) {s = 223;}
+
+                        else if ( (true) ) {s = 49;}
+
+                         
+                        input.seek(index28_211);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 16 : 
+                        int LA28_209 = input.LA(1);
+
+                         
+                        int index28_209 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( ((isNotInString())) ) {s = 222;}
+
+                        else if ( (true) ) {s = 49;}
+
+                         
+                        input.seek(index28_209);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 17 : 
                         int LA28_208 = input.LA(1);
 
                          
                         int index28_208 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( ((isNotInString())) ) {s = 219;}
+                        if ( ((isNotInString())) ) {s = 221;}
 
                         else if ( (true) ) {s = 49;}
 
@@ -4480,82 +4587,22 @@ public class PPLexer extends Lexer {
                         input.seek(index28_208);
                         if ( s>=0 ) return s;
                         break;
-                    case 13 : 
-                        int LA28_193 = input.LA(1);
-
-                         
-                        int index28_193 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( ((isNotInString())) ) {s = 207;}
-
-                        else if ( (true) ) {s = 49;}
-
-                         
-                        input.seek(index28_193);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 14 : 
-                        int LA28_191 = input.LA(1);
-
-                         
-                        int index28_191 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( ((isNotInString())) ) {s = 205;}
-
-                        else if ( (true) ) {s = 49;}
-
-                         
-                        input.seek(index28_191);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 15 : 
-                        int LA28_196 = input.LA(1);
-
-                         
-                        int index28_196 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( ((isNotInString())) ) {s = 210;}
-
-                        else if ( (true) ) {s = 49;}
-
-                         
-                        input.seek(index28_196);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 16 : 
-                        int LA28_195 = input.LA(1);
-
-                         
-                        int index28_195 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( ((isNotInString())) ) {s = 209;}
-
-                        else if ( (true) ) {s = 49;}
-
-                         
-                        input.seek(index28_195);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 17 : 
-                        int LA28_225 = input.LA(1);
-
-                         
-                        int index28_225 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( ((isNotInString())) ) {s = 227;}
-
-                        else if ( (true) ) {s = 49;}
-
-                         
-                        input.seek(index28_225);
-                        if ( s>=0 ) return s;
-                        break;
                     case 18 : 
+                        int LA28_213 = input.LA(1);
+
+                         
+                        int index28_213 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( ((isNotInString())) ) {s = 224;}
+
+                        else if ( (true) ) {s = 49;}
+
+                         
+                        input.seek(index28_213);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 19 : 
                         int LA28_58 = input.LA(1);
 
                          
@@ -4570,89 +4617,104 @@ public class PPLexer extends Lexer {
                         input.seek(index28_58);
                         if ( s>=0 ) return s;
                         break;
-                    case 19 : 
-                        int LA28_214 = input.LA(1);
-
-                         
-                        int index28_214 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( ((isNotInString())) ) {s = 223;}
-
-                        else if ( (true) ) {s = 49;}
-
-                         
-                        input.seek(index28_214);
-                        if ( s>=0 ) return s;
-                        break;
                     case 20 : 
-                        int LA28_222 = input.LA(1);
+                        int LA28_230 = input.LA(1);
 
                          
-                        int index28_222 = input.index();
+                        int index28_230 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( ((isNotInString())) ) {s = 226;}
+                        if ( ((isNotInString())) ) {s = 232;}
 
                         else if ( (true) ) {s = 49;}
 
                          
-                        input.seek(index28_222);
+                        input.seek(index28_230);
                         if ( s>=0 ) return s;
                         break;
                     case 21 : 
-                        int LA28_215 = input.LA(1);
+                        int LA28_196 = input.LA(1);
 
                          
-                        int index28_215 = input.index();
+                        int index28_196 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( ((isNotInString())) ) {s = 224;}
+                        if ( ((isNotInString())) ) {s = 210;}
 
                         else if ( (true) ) {s = 49;}
 
                          
-                        input.seek(index28_215);
+                        input.seek(index28_196);
                         if ( s>=0 ) return s;
                         break;
                     case 22 : 
-                        int LA28_212 = input.LA(1);
+                        int LA28_198 = input.LA(1);
 
                          
-                        int index28_212 = input.index();
+                        int index28_198 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( ((isNotInString())) ) {s = 221;}
+                        if ( ((isNotInString())) ) {s = 212;}
 
                         else if ( (true) ) {s = 49;}
 
                          
-                        input.seek(index28_212);
+                        input.seek(index28_198);
                         if ( s>=0 ) return s;
                         break;
                     case 23 : 
-                        int LA28_182 = input.LA(1);
+                        int LA28_200 = input.LA(1);
 
                          
-                        int index28_182 = input.index();
+                        int index28_200 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( ((isNotInString())) ) {s = 197;}
+                        if ( ((isNotInString())) ) {s = 214;}
 
                         else if ( (true) ) {s = 49;}
 
                          
-                        input.seek(index28_182);
+                        input.seek(index28_200);
                         if ( s>=0 ) return s;
                         break;
                     case 24 : 
+                        int LA28_201 = input.LA(1);
+
+                         
+                        int index28_201 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( ((isNotInString())) ) {s = 215;}
+
+                        else if ( (true) ) {s = 49;}
+
+                         
+                        input.seek(index28_201);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 25 : 
+                        int LA28_183 = input.LA(1);
+
+                         
+                        int index28_183 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( ((isNotInString())) ) {s = 202;}
+
+                        else if ( (true) ) {s = 49;}
+
+                         
+                        input.seek(index28_183);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 26 : 
                         int LA28_145 = input.LA(1);
 
                          
                         int index28_145 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( ((isNotInString())) ) {s = 183;}
+                        if ( ((isNotInString())) ) {s = 184;}
 
                         else if ( (true) ) {s = 49;}
 
@@ -4660,14 +4722,37 @@ public class PPLexer extends Lexer {
                         input.seek(index28_145);
                         if ( s>=0 ) return s;
                         break;
-                    case 25 : 
+                    case 27 : 
+                        int LA28_9 = input.LA(1);
+
+                         
+                        int index28_9 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (LA28_9=='<') && ((isNotInString()))) {s = 58;}
+
+                        else if ( (LA28_9=='-') && ((isNotInString()))) {s = 59;}
+
+                        else if ( (LA28_9=='=') && ((isNotInString()))) {s = 60;}
+
+                        else if ( (LA28_9=='|') && ((isNotInString()))) {s = 61;}
+
+                        else if ( (LA28_9=='~') && ((isNotInString()))) {s = 62;}
+
+                        else s = 63;
+
+                         
+                        input.seek(index28_9);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 28 : 
                         int LA28_120 = input.LA(1);
 
                          
                         int index28_120 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( ((isNotInString())) ) {s = 168;}
+                        if ( ((isNotInString())) ) {s = 169;}
 
                         else if ( (true) ) {s = 49;}
 
@@ -4675,14 +4760,14 @@ public class PPLexer extends Lexer {
                         input.seek(index28_120);
                         if ( s>=0 ) return s;
                         break;
-                    case 26 : 
+                    case 29 : 
                         int LA28_122 = input.LA(1);
 
                          
                         int index28_122 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( ((isNotInString())) ) {s = 170;}
+                        if ( ((isNotInString())) ) {s = 171;}
 
                         else if ( (true) ) {s = 49;}
 
@@ -4690,71 +4775,11 @@ public class PPLexer extends Lexer {
                         input.seek(index28_122);
                         if ( s>=0 ) return s;
                         break;
-                    case 27 : 
-                        int LA28_63 = input.LA(1);
-
-                         
-                        int index28_63 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( ((isNotInString())) ) {s = 134;}
-
-                        else if ( (true) ) {s = 45;}
-
-                         
-                        input.seek(index28_63);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 28 : 
-                        int LA28_84 = input.LA(1);
-
-                         
-                        int index28_84 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( ((isNotInString())) ) {s = 143;}
-
-                        else if ( (true) ) {s = 45;}
-
-                         
-                        input.seek(index28_84);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 29 : 
-                        int LA28_101 = input.LA(1);
-
-                         
-                        int index28_101 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( ((isNotInString())) ) {s = 154;}
-
-                        else if ( (true) ) {s = 45;}
-
-                         
-                        input.seek(index28_101);
-                        if ( s>=0 ) return s;
-                        break;
                     case 30 : 
-                        int LA28_102 = input.LA(1);
+                        int LA28_100 = input.LA(1);
 
                          
-                        int index28_102 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( ((isNotInString())) ) {s = 155;}
-
-                        else if ( (true) ) {s = 45;}
-
-                         
-                        input.seek(index28_102);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 31 : 
-                        int LA28_99 = input.LA(1);
-
-                         
-                        int index28_99 = input.index();
+                        int index28_100 = input.index();
                         input.rewind();
                         s = -1;
                         if ( ((isNotInString())) ) {s = 153;}
@@ -4762,10 +4787,10 @@ public class PPLexer extends Lexer {
                         else if ( (true) ) {s = 45;}
 
                          
-                        input.seek(index28_99);
+                        input.seek(index28_100);
                         if ( s>=0 ) return s;
                         break;
-                    case 32 : 
+                    case 31 : 
                         int LA28_96 = input.LA(1);
 
                          
@@ -4778,6 +4803,23 @@ public class PPLexer extends Lexer {
 
                          
                         input.seek(index28_96);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 32 : 
+                        int LA28_15 = input.LA(1);
+
+                         
+                        int index28_15 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (LA28_15=='=') && ((isNotInString()))) {s = 76;}
+
+                        else if ( (LA28_15=='>') && ((isNotInString()))) {s = 77;}
+
+                        else s = 78;
+
+                         
+                        input.seek(index28_15);
                         if ( s>=0 ) return s;
                         break;
                     case 33 : 
@@ -4871,29 +4913,6 @@ public class PPLexer extends Lexer {
                         if ( s>=0 ) return s;
                         break;
                     case 39 : 
-                        int LA28_9 = input.LA(1);
-
-                         
-                        int index28_9 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (LA28_9=='<') && ((isNotInString()))) {s = 58;}
-
-                        else if ( (LA28_9=='-') && ((isNotInString()))) {s = 59;}
-
-                        else if ( (LA28_9=='=') && ((isNotInString()))) {s = 60;}
-
-                        else if ( (LA28_9=='|') && ((isNotInString()))) {s = 61;}
-
-                        else if ( (LA28_9=='~') && ((isNotInString()))) {s = 62;}
-
-                        else s = 63;
-
-                         
-                        input.seek(index28_9);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 40 : 
                         int LA28_73 = input.LA(1);
 
                          
@@ -4908,7 +4927,7 @@ public class PPLexer extends Lexer {
                         input.seek(index28_73);
                         if ( s>=0 ) return s;
                         break;
-                    case 41 : 
+                    case 40 : 
                         int LA28_90 = input.LA(1);
 
                          
@@ -4923,39 +4942,97 @@ public class PPLexer extends Lexer {
                         input.seek(index28_90);
                         if ( s>=0 ) return s;
                         break;
-                    case 42 : 
-                        int LA28_110 = input.LA(1);
+                    case 41 : 
+                        int LA28_111 = input.LA(1);
 
                          
-                        int index28_110 = input.index();
+                        int index28_111 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( ((isNotInString())) ) {s = 111;}
+                        if ( ((isNotInString())) ) {s = 110;}
 
                         else if ( (true) ) {s = 45;}
 
                          
-                        input.seek(index28_110);
+                        input.seek(index28_111);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 42 : 
+                        int LA28_165 = input.LA(1);
+
+                         
+                        int index28_165 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (!(((isNotInString())))) ) {s = 49;}
+
+                        else if ( ((isNotInString())) ) {s = 118;}
+
+                         
+                        input.seek(index28_165);
                         if ( s>=0 ) return s;
                         break;
                     case 43 : 
-                        int LA28_15 = input.LA(1);
+                        int LA28_185 = input.LA(1);
 
                          
-                        int index28_15 = input.index();
+                        int index28_185 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( (LA28_15=='=') && ((isNotInString()))) {s = 76;}
+                        if ( (!(((isNotInString())))) ) {s = 49;}
 
-                        else if ( (LA28_15=='>') && ((isNotInString()))) {s = 77;}
-
-                        else s = 78;
+                        else if ( ((isNotInString())) ) {s = 118;}
 
                          
-                        input.seek(index28_15);
+                        input.seek(index28_185);
                         if ( s>=0 ) return s;
                         break;
                     case 44 : 
+                        int LA28_186 = input.LA(1);
+
+                         
+                        int index28_186 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (!(((isNotInString())))) ) {s = 49;}
+
+                        else if ( ((isNotInString())) ) {s = 118;}
+
+                         
+                        input.seek(index28_186);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 45 : 
+                        int LA28_187 = input.LA(1);
+
+                         
+                        int index28_187 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (!(((isNotInString())))) ) {s = 49;}
+
+                        else if ( ((isNotInString())) ) {s = 118;}
+
+                         
+                        input.seek(index28_187);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 46 : 
+                        int LA28_188 = input.LA(1);
+
+                         
+                        int index28_188 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (!(((isNotInString())))) ) {s = 49;}
+
+                        else if ( ((isNotInString())) ) {s = 118;}
+
+                         
+                        input.seek(index28_188);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 47 : 
                         int LA28_108 = input.LA(1);
 
                          
@@ -4970,7 +5047,7 @@ public class PPLexer extends Lexer {
                         input.seek(index28_108);
                         if ( s>=0 ) return s;
                         break;
-                    case 45 : 
+                    case 48 : 
                         int LA28_106 = input.LA(1);
 
                          
@@ -4985,7 +5062,7 @@ public class PPLexer extends Lexer {
                         input.seek(index28_106);
                         if ( s>=0 ) return s;
                         break;
-                    case 46 : 
+                    case 49 : 
                         int LA28_109 = input.LA(1);
 
                          
@@ -5000,7 +5077,7 @@ public class PPLexer extends Lexer {
                         input.seek(index28_109);
                         if ( s>=0 ) return s;
                         break;
-                    case 47 : 
+                    case 50 : 
                         int LA28_70 = input.LA(1);
 
                          
@@ -5015,7 +5092,7 @@ public class PPLexer extends Lexer {
                         input.seek(index28_70);
                         if ( s>=0 ) return s;
                         break;
-                    case 48 : 
+                    case 51 : 
                         int LA28_103 = input.LA(1);
 
                          
@@ -5030,7 +5107,7 @@ public class PPLexer extends Lexer {
                         input.seek(index28_103);
                         if ( s>=0 ) return s;
                         break;
-                    case 49 : 
+                    case 52 : 
                         int LA28_87 = input.LA(1);
 
                          
@@ -5045,7 +5122,7 @@ public class PPLexer extends Lexer {
                         input.seek(index28_87);
                         if ( s>=0 ) return s;
                         break;
-                    case 50 : 
+                    case 53 : 
                         int LA28_105 = input.LA(1);
 
                          
@@ -5060,7 +5137,7 @@ public class PPLexer extends Lexer {
                         input.seek(index28_105);
                         if ( s>=0 ) return s;
                         break;
-                    case 51 : 
+                    case 54 : 
                         int LA28_104 = input.LA(1);
 
                          
@@ -5075,7 +5152,67 @@ public class PPLexer extends Lexer {
                         input.seek(index28_104);
                         if ( s>=0 ) return s;
                         break;
-                    case 52 : 
+                    case 55 : 
+                        int LA28_102 = input.LA(1);
+
+                         
+                        int index28_102 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( ((isNotInString())) ) {s = 155;}
+
+                        else if ( (true) ) {s = 45;}
+
+                         
+                        input.seek(index28_102);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 56 : 
+                        int LA28_101 = input.LA(1);
+
+                         
+                        int index28_101 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( ((isNotInString())) ) {s = 154;}
+
+                        else if ( (true) ) {s = 45;}
+
+                         
+                        input.seek(index28_101);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 57 : 
+                        int LA28_84 = input.LA(1);
+
+                         
+                        int index28_84 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( ((isNotInString())) ) {s = 143;}
+
+                        else if ( (true) ) {s = 45;}
+
+                         
+                        input.seek(index28_84);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 58 : 
+                        int LA28_63 = input.LA(1);
+
+                         
+                        int index28_63 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( ((isNotInString())) ) {s = 134;}
+
+                        else if ( (true) ) {s = 45;}
+
+                         
+                        input.seek(index28_63);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 59 : 
                         int LA28_13 = input.LA(1);
 
                          
@@ -5092,16 +5229,39 @@ public class PPLexer extends Lexer {
                         input.seek(index28_13);
                         if ( s>=0 ) return s;
                         break;
-                    case 53 : 
+                    case 60 : 
+                        int LA28_114 = input.LA(1);
+
+                         
+                        int index28_114 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (LA28_114=='.') && ((isNotInString()))) {s = 118;}
+
+                        else if ( (LA28_114=='e') ) {s = 116;}
+
+                        else if ( ((LA28_114>='0' && LA28_114<='9')) ) {s = 114;}
+
+                        else if ( (LA28_114=='E') ) {s = 117;}
+
+                        else if ( (LA28_114=='-'||LA28_114==':'||(LA28_114>='A' && LA28_114<='D')||(LA28_114>='F' && LA28_114<='Z')||LA28_114=='_'||(LA28_114>='a' && LA28_114<='d')||(LA28_114>='f' && LA28_114<='z')) ) {s = 49;}
+
+                        else s = 165;
+
+                         
+                        input.seek(index28_114);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 61 : 
                         int LA28_38 = input.LA(1);
 
                          
                         int index28_38 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( ((LA28_38>='\u0000' && LA28_38<='\uFFFF')) && ((isNotInString()))) {s = 111;}
+                        if ( ((LA28_38>='\u0000' && LA28_38<='\uFFFF')) && ((isNotInString()))) {s = 110;}
 
-                        else s = 110;
+                        else s = 111;
 
                          
                         input.seek(index28_38);

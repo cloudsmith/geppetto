@@ -26,3 +26,5 @@ Require-Bundle: org.eclipse.core.runtime,
  org.cloudsmith.geppetto.diagnostic,
  org.eclipse.core.filesystem
 Bundle-ActivationPolicy: lazy
+Import-Package: com.google.inject,
+ com.google.inject.binder

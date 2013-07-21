@@ -6,11 +6,12 @@ Bundle-Version: 3.2.0.qualifier
 Bundle-Vendor: %providerName
 Bundle-Localization: plugin
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
-Import-Package: org.eclipse.core.runtime,
+Import-Package: com.google.common.base,
+ com.google.common.collect,
+ org.eclipse.core.runtime,
  org.osgi.framework
 Export-Package: org.cloudsmith.geppetto.common,
  org.cloudsmith.geppetto.common.os,
  org.cloudsmith.geppetto.common.score,
  org.cloudsmith.geppetto.common.stats,
  org.cloudsmith.geppetto.common.util
-Require-Bundle: com.google.guava

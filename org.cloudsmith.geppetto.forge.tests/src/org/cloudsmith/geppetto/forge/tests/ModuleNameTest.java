@@ -11,8 +11,8 @@
  */
 package org.cloudsmith.geppetto.forge.tests;
 
-import static junit.framework.Assert.assertTrue;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import org.cloudsmith.geppetto.forge.v2.model.ModuleName;
@@ -75,6 +75,12 @@ public class ModuleNameTest extends AbstractForgeTest {
 	}
 
 	@Test
+	public void forbiddenNames() {
+		assertFail("owner-main");
+		assertFail("owner-settings");
+	}
+
+	@Test
 	public void nameSeparators() {
 		assertOK("some-name");
 		assertOK("some/name");
@@ -93,7 +99,7 @@ public class ModuleNameTest extends AbstractForgeTest {
 
 	@Test
 	public void nameWithDigits() {
-		assertFail("1st-name");
+		assertOK("1st-name");
 		assertFail("owner-1st");
 		assertOK("some123-name123");
 	}
@@ -102,7 +108,7 @@ public class ModuleNameTest extends AbstractForgeTest {
 	public void nameWithUnderscore() {
 		assertFail("_under-name");
 		assertFail("owner-_under");
-		assertOK("some_123-name_123");
+		assertOK("some123-name_123");
 	}
 
 	@Test

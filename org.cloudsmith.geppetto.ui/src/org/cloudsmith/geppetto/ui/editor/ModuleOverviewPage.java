@@ -150,8 +150,8 @@ class ModuleOverviewPage extends GuardedModulePage {
 			public void handleEvent(ModifyEvent me) {
 				String user = trimToNull(userText.getText());
 				String name = trimToNull(nameText.getText());
-				validateName(user, null, userText, "_UI_Module_owner_missing");
-				validateName(name, null, nameText, "_UI_Module_name_missing");
+				validateOwnerName(user, null, userText, "_UI_Module_owner_missing");
+				validateModuleName(name, null, nameText, "_UI_Module_name_missing");
 
 				MetadataModel metadata = getModel();
 				if(user == null && name == null)
@@ -264,8 +264,8 @@ class ModuleOverviewPage extends GuardedModulePage {
 				else {
 					showSyntaxError(false);
 					showDependenciesError(model.hasDependencyErrors());
-					validateName(owner, null, userText, "_UI_Module_owner_missing");
-					validateName(name, null, nameText, "_UI_Module_name_missing");
+					validateOwnerName(owner, null, userText, "_UI_Module_owner_missing");
+					validateModuleName(name, null, nameText, "_UI_Module_name_missing");
 					validateVersion(trimToNull(version), versionText);
 				}
 

@@ -3,19 +3,19 @@
   <parent>
   	<groupId>org.cloudsmith.geppetto</groupId>
   	<artifactId>parent</artifactId>
-  	<version>3.2.0-rc2-SNAPSHOT</version>
+  	<version>3.2.1-SNAPSHOT</version>
   </parent>
   <artifactId>org.cloudsmith.geppetto.graph</artifactId>
   <dependencies>
   	<dependency>
   		<groupId>org.cloudsmith.geppetto</groupId>
   		<artifactId>org.cloudsmith.geppetto.validation</artifactId>
-  		<version>3.2.0-rc2-SNAPSHOT</version>
+  		<version>3.2.1-SNAPSHOT</version>
   	</dependency>
   	<dependency>
   		<groupId>org.cloudsmith.geppetto</groupId>
   		<artifactId>org.cloudsmith.geppetto.ruby</artifactId>
-  		<version>3.2.0-rc2-SNAPSHOT</version>
+  		<version>3.2.1-SNAPSHOT</version>
   	</dependency>
   	<dependency>
   		<groupId>org.cloudsmith.graph</groupId>

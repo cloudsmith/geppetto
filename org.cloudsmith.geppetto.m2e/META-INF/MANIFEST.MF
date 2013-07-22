@@ -5,7 +5,9 @@ Bundle-SymbolicName: org.cloudsmith.geppetto.m2e;singleton:=true
 Bundle-Version: 3.2.0.qualifier
 Bundle-Vendor: Cloudsmith Inc.
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
-Require-Bundle: org.eclipse.m2e.maven.runtime,
- org.eclipse.m2e.core,
- org.eclipse.core.runtime,
- org.eclipse.core.resources
+Import-Package: org.apache.maven.plugin,
+ org.eclipse.core.resources,
+ org.eclipse.core.runtime;version="3.4.0",
+ org.eclipse.m2e.core.lifecyclemapping.model,
+ org.eclipse.m2e.core.project,
+ org.eclipse.m2e.core.project.configurator

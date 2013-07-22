@@ -5,8 +5,4 @@ Bundle-SymbolicName: org.cloudsmith.geppetto;singleton:=true
 Bundle-Version: 3.2.0.qualifier
 Bundle-Vendor: %providerName
 Bundle-Localization: plugin
-Require-Bundle: org.eclipse.ui.ide.application;bundle-version="1.0.0",
- org.cloudsmith.geppetto.pp.dsl.ui,
- org.cloudsmith.geppetto.ui,
- org.eclipse.ui.intro;bundle-version="3.4.0"
 Bundle-ActivationPolicy: lazy

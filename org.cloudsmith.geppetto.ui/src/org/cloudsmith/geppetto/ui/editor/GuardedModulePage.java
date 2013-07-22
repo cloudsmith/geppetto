@@ -103,10 +103,10 @@ abstract class GuardedModulePage extends FormPage {
 			showGeneralError(show, "_UI_Syntax_Error");
 		}
 
-		int validateModuleName(String name, String key, Control control, String nameMissingTag) {
+		int validateModuleName(String name, String key, Control control) {
 			IMessageManager msgManager = getManagedForm().getMessageManager();
 			if(name == null) {
-				String msg = UIPlugin.INSTANCE.getString(nameMissingTag);
+				String msg = UIPlugin.INSTANCE.getString("_UI_Module_name_missing");
 				if(control == null)
 					msgManager.addMessage(key, msg, null, IMessageProvider.ERROR);
 				else
@@ -140,10 +140,10 @@ abstract class GuardedModulePage extends FormPage {
 			return syntaxSeverity;
 		}
 
-		int validateOwnerName(String name, String key, Control control, String nameMissingTag) {
+		int validateOwnerName(String name, String key, Control control) {
 			IMessageManager msgManager = getManagedForm().getMessageManager();
 			if(name == null) {
-				String msg = UIPlugin.INSTANCE.getString(nameMissingTag);
+				String msg = UIPlugin.INSTANCE.getString("_UI_Module_owner_missing");
 				if(control == null)
 					msgManager.addMessage(key, msg, null, IMessageProvider.ERROR);
 				else
@@ -154,11 +154,18 @@ abstract class GuardedModulePage extends FormPage {
 			int syntaxSeverity = IMessageProvider.NONE;
 			String syntax = null;
 			try {
-				checkOwner(name);
+				checkOwner(name, true);
 			}
 			catch(IllegalArgumentException e) {
-				syntax = e.getMessage();
-				syntaxSeverity = IMessageProvider.ERROR;
+				try {
+					checkOwner(name, false);
+					syntax = e.getMessage();
+					syntaxSeverity = IMessageProvider.WARNING;
+				}
+				catch(IllegalArgumentException e2) {
+					syntax = e2.getMessage();
+					syntaxSeverity = IMessageProvider.ERROR;
+				}
 			}
 			if(syntax != null)
 				if(control == null)

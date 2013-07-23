@@ -12,6 +12,7 @@
 package org.cloudsmith.geppetto.forge.v2.model;
 
 import static org.cloudsmith.geppetto.forge.v2.model.ModuleName.safeName;
+import static org.cloudsmith.geppetto.forge.v2.model.ModuleName.safeOwner;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -80,7 +81,7 @@ public class Module extends TimestampedEntity {
 		if(owner != null && name != null) {
 			String ownerName = owner.getUsername();
 			if(ownerName != null)
-				return new ModuleName(safeName(ownerName, false), '-', safeName(name, false), false);
+				return new ModuleName(safeOwner(ownerName), '-', safeName(name, false), false);
 		}
 		return null;
 	}

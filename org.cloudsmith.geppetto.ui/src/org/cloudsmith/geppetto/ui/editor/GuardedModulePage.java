@@ -12,6 +12,7 @@
 package org.cloudsmith.geppetto.ui.editor;
 
 import static org.cloudsmith.geppetto.forge.v2.model.ModuleName.checkName;
+import static org.cloudsmith.geppetto.forge.v2.model.ModuleName.checkOwner;
 
 import org.cloudsmith.geppetto.semver.Version;
 import org.cloudsmith.geppetto.semver.VersionRange;
@@ -102,10 +103,10 @@ abstract class GuardedModulePage extends FormPage {
 			showGeneralError(show, "_UI_Syntax_Error");
 		}
 
-		int validateName(String name, String key, Control control, String nameMissingTag) {
+		int validateModuleName(String name, String key, Control control) {
 			IMessageManager msgManager = getManagedForm().getMessageManager();
 			if(name == null) {
-				String msg = UIPlugin.INSTANCE.getString(nameMissingTag);
+				String msg = UIPlugin.INSTANCE.getString("_UI_Module_name_missing");
 				if(control == null)
 					msgManager.addMessage(key, msg, null, IMessageProvider.ERROR);
 				else
@@ -121,6 +122,43 @@ abstract class GuardedModulePage extends FormPage {
 			catch(IllegalArgumentException e) {
 				try {
 					checkName(name, false);
+					syntax = e.getMessage();
+					syntaxSeverity = IMessageProvider.WARNING;
+				}
+				catch(IllegalArgumentException e2) {
+					syntax = e2.getMessage();
+					syntaxSeverity = IMessageProvider.ERROR;
+				}
+			}
+			if(syntax != null)
+				if(control == null)
+					msgManager.addMessage(key, syntax, null, syntaxSeverity);
+				else
+					msgManager.addMessage(DEFAULT_MESSAGE_KEY, syntax, null, syntaxSeverity, control);
+			else if(control != null)
+				msgManager.removeMessage(DEFAULT_MESSAGE_KEY, control);
+			return syntaxSeverity;
+		}
+
+		int validateOwnerName(String name, String key, Control control) {
+			IMessageManager msgManager = getManagedForm().getMessageManager();
+			if(name == null) {
+				String msg = UIPlugin.INSTANCE.getString("_UI_Module_owner_missing");
+				if(control == null)
+					msgManager.addMessage(key, msg, null, IMessageProvider.ERROR);
+				else
+					msgManager.addMessage(DEFAULT_MESSAGE_KEY, msg, null, IMessageProvider.ERROR, control);
+				return IMessageProvider.ERROR;
+			}
+
+			int syntaxSeverity = IMessageProvider.NONE;
+			String syntax = null;
+			try {
+				checkOwner(name, true);
+			}
+			catch(IllegalArgumentException e) {
+				try {
+					checkOwner(name, false);
 					syntax = e.getMessage();
 					syntaxSeverity = IMessageProvider.WARNING;
 				}

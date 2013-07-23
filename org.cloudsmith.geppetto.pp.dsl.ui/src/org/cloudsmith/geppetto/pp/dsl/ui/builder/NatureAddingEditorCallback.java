@@ -28,8 +28,8 @@ public class NatureAddingEditorCallback extends ValidatingEditorCallback {
 	public void afterCreatePartControl(XtextEditor editor) {
 		super.afterCreatePartControl(editor);
 		IResource resource = editor.getResource();
-		if(resource != null && !toggleNature.hasNature(resource.getProject()) && resource.getProject().isAccessible() &&
-				!resource.getProject().isHidden()) {
+		if(resource != null && resource.getProject().isAccessible() && !resource.getProject().isHidden() &&
+				!toggleNature.hasNature(resource.getProject())) {
 			toggleNature.toggleNature(resource.getProject(), true);
 		}
 	}

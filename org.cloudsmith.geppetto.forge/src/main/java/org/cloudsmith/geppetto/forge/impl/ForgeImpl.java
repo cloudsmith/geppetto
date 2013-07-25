@@ -530,7 +530,7 @@ class ForgeImpl implements Forge {
 	public void saveJSONMetadata(Metadata md, File jsonFile) throws IOException {
 		Writer writer = new BufferedWriter(new FileWriter(jsonFile));
 		try {
-			gson.toJson(md, writer);
+			gson.toJson(new Metadata(md), writer);
 		}
 		finally {
 			StreamUtil.close(writer);

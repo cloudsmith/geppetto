@@ -12,6 +12,7 @@
 package org.cloudsmith.geppetto.forge.v2.model;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -25,6 +26,14 @@ import com.google.gson.annotations.Expose;
  * Module meta-data
  */
 public class Metadata extends Entity {
+	private static String nullToEmpty(String s) {
+		if(s == null)
+			s = "";
+		else
+			s = s.trim();
+		return s;
+	}
+
 	@Expose
 	private ModuleName name;
 
@@ -57,6 +66,45 @@ public class Metadata extends Entity {
 
 	@Expose
 	private String license;
+
+	/**
+	 * Creates an empty Metadata instance
+	 */
+	public Metadata() {
+	}
+
+	/**
+	 * Copy values from the given instance and assign default values for
+	 * values that has not been filled in.
+	 * 
+	 * @param src
+	 *            The instance to copy values from
+	 */
+	public Metadata(Metadata src) {
+		name = src.name;
+		version = src.version;
+		summary = nullToEmpty(src.summary);
+		author = nullToEmpty(src.author);
+		description = nullToEmpty(src.description);
+		source = nullToEmpty(src.source);
+		project_page = nullToEmpty(src.project_page);
+		license = nullToEmpty(src.license);
+
+		if(src.dependencies == null || src.dependencies.isEmpty())
+			dependencies = Collections.emptyList();
+		else
+			dependencies = new ArrayList<Dependency>(src.dependencies);
+
+		if(src.types == null || src.types.isEmpty())
+			types = Collections.emptyList();
+		else
+			types = new ArrayList<Type>(src.types);
+
+		if(checksums == null || checksums.isEmpty())
+			checksums = Collections.emptyMap();
+		else
+			checksums = new HashMap<String, byte[]>(src.checksums);
+	}
 
 	/**
 	 * The verbose name of the author of this module.

@@ -7,7 +7,7 @@
  *
  * Contributors:
  *     IBM Corporation - initial API and implementation
- *     Cloudsmith Inc - adapted to Geppetto (no JDT)
+ *     Puppet Labs Inc - adapted to Geppetto (no JDT)
  *******************************************************************************/
 package org.cloudsmith.geppetto.pp.dsl.ui.jdt_ersatz;
 

@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2011 Cloudsmith Inc. and other contributors, as listed below.
+ * Copyright (c) 2013 Puppet Labs, Inc. and other contributors, as listed below.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -7,7 +7,7 @@
  * 
  * Contributors:
  *   Itemis AB (http://www.itemis.eu) - initial API and implementation
- *   Cloudsmith - adpated for validation
+ *   Puppet Labs - adpated for validation
  * 
  */
 package org.cloudsmith.geppetto.validation.runner;

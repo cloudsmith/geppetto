@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2011 Cloudsmith Inc. and other contributors, as listed below.
+ * Copyright (c) 2013 Puppet Labs, Inc. and other contributors, as listed below.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -7,7 +7,7 @@
  * 
  * Contributors:
  *   Initial implementation - itemis AG (http://www.itemis.eu
- *   Cloudsmith - specialized for puppet
+ *   Puppet Labs - specialized for puppet
  * 
  */
 package org.cloudsmith.geppetto.pp.dsl.ui.search;
@@ -56,7 +56,7 @@ import org.eclipse.xtext.ui.search.EObjectDescriptionContentProvider;
 /**
  * @author Jan Koehnlein - Initial contribution and API
  * @author Knut Wannheden
- * @author Henrik Lindberg - Cloudsmith, adapted to Puppet
+ * @author Henrik Lindberg - Puppet Labs, adapted to Puppet
  */
 public class PPObjectSearchDialog extends ListDialog {
 

@@ -7,7 +7,7 @@
  *
  * Contributors:
  *     IBM Corporation - initial API and implementation
- *     Cloudsmith - edit capability
+ *     Puppet Labs - edit capability
  *******************************************************************************/
 package org.cloudsmith.geppetto.pp.dsl.ui.preferences.editors;
 

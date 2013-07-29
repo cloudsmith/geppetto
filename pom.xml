@@ -32,8 +32,8 @@
 	</properties>
 
 	<organization>
-		<name>Cloudsmith Inc.</name>
-		<url>http://www.cloudsmith.com</url>
+		<name>Puppet Labs, Inc.</name>
+		<url>http://www.puppetlabs.com</url>
 	</organization>
 
 	<url>${parentSiteURL}</url>

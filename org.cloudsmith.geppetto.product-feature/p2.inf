@@ -155,7 +155,7 @@ units.0.requires.7.greedy=true
 properties.0.name=org.eclipse.equinox.p2.provider
 properties.0.value=%providerName
 properties.1.name=df_LT.providerName
-properties.1.value=Cloudsmith Inc.
+properties.1.value=Puppet Labs, Inc.
 
 instructions.configure=\
 	org.eclipse.equinox.p2.touchpoint.eclipse.addRepository(type:0,location:http${#58}//download.eclipse.org/releases/kepler,name:Kepler);\

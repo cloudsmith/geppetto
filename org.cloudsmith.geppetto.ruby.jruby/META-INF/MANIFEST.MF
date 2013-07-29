@@ -12,5 +12,5 @@ Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Import-Package: org.jruby,
  org.jruby.common
-Bundle-Vendor: Cloudsmith
+Bundle-Vendor: Puppet Labs, Inc.
 Export-Package: org.cloudsmith.geppetto.ruby.jruby;x-friends:="org.cloudsmith.geppetto.ruby.tests"

@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2011 Cloudsmith Inc. and other contributors, as listed below.
+ * Copyright (c) 2013 Puppet Labs, Inc. and other contributors, as listed below.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -7,7 +7,7 @@
  * 
  * Contributors:
  *   Jan Koehnlein Itemis AG - initial API and implementation
- *   Cloudsmith - specialization for Puppet
+ *   Puppet Labs - specialization for Puppet
  * 
  */
 package org.cloudsmith.geppetto.pp.dsl.ui.search;

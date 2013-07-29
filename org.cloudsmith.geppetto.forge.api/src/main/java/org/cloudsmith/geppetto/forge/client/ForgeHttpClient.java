@@ -13,7 +13,7 @@
  * 
  * Contributors:
  *   Kevin Sawicki (GitHub Inc.) - initial API and implementation
- *   Thomas Hallgren (Cloudsmith Inc.) - Stackhammer changes
+ *   Thomas Hallgren (Puppet Labs, Inc.) - Stackhammer changes
  */
 package org.cloudsmith.geppetto.forge.client;
 

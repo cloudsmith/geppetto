@@ -7,7 +7,7 @@
  * 
  * Contributors:
  *   itemis AG - initial API and implementation
- *   Cloudsmith Inc - changes to store 'use project settings' in project
+ *   Puppet Labs Inc - changes to store 'use project settings' in project
  *
  *******************************************************************************/
 package org.cloudsmith.geppetto.pp.dsl.ui.preferences.editors;

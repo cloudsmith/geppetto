@@ -7,7 +7,7 @@
  *
  * Contributors:
  *     IBM Corporation - initial API and implementation
- *     Cloudsmith Inc - Makes field width settable, shows errors in decorator 
+ *     Puppet Labs Inc - Makes field width settable, shows errors in decorator 
  *******************************************************************************/
 
 package org.cloudsmith.geppetto.pp.dsl.ui.preferences.editors;

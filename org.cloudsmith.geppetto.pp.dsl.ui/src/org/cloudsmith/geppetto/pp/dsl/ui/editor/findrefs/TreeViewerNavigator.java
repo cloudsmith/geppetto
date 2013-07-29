@@ -7,7 +7,7 @@
  * 
  * Contributors:
  *    itemis AG - implementation
- *    Cloudsmith - adaption to Geppetto/PP
+ *    Puppet Labs - adaption to Geppetto/PP
  *******************************************************************************/
 package org.cloudsmith.geppetto.pp.dsl.ui.editor.findrefs;
 

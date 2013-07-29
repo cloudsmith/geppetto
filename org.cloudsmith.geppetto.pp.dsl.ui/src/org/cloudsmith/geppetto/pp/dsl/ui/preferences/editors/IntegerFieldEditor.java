@@ -11,7 +11,7 @@ package org.cloudsmith.geppetto.pp.dsl.ui.preferences.editors;
  *     IBM Corporation - initial API and implementation
  *     <sgandon@nds.com> - Fix for bug 109389 - IntegerFieldEditor
  *     does not fire property change all the time
- *     Cloudsmith Inc - modified to use modified StringField Editor and support width of field
+ *     Puppet Labs, Inc - modified to use modified StringField Editor and support width of field
  *******************************************************************************/
 
 import org.eclipse.jface.resource.JFaceResources;

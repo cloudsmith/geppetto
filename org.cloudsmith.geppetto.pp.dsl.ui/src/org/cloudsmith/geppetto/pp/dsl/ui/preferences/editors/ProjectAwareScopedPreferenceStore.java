@@ -10,7 +10,7 @@
  *     Yves YANG <yves.yang@soyatec.com> - 
  *     		Initial Fix for Bug 138078 [Preferences] Preferences Store for i18n support
  *     itemis AG - bug fixes (see below)
- *     Cloudsmith Inc - making class project aware, fixing listening issues
+ *     Puppet Labs Inc - making class project aware, fixing listening issues
  *******************************************************************************/
 package org.cloudsmith.geppetto.pp.dsl.ui.preferences.editors;
 

@@ -1,0 +1,61 @@
+package org.cloudsmith.geppetto.injectable.eclipse.impl;
+
+import java.io.File;
+import java.io.IOException;
+import java.net.URISyntaxException;
+import java.net.URL;
+
+import org.cloudsmith.geppetto.common.util.BundleAccess;
+import org.eclipse.core.runtime.FileLocator;
+import org.eclipse.core.runtime.Path;
+import org.eclipse.core.runtime.Platform;
+import org.eclipse.core.runtime.URIUtil;
+import org.osgi.framework.Bundle;
+import org.osgi.framework.BundleReference;
+
+public class EclipseBundleAccess implements BundleAccess {
+	private static Bundle getBundleForClass(Class<?> clazz) {
+		ClassLoader bld = clazz.getClassLoader();
+		if(bld instanceof BundleReference)
+			return ((BundleReference) bld).getBundle();
+		throw new IllegalArgumentException("Class " + clazz.getName() + " is not loaded by a BundleClassLoader");
+	}
+
+	private File getBundleResourceAsFile(Bundle bundle, String bundleRelativeResourcePath) throws IOException {
+		try {
+			URL resourceURL = FileLocator.find(bundle, new Path(bundleRelativeResourcePath), null);
+			return resourceURL == null
+					? null
+					: getResourceAsFile(resourceURL);
+		}
+		catch(Exception e) {
+			throw new IllegalStateException("Failed to convert resource URL to URI", e);
+		}
+	}
+
+	@Override
+	public String getDebugOption(String option) {
+		return Platform.getDebugOption(option);
+	}
+
+	@Override
+	public File getFileFromClassBundle(Class<?> clazz, String bundleRelativeResourcePath) throws IOException {
+		return getBundleResourceAsFile(getBundleForClass(clazz), bundleRelativeResourcePath);
+	}
+
+	@Override
+	public File getResourceAsFile(URL resourceURL) throws IOException {
+		resourceURL = FileLocator.toFileURL(resourceURL);
+		try {
+			return new File(URIUtil.toURI(resourceURL));
+		}
+		catch(URISyntaxException e) {
+			throw new IOException("Failed to convert resource URL to File URI", e);
+		}
+	}
+
+	@Override
+	public boolean inDebugMode() {
+		return Platform.inDebugMode();
+	}
+}

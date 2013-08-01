@@ -11,7 +11,9 @@
  */
 package org.cloudsmith.geppetto.pp.dsl;
 
+import org.cloudsmith.geppetto.common.tracer.AbstractTracer.DefaultStringProvider;
 import org.cloudsmith.geppetto.common.tracer.DefaultTracer;
+import org.cloudsmith.geppetto.common.tracer.IStringProvider;
 import org.cloudsmith.geppetto.common.tracer.ITracer;
 import org.cloudsmith.geppetto.pp.dsl.formatting.PPCommentConfiguration;
 import org.cloudsmith.geppetto.pp.dsl.formatting.PPSemanticLayout;
@@ -144,6 +146,7 @@ public class PPRuntimeModule extends org.cloudsmith.geppetto.pp.dsl.AbstractPPRu
 	}
 
 	public void configureDebugTracing(com.google.inject.Binder binder) {
+		binder.bind(IStringProvider.class).to(DefaultStringProvider.class);
 		binder.bind(ITracer.class).annotatedWith(Names.named(PPDSLConstants.PP_DEBUG_LINKER)).toInstance(
 			new DefaultTracer(PPDSLConstants.PP_DEBUG_LINKER));
 		binder.bind(ITracer.class).annotatedWith(Names.named(FormattingTracer.DEBUG_FORMATTER)).toInstance(

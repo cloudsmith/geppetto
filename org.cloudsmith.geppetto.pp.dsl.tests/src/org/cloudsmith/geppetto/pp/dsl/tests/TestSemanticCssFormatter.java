@@ -11,9 +11,13 @@
  */
 package org.cloudsmith.geppetto.pp.dsl.tests;
 
+import static com.google.inject.util.Modules.override;
+import static org.cloudsmith.geppetto.injectable.CommonModuleProvider.getCommonModule;
+
 import java.util.EnumSet;
 import java.util.Set;
 
+import org.cloudsmith.geppetto.pp.dsl.PPRuntimeModule;
 import org.cloudsmith.geppetto.pp.dsl.formatting.PPSemanticLayout;
 import org.cloudsmith.geppetto.pp.dsl.formatting.PPStylesheetProvider;
 import org.cloudsmith.geppetto.pp.dsl.ppformatting.PPIndentationInformation;
@@ -56,7 +60,6 @@ import com.google.inject.Inject;
 import com.google.inject.Injector;
 import com.google.inject.Provider;
 import com.google.inject.name.Names;
-import com.google.inject.util.Modules;
 
 /**
  * Tests CSS formatting using the new DomFormatter.
@@ -104,8 +107,7 @@ public class TestSemanticCssFormatter extends AbstractPuppetTests {
 
 		@Override
 		public Injector createInjector() {
-			return Guice.createInjector(Modules.override(new org.cloudsmith.geppetto.pp.dsl.PPRuntimeModule()).with(
-				new TestModule()));
+			return Guice.createInjector(override(getCommonModule(), new PPRuntimeModule()).with(new TestModule()));
 		}
 	}
 

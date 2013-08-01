@@ -38,7 +38,6 @@ import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.xtext.ISetup;
 import org.eclipse.xtext.junit4.AbstractXtextTests;
 import org.eclipse.xtext.junit4.validation.ValidatorTester;
-import org.eclipse.xtext.linking.ILinker;
 import org.eclipse.xtext.linking.lazy.LazyLinkingResource;
 import org.eclipse.xtext.mwe.ContainersStateFactory;
 import org.eclipse.xtext.resource.SaveOptions;
@@ -57,7 +56,6 @@ import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Multimap;
-import com.google.inject.Provider;
 
 public class AbstractPuppetTests extends AbstractXtextTests {
 
@@ -71,11 +69,7 @@ public class AbstractPuppetTests extends AbstractXtextTests {
 
 	private ResourceSet resourceSet;
 
-	private Provider<ResourceSet> resourceSetProvider;
-
 	private ContainersStateFactory factory;
-
-	private ILinker linker;
 
 	protected void addResourceBody(ResourceExpression o, String title, Object... keyValPairs) {
 		o.getResourceData().add(createResourceBody(title, keyValPairs));

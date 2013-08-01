@@ -11,8 +11,12 @@
  */
 package org.cloudsmith.geppetto.pp.dsl.tests;
 
+import static com.google.inject.util.Modules.override;
+import static org.cloudsmith.geppetto.injectable.CommonModuleProvider.getCommonModule;
+
 import org.cloudsmith.geppetto.pp.AssignmentExpression;
 import org.cloudsmith.geppetto.pp.PuppetManifest;
+import org.cloudsmith.geppetto.pp.dsl.PPRuntimeModule;
 import org.cloudsmith.geppetto.pp.dsl.formatting.PPSemanticLayout;
 import org.cloudsmith.geppetto.pp.dsl.formatting.PPStylesheetProvider;
 import org.cloudsmith.geppetto.pp.dsl.ppformatting.PPIndentationInformation;
@@ -44,7 +48,6 @@ import com.google.inject.Injector;
 import com.google.inject.Module;
 import com.google.inject.Provider;
 import com.google.inject.name.Names;
-import com.google.inject.util.Modules;
 
 /**
  * Triggers problems with computation of the current hidden state during sequencing.
@@ -144,8 +147,7 @@ public class TestPPFormattingFailing extends AbstractPuppetTests {
 
 		@Override
 		public Injector createInjector() {
-			return Guice.createInjector(Modules.override(new org.cloudsmith.geppetto.pp.dsl.PPRuntimeModule()).with(
-				getModule()));
+			return Guice.createInjector(override(getCommonModule(), new PPRuntimeModule()).with(getModule()));
 		}
 
 		public Module getModule() {

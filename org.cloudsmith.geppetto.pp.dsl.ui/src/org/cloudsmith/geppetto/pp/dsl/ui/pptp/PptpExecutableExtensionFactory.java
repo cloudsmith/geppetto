@@ -11,7 +11,7 @@
  */
 package org.cloudsmith.geppetto.pp.dsl.ui.pptp;
 
-import org.cloudsmith.geppetto.common.extension.AbstractGuiceAwareExecutableExtensionFactory;
+import org.cloudsmith.geppetto.injectable.eclipse.AbstractGuiceAwareExecutableExtensionFactory;
 import org.cloudsmith.geppetto.pp.dsl.PPDSLConstants;
 import org.osgi.framework.Bundle;
 

@@ -188,6 +188,9 @@ public class NewPuppetProjectFromForgeWizard extends NewPuppetModuleProjectWizar
 						catch(RuntimeException e) {
 							throw e;
 						}
+						catch(InvocationTargetException e) {
+							throw e;
+						}
 						catch(Exception e) {
 							throw new InvocationTargetException(e);
 						}

@@ -1,0 +1,41 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>org.cloudsmith.geppetto</groupId>
+		<artifactId>parent</artifactId>
+		<version>3.2.1-SNAPSHOT</version>
+	</parent>
+
+	<artifactId>org.cloudsmith.geppetto.injectable.standalone</artifactId>
+	<packaging>jar</packaging>
+	<name>Geppetto Common Injections for Standalone (non Eclipse) environment</name>
+
+	<build>
+		<plugins>
+			<plugin>
+				<artifactId>maven-jar-plugin</artifactId>
+				<configuration combine.self="override" />
+			</plugin>
+		</plugins>
+	</build>
+
+	<dependencies>
+		<dependency>
+			<groupId>${guice.groupId}</groupId>
+			<artifactId>${guice.artifactId}</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.httpcomponents</groupId>
+			<artifactId>httpmime</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.httpcomponents</groupId>
+			<artifactId>httpclient</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.cloudsmith.geppetto</groupId>
+			<artifactId>org.cloudsmith.geppetto.common</artifactId>
+			<version>3.2.1-SNAPSHOT</version>
+		</dependency>
+	</dependencies>
+</project>

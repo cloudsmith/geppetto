@@ -17,12 +17,10 @@ import java.util.regex.Pattern;
 
 import org.cloudsmith.geppetto.common.os.OsUtil;
 import org.cloudsmith.geppetto.common.os.StreamUtil;
-import org.cloudsmith.geppetto.common.util.EclipseUtils;
 import org.cloudsmith.geppetto.diagnostic.Diagnostic;
 import org.cloudsmith.geppetto.diagnostic.DiagnosticType;
 import org.cloudsmith.geppetto.diagnostic.FileDiagnostic;
 import org.cloudsmith.geppetto.validation.ValidationService;
-import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.SubMonitor;
 
@@ -105,20 +103,6 @@ public class PuppetCatalogCompilerRunner {
 		catch(Exception e) {
 			throw new ExceptionInInitializerError(e);
 		}
-	}
-
-	/**
-	 * Get a resource found in the bundle containing this class as a File.
-	 * Extracting it into the filesystem if necessary.
-	 * 
-	 * @param bundleRelativeResourcePath
-	 *            bundle relative path of the resource
-	 * @return a {@link File} incarnation of the resource
-	 * @throws IOException
-	 */
-	public static File getBundleResourceAsFile(IPath bundleRelativeResourcePath) throws IOException {
-		return EclipseUtils.getFileFromClassBundle(
-			PuppetCatalogCompilerRunner.class, bundleRelativeResourcePath.toPortableString());
 	}
 
 	final Pattern errorPattern;

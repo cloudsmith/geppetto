@@ -20,42 +20,26 @@ import com.google.inject.Module;
 import com.google.inject.util.Modules;
 
 public class ForgeService {
-	private static ForgeService defaultInstance;
-
-	public static synchronized ForgeService getDefault() {
-		if(defaultInstance == null)
-			defaultInstance = new ForgeService();
-		return defaultInstance;
+	public static ForgePreferences getDefaultPreferences() {
+		ForgePreferencesBean forgePreferences = new ForgePreferencesBean();
+		forgePreferences.setBaseURL("http://forgeapi.puppetlabs.com");
+		return forgePreferences;
 	}
 
-	private final Module forgeModule;
+	public static Module getForgeModule(ForgePreferences forgePreferences, Module... overrides) {
+		Module forgeModule = new ForgeModule(forgePreferences);
+		if(overrides.length > 0)
+			forgeModule = Modules.override(forgeModule).with(overrides);
+		return forgeModule;
+	}
 
 	private final Injector forgeInjector;
 
-	private ForgeService() {
-		// TODO: Provide this from command line or prefs store
-		ForgePreferencesBean forgePreferences = new ForgePreferencesBean();
-		forgePreferences.setBaseURL("http://forgeapi.puppetlabs.com");
-		forgeModule = new ForgeModule(forgePreferences);
-		this.forgeInjector = Guice.createInjector(forgeModule);
-	}
-
-	public ForgeService(ForgePreferences forgePreferences) {
-		this(new ForgeModule(forgePreferences));
-	}
-
-	public ForgeService(Module... forgeModules) {
-		this.forgeModule = forgeModules.length == 1
-				? forgeModules[0]
-				: Modules.combine(forgeModules);
-		this.forgeInjector = Guice.createInjector(forgeModule);
+	public ForgeService(ForgePreferences forgePreferences, Module... overrides) {
+		this.forgeInjector = Guice.createInjector(getForgeModule(forgePreferences, overrides));
 	}
 
 	public Injector getForgeInjector() {
 		return forgeInjector;
-	}
-
-	public Module getForgeModule() {
-		return forgeModule;
 	}
 }

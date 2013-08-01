@@ -23,24 +23,6 @@ public class DefaultTracer extends AbstractTracer implements ITracer {
 		super(option);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.cloudsmith.geppetto.common.tracer.AbstractTracer#getStringProvider()
-	 */
-	@Override
-	public IStringProvider getStringProvider() {
-		IStringProvider s = super.getStringProvider();
-		if(s == null)
-			setStringProvider(new DefaultStringProvider());
-		return super.getStringProvider();
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.cloudsmith.geppetto.common.tracer.AbstractTracer#trace(java.lang.String, java.lang.Object[])
-	 */
 	@Override
 	public void trace(String message, Object... objects) {
 		if(!isTracing())

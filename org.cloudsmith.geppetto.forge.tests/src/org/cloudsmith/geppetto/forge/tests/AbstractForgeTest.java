@@ -16,11 +16,12 @@ import static org.junit.Assert.fail;
 import java.io.File;
 import java.io.IOException;
 
-import org.cloudsmith.geppetto.common.util.EclipseUtils;
+import org.cloudsmith.geppetto.common.util.BundleAccess;
 import org.cloudsmith.geppetto.forge.Cache;
 import org.cloudsmith.geppetto.forge.Forge;
 import org.cloudsmith.geppetto.forge.impl.ForgeModule;
 import org.cloudsmith.geppetto.forge.impl.ForgePreferencesBean;
+import org.cloudsmith.geppetto.injectable.CommonModuleProvider;
 
 import com.google.gson.Gson;
 import com.google.inject.Guice;
@@ -49,7 +50,7 @@ public class AbstractForgeTest {
 			String basedirProp = System.getProperty("basedir");
 			if(basedirProp == null) {
 				try {
-					File testData = EclipseUtils.getFileFromClassBundle(AbstractForgeTest.class, "testData");
+					File testData = getBundleAccess().getFileFromClassBundle(AbstractForgeTest.class, "testData");
 					if(testData == null || !testData.isDirectory())
 						fail("Unable to determine basedir");
 					basedir = testData.getParentFile();
@@ -62,6 +63,10 @@ public class AbstractForgeTest {
 				basedir = new File(basedirProp);
 		}
 		return basedir;
+	}
+
+	public static BundleAccess getBundleAccess() {
+		return getInjector().getInstance(BundleAccess.class);
 	}
 
 	public static Cache getCache() {
@@ -81,8 +86,9 @@ public class AbstractForgeTest {
 			ForgePreferencesBean forgePreferences = new ForgePreferencesBean();
 			forgePreferences.setBaseURL(TEST_FORGE_URI);
 			try {
+				injector = Guice.createInjector(CommonModuleProvider.getCommonModule(), new ForgeModule(
+					forgePreferences));
 				forgePreferences.setCacheLocation(getTestOutputFolder("cachefolder", true).getAbsolutePath());
-				injector = Guice.createInjector(new ForgeModule(forgePreferences));
 			}
 			catch(Exception e) {
 				e.printStackTrace();

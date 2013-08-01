@@ -13,6 +13,8 @@ package org.cloudsmith.geppetto.forge.client;
 
 import java.io.IOException;
 
+import org.apache.http.client.HttpClient;
+
 /**
  * The authenticator is responsible for authenticating the user using username and password.
  * In response, it expects a string with valid scopes and a token that can be used for the
@@ -31,6 +33,8 @@ public interface Authenticator {
 	/**
 	 * Authenticate the user.
 	 * 
+	 * @param httpClient
+	 *            The Client that executes the HTTP authentication request
 	 * @param user
 	 *            The username that identifies the user
 	 * @param password
@@ -39,5 +43,5 @@ public interface Authenticator {
 	 * @throws IOException
 	 *             when the authentication did not succeed
 	 */
-	AuthResponse authenticate(String user, String password) throws IOException;
+	AuthResponse authenticate(HttpClient httpClient, String user, String password) throws IOException;
 }

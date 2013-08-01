@@ -11,6 +11,9 @@
  */
 package org.cloudsmith.geppetto.pp.dsl.tests;
 
+import static com.google.inject.util.Modules.override;
+import static org.cloudsmith.geppetto.injectable.CommonModuleProvider.getCommonModule;
+
 import java.util.Iterator;
 import java.util.List;
 
@@ -18,6 +21,7 @@ import org.cloudsmith.geppetto.pp.AssignmentExpression;
 import org.cloudsmith.geppetto.pp.LiteralList;
 import org.cloudsmith.geppetto.pp.PPFactory;
 import org.cloudsmith.geppetto.pp.PuppetManifest;
+import org.cloudsmith.geppetto.pp.dsl.PPRuntimeModule;
 import org.cloudsmith.geppetto.pp.dsl.formatting.PPSemanticLayout;
 import org.cloudsmith.geppetto.pp.dsl.formatting.PPStylesheetProvider;
 import org.cloudsmith.geppetto.pp.dsl.ppformatting.PPIndentationInformation;
@@ -52,7 +56,6 @@ import com.google.inject.Inject;
 import com.google.inject.Injector;
 import com.google.inject.Provider;
 import com.google.inject.name.Names;
-import com.google.inject.util.Modules;
 
 /**
  * Tests PP language formatting using the new DomFormatter.
@@ -100,8 +103,7 @@ public class TestPPFormatting extends AbstractPuppetTests {
 
 		@Override
 		public Injector createInjector() {
-			return Guice.createInjector(Modules.override(new org.cloudsmith.geppetto.pp.dsl.PPRuntimeModule()).with(
-				new TestModule()));
+			return Guice.createInjector(override(getCommonModule(), new PPRuntimeModule()).with(new TestModule()));
 		}
 	}
 
@@ -387,14 +389,14 @@ public class TestPPFormatting extends AbstractPuppetTests {
 	@Test
 	public void test_selectiveFormatting1() throws Exception {
 		String code1 /*
-		      */= "class x {\n";
+						*/= "class x {\n";
 		//
 		String code2 /*
-	          */= "  exec { 'x':\n" //
+						*/= "  exec { 'x':\n" //
 				+ "    command => 'echo gotcha',\n" //
 				+ "  }"; //
 		String code3 = /*
-		        */"\n}\n";
+						*/"\n}\n";
 
 		String code = code1 + code2 + code3;
 		XtextResource r = getResourceFromString(code);

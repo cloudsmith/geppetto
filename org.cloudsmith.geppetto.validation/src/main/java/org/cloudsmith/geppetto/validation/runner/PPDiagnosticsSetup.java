@@ -11,6 +11,8 @@
  */
 package org.cloudsmith.geppetto.validation.runner;
 
+import static org.cloudsmith.geppetto.injectable.CommonModuleProvider.getCommonModule;
+
 import org.cloudsmith.geppetto.pp.dsl.PPStandaloneSetup;
 import org.cloudsmith.geppetto.pp.dsl.validation.IPotentialProblemsAdvisor;
 import org.cloudsmith.geppetto.pp.dsl.validation.IValidationAdvisor;
@@ -38,7 +40,7 @@ public class PPDiagnosticsSetup extends PPStandaloneSetup {
 
 	@Override
 	public Injector createInjector() {
-		return Guice.createInjector(new PPDiagnosticsModule(complianceLevel, problemsAdvisor));
+		return Guice.createInjector(getCommonModule(), new PPDiagnosticsModule(complianceLevel, problemsAdvisor));
 	}
 
 }

@@ -23,4 +23,5 @@ Require-Bundle: org.eclipse.xtext,
  com.google.gson,
  org.junit
 Export-Package: org.cloudsmith.geppetto.validation.tests
-Import-Package: org.eclipse.core.runtime
+Import-Package: org.cloudsmith.geppetto.injectable,
+ org.eclipse.core.runtime

@@ -14,32 +14,35 @@ package org.cloudsmith.geppetto.forge;
 import org.cloudsmith.geppetto.forge.impl.ForgeModule;
 import org.cloudsmith.geppetto.forge.impl.ForgePreferencesBean;
 
-import com.google.inject.Guice;
-import com.google.inject.Injector;
 import com.google.inject.Module;
 import com.google.inject.util.Modules;
 
 public class ForgeService {
+	private static final ForgePreferences defaultPreferences;
+
+	private static final Module defaultForgeModule;
+
+	static {
+		ForgePreferencesBean fp = new ForgePreferencesBean();
+		fp.setBaseURL("http://forgeapi.puppetlabs.com");
+		defaultPreferences = fp;
+		defaultForgeModule = new ForgeModule(fp);
+	}
+
+	public static Module getDefaultModule() {
+		return defaultForgeModule;
+	}
+
 	public static ForgePreferences getDefaultPreferences() {
-		ForgePreferencesBean forgePreferences = new ForgePreferencesBean();
-		forgePreferences.setBaseURL("http://forgeapi.puppetlabs.com");
-		return forgePreferences;
+		return defaultPreferences;
 	}
 
 	public static Module getForgeModule(ForgePreferences forgePreferences, Module... overrides) {
-		Module forgeModule = new ForgeModule(forgePreferences);
+		Module forgeModule = forgePreferences == defaultPreferences
+				? defaultForgeModule
+				: new ForgeModule(forgePreferences);
 		if(overrides.length > 0)
 			forgeModule = Modules.override(forgeModule).with(overrides);
 		return forgeModule;
-	}
-
-	private final Injector forgeInjector;
-
-	public ForgeService(ForgePreferences forgePreferences, Module... overrides) {
-		this.forgeInjector = Guice.createInjector(getForgeModule(forgePreferences, overrides));
-	}
-
-	public Injector getForgeInjector() {
-		return forgeInjector;
 	}
 }

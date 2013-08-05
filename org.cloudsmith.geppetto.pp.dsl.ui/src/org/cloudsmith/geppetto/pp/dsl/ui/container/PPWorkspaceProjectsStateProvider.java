@@ -24,11 +24,11 @@ import com.google.inject.Provider;
 public class PPWorkspaceProjectsStateProvider implements Provider<IAllContainersState> {
 
 	@Inject
-	Injector injector;
+	private Provider<PPWorkspaceProjectsState> stateProvider;
 
 	@Override
 	public IAllContainersState get() {
-		return injector.getInstance(PPWorkspaceProjectsState.class);
+		return stateProvider.get();
 	}
 
 }

@@ -13,5 +13,4 @@ public class EclipseCommonModule extends AbstractModule {
 		bind(BundleAccess.class).to(EclipseBundleAccess.class).in(Scopes.SINGLETON);
 		bind(HttpClient.class).toProvider(EclipseHttpClientProvider.class);
 	}
-
 }

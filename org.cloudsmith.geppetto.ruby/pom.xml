@@ -26,7 +26,7 @@
 		</dependency>
 		<dependency>
 			<groupId>org.cloudsmith.geppetto</groupId>
-			<artifactId>org.cloudsmith.geppetto.eclipse.core</artifactId>
+			<artifactId>org.cloudsmith.geppetto.injectable.standalone</artifactId>
 			<version>3.2.1-SNAPSHOT</version>
 		</dependency>
 		<dependency>

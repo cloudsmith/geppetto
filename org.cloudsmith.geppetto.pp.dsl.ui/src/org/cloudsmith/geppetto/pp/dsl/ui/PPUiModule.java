@@ -11,7 +11,9 @@
  */
 package org.cloudsmith.geppetto.pp.dsl.ui;
 
+import org.cloudsmith.geppetto.common.tracer.AbstractTracer.DefaultStringProvider;
 import org.cloudsmith.geppetto.common.tracer.DefaultTracer;
+import org.cloudsmith.geppetto.common.tracer.IStringProvider;
 import org.cloudsmith.geppetto.common.tracer.ITracer;
 import org.cloudsmith.geppetto.pp.dsl.formatting.IBreakAndAlignAdvice;
 import org.cloudsmith.geppetto.pp.dsl.formatting.PPCommentConfiguration;
@@ -278,6 +280,7 @@ public class PPUiModule extends org.cloudsmith.geppetto.pp.dsl.ui.AbstractPPUiMo
 	}
 
 	public void configureDebugTracing(com.google.inject.Binder binder) {
+		binder.bind(IStringProvider.class).to(DefaultStringProvider.class);
 		binder.bind(ITracer.class).annotatedWith(Names.named(PPUiConstants.DEBUG_OPTION_MODULEFILE)).toInstance(
 			new DefaultTracer(PPUiConstants.DEBUG_OPTION_MODULEFILE));
 		binder.bind(ITracer.class).annotatedWith(Names.named(PPUiConstants.DEBUG_OPTION_PARSER)).toInstance(

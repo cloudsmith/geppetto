@@ -43,14 +43,10 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.methods.HttpPut;
 import org.apache.http.client.methods.HttpRequestBase;
 import org.apache.http.client.utils.URLEncodedUtils;
-import org.apache.http.conn.scheme.Scheme;
-import org.apache.http.conn.ssl.SSLSocketFactory;
-import org.apache.http.conn.ssl.TrustSelfSignedStrategy;
 import org.apache.http.entity.ByteArrayEntity;
 import org.apache.http.entity.mime.MultipartEntity;
 import org.apache.http.entity.mime.content.InputStreamBody;
 import org.apache.http.entity.mime.content.StringBody;
-import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
 import org.cloudsmith.geppetto.forge.client.Authenticator.AuthResponse;
 import org.cloudsmith.geppetto.forge.model.Constants;
@@ -63,18 +59,6 @@ import com.google.inject.Inject;
  */
 public class ForgeHttpClient implements Constants, ForgeClient {
 	public static final Charset UTF_8 = Charset.forName("UTF-8");
-
-	public static HttpClient createHttpClient() {
-		HttpClient httpClient = new DefaultHttpClient();
-		try {
-			httpClient.getConnectionManager().getSchemeRegistry().register(
-				new Scheme("https", 443, new SSLSocketFactory(new TrustSelfSignedStrategy())));
-		}
-		catch(Exception e) {
-			// let's try without that ...
-		}
-		return httpClient;
-	}
 
 	static InputStream getStream(HttpEntity entity) throws IOException {
 		if(entity == null)
@@ -102,14 +86,15 @@ public class ForgeHttpClient implements Constants, ForgeClient {
 	private HttpRequestBase currentRequest;
 
 	@Inject
-	public ForgeHttpClient(Gson gson, ForgeAPIPreferences preferences, Authenticator authenticator) {
+	public ForgeHttpClient(Gson gson, ForgeAPIPreferences preferences, HttpClient httpClient,
+			Authenticator authenticator) {
 		this.v1URL = preferences.getURL_v1();
 		this.v2URL = preferences.getURL_v2();
 		this.gson = gson;
 		this.authenticator = authenticator;
 		this.preferences = preferences;
 		userAgent = USER_AGENT;
-		httpClient = createHttpClient();
+		this.httpClient = httpClient;
 	}
 
 	public synchronized void abortCurrentRequest() {
@@ -129,7 +114,8 @@ public class ForgeHttpClient implements Constants, ForgeClient {
 
 	public void authenticate() throws IOException {
 		if(credentials == null) {
-			AuthResponse auth = authenticator.authenticate(preferences.getLogin(), preferences.getPassword());
+			AuthResponse auth = authenticator.authenticate(
+				httpClient, preferences.getLogin(), preferences.getPassword());
 			String oauthToken = auth.getToken();
 			preferences.setOAuthAccessToken(oauthToken);
 			preferences.setOAuthScopes(auth.getScopes());

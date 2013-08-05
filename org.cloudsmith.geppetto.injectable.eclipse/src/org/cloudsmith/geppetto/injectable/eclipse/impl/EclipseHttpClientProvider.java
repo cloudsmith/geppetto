@@ -1,0 +1,59 @@
+package org.cloudsmith.geppetto.injectable.eclipse.impl;
+
+import javax.inject.Named;
+
+import org.apache.http.auth.AuthScope;
+import org.apache.http.auth.UsernamePasswordCredentials;
+import org.apache.http.client.HttpClient;
+import org.apache.http.conn.scheme.Scheme;
+import org.apache.http.conn.scheme.SchemeRegistry;
+import org.apache.http.conn.ssl.SSLSocketFactory;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.params.BasicHttpParams;
+import org.apache.http.params.CoreConnectionPNames;
+import org.apache.http.params.HttpConnectionParams;
+import org.apache.http.params.HttpParams;
+import org.cloudsmith.geppetto.injectable.eclipse.Activator;
+import org.eclipse.core.net.proxy.IProxyData;
+
+import com.google.inject.Inject;
+import com.google.inject.Provider;
+
+public class EclipseHttpClientProvider implements Provider<HttpClient> {
+
+	@Inject(optional = true)
+	@Named(CoreConnectionPNames.CONNECTION_TIMEOUT)
+	private Integer connectonTimeout;
+
+	@Inject(optional = true)
+	@Named(CoreConnectionPNames.SO_TIMEOUT)
+	private Integer soTimeout;
+
+	@Inject(optional = true)
+	private SSLSocketFactory sslSocketFactory;
+
+	@Override
+	public HttpClient get() {
+		HttpParams params = new BasicHttpParams();
+		if(connectonTimeout != null)
+			HttpConnectionParams.setConnectionTimeout(params, connectonTimeout.intValue());
+		if(soTimeout != null)
+			HttpConnectionParams.setSoTimeout(params, soTimeout.intValue());
+
+		DefaultHttpClient httpClient = new DefaultHttpClient(params);
+
+		final SchemeRegistry schemeRegistry = httpClient.getConnectionManager().getSchemeRegistry();
+		if(sslSocketFactory != null)
+			schemeRegistry.register(new Scheme("https", 443, sslSocketFactory));
+
+		httpClient.setRoutePlanner(new ProxiedRoutePlanner(schemeRegistry));
+		for(IProxyData proxyData : Activator.getInstance().getProxyService().getProxyData()) {
+			String user = proxyData.getUserId();
+			String pwd = proxyData.getPassword();
+			if(user != null || pwd != null)
+				httpClient.getCredentialsProvider().setCredentials(
+					new AuthScope(proxyData.getHost(), proxyData.getPort()), new UsernamePasswordCredentials(user, pwd));
+		}
+		return httpClient;
+	}
+}

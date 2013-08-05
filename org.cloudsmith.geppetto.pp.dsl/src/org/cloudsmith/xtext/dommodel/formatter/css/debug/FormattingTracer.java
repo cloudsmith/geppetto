@@ -15,7 +15,7 @@ import java.util.Map;
 
 import org.cloudsmith.geppetto.common.tracer.IStringProvider;
 import org.cloudsmith.geppetto.common.tracer.ITracer;
-import org.cloudsmith.geppetto.common.util.EclipseUtils;
+import org.cloudsmith.geppetto.common.util.BundleAccess;
 import org.cloudsmith.xtext.dommodel.IDomNode;
 import org.cloudsmith.xtext.dommodel.formatter.css.StyleSet;
 
@@ -38,9 +38,7 @@ public class FormattingTracer implements ITracer {
 	/**
 	 * Access to runtime configurable debug trace.
 	 */
-	@Inject
-	@Named(DEBUG_FORMATTER)
-	private ITracer tracer;
+	private final ITracer tracer;
 
 	/**
 	 * TODO: This is obviously not generic - should reflect the name of the plugin
@@ -54,28 +52,14 @@ public class FormattingTracer implements ITracer {
 	 */
 	public static final String DEBUG_FORMATTER = PLUGIN_NAME + "/debug/formatter";
 
-	/**
-	 * Safe way of getting the debug option
-	 * 
-	 * @param option
-	 * @return
-	 */
-	private static boolean getDebugOption(String option) {
-		String value = EclipseUtils.getDebugOption(option);
-		return (value != null && "true".equals(value))
-				? true
-				: false;
-	}
-
-	private boolean tracing;
+	private final boolean tracing;
 
 	private final Map<IDomNode, StyleSet> effectiveStyleMap;
 
-	public FormattingTracer() {
-		tracing = false;
-		if(EclipseUtils.inDebugMode())
-			tracing = getDebugOption(DEBUG_FORMATTER);
-
+	@Inject
+	public FormattingTracer(BundleAccess bundleAccess, @Named(DEBUG_FORMATTER) ITracer tracer) {
+		this.tracer = tracer;
+		tracing = bundleAccess.inDebugMode() && Boolean.parseBoolean(bundleAccess.getDebugOption(DEBUG_FORMATTER));
 		effectiveStyleMap = new MapMaker().weakKeys().makeMap();
 	}
 

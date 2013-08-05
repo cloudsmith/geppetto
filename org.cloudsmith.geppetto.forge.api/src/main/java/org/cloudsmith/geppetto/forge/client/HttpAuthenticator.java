@@ -51,7 +51,7 @@ public class HttpAuthenticator implements Authenticator {
 	}
 
 	@Override
-	public AuthResponse authenticate(String user, String password) throws IOException {
+	public AuthResponse authenticate(HttpClient httpClient, String user, String password) throws IOException {
 		String oauthURL = forgePreferences.getOAuthURL();
 		if(oauthURL == null)
 			throw new IOException("Unable to authenticate. Preferences is missing OAuth URL");
@@ -65,7 +65,6 @@ public class HttpAuthenticator implements Authenticator {
 		entity.addPart("password", new StringBody(password));
 		request.setEntity(entity);
 
-		HttpClient httpClient = ForgeHttpClient.createHttpClient();
 		return httpClient.execute(request, new JSonResponseHandler<OAuthResponse>(gson, OAuthResponse.class));
 	}
 }

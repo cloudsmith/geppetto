@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: com.cloudsmith.hammer.puppet.validation.tests
 Bundle-SymbolicName: org.cloudsmith.geppetto.graph.tests
-Bundle-Version: 3.2.0.qualifier
+Bundle-Version: 3.2.1.qualifier
 Bundle-Vendor: Cloudsmith Inc.
 Require-Bundle: org.eclipse.core.runtime,
  org.cloudsmith.geppetto.graph,
@@ -22,7 +22,8 @@ Require-Bundle: org.eclipse.core.runtime,
  org.junit;bundle-version="4.8.2"
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-ActivationPolicy: lazy
-Import-Package: org.eclipse.emf.common.util
+Import-Package: org.cloudsmith.geppetto.injectable,
+ org.eclipse.emf.common.util
 Bundle-ClassPath: .,
  utils
 Export-Package: org.cloudsmith.geppetto.graph.tests

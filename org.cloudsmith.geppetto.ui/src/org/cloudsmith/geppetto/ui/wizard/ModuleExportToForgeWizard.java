@@ -11,6 +11,8 @@
  */
 package org.cloudsmith.geppetto.ui.wizard;
 
+import static org.cloudsmith.geppetto.injectable.CommonModuleProvider.getCommonModule;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
@@ -52,6 +54,7 @@ import org.eclipse.swt.widgets.Widget;
 import org.eclipse.ui.dialogs.WizardExportResourcesPage;
 import org.eclipse.ui.internal.wizards.datatransfer.DataTransferMessages;
 
+import com.google.inject.Guice;
 import com.google.inject.Inject;
 import com.google.inject.Injector;
 
@@ -189,8 +192,7 @@ public class ModuleExportToForgeWizard extends ModuleExportToFileWizard {
 			forgePrefs.setOAuthClientId(FORGE_CLIENT_ID);
 			forgePrefs.setOAuthClientSecret(FORGE_CLIENT_SECRET);
 			forgePrefs.setOAuthAccessToken(null);
-			ForgeService forgeService = new ForgeService(forgePrefs);
-			Injector injector = forgeService.getForgeInjector();
+			Injector injector = Guice.createInjector(getCommonModule(), ForgeService.getDefaultModule());
 			Forge forge = injector.getInstance(Forge.class);
 			try {
 				@SuppressWarnings("unchecked")

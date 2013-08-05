@@ -11,10 +11,14 @@
  */
 package org.cloudsmith.geppetto.pp.dsl.tests;
 
+import static com.google.inject.util.Modules.override;
+import static org.cloudsmith.geppetto.injectable.CommonModuleProvider.getCommonModule;
+
 import org.cloudsmith.geppetto.pp.AssignmentExpression;
 import org.cloudsmith.geppetto.pp.LiteralList;
 import org.cloudsmith.geppetto.pp.PPFactory;
 import org.cloudsmith.geppetto.pp.PuppetManifest;
+import org.cloudsmith.geppetto.pp.dsl.PPRuntimeModule;
 import org.cloudsmith.xtext.dommodel.DomModelUtils;
 import org.cloudsmith.xtext.dommodel.IDomNode;
 import org.cloudsmith.xtext.dommodel.formatter.IDomModelFormatter;
@@ -33,7 +37,6 @@ import org.junit.Test;
 import com.google.inject.Binder;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
-import com.google.inject.util.Modules;
 
 /**
  * Tests the OneSpace Semantic Formatter.
@@ -77,8 +80,7 @@ public class TestSemanticOneSpaceFormatter extends AbstractPuppetTests {
 
 		@Override
 		public Injector createInjector() {
-			return Guice.createInjector(Modules.override(new org.cloudsmith.geppetto.pp.dsl.PPRuntimeModule()).with(
-				new TestModule()));
+			return Guice.createInjector(override(getCommonModule(), new PPRuntimeModule()).with(new TestModule()));
 		}
 	}
 

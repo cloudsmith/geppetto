@@ -11,6 +11,10 @@
  */
 package org.cloudsmith.geppetto.pp.dsl.tests;
 
+import static com.google.inject.util.Modules.override;
+import static org.cloudsmith.geppetto.injectable.CommonModuleProvider.getCommonModule;
+
+import org.cloudsmith.geppetto.pp.dsl.PPRuntimeModule;
 import org.cloudsmith.geppetto.pp.dsl.PPStandaloneSetup;
 import org.cloudsmith.geppetto.pp.dsl.target.PuppetTarget;
 import org.eclipse.xtext.resource.SynchronizedXtextResourceSet;
@@ -20,7 +24,6 @@ import org.eclipse.xtext.service.AbstractGenericModule;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 import com.google.inject.Provider;
-import com.google.inject.util.Modules;
 
 /**
  * Adds handling of PPTP.
@@ -47,7 +50,6 @@ public class PPTestSetup extends PPStandaloneSetup {
 
 	@Override
 	public Injector createInjector() {
-		return Guice.createInjector(Modules.override(new org.cloudsmith.geppetto.pp.dsl.PPRuntimeModule()).with(
-			new PPTestModule()));
+		return Guice.createInjector(override(getCommonModule(), new PPRuntimeModule()).with(new PPTestModule()));
 	}
 }

@@ -20,6 +20,9 @@ import org.cloudsmith.geppetto.diagnostic.Diagnostic;
 import org.cloudsmith.geppetto.forge.util.ModuleUtils;
 import org.cloudsmith.geppetto.forge.v2.model.Metadata;
 
+import com.google.inject.Singleton;
+
+@Singleton
 public class ModulefileExtractor extends AbstractMetadataExtractor {
 	public int getCardinal() {
 		return 10;

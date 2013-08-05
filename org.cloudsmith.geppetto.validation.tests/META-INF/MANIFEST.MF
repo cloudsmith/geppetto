@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: %pluginName
 Bundle-SymbolicName: org.cloudsmith.geppetto.validation.tests;singleton:=true
-Bundle-Version: 3.2.0.qualifier
+Bundle-Version: 3.2.1.qualifier
 Bundle-Vendor: %providerName
 Bundle-Localization: plugin
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
@@ -23,4 +23,5 @@ Require-Bundle: org.eclipse.xtext,
  com.google.gson,
  org.junit
 Export-Package: org.cloudsmith.geppetto.validation.tests
-Import-Package: org.eclipse.core.runtime
+Import-Package: org.cloudsmith.geppetto.injectable,
+ org.eclipse.core.runtime

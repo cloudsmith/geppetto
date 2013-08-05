@@ -23,6 +23,9 @@ import org.cloudsmith.geppetto.diagnostic.Diagnostic;
 import org.cloudsmith.geppetto.forge.util.StrictMetadataJsonParser;
 import org.cloudsmith.geppetto.forge.v2.model.Metadata;
 
+import com.google.inject.Singleton;
+
+@Singleton
 public class MetadataJSONExtractor extends AbstractMetadataExtractor {
 	public int getCardinal() {
 		return 20;

@@ -13,17 +13,14 @@ package org.cloudsmith.geppetto.pp.dsl.validation;
 
 import org.cloudsmith.geppetto.common.tracer.IStringProvider;
 
+import com.google.inject.Singleton;
+
 /**
  * A very simple translator of Expression type to a label.
  * 
  */
+@Singleton
 public class PPExpressionTypeNameProvider implements IStringProvider {
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.cloudsmith.geppetto.common.tracer.IStringProvider#doToString(java.lang.Object)
-	 */
 	@Override
 	public String doToString(Object o) {
 		// *very* simple implementation

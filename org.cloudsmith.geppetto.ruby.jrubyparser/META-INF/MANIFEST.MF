@@ -4,7 +4,7 @@ Bundle-Name: %pluginName
 Bundle-Vendor: %providerName
 Bundle-Localization: plugin
 Bundle-SymbolicName: org.cloudsmith.geppetto.ruby.jrubyparser;singleton:=true
-Bundle-Version: 3.2.0.qualifier
+Bundle-Version: 3.2.1.qualifier
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Export-Package: org.cloudsmith.geppetto.ruby.jrubyparser;
  x-friends:="org.cloudsmith.geppetto.ruby.tests"

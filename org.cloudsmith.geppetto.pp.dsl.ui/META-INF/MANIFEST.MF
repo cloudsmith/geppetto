@@ -3,7 +3,7 @@ Bundle-ManifestVersion: 2
 Bundle-Name: %pluginName
 Bundle-Vendor: %providerName
 Bundle-Localization: plugin
-Bundle-Version: 3.2.0.qualifier
+Bundle-Version: 3.2.1.qualifier
 Bundle-SymbolicName: org.cloudsmith.geppetto.pp.dsl.ui;singleton:=true
 Bundle-ActivationPolicy: lazy
 Import-Package: com.google.common.base;version="[10.0.0,11.0.0)",

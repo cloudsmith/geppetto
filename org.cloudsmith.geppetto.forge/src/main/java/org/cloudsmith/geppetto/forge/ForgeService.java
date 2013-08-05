@@ -13,48 +13,35 @@ package org.cloudsmith.geppetto.forge;
 import org.cloudsmith.geppetto.forge.impl.ForgeModule;
 import org.cloudsmith.geppetto.forge.impl.ForgePreferencesBean;
 
-import com.google.inject.Guice;
-import com.google.inject.Injector;
 import com.google.inject.Module;
 import com.google.inject.util.Modules;
 
 public class ForgeService {
-	private static ForgeService defaultInstance;
+	private static final ForgePreferences defaultPreferences;
 
-	public static synchronized ForgeService getDefault() {
-		if(defaultInstance == null)
-			defaultInstance = new ForgeService();
-		return defaultInstance;
+	private static final Module defaultForgeModule;
+
+	static {
+		ForgePreferencesBean fp = new ForgePreferencesBean();
+		fp.setBaseURL("http://forgeapi.puppetlabs.com");
+		defaultPreferences = fp;
+		defaultForgeModule = new ForgeModule(fp);
 	}
 
-	private final Module forgeModule;
-
-	private final Injector forgeInjector;
-
-	private ForgeService() {
-		// TODO: Provide this from command line or prefs store
-		ForgePreferencesBean forgePreferences = new ForgePreferencesBean();
-		forgePreferences.setBaseURL("http://forgeapi.puppetlabs.com");
-		forgeModule = new ForgeModule(forgePreferences);
-		this.forgeInjector = Guice.createInjector(forgeModule);
+	public static Module getDefaultModule() {
+		return defaultForgeModule;
 	}
 
-	public ForgeService(ForgePreferences forgePreferences) {
-		this(new ForgeModule(forgePreferences));
+	public static ForgePreferences getDefaultPreferences() {
+		return defaultPreferences;
 	}
 
-	public ForgeService(Module... forgeModules) {
-		this.forgeModule = forgeModules.length == 1
-				? forgeModules[0]
-				: Modules.combine(forgeModules);
-		this.forgeInjector = Guice.createInjector(forgeModule);
-	}
-
-	public Injector getForgeInjector() {
-		return forgeInjector;
-	}
-
-	public Module getForgeModule() {
+	public static Module getForgeModule(ForgePreferences forgePreferences, Module... overrides) {
+		Module forgeModule = forgePreferences == defaultPreferences
+				? defaultForgeModule
+				: new ForgeModule(forgePreferences);
+		if(overrides.length > 0)
+			forgeModule = Modules.override(forgeModule).with(overrides);
 		return forgeModule;
 	}
 }

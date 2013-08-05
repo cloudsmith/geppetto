@@ -37,6 +37,7 @@ public class ForgeModule extends ForgeHttpModule {
 	protected void configure() {
 		super.configure();
 		bind(Forge.class).to(ForgeImpl.class);
+
 		if(getPreferences().getBaseURL() != null)
 			bind(Cache.class).to(CacheImpl.class);
 

@@ -10,6 +10,8 @@
  */
 package org.cloudsmith.geppetto.ui.action;
 
+import static org.cloudsmith.geppetto.injectable.CommonModuleProvider.getCommonModule;
+
 import java.util.Collections;
 
 import org.cloudsmith.geppetto.forge.Forge;
@@ -30,6 +32,9 @@ import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.actions.ActionDelegate;
 import org.eclipse.ui.actions.WorkspaceModifyOperation;
 
+import com.google.inject.Guice;
+import com.google.inject.Module;
+
 public class ImportModulesFromForgeActionDelegate extends ActionDelegate implements IViewActionDelegate {
 
 	@Override
@@ -44,7 +49,8 @@ public class ImportModulesFromForgeActionDelegate extends ActionDelegate impleme
 			@Override
 			protected void execute(IProgressMonitor progressMonitor) {
 				try {
-					Forge forge = ForgeService.getDefault().getForgeInjector().getInstance(Forge.class);
+					Module forgeModule = ForgeService.getForgeModule(ForgeService.getDefaultPreferences());
+					Forge forge = Guice.createInjector(getCommonModule(), forgeModule).getInstance(Forge.class);
 
 					// Uh, this seems to import ALL MODULES from the Forge!!! Who calls this?
 					// THH 2013-03-07
@@ -86,5 +92,4 @@ public class ImportModulesFromForgeActionDelegate extends ActionDelegate impleme
 			UIPlugin.INSTANCE.log(exception);
 		}
 	}
-
 }

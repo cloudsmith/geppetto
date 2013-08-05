@@ -17,7 +17,7 @@ import java.net.JarURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
 
-import org.cloudsmith.geppetto.common.util.EclipseUtils;
+import org.cloudsmith.geppetto.common.util.BundleAccess;
 import org.cloudsmith.geppetto.pp.dsl.target.PptpResourceUtil;
 import org.cloudsmith.geppetto.pp.dsl.target.PuppetTarget;
 import org.eclipse.emf.common.util.URI;
@@ -47,7 +47,7 @@ public class TestPptpResourceAsFile extends AbstractPuppetTests {
 			if("jar".equals(uri.scheme()))
 				readXMLFromJarURL(url);
 			else
-				assertNotNull("Facter pptp file is null", EclipseUtils.getResourceAsFile(url));
+				assertNotNull("Facter pptp file is null", get(BundleAccess.class).getResourceAsFile(url));
 
 			uri = PuppetTarget.PUPPET27.getPlatformURI();
 			assertNotNull("Puppet pptp URI is null", uri);
@@ -55,7 +55,7 @@ public class TestPptpResourceAsFile extends AbstractPuppetTests {
 			if("jar".equals(uri.scheme()))
 				readXMLFromJarURL(url);
 			else
-				assertNotNull("Puppet pptp file is null", EclipseUtils.getResourceAsFile(url));
+				assertNotNull("Puppet pptp file is null", get(BundleAccess.class).getResourceAsFile(url));
 		}
 		catch(IOException e) {
 			fail("Unable to obtain File that appoints facter pptp: " + e);

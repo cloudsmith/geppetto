@@ -15,8 +15,11 @@ import static org.junit.Assert.fail;
 import java.io.File;
 import java.io.IOException;
 
-import org.cloudsmith.geppetto.common.util.EclipseUtils;
+import org.cloudsmith.geppetto.common.util.BundleAccess;
+import org.cloudsmith.geppetto.injectable.CommonModuleProvider;
 import org.eclipse.core.runtime.IPath;
+
+import com.google.inject.Guice;
 
 public class TestDataProvider {
 
@@ -33,7 +36,8 @@ public class TestDataProvider {
 			String basedirProp = System.getProperty("basedir");
 			if(basedirProp == null) {
 				try {
-					File testData = EclipseUtils.getFileFromClassBundle(TestDataProvider.class, "testData");
+					File testData = Guice.createInjector(CommonModuleProvider.getCommonModule()).getInstance(
+						BundleAccess.class).getFileFromClassBundle(TestDataProvider.class, "testData");
 					if(testData == null || !testData.isDirectory())
 						fail("Unable to determine basedir");
 					basedir = testData.getParentFile();

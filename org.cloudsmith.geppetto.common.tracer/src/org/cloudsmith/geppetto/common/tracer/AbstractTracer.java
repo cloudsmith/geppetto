@@ -10,90 +10,61 @@
  */
 package org.cloudsmith.geppetto.common.tracer;
 
-import org.cloudsmith.geppetto.common.util.EclipseUtils;
+import org.cloudsmith.geppetto.common.util.BundleAccess;
 
 import com.google.inject.Inject;
+import com.google.inject.Singleton;
 
 /**
  * Provides the base functionality for a tracer - configuring it based on the option.
  * A derived class typically only implements the trace method.
- * 
  */
 public abstract class AbstractTracer implements ITracer {
 
+	@Singleton
 	public static class DefaultStringProvider implements IStringProvider {
-
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see org.cloudsmith.geppetto.common.tracer.IStringProvider#doToString(java.lang.Object)
-		 */
 		@Override
 		public String doToString(Object o) {
 			return String.valueOf(o);
 		}
 	}
 
-	/**
-	 * Safe way of getting the debug option
-	 * 
-	 * @param option
-	 * @return
-	 */
-	private static boolean getDebugOption(String option) {
-		String value = EclipseUtils.getDebugOption(option);
-		return (value != null && "true".equals(value))
-				? true
-				: false;
-	}
+	protected final String option;
 
-	protected boolean tracing;
-
-	protected String option;
-
-	@Inject
 	private IStringProvider stringProvider;
 
+	private boolean tracing;
+
 	protected AbstractTracer(String option) {
-		tracing = false;
 		this.option = option;
-		if(EclipseUtils.inDebugMode())
-			tracing = getDebugOption(option);
 	}
 
 	public String getOption() {
 		return option;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.cloudsmith.geppetto.common.tracer.ITracer#getStringProvider()
-	 */
 	@Override
 	public IStringProvider getStringProvider() {
 		return stringProvider;
 	}
 
-	/*
-	 * (non-Javadoc)
+	/**
+	 * Method used for injection. Should normally not be called explicitly
 	 * 
-	 * @see org.cloudsmith.geppetto.common.tracer.ITracer#isTracing()
+	 * @param provider
+	 * @param bundleAccess
 	 */
+	@Inject
+	public void inject(IStringProvider provider, BundleAccess bundleAccess) {
+		stringProvider = provider;
+		tracing = bundleAccess.inDebugMode() && Boolean.parseBoolean(bundleAccess.getDebugOption(option));
+	}
+
 	@Override
 	public boolean isTracing() {
 		return tracing;
 	}
 
-	public void setStringProvider(IStringProvider provider) {
-		stringProvider = provider;
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.cloudsmith.geppetto.common.tracer.ITracer#trace(java.lang.String, java.lang.Object[])
-	 */
 	@Override
 	public abstract void trace(String message, Object... objects);
 

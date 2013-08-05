@@ -17,7 +17,7 @@ import java.io.InputStream;
 import java.net.URL;
 
 import org.apache.log4j.Logger;
-import org.cloudsmith.geppetto.common.util.EclipseUtils;
+import org.cloudsmith.geppetto.common.util.BundleAccess;
 import org.cloudsmith.geppetto.pp.dsl.target.PptpResourceUtil;
 import org.cloudsmith.geppetto.pp.dsl.target.PuppetTarget;
 import org.cloudsmith.geppetto.pp.dsl.ui.PPUiConstants;
@@ -54,6 +54,9 @@ public class PptpTargetProjectHandler {
 
 	@Inject
 	IPreferenceStoreAccess storeAccess;
+
+	@Inject
+	BundleAccess bundleAccess;
 
 	private final static Logger log = Logger.getLogger(PptpTargetProjectHandler.class);
 
@@ -196,7 +199,7 @@ public class PptpTargetProjectHandler {
 		//
 		try {
 			targetProject.refreshLocal(IFile.DEPTH_INFINITE, monitor);
-			File pptpFile = EclipseUtils.getResourceAsFile(new URL(uri.toString()));
+			File pptpFile = bundleAccess.getResourceAsFile(new URL(uri.toString()));
 			IFile targetFile = targetProject.getFile(pptpFile.getName());
 			if(targetFile.exists()) {
 				if(pptpFile.lastModified() > targetFile.getLocalTimeStamp()) {

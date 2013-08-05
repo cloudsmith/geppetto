@@ -10,6 +10,8 @@
  */
 package org.cloudsmith.geppetto.forge.maven.plugin;
 
+import static org.cloudsmith.geppetto.injectable.CommonModuleProvider.getCommonModule;
+
 import java.util.Properties;
 
 import org.cloudsmith.geppetto.forge.client.ForgeAPIPreferencesBean;
@@ -39,7 +41,7 @@ public class SetupTestMojo extends AbstractForgeTestMojo {
 		ForgeAPIPreferencesBean forgePrefs = createBasicForgePrefs();
 		forgePrefs.setLogin(System.getProperty("forge.login"));
 		forgePrefs.setPassword(System.getProperty("forge.password"));
-		ForgeAPI forge = new ForgeAPI(Guice.createInjector(new ForgeHttpModule(forgePrefs)));
+		ForgeAPI forge = new ForgeAPI(Guice.createInjector(getCommonModule(), new ForgeHttpModule(forgePrefs)));
 
 		// Create the modules used in publishing tests
 		ModuleService moduleService = forge.createModuleService();
@@ -60,7 +62,7 @@ public class SetupTestMojo extends AbstractForgeTestMojo {
 		forgePrefs = createBasicForgePrefs();
 		forgePrefs.setLogin(System.getProperty("forge.login.second"));
 		forgePrefs.setPassword(System.getProperty("forge.password.second"));
-		ForgeAPI secondForge = new ForgeAPI(Guice.createInjector(new ForgeHttpModule(forgePrefs)));
+		ForgeAPI secondForge = new ForgeAPI(Guice.createInjector(getCommonModule(), new ForgeHttpModule(forgePrefs)));
 		moduleService = secondForge.createModuleService();
 
 		// Create the module used for the wrong owner publishing test

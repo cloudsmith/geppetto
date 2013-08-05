@@ -20,13 +20,10 @@ import java.io.OutputStream;
 import java.lang.reflect.Array;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.net.URL;
 import java.util.Calendar;
 import java.util.regex.Pattern;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
-
-import org.cloudsmith.geppetto.common.util.EclipseUtils;
 
 public class FileUtils {
 	public static final Pattern DEFAULT_EXCLUDES = Pattern.compile("^[\\.~#].*$");
@@ -183,25 +180,6 @@ public class FileUtils {
 
 		for(File child : children)
 			cpR(child, destDir, fileFilter, true, includeEmptyFolders);
-	}
-
-	/**
-	 * Returns the File for a class relative resource path
-	 * 
-	 * @param clazz
-	 *            The class used when obtaining the resource
-	 * @param resourcePath
-	 *            The path to the resource
-	 * @return The file that corresponds to the resource or <code>null</code> if the resource was not found or cannot be reached as a file.
-	 * @throws IOException
-	 * @see {@link Class#getResource(String)}
-	 * @see {@link EclipseUtils#getResourceAsFile(URL)}
-	 */
-	public static File getFileFromClassResource(Class<?> clazz, String resourcePath) throws IOException {
-		URL url = clazz.getResource(resourcePath);
-		if(url != null)
-			return EclipseUtils.getResourceAsFile(url);
-		return null;
 	}
 
 	/**

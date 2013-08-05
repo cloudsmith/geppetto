@@ -10,6 +10,8 @@
  */
 package org.cloudsmith.geppetto.forge.maven.plugin;
 
+import static org.cloudsmith.geppetto.injectable.CommonModuleProvider.getCommonModule;
+
 import java.io.File;
 import java.io.FileFilter;
 import java.io.FileNotFoundException;
@@ -116,9 +118,8 @@ public abstract class AbstractForgeMojo extends AbstractMojo {
 			addForgePreferences(forgePreferences, diagnostic);
 			if(diagnostic.getSeverity() <= Diagnostic.WARNING) {
 
-				forgeInjector = Guice.createInjector(
-					new ForgeMavenModule(forgePreferences, getFileFilter(), session.getCurrentProject()),
-					new ValidationModule());
+				forgeInjector = Guice.createInjector(getCommonModule(), new ForgeMavenModule(
+					forgePreferences, getFileFilter(), session.getCurrentProject()), new ValidationModule());
 
 				invoke(diagnostic);
 			}

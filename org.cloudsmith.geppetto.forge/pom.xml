@@ -44,6 +44,11 @@
 			<version>3.2.1-SNAPSHOT</version>
 		</dependency>
 		<dependency>
+			<groupId>org.cloudsmith.geppetto</groupId>
+			<artifactId>org.cloudsmith.geppetto.injectable.standalone</artifactId>
+			<version>3.2.1-SNAPSHOT</version>
+		</dependency>
+		<dependency>
 			<groupId>org.eclipse.emf</groupId>
 			<artifactId>org.eclipse.emf.ecore</artifactId>
 		</dependency>

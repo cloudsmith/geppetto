@@ -14,6 +14,7 @@ package org.cloudsmith.geppetto.pp.dsl.ui.preferences;
 import java.util.List;
 import java.util.concurrent.LinkedBlockingQueue;
 
+import org.cloudsmith.geppetto.forge.v2.model.ModuleName;
 import org.cloudsmith.geppetto.pp.dsl.ui.builder.PPBuildJob;
 import org.cloudsmith.geppetto.pp.dsl.ui.pptp.PptpTargetProjectHandler;
 import org.cloudsmith.geppetto.pp.dsl.validation.IValidationAdvisor;
@@ -323,7 +324,7 @@ public class PPPreferencesHelper implements IPreferenceStoreInitializer, IProper
 		store.setDefault(PPPreferenceConstants.PUPPET_PROJECT_PATH, defaultProjectPath);
 		store.setDefault(PPPreferenceConstants.PUPPET_ENVIRONMENT, defaultPuppetEnvironment);
 		store.setDefault(PPPreferenceConstants.FORGE_LOCATION, defaultForgeURI);
-		store.setDefault(PPPreferenceConstants.FORGE_LOGIN, System.getProperty("user.name"));
+		store.setDefault(PPPreferenceConstants.FORGE_LOGIN, ModuleName.safeOwner(System.getProperty("user.name")));
 
 		store.setDefault(PPPreferenceConstants.PROBLEM_INTERPOLATED_HYPHEN, ValidationPreference.WARNING.toString());
 		store.setDefault(PPPreferenceConstants.PROBLEM_CIRCULAR_DEPENDENCY, ValidationPreference.WARNING.toString());

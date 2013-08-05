@@ -25,6 +25,7 @@ import org.cloudsmith.geppetto.forge.v2.model.Metadata;
 import org.cloudsmith.geppetto.forge.v2.model.ModuleName;
 import org.cloudsmith.geppetto.pp.dsl.ui.builder.PPBuildJob;
 import org.cloudsmith.geppetto.pp.dsl.ui.pptp.PptpTargetProjectHandler;
+import org.cloudsmith.geppetto.pp.dsl.ui.preferences.PPPreferencesHelper;
 import org.cloudsmith.geppetto.semver.Version;
 import org.cloudsmith.geppetto.ui.UIPlugin;
 import org.cloudsmith.geppetto.ui.util.ResourceUtil;
@@ -93,6 +94,9 @@ public class NewPuppetModuleProjectWizard extends Wizard implements INewWizard {
 	@Inject
 	private PptpTargetProjectHandler pptpHandler;
 
+	@Inject
+	private PPPreferencesHelper preferenceHelper;
+
 	protected IPath projectLocation;
 
 	protected IPath projectContainer;
@@ -113,6 +117,13 @@ public class NewPuppetModuleProjectWizard extends Wizard implements INewWizard {
 		return forge;
 	}
 
+	private String getModuleOwner() {
+		String moduleOwner = preferenceHelper.getForgeLogin();
+		if(moduleOwner == null)
+			moduleOwner = ModuleName.safeOwner(System.getProperty("user.name"));
+		return moduleOwner;
+	}
+
 	protected ModuleService getModuleServiceV1() {
 		return moduleServiceV1;
 	}
@@ -129,10 +140,6 @@ public class NewPuppetModuleProjectWizard extends Wizard implements INewWizard {
 		return "_UI_PuppetModuleProject_title";
 	}
 
-	private String getUserName() {
-		return System.getProperty("user.name").replace('.', '_').replace('-', '_').replace('/', '_').toLowerCase();
-	}
-
 	@Override
 	public void init(IWorkbench workbench, IStructuredSelection selection) {
 		setDefaultPageImageDescriptor(ExtendedImageRegistry.INSTANCE.getImageDescriptor(UIPlugin.INSTANCE.getImage("full/wizban/NewPuppetProject.png"))); //$NON-NLS-1$
@@ -142,7 +149,7 @@ public class NewPuppetModuleProjectWizard extends Wizard implements INewWizard {
 	protected void initializeProjectContents(IProgressMonitor monitor) throws Exception {
 		Forge forge = getForge();
 		Metadata metadata = new Metadata();
-		metadata.setName(new ModuleName(getUserName(), project.getName().toLowerCase(), true));
+		metadata.setName(new ModuleName(getModuleOwner(), project.getName().toLowerCase(), true));
 		metadata.setVersion(Version.create("0.1.0"));
 
 		if(ResourceUtil.getFile(project.getFullPath().append("manifests/init.pp")).exists()) { //$NON-NLS-1$

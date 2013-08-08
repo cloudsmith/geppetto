@@ -11,6 +11,7 @@
  */
 package org.cloudsmith.geppetto.ui.wizard;
 
+import static org.cloudsmith.geppetto.forge.ForgeService.getForgeModule;
 import static org.cloudsmith.geppetto.injectable.CommonModuleProvider.getCommonModule;
 
 import java.io.File;
@@ -20,8 +21,6 @@ import java.util.List;
 import org.cloudsmith.geppetto.common.Strings;
 import org.cloudsmith.geppetto.diagnostic.Diagnostic;
 import org.cloudsmith.geppetto.forge.Forge;
-import org.cloudsmith.geppetto.forge.ForgePreferences;
-import org.cloudsmith.geppetto.forge.ForgeService;
 import org.cloudsmith.geppetto.forge.impl.ForgePreferencesBean;
 import org.cloudsmith.geppetto.forge.util.Checksums;
 import org.cloudsmith.geppetto.forge.v2.model.Metadata;
@@ -68,6 +67,8 @@ public class ModuleExportToForgeWizard extends ModuleExportToFileWizard {
 
 		private boolean validationChange;
 
+		private Button dryRunButton;
+
 		public ModuleExportToForgeWizardPage(IStructuredSelection selection) {
 			this("moduleExportToForge", selection); //$NON-NLS-1$
 			setTitle(UIPlugin.INSTANCE.getString("_UI_ExportModulesToForge"));
@@ -110,15 +111,21 @@ public class ModuleExportToForgeWizard extends ModuleExportToFileWizard {
 			passwordField.setLayoutData(data);
 			passwordField.setFont(font);
 			passwordField.addListener(SWT.Modify, this);
-
-			saveInSecureStoreButton = new Button(destinationGroup, SWT.CHECK);
-			saveInSecureStoreButton.setText(plugin.getString("_UI_SaveInSecureStorage_label"));
-			saveInSecureStoreButton.addListener(SWT.Selection, this);
-			saveInSecureStoreButton.setFont(font);
 		}
 
 		@Override
-		protected void createOptionsGroup(Composite parent) {
+		protected void createOptionsGroupButtons(Group optionsGroup) {
+			UIPlugin plugin = UIPlugin.INSTANCE;
+			Font font = optionsGroup.getFont();
+			saveInSecureStoreButton = new Button(optionsGroup, SWT.CHECK);
+			saveInSecureStoreButton.setText(plugin.getString("_UI_SaveInSecureStorage_label"));
+			saveInSecureStoreButton.addListener(SWT.Selection, this);
+			saveInSecureStoreButton.setFont(font);
+
+			dryRunButton = new Button(optionsGroup, SWT.CHECK);
+			dryRunButton.setText(plugin.getString("_UI_DryRun_label"));
+			dryRunButton.setFont(font);
+			dryRunButton.setSelection(false);
 		}
 
 		@Override
@@ -130,13 +137,14 @@ public class ModuleExportToForgeWizard extends ModuleExportToFileWizard {
 				// User clicked on cancel when being asked to save dirty editors.
 				return false;
 
-			ForgePreferencesBean forgePrefs = new ForgePreferencesBean(forgePreferences);
+			ForgePreferencesBean forgePrefs = new ForgePreferencesBean();
+			forgePrefs.setBaseURL(preferenceHelper.getForgeURI());
 			forgePrefs.setLogin(loginField.getText());
 			forgePrefs.setPassword(passwordField.getText());
 			forgePrefs.setOAuthClientId(FORGE_CLIENT_ID);
 			forgePrefs.setOAuthClientSecret(FORGE_CLIENT_SECRET);
 			forgePrefs.setOAuthAccessToken(null);
-			Injector injector = Guice.createInjector(getCommonModule(), ForgeService.getDefaultModule());
+			Injector injector = Guice.createInjector(getForgeModule(forgePrefs, getCommonModule()));
 			Forge forge = injector.getInstance(Forge.class);
 			try {
 				@SuppressWarnings("unchecked")
@@ -146,7 +154,7 @@ public class ModuleExportToForgeWizard extends ModuleExportToFileWizard {
 				destinationDir.delete();
 				destinationDir.mkdir();
 				ModuleExportToForgeOperation exportOp = new ModuleExportToForgeOperation(
-					forge, getExportSpecs(whiteCheckedResources), destinationDir);
+					forge, getExportSpecs(whiteCheckedResources), destinationDir, dryRunButton.getSelection());
 				boolean result = executeExport(exportOp);
 				Diagnostic diag = exportOp.getDiagnostic();
 				if(diag.getSeverity() == Diagnostic.ERROR) {
@@ -297,9 +305,6 @@ public class ModuleExportToForgeWizard extends ModuleExportToFileWizard {
 
 	@Inject
 	private PPPreferencesHelper preferenceHelper;
-
-	@Inject
-	private ForgePreferences forgePreferences;
 
 	private static final String STORE_LOGIN = "ModuleExportToForgeWizardPage.STORE_LOGIN"; //$NON-NLS-1$
 

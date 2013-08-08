@@ -25,10 +25,13 @@ import org.eclipse.core.runtime.SubProgressMonitor;
 
 public class ModuleExportToForgeOperation extends ModuleExportOperation {
 
+	private final boolean dryRun;
+
 	private Diagnostic diagnostic;
 
-	public ModuleExportToForgeOperation(Forge forge, List<ExportSpec> exportSpecs, File destination) {
+	public ModuleExportToForgeOperation(Forge forge, List<ExportSpec> exportSpecs, File destination, boolean dryRun) {
 		super(forge, exportSpecs, destination, null);
+		this.dryRun = dryRun;
 	}
 
 	public Diagnostic getDiagnostic() {
@@ -65,7 +68,7 @@ public class ModuleExportToForgeOperation extends ModuleExportOperation {
 				boolean noPublishingMade = true;
 				for(File builtModule : tarballs) {
 					try {
-						getForge().publish(builtModule, false, result);
+						getForge().publish(builtModule, dryRun, result);
 						result.taskDone();
 						noPublishingMade = false;
 						continue;

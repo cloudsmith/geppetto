@@ -20,7 +20,6 @@ import java.util.Collections;
 import org.cloudsmith.geppetto.common.os.FileUtils;
 import org.cloudsmith.geppetto.forge.Forge;
 import org.cloudsmith.geppetto.forge.util.ModuleUtils;
-import org.cloudsmith.geppetto.forge.v1.service.ModuleService;
 import org.cloudsmith.geppetto.forge.v2.model.Metadata;
 import org.cloudsmith.geppetto.forge.v2.model.ModuleName;
 import org.cloudsmith.geppetto.pp.dsl.ui.builder.PPBuildJob;
@@ -88,14 +87,11 @@ public class NewPuppetModuleProjectWizard extends Wizard implements INewWizard {
 	@Inject
 	private Forge forge;
 
-	@Inject(optional = true)
-	private ModuleService moduleServiceV1;
-
 	@Inject
 	private PptpTargetProjectHandler pptpHandler;
 
 	@Inject
-	private PPPreferencesHelper preferenceHelper;
+	protected PPPreferencesHelper preferenceHelper;
 
 	protected IPath projectLocation;
 
@@ -122,10 +118,6 @@ public class NewPuppetModuleProjectWizard extends Wizard implements INewWizard {
 		if(moduleOwner == null)
 			moduleOwner = ModuleName.safeOwner(System.getProperty("user.name"));
 		return moduleOwner;
-	}
-
-	protected ModuleService getModuleServiceV1() {
-		return moduleServiceV1;
 	}
 
 	protected String getProjectCreationPageDescription() {

@@ -14,6 +14,8 @@ package org.cloudsmith.geppetto.ui.wizard;
 import static org.cloudsmith.geppetto.common.Strings.trimToNull;
 import static org.cloudsmith.geppetto.forge.Forge.METADATA_JSON_NAME;
 import static org.cloudsmith.geppetto.forge.Forge.MODULEFILE_NAME;
+import static org.cloudsmith.geppetto.forge.ForgeService.getForgeModule;
+import static org.cloudsmith.geppetto.injectable.CommonModuleProvider.getCommonModule;
 import static org.cloudsmith.geppetto.ui.UIPlugin.getLocalString;
 
 import java.io.File;
@@ -26,6 +28,7 @@ import java.util.regex.Pattern;
 
 import org.apache.log4j.Logger;
 import org.cloudsmith.geppetto.diagnostic.Diagnostic;
+import org.cloudsmith.geppetto.forge.impl.ForgePreferencesBean;
 import org.cloudsmith.geppetto.forge.util.ModuleUtils;
 import org.cloudsmith.geppetto.forge.v1.model.ModuleInfo;
 import org.cloudsmith.geppetto.forge.v1.service.ModuleService;
@@ -61,6 +64,9 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.dialogs.WizardNewProjectCreationPage;
+
+import com.google.inject.Guice;
+import com.google.inject.Injector;
 
 public class NewPuppetProjectFromForgeWizard extends NewPuppetModuleProjectWizard {
 
@@ -149,8 +155,13 @@ public class NewPuppetProjectFromForgeWizard extends NewPuppetModuleProjectWizar
 					public void run(IProgressMonitor monitor) throws InvocationTargetException, InterruptedException {
 						monitor.beginTask("Fetching latest releases from the Forge", 55);
 						try {
+							ForgePreferencesBean forgePrefs = new ForgePreferencesBean();
+							forgePrefs.setBaseURL(preferenceHelper.getForgeURI());
+							forgePrefs.setOAuthAccessToken(null);
+							Injector injector = Guice.createInjector(getForgeModule(forgePrefs, getCommonModule()));
+
 							final Exception[] te = new Exception[1];
-							final ModuleService moduleService = getModuleServiceV1();
+							final ModuleService moduleService = injector.getInstance(ModuleService.class);
 							Thread t = new Thread() {
 								@Override
 								public void run() {

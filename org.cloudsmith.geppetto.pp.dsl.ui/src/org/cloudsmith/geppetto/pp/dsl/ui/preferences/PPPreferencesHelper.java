@@ -119,7 +119,7 @@ public class PPPreferencesHelper implements IPreferenceStoreInitializer, IProper
 
 	private static final String defaultPuppetEnvironment = "production"; //$NON-NLS-1$
 
-	private static final String defaultForgeURI = "http://forge.puppetlabs.com"; //$NON-NLS-1$
+	private static final String defaultForgeURI = "http://forgeapi.puppetlabs.com"; //$NON-NLS-1$
 
 	@Inject
 	IWorkspace workspace;

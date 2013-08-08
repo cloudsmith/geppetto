@@ -60,13 +60,13 @@ import com.google.inject.Injector;
 
 public class ModuleExportToForgeWizard extends ModuleExportToFileWizard {
 	class ModuleExportToForgeWizardPage extends WizardExportResourcesPage implements ModuleExportWizardPage {
-		private boolean inCanFinish = false;
-
 		private Text loginField;
 
 		private Text passwordField;
 
 		private Button saveInSecureStoreButton;
+
+		private boolean validationChange;
 
 		public ModuleExportToForgeWizardPage(IStructuredSelection selection) {
 			this("moduleExportToForge", selection); //$NON-NLS-1$
@@ -76,66 +76,6 @@ public class ModuleExportToForgeWizard extends ModuleExportToFileWizard {
 
 		public ModuleExportToForgeWizardPage(String name, IStructuredSelection selection) {
 			super(name, selection);
-		}
-
-		@Override
-		public boolean canFinish() {
-			if(inCanFinish)
-				return false;
-
-			inCanFinish = true;
-			setErrorMessage(null);
-			try {
-				@SuppressWarnings("unchecked")
-				List<IResource> whiteCheckedResources = getWhiteCheckedResources();
-				UIPlugin plugin = UIPlugin.INSTANCE;
-				String owner = null;
-				Diagnostic diag = new Diagnostic();
-				for(ExportSpec spec : getExportSpecs(whiteCheckedResources)) {
-					try {
-						Metadata md = getForge().createFromModuleDirectory(
-							spec.getModuleRoot(), false, spec.getFileFilter(), null, diag);
-						if(md != null) {
-							ModuleName name = md.getName();
-							if(owner == null)
-								owner = name.getOwner();
-							else if(!owner.equals(name.getOwner())) {
-								setErrorMessage(plugin.getString("_UI_MultipleModuleOwners"));
-								return false;
-							}
-						}
-					}
-					catch(IOException e) {
-					}
-				}
-
-				if(owner == null) {
-					setErrorMessage(plugin.getString("_UI_NoModulesSelected"));
-					return false;
-				}
-
-				if(!owner.equals(loginField.getText())) {
-					// Owner changed
-					loginField.setText(owner);
-					String password = null;
-					if(saveInSecureStoreButton.getSelection())
-						password = loadSecurePassword(owner);
-					if(password == null)
-						password = "";
-					passwordField.setText(password);
-				}
-				if(!"".equals(passwordField.getText()))
-					return true;
-
-				setErrorMessage(plugin.getString("_UI_EnterPassword"));
-			}
-			catch(CoreException e) {
-				setErrorMessage(e.getMessage());
-			}
-			finally {
-				inCanFinish = false;
-			}
-			return false;
 		}
 
 		@Override
@@ -178,6 +118,10 @@ public class ModuleExportToForgeWizard extends ModuleExportToFileWizard {
 		}
 
 		@Override
+		protected void createOptionsGroup(Composite parent) {
+		}
+
+		@Override
 		public boolean finish() {
 			// about to invoke the operation so save our state
 			saveWidgetValues();
@@ -207,13 +151,11 @@ public class ModuleExportToForgeWizard extends ModuleExportToFileWizard {
 				Diagnostic diag = exportOp.getDiagnostic();
 				if(diag.getSeverity() == Diagnostic.ERROR) {
 					Exception e = diag.getException();
-					if(e != null)
-						throw e;
 					ErrorDialog.openError(
 						getContainer().getShell(), DataTransferMessages.DataTransfer_exportProblems,
 						null, // no special message
 						new Status(
-							IStatus.ERROR, UIPlugin.getPlugin().getBundle().getSymbolicName(), 0, diag.toString(), null));
+							IStatus.ERROR, UIPlugin.getPlugin().getBundle().getSymbolicName(), 0, diag.toString(), e));
 				}
 				else
 					MessageDialog.openInformation(
@@ -234,6 +176,11 @@ public class ModuleExportToForgeWizard extends ModuleExportToFileWizard {
 		}
 
 		public void handleEvent(Event e) {
+			if(validationChange)
+				// Don't act on events that stems from login/password settings made
+				// by the source group validation
+				return;
+
 			Widget source = e.widget;
 			if(source == saveInSecureStoreButton && saveInSecureStoreButton.getSelection()) {
 				String login = Strings.trimToNull(loginField.getText());
@@ -243,9 +190,7 @@ public class ModuleExportToForgeWizard extends ModuleExportToFileWizard {
 						saveSecurePassword(login, password);
 				}
 			}
-			else if(source == passwordField)
-				// Trigger error field update
-				canFinish();
+			updatePageCompletion();
 		}
 
 		@Override
@@ -277,6 +222,72 @@ public class ModuleExportToForgeWizard extends ModuleExportToFileWizard {
 
 			loginField.setText(login);
 			passwordField.setText(password);
+		}
+
+		@Override
+		public boolean validateDestinationGroup() {
+			if("".equals(passwordField.getText())) {
+				setErrorMessage(UIPlugin.INSTANCE.getString("_UI_EnterPassword"));
+				return false;
+			}
+			return super.validateDestinationGroup();
+		}
+
+		@Override
+		public boolean validateSourceGroup() {
+			if(!super.validateSourceGroup())
+				return false;
+
+			try {
+				@SuppressWarnings("unchecked")
+				List<IResource> whiteCheckedResources = getWhiteCheckedResources();
+				UIPlugin plugin = UIPlugin.INSTANCE;
+				String owner = null;
+				Diagnostic diag = new Diagnostic();
+				for(ExportSpec spec : getExportSpecs(whiteCheckedResources)) {
+					try {
+						Metadata md = getForge().createFromModuleDirectory(
+							spec.getModuleRoot(), false, spec.getFileFilter(), null, diag);
+						if(md != null) {
+							ModuleName name = md.getName();
+							if(owner == null)
+								owner = name.getOwner();
+							else if(!owner.equals(name.getOwner())) {
+								setErrorMessage(plugin.getString("_UI_MultipleModuleOwners"));
+								return false;
+							}
+						}
+					}
+					catch(IOException e) {
+					}
+				}
+
+				if(owner == null) {
+					setErrorMessage(plugin.getString("_UI_NoModulesSelected"));
+					return false;
+				}
+				if(!owner.equals(loginField.getText())) {
+					// Owner changed
+					validationChange = true;
+					try {
+						loginField.setText(owner);
+						String password = null;
+						if(saveInSecureStoreButton.getSelection())
+							password = loadSecurePassword(owner);
+						if(password == null)
+							password = "";
+						passwordField.setText(password);
+					}
+					finally {
+						validationChange = false;
+					}
+				}
+				return true;
+			}
+			catch(CoreException e) {
+				setErrorMessage(e.getMessage());
+				return false;
+			}
 		}
 	}
 

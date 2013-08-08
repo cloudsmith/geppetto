@@ -71,11 +71,6 @@ public class ModuleExportToFileWizard extends Wizard implements IExportWizard {
 			super(name, selection);
 		}
 
-		public boolean canFinish() {
-			File dest = getDestination();
-			return dest != null && ensureTargetIsValid(dest);
-		}
-
 		@Override
 		protected void createOptionsGroupButtons(Group optionsGroup) {
 			Font font = optionsGroup.getFont();
@@ -120,8 +115,6 @@ public class ModuleExportToFileWizard extends Wizard implements IExportWizard {
 	}
 
 	interface ModuleExportWizardPage extends IWizardPage {
-		boolean canFinish();
-
 		boolean finish();
 	}
 
@@ -153,11 +146,6 @@ public class ModuleExportToFileWizard extends Wizard implements IExportWizard {
 		super.addPages();
 		mainPage = createMainPage(selection);
 		addPage(mainPage);
-	}
-
-	@Override
-	public boolean canFinish() {
-		return super.canFinish() && mainPage.canFinish();
 	}
 
 	ModuleExportWizardPage createMainPage(IStructuredSelection selection) {

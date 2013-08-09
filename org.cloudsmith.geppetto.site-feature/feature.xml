@@ -17,9 +17,9 @@
    </license>
 
    <url>
-      <discovery label="Indigo" url="http://download.eclipse.org/releases/indigo"/>
-      <discovery label="The Eclipse Project Updates" url="http://download.eclipse.org/eclipse/updates/3.7"/>
-      <discovery label="SVN Connectors Site" url="http://community.polarion.com/projects/subversive/download/eclipse/2.0/update-site"/>
+      <discovery label="Juno" url="http://download.eclipse.org/releases/juno"/>
+      <discovery label="The Eclipse Project Updates" url="http://download.eclipse.org/eclipse/updates/3.8"/>
+      <discovery label="SVN Connectors Site" url="http://community.polarion.com/projects/subversive/download/eclipse/3.0/juno-site"/>
    </url>
 
    <includes

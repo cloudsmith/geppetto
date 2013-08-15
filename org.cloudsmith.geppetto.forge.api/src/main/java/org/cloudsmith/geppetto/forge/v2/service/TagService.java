@@ -21,12 +21,9 @@ import org.cloudsmith.geppetto.forge.model.Constants;
 import org.cloudsmith.geppetto.forge.v2.model.Module;
 import org.cloudsmith.geppetto.forge.v2.model.Tag;
 
-import com.google.inject.Singleton;
-
 /**
  * A CRUD service for {@link Tag} objects
  */
-@Singleton
 public class TagService extends ForgeService {
 	private static String getTagPath(String name) {
 		return Constants.COMMAND_GROUP_TAGS + '/' + name;

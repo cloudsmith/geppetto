@@ -20,15 +20,12 @@ import org.apache.http.client.HttpResponseException;
 import org.cloudsmith.geppetto.forge.client.ForgeClient;
 import org.cloudsmith.geppetto.forge.model.Constants;
 import org.cloudsmith.geppetto.forge.v1.model.ModuleInfo;
-import org.cloudsmith.geppetto.forge.v2.model.Module;
 
 import com.google.inject.Inject;
-import com.google.inject.Singleton;
 
 /**
  * A CRUD service for {@link Module} objects
  */
-@Singleton
 public class ModuleService {
 	@Inject
 	private ForgeClient forgeClient;

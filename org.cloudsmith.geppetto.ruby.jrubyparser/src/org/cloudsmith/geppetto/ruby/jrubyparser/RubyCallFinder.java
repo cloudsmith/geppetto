@@ -109,7 +109,7 @@ public class RubyCallFinder {
 					CallNode callNode = (CallNode) root;
 					if(!callNode.getName().equals(qualifiedName.get(0)))
 						break SEARCH;
-					pushNames(constEvaluator.stringList(constEvaluator.eval(callNode.getReceiverNode())));
+					pushNames(constEvaluator.stringList(constEvaluator.eval(callNode.getReceiver())));
 					if(inWantedScope())
 						return Lists.newArrayList(new GenericCallNode(callNode));
 					pop(root); // clear the pushed names
@@ -123,6 +123,8 @@ public class RubyCallFinder {
 					if(inWantedScope())
 						return Lists.newArrayList(new GenericCallNode(fcallNode));
 					break; // continue search inside the function
+				default:
+					break;
 			}
 
 			for(Node n : root.childNodes()) {

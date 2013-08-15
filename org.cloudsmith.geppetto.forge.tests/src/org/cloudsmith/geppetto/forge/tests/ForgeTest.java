@@ -20,7 +20,6 @@ import java.io.IOException;
 import java.util.List;
 
 import org.cloudsmith.geppetto.forge.ForgeService;
-import org.cloudsmith.geppetto.forge.util.ModuleUtils;
 import org.cloudsmith.geppetto.forge.v1.model.ModuleInfo;
 import org.cloudsmith.geppetto.forge.v2.model.Module;
 import org.cloudsmith.geppetto.forge.v2.model.ModuleName;
@@ -28,18 +27,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 public class ForgeTest extends AbstractForgeTest {
-
-	private static void assertExcludesMatch(String name) {
-		assertTrue(
-			"The name '" + name + "' does not match default excludes pattern",
-			ModuleUtils.DEFAULT_EXCLUDES_PATTERN.matcher(name).matches());
-	}
-
-	private static void assertNotExcludesMatch(String name) {
-		assertFalse(
-			"The name '" + name + "' matches default excludes pattern",
-			ModuleUtils.DEFAULT_EXCLUDES_PATTERN.matcher(name).matches());
-	}
 
 	private ForgeService fixture = null;
 

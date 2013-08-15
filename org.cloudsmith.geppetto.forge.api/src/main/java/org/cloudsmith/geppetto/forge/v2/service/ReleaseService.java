@@ -25,12 +25,9 @@ import org.cloudsmith.geppetto.forge.model.Constants;
 import org.cloudsmith.geppetto.forge.v2.model.Release;
 import org.cloudsmith.geppetto.semver.Version;
 
-import com.google.inject.Singleton;
-
 /**
  * A CRUD service for {@link Release} objects
  */
-@Singleton
 public class ReleaseService extends ForgeService {
 	private static String getReleasePath(String owner, String name, Version version) {
 		StringBuilder bld = new StringBuilder();

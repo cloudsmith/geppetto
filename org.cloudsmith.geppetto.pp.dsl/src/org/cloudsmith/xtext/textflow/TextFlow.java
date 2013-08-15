@@ -14,15 +14,14 @@ package org.cloudsmith.xtext.textflow;
 import java.io.IOException;
 
 import org.cloudsmith.xtext.dommodel.formatter.context.IFormattingContext;
-import org.eclipse.emf.common.util.WrappedException;
 import org.eclipse.xtext.util.Exceptions;
 
 import com.google.inject.Inject;
 
 /**
  * <p>
- * An implementation of {@link ITextFlow.WithText} that appends its content to an {@link Appendable} (by default an internal {@link StringBuilder}
- * instance).
+ * An implementation of {@link ITextFlow.WithText} that appends its content to an {@link Appendable} (by default an
+ * internal {@link StringBuilder} instance).
  * </p>
  * 
  * <p>

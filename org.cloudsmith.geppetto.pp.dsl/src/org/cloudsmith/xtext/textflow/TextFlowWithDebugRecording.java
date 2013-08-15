@@ -63,18 +63,6 @@ public class TextFlowWithDebugRecording extends TextFlow {
 		}
 	}
 
-	private static class Log implements TextBite {
-		String msg;
-
-		Log(String s) {
-			msg = s;
-		}
-
-		public void visit(StringBuilder stream) {
-			stream.append(msg);
-		}
-	}
-
 	private static class SpaceCount implements TextBite {
 		int count;
 

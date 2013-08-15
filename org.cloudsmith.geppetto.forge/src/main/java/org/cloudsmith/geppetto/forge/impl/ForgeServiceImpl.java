@@ -59,10 +59,8 @@ import org.cloudsmith.geppetto.forge.v2.service.ReleaseService;
 import org.cloudsmith.geppetto.semver.VersionRange;
 
 import com.google.inject.Inject;
-import com.google.inject.Singleton;
 import com.google.inject.name.Named;
 
-@Singleton
 class ForgeServiceImpl implements ForgeService {
 	@Inject
 	private Cache cache;

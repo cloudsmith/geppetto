@@ -27,7 +27,6 @@ import org.cloudsmith.geppetto.forge.v2.model.Dependency;
 import org.cloudsmith.geppetto.forge.v2.model.ModuleName;
 import org.cloudsmith.geppetto.forge.v2.model.Release;
 import org.cloudsmith.geppetto.forge.v2.service.ModuleService;
-import org.cloudsmith.geppetto.forge.v2.service.ReleaseService;
 import org.cloudsmith.geppetto.semver.Version;
 import org.cloudsmith.geppetto.semver.VersionRange;
 
@@ -140,9 +139,6 @@ public class MetadataRepositoryImpl implements MetadataRepository {
 	// TODO: Keeping everything in memory is of course not ideal. Should use a local
 	// file cache or similar
 	private final Map<ModuleName, Release[]> releasesPerModule = new HashMap<ModuleName, Release[]>();
-
-	@Inject
-	private ReleaseService releaseService;
 
 	@Inject
 	private ModuleService moduleService;

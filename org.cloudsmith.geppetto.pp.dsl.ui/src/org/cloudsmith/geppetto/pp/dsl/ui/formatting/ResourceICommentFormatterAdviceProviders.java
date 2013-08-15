@@ -17,7 +17,6 @@ import org.cloudsmith.xtext.dommodel.formatter.comments.ICommentFormatterAdvice.
 import org.cloudsmith.xtext.dommodel.formatter.comments.ICommentFormatterAdvice.CommentTextAdvice;
 import org.cloudsmith.xtext.ui.resource.PlatformResourceSpecificProvider;
 import org.eclipse.core.resources.IResource;
-import org.eclipse.xtext.formatting.IIndentationInformation;
 
 import com.google.inject.Inject;
 

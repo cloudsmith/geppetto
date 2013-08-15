@@ -24,6 +24,5 @@ Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-ActivationPolicy: lazy
 Import-Package: org.cloudsmith.geppetto.injectable,
  org.eclipse.emf.common.util
-Bundle-ClassPath: .,
- utils
+Bundle-ClassPath: .
 Export-Package: org.cloudsmith.geppetto.graph.tests

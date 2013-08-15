@@ -392,18 +392,24 @@ class ModuleDependenciesPage extends GuardedModulePage {
 						dialog.setElements(getModuleChoices(null));
 
 						if(dialog.open() == Window.OK) {
-							MetadataModel model = getModel();
-							Object[] results = dialog.getResult();
-							if(results.length > 1) {
-								for(Object result : results) {
-									ModuleInfo module = (ModuleInfo) result;
-									model.addDependency(
-										module.getFullName().withSeparator('-').toString(),
-										module.getVersion().toString());
+							getEditor().getSourcePage().startInternalTextChange();
+							try {
+								MetadataModel model = getModel();
+								Object[] results = dialog.getResult();
+								if(results.length > 1) {
+									for(Object result : results) {
+										ModuleInfo module = (ModuleInfo) result;
+										model.addDependency(
+											module.getFullName().withSeparator('-').toString(),
+											module.getVersion().toString());
+									}
 								}
+								else
+									model.addDependency(dialog.getName(), dialog.getVersionRequirement());
 							}
-							else
-								model.addDependency(dialog.getName(), dialog.getVersionRequirement());
+							finally {
+								getEditor().getSourcePage().endInternalTextChange();
+							}
 							refresh();
 						}
 					}
@@ -430,7 +436,13 @@ class ModuleDependenciesPage extends GuardedModulePage {
 						dialog.setFilter(dependency.getModuleName());
 
 						if(dialog.open() == Window.OK) {
-							dependency.setNameAndVersion(dialog.getName(), dialog.getVersionRequirement());
+							getEditor().getSourcePage().startInternalTextChange();
+							try {
+								dependency.setNameAndVersion(dialog.getName(), dialog.getVersionRequirement());
+							}
+							finally {
+								getEditor().getSourcePage().endInternalTextChange();
+							}
 							refresh();
 						}
 					}
@@ -449,10 +461,16 @@ class ModuleDependenciesPage extends GuardedModulePage {
 				@Override
 				public void widgetSelected(SelectionEvent se) {
 					if(allowModification()) {
-						@SuppressWarnings("unchecked")
-						Iterator<MetadataModel.Dependency> selections = ((IStructuredSelection) tableViewer.getSelection()).iterator();
-						while(selections.hasNext())
-							getModel().removeDependency(selections.next());
+						getEditor().getSourcePage().startInternalTextChange();
+						try {
+							@SuppressWarnings("unchecked")
+							Iterator<MetadataModel.Dependency> selections = ((IStructuredSelection) tableViewer.getSelection()).iterator();
+							while(selections.hasNext())
+								getModel().removeDependency(selections.next());
+						}
+						finally {
+							getEditor().getSourcePage().endInternalTextChange();
+						}
 						refresh();
 					}
 					else {

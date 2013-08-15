@@ -363,6 +363,7 @@ public class MetadataModel {
 		else
 			dep = createJsonDependency(moduleName, versionRequirement);
 
+		dep.setResolved(isResolved(dep));
 		dependencies.add(dep);
 	}
 
@@ -600,6 +601,19 @@ public class MetadataModel {
 	 */
 	public boolean hasDependencyErrors() {
 		return dependencyErrors;
+	}
+
+	private boolean isResolved(Dependency dep) {
+		ModuleName name;
+		VersionRange range;
+		try {
+			name = new ModuleName(dep.getModuleName(), false);
+			range = VersionRange.create(dep.getVersionRequirement());
+			return PPModuleMetadataBuilder.getBestMatchingProject(name, range) != null;
+		}
+		catch(IllegalArgumentException e) {
+			return false;
+		}
 	}
 
 	private boolean isRuby() {
@@ -907,18 +921,7 @@ public class MetadataModel {
 					new LenientMetadataJsonParser(this).parse(path.toFile(), document.get(), chain);
 				}
 				for(Dependency dep : dependencies) {
-					ModuleName name;
-					VersionRange range;
-					boolean resolved = false;
-					try {
-						name = new ModuleName(dep.getModuleName(), false);
-						range = VersionRange.create(dep.getVersionRequirement());
-						resolved = PPModuleMetadataBuilder.getBestMatchingProject(name, range) != null;
-					}
-					catch(IllegalArgumentException e) {
-						// This error is already in diagnostics
-					}
-
+					boolean resolved = isResolved(dep);
 					if(!resolved) {
 						FileDiagnostic diag = new FileDiagnostic(
 							Diagnostic.ERROR, FORGE, getUnresolvedMessage(dep), path.toFile());

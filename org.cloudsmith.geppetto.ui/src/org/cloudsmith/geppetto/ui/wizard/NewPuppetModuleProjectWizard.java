@@ -30,6 +30,7 @@ import org.cloudsmith.geppetto.ui.UIPlugin;
 import org.cloudsmith.geppetto.ui.util.ResourceUtil;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
+import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
@@ -138,20 +139,27 @@ public class NewPuppetModuleProjectWizard extends Wizard implements INewWizard {
 	}
 
 	protected void initializeProjectContents(IProgressMonitor monitor) throws Exception {
+		SubMonitor submon = SubMonitor.convert(monitor, 100);
 		Metadata metadata = new Metadata();
 		metadata.setName(new ModuleName(getModuleOwner(), project.getName().toLowerCase(), true));
 		metadata.setVersion(Version.create("0.1.0"));
 
 		if(ResourceUtil.getFile(project.getFullPath().append("manifests/init.pp")).exists()) { //$NON-NLS-1$
 			File modulefile = project.getLocation().append(MODULEFILE_NAME).toFile(); //$NON-NLS-1$
+			submon.worked(20);
 
 			if(!modulefile.exists()) {
 				ModuleUtils.saveAsModulefile(metadata, modulefile);
 			}
+			submon.worked(80);
 		}
 		else {
 			forge.generate(project.getLocation().toFile(), metadata);
+			submon.worked(70);
+			// This will cause a build. The build will recreate the metadata.json file
+			project.refreshLocal(IResource.DEPTH_INFINITE, submon.newChild(30));
 		}
+		monitor.done();
 	}
 
 	protected WizardNewProjectCreationPage newProjectCreationPage(String pageName) {

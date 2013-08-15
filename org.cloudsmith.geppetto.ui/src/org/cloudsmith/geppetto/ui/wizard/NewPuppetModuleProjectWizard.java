@@ -37,7 +37,6 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.SubMonitor;
 import org.eclipse.emf.common.util.URI;
-import org.eclipse.emf.edit.ui.provider.ExtendedImageRegistry;
 import org.eclipse.jface.dialogs.ErrorDialog;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.viewers.IStructuredSelection;
@@ -121,11 +120,11 @@ public class NewPuppetModuleProjectWizard extends Wizard implements INewWizard {
 	}
 
 	protected String getProjectCreationPageDescription() {
-		return UIPlugin.INSTANCE.getString("_UI_PuppetModuleProject_description"); //$NON-NLS-1$
+		return UIPlugin.getLocalString("_UI_PuppetModuleProject_description"); //$NON-NLS-1$
 	}
 
 	protected String getProjectCreationPageTitle() {
-		return UIPlugin.INSTANCE.getString(getProjectCreationPageTitleKey()); //$NON-NLS-1$
+		return UIPlugin.getLocalString(getProjectCreationPageTitleKey()); //$NON-NLS-1$
 	}
 
 	protected String getProjectCreationPageTitleKey() {
@@ -134,12 +133,11 @@ public class NewPuppetModuleProjectWizard extends Wizard implements INewWizard {
 
 	@Override
 	public void init(IWorkbench workbench, IStructuredSelection selection) {
-		setDefaultPageImageDescriptor(ExtendedImageRegistry.INSTANCE.getImageDescriptor(UIPlugin.INSTANCE.getImage("full/wizban/NewPuppetProject.png"))); //$NON-NLS-1$
-		setWindowTitle(UIPlugin.INSTANCE.getString("_UI_NewPuppetModuleProject_title")); //$NON-NLS-1$
+		setDefaultPageImageDescriptor(UIPlugin.getImageDesc("full/wizban/NewPuppetProject.png")); //$NON-NLS-1$
+		setWindowTitle(UIPlugin.getLocalString("_UI_NewPuppetModuleProject_title")); //$NON-NLS-1$
 	}
 
 	protected void initializeProjectContents(IProgressMonitor monitor) throws Exception {
-		Forge forge = getForge();
 		Metadata metadata = new Metadata();
 		metadata.setName(new ModuleName(getModuleOwner(), project.getName().toLowerCase(), true));
 		metadata.setVersion(Version.create("0.1.0"));
@@ -202,7 +200,7 @@ public class NewPuppetModuleProjectWizard extends Wizard implements INewWizard {
 							catch(PartInitException partInitException) {
 								MessageDialog.openError(
 									getShell(),
-									UIPlugin.INSTANCE.getString("_UI_OpenEditor_title"), partInitException.getMessage()); //$NON-NLS-1$
+									UIPlugin.getLocalString("_UI_OpenEditor_title"), partInitException.getMessage()); //$NON-NLS-1$
 							}
 						}
 					}
@@ -222,7 +220,7 @@ public class NewPuppetModuleProjectWizard extends Wizard implements INewWizard {
 		}
 		catch(InvocationTargetException e) {
 			Throwable t = e.getTargetException();
-			String title = UIPlugin.INSTANCE.getString("_UI_CreateProject_title");
+			String title = UIPlugin.getLocalString("_UI_CreateProject_title");
 			if(t instanceof PartInitException)
 				DialogUtil.openError(getShell(), title, t.getMessage(), (PartInitException) t);
 			else if(t instanceof CoreException)

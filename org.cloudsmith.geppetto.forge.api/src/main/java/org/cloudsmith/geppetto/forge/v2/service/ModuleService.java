@@ -23,9 +23,12 @@ import org.cloudsmith.geppetto.forge.v2.model.Module;
 import org.cloudsmith.geppetto.forge.v2.model.Release;
 import org.cloudsmith.geppetto.forge.v2.model.Tag;
 
+import com.google.inject.Singleton;
+
 /**
  * A CRUD service for {@link Module} objects
  */
+@Singleton
 public class ModuleService extends ForgeService {
 	private static String getModulePath(String owner, String name) {
 		return Constants.COMMAND_GROUP_MODULES + '/' + owner + '/' + name;
@@ -120,8 +123,8 @@ public class ModuleService extends ForgeService {
 	}
 
 	/**
-	 * Returns a list of a list of matching modules. Any module with a name that contains <code>keyword</code> is considered a match. The
-	 * <code>keyword</code> can be null in which case a list of all modules
+	 * Returns a list of a list of matching modules. Any module with a name that contains <code>keyword</code> is
+	 * considered a match. The <code>keyword</code> can be null in which case a list of all modules
 	 * will be returned.
 	 * 
 	 * @param keyword

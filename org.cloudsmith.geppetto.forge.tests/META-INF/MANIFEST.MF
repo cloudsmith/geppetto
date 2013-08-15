@@ -18,4 +18,7 @@ Require-Bundle: org.eclipse.core.runtime,
  com.google.gson,
  org.junit
 Import-Package: com.google.inject,
+ com.google.inject.binder,
+ com.google.inject.name,
+ com.google.inject.util,
  org.cloudsmith.geppetto.injectable

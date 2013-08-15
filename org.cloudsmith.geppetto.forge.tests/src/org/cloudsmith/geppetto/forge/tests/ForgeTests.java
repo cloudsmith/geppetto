@@ -21,7 +21,7 @@ import org.junit.runners.Suite.SuiteClasses;
 @SuiteClasses({
 // @fmtOff
 	ModuleNameTest.class,
-	ForgeTest.class,
+	ForgeUtilTest.class,
 	ForgeServiceTest.class,
 	MetadataTest.class,
 	ModuleUtilsTest.class,

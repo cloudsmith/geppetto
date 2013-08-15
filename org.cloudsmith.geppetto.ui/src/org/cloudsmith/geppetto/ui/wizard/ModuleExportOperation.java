@@ -31,7 +31,7 @@ import org.eclipse.osgi.util.NLS;
 import org.eclipse.ui.dialogs.IOverwriteQuery;
 import org.eclipse.ui.internal.wizards.datatransfer.DataTransferMessages;
 
-public class ModuleExportOperation implements IRunnableWithProgress {
+public abstract class ModuleExportOperation implements IRunnableWithProgress {
 	static class ExportSpec {
 		private final File moduleDirectory;
 
@@ -69,28 +69,22 @@ public class ModuleExportOperation implements IRunnableWithProgress {
 		}
 	}
 
-	private final Forge forge;
-
 	private final List<ExportSpec> exportSpecs;
 
 	private final File destination;
 
 	private final List<IStatus> errorTable = new ArrayList<IStatus>();
 
-	public ModuleExportOperation(Forge forge, List<ExportSpec> exportSpecs, File destination,
-			IOverwriteQuery overwriteImplementor) {
+	public ModuleExportOperation(List<ExportSpec> exportSpecs, File destination, IOverwriteQuery overwriteImplementor) {
 		this.exportSpecs = exportSpecs;
 		this.destination = destination;
-		this.forge = forge;
 	}
 
 	protected File getDestination() {
 		return destination;
 	}
 
-	protected Forge getForge() {
-		return forge;
-	}
+	protected abstract Forge getForge();
 
 	public IStatus getStatus() {
 		if(errorTable.isEmpty())
@@ -98,8 +92,7 @@ public class ModuleExportOperation implements IRunnableWithProgress {
 		if(errorTable.size() == 1)
 			return errorTable.get(0);
 		return new MultiStatus(
-			UIPlugin.getPlugin().getBundle().getSymbolicName(), IStatus.OK,
-			errorTable.toArray(new IStatus[errorTable.size()]),
+			errorTable.get(0).getPlugin(), 0, errorTable.toArray(new IStatus[errorTable.size()]),
 			DataTransferMessages.FileSystemExportOperation_problemsExporting, null);
 	}
 
@@ -115,14 +108,13 @@ public class ModuleExportOperation implements IRunnableWithProgress {
 				if(monitor.isCanceled())
 					throw new OperationCanceledException();
 				try {
-					forge.build(spec.getModuleRoot(), destination, spec.getFileFilter(), null, diagWithProgress);
+					getForge().build(spec.getModuleRoot(), destination, spec.getFileFilter(), null, diagWithProgress);
 					diagWithProgress.taskDone();
 				}
 				catch(IOException e) {
-					errorTable.add(new Status(
-						IStatus.ERROR, UIPlugin.getPlugin().getBundle().getSymbolicName(), 0, NLS.bind(
-							DataTransferMessages.DataTransfer_errorExporting, spec.getModuleRoot().getAbsoluteFile(),
-							e.getMessage()), e));
+					errorTable.add(UIPlugin.createStatus(IStatus.ERROR, NLS.bind(
+						DataTransferMessages.DataTransfer_errorExporting, spec.getModuleRoot().getAbsoluteFile(),
+						e.getMessage()), e));
 				}
 			}
 			diagWithProgress.done();

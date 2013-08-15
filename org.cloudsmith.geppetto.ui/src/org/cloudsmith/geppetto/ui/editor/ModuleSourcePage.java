@@ -57,7 +57,7 @@ class ModuleSourcePage extends TextEditor {
 
 	ModuleSourcePage(ModuleMetadataEditor editor) {
 		this.editor = editor;
-		setPartName(UIPlugin.INSTANCE.getString("_UI_Source_title")); //$NON-NLS-1
+		setPartName(UIPlugin.getLocalString("_UI_Source_title")); //$NON-NLS-1
 	}
 
 	@Override

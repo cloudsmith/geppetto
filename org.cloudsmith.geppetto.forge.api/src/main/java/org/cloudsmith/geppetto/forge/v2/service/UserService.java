@@ -22,9 +22,12 @@ import org.cloudsmith.geppetto.forge.v2.model.Module;
 import org.cloudsmith.geppetto.forge.v2.model.Release;
 import org.cloudsmith.geppetto.forge.v2.model.User;
 
+import com.google.inject.Singleton;
+
 /**
  * A CRUD service for {@link User} objects
  */
+@Singleton
 public class UserService extends ForgeService {
 	private static String getUserPath(String name) {
 		return Constants.COMMAND_GROUP_USERS + '/' + name;

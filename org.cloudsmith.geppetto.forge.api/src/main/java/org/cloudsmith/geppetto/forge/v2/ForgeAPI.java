@@ -11,13 +11,18 @@
  */
 package org.cloudsmith.geppetto.forge.v2;
 
+import org.cloudsmith.geppetto.forge.client.ForgeHttpModule;
+import org.cloudsmith.geppetto.forge.client.GsonModule;
+import org.cloudsmith.geppetto.forge.model.Constants;
 import org.cloudsmith.geppetto.forge.v2.service.ModuleService;
 import org.cloudsmith.geppetto.forge.v2.service.ReleaseService;
 import org.cloudsmith.geppetto.forge.v2.service.TagService;
 import org.cloudsmith.geppetto.forge.v2.service.UserService;
 
 import com.google.gson.Gson;
+import com.google.inject.Guice;
 import com.google.inject.Injector;
+import com.google.inject.Module;
 
 /**
  * This is the main entry point to the API. Sample usage:
@@ -42,14 +47,27 @@ public class ForgeAPI {
 	private final Injector injector;
 
 	/**
-	 * Create a new instance based on a Guice injector. This method
-	 * is primary intended to be used by the test framework.
-	 * 
-	 * @param injector
-	 *            Guice injector that provides the needed bindings.
+	 * Creates a default read-only client. Since this client has no credentials, it will not
+	 * be able to publish.
 	 */
-	public ForgeAPI(Injector injector) {
-		this.injector = injector;
+	public ForgeAPI() {
+		this.injector = Guice.createInjector(GsonModule.INSTANCE, new ForgeHttpModule() {
+
+			@Override
+			protected String getBaseURL() {
+				return Constants.FORGE_SERVICE_BASE_URL;
+			}
+		});
+	}
+
+	/**
+	 * Create a new instance based on a set of Guice modules.
+	 * 
+	 * @param modules
+	 *            Guice modules that provides the needed bindings.
+	 */
+	public ForgeAPI(Module... modules) {
+		this.injector = Guice.createInjector(modules);
 	}
 
 	/**

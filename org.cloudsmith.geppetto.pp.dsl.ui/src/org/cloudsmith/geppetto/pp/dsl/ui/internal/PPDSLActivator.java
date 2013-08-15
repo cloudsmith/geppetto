@@ -17,7 +17,8 @@ import java.util.Collections;
 import java.util.Map;
 
 import org.apache.log4j.Logger;
-import org.cloudsmith.geppetto.forge.ForgeService;
+import org.cloudsmith.geppetto.forge.client.GsonModule;
+import org.cloudsmith.geppetto.forge.impl.ForgeModule;
 import org.cloudsmith.geppetto.injectable.CommonModuleProvider;
 import org.cloudsmith.geppetto.pp.dsl.PPDSLConstants;
 import org.cloudsmith.geppetto.pp.dsl.pptp.PptpRubyRuntimeModule;
@@ -99,7 +100,9 @@ public class PPDSLActivator extends PPActivator {
 			Module sharedStateModule = getSharedStateModule();
 			Module uiModule = getUiModule(language);
 			Module forgeModule = getForgeModule();
-			Module mergedModule = Modules2.mixin(commonModule, runtimeModule, sharedStateModule, uiModule, forgeModule);
+			Module gsonModule = getGsonModule();
+			Module mergedModule = Modules2.mixin(
+				commonModule, runtimeModule, sharedStateModule, uiModule, gsonModule, forgeModule);
 			return Guice.createInjector(mergedModule);
 		}
 		catch(Exception e) {
@@ -110,7 +113,11 @@ public class PPDSLActivator extends PPActivator {
 	}
 
 	protected Module getForgeModule() {
-		return ForgeService.getForgeModule(ForgeService.getDefaultPreferences());
+		return new ForgeModule();
+	}
+
+	protected Module getGsonModule() {
+		return GsonModule.INSTANCE;
 	}
 
 	public ImagesOnFileSystemRegistry getImagesOnFSRegistry() {

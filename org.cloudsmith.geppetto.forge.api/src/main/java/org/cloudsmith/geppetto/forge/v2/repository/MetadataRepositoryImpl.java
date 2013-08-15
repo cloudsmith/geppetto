@@ -32,10 +32,12 @@ import org.cloudsmith.geppetto.semver.Version;
 import org.cloudsmith.geppetto.semver.VersionRange;
 
 import com.google.inject.Inject;
+import com.google.inject.Singleton;
 
 /**
  * Installs modules from a list of dependencies
  */
+@Singleton
 public class MetadataRepositoryImpl implements MetadataRepository {
 
 	private static class Resolution {

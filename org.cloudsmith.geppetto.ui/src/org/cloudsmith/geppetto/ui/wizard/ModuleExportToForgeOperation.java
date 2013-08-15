@@ -11,6 +11,8 @@
  */
 package org.cloudsmith.geppetto.ui.wizard;
 
+import static org.cloudsmith.geppetto.forge.Forge.PUBLISHER;
+
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
@@ -18,25 +20,27 @@ import java.util.List;
 import org.cloudsmith.geppetto.diagnostic.Diagnostic;
 import org.cloudsmith.geppetto.diagnostic.ExceptionDiagnostic;
 import org.cloudsmith.geppetto.forge.AlreadyPublishedException;
-import org.cloudsmith.geppetto.forge.Forge;
+import org.cloudsmith.geppetto.forge.ForgeService;
 import org.cloudsmith.geppetto.forge.client.ForgeException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.SubProgressMonitor;
 
-public class ModuleExportToForgeOperation extends ModuleExportOperation {
+public abstract class ModuleExportToForgeOperation extends ModuleExportOperation {
 
 	private final boolean dryRun;
 
 	private Diagnostic diagnostic;
 
-	public ModuleExportToForgeOperation(Forge forge, List<ExportSpec> exportSpecs, File destination, boolean dryRun) {
-		super(forge, exportSpecs, destination, null);
+	public ModuleExportToForgeOperation(List<ExportSpec> exportSpecs, File destination, boolean dryRun) {
+		super(exportSpecs, destination, null);
 		this.dryRun = dryRun;
 	}
 
 	public Diagnostic getDiagnostic() {
 		return diagnostic;
 	}
+
+	protected abstract ForgeService getForgeService();
 
 	@Override
 	public void run(IProgressMonitor monitor) throws InterruptedException {
@@ -68,30 +72,29 @@ public class ModuleExportToForgeOperation extends ModuleExportOperation {
 				boolean noPublishingMade = true;
 				for(File builtModule : tarballs) {
 					try {
-						getForge().publish(builtModule, dryRun, result);
+						getForgeService().publish(builtModule, dryRun, result);
 						result.taskDone();
 						noPublishingMade = false;
 						continue;
 					}
 					catch(AlreadyPublishedException e) {
-						result.addChild(new Diagnostic(Diagnostic.WARNING, Forge.PUBLISHER, e.getMessage()));
+						result.addChild(new Diagnostic(Diagnostic.WARNING, PUBLISHER, e.getMessage()));
 						result.taskDone();
 						continue;
 					}
 					catch(ForgeException e) {
-						result.addChild(new Diagnostic(Diagnostic.ERROR, Forge.PUBLISHER, e.getMessage()));
+						result.addChild(new Diagnostic(Diagnostic.ERROR, PUBLISHER, e.getMessage()));
 					}
 					catch(Exception e) {
 						result.addChild(new ExceptionDiagnostic(
-							Diagnostic.ERROR, Forge.PUBLISHER, "Unable to publish module " + builtModule.getName(), e));
+							Diagnostic.ERROR, PUBLISHER, "Unable to publish module " + builtModule.getName(), e));
 					}
 					return;
 				}
 
 				if(noPublishingMade) {
 					result.addChild(new Diagnostic(
-						Diagnostic.INFO, Forge.PUBLISHER,
-						"All modules have already been published at their current version"));
+						Diagnostic.INFO, PUBLISHER, "All modules have already been published at their current version"));
 				}
 			}
 			finally {

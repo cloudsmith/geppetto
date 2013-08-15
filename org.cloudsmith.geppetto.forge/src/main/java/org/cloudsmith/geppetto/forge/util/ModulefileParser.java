@@ -11,6 +11,11 @@
  */
 package org.cloudsmith.geppetto.forge.util;
 
+import static org.cloudsmith.geppetto.diagnostic.Diagnostic.ERROR;
+import static org.cloudsmith.geppetto.diagnostic.Diagnostic.WARNING;
+import static org.cloudsmith.geppetto.forge.Forge.FORGE;
+import static org.cloudsmith.geppetto.forge.Forge.PACKAGE;
+
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -18,7 +23,6 @@ import java.util.List;
 
 import org.cloudsmith.geppetto.diagnostic.Diagnostic;
 import org.cloudsmith.geppetto.diagnostic.FileDiagnostic;
-import org.cloudsmith.geppetto.forge.Forge;
 import org.cloudsmith.geppetto.forge.v2.model.Dependency;
 import org.cloudsmith.geppetto.forge.v2.model.ModuleName;
 import org.cloudsmith.geppetto.semver.Version;
@@ -78,7 +82,7 @@ public abstract class ModulefileParser {
 	private boolean versionSeen;
 
 	protected void addDiagnostic(int severity, SourcePosition pos, String message) {
-		FileDiagnostic diag = new FileDiagnostic(severity, Forge.FORGE, message, new File(pos.getFile()));
+		FileDiagnostic diag = new FileDiagnostic(severity, FORGE, message, new File(pos.getFile()));
 		diag.setLineNumber(pos.getEndLine() + 1);
 		diagnostics.addChild(diag);
 	}
@@ -86,12 +90,12 @@ public abstract class ModulefileParser {
 	protected void addError(SourcePosition pos, String message) {
 		if(diagnostics == null)
 			throw new IllegalArgumentException(message);
-		addDiagnostic(Diagnostic.ERROR, pos, message);
+		addDiagnostic(ERROR, pos, message);
 	}
 
 	protected void addWarning(SourcePosition pos, String message) {
 		if(diagnostics != null)
-			addDiagnostic(Diagnostic.WARNING, pos, message);
+			addDiagnostic(WARNING, pos, message);
 	}
 
 	protected abstract void call(CallSymbol key, SourcePosition pos, List<Argument> arguments);
@@ -260,12 +264,11 @@ public abstract class ModulefileParser {
 		if(file != null) {
 			if(!nameSeen || fullName != null && (fullName.getOwner() == null || fullName.getName() == null)) {
 				diagnostics.addChild(new FileDiagnostic(
-					Diagnostic.ERROR, Forge.PACKAGE, "A full name (user-module) must be specified", file));
+					ERROR, PACKAGE, "A full name (user-module) must be specified", file));
 			}
 
 			if(!versionSeen) {
-				diagnostics.addChild(new FileDiagnostic(
-					Diagnostic.ERROR, Forge.PACKAGE, "A version must be specified", file));
+				diagnostics.addChild(new FileDiagnostic(ERROR, PACKAGE, "A version must be specified", file));
 			}
 		}
 	}

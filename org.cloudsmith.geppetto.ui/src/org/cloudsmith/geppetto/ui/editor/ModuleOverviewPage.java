@@ -50,15 +50,15 @@ class ModuleOverviewPage extends GuardedModulePage {
 
 			Section section = getSection();
 
-			section.setText(UIPlugin.INSTANCE.getString("_UI_Details_title")); //$NON-NLS-1$
-			section.setDescription(UIPlugin.INSTANCE.getString("_UI_Details_description")); //$NON-NLS-1$
+			section.setText(UIPlugin.getLocalString("_UI_Details_title")); //$NON-NLS-1$
+			section.setDescription(UIPlugin.getLocalString("_UI_Details_description")); //$NON-NLS-1$
 
 			GridDataFactory.swtDefaults().align(SWT.FILL, SWT.FILL).grab(true, true).span(2, 1).applyTo(section);
 
 			Composite client = toolkit.createComposite(section);
 			client.setLayout(new GridLayout(2, false));
 
-			toolkit.createLabel(client, UIPlugin.INSTANCE.getString("_UI_Source_label")); //$NON-NLS-1$
+			toolkit.createLabel(client, UIPlugin.getLocalString("_UI_Source_label")); //$NON-NLS-1$
 
 			sourceText = toolkit.createText(client, null);
 			sourceText.addVerifyListener(defaultVerifier);
@@ -71,7 +71,7 @@ class ModuleOverviewPage extends GuardedModulePage {
 
 			GridDataFactory.swtDefaults().align(SWT.FILL, SWT.CENTER).grab(true, false).applyTo(sourceText);
 
-			toolkit.createLabel(client, UIPlugin.INSTANCE.getString("_UI_ProjectPage_label")); //$NON-NLS-1$
+			toolkit.createLabel(client, UIPlugin.getLocalString("_UI_ProjectPage_label")); //$NON-NLS-1$
 
 			projectPageText = toolkit.createText(client, null);
 			projectPageText.addVerifyListener(defaultVerifier);
@@ -84,7 +84,7 @@ class ModuleOverviewPage extends GuardedModulePage {
 
 			GridDataFactory.swtDefaults().align(SWT.FILL, SWT.CENTER).grab(true, false).applyTo(projectPageText);
 
-			toolkit.createLabel(client, UIPlugin.INSTANCE.getString("_UI_Summary_label")); //$NON-NLS-1$
+			toolkit.createLabel(client, UIPlugin.getLocalString("_UI_Summary_label")); //$NON-NLS-1$
 
 			summaryText = toolkit.createText(client, null);
 			summaryText.addVerifyListener(defaultVerifier);
@@ -97,7 +97,7 @@ class ModuleOverviewPage extends GuardedModulePage {
 
 			GridDataFactory.swtDefaults().align(SWT.FILL, SWT.CENTER).grab(true, false).applyTo(summaryText);
 
-			toolkit.createLabel(client, UIPlugin.INSTANCE.getString("_UI_Description_label")); //$NON-NLS-1$
+			toolkit.createLabel(client, UIPlugin.getLocalString("_UI_Description_label")); //$NON-NLS-1$
 
 			descriptionText = toolkit.createText(client, null, SWT.MULTI | SWT.H_SCROLL | SWT.V_SCROLL);
 			descriptionText.addVerifyListener(defaultVerifier);
@@ -172,8 +172,8 @@ class ModuleOverviewPage extends GuardedModulePage {
 
 			Section section = getSection();
 
-			section.setText(UIPlugin.INSTANCE.getString("_UI_GeneralInformation_title")); //$NON-NLS-1$
-			section.setDescription(UIPlugin.INSTANCE.getString("_UI_GeneralInformation_description")); //$NON-NLS-1$
+			section.setText(UIPlugin.getLocalString("_UI_GeneralInformation_title")); //$NON-NLS-1$
+			section.setDescription(UIPlugin.getLocalString("_UI_GeneralInformation_description")); //$NON-NLS-1$
 
 			GridDataFactory.swtDefaults().align(SWT.FILL, SWT.FILL).grab(true, false).applyTo(section);
 			GridDataFactory textGDFactory = GridDataFactory.swtDefaults().align(SWT.FILL, SWT.CENTER).grab(true, false).indent(
@@ -182,7 +182,7 @@ class ModuleOverviewPage extends GuardedModulePage {
 			Composite client = toolkit.createComposite(section);
 			client.setLayout(new GridLayout(4, false));
 
-			toolkit.createLabel(client, UIPlugin.INSTANCE.getString("_UI_Name_label")); //$NON-NLS-1$
+			toolkit.createLabel(client, UIPlugin.getLocalString("_UI_Name_label")); //$NON-NLS-1$
 
 			userText = toolkit.createText(client, null);
 			userText.addVerifyListener(nameCharsVerifier);
@@ -197,7 +197,7 @@ class ModuleOverviewPage extends GuardedModulePage {
 
 			textGDFactory.applyTo(nameText);
 
-			toolkit.createLabel(client, UIPlugin.INSTANCE.getString("_UI_Version_label")); //$NON-NLS-1$
+			toolkit.createLabel(client, UIPlugin.getLocalString("_UI_Version_label")); //$NON-NLS-1$
 
 			versionText = toolkit.createText(client, null);
 			versionText.addVerifyListener(versionCharsVerifier);
@@ -214,7 +214,7 @@ class ModuleOverviewPage extends GuardedModulePage {
 			textGDFactory = textGDFactory.span(3, 1);
 			textGDFactory.applyTo(versionText);
 
-			toolkit.createLabel(client, UIPlugin.INSTANCE.getString("_UI_Author_label")); //$NON-NLS-1$
+			toolkit.createLabel(client, UIPlugin.getLocalString("_UI_Author_label")); //$NON-NLS-1$
 
 			authorText = toolkit.createText(client, null);
 			authorText.addVerifyListener(defaultVerifier);
@@ -226,7 +226,7 @@ class ModuleOverviewPage extends GuardedModulePage {
 			});
 			textGDFactory.applyTo(authorText);
 
-			toolkit.createLabel(client, UIPlugin.INSTANCE.getString("_UI_License_label")); //$NON-NLS-1$
+			toolkit.createLabel(client, UIPlugin.getLocalString("_UI_License_label")); //$NON-NLS-1$
 
 			licenseText = toolkit.createText(client, null);
 			licenseText.addVerifyListener(defaultVerifier);
@@ -343,7 +343,7 @@ class ModuleOverviewPage extends GuardedModulePage {
 		else
 			formTitle = "_UI_Metadata_Overview_title";
 
-		managedForm.getForm().setText(UIPlugin.INSTANCE.getString(formTitle));
+		managedForm.getForm().setText(UIPlugin.getLocalString(formTitle));
 		Composite body = managedForm.getForm().getBody();
 		body.setLayout(new GridLayout(1, true));
 		FormToolkit toolkit = managedForm.getToolkit();

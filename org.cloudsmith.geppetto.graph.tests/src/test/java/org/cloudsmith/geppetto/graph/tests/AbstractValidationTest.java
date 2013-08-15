@@ -17,8 +17,8 @@ import java.io.File;
 import java.util.List;
 
 import org.cloudsmith.geppetto.diagnostic.Diagnostic;
+import org.cloudsmith.geppetto.forge.client.GsonModule;
 import org.cloudsmith.geppetto.forge.impl.ForgeModule;
-import org.cloudsmith.geppetto.forge.impl.ForgePreferencesBean;
 import org.cloudsmith.geppetto.graph.DependencyGraphProducer;
 import org.cloudsmith.geppetto.graph.JavascriptHrefProducer;
 import org.cloudsmith.geppetto.graph.SVGProducer;
@@ -125,8 +125,8 @@ public class AbstractValidationTest {
 		RubyHelper.setRubyServicesFactory(JRubyServices.FACTORY);
 		ValidationOptions options = getValidationOptions();
 		injector = new PPDiagnosticsSetup(options.getComplianceLevel(), options.getProblemsAdvisor()).createInjectorAndDoEMFRegistration();
-		ForgePreferencesBean prefs = new ForgePreferencesBean();
 		injector = injector.createChildInjector(
-			new ForgeModule(prefs), new ValidationModule(), new DependencyGraphModule(JavascriptHrefProducer.class, ""));
+			GsonModule.INSTANCE, new ForgeModule(), new ValidationModule(), new DependencyGraphModule(
+				JavascriptHrefProducer.class, ""));
 	}
 }

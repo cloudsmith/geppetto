@@ -135,16 +135,16 @@ public class ModuleMetadataEditor extends FormEditor implements IGotoMarker, ISh
 	@Override
 	protected void addPages() {
 		try {
-			overviewPage = new ModuleOverviewPage(this, "overview", UIPlugin.INSTANCE.getString("_UI_Overview_title")); //$NON-NLS-1$ //$NON-NLS-2$
+			overviewPage = new ModuleOverviewPage(this, "overview", UIPlugin.getLocalString("_UI_Overview_title")); //$NON-NLS-1$ //$NON-NLS-2$
 			addPage(overviewPage);
 
 			dependenciesPage = new ModuleDependenciesPage(
-				this, "dependencies", UIPlugin.INSTANCE.getString("_UI_Dependencies_title")); //$NON-NLS-1$ //$NON-NLS-2$
+				this, "dependencies", UIPlugin.getLocalString("_UI_Dependencies_title")); //$NON-NLS-1$ //$NON-NLS-2$
 			addPage(dependenciesPage);
 
 			sourcePage = new ModuleSourcePage(this);
 			int sourcePageIdx = addPage(sourcePage, getEditorInput());
-			setPageText(sourcePageIdx, UIPlugin.INSTANCE.getString("_UI_Source_title"));
+			setPageText(sourcePageIdx, UIPlugin.getLocalString("_UI_Source_title"));
 			refreshModel();
 			sourcePage.initialize();
 
@@ -154,10 +154,10 @@ public class ModuleMetadataEditor extends FormEditor implements IGotoMarker, ISh
 
 			IFile file = getFile();
 			if(file == null) {
-				setPageText(sourcePageIdx, UIPlugin.INSTANCE.getString("_UI_Source_title"));
+				setPageText(sourcePageIdx, UIPlugin.getLocalString("_UI_Source_title"));
 			}
 			else if(MODULEFILE_NAME.equals(file.getName())) {
-				setPageText(sourcePageIdx, UIPlugin.INSTANCE.getString("_UI_Source_title"));
+				setPageText(sourcePageIdx, UIPlugin.getLocalString("_UI_Source_title"));
 				IFile metadataJSON = file.getParent().getFile(Path.fromPortableString(METADATA_JSON_NAME));
 				if(metadataJSON.exists() && metadataJSON.isDerived()) {
 					FileEditorInput metadataInput = new FileEditorInput(metadataJSON);
@@ -168,14 +168,14 @@ public class ModuleMetadataEditor extends FormEditor implements IGotoMarker, ISh
 						}
 					};
 					setPageText(
-						addPage(derivedJSON, metadataInput), UIPlugin.INSTANCE.getString("_UI_JSON_Derived_title"));
+						addPage(derivedJSON, metadataInput), UIPlugin.getLocalString("_UI_JSON_Derived_title"));
 				}
 			}
 			else
-				setPageText(sourcePageIdx, UIPlugin.INSTANCE.getString("_UI_JSON_title"));
+				setPageText(sourcePageIdx, UIPlugin.getLocalString("_UI_JSON_title"));
 		}
 		catch(Exception e) {
-			UIPlugin.INSTANCE.log(e);
+			UIPlugin.getInstance().log(e);
 		}
 	}
 

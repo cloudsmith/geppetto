@@ -27,6 +27,41 @@ import com.google.gson.reflect.TypeToken;
  */
 public interface Constants {
 	/**
+	 * The default base URL
+	 */
+	String FORGE_SERVICE_BASE_URL = "http://forgeapi.puppetlabs.com";
+
+	/**
+	 * Binding name for base URI
+	 */
+	String BASE_URL_NAME = "forge.service.baseURI"; //$NON-NLS-1$
+
+	/**
+	 * Binding name for OAuth clientId
+	 */
+	String OAUTH_CLIENT_ID = "forge.oauth.client.id";
+
+	/**
+	 * Binding name for OAuth clientSecret
+	 */
+	String OAUTH_CLIENT_SECRET = "forge.oauth.client.secret";
+
+	/**
+	 * Binding name for URL used by the Forge v1 API
+	 */
+	String API_V1_URL_NAME = "forge.api.v1.url";
+
+	/**
+	 * Binding name for URL used by the Forge v2 API
+	 */
+	String API_V2_URL_NAME = "forge.api.v2.url";
+
+	/**
+	 * Binding name for URL used by the Forge OAuth API
+	 */
+	String API_OAUTH_URL_NAME = "forge.api.oauth.url";
+
+	/**
 	 * URI path segment used for commands specific to files
 	 */
 	String COMMAND_GROUP_FILES = "files";
@@ -65,11 +100,6 @@ public interface Constants {
 	 * The content type of posts and responses.
 	 */
 	String CONTENT_TYPE_JSON = "application/json"; //$NON-NLS-1$
-
-	/**
-	 * Injection name for base URI
-	 */
-	String BASE_URI_NAME = "baseURI"; //$NON-NLS-1$
 
 	/**
 	 * Injection name for credentials
@@ -112,5 +142,4 @@ public interface Constants {
 	 */
 	Type LIST_USER = new TypeToken<List<User>>() {}.getType();
 	// @fmtOff
-
 }

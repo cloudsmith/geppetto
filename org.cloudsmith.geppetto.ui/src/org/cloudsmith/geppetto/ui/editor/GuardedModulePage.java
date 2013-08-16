@@ -91,7 +91,7 @@ abstract class GuardedModulePage extends FormPage {
 		void showGeneralError(boolean show, String msgKey) {
 			IMessageManager msgManager = getManagedForm().getMessageManager();
 			if(show) {
-				String msg = UIPlugin.INSTANCE.getString(msgKey);
+				String msg = UIPlugin.getLocalString(msgKey);
 				msgManager.addMessage(GENERAL_ERROR_MESSAGE_KEY, msg, null, IMessageProvider.ERROR);
 			}
 			else
@@ -105,7 +105,7 @@ abstract class GuardedModulePage extends FormPage {
 		int validateModuleName(String name, String key, Control control) {
 			IMessageManager msgManager = getManagedForm().getMessageManager();
 			if(name == null) {
-				String msg = UIPlugin.INSTANCE.getString("_UI_Module_name_missing");
+				String msg = UIPlugin.getLocalString("_UI_Module_name_missing");
 				if(control == null)
 					msgManager.addMessage(key, msg, null, IMessageProvider.ERROR);
 				else
@@ -142,7 +142,7 @@ abstract class GuardedModulePage extends FormPage {
 		int validateOwnerName(String name, String key, Control control) {
 			IMessageManager msgManager = getManagedForm().getMessageManager();
 			if(name == null) {
-				String msg = UIPlugin.INSTANCE.getString("_UI_Module_owner_missing");
+				String msg = UIPlugin.getLocalString("_UI_Module_owner_missing");
 				if(control == null)
 					msgManager.addMessage(key, msg, null, IMessageProvider.ERROR);
 				else
@@ -179,7 +179,7 @@ abstract class GuardedModulePage extends FormPage {
 		int validateVersion(String version, Control control) {
 			IMessageManager msgManager = getManagedForm().getMessageManager();
 			if(version == null) {
-				String msg = UIPlugin.INSTANCE.getString("_UI_Module_version_missing");
+				String msg = UIPlugin.getLocalString("_UI_Module_version_missing");
 				msgManager.addMessage(DEFAULT_MESSAGE_KEY, msg, null, IMessageProvider.ERROR, control);
 				return IMessageProvider.ERROR;
 			}
@@ -198,7 +198,7 @@ abstract class GuardedModulePage extends FormPage {
 		int validateVersionRequirement(String versionRequirement, String key) {
 			IMessageManager msgManager = getManagedForm().getMessageManager();
 			if(versionRequirement == null) {
-				String msg = UIPlugin.INSTANCE.getString("_UI_Module_version_requirement_missing");
+				String msg = UIPlugin.getLocalString("_UI_Module_version_requirement_missing");
 				msgManager.addMessage(key, msg, null, IMessageProvider.ERROR);
 				return IMessageProvider.ERROR;
 			}

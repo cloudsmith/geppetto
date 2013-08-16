@@ -13,7 +13,6 @@ package org.cloudsmith.geppetto.pp.dsl.serialization;
 import java.util.Collections;
 import java.util.Map;
 
-import org.cloudsmith.geppetto.pp.dsl.services.PPGrammarAccess;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.xtext.AbstractRule;
 import org.eclipse.xtext.IGrammarAccess;
@@ -36,7 +35,7 @@ import com.google.inject.Inject;
  */
 public class PPValueSerializer extends ValueSerializer {
 
-	private PPGrammarAccess pga;
+	// private PPGrammarAccess pga;
 
 	private Map<AbstractRule, String> ruleToText;
 
@@ -49,7 +48,7 @@ public class PPValueSerializer extends ValueSerializer {
 
 	@Inject
 	public PPValueSerializer(IGrammarAccess ga) {
-		pga = (PPGrammarAccess) ga;
+		// pga = (PPGrammarAccess) ga;
 
 		/**
 		 * Map of terminals and keywords that the serializer can not automatically figure out

@@ -10,11 +10,17 @@
  */
 package org.cloudsmith.geppetto.forge.maven.plugin;
 
+import java.util.List;
+
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
 import org.apache.maven.plugins.annotations.Parameter;
 import org.cloudsmith.geppetto.diagnostic.Diagnostic;
-import org.cloudsmith.geppetto.forge.impl.ForgePreferencesBean;
+import org.cloudsmith.geppetto.forge.ForgeService;
+import org.cloudsmith.geppetto.forge.client.ForgeHttpModule;
+import org.cloudsmith.geppetto.forge.impl.ForgeServiceModule;
+
+import com.google.inject.Module;
 
 public abstract class AbstractForgeServiceMojo extends AbstractForgeMojo {
 	/**
@@ -24,9 +30,15 @@ public abstract class AbstractForgeServiceMojo extends AbstractForgeMojo {
 	private String serviceURL;
 
 	@Override
-	protected void addForgePreferences(ForgePreferencesBean forgePreferences, Diagnostic diagnostic) {
-		super.addForgePreferences(forgePreferences, diagnostic);
-		forgePreferences.setBaseURL(serviceURL);
+	protected void addModules(Diagnostic diagnostic, List<Module> modules) {
+		super.addModules(diagnostic, modules);
+		modules.add(new ForgeHttpModule() {
+			@Override
+			protected String getBaseURL() {
+				return serviceURL;
+			}
+		});
+		modules.add(new ForgeServiceModule());
 	}
 
 	@Override
@@ -38,5 +50,9 @@ public abstract class AbstractForgeServiceMojo extends AbstractForgeMojo {
 			serviceURL += "/";
 
 		super.execute();
+	}
+
+	protected ForgeService getForge() {
+		return getInjector().getInstance(ForgeService.class);
 	}
 }

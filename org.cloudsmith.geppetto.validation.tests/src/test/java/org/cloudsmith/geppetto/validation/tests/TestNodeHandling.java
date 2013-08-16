@@ -48,7 +48,6 @@ public class TestNodeHandling extends AbstractValidationTest {
 
 		// Without constraint that only things on path are validated - there should be two redefinition errors
 		//
-		List<Diagnostic> children = chain.getChildren();
 		assertEquals("There should be no errors", 0, countErrors(chain));
 		AllModuleReferences exports = buildResult.getAllModuleReferences();
 		// dumpExports(exports);

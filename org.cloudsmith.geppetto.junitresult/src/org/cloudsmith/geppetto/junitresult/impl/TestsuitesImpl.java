@@ -12,7 +12,6 @@ package org.cloudsmith.geppetto.junitresult.impl;
 
 import org.cloudsmith.geppetto.junitresult.JunitresultPackage;
 import org.cloudsmith.geppetto.junitresult.Testsuites;
-
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
@@ -126,7 +125,6 @@ public class TestsuitesImpl extends AbstractAggregatedTestImpl implements Testsu
 	 * 
 	 * @generated
 	 */
-	@SuppressWarnings("unchecked")
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch(featureID) {

@@ -52,7 +52,6 @@ import org.eclipse.ui.texteditor.SourceViewerDecorationSupport;
 import org.eclipse.ui.views.contentoutline.IContentOutlinePage;
 import org.eclipse.xtext.ui.editor.XtextEditor;
 import org.eclipse.xtext.ui.editor.outline.impl.OutlinePage;
-import org.eclipse.xtext.ui.editor.preferences.IPreferenceStoreAccess;
 
 import com.google.inject.Inject;
 
@@ -102,8 +101,8 @@ public class ExtLinkedXtextEditor extends XtextEditor {
 	// */
 	// private final static String PRINT_MARGIN_COLUMN = AbstractDecoratedTextEditorPreferenceConstants.EDITOR_PRINT_MARGIN_COLUMN;
 	//
-	@Inject
-	private IPreferenceStoreAccess preferenceAccess;
+	//	@Inject
+	//	private IPreferenceStoreAccess preferenceAccess;
 
 	@Inject
 	public ExtLinkedXtextEditor() {

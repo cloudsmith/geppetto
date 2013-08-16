@@ -15,7 +15,6 @@ import java.util.List;
 import org.cloudsmith.geppetto.pp.dsl.adapters.CrossReferenceAdapterFactory;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.xtext.AbstractRule;
-import org.eclipse.xtext.CrossReference;
 import org.eclipse.xtext.EcoreUtil2;
 import org.eclipse.xtext.GrammarUtil;
 import org.eclipse.xtext.nodemodel.ILeafNode;
@@ -37,7 +36,8 @@ public class PPObjectAtOffsetHelper {
 	 * 
 	 * @param a
 	 *            node (possibly null)
-	 * @return if the given node is part of a cross reference this method returns the node pointing to the {@link CrossReference} <code>null</code> if
+	 * @return if the given node is part of a cross reference this method returns the node pointing to the
+	 *         {@link CrossReference} <code>null</code> if
 	 *         the passed node was a null reference or if the passed node is
 	 *         not part of a cross reference.
 	 * @since 2.1
@@ -169,7 +169,8 @@ public class PPObjectAtOffsetHelper {
 	/**
 	 * TODO: USE THIS
 	 * 
-	 * @return the cross referenced EObject under, right or left to the cursor (in that order) or <code>null</code> if there is no cross referenced
+	 * @return the cross referenced EObject under, right or left to the cursor (in that order) or <code>null</code> if
+	 *         there is no cross referenced
 	 *         object next to the offset.
 	 */
 	public List<IEObjectDescription> resolveCrossReferencedElementAt(XtextResource resource, int offset) {

@@ -129,8 +129,7 @@ public class NewManifestWizard extends BasicNewResourceWizard implements INewWiz
 	 */
 	@Override
 	protected void initializeDefaultPageImageDescriptor() {
-		ImageDescriptor desc = UIPlugin.Implementation.imageDescriptorFromPlugin(
-			UIPlugin.INSTANCE.getSymbolicName(), "icons/full/wizban/NewPuppetManifest.png");
+		ImageDescriptor desc = UIPlugin.getImageDesc("icons/full/wizban/NewPuppetManifest.png");
 		if(desc == null)
 			desc = IDEWorkbenchPlugin.getIDEImageDescriptor("wizban/newfile_wiz.png");//$NON-NLS-1$
 		setDefaultPageImageDescriptor(desc);

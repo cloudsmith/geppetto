@@ -10,6 +10,10 @@
  */
 package org.cloudsmith.geppetto.forge.util;
 
+import static org.cloudsmith.geppetto.diagnostic.Diagnostic.ERROR;
+import static org.cloudsmith.geppetto.diagnostic.Diagnostic.WARNING;
+import static org.cloudsmith.geppetto.forge.Forge.PACKAGE;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.Collections;
@@ -18,7 +22,6 @@ import java.util.List;
 import org.cloudsmith.geppetto.diagnostic.Diagnostic;
 import org.cloudsmith.geppetto.diagnostic.DiagnosticType;
 import org.cloudsmith.geppetto.diagnostic.FileDiagnostic;
-import org.cloudsmith.geppetto.forge.Forge;
 import org.cloudsmith.geppetto.forge.v2.model.ModuleName;
 import org.cloudsmith.geppetto.semver.Version;
 import org.cloudsmith.geppetto.semver.VersionRange;
@@ -47,11 +50,11 @@ public abstract class MetadataJsonParser extends JsonPositionalParser {
 		}
 		catch(IllegalArgumentException e) {
 			try {
-				chain.addChild(createDiagnostic(jsonName, Diagnostic.WARNING, getBadNameMessage(e, dependency)));
+				chain.addChild(createDiagnostic(jsonName, WARNING, getBadNameMessage(e, dependency)));
 				return new ModuleName(moduleName, false);
 			}
 			catch(IllegalArgumentException e2) {
-				chain.addChild(createDiagnostic(jsonName, Diagnostic.ERROR, getBadNameMessage(e, dependency)));
+				chain.addChild(createDiagnostic(jsonName, ERROR, getBadNameMessage(e, dependency)));
 				return null;
 			}
 		}
@@ -66,7 +69,7 @@ public abstract class MetadataJsonParser extends JsonPositionalParser {
 			return Version.create(version);
 		}
 		catch(IllegalArgumentException e) {
-			chain.addChild(createDiagnostic(jsonVersion, Diagnostic.ERROR, e.getMessage()));
+			chain.addChild(createDiagnostic(jsonVersion, ERROR, e.getMessage()));
 			return null;
 
 		}
@@ -80,7 +83,7 @@ public abstract class MetadataJsonParser extends JsonPositionalParser {
 			return VersionRange.create(versionRequirement);
 		}
 		catch(IllegalArgumentException e) {
-			chain.addChild(createDiagnostic(jsonVersionRequirement, Diagnostic.ERROR, e.getMessage()));
+			chain.addChild(createDiagnostic(jsonVersionRequirement, ERROR, e.getMessage()));
 			return null;
 		}
 	}
@@ -140,17 +143,16 @@ public abstract class MetadataJsonParser extends JsonPositionalParser {
 						Collections.singletonList(entry.getElement()));
 			}
 			catch(IllegalArgumentException e) {
-				chain.addChild(createDiagnostic(entry, Diagnostic.ERROR, "Unrecognized call: " + entry.getKey()));
+				chain.addChild(createDiagnostic(entry, ERROR, "Unrecognized call: " + entry.getKey()));
 			}
 		}
 
 		if(!nameSeen || fullName != null && (fullName.getOwner() == null || fullName.getName() == null)) {
-			chain.addChild(new FileDiagnostic(
-				Diagnostic.ERROR, Forge.PACKAGE, "A full name (user-module) must be specified", file));
+			chain.addChild(new FileDiagnostic(ERROR, PACKAGE, "A full name (user-module) must be specified", file));
 		}
 
 		if(!versionSeen) {
-			chain.addChild(new FileDiagnostic(Diagnostic.ERROR, Forge.PACKAGE, "A version must be specified", file));
+			chain.addChild(new FileDiagnostic(ERROR, PACKAGE, "A version must be specified", file));
 		}
 	}
 
@@ -158,7 +160,7 @@ public abstract class MetadataJsonParser extends JsonPositionalParser {
 		if(element instanceof JArray)
 			return ((JArray) element).getValues();
 
-		chain.addChild(createDiagnostic(element, Diagnostic.ERROR, symbol + " must be an array"));
+		chain.addChild(createDiagnostic(element, ERROR, symbol + " must be an array"));
 		return Collections.emptyList();
 	}
 
@@ -174,7 +176,7 @@ public abstract class MetadataJsonParser extends JsonPositionalParser {
 				else if("version_requirement".equals(entry.getKey()) || "versionRequirement".equals(entry.getKey()))
 					createVersionRequirement(entry.getElement(), chain);
 				else
-					chain.addChild(createDiagnostic(entry, Diagnostic.WARNING, "Unrecognized entry: " + entry.getKey()));
+					chain.addChild(createDiagnostic(entry, WARNING, "Unrecognized entry: " + entry.getKey()));
 			}
 		}
 	}
@@ -184,7 +186,7 @@ public abstract class MetadataJsonParser extends JsonPositionalParser {
 			if("name".equals(entry.getKey()) || "doc".equals(entry.getKey()))
 				validateString(entry.getElement(), entry.getKey(), chain);
 			else
-				chain.addChild(createDiagnostic(entry, Diagnostic.WARNING, "Unrecognized entry: " + entry.getKey()));
+				chain.addChild(createDiagnostic(entry, WARNING, "Unrecognized entry: " + entry.getKey()));
 		}
 	}
 
@@ -204,7 +206,7 @@ public abstract class MetadataJsonParser extends JsonPositionalParser {
 				str = (String) value;
 		}
 		if(str == null)
-			chain.addChild(createDiagnostic(element, Diagnostic.ERROR, symbol + " must be a string"));
+			chain.addChild(createDiagnostic(element, ERROR, symbol + " must be a string"));
 		return str;
 	}
 
@@ -218,7 +220,7 @@ public abstract class MetadataJsonParser extends JsonPositionalParser {
 					for(JElement param : validateArray(entry.getElement(), key, chain))
 						validateNamedDocEntry(param, key, chain);
 				else
-					chain.addChild(createDiagnostic(entry, Diagnostic.WARNING, "Unrecognized entry: " + entry.getKey()));
+					chain.addChild(createDiagnostic(entry, WARNING, "Unrecognized entry: " + entry.getKey()));
 			}
 		}
 	}

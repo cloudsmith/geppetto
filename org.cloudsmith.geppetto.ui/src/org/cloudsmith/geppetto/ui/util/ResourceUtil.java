@@ -50,7 +50,7 @@ public class ResourceUtil {
 
 		try {
 			progressMonitor.beginTask("", 10); //$NON-NLS-1$
-			progressMonitor.subTask(UIPlugin.INSTANCE.getString("_UI_CreatingPuppetProject_message", //$NON-NLS-1$
+			progressMonitor.subTask(UIPlugin.getLocalString("_UI_CreatingPuppetProject_message", //$NON-NLS-1$
 				new Object[] { projectName, projectLocationURI != null
 						? projectLocationURI.toString()
 						: projectName }));
@@ -124,8 +124,7 @@ public class ResourceUtil {
 			project.setDescription(projectDescription, new SubProgressMonitor(progressMonitor, 1));
 		}
 		catch(Exception exception) {
-			exception.printStackTrace();
-			UIPlugin.INSTANCE.log(exception);
+			UIPlugin.logException("Unable to create project", exception);
 		}
 		finally {
 			progressMonitor.done();

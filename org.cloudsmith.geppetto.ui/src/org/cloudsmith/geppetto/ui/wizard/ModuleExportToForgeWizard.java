@@ -10,8 +10,6 @@
  */
 package org.cloudsmith.geppetto.ui.wizard;
 
-import static org.cloudsmith.geppetto.injectable.CommonModuleProvider.getCommonModule;
-
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
@@ -19,9 +17,8 @@ import java.util.List;
 import org.cloudsmith.geppetto.common.Strings;
 import org.cloudsmith.geppetto.diagnostic.Diagnostic;
 import org.cloudsmith.geppetto.forge.Forge;
-import org.cloudsmith.geppetto.forge.ForgePreferences;
 import org.cloudsmith.geppetto.forge.ForgeService;
-import org.cloudsmith.geppetto.forge.impl.ForgePreferencesBean;
+import org.cloudsmith.geppetto.forge.client.OAuthModule;
 import org.cloudsmith.geppetto.forge.util.Checksums;
 import org.cloudsmith.geppetto.forge.v2.model.Metadata;
 import org.cloudsmith.geppetto.forge.v2.model.ModuleName;
@@ -31,7 +28,6 @@ import org.cloudsmith.geppetto.ui.wizard.ModuleExportOperation.ExportSpec;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IStatus;
-import org.eclipse.core.runtime.Status;
 import org.eclipse.equinox.security.storage.ISecurePreferences;
 import org.eclipse.equinox.security.storage.SecurePreferencesFactory;
 import org.eclipse.equinox.security.storage.StorageException;
@@ -53,24 +49,26 @@ import org.eclipse.swt.widgets.Widget;
 import org.eclipse.ui.dialogs.WizardExportResourcesPage;
 import org.eclipse.ui.internal.wizards.datatransfer.DataTransferMessages;
 
-import com.google.inject.Guice;
 import com.google.inject.Inject;
 import com.google.inject.Injector;
 
 public class ModuleExportToForgeWizard extends ModuleExportToFileWizard {
-	class ModuleExportToForgeWizardPage extends WizardExportResourcesPage implements ModuleExportWizardPage {
-		private boolean inCanFinish = false;
 
+	class ModuleExportToForgeWizardPage extends WizardExportResourcesPage implements ModuleExportWizardPage {
 		private Text loginField;
 
 		private Text passwordField;
 
 		private Button saveInSecureStoreButton;
 
+		private boolean validationChange;
+
+		private Button dryRunButton;
+
 		public ModuleExportToForgeWizardPage(IStructuredSelection selection) {
 			this("moduleExportToForge", selection); //$NON-NLS-1$
-			setTitle(UIPlugin.INSTANCE.getString("_UI_ExportModulesToForge"));
-			setDescription(UIPlugin.INSTANCE.getString("_UI_ExportModulesToForge_desc"));
+			setTitle(UIPlugin.getLocalString("_UI_ExportModulesToForge"));
+			setDescription(UIPlugin.getLocalString("_UI_ExportModulesToForge_desc"));
 		}
 
 		public ModuleExportToForgeWizardPage(String name, IStructuredSelection selection) {
@@ -78,68 +76,8 @@ public class ModuleExportToForgeWizard extends ModuleExportToFileWizard {
 		}
 
 		@Override
-		public boolean canFinish() {
-			if(inCanFinish)
-				return false;
-
-			inCanFinish = true;
-			setErrorMessage(null);
-			try {
-				@SuppressWarnings("unchecked")
-				List<IResource> whiteCheckedResources = getWhiteCheckedResources();
-				UIPlugin plugin = UIPlugin.INSTANCE;
-				String owner = null;
-				Diagnostic diag = new Diagnostic();
-				for(ExportSpec spec : getExportSpecs(whiteCheckedResources)) {
-					try {
-						Metadata md = getForge().createFromModuleDirectory(
-							spec.getModuleRoot(), false, spec.getFileFilter(), null, diag);
-						if(md != null) {
-							ModuleName name = md.getName();
-							if(owner == null)
-								owner = name.getOwner();
-							else if(!owner.equals(name.getOwner())) {
-								setErrorMessage(plugin.getString("_UI_MultipleModuleOwners"));
-								return false;
-							}
-						}
-					}
-					catch(IOException e) {
-					}
-				}
-
-				if(owner == null) {
-					setErrorMessage(plugin.getString("_UI_NoModulesSelected"));
-					return false;
-				}
-
-				if(!owner.equals(loginField.getText())) {
-					// Owner changed
-					loginField.setText(owner);
-					String password = null;
-					if(saveInSecureStoreButton.getSelection())
-						password = loadSecurePassword(owner);
-					if(password == null)
-						password = "";
-					passwordField.setText(password);
-				}
-				if(!"".equals(passwordField.getText()))
-					return true;
-
-				setErrorMessage(plugin.getString("_UI_EnterPassword"));
-			}
-			catch(CoreException e) {
-				setErrorMessage(e.getMessage());
-			}
-			finally {
-				inCanFinish = false;
-			}
-			return false;
-		}
-
-		@Override
 		protected void createDestinationGroup(Composite parent) {
-			UIPlugin plugin = UIPlugin.INSTANCE;
+			UIPlugin plugin = UIPlugin.getInstance();
 			Group destinationGroup = new Group(parent, SWT.NONE);
 			GridLayout layout = new GridLayout();
 			destinationGroup.setLayout(layout);
@@ -169,11 +107,21 @@ public class ModuleExportToForgeWizard extends ModuleExportToFileWizard {
 			passwordField.setLayoutData(data);
 			passwordField.setFont(font);
 			passwordField.addListener(SWT.Modify, this);
+		}
 
-			saveInSecureStoreButton = new Button(destinationGroup, SWT.CHECK);
+		@Override
+		protected void createOptionsGroupButtons(Group optionsGroup) {
+			UIPlugin plugin = UIPlugin.getInstance();
+			Font font = optionsGroup.getFont();
+			saveInSecureStoreButton = new Button(optionsGroup, SWT.CHECK);
 			saveInSecureStoreButton.setText(plugin.getString("_UI_SaveInSecureStorage_label"));
 			saveInSecureStoreButton.addListener(SWT.Selection, this);
 			saveInSecureStoreButton.setFont(font);
+
+			dryRunButton = new Button(optionsGroup, SWT.CHECK);
+			dryRunButton.setText(plugin.getString("_UI_DryRun_label"));
+			dryRunButton.setFont(font);
+			dryRunButton.setSelection(false);
 		}
 
 		@Override
@@ -185,14 +133,8 @@ public class ModuleExportToForgeWizard extends ModuleExportToFileWizard {
 				// User clicked on cancel when being asked to save dirty editors.
 				return false;
 
-			ForgePreferencesBean forgePrefs = new ForgePreferencesBean(forgePreferences);
-			forgePrefs.setLogin(loginField.getText());
-			forgePrefs.setPassword(passwordField.getText());
-			forgePrefs.setOAuthClientId(FORGE_CLIENT_ID);
-			forgePrefs.setOAuthClientSecret(FORGE_CLIENT_SECRET);
-			forgePrefs.setOAuthAccessToken(null);
-			Injector injector = Guice.createInjector(getCommonModule(), ForgeService.getDefaultModule());
-			Forge forge = injector.getInstance(Forge.class);
+			final Injector injector = UIPlugin.getInstance().getInjector().createChildInjector(
+				new OAuthModule(FORGE_CLIENT_ID, FORGE_CLIENT_SECRET, loginField.getText(), passwordField.getText()));
 			try {
 				@SuppressWarnings("unchecked")
 				List<IResource> whiteCheckedResources = getWhiteCheckedResources();
@@ -201,18 +143,25 @@ public class ModuleExportToForgeWizard extends ModuleExportToFileWizard {
 				destinationDir.delete();
 				destinationDir.mkdir();
 				ModuleExportToForgeOperation exportOp = new ModuleExportToForgeOperation(
-					forge, getExportSpecs(whiteCheckedResources), destinationDir);
+					getExportSpecs(whiteCheckedResources), destinationDir, dryRunButton.getSelection()) {
+
+					@Override
+					protected Forge getForge() {
+						return injector.getInstance(Forge.class);
+					}
+
+					@Override
+					protected ForgeService getForgeService() {
+						return injector.getInstance(ForgeService.class);
+					}
+				};
 				boolean result = executeExport(exportOp);
 				Diagnostic diag = exportOp.getDiagnostic();
 				if(diag.getSeverity() == Diagnostic.ERROR) {
 					Exception e = diag.getException();
-					if(e != null)
-						throw e;
 					ErrorDialog.openError(
-						getContainer().getShell(), DataTransferMessages.DataTransfer_exportProblems,
-						null, // no special message
-						new Status(
-							IStatus.ERROR, UIPlugin.getPlugin().getBundle().getSymbolicName(), 0, diag.toString(), null));
+						getContainer().getShell(), DataTransferMessages.DataTransfer_exportProblems, null, // no special message
+						UIPlugin.createStatus(IStatus.ERROR, diag.toString(), e));
 				}
 				else
 					MessageDialog.openInformation(
@@ -226,13 +175,18 @@ public class ModuleExportToForgeWizard extends ModuleExportToFileWizard {
 			}
 			catch(Exception e) {
 				ErrorDialog.openError(
-					getContainer().getShell(), DataTransferMessages.DataTransfer_exportProblems, null, new Status(
-						IStatus.ERROR, UIPlugin.getPlugin().getBundle().getSymbolicName(), 0, e.getMessage(), e));
+					getContainer().getShell(), DataTransferMessages.DataTransfer_exportProblems, null,
+					UIPlugin.createStatus(IStatus.ERROR, e.getMessage(), e));
 			}
 			return false;
 		}
 
 		public void handleEvent(Event e) {
+			if(validationChange)
+				// Don't act on events that stems from login/password settings made
+				// by the source group validation
+				return;
+
 			Widget source = e.widget;
 			if(source == saveInSecureStoreButton && saveInSecureStoreButton.getSelection()) {
 				String login = Strings.trimToNull(loginField.getText());
@@ -242,9 +196,7 @@ public class ModuleExportToForgeWizard extends ModuleExportToFileWizard {
 						saveSecurePassword(login, password);
 				}
 			}
-			else if(source == passwordField)
-				// Trigger error field update
-				canFinish();
+			updatePageCompletion();
 		}
 
 		@Override
@@ -277,6 +229,72 @@ public class ModuleExportToForgeWizard extends ModuleExportToFileWizard {
 			loginField.setText(login);
 			passwordField.setText(password);
 		}
+
+		@Override
+		public boolean validateDestinationGroup() {
+			if("".equals(passwordField.getText())) {
+				setErrorMessage(UIPlugin.getLocalString("_UI_EnterPassword"));
+				return false;
+			}
+			return super.validateDestinationGroup();
+		}
+
+		@Override
+		public boolean validateSourceGroup() {
+			if(!super.validateSourceGroup())
+				return false;
+
+			try {
+				@SuppressWarnings("unchecked")
+				List<IResource> whiteCheckedResources = getWhiteCheckedResources();
+				UIPlugin plugin = UIPlugin.getInstance();
+				String owner = null;
+				Diagnostic diag = new Diagnostic();
+				for(ExportSpec spec : getExportSpecs(whiteCheckedResources)) {
+					try {
+						Metadata md = getForge().createFromModuleDirectory(
+							spec.getModuleRoot(), false, spec.getFileFilter(), null, diag);
+						if(md != null) {
+							ModuleName name = md.getName();
+							if(owner == null)
+								owner = name.getOwner();
+							else if(!owner.equals(name.getOwner())) {
+								setErrorMessage(plugin.getString("_UI_MultipleModuleOwners"));
+								return false;
+							}
+						}
+					}
+					catch(IOException e) {
+					}
+				}
+
+				if(owner == null) {
+					setErrorMessage(plugin.getString("_UI_NoModulesSelected"));
+					return false;
+				}
+				if(!owner.equals(loginField.getText())) {
+					// Owner changed
+					validationChange = true;
+					try {
+						loginField.setText(owner);
+						String password = null;
+						if(saveInSecureStoreButton.getSelection())
+							password = loadSecurePassword(owner);
+						if(password == null)
+							password = "";
+						passwordField.setText(password);
+					}
+					finally {
+						validationChange = false;
+					}
+				}
+				return true;
+			}
+			catch(CoreException e) {
+				setErrorMessage(e.getMessage());
+				return false;
+			}
+		}
 	}
 
 	private static final String FORGE_CLIENT_ID = "cac18b1f07f13a244c47644548b29cbbe58048f3aaccdeefa7c0306467afda44";
@@ -285,9 +303,6 @@ public class ModuleExportToForgeWizard extends ModuleExportToFileWizard {
 
 	@Inject
 	private PPPreferencesHelper preferenceHelper;
-
-	@Inject
-	private ForgePreferences forgePreferences;
 
 	private static final String STORE_LOGIN = "ModuleExportToForgeWizardPage.STORE_LOGIN"; //$NON-NLS-1$
 

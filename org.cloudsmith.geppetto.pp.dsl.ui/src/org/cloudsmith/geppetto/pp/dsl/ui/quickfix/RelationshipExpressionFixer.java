@@ -10,11 +10,7 @@
  */
 package org.cloudsmith.geppetto.pp.dsl.ui.quickfix;
 
-import org.cloudsmith.geppetto.pp.AtExpression;
-import org.cloudsmith.geppetto.pp.CollectExpression;
-import org.cloudsmith.geppetto.pp.RelationshipExpression;
 import org.cloudsmith.geppetto.pp.dsl.validation.IPPDiagnostics;
-import org.eclipse.emf.ecore.EObject;
 import org.eclipse.xtext.ui.editor.quickfix.Fix;
 import org.eclipse.xtext.ui.editor.quickfix.IssueResolutionAcceptor;
 import org.eclipse.xtext.validation.Issue;
@@ -74,13 +70,14 @@ public class RelationshipExpressionFixer {
 		// });
 	}
 
+	/*
 	private boolean isValidRelationshipExpression(EObject o) {
 		if(o instanceof RelationshipExpression || o instanceof AtExpression || o instanceof CollectExpression)
 			return true;
 		// Resource is trickier - must check form
 
 		return false;
-	}
+	}*/
 
 	private String reverseRelationshipOp(String op) {
 		if(op.charAt(0) == '<') {

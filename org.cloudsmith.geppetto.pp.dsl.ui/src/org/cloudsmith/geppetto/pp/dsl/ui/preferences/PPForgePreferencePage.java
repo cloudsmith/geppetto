@@ -10,6 +10,8 @@
  */
 package org.cloudsmith.geppetto.pp.dsl.ui.preferences;
 
+import org.cloudsmith.geppetto.forge.v2.model.ModuleName;
+import org.cloudsmith.geppetto.forge.v2.model.ModuleName.BadOwnerCharactersException;
 import org.cloudsmith.geppetto.pp.dsl.ui.preferences.editors.AbstractPreferencePage;
 import org.eclipse.jface.preference.StringFieldEditor;
 
@@ -28,6 +30,22 @@ public class PPForgePreferencePage extends AbstractPreferencePage {
 
 		addField(new StringFieldEditor(PPPreferenceConstants.FORGE_LOGIN, //
 			"Module Forge Login", //
-			getFieldEditorParent()));
+			getFieldEditorParent()) {
+
+			@Override
+			protected boolean checkState() {
+				if(super.checkState()) {
+					try {
+						ModuleName.checkOwner(getStringValue(), true);
+						return true;
+					}
+					catch(BadOwnerCharactersException e) {
+						setErrorMessage(e.getMessage());
+						showErrorMessage();
+					}
+				}
+				return false;
+			}
+		});
 	}
 }

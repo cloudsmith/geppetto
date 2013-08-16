@@ -14,7 +14,6 @@ import org.cloudsmith.xtext.dommodel.IDomNode;
 import org.cloudsmith.xtext.dommodel.IDomNode.NodeClassifier;
 import org.cloudsmith.xtext.dommodel.RegionMatch;
 import org.cloudsmith.xtext.dommodel.formatter.css.Alignment;
-import org.cloudsmith.xtext.dommodel.formatter.css.DomCSS;
 import org.cloudsmith.xtext.dommodel.formatter.css.IFunctionFactory;
 import org.cloudsmith.xtext.dommodel.formatter.css.LineBreaks;
 import org.cloudsmith.xtext.dommodel.formatter.css.Spacing;
@@ -37,11 +36,13 @@ import com.google.inject.name.Named;
  * A Dom Model Formatter driven by rules in a {@link DomCSS}.
  * </p>
  * <p>
- * If there are no rules for spacing and line breaks in the style sheet produced by the given domProvider, default rules for "one space" and
- * "no line break" will be used. This makes this formatter function as a "one space formatter" in the default case.
+ * If there are no rules for spacing and line breaks in the style sheet produced by the given domProvider, default rules
+ * for "one space" and "no line break" will be used. This makes this formatter function as a "one space formatter" in
+ * the default case.
  * </p>
  * <p>
- * Comment formatting is performed by delegating to an instance of {@link ILayout} that is bound to the name {@value #COMMENT_LAYOUT_NAME}.
+ * Comment formatting is performed by delegating to an instance of {@link ILayout} that is bound to the name
+ * {@value #COMMENT_LAYOUT_NAME}.
  * </p>
  */
 public class FlowLayout extends AbstractLayoutManager implements ILayoutManager {

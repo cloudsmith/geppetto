@@ -12,36 +12,40 @@ package org.cloudsmith.geppetto.forge.maven.plugin;
 
 import static org.cloudsmith.geppetto.injectable.CommonModuleProvider.getCommonModule;
 
+import java.io.IOException;
 import java.util.Properties;
 
-import org.cloudsmith.geppetto.forge.client.ForgeAPIPreferencesBean;
 import org.cloudsmith.geppetto.forge.client.ForgeHttpModule;
+import org.cloudsmith.geppetto.forge.client.GsonModule;
+import org.cloudsmith.geppetto.forge.client.OAuthModule;
 import org.cloudsmith.geppetto.forge.v2.ForgeAPI;
 import org.cloudsmith.geppetto.forge.v2.service.ModuleService;
 import org.cloudsmith.geppetto.forge.v2.service.ModuleTemplate;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.google.inject.Guice;
+import com.google.inject.Module;
 
 public class SetupTestMojo extends AbstractForgeTestMojo {
-	private static ForgeAPIPreferencesBean createBasicForgePrefs() throws Exception {
-		ForgeAPIPreferencesBean forgePrefs = new ForgeAPIPreferencesBean();
-
-		Properties props = AbstractForgeMojo.readForgeProperties();
-		forgePrefs.setOAuthClientId(props.getProperty("forge.oauth.clientID"));
-		forgePrefs.setOAuthClientSecret(props.getProperty("forge.oauth.clientSecret"));
-		forgePrefs.setBaseURL(System.getProperty("forge.base.url"));
-		return forgePrefs;
+	private static Module createCredentialsModule(Properties props, String login, String password) throws IOException {
+		return new OAuthModule(
+			props.getProperty("forge.oauth.clientID"), props.getProperty("forge.oauth.clientSecret"), login, password);
 	}
 
 	@Test
 	public void createInitialModules() throws Exception {
+		Properties props = AbstractForgeMojo.readForgeProperties();
+
 		// Login using the primary login (bob)
-		ForgeAPIPreferencesBean forgePrefs = createBasicForgePrefs();
-		forgePrefs.setLogin(System.getProperty("forge.login"));
-		forgePrefs.setPassword(System.getProperty("forge.password"));
-		ForgeAPI forge = new ForgeAPI(Guice.createInjector(getCommonModule(), new ForgeHttpModule(forgePrefs)));
+		Module forgeModule = new ForgeHttpModule() {
+			@Override
+			protected String getBaseURL() {
+				return System.getProperty("forge.base.url");
+			}
+		};
+
+		ForgeAPI forge = new ForgeAPI(getCommonModule(), GsonModule.INSTANCE, createCredentialsModule(
+			props, System.getProperty("forge.login"), System.getProperty("forge.password")), forgeModule);
 
 		// Create the modules used in publishing tests
 		ModuleService moduleService = forge.createModuleService();
@@ -59,10 +63,8 @@ public class SetupTestMojo extends AbstractForgeTestMojo {
 		moduleService.create(template);
 
 		// Login using the second login (ben)
-		forgePrefs = createBasicForgePrefs();
-		forgePrefs.setLogin(System.getProperty("forge.login.second"));
-		forgePrefs.setPassword(System.getProperty("forge.password.second"));
-		ForgeAPI secondForge = new ForgeAPI(Guice.createInjector(getCommonModule(), new ForgeHttpModule(forgePrefs)));
+		ForgeAPI secondForge = new ForgeAPI(getCommonModule(), GsonModule.INSTANCE, createCredentialsModule(
+			props, System.getProperty("forge.login.second"), System.getProperty("forge.password.second")), forgeModule);
 		moduleService = secondForge.createModuleService();
 
 		// Create the module used for the wrong owner publishing test

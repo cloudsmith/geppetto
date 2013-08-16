@@ -31,7 +31,6 @@ import org.eclipse.xtext.RuleCall;
 import com.google.common.base.Predicate;
 import com.google.common.collect.Lists;
 import com.google.inject.Inject;
-import com.google.inject.Provider;
 
 /**
  * A sub layout handler for SelectorExpression and SelctorEntry
@@ -46,9 +45,6 @@ public class SelectorLayout {
 
 	@Inject
 	private DomNodeLayoutFeeder feeder;
-
-	@Inject
-	private Provider<IBreakAndAlignAdvice> adviceProvider;
 
 	protected final Predicate<IDomNode> caseFatCommaPredicate = new Predicate<IDomNode>() {
 

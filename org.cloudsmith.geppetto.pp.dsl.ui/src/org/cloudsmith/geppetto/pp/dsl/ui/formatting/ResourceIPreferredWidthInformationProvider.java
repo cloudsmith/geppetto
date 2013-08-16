@@ -14,7 +14,6 @@ import org.cloudsmith.geppetto.pp.dsl.ui.preferences.data.FormatterGeneralPrefer
 import org.cloudsmith.xtext.formatting.IPreferredMaxWidthInformation;
 import org.cloudsmith.xtext.ui.resource.PlatformResourceSpecificProvider;
 import org.eclipse.core.resources.IResource;
-import org.eclipse.xtext.formatting.IIndentationInformation;
 
 import com.google.inject.Inject;
 

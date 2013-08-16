@@ -13,7 +13,6 @@ package org.cloudsmith.geppetto.ui.wizard;
 import org.cloudsmith.geppetto.ui.UIPlugin;
 import org.cloudsmith.geppetto.ui.util.ResourceUtil;
 import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.emf.edit.ui.provider.ExtendedImageRegistry;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.ui.IWorkbench;
 
@@ -26,7 +25,7 @@ public class NewPuppetProjectWizard extends NewPuppetModuleProjectWizard {
 
 	@Override
 	protected String getProjectCreationPageDescription() {
-		return UIPlugin.INSTANCE.getString("_UI_PuppetProject_description"); //$NON-NLS-1$
+		return UIPlugin.getLocalString("_UI_PuppetProject_description"); //$NON-NLS-1$
 	}
 
 	@Override
@@ -36,8 +35,8 @@ public class NewPuppetProjectWizard extends NewPuppetModuleProjectWizard {
 
 	@Override
 	public void init(IWorkbench workbench, IStructuredSelection selection) {
-		setDefaultPageImageDescriptor(ExtendedImageRegistry.INSTANCE.getImageDescriptor(UIPlugin.INSTANCE.getImage("full/wizban/NewPuppetProject.png"))); //$NON-NLS-1$
-		setWindowTitle(UIPlugin.INSTANCE.getString("_UI_NewPuppetProject_title")); //$NON-NLS-1$
+		setDefaultPageImageDescriptor(UIPlugin.getImageDesc("full/wizban/NewPuppetProject.png")); //$NON-NLS-1$
+		setWindowTitle(UIPlugin.getLocalString("_UI_NewPuppetProject_title")); //$NON-NLS-1$
 	}
 
 	@Override

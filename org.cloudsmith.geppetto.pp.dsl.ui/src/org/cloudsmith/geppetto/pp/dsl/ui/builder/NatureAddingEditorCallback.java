@@ -14,22 +14,17 @@ import org.eclipse.core.resources.IResource;
 import org.eclipse.xtext.ui.editor.XtextEditor;
 import org.eclipse.xtext.ui.editor.validation.ValidatingEditorCallback;
 
-import com.google.inject.Inject;
-
 /**
  * Turns on puppet and xtext natures when a file opens if these natures are not already in effect on the project.
  */
 public class NatureAddingEditorCallback extends ValidatingEditorCallback {
-	@Inject
-	private ToggleNatureAction toggleNature;
-
 	@Override
 	public void afterCreatePartControl(XtextEditor editor) {
 		super.afterCreatePartControl(editor);
 		IResource resource = editor.getResource();
 		if(resource != null && resource.getProject().isAccessible() && !resource.getProject().isHidden() &&
-				!toggleNature.hasNature(resource.getProject())) {
-			toggleNature.toggleNature(resource.getProject(), true);
+				!ToggleNatureAction.hasNature(resource.getProject())) {
+			ToggleNatureAction.toggleNature(resource.getProject(), true);
 		}
 	}
 

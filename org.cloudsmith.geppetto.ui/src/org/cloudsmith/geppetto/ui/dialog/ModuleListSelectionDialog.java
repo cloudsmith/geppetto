@@ -33,9 +33,9 @@ public class ModuleListSelectionDialog extends ElementListSelectionDialog {
 	public ModuleListSelectionDialog(Shell parent) {
 		super(parent, new ModuleLabelProvider());
 
-		setMessage(UIPlugin.INSTANCE.getString("_UI_SelectModule")); //$NON-NLS-1$          
+		setMessage(UIPlugin.getLocalString("_UI_SelectModule")); //$NON-NLS-1$          
 		setFilter("*"); //$NON-NLS-1$
-		setTitle(UIPlugin.INSTANCE.getString("_UI_ModuleSelection_title")); //$NON-NLS-1$
+		setTitle(UIPlugin.getLocalString("_UI_ModuleSelection_title")); //$NON-NLS-1$
 	}
 
 	@Override

@@ -11,7 +11,6 @@
 package org.cloudsmith.xtext.formatting;
 
 import org.cloudsmith.xtext.dommodel.IDomNode;
-import org.cloudsmith.xtext.dommodel.formatter.IDomModelFormatter;
 import org.eclipse.xtext.util.ITextRegion;
 import org.eclipse.xtext.util.ReplaceRegion;
 

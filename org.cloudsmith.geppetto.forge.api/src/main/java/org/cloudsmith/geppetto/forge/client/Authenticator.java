@@ -15,7 +15,7 @@ import java.io.IOException;
 import org.apache.http.client.HttpClient;
 
 /**
- * The authenticator is responsible for authenticating the user using username and password.
+ * The authenticator is responsible for authenticating the user.
  * In response, it expects a string with valid scopes and a token that can be used for the
  * reminder of the session.
  */
@@ -34,13 +34,9 @@ public interface Authenticator {
 	 * 
 	 * @param httpClient
 	 *            The Client that executes the HTTP authentication request
-	 * @param user
-	 *            The username that identifies the user
-	 * @param password
-	 *            The users password
 	 * @return An authentication response
 	 * @throws IOException
 	 *             when the authentication did not succeed
 	 */
-	AuthResponse authenticate(HttpClient httpClient, String user, String password) throws IOException;
+	AuthResponse authenticate(HttpClient httpClient) throws IOException;
 }

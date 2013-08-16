@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Geppetto Tracer Bundle
 Bundle-SymbolicName: org.cloudsmith.geppetto.common.tracer
-Bundle-Version: 3.2.1.qualifier
+Bundle-Version: 4.0.0
 Bundle-Vendor: Puppet Labs, Inc.
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-ActivationPolicy: lazy

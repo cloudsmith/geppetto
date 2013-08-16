@@ -19,16 +19,17 @@ import java.util.Collections;
 import org.cloudsmith.geppetto.common.os.FileUtils;
 import org.cloudsmith.geppetto.forge.Forge;
 import org.cloudsmith.geppetto.forge.util.ModuleUtils;
-import org.cloudsmith.geppetto.forge.v1.service.ModuleService;
 import org.cloudsmith.geppetto.forge.v2.model.Metadata;
 import org.cloudsmith.geppetto.forge.v2.model.ModuleName;
 import org.cloudsmith.geppetto.pp.dsl.ui.builder.PPBuildJob;
 import org.cloudsmith.geppetto.pp.dsl.ui.pptp.PptpTargetProjectHandler;
+import org.cloudsmith.geppetto.pp.dsl.ui.preferences.PPPreferencesHelper;
 import org.cloudsmith.geppetto.semver.Version;
 import org.cloudsmith.geppetto.ui.UIPlugin;
 import org.cloudsmith.geppetto.ui.util.ResourceUtil;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
+import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
@@ -36,7 +37,6 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.SubMonitor;
 import org.eclipse.emf.common.util.URI;
-import org.eclipse.emf.edit.ui.provider.ExtendedImageRegistry;
 import org.eclipse.jface.dialogs.ErrorDialog;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.viewers.IStructuredSelection;
@@ -86,11 +86,11 @@ public class NewPuppetModuleProjectWizard extends Wizard implements INewWizard {
 	@Inject
 	private Forge forge;
 
-	@Inject(optional = true)
-	private ModuleService moduleServiceV1;
-
 	@Inject
 	private PptpTargetProjectHandler pptpHandler;
+
+	@Inject
+	protected PPPreferencesHelper preferenceHelper;
 
 	protected IPath projectLocation;
 
@@ -112,48 +112,53 @@ public class NewPuppetModuleProjectWizard extends Wizard implements INewWizard {
 		return forge;
 	}
 
-	protected ModuleService getModuleServiceV1() {
-		return moduleServiceV1;
+	private String getModuleOwner() {
+		String moduleOwner = preferenceHelper.getForgeLogin();
+		if(moduleOwner == null)
+			moduleOwner = ModuleName.safeOwner(System.getProperty("user.name"));
+		return moduleOwner;
 	}
 
 	protected String getProjectCreationPageDescription() {
-		return UIPlugin.INSTANCE.getString("_UI_PuppetModuleProject_description"); //$NON-NLS-1$
+		return UIPlugin.getLocalString("_UI_PuppetModuleProject_description"); //$NON-NLS-1$
 	}
 
 	protected String getProjectCreationPageTitle() {
-		return UIPlugin.INSTANCE.getString(getProjectCreationPageTitleKey()); //$NON-NLS-1$
+		return UIPlugin.getLocalString(getProjectCreationPageTitleKey()); //$NON-NLS-1$
 	}
 
 	protected String getProjectCreationPageTitleKey() {
 		return "_UI_PuppetModuleProject_title";
 	}
 
-	private String getUserName() {
-		return System.getProperty("user.name").replace('.', '_').replace('-', '_').replace('/', '_').toLowerCase();
-	}
-
 	@Override
 	public void init(IWorkbench workbench, IStructuredSelection selection) {
-		setDefaultPageImageDescriptor(ExtendedImageRegistry.INSTANCE.getImageDescriptor(UIPlugin.INSTANCE.getImage("full/wizban/NewPuppetProject.png"))); //$NON-NLS-1$
-		setWindowTitle(UIPlugin.INSTANCE.getString("_UI_NewPuppetModuleProject_title")); //$NON-NLS-1$
+		setDefaultPageImageDescriptor(UIPlugin.getImageDesc("full/wizban/NewPuppetProject.png")); //$NON-NLS-1$
+		setWindowTitle(UIPlugin.getLocalString("_UI_NewPuppetModuleProject_title")); //$NON-NLS-1$
 	}
 
 	protected void initializeProjectContents(IProgressMonitor monitor) throws Exception {
-		Forge forge = getForge();
+		SubMonitor submon = SubMonitor.convert(monitor, 100);
 		Metadata metadata = new Metadata();
-		metadata.setName(new ModuleName(getUserName(), project.getName().toLowerCase(), true));
+		metadata.setName(new ModuleName(getModuleOwner(), project.getName().toLowerCase(), true));
 		metadata.setVersion(Version.create("0.1.0"));
 
 		if(ResourceUtil.getFile(project.getFullPath().append("manifests/init.pp")).exists()) { //$NON-NLS-1$
 			File modulefile = project.getLocation().append(MODULEFILE_NAME).toFile(); //$NON-NLS-1$
+			submon.worked(20);
 
 			if(!modulefile.exists()) {
 				ModuleUtils.saveAsModulefile(metadata, modulefile);
 			}
+			submon.worked(80);
 		}
 		else {
 			forge.generate(project.getLocation().toFile(), metadata);
+			submon.worked(70);
+			// This will cause a build. The build will recreate the metadata.json file
+			project.refreshLocal(IResource.DEPTH_INFINITE, submon.newChild(30));
 		}
+		monitor.done();
 	}
 
 	protected WizardNewProjectCreationPage newProjectCreationPage(String pageName) {
@@ -202,7 +207,7 @@ public class NewPuppetModuleProjectWizard extends Wizard implements INewWizard {
 							catch(PartInitException partInitException) {
 								MessageDialog.openError(
 									getShell(),
-									UIPlugin.INSTANCE.getString("_UI_OpenEditor_title"), partInitException.getMessage()); //$NON-NLS-1$
+									UIPlugin.getLocalString("_UI_OpenEditor_title"), partInitException.getMessage()); //$NON-NLS-1$
 							}
 						}
 					}
@@ -222,7 +227,7 @@ public class NewPuppetModuleProjectWizard extends Wizard implements INewWizard {
 		}
 		catch(InvocationTargetException e) {
 			Throwable t = e.getTargetException();
-			String title = UIPlugin.INSTANCE.getString("_UI_CreateProject_title");
+			String title = UIPlugin.getLocalString("_UI_CreateProject_title");
 			if(t instanceof PartInitException)
 				DialogUtil.openError(getShell(), title, t.getMessage(), (PartInitException) t);
 			else if(t instanceof CoreException)

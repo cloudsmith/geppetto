@@ -60,7 +60,7 @@ public class RubyRakefileTaskFinder {
 	/**
 	 * The wanted FQN
 	 */
-	private List<String> qualifiedName = null;
+	// private List<String> qualifiedName = null;
 
 	private List<String> cucumberTask = Lists.newArrayList("Cucumber", "Rake", "Task");
 
@@ -99,8 +99,6 @@ public class RubyRakefileTaskFinder {
 	}
 
 	private void findTasksInternal(Node root, Map<String, String> resultMap) {
-		List<GenericCallNode> result = null;
-
 		SEARCH: {
 			switch(root.getNodeType()) {
 				case MODULENODE:
@@ -139,12 +137,14 @@ public class RubyRakefileTaskFinder {
 					if(!processFCallNode((FCallNode) root, resultMap))
 						break SEARCH;
 					break;
-			// FCallNode fcallNode = (FCallNode) root;
-			// if(!fcallNode.getName().equals(qualifiedName.get(0)))
-			// break SEARCH;
-			// if(inWantedScope())
-			// return Lists.newArrayList(new GenericCallNode(fcallNode));
-			// break; // continue search inside the function
+				// FCallNode fcallNode = (FCallNode) root;
+				// if(!fcallNode.getName().equals(qualifiedName.get(0)))
+				// break SEARCH;
+				// if(inWantedScope())
+				// return Lists.newArrayList(new GenericCallNode(fcallNode));
+				// break; // continue search inside the function
+				default:
+					break;
 			}
 
 			for(Node n : root.childNodes()) {
@@ -184,6 +184,7 @@ public class RubyRakefileTaskFinder {
 	 * 
 	 * @return true if wanted or outer scope of wanted
 	 */
+	/*
 	private boolean inCompatibleScope() {
 		// if an inner module of the wanted module is found
 		// i.e. we find module a::b::c::d(::_)* when we are looking for
@@ -206,13 +207,14 @@ public class RubyRakefileTaskFinder {
 		catch(IndexOutOfBoundsException e) {
 			return false;
 		}
-	}
+	}*/
 
 	/**
 	 * Returns true if the current scope is the wanted scope.
 	 * 
 	 * @return
 	 */
+	/*
 	private boolean inWantedScope() {
 		// we are in wanted scope if all segments (except the function name)
 		// match.
@@ -224,7 +226,7 @@ public class RubyRakefileTaskFinder {
 		catch(IndexOutOfBoundsException e) {
 			return false;
 		}
-	}
+	}*/
 
 	/**
 	 * Pops the stack until we are the previous scope.
@@ -256,12 +258,12 @@ public class RubyRakefileTaskFinder {
 		String mName = root.getName();
 		try {
 			if(mName.equals("new")) {
-				List<String> receiver = constEvaluator.stringList(constEvaluator.eval(root.getReceiverNode()));
+				List<String> receiver = constEvaluator.stringList(constEvaluator.eval(root.getReceiver()));
 				boolean isRspec = receiver.equals(rspecTask);
 				boolean isCucumber = !isRspec && receiver.equals(cucumberTask);
 				if(isRspec || isCucumber) {
 					// recognized as a task
-					Node argsNode = getTaskNameNodeFromArgNode(root.getArgsNode());
+					Node argsNode = getTaskNameNodeFromArgNode(root.getArgs());
 					List<String> nameList = constEvaluator.stringList(constEvaluator.eval(argsNode));
 					if(nameList.size() < 1) {
 						if(isRspec)
@@ -296,7 +298,7 @@ public class RubyRakefileTaskFinder {
 			// push the name on the nameStack
 			// this is the argument to the namespace function
 			push(root);
-			pushNames(constEvaluator.stringList(constEvaluator.eval(root.getArgsNode())));
+			pushNames(constEvaluator.stringList(constEvaluator.eval(root.getArgs())));
 
 			for(Node n : root.childNodes()) {
 				if(n.getNodeType() == NodeType.NEWLINENODE)
@@ -310,7 +312,7 @@ public class RubyRakefileTaskFinder {
 			// argument is the name of the task
 			// prepend with name parts from namespaces
 			// pick up lastDesc
-			Node argsNode = getTaskNameNodeFromArgNode(root.getArgsNode());
+			Node argsNode = getTaskNameNodeFromArgNode(root.getArgs());
 			String taskName = Joiner.on(":").join(
 				Iterables.concat(Lists.reverse(nameStack), constEvaluator.stringList(constEvaluator.eval(argsNode))));
 
@@ -320,7 +322,7 @@ public class RubyRakefileTaskFinder {
 		}
 		else if(fName.equals("desc")) {
 			// argument is the description
-			lastDesc = Joiner.on("").join(constEvaluator.stringList(constEvaluator.eval(root.getArgsNode())));
+			lastDesc = Joiner.on("").join(constEvaluator.stringList(constEvaluator.eval(root.getArgs())));
 		}
 		else {
 			lastDesc = ""; // consume, not valid any more

@@ -1,5 +1,6 @@
 package org.cloudsmith.geppetto.graph.tests;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
@@ -9,8 +10,6 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
-
-import junit.framework.Assert;
 
 import org.cloudsmith.geppetto.diagnostic.Diagnostic;
 import org.cloudsmith.geppetto.graph.GraphHrefType;
@@ -282,7 +281,7 @@ public class TestDependencyGraph extends AbstractValidationTest {
 
 		};
 		String result = producer.href(fakeExport, new File("/foo/bar/"));
-		Assert.assertEquals("https://github.com/cloudsmith/geppetto/master/about.html#L23", result);
+		assertEquals("https://github.com/cloudsmith/geppetto/master/about.html#L23", result);
 
 	}
 

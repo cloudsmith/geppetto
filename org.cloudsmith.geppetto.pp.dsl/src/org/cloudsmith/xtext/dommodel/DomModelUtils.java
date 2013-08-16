@@ -22,7 +22,6 @@ import org.cloudsmith.xtext.dommodel.formatter.css.debug.FormattingTracer;
 import org.cloudsmith.xtext.textflow.CharSequences;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.xtext.grammaranalysis.impl.GrammarElementTitleSwitch;
-import org.eclipse.xtext.nodemodel.ICompositeNode;
 import org.eclipse.xtext.nodemodel.INode;
 import org.eclipse.xtext.nodemodel.SyntaxErrorMessage;
 

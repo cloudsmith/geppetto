@@ -25,7 +25,7 @@ import org.apache.maven.plugins.annotations.Mojo;
 import org.apache.maven.plugins.annotations.Parameter;
 import org.cloudsmith.geppetto.diagnostic.Diagnostic;
 import org.cloudsmith.geppetto.diagnostic.FileDiagnostic;
-import org.cloudsmith.geppetto.forge.impl.ForgePreferencesBean;
+import org.cloudsmith.geppetto.forge.Forge;
 import org.cloudsmith.geppetto.forge.v2.model.Metadata;
 import org.cloudsmith.geppetto.pp.dsl.target.PuppetTarget;
 import org.cloudsmith.geppetto.pp.dsl.validation.IPotentialProblemsAdvisor;
@@ -44,9 +44,13 @@ import org.cloudsmith.geppetto.validation.runner.PPDiagnosticsSetup;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.emf.common.util.URI;
 
+import com.google.inject.AbstractModule;
+import com.google.inject.Module;
+import com.google.inject.name.Names;
+
 /**
- * The <tt>validate</tt> goal can perform a very elaborate analyzis of the module using the Geppetto platform. It is also capable of running the
- * <tt>puppet-lint</tt> gem.
+ * The <tt>validate</tt> goal can perform a very elaborate analyzis of the module using the Geppetto platform. It is
+ * also capable of running the <tt>puppet-lint</tt> gem.
  */
 @Mojo(name = "validate", requiresProject = false, defaultPhase = LifecyclePhase.COMPILE)
 public class Validate extends AbstractForgeServiceMojo {
@@ -60,7 +64,8 @@ public class Validate extends AbstractForgeServiceMojo {
 	}
 
 	/**
-	 * Location of the forge cache. Defaults to ${user.home}/.puppet/var/puppet-module/cache/&lt;MD5 hash of service URL&gt;
+	 * Location of the forge cache. Defaults to ${user.home}/.puppet/var/puppet-module/cache/&lt;MD5 hash of service
+	 * URL&gt;
 	 */
 	@Parameter(property = "forge.cache.location")
 	private String cacheLocation;
@@ -91,8 +96,10 @@ public class Validate extends AbstractForgeServiceMojo {
 	private boolean checkLayout = true;
 
 	/**
-	 * If this is set to <tt>true</tt> then the validator will make an attempt to resolve and install all dependencies for the modules that are
-	 * validated. Dependencies are resolved transitively and unresolved dependencies are considered to be validation errors.
+	 * If this is set to <tt>true</tt> then the validator will make an attempt to resolve and install all dependencies
+	 * for the modules that are
+	 * validated. Dependencies are resolved transitively and unresolved dependencies are considered to be validation
+	 * errors.
 	 */
 	@Parameter(property = "forge.validation.checkModuleSemantics", defaultValue = "false")
 	private boolean checkModuleSemantics = false;
@@ -275,9 +282,16 @@ public class Validate extends AbstractForgeServiceMojo {
 	}
 
 	@Override
-	protected void addForgePreferences(ForgePreferencesBean forgePreferences, Diagnostic diagnostic) {
-		super.addForgePreferences(forgePreferences, diagnostic);
-		forgePreferences.setCacheLocation(cacheLocation);
+	protected void addModules(Diagnostic diagnostic, List<Module> modules) {
+		super.addModules(diagnostic, modules);
+		if(cacheLocation != null && diagnostic.getSeverity() <= Diagnostic.WARNING)
+			modules.add(new AbstractModule() {
+				@Override
+				protected void configure() {
+					bind(File.class).annotatedWith(Names.named(Forge.CACHE_LOCATION)).toInstance(
+						new File(cacheLocation));
+				}
+			});
 	}
 
 	private Diagnostic convertPuppetLintDiagnostic(File moduleRoot, Issue issue) {

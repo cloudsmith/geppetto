@@ -2,7 +2,7 @@
 <feature
       id="org.cloudsmith.geppetto.product"
       label="%featureName"
-      version="3.2.1.qualifier"
+      version="4.0.0"
       provider-name="%providerName"
       plugin="org.cloudsmith.geppetto"
       image="geppetto_update_120.jpg">
@@ -70,6 +70,7 @@ http://www.eclipse.org/legal/epl-v10.html
       <import plugin="org.eclipse.platform.doc.user"/>
       <import plugin="org.eclipse.ui.net"/>
       <import plugin="org.eclipse.xtext.xbase.lib"/>
+      <import plugin="org.eclipse.e4.ui.css.swt.theme"/>
    </requires>
 
 </feature>

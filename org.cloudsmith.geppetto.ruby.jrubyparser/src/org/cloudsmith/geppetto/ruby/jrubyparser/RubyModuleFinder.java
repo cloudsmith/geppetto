@@ -82,6 +82,7 @@ public class RubyModuleFinder {
 		 * @param root
 		 * @return
 		 */
+		/*
 		private Object findModule(Node root) {
 			push(root);
 			Object r = null;
@@ -100,7 +101,7 @@ public class RubyModuleFinder {
 			}
 			pop(root);
 			return null;
-		}
+		}*/
 
 		public ModuleNode findModule(Node root, String[] qualifiedName) {
 			this.stack = Lists.newLinkedList();

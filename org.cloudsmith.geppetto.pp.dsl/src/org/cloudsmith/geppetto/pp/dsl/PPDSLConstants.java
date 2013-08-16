@@ -10,10 +10,6 @@
  */
 package org.cloudsmith.geppetto.pp.dsl;
 
-import org.cloudsmith.geppetto.pp.DefinitionArgument;
-import org.cloudsmith.geppetto.pp.dsl.linking.PPTask;
-import org.eclipse.xtext.resource.IEObjectDescription;
-
 /**
  * Constants for PP DSL
  * 

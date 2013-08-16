@@ -62,17 +62,12 @@ public class ModuleExportToFileWizard extends Wizard implements IExportWizard {
 
 		public ModuleExportToFileWizardPage(IStructuredSelection selection) {
 			this("moduleExportToFile", selection); //$NON-NLS-1$
-			setTitle(UIPlugin.INSTANCE.getString("_UI_ExportModulesToFileSystem"));
-			setDescription(UIPlugin.INSTANCE.getString("_UI_ExportModulesToFileSystem_desc"));
+			setTitle(UIPlugin.getLocalString("_UI_ExportModulesToFileSystem"));
+			setDescription(UIPlugin.getLocalString("_UI_ExportModulesToFileSystem_desc"));
 		}
 
 		public ModuleExportToFileWizardPage(String name, IStructuredSelection selection) {
 			super(name, selection);
-		}
-
-		public boolean canFinish() {
-			File dest = getDestination();
-			return dest != null && ensureTargetIsValid(dest);
 		}
 
 		@Override
@@ -100,7 +95,12 @@ public class ModuleExportToFileWizard extends Wizard implements IExportWizard {
 				@SuppressWarnings("unchecked")
 				List<IResource> whiteCheckedResources = getWhiteCheckedResources();
 				return executeExport(new ModuleExportOperation(
-					forge, getExportSpecs(whiteCheckedResources), getDestination(), this));
+					getExportSpecs(whiteCheckedResources), getDestination(), this) {
+					@Override
+					protected Forge getForge() {
+						return forge;
+					}
+				});
 			}
 			catch(CoreException e) {
 				ErrorDialog.openError(
@@ -119,8 +119,6 @@ public class ModuleExportToFileWizard extends Wizard implements IExportWizard {
 	}
 
 	interface ModuleExportWizardPage extends IWizardPage {
-		boolean canFinish();
-
 		boolean finish();
 	}
 
@@ -152,11 +150,6 @@ public class ModuleExportToFileWizard extends Wizard implements IExportWizard {
 		super.addPages();
 		mainPage = createMainPage(selection);
 		addPage(mainPage);
-	}
-
-	@Override
-	public boolean canFinish() {
-		return super.canFinish() && mainPage.canFinish();
 	}
 
 	ModuleExportWizardPage createMainPage(IStructuredSelection selection) {

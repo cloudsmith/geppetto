@@ -10,6 +10,9 @@
  */
 package org.cloudsmith.geppetto.forge.impl;
 
+import static org.cloudsmith.geppetto.forge.Forge.CACHE_LOCATION;
+import static org.cloudsmith.geppetto.forge.model.Constants.API_V2_URL_NAME;
+
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -17,7 +20,6 @@ import java.io.OutputStream;
 
 import org.cloudsmith.geppetto.common.os.StreamUtil;
 import org.cloudsmith.geppetto.forge.Cache;
-import org.cloudsmith.geppetto.forge.ForgePreferences;
 import org.cloudsmith.geppetto.forge.util.Checksums;
 import org.cloudsmith.geppetto.forge.util.ModuleUtils;
 import org.cloudsmith.geppetto.forge.v2.model.ModuleName;
@@ -26,6 +28,7 @@ import org.cloudsmith.geppetto.semver.Version;
 
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
+import com.google.inject.name.Named;
 
 @Singleton
 class CacheImpl implements Cache {
@@ -39,14 +42,17 @@ class CacheImpl implements Cache {
 	}
 
 	@Inject
-	private ForgePreferences forgePreferences;
-
-	@Inject
 	private ReleaseService releaseService;
 
 	private transient String cacheKey;
 
-	private transient File location;
+	@Inject(optional = true)
+	@Named(CACHE_LOCATION)
+	private File location;
+
+	@Inject
+	@Named(API_V2_URL_NAME)
+	private String apiV2URL;
 
 	@Override
 	public void clean() throws IOException {
@@ -55,13 +61,12 @@ class CacheImpl implements Cache {
 
 	private synchronized String getCacheKey() {
 		if(cacheKey == null) {
-			String uriStr = forgePreferences.getURL_v2();
-			StringBuilder bld = new StringBuilder(uriStr.replaceAll("[^\\p{Alnum}]+", "_"));
+			StringBuilder bld = new StringBuilder(apiV2URL.replaceAll("[^\\p{Alnum}]+", "_"));
 			int last = bld.length() - 1;
 			if(bld.charAt(last) == '_')
 				bld.setLength(last);
 			bld.append('-');
-			Checksums.appendSHA1(bld, uriStr);
+			Checksums.appendSHA1(bld, apiV2URL);
 			cacheKey = bld.toString();
 		}
 		return cacheKey;
@@ -70,8 +75,7 @@ class CacheImpl implements Cache {
 	@Override
 	public synchronized File getLocation() {
 		if(location == null) {
-			String cacheLocation = forgePreferences.getCacheLocation();
-			if(cacheLocation == null) {
+			if(location == null) {
 				String userHome = System.getProperty("user.home");
 				if(userHome == null)
 					throw new RuntimeException("Unable to obtain users home directory");
@@ -80,8 +84,6 @@ class CacheImpl implements Cache {
 					throw new RuntimeException(userHome + " is not a directory");
 				location = new File(new File(dir, ".puppet/var/puppet-module/cache"), getCacheKey());
 			}
-			else
-				location = new File(cacheLocation);
 		}
 		return location;
 	}

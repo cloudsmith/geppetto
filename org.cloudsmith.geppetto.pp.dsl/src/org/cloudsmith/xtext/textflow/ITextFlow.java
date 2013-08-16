@@ -10,14 +10,13 @@
  */
 package org.cloudsmith.xtext.textflow;
 
-import org.eclipse.xtext.util.Strings;
-
 /**
  * <p>
  * Interface for a flow of text.
  * </p>
  * <p>
- * This interface extends {@link Appendable} to allow an ITextFlow to be a direct receiver of output from a {@link java.util.Formatter}.
+ * This interface extends {@link Appendable} to allow an ITextFlow to be a direct receiver of output from a
+ * {@link java.util.Formatter}.
  * </p>
  * 
  */
@@ -112,8 +111,9 @@ public interface ITextFlow extends Appendable, IMetrics {
 
 	/**
 	 * <p>
-	 * Appends the given string to the flow. The text may contain line separators, but each line is subject to indentation. If the given string has
-	 * leading whitespace this should most likely be removed first (see {@link Strings#removeLeadingWhitespace(String)}).
+	 * Appends the given string to the flow. The text may contain line separators, but each line is subject to
+	 * indentation. If the given string has leading whitespace this should most likely be removed first (see
+	 * {@link Strings#removeLeadingWhitespace(String)}).
 	 * </p>
 	 * <p>
 	 * To output text verbatim, see {@link #appendText(CharSequence, boolean)}.
@@ -126,7 +126,8 @@ public interface ITextFlow extends Appendable, IMetrics {
 	public ITextFlow appendText(CharSequence s);
 
 	/**
-	 * Outputs the verbatim text. If any line separators are found in the text they are included in {@link IMetrics} but they do not trigger
+	 * Outputs the verbatim text. If any line separators are found in the text they are included in {@link IMetrics} but
+	 * they do not trigger
 	 * indentation.
 	 * 
 	 * @param s
@@ -235,7 +236,8 @@ public interface ITextFlow extends Appendable, IMetrics {
 
 	/**
 	 * <p>
-	 * Sets the additional increment to use when a line is auto wrapped (does not fit on current line). The default is 1.
+	 * Sets the additional increment to use when a line is auto wrapped (does not fit on current line). The default is
+	 * 1.
 	 * </p>
 	 * 
 	 * @param count

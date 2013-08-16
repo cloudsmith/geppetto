@@ -1,156 +1,3 @@
-# This file provides an interrim top-level IU. It's here to deal with one
-# specific problem; to promote some subfeatures top-level features.
-#
-# Before this IU is installed, the layout is:
-#
-# root
-#  |-org.cloudsmith.geppetto.ide
-#     |-org.cloudsmith.geppetto.product
-#        |-EGit
-#        |-JGit
-#        |-Subversive
-#        |-Geppetto
-#
-# The org.cloudsmith.geppetto.ide is renamed to org.cloudsmith.geppetto.ide2 and
-# This IU is inserted at the top so that we get:
-#
-# root
-#  |-org.cloudsmith.geppetto.ide
-#     |-org.cloudsmith.geppetto.ide2
-#     |  |-org.cloudsmith.geppetto.product
-#     |     |-Geppetto
-#     |-EGit
-#     |-JGit
-#     |-Subversive
-#     |-org.cloudsmith.geppetto.onetimeinstall
-#     |-configure.org.cloudsmith.geppetto.onetimeinstall
-#
-# After that, the activator in the onetimeinstall runs. It will perform two
-# provisioning actions. One to change the root property of some IU's in order to
-# get the following layout:
-#
-# root
-#  |-org.cloudsmith.geppetto.ide
-#  |  |-org.cloudsmith.geppetto.onetimeinstall
-#  |  |-configure.org.cloudsmith.geppetto.onetimeinstall
-#  |
-#  |-org.cloudsmith.geppetto.ide2
-#  |  |-org.cloudsmith.geppetto.product
-#  |     |-Geppetto
-#  |
-#  |-EGit
-#  |-JGit
-#  |-Subversive
-#
-# and one to remove the now redunant top level IU. Once it has executed, the installation
-# will have the final layout.
-#
-# root
-#  |-org.cloudsmith.geppetto.ide2
-#  |  |-org.cloudsmith.geppetto.product
-#  |     |-Geppetto
-#  |-EGit
-#  |-JGit
-#  |-Subversive
-#
-# And that is the end result that we wanted to achieve.
-#
-# For more info about this, please See https://github.com/cloudsmith/geppetto/issues/261
-#
-units.0.id=org.cloudsmith.geppetto.ide
-units.0.version=$version$
-units.0.singleton=true
-
-units.0.update.id = org.cloudsmith.geppetto.ide
-units.0.update.range = 0.0.0
-units.0.update.severity = 0
-
-units.0.properties.0.name=org.eclipse.equinox.p2.name
-units.0.properties.0.value=Geppetto Update
-units.0.properties.1.name=lineUp
-units.0.properties.1.value=true
-units.0.properties.2.name=org.eclipse.equinox.p2.type.group
-units.0.properties.2.value=true
-
-units.0.provides.0.namespace = org.eclipse.equinox.p2.iu
-units.0.provides.0.name = org.cloudsmith.geppetto.ide
-units.0.provides.0.version = $version$
-
-# We need to list requirements for git and svn here since those requirements no longer
-# exists in the product. This to avoid that they are removed during update.
-units.0.requires.0.namespace = org.eclipse.equinox.p2.iu
-units.0.requires.0.name = org.cloudsmith.geppetto.ide2
-units.0.requires.0.range = [$version$,$version$]
-units.0.requires.0.greedy = true
-units.0.requires.0.optional = false
-
-units.0.requires.1.namespace = org.eclipse.equinox.p2.iu
-units.0.requires.1.name = org.eclipse.team.svn.feature.group
-units.0.requires.1.range = 0.7.9
-units.0.requires.1.greedy = true
-units.0.requires.1.optional = false
-
-units.0.requires.2.namespace = org.eclipse.equinox.p2.iu
-units.0.requires.2.name = org.polarion.eclipse.team.svn.connector.feature.group
-units.0.requires.2.range = 2.2.2
-units.0.requires.2.greedy = true
-units.0.requires.2.optional = false
-
-units.0.requires.3.namespace = org.eclipse.equinox.p2.iu
-units.0.requires.3.name = org.polarion.eclipse.team.svn.connector.svnkit17.feature.group
-units.0.requires.3.range = 3.0.0
-units.0.requires.3.greedy = true
-units.0.requires.3.optional = false
-
-units.0.requires.4.namespace = org.eclipse.equinox.p2.iu
-units.0.requires.4.name = org.eclipse.egit.feature.group
-units.0.requires.4.range = 1.2.0
-units.0.requires.4.greedy = true
-units.0.requires.4.optional = false
-
-units.0.requires.5.namespace = org.eclipse.equinox.p2.iu
-units.0.requires.5.name = org.eclipse.jgit.feature.group
-units.0.requires.5.range = 1.2.0
-units.0.requires.5.greedy = true
-units.0.requires.5.optional = false
-
-# The onetimeinstall bundle that performs the post install provisioning actions
-# must be required here along with a configuration fragment that forces it to start
-units.0.requires.6.namespace = osgi.bundle
-units.0.requires.6.name = org.cloudsmith.geppetto.onetimeinstall
-units.0.requires.6.range = 0.0.0
-units.0.requires.6.greedy = true
-units.0.requires.6.optional = false
-
-# This is the configuration fragment for the onetimeinstall bundle
-units.1.id=configure.org.cloudsmith.geppetto.onetimeinstall
-units.1.version=$version$
-units.1.provides.0.namespace=org.eclipse.equinox.p2.iu
-units.1.provides.0.name=configure.org.cloudsmith.geppetto.onetimeinstall
-units.1.provides.0.version=$version$
-units.1.instructions.install=org.eclipse.equinox.p2.touchpoint.eclipse.installBundle(bundle:${artifact});
-units.1.instructions.uninstall=org.eclipse.equinox.p2.touchpoint.eclipse.uninstallBundle(bundle:${artifact});
-units.1.instructions.unconfigure=org.eclipse.equinox.p2.touchpoint.eclipse.markStarted(started:false);
-units.1.instructions.configure=org.eclipse.equinox.p2.touchpoint.eclipse.markStarted(started:true);
-units.1.hostRequirements.0.namespace=osgi.bundle
-units.1.hostRequirements.0.name=org.cloudsmith.geppetto.onetimeinstall
-units.1.hostRequirements.0.range=0.0.0
-units.1.hostRequirements.0.greedy=false
-units.1.hostRequirements.1.namespace=org.eclipse.equinox.p2.eclipse.type
-units.1.hostRequirements.1.name=bundle
-units.1.hostRequirements.1.range=[1.0.0,2.0.0)
-units.1.hostRequirements.1.greedy=false
-units.1.requires.0.namespace=osgi.bundle
-units.1.requires.0.name=org.cloudsmith.geppetto.onetimeinstall
-units.1.requires.0.range=0.0.0
-units.1.requires.0.greedy=false
-
-#create a requirement on the configuration fragment
-units.0.requires.7.namespace=org.eclipse.equinox.p2.iu
-units.0.requires.7.name=configure.org.cloudsmith.geppetto.onetimeinstall
-units.0.requires.7.range=0.0.0
-units.0.requires.7.greedy=true
-
 #provider isn't correctly generated for the product itself
 properties.0.name=org.eclipse.equinox.p2.provider
 properties.0.value=%providerName
@@ -168,8 +15,12 @@ instructions.configure=\
 	org.eclipse.equinox.p2.touchpoint.eclipse.addRepository(type:1,location:http${#58}//community.polarion.com/projects/subversive/download/eclipse/3.0/kepler-site,name:SVN Connectors Site);\
 	org.eclipse.equinox.p2.touchpoint.eclipse.removeRepository(type:0,location:http${#58}//download.eclipse.org/releases/indigo);\
 	org.eclipse.equinox.p2.touchpoint.eclipse.removeRepository(type:1,location:http${#58}//download.eclipse.org/releases/indigo);\
+	org.eclipse.equinox.p2.touchpoint.eclipse.removeRepository(type:0,location:http${#58}//download.eclipse.org/releases/juno);\
+	org.eclipse.equinox.p2.touchpoint.eclipse.removeRepository(type:1,location:http${#58}//download.eclipse.org/releases/juno);\
 	org.eclipse.equinox.p2.touchpoint.eclipse.removeRepository(type:0,location:http${#58}//download.eclipse.org/eclipse/updates/3.7);\
 	org.eclipse.equinox.p2.touchpoint.eclipse.removeRepository(type:1,location:http${#58}//download.eclipse.org/eclipse/updates/3.7);\
+	org.eclipse.equinox.p2.touchpoint.eclipse.removeRepository(type:0,location:http${#58}//download.eclipse.org/eclipse/updates/3.8);\
+	org.eclipse.equinox.p2.touchpoint.eclipse.removeRepository(type:1,location:http${#58}//download.eclipse.org/eclipse/updates/3.8);\
 	org.eclipse.equinox.p2.touchpoint.eclipse.removeRepository(type:0,location:http${#58}//download.cloudsmith.com/geppetto/2.x);\
 	org.eclipse.equinox.p2.touchpoint.eclipse.removeRepository(type:1,location:http${#58}//download.cloudsmith.com/geppetto/2.x);\
 	org.eclipse.equinox.p2.touchpoint.eclipse.removeRepository(type:0,location:http${#58}//download.cloudsmith.com/geppetto/3.x);\

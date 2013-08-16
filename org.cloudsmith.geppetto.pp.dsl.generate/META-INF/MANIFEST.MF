@@ -10,7 +10,7 @@ Import-Package: org.apache.log4j,
  org.cloudsmith.geppetto.pp.impl
 Require-Bundle: org.eclipse.xtext;bundle-version="2.3.0.v201206120633",
  org.eclipse.xtext.generator;bundle-version="2.3.0.v201206120633";resolution:=optional,
- org.apache.commons.logging;bundle-version="1.0.4";resolution:=optional,
+ org.apache.commons.logging;bundle-version="1.1.1";resolution:=optional,
  org.eclipse.emf.codegen.ecore;bundle-version="2.7.0";resolution:=optional,
  org.eclipse.emf.mwe.utils;bundle-version="1.1.0";resolution:=optional,
  org.eclipse.emf.mwe2.launch;bundle-version="2.0.0";resolution:=optional,

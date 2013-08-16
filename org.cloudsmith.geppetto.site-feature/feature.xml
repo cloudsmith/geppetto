@@ -2,7 +2,7 @@
 <feature
       id="org.cloudsmith.geppetto.site"
       label="Cloudsmith Geppetto Update Site"
-      version="2.0.0.qualifier">
+      version="4.0.0.qualifier">
 
    <description url="http://www.example.com/description">
       [Enter Feature Description here.]
@@ -15,12 +15,6 @@
    <license url="http://www.example.com/license">
       [Enter License Description here.]
    </license>
-
-   <url>
-      <discovery label="Juno" url="http://download.eclipse.org/releases/juno"/>
-      <discovery label="The Eclipse Project Updates" url="http://download.eclipse.org/eclipse/updates/3.8"/>
-      <discovery label="SVN Connectors Site" url="http://community.polarion.com/projects/subversive/download/eclipse/3.0/juno-site"/>
-   </url>
 
    <includes
          id="org.cloudsmith.geppetto"
@@ -175,7 +169,7 @@
          id="org.apache.commons.codec"
          download-size="0"
          install-size="0"
-         version="1.4.0.v201209201156"
+         version="0.0.0"
          unpack="false"/>
 
    <plugin
@@ -196,18 +190,11 @@
          id="org.apache.commons.logging"
          download-size="0"
          install-size="0"
-         version="1.1.1.v201101211721"
-         unpack="false"/>
-
-   <plugin
-         id="org.apache.log4j"
-         download-size="0"
-         install-size="0"
          version="0.0.0"
          unpack="false"/>
 
    <plugin
-         id="org.cloudsmith.geppetto.onetimeinstall"
+         id="org.apache.log4j"
          download-size="0"
          install-size="0"
          version="0.0.0"

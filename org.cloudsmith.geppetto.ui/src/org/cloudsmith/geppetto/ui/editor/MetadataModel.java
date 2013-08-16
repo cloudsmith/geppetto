@@ -13,6 +13,7 @@ package org.cloudsmith.geppetto.ui.editor;
 
 import static org.cloudsmith.geppetto.common.Strings.emptyToNull;
 import static org.cloudsmith.geppetto.common.Strings.trimToNull;
+import static org.cloudsmith.geppetto.forge.Forge.FORGE;
 import static org.cloudsmith.geppetto.forge.Forge.MODULEFILE_NAME;
 import static org.cloudsmith.geppetto.forge.Forge.PARSE_FAILURE;
 
@@ -27,7 +28,6 @@ import java.util.Map;
 import org.cloudsmith.geppetto.diagnostic.Diagnostic;
 import org.cloudsmith.geppetto.diagnostic.ExceptionDiagnostic;
 import org.cloudsmith.geppetto.diagnostic.FileDiagnostic;
-import org.cloudsmith.geppetto.forge.Forge;
 import org.cloudsmith.geppetto.forge.util.CallSymbol;
 import org.cloudsmith.geppetto.forge.util.ModuleUtils;
 import org.cloudsmith.geppetto.forge.util.RubyValueSerializer;
@@ -252,14 +252,14 @@ public class MetadataModel {
 			key = e instanceof BadNameCharactersException
 					? "_UI_Module_name_bad_characters"
 					: "_UI_Module_name_bad_syntax";
-		return UIPlugin.INSTANCE.getString(key);
+		return UIPlugin.getLocalString(key);
 	}
 
 	public static String getUnresolvedMessage(Dependency dep) {
 		String vr = trimToNull(dep.getVersionRequirement());
 		return vr == null
-				? UIPlugin.INSTANCE.getString("_UI_Unresolved_dependency_X", new Object[] { dep.getModuleName() })
-				: UIPlugin.INSTANCE.getString(
+				? UIPlugin.getLocalString("_UI_Unresolved_dependency_X", new Object[] { dep.getModuleName() })
+				: UIPlugin.getLocalString(
 					"_UI_Unresolved_dependency_X_Y", new Object[] { dep.getModuleName(), dep.getVersionRequirement() });
 
 	}
@@ -363,6 +363,7 @@ public class MetadataModel {
 		else
 			dep = createJsonDependency(moduleName, versionRequirement);
 
+		dep.setResolved(isResolved(dep));
 		dependencies.add(dep);
 	}
 
@@ -600,6 +601,19 @@ public class MetadataModel {
 	 */
 	public boolean hasDependencyErrors() {
 		return dependencyErrors;
+	}
+
+	private boolean isResolved(Dependency dep) {
+		ModuleName name;
+		VersionRange range;
+		try {
+			name = new ModuleName(dep.getModuleName(), false);
+			range = VersionRange.create(dep.getVersionRequirement());
+			return PPModuleMetadataBuilder.getBestMatchingProject(name, range) != null;
+		}
+		catch(IllegalArgumentException e) {
+			return false;
+		}
 	}
 
 	private boolean isRuby() {
@@ -907,21 +921,10 @@ public class MetadataModel {
 					new LenientMetadataJsonParser(this).parse(path.toFile(), document.get(), chain);
 				}
 				for(Dependency dep : dependencies) {
-					ModuleName name;
-					VersionRange range;
-					boolean resolved = false;
-					try {
-						name = new ModuleName(dep.getModuleName(), false);
-						range = VersionRange.create(dep.getVersionRequirement());
-						resolved = PPModuleMetadataBuilder.getBestMatchingProject(name, range) != null;
-					}
-					catch(IllegalArgumentException e) {
-						// This error is already in diagnostics
-					}
-
+					boolean resolved = isResolved(dep);
 					if(!resolved) {
 						FileDiagnostic diag = new FileDiagnostic(
-							Diagnostic.ERROR, Forge.FORGE, getUnresolvedMessage(dep), path.toFile());
+							Diagnostic.ERROR, FORGE, getUnresolvedMessage(dep), path.toFile());
 						diag.setLineNumber(dep.getLine());
 						chain.addChild(diag);
 						dependencyErrors = true;

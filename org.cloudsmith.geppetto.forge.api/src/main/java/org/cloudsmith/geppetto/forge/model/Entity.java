@@ -11,7 +11,7 @@
  */
 package org.cloudsmith.geppetto.forge.model;
 
-import org.cloudsmith.geppetto.forge.client.GsonProvider;
+import org.cloudsmith.geppetto.forge.client.GsonModule;
 
 /**
  * Super class of all model entitites. Provides basic JSON capability.
@@ -34,6 +34,6 @@ public class Entity {
 	 */
 	@Override
 	public final String toString() {
-		return GsonProvider.toJSON(this);
+		return GsonModule.INSTANCE.toJSON(this);
 	}
 }

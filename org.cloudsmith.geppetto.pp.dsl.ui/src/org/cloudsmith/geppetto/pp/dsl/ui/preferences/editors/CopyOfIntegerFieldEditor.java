@@ -1,11 +1,7 @@
 package org.cloudsmith.geppetto.pp.dsl.ui.preferences.editors;
 
-import org.eclipse.jface.fieldassist.ControlDecoration;
-import org.eclipse.jface.fieldassist.FieldDecoration;
-import org.eclipse.jface.fieldassist.FieldDecorationRegistry;
 import org.eclipse.jface.preference.StringFieldEditor;
 import org.eclipse.jface.resource.JFaceResources;
-import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Text;
 
@@ -19,7 +15,7 @@ public class CopyOfIntegerFieldEditor extends StringFieldEditor {
 
 	private static final int DEFAULT_TEXT_LIMIT = 10;
 
-	private ControlDecoration valueTextDecorator;
+	//	private ControlDecoration valueTextDecorator;
 
 	/**
 	 * Creates a new integer field editor
@@ -101,14 +97,16 @@ public class CopyOfIntegerFieldEditor extends StringFieldEditor {
 	// // valueTextDecorator.hide();
 	// }
 
-	private ControlDecoration createDecorator(Text text, String message) {
-		ControlDecoration controlDecoration = new ControlDecoration(text, SWT.LEFT | SWT.TOP);
-		controlDecoration.setDescriptionText(message);
-		FieldDecoration fieldDecoration = FieldDecorationRegistry.getDefault().getFieldDecoration(
-			FieldDecorationRegistry.DEC_ERROR);
-		controlDecoration.setImage(fieldDecoration.getImage());
-		return controlDecoration;
-	}
+	/*
+		private ControlDecoration createDecorator(Text text, String message) {
+			ControlDecoration controlDecoration = new ControlDecoration(text, SWT.LEFT | SWT.TOP);
+			controlDecoration.setDescriptionText(message);
+			FieldDecoration fieldDecoration = FieldDecorationRegistry.getDefault().getFieldDecoration(
+				FieldDecorationRegistry.DEC_ERROR);
+			controlDecoration.setImage(fieldDecoration.getImage());
+			return controlDecoration;
+		}
+	*/
 
 	/*
 	 * (non-Javadoc)

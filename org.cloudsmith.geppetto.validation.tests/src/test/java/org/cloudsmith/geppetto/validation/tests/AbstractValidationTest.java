@@ -17,8 +17,8 @@ import java.io.File;
 import java.util.List;
 
 import org.cloudsmith.geppetto.diagnostic.Diagnostic;
+import org.cloudsmith.geppetto.forge.client.GsonModule;
 import org.cloudsmith.geppetto.forge.impl.ForgeModule;
-import org.cloudsmith.geppetto.forge.impl.ForgePreferencesBean;
 import org.cloudsmith.geppetto.pp.dsl.target.PuppetTarget;
 import org.cloudsmith.geppetto.pp.dsl.validation.DefaultPotentialProblemsAdvisor;
 import org.cloudsmith.geppetto.pp.dsl.validation.IValidationAdvisor.ComplianceLevel;
@@ -122,7 +122,6 @@ public class AbstractValidationTest {
 		RubyHelper.setRubyServicesFactory(JRubyServices.FACTORY);
 		ValidationOptions options = getValidationOptions();
 		new PPDiagnosticsSetup(options.getComplianceLevel(), options.getProblemsAdvisor()).createInjectorAndDoEMFRegistration();
-		ForgePreferencesBean prefs = new ForgePreferencesBean();
-		injector = Guice.createInjector(new ForgeModule(prefs), new ValidationModule());
+		injector = Guice.createInjector(GsonModule.INSTANCE, new ForgeModule(), new ValidationModule());
 	}
 }

@@ -12,8 +12,6 @@
  */
 package org.cloudsmith.xtext.dommodel.formatter.css;
 
-import org.cloudsmith.xtext.dommodel.formatter.css.StyleFactory.AlignedSeparatorIndex;
-
 /**
  * Describes Horizontal Alignment
  * 

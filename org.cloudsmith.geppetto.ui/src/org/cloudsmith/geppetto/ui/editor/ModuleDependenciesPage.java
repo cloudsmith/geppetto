@@ -107,7 +107,7 @@ class ModuleDependenciesPage extends GuardedModulePage {
 					initialVersionRequirement = dependency.getVersionRequirement();
 				}
 				setMultipleSelection(false);
-				setTitle(UIPlugin.INSTANCE.getString("_UI_EditDependency_title")); //$NON-NLS-1$
+				setTitle(UIPlugin.getLocalString("_UI_EditDependency_title")); //$NON-NLS-1$
 				setStatusLineAboveButtons(true);
 			}
 
@@ -126,7 +126,7 @@ class ModuleDependenciesPage extends GuardedModulePage {
 				GridDataFactory.fillDefaults().align(SWT.FILL, SWT.CENTER).grab(true, false).applyTo(composite);
 
 				Label nameLabel = new Label(composite, SWT.NONE);
-				nameLabel.setText(UIPlugin.INSTANCE.getString("_UI_ModuleName_label"));
+				nameLabel.setText(UIPlugin.getLocalString("_UI_ModuleName_label"));
 
 				moduleNameText = new Text(composite, SWT.BORDER);
 				colorOfText = moduleNameText.getForeground();
@@ -140,7 +140,8 @@ class ModuleDependenciesPage extends GuardedModulePage {
 						}
 						catch(IllegalArgumentException e) {
 							moduleNameText.setForeground(colorOfBadText);
-							updateStatus(new Status(IStatus.ERROR, UIPlugin.INSTANCE.getSymbolicName(), e.getMessage()));
+							updateStatus(new Status(
+								IStatus.ERROR, UIPlugin.getInstance().getSymbolicName(), e.getMessage()));
 						}
 						moduleName = moduleNameText.getText();
 					}
@@ -150,7 +151,7 @@ class ModuleDependenciesPage extends GuardedModulePage {
 				GridDataFactory.fillDefaults().align(SWT.FILL, SWT.CENTER).grab(true, false).applyTo(moduleNameText);
 
 				Label versionRangeLabel = new Label(composite, SWT.NONE);
-				versionRangeLabel.setText(UIPlugin.INSTANCE.getString("_UI_VersionRange_label"));
+				versionRangeLabel.setText(UIPlugin.getLocalString("_UI_VersionRange_label"));
 
 				versionRequirementText = new Text(composite, SWT.BORDER);
 				versionRequirementText.addModifyListener(new GuardedModifyListener() {
@@ -163,7 +164,8 @@ class ModuleDependenciesPage extends GuardedModulePage {
 						}
 						catch(IllegalArgumentException e) {
 							versionRequirementText.setForeground(colorOfBadText);
-							updateStatus(new Status(IStatus.ERROR, UIPlugin.INSTANCE.getSymbolicName(), e.getMessage()));
+							updateStatus(new Status(
+								IStatus.ERROR, UIPlugin.getInstance().getSymbolicName(), e.getMessage()));
 						}
 						versionRequirement = versionRequirementText.getText();
 					}
@@ -242,7 +244,7 @@ class ModuleDependenciesPage extends GuardedModulePage {
 
 			Section section = getSection();
 
-			section.setDescription(UIPlugin.INSTANCE.getString("_UI_Dependencies_description")); //$NON-NLS-1$
+			section.setDescription(UIPlugin.getLocalString("_UI_Dependencies_description")); //$NON-NLS-1$
 
 			GridDataFactory.swtDefaults().align(SWT.FILL, SWT.FILL).grab(true, true).applyTo(section);
 
@@ -279,7 +281,7 @@ class ModuleDependenciesPage extends GuardedModulePage {
 			ColumnViewerToolTipSupport.enableFor(tableViewer, ToolTip.NO_RECREATE);
 
 			TableViewerColumn nameCol = new TableViewerColumn(tableViewer, SWT.NONE);
-			nameCol.getColumn().setText(UIPlugin.INSTANCE.getString("_UI_Name_label"));
+			nameCol.getColumn().setText(UIPlugin.getLocalString("_UI_Name_label"));
 			nameCol.setLabelProvider(new ColumnLabelProvider() {
 				@Override
 				public Image getImage(Object element) {
@@ -338,7 +340,7 @@ class ModuleDependenciesPage extends GuardedModulePage {
 			tableColumnLayout.setColumnData(nameCol.getColumn(), new ColumnWeightData(5));
 
 			TableViewerColumn vrCol = new TableViewerColumn(tableViewer, SWT.NONE);
-			vrCol.getColumn().setText(UIPlugin.INSTANCE.getString("_UI_Version_label"));
+			vrCol.getColumn().setText(UIPlugin.getLocalString("_UI_Version_label"));
 			vrCol.setLabelProvider(new ColumnLabelProvider() {
 
 				@Override
@@ -373,11 +375,11 @@ class ModuleDependenciesPage extends GuardedModulePage {
 			GridDataFactory.fillDefaults().align(SWT.FILL, SWT.TOP).applyTo(buttonsComposite);
 
 			final Button addButton = toolkit.createButton(
-				buttonsComposite, UIPlugin.INSTANCE.getString("_UI_Add_label"), SWT.PUSH); //$NON-NLS-1$
+				buttonsComposite, UIPlugin.getLocalString("_UI_Add_label"), SWT.PUSH); //$NON-NLS-1$
 			final Button editButton = toolkit.createButton(
-				buttonsComposite, UIPlugin.INSTANCE.getString("_UI_Edit_label"), SWT.PUSH); //$NON-NLS-1$
+				buttonsComposite, UIPlugin.getLocalString("_UI_Edit_label"), SWT.PUSH); //$NON-NLS-1$
 			final Button removeButton = toolkit.createButton(
-				buttonsComposite, UIPlugin.INSTANCE.getString("_UI_Remove_label"), SWT.PUSH); //$NON-NLS-1$
+				buttonsComposite, UIPlugin.getLocalString("_UI_Remove_label"), SWT.PUSH); //$NON-NLS-1$
 
 			addButton.addSelectionListener(new SelectionAdapter() {
 
@@ -390,18 +392,24 @@ class ModuleDependenciesPage extends GuardedModulePage {
 						dialog.setElements(getModuleChoices(null));
 
 						if(dialog.open() == Window.OK) {
-							MetadataModel model = getModel();
-							Object[] results = dialog.getResult();
-							if(results.length > 1) {
-								for(Object result : results) {
-									ModuleInfo module = (ModuleInfo) result;
-									model.addDependency(
-										module.getFullName().withSeparator('-').toString(),
-										module.getVersion().toString());
+							getEditor().getSourcePage().startInternalTextChange();
+							try {
+								MetadataModel model = getModel();
+								Object[] results = dialog.getResult();
+								if(results.length > 1) {
+									for(Object result : results) {
+										ModuleInfo module = (ModuleInfo) result;
+										model.addDependency(
+											module.getFullName().withSeparator('-').toString(),
+											module.getVersion().toString());
+									}
 								}
+								else
+									model.addDependency(dialog.getName(), dialog.getVersionRequirement());
 							}
-							else
-								model.addDependency(dialog.getName(), dialog.getVersionRequirement());
+							finally {
+								getEditor().getSourcePage().endInternalTextChange();
+							}
 							refresh();
 						}
 					}
@@ -428,7 +436,13 @@ class ModuleDependenciesPage extends GuardedModulePage {
 						dialog.setFilter(dependency.getModuleName());
 
 						if(dialog.open() == Window.OK) {
-							dependency.setNameAndVersion(dialog.getName(), dialog.getVersionRequirement());
+							getEditor().getSourcePage().startInternalTextChange();
+							try {
+								dependency.setNameAndVersion(dialog.getName(), dialog.getVersionRequirement());
+							}
+							finally {
+								getEditor().getSourcePage().endInternalTextChange();
+							}
 							refresh();
 						}
 					}
@@ -447,10 +461,16 @@ class ModuleDependenciesPage extends GuardedModulePage {
 				@Override
 				public void widgetSelected(SelectionEvent se) {
 					if(allowModification()) {
-						@SuppressWarnings("unchecked")
-						Iterator<MetadataModel.Dependency> selections = ((IStructuredSelection) tableViewer.getSelection()).iterator();
-						while(selections.hasNext())
-							getModel().removeDependency(selections.next());
+						getEditor().getSourcePage().startInternalTextChange();
+						try {
+							@SuppressWarnings("unchecked")
+							Iterator<MetadataModel.Dependency> selections = ((IStructuredSelection) tableViewer.getSelection()).iterator();
+							while(selections.hasNext())
+								getModel().removeDependency(selections.next());
+						}
+						finally {
+							getEditor().getSourcePage().endInternalTextChange();
+						}
 						refresh();
 					}
 					else {
@@ -525,7 +545,7 @@ class ModuleDependenciesPage extends GuardedModulePage {
 					}
 				}
 				catch(Exception e) {
-					UIPlugin.INSTANCE.log(e);
+					UIPlugin.getInstance().log(e);
 				}
 			}
 			EList<Object> choices = new UniqueEList.FastCompare<Object>(modules.values());
@@ -554,7 +574,7 @@ class ModuleDependenciesPage extends GuardedModulePage {
 		private int validateDependencyName(String name, String key) {
 			IMessageManager msgManager = getManagedForm().getMessageManager();
 			if(name == null) {
-				String msg = UIPlugin.INSTANCE.getString("_UI_Dependency_name_missing");
+				String msg = UIPlugin.getLocalString("_UI_Dependency_name_missing");
 				msgManager.addMessage(key, msg, null, IMessageProvider.ERROR);
 				return IMessageProvider.ERROR;
 			}
@@ -581,7 +601,8 @@ class ModuleDependenciesPage extends GuardedModulePage {
 		}
 	}
 
-	private static final IStatus OK_WITHOUT_TEXT = new Status(IStatus.OK, UIPlugin.INSTANCE.getSymbolicName(), "", null);
+	private static final IStatus OK_WITHOUT_TEXT = new Status(
+		IStatus.OK, UIPlugin.getInstance().getSymbolicName(), "", null);
 
 	static String nameWithDashSeparator(String moduleName) {
 		if(moduleName == null)
@@ -618,7 +639,7 @@ class ModuleDependenciesPage extends GuardedModulePage {
 		else
 			formTitle = "_UI_Metadata_Dependencies_title";
 
-		managedForm.getForm().setText(UIPlugin.INSTANCE.getString(formTitle));
+		managedForm.getForm().setText(UIPlugin.getLocalString(formTitle));
 
 		ISharedImages sharedImages = PlatformUI.getWorkbench().getSharedImages();
 		error = sharedImages.getImage(ISharedImages.IMG_OBJS_ERROR_TSK);

@@ -11,6 +11,8 @@
  */
 package org.cloudsmith.geppetto.forge.tests;
 
+import static com.google.inject.name.Names.named;
+import static org.cloudsmith.geppetto.injectable.CommonModuleProvider.getCommonModule;
 import static org.junit.Assert.fail;
 
 import java.io.File;
@@ -19,13 +21,17 @@ import java.io.IOException;
 import org.cloudsmith.geppetto.common.util.BundleAccess;
 import org.cloudsmith.geppetto.forge.Cache;
 import org.cloudsmith.geppetto.forge.Forge;
+import org.cloudsmith.geppetto.forge.ForgeService;
+import org.cloudsmith.geppetto.forge.client.ForgeHttpModule;
+import org.cloudsmith.geppetto.forge.client.GsonModule;
 import org.cloudsmith.geppetto.forge.impl.ForgeModule;
-import org.cloudsmith.geppetto.forge.impl.ForgePreferencesBean;
-import org.cloudsmith.geppetto.injectable.CommonModuleProvider;
+import org.cloudsmith.geppetto.forge.impl.ForgeServiceModule;
 
 import com.google.gson.Gson;
+import com.google.inject.AbstractModule;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
+import com.google.inject.Module;
 
 public class AbstractForgeTest {
 	private static String TEST_FORGE_URI = "http://forge-staging-api.puppetlabs.com/";
@@ -33,6 +39,8 @@ public class AbstractForgeTest {
 	// private static String TEST_FORGE_URI = "http://localhost:4567/";
 
 	private static Injector injector;
+
+	private static Injector commonInjector = Guice.createInjector(getCommonModule());
 
 	private static File basedir;
 
@@ -66,14 +74,18 @@ public class AbstractForgeTest {
 	}
 
 	public static BundleAccess getBundleAccess() {
-		return getInjector().getInstance(BundleAccess.class);
+		return commonInjector.getInstance(BundleAccess.class);
 	}
 
 	public static Cache getCache() {
 		return getInjector().getInstance(Cache.class);
 	}
 
-	public static Forge getForge() {
+	public static ForgeService getForge() {
+		return getInjector().getInstance(ForgeService.class);
+	}
+
+	public static Forge getForgeUtil() {
 		return getInjector().getInstance(Forge.class);
 	}
 
@@ -83,12 +95,25 @@ public class AbstractForgeTest {
 
 	private synchronized static Injector getInjector() {
 		if(injector == null) {
-			ForgePreferencesBean forgePreferences = new ForgePreferencesBean();
-			forgePreferences.setBaseURL(TEST_FORGE_URI);
+			Module testBindings = new AbstractModule() {
+				@Override
+				protected void configure() {
+					try {
+						bind(File.class).annotatedWith(named(Forge.CACHE_LOCATION)).toInstance(
+							getTestOutputFolder("cachefolder", true));
+					}
+					catch(IOException e) {
+						fail(e.getMessage());
+					}
+				}
+			};
 			try {
-				injector = Guice.createInjector(CommonModuleProvider.getCommonModule(), new ForgeModule(
-					forgePreferences));
-				forgePreferences.setCacheLocation(getTestOutputFolder("cachefolder", true).getAbsolutePath());
+				injector = commonInjector.createChildInjector(GsonModule.INSTANCE, new ForgeHttpModule() {
+					@Override
+					protected String getBaseURL() {
+						return TEST_FORGE_URI;
+					}
+				}, new ForgeServiceModule(), new ForgeModule(), testBindings);
 			}
 			catch(Exception e) {
 				e.printStackTrace();

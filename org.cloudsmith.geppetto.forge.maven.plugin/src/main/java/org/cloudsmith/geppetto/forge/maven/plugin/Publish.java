@@ -11,16 +11,22 @@
  */
 package org.cloudsmith.geppetto.forge.maven.plugin;
 
+import static org.cloudsmith.geppetto.diagnostic.Diagnostic.ERROR;
+import static org.cloudsmith.geppetto.forge.Forge.FORGE;
+import static org.cloudsmith.geppetto.forge.Forge.PUBLISHER;
+
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 import java.util.Properties;
 
 import org.apache.maven.plugins.annotations.LifecyclePhase;
 import org.apache.maven.plugins.annotations.Mojo;
 import org.apache.maven.plugins.annotations.Parameter;
 import org.cloudsmith.geppetto.diagnostic.Diagnostic;
-import org.cloudsmith.geppetto.forge.Forge;
-import org.cloudsmith.geppetto.forge.impl.ForgePreferencesBean;
+import org.cloudsmith.geppetto.forge.client.OAuthModule;
+
+import com.google.inject.Module;
 
 /**
  * Goal which performs basic validation.
@@ -77,25 +83,19 @@ public class Publish extends AbstractForgeServiceMojo {
 	}
 
 	@Override
-	protected void addForgePreferences(ForgePreferencesBean forgePreferences, Diagnostic diagnostic) {
-		super.addForgePreferences(forgePreferences, diagnostic);
-		if(oauthToken == null || oauthToken.length() == 0) {
-			if(login == null || login.length() == 0)
-				diagnostic.addChild(new Diagnostic(Diagnostic.ERROR, Forge.FORGE, "login must be specified"));
-			else
-				forgePreferences.setLogin(login);
+	protected void addModules(Diagnostic diagnostic, List<Module> modules) {
+		super.addModules(diagnostic, modules);
 
-			if(password == null || password.length() == 0)
-				diagnostic.addChild(new Diagnostic(Diagnostic.ERROR, Forge.FORGE, "password must be specified"));
-			else
-				forgePreferences.setPassword(password);
-		}
-		else
-			forgePreferences.setOAuthAccessToken(oauthToken);
+		if(login == null || login.length() == 0)
+			diagnostic.addChild(new Diagnostic(ERROR, FORGE, "login must be specified"));
 
-		forgePreferences.setOAuthClientId(clientID);
-		forgePreferences.setOAuthClientSecret(clientSecret);
-		forgePreferences.setOAuthScopes("");
+		if(password == null || password.length() == 0)
+			diagnostic.addChild(new Diagnostic(ERROR, FORGE, "password must be specified"));
+
+		if(diagnostic.getSeverity() >= ERROR)
+			return;
+
+		modules.add(new OAuthModule(clientID, clientSecret, login, password));
 	}
 
 	@Override
@@ -111,9 +111,8 @@ public class Publish extends AbstractForgeServiceMojo {
 			File builtModulesDir = new File(getBuildDir(), "builtModules");
 			builtModules = builtModulesDir.listFiles();
 			if(builtModules == null || builtModules.length == 0) {
-				result.addChild(new Diagnostic(
-					Diagnostic.ERROR, Forge.PUBLISHER, "Unable find any packaged modules in " +
-							builtModulesDir.getAbsolutePath()));
+				result.addChild(new Diagnostic(ERROR, PUBLISHER, "Unable find any packaged modules in " +
+						builtModulesDir.getAbsolutePath()));
 				return;
 			}
 		}

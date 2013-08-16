@@ -126,7 +126,6 @@ public class HostClassDefinitionImpl extends DefinitionImpl implements HostClass
 	 * 
 	 * @generated
 	 */
-	@SuppressWarnings("unchecked")
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch(featureID) {

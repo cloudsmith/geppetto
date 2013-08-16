@@ -14,7 +14,6 @@ package org.cloudsmith.geppetto.forge.maven.plugin;
 import java.io.FileFilter;
 
 import org.apache.maven.project.MavenProject;
-import org.cloudsmith.geppetto.forge.ForgePreferences;
 import org.cloudsmith.geppetto.forge.MetadataExtractor;
 import org.cloudsmith.geppetto.forge.impl.ForgeModule;
 
@@ -25,8 +24,7 @@ public class ForgeMavenModule extends ForgeModule {
 
 	private final MavenProject mavenProject;
 
-	public ForgeMavenModule(ForgePreferences forgePreferences, FileFilter fileFilter, MavenProject mavenProject) {
-		super(forgePreferences);
+	public ForgeMavenModule(FileFilter fileFilter, MavenProject mavenProject) {
 		this.fileFilter = fileFilter;
 		this.mavenProject = mavenProject;
 	}

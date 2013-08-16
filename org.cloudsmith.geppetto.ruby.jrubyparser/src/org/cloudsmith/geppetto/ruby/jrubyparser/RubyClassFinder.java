@@ -37,18 +37,19 @@ public class RubyClassFinder {
 	public ClassNode findClass(Node root, String... qualifiedName) {
 		wantedName = Lists.newArrayList(qualifiedName);
 
-		for (Node n : root.childNodes()) {
-			if (n.getNodeType() == NodeType.NEWLINENODE)
+		for(Node n : root.childNodes()) {
+			if(n.getNodeType() == NodeType.NEWLINENODE)
 				n = ((NewlineNode) n).getNextNode();
-			switch (n.getNodeType()) {
-			case ROOTNODE: // fall through
-			case BLOCKNODE:
-				return findClass(n, qualifiedName);
-			case CLASSNODE:
-				ClassNode classNode = (ClassNode) n;
-				if (wantedName.equals(new ConstEvaluator().eval(classNode
-						.getCPath())))
-					return (ClassNode) n;
+			switch(n.getNodeType()) {
+				case ROOTNODE: // fall through
+				case BLOCKNODE:
+					return findClass(n, qualifiedName);
+				case CLASSNODE:
+					ClassNode classNode = (ClassNode) n;
+					if(wantedName.equals(new ConstEvaluator().eval(classNode.getCPath())))
+						return (ClassNode) n;
+				default:
+					break;
 			}
 		}
 		return null;

@@ -91,6 +91,7 @@ import com.google.inject.Inject;
  */
 public class PPExpressionFormatter {
 
+	@SuppressWarnings("unused")
 	@Inject
 	private PPGrammarAccess grammarAccess;
 
@@ -657,10 +658,6 @@ public class PPExpressionFormatter {
 		if(!contexts.hasNext())
 			throw new RuntimeException("No Context for " + EmfFormatter.objPath(semanticObject) + " could be found");
 		return contexts.next();
-	}
-
-	private PPGrammarAccess getGrammarAccess() {
-		return grammarAccess;
 	}
 
 	/**

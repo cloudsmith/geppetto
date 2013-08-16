@@ -142,7 +142,7 @@ public class TestPuppetResourceExpr extends AbstractPuppetTests {
 		assignment.setRightExpr(pplist);
 		pplist.getElements().add(createSqString("10"));
 		pplist.getElements().add(createSqString("20"));
-		pp.getStatements().add(assignment);
+		statements.add(assignment);
 		String fmt = "$a = ['10', '20',]\n";
 		String s = serialize(pp);
 		assertEquals("serialization should produce same result", fmt, s);

@@ -55,9 +55,11 @@ class ModuleSourcePage extends TextEditor {
 		}
 	};
 
+	private boolean internalTextChange = false;
+
 	ModuleSourcePage(ModuleMetadataEditor editor) {
 		this.editor = editor;
-		setPartName(UIPlugin.INSTANCE.getString("_UI_Source_title")); //$NON-NLS-1
+		setPartName(UIPlugin.getLocalString("_UI_Source_title")); //$NON-NLS-1
 	}
 
 	@Override
@@ -66,9 +68,11 @@ class ModuleSourcePage extends TextEditor {
 		sourceViewer.addTextListener(new ITextListener() {
 			@Override
 			public void textChanged(TextEvent event) {
-				DocumentEvent docEvent = event.getDocumentEvent();
-				if(docEvent != null)
-					validate();
+				if(!internalTextChange) {
+					DocumentEvent docEvent = event.getDocumentEvent();
+					if(docEvent != null)
+						validate();
+				}
 			}
 		});
 		return sourceViewer;
@@ -79,6 +83,10 @@ class ModuleSourcePage extends TextEditor {
 		IDocumentProvider dp = getDocumentProvider();
 		if(dp != null)
 			dp.removeElementStateListener(stateListener);
+	}
+
+	void endInternalTextChange() {
+		internalTextChange = false;
 	}
 
 	void initialize() {
@@ -102,6 +110,10 @@ class ModuleSourcePage extends TextEditor {
 
 	boolean isActive() {
 		return equals(editor.getActiveEditor());
+	}
+
+	void startInternalTextChange() {
+		internalTextChange = true;
 	}
 
 	void updateDiagnosticAnnotations(Diagnostic chain) {

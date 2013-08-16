@@ -25,7 +25,7 @@ public class ForgeServiceTest extends AbstractForgeTest {
 	@Test
 	public void testLoadJSONMetadata__File() {
 		try {
-			Metadata md = getForge().loadJSONMetadata(getTestData("puppetlabs-apache/metadata.json"));
+			Metadata md = getForgeUtil().loadJSONMetadata(getTestData("puppetlabs-apache/metadata.json"));
 			assertEquals("Unexpected module name", new ModuleName("puppetlabs-apache"), md.getName());
 		}
 		catch(IOException e) {

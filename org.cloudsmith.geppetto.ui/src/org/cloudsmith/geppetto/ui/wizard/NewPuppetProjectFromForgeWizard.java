@@ -26,6 +26,7 @@ import java.util.regex.Pattern;
 
 import org.apache.log4j.Logger;
 import org.cloudsmith.geppetto.diagnostic.Diagnostic;
+import org.cloudsmith.geppetto.forge.ForgeService;
 import org.cloudsmith.geppetto.forge.util.ModuleUtils;
 import org.cloudsmith.geppetto.forge.v1.model.ModuleInfo;
 import org.cloudsmith.geppetto.forge.v1.service.ModuleService;
@@ -40,7 +41,6 @@ import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.OperationCanceledException;
 import org.eclipse.core.runtime.SubMonitor;
-import org.eclipse.emf.edit.ui.provider.ExtendedImageRegistry;
 import org.eclipse.jface.dialogs.IInputValidator;
 import org.eclipse.jface.dialogs.InputDialog;
 import org.eclipse.jface.dialogs.MessageDialog;
@@ -61,6 +61,8 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.dialogs.WizardNewProjectCreationPage;
+
+import com.google.inject.Inject;
 
 public class NewPuppetProjectFromForgeWizard extends NewPuppetModuleProjectWizard {
 
@@ -150,7 +152,6 @@ public class NewPuppetProjectFromForgeWizard extends NewPuppetModuleProjectWizar
 						monitor.beginTask("Fetching latest releases from the Forge", 55);
 						try {
 							final Exception[] te = new Exception[1];
-							final ModuleService moduleService = getModuleServiceV1();
 							Thread t = new Thread() {
 								@Override
 								public void run() {
@@ -307,6 +308,12 @@ public class NewPuppetProjectFromForgeWizard extends NewPuppetModuleProjectWizar
 
 	}
 
+	@Inject
+	private ForgeService forgeService;
+
+	@Inject
+	private ModuleService moduleService;
+
 	private static final Pattern OK_KEYWORD_CHARACTERS = Pattern.compile("^[0-9A-Za-z_-]*$");
 
 	private static final Pattern KEYWORD_AT_LEAST_ONE_CHARACTER = Pattern.compile("[A-Za-z]+");
@@ -327,7 +334,7 @@ public class NewPuppetProjectFromForgeWizard extends NewPuppetModuleProjectWizar
 
 	@Override
 	public void init(IWorkbench workbench, IStructuredSelection selection) {
-		setDefaultPageImageDescriptor(ExtendedImageRegistry.INSTANCE.getImageDescriptor(UIPlugin.INSTANCE.getImage("full/wizban/NewPuppetProject.png"))); //$NON-NLS-1$
+		setDefaultPageImageDescriptor(UIPlugin.getImageDesc("full/wizban/NewPuppetProject.png")); //$NON-NLS-1$
 		setWindowTitle(getLocalString("_UI_NewPuppetProjectFromForge_title")); //$NON-NLS-1$
 	}
 
@@ -344,7 +351,7 @@ public class NewPuppetProjectFromForgeWizard extends NewPuppetModuleProjectWizar
 					: VersionRange.exact(module.getVersion());
 
 			File projectDir = project.getLocation().toFile();
-			getForge().install(module.getFullName(), vr, projectDir, true, true);
+			forgeService.install(module.getFullName(), vr, projectDir, true, true);
 
 			File moduleFile = new File(projectDir, MODULEFILE_NAME);
 			boolean moduleFileExists = moduleFile.exists();

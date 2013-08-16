@@ -11,7 +11,6 @@
  */
 package org.cloudsmith.geppetto.ui;
 
-import org.cloudsmith.geppetto.pp.dsl.ui.internal.PPActivator;
 import org.eclipse.xtext.ui.guice.AbstractGuiceAwareExecutableExtensionFactory;
 import org.osgi.framework.Bundle;
 
@@ -22,24 +21,13 @@ import com.google.inject.Injector;
  * 
  */
 public class GeppettoExecutableExtensionFactory extends AbstractGuiceAwareExecutableExtensionFactory {
-	private static Injector injector;
-
 	@Override
 	protected Bundle getBundle() {
-		return UIPlugin.getPlugin().getBundle();
+		return UIPlugin.getInstance().getContext().getBundle();
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.cloudsmith.geppetto.pp.dsl.ui.PPExecutableExtensionFactory#getInjector()
-	 */
 	@Override
 	protected Injector getInjector() {
-		synchronized(this) {
-			if(injector == null)
-				injector = PPActivator.getInstance().getInjector("org.cloudsmith.geppetto.pp.dsl.PP").createChildInjector();
-		}
-		return injector;
+		return UIPlugin.getInstance().getInjector();
 	}
 }

@@ -53,6 +53,7 @@ import org.cloudsmith.geppetto.forge.model.Constants;
 
 import com.google.gson.Gson;
 import com.google.inject.Inject;
+import com.google.inject.name.Named;
 
 /**
  * Class responsible for all request and response processing
@@ -67,35 +68,28 @@ public class ForgeHttpClient implements Constants, ForgeClient {
 		return entity.getContent();
 	}
 
-	private final String v1URL;
-
-	private final String v2URL;
-
-	private final Gson gson;
-
-	private final HttpClient httpClient;
-
-	private final Authenticator authenticator;
-
-	private final ForgeAPIPreferences preferences;
-
-	private String credentials;
-
-	private String userAgent;
-
-	private HttpRequestBase currentRequest;
+	@Inject
+	@Named(Constants.API_V1_URL_NAME)
+	private String v1URL;
 
 	@Inject
-	public ForgeHttpClient(Gson gson, ForgeAPIPreferences preferences, HttpClient httpClient,
-			Authenticator authenticator) {
-		this.v1URL = preferences.getURL_v1();
-		this.v2URL = preferences.getURL_v2();
-		this.gson = gson;
-		this.authenticator = authenticator;
-		this.preferences = preferences;
-		userAgent = USER_AGENT;
-		this.httpClient = httpClient;
-	}
+	@Named(Constants.API_V2_URL_NAME)
+	private String v2URL;
+
+	@Inject
+	private Gson gson;
+
+	@Inject
+	private HttpClient httpClient;
+
+	@Inject(optional = true)
+	private Authenticator authenticator;
+
+	private String userAgent = USER_AGENT;
+
+	private transient String credentials;
+
+	private transient HttpRequestBase currentRequest;
 
 	public synchronized void abortCurrentRequest() {
 		if(currentRequest != null) {
@@ -113,13 +107,9 @@ public class ForgeHttpClient implements Constants, ForgeClient {
 	}
 
 	public void authenticate() throws IOException {
-		if(credentials == null) {
-			AuthResponse auth = authenticator.authenticate(
-				httpClient, preferences.getLogin(), preferences.getPassword());
-			String oauthToken = auth.getToken();
-			preferences.setOAuthAccessToken(oauthToken);
-			preferences.setOAuthScopes(auth.getScopes());
-			this.credentials = "Bearer " + oauthToken;
+		if(credentials == null && authenticator != null) {
+			AuthResponse auth = authenticator.authenticate(httpClient);
+			this.credentials = "Bearer " + auth.getToken();
 		}
 	}
 
@@ -127,7 +117,6 @@ public class ForgeHttpClient implements Constants, ForgeClient {
 		if(credentials != null)
 			request.addHeader(HttpHeaders.AUTHORIZATION, credentials);
 		else
-
 			request.addHeader(HttpHeaders.USER_AGENT, userAgent);
 	}
 

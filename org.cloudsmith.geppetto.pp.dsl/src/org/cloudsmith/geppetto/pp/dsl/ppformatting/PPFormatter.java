@@ -230,7 +230,7 @@ public class PPFormatter extends AbstractDeclarativeFormatter {
 	}
 
 	protected void manifestConfiguration(FormattingConfig c) {
-		PPGrammarAccess ga = (PPGrammarAccess) getGrammarAccess();
+		// PPGrammarAccess ga = (PPGrammarAccess) getGrammarAccess();
 		// does not have intended (positive) effect, does instead screw up other statements
 		// https://bugs.eclipse.org/bugs/show_bug.cgi?id=340166#c6
 		// c.setLinewrap().after(ga.getPuppetManifestAccess().getStatementsAssignment_1());

@@ -11,24 +11,21 @@
  */
 package org.cloudsmith.geppetto.forge.impl;
 
+import static com.google.inject.name.Names.named;
+import static org.cloudsmith.geppetto.forge.Forge.MODULE_FILE_FILTER;
+import static org.cloudsmith.geppetto.forge.util.ModuleUtils.DEFAULT_FILE_FILTER;
+
 import java.io.FileFilter;
 
-import org.cloudsmith.geppetto.forge.Cache;
 import org.cloudsmith.geppetto.forge.ERB;
 import org.cloudsmith.geppetto.forge.Forge;
-import org.cloudsmith.geppetto.forge.ForgePreferences;
 import org.cloudsmith.geppetto.forge.MetadataExtractor;
-import org.cloudsmith.geppetto.forge.client.ForgeHttpModule;
-import org.cloudsmith.geppetto.forge.util.ModuleUtils;
+import org.cloudsmith.geppetto.forge.client.GsonModule;
 
+import com.google.inject.AbstractModule;
 import com.google.inject.multibindings.Multibinder;
-import com.google.inject.name.Names;
 
-public class ForgeModule extends ForgeHttpModule {
-	public ForgeModule(ForgePreferences forgePreferences) {
-		super(forgePreferences);
-	}
-
+public class ForgeModule extends AbstractModule {
 	protected void addMetadataExtractors(Multibinder<MetadataExtractor> mdeBinder) {
 		mdeBinder.addBinding().to(MetadataJSONExtractor.class);
 		mdeBinder.addBinding().to(ModulefileExtractor.class);
@@ -36,20 +33,15 @@ public class ForgeModule extends ForgeHttpModule {
 
 	@Override
 	protected void configure() {
-		super.configure();
+		install(GsonModule.INSTANCE);
 		bind(Forge.class).to(ForgeImpl.class);
-
-		if(getPreferences().getBaseURL() != null)
-			bind(Cache.class).to(CacheImpl.class);
-
 		bind(ERB.class).to(ERBImpl.class);
-		bind(FileFilter.class).annotatedWith(Names.named(Forge.MODULE_FILE_FILTER)).toInstance(getFileFilter());
-		bind(ForgePreferences.class).toInstance((ForgePreferences) getPreferences());
+		bind(FileFilter.class).annotatedWith(named(MODULE_FILE_FILTER)).toInstance(getFileFilter());
 		Multibinder<MetadataExtractor> mdeBinder = Multibinder.newSetBinder(binder(), MetadataExtractor.class);
 		addMetadataExtractors(mdeBinder);
 	}
 
 	protected FileFilter getFileFilter() {
-		return ModuleUtils.DEFAULT_FILE_FILTER;
+		return DEFAULT_FILE_FILTER;
 	}
 }

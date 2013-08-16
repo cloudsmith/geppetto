@@ -11,8 +11,6 @@
  */
 package org.cloudsmith.xtext.dommodel.formatter;
 
-import javax.swing.LayoutStyle;
-
 import org.cloudsmith.xtext.dommodel.IDomNode;
 import org.cloudsmith.xtext.dommodel.formatter.ILayoutManager.ILayoutContext;
 import org.cloudsmith.xtext.dommodel.formatter.context.IFormattingContext;
@@ -35,8 +33,9 @@ import com.google.inject.Provider;
  * A Dom Model Formatter driven by rules in a {@link DomCSS}.
  * <p>
  * <p>
- * This formatter is given a style sheet in the form of a {@link DomCSS}, and a {@link DomNodeLayoutFeeder} that sequences the content of a node to
- * format to instances of {@link ILayoutManager} obtained by computing the {@link LayoutStyle} using the given style sheet.
+ * This formatter is given a style sheet in the form of a {@link DomCSS}, and a {@link DomNodeLayoutFeeder} that
+ * sequences the content of a node to format to instances of {@link ILayoutManager} obtained by computing the
+ * {@link LayoutStyle} using the given style sheet.
  * </p>
  * <p>
  * The intent is that this implementation works for all formatting needs. A derived class could possibly override the

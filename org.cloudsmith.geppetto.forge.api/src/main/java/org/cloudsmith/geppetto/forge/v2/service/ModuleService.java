@@ -120,8 +120,8 @@ public class ModuleService extends ForgeService {
 	}
 
 	/**
-	 * Returns a list of a list of matching modules. Any module with a name that contains <code>keyword</code> is considered a match. The
-	 * <code>keyword</code> can be null in which case a list of all modules
+	 * Returns a list of a list of matching modules. Any module with a name that contains <code>keyword</code> is
+	 * considered a match. The <code>keyword</code> can be null in which case a list of all modules
 	 * will be returned.
 	 * 
 	 * @param keyword

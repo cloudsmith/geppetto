@@ -155,7 +155,6 @@ public class TestrunImpl extends AbstractAggregatedTestImpl implements Testrun {
 	 * 
 	 * @generated
 	 */
-	@SuppressWarnings("unchecked")
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch(featureID) {

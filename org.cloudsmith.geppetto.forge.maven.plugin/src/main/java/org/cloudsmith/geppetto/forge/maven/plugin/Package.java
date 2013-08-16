@@ -11,6 +11,9 @@
  */
 package org.cloudsmith.geppetto.forge.maven.plugin;
 
+import static org.cloudsmith.geppetto.diagnostic.Diagnostic.ERROR;
+import static org.cloudsmith.geppetto.forge.Forge.PACKAGE;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.Collection;
@@ -18,7 +21,6 @@ import java.util.Collection;
 import org.apache.maven.plugins.annotations.LifecyclePhase;
 import org.apache.maven.plugins.annotations.Mojo;
 import org.cloudsmith.geppetto.diagnostic.Diagnostic;
-import org.cloudsmith.geppetto.forge.Forge;
 
 /**
  * Goal that builds the module gzipped tarball and optionally generates the <tt>metadata.json</tt> file.
@@ -26,7 +28,7 @@ import org.cloudsmith.geppetto.forge.Forge;
 @Mojo(name = "package", requiresProject = false, defaultPhase = LifecyclePhase.PACKAGE)
 public class Package extends AbstractForgeMojo {
 	private File buildForge(File moduleSource, File destination, Diagnostic result) throws IOException {
-		return getForge().build(moduleSource, destination, null, null, result);
+		return getForgeUtil().build(moduleSource, destination, null, null, result);
 	}
 
 	@Override
@@ -38,7 +40,7 @@ public class Package extends AbstractForgeMojo {
 	protected void invoke(Diagnostic result) throws Exception {
 		Collection<File> moduleRoots = findModuleRoots();
 		if(moduleRoots.isEmpty()) {
-			result.addChild(new Diagnostic(Diagnostic.ERROR, Forge.PACKAGE, "No modules found in repository"));
+			result.addChild(new Diagnostic(ERROR, PACKAGE, "No modules found in repository"));
 			return;
 		}
 
@@ -49,8 +51,7 @@ public class Package extends AbstractForgeMojo {
 		else {
 			File builtModules = new File(buildDir, "builtModules");
 			if(!(builtModules.mkdir() || builtModules.isDirectory())) {
-				result.addChild(new Diagnostic(Diagnostic.ERROR, Forge.PACKAGE, "Unable to create directory" +
-						builtModules.getPath()));
+				result.addChild(new Diagnostic(ERROR, PACKAGE, "Unable to create directory" + builtModules.getPath()));
 				return;
 			}
 			for(File moduleRoot : moduleRoots)

@@ -27,7 +27,7 @@ public class ModuleUtilsTest extends AbstractForgeTest {
 	@Test
 	public void loadModule() {
 		try {
-			Metadata md = getForge().createFromModuleDirectory(
+			Metadata md = getForgeUtil().createFromModuleDirectory(
 				getTestData("puppetlabs-apache"), false, null, null, new Diagnostic());
 			assertEquals("Unexpected module name", new ModuleName("puppetlabs-apache"), md.getName());
 		}
@@ -39,7 +39,7 @@ public class ModuleUtilsTest extends AbstractForgeTest {
 	@Test
 	public void loadModule2() {
 		try {
-			Metadata md = getForge().createFromModuleDirectory(
+			Metadata md = getForgeUtil().createFromModuleDirectory(
 				getTestData("DavidSchmitt-collectd"), false, null, null, new Diagnostic());
 			assertEquals("Unexpected module name", new ModuleName("davidschmitt-collectd"), md.getName());
 		}
@@ -51,7 +51,7 @@ public class ModuleUtilsTest extends AbstractForgeTest {
 	@Test
 	public void loadModule3() {
 		try {
-			Metadata md = getForge().createFromModuleDirectory(
+			Metadata md = getForgeUtil().createFromModuleDirectory(
 				getTestData("bobsh-iptables"), false, null, null, new Diagnostic());
 			assertEquals("Unexpected module name", new ModuleName("bobsh/iptables"), md.getName());
 		}
@@ -63,7 +63,7 @@ public class ModuleUtilsTest extends AbstractForgeTest {
 	@Test
 	public void loadModule4() {
 		try {
-			Metadata md = getForge().createFromModuleDirectory(
+			Metadata md = getForgeUtil().createFromModuleDirectory(
 				getTestData("ghoneycutt-rsync"), false, null, null, new Diagnostic());
 			assertEquals("Unexpected module name", new ModuleName("ghoneycutt-RSync"), md.getName());
 		}
@@ -75,7 +75,7 @@ public class ModuleUtilsTest extends AbstractForgeTest {
 	@Test
 	public void loadModule5() {
 		try {
-			Metadata md = getForge().createFromModuleDirectory(
+			Metadata md = getForgeUtil().createFromModuleDirectory(
 				getTestData("lab42-common"), false, null, null, new Diagnostic());
 			assertEquals("Unexpected module name", new ModuleName("lab42-common"), md.getName());
 		}

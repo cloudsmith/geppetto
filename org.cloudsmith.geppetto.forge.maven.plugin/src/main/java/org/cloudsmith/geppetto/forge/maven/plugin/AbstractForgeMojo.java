@@ -20,7 +20,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.nio.charset.Charset;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 import java.util.Properties;
 
 import org.apache.maven.execution.MavenSession;
@@ -33,7 +35,6 @@ import org.apache.maven.plugins.annotations.Parameter;
 import org.apache.maven.project.MavenProject;
 import org.cloudsmith.geppetto.diagnostic.Diagnostic;
 import org.cloudsmith.geppetto.forge.Forge;
-import org.cloudsmith.geppetto.forge.impl.ForgePreferencesBean;
 import org.cloudsmith.geppetto.forge.util.ModuleUtils;
 import org.cloudsmith.geppetto.forge.v2.MetadataRepository;
 import org.cloudsmith.geppetto.forge.v2.model.Metadata;
@@ -48,6 +49,7 @@ import org.slf4j.LoggerFactory;
 import com.google.gson.JsonParseException;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
+import com.google.inject.Module;
 
 /**
  * Goal which performs basic validation.
@@ -105,23 +107,23 @@ public abstract class AbstractForgeMojo extends AbstractMojo {
 
 	private transient File modulesDir;
 
-	private transient Injector forgeInjector;
+	private transient Injector injector;
 
 	private transient Logger log;
 
-	protected void addForgePreferences(ForgePreferencesBean forgePreferences, Diagnostic diagnostic) {
+	protected void addModules(Diagnostic diagnostic, List<Module> modules) {
+		modules.add(new ForgeMavenModule(getFileFilter(), session.getCurrentProject()));
+		modules.add(new ValidationModule());
+		modules.add(getCommonModule());
 	}
 
 	public void execute() throws MojoExecutionException, MojoFailureException {
 		Diagnostic diagnostic = new LoggingDiagnostic(getLogger());
 		try {
-			ForgePreferencesBean forgePreferences = new ForgePreferencesBean();
-			addForgePreferences(forgePreferences, diagnostic);
+			List<Module> modules = new ArrayList<Module>();
+			addModules(diagnostic, modules);
 			if(diagnostic.getSeverity() <= Diagnostic.WARNING) {
-
-				forgeInjector = Guice.createInjector(getCommonModule(), new ForgeMavenModule(
-					forgePreferences, getFileFilter(), session.getCurrentProject()), new ValidationModule());
-
+				injector = Guice.createInjector(modules);
 				invoke(diagnostic);
 			}
 		}
@@ -143,7 +145,7 @@ public abstract class AbstractForgeMojo extends AbstractMojo {
 	}
 
 	protected Collection<File> findModuleRoots() {
-		return getForge().findModuleRoots(getModulesDir(), null);
+		return getForgeUtil().findModuleRoots(getModulesDir(), null);
 	}
 
 	protected abstract String getActionName();
@@ -198,8 +200,12 @@ public abstract class AbstractForgeMojo extends AbstractMojo {
 		};
 	}
 
-	protected Forge getForge() {
-		return forgeInjector.getInstance(Forge.class);
+	protected Forge getForgeUtil() {
+		return injector.getInstance(Forge.class);
+	}
+
+	protected Injector getInjector() {
+		return injector;
 	}
 
 	protected Logger getLogger() {
@@ -210,11 +216,11 @@ public abstract class AbstractForgeMojo extends AbstractMojo {
 	}
 
 	protected MetadataRepository getMetadataRepository() {
-		return forgeInjector.getInstance(MetadataRepository.class);
+		return injector.getInstance(MetadataRepository.class);
 	}
 
 	protected Metadata getModuleMetadata(File moduleDirectory, Diagnostic diag) throws IOException {
-		return getForge().createFromModuleDirectory(moduleDirectory, true, null, null, diag);
+		return getForgeUtil().createFromModuleDirectory(moduleDirectory, true, null, null, diag);
 	}
 
 	protected File getModulesDir() {
@@ -243,11 +249,11 @@ public abstract class AbstractForgeMojo extends AbstractMojo {
 	}
 
 	protected ReleaseService getReleaseService() {
-		return forgeInjector.getInstance(ReleaseService.class);
+		return injector.getInstance(ReleaseService.class);
 	}
 
 	protected ValidationService getValidationService() {
-		return forgeInjector.getInstance(ValidationService.class);
+		return injector.getInstance(ValidationService.class);
 	}
 
 	protected abstract void invoke(Diagnostic result) throws Exception;

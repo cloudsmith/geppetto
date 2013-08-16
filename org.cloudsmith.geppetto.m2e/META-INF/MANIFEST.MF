@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Geppetto Integration for m2e
 Bundle-SymbolicName: org.cloudsmith.geppetto.m2e;singleton:=true
-Bundle-Version: 3.2.1.qualifier
+Bundle-Version: 4.0.0
 Bundle-Vendor: Cloudsmith Inc.
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Import-Package: org.apache.maven.plugin,

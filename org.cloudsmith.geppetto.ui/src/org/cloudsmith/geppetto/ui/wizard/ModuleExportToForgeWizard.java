@@ -134,7 +134,7 @@ public class ModuleExportToForgeWizard extends ModuleExportToFileWizard {
 				// User clicked on cancel when being asked to save dirty editors.
 				return false;
 
-			final Injector injector = UIPlugin.getInstance().getInjector().createChildInjector(
+			final Injector injector = UIPlugin.getInstance().createInjector(
 				new OAuthModule(FORGE_CLIENT_ID, FORGE_CLIENT_SECRET, loginField.getText(), passwordField.getText()));
 			try {
 				@SuppressWarnings("unchecked")

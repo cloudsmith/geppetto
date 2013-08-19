@@ -13,6 +13,8 @@ package org.cloudsmith.geppetto.ui;
 import static org.cloudsmith.geppetto.pp.dsl.ui.internal.PPActivator.ORG_CLOUDSMITH_GEPPETTO_PP_DSL_PP;
 
 import java.text.MessageFormat;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.cloudsmith.geppetto.forge.client.ForgeHttpModule;
 import org.cloudsmith.geppetto.forge.impl.ForgeServiceModule;
@@ -32,6 +34,7 @@ import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
 
 import com.google.inject.Injector;
+import com.google.inject.Module;
 
 /**
  * This is the central singleton for the Geppetto UI plugin.
@@ -85,21 +88,29 @@ public final class UIPlugin extends EMFPlugin implements BundleActivator {
 		super(new ResourceLocator[] {});
 	}
 
+	public Injector createInjector(Module... modules) {
+		final Injector ppInjector = PPActivator.getInstance().getInjector(ORG_CLOUDSMITH_GEPPETTO_PP_DSL_PP);
+		List<Module> forgeModules = new ArrayList<Module>();
+		for(Module module : modules)
+			forgeModules.add(module);
+		forgeModules.add(new ForgeServiceModule());
+		forgeModules.add(new ForgeHttpModule() {
+			@Override
+			protected String getBaseURL() {
+				return ppInjector.getInstance(PPPreferencesHelper.class).getForgeURI();
+			}
+		});
+		return ppInjector.createChildInjector(forgeModules);
+	}
+
 	public BundleContext getContext() {
 		return context;
 	}
 
 	public Injector getInjector() {
 		synchronized(this) {
-			if(injector == null) {
-				final Injector ppInjector = PPActivator.getInstance().getInjector(ORG_CLOUDSMITH_GEPPETTO_PP_DSL_PP);
-				injector = ppInjector.createChildInjector(new ForgeServiceModule(), new ForgeHttpModule() {
-					@Override
-					protected String getBaseURL() {
-						return ppInjector.getInstance(PPPreferencesHelper.class).getForgeURI();
-					}
-				});
-			}
+			if(injector == null)
+				injector = createInjector();
 		}
 		return injector;
 	}

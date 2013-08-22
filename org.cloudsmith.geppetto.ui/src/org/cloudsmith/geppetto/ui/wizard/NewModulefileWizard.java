@@ -140,7 +140,7 @@ public class NewModulefileWizard extends BasicNewResourceWizard implements INewW
 
 	@Override
 	protected void initializeDefaultPageImageDescriptor() {
-		ImageDescriptor desc = UIPlugin.getImageDesc("icons/full/wizban/NewPuppetManifest.png");
+		ImageDescriptor desc = UIPlugin.getImageDesc("full/wizban/NewPuppetManifest.png");
 		if(desc == null)
 			desc = IDEWorkbenchPlugin.getIDEImageDescriptor("wizban/newfile_wiz.png");//$NON-NLS-1$
 		setDefaultPageImageDescriptor(desc);

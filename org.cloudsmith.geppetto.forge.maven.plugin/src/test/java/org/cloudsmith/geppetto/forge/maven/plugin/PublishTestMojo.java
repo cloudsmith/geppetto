@@ -1,6 +1,5 @@
 package org.cloudsmith.geppetto.forge.maven.plugin;
 
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
@@ -34,12 +33,9 @@ public class PublishTestMojo extends AbstractForgeTestMojo {
 
 		try {
 			publish.execute();
-			fail("Publishing succeeded although there was no module");
 		}
 		catch(MojoFailureException e) {
-			Throwable t = e.getCause();
-			assertTrue("Exception cause is not the right class", t instanceof HttpResponseException);
-			assertEquals("Missing module not detected correctly", ((HttpResponseException) t).getStatusCode(), 400);
+			fail("Publishing of OK module failed when there was no module");
 		}
 	}
 

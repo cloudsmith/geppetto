@@ -82,6 +82,7 @@ class ModuleSourcePage extends TextEditor {
 		IDocumentProvider dp = getDocumentProvider();
 		if(dp != null)
 			dp.removeElementStateListener(stateListener);
+		super.dispose();
 	}
 
 	void endInternalTextChange() {

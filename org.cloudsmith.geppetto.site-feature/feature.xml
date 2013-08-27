@@ -69,6 +69,10 @@
          version="0.0.0"/>
 
    <includes
+         id="org.eclipse.e4.rcp"
+         version="0.0.0"/>
+
+   <includes
          id="org.eclipse.team.svn"
          version="0.0.0"/>
 
@@ -137,15 +141,8 @@
          fragment="true"
          unpack="false"/>
 
-	<plugin
-         id="javax.el"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
    <plugin
-         id="javax.inject"
+         id="javax.el"
          download-size="0"
          install-size="0"
          version="0.0.0"
@@ -223,13 +220,6 @@
 
    <plugin
          id="org.eclipse.equinox.concurrent"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="org.eclipse.equinox.console"
          download-size="0"
          install-size="0"
          version="0.0.0"

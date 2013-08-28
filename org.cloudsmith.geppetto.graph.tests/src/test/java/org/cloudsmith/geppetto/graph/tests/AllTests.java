@@ -15,5 +15,5 @@ import org.junit.runners.Suite.SuiteClasses;
 })
 // @fmtOn
 @RunWith(Suite.class)
-public class PuppetValidationTests {
+public class AllTests {
 }

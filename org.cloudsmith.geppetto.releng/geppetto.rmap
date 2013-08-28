@@ -7,6 +7,7 @@
   <rm:property key="geppetto.clone" value="geppetto"/>
   <rm:locator pattern="^org\.cloudsmith\.geppetto\.parent$" searchPathRef="geppetto-parent"/>
   <rm:locator pattern="^org\.cloudsmith\.geppetto(\..+)?$" searchPathRef="geppetto"/>
+  <rm:locator pattern="^org\.cloudsmith\.graph(\..+)?$" searchPathRef="graph"/>
   <rm:locator pattern="^org\.polarion\.eclipse\.team\.svn\.connector(\..+)?$" searchPathRef="svn.connectors"/>
   <rm:locator pattern="^org\.apache\.commons\.compress(\..+)?$" searchPathRef="commons-compress"/>
   <rm:locator pattern="^org\.cloudsmith\.jrubyparser(\..+)?$" searchPathRef="jrubyparser"/>
@@ -53,6 +54,15 @@
       <rm:property key="git.remote.uri" value="${cloudsmith.github.prefix}/jruby-parser.git"/>
       <rm:uri format="{0}/jruby-parser">
         <bc:propertyRef key="git.clones.root"/>
+      </rm:uri>
+    </rm:provider>
+  </rm:searchPath>
+  <rm:searchPath name="graph">
+    <rm:provider componentTypes="osgi.bundle" readerType="git">
+      <rm:property key="git.remote.uri" value="${cloudsmith.github.prefix}/graph.git"/>
+      <rm:uri format="{0}/graph,{1}">
+        <bc:propertyRef key="git.clones.root"/>
+        <bc:propertyRef key="buckminster.component"/>
       </rm:uri>
     </rm:provider>
   </rm:searchPath>

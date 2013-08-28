@@ -13,12 +13,10 @@ package org.cloudsmith.geppetto.forge.api.tests;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
-import java.io.File;
-import java.io.FileInputStream;
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
-import java.io.InputStream;
 
-import org.cloudsmith.geppetto.forge.api.tests.Release;
+import org.cloudsmith.geppetto.forge.v2.model.Release;
 import org.cloudsmith.geppetto.forge.v2.service.ReleaseService;
 import org.junit.Test;
 
@@ -30,16 +28,11 @@ public class ReleaseTestCreate extends ForgeAPITestBase {
 	@Test
 	public void testCreate() throws IOException {
 		ReleaseService service = getTestUserForge().createReleaseService();
-		File releaseFile = getTestData(TEST_GZIPPED_RELEASE);
-		InputStream in = new FileInputStream(releaseFile);
-		try {
-			Release newRelease = service.create(
-				TEST_USER, TEST_MODULE, "Some notes about this release", in, releaseFile.length());
-			assertNotNull("Null Release", newRelease);
-			assertEquals("Incorrect release version", newRelease.getVersion(), TEST_RELEASE_VERSION);
-		}
-		finally {
-			in.close();
-		}
+		byte[] releaseFile = TestDataProvider.getTestData(TEST_GZIPPED_RELEASE);
+		Release newRelease = service.create(
+			TEST_USER, TEST_MODULE, "Some notes about this release", new ByteArrayInputStream(releaseFile),
+			releaseFile.length);
+		assertNotNull("Null Release", newRelease);
+		assertEquals("Incorrect release version", newRelease.getVersion(), TEST_RELEASE_VERSION);
 	}
 }

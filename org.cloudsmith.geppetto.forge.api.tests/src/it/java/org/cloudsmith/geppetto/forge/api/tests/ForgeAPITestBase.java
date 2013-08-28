@@ -1,128 +1,58 @@
 package org.cloudsmith.geppetto.forge.api.tests;
 
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
-
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.net.URISyntaxException;
-import java.net.URL;
-
-import org.cloudsmith.geppetto.forge.v2.ForgeAPI;
+import org.apache.http.client.HttpClient;
+import org.apache.http.impl.client.DefaultHttpClient;
 import org.cloudsmith.geppetto.forge.client.ForgeHttpModule;
+import org.cloudsmith.geppetto.forge.client.GsonModule;
+import org.cloudsmith.geppetto.forge.client.OAuthModule;
+import org.cloudsmith.geppetto.forge.v2.ForgeAPI;
 import org.cloudsmith.geppetto.semver.Version;
+import org.eclipse.core.runtime.IPath;
+import org.eclipse.core.runtime.Path;
 
-import com.almworks.sqlite4java.SQLiteConnection;
-import com.almworks.sqlite4java.SQLiteException;
-import com.almworks.sqlite4java.SQLiteStatement;
-import com.google.inject.Guice;
+import com.google.inject.AbstractModule;
 
 public class ForgeAPITestBase {
-	public static class TestModule extends ForgeHttpModule {
-		public TestModule() {
-			super(new TestUsersPreferences());
+	public static class TestModule extends AbstractModule {
+
+		@Override
+		protected void configure() {
+			install(GsonModule.INSTANCE);
+			bind(HttpClient.class).toInstance(new DefaultHttpClient());
 		}
 	}
 
-	public static class TestUsersPreferences extends ForgeTestPreferences {
-		@Override
-		public String getLogin() {
-			return TEST_USER;
-		}
+	public static final String TEST_USER = "geppetto";
 
-		@Override
-		public String getPassword() {
-			return TEST_PASSWORD;
-		}
-	}
+	public static final String TEST_PASSWORD = "geppetto tester";
 
-	public static final String TEST_USER = "bob";
+	public static final String TEST_MODULE = "testmodule";
 
-	public static final String TEST_PASSWORD = "bobbobbob";
+	public static final IPath TEST_GZIPPED_RELEASE = Path.fromPortableString("testData/geppetto-testmodule-0.1.0.tar.gz");
 
-	public static final String TEST_MODULE = "java";
+	public static final Version TEST_RELEASE_VERSION = Version.create("0.1.0");
 
-	public static final String TEST_GZIPPED_RELEASE = "puppetlabs-java-0.1.6.tar.gz";
+	private static final String FORGE_CLIENT_ID = "cac18b1f07f13a244c47644548b29cbbe58048f3aaccdeefa7c0306467afda44";
 
-	public static final Version TEST_RELEASE_VERSION = Version.create("0.1.6");
+	private static final String FORGE_CLIENT_SECRET = "2227c9a7392382f58b5e4d084b705827cb574673ff7d2a5905ef21685fd48e40";
 
-	private static String PUPPET_FORGE_CLIENT_ID;
-
-	private static String PUPPET_FORGE_CLIENT_SECRET;
+	private static final String FORGE_STAGING_SERVICE_BASE_URL = "http://forge-staging-api.puppetlabs.com";
 
 	private static ForgeAPI testUserForge;
 
 	public static String[] getPuppetForgeClientIdentity() {
-		if(PUPPET_FORGE_CLIENT_ID == null) {
-
-			File devDB = new File(System.getProperty("user.home") + "/git/puppet-forge-api/db/development.sqlite3");
-			if(!devDB.isFile())
-				fail("Unable to find server development database at " + devDB.getAbsolutePath());
-
-			SQLiteConnection connection = new SQLiteConnection(devDB);
-			try {
-				connection.open(false);
-				SQLiteStatement statement = connection.prepare("SELECT id, secret FROM clients WHERE display_name = ?");
-				try {
-					statement.bind(1, "sample_sinatra_client");
-					assertTrue(statement.step());
-					PUPPET_FORGE_CLIENT_ID = statement.columnString(0);
-					assertNotNull(PUPPET_FORGE_CLIENT_ID);
-					PUPPET_FORGE_CLIENT_SECRET = statement.columnString(1);
-					assertNotNull(PUPPET_FORGE_CLIENT_SECRET);
-				}
-				finally {
-					statement.dispose();
-				}
-			}
-			catch(SQLiteException e) {
-				fail(e.getMessage());
-			}
-			finally {
-				connection.dispose();
-			}
-		}
-		return new String[] { PUPPET_FORGE_CLIENT_ID, PUPPET_FORGE_CLIENT_SECRET };
-	}
-
-	public static File getTestData(String path) throws IOException {
-		URL url = ForgeIT.class.getResource(path);
-		if(url == null)
-			throw new RuntimeException("Unable to find \"" + path + "\" resource");
-		return toFile(url);
+		return new String[] { FORGE_CLIENT_ID, FORGE_CLIENT_SECRET };
 	}
 
 	protected static ForgeAPI getTestUserForge() {
 		if(testUserForge == null)
-			testUserForge = new ForgeAPI(Guice.createInjector(new TestModule()));
+			testUserForge = new ForgeAPI(new TestModule(), new ForgeHttpModule() {
+
+				@Override
+				protected String getBaseURL() {
+					return FORGE_STAGING_SERVICE_BASE_URL;
+				}
+			}, new OAuthModule(FORGE_CLIENT_ID, FORGE_CLIENT_SECRET, TEST_USER, TEST_PASSWORD));
 		return testUserForge;
 	}
-
-	public static File toFile(URL url) throws IOException {
-		try {
-			return new File(url.toURI());
-		}
-		catch(URISyntaxException e) {
-			File temp = File.createTempFile("test-", ".tmp");
-			temp.deleteOnExit();
-			OutputStream output = new FileOutputStream(temp);
-			InputStream input = url.openStream();
-			try {
-				byte[] buffer = new byte[4096];
-				int cnt;
-				while((cnt = input.read(buffer)) > 0)
-					output.write(buffer, 0, cnt);
-			}
-			finally {
-				input.close();
-				output.close();
-			}
-			return temp;
-		}
-	}
-
 }

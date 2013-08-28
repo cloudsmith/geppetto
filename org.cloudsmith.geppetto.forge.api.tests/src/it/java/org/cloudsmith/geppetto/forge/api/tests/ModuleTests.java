@@ -18,9 +18,9 @@ import static org.junit.Assert.assertTrue;
 import java.io.IOException;
 import java.util.List;
 
-import org.cloudsmith.geppetto.forge.api.tests.AnnotatedLink;
-import org.cloudsmith.geppetto.forge.api.tests.Module;
-import org.cloudsmith.geppetto.forge.api.tests.Release;
+import org.cloudsmith.geppetto.forge.v2.model.AnnotatedLink;
+import org.cloudsmith.geppetto.forge.v2.model.Module;
+import org.cloudsmith.geppetto.forge.v2.model.Release;
 import org.cloudsmith.geppetto.forge.v2.service.ListPreferences;
 import org.cloudsmith.geppetto.forge.v2.service.ModuleService;
 import org.junit.Test;
@@ -33,7 +33,7 @@ public class ModuleTests extends ForgeAPITestBase {
 	@Test
 	public void testListModules() throws IOException {
 		ModuleService service = getTestUserForge().createModuleService();
-		List<Module> modules = service.search(null, null);
+		List<Module> modules = service.search("puppetlabs", null);
 		assertNotNull("Null module list", modules);
 		assertFalse("Empty module list", modules.isEmpty());
 

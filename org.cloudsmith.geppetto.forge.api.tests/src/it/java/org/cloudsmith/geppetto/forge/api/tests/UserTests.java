@@ -16,7 +16,7 @@ import static org.junit.Assert.assertNotNull;
 import java.io.IOException;
 import java.util.List;
 
-import org.cloudsmith.geppetto.forge.api.tests.User;
+import org.cloudsmith.geppetto.forge.v2.model.User;
 import org.cloudsmith.geppetto.forge.v2.service.ListPreferences;
 import org.cloudsmith.geppetto.forge.v2.service.UserService;
 import org.junit.Test;

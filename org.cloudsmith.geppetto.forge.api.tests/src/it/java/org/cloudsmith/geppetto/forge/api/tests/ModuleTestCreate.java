@@ -14,7 +14,7 @@ import static org.junit.Assert.assertNotNull;
 
 import java.io.IOException;
 
-import org.cloudsmith.geppetto.forge.api.tests.Module;
+import org.cloudsmith.geppetto.forge.v2.model.Module;
 import org.cloudsmith.geppetto.forge.v2.service.ModuleService;
 import org.cloudsmith.geppetto.forge.v2.service.ModuleTemplate;
 import org.junit.Test;

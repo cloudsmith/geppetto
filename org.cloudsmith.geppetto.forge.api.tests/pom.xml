@@ -26,78 +26,6 @@
 				</configuration>
 			</plugin>
 			<plugin>
-				<groupId>org.codehaus.mojo</groupId>
-				<artifactId>exec-maven-plugin</artifactId>
-				<executions>
-					<execution>
-						<id>start-forge-server</id>
-						<phase>pre-integration-test</phase>
-						<goals>
-							<goal>exec</goal>
-						</goals>
-						<configuration>
-							<workingDirectory>${testForgeServerDir}</workingDirectory>
-							<executable>bash</executable>
-							<!-- Assumes puppet-forge-api repo adjacent to the geppetto repo. -->
-							<arguments>
-								<argument>--login</argument>
-								<argument>${testScriptDir}/testserver-start</argument>
-							</arguments>
-							<environmentVariables>
-								<LOG_FILE>${testForgeServerLogFile}</LOG_FILE>
-								<PID_FILE>${testForgeServerPidFile}</PID_FILE>
-							</environmentVariables>
-							<skip>${skipITs}</skip>
-						</configuration>
-					</execution>
-					<execution>
-						<id>stop-forge-server</id>
-						<phase>post-integration-test</phase>
-						<goals>
-							<goal>exec</goal>
-						</goals>
-						<configuration>
-							<executable>bash</executable>
-							<workingDirectory>${testForgeServerDir}</workingDirectory>
-							<arguments>
-								<arguments>--login</arguments>
-								<argument>${testScriptDir}/testserver-stop</argument>
-							</arguments>
-							<environmentVariables>
-								<PID_FILE>${testForgeServerPidFile}</PID_FILE>
-							</environmentVariables>
-							<skip>${skipITs}</skip>
-						</configuration>
-					</execution>
-				</executions>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-dependency-plugin</artifactId>
-				<executions>
-					<execution>
-						<id>copy</id>
-						<phase>process-test-classes</phase>
-						<goals>
-							<goal>copy</goal>
-						</goals>
-						<configuration>
-							<artifactItems>
-								<artifactItem>
-									<groupId>com.almworks.sqlite4java</groupId>
-									<artifactId>libsqlite4java-linux-amd64</artifactId>
-									<version>${sqlite4java.version}</version>
-									<type>so</type>
-									<overWrite>true</overWrite>
-									<outputDirectory>${project.build.directory}/lib</outputDirectory>
-								</artifactItem>
-							</artifactItems>
-							<skip>${skipITs}</skip>
-						</configuration>
-					</execution>
-				</executions>
-			</plugin>
-			<plugin>
 				<artifactId>maven-failsafe-plugin</artifactId>
 				<executions>
 					<execution>
@@ -156,15 +84,9 @@
 			<artifactId>httpclient</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>com.almworks.sqlite4java</groupId>
-			<artifactId>sqlite4java</artifactId>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>com.almworks.sqlite4java</groupId>
-			<artifactId>libsqlite4java-linux-amd64</artifactId>
-			<type>so</type>
-			<scope>test</scope>
+			<groupId>org.cloudsmith.geppetto</groupId>
+			<artifactId>org.cloudsmith.geppetto.injectable.standalone</artifactId>
+			<version>4.0.0-SNAPSHOT</version>
 		</dependency>
 		<dependency>
 			<groupId>org.cloudsmith.geppetto</groupId>

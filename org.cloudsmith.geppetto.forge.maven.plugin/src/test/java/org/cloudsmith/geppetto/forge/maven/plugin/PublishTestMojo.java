@@ -35,7 +35,7 @@ public class PublishTestMojo extends AbstractForgeTestMojo {
 			publish.execute();
 		}
 		catch(MojoFailureException e) {
-			fail("Publishing of OK module failed when there was no module");
+			fail("Publishing of OK releaase failed when there was no module: " + e.getMessage());
 		}
 	}
 

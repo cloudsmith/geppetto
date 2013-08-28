@@ -1,6 +1,6 @@
-name 'bob-test_module_d'
+name 'geppetto-test_module_d'
 version '1.0.0'
-author 'bob'
+author 'geppetto'
 license ''
 project_page ''
 source ''

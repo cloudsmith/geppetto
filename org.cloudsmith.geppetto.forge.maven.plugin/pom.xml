@@ -25,11 +25,11 @@
 		<testForgeServerPidFile>${project.build.directory}/forgeserver.pid</testForgeServerPidFile>
 		<testForgeServerLogFile>${project.build.directory}/forgeserver.log</testForgeServerLogFile>
 		<testForgeServerDir>${user.home}/git/puppet-forge-api</testForgeServerDir>
-		<testForgeLogin>bob</testForgeLogin>
-		<testForgePassword>bobbobbob</testForgePassword>
-		<testForgeLoginSecond>ben</testForgeLoginSecond>
-		<testForgePasswordSecond>newbnewb</testForgePasswordSecond>
-		<testForgeServiceURL>http://localhost:4567/</testForgeServiceURL>
+		<testForgeLogin>geppetto</testForgeLogin>
+		<testForgePassword>geppetto tester</testForgePassword>
+		<testForgeLoginSecond>geppetto2</testForgeLoginSecond>
+		<testForgePasswordSecond>geppetto tester</testForgePasswordSecond>
+		<testForgeServiceURL>http://forge-staging-api.puppetlabs.com/</testForgeServiceURL>
 	</properties>
 
 	<dependencies>
@@ -166,56 +166,6 @@
 							<systemProperties>
 								<my.property>This is the my.property value</my.property>
 							</systemProperties>
-							<skip>${skipITs}</skip>
-						</configuration>
-					</execution>
-				</executions>
-			</plugin>
-			<plugin>
-				<groupId>org.codehaus.mojo</groupId>
-				<artifactId>exec-maven-plugin</artifactId>
-				<executions>
-					<execution>
-						<id>start-forge-server</id>
-						<phase>pre-integration-test</phase>
-						<goals>
-							<goal>exec</goal>
-						</goals>
-						<configuration>
-							<executable>bash</executable>
-							<!-- Assumes puppet-forge-api repo adjacent to the geppetto repo. -->
-							<workingDirectory>${testForgeServerDir}</workingDirectory>
-							<arguments>
-								<argument>--login</argument>
-								<argument>${testScriptDir}/testserver-start</argument>
-							</arguments>
-							<environmentVariables>
-								<LOG_FILE>${testForgeServerLogFile}</LOG_FILE>
-								<PID_FILE>${testForgeServerPidFile}</PID_FILE>
-								<FORGE_CLIENT_ID>${forgeClientId}</FORGE_CLIENT_ID>
-								<FORGE_CLIENT_SECRET>${forgeClientSecret}</FORGE_CLIENT_SECRET>
-								<FORGE_LOGIN>${testForgeLogin}</FORGE_LOGIN>
-								<FORGE_PASSWORD>${testForgePassword}</FORGE_PASSWORD>
-							</environmentVariables>
-							<skip>${skipITs}</skip>
-						</configuration>
-					</execution>
-					<execution>
-						<id>stop-forge-server</id>
-						<phase>post-integration-test</phase>
-						<goals>
-							<goal>exec</goal>
-						</goals>
-						<configuration>
-							<executable>bash</executable>
-							<workingDirectory>${testForgeServerDir}</workingDirectory>
-							<arguments>
-								<arguments>--login</arguments>
-								<argument>${testScriptDir}/testserver-stop</argument>
-							</arguments>
-							<environmentVariables>
-								<PID_FILE>${testForgeServerPidFile}</PID_FILE>
-							</environmentVariables>
 							<skip>${skipITs}</skip>
 						</configuration>
 					</execution>

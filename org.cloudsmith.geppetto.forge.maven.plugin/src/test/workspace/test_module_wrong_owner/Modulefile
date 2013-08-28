@@ -1,7 +1,7 @@
-name 'ben-test_module_wrong_owner'
+name 'geppetto2-test_module_wrong_owner'
 version '1.0.0'
 
-author 'ben'
+author 'geppetto2'
 license ''
 project_page ''
 source ''

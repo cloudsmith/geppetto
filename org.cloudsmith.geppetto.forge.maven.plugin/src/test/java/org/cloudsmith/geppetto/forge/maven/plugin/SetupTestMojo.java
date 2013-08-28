@@ -20,7 +20,8 @@ import org.cloudsmith.geppetto.forge.client.GsonModule;
 import org.cloudsmith.geppetto.forge.client.OAuthModule;
 import org.cloudsmith.geppetto.forge.v2.ForgeAPI;
 import org.cloudsmith.geppetto.forge.v2.service.ModuleService;
-import org.cloudsmith.geppetto.forge.v2.service.ModuleTemplate;
+import org.cloudsmith.geppetto.forge.v2.service.ReleaseService;
+import org.cloudsmith.geppetto.semver.Version;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -33,7 +34,7 @@ public class SetupTestMojo extends AbstractForgeTestMojo {
 	}
 
 	@Test
-	public void createInitialModules() throws Exception {
+	public void dropTestModules() throws Exception {
 		Properties props = AbstractForgeMojo.readForgeProperties();
 
 		// Login using the primary login (bob)
@@ -44,33 +45,42 @@ public class SetupTestMojo extends AbstractForgeTestMojo {
 			}
 		};
 
+		String owner = System.getProperty("forge.login");
 		ForgeAPI forge = new ForgeAPI(getCommonModule(), GsonModule.INSTANCE, createCredentialsModule(
-			props, System.getProperty("forge.login"), System.getProperty("forge.password")), forgeModule);
+			props, owner, System.getProperty("forge.password")), forgeModule);
 
 		// Create the modules used in publishing tests
 		ModuleService moduleService = forge.createModuleService();
-		ModuleTemplate template = new ModuleTemplate();
-		template.setName("test_module_a");
-		template.setDescription("The module test_module_a is an integration test artifact");
-		moduleService.create(template);
-
-		template.setName("test_module_b");
-		template.setDescription("The module test_module_b is an integration test artifact");
-		moduleService.create(template);
-
-		template.setName("test_module_c");
-		template.setDescription("The module test_module_c is an integration test artifact");
-		moduleService.create(template);
-
-		// Login using the second login (ben)
-		ForgeAPI secondForge = new ForgeAPI(getCommonModule(), GsonModule.INSTANCE, createCredentialsModule(
-			props, System.getProperty("forge.login.second"), System.getProperty("forge.password.second")), forgeModule);
-		moduleService = secondForge.createModuleService();
-
-		// Create the module used for the wrong owner publishing test
-		template.setName("test_module_wrong_owner");
-		template.setDescription("The module test_module_wrong_owner is an integration test artifact");
-		moduleService.create(template);
+		ReleaseService releaseService = forge.createReleaseService();
+		try {
+			releaseService.delete(owner, "test_module_a", Version.create(1, 0, 0));
+			moduleService.delete(owner, "test_module_a");
+		}
+		catch(Exception e) {
+		}
+		try {
+			releaseService.delete(owner, "test_module_b", Version.create(1, 0, 0));
+			moduleService.delete(owner, "test_module_b");
+		}
+		catch(Exception e) {
+		}
+		try {
+			releaseService.delete(owner, "test_module_c", Version.create(1, 0, 0));
+			moduleService.delete(owner, "test_module_c");
+		}
+		catch(Exception e) {
+		}
+		try {
+			releaseService.delete(owner, "test_module_d", Version.create(1, 0, 0));
+			moduleService.delete(owner, "test_module_d");
+		}
+		catch(Exception e) {
+		}
+		try {
+			moduleService.delete(System.getProperty("forge.login.second"), "test_module_wrong_owner");
+		}
+		catch(Exception e) {
+		}
 	}
 
 	@Override

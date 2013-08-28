@@ -20,7 +20,7 @@
 							<goal>validate</goal>
 						</goals>
 						<configuration>
-							<enablePuppetLintValidation>true</enablePuppetLintValidation>
+							<enablePuppetLintValidation>false</enablePuppetLintValidation>
 							<checkModuleSemantics>true</checkModuleSemantics>
 							<checkReferences>true</checkReferences>
 							<puppetLintOptions>
@@ -49,8 +49,8 @@
 						</goals>
 						<configuration>
 							<dryRun>false</dryRun>
-							<login>bob</login>
-							<password>bobbobbob</password>
+							<login>geppetto</login>
+							<password>geppetto tester</password>
 							<serviceURL>${testForgeServiceURL}</serviceURL>
 						</configuration>
 					</execution>

@@ -3,8 +3,8 @@ unless $?.success? and git_version =~ /^\d+\.\d+\.\d+/
   raise "Unable to determine version using git: #{$?} => #{git_version.inspect}"
 end
 version git_version
-name 'bob-test_module_complex_ruby'
-author 'bob'
+name 'geppetto-test_module_complex_ruby'
+author 'geppetto'
 license ''
 project_page ''
 source ''

@@ -1,10 +1,10 @@
-name 'bob-test_module_b'
+name 'geppetto-test_module_b'
 version '1.0.0'
 
-author 'bob'
+author 'geppetto'
 license ''
 project_page ''
 source ''
 summary ''
 description ''
-dependency 'bob/test_module_c', '>=1.0.0'
+dependency 'geppetto/test_module_c', '>=1.0.0'

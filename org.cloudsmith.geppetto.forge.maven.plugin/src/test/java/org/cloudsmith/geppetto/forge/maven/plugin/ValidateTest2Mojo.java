@@ -21,7 +21,7 @@ public class ValidateTest2Mojo extends AbstractForgeTestMojo {
 			validate.setLogger(new NOPLogger() {
 				@Override
 				public void info(String message) {
-					if(message.contains("Installing dependent module bob-test_module_c:1.0.0"))
+					if(message.contains("Installing dependent module geppetto-test_module_c:1.0.0"))
 						msgFound.set(true);
 				}
 			});

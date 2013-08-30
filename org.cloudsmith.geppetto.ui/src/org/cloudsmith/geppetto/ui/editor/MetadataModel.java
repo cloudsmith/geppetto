@@ -338,6 +338,7 @@ public class MetadataModel {
 		ModuleName m;
 		try {
 			m = new ModuleName(moduleName);
+			moduleName = m.withSeparator('/').toString();
 		}
 		catch(IllegalArgumentException e) {
 			m = null;

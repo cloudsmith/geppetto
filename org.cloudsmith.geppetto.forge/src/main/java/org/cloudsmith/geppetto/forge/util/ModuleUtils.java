@@ -292,7 +292,7 @@ public class ModuleUtils {
 	public static void printModulefile(Metadata md, PrintWriter out) throws IOException {
 		ModuleName name = md.getName();
 		if(name != null)
-			addKeyValueNode(out, "name", name.toString());
+			addKeyValueNode(out, "name", name.withSeparator('-').toString());
 		if(md.getVersion() != null)
 			addKeyValueNode(out, "version", md.getVersion().toString());
 		out.println();
@@ -309,7 +309,7 @@ public class ModuleUtils {
 		if(md.getDescription() != null)
 			addKeyValueNode(out, "description", md.getDescription());
 		for(Dependency dep : md.getDependencies()) {
-			ModuleName depName = dep.getName();
+			ModuleName depName = dep.getName().withSeparator('/');
 			VersionRange ver = dep.getVersionRequirement();
 			if(ver != null)
 				addKeyValueNode(out, "dependency", depName.toString(), ver.toString());

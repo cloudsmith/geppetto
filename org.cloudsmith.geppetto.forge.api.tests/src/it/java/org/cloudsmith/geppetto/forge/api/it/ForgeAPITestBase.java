@@ -1,4 +1,4 @@
-package org.cloudsmith.geppetto.forge.api.tests;
+package org.cloudsmith.geppetto.forge.api.it;
 
 import org.apache.http.client.HttpClient;
 import org.apache.http.impl.client.DefaultHttpClient;

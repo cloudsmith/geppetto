@@ -8,7 +8,7 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.forge.api.tests;
+package org.cloudsmith.geppetto.forge.api.it;
 
 import static com.google.inject.Guice.createInjector;
 import static org.cloudsmith.geppetto.injectable.CommonModuleProvider.getCommonModule;

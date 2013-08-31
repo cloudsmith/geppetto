@@ -8,7 +8,7 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.forge.api.tests;
+package org.cloudsmith.geppetto.forge.api.it;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;

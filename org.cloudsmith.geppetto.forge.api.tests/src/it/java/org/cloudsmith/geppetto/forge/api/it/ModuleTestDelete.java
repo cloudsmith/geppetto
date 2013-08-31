@@ -8,31 +8,32 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.forge.api.tests;
+package org.cloudsmith.geppetto.forge.api.it;
 
-import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
 import java.io.IOException;
 
-import org.cloudsmith.geppetto.forge.v2.model.Module;
+import org.apache.http.client.HttpResponseException;
 import org.cloudsmith.geppetto.forge.v2.service.ModuleService;
-import org.cloudsmith.geppetto.forge.v2.service.ModuleTemplate;
 import org.junit.Test;
 
 /**
  * @author thhal
  * 
  */
-public class ModuleTestCreate extends ForgeAPITestBase {
+public class ModuleTestDelete extends ForgeAPITestBase {
 	@Test
-	public void testCreate() throws IOException {
+	public void testDeleteModule() throws IOException {
 		ModuleService service = getTestUserForge().createModuleService();
-
-		ModuleTemplate template = new ModuleTemplate();
-		template.setOwner(TEST_USER);
-		template.setName(TEST_MODULE);
-		template.setDescription("A Dummy Test Module");
-		Module newModule = service.create(template);
-		assertNotNull("Null Module", newModule);
+		service.delete(TEST_USER, TEST_MODULE);
+		try {
+			service.get(TEST_USER, TEST_MODULE);
+			fail("Expected 404");
+		}
+		catch(HttpResponseException e) {
+			assertEquals("Wrong response code", 404, e.getStatusCode());
+		}
 	}
 }
